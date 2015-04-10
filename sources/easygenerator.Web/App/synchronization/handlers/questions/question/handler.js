@@ -5,7 +5,8 @@
     'synchronization/handlers/questions/question/eventHandlers/correctFeedbackUpdated',
     'synchronization/handlers/questions/question/eventHandlers/incorrectFeedbackUpdated',
     'synchronization/handlers/questions/question/eventHandlers/created',
-    'synchronization/handlers/questions/question/eventHandlers/deleted'],
+    'synchronization/handlers/questions/question/eventHandlers/deleted',
+    'synchronization/handlers/questions/question/eventHandlers/learningContentsReordered'],
     function (
         titleUpdated,
         contentUpdated,
@@ -13,7 +14,8 @@
         correctFeedbackUpdated,
         incorrectFeedbackUpdated,
         created,
-        deleted) {
+        deleted, 
+        learningContentsReordered) {
         "use strict";
 
         return {
@@ -23,7 +25,8 @@
             correctFeedbackUpdated: correctFeedbackUpdated,
             incorrectFeedbackUpdated: incorrectFeedbackUpdated,
             created: created,
-            deleted: deleted
+            deleted: deleted,
+            learningContentsReordered: learningContentsReordered
         };
 
     });

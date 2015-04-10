@@ -233,6 +233,7 @@
     <Compile Include="Components\ActionFilters\Authorization\AllowedUsersAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCollaboratorsAmountAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Authorization\QuestionAccessAttribute.cs" />
     <Compile Include="Components\BrowserSupport.cs" />
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
@@ -509,6 +510,11 @@
     <Content Include="App\dialogs\collaboration\collaborator.spec.js">
       <DependentUpon>collaborator.js</DependentUpon>
     </Content>
+    <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.html" />
+    <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.js" />
+    <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.spec.js">
+      <DependentUpon>moveCopyQuestion.js</DependentUpon>
+    </Content>
     <Content Include="App\localization\resources.js" />
     <Content Include="App\models\reportingStatement.js" />
     <Content Include="App\models\reportingStatement.spec.js">
@@ -550,6 +556,10 @@
     <Content Include="App\synchronization\handlers\questions\hotSpot\eventHandlers\polygonCreated.js" />
     <Content Include="App\synchronization\handlers\questions\hotSpot\eventHandlers\polygonCreated.spec.js">
       <DependentUpon>polygonCreated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\learningContentsReordered.js" />
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\learningContentsReordered.spec.js">
+      <DependentUpon>learningContentsReordered.js</DependentUpon>
     </Content>
     <Content Include="App\utils\base64.js" />
     <Content Include="App\utils\waiter.js" />
@@ -1653,6 +1663,8 @@
     <Content Include="Templates\Personalized learning\index.html" />
     <Content Include="Templates\Personalized learning\js\require\require.js" />
     <Content Include="Templates\Personalized learning\js\vendor.min.js" />
+    <Content Include="Templates\Personalized learning\lang\en.json" />
+    <Content Include="Templates\Personalized learning\lang\ua.json" />
     <Content Include="Templates\Personalized learning\manifest.json" />
     <Content Include="Templates\Personalized learning\publishSettings.js" />
     <Content Include="Templates\Personalized learning\settings.js" />
@@ -1662,9 +1674,11 @@
     <Content Include="Templates\Personalized learning\settings\css\fonts\opensans-italic-400.woff" />
     <Content Include="Templates\Personalized learning\settings\css\settings.css" />
     <Content Include="Templates\Personalized learning\settings\img\graphical.png" />
+    <Content Include="Templates\Personalized learning\settings\img\language.png" />
     <Content Include="Templates\Personalized learning\settings\img\sprites_16.png" />
     <Content Include="Templates\Personalized learning\settings\img\track.png" />
-    <Content Include="Templates\Personalized learning\settings\js\settings.js" />
+    <Content Include="Templates\Personalized learning\settings\js\api.js" />
+    <Content Include="Templates\Personalized learning\settings\js\settings.min.js" />
     <Content Include="Templates\Personalized learning\settings\js\vendor.min.js" />
     <Content Include="Templates\Personalized learning\settings\settings.html" />
     <Content Include="Templates\Quiz\app\app.js" />
@@ -2531,7 +2545,7 @@
     <Content Include="Scripts\knockoutBindings\selectTextBinding.js" />
     <Content Include="Scripts\knockoutBindings\sliderBinding.js" />
     <Content Include="Scripts\knockoutBindings\slidingDialogBinding.js" />
-    <Content Include="Scripts\knockoutBindings\sortablePlaceholderBinding.js" />
+    <Content Include="Scripts\knockoutBindings\sortableExtendedBinding.js" />
     <Content Include="Scripts\knockoutBindings\stopEventPropagationBinding.js" />
     <Content Include="Scripts\q.js" />
     <Content Include="Scripts\q.min.js" />

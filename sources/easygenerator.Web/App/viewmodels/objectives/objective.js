@@ -91,6 +91,7 @@
         app.on(constants.messages.question.learningContent.createdByCollaborator, questionUpdated);
         app.on(constants.messages.question.learningContent.deletedByCollaborator, questionUpdated);
         app.on(constants.messages.question.learningContent.textUpdatedByCollaborator, questionUpdated);
+        app.on(constants.messages.question.learningContentsReorderedByCollaborator, questionUpdated);
         app.on(constants.messages.question.dragAndDropText.dropspotCreatedByCollaborator, questionUpdated);
         app.on(constants.messages.question.dragAndDropText.dropspotDeletedByCollaborator, questionUpdated);
         app.on(constants.messages.question.textMatching.answerCreatedByCollaborator, questionUpdated);
@@ -308,12 +309,13 @@
         }
 
         function endReorderingQuestions() {
+           
             return Q.fcall(function () {
                 if (!viewModel.isReorderingQuestions() || !viewModel.isQuestionsListReorderedByCollaborator()) {
                     viewModel.isReorderingQuestions(false);
                     return;
                 }
-
+                
                 viewModel.isReorderingQuestions(false);
                 viewModel.isQuestionsListReorderedByCollaborator(false);
 

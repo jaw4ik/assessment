@@ -4,12 +4,9 @@
 
     var viewModel = {
         objectiveId: null,
-        visible: ko.observable(false),
         questions: ko.observableArray([]),
 
         activate: activate,
-        show: show,
-        hide: hide,
         createQuestion: createQuestion,
         openUpgradePlanUrl: openUpgradePlanUrl
     };
@@ -69,17 +66,8 @@
         router.openUrl(constants.upgradeUrl);
     }
 
-    function show() {
-        viewModel.visible(!viewModel.visible());
-    }
-
-    function hide() {
-        viewModel.visible(false);
-    }
-
     function createQuestion(item) {
         var courseId = getCourseId();
-        viewModel.visible(false);
         return createQuestionCommand.execute(viewModel.objectiveId, courseId, item.type);
     }
 
