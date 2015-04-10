@@ -2367,6 +2367,7 @@ h2 + .tooltip-icon {
   min-width: 0;
   -webkit-flex: 1 1;
   flex: 1 1;
+  padding-right: 50px;
 }
 .course .button {
   padding-top: 35px;
@@ -2412,7 +2413,7 @@ h2 + .tooltip-icon {
   width: 44px;
   height: 34px;
   left: 50%;
-  margin-left: -22px;
+  margin-left: -12px;
   position: absolute;
   top: 0;
 }
