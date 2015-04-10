@@ -25,11 +25,7 @@
                 settingsProvider.setSettings(settings);
                 htmlTemplatesCacheProvider.set(preloadHtmls);
 
-                $translateProvider
-                    .useStaticFilesLoader({ prefix: 'lang/', suffix: '.json' })
-                    .translations('xx', (settings.languages && settings.languages.customTranslations) ? settings.languages.customTranslations : {})
-                    .fallbackLanguage('en')
-                    .preferredLanguage((settings.languages && settings.languages.selected) ? settings.languages.selected : 'en');
+                configureTranslateProvider($translateProvider, settings);
             }]);
 
             if (!settings || _.isEmpty(settings) || (settings.xApi && settings.xApi.enabled)) {
@@ -46,6 +42,28 @@
 
             angular.bootstrap(document, bootstrapModules);
         });
+
+        function configureTranslateProvider($translateProvider, settings) {
+            var customLanguage = 'xx',
+                defaultLanguage = 'en',
+                customTranslations = {},
+                selectedLanguage = defaultLanguage;
+
+            if (settings && settings.languages) {
+                if (settings.languages.customTranslations) {
+                    customTranslations = settings.languages.customTranslations;
+                }
+                if (settings.languages.selected) {
+                    selectedLanguage = settings.languages.selected;
+                }
+            }
+
+            $translateProvider
+                .useStaticFilesLoader({ prefix: 'lang/', suffix: '.json' })
+                .translations(customLanguage, customTranslations)
+                .fallbackLanguage(defaultLanguage)
+                .preferredLanguage(selectedLanguage);
+        }
 
     }
 }());
