@@ -1719,7 +1719,10 @@
     <Content Include="Templates\Quiz\content\content.html" />
     <Content Include="Templates\Quiz\content\data.js" />
     <Content Include="Templates\Quiz\css\fonts.css" />
+    <Content Include="Templates\Quiz\css\fonts\badscript-regular.eot" />
     <Content Include="Templates\Quiz\css\fonts\badscript-regular.svg" />
+    <Content Include="Templates\Quiz\css\fonts\badscript-regular.ttf" />
+    <Content Include="Templates\Quiz\css\fonts\badscript-regular.woff" />
     <Content Include="Templates\Quiz\css\fonts\OCRAExtended.eot" />
     <Content Include="Templates\Quiz\css\fonts\OCRAExtended.svg" />
     <Content Include="Templates\Quiz\css\fonts\OCRAExtended.ttf" />
@@ -1765,6 +1768,8 @@
     <Content Include="Templates\Quiz\css\img\tooth.png" />
     <Content Include="Templates\Quiz\css\styles.css" />
     <Content Include="Templates\Quiz\index.html" />
+    <Content Include="Templates\Quiz\lang\en.json" />
+    <Content Include="Templates\Quiz\lang\ua.json" />
     <Content Include="Templates\Quiz\manifest.json" />
     <Content Include="Templates\Quiz\preview\images\preview.jpg" />
     <Content Include="Templates\Quiz\preview\thumbnail.png" />
@@ -1978,11 +1983,6 @@
     <Content Include="Templates\Simple course\lang\pt-br.json" />
     <Content Include="Templates\Simple course\lang\tr.json" />
     <Content Include="Templates\Simple course\lang\ua.json" />
-    <Content Include="Templates\Quiz\lang\en.json" />
-    <Content Include="Templates\Quiz\lang\ua.json" />
-    <Content Include="Templates\Quiz\css\fonts\badscript-regular.eot" />
-    <Content Include="Templates\Quiz\css\fonts\badscript-regular.ttf" />
-    <Content Include="Templates\Quiz\css\fonts\badscript-regular.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
