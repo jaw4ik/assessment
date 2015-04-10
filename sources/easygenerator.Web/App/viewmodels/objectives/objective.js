@@ -52,7 +52,10 @@
                 updateQuestionsOrder: updateQuestionsOrder,
                 isQuestionsListReorderedByCollaborator: ko.observable(false),
 
+
+                canActivate: canActivate,
                 activate: activate,
+
                 back: back,
 
                 objectiveTitleUpdated: objectiveTitleUpdated,
@@ -224,6 +227,22 @@
             }
         }
 
+        function canActivate() {            
+            var promises = [];
+            if (arguments.length === 2) {
+                promises.push(courseRepository.getById(arguments[0]));
+                promises.push(repository.getById(arguments[1]));
+            } else {
+                promises.push(repository.getById(arguments[0]));
+            }
+
+            return Q.all(promises).then(function () {
+                return true;
+            }).catch(function () {
+                return { redirect: '404' };
+            });
+        }
+
         function activate() {
 
             if (arguments.length === 1) {
@@ -233,7 +252,6 @@
                 viewModel.courseId = arguments[0];
                 viewModel.objectiveId = arguments[1];
             }
-
 
             return repository.getById(viewModel.objectiveId).then(function (objective) {
                 clientContext.set(constants.clientContextKeys.lastVisitedObjective, viewModel.objectiveId);

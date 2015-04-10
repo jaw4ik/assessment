@@ -44,6 +44,143 @@
                 expect(viewModel).toBeObject();
             });
 
+            describe('canActivate:', function () {
+
+                var getObjectiveById, getCourseById;
+
+                beforeEach(function () {
+                    getObjectiveById = Q.defer();
+                    getCourseById = Q.defer();
+
+                    spyOn(repository, 'getById').and.returnValue(getObjectiveById.promise);
+                    spyOn(courseRepository, 'getById').and.returnValue(getCourseById.promise);
+
+                });
+                it('should be function', function () {
+                    expect(viewModel.canActivate).toBeFunction();
+                });
+
+                it('should return promise', function () {
+                    expect(viewModel.canActivate()).toBePromise();
+                });
+
+                xdescribe('when course does not exist', function () {
+
+                    beforeEach(function () {
+                        getById.reject('reason');
+                    });
+
+                    it('should return redirect to \'404\'', function (done) {
+
+                        viewModel.canActivate('courseId').then(function (result) {
+                            expect(result).toEqual({ redirect: "404" });
+                            done();
+                        });
+                    });
+
+                });
+
+                xdescribe('when course exists', function () {
+
+                    beforeEach(function () {
+                        getById.resolve({});
+                    });
+
+                    it('should return true', function (done) {
+                        viewModel.canActivate('courseId').then(function (result) {
+                            expect(result).toEqual(true);
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when activated with 1 argument', function () {
+
+                    describe('and objective exists', function () {
+
+                        beforeEach(function () {
+                            getObjectiveById.resolve({});
+                        });
+
+                        it('should return true', function (done) {
+                            viewModel.canActivate('objectiveId').then(function (result) {
+                                expect(result).toEqual(true);
+                                done();
+                            });
+                        });
+                    });
+
+
+                    describe('and objective does not exist', function () {
+
+                        beforeEach(function () {
+                            getObjectiveById.reject();
+                        });
+
+                        it('should return redirect to 404', function (done) {
+                            viewModel.canActivate('objectiveId').then(function (result) {
+                                expect(result).toEqual({ redirect: '404' });
+                                done();
+                            });
+                        });
+
+                    });
+
+                });
+
+                describe('when activated with 2 arguments', function () {
+
+                    describe('and objective does not exist', function () {
+
+                        beforeEach(function () {
+                            getObjectiveById.reject();
+                            getCourseById.resolve({});
+                        });
+
+                        it('should return redirect to 404', function (done) {
+                            viewModel.canActivate('courseId', 'objectiveId').then(function (result) {
+                                expect(result).toEqual({ redirect: '404' });
+                                done();
+                            });
+                        });
+
+                    });
+
+                    describe('and course does not exist', function () {
+
+                        beforeEach(function () {
+                            getCourseById.reject();
+                            getObjectiveById.resolve({});
+                        });
+
+                        it('should return redirect to 404', function (done) {
+                            viewModel.canActivate('courseId', 'objectiveId').then(function (result) {
+                                expect(result).toEqual({ redirect: '404' });
+                                done();
+                            });
+                        });
+
+                    });
+
+                    describe('and both course and objective exist', function () {
+
+                        beforeEach(function () {
+                            getObjectiveById.resolve({});
+                            getCourseById.resolve({});
+                        });
+
+                        it('should return true', function (done) {
+                            viewModel.canActivate('courseId', 'objectiveId').then(function (result) {
+                                expect(result).toEqual(true);
+                                done();
+                            });
+                        });
+                    });
+
+                });
+            });
+
             describe('activate:', function () {
 
                 var getById, getCourseDeferred;

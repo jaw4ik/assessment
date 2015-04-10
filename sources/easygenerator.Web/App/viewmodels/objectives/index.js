@@ -24,9 +24,7 @@
     });
 
     return {
-        router: childRouter,
-        activate: function () {
-        }
+        router: childRouter
     };
 
 })
