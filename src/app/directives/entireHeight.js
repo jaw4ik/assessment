@@ -6,21 +6,21 @@
     function entireHeight() {
         return {
             restrict: 'A',
-            link: function ($scope, element) {
-                var $element = $(element);
+            link: function ($scope, $element) {
 
-                changeHeight();
-
-                $(window).resize(function () {
-                    changeHeight();
-                });
+                $(window).resize(changeHeight);
+                _.defer(changeHeight);
 
                 function changeHeight() {
-                    var screenHeight = $(window).height();
+                    $element.css('height', 'auto');
 
-                    $element.css('height', screenHeight);
+                    var screenHeight = $(window).height(),
+                        elementScrollHeight = $element[0].scrollHeight;
+
+                    $element.css('height', screenHeight > elementScrollHeight ? screenHeight : elementScrollHeight);
                 }
             }
         };
     }
+
 }());
