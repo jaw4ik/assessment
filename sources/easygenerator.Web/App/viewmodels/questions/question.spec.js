@@ -214,16 +214,16 @@ define(function (require) {
                         expect(viewModel.courseId).toEqual('courseId');
                         done();
                     });
-                });
+                    });
 
                 it('should set objectiveId', function (done) {
                     viewModel.objectiveId = null;
 
                     viewModel.activate('courseId', 'objectiveId', 'questionId').then(function () {
                         expect(viewModel.objectiveId).toEqual('objectiveId');
-                        done();
+                            done();
+                        });
                     });
-                });
 
                 it('should set questionId', function (done) {
                     viewModel.questionId = null;
@@ -231,11 +231,11 @@ define(function (require) {
                     viewModel.activate('courseId', 'objectiveId', 'questionId').then(function () {
                         expect(viewModel.questionId).toEqual('questionId');
                         done();
-                    });
+                });
                 });
 
 
-            });
+                    });
 
             describe('when activated with incorrect arguments', function () {
 
@@ -244,82 +244,82 @@ define(function (require) {
                         viewModel.activate();
                     }
                     expect(f).toThrow();
-                });
-
-            });
-
-            describe('when question not found', function () {
-
-                beforeEach(function () {
-                    getQuestionById.reject('reason');
-                });
-
-                it('should reject promise', function (done) {
-                    var promise = viewModel.activate('objectiveId', 'questionId');
-
-                    promise.fin(function () {
-                        expect(promise).toBeRejectedWith('reason');
-                        done();
                     });
+
                 });
 
-            });
+                describe('when question not found', function () {
 
-            describe('when question found', function () {
+                    beforeEach(function () {
+                    getQuestionById.reject('reason');
+                    });
+
+                    it('should reject promise', function (done) {
+                        var promise = viewModel.activate('objectiveId', 'questionId');
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('reason');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when question found', function () {
 
 
 
-                beforeEach(function () {
+                    beforeEach(function () {
                     getQuestionById.resolve(question);
 
-                    activeQuestionViewModelInitDeferred.resolve(viewModelData);
-                });
-
-                it('should set activeQuestionViewModel', function (done) {
-                    viewModel.activeQuestionViewModel = null;
-
-                    viewModel.activate(objective.id, question.id).fin(function () {
-                        expect(viewModel.activeQuestionViewModel).not.toBeNull();
-                        done();
+                        activeQuestionViewModelInitDeferred.resolve(viewModelData);
                     });
-                });
 
-                it('should initialize activeQuestionViewModel', function (done) {
-                    viewModel.activate(objective.id, question.id).fin(function () {
-                        expect(multipleSelect.initialize).toHaveBeenCalledWith(viewModel.objectiveId, question);
-                        done();
-                    });
-                });
+                    it('should set activeQuestionViewModel', function (done) {
+                        viewModel.activeQuestionViewModel = null;
 
-                describe('when initialize activeQuestionViewModel', function () {
-
-                    it('should set viewCaption', function (done) {
                         viewModel.activate(objective.id, question.id).fin(function () {
-                            expect(viewModel.viewCaption).toBe(viewModelData.viewCaption);
+                            expect(viewModel.activeQuestionViewModel).not.toBeNull();
                             done();
                         });
                     });
 
-                    it('should set questionTitle', function (done) {
-                        viewModel.questionTitle = null;
-
+                    it('should initialize activeQuestionViewModel', function (done) {
                         viewModel.activate(objective.id, question.id).fin(function () {
-                            expect(viewModel.questionTitle).not.toBeNull();
+                            expect(multipleSelect.initialize).toHaveBeenCalledWith(viewModel.objectiveId, question);
                             done();
                         });
                     });
 
+                    describe('when initialize activeQuestionViewModel', function () {
+
+                        it('should set viewCaption', function (done) {
+                            viewModel.activate(objective.id, question.id).fin(function () {
+                                expect(viewModel.viewCaption).toBe(viewModelData.viewCaption);
+                                done();
+                            });
+                        });
+
+                        it('should set questionTitle', function (done) {
+                            viewModel.questionTitle = null;
+
+                            viewModel.activate(objective.id, question.id).fin(function () {
+                                expect(viewModel.questionTitle).not.toBeNull();
+                                done();
+                            });
+                    });
+
                 });
 
-            });
+                        });
 
-        });
+                    });
 
         describe('back:', function () {
 
             it('should be function', function () {
                 expect(viewModel.back).toBeFunction();
-            });
+                });
 
             describe('when courseId is set', function () {
 
@@ -339,9 +339,9 @@ define(function (require) {
                     viewModel.objectiveId = 'objectiveId';
                     viewModel.back();
                     expect(router.navigate).toHaveBeenCalledWith('#objectives/objectiveId');
-                });
-
             });
+
+        });
 
         });
 
@@ -475,7 +475,12 @@ define(function (require) {
                 expect(viewModel.duplicateQuestion).toBeFunction();
             });
 
-            it('should send response to server', function () {
+            it('should publish event \'Duplicate item\'', function () {
+                viewModel.duplicateQuestion();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Duplicate item');
+            });
+
+            it('should send response to server', function() {
                 viewModel.duplicateQuestion();
                 expect(questionRepository.copyQuestion).toHaveBeenCalledWith(viewModel.questionId, viewModel.objectiveId);
             });

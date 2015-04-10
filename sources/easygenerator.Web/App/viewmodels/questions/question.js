@@ -12,7 +12,8 @@ define(['durandal/app', 'eventTracker', 'constants',
         "use strict";
 
         var events = {
-            navigateToObjective: 'Navigate to objective details'
+            navigateToObjective: 'Navigate to objective details',
+            duplicateItem: 'Duplicate item'
         };
 
         var eventsForQuestionContent = {
@@ -57,6 +58,7 @@ define(['durandal/app', 'eventTracker', 'constants',
         return viewmodel;
 
         function duplicateQuestion() {
+            eventTracker.publish(events.duplicateItem);
             questionRepository.copyQuestion(viewmodel.questionId, viewmodel.objectiveId).then(function (response) {
                 if (!_.isNullOrUndefined(viewmodel.courseId)) {
                     router.navigate('courses/' + viewmodel.courseId + '/objectives/' + viewmodel.objectiveId + '/questions/' + response.id);
