@@ -12,11 +12,62 @@
           fromParent: true,
           dynamicHash: ':courseId'
       }).map([
-          { route: 'design', moduleId: 'viewmodels/courses/course/design', title: 'Design', nav: 2, hash: '#courses/:courseId/design' },
-          { route: 'publish', moduleId: 'viewmodels/courses/course/publish', title: 'Publish', nav: 3, hash: '#courses/:courseId/publish' },
-          { route: 'results', moduleId: 'viewmodels/courses/course/results', title: 'Results', nav: 4, hash: '#courses/:courseId/results' },
-
-          { route: ['', '*details'], moduleId: 'viewmodels/courses/course/create/index', title: 'Create', nav: 1, hash: '#courses/:courseId' }
+          {
+              route: 'design',
+              moduleId: 'viewmodels/courses/course/design',
+              title: 'Design',
+              nav: 2,
+              hash: '#courses/:courseId/design',
+              settings: {
+                  localizationKey: 'course'
+              },
+              navigate: function () {
+                  eventTracker.publish('Navigate to design course');
+                  router.navigate(this.dynamicHash());
+              }
+          },
+          {
+              route: 'publish',
+              moduleId: 'viewmodels/courses/course/publish',
+              title: 'Publish',
+              nav: 3,
+              hash: '#courses/:courseId/publish',
+              settings: {
+                  localizationKey: 'course'
+              },
+              navigate: function () {
+                  eventTracker.publish('Navigate to publish course');
+                  router.navigate(this.dynamicHash());
+              }
+          },
+          {
+              route: 'results',
+              moduleId: 'viewmodels/courses/course/results',
+              title: 'Results',
+              nav: 4,
+              hash: '#courses/:courseId/results',
+              settings: {
+                  localizationKey: 'course'
+              },
+              navigate: function () {
+                  eventTracker.publish('Navigate to results');
+                  router.navigate(this.dynamicHash());
+              }
+          },
+          {
+              route: ['', '*details'],
+              moduleId: 'viewmodels/courses/course/create/index',
+              title: 'Create',
+              nav: 1,
+              hash: '#courses/:courseId',
+              settings: {
+                  localizationKey: 'course'
+              },
+              navigate: function () {
+                  eventTracker.publish('Navigate to create course');
+                  router.navigate(this.dynamicHash());
+              }
+          }
       ]).mapUnknownRoutes('viewmodels/errors/404', '404').buildNavigationModel();
 
 
@@ -86,11 +137,6 @@
     });
 
     return viewModel;
-
-    function title() {
-
-    }
-
 
     function collaborate() {
         collaborationPopup.show(viewModel.id, viewModel.createdBy());

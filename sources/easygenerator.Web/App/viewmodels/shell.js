@@ -71,7 +71,6 @@
         }
 
         function activate() {
-            console.warn('shell');
             return dataContext.initialize()
                 .then(function () {
                     router.guardRoute = function (routeInfo, params) {
@@ -106,40 +105,32 @@
                     });
 
 
-                    viewModel.navigation([
-                        {
-                            navigate: function () {
-                                eventTracker.publish(events.navigateToCourses);
-                                clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
-                                router.navigate('courses');
-                            },
-                            navigationLink: '#courses',
-                            title: 'courses',
-                            isActive: ko.computed(function () {
-                                if (_.isNullOrUndefined(router.activeInstruction())) {
-                                    return false;
-                                }
+                    //viewModel.navigation([
+                    //    {
+                    //        ,
+                    //        navigationLink: '#courses',
+                    //        title: 'courses',
+                    //        isActive: ko.computed(function () {
+                    //            if (_.isNullOrUndefined(router.activeInstruction())) {
+                    //                return false;
+                    //            }
 
-                                return router.activeInstruction().fragment.indexOf("courses") === 0;
-                            })
-                        },
-                        {
-                            navigate: function () {
-                                eventTracker.publish(events.navigateToObjectives);
-                                clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
-                                router.navigate('objectives');
-                            },
-                            navigationLink: '#objectives',
-                            title: 'materials',
-                            isActive: ko.computed(function () {
-                                if (_.isNullOrUndefined(router.activeInstruction())) {
-                                    return false;
-                                }
+                    //            return router.activeInstruction().fragment.indexOf("courses") === 0;
+                    //        })
+                    //    },
+                    //    {
 
-                                return router.activeInstruction().fragment.indexOf("objectives") === 0;
-                            })
-                        }
-                    ]);
+                    //        navigationLink: '#objectives',
+                    //        title: 'materials',
+                    //        isActive: ko.computed(function () {
+                    //            if (_.isNullOrUndefined(router.activeInstruction())) {
+                    //                return false;
+                    //            }
+
+                    //            return router.activeInstruction().fragment.indexOf("objectives") === 0;
+                    //        })
+                    //    }
+                    //]);
 
                     clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
                     clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
@@ -153,24 +144,40 @@
 
                     router.map([
                         {
-                            route: ['', 'courses*details'], moduleId: 'viewmodels/courses/index', title: 'Courses',
+                            route: ['', 'courses*details'],
+                            moduleId: 'viewmodels/courses/index',
+                            title: 'courses',
                             settings: {
                                 localizationKey: 'courses'
+                            },
+                            hash: '#courses',
+                            nav: true,
+                            navigate: function () {
+                                eventTracker.publish(events.navigateToCourses);
+                                clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
+                                router.navigate(this.hash);
                             }
                         },
                         {
-                            route: 'objectives*details', moduleId: 'viewmodels/objectives/index', title: 'Objectives',
+                            route: 'objectives*details',
+                            moduleId: 'viewmodels/objectives/index',
+                            title: 'materials',
                             settings: {
                                 localizationKey: 'learningObjectives'
+                            },
+                            hash: '#objectives',
+                            nav: true,
+                            navigate: function () {
+                                eventTracker.publish(events.navigateToObjectives);
+                                clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
+                                router.navigate(this.hash);
                             }
                         },
-
-                                    {
-                                        route: '404',
-                                        moduleId: 'viewmodels/errors/404',
-                                        title: '404 Not Found'
-                                    }
-
+                        {
+                            route: '404',
+                            moduleId: 'viewmodels/errors/404',
+                            title: '404 Not Found'
+                        }
                     ]);
 
                     router.isViewReady = ko.observable();
@@ -186,6 +193,7 @@
                             }, 250);
                         }
                     });
+
 
                     return router.buildNavigationModel()
                         .mapUnknownRoutes('viewmodels/errors/404', '404')

@@ -15,16 +15,16 @@
                     <div class="content-section clearfix">
                         <nav class="header-navigation">
                             <ul class="header-navigation-list clearfix">
-                                <!-- ko foreach: navigation -->
+                                <!-- ko foreach: router.navigationModel -->
                                 <li class="header-navigation-item">
                                     <!-- ko ifnot: isActive -->
-                                    <a href="#" class="top-navigation-item" data-bind="click: navigate, attr: { href: navigationLink }">
-                                        <span data-bind="localize: { text: title }, css: { 'cursor-default': $parent.router.isNavigating() }"></span>
+                                    <a href="#" class="top-navigation-item" data-bind="click: navigate, attr: { href: hash }">
+                                        <span data-bind="localize: { text: title }"></span>
                                     </a>
                                     <!-- /ko -->
                                     <!-- ko if: isActive -->
                                     <span class="top-navigation-item current" data-bind="click: navigate, scrollToTop: true">
-                                        <span data-bind="localize: { text: title }, css: { 'cursor-default': $parent.router.isNavigating() }"></span>
+                                        <span data-bind="localize: { text: title }"></span>
                                     </span>
                                     <!-- /ko -->
                                 </li>
