@@ -6,9 +6,9 @@
 
     progressControl.$inject = ['$translate'];
 
-    var globalTranslator;
+    var translate;
     function progressControl($translate) {
-        globalTranslator = $translate;
+        translate = $translate;
         return {
             restrict: 'E',
             template: '<canvas></canvas>',
@@ -74,7 +74,7 @@
 
         // draw course status text
         var statusTextKey = scope.progress >= scope.masteryScore ? '[tracking and tracing result success]' : '[tracking and tracing result failed]';
-        globalTranslator(statusTextKey).then(function (translation) {
+        translate(statusTextKey).then(function (translation) {
             var statusText = translation,
             statusTextColor = scope.progress >= scope.masteryScore ? '#4cbae6' : '#f16162';
 
@@ -97,17 +97,18 @@
         drawText(context, scope.masteryScore + '%', '13px robotoslabregular', '#222', masteryScoreX, masteryScoreY + 4, 'center', 34);
 
         // draw mastery score hint text
-        var masteryScoreHintTextX = (scope.masteryScore >= 50) ? masteryScoreX - 70 : masteryScoreX + 65,
+        var isLeftSideText = scope.masteryScore >= 50,
+            masteryScoreHintTextX = isLeftSideText ? masteryScoreX - 70 : masteryScoreX + 65,
             masteryScoreHintTextY = masteryScoreY + 10,
-            masteryScoreHintTextAlign = (scope.masteryScore >= 50) ? 'right' : 'left';
+            masteryScoreHintTextAlign = isLeftSideText ? 'right' : 'left';
 
-        globalTranslator('[tracking and tracing mastery score hint]').then(function (translation) {
+        translate('[tracking and tracing mastery score hint]').then(function (translation) {
             drawMultilineText(context, translation, '19px Rabiohead, BadScriptRegular', '#8f8f8f', masteryScoreHintTextX, masteryScoreHintTextY, masteryScoreHintTextAlign, 150, 20, 2);
 
             // draw mastery score arrow
-            var masteryScoreArrowX = scope.masteryScore >= 50 ? masteryScoreX - 63 : masteryScoreX + 22,
-                masteryScoreArrowY = scope.masteryScore >= 50 ? masteryScoreY - 5 : masteryScoreY - 8,
-                arrow = scope.masteryScore >= 50 ? scope.leftArrow : scope.rightArrow;
+            var masteryScoreArrowX = isLeftSideText ? masteryScoreX - 63 : masteryScoreX + 22,
+                masteryScoreArrowY = isLeftSideText ? masteryScoreY - 5 : masteryScoreY - 8,
+                arrow = isLeftSideText ? scope.leftArrow : scope.rightArrow;
 
             arrow.onload = function () {
                 context.beginPath();

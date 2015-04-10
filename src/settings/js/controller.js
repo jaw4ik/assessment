@@ -209,8 +209,7 @@
             }
 
             function Language(code, name, resourcesUrl, isEditable, userTranslations) {
-                var _isLoaded = false,
-                    _userTranslations = userTranslations;
+                var _isLoaded = false;
 
                 var that = this;
 
@@ -218,7 +217,7 @@
                 that.name = name;
                 that.isEditable = isEditable;
                 that.resourcesUrl = resourcesUrl;
-                that.resources = {};
+                that.resources = userTranslations || {};
 
                 that.load = load;
 
@@ -228,7 +227,7 @@
                     }
 
                     return loadLanguageResources(that.resourcesUrl).then(function (resources) {
-                        that.resources = _userTranslations ? extend(_userTranslations, resources) : resources;
+                        that.resources = $.isEmptyObject(that.resources) ? resources : extend(that.resources, resources);
                         _isLoaded = true;
                     });
                 }
