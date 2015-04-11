@@ -136,10 +136,20 @@
                 expect(viewModel.show).toBeFunction();
             });
 
-            describe('when courseOwner is not a string', function () {
+            describe('when courseId is not a string', function () {
                 it('should throw exception', function () {
                     var f = function () {
                         viewModel.show();
+                    };
+
+                    expect(f).toThrow('courseId is not a string');
+                });
+            });
+
+            describe('when courseOwner is not a string', function () {
+                it('should throw exception', function () {
+                    var f = function () {
+                        viewModel.show(courseId);
                     };
 
                     expect(f).toThrow('courseOwner is not a string');
@@ -147,63 +157,69 @@
             });
 
             it('should reset addCollaboratorViewModel', function () {
-                viewModel.show(courseOwner);
+                viewModel.show(courseId, courseOwner);
                 expect(addCollaboratorViewModel.reset).toHaveBeenCalled();
+            });
+
+            it('should set courseId', function () {
+                viewModel.courseId = '';
+                viewModel.show(courseId, courseOwner);
+                expect(viewModel.courseId).toBe(courseId);
             });
 
             it('should set courseOwner', function () {
                 viewModel.courseOwner = '';
-                viewModel.show(courseOwner);
+                viewModel.show(courseId, courseOwner);
                 expect(viewModel.courseOwner).toBe(courseOwner);
             });
 
             it('should set isUpgradeInvitationShown shown to false', function () {
                 viewModel.isUpgradeInvitationShown(true);
-                viewModel.show(courseOwner);
+                viewModel.show(courseId, courseOwner);
                 expect(viewModel.isUpgradeInvitationShown()).toBeFalsy();
             });
 
             it('should set isAddCollaboratorLocked shown to false', function () {
                 viewModel.isAddCollaboratorLocked(true);
-                viewModel.show(courseOwner);
+                viewModel.show(courseId, courseOwner);
                 expect(viewModel.isAddCollaboratorLocked()).toBeFalsy();
             });
 
             it('should set is shown to true', function () {
                 viewModel.isShown(false);
-                viewModel.show(courseOwner);
+                viewModel.show(courseId, courseOwner);
                 expect(viewModel.isShown()).toBeTruthy();
             });
 
             it('should set isLoadingCollaborators to true', function () {
                 viewModel.isLoadingCollaborators(false);
-                viewModel.show(courseOwner);
+                viewModel.show(courseId, courseOwner);
                 expect(viewModel.isLoadingCollaborators()).toBeTruthy();
             });
 
             it('should set courseIdt', function () {
                 viewModel.courseId = '';
-                viewModel.show(courseOwner);
+                viewModel.show(courseId, courseOwner);
 
                 expect(viewModel.courseId).toBe(courseId);
             });
 
             it('should subscribe to collaboratorAdded event', function () {
                 viewModel.courseId = courseId;
-                viewModel.show(courseOwner);
+                viewModel.show(courseId, courseOwner);
 
                 expect(app.on).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorAdded + courseId, viewModel.collaboratorAdded);
             });
 
             it('should subscribe to collaboratorRemoved event', function () {
                 viewModel.courseId = courseId;
-                viewModel.show(courseOwner);
+                viewModel.show(courseId, courseOwner);
 
                 expect(app.on).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorRemoved + courseId, viewModel.collaboratorRemoved);
             });
 
             it('should get collaborators from repository', function () {
-                viewModel.show(courseOwner);
+                viewModel.show(courseId, courseOwner);
                 expect(repository.getCollection).toHaveBeenCalledWith(courseId);
             });
 
@@ -213,7 +229,7 @@
                     var promise = getCollaborators.promise.finally(function () { });
                     getCollaborators.resolve(collaborators);
 
-                    viewModel.show(courseOwner);
+                    viewModel.show(courseId, courseOwner);
 
                     promise.fin(function () {
                         expect(viewModel.collaborators().length).toBe(collaborators.length);
@@ -238,7 +254,7 @@
                         spyOn(viewModel, 'updateCollaborationStatus');
                         getCollaborators.resolve(collaborators);
 
-                        viewModel.show(courseOwner);
+                        viewModel.show(courseId, courseOwner);
 
                         promise.fin(function () {
                             expect(viewModel.updateCollaborationStatus).toHaveBeenCalled();
@@ -252,7 +268,7 @@
                     var promise = getCollaborators.promise.finally(function () { });
                     getCollaborators.resolve(collaborators);
 
-                    viewModel.show(courseOwner);
+                    viewModel.show(courseId, courseOwner);
 
                     promise.fin(function () {
                         expect(viewModel.collaborators()[0].email).toBe(collaborators[1].email);
@@ -277,19 +293,19 @@
                 });
 
                 it('should subscribe on user downgraded event', function () {
-                    viewModel.show(courseOwner);
+                    viewModel.show(courseId, courseOwner);
 
                     expect(app.on).toHaveBeenCalledWith(constants.messages.user.downgraded, viewModel.updateCollaborationStatus);
                 });
 
                 it('should subscribe from user upgradedToStarter event', function () {
-                    viewModel.show(courseOwner);
+                    viewModel.show(courseId, courseOwner);
 
                     expect(app.on).toHaveBeenCalledWith(constants.messages.user.upgradedToStarter, viewModel.updateCollaborationStatus);
                 });
 
                 it('should subscribe from user upgradedToPlus event', function () {
-                    viewModel.show(courseOwner);
+                    viewModel.show(courseId, courseOwner);
 
                     expect(app.on).toHaveBeenCalledWith(constants.messages.user.upgradedToPlus, viewModel.updateCollaborationStatus);
                 });
@@ -413,7 +429,7 @@
                 unlock: function () { }
             };
 
-            beforeEach(function() {
+            beforeEach(function () {
                 userContext.identity = {
                     email: courseOwner,
                     subscription: {
@@ -442,7 +458,7 @@
                 expect(viewModel.collaborators()[3].email).toBe(collaborator.email);
             });
 
-            it('should update collaboration status', function() {
+            it('should update collaboration status', function () {
                 spyOn(viewModel, 'updateCollaborationStatus');
                 viewModel.collaborators(collaborators);
                 viewModel.collaboratorAdded(collaborator);
@@ -708,7 +724,7 @@
                 });
             });
 
-            describe('when user has plus access type', function() {
+            describe('when user has plus access type', function () {
                 beforeEach(function () {
                     userContext.identity = {
                         subscription: {

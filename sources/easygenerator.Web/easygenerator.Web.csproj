@@ -592,10 +592,6 @@
     <Content Include="App\viewmodels\courses\course\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\results.js" />
-    <Content Include="App\viewmodels\courses\results.spec.js">
-      <DependentUpon>results.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\courses\index.js" />
     <Content Include="App\viewmodels\objectives\index.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.js" />
@@ -2185,9 +2181,6 @@
       <DependentUpon>templateRepository.js</DependentUpon>
     </Content>
     <Content Include="App\routing\routerExtender.js" />
-    <Content Include="App\routing\routerExtender.spec.js">
-      <DependentUpon>routerExtender.js</DependentUpon>
-    </Content>
     <Content Include="App\routing\routes.js" />
     <Content Include="App\services\publishService.js" />
     <Content Include="App\services\publishService.spec.js">
@@ -2280,14 +2273,6 @@
     <Content Include="App\viewmodels\courses\courses.js" />
     <Content Include="App\viewmodels\courses\courses.spec.js">
       <DependentUpon>courses.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\design.js" />
-    <Content Include="App\viewmodels\courses\design.spec.js">
-      <DependentUpon>design.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\publish.js" />
-    <Content Include="App\viewmodels\courses\publish.spec.js">
-      <DependentUpon>publish.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\publishingActions\build.js" />
     <Content Include="App\viewmodels\courses\publishingActions\build.spec.js">

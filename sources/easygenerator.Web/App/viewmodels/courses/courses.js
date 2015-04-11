@@ -100,7 +100,7 @@
 
         function navigateToPublish(course) {
             eventTracker.publish(events.navigateToPublishCourse);
-            router.navigate('publish/' + course.id);
+            router.navigate('courses/' + course.id + '/publish');
         }
 
         function getSelectedCourses() {
@@ -237,7 +237,7 @@
             return createCourseCommand.execute('Courses')
                 .then(function (course) {
                     uiLocker.unlock();
-                    router.navigate('#courses/' + course.id);
+                    router.navigate('courses/' + course.id);
                 })
                 .fail(function () {
                     uiLocker.unlock();
@@ -249,11 +249,11 @@
                 startLoading: function () {
                     uiLocker.lock();
                 },
-                success: function(course) {
+                success: function (course) {
                     if (course.objectives.length) {
-                        router.navigate('#objective/' + course.objectives[0].id + '?courseId=' + course.id);
+                        router.navigate('courses/' + course.id + '/objectives/' + course.objectives[0].id);
                     } else {
-                        router.navigate('#courses/' + course.id);
+                        router.navigate('courses/' + course.id);
                     }
                 },
                 complete: function () {

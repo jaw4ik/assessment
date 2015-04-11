@@ -42,13 +42,13 @@
                 startLoading: function () {
                     that.isCourseImporting(true);
                 },
-                success: function(course) {
+                success: function (course) {
                     if (course.objectives.length) {
-                        router.navigate('#objective/' + course.objectives[0].id + '?courseId=' + course.id);
+                        router.navigate('#courses/' + course.id + '/objectives/' + course.objectives[0].id);
                     } else {
-                        router.navigate('#course/' + course.id);
+                        router.navigate('#courses/' + course.id);
                     }
-                    
+
                     dialog.close(that);
                 },
                 complete: function () {

@@ -25,6 +25,7 @@
         return viewModel;
 
         function show(courseId, courseOwner) {
+            guard.throwIfNotString(courseId, 'courseId is not a string');
             guard.throwIfNotString(courseOwner, 'courseOwner is not a string');
 
             reset();

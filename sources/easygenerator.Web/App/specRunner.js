@@ -70,7 +70,6 @@
             'repositories/objectiveRepository.spec',
             'repositories/templateRepository.spec',
             'repositories/questionRepository.spec',
-            'routing/routerExtender.spec',
             'services/publishService.spec',
             'utils/waiter.spec',
 
@@ -119,7 +118,7 @@
             'synchronization/handlers/answer/eventHandlers/deleted.spec',
             'synchronization/handlers/answer/eventHandlers/textUpdated.spec',
             'synchronization/handlers/answer/eventHandlers/answerCorrectnessUpdated.spec',
-            
+
             'synchronization/handlers/user/handler.spec',
             'synchronization/handlers/user/eventHandlers/upgradedToStarter.spec',
             'synchronization/handlers/user/eventHandlers/upgradedToPlus.spec',
@@ -180,11 +179,10 @@
             'treeOfContent/QuestionTreeNode.spec',
 
             'viewmodels/common/contentField.spec',
-            'viewmodels/courses/courses.spec',
-            'viewmodels/courses/course.spec',
-            'viewmodels/courses/design.spec',
-            'viewmodels/courses/publish.spec',
-            'viewmodels/courses/results.spec',
+            'viewmodels/courses/courses.spec',            
+            'viewmodels/courses/course/design.spec',
+            'viewmodels/courses/course/publish.spec',
+            'viewmodels/courses/course/results.spec',
             'viewmodels/courses/publishingActions/publishingAction.spec',
             'viewmodels/courses/publishingActions/build.spec',
             'viewmodels/courses/publishingActions/publish.spec',
@@ -264,9 +262,9 @@
             'viewmodels/questions/feedback.spec',
 
             //#endregion
-            
+
             'viewmodels/user/userMenu.spec',
-            'viewmodels/shell.spec',
+            'viewmodels/shell.spec',            
             'widgets/notifyViewer/viewmodel.spec',
             'widgets/uiLockViewer/viewmodel.spec',
             'widgets/createQuestion/viewmodel.spec',
@@ -285,14 +283,7 @@
             '../Scripts/common/serviceUnavailableAjaxErrorHandler.spec'
         ];
 
-        require([
-            //'viewmodels/courses/course/index.spec',
-            //'viewmodels/objectives/objective.spec',
-            'viewmodels/questions/question.spec'
-
- //           'viewmodels/courses/course/create.spec'
-
-        ], function () {
+        require(specs, function () {
             env.execute();
         });
     });

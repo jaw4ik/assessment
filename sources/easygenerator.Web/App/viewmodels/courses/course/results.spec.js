@@ -1,10 +1,9 @@
-﻿define(['viewmodels/courses/results'], function (viewModel) {
+﻿define(['viewmodels/courses/course/results'], function (viewModel) {
     "use strict";
 
     var
         eventTracker = require('eventTracker'),
         courseRepository = require('repositories/courseRepository'),
-        localizationManager = require('localization/localizationManager'),
         xApiProvider = require('reporting/xApiProvider'),
         constants = require('constants'),
         dialog = require('plugins/dialog'),
@@ -188,7 +187,7 @@
                     });
 
                 });
-                
+
                 describe('when user access type forbids to view more results', function () {
 
                     beforeEach(function () {
@@ -533,7 +532,7 @@
         });
 
         describe('getResultsFileName:', function () {
-          
+
             it('should be function', function () {
                 expect(viewModel.getResultsFileName).toBeFunction();
             });
@@ -556,9 +555,9 @@
             it('should be function', function () {
                 expect(viewModel.generateResultsCsvBlob).toBeFunction();
             });
-            
+
         });
-   
+
     });
 
 });

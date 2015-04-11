@@ -62,6 +62,8 @@
                 return repository.getById(courseId).then(function (course) {
                     viewModel.courseId = course.id;
 
+                    viewModel.isCourseDelivering(course.isDelivering);
+
                     clientContext.set(constants.clientContextKeys.lastVistedCourse, course.id);
                     clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
 
