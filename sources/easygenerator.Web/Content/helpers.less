@@ -1,4 +1,8 @@
-﻿.unselectable() {
+﻿
+@maxWidth: 960px;
+@minWidth: 635px;
+
+.unselectable() {
     -moz-user-select: none;
     -ms-user-select: none;
     -webkit-user-select: none;
@@ -21,7 +25,7 @@
 }
 
 .container() {
-    max-width: 960px;
-    min-width: 635px;
+    max-width: @maxWidth;
+    min-width: @minWidth;
     margin: 0 auto;
 }

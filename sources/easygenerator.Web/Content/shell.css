@@ -176,3 +176,12 @@
   bottom: 0;
   z-index: 1000;
 }
+@media screen and (max-width: 1630px) {
+  [data-view="navigationBar/navigationBar"] + div {
+    margin-left: 0;
+    transition: all .4s linear 0s;
+  }
+  [data-view="navigationBar/navigationBar"].expanded + div {
+    margin-left: 300px;
+  }
+}

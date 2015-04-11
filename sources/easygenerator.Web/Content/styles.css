@@ -115,7 +115,7 @@
   padding: 0;
 }
 .content-section-wrapper {
-  /*padding: 0 50px 0 20px;*/
+  padding: 0 50px 0 20px;
 }
 .content-section {
   max-width: 960px;
@@ -2482,6 +2482,15 @@ h2 + .tooltip-icon {
   top: 56px;
   bottom: 0;
   z-index: 1000;
+}
+@media screen and (max-width: 1630px) {
+  [data-view="navigationBar/navigationBar"] + div {
+    margin-left: 0;
+    transition: all .4s linear 0s;
+  }
+  [data-view="navigationBar/navigationBar"].expanded + div {
+    margin-left: 300px;
+  }
 }
 /*#region EDIT FIELD*/
 /*.edit-field {
