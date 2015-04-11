@@ -1509,7 +1509,6 @@
     <Content Include="Content\cssPreloaders.less" />
     <Content Include="Content\dragAndDropText.less" />
     <Content Include="Content\helpers.less" />
-    <Content Include="Content\helphint.less" />
     <Content Include="Content\hotSpot.less" />
     <Content Include="Content\imagePreview.less" />
     <Content Include="Content\navigationBar.less" />
@@ -2380,9 +2379,6 @@
     <Content Include="Content\font\opensans-semibold.svg" />
     <Content Include="Content\font\opensans-semibolditalic.svg" />
     <Content Include="Content\font\rabiohead.svg" />
-    <Content Include="Content\helphint.css">
-      <DependentUpon>helphint.less</DependentUpon>
-    </Content>
     <Content Include="Content\images\account\log-in.jpg" />
     <Content Include="Content\images\account\pointer-left-big.png" />
     <Content Include="Content\images\account\pointer-right-big.png" />

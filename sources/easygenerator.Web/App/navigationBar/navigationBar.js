@@ -10,12 +10,12 @@
         collapse: collapse,
         onCollapsed: onCollapsed,
 
-        activate: activate,
-        attached: attached,
-        detached: detached
+        activate: activate
     };
 
     app.on(constants.messages.onboarding.closed, onOnboardingClosed);
+
+    var subscriptions = [];
 
     return viewModel;
 
