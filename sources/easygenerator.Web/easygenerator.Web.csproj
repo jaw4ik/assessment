@@ -606,7 +606,6 @@
     <Content Include="App\viewmodels\questions\statement\statementAnswers.spec.js">
       <DependentUpon>statementAnswers.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\shell.old.js" />
     <Content Include="App\views\courses\course\create\index.html" />
     <Content Include="App\views\courses\course\publish.html" />
     <Content Include="App\views\courses\course\design.html" />
@@ -2106,11 +2105,6 @@
     <Content Include="App\guard.js" />
     <Content Include="App\guard.spec.js">
       <DependentUpon>guard.js</DependentUpon>
-    </Content>
-    <Content Include="App\help\helpHint.html" />
-    <Content Include="App\help\helpHint.js" />
-    <Content Include="App\help\helpHint.spec.js">
-      <DependentUpon>helpHint.js</DependentUpon>
     </Content>
     <Content Include="App\http\httpWrapper.js" />
     <Content Include="App\http\httpWrapper.spec.js">

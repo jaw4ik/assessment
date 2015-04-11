@@ -1,6 +1,5 @@
-﻿define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/routes', 'dataContext', 'userContext', 'eventTracker', 'clientContext',
-    'localization/localizationManager', 'uiLocker', 'help/helpHint', 'plugins/dialog', 'notify', 'constants'],
-    function (app, composition, router, routes, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, help, dialog, notify, constants) {
+﻿define(['durandal/app', 'plugins/router', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'plugins/dialog', 'notify', 'constants'],
+    function (app, router, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, dialog, notify, constants) {
 
         "use strict";
 
@@ -20,7 +19,6 @@
             showNavigation: showNavigation,
 
             navigation: ko.observableArray([]),
-            help: help,
             courseDeleted: courseDeleted,
             objectivesUnrelated: objectivesUnrelated,
             questionsDeleted: questionsDeleted,
@@ -73,7 +71,7 @@
         function activate() {
             return dataContext.initialize()
                 .then(function () {
-                    router.guardRoute = function (routeInfo, params) {
+                    router.guardRoute = function (routeInfo) {
                         if (isFirstVisitPage && routeInfo.__moduleId__ == "viewmodels/errors/404") {
                             return 'courses';
                         }
@@ -104,33 +102,6 @@
                         clientContext.set(hex_md5(userContext.identity.email), { hash: window.location.hash });
                     });
 
-
-                    //viewModel.navigation([
-                    //    {
-                    //        ,
-                    //        navigationLink: '#courses',
-                    //        title: 'courses',
-                    //        isActive: ko.computed(function () {
-                    //            if (_.isNullOrUndefined(router.activeInstruction())) {
-                    //                return false;
-                    //            }
-
-                    //            return router.activeInstruction().fragment.indexOf("courses") === 0;
-                    //        })
-                    //    },
-                    //    {
-
-                    //        navigationLink: '#objectives',
-                    //        title: 'materials',
-                    //        isActive: ko.computed(function () {
-                    //            if (_.isNullOrUndefined(router.activeInstruction())) {
-                    //                return false;
-                    //            }
-
-                    //            return router.activeInstruction().fragment.indexOf("objectives") === 0;
-                    //        })
-                    //    }
-                    //]);
 
                     clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
                     clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
@@ -182,13 +153,13 @@
 
                     router.isViewReady = ko.observable();
                     router.on('router:navigation:processing').then(function (instruction, router) {
-                        if (instruction.config.moduleId !== router.isViewReady()) {
+                        if (instruction.config.moduleId !== router.isViewReady()) {                            
                             router.isViewReady(false);
                         }
                     });
                     router.on('router:navigation:composition-complete').then(function (instance, instruction, router) {
                         if (instance) {
-                            setTimeout(function () {
+                            setTimeout(function () {                                
                                 router.isViewReady(instance.__moduleId__);
                             }, 250);
                         }
