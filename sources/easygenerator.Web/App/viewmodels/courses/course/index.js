@@ -5,6 +5,7 @@
         previewCourse: 'Preview course'
     };
 
+    //#region Router setup
     var childRouter = index.router.createChildRouter()
       .makeRelative({
           fromParent: true,
@@ -83,6 +84,7 @@
         }
     });
 
+    //#endregion
 
     var viewModel = {
         router: childRouter,
@@ -98,8 +100,9 @@
 
         canActivate: canActivate,
         activate: activate,
+        deactivate: deactivate,
 
-
+        titleUpdated: titleUpdated,
         collaboratorAdded: collaboratorAdded,
         collaboratorRemoved: collaboratorRemoved
 
@@ -181,6 +184,8 @@
                 app.on(constants.messages.course.collaboration.collaboratorAdded + courseId, collaboratorAdded);
                 app.on(constants.messages.course.collaboration.collaboratorRemoved + courseId, collaboratorRemoved);
 
+                app.on(constants.messages.course.titleUpdatedByCollaborator, viewModel.titleUpdated);
+
                 viewModel.collaborators(collection.map(function (collaborator) {
                     return collaborator.email;
                 }));
@@ -188,6 +193,12 @@
         });
     }
 
+    function deactivate() {
+        app.off(constants.messages.course.collaboration.collaboratorAdded + viewModel.id, collaboratorAdded);
+        app.off(constants.messages.course.collaboration.collaboratorRemoved + viewModel.id, collaboratorRemoved);
+
+        app.off(constants.messages.course.titleUpdatedByCollaborator, viewModel.titleUpdated);
+    }
 
     function collaboratorAdded(collaborator) {
         if (!_.find(viewModel.collaborators(), function (item) {
@@ -201,4 +212,11 @@
         viewModel.collaborators(_.without(viewModel.collaborators(), collaboratorEmail));
     }
 
+    function titleUpdated(course) {
+        if (course.id !== viewModel.id || viewModel.title.isEditing()) {
+            return;
+        }
+
+        viewModel.title(course.title);
+    }
 })

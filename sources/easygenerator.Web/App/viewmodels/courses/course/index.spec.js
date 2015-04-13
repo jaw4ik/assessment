@@ -559,6 +559,14 @@
                     });
                 });
 
+
+                it('should subscribe to titleUpdated event', function (done) {
+                    viewModel.activate(course.id).fin(function () {
+                        expect(app.on).toHaveBeenCalledWith(constants.messages.course.titleUpdatedByCollaborator, viewModel.titleUpdated);
+                        done();
+                    });
+                });
+
                 it('should subscribe to collaboratorAdded event', function (done) {
                     viewModel.activate(course.id).fin(function () {
                         expect(app.on).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorAdded + course.id, viewModel.collaboratorAdded);
@@ -575,6 +583,30 @@
 
             });
 
+        });
+
+        describe('deactivate:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.deactivate).toBeFunction();
+            });
+
+            it('should unsubscribe from titleUpdated event', function () {
+                viewModel.deactivate();
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.titleUpdatedByCollaborator, viewModel.titleUpdated);
+            });
+
+            it('should unsubscribe from collaboratorAdded event', function () {
+                viewModel.id = 'id';
+                viewModel.deactivate();
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorAdded + 'id', viewModel.collaboratorAdded);
+            });
+
+            it('should unsubscribe from collaboratorRemoved event', function () {
+                viewModel.id = 'id';
+                viewModel.deactivate();
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorRemoved + 'id', viewModel.collaboratorRemoved);
+            });
         });
 
         describe('collaboratorAdded:', function () {
@@ -623,5 +655,56 @@
 
         });
 
+        describe('titleUpdated:', function () {
+
+            var course = {
+                id: 'id',
+                title: 'title',
+                createdBy: 'createdBy',
+            };
+
+            it('should be function', function () {
+                expect(viewModel.titleUpdated).toBeFunction();
+            });
+
+            describe('when course is current course', function () {
+                beforeEach(function () {
+                    viewModel.id = course.id;
+                    viewModel.title('');
+                });
+
+                describe('when course title is editing', function () {
+                    beforeEach(function () {
+                        viewModel.title.isEditing(true);
+                    });
+
+                    it('should not update course title', function () {
+                        viewModel.titleUpdated(course);
+                        expect(viewModel.title()).toBe('');
+                    });
+                });
+
+                describe('when course title is not editing', function () {
+                    beforeEach(function () {
+                        viewModel.title.isEditing(false);
+                    });
+
+                    it('should update course title', function () {
+                        viewModel.titleUpdated(course);
+                        expect(viewModel.title()).toBe(course.title);
+                    });
+                });
+            });
+
+            describe('when course is not current course', function () {
+                it('should not update course title', function () {
+                    viewModel.id = 'qwe';
+                    viewModel.title('');
+                    viewModel.titleUpdated(course);
+
+                    expect(viewModel.title()).toBe('');
+                });
+            });
+        });
     });
 });

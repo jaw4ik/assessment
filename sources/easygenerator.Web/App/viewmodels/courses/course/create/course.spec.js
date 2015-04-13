@@ -4,7 +4,6 @@
     var
         router = require('plugins/router'),
         eventTracker = require('eventTracker'),
-        constants = require('constants'),
         repository = require('repositories/courseRepository'),
         objectiveRepository = require('repositories/objectiveRepository'),
         notify = require('notify'),
@@ -76,14 +75,6 @@
 
         });
 
-        describe('isEditing:', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.isEditing).toBeObservable();
-            });
-
-        });
-
         describe('localizationManager:', function () {
 
             it('should be defined', function () {
@@ -91,83 +82,6 @@
             });
 
         });
-
-        describe('courseTitleMaxLength:', function () {
-
-            it('should be defined', function () {
-                expect(viewModel.courseTitleMaxLength).toBeDefined();
-            });
-
-            it('should equal constants.validation.courseTitleMaxLength', function () {
-                expect(viewModel.courseTitleMaxLength).toEqual(constants.validation.courseTitleMaxLength);
-            });
-
-        });
-
-        describe('title:', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.title).toBeObservable();
-            });
-
-            describe('isValid', function () {
-
-                it('should be computed', function () {
-                    expect(viewModel.title.isValid).toBeComputed();
-                });
-
-                describe('when title is empty', function () {
-
-                    it('should be false', function () {
-                        viewModel.title('');
-                        expect(viewModel.title.isValid()).toBeFalsy();
-                    });
-
-                });
-
-                describe('when title is longer than 255', function () {
-
-                    it('should be false', function () {
-                        viewModel.title(utils.createString(viewModel.courseTitleMaxLength + 1));
-                        expect(viewModel.title.isValid()).toBeFalsy();
-                    });
-
-                });
-
-                describe('when title is longer than 255 but after trimming is not longer than 255', function () {
-
-                    it('should be true', function () {
-                        viewModel.title('   ' + utils.createString(viewModel.courseTitleMaxLength - 1) + '   ');
-                        expect(viewModel.title.isValid()).toBeTruthy();
-                    });
-
-                });
-
-                describe('when title is not empty and not longer than 255', function () {
-
-                    it('should be true', function () {
-                        viewModel.title(utils.createString(viewModel.courseTitleMaxLength - 1));
-                        expect(viewModel.title.isValid()).toBeTruthy();
-                    });
-
-                });
-            });
-        });
-
-        describe('startEditTitle:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.startEditTitle).toBeFunction();
-            });
-
-            it('should be set isEditing to true', function () {
-                viewModel.isEditing(false);
-                viewModel.startEditTitle();
-                expect(viewModel.isEditing()).toBeTruthy();
-            });
-
-        });
-        
 
         describe('updateObjectiveImage:', function () {
 
@@ -374,7 +288,7 @@
         describe('createObjective', function () {
             var courseId = 'courseId';
 
-            beforeEach(function() {
+            beforeEach(function () {
                 viewModel.id = courseId;
                 spyOn(createObjectiveCommand, 'execute');
             });
@@ -859,15 +773,6 @@
                     getById.reject('reason');
                 });
 
-                it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function (done) {
-                    router.activeItem.settings.lifecycleData = null;
-
-                    viewModel.activate('courseId').fin(function () {
-                        expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
-                        done();
-                    });
-                });
-
                 it('should reject promise', function (done) {
                     var promise = viewModel.activate('courseId');
 
@@ -903,15 +808,6 @@
                     });
                 });
 
-                it('should set current course title', function (done) {
-                    viewModel.title('');
-
-                    viewModel.activate(course.id).fin(function () {
-                        expect(viewModel.title()).toEqual(course.title);
-                        done();
-                    });
-                });
-
                 it('should display related objectives', function (done) {
                     viewModel.objectivesMode('appending');
 
@@ -935,54 +831,6 @@
 
                     promise.fin(function () {
                         expect(promise).toBeResolved();
-                        done();
-                    });
-                });
-
-                it('should set course id as the last visited in client context', function (done) {
-                    viewModel.activate(course.id).fin(function () {
-                        expect(clientContext.set).toHaveBeenCalledWith(constants.clientContextKeys.lastVistedCourse, course.id);
-                        done();
-                    });
-                });
-
-                it('should reset last visited objective in client context', function (done) {
-                    viewModel.activate(course.id).fin(function () {
-                        expect(clientContext.set).toHaveBeenCalledWith(constants.clientContextKeys.lastVisitedObjective, null);
-                        done();
-                    });
-                });
-
-                describe('when last created course is current course', function () {
-                    beforeEach(function () {
-                        spyOn(clientContext, 'get').and.returnValue(course.id);
-                    });
-
-                    it('should set isLastCreatedCourse to true', function (done) {
-                        viewModel.activate(course.id).fin(function () {
-                            expect(viewModel.isLastCreatedCourse).toBeTruthy();
-                            done();
-                        });
-                    });
-                });
-
-                describe('when last created course is not current course', function () {
-                    beforeEach(function () {
-                        spyOn(clientContext, 'get').and.returnValue('some id');
-                    });
-
-                    it('should set isLastCreatedCourse to true', function (done) {
-                        viewModel.activate(course.id).fin(function () {
-                            expect(viewModel.isLastCreatedCourse).toBeFalsy();
-                            done();
-                        });
-                    });
-                });
-
-                it('should remove lastCreatedCourse key from client context', function (done) {
-                    spyOn(clientContext, 'remove');
-                    viewModel.activate(course.id).fin(function () {
-                        expect(clientContext.remove).toHaveBeenCalledWith(constants.clientContextKeys.lastCreatedCourseId);
                         done();
                     });
                 });
@@ -1308,52 +1156,6 @@
 
             });
 
-        });
-
-        describe('titleUpdated:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.titleUpdated).toBeFunction();
-            });
-
-            describe('when course is current course', function () {
-                beforeEach(function () {
-                    viewModel.id = course.id;
-                    viewModel.title('');
-                });
-
-                describe('when course title is editing', function () {
-                    beforeEach(function () {
-                        viewModel.isEditing(true);
-                    });
-
-                    it('should not update course title', function () {
-                        viewModel.titleUpdated(course);
-                        expect(viewModel.title()).toBe('');
-                    });
-                });
-
-                describe('when course title is not editing', function () {
-                    beforeEach(function () {
-                        viewModel.isEditing(false);
-                    });
-
-                    it('should update course title', function () {
-                        viewModel.titleUpdated(course);
-                        expect(viewModel.title()).toBe(course.title);
-                    });
-                });
-            });
-
-            describe('when course is not current course', function () {
-                it('should not update course title', function () {
-                    viewModel.id = 'qwe';
-                    viewModel.title('');
-                    viewModel.titleUpdated(course);
-
-                    expect(viewModel.title()).toBe('');
-                });
-            });
         });
 
         describe('introductionContentUpdated:', function () {
@@ -1852,178 +1654,6 @@
             });
         });
 
-        describe('collaborators:', function () {
-            it('should be defined', function () {
-                expect(viewModel.collaborators).toBeDefined();
-            });
-        });
-
-        describe('deactivate:', function () {
-            it('should be a function', function () {
-                expect(viewModel.deactivate).toBeFunction();
-            });
-
-            it('should call collaborators deactivate', function () {
-                spyOn(viewModel.collaborators, 'deactivate');
-
-                viewModel.deactivate();
-
-                expect(viewModel.collaborators.deactivate).toHaveBeenCalled();
-            });
-        });
-
-        describe('updateCollaborationWarning:', function () {
-            it('should be function', function () {
-                expect(viewModel.updateCollaborationWarning).toBeFunction();
-            });
-
-            describe('when user is not course owner', function () {
-                beforeEach(function () {
-                    viewModel.createdBy = 'some@user.com';
-                });
-
-                it('should clear collaboration warning message', function () {
-                    viewModel.collaborationWarning('error');
-                    viewModel.updateCollaborationWarning();
-
-                    expect(viewModel.collaborationWarning()).toBe('');
-                });
-            });
-
-            describe('when user is course owner', function () {
-                beforeEach(function () {
-                    viewModel.createdBy = identity.email;
-                });
-
-                describe('and has free access type', function () {
-                    var message = 'message';
-                    beforeEach(function () {
-                        spyOn(localizationManager, 'localize').and.returnValue(message);
-                        userContext.identity.subscription = {
-                            accessType: constants.accessType.free
-                        };
-                    });
-
-                    describe('and collaborators count more than 1', function () {
-                        beforeEach(function () {
-                            viewModel.collaborators = {
-                                members: ko.observableArray()
-                            };
-
-                            viewModel.collaborators.members.push({});
-                            viewModel.collaborators.members.push({});
-                        });
-
-                        it('should set collaboration warning message', function () {
-                            viewModel.collaborationWarning('');
-                            viewModel.updateCollaborationWarning();
-
-                            expect(viewModel.collaborationWarning()).toBe(message);
-                        });
-                    });
-
-                    describe('and collaborators count is less than 2', function () {
-                        beforeEach(function () {
-                            viewModel.collaborators = {
-                                members: ko.observableArray()
-                            };
-
-                            viewModel.collaborators.members.push({});
-                        });
-
-                        it('should clear collaboration warning message', function () {
-                            viewModel.collaborationWarning('error');
-                            viewModel.updateCollaborationWarning();
-
-                            expect(viewModel.collaborationWarning()).toBe('');
-                        });
-                    });
-                });
-
-                describe('and has starter access type', function () {
-                    var message = 'message';
-                    beforeEach(function () {
-                        spyOn(localizationManager, 'localize').and.returnValue(message);
-                        userContext.identity.subscription = {
-                            accessType: constants.accessType.starter
-                        };
-                    });
-
-                    describe('and collaborators count more than max', function () {
-                        beforeEach(function () {
-                            viewModel.collaborators = {
-                                members: ko.observableArray()
-                            };
-
-                            for (var i = 0; i < constants.maxStarterPlanCollaborators + 2; i++) {
-                                viewModel.collaborators.members.push({});
-                            }
-                        });
-
-                        it('should set collaboration warning message', function () {
-                            viewModel.collaborationWarning('');
-                            viewModel.updateCollaborationWarning();
-
-                            expect(viewModel.collaborationWarning()).toBe(message);
-                        });
-                    });
-
-                    describe('and collaborators count is less than max', function () {
-                        beforeEach(function () {
-                            viewModel.collaborators = {
-                                members: ko.observableArray()
-                            };
-                        });
-
-                        it('should clear collaboration warning message', function () {
-                            viewModel.collaborationWarning('error');
-                            viewModel.updateCollaborationWarning();
-
-                            expect(viewModel.collaborationWarning()).toBe('');
-                        });
-                    });
-                });
-
-                describe('and has plus access type', function () {
-                    var message = 'message';
-                    beforeEach(function () {
-                        spyOn(localizationManager, 'localize').and.returnValue(message);
-                        userContext.identity.subscription = {
-                            accessType: constants.accessType.plus
-                        };
-                    });
-
-                    it('should clear collaboration warning message', function () {
-                        viewModel.collaborationWarning('error');
-                        viewModel.updateCollaborationWarning();
-
-                        expect(viewModel.collaborationWarning()).toBe('');
-                    });
-                });
-            });
-        });
-
-        describe('openUpgradePlanUrl:', function () {
-
-            beforeEach(function () {
-                spyOn(window, 'open');
-            });
-
-            it('should be function', function () {
-                expect(viewModel.openUpgradePlanUrl).toBeFunction();
-            });
-
-            it('should send event \'Upgrade now\'', function () {
-                viewModel.openUpgradePlanUrl();
-                expect(eventTracker.publish).toHaveBeenCalledWith(constants.upgradeEvent, constants.upgradeCategory.collaboration);
-            });
-
-            it('should open upgrade link in new window', function () {
-                viewModel.openUpgradePlanUrl();
-                expect(window.open).toHaveBeenCalledWith(constants.upgradeUrl, '_blank');
-            });
-
-        });
     });
 
 });
