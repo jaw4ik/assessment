@@ -64,37 +64,6 @@
                     expect(viewModel.canActivate()).toBePromise();
                 });
 
-                xdescribe('when course does not exist', function () {
-
-                    beforeEach(function () {
-                        getById.reject('reason');
-                    });
-
-                    it('should return redirect to \'404\'', function (done) {
-
-                        viewModel.canActivate('courseId').then(function (result) {
-                            expect(result).toEqual({ redirect: "404" });
-                            done();
-                        });
-                    });
-
-                });
-
-                xdescribe('when course exists', function () {
-
-                    beforeEach(function () {
-                        getById.resolve({});
-                    });
-
-                    it('should return true', function (done) {
-                        viewModel.canActivate('courseId').then(function (result) {
-                            expect(result).toEqual(true);
-                            done();
-                        });
-                    });
-
-                });
-
                 describe('when activated with 1 argument', function () {
 
                     describe('and objective exists', function () {
