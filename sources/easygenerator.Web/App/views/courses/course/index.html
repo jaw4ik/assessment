@@ -15,6 +15,12 @@
                     <!-- /ko -->
                     <a href="" class="button button-collaboration" data-bind="click: collaborate">
                         Add co-authors
+                        <!-- ko if: collaborators().length > 1 -->
+                        <span class="count" data-bind="text: collaborators().length"></span>
+                        <!-- /ko -->
+                        <!-- ko ifnot: collaborators().length > 1 -->
+                        <span class="count">+</span>
+                        <!-- /ko -->
                     </a>
                 </li>
                 <li class="separator"></li>

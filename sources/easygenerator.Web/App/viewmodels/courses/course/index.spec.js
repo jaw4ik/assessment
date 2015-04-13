@@ -3,7 +3,9 @@
 
     var
         repository = require('repositories/courseRepository'),
+        collaboratorRepository = require('repositories/collaboratorRepository'),
 
+        app = require('durandal/app'),
         clientContext = require('clientContext'),
         constants = require('constants'),
         eventTracker = require('eventTracker'),
@@ -15,7 +17,8 @@
         beforeEach(function () {
             spyOn(eventTracker, 'publish');
             spyOn(notify, 'saved');
-
+            spyOn(app, 'on');
+            spyOn(app, 'off');
         });
 
         it('should be object', function () {
@@ -274,6 +277,14 @@
             });
         });
 
+        describe('collaborators:', function () {
+
+            it('should be observable array', function () {
+                expect(viewModel.collaborators).toBeObservableArray();
+            });
+
+        });
+
         describe('createdBy:', function () {
 
             it('should be observable', function () {
@@ -281,7 +292,6 @@
             });
 
         });
-
 
         describe('preview:', function () {
 
@@ -409,10 +419,14 @@
 
         describe('activate:', function () {
             var getById;
+            var getCourseCollaborators;
 
             beforeEach(function () {
                 getById = Q.defer();
+                getCourseCollaborators = Q.defer();
+
                 spyOn(repository, 'getById').and.returnValue(getById.promise);
+                spyOn(collaboratorRepository, 'getCollection').and.returnValue(getCourseCollaborators.promise);
             });
 
             it('should be function', function () {
@@ -443,11 +457,14 @@
                 var course = {
                     id: 'id',
                     title: 'title',
-                    createdBy: 'createdBy'
+                    createdBy: 'createdBy',
                 };
+
+                var collaborators = [{ email: 'a@a.a' }, { email: 'b@b.b' }];
 
                 beforeEach(function () {
                     getById.resolve(course);
+                    getCourseCollaborators.resolve(collaborators);
                     spyOn(clientContext, 'set');
                 });
 
@@ -478,8 +495,16 @@
                     });
                 });
 
+                it('should set collaborators', function (done) {
+                    viewModel.collaborators([]);
+                    viewModel.activate(course.id).fin(function () {
+                        expect(viewModel.collaborators()).toEqual(['a@a.a', 'b@b.b']);
+                        done();
+                    });
+                });
+
                 it('should resolve promise', function (done) {
-                    viewModel.activate(course.id).then(function () {
+                    viewModel.activate(course.id).fin(function () {
                         done();
                     });
                 });
@@ -534,6 +559,66 @@
                     });
                 });
 
+                it('should subscribe to collaboratorAdded event', function (done) {
+                    viewModel.activate(course.id).fin(function () {
+                        expect(app.on).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorAdded + course.id, viewModel.collaboratorAdded);
+                        done();
+                    });
+                });
+
+                it('should subscribe to collaboratorRemoved event', function (done) {
+                    viewModel.activate(course.id).fin(function () {
+                        expect(app.on).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorRemoved + course.id, viewModel.collaboratorRemoved);
+                        done();
+                    });
+                });
+
+            });
+
+        });
+
+        describe('collaboratorAdded:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.collaboratorAdded).toBeFunction();
+            });
+
+            describe('when collaborator does not yet exist', function () {
+
+                it('should add collaborator to collection', function () {
+                    viewModel.collaborators([]);
+                    viewModel.collaboratorAdded({ email: 'a@a.a' });
+
+                    expect(viewModel.collaborators().length).toEqual(1);
+                });
+
+            });
+
+            describe('when collaborator already exists', function () {
+
+                it('should not add collaborator to collection', function () {
+                    viewModel.collaborators(['a@a.a']);
+                    viewModel.collaboratorAdded({ email: 'a@a.a' });
+
+                    expect(viewModel.collaborators().length).toEqual(1);
+                });
+
+            });
+
+        });
+
+        describe('collaboratorRemoved:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.collaboratorRemoved).toBeFunction();
+            });
+
+
+            it('should remove collaborator from collection', function () {
+                viewModel.collaborators(['a@a.a']);
+                viewModel.collaboratorRemoved('a@a.a');
+
+                expect(viewModel.collaborators().length).toEqual(0);
             });
 
         });

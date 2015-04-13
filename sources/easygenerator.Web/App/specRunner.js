@@ -178,7 +178,10 @@
             'treeOfContent/QuestionTreeNode.spec',
 
             'viewmodels/common/contentField.spec',
-            'viewmodels/courses/courses.spec',            
+            'viewmodels/courses/courses.spec',
+            'viewmodels/courses/course/index.spec',
+            //'viewmodels/courses/course/create/index.spec',
+            'viewmodels/courses/course/create/course.spec',
             'viewmodels/courses/course/design.spec',
             'viewmodels/courses/course/publish.spec',
             'viewmodels/courses/course/results.spec',

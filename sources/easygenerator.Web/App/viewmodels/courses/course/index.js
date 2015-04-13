@@ -1,6 +1,4 @@
-﻿define(['plugins/router', 'viewmodels/courses/index', 'repositories/courseRepository', 'clientContext', 'eventTracker', 'notify', 'constants', 'dialogs/collaboration/collaboration', 'dialogs/publishCourse/publishCourse'], function (router, index, repository, clientContext, eventTracker, notify, constants, collaborationPopup, sharePopup) {
-
-    // VIEWMODEL COURSE INDEX
+﻿define(['durandal/app', 'plugins/router', 'viewmodels/courses/index', 'repositories/courseRepository', 'repositories/collaboratorRepository', 'clientContext', 'eventTracker', 'notify', 'constants', 'dialogs/collaboration/collaboration', 'dialogs/publishCourse/publishCourse'], function (app, router, index, repository, collaboratorRepository, clientContext, eventTracker, notify, constants, collaborationPopup, sharePopup) {
 
     var events = {
         updateCourseTitle: 'Update course title',
@@ -93,12 +91,18 @@
         title: ko.observable(),
         createdBy: ko.observable(),
 
+        collaborators: ko.observableArray(),
         collaborate: collaborate,
         preview: preview,
         share: share,
 
         canActivate: canActivate,
-        activate: activate
+        activate: activate,
+
+
+        collaboratorAdded: collaboratorAdded,
+        collaboratorRemoved: collaboratorRemoved
+
     };
 
     viewModel.title.maxLength = constants.validation.courseTitleMaxLength;
@@ -136,6 +140,7 @@
         return length > 0 && length <= viewModel.title.maxLength;
     });
 
+
     return viewModel;
 
     function collaborate() {
@@ -171,8 +176,29 @@
 
             viewModel.title.isSelected(clientContext.get(constants.clientContextKeys.lastCreatedCourseId) === course.id);
             clientContext.remove(constants.clientContextKeys.lastCreatedCourseId);
+
+            return collaboratorRepository.getCollection(courseId).then(function (collection) {
+                app.on(constants.messages.course.collaboration.collaboratorAdded + courseId, collaboratorAdded);
+                app.on(constants.messages.course.collaboration.collaboratorRemoved + courseId, collaboratorRemoved);
+
+                viewModel.collaborators(collection.map(function (collaborator) {
+                    return collaborator.email;
+                }));
+            });
         });
     }
 
+
+    function collaboratorAdded(collaborator) {
+        if (!_.find(viewModel.collaborators(), function (item) {
+            return item === collaborator.email;
+        })) {
+            viewModel.collaborators.push(collaborator.email);
+        }
+    }
+
+    function collaboratorRemoved(collaboratorEmail) {
+        viewModel.collaborators(_.without(viewModel.collaborators(), collaboratorEmail));
+    }
 
 })

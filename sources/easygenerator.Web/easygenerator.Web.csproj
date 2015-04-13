@@ -583,7 +583,9 @@
       <DependentUpon>design.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\course\index.js" />
-    <Content Include="App\viewmodels\courses\course\index.spec.js" />
+    <Content Include="App\viewmodels\courses\course\index.spec.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\courses\course\publish.js" />
     <Content Include="App\viewmodels\courses\course\publish.spec.js">
       <DependentUpon>publish.js</DependentUpon>
