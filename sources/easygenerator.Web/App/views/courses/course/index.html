@@ -10,6 +10,7 @@
                 </div>
             </div>
             <ul class="course-actions">
+                <!-- ko if: collaborate.enabled -->
                 <li class="">
                     <!--  ko compose: 'dialogs/collaboration/collaboration'  -->
                     <!-- /ko -->
@@ -24,6 +25,7 @@
                     </a>
                 </li>
                 <li class="separator"></li>
+                <!-- /ko -->
                 <li><a href="" class="button button-preview" data-bind="click: preview">Preview</a></li>
                 <li>
                     <!--  ko compose: 'dialogs/publishCourse/publishCourse'  -->

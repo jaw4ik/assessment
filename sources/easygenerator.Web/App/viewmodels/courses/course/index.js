@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'plugins/router', 'viewmodels/courses/index', 'repositories/courseRepository', 'repositories/collaboratorRepository', 'clientContext', 'eventTracker', 'notify', 'constants', 'dialogs/collaboration/collaboration', 'dialogs/publishCourse/publishCourse'], function (app, router, index, repository, collaboratorRepository, clientContext, eventTracker, notify, constants, collaborationPopup, sharePopup) {
+﻿define(['durandal/app', 'plugins/router', 'viewmodels/courses/index', 'repositories/courseRepository', 'repositories/collaboratorRepository', 'userContext', 'clientContext', 'eventTracker', 'notify', 'constants', 'dialogs/collaboration/collaboration', 'dialogs/publishCourse/publishCourse'], function (app, router, index, repository, collaboratorRepository, userContext, clientContext, eventTracker, notify, constants, collaborationPopup, sharePopup) {
 
     var events = {
         updateCourseTitle: 'Update course title',
@@ -143,6 +143,9 @@
         return length > 0 && length <= viewModel.title.maxLength;
     });
 
+    collaborate.enabled = ko.computed(function () {
+        return (userContext.identity && userContext.identity.email) === viewModel.createdBy();
+    });
 
     return viewModel;
 
