@@ -14,16 +14,12 @@
 
     childRouter.isViewReady = ko.observable();
     childRouter.on('router:navigation:processing').then(function (instruction, router) {
-        if (instruction.config.moduleId !== router.isViewReady()) {
-            router.isViewReady(false);
-        }
+        router.isViewReady(false);
     });
     childRouter.on('router:navigation:composition-complete').then(function (instance, instruction, router) {
-        if (instance) {
-            setTimeout(function () {
-                router.isViewReady(instance.__moduleId__);
-            }, 250);
-        }
+        setTimeout(function () {
+            router.isViewReady(true);
+        }, 250);
     });
 
 
