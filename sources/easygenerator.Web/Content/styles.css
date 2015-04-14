@@ -2029,30 +2029,29 @@ span.top-navigation-item.current {
 /*#endregion REGION_NAME*/
 /*#region TOOLTIP*/
 .tooltip-icon {
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  box-shadow: 0 0 1px rgba(0, 144, 217, 0);
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 7px;
+  transition: 0.15s box-shadow linear 0s;
+  transform: translateY(2px);
+}
+.tooltip-icon:before {
   background: url("images/sprites_24.png") repeat scroll -61px -61px rgba(0, 0, 0, 0);
+  position: absolute;
   content: "";
   display: inline-block;
   height: 18px;
   width: 18px;
-  margin-left: 7px;
-  cursor: pointer;
-  vertical-align: middle;
-  line-height: 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 1px rgba(0, 144, 217, 0);
-  transition-delay: 0s;
-  transition-duration: 0.15s;
-  transition-property: box-shadow;
-  transition-timing-function: linear;
-}
-h2 + .tooltip-icon {
-  vertical-align: top;
-  position: relative;
-  top: 7px;
 }
 .tooltip-icon:hover {
-  background-position: -90px -61px;
   box-shadow: 0 0 6px rgba(0, 144, 217, 0.6);
+}
+.tooltip-icon:hover:before {
+  background-position: -90px -61px;
 }
 .tooltip-holder {
   display: none;

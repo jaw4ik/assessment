@@ -2418,32 +2418,33 @@ span.top-navigation-item.current {
 /*#region TOOLTIP*/
 
 .tooltip-icon {
-    background: url("images/sprites_24.png") repeat scroll -61px -61px rgba(0, 0, 0, 0);
-    content: "";
-    display: inline-block;
     height: 18px;
     width: 18px;
-    margin-left: 7px;
-    cursor: pointer;
-    vertical-align: middle;
-    line-height: 20px;
-    border-radius: 12px;
+    border-radius: 50%;
     box-shadow: 0 0 1px rgba(0, 144, 217, 0);
-    transition-delay: 0s;
-    transition-duration: 0.15s;
-    transition-property: box-shadow;
-    transition-timing-function: linear;
-}
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 7px;
+    transition: .15s box-shadow linear 0s;
+    transform: translateY(2px);
 
-h2 + .tooltip-icon {
-    vertical-align: top;
-    position: relative;
-    top: 7px;
-}
 
-.tooltip-icon:hover {
-    background-position: -90px -61px;
-    box-shadow: 0 0 6px rgba(0, 144, 217, 0.6);
+    &:before {
+        background: url("images/sprites_24.png") repeat scroll -61px -61px rgba(0, 0, 0, 0);
+        position: absolute;
+        content: "";
+        display: inline-block;
+        height: 18px;
+        width: 18px;
+    }
+
+    &:hover {
+        box-shadow: 0 0 6px rgba(0, 144, 217, 0.6);
+
+        &:before {
+            background-position: -90px -61px;
+        }
+    }
 }
 
 .tooltip-holder {
