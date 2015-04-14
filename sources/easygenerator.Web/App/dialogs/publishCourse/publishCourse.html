@@ -13,10 +13,9 @@
                 
                 <!-- ko if: publishAction().packageExists() -->
                 <div class="package-action-tabs-item-wrapper" data-bind="with: publishAction()">
-                    <!-- ko compose: { view: 'dialogs/publishCourse/updatePublishedCourse', model: $data } --><!-- /ko -->
+                    <!-- ko compose: { view: 'views/courses/publishActions/updatePublishedCourse', model: $data } --><!-- /ko -->
                     <div class="package-action-tabs-item">
                         <div class="package-action-tabs-item-overlay" data-bind="visible: isCourseDelivering()"></div>
-
                         <!-- ko if: $parent.linkTabOpened -->
                         <div class="package-action-tabs-item-title" data-bind="localize: { text: 'privateLink' }"></div>
                         <div class="package-action-tabs-item-control">

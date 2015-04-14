@@ -542,7 +542,6 @@
     <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.spec.js">
       <DependentUpon>moveCopyQuestion.js</DependentUpon>
     </Content>
-    <Content Include="App\dialogs\publishCourse\updatePublishedCourse.html" />
     <Content Include="App\localization\resources.js" />
     <Content Include="App\models\reportingStatement.js" />
     <Content Include="App\models\reportingStatement.spec.js">
