@@ -50,6 +50,7 @@
     <Compile Include="Entities\Identifiable.cs" />
     <Compile Include="Entities\Onboarding.cs" />
     <Compile Include="Entities\Questions\BlankAnswer.cs" />
+    <Compile Include="Entities\Questions\Open.cs" />
     <Compile Include="Entities\Questions\QuestionWithBackground.cs" />
     <Compile Include="Entities\Questions\HotSpotPolygon.cs" />
     <Compile Include="Entities\Questions\HotSpot.cs" />

@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System.Security.Cryptography.X509Certificates;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using System;
 
@@ -36,6 +37,7 @@ namespace easygenerator.DomainModel
         PasswordRecoveryTicket PasswordRecoveryTicket(User user);
         ImageFile ImageFile(string title, string createdBy);
         InformationContent InformationContent(string title, string createdBy);
+        Open OpenQuestion(string title, string createdBy);
         Onboarding Onboarding(string userEmail);
         DemoCourseInfo DemoCourseInfo(Course sourceCourse, Course demoCourse, string createdBy);
     }
@@ -182,6 +184,11 @@ namespace easygenerator.DomainModel
         public InformationContent InformationContent(string title, string createdBy)
         {
             return new InformationContent(title, createdBy);
+        }
+
+        public Open OpenQuestion(string title, string createdBy)
+        {
+            return new Open(title, createdBy);
         }
 
         public Onboarding Onboarding(string userEmail)

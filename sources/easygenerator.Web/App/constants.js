@@ -44,6 +44,10 @@
                 statement: {
                     type: 'statement',
                     image: '/Content/images/statement-question.png'
+                },
+                open: {
+                    type: 'open',
+                    image: '/Content/images/open-question.png'
                 }
             },
 

@@ -108,6 +108,25 @@
                     });
 
                 });
+
+                describe('and when question type is statement', function () {
+
+                    it('should send event \'Create new question (statement)\' with defined event category ', function () {
+                        command.execute('objectiveId', 'courseId', constants.questionType.statement.type, 'event category');
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (statement)', 'event category');
+                    });
+
+                });
+
+                describe('and when question type is open', function () {
+
+                    it('should send event \'Create new question (open)\' with defined event category ', function () {
+                        command.execute('objectiveId', 'courseId', constants.questionType.open.type, 'event category');
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (open)', 'event category');
+                    });
+
+                });
+
             });
 
             describe('when event category is undefined', function () {

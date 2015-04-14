@@ -1592,6 +1592,19 @@
     },
     /* End resource section for model StatementQuestion */
     
+    /* Resource section for model OpenQuestion */
+    newOpenQuestionTitle: {
+        'en': 'Untitled open question',
+        'zh-cn': 'Untitled open question[zh-cn]',
+        'uk': 'Untitled open question[uk]'
+    },
+    openQuestionEditor: {
+        'en': '\"Open\" question editor',
+        'zh-cn': '\"Open\" question editor[zh-cn]',
+        'uk': '\"Open\" question editor[uk]'
+    },
+    /* End resource section for model OpenQuestion */
+    
     /* Resource section for model QuestionFeedback */
     putYourPositiveFeedback: {
         'en': 'Create response for correct answer',
