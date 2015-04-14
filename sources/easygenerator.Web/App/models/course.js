@@ -146,7 +146,6 @@
                 return publishService.publishCourse(that.id).then(function (publishInfo) {
                     action.packageUrl = publishInfo.publishedPackageUrl;
 
-                    that.hasUnpublishedChanges = false;
                     action.setState(constants.publishingStates.succeed);
                     app.trigger(constants.messages.course.publish.completed, that);
 
