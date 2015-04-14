@@ -19,7 +19,7 @@
                     <span data-bind="localize: { text: 'correctFeedback' }">Correct feedback</span>
                 </div>
             </div>
-            <div class="question-feedback" data-bind="with: correctFeedback, css: { active: correctFeedback.hasFocus }">
+            <div class="question-feedback" data-bind="with: correctFeedback, css: { active: correctFeedback.hasFocus, empty: correctFeedback.isEmpty }">
                 <div class="question-feedback-text-wrapper selectable" data-bind="ckeditor: { data: text, eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, blur: updateText, autosaveInterval: $root.autosaveInterval, localizationManager: $root.localizationManager }">
                 </div>
                 <!-- ko if: isEmpty() && !hasFocus() -->
@@ -36,7 +36,7 @@
                     <span data-bind="localize: { text: 'incorrectFeedback' }">Incorrect feedback</span>
                 </div>
             </div>
-            <div class="question-feedback" data-bind="with: incorrectFeedback, css: { active: incorrectFeedback.hasFocus }">
+            <div class="question-feedback" data-bind="with: incorrectFeedback, css: { active: incorrectFeedback.hasFocus, empty: incorrectFeedback.isEmpty }">
                 <div class="question-feedback-text-wrapper selectable" data-bind="ckeditor: { data: text, eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, blur: updateText, autosaveInterval: $root.autosaveInterval, localizationManager: $root.localizationManager }">
                 </div>
                 <!-- ko if: isEmpty() && !hasFocus() -->
