@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    var app = angular.module('quiz', ['ngRoute']);
+    var app = angular.module('quiz', ['ngRoute', 'pascalprecht.translate']);
 
     app.config([
         '$routeProvider', function ($routeProvider) {

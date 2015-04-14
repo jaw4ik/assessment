@@ -1,9 +1,9 @@
 ﻿<div class="error-page-container">
     <header class="main-logo-wrapper">
-        <img class="main-logo" ng-src="{{notFoundError.logoUrl}}">
+        <img class="main-logo" ng-src="{{ notFoundError.logoUrl }}">
         <span class="vertical-align-helper"></span>
     </header>
-    <div class="error-container" ng-init="scrollToTop()" error-page>
+    <div class="error-container" ng-init="scrollToTop()" entire-height>
         <div class="error-content-container not-found-error">
             <div class="error-content-wrapper">
                 <div class="error-title-container">
@@ -11,10 +11,14 @@
                 </div>
                 <div class="error-message-container">
                     <span class="error-message">
-                        Sorry, the page you have been looking for has not been found. Try checking the URL on errors or click 'Home' button below. Сontact your teacher if the problem persists.
+                        {{ '[page not found message]' | translate }}
                     </span>
                     <div class="error-button-container">
-                        <button ng-click="notFoundError.goHome()" class="button large emphasize default">home</button>
+                        <button ng-click="notFoundError.goHome()" class="button large emphasize default">
+                            <span class="text-wrapper">
+                                {{ '[page not found home button]' | translate }}
+                            </span>
+                        </button>
                     </div>
                 </div>
             </div>
