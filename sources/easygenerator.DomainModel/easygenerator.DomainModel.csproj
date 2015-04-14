@@ -97,7 +97,6 @@
     <Compile Include="Events\CourseEvents\CourseObjectivesReorderedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseObjectivesUnrelatedEvent.cs" />
     <Compile Include="Events\CourseEvents\CoursePublishedEvent.cs" />
-    <Compile Include="Events\CourseEvents\CoursePublishStartedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseTemplateSettingsUpdated.cs" />
     <Compile Include="Events\CourseEvents\CourseTemplateUpdatedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseTitleUpdatedEvent.cs" />
