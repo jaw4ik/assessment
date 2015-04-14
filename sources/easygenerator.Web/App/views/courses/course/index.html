@@ -36,7 +36,7 @@
         </div>
         <nav>
             <ul data-bind="foreach: router.navigationModel">
-                <li><a data-bind="attr: { href:  dynamicHash }, css: { active: isActive }, localize: { text: title }, click: navigate"></a></li>
+                <li><a data-bind="attr: { href:  dynamicHash }, css: { active: isActive }, text: title, click: navigate"></a></li>
             </ul>
         </nav>
     </header>

@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'plugins/router', 'routing/isViewReadyMixin', 'viewmodels/courses/index', 'repositories/courseRepository', 'repositories/collaboratorRepository', 'userContext', 'clientContext', 'eventTracker', 'notify', 'constants', 'dialogs/collaboration/collaboration', 'dialogs/publishCourse/publishCourse'], function (app, router, isViewReady, index, repository, collaboratorRepository, userContext, clientContext, eventTracker, notify, constants, collaborationPopup, sharePopup) {
+﻿define(['durandal/app', 'plugins/router', 'routing/isViewReadyMixin', 'viewmodels/courses/index', 'repositories/courseRepository', 'repositories/collaboratorRepository', 'userContext', 'clientContext', 'eventTracker', 'notify', 'constants', 'localization/localizationManager', 'dialogs/collaboration/collaboration', 'dialogs/publishCourse/publishCourse'], function (app, router, isViewReady, index, repository, collaboratorRepository, userContext, clientContext, eventTracker, notify, constants, localizationManager, collaborationPopup, sharePopup) {
 
     var events = {
         updateCourseTitle: 'Update course title',
@@ -14,12 +14,9 @@
           {
               route: 'design',
               moduleId: 'viewmodels/courses/course/design',
-              title: 'courseDesignItem',
+              title: localizationManager.localize('courseDesignItem'),
               nav: 2,
               hash: '#courses/:courseId/design',
-              settings: {
-                  localizationKey: 'courseDesignItem'
-              },
               navigate: function () {
                   eventTracker.publish('Navigate to design course');
                   router.navigate(this.dynamicHash());
@@ -28,7 +25,7 @@
           {
               route: 'publish',
               moduleId: 'viewmodels/courses/course/publish',
-              title: 'coursePublishItem',
+              title: localizationManager.localize('coursePublishItem'),
               nav: 3,
               hash: '#courses/:courseId/publish',
               settings: {
@@ -42,7 +39,7 @@
           {
               route: 'results',
               moduleId: 'viewmodels/courses/course/results',
-              title: 'courseResultsItem',
+              title: localizationManager.localize('courseResultsItem'),
               nav: 4,
               hash: '#courses/:courseId/results',
               settings: {
@@ -56,7 +53,7 @@
           {
               route: ['', '*details'],
               moduleId: 'viewmodels/courses/course/create/index',
-              title: 'courseCreateItem',
+              title: localizationManager.localize('courseCreateItem'),
               nav: 1,
               hash: '#courses/:courseId',
               settings: {
