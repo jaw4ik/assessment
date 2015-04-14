@@ -1983,6 +1983,7 @@
     <Content Include="Templates\Simple course\lang\pt-br.json" />
     <Content Include="Templates\Simple course\lang\tr.json" />
     <Content Include="Templates\Simple course\lang\ua.json" />
+    <Content Include="Templates\Quiz\lang\nl.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

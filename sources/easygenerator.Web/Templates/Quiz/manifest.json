@@ -9,12 +9,17 @@
     "languages": [
         {
             "code": "en",
-            "name":  "English",
+            "name": "English",
             "url": "lang/en.json"
         },
+		{
+			"code": "nl",
+			"name": "Dutch",
+			"url": "lang/nl.json"
+		},
         {
             "code": "ua",
-            "name":  "Ukrainian",
+            "name": "Ukrainian",
             "url": "lang/ua.json"
         }
     ]
