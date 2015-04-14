@@ -2,7 +2,7 @@
     init: function () {
     },
     update: function (element, valueAccessor) {
-        var $element = $(element),            
+        var $element = $(element),
             $html = $('html'),
             $container = $('body'),
             speed = 200,
@@ -36,6 +36,9 @@
             }
 
             $html.on('keyup', hideOnEscape);
+            $container.css({
+                overflowY: 'hidden'
+            });
         }
 
         function hide() {
@@ -44,6 +47,9 @@
                     scrollLocker.releaseScroll();
                     $(this).remove();
                     $html.off('keyup', hideOnEscape);
+                    $container.css({
+                        overflowY: 'visible'
+                    });
 
                     if (_.isFunction(onHide)) {
                         onHide();
@@ -107,7 +113,8 @@
             }
         };
 
-        ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+            hide();
             isShown(false);
         });
     }
