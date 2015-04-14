@@ -14,11 +14,11 @@
           {
               route: 'design',
               moduleId: 'viewmodels/courses/course/design',
-              title: 'Design',
+              title: 'courseDesignItem',
               nav: 2,
               hash: '#courses/:courseId/design',
               settings: {
-                  localizationKey: 'course'
+                  localizationKey: 'courseDesignItem'
               },
               navigate: function () {
                   eventTracker.publish('Navigate to design course');
@@ -28,7 +28,7 @@
           {
               route: 'publish',
               moduleId: 'viewmodels/courses/course/publish',
-              title: 'Publish',
+              title: 'coursePublishItem',
               nav: 3,
               hash: '#courses/:courseId/publish',
               settings: {
@@ -42,7 +42,7 @@
           {
               route: 'results',
               moduleId: 'viewmodels/courses/course/results',
-              title: 'Results',
+              title: 'courseResultsItem',
               nav: 4,
               hash: '#courses/:courseId/results',
               settings: {
@@ -56,7 +56,7 @@
           {
               route: ['', '*details'],
               moduleId: 'viewmodels/courses/course/create/index',
-              title: 'Create',
+              title: 'courseCreateItem',
               nav: 1,
               hash: '#courses/:courseId',
               settings: {

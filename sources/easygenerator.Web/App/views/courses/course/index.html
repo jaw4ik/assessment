@@ -3,7 +3,7 @@
     <header class="content-section-wrapper">
         <div class="content-section course-title-wrapper">
             <div class="edit-field-wrapper course-title" data-bind="css: { 'active': title.isEditing(), 'error': !title.isValid() }">
-                <label>Course title</label>
+                <label data-bind="localize: { text: 'courseTitle' }">Course title</label>
                 <div class="edit-field selectable" data-bind="editableText: { text: title }, event: { focus: title.beginEdit, blur: title.endEdit }, autofocus: { focus: title.isSelected(), autoselect: title.isSelected() }"></div>
                 <div class="validation-message">
                     <span data-bind="text: title() && title().length"></span>\<span data-bind="text: title.maxLength"></span>
@@ -26,17 +26,17 @@
                 </li>
                 <li class="separator"></li>
                 <!-- /ko -->
-                <li><a href="" class="button button-preview" data-bind="click: preview">Preview</a></li>
+                <li><a href="" class="button button-preview" data-bind="click: preview, localize: { text: 'preview' }">Preview</a></li>
                 <li>
                     <!--  ko compose: 'dialogs/publishCourse/publishCourse'  -->
                     <!-- /ko -->
-                    <a href="" class="button button-share" data-bind="click: share">Share</a>
+                    <a href="" class="button button-share" data-bind="click: share, localize: { text: 'share' }">Share</a>
                 </li>
             </ul>
         </div>
         <nav>
             <ul data-bind="foreach: router.navigationModel">
-                <li><a data-bind="attr: { href:  dynamicHash }, css: { active: isActive }, text: ($index() + 1) + '. ' + title, click: navigate"></a></li>
+                <li><a data-bind="attr: { href:  dynamicHash }, css: { active: isActive }, localize: { text: title }, click: navigate"></a></li>
             </ul>
         </nav>
     </header>
