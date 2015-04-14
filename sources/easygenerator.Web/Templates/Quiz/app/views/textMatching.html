@@ -1,5 +1,5 @@
 <section class="text-matching" text-matching>
-    <tooltip>Drag items from right column to the left to match the pairs</tooltip>
+    <tooltip>{{ '[text matching question hint]' | translate }}</tooltip>
 
 
     <div class="text-matching-table-wrapper">
@@ -11,7 +11,7 @@
                             <div class="text-matching-source">
                                 <div class="text-matching-source-text-wrapper">
                                     <div class="text-matching-source-text">
-                                        {{source.key}}
+                                        {{ source.key }}
                                     </div>
                                 </div>
                             </div>
@@ -25,7 +25,7 @@
                                 <div class="placeholder-help">
                                     <div class="placeholder-help-text-wrapper">
                                         <div class="placeholder-help-text">
-                                            Drop here
+                                            {{ '[text matching question drop here]' | translate }}
                                         </div>
                                     </div>
                                 </div>
@@ -35,7 +35,7 @@
                             <div class="text-matching-target">
                                 <div class="text-matching-target-text-wrapper">
                                     <div class="text-matching-target-text">
-                                        {{source.value}}
+                                        {{ source.value }}
                                     </div>
                                 </div>
                             </div>
@@ -51,7 +51,7 @@
                             <div class="text-matching-target">
                                 <div class="text-matching-target-text-wrapper">
                                     <div class="text-matching-target-text">
-                                        {{question.targets[$index].value}}
+                                        {{ question.targets[$index].value }}
                                     </div>
                                 </div>
 

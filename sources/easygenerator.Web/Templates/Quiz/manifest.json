@@ -5,5 +5,17 @@
     "previewImages": [
         "preview/images/preview.jpg"
     ],
-    "settingsUrl": "settings/settings.html"
+    "settingsUrl": "settings/settings.html",
+    "languages": [
+        {
+            "code": "en",
+            "name":  "English",
+            "url": "lang/en.json"
+        },
+        {
+            "code": "ua",
+            "name":  "Ukrainian",
+            "url": "lang/ua.json"
+        }
+    ]
 }

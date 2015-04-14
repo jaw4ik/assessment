@@ -1,7 +1,7 @@
 <div class="question-hint-container">
     <div class="hint-button-container">
         <div class="hint-button" ng-click="question.hint.isDisplayed ? question.hint.hide(false) : question.hint.show()" ng-class="{'hint-displayed': question.hint.isDisplayed}">
-            <span class="hint-button-caption">{{question.hint.isDisplayed ? 'Hide hint' : 'Show hint'}}</span>
+            <span class="hint-button-caption">{{ question.hint.isDisplayed ? '[hide hint]' : '[show hint]' | translate }}</span>
         </div>
     </div>
     <div class="question-hint" slide-toggle="question.hint.isDisplayed" slide-toggle-scroll-to="question.hint.scrollToQuestion ? '.question': ''">
@@ -18,9 +18,11 @@
         </div>
         <div class="hint-footer">
             <div class="hint-hide-button" ng-click="question.hint.hide(true)">
-                <div class="button-caption"></div>
-                <div class="button-hover-caption">
-                    <span class="text-container">Hide</span>
+                <div class="arrow-wrapper">
+                    <div class="arrow"></div>
+                </div>
+                <div class="arrow-wrapper">
+                    <div class="arrow"></div>
                 </div>
             </div>
         </div>
