@@ -534,6 +534,7 @@
     <Content Include="App\reporting\xApiProvider.spec.js">
       <DependentUpon>xApiProvider.js</DependentUpon>
     </Content>
+    <Content Include="App\routing\isViewReadyMixin.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\answerCorrectnessUpdated.spec.js">
       <DependentUpon>answerCorrectnessUpdated.js</DependentUpon>
     </Content>

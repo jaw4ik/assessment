@@ -1,4 +1,4 @@
-﻿define(['viewmodels/courses/course/index', 'repositories/courseRepository', 'repositories/objectiveRepository'], function (index, courseRepository, objectiveRepository) {
+﻿define(['viewmodels/courses/course/index', 'routing/isViewReadyMixin', 'repositories/courseRepository'], function (index, isViewReady, courseRepository) {
 
 
     var childRouter = index.router.createChildRouter()
@@ -12,16 +12,7 @@
       ]).mapUnknownRoutes('viewmodels/errors/404', '404').buildNavigationModel();
 
 
-    childRouter.isViewReady = ko.observable();
-    childRouter.on('router:navigation:processing').then(function (instruction, router) {
-        router.isViewReady(false);
-    });
-    childRouter.on('router:navigation:composition-complete').then(function (instance, instruction, router) {
-        setTimeout(function () {
-            router.isViewReady(true);
-        }, 250);
-    });
-
+    isViewReady.assign(childRouter, true);
 
     return {
         router: childRouter,

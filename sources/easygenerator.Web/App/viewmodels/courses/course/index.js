@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'plugins/router', 'viewmodels/courses/index', 'repositories/courseRepository', 'repositories/collaboratorRepository', 'userContext', 'clientContext', 'eventTracker', 'notify', 'constants', 'dialogs/collaboration/collaboration', 'dialogs/publishCourse/publishCourse'], function (app, router, index, repository, collaboratorRepository, userContext, clientContext, eventTracker, notify, constants, collaborationPopup, sharePopup) {
+﻿define(['durandal/app', 'plugins/router', 'routing/isViewReadyMixin', 'viewmodels/courses/index', 'repositories/courseRepository', 'repositories/collaboratorRepository', 'userContext', 'clientContext', 'eventTracker', 'notify', 'constants', 'dialogs/collaboration/collaboration', 'dialogs/publishCourse/publishCourse'], function (app, router, isViewReady, index, repository, collaboratorRepository, userContext, clientContext, eventTracker, notify, constants, collaborationPopup, sharePopup) {
 
     var events = {
         updateCourseTitle: 'Update course title',
@@ -70,19 +70,8 @@
       ]).mapUnknownRoutes('viewmodels/errors/404', '404').buildNavigationModel();
 
 
-    childRouter.isViewReady = ko.observable();
-    childRouter.on('router:navigation:processing').then(function (instruction, router) {
-        if (instruction.config.moduleId !== router.isViewReady()) {
-            router.isViewReady(false);
-        }
-    });
-    childRouter.on('router:navigation:composition-complete').then(function (instance, instruction, router) {
-        if (instance) {
-            setTimeout(function () {
-                router.isViewReady(instance.__moduleId__);
-            }, 250);
-        }
-    });
+    isViewReady.assign(childRouter);
+
 
     //#endregion
 
