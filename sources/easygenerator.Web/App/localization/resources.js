@@ -321,6 +321,11 @@
         'zh-cn': '预览',
         'uk': 'Переглянути'
     },
+    share: {
+        'en': 'Share',
+        'zh-cn': 'Share[zh-cn]',
+        'uk': 'Поділитися'
+    },
     or: {
         'en': 'Or',
         'zh-cn': 'Or[zh-cn]',
@@ -1683,6 +1688,11 @@
         'en': 'Course template settings:',
         'zh-cn': '课程模板设置',
         'uk': 'Course template settings:'
+    },
+    courseTitle: {
+        'en': 'Course title',
+        'zh-cn': 'Course title[zh-cn]',
+        'uk': 'Назва курсу'
     },
     /* End resource section for model Display course */
     

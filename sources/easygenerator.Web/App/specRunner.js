@@ -53,8 +53,7 @@
             'errorHandling/httpErrorHandlers/unauthorizedHttpErrorHandler.spec',
             'errorHandling/errorHandlingConfiguration.spec',
             'errorHandling/globalErrorHandler.spec',
-            'errorHandling/httpErrorHandlerRegistrator.spec',
-            'help/helpHint.spec',
+            'errorHandling/httpErrorHandlerRegistrator.spec',            
             'localization/localizationManager.spec',
             'models/course.spec',
             'models/user.spec',
@@ -70,7 +69,6 @@
             'repositories/objectiveRepository.spec',
             'repositories/templateRepository.spec',
             'repositories/questionRepository.spec',
-            'routing/routerExtender.spec',
             'services/publishService.spec',
             'utils/waiter.spec',
 
@@ -119,7 +117,7 @@
             'synchronization/handlers/answer/eventHandlers/deleted.spec',
             'synchronization/handlers/answer/eventHandlers/textUpdated.spec',
             'synchronization/handlers/answer/eventHandlers/answerCorrectnessUpdated.spec',
-            
+
             'synchronization/handlers/user/handler.spec',
             'synchronization/handlers/user/eventHandlers/upgradedToStarter.spec',
             'synchronization/handlers/user/eventHandlers/upgradedToPlus.spec',
@@ -181,10 +179,12 @@
 
             'viewmodels/common/contentField.spec',
             'viewmodels/courses/courses.spec',
-            'viewmodels/courses/course.spec',
-            'viewmodels/courses/design.spec',
-            'viewmodels/courses/publish.spec',
-            'viewmodels/courses/results.spec',
+            'viewmodels/courses/course/index.spec',
+            //'viewmodels/courses/course/create/index.spec',
+            'viewmodels/courses/course/create/course.spec',
+            'viewmodels/courses/course/design.spec',
+            'viewmodels/courses/course/publish.spec',
+            'viewmodels/courses/course/results.spec',
             'viewmodels/courses/publishingActions/publishingAction.spec',
             'viewmodels/courses/publishingActions/build.spec',
             'viewmodels/courses/publishingActions/publish.spec',
@@ -264,10 +264,9 @@
             'viewmodels/questions/feedback.spec',
 
             //#endregion
-            
+
             'viewmodels/user/userMenu.spec',
-            'viewmodels/shell.spec',
-            'widgets/backButton/viewmodel.spec',
+            'viewmodels/shell.spec',            
             'widgets/notifyViewer/viewmodel.spec',
             'widgets/uiLockViewer/viewmodel.spec',
             'widgets/createQuestion/viewmodel.spec',

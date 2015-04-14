@@ -17,6 +17,7 @@
         guard.throwIfNotAnObject(settings, 'settings is not an object');
         guard.throwIfNotString(settings.objectiveId, 'objectiveId is not a string');
 
+        viewModel.courseId = settings.courseId;
         viewModel.objectiveId = settings.objectiveId;
 
         return userContext.identify().then(function () {
@@ -71,13 +72,8 @@
     }
 
     function createQuestion(item) {
-        var courseId = getCourseId();
-        return createQuestionCommand.execute(viewModel.objectiveId, courseId, item.type);
+        return createQuestionCommand.execute(viewModel.objectiveId, viewModel.courseId, item.type);
     }
 
-    function getCourseId() {
-        var params = router.activeInstruction().queryParams;
-        return _.isNullOrUndefined(params) ? null : params.courseId;
-    }
 
 });

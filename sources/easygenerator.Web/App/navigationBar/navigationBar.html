@@ -1,23 +1,19 @@
-﻿<section class="tb-cell navigation-bar-wrapper" data-bind="expander: { isExpanded: isExpanded, minSize: 50, maxSize: 300, onCollapsed: onCollapsed }, cellSize: true">
-    <div class="navigation-bar-wrapper-inner">
-        <div class="navigation-bar-wrapper-absolute-holder">
-            <!-- ko if: isVisible -->
-            <div class="navigation-bar" data-bind="css: { 'onboarding-visible': !onboardingClosed() }">
-                <div class="navigation-bar-header" data-bind="click: collapse, localize: { text: 'hideNavigationTree' }">Hide navigation</div>
-                <!-- ko compose: 'treeOfContent/treeOfContent' --><!-- /ko -->
-                <!-- ko ifnot: onboardingClosed -->
-                    <!-- ko compose: { model: 'onboarding/onboarding', activationData: { isMinimized: false } } --><!-- /ko -->
-                <!-- /ko -->
-            </div>
-            <!-- /ko -->
-            <!-- ko ifnot: isVisible -->
-            <div class="navigation-bar collapsed" data-bind="css: { 'onboarding-visible': !onboardingClosed() }">
-                <div class="navigation-bar-collapse-button" data-bind="click: expand, localize: { title: 'openNavigationBar' }">&nbsp;</div>
-                <!-- ko ifnot: onboardingClosed -->
-                    <!-- ko compose: { model: 'onboarding/onboarding', activationData: { isMinimized: true } } --><!-- /ko -->
-                <!-- /ko -->
-            </div>
-            <!-- /ko -->
-        </div>
+﻿<div data-bind="expander: { isExpanded: isExpanded, minSize: 50, maxSize: 300, onCollapsed: onCollapsed }, css: { expanded: isExpanded }">
+    <!-- ko if: isVisible -->
+    <div class=" navigation-bar" data-bind="css: { 'onboarding-visible': !onboardingClosed() }">
+        <div class="navigation-bar-header" data-bind="click: collapse, localize: { text: 'hideNavigationTree' }">Hide navigation</div>
+        <!-- ko compose: 'treeOfContent/treeOfContent' --><!-- /ko -->
+        <!-- ko ifnot: onboardingClosed -->
+        <!-- ko compose: { model: 'onboarding/onboarding', activationData: { isMinimized: false } } --><!-- /ko -->
+        <!-- /ko -->
     </div>
-</section>
+    <!-- /ko -->
+    <!-- ko ifnot: isVisible -->
+    <div class="navigation-bar collapsed" data-bind="css: { 'onboarding-visible': !onboardingClosed() }">
+        <div class="navigation-bar-collapse-button" data-bind="click: expand, localize: { title: 'openNavigationBar' }">&nbsp;</div>
+        <!-- ko ifnot: onboardingClosed -->
+        <!-- ko compose: { model: 'onboarding/onboarding', activationData: { isMinimized: true } } --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+    <!-- /ko -->
+</div>

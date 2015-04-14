@@ -1,4 +1,4 @@
-﻿<div class="modal-dialog-wrapper publish-course" data-bind="dialog: { autoclose: true, isShown: isShown }">
+﻿<div class="modal-dialog-wrapper publish-course" data-bind="dialog: { autoclose: true, isShown: isShown }, css: { visible: isShown}">
     <!-- ko ifnot: _.isNullOrUndefined(publishAction()) -->
     <!-- ko compose: { view: 'views/courses/publishActions/publishToPublicationServerPopup', model: { publishAction: publishAction, states: states, isCourseDelivering: publishAction().isCourseDelivering } } -->
     <!-- /ko -->

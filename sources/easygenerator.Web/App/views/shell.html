@@ -1,116 +1,77 @@
-﻿<div data-bind="css: 'module-' + activeModuleName()">
-    <div class="tb-main" data-bind="css: { 'navigation-tree-shown-mode': showTreeOfContent(), 'navigation-tree-hide-mode': !showTreeOfContent()}">
-        <header class="header-wrapper tb-row">
-            <div class="tb-cell">
-                <div class="header colspan-cell">
-                    <div class="pull-left header-logo-holder">
-                        <!-- ko if: activeModuleName() == homeModuleName || router.isNavigating() -->
-                        <span class="header-logo"></span>
-                        <!-- /ko -->
-                        <!-- ko ifnot: activeModuleName() == homeModuleName || router.isNavigating() -->
-                        <a href="#/" class="header-logo">&nbsp;</a>
-                        <!-- /ko -->
-                    </div>
-                    <div class="content-section-wrapper">
-                        <div class="content-section clearfix">
-                            <nav class="header-navigation">
-                                <ul class="header-navigation-list clearfix">
-                                    <!-- ko foreach: navigation -->
-                                    <li class="header-navigation-item">
-                                        <!-- ko ifnot: isActive -->
-                                        <a href="#" class="top-navigation-item" data-bind="click: navigate, attr: { href: navigationLink }, css: { current: isPartOfModules }">
-                                            <span data-bind="localize: { text: title }, css: { 'cursor-default': $parent.router.isNavigating() }"></span>
-                                        </a>
-                                        <!-- /ko -->
-                                        <!-- ko if: isActive -->
-                                        <span class="top-navigation-item" data-bind="click: isEditor() ? navigate : '', css: { current: isPartOfModules, cursor: $parent.router.isNavigating(), 'cursor-pointer': isEditor() }, scrollToTop: true">
-                                            <span data-bind="localize: { text: title }, css: { 'cursor-default': $parent.router.isNavigating() }"></span>
-                                        </span>
-                                        <!-- /ko -->
-                                    </li>
+﻿<section class="shell-wrapper">
+
+    <section class="shell">
+        <header>
+            <div>
+                <div class="pull-left header-logo-holder">
+                    <!-- ko if: activeModuleName() == homeModuleName || router.isNavigating() -->
+                    <span class="header-logo"></span>
+                    <!-- /ko -->
+                    <!-- ko ifnot: activeModuleName() == homeModuleName || router.isNavigating() -->
+                    <a href="#/" class="header-logo">&nbsp;</a>
+                    <!-- /ko -->
+                </div>
+                <div class="content-section-wrapper">
+                    <div class="content-section clearfix">
+                        <nav class="header-navigation">
+                            <ul class="header-navigation-list clearfix">
+                                <!-- ko foreach: router.navigationModel -->
+                                <li class="header-navigation-item">
+                                    <!-- ko ifnot: isActive -->
+                                    <a href="#" class="top-navigation-item" data-bind="click: navigate, attr: { href: hash }">
+                                        <span data-bind="localize: { text: title }"></span>
+                                    </a>
                                     <!-- /ko -->
-                                </ul>
-                            </nav>
-                            <ul class="header-menu-list clearfix">
-                                <li class="header-menu-list-item ">
-                                    <a href="" class="header-upgrade-link" data-bind="click: openUpgradePlanUrl, localize: { text: 'upgradeNow' }">Upgrade now</a>
-                                </li>
-                                <li class="header-menu-list-item help">
-                                    <span class="header-help-hint-btn" data-bind="localize: { text: 'help' }, click: help.show, css: { disabled: !help.isHelpHintExist() || help.visible() }">Help</span>
-                                </li>
-                                <li class="header-menu-list-item dropdown-list-wrapper">
-                                    <!-- ko compose: 'notifications/notification' -->
+                                    <!-- ko if: isActive -->
+                                    <span class="top-navigation-item current" data-bind="click: navigate, scrollToTop: true">
+                                        <span data-bind="localize: { text: title }"></span>
+                                    </span>
                                     <!-- /ko -->
                                 </li>
-                                <li class="header-menu-list-item mode profile">
-                                    <!-- ko compose: 'viewmodels/user/userMenu' -->
-                                    <!-- /ko -->
-                                </li>
+                                <!-- /ko -->
                             </ul>
-                        </div>
+                        </nav>
+                        <ul class="header-menu-list clearfix">
+                            <li class="header-menu-list-item ">
+                                <a href="" class="header-upgrade-link" data-bind="click: openUpgradePlanUrl, localize: { text: 'upgradeNow' }">Upgrade now</a>
+                            </li>
+                            <li class="header-menu-list-item dropdown-list-wrapper">
+                                <!-- ko compose: 'notifications/notification' -->
+                                <!-- /ko -->
+                            </li>
+                            <li class="header-menu-list-item mode profile">
+                                <!-- ko compose: 'viewmodels/user/userMenu' -->
+                                <!-- /ko -->
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </header>
-        <section class="tb-row" data-bind="css: { 'navigation' : showCourseNavigation() }">
-            <!-- ko if: showTreeOfContent -->
-            <!-- ko compose: 'navigationBar/navigationBar' -->
-            <!-- /ko -->
-            <!-- /ko -->
-            <div class="tb-cell back-button" data-bind="widget: { kind: 'backButton'}, style: { visibility: isViewReady() ? 'visible' : 'hidden' }, cellSize: true"></div>
-            <div class="tb-cell content-area-wrapper" data-bind="cellSize: { enabled: isViewReady() && help.visible(), resizeChild: true  }">
-                <div class="content-area">
-                    <!-- ko if: showCourseNavigation -->
-                    <div class="tb-row">
-                        <div class="tb-cell">
-                            <div class="course-action-header">
-                                <!-- ko compose: 'viewmodels/courses/courseNavigation/navigation' -->
-                                <!-- /ko -->
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /ko -->
-                    <div class="tb-row">
-                        <!-- ko compose: { model: 'help/helpHint', activationData: activeModuleName } -->
-                        <!-- /ko -->
-                    </div>
-                    <div class="tb-row">
-                        <div class="tb-cell view-content-holder">
-                            <div class="view-content-holder scroll" id="view_content">
-                                <div class="circular-loader x32 black align-center" data-bind="visible: !isViewReady()">
-                                    <div class="circular-loader-item"></div>
-                                    <div class="circular-loader-item"></div>
-                                    <div class="circular-loader-item"></div>
-                                    <div class="circular-loader-item"></div>
-                                    <div class="circular-loader-item"></div>
-                                    <div class="circular-loader-item"></div>
-                                    <div class="circular-loader-item"></div>
-                                    <div class="circular-loader-item"></div>
-                                </div>
-                                <div class="view-content" data-bind="style: { visibility: isViewReady() ? 'visible' : 'hidden' }">
-                                    <div class="content-container">
-                                        <div class="tb-cell content-wrapper">
-                                            <div data-bind="router: { cacheViews: false, transition: 'defaultRouterTransition' }"></div>
-                                        </div>
-                                    </div>
-                                    <!-- ko compose: 'viewmodels/panels/sidePanel' -->
-                                    <!-- /ko -->
-                                    <footer class="footer-container">
-                                        <div class="content-section-wrapper">
-                                            <div class="content-section">
-                                                <span class="cursor-default" data-bind="localize: { text: 'CopyrightText' }"></span>
-                                            </div>
-                                        </div>
-                                    </footer>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-</div>
-<div data-bind="widget: { kind: 'uiLockViewer' }"></div>
-<div data-bind="widget: { kind: 'imagePreview' }"></div>
-<div data-bind="widget: { kind: 'notifyViewer' }"></div>
+
+        <main id="view_content" data-bind="router: {}, style: { opacity: router.isViewReady() ? '1' : '0' }">
+        </main>
+        
+        
+        <!-- ko ifnot: router.isViewReady -->
+        <div class="circular-loader x32 black align-center">
+            <div class="circular-loader-item"></div>
+            <div class="circular-loader-item"></div>
+            <div class="circular-loader-item"></div>
+            <div class="circular-loader-item"></div>
+            <div class="circular-loader-item"></div>
+            <div class="circular-loader-item"></div>
+            <div class="circular-loader-item"></div>
+            <div class="circular-loader-item"></div>
+        </div>
+        <!-- /ko -->
+
+        <!-- ko compose: { model: 'viewmodels/panels/sidePanel' } -->
+        <!-- /ko -->
+        
+    </section>
+    
+    <div data-bind="widget: { kind: 'uiLockViewer' }"></div>
+    <div data-bind="widget: { kind: 'imagePreview' }"></div>
+    <div data-bind="widget: { kind: 'notifyViewer' }"></div>
+</section>

@@ -1,36 +1,44 @@
 <div class="summary" ng-init="scrollToTop()">
     <header class="main-logo-wrapper">
-        <img class="main-logo" ng-src="{{summary.logoUrl}}">
+        <img class="main-logo" ng-src="{{ summary.logoUrl }}">
         <span class="vertical-align-helper"></span>
     </header>
     <div class="summary-header">
         <span class="main-background"></span>
         <div class="summary-header-content">
             <div class="header-title-container">
-                <div class="header-quiz-label">Quiz</div>
-                <div class="header-quiz-title">“{{summary.title}}”</div>
-                <div class="header-questions-label">{{summary.questions.length}} questions</div>
+                <div class="header-quiz-label">{{ '[quiz]' | translate }}</div>
+                <div class="header-quiz-title">“{{ summary.title }}”</div>
+                <div class="header-questions-label">{{ summary.questions.length }} {{ '[questions]' | translate }}</div>
             </div>
             <div class="progress-control-container">
                 <progress-control class="progress-control" progress="summary.progress" mastery-score="summary.masteryScore"></progress-control>
             </div>
             <div class="summary-buttons">
-                <button class="summary-button button large emphasize" ng-class="{ primary:!summary.reachMasteryScore, default:summary.reachMasteryScore }" ng-click="summary.tryAgain()">Try again</button>
-                <button class="summary-button button large emphasize" ng-class="{ primary:summary.reachMasteryScore, default:!summary.reachMasteryScore }" ng-click="summary.finish()">Finish course</button>
+                <button class="summary-button button large emphasize" ng-class="{ primary:!summary.reachMasteryScore, default:summary.reachMasteryScore }" ng-click="summary.tryAgain()">
+                    <span class="text-wrapper">
+                        {{ '[try again]' | translate }}
+                    </span>
+                </button>
+                <button class="summary-button button large emphasize" ng-class="{ primary:summary.reachMasteryScore, default:!summary.reachMasteryScore }" ng-click="summary.finish()">
+                    <span class="text-wrapper">
+                        {{ '[finish course]' | translate }}
+                    </span>
+                </button>
             </div>
         </div>
     </div>
     <div class="summary-questions">
         <div class="summary-questions-container">
-            <div class="questions-title">How did you do?</div>
+            <div class="questions-title">{{ '[summary page questions list title]' | translate }}</div>
             <ul class="questions unstyled">
-                <li class="question-item" ng-repeat="question in summary.questions" ng-class="{correct: question.isCorrect}">
+                <li class="question-item" ng-repeat="question in summary.questions" ng-class="{ correct: question.isCorrect }">
                     <div class="question-number-cell">
                         <div class="question-number-container">
-                            <span class="question-number">{{$index + 1 | leadingZeros: 2}}</span>
+                            <span class="question-number">{{ $index + 1 | leadingZeros: 2 }}</span>
                         </div>
                     </div>
-                    <div class="question-title-cell">{{question.title}}</div>
+                    <div class="question-title-cell">{{ question.title }}</div>
                 </li>
             </ul>
         </div>
@@ -39,6 +47,6 @@
 <div class="blockout" ng-class="{ active: summary.finished }"></div>
 <div class="request-loader-container" ng-show="summary.isSendingRequest">
     <div class="request-loader">
-        <span class="request-loader-text">reporting progress...</span>
+        <span class="request-loader-text">{{ '[tracking and tracing reporting progress]' | translate }}</span>
     </div>
 </div>

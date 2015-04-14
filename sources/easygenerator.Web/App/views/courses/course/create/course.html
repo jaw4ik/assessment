@@ -1,0 +1,237 @@
+﻿<section class="create view-module">
+
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <div class="course-introduction-container" data-bind="with: courseIntroductionContent, css: {hidden: objectivesMode() != objectivesListModes.display}">
+                <div class="course-introduction-wrapper" data-bind="css: { active: hasFocus, 'content-defined': isContentDefined }, introAnimate: { isEditing: isEditing }">
+                    <div class="course-introduction-holder">
+                        <!-- ko ifnot: isContentDefined -->
+                        <div class="course-introduction-title-container" data-bind="click: addContent">
+                            <span class="course-introduction-title" data-bind="localize: {text: 'addCourseIntroduction'}">Add course introduction</span>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: isContentDefined -->
+                        <div class="course-introduction selectable" data-content="" data-bind="ckeditor: { data: text, eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: autosaveInterval, localizationManager: $root.localizationManager, forcedFocus: true }"></div>
+                        <div class="course-introduction-overlay" data-bind="click: beginEditText"></div>
+                        <!-- /ko -->
+                    </div>
+                    <!-- ko ifnot: isContentDefined -->
+                    <div class="course-introduction-control-button add" data-bind="click: addContent"></div>
+                    <!-- /ko -->
+                    <!-- ko if: isContentDefined -->
+                    <div class="course-introduction-control-button collapse" data-bind="visible: isEditing()"></div>
+                    <div class="course-introduction-control-button edit" data-bind="click: beginEditText, visible: !isEditing()">
+                        <div class="info-tooltip left-side">
+                            <span data-bind="localize: {text: 'editIntroduction'}">Edit introduction</span>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                </div>
+            </div>
+            <div class="main-content-list-holder">
+                <!-- ko if: connectedObjectives().length == 0 && objectivesMode() == objectivesListModes.display -->
+                <div class="empty-list-container">
+                    <h2 class="empty-list-title bold" data-bind="localize: { text: 'letsCreateLearningObjective' }">Let's create learning objective</h2>
+                    <div class="create-item-btn-container">
+                        <div class="action-item-btn-wrapper">
+                            <button class="action-item-btn create-item btn green" data-bind="click: createObjective">
+                                <span class="action-item-btn-caption" data-bind="localize: { text: 'createAndConnectLearningObjective' }">Learning objective</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="connect-objectives-link-container">
+                        <span data-bind="localize:{ text: 'or' }">or</span>
+                        <a href class="connect-objectives-link" data-bind="click: showAllAvailableObjectives, localize: { text: 'connectExisting' }">connect existing</a>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: connectedObjectives().length > 0 || objectivesMode() != objectivesListModes.display -->
+                <div class="view-list-actions-holder">
+                    <h2 class="list-item-action view-title bold" data-bind="localize: { text: 'relatedLearningObjectives' }">Course objectives</h2>
+                    <div class="list-item-action delete">
+                        <!-- ko if: objectivesMode() == objectivesListModes.display -->
+                        <div class="delete-btn btn-head enabled" data-bind="click: disconnectSelectedObjectives, css: { enabled: canDisconnectObjectives, disabled: !canDisconnectObjectives() }">
+                            <div class="info-tooltip remove-selected">
+                                <span data-bind="localize: { text: 'disconnectSelected' }">Remove selected</span>
+                            </div>
+                        </div>
+                        <!--/ko -->
+                    </div>
+                    <div class="list-item-action advanced-features-dropdown" data-bind="dropDown: {}, visible: objectivesMode() == objectivesListModes.display">
+                        <div class="btn-head bold">
+                            <div class="info-tooltip more-options">
+                                <span data-bind="localize: { text: 'moreOptions' }">More options</span>
+                            </div>
+                        </div>
+                        <ul class="dropdown-list">
+                            <li class="dropdown-list-item" data-bind="click: showAllAvailableObjectives">
+                                <span class="advanced-features-item" data-bind="localize: { text: 'connectExistingLearningObjectives' }">Add existing objectives</span>
+                            </li>
+                            <li class="dropdown-list-item objective-from-powerpoint">
+                                <span class="advanced-features-item" data-bind="localize: { text: 'objectiveFromPowerpoint' }">Objective from powerpoint</span>
+                                <span class="soon-icon" data-bind="localize: { text: 'soon' }">Soon</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="list-item-action create">
+                        <!-- ko if: objectivesMode() == objectivesListModes.display -->
+                        <div class="action-item-btn-wrapper">
+                            <button class="action-item-btn create-item btn green" data-bind="click: createObjective">
+                                <span class="action-item-btn-caption" data-bind="localize: { text: 'createAndConnectLearningObjective' }">Learning objective</span>
+                            </button>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: objectivesMode() == objectivesListModes.appending -->
+                        <div class="action-item-btn-wrapper">
+                            <button class="action-item-btn finish-item btn" data-bind="click: showConnectedObjectives">
+                                <span class="action-item-btn-caption" data-bind="localize: { text: 'finishConnectingLearningObjectives' }">Finish connecting</span>
+                            </button>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!--ko if: objectivesMode() == objectivesListModes.display && connectedObjectives().length > 0-->
+                <ul class="unstyled main-content-list main-objectives-list" data-bind="sortable: { data: connectedObjectives, afterMove: reorderObjectives, isEnabled: isSortingEnabled, options: { handle: '.list-item-drag-icon', start : startReorderingObjectives, stop: endReorderingObjectives } }">
+                    <li class="main-content-list-item draggable" data-bind="css: { selected: isSelected }">
+                        <div class="list-item-content-holder" data-bind="click: $parent.navigateToObjectiveDetails.bind($parent)">
+                            <!-- ko if: $parent.isSortingEnabled() -->
+                            <div class="list-item-drag-icon" data-bind="stopEventPropagation: { event: 'click' }, localize: { title: 'changeOrderTooltip' }"></div>
+                            <!-- /ko -->
+                            <!-- ko ifnot: $parent.isSortingEnabled() -->
+                            <div class="list-item-drag-icon disabled" data-bind="stopEventPropagation: { event: 'click' }"></div>
+                            <!-- /ko -->
+                            <div class="empty-list-item"></div>
+                            <div class="checkbox-holder" data-bind="click: $parent.toggleObjectiveSelection, stopEventPropagation: { event: 'click' }">
+                                <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }">
+                                    <input class="custom-checkbox" type="checkbox" />
+                                </span>
+                            </div>
+                            <div class="list-item-info-holder">
+                                <div class="info-holder-table">
+                                    <div class="list-item-logo-wrapper">
+                                        <div class="list-item-logo changeable" data-bind="click: $parent.updateObjectiveImage, stopEventPropagation: { event: 'click' }">
+                                            <div class="logo-background" data-bind="backgroundImage: imageUrl"></div>
+                                            <div class="overlay hover" data-bind="visible: !isImageLoading()">
+                                                <span class="image"></span>
+                                                <div class="text" data-bind="localize: { text: 'changeImage' }">Change image</div>
+                                            </div>
+                                            <div class="overlay uploading" data-bind="visible: isImageLoading()">
+                                                <span class="image"></span>
+                                                <div class="text" data-bind="localize: { text: 'uploading' }">Uploading...</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-item-info">
+                                        <div class="list-item-title">
+                                            <span class="selectable" data-bind="text: title"></span>
+                                        </div>
+                                        <div class="list-item-saved">
+                                            <span data-bind="localize: { text: 'lastEdited' }">Last edited: </span><span data-bind="date: { value: modifiedOn, formatString: 'L' }"></span>
+                                        </div>
+                                    </div>
+                                    <div class="list-item-open">
+                                        <div class="list-item-open-btn course-action-btn info-tooltip-holder">
+                                            <div class="info-tooltip open-item">
+                                                <span data-bind="localize: {text: 'open'}">Open</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <!-- /ko -->
+                <!--ko ifnot: objectivesMode() == objectivesListModes.display-->
+                <div class="connecting-objectives-holder">
+                    <div class="connecting-objectives-item">
+                        <div class="other-objectives-title">
+                            <div data-bind="localize: { text: 'otherObjectives' }"></div>
+                        </div>
+                        <div class="connecting-objectives-item-container" data-bind="css: { empty:  availableObjectives().length == 0  }">
+                            <!-- ko if: objectivesMode() == objectivesListModes.appending && availableObjectives().length == 0-->
+                            <div class="empty-list-wrapper connecting-objectives">
+                                <div class="empty-list-info">
+                                    <div class="empty-list connecting-objectives" data-bind="localize: { text: 'allObjectivesConnected' }"></div>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                            <ul class="unstyled main-content-list" data-bind="css: { 'disconnected': availableObjectives().length != 0, empty: availableObjectives().length == 0 }, sortableExtended: { data: availableObjectives, beforeMove: disconnectObjective, afterMove: objectiveDisconnected, placeholder: '.placeholder-wrapper' }">
+                                <li class="main-content-list-item">
+                                    <div class="list-item-content-holder moved-objectives">
+                                        <div class="list-item-drag-icon"></div>
+                                        <div class="list-item-info-holder">
+                                            <div class="info-holder-table">
+                                                <div class="list-item-logo">
+                                                    <div class="list-item-logo-image" data-bind="backgroundImage: imageUrl"></div>
+                                                </div>
+                                                <div class="list-item-info">
+                                                    <div class="list-item-title">
+                                                        <span data-bind="text: title"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="connecting-objectives-item empty">
+                        &nbsp;
+                    </div>
+                    <div class="connecting-objectives-item">
+                        <div class="connecting-objectives-item-wrapper">
+                            <div class="tip-arrow-holder bottom-right">
+                                <div class="tip-arrow-text" data-bind="localize: { text: 'dragLOHere' }">Drag learning objective here</div>
+                            </div>
+                            <div class="connected-objectives-title">
+                                <div class="connected-objectives-title-text" data-bind="localize: { text: 'connectedObjectives' }"></div>
+                            </div>
+                            <div class="connecting-objectives-item-container" data-bind="css: { empty:  connectedObjectives().length == 0  }">
+                                <!-- ko if: objectivesMode() == objectivesListModes.appending && connectedObjectives().length == 0 -->
+                                <div class="empty-list-wrapper connecting-objectives connected">
+                                    <div class=" empty-list-info">
+                                        <div class="empty-list-image "></div>
+                                        <div class="empty-list-caption"><span data-bind="localize: { html: 'dragAndDropObjectivesHere' }"></span></div>
+                                    </div>
+                                </div>
+                                <!-- /ko -->
+                                <ul class="unstyled main-content-list" data-bind="css: { 'connected': connectedObjectives().length != 0, empty: connectedObjectives().length == 0 }, sortableExtended: { data: connectedObjectives, beforeMove: connectObjective, placeholder: '.placeholder-wrapper',  options: { start : startReorderingObjectives, stop: endReorderingObjectives } }">
+                                    <li class="main-content-list-item">
+                                        <div class="list-item-content-holder moved-objectives">
+                                            <div class="list-item-drag-icon"></div>
+                                            <div class="list-item-info-holder">
+                                                <div class="info-holder-table">
+                                                    <div class="list-item-logo">
+                                                        <div class="list-item-logo-image" data-bind="backgroundImage: imageUrl"></div>
+                                                    </div>
+                                                    <div class="list-item-info">
+                                                        <div class="list-item-title">
+                                                            <span data-bind="text: title"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+    <div class="customplaceholder" style="display: none;">
+        <li class="placeholder-wrapper">
+            <div class="placeholder">
+                <div class="placeholder-text-wrapper">
+                    <span class="placeholder-text" data-bind="localize: { text: 'dropHere' }"></span>
+                </div>
+            </div>
+        </li>
+    </div>
+</section>

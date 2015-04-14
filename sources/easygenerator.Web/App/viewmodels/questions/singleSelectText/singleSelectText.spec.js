@@ -8,8 +8,9 @@
         constants = require('constants'),
         answerRepository = require('repositories/answerRepository'),
         learningContentRepository = require('repositories/learningContentRepository'),
-        http = require('plugins/http'),
-        BackButton = require('models/backButton');
+        http = require('plugins/http')
+
+    ;
 
     var objectiveId = 'objectiveId';
 

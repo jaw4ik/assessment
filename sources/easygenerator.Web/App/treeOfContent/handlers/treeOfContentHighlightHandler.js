@@ -15,7 +15,9 @@
                     url += "?" + activeInstruction.queryString;
                 }
 
-                url = url.replace('design', 'course').replace('publish', 'course').replace('results', 'course');
+                url = url.replace('/design', '').replace('/publish', '').replace('/results', '');
+
+                //console.log('Highlighting URL ' + url);
 
                 highlightElementWithUrl(url);
                 setTimeout(function () {

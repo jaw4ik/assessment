@@ -1,6 +1,6 @@
 <section class="drag-and-drop-text">
 
-    <tooltip>Drag items on markers</tooltip>
+    <tooltip>{{ '[drag and drop question hint]' | translate }}</tooltip>
 
     <div droppable accept-value="question.texts.acceptValue" reject-value="question.texts.rejectValue" scope="question.id" class="draggables" ng-class="{ empty: question.texts.length === 0 }">
         <div class="clearfix" ng-if="question.texts.length > 0">
@@ -10,13 +10,13 @@
                 </div>
             </div>
         </div>
-        <div ng-if="question.texts.length === 0">
-            All texts are placed
+        <div class="empty-draggable-area" ng-if="question.texts.length === 0">
+            {{ '[drag and drop question all texts are placed]' | translate }}
         </div>
     </div>
 
     <div class="dropspot-container">
-        <div background="{{ question.background}}">
+        <div background="{{ question.background }}">
             <div ng-repeat="spot in question.spots" ng-style="{ 'left': {{ spot.x }} + 'px', 'top': {{ spot.y }} + 'px'}" class="dropspot-wrapper">
                 <div class="dropspot" droppable accept-value="spot.acceptValue" reject-value="spot.rejectValue" accept="1" scope="question.id">
                     <div class="draggable" draggable adjust-dropspot-width value="spot.value" scope="question.id" ng-if="spot.value" title="{{ spot.value.text }}">
@@ -25,7 +25,7 @@
                 </div>
                 <div class="dropspot-help">
                     <div class="dropspot-help-text">
-                        Drop here
+                        {{ '[drag and drop question drop here]' | translate }}
                     </div>
                 </div>
             </div>
