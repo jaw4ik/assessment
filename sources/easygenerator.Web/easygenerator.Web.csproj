@@ -534,6 +534,7 @@
     <Content Include="App\reporting\xApiProvider.spec.js">
       <DependentUpon>xApiProvider.js</DependentUpon>
     </Content>
+    <Content Include="App\routing\isViewReadyMixin.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\answerCorrectnessUpdated.spec.js">
       <DependentUpon>answerCorrectnessUpdated.js</DependentUpon>
     </Content>
@@ -574,10 +575,28 @@
     <Content Include="App\viewmodels\courses\courseNavigation\items\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\results.js" />
-    <Content Include="App\viewmodels\courses\results.spec.js">
+    <Content Include="App\viewmodels\courses\course\create\course.spec.js">
+      <DependentUpon>course.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\course\create\index.js" />
+    <Content Include="App\viewmodels\courses\course\design.js" />
+    <Content Include="App\viewmodels\courses\course\design.spec.js">
+      <DependentUpon>design.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\course\index.js" />
+    <Content Include="App\viewmodels\courses\course\index.spec.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\course\publish.js" />
+    <Content Include="App\viewmodels\courses\course\publish.spec.js">
+      <DependentUpon>publish.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\course\results.js" />
+    <Content Include="App\viewmodels\courses\course\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\courses\index.js" />
+    <Content Include="App\viewmodels\objectives\index.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.spec.js">
       <DependentUpon>changeType.js</DependentUpon>
@@ -590,6 +609,12 @@
     <Content Include="App\viewmodels\questions\statement\statementAnswers.spec.js">
       <DependentUpon>statementAnswers.js</DependentUpon>
     </Content>
+    <Content Include="App\views\courses\course\create\index.html" />
+    <Content Include="App\views\courses\course\publish.html" />
+    <Content Include="App\views\courses\course\design.html" />
+    <Content Include="App\views\courses\course\index.html" />
+    <Content Include="App\views\courses\course\results.html" />
+    <Content Include="App\views\courses\index.html" />
     <Content Include="App\views\common\circularLoader.html" />
     <Content Include="App\views\courses\publishActions\publishToAim4You.html" />
     <Content Include="App\views\courses\publishActions\publishToPublicationServerEmbed.html" />
@@ -598,8 +623,12 @@
     <Content Include="App\views\courses\publishActions\publishAsHtml.html" />
     <Content Include="App\views\courses\publishActions\publishAsScorm.html" />
     <Content Include="App\views\courses\results.html" />
+    <Content Include="App\views\objectives\index.html" />
     <Content Include="App\views\questions\statement\statement.html" />
     <Content Include="BuildCourse\Modules\js\branding.js" />
+    <Content Include="Content\editField.css">
+      <DependentUpon>editField.less</DependentUpon>
+    </Content>
     <Content Include="Content\font\heuristica-bold.svg" />
     <Content Include="Content\font\heuristica-bolditalic.svg" />
     <Content Include="Content\font\heuristica-italic.svg" />
@@ -632,6 +661,9 @@
     <Content Include="Content\images\tooth.png" />
     <Content Include="Content\notSupportedPage.css">
       <DependentUpon>notSupportedPage.less</DependentUpon>
+    </Content>
+    <Content Include="Content\shell.css">
+      <DependentUpon>shell.less</DependentUpon>
     </Content>
     <Content Include="Content\statement.css">
       <DependentUpon>statement.less</DependentUpon>
@@ -1090,7 +1122,6 @@
     <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToPlus.spec.js">
       <DependentUpon>upgradedToPlus.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\panels\bindingHandlers\fixedPanelBindingHandler.js" />
     <Content Include="App\viewmodels\questions\informationContent\informationContent.spec.js">
       <DependentUpon>informationContent.js</DependentUpon>
     </Content>
@@ -1481,7 +1512,6 @@
     <Content Include="Content\cssPreloaders.less" />
     <Content Include="Content\dragAndDropText.less" />
     <Content Include="Content\helpers.less" />
-    <Content Include="Content\helphint.less" />
     <Content Include="Content\hotSpot.less" />
     <Content Include="Content\imagePreview.less" />
     <Content Include="Content\navigationBar.less" />
@@ -1499,6 +1529,8 @@
     <Content Include="Content\switchToggle.less" />
     <Content Include="Content\treeOfContent.less" />
     <Content Include="Content\collaboration.less" />
+    <Content Include="Content\shell.less" />
+    <Content Include="Content\editField.less" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />
@@ -2082,11 +2114,6 @@
     <Content Include="App\guard.spec.js">
       <DependentUpon>guard.js</DependentUpon>
     </Content>
-    <Content Include="App\help\helpHint.html" />
-    <Content Include="App\help\helpHint.js" />
-    <Content Include="App\help\helpHint.spec.js">
-      <DependentUpon>helpHint.js</DependentUpon>
-    </Content>
     <Content Include="App\http\httpWrapper.js" />
     <Content Include="App\http\httpWrapper.spec.js">
       <DependentUpon>httpWrapper.js</DependentUpon>
@@ -2097,7 +2124,6 @@
     </Content>
     <Content Include="App\main.js" />
     <Content Include="App\models\answerOption.js" />
-    <Content Include="App\models\backButton.js" />
     <Content Include="App\models\collaborator.js" />
     <Content Include="App\models\comment.js" />
     <Content Include="App\models\course.js" />
@@ -2157,9 +2183,6 @@
       <DependentUpon>templateRepository.js</DependentUpon>
     </Content>
     <Content Include="App\routing\routerExtender.js" />
-    <Content Include="App\routing\routerExtender.spec.js">
-      <DependentUpon>routerExtender.js</DependentUpon>
-    </Content>
     <Content Include="App\routing\routes.js" />
     <Content Include="App\services\publishService.js" />
     <Content Include="App\services\publishService.spec.js">
@@ -2224,10 +2247,7 @@
     <Content Include="App\viewmodels\courses\collaboration\collaborators.spec.js">
       <DependentUpon>collaborators.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\course.js" />
-    <Content Include="App\viewmodels\courses\course.spec.js">
-      <DependentUpon>course.js</DependentUpon>
-    </Content>
+    <Content Include="App\viewmodels\courses\course\create\course.js" />
     <Content Include="App\viewmodels\courses\courseComments.js" />
     <Content Include="App\viewmodels\courses\courseComments.spec.js">
       <DependentUpon>courseComments.js</DependentUpon>
@@ -2255,14 +2275,6 @@
     <Content Include="App\viewmodels\courses\courses.js" />
     <Content Include="App\viewmodels\courses\courses.spec.js">
       <DependentUpon>courses.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\design.js" />
-    <Content Include="App\viewmodels\courses\design.spec.js">
-      <DependentUpon>design.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\publish.js" />
-    <Content Include="App\viewmodels\courses\publish.spec.js">
-      <DependentUpon>publish.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\publishingActions\build.js" />
     <Content Include="App\viewmodels\courses\publishingActions\build.spec.js">
@@ -2327,7 +2339,7 @@
     </Content>
     <Content Include="App\views\common\createtip.html" />
     <Content Include="App\views\courses\collaboration\collaborators.html" />
-    <Content Include="App\views\courses\course.html" />
+    <Content Include="App\views\courses\course\create\course.html" />
     <Content Include="App\views\courses\courseComments.html" />
     <Content Include="App\views\courses\courseNavigation\navigation.html" />
     <Content Include="App\views\courses\courses.html" />
@@ -2342,11 +2354,6 @@
     <Content Include="App\views\questions\question.html" />
     <Content Include="App\views\shell.html" />
     <Content Include="App\views\user\userMenu.html" />
-    <Content Include="App\widgets\backButton\view.html" />
-    <Content Include="App\widgets\backButton\viewmodel.js" />
-    <Content Include="App\widgets\backButton\viewmodel.spec.js">
-      <DependentUpon>viewmodel.js</DependentUpon>
-    </Content>
     <Content Include="App\widgets\notifyViewer\view.html" />
     <Content Include="App\widgets\notifyViewer\viewmodel.js" />
     <Content Include="App\widgets\notifyViewer\viewmodel.spec.js">
@@ -2381,9 +2388,6 @@
     <Content Include="Content\font\opensans-semibold.svg" />
     <Content Include="Content\font\opensans-semibolditalic.svg" />
     <Content Include="Content\font\rabiohead.svg" />
-    <Content Include="Content\helphint.css">
-      <DependentUpon>helphint.less</DependentUpon>
-    </Content>
     <Content Include="Content\images\account\log-in.jpg" />
     <Content Include="Content\images\account\pointer-left-big.png" />
     <Content Include="Content\images\account\pointer-right-big.png" />

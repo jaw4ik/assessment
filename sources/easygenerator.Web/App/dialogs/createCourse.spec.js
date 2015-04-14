@@ -87,9 +87,9 @@
                 expect(dialog.createNewCourse).toBeFunction();
             });
 
-            describe('when another operation processing', function() {
+            describe('when another operation processing', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     dialog.isCourseImporting(true);
                 });
 
@@ -109,9 +109,9 @@
 
             });
 
-            describe('when no other operation processing', function() {
+            describe('when no other operation processing', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     dialog.isCourseImporting(false);
                 });
 
@@ -139,7 +139,7 @@
 
                     it('should navigate to created course', function (done) {
                         dialog.createNewCourse().fin(function () {
-                            expect(router.navigate).toHaveBeenCalledWith('#course/courseId');
+                            expect(router.navigate).toHaveBeenCalledWith('#courses/courseId');
                             done();
                         });
                     });
@@ -198,9 +198,9 @@
                 expect(dialog.importCourseFromPresentation).toBeFunction();
             });
 
-            describe('when another operation processing', function() {
+            describe('when another operation processing', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     dialog.isCourseCreating(true);
                 });
 
@@ -212,9 +212,9 @@
 
             });
 
-            describe('when no other operation processing', function() {
+            describe('when no other operation processing', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     dialog.isCourseCreating(false);
                 });
 
@@ -267,7 +267,7 @@
 
                         it('should navigate to objective', function () {
                             dialog.importCourseFromPresentation();
-                            expect(router.navigate).toHaveBeenCalledWith('#objective/' + course.objectives[0].id + '?courseId=' + course.id);
+                            expect(router.navigate).toHaveBeenCalledWith('#courses/' + course.id + '/objectives/' + course.objectives[0].id);
                         });
                     });
 
@@ -278,7 +278,7 @@
 
                         it('should navigate to created course', function () {
                             dialog.importCourseFromPresentation();
-                            expect(router.navigate).toHaveBeenCalledWith('#course/' + course.id);
+                            expect(router.navigate).toHaveBeenCalledWith('#courses/' + course.id);
                         });
                     });
 

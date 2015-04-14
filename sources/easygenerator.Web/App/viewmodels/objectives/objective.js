@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'models/backButton', 'durandal/app', 'imageUpload', 'userContext'],
-    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, BackButton, app, imageUpload, userContext) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext', 'durandal/app', 'imageUpload', 'userContext'],
+    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext, app, imageUpload, userContext) {
         "use strict";
 
         var
@@ -19,14 +19,14 @@
                 expandObjectiveHint: 'Expand \"Learning objective hint\"'
             },
             viewModel = {
+                courseId: null,
                 objectiveId: null,
                 title: ko.observable(''),
                 titleMaxLength: constants.validation.objectiveTitleMaxLength,
                 imageUrl: ko.observable(''),
                 isImageLoading: ko.observable(false),
                 currentLanguage: '',
-                contextCourseId: null,
-                contextCourseTitle: null,
+
                 isLastCreatedObjective: false,
                 isObjectiveTipVisible: ko.observable(false),
 
@@ -51,7 +51,11 @@
                 updateQuestionsOrder: updateQuestionsOrder,
                 isQuestionsListReorderedByCollaborator: ko.observable(false),
 
+
+                canActivate: canActivate,
                 activate: activate,
+
+                back: back,
 
                 objectiveTitleUpdated: objectiveTitleUpdated,
                 objectiveImageUrlUpdated: objectiveImageUrlUpdated,
@@ -59,9 +63,7 @@
                 questionCreatedByCollaborator: questionCreatedByCollaborator,
                 questionTitleUpdatedByCollaborator: questionTitleUpdatedByCollaborator,
                 questionDeletedByCollaborator: questionDeletedByCollaborator,
-                questionUpdated: questionUpdated,
-
-                backButtonData: new BackButton({})
+                questionUpdated: questionUpdated
             };
 
         viewModel.title.isEditing = ko.observable();
@@ -216,60 +218,54 @@
             eventTracker.publish(events.navigateToObjectives);
         }
 
-        function activate(objId, queryParams) {
-            viewModel.currentLanguage = localizationManager.currentLanguage;
-            viewModel.isObjectiveTipVisible(false);
+        function back() {
+            if (viewModel.courseId) {
+                router.navigate('#courses/' + viewModel.courseId);
+            } else {
+                router.navigate('#objectives');
+            }
+        }
 
-            var lastCreatedObjectiveId = clientContext.get(constants.clientContextKeys.lastCreatedObjectiveId) || '';
-            clientContext.remove(constants.clientContextKeys.lastCreatedObjectiveId);
-            viewModel.isLastCreatedObjective = lastCreatedObjectiveId === objId;
-
-            if (_.isNullOrUndefined(queryParams) || !_.isString(queryParams.courseId)) {
-                viewModel.contextCourseId = null;
-                viewModel.contextCourseTitle = null;
-
-                viewModel.backButtonData.configure({
-                    url: 'objectives',
-                    backViewName: localizationManager.localize('learningObjectives'),
-                    callback: navigateToObjectivesEvent,
-                    alwaysVisible: true
-                });
-
-                return initObjectiveInfo(objId);
+        function canActivate() {            
+            var promises = [];
+            if (arguments.length === 2) {
+                promises.push(courseRepository.getById(arguments[0]));
+                promises.push(repository.getById(arguments[1]));
+            } else {
+                promises.push(repository.getById(arguments[0]));
             }
 
-            return courseRepository.getById(queryParams.courseId).then(function (course) {
-                viewModel.contextCourseId = course.id;
-                viewModel.contextCourseTitle = course.title;
-
-                viewModel.backButtonData.configure({
-                    url: 'course/' + course.id,
-                    backViewName: '\'' + course.title + '\'',
-                    callback: navigateToCourseEvent,
-                    alwaysVisible: false
-                });
-
-                return initObjectiveInfo(objId);
-            }).fail(function (reason) {
-                router.activeItem.settings.lifecycleData = { redirect: '404' };
-                throw reason;
+            return Q.all(promises).then(function () {
+                return true;
+            }).catch(function () {
+                return { redirect: '404' };
             });
+        }
 
-            function initObjectiveInfo(id) {
-                return repository.getById(id).then(function (objective) {
-                    clientContext.set(constants.clientContextKeys.lastVisitedObjective, id);
-                    viewModel.objectiveId = objective.id;
-                    viewModel.title(objective.title);
-                    viewModel.imageUrl(objective.image);
+        function activate() {
 
-                    var array = _.map(objective.questions, mapQuestion);
-
-                    viewModel.questions(array);
-                }).fail(function (reason) {
-                    router.activeItem.settings.lifecycleData = { redirect: '404' };
-                    throw reason;
-                });
+            if (arguments.length === 1) {
+                viewModel.courseId = null;
+                viewModel.objectiveId = arguments[0];
+            } else if (arguments.length === 2) {
+                viewModel.courseId = arguments[0];
+                viewModel.objectiveId = arguments[1];
             }
+
+            return repository.getById(viewModel.objectiveId).then(function (objective) {
+                clientContext.set(constants.clientContextKeys.lastVisitedObjective, viewModel.objectiveId);
+
+                viewModel.title(objective.title);
+                viewModel.imageUrl(objective.image);
+                viewModel.questions(_.map(objective.questions, mapQuestion));
+
+                viewModel.currentLanguage = localizationManager.currentLanguage;
+                viewModel.isObjectiveTipVisible(false);
+
+                var lastCreatedObjectiveId = clientContext.get(constants.clientContextKeys.lastCreatedObjectiveId) || '';
+                clientContext.remove(constants.clientContextKeys.lastCreatedObjectiveId);
+                viewModel.isLastCreatedObjective = lastCreatedObjectiveId === viewModel.objectiveId;
+            });
         }
 
         function mapQuestion(question) {
@@ -284,10 +280,12 @@
         }
 
         function getEditQuestionLink(questionId) {
-            var queryString = router.activeInstruction().queryString;
-            queryString = _.isNullOrUndefined(queryString) ? '' : '?' + queryString;
+            if (viewModel.courseId) {
+                return '#courses/' + viewModel.courseId + '/objectives/' + viewModel.objectiveId + '/questions/' + questionId;
+            } else {
+                return '#objectives/' + viewModel.objectiveId + '/questions/' + questionId;
+            }
 
-            return '#objective/' + viewModel.objectiveId + '/question/' + questionId + queryString;
         }
 
         function getQuestionImageLink(type) {
@@ -309,13 +307,13 @@
         }
 
         function endReorderingQuestions() {
-           
+
             return Q.fcall(function () {
                 if (!viewModel.isReorderingQuestions() || !viewModel.isQuestionsListReorderedByCollaborator()) {
                     viewModel.isReorderingQuestions(false);
                     return;
                 }
-                
+
                 viewModel.isReorderingQuestions(false);
                 viewModel.isQuestionsListReorderedByCollaborator(false);
 

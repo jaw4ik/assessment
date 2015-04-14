@@ -1,8 +1,8 @@
 ﻿define(['repositories/courseRepository', 'plugins/router', 'constants', 'viewmodels/courses/publishingActions/build',
         'viewmodels/courses/publishingActions/scormBuild', 'viewmodels/courses/publishingActions/publish', 'userContext',
-        'viewmodels/courses/publishingActions/publishToAim4You', 'clientContext', 'localization/localizationManager', 'eventTracker', 'models/backButton', 'durandal/app'],
+        'viewmodels/courses/publishingActions/publishToAim4You', 'clientContext', 'localization/localizationManager', 'eventTracker', 'durandal/app'],
     function (repository, router, constants, buildPublishingAction, scormBuildPublishingAction, publishPublishingAction, userContext, publishToAim4You,
-        clientContext, localizationManager, eventTracker, BackButton, app) {
+        clientContext, localizationManager, eventTracker, app) {
 
         var events = {
             navigateToCourses: 'Navigate to courses'
@@ -24,13 +24,7 @@
             navigateToCoursesEvent: navigateToCoursesEvent,
 
             activate: activate,
-            openUpgradePlanUrl: openUpgradePlanUrl,
-
-            backButtonData: new BackButton({
-                url: 'courses',
-                backViewName: localizationManager.localize('courses'),
-                callback: navigateToCoursesEvent
-            })
+            openUpgradePlanUrl: openUpgradePlanUrl
         };
 
         app.on(constants.messages.course.delivering.started).then(viewModel.courseDeliveringStarted);

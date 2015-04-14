@@ -1,13 +1,13 @@
 ﻿
 define(['durandal/app', 'eventTracker', 'constants',
         'repositories/questionRepository', 'repositories/objectiveRepository',
-        'models/backButton', 'plugins/router',
+        'plugins/router',
         'viewmodels/questions/questionTitle',
         'viewmodels/common/contentField',
         'viewmodels/questions/questionViewModelFactory',
         'localization/localizationManager',
         'dialogs/moveCopyQuestion/moveCopyQuestion'],
-    function (app, eventTracker, constants, questionRepository, objectiveRepository, BackButton, router, vmQuestionTitle, vmContentField,
+    function (app, eventTracker, constants, questionRepository, objectiveRepository, router, vmQuestionTitle, vmContentField,
         questionViewModelFactory, localizationManager, moveCopyQuestionDialog) {
         "use strict";
 
@@ -24,8 +24,8 @@ define(['durandal/app', 'eventTracker', 'constants',
 
         var viewmodel = {
             courseId: null,
-            objectiveId: '',
-            questionId: '',
+            objectiveId: null,
+            questionId: null,
             questionType: '',
 
             viewCaption: null,
@@ -36,7 +36,6 @@ define(['durandal/app', 'eventTracker', 'constants',
 
             eventTracker: eventTracker,
             localizationManager: localizationManager,
-            backButtonData: new BackButton({}),
 
             navigateToObjectiveEvent: navigateToObjectiveEvent,
 
@@ -47,7 +46,10 @@ define(['durandal/app', 'eventTracker', 'constants',
             showMoveCopyDialog: showMoveCopyDialog,
             duplicateQuestion: duplicateQuestion,
 
-            activate: activate
+            canActivate: canActivate,
+            activate: activate,
+
+            back: back
         };
 
         app.on(constants.messages.question.titleUpdatedByCollaborator, titleUpdatedByCollaborator);
@@ -59,9 +61,9 @@ define(['durandal/app', 'eventTracker', 'constants',
             eventTracker.publish(events.duplicateItem);
             questionRepository.copyQuestion(viewmodel.questionId, viewmodel.objectiveId).then(function (response) {
                 if (!_.isNullOrUndefined(viewmodel.courseId)) {
-                    router.navigate('objective/' + viewmodel.objectiveId + '/question/' + response.id + '?courseId=' + viewmodel.courseId);
+                    router.navigate('courses/' + viewmodel.courseId + '/objectives/' + viewmodel.objectiveId + '/questions/' + response.id);
                 } else {
-                    router.navigate('objective/' + viewmodel.objectiveId + '/question/' + response.id);
+                    router.navigate('objectives/' + viewmodel.objectiveId + '/questions/' + response.id);
                 }
             });
         }
@@ -80,38 +82,48 @@ define(['durandal/app', 'eventTracker', 'constants',
             return activeViewModel;
         }
 
-        function activate(objectiveId, questionId, queryParams) {
-            viewmodel.objectiveId = objectiveId;
-            viewmodel.questionId = questionId;
-            viewmodel.courseId = !_.isNullOrUndefined(queryParams) ? queryParams.courseId : null;
-            return objectiveRepository.getById(objectiveId).then(function (objective) {
-                viewmodel.backButtonData.configure({
-                    url: 'objective/' + objective.id,
-                    backViewName: '\'' + objective.title + '\'',
-                    callback: navigateToObjectiveEvent,
-                    alwaysVisible: _.isNullOrUndefined(queryParams) || !_.isString(queryParams.courseId)
-                });
-                return questionRepository.getById(viewmodel.objectiveId, viewmodel.questionId).then(function (question) {
-                    viewmodel.activeQuestionViewModel = setActiveViewModel(question);
-                    viewmodel.questionType = question.type;
-                    return viewmodel.activeQuestionViewModel.initialize(viewmodel.objectiveId, question).then(function (viewModelData) {
-                        viewmodel.viewCaption = viewModelData.viewCaption;
+        function canActivate() {
+            return true;
+        }
 
-                        viewmodel.questionTitle = vmQuestionTitle(viewmodel.objectiveId, question);
-                        viewmodel.isInformationContent = viewModelData.isInformationContent;
-                        if (viewModelData.isQuestionContentNeeded) {
-                            viewmodel.questionContent = vmContentField(question.content, eventsForQuestionContent, true, function (content) {
-                                return questionRepository.updateContent(question.id, content);
-                            });
-                        } else {
-                            viewmodel.questionContent = null;
-                        }
-                    });
+        function activate() {
+            if (arguments.length === 3) {
+                viewmodel.courseId = arguments[0];
+                viewmodel.objectiveId = arguments[1];
+                viewmodel.questionId = arguments[2];
+            } else if (arguments.length === 2) {
+                viewmodel.courseId = null;
+                viewmodel.objectiveId = arguments[0];
+                viewmodel.questionId = arguments[1];
+            } else {
+                throw 'Invalid arguments';
+            }
+
+            return questionRepository.getById(viewmodel.objectiveId, viewmodel.questionId).then(function (question) {
+                viewmodel.activeQuestionViewModel = setActiveViewModel(question);
+                viewmodel.questionType = question.type;
+                return viewmodel.activeQuestionViewModel.initialize(viewmodel.objectiveId, question).then(function (viewModelData) {
+                    viewmodel.viewCaption = viewModelData.viewCaption;
+
+                    viewmodel.questionTitle = vmQuestionTitle(viewmodel.objectiveId, question);
+                    viewmodel.isInformationContent = viewModelData.isInformationContent;
+                    if (viewModelData.isQuestionContentNeeded) {
+                        viewmodel.questionContent = vmContentField(question.content, eventsForQuestionContent, true, function (content) {
+                            return questionRepository.updateContent(question.id, content);
+                        });
+                    } else {
+                        viewmodel.questionContent = null;
+                    }
                 });
-            }).fail(function (reason) {
-                router.activeItem.settings.lifecycleData = { redirect: '404' };
-                throw reason;
             });
+        }
+
+        function back() {
+            if (viewmodel.courseId) {
+                router.navigate('#courses/' + viewmodel.courseId + '/objectives/' + viewmodel.objectiveId);
+            } else {
+                router.navigate('#objectives/' + viewmodel.objectiveId);
+            }
         }
 
         function titleUpdatedByCollaborator(questionData) {
@@ -130,5 +142,6 @@ define(['durandal/app', 'eventTracker', 'constants',
             if (!viewmodel.questionContent.isEditing())
                 viewmodel.questionContent.text(question.content);
         }
+
     }
 );

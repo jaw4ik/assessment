@@ -232,7 +232,7 @@
 
                 it('should navigate to the course', function (done) {
                     viewModel.createNewCourse().fin(function () {
-                        expect(router.navigate).toHaveBeenCalledWith('#course/courseId');
+                        expect(router.navigate).toHaveBeenCalledWith('courses/courseId');
                         done();
                     });
                 });
@@ -294,28 +294,28 @@
                     });
                 });
 
-                describe('and course has objective', function() {
-                    beforeEach(function() {
+                describe('and course has objective', function () {
+                    beforeEach(function () {
                         course.objectives = [{ id: 'objectiveId' }];
                     });
 
-                    it('should navigate to created course', function() {
+                    it('should navigate to created course', function () {
                         viewModel.importCourseFromPresentation();
-                        expect(router.navigate).toHaveBeenCalledWith('#objective/' + course.objectives[0].id + '?courseId=' + course.id);
+                        expect(router.navigate).toHaveBeenCalledWith('courses/' + course.id + '/objectives/' + course.objectives[0].id);
                     });
                 });
 
-                describe('and course does not have objectives', function() {
-                    beforeEach(function() {
+                describe('and course does not have objectives', function () {
+                    beforeEach(function () {
                         course.objectives = [];
                     });
-                    
-                    it('should navigate to created course', function() {
+
+                    it('should navigate to created course', function () {
                         viewModel.importCourseFromPresentation();
-                        expect(router.navigate).toHaveBeenCalledWith('#course/' + course.id);
+                        expect(router.navigate).toHaveBeenCalledWith('courses/' + course.id);
                     });
                 });
-                
+
             });
 
             describe('when course import completed', function () {
@@ -347,7 +347,7 @@
             it('should navigate to #course/id', function () {
                 dataContext.courses = courses;
                 viewModel.navigateToDetails(courses[0]);
-                expect(router.navigate).toHaveBeenCalledWith('course/' + courses[0].id);
+                expect(router.navigate).toHaveBeenCalledWith('courses/' + courses[0].id);
             });
 
         });
@@ -365,7 +365,7 @@
 
             it('should navigate to #publish/id', function () {
                 viewModel.navigateToPublish(courses[0]);
-                expect(router.navigate).toHaveBeenCalledWith('publish/' + courses[0].id);
+                expect(router.navigate).toHaveBeenCalledWith('courses/' + courses[0].id + '/publish');
             });
 
         });

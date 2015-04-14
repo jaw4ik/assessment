@@ -1,6 +1,5 @@
-﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'clientContext',
-    'models/backButton', 'constants', 'utils/waiter'],
-    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, clientContext, BackButton, constants, waiter) {
+﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'clientContext', 'constants', 'utils/waiter'],
+    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, clientContext, constants, waiter) {
 
         var events = {
             navigateToCourses: 'Navigate to courses',
@@ -42,13 +41,7 @@
             toggleTemplatesListVisibility: toggleTemplatesListVisibility,
             templatesListCollapsed: ko.observable(false),
 
-            frameLoaded: frameLoaded,
-
-            backButtonData: new BackButton({
-                url: 'courses',
-                backViewName: localizationManager.localize('courses'),
-                callback: navigateToCoursesEvent
-            })
+            frameLoaded: frameLoaded
         };
 
         return viewModel;
