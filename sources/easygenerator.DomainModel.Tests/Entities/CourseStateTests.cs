@@ -1,5 +1,4 @@
-﻿using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Tests.ObjectMothers;
+﻿using easygenerator.DomainModel.Tests.ObjectMothers;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -23,50 +22,26 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void CourseState_CreateCourseState()
         {
             var course = CourseObjectMother.Create();
-            var courseState = CourseStateObjectMother.Create(course, CourseStateInfoObjectMother.Create(true));
+            var courseState = CourseStateObjectMother.Create(course, true);
 
             courseState.Id.Should().NotBeEmpty();
             courseState.Course.Should().Be(course);
-            courseState.Info.Should().NotBeNull();
-            courseState.Info.Should().BeOfType<CourseStateInfo>();
-            courseState.Info.HasUnpublishedChanges.Should().BeTrue();
+            courseState.HasUnpublishedChanges.Should().BeTrue();
         }
 
-        [TestMethod]
-        public void CourseState_CreateCourseState_WithDefaultValue_When_NotSpecified()
-        {
-            var course = CourseObjectMother.Create();
-            var courseState = CourseStateObjectMother.Create(course);
+        #endregion
 
-            courseState.Id.Should().NotBeEmpty();
-            courseState.Course.Should().Be(course);
-            courseState.Info.Should().NotBeNull();
-            courseState.Info.Should().BeOfType<CourseStateInfo>();
-            courseState.Info.HasUnpublishedChanges.Should().BeFalse();
-        }
+        #region UpdateHasUnpublishedChanges
 
         [TestMethod]
-        public void CourseState_UpdateInfo_Should_ThrowArgumentNullException_WhenCourseStateInfoIsNull()
+        public void UpdateHasUnpublishedChanges_Should_UpdateHasUnpublishedChanges()
         {
             var course = CourseObjectMother.Create();
-            var courseState = CourseStateObjectMother.Create(course);
-           // var newInfo = CourseStateInfoObjectMother.Create(true);
+            var courseState = CourseStateObjectMother.Create(course, true);
 
-            Action action = () => courseState.UpdateInfo(null);
+            courseState.UpdateHasUnpublishedChanges(false);
 
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("info");
-        }
-
-        [TestMethod]
-        public void CourseState_UpdateInfo_Should_UpdateStateInfo()
-        {
-            var course = CourseObjectMother.Create();
-            var courseState = CourseStateObjectMother.Create(course);
-            var newInfo = CourseStateInfoObjectMother.Create(true);
-
-            courseState.UpdateInfo(newInfo);
-
-            courseState.Info.Should().Be(newInfo);
+            courseState.HasUnpublishedChanges.Should().BeFalse();
         }
 
         #endregion

@@ -7,13 +7,13 @@ namespace easygenerator.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class AddCourseStateTable : IMigrationMetadata
+    public sealed partial class AddCourseStatesTable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddCourseStateTable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddCourseStatesTable));
         
         string IMigrationMetadata.Id
         {
-            get { return "201504060855394_AddCourseStateTable"; }
+            get { return "201504091229392_AddCourseStatesTable"; }
         }
         
         string IMigrationMetadata.Source

@@ -4,6 +4,7 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.DomainEvents.ChangeTracking.Events;
 using easygenerator.Web.DomainEvents.ChangeTracking.Trackers;
+using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
@@ -35,7 +36,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new CourseTitleUpdatedEvent(CourseObjectMother.Create()));
 
             //Assert
-            ShouldPublishCourseChangedEvent();
+            _publisher.ShouldPublishEvent<CourseChangedEvent>();
         }
 
         [TestMethod]
@@ -45,7 +46,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new CourseIntroductionContentUpdated(CourseObjectMother.Create()));
 
             //Assert
-            ShouldPublishCourseChangedEvent();
+            _publisher.ShouldPublishEvent<CourseChangedEvent>();
         }
 
         [TestMethod]
@@ -55,7 +56,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new CourseTemplateUpdatedEvent(CourseObjectMother.Create()));
 
             //Assert
-            ShouldPublishCourseChangedEvent();
+            _publisher.ShouldPublishEvent<CourseChangedEvent>();
         }
 
         [TestMethod]
@@ -65,7 +66,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new CourseObjectivesReorderedEvent(CourseObjectMother.Create()));
 
             //Assert
-            ShouldPublishCourseChangedEvent();
+            _publisher.ShouldPublishEvent<CourseChangedEvent>();
         }
 
         [TestMethod]
@@ -75,7 +76,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new CourseObjectiveRelatedEvent(CourseObjectMother.Create(), ObjectiveObjectMother.Create()));
 
             //Assert
-            ShouldPublishCourseChangedEvent();
+            _publisher.ShouldPublishEvent<CourseChangedEvent>();
         }
 
         [TestMethod]
@@ -85,7 +86,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new CourseObjectivesUnrelatedEvent(CourseObjectMother.Create(), new[] { ObjectiveObjectMother.Create() }));
 
             //Assert
-            ShouldPublishCourseChangedEvent();
+            _publisher.ShouldPublishEvent<CourseChangedEvent>();
         }
 
         [TestMethod]
@@ -95,7 +96,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new CourseTemplateSettingsUpdated(CourseObjectMother.Create()));
 
             //Assert
-            ShouldPublishCourseChangedEvent();
+            _publisher.ShouldPublishEvent<CourseChangedEvent>();
         }
 
         #endregion
@@ -112,7 +113,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new ObjectiveChangedEvent(objective));
 
             //Assert
-            ShouldPublishCourseChangedEvent(2);
+            _publisher.ShouldPublishEvent<CourseChangedEvent>(2);
         }
 
         [TestMethod]
@@ -127,7 +128,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new QuestionChangedEvent(question));
 
             //Assert
-            ShouldPublishCourseChangedEvent(2);
+            _publisher.ShouldPublishEvent<CourseChangedEvent>(2);
         }
 
         [TestMethod]
@@ -142,7 +143,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new LearningContentChangedEvent(content));
 
             //Assert
-            ShouldPublishCourseChangedEvent(2);
+            _publisher.ShouldPublishEvent<CourseChangedEvent>(2);
         }
 
         [TestMethod]
@@ -157,7 +158,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new AnswerChangedEvent(answer));
 
             //Assert
-            ShouldPublishCourseChangedEvent(2);
+            _publisher.ShouldPublishEvent<CourseChangedEvent>(2);
         }
 
         [TestMethod]
@@ -172,7 +173,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new DropspotChangedEvent(dropspot));
 
             //Assert
-            ShouldPublishCourseChangedEvent(2);
+            _publisher.ShouldPublishEvent<CourseChangedEvent>(2);
         }
 
         [TestMethod]
@@ -187,7 +188,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new HotSpotPolygonChangedEvent(polygon));
 
             //Assert
-            ShouldPublishCourseChangedEvent(2);
+            _publisher.ShouldPublishEvent<CourseChangedEvent>(2);
         }
 
         [TestMethod]
@@ -202,7 +203,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new TextMatchingAnswerChangedEvent(answer));
 
             //Assert
-            ShouldPublishCourseChangedEvent(2);
+            _publisher.ShouldPublishEvent<CourseChangedEvent>(2);
         }
 
         [TestMethod]
@@ -217,18 +218,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new SingleSelectImageAnswerChangedEvent(answer));
 
             //Assert
-            ShouldPublishCourseChangedEvent(2);
-        }
-
-        private void ShouldPublishCourseChangedEvent(int eventCount = 1)
-        {
-            var calls = _publisher.ReceivedCalls();
-            calls.Count().Should().Be(eventCount);
-
-            for (int i = 0; i < eventCount; i++)
-            {
-                calls.ElementAtOrDefault(i).GetArguments()[0].Should().BeOfType<CourseChangedEvent>();
-            }
+            _publisher.ShouldPublishEvent<CourseChangedEvent>(2);
         }
     }
 }

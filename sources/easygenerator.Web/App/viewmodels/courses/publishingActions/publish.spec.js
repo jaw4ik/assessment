@@ -38,9 +38,9 @@
             });
 
             describe('courseHasUnpublishedChanges:', function () {
-                 it('should be observable', function () {
+                it('should be observable', function () {
                     expect(viewModel.courseHasUnpublishedChanges).toBeObservable();
-            });
+                });
             });
 
             describe('isPublishing', function () {
@@ -248,11 +248,22 @@
 
             });
 
-            describe('courseChanged:', function() {
-                it('should set courseHasUnpublishedChanges to true', function() {
-                    viewModel.courseHasUnpublishedChanges(false);
-                    viewModel.courseChanged();
-                    expect(viewModel.courseHasUnpublishedChanges()).toBeTruthy();
+            describe('courseStateChanged:', function () {
+
+                describe('when state hasUnpublishedChanges is true', function () {
+                    it('should update courseHasUnpublishedChanges to true', function () {
+                        viewModel.courseHasUnpublishedChanges(false);
+                        viewModel.courseStateChanged({ hasUnpublishedChanges: true });
+                        expect(viewModel.courseHasUnpublishedChanges()).toBeTruthy();
+                    });
+                });
+
+                describe('when state hasUnpublishedChanges is false', function () {
+                    it('should update courseHasUnpublishedChanges to false', function () {
+                        viewModel.courseHasUnpublishedChanges(true);
+                        viewModel.courseStateChanged({ hasUnpublishedChanges: false });
+                        expect(viewModel.courseHasUnpublishedChanges()).toBeFalsy();
+                    });
                 });
             });
 
@@ -437,7 +448,7 @@
 
                 describe('and when course is current course', function () {
 
-                    beforeEach(function() {
+                    beforeEach(function () {
                         viewModel.courseId = course.id;
                     });
 
@@ -457,12 +468,6 @@
                         viewModel.coursePublishCompleted(course);
 
                         expect(viewModel.packageUrl()).toEqual(course.publish.packageUrl);
-                    });
-
-                    it('should set courseHasUnpublishedChanges to false', function () {
-                        viewModel.courseHasUnpublishedChanges(true);
-                        viewModel.coursePublishCompleted(course);
-                        expect(viewModel.courseHasUnpublishedChanges()).toBeFalsy();
                     });
 
                 });
@@ -589,7 +594,7 @@
 
             describe('frameWidth:', function () {
 
-                it('should be observable', function() {
+                it('should be observable', function () {
                     expect(viewModel.frameWidth).toBeObservable();
                 });
 
@@ -607,15 +612,15 @@
 
                 var embedCode;
 
-                beforeEach(function() {
+                beforeEach(function () {
                     embedCode = constants.embedCode.replace('{W}', viewModel.frameWidth()).replace('{H}', viewModel.frameHeight()).replace('{src}', course.publish.packageUrl);
                 });
 
-                it('should be observable', function() {
+                it('should be observable', function () {
                     expect(viewModel.embedCode).toBeObservable();
                 });
 
-                it('should be equal embedCode', function() {
+                it('should be equal embedCode', function () {
                     expect(viewModel.embedCode()).toBe(embedCode);
                 });
 
@@ -623,7 +628,7 @@
 
             describe('copyLinkToClipboard:', function () {
 
-                it('should be function', function() {
+                it('should be function', function () {
                     expect(viewModel.copyLinkToClipboard).toBeFunction();
                 });
 
@@ -651,13 +656,13 @@
 
             describe('validateFrameWidth:', function () {
 
-                it('should be function', function() {
+                it('should be function', function () {
                     expect(viewModel.validateFrameWidth).toBeFunction();
                 });
 
-                describe('when frameWidth is not validate', function() {
+                describe('when frameWidth is not validate', function () {
 
-                    it('should set frameWidth to default value', function() {
+                    it('should set frameWidth to default value', function () {
                         viewModel.frameWidth(0);
                         viewModel.validateFrameWidth();
                         expect(viewModel.frameWidth()).toBe(constants.frameSize.width.value);
@@ -665,9 +670,9 @@
 
                 });
 
-                describe('when frameWidth is validate', function() {
+                describe('when frameWidth is validate', function () {
 
-                    it('should not update frameWidth', function() {
+                    it('should not update frameWidth', function () {
                         viewModel.frameWidth(25);
                         viewModel.validateFrameWidth();
                         expect(viewModel.frameWidth()).toBe(25);
@@ -679,7 +684,7 @@
 
             describe('validateFrameHeight:', function () {
 
-                it('should be function', function() {
+                it('should be function', function () {
                     expect(viewModel.validateFrameHeight).toBeFunction();
                 });
 

@@ -3,10 +3,9 @@ using easygenerator.DomainModel.Events.QuestionEvents.TextMatchingEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.DomainEvents.ChangeTracking.Events;
 using easygenerator.Web.DomainEvents.ChangeTracking.Trackers;
-using FluentAssertions;
+using easygenerator.Web.Tests.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using System.Linq;
 
 namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
 {
@@ -32,7 +31,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new TextMatchingAnswerValueChangedEvent(TextMatchingAnswerObjectMother.Create()));
 
             //Assert
-            ShouldPublishAnswerChangedEvent();
+            _publisher.ShouldPublishEvent<TextMatchingAnswerChangedEvent>();
         }
 
         [TestMethod]
@@ -42,7 +41,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new TextMatchingAnswerKeyChangedEvent(TextMatchingAnswerObjectMother.Create()));
 
             //Assert
-            ShouldPublishAnswerChangedEvent();
+            _publisher.ShouldPublishEvent<TextMatchingAnswerChangedEvent>();
         }
 
         [TestMethod]
@@ -52,16 +51,9 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new TextMatchingAnswerCreatedEvent(TextMatchingAnswerObjectMother.Create()));
 
             //Assert
-            ShouldPublishAnswerChangedEvent();
+            _publisher.ShouldPublishEvent<TextMatchingAnswerChangedEvent>();
         }
 
         #endregion
-
-        private void ShouldPublishAnswerChangedEvent()
-        {
-            var calls = _publisher.ReceivedCalls();
-            calls.Count().Should().Be(1);
-            calls.First().GetArguments()[0].Should().BeOfType<TextMatchingAnswerChangedEvent>();
-        }
     }
 }

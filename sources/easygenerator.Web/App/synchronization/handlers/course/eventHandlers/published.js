@@ -13,7 +13,6 @@
             guard.throwIfNotAnObject(course, 'Course has not been found');
 
             course.publish.packageUrl = publicationUrl;
-            course.hasUnpublishedChanges = false;
             app.trigger(constants.messages.course.publish.completed, course);
         }
 

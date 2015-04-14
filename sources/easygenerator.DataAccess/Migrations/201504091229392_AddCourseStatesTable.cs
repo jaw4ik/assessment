@@ -3,7 +3,7 @@ namespace easygenerator.DataAccess.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddCourseStateTable : DbMigration
+    public partial class AddCourseStatesTable : DbMigration
     {
         public override void Up()
         {
@@ -12,7 +12,7 @@ namespace easygenerator.DataAccess.Migrations
                 c => new
                     {
                         Id = c.Guid(nullable: false),
-                        Info_HasUnpublishedChanges = c.Boolean(nullable: false),
+                        HasUnpublishedChanges = c.Boolean(nullable: false),
                         Course_Id = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)

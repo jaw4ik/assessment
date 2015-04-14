@@ -86,6 +86,7 @@
     <Compile Include="Events\AnswerEvents\AnswerDeletedEvent.cs" />
     <Compile Include="Events\AnswerEvents\AnswerEvent.cs" />
     <Compile Include="Events\AnswerEvents\AnswerTextUpdatedEvent.cs" />
+    <Compile Include="Events\CourseEvents\CourseBuildStartedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseCollaboratorRemovedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseDeletedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseEvent.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Events\CourseEvents\CourseObjectivesReorderedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseObjectivesUnrelatedEvent.cs" />
     <Compile Include="Events\CourseEvents\CoursePublishedEvent.cs" />
+    <Compile Include="Events\CourseEvents\CoursePublishStartedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseTemplateSettingsUpdated.cs" />
     <Compile Include="Events\CourseEvents\CourseTemplateUpdatedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseTitleUpdatedEvent.cs" />

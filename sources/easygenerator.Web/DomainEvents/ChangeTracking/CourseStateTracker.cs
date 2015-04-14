@@ -1,48 +1,75 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.CourseEvents;
+using easygenerator.Infrastructure;
 using easygenerator.Web.DomainEvents.ChangeTracking.Events;
+using easygenerator.Web.InMemoryStorages.CourseStateStorage;
 
 namespace easygenerator.Web.DomainEvents.ChangeTracking
 {
     public class CourseStateTracker :
         IDomainEventHandler<CourseChangedEvent>,
         IDomainEventHandler<CoursePublishedEvent>,
-        IDomainEventHandler<CourseDeletedEvent>
+        IDomainEventHandler<CourseDeletedEvent>,
+        IDomainEventHandler<CourseBuildStartedEvent>
     {
-        private readonly ICourseStateInfoStorage _storage;
+        private readonly ICourseStateStorage _stateStorage;
+        private readonly IDomainEventPublisher _eventPublisher;
+        private readonly ICourseInfoInMemoryStorage _infoStorage;
 
-        public CourseStateTracker(ICourseStateInfoStorage storage)
+        public CourseStateTracker(ICourseStateStorage stateStorage, IDomainEventPublisher eventPublisher, ICourseInfoInMemoryStorage infoStorage)
         {
-            _storage = storage;
-        }
-
-        public void Handle(CoursePublishedEvent args)
-        {
-            HandleCourseUnpublishedChangesState(args.Course, false);
+            _stateStorage = stateStorage;
+            _eventPublisher = eventPublisher;
+            _infoStorage = infoStorage;
         }
 
         public void Handle(CourseChangedEvent args)
         {
-            HandleCourseUnpublishedChangesState(args.Course, true);
+            var info = _infoStorage.GetCourseInfo(args.Course);
+            info.ChangedOn = DateTimeWrapper.Now();
+            _infoStorage.SaveCourseInfo(args.Course, info);
+
+            if (_stateStorage.HasUnpublishedChanges(args.Course))
+                return;
+
+            _eventPublisher.Publish(new CourseStateChangedEvent(args.Course, true));
+            _stateStorage.SaveHasUnpublishedChanges(args.Course, true);
+        }
+
+        public void Handle(CourseBuildStartedEvent args)
+        {
+            var info = _infoStorage.GetCourseInfo(args.Course);
+            info.BuildStartedOn = DateTimeWrapper.Now();
+            _infoStorage.SaveCourseInfo(args.Course, info);
+        }
+
+        public void Handle(CoursePublishedEvent args)
+        {
+            if (!_stateStorage.HasUnpublishedChanges(args.Course))
+                return;
+
+            if (!IsPublishSuccessful(args.Course))
+                return;
+
+            var info = _infoStorage.GetCourseInfo(args.Course);
+            if (info.ChangedOn > info.BuildStartedOn)
+                return;
+
+            _eventPublisher.Publish(new CourseStateChangedEvent(args.Course, false));
+            _stateStorage.SaveHasUnpublishedChanges(args.Course, false);
         }
 
         public void Handle(CourseDeletedEvent args)
         {
-            _storage.RemoveCourseStateInfo(args.Course);
+            _infoStorage.RemoveCourseInfo(args.Course);
+            _stateStorage.RemoveCourseState(args.Course);
         }
 
-        private void HandleCourseUnpublishedChangesState(Course course, bool hasChanges)
+        private bool IsPublishSuccessful(Course course)
         {
-            if (string.IsNullOrEmpty(course.PublicationUrl))
-                return;
-
-            var info = _storage.GetCourseStateInfo(course);
-            if (info.HasUnpublishedChanges == hasChanges)
-                return;
-
-            info.HasUnpublishedChanges = hasChanges;
-            _storage.SaveCourseStateInfo(course, info);
+            return !string.IsNullOrEmpty(course.PublicationUrl);
         }
+
     }
 }

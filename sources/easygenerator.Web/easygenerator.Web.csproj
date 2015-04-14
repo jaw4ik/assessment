@@ -260,8 +260,9 @@
     <Compile Include="Controllers\Api\StatementController.cs" />
     <Compile Include="Controllers\Api\TextMatchingQuestionController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\CourseStateInfoStorage.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\CourseStateStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\AnswerChangedEvent.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\CourseStateChangedEvent.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\DropspotChangedEvent.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\HotSpotPolygonChangedEvent.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\LearningContentChangedEvent.cs" />
@@ -269,7 +270,7 @@
     <Compile Include="DomainEvents\ChangeTracking\Events\QuestionChangedEvent.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\SingleSelectImageAnswerChangedEvent.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\TextMatchingAnswerChangedEvent.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\ICourseStateInfoStorage.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\ICourseStateStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseChangeTracker.cs" />
     <Compile Include="DomainEvents\ChangeTracking\CourseStateTracker.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\CourseChangedEvent.cs" />
@@ -282,8 +283,11 @@
     <Compile Include="DomainEvents\ChangeTracking\Trackers\SingleSelectImageAnswerChangeTracker.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\TextMatchingAnswerChangeTracker.cs" />
     <Compile Include="DomainEvents\Handlers\MailChimpSubscriptionHandler.cs" />
-    <Compile Include="InMemoryStorages\CourseStateInfoInMemoryStorage.cs" />
-    <Compile Include="InMemoryStorages\ICourseStateInfoInMemoryStorage.cs" />
+    <Compile Include="InMemoryStorages\CourseStateStorage\CourseInfo.cs" />
+    <Compile Include="InMemoryStorages\CourseStateStorage\CourseInfoInMemoryStorage.cs" />
+    <Compile Include="InMemoryStorages\CourseStateStorage\CourseStateInMemoryStorage.cs" />
+    <Compile Include="InMemoryStorages\CourseStateStorage\ICourseInfoInMemoryStorage.cs" />
+    <Compile Include="InMemoryStorages\CourseStateStorage\ICourseStateInMemoryStorage.cs" />
     <Compile Include="InMemoryStorages\DemoCoursesInMemoryStorage.cs" />
     <Compile Include="InMemoryStorages\IDemoCoursesStorage.cs" />
     <Compile Include="Import\Presentation\Extensions\ParagraphExtensions.cs" />
@@ -561,9 +565,9 @@
     <Content Include="App\synchronization\handlers\answer\eventHandlers\answerCorrectnessUpdated.spec.js">
       <DependentUpon>answerCorrectnessUpdated.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\course\eventHandlers\changed.js" />
-    <Content Include="App\synchronization\handlers\course\eventHandlers\changed.spec.js">
-      <DependentUpon>changed.js</DependentUpon>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\stateChanged.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\stateChanged.spec.js">
+      <DependentUpon>stateChanged.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\objective\eventHandlers\imageUrlUpdated.js" />
     <Content Include="App\synchronization\handlers\objective\eventHandlers\imageUrlUpdated.spec.js">

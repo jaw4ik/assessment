@@ -19,7 +19,7 @@ namespace easygenerator.Web.Synchronization.Handlers
         IDomainEventHandler<CourseObjectiveRelatedEvent>,
         IDomainEventHandler<CourseObjectivesUnrelatedEvent>,
         IDomainEventHandler<CourseObjectivesClonedEvent>,
-        IDomainEventHandler<CourseChangedEvent>
+        IDomainEventHandler<CourseStateChangedEvent>
     {
         private readonly ICollaborationBroadcaster<Course> _broadcaster;
         private readonly IEntityMapper _entityMapper;
@@ -87,9 +87,9 @@ namespace easygenerator.Web.Synchronization.Handlers
                 args.ReplacedObjectives.ToDictionary(objectivesInfo => objectivesInfo.Key.ToNString(), objectivesInfo => _entityMapper.Map(objectivesInfo.Value)), args.Course.ModifiedOn);
         }
 
-        public void Handle(CourseChangedEvent args)
+        public void Handle(CourseStateChangedEvent args)
         {
-            _broadcaster.AllCollaborators(args.Course).courseChanged(args.Course.Id.ToNString());
+            _broadcaster.AllCollaborators(args.Course).courseStateChanged(args.Course.Id.ToNString(), new { hasUnpublishedChanges = args.HasUnpublishedChanges });
         }
     }
 }

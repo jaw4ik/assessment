@@ -10,11 +10,10 @@ using easygenerator.DomainModel.Events.QuestionEvents.TextMatchingEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.DomainEvents.ChangeTracking.Events;
 using easygenerator.Web.DomainEvents.ChangeTracking.Trackers;
-using FluentAssertions;
+using easygenerator.Web.Tests.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
 {
@@ -40,7 +39,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new FillInTheBlankUpdatedEvent(FillInTheBlanksObjectMother.Create(), new Collection<BlankAnswer>()));
 
             //Assert
-            ShouldPublishQuestionChangedEvent();
+            _publisher.ShouldPublishEvent<QuestionChangedEvent>();
         }
 
         [TestMethod]
@@ -50,7 +49,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new LearningContentsReorderedEvent(FillInTheBlanksObjectMother.Create()));
 
             //Assert
-            ShouldPublishQuestionChangedEvent();
+            _publisher.ShouldPublishEvent<QuestionChangedEvent>();
         }
 
         [TestMethod]
@@ -60,7 +59,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new QuestionContentUpdatedEvent(FillInTheBlanksObjectMother.Create()));
 
             //Assert
-            ShouldPublishQuestionChangedEvent();
+            _publisher.ShouldPublishEvent<QuestionChangedEvent>();
         }
 
         [TestMethod]
@@ -70,7 +69,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new QuestionBackgroundChangedEvent(DragAndDropTextObjectMother.Create(), "bg.com"));
 
             //Assert
-            ShouldPublishQuestionChangedEvent();
+            _publisher.ShouldPublishEvent<QuestionChangedEvent>();
         }
 
         [TestMethod]
@@ -80,7 +79,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new QuestionIncorrectFeedbackUpdatedEvent(DragAndDropTextObjectMother.Create()));
 
             //Assert
-            ShouldPublishQuestionChangedEvent();
+            _publisher.ShouldPublishEvent<QuestionChangedEvent>();
         }
 
         [TestMethod]
@@ -90,7 +89,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new QuestionCorrectFeedbackUpdatedEvent(DragAndDropTextObjectMother.Create()));
 
             //Assert
-            ShouldPublishQuestionChangedEvent();
+            _publisher.ShouldPublishEvent<QuestionChangedEvent>();
         }
 
         [TestMethod]
@@ -100,7 +99,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new QuestionCreatedEvent(DragAndDropTextObjectMother.Create()));
 
             //Assert
-            ShouldPublishQuestionChangedEvent();
+            _publisher.ShouldPublishEvent<QuestionChangedEvent>();
         }
 
         [TestMethod]
@@ -110,7 +109,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new QuestionTitleUpdatedEvent(DragAndDropTextObjectMother.Create()));
 
             //Assert
-            ShouldPublishQuestionChangedEvent();
+            _publisher.ShouldPublishEvent<QuestionChangedEvent>();
         }
 
         [TestMethod]
@@ -120,7 +119,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new AnswerDeletedEvent(SingleSelectTextObjectMother.Create(), AnswerObjectMother.Create()));
 
             //Assert
-            ShouldPublishQuestionChangedEvent();
+            _publisher.ShouldPublishEvent<QuestionChangedEvent>();
         }
 
         [TestMethod]
@@ -130,7 +129,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new LearningContentDeletedEvent(SingleSelectTextObjectMother.Create(), LearningContentObjectMother.Create()));
 
             //Assert
-            ShouldPublishQuestionChangedEvent();
+            _publisher.ShouldPublishEvent<QuestionChangedEvent>();
         }
 
         [TestMethod]
@@ -140,7 +139,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new HotSpotPolygonDeletedEvent(SingleSelectTextObjectMother.Create(), HotSpotPolygonObjectMother.Create()));
 
             //Assert
-            ShouldPublishQuestionChangedEvent();
+            _publisher.ShouldPublishEvent<QuestionChangedEvent>();
         }
 
         [TestMethod]
@@ -150,7 +149,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new DropspotDeletedEvent(SingleSelectTextObjectMother.Create(), DropspotObjectMother.Create()));
 
             //Assert
-            ShouldPublishQuestionChangedEvent();
+            _publisher.ShouldPublishEvent<QuestionChangedEvent>();
         }
 
         [TestMethod]
@@ -160,7 +159,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new HotSpotIsMultipleChangedEvent(SingleSelectTextObjectMother.Create(), false));
 
             //Assert
-            ShouldPublishQuestionChangedEvent();
+            _publisher.ShouldPublishEvent<QuestionChangedEvent>();
         }
 
         [TestMethod]
@@ -170,7 +169,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new TextMatchingAnswerDeletedEvent(TextMatchingObjectMother.Create(), TextMatchingAnswerObjectMother.Create()));
 
             //Assert
-            ShouldPublishQuestionChangedEvent();
+            _publisher.ShouldPublishEvent<QuestionChangedEvent>();
         }
 
         [TestMethod]
@@ -180,16 +179,9 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new SingleSelectImageAnswerDeletedEvent(SingleSelectImageAnswerObjectMother.Create(), SingleSelectImageObjectMother.Create()));
 
             //Assert
-            ShouldPublishQuestionChangedEvent();
+            _publisher.ShouldPublishEvent<QuestionChangedEvent>();
         }
 
         #endregion
-
-        private void ShouldPublishQuestionChangedEvent()
-        {
-            var calls = _publisher.ReceivedCalls();
-            calls.Count().Should().Be(1);
-            calls.First().GetArguments()[0].Should().BeOfType<QuestionChangedEvent>();
-        }
     }
 }

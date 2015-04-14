@@ -3,10 +3,9 @@ using easygenerator.DomainModel.Events.QuestionEvents.HotSpotEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.DomainEvents.ChangeTracking.Events;
 using easygenerator.Web.DomainEvents.ChangeTracking.Trackers;
-using FluentAssertions;
+using easygenerator.Web.Tests.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using System.Linq;
 
 namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
 {
@@ -32,7 +31,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new HotSpotPolygonUpdatedEvent(HotSpotPolygonObjectMother.Create()));
 
             //Assert
-            ShouldPublishPolygonChangedEvent();
+            _publisher.ShouldPublishEvent<HotSpotPolygonChangedEvent>();
         }
 
         [TestMethod]
@@ -42,16 +41,9 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new HotSpotPolygonCreatedEvent(HotSpotPolygonObjectMother.Create()));
 
             //Assert
-            ShouldPublishPolygonChangedEvent();
+            _publisher.ShouldPublishEvent<HotSpotPolygonChangedEvent>();
         }
 
         #endregion
-
-        private void ShouldPublishPolygonChangedEvent()
-        {
-            var calls = _publisher.ReceivedCalls();
-            calls.Count().Should().Be(1);
-            calls.First().GetArguments()[0].Should().BeOfType<HotSpotPolygonChangedEvent>();
-        }
     }
 }

@@ -94,7 +94,6 @@
     <Compile Include="ObjectMothers\BlankAnswerObjectMother.cs" />
     <Compile Include="ObjectMothers\CommentObjectMother.cs" />
     <Compile Include="ObjectMothers\CourseCollaboratorObjectMother.cs" />
-    <Compile Include="ObjectMothers\CourseStateInfoObjectMother.cs" />
     <Compile Include="ObjectMothers\CourseStateObjectMother.cs" />
     <Compile Include="ObjectMothers\CourseTemplateSettingsObjectMother.cs" />
     <Compile Include="ObjectMothers\DemoCourseInfoObjectMother.cs" />

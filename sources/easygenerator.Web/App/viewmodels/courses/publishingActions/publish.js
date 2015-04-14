@@ -23,7 +23,7 @@
             viewModel.coursePublishStarted = coursePublishStarted;
             viewModel.coursePublishCompleted = coursePublishCompleted;
             viewModel.coursePublishFailed = coursePublishFailed;
-            viewModel.courseChanged = courseChanged;
+            viewModel.courseStateChanged = courseStateChanged;
          
             viewModel.courseHasUnpublishedChanges = ko.observable(course.hasUnpublishedChanges);
 
@@ -46,7 +46,7 @@
             app.on(constants.messages.course.publish.started).then(viewModel.coursePublishStarted);
             app.on(constants.messages.course.publish.completed).then(viewModel.coursePublishCompleted);
             app.on(constants.messages.course.publish.failed).then(viewModel.coursePublishFailed);
-            app.on(constants.messages.course.changed + course.id).then(viewModel.courseChanged);
+            app.on(constants.messages.course.stateChanged + course.id).then(viewModel.courseStateChanged);
 
             viewModel.embedCode = ko.computed({
                 read: function () {
@@ -111,8 +111,8 @@
 
             //#region App-wide events
 
-            function courseChanged() {
-                viewModel.courseHasUnpublishedChanges(true);
+            function courseStateChanged(state) {
+                viewModel.courseHasUnpublishedChanges(state.hasUnpublishedChanges);
             }
 
             function courseBuildStarted(course) {
@@ -142,7 +142,6 @@
                 if (course.id !== viewModel.courseId)
                     return;
 
-                viewModel.courseHasUnpublishedChanges(false);
                 viewModel.state(constants.publishingStates.succeed);
                 viewModel.packageUrl(course.publish.packageUrl);
                 viewModel.embedCode(getEmbedCode());

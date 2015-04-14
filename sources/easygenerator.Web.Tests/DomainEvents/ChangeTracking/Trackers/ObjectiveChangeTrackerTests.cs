@@ -4,11 +4,10 @@ using easygenerator.DomainModel.Events.ObjectiveEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.DomainEvents.ChangeTracking.Events;
 using easygenerator.Web.DomainEvents.ChangeTracking.Trackers;
-using FluentAssertions;
+using easygenerator.Web.Tests.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
 {
@@ -34,7 +33,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new ObjectiveImageUrlUpdatedEvent(ObjectiveObjectMother.Create()));
 
             //Assert
-            ShouldPublishObjectiveChangedevent();
+            _publisher.ShouldPublishEvent<ObjectiveChangedEvent>();
         }
 
         [TestMethod]
@@ -44,7 +43,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new ObjectiveTitleUpdatedEvent(ObjectiveObjectMother.Create()));
 
             //Assert
-            ShouldPublishObjectiveChangedevent();
+            _publisher.ShouldPublishEvent<ObjectiveChangedEvent>();
         }
 
         [TestMethod]
@@ -54,7 +53,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new QuestionsReorderedEvent(ObjectiveObjectMother.Create()));
 
             //Assert
-            ShouldPublishObjectiveChangedevent();
+            _publisher.ShouldPublishEvent<ObjectiveChangedEvent>();
         }
 
         [TestMethod]
@@ -64,16 +63,9 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new QuestionsDeletedEvent(ObjectiveObjectMother.Create(), new Collection<Question>()));
 
             //Assert
-            ShouldPublishObjectiveChangedevent();
+            _publisher.ShouldPublishEvent<ObjectiveChangedEvent>();
         }
 
         #endregion
-
-        private void ShouldPublishObjectiveChangedevent()
-        {
-            var calls = _publisher.ReceivedCalls();
-            calls.Count().Should().Be(1);
-            calls.First().GetArguments()[0].Should().BeOfType<ObjectiveChangedEvent>();
-        }
     }
 }

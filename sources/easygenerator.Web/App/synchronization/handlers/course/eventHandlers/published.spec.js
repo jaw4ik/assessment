@@ -62,14 +62,6 @@
             expect(mappedCourse.publish.packageUrl).toBe(url);
         });
 
-        it('should set course hasUnpublishedChanges to false', function () {
-            mappedCourse.hasUnpublishedChanges = true;
-            dataContext.courses = [mappedCourse];
-
-            handler(mappedCourse.id, url);
-            expect(mappedCourse.hasUnpublishedChanges).toBeFalsy();
-        });
-
         it('should trigger app event', function () {
             mappedCourse.packageUrl = '';
             dataContext.courses = [mappedCourse];

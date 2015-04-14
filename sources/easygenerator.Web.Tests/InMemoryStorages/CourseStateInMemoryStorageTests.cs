@@ -1,7 +1,5 @@
-﻿using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Tests.ObjectMothers;
-using easygenerator.Web.DomainEvents.ChangeTracking;
-using easygenerator.Web.InMemoryStorages;
+﻿using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.Web.InMemoryStorages.CourseStateStorage;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
@@ -11,27 +9,25 @@ namespace easygenerator.Web.Tests.InMemoryStorages
     [TestClass]
     public class CourseStateInMemoryStorageTests
     {
-        private CourseStateInfoInMemoryStorage _courseStateStorage;
+        private CourseStateInMemoryStorage _courseStateStorage;
 
         [TestInitialize]
         public void Initialize()
         {
-            _courseStateStorage = new CourseStateInfoInMemoryStorage();
+            _courseStateStorage = new CourseStateInMemoryStorage();
         }
 
         [TestMethod]
-        public void SaveCourseStateInfo_Should_AddAddCourseState_When_CourseStateIsNotPresentInTheCollection()
+        public void SaveCourseState_Should_AddAddCourseState_When_CourseStateIsNotPresentInTheCollection()
         {
             //Arrange
-            var info = CourseStateInfoObjectMother.Create();
             var course = CourseObjectMother.Create();
 
             //Act
-            _courseStateStorage.SaveCourseStateInfo(course, info);
-
+            _courseStateStorage.SaveHasUnpublishedChanges(course, true);
 
             //Assert
-            _courseStateStorage.CourseStateInfos.ElementAt(0).Should().Be(info);
+            _courseStateStorage.States.ElementAt(0).Should().Be(true);
         }
 
         [TestMethod]
@@ -39,58 +35,98 @@ namespace easygenerator.Web.Tests.InMemoryStorages
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var oldInfo = CourseStateInfoObjectMother.Create();
-            _courseStateStorage.SaveCourseStateInfo(course, oldInfo);
+            _courseStateStorage.SaveHasUnpublishedChanges(course, false);
 
             //Act
-            var newInfo = CourseStateInfoObjectMother.Create(true);
-            _courseStateStorage.SaveCourseStateInfo(course, newInfo);
+            _courseStateStorage.SaveHasUnpublishedChanges(course, true);
 
             //Assert
-            _courseStateStorage.CourseStateInfos.ElementAt(0).Should().Be(newInfo);
+            _courseStateStorage.States.ElementAt(0).Should().Be(true);
         }
 
         [TestMethod]
-        public void RemoveCourseState_Should_RemoveCourseState()
+        public void TryGetHasUnpublishedChanges_Should_ReturnTrue_When_CourseStateIsPresentInTheCollection()
         {
             //Arrange
-            var info = CourseStateInfoObjectMother.Create();
             var course = CourseObjectMother.Create();
-            _courseStateStorage.SaveCourseStateInfo(course, info);
+            _courseStateStorage.SaveHasUnpublishedChanges(course, false);
+            bool value;
 
             //Act
-            _courseStateStorage.RemoveCourseStateInfo(course);
+            var result = _courseStateStorage.TryGetHasUnpublishedChanges(course, out value);
 
             //Assert
-            _courseStateStorage.CourseStateInfos.Count().Should().Be(0);
+            Assert.IsTrue(result);
         }
 
         [TestMethod]
-        public void RemoveCourseState_Should_DoNothing_When_CourseStateIsNotPresentInCollection()
+        public void TryGetHasUnpublishedChanges_Should_ReturnFalse_When_CourseStateIsPresentInTheCollection()
         {
             //Arrange
             var course = CourseObjectMother.Create();
+            bool value;
 
             //Act
-            _courseStateStorage.RemoveCourseStateInfo(course);
+            var result = _courseStateStorage.TryGetHasUnpublishedChanges(course, out value);
 
             //Assert
-            _courseStateStorage.CourseStateInfos.Count().Should().Be(0);
+            Assert.IsFalse(result);
         }
 
         [TestMethod]
-        public void GetCourseState_Should_ReturnCourseState()
+        public void TryGetHasUnpublishedChanges_Should_AssingValue_When_CourseStateIsPresentInTheCollection()
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var info = CourseStateInfoObjectMother.Create();
-            _courseStateStorage.SaveCourseStateInfo(course, info);
+            bool value;
+            _courseStateStorage.SaveHasUnpublishedChanges(course, true);
 
             //Act
-            var result = _courseStateStorage.GetCourseStateInfo(course);
+            var result = _courseStateStorage.TryGetHasUnpublishedChanges(course, out value);
 
             //Assert
-            result.Should().Be(info);
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void TryGetHasUnpublishedChanges_Should_AssingValueToFalse_When_CourseStateIsNotPresentInTheCollection()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            bool value;
+
+            //Act
+            var result = _courseStateStorage.TryGetHasUnpublishedChanges(course, out value);
+
+            //Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void RemoveCourseState_Should_RemoveState_WhenIsPresentInCollection()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            _courseStateStorage.SaveHasUnpublishedChanges(course, true);
+
+            //Act
+           _courseStateStorage.RemoveCourseState(course);
+
+            //Assert
+            _courseStateStorage.States.Count().Should().Be(0);
+        }
+
+        [TestMethod]
+        public void RemoveCourseState_Should_DoNothing_WhenIsNotPresentInCollection()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            _courseStateStorage.RemoveCourseState(course);
+
+            //Assert
+            _courseStateStorage.States.Count().Should().Be(0);
         }
     }
 }

@@ -1,13 +1,11 @@
 ﻿using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.QuestionEvents.DragAndDropEvents;
-using easygenerator.DomainModel.Events.QuestionEvents.TextMatchingEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.DomainEvents.ChangeTracking.Events;
 using easygenerator.Web.DomainEvents.ChangeTracking.Trackers;
-using FluentAssertions;
+using easygenerator.Web.Tests.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using System.Linq;
 
 namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
 {
@@ -33,7 +31,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new DropspotCreatedEvent(DropspotObjectMother.Create()));
 
             //Assert
-            ShouldPublishAnswerChangedEvent();
+            _publisher.ShouldPublishEvent<DropspotChangedEvent>();
         }
 
         [TestMethod]
@@ -43,7 +41,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new DropspotPositionChangedEvent(DropspotObjectMother.Create()));
 
             //Assert
-            ShouldPublishAnswerChangedEvent();
+            _publisher.ShouldPublishEvent<DropspotChangedEvent>();
         }
 
         [TestMethod]
@@ -53,16 +51,9 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _tracker.Handle(new DropspotTextChangedEvent(DropspotObjectMother.Create()));
 
             //Assert
-            ShouldPublishAnswerChangedEvent();
+            _publisher.ShouldPublishEvent<DropspotChangedEvent>();
         }
 
         #endregion
-
-        private void ShouldPublishAnswerChangedEvent()
-        {
-            var calls = _publisher.ReceivedCalls();
-            calls.Count().Should().Be(1);
-            calls.First().GetArguments()[0].Should().BeOfType<DropspotChangedEvent>();
-        }
     }
 }

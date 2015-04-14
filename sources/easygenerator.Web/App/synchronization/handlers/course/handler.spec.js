@@ -57,9 +57,9 @@
             });
         });
 
-        describe('changed:', function () {
+        describe('stateChanged:', function () {
             it('should be function', function () {
-                expect(handler.changed).toBeFunction();
+                expect(handler.stateChanged).toBeFunction();
             });
         });
 
