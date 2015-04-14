@@ -12,11 +12,11 @@
             "name": "English",
             "url": "lang/en.json"
         },
-		{
-			"code": "nl",
-			"name": "Dutch",
-			"url": "lang/nl.json"
-		},
+        {
+            "code": "nl",
+            "name": "Dutch",
+            "url": "lang/nl.json"
+        },
         {
             "code": "ua",
             "name": "Ukrainian",
