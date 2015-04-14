@@ -25,6 +25,7 @@
   background: #fff;
   -webkit-flex: 0 0 auto;
   flex: 0 0 auto;
+  border-bottom: 1px solid rgba(198, 209, 216, 0.7);
 }
 .course .course-title-wrapper {
   max-width: 960px;
