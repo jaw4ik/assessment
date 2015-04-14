@@ -209,7 +209,7 @@
                 it('should navigate to #/objective/{id}', function () {
                     var objectiveId = 1;
                     viewModel.navigateToDetails({ id: objectiveId });
-                    expect(router.navigate).toHaveBeenCalledWith('objective/' + objectiveId);
+                    expect(router.navigate).toHaveBeenCalledWith('objectives/' + objectiveId);
                 });
 
             });

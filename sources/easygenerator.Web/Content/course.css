@@ -29,7 +29,7 @@
     vertical-align: top;
     position: relative;
     padding: 10px 15px;
-    background-color: white;
+    background-color: #f3f7f9;
     color: rgba(177, 177, 177, 0.7);
     font-family: 'OpenSans-Semibold';
     text-transform: uppercase;
@@ -418,7 +418,21 @@
     width: 22%;
     margin-right: 3.4%;
     margin-bottom: 30px;
+    border: 1px solid #e4e5eb;
+    border-radius: 10px;
+    overflow: hidden;
 }
+
+    .choose-template-item.selected,
+    .choose-template-item.selected:hover {
+        border: 2px solid #65bd77;
+    }
+
+    .choose-template-item:hover {
+        -webkit-box-shadow: 0 3px 4px 0 rgba(240,240,240,1);
+        -moz-box-shadow: 0 3px 4px 0 rgba(240,240,240,1);
+        box-shadow: 0 3px 4px 0 rgba(240,240,240,1);
+    }
 
     .choose-template-item:nth-of-type(4n) {
         margin-right: 0;
@@ -436,20 +450,7 @@
 
 .template-image-container {
     position: relative;
-    border: 1px solid #f0f0f0;
-    border-radius: 10px;
 }
-
-    .template-image-container.selected,
-    .template-image-container.selected:hover {
-        border: 2px solid #65bd77;
-    }
-
-    .template-image-container:hover {
-        -webkit-box-shadow: 0 3px 4px 0 rgba(240,240,240,1);
-        -moz-box-shadow: 0 3px 4px 0 rgba(240,240,240,1);
-        box-shadow: 0 3px 4px 0 rgba(240,240,240,1);
-    }
 
 .selected-template {
     display: none;
@@ -474,14 +475,13 @@
         background: url('/Content/images/sprites_24.png') -118px -32px no-repeat;
     }
 
-.template-image-container.selected .selected-template {
+.choose-template-item.selected .selected-template {
     display: block;
 }
 
 .template-image {
     display: block;
     width: 100%;
-    border-radius: 10px;
 }
 
 .transparent.template-image {
@@ -518,13 +518,12 @@
     right: 0;
     bottom: 0;
     background-color: #fff;
-    border-radius: 10px;
     opacity: 0;
     cursor: pointer;
     transition: opacity 0.2s ease 0s;
 }
 
-.template-image-container:hover .choose-template-action-container {
+.choose-template-item:hover .choose-template-action-container {
     opacity: 0.95;
 }
 
@@ -544,12 +543,12 @@
     cursor: pointer;
 }
 
-.template-image-container.selected .choose-template-btn.preview {
+.choose-template-item.selected .choose-template-btn.preview {
     display: block;
 }
 
-.template-image-container.selected .choose-template-btn.select,
-.template-image-container.selected .preview-link {
+.choose-template-item.selected .choose-template-btn.select,
+.choose-template-item.selected .preview-link {
     display: none;
 }
 
@@ -577,10 +576,12 @@
     }
 
 .template-name {
+    background-color: #fff;
+    border-top: 1px solid #e4e5eb;
+    color: #42515f;
     font: 17px 'OpenSans';
-    color: #434a54;
-    margin-top: 10px;
     overflow: hidden;
+    padding: 10px 0;
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -1877,7 +1878,7 @@ li.package-action-tabs-link {
 /*#region SHARE COURSE DIALOG*/
 
 .modal-dialog-wrapper.publish-course {
-    top: 56px;
+    top: 60px;
     right: 0;
     width: 445px;
 }
@@ -1888,8 +1889,9 @@ li.package-action-tabs-link {
         height: 12px;
         width: 12px;
         position: absolute;
-        right: 55px;
+        right: 12px;
         top: -6px;
+        box-shadow: -2px -2px 2px 0 rgba(216, 216, 216, 0.4);
         -webkit-transform: rotate(45deg);
         -moz-transform: rotate(45deg);
         -ms-transform: rotate(45deg);
@@ -1924,6 +1926,10 @@ li.package-action-tabs-link {
 .package-action-item.publish-course .package-action-update-course-container,
 .package-action-item.publish-course .package-action-tabs-item-overlay {
     background-color: #fdfdfd;
+}
+
+.modal-dialog-wrapper.publish-course.visible + .button {
+    z-index: 1500;
 }
 
 /*#endregion SHARE COURSE DIALOG*/
