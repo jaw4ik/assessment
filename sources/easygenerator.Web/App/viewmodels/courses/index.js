@@ -28,7 +28,6 @@
     return {
         router: childRouter,
         activate: function () {
-            console.warn('viewmodels/courses/index');
 
         }
     };

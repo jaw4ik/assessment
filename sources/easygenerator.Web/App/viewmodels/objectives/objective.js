@@ -26,8 +26,7 @@
                 imageUrl: ko.observable(''),
                 isImageLoading: ko.observable(false),
                 currentLanguage: '',
-                contextCourseId: null,
-                contextCourseTitle: null,
+
                 isLastCreatedObjective: false,
                 isObjectiveTipVisible: ko.observable(false),
 

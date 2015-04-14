@@ -153,15 +153,15 @@
 
                     router.isViewReady = ko.observable();
                     router.on('router:navigation:processing').then(function (instruction, router) {
-                        if (instruction.config.moduleId !== router.isViewReady()) {                            
+                        if (instruction.config.moduleId !== router.isViewReady()) {
                             router.isViewReady(false);
                         }
                     });
                     router.on('router:navigation:composition-complete').then(function (instance, instruction, router) {
                         if (instance) {
-                            setTimeout(function () {                                
+                            setTimeout(function () {
                                 router.isViewReady(instance.__moduleId__);
-                            }, 250);
+                            }, 10);
                         }
                     });
 

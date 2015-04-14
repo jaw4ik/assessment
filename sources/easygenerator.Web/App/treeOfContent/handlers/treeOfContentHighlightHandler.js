@@ -17,7 +17,7 @@
 
                 url = url.replace('/design', '').replace('/publish', '').replace('/results', '');
 
-                console.log('Highlighting URL ' + url);
+                //console.log('Highlighting URL ' + url);
 
                 highlightElementWithUrl(url);
                 setTimeout(function () {
