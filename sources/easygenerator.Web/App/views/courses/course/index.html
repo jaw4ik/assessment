@@ -15,7 +15,7 @@
                     <!--  ko compose: 'dialogs/collaboration/collaboration'  -->
                     <!-- /ko -->
                     <a href="" class="button button-collaboration" data-bind="click: collaborate">
-                        Add co-authors
+                        <span data-bind="localize: { text: 'addPeopleForCollaboration' }"></span>
                         <!-- ko if: collaborators().length > 1 -->
                         <span class="count" data-bind="text: collaborators().length"></span>
                         <!-- /ko -->

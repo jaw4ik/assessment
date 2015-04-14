@@ -1932,6 +1932,10 @@ li.package-action-tabs-link {
     z-index: 1500;
 }
 
+[lang~=uk] .modal-dialog-wrapper.publish-course:after {
+    right: 30px;
+}
+
 /*#endregion SHARE COURSE DIALOG*/
 
 /*#region RESULTS TAB*/
