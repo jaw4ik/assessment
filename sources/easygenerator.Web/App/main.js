@@ -18,7 +18,9 @@ define('knockout', function () {
 
 define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synchronization/listener', 'onboarding/initialization'],
     function (system, app, bootstrapper, userContext, synchronization, onboarding) {
-        //system.debug(true);
+        if (!has('release')) {
+            system.debug(true);
+        }
 
         app.title = "easygenerator";
 
