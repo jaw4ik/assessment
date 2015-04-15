@@ -1,4 +1,8 @@
-﻿.unselectable() {
+﻿
+@maxWidth: 960px;
+@minWidth: 635px;
+
+.unselectable() {
     -moz-user-select: none;
     -ms-user-select: none;
     -webkit-user-select: none;
@@ -18,4 +22,10 @@
     align-items: center;
     -webkit-justify-content: center;
     justify-content: center;
+}
+
+.container() {
+    max-width: @maxWidth;
+    min-width: @minWidth;
+    margin: 0 auto;
 }

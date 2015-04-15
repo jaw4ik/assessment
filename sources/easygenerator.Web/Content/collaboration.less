@@ -256,7 +256,7 @@
     border: 1px solid #d8d8d8;
     border-radius: 4px;
     position: absolute;
-    z-index: 10000;
+    z-index: 1500;
 }
 
 .modal-dialog-close-btn {
@@ -422,7 +422,7 @@
 }
 
 .modal-dialog-blockout {
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
@@ -588,9 +588,13 @@
 /*#region Collaboration */
 
 .collaboration.modal-dialog-wrapper {
+    right: 110px;
+    top: -5px;
     width: 385px;
-    right: 44px;
-    top: -9px;
+    //  TODO: .
+    &.visible + .button {
+        z-index: 1500;
+    }
 }
 
 .collaboration .circular-loader .circular-loader-item {

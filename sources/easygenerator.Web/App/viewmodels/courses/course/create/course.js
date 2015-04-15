@@ -1,8 +1,7 @@
-﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'services/publishService', 'viewmodels/objectives/objectiveBrief',
-        'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField', 'clientContext', 'models/backButton',
-        'userContext', 'durandal/app', './collaboration/collaborators', 'imageUpload', 'commands/createObjectiveCommand'],
-    function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, clientContext, BackButton,
-        userContext, app, collaborators, imageUpload, createObjectiveCommand) {
+﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'viewmodels/objectives/objectiveBrief',
+        'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField',
+        'userContext', 'durandal/app', 'imageUpload', 'commands/createObjectiveCommand'],
+    function (router, constants, eventTracker, repository, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField, userContext, app, imageUpload, createObjectiveCommand) {
         "use strict";
 
         var
@@ -34,36 +33,25 @@
 
         var viewModel = {
             id: '',
-            title: ko.observable(),
             createdBy: '',
             connectedObjectives: ko.observableArray([]),
             availableObjectives: ko.observableArray([]),
             objectivesMode: ko.observable(''),
-            isEditing: ko.observable(),
+
             courseIntroductionContent: {},
             objectivesListModes: objectivesListModes,
             canDisconnectObjectives: ko.observable(false),
             canConnectObjectives: ko.observable(false),
             isReorderingObjectives: ko.observable(false),
             isSortingEnabled: ko.observable(true),
-            courseTitleMaxLength: constants.validation.courseTitleMaxLength,
-            isObjectivesListReorderedByCollaborator: ko.observable(false),
-            collaborationWarning: ko.observable(''),
-            isLastCreatedCourse: false,
 
-            backButtonData: new BackButton({
-                url: 'courses',
-                backViewName: localizationManager.localize('courses'),
-                callback: navigateToCoursesEvent
-            }),
+            isObjectivesListReorderedByCollaborator: ko.observable(false),
 
             updateObjectiveImage: updateObjectiveImage,
             navigateToObjectiveDetails: navigateToObjectiveDetails,
             createObjective: createObjective,
             navigateToCoursesEvent: navigateToCoursesEvent,
             toggleObjectiveSelection: toggleObjectiveSelection,
-            startEditTitle: startEditTitle,
-            endEditTitle: endEditTitle,
             showAllAvailableObjectives: showAllAvailableObjectives,
             showConnectedObjectives: showConnectedObjectives,
             disconnectSelectedObjectives: disconnectSelectedObjectives,
@@ -71,11 +59,10 @@
             endReorderingObjectives: endReorderingObjectives,
             reorderObjectives: reorderObjectives,
             activate: activate,
-            deactivate: deactivate,
             connectObjective: connectObjective,
             disconnectObjective: disconnectObjective,
             objectiveDisconnected: objectiveDisconnected,
-            titleUpdated: titleUpdated,
+
             introductionContentUpdated: introductionContentUpdated,
             objectivesReordered: objectivesReordered,
             objectiveConnected: objectiveConnected,
@@ -83,17 +70,9 @@
             objectiveTitleUpdated: objectiveTitleUpdated,
             objectiveImageUpdated: objectiveImageUpdated,
             objectiveUpdated: objectiveUpdated,
-            updateCollaborationWarning: updateCollaborationWarning,
-            collaborators: collaborators,
-            openUpgradePlanUrl: openUpgradePlanUrl,
             localizationManager: localizationManager,
             eventTracker: eventTracker
         };
-
-        viewModel.title.isValid = ko.computed(function () {
-            var length = viewModel.title() ? viewModel.title().trim().length : 0;
-            return length > 0 && length <= constants.validation.courseTitleMaxLength;
-        });
 
         viewModel.canDisconnectObjectives = ko.computed(function () {
             return _.some(viewModel.connectedObjectives(), function (item) {
@@ -122,20 +101,7 @@
         app.on(constants.messages.question.createdByCollaborator, viewModel.objectiveUpdated);
         app.on(constants.messages.question.deletedByCollaborator, viewModel.objectiveUpdated);
 
-        app.on(constants.messages.user.downgraded, viewModel.updateCollaborationWarning);
-        app.on(constants.messages.user.upgradedToStarter, viewModel.updateCollaborationWarning);
-        app.on(constants.messages.user.upgradedToPlus, viewModel.updateCollaborationWarning);
-
-        viewModel.collaborators.members.subscribe(function () {
-            viewModel.updateCollaborationWarning();
-        });
-
         return viewModel;
-
-        function openUpgradePlanUrl() {
-            eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.collaboration);
-            router.openUrl(constants.upgradeUrl);
-        }
 
         function navigateToCoursesEvent() {
             eventTracker.publish(events.navigateToCourses);
@@ -180,7 +146,7 @@
                 throw 'Objective id property is null';
             }
 
-            router.navigate('objective/' + objective.id + '?courseId=' + viewModel.id);
+            router.navigate('courses/' + viewModel.id + '/objectives/' + objective.id);
         }
 
         function createObjective() {
@@ -207,29 +173,6 @@
                 eventTracker.publish(events.selectObjective);
                 objective.isSelected(true);
             }
-        }
-
-        function startEditTitle() {
-            viewModel.isEditing(true);
-        }
-
-        function endEditTitle() {
-            viewModel.title(viewModel.title().trim());
-            viewModel.isEditing(false);
-
-            repository.getById(viewModel.id).then(function (response) {
-                if (viewModel.title() === response.title) {
-                    return;
-                }
-
-                eventTracker.publish(events.updateCourseTitle);
-
-                if (viewModel.title.isValid()) {
-                    repository.updateCourseTitle(viewModel.id, viewModel.title()).then(notify.saved);
-                } else {
-                    viewModel.title(response.title);
-                }
-            });
         }
 
         function showAllAvailableObjectives() {
@@ -370,15 +313,11 @@
         }
 
         function activate(courseId) {
-            viewModel.updateCollaborationWarning();
+
             return repository.getById(courseId).then(function (course) {
                 viewModel.id = course.id;
                 viewModel.createdBy = course.createdBy;
 
-                clientContext.set(constants.clientContextKeys.lastVistedCourse, course.id);
-                clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
-
-                viewModel.title(course.title);
                 viewModel.objectivesMode(objectivesListModes.display);
                 viewModel.connectedObjectives(_.chain(course.objectives)
                     .map(function (objective) {
@@ -386,25 +325,11 @@
                     })
                     .value());
 
-                viewModel.isEditing(false);
                 viewModel.courseIntroductionContent = vmContentField(course.introductionContent, eventsForCourseContent, false, function (content) {
                     return repository.updateIntroductionContent(course.id, content);
                 });
 
-                var lastCreatedCourseId = clientContext.get(constants.clientContextKeys.lastCreatedCourseId) || '';
-                clientContext.remove(constants.clientContextKeys.lastCreatedCourseId);
-                viewModel.isLastCreatedCourse = lastCreatedCourseId === course.id;
-
-                viewModel.updateCollaborationWarning();
-
-            }).fail(function (reason) {
-                router.activeItem.settings.lifecycleData = { redirect: '404' };
-                throw reason;
             });
-        }
-
-        function deactivate() {
-            viewModel.collaborators.deactivate();
         }
 
         function objectiveTitleUpdated(objective) {
@@ -439,14 +364,6 @@
             return _.find(objectives, function (item) {
                 return item.id === objectiveId;
             });
-        }
-
-        function titleUpdated(course) {
-            if (course.id !== viewModel.id || viewModel.isEditing()) {
-                return;
-            }
-
-            viewModel.title(course.title);
         }
 
         function introductionContentUpdated(course) {
@@ -532,21 +449,5 @@
             });
         }
 
-        function updateCollaborationWarning() {
-            if (userContext.identity.email !== viewModel.createdBy) {
-                viewModel.collaborationWarning('');
-                return;
-            }
-
-            if (userContext.identity.subscription.accessType === constants.accessType.free &&
-                viewModel.collaborators.members().length > 1) {
-                viewModel.collaborationWarning(localizationManager.localize('collaborationFreeWarning'));
-            } else if (userContext.identity.subscription.accessType === constants.accessType.starter &&
-                viewModel.collaborators.members().length > constants.maxStarterPlanCollaborators + 1) {
-                viewModel.collaborationWarning(localizationManager.localize('collaborationStarterWarning'));
-            } else {
-                viewModel.collaborationWarning('');
-            }
-        }
     }
 );

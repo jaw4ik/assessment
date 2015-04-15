@@ -119,7 +119,7 @@
                         var promise = viewModel.activate(settings);
 
                         promise.fin(function () {
-                            var question = _.find(viewModel.questions(), function(item) {
+                            var question = _.find(viewModel.questions(), function (item) {
                                 return item.type === constants.questionType.singleSelectText.type;
                             });
                             expect(question.hasAccess).toBeTruthy();
@@ -353,7 +353,7 @@
                 beforeEach(function () {
                     spyOn(router, "activeInstruction").and.returnValue({ queryParams: {} });
                 });
-                
+
                 it('should execute createQuestionCommand', function () {
                     viewModel.objectiveId = 'objectiveId';
 
@@ -364,14 +364,10 @@
 
             });
 
-            describe('when courseId is defined in query params', function () {
-
-                beforeEach(function () {
-                    var instruction = { queryParams: { courseId: 'courseId' } };
-                    spyOn(router, "activeInstruction").and.returnValue(instruction);
-                });
+            describe('when courseId is defined', function () {
 
                 it('should call command with courseId', function () {
+                    viewModel.courseId = 'courseId';
                     viewModel.objectiveId = 'objectiveId';
 
                     viewModel.createQuestion({ type: 'questionType' });
@@ -385,12 +381,12 @@
 
         describe('openUpgradePlanUrl:', function () {
 
-            beforeEach(function() {
+            beforeEach(function () {
                 spyOn(eventTracker, 'publish');
                 spyOn(window, 'open');
             });
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.openUpgradePlanUrl).toBeFunction();
             });
 
@@ -399,7 +395,7 @@
                 expect(eventTracker.publish).toHaveBeenCalledWith(constants.upgradeEvent, constants.upgradeCategory.questions);
             });
 
-            it('should open upgrade link in new window', function() {
+            it('should open upgrade link in new window', function () {
                 viewModel.openUpgradePlanUrl();
                 expect(window.open).toHaveBeenCalledWith(constants.upgradeUrl, '_blank');
             });

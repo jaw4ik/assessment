@@ -29,7 +29,7 @@
     vertical-align: top;
     position: relative;
     padding: 10px 15px;
-    background-color: white;
+    background-color: #f3f7f9;
     color: rgba(177, 177, 177, 0.7);
     font-family: 'OpenSans-Semibold';
     text-transform: uppercase;
@@ -1584,11 +1584,11 @@ li.package-action-tabs-link {
     .package-action-tabs-item-wrapper .publish-tab-update-course {
         padding: 12px 10px;
         margin-bottom: 20px;
-    }
+}
 
     .package-action-tabs-item-wrapper .publish-tab-update-course-image {
         margin-left: 10px;
-    }
+}
 
     .package-action-tabs-item-wrapper .publish-tab-update-course-text {
         margin-right: 15px;
@@ -1827,7 +1827,7 @@ li.package-action-tabs-link {
 /*#region SHARE COURSE DIALOG*/
 
 .modal-dialog-wrapper.publish-course {
-    top: 56px;
+    top: 60px;
     right: 0;
     width: 525px;
 }
@@ -1838,11 +1838,9 @@ li.package-action-tabs-link {
         height: 12px;
         width: 12px;
         position: absolute;
-        right: 55px;
-        top: -7px;
-        box-shadow: 0px -2px 2px 0px rgba(216, 216, 216, 0.4);
-        border-top: 1px solid #d8d8d8;
-        border-left: 1px solid #d8d8d8;
+        right: 12px;
+        top: -6px;
+        box-shadow: -2px -2px 2px 0 rgba(216, 216, 216, 0.4);
         -webkit-transform: rotate(45deg);
         -moz-transform: rotate(45deg);
         -ms-transform: rotate(45deg);
@@ -1873,6 +1871,16 @@ li.package-action-tabs-link {
         .modal-dialog-wrapper.publish-course .package-action-item.light-green.package-action-item.light-green .package-action-header:after {
             display: none;
         }
+
+.package-action-item.publish-course .package-action-tabs-item,
+.package-action-item.publish-course .package-action-update-course-container,
+.package-action-item.publish-course .package-action-tabs-item-overlay {
+    background-color: #fdfdfd;
+}
+
+.modal-dialog-wrapper.publish-course.visible + .button {
+    z-index: 1500;
+}
 
 /*#endregion SHARE COURSE DIALOG*/
 

@@ -3,7 +3,6 @@
     "use strict";
 
     var repository = require('repositories/courseRepository'),
-        router = require('plugins/router'),
         eventTracker = require('eventTracker'),
         constants = require('constants'),
         Course = require('models/course');
@@ -37,8 +36,7 @@
 
             beforeEach(function () {
                 getCourse = Q.defer();
-                spyOn(repository, 'getById').and.returnValue(getCourse.promise);;
-                router.routeData({ courseId: courseId });
+                spyOn(repository, 'getById').and.returnValue(getCourse.promise);
             });
 
             it('should be function', function () {
@@ -53,7 +51,7 @@
 
                 it('should set isShown to true', function (done) {
                     viewModel.isShown(false);
-                    viewModel.show().fin(function () {
+                    viewModel.show(courseId).fin(function () {
                         expect(viewModel.isShown()).toBeTruthy();
                         done();
                     });
@@ -62,7 +60,7 @@
                 it('should define publishAction', function (done) {
                     viewModel.publishAction(null);
 
-                    viewModel.show().fin(function () {
+                    viewModel.show(courseId).fin(function () {
                         expect(viewModel.publishAction()).toBeDefined();
                         done();
                     });

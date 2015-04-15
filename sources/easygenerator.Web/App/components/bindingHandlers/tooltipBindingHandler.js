@@ -6,7 +6,7 @@
     };
 
     function install() {
-        var containerSelector = '.view-content';
+        var containerSelector = '.shell';
         var animationDuration = 200;
         var tooltipHolderClass = 'tooltip-holder';
 
@@ -21,7 +21,7 @@
                 return { controlsDescendantBindings: true };
             },
             update: function (element, valueAccessor) {
-                
+
             }
         };
 
@@ -84,7 +84,7 @@
                     var tooltipStyles = {
                         left: position.horizontal.left,
                         top: position.vertical.top + (position.vertical.aligment == 'top' ? (-20) : 20),
-                        display:'block',
+                        display: 'block',
                         opacity: '0'
                     };
 
@@ -115,7 +115,7 @@
                 var vertical = {};
                 vertical.aligment = getVerticalAligment(preferredVerticalAligment, pointerTopOffset, tooltipHeight);
                 vertical.top = pointerTopOffset - containerTopOffset;
-
+                
                 if (vertical.aligment == 'top') {
                     vertical.top -= tooltipHeight + 20;
                 }

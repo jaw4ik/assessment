@@ -1,0 +1,57 @@
+﻿<section class="course publish view-module">
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <div class="publish-container" data-bind="publishTabs: {}">
+                <ul class="publish-tabs unstyled">
+                    <li class="publish-tab active" data-bind="click: sendOpenLinkTab" data-tab-link="private-link">
+                        <div class="active-indicator"></div>
+                        <div class="publish-tab-image-container">
+                            <span class="publish-tab-image private-link"></span>
+                        </div>
+                        <span data-bind="localize: {text: 'sharePrivateLink'}">Share private link</span>
+                    </li>
+                    <li class="publish-tab" data-bind="click: sendOpenEmbedTab" data-tab-link="embed">
+                        <div class="active-indicator"></div>
+                        <div class="publish-tab-image-container">
+                            <span class="publish-tab-image embed"></span>
+                        </div>
+                        <span data-bind="localize: {text: 'insideAWebsite'}">Inside a website</span>
+                    </li>
+                    <li class="publish-tab" data-bind="click: sendOpenScormTab" data-tab-link="scorm">
+                        <div class="active-indicator"></div>
+                        <div class="publish-tab-image-container">
+                            <span class="publish-tab-image scorm"></span>
+                        </div>
+                        <span data-bind="localize: {text: 'toYourLMS'}">To your LMS</span>
+                    </li>
+                    <li class="publish-tab" data-bind="click: sendOpenHtmlTab" data-tab-link="html">
+                        <div class="active-indicator"></div>
+                        <div class="publish-tab-image-container">
+                            <span class="publish-tab-image html"></span>
+                        </div>
+                        <span data-bind="localize: {text: 'toYourHosting'}">To your hosting</span>
+                    </li>
+                    <li class="publish-tab" data-bind="click: sendOpenAim4YouTab" data-tab-link="aim">
+                        <div class="active-indicator"></div>
+                        <div class="publish-tab-image-container">
+                            <span class="publish-tab-image aim"></span>
+                        </div>
+                        <span data-bind="localize: {text: 'sellTheCourse'}">Sell the course</span>
+                    </li>
+                </ul>
+                <div class="publish-tabs-content">
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishToPublicationServerLink', model: publishAction } -->
+                    <!-- /ko -->
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishToPublicationServerEmbed', model: publishAction } -->
+                    <!-- /ko -->
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishAsScorm', model: scormBuildAction } -->
+                    <!-- /ko -->
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishAsHtml', model: buildAction } -->
+                    <!-- /ko -->
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishToAim4You', model: publishToAim4YouAction } -->
+                    <!-- /ko -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,4 +1,4 @@
-﻿define(['viewmodels/courses/design'], function (viewModel) {
+﻿define(['viewmodels/courses/course/design'], function (viewModel) {
     "use strict";
 
     var
@@ -10,7 +10,6 @@
         localizationManager = require('localization/localizationManager'),
         clientContext = require('clientContext'),
         constants = require('constants'),
-        BackButton = require('models/backButton'),
         waiter = require('utils/waiter')
     ;
 
@@ -706,20 +705,6 @@
 
         });
 
-        describe('backButtonData:', function () {
-
-            it('should be instance of BackButton', function () {
-                expect(viewModel.backButtonData).toBeInstanceOf(BackButton);
-            });
-
-            it('should be configured', function () {
-                expect(viewModel.backButtonData.url).toBe('courses');
-                expect(viewModel.backButtonData.backViewName).toBe(localizationManager.localize('courses'));
-                expect(viewModel.backButtonData.callback).toBe(viewModel.navigateToCoursesEvent);
-            });
-
-        });
-
         describe('frameLoaded:', function () {
 
             it('should be function', function () {
@@ -790,7 +775,7 @@
             var message;
             describe('when message object is empty', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     message = null;
                 });
 
@@ -812,9 +797,9 @@
                     message = { type: 'freeze' };
                 });
 
-                describe('when data.freezeEditor is true', function() {
+                describe('when data.freezeEditor is true', function () {
 
-                    beforeEach(function() {
+                    beforeEach(function () {
                         message.data = {
                             freezeEditor: true
                         };
@@ -843,7 +828,7 @@
                     });
 
                 });
-                
+
                 describe('when data.freezeEditor is empty', function () {
 
                     beforeEach(function () {
@@ -874,13 +859,13 @@
                         };
                     });
 
-                    describe('and when message exists', function() {
+                    describe('and when message exists', function () {
 
-                        beforeEach(function() {
+                        beforeEach(function () {
                             message.data.message = "Message text";
                         });
 
-                        it('should show success notification', function() {
+                        it('should show success notification', function () {
                             viewModel.onGetTemplateMessage(message);
                             expect(notify.success).toHaveBeenCalledWith(message.data.message);
                         });

@@ -321,6 +321,11 @@
         'zh-cn': '预览',
         'uk': 'Переглянути'
     },
+    share: {
+        'en': 'Share',
+        'zh-cn': 'Share[zh-cn]',
+        'uk': 'Поділитися'
+    },
     or: {
         'en': 'Or',
         'zh-cn': 'Or[zh-cn]',
@@ -1592,6 +1597,19 @@
     },
     /* End resource section for model StatementQuestion */
     
+    /* Resource section for model OpenQuestion */
+    newOpenQuestionTitle: {
+        'en': 'Untitled open question',
+        'zh-cn': 'Untitled open question[zh-cn]',
+        'uk': 'Untitled open question[uk]'
+    },
+    openQuestionEditor: {
+        'en': '\"Open\" question editor',
+        'zh-cn': '\"Open\" question editor[zh-cn]',
+        'uk': '\"Open\" question editor[uk]'
+    },
+    /* End resource section for model OpenQuestion */
+    
     /* Resource section for model QuestionFeedback */
     putYourPositiveFeedback: {
         'en': 'Create response for correct answer',
@@ -1670,6 +1688,11 @@
         'en': 'Course template settings:',
         'zh-cn': '课程模板设置',
         'uk': 'Course template settings:'
+    },
+    courseTitle: {
+        'en': 'Course title',
+        'zh-cn': 'Course title[zh-cn]',
+        'uk': 'Назва курсу'
     },
     /* End resource section for model Display course */
     

@@ -1,11 +1,9 @@
-﻿define(['viewmodels/courses/results'], function (viewModel) {
+﻿define(['viewmodels/courses/course/results'], function (viewModel) {
     "use strict";
 
     var
         eventTracker = require('eventTracker'),
         courseRepository = require('repositories/courseRepository'),
-        localizationManager = require('localization/localizationManager'),
-        BackButton = require('models/backButton'),
         xApiProvider = require('reporting/xApiProvider'),
         constants = require('constants'),
         dialog = require('plugins/dialog'),
@@ -189,7 +187,7 @@
                     });
 
                 });
-                
+
                 describe('when user access type forbids to view more results', function () {
 
                     beforeEach(function () {
@@ -279,20 +277,6 @@
             it('should send event \'Navigate to courses\'', function () {
                 viewModel.navigateToCoursesEvent();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to courses');
-            });
-
-        });
-
-        describe('backButtonData:', function () {
-
-            it('should be instance of BackButton', function () {
-                expect(viewModel.backButtonData).toBeInstanceOf(BackButton);
-            });
-
-            it('should be configured', function () {
-                expect(viewModel.backButtonData.url).toBe('courses');
-                expect(viewModel.backButtonData.backViewName).toBe(localizationManager.localize('courses'));
-                expect(viewModel.backButtonData.callback).toBe(viewModel.navigateToCoursesEvent);
             });
 
         });
@@ -548,7 +532,7 @@
         });
 
         describe('getResultsFileName:', function () {
-          
+
             it('should be function', function () {
                 expect(viewModel.getResultsFileName).toBeFunction();
             });
@@ -571,9 +555,9 @@
             it('should be function', function () {
                 expect(viewModel.generateResultsCsvBlob).toBeFunction();
             });
-            
+
         });
-   
+
     });
 
 });
