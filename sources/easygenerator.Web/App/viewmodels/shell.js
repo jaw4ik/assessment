@@ -129,7 +129,7 @@
                         {
                             route: 'objectives*details',
                             moduleId: 'viewmodels/objectives/index',
-                            title: localizationManager.localize('learningObjectives'),
+                            title: localizationManager.localize('materials'),
                             hash: '#objectives',
                             nav: true,
                             navigate: function () {
