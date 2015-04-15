@@ -36,6 +36,11 @@
         'zh-cn': '回到',
         'uk': 'Повернутися до'
     },
+    goBack: {
+        'en': 'Go back',
+        'zh-cn': 'Go back[zh-cn]',
+        'uk': 'Назад'
+    },
     remove: {
         'en': 'Remove',
         'zh-cn': '移除',

@@ -20,8 +20,8 @@
             <div class="choose-template-holder" data-bind="elementCollapse: templatesListCollapsed">
                 <ul class="choose-template-list unstyled" data-animate="">
                     <!-- ko foreach: templates -->
-                    <li class="choose-template-item" data-bind="css: { 'marked-as-new': isNew }">
-                        <div class="template-image-container" data-bind="css: { selected: $data == $parent.currentTemplate() }, click: $parent.selectTemplate">
+                    <li class="choose-template-item" data-bind="css: { 'marked-as-new': isNew, selected: $data == $parent.currentTemplate() }">
+                        <div class="template-image-container" data-bind="click: $parent.selectTemplate">
                             <div class="template-settings-spinner" data-bind="visible: $data == $parent.loadingTemplate()">
                                 <div class="circular-loader x32 grey align-center">
                                     <div class="circular-loader-item"></div>

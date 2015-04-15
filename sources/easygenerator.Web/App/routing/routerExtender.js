@@ -7,19 +7,6 @@
             window.open(url, '_blank');
         };
 
-        router.updateDocumentTitle = function (instance, instruction) {
-            var title = null;
-
-            if (instruction.config.settings && instruction.config.settings.localizationKey) {
-                title = localizationManager.localize(instruction.config.settings.localizationKey);
-
-            } else if (instruction.config.title) {
-                title = instruction.config.title;
-            }
-
-            document.title = title ? app.title + ' | ' + title : app.title;
-        };
-
         router.replace = function (url) {
             router.navigate(url, { replace: true, trigger: true });
         };
@@ -76,7 +63,7 @@
             var context = {
                 moduleName: getModuleName(instruction.config.moduleId)
             };
-            
+
             var parts = url.split('/');
             var i = 0, len = parts.length;
             for (; i < len; i++) {
@@ -96,7 +83,7 @@
 
             router.routeData(context);
 
-        });       
+        });
 
         function getModuleName(moduleIdValue) {
             return moduleIdValue && moduleIdValue.slice(moduleIdValue.lastIndexOf('/') + 1);

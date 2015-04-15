@@ -117,10 +117,7 @@
                         {
                             route: ['', 'courses*details'],
                             moduleId: 'viewmodels/courses/index',
-                            title: 'courses',
-                            settings: {
-                                localizationKey: 'courses'
-                            },
+                            title: localizationManager.localize('courses'),
                             hash: '#courses',
                             nav: true,
                             navigate: function () {
@@ -132,10 +129,7 @@
                         {
                             route: 'objectives*details',
                             moduleId: 'viewmodels/objectives/index',
-                            title: 'materials',
-                            settings: {
-                                localizationKey: 'learningObjectives'
-                            },
+                            title: localizationManager.localize('learningObjectives'),
                             hash: '#objectives',
                             nav: true,
                             navigate: function () {
