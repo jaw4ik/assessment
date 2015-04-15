@@ -235,25 +235,3 @@
         }
     }
 }
-
-
-[data-view="navigationBar/navigationBar"] {
-    position: fixed;
-    left: 0;
-    top: 56px;
-    bottom: 0;
-    z-index: 190;
-}
-
-@media screen and (max-width : 1630px) {
-    [data-view="navigationBar/navigationBar"] {
-        & + div {
-            margin-left: 50px;
-            transition: margin .4s linear 0s;
-        }
-
-        &.expanded + div {
-            margin-left: 300px;
-        }
-    }
-}
