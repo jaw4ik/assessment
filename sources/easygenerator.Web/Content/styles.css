@@ -2496,7 +2496,7 @@ span.top-navigation-item.current {
   left: 0;
   top: 56px;
   bottom: 0;
-  z-index: 1000;
+  z-index: 190;
 }
 @media screen and (max-width: 1630px) {
   [data-view="navigationBar/navigationBar"] + div {
