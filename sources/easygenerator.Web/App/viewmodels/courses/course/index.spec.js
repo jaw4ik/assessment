@@ -294,6 +294,14 @@
 
         });
 
+        describe('hasUnpublishedChanges:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.hasUnpublishedChanges).toBeObservable();
+            });
+
+        });
+
         describe('preview:', function () {
 
             var router = require('plugins/router');
@@ -494,6 +502,7 @@
                     id: 'id',
                     title: 'title',
                     createdBy: 'createdBy',
+                    hasUnpublishedChanges: true
                 };
 
                 var collaborators = [{ email: 'a@a.a' }, { email: 'b@b.b' }];
@@ -527,6 +536,22 @@
 
                     viewModel.activate(course.id).fin(function () {
                         expect(viewModel.createdBy()).toEqual(course.createdBy);
+                        done();
+                    });
+                });
+
+                it('should set hasUnpublishedChanges', function (done) {
+                    viewModel.hasUnpublishedChanges(false);
+
+                    viewModel.activate(course.id).fin(function () {
+                        expect(viewModel.hasUnpublishedChanges()).toBe(course.hasUnpublishedChanges);
+                        done();
+                    });
+                });
+
+                it('should subscribe to courseStateChanged event', function (done) {
+                    viewModel.activate(course.id).fin(function () {
+                        expect(app.on).toHaveBeenCalledWith(constants.messages.course.stateChanged + course.id, viewModel.stateChanged);
                         done();
                     });
                 });
@@ -623,6 +648,10 @@
 
         describe('deactivate:', function () {
 
+            beforeEach(function () {
+                viewModel.id = 'id';
+            });
+
             it('should be function', function () {
                 expect(viewModel.deactivate).toBeFunction();
             });
@@ -633,15 +662,19 @@
             });
 
             it('should unsubscribe from collaboratorAdded event', function () {
-                viewModel.id = 'id';
+
                 viewModel.deactivate();
-                expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorAdded + 'id', viewModel.collaboratorAdded);
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorAdded + viewModel.id, viewModel.collaboratorAdded);
             });
 
             it('should unsubscribe from collaboratorRemoved event', function () {
-                viewModel.id = 'id';
                 viewModel.deactivate();
-                expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorRemoved + 'id', viewModel.collaboratorRemoved);
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorRemoved + viewModel.id, viewModel.collaboratorRemoved);
+            });
+
+            it('should unsubscribe from courseStateChanged event', function () {
+                viewModel.deactivate();
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.stateChanged + viewModel.id, viewModel.stateChanged);
             });
         });
 
@@ -740,6 +773,20 @@
 
                     expect(viewModel.title()).toBe('');
                 });
+            });
+        });
+
+        describe('stateChanged:', function () {
+
+            var state;
+            beforeEach(function () {
+                state = { hasUnpublishedChanges: true };
+            });
+
+            it('should update hasUnpublishedChanges', function () {
+                viewModel.hasUnpublishedChanges(false);
+                viewModel.stateChanged(state);
+                expect(viewModel.hasUnpublishedChanges()).toBe(state.hasUnpublishedChanges);
             });
         });
     });

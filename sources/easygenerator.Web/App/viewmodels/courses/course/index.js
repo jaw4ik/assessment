@@ -78,6 +78,7 @@
         id: '',
         title: ko.observable(),
         createdBy: ko.observable(),
+        hasUnpublishedChanges: ko.observable(),
 
         collaborators: ko.observableArray(),
         collaborate: collaborate,
@@ -90,8 +91,8 @@
 
         titleUpdated: titleUpdated,
         collaboratorAdded: collaboratorAdded,
-        collaboratorRemoved: collaboratorRemoved
-
+        collaboratorRemoved: collaboratorRemoved,
+        stateChanged: stateChanged
     };
 
     viewModel.title.maxLength = constants.validation.courseTitleMaxLength;
@@ -162,12 +163,14 @@
             viewModel.id = course.id;
             viewModel.title(course.title);
             viewModel.createdBy(course.createdBy);
+            viewModel.hasUnpublishedChanges(course.hasUnpublishedChanges);
 
             clientContext.set(constants.clientContextKeys.lastVistedCourse, course.id);
             clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
 
             viewModel.title.isSelected(clientContext.get(constants.clientContextKeys.lastCreatedCourseId) === course.id);
             clientContext.remove(constants.clientContextKeys.lastCreatedCourseId);
+            app.on(constants.messages.course.stateChanged + courseId, stateChanged);
 
             return collaboratorRepository.getCollection(courseId).then(function (collection) {
                 app.on(constants.messages.course.collaboration.collaboratorAdded + courseId, collaboratorAdded);
@@ -187,6 +190,7 @@
         app.off(constants.messages.course.collaboration.collaboratorRemoved + viewModel.id, collaboratorRemoved);
 
         app.off(constants.messages.course.titleUpdatedByCollaborator, viewModel.titleUpdated);
+        app.off(constants.messages.course.stateChanged + viewModel.id, stateChanged);
     }
 
     function collaboratorAdded(collaborator) {
@@ -207,5 +211,9 @@
         }
 
         viewModel.title(course.title);
+    }
+
+    function stateChanged(state) {
+        viewModel.hasUnpublishedChanges(state.hasUnpublishedChanges);
     }
 })
