@@ -767,6 +767,11 @@
         'zh-cn': 'Copy and paste the URL of your course to share or view.[zh-cn]',
         'uk': 'Скопіюйте та вставте URL курсу, щоб поділитись чи продивитись його.'
     },
+    updateCourseCaption: {
+        'en': 'Apply the latest changes to the published course by clicking this button',
+        'zh-cn': 'Apply the latest changes to the published course by clicking this button[zh-cn]',
+        'uk': 'Щоб застосувати останні зміни до Вашого опублікованого курсу, натисніть на цю кнопку'
+    },
     getCourseLink: {
         'en': 'Get course link',
         'zh-cn': 'Get course link[zh-cn]',
