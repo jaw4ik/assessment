@@ -2448,9 +2448,10 @@ span.top-navigation-item.current {
   display: inline-block;
   font-size: 12px;
   height: 17px;
+  left: 50%;
   line-height: 17px;
+  margin-left: 15px;
   position: absolute;
-  right: 15px;
   text-align: center;
   top: -8px;
   width: 17px;
@@ -2474,19 +2475,19 @@ span.top-navigation-item.current {
   color: #42515f;
   font-weight: normal;
   font-family: 'OpenSans';
-  padding: 10px 15px;
+  padding: 12px 15px;
   display: inline-block;
   line-height: 1;
   min-width: 125px;
   text-align: center;
 }
 .course nav ul li a:hover {
-  box-shadow: 0 3px #88d498;
+  box-shadow: 0 -2px #88d498 inset, 0 1px #88d498;
 }
 .course nav ul li a.active {
   font-family: 'OpenSans-Semibold';
   color: #37434f;
-  box-shadow: 0 3px #65bd77;
+  box-shadow: 0 -2px #65bd77 inset, 0 1px #65bd77;
   position: relative;
 }
 .course nav ul li a.active:before {
@@ -2502,7 +2503,7 @@ span.top-navigation-item.current {
   position: absolute;
 }
 .course nav ul li a.active:hover {
-  box-shadow: 0 3px #65bd77;
+  box-shadow: 0 -2px #65bd77 inset, 0 1px #65bd77;
 }
 .course nav ul li + li:before {
   content: '';
@@ -2510,22 +2511,6 @@ span.top-navigation-item.current {
   width: 8px;
   height: 12px;
   display: inline-block;
-}
-[data-view="navigationBar/navigationBar"] {
-  position: fixed;
-  left: 0;
-  top: 56px;
-  bottom: 0;
-  z-index: 1000;
-}
-@media screen and (max-width: 1630px) {
-  [data-view="navigationBar/navigationBar"] + div {
-    margin-left: 50px;
-    transition: margin .4s linear 0s;
-  }
-  [data-view="navigationBar/navigationBar"].expanded + div {
-    margin-left: 300px;
-  }
 }
 /*#region EDIT FIELD*/
 /*.edit-field {

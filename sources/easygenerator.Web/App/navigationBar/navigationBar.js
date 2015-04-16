@@ -15,8 +15,6 @@
 
     app.on(constants.messages.onboarding.closed, onOnboardingClosed);
 
-    var subscriptions = [];
-
     return viewModel;
 
     function onOnboardingClosed() {
