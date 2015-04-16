@@ -296,6 +296,11 @@
         'zh-cn': '正在更新',
         'uk': 'оновлюється...'
     },
+    updateCourseDescription: {
+        'en': 'Apply the latest changes to the published course by clicking this button',
+        'zh-cn': '点击此按钮让最新的变更在已发布的课程中生效',
+        'uk': 'Натисніть цю кнопку, щоб застосувати останні зміни для опублікованого курсу'
+    },
     plus: {
         'en': '&#43;',
         'zh-cn': '&#43;',
