@@ -571,10 +571,6 @@
     <Content Include="App\viewmodels\courses\bindingHandlers\elementCollapseBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\publishTabBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\windowMessageListenerBinding.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\items\results.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\items\results.spec.js">
-      <DependentUpon>results.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\courses\course\create\course.spec.js">
       <DependentUpon>course.js</DependentUpon>
     </Content>
@@ -2252,26 +2248,6 @@
     <Content Include="App\viewmodels\courses\courseComments.js" />
     <Content Include="App\viewmodels\courses\courseComments.spec.js">
       <DependentUpon>courseComments.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\courseNavigation\items\create.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\items\create.spec.js">
-      <DependentUpon>create.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\courseNavigation\items\design.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\items\design.spec.js">
-      <DependentUpon>design.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\courseNavigation\items\navigationItem.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\items\navigationItem.spec.js">
-      <DependentUpon>navigationItem.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\courseNavigation\items\publish.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\items\publish.spec.js">
-      <DependentUpon>publish.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\courseNavigation\navigation.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\navigation.spec.js">
-      <DependentUpon>navigation.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\courses.js" />
     <Content Include="App\viewmodels\courses\courses.spec.js">
