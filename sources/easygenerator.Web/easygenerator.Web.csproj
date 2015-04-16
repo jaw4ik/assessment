@@ -2309,7 +2309,6 @@
     <Content Include="App\views\common\createtip.html" />
     <Content Include="App\views\courses\course\create\course.html" />
     <Content Include="App\views\courses\courseComments.html" />
-    <Content Include="App\views\courses\courseNavigation\navigation.html" />
     <Content Include="App\views\courses\courses.html" />
     <Content Include="App\views\courses\design.html" />
     <Content Include="App\views\courses\publish.html" />
