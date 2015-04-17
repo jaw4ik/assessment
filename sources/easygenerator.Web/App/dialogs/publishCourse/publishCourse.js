@@ -10,7 +10,7 @@
 
         var viewModel = {
             isShown: ko.observable(false),
-            publishAction: publishAction(constants.eventCategories.header),
+            publishAction: publishAction,
             show: show,
             hide: hide,
             embedTabOpened: ko.observable(false),
@@ -22,7 +22,7 @@
         return viewModel;
 
         function show(courseId) {
-            viewModel.publishAction.activate(courseId);
+            viewModel.publishAction.activate(courseId, constants.eventCategories.header);
             viewModel.isShown(true);
         }
 

@@ -5,79 +5,74 @@
            events = {
                downloadCourse: 'Download course'
            };
+        
+        var viewModel = publishingAction(),
+            baseActivate = viewModel.activate;
 
-        var ctor = function () {
+        viewModel.isPublishing = ko.computed(function () {
+            return this.state() === constants.publishingStates.building;
+        }, viewModel);
 
-            var viewModel = publishingAction(),
-              baseActivate = viewModel.activate;
+        viewModel.downloadCourse = downloadCourse;
 
-            viewModel.isPublishing = ko.computed(function () {
-                return this.state() === constants.publishingStates.building;
-            }, viewModel);
+        viewModel.courseBuildStarted = courseBuildStarted;
+        viewModel.courseBuildFailed = courseBuildFailed;
+        viewModel.courseBuildCompleted = courseBuildCompleted;
+        viewModel.activate = activate;
 
-            viewModel.downloadCourse = downloadCourse;
+        return viewModel;
 
-            viewModel.courseBuildStarted = courseBuildStarted;
-            viewModel.courseBuildFailed = courseBuildFailed;
-            viewModel.courseBuildCompleted = courseBuildCompleted;
-            viewModel.activate = activate;
+        function activate(courseId) {
+            return repository.getById(courseId).then(function (course) {
+                baseActivate(course, course.build);
 
-            return viewModel;
+                viewModel.subscribe(constants.messages.course.build.started, viewModel.courseBuildStarted);
+                viewModel.subscribe(constants.messages.course.build.completed, viewModel.courseBuildCompleted);
+                viewModel.subscribe(constants.messages.course.build.failed, viewModel.courseBuildFailed);
+            });
+        }
 
-            function activate(courseId) {
-                return repository.getById(courseId).then(function (course) {
-                    baseActivate(course, course.build);
+        function downloadCourse() {
+            if (viewModel.isCourseDelivering())
+                return undefined;
 
-                    viewModel.subscribe(constants.messages.course.build.started, viewModel.courseBuildStarted);
-                    viewModel.subscribe(constants.messages.course.build.completed, viewModel.courseBuildCompleted);
-                    viewModel.subscribe(constants.messages.course.build.failed, viewModel.courseBuildFailed);
+            notify.hide();
+            eventTracker.publish(events.downloadCourse);
+
+            return repository.getById(viewModel.courseId).then(function (course) {
+                return course.build().then(function (courseInfo) {
+                    fileHelper.downloadFile('download/' + courseInfo.build.packageUrl);
+                }).fail(function (message) {
+                    notify.error(message);
                 });
-            }
-
-            function downloadCourse() {
-                if (viewModel.isCourseDelivering())
-                    return undefined;
-
-                notify.hide();
-                eventTracker.publish(events.downloadCourse);
-
-                return repository.getById(viewModel.courseId).then(function (course) {
-                    return course.build().then(function (courseInfo) {
-                        fileHelper.downloadFile('download/' + courseInfo.build.packageUrl);
-                    }).fail(function (message) {
-                        notify.error(message);
-                    });
-                });
-            };
-
-            //#region App-wide events
-
-            function courseBuildStarted(course) {
-                if (course.id !== viewModel.courseId || course.build.state !== constants.publishingStates.building)
-                    return;
-
-                viewModel.state(constants.publishingStates.building);
-            };
-
-            function courseBuildFailed(course) {
-                if (course.id !== viewModel.courseId || course.build.state !== constants.publishingStates.failed)
-                    return;
-
-                viewModel.state(constants.publishingStates.failed);
-                viewModel.packageUrl('');
-            };
-
-            function courseBuildCompleted(course) {
-                if (course.id !== viewModel.courseId || course.build.state !== constants.publishingStates.succeed)
-                    return;
-
-                viewModel.state(constants.publishingStates.succeed);
-                viewModel.packageUrl(course.build.packageUrl);
-            };
-
-            //#endregion
-
+            });
         };
 
-        return ctor;
+        //#region App-wide events
+
+        function courseBuildStarted(course) {
+            if (course.id !== viewModel.courseId || course.build.state !== constants.publishingStates.building)
+                return;
+
+            viewModel.state(constants.publishingStates.building);
+        };
+
+        function courseBuildFailed(course) {
+            if (course.id !== viewModel.courseId || course.build.state !== constants.publishingStates.failed)
+                return;
+
+            viewModel.state(constants.publishingStates.failed);
+            viewModel.packageUrl('');
+        };
+
+        function courseBuildCompleted(course) {
+            if (course.id !== viewModel.courseId || course.build.state !== constants.publishingStates.succeed)
+                return;
+
+            viewModel.state(constants.publishingStates.succeed);
+            viewModel.packageUrl(course.build.packageUrl);
+        };
+
+        //#endregion
+
     });

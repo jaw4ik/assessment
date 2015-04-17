@@ -1,5 +1,5 @@
 ﻿define(['viewmodels/courses/publishingActions/build'],
-    function (build) {
+    function (viewModel) {
 
         var app = require('durandal/app'),
               Course = require('models/course'),
@@ -13,7 +13,6 @@
         describe('viewModel [build]', function () {
 
             var
-                viewModel,
                 getByIdDefer,
                 action = function () { },
                 course = new Course({
@@ -26,7 +25,6 @@
 
             beforeEach(function () {
                 course.build.url = 'buildUrl';
-                viewModel = build();
                 spyOn(eventTracker, 'publish');
                 spyOn(notify, 'hide');
                 spyOn(app, 'on').and.returnValue(Q.defer().promise);

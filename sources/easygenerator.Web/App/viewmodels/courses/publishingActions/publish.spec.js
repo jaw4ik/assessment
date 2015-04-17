@@ -1,4 +1,4 @@
-﻿define(['viewmodels/courses/publishingActions/publish'], function (publish) {
+﻿define(['viewmodels/courses/publishingActions/publish'], function (viewModel) {
 
     var app = require('durandal/app'),
         constants = require('constants'),
@@ -12,7 +12,6 @@
     describe('course delivering action [publish]', function () {
 
         var
-            viewModel,
             getByIdDefer,
             eventCategory = 'some/event/category',
             action = function () { };
@@ -23,7 +22,6 @@
 
         beforeEach(function () {
             course.publish.packageUrl = 'packageUrl';
-            viewModel = publish(eventCategory);
             spyOn(eventTracker, 'publish');
             spyOn(notify, 'hide');
             spyOn(router, 'openUrl');
@@ -218,8 +216,8 @@
                 expect(viewModel.activate()).toBePromise();
             });
 
-            describe('when course received', function() {
-                beforeEach(function() {
+            describe('when course received', function () {
+                beforeEach(function () {
                     getByIdDefer.resolve(course);
                 });
 
@@ -228,6 +226,15 @@
                     var promise = viewModel.activate(course.id);
                     promise.fin(function () {
                         expect(viewModel.state()).toBe(action.state);
+                        done();
+                    });
+                });
+
+                it('should set eventCategory', function (done) {
+                    viewModel.eventCategory = '';
+                    var promise = viewModel.activate(course.id, eventCategory);
+                    promise.fin(function () {
+                        expect(viewModel.eventCategory).toBe(eventCategory);
                         done();
                     });
                 });
@@ -377,12 +384,6 @@
             });
         });
 
-        describe('eventCategory:', function () {
-            it('should be defined', function () {
-                expect(viewModel.eventCategory).toBe(eventCategory);
-            });
-        });
-
         describe('isPublishing', function () {
             it('should be computed', function () {
                 expect(viewModel.isPublishing).toBeComputed();
@@ -432,6 +433,7 @@
                 coursePublishDefer = Q.defer();
                 coursePublishPromise = coursePublishDefer.promise;
                 viewModel.courseId = course.id;
+                viewModel.eventCategory = eventCategory;
                 spyOn(course, 'publish').and.returnValue(coursePublishPromise);
             });
 
@@ -439,7 +441,7 @@
                 expect(viewModel.publishCourse).toBeFunction();
             });
 
-            describe('when course received', function() {
+            describe('when course received', function () {
                 beforeEach(function () {
                     getByIdDefer.resolve(course);
                 });
