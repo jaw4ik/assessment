@@ -4,8 +4,9 @@ using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.Infrastructure;
 using easygenerator.Web.DomainEvents.ChangeTracking.Events;
 using easygenerator.Web.InMemoryStorages.CourseStateStorage;
+using easygenerator.Web.Storage;
 
-namespace easygenerator.Web.DomainEvents.ChangeTracking
+namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
 {
     public class CourseStateTracker :
         IDomainEventHandler<CourseChangedEvent>,

@@ -36,5 +36,12 @@ namespace easygenerator.Web.InMemoryStorages.CourseStateStorage
             CourseInfo info;
             _infos.TryRemove(course.Id, out info);
         }
+
+        public CourseInfo GetCourseInfo(Course course, out bool containsInfo)
+        {
+            CourseInfo info;
+            containsInfo = _infos.TryGetValue(course.Id, out info);
+            return info ?? new CourseInfo();
+        }
     }
 }

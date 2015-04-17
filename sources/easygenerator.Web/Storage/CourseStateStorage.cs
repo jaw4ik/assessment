@@ -4,16 +4,16 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.InMemoryStorages.CourseStateStorage;
 
-namespace easygenerator.Web.DomainEvents.ChangeTracking
+namespace easygenerator.Web.Storage
 {
     public class CourseStateStorage : ICourseStateStorage
     {
-        private readonly ICourseStateInMemoryStorage _inMemoryStorage;
+        private readonly ICourseInfoInMemoryStorage _inMemoryStorage;
         private readonly ICourseStateRepository _repository;
         private readonly IEntityFactory _entityFactory;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CourseStateStorage(ICourseStateInMemoryStorage inMemoryStorage, ICourseStateRepository repository, IEntityFactory entityFactory, IUnitOfWork unitOfWork)
+        public CourseStateStorage(ICourseInfoInMemoryStorage inMemoryStorage, ICourseStateRepository repository, IEntityFactory entityFactory, IUnitOfWork unitOfWork)
         {
             _inMemoryStorage = inMemoryStorage;
             _repository = repository;
@@ -23,28 +23,36 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking
 
         public bool HasUnpublishedChanges(Course course)
         {
-            bool hasUnpublishedChanges;
-            if (_inMemoryStorage.TryGetHasUnpublishedChanges(course, out hasUnpublishedChanges))
+            bool isInfoInMemory;
+            var info = _inMemoryStorage.GetCourseInfo(course, out isInfoInMemory);
+            if (isInfoInMemory)
             {
-                return hasUnpublishedChanges;
+                return info.HasUnpublishedChanges;
             }
 
             var state = _repository.GetByCourseId(course.Id);
-            hasUnpublishedChanges = state != null && state.HasUnpublishedChanges;
-            _inMemoryStorage.SaveHasUnpublishedChanges(course, hasUnpublishedChanges);
+            if (state == null)
+            {
+                return info.HasUnpublishedChanges;
+            }
 
-            return hasUnpublishedChanges;
+            info.HasUnpublishedChanges = state.HasUnpublishedChanges;
+            _inMemoryStorage.SaveCourseInfo(course, info);
+
+            return info.HasUnpublishedChanges;
         }
 
         public void SaveHasUnpublishedChanges(Course course, bool hasUnpublishedChanges)
         {
-            _inMemoryStorage.SaveHasUnpublishedChanges(course, hasUnpublishedChanges);
+            var info = _inMemoryStorage.GetCourseInfo(course);
+            info.HasUnpublishedChanges = hasUnpublishedChanges;
+            _inMemoryStorage.SaveCourseInfo(course, info);
             SaveCourseStateToRepository(course, hasUnpublishedChanges);
         }
 
         public void RemoveCourseState(Course course)
         {
-            _inMemoryStorage.RemoveCourseState(course);
+            _inMemoryStorage.RemoveCourseInfo(course);
         }
 
         private void SaveCourseStateToRepository(Course course, bool hasUnpublishedChanges)

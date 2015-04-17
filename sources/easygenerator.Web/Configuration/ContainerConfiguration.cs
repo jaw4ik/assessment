@@ -20,7 +20,6 @@ using easygenerator.Web.Components.Elmah;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Components.ModelBinding;
 using easygenerator.Web.Components.Tasks;
-using easygenerator.Web.DomainEvents.ChangeTracking;
 using easygenerator.Web.Import.Presentation;
 using easygenerator.Web.Import.Presentation.HtmlComposers;
 using easygenerator.Web.Import.Presentation.Mappers;
@@ -209,7 +208,6 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<EntityCloner>().As<ICloner>().SingleInstance();
             builder.RegisterType<DemoCoursesInMemoryStorage>().As<IDemoCoursesStorage>().SingleInstance();
             builder.RegisterType<CourseInfoInMemoryStorage>().As<ICourseInfoInMemoryStorage>().SingleInstance();
-            builder.RegisterType<CourseStateInMemoryStorage>().As<ICourseStateInMemoryStorage>().SingleInstance();
 
             var container = builder.Build();
 

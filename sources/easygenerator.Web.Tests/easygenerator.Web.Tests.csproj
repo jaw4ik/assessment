@@ -187,8 +187,8 @@
     <Compile Include="Controllers\ImageControllerTests.cs" />
     <Compile Include="Controllers\PreviewControllerTests.cs" />
     <Compile Include="Controllers\RedirectToNewStorageControllerTests.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\CourseStateStorageTests.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\CourseStateTrackerTests.cs" />
+    <Compile Include="Storage\CourseStateStorageTests.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTrackerTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\HotSpotPolygonChangeTrackerTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\SingleSelectImageAnswerChangeTrackerTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\DropspotChangeTrackerTests.cs" />
@@ -201,7 +201,6 @@
     <Compile Include="DomainEvents\Events\UserSignedUpEventTest.cs" />
     <Compile Include="Import\Presentation\PresentationCourseImporterTests.cs" />
     <Compile Include="InMemoryStorages\CourseInfoInMemoryStorageTests.cs" />
-    <Compile Include="InMemoryStorages\CourseStateInMemoryStorageTests.cs" />
     <Compile Include="InMemoryStorages\DemoCoursesInMemoryStorageTests.cs" />
     <Compile Include="Mail\MailTemplatesProviderTests.cs" />
     <Compile Include="Newsletter\MailChimp\MailChimpSubscriptionManagerTest.cs" />

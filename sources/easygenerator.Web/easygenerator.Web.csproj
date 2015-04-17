@@ -260,7 +260,8 @@
     <Compile Include="Controllers\Api\StatementController.cs" />
     <Compile Include="Controllers\Api\TextMatchingQuestionController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\CourseStateStorage.cs" />
+    <Compile Include="Storage\CourseStateStorage.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\AnswerChangedEvent.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\CourseStateChangedEvent.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\DropspotChangedEvent.cs" />
@@ -270,9 +271,8 @@
     <Compile Include="DomainEvents\ChangeTracking\Events\QuestionChangedEvent.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\SingleSelectImageAnswerChangedEvent.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\TextMatchingAnswerChangedEvent.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\ICourseStateStorage.cs" />
+    <Compile Include="Storage\ICourseStateStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseChangeTracker.cs" />
-    <Compile Include="DomainEvents\ChangeTracking\CourseStateTracker.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\CourseChangedEvent.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\AnswerChangeTracker.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\DropspotChangeTracker.cs" />
@@ -285,9 +285,7 @@
     <Compile Include="DomainEvents\Handlers\MailChimpSubscriptionHandler.cs" />
     <Compile Include="InMemoryStorages\CourseStateStorage\CourseInfo.cs" />
     <Compile Include="InMemoryStorages\CourseStateStorage\CourseInfoInMemoryStorage.cs" />
-    <Compile Include="InMemoryStorages\CourseStateStorage\CourseStateInMemoryStorage.cs" />
     <Compile Include="InMemoryStorages\CourseStateStorage\ICourseInfoInMemoryStorage.cs" />
-    <Compile Include="InMemoryStorages\CourseStateStorage\ICourseStateInMemoryStorage.cs" />
     <Compile Include="InMemoryStorages\DemoCoursesInMemoryStorage.cs" />
     <Compile Include="InMemoryStorages\IDemoCoursesStorage.cs" />
     <Compile Include="Import\Presentation\Extensions\ParagraphExtensions.cs" />

@@ -1,6 +1,6 @@
 ﻿using easygenerator.DomainModel.Entities;
 
-namespace easygenerator.Web.DomainEvents.ChangeTracking
+namespace easygenerator.Web.Storage
 {
     public interface ICourseStateStorage
     {
