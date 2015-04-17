@@ -177,7 +177,7 @@
 
                     it('should show dropspotToAdd', function () {
                         designer.background.onload(width, height);
-                        
+
                         expect(designer.dropspotToAdd.show).toHaveBeenCalled();
                     });
 
@@ -220,7 +220,7 @@
 
             describe('when image upload was successful', function () {
 
-                var url = 'http://xxx.com', urlParams = '?width=899&height=785', dfd, questionId = null;
+                var url = 'http://xxx.com', urlParams = '?width=939&height=785', dfd, questionId = null;
 
                 beforeEach(function () {
                     spyOn(imageUpload, 'upload').and.callFake(function (spec) {
