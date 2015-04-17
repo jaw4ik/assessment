@@ -40,6 +40,12 @@
             font: 18px/70px @draggables-font;
             text-align: center;
         }
+
+        .empty-draggable-area {
+            padding: 0 20px;
+            .crop-text-by-size-with-dots(100%, block);
+            .border-box;
+        }
     }
 
     .draggable-wrapper {
@@ -66,7 +72,7 @@
 
         .draggable-text {
             .border-box();
-            .text-overflow-with-dots();
+            .crop-text-with-dots();
             color: @droptext-color;
             font: 18px/48px @droptext-font;
             height: 48px;
@@ -139,13 +145,13 @@
             opacity: 0.7;
             position: absolute;
             text-align: center;
-            padding-left: 20px;
+            padding-left: 40px;
             top: 0;
             width: 100%;
 
             .dropspot-help-text {
                 .border-box();
-                .text-overflow-with-dots();
+                .crop-text-with-dots();
                 display: none;
             }
         }

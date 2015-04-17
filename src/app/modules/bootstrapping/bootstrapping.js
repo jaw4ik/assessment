@@ -21,9 +21,11 @@
                 publishSettings = data.readPublishSettings,
                 preloadHtmls = data.preloadHtmlTask;
 
-            angular.module('quiz').config(['$routeProvider', 'settingsProvider', 'htmlTemplatesCacheProvider', function ($routeProvider, settingsProvider, htmlTemplatesCacheProvider) {
+            angular.module('quiz').config(['$routeProvider', 'settingsProvider', 'htmlTemplatesCacheProvider', '$translateProvider', function ($routeProvider, settingsProvider, htmlTemplatesCacheProvider, $translateProvider) {
                 settingsProvider.setSettings(settings);
                 htmlTemplatesCacheProvider.set(preloadHtmls);
+
+                configureTranslateProvider($translateProvider, settings);
             }]);
 
             if (!settings || _.isEmpty(settings) || (settings.xApi && settings.xApi.enabled)) {
@@ -40,6 +42,28 @@
 
             angular.bootstrap(document, bootstrapModules);
         });
+
+        function configureTranslateProvider($translateProvider, settings) {
+            var customLanguage = 'xx',
+                defaultLanguage = 'en',
+                customTranslations = {},
+                selectedLanguage = defaultLanguage;
+
+            if (settings && settings.languages) {
+                if (settings.languages.customTranslations) {
+                    customTranslations = settings.languages.customTranslations;
+                }
+                if (settings.languages.selected) {
+                    selectedLanguage = settings.languages.selected;
+                }
+            }
+
+            $translateProvider
+                .useStaticFilesLoader({ prefix: 'lang/', suffix: '.json' })
+                .translations(customLanguage, customTranslations)
+                .fallbackLanguage(defaultLanguage)
+                .preferredLanguage(selectedLanguage);
+        }
 
     }
 }());

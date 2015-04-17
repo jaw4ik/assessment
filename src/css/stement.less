@@ -5,15 +5,22 @@
     .statements {
         .statements-list {
             padding-left: 60px;
+
+            .statement-answer-wrapper {
+                width: 100%;
+                height: 100%;
+            }
         }
 
         .statement-item {
+            .display-flex;
+            .flex-direction(column);
+            .justify-content(space-between);
             border-radius: 8px;
             border-bottom: 1px solid #d1d8dc;
             background: #f9f9f9;
             vertical-align: top;
             transition: background @transition-settings, box-shadow @transition-settings;
-            position: relative;
 
             &.true {
                 background: #e7f7f0;
@@ -44,75 +51,69 @@
             }
 
             .title {
+                .flex(1 1 auto);
+                padding: 30px 20px;
                 color: #3a4046;
                 font: 16px/28px 'RobotoslabRegular';
-                padding: 30px 20px 108px;
                 word-wrap: break-word;
             }
 
             .statement-buttons-container {
-                position: absolute;
-                margin-left: auto;
-                margin-right: auto;
-                bottom: 20px;
-                left: 0;
-                right: 0;
+                .flex(0 0 auto);
+                padding-bottom: 20px;
                 text-align: center;
-            }
 
-            .statement-button {
-                margin: 0 10px 0;
-                padding: 0 30px 0;
-                border: 0;
-                border-radius: 8px;
-                font-family: 'RobotoslabRegular';
-                font-size: 24px;
-                line-height: 62px;
-                text-transform: uppercase;
-                color: #fefefe;
-                cursor: pointer;
-                transition: background @transition-settings, box-shadow @transition-settings, opacity @transition-settings;
+                .statement-button {
+                    min-width: 130px;
+                    margin: 20px 10px 0;
+                    border: 0;
+                    border-radius: 8px;
+                    font-family: 'RobotoslabRegular';
+                    font-size: 24px;
+                    line-height: 62px;
+                    text-transform: uppercase;
+                    color: #fefefe;
+                    cursor: pointer;
+                    transition: background @transition-settings, box-shadow @transition-settings, opacity @transition-settings;
+                    .crop-text-by-size-with-dots(300px);
 
-
-                &.true {
-                    @true-button-color: #74b3ae;
-                    background: @true-button-color;
-                    box-shadow: 0 15px 30px -15px @true-button-color;
-
-                    &:hover {
-                        background: darken( @true-button-color, 5%);
-                        opacity: 1;
+                    .text-wrapper {
+                        padding: 0 20px;
                     }
 
-                    &.selected {
+                    &.true {
+                        @true-button-color: #74b3ae;
                         background: @true-button-color;
-                        box-shadow: inset 0px 3px 5px 0px rgba(0,0,0,0.25);
+                        box-shadow: 0 15px 30px -15px @true-button-color;
+
+                        &:hover {
+                            background: darken( @true-button-color, 5%);
+                            opacity: 1;
+                        }
+
+                        &.selected {
+                            background: @true-button-color;
+                            box-shadow: inset 0px 3px 5px 0px rgba(0,0,0,0.25);
+                        }
                     }
-                }
 
-                &.false {
-                    @false-button-color: #f8887a;
-                    background: @false-button-color;
-                    box-shadow: 0 15px 30px -15px @false-button-color;
-
-                    &:hover {
-                        background: darken( @false-button-color, 5%);
-                        opacity: 1;
-                    }
-
-                    &.selected {
+                    &.false {
+                        @false-button-color: #f8887a;
                         background: @false-button-color;
-                        box-shadow: inset 0px 3px 5px 0px rgba(0,0,0,0.25);
+                        box-shadow: 0 15px 30px -15px @false-button-color;
+
+                        &:hover {
+                            background: darken( @false-button-color, 5%);
+                            opacity: 1;
+                        }
+
+                        &.selected {
+                            background: @false-button-color;
+                            box-shadow: inset 0px 3px 5px 0px rgba(0,0,0,0.25);
+                        }
                     }
                 }
             }
-        }
-
-        .statement-true-button {
-        }
-
-        .statement-false-button {
         }
     }
 }
-

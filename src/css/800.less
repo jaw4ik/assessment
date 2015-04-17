@@ -1,3 +1,5 @@
+@import "common";
+
 html, body {
     -webkit-text-size-adjust: 100%; //IOS Safari Fix
 }
@@ -74,11 +76,62 @@ html, body {
 
             .question-hint {
                 border-radius: 0;
+
+                .hint-button-container {
+                    padding: 0 40px;
+
+                    .hint-button {
+                        .hint-button-caption {
+                            max-width: 100%;
+                        }
+                    }
+                }
             }
         }
     }
 }
 
 .submit-wrapper {
+    margin: 0 40px;
     padding-left: 0;
+
+    .button {
+        max-width: 100%;
+    }
+}
+
+.introduction-container {
+    .introduction-wrapper {
+        .controls {
+            .buttons-container {
+                .button {
+                    max-width: 100%;
+                }
+            }
+
+            .scroll-hint-container {
+                .text {
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+}
+
+.summary {
+    .summary-header {
+        .summary-header-content {
+            .summary-buttons {
+                .flex-direction(column);
+
+                .summary-button {
+                    max-width: 100%;
+
+                    + .summary-button {
+                        margin: 30px 0 0;
+                    }
+                }
+            }
+        }
+    }
 }

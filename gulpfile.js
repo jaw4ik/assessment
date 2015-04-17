@@ -122,7 +122,10 @@ gulp.task('build-app', ['clean', 'css'], function () {
             .pipe(gulp.dest(output)),
 
         gulp.src(['./src/publishSettings.js'])
-            .pipe(gulp.dest(output))
+            .pipe(gulp.dest(output)),
+
+        gulp.src(['./src/lang/*.json'])
+            .pipe(gulp.dest(output + '/lang'))
         );
 });
 
