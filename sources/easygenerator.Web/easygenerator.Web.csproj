@@ -972,9 +972,6 @@
     <Content Include="Scripts\knockoutBindings\contentEditableFixBinding.js" />
     <Content Include="Scripts\knockoutBindings\copyToClipboardBinding.js" />
     <Content Include="Scripts\knockoutBindings\customHasFocusBinding.js" />
-    <Content Include="App\dialogs\collaboration\removeCollaborator.spec.js">
-      <DependentUpon>removeCollaborator.js</DependentUpon>
-    </Content>
     <Content Include="App\fileUpload.js" />
     <Content Include="App\mappers\singleSelectImageAnswerMapper.js" />
     <Content Include="App\models\singleSelectImageAnswer.js" />
@@ -1133,8 +1130,6 @@
     <Content Include="BuildCourse\Scorm\Schemas\ims_xml.xsd">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App\dialogs\collaboration\removeCollaborator.html" />
-    <Content Include="App\dialogs\collaboration\removeCollaborator.js" />
     <Content Include="App\http\httpRequestSender.spec.js">
       <DependentUpon>httpRequestSender.js</DependentUpon>
     </Content>

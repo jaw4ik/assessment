@@ -40,8 +40,7 @@
             'dialogs/createCourse.spec',
             'dialogs/collaboration/addCollaborator.spec',
             'dialogs/collaboration/collaboration.spec',
-            'dialogs/collaboration/collaborator.spec',
-            'dialogs/collaboration/removeCollaborator.spec',
+            'dialogs/collaboration/collaborator.spec',            
             'dialogs/publishCourse/publishCourse.spec',
             'dialogs/moveCopyQuestion/moveCopyQuestion.spec',
 
