@@ -35,8 +35,10 @@
 
             return designer.activate(question.id).then(function () {
                 return {
-                    isQuestionContentNeeded: true,
-                    viewCaption: localizationManager.localize('hotSpotTextEditor')
+                    viewCaption: localizationManager.localize('hotSpotTextEditor'),
+                    hasQuestionView: true,
+                    hasQuestionContent: true,
+                    hasFeedback: true
                 };
             });
         }

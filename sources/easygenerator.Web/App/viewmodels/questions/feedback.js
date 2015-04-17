@@ -3,6 +3,7 @@
         "use strict";
 
         var events = {
+            generalFeedbackUpdated: 'Update feedback content',
             correctFeedbackUpdated: 'Update feedback content (correct answer)',
             incorrectFeedbackUpdated: 'Update feedback content (incorrect answer)'
         };
@@ -14,9 +15,12 @@
             isExpanded: ko.observable(true),
             toggleExpand: toggleExpand,
 
+            showGeneralFeedback: ko.observable(false),
+            generalFeedback: createFeedbackObject(updateGeneralFeedbackText),
             correctFeedback: createFeedbackObject(updateCorrectFeedbackText),
             incorrectFeedback: createFeedbackObject(updateIncorrectFeedbackText),
 
+            generalFeedbackUpdatedByCollaborator: generalFeedbackUpdatedByCollaborator,
             correctFeedbackUpdatedByCollaborator: correctFeedbackUpdatedByCollaborator,
             incorrectFeedbackUpdatedByCollaborator: incorrectFeedbackUpdatedByCollaborator,
 
@@ -26,6 +30,7 @@
             activate: activate
         };
 
+        app.on(constants.messages.question.generalFeedbackUpdatedByCollaborator, generalFeedbackUpdatedByCollaborator);
         app.on(constants.messages.question.correctFeedbackUpdatedByCollaborator, correctFeedbackUpdatedByCollaborator);
         app.on(constants.messages.question.incorrectFeedbackUpdatedByCollaborator, incorrectFeedbackUpdatedByCollaborator);
 
@@ -93,16 +98,33 @@
             });
         }
 
+        function generalFeedbackUpdatedByCollaborator(question, feedbackText) {
+            if (question.id != viewModel.questionId) {
+                return;
+            }
+
+            viewModel.generalFeedback.text(feedbackText);
+        }
+
+        function updateGeneralFeedbackText() {
+            eventTracker.publish(events.generalFeedbackUpdated);
+            repository.updateGeneralFeedback(viewModel.questionId, viewModel.generalFeedback.text()).then(function () {
+                notify.saved();
+            });
+        }
+
         function toggleExpand() {
             viewModel.isExpanded(!viewModel.isExpanded());
         }
 
-        function activate(questionId) {
+        function activate(activationData) {
             return Q.fcall(function () {
                 viewModel.isExpanded(true);
-                viewModel.questionId = questionId;
+                viewModel.questionId = activationData.questionId;
+                viewModel.showGeneralFeedback(activationData.showGeneralFeedback);
 
-                return repository.getQuestionFeedback(questionId).then(function (feedback) {
+                return repository.getQuestionFeedback(viewModel.questionId).then(function (feedback) {
+                    viewModel.generalFeedback.init(feedback.generalFeedbackText);
                     viewModel.correctFeedback.init(feedback.correctFeedbackText);
                     viewModel.incorrectFeedback.init(feedback.incorrectFeedbackText);
                 });

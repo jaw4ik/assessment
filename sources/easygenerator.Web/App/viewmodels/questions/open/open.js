@@ -12,7 +12,9 @@
             return Q.fcall(function () {
                 return {
                     viewCaption: localizationManager.localize('openQuestionEditor'),
-                    isQuestionContentNeeded: true
+                    hasQuestionContent: true,
+                    hasFeedback: true,
+                    showGeneralFeedback: true
                 };
             });
         }

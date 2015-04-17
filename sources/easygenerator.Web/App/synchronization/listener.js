@@ -42,6 +42,7 @@
                     questionContentUpdated: questionEventHandler.question.contentUpdated,
                     questionCorrectFeedbackUpdated: questionEventHandler.question.correctFeedbackUpdated,
                     questionIncorrectFeedbackUpdated: questionEventHandler.question.incorrectFeedbackUpdated,
+                    questionGeneralFeedbackUpdated: questionEventHandler.question.generalFeedbackUpdated,
                     questionBackgroundChanged: questionEventHandler.question.backgroundChanged,
                     learningContentsReordered: questionEventHandler.question.learningContentsReordered,
 

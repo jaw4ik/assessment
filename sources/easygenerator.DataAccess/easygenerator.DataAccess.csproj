@@ -270,6 +270,10 @@
     <Compile Include="Migrations\201503231353000_AddLearningContentsOrderFieldToQuestion.Designer.cs">
       <DependentUpon>201503231353000_AddLearningContentsOrderFieldToQuestion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504161256490_AddGeneralFeedback.cs" />
+    <Compile Include="Migrations\201504161256490_AddGeneralFeedback.Designer.cs">
+      <DependentUpon>201504161256490_AddGeneralFeedback.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
@@ -462,6 +466,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503231353000_AddLearningContentsOrderFieldToQuestion.resx">
       <DependentUpon>201503231353000_AddLearningContentsOrderFieldToQuestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504161256490_AddGeneralFeedback.resx">
+      <DependentUpon>201504161256490_AddGeneralFeedback.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

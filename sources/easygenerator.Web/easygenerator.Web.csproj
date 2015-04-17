@@ -559,6 +559,10 @@
     <Content Include="App\synchronization\handlers\questions\hotSpot\eventHandlers\polygonCreated.spec.js">
       <DependentUpon>polygonCreated.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\generalFeedbackUpdated.js" />
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\generalFeedbackUpdated.spec.js">
+      <DependentUpon>generalFeedbackUpdated.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\learningContentsReordered.js" />
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\learningContentsReordered.spec.js">
       <DependentUpon>learningContentsReordered.js</DependentUpon>
@@ -629,7 +633,6 @@
     <Content Include="App\views\courses\publishActions\publishAsScorm.html" />
     <Content Include="App\views\courses\results.html" />
     <Content Include="App\views\objectives\index.html" />
-    <Content Include="App\views\questions\open\open.html" />
     <Content Include="App\views\questions\statement\statement.html" />
     <Content Include="BuildCourse\Modules\js\branding.js" />
     <Content Include="Content\editField.css">

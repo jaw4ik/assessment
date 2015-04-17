@@ -9,7 +9,7 @@
 
 		beforeEach(function () {
 			spyOn(localizationManager, 'localize').and.callFake(function(arg) {
-			    return arg === 'openContentEditor' ? 'title' : '';
+			    return arg;
 			});
 		});
 
@@ -24,7 +24,8 @@
 				expect(result).toBePromise();
 			});
 
-			describe('should return promise and promise', function () {
+			describe('promise result: ', function () {
+
 				it('should be an object', function (done) {
 					var promise = viewModel.initialize();
 					promise.then(function (result) {
@@ -33,20 +34,44 @@
 					});
 				});
 
-				it('should contain  isQuestionContentNeeded property with value true', function (done) {
+				it('should contain \'openQuestionEditor\' viewCaption', function (done) {
 					var promise = viewModel.initialize();
 					promise.then(function (result) {
-					    expect(result. isQuestionContentNeeded).toBeTruthy();
+					    expect(result.viewCaption).toBe('openQuestionEditor');
 						done();
 					});
 				});
 
-				it('should contain viewCaption with correct title', function (done) {
-					var promise = viewModel.initialize();
-					promise.then(function (result) {
-						expect(result.viewCaption).toBe('title');
-						done();
-					});
+				it('should have hasQuestionView property with true value', function (done) {
+				    var promise = viewModel.initialize();
+				    promise.then(function (result) {
+				        expect(result.hasQuestionView).toBeFalsy();
+				        done();
+				    });
+				});
+
+				it('should have hasQuestionContent property with true value', function (done) {
+				    var promise = viewModel.initialize();
+				    promise.then(function (result) {
+				        expect(result.hasQuestionContent).toBeTruthy();
+				        done();
+				    });
+				});
+
+				it('should have hasFeedback property with true value', function (done) {
+				    var promise = viewModel.initialize();
+				    promise.then(function (result) {
+				        expect(result.hasFeedback).toBeTruthy();
+				        done();
+				    });
+				});
+
+				it('should have showGeneralFeedback property with true value', function (done) {
+				    var promise = viewModel.initialize();
+				    promise.then(function (result) {
+				        expect(result.showGeneralFeedback).toBeTruthy();
+				        done();
+				    });
 				});
 			});
 

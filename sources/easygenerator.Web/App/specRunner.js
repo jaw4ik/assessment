@@ -135,6 +135,7 @@
             'synchronization/handlers/questions/question/eventHandlers/contentUpdated.spec',
             'synchronization/handlers/questions/question/eventHandlers/correctFeedbackUpdated.spec',
             'synchronization/handlers/questions/question/eventHandlers/incorrectFeedbackUpdated.spec',
+            'synchronization/handlers/questions/question/eventHandlers/generalFeedbackUpdated.spec',
             'synchronization/handlers/questions/question/eventHandlers/learningContentsReordered.spec',
 
             'synchronization/handlers/questions/fillInTheBlank/handler.spec',
@@ -258,6 +259,8 @@
             'viewmodels/questions/hotspot/commands/changeBackground.spec',
             'viewmodels/questions/hotspot/commands/changeType.spec',
             'viewmodels/questions/hotspot/queries/getQuestionContentById.spec',
+
+            'viewmodels/questions/open/open.spec',
 
             'viewmodels/questions/questionTitle.spec',
             'viewmodels/questions/learningContents.spec',

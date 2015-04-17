@@ -77,12 +77,14 @@
         </div>
     </div>
     <!-- /ko -->
-    <!-- ko if: !isInformationContent -->
+    <!-- ko if: hasQuestionView -->
     <div class="answers">
         <!-- ko compose: activeQuestionViewModel -->
         <!-- /ko -->
     </div>
-    <!-- ko compose: { model: 'viewmodels/questions/feedback', activationData: questionId } -->
+    <!-- /ko -->
+    <!-- ko if: hasFeedback -->
+    <!-- ko compose: { model: 'viewmodels/questions/feedback', activationData: { questionId: questionId, showGeneralFeedback: showGeneralFeedback } } -->
     <!-- /ko -->
     <!-- /ko -->
     <!-- ko compose: { model: 'viewmodels/questions/learningContents', activationData: { questionId: questionId, questionType: questionType } } --><!-- /ko -->

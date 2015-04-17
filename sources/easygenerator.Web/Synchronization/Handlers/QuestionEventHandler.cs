@@ -15,6 +15,7 @@ namespace easygenerator.Web.Synchronization.Handlers
         IDomainEventHandler<QuestionContentUpdatedEvent>,
         IDomainEventHandler<QuestionCorrectFeedbackUpdatedEvent>,
         IDomainEventHandler<QuestionIncorrectFeedbackUpdatedEvent>,
+        IDomainEventHandler<QuestionGeneralFeedbackUpdatedEvent>,
         IDomainEventHandler<LearningContentsReorderedEvent>,
         IDomainEventHandler<FillInTheBlankUpdatedEvent>
     {
@@ -61,6 +62,12 @@ namespace easygenerator.Web.Synchronization.Handlers
         {
             _broadcaster.OtherCollaborators(args.Question)
                 .questionIncorrectFeedbackUpdated(args.Question.Id.ToNString(), args.Question.Feedback.IncorrectText, args.Question.ModifiedOn);
+        }
+
+        public void Handle(QuestionGeneralFeedbackUpdatedEvent args)
+        {
+            _broadcaster.OtherCollaborators(args.Question)
+                .questionGeneralFeedbackUpdated(args.Question.Id.ToNString(), args.Question.Feedback.GeneralText, args.Question.ModifiedOn);
         }
 
         public void Handle(LearningContentsReorderedEvent args)

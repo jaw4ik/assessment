@@ -193,6 +193,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void GetQuestionFeedback_ShouldReturnJsonSuccessResultWithFeedbackTexts()
         {
             var question = MultipleselectObjectMother.Create();
+            question.UpdateGeneralFeedbackText("General feedback");
             question.UpdateCorrectFeedbackText("Correct feedback");
             question.UpdateIncorrectFeedbackText("Incorrect feedback");
 
@@ -201,6 +202,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new
             {
                 ModifiedOn = question.ModifiedOn,
+                GeneralFeedbackText = "General feedback",
                 CorrectFeedbackText = "Correct feedback",
                 IncorrectFeedbackText = "Incorrect feedback"
             });
@@ -267,6 +269,39 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var question = MultipleselectObjectMother.Create("Question title", CreatedBy);
 
             var result = _controller.UpdateIncorrectFeedback(question, String.Empty);
+
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = question.ModifiedOn });
+        }
+
+        #endregion
+
+        #region UpdateGeneralFeedback
+
+        [TestMethod]
+        public void UpdateGeneralFeedback_ShouldReturnJsonError_WhenQuestionIsNull()
+        {
+            var result = _controller.UpdateGeneralFeedback(null, String.Empty);
+
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Question is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("questionNotFoundError");
+        }
+
+        [TestMethod]
+        public void UpdateGeneralFeedback_ShouldUpdateQuestionFeedback()
+        {
+            var question = Substitute.For<Question>("Question title", CreatedBy);
+
+            _controller.UpdateGeneralFeedback(question, "feedback");
+
+            question.Received().UpdateGeneralFeedbackText("feedback");
+        }
+
+        [TestMethod]
+        public void UpdateGeneralFeedback_ShouldReturnJsonSuccessResult()
+        {
+            var question = MultipleselectObjectMother.Create("Question title", CreatedBy);
+
+            var result = _controller.UpdateGeneralFeedback(question, String.Empty);
 
             result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = question.ModifiedOn });
         }

@@ -36,6 +36,11 @@
         'zh-cn': '回到',
         'uk': 'Повернутися до'
     },
+    goBack: {
+        'en': 'Go back',
+        'zh-cn': 'Go back[zh-cn]',
+        'uk': 'Назад'
+    },
     remove: {
         'en': 'Remove',
         'zh-cn': '移除',
@@ -1607,6 +1612,16 @@
         'en': '\"Open\" question editor',
         'zh-cn': '\"Open\" question editor[zh-cn]',
         'uk': '\"Open\" question editor[uk]'
+    },
+    putYourFeedback: {
+        'en': 'Create response for answer',
+        'zh-cn': 'Create response for answer[zh-cn]',
+        'uk': 'Create response for answer[uk]'
+    },
+    generalFeedback: {
+        'en': 'Response for answer',
+        'zh-cn': 'Response for answer[zh-cn]',
+        'uk': 'Response for answer[uk]'
     },
     /* End resource section for model OpenQuestion */
     
