@@ -27,13 +27,10 @@
         CKEDITOR.config.language = supportedCultures[localizationManager.currentCulture] == 1 ? localizationManager.currentCulture : localizationManager.currentLanguage;
 
         //Floating Space plugin settings
-        CKEDITOR.config.editorsHolderId = 'view_content';
-        CKEDITOR.config.floatSpaceUpdateSettingsFunction = function () {
-            var landmarkContainer = $('#' + CKEDITOR.config.editorsHolderId);
-            var offsetTop = parseInt(landmarkContainer.offset().top);
-            if (!!offsetTop)
-                CKEDITOR.config.floatSpaceWindowOffsetTop = offsetTop;
-        };
+        var $mainHeader = $('.shell > header');
+        if ($mainHeader.length > 0) {
+            CKEDITOR.config.floatSpaceWindowOffsetTop = $mainHeader.height();
+        }
 
         if (fillInTheBlank) {
             inPageSettings.extraAllowedContent = 'span[*]; input[*]; select[*]; option[*]';
@@ -100,10 +97,8 @@
                 editor.fire('change');
             });
 
-            editor.on('change', function (evt) {
+            editor.on('change', function () {
                 data(editor.getData());
-                evt.cancel();
-                return;
             });
 
             editor.on('afterSetData', function (evt) {
