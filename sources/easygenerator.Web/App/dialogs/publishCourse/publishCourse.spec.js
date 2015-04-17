@@ -2,14 +2,16 @@
 
     "use strict";
 
-    var repository = require('repositories/courseRepository'),
-        eventTracker = require('eventTracker'),
+    var eventTracker = require('eventTracker'),
         constants = require('constants'),
-        Course = require('models/course');
+        publishAction = require('viewmodels/courses/publishingActions/publish')
+    ;
 
     describe('dialog [publishCourse]', function () {
+        publishAction = publishAction();
+        viewModel.publishAction = publishAction;
 
-        beforeEach(function() {
+        beforeEach(function () {
             spyOn(eventTracker, 'publish');
         });
 
@@ -24,51 +26,39 @@
         });
 
         describe('publishAction:', function () {
-            it('should be observable', function () {
-                expect(viewModel.publishAction).toBeObservable();
+            it('should be defined', function () {
+                expect(viewModel.publishAction).toBeDefined();
             });
         });
 
         describe('show:', function () {
-
-            var getCourse,
-                courseId = 'courseId';
+            var courseId = 'courseId';
 
             beforeEach(function () {
-                getCourse = Q.defer();
-                spyOn(repository, 'getById').and.returnValue(getCourse.promise);
+                spyOn(publishAction, 'activate');
             });
 
             it('should be function', function () {
                 expect(viewModel.show).toBeFunction();
             });
 
-            describe('and when course is received', function () {
+            it('should set isShown to true', function () {
+                viewModel.isShown(false);
+                viewModel.show(courseId);
+                expect(viewModel.isShown()).toBeTruthy();
+            });
 
-                beforeEach(function () {
-                    getCourse.resolve(new Course({ id: courseId }));
-                });
-
-                it('should set isShown to true', function (done) {
-                    viewModel.isShown(false);
-                    viewModel.show(courseId).fin(function () {
-                        expect(viewModel.isShown()).toBeTruthy();
-                        done();
-                    });
-                });
-
-                it('should define publishAction', function (done) {
-                    viewModel.publishAction(null);
-
-                    viewModel.show(courseId).fin(function () {
-                        expect(viewModel.publishAction()).toBeDefined();
-                        done();
-                    });
-                });
+            it('should activate publishAction', function () {
+                viewModel.show(courseId);
+                expect(viewModel.publishAction.activate).toHaveBeenCalledWith(courseId);
             });
         });
 
         describe('hide:', function () {
+
+            beforeEach(function () {
+                spyOn(publishAction, 'deactivate');
+            });
 
             it('should be function', function () {
                 expect(viewModel.hide).toBeFunction();
@@ -80,6 +70,10 @@
                 expect(viewModel.isShown()).toBeFalsy();
             });
 
+            it('should deactivate publishAction', function () {
+                viewModel.hide();
+                expect(viewModel.publishAction.deactivate).toHaveBeenCalled();
+            });
         });
 
         describe('embedTabOpened:', function () {

@@ -1,5 +1,5 @@
-﻿define(['viewmodels/courses/publishingActions/publish', 'repositories/courseRepository', 'constants', 'eventTracker'],
-    function (publishAction, repository, constants, eventTracker) {
+﻿define(['viewmodels/courses/publishingActions/publish', 'constants', 'eventTracker'],
+    function (publishAction, constants, eventTracker) {
 
         "use strict";
 
@@ -10,7 +10,7 @@
 
         var viewModel = {
             isShown: ko.observable(false),
-            publishAction: ko.observable(),
+            publishAction: publishAction(constants.eventCategories.header),
             show: show,
             hide: hide,
             embedTabOpened: ko.observable(false),
@@ -22,14 +22,13 @@
         return viewModel;
 
         function show(courseId) {
-            return repository.getById(courseId).then(function (course) {
-                viewModel.publishAction(publishAction(course, constants.eventCategories.header));
-                viewModel.isShown(true);
-            });
+            viewModel.publishAction.activate(courseId);
+            viewModel.isShown(true);
         }
 
         function hide() {
             viewModel.isShown(false);
+            viewModel.publishAction.deactivate();
         }
 
         function openEmbedTab() {

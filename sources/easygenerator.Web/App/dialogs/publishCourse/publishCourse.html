@@ -1,5 +1,5 @@
-﻿<div class="modal-dialog-wrapper publish-course" data-bind="dialog: { autoclose: true, isShown: isShown }, css: { visible: isShown}">
-    <!-- ko ifnot: _.isNullOrUndefined(publishAction()) -->
+﻿<div class="modal-dialog-wrapper publish-course" data-bind="dialog: { autoclose: true, isShown: isShown, onHide: hide }, css: { visible: isShown}">
+    <!-- ko ifnot: _.isNullOrUndefined(publishAction) -->
     <div class="package-action-item light-green publish-course">
         <div class="package-action-header">
             <h5 class="package-action-title" data-bind="localize: { text: 'publishCourse' }"></h5>
@@ -11,9 +11,9 @@
                     <li class="package-action-tabs-link embed-code" data-bind="click: openEmbedTab, localize: { text: 'embed' }, css: { active: embedTabOpened }"></li>
                 </ul>
 
-                <!-- ko if: publishAction().packageExists() -->
-                <div class="package-action-tabs-item-wrapper" data-bind="with: publishAction()">
-                    <!-- ko compose: { view: 'views/courses/publishActions/updatePublishedCourse', model: $data } --><!-- /ko -->
+                <!-- ko if: publishAction.packageExists() -->
+                <div class="package-action-tabs-item-wrapper" data-bind="with: publishAction">
+                    <!-- ko compose: { view: 'views/courses/publishActions/updatePublishedCourse', model: $data, activate: false } --><!-- /ko -->
                     <div class="package-action-tabs-item">
                         <div class="package-action-tabs-item-overlay" data-bind="visible: isCourseDelivering()"></div>
                         <!-- ko if: $parent.linkTabOpened -->
@@ -60,8 +60,8 @@
                     </div>
                 </div>
                 <!-- /ko -->
-                <!-- ko ifnot: publishAction().packageExists() -->
-                <div class="package-action-btn-holder" data-bind="with: publishAction()">
+                <!-- ko ifnot: publishAction.packageExists -->
+                <div class="package-action-btn-holder" data-bind="with: publishAction">
                     <button data-bind="click: publishCourse, css:{ disabled: isCourseDelivering(), progress : isPublishing()}" class="action-item-btn btn">
                         <!-- ko if: isPublishing() -->
                         <!-- ko if: state() === states.building -->

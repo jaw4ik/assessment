@@ -40,15 +40,15 @@
                     </li>
                 </ul>
                 <div class="publish-tabs-content">
-                    <!-- ko compose: { view: 'views/courses/publishActions/publishToPublicationServerLink', model: publishAction } -->
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishToPublicationServerLink', model: publishAction, activationData: courseId } -->
                     <!-- /ko -->
-                    <!-- ko compose: { view: 'views/courses/publishActions/publishToPublicationServerEmbed', model: publishAction } -->
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishToPublicationServerEmbed', model: publishAction, activationData: courseId } -->
                     <!-- /ko -->
-                    <!-- ko compose: { view: 'views/courses/publishActions/publishAsScorm', model: scormBuildAction } -->
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishAsScorm', model: scormBuildAction, activationData: courseId } -->
                     <!-- /ko -->
-                    <!-- ko compose: { view: 'views/courses/publishActions/publishAsHtml', model: buildAction } -->
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishAsHtml', model: buildAction, activationData: courseId } -->
                     <!-- /ko -->
-                    <!-- ko compose: { view: 'views/courses/publishActions/publishToAim4You', model: publishToAim4YouAction } -->
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishToAim4You', model: publishToAim4YouAction, activationData: courseId } -->
                     <!-- /ko -->
                 </div>
             </div>

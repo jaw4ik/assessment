@@ -1,13 +1,14 @@
-﻿define(['localization/localizationManager', 'constants', 'dataContext', 'viewmodels/courses/publishingActions/publishingAction', 'eventTracker', 'notify', 'durandal/app', 'userContext'],
-    function (localizationManager, constants, dataContext, publishingAction, eventTracker, notify, app, userContext) {
+﻿define(['localization/localizationManager', 'constants', 'dataContext', 'viewmodels/courses/publishingActions/publishingAction', 'eventTracker', 'notify', 'repositories/courseRepository'],
+    function (localizationManager, constants, dataContext, publishingAction, eventTracker, notify, repository) {
 
         var events = {
             registerToAim4You: 'Register to Aim4You',
             publishToAim4You: 'Publish to Aim4You'
         };
 
-        var ctor = function (course) {
-            var viewModel = publishingAction(course, course.publishToStore);
+        var ctor = function () {
+            var viewModel = publishingAction(),
+             baseActivate = viewModel.activate;
 
             viewModel.isPublishing = ko.computed(function () {
                 return this.state() === constants.publishingStates.building
@@ -22,6 +23,7 @@
 
             viewModel.messageState = ko.observable(viewModel.infoMessageStates.none);
             viewModel.publishToAim4You = publishToAim4You;
+            viewModel.activate = activate;
 
             viewModel.courseBuildStarted = courseBuildStarted;
             viewModel.courseBuildFailed = courseBuildFailed;
@@ -30,16 +32,21 @@
             viewModel.publishToAim4YouFailed = publishToAim4YouFailed;
             viewModel.initializeCourseDelivering = initializeCourseDelivering;
 
-            app.on(constants.messages.course.build.started).then(viewModel.courseBuildStarted);
-            app.on(constants.messages.course.build.failed).then(viewModel.courseBuildFailed);
-
-            app.on(constants.messages.course.publishToAim4You.started).then(viewModel.publishToAim4YouStarted);
-            app.on(constants.messages.course.publishToAim4You.completed).then(viewModel.publishToAim4YouCompleted);
-            app.on(constants.messages.course.publishToAim4You.failed).then(viewModel.publishToAim4YouFailed);
-            app.on(constants.messages.course.delivering.started).then(viewModel.initializeCourseDelivering);
-
             return viewModel;
 
+            function activate(courseId) {
+                return repository.getById(courseId).then(function (course) {
+                    baseActivate(course, course.publishToStore);
+
+                    viewModel.subscribe(constants.messages.course.build.started, viewModel.courseBuildStarted);
+                    viewModel.subscribe(constants.messages.course.build.failed, viewModel.courseBuildFailed);
+
+                    viewModel.subscribe(constants.messages.course.publishToAim4You.started, viewModel.publishToAim4YouStarted);
+                    viewModel.subscribe(constants.messages.course.publishToAim4You.completed, viewModel.publishToAim4YouCompleted);
+                    viewModel.subscribe(constants.messages.course.publishToAim4You.failed, viewModel.publishToAim4YouFailed);
+                    viewModel.subscribe(constants.messages.course.delivering.started, viewModel.initializeCourseDelivering);
+                });
+            }
 
             function publishToAim4You() {
                 if (viewModel.isCourseDelivering()) {
@@ -48,10 +55,12 @@
 
                 eventTracker.publish(events.publishToAim4You);
 
-                return course.publishToStore().then(function () {
-                    viewModel.messageState(viewModel.infoMessageStates.published);
-                }).fail(function (message) {
-                    notify.error(message);
+                return repository.getById(viewModel.courseId).then(function (course) {
+                    return course.publishToStore().then(function () {
+                        viewModel.messageState(viewModel.infoMessageStates.published);
+                    }).fail(function (message) {
+                        notify.error(message);
+                    });
                 });
             };
 

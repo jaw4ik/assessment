@@ -35,27 +35,27 @@
         });
 
         describe('buildAction:', function () {
-            it('should be observable', function () {
-                expect(viewModel.buildAction).toBeObservable();
+            it('should be defined', function () {
+                expect(viewModel.buildAction).toBeDefined();
             });
         });
 
         describe('scormBuildAction:', function () {
-            it('should be observable', function () {
-                expect(viewModel.scormBuildAction).toBeObservable();
+            it('should be defined', function () {
+                expect(viewModel.scormBuildAction).toBeDefined();
             });
         });
 
         describe('publishAction:', function () {
-            it('should be observable', function () {
-                expect(viewModel.publishAction).toBeObservable();
+            it('should be defined', function () {
+                expect(viewModel.publishAction).toBeDefined();
             });
         });
 
         describe('publishToAim4YouAction:', function () {
 
-            it('should be observable', function () {
-                expect(viewModel.publishToAim4YouAction).toBeObservable();
+            it('should be defined', function () {
+                expect(viewModel.publishToAim4YouAction).toBeDefined();
             });
 
         });
@@ -200,24 +200,6 @@
                         spyOn(clientContext, 'set');
                     });
 
-                    it('should define publish action', function (done) {
-                        viewModel.id = undefined;
-
-                        viewModel.activate(course.id).fin(function () {
-                            expect(viewModel.publishAction()).toBeDefined();
-                            done();
-                        });
-                    });
-
-                    it('should define build action', function (done) {
-                        viewModel.id = undefined;
-
-                        viewModel.activate(course.id).fin(function () {
-                            expect(viewModel.buildAction()).toBeDefined();
-                            done();
-                        });
-                    });
-
                     it('should set courseId', function (done) {
                         viewModel.courseId = '';
                         viewModel.activate(course.id).fin(function () {
@@ -236,15 +218,6 @@
                     it('should reset last visited objective in client context', function (done) {
                         viewModel.activate(course.id).fin(function () {
                             expect(clientContext.set).toHaveBeenCalledWith(constants.clientContextKeys.lastVisitedObjective, null);
-                            done();
-                        });
-                    });
-
-                    it('should define scorm build action', function (done) {
-                        viewModel.scormBuildAction(undefined);
-
-                        viewModel.activate(course.id).fin(function () {
-                            expect(viewModel.scormBuildAction()).toBeDefined();
                             done();
                         });
                     });

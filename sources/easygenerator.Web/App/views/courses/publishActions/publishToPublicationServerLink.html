@@ -2,7 +2,7 @@
     <div class="publish-tab-content-wrapper">
         <!-- ko if: packageExists() -->
         <div class="publish-to-publication-server-container">
-            <!-- ko compose: { view: 'views/courses/publishActions/updatePublishedCourse', model: $data } --><!-- /ko -->
+            <!-- ko compose: { view: 'views/courses/publishActions/updatePublishedCourse', model: $data, activate: false } --><!-- /ko -->
             <div class="publish-tab-link-container">
                 <h2 class="publish-tab-header" data-bind="localize: { text: 'courseUrl' }">
                     Course URL

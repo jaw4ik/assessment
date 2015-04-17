@@ -1,27 +1,51 @@
-﻿define(['viewmodels/courses/publishingActions/scormBuild', 'models/course', 'constants', 'durandal/app', 'notify', 'eventTracker', 'fileHelper', 'plugins/router', 'userContext'],
-    function (scormBuildPublishingAction, Course, constants, app, notify, eventTracker, fileHelper, router, userContext) {
+﻿define(['viewmodels/courses/publishingActions/scormBuild'],
+    function (scormBuild) {
+
+        var app = require('durandal/app'),
+            Course = require('models/course'),
+            constants = require('constants'),
+            notify = require('notify'),
+            eventTracker = require('eventTracker'),
+            fileHelper = require('fileHelper'),
+            router = require('plugins/router'),
+            userContext = require('userContext'),
+            repository = require('repositories/courseRepository')
+        ;
 
         describe('publishing action [scormBuild]', function () {
 
             var
                 viewModel,
+                action = function () { },
+                getByIdDefer,
                 course = new Course({
                     id: 'someId'
                 });
 
+            action.state = 'someState';
+            action.packageUrl = 'some/package/url';
+            course.scormBuild = action;
+
             beforeEach(function () {
                 course.scormBuild.url = 'scormBuildUrl';
-                viewModel = scormBuildPublishingAction(course);
+                viewModel = scormBuild(course);
                 spyOn(eventTracker, 'publish');
                 spyOn(notify, 'hide');
                 spyOn(fileHelper, 'downloadFile').and.callFake(function () { });
+                spyOn(app, 'on').and.returnValue(Q.defer().promise);
+                spyOn(app, 'off');
+                getByIdDefer = Q.defer();
+                spyOn(repository, 'getById').and.returnValue(getByIdDefer.promise);
             });
 
             it('should be object', function () {
                 expect(viewModel).toBeObject();
             });
 
+            //#region Inherited functionality 
+
             describe('state:', function () {
+
                 it('should be observable', function () {
                     expect(viewModel.state).toBeObservable();
                 });
@@ -35,29 +59,9 @@
 
             });
 
-            describe('isPublishing', function () {
-                it('should be computed', function () {
-                    expect(viewModel.isPublishing).toBeComputed();
-                });
-
-                describe('when state is \'building\'', function () {
-                    beforeEach(function () {
-                        viewModel.state(constants.publishingStates.building);
-                    });
-
-                    it('should return true', function () {
-                        expect(viewModel.isPublishing()).toBeTruthy();
-                    });
-                });
-
-                describe('when state is not \'building\'', function () {
-                    beforeEach(function () {
-                        viewModel.state('');
-                    });
-
-                    it('should return true', function () {
-                        expect(viewModel.isPublishing()).toBeFalsy();
-                    });
+            describe('isCourseDelivering:', function () {
+                it('should be observable', function () {
+                    expect(viewModel.isCourseDelivering).toBeObservable();
                 });
             });
 
@@ -70,10 +74,6 @@
             describe('courseId:', function () {
                 it('should be defined', function () {
                     expect(viewModel.courseId).toBeDefined();
-                });
-
-                it('should be equal to ctor parameter', function () {
-                    expect(viewModel.courseId).toBe(course.id);
                 });
             });
 
@@ -121,12 +121,233 @@
 
             });
 
+            describe('subscriptions:', function () {
+                it('should be array', function () {
+                    expect(viewModel.subscriptions).toBeArray();
+                });
+            });
+
+            describe('courseDeliveringStarted:', function () {
+                it('should be function', function () {
+                    expect(viewModel.courseDeliveringStarted).toBeFunction();
+                });
+
+                describe('when course is current course', function () {
+                    beforeEach(function () {
+                        viewModel.courseId = course.id;
+                    });
+
+                    it('should set isCourseDelivering to true', function () {
+                        viewModel.isCourseDelivering(false);
+                        viewModel.courseDeliveringStarted(course);
+                        expect(viewModel.isCourseDelivering()).toBeTruthy();
+                    });
+                });
+
+                describe('when course is not current course', function () {
+                    beforeEach(function () {
+                        viewModel.courseId = '';
+                    });
+
+                    it('should not change isCourseDelivering', function () {
+                        viewModel.isCourseDelivering(false);
+                        viewModel.courseDeliveringStarted({ id: 'none' });
+                        expect(viewModel.isCourseDelivering()).toBeFalsy();
+                    });
+                });
+            });
+
+            describe('courseDeliveringFinished:', function () {
+                it('should be function', function () {
+                    expect(viewModel.courseDeliveringFinished).toBeFunction();
+                });
+
+                describe('when course is current course', function () {
+                    beforeEach(function () {
+                        viewModel.courseId = course.id;
+                    });
+
+                    it('should set isCourseDelivering to false', function () {
+                        viewModel.isCourseDelivering(true);
+                        viewModel.courseDeliveringFinished(course);
+                        expect(viewModel.isCourseDelivering()).toBeFalsy();
+                    });
+                });
+
+                describe('when course is not current course', function () {
+                    beforeEach(function () {
+                        viewModel.courseId = '';
+                    });
+
+                    it('should not change isCourseDelivering', function () {
+                        viewModel.isCourseDelivering(true);
+                        viewModel.courseDeliveringFinished({ id: 'none' });
+                        expect(viewModel.isCourseDelivering()).toBeTruthy();
+                    });
+                });
+            });
+
+            describe('deactivate:', function () {
+                var subscriptions;
+                beforeEach(function () {
+                    subscriptions = [{ off: function () { } }, { off: function () { } }];
+                    spyOn(subscriptions[0], 'off');
+                    spyOn(subscriptions[1], 'off');
+
+                    viewModel.subscriptions = [subscriptions[0], subscriptions[1]];
+                });
+
+                it('should be function', function () {
+                    expect(viewModel.deactivate).toBeFunction();
+                });
+
+                it('should call off() for each subsription', function () {
+                    viewModel.deactivate();
+                    expect(subscriptions[0].off).toHaveBeenCalled();
+                    expect(subscriptions[1].off).toHaveBeenCalled();
+                });
+
+                it('should clear subscriptions', function () {
+                    viewModel.deactivate();
+                    expect(viewModel.subscriptions.length).toBe(0);
+                });
+            });
+
+            describe('activate:', function () {
+                it('should be function', function () {
+                    expect(viewModel.activate).toBeFunction();
+                });
+
+                it('should return promise', function () {
+                    expect(viewModel.activate()).toBePromise();
+                });
+
+                describe('when course received', function () {
+                    beforeEach(function () {
+                        getByIdDefer.resolve(course);
+                    });
+
+                    it('should set state', function (done) {
+                        viewModel.state('');
+                        var promise = viewModel.activate(course.id);
+                        promise.fin(function () {
+                            expect(viewModel.state()).toBe(action.state);
+                            done();
+                        });
+                    });
+
+                    it('should set packageUrl', function (done) {
+                        viewModel.packageUrl('');
+                        var promise = viewModel.activate(course.id);
+                        promise.fin(function () {
+                            expect(viewModel.packageUrl()).toBe(action.packageUrl);
+                            done();
+                        });
+                    });
+
+                    it('should set isCourseDelivering', function (done) {
+                        viewModel.isCourseDelivering(false);
+                        var promise = viewModel.activate(course.id);
+                        promise.fin(function () {
+                            expect(viewModel.isCourseDelivering()).toBe(course.isDelivering);
+                            done();
+                        });
+                    });
+
+                    it('should set courseId', function (done) {
+                        viewModel.courseId = '';
+                        var promise = viewModel.activate(course.id);
+                        promise.fin(function () {
+                            expect(viewModel.courseId).toBe(course.id);
+                            done();
+                        });
+                    });
+
+                    it('should subscribe to course.delivering.started event', function (done) {
+                        var promise = viewModel.activate(course.id);
+                        promise.fin(function () {
+                            expect(app.on).toHaveBeenCalledWith(constants.messages.course.delivering.started);
+                            done();
+                        });
+                    });
+
+                    it('should subscribe to course.delivering.finished event', function (done) {
+                        var promise = viewModel.activate(course.id);
+                        promise.fin(function () {
+                            expect(app.on).toHaveBeenCalledWith(constants.messages.course.delivering.finished);
+                            done();
+                        });
+                    });
+
+                    it('should fill subscriptions', function (done) {
+                        var promise = viewModel.activate(course.id);
+                        promise.fin(function () {
+                            expect(viewModel.subscriptions.length).toBe(5);
+                            done();
+                        });
+                    });
+
+                    it('should subscribe to course.scormBuild.started event', function (done) {
+                        var promise = viewModel.activate(course.id);
+                        promise.fin(function () {
+                            expect(app.on).toHaveBeenCalledWith(constants.messages.course.scormBuild.started);
+                            done();
+                        });
+                    });
+
+                    it('should subscribe to course.scormBuild.completed event', function (done) {
+                        var promise = viewModel.activate(course.id);
+                        promise.fin(function () {
+                            expect(app.on).toHaveBeenCalledWith(constants.messages.course.scormBuild.completed);
+                            done();
+                        });
+                    });
+
+                    it('should subscribe to course.scormBuild.failed event', function (done) {
+                        var promise = viewModel.activate(course.id);
+                        promise.fin(function () {
+                            expect(app.on).toHaveBeenCalledWith(constants.messages.course.scormBuild.failed);
+                            done();
+                        });
+                    });
+                });
+            });
+
+            //#endregion
+
+            describe('isPublishing', function () {
+                it('should be computed', function () {
+                    expect(viewModel.isPublishing).toBeComputed();
+                });
+
+                describe('when state is \'building\'', function () {
+                    beforeEach(function () {
+                        viewModel.state(constants.publishingStates.building);
+                    });
+
+                    it('should return true', function () {
+                        expect(viewModel.isPublishing()).toBeTruthy();
+                    });
+                });
+
+                describe('when state is not \'building\'', function () {
+                    beforeEach(function () {
+                        viewModel.state('');
+                    });
+
+                    it('should return true', function () {
+                        expect(viewModel.isPublishing()).toBeFalsy();
+                    });
+                });
+            });
+
             describe('downloadCourse:', function () {
 
                 var courseScormBuildDefer;
                 var courseScormBuildPromise;
 
                 beforeEach(function () {
+                    viewModel.course = course;
                     courseScormBuildDefer = Q.defer();
                     courseScormBuildPromise = courseScormBuildDefer.promise;
                     spyOn(course, 'scormBuild').and.returnValue(courseScormBuildPromise);
@@ -136,72 +357,77 @@
                     expect(viewModel.downloadCourse).toBeFunction();
                 });
 
-                describe('when course is not delivering', function () {
-
+                describe('when course received', function () {
                     beforeEach(function () {
-                        viewModel.isCourseDelivering(false);
+                        getByIdDefer.resolve(course);
                     });
 
-                    it('should send event \"Download SCORM 1.2 course\"', function () {
-                        viewModel.downloadCourse();
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Download SCORM 1.2 course');
-                    });
+                    describe('when course is not delivering', function () {
 
-                    it('should start scorm build of current course', function (done) {
-                        courseScormBuildDefer.resolve();
-
-                        viewModel.downloadCourse().fin(function () {
-                            expect(course.scormBuild).toHaveBeenCalled();
-                            done();
-                        });
-                    });
-
-                    describe('when course scorm build finished successfully', function () {
                         beforeEach(function () {
-                            courseScormBuildDefer.resolve({ scormBuild: { packageUrl: 'scorm_package_url' } });
+                            viewModel.isCourseDelivering(false);
                         });
 
-                        it('should download file', function (done) {
+                        it('should send event \"Download SCORM 1.2 course\"', function () {
+                            viewModel.downloadCourse();
+                            expect(eventTracker.publish).toHaveBeenCalledWith('Download SCORM 1.2 course');
+                        });
+
+                        it('should start scorm build of current course', function (done) {
+                            courseScormBuildDefer.resolve();
+
                             viewModel.downloadCourse().fin(function () {
-                                expect(fileHelper.downloadFile).toHaveBeenCalledWith('download/scorm_package_url');
+                                expect(course.scormBuild).toHaveBeenCalled();
                                 done();
                             });
                         });
 
-                    });
-
-                    describe('when course scorm build failed', function () {
-
-                        var message = 'Some error message';
-                        beforeEach(function () {
-                            courseScormBuildDefer.reject(message);
-                        });
-
-                        it('should show error notification', function (done) {
-                            spyOn(notify, 'error');
-                            viewModel.downloadCourse().fin(function () {
-                                expect(notify.error).toHaveBeenCalledWith(message);
-                                done();
+                        describe('when course scorm build finished successfully', function () {
+                            beforeEach(function () {
+                                courseScormBuildDefer.resolve({ scormBuild: { packageUrl: 'scorm_package_url' } });
                             });
+
+                            it('should download file', function (done) {
+                                viewModel.downloadCourse().fin(function () {
+                                    expect(fileHelper.downloadFile).toHaveBeenCalledWith('download/scorm_package_url');
+                                    done();
+                                });
+                            });
+
+                        });
+
+                        describe('when course scorm build failed', function () {
+
+                            var message = 'Some error message';
+                            beforeEach(function () {
+                                courseScormBuildDefer.reject(message);
+                            });
+
+                            it('should show error notification', function (done) {
+                                spyOn(notify, 'error');
+                                viewModel.downloadCourse().fin(function () {
+                                    expect(notify.error).toHaveBeenCalledWith(message);
+                                    done();
+                                });
+                            });
+
                         });
 
                     });
 
-                });
+                    describe('when course is delivering', function () {
 
-                describe('when course is delivering', function () {
+                        beforeEach(function () {
+                            viewModel.isCourseDelivering(true);
+                        });
 
-                    beforeEach(function () {
-                        viewModel.isCourseDelivering(true);
+                        it('should not send event \"Download SCORM 1.2 course\"', function () {
+                            viewModel.downloadCourse();
+                            expect(eventTracker.publish).not.toHaveBeenCalledWith('Download SCORM 1.2 course');
+                        });
+
                     });
-
-                    it('should not send event \"Download SCORM 1.2 course\"', function () {
-                        viewModel.downloadCourse();
-                        expect(eventTracker.publish).not.toHaveBeenCalledWith('Download SCORM 1.2 course');
-                    });
-
                 });
-
             });
 
             describe('openUpgradePlanUrl:', function () {
@@ -227,13 +453,13 @@
             });
 
             describe('userHasPublishAccess:', function () {
-                describe('when user has starter access', function() {
+                describe('when user has starter access', function () {
                     beforeEach(function () {
                         spyOn(userContext, 'hasStarterAccess').and.returnValue(true);
-                        viewModel = scormBuildPublishingAction(course);
+                        viewModel = scormBuild(course);
                     });
 
-                    it('should be true', function() {
+                    it('should be true', function () {
                         expect(viewModel.userHasPublishAccess).toBeTruthy();
                     });
                 });
@@ -241,7 +467,7 @@
                 describe('when user does not have starter access', function () {
                     beforeEach(function () {
                         spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
-                        viewModel = scormBuildPublishingAction(course);
+                        viewModel = scormBuild(course);
                     });
 
                     it('should be false', function () {
@@ -250,7 +476,7 @@
                 });
             });
 
-            describe('when course scorm build was started', function () {
+            describe('scromBuildStarted:', function () {
 
                 describe('and when course is current course', function () {
 
@@ -279,7 +505,7 @@
 
             });
 
-            describe('when course scorm build completed', function () {
+            describe('scromBuildCompleted:', function () {
 
                 describe('and when course is current course', function () {
                     it('should update scorm build action state to \'success\'', function () {
@@ -326,7 +552,7 @@
 
             });
 
-            describe('when course scorm build failed', function () {
+            describe('scrormBuildFailed:', function () {
 
                 describe('and when course is current course', function () {
 
@@ -372,56 +598,6 @@
 
                 });
 
-            });
-
-            describe('isCourseDelivering:', function () {
-                it('should be observable', function () {
-                    expect(viewModel.isCourseDelivering).toBeObservable();
-                });
-            });
-
-            describe('courseDeliveringStarted:', function () {
-                it('should be function', function () {
-                    expect(viewModel.courseDeliveringStarted).toBeFunction();
-                });
-
-                describe('when course is current course', function () {
-                    it('should set isCourseDelivering to true', function () {
-                        viewModel.isCourseDelivering(false);
-                        viewModel.courseDeliveringStarted(course);
-                        expect(viewModel.isCourseDelivering()).toBeTruthy();
-                    });
-                });
-
-                describe('when course is not current course', function () {
-                    it('should not change isCourseDelivering', function () {
-                        viewModel.isCourseDelivering(false);
-                        viewModel.courseDeliveringStarted({ id: 'none' });
-                        expect(viewModel.isCourseDelivering()).toBeFalsy();
-                    });
-                });
-            });
-
-            describe('courseDeliveringFinished:', function () {
-                it('should be function', function () {
-                    expect(viewModel.courseDeliveringFinished).toBeFunction();
-                });
-
-                describe('when course is current course', function () {
-                    it('should set isCourseDelivering to false', function () {
-                        viewModel.isCourseDelivering(true);
-                        viewModel.courseDeliveringFinished(course);
-                        expect(viewModel.isCourseDelivering()).toBeFalsy();
-                    });
-                });
-
-                describe('when course is not current course', function () {
-                    it('should not change isCourseDelivering', function () {
-                        viewModel.isCourseDelivering(true);
-                        viewModel.courseDeliveringFinished({ id: 'none' });
-                        expect(viewModel.isCourseDelivering()).toBeTruthy();
-                    });
-                });
             });
         });
     })

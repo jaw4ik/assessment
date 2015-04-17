@@ -15,15 +15,15 @@
 
         var viewModel = {
             courseId: '',
-
-            buildAction: ko.observable(),
-            scormBuildAction: ko.observable(),
-            publishAction: ko.observable(),
-            publishToAim4YouAction: ko.observable(),
+            buildAction: buildPublishingAction(),
+            scormBuildAction: scormBuildPublishingAction(),
+            publishAction: publishPublishingAction(),
+            publishToAim4YouAction: publishToAim4You(),
 
             navigateToCoursesEvent: navigateToCoursesEvent,
 
             activate: activate,
+            deactivate: deactivate,
 
             sendOpenLinkTab: sendOpenLinkTab,
             sendOpenEmbedTab: sendOpenEmbedTab,
@@ -62,19 +62,20 @@
             return userContext.identify().then(function () {
                 return repository.getById(courseId).then(function (course) {
                     viewModel.courseId = course.id;
-
                     clientContext.set(constants.clientContextKeys.lastVistedCourse, course.id);
                     clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
-
-                    viewModel.publishAction(publishPublishingAction(course));
-                    viewModel.buildAction(buildPublishingAction(course));
-                    viewModel.scormBuildAction(scormBuildPublishingAction(course));
-                    viewModel.publishToAim4YouAction(publishToAim4You(course));
                 }).fail(function (reason) {
                     router.activeItem.settings.lifecycleData = { redirect: '404' };
                     throw reason;
                 });
             });
+        }
+
+        function deactivate() {
+            viewModel.buildAction.deactivate();
+            viewModel.scormBuildAction.deactivate();
+            viewModel.publishAction.deactivate();
+            viewModel.publishToAim4YouAction.deactivate();
         }
     }
 );
