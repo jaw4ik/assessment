@@ -8,7 +8,7 @@
         var value = !!ko.utils.unwrapObservable(valueAccessor()); //force boolean to compare with last value
         if (allBindings.has('scrollOnFocus') && value && !element[hasfocusUpdatingProperty] && element[hasfocusLastValue] !== value) {
             var $element = $(element);
-            var $containter = $element.closest('.view-content-holder');
+            var $containter = $element.closest('#view_content');
             $containter = $containter.length ? $containter : $('html, body');
             $containter.scrollTo($element);
         }
