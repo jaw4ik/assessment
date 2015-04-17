@@ -23,16 +23,7 @@
                     <li class="choose-template-item" data-bind="css: { 'marked-as-new': isNew, selected: $data == $parent.currentTemplate() }">
                         <div class="template-image-container" data-bind="click: $parent.selectTemplate">
                             <div class="template-settings-spinner" data-bind="visible: $data == $parent.loadingTemplate()">
-                                <div class="circular-loader x32 grey align-center">
-                                    <div class="circular-loader-item"></div>
-                                    <div class="circular-loader-item"></div>
-                                    <div class="circular-loader-item"></div>
-                                    <div class="circular-loader-item"></div>
-                                    <div class="circular-loader-item"></div>
-                                    <div class="circular-loader-item"></div>
-                                    <div class="circular-loader-item"></div>
-                                    <div class="circular-loader-item"></div>
-                                </div>
+                                <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 grey align-center' } } --><!-- /ko -->
                             </div>
                             <img class="template-image" data-bind="attr: {src: previewImages[0]}, css: { 'transparent': $data == $parent.loadingTemplate() }" src="" alt="" />
                             <div class="choose-template-action-container" data-bind="visible: $data != $parent.loadingTemplate()">
@@ -57,18 +48,7 @@
             <div class="content-section">
                 <div class="template-settings-block">
                     <!-- ko ifnot: settingsVisibility -->
-                    <div class="template-settings-spinner">
-                        <div class="circular-loader x32 black align-center">
-                            <div class="circular-loader-item"></div>
-                            <div class="circular-loader-item"></div>
-                            <div class="circular-loader-item"></div>
-                            <div class="circular-loader-item"></div>
-                            <div class="circular-loader-item"></div>
-                            <div class="circular-loader-item"></div>
-                            <div class="circular-loader-item"></div>
-                            <div class="circular-loader-item"></div>
-                        </div>
-                    </div>
+                        <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center', style: { top: '300px' } } } --><!-- /ko -->
                     <!-- /ko -->
                     <iframe id="template-settings" data-bind="style: { visibility: settingsVisibility() ? 'visible' : 'hidden', display: displaySettings() ? '' : 'none' }, attr: { src: currentTemplate().settingsUrl + '?v=' + appVersion + '&courseId=' + courseId + '&templateId=' + currentTemplate().id }, event: { load: frameLoaded }, windowMessageListener: onGetTemplateMessage" frameborder="0" width="100%" height="2500px"></iframe>
                 </div>
