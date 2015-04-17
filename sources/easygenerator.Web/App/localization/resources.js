@@ -31,10 +31,10 @@
         'zh-cn': '取消选择',
         'uk': 'Скасувати вибір'
     },
-    backTo: {
-        'en': 'Back to',
-        'zh-cn': '回到',
-        'uk': 'Повернутися до'
+    goBack: {
+        'en': 'Go back',
+        'zh-cn': 'Go back[zh-cn]',
+        'uk': 'Назад'
     },
     goBack: {
         'en': 'Go back',
@@ -190,11 +190,6 @@
         'en': 'This file format is not supported. Please use pptx.',
         'zh-cn': '不支持的文件格式，请使用pptx',
         'uk': 'Формат файла не підтримується. Використовуйте такі формати файлів: pptx.'
-    },
-    uploadingImage: {
-        'en': 'Uploading image...',
-        'zh-cn': '正在上传图片',
-        'uk': 'Завантаження зображення...'
     },
     uploading: {
         'en': 'Uploading...',
@@ -379,16 +374,6 @@
         'zh-cn': '学习目标',
         'uk': 'Розділ / Ціль'
     },
-    numberOfRelatedQuestions: {
-        'en': 'Number of related questions',
-        'zh-cn': '相关问题的数量',
-        'uk': 'Number of related questions[uk]'
-    },
-    addNewObjective: {
-        'en': 'Add new learning objective',
-        'zh-cn': '添加新的学习目标',
-        'uk': 'Add new learning objective[uk]'
-    },
     learningObjectiveListIsEmpty: {
         'en': 'Objective list is empty',
         'zh-cn': '空的目标清单',
@@ -398,11 +383,6 @@
         'en': 'What are your course objectives?',
         'zh-cn': 'What are your course objectives?[zh-cn]',
         'uk': 'Які цілі вашого курсу?'
-    },
-    clickToAddObjective: {
-        'en': 'Click to add a learning objective',
-        'zh-cn': '点击添加学习目标',
-        'uk': 'Click to add a learning objective[uk]'
     },
     objectiveCannnotBeDeleted: {
         'en': 'Learning objective cannot be deleted when it contains questions or is connected to a course',
@@ -457,11 +437,6 @@
         'zh-cn': '不能删除有学习目标的课程',
         'uk': 'Неможливо видалити курс, так як в ньому є розділ(и) / цілі'
     },
-    creatingStatus: {
-        'en': 'Creating...',
-        'zh-cn': '创建中…',
-        'uk': 'Створення...'
-    },
     courseCreateItem: {
         'en': '1. Create',
         'zh-cn': '1. 创建',
@@ -482,16 +457,6 @@
         'zh-cn': '4. 结果',
         'uk': '4. Результати'
     },
-    changeTemplate: {
-        'en': 'Change template',
-        'zh-cn': '更改课程模板',
-        'uk': 'Змінити шаблон'
-    },
-    selectedTemplate: {
-        'en': 'Selected',
-        'zh-cn': '已选择的课程模板',
-        'uk': 'Обраний'
-    },
     currentTemplate: {
         'en': 'Current template',
         'zh-cn': '现有课程模板',
@@ -507,11 +472,6 @@
         'zh-cn': 'Changes have NOT been saved. Please reload the page and change the settings again. Contact support@easygenerator.com if problem persists.[zh-cn]',
         'uk': 'Зміни не були збережені. Будь ласка перезавантажте сторінку і змініть налаштування знову. Зв\'яжіться з support@easygenerator.com якщо проблема повторюється.'
     },
-    getPublicationLink: {
-        'en': 'Get link',
-        'zh-cn': '获得链接',
-        'uk': 'Опублікувати та отримати посилання'
-    },
     republishOnline: {
         'en': 'Update published course',
         'zh-cn': '更新已经发布的课程',
@@ -526,16 +486,6 @@
         'en': 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists. ',
         'zh-cn': '出错了，请重试。如果问题依然存在，请联系support@easygenerator.com解决。',
         'uk': 'Щось пішло не так. Спробуйте знову. Якщо проблема не зникне - надішліть нам електронного листа на адресу support@easygenerator.com'
-    },
-    publishingLinkDescription: {
-        'en': 'Copy and share this link with your learners',
-        'zh-cn': '复制并分享链接给学员',
-        'uk': 'Скопіюйте та поділіться посиланням зі своїми учнями'
-    },
-    viewCourseDescription: {
-        'en': 'Open link to view the course',
-        'zh-cn': '打开链接查看课程',
-        'uk': 'Для відкриття курсу перейдіть по посиланню'
     },
     publishCourse: {
         'en': 'Get an easygenerator link and share',
@@ -577,65 +527,10 @@
         'zh-cn': '使用我们的合作伙伴Aim 4 You',
         'uk': 'з нашим партнером Aim 4 You'
     },
-    publishToAim4YouSlideText: {
-        'en': 'One click publishing',
-        'zh-cn': '一键发布',
-        'uk': 'Публікуйте в один клік'
-    },
-    publishToAim4YouSlideText1: {
-        'en': 'Sell your courses',
-        'zh-cn': '出售课程',
-        'uk': 'Продавайте свої курси'
-    },
-    publishToAim4YouSlideText2: {
-        'en': 'Secure and Manage Access',
-        'zh-cn': '安全和管理入口',
-        'uk': 'Керуйте доступом'
-    },
-    publishToAim4YouSlideText3: {
-        'en': 'Free hosting',
-        'zh-cn': '免费虚拟主机',
-        'uk': 'Безкоштовний хостинг'
-    },
-    publishToAim4YouListText: {
-        'en': 'Using Aim 4 You, no LMS or hosting services required!',
-        'zh-cn': '使用Aim 4 You，就不需要LMS或者虚拟主机',
-        'uk': 'Використовуючи Aim 4 You Вам не потрібні LMS чи послуги хостингу!'
-    },
-    publishToAim4YouListText1: {
-        'en': 'Showcase your content and invite anyone!',
-        'zh-cn': '展示你的内容并可邀请任何一人',
-        'uk': 'Запрошуйте будь-кого та показуйте свої курси!'
-    },
-    publishToAim4YouListText2: {
-        'en': 'Secure and manage access to your content!',
-        'zh-cn': '您内容的安全和管理入口',
-        'uk': 'Безпека та управління доступом до вашого курсу!'
-    },
-    publishToAim4YouConfirmSendMessage: {
-        'en': 'A confirmation email was sent. Click on the link in this mail to activate your account.',
-        'zh-cn': '已经发送确认邮件，请点击邮件内的链接来激活您的账号',
-        'uk': 'Лист з підтвердженням реєстрації відправленно Вам на електронну адресу. Перейдіть по посиланню у цьому листі, щоб активувати Ваш аккаунт'
-    },
     publishToAim4YouSuccessMessage: {
         'en': 'Your course is successfully uploaded. You will receive an email with more details after the publication is finished.',
         'zh-cn': '您的课程已经上传成功，您会在发布完成后收到一封带有详细内容的邮件。',
         'uk': 'Ваш курс успішно завантажено. Після того як публікація буде завершена, Ви отримаєте листа на свою електронну скриньку.'
-    },
-    publishToAim4YouInfoMessage: {
-        'en': 'You have not confirmed your registration with Aim 4 You. In order to publish you have to click on the link in the confirmation email to activate your account.',
-        'zh-cn': '您还没有确认在Aim 4 You的注册，您必须点击确认邮件里的链接激活账户后才能发布。',
-        'uk': 'Ви не підтвердили свою реєстрацію на Aim 4 You. Для того, щоб опублікувати, Ви повинні клікнути по посиланню в електронному листі для активації акаунту.'
-    },
-    publishToAim4YouSendAgain: {
-        'en': 'Send the confirmation email again',
-        'zh-cn': '再次发送确认邮件',
-        'uk': 'Відправити лист з підтвердженням реєстрації ще раз'
-    },
-    publishToAim4YouErrorMessage: {
-        'en': 'Oops! Something went wrong. Please, try again.',
-        'zh-cn': '出错了，请重试。',
-        'uk': 'Ой! Щось пішло не так. Спробуйте, будь ласка, ще раз.'
     },
     register: {
         'en': 'Register',
@@ -651,21 +546,6 @@
         'en': 'Publish and Sell your online course',
         'zh-cn': '发布并出售您的在线课程',
         'uk': 'Публікуй і продавай свої курси онлайн'
-    },
-    addCourseContent: {
-        'en': 'Add introduction',
-        'zh-cn': '添加介绍',
-        'uk': 'Додати інформацію'
-    },
-    showCourseContent: {
-        'en': 'Show introduction',
-        'zh-cn': '显示介绍',
-        'uk': 'Показати додаткову інформацію'
-    },
-    hideCourseContent: {
-        'en': 'Hide introduction',
-        'zh-cn': '隐藏介绍',
-        'uk': 'Приховати додаткову інформацію'
     },
     editIntroduction: {
         'en': 'Edit introduction',
@@ -722,11 +602,6 @@
         'zh-cn': '共享的课程',
         'uk': 'Спільні курси'
     },
-    courseHasNotBeenPublishedDescription: {
-        'en': 'This course has not been published yet. Click the button below to get the private link.',
-        'zh-cn': '这个课程还没有发布，点击下面的按钮来获取链接',
-        'uk': 'Цей курс ще не був опублікований. Натисніть кнопку нижче для публікації та отримання посилання.'
-    },
     courseDefaultTitle: {
         'en': 'Untitled course',
         'zh-cn': '没有命名的课程',
@@ -736,11 +611,6 @@
         'en': 'Import',
         'zh-cn': '导入',
         'uk': 'Імпортувати'
-    },
-    importing: {
-        'en': 'Importing...',
-        'zh-cn': '导入中…',
-        'uk': 'Імпорт...'
     },
     publishNow: {
         'en': 'Publish now',
@@ -925,11 +795,6 @@
         'zh-cn': 'Untitled objective[zh-cn]',
         'uk': 'Розділ / ціль без назви'
     },
-    createObjectiveTip: {
-        'en': 'Type objective here...',
-        'zh-cn': '目标名称…',
-        'uk': 'Напишіть назву розділу / ціль тут...'
-    },
     filter: {
         'en': 'Filter',
         'zh-cn': '筛选',
@@ -954,16 +819,6 @@
         'en': 'More options',
         'zh-cn': 'More options[zh-cn]',
         'uk': 'Більше можливостей'
-    },
-    noLearningObjectivesToConnect: {
-        'en': 'There are no objectives to add',
-        'zh-cn': '没有可以加入的课程',
-        'uk': 'Відсутні розділи / цілі для додавання'
-    },
-    defineLerningObjectiveTitle: {
-        'en': 'Create objective',
-        'zh-cn': '创建目标',
-        'uk': 'Створити розділи / цілі'
     },
     connectExistingLearningObjectives: {
         'en': 'Add existing objectives',
@@ -1078,21 +933,6 @@
         'zh-cn': '选择课程模板',
         'uk': 'Обрати шаблон'
     },
-    createAndContinue: {
-        'en': 'Create and continue',
-        'zh-cn': '创建并继续',
-        'uk': 'Створити і продовжити'
-    },
-    previewTemplate: {
-        'en': 'Preview template',
-        'zh-cn': '课程模板预览',
-        'uk': 'Попередній перегляд шаблона'
-    },
-    createCourseButtonCaption: {
-        'en': 'Create course',
-        'zh-cn': '创建课程',
-        'uk': 'Створити курс'
-    },
     powerPointImport: {
         'en': 'Create from PowerPoint',
         'zh-cn': '从PowerPoint导入',
@@ -1141,11 +981,6 @@
         'zh-cn': '问题属性',
         'uk': 'Властивості питання'
     },
-    clickToAddNewAnswerOption: {
-        'en': 'Click here to add answer option',
-        'zh-cn': '点击添加答案选项',
-        'uk': 'Натисніть тут, щоб додати ще один варіант відповіді'
-    },
     addAnswerOption: {
         'en': 'Add answer option',
         'zh-cn': '添加答案选项',
@@ -1171,11 +1006,6 @@
         'zh-cn': '添加新的答案选项',
         'uk': 'Додати ще один варіант відповіді'
     },
-    addNewLearningContent: {
-        'en': 'Add new content',
-        'zh-cn': '添加新的内容',
-        'uk': 'Додати ще один навчальний матеріал'
-    },
     markAsCorrect: {
         'en': 'Mark as correct',
         'zh-cn': '标记为正确',
@@ -1190,11 +1020,6 @@
         'en': 'Question instruction',
         'zh-cn': '问题说明',
         'uk': 'Пояснення'
-    },
-    defineQuestionContent: {
-        'en': 'Create question instruction',
-        'zh-cn': '创建问题说明',
-        'uk': 'Додати пояснення'
     },
     addExtraQuestionContent: {
         'en': 'Add  question instruction',
@@ -1221,11 +1046,6 @@
         'zh-cn': '问题',
         'uk': 'Питання'
     },
-    informationContentTitle: {
-        'en': 'Title',
-        'zh-cn': '名称',
-        'uk': 'Назва'
-    },
     loadingImage: {
         'en': 'Loading image...',
         'zh-cn': '载入图片中…',
@@ -1245,11 +1065,6 @@
         'en': 'Move/Copy question to...',
         'zh-cn': 'Move/Copy question to...[zh-cn]',
         'uk': 'Перемістити/Скопіювати питання в...'
-    },
-    deleteQuestion: {
-        'en': 'Delete question',
-        'zh-cn': 'Delete question[zh-cn]',
-        'uk': 'Видалити питання'
     },
     moveCopyErrorMessage: {
         'en': 'There are no objectives in the course. Please choose a course that contains at least one objective.',
@@ -1284,50 +1099,15 @@
         'zh-cn': '错误答案',
         'uk': 'Неправильна вiдповiдь'
     },
-    lastSaving: {
-        'en': 'Last saving',
-        'zh-cn': '最近一次保存',
-        'uk': 'Last saving[uk]'
-    },
-    addNewQuestion: {
-        'en': 'Add new question',
-        'zh-cn': '添加新问题',
-        'uk': 'Add new question[uk]'
-    },
-    createAndEdit: {
-        'en': 'Create and edit',
-        'zh-cn': '创建并编辑',
-        'uk': 'Create and edit[uk]'
-    },
-    createAndNew: {
-        'en': 'Create and new',
-        'zh-cn': '创建新的',
-        'uk': 'Create and new[uk]'
-    },
-    typeQuestionTitleHere: {
-        'en': 'Type question title here',
-        'zh-cn': '输入问题名称',
-        'uk': 'Type question title here[uk]'
-    },
     itemListIsEmpty: {
         'en': 'Item list is empty',
         'zh-cn': '没有新的知识点',
         'uk': 'Список елементiв порожнiй'
     },
-    relatedQuestion: {
-        'en': 'Related question',
-        'zh-cn': '相关问题',
-        'uk': 'Related question[uk]'
-    },
     createNewQuestion: {
         'en': 'New item',
         'zh-cn': '新的知识点',
         'uk': 'Додати'
-    },
-    savedAt: {
-        'en': 'Saved at',
-        'zh-cn': '另存为',
-        'uk': 'Saved at'
     },
     newQuestionTitle: {
         'en': 'Untitled question',
@@ -1484,11 +1264,6 @@
         'zh-cn': '处理中…',
         'uk': 'Обробка...'
     },
-    browseImage: {
-        'en': 'Browse image',
-        'zh-cn': '浏览图片',
-        'uk': 'Обрати зображення'
-    },
     changeImage: {
         'en': 'Change image',
         'zh-cn': '更换图片',
@@ -1516,11 +1291,6 @@
         'en': 'Multiple response',
         'zh-cn': '多个响应',
         'uk': 'Декілька відповідей'
-    },
-    clickAndDragToCreateHotSpots: {
-        'en': 'Click and drag to create hotspots',
-        'zh-cn': '单击并拖动以创建热点',
-        'uk': 'Клікніть і потягніть для створення області відповіді'
     },
     defineHotspots: {
         'en': 'and define hotspots',
@@ -1646,38 +1416,10 @@
         'zh-cn': '错误答案的回应',
         'uk': 'Відгук на неправильну відповідь'
     },
-    /* End resource section for model QuestionFeedback */
-    
-    /* Resource section for model Display course */
-    clickToCreateNewObjective: {
-        'en': 'To create objective or sub title click \"+\" button',
-        'zh-cn': '点击\"+\"按钮创建学习目标或者副标题',
-        'uk': 'To create objective or sub title click \"+\" button'
-    },
     finish: {
         'en': 'Finish',
         'zh-cn': '完成',
         'uk': 'Finish'
-    },
-    createObjectiveFromCourse: {
-        'en': 'Learning objective',
-        'zh-cn': '学习目标',
-        'uk': 'Розділ / ціль'
-    },
-    connectedLearningObjectives: {
-        'en': 'Course objectives',
-        'zh-cn': '课程目标',
-        'uk': 'Розділи / цілі курсу'
-    },
-    noConnectedLearningObjectives: {
-        'en': 'All other objectives',
-        'zh-cn': '所有其他的目标',
-        'uk': 'All other objectives'
-    },
-    noObjectivesForConnect: {
-        'en': 'No other objectives to use',
-        'zh-cn': '没有其他目标可用',
-        'uk': 'No other objectives to use'
     },
     connectObjectives: {
         'en': 'Use objectives',
@@ -1709,7 +1451,7 @@
         'zh-cn': 'Course title[zh-cn]',
         'uk': 'Назва курсу'
     },
-    /* End resource section for model Display course */
+    /* End resource section for model QuestionFeedback */
     
     /* Resource section for model Error pages */
     pageNotFound: {
@@ -1771,132 +1513,6 @@
         'uk': 'Виникла проблема. Натисніть \"Курси\", відкрийте курс та спробуйте ще раз. Якщо проблема не зникне, надішліть нам електронного листа на адресу support@easygenerator.com.'
     },
     /* End resource section for model Server error notification */
-    
-    /* Resource section for model View captions */
-    courseViewCaption: {
-        'en': 'Course editor',
-        'zh-cn': '课程编辑',
-        'uk': 'Редактор курсів'
-    },
-    learningObjectiveViewCaption: {
-        'en': 'Objective editor',
-        'zh-cn': '目标编辑',
-        'uk': 'Редактор завдань'
-    },
-    questionViewCaption: {
-        'en': 'Question editor',
-        'zh-cn': '问题编辑',
-        'uk': 'Редактор питання'
-    },
-    createObjectiveViewCaption: {
-        'en': 'Create learning objective',
-        'zh-cn': '创建学习目标',
-        'uk': 'Створити розділ / ціль'
-    },
-    createQuestionViewCaption: {
-        'en': 'Create question',
-        'zh-cn': '创建问题',
-        'uk': 'Створити питання'
-    },
-    /* End resource section for model View captions */
-    
-    /* Resource section for model Help hints */
-    coursesHelpHintTitle: {
-        'en': 'What is a course?',
-        'zh-cn': '课程是什么？',
-        'uk': 'What is a course?'
-    },
-    coursesHelpHint: {
-        'en': '<p><strong>Courses</strong> is the generic term for the elearning that you will create. It can be a simple course, a quiz, an exam etc. On this page you will see a list all your courses. To open a course click on it. </p><p><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\">Learn more...</a></p>',
-        'zh-cn': '<p><strong>课程</strong>可以是一个简单的课程，或是一次测验，或者一次考试等。在这个页面上您可以看到您的所有课程。点击可以打开任意一个。</p><p><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\">了解更多... </a></p>',
-        'uk': '<p><strong>Courses</strong> is the generic term for the elearning that you will create. It can be a simple course, a quiz, an exam etc. On this page you will see a list all your courses. To open a course click on it. </p><p><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\">Learn more...</a></p>'
-    },
-    courseHelpHintTitle: {
-        'en': 'Why do I need to connect learning objectives?',
-        'zh-cn': '为什么需要关联学习目标？',
-        'uk': 'Why do I need to connect learning objectives?'
-    },
-    courseHelpHint: {
-        'en': '<p>To create instructionally sound eLearning start by defining <strong>Learning Objectives</strong>. Or you can use a sub title instead. </p><p><a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>',
-        'zh-cn': '<p>通过定义<strong>学习目标</strong>来创建elearning的指导。也可以使用副标题。</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">了解更多...<a></p>',
-        'uk': '<p>To create instructionally sound eLearning start by defining <strong>Learning Objectives</strong>. Or you can use a sub title instead. </p><p><a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
-    },
-    createCourseHelpHintTitle: {
-        'en': 'What is a course template?',
-        'zh-cn': '课程模板是什么？',
-        'uk': 'What is a course template?'
-    },
-    createCourseHelpHint: {
-        'en': '<p>A <strong>course template</strong> sets the look and feel of your course and will determine how the content is organized.</p><p> Changing templates will  change the course type  into a quiz, a course or an exam.</p><p><a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>',
-        'zh-cn': '<p>A <strong>课程模板</strong> 设置您的课程样式及用户感知，并且决定内容的组织形式。</p><p> 改变模板可以改变课程类型为测验，课程或考试等。</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">了解更多...<a></p>',
-        'uk': '<p>A <strong>course template</strong> sets the look and feel of your course and will determine how the content is organized.</p><p> Changing templates will  change the course type  into a quiz, a course or an exam.</p><p><a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
-    },
-    objectiveHelpHintTitle: {
-        'en': 'What is a related question?',
-        'zh-cn': '相关问题是什么？',
-        'uk': 'What is a related question?'
-    },
-    objectiveHelpHint: {
-        'en': '<p>You need to add content and/or questions to the learning objective. Select your question type or content to add items.</p><p><a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>',
-        'zh-cn': '<p>您需要添加内容或问题到学习目标。选择您的内容或问题以添加知识点。</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">了解更多...<a></p>',
-        'uk': '<p>You need to add content and/or questions to the learning objective. Select your question type or content to add items.</p><p><a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
-    },
-    objectivesHelpHintTitle: {
-        'en': 'What is a learning objective? ',
-        'zh-cn': '学习目标是什么?',
-        'uk': 'What is a learning objective? '
-    },
-    objectivesHelpHint: {
-        'en': '<p>A <strong>learning objective</strong> describes specific skills or knowledge a learner can demonstrate after completing a course.</p><p> See our <a href=\"http://www.easygenerator.com/learning-objectives\" target=\"_blank\">website</a> for instructions on how to create a learning objective.</p><p><a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...</a></p>',
-        'zh-cn': '<p>A <strong>学习目标</strong> 描述了学员在完成课程后能表现出来的特定技能或者知识.</p><p> 查看我们的 <a href=\"http://www.easygenerator.com/learning-objectives\" target=\"_blank\">website</a> 指导如何创建学习目标.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">了解更多...</a></p>',
-        'uk': '<p>A <strong>learning objective</strong> describes specific skills or knowledge a learner can demonstrate after completing a course.</p><p> See our <a href=\"http://www.easygenerator.com/learning-objectives\" target=\"_blank\">website</a> for instructions on how to create a learning objective.</p><p><a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...</a></p>'
-    },
-    createObjectiveHelpHintTitle: {
-        'en': 'How to formulate a correct learning objective?',
-        'zh-cn': '如何制定一个正确的学习目标?',
-        'uk': 'How to formulate a correct learning objective?'
-    },
-    createObjectiveHelpHint: {
-        'en': '<p>A <strong>learning objective</strong> describes specific skills or knowledge a learner can demonstrate after completing a course.</p><p> See our <a href=\"http://www.easygenerator.com/learning-objectives\" target=\"_blank\">website</a> for instructions on how to create a learning objective.</p><p><a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...</a></p>',
-        'zh-cn': '<p>A <strong>学习目标</strong> 描述了学员在完成课程后能具备的特定技能或者掌握的知识。</p><p> 查看我们的 <a href=\"http://www.easygenerator.com/learning-objectives\" target=\"_blank\">website</a> 指导如何创建学习目标。</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">了解更多...</a></p>',
-        'uk': '<p>A <strong>learning objective</strong> describes specific skills or knowledge a learner can demonstrate after completing a course.</p><p> See our <a href=\"http://www.easygenerator.com/learning-objectives\" target=\"_blank\">website</a> for instructions on how to create a learning objective.</p><p><a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...</a></p>'
-    },
-    questionHelpHintTitle: {
-        'en': 'Some general tips for the question types',
-        'zh-cn': '对问题类型一些常用的提示',
-        'uk': 'Some general tips for the question types'
-    },
-    questionHelpHint: {
-        'en': '<p>You can add content or question pages to a learning objective/sub title. Click \"Add item\" and select the content or question type you need.  See our <a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\" target=\"_blank\">User guide</a> to learn more about different question types</p>',
-        'zh-cn': '<p>您可以添加内容或问题到学习目标/副标题. 点击 \"添加知识点\" 并选择内容或问题类型. 查看 <a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">User guide</a> 了解更多的问题类型</p>',
-        'uk': '<p>You can add content or question pages to a learning objective/sub title. Click \"Add item\" and select the content or question type you need.  See our <a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\" target=\"_blank\">User guide</a> to learn more about different question types</p>'
-    },
-    designHelpHintTitle: {
-        'en': 'What is a course template?',
-        'zh-cn': '课程模板是什么？',
-        'uk': 'What is a course template?'
-    },
-    designHelpHint: {
-        'en': '<p>A <strong>course template</strong> will set the look and feel of your course and it will determine how the content is organized.</p><p> By switching templates you can change your course into a quiz for example..</p><p><a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>',
-        'zh-cn': '<p>A <strong>课程模板</strong> 会设置您的课程样式及用户感知，并且决定内容的组织形式。</p><p> 通过换用模板，您可以把课程替换为测验，举例...</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">了解更多...<a></p>',
-        'uk': '<p>A <strong>course template</strong> will set the look and feel of your course and it will determine how the content is organized.</p><p> By switching templates you can change your course into a quiz for example..</p><p><a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>'
-    },
-    publishHelpHintTitle: {
-        'en': 'How to deliver the course to learners?',
-        'zh-cn': '如何把课程发送给学员？',
-        'uk': 'How to deliver the course to learners?'
-    },
-    publishHelpHint: {
-        'en': '<p>If you need a link to share your course click \"Publish online\". To publish the course on <strong> a website or in the cloud </strong> click \"Download as HTML\";</p><p>To publish the course to a <strong>LMS</strong>  click \"Download the course as SCORM 1.2\"</p>',
-        'zh-cn': '<p>如果您想要通过链接来共享您的课程，请点击“在线发布”。发布课程到 <strong> 网站或云服务器 </strong> 点击“下载为 HTML”；</p><p>发布课程到 <strong>LMS</strong>  点击“下载为 SCORM 1.2”</p>',
-        'uk': '<p>If you need a link to share your course click \"Publish online\". To publish the course on <strong> a website or in the cloud </strong> click \"Download as HTML\";</p><p>To publish the course to a <strong>LMS</strong>  click \"Download the course as SCORM 1.2\"</p>'
-    },
-    helpCloseButton: {
-        'en': 'Hide',
-        'zh-cn': '隐藏',
-        'uk': 'Hide'
-    },
-    /* End resource section for model Help hints */
     
     /* Resource section for model Review */
     review: {
@@ -1977,11 +1593,6 @@
         'zh-cn': '帮助我们改进程序',
         'uk': 'Допоможіть нам покращити сервіс'
     },
-    yourEmail: {
-        'en': 'Your e-mail...',
-        'zh-cn': '您的电子邮箱…',
-        'uk': 'Ваш e-mail'
-    },
     yourMessage: {
         'en': 'Your message...',
         'zh-cn': '你的宝贵意见…',
@@ -2010,21 +1621,6 @@
         'zh-cn': '隐藏导航',
         'uk': 'Дерево курсів'
     },
-    createCourseTreeNodeTitle: {
-        'en': 'New course',
-        'zh-cn': '新课程',
-        'uk': 'Новий курс'
-    },
-    createObjectiveTreeNodeTitle: {
-        'en': 'New learning objective',
-        'zh-cn': '新的学习目标',
-        'uk': 'Новий розділ / ціль'
-    },
-    createQuestionTreeNodeTitle: {
-        'en': 'New question',
-        'zh-cn': '新问题',
-        'uk': 'Нове питання'
-    },
     openNavigationBar: {
         'en': 'Open navigation',
         'zh-cn': '打开导航',
@@ -2046,19 +1642,6 @@
         'uk': 'Список розділів / цілей пустий'
     },
     /* End resource section for model Navigation tree */
-    
-    /* Resource section for model Dialogs window */
-    createCourseDialogDescription: {
-        'en': 'Start a new course from scratch',
-        'zh-cn': '创建一个全新课程',
-        'uk': 'Створити курс з самого початку'
-    },
-    createCourseDialogTitle: {
-        'en': '1. Create your first course',
-        'zh-cn': '1.创建您的第一个课程',
-        'uk': '1. Створіть Ваш перший курс'
-    },
-    /* End resource section for model Dialogs window */
     
     /* Resource section for model Collaboration */
     owner: {
@@ -2156,35 +1739,10 @@
         'zh-cn': '课程不再分享给您。',
         'uk': 'Цей курс Вам більше не доступний'
     },
-    collaboratorWasRemoved: {
-        'en': '<p class=\"user-name\">',
-        'zh-cn': '<p class=\"user-name\">',
-        'uk': '<p class=\"user-name\">'
-    },
-    collaboratorWasRemovedEnd: {
-        'en': '</p>has been removed as a co-author.',
-        'zh-cn': '</p>已经被当做共同编辑人移除。',
-        'uk': '</p> видалено співавтором'
-    },
-    collaboratorRemovingFailed: {
-        'en': 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists. ',
-        'zh-cn': '出错了，请重试。如果问题依然存在，请联系support@easygenerator.com解决。',
-        'uk': 'Щось пішло не так. Спробуте знову. Якщо проблема не зникне надішліть нам електронного листа на адресу support@easygenerator.com'
-    },
     waitingForRegistration: {
         'en': 'waiting for registration...',
         'zh-cn': '等待注册中…',
         'uk': 'очікування реєстрації...'
-    },
-    collaborationStarterWarning: {
-        'en': 'You have reached the maximum of 3 co-authors for this course.  Upgrade to Plus Plan to invite additional co-authors.',
-        'zh-cn': '您最多只能邀请4个人共同编辑，升级到Plus服务后可以邀请更多的人。',
-        'uk': 'Для вашого тарифного плану максимальна кількість співавторів - 3. Оновіть свій тарифний план до \"Plus Plan\" для додання більшої кількості співавторів.'
-    },
-    collaborationFreeWarning: {
-        'en': 'Co-authoring is not available in the Free Plan. Upgrade to Starter Plan to invite co-authors.',
-        'zh-cn': '免费账号不能邀请他人共同编辑，升级到Starter账号来邀请。',
-        'uk': 'Співавторство недоступне для тарифного плану \"Free plan\". Оновіть свій план до \"Starter plan\", щоб запросити співавторів.'
     },
     addCollaboratorStarterWarning: {
         'en': 'You have reached the maximum of 3 co-authors for this course.  Upgrade to Plus Plan to invite additional co-authors.',
@@ -2418,50 +1976,6 @@
         'uk': '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Hot-Spot\" target=\"_blank\">докладніше</a>'
     },
     /* End resource section for model ExplanationTooltips */
-    
-    /* Resource section for model File uploader */
-    fileSizeNotMoreThan: {
-        'en': 'Your file is too large. File size is restricted to 10MB per file',
-        'zh-cn': '文件太大，每个文件大小不能超过10MB',
-        'uk': 'Файл занадто великий. Розмір файлу не повинен перевищувати 10MB'
-    },
-    extensions: {
-        'en': 'Extensions',
-        'zh-cn': '扩展',
-        'uk': 'Розширення'
-    },
-    uploadFailed: {
-        'en': 'Upload failed',
-        'zh-cn': '上传失败',
-        'uk': 'Не вдалося завантажити файл'
-    },
-    chooseFile: {
-        'en': 'Choose file',
-        'zh-cn': '选择文件',
-        'uk': 'Виберіть файл'
-    },
-    /* End resource section for model File uploader */
-    
-    /* Resource section for model Terms Of Use and Privacy policy */
-    TermsOfUse: {
-        'en': 'Terms of use',
-        'zh-cn': '使用条款',
-        'uk': 'Умови використання'
-    },
-    PrivacyPolicy: {
-        'en': 'Privacy policy',
-        'zh-cn': '隐私政策',
-        'uk': 'Політика конфіденційності'
-    },
-    /* End resource section for model Terms Of Use and Privacy policy */
-    
-    /* Resource section for model Copyright */
-    CopyrightText: {
-        'en': 'Copyright © 2015 easygenerator. All rights reserved.',
-        'zh-cn': '© 2015 easygenerator版权所有，保留所有权利',
-        'uk': '© 2015 easygenerator. Усі права захищені.'
-    },
-    /* End resource section for model Copyright */
     
     /* Resource section for model Course results upgrade dialog */
     resultsUpgradeDialogBoldTitle: {

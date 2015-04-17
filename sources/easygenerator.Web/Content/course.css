@@ -1728,12 +1728,17 @@ li.package-action-tabs-link {
     }
 
 .course-introduction-wrapper {
-    min-height: 60px;
     border: 2px dashed #becbd3;
     border-radius: 5px;
     cursor: pointer;
+    min-height: 60px;
+    overflow: hidden;
     transition: border-color 0.2s linear 0s;
 }
+
+    .course-introduction-wrapper.content-defined {
+        background: #fff;
+    }
 
 .course-introduction-holder {
     position: relative;
@@ -1930,6 +1935,10 @@ li.package-action-tabs-link {
 
 .modal-dialog-wrapper.publish-course.visible + .button {
     z-index: 1500;
+}
+
+[lang~=uk] .modal-dialog-wrapper.publish-course:after {
+    right: 30px;
 }
 
 /*#endregion SHARE COURSE DIALOG*/

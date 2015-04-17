@@ -171,12 +171,3 @@
   font-size: 12px;
   text-transform: uppercase;
 }
-/*#endregion NO COURSES*/
-@media (min-width: 1550px) {
-  .content-wrapper {
-    max-width: 930px;
-  }
-  .courses.view-module .content-section-wrapper {
-    margin-left: 110px;
-  }
-}

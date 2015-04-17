@@ -14,8 +14,8 @@
                 <li class="">
                     <!--  ko compose: 'dialogs/collaboration/collaboration'  -->
                     <!-- /ko -->
-                    <a href="" class="button button-collaboration" data-bind="click: collaborate">
-                        Add co-authors
+                    <a href="" class="course-action course-action-collaboration" data-bind="click: collaborate">
+                        <span data-bind="localize: { text: 'addPeopleForCollaboration' }"></span>
                         <!-- ko if: collaborators().length > 1 -->
                         <span class="count" data-bind="text: collaborators().length"></span>
                         <!-- /ko -->
@@ -26,17 +26,17 @@
                 </li>
                 <li class="separator"></li>
                 <!-- /ko -->
-                <li><a href="" class="button button-preview" data-bind="click: preview, localize: { text: 'preview' }">Preview</a></li>
+                <li><a href="" class="course-action course-action-preview" data-bind="click: preview, localize: { text: 'preview' }">Preview</a></li>
                 <li>
                     <!--  ko compose: 'dialogs/publishCourse/publishCourse'  -->
                     <!-- /ko -->
-                    <a href="" class="button button-share" data-bind="click: share, localize: { text: 'share' }">Share</a>
+                    <a href="" class="course-action course-action-share" data-bind="click: share, localize: { text: 'share' }">Share</a>
                 </li>
             </ul>
         </div>
-        <nav>
+        <nav class="content-section">
             <ul data-bind="foreach: router.navigationModel">
-                <li><a data-bind="attr: { href:  dynamicHash }, css: { active: isActive }, localize: { text: title }, click: navigate"></a></li>
+                <li><a data-bind="attr: { href:  dynamicHash }, css: { active: isActive }, text: title, click: navigate"></a></li>
             </ul>
         </nav>
     </header>

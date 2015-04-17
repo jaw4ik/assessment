@@ -11,7 +11,7 @@
                 </div>
                 <button class="page-view-caption-back-button info-tooltip-holder" data-bind="click: back">
                     <div class="info-tooltip">
-                        <span>Go back</span>
+                        <span data-bind="localize: { text: 'goBack' }">Go back</span>
                     </div>
                 </button>
                 <div class="page-view-caption-text" data-bind="localize: { text: 'learningObjective' }">Learning objective</div>
@@ -73,16 +73,17 @@
                     <div class="list-item-action">
                         <span class="main-content-title" data-bind="localize: { text: 'relatedContents' }"></span>
                     </div>
-                    <div class="list-item-action delete">
-                        <!-- ko if: enableDeleteQuestions -->
-                        <span class="selected-item-action delete enabled" data-bind="click: deleteSelectedQuestions, localize: { text: 'deleteSelected' }">Delete selected</span>
-                        <!-- /ko -->
-                        <!-- ko ifnot: enableDeleteQuestions -->
-                        <span class="selected-item-action delete disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
-                        <!-- /ko -->
-                    </div>
                     <div class="list-item-action empty">
                         &nbsp;
+                    </div>
+                    <div class="list-item-action delete">
+                        <!-- ko if: enableDeleteQuestions -->
+                        <div class="delete-btn btn-head enabled" data-bind="click: deleteSelectedQuestions">
+                            <div class="info-tooltip delete-selected">
+                                <span data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
+                            </div>
+                        </div>
+                        <!-- /ko -->
                     </div>
                     <div class="list-item-action create">
                         <div class="action-item-btn-wrapper">
