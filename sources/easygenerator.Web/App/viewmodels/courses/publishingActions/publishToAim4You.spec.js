@@ -1,4 +1,4 @@
-﻿define(['viewmodels/courses/publishingActions/publishToAim4You'], function (viewModel) {
+﻿define(['viewmodels/courses/publishingActions/publishToAim4You'], function (publishToAim4You) {
 
     var app = require('durandal/app'),
           Course = require('models/course'),
@@ -13,6 +13,7 @@
         var
             action = function () { },
             getByIdDefer,
+            viewModel,
             course = new Course({
                 id: 'someId'
             }),
@@ -23,6 +24,7 @@
         course.publishToStore = action;
 
         beforeEach(function () {
+            viewModel = publishToAim4You();
             spyOn(eventTracker, 'publish');
             spyOn(notify, 'hide');
             spyOn(notify, 'error');

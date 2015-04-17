@@ -8,6 +8,9 @@
     ;
 
     describe('dialog [publishCourse]', function () {
+        publishAction = publishAction();		
+        viewModel.publishAction = publishAction;
+
         beforeEach(function () {
             spyOn(eventTracker, 'publish');
         });
@@ -47,7 +50,7 @@
 
             it('should activate publishAction', function () {
                 viewModel.show(courseId);
-                expect(viewModel.publishAction.activate).toHaveBeenCalledWith(courseId, constants.eventCategories.header);
+                expect(viewModel.publishAction.activate).toHaveBeenCalledWith(courseId);
             });
         });
 

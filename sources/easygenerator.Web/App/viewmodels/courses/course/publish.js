@@ -15,10 +15,10 @@
 
         var viewModel = {
             courseId: '',
-            buildAction: buildPublishingAction,
-            scormBuildAction: scormBuildPublishingAction,
-            publishAction: publishPublishingAction,
-            publishToAim4YouAction: publishToAim4You,
+            buildAction: buildPublishingAction(),
+            scormBuildAction: scormBuildPublishingAction(),
+            publishAction: publishPublishingAction(),
+            publishToAim4YouAction: publishToAim4You(),
 
             navigateToCoursesEvent: navigateToCoursesEvent,
 

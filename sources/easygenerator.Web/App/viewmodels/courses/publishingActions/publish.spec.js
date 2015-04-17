@@ -1,4 +1,4 @@
-﻿define(['viewmodels/courses/publishingActions/publish'], function (viewModel) {
+﻿define(['viewmodels/courses/publishingActions/publish'], function (publish) {
 
     var app = require('durandal/app'),
         constants = require('constants'),
@@ -13,6 +13,7 @@
 
         var
             getByIdDefer,
+            viewModel,
             eventCategory = 'some/event/category',
             action = function () { };
 
@@ -21,6 +22,7 @@
         var course = { id: 'someId', isDelivering: true, publish: action, hasUnpublishedChanges: true };
 
         beforeEach(function () {
+            viewModel = publish(eventCategory);
             course.publish.packageUrl = 'packageUrl';
             spyOn(eventTracker, 'publish');
             spyOn(notify, 'hide');
@@ -231,8 +233,7 @@
                 });
 
                 it('should set eventCategory', function (done) {
-                    viewModel.eventCategory = '';
-                    var promise = viewModel.activate(course.id, eventCategory);
+                    var promise = viewModel.activate(course.id);
                     promise.fin(function () {
                         expect(viewModel.eventCategory).toBe(eventCategory);
                         done();

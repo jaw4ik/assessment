@@ -1,4 +1,4 @@
-﻿define(['viewmodels/courses/publishingActions/scormBuild'], function (viewModel) {
+﻿define(['viewmodels/courses/publishingActions/scormBuild'], function (scormBuild) {
 
     var app = require('durandal/app'),
         Course = require('models/course'),
@@ -16,6 +16,7 @@
         var
             action = function () { },
             getByIdDefer,
+            viewModel,
             course = new Course({
                 id: 'someId'
             });
@@ -25,6 +26,7 @@
         course.scormBuild = action;
 
         beforeEach(function () {
+            viewModel = scormBuild();
             course.scormBuild.url = 'scormBuildUrl';
             spyOn(eventTracker, 'publish');
             spyOn(notify, 'hide');
