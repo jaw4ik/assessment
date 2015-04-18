@@ -275,6 +275,7 @@
             reporting: {
                 xApiVerbIds:
                 {
+                    started: 'http://adlnet.gov/expapi/verbs/launched',
                     passed: 'http://adlnet.gov/expapi/verbs/passed',
                     failed: 'http://adlnet.gov/expapi/verbs/failed',
                     answered: 'http://adlnet.gov/expapi/verbs/answered',
@@ -286,7 +287,8 @@
                     limit: 'limit',
                     skip: 'skip',
                     agent: 'agent',
-                    attemptId: 'registration'
+                    attemptId: 'registration',
+                    parentId: 'parent'
                 }
             },
             frameSize: {

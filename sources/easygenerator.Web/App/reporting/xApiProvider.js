@@ -1,5 +1,5 @@
-﻿define(['config', 'models/reporting/statement', 'http/httpRequestSender', 'utils/base64', 'constants', 'reporting/xApiFilterCriteria'],
-    function (config, Statement, httpRequestSender, base64, constants, FilterCriteria) {
+﻿define(['config', 'models/reporting/statement', 'http/httpRequestSender', 'utils/base64', 'constants', 'reporting/xApiFilterCriteriaFactory'],
+    function (config, Statement, httpRequestSender, base64, constants, filterCriteriaFactory) {
 
         function getStatements(filterCriteriaSpec) {
             var headers = [];
@@ -11,8 +11,8 @@
                 headers["Authorization"] = auth;
             }
 
-            var filterCriteria = new FilterCriteria(filterCriteriaSpec);
-
+            var filterCriteria = filterCriteriaFactory.create(filterCriteriaSpec);
+            
             return httpRequestSender.get(config.lrs.uri, filterCriteria, headers).then(function (response) {
                 if (response && response.statements) {
                     return _.map(response.statements, function (statement) {
@@ -26,17 +26,22 @@
             return getStatements({ courseId: courseId, verbs: [constants.reporting.xApiVerbIds.passed, constants.reporting.xApiVerbIds.failed], limit: take, skip: skip });
         }
 
-        function getMasteredStatements(courseId, attemptId) {
-            return getStatements({ courseId: courseId, verbs: constants.reporting.xApiVerbIds.mastered, attemptId: attemptId });
+        function getMasteredStatements(attemptId) {
+            return getStatements({ verbs: constants.reporting.xApiVerbIds.mastered, attemptId: attemptId });
         }
 
-        function getAnsweredStatements(courseId, attemptId) {
-            return getStatements({ courseId: courseId, verbs: constants.reporting.xApiVerbIds.answered, attemptId: attemptId });
+        function getStartedStatement(attemptId) {
+            return getStatements({ verbs: constants.reporting.xApiVerbIds.started, attemptId: attemptId });
+        }
+
+        function getAnsweredStatements(attemptId, parentActivityId) {
+            return getStatements({ verbs: constants.reporting.xApiVerbIds.answered, attemptId: attemptId, parentId: parentActivityId });
         }
 
         return {
             getCourseCompletedStatements: getCourseCompletedStatements,
             getMasteredStatements: getMasteredStatements,
-            getAnsweredStatements: getAnsweredStatements
+            getAnsweredStatements: getAnsweredStatements,
+            getStartedStatement: getStartedStatement
         }
     });

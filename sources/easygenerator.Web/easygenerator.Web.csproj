@@ -524,8 +524,8 @@
     <Content Include="App\models\reporting\statement.spec.js">
       <DependentUpon>statement.js</DependentUpon>
     </Content>
-    <Content Include="App\reporting\xApiFilterCriteria.spec.js">
-      <DependentUpon>xApiFilterCriteria.js</DependentUpon>
+    <Content Include="App\reporting\xApiFilterCriteriaFactory.spec.js">
+      <DependentUpon>xApiFilterCriteriaFactory.js</DependentUpon>
     </Content>
     <Content Include="App\reporting\xApiProvider.js" />
     <Content Include="App\dialogs\publishCourse\publishCourse.html" />
@@ -541,7 +541,7 @@
     <Content Include="App\reporting\xApiProvider.spec.js">
       <DependentUpon>xApiProvider.js</DependentUpon>
     </Content>
-    <Content Include="App\reporting\xApiFilterCriteria.js" />
+    <Content Include="App\reporting\xApiFilterCriteriaFactory.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\answerCorrectnessUpdated.spec.js">
       <DependentUpon>answerCorrectnessUpdated.js</DependentUpon>
     </Content>
@@ -598,6 +598,10 @@
     <Content Include="App\viewmodels\questions\statement\statementAnswers.spec.js">
       <DependentUpon>statementAnswers.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\reporting\courseStatement.js" />
+    <Content Include="App\viewmodels\reporting\expandeableStatement.js" />
+    <Content Include="App\viewmodels\reporting\objectiveStatement.js" />
+    <Content Include="App\viewmodels\reporting\reportingStatement.js" />
     <Content Include="App\views\common\circularLoader.html" />
     <Content Include="App\views\courses\publishActions\publishToAim4You.html" />
     <Content Include="App\views\courses\publishActions\publishToPublicationServerEmbed.html" />

@@ -1,9 +1,11 @@
-﻿define(['repositories/courseRepository', 'plugins/router', 'constants', 'repositories/courseRepository', 'viewmodels/courses/publishingActions/build',
+﻿define([
+        'repositories/courseRepository', 'plugins/router', 'constants', 'repositories/courseRepository', 'viewmodels/courses/publishingActions/build',
         'viewmodels/courses/publishingActions/scormBuild', 'viewmodels/courses/publishingActions/publish', 'userContext',
         'viewmodels/courses/publishingActions/publishToAim4You', 'clientContext', 'localization/localizationManager', 'eventTracker', 'models/backButton',
-        'reporting/xApiProvider', 'plugins/dialog'],
+        'reporting/xApiProvider', 'plugins/dialog', 'viewmodels/reporting/courseStatement'
+],
     function (repository, router, constants, courseRepository, buildPublishingAction, scormBuildPublishingAction, publishPublishingAction, userContext, publishToAim4You,
-        clientContext, localizationManager, eventTracker, BackButton, xApiProvider, dialog) {
+        clientContext, localizationManager, eventTracker, BackButton, xApiProvider, dialog, CourseStatement) {
         "use strict";
         "use strict";
 
@@ -75,21 +77,37 @@
             });
         }
 
-        function attached() {
-            viewModel.isLoading(true);
-            return xApiProvider.getCourseCompletedStatements(viewModel.courseId).then(function (reportingStatements) {
-                viewModel.loadedResults = _.sortBy(reportingStatements, function (reportingStatement) {
-                    return -reportingStatement.date;
-                });
-
-                viewModel.results(_.chain(viewModel.loadedResults).first(viewModel.pageNumber * constants.courseResults.pageSize).value());
-            }).fin(function () {
-                viewModel.isLoading(false);
+        function loadStatements(courseId, take, skip) {
+            return Q.fcall(function () {
+                var startIndex = skip ? skip + 1 : 0;
+                if (viewModel.loadedResults.length <= take + skip || (!take && !skip)) {
+                    var toTake = take ? take + 1 : null; // load +1 record to determine should we show 'Show more' button or not.
+                    return xApiProvider.getCourseCompletedStatements(courseId, toTake, skip)
+                        .then(function (reportingStatements) {
+                            var courseStatements = _.map(reportingStatements, function (statement) {
+                                return new CourseStatement(statement);
+                            });
+                            Array.prototype.splice.apply(viewModel.loadedResults, [startIndex, 0].concat(courseStatements));
+                            return courseStatements.slice(0, take);
+                        });
+                }
+                return viewModel.loadedResults.slice(startIndex, startIndex + take);
             });
         }
 
+        function attached() {
+            viewModel.isLoading(true);
+            return loadStatements(viewModel.courseId, constants.courseResults.pageSize, 0)
+                .then(function (reportingStatements) {
+                viewModel.results.push.apply(viewModel.results, reportingStatements);
+                }).fail(function(reason) {
+            }).fin(function () {
+                    viewModel.isLoading(false);
+                });
+        }
+
         function getLearnerName(reportingStatement) {
-            return reportingStatement.name + ' (' + reportingStatement.email + ')';
+            return reportingStatement.lrsStatement.actor.name + ' (' + reportingStatement.lrsStatement.actor.email + ')';
         }
 
         function showMoreResults() {
@@ -105,11 +123,11 @@
             }
 
             viewModel.pageNumber++;
-            var resultsToShow = _.chain(viewModel.loadedResults)
-                .first(viewModel.pageNumber * constants.courseResults.pageSize)
-                .last(constants.courseResults.pageSize)
-                .value();
-            viewModel.results(_.union(viewModel.results(), resultsToShow));
+
+            loadStatements(viewModel.courseId, constants.courseResults.pageSize, viewModel.pageNumber * constants.courseResults.pageSize)
+                .then(function (reportingStatements) {
+                    Array.prototype.push.apply(viewModel.results, reportingStatements);
+                });
         }
 
         function upgradeNowForLoadMore() {
@@ -150,7 +168,9 @@
             }
 
             var name = getResultsFileName();
-            saveAs(generateResultsCsvBlob(), name);
+            generateResultsCsvBlob().then(function (blob) {
+                saveAs(blob, name);
+            });
         }
 
         function getResultsFileName() {
@@ -180,21 +200,24 @@
                 timeHeader
             ].join(',');
             var csvList = [csvHeader];
-            _.each(viewModel.loadedResults, function (result) {
-                var resultCsv = [
-                    result.name + '(' + result.email + ')',
-                    result.correct ? passed : failed,
-                    result.score,
-                    moment(result.date).format('YYYY-MM-d'),
-                    moment(result.date).format('h:mm:ss a')
-                ].join(',');
 
-                csvList.push(resultCsv);
+            return loadStatements(viewModel.courseId).then(function (reportingStatements) {
+                _.each(reportingStatements, function (result) {
+                    var resultCsv = [
+                        result.lrsStatement.actor.name + ' (' + result.lrsStatement.actor.email + ')',
+                        result.lrsStatement.correct ? passed : failed,
+                        result.lrsStatement.score,
+                        moment(result.lrsStatement.date).format('YYYY-MM-D'),
+                        moment(result.lrsStatement.date).format('h:mm:ss a')
+                    ].join(',');
+
+                    csvList.push(resultCsv);
+                });
+
+                var contentType = 'text/csv';
+
+                return new Blob([window.top.BOMSymbol || '\ufeff', csvList.join('\r\n')], { encoding: 'UTF-8', type: contentType });
             });
-
-            var contentType = 'text/csv';
-            
-            return new Blob([window.top.BOMSymbol || '\ufeff', csvList.join('\r\n')], { encoding: 'UTF-8', type: contentType });
         }
     }
 );
