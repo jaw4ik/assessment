@@ -23,41 +23,32 @@
                     <li class="single-select-image-answer">
                         <div class="single-select-image-answer-image" data-bind="answerImage: { answer: $data, onload: $parent.finishAswerProcessing }, css: { 'empty' : !hasImage() && !isProcessing(), loading: isProcessing() }">
                             <!-- ko if: isProcessing -->
-                            <div class="circular-loader x32 grey align-center">
-                                <div class="circular-loader-item"></div>
-                                <div class="circular-loader-item"></div>
-                                <div class="circular-loader-item"></div>
-                                <div class="circular-loader-item"></div>
-                                <div class="circular-loader-item"></div>
-                                <div class="circular-loader-item"></div>
-                                <div class="circular-loader-item"></div>
-                                <div class="circular-loader-item"></div>
-                            </div>
-                            <p class="single-select-image-loader-text" data-bind="localize: { text: 'processing' }"></p>
+                                <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 grey align-center' } } --><!-- /ko -->
+                                <p class="single-select-image-loader-text" data-bind="localize: { text: 'processing' }"></p>
                             <!-- /ko -->
                             <!-- ko ifnot: isProcessing -->
-                            <!-- ko if: hasImage -->
-                            <div class="single-select-image-actions-wrapper">
-                                <div class="info-tooltip-holder update-answer-image" data-bind="click: $parent.updateAnswerImage">
-                                    <div class="info-tooltip">
-                                        <span data-bind="localize: { text: 'changeImage' }"></span>
+                                <!-- ko if: hasImage -->
+                                <div class="single-select-image-actions-wrapper">
+                                    <div class="info-tooltip-holder update-answer-image" data-bind="click: $parent.updateAnswerImage">
+                                        <div class="info-tooltip">
+                                            <span data-bind="localize: { text: 'changeImage' }"></span>
+                                        </div>
                                     </div>
-                                </div>
-                                <!-- ko if: $parent.canRemoveAnswer() -->
-                                <div class="info-tooltip-holder remove-answer" data-bind="click: $parent.removeAnswer">
-                                    <div class="info-tooltip">
-                                        <span data-bind="localize: { text: 'removeAnswer' }"></span>
+                                    <!-- ko if: $parent.canRemoveAnswer() -->
+                                    <div class="info-tooltip-holder remove-answer" data-bind="click: $parent.removeAnswer">
+                                        <div class="info-tooltip">
+                                            <span data-bind="localize: { text: 'removeAnswer' }"></span>
+                                        </div>
                                     </div>
+                                    <!-- /ko -->
                                 </div>
+                                <div class="item-overlay" data-bind="click: $parent.previewAnswerImage"></div>
                                 <!-- /ko -->
-                            </div>
-                            <div class="item-overlay" data-bind="click: $parent.previewAnswerImage"></div>
-                            <!-- /ko -->
-                            <!-- ko ifnot: hasImage -->
-                            <button class="single-select-image-browse-image-btn" data-bind="click: $parent.updateAnswerImage">
-                                <span class="single-select-image-browse-image-text" data-bind="localize: { text: 'addImage' }"></span>
-                            </button>
-                            <!-- /ko -->
+                                <!-- ko ifnot: hasImage -->
+                                <button class="single-select-image-browse-image-btn" data-bind="click: $parent.updateAnswerImage">
+                                    <span class="single-select-image-browse-image-text" data-bind="localize: { text: 'addImage' }"></span>
+                                </button>
+                                <!-- /ko -->
                             <!-- /ko -->
                         </div>
                         <div class="question-answer-value-wrapper" data-bind="css: { correct: id() === $parent.correctAnswerId() }">

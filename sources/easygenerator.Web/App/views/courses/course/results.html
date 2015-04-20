@@ -1,0 +1,116 @@
+﻿<section class="course results view-module">
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <div class="results-title">
+                <!-- ko ifnot: noResults() -->
+                <button class="download-results action-item-btn btn green" data-bind="click:downloadResults">
+                    <span class="action-item-btn-caption" data-bind="localize: { text: 'downloadLearnersResults' }">Download results</span>
+                </button>
+                <!-- /ko -->
+                <span data-bind="localize: { text: 'learnersResults' }">Learners results</span>
+            </div>
+            <div class="results-holder">
+                <div class="results-data">
+                    <table class="results-table">
+                        <tbody>
+                            <tr class="r-header">
+                                <th class="r-name" data-bind="localize: { text: 'nameAndEmail' }">Name (Email)</th>
+                                <th class="r-result" data-bind="localize: { text: 'result' }">Result</th>
+                                <th class="r-score" data-bind="localize: { text: 'score' }">Score</th>
+                                <th class="r-date" data-bind="localize: { text: 'dateTime' }">Date Time</th>
+                            </tr>
+                            <!-- ko foreach: results -->
+                            <tr class="r-data">
+                                <td class="r-name"><span class="selectable" data-bind="text: $parent.getLearnerName($data), attr: { title: $parent.getLearnerName($data) }"></span></td>
+                                <td class="r-result">
+                                    <!-- ko if: correct -->
+                                    <span class="correct">
+                                        <span class="info-tooltip">
+                                            <span data-bind="localize: { text: 'passed' }">Passed</span>
+                                        </span>
+                                    </span>
+                                    <!-- /ko -->
+                                    <!-- ko ifnot: correct -->
+                                    <span class="incorrect">
+                                        <span class="info-tooltip">
+                                            <span data-bind="localize: { text: 'failed' }">Failed</span>
+                                        </span>
+                                    </span>
+                                    <!-- /ko -->
+                                </td>
+                                <td class="r-score" data-bind="text: score">score</td>
+                                <td class="r-date" data-bind="date: { value: date, formatString: 'MMM D, YYYY h:mm A' }">date</td>
+                            </tr>
+                            <!-- /ko -->
+                        </tbody>
+                        <tfoot>
+                            <tr class="r-show-more-results" data-bind="visible: hasMoreResults">
+                                <td colspan="4">
+                                    <button class="show-more-btn" data-bind="click: showMoreResults, localize: { text: 'showMoreResults' }">Show more results</button>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <!-- ko if: !isLoading() && noResults() -->
+                    <div class="no-results" data-bind="localize: { text: 'noReportedResults' }">No reported results yet...</div>
+                    <div class="no-results-hint" data-bind="localize: { text: 'makeSureTrackingResultsIsEnabled' }">Make sure you tracking and tracing is enabled:</div>
+                    <div class="no-results-steps-container">
+                        <div class="no-results-steps-row">
+                            <div class="no-results-step desc"><div class="no-results-hint-step-img"></div></div>
+                            <div class="no-results-step arrow"><div class="no-results-step-arrow"></div></div>
+                            <div class="no-results-step desc"><div class="no-results-hint-step-img step2"></div></div>
+                            <div class="no-results-step arrow"><div class="no-results-step-arrow"></div></div>
+                            <div class="no-results-step desc"><div class="no-results-hint-step-img step3"></div></div>
+                        </div>
+                        <div class="no-results-steps-row">
+                            <div class="no-results-step"><div class="no-results-hint" data-bind="localize: { html: 'goToDesignStep' }"></div></div>
+                            <div class="no-results-step">&nbsp;</div>
+                            <div class="no-results-step"><div class="no-results-hint" data-bind="localize: { html: 'resultTrackingShouldBeEnabled' }"></div></div>
+                            <div class="no-results-step">&nbsp;</div>
+                            <div class="no-results-step"><div class="no-results-hint" data-bind="localize: { html: 'confirmByApply' }"></div></div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko if: isLoading -->
+                    <div class="loading-results">
+                        <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 grey align-center' } } --><!-- /ko -->
+                        <div class="loading-results-text" data-bind="localize: { text: 'loadingReportedResults' }"></div>
+                    </div>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="course-results-upgrade-dialog" data-bind="visible: isResultsDialogShown() || isDownloadDialogShown">
+        <section class="course-results-upgrade-dialog-content" data-bind="visible: isResultsDialogShown">
+            <header>
+                <div class="course-results-upgrade-dialog-title" data-bind="localize: { text: 'resultsUpgradeDialogBoldTitle' }">Upgrade now</div>
+                <div data-bind="localize: { text: 'resultsUpgradeDialogTitle2' }">to get full list of results</div>
+            </header>
+            <div class="course-results-upgrade-dialog-title-image"></div>
+            <div data-bind="localize: { text: 'resultsUpgradeDialogText' }">On the Free Plan you will only see the first 10 results</div>
+            <div class="course-results-upgrade-download-dialog-buttons">
+                <button class="btn green course-results-upgrade-dialog-btn-upgrade" data-bind="click: upgradeNowForLoadMore, localize: { text: 'resultsUpgradeDialogUpgradeNow' }">Upgrade now</button><br />
+                <a class="course-results-upgrade-dialog-btn-later" href="" data-bind="click: skipUpgradeForLoadMore, localize: { text: 'resultsUpgradeDialogMaybeLater' }">Maybe later</a>
+            </div>
+        </section>
+        <section class="course-results-upgrade-download-dialog-content" data-bind="visible: isDownloadDialogShown">
+            <header>
+                <div class="course-results-upgrade-dialog-title" data-bind="localize: { text: 'resultsUpgradeDialogBoldTitle' }">Upgrade now</div>
+                <div data-bind="localize: { text: 'resultsUpgradeForDownloadCSVDialogTitle2' }">to download results as CSV-file</div>
+            </header>
+            <div class="course-results-upgrade-download-dialog-title-image"></div>
+            <div class="course-results-upgrade-download-dialog-body" data-bind="localize: { html: 'resultsUpgradeForDownloadCSVDialogHtml' }">
+                <ul>
+                    <li>Download your learners results</li>
+                    <li>Import your results in a spreadsheet</li>
+                    <li>Or any program that supports CSV</li>
+                </ul>
+            </div>
+            <div class="course-results-upgrade-download-dialog-buttons">
+                <button class="btn green course-results-upgrade-dialog-btn-upgrade" data-bind="click: upgradeNowForDownloadCsv, localize: { text: 'resultsUpgradeDialogUpgradeNow' }">Upgrade now</button><br />
+                <a class="course-results-upgrade-dialog-btn-later" href="" data-bind="click: skipUpgradeForDownloadCsv, localize: { text: 'resultsUpgradeDialogMaybeLater' }">Maybe later</a>
+            </div>
+        </section>
+    </section>
+</section>

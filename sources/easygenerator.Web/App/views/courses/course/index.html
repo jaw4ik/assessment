@@ -1,0 +1,52 @@
+﻿<section class="course">
+
+    <header class="content-section-wrapper">
+        <div class="content-section course-title-wrapper">
+            <div class="edit-field-wrapper course-title" data-bind="css: { 'active': title.isEditing(), 'error': !title.isValid() }">
+                <label data-bind="localize: { text: 'courseTitle' }">Course title</label>
+                <div class="edit-field selectable" data-bind="editableText: { text: title }, event: { focus: title.beginEdit, blur: title.endEdit }, autofocus: { focus: title.isSelected(), autoselect: title.isSelected() }"></div>
+                <div class="validation-message">
+                    <span data-bind="text: title() && title().length"></span>\<span data-bind="text: title.maxLength"></span>
+                </div>
+            </div>
+            <ul class="course-actions">
+                <!-- ko if: collaborate.enabled -->
+                <li class="">
+                    <!--  ko compose: 'dialogs/collaboration/collaboration'  -->
+                    <!-- /ko -->
+                    <a href="" class="course-action course-action-collaboration" data-bind="click: collaborate">
+                        <span data-bind="localize: { text: 'addPeopleForCollaboration' }"></span>
+                        <!-- ko if: collaborators().length > 1 -->
+                        <span class="count" data-bind="text: collaborators().length"></span>
+                        <!-- /ko -->
+                        <!-- ko ifnot: collaborators().length > 1 -->
+                        <span class="count">+</span>
+                        <!-- /ko -->
+                    </a>
+                </li>
+                <li class="separator"></li>
+                <!-- /ko -->
+                <li><a href="" class="course-action course-action-preview" data-bind="click: preview, localize: { text: 'preview' }">Preview</a></li>
+                <li>
+                    <!--  ko compose: 'dialogs/publishCourse/publishCourse'  -->
+                    <!-- /ko -->
+                    <a href="" class="course-action course-action-share" data-bind="click: share, localize: { text: 'share' }">Share</a>
+                </li>
+            </ul>
+        </div>
+        <nav class="content-section">
+            <ul data-bind="foreach: router.navigationModel">
+                <li><a data-bind="attr: { href:  dynamicHash }, css: { active: isActive }, text: title, click: navigate"></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="loader-container">
+        <div data-bind="router: {}, style: { opacity: router.isViewReady() ? '1' : '0' }"></div>
+
+        <!-- ko ifnot: router.isViewReady -->
+            <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center', style: { top: '250px' } } } --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+
+</section>

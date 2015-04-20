@@ -1,19 +1,27 @@
 <div class="error-page-container">
     <header class="main-logo-wrapper">
-        <img class="main-logo" ng-src="{{xApiError.logoUrl}}">
+        <img class="main-logo" ng-src="{{ xApiError.logoUrl }}">
         <span class="vertical-align-helper"></span>
     </header>
-    <div class="error-container" ng-init="scrollToTop()" error-page>
+    <div class="error-container" ng-init="scrollToTop()" entire-height>
         <div class="error-content-container xapi-error">
             <div class="error-title-container">
-                Something is wrong
+                {{ '[tracking and tracing error]' | translate }}
             </div>
             <div class="error-message-container">
-                If you continue without restarting, your learning results will not be reported. Please try to restart course or contact your teacher if the problem persists.
+                {{ '[tracking and tracing error hint]' | translate }}
             </div>
             <div class="error-button-container">
-                <button ng-click="xApiError.continue()" class="button large emphasize default">Continue anyway</button>
-                <button ng-click="xApiError.restartCourse()" class="button large emphasize primary">Restart course</button>
+                <button ng-click="xApiError.continue()" class="button large emphasize default">
+                    <span class="text-wrapper">
+                        {{ '[tracking and tracing continue anyway]' | translate }}
+                    </span>
+                </button>
+                <button ng-click="xApiError.restartCourse()" class="button large emphasize primary">
+                    <span class="text-wrapper">
+                        {{ '[tracking and tracing restart course]' | translate }}
+                    </span>
+                </button>
             </div>
         </div>
         <div class="error-footer-container">

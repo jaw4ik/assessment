@@ -109,9 +109,9 @@
                             });
                         });
 
-                        it('should navigate to created objective with courseId in query string', function (done) {
+                        it('should navigate to created objective withint course', function (done) {
                             command.execute(courseId).fin(function () {
-                                expect(router.navigate).toHaveBeenCalledWith('objective/' + objectiveId+ '?courseId=' + courseId);
+                                expect(router.navigate).toHaveBeenCalledWith('courses/' + courseId + '/objectives/' + objectiveId);
                                 done();
                             });
                         });
@@ -136,7 +136,7 @@
 
                     it('should navigate to created objective', function () {
                         command.execute().fin(function () {
-                            expect(router.navigate).toHaveBeenCalledWith('objective/' + objectiveId);
+                            expect(router.navigate).toHaveBeenCalledWith('objectives/' + objectiveId);
                             done();
                         });
                     });

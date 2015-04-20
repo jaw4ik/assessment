@@ -542,6 +542,7 @@
       <DependentUpon>xApiProvider.js</DependentUpon>
     </Content>
     <Content Include="App\reporting\xApiFilterCriteriaFactory.js" />
+    <Content Include="App\routing\isViewReadyMixin.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\answerCorrectnessUpdated.spec.js">
       <DependentUpon>answerCorrectnessUpdated.js</DependentUpon>
     </Content>
@@ -578,14 +579,28 @@
     <Content Include="App\viewmodels\courses\bindingHandlers\elementCollapseBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\publishTabBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\windowMessageListenerBinding.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\items\results.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\items\results.spec.js">
+    <Content Include="App\viewmodels\courses\course\create\course.spec.js">
+      <DependentUpon>course.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\course\create\index.js" />
+    <Content Include="App\viewmodels\courses\course\design.js" />
+    <Content Include="App\viewmodels\courses\course\design.spec.js">
+      <DependentUpon>design.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\course\index.js" />
+    <Content Include="App\viewmodels\courses\course\index.spec.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\course\publish.js" />
+    <Content Include="App\viewmodels\courses\course\publish.spec.js">
+      <DependentUpon>publish.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\course\results.js" />
+    <Content Include="App\viewmodels\courses\course\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\results.js" />
-    <Content Include="App\viewmodels\courses\results.spec.js">
-      <DependentUpon>results.js</DependentUpon>
-    </Content>
+    <Content Include="App\viewmodels\courses\index.js" />
+    <Content Include="App\viewmodels\objectives\index.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.spec.js">
       <DependentUpon>changeType.js</DependentUpon>
@@ -602,6 +617,12 @@
     <Content Include="App\viewmodels\reporting\expandeableStatement.js" />
     <Content Include="App\viewmodels\reporting\objectiveStatement.js" />
     <Content Include="App\viewmodels\reporting\reportingStatement.js" />
+    <Content Include="App\views\courses\course\create\index.html" />
+    <Content Include="App\views\courses\course\publish.html" />
+    <Content Include="App\views\courses\course\design.html" />
+    <Content Include="App\views\courses\course\index.html" />
+    <Content Include="App\views\courses\course\results.html" />
+    <Content Include="App\views\courses\index.html" />
     <Content Include="App\views\common\circularLoader.html" />
     <Content Include="App\views\courses\publishActions\publishToAim4You.html" />
     <Content Include="App\views\courses\publishActions\publishToPublicationServerEmbed.html" />
@@ -610,8 +631,12 @@
     <Content Include="App\views\courses\publishActions\publishAsHtml.html" />
     <Content Include="App\views\courses\publishActions\publishAsScorm.html" />
     <Content Include="App\views\courses\results.html" />
+    <Content Include="App\views\objectives\index.html" />
     <Content Include="App\views\questions\statement\statement.html" />
     <Content Include="BuildCourse\Modules\js\branding.js" />
+    <Content Include="Content\editField.css">
+      <DependentUpon>editField.less</DependentUpon>
+    </Content>
     <Content Include="Content\font\heuristica-bold.svg" />
     <Content Include="Content\font\heuristica-bolditalic.svg" />
     <Content Include="Content\font\heuristica-italic.svg" />
@@ -644,6 +669,9 @@
     <Content Include="Content\images\tooth.png" />
     <Content Include="Content\notSupportedPage.css">
       <DependentUpon>notSupportedPage.less</DependentUpon>
+    </Content>
+    <Content Include="Content\shell.css">
+      <DependentUpon>shell.less</DependentUpon>
     </Content>
     <Content Include="Content\statement.css">
       <DependentUpon>statement.less</DependentUpon>
@@ -956,9 +984,6 @@
     <Content Include="Scripts\knockoutBindings\contentEditableFixBinding.js" />
     <Content Include="Scripts\knockoutBindings\copyToClipboardBinding.js" />
     <Content Include="Scripts\knockoutBindings\customHasFocusBinding.js" />
-    <Content Include="App\dialogs\collaboration\removeCollaborator.spec.js">
-      <DependentUpon>removeCollaborator.js</DependentUpon>
-    </Content>
     <Content Include="App\fileUpload.js" />
     <Content Include="App\mappers\singleSelectImageAnswerMapper.js" />
     <Content Include="App\models\singleSelectImageAnswer.js" />
@@ -1102,7 +1127,6 @@
     <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToPlus.spec.js">
       <DependentUpon>upgradedToPlus.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\panels\bindingHandlers\fixedPanelBindingHandler.js" />
     <Content Include="App\viewmodels\questions\informationContent\informationContent.spec.js">
       <DependentUpon>informationContent.js</DependentUpon>
     </Content>
@@ -1118,8 +1142,6 @@
     <Content Include="BuildCourse\Scorm\Schemas\ims_xml.xsd">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App\dialogs\collaboration\removeCollaborator.html" />
-    <Content Include="App\dialogs\collaboration\removeCollaborator.js" />
     <Content Include="App\http\httpRequestSender.spec.js">
       <DependentUpon>httpRequestSender.js</DependentUpon>
     </Content>
@@ -1493,7 +1515,6 @@
     <Content Include="Content\cssPreloaders.less" />
     <Content Include="Content\dragAndDropText.less" />
     <Content Include="Content\helpers.less" />
-    <Content Include="Content\helphint.less" />
     <Content Include="Content\hotSpot.less" />
     <Content Include="Content\imagePreview.less" />
     <Content Include="Content\navigationBar.less" />
@@ -1511,6 +1532,8 @@
     <Content Include="Content\switchToggle.less" />
     <Content Include="Content\treeOfContent.less" />
     <Content Include="Content\collaboration.less" />
+    <Content Include="Content\shell.less" />
+    <Content Include="Content\editField.less" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />
@@ -1675,6 +1698,8 @@
     <Content Include="Templates\Personalized learning\index.html" />
     <Content Include="Templates\Personalized learning\js\require\require.js" />
     <Content Include="Templates\Personalized learning\js\vendor.min.js" />
+    <Content Include="Templates\Personalized learning\lang\en.json" />
+    <Content Include="Templates\Personalized learning\lang\ua.json" />
     <Content Include="Templates\Personalized learning\manifest.json" />
     <Content Include="Templates\Personalized learning\publishSettings.js" />
     <Content Include="Templates\Personalized learning\settings.js" />
@@ -1684,9 +1709,11 @@
     <Content Include="Templates\Personalized learning\settings\css\fonts\opensans-italic-400.woff" />
     <Content Include="Templates\Personalized learning\settings\css\settings.css" />
     <Content Include="Templates\Personalized learning\settings\img\graphical.png" />
+    <Content Include="Templates\Personalized learning\settings\img\language.png" />
     <Content Include="Templates\Personalized learning\settings\img\sprites_16.png" />
     <Content Include="Templates\Personalized learning\settings\img\track.png" />
-    <Content Include="Templates\Personalized learning\settings\js\settings.js" />
+    <Content Include="Templates\Personalized learning\settings\js\api.js" />
+    <Content Include="Templates\Personalized learning\settings\js\settings.min.js" />
     <Content Include="Templates\Personalized learning\settings\js\vendor.min.js" />
     <Content Include="Templates\Personalized learning\settings\settings.html" />
     <Content Include="Templates\Quiz\app\app.js" />
@@ -1727,6 +1754,10 @@
     <Content Include="Templates\Quiz\content\content.html" />
     <Content Include="Templates\Quiz\content\data.js" />
     <Content Include="Templates\Quiz\css\fonts.css" />
+    <Content Include="Templates\Quiz\css\fonts\badscript-regular.eot" />
+    <Content Include="Templates\Quiz\css\fonts\badscript-regular.svg" />
+    <Content Include="Templates\Quiz\css\fonts\badscript-regular.ttf" />
+    <Content Include="Templates\Quiz\css\fonts\badscript-regular.woff" />
     <Content Include="Templates\Quiz\css\fonts\OCRAExtended.eot" />
     <Content Include="Templates\Quiz\css\fonts\OCRAExtended.svg" />
     <Content Include="Templates\Quiz\css\fonts\OCRAExtended.ttf" />
@@ -1740,7 +1771,6 @@
     <Content Include="Templates\Quiz\css\fonts\roboto-bold.svg" />
     <Content Include="Templates\Quiz\css\fonts\roboto-bold.ttf" />
     <Content Include="Templates\Quiz\css\fonts\roboto-bold.woff" />
-    <Content Include="Templates\Quiz\css\fonts\roboto-regular.eot" />
     <Content Include="Templates\Quiz\css\fonts\roboto-regular.svg" />
     <Content Include="Templates\Quiz\css\fonts\roboto-regular.ttf" />
     <Content Include="Templates\Quiz\css\fonts\roboto-regular.woff" />
@@ -1773,6 +1803,8 @@
     <Content Include="Templates\Quiz\css\img\tooth.png" />
     <Content Include="Templates\Quiz\css\styles.css" />
     <Content Include="Templates\Quiz\index.html" />
+    <Content Include="Templates\Quiz\lang\en.json" />
+    <Content Include="Templates\Quiz\lang\ua.json" />
     <Content Include="Templates\Quiz\manifest.json" />
     <Content Include="Templates\Quiz\preview\images\preview.jpg" />
     <Content Include="Templates\Quiz\preview\thumbnail.png" />
@@ -1784,13 +1816,16 @@
     <Content Include="Templates\Quiz\settings\css\fonts\opensans-italic-400.woff" />
     <Content Include="Templates\Quiz\settings\css\settings.css" />
     <Content Include="Templates\Quiz\settings\img\graphical.png" />
+    <Content Include="Templates\Quiz\settings\img\language.png" />
     <Content Include="Templates\Quiz\settings\img\mastery.png" />
     <Content Include="Templates\Quiz\settings\img\sprites_16.png" />
     <Content Include="Templates\Quiz\settings\img\track.png" />
+    <Content Include="Templates\Quiz\settings\js\api.min.js" />
     <Content Include="Templates\Quiz\settings\js\settings.min.js" />
     <Content Include="Templates\Quiz\settings\js\vendor.min.js" />
     <Content Include="Templates\Quiz\settings\settings.html" />
     <Content Include="Templates\Reader\app\main.js" />
+    <Content Include="Templates\Reader\app\main.js.map" />
     <Content Include="Templates\Reader\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\a15336e3207b40aa86ae93f15c2d3927.html" />
     <Content Include="Templates\Reader\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\content.html" />
     <Content Include="Templates\Reader\content\14529955b7c14ba5bcd30029295a1fa1\8555e814ebef4f6a9f82cabfe8502894\a542a9cad6b64881844eed6e65d37044.html" />
@@ -1811,23 +1846,38 @@
     <Content Include="Templates\Reader\content\a3d951f91e8a4a61a55c173a27c904ca\77dcdee6255f44e588cdae7a0320ffa6\61cdd730fbe54fe9bf2a6ec95cb14535.html" />
     <Content Include="Templates\Reader\content\content.html" />
     <Content Include="Templates\Reader\content\data.js" />
-    <Content Include="Templates\Reader\css\fonts\intro-regular.svg" />
     <Content Include="Templates\Reader\css\fonts\RobotoSlab-Bold-webfont.svg" />
+    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Bold-webfont.ttf" />
+    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Bold-webfont.woff" />
     <Content Include="Templates\Reader\css\fonts\RobotoSlab-Light-webfont.svg" />
+    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Light-webfont.ttf" />
+    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Light-webfont.woff" />
     <Content Include="Templates\Reader\css\fonts\RobotoSlab-Regular-webfont.svg" />
+    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Regular-webfont.ttf" />
+    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Regular-webfont.woff" />
     <Content Include="Templates\Reader\css\fonts\RobotoSlab-Thin-webfont.svg" />
+    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Thin-webfont.ttf" />
+    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Thin-webfont.woff" />
+    <Content Include="Templates\Reader\css\fonts\Ubuntu-Regular.svg" />
     <Content Include="Templates\Reader\css\jquery.mCustomScrollbar.min.css" />
-    <Content Include="Templates\Reader\css\styles.min.css" />
+    <Content Include="Templates\Reader\css\styles.css" />
     <Content Include="Templates\Reader\images\reader.png" />
     <Content Include="Templates\Reader\images\thumbnail.png" />
     <Content Include="Templates\Reader\index.html" />
     <Content Include="Templates\Reader\js\require.js" />
     <Content Include="Templates\Reader\js\vendor.min.js" />
+    <Content Include="Templates\Reader\manifest.json" />
+    <Content Include="Templates\Reader\publishSettings.js" />
     <Content Include="Templates\Reader\settings.js" />
-    <Content Include="Templates\Reader\settings\css\settings.min.css" />
+    <Content Include="Templates\Reader\settings\css\fonts\opensans-400.woff" />
+    <Content Include="Templates\Reader\settings\css\fonts\opensans-600.woff" />
+    <Content Include="Templates\Reader\settings\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Reader\settings\css\fonts\opensans-italic-400.woff" />
+    <Content Include="Templates\Reader\settings\css\settings.css" />
     <Content Include="Templates\Reader\settings\img\graphical.png" />
+    <Content Include="Templates\Reader\settings\img\language.png" />
     <Content Include="Templates\Reader\settings\img\sprites_16.png" />
-    <Content Include="Templates\Reader\settings\js\settings.js" />
+    <Content Include="Templates\Reader\settings\js\api.js" />
     <Content Include="Templates\Reader\settings\js\settings.min.js" />
     <Content Include="Templates\Reader\settings\js\vendor.min.js" />
     <Content Include="Templates\Reader\settings\settings.html" />
@@ -1923,27 +1973,6 @@
     <Content Include="Views\DemoCourses\Index.cshtml" />
     <Content Include="Views\Shared\notSupportedPage.cshtml" />
     <Content Include="Views\Shared\notSupportedDevicePage.cshtml" />
-    <Content Include="Templates\Reader\app\main.js.map" />
-    <Content Include="Templates\Reader\css\fonts\intro-regular.eot" />
-    <Content Include="Templates\Reader\css\fonts\intro-regular.ttf" />
-    <Content Include="Templates\Reader\css\fonts\intro-regular.woff" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Bold-webfont.eot" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Bold-webfont.ttf" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Bold-webfont.woff" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Light-webfont.eot" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Light-webfont.ttf" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Light-webfont.woff" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Regular-webfont.eot" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Regular-webfont.ttf" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Regular-webfont.woff" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Thin-webfont.eot" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Thin-webfont.ttf" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Thin-webfont.woff" />
-    <Content Include="Templates\Reader\manifest.json" />
-    <Content Include="Templates\Reader\settings\css\fonts\opensans-400.woff" />
-    <Content Include="Templates\Reader\settings\css\fonts\opensans-600.woff" />
-    <Content Include="Templates\Reader\settings\css\fonts\opensans-bold.woff" />
-    <Content Include="Templates\Reader\settings\css\fonts\opensans-italic-400.woff" />
     <Content Include="Templates\Simple course\app\main.js.map" />
     <Content Include="Templates\Simple course\css\font\heuristica-bold.eot" />
     <Content Include="Templates\Simple course\css\font\heuristica-bold.ttf" />
@@ -1984,6 +2013,11 @@
     <Content Include="Templates\Simple course\lang\pt-br.json" />
     <Content Include="Templates\Simple course\lang\tr.json" />
     <Content Include="Templates\Simple course\lang\ua.json" />
+    <Content Include="Templates\Quiz\lang\nl.json" />
+    <Content Include="Templates\Reader\css\fonts\Ubuntu-Regular.ttf" />
+    <Content Include="Templates\Reader\css\fonts\Ubuntu-Regular.woff" />
+    <Content Include="Templates\Reader\lang\en.json" />
+    <Content Include="Templates\Reader\lang\ua.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2084,11 +2118,6 @@
     <Content Include="App\guard.spec.js">
       <DependentUpon>guard.js</DependentUpon>
     </Content>
-    <Content Include="App\help\helpHint.html" />
-    <Content Include="App\help\helpHint.js" />
-    <Content Include="App\help\helpHint.spec.js">
-      <DependentUpon>helpHint.js</DependentUpon>
-    </Content>
     <Content Include="App\http\httpWrapper.js" />
     <Content Include="App\http\httpWrapper.spec.js">
       <DependentUpon>httpWrapper.js</DependentUpon>
@@ -2099,7 +2128,6 @@
     </Content>
     <Content Include="App\main.js" />
     <Content Include="App\models\answerOption.js" />
-    <Content Include="App\models\backButton.js" />
     <Content Include="App\models\collaborator.js" />
     <Content Include="App\models\comment.js" />
     <Content Include="App\models\course.js" />
@@ -2159,9 +2187,6 @@
       <DependentUpon>templateRepository.js</DependentUpon>
     </Content>
     <Content Include="App\routing\routerExtender.js" />
-    <Content Include="App\routing\routerExtender.spec.js">
-      <DependentUpon>routerExtender.js</DependentUpon>
-    </Content>
     <Content Include="App\routing\routes.js" />
     <Content Include="App\services\publishService.js" />
     <Content Include="App\services\publishService.spec.js">
@@ -2218,53 +2243,14 @@
     <Content Include="App\viewmodels\common\contentField.spec.js">
       <DependentUpon>contentField.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\collaboration\collaborator.js" />
-    <Content Include="App\viewmodels\courses\collaboration\collaborator.spec.js">
-      <DependentUpon>collaborator.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\collaboration\collaborators.js" />
-    <Content Include="App\viewmodels\courses\collaboration\collaborators.spec.js">
-      <DependentUpon>collaborators.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\course.js" />
-    <Content Include="App\viewmodels\courses\course.spec.js">
-      <DependentUpon>course.js</DependentUpon>
-    </Content>
+    <Content Include="App\viewmodels\courses\course\create\course.js" />
     <Content Include="App\viewmodels\courses\courseComments.js" />
     <Content Include="App\viewmodels\courses\courseComments.spec.js">
       <DependentUpon>courseComments.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\courseNavigation\items\create.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\items\create.spec.js">
-      <DependentUpon>create.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\courseNavigation\items\design.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\items\design.spec.js">
-      <DependentUpon>design.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\courseNavigation\items\navigationItem.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\items\navigationItem.spec.js">
-      <DependentUpon>navigationItem.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\courseNavigation\items\publish.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\items\publish.spec.js">
-      <DependentUpon>publish.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\courseNavigation\navigation.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\navigation.spec.js">
-      <DependentUpon>navigation.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\courses\courses.js" />
     <Content Include="App\viewmodels\courses\courses.spec.js">
       <DependentUpon>courses.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\design.js" />
-    <Content Include="App\viewmodels\courses\design.spec.js">
-      <DependentUpon>design.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\publish.js" />
-    <Content Include="App\viewmodels\courses\publish.spec.js">
-      <DependentUpon>publish.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\publishingActions\build.js" />
     <Content Include="App\viewmodels\courses\publishingActions\build.spec.js">
@@ -2328,10 +2314,8 @@
       <DependentUpon>userMenu.js</DependentUpon>
     </Content>
     <Content Include="App\views\common\createtip.html" />
-    <Content Include="App\views\courses\collaboration\collaborators.html" />
-    <Content Include="App\views\courses\course.html" />
+    <Content Include="App\views\courses\course\create\course.html" />
     <Content Include="App\views\courses\courseComments.html" />
-    <Content Include="App\views\courses\courseNavigation\navigation.html" />
     <Content Include="App\views\courses\courses.html" />
     <Content Include="App\views\courses\design.html" />
     <Content Include="App\views\courses\publish.html" />
@@ -2344,11 +2328,6 @@
     <Content Include="App\views\questions\question.html" />
     <Content Include="App\views\shell.html" />
     <Content Include="App\views\user\userMenu.html" />
-    <Content Include="App\widgets\backButton\view.html" />
-    <Content Include="App\widgets\backButton\viewmodel.js" />
-    <Content Include="App\widgets\backButton\viewmodel.spec.js">
-      <DependentUpon>viewmodel.js</DependentUpon>
-    </Content>
     <Content Include="App\widgets\notifyViewer\view.html" />
     <Content Include="App\widgets\notifyViewer\viewmodel.js" />
     <Content Include="App\widgets\notifyViewer\viewmodel.spec.js">
@@ -2383,9 +2362,6 @@
     <Content Include="Content\font\opensans-semibold.svg" />
     <Content Include="Content\font\opensans-semibolditalic.svg" />
     <Content Include="Content\font\rabiohead.svg" />
-    <Content Include="Content\helphint.css">
-      <DependentUpon>helphint.less</DependentUpon>
-    </Content>
     <Content Include="Content\images\account\log-in.jpg" />
     <Content Include="Content\images\account\pointer-left-big.png" />
     <Content Include="Content\images\account\pointer-right-big.png" />

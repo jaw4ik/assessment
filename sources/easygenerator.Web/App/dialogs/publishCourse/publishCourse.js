@@ -12,8 +12,8 @@
 
     return viewModel;
 
-    function show() {
-        return repository.getById(router.routeData().courseId).then(function (course) {
+    function show(courseId) {
+        return repository.getById(courseId).then(function (course) {
             viewModel.publishAction(publishAction(course, constants.eventCategories.header));
             viewModel.isShown(true);
         });

@@ -1,6 +1,5 @@
-﻿define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/routes', 'dataContext', 'userContext', 'eventTracker', 'clientContext',
-    'localization/localizationManager', 'uiLocker', 'help/helpHint', 'plugins/dialog', 'notify', 'constants'],
-    function (app, composition, router, routes, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, help, dialog, notify, constants) {
+﻿define(['durandal/app', 'plugins/router', 'routing/isViewReadyMixin', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'plugins/dialog', 'notify', 'constants'],
+    function (app, router, isViewReady, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, dialog, notify, constants) {
 
         "use strict";
 
@@ -9,10 +8,6 @@
             navigateToObjectives: 'Navigate to objectives'
         };
 
-        var
-            objectivesModules = ['objectives', 'objective', 'createQuestion', 'question'],
-            coursesModules = ['courses', 'course', 'design', 'publish', 'results'];
-
         var requestsCounter = ko.observable(0);
         var isFirstVisitPage = true;
 
@@ -20,12 +15,10 @@
             activate: activate,
             router: router,
             homeModuleName: 'courses',
-            isViewReady: ko.observable(false),
+            isViewReady: ko.observable(true),
             showNavigation: showNavigation,
-            showCourseNavigation: ko.observable(),
-            showTreeOfContent: ko.observable(),
+
             navigation: ko.observableArray([]),
-            help: help,
             courseDeleted: courseDeleted,
             objectivesUnrelated: objectivesUnrelated,
             questionsDeleted: questionsDeleted,
@@ -78,8 +71,7 @@
         function activate() {
             return dataContext.initialize()
                 .then(function () {
-                    router.guardRoute = function (routeInfo, params) {
-                        
+                    router.guardRoute = function (routeInfo) {
                         if (isFirstVisitPage && routeInfo.__moduleId__ == "viewmodels/errors/404") {
                             return 'courses';
                         }
@@ -105,70 +97,58 @@
                             }
                         }
                     };
-                   
+
                     router.on('router:navigation:composition-complete').then(function () {
-                        var activeModuleId = router.routeData().moduleName;
-                        var hasCourseId = router.routeData().courseId != null;
-                        viewModel.showCourseNavigation(hasCourseId);
-                        viewModel.showTreeOfContent(_.contains(coursesModules, activeModuleId) || hasCourseId);
-
-                        viewModel.navigation()[0].isPartOfModules(_.contains(coursesModules, activeModuleId) || hasCourseId);
-                        viewModel.navigation()[1].isPartOfModules(_.contains(objectivesModules, activeModuleId) && !hasCourseId);
-                       
-                        clientContext.set(hex_md5(userContext.identity.email), {hash: window.location.hash});
+                        clientContext.set(hex_md5(userContext.identity.email), { hash: window.location.hash });
                     });
 
-                    router.on('router:route:activating').then(function () {
-                        viewModel.isViewReady(false);
-                    });
-
-                    viewModel.navigation([
-                        {
-                            navigate: function () {
-                                eventTracker.publish(events.navigateToCourses);
-                                clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
-                                router.navigate('courses');
-                            },
-                            navigationLink: '#courses',
-                            title: 'courses',
-                            isActive: ko.computed(function () {
-                                return _.contains(coursesModules, viewModel.activeModuleName()) || router.isNavigating();
-                            }),
-                            isEditor: ko.computed(function () {
-                                return _.contains(_.without(coursesModules, 'courses'), viewModel.activeModuleName());
-                            }),
-                            isPartOfModules: ko.observable(false)
-                        },
-                        {
-                            navigate: function () {
-                                eventTracker.publish(events.navigateToObjectives);
-                                clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
-                                router.navigate('objectives');
-                            },
-                            navigationLink: '#objectives',
-                            title: 'materials',
-                            isActive: ko.computed(function () {
-                                return _.contains(objectivesModules, viewModel.activeModuleName()) || router.isNavigating();
-                            }),
-                            isEditor: ko.computed(function () {
-                                return _.contains(_.without(objectivesModules, 'objectives'), viewModel.activeModuleName());
-                            }),
-                            isPartOfModules: ko.observable(false)
-                        }
-                    ]);
 
                     clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
                     clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
-                    
+
                     var compositionComplete = router.on('router:navigation:composition-complete').then(function () {
                         isFirstVisitPage = false;
                         compositionComplete.off();
                     });
 
                     router.setDefaultLocationHash(clientContext.get(hex_md5(userContext.identity.email)));
-                    
-                    return router.map(routes)
-                        .buildNavigationModel()
+
+                    router.map([
+                        {
+                            route: ['', 'courses*details'],
+                            moduleId: 'viewmodels/courses/index',
+                            title: localizationManager.localize('courses'),
+                            hash: '#courses',
+                            nav: true,
+                            navigate: function () {
+                                eventTracker.publish(events.navigateToCourses);
+                                clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
+                                router.navigate(this.hash);
+                            }
+                        },
+                        {
+                            route: 'objectives*details',
+                            moduleId: 'viewmodels/objectives/index',
+                            title: localizationManager.localize('materials'),
+                            hash: '#objectives',
+                            nav: true,
+                            navigate: function () {
+                                eventTracker.publish(events.navigateToObjectives);
+                                clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
+                                router.navigate(this.hash);
+                            }
+                        },
+                        {
+                            route: '404',
+                            moduleId: 'viewmodels/errors/404',
+                            title: '404 Not Found'
+                        }
+                    ]);
+
+                    isViewReady.assign(router);
+
+
+                    return router.buildNavigationModel()
                         .mapUnknownRoutes('viewmodels/errors/404', '404')
                         .activate(viewModel.homeModuleName);
                 });

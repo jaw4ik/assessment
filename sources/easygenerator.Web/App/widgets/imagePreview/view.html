@@ -10,17 +10,8 @@
                     <div class="overlay-close-button-holder" data-bind="if: isLoaded">
                         <a class="overlay-close-button" data-bind="click:closePreview">&nbsp;</a>
                     </div>
-                    <!--ko ifnot:isLoaded-->
-                    <div class="circular-loader x32 black">
-                            <div class="circular-loader-item"></div>
-                            <div class="circular-loader-item"></div>
-                            <div class="circular-loader-item"></div>
-                            <div class="circular-loader-item"></div>
-                            <div class="circular-loader-item"></div>
-                            <div class="circular-loader-item"></div>
-                            <div class="circular-loader-item"></div>
-                            <div class="circular-loader-item"></div>
-                        </div>
+                    <!--ko ifnot: isLoaded-->
+                        <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center' } } --><!-- /ko -->
                     <!--/ko-->
                 </div>
             </div>

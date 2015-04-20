@@ -1,49 +1,42 @@
 ﻿.navigation-bar-wrapper {
-    position: relative;
-    min-width: 50px;
     border-right: 1px solid #dedede;
-    z-index: 198;
-}
-
-.navigation-bar-wrapper-inner {
-    position: relative;
-    height: 100%;
-}
-
-.navigation-bar-wrapper-absolute-holder {
-    position: absolute;
-    top: 0;
     bottom: 0;
-    right: 0;
+    left: 0;
+    min-width: 50px;
+    position: fixed;
+    top: 56px;
+    z-index: 190;
 }
 
 .navigation-bar {
-    position: relative;
+    background: #f1f1f1;
     display: block;
     height: 100%;
-    background: #f1f1f1;
+    position: absolute;
+    right: 0;
+    width: 300px;
 }
 
-    .navigation-bar.collapsed {
-        width: 50px;
-    }
+.navigation-bar.collapsed {
+    width: 50px;
+}
 
-        .navigation-bar.collapsed:hover {
-            width: 52px;
-            border-right: 1px solid #dedede;
-            margin-right: -2px;
-            cursor: default;
-        }
+.navigation-bar.collapsed:hover {
+    width: 52px;
+    border-right: 1px solid #dedede;
+    margin-right: -2px;
+    cursor: default;
+}
 
-        .navigation-bar.collapsed:after {
-            content: "";
-            position: absolute;
-            width: 32px;
-            height: 21px;
-            top: 14px;
-            right: 4px;
-            background: url('images/sprites_32.png') -74px -6px;
-        }
+.navigation-bar.collapsed:after {
+    content: "";
+    position: absolute;
+    width: 32px;
+    height: 21px;
+    top: 14px;
+    right: 4px;
+    background: url('images/sprites_32.png') -74px -6px;
+}
 
 .navigation-bar-header {
     position: relative;
@@ -60,19 +53,19 @@
     cursor: pointer;
 }
 
-    .navigation-bar-header:hover {
-        background-color: #E8E8E8;
-    }
+.navigation-bar-header:hover {
+    background-color: #E8E8E8;
+}
 
-    .navigation-bar-header:after {
-        content: "";
-        position: absolute;
-        width: 32px;
-        height: 21px;
-        right: 10px;
-        top: 13px;
-        background: url('images/sprites_32.png') -111px -6px;
-    }
+.navigation-bar-header:after {
+    content: "";
+    position: absolute;
+    width: 32px;
+    height: 21px;
+    right: 10px;
+    top: 13px;
+    background: url('images/sprites_32.png') -111px -6px;
+}
 
 .navigation-bar-collapse-button {
     position: absolute;
@@ -81,19 +74,23 @@
     bottom: 0;
     z-index: 1;
 }
-    
+
 .navigation-bar.onboarding-visible .navigation-bar-collapse-button {
     bottom: 360px;
 }
 
-@media (min-width: 1550px) {
 
+@media screen and (max-width : 1630px) {
     .navigation-bar-wrapper {
-        display: block;
-        position: absolute;
-        top: 56px;
-        bottom: 0;
-        z-index: 198;
+        & + div {
+            margin-left: 50px;
+            -moz-transition: margin .4s linear 0s;
+            -webkit-transition: margin .4s linear 0s;
+            transition: margin .4s linear 0s;
+        }
+
+        &.expanded + div {
+            margin-left: 300px;
+        }
     }
-    
 }

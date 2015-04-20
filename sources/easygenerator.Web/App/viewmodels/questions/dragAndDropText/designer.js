@@ -17,7 +17,7 @@
 
     var self = {
         questionId: null,
-        maxWidth: 899,
+        maxWidth: 939,
         maxHeight: 785,
         events: {
             createDropspot: 'Create dropspot',

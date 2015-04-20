@@ -27,7 +27,7 @@
             if (_.isNullOrUndefined(treeOfContent))
                 return;
 
-            treeOfContent.children.unshift(new CourseTreeNode(course.id, course.title, "#course/" + course.id, course.createdOn));
+            treeOfContent.children.unshift(new CourseTreeNode(course.id, course.title, "#courses/" + course.id, course.createdOn));
         }
 
         function collaborationStarted(course) {
@@ -36,7 +36,7 @@
                 return;
 
             var sharedCourses = treeOfContent.sharedChildren();
-            sharedCourses.push(new CourseTreeNode(course.id, course.title, "#course/" + course.id, course.createdOn));
+            sharedCourses.push(new CourseTreeNode(course.id, course.title, "#courses/" + course.id, course.createdOn));
             sharedCourses = _.sortBy(sharedCourses, function (item) {
                 return -item.createdOn;
             });
@@ -85,9 +85,9 @@
             _.each(treeOfContentTraversal.getCourseTreeNodeCollection(courseId), function (courseTreeNode) {
                 if (courseTreeNode.isExpanded()) {
                     if (!_.isNullOrUndefined(index)) {
-                        courseTreeNode.children.splice(index, 0, new ObjectiveTreeNode(objective.id, courseId, objective.title, "#objective/" + objective.id + "?courseId=" + courseId));
+                        courseTreeNode.children.splice(index, 0, new ObjectiveTreeNode(objective.id, courseId, objective.title, "#courses/" + courseId + "/objectives/" + objective.id));
                     } else {
-                        courseTreeNode.children.push(new ObjectiveTreeNode(objective.id, courseId, objective.title, "#objective/" + objective.id + "?courseId=" + courseId));
+                        courseTreeNode.children.push(new ObjectiveTreeNode(objective.id, courseId, objective.title, "#courses/" + courseId + "/objectives/" + objective.id));
                     }
                 }
             });
@@ -126,7 +126,7 @@
         function questionCreated(objectiveId, question) {
             _.each(treeOfContentTraversal.getObjectiveTreeNodeCollection(objectiveId), function (objectiveTreeNode) {
                 if (objectiveTreeNode.isExpanded()) {
-                    objectiveTreeNode.children.push(new QuestionTreeNode(question.id, question.title, "#objective/" + objectiveTreeNode.id + "/question/" + question.id + '?courseId=' + objectiveTreeNode.courseId));
+                    objectiveTreeNode.children.push(new QuestionTreeNode(question.id, question.title, "#courses/" + objectiveTreeNode.courseId + "/objectives/" + objectiveTreeNode.id + "/questions/" + question.id));
                 }
             });
         }

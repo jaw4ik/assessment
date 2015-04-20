@@ -1,16 +1,9 @@
 ﻿<section>
+    
     <!-- ko if: visible -->
-    <div class="modalFade">
-        <div class="circular-loader x32 black align-center">
-            <div class="circular-loader-item"></div>
-            <div class="circular-loader-item"></div>
-            <div class="circular-loader-item"></div>
-            <div class="circular-loader-item"></div>
-            <div class="circular-loader-item"></div>
-            <div class="circular-loader-item"></div>
-            <div class="circular-loader-item"></div>
-            <div class="circular-loader-item"></div>
+        <div class="modal-fade">
+            <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center' } } --><!-- /ko -->
         </div>
-    </div>
     <!-- /ko -->
+
 </section>

@@ -5,7 +5,8 @@
     function mixpanelAnalyticsProvider() {
         return {
             trackEvent: function (eventName, eventProperties) {
-                var deferred = jQuery.Deferred();
+                var peopleSetDeferred = $.Deferred(),
+                    trackEventDeferred = $.Deferred();
 
                 var mixpanel = window.mixpanel;
 
@@ -14,10 +15,13 @@
                     var properties = {};
 
                     if (username) {
+                        var peopleProperties = {};
+
                         mixpanel.identify(username);
+
                         if (eventName == application.constants.events.signupSecondStep) {
                             mixpanel.alias(username);
-                            mixpanel.people.set({
+                            _.extend(peopleProperties, {
                                 "$email": username,
                                 "$name": username,
                                 "$created": new Date()
@@ -25,34 +29,43 @@
                         }
 
                         if (eventName == application.constants.events.signin) {
-                            mixpanel.people.set({
+                            _.extend(peopleProperties, {
                                 "$last_login": new Date()
                             });
                         }
+
                         if (eventProperties.role) {
                             properties.Role = eventProperties.role;
-                            mixpanel.people.set({
+                            _.extend(peopleProperties, {
                                 "Role": eventProperties.role
                             });
                         }
 
+                        _.isEmpty(peopleProperties) ? peopleSetDeferred.resolve() : mixpanel.people.set(peopleProperties, function () {
+                            peopleSetDeferred.resolve();
+                        });
+
                         properties.Email = username;
 
-                        mixpanel.track(eventName, properties, resolve);
-                        _.delay(resolve, application.constants.timeout.mixpanel);
+                        mixpanel.track(eventName, properties, function () {
+                            trackEventDeferred.resolve();
+                        });
+
+                        _.delay(resolveAll, application.constants.timeout.mixpanel);
                     } else {
                         console.error('mixpanel can\'t identify a user');
-                        resolve();
+                        resolveAll();
                     }
                 } else {
-                    resolve();
+                    resolveAll();
                 }
 
-                function resolve() {
-                    deferred.resolve();
+                function resolveAll() {
+                    trackEventDeferred.resolve();
+                    peopleSetDeferred.resolve();
                 }
 
-                return deferred.promise();
+                return $.when(peopleSetDeferred, trackEventDeferred);
             }
         };
     }
@@ -74,7 +87,9 @@
                         nudgespot.identify(username, { "first_name": firstname, "last_name": lastname });
                         properties.email = username;
 
-                        nudgespot.track(eventName, properties);
+                        nudgespot.track(eventName, properties, function() {
+                            resolve();
+                        });
                         _.delay(resolve, application.constants.timeout.nudgespot);
                     } else {
                         console.error('nudgespot can\'t identify a user');
