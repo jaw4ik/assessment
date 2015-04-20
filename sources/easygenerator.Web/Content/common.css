@@ -233,10 +233,10 @@ html {
   overflow-x: hidden;
 }
 body {
-  height: 100%;
-  width: 100%;
   font-family: 'OpenSans', sans-serif;
   background-color: #f3f7f9;
+  overflow: auto;
+  /* To fix sortable when scroll is available */
 }
 table {
   border-collapse: collapse;
@@ -489,4 +489,3 @@ img:hover {
 .styled-content th {
   font-weight: normal;
 }
-/*#endregion STYLED CONTENT*/

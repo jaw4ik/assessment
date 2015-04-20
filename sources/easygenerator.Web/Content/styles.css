@@ -768,10 +768,6 @@
 }
 /*#endregion PAGE CONTENT LIST*/
 /*#region SORTABLE-LIST*/
-.ui-sortable {
-  overflow-y: auto;
-  overflow-x: hidden;
-}
 .sortable-list-placeholder {
   border: 1px dashed #2db7ff;
   border-radius: 4px;
@@ -1686,19 +1682,9 @@
   line-height: 20px !important;
 }
 /*#endregion autosize*/
-.application {
-  height: 100%;
-  width: 100%;
-}
-.shell-wrapper {
-  height: 100%;
-  width: 100%;
-}
 .shell {
   padding-top: 56px;
   position: relative;
-  height: 100%;
-  width: 100%;
 }
 .shell > header {
   background-color: #393939;
@@ -2332,4 +2318,3 @@
   }
   /*#endregion Create explanation tooltip*/
 }
-/*#endregion MEDIA*/
