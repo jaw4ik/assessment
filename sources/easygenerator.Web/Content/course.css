@@ -194,12 +194,13 @@
 }
 
 .connecting-objectives-item-container {
-    padding: 10px;
-    height: 528px;
-    overflow-y: auto;
+    background-color: #fff;
+    border-bottom: 1px solid #e8e8e8;
     border-left: 1px solid #e8e8e8;
     border-right: 1px solid #e8e8e8;
-    border-bottom: 1px solid #e8e8e8;
+    height: 528px;
+    overflow-y: auto;
+    padding: 10px;
 }
 
     .connecting-objectives-item-container.empty {
