@@ -768,6 +768,10 @@
 }
 /*#endregion PAGE CONTENT LIST*/
 /*#region SORTABLE-LIST*/
+.ui-sortable {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 .sortable-list-placeholder {
   border: 1px dashed #2db7ff;
   border-radius: 4px;
