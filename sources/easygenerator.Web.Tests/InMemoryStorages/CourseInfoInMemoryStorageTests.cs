@@ -1,9 +1,7 @@
 ﻿using easygenerator.DomainModel.Tests.ObjectMothers;
-using easygenerator.Infrastructure;
 using easygenerator.Web.InMemoryStorages.CourseStateStorage;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Linq;
 
 namespace easygenerator.Web.Tests.InMemoryStorages
@@ -87,7 +85,7 @@ namespace easygenerator.Web.Tests.InMemoryStorages
             _courseStateStorage.SaveCourseInfo(course, info);
 
             //Act
-            var result = _courseStateStorage.GetCourseInfo(course);
+            var result = _courseStateStorage.GetCourseInfoOrDefault(course);
 
             //Assert
             result.Should().Be(info);
@@ -100,7 +98,7 @@ namespace easygenerator.Web.Tests.InMemoryStorages
             var course = CourseObjectMother.Create();
 
             //Act
-            var result = _courseStateStorage.GetCourseInfo(course);
+            var result = _courseStateStorage.GetCourseInfoOrDefault(course);
 
             //Assert
             result.Should().BeOfType<CourseInfo>();

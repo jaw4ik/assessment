@@ -43,7 +43,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
             //Arrange
             var course = CourseObjectMother.Create();
             var info = new CourseInfo();
-            _infoStorage.GetCourseInfo(course).Returns(info);
+            _infoStorage.GetCourseInfoOrDefault(course).Returns(info);
 
             //Act
             _tracker.Handle(new CourseChangedEvent(course));
@@ -59,7 +59,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
             //Arrange
             var course = CourseObjectMother.Create();
             var info = new CourseInfo();
-            _infoStorage.GetCourseInfo(course).Returns(info);
+            _infoStorage.GetCourseInfoOrDefault(course).Returns(info);
             _stateStorage.HasUnpublishedChanges(course).Returns(false);
 
             //Act
@@ -75,7 +75,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
             //Arrange
             var course = CourseObjectMother.Create();
             var info = new CourseInfo();
-            _infoStorage.GetCourseInfo(course).Returns(info);
+            _infoStorage.GetCourseInfoOrDefault(course).Returns(info);
             _stateStorage.HasUnpublishedChanges(course).Returns(true);
 
             //Act
@@ -91,7 +91,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
             //Arrange
             var course = CourseObjectMother.Create();
             var info = new CourseInfo();
-            _infoStorage.GetCourseInfo(course).Returns(info);
+            _infoStorage.GetCourseInfoOrDefault(course).Returns(info);
             _stateStorage.HasUnpublishedChanges(course).Returns(false);
 
             //Act
@@ -107,7 +107,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
             //Arrange
             var course = CourseObjectMother.Create();
             var info = new CourseInfo();
-            _infoStorage.GetCourseInfo(course).Returns(info);
+            _infoStorage.GetCourseInfoOrDefault(course).Returns(info);
             _stateStorage.HasUnpublishedChanges(course).Returns(true);
 
             //Act
@@ -127,7 +127,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
             //Arrange
             var course = CourseObjectMother.Create();
             var info = new CourseInfo();
-            _infoStorage.GetCourseInfo(course).Returns(info);
+            _infoStorage.GetCourseInfoOrDefault(course).Returns(info);
 
             //Act
             _tracker.Handle(new CourseBuildStartedEvent(course));
@@ -205,7 +205,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
             var course = CourseObjectMother.Create();
             _stateStorage.HasUnpublishedChanges(course).Returns(true);
             course.UpdatePublicationUrl(PublicationUrl);
-            _infoStorage.GetCourseInfo(course).Returns(new CourseInfo { BuildStartedOn = DateTime.MinValue, ChangedOn = Now }); 
+            _infoStorage.GetCourseInfoOrDefault(course).Returns(new CourseInfo { BuildStartedOn = DateTime.MinValue, ChangedOn = Now }); 
 
             //Act
             _tracker.Handle(new CoursePublishedEvent(course));
@@ -221,7 +221,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
             var course = CourseObjectMother.Create();
             _stateStorage.HasUnpublishedChanges(course).Returns(true);
             course.UpdatePublicationUrl(PublicationUrl);
-            _infoStorage.GetCourseInfo(course).Returns(new CourseInfo { BuildStartedOn = DateTime.MinValue, ChangedOn = Now }); 
+            _infoStorage.GetCourseInfoOrDefault(course).Returns(new CourseInfo { BuildStartedOn = DateTime.MinValue, ChangedOn = Now }); 
 
             //Act
             _tracker.Handle(new CoursePublishedEvent(course));
@@ -237,7 +237,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
             var course = CourseObjectMother.Create();
             _stateStorage.HasUnpublishedChanges(course).Returns(true);
             course.UpdatePublicationUrl(PublicationUrl);
-            _infoStorage.GetCourseInfo(course).Returns(new CourseInfo { BuildStartedOn = Now, ChangedOn = Now }); 
+            _infoStorage.GetCourseInfoOrDefault(course).Returns(new CourseInfo { BuildStartedOn = Now, ChangedOn = Now }); 
 
             //Act
             _tracker.Handle(new CoursePublishedEvent(course));
@@ -253,7 +253,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
             var course = CourseObjectMother.Create();
             _stateStorage.HasUnpublishedChanges(course).Returns(true);
             course.UpdatePublicationUrl(PublicationUrl);
-            _infoStorage.GetCourseInfo(course).Returns(new CourseInfo { BuildStartedOn = Now, ChangedOn = Now }); 
+            _infoStorage.GetCourseInfoOrDefault(course).Returns(new CourseInfo { BuildStartedOn = Now, ChangedOn = Now }); 
 
             //Act
             _tracker.Handle(new CoursePublishedEvent(course));

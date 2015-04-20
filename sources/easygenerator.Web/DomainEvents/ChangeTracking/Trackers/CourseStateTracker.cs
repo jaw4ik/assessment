@@ -27,7 +27,7 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
 
         public void Handle(CourseChangedEvent args)
         {
-            var info = _infoStorage.GetCourseInfo(args.Course);
+            var info = _infoStorage.GetCourseInfoOrDefault(args.Course);
             info.ChangedOn = DateTimeWrapper.Now();
             _infoStorage.SaveCourseInfo(args.Course, info);
 
@@ -40,7 +40,7 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
 
         public void Handle(CourseBuildStartedEvent args)
         {
-            var info = _infoStorage.GetCourseInfo(args.Course);
+            var info = _infoStorage.GetCourseInfoOrDefault(args.Course);
             info.BuildStartedOn = DateTimeWrapper.Now();
             _infoStorage.SaveCourseInfo(args.Course, info);
         }
@@ -53,7 +53,7 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
             if (!IsPublishSuccessful(args.Course))
                 return;
 
-            var info = _infoStorage.GetCourseInfo(args.Course);
+            var info = _infoStorage.GetCourseInfoOrDefault(args.Course);
             if (info.ChangedOn > info.BuildStartedOn)
                 return;
 

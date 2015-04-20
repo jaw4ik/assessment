@@ -14,6 +14,7 @@ namespace easygenerator.Web.InMemoryStorages.CourseStateStorage
         {
             BuildStartedOn = DateTimeWrapper.MinValue();
             ChangedOn = DateTimeWrapper.MinValue();
+            HasUnpublishedChanges = false;
         }
     }
 }

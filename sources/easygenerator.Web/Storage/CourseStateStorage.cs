@@ -23,20 +23,19 @@ namespace easygenerator.Web.Storage
 
         public bool HasUnpublishedChanges(Course course)
         {
-            bool isInfoInMemory;
-            var info = _inMemoryStorage.GetCourseInfo(course, out isInfoInMemory);
-            if (isInfoInMemory)
+            var info = _inMemoryStorage.GetCourseInfo(course);
+            if (info != null)
             {
                 return info.HasUnpublishedChanges;
             }
 
+            info = new CourseInfo();
             var state = _repository.GetByCourseId(course.Id);
-            if (state == null)
+            if (state != null)
             {
-                return info.HasUnpublishedChanges;
+                info.HasUnpublishedChanges = state.HasUnpublishedChanges;
             }
 
-            info.HasUnpublishedChanges = state.HasUnpublishedChanges;
             _inMemoryStorage.SaveCourseInfo(course, info);
 
             return info.HasUnpublishedChanges;
@@ -44,7 +43,7 @@ namespace easygenerator.Web.Storage
 
         public void SaveHasUnpublishedChanges(Course course, bool hasUnpublishedChanges)
         {
-            var info = _inMemoryStorage.GetCourseInfo(course);
+            var info = _inMemoryStorage.GetCourseInfoOrDefault(course);
             info.HasUnpublishedChanges = hasUnpublishedChanges;
             _inMemoryStorage.SaveCourseInfo(course, info);
             SaveCourseStateToRepository(course, hasUnpublishedChanges);
