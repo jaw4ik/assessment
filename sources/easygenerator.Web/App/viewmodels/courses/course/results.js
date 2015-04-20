@@ -7,7 +7,6 @@
     function (repository, router, constants, courseRepository, buildPublishingAction, scormBuildPublishingAction, publishPublishingAction, userContext, publishToAim4You,
         clientContext, localizationManager, eventTracker, xApiProvider, dialog, CourseStatement) {
         "use strict";
-        "use strict";
 
         var loadMoreEventCategory = 'Load more results',
             downloadAsCsvEventCategory = 'Download results CSV',
