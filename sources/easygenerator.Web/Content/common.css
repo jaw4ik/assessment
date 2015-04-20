@@ -235,8 +235,6 @@ html {
 body {
   font-family: 'OpenSans', sans-serif;
   background-color: #f3f7f9;
-  overflow: auto;
-  /* To fix sortable when scroll is available */
 }
 table {
   border-collapse: collapse;
