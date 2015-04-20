@@ -1,8 +1,8 @@
-﻿using System;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse.Modules;
 using easygenerator.Web.Extensions;
+using System;
 
 namespace easygenerator.Web.BuildCourse
 {

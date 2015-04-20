@@ -20,10 +20,11 @@ using easygenerator.Web.Components.Elmah;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Components.ModelBinding;
 using easygenerator.Web.Components.Tasks;
-using easygenerator.Web.InMemoryStorages;
 using easygenerator.Web.Import.Presentation;
 using easygenerator.Web.Import.Presentation.HtmlComposers;
 using easygenerator.Web.Import.Presentation.Mappers;
+using easygenerator.Web.InMemoryStorages;
+using easygenerator.Web.InMemoryStorages.CourseStateStorage;
 using easygenerator.Web.Mail;
 using easygenerator.Web.Newsletter;
 using easygenerator.Web.Newsletter.MailChimp;
@@ -196,6 +197,7 @@ namespace easygenerator.Web.Configuration
 
             builder.RegisterType<FileTypeChecker>().As<IFileTypeChecker>();
             builder.RegisterType<WooCommerceAutologinUrlProvider>().As<IWooCommerceAutologinUrlProvider>();
+            builder.RegisterType<CourseStateStorage>().As<ICourseStateStorage>();
 
             #region Log
 
@@ -205,6 +207,7 @@ namespace easygenerator.Web.Configuration
 
             builder.RegisterType<EntityCloner>().As<ICloner>().SingleInstance();
             builder.RegisterType<DemoCoursesInMemoryStorage>().As<IDemoCoursesStorage>().SingleInstance();
+            builder.RegisterType<CourseInfoInMemoryStorage>().As<ICourseInfoInMemoryStorage>().SingleInstance();
 
             var container = builder.Build();
 

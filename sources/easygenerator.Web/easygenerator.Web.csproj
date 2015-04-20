@@ -260,7 +260,32 @@
     <Compile Include="Controllers\Api\StatementController.cs" />
     <Compile Include="Controllers\Api\TextMatchingQuestionController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
+    <Compile Include="Storage\CourseStateStorage.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\AnswerChangedEvent.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\CourseStateChangedEvent.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\DropspotChangedEvent.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\HotSpotPolygonChangedEvent.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\LearningContentChangedEvent.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\ObjectiveChangedEvent.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\QuestionChangedEvent.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\SingleSelectImageAnswerChangedEvent.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\TextMatchingAnswerChangedEvent.cs" />
+    <Compile Include="Storage\ICourseStateStorage.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseChangeTracker.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\CourseChangedEvent.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\AnswerChangeTracker.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\DropspotChangeTracker.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\HotSpotPolygonChangeTracker.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\LearningContentChangeTracker.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\ObjectiveChangeTracker.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\QuestionChangeTracker.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\SingleSelectImageAnswerChangeTracker.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\TextMatchingAnswerChangeTracker.cs" />
     <Compile Include="DomainEvents\Handlers\MailChimpSubscriptionHandler.cs" />
+    <Compile Include="InMemoryStorages\CourseStateStorage\CourseInfo.cs" />
+    <Compile Include="InMemoryStorages\CourseStateStorage\CourseInfoInMemoryStorage.cs" />
+    <Compile Include="InMemoryStorages\CourseStateStorage\ICourseInfoInMemoryStorage.cs" />
     <Compile Include="InMemoryStorages\DemoCoursesInMemoryStorage.cs" />
     <Compile Include="InMemoryStorages\IDemoCoursesStorage.cs" />
     <Compile Include="Import\Presentation\Extensions\ParagraphExtensions.cs" />
@@ -538,6 +563,10 @@
     <Content Include="App\synchronization\handlers\answer\eventHandlers\answerCorrectnessUpdated.spec.js">
       <DependentUpon>answerCorrectnessUpdated.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\stateChanged.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\stateChanged.spec.js">
+      <DependentUpon>stateChanged.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\objective\eventHandlers\imageUrlUpdated.js" />
     <Content Include="App\synchronization\handlers\objective\eventHandlers\imageUrlUpdated.spec.js">
       <DependentUpon>imageUrlUpdated.js</DependentUpon>
@@ -615,9 +644,9 @@
     <Content Include="App\views\courses\publishActions\publishToAim4You.html" />
     <Content Include="App\views\courses\publishActions\publishToPublicationServerEmbed.html" />
     <Content Include="App\views\courses\publishActions\publishToPublicationServerLink.html" />
-    <Content Include="App\views\courses\publishActions\publishToPublicationServerPopup.html" />
     <Content Include="App\views\courses\publishActions\publishAsHtml.html" />
     <Content Include="App\views\courses\publishActions\publishAsScorm.html" />
+    <Content Include="App\views\courses\publishActions\updatePublishedCourse.html" />
     <Content Include="App\views\courses\results.html" />
     <Content Include="App\views\objectives\index.html" />
     <Content Include="App\views\questions\statement\statement.html" />

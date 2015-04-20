@@ -7,20 +7,20 @@
             <div class="publish-tab-action-content" data-bind="localize: {text: 'publishToAim4YouPublishDescription'}">
                 with our partner Aim 4 You
             </div>
-            <button class="btn green publish-tab-btn" data-bind="click: publishToAim4YouAction().publishToAim4You, css:{'disabled': isCourseDelivering(), 'progress':publishToAim4YouAction().isPublishing()}">
-                <!-- ko if: publishToAim4YouAction().isPublishing() -->
-                <!-- ko if: publishToAim4YouAction().state() === states.building -->
+            <button class="btn green publish-tab-btn" data-bind="click: publishToAim4You, css:{'disabled': isCourseDelivering(), 'progress':isPublishing()}">
+                <!-- ko if: isPublishing() -->
+                <!-- ko if: state() === states.building -->
                 <span data-bind="localize: { text: 'assembling' }" class="publish-tab-btn-caption"></span>
                 <!-- /ko -->
-                <!-- ko if: publishToAim4YouAction().state() === states.publishing -->
+                <!-- ko if: state() === states.publishing -->
                 <span data-bind="localize: { text: 'publishing' }" class="publish-tab-btn-caption"></span>
                 <!-- /ko -->
                 <!-- /ko -->
-                <!-- ko ifnot: publishToAim4YouAction().isPublishing() -->
+                <!-- ko ifnot: isPublishing() -->
                 <span data-bind="localize: { text: 'publishToStore' }" class="publish-tab-btn-caption"></span>
                 <!-- /ko -->
             </button>
-            <!-- ko if: !isCourseDelivering() && publishToAim4YouAction().messageState() == publishToAim4YouAction().infoMessageStates.published -->
+            <!-- ko if: !isCourseDelivering() && messageState() == infoMessageStates.published -->
             <div class="package-action-message-wrapper success">
                 <div class="message">
                     <span data-bind="localize: { text: 'publishToAim4YouSuccessMessage' }">Your course is successfully  published. Check your email for more details.</span>
