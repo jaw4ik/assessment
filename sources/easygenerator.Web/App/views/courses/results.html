@@ -47,26 +47,25 @@
                                 <!-- ko if: isExpanded -->
                                 <ul class="r-objective">
                                     <li class="r-table">
-                                        <div>
-                                            <span>Course started at </span><span data-bind="date: { value: startedLrsStatement.date, formatString: 'MMM D, YYYY h:mm A' }"></span>
-                                            <span>and finished at </span><span data-bind="date: { value: lrsStatement.date, formatString: 'MMM D, YYYY h:mm A' }"></span>
+                                        <div class="r-course-dates">
+                                            Course started at <span data-bind="date: { value: startedLrsStatement.date, formatString: 'MMM D, YYYY h:mm A' }"></span>
+                                            and finished at <span data-bind="date: { value: lrsStatement.date, formatString: 'MMM D, YYYY h:mm A' }"></span>
                                         </div>
                                     </li>
                                     <!-- ko foreach: children -->
                                     <li class="expandable" data-bind="click: isExpanded() ? collapse : expand, clickBubble: false, css: {expanded: isExpanded}">
                                         <div class="r-table">
                                             <div class="r-text">OBJECTIVE: </div>
-                                            <div class="r-title selectable" data-bind="text: lrsStatement.name"></div>
-                                            <div class="r-score">Mastered with score <span>100%</span> AT <span>24/12/2014 7:15 am</span></div>
+                                            <div class="r-title selectable">"<span data-bind="text: lrsStatement.name"></span>"</div>
                                         </div>
                                         <!-- ko if: isExpanded -->
                                         <ul class="r-question">
                                             <!-- ko foreach: children -->
                                             <li>
                                                 <div class="r-table">
-                                                    <div>QUESTION:</div>
-                                                    <div class="selectable" data-bind="text: lrsStatement.name"></div>
-                                                    <div>Answered with score <span>100%</span> AT <span>24/12/2014 7:15 am</span></div>
+                                                    <div class="r-text">QUESTION:</div>
+                                                    <div class="r-question-text selectable" data-bind="text: lrsStatement.name"></div>
+                                                    <div class="r-score"><span class="r-answered r-not-answered"></span> (<span data-bind="text: lrsStatement.score"></span>%)</div>
                                                 </div>
                                             </li>
                                             <!-- /ko -->
