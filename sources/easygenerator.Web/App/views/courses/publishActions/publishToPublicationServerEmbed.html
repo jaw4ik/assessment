@@ -13,7 +13,7 @@
                 <div class="publish-tab-link-control-container">
                     <textarea readonly="readonly" class="publish-tab-textarea" data-bind="value: embedCode, selectText: state() === states.succeed"></textarea>
                     <div class="copy-btn-wrapper">
-                        <button class="btn" data-bind="copyToClipboard: { value: embedCode, onCopied: copyEmbedCodeToClipboard, isDisabled: copyBtnDisabled }, css: { green: !courseHasUnpublishedChanges(), 'green-white': courseHasUnpublishedChanges(), copied: embedCodeCopied, disabled: copyBtnDisabled }, attr: { disabled: copyBtnDisabled() }">
+                        <button class="btn" data-bind="copyToClipboard: { value: embedCode, onCopied: copyEmbedCodeToClipboard, isDisabled: copyBtnDisabled }, css: { green: !courseIsDirty(), 'green-white': courseIsDirty(), copied: embedCodeCopied, disabled: copyBtnDisabled }, attr: { disabled: copyBtnDisabled() }">
                             <span data-bind="localize: { text: embedCodeCopied() ? 'copied' : 'copy' }"></span>
                         </button>
                     </div>

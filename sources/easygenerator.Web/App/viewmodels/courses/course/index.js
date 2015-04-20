@@ -78,7 +78,7 @@
         id: '',
         title: ko.observable(),
         createdBy: ko.observable(),
-        hasUnpublishedChanges: ko.observable(),
+        isDirty: ko.observable(),
 
         collaborators: ko.observableArray(),
         collaborate: collaborate,
@@ -163,7 +163,7 @@
             viewModel.id = course.id;
             viewModel.title(course.title);
             viewModel.createdBy(course.createdBy);
-            viewModel.hasUnpublishedChanges(course.hasUnpublishedChanges);
+            viewModel.isDirty(course.isDirty);
 
             clientContext.set(constants.clientContextKeys.lastVistedCourse, course.id);
             clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
@@ -214,6 +214,6 @@
     }
 
     function stateChanged(state) {
-        viewModel.hasUnpublishedChanges(state.hasUnpublishedChanges);
+        viewModel.isDirty(state.isDirty);
     }
 })

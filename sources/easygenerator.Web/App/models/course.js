@@ -14,7 +14,7 @@
             this.template = spec.template;
             this.introductionContent = spec.introductionContent;
             this.collaborators = spec.collaborators;
-            this.hasUnpublishedChanges = spec.hasUnpublishedChanges;
+            this.isDirty = spec.isDirty;
 
             this.build = deliveringAction.call(this, buildActionHandler, spec.packageUrl);
             this.scormBuild = buildingAction.call(this, scormBuildActionHandler, spec.scormPackageUrl);

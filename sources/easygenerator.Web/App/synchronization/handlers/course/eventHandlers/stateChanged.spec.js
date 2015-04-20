@@ -10,7 +10,7 @@
     describe('synchronization course [stateChanged]', function () {
 
         var course = { Id: 'courseId' },
-            state = { hasUnpublishedChanges: false },
+            state = { isDirty: false },
             mappedCourse = { id: course.Id, collaborators: [] };
 
         beforeEach(function () {
@@ -41,13 +41,13 @@
             });
         });
 
-        describe('when state hasUnpublishedChanges is not a boolean', function () {
+        describe('when state isDirty is not a boolean', function () {
             it('should throw an exception', function () {
                 var f = function () {
                     handler(mappedCourse.id, {});
                 };
 
-                expect(f).toThrow('State hasUnpublishedChanges is not a boolean');
+                expect(f).toThrow('State isDirty is not a boolean');
             });
         });
 
@@ -63,17 +63,17 @@
             });
         });
 
-        describe('when course hasUnpublishedChanges has not changed', function () {
+        describe('when course isDirty has not changed', function () {
             beforeEach(function () {
-                mappedCourse.hasUnpublishedChanges = false;
-                state.hasUnpublishedChanges = false;
+                mappedCourse.isDirty = false;
+                state.isDirty = false;
                 dataContext.courses = [mappedCourse];
             });
 
-            it('should not update hasUnpublishedChanges', function () {
+            it('should not update isDirty', function () {
                 handler(mappedCourse.id, state);
 
-                expect(dataContext.courses[0].hasUnpublishedChanges).toBeFalsy();
+                expect(dataContext.courses[0].isDirty).toBeFalsy();
             });
 
             it('should not trigger app event', function () {
@@ -82,17 +82,17 @@
             });
         });
 
-        describe('when course hasUnpublishedChanges has changed', function () {
+        describe('when course isDirty has changed', function () {
             beforeEach(function () {
-                mappedCourse.hasUnpublishedChanges = false;
-                state.hasUnpublishedChanges = true;
+                mappedCourse.isDirty = false;
+                state.isDirty = true;
                 dataContext.courses = [mappedCourse];
             });
 
-            it('should set hasUnpublishedChanges to true', function () {
+            it('should set isDirty to true', function () {
                 handler(mappedCourse.id, state);
 
-                expect(dataContext.courses[0].hasUnpublishedChanges).toBeTruthy();
+                expect(dataContext.courses[0].isDirty).toBeTruthy();
             });
 
             it('should trigger app event', function () {

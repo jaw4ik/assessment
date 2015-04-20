@@ -13,7 +13,7 @@ namespace easygenerator.DataAccess.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201504091229392_AddCourseStatesTable"; }
+            get { return "201504200618589_AddCourseStatesTable"; }
         }
         
         string IMigrationMetadata.Source

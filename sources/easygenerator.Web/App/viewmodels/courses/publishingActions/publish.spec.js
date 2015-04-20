@@ -19,7 +19,7 @@
 
         action.state = 'someState';
         action.packageUrl = 'some/package/url';
-        var course = { id: 'someId', isDelivering: true, publish: action, hasUnpublishedChanges: true };
+        var course = { id: 'someId', isDelivering: true, publish: action, isDirty: true };
 
         beforeEach(function () {
             viewModel = publish(eventCategory);
@@ -339,11 +339,11 @@
                     });
                 });
 
-                it('should set courseHasUnpublishedChanges', function (done) {
-                    viewModel.courseHasUnpublishedChanges(false);
+                it('should set courseIsDirty', function (done) {
+                    viewModel.courseIsDirty(false);
                     var promise = viewModel.activate(course.id);
                     promise.fin(function () {
-                        expect(viewModel.courseHasUnpublishedChanges()).toBe(course.hasUnpublishedChanges);
+                        expect(viewModel.courseIsDirty()).toBe(course.isDirty);
                         done();
                     });
                 });
@@ -379,9 +379,9 @@
 
         //#endregion
 
-        describe('courseHasUnpublishedChanges:', function () {
+        describe('courseIsDirty:', function () {
             it('should be observable', function () {
-                expect(viewModel.courseHasUnpublishedChanges).toBeObservable();
+                expect(viewModel.courseIsDirty).toBeObservable();
             });
         });
 
@@ -550,19 +550,19 @@
 
         describe('courseStateChanged:', function () {
 
-            describe('when state hasUnpublishedChanges is true', function () {
-                it('should update courseHasUnpublishedChanges to true', function () {
-                    viewModel.courseHasUnpublishedChanges(false);
-                    viewModel.courseStateChanged({ hasUnpublishedChanges: true });
-                    expect(viewModel.courseHasUnpublishedChanges()).toBeTruthy();
+            describe('when state courseIsDirty is true', function () {
+                it('should update courseIsDirty to true', function () {
+                    viewModel.courseIsDirty(false);
+                    viewModel.courseStateChanged({ isDirty: true });
+                    expect(viewModel.courseIsDirty()).toBeTruthy();
                 });
             });
 
-            describe('when state hasUnpublishedChanges is false', function () {
-                it('should update courseHasUnpublishedChanges to false', function () {
-                    viewModel.courseHasUnpublishedChanges(true);
-                    viewModel.courseStateChanged({ hasUnpublishedChanges: false });
-                    expect(viewModel.courseHasUnpublishedChanges()).toBeFalsy();
+            describe('when state courseIsDirty is false', function () {
+                it('should update courseIsDirty to false', function () {
+                    viewModel.courseIsDirty(true);
+                    viewModel.courseStateChanged({ isDirty: false });
+                    expect(viewModel.courseIsDirty()).toBeFalsy();
                 });
             });
         });

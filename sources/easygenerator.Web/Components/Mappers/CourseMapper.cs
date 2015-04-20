@@ -29,7 +29,7 @@ namespace easygenerator.Web.Components.Mappers
                 Template = new { Id = course.Template.Id.ToNString() },
                 PackageUrl = course.PackageUrl,
                 PublishedPackageUrl = course.PublicationUrl,
-                HasUnpublishedChanges = _courseStateStorage.HasUnpublishedChanges(course),
+                IsDirty = _courseStateStorage.IsDirty(course),
                 ReviewUrl = course.PublishedOn != null ? GetCourseReviewUrl(course.Id.ToString()) : null,
                 RelatedObjectives = course.RelatedObjectives.Select(obj => new
                 {

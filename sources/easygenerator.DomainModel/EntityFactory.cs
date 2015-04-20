@@ -38,7 +38,7 @@ namespace easygenerator.DomainModel
         InformationContent InformationContent(string title, string createdBy);
         Onboarding Onboarding(string userEmail);
         DemoCourseInfo DemoCourseInfo(Course sourceCourse, Course demoCourse, string createdBy);
-        CourseState CourseState(Course course, bool hasUnpublishedChanges);
+        CourseState CourseState(Course course, bool isDirty);
     }
 
     public class EntityFactory : IEntityFactory
@@ -195,9 +195,9 @@ namespace easygenerator.DomainModel
             return new DemoCourseInfo(sourceCourse, demoCourse, createdBy);
         }
 
-        public CourseState CourseState(Course course, bool hasUnpublishedChanges)
+        public CourseState CourseState(Course course, bool isDirty)
         {
-            return new CourseState(course, hasUnpublishedChanges);
+            return new CourseState(course, isDirty);
         }
     }
 }

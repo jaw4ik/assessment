@@ -12,7 +12,7 @@ namespace easygenerator.DataAccess.Migrations
                 c => new
                     {
                         Id = c.Guid(nullable: false),
-                        HasUnpublishedChanges = c.Boolean(nullable: false),
+                        IsDirty = c.Boolean(nullable: false),
                         Course_Id = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)

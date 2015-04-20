@@ -8,13 +8,13 @@ namespace easygenerator.Web.InMemoryStorages.CourseStateStorage
     {
         public DateTime BuildStartedOn { get; set; }
         public DateTime ChangedOn { get; set; }
-        public bool HasUnpublishedChanges { get; set; }
+        public bool IsDirty { get; set; }
 
         public CourseInfo()
         {
             BuildStartedOn = DateTimeWrapper.MinValue();
             ChangedOn = DateTimeWrapper.MinValue();
-            HasUnpublishedChanges = false;
+            IsDirty = false;
         }
     }
 }

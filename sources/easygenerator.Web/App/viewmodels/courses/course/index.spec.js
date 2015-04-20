@@ -294,10 +294,10 @@
 
         });
 
-        describe('hasUnpublishedChanges:', function () {
+        describe('isDirty:', function () {
 
             it('should be observable', function () {
-                expect(viewModel.hasUnpublishedChanges).toBeObservable();
+                expect(viewModel.isDirty).toBeObservable();
             });
 
         });
@@ -502,7 +502,7 @@
                     id: 'id',
                     title: 'title',
                     createdBy: 'createdBy',
-                    hasUnpublishedChanges: true
+                    isDirty: true
                 };
 
                 var collaborators = [{ email: 'a@a.a' }, { email: 'b@b.b' }];
@@ -540,11 +540,11 @@
                     });
                 });
 
-                it('should set hasUnpublishedChanges', function (done) {
-                    viewModel.hasUnpublishedChanges(false);
+                it('should set isDirty', function (done) {
+                    viewModel.isDirty(false);
 
                     viewModel.activate(course.id).fin(function () {
-                        expect(viewModel.hasUnpublishedChanges()).toBe(course.hasUnpublishedChanges);
+                        expect(viewModel.isDirty()).toBe(course.isDirty);
                         done();
                     });
                 });
@@ -780,13 +780,13 @@
 
             var state;
             beforeEach(function () {
-                state = { hasUnpublishedChanges: true };
+                state = { isDirty: true };
             });
 
-            it('should update hasUnpublishedChanges', function () {
-                viewModel.hasUnpublishedChanges(false);
+            it('should update isDirty', function () {
+                viewModel.isDirty(false);
                 viewModel.stateChanged(state);
-                expect(viewModel.hasUnpublishedChanges()).toBe(state.hasUnpublishedChanges);
+                expect(viewModel.isDirty()).toBe(state.isDirty);
             });
         });
     });

@@ -54,13 +54,13 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
 
         [TestMethod]
         public void
-            Handle_CourseChangedEvent_Should_RaiseCourseStateUpdatedEvent_WhenCourseDoesNotHaveUnpublishedChanges()
+            Handle_CourseChangedEvent_Should_RaiseCourseStateUpdatedEvent_WhenCourseIsClean()
         {
             //Arrange
             var course = CourseObjectMother.Create();
             var info = new CourseInfo();
             _infoStorage.GetCourseInfoOrDefault(course).Returns(info);
-            _stateStorage.HasUnpublishedChanges(course).Returns(false);
+            _stateStorage.IsDirty(course).Returns(false);
 
             //Act
             _tracker.Handle(new CourseChangedEvent(course));
@@ -70,13 +70,13 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         }
 
         [TestMethod]
-        public void Handle_CourseChangedEvent_Should_Not_RaiseCourseStateUpdatedEvent_WhenCourse_HasUnpublishedChanges()
+        public void Handle_CourseChangedEvent_Should_Not_RaiseCourseStateUpdatedEvent_WhenCourseIsDirty()
         {
             //Arrange
             var course = CourseObjectMother.Create();
             var info = new CourseInfo();
             _infoStorage.GetCourseInfoOrDefault(course).Returns(info);
-            _stateStorage.HasUnpublishedChanges(course).Returns(true);
+            _stateStorage.IsDirty(course).Returns(true);
 
             //Act
             _tracker.Handle(new CourseChangedEvent(course));
@@ -86,35 +86,35 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         }
 
         [TestMethod]
-        public void Handle_CourseChangedEvent_Should_SaveState_WhenCourseDoesNotHaveUnpublishedChanges()
+        public void Handle_CourseChangedEvent_Should_SaveState_WhenCourseIsClean()
         {
             //Arrange
             var course = CourseObjectMother.Create();
             var info = new CourseInfo();
             _infoStorage.GetCourseInfoOrDefault(course).Returns(info);
-            _stateStorage.HasUnpublishedChanges(course).Returns(false);
+            _stateStorage.IsDirty(course).Returns(false);
 
             //Act
             _tracker.Handle(new CourseChangedEvent(course));
 
             //Asssert
-            _stateStorage.Received().SaveHasUnpublishedChanges(course, true);
+            _stateStorage.Received().MarkAsDirty(course);
         }
 
         [TestMethod]
-        public void Handle_CourseChangedEvent_Should_Not_SaveState_WhenCourse_HasUnpublishedChanges()
+        public void Handle_CourseChangedEvent_Should_Not_SaveState_WhenCourseIsDirty()
         {
             //Arrange
             var course = CourseObjectMother.Create();
             var info = new CourseInfo();
             _infoStorage.GetCourseInfoOrDefault(course).Returns(info);
-            _stateStorage.HasUnpublishedChanges(course).Returns(true);
+            _stateStorage.IsDirty(course).Returns(true);
 
             //Act
             _tracker.Handle(new CourseChangedEvent(course));
 
             //Asssert
-            _stateStorage.DidNotReceiveWithAnyArgs().SaveHasUnpublishedChanges(course, true);
+            _stateStorage.DidNotReceiveWithAnyArgs().MarkAsDirty(course);
         }
 
         #endregion
@@ -141,11 +141,11 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         #region Handle CoursePublishedEvent
 
         [TestMethod]
-        public void Handle_CoursePublishedEvent_Should_Not_PublishCourseStateChangedEvent_WhenCourse_DoesntHaveUnpublishedChanges()
+        public void Handle_CoursePublishedEvent_Should_Not_PublishCourseStateChangedEvent_WhenCourseIsClean()
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            _stateStorage.HasUnpublishedChanges(course).Returns(false);
+            _stateStorage.IsDirty(course).Returns(false);
 
             //Act
             _tracker.Handle(new CoursePublishedEvent(course));
@@ -155,17 +155,17 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         }
 
         [TestMethod]
-        public void Handle_CoursePublishedEvent_Should_Not_SaveState_WhenCourse_DoesntHaveUnpublishedChanges()
+        public void Handle_CoursePublishedEvent_Should_Not_SaveState_WhenCourseIsClean()
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            _stateStorage.HasUnpublishedChanges(course).Returns(false);
+            _stateStorage.IsDirty(course).Returns(false);
 
             //Act
             _tracker.Handle(new CoursePublishedEvent(course));
 
             //Asssert
-            _stateStorage.DidNotReceiveWithAnyArgs().SaveHasUnpublishedChanges(course, false);
+            _stateStorage.DidNotReceiveWithAnyArgs().MarkAsClean(course);
         }
 
         [TestMethod]
@@ -173,7 +173,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            _stateStorage.HasUnpublishedChanges(course).Returns(true);
+            _stateStorage.IsDirty(course).Returns(true);
             course.UpdatePublicationUrl(null);
 
             //Act
@@ -188,14 +188,14 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            _stateStorage.HasUnpublishedChanges(course).Returns(true);
+            _stateStorage.IsDirty(course).Returns(true);
             course.UpdatePublicationUrl(null);
 
             //Act
             _tracker.Handle(new CoursePublishedEvent(course));
 
             //Asssert
-            _stateStorage.DidNotReceiveWithAnyArgs().SaveHasUnpublishedChanges(course, false);
+            _stateStorage.DidNotReceiveWithAnyArgs().MarkAsClean(course);
         }
 
         [TestMethod]
@@ -203,7 +203,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            _stateStorage.HasUnpublishedChanges(course).Returns(true);
+            _stateStorage.IsDirty(course).Returns(true);
             course.UpdatePublicationUrl(PublicationUrl);
             _infoStorage.GetCourseInfoOrDefault(course).Returns(new CourseInfo { BuildStartedOn = DateTime.MinValue, ChangedOn = Now }); 
 
@@ -219,7 +219,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            _stateStorage.HasUnpublishedChanges(course).Returns(true);
+            _stateStorage.IsDirty(course).Returns(true);
             course.UpdatePublicationUrl(PublicationUrl);
             _infoStorage.GetCourseInfoOrDefault(course).Returns(new CourseInfo { BuildStartedOn = DateTime.MinValue, ChangedOn = Now }); 
 
@@ -227,7 +227,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
             _tracker.Handle(new CoursePublishedEvent(course));
 
             //Asssert
-            _stateStorage.DidNotReceiveWithAnyArgs().SaveHasUnpublishedChanges(course, false);
+            _stateStorage.DidNotReceiveWithAnyArgs().MarkAsClean(course);
         }
 
         [TestMethod]
@@ -235,7 +235,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            _stateStorage.HasUnpublishedChanges(course).Returns(true);
+            _stateStorage.IsDirty(course).Returns(true);
             course.UpdatePublicationUrl(PublicationUrl);
             _infoStorage.GetCourseInfoOrDefault(course).Returns(new CourseInfo { BuildStartedOn = Now, ChangedOn = Now }); 
 
@@ -251,7 +251,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            _stateStorage.HasUnpublishedChanges(course).Returns(true);
+            _stateStorage.IsDirty(course).Returns(true);
             course.UpdatePublicationUrl(PublicationUrl);
             _infoStorage.GetCourseInfoOrDefault(course).Returns(new CourseInfo { BuildStartedOn = Now, ChangedOn = Now }); 
 
@@ -259,7 +259,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
             _tracker.Handle(new CoursePublishedEvent(course));
 
             //Asssert
-            _stateStorage.Received().SaveHasUnpublishedChanges(course, false);
+            _stateStorage.Received().MarkAsClean(course);
         }
 
         #endregion
@@ -276,7 +276,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
             _tracker.Handle(new CourseDeletedEvent(course, new List<string>(), "admin"));
 
             //Asssert
-            _stateStorage.Received().RemoveCourseState(course);
+            _stateStorage.Received().RemoveState(course);
         }
 
         [TestMethod]

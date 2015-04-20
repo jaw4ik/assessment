@@ -89,7 +89,7 @@ namespace easygenerator.Web.Synchronization.Handlers
 
         public void Handle(CourseStateChangedEvent args)
         {
-            _broadcaster.AllCollaborators(args.Course).courseStateChanged(args.Course.Id.ToNString(), new { hasUnpublishedChanges = args.HasUnpublishedChanges });
+            _broadcaster.AllCollaborators(args.Course).courseStateChanged(args.Course.Id.ToNString(), new { isDirty = args.IsDirty });
         }
     }
 }

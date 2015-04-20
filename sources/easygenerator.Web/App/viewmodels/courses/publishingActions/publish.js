@@ -26,7 +26,7 @@
             viewModel.coursePublishFailed = coursePublishFailed;
             viewModel.courseStateChanged = courseStateChanged;
 
-            viewModel.courseHasUnpublishedChanges = ko.observable();
+            viewModel.courseIsDirty = ko.observable();
 
             viewModel.frameWidth = ko.observable(_.isNullOrUndefined(clientContext.get(constants.frameSize.width.name)) ? constants.frameSize.width.value : clientContext.get(constants.frameSize.width.name));
             viewModel.frameHeight = ko.observable(_.isNullOrUndefined(clientContext.get(constants.frameSize.height.name)) ? constants.frameSize.height.value : clientContext.get(constants.frameSize.height.name));
@@ -59,7 +59,7 @@
                     baseActivate(course, course.publish);
 
                     viewModel.eventCategory = eventCategory;
-                    viewModel.courseHasUnpublishedChanges(course.hasUnpublishedChanges);
+                    viewModel.courseIsDirty(course.isDirty);
                     viewModel.linkCopied = ko.observable(false);
                     viewModel.embedCodeCopied = ko.observable(false);
                     viewModel.copyBtnDisabled = ko.observable(false);
@@ -128,7 +128,7 @@
             //#region App-wide events
 
             function courseStateChanged(state) {
-                viewModel.courseHasUnpublishedChanges(state.hasUnpublishedChanges);
+                viewModel.courseIsDirty(state.isDirty);
             }
 
             function courseBuildStarted(course) {

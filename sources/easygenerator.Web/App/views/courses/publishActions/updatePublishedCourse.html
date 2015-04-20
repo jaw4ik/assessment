@@ -1,4 +1,4 @@
-﻿<div class="publish-tab-update-course-wrapper" data-bind="css: { shown: courseHasUnpublishedChanges }">
+﻿<div class="publish-tab-update-course-wrapper" data-bind="css: { shown: courseIsDirty }">
     <div class="publish-tab-update-course">
         <div class="publish-tab-update-course-info">
             <div class="publish-tab-update-course-image"></div>
@@ -7,7 +7,7 @@
             </div>
         </div>
         <div class="publish-tab-update-course-action">
-            <button class="btn green publish-tab-btn" data-bind="click: publishCourse, css:{ 'disabled': isCourseDelivering(), 'progress': isPublishing() }, disable: isCourseDelivering() || !courseHasUnpublishedChanges()">
+            <button class="btn green publish-tab-btn" data-bind="click: publishCourse, css:{ 'disabled': isCourseDelivering(), 'progress': isPublishing() }, disable: isCourseDelivering() || !courseIsDirty()">
                 <!-- ko if: isPublishing() -->
                 <!-- ko if: state() === states.publishing || state() === states.building  -->
                 <span class="publish-tab-btn-caption"></span>

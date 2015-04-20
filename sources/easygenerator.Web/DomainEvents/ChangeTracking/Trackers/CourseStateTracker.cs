@@ -31,11 +31,11 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
             info.ChangedOn = DateTimeWrapper.Now();
             _infoStorage.SaveCourseInfo(args.Course, info);
 
-            if (_stateStorage.HasUnpublishedChanges(args.Course))
+            if (_stateStorage.IsDirty(args.Course))
                 return;
 
             _eventPublisher.Publish(new CourseStateChangedEvent(args.Course, true));
-            _stateStorage.SaveHasUnpublishedChanges(args.Course, true);
+            _stateStorage.MarkAsDirty(args.Course);
         }
 
         public void Handle(CourseBuildStartedEvent args)
@@ -47,7 +47,7 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
 
         public void Handle(CoursePublishedEvent args)
         {
-            if (!_stateStorage.HasUnpublishedChanges(args.Course))
+            if (!_stateStorage.IsDirty(args.Course))
                 return;
 
             if (!IsPublishSuccessful(args.Course))
@@ -58,13 +58,13 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
                 return;
 
             _eventPublisher.Publish(new CourseStateChangedEvent(args.Course, false));
-            _stateStorage.SaveHasUnpublishedChanges(args.Course, false);
+            _stateStorage.MarkAsClean(args.Course);
         }
 
         public void Handle(CourseDeletedEvent args)
         {
             _infoStorage.RemoveCourseInfo(args.Course);
-            _stateStorage.RemoveCourseState(args.Course);
+            _stateStorage.RemoveState(args.Course);
         }
 
         private bool IsPublishSuccessful(Course course)

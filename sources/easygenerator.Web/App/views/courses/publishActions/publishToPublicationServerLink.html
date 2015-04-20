@@ -13,7 +13,7 @@
                 <div class="publish-tab-link-control-container">
                     <input type="text" class="publish-tab-input" readonly="readonly" data-bind="value: packageUrl(), selectText: state() === states.succeed" />
                     <div class="copy-btn-wrapper">
-                        <button class="btn" data-bind="copyToClipboard: { value: packageUrl, onCopied: copyLinkToClipboard, isDisabled: copyBtnDisabled }, css: { green: !courseHasUnpublishedChanges(), 'green-white': courseHasUnpublishedChanges(), copied: linkCopied, disabled: copyBtnDisabled }, attr: { disabled: copyBtnDisabled() }">
+                        <button class="btn" data-bind="copyToClipboard: { value: packageUrl, onCopied: copyLinkToClipboard, isDisabled: copyBtnDisabled }, css: { green: !courseIsDirty(), 'green-white': courseIsDirty(), copied: linkCopied, disabled: copyBtnDisabled }, attr: { disabled: copyBtnDisabled() }">
                             <span data-bind="localize: { text: linkCopied() ? 'copied' : 'copy' }"></span>
                         </button>
                     </div>

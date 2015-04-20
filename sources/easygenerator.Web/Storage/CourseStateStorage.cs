@@ -21,49 +21,62 @@ namespace easygenerator.Web.Storage
             _unitOfWork = unitOfWork;
         }
 
-        public bool HasUnpublishedChanges(Course course)
+        public bool IsDirty(Course course)
         {
             var info = _inMemoryStorage.GetCourseInfo(course);
             if (info != null)
             {
-                return info.HasUnpublishedChanges;
+                return info.IsDirty;
             }
 
             info = new CourseInfo();
             var state = _repository.GetByCourseId(course.Id);
             if (state != null)
             {
-                info.HasUnpublishedChanges = state.HasUnpublishedChanges;
+                info.IsDirty = state.IsDirty;
             }
 
             _inMemoryStorage.SaveCourseInfo(course, info);
 
-            return info.HasUnpublishedChanges;
+            return info.IsDirty;
         }
 
-        public void SaveHasUnpublishedChanges(Course course, bool hasUnpublishedChanges)
+        public void MarkAsDirty(Course course)
         {
-            var info = _inMemoryStorage.GetCourseInfoOrDefault(course);
-            info.HasUnpublishedChanges = hasUnpublishedChanges;
-            _inMemoryStorage.SaveCourseInfo(course, info);
-            SaveCourseStateToRepository(course, hasUnpublishedChanges);
+            SaveIsDirtyState(course, true);
         }
 
-        public void RemoveCourseState(Course course)
+        public void MarkAsClean(Course course)
+        {
+            SaveIsDirtyState(course, false);
+        }
+
+        public void RemoveState(Course course)
         {
             _inMemoryStorage.RemoveCourseInfo(course);
         }
 
-        private void SaveCourseStateToRepository(Course course, bool hasUnpublishedChanges)
+        private void SaveIsDirtyState(Course course, bool isDirty)
         {
+            var info = _inMemoryStorage.GetCourseInfoOrDefault(course);
+            info.IsDirty = isDirty;
+            _inMemoryStorage.SaveCourseInfo(course, info);
+
             var state = _repository.GetByCourseId(course.Id);
             if (state == null)
             {
-                _repository.Add(_entityFactory.CourseState(course, hasUnpublishedChanges));
+                _repository.Add(_entityFactory.CourseState(course, isDirty));
             }
             else
             {
-                state.UpdateHasUnpublishedChanges(hasUnpublishedChanges);
+                if (isDirty)
+                {
+                    state.MarkAsDirty();
+                }
+                else
+                {
+                    state.MarkAsClean();
+                }
             }
 
             _unitOfWork.Save();

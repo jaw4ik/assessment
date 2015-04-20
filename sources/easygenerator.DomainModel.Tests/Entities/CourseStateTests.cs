@@ -26,22 +26,37 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             courseState.Id.Should().NotBeEmpty();
             courseState.Course.Should().Be(course);
-            courseState.HasUnpublishedChanges.Should().BeTrue();
+            courseState.IsDirty.Should().BeTrue();
         }
 
         #endregion
 
-        #region UpdateHasUnpublishedChanges
+        #region MarkAsDirty
 
         [TestMethod]
-        public void UpdateHasUnpublishedChanges_Should_UpdateHasUnpublishedChanges()
+        public void MarkAsDirty_Should_SetIsDirty_ToTrue()
+        {
+            var course = CourseObjectMother.Create();
+            var courseState = CourseStateObjectMother.Create(course);
+
+            courseState.MarkAsDirty();
+
+            courseState.IsDirty.Should().BeTrue();
+        }
+
+        #endregion
+
+        #region MarkAsClean
+
+        [TestMethod]
+        public void MarkAsDirty_Should_SetIsDirty_ToFalse()
         {
             var course = CourseObjectMother.Create();
             var courseState = CourseStateObjectMother.Create(course, true);
 
-            courseState.UpdateHasUnpublishedChanges(false);
+            courseState.MarkAsClean();
 
-            courseState.HasUnpublishedChanges.Should().BeFalse();
+            courseState.IsDirty.Should().BeFalse();
         }
 
         #endregion

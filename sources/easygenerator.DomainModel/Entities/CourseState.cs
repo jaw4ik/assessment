@@ -5,21 +5,26 @@ namespace easygenerator.DomainModel.Entities
     public class CourseState : Identifiable
     {
         public virtual Course Course { get; private set; }
-        public bool HasUnpublishedChanges { get; private set; }
+        public bool IsDirty { get; private set; }
 
         protected internal CourseState() { }
 
-        protected internal CourseState(Course course, bool hasUnpublishedChanges)
+        protected internal CourseState(Course course, bool isDirty)
         {
             ArgumentValidation.ThrowIfNull(course, "course");
 
             Course = course;
-            HasUnpublishedChanges = hasUnpublishedChanges;
+            IsDirty = isDirty;
         }
 
-        public void UpdateHasUnpublishedChanges(bool value)
+        public void MarkAsDirty()
         {
-            HasUnpublishedChanges = value;
+            IsDirty = true;
+        }
+
+        public void MarkAsClean()
+        {
+            IsDirty = false;
         }
     }
 }
