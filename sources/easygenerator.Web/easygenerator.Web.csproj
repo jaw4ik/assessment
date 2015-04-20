@@ -647,7 +647,6 @@
     <Content Include="App\views\courses\publishActions\publishAsHtml.html" />
     <Content Include="App\views\courses\publishActions\publishAsScorm.html" />
     <Content Include="App\views\courses\publishActions\updatePublishedCourse.html" />
-    <Content Include="App\views\courses\results.html" />
     <Content Include="App\views\objectives\index.html" />
     <Content Include="App\views\questions\statement\statement.html" />
     <Content Include="BuildCourse\Modules\js\branding.js" />
@@ -2338,8 +2337,6 @@
     <Content Include="App\views\courses\course\create\course.html" />
     <Content Include="App\views\courses\courseComments.html" />
     <Content Include="App\views\courses\courses.html" />
-    <Content Include="App\views\courses\design.html" />
-    <Content Include="App\views\courses\publish.html" />
     <Content Include="App\views\errors\404.html" />
     <Content Include="App\views\objectives\objective.html" />
     <Content Include="App\views\objectives\objectives.html" />
