@@ -97,6 +97,10 @@ namespace easygenerator.Web.BuildCourse
             {
                 return MapInformationContent(question as InformationContent);
             }
+            if (questionType == typeof(Open))
+            {
+                return MapOpen(question as Open);
+            }
 
             throw new NotSupportedException();
         }
@@ -114,6 +118,12 @@ namespace easygenerator.Web.BuildCourse
         {
             return MapQuestion<InformationContentPackageModel>(question);
         }
+
+        private OpenPackageModel MapOpen(Open question)
+        {
+            return MapQuestion<OpenPackageModel>(question);
+        }
+
 
         private TextMatchingPackageModel MapTextMatching(TextMatching question)
         {
@@ -204,6 +214,7 @@ namespace easygenerator.Web.BuildCourse
             packageModel.Feedback = question.Feedback ?? new Feedback();
             packageModel.HasCorrectFeedback = !String.IsNullOrWhiteSpace(question.Feedback.CorrectText);
             packageModel.HasIncorrectFeedback = !String.IsNullOrWhiteSpace(question.Feedback.IncorrectText);
+            packageModel.HasGeneralFeedback = !String.IsNullOrWhiteSpace(question.Feedback.GeneralText);
         }
 
         private AnswerOptionPackageModel MapAnswer(Answer answer)

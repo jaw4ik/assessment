@@ -229,7 +229,7 @@ namespace easygenerator.Web.Tests.BuildCourse
         public void AddBuildContentToPackageDirectory_ShouldWriteQuestionCorrectFeedbackToFile_WhenItIsNotEmpty()
         {
             //Arrange
-            var feedbackContentPath = "SomePath";
+            var feedbackContentPath = "correctFeedbackPath";
 
             _buildPathProvider.GetCorrectFeedbackContentFileName(Arg.Any<string>(),
                 _course.RelatedObjectives.ToArray()[0].Id.ToNString(),
@@ -247,7 +247,7 @@ namespace easygenerator.Web.Tests.BuildCourse
         public void AddBuildContentToPackageDirectory_ShouldWriteQuestionIncorrectFeedbackToFile_WhenItIsNotEmpty()
         {
             //Arrange
-            var feedbackContentPath = "SomePath";
+            var feedbackContentPath = "incorrectFeedbackPath";
 
             _buildPathProvider.GetIncorrectFeedbackContentFileName(Arg.Any<string>(),
                 _course.RelatedObjectives.ToArray()[0].Id.ToNString(),
@@ -259,6 +259,24 @@ namespace easygenerator.Web.Tests.BuildCourse
 
             //Assert
             _fileManager.Received().WriteToFile(feedbackContentPath, _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Feedback.IncorrectText);
+        }
+
+        [TestMethod]
+        public void AddBuildContentToPackageDirectory_ShouldWriteQuestionGeneralFeedbackToFile_WhenItIsNotEmpty()
+        {
+            //Arrange
+            var feedbackContentPath = "generalFeedbackPath";
+
+            _buildPathProvider.GetGeneralFeedbackContentFileName(Arg.Any<string>(),
+                _course.RelatedObjectives.ToArray()[0].Id.ToNString(),
+                _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Id.ToNString())
+                .Returns(feedbackContentPath);
+
+            //Act
+            _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, _packageModules);
+
+            //Assert
+            _fileManager.Received().WriteToFile(feedbackContentPath, _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Feedback.GeneralText);
         }
 
         #endregion
@@ -433,6 +451,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             question.AddLearningContent(explanation, "SomeUser");
             question.UpdateCorrectFeedbackText("Correct feedback text");
             question.UpdateIncorrectFeedbackText("Incorrect feedback text");
+            question.UpdateGeneralFeedbackText("General feedback text");
 
             var objective = ObjectiveObjectMother.Create("ObjectiveTitle");
             objective.AddQuestion(question, "SomeUser");

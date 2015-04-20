@@ -276,6 +276,35 @@ namespace easygenerator.Web.Tests.Controllers
 
         #endregion
 
+        #region GetPreviewGeneralFeedback
+
+        [TestMethod]
+        public void GetPreviewGeneralFeedback_ShouldReturnHttpNotFoundCodeResult_WhenQuestionDoesNotExist()
+        {
+            //Act
+            var result = _controller.GetPreviewGeneralFeedback(null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult();
+        }
+
+        [TestMethod]
+        public void GetPreviewGeneralFeedback_ShouldReturnCorrectFeedbackContent()
+        {
+            //Arrange
+            const String generalFeedbackContent = "<p>General feedback</p>";
+            var question = MultipleselectObjectMother.Create();
+            question.UpdateGeneralFeedbackText(generalFeedbackContent);
+
+            //Act
+            var result = _controller.GetPreviewGeneralFeedback(question);
+
+            //Assert
+            result.Should().BeContentResultWithValue(generalFeedbackContent);
+        }
+
+        #endregion
+
         #region GetPreviewCourseData
 
         [TestMethod]

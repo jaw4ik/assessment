@@ -22,5 +22,6 @@ namespace easygenerator.Web.BuildCourse.PackageModel
         public Feedback Feedback { get; set; }
         public bool HasCorrectFeedback { get; set; }
         public bool HasIncorrectFeedback { get; set; }
+        public bool HasGeneralFeedback { get; set; }
     }
 }
