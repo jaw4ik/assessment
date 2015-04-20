@@ -18,7 +18,7 @@
 
     var self = {
         questionId: null,
-        maxWidth: 899,
+        maxWidth: 941,
         maxHeight: 785,
         events: {
             createRectangle: 'Add hotspot rectangle',

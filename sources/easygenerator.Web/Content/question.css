@@ -1475,6 +1475,8 @@
   margin-top: -8px;
   position: absolute;
   top: 50%;
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   width: 16px;
 }

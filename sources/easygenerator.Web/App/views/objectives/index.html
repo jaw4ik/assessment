@@ -1,19 +1,9 @@
 ﻿<section>
 
-    <div data-bind="router: {}, style: { opacity: router.isViewReady() ? '1' : '0' }">
-    </div>
+    <div data-bind="router: {}, style: { opacity: router.isViewReady() ? '1' : '0' }"></div>
 
     <!-- ko ifnot: router.isViewReady -->
-    <div class="circular-loader x32 black align-center">
-        <div class="circular-loader-item"></div>
-        <div class="circular-loader-item"></div>
-        <div class="circular-loader-item"></div>
-        <div class="circular-loader-item"></div>
-        <div class="circular-loader-item"></div>
-        <div class="circular-loader-item"></div>
-        <div class="circular-loader-item"></div>
-        <div class="circular-loader-item"></div>
-    </div>
+        <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center' } } --><!-- /ko -->
     <!-- /ko -->
 
 </section>

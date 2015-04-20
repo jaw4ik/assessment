@@ -1663,10 +1663,12 @@
     <Content Include="Templates\Exam\settings\css\fonts\opensans-italic-400.woff" />
     <Content Include="Templates\Exam\settings\css\settings.css" />
     <Content Include="Templates\Exam\settings\img\graphical.png" />
+    <Content Include="Templates\Exam\settings\img\language.png" />
     <Content Include="Templates\Exam\settings\img\mastery.png" />
     <Content Include="Templates\Exam\settings\img\sprites_16.png" />
     <Content Include="Templates\Exam\settings\img\track.png" />
-    <Content Include="Templates\Exam\settings\js\settings.js" />
+    <Content Include="Templates\Exam\settings\js\api.js" />
+    <Content Include="Templates\Exam\settings\js\settings.min.js" />
     <Content Include="Templates\Exam\settings\js\vendor.min.js" />
     <Content Include="Templates\Exam\settings\settings.html" />
     <Content Include="Templates\Personalized learning\app\main.js" />
@@ -2035,6 +2037,8 @@
     <Content Include="Templates\Reader\css\fonts\Ubuntu-Regular.woff" />
     <Content Include="Templates\Reader\lang\en.json" />
     <Content Include="Templates\Reader\lang\ua.json" />
+    <Content Include="Templates\Exam\lang\en.json" />
+    <Content Include="Templates\Exam\lang\ua.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
