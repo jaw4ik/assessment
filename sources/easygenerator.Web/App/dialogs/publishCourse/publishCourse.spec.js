@@ -2,11 +2,18 @@
 
     "use strict";
 
-    var repository = require('repositories/courseRepository'),
-        router = require('plugins/router'),
-        Course = require('models/course');
+    var eventTracker = require('eventTracker'),
+        constants = require('constants'),
+        publishAction = require('viewmodels/courses/publishingActions/publish')
+    ;
 
     describe('dialog [publishCourse]', function () {
+        publishAction = publishAction();		
+        viewModel.publishAction = publishAction;
+
+        beforeEach(function () {
+            spyOn(eventTracker, 'publish');
+        });
 
         it('should be defined', function () {
             expect(viewModel).toBeDefined();
@@ -19,58 +26,39 @@
         });
 
         describe('publishAction:', function () {
-            it('should be observable', function () {
-                expect(viewModel.publishAction).toBeObservable();
-            });
-        });
-
-        describe('states:', function () {
             it('should be defined', function () {
-                expect(viewModel.states).toBeDefined();
+                expect(viewModel.publishAction).toBeDefined();
             });
         });
 
         describe('show:', function () {
-
-            var getCourse,
-                courseId = 'courseId';
+            var courseId = 'courseId';
 
             beforeEach(function () {
-                getCourse = Q.defer();
-                spyOn(repository, 'getById').and.returnValue(getCourse.promise);;
-                router.routeData({ courseId: courseId });
+                spyOn(publishAction, 'activate');
             });
 
             it('should be function', function () {
                 expect(viewModel.show).toBeFunction();
             });
 
-            describe('and when course is received', function () {
+            it('should set isShown to true', function () {
+                viewModel.isShown(false);
+                viewModel.show(courseId);
+                expect(viewModel.isShown()).toBeTruthy();
+            });
 
-                beforeEach(function () {
-                    getCourse.resolve(new Course({ id: courseId }));
-                });
-
-                it('should set isShown to true', function (done) {
-                    viewModel.isShown(false);
-                    viewModel.show().fin(function () {
-                        expect(viewModel.isShown()).toBeTruthy();
-                        done();
-                    });
-                });
-
-                it('should define publishAction', function (done) {
-                    viewModel.publishAction(null);
-
-                    viewModel.show().fin(function () {
-                        expect(viewModel.publishAction()).toBeDefined();
-                        done();
-                    });
-                });
+            it('should activate publishAction', function () {
+                viewModel.show(courseId);
+                expect(viewModel.publishAction.activate).toHaveBeenCalledWith(courseId);
             });
         });
 
         describe('hide:', function () {
+
+            beforeEach(function () {
+                spyOn(publishAction, 'deactivate');
+            });
 
             it('should be function', function () {
                 expect(viewModel.hide).toBeFunction();
@@ -82,6 +70,91 @@
                 expect(viewModel.isShown()).toBeFalsy();
             });
 
+            it('should deactivate publishAction', function () {
+                viewModel.hide();
+                expect(viewModel.publishAction.deactivate).toHaveBeenCalled();
+            });
+        });
+
+        describe('embedTabOpened:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.embedTabOpened).toBeObservable();
+            });
+
+        });
+
+        describe('linkTabOpened', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.linkTabOpened).toBeObservable();
+            });
+
+        });
+
+        describe('openEmbedTab:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.openEmbedTab).toBeFunction();
+            });
+
+            describe('when embed tab not opened', function () {
+
+                beforeEach(function () {
+                    viewModel.embedTabOpened(false);
+                });
+
+                it('should send event \'Open embed tab\'', function () {
+                    viewModel.openEmbedTab();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Open embed tab', constants.eventCategories.header);
+                });
+
+                it('should close link tab', function () {
+                    viewModel.linkTabOpened(true);
+                    viewModel.openEmbedTab();
+                    expect(viewModel.linkTabOpened()).toBeFalsy();
+                });
+
+                it('should open embed tab', function () {
+                    viewModel.linkTabOpened(true);
+                    viewModel.openEmbedTab();
+                    expect(viewModel.embedTabOpened()).toBeTruthy();
+                });
+
+            });
+
+        });
+
+        describe('openLinkTab:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.openLinkTab).toBeFunction();
+            });
+
+            describe('when embed tab not opened', function () {
+
+                beforeEach(function () {
+                    viewModel.linkTabOpened(false);
+                });
+
+                it('should send event \'Open link tab\'', function () {
+                    viewModel.openLinkTab();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Open link tab', constants.eventCategories.header);
+                });
+
+                it('should open link tab', function () {
+                    viewModel.embedTabOpened(true);
+                    viewModel.openLinkTab();
+                    expect(viewModel.linkTabOpened()).toBeTruthy();
+                });
+
+                it('should close embed tab', function () {
+                    viewModel.embedTabOpened(true);
+                    viewModel.openLinkTab();
+                    expect(viewModel.embedTabOpened()).toBeFalsy();
+                });
+
+            });
         });
 
     });

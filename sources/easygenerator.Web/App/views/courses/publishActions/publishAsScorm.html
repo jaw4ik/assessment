@@ -1,23 +1,23 @@
 ﻿<div class="publish-tab-content" data-tab-content="scorm">
     <div class="publish-tab-content-wrapper">
-        <!-- ko if: scormBuildAction() -->
+        <!-- ko if: userHasPublishAccess -->
         <div class="publish-tab-container">
             <h2 class="publish-tab-header" data-bind="localize: {text: 'downloadScorm12Package'}">Publish to LMS </h2>
             <div class="publish-tab-action-content">
                 <p data-bind="localize: {text: 'scormCaptionFirst'}">Want to run your course on LMS or on your SCROM cloud?</p>
                 <p data-bind="localize: {text: 'scormCaptionSecond'}">We package up all the SCORM 1.2 package.</p>
             </div>
-            <button class="btn green publish-tab-btn" data-bind="click: scormBuildAction().downloadCourse, css:{'disabled': isCourseDelivering(),'progress' : scormBuildAction().isPublishing()}">
-                <!-- ko if: scormBuildAction().isPublishing() -->
+            <button class="btn green publish-tab-btn" data-bind="click: downloadCourse, css:{'disabled': isCourseDelivering(),'progress' : isPublishing()}">
+                <!-- ko if: isPublishing() -->
                 <span data-bind="localize: { text: 'assembling' }" class="publish-tab-btn-caption"></span>
                 <!-- /ko -->
-                <!-- ko ifnot: scormBuildAction().isPublishing() -->
+                <!-- ko ifnot: isPublishing() -->
                 <span data-bind="localize: { text: 'courseDownloadScormAction' }" class="publish-tab-btn-caption"></span>
                 <!-- /ko -->
             </button>
         </div>
         <!-- /ko -->
-        <!-- ko ifnot: scormBuildAction() -->
+        <!-- ko ifnot: userHasPublishAccess -->
         <div class="publish-tab-container">
             <span class="publish-tab-scorm-locked"></span>
             <h2 class="publish-tab-header" data-bind="localize: {text: 'downloadScorm12Package'}">Publish to LMS </h2>

@@ -1,25 +1,49 @@
-﻿define(['plugins/router', 'viewmodels/courses/publishingActions/publish', 'repositories/courseRepository', 'constants'], function (router, publishAction, repository, constants) {
+﻿define(['viewmodels/courses/publishingActions/publish', 'constants', 'eventTracker'],
+    function (publishAction, constants, eventTracker) {
 
-    "use strict";
+        "use strict";
 
-    var viewModel = {
-        isShown: ko.observable(false),
-        publishAction: ko.observable(),
-        states: constants.publishingStates,
-        show: show,
-        hide: hide
-    };
+        var events = {
+            openEmbedTab: 'Open embed tab',
+            openLinkTab: 'Open link tab'
+        };
 
-    return viewModel;
+        var viewModel = {
+            isShown: ko.observable(false),
+            publishAction: publishAction(constants.eventCategories.header),
+            show: show,
+            hide: hide,
+            embedTabOpened: ko.observable(false),
+            linkTabOpened: ko.observable(true),
+            openEmbedTab: openEmbedTab,
+            openLinkTab: openLinkTab
+        };
 
-    function show(courseId) {
-        return repository.getById(courseId).then(function (course) {
-            viewModel.publishAction(publishAction(course, constants.eventCategories.header));
+        return viewModel;
+
+        function show(courseId) {
+            viewModel.publishAction.activate(courseId);
             viewModel.isShown(true);
-        });
-    }
+        }
 
-    function hide() {
-        viewModel.isShown(false);
-    }
-});
+        function hide() {
+            viewModel.isShown(false);
+            viewModel.publishAction.deactivate();
+        }
+
+        function openEmbedTab() {
+            if (!viewModel.embedTabOpened()) {
+                eventTracker.publish(events.openEmbedTab, constants.eventCategories.header);
+                viewModel.linkTabOpened(false);
+                viewModel.embedTabOpened(true);
+            }
+        }
+
+        function openLinkTab() {
+            if (!viewModel.linkTabOpened()) {
+                eventTracker.publish(events.openLinkTab, constants.eventCategories.header);
+                viewModel.embedTabOpened(false);
+                viewModel.linkTabOpened(true);
+            }
+        }
+    });

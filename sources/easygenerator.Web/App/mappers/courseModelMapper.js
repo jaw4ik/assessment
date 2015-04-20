@@ -16,6 +16,7 @@
                         });
                     }),
                     publishedPackageUrl: item.PublishedPackageUrl,
+                    isDirty: item.IsDirty,
                     builtOn: _.isNullOrUndefined(item.builtOn) ? null : new Date(item.builtOn),
                     packageUrl: item.PackageUrl,
                     reviewUrl: item.ReviewUrl,
