@@ -1,7 +1,5 @@
 @import "common";
 
-
-
 .login {
     position: relative;
     height: 100%;
@@ -53,6 +51,7 @@
                         font-size: 14px;
                         color: #555;
                         text-transform: uppercase;
+                        .crop-text-by-size-with-dots(250px);
                     }
 
                     .course-title {
@@ -130,6 +129,7 @@
                         .login-error-text {
                             font: 12px 'RobotoRegular';
                             color: #f16162;
+                            .crop-text-by-size-with-dots(100%);
                         }
                     }
                 }
@@ -137,6 +137,7 @@
                 .login-tooltip-container {
                     position: relative;
                     display: inline-block;
+                    max-width: 100%;
                     margin-bottom: 20px;
                     padding: 16px 27px 19px;
                     font: 18px 'RobotoslabRegular';
@@ -145,6 +146,15 @@
                     background-color: #d9ecf1;
                     border-radius: 10px;
                     line-height: 28px;
+                    .border-box;
+
+                    .text {
+                        .crop-text-by-size-with-dots(100%, block);
+
+                        &.small {
+                            font: 14px 'RobotoslabLight';
+                        }
+                    }
 
                     &:before {
                         content: "";
@@ -159,27 +169,38 @@
                         -webkit-transform: rotate(45deg);
                         transform: rotate(45deg);
                     }
-
-                    div {
-                        font: 14px 'RobotoslabLight';
-                    }
                 }
 
                 .login-form-submit-container {
-                    width: 392px;
+                    width: 455px;
                     margin: 0 auto;
                     text-align: center;
 
                     .button.large {
-                        display: block;
-                        padding: 0 19px;
+                        max-width: 100%;
+                        white-space: nowrap;
+
+                        .wrapper {
+                            display: inline-block;
+                            max-width: 100%;
+                            padding: 0 20px;
+                            .border-box;
+
+                            span {
+                                vertical-align: top;
+                            }
+
+                            .text {
+                                .crop-text-by-size-with-dots(100%);
+                            }
+                        }
                     }
 
                     .login-description {
-                        display: inline-block;
                         margin-top: 10px;
                         font: 12px/20px 'RobotoRegular';
                         color: #999;
+                        .crop-text-by-size-with-dots-multiline(100%);
                     }
                 }
             }
@@ -208,25 +229,35 @@
             }
         }
 
-        .login-skip-text {
+        .login-skip-text-wrapper {
             position: absolute;
-            font: 18px 'Rabiohead';
+            height: 35px;
+            min-width: 30px;
+            top: 42px;
+            right: 15px;
+            padding: 10px 15px 0 0;
+            font: 18px Rabiohead, BadScriptRegular;
             color: #8f8f8f;
-            top: 60px;
-            right: 30px;
 
-            &:before {
-                .before-image(url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACcAAAANCAYAAAAqlHdlAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6ODYxRUQyM0M4RUYxMTFFNEI2OUVGNjY5Rjc5QkM5RTAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6ODYxRUQyM0Q4RUYxMTFFNEI2OUVGNjY5Rjc5QkM5RTAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4NjFFRDIzQThFRjExMUU0QjY5RUY2NjlGNzlCQzlFMCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4NjFFRDIzQjhFRjExMUU0QjY5RUY2NjlGNzlCQzlFMCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pg4DHVYAAAGRSURBVHjatNVLKIRRGMZxjJBriFwSSpSwmCmXnSjWEgsbFhplwUYpNpRkZ8XGRklK2ViglDTKNSxI7pRyC7kWcvufehY2xsz0zalfs5jO1/O973nPF+h0OgP8vDLQjhVM4drTjcF+DhaEGqSgGlVYxiw28OVus83hcPgz3DcWMY0rFcOOMlQiBo+4t7JyNlUjGXGIRDgC8YE3vONJHlQxEzIM+ShQUFPRc7V9Dfva61W4JBTBlDodFzjDrcL8PksmaDTSEIt4JCACd9p7CRfGFCZLbc/W/7uehMtFrcItYASHapm3K1QVT9Vz67GKHuygRF0xAbfchTNv2qBpG8WSj4F+L1PhU+So+n16ppnmQhxhBr2mmn+FK0UjJtGvc2TVtWJa94kbtOiczqMNJ+4GIgTNyEM3DiwKZYagDhW6PqJwjGEFe/1vWs3UdeIFrfq1Ypl2NSFRB9+l1u15eglnogvrGLSojbHqQrGmeghzePbmC2HXgZzAuMWfLTMAHdj2ZZhMuHIMqNxWrk3xef0IMACumWDhPmSz8gAAAABJRU5ErkJggg=='), 30px, -10px, 39px, 13px)
+            .login-skip-text-arrow {
+                .before-image(url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACcAAAANCAYAAAAqlHdlAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6ODYxRUQyM0M4RUYxMTFFNEI2OUVGNjY5Rjc5QkM5RTAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6ODYxRUQyM0Q4RUYxMTFFNEI2OUVGNjY5Rjc5QkM5RTAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4NjFFRDIzQThFRjExMUU0QjY5RUY2NjlGNzlCQzlFMCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4NjFFRDIzQjhFRjExMUU0QjY5RUY2NjlGNzlCQzlFMCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pg4DHVYAAAGRSURBVHjatNVLKIRRGMZxjJBriFwSSpSwmCmXnSjWEgsbFhplwUYpNpRkZ8XGRklK2ViglDTKNSxI7pRyC7kWcvufehY2xsz0zalfs5jO1/O973nPF+h0OgP8vDLQjhVM4drTjcF+DhaEGqSgGlVYxiw28OVus83hcPgz3DcWMY0rFcOOMlQiBo+4t7JyNlUjGXGIRDgC8YE3vONJHlQxEzIM+ShQUFPRc7V9Dfva61W4JBTBlDodFzjDrcL8PksmaDTSEIt4JCACd9p7CRfGFCZLbc/W/7uehMtFrcItYASHapm3K1QVT9Vz67GKHuygRF0xAbfchTNv2qBpG8WSj4F+L1PhU+So+n16ppnmQhxhBr2mmn+FK0UjJtGvc2TVtWJa94kbtOiczqMNJ+4GIgTNyEM3DiwKZYagDhW6PqJwjGEFe/1vWs3UdeIFrfq1Ypl2NSFRB9+l1u15eglnogvrGLSojbHqQrGmeghzePbmC2HXgZzAuMWfLTMAHdj2ZZhMuHIMqNxWrk3xef0IMACumWDhPmSz8gAAAABJRU5ErkJggg=='), auto, 0, 39px, 13px);
+                right: 0;
+            }
+
+            .login-skip-text {
+                .crop-text-by-size-with-dots(120px);
             }
         }
 
         .login-skip-link {
             display: none;
+            max-width: 100%;
             margin: 20px 0;
             font: 14px 'RobotoRegular';
             text-transform: uppercase;
             color: #777;
             cursor: pointer;
+            .crop-text-with-dots;
         }
     }
 }
@@ -236,14 +267,6 @@
     .login {
         .login-container {
             max-width: 625px;
-
-            .login-skip-text {
-                right: 10px;
-
-                &:before {
-                    left: 18px;
-                }
-            }
         }
     }
 }
@@ -252,27 +275,20 @@
     .login {
         .login-container {
             max-width: 800px;
-
-            .login-skip-text {
-                right: 30px;
-
-                &:before {
-                    left: 30px;
-                }
-            }
         }
     }
 }
 
-@media (max-width: 810px) {
+@media (max-width: 855px) {
     .login {
         .login-container {
+            max-width: 100%;
 
             .login-skip-button {
                 display: none;
             }
 
-            .login-skip-text {
+            .login-skip-text-wrapper {
                 display: none;
             }
 

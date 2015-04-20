@@ -1,15 +1,19 @@
+@import "common";
+
 .error-page-container {
 
     .error-container {
-        display: table;
+        .display-flex;
+        .flex-direction(column);
+        .align-items(center);
         width: 100%;
         height: 100%;
         min-width: 600px;
         margin-top: -70px;
 
         .error-content-container {
-            display: table-row;
-            height: 50%;
+            .flex(1 0 auto);
+            max-width: 100%;
 
             &:after {
                 content: '';
@@ -29,85 +33,80 @@
                 text-align: center;
 
                 .error-content-wrapper {
-                    margin: 100px auto;
+                    .display-flex;
+                    .flex-direction(row);
+                    margin: 0 auto;
+                    padding: 100px 0;
                     max-width: 960px;
-                }
+                    overflow: hidden;
 
-                .error-title-container {
-                    display: table-cell;
-                    font: 240px 'OCRAExtended';
-                    letter-spacing: -24px;
-                    vertical-align: middle;
-                }
-
-                .error-message-container {
-                    display: table-cell;
-                    padding-left: 45px;
-                    padding-top: 55px;
-                    text-align: left;
-                    line-height: 26px;
-
-                    .error-message {
-                        font: 16px 'RobotoslabRegular';
+                    .error-title-container {
+                        .flex(0 0 auto);
+                        font: 240px 'OCRAExtended';
+                        letter-spacing: -24px;
                     }
 
-                    .error-button-container {
-                        margin-top: 10px;
-                    }
+                    .error-message-container {
+                        .flex(1 1 auto);
+                        padding: 55px 45px 0;
+                        text-align: left;
+                        line-height: 26px;
+                        .border-box;
 
-                    .button.large {
-                        padding: 0 70px;
+                        .error-message {
+                            font: 16px 'RobotoslabRegular';
+                            margin-bottom: 15px;
+                            .crop-text-by-size-with-dots-multiline(100%);
+                        }
+
+                        .button.large {
+                            min-width: 200px;
+                            max-width: 350px;
+                        }
                     }
                 }
             }
 
             &.xapi-error {
-                max-width: 705px;
+                max-width: 755px;
+                margin: 100px auto 0;
+                padding: 0 25px;
                 text-align: center;
+                .border-box;
 
                 .error-title-container {
-                    padding-top: 100px;
+                    margin-bottom: 30px;
                     font: 53px 'RobotoslabRegular';
+                    .crop-text-by-size-with-dots-multiline(100%, block);
                 }
 
                 .error-message-container {
-                    margin: 0 auto;
-                    max-width: 700px;
-                    margin-top: 30px;
+                    margin-bottom: 70px;
                     font: 18px 'RobotoslabRegular';
+                    .crop-text-by-size-with-dots-multiline(100%, block);
                 }
 
                 .error-button-container {
-                    display: inline-block;
-                    margin: 70px 0 60px;
+                    .display-flex;
+                    .flex-direction(row);
+                    .justify-content(center);
+                    max-width: 100%;
+                    margin-bottom: 60px;
 
-                    &:after {
-                        content: '';
-                        display: block;
-                        clear: both;
+                    .button.large {
+                        width: 330px;
                     }
-                }
 
-                .button.large {
-                    width: 330px;
-                    padding: 0 60px;
-                }
-
-                .button.default {
-                    margin-right: 10px;
-                    float: left;
-                }
-
-                .button.primary {
-                    margin-left: 10px;
-                    float: right;
+                    .button.default {
+                        margin-right: 20px;
+                    }
                 }
             }
         }
 
         .error-footer-container {
-            display: table-row;
-            height: 50%;
+            .flex(0 0 auto);
+            width: 100%;
 
             .error-footer {
                 height: 505px;
@@ -126,28 +125,31 @@
             .error-content-container {
                 &.not-found-error {
                     .error-content-wrapper {
-                        margin: 50px auto;
-                    }
+                        .flex-direction(column);
+                        padding: 50px 0 40px;
 
-                    .error-title-container {
-                        display: block;
-                        padding-right: 0;
-                        text-align: center;
-                    }
+                        .error-title-container {
+                            display: block;
+                            padding-right: 0;
+                            text-align: center;
+                        }
 
-                    .error-message-container {
-                        display: block;
-                        max-width: 650px;
-                        margin: 0 auto;
-                        padding-top: 0;
-                        text-align: center;
+                        .error-message-container {
+                            display: block;
+                            max-width: 100%;
+                            margin: 0 auto;
+                            padding-top: 0;
+                            text-align: center;
+
+                            .error-message {
+                                margin-bottom: 30px;
+                            }
+                        }
                     }
                 }
 
                 &.xapi-error {
-                    .error-title-container {
-                        padding-top: 90px;
-                    }
+                    max-width: 100%;
 
                     .button.default {
                         margin-right: 0;
@@ -171,53 +173,61 @@
 }
 
 @media (max-width: 700px) {
-    header.error {
-        .main-logo-wrapper {
-            padding: 10px;
-            text-align: center;
-        }
-    }
-
     .error-page-container {
+
+        header.main-logo-wrapper {
+            padding: 25px 0;
+            text-align: center;
+
+            .main-logo {
+                margin-left: 0;
+            }
+        }
+
         .error-container {
-            top: 40px;
+            margin-top: -100px;
 
             .error-content-container {
-                margin: 40px auto;
-
                 &.not-found-error {
 
                     .error-content-wrapper {
-
                         .error-content {
                             padding-top: 0;
                         }
                     }
 
                     .error-message-container {
-                        max-width: 600px;
                         padding-left: 0;
-                    }
 
-                    .button.large {
-                        width: 100%;
+                        .error-button-container {
+                            .button.large {
+                                width: 100%;
+                                max-width: initial;
+                            }
+                        }
                     }
                 }
 
                 &.xapi-error {
 
-                    .button.large {
-                        display: inline-block;
-                        margin-bottom: 20px;
+                    .error-message-container {
+                        margin-bottom: 40px;
                     }
 
-                    .button.default {
-                        margin-right: 0;
-                    }
+                    .error-button-container {
+                        width: 100%;
+                        margin-bottom: 30px;
+                        .flex-direction(column-reverse);
 
-                    .button.primary {
-                        margin-left: 0;
-                        float: none;
+                        .button.large {
+                            display: inline-block;
+                            width: 100%;
+                            margin-bottom: 20px;
+                        }
+
+                        .button.default {
+                            margin-right: 0;
+                        }
                     }
                 }
             }

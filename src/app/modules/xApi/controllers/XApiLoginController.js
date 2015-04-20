@@ -12,13 +12,12 @@
     LoginController.$inject = ['$rootScope', '$location', 'xAPIManager', 'settings', 'quiz'];
 
     function LoginController($rootScope, $location, xAPIManager, settings, quiz) {
-        var that = this,
-            length = quiz.questions.length;
+        var that = this;
 
         $rootScope.title = quiz.title;
 
         that.courseTitle = quiz.title;
-        that.questionsLength = length === 1 ? length + ' question' : length + ' questions';
+        that.questionsLength = quiz.questions.length;
         that.username = '';
         that.email = '';
 

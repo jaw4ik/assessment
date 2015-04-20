@@ -33,10 +33,23 @@
     margin-left: -(@width/2);
 }
 
-.text-overflow-with-dots() {
+.crop-text-with-dots() {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.crop-text-by-size-with-dots(@max-width, @display: inline-block) {
+    display: @display;
+    max-width: @max-width;
+    .crop-text-with-dots;
+}
+
+.crop-text-by-size-with-dots-multiline(@max-width, @display: inline-block) {
+    display: @display;
+    max-width: @max-width;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .unselectable() {
@@ -47,7 +60,6 @@
 }
 
 .display-flex() {
-    display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
     display: -webkit-flex;
@@ -58,6 +70,11 @@
     -ms-flex-direction: @direction;
     -webkit-flex-direction: @direction;
     flex-direction: @direction;
+}
+
+.justify-content(@align) {
+    -webkit-justify-content: @align;
+    justify-content: @align;
 }
 
 .align-items(@align) {
@@ -160,14 +177,20 @@ ul {
 }
 
 .button {
+    display: inline-block;
+    padding: 0;
     border: 2px solid;
     border-radius: 3px;
     cursor: pointer;
-    display: inline-block;
     font-family: @button-text-font;
     font-size: 20px;
     line-height: 54px;
     transition: background @transition-settings, box-shadow @transition-settings;
+
+    .text-wrapper {
+        padding: 0 20px;
+        .crop-text-by-size-with-dots(100%, block);
+    }
 
     &.default {
         background-color: transparent;
@@ -190,14 +213,6 @@ ul {
             background-color: #369690;
             border-color: #369690;
         }
-    }
-
-    &.large {
-        padding: 0 90px;
-    }
-
-    &.small {
-        padding: 0 50px;
     }
 
     &.emphasize {

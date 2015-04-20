@@ -13,7 +13,7 @@
             var deferred = $q.defer();
             WebFont.load({
                 custom: {
-                    families: ['RobotoslabRegular', 'RobotoslabBold', 'Rabiohead', 'RobotoslabLight', 'TwCenMTCondensed', 'RobotoBold', 'RobotoCondensedRegular', 'OpenSans', 'RobotoRegular', 'OCRAExtended'],// jshint ignore:line
+                    families: ['RobotoslabRegular', 'RobotoslabBold', 'RobotoslabLight', 'RobotoRegular', 'RobotoBold', 'RobotoCondensedRegular', 'Rabiohead', 'TwCenMTCondensed', 'OpenSans', 'OCRAExtended', 'BadScriptRegular'],// jshint ignore:line
                     urls: ['css/fonts.css']
                 },
                 active: function () {

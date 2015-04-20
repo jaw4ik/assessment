@@ -4,7 +4,11 @@
     angular.module('quiz')
         .directive('progressControl', progressControl);
 
-    function progressControl() {
+    progressControl.$inject = ['$translate'];
+
+    var translate;
+    function progressControl($translate) {
+        translate = $translate;
         return {
             restrict: 'E',
             template: '<canvas></canvas>',
@@ -12,8 +16,8 @@
                 progress: '=',
                 masteryScore: '='
             },
-            link: function($scope, $element) {
-                $scope.$watch(['progress', 'masteryScore'], function() {
+            link: function ($scope, $element) {
+                $scope.$watch(['progress', 'masteryScore'], function () {
                     createProgressControl($scope, $element);
                 });
             }
@@ -69,12 +73,15 @@
         drawText(context, scope.progress + '%', '40px robotoslabbold', scoreTextColor, circleX + 6, circleY + 2, 'center', 160);
 
         // draw course status text
-        var statusText = scope.progress >= scope.masteryScore ? 'success' : 'failed',
+        var statusTextKey = scope.progress >= scope.masteryScore ? '[tracking and tracing result success]' : '[tracking and tracing result failed]';
+        translate(statusTextKey).then(function (translation) {
+            var statusText = translation,
             statusTextColor = scope.progress >= scope.masteryScore ? '#4cbae6' : '#f16162';
 
-        drawText(context, statusText.toUpperCase(), '19px robotoslabbold', statusTextColor, circleX + 2, circleY + 36, 'center', 160);
+            drawMultilineText(context, statusText.toUpperCase(), '19px robotoslabbold', statusTextColor, circleX + 2, circleY + 36, 'center', 120, 0, 1);
 
-        drawMasteryScore(scope, context, circleX, circleY, circleRadius);
+            drawMasteryScore(scope, context, circleX, circleY, circleRadius);
+        });
     }
 
     function drawMasteryScore(scope, context, circleX, circleY, circleRadius) {
@@ -90,22 +97,25 @@
         drawText(context, scope.masteryScore + '%', '13px robotoslabregular', '#222', masteryScoreX, masteryScoreY + 4, 'center', 34);
 
         // draw mastery score hint text
-        var masteryScoreHintTextX = (scope.masteryScore >= 50) ? masteryScoreX - 185 : masteryScoreX + 65,
-            masteryScoreHintTextY = masteryScoreY + 10;
+        var isLeftSideText = scope.masteryScore >= 50,
+            masteryScoreHintTextX = isLeftSideText ? masteryScoreX - 70 : masteryScoreX + 65,
+            masteryScoreHintTextY = masteryScoreY + 10,
+            masteryScoreHintTextAlign = isLeftSideText ? 'right' : 'left';
 
-        drawText(context, 'The minimal score', '19px Rabiohead', '#8f8f8f', masteryScoreHintTextX, masteryScoreHintTextY, 'left');
-        drawText(context, 'you need to succeed', '19px Rabiohead', '#8f8f8f', masteryScoreHintTextX, masteryScoreHintTextY + 20, 'left');
+        translate('[tracking and tracing mastery score hint]').then(function (translation) {
+            drawMultilineText(context, translation, '19px Rabiohead, BadScriptRegular', '#8f8f8f', masteryScoreHintTextX, masteryScoreHintTextY, masteryScoreHintTextAlign, 150, 20, 2);
 
-        // draw mastery score arrow
-        var masteryScoreArrowX = scope.masteryScore >= 50 ? masteryScoreX - 63 : masteryScoreX + 22,
-            masteryScoreArrowY = scope.masteryScore >= 50 ? masteryScoreY - 5 : masteryScoreY - 8,
-            arrow = scope.masteryScore >= 50 ? scope.leftArrow : scope.rightArrow;
+            // draw mastery score arrow
+            var masteryScoreArrowX = isLeftSideText ? masteryScoreX - 63 : masteryScoreX + 22,
+                masteryScoreArrowY = isLeftSideText ? masteryScoreY - 5 : masteryScoreY - 8,
+                arrow = isLeftSideText ? scope.leftArrow : scope.rightArrow;
 
-        arrow.onload = function () {
-            context.beginPath();
-            context.drawImage(arrow, masteryScoreArrowX, masteryScoreArrowY);
-            context.closePath();
-        };
+            arrow.onload = function () {
+                context.beginPath();
+                context.drawImage(arrow, masteryScoreArrowX, masteryScoreArrowY);
+                context.closePath();
+            };
+        });
     }
 
     function drawCircle(context, circleX, circleY, circleRadius, color, shadowColor, lineWidth, angle) {
@@ -142,16 +152,76 @@
 
     function drawText(context, text, font, color, positionX, positionY, align, maxWidth) {
         context.beginPath();
-        context.font = 'normal normal ' + font;
-        context.fillStyle = color;
-        context.textAlign = align;
-        context.shadowColor = 'rgba(0,0,0,0)';
+        setTextStyles(context, font, color, align);
+
         if (maxWidth) {
             context.fillText(text, positionX, positionY, maxWidth);
         } else {
             context.fillText(text, positionX, positionY);
         }
+
         context.closePath();
+    }
+
+    function drawMultilineText(context, text, font, color, positionX, positionY, align, maxWidth, lineHeight, maxLinesCount) {
+        context.beginPath();
+        setTextStyles(context, font, color, align);
+
+        var words = text.split(' '),
+            writedLinesCount = 0,
+            line = '';
+        
+        for (var n = 0; n < words.length; n++) {
+            var testLine = line + words[n],
+                testLineWidth = context.measureText(testLine).width,
+                isLastLine = maxLinesCount > 0 && writedLinesCount >= maxLinesCount - 1,
+                isLastWord = n === words.length - 1;
+
+            if (testLineWidth > maxWidth) {
+                if (isLastLine || isLastWord) {
+                    writeLineWithDots(testLine);
+                    break;
+                } else {
+                    writeLine(line);
+                    line = words[n] + ' ';
+                }
+            } else if (isLastWord) {
+                writeLine(testLine);
+            } else {
+                line = testLine + ' ';
+            }
+        }
+
+        function writeLine(text) {
+            writedLinesCount++;
+            context.fillText(text, positionX, positionY);
+            positionY += lineHeight;
+        }
+
+        function writeLineWithDots(text) {
+            var previousCuttedLine = '';
+
+            for (var i = 1; i < text.length; i++) {
+                var cuttedLine = text.substring(0, i) + '...',
+                    cuttedLineWidth = context.measureText(cuttedLine).width;
+
+                if (cuttedLineWidth < maxWidth) {
+                    previousCuttedLine = cuttedLine;
+                } else {
+                    context.fillText(previousCuttedLine, positionX, positionY);
+                    break;
+                }
+            }
+        }
+
+        context.closePath();
+    }
+
+    function setTextStyles(context, font, color, align) {
+        context.font = 'normal normal normal ' + font;
+        context.fillStyle = color;
+        context.textAlign = align;
+        context.shadowColor = 'rgba(0,0,0,0)';
     }
 
 }());
