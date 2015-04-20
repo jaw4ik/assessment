@@ -1228,6 +1228,7 @@
 /*#endregion BUTTONS*/
 /*#region INFO TOOLTIP*/
 .info-tooltip-holder {
+  overflow: visible;
   position: relative;
 }
 .info-tooltip {
