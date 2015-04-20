@@ -1682,9 +1682,19 @@
   line-height: 20px !important;
 }
 /*#endregion autosize*/
+.application {
+  height: 100%;
+  width: 100%;
+}
+.shell-wrapper {
+  height: 100%;
+  width: 100%;
+}
 .shell {
   padding-top: 56px;
   position: relative;
+  height: 100%;
+  width: 100%;
 }
 .shell > header {
   background-color: #393939;
