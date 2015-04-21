@@ -1,15 +1,15 @@
-﻿<li class="r-data expandable" data-bind="click: isExpanded() ? collapse : expand, css: { expanded: isExpanded}">
+﻿<li class="r-data" data-bind="click: isExpanded() ? collapse : expand, css: { expanded: isExpanded, expandable: isExpandable }">
     <div class="r-table">
         <div class="r-name"><span class="selectable" data-bind="text: learnerDisplayName, attr: { title: learnerDisplayName }"></span></div>
         <div class="r-result">
-            <!-- ko if: lrsStatement.correct -->
+            <!-- ko if: correct -->
             <span class="correct">
                 <span class="info-tooltip">
                     <span data-bind="localize: { text: 'passed' }">Passed</span>
                 </span>
             </span>
             <!-- /ko -->
-            <!-- ko ifnot: lrsStatement.correct -->
+            <!-- ko ifnot: correct -->
             <span class="incorrect">
                 <span class="info-tooltip">
                     <span data-bind="localize: { text: 'failed' }">Failed</span>

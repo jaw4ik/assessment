@@ -4,7 +4,7 @@
     var ExpandeableStatement = function (lrsStatement, expandLoadAction) {
         ReportingStatement.call(this, lrsStatement);
 
-        this.isExpandeable = !_.isNullOrUndefined(this.lrsStatement.attemptId);
+        this.isExpandable = !_.isNullOrUndefined(this.lrsStatement.attemptId);
         this.isExpanded = ko.observable(false);
         this.children = ko.observableArray([]);
 
@@ -14,7 +14,7 @@
     ExpandeableStatement.prototype.expand = function () {
         var that = this;
         return Q.fcall(function () {
-            if (that.isExpandeable) {
+            if (that.isExpandable) {
                 if (that.children().length) {
                     that.isExpanded(true);
                 } else {

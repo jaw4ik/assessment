@@ -1,18 +1,18 @@
-﻿define(['viewmodels/reporting/expandeableStatement', 'viewmodels/reporting/reportingStatement', 'reporting/xApiProvider'], function (ExpandeableStatement, ReportingStatement, xApiProvider) {
+﻿define(['viewmodels/reporting/expandableStatement', 'viewmodels/reporting/questionStatement', 'reporting/xApiProvider'], function (ExpandableStatement, QuestionStatement, xApiProvider) {
     "use strict";
 
     var ObjectiveStatement = function (masteredLrsStatement) {
-        ExpandeableStatement.call(this, masteredLrsStatement, this.expandLoadAction);
+        ExpandableStatement.call(this, masteredLrsStatement, this.expandLoadAction);
     }
 
-    ObjectiveStatement.prototype = Object.create(ExpandeableStatement.prototype);
+    ObjectiveStatement.prototype = Object.create(ExpandableStatement.prototype);
     ObjectiveStatement.constructor = ObjectiveStatement;
 
     ObjectiveStatement.prototype.expandLoadAction = function () {
         var that = this;
         return xApiProvider.getAnsweredStatements(that.lrsStatement.attemptId, that.lrsStatement.id).then(function (statements) {
             var questionStatements = _.map(statements, function (statement) {
-                return new ReportingStatement(statement);
+                return new QuestionStatement(statement);
             });
             that.children(questionStatements);
             that.isExpanded(true);

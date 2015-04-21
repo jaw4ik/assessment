@@ -1,7 +1,9 @@
 ﻿<li>
     <div class="r-table">
         <div class="r-text">QUESTION:</div>
-        <div class="r-question-text selectable" data-bind="text: lrsStatement.name"></div>
-        <div class="r-score"><span class="r-answered r-not-answered"></span> (<span data-bind="text: lrsStatement.score"></span>%)</div>
+        <div class="r-question-text selectable"><p>"<span data-bind="text: lrsStatement.name"></span>"</p></div>
+        <div class="r-score" data-bind="css: { correct: correct }">
+            <p>(<span data-bind="text: lrsStatement.score"></span>%)</p>
+        </div>
     </div>
 </li>
