@@ -1,70 +1,57 @@
-﻿
-<div class="publish-tab-content" data-tab-content="embed">
+﻿<div class="publish-tab-content" data-tab-content="embed">
     <div class="publish-tab-content-wrapper">
-        <!-- ko if: publishAction().packageExists() -->
-        <div class="publish-tab-link-container">
-            <h2 class="publish-tab-header" data-bind="localize: {text: 'embedAsAWidget'}">
-                Embed as a widget
-            </h2>
-            <div class="publish-tab-action-content" data-bind="localize: {text: 'embedCaption'}">
-                Paste this code into your HTML page where you want the course to appear
-            </div>
-            <div class="publish-tab-link-control-container">
-                <textarea readonly="readonly" class="publish-tab-textarea" data-bind="value: publishAction().embedCode, selectText: publishAction().state() === states.succeed"></textarea>
-                <div class="copy-btn-wrapper">
-                    <button class="btn green" data-bind="copyToClipboard: { value: publishAction().embedCode, onCopied: publishAction().copyEmbedCodeToClipboard, isDisabled: publishAction().copyBtnDisabled }, css: { copied: publishAction().embedCodeCopied, disabled: publishAction().copyBtnDisabled }, attr: { disabled: publishAction().copyBtnDisabled() }">
-                        <span data-bind="localize: { text: publishAction().embedCodeCopied() ? 'copied' : 'copy' }"></span>
-                    </button>
+        <!-- ko if: packageExists() -->
+        <div class="publish-to-publication-server-container">
+            <!-- ko compose: { view: 'views/courses/publishActions/updatePublishedCourse', model: $data, activate: false } --><!-- /ko -->
+            <div class="publish-tab-link-container">
+                <h2 class="publish-tab-header" data-bind="localize: {text: 'embedAsAWidget'}">
+                    Embed as a widget
+                </h2>
+                <div class="publish-tab-action-content" data-bind="localize: {text: 'embedCaption'}">
+                    Paste this code into your HTML page where you want the course to appear
                 </div>
-            </div>
-            <div class="publish-tab-item-service embed-code">
-                <div class="proportions-title" data-bind="localize: { text: 'frameSize' }"></div>
-                <div class="proportions-values-container">
-                    <span class="proportions-value-container">
-                        <span class="proportions-text" data-bind="localize: { text: 'width' }"></span>
-                        <input type="text" class="proportions-value" min="0" data-bind="numericField: {}, value: publishAction().frameWidth, valueUpdate: ['afterkeydown', 'input'], event: { blur: publishAction().validateFrameWidth }" />
-                    </span>
-                    <span class="proportions-value-container">
-                        <span class="proportions-text" data-bind="localize: { text: 'height' }"></span>
-                        <input type="text" class="proportions-value" min="0" data-bind="numericField: {}, value: publishAction().frameHeight, valueUpdate: ['afterkeydown', 'input'], event: { blur: publishAction().validateFrameHeight }" />
-                    </span>
-                    <span class="propotions-size-unit" data-bind="localize: { text: 'croppedPixels' }"></span>
+                <div class="publish-tab-link-control-container">
+                    <textarea readonly="readonly" class="publish-tab-textarea" data-bind="value: embedCode, selectText: state() === states.succeed"></textarea>
+                    <div class="copy-btn-wrapper">
+                        <button class="btn" data-bind="copyToClipboard: { value: embedCode, onCopied: copyEmbedCodeToClipboard, isDisabled: copyBtnDisabled }, css: { green: !courseIsDirty(), 'green-white': courseIsDirty(), copied: embedCodeCopied, disabled: copyBtnDisabled }, attr: { disabled: copyBtnDisabled() }">
+                            <span data-bind="localize: { text: embedCodeCopied() ? 'copied' : 'copy' }"></span>
+                        </button>
+                    </div>
                 </div>
+                <div class="publish-tab-item-service embed-code">
+                    <div class="proportions-title" data-bind="localize: { text: 'frameSize' }"></div>
+                    <div class="proportions-values-container">
+                        <span class="proportions-value-container">
+                            <span class="proportions-text" data-bind="localize: { text: 'width' }"></span>
+                            <input type="text" class="proportions-value" min="0" data-bind="numericField: {}, value: frameWidth, valueUpdate: ['afterkeydown', 'input'], event: { blur: validateFrameWidth }" />
+                        </span>
+                        <span class="proportions-value-container">
+                            <span class="proportions-text" data-bind="localize: { text: 'height' }"></span>
+                            <input type="text" class="proportions-value" min="0" data-bind="numericField: {}, value: frameHeight, valueUpdate: ['afterkeydown', 'input'], event: { blur: validateFrameHeight }" />
+                        </span>
+                        <span class="propotions-size-unit" data-bind="localize: { text: 'croppedPixels' }"></span>
+                    </div>
+                </div>
+                <div class="publish-tab-overlay" data-bind="visible: isCourseDelivering()"></div>
             </div>
-            <div class="publish-tab-overlay" data-bind="visible: isCourseDelivering()"></div>
         </div>
-        <div class="publish-tab-update-course">
-            <div class="publish-tab-update-course-image"></div>
-            <div class="publish-tab-update-course-text" data-bind="localize: {text: 'updateCourseCaption'}">
-                Apply the latest changes to the published course by clicking this button
-            </div>
-            <button class="btn green-white publish-tab-btn" data-bind="click: publishAction().publishCourse, css:{ 'disabled': isCourseDelivering(), 'progress': publishAction().isPublishing() }">
-                <!-- ko if: publishAction().isPublishing() -->
-                <!-- ko if: publishAction().state() === states.publishing || publishAction().state() === states.building  -->
-                <span class="publish-tab-btn-caption" data-bind="localize: { text: 'updating' }"></span>
-                <!-- /ko -->
-                <!-- /ko -->
-                <!-- ko ifnot: publishAction().isPublishing() -->
-                <span class="publish-tab-btn-caption" data-bind="localize: { text: 'reviewUpdateCourse' }"></span>
-                <!-- /ko -->
-            </button>
-        </div>
+        <div class="publish-to-publication-server-helper"></div>
         <!-- /ko -->
-        <!-- ko ifnot: publishAction().packageExists() -->
+        <!-- ko ifnot: packageExists() -->
         <div class="publish-tab-container">
             <h2 class="publish-tab-header" data-bind="localize: { text: 'getEmbedCode' }">Get course link</h2>
             <div class="publish-tab-action-content" data-bind="localize: {text: 'embedCaption'}">Copy and paste the URL of your course to share or view.</div>
-            <button class="btn green publish-tab-btn" data-bind="click: publishAction().publishCourse, css:{ disabled: publishAction().isCourseDelivering(), progress : publishAction().isPublishing()}">
-                <!-- ko if: publishAction().isPublishing() -->
-                <!-- ko if: publishAction().state() === states.publishing || publishAction().state() === states.building -->
+            <button class="btn green publish-tab-btn" data-bind="click: publishCourse, css:{ disabled: isCourseDelivering(), progress : isPublishing()}">
+                <!-- ko if: isPublishing() -->
+                <!-- ko if: state() === states.publishing || state() === states.building -->
                 <span data-bind="localize: { text: 'publishing' }" class="publish-tab-btn-caption"></span>
                 <!-- /ko -->
                 <!-- /ko -->
-                <!-- ko ifnot: publishAction().isPublishing() -->
-                <!-- ko if: publishAction().packageExists() -->
+                <!-- ko ifnot: isPublishing() -->
+                <!-- ko if: packageExists() -->
                 <span data-bind="localize: { text: 'republishOnline' }" class="publish-tab-btn-caption"></span>
                 <!-- /ko -->
-                <!-- ko ifnot: publishAction().packageExists() -->
+                <!-- ko ifnot: packageExists() -->
                 <span data-bind="localize: { text: 'getEmbedCode' }" class="publish-tab-btn-caption"></span>
                 <!-- /ko -->
                 <!-- /ko -->

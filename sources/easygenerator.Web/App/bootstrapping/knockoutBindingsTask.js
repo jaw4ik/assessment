@@ -8,7 +8,7 @@
     require('viewmodels/questions/fillInTheBlank/bindingHandlers/fillInTheBlankBindingHandler');
     require('viewmodels/questions/singleSelectImage/bindingHandlers/answerImageBindingHandler');
     require('widgets/imagePreview/bindingHandlers/fadeBindingHandler');
-    require('widgets/imagePreview/bindingHandlers/imageLoaderBindingHandler');    
+    require('widgets/imagePreview/bindingHandlers/imageLoaderBindingHandler');
     require('viewmodels/courses/bindingHandlers/elementCollapseBinding');
     require('viewmodels/courses/bindingHandlers/windowMessageListenerBinding');
     require('viewmodels/courses/bindingHandlers/courseIntroductionAnimationBinding');
@@ -27,10 +27,19 @@
             forcePlaceholderSize: true,
             containment: 'body',
             tolerance: 'pointer',
-            cursor: 'move',
-            start: function(e, ui) {
+            cursor: 'move',            
+            start: function (e, ui) {
                 if (/MSIE/i.test(navigator.userAgent)) {
                     ui.placeholder.height(ui.item.height());
+                }
+            },
+            sort: function (event, ui) {
+                var $target = $(event.target);
+                if (!/html|body/i.test($target.offsetParent()[0].tagName)) {
+                    var top = event.pageY - $target.offsetParent().offset().top - (ui.helper.outerHeight(true) / 2);
+                    ui.helper.css({
+                        'top': top + 'px'
+                    });
                 }
             }
         };

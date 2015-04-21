@@ -2,6 +2,7 @@
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.Web.Components.Mappers;
+using easygenerator.Web.DomainEvents.ChangeTracking.Events;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting;
 using System.Linq;
@@ -17,7 +18,8 @@ namespace easygenerator.Web.Synchronization.Handlers
         IDomainEventHandler<CourseDeletedEvent>,
         IDomainEventHandler<CourseObjectiveRelatedEvent>,
         IDomainEventHandler<CourseObjectivesUnrelatedEvent>,
-        IDomainEventHandler<CourseObjectivesClonedEvent>
+        IDomainEventHandler<CourseObjectivesClonedEvent>,
+        IDomainEventHandler<CourseStateChangedEvent>
     {
         private readonly ICollaborationBroadcaster<Course> _broadcaster;
         private readonly IEntityMapper _entityMapper;
@@ -83,6 +85,11 @@ namespace easygenerator.Web.Synchronization.Handlers
         {
             _broadcaster.AllCollaborators(args.Course).courseObjectivesReplaced(args.Course.Id.ToNString(),
                 args.ReplacedObjectives.ToDictionary(objectivesInfo => objectivesInfo.Key.ToNString(), objectivesInfo => _entityMapper.Map(objectivesInfo.Value)), args.Course.ModifiedOn);
+        }
+
+        public void Handle(CourseStateChangedEvent args)
+        {
+            _broadcaster.AllCollaborators(args.Course).courseStateChanged(args.Course.Id.ToNString(), new { isDirty = args.IsDirty });
         }
     }
 }

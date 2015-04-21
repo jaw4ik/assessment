@@ -51,7 +51,7 @@
                     }
 
                     if (_.isEmptyHtmlText(feedbackObject.text())) {
-                        feedbackObject.text('');
+                        feedbackObject.text(' ');
                     }
 
                     feedbackObject.previousText = feedbackObject.text();

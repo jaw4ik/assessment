@@ -111,6 +111,7 @@
                     objectivesReordered: 'course:objectivesReordered',
                     objectivesReorderedByCollaborator: 'course:objectivesReorderedByCollaborator',
                     templateUpdated: 'course:templateUpdated',
+                    stateChanged: 'course:stateChanged',
 
                     build: {
                         started: 'course:build-started',

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using easygenerator.DomainModel.Events;
+using FluentAssertions;
 using FluentAssertions.Execution;
+using NSubstitute;
+using NSubstitute.Core;
+using System;
+using System.Reflection;
 
 namespace easygenerator.Web.Tests.Utils
 {
@@ -50,6 +50,27 @@ namespace easygenerator.Web.Tests.Utils
             }
 
             return actual;
+        }
+
+        public static void ShouldPublishEvent<T>(this IDomainEventPublisher publisher)
+        {
+            publisher.ReceivedCalls().Should().Contain(call => IsEventCall<T>(call));
+        }
+
+        public static void ShouldPublishEvent<T>(this IDomainEventPublisher publisher, int callCount)
+        {
+            publisher.ReceivedCalls().Should().HaveCount(callCount);
+            publisher.ReceivedCalls().Should().OnlyContain(call => IsEventCall<T>(call));
+        }
+
+        public static void ShouldNotPublishEvent<T>(this IDomainEventPublisher publisher)
+        {
+            publisher.ReceivedCalls().Should().NotContain(call => IsEventCall<T>(call));
+        }
+
+        private static bool IsEventCall<T>(ICall call)
+        {
+            return call.GetArguments().Length > 0 && call.GetArguments()[0] is T;
         }
 
         public static object ShouldQuackLike(this object actual, object expected)

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Entities\ACL\AccessControlListEntry.cs" />
     <Compile Include="Entities\ACL\TemplateAccessControlListEntry.cs" />
+    <Compile Include="Entities\CourseState.cs" />
     <Compile Include="Entities\DemoCourseInfo.cs" />
     <Compile Include="Entities\Identifiable.cs" />
     <Compile Include="Entities\Onboarding.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Events\AnswerEvents\AnswerDeletedEvent.cs" />
     <Compile Include="Events\AnswerEvents\AnswerEvent.cs" />
     <Compile Include="Events\AnswerEvents\AnswerTextUpdatedEvent.cs" />
+    <Compile Include="Events\CourseEvents\CourseBuildStartedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseCollaboratorRemovedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseDeletedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseEvent.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="Events\CourseEvents\CourseObjectivesReorderedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseObjectivesUnrelatedEvent.cs" />
     <Compile Include="Events\CourseEvents\CoursePublishedEvent.cs" />
+    <Compile Include="Events\CourseEvents\CourseTemplateSettingsUpdated.cs" />
     <Compile Include="Events\CourseEvents\CourseTemplateUpdatedEvent.cs" />
     <Compile Include="Events\CourseEvents\CourseTitleUpdatedEvent.cs" />
     <Compile Include="Events\DomainEventHandlersProvider.cs" />
@@ -119,12 +122,12 @@
     <Compile Include="Events\QuestionEvents\HotSpotEvents\HotSpotPolygonCreatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\HotSpotEvents\HotSpotPolygonDeletedEvent.cs" />
     <Compile Include="Events\QuestionEvents\HotSpotEvents\HotSpotPolygonEvent.cs" />
-    <Compile Include="Events\QuestionEvents\HotSpotEvents\HotSpotPolygonChangedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\HotSpotEvents\HotSpotPolygonUpdatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\HotSpotEvents\HotSpotIsMultipleChangedEvent.cs" />
     <Compile Include="Events\QuestionEvents\QuestionCorrectFeedbackUpdatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\QuestionGeneralFeedbackUpdatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\QuestionIncorrectFeedbackUpdatedEvent.cs" />
-    <Compile Include="Events\QuestionEvents\QuestionsDeletedEvent.cs" />
+    <Compile Include="Events\ObjectiveEvents\QuestionsDeletedEvent.cs" />
     <Compile Include="Events\ObjectiveEvents\ObjectiveTitleUpdatedEvent.cs" />
     <Compile Include="Events\ObjectiveEvents\QuestionsReorderedEvent.cs" />
     <Compile Include="Events\LearningContentEvents\LearningContentCreatedEvent.cs" />
@@ -152,6 +155,7 @@
     <Compile Include="Events\UserEvents\UserUpgradedToStarter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ICourseCollaboratorRepository.cs" />
+    <Compile Include="Repositories\ICourseStateRepository.cs" />
     <Compile Include="Repositories\IDemoCourseRepository.cs" />
     <Compile Include="Repositories\IImageFileRepository.cs" />
     <Compile Include="Repositories\IOnboardingRepository.cs" />

@@ -32,16 +32,7 @@
             <!-- ko if: isPublishing() -->
             <button class="btn blue tab-btn review-btn">
                 <span class="loader-container">
-                    <span class="circular-loader x16 white">
-                        <span class="circular-loader-item"></span>
-                        <span class="circular-loader-item"></span>
-                        <span class="circular-loader-item"></span>
-                        <span class="circular-loader-item"></span>
-                        <span class="circular-loader-item"></span>
-                        <span class="circular-loader-item"></span>
-                        <span class="circular-loader-item"></span>
-                        <span class="circular-loader-item"></span>
-                    </span>
+                    <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x16 white' } } --><!-- /ko -->
                     <span class="btn-text" data-bind="localize: { text: 'reviewPublishingCourse' }">Publishing...</span>
                 </span>
             </button>

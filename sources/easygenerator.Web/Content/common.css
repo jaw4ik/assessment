@@ -233,10 +233,10 @@ html {
   overflow-x: hidden;
 }
 body {
-  height: 100%;
-  width: 100%;
   font-family: 'OpenSans', sans-serif;
   background-color: #f3f7f9;
+  height: 100%;
+  width: 100%;
 }
 table {
   border-collapse: collapse;

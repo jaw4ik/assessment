@@ -188,7 +188,7 @@
 
                         it('should remove feedback', function () {
                             viewModel.correctFeedback.updateText();
-                            expect(viewModel.correctFeedback.text()).toBe('');
+                            expect(viewModel.correctFeedback.text()).toBe(' ');
                         });
 
                     });
@@ -350,7 +350,7 @@
 
                         it('should remove feedback', function () {
                             viewModel.incorrectFeedback.updateText();
-                            expect(viewModel.incorrectFeedback.text()).toBe('');
+                            expect(viewModel.incorrectFeedback.text()).toBe(' ');
                         });
 
                     });

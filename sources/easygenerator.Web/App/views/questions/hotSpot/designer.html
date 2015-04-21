@@ -49,16 +49,7 @@
                     <div class="hotspot-designer-background-loader-wrapper">
                         <div class="hotspot-designer-background-loader">
                             <div class="hotspot-designer-background-loader-spinner">
-                                <div class="circular-loader x32 grey align-center">
-                                    <div class="circular-loader-item"></div>
-                                    <div class="circular-loader-item"></div>
-                                    <div class="circular-loader-item"></div>
-                                    <div class="circular-loader-item"></div>
-                                    <div class="circular-loader-item"></div>
-                                    <div class="circular-loader-item"></div>
-                                    <div class="circular-loader-item"></div>
-                                    <div class="circular-loader-item"></div>
-                                </div>
+                                <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 grey align-center' } } --><!-- /ko -->
                             </div>
                             <div class="hotspot-designer-background-loader-text" data-bind="localize: { text: 'loadingImage' }"></div>
                         </div>

@@ -178,7 +178,7 @@
 
             describe('when image upload finished successfully', function () {
 
-                var url = 'http://xxx.com', urlParams = '?width=899&height=785', dfd, questionId = null;
+                var url = 'http://xxx.com', urlParams = '?width=941&height=785', dfd, questionId = null;
 
                 beforeEach(function () {
                     spyOn(imageUpload, 'upload').and.callFake(function (spec) {
