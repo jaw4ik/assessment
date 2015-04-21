@@ -2039,6 +2039,7 @@
     <Content Include="Templates\Exam\lang\en.json" />
     <Content Include="Templates\Exam\lang\ua.json" />
     <Content Include="Templates\Personalized learning\lang\nl.json" />
+    <Content Include="Templates\Exam\lang\nl.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
