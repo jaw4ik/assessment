@@ -65,6 +65,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Entities\ACL\TemplateAccessControlListEntryTests.cs" />
+    <Compile Include="Entities\CourseStateTests.cs" />
     <Compile Include="Entities\DemoCourseInfoTests.cs" />
     <Compile Include="Entities\OnboardingTests.cs" />
     <Compile Include="Entities\Questions\AnswerTests.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="ObjectMothers\BlankAnswerObjectMother.cs" />
     <Compile Include="ObjectMothers\CommentObjectMother.cs" />
     <Compile Include="ObjectMothers\CourseCollaboratorObjectMother.cs" />
+    <Compile Include="ObjectMothers\CourseStateObjectMother.cs" />
     <Compile Include="ObjectMothers\CourseTemplateSettingsObjectMother.cs" />
     <Compile Include="ObjectMothers\DemoCourseInfoObjectMother.cs" />
     <Compile Include="ObjectMothers\DragAndDropTextObjectMother.cs" />

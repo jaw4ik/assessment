@@ -4,7 +4,7 @@
         emptyPlaceHolder: 'empty'
     },
     init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-        
+
         var
             $element = $(element),
             value = ko.unwrap(valueAccessor()) || {},
@@ -13,13 +13,14 @@
             optionsStopHandler = options.stop,
             cssClasses = ko.bindingHandlers.sortableExtended.cssClasses,
             maxHeight = value.maxHeight;
-        
+
         if (_.isNumber(maxHeight) && maxHeight > 0) {
             options = {
                 start: function (e, ui) {
                     if (_.isFunction(optionsStartHandler)) {
                         optionsStartHandler(e, ui);
                     }
+
                     $(document.activeElement).blur();
                 },
                 helper: function (e, ui) {
@@ -29,8 +30,9 @@
                     $element.sortable('option', 'cursorAt', { top: Math.floor(ui.height() / 2) });
                     return ui;
                 },
-                sort: function () {
+                sort: function (event, ui) {
                     $element.sortable('refreshPositions');
+                    ko.bindingHandlers.sortable.options.sort.call(this, event, ui);
                 },
                 stop: function (e, ui) {
                     ui.item.height('');
@@ -60,6 +62,9 @@
                     }
 
                     ui.placeholder.height(ui.item.height());
+                },
+                sort: function (event, ui) {
+                    ko.bindingHandlers.sortable.options.sort.call(this, event, ui);
                 },
                 over: function (e, ui) {
                     if ($element.children().length == 1) {

@@ -14,6 +14,7 @@
             this.template = spec.template;
             this.introductionContent = spec.introductionContent;
             this.collaborators = spec.collaborators;
+            this.isDirty = spec.isDirty;
 
             this.build = deliveringAction.call(this, buildActionHandler, spec.packageUrl);
             this.scormBuild = buildingAction.call(this, scormBuildActionHandler, spec.scormPackageUrl);
@@ -26,7 +27,7 @@
         };
 
         return Course;
-        
+
         function buildingAction(actionHandler, packageUrl) {
             var course = this;
 
@@ -39,7 +40,7 @@
                         course.isDelivering = false;
                         app.trigger(constants.messages.course.delivering.finished, course);
                     });
-            }; 
+            };
             self.packageUrl = packageUrl;
             self.state = constants.publishingStates.notStarted;
             self.setState = function (value) {

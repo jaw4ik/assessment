@@ -107,6 +107,7 @@
             'synchronization/handlers/course/eventHandlers/published.spec',
             'synchronization/handlers/course/eventHandlers/templateUpdated.spec',
             'synchronization/handlers/course/eventHandlers/titleUpdated.spec',
+            'synchronization/handlers/course/eventHandlers/stateChanged.spec',
 
             'synchronization/handlers/learningContent/handler.spec',
             'synchronization/handlers/learningContent/eventHandlers/created.spec',

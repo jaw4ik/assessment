@@ -3,35 +3,35 @@
         <div class="content-section">
             <div class="publish-container" data-bind="publishTabs: {}">
                 <ul class="publish-tabs unstyled">
-                    <li class="publish-tab active" data-bind="click: publishAction().sendOpenLinkTab" data-tab-link="private-link">
+                    <li class="publish-tab active" data-bind="click: sendOpenLinkTab" data-tab-link="private-link">
                         <div class="active-indicator"></div>
                         <div class="publish-tab-image-container">
                             <span class="publish-tab-image private-link"></span>
                         </div>
                         <span data-bind="localize: {text: 'sharePrivateLink'}">Share private link</span>
                     </li>
-                    <li class="publish-tab" data-bind="click: publishAction().sendOpenEmbedTab" data-tab-link="embed">
+                    <li class="publish-tab" data-bind="click: sendOpenEmbedTab" data-tab-link="embed">
                         <div class="active-indicator"></div>
                         <div class="publish-tab-image-container">
                             <span class="publish-tab-image embed"></span>
                         </div>
                         <span data-bind="localize: {text: 'insideAWebsite'}">Inside a website</span>
                     </li>
-                    <li class="publish-tab" data-bind="click: publishAction().sendOpenScormTab" data-tab-link="scorm">
+                    <li class="publish-tab" data-bind="click: sendOpenScormTab" data-tab-link="scorm">
                         <div class="active-indicator"></div>
                         <div class="publish-tab-image-container">
                             <span class="publish-tab-image scorm"></span>
                         </div>
                         <span data-bind="localize: {text: 'toYourLMS'}">To your LMS</span>
                     </li>
-                    <li class="publish-tab" data-bind="click: publishAction().sendOpenHtmlTab" data-tab-link="html">
+                    <li class="publish-tab" data-bind="click: sendOpenHtmlTab" data-tab-link="html">
                         <div class="active-indicator"></div>
                         <div class="publish-tab-image-container">
                             <span class="publish-tab-image html"></span>
                         </div>
                         <span data-bind="localize: {text: 'toYourHosting'}">To your hosting</span>
                     </li>
-                    <li class="publish-tab" data-bind="click: publishAction().sendOpenAim4YouTab" data-tab-link="aim">
+                    <li class="publish-tab" data-bind="click: sendOpenAim4YouTab" data-tab-link="aim">
                         <div class="active-indicator"></div>
                         <div class="publish-tab-image-container">
                             <span class="publish-tab-image aim"></span>
@@ -40,15 +40,15 @@
                     </li>
                 </ul>
                 <div class="publish-tabs-content">
-                    <!-- ko compose: { view: 'views/courses/publishActions/publishToPublicationServerLink', model: { publishAction: publishAction, isCourseDelivering: isCourseDelivering, states: states } } -->
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishToPublicationServerLink', model: publishAction, activationData: courseId } -->
                     <!-- /ko -->
-                    <!-- ko compose: { view: 'views/courses/publishActions/publishToPublicationServerEmbed', model: { publishAction: publishAction, isCourseDelivering: isCourseDelivering, states: states } } -->
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishToPublicationServerEmbed', model: publishAction, activationData: courseId } -->
                     <!-- /ko -->
-                    <!-- ko compose: { view: 'views/courses/publishActions/publishAsScorm', model: { scormBuildAction: scormBuildAction, isCourseDelivering: isCourseDelivering, openUpgradePlanUrl: openUpgradePlanUrl } } -->
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishAsScorm', model: scormBuildAction, activationData: courseId } -->
                     <!-- /ko -->
-                    <!-- ko compose: { view: 'views/courses/publishActions/publishAsHtml', model: { buildAction: buildAction, isCourseDelivering: isCourseDelivering } } -->
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishAsHtml', model: buildAction, activationData: courseId } -->
                     <!-- /ko -->
-                    <!-- ko compose: { view: 'views/courses/publishActions/publishToAim4You', model: { publishToAim4YouAction: publishToAim4YouAction, isCourseDelivering: isCourseDelivering, states: states } } -->
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishToAim4You', model: publishToAim4YouAction, activationData: courseId } -->
                     <!-- /ko -->
                 </div>
             </div>

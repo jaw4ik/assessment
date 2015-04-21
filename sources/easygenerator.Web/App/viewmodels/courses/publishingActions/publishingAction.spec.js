@@ -1,13 +1,19 @@
 ﻿define(['viewmodels/courses/publishingActions/publishingAction'], function (publishingAction) {
 
+    var constants = require('constants'),
+       app = require('durandal/app');
+
     describe('[publishingAction]', function () {
         var
             viewModel,
-            course = { id: 'id' },
+            course = { id: 'id', isDelivering: true },
             action = { state: 'someState', packageUrl: 'some/package/url' };
 
         beforeEach(function () {
-            viewModel = publishingAction(course, action);
+            spyOn(app, 'on').and.returnValue(Q.defer().promise);
+            spyOn(app, 'off');
+
+            viewModel = publishingAction();
         });
 
         it('should be object', function () {
@@ -19,17 +25,14 @@
             it('should be observable', function () {
                 expect(viewModel.state).toBeObservable();
             });
-
-            it('should be equal to ctor \'state\' parameter', function () {
-                expect(viewModel.state()).toBe(action.state);
-            });
-
         });
 
-        describe('isPublishing:', function () {
-            it('should be observable', function () {
-                expect(viewModel.isPublishing).toBeObservable();
+        describe('states:', function () {
+
+            it('should be equal to allowed publish states', function () {
+                expect(viewModel.states).toEqual(constants.publishingStates);
             });
+
         });
 
         describe('isCourseDelivering:', function () {
@@ -42,19 +45,11 @@
             it('should be observable', function () {
                 expect(viewModel.packageUrl).toBeObservable();
             });
-
-            it('should be equal to ctor \'action.packageUrl\' parameter', function () {
-                expect(viewModel.packageUrl()).toBe(action.packageUrl);
-            });
         });
 
         describe('courseId:', function () {
             it('should be defined', function () {
                 expect(viewModel.courseId).toBeDefined();
-            });
-
-            it('should be equal to ctor \'id\' parameter', function () {
-                expect(viewModel.courseId).toBe(course.id);
             });
         });
 
@@ -102,12 +97,22 @@
 
         });
 
+        describe('subscriptions:', function () {
+            it('should be array', function () {
+                expect(viewModel.subscriptions).toBeArray();
+            });
+        });
+
         describe('courseDeliveringStarted:', function () {
             it('should be function', function () {
                 expect(viewModel.courseDeliveringStarted).toBeFunction();
             });
 
             describe('when course is current course', function () {
+                beforeEach(function () {
+                    viewModel.courseId = course.id;
+                });
+
                 it('should set isCourseDelivering to true', function () {
                     viewModel.isCourseDelivering(false);
                     viewModel.courseDeliveringStarted(course);
@@ -116,6 +121,10 @@
             });
 
             describe('when course is not current course', function () {
+                beforeEach(function () {
+                    viewModel.courseId = '';
+                });
+
                 it('should not change isCourseDelivering', function () {
                     viewModel.isCourseDelivering(false);
                     viewModel.courseDeliveringStarted({ id: 'none' });
@@ -130,6 +139,10 @@
             });
 
             describe('when course is current course', function () {
+                beforeEach(function () {
+                    viewModel.courseId = course.id;
+                });
+
                 it('should set isCourseDelivering to false', function () {
                     viewModel.isCourseDelivering(true);
                     viewModel.courseDeliveringFinished(course);
@@ -138,11 +151,86 @@
             });
 
             describe('when course is not current course', function () {
+                beforeEach(function () {
+                    viewModel.courseId = '';
+                });
+
                 it('should not change isCourseDelivering', function () {
                     viewModel.isCourseDelivering(true);
                     viewModel.courseDeliveringFinished({ id: 'none' });
                     expect(viewModel.isCourseDelivering()).toBeTruthy();
                 });
+            });
+        });
+
+        describe('activate:', function () {
+            it('should be function', function () {
+                expect(viewModel.activate).toBeFunction();
+            });
+
+            it('should set state', function () {
+                viewModel.state('');
+                viewModel.activate(course, action);
+                expect(viewModel.state()).toBe(action.state);
+            });
+
+            it('should set packageUrl', function () {
+                viewModel.packageUrl('');
+                viewModel.activate(course, action);
+                expect(viewModel.packageUrl()).toBe(action.packageUrl);
+            });
+
+            it('should set isCourseDelivering', function () {
+                viewModel.isCourseDelivering(false);
+                viewModel.activate(course, action);
+                expect(viewModel.isCourseDelivering()).toBe(course.isDelivering);
+            });
+
+            it('should set courseId', function () {
+                viewModel.courseId = '';
+                viewModel.activate(course, action);
+                expect(viewModel.courseId).toBe(course.id);
+            });
+
+            it('should subscribe to course.delivering.started event', function () {
+                viewModel.activate(course, action);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.delivering.started);
+            });
+
+            it('should subscribe to course.delivering.finished event', function () {
+                viewModel.activate(course, action);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.delivering.finished);
+            });
+
+            it('should fill subscriptions', function () {
+                viewModel.activate(course, action);
+                expect(viewModel.subscriptions.length).toBe(2);
+            });
+        });
+
+        describe('deactivate:', function () {
+            var subscriptions ;
+            beforeEach(function () {
+                subscriptions = [{ off: function () { } }, { off: function () { } }];
+                spyOn(subscriptions[0], 'off');
+                spyOn(subscriptions[1], 'off');
+
+                viewModel.subscriptions = [subscriptions[0], subscriptions[1]];
+            });
+
+            it('should be function', function () {
+                expect(viewModel.deactivate).toBeFunction();
+            });
+
+            it('should call off() for each subsription', function () {
+                viewModel.deactivate();
+                expect(subscriptions[0].off).toHaveBeenCalled();
+                expect(subscriptions[1].off).toHaveBeenCalled();
+            });
+
+            it('should clear subscriptions', function () {
+                viewModel.deactivate();
+                expect(viewModel.subscriptions.length).toBe(0);
             });
         });
 

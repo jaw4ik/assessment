@@ -345,6 +345,8 @@ namespace easygenerator.DomainModel.Entities
             {
                 existingSettings.Settings = settings;
                 existingSettings.ExtraData = extraData;
+                RaiseEvent(new CourseTemplateSettingsUpdated(this));
+
                 return;
             }
 
@@ -355,6 +357,8 @@ namespace easygenerator.DomainModel.Entities
                 Settings = settings,
                 ExtraData = extraData
             });
+
+            RaiseEvent(new CourseTemplateSettingsUpdated(this));
         }
 
         #endregion

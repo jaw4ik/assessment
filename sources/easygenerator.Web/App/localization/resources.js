@@ -728,8 +728,8 @@
         'uk': 'Продайте курс'
     },
     scormCaptionFirst: {
-        'en': 'Want to run your course on LMS or on your SCROM cloud?',
-        'zh-cn': 'Want to run your course on LMS or on your SCROM cloud?[zh-cn]',
+        'en': 'Want to run your course on LMS or on your SCORM cloud?',
+        'zh-cn': 'Want to run your course on LMS or on your SCORM cloud?[zh-cn]',
         'uk': 'Хочете запустити свій курс в LMS або Вашому SCORM сховищі?'
     },
     scormCaptionSecond: {
@@ -1411,6 +1411,9 @@
         'zh-cn': '错误答案的回应',
         'uk': 'Відгук на неправильну відповідь'
     },
+    /* End resource section for model QuestionFeedback */
+    
+    /* Resource section for model Display course */
     finish: {
         'en': 'Finish',
         'zh-cn': '完成',
@@ -1446,7 +1449,7 @@
         'zh-cn': 'Course title[zh-cn]',
         'uk': 'Назва курсу'
     },
-    /* End resource section for model QuestionFeedback */
+    /* End resource section for model Display course */
     
     /* Resource section for model Error pages */
     pageNotFound: {

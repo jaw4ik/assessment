@@ -33,7 +33,7 @@ namespace easygenerator.DomainModel.Entities.Questions
 
             MarkAsModified(modifiedBy);
 
-            RaiseEvent(new HotSpotPolygonChangedEvent(this));
+            RaiseEvent(new HotSpotPolygonUpdatedEvent(this));
         }
 
         private void ThrowIfPointsIsInvalid(string points)

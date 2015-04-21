@@ -10,7 +10,7 @@ namespace easygenerator.Web.Synchronization.Handlers
     public class HotSpotEventHandler :
         IDomainEventHandler<HotSpotPolygonCreatedEvent>,
         IDomainEventHandler<HotSpotPolygonDeletedEvent>,
-        IDomainEventHandler<HotSpotPolygonChangedEvent>,
+        IDomainEventHandler<HotSpotPolygonUpdatedEvent>,
         IDomainEventHandler<HotSpotIsMultipleChangedEvent>
     {
         private readonly ICollaborationBroadcaster<Question> _broadcaster;
@@ -34,7 +34,7 @@ namespace easygenerator.Web.Synchronization.Handlers
                 .hotSpotPolygonDeleted(args.Question.Id.ToNString(), args.HotSpotPolygon.Id.ToNString(), args.Question.ModifiedOn);
         }
 
-        public void Handle(HotSpotPolygonChangedEvent args)
+        public void Handle(HotSpotPolygonUpdatedEvent args)
         {
             _broadcaster.OtherCollaborators(args.HotSpotPolygon.Question)
                 .hotSpotPolygonChanged(args.HotSpotPolygon.Question.Id.ToNString(), _entityMapper.Map(args.HotSpotPolygon), args.HotSpotPolygon.Question.ModifiedOn);
