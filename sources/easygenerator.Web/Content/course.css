@@ -1846,7 +1846,7 @@ li.package-action-tabs-link {
 /*#region SHARE COURSE DIALOG*/
 
 .modal-dialog-wrapper.publish-course {
-    top: 60px;
+    top: 65px;
     right: 0;
     width: 525px;
 }
