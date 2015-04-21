@@ -1,0 +1,37 @@
+﻿<li class="r-data expandable" data-bind="click: isExpanded() ? collapse : expand, css: { expanded: isExpanded}">
+    <div class="r-table">
+        <div class="r-name"><span class="selectable" data-bind="text: learnerDisplayName, attr: { title: learnerDisplayName }"></span></div>
+        <div class="r-result">
+            <!-- ko if: lrsStatement.correct -->
+            <span class="correct">
+                <span class="info-tooltip">
+                    <span data-bind="localize: { text: 'passed' }">Passed</span>
+                </span>
+            </span>
+            <!-- /ko -->
+            <!-- ko ifnot: lrsStatement.correct -->
+            <span class="incorrect">
+                <span class="info-tooltip">
+                    <span data-bind="localize: { text: 'failed' }">Failed</span>
+                </span>
+            </span>
+            <!-- /ko -->
+        </div>
+        <div class="r-score" data-bind="text: lrsStatement.score">score</div>
+        <div class="r-date" data-bind="date: { value: lrsStatement.date, formatString: 'MMM D, YYYY h:mm A' }">date</div>
+    </div>
+    <!-- ko if: isExpanded -->
+    <ul class="r-objective">
+        <li class="r-table">
+            <div class="r-course-dates">
+                Course started at <span data-bind="date: { value: startedLrsStatement.date, formatString: 'MMM D, YYYY h:mm A' }"></span>
+                and finished at <span data-bind="date: { value: lrsStatement.date, formatString: 'MMM D, YYYY h:mm A' }"></span>
+            </div>
+        </li>
+        <!-- ko foreach: children -->
+        <!-- ko compose: { view: 'views/reporting/objectiveStatement', model: $data } --><!-- /ko -->
+        <!-- /ko -->
+    </ul>
+
+    <!-- /ko -->
+</li>

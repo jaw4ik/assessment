@@ -1,0 +1,13 @@
+﻿<li class="expandable" data-bind="click: isExpanded() ? collapse : expand, clickBubble: false, css: {expanded: isExpanded}">
+    <div class="r-table">
+        <div class="r-text">OBJECTIVE: </div>
+        <div class="r-title selectable">"<span data-bind="text: lrsStatement.name"></span>"</div>
+    </div>
+    <!-- ko if: isExpanded -->
+    <ul class="r-question">
+        <!-- ko foreach: children -->
+        <!-- ko compose: { view: 'views/reporting/questionStatement', model: $data } --><!-- /ko -->
+        <!-- /ko -->
+    </ul>
+    <!-- /ko -->
+</li>

@@ -35,7 +35,6 @@
             results: ko.observableArray([]),
             isResultsDialogShown: ko.observable(false),
             isDownloadDialogShown: ko.observable(false),
-            getLearnerName: getLearnerName,
             showMoreResults: showMoreResults,
             upgradeNowForLoadMore: upgradeNowForLoadMore,
             upgradeNowForDownloadCsv: upgradeNowForDownloadCsv,
@@ -124,10 +123,6 @@
                 }).fin(function () {
                     viewModel.isLoading(false);
                 });
-        }
-
-        function getLearnerName(reportingStatement) {
-            return reportingStatement.lrsStatement.actor.name + ' (' + reportingStatement.lrsStatement.actor.email + ')';
         }
 
         function showMoreResults() {

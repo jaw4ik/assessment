@@ -4,6 +4,7 @@
     var CourseStatement = function (finishedLrsStatement) {
         ExpandeableStatement.call(this, finishedLrsStatement, this.expandLoadAction);
         this.startedLrsStatement = null;
+        this.learnerDisplayName = this.lrsStatement.actor.name + ' (' + this.lrsStatement.actor.email + ')';
     }
 
     CourseStatement.prototype = Object.create(ExpandeableStatement.prototype);

@@ -633,6 +633,9 @@
     <Content Include="App\views\courses\results.html" />
     <Content Include="App\views\objectives\index.html" />
     <Content Include="App\views\questions\statement\statement.html" />
+    <Content Include="App\views\reporting\courseStatement.html" />
+    <Content Include="App\views\reporting\objectiveStatement.html" />
+    <Content Include="App\views\reporting\questionStatement.html" />
     <Content Include="BuildCourse\Modules\js\branding.js" />
     <Content Include="Content\editField.css">
       <DependentUpon>editField.less</DependentUpon>
