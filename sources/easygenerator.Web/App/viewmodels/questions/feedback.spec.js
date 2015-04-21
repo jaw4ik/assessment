@@ -512,7 +512,7 @@
 
                         it('should remove feedback', function () {
                             viewModel.generalFeedback.updateText();
-                            expect(viewModel.generalFeedback.text()).toBe('');
+                            expect(viewModel.generalFeedback.text()).toBe(' ');
                         });
 
                     });
