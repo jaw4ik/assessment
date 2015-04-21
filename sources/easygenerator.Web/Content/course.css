@@ -1541,16 +1541,16 @@ li.package-action-tabs-link {
             color: #fdfdfd;
         }
 
-        .copy-btn-wrapper .btn.copied span:before {
-            content: '';
-            position: absolute;
-            width: 14px;
-            height: 12px;
-            top: 50%;
-            left: 0;
-            margin-top: -6px;
-            background: url("images/sprites_16.png") -1px -44px no-repeat;
-        }
+            .copy-btn-wrapper .btn.copied span:before {
+                content: '';
+                position: absolute;
+                width: 14px;
+                height: 12px;
+                top: 50%;
+                left: 0;
+                margin-top: -6px;
+                background: url("images/sprites_16.png") -1px -44px no-repeat;
+            }
 
 .private-link-input,
 .embed-code-text {
@@ -1741,11 +1741,11 @@ li.package-action-tabs-link {
 }
 
     .course-introduction-control-button.add {
-        background: url('images/sprites_32.png') 0 -37px no-repeat;
+        background: url('images/sprites_32.png') 0 -37px no-repeat #f3f7f9;
     }
 
 .course-introduction-container:hover .course-introduction-control-button.add {
-    background: url('images/sprites_32.png') -37px -37px no-repeat;
+    background: url('images/sprites_32.png') -37px -37px no-repeat #f3f7f9;
 }
 
 .course-introduction-control-button.collapse,
