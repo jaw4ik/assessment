@@ -1521,23 +1521,36 @@ li.package-action-tabs-link {
             box-shadow: none;
         }
 
+        .copy-btn-wrapper .btn.green-white.copied.zeroclipboard-is-hover {
+            background-color: #5fb06f;
+            border-color: #61b472;
+        }
+
+        .copy-btn-wrapper .btn.green-white.copied {
+            background: #65bd77;
+            border: 1px solid #61b472;
+            color: white;
+            text-shadow: none;
+        }
+
         .copy-btn-wrapper .btn.copied span {
             position: relative;
             display: inline-block;
             padding-left: 18px;
             text-transform: none;
+            color: #fdfdfd;
         }
 
-            .copy-btn-wrapper .btn.copied span:before {
-                content: '';
-                position: absolute;
-                width: 14px;
-                height: 12px;
-                top: 50%;
-                left: 0;
-                margin-top: -6px;
-                background: url("images/sprites_16.png") -1px -44px no-repeat;
-            }
+        .copy-btn-wrapper .btn.copied span:before {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 12px;
+            top: 50%;
+            left: 0;
+            margin-top: -6px;
+            background: url("images/sprites_16.png") -1px -44px no-repeat;
+        }
 
 .private-link-input,
 .embed-code-text {
@@ -1585,11 +1598,11 @@ li.package-action-tabs-link {
     .package-action-tabs-item-wrapper .publish-tab-update-course {
         padding: 12px 10px;
         margin-bottom: 20px;
-}
+    }
 
     .package-action-tabs-item-wrapper .publish-tab-update-course-image {
         margin-left: 10px;
-}
+    }
 
     .package-action-tabs-item-wrapper .publish-tab-update-course-text {
         margin-right: 15px;
