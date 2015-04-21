@@ -1884,7 +1884,7 @@ li.package-action-tabs-link {
     background-color: #fdfdfd;
 }
 
-.modal-dialog-wrapper.publish-course.visible + .button {
+.modal-dialog-wrapper.publish-course.visible + .course-action-share {
     z-index: 1500;
 }
 
