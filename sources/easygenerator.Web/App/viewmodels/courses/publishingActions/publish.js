@@ -60,9 +60,9 @@
 
                     viewModel.eventCategory = eventCategory;
                     viewModel.courseIsDirty(course.isDirty);
-                    viewModel.linkCopied = ko.observable(false);
-                    viewModel.embedCodeCopied = ko.observable(false);
-                    viewModel.copyBtnDisabled = ko.observable(false);
+                    viewModel.linkCopied(false);
+                    viewModel.embedCodeCopied(false);
+                    viewModel.copyBtnDisabled(false);
 
                     viewModel.subscribe(constants.messages.course.build.started, viewModel.courseBuildStarted);
                     viewModel.subscribe(constants.messages.course.build.failed, viewModel.courseBuildFailed);
