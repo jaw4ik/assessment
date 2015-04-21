@@ -27,8 +27,10 @@
             navigateToCoursesEvent: navigateToCoursesEvent,
 
             activate: activate,
+            deactivate: deactivate,
             attached: attached,
 
+            allResultsLoaded: false,
             isLoading: ko.observable(true),
             results: ko.observableArray([]),
             isResultsDialogShown: ko.observable(false),
@@ -65,36 +67,61 @@
             viewModel.courseId = courseId;
             viewModel.isResultsDialogShown(false);
             viewModel.isDownloadDialogShown(false);
+            viewModel.allResultsLoaded = false;
+
             return courseRepository.getById(courseId).then(function (course) {
                 viewModel.courseTitle = course.title;
             });
         }
 
+        function deactivate() {
+            viewModel.results([]);
+            viewModel.loadedResults = [];
+        }
+
         function loadStatements(courseId, take, skip) {
             return Q.fcall(function () {
-                var startIndex = skip ? skip + 1 : 0;
-                if (viewModel.loadedResults.length <= take + skip || (!take && !skip)) {
-                    var toTake = take ? take + 1 : null; // load +1 record to determine should we show 'Show more' button or not.
-                    return xApiProvider.getCourseCompletedStatements(courseId, toTake, skip)
+                if (!viewModel.allResultsLoaded && (viewModel.loadedResults.length <= take + skip)) {
+                    return xApiProvider.getCourseCompletedStatements(courseId, take + 1, skip)
+                        // load +1 record to determine should we show 'Show more' button or not.
                         .then(function (reportingStatements) {
                             var courseStatements = _.map(reportingStatements, function (statement) {
                                 return new CourseStatement(statement);
                             });
-                            Array.prototype.splice.apply(viewModel.loadedResults, [startIndex, 0].concat(courseStatements));
+                            if (courseStatements && courseStatements.length < take + 1) {
+                                viewModel.allResultsLoaded = true;
+                            }
+                            Array.prototype.splice.apply(viewModel.loadedResults, [skip, take].concat(courseStatements));
                             return courseStatements.slice(0, take);
                         });
                 }
-                return viewModel.loadedResults.slice(startIndex, startIndex + take);
+                return viewModel.loadedResults.slice(skip, skip + take);
             });
         }
+
+        function loadAllStatements(courseId) {
+            return Q.fcall(function () {
+                if (!viewModel.allResultsLoaded) {
+                    return xApiProvider.getCourseCompletedStatements(courseId)
+                        .then(function (reportingStatements) {
+                            viewModel.loadedResults = _.map(reportingStatements, function (statement) {
+                                return new CourseStatement(statement);
+                            });
+                            viewModel.allResultsLoaded = true;
+                            return viewModel.loadedResults;
+                        });
+                }
+                return viewModel.loadedResults;
+            });
+        }
+
 
         function attached() {
             viewModel.isLoading(true);
             return loadStatements(viewModel.courseId, constants.courseResults.pageSize, 0)
                 .then(function (reportingStatements) {
-                viewModel.results.push.apply(viewModel.results, reportingStatements);
-                }).fail(function(reason) {
-            }).fin(function () {
+                    viewModel.results.push.apply(viewModel.results, reportingStatements);
+                }).fin(function () {
                     viewModel.isLoading(false);
                 });
         }
@@ -115,11 +142,10 @@
                 return;
             }
 
-            viewModel.pageNumber++;
-
             loadStatements(viewModel.courseId, constants.courseResults.pageSize, viewModel.pageNumber * constants.courseResults.pageSize)
                 .then(function (reportingStatements) {
-                    Array.prototype.push.apply(viewModel.results, reportingStatements);
+                    viewModel.results.push.apply(viewModel.results, reportingStatements);
+                    viewModel.pageNumber++;
                 });
         }
 
@@ -194,7 +220,7 @@
             ].join(',');
             var csvList = [csvHeader];
 
-            return loadStatements(viewModel.courseId).then(function (reportingStatements) {
+            return loadAllStatements(viewModel.courseId).then(function (reportingStatements) {
                 _.each(reportingStatements, function (result) {
                     var resultCsv = [
                         result.lrsStatement.actor.name + ' (' + result.lrsStatement.actor.email + ')',
