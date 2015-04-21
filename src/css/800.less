@@ -38,13 +38,11 @@ html, body {
         }
     }
 
-    .single-select-image-list-item {
-        margin: 0 30px 0 0;
+    .single-select-image-list {
         padding-left: 0;
 
-        &:nth-child(even) {
+        .single-select-image-list-item {
             margin: 0;
-            padding-right: 0;
         }
     }
 
@@ -70,16 +68,23 @@ html, body {
         padding-left: 0;
     }
 
-    .question-hint-container {
-        padding-left: 0;
+    .hint-container {
         margin: 0;
 
-        .hint-button-container {
-            padding: 0 40px;
+        .question-hint-container {
+            padding-left: 0;
 
-            .hint-button {
-                .hint-button-caption {
-                    max-width: 100%;
+            .question-hint {
+                border-radius: 0;
+
+                .hint-button-container {
+                    padding: 0 40px;
+
+                    .hint-button {
+                        .hint-button-caption {
+                            max-width: 100%;
+                        }
+                    }
                 }
             }
         }
