@@ -1,6 +1,6 @@
-﻿<li class="r-data" data-bind="click: isExpanded() ? collapse : expand, css: { expanded: isExpanded, expandable: isExpandable }">
-    <div class="r-table">
-        <div class="r-name"><span class="selectable" data-bind="text: learnerDisplayName, attr: { title: learnerDisplayName }"></span></div>
+﻿<li class="r-data" data-bind="css: { expanded: isExpanded, expandable: isExpandable }">
+    <div class="r-table" data-bind="click: isExpanded() ? collapse : expand">
+        <div class=" r-name"><span class="selectable" data-bind="text: learnerDisplayName, attr: { title: learnerDisplayName }"></span></div>
         <div class="r-result">
             <!-- ko if: correct -->
             <span class="correct">
