@@ -169,7 +169,7 @@
   top: -5px;
   width: 385px;
 }
-.collaboration.modal-dialog-wrapper.visible + .button {
+.collaboration.modal-dialog-wrapper.visible + .course-action-collaboration {
   z-index: 1500;
 }
 [lang~=uk] .collaboration.modal-dialog-wrapper {

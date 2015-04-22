@@ -1521,11 +1521,24 @@ li.package-action-tabs-link {
             box-shadow: none;
         }
 
+        .copy-btn-wrapper .btn.green-white.copied.zeroclipboard-is-hover {
+            background-color: #5fb06f;
+            border-color: #61b472;
+        }
+
+        .copy-btn-wrapper .btn.green-white.copied {
+            background: #65bd77;
+            border: 1px solid #61b472;
+            color: white;
+            text-shadow: none;
+        }
+
         .copy-btn-wrapper .btn.copied span {
             position: relative;
             display: inline-block;
             padding-left: 18px;
             text-transform: none;
+            color: #fdfdfd;
         }
 
             .copy-btn-wrapper .btn.copied span:before {
@@ -1585,11 +1598,11 @@ li.package-action-tabs-link {
     .package-action-tabs-item-wrapper .publish-tab-update-course {
         padding: 12px 10px;
         margin-bottom: 20px;
-}
+    }
 
     .package-action-tabs-item-wrapper .publish-tab-update-course-image {
         margin-left: 10px;
-}
+    }
 
     .package-action-tabs-item-wrapper .publish-tab-update-course-text {
         margin-right: 15px;
@@ -1728,11 +1741,11 @@ li.package-action-tabs-link {
 }
 
     .course-introduction-control-button.add {
-        background: url('images/sprites_32.png') 0 -37px no-repeat;
+        background: url('images/sprites_32.png') 0 -37px no-repeat #f3f7f9;
     }
 
 .course-introduction-container:hover .course-introduction-control-button.add {
-    background: url('images/sprites_32.png') -37px -37px no-repeat;
+    background: url('images/sprites_32.png') -37px -37px no-repeat #f3f7f9;
 }
 
 .course-introduction-control-button.collapse,
@@ -1833,7 +1846,7 @@ li.package-action-tabs-link {
 /*#region SHARE COURSE DIALOG*/
 
 .modal-dialog-wrapper.publish-course {
-    top: 60px;
+    top: 65px;
     right: 0;
     width: 525px;
 }
@@ -1884,7 +1897,7 @@ li.package-action-tabs-link {
     background-color: #fdfdfd;
 }
 
-.modal-dialog-wrapper.publish-course.visible + .button {
+.modal-dialog-wrapper.publish-course.visible + .course-action-share {
     z-index: 1500;
 }
 
