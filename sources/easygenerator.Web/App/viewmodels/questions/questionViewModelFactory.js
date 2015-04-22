@@ -7,8 +7,8 @@
         'viewmodels/questions/informationContent/informationContent',
         'viewmodels/questions/statement/statement',
         'viewmodels/questions/hotSpot/hotSpot',
-        'viewmodels/questions/open/open'],
-    function (multipleSelect, fillInTheBlank, dragAndDropText, singleSelectText, textMatching, singleSelectImage, informationContent, statement, hotspot, open) {
+        'viewmodels/questions/openQuestion/openQuestion'],
+    function (multipleSelect, fillInTheBlank, dragAndDropText, singleSelectText, textMatching, singleSelectImage, informationContent, statement, hotspot, openQuestion) {
         "use strict";
 
         return {
@@ -21,7 +21,7 @@
             informationContent: informationContent,
             statement:statement,
             hotspot: hotspot,
-            open: open
+            openQuestion: openQuestion
         };
 
     }

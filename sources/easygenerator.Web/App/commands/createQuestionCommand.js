@@ -52,8 +52,8 @@
                 case constants.questionType.statement.type:
                     eventTracker.publish('Create new question (statement)', eventCategory);
                     break;
-                case constants.questionType.open.type:
-                    eventTracker.publish('Create new question (open)', eventCategory);
+                case constants.questionType.openQuestion.type:
+                    eventTracker.publish('Create new question (open question)', eventCategory);
                     break;
             }
         }
@@ -66,7 +66,7 @@
                     return localizationManager.localize('newStatementQuestionTitle');
                 case constants.questionType.hotspot.type:
                     return localizationManager.localize('newHotspotQuestionTitle');
-                case constants.questionType.open.type:
+                case constants.questionType.openQuestion.type:
                     return localizationManager.localize('newOpenQuestionTitle');
                 default:
                     return localizationManager.localize('newQuestionTitle');

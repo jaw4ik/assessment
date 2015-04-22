@@ -6,11 +6,11 @@ using System.Web;
 
 namespace easygenerator.Web.BuildCourse.PackageModel
 {
-    public class OpenPackageModel : QuestionPackageModel
+    public class OpenQuestionPackageModel : QuestionPackageModel
     {
         public override string Type
         {
-            get { return Question.QuestionTypes.Open; }
+            get { return Question.QuestionTypes.OpenQuestion; }
         }
     }
 }

@@ -120,9 +120,9 @@
 
                 describe('and when question type is open', function () {
 
-                    it('should send event \'Create new question (open)\' with defined event category ', function () {
-                        command.execute('objectiveId', 'courseId', constants.questionType.open.type, 'event category');
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (open)', 'event category');
+                    it('should send event \'Create new question (open question)\' with defined event category ', function () {
+                        command.execute('objectiveId', 'courseId', constants.questionType.openQuestion.type, 'event category');
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (open question)', 'event category');
                     });
 
                 });

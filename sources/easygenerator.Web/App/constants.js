@@ -45,8 +45,8 @@
                     type: 'statement',
                     image: '/Content/images/statement-question.png'
                 },
-                open: {
-                    type: 'open',
+                openQuestion: {
+                    type: 'openQuestion',
                     image: '/Content/images/open-question.png'
                 }
             },

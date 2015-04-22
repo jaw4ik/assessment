@@ -60,7 +60,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             DateTimeWrapper.Now = () => DateTime.MinValue;
             _user.Identity.Name.Returns(user);
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
-            var question = Substitute.For<Open>("Information content title", CreatedBy);
+            var question = Substitute.For<OpenQuestion>("Information content title", CreatedBy);
 
             _entityFactory.OpenQuestion(title, user).Returns(question);
 
@@ -76,7 +76,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var user = "Test user";
             _user.Identity.Name.Returns(user);
             DateTimeWrapper.Now = () => DateTime.MinValue;
-            var question = Substitute.For<Open>("Information content title", CreatedBy);
+            var question = Substitute.For<OpenQuestion>("Information content title", CreatedBy);
 
             _entityFactory.OpenQuestion(title, user).Returns(question);
 

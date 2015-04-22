@@ -37,7 +37,7 @@ namespace easygenerator.DomainModel
         PasswordRecoveryTicket PasswordRecoveryTicket(User user);
         ImageFile ImageFile(string title, string createdBy);
         InformationContent InformationContent(string title, string createdBy);
-        Open OpenQuestion(string title, string createdBy);
+        OpenQuestion OpenQuestion(string title, string createdBy);
         Onboarding Onboarding(string userEmail);
         DemoCourseInfo DemoCourseInfo(Course sourceCourse, Course demoCourse, string createdBy);
         CourseState CourseState(Course course, bool isDirty);
@@ -187,9 +187,9 @@ namespace easygenerator.DomainModel
             return new InformationContent(title, createdBy);
         }
 
-        public Open OpenQuestion(string title, string createdBy)
+        public OpenQuestion OpenQuestion(string title, string createdBy)
         {
-            return new Open(title, createdBy);
+            return new OpenQuestion(title, createdBy);
         }
 
         public Onboarding Onboarding(string userEmail)

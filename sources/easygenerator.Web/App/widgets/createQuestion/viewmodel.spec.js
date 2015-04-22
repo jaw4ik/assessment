@@ -104,7 +104,7 @@
                         expect(viewModel.questions()[6].type).toBe(constants.questionType.dragAndDropText.type);
                         expect(viewModel.questions()[7].type).toBe(constants.questionType.statement.type);
                         expect(viewModel.questions()[8].type).toBe(constants.questionType.hotspot.type);
-                        expect(viewModel.questions()[9].type).toBe(constants.questionType.open.type);
+                        expect(viewModel.questions()[9].type).toBe(constants.questionType.openQuestion.type);
 
                         done();
                     });
@@ -256,12 +256,12 @@
                         });
                     });
 
-                    it('should have no access to open', function (done) {
+                    it('should have no access to open question', function (done) {
                         var promise = viewModel.activate(settings);
 
                         promise.fin(function () {
                             var question = _.find(viewModel.questions(), function (item) {
-                                return item.type === constants.questionType.open.type;
+                                return item.type === constants.questionType.openQuestion.type;
                             });
                             expect(question.hasAccess).toBeFalsy();
                             done();
@@ -347,12 +347,12 @@
                         });
                     });
 
-                    it('should has access to statement', function (done) {
+                    it('should has access to open question', function (done) {
                         var promise = viewModel.activate(settings);
 
                         promise.fin(function () {
                             var question = _.find(viewModel.questions(), function (item) {
-                                return item.type === constants.questionType.open.type;
+                                return item.type === constants.questionType.openQuestion.type;
                             });
                             expect(question.hasAccess).toBeTruthy();
                             done();

@@ -36,11 +36,6 @@
         'zh-cn': 'Go back[zh-cn]',
         'uk': 'Назад'
     },
-    goBack: {
-        'en': 'Go back',
-        'zh-cn': 'Go back[zh-cn]',
-        'uk': 'Назад'
-    },
     remove: {
         'en': 'Remove',
         'zh-cn': '移除',
@@ -733,8 +728,8 @@
         'uk': 'Продайте курс'
     },
     scormCaptionFirst: {
-        'en': 'Want to run your course on LMS or on your SCROM cloud?',
-        'zh-cn': 'Want to run your course on LMS or on your SCROM cloud?[zh-cn]',
+        'en': 'Want to run your course on LMS or on your SCORM cloud?',
+        'zh-cn': 'Want to run your course on LMS or on your SCORM cloud?[zh-cn]',
         'uk': 'Хочете запустити свій курс в LMS або Вашому SCORM сховищі?'
     },
     scormCaptionSecond: {
@@ -1378,10 +1373,15 @@
         'zh-cn': 'Untitled open question[zh-cn]',
         'uk': 'Untitled open question[uk]'
     },
+    openQuestion: {
+        'en': 'Open question',
+        'zh-cn': 'Open question[zh-cn]',
+        'uk': 'Open question[uk]'
+    },
     openQuestionEditor: {
-        'en': '\"Open\" question editor',
-        'zh-cn': '\"Open\" question editor[zh-cn]',
-        'uk': '\"Open\" question editor[uk]'
+        'en': '\"Open question\" editor',
+        'zh-cn': '\"Open question\" editor[zh-cn]',
+        'uk': '\"Open question\" editor[uk]'
     },
     putYourFeedback: {
         'en': 'Create response for answer',
@@ -1416,6 +1416,9 @@
         'zh-cn': '错误答案的回应',
         'uk': 'Відгук на неправильну відповідь'
     },
+    /* End resource section for model QuestionFeedback */
+    
+    /* Resource section for model Display course */
     finish: {
         'en': 'Finish',
         'zh-cn': '完成',
@@ -1451,7 +1454,7 @@
         'zh-cn': 'Course title[zh-cn]',
         'uk': 'Назва курсу'
     },
-    /* End resource section for model QuestionFeedback */
+    /* End resource section for model Display course */
     
     /* Resource section for model Error pages */
     pageNotFound: {

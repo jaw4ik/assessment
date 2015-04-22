@@ -23,7 +23,7 @@ namespace easygenerator.DomainModel.Entities.Questions
             public const string InformationContent = "informationContent";
             public const string HotSpot = "hotspot";
             public const string Statement = "statement";
-            public const string Open = "open";
+            public const string OpenQuestion = "openQuestion";
         }
 
         #endregion

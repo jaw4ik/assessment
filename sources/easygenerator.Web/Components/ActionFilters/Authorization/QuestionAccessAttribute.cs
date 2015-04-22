@@ -15,7 +15,7 @@ namespace easygenerator.Web.Components.ActionFilters.Authorization
 
         protected override bool CheckEntityAccess(Entity entity, User user)
         {
-            if (entity is DragAndDropText || entity is HotSpot || entity is Statement || entity is Open)
+            if (entity is DragAndDropText || entity is HotSpot || entity is Statement || entity is OpenQuestion)
             {
                 return user.HasPlusAccess();
             }

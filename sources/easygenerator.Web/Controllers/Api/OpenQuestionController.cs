@@ -22,7 +22,7 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [EntityCollaborator(typeof(Objective))]
         [PlusAccess(ErrorMessageResourceKey = Errors.UpgradeAccountToCreateAdvancedQuestionTypes)]
-        [Route("api/question/" + Question.QuestionTypes.Open + "/create")]
+        [Route("api/question/" + Question.QuestionTypes.OpenQuestion + "/create")]
         public ActionResult Create(Objective objective, string title)
         {
             if (objective == null)

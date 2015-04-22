@@ -59,7 +59,7 @@
                     hasAccess: userContext.hasPlusAccess()
                 },
                 {
-                    type: constants.questionType.open.type,
+                    type: constants.questionType.openQuestion.type,
                     hasAccess: userContext.hasPlusAccess()
                 }
             ]);

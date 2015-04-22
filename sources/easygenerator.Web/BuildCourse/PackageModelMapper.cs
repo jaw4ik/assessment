@@ -97,9 +97,9 @@ namespace easygenerator.Web.BuildCourse
             {
                 return MapInformationContent(question as InformationContent);
             }
-            if (questionType == typeof(Open))
+            if (questionType == typeof(OpenQuestion))
             {
-                return MapOpen(question as Open);
+                return MapOpenQuestion(question as OpenQuestion);
             }
 
             throw new NotSupportedException();
@@ -119,9 +119,9 @@ namespace easygenerator.Web.BuildCourse
             return MapQuestion<InformationContentPackageModel>(question);
         }
 
-        private OpenPackageModel MapOpen(Open question)
+        private OpenQuestionPackageModel MapOpenQuestion(OpenQuestion question)
         {
-            return MapQuestion<OpenPackageModel>(question);
+            return MapQuestion<OpenQuestionPackageModel>(question);
         }
 
 

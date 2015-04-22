@@ -2,7 +2,7 @@
 	"use strict";
 
 	var
-        viewModel = require('viewmodels/questions/open/open'),
+        viewModel = require('viewmodels/questions/openQuestion/openQuestion'),
         localizationManager = require('localization/localizationManager');
 
 	describe('[open question]', function () {

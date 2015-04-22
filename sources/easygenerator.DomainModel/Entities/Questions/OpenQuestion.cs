@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace easygenerator.DomainModel.Entities.Questions
 {
-    public class Open : Question
+    public class OpenQuestion : Question
     {
-        protected internal Open() { }
+        protected internal OpenQuestion() { }
 
-        protected internal Open(string title, string createdBy)
+        protected internal OpenQuestion(string title, string createdBy)
             : base(title, createdBy)
         {
         }

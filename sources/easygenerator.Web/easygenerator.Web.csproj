@@ -199,7 +199,7 @@
     <Compile Include="BuildCourse\ICourseBuilder.cs" />
     <Compile Include="BuildCourse\Modules\IPackageModulesProvider.cs" />
     <Compile Include="BuildCourse\Modules\Models\PackageModule.cs" />
-    <Compile Include="BuildCourse\PackageModel\OpenPackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\OpenQuestionPackageModel.cs" />
     <Compile Include="BuildCourse\PublishSettings\Models\PublishSettings.cs" />
     <Compile Include="BuildCourse\Modules\PackageModulesProvider.cs" />
     <Compile Include="BuildCourse\PackageModelMapper.cs" />
@@ -632,10 +632,10 @@
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.spec.js">
       <DependentUpon>changeType.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\questions\open\open.spec.js">
-      <DependentUpon>open.js</DependentUpon>
+    <Content Include="App\viewmodels\questions\openQuestion\openQuestion.spec.js">
+      <DependentUpon>openQuestion.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\questions\open\open.js" />
+    <Content Include="App\viewmodels\questions\openQuestion\openQuestion.js" />
     <Content Include="App\viewmodels\questions\statement\statement.js" />
     <Content Include="App\viewmodels\questions\statement\statement.spec.js">
       <DependentUpon>statement.js</DependentUpon>
