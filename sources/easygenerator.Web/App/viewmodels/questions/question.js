@@ -118,7 +118,7 @@ define(['durandal/app', 'eventTracker', 'constants',
         }
 
         function updateQuestionContent(content) {
-            return questionRepository.updateContent(question.id, content);
+            return questionRepository.updateContent(viewmodel.questionId, content);
         }
 
         function back() {
