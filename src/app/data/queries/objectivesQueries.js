@@ -13,13 +13,13 @@
         function getObjectiveByQuestionId(questionId) {
             var quiz = dataContext.getQuiz().$$state.value,
                 currentObjective = null;
-            
+
             currentObjective = _.find(quiz.objectives, function (objective) {
                 return _.some(objective.questions, function (question) {
                     return question.id === questionId;
                 });
             });
-            
+
             return currentObjective;
         }
     }

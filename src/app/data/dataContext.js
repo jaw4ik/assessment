@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     'use strict';
 
     angular
@@ -30,13 +30,14 @@
                     var promises = [];
 
                     if (response.hasIntroductionContent) {
-                        promises.push($http.get('content/content.html', {cache: $templateCache}));
+                        promises.push($http.get('content/content.html', { cache: $templateCache }));
                     }
 
                     if (Array.isArray(response.objectives)) {
-                        var dtoQuestions = [];
+                        var dtoQuestions;
                         response.objectives.forEach(function (dto) {
                             if (Array.isArray(dto.questions)) {
+                                dtoQuestions = [];
                                 dto.questions.forEach(function (dtq) {
                                     if (dtq) {
                                         var question;
@@ -75,7 +76,7 @@
 
                                         if (question) {
                                             if (dtq.hasContent) {
-                                                promises.push($http.get('content/' + dto.id + '/' + dtq.id + '/content.html', {dataType: 'html'}).success(function (content) {
+                                                promises.push($http.get('content/' + dto.id + '/' + dtq.id + '/content.html', { dataType: 'html' }).success(function (content) {
                                                     question.content = content;
                                                 }));
                                             }
@@ -89,13 +90,14 @@
                                     }
 
                                 });
+                                
                                 objectives.push(new Objective(dto.id, dto.title, dtoQuestions));
                             }
                         });
                     }
 
                     self.quiz = new Quiz(response.id, response.title, objectives, questions, response.hasIntroductionContent);
-                    
+
                     $q.all(promises).then(function () {
                         dfd.resolve(self.quiz);
                     })
