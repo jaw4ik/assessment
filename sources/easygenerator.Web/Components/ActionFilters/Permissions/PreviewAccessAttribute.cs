@@ -18,7 +18,7 @@ namespace easygenerator.Web.Components.ActionFilters.Permissions
 
         protected override bool CheckEntityAccess(Entity entity, User user)
         {
-            return _allowedUsers.Contains(user. Email) || base.CheckEntityAccess(entity, user);
+            return _allowedUsers.Contains(user.Email) || base.CheckEntityAccess(entity, user);
         }
 
         protected override void Reject(AuthorizationContext authorizationContext)
