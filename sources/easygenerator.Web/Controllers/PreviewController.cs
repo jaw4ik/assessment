@@ -10,6 +10,8 @@ using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildCourse.Modules;
 using easygenerator.Web.BuildCourse.PublishSettings;
 using easygenerator.Web.Components.ActionFilters;
+using easygenerator.Web.Components.ActionFilters.Authorization;
+using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Components.ActionResults;
 using easygenerator.Web.Storage;
 using Newtonsoft.Json;
@@ -18,6 +20,7 @@ using Newtonsoft.Json.Serialization;
 namespace easygenerator.Web.Controllers
 {
     [NoCache]
+    [PreviewAccess]
     public class PreviewController : Controller
     {
         private readonly PackageModelMapper _packageModelMapper;
