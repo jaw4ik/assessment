@@ -99,16 +99,16 @@ gulp.task('build-app', ['clean', 'css'], function () {
 
 		gulp.src(['./src/css/img/**'])
             .pipe(gulp.dest(output + '/css/img')),
-			
+
         gulp.src(['./src/css/*.css'])
             .pipe(gulp.dest(output + '/css')),
-        
+
         gulp.src(['./src/preview/**'])
             .pipe(gulp.dest(output + '/preview')),
 
         gulp.src(['./src/app/views/**/*.html'])
             .pipe(gulp.dest(output + '/app/views')),
-        
+
         gulp.src(['./src/app/modules/xApi/views/**/*.html'])
             .pipe(gulp.dest(output + '/app/modules/xApi/views')),
 
@@ -129,24 +129,49 @@ gulp.task('build-app', ['clean', 'css'], function () {
         );
 });
 
-gulp.task('build-settings', ['clean', 'css'], function () {
-    var assets = useref.assets();
-
-    gulp.src(['src/settings/settings.html'])
-      .pipe(assets)
-      .pipe(gulpif('*.js', uglify()))
-      .pipe(gulpif('*.css', css()))
-      .pipe(assets.restore())
-      .pipe(useref())
-      .pipe(gulp.dest(output + '/settings'));
-
-    gulp.src('src/settings/css/fonts/**')
+gulp.task('build-settings', ['build-design-settings', 'build-configure-settings'], function () {
+    gulp.src('./src/settings/css/fonts/**')
       .pipe(gulp.dest(output + '/settings/css/fonts'));
 
-    gulp.src('src/settings/css/settings.css')
+    gulp.src('./src/settings/css/img/**')
+      .pipe(gulp.dest(output + '/settings/css/img'));
+
+    gulp.src('./src/settings/css/settings.css')
       .pipe(css())
       .pipe(gulp.dest(output + '/settings/css'));
 
-    gulp.src('src/settings/img/**')
-      .pipe(gulp.dest(output + '/settings/img'));
+    gulp.src('./src/settings/js/**')
+      .pipe(uglify())
+      .pipe(gulp.dest(output + '/settings/js'));
+
+});
+
+gulp.task('build-design-settings', ['clean', 'css'], function () {
+    var assets = useref.assets();
+
+    gulp.src(['./src/settings/design/design.html'])
+      .pipe(assets)
+      .pipe(gulpif('*.js', uglify()))
+      .pipe(assets.restore())
+      .pipe(useref())
+      .pipe(gulp.dest(output + '/settings/design'));
+
+    gulp.src('./src/settings/design/img/**')
+      .pipe(gulp.dest(output + '/settings/design/img'));
+
+});
+
+gulp.task('build-configure-settings', ['clean', 'css'], function () {
+    var assets = useref.assets();
+
+    gulp.src(['./src/settings/configure/configure.html'])
+      .pipe(assets)
+      .pipe(gulpif('*.js', uglify()))
+      .pipe(assets.restore())
+      .pipe(useref())
+      .pipe(gulp.dest(output + '/settings/configure'));
+
+    gulp.src('./src/settings/configure/img/**')
+      .pipe(gulp.dest(output + '/settings/configure/img'));
+
 });
