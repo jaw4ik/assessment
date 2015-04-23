@@ -27,7 +27,7 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
 
         public void Handle(CourseChangedEvent args)
         {
-            if (!args.Course.PublishedOn.HasValue)
+            if (!HasPublicationPackage(args.Course))
                 return;
 
             var info = _infoStorage.GetCourseInfoOrDefault(args.Course);
@@ -53,11 +53,8 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
             if (!_stateStorage.IsDirty(args.Course))
                 return;
 
-            if (!IsPublishSuccessful(args.Course))
-                return;
-
             var info = _infoStorage.GetCourseInfoOrDefault(args.Course);
-            if (info.ChangedOn > info.BuildStartedOn)
+            if (HasPublicationPackage(args.Course) && info.ChangedOn > info.BuildStartedOn)
                 return;
 
             _eventPublisher.Publish(new CourseStateChangedEvent(args.Course, false));
@@ -70,7 +67,7 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
             _stateStorage.RemoveState(args.Course);
         }
 
-        private bool IsPublishSuccessful(Course course)
+        private bool HasPublicationPackage(Course course)
         {
             return !string.IsNullOrEmpty(course.PublicationUrl);
         }

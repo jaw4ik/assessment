@@ -711,20 +711,6 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void UpdatePublicationUrl_Should_Not_UpdatePublishedOn_WhenPublishUrlIsEmpty()
-        {
-            //Arrange
-            var course = CourseObjectMother.Create();
-            DateTimeWrapper.Now = () => DateTime.MaxValue;
-
-            //Act
-            course.UpdatePublicationUrl("");
-
-            //Assert
-            course.PublishedOn.Should().Be(null);
-        }
-
-        [TestMethod]
         public void UpdatePublicationUrl_ShouldUpdatePublicationUrl()
         {
             //Arrange

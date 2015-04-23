@@ -223,7 +223,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
         }
 
         [TestMethod]
-        public void Handle_CoursePublishedEvent_Should_Not_PublishCourseStateChangedEvent_WhenPublishIsNotSuccessful()
+        public void Handle_CoursePublishedEvent_Should_PublishCourseStateChangedEvent_WhenPublishIsNotSuccessful()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -234,11 +234,11 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
             _tracker.Handle(new CoursePublishedEvent(course));
 
             //Asssert
-            _eventPublisher.ShouldNotPublishEvent<CourseStateChangedEvent>();
+            _eventPublisher.ShouldPublishEvent<CourseStateChangedEvent>();
         }
 
         [TestMethod]
-        public void Handle_CoursePublishedEvent_Should_Not_SaveState_WhenCourse_WhenPublishIsNotSuccessful()
+        public void Handle_CoursePublishedEvent_Should_SaveState_WhenCourse_WhenPublishIsNotSuccessful()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -249,7 +249,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
             _tracker.Handle(new CoursePublishedEvent(course));
 
             //Asssert
-            _stateStorage.DidNotReceiveWithAnyArgs().MarkAsClean(course);
+            _stateStorage.Received().MarkAsClean(course);
         }
 
         [TestMethod]
