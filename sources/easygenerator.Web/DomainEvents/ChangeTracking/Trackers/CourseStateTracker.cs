@@ -27,6 +27,9 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
 
         public void Handle(CourseChangedEvent args)
         {
+            if (!args.Course.PublishedOn.HasValue)
+                return;
+
             var info = _infoStorage.GetCourseInfoOrDefault(args.Course);
             info.ChangedOn = DateTimeWrapper.Now();
             _infoStorage.SaveCourseInfo(args.Course, info);

@@ -292,7 +292,10 @@ namespace easygenerator.DomainModel.Entities
         public virtual void UpdatePublicationUrl(string publicationUrl)
         {
             PublicationUrl = publicationUrl;
-            PublishedOn = DateTimeWrapper.Now();
+            if (!String.IsNullOrEmpty(publicationUrl))
+            {
+                PublishedOn = DateTimeWrapper.Now();
+            }
 
             RaiseEvent(new CoursePublishedEvent(this));
         }
