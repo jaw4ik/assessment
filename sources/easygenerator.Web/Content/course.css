@@ -2245,7 +2245,7 @@ td.r-name {
     border-left: 7px solid transparent;
     border-right: 7px solid transparent;
 }
-.r-objective li:not(:first-child){
+.r-objective > li:not(:first-child){
     border-top: 1px solid #dfe7ec;
 }
 .r-objective li > div{
@@ -2265,6 +2265,11 @@ td.r-name {
 .r-objective .r-question li > div{
     padding-left: 15px;
 }
+
+.r-objective .r-question li:first-child {
+  border-top: 1px solid #dfe7ec;
+}
+
 .r-objective .r-text{
     padding-left: 20px;
     position: relative;
