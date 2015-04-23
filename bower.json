@@ -26,6 +26,8 @@
     "underscore": "~1.7.0",
     "components-webfontloader": "*",
     "tincan": "*",
-    "scriptjs": "*"
+    "scriptjs": "*",
+    "angular-translate": "~2.6.1",
+    "angular-translate-loader-static-files": "~2.6.1"
   }
 }
