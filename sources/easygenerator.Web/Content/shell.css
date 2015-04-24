@@ -98,23 +98,29 @@
   cursor: pointer;
 }
 .shell > header .header-menu-list-item.user-notification {
+  position: relative;
+}
+.shell > header .header-menu-list-item.user-notification .user-notification-icon {
   width: 60px;
   position: relative;
   padding: 19px 24px;
+  z-index: 201;
 }
-.shell > header .header-menu-list-item.user-notification:before {
-  content: '';
-  display: block;
+.shell > header .header-menu-list-item.user-notification .user-notification-icon .user-notification-count {
+  /*display: block;*/
   height: 18px;
   width: 26px;
   margin-left: -6px;
-  background: url(../Content/images/sprites_32.png) -188px -7px no-repeat;
+  padding: 0 6px;
+  color: #fff;
+  background-color: #F47A25;
+  border-radius: 7px;
 }
-.shell > header .header-menu-list-item.user-notification:hover,
-.shell > header .header-menu-list-item.user-notification.active {
+.shell > header .header-menu-list-item.user-notification .user-notification-icon:hover,
+.shell > header .header-menu-list-item.user-notification .user-notification-icon.expanded {
   background-color: #252525;
 }
-.shell > header .header-menu-list-item.user-notification.active:after {
+.shell > header .header-menu-list-item.user-notification .user-notification-icon.expanded:after {
   content: '';
   position: absolute;
   width: 7px;

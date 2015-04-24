@@ -235,11 +235,24 @@
                 sidePanel: {
                     expanded: 'sidePanel:expanded',
                     collapsed: 'sidePanel:collapsed'
+                },
+                notification: {
+
                 }
             },
 
             patterns: {
                 email: /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/
+            },
+
+            notification: {
+                keys: {
+                    subscriptionExpiration: 'notificationkeys:subscriptionExpiration'
+                },
+                messages: {
+                    push: 'notification:push',
+                    remove: 'notification:remove'
+                }
             },
 
             upgradeEvent: 'Upgrade now',

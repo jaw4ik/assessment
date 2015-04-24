@@ -1,10 +1,10 @@
-﻿define(['notifications/subscriptionExpirationNotificationController', 'notifications/notification'],
+﻿define(['notifications/subscriptionExpiration/notificationController', 'notifications/notification'],
     function(controller, notifications) {
 
         var userContext = require('userContext'),
             constants = require('constants');
 
-        describe('controller [subscriptionExpirationNotificationController]', function () {
+        describe('subscription expiration [NotificationController]', function () {
 
             var notificationName;
 

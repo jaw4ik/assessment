@@ -545,6 +545,17 @@
     <Content Include="App\models\reportingStatement.spec.js">
       <DependentUpon>reportingStatement.js</DependentUpon>
     </Content>
+    <Content Include="App\notifications\notification.spec.js">
+      <DependentUpon>notification.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\subscriptionExpiration\notification.html" />
+    <Content Include="App\notifications\subscriptionExpiration\notification.js" />
+    <Content Include="App\notifications\subscriptionExpiration\notificationController.spec.js">
+      <DependentUpon>notificationController.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\subscriptionExpiration\notification.spec.js">
+      <DependentUpon>notification.js</DependentUpon>
+    </Content>
     <Content Include="App\reporting\xApiProvider.js" />
     <Content Include="App\dialogs\publishCourse\publishCourse.html" />
     <Content Include="App\dialogs\publishCourse\publishCourse.js" />
@@ -683,6 +694,9 @@
     <Content Include="Content\images\upload-image.png" />
     <Content Include="Content\images\supported-browser-bg.png" />
     <Content Include="Content\images\tooth.png" />
+    <Content Include="Content\notifications.css">
+      <DependentUpon>notifications.less</DependentUpon>
+    </Content>
     <Content Include="Content\notSupportedPage.css">
       <DependentUpon>notSupportedPage.less</DependentUpon>
     </Content>
@@ -1007,9 +1021,6 @@
     <Content Include="App\navigationBar\navigationBar.js" />
     <Content Include="App\navigationBar\navigationBar.spec.js">
       <DependentUpon>navigationBar.js</DependentUpon>
-    </Content>
-    <Content Include="App\notifications\subscriptionExpirationNotification.spec.js">
-      <DependentUpon>subscriptionExpirationNotification.js</DependentUpon>
     </Content>
     <Content Include="App\onboarding\onboarding.spec.js">
       <DependentUpon>onboarding.js</DependentUpon>
@@ -1550,6 +1561,7 @@
     <Content Include="Content\collaboration.less" />
     <Content Include="Content\shell.less" />
     <Content Include="Content\editField.less" />
+    <Content Include="Content\notifications.less" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />
@@ -2167,15 +2179,7 @@
     </Content>
     <Content Include="App\notifications\notification.html" />
     <Content Include="App\notifications\notification.js" />
-    <Content Include="App\notifications\notification.spec.js">
-      <DependentUpon>notification.js</DependentUpon>
-    </Content>
-    <Content Include="App\notifications\subscriptionExpirationNotification.html" />
-    <Content Include="App\notifications\subscriptionExpirationNotification.js" />
-    <Content Include="App\notifications\subscriptionExpirationNotificationController.js" />
-    <Content Include="App\notifications\subscriptionExpirationNotificationController.spec.js">
-      <DependentUpon>subscriptionExpirationNotificationController.js</DependentUpon>
-    </Content>
+    <Content Include="App\notifications\subscriptionExpiration\notificationController.js" />
     <Content Include="App\notify.js" />
     <Content Include="App\notify.spec.js">
       <DependentUpon>notify.js</DependentUpon>
@@ -2580,6 +2584,7 @@
     <EmbeddedResource Include="Resources\Views\Shared\Resources.zh.resx" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App\notifications\collaborationInvite\" />
     <Folder Include="Views\CourseImport\" />
   </ItemGroup>
   <ItemGroup />

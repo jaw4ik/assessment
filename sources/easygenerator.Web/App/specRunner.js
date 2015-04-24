@@ -46,20 +46,30 @@
 
             //#endregion dialogs
 
+            //#region errorHandling
+
             'errorHandling/httpErrorHandlers/defaultHttpErrorHandler.spec',
             'errorHandling/httpErrorHandlers/forbiddenHttpErrorHandler.spec',
             'errorHandling/httpErrorHandlers/serviceUnavailableHttpErrorHandler.spec',
             'errorHandling/httpErrorHandlers/unauthorizedHttpErrorHandler.spec',
             'errorHandling/errorHandlingConfiguration.spec',
             'errorHandling/globalErrorHandler.spec',
-            'errorHandling/httpErrorHandlerRegistrator.spec',            
+            'errorHandling/httpErrorHandlerRegistrator.spec',
+
+            //#endregion
+
+            //#region notifications
+
+            'notifications/notification.spec',
+            'notifications/subscriptionExpiration/notificationController.spec',
+            'notifications/subscriptionExpiration/notification.spec',
+
+            //#endregion 
+        
             'localization/localizationManager.spec',
             'models/course.spec',
             'models/user.spec',
             'models/reportingStatement.spec',
-            'notifications/notification.spec',
-            'notifications/subscriptionExpirationNotificationController.spec',
-            'notifications/subscriptionExpirationNotification.spec',
             'repositories/answerRepository.spec',
             'repositories/commentRepository.spec',
             'repositories/collaboratorRepository.spec',
