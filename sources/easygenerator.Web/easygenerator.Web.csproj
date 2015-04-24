@@ -600,6 +600,10 @@
     <Content Include="App\viewmodels\courses\bindingHandlers\elementCollapseBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\publishTabBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\windowMessageListenerBinding.js" />
+    <Content Include="App\viewmodels\courses\course\configure.js" />
+    <Content Include="App\viewmodels\courses\course\configure.spec.js">
+      <DependentUpon>configure.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\courses\course\create\course.spec.js">
       <DependentUpon>course.js</DependentUpon>
     </Content>
@@ -634,6 +638,7 @@
     <Content Include="App\viewmodels\questions\statement\statementAnswers.spec.js">
       <DependentUpon>statementAnswers.js</DependentUpon>
     </Content>
+    <Content Include="App\views\courses\course\configure.html" />
     <Content Include="App\views\courses\course\create\index.html" />
     <Content Include="App\views\courses\course\publish.html" />
     <Content Include="App\views\courses\course\design.html" />

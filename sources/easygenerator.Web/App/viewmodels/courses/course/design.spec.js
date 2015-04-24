@@ -7,11 +7,9 @@
         courseRepository = require('repositories/courseRepository'),
         templateRepository = require('repositories/templateRepository'),
         notify = require('notify'),
-        localizationManager = require('localization/localizationManager'),
         clientContext = require('clientContext'),
         constants = require('constants'),
-        waiter = require('utils/waiter')
-    ;
+        waiter = require('utils/waiter');
 
     describe('viewModel [design]', function () {
 
@@ -184,8 +182,8 @@
 
                 var
                     templates = [
-                        { id: "0", name: "Default", thumbnail: "path/to/image1.png", previewImages: ["path/to/previewImg.png"], description: "Default template", previewDemoUrl: 'preview_url_default', order: 1, isNew: true, isCustom: true },
-                        { id: "1", name: "Quiz", thumbnail: "path/to/image2.png", previewImages: ["path/to/previewImg.png"], description: "Quiz template", previewDemoUrl: 'preview_url_quiz', order: 0, isNew: false, isCustom: false }
+                        { id: "0", name: "Default", thumbnail: "path/to/image1.png", previewImages: ["path/to/previewImg.png"], description: "Default template", previewDemoUrl: 'preview_url_default', settingsUrls: { design: null, configure: null }, order: 1, isNew: true, isCustom: true },
+                        { id: "1", name: "Quiz", thumbnail: "path/to/image2.png", previewImages: ["path/to/previewImg.png"], description: "Quiz template", previewDemoUrl: 'preview_url_quiz', settingsUrls: { design: null, configure: null }, order: 0, isNew: false, isCustom: false }
                     ],
                     template = templates[1],
                     course = { id: 'courseId', template: template };
@@ -252,29 +250,6 @@
 
                     beforeEach(function () {
                         getTemplateCollectionDefer.resolve(templates);
-
-                        jasmine.addMatchers({
-                            toBeTemplate: function () {
-                                return {
-                                    compare: function (actual, expected) {
-                                        var expectedJson = JSON.stringify(expected);
-                                        var actualJson = JSON.stringify(actual);
-
-                                        var result = {
-                                            pass: (expectedJson == actualJson)
-                                        }
-
-                                        if (result.pass) {
-                                            result.message = "Ok";
-                                        } else {
-                                            result.message = "Expected template to be " + expectedJson + ", but it is " + actualJson;
-                                        }
-
-                                        return result;
-                                    }
-                                }
-                            }
-                        });
                     });
 
                     describe('should map templates:', function () {
@@ -371,19 +346,35 @@
 
                         });
 
+                        describe('designSettingsUrl:', function () {
+
+                            it('should be defined', function() {
+                                expect(template.designSettingsUrl).toBeDefined();
+                            });
+
+                        });
+
+                        describe('settingsAvailable:', function () {
+
+                            it('should be defined', function () {
+                                expect(template.settingsAvailable).toBeDefined();
+                            });
+
+                        });
+
                     });
 
                     it('should set a list of available templates by order', function (done) {
                         viewModel.activate(course.id).fin(function () {
-                            expect(viewModel.templates[0]).toBeTemplate(templates[1]);
-                            expect(viewModel.templates[1]).toBeTemplate(templates[0]);
+                            expect(viewModel.templates[0].id).toBe(templates[1].id);
+                            expect(viewModel.templates[1].id).toBe(templates[0].id);
                             done();
                         });
                     });
 
                     it('should set currentTemplate', function (done) {
                         viewModel.activate(course.id).fin(function () {
-                            expect(viewModel.currentTemplate()).toBeTemplate(template);
+                            expect(viewModel.currentTemplate().id).toBe(template.id);
                             done();
                         });
                     });

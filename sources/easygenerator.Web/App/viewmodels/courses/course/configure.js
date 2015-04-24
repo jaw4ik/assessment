@@ -12,7 +12,6 @@
             },
 
             templateSettingsErrorNotification = localizationManager.localize('templateSettingsError'),
-            templateChangedNotification = localizationManager.localize('templateChanged'),
 
             delay = 100,
             limit = 100;
@@ -34,21 +33,11 @@
 
             activate: activate,
             canDeactivate: canDeactivate,
-            toggleTemplatesListVisibility: toggleTemplatesListVisibility,
-            templatesListCollapsed: ko.observable(false),
 
             frameLoaded: frameLoaded
         };
 
         return viewModel;
-
-        function toggleTemplatesListVisibility() {
-            viewModel.templatesListCollapsed(!viewModel.templatesListCollapsed());
-        }
-
-        function navigateToCoursesEvent() {
-            eventTracker.publish(events.navigateToCourses);
-        }
 
         function canDeactivate() {
             var defer = Q.defer();
@@ -73,64 +62,10 @@
                 clientContext.set(constants.clientContextKeys.lastVistedCourse, course.id);
                 clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
 
-                return templateRepository.getCollection().then(function (templates) {
-                    viewModel.templates = _.chain(templates)
-                        .map(function (template) {
-                            return {
-                                id: template.id,
-                                name: template.name,
-                                thumbnail: template.thumbnail,
-                                previewImages: template.previewImages,
-                                description: template.description,
-                                designSettingsUrl: template.settingsUrls.design,
-                                settingsAvailable: template.settingsUrls.design != null,
-                                previewDemoUrl: template.previewDemoUrl,
-                                order: template.order,
-                                isNew: template.isNew,
-                                isCustom: template.isCustom,
-                                openPreview: function (item, event) {
-                                    event.stopPropagation();
-                                    router.openUrl(item.previewDemoUrl + '?v=' + window.top.appVersion);
-                                }
-                            };
-                        })
-                        .sortBy(function (template) { return template.order; })
-                        .value();
-
-                    return Q.fcall(function () {
-                        viewModel.currentTemplate(_.find(viewModel.templates, function (item) { return item.id == course.template.id; }));
-                    });
-                });
             }).fail(function (reason) {
                 router.activeItem.settings.lifecycleData = { redirect: '404' };
                 throw reason;
             });
-        }
-
-        function selectTemplate(template) {
-            if (viewModel.loadingTemplate()) {
-                return false;
-            }
-            if (template == viewModel.currentTemplate()) {
-                return Q.fcall(function () { });
-            }
-
-            eventTracker.publish(events.updateCourseTemplate + ' \'' + (template.isCustom ? 'custom' : template.name) + '\'');
-
-            return waiter.waitFor(viewModel.settingsSaved, delay, limit)
-                .fail(function () {
-                    notify.error(templateSettingsErrorNotification);
-                })
-                .fin(function () {
-                    viewModel.settingsVisibility(false);
-
-                    return courseRepository.updateCourseTemplate(viewModel.courseId, template.id)
-                    .then(function () {
-                        viewModel.currentTemplate(template);
-                        notify.success(templateChangedNotification);
-                        viewModel.loadingTemplate(false);
-                    });
-                });
         }
 
         function onGetTemplateMessage(message) {

@@ -442,15 +442,20 @@
         'zh-cn': '2. 设计',
         'uk': '2. Дизайн'
     },
+    courseConfigureItem: {
+        'en': '3. Configure',
+        'zh-cn': '3. Configure[zh-cn]',
+        'uk': '3. Конфігурація'
+    },
     coursePublishItem: {
-        'en': '3. Publish',
-        'zh-cn': '3. 发布',
-        'uk': '3. Публікація'
+        'en': '4. Publish',
+        'zh-cn': '4. 发布',
+        'uk': '4. Публікація'
     },
     courseResultsItem: {
-        'en': '4. Results',
-        'zh-cn': '4. 结果',
-        'uk': '4. Результати'
+        'en': '5. Results',
+        'zh-cn': '5. 结果',
+        'uk': '5. Результати'
     },
     currentTemplate: {
         'en': 'Current template',
@@ -926,7 +931,17 @@
     chooseTemplate: {
         'en': 'Choose template',
         'zh-cn': '选择课程模板',
-        'uk': 'Обрати шаблон'
+        'uk': 'Оберіть шаблон'
+    },
+    defineTemplateDesignSettings: {
+        'en': 'Define template design settings',
+        'zh-cn': 'Define template design settings[zh-cn]',
+        'uk': 'Налаштуйте дизайн шаблону'
+    },
+    templateDesignSettingsNotAvailable: {
+        'en': 'Sorry, but the selected template doesn\'t contain design settings',
+        'zh-cn': 'Sorry, but the selected template doesn\'t contain design settings[zh-cn]',
+        'uk': 'Вибачте, але вибраний вами шаблон не підтримує налаштування дизайну'
     },
     powerPointImport: {
         'en': 'Create from PowerPoint',
@@ -1373,10 +1388,15 @@
         'zh-cn': 'Untitled open question[zh-cn]',
         'uk': 'Untitled open question[uk]'
     },
+    openQuestion: {
+        'en': 'Open question',
+        'zh-cn': 'Open question[zh-cn]',
+        'uk': 'Open question[uk]'
+    },
     openQuestionEditor: {
-        'en': '\"Open\" question editor',
-        'zh-cn': '\"Open\" question editor[zh-cn]',
-        'uk': '\"Open\" question editor[uk]'
+        'en': '\"Open question\" editor',
+        'zh-cn': '\"Open question\" editor[zh-cn]',
+        'uk': '\"Open question\" editor[uk]'
     },
     putYourFeedback: {
         'en': 'Create response for answer',
@@ -1831,7 +1851,7 @@
         'uk': 'Створіть розділ / ціль'
     },
     defineObjectiveOnboardingTaskDescription: {
-        'en': '<section><header>What for?</header><article>Specify exactly what you want students to know or be able to do at the end of the course.</article></section><section><header>How to define objective?</header><ol><li>Click on <b>\"New objective/section\"</b> in the course editor</li><li>Type in your learning objective or section header title</li><li>Click on <b>\"Create and continue\"</b></li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#Course-Editor\">Read more</a></div></section>',
+        'en': '<section><header>What for?</header><article>Specify exactly what you want students to know or be able to do at the end of the course.</article></section><section><header>How to define objective?</header><ol><li>Click on <b>\"New objective/section\"</b> in the course editor</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#Course-Editor\">Read more</a></div></section>',
         'zh-cn': '<section><header>用来做什么？</header><article>清晰地说明你想学生在课程结束后能够了解什么或能够做什么。</article></section><section><header>如何定义课程目标？</header><ol><li>Click on <b>“新目标/部分”</b>在课程编辑器中</li><li>输入你的学习目标或分段标题</li><li>点击<b>“创建并继续”</b></li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#Course-Editor\">了解更多</a></div></section>',
         'uk': '<section><header>Для чого?</header><article>Вкажіть, що саме Ви хотіли б, щоб студент знав чи вмів робити після проходження даного курсу.</article></section><section><header>Як створити розділ / ціль?</header><ol><li>Натисніть на <b>\"Новий розділ / ціль\"</b> в редакторі курсів</li><li>Введіть назву свого розділу / цілі.</li><li>Натисніть на <b>\"Створити і продовжити\"</b></li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#Course-Editor\">Докладніше</a></div></section>'
     },
