@@ -1926,6 +1926,7 @@ li.package-action-tabs-link {
     font-size: 20px;
     line-height: 40px;
     color: #464d5d;
+    font-family: OpenSans-SemiBold;
 }
 
 .action-item-btn.download-results {
