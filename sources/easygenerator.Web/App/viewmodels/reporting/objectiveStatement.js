@@ -11,10 +11,14 @@
     ObjectiveStatement.prototype.expandLoadAction = function () {
         var that = this;
         return xApiProvider.getAnsweredStatements(that.lrsStatement.attemptId, that.lrsStatement.id).then(function (statements) {
-            var questionStatements = _.map(statements, function (statement) {
-                return new QuestionStatement(statement);
-            });
-            that.children(questionStatements);
+            if (statements && statements.length) {
+                var questionStatements = _.map(statements, function(statement) {
+                    return new QuestionStatement(statement);
+                });
+                that.children(questionStatements);
+            } else {
+                that.children = null;
+            }
             that.isExpanded(true);
         });
     }

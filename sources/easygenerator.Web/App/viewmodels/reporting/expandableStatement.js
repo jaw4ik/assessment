@@ -15,7 +15,7 @@
         var that = this;
         return Q.fcall(function () {
             if (that.isExpandable) {
-                if (that.children().length) {
+                if (that.children && that.children().length) {
                     that.isExpanded(true);
                 } else {
                     return that.expandLoadAction();

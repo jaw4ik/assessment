@@ -5,8 +5,17 @@
     </div>
     <!-- ko if: isExpanded -->
     <ul class="r-question">
-        <!-- ko foreach: children -->
-        <!-- ko compose: { view: 'views/reporting/questionStatement', model: $data } --><!-- /ko -->
+        <!-- ko if: children -->
+            <!-- ko foreach: children -->
+            <!-- ko compose: { view: 'views/reporting/questionStatement', model: $data } --><!-- /ko -->
+            <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko ifnot: children -->
+        <li>
+            <div class="r-table">
+                <div class="r-text">NO QUESTIONS HAVE BEEN ANSWERED</div>
+            </div>
+        </li>
         <!-- /ko -->
     </ul>
     <!-- /ko -->
