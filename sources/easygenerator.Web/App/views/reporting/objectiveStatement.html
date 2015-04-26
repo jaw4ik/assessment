@@ -1,6 +1,6 @@
 ﻿<li class="expandable" data-bind="css: { expanded: isExpanded }">
     <div class="r-table" data-bind="click: isExpanded() ? collapse : expand">
-        <div class=" r-text">OBJECTIVE:</div>
+        <div class="r-text" data-bind="localize: { text: 'reportingObjectiveTitle' }">objective:</div>
         <div class="r-title selectable">"<span data-bind="text: lrsStatement.name"></span>"</div>
     </div>
     <!-- ko if: isExpanded -->
@@ -13,7 +13,7 @@
         <!-- ko ifnot: children -->
         <li>
             <div class="r-table">
-                <div class="r-text">NO QUESTIONS HAVE BEEN ANSWERED</div>
+                <div class="r-text" data-bind="localize: { text: 'repotingNoQuestions' }">no questions have been answered yet or results are not available for this objective</div>
             </div>
         </li>
         <!-- /ko -->
