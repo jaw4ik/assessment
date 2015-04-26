@@ -666,6 +666,9 @@
     <Content Include="App\views\reporting\objectiveStatement.html" />
     <Content Include="App\views\reporting\questionStatement.html" />
     <Content Include="BuildCourse\Modules\js\branding.js" />
+    <Content Include="Content\course.css">
+      <DependentUpon>course.less</DependentUpon>
+    </Content>
     <Content Include="Content\editField.css">
       <DependentUpon>editField.less</DependentUpon>
     </Content>
@@ -1544,6 +1547,7 @@
     <Content Include="Content\ckeditor.less" />
     <Content Include="Content\common.less" />
     <Content Include="Content\courses.less" />
+    <Content Include="Content\course.less" />
     <Content Include="Content\cssPreloaders.less" />
     <Content Include="Content\dragAndDropText.less" />
     <Content Include="Content\helpers.less" />
@@ -2387,7 +2391,6 @@
     <Content Include="Content\common.css">
       <DependentUpon>common.less</DependentUpon>
     </Content>
-    <Content Include="Content\course.css" />
     <Content Include="Content\courses.css">
       <DependentUpon>courses.less</DependentUpon>
     </Content>
