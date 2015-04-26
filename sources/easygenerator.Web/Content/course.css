@@ -2345,7 +2345,7 @@ td.r-name {
     color: #63798e;
     font-family: OpenSansItalic;
 }
-.r-course-dates span{
+.r-course-dates .r-date {
     color: #2a80b8;
     padding: 0 5px;
 }

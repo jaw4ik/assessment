@@ -24,8 +24,7 @@
     <ul class="r-objective">
         <li class="r-table">
             <div class="r-course-dates">
-                <span data-bind="localize: { text: 'courseStartedAt' }">Course started at</span>&nbsp;<span data-bind="date: { value: startedLrsStatement.date, formatString: 'MMM D, YYYY h:mm A' }"></span>
-                <span data-bind="localize: { text: 'courseFinishedAt' }">and finished at</span>&nbsp;<span data-bind="date: { value: lrsStatement.date, formatString: 'MMM D, YYYY h:mm A' }"></span>
+                <span data-bind="localize: { text: 'courseStartedAt' }">Course started at</span>&nbsp;<span class="r-date" data-bind="date: { value: startedLrsStatement.date, formatString: 'MMM D, YYYY h:mm A' }"></span>&nbsp;<span data-bind="localize: { text: 'courseFinishedAt' }">and finished at</span>&nbsp;<span class="r-date" data-bind="date: { value: lrsStatement.date, formatString: 'MMM D, YYYY h:mm A' }"></span>
             </div>
         </li>
         <!-- ko foreach: children -->

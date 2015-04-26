@@ -715,7 +715,7 @@
     courseFinishedAt: {
         'en': 'and finished at',
         'zh-cn': 'and finished at[zh-cn]',
-        'uk': ', закінчено'
+        'uk': 'та закінчено'
     },
     reportingObjectiveTitle: {
         'en': 'objective:',
