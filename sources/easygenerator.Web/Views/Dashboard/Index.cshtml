@@ -1,0 +1,77 @@
+﻿@model easygenerator.Web.ViewModels.Dashboard.DashboardViewModel
+@{
+    ViewBag.Title = "Online Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .document-title {
+        margin-bottom: 0;
+    }
+
+    .online-users-count-info, .unique-online-users {
+        list-style: none;
+    }
+
+    .online-users-count-info-item {
+        display: inline-block;
+        padding-right: 50px;
+        padding-bottom: 5px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .online-users-count-info-item-header {
+        padding-right: 10px;
+    }
+
+    .unique-users-header {
+        margin: 20px 0;
+    }
+
+    .counter {
+        background: black;
+        color: white;
+        padding: 0 8px;
+        border-radius: 5px;
+    }
+
+    .unique-online-user {
+        font-size: 14px;
+    }
+</style>
+<section class="online-users-tracking-page">
+    <h1 class="document-title">Online users tracking</h1>
+    <ul class="online-users-count-info">
+        <li class="online-users-count-info-item">
+            <span>
+                <span class="online-users-count-info-item-header">Unique online users count:</span>
+                <span class="counter">@Model.UniqueOnlineUsers.Count()</span>
+            </span>
+        </li>
+        <li class="online-users-count-info-item">
+            <span>
+                <span class="online-users-count-info-item-header">Online connections count:</span>
+                <span class="counter">@Model.OnlineConnectionsCount</span>
+            </span>
+        </li>
+    </ul>
+    <h2 class="unique-users-header">Unique users: </h2>
+    <ul class="unique-online-users">
+        @foreach (var user in Model.UniqueOnlineUsers)
+        {
+            <li class="unique-online-user">
+                <span>@user</span>
+            </li>
+        }
+    </ul>
+</section>
+
+@section Scripts{
+    <script>
+        setTimeout(function () {
+            window.location.reload(true);
+        }, 30000);
+    </script>
+}
