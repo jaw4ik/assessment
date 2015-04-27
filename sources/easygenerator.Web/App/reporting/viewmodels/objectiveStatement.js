@@ -1,4 +1,4 @@
-﻿define(['viewmodels/reporting/expandableStatement', 'viewmodels/reporting/questionStatement', 'reporting/xApiProvider'], function (ExpandableStatement, QuestionStatement, xApiProvider) {
+﻿define(['reporting/viewmodels/expandableStatement', 'reporting/viewmodels/questionStatement', 'reporting/xApiProvider'], function (ExpandableStatement, QuestionStatement, xApiProvider) {
     "use strict";
 
     var ObjectiveStatement = function (masteredLrsStatement) {

@@ -1,4 +1,4 @@
-﻿define(['constants', 'viewmodels/reporting/expandableStatement', 'viewmodels/reporting/objectiveStatement', 'reporting/xApiProvider'], function (constants, ExpandableStatement, ObjectiveStatement, xApiProvider) {
+﻿define(['constants', 'reporting/viewmodels/expandableStatement', 'reporting/viewmodels/objectiveStatement', 'reporting/xApiProvider'], function (constants, ExpandableStatement, ObjectiveStatement, xApiProvider) {
     "use strict";
 
     var CourseStatement = function (finishedLrsStatement) {

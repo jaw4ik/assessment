@@ -624,8 +624,8 @@
     <Content Include="App\viewmodels\courses\course\publish.spec.js">
       <DependentUpon>publish.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\course\results.js" />
-    <Content Include="App\viewmodels\courses\course\results.spec.js">
+    <Content Include="App\reporting\viewmodels\results.js" />
+    <Content Include="App\reporting\viewmodels\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\index.js" />
@@ -642,15 +642,15 @@
     <Content Include="App\viewmodels\questions\statement\statementAnswers.spec.js">
       <DependentUpon>statementAnswers.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\reporting\courseStatement.js" />
-    <Content Include="App\viewmodels\reporting\expandableStatement.js" />
-    <Content Include="App\viewmodels\reporting\objectiveStatement.js" />
-    <Content Include="App\viewmodels\reporting\questionStatement.js" />
+    <Content Include="App\reporting\viewmodels\courseStatement.js" />
+    <Content Include="App\reporting\viewmodels\expandableStatement.js" />
+    <Content Include="App\reporting\viewmodels\objectiveStatement.js" />
+    <Content Include="App\reporting\viewmodels\questionStatement.js" />
     <Content Include="App\views\courses\course\create\index.html" />
     <Content Include="App\views\courses\course\publish.html" />
     <Content Include="App\views\courses\course\design.html" />
     <Content Include="App\views\courses\course\index.html" />
-    <Content Include="App\views\courses\course\results.html" />
+    <Content Include="App\reporting\views\results.html" />
     <Content Include="App\views\courses\index.html" />
     <Content Include="App\views\common\circularLoader.html" />
     <Content Include="App\views\courses\publishActions\publishToAim4You.html" />
@@ -661,9 +661,9 @@
     <Content Include="App\views\courses\publishActions\updatePublishedCourse.html" />
     <Content Include="App\views\objectives\index.html" />
     <Content Include="App\views\questions\statement\statement.html" />
-    <Content Include="App\reporting\courseStatement.html" />
-    <Content Include="App\reporting\objectiveStatement.html" />
-    <Content Include="App\reporting\questionStatement.html" />
+    <Content Include="App\reporting\views\courseStatement.html" />
+    <Content Include="App\reporting\views\objectiveStatement.html" />
+    <Content Include="App\reporting\views\questionStatement.html" />
     <Content Include="BuildCourse\Modules\js\branding.js" />
     <Content Include="Content\course.css">
       <DependentUpon>course.less</DependentUpon>

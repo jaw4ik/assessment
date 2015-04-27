@@ -1,4 +1,4 @@
-﻿define(['viewmodels/reporting/expandableStatement'], function (ExpandableStatement) {
+﻿define(['reporting/viewmodels/expandableStatement'], function (ExpandableStatement) {
     "use strict";
 
     var QuestionStatement = function (answeredLrsStatement) {

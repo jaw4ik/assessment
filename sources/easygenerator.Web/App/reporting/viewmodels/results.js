@@ -2,7 +2,7 @@
         'repositories/courseRepository', 'plugins/router', 'constants', 'repositories/courseRepository', 'viewmodels/courses/publishingActions/build',
         'viewmodels/courses/publishingActions/scormBuild', 'viewmodels/courses/publishingActions/publish', 'userContext',
         'viewmodels/courses/publishingActions/publishToAim4You', 'clientContext', 'localization/localizationManager', 'eventTracker',
-        'reporting/xApiProvider', 'plugins/dialog', 'viewmodels/reporting/courseStatement'
+        'reporting/xApiProvider', 'plugins/dialog', 'reporting/viewmodels/courseStatement'
 ],
     function (repository, router, constants, courseRepository, buildPublishingAction, scormBuildPublishingAction, publishPublishingAction, userContext, publishToAim4You,
         clientContext, localizationManager, eventTracker, xApiProvider, dialog, CourseStatement) {
