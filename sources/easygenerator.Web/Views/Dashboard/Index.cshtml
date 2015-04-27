@@ -39,20 +39,23 @@
 
     .unique-online-user {
         font-size: 14px;
+        -moz-user-select: all;
+        -webkit-user-select: all;
+        -ms-user-select: all;
     }
 </style>
 <section class="online-users-tracking-page">
-    <h1 class="document-title">Online users tracking</h1>
+    <h1 class="document-title">Online users stats</h1>
     <ul class="online-users-count-info">
         <li class="online-users-count-info-item">
             <span>
-                <span class="online-users-count-info-item-header">Unique online users count:</span>
+                <span class="online-users-count-info-item-header">Number of unique online users:</span>
                 <span class="counter">@Model.UniqueOnlineUsers.Count()</span>
             </span>
         </li>
         <li class="online-users-count-info-item">
             <span>
-                <span class="online-users-count-info-item-header">Online connections count:</span>
+                <span class="online-users-count-info-item-header">Number of online connections:</span>
                 <span class="counter">@Model.OnlineConnectionsCount</span>
             </span>
         </li>
@@ -72,6 +75,6 @@
     <script>
         setTimeout(function () {
             window.location.reload(true);
-        }, 30000);
+        }, 1200000);
     </script>
 }

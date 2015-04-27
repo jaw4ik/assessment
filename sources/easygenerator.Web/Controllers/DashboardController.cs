@@ -9,11 +9,11 @@ using easygenerator.Web.ViewModels.Dashboard;
 namespace easygenerator.Web.Controllers
 {
     [NoCache]
-    [AllowedUsers("userConnectionTracking.allowedUsers")]
+    [AllowedUsers("dashboard.allowedUsers")]
     public class DashboardController : DefaultController
     {
         [HttpGet]
-        [Route("onlineusers")]
+        [Route("dashboard")]
         public ActionResult Index()
         {
             return View(new DashboardViewModel(UserConnectionTracker.Instance.GetConnectionsCount(), UserConnectionTracker.Instance.GetOnlineUsersCollection()));
