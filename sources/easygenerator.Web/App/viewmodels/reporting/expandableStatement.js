@@ -1,9 +1,8 @@
-﻿define(['viewmodels/reporting/reportingStatement'], function (ReportingStatement) {
+﻿define(function () {
     "use strict";
 
-    var ExpandeableStatement = function (lrsStatement, expandLoadAction) {
-        ReportingStatement.call(this, lrsStatement);
-
+    var ExpandableStatement = function (lrsStatement, expandLoadAction) {
+        this.lrsStatement = lrsStatement;
         this.isExpandable = !_.isNullOrUndefined(this.lrsStatement.attemptId);
         this.isExpanded = ko.observable(false);
         this.children = ko.observableArray([]);
@@ -11,7 +10,7 @@
         this.expandLoadAction = expandLoadAction;
     };
 
-    ExpandeableStatement.prototype.expand = function () {
+    ExpandableStatement.prototype.expand = function () {
         var that = this;
         return Q.fcall(function () {
             if (that.isExpandable) {
@@ -25,9 +24,9 @@
         });
     }
 
-    ExpandeableStatement.prototype.collapse = function () {
+    ExpandableStatement.prototype.collapse = function () {
         this.isExpanded(false);
     }
 
-    return ExpandeableStatement;
+    return ExpandableStatement;
 });

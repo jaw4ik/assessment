@@ -646,7 +646,6 @@
     <Content Include="App\viewmodels\reporting\expandableStatement.js" />
     <Content Include="App\viewmodels\reporting\objectiveStatement.js" />
     <Content Include="App\viewmodels\reporting\questionStatement.js" />
-    <Content Include="App\viewmodels\reporting\reportingStatement.js" />
     <Content Include="App\views\courses\course\create\index.html" />
     <Content Include="App\views\courses\course\publish.html" />
     <Content Include="App\views\courses\course\design.html" />
