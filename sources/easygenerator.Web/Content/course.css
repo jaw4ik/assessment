@@ -367,6 +367,10 @@
     padding-top: 20px;
 }
 
+.view-module.configure {
+    padding-top: 10px;
+}
+
 .choose-template-holder {
     font-family: 'OpenSans';
     color: #303133;
@@ -394,8 +398,8 @@
 .template-settings-header {
     font: 19px OpenSans-Semibold;
     color: #303133;
-    padding: 15px 5px;
-    margin-top: 20px;
+    padding: 5px;
+    margin: 20px 0 10px;
 }
 
 .choose-template-list {
@@ -490,7 +494,7 @@
 }
 
 .choose-template-title-container {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding-left: 5px;
     border-radius: 6px;
 }
@@ -612,12 +616,6 @@
         left: 0;
         background: url('../Content/images/sprites_16.png') -42px -66px no-repeat;
     }
-
-.content-section-wrapper.template-settings {
-    background-color: #f9fafc;
-    border: 1px solid #e9e9eb;
-    transition-duration: 0.5s;
-}
 
 .visibility-switcher {
     float: right;

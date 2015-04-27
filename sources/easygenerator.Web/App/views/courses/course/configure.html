@@ -1,62 +1,16 @@
-﻿<section class="course design view-module">
+﻿<section class="course configure view-module">
     <div class="content-section-wrapper">
         <div class="content-section">
-            <div class="choose-template-title-container" data-bind="click: templatesListCollapsed() ? toggleTemplatesListVisibility : null, css: { clickable: templatesListCollapsed() }">
-                <h2 class="choose-template-title">
-                    <span data-bind="localize: { text: templatesListCollapsed() ? 'currentTemplate' : 'chooseTemplate' }"></span>
-                    <span class="current-template-name-minus" data-bind="visible: templatesListCollapsed">-</span>
-                    <span class="current-template-name" data-bind="text: '('+currentTemplate().name+')', visible: templatesListCollapsed"></span>
-                </h2>
-                <div class="tooltip-icon" data-bind="tooltip:'top', stopEventPropagation: { event: 'click' }">
-                    <h4 class="tooltip-title" data-bind="localize: { html: 'tooltipCourseTemplateTitle'}"></h4>
-                    <div class="tooltip-content" data-bind="localize: { html: 'tooltipCourseTemplateDescription'}">
-                    </div>
-                    <div class="tooltip-buttons-holder" data-bind="localize: { html: 'tooltipCourseTemplateLink'}">
-                    </div>
-                </div>
-                <button class="visibility-switcher"
-                        data-bind="localize: { html: templatesListCollapsed() ? 'plus' : 'minus' }, click: toggleTemplatesListVisibility, stopEventPropagation: { event: 'click' }"></button>
-            </div>
-            <div class="choose-template-holder" data-bind="elementCollapse: templatesListCollapsed">
-                <ul class="choose-template-list unstyled" data-animate="">
-                    <!-- ko foreach: templates -->
-                    <li class="choose-template-item" data-bind="css: { 'marked-as-new': isNew, selected: $data == $parent.currentTemplate() }">
-                        <div class="template-image-container" data-bind="click: $parent.selectTemplate">
-                            <div class="template-settings-spinner" data-bind="visible: $data == $parent.loadingTemplate()">
-                                <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 grey align-center' } } --><!-- /ko -->
-                            </div>
-                            <img class="template-image" data-bind="attr: {src: previewImages[0]}, css: { 'transparent': $data == $parent.loadingTemplate() }" src="" alt="" />
-                            <div class="choose-template-action-container" data-bind="visible: $data != $parent.loadingTemplate()">
-                                <a href="" class="preview-link" data-bind="localize: { text: 'preview'}, visible: previewDemoUrl, click: openPreview">Preview</a>
-                                <button class="choose-template-btn preview" data-bind="localize: { text: 'preview'}, visible: previewDemoUrl, click: openPreview">Preview</button>
-                                <button class="choose-template-btn select" data-bind="localize: { text: 'select'}">Select</button>
-                            </div>
-                            <div class="selected-template"></div>
-                        </div>
-                        <div class="template-name" data-bind="text: name"></div>
-                    </li>
-                    <!-- /ko -->
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="template-settings-wrapper">
-        <div class="content-section-wrapper">
-            <h2 class="content-section template-settings-header" data-bind="localize: { text: 'defineTemplateDesignSettings' }">Define template design settings</h2>
-        </div>
-        <div class="content-section-wrapper template-settings">
-            <div class="content-section">
-                <div class="template-settings-block">
-                    <!-- ko if: currentTemplate().settingsAvailable && !settingsVisibility() -->
-                    <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center', style: { top: '300px' } } } --><!-- /ko -->
-                    <!-- /ko -->
-                    <!-- ko if: currentTemplate().settingsAvailable -->
-                    <iframe id="template-settings" data-bind="style: { visibility: settingsVisibility() ? 'visible' : 'hidden', display: displaySettings() ? '' : 'none' }, attr: { src: currentTemplate().designSettingsUrl + '?v=' + appVersion + '&courseId=' + courseId + '&templateId=' + currentTemplate().id }, event: { load: frameLoaded }, windowMessageListener: onGetTemplateMessage" frameborder="0" width="100%" height="2500px"></iframe>
-                    <!-- /ko -->
-                    <!-- ko ifnot: currentTemplate().settingsAvailable -->
-                    <span data-bind="localize: { text: 'templateDesignSettingsNotAvailable' }">Sorry, but the selected template doesn't contain design settings</span>
-                    <!-- /ko -->
-                </div>
+            <div class="template-settings-block">
+                <!-- ko if: settingsAvailable && !settingsVisibility() -->
+                <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center', style: { top: '300px' } } } --><!-- /ko -->
+                <!-- /ko -->
+                <!-- ko if: settingsAvailable -->
+                <iframe id="template-settings" data-bind="attr: { src: configureSettingsUrl + '?v=' + appVersion + '&courseId=' + courseId + '&templateId=' + currentTemplate.id }, event: { load: frameLoaded }, windowMessageListener: onGetTemplateMessage" frameborder="0" width="100%" height="2500px"></iframe>
+                <!-- /ko -->
+                <!-- ko ifnot: settingsAvailable -->
+                <span data-bind="localize: { text: 'templateConfigureSettingsNotAvailable' }">Sorry, but the selected template doesn't contain configure settings</span>
+                <!-- /ko -->
             </div>
         </div>
     </div>

@@ -22,11 +22,11 @@
                     <!-- ko foreach: templates -->
                     <li class="choose-template-item" data-bind="css: { 'marked-as-new': isNew, selected: $data == $parent.currentTemplate() }">
                         <div class="template-image-container" data-bind="click: $parent.selectTemplate">
-                            <div class="template-settings-spinner" data-bind="visible: $data == $parent.loadingTemplate()">
+                            <div class="template-settings-spinner" data-bind="visible: loadingTemplate">
                                 <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 grey align-center' } } --><!-- /ko -->
                             </div>
-                            <img class="template-image" data-bind="attr: {src: previewImages[0]}, css: { 'transparent': $data == $parent.loadingTemplate() }" src="" alt="" />
-                            <div class="choose-template-action-container" data-bind="visible: $data != $parent.loadingTemplate()">
+                            <img class="template-image" data-bind="attr: {src: previewImages[0]}, css: { 'transparent': loadingTemplate }" src="" alt="" />
+                            <div class="choose-template-action-container" data-bind="visible: !loadingTemplate()">
                                 <a href="" class="preview-link" data-bind="localize: { text: 'preview'}, visible: previewDemoUrl, click: openPreview">Preview</a>
                                 <button class="choose-template-btn preview" data-bind="localize: { text: 'preview'}, visible: previewDemoUrl, click: openPreview">Preview</button>
                                 <button class="choose-template-btn select" data-bind="localize: { text: 'select'}">Select</button>
@@ -40,23 +40,19 @@
             </div>
         </div>
     </div>
-    <div class="template-settings-wrapper">
-        <div class="content-section-wrapper">
-            <h2 class="content-section template-settings-header" data-bind="localize: { text: 'defineTemplateDesignSettings' }">Define template design settings</h2>
-        </div>
-        <div class="content-section-wrapper template-settings">
-            <div class="content-section">
-                <div class="template-settings-block">
-                    <!-- ko if: currentTemplate().settingsAvailable && !settingsVisibility() -->
-                    <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center', style: { top: '300px' } } } --><!-- /ko -->
-                    <!-- /ko -->
-                    <!-- ko if: currentTemplate().settingsAvailable -->
-                    <iframe id="template-settings" data-bind="style: { visibility: settingsVisibility() ? 'visible' : 'hidden', display: displaySettings() ? '' : 'none' }, attr: { src: currentTemplate().designSettingsUrl + '?v=' + appVersion + '&courseId=' + courseId + '&templateId=' + currentTemplate().id }, event: { load: frameLoaded }, windowMessageListener: onGetTemplateMessage" frameborder="0" width="100%" height="2500px"></iframe>
-                    <!-- /ko -->
-                    <!-- ko ifnot: currentTemplate().settingsAvailable -->
-                    <span data-bind="localize: { text: 'templateDesignSettingsNotAvailable' }">Sorry, but the selected template doesn't contain design settings</span>
-                    <!-- /ko -->
-                </div>
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <h2 class="template-settings-header" data-bind="localize: { text: 'defineTemplateDesignSettings' }">Define template design settings</h2>
+            <div class="template-settings-block">
+                <!-- ko if: currentTemplate().settingsAvailable && !settingsVisibility() -->
+                <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center', style: { top: '300px' } } } --><!-- /ko -->
+                <!-- /ko -->
+                <!-- ko if: currentTemplate().settingsAvailable -->
+                <iframe id="template-settings" data-bind="style: { visibility: settingsVisibility() ? 'visible' : 'hidden' }, attr: { src: currentTemplate().designSettingsUrl + '?v=' + appVersion + '&courseId=' + courseId + '&templateId=' + currentTemplate().id }, event: { load: frameLoaded }, windowMessageListener: onGetTemplateMessage" frameborder="0" width="100%" height="2500px"></iframe>
+                <!-- /ko -->
+                <!-- ko ifnot: currentTemplate().settingsAvailable -->
+                <span data-bind="localize: { text: 'templateDesignSettingsNotAvailable' }">Sorry, but the selected template doesn't contain design settings</span>
+                <!-- /ko -->
             </div>
         </div>
     </div>

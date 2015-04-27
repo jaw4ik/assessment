@@ -38,7 +38,6 @@
                     design: (manifest.settingsUrls && manifest.settingsUrls.design) ? templateUrl + manifest.settingsUrls.design : null,
                     configure: (manifest.settingsUrls && manifest.settingsUrls.configure) ? templateUrl + manifest.settingsUrls.configure : null
                 },
-                settingsUrl: templateUrl + manifest.settingsUrl,
                 shortDescription: manifest.shortDescription
             };
         }

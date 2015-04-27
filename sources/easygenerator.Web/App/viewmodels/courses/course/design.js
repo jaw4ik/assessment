@@ -1,10 +1,10 @@
-﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'clientContext', 'constants', 'utils/waiter'],
-    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, clientContext, constants, waiter) {
+﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'utils/waiter'],
+    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, waiter) {
 
-        var events = {
-            navigateToCourses: 'Navigate to courses',
-            updateCourseTemplate: 'Change course template to'
-        },
+        var
+            events = {
+                updateCourseTemplate: 'Change course template to'
+            },
 
             templateMessageTypes = {
                 freeze: 'freeze',
@@ -19,21 +19,20 @@
 
         var viewModel = {
             courseId: '',
+
             currentTemplate: ko.observable(),
-            loadingTemplate: ko.observable(false),
             templates: [],
 
             onGetTemplateMessage: onGetTemplateMessage,
 
             settingsVisibility: ko.observable(false),
-            displaySettings: ko.observable(true),
-            settingsSaved: ko.observable(true),
-            selectTemplate: selectTemplate,
+            canUnloadSettings: ko.observable(true),
 
-            navigateToCoursesEvent: navigateToCoursesEvent,
+            selectTemplate: selectTemplate,
 
             activate: activate,
             canDeactivate: canDeactivate,
+
             toggleTemplatesListVisibility: toggleTemplatesListVisibility,
             templatesListCollapsed: ko.observable(false),
 
@@ -46,20 +45,16 @@
             viewModel.templatesListCollapsed(!viewModel.templatesListCollapsed());
         }
 
-        function navigateToCoursesEvent() {
-            eventTracker.publish(events.navigateToCourses);
-        }
-
         function canDeactivate() {
             var defer = Q.defer();
-            viewModel.displaySettings(false);
+            viewModel.settingsVisibility(false);
 
-            waiter.waitFor(viewModel.settingsSaved, delay, limit)
+            waiter.waitFor(viewModel.canUnloadSettings, delay, limit)
                 .fail(function () {
                     notify.error(templateSettingsErrorNotification);
                 })
                 .fin(function () {
-                    viewModel.displaySettings(true);
+                    viewModel.settingsVisibility(true);
                     defer.resolve(true);
                 });
 
@@ -70,8 +65,6 @@
 
             return courseRepository.getById(courseId).then(function (course) {
                 viewModel.courseId = course.id;
-                clientContext.set(constants.clientContextKeys.lastVistedCourse, course.id);
-                clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
 
                 return templateRepository.getCollection().then(function (templates) {
                     viewModel.templates = _.chain(templates)
@@ -91,7 +84,8 @@
                                 openPreview: function (item, event) {
                                     event.stopPropagation();
                                     router.openUrl(item.previewDemoUrl + '?v=' + window.top.appVersion);
-                                }
+                                },
+                                loadingTemplate: ko.observable(false)
                             };
                         })
                         .sortBy(function (template) { return template.order; })
@@ -108,27 +102,25 @@
         }
 
         function selectTemplate(template) {
-            if (viewModel.loadingTemplate()) {
-                return false;
-            }
             if (template == viewModel.currentTemplate()) {
                 return Q.fcall(function () { });
             }
 
+            template.loadingTemplate(true);
+
             eventTracker.publish(events.updateCourseTemplate + ' \'' + (template.isCustom ? 'custom' : template.name) + '\'');
 
-            return waiter.waitFor(viewModel.settingsSaved, delay, limit)
+            return waiter.waitFor(viewModel.canUnloadSettings, delay, limit)
                 .fail(function () {
                     notify.error(templateSettingsErrorNotification);
                 })
                 .fin(function () {
                     viewModel.settingsVisibility(false);
 
-                    return courseRepository.updateCourseTemplate(viewModel.courseId, template.id)
-                    .then(function () {
+                    return courseRepository.updateCourseTemplate(viewModel.courseId, template.id).then(function () {
                         viewModel.currentTemplate(template);
+                        template.loadingTemplate(false);
                         notify.success(templateChangedNotification);
-                        viewModel.loadingTemplate(false);
                     });
                 });
         }
@@ -140,7 +132,7 @@
 
             switch (message.type) {
                 case templateMessageTypes.freeze:
-                    viewModel.settingsSaved(message.data.freezeEditor ? !message.data.freezeEditor : true);
+                    viewModel.canUnloadSettings(message.data.freezeEditor ? !message.data.freezeEditor : true);
                     break;
                 case templateMessageTypes.notification:
                     var data = message.data;
@@ -156,7 +148,7 @@
 
         function frameLoaded() {
             viewModel.settingsVisibility(true);
-            viewModel.settingsSaved(true);
+            viewModel.canUnloadSettings(true);
         }
     }
 );

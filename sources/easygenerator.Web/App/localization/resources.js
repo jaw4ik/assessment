@@ -943,6 +943,11 @@
         'zh-cn': 'Sorry, but the selected template doesn\'t contain design settings[zh-cn]',
         'uk': 'Вибачте, але вибраний вами шаблон не підтримує налаштування дизайну'
     },
+    templateConfigureSettingsNotAvailable: {
+        'en': 'Sorry, but the selected template doesn\'t contain settings',
+        'zh-cn': 'Sorry, but the selected template doesn\'t contain settings[zh-cn]',
+        'uk': 'Вибачте, але вибраний вами шаблон не підтримує налаштування'
+    },
     powerPointImport: {
         'en': 'Create from PowerPoint',
         'zh-cn': '从PowerPoint导入',

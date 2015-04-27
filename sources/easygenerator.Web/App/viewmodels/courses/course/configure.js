@@ -1,11 +1,7 @@
 ﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'clientContext', 'constants', 'utils/waiter'],
     function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, clientContext, constants, waiter) {
 
-        var events = {
-            navigateToCourses: 'Navigate to courses',
-            updateCourseTemplate: 'Change course template to'
-        },
-
+        var 
             templateMessageTypes = {
                 freeze: 'freeze',
                 notification: 'notification'
@@ -18,18 +14,15 @@
 
         var viewModel = {
             courseId: '',
-            currentTemplate: ko.observable(),
-            loadingTemplate: ko.observable(false),
-            templates: [],
+
+            currentTemplate: null,
+            configureSettingsUrl: null,
+            settingsAvailable: false,
 
             onGetTemplateMessage: onGetTemplateMessage,
 
             settingsVisibility: ko.observable(false),
-            displaySettings: ko.observable(true),
-            settingsSaved: ko.observable(true),
-            selectTemplate: selectTemplate,
-
-            navigateToCoursesEvent: navigateToCoursesEvent,
+            canUnloadSettings: ko.observable(true),
 
             activate: activate,
             canDeactivate: canDeactivate,
@@ -41,14 +34,14 @@
 
         function canDeactivate() {
             var defer = Q.defer();
-            viewModel.displaySettings(false);
+            viewModel.settingsVisibility(false);
 
-            waiter.waitFor(viewModel.settingsSaved, delay, limit)
+            waiter.waitFor(viewModel.canUnloadSettings, delay, limit)
                 .fail(function () {
                     notify.error(templateSettingsErrorNotification);
                 })
                 .fin(function () {
-                    viewModel.displaySettings(true);
+                    viewModel.settingsVisibility(true);
                     defer.resolve(true);
                 });
 
@@ -56,12 +49,12 @@
         }
 
         function activate(courseId) {
-
             return courseRepository.getById(courseId).then(function (course) {
                 viewModel.courseId = course.id;
-                clientContext.set(constants.clientContextKeys.lastVistedCourse, course.id);
-                clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
 
+                viewModel.currentTemplate = course.template;
+                viewModel.configureSettingsUrl = course.template.settingsUrls.configure;
+                viewModel.settingsAvailable = viewModel.configureSettingsUrl != null;
             }).fail(function (reason) {
                 router.activeItem.settings.lifecycleData = { redirect: '404' };
                 throw reason;
@@ -75,7 +68,7 @@
 
             switch (message.type) {
                 case templateMessageTypes.freeze:
-                    viewModel.settingsSaved(message.data.freezeEditor ? !message.data.freezeEditor : true);
+                    viewModel.canUnloadSettings(message.data.freezeEditor ? !message.data.freezeEditor : true);
                     break;
                 case templateMessageTypes.notification:
                     var data = message.data;
@@ -91,7 +84,7 @@
 
         function frameLoaded() {
             viewModel.settingsVisibility(true);
-            viewModel.settingsSaved(true);
+            viewModel.canUnloadSettings(true);
         }
     }
 );

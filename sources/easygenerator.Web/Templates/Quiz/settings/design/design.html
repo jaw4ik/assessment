@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html ng-app="design">
+<head>
+    <title>Template design settings</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="../css/settings.css" rel="stylesheet" />
+    <script src="../js/api.js"></script>
+    <script src="js/vendor.min.js"></script>
+    <script src="js/design.min.js"></script>
+</head>
+<body>
+    <div class="settings-container" ng-controller="DesignController">
+        <div class="settings-tab-container customization" data-tab="customization">
+            <div class="settings-tab-wrapper">
+                <div class="tab-header-container">
+                    <img src="img/graphical.png" />
+                    <div class="tab-header-wrapper">
+                        <h1 class="tab-header-title">Customize your course</h1>
+                        <div class="tab-header-content">
+                            <span class="tab-header-content-text">Change the look and feel of the course</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content-container">
+                    <div class="tab-content-row">
+                        <h1 class="template-logo-title">
+                            Custom course logo:
+                        </h1>
+                        <div class="tab-content-wrapper">
+                            <div class="has-access">
+                                <div class="template-logo-url-container">
+                                    <input class="template-logo-url" type="text" placeholder="Paste image URL here..." id="imgUrl" ng-disabled="!userAccess.hasStarterPlan" ng-model="logo.url" />
+                                    <span class="template-logo-or">or</span>
+                                    <form id="logoForm" method="post" enctype="multipart/form-data" encoding="multipart/form-data" target="logoFrame">
+                                        <span class="btn grey template-logo">
+                                            Upload logo image
+                                            <input type="file" id="logoInput" name="file" disabled="disabled">
+                                        </span>
+                                    </form>
+                                </div>
+                                <div class="template-logo-container">
+                                    <div class="template-logo-wrapper" ng-hide="logo.hasLogo() || logo.hasError">
+                                        <div class="template-logo-emty-img"></div>
+                                        <div class="template-logo-empty-text">
+                                            Your logo will appear here
+                                            <p>(recommended size 300 x 50 px)</p>
+                                        </div>
+                                    </div>
+                                    <div class="template-logo-wrapper error" ng-show="logo.hasError && !logo.hasLogo()">
+                                        <div class="template-logo-emty-img"></div>
+                                        <div class="template-logo-empty-text">
+                                            <span>{{logo.errorText}}</span>
+                                            <p>{{logo.errorDescription}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="template-logo-wrapper not-empty" ng-show="logo.hasLogo()">
+                                        <img class="template-logo" src="" alt="" ng-src="{{logo.url}}" />
+                                    </div>
+                                    <div class="template-logo-clear-wrapper" ng-show="logo.hasLogo()">
+                                        <div class="template-logo-clear-btn" ng-click="logo.clear()">
+                                            <div class="tooltip">
+                                                <span class="tooltip-text">Clear logo</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="no-access" fade-visible fade-visible-value="!userAccess.hasStarterPlan">
+                                <div class="no-access-img"></div>
+                                <div class="no-access-text">
+                                    You have to
+                                    <a target="_blank" href="/account/upgrade">upgrade your account</a>
+                                    in order to set custom course logo
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
