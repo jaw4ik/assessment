@@ -662,9 +662,9 @@
     <Content Include="App\views\courses\publishActions\updatePublishedCourse.html" />
     <Content Include="App\views\objectives\index.html" />
     <Content Include="App\views\questions\statement\statement.html" />
-    <Content Include="App\views\reporting\courseStatement.html" />
-    <Content Include="App\views\reporting\objectiveStatement.html" />
-    <Content Include="App\views\reporting\questionStatement.html" />
+    <Content Include="App\reporting\courseStatement.html" />
+    <Content Include="App\reporting\objectiveStatement.html" />
+    <Content Include="App\reporting\questionStatement.html" />
     <Content Include="BuildCourse\Modules\js\branding.js" />
     <Content Include="Content\course.css">
       <DependentUpon>course.less</DependentUpon>

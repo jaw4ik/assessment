@@ -5,7 +5,7 @@
         ExpandableStatement.call(this, finishedLrsStatement, this.expandLoadAction);
         this.startedLrsStatement = null;
         this.learnerDisplayName = this.lrsStatement.actor.name + ' (' + this.lrsStatement.actor.email + ')';
-        this.correct = this.lrsStatement.verb === constants.reporting.xApiVerbIds.passed;
+        this.passed = this.lrsStatement.verb === constants.reporting.xApiVerbIds.passed;
     }
 
     CourseStatement.prototype = Object.create(ExpandableStatement.prototype);

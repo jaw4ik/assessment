@@ -2,14 +2,14 @@
     <div class="r-table" data-bind="click: isExpandable ? (isExpanded() ? collapse : expand) : null">
         <div class=" r-name"><span class="selectable" data-bind="text: learnerDisplayName, attr: { title: learnerDisplayName }"></span></div>
         <div class="r-result">
-            <!-- ko if: correct -->
+            <!-- ko if: passed -->
             <span class="correct">
                 <span class="info-tooltip">
                     <span data-bind="localize: { text: 'passed' }">Passed</span>
                 </span>
             </span>
             <!-- /ko -->
-            <!-- ko ifnot: correct -->
+            <!-- ko ifnot: passed -->
             <span class="incorrect">
                 <span class="info-tooltip">
                     <span data-bind="localize: { text: 'failed' }">Failed</span>

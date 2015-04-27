@@ -219,7 +219,7 @@
                 _.each(reportingStatements, function (result) {
                     var resultCsv = [
                         result.lrsStatement.actor.name + ' (' + result.lrsStatement.actor.email + ')',
-                        result.correct ? passed : failed,
+                        result.passed ? passed : failed,
                         result.lrsStatement.score,
                         moment(result.lrsStatement.date).format('YYYY-MM-D'),
                         moment(result.lrsStatement.date).format('h:mm:ss a')
