@@ -723,9 +723,9 @@
         'uk': 'розділ / ціль:'
     },
     repotingNoQuestions: {
-        'en': 'no questions have been answered yet or results are not available for this objective',
-        'zh-cn': 'no questions have been answered yet or results are not available for this objective[zh-cn]',
-        'uk': 'немає жодного пройденого питання або інформація про цей розділ недоступна'
+        'en': 'No questions have been answered yet or results are not available for this objective',
+        'zh-cn': 'No questions have been answered yet or results are not available for this objective[zh-cn]',
+        'uk': 'Немає жодного пройденого питання або інформація про цей розділ недоступна'
     },
     reportingQuestionTitle: {
         'en': 'question:',

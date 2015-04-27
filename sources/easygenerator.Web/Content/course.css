@@ -1972,6 +1972,7 @@ td.r-name {
   padding-left: 45px;
   color: #818c98;
   font-family: OpenSansItalic;
+  text-transform: none;
 }
 .r-objective .r-question .r-text.question {
   padding-left: 70px;
