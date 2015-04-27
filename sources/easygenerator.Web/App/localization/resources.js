@@ -448,14 +448,14 @@
         'uk': '3. Конфігурація'
     },
     coursePublishItem: {
-        'en': '4. Publish',
-        'zh-cn': '4. 发布',
-        'uk': '4. Публікація'
+        'en': '3. Publish',
+        'zh-cn': '3. 发布',
+        'uk': '3. Публікація'
     },
     courseResultsItem: {
-        'en': '5. Results',
-        'zh-cn': '5. 结果',
-        'uk': '5. Результати'
+        'en': '4. Results',
+        'zh-cn': '4. 结果',
+        'uk': '4. Результати'
     },
     currentTemplate: {
         'en': 'Current template',
