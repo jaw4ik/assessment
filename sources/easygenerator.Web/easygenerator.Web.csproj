@@ -231,6 +231,7 @@
     <Compile Include="Components\ActionFilters\ApplicationAuthorize.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AllowedUsersAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Permissions\PreviewAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCollaboratorsAmountAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\QuestionAccessAttribute.cs" />
@@ -259,6 +260,7 @@
     <Compile Include="Controllers\Api\MultipleselectController.cs" />
     <Compile Include="Controllers\Api\StatementController.cs" />
     <Compile Include="Controllers\Api\TextMatchingQuestionController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
     <Compile Include="Storage\CourseStateStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
@@ -498,9 +500,12 @@
     <Compile Include="Synchronization\Handlers\TextMatchingEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\UserEventHandler.cs" />
     <Compile Include="Synchronization\Hubs\EventHub.cs" />
+    <Compile Include="Synchronization\Tracking\IUserConnectionTracker.cs" />
+    <Compile Include="Synchronization\Tracking\UserConnectionTracker.cs" />
     <Compile Include="ViewModels\Account\UserSignUpViewModel.cs" />
     <Compile Include="ViewModels\Api\BlankAnswerViewModel.cs" />
     <Compile Include="ViewModels\DemoCourses\DemoCoursesViewModel.cs" />
+    <Compile Include="ViewModels\Dashboard\DashboardViewModel.cs" />
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceAutologinUrlProvider.cs" />
@@ -1896,6 +1901,8 @@
     <Content Include="Templates\Reader\css\fonts\RobotoSlab-Thin-webfont.ttf" />
     <Content Include="Templates\Reader\css\fonts\RobotoSlab-Thin-webfont.woff" />
     <Content Include="Templates\Reader\css\fonts\Ubuntu-Regular.svg" />
+    <Content Include="Templates\Reader\css\fonts\Ubuntu-Regular.ttf" />
+    <Content Include="Templates\Reader\css\fonts\Ubuntu-Regular.woff" />
     <Content Include="Templates\Reader\css\jquery.mCustomScrollbar.min.css" />
     <Content Include="Templates\Reader\css\styles.css" />
     <Content Include="Templates\Reader\images\reader.png" />
@@ -1903,6 +1910,8 @@
     <Content Include="Templates\Reader\index.html" />
     <Content Include="Templates\Reader\js\require.js" />
     <Content Include="Templates\Reader\js\vendor.min.js" />
+    <Content Include="Templates\Reader\lang\en.json" />
+    <Content Include="Templates\Reader\lang\ua.json" />
     <Content Include="Templates\Reader\manifest.json" />
     <Content Include="Templates\Reader\publishSettings.js" />
     <Content Include="Templates\Reader\settings.js" />
@@ -2051,14 +2060,12 @@
     <Content Include="Templates\Simple course\lang\tr.json" />
     <Content Include="Templates\Simple course\lang\ua.json" />
     <Content Include="Templates\Quiz\lang\nl.json" />
-    <Content Include="Templates\Reader\css\fonts\Ubuntu-Regular.ttf" />
-    <Content Include="Templates\Reader\css\fonts\Ubuntu-Regular.woff" />
-    <Content Include="Templates\Reader\lang\en.json" />
-    <Content Include="Templates\Reader\lang\ua.json" />
     <Content Include="Templates\Exam\lang\en.json" />
     <Content Include="Templates\Exam\lang\ua.json" />
     <Content Include="Templates\Personalized learning\lang\nl.json" />
     <Content Include="Templates\Exam\lang\nl.json" />
+    <Content Include="Templates\Reader\lang\nl.json" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
