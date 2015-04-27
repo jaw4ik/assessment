@@ -146,7 +146,7 @@
                     expect(viewModel.collection().length).toBe(1);
                 });
             });
-        });
+                });
 
         describe('removeNotification:', function () {
             var key = 'key',
@@ -156,7 +156,7 @@
                 beforeEach(function () {
                     viewModel.collection().length = 0;
                     viewModel.collection.push(notification);
-                });
+            });
 
                 it('should remove notification', function () {
                     viewModel.removeNotification(key);
