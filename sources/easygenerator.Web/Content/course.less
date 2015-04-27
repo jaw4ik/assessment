@@ -2189,7 +2189,10 @@ td.r-name {
 
 .r-table {
     display: table;
+    table-layout: fixed;
     width: 100%;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
 
     > div {
         display: table-cell;
@@ -2278,12 +2281,13 @@ td.r-name {
         position: relative;
 
         > .r-title {
-            width: 85%;
             font-family: OpenSansItalic;
+            -ms-word-wrap: break-word;
+            word-wrap: break-word;
         }
 
         .r-text {
-            width: 15%;
+            width: 140px;
             text-transform: uppercase;
             padding-left: 20px;
             position: relative;
@@ -2328,14 +2332,10 @@ td.r-name {
 
         li:first-child {
             border-top: 1px solid #dfe7ec;
-        }
-
-        .r-question-text {
-            width: 65%;
-        }
+        }       
 
         .r-score {
-            width: 15%;
+            width: 85px;
             text-align: left;
 
             p:before {
@@ -2357,11 +2357,12 @@ td.r-name {
             p {
                 padding-left: 35px;
                 position: relative;
+                font-family: OpenSansItalic;
             }
         }
 
         .r-text {
-            width: 15%;
+            width: 140px;
             position: relative;
             border-left: 1px dashed #d7dcdf;
 

@@ -1824,7 +1824,10 @@ td.r-name {
 }
 .r-table {
   display: table;
+  table-layout: fixed;
   width: 100%;
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
 }
 .r-table > div {
   display: table-cell;
@@ -1891,11 +1894,12 @@ td.r-name {
   position: relative;
 }
 .r-objective .r-table > .r-title {
-  width: 85%;
   font-family: OpenSansItalic;
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
 }
 .r-objective .r-table .r-text {
-  width: 15%;
+  width: 140px;
   text-transform: uppercase;
   padding-left: 20px;
   position: relative;
@@ -1931,11 +1935,8 @@ td.r-name {
 .r-objective .r-question li:first-child {
   border-top: 1px solid #dfe7ec;
 }
-.r-objective .r-question .r-question-text {
-  width: 65%;
-}
 .r-objective .r-question .r-score {
-  width: 15%;
+  width: 85px;
   text-align: left;
 }
 .r-objective .r-question .r-score p:before {
@@ -1953,9 +1954,10 @@ td.r-name {
 .r-objective .r-question .r-score p {
   padding-left: 35px;
   position: relative;
+  font-family: OpenSansItalic;
 }
 .r-objective .r-question .r-text {
-  width: 15%;
+  width: 140px;
   position: relative;
   border-left: 1px dashed #d7dcdf;
 }
