@@ -177,10 +177,6 @@ input[type="text"] {
         background: url("img/sprites_16.png") -63px -21px no-repeat;
     }
 
-.settings-tab-container {
-    background-color: #f9fafc;
-}
-
     .settings-tab-container.track-and-trace .selector-preview-container {
         position: relative;
         padding-left: 40px;
