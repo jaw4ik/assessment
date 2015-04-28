@@ -16,10 +16,7 @@
 
     return {
         router: childRouter,
-        activate: function () {
-            //console.warn('viewmodels/courses/course/create/index');
-            //debugger;
-        },
+        activate: function () {},
         canActivate: canActivate
     };
 

@@ -1,4 +1,4 @@
-﻿define(['viewmodels/courses/course/results'], function (viewModel) {
+﻿define(['reporting/viewmodels/results'], function (viewModel) {
     "use strict";
 
     var
@@ -392,7 +392,7 @@
 
             beforeEach(function () {
                 dfd = Q.defer();
-                spyOn(xApiProvider, 'getReportingStatements').and.returnValue(dfd.promise);;
+                spyOn(xApiProvider, 'getCourseCompletedStatements').and.returnValue(dfd.promise);;
             });
 
             it('should return a promise', function () {
@@ -400,7 +400,7 @@
                 expect(viewModel.attached()).toBePromise();
             });
 
-            describe('when getReportingStatements failed', function () {
+            describe('when getCourseCompletedStatements failed', function () {
 
                 beforeEach(function () {
                     dfd.reject();
@@ -417,7 +417,7 @@
 
             });
 
-            describe('when getReportingStatements returned statements', function () {
+            describe('when getCourseCompletedStatements returned statements', function () {
 
                 var statements;
 

@@ -11,46 +11,29 @@
             </div>
             <div class="results-holder">
                 <div class="results-data">
-                    <table class="results-table">
-                        <tbody>
-                            <tr class="r-header">
-                                <th class="r-name" data-bind="localize: { text: 'nameAndEmail' }">Name (Email)</th>
-                                <th class="r-result" data-bind="localize: { text: 'result' }">Result</th>
-                                <th class="r-score" data-bind="localize: { text: 'score' }">Score</th>
-                                <th class="r-date" data-bind="localize: { text: 'dateTime' }">Date Time</th>
-                            </tr>
+                    <div class="results-table">
+                        <ul>
+                            <li class="r-header">
+                                <div class="r-table">
+                                    <div class="r-name" data-bind="localize: { text: 'nameAndEmail' }">Name (Email)</div>
+                                    <div class="r-result" data-bind="localize: { text: 'result' }">Result</div>
+                                    <div class="r-score" data-bind="localize: { text: 'score' }">Score</div>
+                                    <div class="r-date" data-bind="localize: { text: 'dateTime' }">Date Time</div>
+                                </div>
+                            </li>
                             <!-- ko foreach: results -->
-                            <tr class="r-data">
-                                <td class="r-name"><span class="selectable" data-bind="text: $parent.getLearnerName($data), attr: { title: $parent.getLearnerName($data) }"></span></td>
-                                <td class="r-result">
-                                    <!-- ko if: correct -->
-                                    <span class="correct">
-                                        <span class="info-tooltip">
-                                            <span data-bind="localize: { text: 'passed' }">Passed</span>
-                                        </span>
-                                    </span>
-                                    <!-- /ko -->
-                                    <!-- ko ifnot: correct -->
-                                    <span class="incorrect">
-                                        <span class="info-tooltip">
-                                            <span data-bind="localize: { text: 'failed' }">Failed</span>
-                                        </span>
-                                    </span>
-                                    <!-- /ko -->
-                                </td>
-                                <td class="r-score" data-bind="text: score">score</td>
-                                <td class="r-date" data-bind="date: { value: date, formatString: 'MMM D, YYYY h:mm A' }">date</td>
-                            </tr>
+                            <!-- ko compose: { view: 'reporting/views/courseStatement', model: $data } -->
                             <!-- /ko -->
-                        </tbody>
-                        <tfoot>
-                            <tr class="r-show-more-results" data-bind="visible: hasMoreResults">
-                                <td colspan="4">
+                            <!-- /ko -->
+                        </ul>
+                        <div>
+                            <div class="r-show-more-results" data-bind="visible: hasMoreResults">
+                                <div colspan="4">
                                     <button class="show-more-btn" data-bind="click: showMoreResults, localize: { text: 'showMoreResults' }">Show more results</button>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- ko if: !isLoading() && noResults() -->
                     <div class="no-results" data-bind="localize: { text: 'noReportedResults' }">No reported results yet...</div>
                     <div class="no-results-hint" data-bind="localize: { text: 'makeSureTrackingResultsIsEnabled' }">Make sure you tracking and tracing is enabled:</div>
@@ -73,7 +56,16 @@
                     <!-- /ko -->
                     <!-- ko if: isLoading -->
                     <div class="loading-results">
-                        <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 grey align-center' } } --><!-- /ko -->
+                        <div class="circular-loader x32 grey align-center">
+                            <div class="circular-loader-item"></div>
+                            <div class="circular-loader-item"></div>
+                            <div class="circular-loader-item"></div>
+                            <div class="circular-loader-item"></div>
+                            <div class="circular-loader-item"></div>
+                            <div class="circular-loader-item"></div>
+                            <div class="circular-loader-item"></div>
+                            <div class="circular-loader-item"></div>
+                        </div>
                         <div class="loading-results-text" data-bind="localize: { text: 'loadingReportedResults' }"></div>
                     </div>
                     <!-- /ko -->
