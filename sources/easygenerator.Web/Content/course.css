@@ -1734,7 +1734,7 @@ td.r-name {
 .show-more-btn {
   cursor: pointer;
   margin-top: 21px;
-  height: 28px;
+  min-height: 28px;
   width: 182px;
   border: none;
   border-bottom: 1px solid transparent;
