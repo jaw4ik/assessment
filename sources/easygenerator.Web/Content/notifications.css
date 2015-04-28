@@ -1,4 +1,6 @@
-﻿.user-notification-viewer {
+﻿/*#region User avatar */
+/*#endregion */
+.user-notification-viewer {
   position: absolute;
   display: none;
   table-layout: fixed;
@@ -86,6 +88,8 @@
 }
 .user-notification-list {
   list-style-type: none;
+  display: -webkit-flex;
+  display: flex;
 }
 .user-notification-close-btn {
   position: absolute;
@@ -100,49 +104,60 @@
   background-color: #f7f7f7;
 }
 .user-notification-wrapper {
-  float: left;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
   width: 413px;
+  min-height: 280px;
   color: #42515f;
 }
-.user-notification-container {
-  height: 220px;
-  padding: 10px 10px 0;
-}
 .user-notification-header {
-  margin-bottom: 10px;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  padding: 10px 10px 0px 10px;
 }
-.user-notification-header > div {
-  display: inline-block;
-  vertical-align: middle;
-}
-.user-notification-header-image {
+.user-notification-header .user-notification-header-image {
+  align-self: center;
   width: 53px;
   height: 53px;
   background: url(../Content/images/sprites_64.png) -76px -6px;
 }
-.user-notification-header-content {
+.user-notification-header .user-notification-header-content {
+  align-self: center;
   margin-left: 10px;
 }
-.user-notification-title {
+.user-notification-header .user-notification-header-content .user-notification-title {
   font-family: 'OpenSans-Semibold';
   font-size: 13px;
 }
-.user-notification-sender {
+.user-notification-header .user-notification-header-content .user-notification-sender {
   display: block;
   font-size: 11px;
   color: #63798e;
 }
 .user-notification-content {
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 2;
   word-wrap: break-word;
+  padding: 10px 10px 0px 10px;
 }
-.user-notification-content p + p {
-  margin-top: 5px;
+.user-notification-content .user-notification-actions {
+  flex: 2;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0px;
 }
-.user-notification-btn-wrapper {
-  text-align: center;
-}
-.user-notification-btn-wrapper .btn {
+.user-notification-content .user-notification-actions .btn {
   font: 13px 'OpenSans';
+}
+.user-notification-content .user-notification-content-text p + p {
+  margin-top: 5px;
 }
 .user-notification-link {
   color: #50a6e9;
@@ -152,6 +167,8 @@
   text-decoration: underline;
 }
 .user-notification-footer {
+  display: -webkit-flex;
+  display: flex;
   position: relative;
   min-height: 64px;
   padding: 15px 25px 15px 45px;
@@ -170,30 +187,48 @@
   margin-top: -12px;
   background: url(images/sprites_24.png) 0px 0px;
 }
+.user-notification-footer .user-notification-footer-text {
+  align-self: center;
+}
 /*#region Subscription expiration */
-.user-notification-wrapper.subscription-expiration .btn {
-  display: inline-block;
+.user-notification-wrapper.subscription-expiration .user-notification-actions .btn {
   min-width: 145px;
   padding: 11px;
-  margin: 14px 0;
+  text-align: center;
 }
 /*#endregion */
 /*#region Collaboration invite */
-.user-notification-wrapper.collaboration-invite .user-notification-btn-wrapper {
-  padding: 34px 0px;
+.user-notification-wrapper.collaboration-invite .user-notification-header-image-wrapper {
+  position: relative;
+  border: 1px solid #EFEFEF;
+  border-radius: 3px;
+  display: inline-block;
+  box-shadow: 1px 1px 2px 0px #dbdbdb;
+  border-radius: 25px;
 }
-.user-notification-wrapper.collaboration-invite .btn {
+.user-notification-wrapper.collaboration-invite .user-notification-header-image {
+  height: 36px;
+  width: 36px;
+  line-height: 35px;
+  background: linear-gradient(145deg, #73cece 0%, #65caca 0%, #73cece 40%, #4dc1c1 41%, #4dc1c1 100%);
+  border: 2px solid #fff;
+  border-radius: 3px;
+  box-sizing: content-box;
+  color: #fff;
+  font: 22px 'OpenSans-Semibold';
+  text-align: center;
+  vertical-align: top;
+  width: 45px;
+  height: 45px;
+  border-radius: 25px;
+  line-height: 45px;
+}
+.user-notification-wrapper.collaboration-invite .user-notification-actions .btn {
   min-width: 100px;
   padding: 0px 10px;
   height: 40px;
 }
-.user-notification-wrapper.collaboration-invite .btn + .btn {
+.user-notification-wrapper.collaboration-invite .user-notification-actions .btn + .btn {
   margin-left: 20px;
-}
-.user-notification-wrapper.collaboration-invite .user-notification-footer p {
-  position: absolute;
-  top: 50%;
-  -webkit-transform: translate(0, -50%);
-  transform: translate(0, -50%);
 }
 /*#endregion */

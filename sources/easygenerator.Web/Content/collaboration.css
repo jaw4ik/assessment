@@ -1,4 +1,6 @@
-﻿/*#region MOODAL DIALOG*/
+﻿/*#region User avatar */
+/*#endregion */
+/*#region MOODAL DIALOG*/
 .modal-dialog-wrapper {
   display: none;
   width: 100px;
@@ -348,20 +350,17 @@
   background-repeat: no-repeat;
 }
 .collaborator-avatar {
+  height: 36px;
+  width: 36px;
+  line-height: 35px;
   background: linear-gradient(145deg, #73cece 0%, #65caca 0%, #73cece 40%, #4dc1c1 41%, #4dc1c1 100%);
-  border: 2px solid #ffffff;
+  border: 2px solid #fff;
   border-radius: 3px;
   box-sizing: content-box;
   color: #fff;
-  font-family: 'OpenSans-Semibold';
-  font-size: 22px;
-  height: 36px;
-  line-height: 35px;
-  -moz-border-radius: 3px;
+  font: 22px 'OpenSans-Semibold';
   text-align: center;
   vertical-align: top;
-  -webkit-border-radius: 3px;
-  width: 36px;
 }
 .collaborator.not-registered .collaborator-avatar,
 .collaborator.locked .collaborator-avatar {

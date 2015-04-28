@@ -679,6 +679,9 @@
     <Content Include="Content\font\heuristica-italic.svg" />
     <Content Include="Content\font\heuristica-regular.svg" />
     <Content Include="Content\font\opensans-bold.svg" />
+    <Content Include="Content\helpers.css">
+      <DependentUpon>helpers.less</DependentUpon>
+    </Content>
     <Content Include="Content\hotSpot.css">
       <DependentUpon>hotSpot.less</DependentUpon>
     </Content>
