@@ -1,14 +1,15 @@
-﻿define(['constants', 'viewmodels/courses/publishingActions/publishingAction', 'durandal/app', 'notify', 'eventTracker', 'fileHelper', 'plugins/router'],
-    function (constants, publishingAction, app, notify, eventTracker, fileHelper, router) {
+﻿define(['constants', 'viewmodels/courses/publishingActions/publishingAction', 'durandal/app', 'notify', 'eventTracker', 'fileHelper', 'repositories/courseRepository'],
+    function (constants, publishingAction, app, notify, eventTracker, fileHelper, repository) {
 
         var
            events = {
                downloadCourse: 'Download course'
            };
 
-        var ctor = function (course) {
-
-            var viewModel = publishingAction(course, course.build);
+        var ctor = function () {
+        
+            var viewModel = publishingAction(),
+                baseActivate = viewModel.activate;
 
             viewModel.isPublishing = ko.computed(function () {
                 return this.state() === constants.publishingStates.building;
@@ -19,13 +20,19 @@
             viewModel.courseBuildStarted = courseBuildStarted;
             viewModel.courseBuildFailed = courseBuildFailed;
             viewModel.courseBuildCompleted = courseBuildCompleted;
-
-            app.on(constants.messages.course.build.started, viewModel.courseBuildStarted);
-            app.on(constants.messages.course.build.completed, viewModel.courseBuildCompleted);
-            app.on(constants.messages.course.build.failed, viewModel.courseBuildFailed);
+            viewModel.activate = activate;
 
             return viewModel;
 
+            function activate(courseId) {
+                return repository.getById(courseId).then(function (course) {
+                    baseActivate(course, course.build);
+
+                    viewModel.subscribe(constants.messages.course.build.started, viewModel.courseBuildStarted);
+                    viewModel.subscribe(constants.messages.course.build.completed, viewModel.courseBuildCompleted);
+                    viewModel.subscribe(constants.messages.course.build.failed, viewModel.courseBuildFailed);
+                });
+            }
 
             function downloadCourse() {
                 if (viewModel.isCourseDelivering())
@@ -34,10 +41,12 @@
                 notify.hide();
                 eventTracker.publish(events.downloadCourse);
 
-                return course.build().then(function (courseInfo) {
-                    fileHelper.downloadFile('download/' + courseInfo.build.packageUrl);
-                }).fail(function (message) {
-                    notify.error(message);
+                return repository.getById(viewModel.courseId).then(function (course) {
+                    return course.build().then(function (courseInfo) {
+                        fileHelper.downloadFile('download/' + courseInfo.build.packageUrl);
+                    }).fail(function (message) {
+                        notify.error(message);
+                    });
                 });
             };
 
@@ -67,8 +76,8 @@
             };
 
             //#endregion
-
-        };
-
+           };
+ 		 
         return ctor;
+
     });

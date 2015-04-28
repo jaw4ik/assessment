@@ -152,6 +152,7 @@
     <Compile Include="Components\BundleTransforms\ImageNoCacheParamTransformTests.cs" />
     <Compile Include="Components\ManifestFileManagerTests.cs" />
     <Compile Include="Components\ModelBinding\DateTimeModelBinderTests.cs" />
+    <Compile Include="Controllers\DashboardControllerTests.cs" />
     <Compile Include="Controllers\AccountControllerTests.cs" />
     <Compile Include="Controllers\Api\Aim4YouControllerTests.cs" />
     <Compile Include="Controllers\Api\AnswerControllerTests.cs" />
@@ -187,8 +188,20 @@
     <Compile Include="Controllers\ImageControllerTests.cs" />
     <Compile Include="Controllers\PreviewControllerTests.cs" />
     <Compile Include="Controllers\RedirectToNewStorageControllerTests.cs" />
+    <Compile Include="Storage\CourseStateStorageTests.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTrackerTests.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\HotSpotPolygonChangeTrackerTests.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\SingleSelectImageAnswerChangeTrackerTests.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\DropspotChangeTrackerTests.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\TextMatchingAnswerChangeTrackerTests.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\AnswerChangeTrackerTests.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\LearningContentChangeTrackerTests.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\QuestionChangeTrackerTests.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\ObjectiveChangeTrackerTests.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseChangeTrackerTests.cs" />
     <Compile Include="DomainEvents\Events\UserSignedUpEventTest.cs" />
     <Compile Include="Import\Presentation\PresentationCourseImporterTests.cs" />
+    <Compile Include="InMemoryStorages\CourseInfoInMemoryStorageTests.cs" />
     <Compile Include="InMemoryStorages\DemoCoursesInMemoryStorageTests.cs" />
     <Compile Include="Mail\MailTemplatesProviderTests.cs" />
     <Compile Include="Newsletter\MailChimp\MailChimpSubscriptionManagerTest.cs" />
@@ -209,6 +222,7 @@
     <Compile Include="Security\PermissionsCheckers\TextMatchingAnswerPermissionsCheckerTests.cs" />
     <Compile Include="Storage\ImageStorageTest.cs" />
     <Compile Include="Storage\TemplateStorageTests.cs" />
+    <Compile Include="Synchronization\Tracking\UserConnectionTrackerTests.cs" />
     <Compile Include="Tasks\HttpRequestsSenderTaskTests.cs" />
     <Compile Include="Tasks\MailSenderTaskTest.cs" />
     <Compile Include="Tasks\SchedulerTest.cs" />

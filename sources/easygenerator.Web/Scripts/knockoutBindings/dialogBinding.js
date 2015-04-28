@@ -3,8 +3,8 @@
     },
     update: function (element, valueAccessor) {
         var $element = $(element),
-            $container = $('.tb-main'),
             $html = $('html'),
+            $container = $('body'),
             speed = 200,
             isShown = valueAccessor().isShown,
             autoclose = ko.unwrap(valueAccessor().autoclose) || false,
@@ -36,6 +36,9 @@
             }
 
             $html.on('keyup', hideOnEscape);
+            $container.css({
+                overflowY: 'hidden'
+            });
         }
 
         function hide() {
@@ -44,6 +47,9 @@
                     scrollLocker.releaseScroll();
                     $(this).remove();
                     $html.off('keyup', hideOnEscape);
+                    $container.css({
+                        overflowY: 'visible'
+                    });
 
                     if (_.isFunction(onHide)) {
                         onHide();
@@ -107,7 +113,8 @@
             }
         };
 
-        ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+            hide();
             isShown(false);
         });
     }

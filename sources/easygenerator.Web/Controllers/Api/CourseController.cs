@@ -98,7 +98,6 @@ namespace easygenerator.Web.Controllers.Api
         [Route("course/publish")]
         public ActionResult Publish(Course course)
         {
-            var args = course == null ? null : new CoursePublishedEvent(course);
             return Deliver(course, () => _coursePublisher.Publish(course), () => JsonSuccess(new { PublishedPackageUrl = course.PublicationUrl }));
         }
 

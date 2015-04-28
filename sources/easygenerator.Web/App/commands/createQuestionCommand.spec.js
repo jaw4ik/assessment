@@ -205,7 +205,7 @@
             describe('when question type is informationContent', function () {
 
                 it('should add question to repository', function () {
-                    spyOn(localizationManager, 'localize').and.callFake(function(arg) { return arg === 'newInformationContentTitle' ? 'Information' :''; });
+                    spyOn(localizationManager, 'localize').and.callFake(function (arg) { return arg === 'newInformationContentTitle' ? 'Information' : ''; });
                     command.execute('objectiveId', 'Information', constants.questionType.informationContent.type);
                     expect(questionRepository.addQuestion).toHaveBeenCalledWith('objectiveId', { title: 'Information' }, constants.questionType.informationContent.type);
                 });
@@ -218,9 +218,9 @@
                     addQuestion.resolve({ id: 'questionId' });
                 });
 
-                it('should navigate to this question', function () {
+                it('should navigate to this question', function (done) {
                     command.execute('objectiveId').fin(function () {
-                        expect(router.navigate).toHaveBeenCalledWith('#objective/objectiveId/question/questionId');
+                        expect(router.navigate).toHaveBeenCalledWith('objectives/objectiveId/questions/questionId');
                         done();
                     });
                 });
@@ -228,7 +228,7 @@
                 describe('and courseId is defined', function () {
                     it('should navigate to this question with courseId in query string', function (done) {
                         command.execute('objectiveId', 'courseId').fin(function () {
-                            expect(router.navigate).toHaveBeenCalledWith('#objective/objectiveId/question/questionId?courseId=courseId');
+                            expect(router.navigate).toHaveBeenCalledWith('courses/courseId/objectives/objectiveId/questions/questionId');
                             done();
                         });
                     });

@@ -7,10 +7,7 @@ define(function (require) {
         constants = require('constants'),
         eventTracker = require('eventTracker'),
         questionRepository = require('repositories/questionRepository'),
-        objectiveRepository = require('repositories/objectiveRepository'),
         http = require('plugins/http'),
-        localizationManager = require('localization/localizationManager'),
-        BackButton = require('models/backButton'),
         vmQuestionTitle = require('viewmodels/questions/questionTitle'),
         vmContentField = require('viewmodels/common/contentField'),
         multipleSelect = require('viewmodels/questions/multipleSelect/multipleSelect'),
@@ -135,25 +132,23 @@ define(function (require) {
 
         });
 
-        describe('backButtonData:', function () {
-
-            it('should be instance of BackButton', function () {
-                expect(viewModel.backButtonData).toBeInstanceOf(BackButton);
-            });
-
-        });
-
         describe('activate:', function () {
 
-            var getQuestionByIdDeferred;
-            var getObjectiveByIdDeferred;
+            var getQuestionById;
+            var activeQuestionViewModelInitDeferred;
+
+
+            var viewModelData = {
+                viewCaption: 'caption',
+                isQuestionContentNeeded: true
+            };
 
             beforeEach(function () {
-                getQuestionByIdDeferred = Q.defer();
-                getObjectiveByIdDeferred = Q.defer();
+                getQuestionById = Q.defer();
 
-                spyOn(questionRepository, 'getById').and.returnValue(getQuestionByIdDeferred.promise);
-                spyOn(objectiveRepository, 'getById').and.returnValue(getObjectiveByIdDeferred.promise);
+                spyOn(questionRepository, 'getById').and.returnValue(getQuestionById.promise);
+                activeQuestionViewModelInitDeferred = Q.defer();
+                spyOn(multipleSelect, 'initialize').and.returnValue(activeQuestionViewModelInitDeferred.promise);
 
                 spyOn(http, 'post');
             });
@@ -162,86 +157,93 @@ define(function (require) {
                 expect(viewModel.activate).toBeFunction();
             });
 
-            it('should initialize fields', function () {
-                viewModel.activate(objective.id, question.id, {courseId: 'courseId'});
-
-                expect(viewModel.objectiveId).toBe(objective.id);
-                expect(viewModel.questionId).toBe(question.id);
-                expect(viewModel.courseId).toBe('courseId');
+            it('should return promise', function () {
+                expect(viewModel.activate('objectiveId', 'questionId')).toBePromise();
             });
 
-            describe('when objective not found', function () {
+            describe('when activated with objectiveId and questionId', function () {
+
                 beforeEach(function () {
-                    getObjectiveByIdDeferred.reject('reason');
+                    getQuestionById.resolve(question);
+
+                    activeQuestionViewModelInitDeferred.resolve(viewModelData);
+
                 });
 
-                it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function (done) {
-                    router.activeItem.settings.lifecycleData = null;
+                it('should set objectiveId', function (done) {
+                    viewModel.objectiveId = null;
 
-                    viewModel.activate('objectiveId', 'questionId').fin(function () {
-                        expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
+                    viewModel.activate('objectiveId', 'questionId').then(function () {
+                        expect(viewModel.objectiveId).toEqual('objectiveId');
                         done();
                     });
                 });
 
-                it('should reject promise', function (done) {
-                    var promise = viewModel.activate('objectiveId', 'questionId');
+                it('should set questionId', function (done) {
+                    viewModel.questionId = null;
 
-                    promise.fin(function () {
-                        expect(promise).toBeRejectedWith('reason');
+                    viewModel.activate('objectiveId', 'questionId').then(function () {
+                        expect(viewModel.questionId).toEqual('questionId');
                         done();
                     });
                 });
 
+                it('should set null to courseId', function (done) {
+                    viewModel.courseId = 'courseId';
+
+                    viewModel.activate('objectiveId', 'questionId').then(function () {
+                        expect(viewModel.courseId).toEqual(null);
+                        done();
+                    });
+                });
             });
 
-            describe('when objective found', function () {
+            describe('when activated with courseId, objectiveId and questionId', function () {
 
                 beforeEach(function () {
-                    getObjectiveByIdDeferred.resolve(objectiveFull);
+                    getQuestionById.resolve(question);
+
+                    activeQuestionViewModelInitDeferred.resolve(viewModelData);
+
                 });
 
-                var queryString;
-                describe('when queryString in null', function () {
+                it('should set courseId', function (done) {
+                    viewModel.courseId = null;
 
-                    beforeEach(function () {
-                        queryString = null;
+                    viewModel.activate('courseId', 'objectiveId', 'questionId').then(function () {
+                        expect(viewModel.courseId).toEqual('courseId');
+                        done();
+                    });
                     });
 
-                    it('should configure back button that it always visible', function (done) {
-                        spyOn(viewModel.backButtonData, 'configure');
-                        spyOn(localizationManager, 'localize').and.returnValue('text');
-                        getObjectiveByIdDeferred.resolve(objectiveFull);
-                        getQuestionByIdDeferred.resolve(question);
+                it('should set objectiveId', function (done) {
+                    viewModel.objectiveId = null;
 
-                        var promise = viewModel.activate(objective.id, question.id, queryString);
-
-                        promise.fin(function () {
-                            expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: '\'' + objectiveFull.title + '\'', url: 'objective/' + objectiveFull.id, callback: viewModel.navigateToObjectiveEvent, alwaysVisible: true });
+                    viewModel.activate('courseId', 'objectiveId', 'questionId').then(function () {
+                        expect(viewModel.objectiveId).toEqual('objectiveId');
                             done();
                         });
                     });
 
+                it('should set questionId', function (done) {
+                    viewModel.questionId = null;
+
+                    viewModel.activate('courseId', 'objectiveId', 'questionId').then(function () {
+                        expect(viewModel.questionId).toEqual('questionId');
+                        done();
+                });
                 });
 
-                describe('when queryString contains courseId', function () {
 
-                    beforeEach(function () {
-                        queryString = {
-                            courseId: 'courseId'
-                        };
                     });
 
-                    it('should configure back button that it not always visible', function (done) {
-                        spyOn(viewModel.backButtonData, 'configure');
-                        spyOn(localizationManager, 'localize').and.returnValue('text');
-                        getObjectiveByIdDeferred.resolve(objectiveFull);
-                        getQuestionByIdDeferred.resolve(question);
+            describe('when activated with incorrect arguments', function () {
 
-                        viewModel.activate(objective.id, question.id, queryString).fin(function () {
-                            expect(viewModel.backButtonData.configure).toHaveBeenCalledWith({ backViewName: '\'' + objectiveFull.title + '\'', url: 'objective/' + objectiveFull.id, callback: viewModel.navigateToObjectiveEvent, alwaysVisible: false });
-                            done();
-                        });
+                it('should throw exception', function () {
+                    var f = function () {
+                        viewModel.activate();
+                    }
+                    expect(f).toThrow();
                     });
 
                 });
@@ -249,16 +251,7 @@ define(function (require) {
                 describe('when question not found', function () {
 
                     beforeEach(function () {
-                        getQuestionByIdDeferred.reject('reason');
-                    });
-
-                    it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function (done) {
-                        router.activeItem.settings.lifecycleData = null;
-
-                        viewModel.activate('objectiveId', 'questionId').fin(function () {
-                            expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
-                            done();
-                        });
+                    getQuestionById.reject('reason');
                     });
 
                     it('should reject promise', function (done) {
@@ -274,16 +267,11 @@ define(function (require) {
 
                 describe('when question found', function () {
 
-                    var viewModelData = {
-                        viewCaption: 'caption',
-                        isQuestionContentNeeded: true
-                    };
 
-                    var activeQuestionViewModelInitDeferred;
+
                     beforeEach(function () {
-                        getQuestionByIdDeferred.resolve(question);
-                        activeQuestionViewModelInitDeferred = Q.defer();
-                        spyOn(multipleSelect, 'initialize').and.returnValue(activeQuestionViewModelInitDeferred.promise);
+                    getQuestionById.resolve(question);
+
                         activeQuestionViewModelInitDeferred.resolve(viewModelData);
                     });
 
@@ -319,13 +307,41 @@ define(function (require) {
                                 expect(viewModel.questionTitle).not.toBeNull();
                                 done();
                             });
-                        });
-
                     });
 
                 });
 
+                        });
+
+                    });
+
+        describe('back:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.back).toBeFunction();
+                });
+
+            describe('when courseId is set', function () {
+
+                it('should redirect to objective within course', function () {
+                    viewModel.courseId = 'courseId';
+                    viewModel.objectiveId = 'objectiveId';
+                    viewModel.back();
+                    expect(router.navigate).toHaveBeenCalledWith('#courses/courseId/objectives/objectiveId');
+                });
+
             });
+
+            describe('when courseId is not set', function () {
+
+                it('should redirect to objective', function () {
+                    viewModel.courseId = null;
+                    viewModel.objectiveId = 'objectiveId';
+                    viewModel.back();
+                    expect(router.navigate).toHaveBeenCalledWith('#objectives/objectiveId');
+            });
+
+        });
 
         });
 
@@ -335,7 +351,7 @@ define(function (require) {
                 expect(viewModel.titleUpdatedByCollaborator).toBeFunction();
             });
 
-            beforeEach(function() {
+            beforeEach(function () {
                 viewModel.questionTitle = vmQuestionTitle(objective.id, question);
             });
 
@@ -425,11 +441,11 @@ define(function (require) {
 
         describe('showMoveCopyDialog:', function () {
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.showMoveCopyDialog).toBeFunction();
             });
 
-            it('should open move/copy question dialog', function() {
+            it('should open move/copy question dialog', function () {
                 viewModel.courseId = '1';
                 viewModel.objectiveId = '2';
                 viewModel.questionId = '3';
@@ -455,7 +471,7 @@ define(function (require) {
                 viewModel.questionId = questionId;
             });
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.duplicateQuestion).toBeFunction();
             });
 
@@ -469,16 +485,16 @@ define(function (require) {
                 expect(questionRepository.copyQuestion).toHaveBeenCalledWith(viewModel.questionId, viewModel.objectiveId);
             });
 
-            describe('when is context of course', function() {
+            describe('when is context of course', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     viewModel.courseId = courseId;
                 });
 
-                it('should navigate to new question in course', function(done) {
+                it('should navigate to new question in course', function (done) {
                     viewModel.duplicateQuestion();
-                    copyQuestionDefer.promise.fin(function() {
-                        expect(router.navigate).toHaveBeenCalledWith('objective/' + objectiveId + '/question/' + newQuestionId + '?courseId=' + courseId);
+                    copyQuestionDefer.promise.fin(function () {
+                        expect(router.navigate).toHaveBeenCalledWith('courses/' + courseId + '/objectives/' + objectiveId + '/questions/' + newQuestionId);
                         done();
                     });
                 });
@@ -494,7 +510,7 @@ define(function (require) {
                 it('should navigate to new question', function (done) {
                     viewModel.duplicateQuestion();
                     copyQuestionDefer.promise.fin(function () {
-                        expect(router.navigate).toHaveBeenCalledWith('objective/' + objectiveId + '/question/' + newQuestionId);
+                        expect(router.navigate).toHaveBeenCalledWith('objectives/' + objectiveId + '/questions/' + newQuestionId);
                         done();
                     });
                 });

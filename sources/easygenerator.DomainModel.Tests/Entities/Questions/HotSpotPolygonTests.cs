@@ -152,7 +152,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             polygon.Update(points, "username");
 
-            polygon.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(HotSpotPolygonChangedEvent));
+            polygon.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(HotSpotPolygonUpdatedEvent));
         }
 
         #endregion

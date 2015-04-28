@@ -40,8 +40,7 @@
             'dialogs/createCourse.spec',
             'dialogs/collaboration/addCollaborator.spec',
             'dialogs/collaboration/collaboration.spec',
-            'dialogs/collaboration/collaborator.spec',
-            'dialogs/collaboration/removeCollaborator.spec',
+            'dialogs/collaboration/collaborator.spec',            
             'dialogs/publishCourse/publishCourse.spec',
             'dialogs/moveCopyQuestion/moveCopyQuestion.spec',
 
@@ -53,12 +52,12 @@
             'errorHandling/httpErrorHandlers/unauthorizedHttpErrorHandler.spec',
             'errorHandling/errorHandlingConfiguration.spec',
             'errorHandling/globalErrorHandler.spec',
-            'errorHandling/httpErrorHandlerRegistrator.spec',
-            'help/helpHint.spec',
+            'errorHandling/httpErrorHandlerRegistrator.spec',            
             'localization/localizationManager.spec',
             'models/course.spec',
             'models/user.spec',
-            'models/reportingStatement.spec',
+            //'models/reporting/statement.spec',
+            'models/reporting/actor.spec',
             'notifications/notification.spec',
             'notifications/subscriptionExpirationNotificationController.spec',
             'notifications/subscriptionExpirationNotification.spec',
@@ -70,7 +69,6 @@
             'repositories/objectiveRepository.spec',
             'repositories/templateRepository.spec',
             'repositories/questionRepository.spec',
-            'routing/routerExtender.spec',
             'services/publishService.spec',
             'utils/waiter.spec',
 
@@ -82,7 +80,8 @@
 
             //#endregion
 
-            'reporting/xApiProvider.spec',
+            //'reporting/xApiFilterCriteriaFactory.spec',
+            //'reporting/xApiProvider.spec',
 
             //#region synchronization
 
@@ -108,6 +107,7 @@
             'synchronization/handlers/course/eventHandlers/published.spec',
             'synchronization/handlers/course/eventHandlers/templateUpdated.spec',
             'synchronization/handlers/course/eventHandlers/titleUpdated.spec',
+            'synchronization/handlers/course/eventHandlers/stateChanged.spec',
 
             'synchronization/handlers/learningContent/handler.spec',
             'synchronization/handlers/learningContent/eventHandlers/created.spec',
@@ -119,7 +119,7 @@
             'synchronization/handlers/answer/eventHandlers/deleted.spec',
             'synchronization/handlers/answer/eventHandlers/textUpdated.spec',
             'synchronization/handlers/answer/eventHandlers/answerCorrectnessUpdated.spec',
-            
+
             'synchronization/handlers/user/handler.spec',
             'synchronization/handlers/user/eventHandlers/upgradedToStarter.spec',
             'synchronization/handlers/user/eventHandlers/upgradedToPlus.spec',
@@ -181,24 +181,18 @@
 
             'viewmodels/common/contentField.spec',
             'viewmodels/courses/courses.spec',
-            'viewmodels/courses/course.spec',
-            'viewmodels/courses/design.spec',
-            'viewmodels/courses/publish.spec',
-            'viewmodels/courses/results.spec',
+            'viewmodels/courses/course/index.spec',
+            //'viewmodels/courses/course/create/index.spec',
+            'viewmodels/courses/course/create/course.spec',
+            'viewmodels/courses/course/design.spec',
+            'viewmodels/courses/course/publish.spec',
+            //'reporting/viewmodels/results.spec',
             'viewmodels/courses/publishingActions/publishingAction.spec',
             'viewmodels/courses/publishingActions/build.spec',
             'viewmodels/courses/publishingActions/publish.spec',
             'viewmodels/courses/publishingActions/scormBuild.spec',
             'viewmodels/courses/publishingActions/publishToAim4You.spec',
-            'viewmodels/courses/courseComments.spec',
-            'viewmodels/courses/courseNavigation/items/create.spec',
-            'viewmodels/courses/courseNavigation/items/design.spec',
-            'viewmodels/courses/courseNavigation/items/publish.spec',
-            'viewmodels/courses/courseNavigation/items/results.spec',
-            'viewmodels/courses/courseNavigation/items/navigationItem.spec',
-            'viewmodels/courses/courseNavigation/navigation.spec',
-            'viewmodels/courses/collaboration/collaborator.spec',
-            'viewmodels/courses/collaboration/collaborators.spec',
+            'viewmodels/courses/courseComments.spec',            
             'viewmodels/objectives/objectives.spec',
             'viewmodels/objectives/objective.spec',
             'viewmodels/objectives/objectiveBrief.spec',
@@ -264,10 +258,9 @@
             'viewmodels/questions/feedback.spec',
 
             //#endregion
-            
+
             'viewmodels/user/userMenu.spec',
-            'viewmodels/shell.spec',
-            'widgets/backButton/viewmodel.spec',
+            'viewmodels/shell.spec',            
             'widgets/notifyViewer/viewmodel.spec',
             'widgets/uiLockViewer/viewmodel.spec',
             'widgets/createQuestion/viewmodel.spec',

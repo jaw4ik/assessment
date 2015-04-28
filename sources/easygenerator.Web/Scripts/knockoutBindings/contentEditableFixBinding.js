@@ -1,7 +1,7 @@
 ﻿ko.bindingHandlers.contentEditableFix = {
     init: function (element, valueAccessor) {
         var trackedElement = valueAccessor(),
-            $editableFix = $('<input type="text" style="width:0;height:0;margin:0;padding:0;border:none;" />').appendTo('body');
+            $editableFix = $('<input type="text" style="position:absolute;width:0;height:0;margin:0;padding:0;border:none;" />').appendTo('body');
 
         trackedElement.on('blur', function () {
             var $selected = $(document.activeElement);

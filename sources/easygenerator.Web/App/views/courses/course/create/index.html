@@ -1,0 +1,9 @@
+﻿<section>
+    
+    <!-- ko ifnot: router.isViewReady() -->
+        <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center', style: { top: '250px' } } } --><!-- /ko -->
+    <!-- /ko -->
+    
+    <div data-bind="router: {}, style: { opacity: router.isViewReady() ? '1' : '0' }"></div>
+
+</section>

@@ -24,7 +24,7 @@
     function expand() {
         eventTracker.publish('Expand navigation bar');
         viewModel.isExpanded(true);
-        _.defer(function() { viewModel.isVisible(true); });
+        _.defer(function () { viewModel.isVisible(true); });
         app.trigger(constants.messages.treeOfContent.expanded);
     }
 

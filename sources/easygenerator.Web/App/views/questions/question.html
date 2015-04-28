@@ -14,8 +14,13 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="list-item-action" data-bind="widget: { kind: 'createQuestion', objectiveId: objectiveId }"></div>
+                    <div class="list-item-action" data-bind="widget: { kind: 'createQuestion', courseId: courseId, objectiveId: objectiveId }"></div>
                 </div>
+                <button class="page-view-caption-back-button info-tooltip-holder" data-bind="click: back">
+                    <div class="info-tooltip">
+                        <span data-bind="localize: { text: 'goBack' }">Go back</span>
+                    </div>
+                </button>
                 <div class="page-view-caption-text" data-bind="text: viewCaption">Question editor</div>
             </div>
         </div>
@@ -23,16 +28,14 @@
     <!-- ko compose: moveCopyQuestionDialog --><!-- /ko -->
     <div class="content-section-wrapper" data-bind="with: questionTitle">
         <div class="content-section">
-            <header class="question-view-header" data-bind="css: { 'active' : text.isEditing() }">
-                <div class="expand-collapse-panel expanded">
-                    <span class="expand-collapse-panel-label" data-bind="localize: { text: $parent.isInformationContent ? 'informationContentTitle' : 'questionTitle'}, css: { error: !text.isValid() }">Question title</span>
-                </div>
-                <div class="edit-field selectable" data-bind="editableText: { text: text }, event: { focus: startEditQuestionTitle, blur: endEditQuestionTitle }, css: { 'active': text.isEditing(), 'error': !text.isValid() }, autofocus: { focus: isCreatedQuestion, autoselect: isCreatedQuestion }">
-                </div>
-                <div class="chars-counter" data-bind="css: { error: !text.isValid() }">
+
+            <div class="edit-field-wrapper small question-title" data-bind="css: { 'active': text.isEditing(), 'error': !text.isValid() }">
+                <div class="edit-field selectable" data-bind="editableText: { text: text }, event: { focus: startEditQuestionTitle, blur: endEditQuestionTitle }, css: { 'active': text.isEditing(), 'error': !text.isValid() }, autofocus: { focus: isCreatedQuestion, autoselect: isCreatedQuestion }"></div>
+                <div class="validation-message">
                     <span data-bind="text: text().trim().length"></span>/<span data-bind="text: questionTitleMaxLength"></span>
                 </div>
-            </header>
+            </div>
+
         </div>
     </div>
     <!-- ko if: questionContent -->
@@ -75,8 +78,12 @@
     </div>
     <!-- /ko -->
     <!-- ko if: !isInformationContent -->
-    <!-- ko compose: activeQuestionViewModel --><!-- /ko -->
-    <!-- ko compose: { model: 'viewmodels/questions/feedback', activationData: questionId } --><!-- /ko -->
+    <div class="answers">
+        <!-- ko compose: activeQuestionViewModel -->
+        <!-- /ko -->
+    </div>
+    <!-- ko compose: { model: 'viewmodels/questions/feedback', activationData: questionId } -->
+    <!-- /ko -->
     <!-- /ko -->
     <!-- ko compose: { model: 'viewmodels/questions/learningContents', activationData: { questionId: questionId, questionType: questionType } } --><!-- /ko -->
 

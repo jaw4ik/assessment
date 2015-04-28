@@ -5,7 +5,7 @@
             isExpanded = valueAccessor().isExpanded(),
             minSize = valueAccessor().minSize,
             maxSize = valueAccessor().maxSize,
-                
+
             initialWidth = isExpanded ? maxSize : minSize;
 
         $element.width(initialWidth).css('min-width', initialWidth);
@@ -29,7 +29,7 @@
         animateSettings['width'] = widthToResize + 'px';
         animateSettings['min-width'] = widthToResize + 'px';
 
-        var animation = $element.finish().animate(animateSettings, speed);
+        var animation = $element.finish().animate(animateSettings, speed, 'linear');
 
         $.when(animation).done(function () {
             if (onCollapsed && !isExpanded) {

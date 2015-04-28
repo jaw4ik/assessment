@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events;
+using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
@@ -11,10 +11,12 @@ using easygenerator.Web.BuildCourse.PackageModel;
 using easygenerator.Web.BuildCourse.PublishSettings;
 using easygenerator.Web.Components;
 using easygenerator.Web.Storage;
+using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
+using System.Collections.Generic;
 
 namespace easygenerator.Web.Tests.BuildCourse
 {
@@ -28,6 +30,7 @@ namespace easygenerator.Web.Tests.BuildCourse
         private BuildPackageCreator _buildPackageCreator;
         private BuildContentProvider _buildContentProvider;
         private PackageModulesProvider _packageModulesProvider;
+        private IDomainEventPublisher _eventPublisher;
 
         private Course _course;
         private CoursePackageModel _coursePackageModel;
@@ -50,15 +53,26 @@ namespace easygenerator.Web.Tests.BuildCourse
             var packageModelMapper = Substitute.For<PackageModelMapper>(Substitute.For<IUrlHelperWrapper>(), Substitute.For<IUserRepository>());
             var packageModelSerializer = Substitute.For<PackageModelSerializer>();
             var templateStorage = Substitute.For<ITemplateStorage>();
+            _eventPublisher = Substitute.For<IDomainEventPublisher>();
             _buildContentProvider = Substitute.For<BuildContentProvider>(_fileManager, _buildPathProvider, packageModelSerializer, packageModelMapper, new PublishSettingsProvider(), templateStorage);
 
             var userRepository = Substitute.For<IUserRepository>();
             _packageModulesProvider = Substitute.For<PackageModulesProvider>(userRepository);
 
-            _builder = new CourseBuilder(_fileManager, _buildPathProvider, _buildPackageCreator, _buildContentProvider, _packageModulesProvider, Substitute.For<ILog>());
+            _builder = new CourseBuilder(_fileManager, _buildPathProvider, _buildPackageCreator, _buildContentProvider, _packageModulesProvider, Substitute.For<ILog>(), _eventPublisher);
         }
 
         #region Build
+
+        [TestMethod]
+        public void Build_ShouldPublishBuildStartedEvent()
+        {
+            //Act
+            _builder.Build(_course);
+
+            //Assert
+            _eventPublisher.ShouldPublishEvent<CourseBuildStartedEvent>();
+        }
 
         [TestMethod]
         public void Build_ShouldCreateBuildDirectory()
