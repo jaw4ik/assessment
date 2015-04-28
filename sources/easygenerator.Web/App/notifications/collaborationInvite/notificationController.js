@@ -1,10 +1,10 @@
-﻿define(['userContext', 'constants', 'notifications/collaborationInvite/notification', 'durandal/app'],
-    function (userContext, constants, Notification, app) {
+﻿define(['userContext', 'constants', 'notifications/collaborationInvite/notification', 'durandal/app', 'notifications/collaborationInvite/queries/getInvites'],
+    function (userContext, constants, Notification, app, getInvitesQuery) {
         "use strict";
 
         var controller = {
             execute: execute,
-            updateNotification: updateNotification
+            pushNotification: pushNotification
         };
 
         return controller;
@@ -15,12 +15,22 @@
                     return;
                 }
 
-                controller.updateNotification();
+                return getInvitesQuery.execute().then(function (invites) {
+                    _.each(invites, function (invite) {
+                        pushNotification(invite.Id, invite.CourseAuthorFirstName, invite.CourseAuthorLastName, invite.CourseTitle);
+                    });
+                });
             });
         }
 
-        function updateNotification() {
-            var notification = new Notification(constants.notification.keys.collaborationInvite, userContext.identity.firstname, 'trace@neo.com', 'Mega course');
+        function pushNotification(inviteId, courseAuthorFirstName, courseAuthorLastName, courseTitle) {
+            var notification = new Notification(constants.notification.keys.collaborationInvite + inviteId,
+                inviteId,
+                userContext.identity.firstname,
+                courseAuthorFirstName,
+                courseAuthorLastName,
+                courseTitle);
+
             app.trigger(constants.notification.messages.push, notification);
         }
     });

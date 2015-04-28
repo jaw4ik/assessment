@@ -7,10 +7,7 @@
 
         describe('subscription expiration [notificationController]', function () {
 
-            var notificationName;
-
             beforeEach(function () {
-                notificationName = 'expiriationNotification';
                 userContext.identity = {};
                 userContext.identity.subscription = {};
                 spyOn(app, 'on');

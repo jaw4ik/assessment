@@ -18,7 +18,7 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IUserRepository _userRepository;
         private readonly IEntityModelMapper<CourseCollaborator> _collaboratorEntityModelMapper;
         private readonly IMailSenderWrapper _mailSenderWrapper;
-        private readonly ICloner _cloner; 
+        private readonly ICloner _cloner;
 
         public CollaborationController(IUserRepository userRepository, IEntityModelMapper<CourseCollaborator> collaboratorEntityModelMapper, IMailSenderWrapper mailSenderWrapper, ICloner cloner)
         {
@@ -103,6 +103,43 @@ namespace easygenerator.Web.Controllers.Api
             course.RemoveCollaborator(_cloner, courseCollaborator);
 
             return JsonSuccess();
+        }
+
+        private List<object> invites = new List<object>()
+        {
+            new {
+                Id="1",
+                CourseTitle="Lava lamp",
+                CourseAuthorFirstName="Trace",
+                CourseAuthorLastName="Neo"
+            },
+             new {
+                Id="2",
+                CourseTitle="7 Million-Dollar Habits of the Super Successful",
+                CourseAuthorFirstName="Joel",
+                CourseAuthorLastName="Brown"
+            }
+        };
+
+        [HttpPost]
+        [Route("api/course/collaboration/invites")]
+        public ActionResult GetCollaborationInvites()
+        {
+            return JsonSuccess(invites);
+        }
+
+        [HttpPost]
+        [Route("api/course/collaboration/invite/accept")]
+        public ActionResult AcceptCollaborationInvite(CourseCollaborator collaborationInvite)
+        {
+            return JsonSuccess(true);
+        }
+
+        [HttpPost]
+        [Route("api/course/collaboration/invite/decline")]
+        public ActionResult DeclineCollaborationInvite(CourseCollaborator collaborationInvite)
+        {
+            return JsonSuccess(true);
         }
     }
 }

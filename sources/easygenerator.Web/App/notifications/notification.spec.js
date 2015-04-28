@@ -11,7 +11,7 @@
         beforeEach(function () {
             spyOn(app, 'on');
             subscriptionExpirationDefer = Q.defer();
-            spyOn(subscriptionExpirationController, 'execute').and.returnValue(subscriptionExpirationDefer.promise);;
+            spyOn(subscriptionExpirationController, 'execute').and.returnValue(subscriptionExpirationDefer.promise);
         });
 
         it('should be defined', function () {
