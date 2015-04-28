@@ -2174,6 +2174,14 @@ td.r-name {
 }
 
 /*#region EXTENDED REPORTING RESULTS */
+@course-statement-background-color: #f0f7fc;
+@course-statement-hover-color: #e0ebf2;
+@course-statement-borderd-color: #dfe7ec;
+@reporting-statement-title-color-blue: #2a80b8;
+@reporting-statement-title-color-gray: #63798e;
+@question-statement-dashed-border-color: #d7dcdf;
+@reporting-no-questions-color: #818c98;
+
 .results-table {
     ul {
         list-style: none;
@@ -2181,7 +2189,7 @@ td.r-name {
 
     .expandable {
         > div:hover {
-            background-color: #e0ebf2;
+            background-color: @course-statement-hover-color;
             cursor: pointer;
         }
     }
@@ -2208,8 +2216,8 @@ td.r-name {
     > ul {
         margin: 10px 0;
         border-radius: 4px;
-        border: 1px solid #dfe7ec;
-        background: #f0f7fc;
+        border: 1px solid @course-statement-borderd-color;
+        background: @course-statement-background-color;
         position: relative;
 
         &:before {
@@ -2217,7 +2225,7 @@ td.r-name {
             position: absolute;
             bottom: 100%;
             left: 45px;
-            border-bottom: 9px solid #dfe7ec;
+            border-bottom: 9px solid @course-statement-borderd-color;
             border-left: 8px solid transparent;
             border-right: 8px solid transparent;
         }
@@ -2226,7 +2234,7 @@ td.r-name {
     .r-name {
         padding-left: 30px;
         position: relative;
-        color: #63798e;
+        color: @reporting-statement-title-color-gray;
         font-family: 'OpenSans-Semibold';
     }
 
@@ -2236,7 +2244,7 @@ td.r-name {
             position: absolute;
             left: 13px;
             top: 18px;
-            border-left: 7px solid #63798e;
+            border-left: 7px solid @reporting-statement-title-color-gray;
             border-top: 5px solid transparent;
             border-bottom: 5px solid transparent;
         }
@@ -2246,7 +2254,7 @@ td.r-name {
             position: absolute;
             bottom: 100%;
             left: 46px;
-            border-bottom: 8px solid #f0f7fc;
+            border-bottom: 8px solid @course-statement-background-color;
             border-left: 7px solid transparent;
             border-right: 7px solid transparent;
         }
@@ -2256,7 +2264,7 @@ td.r-name {
         .r-name:before {
             top: 21px;
             left: 10px;
-            border-top: 7px solid #63798e;
+            border-top: 7px solid @reporting-statement-title-color-gray;
             border-left: 5px solid transparent;
             border-right: 5px solid transparent;
         }
@@ -2273,7 +2281,7 @@ td.r-name {
 
 .r-objective {
     > li:not(:first-child) {
-        border-top: 1px solid #dfe7ec;
+        border-top: 1px solid @course-statement-borderd-color;
     }
 
     .r-table {
@@ -2306,7 +2314,7 @@ td.r-name {
 
     .expanded {
         .r-table > .r-title {
-            color: #2a80b8;
+            color: @reporting-statement-title-color-blue;
         }
 
         .r-text.objective:before {
@@ -2318,7 +2326,7 @@ td.r-name {
             border-left: none;
 
             &:after {
-                border-left: 1px dashed #d7dcdf;
+                border-left: 1px dashed @question-statement-dashed-border-color;
             }
         }
     }
@@ -2331,7 +2339,7 @@ td.r-name {
         }
 
         li:first-child {
-            border-top: 1px solid #dfe7ec;
+            border-top: 1px solid @course-statement-borderd-color;
         }       
 
         .r-score {
@@ -2364,7 +2372,7 @@ td.r-name {
         .r-text {
             width: 140px;
             position: relative;
-            border-left: 1px dashed #d7dcdf;
+            border-left: 1px dashed @question-statement-dashed-border-color;
 
             &:after {
                 content: '';
@@ -2373,12 +2381,12 @@ td.r-name {
                 top: 0;
                 height: 22px;
                 width: 35px;
-                border-bottom: 1px dashed #d7dcdf;
+                border-bottom: 1px dashed @question-statement-dashed-border-color;
             }
 
             &.no-questions {
                 padding-left: 45px;
-                color: #818c98;
+                color: @reporting-no-questions-color;
                 font-family: OpenSansItalic;
                 text-transform: none;
             }
@@ -2402,16 +2410,16 @@ td.r-name {
     .r-question-text {
         width: 65%;
         font-family: OpenSansItalic;
-        color: #2a80b8;
+        color: @reporting-statement-title-color-blue;
     }
 }
 
 .r-course-dates {
-    color: #63798e;
+    color: @reporting-statement-title-color-gray;
     font-family: OpenSansItalic;
 
     .r-date {
-        color: #2a80b8;
+        color: @reporting-statement-title-color-blue;
         padding: 0 5px;
     }
 }
