@@ -1,39 +1,74 @@
-﻿//ko.bindingHandlers.notifications = {
+﻿ko.bindingHandlers.notificationsSlider = {
+    init: function (element) {
+        ko.bindingHandlers.notificationsSlider.createViewModel();
+        var viewModel = ko.bindingHandlers.notificationsSlider.viewModel;
+        viewModel.init($(element));
+    },
+    update: function (element, valueAccessor) {
+        var viewModel = ko.bindingHandlers.notificationsSlider.viewModel;
+        viewModel.updateItems(valueAccessor().data());
+    },
+    createViewModel: function () {
+        var viewModel = {
+            updateItems: updateItems,
+            init: init
+        },
+        animationSpeed = 300;
 
-//    init: function (element) {
-//        var $element = $(element),
-//            $notification = $element.find('.user-notification-viewer'),
-//            $close = $element.find('.user-notification-close-btn');
+        ko.bindingHandlers.notificationsSlider.viewModel = viewModel;
 
-//        toggleNotifications();
+        function updateItems(items) {
+            viewModel.items = items;
+            viewModel.$slidesContainer.width(viewModel.items.length * 100 + '%');
+            updateNavigationState();
+        }
 
-//        $element.click(function () {
-//            toggleNotifications();
-//        });
+        function init($element) {
+            viewModel.$slidesContainer = $('.user-notification-list', $element);
+            viewModel.$prev = $('.user-notification-navigation-prev-btn', $element);
+            viewModel.$next = $('.user-notification-navigation-next-btn', $element);
+            viewModel.index = 0;
 
-//        $close.click(function(evt) {
-//            toggleNotifications();
-//            evt.stopPropagation();
-//        });
+            viewModel.$next.click(moveToNext);
+            viewModel.$prev.click(moveToPrev);
+        }
 
-//        $notification.click(function(evt) {
-//            evt.stopPropagation();
-//        });
+        function moveToNext() {
+            viewModel.index++;
+            updateNavigationState();
+            viewModel.$slidesContainer.animate({
+                'marginLeft': '-=100%'
+            }, animationSpeed);
+        }
 
-//        function toggleNotifications() {
-//            $notification.toggle();
-//            $element.toggleClass('active');
-//        }
+        function moveToPrev() {
+            viewModel.index--;
+            updateNavigationState();
+            viewModel.$slidesContainer.animate({
+                'marginLeft': '+=100%'
+            }, animationSpeed);
+        }
 
-//    },
-//    update: function (element, valueAccessor) {
-//        var $element = $(element),
-//            $notification = $element.find('.user-notification-viewer'),
-//            isExpanded = valueAccessor().isExpanded;
+        function updateNavigationState() {
+            if (canMoveNext()) {
+                viewModel.$next.show();
+            } else {
+                viewModel.$next.hide();
+            }
 
-//        if (isExpanded()) {
-//            $notification.show();
-//            $element.addClass('active');
-//        }
-//    }
-//};
+            if (canMovePrev()) {
+                viewModel.$prev.show();
+            } else {
+                viewModel.$prev.hide();
+            }
+        }
+
+        function canMoveNext() {
+            return viewModel.index < viewModel.items.length - 1;
+        }
+
+        function canMovePrev() {
+            return viewModel.index > 0;
+        }
+    }
+};

@@ -1,14 +1,28 @@
 ﻿<section>
-    <div class="header-menu-list-item user-notification" data-bind="visible: isVisible">
-        <div class="user-notification-icon" data-bind="click: toggleIsExpanded, css:{ expanded: isExpanded}">
-            <span class="user-notification-count" data-bind="text: collection().length"></span>
+    <!-- ko if: isVisible -->
+    <div class="header-menu-list-item user-notification" data-bind="css:{ expanded: isExpanded}">
+        <div class="user-notification-icon-wrapper" data-bind="click: toggleIsExpanded">
+            <div class="user-notification-icon">
+                <span class="user-notification-count" data-bind="text: collection().length"></span>
+            </div>
         </div>
-        <div class="user-notification-viewer" data-bind="css:{ shown: isExpanded}">
-            <div class="user-notification-close-btn" data-bind="click: collapse"></div>
-            <ul class="user-notification-list" data-bind="foreach: collection">
-                <!-- ko compose: $data -->
-                <!-- /ko -->
-            </ul>
+        <div class="user-notification-viewer" data-bind="css:{ shown: isExpanded }, notificationsSlider: { data: collection }">
+            <div class="user-notification-navigation-prev">
+                <div class="user-notification-navigation-prev-btn"></div>
+            </div>
+            <div class="user-notification-body">
+                <div class="user-notification-close-btn" data-bind="click: collapse"></div>
+                <div class="user-notification-list-container">
+                    <ul class="user-notification-list" data-bind="foreach: collection">
+                        <!-- ko compose: $data -->
+                        <!-- /ko -->
+                    </ul>
+                </div>
+            </div>
+            <div class="user-notification-navigation-next">
+                <div class="user-notification-navigation-next-btn"></div>
+            </div>
         </div>
     </div>
+    <!-- /ko -->
 </section>

@@ -122,45 +122,49 @@
 
             &.user-notification {
                 position: relative;
+                z-index: 201;
+
+                &:hover,
+                &.expanded {
+                    background-color: #252525;
+                }
+
+                &.expanded:after {
+                    content: '';
+                    position: absolute;
+                    width: 7px;
+                    height: 7px;
+                    top: 100%;
+                    left: 50%;
+                    margin-top: -4px;
+                    margin-left: -2px;
+                    background-color: #252525;
+                    -moz-transform: rotate(45deg);
+                    -ms-transform: rotate(45deg);
+                    -webkit-transform: rotate(45deg);
+                    transform: rotate(45deg);
+                    z-index: 200;
+                }
+
+                .user-notification-icon-wrapper {
+                    width: 60px;
+                    padding: 19px 24px;
+                }
 
                 .user-notification-icon {
-                    width: 60px;
                     position: relative;
-                    padding: 19px 24px;
-                    z-index: 201;
+                    width: 14px;
+                    height: 18px;
+                    background: url(../Content/images/sprites_24.png) -64px -90px no-repeat;
 
                     .user-notification-count {
-                        /*display: block;*/
-                        height: 18px;
-                        width: 26px;
-                        margin-left: -6px;
-                        padding: 0 6px;
+                        margin-left: 10px;
+                        padding: 0 4px;
                         color: #fff;
-                        background-color: #F47A25;
-                        border-radius: 7px;
-                        //background: url(../Content/images/sprites_32.png) -188px -7px no-repeat;
-                    }
-
-                    &:hover,
-                    &.expanded {
-                        background-color: #252525;
-                    }
-
-                    &.expanded:after {
-                        content: '';
-                        position: absolute;
-                        width: 7px;
-                        height: 7px;
-                        top: 100%;
-                        left: 50%;
-                        margin-top: -4px;
-                        margin-left: -2px;
-                        background-color: #252525;
-                        -moz-transform: rotate(45deg);
-                        -ms-transform: rotate(45deg);
-                        -webkit-transform: rotate(45deg);
-                        transform: rotate(45deg);
-                        z-index: 200;
+                        background-color: #f27b25;
+                        border-radius: 5px;
+                        font: 10px 'OpenSans';
+                        line-height: 11px;
                     }
                 }
             }

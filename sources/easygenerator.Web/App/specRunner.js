@@ -63,6 +63,8 @@
             'notifications/notification.spec',
             'notifications/subscriptionExpiration/notificationController.spec',
             'notifications/subscriptionExpiration/notification.spec',
+            'notifications/collaborationInvite/notificationController.spec',
+            'notifications/collaborationInvite/notification.spec',
 
             //#endregion 
         

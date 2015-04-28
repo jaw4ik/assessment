@@ -1677,28 +1677,13 @@
 }
 .shell > header .header-menu-list-item.user-notification {
   position: relative;
-}
-.shell > header .header-menu-list-item.user-notification .user-notification-icon {
-  width: 60px;
-  position: relative;
-  padding: 19px 24px;
   z-index: 201;
 }
-.shell > header .header-menu-list-item.user-notification .user-notification-icon .user-notification-count {
-  /*display: block;*/
-  height: 18px;
-  width: 26px;
-  margin-left: -6px;
-  padding: 0 6px;
-  color: #fff;
-  background-color: #F47A25;
-  border-radius: 7px;
-}
-.shell > header .header-menu-list-item.user-notification .user-notification-icon:hover,
-.shell > header .header-menu-list-item.user-notification .user-notification-icon.expanded {
+.shell > header .header-menu-list-item.user-notification:hover,
+.shell > header .header-menu-list-item.user-notification.expanded {
   background-color: #252525;
 }
-.shell > header .header-menu-list-item.user-notification .user-notification-icon.expanded:after {
+.shell > header .header-menu-list-item.user-notification.expanded:after {
   content: '';
   position: absolute;
   width: 7px;
@@ -1713,6 +1698,25 @@
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   z-index: 200;
+}
+.shell > header .header-menu-list-item.user-notification .user-notification-icon-wrapper {
+  width: 60px;
+  padding: 19px 24px;
+}
+.shell > header .header-menu-list-item.user-notification .user-notification-icon {
+  position: relative;
+  width: 14px;
+  height: 18px;
+  background: url(../Content/images/sprites_24.png) -64px -90px no-repeat;
+}
+.shell > header .header-menu-list-item.user-notification .user-notification-icon .user-notification-count {
+  margin-left: 10px;
+  padding: 0 4px;
+  color: #fff;
+  background-color: #f27b25;
+  border-radius: 5px;
+  font: 10px 'OpenSans';
+  line-height: 11px;
 }
 .shell > header .header-submenu-holder,
 .shell > header .header-username {

@@ -15,11 +15,11 @@
                     return;
                 }
 
-                updateNotification();
+                controller.updateNotification();
 
-                app.on(constants.messages.user.downgraded, updateNotification);
-                app.on(constants.messages.user.upgradedToPlus, updateNotification);
-                app.on(constants.messages.user.upgradedToStarter, updateNotification);
+                app.on(constants.messages.user.downgraded, controller.updateNotification);
+                app.on(constants.messages.user.upgradedToPlus, controller.updateNotification);
+                app.on(constants.messages.user.upgradedToStarter, controller.updateNotification);
             });
         }
 

@@ -546,6 +546,15 @@
     <Content Include="App\models\reportingStatement.spec.js">
       <DependentUpon>reportingStatement.js</DependentUpon>
     </Content>
+    <Content Include="App\notifications\collaborationInvite\notification.html" />
+    <Content Include="App\notifications\collaborationInvite\notification.js" />
+    <Content Include="App\notifications\collaborationInvite\notification.spec.js">
+      <DependentUpon>notification.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\collaborationInvite\notificationController.js" />
+    <Content Include="App\notifications\collaborationInvite\notificationController.spec.js">
+      <DependentUpon>notificationController.js</DependentUpon>
+    </Content>
     <Content Include="App\notifications\notification.spec.js">
       <DependentUpon>notification.js</DependentUpon>
     </Content>
@@ -2586,7 +2595,6 @@
     <EmbeddedResource Include="Resources\Views\Shared\Resources.zh.resx" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\notifications\collaborationInvite\" />
     <Folder Include="Views\CourseImport\" />
   </ItemGroup>
   <ItemGroup />

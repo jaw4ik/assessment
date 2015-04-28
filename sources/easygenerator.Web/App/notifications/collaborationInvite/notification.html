@@ -1,0 +1,31 @@
+﻿<li class="user-notification-wrapper collaboration-invite">
+    <div class="user-notification-container">
+        <div class="user-notification-header">
+            <div class="user-notification-header-image"></div>
+            <div class="user-notification-header-content">
+                <span class="user-notification-title">Confirm collaboration</span>
+                <span class="user-notification-sender">
+                    <span>From:&nbsp;</span>
+                    <span data-bind="text: coauthorFullname"></span>
+                </span>
+            </div>
+        </div>
+        <div class="user-notification-content">
+            <p><span data-bind="localize: { text: 'upgradeNotificationHi' }">Hi</span> <span data-bind="text: firstname">User</span>,</p>
+            <p>
+                <span>Please, confirm my invitation for</span>&nbsp;&quot;<span data-bind="text: courseTitle"></span>&quot;&nbsp;<span>course.</span>
+            </p>
+        </div>
+        <div class="user-notification-btn-wrapper">
+            <button class="btn green" data-bind="click: accept">
+                <span>Accept</span>
+            </button>
+            <button class="btn green-white" data-bind="click: decline">
+                <span>Decline</span>
+            </button>
+        </div>
+    </div>
+    <div class="user-notification-footer">
+        <p>After accepting, sharing course will appear in your course list</p>
+    </div>
+</li>

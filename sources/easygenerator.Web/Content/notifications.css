@@ -1,15 +1,11 @@
-﻿/*#region USER-NOTIFICATION*/
-.user-notification-viewer {
+﻿.user-notification-viewer {
   position: absolute;
   display: none;
-  width: 415px;
-  top: 57px;
-  right: -95px;
+  table-layout: fixed;
+  width: 100%;
+  top: 56px;
+  right: 223px;
   overflow: hidden;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-top: none;
-  box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.1);
   font-size: 12px;
   font-family: 'OpenSans';
   color: #303133;
@@ -17,11 +13,79 @@
   z-index: 200;
 }
 .user-notification-viewer.shown {
-  display: block;
+  display: table;
+}
+.user-notification-viewer.shown > * {
+  display: table-cell;
+  vertical-align: middle;
+}
+.user-notification-body {
+  position: relative;
+  width: 415px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-top: none;
+  box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.1);
+}
+/*#region navigation */
+.user-notification-navigation-prev {
+  position: relative;
+  width: 35px;
+}
+.user-notification-navigation-prev .user-notification-navigation-prev-btn {
+  position: relative;
+  height: 50px;
+  transition: background-color ease-out 0.1s;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+.user-notification-navigation-prev .user-notification-navigation-prev-btn:hover {
+  background-color: #fafbfd;
+}
+.user-notification-navigation-prev .user-notification-navigation-prev-btn:after {
+  content: '';
+  position: absolute;
+  top: 11px;
+  width: 13px;
+  height: 28px;
+  background: url(../Content/images/sprites_32.png);
+}
+.user-notification-navigation-prev .user-notification-navigation-prev-btn:after {
+  right: 11px;
+  background-position: -229px -38px;
+}
+.user-notification-navigation-next {
+  position: relative;
+  width: 35px;
+}
+.user-notification-navigation-next .user-notification-navigation-next-btn {
+  position: relative;
+  height: 50px;
+  transition: background-color ease-out 0.1s;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.user-notification-navigation-next .user-notification-navigation-next-btn:hover {
+  background-color: #fafbfd;
+}
+.user-notification-navigation-next .user-notification-navigation-next-btn:after {
+  content: '';
+  position: absolute;
+  top: 11px;
+  width: 13px;
+  height: 28px;
+  background: url(../Content/images/sprites_32.png);
+}
+.user-notification-navigation-next .user-notification-navigation-next-btn:after {
+  left: 11px;
+  background-position: -269px -38px;
+}
+/*#endregion navigation */
+.user-notification-list-container {
+  overflow: hidden;
 }
 .user-notification-list {
   list-style-type: none;
-  padding: 10px 10px 0;
 }
 .user-notification-close-btn {
   position: absolute;
@@ -36,7 +100,13 @@
   background-color: #f7f7f7;
 }
 .user-notification-wrapper {
-  margin-bottom: 14px;
+  float: left;
+  width: 413px;
+  color: #42515f;
+}
+.user-notification-container {
+  height: 220px;
+  padding: 10px 10px 0;
 }
 .user-notification-header {
   margin-bottom: 10px;
@@ -60,27 +130,19 @@
 .user-notification-sender {
   display: block;
   font-size: 11px;
-  color: #877f78;
+  color: #63798e;
 }
-.user-notification-expires {
-  margin: 5px 0;
+.user-notification-content {
+  word-wrap: break-word;
+}
+.user-notification-content p + p {
+  margin-top: 5px;
 }
 .user-notification-btn-wrapper {
   text-align: center;
 }
-.user-notification-btn {
-  display: inline-block;
-  min-width: 145px;
-  padding: 11px;
-  margin: 14px 0;
-  background-color: #96cb6b;
-  border-radius: 5px;
-  color: white;
-  font-family: 'OpenSans-Semibold';
-  font-size: 13px;
-}
-.user-notification-btn:hover {
-  background-color: #7da959;
+.user-notification-btn-wrapper .btn {
+  font: 13px 'OpenSans';
 }
 .user-notification-link {
   color: #50a6e9;
@@ -89,21 +151,49 @@
 .user-notification-link:hover {
   text-decoration: underline;
 }
-.user-notification-mail {
+.user-notification-footer {
   position: relative;
-  padding-left: 30px;
-  color: #999999;
-  font-size: 11px;
+  min-height: 64px;
+  padding: 15px 25px 15px 45px;
+  color: #63798e;
+  font: 12px 'OpenSans';
+  background-color: #fafbfd;
 }
-.user-notification-mail:before {
+.user-notification-footer:before {
   content: '';
   display: block;
-  height: 20px;
-  width: 20px;
+  height: 24px;
+  width: 24px;
   position: absolute;
-  left: 0;
+  left: 12px;
   top: 50%;
-  margin-top: -10px;
-  background: url(images/sprites_24.png) -207px -2px;
+  margin-top: -12px;
+  background: url(images/sprites_24.png) 0px 0px;
 }
-/*#endregion USER-NOTIFICATION*/
+/*#region Subscription expiration */
+.user-notification-wrapper.subscription-expiration .btn {
+  display: inline-block;
+  min-width: 145px;
+  padding: 11px;
+  margin: 14px 0;
+}
+/*#endregion */
+/*#region Collaboration invite */
+.user-notification-wrapper.collaboration-invite .user-notification-btn-wrapper {
+  padding: 34px 0px;
+}
+.user-notification-wrapper.collaboration-invite .btn {
+  min-width: 100px;
+  padding: 0px 10px;
+  height: 40px;
+}
+.user-notification-wrapper.collaboration-invite .btn + .btn {
+  margin-left: 20px;
+}
+.user-notification-wrapper.collaboration-invite .user-notification-footer p {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+}
+/*#endregion */

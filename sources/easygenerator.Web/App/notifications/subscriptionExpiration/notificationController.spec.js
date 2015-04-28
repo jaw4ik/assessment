@@ -1,10 +1,11 @@
-﻿define(['notifications/subscriptionExpiration/notificationController', 'notifications/notification'],
-    function(controller, notifications) {
+﻿define(['notifications/subscriptionExpiration/notificationController'],
+    function (controller) {
 
         var userContext = require('userContext'),
-            constants = require('constants');
+            constants = require('constants'),
+            app = require('durandal/app');
 
-        describe('subscription expiration [NotificationController]', function () {
+        describe('subscription expiration [notificationController]', function () {
 
             var notificationName;
 
@@ -12,218 +13,170 @@
                 notificationName = 'expiriationNotification';
                 userContext.identity = {};
                 userContext.identity.subscription = {};
+                spyOn(app, 'on');
+                spyOn(app, 'trigger');
             });
 
-            it('should be defined', function() {
+            it('should be defined', function () {
                 expect(controller).toBeDefined();
             });
 
-            describe('execute:', function() {
+            describe('execute:', function () {
 
-                it('should be function', function() {
+                it('should be function', function () {
                     expect(controller.execute).toBeFunction();
                 });
 
-                describe('when userContext.identity is null', function() {
+                describe('when userContext.identity is null', function () {
 
-                    beforeEach(function() {
+                    beforeEach(function () {
                         userContext.identity = null;
                     });
 
-                    it('should return undefined', function() {
-                        expect(controller.execute()).toBeUndefined();
+                    it('should return promise', function () {
+                        expect(controller.execute()).toBePromise();
+                    });
+
+                    it('should not subscribe on user.downgraded event', function (done) {
+                        var promise = controller.execute();
+                        promise.fin(function () {
+                            expect(app.on).not.toHaveBeenCalledWith(constants.messages.user.downgraded, controller.updateNotification);
+                            done();
+                        });
+                    });
+
+                    it('should not subscribe on user.upgradedToPlus event', function (done) {
+                        var promise = controller.execute();
+                        promise.fin(function () {
+                            expect(app.on).not.toHaveBeenCalledWith(constants.messages.user.upgradedToPlus, controller.updateNotification);
+                            done();
+                        });
+                    });
+
+                    it('should not subscribe on user.upgradedToStarter event', function (done) {
+                        var promise = controller.execute();
+                        promise.fin(function () {
+                            expect(app.on).not.toHaveBeenCalledWith(constants.messages.user.upgradedToStarter, controller.updateNotification);
+                            done();
+                        });
+                    });
+
+                    it('should not call updateNotification', function (done) {
+                        spyOn(controller, 'updateNotification');
+                        var promise = controller.execute();
+                        promise.fin(function () {
+                            expect(controller.updateNotification).not.toHaveBeenCalled();
+                            done();
+                        });
                     });
 
                 });
 
                 describe('when userContext.identity is not null', function () {
 
-                    describe('when user access type is free', function() {
-
-                        beforeEach(function () {
-                            userContext.identity.subscription.accessType = constants.accessType.free;
+                    it('should subscribe on user.downgraded event', function (done) {
+                        var promise = controller.execute();
+                        promise.fin(function () {
+                            expect(app.on).toHaveBeenCalledWith(constants.messages.user.downgraded, controller.updateNotification);
+                            done();
                         });
-
-                        it('should return undefined', function() {
-                            expect(controller.execute()).toBeUndefined();
-                        });
-
-                        describe('when notification exists', function () {
-
-                            beforeEach(function () {
-                                notifications.collection([]);
-                                notifications.collection.push({
-                                    name: notificationName,
-                                    expirationDate: 5,
-                                    firstname: 'user'
-                                });
-                            });
-
-                            it('should remove notification', function () {
-                                controller.execute();
-                                expect(notifications.collection().length).toBe(0);
-                            });
-
-                        });
-
                     });
 
-                    describe('when user access type is starter (not free)', function () {
-                        beforeEach(function () {
-                            userContext.identity.subscription.accessType = constants.accessType.starter;
+                    it('should subscribe on user.upgradedToPlus event', function (done) {
+                        var promise = controller.execute();
+                        promise.fin(function () {
+                            expect(app.on).toHaveBeenCalledWith(constants.messages.user.upgradedToPlus, controller.updateNotification);
+                            done();
                         });
+                    });
 
-                        describe('when expiration date is null', function () {
-
-                            beforeEach(function () {
-                                userContext.identity.subscription.expirationDate = null;
-                            });
-
-                            it('should be undefined', function() {
-                                expect(controller.execute()).toBeUndefined();
-                            });
-
-                            describe('when notification exists', function () {
-
-                                beforeEach(function () {
-                                    notifications.collection([]);
-                                    notifications.collection.push({
-                                        name: notificationName,
-                                        expirationDate: 5,
-                                        firstname: 'user'
-                                    });
-                                });
-
-                                it('should remove notification', function () {
-                                    controller.execute();
-                                    expect(notifications.collection().length).toBe(0);
-                                });
-
-                            });
-
+                    it('should subscribe on user.upgradedToStarter event', function (done) {
+                        var promise = controller.execute();
+                        promise.fin(function () {
+                            expect(app.on).toHaveBeenCalledWith(constants.messages.user.upgradedToStarter, controller.updateNotification);
+                            done();
                         });
+                    });
 
-                        describe('when expiration date is undefined', function () {
-
-                            beforeEach(function () {
-                                userContext.identity.subscription.expirationDate = undefined;
-                            });
-
-                            it('should be undefined', function () {
-                                expect(controller.execute()).toBeUndefined();
-                            });
-
-                            describe('when notification exists', function () {
-
-                                beforeEach(function () {
-                                    notifications.collection([]);
-                                    notifications.collection.push({
-                                        name: notificationName,
-                                        expirationDate: 5,
-                                        firstname: 'user'
-                                    });
-                                });
-
-                                it('should remove notification', function () {
-                                    controller.execute();
-                                    expect(notifications.collection().length).toBe(0);
-                                });
-
-                            });
-
+                    it('should call updateNotification', function (done) {
+                        spyOn(controller, 'updateNotification');
+                        var promise = controller.execute();
+                        promise.fin(function () {
+                            expect(controller.updateNotification).toHaveBeenCalled();
+                            done();
                         });
-
-                        describe('when expiration date more than 7', function () {
-
-                            beforeEach(function () {
-                                var date = new Date();
-                                date.setDate(date.getDate() + 10);
-                                userContext.identity.subscription.expirationDate = date;
-                            });
-
-                            it('should be undefined', function () {
-                                expect(controller.execute()).toBeUndefined();
-                            });
-
-                            describe('when notification exists', function () {
-
-                                beforeEach(function () {
-                                    notifications.collection([]);
-                                    notifications.collection.push({
-                                        name: notificationName,
-                                        expirationDate: 5,
-                                        firstname: 'user'
-                                    });
-                                });
-
-                                it('should remove notification', function () {
-                                    controller.execute();
-                                    expect(notifications.collection().length).toBe(0);
-                                });
-
-                            });
-
-                        });
-
-                        describe('when expiration date is correct', function () {
-
-                            beforeEach(function () {
-                                var date = new Date();
-                                date.setDate(date.getDate() + 5);
-                                userContext.identity.subscription.expirationDate = date;
-                                userContext.identity.firstname = 'user';
-                            });
-
-                            describe('when notifications context already has notification', function() {
-
-                                describe('and when expiration date of this notification equal current expiration date', function() {
-
-                                    beforeEach(function() {
-                                        notifications.collection.push({
-                                            name: notificationName,
-                                            expirationDate: 5
-                                        });
-                                    });
-
-                                    it('should return undefined', function() {
-                                        expect(controller.execute()).toBeUndefined();
-                                    });
-
-                                });
-
-                            });
-
-                            describe('when notifications context already has notification', function() {
-
-                                describe('and when expiration date of this notification not equal current expiration date', function () {
-
-                                    beforeEach(function () {
-                                        notifications.collection([]);
-                                        notifications.collection.push({
-                                            name: notificationName,
-                                            expirationDate: 5,
-                                            firstname: 'user'
-                                        });
-                                    });
-
-                                    it('should remove this notification and add new notification', function () {
-                                        var date = new Date();
-                                        date.setDate(date.getDate() + 2);
-                                        userContext.identity.subscription.expirationDate = date;
-                                        controller.execute();
-                                        expect(notifications.collection()[0].amountOfDays).toBe(2);
-                                    });
-
-                                });
-                                
-                            });
-
-                        });
-
                     });
 
                 });
 
+            });
+
+            describe('updateNotification:', function () {
+                var firstname = 'user';
+
+                describe('when user access type is free', function () {
+
+                    beforeEach(function () {
+                        userContext.identity.subscription.accessType = constants.accessType.free;
+                    });
+
+                    it('should remove notification', function () {
+                        controller.updateNotification();
+                        expect(app.trigger).toHaveBeenCalledWith(constants.notification.messages.remove, constants.notification.keys.subscriptionExpiration);
+                    });
+                });
+
+                describe('when user access is starter', function () {
+                    beforeEach(function () {
+                        userContext.identity.subscription.accessType = constants.accessType.starter;
+                        userContext.identity.firstname = firstname;
+                    });
+
+                    describe('and when expiration date is undefined', function () {
+                        beforeEach(function () {
+                            userContext.identity.subscription.expirationDate = undefined;
+                        });
+
+                        it('should remove notification', function () {
+                            it('should remove notification', function () {
+                                controller.updateNotification();
+                                expect(app.trigger).toHaveBeenCalledWith(constants.notification.messages.remove, constants.notification.keys.subscriptionExpiration);
+                            });
+                        });
+                    });
+
+                    describe('and when plan expiress more than in 7 days', function () {
+                        beforeEach(function () {
+                            var date = new Date();
+                            date.setDate(date.getDate() + 10);
+                            userContext.identity.subscription.expirationDate = date;
+                        });
+
+                        it('should remove notification', function () {
+                            controller.updateNotification();
+                            expect(app.trigger).toHaveBeenCalledWith(constants.notification.messages.remove, constants.notification.keys.subscriptionExpiration);
+                        });
+                    });
+
+                    describe('and when plan expiress less than in 7 days', function () {
+                        var date = new Date();
+                        beforeEach(function () {
+                            date.setDate(date.getDate() + 5);
+                            userContext.identity.subscription.expirationDate = date;
+                        });
+
+                        it('should push notification', function () {
+                            controller.updateNotification();
+                            expect(app.trigger).toHaveBeenCalled();
+
+                            expect(app.trigger.calls.mostRecent().args[0]).toBe(constants.notification.messages.push);
+                            expect(app.trigger.calls.mostRecent().args[1].key).toBe(constants.notification.keys.subscriptionExpiration);
+                            expect(app.trigger.calls.mostRecent().args[1].firstname).toBe(firstname);
+                            expect(app.trigger.calls.mostRecent().args[1].amountOfDays).toBe(5);
+                            expect(app.trigger.calls.mostRecent().args[1].expirationDate).toBe(constants.accessType.date);
+                        });
+                    });
+                });
             });
 
         });

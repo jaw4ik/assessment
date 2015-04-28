@@ -247,7 +247,8 @@
 
             notification: {
                 keys: {
-                    subscriptionExpiration: 'notificationkeys:subscriptionExpiration'
+                    subscriptionExpiration: 'notificationkeys:subscriptionExpiration',
+                    collaborationInvite: 'notificationkeys:collaborationInvite'
                 },
                 messages: {
                     push: 'notification:push',
