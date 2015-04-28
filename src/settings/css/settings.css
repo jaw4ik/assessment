@@ -116,6 +116,7 @@ input[type="text"] {
 
 .settings-tabs-wrapper {
     margin-top: 15px;
+    margin-left: 10px;
     font: 13px 'OpenSans-Semibold';
     text-transform: uppercase;
     color: #42515f;
