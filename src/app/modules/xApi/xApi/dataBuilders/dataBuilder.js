@@ -6,13 +6,13 @@
     dataBuilder.$inject = ['courseDataBuilder', 'objectiveDataBuilder', 'questionDataBuilder', 'learningContentDataBuilder'];
 
     function dataBuilder(courseDataBuilder, objectiveDataBuilder, questionDataBuilder, learningContentDataBuilder) {
-
         /*private fields*/
         var actor = null,
             courseId = '',
             activityName = '',
             activityUrl = '',
-            rootUrl = '';
+            rootUrl = '',
+            sessionId = '';
         /*private fields*/
 
         var builder = {
@@ -36,6 +36,7 @@
         }
 
         function courseStarted() {
+            sessionId = TinCan.Utils.getUUID();
             var data = courseDataBuilder.courseStartedData();
             data.object = defaultActivity();
             data.context = defaultContext();
@@ -82,7 +83,7 @@
             var data = learningContentDataBuilder.learningContentExperienced(item.question, item.time, rootUrl);
             data.context = addExtensionsToContext(data.context);
             data.actor = actor;
-            
+
             return new TinCan.Statement(data);
         }
 
@@ -110,6 +111,7 @@
             context.extensions = {
                 'http://easygenerator/expapi/course/id': courseId
             };
+            context.registration = sessionId;
             return context;
         }
     }

@@ -29,7 +29,14 @@
             if (that.finished) {
                 return;
             }
-            $location.path('/').search('tryAgain');
+            that.isSendingRequest = true;
+            that.finished = true;
+            
+            quiz.finish(function(){
+              that.isSendingRequest = false;
+              quiz.start();
+              $location.path('/').search('tryAgain');
+            });
         };
 
         that.finish = function () {
