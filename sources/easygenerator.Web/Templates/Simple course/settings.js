@@ -5,6 +5,7 @@
     "theme": {
         "key": ""
     },
+    "background": null,
     "xApi": {
         "enabled": true,
         "lrs": {
