@@ -8,17 +8,17 @@
     MainController.$inject = [
         '$location', '$rootScope',
         'SingleSelectText', 'MultipleSelectText', 'TextMatching', 'DragAndDropText',
-        'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot',
-        'SingleSelectTextViewModel', 'MultipleSelectTextViewModel', 'TextMatchingViewModel',
-        'DragAndDropTextViewModel', 'StatementViewModel', 'SingleSelectImageViewModel', 'FillInTheBlanksViewModel', 'HotspotViewModel',
+        'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot', 'OpenQuestion',
+        'SingleSelectTextViewModel', 'MultipleSelectTextViewModel', 'TextMatchingViewModel', 'DragAndDropTextViewModel',
+        'StatementViewModel', 'SingleSelectImageViewModel', 'FillInTheBlanksViewModel', 'HotspotViewModel', 'OpenQuestionViewModel',
         'quiz', 'settings'
     ];
     
     function MainController($location, $rootScope,
         SingleSelectText, MultipleSelectText, TextMatching, DragAndDropText,
-        Statement, SingleSelectImage, FillInTheBlanks, Hotspot,
-        SingleSelectTextViewModel, MultipleSelectTextViewModel, TextMatchingViewModel,
-        DragAndDropTextViewModel, StatementViewModel, SingleSelectImageViewModel, FillInTheBlanksViewModel, HotspotViewModel,
+        Statement, SingleSelectImage, FillInTheBlanks, Hotspot, OpenQuestion,
+        SingleSelectTextViewModel, MultipleSelectTextViewModel, TextMatchingViewModel, DragAndDropTextViewModel,
+        StatementViewModel, SingleSelectImageViewModel, FillInTheBlanksViewModel, HotspotViewModel, OpenQuestionViewModel,
         quiz, settings) {
         var that = this;
 
@@ -50,6 +50,9 @@
             }
             if (question instanceof Hotspot) {
                 return new HotspotViewModel(question);
+            }
+            if (question instanceof OpenQuestion) {
+                return new OpenQuestionViewModel(question);
             }
 
             throw 'Unknown question type';
