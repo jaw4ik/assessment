@@ -433,29 +433,29 @@
         'uk': 'Неможливо видалити курс, так як в ньому є розділ(и) / цілі'
     },
     courseCreateItem: {
-        'en': '1. Create',
-        'zh-cn': '1. 创建',
-        'uk': '1. Створення'
+        'en': 'Create',
+        'zh-cn': '创建',
+        'uk': 'Створення'
     },
     courseDesignItem: {
-        'en': '2. Design',
-        'zh-cn': '2. 设计',
-        'uk': '2. Дизайн'
+        'en': 'Design',
+        'zh-cn': '设计',
+        'uk': 'Дизайн'
     },
     courseConfigureItem: {
-        'en': '3. Configure',
-        'zh-cn': '3. Configure[zh-cn]',
-        'uk': '3. Конфігурація'
+        'en': 'Configure',
+        'zh-cn': 'Configure[zh-cn]',
+        'uk': 'Конфігурація'
     },
     coursePublishItem: {
-        'en': '4. Publish',
-        'zh-cn': '4. 发布',
-        'uk': '4. Публікація'
+        'en': 'Publish',
+        'zh-cn': '发布',
+        'uk': 'Публікація'
     },
     courseResultsItem: {
-        'en': '5. Results',
-        'zh-cn': '5. 结果',
-        'uk': '5. Результати'
+        'en': 'Results',
+        'zh-cn': '结果',
+        'uk': 'Результати'
     },
     currentTemplate: {
         'en': 'Current template',
