@@ -16,16 +16,16 @@
         <div class="user-notification-content-text">
             <p><span data-bind="localize: { text: 'upgradeNotificationHi' }">Hi</span>&nbsp;<span data-bind="text: firstname">User</span>,</p>
             <p>
-                <span>Please, confirm my invitation for</span>&nbsp;&quot;<span data-bind="text: courseTitle"></span>&quot;&nbsp;<span>course.</span>
+                <span>Please, confirm my invitation for</span>&nbsp;&quot;<span data-bind="limitedLengthText: { text: courseTitle, maxLength: 100 }"></span>&quot;&nbsp;<span>course.</span>
             </p>
         </div>
         <div class="user-notification-actions">
             <div>
-                <button class="btn green" data-bind="click: accept">
-                    <span>Accept</span>
+                <button class="btn green" data-bind="click: accept, css:{ 'disabled': isDeclining(), 'progress': isAccepting() }, disable: isAccepting() || isDeclining()">
+                    <span class="btn-caption">Accept</span>
                 </button>
-                <button class="btn green-white" data-bind="click: decline">
-                    <span>Decline</span>
+                <button class="btn green-white" data-bind="click: decline, css:{ 'disabled': isAccepting(), 'progress': isDeclining() }, disable: isAccepting() || isDeclining()">
+                    <span class="btn-caption">Decline</span>
                 </button>
             </div>
         </div>

@@ -1034,6 +1034,7 @@
     <Content Include="App\onboarding\tasks.spec.js">
       <DependentUpon>tasks.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\knockoutBindings\limitedLengthTextBinding.js" />
     <Content Include="Scripts\knockoutBindings\autosizeBinding.js" />
     <Content Include="Scripts\knockoutBindings\backgroundImageBinding.js" />
     <Content Include="Scripts\knockoutBindings\contentEditableFixBinding.js" />
