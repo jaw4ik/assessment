@@ -2564,7 +2564,6 @@
     <Content Include="Scripts\knockoutBindings\hoverBinding.js" />
     <Content Include="Scripts\knockoutBindings\keyPressBinding.js" />
     <Content Include="Scripts\knockoutBindings\layoutBinding.js" />
-    <Content Include="Scripts\knockoutBindings\notificationsBinding.js" />
     <Content Include="Scripts\knockoutBindings\outsideClickBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToElementBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToTopBinding.js" />

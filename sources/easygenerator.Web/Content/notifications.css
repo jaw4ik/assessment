@@ -30,67 +30,46 @@
   box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.1);
 }
 /*#region navigation */
-.user-notification-navigation-prev {
+.user-notification-navigation {
   position: relative;
   width: 35px;
 }
-.user-notification-navigation-prev .user-notification-navigation-prev-btn {
+.user-notification-navigation .user-notification-navigation-btn {
   position: relative;
   height: 50px;
+  width: 100%;
   transition: background-color ease-out 0.1s;
+  border: 0px;
+  background-color: transparent;
+}
+.user-notification-navigation .user-notification-navigation-btn:hover {
+  background-color: #fafbfd;
+}
+.user-notification-navigation .user-notification-navigation-btn:after {
+  content: '';
+  position: absolute;
+  top: 11px;
+  width: 13px;
+  height: 28px;
+  background: url(../Content/images/sprites_32.png);
+}
+.user-notification-navigation .user-notification-navigation-btn.prev {
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
 }
-.user-notification-navigation-prev .user-notification-navigation-prev-btn:hover {
-  background-color: #fafbfd;
-}
-.user-notification-navigation-prev .user-notification-navigation-prev-btn:after {
-  content: '';
-  position: absolute;
-  top: 11px;
-  width: 13px;
-  height: 28px;
-  background: url(../Content/images/sprites_32.png);
-}
-.user-notification-navigation-prev .user-notification-navigation-prev-btn:after {
+.user-notification-navigation .user-notification-navigation-btn.prev:after {
   right: 11px;
   background-position: -229px -38px;
 }
-.user-notification-navigation-next {
-  position: relative;
-  width: 35px;
-}
-.user-notification-navigation-next .user-notification-navigation-next-btn {
-  position: relative;
-  height: 50px;
-  transition: background-color ease-out 0.1s;
+.user-notification-navigation .user-notification-navigation-btn.next {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
-.user-notification-navigation-next .user-notification-navigation-next-btn:hover {
-  background-color: #fafbfd;
-}
-.user-notification-navigation-next .user-notification-navigation-next-btn:after {
-  content: '';
-  position: absolute;
-  top: 11px;
-  width: 13px;
-  height: 28px;
-  background: url(../Content/images/sprites_32.png);
-}
-.user-notification-navigation-next .user-notification-navigation-next-btn:after {
+.user-notification-navigation .user-notification-navigation-btn.next:after {
   left: 11px;
   background-position: -269px -38px;
 }
 /*#endregion navigation */
-.user-notification-list-container {
-  overflow: hidden;
-}
-.user-notification-list {
-  list-style-type: none;
-  display: -webkit-flex;
-  display: flex;
-}
 .user-notification-close-btn {
   position: absolute;
   top: 10px;

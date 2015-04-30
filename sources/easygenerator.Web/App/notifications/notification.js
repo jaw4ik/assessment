@@ -9,7 +9,10 @@
             toggleIsExpanded: toggleIsExpanded,
             isExpanded: ko.observable(false),
             pushNotification: pushNotification,
-            removeNotification: removeNotification
+            removeNotification: removeNotification,
+            index: ko.observable(0),
+            next: next,
+            prev: prev
         },
             controllers = [subscriptionExpirationNotificationController, collaborationInviteNotificationController];
 
@@ -17,7 +20,23 @@
             return viewModel.collection().length != 0;
         });
 
+        viewModel.canMoveNext = ko.computed(function () {
+            return viewModel.index() < viewModel.collection().length - 1;
+        });
+
+        viewModel.canMovePrev = ko.computed(function () {
+            return viewModel.index() > 0;
+        });
+
         return viewModel;
+
+        function next() {
+            viewModel.index(viewModel.index() + 1);
+        }
+
+        function prev() {
+            viewModel.index(viewModel.index() - 1);
+        }
 
         function toggleIsExpanded() {
             viewModel.isExpanded(!viewModel.isExpanded());
@@ -41,10 +60,15 @@
 
         function removeNotification(notificationKey) {
             var notification = _.find(viewModel.collection(), function (item) {
-                return item.key = notificationKey;
+                return item.key === notificationKey;
             });
 
             if (!_.isNullOrUndefined(notification)) {
+                var isLastElement = viewModel.collection().indexOf(notification) === viewModel.collection().length - 1;
+                if (isLastElement) {
+                    prev();
+                }
+
                 viewModel.collection.remove(notification);
             }
         }

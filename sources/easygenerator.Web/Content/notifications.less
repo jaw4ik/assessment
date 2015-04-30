@@ -35,68 +35,54 @@
 
 /*#region navigation */
 
-.user-notification-navigation-btn() {
-    position: relative;
-    height: 50px;
-    transition: background-color ease-out 0.1s;
-
-    &:hover {
-        background-color: #fafbfd;
-    }
-
-    &:after {
-        content: '';
-        position: absolute;
-        top: 11px;
-        width: 13px;
-        height: 28px;
-        background: url(../Content/images/sprites_32.png);
-    }
-}
-
-.user-notification-navigation-prev {
+.user-notification-navigation {
     position: relative;
     width: 35px;
 
-    .user-notification-navigation-prev-btn {
-        .user-notification-navigation-btn();
-        border-top-left-radius: 3px;
-        border-bottom-left-radius: 3px;
+    .user-notification-navigation-btn {
+        position: relative;
+        height: 50px;
+        width: 100%;
+        transition: background-color ease-out 0.1s;
+        border: 0px;
+        background-color: transparent;
 
-        &:after {
-            right: 11px;
-            background-position: -229px -38px;
+        &:hover {
+            background-color: #fafbfd;
         }
-    }
-}
-
-.user-notification-navigation-next {
-    position: relative;
-    width: 35px;
-
-    .user-notification-navigation-next-btn {
-        .user-notification-navigation-btn();
-        border-top-right-radius: 3px;
-        border-bottom-right-radius: 3px;
 
         &:after {
-            left: 11px;
-            background-position: -269px -38px;
+            content: '';
+            position: absolute;
+            top: 11px;
+            width: 13px;
+            height: 28px;
+            background: url(../Content/images/sprites_32.png);
+        }
+
+        &.prev {
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+
+            &:after {
+                right: 11px;
+                background-position: -229px -38px;
+            }
+        }
+
+        &.next {
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+
+            &:after {
+                left: 11px;
+                background-position: -269px -38px;
+            }
         }
     }
 }
 
 /*#endregion navigation */
-
-.user-notification-list-container {
-    overflow: hidden;
-}
-
-.user-notification-list {
-    list-style-type: none;
-    display: -webkit-flex;
-    display: flex;
-}
 
 .user-notification-close-btn {
     position: absolute;

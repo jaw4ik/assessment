@@ -49,7 +49,80 @@
                 });
 
             });
+        });
 
+        describe('index:', function () {
+            it('should be observable', function () {
+                expect(viewModel.index).toBeObservable();
+            });
+        });
+
+        describe('canMoveNext:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.canMoveNext).toBeObservable();
+            });
+
+            describe('when index is last in collection', function () {
+
+                it('should be false', function () {
+                    viewModel.collection([{}]);
+                    viewModel.index(0);
+                    expect(viewModel.canMoveNext()).toBeFalsy();
+                });
+
+            });
+
+            describe('when index is not last in collection', function () {
+
+                it('should be false', function () {
+                    viewModel.collection([{}, {}]);
+                    viewModel.index(0);
+                    expect(viewModel.canMoveNext()).toBeTruthy();
+                });
+            });
+        });
+
+        describe('canMovePrev:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.canMovePrev).toBeObservable();
+            });
+
+            describe('when index is first in collection', function () {
+
+                it('should be false', function () {
+                    viewModel.collection([{}]);
+                    viewModel.index(0);
+                    expect(viewModel.canMovePrev()).toBeFalsy();
+                });
+
+            });
+
+            describe('when index is not first in collection', function () {
+
+                it('should be false', function () {
+                    viewModel.collection([{}, {}]);
+                    viewModel.index(1);
+                    expect(viewModel.canMovePrev()).toBeTruthy();
+                });
+            });
+        });
+
+        describe('next:', function () {
+            it('should set index +1', function () {
+                viewModel.index(0);
+                viewModel.next();
+                expect(viewModel.index()).toBe(1);
+            });
+        });
+
+        describe('prev:', function () {
+            it('should set index -1', function () {
+                viewModel.index(1);
+                viewModel.prev();
+                expect(viewModel.index()).toBe(0);
+            });
         });
 
         describe('activate:', function () {
@@ -146,7 +219,7 @@
                     expect(viewModel.collection().length).toBe(1);
                 });
             });
-                });
+        });
 
         describe('removeNotification:', function () {
             var key = 'key',
@@ -156,7 +229,19 @@
                 beforeEach(function () {
                     viewModel.collection().length = 0;
                     viewModel.collection.push(notification);
-            });
+                });
+
+                describe('and when notification is last in collection', function () {
+                    it('should update index', function () {
+                        viewModel.collection().length = 0;
+                        viewModel.collection.push({});
+                        viewModel.collection.push(notification);
+                        viewModel.index(1);
+
+                        viewModel.removeNotification(key);
+                        expect(viewModel.index()).toBe(0);
+                    });
+                });
 
                 it('should remove notification', function () {
                     viewModel.removeNotification(key);

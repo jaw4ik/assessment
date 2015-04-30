@@ -6,21 +6,21 @@
                 <span class="user-notification-count" data-bind="text: collection().length"></span>
             </div>
         </div>
-        <div class="user-notification-viewer" data-bind="css:{ shown: isExpanded }, notificationsSlider: { data: collection }">
-            <div class="user-notification-navigation-prev">
-                <div class="user-notification-navigation-prev-btn"></div>
+        <div class="user-notification-viewer" data-bind="css:{ shown: isExpanded }">
+            <div class="user-notification-navigation">
+                <!-- ko if: canMovePrev -->
+                <button class="user-notification-navigation-btn prev" data-bind="click: prev"></button>
+                <!-- /ko -->
             </div>
             <div class="user-notification-body">
-                <div class="user-notification-close-btn" data-bind="click: collapse"></div>
-                <div class="user-notification-list-container">
-                    <ul class="user-notification-list" data-bind="foreach: collection">
-                        <!-- ko compose: $data -->
-                        <!-- /ko -->
-                    </ul>
-                </div>
+                <button class="user-notification-close-btn" data-bind="click: collapse"></button>
+                <!-- ko compose: collection()[index()] -->
+                <!-- /ko -->
             </div>
-            <div class="user-notification-navigation-next">
-                <div class="user-notification-navigation-next-btn"></div>
+            <div class="user-notification-navigation">
+                <!-- ko if: canMoveNext -->
+                <button class="user-notification-navigation-btn next" data-bind="click: next"></button>
+                <!-- /ko -->
             </div>
         </div>
     </div>
