@@ -1926,7 +1926,8 @@ td.r-name {
   border-left: 1px dashed #d7dcdf;
 }
 .r-objective .r-score {
-  width: 85px;
+  width: 95px;
+  padding-left: 15px;
   text-align: left;
   font-family: "OpenSans-SemiboldItalic";
 }
