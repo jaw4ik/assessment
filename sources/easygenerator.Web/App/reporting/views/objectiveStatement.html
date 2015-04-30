@@ -2,6 +2,9 @@
     <div class="r-table" data-bind="click: isExpanded() ? collapse : expand">
         <div class="r-text objective" data-bind="localize: { text: 'reportingObjectiveTitle' }">objective:</div>
         <div class="r-title selectable">"<span data-bind="text: lrsStatement.name"></span>"</div>
+        <div class="r-score">
+            <p><span data-bind="text: lrsStatement.score"></span>%</p>
+        </div>
     </div>
     <!-- ko if: isExpanded -->
     <ul class="r-question">
