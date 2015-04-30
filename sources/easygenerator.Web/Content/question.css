@@ -502,6 +502,9 @@
   margin-top: 3px;
   margin-bottom: 10px;
 }
+.question-content-items-list .sortable-list-placeholder {
+  margin-right: 26px;
+}
 /*#endregion Question content block*/
 /*#region Answer options & learning content*/
 /*#region Answer options*/
