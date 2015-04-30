@@ -222,14 +222,16 @@
     .user-notification-header-image-wrapper {
         .user-avatar-wrapper();
         border-radius: 25px;
+        margin: 0 2px 2px 0;
     }
 
     .user-notification-header-image {
+        @avatar-size: 45px;
         .user-avatar();
-        width: 45px;
-        height: 45px;
+        width: @avatar-size;
+        height: @avatar-size;
+        line-height: @avatar-size;
         border-radius: 25px;
-        line-height: 45px;
     }
 
     .user-notification-actions {

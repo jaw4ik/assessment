@@ -35,7 +35,7 @@ namespace easygenerator.Web.Security.FeatureAvailability
         public bool CanAddCollaborator(Course course)
         {
             return IsCourseCollaborationEnabled(course) &&
-                   course.Collaborators.Count() < GetMaxAllowedCollaboratorsAmount(course);
+                   course.Collaborators.Count(e => e.IsAccepted) < GetMaxAllowedCollaboratorsAmount(course);
         }
     }
 }

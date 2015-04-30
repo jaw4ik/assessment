@@ -184,6 +184,7 @@
   display: inline-block;
   box-shadow: 1px 1px 2px 0px #dbdbdb;
   border-radius: 25px;
+  margin: 0 2px 2px 0;
 }
 .user-notification-wrapper.collaboration-invite .user-notification-header-image {
   height: 36px;
@@ -199,8 +200,8 @@
   vertical-align: top;
   width: 45px;
   height: 45px;
-  border-radius: 25px;
   line-height: 45px;
+  border-radius: 25px;
 }
 .user-notification-wrapper.collaboration-invite .user-notification-actions .btn {
   min-width: 100px;

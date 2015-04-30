@@ -105,7 +105,26 @@ namespace easygenerator.Web.Tests.Security.PermissionsCheckers
         }
 
         [TestMethod]
-        public void HasCollaboratorPermissions_ShouldReturnTrue_WhenUserIsCollaboratorAndCollaborationEnabled()
+        public void HasCollaboratorPermissions_ShouldReturnTrue_WhenUserIsCollaborator_AndIsAccepted_AndCollaborationEnabled()
+        {
+            //Arrange
+            var course = Substitute.For<Course>();
+            var collaborator = Substitute.For<CourseCollaborator>();
+            collaborator.AcceptCollaboration();
+            collaborator.Email.Returns(Username);
+            course.Collaborators.Returns(new List<CourseCollaborator>() { collaborator });
+
+            _featureAvailabilityChecker.IsCourseCollaborationEnabled(course).Returns(true);
+
+            //Act
+            var result = _checker.HasCollaboratorPermissions(Username, course);
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void HasCollaboratorPermissions_ShouldReturnFalse_WhenUserIsCollaborator_AndNotAccepted_AndCollaborationEnabled()
         {
             //Arrange
             var course = Substitute.For<Course>();
@@ -119,7 +138,7 @@ namespace easygenerator.Web.Tests.Security.PermissionsCheckers
             var result = _checker.HasCollaboratorPermissions(Username, course);
 
             //Assert
-            result.Should().BeTrue();
+            result.Should().BeFalse();
         }
 
         #endregion

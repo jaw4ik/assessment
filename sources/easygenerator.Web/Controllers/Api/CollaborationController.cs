@@ -16,13 +16,15 @@ namespace easygenerator.Web.Controllers.Api
     public class CollaborationController : DefaultController
     {
         private readonly IUserRepository _userRepository;
+        private readonly ICourseCollaboratorRepository _collaborationRepository;
         private readonly IEntityModelMapper<CourseCollaborator> _collaboratorEntityModelMapper;
         private readonly IMailSenderWrapper _mailSenderWrapper;
         private readonly ICloner _cloner;
 
-        public CollaborationController(IUserRepository userRepository, IEntityModelMapper<CourseCollaborator> collaboratorEntityModelMapper, IMailSenderWrapper mailSenderWrapper, ICloner cloner)
+        public CollaborationController(IUserRepository userRepository, ICourseCollaboratorRepository collaborationRepository, IEntityModelMapper<CourseCollaborator> collaboratorEntityModelMapper, IMailSenderWrapper mailSenderWrapper, ICloner cloner)
         {
             _userRepository = userRepository;
+            _collaborationRepository = collaborationRepository;
             _collaboratorEntityModelMapper = collaboratorEntityModelMapper;
             _mailSenderWrapper = mailSenderWrapper;
             _cloner = cloner;
@@ -49,7 +51,8 @@ namespace easygenerator.Web.Controllers.Api
                     Email = owner.Email,
                     Registered = true,
                     FullName = owner.FullName,
-                    CreatedOn = course.CreatedOn
+                    CreatedOn = course.CreatedOn,
+                    IsAccepted = true
                 });
             }
 
@@ -105,47 +108,44 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess();
         }
 
-        private List<object> invites = new List<object>()
-        {
-            new {
-                Id="1",
-                CourseTitle="Lava lamp",
-                CourseAuthorFirstName="Trace",
-                CourseAuthorLastName="Neo"
-            },
-             new {
-                Id="2",
-                CourseTitle="7 Million-Dollar Habits of the Super Successful",
-                CourseAuthorFirstName="Joel",
-                CourseAuthorLastName="Brown"
-            },
-            new{
-                 Id="3",
-                CourseTitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
-                CourseAuthorFirstName="Kasper",
-                CourseAuthorLastName="Spiro"
-}
-        };
-
         [HttpPost]
         [Route("api/course/collaboration/invites")]
         public ActionResult GetCollaborationInvites()
         {
-            return JsonSuccess(invites);
+            return JsonSuccess(_collaborationRepository.GetCollaborationInvites(GetCurrentUsername()));
         }
 
         [HttpPost]
         [Route("api/course/collaboration/invite/accept")]
-        public ActionResult AcceptCollaborationInvite(CourseCollaborator collaborationInvite)
+        public ActionResult AcceptCollaborationInvite(CourseCollaborator collaborator)
         {
-            return JsonSuccess(true);
+            if (collaborator == null)
+            {
+                return HttpNotFound(Errors.CollaboratorNotFoundError);
+            }
+
+            collaborator.AcceptCollaboration();
+
+            return JsonSuccess();
         }
 
         [HttpPost]
         [Route("api/course/collaboration/invite/decline")]
-        public ActionResult DeclineCollaborationInvite(CourseCollaborator collaborationInvite)
+        public ActionResult DeclineCollaborationInvite(Course course, CourseCollaborator collaborator)
         {
-            return JsonSuccess(true);
+            if (course == null)
+            {
+                return HttpNotFound(Errors.CourseNotFoundError);
+            }
+
+            if (collaborator == null)
+            {
+                return HttpNotFound(Errors.CollaboratorNotFoundError);
+            }
+
+            course.RemoveCollaborator(_cloner, collaborator);
+
+            return JsonSuccess();
         }
     }
 }
