@@ -2294,7 +2294,7 @@ td.r-name {
         }
 
         .r-text {
-            width: 140px;
+            width: 118px;
             text-transform: uppercase;
             padding-left: 20px;
             position: relative;
@@ -2330,6 +2330,12 @@ td.r-name {
         }
     }
 
+    .r-score {
+        width: 85px;
+        text-align: left;
+        font-family: "OpenSans-SemiboldItalic";
+    }
+
     .r-question {
         background: white;
 
@@ -2339,16 +2345,12 @@ td.r-name {
 
         li:first-child {
             border-top: 1px solid @course-statement-borderd-color;
-        }       
+        }
 
         .r-score {
-            width: 85px;
-            text-align: left;
-
             p:before {
                 content: '';
                 position: absolute;
-                left: 10px;
                 top: 3px;
                 width: 17px;
                 height: 14px;
@@ -2362,14 +2364,17 @@ td.r-name {
             }
 
             p {
-                padding-left: 35px;
                 position: relative;
                 font-family: OpenSansItalic;
+
+                span {
+                    padding-left: 25px;
+                }
             }
         }
 
         .r-text {
-            width: 140px;
+            width: 145px;
             position: relative;
             border-left: 1px dashed @question-statement-dashed-border-color;
 
@@ -2407,7 +2412,6 @@ td.r-name {
     }
 
     .r-question-text {
-        width: 65%;
         font-family: OpenSansItalic;
         color: @reporting-statement-title-color-blue;
     }
