@@ -31,13 +31,13 @@ var addBuildVersion = function () {
     var doReplace = function (file, callback) {
         var fileContent = String(file.contents);
         fileContent = fileContent
-            .replace(/(\?|\&)v=([0-9]+)/gi, '')                                                                          // remove build version
-            .replace(/\.(jpeg|jpg|png|gif|css|js|html|eot|svg|ttf|woff)([?])/gi, '.$1?v=' + buildVersion + '&')          // add build version to resource with existing query param
-            .replace(/\.(jpeg|jpg|png|gif|css|js|html|eot|svg|ttf|woff)([\s\"\'\)])/gi, '.$1?v=' + buildVersion + '$2')  // add build version to resource without query param
-            .replace(/urlArgs: 'v=buildVersion'/gi, 'urlArgs: \'v=' + buildVersion + '\'');                              // replace build version for require config
+            .replace(/(\?|\&)v=([0-9]+)/gi, '') // remove build version
+            .replace(/\.(jpeg|jpg|png|gif|css|js|html|eot|svg|ttf|woff)([?])/gi, '.$1?v=' + buildVersion + '&') // add build version to resource with existing query param
+            .replace(/\.(jpeg|jpg|png|gif|css|js|html|eot|svg|ttf|woff)([\s\"\'\)])/gi, '.$1?v=' + buildVersion + '$2') // add build version to resource without query param
+            .replace(/urlArgs: 'v=buildVersion'/gi, 'urlArgs: \'v=' + buildVersion + '\''); // replace build version for require config
         file.contents = new Buffer(fileContent);
         callback(null, file);
-    }
+    };
     return eventStream.map(doReplace);
 };
 
@@ -140,13 +140,13 @@ gulp.task('build-settings', ['build-design-settings', 'build-configure-settings'
       .pipe(css())
       .pipe(gulp.dest(output + '/settings/css'));
 
-    gulp.src('./src/settings/js/**')
+    gulp.src('./src/settings/api.js')
       .pipe(uglify())
-      .pipe(gulp.dest(output + '/settings/js'));
+      .pipe(gulp.dest(output + '/settings'));
 
 });
 
-gulp.task('build-design-settings', ['clean', 'css'], function () {
+gulp.task('build-design-settings', ['clean'], function () {
     var assets = useref.assets();
 
     gulp.src(['./src/settings/design/design.html'])
@@ -161,7 +161,7 @@ gulp.task('build-design-settings', ['clean', 'css'], function () {
 
 });
 
-gulp.task('build-configure-settings', ['clean', 'css'], function () {
+gulp.task('build-configure-settings', ['clean'], function () {
     var assets = useref.assets();
 
     gulp.src(['./src/settings/configure/configure.html'])

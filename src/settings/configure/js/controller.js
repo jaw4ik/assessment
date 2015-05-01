@@ -6,7 +6,8 @@
 
     function ConfigureController($scope, $window, $filter) {
         var that = $scope,
-            currentSettings = null;
+            currentSettings = null,
+            api = window.egApi;
 
         that.trackingData = (function () {
             var self = {};
@@ -214,7 +215,7 @@
                 return;
             }
 
-            window.egApi.saveSettings(JSON.stringify(newSettings), null).done(function () {
+            api.saveSettings(JSON.stringify(newSettings), null).done(function () {
                 currentSettings = newSettings;
             });
         };
@@ -248,7 +249,6 @@
 
         //#region Initialization
 
-        var api = window.egApi;
         return api.init().then(function () {
             var manifest = api.getManifest(),
                 settings = api.getSettings();
