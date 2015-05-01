@@ -1835,6 +1835,7 @@
     <Content Include="Templates\Quiz\preview\thumbnail.png" />
     <Content Include="Templates\Quiz\publishSettings.js" />
     <Content Include="Templates\Quiz\settings.js" />
+    <Content Include="Templates\Quiz\settings\api.js" />
     <Content Include="Templates\Quiz\settings\configure\configure.html" />
     <Content Include="Templates\Quiz\settings\configure\img\language.png" />
     <Content Include="Templates\Quiz\settings\configure\img\mastery.png" />
@@ -1851,7 +1852,6 @@
     <Content Include="Templates\Quiz\settings\design\img\graphical.png" />
     <Content Include="Templates\Quiz\settings\design\js\design.min.js" />
     <Content Include="Templates\Quiz\settings\design\js\vendor.min.js" />
-    <Content Include="Templates\Quiz\settings\js\api.js" />
     <Content Include="Templates\Reader\app\main.js" />
     <Content Include="Templates\Reader\app\main.js.map" />
     <Content Include="Templates\Reader\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\a15336e3207b40aa86ae93f15c2d3927.html" />

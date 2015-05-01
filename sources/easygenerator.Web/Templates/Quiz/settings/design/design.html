@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="../css/settings.css" rel="stylesheet" />
-    <script src="../js/api.js"></script>
+    <script src="../api.js"></script>
     <script src="js/vendor.min.js"></script>
     <script src="js/design.min.js"></script>
 </head>
@@ -34,12 +34,9 @@
                                 <div class="template-logo-url-container">
                                     <input class="template-logo-url" type="text" placeholder="Paste image URL here..." id="imgUrl" ng-disabled="!userAccess.hasStarterPlan" ng-model="logo.url" />
                                     <span class="template-logo-or">or</span>
-                                    <form id="logoForm" method="post" enctype="multipart/form-data" encoding="multipart/form-data" target="logoFrame">
-                                        <span class="btn grey template-logo">
-                                            Upload logo image
-                                            <input type="file" id="logoInput" name="file" disabled="disabled">
-                                        </span>
-                                    </form>
+                                    <a class="btn grey template-logo" ng-click="userAccess.hasStarterPlan && logo.upload()">
+                                        Upload logo image
+                                    </a>
                                 </div>
                                 <div class="template-logo-container">
                                     <div class="template-logo-wrapper" ng-hide="logo.hasLogo() || logo.hasError">
@@ -48,16 +45,18 @@
                                             Your logo will appear here
                                             <p>(recommended size 300 x 50 px)</p>
                                         </div>
+                                        <span class="vertical-align-helper"></span>
                                     </div>
                                     <div class="template-logo-wrapper error" ng-show="logo.hasError && !logo.hasLogo()">
                                         <div class="template-logo-emty-img"></div>
                                         <div class="template-logo-empty-text">
-                                            <span>{{logo.errorText}}</span>
-                                            <p>{{logo.errorDescription}}</p>
+                                            <span>{{ logo.errorText }}</span>
+                                            <p>{{ logo.errorDescription }}</p>
                                         </div>
+                                        <span class="vertical-align-helper"></span>
                                     </div>
                                     <div class="template-logo-wrapper not-empty" ng-show="logo.hasLogo()">
-                                        <img class="template-logo" src="" alt="" ng-src="{{logo.url}}" />
+                                        <img class="template-logo" src="" alt="" ng-src="{{ logo.url }}" />
                                     </div>
                                     <div class="template-logo-clear-wrapper" ng-show="logo.hasLogo()">
                                         <div class="template-logo-clear-btn" ng-click="logo.clear()">
