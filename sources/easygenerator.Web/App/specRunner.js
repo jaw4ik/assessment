@@ -80,7 +80,7 @@
 
             //#endregion
 
-            //'reporting/xApiFilterCriteriaFactory.spec',
+            'reporting/xApiFilterCriteriaFactory.spec',
             //'reporting/xApiProvider.spec',
 
             //#region synchronization
