@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="../css/settings.css?v=1430475127676" rel="stylesheet" />
-    <script src="../api.js?v=1430475127676"></script>
+    <link href="../css/settings.css?v=1430482494876" rel="stylesheet" />
+    <script src="../api.js?v=1430482494876"></script>
 
-    <script src="js/vendor.min.js?v=1430475127676"></script>
-    <script src="js/design.min.js?v=1430475127676"></script>
+    <script src="js/vendor.min.js?v=1430482494876"></script>
+    <script src="js/design.min.js?v=1430482494876"></script>
 </head>
 
 <body>
@@ -19,7 +19,7 @@
         <div class="settings-tabs-container">
             <div class="settings-tab-wrapper">
                 <div class="tab-header-container">
-                    <img src="img/graphical.png?v=1430475127676" />
+                    <img src="img/graphical.png?v=1430482494876" />
                     <div class="tab-header-wrapper">
                         <h1 class="tab-header-title" data-bind="localize: 'customize your course'"></h1>
                         <div class="tab-header-content">
@@ -45,6 +45,7 @@
                                     <div class="template-logo-wrapper" data-bind="style: { display: logo.hasLogo() || logo.isError() ? 'none' : 'inline-block' }">
                                         <div class="template-logo-emty-img"></div>
                                         <div class="template-logo-empty-text" data-bind="localize: 'logo hint'"></div>
+                                        <span class="vertical-align-helper"></span>
                                     </div>
                                     <div class="template-logo-wrapper error" data-bind="style: { display: logo.isError() && logo.url() == '' ? 'inline-block' : 'none' }">
                                         <div class="template-logo-emty-img"></div>
@@ -52,6 +53,7 @@
                                             <span data-bind="text: logo.errorText">Unsupported image format</span>
                                             <p data-bind="text: logo.errorDescription">(Supported formats: jpg, png, bmp)</p>
                                         </div>
+                                        <span class="vertical-align-helper"></span>
                                     </div>
 
                                     <div class="template-logo-wrapper not-empty" data-bind="style: { display: logo.hasLogo() ? 'inline-block' : 'none' }">
