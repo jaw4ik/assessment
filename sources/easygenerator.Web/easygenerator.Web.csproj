@@ -2005,6 +2005,7 @@
     <Content Include="Templates\Simple course\manifest.json" />
     <Content Include="Templates\Simple course\publishSettings.js" />
     <Content Include="Templates\Simple course\settings.js" />
+    <Content Include="Templates\Simple course\settings\api.js" />
     <Content Include="Templates\Simple course\settings\configure\configure.html" />
     <Content Include="Templates\Simple course\settings\configure\img\language.png" />
     <Content Include="Templates\Simple course\settings\configure\img\mastery.png" />
@@ -2022,7 +2023,6 @@
     <Content Include="Templates\Simple course\settings\design\img\graphical.png" />
     <Content Include="Templates\Simple course\settings\design\js\design.min.js" />
     <Content Include="Templates\Simple course\settings\design\js\vendor.min.js" />
-    <Content Include="Templates\Simple course\settings\js\api.js" />
     <Content Include="Views\Account\InvalidPasswordRecovery.cshtml" />
     <Content Include="Views\Account\PasswordRecovery.cshtml" />
     <Content Include="Views\Account\PrivacyPolicy.cshtml" />
