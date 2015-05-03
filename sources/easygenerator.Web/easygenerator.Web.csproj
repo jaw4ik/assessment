@@ -554,6 +554,9 @@
     <Content Include="App\models\reporting\statement.spec.js">
       <DependentUpon>statement.js</DependentUpon>
     </Content>
+    <Content Include="App\reporting\viewmodels\expandableStatement.spec.js">
+      <DependentUpon>expandableStatement.js</DependentUpon>
+    </Content>
     <Content Include="App\reporting\xApiFilterCriteriaFactory.spec.js">
       <DependentUpon>xApiFilterCriteriaFactory.js</DependentUpon>
     </Content>
