@@ -3,11 +3,13 @@
 
     describe('viewmodel [ExpandableStatement]', function () {
         var lrsStatement,
-            expandAction;
+            expandAction,
+            statement;
 
         beforeEach(function () {
             lrsStatement = { attemptId: 'attemptId' };
             expandAction = function () { };
+            statement = new ExpandableStatement(lrsStatement, expandAction);
         });
 
         it('should be constructor function', function () {
@@ -28,7 +30,6 @@
 
             describe('when lrsStatement contains attemptId', function () {
                 it('it should set isExpandable to true', function () {
-                    var statement = new ExpandableStatement(lrsStatement, expandAction);
                     expect(statement.isExpandable).toBeTruthy();
                 });
             });
@@ -36,7 +37,7 @@
             describe('when lrsStatement doesnt contain attemptId', function () {
                 it('it should set isExpandable to false', function () {
                     lrsStatement.attemptId = null;
-                    var statement = new ExpandableStatement(lrsStatement, expandAction);
+                    statement = new ExpandableStatement(lrsStatement, expandAction);
                     expect(statement.isExpandable).toBeFalsy();
                 });
             });
@@ -44,12 +45,10 @@
 
         describe('[collapse]', function () {
             it('should be function', function () {
-                var statement = new ExpandableStatement(lrsStatement, expandAction);
                 expect(statement.collapse).toBeFunction();
             });
 
             it('should set isExpanded to false', function () {
-                var statement = new ExpandableStatement(lrsStatement, expandAction);
                 statement.isExpanded(true);
                 statement.collapse();
                 expect(statement.isExpanded()).toBeFalsy();
@@ -59,19 +58,17 @@
         describe('[expand]', function () {
 
             it('should be function', function () {
-                var statement = new ExpandableStatement(lrsStatement, expandAction);
                 expect(statement.expand).toBeFunction();
             });
 
             it('should return promise', function () {
-                var statement = new ExpandableStatement(lrsStatement, expandAction);
                 expect(statement.expand()).toBePromise();
             });
 
             describe('when isExpandable is false', function () {
                 it('promise should return undefined', function (done) {
                     lrsStatement.attemptId = null;
-                    var statement = new ExpandableStatement(lrsStatement, expandAction);
+                    statement = new ExpandableStatement(lrsStatement, expandAction);
                     statement.expand().then(function (result) {
                         expect(result).toBeUndefined();
                         done();
@@ -82,7 +79,6 @@
             describe('when isExpandable is true', function () {
                 describe('when children is null', function () {
                     it('should set isExpanded to true and return undefined', function () {
-                        var statement = new ExpandableStatement(lrsStatement, expandAction);
                         statement.children = null;
                         statement.expand().then(function (result) {
                             expect(statement.isExpanded()).toBeTruthy();
@@ -94,7 +90,6 @@
 
                 describe('when children length is 0', function () {
                     it('should set isExpanded to true', function () {
-                        var statement = new ExpandableStatement(lrsStatement, expandAction);
                         statement.children = [];
                         statement.expand().then(function (result) {
                             expect(statement.isExpanded()).toBeTruthy();
@@ -106,7 +101,6 @@
 
                 describe('when children is not empty', function () {
                     it('should return expandLoadAction', function () {
-                        var statement = new ExpandableStatement(lrsStatement, expandAction);
                         statement.children = [{}];
                         statement.expand().then(function (result) {
                             expect(result).toBe(expandAction);
