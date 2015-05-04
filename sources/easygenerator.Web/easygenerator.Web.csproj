@@ -1580,6 +1580,9 @@
     <Content Include="Content\collaboration.less" />
     <Content Include="Content\shell.less" />
     <Content Include="Content\editField.less" />
+    <Content Include="App\reporting\viewmodels\objectiveStatement.spec.js">
+      <DependentUpon>objectiveStatement.js</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />
