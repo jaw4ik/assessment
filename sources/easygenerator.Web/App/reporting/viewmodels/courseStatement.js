@@ -18,10 +18,8 @@
                 var objectiveStatements = _.map(lrsStatements, function (statement) {
                     return new ObjectiveStatement(statement);
                 });
-                var uniqueStatements = _.uniq(objectiveStatements, function (item) { return item.lrsStatement.id; });
-                // quiz can send multiple mastered statements with try again functionality, we should show unique.
                 that.startedLrsStatement = startedStatements[0];
-                that.children(uniqueStatements);
+                that.children(objectiveStatements);
                 that.isExpanded(true);
             });
         });
