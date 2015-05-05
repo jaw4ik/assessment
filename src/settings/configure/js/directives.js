@@ -154,7 +154,7 @@
             },
             link: function (scope, element) {
                 $(element)
-                    .spinner('changed', function (e, newValue) {
+                    .spinner('changing', function (e, newValue) {
                         scope.spinnerValue = newValue;
                         scope.$apply();
                     });
