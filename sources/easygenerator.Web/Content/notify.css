@@ -1,5 +1,5 @@
 ﻿.notify {
-  position: fixed;
+  position: absolute;
   right: 30px;
   bottom: 12px;
   z-index: 1500;

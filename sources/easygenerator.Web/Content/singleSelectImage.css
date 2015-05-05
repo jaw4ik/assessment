@@ -1,4 +1,7 @@
-﻿.single-select-image-list {
+﻿.single-select-image .question-answer-options-area {
+  padding: 20px 50px 0 20px;
+}
+.single-select-image-list {
   list-style-type: none;
   margin-right: -40px;
 }

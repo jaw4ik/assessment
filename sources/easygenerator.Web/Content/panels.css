@@ -1,6 +1,6 @@
 ﻿/*#region Panel*/
 .panel-right {
-  position: fixed;
+  position: absolute;
   top: 60px;
   bottom: 0;
   width: 330px;

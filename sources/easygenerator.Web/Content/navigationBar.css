@@ -1,19 +1,24 @@
 ﻿.navigation-bar-wrapper {
-  border-right: 1px solid #dedede;
-  bottom: 0;
-  left: 0;
+  position: relative;
   min-width: 50px;
-  position: fixed;
-  top: 56px;
-  z-index: 190;
+  border-right: 1px solid #dedede;
+  z-index: 198;
+}
+.navigation-bar-wrapper-inner {
+  position: relative;
+  height: 100%;
+}
+.navigation-bar-wrapper-absolute-holder {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
 }
 .navigation-bar {
-  background: #f1f1f1;
+  position: relative;
   display: block;
   height: 100%;
-  position: absolute;
-  right: 0;
-  width: 300px;
+  background: #f1f1f1;
 }
 .navigation-bar.collapsed {
   width: 50px;
@@ -69,14 +74,12 @@
 .navigation-bar.onboarding-visible .navigation-bar-collapse-button {
   bottom: 360px;
 }
-@media screen and (max-width: 1630px) {
-  .navigation-bar-wrapper + div {
-    margin-left: 50px;
-    -moz-transition: margin .4s linear 0s;
-    -webkit-transition: margin .4s linear 0s;
-    transition: margin .4s linear 0s;
-  }
-  .navigation-bar-wrapper.expanded + div {
-    margin-left: 300px;
+@media (min-width: 1550px) {
+  .navigation-bar-wrapper {
+    display: block;
+    position: absolute;
+    top: 56px;
+    bottom: 0;
+    z-index: 198;
   }
 }
