@@ -18,8 +18,6 @@
 
         describe('[ctor]', function () {
             it('should initialize fields with proper values', function () {
-                var statement = new ExpandableStatement(lrsStatement, expandAction);
-
                 expect(statement.lrsStatement).toBe(lrsStatement);
                 expect(statement.isExpanded).toBeObservable();
                 expect(statement.isExpanded()).toBeFalsy();

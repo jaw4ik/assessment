@@ -11,7 +11,7 @@
         var that = this;
         return xApiProvider.getAnsweredStatements(that.lrsStatement.attemptId, that.lrsStatement.id).then(function (statements) {
             if (statements && statements.length) {
-                var questionStatements = _.map(statements, function(statement) {
+                var questionStatements = _.map(statements, function (statement) {
                     return new QuestionStatement(statement);
                 });
                 that.children(questionStatements);
