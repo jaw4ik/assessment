@@ -1,6 +1,6 @@
 ﻿
-define(['durandal/app', 'dataContext', 'constants', 'http/httpWrapper', 'guard', 'repositories/objectiveRepository', 'models/question', 'mappers/questionModelMapper'],
-    function (app, dataContext, constants, httpWrapper, guard, objectiveRepository, Question, questionModelMapper) {
+define(['durandal/app', 'dataContext', 'constants', 'http/apiHttpWrapper', 'guard', 'repositories/objectiveRepository', 'models/question', 'mappers/questionModelMapper'],
+    function (app, dataContext, constants, apiHttpWrapper, guard, objectiveRepository, Question, questionModelMapper) {
 
         var
             addQuestion = function (objectiveId, obj, questionType) {
@@ -9,7 +9,7 @@ define(['durandal/app', 'dataContext', 'constants', 'http/httpWrapper', 'guard',
                     guard.throwIfNotString(objectiveId, 'Objective id is not a string');
                     guard.throwIfNotAnObject(obj, 'Question data is not an object');
 
-                    return httpWrapper.post('api/question/' + questionType + '/create', { objectiveId: objectiveId, title: obj.title })
+                    return apiHttpWrapper.post('api/question/' + questionType + '/create', { objectiveId: objectiveId, title: obj.title })
                         .then(function (response) {
                             guard.throwIfNotAnObject(response, 'Response is not an object');
                             guard.throwIfNotString(response.Id, 'Question Id is not a string');
@@ -51,7 +51,7 @@ define(['durandal/app', 'dataContext', 'constants', 'http/httpWrapper', 'guard',
                     guard.throwIfNotString(objectiveId, 'Objective id is not a string');
                     guard.throwIfNotArray(questionIds, 'Questions to remove are not an array');
 
-                    return httpWrapper.post('api/question/delete', { objectiveId: objectiveId, questions: questionIds })
+                    return apiHttpWrapper.post('api/question/delete', { objectiveId: objectiveId, questions: questionIds })
                         .then(function (response) {
                             guard.throwIfNotAnObject(response, 'Response is not an object');
                             guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
@@ -82,7 +82,7 @@ define(['durandal/app', 'dataContext', 'constants', 'http/httpWrapper', 'guard',
                     guard.throwIfNotString(questionId, 'Question id is not a string');
                     guard.throwIfNotString(title, 'Question title not a string');
 
-                    return httpWrapper.post('api/question/updateTitle', { questionId: questionId, title: title })
+                    return apiHttpWrapper.post('api/question/updateTitle', { questionId: questionId, title: title })
                         .then(function (response) {
                             guard.throwIfNotAnObject(response, 'Response is not an object');
                             guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
@@ -109,7 +109,7 @@ define(['durandal/app', 'dataContext', 'constants', 'http/httpWrapper', 'guard',
                 return Q.fcall(function () {
                     guard.throwIfNotString(questionId, 'Question id is not a string');
 
-                    return httpWrapper.post('api/question/updateContent', { questionId: questionId, content: content })
+                    return apiHttpWrapper.post('api/question/updateContent', { questionId: questionId, content: content })
                         .then(function (response) {
                             guard.throwIfNotAnObject(response, 'Response is not an object');
                             guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
@@ -145,7 +145,7 @@ define(['durandal/app', 'dataContext', 'constants', 'http/httpWrapper', 'guard',
                         })
                     };
 
-                    return httpWrapper.post('api/question/fillintheblank/update', data)
+                    return apiHttpWrapper.post('api/question/fillintheblank/update', data)
                         .then(function (response) {
                             guard.throwIfNotAnObject(response, 'Response is not an object');
                             guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
@@ -173,7 +173,7 @@ define(['durandal/app', 'dataContext', 'constants', 'http/httpWrapper', 'guard',
                         questionId: questionId
                     };
 
-                    return httpWrapper.post('api/question/fillintheblank', data)
+                    return apiHttpWrapper.post('api/question/fillintheblank', data)
                         .then(function (response) {
                             guard.throwIfNotAnObject(response, 'Response is not an object');
 
@@ -190,7 +190,7 @@ define(['durandal/app', 'dataContext', 'constants', 'http/httpWrapper', 'guard',
                         questionId: questionId
                     };
 
-                    return httpWrapper.post('api/question/getQuestionFeedback', data)
+                    return apiHttpWrapper.post('api/question/getQuestionFeedback', data)
                         .then(function (response) {
                             guard.throwIfNotAnObject(response, 'Response is not an object');
                             guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
@@ -220,7 +220,7 @@ define(['durandal/app', 'dataContext', 'constants', 'http/httpWrapper', 'guard',
                         feedbackText: feedbackText
                     };
 
-                    return httpWrapper.post('api/question/updateCorrectFeedback', data)
+                    return apiHttpWrapper.post('api/question/updateCorrectFeedback', data)
                         .then(function (response) {
                             guard.throwIfNotAnObject(response, 'Response is not an object');
                             guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
@@ -248,7 +248,7 @@ define(['durandal/app', 'dataContext', 'constants', 'http/httpWrapper', 'guard',
                         feedbackText: feedbackText
                     };
 
-                    return httpWrapper.post('api/question/updateIncorrectFeedback', data)
+                    return apiHttpWrapper.post('api/question/updateIncorrectFeedback', data)
                         .then(function (response) {
                             guard.throwIfNotAnObject(response, 'Response is not an object');
                             guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
@@ -279,7 +279,7 @@ define(['durandal/app', 'dataContext', 'constants', 'http/httpWrapper', 'guard',
                         })
                     };
 
-                    return httpWrapper.post('api/question/updateLearningContentsOrder', data)
+                    return apiHttpWrapper.post('api/question/updateLearningContentsOrder', data)
                         .then(function (response) {
 
                             guard.throwIfNotAnObject(response, 'Response is not an object');
@@ -330,7 +330,7 @@ define(['durandal/app', 'dataContext', 'constants', 'http/httpWrapper', 'guard',
                     guard.throwIfNotString(questionId, 'Question id is not a string');
                     guard.throwIfNotString(objectiveId, 'Objective id is not a string');
 
-                    return httpWrapper.post('api/question/copy', { questionId: questionId, objectiveId: objectiveId })
+                    return apiHttpWrapper.post('api/question/copy', { questionId: questionId, objectiveId: objectiveId })
                         .then(function(response) {
                             guard.throwIfNotAnObject(response, 'Response is not an object');
 
@@ -356,7 +356,7 @@ define(['durandal/app', 'dataContext', 'constants', 'http/httpWrapper', 'guard',
                     guard.throwIfNotString(sourceObjectiveId, 'Source objective id is not a string');
                     guard.throwIfNotString(destinationObjectiveId, 'Destination objective id is not a string');
 
-                    return httpWrapper.post('api/question/move', { questionId: questionId, objectiveId: destinationObjectiveId })
+                    return apiHttpWrapper.post('api/question/move', { questionId: questionId, objectiveId: destinationObjectiveId })
                         .then(function(response) {
                             guard.throwIfNotAnObject(response, 'Response is not an object');
                             guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');

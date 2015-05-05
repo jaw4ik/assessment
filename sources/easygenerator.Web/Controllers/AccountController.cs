@@ -71,16 +71,7 @@ namespace easygenerator.Web.Controllers
 
             return View();
         }
-
-        [NoCache]
-        public ActionResult SignOut()
-        {
-            if (_authenticationProvider.IsUserAuthenticated())
-                _authenticationProvider.SignOut();
-
-            return RedirectToRoute("SignIn");
-        }
-
+        
         [HttpGet]
         public ActionResult PasswordRecovery(PasswordRecoveryTicket ticket)
         {
@@ -101,7 +92,6 @@ namespace easygenerator.Web.Controllers
             }
 
             ticket.User.RecoverPasswordUsingTicket(ticket, password);
-            _authenticationProvider.SignIn(ticket.User.Email, true);
 
             return RedirectToRoute("Default");
         }

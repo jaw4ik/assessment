@@ -264,7 +264,7 @@
             'widgets/createQuestion/viewmodel.spec',
             'bootstrapper.spec',
             'guard.spec',
-            'http/httpWrapper.spec',
+            'http/apiHttpWrapper.spec',
             'http/httpRequestSender.spec',
             'notify.spec',
             'uiLocker.spec',

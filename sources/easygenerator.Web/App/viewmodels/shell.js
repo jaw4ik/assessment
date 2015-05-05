@@ -44,11 +44,11 @@
             }
         });
 
-        app.on('httpWrapper:post-begin').then(function () {
+        app.on('apiHttpWrapper:post-begin').then(function () {
             requestsCounter(requestsCounter() + 1);
         });
 
-        app.on('httpWrapper:post-end').then(function () {
+        app.on('apiHttpWrapper:post-end').then(function () {
             requestsCounter(requestsCounter() - 1);
         });
 

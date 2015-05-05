@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'http/httpWrapper', 'guard', 'models/objective', 'durandal/app'],
-    function (dataContext, constants, httpWrapper, guard, objectiveModel, app) {
+﻿define(['dataContext', 'constants', 'http/apiHttpWrapper', 'guard', 'models/objective', 'durandal/app'],
+    function (dataContext, constants, apiHttpWrapper, guard, objectiveModel, app) {
         "use strict";
 
         var repository = {
@@ -39,7 +39,7 @@
             return Q.fcall(function () {
                 guard.throwIfNotAnObject(objective, 'Objective data is not an object');
 
-                return httpWrapper.post('api/objective/create', objective).then(function (response) {
+                return apiHttpWrapper.post('api/objective/create', objective).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.Id, 'Objective Id is not a string');
                     guard.throwIfNotString(response.ImageUrl, 'Objective ImageUrl is not a string');
@@ -72,7 +72,7 @@
                 guard.throwIfNotString(objectiveId, 'Objective data has invalid format');
                 guard.throwIfNotString(title, 'Objective data has invalid format');
 
-                return httpWrapper.post('api/objective/updatetitle', { objectiveId: objectiveId, title: title }).then(function (response) {
+                return apiHttpWrapper.post('api/objective/updatetitle', { objectiveId: objectiveId, title: title }).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
@@ -99,7 +99,7 @@
 
                 imageUrl += '?width=120&height=120&scaleBySmallerSide=true';
 
-                return httpWrapper.post('api/objective/updateimage', { objectiveId: objectiveId, imageUrl: imageUrl }).then(function (response) {
+                return apiHttpWrapper.post('api/objective/updateimage', { objectiveId: objectiveId, imageUrl: imageUrl }).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
@@ -126,7 +126,7 @@
             return Q.fcall(function () {
                 guard.throwIfNotString(objectiveId, 'Objective id was expected');
 
-                return httpWrapper.post('api/objective/delete', { objectiveId: objectiveId }).then(function () {
+                return apiHttpWrapper.post('api/objective/delete', { objectiveId: objectiveId }).then(function () {
                     dataContext.objectives = _.reject(dataContext.objectives, function (objective) {
                         return objective.id == objectiveId;
                     });
@@ -146,7 +146,7 @@
                     })
                 };
 
-                return httpWrapper.post('api/objective/updatequestionsorder', requestArgs).then(function (response) {
+                return apiHttpWrapper.post('api/objective/updatequestionsorder', requestArgs).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 

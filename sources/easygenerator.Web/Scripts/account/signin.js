@@ -59,11 +59,13 @@ app.signinViewModel = function () {
 
         var data = {
             username: viewModel.username().trim().toLowerCase(),
-            password: viewModel.password()
+            password: viewModel.password(),
+            grant_type: "password",
+            scope: "api auth storage"
         };
 
         var requestArgs = {
-            url: '/api/user/signin',
+            url: '/auth/token',
             data: data,
             type: 'POST'
         };
@@ -71,6 +73,14 @@ app.signinViewModel = function () {
         $.ajax(requestArgs).done(function (response) {
             if (response) {
                 if (response.success) {
+                    var tokens = response.data;
+                    if (tokens && tokens.length) {
+                        for (var index = 0; index < tokens.length; index++) {
+                            var token = tokens[index];
+                            localStorage.setItem("token-" + token.Scope, token.Token);
+                        }
+                    }
+
                     app.trackEvent(app.constants.events.signin, response.data).done(function () {
                         app.openHomePage();
                     });

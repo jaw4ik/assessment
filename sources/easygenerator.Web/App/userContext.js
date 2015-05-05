@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'constants', 'models/user'], function (app, constants, User) {
+﻿define(['durandal/app', 'constants', 'models/user', 'http/httpRequestSender'], function (app, constants, User, httpSender) {
 
 
     var userContext = {
@@ -11,12 +11,8 @@
     return userContext;
 
     function identify() {
-        return Q($.ajax({
-            url: 'api/identify',
-            type: 'POST',
-            contentType: 'application/json',
-            dataType: 'json'
-        })).then(function (user) {
+        return Q(httpSender.post('auth/identity')
+        ).then(function (user) {
             userContext.identity = _.isString(user.email) ? new User(user) : null;
             app.trigger(constants.messages.user.identified, userContext.identity);
         });

@@ -1,7 +1,7 @@
 ﻿define(['repositories/collaboratorRepository'], function (repository) {
     "use strict";
 
-    var httpWrapper = require('http/httpRequestSender'),
+    var apiHttpWrapper = require('http/httpRequestSender'),
         dataContext = require('dataContext'),
         collaboratorModelMapper = require('mappers/collaboratorModelMapper');
 
@@ -16,7 +16,7 @@
 
         beforeEach(function () {
             post = Q.defer();
-            spyOn(httpWrapper, 'post').and.returnValue(post.promise);
+            spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise);
         });
 
         it('should be defined', function () {
@@ -104,7 +104,7 @@
                     var promise = repository.getCollection(courseId);
 
                     promise.fin(function () {
-                        expect(httpWrapper.post).toHaveBeenCalledWith('api/course/collaborators', { courseId: courseId });
+                        expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/collaborators', { courseId: courseId });
                         done();
                     });
 
@@ -245,7 +245,7 @@
                 var promise = repository.add(courseId, email);
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/course/collaborator/add', { courseId: courseId, email: email });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/collaborator/add', { courseId: courseId, email: email });
                     done();
                 });
 
@@ -523,7 +523,7 @@
                     var promise = repository.remove(courseId, collaborator.Id);
 
                     promise.fin(function () {
-                        expect(httpWrapper.post).toHaveBeenCalledWith('api/course/collaborator/remove', { courseId: courseId, courseCollaboratorId: collaborator.Id });
+                        expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/collaborator/remove', { courseId: courseId, courseCollaboratorId: collaborator.Id });
                         done();
                     });
 
@@ -646,7 +646,7 @@
                     var promise = repository.remove(courseId, collaborator.Id);
 
                     promise.fin(function () {
-                        expect(httpWrapper.post).not.toHaveBeenCalledWith('api/course/collaborator/remove', { courseId: courseId, courseCollaboratorId: collaborator.Id });
+                        expect(apiHttpWrapper.post).not.toHaveBeenCalledWith('api/course/collaborator/remove', { courseId: courseId, courseCollaboratorId: collaborator.Id });
                         done();
                     });
 

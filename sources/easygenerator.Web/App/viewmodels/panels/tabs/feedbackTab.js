@@ -1,5 +1,5 @@
-﻿define(['userContext', 'notify', 'eventTracker', 'http/httpWrapper'],
-    function (userContext, notify, eventTracker, httpWrapper) {
+﻿define(['userContext', 'notify', 'eventTracker', 'http/apiHttpWrapper'],
+    function (userContext, notify, eventTracker, apiHttpWrapper) {
 
         var events = {
             feedback: 'Send feedback',
@@ -41,7 +41,7 @@
 
             eventTracker.publish(events.feedback);
             viewModel.isShowFeedbackPopup(false);
-            return httpWrapper.post('api/feedback/sendfeedback', data).then(function () {
+            return apiHttpWrapper.post('api/feedback/sendfeedback', data).then(function () {
                 viewModel.feedbackSuccessfulySent(true);
                 viewModel.feedbackMessageFromUser('');
             });

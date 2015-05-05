@@ -263,36 +263,6 @@ namespace easygenerator.Web.Tests.Controllers
 
         #endregion
 
-        #region SignOut
-
-        [TestMethod]
-        public void LogoutAndRedirectToLogin_ShouldRedirectToSignIn()
-        {
-            //Arrange
-
-
-            //Act
-            var result = _controller.SignOut();
-
-            //Assert
-            ActionResultAssert.IsRedirectToRouteResult(result, "SignIn");
-        }
-
-        [TestMethod]
-        public void LogoutAndRedirectToLogin_ShouldSignOutUser_WhenUserAuthenticated()
-        {
-            //Arrange
-            _authenticationProvider.IsUserAuthenticated().Returns(true);
-
-            //Act
-            var result = _controller.SignOut();
-
-            //Assert
-            _authenticationProvider.Received().SignOut();
-        }
-
-        #endregion
-
         #region PasswordRecovery
 
         [TestMethod]
@@ -348,21 +318,6 @@ namespace easygenerator.Web.Tests.Controllers
 
             //Assert
             ActionResultAssert.IsRedirectToRouteResult(result, "Default");
-        }
-
-        [TestMethod]
-        public void PasswordRecovery_ShouldSignInUser_WhenTickenDefinedOnPost()
-        {
-            //Arrange
-            var ticket = PasswordRecoveryTicketObjectMother.Create();
-            var user = UserObjectMother.Create();
-            user.AddPasswordRecoveryTicket(ticket);
-
-            //Act
-            _controller.PasswordRecovery(ticket, "NewPassword123123");
-
-            //Assert
-            _authenticationProvider.Received().SignIn(ticket.User.Email, true);
         }
 
         [TestMethod]
