@@ -1,4 +1,4 @@
-﻿define(['http/httpWrapper'], function (httpWrapper) {
+﻿define(['http/authHttpWrapper'], function (authHttpWrapper) {
     "use strict";
 
     var
@@ -6,10 +6,10 @@
         app = require('durandal/app'),
         notify = require('notify');
 
-    describe('[httpWrapper]', function () {
+    describe('[authHttpWrapper]', function () {
 
         it('should be object', function () {
-            expect(httpWrapper).toBeObject();
+            expect(authHttpWrapper).toBeObject();
         });
 
         describe('post:', function () {
@@ -23,34 +23,34 @@
             });
 
             it('should be function', function () {
-                expect(httpWrapper.post).toBeFunction();
+                expect(authHttpWrapper.post).toBeFunction();
             });
 
             it('should return promise', function () {
-                expect(httpWrapper.post()).toBePromise();
+                expect(authHttpWrapper.post()).toBePromise();
             });
 
-            it('should trigger \'httpWrapper:post-begin\' event', function () {
-                httpWrapper.post();
+            it('should trigger \'authHttpWrapper:post-begin\' event', function () {
+                authHttpWrapper.post();
 
-                expect(app.trigger).toHaveBeenCalledWith('httpWrapper:post-begin');
+                expect(app.trigger).toHaveBeenCalledWith('authHttpWrapper:post-begin');
             });
 
             it('should make a post request', function () {
                 var url = "url";
                 var data = { title: 'title' };
 
-                httpWrapper.post(url, data);
+                authHttpWrapper.post(url, data);
 
                 expect(http.post).toHaveBeenCalledWith(url, data);
             });
 
             describe('when post request succeed', function () {
 
-                it('should trigger \'httpWrapper:post-end\' event', function (done) {
-                    var promise = httpWrapper.post();
+                it('should trigger \'authHttpWrapper:post-end\' event', function (done) {
+                    var promise = authHttpWrapper.post();
                     promise.fin(function () {
-                        expect(app.trigger).toHaveBeenCalledWith('httpWrapper:post-end');
+                        expect(app.trigger).toHaveBeenCalledWith('authHttpWrapper:post-end');
                         done();
                     });
 
@@ -60,7 +60,7 @@
                 describe('and response data is not an object', function () {
 
                     it('should reject promise', function (done) {
-                        var promise = httpWrapper.post();
+                        var promise = authHttpWrapper.post();
                         promise.fin(function () {
                             expect(promise).toBeRejectedWith('Response data is not an object');
                             done();
@@ -81,7 +81,7 @@
                         });
 
                         it('should reject promise with response message', function (done) {
-                            var promise = httpWrapper.post();
+                            var promise = authHttpWrapper.post();
                             promise.fin(function () {
                                 expect(promise).toBeRejectedWith(message);
                                 done();
@@ -91,7 +91,7 @@
                         });
 
                         it('should show error notification with error message', function (done) {
-                            var promise = httpWrapper.post();
+                            var promise = authHttpWrapper.post();
                             promise.fin(function () {
                                 expect(notify.error).toHaveBeenCalledWith(message);
                                 done();
@@ -104,7 +104,7 @@
                     describe('and response state is success', function () {
 
                         it('should resolve promise with response data', function (done) {
-                            var promise = httpWrapper.post();
+                            var promise = authHttpWrapper.post();
                             promise.fin(function () {
                                 expect(promise).toBeResolvedWith(data);
                                 done();
@@ -123,10 +123,10 @@
 
             describe('when post request failed', function () {
 
-                it('should trigger \'httpWrapper:post-end\' event', function (done) {
-                    var promise = httpWrapper.post();
+                it('should trigger \'authHttpWrapper:post-end\' event', function (done) {
+                    var promise = authHttpWrapper.post();
                     promise.fin(function () {
-                        expect(app.trigger).toHaveBeenCalledWith('httpWrapper:post-end');
+                        expect(app.trigger).toHaveBeenCalledWith('authHttpWrapper:post-end');
                         done();
                     });
 

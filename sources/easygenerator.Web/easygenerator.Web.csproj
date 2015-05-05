@@ -534,8 +534,12 @@
     <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.spec.js">
       <DependentUpon>moveCopyQuestion.js</DependentUpon>
     </Content>
+    <Content Include="App\http\authHttpWrapper.js" />
     <Content Include="App\http\apiHttpWrapper.spec.js">
       <DependentUpon>apiHttpWrapper.js</DependentUpon>
+    </Content>
+    <Content Include="App\http\authHttpWrapper.spec.js">
+      <DependentUpon>authHttpWrapper.js</DependentUpon>
     </Content>
     <Content Include="App\localization\resources.js" />
     <Content Include="App\models\reportingStatement.js" />

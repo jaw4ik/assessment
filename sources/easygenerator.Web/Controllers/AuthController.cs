@@ -12,6 +12,7 @@ using easygenerator.Auth.Models;
 using easygenerator.Auth.Providers;
 using easygenerator.Auth.Repositories;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 
 namespace easygenerator.Web.Controllers
@@ -67,17 +68,17 @@ namespace easygenerator.Web.Controllers
             return JsonError(AccountRes.Resources.IncorrectEmailOrPassword);
         }
 
-        [HttpGet, Authorize]
+        [HttpPost, Authorize]
         public ActionResult Identity()
         {
             var user = _repository.GetUserByEmail(GetCurrentUsername());
 
             if (user == null)
             {
-                return JsonDataResult(new { });
+                return JsonError(Errors.UserWithSpecifiedEmailDoesntExist);
             }
 
-            return JsonDataResult(new
+            return JsonSuccess(new
             {
                 email = user.Email,
                 firstname = user.FirstName,

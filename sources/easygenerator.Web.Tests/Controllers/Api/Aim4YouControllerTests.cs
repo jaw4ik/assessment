@@ -84,7 +84,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _aim4YouController.Publish(course);
 
             //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeEquivalentTo(true);
+            result.Should().BeJsonSuccessResult();
         }
 
         #endregion

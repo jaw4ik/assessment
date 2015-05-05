@@ -11,7 +11,6 @@ CKEDITOR.editorConfig = function (config) {
         ['semanticTags']
     ];
 
-    CKEDITOR.plugins.addExternal('eqneditor', 'customPlugins/eqneditor/');
     CKEDITOR.plugins.addExternal('semantictags', 'customPlugins/semantictags/');
     CKEDITOR.plugins.addExternal('fileuploader', 'customPlugins/fileuploader/');
     CKEDITOR.plugins.addExternal('image', 'customPlugins/image/');
@@ -21,7 +20,7 @@ CKEDITOR.editorConfig = function (config) {
     CKEDITOR.plugins.addExternal('imagelibrary', 'customPlugins/imagelibrary/');
     CKEDITOR.plugins.addExternal('fillintheblank', 'customPlugins/fillintheblank/');
 
-    config.extraPlugins = 'semantictags,fileuploader,image,floatingspace,mediaembed,audioembed,imagelibrary,eqneditor,fillintheblank';
+    config.extraPlugins = 'semantictags,fileuploader,image,floatingspace,mediaembed,audioembed,imagelibrary,fillintheblank';
     config.extraAllowedContent = 'iframe';
 
     config.removeFormatTags = 'big,del,font,ins,kbd,s,small,strike,tt,var,figcaption,em,strong,u,abbr,acronym,blockquote,q,cite,dfn,code,samp,sub,sup,mark,time';

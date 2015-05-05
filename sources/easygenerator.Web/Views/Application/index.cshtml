@@ -84,7 +84,7 @@
     <script type="text/javascript">
         //bootstraper
         (function() {
-            if (localStorage["token-app"]) {
+            if (localStorage["token-auth"] && localStorage["token-api"]) {
                 var js = document.createElement('script');
                 js.type = 'text/javascript';
                 js.async = true;
@@ -101,7 +101,6 @@
                 document.body.appendChild(js);
             }
             else {
-                debugger;
                 window.location.replace('/signin');
             }
         }());

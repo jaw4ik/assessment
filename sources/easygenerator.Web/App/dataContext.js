@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/http', 'constants', 'mappers/courseModelMapper', 'mappers/objectiveModelMapper', 'mappers/templateModelMapper'],
-    function (app, http, constants, courseModelMapper, objectiveModelMapper, templateModelMapper) {
+﻿define(['durandal/app', 'constants', 'http/apiHttpWrapper', 'mappers/courseModelMapper', 'mappers/objectiveModelMapper', 'mappers/templateModelMapper'],
+    function (app, constants, apiHttpWrapper, courseModelMapper, objectiveModelMapper, templateModelMapper) {
         "use strict";
         var
             objectives = [],
@@ -8,34 +8,22 @@
 
             initialize = function () {
                 return Q.fcall(function () {
-                    return $.ajax({
-                        url: 'api/templates',
-                        type: 'POST',
-                        contentType: 'application/json',
-                        dataType: 'json'
-                    }).then(function (response) {
-                        _.each(response.data, function (template) {
-                            templates.push(templateModelMapper.map(template));
+                    return apiHttpWrapper.post('api/templates')
+                        .then(function (response) {
+                            _.each(response.data, function (template) {
+                                templates.push(templateModelMapper.map(template));
+                            });
                         });
-                    });
                 }).then(function () {
-                    return $.ajax({
-                        url: 'api/objectives',
-                        type: 'POST',
-                        contentType: 'application/json',
-                        dataType: 'json'
-                    }).then(function (response) {
-                        _.each(response.data, function (item) {
-                            objectives.push(objectiveModelMapper.map(item));
-                        });
-                    });
+                    return apiHttpWrapper.post('api/objectives')
+                      .then(function (response) {
+                          _.each(response.data, function (item) {
+                              objectives.push(objectiveModelMapper.map(item));
+                          });
+                      });
                 }).then(function () {
-                    return $.ajax({
-                        url: 'api/courses',
-                        type: 'POST',
-                        contentType: 'application/json',
-                        dataType: 'json'
-                    }).then(function (response) {
+                    return apiHttpWrapper.post('api/courses')
+                    .then(function (response) {
                         _.each(response.data, function (item) {
                             // Temporary - do not display courses if user does not have template
                             if (_.find(templates, function (template) {

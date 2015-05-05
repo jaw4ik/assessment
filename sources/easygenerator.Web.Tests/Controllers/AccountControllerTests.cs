@@ -147,20 +147,6 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void SignUp_ShouldRedirectToDefaultRoute_WhenExistingUserIsAlreadyAuthenticated()
-        {
-            //Arrange
-            _authenticationProvider.IsUserAuthenticated().Returns(true);
-            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(Substitute.For<User>());
-
-            //Act
-            var result = _controller.SignUp();
-
-            //Assert
-            ActionResultAssert.IsRedirectToRouteResult(result, "Default");
-        }
-
-        [TestMethod]
         public void SignUp_ShouldSetViewBagClickOnLogoDisabledToTrue_WhenExistingUserIsNotAuthenticated()
         {
             //Arrange
@@ -186,20 +172,6 @@ namespace easygenerator.Web.Tests.Controllers
 
             //Assert
             ActionResultAssert.IsViewResult(result);
-        }
-
-        [TestMethod]
-        public void SignUpSecondStep_ShouldRedirectToDefaultRoute_WhenExistingUserIsAlreadyAuthenticated()
-        {
-            //Arrange
-            _authenticationProvider.IsUserAuthenticated().Returns(true);
-            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(Substitute.For<User>());
-
-            //Act
-            var result = _controller.SignUpSecondStep();
-
-            //Assert
-            ActionResultAssert.IsRedirectToRouteResult(result, "Default");
         }
 
         [TestMethod]
@@ -245,20 +217,6 @@ namespace easygenerator.Web.Tests.Controllers
 
             //Assert
             ActionResultAssert.IsViewResult(result);
-        }
-
-        [TestMethod]
-        public void SignIn_ShouldRedirectToDefaultRoute_WhenExistingUserIsAlreadyAuthenticated()
-        {
-            //Arrange
-            _authenticationProvider.IsUserAuthenticated().Returns(true);
-            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(Substitute.For<User>());
-
-            //Act
-            var result = _controller.SignIn();
-
-            //Assert
-            ActionResultAssert.IsRedirectToRouteResult(result, "Default");
         }
 
         #endregion

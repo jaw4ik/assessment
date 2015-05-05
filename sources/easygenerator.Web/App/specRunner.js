@@ -265,6 +265,7 @@
             'bootstrapper.spec',
             'guard.spec',
             'http/apiHttpWrapper.spec',
+            'http/authHttpWrapper.spec',
             'http/httpRequestSender.spec',
             'notify.spec',
             'uiLocker.spec',

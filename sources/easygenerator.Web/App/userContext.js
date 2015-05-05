@@ -1,5 +1,4 @@
-﻿define(['durandal/app', 'constants', 'models/user', 'http/httpRequestSender'], function (app, constants, User, httpSender) {
-
+﻿define(['durandal/app', 'constants', 'models/user', 'http/authHttpWrapper'], function (app, constants, User, authHttpWrapper) {
 
     var userContext = {
         identity: null,
@@ -11,7 +10,7 @@
     return userContext;
 
     function identify() {
-        return Q(httpSender.post('auth/identity')
+        return Q(authHttpWrapper.post('auth/identity')
         ).then(function (user) {
             userContext.identity = _.isString(user.email) ? new User(user) : null;
             app.trigger(constants.messages.user.identified, userContext.identity);

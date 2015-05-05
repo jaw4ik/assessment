@@ -4,24 +4,23 @@
 
         var
             post = function (url, data) {
-                app.trigger('httpWrapper:post-begin');
-                return httpRequestSender.post(url, data)
+                app.trigger('authHttpWrapper:post-begin');
+
+                var headers = {
+                    "Authorization": "Bearer " + localStorage['token-auth']
+                };
+
+                return httpRequestSender.post(url, data, headers)
                      .then(function (response) {
                          if (!_.isObject(response)) {
                              throw 'Response data is not an object';
                              return;
                          }
-                        
-                         if (!response.success) {
-                             notify.error(response.errorMessage);
-                             throw response.errorMessage;
-                             return;
-                         }
-
+                     
                          return response.data;
                      })
                      .fin(function () {
-                         app.trigger('httpWrapper:post-end');
+                         app.trigger('authHttpWrapper:post-end');
                      });
             }
         ;
