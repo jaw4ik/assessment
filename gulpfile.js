@@ -27,8 +27,8 @@ var
 
 require('jshint-stylish');
 
-var addBuildVersion = function () {
-    var doReplace = function (file, callback) {
+function addBuildVersion() {
+    return eventStream.map(function (file, callback) {
         var fileContent = String(file.contents);
         fileContent = fileContent
             .replace(/(\?|\&)v=([0-9]+)/gi, '') // remove build version
@@ -37,8 +37,18 @@ var addBuildVersion = function () {
             .replace(/urlArgs: 'v=buildVersion'/gi, 'urlArgs: \'v=' + buildVersion + '\''); // replace build version for require config
         file.contents = new Buffer(fileContent);
         callback(null, file);
-    };
-    return eventStream.map(doReplace);
+    });
+};
+
+function removeDebugBlocks() {
+    return eventStream.map(function (file, callback) {
+        var fileContent = String(file.contents);
+        fileContent = fileContent
+            .replace(/(\/\* DEBUG \*\/)([\s\S])*(\/\* END_DEBUG \*\/)/gmi, '') // remove all code between '/* DEBUG */' and '/* END_DEBUG */' comment tags
+            .replace(/(\/\* RELEASE)|(END_RELEASE \*\/)/gmi, ''); // remove '/* RELEASE' and 'END_RELEASE */' tags to uncomment release code
+        file.contents = new Buffer(fileContent);
+        callback(null, file);
+    });
 };
 
 gulp.task('analyze', function () {
@@ -141,6 +151,7 @@ gulp.task('build-settings', ['build-design-settings', 'build-configure-settings'
       .pipe(gulp.dest(output + '/settings/css'));
 
     gulp.src('./src/settings/api.js')
+      .pipe(removeDebugBlocks())
       .pipe(uglify())
       .pipe(gulp.dest(output + '/settings'));
 
