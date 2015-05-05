@@ -6,7 +6,6 @@
     }
 
     ObjectiveStatement.prototype = Object.create(ExpandableStatement.prototype);
-    ObjectiveStatement.constructor = ObjectiveStatement;
 
     ObjectiveStatement.prototype.expandLoadAction = function () {
         var that = this;

@@ -36,13 +36,7 @@
 				expect(ExpandableStatement.prototype.isPrototypeOf(statement)).toBeTruthy();
 			});
 		});
-
-		describe('[constructor]', function () {
-			it('should be instance of ObjectiveStatement', function () {
-				expect(ObjectiveStatement.constructor).toBe(ObjectiveStatement);
-			});
-		});
-
+	
 		describe('[expandLoadAction]', function () {
 			it('should return promise', function () {
 				expect(statement.expandLoadAction()).toBePromise();
