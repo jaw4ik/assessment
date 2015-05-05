@@ -147,6 +147,7 @@
     <Compile Include="Components\ActionFilters\ForceHttpAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\HandleErrorAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\NoCacheAttributeTests.cs" />
+    <Compile Include="Components\ActionFilters\Permissions\PreviewAccessAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\ResourceUrlProcessorAttributeTests.cs" />
     <Compile Include="Components\BrowserSupportTest.cs" />
     <Compile Include="Components\BundleTransforms\ImageNoCacheParamTransformTests.cs" />
