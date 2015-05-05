@@ -69,7 +69,7 @@
                 it('promise should return undefined', function (done) {
                     lrsStatement.attemptId = null;
                     statement = new ExpandableStatement(lrsStatement, expandAction);
-                    statement.expand().then(function (result) {
+                    statement.expand().fin(function (result) {
                         expect(result).toBeUndefined();
                         done();
                     });
@@ -78,9 +78,9 @@
 
             describe('when isExpandable is true', function () {
                 describe('when children is null', function () {
-                    it('should set isExpanded to true and return undefined', function () {
+                    it('should set isExpanded to true and return undefined', function (done) {
                         statement.children = null;
-                        statement.expand().then(function (result) {
+                        statement.expand().fin(function (result) {
                             expect(statement.isExpanded()).toBeTruthy();
                             expect(result).toBeUndefined();
                             done();
@@ -88,10 +88,10 @@
                     });
                 });
 
-                describe('when children length is 0', function () {
-                    it('should set isExpanded to true', function () {
-                        statement.children = [];
-                        statement.expand().then(function (result) {
+                describe('when children array is not empty', function () {
+                    it('should set isExpanded to true and return undefined', function (done) {
+                        statement.children = ko.observableArray([{}]);
+                        statement.expand().fin(function (result) {
                             expect(statement.isExpanded()).toBeTruthy();
                             expect(result).toBeUndefined();
                             done();
@@ -99,11 +99,11 @@
                     });
                 });
 
-                describe('when children is not empty', function () {
-                    it('should return expandLoadAction', function () {
-                        statement.children = [{}];
-                        statement.expand().then(function (result) {
-                            expect(result).toBe(expandAction);
+                describe('when children array length is 0', function () {
+                    it('should return expandLoadAction', function (done) {
+                        statement.children = ko.observableArray([]);
+                        statement.expand().fin(function (result) {
+                            expect(result).toBe(expandAction());
                             done();
                         });
                     });
