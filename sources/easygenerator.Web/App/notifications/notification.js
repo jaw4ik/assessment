@@ -31,10 +31,16 @@
         return viewModel;
 
         function next() {
+            if (!viewModel.canMoveNext())
+                return;
+
             viewModel.index(viewModel.index() + 1);
         }
 
         function prev() {
+            if (!viewModel.canMovePrev())
+                return;
+
             viewModel.index(viewModel.index() - 1);
         }
 

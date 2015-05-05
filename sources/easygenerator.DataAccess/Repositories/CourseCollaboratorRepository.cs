@@ -61,11 +61,29 @@ namespace easygenerator.DataAccess.Repositories
                 FROM CourseCollaborators collaborator
                       INNER JOIN Users author ON author.Email = collaborator.CreatedBy
                       INNER JOIN Courses course ON course.Id = collaborator.Course_Id
-                WHERE collaborator.IsAccepted = 0 AND collaborator.Email = @userEmail
+                WHERE collaborator.Locked = 0 AND collaborator.IsAccepted = 0 AND collaborator.Email = @userEmail
 			";
 
             return Database.SqlQuery<CollaborationInvite>(query,
                 new SqlParameter("@userEmail", userEmail)).ToList();
+        }
+
+        public CollaborationInvite GetCollaborationInvite(CourseCollaborator collaborator)
+        {
+            const string query = @"
+				SELECT collaborator.Id, 
+                       author.FirstName as CourseAuthorFirstName, 
+                       author.LastName as CourseAuthorLastName, 
+                       course.Title as CourseTitle,
+                       course.Id as CourseId
+                FROM CourseCollaborators collaborator
+                      INNER JOIN Users author ON author.Email = collaborator.CreatedBy
+                      INNER JOIN Courses course ON course.Id = collaborator.Course_Id
+                WHERE collaborator.Locked = 0 AND collaborator.IsAccepted = 0 AND collaborator.Id = @id
+			";
+
+            return Database.SqlQuery<CollaborationInvite>(query,
+                new SqlParameter("@id", collaborator.Id)).FirstOrDefault();
         }
     }
 }

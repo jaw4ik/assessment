@@ -609,6 +609,8 @@
     <Content Include="App\synchronization\handlers\answer\eventHandlers\answerCorrectnessUpdated.spec.js">
       <DependentUpon>answerCorrectnessUpdated.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteCreated.js" />
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteRemoved.js" />
     <Content Include="App\synchronization\handlers\course\eventHandlers\stateChanged.js" />
     <Content Include="App\synchronization\handlers\course\eventHandlers\stateChanged.spec.js">
       <DependentUpon>stateChanged.js</DependentUpon>
@@ -1612,6 +1614,12 @@
     <Content Include="Content\shell.less" />
     <Content Include="Content\editField.less" />
     <Content Include="Content\notifications.less" />
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteCreated.spec.js">
+      <DependentUpon>inviteCreated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteRemoved.spec.js">
+      <DependentUpon>inviteRemoved.js</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />

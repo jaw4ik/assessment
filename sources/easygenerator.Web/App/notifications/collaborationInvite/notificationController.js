@@ -4,7 +4,8 @@
 
         var controller = {
             execute: execute,
-            pushNotification: pushNotification
+            pushNotification: pushNotification,
+            removeNotification: removeNotification
         };
 
         return controller;
@@ -15,23 +16,30 @@
                     return;
                 }
 
+                app.on(constants.messages.course.collaboration.inviteCreated, controller.pushNotification);
+                app.on(constants.messages.course.collaboration.inviteRemoved, controller.removeNotification);
+
                 return getInvitesQuery.execute().then(function (invites) {
                     _.each(invites, function (invite) {
-                        pushNotification(invite.Id, invite.CourseId, invite.CourseAuthorFirstName, invite.CourseAuthorLastName, invite.CourseTitle);
+                        pushNotification(invite);
                     });
                 });
             });
         }
 
-        function pushNotification(inviteId, courseId, courseAuthorFirstName, courseAuthorLastName, courseTitle) {
-            var notification = new Notification(constants.notification.keys.collaborationInvite + inviteId,
-                inviteId,
-                courseId,
+        function pushNotification(invite) {
+            var notification = new Notification(constants.notification.keys.collaborationInvite + invite.Id,
+                invite.Id,
+                invite.CourseId,
                 userContext.identity.firstname,
-                courseAuthorFirstName,
-                courseAuthorLastName,
-                courseTitle);
+                invite.CourseAuthorFirstName,
+                invite.CourseAuthorLastName,
+                invite.CourseTitle);
 
             app.trigger(constants.notification.messages.push, notification);
+        }
+
+        function removeNotification(inviteId) {
+            app.trigger(constants.notification.messages.remove, constants.notification.keys.collaborationInvite + inviteId);
         }
     });

@@ -30,9 +30,11 @@ namespace easygenerator.Web.Synchronization.Handlers
         private readonly IEntityMapper _entityMapper;
         private readonly IFeatureAvailabilityChecker _featureAvailabilityCheker;
         private readonly ICourseCollaboratorRepository _collaboratorRepository;
+        private readonly ICollaborationInviteMapper _collaborationInviteMapper;
 
         public CollaborationEventHandler(IUserCollaborationBroadcaster userBroadcaster, ICourseRepository courseRepository, IEntityMapper entityMapper,
-            ICollaborationBroadcaster<Course> courseCollaborationBroadcaster, IFeatureAvailabilityChecker featureAvailabilityCheker, ICourseCollaboratorRepository collaboratorRepository)
+            ICollaborationBroadcaster<Course> courseCollaborationBroadcaster, IFeatureAvailabilityChecker featureAvailabilityCheker, ICourseCollaboratorRepository collaboratorRepository,
+            ICollaborationInviteMapper collaborationInviteMapper)
         {
             _userBroadcaster = userBroadcaster;
             _courseRepository = courseRepository;
@@ -40,6 +42,7 @@ namespace easygenerator.Web.Synchronization.Handlers
             _courseCollaborationBroadcaster = courseCollaborationBroadcaster;
             _featureAvailabilityCheker = featureAvailabilityCheker;
             _collaboratorRepository = collaboratorRepository;
+            _collaborationInviteMapper = collaborationInviteMapper;
         }
 
         public void Handle(UserSignedUpEvent args)
@@ -54,16 +57,27 @@ namespace easygenerator.Web.Synchronization.Handlers
                .courseCollaboratorAdded(
                    args.Collaborator.Course.Id.ToNString(),
                    _entityMapper.Map(args.Collaborator));
-        }
 
+            if (args.Collaborator.Locked || args.Collaborator.IsAccepted)
+                return;
+
+            CreateCollaborationInvite(args.Collaborator);
+        }
 
         public void Handle(CourseCollaboratorRemovedEvent args)
         {
             _courseCollaborationBroadcaster.AllCollaboratorsExcept(args.Course, args.Course.CreatedBy, args.Collaborator.Email)
                 .collaboratorRemoved(args.Course.Id.ToNString(), args.Collaborator.Email);
 
-            _courseCollaborationBroadcaster.User(args.Collaborator.Email)
-                .courseCollaborationFinished(args.Course.Id.ToNString());
+            if (!args.Collaborator.Locked && args.Collaborator.IsAccepted)
+            {
+                _courseCollaborationBroadcaster.User(args.Collaborator.Email)
+                    .courseCollaborationFinished(args.Course.Id.ToNString());
+            }
+            else
+            {
+                RemoveCollaborationInvite(args.Collaborator);
+            }
 
             NotifyUsersIfCollaborationHasBeenUnlockedAfterCollaboratorDrop(args.Course, args.Collaborator);
         }
@@ -87,7 +101,7 @@ namespace easygenerator.Web.Synchronization.Handlers
         public void Handle(UserDowngraded args)
         {
             _collaboratorRepository.LockCollaboration(args.User.Email);
-            FinishCoursesCollaboration(args.User.Email, _courseRepository.GetOwnedCourses(args.User.Email));
+            NotifyCoursesCollaborationLocked(args.User.Email, _courseRepository.GetOwnedCourses(args.User.Email));
         }
 
         public void Handle(UserUpgradedToStarter args)
@@ -98,13 +112,13 @@ namespace easygenerator.Web.Synchronization.Handlers
                 _courseRepository.GetOwnedCourses(args.User.Email)
                 .Where(e => e.Collaborators.Count() <= Constants.Collaboration.MaxCollaboratorsCountForStarterPlan);
 
-            StartCoursesCollaboration(args.User.Email, coursesToEnabledCollaboration);
+            NotifyCoursesCollaborationUnlocked(args.User.Email, coursesToEnabledCollaboration);
         }
 
         public void Handle(UserUpgradedToPlus args)
         {
             _collaboratorRepository.UnlockCollaboration(args.User.Email);
-            StartCoursesCollaboration(args.User.Email, _courseRepository.GetOwnedCourses(args.User.Email));
+            NotifyCoursesCollaborationUnlocked(args.User.Email, _courseRepository.GetOwnedCourses(args.User.Email));
         }
 
         #region Private methods
@@ -114,31 +128,61 @@ namespace easygenerator.Web.Synchronization.Handlers
             var isCollaborationEnabled = _featureAvailabilityCheker.IsCourseCollaborationEnabled(course);
             var hasJustEnabledCollaboration = isCollaborationEnabled && course.Collaborators.Count() == _featureAvailabilityCheker.GetMaxAllowedCollaboratorsAmount(course);
 
-            if (hasJustEnabledCollaboration)
+            if (!hasJustEnabledCollaboration)
+                return;
+
+            _courseCollaborationBroadcaster.AllCollaboratorsExcept(course, collaborator.CreatedBy, collaborator.Email)
+                .courseCollaborationStarted(_entityMapper.Map(course),
+                    course.RelatedObjectives.Select(o => _entityMapper.Map(o)),
+                    _entityMapper.Map(course.Template));
+
+            foreach (var invitedCollaborator in course.Collaborators.Where(c => !c.IsAccepted))
             {
-                _courseCollaborationBroadcaster.AllCollaboratorsExcept(course, collaborator.CreatedBy, collaborator.Email)
-                        .courseCollaborationStarted(_entityMapper.Map(course),
-                        course.RelatedObjectives.Select(o => _entityMapper.Map(o)),
-                        _entityMapper.Map(course.Template));
+                CreateCollaborationInvite(invitedCollaborator);
             }
         }
 
-        private void FinishCoursesCollaboration(string username, IEnumerable<Course> courses)
+        private void NotifyCoursesCollaborationLocked(string username, IEnumerable<Course> courses)
         {
             if (!courses.Any())
                 return;
 
             courses.ForEach(c => _courseCollaborationBroadcaster.AllCollaboratorsExcept(c, username).courseCollaborationFinished(c.Id.ToNString()));
+
+            foreach (var invitedCollaborator in courses.SelectMany(course => course.Collaborators.Where(c => !c.IsAccepted)))
+            {
+                RemoveCollaborationInvite(invitedCollaborator);
+            }
         }
 
-
-        private void StartCoursesCollaboration(string username, IEnumerable<Course> courses)
+        private void NotifyCoursesCollaborationUnlocked(string username, IEnumerable<Course> courses)
         {
             if (!courses.Any())
                 return;
 
             courses.ForEach(c => _courseCollaborationBroadcaster.AllCollaboratorsExcept(c, username).
                 courseCollaborationStarted(_entityMapper.Map(c), c.RelatedObjectives.Select(o => _entityMapper.Map(o)), _entityMapper.Map(c.Template)));
+
+            foreach (var invitedCollaborator in courses.SelectMany(course => course.Collaborators.Where(c => !c.IsAccepted)))
+            {
+                CreateCollaborationInvite(invitedCollaborator);
+            }
+        }
+
+        private void CreateCollaborationInvite(CourseCollaborator collaborator)
+        {
+            _courseCollaborationBroadcaster.User(collaborator.Email).collaborationInviteCreated(MapCollaborationInvite(collaborator));
+        }
+
+        private void RemoveCollaborationInvite(CourseCollaborator collaborator)
+        {
+            _courseCollaborationBroadcaster.User(collaborator.Email).collaborationInviteRemoved(collaborator.Id.ToNString());
+        }
+
+        private object MapCollaborationInvite(CourseCollaborator collaborator)
+        {
+            var invite = _collaboratorRepository.GetCollaborationInvite(collaborator);
+            return _collaborationInviteMapper.Map(invite);
         }
 
         #endregion

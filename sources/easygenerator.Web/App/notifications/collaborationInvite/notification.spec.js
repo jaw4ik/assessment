@@ -26,6 +26,19 @@
             });
         });
 
+        describe('id:', function () {
+            it('should be set', function () {
+                expect(notification.id).toBe(id);
+            });
+        });
+
+
+        describe('courseId:', function () {
+            it('should be set', function () {
+                expect(notification.courseId).toBe(courseId);
+            });
+        });
+
         describe('firstname:', function () {
             it('should be set', function () {
                 expect(notification.firstname).toBe(firstname);

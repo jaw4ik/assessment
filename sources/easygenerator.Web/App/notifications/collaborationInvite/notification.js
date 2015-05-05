@@ -5,6 +5,8 @@ function (app, acceptInvite, declineInvite, constants) {
 
     return function (key, id, courseId, firstname, courseAuthorFirstname, courseAuthorLastname, courseTitle) {
         this.key = key;
+        this.id = id;
+        this.courseId = courseId;
         this.firstname = firstname;
         this.courseTitle = courseTitle;
 
@@ -20,7 +22,7 @@ function (app, acceptInvite, declineInvite, constants) {
         function accept() {
             that.isAccepting(true);
 
-            return acceptInvite.execute(courseId, id)
+            return acceptInvite.execute(that.courseId, that.id)
                 .then(function () {
                     app.trigger(constants.notification.messages.remove, key);
                 })
@@ -32,7 +34,7 @@ function (app, acceptInvite, declineInvite, constants) {
         function decline() {
             that.isDeclining(true);
 
-            return declineInvite.execute(courseId, id)
+            return declineInvite.execute(that.courseId, that.id)
                 .then(function () {
                     app.trigger(constants.notification.messages.remove, key);
                 })

@@ -8,6 +8,7 @@ namespace easygenerator.DomainModel.Repositories
     {
         ICollection<Course> GetSharedCourses(string email);
         IEnumerable<CollaborationInvite> GetCollaborationInvites(string userEmail);
+        CollaborationInvite GetCollaborationInvite(CourseCollaborator collaborator);
         void LockCollaboration(string email);
         void UnlockCollaboration(string email);
         void UnlockCollaboration(string email, int allowedCollaborationsCount);

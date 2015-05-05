@@ -62,11 +62,15 @@ namespace easygenerator.Web.Synchronization.Handlers
 
         public void Handle(CourseDeletedEvent args)
         {
-            var users = args.Collaborators;
+            var users = args.Collaborators.ToList();
             users.Add(args.Course.CreatedBy);
             users.Remove(args.DeletedBy);
 
             _broadcaster.Users(users).courseDeleted(args.Course.Id.ToNString());
+            foreach (var invitedCollaborator in args.InvitedCollaborators)
+            {
+                _broadcaster.User(invitedCollaborator.Email).collaborationInviteRemoved(invitedCollaborator.Id.ToNString());
+            }
         }
 
         public void Handle(CourseObjectiveRelatedEvent args)

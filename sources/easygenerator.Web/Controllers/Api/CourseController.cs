@@ -68,10 +68,11 @@ namespace easygenerator.Web.Controllers.Api
             if (course != null)
             {
                 var collaborators = course.Collaborators.Select(e => e.Email).ToList();
+                var invitedCollaborators = course.Collaborators.Where(e => !e.Locked && !e.IsAccepted);
 
                 _courseRepository.Remove(course);
 
-                _eventPublisher.Publish(new CourseDeletedEvent(course, collaborators, GetCurrentUsername()));
+                _eventPublisher.Publish(new CourseDeletedEvent(course, collaborators, invitedCollaborators, GetCurrentUsername()));
             }
 
             return JsonSuccess();
@@ -236,7 +237,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             course.SaveTemplateSettings(template, settings, extraData);
-            
+
             return Json(true);
         }
 

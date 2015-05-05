@@ -110,6 +110,15 @@
         });
 
         describe('next:', function () {
+            describe('shen is last item', function() {
+                it('should not update index', function () {
+                    viewModel.collection([{}, {}]);
+                    viewModel.index(1);
+                    viewModel.next();
+                    expect(viewModel.index()).toBe(1);
+                });
+            });
+
             it('should set index +1', function () {
                 viewModel.index(0);
                 viewModel.next();
@@ -118,6 +127,15 @@
         });
 
         describe('prev:', function () {
+            describe('shen is first item', function () {
+                it('should not update index', function () {
+                    viewModel.collection([{}, {}]);
+                    viewModel.index(0);
+                    viewModel.prev();
+                    expect(viewModel.index()).toBe(0);
+                });
+            });
+
             it('should set index -1', function () {
                 viewModel.index(1);
                 viewModel.prev();

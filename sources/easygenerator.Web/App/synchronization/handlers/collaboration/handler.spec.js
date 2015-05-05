@@ -36,6 +36,20 @@
 
         });
 
+        describe('inviteCreated:', function () {
+            it('should be function', function () {
+                expect(handler.inviteCreated).toBeFunction();
+            });
+
+        });
+
+        describe('inviteRemoved:', function () {
+            it('should be function', function () {
+                expect(handler.inviteRemoved).toBeFunction();
+            });
+
+        });
+
     });
 
 })
