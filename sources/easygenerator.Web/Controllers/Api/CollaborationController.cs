@@ -122,14 +122,19 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [Route("api/course/collaboration/invite/accept")]
-        public ActionResult AcceptCollaborationInvite(CourseCollaborator collaborator)
+        public ActionResult AcceptCollaborationInvite(Course course, CourseCollaborator collaborator)
         {
+            if (course == null)
+            {
+                return HttpNotFound(Errors.CourseNotFoundError);
+            }
+
             if (collaborator == null)
             {
                 return HttpNotFound(Errors.CollaboratorNotFoundError);
             }
 
-            collaborator.AcceptCollaboration();
+            course.AcceptCollaboration(collaborator);
 
             return JsonSuccess();
         }
@@ -148,7 +153,7 @@ namespace easygenerator.Web.Controllers.Api
                 return HttpNotFound(Errors.CollaboratorNotFoundError);
             }
 
-            course.RemoveCollaborator(_cloner, collaborator);
+            course.DeclineCollaboration(collaborator);
 
             return JsonSuccess();
         }

@@ -1290,7 +1290,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void RemoveCollaborator__ShouldRaiseEventOnlyAboutObjectivesOfRemovedCollaborator()
+        public void RemoveCollaborator_ShouldRaiseEventOnlyAboutObjectivesOfRemovedCollaborator()
         {
             // Arrange
             var course = CourseObjectMother.Create();
@@ -1367,6 +1367,98 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
+        #region AcceptCollaboration
+
+        [TestMethod]
+        public void AcceptCollaboration_ShouldThrowNullArgumentException_WhenCollaborationIsNull()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create();
+
+            // Act
+            Action action = () => course.AcceptCollaboration(null);
+
+            // Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("courseCollaborator");
+        }
+
+        [TestMethod]
+        public void AcceptCollaboration_ShouldSetCollaboratorIsAcceptedToTrue()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create();
+            var collaborator = CourseCollaboratorObjectMother.Create();
+
+            // Act
+            course.AcceptCollaboration(collaborator);
+
+            // Assert
+            collaborator.IsAccepted.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void AcceptCollaboration_ShouldTriggerEvent()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create();
+            var collaborator = CourseCollaboratorObjectMother.Create();
+
+            // Act
+            course.AcceptCollaboration(collaborator);
+
+            // Assert
+            course.Events.Should().ContainSingle(e => e.GetType() == typeof(CollaborationAcceptedEvent));
+        }
+
+        #endregion
+
+        #region DeclineCollaboration
+
+        [TestMethod]
+        public void DeclineCollaboration_ShouldThrowNullArgumentException_WhenCollaborationIsNull()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create();
+
+            // Act
+            Action action = () => course.DeclineCollaboration(null);
+
+            // Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("courseCollaborator");
+        }
+
+        [TestMethod]
+        public void DeclineCollaboration_ShouldRemoveCollaborator()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create();
+            var collaborator = CourseCollaboratorObjectMother.Create();
+            course.CollaboratorsCollection.Add(collaborator);
+
+            // Act
+            course.DeclineCollaboration(collaborator);
+
+            // Assert
+            course.Collaborators.LongCount().Should().Be(0);
+        }
+
+        [TestMethod]
+        public void DeclineCollaboration_ShouldTriggerEvent()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create();
+            var collaborator = CourseCollaboratorObjectMother.Create();
+            course.CollaboratorsCollection.Add(collaborator);
+
+            // Act
+            course.DeclineCollaboration(collaborator);
+
+            // Assert
+            course.Events.Should().ContainSingle(e => e.GetType() == typeof(CollaborationDeclinedEvent));
+        }
+
+        #endregion
+
         #region OrderClonedObjectives
 
         [TestMethod]
@@ -1411,7 +1503,6 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
-
 
         #region GetTemplateSettings
 

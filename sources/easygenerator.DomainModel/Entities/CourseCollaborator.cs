@@ -21,11 +21,6 @@ namespace easygenerator.DomainModel.Entities
             Email = email;
         }
 
-        public void AcceptCollaboration()
-        {
-            IsAccepted = true;
-        }
-
         private void ThrowIfCourseIsInvalid(Course course)
         {
             ArgumentValidation.ThrowIfNull(course, "course");

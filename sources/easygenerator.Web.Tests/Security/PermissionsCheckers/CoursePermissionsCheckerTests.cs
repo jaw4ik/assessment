@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
@@ -108,11 +109,10 @@ namespace easygenerator.Web.Tests.Security.PermissionsCheckers
         public void HasCollaboratorPermissions_ShouldReturnTrue_WhenUserIsCollaborator_AndIsAccepted_AndCollaborationEnabled()
         {
             //Arrange
-            var course = Substitute.For<Course>();
-            var collaborator = Substitute.For<CourseCollaborator>();
-            collaborator.AcceptCollaboration();
-            collaborator.Email.Returns(Username);
-            course.Collaborators.Returns(new List<CourseCollaborator>() { collaborator });
+            var course = CourseObjectMother.Create();
+            course.Collaborate(Username, "author");
+            var collaborator = course.Collaborators.First();
+            course.AcceptCollaboration(collaborator);
 
             _featureAvailabilityChecker.IsCourseCollaborationEnabled(course).Returns(true);
 

@@ -72,7 +72,7 @@
                 acceptInviteDefer.resolve();
                 var promise = notification.accept();
                 promise.fin(function () {
-                    expect(acceptInvite.execute).toHaveBeenCalledWith(id);
+                    expect(acceptInvite.execute).toHaveBeenCalledWith(courseId, id);
                     done();
                 });
             });

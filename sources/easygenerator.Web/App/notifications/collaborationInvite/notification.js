@@ -20,7 +20,7 @@ function (app, acceptInvite, declineInvite, constants) {
         function accept() {
             that.isAccepting(true);
 
-            return acceptInvite.execute(id)
+            return acceptInvite.execute(courseId, id)
                 .then(function () {
                     app.trigger(constants.notification.messages.remove, key);
                 })

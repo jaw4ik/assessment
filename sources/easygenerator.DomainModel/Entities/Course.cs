@@ -50,6 +50,9 @@ namespace easygenerator.DomainModel.Entities
             RaiseEvent(new CourseTemplateUpdatedEvent(this));
         }
 
+
+        #region Collaboration
+
         protected internal virtual ICollection<CourseCollaborator> CollaboratorsCollection { get; set; }
 
         public virtual IEnumerable<CourseCollaborator> Collaborators
@@ -82,6 +85,22 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(CreatedBy);
 
             RaiseEvent(new CourseCollaboratorRemovedEvent(this, collaborator));
+        }
+
+        public virtual void AcceptCollaboration(CourseCollaborator collaborator)
+        {
+            ThrowIfCollaboratorIsInvalid(collaborator);
+
+            collaborator.IsAccepted = true;
+            RaiseEvent(new CollaborationAcceptedEvent(this, collaborator));
+        }
+
+        public virtual void DeclineCollaboration(CourseCollaborator collaborator)
+        {
+            ThrowIfCollaboratorIsInvalid(collaborator);
+
+            CollaboratorsCollection.Remove(collaborator);
+            RaiseEvent(new CollaborationDeclinedEvent(this, collaborator));
         }
 
         private void CloneObjectivesOfCollaborator(ICloner entityCloner, string collaboratorEmail)
@@ -117,6 +136,8 @@ namespace easygenerator.DomainModel.Entities
                 }
             }
         }
+
+        #endregion
 
         #region Comments
 

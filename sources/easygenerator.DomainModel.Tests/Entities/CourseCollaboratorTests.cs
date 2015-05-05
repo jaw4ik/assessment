@@ -55,21 +55,5 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
-        #region AcceptCollaboration
-
-        [TestMethod]
-        public void AcceptCollaboration_ShouldSetIsAcceptedToTrue()
-        {
-            //Arrange
-            var collaborator = CourseCollaboratorObjectMother.Create();
-
-            //Act
-            collaborator.AcceptCollaboration();
-
-            //Assert
-            collaborator.IsAccepted.Should().BeTrue();
-        }
-
-        #endregion
     }
 }

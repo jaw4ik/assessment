@@ -7,7 +7,7 @@ namespace easygenerator.DataAccess.Migrations
         public override void Up()
         {
             AddColumn("dbo.CourseCollaborators", "IsAccepted", c => c.Boolean(nullable: false));
-            Sql("UPDATE dbo.CourseCollaborators SET IsAccepted = 0");
+            Sql("UPDATE dbo.CourseCollaborators SET IsAccepted = 1");
         }
 
         public override void Down()

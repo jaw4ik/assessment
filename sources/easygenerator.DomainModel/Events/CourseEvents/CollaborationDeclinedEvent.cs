@@ -2,9 +2,9 @@
 
 namespace easygenerator.DomainModel.Events.CourseEvents
 {
-    public class CourseCollaboratorRemovedEvent : CollaborationEvent
+    public class CollaborationDeclinedEvent : CollaborationEvent
     {
-        public CourseCollaboratorRemovedEvent(Course course, CourseCollaborator collaborator)
+        public CollaborationDeclinedEvent(Course course, CourseCollaborator collaborator)
             : base(course, collaborator)
         {
         }

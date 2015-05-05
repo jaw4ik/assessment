@@ -259,18 +259,27 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void DeclineCollaborationInvite_ShouldCallCourseRemoveCollaboratorMethod()
         {
+            //Arrange
             var course = Substitute.For<Course>();
             var collaborator = CourseCollaboratorObjectMother.Create(course, "aa@aa.aa");
+
+            //Act
             _controller.DeclineCollaborationInvite(course, collaborator);
 
-            course.Received().RemoveCollaborator(_cloner, collaborator);
+            //Assert
+            course.Received().DeclineCollaboration(collaborator);
         }
 
         [TestMethod]
         public void DeclineCollaborationInvite_ShouldReturnJsonSuccess_WhenCollaboratorRemoved()
         {
+            //Arrange
             var course = CourseObjectMother.Create();
+
+            //Act
             var result = _controller.DeclineCollaborationInvite(course, CourseCollaboratorObjectMother.Create(course, "aa@aa.aa"));
+
+            //Assert
             result.Should().BeJsonSuccessResult();
         }
         #endregion
@@ -278,26 +287,43 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region AcceptCollaborationInvite
 
         [TestMethod]
+        public void AcceptCollaborationInvite_ShouldReturnJsonErrorResult_WnenCourseIsNull()
+        {
+            //Arrange
+            var collaborator = CourseCollaboratorObjectMother.Create();
+
+            //Act
+            var result = _controller.AcceptCollaborationInvite(null, collaborator);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.CourseNotFoundError);
+        }
+
+        [TestMethod]
         public void AcceptCollaborationInvite_ShouldReturnJsonErrorResult_WnenCollaboratorIsNull()
         {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
             //Act
-            var result = _controller.AcceptCollaborationInvite(null);
+            var result = _controller.AcceptCollaborationInvite(course, null);
 
             //Assert
             result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.CollaboratorNotFoundError);
         }
 
         [TestMethod]
-        public void AcceptCollaborationInvite_ShouldAcceprCollaborationInvite()
+        public void AcceptCollaborationInvite_ShouldAcceptCollaborationInvite()
         {
             //Arrange
             var collaborator = CourseCollaboratorObjectMother.Create();
+            var course = Substitute.For<Course>();
 
             //Act
-            _controller.AcceptCollaborationInvite(collaborator);
+            _controller.AcceptCollaborationInvite(course, collaborator);
 
             //Assert
-            collaborator.IsAccepted.Should().BeTrue();
+            course.Received().AcceptCollaboration(collaborator);
         }
 
         [TestMethod]
@@ -305,9 +331,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var collaborator = CourseCollaboratorObjectMother.Create();
+            var course = Substitute.For<Course>();
 
             //Act
-            var result = _controller.AcceptCollaborationInvite(collaborator);
+            var result = _controller.AcceptCollaborationInvite(course, collaborator);
 
             //Assert
             result.Should().BeJsonSuccessResult();
