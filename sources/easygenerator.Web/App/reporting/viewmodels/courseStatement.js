@@ -9,7 +9,6 @@
     }
 
     CourseStatement.prototype = Object.create(ExpandableStatement.prototype);
-    CourseStatement.constructor = CourseStatement;
 
     CourseStatement.prototype.expandLoadAction = function () {
         var that = this;
