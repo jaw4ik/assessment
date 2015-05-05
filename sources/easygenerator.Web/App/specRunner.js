@@ -54,7 +54,7 @@
             'errorHandling/httpErrorHandlers/unauthorizedHttpErrorHandler.spec',
             'errorHandling/errorHandlingConfiguration.spec',
             'errorHandling/globalErrorHandler.spec',
-            'errorHandling/httpErrorHandlerRegistrator.spec',
+            'errorHandling/httpErrorHandlerRegistrator.spec',            
 
             //#endregion
 
@@ -75,7 +75,8 @@
             'localization/localizationManager.spec',
             'models/course.spec',
             'models/user.spec',
-            'models/reportingStatement.spec',
+            //'models/reporting/statement.spec',
+            'models/reporting/actor.spec',
             'repositories/answerRepository.spec',
             'repositories/commentRepository.spec',
             'repositories/collaboratorRepository.spec',
@@ -95,7 +96,8 @@
 
             //#endregion
 
-            'reporting/xApiProvider.spec',
+            //'reporting/xApiFilterCriteriaFactory.spec',
+            //'reporting/xApiProvider.spec',
 
             //#region synchronization
 
@@ -200,7 +202,7 @@
             'viewmodels/courses/course/create/course.spec',
             'viewmodels/courses/course/design.spec',
             'viewmodels/courses/course/publish.spec',
-            'viewmodels/courses/course/results.spec',
+            //'reporting/viewmodels/results.spec',
             'viewmodels/courses/publishingActions/publishingAction.spec',
             'viewmodels/courses/publishingActions/build.spec',
             'viewmodels/courses/publishingActions/publish.spec',

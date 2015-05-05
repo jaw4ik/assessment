@@ -38,7 +38,7 @@
           },
           {
               route: 'results',
-              moduleId: 'viewmodels/courses/course/results',
+              moduleId: 'reporting/viewmodels/results',
               title: localizationManager.localize('courseResultsItem'),
               nav: 4,
               hash: '#courses/:courseId/results',
