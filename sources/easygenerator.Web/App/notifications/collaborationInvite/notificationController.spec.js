@@ -68,6 +68,7 @@
                         var invites = [
                         {
                             Id: '0',
+                            CourseId: '1',
                             CourseAuthorFirstName: 'Ann',
                             CourseAuthorLastName: 'Qqq',
                             CourseTitle: 'titile'
@@ -82,6 +83,10 @@
                                 expect(app.trigger).toHaveBeenCalled();
                                 expect(app.trigger.calls.mostRecent().args[0]).toBe(constants.notification.messages.push);
                                 expect(app.trigger.calls.mostRecent().args[1].key).toBe(constants.notification.keys.collaborationInvite + invites[0].id);
+                                expect(app.trigger.calls.mostRecent().args[1].courseId).toBe(constants.notification.keys.collaborationInvite + invites[0].CourseId);
+                                expect(app.trigger.calls.mostRecent().args[1].courseAuthorFirstName).toBe(constants.notification.keys.collaborationInvite + invites[0].CourseAuthorFirstName);
+                                expect(app.trigger.calls.mostRecent().args[1].courseAuthorLastName).toBe(constants.notification.keys.collaborationInvite + invites[0].CourseAuthorLastName);
+                                expect(app.trigger.calls.mostRecent().args[1].courseTitle).toBe(constants.notification.keys.collaborationInvite + invites[0].CourseTitle);
                                 done();
                             });
                         });

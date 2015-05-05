@@ -8,6 +8,7 @@ using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Mail;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using WebGrease.Css.Extensions;
 
@@ -17,16 +18,19 @@ namespace easygenerator.Web.Controllers.Api
     {
         private readonly IUserRepository _userRepository;
         private readonly ICourseCollaboratorRepository _collaborationRepository;
-        private readonly IEntityModelMapper<CourseCollaborator> _collaboratorEntityModelMapper;
+        private readonly IEntityModelMapper<CourseCollaborator> _collaboratorModelMapper;
+        private readonly ICollaborationInviteMapper _inviteMapper;
         private readonly IMailSenderWrapper _mailSenderWrapper;
         private readonly ICloner _cloner;
 
-        public CollaborationController(IUserRepository userRepository, ICourseCollaboratorRepository collaborationRepository, IEntityModelMapper<CourseCollaborator> collaboratorEntityModelMapper, IMailSenderWrapper mailSenderWrapper, ICloner cloner)
+        public CollaborationController(IUserRepository userRepository, ICourseCollaboratorRepository collaborationRepository,
+            IEntityModelMapper<CourseCollaborator> collaboratorModelMapper, IMailSenderWrapper mailSenderWrapper, ICloner cloner, ICollaborationInviteMapper inviteMapper)
         {
             _userRepository = userRepository;
             _collaborationRepository = collaborationRepository;
-            _collaboratorEntityModelMapper = collaboratorEntityModelMapper;
+            _collaboratorModelMapper = collaboratorModelMapper;
             _mailSenderWrapper = mailSenderWrapper;
+            _inviteMapper = inviteMapper;
             _cloner = cloner;
         }
 
@@ -41,7 +45,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             var collaborators = new List<object>();
-            course.Collaborators.ForEach(e => collaborators.Add(_collaboratorEntityModelMapper.Map(e)));
+            course.Collaborators.ForEach(e => collaborators.Add(_collaboratorModelMapper.Map(e)));
 
             var owner = _userRepository.GetUserByEmail(course.CreatedBy);
             if (owner != null)
@@ -85,7 +89,7 @@ namespace easygenerator.Web.Controllers.Api
                 _mailSenderWrapper.SendInviteCollaboratorMessage(colaboratorEmail, author.FullName, course.Title);
             }
 
-            return JsonSuccess(_collaboratorEntityModelMapper.Map(collaborator));
+            return JsonSuccess(_collaboratorModelMapper.Map(collaborator));
         }
 
         [HttpPost]
@@ -112,7 +116,8 @@ namespace easygenerator.Web.Controllers.Api
         [Route("api/course/collaboration/invites")]
         public ActionResult GetCollaborationInvites()
         {
-            return JsonSuccess(_collaborationRepository.GetCollaborationInvites(GetCurrentUsername()));
+            var invites = _collaborationRepository.GetCollaborationInvites(GetCurrentUsername());
+            return JsonSuccess(invites.Select(invite => _inviteMapper.Map(invite)));
         }
 
         [HttpPost]

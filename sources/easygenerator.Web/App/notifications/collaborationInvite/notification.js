@@ -3,7 +3,7 @@ function (app, acceptInvite, declineInvite, constants) {
 
     "use strict";
 
-    return function (key, id, firstname, courseAuthorFirstname, courseAuthorLastname, courseTitle) {
+    return function (key, id, courseId, firstname, courseAuthorFirstname, courseAuthorLastname, courseTitle) {
         this.key = key;
         this.firstname = firstname;
         this.courseTitle = courseTitle;
@@ -32,7 +32,7 @@ function (app, acceptInvite, declineInvite, constants) {
         function decline() {
             that.isDeclining(true);
 
-            return declineInvite.execute(id)
+            return declineInvite.execute(courseId, id)
                 .then(function () {
                     app.trigger(constants.notification.messages.remove, key);
                 })

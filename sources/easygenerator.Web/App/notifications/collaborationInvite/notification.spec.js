@@ -8,6 +8,7 @@
     describe('collaboration invite [notification]:', function () {
         var notification,
             id = 'id',
+            courseId = 'courseId',
             key = 'key',
             firstname = 'user',
             coauthorFirstname = 'coautor',
@@ -15,7 +16,7 @@
             courseTitle = 'course';
 
         beforeEach(function () {
-            notification = new Notification(key, id, firstname, coauthorFirstname, coauthorLastname, courseTitle);
+            notification = new Notification(key, id, courseId, firstname, coauthorFirstname, coauthorLastname, courseTitle);
             spyOn(app, 'trigger');
         });
 
@@ -112,7 +113,7 @@
                 declineInviteDefer.resolve();
                 var promise = notification.decline();
                 promise.fin(function () {
-                    expect(declineInvite.execute).toHaveBeenCalledWith(id);
+                    expect(declineInvite.execute).toHaveBeenCalledWith(courseId, id);
                     done();
                 });
             });

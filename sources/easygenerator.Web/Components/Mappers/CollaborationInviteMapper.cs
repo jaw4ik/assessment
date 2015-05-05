@@ -1,15 +1,24 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using easygenerator.Infrastructure.DomainModel.Mappings;
 using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Components.Mappers
 {
-    public class CollaborationInviteMapper
+    public interface ICollaborationInviteMapper
     {
-        public dynamic Map(CourseCollaborator collaborator)
+        dynamic Map(CollaborationInvite invite);
+    }
+
+    public class CollaborationInviteMapper : ICollaborationInviteMapper
+    {
+        public dynamic Map(CollaborationInvite invite)
         {
             return new
             {
-                Id = collaborator.Id.ToNString()
+                Id = invite.Id.ToNString(),
+                CourseId = invite.CourseId.ToNString(),
+                CourseAuthorFirstName = invite.CourseAuthorFirstName,
+                CourseAuthorLastName = invite.CourseAuthorLastName,
+                CourseTitle = invite.CourseTitle
             };
         }
     }

@@ -8,7 +8,9 @@
 
         describe('execute:', function () {
 
-            var dfd;
+            var dfd,
+                id = 'id',
+                courseId = 'courseId';
 
             beforeEach(function () {
                 dfd = Q.defer();
@@ -20,13 +22,13 @@
             });
 
             it('should return promise', function () {
-                expect(query.execute()).toBePromise();
+                expect(query.execute(courseId, id)).toBePromise();
             });
 
             it('should send request to the server to decline invite', function (done) {
                 dfd.resolve(true);
 
-                query.execute().then(function (result) {
+                query.execute(courseId, id).then(function (result) {
                     expect(result).toEqual(true);
                     done();
                 });

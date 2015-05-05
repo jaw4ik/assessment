@@ -8,7 +8,8 @@
 
         describe('execute:', function () {
 
-            var dfd;
+            var dfd,
+                id = 'id';
 
             beforeEach(function () {
                 dfd = Q.defer();
@@ -20,13 +21,13 @@
             });
 
             it('should return promise', function () {
-                expect(query.execute()).toBePromise();
+                expect(query.execute(id)).toBePromise();
             });
 
             it('should send request to the server to accept invite', function (done) {
                 dfd.resolve(true);
 
-                query.execute().then(function (result) {
+                query.execute(id).then(function (result) {
                     expect(result).toEqual(true);
                     done();
                 });

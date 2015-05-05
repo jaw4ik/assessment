@@ -17,15 +17,16 @@
 
                 return getInvitesQuery.execute().then(function (invites) {
                     _.each(invites, function (invite) {
-                        pushNotification(invite.Id, invite.CourseAuthorFirstName, invite.CourseAuthorLastName, invite.CourseTitle);
+                        pushNotification(invite.Id, invite.CourseId, invite.CourseAuthorFirstName, invite.CourseAuthorLastName, invite.CourseTitle);
                     });
                 });
             });
         }
 
-        function pushNotification(inviteId, courseAuthorFirstName, courseAuthorLastName, courseTitle) {
+        function pushNotification(inviteId, courseId, courseAuthorFirstName, courseAuthorLastName, courseTitle) {
             var notification = new Notification(constants.notification.keys.collaborationInvite + inviteId,
                 inviteId,
+                courseId,
                 userContext.identity.firstname,
                 courseAuthorFirstName,
                 courseAuthorLastName,

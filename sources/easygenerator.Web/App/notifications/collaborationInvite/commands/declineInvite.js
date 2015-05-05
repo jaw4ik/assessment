@@ -1,8 +1,8 @@
 ﻿define(['http/httpWrapper'], function (httpWrapper) {
 
     return {
-        execute: function (inviteId) {
-            return httpWrapper.post('api/course/collaboration/invite/decline', { collaborationInviteId: inviteId });
+        execute: function (courseId, collaboratorId) {
+            return httpWrapper.post('api/course/collaboration/invite/decline', { courseId: courseId, collaboratorId: collaboratorId });
         }
     }
 

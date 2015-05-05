@@ -31,6 +31,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IUserRepository _userRepository;
         private ICourseCollaboratorRepository _collaborationRepository;
         private IEntityModelMapper<CourseCollaborator> _collaboratorEntityModelMapper;
+        private ICollaborationInviteMapper _inviteMapper;
         private IMailSenderWrapper _mailSenderWrapper;
         private ICloner _cloner;
 
@@ -49,11 +50,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _context = Substitute.For<HttpContextBase>();
             _context.User.Returns(_user);
             _collaboratorEntityModelMapper = Substitute.For<IEntityModelMapper<CourseCollaborator>>();
+            _inviteMapper = Substitute.For<ICollaborationInviteMapper>();
 
             _mailSenderWrapper = Substitute.For<IMailSenderWrapper>();
             _cloner = Substitute.For<ICloner>();
 
-            _controller = new CollaborationController(_userRepository, _collaborationRepository, _collaboratorEntityModelMapper, _mailSenderWrapper, _cloner);
+            _controller = new CollaborationController(_userRepository, _collaborationRepository, _collaboratorEntityModelMapper, _mailSenderWrapper, _cloner, _inviteMapper);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
             DateTimeWrapper.Now = () => CurrentDate;
         }

@@ -1634,6 +1634,7 @@
   vertical-align: middle;
 }
 .shell > header .header-upgrade-link {
+  padding: 0px 10px;
   color: #559f64;
   font-family: 'OpenSans-Semibold', sans-serif;
 }

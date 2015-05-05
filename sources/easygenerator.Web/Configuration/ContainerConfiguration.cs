@@ -113,6 +113,7 @@ namespace easygenerator.Web.Configuration
 
             RegisterGenericTypes(builder, applicationAssembly, typeof(IEntityModelMapper<>));
             builder.RegisterType<EntityMapper>().As<IEntityMapper>();
+            builder.RegisterType<CollaborationInviteMapper>().As<ICollaborationInviteMapper>();
 
             #endregion
 
