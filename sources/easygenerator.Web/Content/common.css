@@ -227,13 +227,16 @@ input::-moz-focus-inner {
 /*#region COMMON TAGS CSS-STYLES*/
 html {
   overflow-y: hidden;
-}
-html,
-body {
   height: 100%;
   width: 100%;
-  background: white;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+body {
   font-family: 'OpenSans', sans-serif;
+  background-color: #f3f7f9;
+  height: 100%;
+  width: 100%;
 }
 table {
   border-collapse: collapse;
@@ -328,6 +331,7 @@ img:hover {
   overflow-y: hidden;
   overflow-x: auto;
   color: #333333;
+  background-color: #fff;
 }
 .styled-content h1,
 .styled-content h2,
