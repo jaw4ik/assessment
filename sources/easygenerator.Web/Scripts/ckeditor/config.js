@@ -7,7 +7,7 @@ CKEDITOR.editorConfig = function (config) {
         ['Cut', 'Copy', 'Paste', 'PasteText', '-', 'Undo', 'Redo'],
         ['Bold', 'Italic', 'Underline', '-', 'RemoveFormat'],
         ['NumberedList', 'BulletedList'],
-        ['Link', 'Unlink', 'Table', 'Image', 'Iframe', 'AudioEmbed', 'MediaEmbed', 'EqnEditor'],
+        ['Link', 'Unlink', 'Table', 'Image', 'Iframe', 'AudioEmbed', 'MediaEmbed'],
         ['semanticTags']
     ];
 

@@ -278,4 +278,8 @@
 .modalBlockout {
   background-color: #323a45;
   opacity: 0.8 !important;
+  z-index: 1990 !important;
+}
+.modalHost {
+  z-index: 2000 !important;
 }

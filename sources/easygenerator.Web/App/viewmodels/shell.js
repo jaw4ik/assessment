@@ -15,7 +15,6 @@
             activate: activate,
             router: router,
             homeModuleName: 'courses',
-            isViewReady: ko.observable(true),
             showNavigation: showNavigation,
 
             navigation: ko.observableArray([]),
@@ -147,6 +146,13 @@
 
                     isViewReady.assign(router);
 
+                    viewModel.router.isViewReady.subscribe(function (value) {
+                        if (value && !_.isNullOrUndefined(clientContext.get('showCreateCoursePopup'))) {
+                            dialog.show('dialogs/createCourse').then(function () {
+                                clientContext.remove('showCreateCoursePopup');
+                            });
+                        }
+                    });
 
                     return router.buildNavigationModel()
                         .mapUnknownRoutes('viewmodels/errors/404', '404')
