@@ -9,22 +9,22 @@
             initialize = function () {
                 return Q.fcall(function () {
                     return apiHttpWrapper.post('api/templates')
-                        .then(function (response) {
-                            _.each(response.data, function (template) {
+                        .then(function (data) {
+                            _.each(data, function (template) {
                                 templates.push(templateModelMapper.map(template));
                             });
                         });
                 }).then(function () {
                     return apiHttpWrapper.post('api/objectives')
-                      .then(function (response) {
-                          _.each(response.data, function (item) {
+                      .then(function (data) {
+                          _.each(data, function (item) {
                               objectives.push(objectiveModelMapper.map(item));
                           });
                       });
                 }).then(function () {
                     return apiHttpWrapper.post('api/courses')
-                    .then(function (response) {
-                        _.each(response.data, function (item) {
+                    .then(function (data) {
+                        _.each(data, function (item) {
                             // Temporary - do not display courses if user does not have template
                             if (_.find(templates, function (template) {
                                 return item.Template.Id === template.id;
