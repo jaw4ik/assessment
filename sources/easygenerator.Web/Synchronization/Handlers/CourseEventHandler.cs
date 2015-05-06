@@ -69,7 +69,7 @@ namespace easygenerator.Web.Synchronization.Handlers
             _broadcaster.Users(users).courseDeleted(args.Course.Id.ToNString());
             foreach (var invitedCollaborator in args.InvitedCollaborators)
             {
-                _broadcaster.User(invitedCollaborator.Email).collaborationInviteRemoved(invitedCollaborator.Id.ToNString());
+                _broadcaster.User(invitedCollaborator.Value).collaborationInviteRemoved(invitedCollaborator.Key.ToNString());
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿
 using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
+using System;
 using System.Collections.Generic;
 
 namespace easygenerator.DomainModel.Events.CourseEvents
@@ -8,10 +9,10 @@ namespace easygenerator.DomainModel.Events.CourseEvents
     public class CourseDeletedEvent : CourseEvent
     {
         public IEnumerable<string> Collaborators { get; set; }
-        public IEnumerable<CourseCollaborator> InvitedCollaborators { get; set; }
+        public Dictionary<Guid, string> InvitedCollaborators { get; set; }
         public string DeletedBy { get; set; }
 
-        public CourseDeletedEvent(Course course, List<string> collaborators, IEnumerable<CourseCollaborator> invitedCollaborators, string deletedBy)
+        public CourseDeletedEvent(Course course, List<string> collaborators, Dictionary<Guid, string> invitedCollaborators, string deletedBy)
             : base(course)
         {
             ArgumentValidation.ThrowIfNull(collaborators, "collaborators");
