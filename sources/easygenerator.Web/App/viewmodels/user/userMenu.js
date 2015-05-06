@@ -39,7 +39,6 @@
         }
 
         function signOut() {
-            debugger;
             for (var i = 0; i < localStorage.length; i++) {
                 var key = localStorage.key(i);
                 if (/^token-*/.test(key)) {
