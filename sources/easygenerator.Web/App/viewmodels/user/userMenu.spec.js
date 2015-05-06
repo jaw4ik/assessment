@@ -4,7 +4,8 @@
     var
         userContext = require('userContext'),
         eventTracker = require('eventTracker'),
-        constants = require('constants');
+        constants = require('constants'),
+        router = require('plugins/router');
 
     describe('viewModel [userMenu]', function () {
 
@@ -140,6 +141,52 @@
             it('should open upgrade link in new window', function () {
                 userMenu.openUpgradePlanUrl();
                 expect(window.open).toHaveBeenCalledWith(constants.upgradeUrl, '_blank');
+            });
+
+        });
+
+        describe('signOut:', function () {
+
+            var storage;
+            var length;
+
+            beforeEach(function () {
+                storage = {
+                    'key': 'value',
+                    'token-key': 'value',
+                    'token-auth': 'value',
+                    'token-api': 'value',
+                    'key-token': 'value',
+                    'tokenkey': 'value',
+                    'toke-nkey': 'value'
+                };
+                length = 7;
+
+                spyOn(router, 'openUrl');
+                spyOn(localStorage, 'getItem').and.callFake(function () {
+                    return storage[key];
+                });
+                spyOn(localStorage, 'removeItem').and.callFake(function () {
+                    length--;
+                    delete storage[key];
+                });
+                spyOn(localStorage, 'key').and.callFake(function () {
+                    return storage[index];
+                });
+            });
+
+            it('should be function', function () {
+                expect(userMenu.signOut).toBeFunction();
+            });
+
+            //it('should remove token-key', function () {
+            //    userMenu.signOut();
+            //    expect(localStorage.removeItem).toHaveBeenCalledWith('token-key');
+            //});
+
+            it('should open signup page', function () {
+                userMenu.signOut();
+                expect(router.openUrl).toHaveBeenCalledWith(constants.signinUrl);
             });
 
         });

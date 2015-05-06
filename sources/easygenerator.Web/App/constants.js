@@ -245,6 +245,7 @@
             upgradeEvent: 'Upgrade now',
 
             upgradeUrl: '/account/upgrade',
+            signinUrl: '/signin',
 
             upgradeCategory: {
                 scorm: 'SCORM 1.2',

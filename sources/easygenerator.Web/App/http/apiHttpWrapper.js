@@ -12,7 +12,6 @@
 
                 return httpRequestSender.post(url, data, headers)
                     .then(function (response) {
-                        debugger;
                         if (!_.isObject(response)) {
                             throw 'Response data is not an object';
                         }
