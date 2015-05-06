@@ -1,5 +1,6 @@
 ﻿define(['userContext'], function (userContext) {
 
+    var authHttpWrapper = require('http/authHttpWrapper');
 
     describe('[userContext]', function () {
 
@@ -26,7 +27,7 @@
 
             beforeEach(function () {
                 ajax = $.Deferred();
-                spyOn($, 'ajax').and.returnValue(ajax.promise());
+                spyOn(authHttpWrapper, 'post').and.returnValue(ajax.promise());
                 spyOn(app, 'trigger');
             });
 

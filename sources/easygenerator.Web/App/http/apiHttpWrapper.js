@@ -11,23 +11,22 @@
                 };
 
                 return httpRequestSender.post(url, data, headers)
-                     .then(function (response) {
-                         if (!_.isObject(response)) {
-                             throw 'Response data is not an object';
-                             return;
-                         }
-                        
-                         if (!response.success) {
-                             notify.error(response.errorMessage);
-                             throw response.errorMessage;
-                             return;
-                         }
+                    .then(function (response) {
+                        debugger;
+                        if (!_.isObject(response)) {
+                            throw 'Response data is not an object';
+                        }
 
-                         return response.data;
-                     })
-                     .fin(function () {
-                         app.trigger('apiHttpWrapper:post-end');
-                     });
+                        if (!response.success) {
+                            notify.error(response.errorMessage);
+                            throw response.errorMessage;
+                        }
+
+                        return response.data;
+                    })
+                    .fin(function () {
+                        app.trigger('apiHttpWrapper:post-end');
+                    });
             }
         ;
 

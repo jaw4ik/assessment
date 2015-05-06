@@ -42,7 +42,7 @@
 
                 apiHttpWrapper.post(url, data);
 
-                expect(http.post).toHaveBeenCalledWith(url, data);
+                expect(http.post).toHaveBeenCalledWith(url, data, { Authorization: jasmine.any(String) });
             });
 
             describe('when post request succeed', function () {

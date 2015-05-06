@@ -39,10 +39,11 @@
             it('should make a post request', function () {
                 var url = "url";
                 var data = { title: 'title' };
+                var headers = { Authorization: jasmine.any(String) };
 
                 authHttpWrapper.post(url, data);
 
-                expect(http.post).toHaveBeenCalledWith(url, data);
+                expect(http.post).toHaveBeenCalledWith(url, data, { Authorization: jasmine.any(String) });
             });
 
             describe('when post request succeed', function () {
@@ -72,49 +73,16 @@
                 });
 
                 describe('and response is an object', function () {
-
-                    describe('and response state is not success', function () {
-                        var message = "test message";
-
-                        beforeEach(function () {
-                            spyOn(notify, 'error');
+                    it('should resolve promise with response data', function (done) {
+                        var promise = authHttpWrapper.post();
+                        promise.fin(function () {
+                            expect(promise).toBeResolvedWith(data);
+                            done();
                         });
 
-                        it('should reject promise with response message', function (done) {
-                            var promise = authHttpWrapper.post();
-                            promise.fin(function () {
-                                expect(promise).toBeRejectedWith(message);
-                                done();
-                            });
+                        var data = { title: 'title', description: 'description' };
 
-                            post.resolve({ success: false, errorMessage: message });
-                        });
-
-                        it('should show error notification with error message', function (done) {
-                            var promise = authHttpWrapper.post();
-                            promise.fin(function () {
-                                expect(notify.error).toHaveBeenCalledWith(message);
-                                done();
-                            });
-
-                            post.resolve({ success: false, errorMessage: message });
-                        });
-                    });
-
-                    describe('and response state is success', function () {
-
-                        it('should resolve promise with response data', function (done) {
-                            var promise = authHttpWrapper.post();
-                            promise.fin(function () {
-                                expect(promise).toBeResolvedWith(data);
-                                done();
-                            });
-
-                            var data = { title: 'title', description: 'description' };
-
-                            post.resolve({ success: true, data: data });
-                        });
-
+                        post.resolve({ success: true, data: data });
                     });
 
                 });
@@ -134,9 +102,7 @@
                 });
 
             });
-
         });
-
     });
 
 });

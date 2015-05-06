@@ -1,7 +1,7 @@
 ﻿define(['repositories/collaboratorRepository'], function (repository) {
     "use strict";
 
-    var apiHttpWrapper = require('http/httpRequestSender'),
+    var apiHttpWrapper = require('http/apiHttpWrapper'),
         dataContext = require('dataContext'),
         collaboratorModelMapper = require('mappers/collaboratorModelMapper');
 
@@ -111,19 +111,6 @@
                     post.reject('Some reason');
                 });
 
-                describe('and response is not an object', function () {
-                    it('should reject promise', function (done) {
-                        var promise = repository.getCollection(courseId);
-
-                        promise.fin(function () {
-                            expect(promise).toBeRejectedWith('Response is not an object');
-                            done();
-                        });
-
-                        post.resolve('trololo');
-                    });
-                });
-
                 describe('and response data is not an array', function () {
                     it('should reject promise', function (done) {
                         var promise = repository.getCollection(courseId);
@@ -140,7 +127,7 @@
                 it('should initialize course collaborators', function (done) {
                     var promise = repository.getCollection(courseId);
 
-                    post.resolve({ data: [collaborator] });
+                    post.resolve([collaborator]);
                     spyOn(collaboratorModelMapper, 'map').and.returnValue(mappedCollaborator);
 
                     promise.fin(function () {
@@ -153,7 +140,7 @@
                 it('should return mapped courses array', function (done) {
                     var promise = repository.getCollection(courseId);
 
-                    post.resolve({ data: [collaborator] });
+                    post.resolve([collaborator]);
                     spyOn(collaboratorModelMapper, 'map').and.returnValue(mappedCollaborator);
 
                     promise.fin(function () {
@@ -254,154 +241,97 @@
 
             describe('when collaborator added on server', function () {
 
-                describe('and response is not an object', function () {
+                describe('and response has no Email', function () {
 
                     it('should reject promise', function (done) {
                         var promise = repository.add(courseId, email);
 
                         promise.fin(function () {
-                            expect(promise).toBeRejectedWith('Response is not an object');
+                            expect(promise).toBeRejectedWith('Email is not a string');
                             done();
                         });
 
-                        post.resolve('123');
+                        post.resolve({
+                            success: true, data: { FullName: 'name' }
+                        });
                     });
 
                 });
 
-                describe('and response is not success', function () {
-                    var errorMessage = 'error';
-                    it('should reject promise with error message', function (done) {
-                        var promise = repository.add(courseId, email);
+                describe('and course not found in dataContext', function () {
 
-                        promise.fin(function () {
-                            expect(promise).toBeRejectedWith(errorMessage);
-                            done();
-                        });
+                    it('should reject promise', function (done) {
+                        dataContext.courses = [];
 
-                        post.resolve({ success: false, errorMessage: errorMessage });
-                    });
-
-                });
-
-                describe('and response is success', function () {
-
-                    describe('and response data is not an object', function () {
-
-                        it('should resolve promise with null', function (done) {
-                            var promise = repository.add(courseId, email);
-
-                            promise.fin(function () {
-                                expect(promise).toBeResolvedWith(null);
-                                done();
-                            });
-
-                            post.resolve({
-                                success: true, data: true
-                            });
-                        });
-
-                    });
-
-                    describe('and response has no Email', function () {
-
-                        it('should reject promise', function (done) {
-                            var promise = repository.add(courseId, email);
-
-                            promise.fin(function () {
-                                expect(promise).toBeRejectedWith('Email is not a string');
-                                done();
-                            });
-
-                            post.resolve({
-                                success: true, data: { FullName: 'name' }
-                            });
-                        });
-
-                    });
-
-                    describe('and course not found in dataContext', function () {
-
-                        it('should reject promise', function (done) {
-                            dataContext.courses = [];
-
-                            var receivedData = {
-                                Email: 'email',
-                                FullName: 'name'
-                            };
-
-                            var promise = repository.add(courseId, email);
-
-                            promise.fin(function () {
-                                expect(promise).toBeRejectedWith('Course does not exist in dataContext');
-                                done();
-                            });
-
-                            post.resolve({
-                                success: true, data: receivedData
-                            });
-                        });
-
-                    });
-
-                    describe('and course collaborators are loaded', function () {
-                        it('should update course collaborators in dataContext', function (done) {
-                            var questionId = 'someId';
-
-                            dataContext.courses = [
-                                {
-                                    id: courseId,
-                                    collaborators: []
-                                }
-                            ];
-
-                            var receivedData = {
-                                Email: 'email',
-                                FullName: 'name'
-                            };
-
-                            var promise = repository.add(courseId, email);
-
-                            promise.fin(function () {
-                                expect(dataContext.courses[0].collaborators.length).toBe(1);
-                                done();
-                            });
-
-                            post.resolve({
-                                success: true, data: receivedData
-                            });
-                        });
-                    });
-
-                    it('should resolve promise with received information', function (done) {
-                        dataContext.courses = [
-                            {
-                                id: courseId
-                            }
-                        ];
-
-                        var date = new Date();
                         var receivedData = {
                             Email: 'email',
-                            FullName: 'name',
-                            CreatedOn: date.toISOString()
+                            FullName: 'name'
                         };
 
                         var promise = repository.add(courseId, email);
 
                         promise.fin(function () {
-                            expect(promise.inspect().value.email).toEqual(receivedData.Email);
-                            expect(promise.inspect().value.fullName).toEqual(receivedData.FullName);
-                            expect(promise.inspect().value.createdOn).toEqual(date);
-
+                            expect(promise).toBeRejectedWith('Course does not exist in dataContext');
                             done();
                         });
 
-                        post.resolve({
-                            success: true, data: receivedData
-                        });
+                        post.resolve(receivedData);
                     });
 
+                });
+
+                describe('and course collaborators are loaded', function () {
+                    it('should update course collaborators in dataContext', function (done) {
+                        var questionId = 'someId';
+
+                        dataContext.courses = [
+                            {
+                                id: courseId,
+                                collaborators: []
+                            }
+                        ];
+
+                        var receivedData = {
+                            Email: 'email',
+                            FullName: 'name'
+                        };
+
+                        var promise = repository.add(courseId, email);
+
+                        promise.fin(function () {
+                            expect(dataContext.courses[0].collaborators.length).toBe(1);
+                            done();
+                        });
+
+                        post.resolve(receivedData);
+                    });
+                });
+
+                it('should resolve promise with received information', function (done) {
+                    dataContext.courses = [
+                        {
+                            id: courseId
+                        }
+                    ];
+
+                    var date = new Date();
+                    var receivedData = {
+                        Email: 'email',
+                        FullName: 'name',
+                        CreatedOn: date.toISOString()
+                    };
+
+                    var promise = repository.add(courseId, email);
+
+                    promise.fin(function () {
+                        expect(promise.inspect().value.email).toEqual(receivedData.Email);
+                        expect(promise.inspect().value.fullName).toEqual(receivedData.FullName);
+                        expect(promise.inspect().value.createdOn).toEqual(date);
+
+                        done();
+                    });
+
+                    post.resolve(receivedData);
                 });
 
             });
@@ -518,7 +448,7 @@
                     collaborator.state = '';
                     course.collaborators = [collaborator];
                 });
-                
+
                 it('should send request to \'api/course/collaborator/remove\'', function (done) {
                     var promise = repository.remove(courseId, collaborator.Id);
 
@@ -532,68 +462,6 @@
 
                 describe('when collaborator removed on server', function () {
 
-                    describe('and response is not an object', function () {
-
-                        it('should reject promise', function (done) {
-                            var promise = repository.remove(courseId, collaborator.Id);
-
-                            promise.fin(function () {
-                                expect(promise).toBeRejectedWith('Response is not an object');
-                                done();
-                            });
-
-                            post.resolve('123');
-                        });
-
-                    });
-
-                    describe('and response is not success', function () {
-                        var errorMessage = 'error';
-                        it('should reject promise with error message', function (done) {
-                            var promise = repository.remove(courseId, collaborator.Id);
-
-                            promise.fin(function () {
-                                expect(promise).toBeRejectedWith(errorMessage);
-                                done();
-                            });
-
-                            post.resolve({ success: false, errorMessage: errorMessage });
-                        });
-
-                    });
-
-                    describe('and response is success', function () {
-
-                        it('should delete collaboration from course', function (done) {
-
-                            var promise = repository.remove(courseId, collaborator.Id);
-
-                            promise.fin(function () {
-                                expect(promise.inspect().value).toBe(collaborator);
-                                done();
-                            });
-
-                            post.resolve({
-                                success: true
-                            });
-                        });
-
-                        it('should resolve promise with deleted collaboration', function (done) {
-
-                            var promise = repository.remove(courseId, collaborator.Id);
-
-                            promise.fin(function () {
-                                expect(course.collaborators.length).toBe(0);
-                                done();
-                            });
-
-                            post.resolve({
-                                success: true
-                            });
-                        });
-
-                    });
-
                     it('should set state to \'\'', function (done) {
                         var promise = repository.remove(courseId, collaborator.Id);
 
@@ -602,7 +470,7 @@
                             done();
                         });
 
-                        post.resolve({ success: true });
+                        post.resolve({});
                     });
 
                 });

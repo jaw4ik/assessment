@@ -11,17 +11,16 @@
                 };
 
                 return httpRequestSender.post(url, data, headers)
-                     .then(function (response) {
-                         if (!_.isObject(response)) {
-                             throw 'Response data is not an object';
-                             return;
-                         }
-                     
-                         return response.data;
-                     })
-                     .fin(function () {
-                         app.trigger('authHttpWrapper:post-end');
-                     });
+                    .then(function (response) {
+                        if (!_.isObject(response)) {
+                            throw 'Response data is not an object';
+                        }
+
+                        return response.data;
+                    })
+                    .fin(function () {
+                        app.trigger('authHttpWrapper:post-end');
+                    });
             }
         ;
 
