@@ -151,28 +151,28 @@
             var length;
 
             beforeEach(function () {
-                storage = {
-                    'key': 'value',
-                    'token-key': 'value',
-                    'token-auth': 'value',
-                    'token-api': 'value',
-                    'key-token': 'value',
-                    'tokenkey': 'value',
-                    'toke-nkey': 'value'
-                };
-                length = 7;
+                //storage = {
+                //    'key': 'value',
+                //    'token-key': 'value',
+                //    'token-auth': 'value',
+                //    'token-api': 'value',
+                //    'key-token': 'value',
+                //    'tokenkey': 'value',
+                //    'toke-nkey': 'value'
+                //};
+                //length = 7;
 
                 spyOn(router, 'openUrl');
-                spyOn(localStorage, 'getItem').and.callFake(function () {
-                    return storage[key];
-                });
-                spyOn(localStorage, 'removeItem').and.callFake(function () {
-                    length--;
-                    delete storage[key];
-                });
-                spyOn(localStorage, 'key').and.callFake(function () {
-                    return storage[index];
-                });
+                //spyOn(localStorage, 'getItem').and.callFake(function () {
+                //    return storage[key];
+                //});
+                //spyOn(localStorage, 'removeItem').and.callFake(function () {
+                //    length--;
+                //    delete storage[key];
+                //});
+                //spyOn(localStorage, 'key').and.callFake(function () {
+                //    return storage[index];
+                //});
             });
 
             it('should be function', function () {
