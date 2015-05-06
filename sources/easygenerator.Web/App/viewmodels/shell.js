@@ -35,19 +35,18 @@
             return '';
         });
 
-        viewModel.isViewReady.subscribe(function (value) {
-            if (value && !_.isNullOrUndefined(clientContext.get('showCreateCoursePopup'))) {
-                dialog.show('dialogs/createCourse').then(function () {
-                    clientContext.remove('showCreateCoursePopup');
-                });
-            }
-        });
-
         app.on('apiHttpWrapper:post-begin').then(function () {
             requestsCounter(requestsCounter() + 1);
         });
 
+        app.on('authHttpWrapper:post-begin').then(function () {
+            requestsCounter(requestsCounter() + 1);
+        });
+
         app.on('apiHttpWrapper:post-end').then(function () {
+            requestsCounter(requestsCounter() - 1);
+        });
+        app.on('authHttpWrapper:post-end').then(function () {
             requestsCounter(requestsCounter() - 1);
         });
 

@@ -5,6 +5,7 @@ using Microsoft.AspNet.SignalR.Hubs;
 
 namespace easygenerator.Web.Synchronization.Hubs
 {
+    [Authorize]
     [HubName("eventHub")]
     public class EventHub : Hub
     {

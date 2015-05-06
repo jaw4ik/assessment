@@ -5,13 +5,10 @@ using System.IdentityModel.Tokens;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using easygenerator.Auth.ConfigurationSections.Authorization;
-using easygenerator.Auth.Models;
 using easygenerator.Auth.Providers;
 using easygenerator.Auth.Repositories;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.DataHandler.Encoder;
 using Microsoft.Owin.Security.Jwt;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
@@ -35,7 +32,26 @@ namespace easygenerator.Auth.Configuration
                     AllowedAudiences = allowedAudiences,
                     IssuerSecurityTokenProviders = issuerSecurityTokenProviders,
                     Provider = new OAuthBearerAuthenticationProvider()
+                    {
+                        OnRequestToken = OnRequestToken
+                    }
                 });
+        }
+
+        private static Task OnRequestToken(OAuthRequestTokenContext oAuthRequestTokenContext)
+        {
+            // Only for /signalr/*
+            // Get access token from query string because of WebSockets doesn't support Authorization header
+            // Need to be changed as soon as another solutions will be found
+            if (oAuthRequestTokenContext.Request.Path.StartsWithSegments(new PathString("/signalr")))
+            {
+                var value = oAuthRequestTokenContext.Request.Query.Get("access_token");
+                if (!string.IsNullOrEmpty(value))
+                {
+                    oAuthRequestTokenContext.Token = value;
+                }
+            }
+            return Task.FromResult<object>(null);
         }
     }
 }
