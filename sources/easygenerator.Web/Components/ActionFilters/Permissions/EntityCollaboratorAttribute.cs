@@ -1,4 +1,5 @@
 ﻿using easygenerator.DomainModel.Entities;
+using easygenerator.Infrastructure;
 using easygenerator.Web.Security.PermissionsCheckers;
 using System;
 
@@ -13,9 +14,15 @@ namespace easygenerator.Web.Components.ActionFilters.Permissions
 
         }
 
+        public EntityCollaboratorAttribute(Type entityType, ITypeMethodInvoker typeMethodInvoker)
+            : base(entityType, typeMethodInvoker)
+        {
+
+        } 
+
         protected override bool CheckEntityAccess(Entity entity, User user)
         {
-            return (bool)CallGenericTypeMethod(typeof(IEntityPermissionsChecker<>), "HasCollaboratorPermissions", new object[] { user.Email, entity });
+            return (bool)TypeMethodInvoker.CallGenericTypeMethod(EntityType, typeof(IEntityPermissionsChecker<>), "HasCollaboratorPermissions", new object[] { user.Email, entity });
         }
     }
 }

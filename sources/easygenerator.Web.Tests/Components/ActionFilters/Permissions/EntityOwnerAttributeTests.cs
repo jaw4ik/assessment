@@ -9,7 +9,6 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components.ActionFilters.Permissions;
-using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -18,15 +17,14 @@ using NSubstitute;
 namespace easygenerator.Web.Tests.Components.ActionFilters.Permissions
 {
     [TestClass]
-    public class PreviewAccessAttributeTests
+    public class EntityOwnerAttributeTests
     {
-        private PreviewAccessAttribute _attribute;
+        private EntityOwnerAttribute _attribute;
 
         private AuthorizationContext _filterContext;
         private IIdentity _identity;
         private User _user;
         private IUserRepository _userRepository;
-        private ConfigurationReader _configurationReader;
         private ITypeMethodInvoker _typeMethodInvoker;
 
         private const string CourseId = "207DC508-2AC2-4F56-9A25-3FA063C4D66E";
@@ -34,16 +32,15 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Permissions
         [TestInitialize]
         public void InitializeContext()
         {
-            _configurationReader = Substitute.For<ConfigurationReader>();
             _typeMethodInvoker = Substitute.For<ITypeMethodInvoker>();
-            _attribute = new PreviewAccessAttribute(_configurationReader, _typeMethodInvoker);
-            
+            _attribute = new EntityOwnerAttribute(typeof(Course), _typeMethodInvoker);
+
             _identity = Substitute.For<IIdentity>();
             _filterContext = Substitute.For<AuthorizationContext>();
             _filterContext.HttpContext = Substitute.For<HttpContextBase>();
             _userRepository = Substitute.For<IUserRepository>();
             _attribute.UserRepository = _userRepository;
-            _user = UserObjectMother.Create(); 
+            _user = Substitute.For<User>();
 
             var principal = Substitute.For<IPrincipal>();
             _filterContext.HttpContext.User.Returns(principal);
@@ -128,7 +125,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Permissions
             _attribute.OnAuthorization(_filterContext);
 
             //Assert
-            _filterContext.Result.Should().BeHttpNotFoundResult();
+            _filterContext.Result.Should().BeForbiddenResult();
         }
 
         [TestMethod]
@@ -146,29 +143,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Permissions
             _attribute.OnAuthorization(_filterContext);
 
             //Assert
-            _filterContext.Result.Should().BeHttpNotFoundResult();
-        }
-
-        [TestMethod]
-        public void OnAuthorization_ShouldNotSetResult_WhenUserIsAllowedForPreview()
-        {
-            //Arrange
-            _filterContext.Result = null;
-            _identity.IsAuthenticated.Returns(true);
-            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(_user);
-            var _valueProvider = Substitute.For<IValueProvider>();
-
-            _filterContext.Controller = Substitute.For<ControllerBase>();
-            _valueProvider.GetValue("courseId").Returns(new ValueProviderResult(new Guid(CourseId), CourseId, CultureInfo.InvariantCulture));
-            ValueProviderFactories.Factories.PutValueProvider(_valueProvider);
-
-            _configurationReader.PreviewAllowedUsers.Returns(_user.Email);
-
-            //Act
-            _attribute.OnAuthorization(_filterContext);
-
-            //Assert
-            _filterContext.Result.Should().BeNull();
+            _filterContext.Result.Should().BeForbiddenResult();
         }
 
         [TestMethod]
@@ -186,13 +161,13 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Permissions
 
             var course = CourseObjectMother.Create();
             _typeMethodInvoker.CallGenericTypeMethod(Arg.Any<Type>(), Arg.Any<Type>(), "Get", Arg.Any<object[]>()).Returns(course);
-            _typeMethodInvoker.CallGenericTypeMethod(Arg.Any<Type>(), Arg.Any<Type>(), "HasCollaboratorPermissions", Arg.Any<object[]>()).Returns(false);
+            _typeMethodInvoker.CallGenericTypeMethod(Arg.Any<Type>(), Arg.Any<Type>(), "HasOwnerPermissions", Arg.Any<object[]>()).Returns(false);
 
             //Act
             _attribute.OnAuthorization(_filterContext);
 
             //Assert
-            _filterContext.Result.Should().BeHttpNotFoundResult();
+            _filterContext.Result.Should().BeForbiddenResult();
         }
 
         [TestMethod]
@@ -210,7 +185,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Permissions
 
             var course = CourseObjectMother.Create();
             _typeMethodInvoker.CallGenericTypeMethod(Arg.Any<Type>(), Arg.Any<Type>(), "Get", Arg.Any<object[]>()).Returns(course);
-            _typeMethodInvoker.CallGenericTypeMethod(Arg.Any<Type>(), Arg.Any<Type>(), "HasCollaboratorPermissions", Arg.Any<object[]>()).Returns(true);
+            _typeMethodInvoker.CallGenericTypeMethod(Arg.Any<Type>(), Arg.Any<Type>(), "HasOwnerPermissions", Arg.Any<object[]>()).Returns(true);
 
             //Act
             _attribute.OnAuthorization(_filterContext);
@@ -218,7 +193,7 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Permissions
             //Assert
             _filterContext.Result.Should().BeNull();
         }
-        
+
         #endregion
     }
 }

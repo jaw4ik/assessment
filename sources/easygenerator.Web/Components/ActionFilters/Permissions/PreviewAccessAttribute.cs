@@ -2,23 +2,29 @@
 using System.Web.Mvc;
 using easygenerator.DomainModel.Entities;
 using System;
+using easygenerator.Infrastructure;
+using easygenerator.Web.Components.Configuration;
 
 namespace easygenerator.Web.Components.ActionFilters.Permissions
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class PreviewAccessAttribute : EntityCollaboratorAttribute
     {
-        private string _allowedUsers { get; set; }
+        public ConfigurationReader ConfigurationReader { get; set; }
 
         public PreviewAccessAttribute()
-            : base(typeof(Course))
+            : base(typeof (Course))
+        {}
+
+        public PreviewAccessAttribute(ConfigurationReader configurationReader, ITypeMethodInvoker typeMethodInvoker)
+            : base(typeof(Course), typeMethodInvoker)
         {
-            _allowedUsers = ConfigurationManager.AppSettings["preview.allowedUsers"] ?? string.Empty;
+            ConfigurationReader = configurationReader;
         }
 
         protected override bool CheckEntityAccess(Entity entity, User user)
         {
-            return _allowedUsers.Contains(user.Email) || base.CheckEntityAccess(entity, user);
+            return ConfigurationReader.PreviewAllowedUsers.Contains(user.Email) || base.CheckEntityAccess(entity, user);
         }
 
         protected override void Reject(AuthorizationContext authorizationContext)
