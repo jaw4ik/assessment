@@ -119,7 +119,7 @@
                             getInvitesDefer.resolve(invites);
                         });
 
-                        it('should push notification for each invite', function () {
+                        it('should push notification for each invite', function (done) {
                             var promise = controller.execute();
                             promise.fin(function () {
                                 expect(controller.pushNotification).toHaveBeenCalledWith(invites[0]);

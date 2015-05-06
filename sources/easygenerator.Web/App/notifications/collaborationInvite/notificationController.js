@@ -21,7 +21,7 @@
 
                 return getInvitesQuery.execute().then(function (invites) {
                     _.each(invites, function (invite) {
-                        pushNotification(invite);
+                        controller.pushNotification(invite);
                     });
                 });
             });
