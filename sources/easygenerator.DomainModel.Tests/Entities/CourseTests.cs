@@ -1407,7 +1407,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.AcceptCollaboration(collaborator);
 
             // Assert
-            course.Events.Should().ContainSingle(e => e.GetType() == typeof(CollaborationAcceptedEvent));
+            course.Events.Should().ContainSingle(e => e.GetType() == typeof(CollaborationInviteAcceptedEvent));
         }
 
         #endregion
@@ -1454,7 +1454,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.DeclineCollaboration(collaborator);
 
             // Assert
-            course.Events.Should().ContainSingle(e => e.GetType() == typeof(CollaborationDeclinedEvent));
+            course.Events.Should().ContainSingle(e => e.GetType() == typeof(CollaborationInviteDeclinedEvent));
         }
 
         #endregion

@@ -139,8 +139,9 @@
                         finished: 'course:delivering-finished'
                     },
                     collaboration: {
-                        inviteCreated: 'course:collaboration-inviteCreated:',
-                        inviteRemoved: 'course:collaboration-inviteRemoved:',
+                        inviteCreated: 'course:collaboration-invite-created:',
+                        inviteRemoved: 'course:collaboration-invite-removed:',
+                        inviteAccepted: 'course:collaboration-invite-accepted',
                         collaboratorAdded: 'course:collaboration-collaboratorAdded:',
                         collaboratorRemoved: 'course:collaboration-collaboratorRemoved',
                         collaboratorRegistered: 'course:collaboration-collaboratorRegistered:',

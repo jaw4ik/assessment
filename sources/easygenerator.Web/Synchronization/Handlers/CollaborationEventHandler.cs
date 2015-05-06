@@ -17,8 +17,8 @@ namespace easygenerator.Web.Synchronization.Handlers
     public class CollaborationEventHandler :
         IDomainEventHandler<CourseCollaboratorAddedEvent>,
         IDomainEventHandler<CourseCollaboratorRemovedEvent>,
-        IDomainEventHandler<CollaborationAcceptedEvent>,
-        IDomainEventHandler<CollaborationDeclinedEvent>,
+        IDomainEventHandler<CollaborationInviteAcceptedEvent>,
+        IDomainEventHandler<CollaborationInviteDeclinedEvent>,
         IDomainEventHandler<UserSignedUpEvent>,
         IDomainEventHandler<UserDowngraded>,
         IDomainEventHandler<UserUpgradedToStarter>,
@@ -84,7 +84,7 @@ namespace easygenerator.Web.Synchronization.Handlers
             NotifyIfCollaborationUnlockedAfterCollaboratorDrop(args.Course, args.Collaborator);
         }
 
-        public void Handle(CollaborationDeclinedEvent args)
+        public void Handle(CollaborationInviteDeclinedEvent args)
         {
             _courseCollaborationBroadcaster.AllCollaboratorsExcept(args.Course, args.Collaborator.Email)
                .collaboratorRemoved(args.Course.Id.ToNString(), args.Collaborator.Email);
@@ -92,12 +92,15 @@ namespace easygenerator.Web.Synchronization.Handlers
             NotifyIfCollaborationUnlockedAfterCollaboratorDrop(args.Course, args.Collaborator);
         }
 
-        public void Handle(CollaborationAcceptedEvent args)
+        public void Handle(CollaborationInviteAcceptedEvent args)
         {
             _userBroadcaster.User(args.Collaborator.Email)
                  .courseCollaborationStarted(_entityMapper.Map(args.Collaborator.Course),
                      args.Collaborator.Course.RelatedObjectives.Select(o => _entityMapper.Map(o)),
                      _entityMapper.Map(args.Collaborator.Course.Template));
+
+            _userBroadcaster.User(args.Course.CreatedBy)
+                .collaborationInviteAccepted(args.Course.Id.ToNString(), args.Collaborator.Email);
         }
 
         public void Handle(UserDowngraded args)
@@ -177,7 +180,7 @@ namespace easygenerator.Web.Synchronization.Handlers
         private IEnumerable<CourseCollaborator> GetInvitedCollaborators(IEnumerable<Course> courses)
         {
             return courses.SelectMany(course => course.Collaborators.Where(c => !c.IsAccepted));
-        } 
+        }
 
         private object MapCollaborationInvite(CourseCollaborator collaborator)
         {

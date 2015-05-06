@@ -92,7 +92,7 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfCollaboratorIsInvalid(collaborator);
 
             collaborator.IsAccepted = true;
-            RaiseEvent(new CollaborationAcceptedEvent(this, collaborator));
+            RaiseEvent(new CollaborationInviteAcceptedEvent(this, collaborator));
         }
 
         public virtual void DeclineCollaboration(CourseCollaborator collaborator)
@@ -100,7 +100,7 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfCollaboratorIsInvalid(collaborator);
 
             CollaboratorsCollection.Remove(collaborator);
-            RaiseEvent(new CollaborationDeclinedEvent(this, collaborator));
+            RaiseEvent(new CollaborationInviteDeclinedEvent(this, collaborator));
         }
 
         private void CloneObjectivesOfCollaborator(ICloner entityCloner, string collaboratorEmail)

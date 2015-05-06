@@ -3,9 +3,9 @@ using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.DomainModel.Events.CourseEvents
 {
-    public class CollaborationAcceptedEvent : CollaborationEvent
+    public class CollaborationInviteAcceptedEvent : CollaborationEvent
     {
-        public CollaborationAcceptedEvent(Course course, CourseCollaborator collaborator)
+        public CollaborationInviteAcceptedEvent(Course course, CourseCollaborator collaborator)
             : base(course, collaborator)
         {
         }
