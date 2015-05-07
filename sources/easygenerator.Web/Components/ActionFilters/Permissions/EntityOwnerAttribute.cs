@@ -13,12 +13,6 @@ namespace easygenerator.Web.Components.ActionFilters.Permissions
             
         }
 
-        public EntityOwnerAttribute(Type entityType, ITypeMethodInvoker typeMethodInvoker)
-            : base(entityType, typeMethodInvoker)
-        {
-
-        }
-
         protected override bool CheckEntityAccess(Entity entity, User user)
         {
             return (bool)TypeMethodInvoker.CallGenericTypeMethod(EntityType, typeof(IEntityPermissionsChecker<>), "HasOwnerPermissions", new object[] { user.Email, entity });

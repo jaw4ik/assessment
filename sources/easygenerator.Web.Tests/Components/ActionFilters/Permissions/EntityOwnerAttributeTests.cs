@@ -33,7 +33,10 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Permissions
         public void InitializeContext()
         {
             _typeMethodInvoker = Substitute.For<ITypeMethodInvoker>();
-            _attribute = new EntityOwnerAttribute(typeof(Course), _typeMethodInvoker);
+            _attribute = new EntityOwnerAttribute(typeof(Course))
+            {
+                TypeMethodInvoker = _typeMethodInvoker
+            }; 
 
             _identity = Substitute.For<IIdentity>();
             _filterContext = Substitute.For<AuthorizationContext>();
@@ -144,6 +147,28 @@ namespace easygenerator.Web.Tests.Components.ActionFilters.Permissions
 
             //Assert
             _filterContext.Result.Should().BeForbiddenResult();
+        }
+
+        [TestMethod]
+        public void OnAuthorization_ShouldNotSetResult_WhenCourseEntityIsNull()
+        {
+            //Arrange
+            _filterContext.Result = null;
+            _identity.IsAuthenticated.Returns(true);
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(_user);
+            var _valueProvider = Substitute.For<IValueProvider>();
+
+            _filterContext.Controller = Substitute.For<ControllerBase>();
+            _valueProvider.GetValue("courseId").Returns(new ValueProviderResult(new Guid(CourseId), CourseId, CultureInfo.InvariantCulture));
+            ValueProviderFactories.Factories.PutValueProvider(_valueProvider);
+
+            _typeMethodInvoker.CallGenericTypeMethod(Arg.Any<Type>(), Arg.Any<Type>(), "Get", Arg.Any<object[]>()).Returns(null);
+
+            //Act
+            _attribute.OnAuthorization(_filterContext);
+
+            //Assert
+            _filterContext.Result.Should().BeNull();
         }
 
         [TestMethod]

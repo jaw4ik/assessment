@@ -15,18 +15,7 @@ namespace easygenerator.Web.Components.ActionFilters.Permissions
 
         protected EntityAccessAttribute(Type entityType)
         {
-            Initialize(entityType);
-        }
-
-        protected EntityAccessAttribute(Type entityType, ITypeMethodInvoker typeMethodInvoker)
-        {
-            TypeMethodInvoker = typeMethodInvoker;
-            Initialize(entityType);
-        }
-
-        private void Initialize(Type entityType)
-        {
-            if (!entityType.IsSubclassOf(typeof (Entity)))
+            if (!entityType.IsSubclassOf(typeof(Entity)))
                 throw new ArgumentException("Entity type is not a subclass of Entity", "entityType");
 
             EntityType = entityType;

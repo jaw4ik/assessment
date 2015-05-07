@@ -14,12 +14,6 @@ namespace easygenerator.Web.Components.ActionFilters.Permissions
 
         }
 
-        public EntityCollaboratorAttribute(Type entityType, ITypeMethodInvoker typeMethodInvoker)
-            : base(entityType, typeMethodInvoker)
-        {
-
-        } 
-
         protected override bool CheckEntityAccess(Entity entity, User user)
         {
             return (bool)TypeMethodInvoker.CallGenericTypeMethod(EntityType, typeof(IEntityPermissionsChecker<>), "HasCollaboratorPermissions", new object[] { user.Email, entity });

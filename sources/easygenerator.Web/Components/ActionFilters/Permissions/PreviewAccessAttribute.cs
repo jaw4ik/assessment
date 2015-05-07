@@ -16,12 +16,6 @@ namespace easygenerator.Web.Components.ActionFilters.Permissions
             : base(typeof (Course))
         {}
 
-        public PreviewAccessAttribute(ConfigurationReader configurationReader, ITypeMethodInvoker typeMethodInvoker)
-            : base(typeof(Course), typeMethodInvoker)
-        {
-            ConfigurationReader = configurationReader;
-        }
-
         protected override bool CheckEntityAccess(Entity entity, User user)
         {
             return ConfigurationReader.PreviewAllowedUsers.Contains(user.Email) || base.CheckEntityAccess(entity, user);
