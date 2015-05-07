@@ -99,5 +99,10 @@ namespace easygenerator.Web.Components.Configuration
         {
             get { return ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString; }
         }
+
+        public virtual string PreviewAllowedUsers
+        {
+            get { return ConfigurationManager.AppSettings["preview.allowedUsers"] ?? string.Empty; }
+        }
     }
 }
