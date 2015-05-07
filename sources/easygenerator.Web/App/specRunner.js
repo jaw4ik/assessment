@@ -40,9 +40,10 @@
             'dialogs/createCourse.spec',
             'dialogs/collaboration/addCollaborator.spec',
             'dialogs/collaboration/collaboration.spec',
-            'dialogs/collaboration/collaborator.spec',            
+            'dialogs/collaboration/collaborator.spec',
             'dialogs/publishCourse/publishCourse.spec',
             'dialogs/moveCopyQuestion/moveCopyQuestion.spec',
+            'dialogs/video/video.spec',
 
             //#endregion dialogs
 
@@ -52,7 +53,7 @@
             'errorHandling/httpErrorHandlers/unauthorizedHttpErrorHandler.spec',
             'errorHandling/errorHandlingConfiguration.spec',
             'errorHandling/globalErrorHandler.spec',
-            'errorHandling/httpErrorHandlerRegistrator.spec',            
+            'errorHandling/httpErrorHandlerRegistrator.spec',
             'localization/localizationManager.spec',
             'models/course.spec',
             'models/user.spec',
@@ -68,6 +69,7 @@
             'repositories/objectiveRepository.spec',
             'repositories/templateRepository.spec',
             'repositories/questionRepository.spec',
+            'repositories/videoRepository.spec',
             'services/publishService.spec',
             'utils/waiter.spec',
 
@@ -178,6 +180,8 @@
             'treeOfContent/QuestionTreeNode.spec',
 
             'viewmodels/common/contentField.spec',
+            'viewmodels/library/index.spec',
+            'viewmodels/videos/videos.spec',
             'viewmodels/courses/courses.spec',
             'viewmodels/courses/course/index.spec',
             //'viewmodels/courses/course/create/index.spec',
@@ -190,7 +194,7 @@
             'viewmodels/courses/publishingActions/publish.spec',
             'viewmodels/courses/publishingActions/scormBuild.spec',
             'viewmodels/courses/publishingActions/publishToAim4You.spec',
-            'viewmodels/courses/courseComments.spec',            
+            'viewmodels/courses/courseComments.spec',
             'viewmodels/objectives/objectives.spec',
             'viewmodels/objectives/objective.spec',
             'viewmodels/objectives/objectiveBrief.spec',
@@ -258,7 +262,7 @@
             //#endregion
 
             'viewmodels/user/userMenu.spec',
-            'viewmodels/shell.spec',            
+            'viewmodels/shell.spec',
             'widgets/notifyViewer/viewmodel.spec',
             'widgets/uiLockViewer/viewmodel.spec',
             'widgets/createQuestion/viewmodel.spec',

@@ -14,7 +14,7 @@
                     if (_.isString(courseId)) {
                         router.navigate('courses/' + courseId + '/' + navigateUrl);
                     } else {
-                        router.navigate(navigateUrl);
+                        router.navigate('library/' + navigateUrl);
                     }
 
                 }).fail(function () {

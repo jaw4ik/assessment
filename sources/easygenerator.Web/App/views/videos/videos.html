@@ -1,0 +1,30 @@
+﻿<section class="videos">
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <ul class="video-list">
+
+                <li class="video-list-item add-video-button" data-bind="click: addVideo"></li>
+
+                <!-- ko ifnot: videos().length -->
+                <li class="add-video-button-description">
+                    <span class="tip-arrow-text" data-bind="localize: { text : 'uploadVideoDescription' }">Upload your own video by click on this button</span>
+                </li>
+                <!-- /ko -->
+                <!-- ko foreach: videos -->
+                <li class="video-list-item hovered" data-bind="click: $parent.showVideoPopup">
+                    <div class="video-list-item-container">
+                        <div class="video-list-item-thumbnail" data-bind="style: { backgroundImage: 'url(' + thumbnailUrl + ')' }">
+                            <span class="play-icon"></span>
+                        </div>
+                        <div class="video-list-item-title" data-bind="text: title, attr: { title: title }"></div>
+                    </div>
+                </li>
+                <!-- /ko -->
+
+            </ul>
+
+            <!-- ko compose: 'dialogs/video/video' --><!-- /ko -->
+
+        </div>
+    </div>
+</section>

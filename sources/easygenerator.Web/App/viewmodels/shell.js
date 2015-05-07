@@ -4,8 +4,7 @@
         "use strict";
 
         var events = {
-            navigateToCourses: "Navigate to courses",
-            navigateToObjectives: 'Navigate to objectives'
+            navigateToCourses: "Navigate to courses"
         };
 
         var requestsCounter = ko.observable(0);
@@ -127,13 +126,12 @@
                             }
                         },
                         {
-                            route: 'objectives*details',
-                            moduleId: 'viewmodels/objectives/index',
+                            route: 'library*details',
+                            moduleId: 'viewmodels/library/index',
                             title: localizationManager.localize('materials'),
-                            hash: '#objectives',
+                            hash: '#library',
                             nav: true,
                             navigate: function () {
-                                eventTracker.publish(events.navigateToObjectives);
                                 clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
                                 router.navigate(this.hash);
                             }

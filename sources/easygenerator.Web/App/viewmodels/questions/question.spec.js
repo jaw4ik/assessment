@@ -338,7 +338,7 @@ define(function (require) {
                     viewModel.courseId = null;
                     viewModel.objectiveId = 'objectiveId';
                     viewModel.back();
-                    expect(router.navigate).toHaveBeenCalledWith('#objectives/objectiveId');
+                    expect(router.navigate).toHaveBeenCalledWith('#library/objectives/objectiveId');
             });
 
         });
@@ -510,7 +510,7 @@ define(function (require) {
                 it('should navigate to new question', function (done) {
                     viewModel.duplicateQuestion();
                     copyQuestionDefer.promise.fin(function () {
-                        expect(router.navigate).toHaveBeenCalledWith('objectives/' + objectiveId + '/questions/' + newQuestionId);
+                        expect(router.navigate).toHaveBeenCalledWith('library/objectives/' + objectiveId + '/questions/' + newQuestionId);
                         done();
                     });
                 });

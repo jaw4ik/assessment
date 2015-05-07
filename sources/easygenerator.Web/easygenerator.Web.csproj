@@ -540,11 +540,18 @@
     <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.spec.js">
       <DependentUpon>moveCopyQuestion.js</DependentUpon>
     </Content>
+    <Content Include="App\dialogs\video\video.html" />
+    <Content Include="App\dialogs\video\video.js" />
+    <Content Include="App\dialogs\video\video.spec.js">
+      <DependentUpon>video.js</DependentUpon>
+    </Content>
     <Content Include="App\localization\resources.js" />
+    <Content Include="App\mappers\videoModelMapper.js" />
     <Content Include="App\models\reportingStatement.js" />
     <Content Include="App\models\reportingStatement.spec.js">
       <DependentUpon>reportingStatement.js</DependentUpon>
     </Content>
+    <Content Include="App\models\video.js" />
     <Content Include="App\reporting\xApiProvider.js" />
     <Content Include="App\dialogs\publishCourse\publishCourse.html" />
     <Content Include="App\dialogs\publishCourse\publishCourse.js" />
@@ -558,6 +565,10 @@
     <Content Include="App\components\tooltip\view.html" />
     <Content Include="App\reporting\xApiProvider.spec.js">
       <DependentUpon>xApiProvider.js</DependentUpon>
+    </Content>
+    <Content Include="App\repositories\videoRepository.js" />
+    <Content Include="App\repositories\videoRepository.spec.js">
+      <DependentUpon>videoRepository.js</DependentUpon>
     </Content>
     <Content Include="App\routing\isViewReadyMixin.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\answerCorrectnessUpdated.spec.js">
@@ -596,6 +607,7 @@
     <Content Include="App\utils\waiter.spec.js">
       <DependentUpon>waiter.js</DependentUpon>
     </Content>
+    <Content Include="App\videoUpload.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\courseIntroductionAnimationBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\elementCollapseBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\publishTabBinding.js" />
@@ -621,6 +633,10 @@
       <DependentUpon>results.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\index.js" />
+    <Content Include="App\viewmodels\library\index.js" />
+    <Content Include="App\viewmodels\library\index.spec.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\objectives\index.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.spec.js">
@@ -633,6 +649,10 @@
     <Content Include="App\viewmodels\questions\statement\statementAnswers.js" />
     <Content Include="App\viewmodels\questions\statement\statementAnswers.spec.js">
       <DependentUpon>statementAnswers.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\videos\videos.js" />
+    <Content Include="App\viewmodels\videos\videos.spec.js">
+      <DependentUpon>videos.js</DependentUpon>
     </Content>
     <Content Include="App\views\courses\course\create\index.html" />
     <Content Include="App\views\courses\course\publish.html" />
@@ -647,8 +667,10 @@
     <Content Include="App\views\courses\publishActions\publishAsHtml.html" />
     <Content Include="App\views\courses\publishActions\publishAsScorm.html" />
     <Content Include="App\views\courses\publishActions\updatePublishedCourse.html" />
+    <Content Include="App\views\library\index.html" />
     <Content Include="App\views\objectives\index.html" />
     <Content Include="App\views\questions\statement\statement.html" />
+    <Content Include="App\views\videos\videos.html" />
     <Content Include="BuildCourse\Modules\js\branding.js" />
     <Content Include="Content\editField.css">
       <DependentUpon>editField.less</DependentUpon>
@@ -739,6 +761,9 @@
     <Content Include="App\views\questions\hotSpot\designer.html" />
     <Content Include="App\views\questions\hotSpot\hotSpot.html" />
     <Content Include="Content\images\hotspot-question.png" />
+    <Content Include="Content\video.css">
+      <DependentUpon>video.less</DependentUpon>
+    </Content>
     <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\a15336e3207b40aa86ae93f15c2d3927.html" />
     <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\content.html" />
     <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\8555e814ebef4f6a9f82cabfe8502894\a542a9cad6b64881844eed6e65d37044.html" />
@@ -1550,6 +1575,7 @@
     <Content Include="Content\collaboration.less" />
     <Content Include="Content\shell.less" />
     <Content Include="Content\editField.less" />
+    <Content Include="Content\video.less" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />
@@ -2582,7 +2608,6 @@
   <ItemGroup>
     <Folder Include="Views\CourseImport\" />
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

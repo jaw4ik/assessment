@@ -552,7 +552,7 @@
                                 viewModel.moveQuestion();
 
                                 moveQuestionDefer.promise.fin(function () {
-                                    expect(router.navigate).toHaveBeenCalledWith('objectives/' + viewModel.objectiveId());
+                                    expect(router.navigate).toHaveBeenCalledWith('library/objectives/' + viewModel.objectiveId());
                                     done();
                                 });
                             });
@@ -752,7 +752,7 @@
                             viewModel.copyQuestion();
 
                             copyQuestionDefer.promise.fin(function () {
-                                expect(router.navigate).toHaveBeenCalledWith('objectives/' + viewModel.selectedObjectiveId() + '/questions/' + newQuestionId);
+                                expect(router.navigate).toHaveBeenCalledWith('library/objectives/' + viewModel.selectedObjectiveId() + '/questions/' + newQuestionId);
                                 done();
                             });
                         });
