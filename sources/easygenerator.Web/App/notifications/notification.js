@@ -10,7 +10,8 @@
             isExpanded: ko.observable(false),
             pushNotification: pushNotification,
             removeNotification: removeNotification,
-            index: ko.observable(0),
+            activeNotification: ko.observable(),
+            isMovingForward: false,
             next: next,
             prev: prev
         },
@@ -20,8 +21,12 @@
             return viewModel.collection().length != 0;
         });
 
+        viewModel.index = ko.computed(function () {
+            return viewModel.collection().indexOf(viewModel.activeNotification());
+        });
+
         viewModel.canMoveNext = ko.computed(function () {
-            return viewModel.index() < viewModel.collection().length - 1;
+            return viewModel.index() >= 0 && viewModel.index() < viewModel.collection().length - 1;
         });
 
         viewModel.canMovePrev = ko.computed(function () {
@@ -34,14 +39,16 @@
             if (!viewModel.canMoveNext())
                 return;
 
-            viewModel.index(viewModel.index() + 1);
+            viewModel.isMovingForward = true;
+            viewModel.activeNotification(viewModel.collection()[viewModel.index() + 1]);
         }
 
         function prev() {
             if (!viewModel.canMovePrev())
                 return;
 
-            viewModel.index(viewModel.index() - 1);
+            viewModel.isMovingForward = false;
+            viewModel.activeNotification(viewModel.collection()[viewModel.index() - 1]);
         }
 
         function toggleIsExpanded() {
@@ -59,8 +66,14 @@
 
             if (_.isNullOrUndefined(existingNotification)) {
                 viewModel.collection.push(notification);
+                if (viewModel.collection().length === 1) {
+                    viewModel.activeNotification(notification);
+                }
             } else {
                 viewModel.collection.replace(existingNotification, notification);
+                if (existingNotification === viewModel.activeNotification()) {
+                    viewModel.activeNotification(notification);
+                }
             }
         }
 
@@ -69,13 +82,22 @@
                 return item.key === notificationKey;
             });
 
-            if (!_.isNullOrUndefined(notification)) {
+            if (_.isNullOrUndefined(notification))
+                return;
+
+            if (viewModel.activeNotification() === notification) {
                 var isLastElement = viewModel.collection().indexOf(notification) === viewModel.collection().length - 1;
                 if (isLastElement) {
                     prev();
+                } else {
+                    next();
                 }
+            }
 
-                viewModel.collection.remove(notification);
+            viewModel.collection.remove(notification);
+            if (viewModel.collection().length == 0) {
+                viewModel.activeNotification(null);
+                viewModel.isExpanded(false);
             }
         }
 
@@ -85,6 +107,11 @@
 
             return Q.all(_.map(controllers, function (controller) {
                 return controller.execute();
-            }));
+            }))
+                .then(function () {
+                    if (viewModel.collection().length > 0) {
+                        viewModel.activeNotification(viewModel.collection()[0]);
+                    }
+                });
         }
     });

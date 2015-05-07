@@ -1681,6 +1681,7 @@
 .shell > header .header-menu-list-item.user-notification {
   position: relative;
   z-index: 201;
+  cursor: pointer;
 }
 .shell > header .header-menu-list-item.user-notification:hover,
 .shell > header .header-menu-list-item.user-notification.expanded {

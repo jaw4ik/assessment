@@ -12,9 +12,9 @@
                 <button class="user-notification-navigation-btn prev" data-bind="click: prev"></button>
                 <!-- /ko -->
             </div>
-            <div class="user-notification-body">
+            <div class="user-notification-container">
                 <button class="user-notification-close-btn" data-bind="click: collapse"></button>
-                <!-- ko compose: collection()[index()] -->
+                <!-- ko compose: { model: activeNotification, transition: 'notificationTransition' } -->
                 <!-- /ko -->
             </div>
             <div class="user-notification-navigation">

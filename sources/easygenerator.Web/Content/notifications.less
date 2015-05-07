@@ -2,40 +2,47 @@
 
 .user-notification-viewer {
     position: absolute;
-    display: none;
-    table-layout: fixed;
-    width: 100%;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
     top: 56px;
     left: -220px;
+    max-height: 0px;
     overflow: hidden;
     font-size: 12px;
     font-family: 'OpenSans';
     color: #303133;
     cursor: default;
     z-index: 200;
-}
+    transition: max-height ease-out 0.3s;
 
-.user-notification-viewer.shown {
-    display: table;
-
-    & > * {
-        display: table-cell;
-        vertical-align: middle;
+    &.shown {
+        max-height: 1000px;
     }
 }
 
-.user-notification-body {
+.user-notification-container {
+    display: -webkit-flex;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
     position: relative;
     width: 415px;
     background-color: #fff;
     border: 1px solid #ddd;
     border-top: none;
     box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+
+    &.reversed {
+        flex-direction: row-reverse;
+    }
 }
 
 /*#region navigation */
 
 .user-notification-navigation {
+    align-self: center;
     position: relative;
     width: 35px;
 
@@ -46,6 +53,7 @@
         transition: background-color ease-out 0.1s;
         border: 0px;
         background-color: transparent;
+        cursor: pointer;
 
         &:hover {
             background-color: #fafbfd;
@@ -92,6 +100,7 @@
     height: 17px;
     border: 1px solid #ddd;
     background: url(../Content/images/sprites_16.png) -86px -1px;
+    cursor: pointer;
 }
 
 .user-notification-close-btn:hover {
@@ -102,7 +111,8 @@
     display: -webkit-flex;
     display: flex;
     flex-direction: column;
-    width: 413px;
+    flex-shrink: 0;
+    width: 100%;
     height: 280px;
     color: #42515f;
 }
