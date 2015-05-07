@@ -19,10 +19,7 @@
             });
 
             it('should call ctor of ExpandableStatement with proper args', function () {
-                var args = ExpandableStatement.call.calls.mostRecent().args;
-                expect(args[0]).toBe(statement);
-                expect(args[1]).toBe(lrsStatement);
-                expect(args[2]).toBeNull();
+                expect(ExpandableStatement.call).toHaveBeenCalledWith(statement, lrsStatement, null);
             });
 
             it('should set isExpandable to false', function () {

@@ -24,10 +24,7 @@
 
         describe('[ctor]', function () {
             it('should call ctor of ExpandableStatement with proper args', function () {
-                var args = ExpandableStatement.call.calls.mostRecent().args;
-                expect(args[0]).toBe(statement);
-                expect(args[1]).toBe(lrsStatement);
-                expect(args[2]).toBe(statement.expandLoadAction);
+                expect(ExpandableStatement.call).toHaveBeenCalledWith(statement, lrsStatement, statement.expandLoadAction);
             });
         });
 
@@ -45,9 +42,7 @@
             it('should call xApiProvider.getAnsweredStatements with correct args', function (done) {
                 defer.resolve([]);
                 statement.expandLoadAction().fin(function () {
-                    var args = xApiProvider.getAnsweredStatements.calls.mostRecent().args;
-                    expect(args[0]).toBe(attemptId);
-                    expect(args[1]).toBe(statementId);
+                    expect(xApiProvider.getAnsweredStatements).toHaveBeenCalledWith(attemptId, statementId);
                     done();
                 });
             });
