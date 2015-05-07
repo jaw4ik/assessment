@@ -361,6 +361,8 @@
                 var firstname = "test first name";
                 var lastname = "test last name";
                 var password = "Abc123! ";
+                var grant_type = "password";
+                var scope = "api auth storage";
 
                 beforeEach(function () {
                     viewModel.username(username);
@@ -373,8 +375,13 @@
                     viewModel.submit();
 
                     expect($.ajax).toHaveBeenCalledWith({
-                        url: '/api/user/signin',
-                        data: { username: username, password: password },
+                        url: '/auth/token',
+                        data: {
+                            username: username,
+                            password: password,
+                            grant_type: grant_type,
+                            scope: scope
+                        },
                         type: 'POST'
                     });
                 });
@@ -385,8 +392,13 @@
                     viewModel.submit();
 
                     expect($.ajax).toHaveBeenCalledWith({
-                        url: '/api/user/signin',
-                        data: { username: username, password: password },
+                        url: '/auth/token',
+                        data: {
+                            username: username,
+                            password: password,
+                            grant_type: grant_type,
+                            scope: scope
+                        },
                         type: 'POST'
                     });
                 });
@@ -397,12 +409,17 @@
                     expect(viewModel.errorMessage()).toEqual("");
                 });
 
-                it('should send request to /api/user/signin', function () {
+                it('should send request to auth/token', function () {
                     viewModel.submit();
 
                     expect($.ajax).toHaveBeenCalledWith({
-                        url: '/api/user/signin',
-                        data: { username: username, password: password },
+                        url: '/auth/token',
+                        data: {
+                            username: username,
+                            password: password,
+                            grant_type: grant_type,
+                            scope: scope
+                        },
                         type: 'POST'
                     });
                 });
@@ -547,9 +564,9 @@
 
         describe('isSigninRequestPending:', function () {
 
-            it('should be observable', function() {
+            it('should be observable', function () {
                 expect(viewModel.isSigninRequestPending).toBeObservable();
-            });           
+            });
 
         });
 

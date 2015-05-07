@@ -3,7 +3,7 @@
 
     var
         constants = require('constants'),
-        httpWrapper = require('http/httpWrapper'),
+        apiHttpWrapper = require('http/apiHttpWrapper'),
         app = require('durandal/app');
 
     function getTaskByName(name) {
@@ -17,7 +17,7 @@
         var httpPostDefer;
         beforeEach(function() {
             httpPostDefer = Q.defer();
-            spyOn(httpWrapper, 'post').and.returnValue(httpPostDefer.promise);
+            spyOn(apiHttpWrapper, 'post').and.returnValue(httpPostDefer.promise);
 
             spyOn(app, 'on');
             spyOn(app, 'off');
@@ -77,7 +77,7 @@
                 it('should call api \'api/onboarding/coursecreated\'', function() {
                     task.handler();
                     httpPostDefer.resolve();
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/onboarding/coursecreated');
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/onboarding/coursecreated');
                 });
 
                 describe('when request is success', function() {
@@ -190,7 +190,7 @@
                 it('should call api \'api/onboarding/objectivecreated\'', function() {
                     task.handler();
                     httpPostDefer.resolve();
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/onboarding/objectivecreated');
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/onboarding/objectivecreated');
                 });
 
                 describe('when request is success', function() {
@@ -309,7 +309,7 @@
                     it('should not call api \'api/onboarding/contentcreated\'', function() {
                         task.handler(null, question);
                         httpPostDefer.resolve();
-                        expect(httpWrapper.post).not.toHaveBeenCalled();
+                        expect(apiHttpWrapper.post).not.toHaveBeenCalled();
                     });
 
                 });
@@ -323,7 +323,7 @@
                     it('should call api \'api/onboarding/contentcreated\'', function() {
                         task.handler(null, question);
                         httpPostDefer.resolve();
-                        expect(httpWrapper.post).toHaveBeenCalledWith('api/onboarding/contentcreated');
+                        expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/onboarding/contentcreated');
                     });
 
                     describe('when request is success', function() {
@@ -487,7 +487,7 @@
                     it('should not call api \'api/onboarding/questioncreated\'', function() {
                         task.handler(null, question);
                         httpPostDefer.resolve();
-                        expect(httpWrapper.post).not.toHaveBeenCalled();
+                        expect(apiHttpWrapper.post).not.toHaveBeenCalled();
                     });
 
                 });
@@ -501,7 +501,7 @@
                     it('should call api \'api/onboarding/questioncreated\'', function() {
                         task.handler(null, question);
                         httpPostDefer.resolve();
-                        expect(httpWrapper.post).toHaveBeenCalledWith('api/onboarding/questioncreated');
+                        expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/onboarding/questioncreated');
                     });
 
                     describe('when request is success', function() {
@@ -641,7 +641,7 @@
                 it('should call api \'api/onboarding/coursepublished\'', function() {
                     task.handler();
                     httpPostDefer.resolve();
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/onboarding/coursepublished');
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/onboarding/coursepublished');
                 });
 
                 describe('when request is success', function() {

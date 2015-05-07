@@ -1,4 +1,4 @@
-﻿define(['http/httpWrapper', 'constants', 'durandal/app', 'localization/localizationManager'], function (httpWrapper, constants, app, localizationManager) {
+﻿define(['http/apiHttpWrapper', 'constants', 'durandal/app', 'localization/localizationManager'], function (apiHttpWrapper, constants, app, localizationManager) {
     "use strict";
 
     var tasks = [
@@ -17,7 +17,7 @@
             title: localizationManager.localize('createCourseOnboardingTaskTitle'),
             description: localizationManager.localize('createCourseOnboardingTaskDescription'),
             handler: function () {
-                return httpWrapper.post('api/onboarding/coursecreated').then(function () {
+                return apiHttpWrapper.post('api/onboarding/coursecreated').then(function () {
                     app.off(constants.messages.course.created, task.handler);
                     task.isCompleted(true);
                 });
@@ -37,7 +37,7 @@
             title: localizationManager.localize('defineObjectiveOnboardingTaskTitle'),
             description: localizationManager.localize('defineObjectiveOnboardingTaskDescription'),
             handler: function () {
-                return httpWrapper.post('api/onboarding/objectivecreated').then(function () {
+                return apiHttpWrapper.post('api/onboarding/objectivecreated').then(function () {
                     app.off(constants.messages.objective.createdInCourse, task.handler);
                     task.isCompleted(true);
                 });
@@ -61,7 +61,7 @@
                     return;
                 }
 
-                return httpWrapper.post('api/onboarding/contentcreated').then(function () {
+                return apiHttpWrapper.post('api/onboarding/contentcreated').then(function () {
                     app.off(constants.messages.question.created, task.handler);
                     task.isCompleted(true);
                 });
@@ -92,7 +92,7 @@
                     return;
                 }
 
-                return httpWrapper.post('api/onboarding/questioncreated').then(function () {
+                return apiHttpWrapper.post('api/onboarding/questioncreated').then(function () {
                     task.createdQuestionsCount(task.createdQuestionsCount() + 1);
 
                     if (task.isCompleted()) {
@@ -124,7 +124,7 @@
             title: localizationManager.localize('publishOnboardingTaskTitle'),
             description: localizationManager.localize('publishOnboardingTaskDescription'),
             handler: function () {
-                return httpWrapper.post('api/onboarding/coursepublished').then(function () {
+                return apiHttpWrapper.post('api/onboarding/coursepublished').then(function () {
                     app.off(constants.messages.course.delivering.finished, task.handler);
                     task.isCompleted(true);
                 });

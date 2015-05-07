@@ -31,10 +31,11 @@
             it('should make a post request', function () {
                 var url = "url";
                 var data = { title: 'title' };
+                var headers = { auth: 'auth' };
 
-                httpRequestSender.post(url, data);
+                httpRequestSender.post(url, data, headers);
 
-                expect(http.post).toHaveBeenCalledWith(url, data);
+                expect(http.post).toHaveBeenCalledWith(url, data, headers);
             });
 
             describe('when post request failed', function () {

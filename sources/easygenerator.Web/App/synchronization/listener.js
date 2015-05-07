@@ -10,6 +10,10 @@
                 var dfd = Q.defer();
 
                 var hub = $.connection.eventHub;
+                
+                // Send access token as query string parameter because of WebSockets doesn't support Authorization header
+                // Need to be changed as soon as another solutions will be found
+                $.connection.hub.qs = { 'access_token': localStorage['token-auth'] };
 
                 hub.client = {
                     userDowngraded: userEventHandler.downgraded,

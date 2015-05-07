@@ -1,7 +1,7 @@
 ﻿{
   "BrowserLink": {
     "CssIgnorePatterns": "bootstrap*; reset.css; normalize.css; jquery*; toastr*; foundation*; animate*; inuit*; elements*; ratchet*; hint*; flat-ui*; 960*; skeleton*",
-    "EnableMenu": true,
+    "EnableMenu": false,
     "EnablePixelPushing": false,
     "ShowMenu": true
   },
@@ -90,16 +90,17 @@
     "MinifyKnockoutBindingExpressions": false,
     "OutputDirectory": null,
     "ProcessableScriptTypeList": null,
-    "RunOnBuild": false
+    "RunOnBuild": false,
+    "MinificationMode": "KeepQuotes"
   },
   "JavaScript": {
     "AutoMinify": true,
-    "BlockCommentCompletion": true,
+    "BlockCommentCompletion": false,
     "EvalTreatment": "MakeImmediateSafe",
     "GenerateSourceMaps": false,
     "GzipMinifiedFiles": false,
     "LintOnBuild": false,
-    "LintOnSave": true,
+    "LintOnSave": false,
     "LintResultLocation": "Message",
     "MakeMinified": true,
     "OutputDirectory": null,

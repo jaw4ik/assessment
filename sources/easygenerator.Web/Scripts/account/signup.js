@@ -5,7 +5,7 @@ app.signupModel = function () {
     var self = {
         lastValidatedUserName: null,
         lastValidateFirstName: null,
-        lastValidateLastName: null,
+        lastValidateLastName: null
     };
 
     var whitespaceRegex = /\s/;

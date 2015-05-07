@@ -14,7 +14,6 @@
             activate: activate,
             router: router,
             homeModuleName: 'courses',
-            isViewReady: ko.observable(true),
             showNavigation: showNavigation,
 
             navigation: ko.observableArray([]),
@@ -35,19 +34,18 @@
             return '';
         });
 
-        viewModel.isViewReady.subscribe(function (value) {
-            if (value && !_.isNullOrUndefined(clientContext.get('showCreateCoursePopup'))) {
-                dialog.show('dialogs/createCourse').then(function () {
-                    clientContext.remove('showCreateCoursePopup');
-                });
-            }
-        });
-
-        app.on('httpWrapper:post-begin').then(function () {
+        app.on('apiHttpWrapper:post-begin').then(function () {
             requestsCounter(requestsCounter() + 1);
         });
 
-        app.on('httpWrapper:post-end').then(function () {
+        app.on('authHttpWrapper:post-begin').then(function () {
+            requestsCounter(requestsCounter() + 1);
+        });
+
+        app.on('apiHttpWrapper:post-end').then(function () {
+            requestsCounter(requestsCounter() - 1);
+        });
+        app.on('authHttpWrapper:post-end').then(function () {
             requestsCounter(requestsCounter() - 1);
         });
 
@@ -145,6 +143,13 @@
 
                     isViewReady.assign(router);
 
+                    viewModel.router.isViewReady.subscribe(function (value) {
+                        if (value && !_.isNullOrUndefined(clientContext.get('showCreateCoursePopup'))) {
+                            dialog.show('dialogs/createCourse').then(function () {
+                                clientContext.remove('showCreateCoursePopup');
+                            });
+                        }
+                    });
 
                     return router.buildNavigationModel()
                         .mapUnknownRoutes('viewmodels/errors/404', '404')

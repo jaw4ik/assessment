@@ -57,7 +57,8 @@
             'localization/localizationManager.spec',
             'models/course.spec',
             'models/user.spec',
-            'models/reportingStatement.spec',
+            //'models/reporting/statement.spec',
+            'models/reporting/actor.spec',
             'notifications/notification.spec',
             'notifications/subscriptionExpirationNotificationController.spec',
             'notifications/subscriptionExpirationNotification.spec',
@@ -81,7 +82,8 @@
 
             //#endregion
 
-            'reporting/xApiProvider.spec',
+            //'reporting/xApiFilterCriteriaFactory.spec',
+            //'reporting/xApiProvider.spec',
 
             //#region synchronization
 
@@ -188,7 +190,7 @@
             'viewmodels/courses/course/create/course.spec',
             'viewmodels/courses/course/design.spec',
             'viewmodels/courses/course/publish.spec',
-            'viewmodels/courses/course/results.spec',
+            //'reporting/viewmodels/results.spec',
             'viewmodels/courses/publishingActions/publishingAction.spec',
             'viewmodels/courses/publishingActions/build.spec',
             'viewmodels/courses/publishingActions/publish.spec',
@@ -268,7 +270,8 @@
             'widgets/createQuestion/viewmodel.spec',
             'bootstrapper.spec',
             'guard.spec',
-            'http/httpWrapper.spec',
+            'http/apiHttpWrapper.spec',
+            'http/authHttpWrapper.spec',
             'http/httpRequestSender.spec',
             'notify.spec',
             'uiLocker.spec',

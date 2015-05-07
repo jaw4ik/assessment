@@ -12,6 +12,10 @@
             "url": "lang/en.json"
         },
         {
+            "code": "nl",
+            "url": "lang/nl.json"
+        },
+        {
             "code": "ua",
             "url": "lang/ua.json"
         }

@@ -21,7 +21,6 @@ define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synch
         if (!has('release')) {
             system.debug(true);
         }
-
         app.title = "easygenerator";
 
         app.configurePlugins({

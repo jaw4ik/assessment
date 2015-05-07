@@ -26,7 +26,9 @@ namespace easygenerator.Web.Components.ActionFilters.Permissions
             var entityIdValueKey = EntityType.Name.ToLower() + "Id";
             var entityId = authorizationContext.Controller.ValueProvider.GetGuidValue(entityIdValueKey);
             if (!entityId.HasValue)
-                throw new ArgumentNullException(entityIdValueKey);
+            {
+                return false;
+            }
 
 
             var entity = GetEntity(entityId.Value);

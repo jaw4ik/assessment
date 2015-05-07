@@ -8,9 +8,9 @@
             configure: configure
         };
 
-        function post(url, data) {
+        function post(url, data, headers) {
             var deferred = Q.defer();
-            http.post(url, data).done(function (response) {
+            http.post(url, data, headers).done(function (response) {
                 if (!_.isObject(response)) {
                     deferred.reject('Response data is not an object');
                     return;
@@ -58,7 +58,9 @@
 
         function configure() {
             $.ajaxSetup({
-                headers: { "cache-control": "no-cache" }
+                headers: {
+                    "cache-control": "no-cache"
+                }
             });
         }
     });

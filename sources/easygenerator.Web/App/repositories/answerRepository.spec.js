@@ -4,7 +4,7 @@
 
     var
         dataContext = require('dataContext'),
-        httpWrapper = require('http/httpWrapper');
+        apiHttpWrapper = require('http/apiHttpWrapper');
 
     describe('repository [answerRepository]', function () {
 
@@ -12,7 +12,7 @@
 
         beforeEach(function () {
             post = Q.defer();
-            spyOn(httpWrapper, 'post').and.returnValue(post.promise);
+            spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise);
         });
 
         it('should be object', function () {
@@ -75,7 +75,7 @@
                 post.reject('Some reason');
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/answers', { questionId: questionId });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/answers', { questionId: questionId });
                     done();
                 });
             });
@@ -298,7 +298,7 @@
                 var promise = repository.addAnswer(requestData.questionId, { text: requestData.text, isCorrect: requestData.isCorrect });
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/answer/create', requestData);
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/answer/create', requestData);
                     done();
                 });
 
@@ -526,7 +526,7 @@
                 var promise = repository.removeAnswer('id1', 'id2');
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/answer/delete', { questionId: 'id1', answerId: 'id2' });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/answer/delete', { questionId: 'id1', answerId: 'id2' });
                     done();
                 });
 
@@ -813,7 +813,7 @@
                 var promise = repository.updateAnswer('id1', 'id2', '123123', true);
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/answer/update', { answerId: 'id2', text: '123123', isCorrect: true });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/answer/update', { answerId: 'id2', text: '123123', isCorrect: true });
                     done();
                 });
 
@@ -1061,7 +1061,7 @@
                 var promise = repository.updateText('id1', 'id2', '123123');
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/answer/updatetext', { answerId: 'id2', text: '123123' });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/answer/updatetext', { answerId: 'id2', text: '123123' });
                     done();
                 });
 

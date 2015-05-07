@@ -41,9 +41,6 @@ namespace easygenerator.Web.Controllers
         [NoCache]
         public ActionResult SignUp()
         {
-            if (IsExistingUserAuthenticated())
-                return RedirectToRoute("Default");
-
             ViewBag.ClickOnLogoDisabled = true;
 
             return View();
@@ -52,11 +49,6 @@ namespace easygenerator.Web.Controllers
         [NoCache]
         public ActionResult SignUpSecondStep()
         {
-            if (IsExistingUserAuthenticated())
-            {
-                return RedirectToRoute("Default");
-            }
-
             ViewBag.ClickOnLogoDisabled = true;
             ViewBag.NavigationLinksAreDisabled = true;
 
@@ -66,19 +58,7 @@ namespace easygenerator.Web.Controllers
         [NoCache]
         public ActionResult SignIn()
         {
-            if (IsExistingUserAuthenticated())
-                return RedirectToRoute("Default");
-
             return View();
-        }
-
-        [NoCache]
-        public ActionResult SignOut()
-        {
-            if (_authenticationProvider.IsUserAuthenticated())
-                _authenticationProvider.SignOut();
-
-            return RedirectToRoute("SignIn");
         }
 
         [HttpGet]
@@ -101,7 +81,6 @@ namespace easygenerator.Web.Controllers
             }
 
             ticket.User.RecoverPasswordUsingTicket(ticket, password);
-            _authenticationProvider.SignIn(ticket.User.Email, true);
 
             return RedirectToRoute("Default");
         }
