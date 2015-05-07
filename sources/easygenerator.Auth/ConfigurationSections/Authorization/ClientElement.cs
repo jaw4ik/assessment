@@ -36,5 +36,12 @@ namespace easygenerator.Auth.ConfigurationSections.Authorization
             get { return (string)base["audience"]; }
             set { base["audience"] = value; }
         }
+
+        [ConfigurationProperty("apiKey", IsRequired = true)]
+        public string ApiKey
+        {
+            get { return (string)base["apiKey"]; }
+            set { base["apiKey"] = value; }
+        }
     }
 }
