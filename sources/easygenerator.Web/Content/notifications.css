@@ -4,9 +4,12 @@
   position: absolute;
   display: -webkit-flex;
   display: flex;
+  -ms-flex-direction: row;
+  -webkit-flex-direction: row;
   flex-direction: row;
   top: 56px;
   left: -220px;
+  width: 485px;
   max-height: 0px;
   overflow: hidden;
   font-size: 12px;
@@ -22,7 +25,10 @@
 .user-notification-container {
   display: -webkit-flex;
   display: flex;
+  -webkit-justify-content: flex-end;
   justify-content: flex-end;
+  -ms-flex-direction: row;
+  -webkit-flex-direction: row;
   flex-direction: row;
   position: relative;
   width: 415px;
@@ -33,10 +39,13 @@
   overflow: hidden;
 }
 .user-notification-container.reversed {
+  -ms-flex-direction: row-reverse;
+  -webkit-flex-direction: row-reverse;
   flex-direction: row-reverse;
 }
 /*#region navigation */
 .user-notification-navigation {
+  -webkit-align-self: center;
   align-self: center;
   position: relative;
   width: 35px;
@@ -94,6 +103,8 @@
 .user-notification-wrapper {
   display: -webkit-flex;
   display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
   flex-direction: column;
   flex-shrink: 0;
   width: 100%;
@@ -103,17 +114,21 @@
 .user-notification-header {
   display: -webkit-flex;
   display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
   flex-direction: row;
   flex-shrink: 0;
   padding: 10px 10px 0px 10px;
 }
 .user-notification-header .user-notification-header-image {
+  -webkit-align-self: center;
   align-self: center;
   width: 53px;
   height: 53px;
   background: url(../Content/images/sprites_64.png) -76px -6px;
 }
 .user-notification-header .user-notification-header-content {
+  -webkit-align-self: center;
   align-self: center;
   margin-left: 10px;
 }
@@ -129,6 +144,8 @@
 .user-notification-content {
   display: -webkit-flex;
   display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
   flex-direction: column;
   flex-grow: 2;
   word-wrap: break-word;
@@ -138,6 +155,7 @@
   flex: 2;
   display: -webkit-flex;
   display: flex;
+  -webkit-align-items: stretch;
   align-items: center;
   justify-content: center;
   padding: 10px 0px;
@@ -177,6 +195,7 @@
   background: url(images/sprites_24.png) 0px 0px;
 }
 .user-notification-footer .user-notification-footer-text {
+  -webkit-align-self: center;
   align-self: center;
 }
 /*#region Subscription expiration */
