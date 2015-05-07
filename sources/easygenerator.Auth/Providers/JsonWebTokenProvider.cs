@@ -15,7 +15,7 @@ namespace easygenerator.Auth.Providers
                 audience: audience,
                 claims: claims,
                 notBefore: DateTime.UtcNow,
-                expires: DateTime.UtcNow.AddHours(1),
+                expires: DateTime.UtcNow.AddDays(30),
                 signingCredentials: new SigningCredentials(
                     signingKey: new InMemorySymmetricSecurityKey(secret),
                     signatureAlgorithm: SecurityAlgorithms.HmacSha256Signature,

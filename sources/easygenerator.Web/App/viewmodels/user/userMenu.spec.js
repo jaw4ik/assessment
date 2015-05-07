@@ -162,7 +162,7 @@
                 //};
                 //length = 7;
 
-                spyOn(router, 'openUrl');
+                spyOn(router, 'setLocation');
                 //spyOn(localStorage, 'getItem').and.callFake(function () {
                 //    return storage[key];
                 //});
@@ -186,7 +186,7 @@
 
             it('should open signup page', function () {
                 userMenu.signOut();
-                expect(router.openUrl).toHaveBeenCalledWith(constants.signinUrl);
+                expect(router.setLocation).toHaveBeenCalledWith(constants.signinUrl);
             });
 
         });

@@ -46,7 +46,7 @@
                 }
             }
 
-            router.openUrl(constants.signinUrl);
+            router.setLocation(constants.signinUrl);
         }
     }
 );
