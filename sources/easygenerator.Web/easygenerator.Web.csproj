@@ -554,6 +554,14 @@
     <Content Include="App\dialogs\video\video.spec.js">
       <DependentUpon>video.js</DependentUpon>
     </Content>
+    <Content Include="App\http\apiHttpWrapper.js" />
+    <Content Include="App\http\apiHttpWrapper.spec.js">
+      <DependentUpon>apiHttpWrapper.js</DependentUpon>
+    </Content>
+    <Content Include="App\http\authHttpWrapper.js" />
+    <Content Include="App\http\authHttpWrapper.spec.js">
+      <DependentUpon>authHttpWrapper.js</DependentUpon>
+    </Content>
     <Content Include="App\localization\resources.js" />
     <Content Include="App\mappers\videoModelMapper.js" />
     <Content Include="App\models\reporting\actor.js" />
@@ -2201,10 +2209,6 @@
     <Content Include="App\guard.js" />
     <Content Include="App\guard.spec.js">
       <DependentUpon>guard.js</DependentUpon>
-    </Content>
-    <Content Include="App\http\httpWrapper.js" />
-    <Content Include="App\http\httpWrapper.spec.js">
-      <DependentUpon>httpWrapper.js</DependentUpon>
     </Content>
     <Content Include="App\localization\localizationManager.js" />
     <Content Include="App\localization\localizationManager.spec.js">

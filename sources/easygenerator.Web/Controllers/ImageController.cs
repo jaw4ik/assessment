@@ -82,7 +82,6 @@ namespace easygenerator.Web.Controllers
         }
 
         [NoCache]
-        [HttpGet]
         [Route("api/images")]
         public ActionResult GetCurrentUserImageCollection()
         {

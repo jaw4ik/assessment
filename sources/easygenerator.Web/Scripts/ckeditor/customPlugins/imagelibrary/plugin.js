@@ -126,7 +126,13 @@
                             var loadingErrorDialogElement = dialog.getContentElement(plugin.mainTabId, plugin.loadingErrorIndicatorId).getElement();
                             loadingErrorDialogElement.hide();
 
-                            $.ajax(plugin.getUserImagesApiUrl)
+                            var requestArgs = {
+                                url: plugin.getUserImagesApiUrl,
+                                type: 'POST',
+                                headers: { "Authorization": "Bearer " + localStorage['token-api'] }
+                            };
+
+                            $.ajax(requestArgs)
                                 .done(function (response) {
                                     var emptyListDialogElement = dialog.getContentElement(plugin.mainTabId, plugin.emptyListIndicatorId).getElement();
 
