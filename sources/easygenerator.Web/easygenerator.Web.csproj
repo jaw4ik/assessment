@@ -614,6 +614,7 @@
       <DependentUpon>learningContentsReordered.js</DependentUpon>
     </Content>
     <Content Include="App\utils\base64.js" />
+    <Content Include="App\utils\fileSaverWrapper.js" />
     <Content Include="App\utils\waiter.js" />
     <Content Include="App\utils\waiter.spec.js">
       <DependentUpon>waiter.js</DependentUpon>
