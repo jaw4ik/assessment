@@ -358,6 +358,24 @@
     },
     /* End resource section for model General */
     
+    /* Resource section for model Videos */
+    videoLibrary: {
+        'en': 'Video Library',
+        'zh-cn': 'Video Library[zh-cn]',
+        'uk': 'Відео бібліотека'
+    },
+    uploadVideoDescription: {
+        'en': 'Upload your own video by click on this button',
+        'zh-cn': 'Upload your own video by click on this button[zh-cn]',
+        'uk': 'Завантажте своє власне відео натиснувши на кнопку'
+    },
+    videoEmbedCodeTitle: {
+        'en': 'Embed this code to your content',
+        'zh-cn': 'Embed this code to your content[zh-cn]',
+        'uk': 'Вставте цей код в ваш контент'
+    },
+    /* End resource section for model Videos */
+    
     /* Resource section for model Objectives */
     learningObjectives: {
         'en': 'Learning objectives',
@@ -446,11 +464,6 @@
         'en': 'Configure',
         'zh-cn': 'Configure[zh-cn]',
         'uk': 'Конфігурація'
-    },
-    courseConfigureItem: {
-        'en': '3. Configure',
-        'zh-cn': '3. Configure[zh-cn]',
-        'uk': '3. Конфігурація'
     },
     coursePublishItem: {
         'en': 'Publish',
@@ -2138,7 +2151,10 @@
         'en': 'Your {0} expires {1}.',
         'zh-cn': '您的 {0} {1} 到期。',
         'uk': 'Ваш {0} закінчиться {1}.'
-    }
+    },
     /* End resource section for model Upgrade Notification */
+    
+    /* Resource section for model Collaboration invite */
+    /* End resource section for model Collaboration invite */
            
 });

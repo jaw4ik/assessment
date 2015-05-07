@@ -1752,6 +1752,7 @@
     <Content Include="Templates\Personalized learning\js\require\require.js" />
     <Content Include="Templates\Personalized learning\js\vendor.min.js" />
     <Content Include="Templates\Personalized learning\lang\en.json" />
+    <Content Include="Templates\Personalized learning\lang\nl.json" />
     <Content Include="Templates\Personalized learning\lang\ua.json" />
     <Content Include="Templates\Personalized learning\manifest.json" />
     <Content Include="Templates\Personalized learning\publishSettings.js" />
@@ -1926,6 +1927,7 @@
     <Content Include="Templates\Reader\js\require.js" />
     <Content Include="Templates\Reader\js\vendor.min.js" />
     <Content Include="Templates\Reader\lang\en.json" />
+    <Content Include="Templates\Reader\lang\nl.json" />
     <Content Include="Templates\Reader\lang\ua.json" />
     <Content Include="Templates\Reader\manifest.json" />
     <Content Include="Templates\Reader\publishSettings.js" />
@@ -2077,8 +2079,6 @@
     <Content Include="Views\DemoCourses\Index.cshtml" />
     <Content Include="Views\Shared\notSupportedPage.cshtml" />
     <Content Include="Views\Shared\notSupportedDevicePage.cshtml" />
-    <Content Include="Templates\Personalized learning\lang\nl.json" />
-    <Content Include="Templates\Reader\lang\nl.json" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
