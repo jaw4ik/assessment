@@ -26,6 +26,16 @@
             it('should call ctor of ExpandableStatement with proper args', function () {
                 expect(ExpandableStatement.call).toHaveBeenCalledWith(statement, lrsStatement, statement.expandLoadAction);
             });
+
+            it('should set hasScore to true if lrsStatement.score is not null', function() {
+                expect(statement.hasScore).toBeTruthy();
+            });
+
+            it('should set hasScore to false if lrsStatement.score is null', function () {
+                lrsStatement.score = null;
+                statement = new ObjectiveStatement(lrsStatement);
+                expect(statement.hasScore).toBeFalsy();
+            });
         });
 
         describe('[prototype]', function () {

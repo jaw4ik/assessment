@@ -89,10 +89,10 @@
                 expect(statement.score).toBe(50);
             });
 
-            it('should set score to 0 if result is not specified', function () {
+            it('should set score to null if result is not specified', function () {
                 passedSpec.result = null;
                 var statement = new Statement(passedSpec);
-                expect(statement.score).toBe(0);
+                expect(statement.score).toBeNull();
             });
 
             it('should set attemptId field to be equal to registration field if exists', function () {

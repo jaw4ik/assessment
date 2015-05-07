@@ -8,10 +8,10 @@
         this.date = new Date(spec.timestamp);
         this.actor = new Actor(spec.actor);
         
-        if (spec.result && spec.result.score && spec.result.score.scaled) {
+        if (spec.result && spec.result.score && _.isNumber(spec.result.score.scaled)) {
             this.score = Math.round(spec.result.score.scaled * 100);
         } else {
-            this.score = 0;
+            this.score = null;
         }
         this.verb = spec.verb.id;
 

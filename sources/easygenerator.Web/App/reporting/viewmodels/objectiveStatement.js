@@ -3,6 +3,7 @@
 
     var ObjectiveStatement = function (masteredLrsStatement) {
         ExpandableStatement.call(this, masteredLrsStatement, this.expandLoadAction);
+        this.hasScore = this.lrsStatement.score != null;
     }
 
     ObjectiveStatement.prototype = Object.create(ExpandableStatement.prototype);
