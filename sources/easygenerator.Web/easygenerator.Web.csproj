@@ -20,9 +20,6 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
-    <NuGetPackageImportStamp>7c68daac</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -53,6 +50,7 @@
     <Reference Include="Autofac.Integration.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Autofac.Mvc5.3.3.4\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+      <HintPath>..\..\packages\Autofac.Mvc5.3.3.3\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
@@ -235,10 +233,10 @@
     <Compile Include="Components\ActionFilters\ApplicationAuthorize.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AllowedUsersAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Permissions\PreviewAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCollaboratorsAmountAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\QuestionAccessAttribute.cs" />
-    <Compile Include="Components\ActionFilters\Permissions\PreviewAccessAttribute.cs" />
     <Compile Include="Components\BrowserSupport.cs" />
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
@@ -510,8 +508,8 @@
     <Compile Include="Synchronization\Tracking\UserConnectionTracker.cs" />
     <Compile Include="ViewModels\Account\UserSignUpViewModel.cs" />
     <Compile Include="ViewModels\Api\BlankAnswerViewModel.cs" />
-    <Compile Include="ViewModels\Dashboard\DashboardViewModel.cs" />
     <Compile Include="ViewModels\DemoCourses\DemoCoursesViewModel.cs" />
+    <Compile Include="ViewModels\Dashboard\DashboardViewModel.cs" />
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceAutologinUrlProvider.cs" />
@@ -558,11 +556,18 @@
     </Content>
     <Content Include="App\localization\resources.js" />
     <Content Include="App\mappers\videoModelMapper.js" />
-    <Content Include="App\models\reportingStatement.js" />
-    <Content Include="App\models\reportingStatement.spec.js">
-      <DependentUpon>reportingStatement.js</DependentUpon>
+    <Content Include="App\models\reporting\actor.js" />
+    <Content Include="App\models\reporting\actor.spec.js">
+      <DependentUpon>actor.js</DependentUpon>
     </Content>
     <Content Include="App\models\video.js" />
+    <Content Include="App\models\reporting\statement.js" />
+    <Content Include="App\models\reporting\statement.spec.js">
+      <DependentUpon>statement.js</DependentUpon>
+    </Content>
+    <Content Include="App\reporting\xApiFilterCriteriaFactory.spec.js">
+      <DependentUpon>xApiFilterCriteriaFactory.js</DependentUpon>
+    </Content>
     <Content Include="App\reporting\xApiProvider.js" />
     <Content Include="App\dialogs\publishCourse\publishCourse.html" />
     <Content Include="App\dialogs\publishCourse\publishCourse.js" />
@@ -581,6 +586,7 @@
     <Content Include="App\repositories\videoRepository.spec.js">
       <DependentUpon>videoRepository.js</DependentUpon>
     </Content>
+    <Content Include="App\reporting\xApiFilterCriteriaFactory.js" />
     <Content Include="App\routing\isViewReadyMixin.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\answerCorrectnessUpdated.spec.js">
       <DependentUpon>answerCorrectnessUpdated.js</DependentUpon>
@@ -639,8 +645,8 @@
     <Content Include="App\viewmodels\courses\course\publish.spec.js">
       <DependentUpon>publish.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\course\results.js" />
-    <Content Include="App\viewmodels\courses\course\results.spec.js">
+    <Content Include="App\reporting\viewmodels\results.js" />
+    <Content Include="App\reporting\viewmodels\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\index.js" />
@@ -665,11 +671,15 @@
     <Content Include="App\viewmodels\videos\videos.spec.js">
       <DependentUpon>videos.js</DependentUpon>
     </Content>
+    <Content Include="App\reporting\viewmodels\courseStatement.js" />
+    <Content Include="App\reporting\viewmodels\expandableStatement.js" />
+    <Content Include="App\reporting\viewmodels\objectiveStatement.js" />
+    <Content Include="App\reporting\viewmodels\questionStatement.js" />
     <Content Include="App\views\courses\course\create\index.html" />
     <Content Include="App\views\courses\course\publish.html" />
     <Content Include="App\views\courses\course\design.html" />
     <Content Include="App\views\courses\course\index.html" />
-    <Content Include="App\views\courses\course\results.html" />
+    <Content Include="App\reporting\views\results.html" />
     <Content Include="App\views\courses\index.html" />
     <Content Include="App\views\common\circularLoader.html" />
     <Content Include="App\views\courses\publishActions\publishToAim4You.html" />
@@ -682,7 +692,13 @@
     <Content Include="App\views\objectives\index.html" />
     <Content Include="App\views\questions\statement\statement.html" />
     <Content Include="App\views\videos\videos.html" />
+    <Content Include="App\reporting\views\courseStatement.html" />
+    <Content Include="App\reporting\views\objectiveStatement.html" />
+    <Content Include="App\reporting\views\questionStatement.html" />
     <Content Include="BuildCourse\Modules\js\branding.js" />
+    <Content Include="Content\course.css">
+      <DependentUpon>course.less</DependentUpon>
+    </Content>
     <Content Include="Content\editField.css">
       <DependentUpon>editField.less</DependentUpon>
     </Content>
@@ -1531,7 +1547,9 @@
     <Content Include="Mail\MailTemplates\HttpRequestFailedTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\NewsletterSubscriptionFailedTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\SignedUpUserTemplate.cshtml" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Mail\MailTemplates\InviteCollaboratorTemplate.cshtml" />
     <Content Include="Content\font\intro-regular.eot" />
     <Content Include="Content\font\intro-regular.ttf" />
@@ -1564,6 +1582,7 @@
     <Content Include="Content\ckeditor.less" />
     <Content Include="Content\common.less" />
     <Content Include="Content\courses.less" />
+    <Content Include="Content\course.less" />
     <Content Include="Content\cssPreloaders.less" />
     <Content Include="Content\dragAndDropText.less" />
     <Content Include="Content\helpers.less" />
@@ -1914,6 +1933,8 @@
     <Content Include="Templates\Reader\css\fonts\RobotoSlab-Thin-webfont.ttf" />
     <Content Include="Templates\Reader\css\fonts\RobotoSlab-Thin-webfont.woff" />
     <Content Include="Templates\Reader\css\fonts\Ubuntu-Regular.svg" />
+    <Content Include="Templates\Reader\css\fonts\Ubuntu-Regular.ttf" />
+    <Content Include="Templates\Reader\css\fonts\Ubuntu-Regular.woff" />
     <Content Include="Templates\Reader\css\jquery.mCustomScrollbar.min.css" />
     <Content Include="Templates\Reader\css\styles.css" />
     <Content Include="Templates\Reader\images\reader.png" />
@@ -1921,6 +1942,8 @@
     <Content Include="Templates\Reader\index.html" />
     <Content Include="Templates\Reader\js\require.js" />
     <Content Include="Templates\Reader\js\vendor.min.js" />
+    <Content Include="Templates\Reader\lang\en.json" />
+    <Content Include="Templates\Reader\lang\ua.json" />
     <Content Include="Templates\Reader\manifest.json" />
     <Content Include="Templates\Reader\publishSettings.js" />
     <Content Include="Templates\Reader\settings.js" />
@@ -2069,14 +2092,11 @@
     <Content Include="Templates\Simple course\lang\tr.json" />
     <Content Include="Templates\Simple course\lang\ua.json" />
     <Content Include="Templates\Quiz\lang\nl.json" />
-    <Content Include="Templates\Reader\css\fonts\Ubuntu-Regular.ttf" />
-    <Content Include="Templates\Reader\css\fonts\Ubuntu-Regular.woff" />
-    <Content Include="Templates\Reader\lang\en.json" />
-    <Content Include="Templates\Reader\lang\ua.json" />
     <Content Include="Templates\Exam\lang\en.json" />
     <Content Include="Templates\Exam\lang\ua.json" />
     <Content Include="Templates\Personalized learning\lang\nl.json" />
     <Content Include="Templates\Exam\lang\nl.json" />
+    <Content Include="Templates\Reader\lang\nl.json" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2413,7 +2433,6 @@
     <Content Include="Content\common.css">
       <DependentUpon>common.less</DependentUpon>
     </Content>
-    <Content Include="Content\course.css" />
     <Content Include="Content\courses.css">
       <DependentUpon>courses.less</DependentUpon>
     </Content>
@@ -2653,11 +2672,13 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>cd /d "$(ProjectDir)"
+"$(ProjectDir)../../tools/weyland/weyland" build
+IF NOT EXIST "$(ProjectDir)App\main-built.js" EXIT /B 1</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
+      del "$(ProjectDir)App\main-built.js"
     </PreBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
