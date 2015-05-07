@@ -2,8 +2,7 @@
     "use strict";
 
     var
-        localizationManager = require('localization/localizationManager'),
-        http = require('plugins/http');
+        apiHttpWrapper = require('http/apiHttpWrapper');
 
     describe('service [publishCourse]', function () {
 
@@ -16,7 +15,7 @@
                 course = { id: 'someId' };
 
                 post = $.Deferred();
-                spyOn(http, 'post').and.returnValue(post.promise());
+                spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise());
             });
 
             it('should be function', function () {
@@ -30,111 +29,25 @@
             });
 
             it('should send request', function (done) {
-                post.resolve();
-                var promise = service.buildCourse(course.id).fin(function () { });
+                post.resolve({});
+
+                var promise = service.buildCourse(course.id);
                 promise.fin(done);
 
-                expect(http.post).toHaveBeenCalledWith('course/build', { courseId: course.id });
+                expect(apiHttpWrapper.post).toHaveBeenCalledWith('course/build', { courseId: course.id });
             });
 
             describe('and send request to server', function () {
 
-                describe('and request succeed', function () {
-
-                    describe('and response is undefined', function () {
-
-                        it('should reject promise', function (done) {
-                            var promise = service.buildCourse();
-                            promise.fin(done);
-
-                            post.resolve();
-
-                            expect(promise).toBeRejected();
-                        });
-
-                    });
-
-                    describe('and response.success is undefined', function () {
-
-                        it('should reject promise', function (done) {
-                            var promise = service.buildCourse();
-                            promise.fin(done);
-
-                            post.resolve({});
-
-                            expect(promise).toBeRejected();
-                        });
-
-                    });
-
-                    describe('and response.success is true', function () {
-
-                        beforeEach(function () {
-                            post.resolve({ success: true, data: { PackageUrl: 'SomeUrl', BuildOn: '1378106938845' } });
-                        });
-
-                        it('should resolve promise with true', function (done) {
-                            var promise = service.buildCourse();
-                            promise.fin(done);
-
-                            expect(promise).toBeResolvedWith({ packageUrl: 'SomeUrl', builtOn: new Date('1378106938845') });
-                        });
-
-                    });
-
-                    describe('and response.success is false', function () {
-
-                        describe('and response.resourceKey is a string', function () {
-
-                            var lozalizedMessage = 'localized message';
-
-                            beforeEach(function () {
-                                spyOn(localizationManager, 'localize').and.returnValue(lozalizedMessage);
-                            });
-
-                            it('should reject promise with localized message', function (done) {
-                                var promise = service.buildCourse();
-                                promise.fin(done);
-
-                                var buildResult = { success: false, resourceKey: 'message' };
-
-                                post.resolve(buildResult);
-
-                                expect(promise).toBeRejectedWith(lozalizedMessage);
-                            });
-
-                        });
-
-                        describe('and response.resourceKey does not exist', function () {
-
-                            it('should reject promise with response message', function (done) {
-                                var promise = service.buildCourse();
-                                promise.fin(done);
-
-                                var buildResult = { success: false, message: 'message' };
-
-                                post.resolve(buildResult);
-
-                                expect(promise).toBeRejectedWith(buildResult.message);
-                            });
-
-                        });
-
-                    });
-
+                beforeEach(function () {
+                    post.resolve({ PackageUrl: 'SomeUrl', BuildOn: '1378106938845' });
                 });
 
-                describe('and request failed', function () {
+                it('should resolve promise with true', function (done) {
+                    var promise = service.buildCourse();
+                    promise.fin(done);
 
-                    it('should reject promise', function (done) {
-                        var promise = service.buildCourse();
-                        promise.fin(done);
-
-                        post.resolve();
-
-                        expect(promise).toBeRejected();
-                    });
-
+                    expect(promise).toBeResolvedWith({ packageUrl: 'SomeUrl', builtOn: new Date('1378106938845') });
                 });
 
             });
@@ -149,7 +62,7 @@
                 course = { id: 'someId' };
 
                 post = $.Deferred();
-                spyOn(http, 'post').and.returnValue(post.promise());
+                spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise());
             });
 
             it('should be function', function () {
@@ -163,111 +76,24 @@
             });
 
             it('should send request', function (done) {
-                post.resolve();
-                var promise = service.scormBuildCourse(course.id).fin(function () { });
+                post.resolve({});
+                var promise = service.scormBuildCourse(course.id);
                 promise.fin(done);
 
-                expect(http.post).toHaveBeenCalledWith('course/scormbuild', { courseId: course.id });
+                expect(apiHttpWrapper.post).toHaveBeenCalledWith('course/scormbuild', { courseId: course.id });
             });
 
             describe('and send request to server', function () {
 
-                describe('and request succeed', function () {
-
-                    describe('and response is undefined', function () {
-
-                        it('should reject promise', function (done) {
-                            var promise = service.scormBuildCourse();
-                            promise.fin(done);
-
-                            post.resolve();
-
-                            expect(promise).toBeRejected();
-                        });
-
-                    });
-
-                    describe('and response.success is undefined', function () {
-
-                        it('should reject promise', function (done) {
-                            var promise = service.scormBuildCourse();
-                            promise.fin(done);
-
-                            post.resolve({});
-
-                            expect(promise).toBeRejected();
-                        });
-
-                    });
-
-                    describe('and response.success is true', function () {
-
-                        beforeEach(function () {
-                            post.resolve({ success: true, data: { ScormPackageUrl: 'SomeUrl' } });
-                        });
-
-                        it('should resolve promise with true', function (done) {
-                            var promise = service.scormBuildCourse();
-                            promise.fin(done);
-
-                            expect(promise).toBeResolvedWith({ scormPackageUrl: 'SomeUrl' });
-                        });
-
-                    });
-
-                    describe('and response.success is false', function () {
-
-                        describe('and response.resourceKey is a string', function () {
-
-                            var lozalizedMessage = 'localized message';
-
-                            beforeEach(function () {
-                                spyOn(localizationManager, 'localize').and.returnValue(lozalizedMessage);
-                            });
-
-                            it('should reject promise with localized message', function (done) {
-                                var promise = service.scormBuildCourse();
-                                promise.fin(done);
-
-                                var buildResult = { success: false, resourceKey: 'message' };
-
-                                post.resolve(buildResult);
-
-                                expect(promise).toBeRejectedWith(lozalizedMessage);
-                            });
-
-                        });
-
-                        describe('and response.resourceKey does not exist', function () {
-
-                            it('should reject promise with response message', function (done) {
-                                var promise = service.scormBuildCourse();
-                                promise.fin(done);
-
-                                var buildResult = { success: false, message: 'message' };
-
-                                post.resolve(buildResult);
-
-                                expect(promise).toBeRejectedWith(buildResult.message);
-                            });
-
-                        });
-
-                    });
-
+                beforeEach(function () {
+                    post.resolve({ ScormPackageUrl: 'SomeUrl' });
                 });
 
-                describe('and request failed', function () {
+                it('should resolve promise with true', function (done) {
+                    var promise = service.scormBuildCourse();
+                    promise.fin(function () { done(); });
 
-                    it('should reject promise', function (done) {
-                        var promise = service.scormBuildCourse();
-                        promise.fin(done);
-
-                        post.resolve();
-
-                        expect(promise).toBeRejected();
-                    });
-
+                    expect(promise).toBeResolvedWith({ scormPackageUrl: 'SomeUrl' });
                 });
 
             });
@@ -282,7 +108,7 @@
                 course = { id: 'someId' };
 
                 post = $.Deferred();
-                spyOn(http, 'post').and.returnValue(post.promise());
+                spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise());
             });
 
             it('should be function', function () {
@@ -296,111 +122,24 @@
             });
 
             it('should send request', function (done) {
-                post.resolve();
-                var promise = service.publishCourse(course.id).fin(function () { });
-                promise.fin(done);
+                post.resolve({});
+                var promise = service.publishCourse(course.id);
+                    promise.fin(done);
 
-                expect(http.post).toHaveBeenCalledWith('course/publish', { courseId: course.id });
+                expect(apiHttpWrapper.post).toHaveBeenCalledWith('course/publish', { courseId: course.id });
             });
 
             describe('and send request to server', function () {
 
-                describe('and request succeed', function () {
-
-                    describe('and response is undefined', function () {
-
-                        it('should reject promise', function (done) {
-                            var promise = service.publishCourse();
-                            promise.fin(done);
-
-                            post.resolve();
-
-                            expect(promise).toBeRejected();
-                        });
-
-                    });
-
-                    describe('and response.success is undefined', function () {
-
-                        it('should reject promise', function (done) {
-                            var promise = service.publishCourse();
-                            promise.fin(done);
-
-                            post.resolve({});
-
-                            expect(promise).toBeRejected();
-                        });
-
-                    });
-
-                    describe('and response.success is true', function () {
-
-                        beforeEach(function () {
-                            post.resolve({ success: true, data: { PublishedPackageUrl: 'SomeUrl' } });
-                        });
-
-                        it('should resolve promise with true', function (done) {
-                            var promise = service.publishCourse();
-                            promise.fin(done);
-
-                            expect(promise).toBeResolvedWith({ publishedPackageUrl: 'SomeUrl' });
-                        });
-
-                    });
-
-                    describe('and response.success is false', function () {
-
-                        describe('and response.resourceKey is a string', function () {
-
-                            var lozalizedMessage = 'localized message';
-
-                            beforeEach(function () {
-                                spyOn(localizationManager, 'localize').and.returnValue(lozalizedMessage);
-                            });
-
-                            it('should reject promise with localized message', function (done) {
-                                var promise = service.publishCourse();
-                                promise.fin(done);
-
-                                var buildResult = { success: false, resourceKey: 'message' };
-
-                                post.resolve(buildResult);
-
-                                expect(promise).toBeRejectedWith(lozalizedMessage);
-                            });
-
-                        });
-
-                        describe('and response.resourceKey does not exist', function () {
-
-                            it('should reject promise with response message', function (done) {
-                                var promise = service.publishCourse();
-                                promise.fin(done);
-
-                                var buildResult = { success: false, message: 'message' };
-
-                                post.resolve(buildResult);
-
-                                expect(promise).toBeRejectedWith(buildResult.message);
-                            });
-
-                        });
-
-                    });
-
+                beforeEach(function () {
+                    post.resolve({ PublishedPackageUrl: 'SomeUrl' });
                 });
 
-                describe('and request failed', function () {
+                it('should resolve promise with true', function (done) {
+                    var promise = service.publishCourse();
+                    promise.fin(done);
 
-                    it('should reject promise', function (done) {
-                        var promise = service.publishCourse();
-                        promise.fin(done);
-
-                        post.resolve();
-
-                        expect(promise).toBeRejected();
-                    });
-
+                    expect(promise).toBeResolvedWith({ publishedPackageUrl: 'SomeUrl' });
                 });
 
             });
@@ -415,7 +154,7 @@
                 course = { id: 'someId' };
 
                 post = $.Deferred();
-                spyOn(http, 'post').and.returnValue(post.promise());
+                spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise());
             });
 
             it('should be function', function () {
@@ -429,111 +168,24 @@
             });
 
             it('should send request', function (done) {
-                post.resolve();
-                var promise = service.publishCourseForReview(course.id).fin(function () { });
-                promise.fin(done);
+                post.resolve({});
+                var promise = service.publishCourseForReview(course.id);
+                    promise.fin(done);
 
-                expect(http.post).toHaveBeenCalledWith('course/publishForReview', { courseId: course.id });
+                expect(apiHttpWrapper.post).toHaveBeenCalledWith('course/publishForReview', { courseId: course.id });
             });
 
             describe('and send request to server', function () {
 
-                describe('and request succeed', function () {
-
-                    describe('and response is undefined', function () {
-
-                        it('should reject promise', function (done) {
-                            var promise = service.publishCourseForReview();
-                            promise.fin(done);
-
-                            post.resolve();
-
-                            expect(promise).toBeRejected();
-                        });
-
-                    });
-
-                    describe('and response.success is undefined', function () {
-
-                        it('should reject promise', function (done) {
-                            var promise = service.publishCourseForReview();
-                            promise.fin(done);
-
-                            post.resolve({});
-
-                            expect(promise).toBeRejected();
-                        });
-
-                    });
-
-                    describe('and response.success is true', function () {
-
-                        beforeEach(function () {
-                            post.resolve({ success: true, data: { ReviewUrl: 'SomeUrl' } });
-                        });
-
-                        it('should resolve promise with true', function (done) {
-                            var promise = service.publishCourseForReview();
-                            promise.fin(done);
-
-                            expect(promise).toBeResolvedWith({ reviewUrl: 'SomeUrl' });
-                        });
-
-                    });
-
-                    describe('and response.success is false', function () {
-
-                        describe('and response.resourceKey is a string', function () {
-
-                            var lozalizedMessage = 'localized message';
-
-                            beforeEach(function () {
-                                spyOn(localizationManager, 'localize').and.returnValue(lozalizedMessage);
-                            });
-
-                            it('should reject promise with localized message', function (done) {
-                                var promise = service.publishCourseForReview();
-                                promise.fin(done);
-
-                                var buildResult = { success: false, resourceKey: 'message' };
-
-                                post.resolve(buildResult);
-
-                                expect(promise).toBeRejectedWith(lozalizedMessage);
-                            });
-
-                        });
-
-                        describe('and response.resourceKey does not exist', function () {
-
-                            it('should reject promise with response message', function (done) {
-                                var promise = service.publishCourseForReview();
-                                promise.fin(done);
-
-                                var buildResult = { success: false, message: 'message' };
-
-                                post.resolve(buildResult);
-
-                                expect(promise).toBeRejectedWith(buildResult.message);
-                            });
-
-                        });
-
-                    });
-
+                beforeEach(function () {
+                    post.resolve({ ReviewUrl: 'SomeUrl' });
                 });
 
-                describe('and request failed', function () {
+                it('should resolve promise with true', function (done) {
+                    var promise = service.publishCourseForReview();
+                    promise.fin(done);
 
-                    it('should reject promise', function (done) {
-                        var promise = service.publishCourseForReview();
-                        promise.fin(done);
-
-                        post.resolve();
-
-                        expect(promise).toBeRejected();
-                    });
-
+                    expect(promise).toBeResolvedWith({ reviewUrl: 'SomeUrl' });
                 });
 
             });
@@ -548,7 +200,7 @@
                 course = { id: 'someId' };
 
                 post = $.Deferred();
-                spyOn(http, 'post').and.returnValue(post.promise());
+                spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise());
             });
 
             it('should be function', function () {
@@ -562,15 +214,14 @@
             });
 
             it('should send request to \'\'', function (done) {
+                post.resolve({});
 
                 var promise = service.publishCourseToStore(course.id);
 
                 promise.fin(function () {
-                    expect(http.post).toHaveBeenCalledWith('api/aim4you/publish', { courseId: course.id });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/aim4you/publish', { courseId: course.id });
                     done();
                 });
-
-                post.resolve();
 
             });
 
@@ -579,98 +230,15 @@
 
                 describe('and request success', function () {
 
-                    describe('and response is undefined', function () {
-
-                        it('should reject promise', function (done) {
-                            var promise = service.publishCourseToStore();
-                            promise.fin(done);
-
-                            post.resolve();
-
-                            expect(promise).toBeRejected();
-                        });
-
+                    beforeEach(function () {
+                        post.resolve(true);
                     });
 
-                    describe('and response.success is undefined', function () {
-
-                        it('should reject promise', function (done) {
-                            var promise = service.publishCourseToStore();
-                            promise.fin(done);
-
-                            post.resolve({});
-
-                            expect(promise).toBeRejected();
-                        });
-
-                    });
-
-                    describe('and response.success is true', function () {
-
-                        beforeEach(function () {
-                            post.resolve({ success: true, data: true });
-                        });
-
-                        it('should resolve promise with true', function (done) {
-                            var promise = service.publishCourseToStore();
-                            promise.fin(done);
-
-                            expect(promise).toBeResolvedWith();
-                        });
-
-                    });
-
-                    describe('and response.success is false', function () {
-
-                        describe('and response.resourceKey is a string', function () {
-
-                            var lozalizedMessage = 'localized message';
-
-                            beforeEach(function () {
-                                spyOn(localizationManager, 'localize').and.returnValue(lozalizedMessage);
-                            });
-
-                            it('should reject promise with localized message', function (done) {
-                                var promise = service.publishCourseToStore();
-                                promise.fin(done);
-
-                                var buildResult = { success: false, resourceKey: 'message' };
-
-                                post.resolve(buildResult);
-
-                                expect(promise).toBeRejectedWith(lozalizedMessage);
-                            });
-
-                        });
-
-                        describe('and response.resourceKey does not exist', function () {
-
-                            it('should reject promise with response message', function (done) {
-                                var promise = service.publishCourse();
-                                promise.fin(done);
-
-                                var buildResult = { success: false, message: 'message' };
-
-                                post.resolve(buildResult);
-
-                                expect(promise).toBeRejectedWith(buildResult.message);
-                            });
-
-                        });
-
-                    });
-
-                });
-
-                describe('and request failed', function () {
-
-                    it('should reject promise', function (done) {
+                    it('should resolve promise with true', function (done) {
                         var promise = service.publishCourseToStore();
                         promise.fin(done);
 
-                        post.resolve();
-
-                        expect(promise).toBeRejected();
+                        expect(promise).toBeResolvedWith();
                     });
 
                 });

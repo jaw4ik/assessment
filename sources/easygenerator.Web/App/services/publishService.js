@@ -1,5 +1,5 @@
-﻿define(['plugins/http', 'localization/localizationManager'],
-    function (http, localizationManager) {
+﻿define(['http/apiHttpWrapper', 'localization/localizationManager'],
+    function (apiHttpWrapper, localizationManager) {
         "use strict";
 
         var buildCourse = function (courseId) {
@@ -33,14 +33,9 @@
         var invokeServiceMethod = function (methodPath, methodArgs, responseDataExtractor) {
             var deferred = Q.defer();
 
-            http.post(methodPath, methodArgs).done(function (response) {
-                if (_.isUndefined(response) || _.isUndefined(response.success)) {
-                    deferred.reject('Response has invalid format');
-                } else if (response.success && response.data != undefined) {
-                    deferred.resolve(responseDataExtractor(response.data));
-                } else {
-                    var message = response.resourceKey ? localizationManager.localize(response.resourceKey) : response.message;
-                    deferred.reject(message);
+            apiHttpWrapper.post(methodPath, methodArgs).done(function (data) {
+                if (data != undefined) {
+                    deferred.resolve(responseDataExtractor(data));
                 }
             }).fail(function () {
                 deferred.reject();
