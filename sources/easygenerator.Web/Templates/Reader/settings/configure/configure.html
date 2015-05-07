@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Template configure settings</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="../css/settings.css?v=1431002208935" rel="stylesheet" />
+    <script src="../api.js?v=1431002208935"></script>
+
+    <script src="js/vendor.min.js?v=1431002208935"></script>
+    <script src="js/configure.min.js?v=1431002208935"></script>
+</head>
+
+<body>
+    <div class="settings-container">
+        <div class="settings-tab-container languages" data-bind="with: languages">
+            <div class="settings-tab-wrapper">
+                <div class="tab-header-container">
+                    <img src="img/language.png?v=1431002208935">
+                    <div class="tab-header-wrapper">
+                        <h1 class="tab-header-title" data-bind="localize: 'choose language for your course'"></h1>
+                        <div class="tab-header-content">
+                            <div class="select-language">
+                                <div id="selectedLanguage" data-bind="dropdown: { options: languages, value: selectedLanguageCode, optionsValue: 'code', optionsText: 'name' }"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content-container">
+                    <table class="choose-language-table">
+                        <thead>
+                            <tr>
+                                <th class="choose-language-table-header-text" data-bind="localize: 'defaultText'"></th>
+                                <th class="choose-language-table-header-text" data-bind="localize: 'translation'"></th>
+                            </tr>
+                        </thead>
+                        <tbody class="choose-language-table-content" data-bind="ifnot: isLanguageLoading">
+                            <!-- ko foreach: selectedLanguageTranslations -->
+                            <tr class="choose-language-table-row">
+                                <td class="choose-language-table-key" data-bind="text: key"></td>
+                                <td class="choose-language-table-text-wrapper">
+                                    <div class="input-wrapper">
+                                        <!-- ko if: $parent.isLanguageEditable() -->
+                                        <div class="choose-language-table-input-wrapper">
+                                            <input type="text" class="choose-language-table-input" data-bind="value: value, valueUpdate: ['afterkeydown', 'afterpaste']" />
+                                            <span class="edit-icon"></span>
+                                        </div>
+                                        <!-- /ko -->
+                                        <!-- ko ifnot: $parent.isLanguageEditable() -->
+                                        <span data-bind="text: value"></span>
+                                        <!-- /ko -->
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- /ko -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
