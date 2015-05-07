@@ -76,6 +76,7 @@
     <Compile Include="IScheduler.cs" />
     <Compile Include="ITask.cs" />
     <Compile Include="ITaskInvoker.cs" />
+    <Compile Include="ITypeMethodInvoker.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Locker.cs" />
     <Compile Include="Mail\IMailNotificationManager.cs" />
