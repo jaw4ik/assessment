@@ -98,7 +98,7 @@ app.signUpSecondStepModel = function () {
             type: 'POST'
         }).done(function (response) {
             $.when(
-                login(data.username, data.password),
+                login(response.data, data.password),
                 app.trackEvent(app.constants.events.signupSecondStep, { username: response.data, firstname: data.firstName, lastname: data.lastName, role: data.userRole }),
                 app.trackPageview(app.constants.pageviewUrls.signupSecondStep)
             ).done(function () {
