@@ -91,7 +91,9 @@
 
                                 });
                                 
-                                objectives.push(new Objective(dto.id, dto.title, dtoQuestions));
+                                if (dtoQuestions.length > 0){
+                                    objectives.push(new Objective(dto.id, dto.title, dtoQuestions));
+                                }
                             }
                         });
                     }
