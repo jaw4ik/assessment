@@ -447,6 +447,11 @@
         'zh-cn': 'Configure[zh-cn]',
         'uk': 'Конфігурація'
     },
+    courseConfigureItem: {
+        'en': '3. Configure',
+        'zh-cn': '3. Configure[zh-cn]',
+        'uk': '3. Конфігурація'
+    },
     coursePublishItem: {
         'en': 'Publish',
         'zh-cn': '发布',
@@ -706,6 +711,31 @@
         'en': 'Failed',
         'zh-cn': '失败',
         'uk': 'Не пройдено'
+    },
+    courseStartedAt: {
+        'en': 'Course started at',
+        'zh-cn': 'Course started at[zh-cn]',
+        'uk': 'Курс почато'
+    },
+    courseFinishedAt: {
+        'en': 'and finished at',
+        'zh-cn': 'and finished at[zh-cn]',
+        'uk': 'та закінчено'
+    },
+    reportingObjectiveTitle: {
+        'en': 'objective:',
+        'zh-cn': 'objective:[zh-cn]',
+        'uk': 'розділ / ціль:'
+    },
+    repotingNoQuestions: {
+        'en': 'No questions have been answered yet or results are not available for this objective',
+        'zh-cn': 'No questions have been answered yet or results are not available for this objective[zh-cn]',
+        'uk': 'Немає жодного пройденого питання або інформація про цей розділ недоступна'
+    },
+    reportingQuestionTitle: {
+        'en': 'question:',
+        'zh-cn': 'question:[zh-cn]',
+        'uk': 'питання:'
     },
     sharePrivateLink: {
         'en': 'Share private link',

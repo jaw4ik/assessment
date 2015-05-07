@@ -1,10 +1,11 @@
-﻿define(['repositories/courseRepository', 'plugins/router', 'constants', 'repositories/courseRepository', 'viewmodels/courses/publishingActions/build',
+﻿define([
+        'repositories/courseRepository', 'plugins/router', 'constants', 'repositories/courseRepository', 'viewmodels/courses/publishingActions/build',
         'viewmodels/courses/publishingActions/scormBuild', 'viewmodels/courses/publishingActions/publish', 'userContext',
         'viewmodels/courses/publishingActions/publishToAim4You', 'clientContext', 'localization/localizationManager', 'eventTracker',
-        'reporting/xApiProvider', 'plugins/dialog'],
+        'reporting/xApiProvider', 'plugins/dialog', 'reporting/viewmodels/courseStatement'
+],
     function (repository, router, constants, courseRepository, buildPublishingAction, scormBuildPublishingAction, publishPublishingAction, userContext, publishToAim4You,
-        clientContext, localizationManager, eventTracker, xApiProvider, dialog) {
-        "use strict";
+        clientContext, localizationManager, eventTracker, xApiProvider, dialog, CourseStatement) {
         "use strict";
 
         var loadMoreEventCategory = 'Load more results',
@@ -26,13 +27,14 @@
             navigateToCoursesEvent: navigateToCoursesEvent,
 
             activate: activate,
+            deactivate: deactivate,
             attached: attached,
 
+            allResultsLoaded: false,
             isLoading: ko.observable(true),
             results: ko.observableArray([]),
             isResultsDialogShown: ko.observable(false),
             isDownloadDialogShown: ko.observable(false),
-            getLearnerName: getLearnerName,
             showMoreResults: showMoreResults,
             upgradeNowForLoadMore: upgradeNowForLoadMore,
             upgradeNowForDownloadCsv: upgradeNowForDownloadCsv,
@@ -64,26 +66,63 @@
             viewModel.courseId = courseId;
             viewModel.isResultsDialogShown(false);
             viewModel.isDownloadDialogShown(false);
+            viewModel.allResultsLoaded = false;
+
             return courseRepository.getById(courseId).then(function (course) {
                 viewModel.courseTitle = course.title;
             });
         }
 
-        function attached() {
-            viewModel.isLoading(true);
-            return xApiProvider.getReportingStatements(viewModel.courseId).then(function (reportingStatements) {
-                viewModel.loadedResults = _.sortBy(reportingStatements, function (reportingStatement) {
-                    return -reportingStatement.date;
-                });
+        function deactivate() {
+            viewModel.results([]);
+            viewModel.loadedResults = [];
+        }
 
-                viewModel.results(_.chain(viewModel.loadedResults).first(viewModel.pageNumber * constants.courseResults.pageSize).value());
-            }).fin(function () {
-                viewModel.isLoading(false);
+        function loadStatements(courseId, take, skip) {
+            return Q.fcall(function () {
+                if (!viewModel.allResultsLoaded && (viewModel.loadedResults.length <= take + skip)) {
+                    return xApiProvider.getCourseCompletedStatements(courseId, take + 1, skip)
+                        // load +1 record to determine should we show 'Show more' button or not.
+                        .then(function (reportingStatements) {
+                            var courseStatements = _.map(reportingStatements, function (statement) {
+                                return new CourseStatement(statement);
+                            });
+                            if (courseStatements && courseStatements.length < take + 1) {
+                                viewModel.allResultsLoaded = true;
+                            }
+                            Array.prototype.splice.apply(viewModel.loadedResults, [skip, take].concat(courseStatements));
+                            return courseStatements.slice(0, take);
+                        });
+                }
+                return viewModel.loadedResults.slice(skip, skip + take);
             });
         }
 
-        function getLearnerName(reportingStatement) {
-            return reportingStatement.name + ' (' + reportingStatement.email + ')';
+        function loadAllStatements(courseId) {
+            return Q.fcall(function () {
+                if (!viewModel.allResultsLoaded) {
+                    return xApiProvider.getCourseCompletedStatements(courseId)
+                        .then(function (reportingStatements) {
+                            viewModel.loadedResults = _.map(reportingStatements, function (statement) {
+                                return new CourseStatement(statement);
+                            });
+                            viewModel.allResultsLoaded = true;
+                            return viewModel.loadedResults;
+                        });
+                }
+                return viewModel.loadedResults;
+            });
+        }
+
+
+        function attached() {
+            viewModel.isLoading(true);
+            return loadStatements(viewModel.courseId, constants.courseResults.pageSize, 0)
+                .then(function (reportingStatements) {
+                    viewModel.results.push.apply(viewModel.results, reportingStatements);
+                }).fin(function () {
+                    viewModel.isLoading(false);
+                });
         }
 
         function showMoreResults() {
@@ -98,12 +137,11 @@
                 return;
             }
 
-            viewModel.pageNumber++;
-            var resultsToShow = _.chain(viewModel.loadedResults)
-                .first(viewModel.pageNumber * constants.courseResults.pageSize)
-                .last(constants.courseResults.pageSize)
-                .value();
-            viewModel.results(_.union(viewModel.results(), resultsToShow));
+            loadStatements(viewModel.courseId, constants.courseResults.pageSize, viewModel.pageNumber * constants.courseResults.pageSize)
+                .then(function (reportingStatements) {
+                    viewModel.results.push.apply(viewModel.results, reportingStatements);
+                    viewModel.pageNumber++;
+                });
         }
 
         function upgradeNowForLoadMore() {
@@ -144,7 +182,9 @@
             }
 
             var name = getResultsFileName();
-            saveAs(generateResultsCsvBlob(), name);
+            generateResultsCsvBlob().then(function (blob) {
+                saveAs(blob, name);
+            });
         }
 
         function getResultsFileName() {
@@ -174,21 +214,24 @@
                 timeHeader
             ].join(',');
             var csvList = [csvHeader];
-            _.each(viewModel.loadedResults, function (result) {
-                var resultCsv = [
-                    result.name + '(' + result.email + ')',
-                    result.correct ? passed : failed,
-                    result.score,
-                    moment(result.date).format('YYYY-MM-d'),
-                    moment(result.date).format('h:mm:ss a')
-                ].join(',');
 
-                csvList.push(resultCsv);
+            return loadAllStatements(viewModel.courseId).then(function (reportingStatements) {
+                _.each(reportingStatements, function (result) {
+                    var resultCsv = [
+                        result.lrsStatement.actor.name + ' (' + result.lrsStatement.actor.email + ')',
+                        result.passed ? passed : failed,
+                        result.lrsStatement.score,
+                        moment(result.lrsStatement.date).format('YYYY-MM-D'),
+                        moment(result.lrsStatement.date).format('h:mm:ss a')
+                    ].join(',');
+
+                    csvList.push(resultCsv);
+                });
+
+                var contentType = 'text/csv';
+
+                return new Blob([window.top.BOMSymbol || '\ufeff', csvList.join('\r\n')], { encoding: 'UTF-8', type: contentType });
             });
-
-            var contentType = 'text/csv';
-
-            return new Blob([window.top.BOMSymbol || '\ufeff', csvList.join('\r\n')], { encoding: 'UTF-8', type: contentType });
         }
     }
 );

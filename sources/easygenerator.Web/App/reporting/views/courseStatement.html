@@ -1,0 +1,35 @@
+﻿<li class="r-data" data-bind="css: { expanded: isExpanded, expandable: isExpandable }">
+    <div class="r-table" data-bind="click: isExpandable ? (isExpanded() ? collapse : expand) : null">
+        <div class=" r-name"><span class="selectable" data-bind="text: learnerDisplayName, attr: { title: learnerDisplayName }"></span></div>
+        <div class="r-result">
+            <!-- ko if: passed -->
+            <span class="correct">
+                <span class="info-tooltip">
+                    <span data-bind="localize: { text: 'passed' }">Passed</span>
+                </span>
+            </span>
+            <!-- /ko -->
+            <!-- ko ifnot: passed -->
+            <span class="incorrect">
+                <span class="info-tooltip">
+                    <span data-bind="localize: { text: 'failed' }">Failed</span>
+                </span>
+            </span>
+            <!-- /ko -->
+        </div>
+        <div class="r-score" data-bind="text: lrsStatement.score">score</div>
+        <div class="r-date" data-bind="date: { value: lrsStatement.date, formatString: 'MMM D, YYYY h:mm A' }">date</div>
+    </div>
+    <!-- ko if: isExpanded -->
+    <ul class="r-objective">
+        <li class="r-table">
+            <div class="r-course-dates">
+                <span data-bind="localize: { text: 'courseStartedAt' }">Course started at</span>&nbsp;<span class="r-date" data-bind="date: { value: startedLrsStatement.date, formatString: 'MMM D, YYYY h:mm A' }"></span>&nbsp;<span data-bind="localize: { text: 'courseFinishedAt' }">and finished at</span>&nbsp;<span class="r-date" data-bind="date: { value: lrsStatement.date, formatString: 'MMM D, YYYY h:mm A' }"></span>
+            </div>
+        </li>
+        <!-- ko foreach: children -->
+        <!-- ko compose: { view: 'reporting/views/objectiveStatement', model: $data } --><!-- /ko -->
+        <!-- /ko -->
+    </ul>
+    <!-- /ko -->
+</li>

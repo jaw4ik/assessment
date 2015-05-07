@@ -260,6 +260,7 @@
     <Compile Include="Controllers\Api\MultipleselectController.cs" />
     <Compile Include="Controllers\Api\StatementController.cs" />
     <Compile Include="Controllers\Api\TextMatchingQuestionController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
     <Compile Include="Storage\CourseStateStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
@@ -499,9 +500,12 @@
     <Compile Include="Synchronization\Handlers\TextMatchingEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\UserEventHandler.cs" />
     <Compile Include="Synchronization\Hubs\EventHub.cs" />
+    <Compile Include="Synchronization\Tracking\IUserConnectionTracker.cs" />
+    <Compile Include="Synchronization\Tracking\UserConnectionTracker.cs" />
     <Compile Include="ViewModels\Account\UserSignUpViewModel.cs" />
     <Compile Include="ViewModels\Api\BlankAnswerViewModel.cs" />
     <Compile Include="ViewModels\DemoCourses\DemoCoursesViewModel.cs" />
+    <Compile Include="ViewModels\Dashboard\DashboardViewModel.cs" />
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceAutologinUrlProvider.cs" />
@@ -542,9 +546,16 @@
       <DependentUpon>moveCopyQuestion.js</DependentUpon>
     </Content>
     <Content Include="App\localization\resources.js" />
-    <Content Include="App\models\reportingStatement.js" />
-    <Content Include="App\models\reportingStatement.spec.js">
-      <DependentUpon>reportingStatement.js</DependentUpon>
+    <Content Include="App\models\reporting\actor.js" />
+    <Content Include="App\models\reporting\actor.spec.js">
+      <DependentUpon>actor.js</DependentUpon>
+    </Content>
+    <Content Include="App\models\reporting\statement.js" />
+    <Content Include="App\models\reporting\statement.spec.js">
+      <DependentUpon>statement.js</DependentUpon>
+    </Content>
+    <Content Include="App\reporting\xApiFilterCriteriaFactory.spec.js">
+      <DependentUpon>xApiFilterCriteriaFactory.js</DependentUpon>
     </Content>
     <Content Include="App\reporting\xApiProvider.js" />
     <Content Include="App\dialogs\publishCourse\publishCourse.html" />
@@ -560,6 +571,7 @@
     <Content Include="App\reporting\xApiProvider.spec.js">
       <DependentUpon>xApiProvider.js</DependentUpon>
     </Content>
+    <Content Include="App\reporting\xApiFilterCriteriaFactory.js" />
     <Content Include="App\routing\isViewReadyMixin.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\answerCorrectnessUpdated.spec.js">
       <DependentUpon>answerCorrectnessUpdated.js</DependentUpon>
@@ -621,8 +633,8 @@
     <Content Include="App\viewmodels\courses\course\publish.spec.js">
       <DependentUpon>publish.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\course\results.js" />
-    <Content Include="App\viewmodels\courses\course\results.spec.js">
+    <Content Include="App\reporting\viewmodels\results.js" />
+    <Content Include="App\reporting\viewmodels\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\index.js" />
@@ -640,11 +652,15 @@
       <DependentUpon>statementAnswers.js</DependentUpon>
     </Content>
     <Content Include="App\views\courses\course\configure.html" />
+    <Content Include="App\reporting\viewmodels\courseStatement.js" />
+    <Content Include="App\reporting\viewmodels\expandableStatement.js" />
+    <Content Include="App\reporting\viewmodels\objectiveStatement.js" />
+    <Content Include="App\reporting\viewmodels\questionStatement.js" />
     <Content Include="App\views\courses\course\create\index.html" />
     <Content Include="App\views\courses\course\publish.html" />
     <Content Include="App\views\courses\course\design.html" />
     <Content Include="App\views\courses\course\index.html" />
-    <Content Include="App\views\courses\course\results.html" />
+    <Content Include="App\reporting\views\results.html" />
     <Content Include="App\views\courses\index.html" />
     <Content Include="App\views\common\circularLoader.html" />
     <Content Include="App\views\courses\publishActions\publishToAim4You.html" />
@@ -655,7 +671,13 @@
     <Content Include="App\views\courses\publishActions\updatePublishedCourse.html" />
     <Content Include="App\views\objectives\index.html" />
     <Content Include="App\views\questions\statement\statement.html" />
+    <Content Include="App\reporting\views\courseStatement.html" />
+    <Content Include="App\reporting\views\objectiveStatement.html" />
+    <Content Include="App\reporting\views\questionStatement.html" />
     <Content Include="BuildCourse\Modules\js\branding.js" />
+    <Content Include="Content\course.css">
+      <DependentUpon>course.less</DependentUpon>
+    </Content>
     <Content Include="Content\editField.css">
       <DependentUpon>editField.less</DependentUpon>
     </Content>
@@ -1534,6 +1556,7 @@
     <Content Include="Content\ckeditor.less" />
     <Content Include="Content\common.less" />
     <Content Include="Content\courses.less" />
+    <Content Include="Content\course.less" />
     <Content Include="Content\cssPreloaders.less" />
     <Content Include="Content\dragAndDropText.less" />
     <Content Include="Content\helpers.less" />
@@ -2056,6 +2079,7 @@
     <Content Include="Views\Shared\notSupportedDevicePage.cshtml" />
     <Content Include="Templates\Personalized learning\lang\nl.json" />
     <Content Include="Templates\Reader\lang\nl.json" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2387,7 +2411,6 @@
     <Content Include="Content\common.css">
       <DependentUpon>common.less</DependentUpon>
     </Content>
-    <Content Include="Content\course.css" />
     <Content Include="Content\courses.css">
       <DependentUpon>courses.less</DependentUpon>
     </Content>
