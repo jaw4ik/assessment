@@ -753,7 +753,7 @@
     reportingScoreNotAvailable: {
         'en': 'N/A',
         'zh-cn': 'N/A[zh-cn]',
-        'uk': 'N/A'
+        'uk': 'Н/Д'
     },
     sharePrivateLink: {
         'en': 'Share private link',
