@@ -8,7 +8,7 @@ using System.Web.Mvc;
 namespace easygenerator.Web.Controllers.Api
 {
     [NoCache]
-    public class FeedbackController : DefaultController
+    public class FeedbackController : DefaultApiController
     {
         private readonly IDomainEventPublisher _publisher;
 

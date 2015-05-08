@@ -12,7 +12,7 @@ using easygenerator.Web.Storage;
 namespace easygenerator.Web.Controllers.Api
 {
     [NoCache]
-    public class TemplateController : DefaultController
+    public class TemplateController : DefaultApiController
     {
         private readonly ITemplateRepository _templateRepository;
         private readonly IEntityMapper _entityMapper;

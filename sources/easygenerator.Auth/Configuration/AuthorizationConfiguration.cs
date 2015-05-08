@@ -51,6 +51,17 @@ namespace easygenerator.Auth.Configuration
                     oAuthRequestTokenContext.Token = value;
                 }
             }
+
+            // Only for /preview/*
+            // Allow readonly access to /preview/ path
+            if (oAuthRequestTokenContext.Request.Path.StartsWithSegments(new PathString("/preview")))
+            {
+                var value = oAuthRequestTokenContext.Request.Cookies["token.preview"];
+                if (!string.IsNullOrEmpty(value))
+                {
+                    oAuthRequestTokenContext.Token = value;
+                }
+            }
             return Task.FromResult<object>(null);
         }
     }

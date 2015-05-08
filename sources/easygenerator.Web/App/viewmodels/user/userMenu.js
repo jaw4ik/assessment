@@ -39,13 +39,7 @@
         }
 
         function signOut() {
-            for (var i = 0; i < localStorage.length; i++) {
-                var key = localStorage.key(i);
-                if (/^token-*/.test(key)) {
-                    localStorage.removeItem(key);
-                }
-            }
-
+            window.auth.removeTokens();
             router.setLocation(constants.signinUrl);
         }
     }

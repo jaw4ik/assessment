@@ -242,6 +242,7 @@
     <Compile Include="Components\BrowserSupport.cs" />
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
+    <Compile Include="Components\DefaultApiController.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
     <Compile Include="Components\ManifestFileManager.cs" />
     <Compile Include="Components\Mappers\AnswerMapper.cs" />
@@ -819,6 +820,7 @@
     <Content Include="Sample Course\content\a3d951f91e8a4a61a55c173a27c904ca\127e66bc9063479caf0426ef270ffe3b\5b4be25686f943609de151884c5bf9f8.html" />
     <Content Include="Sample Course\content\a3d951f91e8a4a61a55c173a27c904ca\127e66bc9063479caf0426ef270ffe3b\9e26fe55dfd543329e53856468083572.html" />
     <Content Include="Sample Course\content\a3d951f91e8a4a61a55c173a27c904ca\77dcdee6255f44e588cdae7a0320ffa6\61cdd730fbe54fe9bf2a6ec95cb14535.html" />
+    <Content Include="Scripts\auth.js" />
     <Content Include="Scripts\Blob.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\build-config.js" />

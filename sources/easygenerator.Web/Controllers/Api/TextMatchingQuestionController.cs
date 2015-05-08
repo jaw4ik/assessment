@@ -13,7 +13,7 @@ using easygenerator.Web.Resources.Controllers;
 
 namespace easygenerator.Web.Controllers.Api
 {
-    public class TextMatchingQuestionController : DefaultController
+    public class TextMatchingQuestionController : DefaultApiController
     {
         private readonly IEntityFactory _entityFactory;
         private readonly IEntityMapper _entityMapper;

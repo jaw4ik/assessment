@@ -116,7 +116,7 @@ app.signUpSecondStepModel = function () {
             username: username,
             password: password,
             grant_type: "password",
-            scope: "api auth storage"
+            scope: window.auth.getRequiredScopes()
         };
 
         var requestArgs = {
@@ -128,13 +128,7 @@ app.signUpSecondStepModel = function () {
         return $.ajax(requestArgs).done(function (response) {
             if (response) {
                 if (response.success) {
-                    var tokens = response.data;
-                    if (tokens && tokens.length) {
-                        for (var index = 0; index < tokens.length; index++) {
-                            var token = tokens[index];
-                            localStorage.setItem("token-" + token.Scope, token.Token);
-                        }
-                    }
+                    window.auth.setTokens(response.data);
                 }
             }
         });

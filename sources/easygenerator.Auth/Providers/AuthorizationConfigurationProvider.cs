@@ -8,14 +8,18 @@ namespace easygenerator.Auth.Providers
 {
     public static class AuthorizationConfigurationProvider
     {
+        private static readonly string _scopeClaimType;
         private static readonly string _issuer;
         private static List<ClientModel> _clients;
 
+        public static string ScopeClaimType { get { return _scopeClaimType; } }
         public static string Issuer {get { return _issuer; }}
         public static List<ClientModel> Clients { get { return _clients; } }
 
         static AuthorizationConfigurationProvider()
         {
+            _scopeClaimType = "scope";
+
             _issuer = (ConfigurationManager.GetSection("authorization") as AuthorizationSection).Issuer;
 
             _clients = new List<ClientModel>();

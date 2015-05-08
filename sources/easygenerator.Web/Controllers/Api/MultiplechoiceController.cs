@@ -12,7 +12,7 @@ using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
 {
-    public class MultiplechoiceController : DefaultController
+    public class MultiplechoiceController : DefaultApiController
     {
         private readonly IEntityFactory _entityFactory;
         private readonly IDomainEventPublisher _eventPublisher;

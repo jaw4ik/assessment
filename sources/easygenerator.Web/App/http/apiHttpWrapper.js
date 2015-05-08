@@ -6,11 +6,7 @@
     function post(url, data) {
         app.trigger('apiHttpWrapper:post-begin');
 
-        var headers = {
-            "Authorization": "Bearer " + localStorage['token-api']
-        };
-
-        return httpRequestSender.post(url, data, headers).then(function (response) {
+        return httpRequestSender.post(url, data, window.auth.getHeader('api')).then(function (response) {
 
             if (!_.isObject(response)) {
                 throw 'Response data is not an object';

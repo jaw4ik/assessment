@@ -121,7 +121,7 @@
                                     $.ajax({
                                         url: url,
                                         type: 'POST',
-                                        headers: { "Authorization": "Bearer " + localStorage['token-api'] },
+                                        headers: window.auth.getHeader('api'),
                                         data: formData,
                                         cache: false,
                                         dataType: 'json',

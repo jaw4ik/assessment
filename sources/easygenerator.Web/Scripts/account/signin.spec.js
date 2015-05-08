@@ -362,7 +362,7 @@
                 var lastname = "test last name";
                 var password = "Abc123! ";
                 var grant_type = "password";
-                var scope = "api auth storage";
+                var scope = window.auth.getRequiredScopes();
 
                 beforeEach(function () {
                     viewModel.username(username);

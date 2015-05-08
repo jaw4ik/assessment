@@ -129,7 +129,7 @@
                             var requestArgs = {
                                 url: plugin.getUserImagesApiUrl,
                                 type: 'POST',
-                                headers: { "Authorization": "Bearer " + localStorage['token-api'] }
+                                headers: window.auth.getHeader('api')
                             };
 
                             $.ajax(requestArgs)

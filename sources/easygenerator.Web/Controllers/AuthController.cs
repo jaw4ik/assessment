@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using DocumentFormat.OpenXml.Office2010.ExcelAc;
 using easygenerator.Auth;
+using easygenerator.Auth.Attributes;
+using easygenerator.Auth.Attributes.Mvc;
 using easygenerator.Auth.Configuration;
 using easygenerator.Auth.Models;
 using easygenerator.Auth.Providers;
@@ -55,7 +57,8 @@ namespace easygenerator.Web.Controllers
                                     audience: client.Audience,
                                     secret: client.Secret,
                                     claims: new List<Claim> {
-                                        new Claim(ClaimTypes.Name, user.Email)
+                                        new Claim(ClaimTypes.Name, user.Email),
+                                        new Claim(AuthorizationConfigurationProvider.ScopeClaimType, client.Name)
                                     }
                                 )
                             });
@@ -68,7 +71,7 @@ namespace easygenerator.Web.Controllers
             return JsonError(AccountRes.Resources.IncorrectEmailOrPassword);
         }
 
-        [HttpPost, Authorize]
+        [HttpPost, Scope("auth")]
         public ActionResult Identity()
         {
             var user = _repository.GetUserByEmail(GetCurrentUsername());

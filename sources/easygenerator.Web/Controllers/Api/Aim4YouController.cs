@@ -8,7 +8,7 @@ using easygenerator.Infrastructure;
 namespace easygenerator.Web.Controllers.Api
 {
     [NoCache]
-    public class Aim4YouController : DefaultController
+    public class Aim4YouController : DefaultApiController
     {
         private readonly IAim4YouCoursePublisher _aim4YouPublisher;
 

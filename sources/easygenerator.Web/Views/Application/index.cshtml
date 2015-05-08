@@ -81,10 +81,11 @@
         var bundlePath = "/App/main-built.js?v=" + DateTimeWrapper.InstanceStartTime.Ticks;
         <script type="text/javascript" data-src="@bundlePath"></script>
     }
+
     <script type="text/javascript">
         //bootstraper
         (function() {
-            if (localStorage["token-auth"] && localStorage["token-api"]) {
+            if (window.auth.isUserLoggedIn()) {
                 var js = document.createElement('script');
                 js.type = 'text/javascript';
                 js.async = true;

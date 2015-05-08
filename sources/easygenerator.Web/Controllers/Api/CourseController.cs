@@ -20,7 +20,7 @@ using System.Web.Mvc;
 namespace easygenerator.Web.Controllers.Api
 {
     [NoCache]
-    public class CourseController : DefaultController
+    public class CourseController : DefaultApiController
     {
         private readonly ICourseBuilder _builder;
         private readonly IEntityFactory _entityFactory;
