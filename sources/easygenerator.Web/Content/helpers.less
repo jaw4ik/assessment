@@ -30,6 +30,51 @@
     margin: 0 auto;
 }
 
+/*#region flex */
+
+.display-flex() {
+    display: -webkit-flex;
+    display: flex;
+}
+
+.flex(@value) {
+    -webkit-flex: @value;
+    flex: @value;
+}
+
+.flex-direction(@value) {
+    -webkit-flex-direction: @value;
+    -ms-flex-direction: @value;
+    flex-direction: @value;
+}
+
+.flex-grow(@value) {
+    -webkit-flex-grow: @value;
+    flex-grow: @value;
+}
+
+.flex-shrink(@value) {
+    -webkit-flex-shrink: @value;
+    flex-shrink: @value;
+}
+
+.align-self(@value) {
+    -webkit-align-self: @value;
+    align-self: @value;
+}
+
+.align-items(@value) {
+    -webkit-align-items: @value;
+    align-items: @value;
+}
+
+.justify-content(@value) {
+    -webkit-justify-content: @value;
+    justify-content: @value;
+}
+
+/*#endregion */
+
 /*#region User avatar */
 
 .user-avatar() {

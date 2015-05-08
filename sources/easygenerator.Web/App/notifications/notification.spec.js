@@ -38,10 +38,10 @@
             });
         });
 
-        describe('isMovingForward:', function () {
+        describe('moveDirection:', function () {
 
             it('should be observable', function () {
-                expect(viewModel.isMovingForward).toBeDefined();
+                expect(viewModel.moveDirection).toBeDefined();
             });
         });
 
@@ -152,11 +152,11 @@
                 expect(viewModel.activeNotification()).toBe(newNotification);
             });
 
-            it('should set isMovingForward to true', function () {
+            it('should set moveDirection to next', function () {
                 viewModel.collection([notification, {}]);
-                viewModel.isMovingForward = false;
+                viewModel.moveDirection = null;
                 viewModel.next();
-                expect(viewModel.isMovingForward).toBeTruthy();
+                expect(viewModel.moveDirection).toBe('next');
             });
         });
 
@@ -180,11 +180,11 @@
                 expect(viewModel.activeNotification()).toBe(newNotification);
             });
 
-            it('should set isMovingForward to false', function () {
+            it('should set moveDirection to prev', function () {
                 viewModel.collection([{}, notification]);
-                viewModel.isMovingForward = true;
+                viewModel.moveDirection = null;
                 viewModel.prev();
-                expect(viewModel.isMovingForward).toBeFalsy();
+                expect(viewModel.moveDirection).toBe('prev');
             });
         });
 
@@ -278,6 +278,12 @@
                     viewModel.toggleIsExpanded();
                     expect(viewModel.isExpanded()).toBeFalsy();
                 });
+
+                it('should set moveDirection to null', function () {
+                    viewModel.moveDirection = '';
+                    viewModel.toggleIsExpanded();
+                    expect(viewModel.moveDirection).toBeNull();
+                });
             });
 
             describe('when isExpanded is false', function () {
@@ -295,8 +301,14 @@
         describe('collapse:', function () {
             it('should set isExpanded false', function () {
                 viewModel.isExpanded(true);
-                viewModel.toggleIsExpanded();
+                viewModel.collapse();
                 expect(viewModel.isExpanded()).toBeFalsy();
+            });
+
+            it('should set moveDirection to null', function () {
+                viewModel.moveDirection = '';
+                viewModel.collapse();
+                expect(viewModel.moveDirection).toBeNull();
             });
         });
 
@@ -362,6 +374,27 @@
                     });
                 });
             });
+
+            describe('when is not expanded', function () {
+                var newNotification = { key: key };
+
+                beforeEach(function () {
+                    viewModel.isExpanded(false);
+                });
+
+                it('should expand', function () {
+                    viewModel.collection([{}]);
+                    viewModel.pushNotification(newNotification);
+                    expect(viewModel.isExpanded()).toBeTruthy();
+                });
+
+                it('should update active notification', function () {
+                    viewModel.activeNotification(null);
+                    viewModel.collection([]);
+                    viewModel.pushNotification(newNotification);
+                    expect(viewModel.activeNotification()).toBe(newNotification);
+                });
+            });
         });
 
         describe('removeNotification:', function () {
@@ -425,6 +458,7 @@
                     });
 
                     describe('and when notification is a single item in collection', function () {
+
                         it('should set isExpanded to false', function () {
                             viewModel.collection([notification]);
                             viewModel.isExpanded(true);
@@ -439,6 +473,13 @@
 
                             viewModel.removeNotification(key);
                             expect(viewModel.activeNotification()).toBeNull();
+                        });
+
+                        it('should set moveDirection to null', function () {
+                            viewModel.collection([notification]);
+                            viewModel.moveDirection = '';
+                            viewModel.removeNotification(key);
+                            expect(viewModel.moveDirection).toBeNull();
                         });
                     });
                 });

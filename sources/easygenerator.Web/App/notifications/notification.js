@@ -11,7 +11,7 @@
             pushNotification: pushNotification,
             removeNotification: removeNotification,
             activeNotification: ko.observable(),
-            isMovingForward: false,
+            moveDirection: null,
             next: next,
             prev: prev
         },
@@ -39,7 +39,7 @@
             if (!viewModel.canMoveNext())
                 return;
 
-            viewModel.isMovingForward = true;
+            viewModel.moveDirection = 'next';
             viewModel.activeNotification(viewModel.collection()[viewModel.index() + 1]);
         }
 
@@ -47,15 +47,19 @@
             if (!viewModel.canMovePrev())
                 return;
 
-            viewModel.isMovingForward = false;
+            viewModel.moveDirection = 'prev';
             viewModel.activeNotification(viewModel.collection()[viewModel.index() - 1]);
         }
 
         function toggleIsExpanded() {
             viewModel.isExpanded(!viewModel.isExpanded());
+            if (!viewModel.isExpanded()) {
+                viewModel.moveDirection = null;
+            }
         }
 
         function collapse() {
+            viewModel.moveDirection = null;
             viewModel.isExpanded(false);
         }
 
@@ -74,6 +78,11 @@
                 if (existingNotification === viewModel.activeNotification()) {
                     viewModel.activeNotification(notification);
                 }
+            }
+
+            if (!viewModel.isExpanded()) {
+                viewModel.activeNotification(notification);
+                viewModel.isExpanded(true);
             }
         }
 
@@ -98,6 +107,7 @@
             if (viewModel.collection().length == 0) {
                 viewModel.activeNotification(null);
                 viewModel.isExpanded(false);
+                viewModel.moveDirection = null;
             }
         }
 
