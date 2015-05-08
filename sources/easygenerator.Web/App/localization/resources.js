@@ -750,6 +750,11 @@
         'zh-cn': 'question:[zh-cn]',
         'uk': 'питання:'
     },
+    reportingScoreNotAvailable: {
+        'en': 'N/A',
+        'zh-cn': 'N/A[zh-cn]',
+        'uk': 'Н/Д'
+    },
     sharePrivateLink: {
         'en': 'Share private link',
         'zh-cn': 'Share private link[zh-cn]',

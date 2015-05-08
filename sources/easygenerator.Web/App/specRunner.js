@@ -75,8 +75,7 @@
             'localization/localizationManager.spec',
             'models/course.spec',
             'models/user.spec',
-            //'models/reporting/statement.spec',
-            'models/reporting/actor.spec',
+
             'repositories/answerRepository.spec',
             'repositories/commentRepository.spec',
             'repositories/collaboratorRepository.spec',
@@ -96,8 +95,20 @@
 
             //#endregion
 
-            //'reporting/xApiFilterCriteriaFactory.spec',
-            //'reporting/xApiProvider.spec',
+            //#region reporting
+
+            'models/reporting/statement.spec',
+            'models/reporting/actor.spec',
+
+            'reporting/xApiFilterCriteriaFactory.spec',
+            'reporting/xApiProvider.spec',
+            'reporting/viewmodels/expandableStatement.spec',
+            'reporting/viewmodels/questionStatement.spec',
+            'reporting/viewmodels/objectiveStatement.spec',
+            'reporting/viewmodels/courseStatement.spec',
+            //'reporting/viewmodels/results.spec',
+
+            //#endregion
 
             //#region synchronization
 
@@ -205,7 +216,6 @@
             'viewmodels/courses/course/create/course.spec',
             'viewmodels/courses/course/design.spec',
             'viewmodels/courses/course/publish.spec',
-            //'reporting/viewmodels/results.spec',
             'viewmodels/courses/publishingActions/publishingAction.spec',
             'viewmodels/courses/publishingActions/build.spec',
             'viewmodels/courses/publishingActions/publish.spec',
