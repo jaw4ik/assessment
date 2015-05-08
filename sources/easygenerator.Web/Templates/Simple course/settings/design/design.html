@@ -7,19 +7,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="../css/settings.css?v=1430979006353" rel="stylesheet" />
-    <script src="../api.js?v=1430979006353"></script>
+    <link href="../css/settings.css?v=1431084696464" rel="stylesheet" />
+    <script src="../api.js?v=1431084696464"></script>
 
-    <script src="js/vendor.min.js?v=1430979006353"></script>
-    <script src="js/design.min.js?v=1430979006353"></script>
+    <script src="js/vendor.min.js?v=1431084696464"></script>
+    <script src="js/design.min.js?v=1431084696464"></script>
 </head>
 
 <body>
     <div class="settings-container">
+        <!-- ko ifnot: isError -->
         <div class="settings-tabs-container">
             <div class="settings-tab-wrapper">
                 <div class="tab-header-container">
-                    <img src="img/graphical.png?v=1430979006353" />
+                    <img src="img/graphical.png?v=1431084696464" />
                     <div class="tab-header-wrapper">
                         <h1 class="tab-header-title" data-bind="localize: 'customize your course'"></h1>
                         <div class="tab-header-content">
@@ -160,6 +161,10 @@
                 </div>
             </div>
         </div>
+        <!-- /ko -->
+        <!-- ko if: isError -->
+        <div class="settings-tab-wrapper" data-bind="localize: 'settings are not initialize'"></div>
+        <!-- /ko -->
     </div>
 </body>
 
