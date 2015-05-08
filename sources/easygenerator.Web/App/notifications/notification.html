@@ -6,21 +6,25 @@
                 <span class="user-notification-count" data-bind="text: collection().length"></span>
             </div>
         </div>
-        <div class="user-notification-viewer" data-bind="css:{ shown: isExpanded }">
-            <div class="user-notification-navigation">
-                <!-- ko if: canMovePrev -->
-                <button class="user-notification-navigation-btn prev" data-bind="click: prev"></button>
-                <!-- /ko -->
-            </div>
-            <div class="user-notification-container">
-                <button class="user-notification-close-btn" data-bind="click: collapse"></button>
-                <!-- ko compose: { model: activeNotification, transition: 'notificationTransition' } -->
-                <!-- /ko -->
-            </div>
-            <div class="user-notification-navigation">
-                <!-- ko if: canMoveNext -->
-                <button class="user-notification-navigation-btn next" data-bind="click: next"></button>
-                <!-- /ko -->
+        <div class="user-notification-viewer-wrapper" data-bind="css:{ shown: isExpanded }">
+            <div class="user-notification-viewer">
+                <div class="user-notification-navigation">
+                    <!-- ko if: canMovePrev -->
+                    <button class="user-notification-navigation-btn prev" data-bind="click: prev"></button>
+                    <!-- /ko -->
+                </div>
+                <div class="user-notification-block">
+                    <button class="user-notification-close-btn" data-bind="click: collapse"></button>
+                    <div class="user-notification-container">
+                        <!-- ko compose: { model: activeNotification, transition: 'notificationTransition' } -->
+                        <!-- /ko -->
+                    </div>
+                </div>
+                <div class="user-notification-navigation">
+                    <!-- ko if: canMoveNext -->
+                    <button class="user-notification-navigation-btn next" data-bind="click: next"></button>
+                    <!-- /ko -->
+                </div>
             </div>
         </div>
     </div>

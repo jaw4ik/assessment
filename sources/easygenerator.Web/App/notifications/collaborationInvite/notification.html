@@ -19,14 +19,12 @@
             </p>
         </div>
         <div class="user-notification-actions">
-            <div>
-                <button class="btn green" data-bind="click: accept, css:{ 'disabled': isDeclining(), 'progress': isAccepting() }, disable: isAccepting() || isDeclining()">
-                    <span class="btn-caption" data-bind="localize: { text: 'accept' }"></span>
-                </button>
-                <button class="btn green-white" data-bind="click: decline, css:{ 'disabled': isAccepting(), 'progress': isDeclining() }, disable: isAccepting() || isDeclining()">
-                    <span class="btn-caption" data-bind="localize: { text: 'decline' }"></span>
-                </button>
-            </div>
+            <button class="btn green" data-bind="click: accept, css:{ 'disabled': isDeclining(), 'progress': isAccepting() }, disable: isAccepting() || isDeclining()">
+                <span class="btn-caption" data-bind="localize: { text: 'accept' }"></span>
+            </button>
+            <button class="btn green-white" data-bind="click: decline, css:{ 'disabled': isAccepting(), 'progress': isDeclining() }, disable: isAccepting() || isDeclining()">
+                <span class="btn-caption" data-bind="localize: { text: 'decline' }"></span>
+            </button>
         </div>
     </div>
     <div class="user-notification-footer">

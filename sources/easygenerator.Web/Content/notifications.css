@@ -1,35 +1,33 @@
 ﻿/*#region User avatar */
 /*#endregion */
-.user-notification-viewer {
+.user-notification-viewer-wrapper {
   position: absolute;
-  display: -webkit-flex;
-  display: flex;
-  -ms-flex-direction: row;
-  -webkit-flex-direction: row;
-  flex-direction: row;
+  max-height: 0px;
+  overflow: hidden;
   top: 56px;
   left: -220px;
   width: 485px;
-  max-height: 0px;
+  z-index: 200;
+  transition: max-height ease-out 0.3s;
+}
+.user-notification-viewer-wrapper.shown {
+  max-height: 1000px;
+}
+.user-notification-viewer {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
   overflow: hidden;
   font-size: 12px;
   font-family: 'OpenSans';
   color: #303133;
   cursor: default;
-  z-index: 200;
-  transition: max-height ease-out 0.3s;
 }
-.user-notification-viewer.shown {
-  max-height: 1000px;
+.user-notification-viewer > * {
+  display: table-cell;
+  vertical-align: middle;
 }
-.user-notification-container {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-justify-content: flex-end;
-  justify-content: flex-end;
-  -ms-flex-direction: row;
-  -webkit-flex-direction: row;
-  flex-direction: row;
+.user-notification-block {
   position: relative;
   width: 415px;
   background-color: #fff;
@@ -38,15 +36,8 @@
   box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
-.user-notification-container.reversed {
-  -ms-flex-direction: row-reverse;
-  -webkit-flex-direction: row-reverse;
-  flex-direction: row-reverse;
-}
 /*#region navigation */
 .user-notification-navigation {
-  -webkit-align-self: center;
-  align-self: center;
   position: relative;
   width: 35px;
 }
@@ -107,9 +98,15 @@
   -ms-flex-direction: column;
   flex-direction: column;
   flex-shrink: 0;
-  width: 100%;
+  width: 413px;
   height: 280px;
   color: #42515f;
+}
+.user-notification-wrapper.pull-left {
+  float: left;
+}
+.user-notification-wrapper.pull-right {
+  float: right;
 }
 .user-notification-header {
   display: -webkit-flex;

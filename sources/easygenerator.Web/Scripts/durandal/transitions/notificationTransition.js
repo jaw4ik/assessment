@@ -8,19 +8,33 @@
                     $currentView = $(context.activeView),
                     $targetView = $(context.child),
                     $container = $currentView.parent(),
-                    containerReversedClassName = 'reversed',
+                    animationSettings,
+                    css = {
+                        pullRight: 'pull-right',
+                        pullLeft: 'pull-left'
+                    },
                     speed = 300;
 
+                $container.width($currentView.width() * 2);
+
                 if (isMovingForward) {
-                    $container.addClass(containerReversedClassName);
+                    $currentView.addClass(css.pullLeft);
+                    $targetView.addClass(css.pullRight).show();
+
+                    $currentView.animate({ marginLeft: '-50%' }, speed);
+                    animationSettings = { marginRight: '50%' };
                 } else {
-                    $container.removeClass(containerReversedClassName);
+                    $targetView.addClass(css.pullLeft).css('margin-left', '-' + $currentView.width() + 'px').show();
+                    animationSettings = { marginLeft: '0px' };
                 }
 
-                $targetView.show();
-                $currentView.animate(isMovingForward ? { marginLeft: '-100%' } : { marginRight: '-100%' }, speed, function () {
+                $targetView.animate(animationSettings, speed, function () {
+                    $currentView.hide();
+                    $targetView.removeClass(css.pullLeft).removeClass(css.pullRight).css('marginRight', '0').css('marginLeft', '0');
+                    $container.width('100%');
                     dfd.resolve();
                 });
+
 
             } else {
                 dfd.resolve();
