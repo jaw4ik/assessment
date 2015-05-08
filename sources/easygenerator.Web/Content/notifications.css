@@ -1,6 +1,6 @@
-﻿/*#region flex */
+﻿/*#region User avatar */
 /*#endregion */
-/*#region User avatar */
+/*#region flex */
 /*#endregion */
 .user-notification-viewer-wrapper {
   position: absolute;
@@ -64,9 +64,7 @@
   background: url(../Content/images/sprites_32.png);
 }
 .user-notification-navigation .user-notification-navigation-btn.prev {
-  -webkit-border-top-left-radius: 3px;
   border-top-left-radius: 3px;
-  -webkit-border-bottom-left-radius: 3px;
   border-bottom-left-radius: 3px;
 }
 .user-notification-navigation .user-notification-navigation-btn.prev:after {
@@ -74,9 +72,7 @@
   background-position: -229px -38px;
 }
 .user-notification-navigation .user-notification-navigation-btn.next {
-  -webkit-border-top-right-radius: 3px;
   border-top-right-radius: 3px;
-  -webkit-border-bottom-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
 .user-notification-navigation .user-notification-navigation-btn.next:after {
@@ -108,12 +104,6 @@
   width: 413px;
   height: 280px;
   color: #42515f;
-}
-.user-notification-wrapper.pull-left {
-  float: left;
-}
-.user-notification-wrapper.pull-right {
-  float: right;
 }
 .user-notification-header {
   display: -webkit-flex;
@@ -171,7 +161,7 @@
 .user-notification-content .user-notification-actions .btn {
   font: 13px 'OpenSans';
 }
-.user-notification-content .user-notification-content-text p + p {
+.user-notification-content .user-notification-content-text .top-indent {
   margin-top: 5px;
 }
 .user-notification-link {

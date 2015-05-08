@@ -1,4 +1,5 @@
 ﻿@import "helpers.less";
+@import "mixin.less";
 
 .user-notification-viewer-wrapper {
     position: absolute;
@@ -70,9 +71,7 @@
         }
 
         &.prev {
-            -webkit-border-top-left-radius: 3px;
             border-top-left-radius: 3px;
-            -webkit-border-bottom-left-radius: 3px;
             border-bottom-left-radius: 3px;
 
             &:after {
@@ -82,9 +81,7 @@
         }
 
         &.next {
-            -webkit-border-top-right-radius: 3px;
             border-top-right-radius: 3px;
-            -webkit-border-bottom-right-radius: 3px;
             border-bottom-right-radius: 3px;
 
             &:after {
@@ -119,14 +116,6 @@
     width: 413px;
     height: 280px;
     color: #42515f;
-
-    &.pull-left {
-        float: left;
-    }
-
-    &.pull-right {
-        float: right;
-    }
 }
 
 .user-notification-header {
@@ -178,7 +167,7 @@
         }
     }
 
-    .user-notification-content-text p + p {
+    .user-notification-content-text .top-indent {
         margin-top: 5px;
     }
 }

@@ -47,8 +47,8 @@
 
         describe('isVisible:', function () {
 
-            it('should be observable', function () {
-                expect(viewModel.isVisible).toBeObservable();
+            it('should be computed', function () {
+                expect(viewModel.isVisible).toBeComputed();
             });
 
             describe('when notifications array does not have any item', function () {
@@ -71,8 +71,8 @@
         });
 
         describe('index:', function () {
-            it('should be observable', function () {
-                expect(viewModel.index).toBeObservable();
+            it('should be computed', function () {
+                expect(viewModel.index).toBeComputed();
             });
 
             it('should return active notification index in collection', function () {
@@ -88,8 +88,8 @@
                 viewModel.activeNotification(notification);
             });
 
-            it('should be observable', function () {
-                expect(viewModel.canMoveNext).toBeObservable();
+            it('should be computed', function () {
+                expect(viewModel.canMoveNext).toBeComputed();
             });
 
             describe('when active notification is last in collection', function () {
@@ -112,8 +112,8 @@
                 viewModel.activeNotification(notification);
             });
 
-            it('should be observable', function () {
-                expect(viewModel.canMovePrev).toBeObservable();
+            it('should be computed', function () {
+                expect(viewModel.canMovePrev).toBeComputed();
             });
 
             describe('when active notification is first in collection', function () {

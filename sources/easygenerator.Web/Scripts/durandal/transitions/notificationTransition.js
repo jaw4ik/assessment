@@ -9,10 +9,6 @@
                     $targetView = $(context.child),
                     $container = $currentView.parent(),
                     animationSettings,
-                    css = {
-                        pullRight: 'pull-right',
-                        pullLeft: 'pull-left'
-                    },
                     speed = 300;
 
                 if (!context.bindingContext.$data.moveDirection) {
@@ -22,19 +18,23 @@
                     $container.width($currentView.width() * 2);
 
                     if (isMovingForward) {
-                        $currentView.addClass(css.pullLeft);
-                        $targetView.addClass(css.pullRight).show();
+                        $currentView.css('float', 'left');
+                        $targetView.css('float', 'right').show();
 
                         $currentView.animate({ marginLeft: '-50%' }, speed);
                         animationSettings = { marginRight: '50%' };
                     } else {
-                        $targetView.addClass(css.pullLeft).css('margin-left', '-' + $currentView.width() + 'px').show();
+                        $targetView.css('float', 'left')
+                            .css('margin-left', '-' + $currentView.width() + 'px')
+                            .show();
                         animationSettings = { marginLeft: '0px' };
                     }
 
                     $targetView.animate(animationSettings, speed, function () {
                         $currentView.hide();
-                        $targetView.removeClass(css.pullLeft).removeClass(css.pullRight).css('marginRight', '0').css('marginLeft', '0');
+                        $targetView.css('float', 'none')
+                            .css('marginRight', '0')
+                            .css('marginLeft', '0');
                         $container.width('100%');
                         dfd.resolve();
                     });

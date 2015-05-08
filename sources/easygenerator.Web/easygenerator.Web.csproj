@@ -759,6 +759,9 @@
     <Content Include="Content\images\upload-image.png" />
     <Content Include="Content\images\supported-browser-bg.png" />
     <Content Include="Content\images\tooth.png" />
+    <Content Include="Content\mixin.css">
+      <DependentUpon>mixin.less</DependentUpon>
+    </Content>
     <Content Include="Content\notifications.css">
       <DependentUpon>notifications.less</DependentUpon>
     </Content>
@@ -1639,6 +1642,7 @@
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteRemoved.spec.js">
       <DependentUpon>inviteRemoved.js</DependentUpon>
     </Content>
+    <Content Include="Content\mixin.less" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />
