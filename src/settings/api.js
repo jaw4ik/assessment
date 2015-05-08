@@ -159,7 +159,7 @@
     }
 
     function sendNotificationToEditor(message, isSuccess) {
-        postMessageToEditor({ type: 'notification', data: { success: isSuccess || true, message: message } });
+        postMessageToEditor({ type: 'notification', data: { success: isSuccess, message: message } });
     }
 
 })();
