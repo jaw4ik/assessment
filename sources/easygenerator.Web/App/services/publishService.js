@@ -1,47 +1,43 @@
-﻿define(['http/apiHttpWrapper', 'localization/localizationManager'],
-    function (apiHttpWrapper, localizationManager) {
+﻿define(['http/apiHttpWrapper'],
+    function (apiHttpWrapper) {
         "use strict";
 
-        var buildCourse = function (courseId) {
-            return invokeServiceMethod('course/build', { courseId: courseId }, function (responseData) {
-                return { packageUrl: responseData.PackageUrl, builtOn: new Date(responseData.BuildOn) };
+        function buildCourse(courseId) {
+            return apiHttpWrapper.post('course/build', { courseId: courseId }).then(function (data) {
+                return {
+                    packageUrl: data.PackageUrl,
+                    builtOn: new Date(data.BuildOn)
+                };
             });
         };
 
-        var scormBuildCourse = function (courseId) {
-            return invokeServiceMethod('course/scormbuild', { courseId: courseId }, function (responseData) {
-                return { scormPackageUrl: responseData.ScormPackageUrl };
+        function publishCourse(courseId) {
+            return apiHttpWrapper.post('course/publish', { courseId: courseId }).then(function (data) {
+                return {
+                    publishedPackageUrl: data.PublishedPackageUrl
+                };
             });
         };
 
-        var publishCourse = function (courseId) {
-            return invokeServiceMethod('course/publish', { courseId: courseId }, function (responseData) {
-                return { publishedPackageUrl: responseData.PublishedPackageUrl };
+        function scormBuildCourse(courseId) {
+            return apiHttpWrapper.post('course/scormbuild', { courseId: courseId }).then(function (data) {
+                return {
+                    scormPackageUrl: data.ScormPackageUrl
+                };
             });
         };
 
-        var publishCourseForReview = function (courseId) {
-            return invokeServiceMethod('course/publishForReview', { courseId: courseId }, function (responseData) {
-                return { reviewUrl: responseData.ReviewUrl };
-            });
+      
+        function publishCourseToStore(courseId) {
+            return apiHttpWrapper.post('api/aim4you/publish', { courseId: courseId });
         };
 
-        var publishCourseToStore = function (courseId) {
-            return invokeServiceMethod('api/aim4you/publish', { courseId: courseId }, function () { });
-        };
-
-        var invokeServiceMethod = function (methodPath, methodArgs, responseDataExtractor) {
-            var deferred = Q.defer();
-
-            apiHttpWrapper.post(methodPath, methodArgs).done(function (data) {
-                if (data != undefined) {
-                    deferred.resolve(responseDataExtractor(data));
-                }
-            }).fail(function () {
-                deferred.reject();
+        function publishCourseForReview(courseId) {
+            return apiHttpWrapper.post('course/publishForReview', { courseId: courseId }).then(function (data) {
+                return {
+                    reviewUrl: data.ReviewUrl
+                };
             });
-
-            return deferred.promise;
         };
 
         return {

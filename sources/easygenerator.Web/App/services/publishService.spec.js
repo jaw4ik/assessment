@@ -14,8 +14,8 @@
             beforeEach(function () {
                 course = { id: 'someId' };
 
-                post = $.Deferred();
-                spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise());
+                post = Q.defer();
+                spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise);
             });
 
             it('should be function', function () {
@@ -39,15 +39,15 @@
 
             describe('and send request to server', function () {
 
-                beforeEach(function () {
-                    post.resolve({ PackageUrl: 'SomeUrl', BuildOn: '1378106938845' });
-                });
-
                 it('should resolve promise with true', function (done) {
-                    var promise = service.buildCourse();
-                    promise.fin(done);
+                    post.resolve({ PackageUrl: 'SomeUrl', BuildOn: '1378106938845' });
 
-                    expect(promise).toBeResolvedWith({ packageUrl: 'SomeUrl', builtOn: new Date('1378106938845') });
+                    var promise = service.buildCourse();
+                    promise.then(function () {
+                        expect(promise).toBeResolvedWith({ packageUrl: 'SomeUrl', builtOn: new Date('1378106938845') });
+                        done();
+                    });
+
                 });
 
             });
@@ -61,8 +61,8 @@
             beforeEach(function () {
                 course = { id: 'someId' };
 
-                post = $.Deferred();
-                spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise());
+                post = Q.defer();
+                spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise);
             });
 
             it('should be function', function () {
@@ -78,9 +78,10 @@
             it('should send request', function (done) {
                 post.resolve({});
                 var promise = service.scormBuildCourse(course.id);
-                promise.fin(done);
-
-                expect(apiHttpWrapper.post).toHaveBeenCalledWith('course/scormbuild', { courseId: course.id });
+                promise.fin(function () {
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('course/scormbuild', { courseId: course.id });
+                    done();
+                });
             });
 
             describe('and send request to server', function () {
@@ -91,9 +92,10 @@
 
                 it('should resolve promise with true', function (done) {
                     var promise = service.scormBuildCourse();
-                    promise.fin(function () { done(); });
-
-                    expect(promise).toBeResolvedWith({ scormPackageUrl: 'SomeUrl' });
+                    promise.fin(function () {
+                        expect(promise).toBeResolvedWith({ scormPackageUrl: 'SomeUrl' });
+                        done();
+                    });
                 });
 
             });
@@ -107,8 +109,8 @@
             beforeEach(function () {
                 course = { id: 'someId' };
 
-                post = $.Deferred();
-                spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise());
+                post = Q.defer();
+                spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise);
             });
 
             it('should be function', function () {
@@ -124,9 +126,11 @@
             it('should send request', function (done) {
                 post.resolve({});
                 var promise = service.publishCourse(course.id);
-                    promise.fin(done);
+                promise.fin(function () {
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('course/publish', { courseId: course.id });
+                    done();
+                });
 
-                expect(apiHttpWrapper.post).toHaveBeenCalledWith('course/publish', { courseId: course.id });
             });
 
             describe('and send request to server', function () {
@@ -137,9 +141,11 @@
 
                 it('should resolve promise with true', function (done) {
                     var promise = service.publishCourse();
-                    promise.fin(done);
 
-                    expect(promise).toBeResolvedWith({ publishedPackageUrl: 'SomeUrl' });
+                    promise.fin(function () {
+                        expect(promise).toBeResolvedWith({ publishedPackageUrl: 'SomeUrl' });
+                        done();
+                    });
                 });
 
             });
@@ -153,8 +159,8 @@
             beforeEach(function () {
                 course = { id: 'someId' };
 
-                post = $.Deferred();
-                spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise());
+                post = Q.defer();
+                spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise);
             });
 
             it('should be function', function () {
@@ -168,11 +174,15 @@
             });
 
             it('should send request', function (done) {
-                post.resolve({});
-                var promise = service.publishCourseForReview(course.id);
-                    promise.fin(done);
 
-                expect(apiHttpWrapper.post).toHaveBeenCalledWith('course/publishForReview', { courseId: course.id });
+                post.resolve({});
+
+                var promise = service.publishCourseForReview(course.id);
+
+                promise.fin(function () {
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('course/publishForReview', { courseId: course.id });
+                    done();
+                });
             });
 
             describe('and send request to server', function () {
@@ -183,9 +193,11 @@
 
                 it('should resolve promise with true', function (done) {
                     var promise = service.publishCourseForReview();
-                    promise.fin(done);
+                    promise.fin(function () {
+                        expect(promise).toBeResolvedWith({ reviewUrl: 'SomeUrl' });
+                        done();
+                    });
 
-                    expect(promise).toBeResolvedWith({ reviewUrl: 'SomeUrl' });
                 });
 
             });
@@ -199,8 +211,8 @@
             beforeEach(function () {
                 course = { id: 'someId' };
 
-                post = $.Deferred();
-                spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise());
+                post = Q.defer();
+                spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise);
             });
 
             it('should be function', function () {
@@ -225,20 +237,20 @@
 
             });
 
-
             describe('and send request to server', function () {
 
                 describe('and request success', function () {
 
-                    beforeEach(function () {
-                        post.resolve(true);
-                    });
-
                     it('should resolve promise with true', function (done) {
-                        var promise = service.publishCourseToStore();
-                        promise.fin(done);
+                        post.resolve();
 
-                        expect(promise).toBeResolvedWith();
+                        var promise = service.publishCourseToStore();
+
+                        promise.fin(function () {
+                            expect(promise).toBeResolvedWith();
+                            done();
+                        });
+
                     });
 
                 });
