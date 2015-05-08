@@ -690,10 +690,10 @@
         'zh-cn': '确保此课程启用了“结果跟踪”',
         'uk': 'Переконайтеся, що \"звітування про результати\" дозволене для даного курсу:'
     },
-    goToDesignStep: {
-        'en': '1. Go to the \"Design\" step',
-        'zh-cn': '去到“设计”环节',
-        'uk': '1. Перейти до \"Дизайну\"'
+    goToConfigureStep: {
+        'en': '1. Go to the \"Configure\" step',
+        'zh-cn': '1. Go to the \"Configure\" step[zh-cn]',
+        'uk': '1. Перейти до \"Конфігурації\"'
     },
     resultTrackingShouldBeEnabled: {
         'en': '2. Enable results tracking',
@@ -749,6 +749,11 @@
         'en': 'question:',
         'zh-cn': 'question:[zh-cn]',
         'uk': 'питання:'
+    },
+    reportingScoreNotAvailable: {
+        'en': 'N/A',
+        'zh-cn': 'N/A[zh-cn]',
+        'uk': 'Н/Д'
     },
     sharePrivateLink: {
         'en': 'Share private link',
@@ -1810,6 +1815,11 @@
         'zh-cn': '等待注册中…',
         'uk': 'очікування реєстрації...'
     },
+    waitingForAcceptance: {
+        'en': 'waiting for acceptance...',
+        'zh-cn': 'waiting for acceptance...[zh-cn]',
+        'uk': 'очікування підтвердження...'
+    },
     addCollaboratorStarterWarning: {
         'en': 'You have reached the maximum of 3 co-authors for this course.  Upgrade to Plus Plan to invite additional co-authors.',
         'zh-cn': '您最多只能邀请4个人共同编辑，升级到Plus服务后可以邀请更多的人。',
@@ -2154,7 +2164,42 @@
     },
     /* End resource section for model Upgrade Notification */
     
-    /* Resource section for model Collaboration invite */
-    /* End resource section for model Collaboration invite */
+    /* Resource section for model Confirm coauthoring */
+    сonfirmСoauthoring: {
+        'en': 'Confirm co-authoring',
+        'zh-cn': 'Confirm co-authoring[zh-cn]',
+        'uk': 'Підтвержденя співавторства'
+    },
+    сonfirmСoauthoringFrom: {
+        'en': 'From',
+        'zh-cn': 'From[zh-cn]',
+        'uk': 'Від'
+    },
+    pleaseConformMyInvitation: {
+        'en': 'Please confirm my invitation to work with you on',
+        'zh-cn': 'Please confirm my invitation to work with you on[zh-cn]',
+        'uk': 'Будь-ласка, прийміть моє запрошення працювати разом з Вами над'
+    },
+    сonfirmСoauthoringCourse: {
+        'en': 'course',
+        'zh-cn': 'course[zh-cn]',
+        'uk': 'курсом'
+    },
+    accept: {
+        'en': 'Accept',
+        'zh-cn': 'Accept[zh-cn]',
+        'uk': 'Прийняти'
+    },
+    decline: {
+        'en': 'Decline',
+        'zh-cn': 'Decline[zh-cn]',
+        'uk': 'Відхилити'
+    },
+    confirmCoauthoringInfo: {
+        'en': 'The course will appear in your course list after accepting.',
+        'zh-cn': 'The course will appear in your course list after accepting.[zh-cn]',
+        'uk': 'Даний курс з\'явиться у Вашому списку курсів після підтверждення.'
+    }
+    /* End resource section for model Confirm coauthoring */
            
 });
