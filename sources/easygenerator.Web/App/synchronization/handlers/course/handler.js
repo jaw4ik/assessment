@@ -2,8 +2,8 @@
     'synchronization/handlers/course/eventHandlers/objectiveRelated', 'synchronization/handlers/course/eventHandlers/objectivesReordered',
 'synchronization/handlers/course/eventHandlers/objectivesUnrelated', 'synchronization/handlers/course/eventHandlers/published',
 'synchronization/handlers/course/eventHandlers/templateUpdated', 'synchronization/handlers/course/eventHandlers/titleUpdated',
-'synchronization/handlers/course/eventHandlers/objectivesReplaced'],
-    function (deleted, introductionContentUpdated, objectiveRelated, objectivesReordered, objectivesUnrelated, published, templateUpdated, titleUpdated, objectivesReplaced) {
+'synchronization/handlers/course/eventHandlers/objectivesReplaced', 'synchronization/handlers/course/eventHandlers/stateChanged'],
+    function (deleted, introductionContentUpdated, objectiveRelated, objectivesReordered, objectivesUnrelated, published, templateUpdated, titleUpdated, objectivesReplaced, stateChanged) {
         "use strict";
 
         return {
@@ -15,7 +15,8 @@
             deleted: deleted,
             objectiveRelated: objectiveRelated,
             objectivesUnrelated: objectivesUnrelated,
-            objectivesReplaced: objectivesReplaced
+            objectivesReplaced: objectivesReplaced,
+            stateChanged: stateChanged
         };
 
     });

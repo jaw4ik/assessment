@@ -36,30 +36,21 @@
                 <div class="drag-and-drop-designer">
 
                     <div class="drag-and-drop-designer-background-wrapper">
-                            <!-- ko if: background.isLoading -->
-                            <div class="drag-and-drop-designer-background-loader-wrapper">
-                                <div class="drag-and-drop-designer-background-loader">
-                                    <div class="drag-and-drop-designer-background-loader-spinner">
-                                        <div class="circular-loader x32 grey align-center">
-                                            <div class="circular-loader-item"></div>
-                                            <div class="circular-loader-item"></div>
-                                            <div class="circular-loader-item"></div>
-                                            <div class="circular-loader-item"></div>
-                                            <div class="circular-loader-item"></div>
-                                            <div class="circular-loader-item"></div>
-                                            <div class="circular-loader-item"></div>
-                                            <div class="circular-loader-item"></div>
-                                        </div>
-                                    </div>
-                                    <div class="drag-and-drop-designer-background-loader-text" data-bind="localize: { text: 'loadingImage' }"></div>
+                        <!-- ko if: background.isLoading -->
+                        <div class="drag-and-drop-designer-background-loader-wrapper">
+                            <div class="drag-and-drop-designer-background-loader">
+                                <div class="drag-and-drop-designer-background-loader-spinner">
+                                    <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 grey align-center' } } --><!-- /ko -->
                                 </div>
+                                <div class="drag-and-drop-designer-background-loader-text" data-bind="localize: { text: 'loadingImage' }"></div>
                             </div>
+                        </div>
+                        <!-- /ko -->
+                        <div class="drag-and-drop-designer-background" data-bind="background: background, style: { visibility: background.isLoading() ? 'hidden' : 'visible' }">
+                            <!-- ko foreach: dropspots -->
+                            <div class="draggable drag-and-drop-designer-draggable" data-bind="draggableText: { text: text, x: position.x, y: position.y, width: size.width, height: size.height, startMove: position.startMoveDropspot, endMove: function(data, event){ $parent.dropspotEndEdit($data); position.endMoveDropspot(data, event); } }"></div>
                             <!-- /ko -->
-                            <div class="drag-and-drop-designer-background" data-bind="background: background, style: { visibility: background.isLoading() ? 'hidden' : 'visible' }">
-                                <!-- ko foreach: dropspots -->
-                                <div class="draggable drag-and-drop-designer-draggable" data-bind="draggableText: { text: text, x: position.x, y: position.y, width: size.width, height: size.height, startMove: position.startMoveDropspot, endMove: function(data, event){ $parent.dropspotEndEdit($data); position.endMoveDropspot(data, event); } }"></div>
-                                <!-- /ko -->
-                            </div>
+                        </div>
                     </div>
                     <div class="upload-background-image info-tooltip-holder" data-bind="click: uploadBackground">
                         <div class="info-tooltip browse-image">

@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Template settings</title>
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/settings.css?v=1427725415231" rel="stylesheet" />
-    <script src="js/vendor.min.js?v=1427725415231"></script>
-    <script src="js/api.js?v=1427725415231"></script>
-    <script src="js/settings.min.js?v=1427725415231"></script>
+    <link href="css/settings.css?v=1431087459677" rel="stylesheet" />
+    <script src="js/vendor.min.js?v=1431087459677"></script>
+    <script src="js/api.js?v=1431087459677"></script>
+    <script src="js/settings.min.js?v=1431087459677"></script>
 </head>
+
 <body>
     <div class="settings-container">
         <div class="settings-tabs-container" data-bind="tabs: {}">
@@ -21,7 +23,7 @@
             <div class="settings-tab-container customization" data-tab="customization">
                 <div class="settings-tab-wrapper">
                     <div class="tab-header-container">
-                        <img src="img/graphical.png?v=1427725415231" />
+                        <img src="img/graphical.png?v=1431087459677" />
                         <div class="tab-header-wrapper">
                             <h1 class="tab-header-title" data-bind="localize: 'customize your course'"></h1>
                             <div class="tab-header-content">
@@ -37,12 +39,11 @@
                                     <div class="template-logo-url-container">
                                         <input class="template-logo-url" type="text" placeholder="Paste image URL here..." id="imgUrl" data-bind="value: logo.url, valueUpdate: ['afterkeydown', 'afterpaste'], enable: userHasStarterPlan" />
                                         <span class="template-logo-or" data-bind="localize: 'or'"></span>
-                                        <form id="logoForm" method="post" enctype="multipart/form-data" encoding="multipart/form-data" target="logoFrame">
-                                            <a class="btn grey template-logo">
-                                                <span data-bind="localize: 'upload logo image'"></span>
-                                                <input type="file" id="logoInput" name="file" disabled="disabled">
-                                            </a>
-                                        </form>
+
+                                        <a class="btn grey template-logo" data-bind="click: logo.upload">
+                                            <span data-bind="localize: 'upload logo image'"></span>
+                                        </a>
+
                                     </div>
                                     <div class="template-logo-container">
                                         <div class="template-logo-wrapper" data-bind="style: { display: logo.hasLogo() || logo.isError() ? 'none' : 'inline-block' }">
@@ -76,8 +77,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-content-row" data-bind="with: themes">
-                            <div class="template-selector-container">
+                        <div class="tab-content-row">
+                            <div class="template-selector-container" data-bind="with: themes">
                                 <div class="selector-items-container">
                                     <h2 class="selector-title" data-bind="localize: 'choose color scheme'"></h2>
                                     <ul class="selector-items-wrapper unstyled" data-bind="foreach: list">
@@ -96,30 +97,92 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="tab-content-row">
+                            <h2 class="selector-title" data-bind="localize: 'background change'">Change background:</h2>
+                            <div class="tab-content-wrapper">
+                                <div class="has-access">
+                                    <div class="background" data-bind="css: { 'empty': background.image.isEmpty, 'uploading': background.image.isUploading, 'error': background. hasError }">
+                                        <div class="background-image-upload-progress loader-container">
+                                            <div class="circular-loader x32 align-center grey">
+                                                <div class="circular-loader-item"></div>
+                                                <div class="circular-loader-item"></div>
+                                                <div class="circular-loader-item"></div>
+                                                <div class="circular-loader-item"></div>
+                                                <div class="circular-loader-item"></div>
+                                                <div class="circular-loader-item"></div>
+                                                <div class="circular-loader-item"></div>
+                                                <div class="circular-loader-item"></div>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="background-upload" data-bind="click: background.changeImage"></a>
+                                        <div class="background-image" data-bind="background: background.image"></div>
+                                        <a href="#" class="background-change" data-bind="click: background.changeImage">
+                                            <span class="tooltip"><span class="tooltip-text" data-bind="localize: 'background update'"></span></span>
+                                        </a>
+                                        <a href="#" class="background-remove" data-bind="click: background.clearImage">
+                                            <span class="tooltip"><span class="tooltip-text" data-bind="localize: 'background remove'"></span></span>
+                                        </a>
+                                    </div>
+                                    <ul class="unstyled background-position-options">
+                                        <li class="background-position-wrapper">
+                                            <a href="#" class="background-position default" data-bind="click: background.type.default, css: { active: background.type() === 'default' }">
+                                                <div class="tooltip right">
+                                                    <span class="tooltip-text" data-bind="localize: 'background default'">Default</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="background-position-wrapper">
+                                            <a href="#" class="background-position repeat" data-bind="click: background.type.repeat, css: { active: background.type() === 'repeat' }">
+                                                <div class="tooltip right">
+                                                    <span class="tooltip-text" data-bind="localize: 'background repeat'">Repeat</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="background-position-wrapper">
+                                            <a href="#" class="background-position fullscreen" data-bind="click: background.type.fullscreen, css: { active: background.type() === 'fullscreen' }">
+                                                <div class="tooltip right">
+                                                    <span class="tooltip-text" data-bind="localize: 'background fullscreen'">Fullscreen</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="background-error-message">
+                                        <div class="background-error-message-title" data-bind="text: background.errorTitle"></div>
+                                        <div class="background-error-message-description" data-bind="text: background.errorDescription"></div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="no-access" data-bind="fadeVisible: !userHasStarterPlan()">
+                                    <div class="no-access-img"></div>
+                                    <div class="no-access-text" data-bind="localize: 'background upgrade account hint'">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="settings-tab-container track-and-trace" data-tab="track-and-trace">
                 <div class="settings-tab-wrapper track-and-trace-settings" data-bind="with: trackingData">
                     <div class=" tab-header-container">
-                    <img src="img/track.png?v=1427725415231" />
-                    <div class="tab-header-wrapper">
-                        <h1 class="tab-header-title" data-bind="localize: 'track and trace settings'"></h1>
-                        <div class="tab-header-content">
-                            <div class="switcher">
-                                <div class="switcher-text" data-bind="css: { disabled: enableXAPI() }, localize: 'disabled'"></div>
-                                <div class="switch-toggle-slider" data-bind="switchToggle: { value: enableXAPI }">
-                                    <div class="switch-toggle-wrapper">
-                                        <div class="switch-toggle-on"></div>
-                                        <div class="switch-toogle-blob"></div>
-                                        <div class="switch-toggle-off"></div>
+                        <img src="img/track.png?v=1431087459677" />
+                        <div class="tab-header-wrapper">
+                            <h1 class="tab-header-title" data-bind="localize: 'track and trace settings'"></h1>
+                            <div class="tab-header-content">
+                                <div class="switcher">
+                                    <div class="switcher-text" data-bind="css: { disabled: enableXAPI() }, localize: 'disabled'"></div>
+                                    <div class="switch-toggle-slider" data-bind="switchToggle: { value: enableXAPI }">
+                                        <div class="switch-toggle-wrapper">
+                                            <div class="switch-toggle-on"></div>
+                                            <div class="switch-toogle-blob"></div>
+                                            <div class="switch-toggle-off"></div>
+                                        </div>
                                     </div>
+                                    <div class="switcher-text" data-bind="css: { disabled: !enableXAPI() }, localize: 'enabled'"></div>
                                 </div>
-                                <div class="switcher-text" data-bind="css: { disabled: !enableXAPI() }, localize: 'enabled'"></div>
                             </div>
                         </div>
                     </div>
-                </div>
                     <div class="tab-content-container">
                         <div class="tab-content-title-container" data-bind="click: toggleAdvancedSettings" style="display: inline-block">
                             <div class="tab-content-title" data-bind="css: { expanded: advancedSettingsExpanded(),  collapsed: !advancedSettingsExpanded() }, localize: 'advanced settings'"></div>
@@ -254,7 +317,7 @@
                 <div class="tab-seperator"></div>
                 <div class="settings-tab-wrapper">
                     <div class="tab-header-container">
-                        <img src="img/mastery.png?v=1427725415231" />
+                        <img src="img/mastery.png?v=1431087459677" />
                         <div class="tab-header-wrapper">
                             <h1 class="tab-header-title" data-bind="localize: 'mastery score settings'"></h1>
                             <div class="tab-content-container">
@@ -276,7 +339,7 @@
             <div class="settings-tab-container languages" data-tab="languages" data-bind="with: languages">
                 <div class="settings-tab-wrapper">
                     <div class="tab-header-container">
-                        <img src="img/language.png?v=1427725415231">
+                        <img src="img/language.png?v=1431087459677">
                         <div class="tab-header-wrapper">
                             <h1 class="tab-header-title" data-bind="localize: 'choose language for your course'"></h1>
                             <div class="tab-header-content">
@@ -321,4 +384,5 @@
         </div>
     </div>
 </body>
+
 </html>

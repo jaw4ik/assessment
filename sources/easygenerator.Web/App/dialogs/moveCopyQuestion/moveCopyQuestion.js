@@ -18,7 +18,7 @@
         show: show,
         hide: hide,
         isCopy: ko.observable(true),
-        changeMoveCopyAction: changeMoveCopyAction,
+        changeMoveCopyAction: changeMoveCopyAction, 
         setCopyAction: setCopyAction,
         setMoveAction: setMoveAction,
 
@@ -95,9 +95,9 @@
             questionRepository.moveQuestion(viewModel.questionId, viewModel.objectiveId(), viewModel.selectedObjectiveId()).then(function () {
                 viewModel.hide();
                 if (!_.isNullOrUndefined(viewModel.courseId)) {
-                    router.navigate('objective/' + viewModel.objectiveId() + '?courseId=' + viewModel.courseId);
+                        router.navigate('courses/' + viewModel.courseId + '/objectives/' + viewModel.objectiveId());
                 } else {
-                    router.navigate('objective/' + viewModel.objectiveId());
+                        router.navigate('objectives/' + viewModel.objectiveId());
                 }
             });
         } else {
@@ -113,9 +113,9 @@
         questionRepository.copyQuestion(viewModel.questionId, viewModel.selectedObjectiveId()).then(function (response) {
             viewModel.hide();
             if (!_.isNullOrUndefined(viewModel.selectedCourse().id)) {
-                router.navigate('objective/' + viewModel.selectedObjectiveId() + '/question/' + response.id + '?courseId=' + viewModel.selectedCourse().id);
+                    router.navigate('courses/' + viewModel.selectedCourse().id + '/objectives/' + viewModel.selectedObjectiveId() + '/questions/' + response.id);
             } else {
-                router.navigate('objective/' + viewModel.selectedObjectiveId() + '/question/' + response.id);
+                    router.navigate('objectives/' + viewModel.selectedObjectiveId() + '/questions/' + response.id);
             }
         });
     }
@@ -151,12 +151,12 @@
                     return course.createdBy == userContext.identity.email ? 0 : 1;
                 })
                 .map(function (course) {
-                    return {
-                        id: course.id,
-                        title: course.title,
-                        objectives: course.objectives,
-                        objectvesListEmpty: course.objectives.length === 0
-                    };
+            return {
+                id: course.id,
+                title: course.title,
+                objectives: course.objectives,
+                objectvesListEmpty: course.objectives.length === 0
+            };
                 })
                 .value();
     }
@@ -169,7 +169,7 @@
         }
 
         if (viewModel.selectedCourse() !== viewModel.allObjectives()) {
-            var course = _.find(dataContext.courses, function(item) {
+                var course = _.find(dataContext.courses, function (item) {
                 return item.id === viewModel.selectedCourse().id;
             });
 
@@ -178,7 +178,7 @@
                 return false;
             }
 
-            objective = _.find(course.objectives, function(item) {
+                objective = _.find(course.objectives, function (item) {
                 return item.id === viewModel.selectedObjectiveId();
             });
         } else {

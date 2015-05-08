@@ -7,19 +7,6 @@
             window.open(url, '_blank');
         };
 
-        router.updateDocumentTitle = function (instance, instruction) {
-            var title = null;
-
-            if (instruction.config.settings && instruction.config.settings.localizationKey) {
-                title = localizationManager.localize(instruction.config.settings.localizationKey);
-
-            } else if (instruction.config.title) {
-                title = instruction.config.title;
-            }
-
-            document.title = title ? app.title + ' | ' + title : app.title;
-        };
-
         router.replace = function (url) {
             router.navigate(url, { replace: true, trigger: true });
         };
@@ -64,7 +51,6 @@
         };
 
         // add routeData to routing
-        var namedParamPattern = /(\(\?)?:\w+/g;
         var defaultRouteData = {
             courseId: null,
             moduleName: null
@@ -73,45 +59,31 @@
         router.routeData = ko.observable(defaultRouteData);
 
         router.activeInstruction.subscribe(function (instruction) {
-            if (_.isObject(instruction) && _.isObject(instruction.config)) {
-                var routeParams = {};
-                var urlFragment = instruction.config.route;
-                var match, routeParam, counter = 0;
+            var url = instruction.fragment;
+            var context = {
+                moduleName: getModuleName(instruction.config.moduleId)
+            };
 
-                // initialize route params
-                if (urlFragment) {
-                    while ((match = namedParamPattern.exec(urlFragment))) {
-                        if (match[0]) {
-                            routeParam = match[0].replace(':', '');
-                            var paramValue = instruction.params[counter++];
-                            if (_.isString(paramValue)) {
-                                routeParams[routeParam] = paramValue;
-                            }
-                        }
-                    }
+            var parts = url.split('/');
+            var i = 0, len = parts.length;
+            for (; i < len; i++) {
+                if (parts[i] === 'courses' && parts[i + 1]) {
+                    context.courseId = parts[i + 1];
+                    i++;
                 }
-
-                // merge queryParams to routeParams
-                if (instruction.queryParams) {
-                    mergeObjects(routeParams, instruction.queryParams);
+                if (parts[i] === 'objectives' && parts[i + 1]) {
+                    context.objectiveId = parts[i + 1];
+                    i++;
                 }
-
-                // initialize module values
-                routeParams.moduleName = getModuleName(instruction.config.moduleId);
-
-                router.routeData(routeParams);
-            } else {
-                router.routeData(defaultRouteData);
+                if (parts[i] === 'question' && parts[i + 1]) {
+                    context.questionId = parts[i + 1];
+                    i++;
+                }
             }
+
+            router.routeData(context);
+
         });
-
-        function mergeObjects(destinationObject, sourceObject) {
-            for (var fieldName in sourceObject) {
-                if (sourceObject.hasOwnProperty(fieldName) && _.isNullOrUndefined(destinationObject[fieldName])) {
-                    destinationObject[fieldName] = sourceObject[fieldName];
-                }
-            }
-        }
 
         function getModuleName(moduleIdValue) {
             return moduleIdValue && moduleIdValue.slice(moduleIdValue.lastIndexOf('/') + 1);

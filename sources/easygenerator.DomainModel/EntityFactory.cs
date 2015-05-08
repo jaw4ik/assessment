@@ -15,7 +15,7 @@ namespace easygenerator.DomainModel
         Multipleselect MultipleselectQuestion(string title, string createdBy);
         Multipleselect MultipleselectQuestion(string title, string createdBy, Answer correctAnswer, Answer incorrectAnswer);
 
-        Statement StatementQuestion(string title, string defaultStatementText, string  createdBy);
+        Statement StatementQuestion(string title, string defaultStatementText, string createdBy);
 
         FillInTheBlanks FillInTheBlanksQuestion(string title, string createdBy);
         BlankAnswer BlankAnswer(string text, bool isCorrect, Guid groupId, string createdBy);
@@ -38,6 +38,7 @@ namespace easygenerator.DomainModel
         InformationContent InformationContent(string title, string createdBy);
         Onboarding Onboarding(string userEmail);
         DemoCourseInfo DemoCourseInfo(Course sourceCourse, Course demoCourse, string createdBy);
+        CourseState CourseState(Course course, bool isDirty);
     }
 
     public class EntityFactory : IEntityFactory
@@ -192,6 +193,11 @@ namespace easygenerator.DomainModel
         public DemoCourseInfo DemoCourseInfo(Course sourceCourse, Course demoCourse, string createdBy)
         {
             return new DemoCourseInfo(sourceCourse, demoCourse, createdBy);
+        }
+
+        public CourseState CourseState(Course course, bool isDirty)
+        {
+            return new CourseState(course, isDirty);
         }
     }
 }

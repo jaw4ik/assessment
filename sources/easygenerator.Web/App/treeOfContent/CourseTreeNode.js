@@ -1,7 +1,7 @@
 ﻿define(['./TreeNode', './RelatedObjectiveTreeNode', './queries/getCourseByIdQuery', 'eventTracker', 'plugins/router'],
     function (TreeNode, RelatedObjectiveTreeNode, getCourseByIdQuery, eventTracker, router) {
 
-        return function(id, title, url, createdOn) {
+        return function (id, title, url, createdOn) {
             TreeNode.call(this, id, title, url);
             this.children = ko.observableArray([]);
 
@@ -14,21 +14,21 @@
         };
 
         function getObjectives(id) {
-            return getCourseByIdQuery.execute(id).then(function(course) {
-                return _.map(course.objectives, function(objective) {
-                    return new RelatedObjectiveTreeNode(objective.id, course.id, objective.title, '#objective/' + objective.id + '?courseId=' + course.id);
+            return getCourseByIdQuery.execute(id).then(function (course) {
+                return _.map(course.objectives, function (objective) {
+                    return new RelatedObjectiveTreeNode(objective.id, course.id, objective.title, '#courses/' + course.id + '/objectives/' + objective.id);
                 });
             });
         }
 
         function expand() {
             var that = this;
-            return Q.fcall(function() {
+            return Q.fcall(function () {
                 if (that.children().length) {
                     that.isExpanded(true);
                     return undefined;
                 } else {
-                    return getObjectives(that.id).then(function(objectives) {
+                    return getObjectives(that.id).then(function (objectives) {
                         that.children(objectives);
                         that.isExpanded(true);
                     });

@@ -231,6 +231,7 @@
     <Compile Include="Components\ActionFilters\ApplicationAuthorize.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AllowedUsersAttribute.cs" />
+    <Compile Include="Components\ActionFilters\Permissions\PreviewAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCollaboratorsAmountAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\QuestionAccessAttribute.cs" />
@@ -248,6 +249,7 @@
     <Compile Include="Components\Mappers\SingleSelectImageAnswerMapper.cs" />
     <Compile Include="Components\Mappers\TemplateMapper.cs" />
     <Compile Include="Components\Mappers\TextMatchingAnswerMapper.cs" />
+    <Compile Include="Components\TypeMethodInvoker.cs" />
     <Compile Include="Controllers\Api\CourseImportController.cs" />
     <Compile Include="Controllers\Api\HotSpotQuestionController.cs" />
     <Compile Include="Controllers\Api\DragAndDropTextQuestionController.cs" />
@@ -259,8 +261,34 @@
     <Compile Include="Controllers\Api\MultipleselectController.cs" />
     <Compile Include="Controllers\Api\StatementController.cs" />
     <Compile Include="Controllers\Api\TextMatchingQuestionController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
+    <Compile Include="Storage\CourseStateStorage.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\AnswerChangedEvent.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\CourseStateChangedEvent.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\DropspotChangedEvent.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\HotSpotPolygonChangedEvent.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\LearningContentChangedEvent.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\ObjectiveChangedEvent.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\QuestionChangedEvent.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\SingleSelectImageAnswerChangedEvent.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\TextMatchingAnswerChangedEvent.cs" />
+    <Compile Include="Storage\ICourseStateStorage.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseChangeTracker.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\CourseChangedEvent.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\AnswerChangeTracker.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\DropspotChangeTracker.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\HotSpotPolygonChangeTracker.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\LearningContentChangeTracker.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\ObjectiveChangeTracker.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\QuestionChangeTracker.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\SingleSelectImageAnswerChangeTracker.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\TextMatchingAnswerChangeTracker.cs" />
     <Compile Include="DomainEvents\Handlers\MailChimpSubscriptionHandler.cs" />
+    <Compile Include="InMemoryStorages\CourseStateStorage\CourseInfo.cs" />
+    <Compile Include="InMemoryStorages\CourseStateStorage\CourseInfoInMemoryStorage.cs" />
+    <Compile Include="InMemoryStorages\CourseStateStorage\ICourseInfoInMemoryStorage.cs" />
     <Compile Include="InMemoryStorages\DemoCoursesInMemoryStorage.cs" />
     <Compile Include="InMemoryStorages\IDemoCoursesStorage.cs" />
     <Compile Include="Import\Presentation\Extensions\ParagraphExtensions.cs" />
@@ -473,9 +501,12 @@
     <Compile Include="Synchronization\Handlers\TextMatchingEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\UserEventHandler.cs" />
     <Compile Include="Synchronization\Hubs\EventHub.cs" />
+    <Compile Include="Synchronization\Tracking\IUserConnectionTracker.cs" />
+    <Compile Include="Synchronization\Tracking\UserConnectionTracker.cs" />
     <Compile Include="ViewModels\Account\UserSignUpViewModel.cs" />
     <Compile Include="ViewModels\Api\BlankAnswerViewModel.cs" />
     <Compile Include="ViewModels\DemoCourses\DemoCoursesViewModel.cs" />
+    <Compile Include="ViewModels\Dashboard\DashboardViewModel.cs" />
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceApiService.cs" />
     <Compile Include="WooCommerce\WooCommerceAutologinUrlProvider.cs" />
@@ -516,9 +547,25 @@
       <DependentUpon>moveCopyQuestion.js</DependentUpon>
     </Content>
     <Content Include="App\localization\resources.js" />
-    <Content Include="App\models\reportingStatement.js" />
-    <Content Include="App\models\reportingStatement.spec.js">
-      <DependentUpon>reportingStatement.js</DependentUpon>
+    <Content Include="App\models\reporting\actor.js" />
+    <Content Include="App\models\reporting\actor.spec.js">
+      <DependentUpon>actor.js</DependentUpon>
+    </Content>
+    <Content Include="App\models\reporting\statement.js" />
+    <Content Include="App\models\reporting\statement.spec.js">
+      <DependentUpon>statement.js</DependentUpon>
+    </Content>
+    <Content Include="App\reporting\viewmodels\courseStatement.spec.js">
+      <DependentUpon>courseStatement.js</DependentUpon>
+    </Content>
+    <Content Include="App\reporting\viewmodels\expandableStatement.spec.js">
+      <DependentUpon>expandableStatement.js</DependentUpon>
+    </Content>
+    <Content Include="App\reporting\viewmodels\questionStatement.spec.js">
+      <DependentUpon>questionStatement.js</DependentUpon>
+    </Content>
+    <Content Include="App\reporting\xApiFilterCriteriaFactory.spec.js">
+      <DependentUpon>xApiFilterCriteriaFactory.js</DependentUpon>
     </Content>
     <Content Include="App\reporting\xApiProvider.js" />
     <Content Include="App\dialogs\publishCourse\publishCourse.html" />
@@ -534,8 +581,14 @@
     <Content Include="App\reporting\xApiProvider.spec.js">
       <DependentUpon>xApiProvider.js</DependentUpon>
     </Content>
+    <Content Include="App\reporting\xApiFilterCriteriaFactory.js" />
+    <Content Include="App\routing\isViewReadyMixin.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\answerCorrectnessUpdated.spec.js">
       <DependentUpon>answerCorrectnessUpdated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\course\eventHandlers\stateChanged.js" />
+    <Content Include="App\synchronization\handlers\course\eventHandlers\stateChanged.spec.js">
+      <DependentUpon>stateChanged.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\objective\eventHandlers\imageUrlUpdated.js" />
     <Content Include="App\synchronization\handlers\objective\eventHandlers\imageUrlUpdated.spec.js">
@@ -562,6 +615,7 @@
       <DependentUpon>learningContentsReordered.js</DependentUpon>
     </Content>
     <Content Include="App\utils\base64.js" />
+    <Content Include="App\utils\fileSaverWrapper.js" />
     <Content Include="App\utils\waiter.js" />
     <Content Include="App\utils\waiter.spec.js">
       <DependentUpon>waiter.js</DependentUpon>
@@ -570,14 +624,28 @@
     <Content Include="App\viewmodels\courses\bindingHandlers\elementCollapseBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\publishTabBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\windowMessageListenerBinding.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\items\results.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\items\results.spec.js">
+    <Content Include="App\viewmodels\courses\course\create\course.spec.js">
+      <DependentUpon>course.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\course\create\index.js" />
+    <Content Include="App\viewmodels\courses\course\design.js" />
+    <Content Include="App\viewmodels\courses\course\design.spec.js">
+      <DependentUpon>design.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\course\index.js" />
+    <Content Include="App\viewmodels\courses\course\index.spec.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\course\publish.js" />
+    <Content Include="App\viewmodels\courses\course\publish.spec.js">
+      <DependentUpon>publish.js</DependentUpon>
+    </Content>
+    <Content Include="App\reporting\viewmodels\results.js" />
+    <Content Include="App\reporting\viewmodels\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\results.js" />
-    <Content Include="App\viewmodels\courses\results.spec.js">
-      <DependentUpon>results.js</DependentUpon>
-    </Content>
+    <Content Include="App\viewmodels\courses\index.js" />
+    <Content Include="App\viewmodels\objectives\index.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.spec.js">
       <DependentUpon>changeType.js</DependentUpon>
@@ -590,16 +658,35 @@
     <Content Include="App\viewmodels\questions\statement\statementAnswers.spec.js">
       <DependentUpon>statementAnswers.js</DependentUpon>
     </Content>
+    <Content Include="App\reporting\viewmodels\courseStatement.js" />
+    <Content Include="App\reporting\viewmodels\expandableStatement.js" />
+    <Content Include="App\reporting\viewmodels\objectiveStatement.js" />
+    <Content Include="App\reporting\viewmodels\questionStatement.js" />
+    <Content Include="App\views\courses\course\create\index.html" />
+    <Content Include="App\views\courses\course\publish.html" />
+    <Content Include="App\views\courses\course\design.html" />
+    <Content Include="App\views\courses\course\index.html" />
+    <Content Include="App\reporting\views\results.html" />
+    <Content Include="App\views\courses\index.html" />
     <Content Include="App\views\common\circularLoader.html" />
     <Content Include="App\views\courses\publishActions\publishToAim4You.html" />
     <Content Include="App\views\courses\publishActions\publishToPublicationServerEmbed.html" />
     <Content Include="App\views\courses\publishActions\publishToPublicationServerLink.html" />
-    <Content Include="App\views\courses\publishActions\publishToPublicationServerPopup.html" />
     <Content Include="App\views\courses\publishActions\publishAsHtml.html" />
     <Content Include="App\views\courses\publishActions\publishAsScorm.html" />
-    <Content Include="App\views\courses\results.html" />
+    <Content Include="App\views\courses\publishActions\updatePublishedCourse.html" />
+    <Content Include="App\views\objectives\index.html" />
     <Content Include="App\views\questions\statement\statement.html" />
+    <Content Include="App\reporting\views\courseStatement.html" />
+    <Content Include="App\reporting\views\objectiveStatement.html" />
+    <Content Include="App\reporting\views\questionStatement.html" />
     <Content Include="BuildCourse\Modules\js\branding.js" />
+    <Content Include="Content\course.css">
+      <DependentUpon>course.less</DependentUpon>
+    </Content>
+    <Content Include="Content\editField.css">
+      <DependentUpon>editField.less</DependentUpon>
+    </Content>
     <Content Include="Content\font\heuristica-bold.svg" />
     <Content Include="Content\font\heuristica-bolditalic.svg" />
     <Content Include="Content\font\heuristica-italic.svg" />
@@ -632,6 +719,9 @@
     <Content Include="Content\images\tooth.png" />
     <Content Include="Content\notSupportedPage.css">
       <DependentUpon>notSupportedPage.less</DependentUpon>
+    </Content>
+    <Content Include="Content\shell.css">
+      <DependentUpon>shell.less</DependentUpon>
     </Content>
     <Content Include="Content\statement.css">
       <DependentUpon>statement.less</DependentUpon>
@@ -944,9 +1034,6 @@
     <Content Include="Scripts\knockoutBindings\contentEditableFixBinding.js" />
     <Content Include="Scripts\knockoutBindings\copyToClipboardBinding.js" />
     <Content Include="Scripts\knockoutBindings\customHasFocusBinding.js" />
-    <Content Include="App\dialogs\collaboration\removeCollaborator.spec.js">
-      <DependentUpon>removeCollaborator.js</DependentUpon>
-    </Content>
     <Content Include="App\fileUpload.js" />
     <Content Include="App\mappers\singleSelectImageAnswerMapper.js" />
     <Content Include="App\models\singleSelectImageAnswer.js" />
@@ -1090,7 +1177,6 @@
     <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToPlus.spec.js">
       <DependentUpon>upgradedToPlus.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\panels\bindingHandlers\fixedPanelBindingHandler.js" />
     <Content Include="App\viewmodels\questions\informationContent\informationContent.spec.js">
       <DependentUpon>informationContent.js</DependentUpon>
     </Content>
@@ -1106,8 +1192,6 @@
     <Content Include="BuildCourse\Scorm\Schemas\ims_xml.xsd">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App\dialogs\collaboration\removeCollaborator.html" />
-    <Content Include="App\dialogs\collaboration\removeCollaborator.js" />
     <Content Include="App\http\httpRequestSender.spec.js">
       <DependentUpon>httpRequestSender.js</DependentUpon>
     </Content>
@@ -1478,10 +1562,10 @@
     <Content Include="Content\ckeditor.less" />
     <Content Include="Content\common.less" />
     <Content Include="Content\courses.less" />
+    <Content Include="Content\course.less" />
     <Content Include="Content\cssPreloaders.less" />
     <Content Include="Content\dragAndDropText.less" />
     <Content Include="Content\helpers.less" />
-    <Content Include="Content\helphint.less" />
     <Content Include="Content\hotSpot.less" />
     <Content Include="Content\imagePreview.less" />
     <Content Include="Content\navigationBar.less" />
@@ -1499,6 +1583,11 @@
     <Content Include="Content\switchToggle.less" />
     <Content Include="Content\treeOfContent.less" />
     <Content Include="Content\collaboration.less" />
+    <Content Include="Content\shell.less" />
+    <Content Include="Content\editField.less" />
+    <Content Include="App\reporting\viewmodels\objectiveStatement.spec.js">
+      <DependentUpon>objectiveStatement.js</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />
@@ -1611,10 +1700,12 @@
     <Content Include="Templates\Exam\settings\css\fonts\opensans-italic-400.woff" />
     <Content Include="Templates\Exam\settings\css\settings.css" />
     <Content Include="Templates\Exam\settings\img\graphical.png" />
+    <Content Include="Templates\Exam\settings\img\language.png" />
     <Content Include="Templates\Exam\settings\img\mastery.png" />
     <Content Include="Templates\Exam\settings\img\sprites_16.png" />
     <Content Include="Templates\Exam\settings\img\track.png" />
-    <Content Include="Templates\Exam\settings\js\settings.js" />
+    <Content Include="Templates\Exam\settings\js\api.js" />
+    <Content Include="Templates\Exam\settings\js\settings.min.js" />
     <Content Include="Templates\Exam\settings\js\vendor.min.js" />
     <Content Include="Templates\Exam\settings\settings.html" />
     <Content Include="Templates\Personalized learning\app\main.js" />
@@ -1719,6 +1810,10 @@
     <Content Include="Templates\Quiz\content\content.html" />
     <Content Include="Templates\Quiz\content\data.js" />
     <Content Include="Templates\Quiz\css\fonts.css" />
+    <Content Include="Templates\Quiz\css\fonts\badscript-regular.eot" />
+    <Content Include="Templates\Quiz\css\fonts\badscript-regular.svg" />
+    <Content Include="Templates\Quiz\css\fonts\badscript-regular.ttf" />
+    <Content Include="Templates\Quiz\css\fonts\badscript-regular.woff" />
     <Content Include="Templates\Quiz\css\fonts\OCRAExtended.eot" />
     <Content Include="Templates\Quiz\css\fonts\OCRAExtended.svg" />
     <Content Include="Templates\Quiz\css\fonts\OCRAExtended.ttf" />
@@ -1732,7 +1827,6 @@
     <Content Include="Templates\Quiz\css\fonts\roboto-bold.svg" />
     <Content Include="Templates\Quiz\css\fonts\roboto-bold.ttf" />
     <Content Include="Templates\Quiz\css\fonts\roboto-bold.woff" />
-    <Content Include="Templates\Quiz\css\fonts\roboto-regular.eot" />
     <Content Include="Templates\Quiz\css\fonts\roboto-regular.svg" />
     <Content Include="Templates\Quiz\css\fonts\roboto-regular.ttf" />
     <Content Include="Templates\Quiz\css\fonts\roboto-regular.woff" />
@@ -1765,6 +1859,8 @@
     <Content Include="Templates\Quiz\css\img\tooth.png" />
     <Content Include="Templates\Quiz\css\styles.css" />
     <Content Include="Templates\Quiz\index.html" />
+    <Content Include="Templates\Quiz\lang\en.json" />
+    <Content Include="Templates\Quiz\lang\ua.json" />
     <Content Include="Templates\Quiz\manifest.json" />
     <Content Include="Templates\Quiz\preview\images\preview.jpg" />
     <Content Include="Templates\Quiz\preview\thumbnail.png" />
@@ -1776,13 +1872,16 @@
     <Content Include="Templates\Quiz\settings\css\fonts\opensans-italic-400.woff" />
     <Content Include="Templates\Quiz\settings\css\settings.css" />
     <Content Include="Templates\Quiz\settings\img\graphical.png" />
+    <Content Include="Templates\Quiz\settings\img\language.png" />
     <Content Include="Templates\Quiz\settings\img\mastery.png" />
     <Content Include="Templates\Quiz\settings\img\sprites_16.png" />
     <Content Include="Templates\Quiz\settings\img\track.png" />
+    <Content Include="Templates\Quiz\settings\js\api.min.js" />
     <Content Include="Templates\Quiz\settings\js\settings.min.js" />
     <Content Include="Templates\Quiz\settings\js\vendor.min.js" />
     <Content Include="Templates\Quiz\settings\settings.html" />
     <Content Include="Templates\Reader\app\main.js" />
+    <Content Include="Templates\Reader\app\main.js.map" />
     <Content Include="Templates\Reader\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\a15336e3207b40aa86ae93f15c2d3927.html" />
     <Content Include="Templates\Reader\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\content.html" />
     <Content Include="Templates\Reader\content\14529955b7c14ba5bcd30029295a1fa1\8555e814ebef4f6a9f82cabfe8502894\a542a9cad6b64881844eed6e65d37044.html" />
@@ -1803,23 +1902,42 @@
     <Content Include="Templates\Reader\content\a3d951f91e8a4a61a55c173a27c904ca\77dcdee6255f44e588cdae7a0320ffa6\61cdd730fbe54fe9bf2a6ec95cb14535.html" />
     <Content Include="Templates\Reader\content\content.html" />
     <Content Include="Templates\Reader\content\data.js" />
-    <Content Include="Templates\Reader\css\fonts\intro-regular.svg" />
     <Content Include="Templates\Reader\css\fonts\RobotoSlab-Bold-webfont.svg" />
+    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Bold-webfont.ttf" />
+    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Bold-webfont.woff" />
     <Content Include="Templates\Reader\css\fonts\RobotoSlab-Light-webfont.svg" />
+    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Light-webfont.ttf" />
+    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Light-webfont.woff" />
     <Content Include="Templates\Reader\css\fonts\RobotoSlab-Regular-webfont.svg" />
+    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Regular-webfont.ttf" />
+    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Regular-webfont.woff" />
     <Content Include="Templates\Reader\css\fonts\RobotoSlab-Thin-webfont.svg" />
+    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Thin-webfont.ttf" />
+    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Thin-webfont.woff" />
+    <Content Include="Templates\Reader\css\fonts\Ubuntu-Regular.svg" />
+    <Content Include="Templates\Reader\css\fonts\Ubuntu-Regular.ttf" />
+    <Content Include="Templates\Reader\css\fonts\Ubuntu-Regular.woff" />
     <Content Include="Templates\Reader\css\jquery.mCustomScrollbar.min.css" />
-    <Content Include="Templates\Reader\css\styles.min.css" />
+    <Content Include="Templates\Reader\css\styles.css" />
     <Content Include="Templates\Reader\images\reader.png" />
     <Content Include="Templates\Reader\images\thumbnail.png" />
     <Content Include="Templates\Reader\index.html" />
     <Content Include="Templates\Reader\js\require.js" />
     <Content Include="Templates\Reader\js\vendor.min.js" />
+    <Content Include="Templates\Reader\lang\en.json" />
+    <Content Include="Templates\Reader\lang\ua.json" />
+    <Content Include="Templates\Reader\manifest.json" />
+    <Content Include="Templates\Reader\publishSettings.js" />
     <Content Include="Templates\Reader\settings.js" />
-    <Content Include="Templates\Reader\settings\css\settings.min.css" />
+    <Content Include="Templates\Reader\settings\css\fonts\opensans-400.woff" />
+    <Content Include="Templates\Reader\settings\css\fonts\opensans-600.woff" />
+    <Content Include="Templates\Reader\settings\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Reader\settings\css\fonts\opensans-italic-400.woff" />
+    <Content Include="Templates\Reader\settings\css\settings.css" />
     <Content Include="Templates\Reader\settings\img\graphical.png" />
+    <Content Include="Templates\Reader\settings\img\language.png" />
     <Content Include="Templates\Reader\settings\img\sprites_16.png" />
-    <Content Include="Templates\Reader\settings\js\settings.js" />
+    <Content Include="Templates\Reader\settings\js\api.js" />
     <Content Include="Templates\Reader\settings\js\settings.min.js" />
     <Content Include="Templates\Reader\settings\js\vendor.min.js" />
     <Content Include="Templates\Reader\settings\settings.html" />
@@ -1915,27 +2033,6 @@
     <Content Include="Views\DemoCourses\Index.cshtml" />
     <Content Include="Views\Shared\notSupportedPage.cshtml" />
     <Content Include="Views\Shared\notSupportedDevicePage.cshtml" />
-    <Content Include="Templates\Reader\app\main.js.map" />
-    <Content Include="Templates\Reader\css\fonts\intro-regular.eot" />
-    <Content Include="Templates\Reader\css\fonts\intro-regular.ttf" />
-    <Content Include="Templates\Reader\css\fonts\intro-regular.woff" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Bold-webfont.eot" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Bold-webfont.ttf" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Bold-webfont.woff" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Light-webfont.eot" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Light-webfont.ttf" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Light-webfont.woff" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Regular-webfont.eot" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Regular-webfont.ttf" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Regular-webfont.woff" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Thin-webfont.eot" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Thin-webfont.ttf" />
-    <Content Include="Templates\Reader\css\fonts\RobotoSlab-Thin-webfont.woff" />
-    <Content Include="Templates\Reader\manifest.json" />
-    <Content Include="Templates\Reader\settings\css\fonts\opensans-400.woff" />
-    <Content Include="Templates\Reader\settings\css\fonts\opensans-600.woff" />
-    <Content Include="Templates\Reader\settings\css\fonts\opensans-bold.woff" />
-    <Content Include="Templates\Reader\settings\css\fonts\opensans-italic-400.woff" />
     <Content Include="Templates\Simple course\app\main.js.map" />
     <Content Include="Templates\Simple course\css\font\heuristica-bold.eot" />
     <Content Include="Templates\Simple course\css\font\heuristica-bold.ttf" />
@@ -1976,6 +2073,13 @@
     <Content Include="Templates\Simple course\lang\pt-br.json" />
     <Content Include="Templates\Simple course\lang\tr.json" />
     <Content Include="Templates\Simple course\lang\ua.json" />
+    <Content Include="Templates\Quiz\lang\nl.json" />
+    <Content Include="Templates\Exam\lang\en.json" />
+    <Content Include="Templates\Exam\lang\ua.json" />
+    <Content Include="Templates\Personalized learning\lang\nl.json" />
+    <Content Include="Templates\Exam\lang\nl.json" />
+    <Content Include="Templates\Reader\lang\nl.json" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2076,11 +2180,6 @@
     <Content Include="App\guard.spec.js">
       <DependentUpon>guard.js</DependentUpon>
     </Content>
-    <Content Include="App\help\helpHint.html" />
-    <Content Include="App\help\helpHint.js" />
-    <Content Include="App\help\helpHint.spec.js">
-      <DependentUpon>helpHint.js</DependentUpon>
-    </Content>
     <Content Include="App\http\httpWrapper.js" />
     <Content Include="App\http\httpWrapper.spec.js">
       <DependentUpon>httpWrapper.js</DependentUpon>
@@ -2091,7 +2190,6 @@
     </Content>
     <Content Include="App\main.js" />
     <Content Include="App\models\answerOption.js" />
-    <Content Include="App\models\backButton.js" />
     <Content Include="App\models\collaborator.js" />
     <Content Include="App\models\comment.js" />
     <Content Include="App\models\course.js" />
@@ -2151,9 +2249,6 @@
       <DependentUpon>templateRepository.js</DependentUpon>
     </Content>
     <Content Include="App\routing\routerExtender.js" />
-    <Content Include="App\routing\routerExtender.spec.js">
-      <DependentUpon>routerExtender.js</DependentUpon>
-    </Content>
     <Content Include="App\routing\routes.js" />
     <Content Include="App\services\publishService.js" />
     <Content Include="App\services\publishService.spec.js">
@@ -2210,53 +2305,14 @@
     <Content Include="App\viewmodels\common\contentField.spec.js">
       <DependentUpon>contentField.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\collaboration\collaborator.js" />
-    <Content Include="App\viewmodels\courses\collaboration\collaborator.spec.js">
-      <DependentUpon>collaborator.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\collaboration\collaborators.js" />
-    <Content Include="App\viewmodels\courses\collaboration\collaborators.spec.js">
-      <DependentUpon>collaborators.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\course.js" />
-    <Content Include="App\viewmodels\courses\course.spec.js">
-      <DependentUpon>course.js</DependentUpon>
-    </Content>
+    <Content Include="App\viewmodels\courses\course\create\course.js" />
     <Content Include="App\viewmodels\courses\courseComments.js" />
     <Content Include="App\viewmodels\courses\courseComments.spec.js">
       <DependentUpon>courseComments.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\courseNavigation\items\create.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\items\create.spec.js">
-      <DependentUpon>create.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\courseNavigation\items\design.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\items\design.spec.js">
-      <DependentUpon>design.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\courseNavigation\items\navigationItem.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\items\navigationItem.spec.js">
-      <DependentUpon>navigationItem.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\courseNavigation\items\publish.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\items\publish.spec.js">
-      <DependentUpon>publish.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\courseNavigation\navigation.js" />
-    <Content Include="App\viewmodels\courses\courseNavigation\navigation.spec.js">
-      <DependentUpon>navigation.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\courses\courses.js" />
     <Content Include="App\viewmodels\courses\courses.spec.js">
       <DependentUpon>courses.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\design.js" />
-    <Content Include="App\viewmodels\courses\design.spec.js">
-      <DependentUpon>design.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\courses\publish.js" />
-    <Content Include="App\viewmodels\courses\publish.spec.js">
-      <DependentUpon>publish.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\publishingActions\build.js" />
     <Content Include="App\viewmodels\courses\publishingActions\build.spec.js">
@@ -2320,13 +2376,9 @@
       <DependentUpon>userMenu.js</DependentUpon>
     </Content>
     <Content Include="App\views\common\createtip.html" />
-    <Content Include="App\views\courses\collaboration\collaborators.html" />
-    <Content Include="App\views\courses\course.html" />
+    <Content Include="App\views\courses\course\create\course.html" />
     <Content Include="App\views\courses\courseComments.html" />
-    <Content Include="App\views\courses\courseNavigation\navigation.html" />
     <Content Include="App\views\courses\courses.html" />
-    <Content Include="App\views\courses\design.html" />
-    <Content Include="App\views\courses\publish.html" />
     <Content Include="App\views\errors\404.html" />
     <Content Include="App\views\objectives\objective.html" />
     <Content Include="App\views\objectives\objectives.html" />
@@ -2336,11 +2388,6 @@
     <Content Include="App\views\questions\question.html" />
     <Content Include="App\views\shell.html" />
     <Content Include="App\views\user\userMenu.html" />
-    <Content Include="App\widgets\backButton\view.html" />
-    <Content Include="App\widgets\backButton\viewmodel.js" />
-    <Content Include="App\widgets\backButton\viewmodel.spec.js">
-      <DependentUpon>viewmodel.js</DependentUpon>
-    </Content>
     <Content Include="App\widgets\notifyViewer\view.html" />
     <Content Include="App\widgets\notifyViewer\viewmodel.js" />
     <Content Include="App\widgets\notifyViewer\viewmodel.spec.js">
@@ -2364,7 +2411,6 @@
     <Content Include="Content\common.css">
       <DependentUpon>common.less</DependentUpon>
     </Content>
-    <Content Include="Content\course.css" />
     <Content Include="Content\courses.css">
       <DependentUpon>courses.less</DependentUpon>
     </Content>
@@ -2375,9 +2421,6 @@
     <Content Include="Content\font\opensans-semibold.svg" />
     <Content Include="Content\font\opensans-semibolditalic.svg" />
     <Content Include="Content\font\rabiohead.svg" />
-    <Content Include="Content\helphint.css">
-      <DependentUpon>helphint.less</DependentUpon>
-    </Content>
     <Content Include="Content\images\account\log-in.jpg" />
     <Content Include="Content\images\account\pointer-left-big.png" />
     <Content Include="Content\images\account\pointer-right-big.png" />

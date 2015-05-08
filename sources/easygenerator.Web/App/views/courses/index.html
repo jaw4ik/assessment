@@ -1,0 +1,14 @@
+﻿<section>
+
+    <!-- ko compose: 'navigationBar/navigationBar' -->
+    <!-- /ko -->
+    
+    <div class="loader-container">
+        <div data-bind="router: {}, style: { opacity: router.isViewReady() ? '1' : '0' }"></div>
+
+        <!-- ko ifnot: router.isViewReady -->
+            <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center', style: { top: '450px' } } } --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+
+</section>

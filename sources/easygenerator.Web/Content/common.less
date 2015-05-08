@@ -171,13 +171,17 @@ input::-moz-focus-inner {
 
 html {
     overflow-y: hidden;
-}
-
-html, body {
     height: 100%;
     width: 100%;
-    background: white;
+    overflow-y: scroll;
+    overflow-x: auto;
+}
+
+body {
     font-family: 'OpenSans', sans-serif;
+    background-color: rgb(243, 247, 249);
+    height: 100%;
+    width: 100%;
 }
 
 table {
@@ -208,14 +212,14 @@ a {
     text-decoration: none;
 }
 
-    a:hover,
-    a:active {
-        outline: 0;
-    }
+a:hover,
+a:active {
+    outline: 0;
+}
 
-    a:focus {
-        text-decoration: none;
-    }
+a:focus {
+    text-decoration: none;
+}
 
 h1 {
     font-size: 2.0em;
@@ -281,10 +285,10 @@ img:hover {
     vertical-align: top;
 }
 
-    .tb-cell > .colspan-cell {
-        width: 100%;
-        position: absolute;
-    }
+.tb-cell > .colspan-cell {
+    width: 100%;
+    position: absolute;
+}
 
 /*#endregion COMMON CLASSES CSS-STYLES*/
 
@@ -298,194 +302,195 @@ img:hover {
     overflow-y: hidden;
     overflow-x: auto;
     color: #333333;
+    background-color: #fff;
 }
 
-    .styled-content h1,
-    .styled-content h2,
-    .styled-content h3 {
-        margin: 40px 0 15px 0;
-        -webkit-margin-before: 40px;
-        -webkit-margin-after: 15px;
-        font-family: 'Heuristica-Bold';
-        font-weight: normal;
-    }
+.styled-content h1,
+.styled-content h2,
+.styled-content h3 {
+    margin: 40px 0 15px 0;
+    -webkit-margin-before: 40px;
+    -webkit-margin-after: 15px;
+    font-family: 'Heuristica-Bold';
+    font-weight: normal;
+}
 
-    .styled-content h1:first-child,
-    .styled-content h2:first-child,
-    .styled-content h3:first-child {
-        margin-top: 28px;
-        -webkit-margin-before: 28px;
-    }
+.styled-content h1:first-child,
+.styled-content h2:first-child,
+.styled-content h3:first-child {
+    margin-top: 28px;
+    -webkit-margin-before: 28px;
+}
 
-    .styled-content h1 {
-        font-size: 26px;
-        line-height: 40px;
-    }
+.styled-content h1 {
+    font-size: 26px;
+    line-height: 40px;
+}
 
-    .styled-content h2 {
-        font-size: 24px;
-        line-height: 40px;
-    }
+.styled-content h2 {
+    font-size: 24px;
+    line-height: 40px;
+}
 
-    .styled-content h3 {
-        font-size: 20px;
-        line-height: 34px;
-    }
+.styled-content h3 {
+    font-size: 20px;
+    line-height: 34px;
+}
 
-    .styled-content p,
-    .styled-content ul,
-    .styled-content ol {
-        margin: 0 0 20px 0;
-    }
+.styled-content p,
+.styled-content ul,
+.styled-content ol {
+    margin: 0 0 20px 0;
+}
 
-    .styled-content ul,
-    .styled-content ol {
-        padding-left: 50px;
-    }
+.styled-content ul,
+.styled-content ol {
+    padding-left: 50px;
+}
 
-    .styled-content ul {
-        list-style: none;
-    }
+.styled-content ul {
+    list-style: none;
+}
 
-    .styled-content ul > li {
-        position: relative;
-    }
+.styled-content ul > li {
+    position: relative;
+}
 
-        .styled-content ul > li:before {
-            content: "• ";
-            position: absolute;
-            left: -20px;
-            width: 20px;
-            color: #76cbe3; /* or whatever color you prefer */
-        }
+.styled-content ul > li:before {
+    content: "• ";
+    position: absolute;
+    left: -20px;
+    width: 20px;
+    color: #76cbe3; /* or whatever color you prefer */
+}
 
-    .styled-content em {
-        font-family: 'Heuristica-Italic';
-        font-style: normal;
-    }
+.styled-content em {
+    font-family: 'Heuristica-Italic';
+    font-style: normal;
+}
 
-    .styled-content strong {
-        font-family: 'Heuristica-Bold';
-    }
+.styled-content strong {
+    font-family: 'Heuristica-Bold';
+}
 
-    .styled-content img {
-        margin: 30px auto 20px;
-        border-radius: 5px;
-        display: block;
-    }
+.styled-content img {
+    margin: 30px auto 20px;
+    border-radius: 5px;
+    display: block;
+}
 
-        .styled-content img[style*="float:left"],
-        .styled-content img[style*="float: left"] {
-            margin-top: 10px;
-            margin-right: 30px;
-        }
+.styled-content img[style*="float:left"],
+.styled-content img[style*="float: left"] {
+    margin-top: 10px;
+    margin-right: 30px;
+}
 
-        .styled-content img[style*="float:right"],
-        .styled-content img[style*="float: right"] {
-            margin-top: 10px;
-            margin-left: 30px;
-        }
+.styled-content img[style*="float:right"],
+.styled-content img[style*="float: right"] {
+    margin-top: 10px;
+    margin-left: 30px;
+}
 
-        .styled-content img:first-child {
-            margin-top: 10px;
-        }
+.styled-content img:first-child {
+    margin-top: 10px;
+}
 
-        .cke_widget_wrapper img {
-            margin: 0;
-        }
+.cke_widget_wrapper img {
+    margin: 0;
+}
 
-    .styled-content cite {
-        position: relative;
-        display: block;
-        margin: 15px 165px;
-        font: 18px 'Heuristica-BoldItalic';
-        font-style: normal;
-        line-height: 30px;
-        white-space: pre-line;
-    }
+.styled-content cite {
+    position: relative;
+    display: block;
+    margin: 15px 165px;
+    font: 18px 'Heuristica-BoldItalic';
+    font-style: normal;
+    line-height: 30px;
+    white-space: pre-line;
+}
 
-        .styled-content cite:before,
-        .styled-content cite:after {
-            position: absolute;
-            font: 50px 'Heuristica-Regular';
-            color: #63c4df;
-        }
+.styled-content cite:before,
+.styled-content cite:after {
+    position: absolute;
+    font: 50px 'Heuristica-Regular';
+    color: #63c4df;
+}
 
-        .styled-content cite:before {
-            content: '“';
-            top: -10px;
-            margin-left: -25px;
-        }
+.styled-content cite:before {
+    content: '“';
+    top: -10px;
+    margin-left: -25px;
+}
 
-        .styled-content cite:after {
-            content: '”';
-            bottom: -40px;
-            margin-left: 5px;
-        }
+.styled-content cite:after {
+    content: '”';
+    bottom: -40px;
+    margin-left: 5px;
+}
 
-        .styled-content cite:first-child {
-            margin-top: 3px;
-        }
+.styled-content cite:first-child {
+    margin-top: 3px;
+}
 
-    .styled-content a {
-        color: #449eeb;
-        border-bottom: 1px solid #449eeb;
-    }
+.styled-content a {
+    color: #449eeb;
+    border-bottom: 1px solid #449eeb;
+}
 
-        .styled-content a:hover,
-        .styled-content a:active,
-        .styled-content a:focus {
-            color: #0088ae;
-            border-bottom-color: #0088ae;
-        }
+.styled-content a:hover,
+.styled-content a:active,
+.styled-content a:focus {
+    color: #0088ae;
+    border-bottom-color: #0088ae;
+}
 
-    .styled-content mark {
-        padding: 0 3px;
-        background-color: #ffe725;
-        color: inherit;
-    }
+.styled-content mark {
+    padding: 0 3px;
+    background-color: #ffe725;
+    color: inherit;
+}
 
-    .styled-content table {
-        margin: 20px auto;
-        border: none;
-        border-collapse: collapse;
-        font-size: 16px;
-        color: #3c3c3c;
-        table-layout:fixed;
-    }
+.styled-content table {
+    margin: 20px auto;
+    border: none;
+    border-collapse: collapse;
+    font-size: 16px;
+    color: #3c3c3c;
+    table-layout: fixed;
+}
 
-    .styled-content th,
-    .styled-content td {
-        border: 1px dashed #ccc;
-        overflow:hidden;
-    }
+.styled-content th,
+.styled-content td {
+    border: 1px dashed #ccc;
+    overflow: hidden;
+}
 
-    .styled-content th {
-        background-color: #76cbe3;
-        font-family: 'Heuristica-Bold';
-    }
+.styled-content th {
+    background-color: #76cbe3;
+    font-family: 'Heuristica-Bold';
+}
 
-    .styled-content th,
-    .styled-content td {
-        padding: 10px 15px;
-        text-align: left;
-    }
+.styled-content th,
+.styled-content td {
+    padding: 10px 15px;
+    text-align: left;
+}
 
-    .styled-content tr {
-        background-color: #f4fafc;
-    }
+.styled-content tr {
+    background-color: #f4fafc;
+}
 
-    .styled-content table p {
-        margin: 0;
-    }
+.styled-content table p {
+    margin: 0;
+}
 
-    .styled-content ul p {
-        display: inline;
-    }
+.styled-content ul p {
+    display: inline;
+}
 
-    .styled-content strong,
-    .styled-content th {
-        font-weight: normal;
-    }
+.styled-content strong,
+.styled-content th {
+    font-weight: normal;
+}
 
 /*#endregion STYLED CONTENT*/

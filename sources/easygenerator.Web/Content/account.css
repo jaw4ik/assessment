@@ -23,7 +23,6 @@
 body.try {
   background-image: none;
   background-color: white;
-  overflow: auto;
 }
 .main-container.try {
   position: relative;
@@ -796,6 +795,39 @@ body.try {
   left: 69px;
 }
 /*#endregion Phone code*/
+/*#region FOOTER*/
+.footer {
+  width: 100%;
+  min-width: 980px;
+  height: 35px;
+  margin-top: -35px;
+  position: relative;
+  background-color: #303133;
+  color: white;
+  z-index: 10;
+}
+.footer-item {
+  height: 100%;
+  line-height: 35px;
+  display: inline-block;
+  font-size: 12px;
+}
+.footer-menu-item {
+  display: inline-block;
+}
+.footer-menu-item + .footer-menu-item::before {
+  content: "|";
+}
+.footer-menu-link {
+  color: white;
+}
+.footer-menu-link:hover {
+  border-bottom: solid 1px #bebebe;
+}
+.footer-menu-link.active {
+  border-bottom: none;
+}
+/*#endregion FOOTER*/
 @media (max-width: 1020px) {
   /*#region Layout*/
   .content-wrapper.try {

@@ -42,7 +42,7 @@ namespace easygenerator.Web.Components.ActionFilters.Authorization
 
         protected abstract bool CheckAccess(AuthorizationContext authorizationContext, User user);
 
-        protected void Reject(AuthorizationContext authorizationContext)
+        protected virtual void Reject(AuthorizationContext authorizationContext)
         {
             authorizationContext.Result = new ForbiddenResult(ErrorMessageResourceKey);
         }

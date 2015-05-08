@@ -1,30 +1,47 @@
-﻿define(['config', 'models/reportingStatement', 'http/httpRequestSender', 'utils/base64', 'constants'], function (config, ReportingStatement, httpRequestSender, base64, constants) {
+﻿define(['config', 'models/reporting/statement', 'http/httpRequestSender', 'utils/base64', 'constants', 'reporting/xApiFilterCriteriaFactory'],
+    function (config, Statement, httpRequestSender, base64, constants, filterCriteriaFactory) {
 
-    return {
-        getReportingStatements: function (courseId) {
+        function getStatements(filterCriteriaSpec) {
             var headers = [];
             headers["X-Experience-API-Version"] = config.lrs.version;
             headers["Content-Type"] = "application/json";
+
             if (config.lrs.authenticationRequired) {
                 var auth = "Basic " + base64.encode(config.lrs.credentials.username + ':' + config.lrs.credentials.password);
                 headers["Authorization"] = auth;
             }
 
-            var queryParams = {};
-            queryParams[constants.reporting.extensionKeys.courseId] = courseId;
-            queryParams['v'] = +new Date();
+            var filterCriteria = filterCriteriaFactory.create(filterCriteriaSpec);
 
-            return httpRequestSender.get(config.lrs.uri, queryParams, headers).then(function (response) {
+            return httpRequestSender.get(config.lrs.uri, filterCriteria, headers).then(function (response) {
                 if (response && response.statements) {
-                    var finishedStatements = _.filter(response.statements, function (statement) {
-                        return statement.verb.id === constants.reporting.xApiVerbIds.passed || statement.verb.id === constants.reporting.xApiVerbIds.failed;
+                    return _.map(response.statements, function (statement) {
+                        return new Statement(statement);
                     });
-                    var res =  _.map(finishedStatements, function (statement) {
-                        return new ReportingStatement(statement);
-                    });
-                    return res;
                 }
             });
+        };
+
+        function getCourseCompletedStatements(courseId, take, skip) {
+            return getStatements({ courseId: courseId, verbs: [constants.reporting.xApiVerbIds.passed, constants.reporting.xApiVerbIds.failed], limit: take, skip: skip });
         }
-    }
-});
+
+        function getMasteredStatements(attemptId) {
+            return getStatements({ verbs: constants.reporting.xApiVerbIds.mastered, attemptId: attemptId });
+        }
+
+        function getStartedStatement(attemptId) {
+            return getStatements({ verbs: constants.reporting.xApiVerbIds.started, attemptId: attemptId });
+        }
+
+        function getAnsweredStatements(attemptId, parentActivityId) {
+            return getStatements({ verbs: constants.reporting.xApiVerbIds.answered, attemptId: attemptId, parentId: parentActivityId });
+        }
+
+        return {
+            getCourseCompletedStatements: getCourseCompletedStatements,
+            getMasteredStatements: getMasteredStatements,
+            getAnsweredStatements: getAnsweredStatements,
+            getStartedStatement: getStartedStatement
+        }
+    });

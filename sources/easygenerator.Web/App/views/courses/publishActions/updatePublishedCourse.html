@@ -1,0 +1,22 @@
+﻿<div class="publish-tab-update-course-wrapper" data-bind="css: { shown: courseIsDirty }">
+    <div class="publish-tab-update-course">
+        <div class="publish-tab-update-course-info">
+            <div class="publish-tab-update-course-image"></div>
+            <div class="publish-tab-update-course-text" data-bind="localize: {text: 'updateChangedCourseDescription'}">
+                Apply the latest changes to the published course by clicking this button
+            </div>
+        </div>
+        <div class="publish-tab-update-course-action">
+            <button class="btn green publish-tab-btn" data-bind="click: publishCourse, css:{ 'disabled': isCourseDelivering(), 'progress': isPublishing() }, disable: isCourseDelivering() || !courseIsDirty()">
+                <!-- ko if: isPublishing() -->
+                <!-- ko if: state() === states.publishing || state() === states.building  -->
+                <span class="publish-tab-btn-caption"></span>
+                <!-- /ko -->
+                <!-- /ko -->
+                <!-- ko ifnot: isPublishing() -->
+                <span class="publish-tab-btn-caption" data-bind="localize: { text: 'reviewUpdateCourse' }"></span>
+                <!-- /ko -->
+            </button>
+        </div>
+    </div>
+</div>
