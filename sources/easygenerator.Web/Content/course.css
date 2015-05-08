@@ -2132,8 +2132,11 @@ td.r-name {
   .results-table td {
     padding: 0 15px;
   }
-  .r-date {
-    width: 175px;
+  .r-result {
+    width: 15%;
+  }
+  .r-name {
+    width: 45%;
   }
   .no-results-steps-container {
     padding-right: 0;
@@ -2143,4 +2146,3 @@ td.r-name {
     width: 150px;
   }
 }
-/*#endregion RESULTS TAB*/
