@@ -43,7 +43,7 @@
                         id: "object1id",
                         definition: {
                             name: {
-                                "en-US" : "title"
+                                "en-US": "title"
                             }
                         }
                     }
@@ -81,21 +81,18 @@
                 expect(statement.actor.email).toEqual(passedSpec.actor.mbox.replace('mailto:', ''));
                 expect(statement.name).toEqual(passedSpec.object.definition.name["en-US"]);
                 expect(statement.id).toEqual(passedSpec.object.id);
-            });
-
-            it('should set correct field to true if spec.verb.id is passed verb id', function () {
-                var statement = new Statement(passedSpec);
-                expect(statement.correct).toBeTruthy();
-            });
-
-            it('should set correct field to false if spec.verb.id is failed verb id', function () {
-                var statement = new Statement(failedSpec);
-                expect(statement.correct).toBeFalsy();
+                expect(statement.verb).toEqual(passedSpec.verb.id);
             });
 
             it('should set score to spec.result.score.scaled multiplied by 100', function () {
                 var statement = new Statement(passedSpec);
                 expect(statement.score).toBe(50);
+            });
+
+            it('should set score to null if result is not specified', function () {
+                passedSpec.result = null;
+                var statement = new Statement(passedSpec);
+                expect(statement.score).toBeNull();
             });
 
             it('should set attemptId field to be equal to registration field if exists', function () {
@@ -114,13 +111,13 @@
             it('should set parentId field to be equal to spec.context.contextActivities.parent.id field if exists', function () {
                 passedSpec.context = {
                     contextActivities: {
-                        parent: {
+                        parent: [{
                             id: "parentId"
-                        }
+                        }]
                     }
                 }
                 var statement = new Statement(passedSpec);
-                expect(statement.parentId).toBe(passedSpec.context.contextActivities.parent.id);
+                expect(statement.parentId).toBe(passedSpec.context.contextActivities.parent[0].id);
             });
 
             it('should not set parentId field if spec.context.contextActivities.parent.id does not exist', function () {

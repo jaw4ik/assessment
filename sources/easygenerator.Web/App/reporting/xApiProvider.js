@@ -12,7 +12,7 @@
             }
 
             var filterCriteria = filterCriteriaFactory.create(filterCriteriaSpec);
-            
+
             return httpRequestSender.get(config.lrs.uri, filterCriteria, headers).then(function (response) {
                 if (response && response.statements) {
                     return _.map(response.statements, function (statement) {

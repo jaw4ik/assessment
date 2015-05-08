@@ -2,10 +2,10 @@
         'repositories/courseRepository', 'plugins/router', 'constants', 'repositories/courseRepository', 'viewmodels/courses/publishingActions/build',
         'viewmodels/courses/publishingActions/scormBuild', 'viewmodels/courses/publishingActions/publish', 'userContext',
         'viewmodels/courses/publishingActions/publishToAim4You', 'clientContext', 'localization/localizationManager', 'eventTracker',
-        'reporting/xApiProvider', 'plugins/dialog', 'reporting/viewmodels/courseStatement'
+        'reporting/xApiProvider', 'plugins/dialog', 'utils/fileSaverWrapper', 'reporting/viewmodels/courseStatement'
 ],
     function (repository, router, constants, courseRepository, buildPublishingAction, scormBuildPublishingAction, publishPublishingAction, userContext, publishToAim4You,
-        clientContext, localizationManager, eventTracker, xApiProvider, dialog, CourseStatement) {
+        clientContext, localizationManager, eventTracker, xApiProvider, dialog, fileSaverWrapper, CourseStatement) {
         "use strict";
 
         var loadMoreEventCategory = 'Load more results',
@@ -127,21 +127,21 @@
 
         function showMoreResults() {
             eventTracker.publish(events.showMoreResults);
+            return Q.fcall(function () {
+                if (!viewModel.hasMoreResults()) {
+                    return undefined;
+                }
+                if (!userContext.hasStarterAccess()) {
+                    viewModel.isResultsDialogShown(true);
+                    return undefined;
+                }
 
-            if (!viewModel.hasMoreResults()) {
-                return;
-            }
-
-            if (!userContext.hasStarterAccess()) {
-                viewModel.isResultsDialogShown(true);
-                return;
-            }
-
-            loadStatements(viewModel.courseId, constants.courseResults.pageSize, viewModel.pageNumber * constants.courseResults.pageSize)
-                .then(function (reportingStatements) {
-                    viewModel.results.push.apply(viewModel.results, reportingStatements);
-                    viewModel.pageNumber++;
-                });
+                return loadStatements(viewModel.courseId, constants.courseResults.pageSize, viewModel.pageNumber * constants.courseResults.pageSize)
+                    .then(function (reportingStatements) {
+                        viewModel.results.push.apply(viewModel.results, reportingStatements);
+                        viewModel.pageNumber++;
+                    });
+            });
         }
 
         function upgradeNowForLoadMore() {
@@ -175,15 +175,16 @@
 
         function downloadResults() {
             eventTracker.publish(events.downloadResults);
+            return Q.fcall(function () {
+                if (!userContext.hasStarterAccess()) {
+                    viewModel.isDownloadDialogShown(true);
+                    return;
+                }
 
-            if (!userContext.hasStarterAccess()) {
-                viewModel.isDownloadDialogShown(true);
-                return;
-            }
-
-            var name = getResultsFileName();
-            generateResultsCsvBlob().then(function (blob) {
-                saveAs(blob, name);
+                var name = getResultsFileName();
+                generateResultsCsvBlob().then(function (blob) {
+                    fileSaverWrapper.saveAs(blob, name);
+                });
             });
         }
 
