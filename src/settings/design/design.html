@@ -20,7 +20,7 @@
 </head>
 <body>
     <div class="settings-container" ng-controller="DesignController">
-        <div class="settings-tab-container customization" data-tab="customization">
+        <div class="settings-tab-container customization" ng-hide="isError">
             <div class="settings-tab-wrapper">
                 <div class="tab-header-container">
                     <img src="img/graphical.png" />
@@ -87,6 +87,8 @@
                 </div>
             </div>
         </div>
+        
+        <div class="settings-tab-wrapper" ng-show="isError">Template settings are not initialized. Please reload the page and change the settings again. Contact support@easygenerator.com if problem persists.</div>
     </div>
 </body>
 </html>

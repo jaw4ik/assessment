@@ -20,7 +20,7 @@
 </head>
 <body>
     <div class="settings-container" ng-controller="ConfigureController">
-        <div class="settings-tabs-container" tabs>
+        <div class="settings-tabs-container" ng-hide="isError" tabs>
             <ul class="settings-tabs-wrapper unstyled">
                 <li class="settings-tabs-item track-and-trace" data-tab-link="track-and-trace">
                     Results Tracking
@@ -243,6 +243,8 @@
                 </div>
             </div>
         </div>
+
+        <div class="settings-tab-wrapper" ng-show="isError">Template settings are not initialized. Please reload the page and change the settings again. Contact support@easygenerator.com if problem persists.</div>
     </div>
 </body>
 </html>

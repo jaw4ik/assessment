@@ -9,6 +9,8 @@
             currentSettings = null,
             api = window.egApi;
 
+        that.isError = false;
+
         that.userAccess = (function () {
             var self = {};
 
@@ -122,10 +124,11 @@
             that.logo.init(settings.logo);
 
             currentSettings = getCurrentSettings(settings);
-            that.$applyAsync();
 
         }).fail(function () {
-            api.sendNotificationToEditor('Settings are not initialized.', false);
+            that.isError = true;
+        }).always(function() {
+            that.$applyAsync();
         });
 
         //#endregion Initialization
