@@ -356,15 +356,9 @@
 
 /*#endregion DEFINE STEP*/
 
-/*#endregion DEFINE STEP*/
-
 /*#region DESIGN STEP*/
 .transparent {
     opacity: 0;
-}
-
-.view-module.design {
-    padding-top: 20px;
 }
 
 .choose-template-holder {
@@ -392,10 +386,10 @@
 }
 
 .template-settings-header {
+    margin: 20px 0 10px;
+    padding: 5px;
     font: 19px OpenSans-Semibold;
     color: #303133;
-    padding: 15px 5px;
-    margin-top: 20px;
 }
 
 .choose-template-list {
@@ -490,7 +484,7 @@
 }
 
 .choose-template-title-container {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding-left: 5px;
     border-radius: 6px;
 }
@@ -611,12 +605,6 @@
     top: 4px;
     left: 0;
     background: url('../Content/images/sprites_16.png') -42px -66px no-repeat;
-}
-
-.content-section-wrapper.template-settings {
-    background-color: #f9fafc;
-    border: 1px solid #e9e9eb;
-    transition-duration: 0.5s;
 }
 
 .visibility-switcher {
@@ -1913,7 +1901,6 @@ li.package-action-tabs-link.embed-code:before {
 }
 
 .results .content-section {
-    padding: 20px 0;
     font-family: 'OpenSans';
 }
 
@@ -2295,7 +2282,7 @@ td.r-name {
         }
 
         .r-text {
-            width: 140px;
+            width: 118px;
             text-transform: uppercase;
             padding-left: 20px;
             position: relative;
@@ -2331,6 +2318,13 @@ td.r-name {
         }
     }
 
+    .r-score {
+        width: 95px;
+        padding-left: 15px;
+        text-align: left;
+        font-family: "OpenSans-SemiboldItalic";
+    }
+
     .r-question {
         background: white;
 
@@ -2340,16 +2334,12 @@ td.r-name {
 
         li:first-child {
             border-top: 1px solid @course-statement-borderd-color;
-        }       
+        }
 
         .r-score {
-            width: 85px;
-            text-align: left;
-
             p:before {
                 content: '';
                 position: absolute;
-                left: 10px;
                 top: 3px;
                 width: 17px;
                 height: 14px;
@@ -2363,14 +2353,17 @@ td.r-name {
             }
 
             p {
-                padding-left: 35px;
                 position: relative;
                 font-family: OpenSansItalic;
+
+                span {
+                    padding-left: 25px;
+                }
             }
         }
 
         .r-text {
-            width: 140px;
+            width: 145px;
             position: relative;
             border-left: 1px dashed @question-statement-dashed-border-color;
 
@@ -2408,7 +2401,6 @@ td.r-name {
     }
 
     .r-question-text {
-        width: 65%;
         font-family: OpenSansItalic;
         color: @reporting-statement-title-color-blue;
     }
@@ -2573,15 +2565,18 @@ td.r-name {
 
 /*#endregion COURSE RESULTS UPGRADE DIALOG*/
 
-
-@media (max-width: 1150px) {
+@media (max-width: 1290px) {
     .results-table th,
     .results-table td {
         padding: 0 15px;
     }
 
-    .r-date {
-        width: 175px;
+    .r-result {
+        width: 15%;
+    }
+
+    .r-name {
+        width: 45%;
     }
 
     .no-results-steps-container {

@@ -8,6 +8,7 @@ using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Mail;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using WebGrease.Css.Extensions;
 
@@ -16,15 +17,20 @@ namespace easygenerator.Web.Controllers.Api
     public class CollaborationController : DefaultController
     {
         private readonly IUserRepository _userRepository;
-        private readonly IEntityModelMapper<CourseCollaborator> _collaboratorEntityModelMapper;
+        private readonly ICourseCollaboratorRepository _collaborationRepository;
+        private readonly IEntityModelMapper<CourseCollaborator> _collaboratorModelMapper;
+        private readonly ICollaborationInviteMapper _inviteMapper;
         private readonly IMailSenderWrapper _mailSenderWrapper;
-        private readonly ICloner _cloner; 
+        private readonly ICloner _cloner;
 
-        public CollaborationController(IUserRepository userRepository, IEntityModelMapper<CourseCollaborator> collaboratorEntityModelMapper, IMailSenderWrapper mailSenderWrapper, ICloner cloner)
+        public CollaborationController(IUserRepository userRepository, ICourseCollaboratorRepository collaborationRepository,
+            IEntityModelMapper<CourseCollaborator> collaboratorModelMapper, IMailSenderWrapper mailSenderWrapper, ICloner cloner, ICollaborationInviteMapper inviteMapper)
         {
             _userRepository = userRepository;
-            _collaboratorEntityModelMapper = collaboratorEntityModelMapper;
+            _collaborationRepository = collaborationRepository;
+            _collaboratorModelMapper = collaboratorModelMapper;
             _mailSenderWrapper = mailSenderWrapper;
+            _inviteMapper = inviteMapper;
             _cloner = cloner;
         }
 
@@ -39,7 +45,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             var collaborators = new List<object>();
-            course.Collaborators.ForEach(e => collaborators.Add(_collaboratorEntityModelMapper.Map(e)));
+            course.Collaborators.ForEach(e => collaborators.Add(_collaboratorModelMapper.Map(e)));
 
             var owner = _userRepository.GetUserByEmail(course.CreatedBy);
             if (owner != null)
@@ -49,7 +55,8 @@ namespace easygenerator.Web.Controllers.Api
                     Email = owner.Email,
                     Registered = true,
                     FullName = owner.FullName,
-                    CreatedOn = course.CreatedOn
+                    CreatedOn = course.CreatedOn,
+                    IsAccepted = true
                 });
             }
 
@@ -82,7 +89,7 @@ namespace easygenerator.Web.Controllers.Api
                 _mailSenderWrapper.SendInviteCollaboratorMessage(colaboratorEmail, author.FullName, course.Title);
             }
 
-            return JsonSuccess(_collaboratorEntityModelMapper.Map(collaborator));
+            return JsonSuccess(_collaboratorModelMapper.Map(collaborator));
         }
 
         [HttpPost]
@@ -101,6 +108,52 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             course.RemoveCollaborator(_cloner, courseCollaborator);
+
+            return JsonSuccess();
+        }
+
+        [HttpPost]
+        [Route("api/course/collaboration/invites")]
+        public ActionResult GetCollaborationInvites()
+        {
+            var invites = _collaborationRepository.GetCollaborationInvites(GetCurrentUsername());
+            return JsonSuccess(invites.Select(invite => _inviteMapper.Map(invite)));
+        }
+
+        [HttpPost]
+        [Route("api/course/collaboration/invite/accept")]
+        public ActionResult AcceptCollaborationInvite(Course course, CourseCollaborator collaborator)
+        {
+            if (course == null)
+            {
+                return HttpNotFound(Errors.CourseNotFoundError);
+            }
+
+            if (collaborator == null)
+            {
+                return HttpNotFound(Errors.CollaboratorNotFoundError);
+            }
+
+            course.AcceptCollaboration(collaborator);
+
+            return JsonSuccess();
+        }
+
+        [HttpPost]
+        [Route("api/course/collaboration/invite/decline")]
+        public ActionResult DeclineCollaborationInvite(Course course, CourseCollaborator collaborator)
+        {
+            if (course == null)
+            {
+                return HttpNotFound(Errors.CourseNotFoundError);
+            }
+
+            if (collaborator == null)
+            {
+                return HttpNotFound(Errors.CollaboratorNotFoundError);
+            }
+
+            course.DeclineCollaboration(collaborator);
 
             return JsonSuccess();
         }

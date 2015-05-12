@@ -67,6 +67,7 @@
         }
 
         .header-upgrade-link {
+            padding: 0px 10px;
             color: #559f64;
             font-family: 'OpenSans-Semibold', sans-serif;
         }
@@ -75,85 +76,100 @@
             color: #6cc97f;
         }
 
-        .header-menu-list-item.mode {
-            border-bottom: 1px solid #37383b;
-        }
+        .header-menu-list-item {
 
-        .header-menu-list-item.mode:hover {
-            background: #37383b;
-        }
+            &.mode {
+                border-bottom: 1px solid #37383b;
+            }
 
-        .header-menu-list-item.sign-up {
-            height: 51px;
-            margin-top: 1px;
-            padding: 16px 20px;
-            border-radius: 1px;
-            color: #f59957;
-            background: #37383b;
-            font-size: 14px;
-            cursor: default;
-            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
-        }
+            &.mode:hover {
+                background: #37383b;
+            }
 
-        .header-menu-list-item.sign-up .btn.orange {
-            padding: 7px 24px;
-            margin-left: 20px;
-            cursor: pointer;
-        }
+            &.sign-up {
+                height: 51px;
+                margin-top: 1px;
+                padding: 16px 20px;
+                border-radius: 1px;
+                color: #f59957;
+                background: #37383b;
+                font-size: 14px;
+                cursor: default;
+                box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+            }
 
-        .header-menu-list-item.help {
-            margin-left: 15px;
-            padding: 18px 10px;
-            cursor: default;
-        }
+            &.sign-up .btn.orange {
+                padding: 7px 24px;
+                margin-left: 20px;
+                cursor: pointer;
+            }
 
+            &.help {
+                margin-left: 15px;
+                padding: 18px 10px;
+                cursor: default;
+            }
 
-        .header-menu-list-item.profile {
-            height: 55px;
-            min-width: 75px;
-            max-width: 230px;
-            position: relative;
-            margin-left: 10px;
-            border-radius: 2px 2px 0 0;
-            border-bottom: 1px solid black;
-            cursor: pointer;
-        }
+            &.profile {
+                height: 55px;
+                min-width: 75px;
+                max-width: 230px;
+                position: relative;
+                margin-left: 10px;
+                border-radius: 2px 2px 0 0;
+                border-bottom: 1px solid black;
+                cursor: pointer;
+            }
 
-        .header-menu-list-item.user-notification {
-            width: 60px;
-            position: relative;
-            padding: 19px 24px;
-        }
+            &.user-notification {
+                position: relative;
+                z-index: 201;
+                cursor: pointer;
 
-        .header-menu-list-item.user-notification:before {
-            content: '';
-            display: block;
-            height: 18px;
-            width: 26px;
-            margin-left: -6px;
-            background: url(../Content/images/sprites_32.png) -188px -7px no-repeat;
-        }
+                &:hover,
+                &.expanded {
+                    background-color: #252525;
+                }
 
-        .header-menu-list-item.user-notification:hover,
-        .header-menu-list-item.user-notification.active {
-            background-color: #252525;
-        }
+                &.expanded:after {
+                    content: '';
+                    position: absolute;
+                    width: 7px;
+                    height: 7px;
+                    top: 100%;
+                    left: 50%;
+                    margin-top: -4px;
+                    margin-left: -2px;
+                    background-color: #252525;
+                    -moz-transform: rotate(45deg);
+                    -ms-transform: rotate(45deg);
+                    -webkit-transform: rotate(45deg);
+                    transform: rotate(45deg);
+                    z-index: 200;
+                }
 
-        .header-menu-list-item.user-notification.active:after {
-            content: '';
-            position: absolute;
-            width: 7px;
-            height: 7px;
-            top: 100%;
-            left: 50%;
-            margin-top: -4px;
-            margin-left: -2px;
-            background-color: #252525;
-            -moz-transform: rotate(45deg);
-            -ms-transform: rotate(45deg);
-            -webkit-transform: rotate(45deg);
-            transform: rotate(45deg);
-            z-index: 200;
+                .user-notification-icon-wrapper {
+                    width: 60px;
+                    padding: 19px 24px;
+                }
+
+                .user-notification-icon {
+                    position: relative;
+                    width: 14px;
+                    height: 18px;
+                    background: url(../Content/images/sprites_24.png) -64px -90px no-repeat;
+
+                    .user-notification-count {
+                        margin-left: 10px;
+                        padding: 0 4px;
+                        color: #fff;
+                        background-color: #f27b25;
+                        border-radius: 5px;
+                        font: 10px 'OpenSans';
+                        line-height: 11px;
+                    }
+                }
+            }
         }
 
         .header-submenu-holder, .header-username {
@@ -456,6 +472,11 @@
                 display: inline-block;
                 font-size: 16px;
 
+                @media (max-width: 1200px) {
+                    [lang~=uk] & {
+                        font-size: 12px;
+                    }
+                }
 
                 a {
                     color: #42515f;
@@ -467,6 +488,11 @@
                     padding: 12px 15px;
                     text-align: center;
                     text-transform: uppercase;
+                    vertical-align: middle;
+
+                    @media (max-width: 1200px) {
+                        min-width: 110px;
+                    }
 
                     &:hover {
                         box-shadow: 0 -2px #88d498 inset, 0 1px #88d498;
@@ -503,6 +529,7 @@
                     display: inline-block;
                     height: 12px;
                     width: 8px;
+                    vertical-align: middle;
                 }
             }
         }

@@ -139,6 +139,9 @@
                         finished: 'course:delivering-finished'
                     },
                     collaboration: {
+                        inviteCreated: 'course:collaboration-invite-created:',
+                        inviteRemoved: 'course:collaboration-invite-removed:',
+                        inviteAccepted: 'course:collaboration-invite-accepted',
                         collaboratorAdded: 'course:collaboration-collaboratorAdded:',
                         collaboratorRemoved: 'course:collaboration-collaboratorRemoved',
                         collaboratorRegistered: 'course:collaboration-collaboratorRegistered:',
@@ -235,11 +238,25 @@
                 sidePanel: {
                     expanded: 'sidePanel:expanded',
                     collapsed: 'sidePanel:collapsed'
+                },
+                notification: {
+
                 }
             },
 
             patterns: {
                 email: /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/
+            },
+
+            notification: {
+                keys: {
+                    subscriptionExpiration: 'notificationkeys:subscriptionExpiration',
+                    collaborationInvite: 'notificationkeys:collaborationInvite'
+                },
+                messages: {
+                    push: 'notification:push',
+                    remove: 'notification:remove'
+                }
             },
 
             upgradeEvent: 'Upgrade now',

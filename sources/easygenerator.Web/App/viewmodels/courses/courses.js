@@ -184,12 +184,12 @@
 
         function activate() {
             viewModel.lastVistedCourseId = clientContext.get(constants.clientContextKeys.lastVistedCourse);
+            clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
+
             viewModel.currentLanguage = localizationManager.currentLanguage;
 
             return userContext.identify().then(function () {
                 var userEmail = userContext.identity.email;
-
-                clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
 
                 viewModel.courses(mapCourses(_.filter(dataContext.courses, function (item) {
                     return item.createdBy == userEmail;

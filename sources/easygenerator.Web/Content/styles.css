@@ -1,4 +1,6 @@
-﻿/*#region PAGE-LOADER ICON*/
+﻿/*#region User avatar */
+/*#endregion */
+/*#region PAGE-LOADER ICON*/
 .icon-spinner-wrapper {
   position: absolute;
   left: 50%;
@@ -1385,112 +1387,6 @@
   color: #f59b59;
 }
 /*#endregion ENTITY CONTENT*/
-/*#region USER-NOTIFICATION*/
-.user-notification-viewer {
-  display: none;
-  position: absolute;
-  min-height: 38px;
-  width: 415px;
-  top: 57px;
-  right: -95px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-top: none;
-  box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.1);
-  font-size: 12px;
-  font-family: 'OpenSans';
-  color: #303133;
-  cursor: default;
-  z-index: 200;
-}
-.user-notification-list {
-  list-style-type: none;
-  padding: 10px 10px 0;
-}
-.user-notification-close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 17px;
-  height: 17px;
-  border: 1px solid #ddd;
-  background: url(../Content/images/sprites_16.png) -86px -1px;
-}
-.user-notification-close-btn:hover {
-  background-color: #f7f7f7;
-}
-.user-notification-wrapper {
-  margin-bottom: 14px;
-}
-.user-notification-header {
-  margin-bottom: 10px;
-}
-.user-notification-header > div {
-  display: inline-block;
-  vertical-align: middle;
-}
-.user-notification-header-image {
-  width: 53px;
-  height: 53px;
-  background: url(../Content/images/sprites_64.png) -76px -6px;
-}
-.user-notification-header-content {
-  margin-left: 10px;
-}
-.user-notification-title {
-  font-family: 'OpenSans-Semibold';
-  font-size: 13px;
-}
-.user-notification-sender {
-  display: block;
-  font-size: 11px;
-  color: #877f78;
-}
-.user-notification-expires {
-  margin: 5px 0;
-}
-.user-notification-btn-wrapper {
-  text-align: center;
-}
-.user-notification-btn {
-  display: inline-block;
-  min-width: 145px;
-  padding: 11px;
-  margin: 14px 0;
-  background-color: #96cb6b;
-  border-radius: 5px;
-  color: white;
-  font-family: 'OpenSans-Semibold';
-  font-size: 13px;
-}
-.user-notification-btn:hover {
-  background-color: #7da959;
-}
-.user-notification-link {
-  color: #50a6e9;
-  cursor: pointer;
-}
-.user-notification-link:hover {
-  text-decoration: underline;
-}
-.user-notification-mail {
-  position: relative;
-  padding-left: 30px;
-  color: #999999;
-  font-size: 11px;
-}
-.user-notification-mail:before {
-  content: '';
-  display: block;
-  height: 20px;
-  width: 20px;
-  position: absolute;
-  left: 0;
-  top: 50%;
-  margin-top: -10px;
-  background: url(images/sprites_24.png) -207px -2px;
-}
-/*#endregion USER-NOTIFICATION*/
 /*#region ERROR PAGES */
 .error-page {
   margin: auto;
@@ -1738,6 +1634,7 @@
   vertical-align: middle;
 }
 .shell > header .header-upgrade-link {
+  padding: 0px 10px;
   color: #559f64;
   font-family: 'OpenSans-Semibold', sans-serif;
 }
@@ -1782,23 +1679,15 @@
   cursor: pointer;
 }
 .shell > header .header-menu-list-item.user-notification {
-  width: 60px;
   position: relative;
-  padding: 19px 24px;
-}
-.shell > header .header-menu-list-item.user-notification:before {
-  content: '';
-  display: block;
-  height: 18px;
-  width: 26px;
-  margin-left: -6px;
-  background: url(../Content/images/sprites_32.png) -188px -7px no-repeat;
+  z-index: 201;
+  cursor: pointer;
 }
 .shell > header .header-menu-list-item.user-notification:hover,
-.shell > header .header-menu-list-item.user-notification.active {
+.shell > header .header-menu-list-item.user-notification.expanded {
   background-color: #252525;
 }
-.shell > header .header-menu-list-item.user-notification.active:after {
+.shell > header .header-menu-list-item.user-notification.expanded:after {
   content: '';
   position: absolute;
   width: 7px;
@@ -1813,6 +1702,25 @@
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   z-index: 200;
+}
+.shell > header .header-menu-list-item.user-notification .user-notification-icon-wrapper {
+  width: 60px;
+  padding: 19px 24px;
+}
+.shell > header .header-menu-list-item.user-notification .user-notification-icon {
+  position: relative;
+  width: 14px;
+  height: 18px;
+  background: url(../Content/images/sprites_24.png) -64px -90px no-repeat;
+}
+.shell > header .header-menu-list-item.user-notification .user-notification-icon .user-notification-count {
+  margin-left: 10px;
+  padding: 0 4px;
+  color: #fff;
+  background-color: #f27b25;
+  border-radius: 5px;
+  font: 10px 'OpenSans';
+  line-height: 11px;
 }
 .shell > header .header-submenu-holder,
 .shell > header .header-username {
@@ -2058,6 +1966,11 @@
   display: inline-block;
   font-size: 16px;
 }
+@media (max-width: 1200px) {
+  [lang~=uk] .course nav ul li {
+    font-size: 12px;
+  }
+}
 .course nav ul li a {
   color: #42515f;
   display: inline-block;
@@ -2068,6 +1981,12 @@
   padding: 12px 15px;
   text-align: center;
   text-transform: uppercase;
+  vertical-align: middle;
+}
+@media (max-width: 1200px) {
+  .course nav ul li a {
+    min-width: 110px;
+  }
 }
 .course nav ul li a:hover {
   box-shadow: 0 -2px #88d498 inset, 0 1px #88d498;
@@ -2099,6 +2018,7 @@
   display: inline-block;
   height: 12px;
   width: 8px;
+  vertical-align: middle;
 }
 /*#region EDIT FIELD*/
 /*.edit-field {
@@ -2328,4 +2248,3 @@
   }
   /*#endregion Create explanation tooltip*/
 }
-/*#endregion MEDIA*/
