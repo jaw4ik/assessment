@@ -362,7 +362,7 @@
                 var lastname = "test last name";
                 var password = "Abc123! ";
                 var grant_type = "password";
-                var scope = window.auth.getRequiredScopes();
+                var endpoints = window.auth.getRequiredEndpoints();
 
                 beforeEach(function () {
                     viewModel.username(username);
@@ -380,7 +380,7 @@
                             username: username,
                             password: password,
                             grant_type: grant_type,
-                            scope: scope
+                            endpoints: endpoints
                         },
                         type: 'POST'
                     });
@@ -397,7 +397,7 @@
                             username: username,
                             password: password,
                             grant_type: grant_type,
-                            scope: scope
+                            endpoints: endpoints
                         },
                         type: 'POST'
                     });
@@ -418,7 +418,7 @@
                             username: username,
                             password: password,
                             grant_type: grant_type,
-                            scope: scope
+                            endpoints: endpoints
                         },
                         type: 'POST'
                     });

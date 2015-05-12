@@ -61,7 +61,7 @@ app.signinViewModel = function () {
             username: viewModel.username().trim().toLowerCase(),
             password: viewModel.password(),
             grant_type: "password",
-            scope: window.auth.getRequiredScopes()
+            endpoints: window.auth.getRequiredEndpoints()
         };
 
         var requestArgs = {
@@ -72,9 +72,7 @@ app.signinViewModel = function () {
 
         $.ajax(requestArgs).done(function (response) {
             if (response) {
-                if (response.success) {
-                    window.auth.setTokens(response.data);
-
+                if (response.success && window.auth.login(response.data)) {
                     app.trackEvent(app.constants.events.signin, response.data).done(function () {
                         app.openHomePage();
                     });

@@ -10,11 +10,11 @@ namespace easygenerator.Auth.Providers
     {
         private static readonly string _scopeClaimType;
         private static readonly string _issuer;
-        private static List<ClientModel> _clients;
+        private static List<EndpointModel> _endpoints;
 
         public static string ScopeClaimType { get { return _scopeClaimType; } }
-        public static string Issuer {get { return _issuer; }}
-        public static List<ClientModel> Clients { get { return _clients; } }
+        public static string Issuer { get { return _issuer; } }
+        public static List<EndpointModel> Endpoints { get { return _endpoints; } }
 
         static AuthorizationConfigurationProvider()
         {
@@ -22,16 +22,16 @@ namespace easygenerator.Auth.Providers
 
             _issuer = (ConfigurationManager.GetSection("authorization") as AuthorizationSection).Issuer;
 
-            _clients = new List<ClientModel>();
+            _endpoints = new List<EndpointModel>();
             var authSection = ConfigurationManager.GetSection("authorization") as AuthorizationSection;
-            foreach (ClientElement client in authSection.Clients)
+            foreach (EndpointElement endpoint in authSection.Endpoints)
             {
-                _clients.Add(new ClientModel()
+                _endpoints.Add(new EndpointModel()
                 {
-                    Audience = client.Audience,
-                    Host = client.Host,
-                    Name = client.Name,
-                    Secret = Convert.FromBase64String(client.Secret)
+                    Audience = endpoint.Audience,
+                    Scopes = endpoint.Scopes,
+                    Name = endpoint.Name,
+                    Secret = Convert.FromBase64String(endpoint.Secret)
                 });
             }
         }

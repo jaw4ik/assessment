@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Configuration;
 
 namespace easygenerator.Auth.ConfigurationSections.Authorization
 {
-    [ConfigurationCollection(typeof(ClientElement), CollectionType = ConfigurationElementCollectionType.BasicMapAlternate)]
-    public class ClientsCollection : ConfigurationElementCollection
+    [ConfigurationCollection(typeof(EndpointElement), CollectionType = ConfigurationElementCollectionType.BasicMapAlternate)]
+    public class EndpointsCollection : ConfigurationElementCollection
     {
-        internal const string ItemPropertyName = "client";
+        internal const string ItemPropertyName = "endpoint";
 
         public override ConfigurationElementCollectionType CollectionType
         {
@@ -29,12 +24,12 @@ namespace easygenerator.Auth.ConfigurationSections.Authorization
 
         protected override object GetElementKey(ConfigurationElement element)
         {
-            return ((ClientElement)element).Name;
+            return ((EndpointElement)element).Name;
         }
 
         protected override ConfigurationElement CreateNewElement()
         {
-            return new ClientElement();
+            return new EndpointElement();
         }
 
         public override bool IsReadOnly()

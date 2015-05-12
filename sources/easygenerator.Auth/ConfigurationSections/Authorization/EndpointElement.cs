@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Configuration;
+using easygenerator.Auth.Models;
 
 namespace easygenerator.Auth.ConfigurationSections.Authorization
 {
-    public class ClientElement : ConfigurationElement
+    public class EndpointElement : ConfigurationElement
     {
         [ConfigurationProperty("name", IsRequired = true)]
         public string Name
@@ -23,11 +19,11 @@ namespace easygenerator.Auth.ConfigurationSections.Authorization
             set { base["secret"] = value; }
         }
 
-        [ConfigurationProperty("host", IsRequired = true)]
-        public string Host
+        [ConfigurationProperty("scopes", IsRequired = true)]
+        public string Scopes
         {
-            get { return (string)base["host"]; }
-            set { base["host"] = value; }
+            get { return (string)base["scopes"]; }
+            set { base["scopes"] = value; }
         }
 
         [ConfigurationProperty("audience", IsRequired = true)]
@@ -37,11 +33,12 @@ namespace easygenerator.Auth.ConfigurationSections.Authorization
             set { base["audience"] = value; }
         }
 
-        [ConfigurationProperty("apiKey", IsRequired = true)]
+        [ConfigurationProperty("apiKey")]
         public string ApiKey
         {
             get { return (string)base["apiKey"]; }
             set { base["apiKey"] = value; }
         }
+
     }
 }

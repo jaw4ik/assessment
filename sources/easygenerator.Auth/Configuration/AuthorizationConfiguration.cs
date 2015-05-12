@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IdentityModel.Tokens;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using easygenerator.Auth.Providers;
 using easygenerator.Auth.Repositories;
@@ -19,11 +14,11 @@ namespace easygenerator.Auth.Configuration
     {
         public static void Configure(IAppBuilder app)
         {
-            var clients = new ClientsRepository().GetCollection();
+            var endpoints = new EndpointsRepository().GetCollection();
             var issuer = AuthorizationConfigurationProvider.Issuer;
-            var allowedAudiences = clients.Select(t => t.Audience).Distinct();
+            var allowedAudiences = endpoints.Select(t => t.Audience).Distinct();
             var issuerSecurityTokenProviders =
-                clients.Select(t => new SymmetricKeyIssuerSecurityTokenProvider(issuer, t.Secret));
+                endpoints.Select(t => new SymmetricKeyIssuerSecurityTokenProvider(issuer, t.Secret));
 
             app.UseJwtBearerAuthentication(
                 new JwtBearerAuthenticationOptions
@@ -53,7 +48,7 @@ namespace easygenerator.Auth.Configuration
             }
 
             // Only for /preview/*
-            // Allow readonly access to /preview/ path
+            // Get access token from coockies for preview
             if (oAuthRequestTokenContext.Request.Path.StartsWithSegments(new PathString("/preview")))
             {
                 var value = oAuthRequestTokenContext.Request.Cookies["token.preview"];
@@ -62,6 +57,19 @@ namespace easygenerator.Auth.Configuration
                     oAuthRequestTokenContext.Token = value;
                 }
             }
+            
+            // Only for /account/upgrade/*
+            // Get access token from coockies.
+            // Upgrade account should be changed to token auth.
+            if (oAuthRequestTokenContext.Request.Path.StartsWithSegments(new PathString("/account/upgrade")))
+            {
+                var value = oAuthRequestTokenContext.Request.Cookies["token.upgradeAccount"];
+                if (!string.IsNullOrEmpty(value))
+                {
+                    oAuthRequestTokenContext.Token = value;
+                }
+            }
+
             return Task.FromResult<object>(null);
         }
     }

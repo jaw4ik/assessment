@@ -2,14 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
-using DocumentFormat.OpenXml.Office2010.ExcelAc;
-using easygenerator.Auth;
-using easygenerator.Auth.Attributes;
 using easygenerator.Auth.Attributes.Mvc;
-using easygenerator.Auth.Configuration;
 using easygenerator.Auth.Models;
 using easygenerator.Auth.Providers;
 using easygenerator.Auth.Repositories;
@@ -23,17 +17,17 @@ namespace easygenerator.Web.Controllers
     {
         private readonly IUserRepository _repository;
         private readonly ITokenProvider _tokenProvider;
-        private readonly IClientsRepository _clientsRepository;
+        private readonly IEndpointsRepository _endpointsRepository;
 
-        public AuthController(IUserRepository repository, ITokenProvider tokenProvider, IClientsRepository clientsRepository)
+        public AuthController(IUserRepository repository, ITokenProvider tokenProvider, IEndpointsRepository clientsRepository)
         {
             _repository = repository;
             _tokenProvider = tokenProvider;
-            _clientsRepository = clientsRepository;
+            _endpointsRepository = clientsRepository;
         }
 
         [HttpPost, AllowAnonymous]
-        public ActionResult Token(string username, string password, string grant_type, string scope)
+        public ActionResult Token(string username, string password, string grant_type, string endpoints)
         {
             if (grant_type == "password")
             {
@@ -41,24 +35,24 @@ namespace easygenerator.Web.Controllers
                 if (user != null && user.VerifyPassword(password))
                 {
                     var tokens = new List<TokenModel>();
-                    var scopes = scope.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-                    var clients = _clientsRepository.GetCollection();
-                    foreach (string scopeName in scopes)
+                    var requestedEndpoints = endpoints.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                    var existingEndpoints = _endpointsRepository.GetCollection();
+                    foreach (string endpointName in requestedEndpoints)
                     {
-                        var client =
-                            clients.SingleOrDefault(t => t.Name.Equals(scopeName, StringComparison.OrdinalIgnoreCase));
-                        if (client != null)
+                        var endpoint =
+                            existingEndpoints.SingleOrDefault(t => t.Name.Equals(endpointName, StringComparison.OrdinalIgnoreCase));
+                        if (endpoint != null)
                         {
                             tokens.Add(new TokenModel()
                             {
-                                Scope = client.Name,
+                                Endpoint = endpoint.Name,
                                 Token = _tokenProvider.CreateToken(
                                     issuer: Request.Url.Host,
-                                    audience: client.Audience,
-                                    secret: client.Secret,
+                                    audience: endpoint.Audience,
+                                    secret: endpoint.Secret,
                                     claims: new List<Claim> {
                                         new Claim(ClaimTypes.Name, user.Email),
-                                        new Claim(AuthorizationConfigurationProvider.ScopeClaimType, client.Name)
+                                        new Claim(AuthorizationConfigurationProvider.ScopeClaimType, endpoint.Scopes)
                                     }
                                 )
                             });

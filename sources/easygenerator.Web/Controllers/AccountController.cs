@@ -1,4 +1,6 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using DocumentFormat.OpenXml.Office.CustomXsn;
+using easygenerator.Auth.Attributes.Mvc;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
@@ -97,7 +99,7 @@ namespace easygenerator.Web.Controllers
             return View("SignUp");
         }
 
-        [Route("account/upgrade")]
+        [Route("account/upgrade"), Scope("upgradeAccount")]
         public ActionResult UpgradeAccount()
         {
             return Redirect(_wooCommerceAutologinUrlProvider.GetAutologinUrl(User.Identity.Name));
