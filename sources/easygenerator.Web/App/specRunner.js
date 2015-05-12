@@ -40,11 +40,13 @@
             'dialogs/createCourse.spec',
             'dialogs/collaboration/addCollaborator.spec',
             'dialogs/collaboration/collaboration.spec',
-            'dialogs/collaboration/collaborator.spec',
+            'dialogs/collaboration/collaborator.spec',            
             'dialogs/publishCourse/publishCourse.spec',
             'dialogs/moveCopyQuestion/moveCopyQuestion.spec',
 
             //#endregion dialogs
+
+            //#region errorHandling
 
             'errorHandling/httpErrorHandlers/defaultHttpErrorHandler.spec',
             'errorHandling/httpErrorHandlers/forbiddenHttpErrorHandler.spec',
@@ -52,13 +54,28 @@
             'errorHandling/httpErrorHandlers/unauthorizedHttpErrorHandler.spec',
             'errorHandling/errorHandlingConfiguration.spec',
             'errorHandling/globalErrorHandler.spec',
-            'errorHandling/httpErrorHandlerRegistrator.spec',
+            'errorHandling/httpErrorHandlerRegistrator.spec',            
+
+            //#endregion
+
+            //#region notifications
+
+            'notifications/notification.spec',
+            'notifications/subscriptionExpiration/notificationController.spec',
+            'notifications/subscriptionExpiration/notification.spec',
+            
+            'notifications/collaborationInvite/notification.spec',
+            'notifications/collaborationInvite/queries/getInvites.spec',
+            'notifications/collaborationInvite/commands/acceptInvite.spec',
+            'notifications/collaborationInvite/commands/declineInvite.spec',
+            'notifications/collaborationInvite/notificationController.spec',
+
+            //#endregion 
+        
             'localization/localizationManager.spec',
             'models/course.spec',
             'models/user.spec',
-            'notifications/notification.spec',
-            'notifications/subscriptionExpirationNotificationController.spec',
-            'notifications/subscriptionExpirationNotification.spec',
+
             'repositories/answerRepository.spec',
             'repositories/commentRepository.spec',
             'repositories/collaboratorRepository.spec',
@@ -103,6 +120,9 @@
             'synchronization/handlers/collaboration/handler.spec',
             'synchronization/handlers/collaboration/eventHandlers/started.spec',
             'synchronization/handlers/collaboration/eventHandlers/finished.spec',
+            'synchronization/handlers/collaboration/eventHandlers/inviteCreated.spec',
+            'synchronization/handlers/collaboration/eventHandlers/inviteRemoved.spec',
+            'synchronization/handlers/collaboration/eventHandlers/inviteAccepted.spec',
             'synchronization/handlers/collaboration/eventHandlers/collaboratorAdded.spec',
             'synchronization/handlers/collaboration/eventHandlers/collaboratorRemoved.spec',
             'synchronization/handlers/collaboration/eventHandlers/collaboratorRegistered.spec',
@@ -201,7 +221,7 @@
             'viewmodels/courses/publishingActions/publish.spec',
             'viewmodels/courses/publishingActions/scormBuild.spec',
             'viewmodels/courses/publishingActions/publishToAim4You.spec',
-            'viewmodels/courses/courseComments.spec',
+            'viewmodels/courses/courseComments.spec',            
             'viewmodels/objectives/objectives.spec',
             'viewmodels/objectives/objective.spec',
             'viewmodels/objectives/objectiveBrief.spec',
@@ -269,7 +289,7 @@
             //#endregion
 
             'viewmodels/user/userMenu.spec',
-            'viewmodels/shell.spec',
+            'viewmodels/shell.spec',            
             'widgets/notifyViewer/viewmodel.spec',
             'widgets/uiLockViewer/viewmodel.spec',
             'widgets/createQuestion/viewmodel.spec',

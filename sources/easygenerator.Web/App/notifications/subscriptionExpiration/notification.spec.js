@@ -1,4 +1,4 @@
-﻿define(['notifications/subscriptionExpirationNotification'], function (notification) {
+﻿define(['notifications/subscriptionExpiration/notification'], function (notification) {
 
     var eventTracker = require('eventTracker'),
         localizationManager = require('localization/localizationManager'),
@@ -7,7 +7,7 @@
     describe('subscriptionExpirationNotification:', function () {
 
         var subscriptionExpirationNotification = null,
-            name = 'notificationName',
+            key = 'notificationKey',
             firstname = 'firstName',
             amountOfDays = 2,
             accessType = '2',
@@ -32,17 +32,17 @@
 
                 return '';
             });
-            subscriptionExpirationNotification = new notification(name, firstname, amountOfDays, accessType, expirationDate);
+            subscriptionExpirationNotification = new notification(key, firstname, amountOfDays, accessType, expirationDate);
         });
 
-        describe('name:', function () {
+        describe('key:', function () {
 
             it('should be defined', function () {
-                expect(subscriptionExpirationNotification.name).toBeDefined();
+                expect(subscriptionExpirationNotification.key).toBeDefined();
             });
 
             it('should be equal \'notificationName\'', function () {
-                expect(subscriptionExpirationNotification.name).toBe(name);
+                expect(subscriptionExpirationNotification.key).toBe(key);
             });
 
         });
@@ -95,7 +95,7 @@
                         });
 
                         it('should be \'starter today\'', function () {
-                            expirationNotification = new notification(name, firstname, days, type, expDate);
+                            expirationNotification = new notification(key, firstname, days, type, expDate);
                             expect(expirationNotification.expirationMessage).toBe('starter today');
                         });
                     });
@@ -107,7 +107,7 @@
                         });
 
                         it('should be \'starter 1day\'', function () {
-                            expirationNotification = new notification(name, firstname, days, type, expDate);
+                            expirationNotification = new notification(key, firstname, days, type, expDate);
                             expect(expirationNotification.expirationMessage).toBe('starter 1day');
                         });
                     });
@@ -122,7 +122,7 @@
 
 
                     it('should be \'starter 1day\'', function () {
-                        expirationNotification = new notification(name, firstname, days, type, expDate);
+                        expirationNotification = new notification(key, firstname, days, type, expDate);
                         expect(expirationNotification.expirationMessage).toBe('starter 1day');
                     });
 
@@ -135,7 +135,7 @@
                     });
 
                     it('should be \'starter 2days\'', function () {
-                        expirationNotification = new notification(name, firstname, days, type, expDate);
+                        expirationNotification = new notification(key, firstname, days, type, expDate);
                         expect(expirationNotification.expirationMessage).toBe('starter 2days');
                     });
                 });
@@ -158,7 +158,7 @@
                         });
 
                         it('should be \'plus today\'', function () {
-                            expirationNotification = new notification(name, firstname, days, type, expDate);
+                            expirationNotification = new notification(key, firstname, days, type, expDate);
                             expect(expirationNotification.expirationMessage).toBe('plus today');
                         });
                     });
@@ -170,7 +170,7 @@
                         });
 
                         it('should be \'plus 1day\'', function () {
-                            expirationNotification = new notification(name, firstname, days, type, expDate);
+                            expirationNotification = new notification(key, firstname, days, type, expDate);
                             expect(expirationNotification.expirationMessage).toBe('plus 1day');
                         });
                     });
@@ -184,7 +184,7 @@
                     });
 
                     it('should be \'plus 1day\'', function () {
-                        expirationNotification = new notification(name, firstname, days, type, expDate);
+                        expirationNotification = new notification(key, firstname, days, type, expDate);
                         expect(expirationNotification.expirationMessage).toBe('plus 1day');
                     });
 
@@ -197,7 +197,7 @@
                     });
 
                     it('should be \'plus 2days\'', function () {
-                        expirationNotification = new notification(name, firstname, days, type, expDate);
+                        expirationNotification = new notification(key, firstname, days, type, expDate);
                         expect(expirationNotification.expirationMessage).toBe('plus 2days');
                     });
                 });
@@ -206,7 +206,7 @@
             describe('when accessType is undefined', function () {
                 it('should throw exception \'Undefined access type\'', function () {
                     var f = function () {
-                        expirationNotification = new notification(name, firstname, amountOfDays, undefined, expirationDate);
+                        expirationNotification = new notification(key, firstname, amountOfDays, undefined, expirationDate);
                     };
 
                     expect(f).toThrow("Undefined access type");

@@ -24,7 +24,7 @@
         viewModel.updateValue(value);
     },
 
-    viewModel: function (element) {
+    viewmodelviewModel: function (element) {
         var $element = $(element),
             $wrapper = $('.switch-toggle-wrapper', $element);
 

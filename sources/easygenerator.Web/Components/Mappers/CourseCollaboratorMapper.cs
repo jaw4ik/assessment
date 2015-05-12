@@ -23,7 +23,8 @@ namespace easygenerator.Web.Components.Mappers
                 Email = collaborator.Email,
                 Registered = user != null,
                 FullName = user == null ? null : user.FullName,
-                CreatedOn = collaborator.CreatedOn
+                CreatedOn = collaborator.CreatedOn,
+                IsAccepted = collaborator.IsAccepted
             };
         }
     }
