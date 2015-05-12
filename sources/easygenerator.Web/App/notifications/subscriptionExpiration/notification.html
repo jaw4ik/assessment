@@ -1,0 +1,31 @@
+﻿<div class="user-notification-wrapper subscription-expiration">
+    <div class="user-notification-header">
+        <div class="user-notification-header-image"></div>
+        <div class="user-notification-header-content">
+            <span class="user-notification-title" data-bind="localize: { text: 'upgradeNotificationTitle' }"></span>
+            <span class="user-notification-sender">
+                <span data-bind="localize: { text: 'upgradeNotificationSender' }">From: easygenerator team</span>
+            </span>
+        </div>
+    </div>
+    <div class="user-notification-content">
+        <div class="user-notification-content-text">
+            <p><span data-bind="localize: { text: 'upgradeNotificationHi' }">Hi</span> <span data-bind="text: firstname">User</span>,</p>
+            <p class="top-indent">
+                <span data-bind="text: expirationMessage"></span>
+            </p>
+            <p class="top-indent">
+                <span data-bind="localize: { text: 'upgradeNotificationNote' }">Please note, you will be automatically downgraded to the Free Plan, if you don’t make the payment in time. More info on pricing plans</span> <a class="user-notification-link" href="" data-bind="click: openUpgradePlanUrl, localize: { text: 'upgradeNotificationHere' }">here</a>.
+            </p>
+        </div>
+        <div class="user-notification-actions">
+            <a class="btn green" href="" data-bind="click: openUpgradePlanUrl, localize: { text: 'upgradePayNow' }">Pay Now</a>
+        </div>
+    </div>
+    <div class="user-notification-footer">
+        <div class="user-notification-footer-text">
+            <p data-bind="localize: { text: 'upgradeMail' }">Any issues with your credit card and need more time?</p>
+            <p><span data-bind="localize: { text: 'upgradePleaseContact' }">Please contact:</span> <a class="user-notification-link" href="mailto:support@easygenerator.com" target="_blank">support@easygenerator.com</a></p>
+        </div>
+    </div>
+</div>

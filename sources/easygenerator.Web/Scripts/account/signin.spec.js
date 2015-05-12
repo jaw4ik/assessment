@@ -529,6 +529,7 @@
                         beforeEach(function (done) {
                             trackEvent = $.Deferred();
                             spyOn(app, 'trackEvent').and.returnValue(trackEvent.promise());
+                            spyOn(window.auth, 'login').and.returnValue(true);
 
                             ajax.resolve({ success: true, data: user });
                             done();

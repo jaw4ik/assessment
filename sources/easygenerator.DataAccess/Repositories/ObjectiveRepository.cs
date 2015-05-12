@@ -1,14 +1,9 @@
-﻿using System;
+﻿using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Repositories;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Repositories;
-using easygenerator.Infrastructure;
 
 namespace easygenerator.DataAccess.Repositories
 {
@@ -28,7 +23,7 @@ namespace easygenerator.DataAccess.Repositories
 		            (
 			            SELECT c.Id FROM Courses c WHERE c.CreatedBy = @createdBy
 			            UNION
-			            SELECT cc.Course_Id FROM CourseCollaborators cc	WHERE cc.Email = @createdBy AND cc.Locked = 0
+			            SELECT cc.Course_Id FROM CourseCollaborators cc	WHERE cc.Email = @createdBy AND cc.Locked = 0 AND cc.IsAccepted = 1
 		            )
 	            )
             ";

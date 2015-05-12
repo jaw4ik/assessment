@@ -247,6 +247,7 @@
     <Compile Include="Components\ManifestFileManager.cs" />
     <Compile Include="Components\Mappers\AnswerMapper.cs" />
     <Compile Include="Components\Mappers\BlankAnswerMapper.cs" />
+    <Compile Include="Components\Mappers\CollaborationInviteMapper.cs" />
     <Compile Include="Components\Mappers\DropspotMapper.cs" />
     <Compile Include="Components\Mappers\EntityMapper.cs" />
     <Compile Include="Components\Mappers\HotSpotPolygonMapper.cs" />
@@ -576,8 +577,49 @@
     <Content Include="App\models\reporting\statement.spec.js">
       <DependentUpon>statement.js</DependentUpon>
     </Content>
+    <Content Include="App\reporting\viewmodels\courseStatement.spec.js">
+      <DependentUpon>courseStatement.js</DependentUpon>
+    </Content>
+    <Content Include="App\reporting\viewmodels\expandableStatement.spec.js">
+      <DependentUpon>expandableStatement.js</DependentUpon>
+    </Content>
+    <Content Include="App\reporting\viewmodels\questionStatement.spec.js">
+      <DependentUpon>questionStatement.js</DependentUpon>
+    </Content>
     <Content Include="App\reporting\xApiFilterCriteriaFactory.spec.js">
       <DependentUpon>xApiFilterCriteriaFactory.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\collaborationInvite\commands\acceptInvite.js" />
+    <Content Include="App\notifications\collaborationInvite\commands\acceptInvite.spec.js">
+      <DependentUpon>acceptInvite.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\collaborationInvite\commands\declineInvite.js" />
+    <Content Include="App\notifications\collaborationInvite\commands\declineInvite.spec.js">
+      <DependentUpon>declineInvite.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\collaborationInvite\notification.html" />
+    <Content Include="App\notifications\collaborationInvite\notification.js" />
+    <Content Include="App\notifications\collaborationInvite\notification.spec.js">
+      <DependentUpon>notification.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\collaborationInvite\notificationController.js" />
+    <Content Include="App\notifications\collaborationInvite\notificationController.spec.js">
+      <DependentUpon>notificationController.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\collaborationInvite\queries\getInvites.js" />
+    <Content Include="App\notifications\collaborationInvite\queries\getInvites.spec.js">
+      <DependentUpon>getInvites.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\notification.spec.js">
+      <DependentUpon>notification.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\subscriptionExpiration\notification.html" />
+    <Content Include="App\notifications\subscriptionExpiration\notification.js" />
+    <Content Include="App\notifications\subscriptionExpiration\notificationController.spec.js">
+      <DependentUpon>notificationController.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\subscriptionExpiration\notification.spec.js">
+      <DependentUpon>notification.js</DependentUpon>
     </Content>
     <Content Include="App\reporting\xApiProvider.js" />
     <Content Include="App\dialogs\publishCourse\publishCourse.html" />
@@ -602,6 +644,12 @@
     <Content Include="App\synchronization\handlers\answer\eventHandlers\answerCorrectnessUpdated.spec.js">
       <DependentUpon>answerCorrectnessUpdated.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteAccepted.js" />
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteAccepted.spec.js">
+      <DependentUpon>inviteAccepted.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteCreated.js" />
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteRemoved.js" />
     <Content Include="App\synchronization\handlers\course\eventHandlers\stateChanged.js" />
     <Content Include="App\synchronization\handlers\course\eventHandlers\stateChanged.spec.js">
       <DependentUpon>stateChanged.js</DependentUpon>
@@ -631,6 +679,7 @@
       <DependentUpon>learningContentsReordered.js</DependentUpon>
     </Content>
     <Content Include="App\utils\base64.js" />
+    <Content Include="App\utils\fileSaverWrapper.js" />
     <Content Include="App\utils\waiter.js" />
     <Content Include="App\utils\waiter.spec.js">
       <DependentUpon>waiter.js</DependentUpon>
@@ -640,6 +689,10 @@
     <Content Include="App\viewmodels\courses\bindingHandlers\elementCollapseBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\publishTabBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\windowMessageListenerBinding.js" />
+    <Content Include="App\viewmodels\courses\course\configure.js" />
+    <Content Include="App\viewmodels\courses\course\configure.spec.js">
+      <DependentUpon>configure.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\courses\course\create\course.spec.js">
       <DependentUpon>course.js</DependentUpon>
     </Content>
@@ -682,6 +735,7 @@
     <Content Include="App\viewmodels\videos\videos.spec.js">
       <DependentUpon>videos.js</DependentUpon>
     </Content>
+    <Content Include="App\views\courses\course\configure.html" />
     <Content Include="App\reporting\viewmodels\courseStatement.js" />
     <Content Include="App\reporting\viewmodels\expandableStatement.js" />
     <Content Include="App\reporting\viewmodels\objectiveStatement.js" />
@@ -718,6 +772,9 @@
     <Content Include="Content\font\heuristica-italic.svg" />
     <Content Include="Content\font\heuristica-regular.svg" />
     <Content Include="Content\font\opensans-bold.svg" />
+    <Content Include="Content\helpers.css">
+      <DependentUpon>helpers.less</DependentUpon>
+    </Content>
     <Content Include="Content\hotSpot.css">
       <DependentUpon>hotSpot.less</DependentUpon>
     </Content>
@@ -743,6 +800,12 @@
     <Content Include="Content\images\upload-image.png" />
     <Content Include="Content\images\supported-browser-bg.png" />
     <Content Include="Content\images\tooth.png" />
+    <Content Include="Content\mixin.css">
+      <DependentUpon>mixin.less</DependentUpon>
+    </Content>
+    <Content Include="Content\notifications.css">
+      <DependentUpon>notifications.less</DependentUpon>
+    </Content>
     <Content Include="Content\notSupportedPage.css">
       <DependentUpon>notSupportedPage.less</DependentUpon>
     </Content>
@@ -1050,6 +1113,7 @@
     <Content Include="Scripts\ckeditor\skins\moono\images\refresh.png" />
     <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
     <Content Include="Scripts\ckeditor\styles.js" />
+    <Content Include="Scripts\durandal\transitions\notificationTransition.js" />
     <Content Include="Scripts\FileSaver.js" />
     <Content Include="App\onboarding\tasks.js" />
     <Content Include="App\onboarding\tasks.spec.js">
@@ -1059,6 +1123,7 @@
     <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
     <Content Include="Scripts\knockout-3.3.0.debug.js" />
     <Content Include="Scripts\knockout-3.3.0.js" />
+    <Content Include="Scripts\knockoutBindings\limitedLengthTextBinding.js" />
     <Content Include="Scripts\knockoutBindings\autosizeBinding.js" />
     <Content Include="Scripts\knockoutBindings\backgroundImageBinding.js" />
     <Content Include="Scripts\knockoutBindings\contentEditableFixBinding.js" />
@@ -1071,9 +1136,6 @@
     <Content Include="App\navigationBar\navigationBar.js" />
     <Content Include="App\navigationBar\navigationBar.spec.js">
       <DependentUpon>navigationBar.js</DependentUpon>
-    </Content>
-    <Content Include="App\notifications\subscriptionExpirationNotification.spec.js">
-      <DependentUpon>subscriptionExpirationNotification.js</DependentUpon>
     </Content>
     <Content Include="App\onboarding\onboarding.spec.js">
       <DependentUpon>onboarding.js</DependentUpon>
@@ -1618,6 +1680,17 @@
     <Content Include="Content\shell.less" />
     <Content Include="Content\editField.less" />
     <Content Include="Content\video.less" />
+    <Content Include="App\reporting\viewmodels\objectiveStatement.spec.js">
+      <DependentUpon>objectiveStatement.js</DependentUpon>
+    </Content>
+    <Content Include="Content\notifications.less" />
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteCreated.spec.js">
+      <DependentUpon>inviteCreated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteRemoved.spec.js">
+      <DependentUpon>inviteRemoved.js</DependentUpon>
+    </Content>
+    <Content Include="Content\mixin.less" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />
@@ -1721,23 +1794,29 @@
     <Content Include="Templates\Exam\index.html" />
     <Content Include="Templates\Exam\js\require.js" />
     <Content Include="Templates\Exam\js\vendor.min.js" />
+    <Content Include="Templates\Exam\lang\en.json" />
+    <Content Include="Templates\Exam\lang\nl.json" />
+    <Content Include="Templates\Exam\lang\ua.json" />
     <Content Include="Templates\Exam\manifest.json" />
     <Content Include="Templates\Exam\publishSettings.js" />
     <Content Include="Templates\Exam\settings.js" />
+    <Content Include="Templates\Exam\settings\api.js" />
+    <Content Include="Templates\Exam\settings\configure\configure.html" />
+    <Content Include="Templates\Exam\settings\configure\img\language.png" />
+    <Content Include="Templates\Exam\settings\configure\img\mastery.png" />
+    <Content Include="Templates\Exam\settings\configure\img\track.png" />
+    <Content Include="Templates\Exam\settings\configure\js\configure.min.js" />
+    <Content Include="Templates\Exam\settings\configure\js\vendor.min.js" />
     <Content Include="Templates\Exam\settings\css\fonts\opensans-400.woff" />
     <Content Include="Templates\Exam\settings\css\fonts\opensans-600.woff" />
     <Content Include="Templates\Exam\settings\css\fonts\opensans-bold.woff" />
     <Content Include="Templates\Exam\settings\css\fonts\opensans-italic-400.woff" />
+    <Content Include="Templates\Exam\settings\css\img\sprites_16.png" />
     <Content Include="Templates\Exam\settings\css\settings.css" />
-    <Content Include="Templates\Exam\settings\img\graphical.png" />
-    <Content Include="Templates\Exam\settings\img\language.png" />
-    <Content Include="Templates\Exam\settings\img\mastery.png" />
-    <Content Include="Templates\Exam\settings\img\sprites_16.png" />
-    <Content Include="Templates\Exam\settings\img\track.png" />
-    <Content Include="Templates\Exam\settings\js\api.js" />
-    <Content Include="Templates\Exam\settings\js\settings.min.js" />
-    <Content Include="Templates\Exam\settings\js\vendor.min.js" />
-    <Content Include="Templates\Exam\settings\settings.html" />
+    <Content Include="Templates\Exam\settings\design\design.html" />
+    <Content Include="Templates\Exam\settings\design\img\graphical.png" />
+    <Content Include="Templates\Exam\settings\design\js\design.min.js" />
+    <Content Include="Templates\Exam\settings\design\js\vendor.min.js" />
     <Content Include="Templates\Personalized learning\app\main.js" />
     <Content Include="Templates\Personalized learning\app\main.js.map" />
     <Content Include="Templates\Personalized learning\content\1b4769525d54430295cc1f0971833894\b33d6ef71e504337a74443b0fad006ee\d0aabb7b5a9d447bbe16d4c585d659bf.html" />
@@ -1785,23 +1864,27 @@
     <Content Include="Templates\Personalized learning\js\require\require.js" />
     <Content Include="Templates\Personalized learning\js\vendor.min.js" />
     <Content Include="Templates\Personalized learning\lang\en.json" />
+    <Content Include="Templates\Personalized learning\lang\nl.json" />
     <Content Include="Templates\Personalized learning\lang\ua.json" />
     <Content Include="Templates\Personalized learning\manifest.json" />
     <Content Include="Templates\Personalized learning\publishSettings.js" />
     <Content Include="Templates\Personalized learning\settings.js" />
+    <Content Include="Templates\Personalized learning\settings\api.js" />
+    <Content Include="Templates\Personalized learning\settings\configure\configure.html" />
+    <Content Include="Templates\Personalized learning\settings\configure\img\language.png" />
+    <Content Include="Templates\Personalized learning\settings\configure\img\track.png" />
+    <Content Include="Templates\Personalized learning\settings\configure\js\configure.min.js" />
+    <Content Include="Templates\Personalized learning\settings\configure\js\vendor.min.js" />
     <Content Include="Templates\Personalized learning\settings\css\fonts\opensans-400.woff" />
     <Content Include="Templates\Personalized learning\settings\css\fonts\opensans-600.woff" />
     <Content Include="Templates\Personalized learning\settings\css\fonts\opensans-bold.woff" />
     <Content Include="Templates\Personalized learning\settings\css\fonts\opensans-italic-400.woff" />
+    <Content Include="Templates\Personalized learning\settings\css\img\sprites_16.png" />
     <Content Include="Templates\Personalized learning\settings\css\settings.css" />
-    <Content Include="Templates\Personalized learning\settings\img\graphical.png" />
-    <Content Include="Templates\Personalized learning\settings\img\language.png" />
-    <Content Include="Templates\Personalized learning\settings\img\sprites_16.png" />
-    <Content Include="Templates\Personalized learning\settings\img\track.png" />
-    <Content Include="Templates\Personalized learning\settings\js\api.js" />
-    <Content Include="Templates\Personalized learning\settings\js\settings.min.js" />
-    <Content Include="Templates\Personalized learning\settings\js\vendor.min.js" />
-    <Content Include="Templates\Personalized learning\settings\settings.html" />
+    <Content Include="Templates\Personalized learning\settings\design\design.html" />
+    <Content Include="Templates\Personalized learning\settings\design\img\graphical.png" />
+    <Content Include="Templates\Personalized learning\settings\design\js\design.min.js" />
+    <Content Include="Templates\Personalized learning\settings\design\js\vendor.min.js" />
     <Content Include="Templates\Quiz\app\app.js" />
     <Content Include="Templates\Quiz\app\modules\xApi\views\login.html" />
     <Content Include="Templates\Quiz\app\modules\xApi\views\xApiError.html" />
@@ -1890,26 +1973,30 @@
     <Content Include="Templates\Quiz\css\styles.css" />
     <Content Include="Templates\Quiz\index.html" />
     <Content Include="Templates\Quiz\lang\en.json" />
+    <Content Include="Templates\Quiz\lang\nl.json" />
     <Content Include="Templates\Quiz\lang\ua.json" />
     <Content Include="Templates\Quiz\manifest.json" />
     <Content Include="Templates\Quiz\preview\images\preview.jpg" />
     <Content Include="Templates\Quiz\preview\thumbnail.png" />
     <Content Include="Templates\Quiz\publishSettings.js" />
     <Content Include="Templates\Quiz\settings.js" />
+    <Content Include="Templates\Quiz\settings\api.js" />
+    <Content Include="Templates\Quiz\settings\configure\configure.html" />
+    <Content Include="Templates\Quiz\settings\configure\img\language.png" />
+    <Content Include="Templates\Quiz\settings\configure\img\mastery.png" />
+    <Content Include="Templates\Quiz\settings\configure\img\track.png" />
+    <Content Include="Templates\Quiz\settings\configure\js\configure.min.js" />
+    <Content Include="Templates\Quiz\settings\configure\js\vendor.min.js" />
     <Content Include="Templates\Quiz\settings\css\fonts\opensans-400.woff" />
     <Content Include="Templates\Quiz\settings\css\fonts\opensans-600.woff" />
     <Content Include="Templates\Quiz\settings\css\fonts\opensans-bold.woff" />
     <Content Include="Templates\Quiz\settings\css\fonts\opensans-italic-400.woff" />
+    <Content Include="Templates\Quiz\settings\css\img\sprites_16.png" />
     <Content Include="Templates\Quiz\settings\css\settings.css" />
-    <Content Include="Templates\Quiz\settings\img\graphical.png" />
-    <Content Include="Templates\Quiz\settings\img\language.png" />
-    <Content Include="Templates\Quiz\settings\img\mastery.png" />
-    <Content Include="Templates\Quiz\settings\img\sprites_16.png" />
-    <Content Include="Templates\Quiz\settings\img\track.png" />
-    <Content Include="Templates\Quiz\settings\js\api.min.js" />
-    <Content Include="Templates\Quiz\settings\js\settings.min.js" />
-    <Content Include="Templates\Quiz\settings\js\vendor.min.js" />
-    <Content Include="Templates\Quiz\settings\settings.html" />
+    <Content Include="Templates\Quiz\settings\design\design.html" />
+    <Content Include="Templates\Quiz\settings\design\img\graphical.png" />
+    <Content Include="Templates\Quiz\settings\design\js\design.min.js" />
+    <Content Include="Templates\Quiz\settings\design\js\vendor.min.js" />
     <Content Include="Templates\Reader\app\main.js" />
     <Content Include="Templates\Reader\app\main.js.map" />
     <Content Include="Templates\Reader\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\a15336e3207b40aa86ae93f15c2d3927.html" />
@@ -1955,23 +2042,28 @@
     <Content Include="Templates\Reader\js\require.js" />
     <Content Include="Templates\Reader\js\vendor.min.js" />
     <Content Include="Templates\Reader\lang\en.json" />
+    <Content Include="Templates\Reader\lang\nl.json" />
     <Content Include="Templates\Reader\lang\ua.json" />
     <Content Include="Templates\Reader\manifest.json" />
     <Content Include="Templates\Reader\publishSettings.js" />
     <Content Include="Templates\Reader\settings.js" />
+    <Content Include="Templates\Reader\settings\api.js" />
+    <Content Include="Templates\Reader\settings\configure\configure.html" />
+    <Content Include="Templates\Reader\settings\configure\img\language.png" />
+    <Content Include="Templates\Reader\settings\configure\js\configure.min.js" />
+    <Content Include="Templates\Reader\settings\configure\js\vendor.min.js" />
     <Content Include="Templates\Reader\settings\css\fonts\opensans-400.woff" />
     <Content Include="Templates\Reader\settings\css\fonts\opensans-600.woff" />
     <Content Include="Templates\Reader\settings\css\fonts\opensans-bold.woff" />
     <Content Include="Templates\Reader\settings\css\fonts\opensans-italic-400.woff" />
+    <Content Include="Templates\Reader\settings\css\img\sprites_16.png" />
     <Content Include="Templates\Reader\settings\css\settings.css" />
-    <Content Include="Templates\Reader\settings\img\graphical.png" />
-    <Content Include="Templates\Reader\settings\img\language.png" />
-    <Content Include="Templates\Reader\settings\img\sprites_16.png" />
-    <Content Include="Templates\Reader\settings\js\api.js" />
-    <Content Include="Templates\Reader\settings\js\settings.min.js" />
-    <Content Include="Templates\Reader\settings\js\vendor.min.js" />
-    <Content Include="Templates\Reader\settings\settings.html" />
+    <Content Include="Templates\Reader\settings\design\design.html" />
+    <Content Include="Templates\Reader\settings\design\img\graphical.png" />
+    <Content Include="Templates\Reader\settings\design\js\design.min.js" />
+    <Content Include="Templates\Reader\settings\design\js\vendor.min.js" />
     <Content Include="Templates\Simple course\app\main.js" />
+    <Content Include="Templates\Simple course\app\main.js.map" />
     <Content Include="Templates\Simple course\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\a15336e3207b40aa86ae93f15c2d3927.html" />
     <Content Include="Templates\Simple course\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\content.html" />
     <Content Include="Templates\Simple course\content\14529955b7c14ba5bcd30029295a1fa1\8555e814ebef4f6a9f82cabfe8502894\a542a9cad6b64881844eed6e65d37044.html" />
@@ -1992,16 +2084,46 @@
     <Content Include="Templates\Simple course\content\a3d951f91e8a4a61a55c173a27c904ca\77dcdee6255f44e588cdae7a0320ffa6\61cdd730fbe54fe9bf2a6ec95cb14535.html" />
     <Content Include="Templates\Simple course\content\content.html" />
     <Content Include="Templates\Simple course\content\data.js" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bold.eot" />
     <Content Include="Templates\Simple course\css\font\heuristica-bold.svg" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bold.ttf" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bold.woff" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.eot" />
     <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.svg" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.ttf" />
+    <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.woff" />
+    <Content Include="Templates\Simple course\css\font\heuristica-italic.eot" />
     <Content Include="Templates\Simple course\css\font\heuristica-italic.svg" />
+    <Content Include="Templates\Simple course\css\font\heuristica-italic.ttf" />
+    <Content Include="Templates\Simple course\css\font\heuristica-italic.woff" />
+    <Content Include="Templates\Simple course\css\font\heuristica-regular.eot" />
     <Content Include="Templates\Simple course\css\font\heuristica-regular.svg" />
+    <Content Include="Templates\Simple course\css\font\heuristica-regular.ttf" />
+    <Content Include="Templates\Simple course\css\font\heuristica-regular.woff" />
+    <Content Include="Templates\Simple course\css\font\intro.eot" />
     <Content Include="Templates\Simple course\css\font\intro.svg" />
+    <Content Include="Templates\Simple course\css\font\intro.ttf" />
+    <Content Include="Templates\Simple course\css\font\intro.woff" />
+    <Content Include="Templates\Simple course\css\font\opensans-regular.eot" />
     <Content Include="Templates\Simple course\css\font\opensans-regular.svg" />
+    <Content Include="Templates\Simple course\css\font\opensans-regular.ttf" />
+    <Content Include="Templates\Simple course\css\font\opensans-regular.woff" />
+    <Content Include="Templates\Simple course\css\font\opensans-semibold.eot" />
     <Content Include="Templates\Simple course\css\font\opensans-semibold.svg" />
+    <Content Include="Templates\Simple course\css\font\opensans-semibold.ttf" />
+    <Content Include="Templates\Simple course\css\font\opensans-semibold.woff" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-bold.eot" />
     <Content Include="Templates\Simple course\css\font\robotoslab-bold.svg" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-bold.ttf" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-bold.woff" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-regular.eot" />
     <Content Include="Templates\Simple course\css\font\robotoslab-regular.svg" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-regular.ttf" />
+    <Content Include="Templates\Simple course\css\font\robotoslab-regular.woff" />
+    <Content Include="Templates\Simple course\css\font\segoeui-semibold.eot" />
     <Content Include="Templates\Simple course\css\font\segoeui-semibold.svg" />
+    <Content Include="Templates\Simple course\css\font\segoeui-semibold.ttf" />
+    <Content Include="Templates\Simple course\css\font\segoeui-semibold.woff" />
     <Content Include="Templates\Simple course\css\general.css" />
     <Content Include="Templates\Simple course\css\themes\black.css" />
     <Content Include="Templates\Simple course\css\themes\cartoon.css" />
@@ -2020,24 +2142,36 @@
     <Content Include="Templates\Simple course\index.html" />
     <Content Include="Templates\Simple course\js\require.js" />
     <Content Include="Templates\Simple course\js\vendor.min.js" />
+    <Content Include="Templates\Simple course\lang\cn.json" />
+    <Content Include="Templates\Simple course\lang\de.json" />
+    <Content Include="Templates\Simple course\lang\en.json" />
+    <Content Include="Templates\Simple course\lang\fr.json" />
+    <Content Include="Templates\Simple course\lang\it.json" />
+    <Content Include="Templates\Simple course\lang\nl.json" />
+    <Content Include="Templates\Simple course\lang\pt-br.json" />
+    <Content Include="Templates\Simple course\lang\tr.json" />
+    <Content Include="Templates\Simple course\lang\ua.json" />
     <Content Include="Templates\Simple course\manifest.json" />
     <Content Include="Templates\Simple course\publishSettings.js" />
     <Content Include="Templates\Simple course\settings.js" />
+    <Content Include="Templates\Simple course\settings\api.js" />
+    <Content Include="Templates\Simple course\settings\configure\configure.html" />
+    <Content Include="Templates\Simple course\settings\configure\img\language.png" />
+    <Content Include="Templates\Simple course\settings\configure\img\mastery.png" />
+    <Content Include="Templates\Simple course\settings\configure\img\track.png" />
+    <Content Include="Templates\Simple course\settings\configure\js\configure.min.js" />
+    <Content Include="Templates\Simple course\settings\configure\js\vendor.min.js" />
     <Content Include="Templates\Simple course\settings\css\fonts\opensans-400.woff" />
     <Content Include="Templates\Simple course\settings\css\fonts\opensans-600.woff" />
     <Content Include="Templates\Simple course\settings\css\fonts\opensans-bold.woff" />
     <Content Include="Templates\Simple course\settings\css\fonts\opensans-italic-400.woff" />
+    <Content Include="Templates\Simple course\settings\css\img\preview-templates-sprite.png" />
+    <Content Include="Templates\Simple course\settings\css\img\sprites_16.png" />
     <Content Include="Templates\Simple course\settings\css\settings.css" />
-    <Content Include="Templates\Simple course\settings\img\graphical.png" />
-    <Content Include="Templates\Simple course\settings\img\language.png" />
-    <Content Include="Templates\Simple course\settings\img\mastery.png" />
-    <Content Include="Templates\Simple course\settings\img\preview-templates-sprite.png" />
-    <Content Include="Templates\Simple course\settings\img\sprites_16.png" />
-    <Content Include="Templates\Simple course\settings\img\track.png" />
-    <Content Include="Templates\Simple course\settings\js\api.js" />
-    <Content Include="Templates\Simple course\settings\js\settings.min.js" />
-    <Content Include="Templates\Simple course\settings\js\vendor.min.js" />
-    <Content Include="Templates\Simple course\settings\settings.html" />
+    <Content Include="Templates\Simple course\settings\design\design.html" />
+    <Content Include="Templates\Simple course\settings\design\img\graphical.png" />
+    <Content Include="Templates\Simple course\settings\design\js\design.min.js" />
+    <Content Include="Templates\Simple course\settings\design\js\vendor.min.js" />
     <Content Include="Views\Account\InvalidPasswordRecovery.cshtml" />
     <Content Include="Views\Account\PasswordRecovery.cshtml" />
     <Content Include="Views\Account\PrivacyPolicy.cshtml" />
@@ -2063,52 +2197,6 @@
     <Content Include="Views\DemoCourses\Index.cshtml" />
     <Content Include="Views\Shared\notSupportedPage.cshtml" />
     <Content Include="Views\Shared\notSupportedDevicePage.cshtml" />
-    <Content Include="Templates\Simple course\app\main.js.map" />
-    <Content Include="Templates\Simple course\css\font\heuristica-bold.eot" />
-    <Content Include="Templates\Simple course\css\font\heuristica-bold.ttf" />
-    <Content Include="Templates\Simple course\css\font\heuristica-bold.woff" />
-    <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.eot" />
-    <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.ttf" />
-    <Content Include="Templates\Simple course\css\font\heuristica-bolditalic.woff" />
-    <Content Include="Templates\Simple course\css\font\heuristica-italic.eot" />
-    <Content Include="Templates\Simple course\css\font\heuristica-italic.ttf" />
-    <Content Include="Templates\Simple course\css\font\heuristica-italic.woff" />
-    <Content Include="Templates\Simple course\css\font\heuristica-regular.eot" />
-    <Content Include="Templates\Simple course\css\font\heuristica-regular.ttf" />
-    <Content Include="Templates\Simple course\css\font\heuristica-regular.woff" />
-    <Content Include="Templates\Simple course\css\font\intro.eot" />
-    <Content Include="Templates\Simple course\css\font\intro.ttf" />
-    <Content Include="Templates\Simple course\css\font\intro.woff" />
-    <Content Include="Templates\Simple course\css\font\opensans-regular.eot" />
-    <Content Include="Templates\Simple course\css\font\opensans-regular.ttf" />
-    <Content Include="Templates\Simple course\css\font\opensans-regular.woff" />
-    <Content Include="Templates\Simple course\css\font\opensans-semibold.eot" />
-    <Content Include="Templates\Simple course\css\font\opensans-semibold.ttf" />
-    <Content Include="Templates\Simple course\css\font\opensans-semibold.woff" />
-    <Content Include="Templates\Simple course\css\font\robotoslab-bold.eot" />
-    <Content Include="Templates\Simple course\css\font\robotoslab-bold.ttf" />
-    <Content Include="Templates\Simple course\css\font\robotoslab-bold.woff" />
-    <Content Include="Templates\Simple course\css\font\robotoslab-regular.eot" />
-    <Content Include="Templates\Simple course\css\font\robotoslab-regular.ttf" />
-    <Content Include="Templates\Simple course\css\font\robotoslab-regular.woff" />
-    <Content Include="Templates\Simple course\css\font\segoeui-semibold.eot" />
-    <Content Include="Templates\Simple course\css\font\segoeui-semibold.ttf" />
-    <Content Include="Templates\Simple course\css\font\segoeui-semibold.woff" />
-    <Content Include="Templates\Simple course\lang\cn.json" />
-    <Content Include="Templates\Simple course\lang\de.json" />
-    <Content Include="Templates\Simple course\lang\en.json" />
-    <Content Include="Templates\Simple course\lang\fr.json" />
-    <Content Include="Templates\Simple course\lang\it.json" />
-    <Content Include="Templates\Simple course\lang\nl.json" />
-    <Content Include="Templates\Simple course\lang\pt-br.json" />
-    <Content Include="Templates\Simple course\lang\tr.json" />
-    <Content Include="Templates\Simple course\lang\ua.json" />
-    <Content Include="Templates\Quiz\lang\nl.json" />
-    <Content Include="Templates\Exam\lang\en.json" />
-    <Content Include="Templates\Exam\lang\ua.json" />
-    <Content Include="Templates\Personalized learning\lang\nl.json" />
-    <Content Include="Templates\Exam\lang\nl.json" />
-    <Content Include="Templates\Reader\lang\nl.json" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2237,15 +2325,7 @@
     </Content>
     <Content Include="App\notifications\notification.html" />
     <Content Include="App\notifications\notification.js" />
-    <Content Include="App\notifications\notification.spec.js">
-      <DependentUpon>notification.js</DependentUpon>
-    </Content>
-    <Content Include="App\notifications\subscriptionExpirationNotification.html" />
-    <Content Include="App\notifications\subscriptionExpirationNotification.js" />
-    <Content Include="App\notifications\subscriptionExpirationNotificationController.js" />
-    <Content Include="App\notifications\subscriptionExpirationNotificationController.spec.js">
-      <DependentUpon>subscriptionExpirationNotificationController.js</DependentUpon>
-    </Content>
+    <Content Include="App\notifications\subscriptionExpiration\notificationController.js" />
     <Content Include="App\notify.js" />
     <Content Include="App\notify.spec.js">
       <DependentUpon>notify.js</DependentUpon>
@@ -2603,7 +2683,6 @@
     <Content Include="Scripts\knockoutBindings\hoverBinding.js" />
     <Content Include="Scripts\knockoutBindings\keyPressBinding.js" />
     <Content Include="Scripts\knockoutBindings\layoutBinding.js" />
-    <Content Include="Scripts\knockoutBindings\notificationsBinding.js" />
     <Content Include="Scripts\knockoutBindings\outsideClickBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToElementBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToTopBinding.js" />
