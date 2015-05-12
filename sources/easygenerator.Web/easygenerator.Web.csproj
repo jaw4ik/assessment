@@ -242,6 +242,7 @@
     <Compile Include="Components\ManifestFileManager.cs" />
     <Compile Include="Components\Mappers\AnswerMapper.cs" />
     <Compile Include="Components\Mappers\BlankAnswerMapper.cs" />
+    <Compile Include="Components\Mappers\CollaborationInviteMapper.cs" />
     <Compile Include="Components\Mappers\DropspotMapper.cs" />
     <Compile Include="Components\Mappers\EntityMapper.cs" />
     <Compile Include="Components\Mappers\HotSpotPolygonMapper.cs" />
@@ -567,6 +568,38 @@
     <Content Include="App\reporting\xApiFilterCriteriaFactory.spec.js">
       <DependentUpon>xApiFilterCriteriaFactory.js</DependentUpon>
     </Content>
+    <Content Include="App\notifications\collaborationInvite\commands\acceptInvite.js" />
+    <Content Include="App\notifications\collaborationInvite\commands\acceptInvite.spec.js">
+      <DependentUpon>acceptInvite.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\collaborationInvite\commands\declineInvite.js" />
+    <Content Include="App\notifications\collaborationInvite\commands\declineInvite.spec.js">
+      <DependentUpon>declineInvite.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\collaborationInvite\notification.html" />
+    <Content Include="App\notifications\collaborationInvite\notification.js" />
+    <Content Include="App\notifications\collaborationInvite\notification.spec.js">
+      <DependentUpon>notification.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\collaborationInvite\notificationController.js" />
+    <Content Include="App\notifications\collaborationInvite\notificationController.spec.js">
+      <DependentUpon>notificationController.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\collaborationInvite\queries\getInvites.js" />
+    <Content Include="App\notifications\collaborationInvite\queries\getInvites.spec.js">
+      <DependentUpon>getInvites.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\notification.spec.js">
+      <DependentUpon>notification.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\subscriptionExpiration\notification.html" />
+    <Content Include="App\notifications\subscriptionExpiration\notification.js" />
+    <Content Include="App\notifications\subscriptionExpiration\notificationController.spec.js">
+      <DependentUpon>notificationController.js</DependentUpon>
+    </Content>
+    <Content Include="App\notifications\subscriptionExpiration\notification.spec.js">
+      <DependentUpon>notification.js</DependentUpon>
+    </Content>
     <Content Include="App\reporting\xApiProvider.js" />
     <Content Include="App\dialogs\publishCourse\publishCourse.html" />
     <Content Include="App\dialogs\publishCourse\publishCourse.js" />
@@ -586,6 +619,12 @@
     <Content Include="App\synchronization\handlers\answer\eventHandlers\answerCorrectnessUpdated.spec.js">
       <DependentUpon>answerCorrectnessUpdated.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteAccepted.js" />
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteAccepted.spec.js">
+      <DependentUpon>inviteAccepted.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteCreated.js" />
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteRemoved.js" />
     <Content Include="App\synchronization\handlers\course\eventHandlers\stateChanged.js" />
     <Content Include="App\synchronization\handlers\course\eventHandlers\stateChanged.spec.js">
       <DependentUpon>stateChanged.js</DependentUpon>
@@ -692,6 +731,9 @@
     <Content Include="Content\font\heuristica-italic.svg" />
     <Content Include="Content\font\heuristica-regular.svg" />
     <Content Include="Content\font\opensans-bold.svg" />
+    <Content Include="Content\helpers.css">
+      <DependentUpon>helpers.less</DependentUpon>
+    </Content>
     <Content Include="Content\hotSpot.css">
       <DependentUpon>hotSpot.less</DependentUpon>
     </Content>
@@ -717,6 +759,12 @@
     <Content Include="Content\images\upload-image.png" />
     <Content Include="Content\images\supported-browser-bg.png" />
     <Content Include="Content\images\tooth.png" />
+    <Content Include="Content\mixin.css">
+      <DependentUpon>mixin.less</DependentUpon>
+    </Content>
+    <Content Include="Content\notifications.css">
+      <DependentUpon>notifications.less</DependentUpon>
+    </Content>
     <Content Include="Content\notSupportedPage.css">
       <DependentUpon>notSupportedPage.less</DependentUpon>
     </Content>
@@ -1020,6 +1068,7 @@
     <Content Include="Scripts\ckeditor\skins\moono\images\refresh.png" />
     <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
     <Content Include="Scripts\ckeditor\styles.js" />
+    <Content Include="Scripts\durandal\transitions\notificationTransition.js" />
     <Content Include="Scripts\FileSaver.js" />
     <Content Include="Scripts\jquery.signalR-2.1.2.js" />
     <Content Include="Scripts\jquery.signalR-2.1.2.min.js" />
@@ -1029,6 +1078,7 @@
     <Content Include="App\onboarding\tasks.spec.js">
       <DependentUpon>tasks.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\knockoutBindings\limitedLengthTextBinding.js" />
     <Content Include="Scripts\knockoutBindings\autosizeBinding.js" />
     <Content Include="Scripts\knockoutBindings\backgroundImageBinding.js" />
     <Content Include="Scripts\knockoutBindings\contentEditableFixBinding.js" />
@@ -1041,9 +1091,6 @@
     <Content Include="App\navigationBar\navigationBar.js" />
     <Content Include="App\navigationBar\navigationBar.spec.js">
       <DependentUpon>navigationBar.js</DependentUpon>
-    </Content>
-    <Content Include="App\notifications\subscriptionExpirationNotification.spec.js">
-      <DependentUpon>subscriptionExpirationNotification.js</DependentUpon>
     </Content>
     <Content Include="App\onboarding\onboarding.spec.js">
       <DependentUpon>onboarding.js</DependentUpon>
@@ -1588,6 +1635,14 @@
     <Content Include="App\reporting\viewmodels\objectiveStatement.spec.js">
       <DependentUpon>objectiveStatement.js</DependentUpon>
     </Content>
+    <Content Include="Content\notifications.less" />
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteCreated.spec.js">
+      <DependentUpon>inviteCreated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteRemoved.spec.js">
+      <DependentUpon>inviteRemoved.js</DependentUpon>
+    </Content>
+    <Content Include="Content\mixin.less" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />
@@ -2207,15 +2262,7 @@
     </Content>
     <Content Include="App\notifications\notification.html" />
     <Content Include="App\notifications\notification.js" />
-    <Content Include="App\notifications\notification.spec.js">
-      <DependentUpon>notification.js</DependentUpon>
-    </Content>
-    <Content Include="App\notifications\subscriptionExpirationNotification.html" />
-    <Content Include="App\notifications\subscriptionExpirationNotification.js" />
-    <Content Include="App\notifications\subscriptionExpirationNotificationController.js" />
-    <Content Include="App\notifications\subscriptionExpirationNotificationController.spec.js">
-      <DependentUpon>subscriptionExpirationNotificationController.js</DependentUpon>
-    </Content>
+    <Content Include="App\notifications\subscriptionExpiration\notificationController.js" />
     <Content Include="App\notify.js" />
     <Content Include="App\notify.spec.js">
       <DependentUpon>notify.js</DependentUpon>
@@ -2573,7 +2620,6 @@
     <Content Include="Scripts\knockoutBindings\hoverBinding.js" />
     <Content Include="Scripts\knockoutBindings\keyPressBinding.js" />
     <Content Include="Scripts\knockoutBindings\layoutBinding.js" />
-    <Content Include="Scripts\knockoutBindings\notificationsBinding.js" />
     <Content Include="Scripts\knockoutBindings\outsideClickBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToElementBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToTopBinding.js" />

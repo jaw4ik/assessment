@@ -2,11 +2,11 @@
 
     "use strict";
 
-    return function (name, firstname, amountOfDays, accessType, expirationDate) {
-        this.name = name;
+    return function (key, firstname, amountOfDays, accessType, expirationDate) {
+        this.key = key;
         this.firstname = firstname;
         this.amountOfDays = amountOfDays;
-        
+
         this.openUpgradePlanUrl = openUpgradePlanUrl;
         this.expirationMessage = getExpirationMessage(accessType, expirationDate, amountOfDays);
     };
@@ -14,7 +14,7 @@
     function getExpirationMessage(accessType, expirationDate, amountOfDays) {
         var planName = getPlanName(accessType);
         var remainingTime = getRemainingTime(expirationDate, amountOfDays);
-        
+
         return localizationManager.localize("upgradeNotificationContent").replace("{0}", planName)
             .replace("{1}", remainingTime);
     }

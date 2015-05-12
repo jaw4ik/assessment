@@ -3,6 +3,7 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Clonning;
+using easygenerator.Infrastructure.DomainModel.Mappings;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Mail;
@@ -11,6 +12,7 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
+using System.Collections.Generic;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
@@ -27,7 +29,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         private CollaborationController _controller;
         private IUserRepository _userRepository;
+        private ICourseCollaboratorRepository _collaborationRepository;
         private IEntityModelMapper<CourseCollaborator> _collaboratorEntityModelMapper;
+        private ICollaborationInviteMapper _inviteMapper;
         private IMailSenderWrapper _mailSenderWrapper;
         private ICloner _cloner;
 
@@ -40,16 +44,18 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void InitializeContext()
         {
             _userRepository = Substitute.For<IUserRepository>();
+            _collaborationRepository = Substitute.For<ICourseCollaboratorRepository>();
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
             _context.User.Returns(_user);
             _collaboratorEntityModelMapper = Substitute.For<IEntityModelMapper<CourseCollaborator>>();
+            _inviteMapper = Substitute.For<ICollaborationInviteMapper>();
 
             _mailSenderWrapper = Substitute.For<IMailSenderWrapper>();
             _cloner = Substitute.For<ICloner>();
 
-            _controller = new CollaborationController(_userRepository, _collaboratorEntityModelMapper, _mailSenderWrapper, _cloner);
+            _controller = new CollaborationController(_userRepository, _collaborationRepository, _collaboratorEntityModelMapper, _mailSenderWrapper, _cloner, _inviteMapper);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
             DateTimeWrapper.Now = () => CurrentDate;
         }
@@ -226,6 +232,133 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.RemoveCollaborator(course, CourseCollaboratorObjectMother.Create(course, "aa@aa.aa"));
             result.Should().BeJsonSuccessResult();
         }
+        #endregion
+
+        #region DeclineCollaborationInvite
+
+        [TestMethod]
+        public void DeclineCollaborationInvite_ShouldReturnJsonErrorResult_WnenCourseIsNull()
+        {
+            //Act
+            var result = _controller.DeclineCollaborationInvite(null, null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.CourseNotFoundError);
+        }
+
+        [TestMethod]
+        public void DeclineCollaborationInvite_ShouldReturnJsonErrorResult_WnenCollaboratorIsNull()
+        {
+            //Act
+            var result = _controller.DeclineCollaborationInvite(CourseObjectMother.Create(), null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.CollaboratorNotFoundError);
+        }
+
+        [TestMethod]
+        public void DeclineCollaborationInvite_ShouldCallCourseRemoveCollaboratorMethod()
+        {
+            //Arrange
+            var course = Substitute.For<Course>();
+            var collaborator = CourseCollaboratorObjectMother.Create(course, "aa@aa.aa");
+
+            //Act
+            _controller.DeclineCollaborationInvite(course, collaborator);
+
+            //Assert
+            course.Received().DeclineCollaboration(collaborator);
+        }
+
+        [TestMethod]
+        public void DeclineCollaborationInvite_ShouldReturnJsonSuccess_WhenCollaboratorRemoved()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            var result = _controller.DeclineCollaborationInvite(course, CourseCollaboratorObjectMother.Create(course, "aa@aa.aa"));
+
+            //Assert
+            result.Should().BeJsonSuccessResult();
+        }
+        #endregion
+
+        #region AcceptCollaborationInvite
+
+        [TestMethod]
+        public void AcceptCollaborationInvite_ShouldReturnJsonErrorResult_WnenCourseIsNull()
+        {
+            //Arrange
+            var collaborator = CourseCollaboratorObjectMother.Create();
+
+            //Act
+            var result = _controller.AcceptCollaborationInvite(null, collaborator);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.CourseNotFoundError);
+        }
+
+        [TestMethod]
+        public void AcceptCollaborationInvite_ShouldReturnJsonErrorResult_WnenCollaboratorIsNull()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            var result = _controller.AcceptCollaborationInvite(course, null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.CollaboratorNotFoundError);
+        }
+
+        [TestMethod]
+        public void AcceptCollaborationInvite_ShouldAcceptCollaborationInvite()
+        {
+            //Arrange
+            var collaborator = CourseCollaboratorObjectMother.Create();
+            var course = Substitute.For<Course>();
+
+            //Act
+            _controller.AcceptCollaborationInvite(course, collaborator);
+
+            //Assert
+            course.Received().AcceptCollaboration(collaborator);
+        }
+
+        [TestMethod]
+        public void AcceptCollaborationInvite_ShouldReturnJsonSuccess()
+        {
+            //Arrange
+            var collaborator = CourseCollaboratorObjectMother.Create();
+            var course = Substitute.For<Course>();
+
+            //Act
+            var result = _controller.AcceptCollaborationInvite(course, collaborator);
+
+            //Assert
+            result.Should().BeJsonSuccessResult();
+        }
+
+        #endregion
+
+        #region GetCollaborationInvites
+
+        [TestMethod]
+        public void GetCollaborationInvites_ShouldReturnInvites()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(CreatedBy);
+            var invites = new List<CollaborationInvite>() { new CollaborationInvite() };
+            _collaborationRepository.GetCollaborationInvites(CreatedBy).Returns(invites);
+
+            //Act
+            var result = _controller.GetCollaborationInvites();
+
+            //Assert
+            result.Should().BeJsonSuccessResult();
+        }
+
         #endregion
     }
 }
