@@ -9,7 +9,7 @@
             obj.thumbnail = spec.thumbnail;
             obj.previewImages = spec.previewImages;
             obj.shortDescription = spec.shortDescription;
-            obj.settingsUrl = spec.settingsUrl;
+            obj.settingsUrls = spec.settingsUrls;
             obj.previewDemoUrl = spec.previewDemoUrl;
             obj.order = spec.order;
             obj.isCustom = spec.isCustom;

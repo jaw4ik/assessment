@@ -690,10 +690,10 @@
         'zh-cn': '确保此课程启用了“结果跟踪”',
         'uk': 'Переконайтеся, що \"звітування про результати\" дозволене для даного курсу:'
     },
-    goToDesignStep: {
-        'en': '1. Go to the \"Design\" step',
-        'zh-cn': '去到“设计”环节',
-        'uk': '1. Перейти до \"Дизайну\"'
+    goToConfigureStep: {
+        'en': '1. Go to the \"Configure\" step',
+        'zh-cn': '1. Go to the \"Configure\" step[zh-cn]',
+        'uk': '1. Перейти до \"Конфігурації\"'
     },
     resultTrackingShouldBeEnabled: {
         'en': '2. Enable results tracking',
