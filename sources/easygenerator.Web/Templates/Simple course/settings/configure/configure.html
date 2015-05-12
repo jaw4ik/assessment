@@ -1,88 +1,31 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Template settings</title>
+    <title>Template configure settings</title>
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/settings.css?v=1431087397661" rel="stylesheet" />
-    <script src="js/vendor.min.js?v=1431087397661"></script>
-    <script src="js/api.js?v=1431087397661"></script>
-    <script src="js/settings.min.js?v=1431087397661"></script>
+
+    <link href="../css/settings.css?v=1431410385638" rel="stylesheet" />
+    <script src="../api.js?v=1431410385638"></script>
+
+    <script src="js/vendor.min.js?v=1431410385638"></script>
+    <script src="js/configure.min.js?v=1431410385638"></script>
 </head>
+
 <body>
     <div class="settings-container">
+        <!-- ko ifnot: isError -->
         <div class="settings-tabs-container" data-bind="tabs: {}">
             <ul class="settings-tabs-wrapper unstyled">
-                <li class="settings-tabs-item customization active" data-tab-link="customization" data-bind="localize: 'graphical customization'"></li>
                 <li class="settings-tabs-item track-and-trace" data-tab-link="track-and-trace" data-bind="localize: 'results tracking'"></li>
                 <li class="settings-tabs-item languages" data-tab-link="languages" data-bind="localize: 'template language'"></li>
             </ul>
-            <div class="settings-tab-container customization" data-tab="customization">
-                <div class="settings-tab-wrapper">
-                    <div class="tab-header-container">
-                        <img src="img/graphical.png?v=1431087397661" />
-                        <div class="tab-header-wrapper">
-                            <h1 class="tab-header-title" data-bind="localize: 'customize your course'"></h1>
-                            <div class="tab-header-content">
-                                <span class="tab-header-content-text" data-bind="localize: 'look and feel of the course'"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-content-container">
-                        <div class="tab-content-row">
-                            <h1 class="template-logo-title" data-bind="localize: 'custom course logo'"></h1>
-                            <div class="tab-content-wrapper">
-                                <div class="has-access">
-                                    <div class="template-logo-url-container">
-                                        <input class="template-logo-url" type="text" placeholder="Paste image URL here..." id="imgUrl" data-bind="value: logo.url, valueUpdate: ['afterkeydown', 'afterpaste'], enable: userHasStarterPlan" />
-                                        <span class="template-logo-or" data-bind="localize: 'or'"></span>
-                                        <form id="logoForm" method="post" enctype="multipart/form-data" encoding="multipart/form-data" target="logoFrame">
-                                            <a class="btn grey template-logo">
-                                                <span data-bind="localize: 'upload logo image'"></span>
-                                                <input type="file" id="logoInput" name="file" disabled="disabled">
-                                            </a>
-                                        </form>
-                                    </div>
-                                    <div class="template-logo-container">
-                                        <div class="template-logo-wrapper" data-bind="style: { display: logo.hasLogo() || logo.isError() ? 'none' : 'inline-block' }">
-                                            <div class="template-logo-emty-img"></div>
-                                            <div class="template-logo-empty-text" data-bind="localize: 'logo hint'"></div>
-                                        </div>
-                                        <div class="template-logo-wrapper error" data-bind="style: { display: logo.isError() && logo.url() == '' ? 'inline-block' : 'none' }">
-                                            <div class="template-logo-emty-img"></div>
-                                            <div class="template-logo-empty-text">
-                                                <span data-bind="text: logo.errorText">Unsupported image format</span>
-                                                <p data-bind="text: logo.errorDescription">(Supported formats: jpg, png, bmp)</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="template-logo-wrapper not-empty" data-bind="style: { display: logo.hasLogo() ? 'inline-block' : 'none' }">
-                                            <img class="template-logo" src="" alt="" data-bind="attr: { src: logo.url }" />
-                                        </div>
-                                        <div class="template-logo-clear-wrapper" data-bind="style: { display: logo.hasLogo() ? 'inline-block' : 'none' }">
-                                            <div class="template-logo-clear-btn" data-bind="click: logo.clear">
-                                                <div class="tooltip">
-                                                    <span class="tooltip-text" data-bind="localize: 'clear logo'"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="no-access" data-bind="fadeVisible: !userHasStarterPlan()">
-                                    <div class="no-access-img"></div>
-                                    <div class="no-access-text" data-bind="localize: 'upgrade account hint'">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="settings-tab-container track-and-trace" data-tab="track-and-trace">
                 <div class="settings-tab-wrapper track-and-trace-settings" data-bind="with: trackingData">
                     <div class=" tab-header-container">
-                        <img src="img/track.png?v=1431087397661" />
+                        <img src="img/track.png?v=1431410385638" />
                         <div class="tab-header-wrapper">
                             <h1 class="tab-header-title" data-bind="localize: 'track and trace settings'"></h1>
                             <div class="tab-header-content">
@@ -202,6 +145,18 @@
                                             </div>
                                             <div class="switcher-text" data-bind="localize: 'mastered'"></div>
                                         </div>
+                                    </div>
+                                    <div class="statements-container">
+                                        <div class="switcher statement">
+                                            <div class="switch-toggle-slider" data-bind="switchToggle: { value: statements.experienced }">
+                                                <div class="switch-toggle-wrapper">
+                                                    <div class="switch-toggle-on"></div>
+                                                    <div class="switch-toogle-blob"></div>
+                                                    <div class="switch-toggle-off"></div>
+                                                </div>
+                                            </div>
+                                            <div class="switcher-text" data-bind="localize: 'expirenced'"></div>
+                                        </div>
                                         <div class="switcher statement">
                                             <div class="switch-toggle-slider" data-bind="switchToggle: { value: statements.failed }">
                                                 <div class="switch-toggle-wrapper">
@@ -222,15 +177,15 @@
                 <div class="tab-seperator"></div>
                 <div class="settings-tab-wrapper">
                     <div class="tab-header-container">
-                        <img src="img/mastery.png?v=1431087397661" />
+                        <img src="img/mastery.png?v=1431410385638" />
                         <div class="tab-header-wrapper">
                             <h1 class="tab-header-title" data-bind="localize: 'mastery score settings'"></h1>
                             <div class="tab-content-container">
                                 <div class="mastery-score-container">
                                     <div class="mastery-score-title" data-bind="localize: 'mastery score hint'"></div>
-                                    <div data-trigger="spinner" class="spinner" data-bind="spinner: masteryScore">
+                                    <div data-trigger="spinner" class="spinner" data-bind="spinner: masteryScore.score">
                                         <a class="spinner-button spinner-down" data-spin="down" data-bind="disableDragNDrop: {}"></a>
-                                        <input type="text" maxlength="3" id="masteryScore" class="content-text-input" data-rule="quantity" data-max="100" data-min="0" data-bind="value: masteryScore, valueUpdate: ['afterkeydown', 'afterpaste'], number: {}">
+                                        <input type="text" maxlength="3" id="masteryScore" class="content-text-input" data-rule="quantity" data-max="100" data-min="0" data-bind="value: masteryScore.score, valueUpdate: ['afterkeydown', 'afterpaste'], number: {}">
                                         <a class="spinner-button spinner-up" data-spin="up" data-bind="disableDragNDrop: {}"></a>
                                         <div class="spiner-seperator"></div>
                                     </div>
@@ -244,7 +199,7 @@
             <div class="settings-tab-container languages" data-tab="languages" data-bind="with: languages">
                 <div class="settings-tab-wrapper">
                     <div class="tab-header-container">
-                        <img src="img/language.png?v=1431087397661">
+                        <img src="img/language.png?v=1431410385638">
                         <div class="tab-header-wrapper">
                             <h1 class="tab-header-title" data-bind="localize: 'choose language for your course'"></h1>
                             <div class="tab-header-content">
@@ -287,6 +242,11 @@
                 </div>
             </div>
         </div>
+        <!-- /ko -->
+        <!-- ko if: isError -->
+        <div class="settings-tab-wrapper" data-bind="localize: 'settings are not initialize'"></div>
+        <!-- /ko -->
     </div>
 </body>
+
 </html>
