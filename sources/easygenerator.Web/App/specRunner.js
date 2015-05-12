@@ -40,7 +40,7 @@
             'dialogs/createCourse.spec',
             'dialogs/collaboration/addCollaborator.spec',
             'dialogs/collaboration/collaboration.spec',
-            'dialogs/collaboration/collaborator.spec',            
+            'dialogs/collaboration/collaborator.spec',
             'dialogs/publishCourse/publishCourse.spec',
             'dialogs/moveCopyQuestion/moveCopyQuestion.spec',
 
@@ -52,12 +52,10 @@
             'errorHandling/httpErrorHandlers/unauthorizedHttpErrorHandler.spec',
             'errorHandling/errorHandlingConfiguration.spec',
             'errorHandling/globalErrorHandler.spec',
-            'errorHandling/httpErrorHandlerRegistrator.spec',            
+            'errorHandling/httpErrorHandlerRegistrator.spec',
             'localization/localizationManager.spec',
             'models/course.spec',
             'models/user.spec',
-            //'models/reporting/statement.spec',
-            'models/reporting/actor.spec',
             'notifications/notification.spec',
             'notifications/subscriptionExpirationNotificationController.spec',
             'notifications/subscriptionExpirationNotification.spec',
@@ -80,8 +78,20 @@
 
             //#endregion
 
-            //'reporting/xApiFilterCriteriaFactory.spec',
-            //'reporting/xApiProvider.spec',
+            //#region reporting
+
+            'models/reporting/statement.spec',
+            'models/reporting/actor.spec',
+
+            'reporting/xApiFilterCriteriaFactory.spec',
+            'reporting/xApiProvider.spec',
+            'reporting/viewmodels/expandableStatement.spec',
+            'reporting/viewmodels/questionStatement.spec',
+            'reporting/viewmodels/objectiveStatement.spec',
+            'reporting/viewmodels/courseStatement.spec',
+            //'reporting/viewmodels/results.spec',
+
+            //#endregion
 
             //#region synchronization
 
@@ -187,13 +197,12 @@
             'viewmodels/courses/course/design.spec',
             'viewmodels/courses/course/configure.spec',
             'viewmodels/courses/course/publish.spec',
-            //'reporting/viewmodels/results.spec',
             'viewmodels/courses/publishingActions/publishingAction.spec',
             'viewmodels/courses/publishingActions/build.spec',
             'viewmodels/courses/publishingActions/publish.spec',
             'viewmodels/courses/publishingActions/scormBuild.spec',
             'viewmodels/courses/publishingActions/publishToAim4You.spec',
-            'viewmodels/courses/courseComments.spec',            
+            'viewmodels/courses/courseComments.spec',
             'viewmodels/objectives/objectives.spec',
             'viewmodels/objectives/objective.spec',
             'viewmodels/objectives/objectiveBrief.spec',
@@ -261,7 +270,7 @@
             //#endregion
 
             'viewmodels/user/userMenu.spec',
-            'viewmodels/shell.spec',            
+            'viewmodels/shell.spec',
             'widgets/notifyViewer/viewmodel.spec',
             'widgets/uiLockViewer/viewmodel.spec',
             'widgets/createQuestion/viewmodel.spec',

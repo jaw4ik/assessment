@@ -249,6 +249,7 @@
     <Compile Include="Components\Mappers\SingleSelectImageAnswerMapper.cs" />
     <Compile Include="Components\Mappers\TemplateMapper.cs" />
     <Compile Include="Components\Mappers\TextMatchingAnswerMapper.cs" />
+    <Compile Include="Components\TypeMethodInvoker.cs" />
     <Compile Include="Controllers\Api\CourseImportController.cs" />
     <Compile Include="Controllers\Api\HotSpotQuestionController.cs" />
     <Compile Include="Controllers\Api\DragAndDropTextQuestionController.cs" />
@@ -554,6 +555,15 @@
     <Content Include="App\models\reporting\statement.spec.js">
       <DependentUpon>statement.js</DependentUpon>
     </Content>
+    <Content Include="App\reporting\viewmodels\courseStatement.spec.js">
+      <DependentUpon>courseStatement.js</DependentUpon>
+    </Content>
+    <Content Include="App\reporting\viewmodels\expandableStatement.spec.js">
+      <DependentUpon>expandableStatement.js</DependentUpon>
+    </Content>
+    <Content Include="App\reporting\viewmodels\questionStatement.spec.js">
+      <DependentUpon>questionStatement.js</DependentUpon>
+    </Content>
     <Content Include="App\reporting\xApiFilterCriteriaFactory.spec.js">
       <DependentUpon>xApiFilterCriteriaFactory.js</DependentUpon>
     </Content>
@@ -605,6 +615,7 @@
       <DependentUpon>learningContentsReordered.js</DependentUpon>
     </Content>
     <Content Include="App\utils\base64.js" />
+    <Content Include="App\utils\fileSaverWrapper.js" />
     <Content Include="App\utils\waiter.js" />
     <Content Include="App\utils\waiter.spec.js">
       <DependentUpon>waiter.js</DependentUpon>
@@ -1579,6 +1590,9 @@
     <Content Include="Content\collaboration.less" />
     <Content Include="Content\shell.less" />
     <Content Include="Content\editField.less" />
+    <Content Include="App\reporting\viewmodels\objectiveStatement.spec.js">
+      <DependentUpon>objectiveStatement.js</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />
