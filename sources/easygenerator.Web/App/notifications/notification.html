@@ -1,12 +1,32 @@
 ﻿<section>
-    <div class="header-menu-list-item user-notification" data-bind="notifications: { isExpanded: isVisible }, visible: isVisible">
-        <div class="user-notification-image"></div>
-        <div class="user-notification-viewer">
-            <div class="user-notification-close-btn"></div>
-            <ul class="user-notification-list" data-bind="foreach: collection">
-                <!-- ko compose: $data -->
-                <!-- /ko -->
-            </ul>
+    <!-- ko if: isVisible -->
+    <div class="header-menu-list-item user-notification" data-bind="css:{ expanded: isExpanded}">
+        <div class="user-notification-icon-wrapper" data-bind="click: toggleIsExpanded">
+            <div class="user-notification-icon">
+                <span class="user-notification-count" data-bind="text: collection().length"></span>
+            </div>
+        </div>
+        <div class="user-notification-viewer-wrapper" data-bind="css:{ shown: isExpanded }">
+            <div class="user-notification-viewer">
+                <div class="user-notification-navigation">
+                    <!-- ko if: canMovePrev -->
+                    <button class="user-notification-navigation-btn prev" data-bind="click: prev"></button>
+                    <!-- /ko -->
+                </div>
+                <div class="user-notification-block">
+                    <button class="user-notification-close-btn" data-bind="click: collapse"></button>
+                    <div class="user-notification-container">
+                        <!-- ko compose: { model: activeNotification, transition: 'notificationTransition' } -->
+                        <!-- /ko -->
+                    </div>
+                </div>
+                <div class="user-notification-navigation">
+                    <!-- ko if: canMoveNext -->
+                    <button class="user-notification-navigation-btn next" data-bind="click: next"></button>
+                    <!-- /ko -->
+                </div>
+            </div>
         </div>
     </div>
+    <!-- /ko -->
 </section>

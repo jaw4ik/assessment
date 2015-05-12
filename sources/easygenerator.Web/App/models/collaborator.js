@@ -8,6 +8,7 @@
             this.registered = spec.registered;
             this.fullName = spec.fullName;
             this.state = '';
+            this.isAccepted = spec.isAccepted;
         };
 
         return Collaborator;

@@ -9,6 +9,7 @@
                     email: item.Email,
                     registered: item.Registered,
                     fullName: item.FullName,
+                    isAccepted: item.IsAccepted,
                     createdOn: new Date(item.CreatedOn)
                 });
             };
