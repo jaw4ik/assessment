@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="../css/settings.css?v=1431084710758" rel="stylesheet" />
-    <script src="../api.js?v=1431084710758"></script>
+    <link href="../css/settings.css?v=1431423876170" rel="stylesheet" />
+    <script src="../api.js?v=1431423876170"></script>
 
-    <script src="js/vendor.min.js?v=1431084710758"></script>
-    <script src="js/configure.min.js?v=1431084710758"></script>
+    <script src="js/vendor.min.js?v=1431423876170"></script>
+    <script src="js/configure.min.js?v=1431423876170"></script>
 </head>
 
 <body>
@@ -25,7 +25,7 @@
             <div class="settings-tab-container track-and-trace" data-tab="track-and-trace">
                 <div class="settings-tab-wrapper track-and-trace-settings" data-bind="with: trackingData">
                     <div class=" tab-header-container">
-                        <img src="img/track.png?v=1431084710758" />
+                        <img src="img/track.png?v=1431423876170" />
                         <div class="tab-header-wrapper">
                             <h1 class="tab-header-title" data-bind="localize: 'track and trace settings'"></h1>
                             <div class="tab-header-content">
@@ -126,6 +126,16 @@
                                     </div>
                                     <div class="statements-container">
                                         <div class="switcher statement">
+                                            <div class="switch-toggle-slider" data-bind="switchToggle: { value: statements.answered }">
+                                                <div class="switch-toggle-wrapper">
+                                                    <div class="switch-toggle-on"></div>
+                                                    <div class="switch-toogle-blob"></div>
+                                                    <div class="switch-toggle-off"></div>
+                                                </div>
+                                            </div>
+                                            <div class="switcher-text" data-bind="localize: 'answered'"></div>
+                                        </div>
+                                        <div class="switcher statement">
                                             <div class="switch-toggle-slider" data-bind="switchToggle: { value: statements.mastered }">
                                                 <div class="switch-toggle-wrapper">
                                                     <div class="switch-toggle-on"></div>
@@ -156,7 +166,7 @@
             <div class="settings-tab-container languages" data-tab="languages" data-bind="with: languages">
                 <div class="settings-tab-wrapper">
                     <div class="tab-header-container">
-                        <img src="img/language.png?v=1431084710758">
+                        <img src="img/language.png?v=1431423876170">
                         <div class="tab-header-wrapper">
                             <h1 class="tab-header-title" data-bind="localize: 'choose language for your course'"></h1>
                             <div class="tab-header-content">

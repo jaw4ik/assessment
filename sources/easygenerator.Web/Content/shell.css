@@ -1,4 +1,6 @@
-﻿.application {
+﻿/*#region User avatar */
+/*#endregion */
+.application {
   height: 100%;
   width: 100%;
 }
@@ -54,6 +56,7 @@
   vertical-align: middle;
 }
 .shell > header .header-upgrade-link {
+  padding: 0px 10px;
   color: #559f64;
   font-family: 'OpenSans-Semibold', sans-serif;
 }
@@ -98,23 +101,15 @@
   cursor: pointer;
 }
 .shell > header .header-menu-list-item.user-notification {
-  width: 60px;
   position: relative;
-  padding: 19px 24px;
-}
-.shell > header .header-menu-list-item.user-notification:before {
-  content: '';
-  display: block;
-  height: 18px;
-  width: 26px;
-  margin-left: -6px;
-  background: url(../Content/images/sprites_32.png) -188px -7px no-repeat;
+  z-index: 201;
+  cursor: pointer;
 }
 .shell > header .header-menu-list-item.user-notification:hover,
-.shell > header .header-menu-list-item.user-notification.active {
+.shell > header .header-menu-list-item.user-notification.expanded {
   background-color: #252525;
 }
-.shell > header .header-menu-list-item.user-notification.active:after {
+.shell > header .header-menu-list-item.user-notification.expanded:after {
   content: '';
   position: absolute;
   width: 7px;
@@ -129,6 +124,25 @@
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   z-index: 200;
+}
+.shell > header .header-menu-list-item.user-notification .user-notification-icon-wrapper {
+  width: 60px;
+  padding: 19px 24px;
+}
+.shell > header .header-menu-list-item.user-notification .user-notification-icon {
+  position: relative;
+  width: 14px;
+  height: 18px;
+  background: url(../Content/images/sprites_24.png) -64px -90px no-repeat;
+}
+.shell > header .header-menu-list-item.user-notification .user-notification-icon .user-notification-count {
+  margin-left: 10px;
+  padding: 0 4px;
+  color: #fff;
+  background-color: #f27b25;
+  border-radius: 5px;
+  font: 10px 'OpenSans';
+  line-height: 11px;
 }
 .shell > header .header-submenu-holder,
 .shell > header .header-username {

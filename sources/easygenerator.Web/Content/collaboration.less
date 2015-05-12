@@ -1,4 +1,6 @@
-﻿@header-font-family: 'OpenSans-Semibold';
+﻿@import "helpers.less";
+
+@header-font-family: 'OpenSans-Semibold';
 @regular-text-font-family: 'OpenSans';
 
 .collaboration-upgrade-btn() {
@@ -410,11 +412,7 @@
 }
 
 .collaborator-avatar-wrapper {
-    position: relative;
-    border: 1px solid #EFEFEF;
-    border-radius: 3px;
-    display: inline-block;
-    box-shadow: 1px 1px 2px 0px rgba(219, 219, 219, 1);
+    .user-avatar-wrapper();
 }
 
 .collaborator.course-owner .collaborator-avatar-wrapper:after {
@@ -430,23 +428,10 @@
 }
 
 .collaborator-avatar {
-    background: linear-gradient(145deg, #73cece 0%,#65caca 0%,#73cece 40%,#4dc1c1 41%,#4dc1c1 100%);
-    border: 2px solid @color-white;
-    border-radius: 3px;
-    box-sizing: content-box;
-    color: #fff;
-    font-family: 'OpenSans-Semibold';
-    font-size: 22px;
-    height: 36px;
-    line-height: 35px;
-    -moz-border-radius: 3px;
-    text-align: center;
-    vertical-align: top;
-    -webkit-border-radius: 3px;
-    width: 36px;
+    .user-avatar();
 }
 
-.collaborator.not-registered,
+.collaborator.inactive,
 .collaborator.locked {
     .collaborator-avatar {
         background: linear-gradient(145deg, #a2b0bd 0%,#aebac5 0%,#b8c2cc 40%,#a2b0bd 41%,#a2b0bd 100%);
@@ -488,7 +473,7 @@
 .collaborator-info {
     .collaborator-name,
     .collaborator-email,
-    .collaborator-not-registered-message {
+    .collaborator-info-message {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -503,7 +488,7 @@
         font-size: 12px;
     }
 
-    .collaborator-not-registered-message {
+    .collaborator-info-message {
         font-family: 'OpenSansItalic';
         font-size: 12px;
     }
