@@ -27,7 +27,8 @@ namespace easygenerator.Auth.Attributes.Mvc
             if (base.AuthorizeCore(httpContext))
             {
                 var scopeClaimType = AuthorizationConfigurationProvider.ScopeClaimType;
-                var grantedScopes = ClaimsPrincipal.Current.FindAll(scopeClaimType).Select(c => c.Value).ToList();
+                var grantedScopes = ClaimsPrincipal.Current.FindAll(scopeClaimType).SelectMany(c => c.Value.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)).ToList();
+
                 return _scopes.All(grantedScopes.Contains);
             }
             return false;

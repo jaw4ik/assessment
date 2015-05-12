@@ -25,8 +25,8 @@ namespace easygenerator.Auth.Attributes.SignalR
         {
             if (base.UserAuthorized(user))
             {
-                var _scopeClaimType = AuthorizationConfigurationProvider.ScopeClaimType;
-                var grantedScopes = ClaimsPrincipal.Current.FindAll(_scopeClaimType).Select(c => c.Value).ToList();
+                var scopeClaimType = AuthorizationConfigurationProvider.ScopeClaimType;
+                var grantedScopes = ClaimsPrincipal.Current.FindAll(scopeClaimType).SelectMany(c => c.Value.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)).ToList();
 
                 return _scopes.All(grantedScopes.Contains);
             }
