@@ -1,13 +1,12 @@
 ﻿(function () {
     "use strict";
 
-    angular.module('settings')
+    angular.module('configure')
         .directive('tabs', tabs)
         .directive('switchToggle', switchToggle)
         .directive('disableDragAndDrop', disableDragAndDrop)
         .directive('spinner', spinner)
         .directive('number', number)
-        .directive('fadeVisible', fadeVisible)
         .directive('dropdown', dropdown)
         .filter('keys', keys);
 
@@ -37,80 +36,6 @@
                         $tabs.hide();
                         currentContentTab.show();
                     });
-                });
-            }
-        };
-    }
-
-    function disableDragAndDrop() {
-        return {
-            restrict: 'A',
-            link: function (scope, element) {
-                $(element).on('dragstart', function (event) {
-                    event.preventDefault();
-                });
-            }
-        };
-    }
-
-    function spinner() {
-        return {
-            restrict: 'A',
-            scope: {
-                spinnerValue: '='
-            },
-            link: function (scope, element) {
-                $(element)
-                    .spinner('changed', function (e, newValue) {
-                        scope.spinnerValue = newValue;
-                        scope.$apply();
-                    });
-            }
-        };
-    }
-
-    function number() {
-        return {
-            restrict: 'A',
-            scope: {
-                numberValue: '='
-            },
-            link: function (scope, element) {
-                var $element = $(element),
-                    maxValue = 100;
-
-                $element.on('keydown', function (e) {
-                    var key = e.charCode || e.keyCode || 0;
-                    return (key === 8 || key === 9 || key === 46 || (key >= 37 && key <= 40) ||
-                        (key >= 48 && key <= 57) || (key >= 96 && key <= 105));
-                });
-                $element.on('keyup', function () {
-                    if (scope.numberValue > maxValue) {
-                        scope.numberValue = maxValue;
-                        scope.$apply();
-                    }
-                });
-            }
-        };
-    }
-
-    function fadeVisible() {
-        return {
-            restrict: 'A',
-            scope: {
-                fadeVisibleValue: '='
-            },
-            link: function (scope, element) {
-                var $element = $(element);
-
-                $element.toggle(scope.fadeVisibleValue);
-
-                scope.$watch('fadeVisibleValue', function (value) {
-                    if (value) {
-                        $element.fadeIn();
-                    } else {
-                        $element.fadeOut();
-                    }
                 });
             }
         };
@@ -206,6 +131,58 @@
                         handler();
                     });
                 }
+            }
+        };
+    }
+
+    function disableDragAndDrop() {
+        return {
+            restrict: 'A',
+            link: function (scope, element) {
+                $(element).on('dragstart', function (event) {
+                    event.preventDefault();
+                });
+            }
+        };
+    }
+
+    function spinner() {
+        return {
+            restrict: 'A',
+            scope: {
+                spinnerValue: '='
+            },
+            link: function (scope, element) {
+                $(element)
+                    .spinner('changing', function (e, newValue) {
+                        scope.spinnerValue = newValue;
+                        scope.$apply();
+                    });
+            }
+        };
+    }
+
+    function number() {
+        return {
+            restrict: 'A',
+            scope: {
+                numberValue: '='
+            },
+            link: function (scope, element) {
+                var $element = $(element),
+                    maxValue = 100;
+
+                $element.on('keydown', function (e) {
+                    var key = e.charCode || e.keyCode || 0;
+                    return (key === 8 || key === 9 || key === 46 || (key >= 37 && key <= 40) ||
+                        (key >= 48 && key <= 57) || (key >= 96 && key <= 105));
+                });
+                $element.on('keyup', function () {
+                    if (scope.numberValue > maxValue) {
+                        scope.numberValue = maxValue;
+                        scope.$apply();
+                    }
+                });
             }
         };
     }
