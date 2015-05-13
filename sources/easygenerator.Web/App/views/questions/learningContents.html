@@ -56,9 +56,16 @@
 
         </ul>
         <div class="add-button">
-            <div class="add-button-text-wrapper" data-bind="click: addLearningContent">
+            <!-- ko ifnot: isAddedButtonsShown -->
+            <div class="add-button-text-wrapper" data-bind="click: toggleIsAddedButtonsShown">
                 <span class="add-button-text selectable" data-bind="localize: { text: 'clickToAddLearningContent' }"></span>
             </div>
+            <!-- /ko -->
+            <!-- ko if: isAddedButtonsShown -->
+            <div class="add-button-text-wrapper" data-bind="click: toggleIsAddedButtonsShown">
+                <span class="add-button-text selectable" data-bind="localize: { text: 'clickToAddLearningContent' }"></span>
+            </div>
+            <!-- /ko -->
         </div>
         <!-- /ko -->
     </div>

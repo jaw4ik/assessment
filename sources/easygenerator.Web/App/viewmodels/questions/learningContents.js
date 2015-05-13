@@ -1,5 +1,5 @@
 ﻿define(['repositories/learningContentRepository', 'repositories/questionRepository', 'localization/localizationManager', 'notify', 'constants', 'eventTracker', 'durandal/app'],
-    function (learningContentsrepository, questionRepository, localizationManager, notify, constants, eventTracker, app) {
+    function(learningContentsrepository, questionRepository, localizationManager, notify, constants, eventTracker, app) {
 
         var
             events = {
@@ -18,6 +18,8 @@
 
             eventTracker: eventTracker,
 
+            isAddedButtonsShown: ko.observable(false),
+            toggleIsAddedButtonsShown: toggleIsAddedButtonsShown,
             addLearningContent: addLearningContent,
             removeLearningContent: removeLearningContent,
 
@@ -41,12 +43,12 @@
             localizationManager: localizationManager
         };
 
-        viewModel.isSortingEnabled = ko.computed(function () {
+        viewModel.isSortingEnabled = ko.computed(function() {
             return viewModel.learningContents().length > 1;
         });
 
         viewModel.orderInProcess = false,
-        viewModel.changesFromCollaborator = null;
+            viewModel.changesFromCollaborator = null;
 
         app.on(constants.messages.question.learningContent.createdByCollaborator, createdByCollaborator);
         app.on(constants.messages.question.learningContent.deletedByCollaborator, deletedByCollaborator);
@@ -54,6 +56,10 @@
         app.on(constants.messages.question.learningContentsReorderedByCollaborator, learningContentsReorderedByCollaborator);
 
         return viewModel;
+
+        function toggleIsAddedButtonsShown() {
+            viewModel.isAddedButtonsShown(!viewModel.isAddedButtonsShown());
+        }
 
         function addLearningContent() {
             publishActualEvent(events.addLearningContent);

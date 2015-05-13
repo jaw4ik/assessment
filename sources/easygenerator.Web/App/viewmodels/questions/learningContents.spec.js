@@ -939,6 +939,42 @@
             });
         });
 
+        describe('isAddedButtonsShown', function () {
+
+            it('should be observable', function() {
+                expect(viewModel.isAddedButtonsShown).toBeObservable();
+            });
+
+        });
+
+        describe('toggleIsAddedButtonsShown:', function () {
+
+            it('should be function', function() {
+                expect(viewModel.toggleIsAddedButtonsShown).toBeFunction();
+            });
+
+            describe('when added buttons shown', function() {
+
+                it('should set isAddedButtonsShown to false', function () {
+                    viewModel.isAddedButtonsShown(true);
+                    viewModel.toggleIsAddedButtonsShown();
+                    expect(viewModel.isAddedButtonsShown()).toBeFalsy();
+                });
+
+            });
+
+            describe('when added buttons not shown', function () {
+
+                it('should set isAddedButtonsShown to true', function () {
+                    viewModel.isAddedButtonsShown(false);
+                    viewModel.toggleIsAddedButtonsShown();
+                    expect(viewModel.isAddedButtonsShown()).toBeTruthy();
+                });
+
+            });
+
+        });
+
     });
 
 });
