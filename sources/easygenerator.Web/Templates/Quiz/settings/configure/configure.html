@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html ng-app="configure">
+<head>
+    <title>Template configure settings</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="../css/settings.css" rel="stylesheet" />
+    <script src="../api.js"></script>
+    <script src="js/vendor.min.js"></script>
+    <script src="js/configure.min.js"></script>
+</head>
+<body>
+    <div class="settings-container" ng-controller="ConfigureController">
+        <div class="settings-tabs-container" ng-hide="isError" tabs>
+            <ul class="settings-tabs-wrapper unstyled">
+                <li class="settings-tabs-item track-and-trace" data-tab-link="track-and-trace">
+                    Results Tracking
+                </li>
+                <li class="settings-tabs-item languages" data-tab-link="languages">
+                    Template language
+                </li>
+            </ul>
+            <div class="settings-tab-container track-and-trace" data-tab="track-and-trace">
+                <div class="settings-tab-wrapper">
+                    <div class="tab-header-container">
+                        <img src="img/track.png" />
+                        <div class="tab-header-wrapper">
+                            <h1 class="tab-header-title">Track and trace settings</h1>
+                            <div class="tab-header-content">
+                                <div class="switcher">
+                                    <div class="switcher-text" ng-class="{ disabled: trackingData.enableXAPI }">Disabled</div>
+                                    <div class="switch-toggle-slider" switch-toggle toggle-value="trackingData.enableXAPI">
+                                        <div class="switch-toggle-wrapper">
+                                            <div class="switch-toggle-on"></div>
+                                            <div class="switch-toogle-blob"></div>
+                                            <div class="switch-toggle-off"></div>
+                                        </div>
+                                    </div>
+                                    <div class="switcher-text" ng-class="{ disabled: !trackingData.enableXAPI }">Enabled</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content-container">
+                        <div class="tab-content-title-container" ng-click="trackingData.toggleAdvancedSettings()">
+                            <div class="tab-content-title" ng-class="{ expanded: trackingData.advancedSettingsExpanded, collapsed: !trackingData.advancedSettingsExpanded }">Advanced settings</div>
+                        </div>
+                        <div class="template-selector-container" ng-show="trackingData.advancedSettingsExpanded">
+                            <div class="selector-items-container">
+                                <h2 class="selector-title">Report to:</h2>
+                                <ul class="selector-items-wrapper unstyled">
+                                    <li class="selector-item-container" ng-click="option.select()" ng-class="{ selected: option.isSelected() }" ng-repeat="option in trackingData.lrsOptions">
+                                        <div class="selector-item-btn"></div>
+                                        <div class="selector-item-text">{{option.text}}</div>
+                                    </li>
+                                </ul>
+                                <div class="preview-disabled" ng-hide="trackingData.enableXAPI"></div>
+                            </div>
+                            <div class="selector-preview-container">
+                                <h2 class="selector-title">Custom LRS settings</h2>
+                                <div class="preview-row">
+                                    <label for="lrsUrl" class="preview-label">LRS URL</label>
+                                    <div class="preview-col">
+                                        <input class="preview-text-input" id="lrsUrl" type="text" ng-model="trackingData.lrsUrl" ng-disabled="!trackingData.customLrsEnabled()" />
+                                    </div>
+                                </div>
+                                <div class="preview-row checkbox">
+                                    <div class="preview-col pull-right">
+                                        <label>
+                                            <span class="preview-checkbox">
+                                                <input class="preview-checkbox-input" type="checkbox" ng-model="trackingData.authenticationRequired">
+                                                <span class="preview-checkbox-checked"></span>
+                                            </span>
+                                            <span class="preview-label checkbox">Authentication required</span>
+                                        </label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="preview-row">
+                                    <label for="lapLogin" class="preview-label">LAP login</label>
+                                    <div class="preview-col">
+                                        <input class="preview-text-input" type="text" id="lapLogin" ng-model="trackingData.lapLogin" ng-disabled="!trackingData.credentialsEnabled()" />
+                                    </div>
+                                </div>
+                                <div class="preview-row">
+                                    <label for="lapPassword" class="preview-label">LAP password</label>
+                                    <div class="preview-col">
+                                        <input class="preview-text-input" type="text" id="lapPassword" ng-model="trackingData.lapPassword" ng-disabled="!trackingData.credentialsEnabled()" />
+                                    </div>
+                                </div>
+                                <div class="preview-row statements">
+                                    <div class="statements-title">Use statements:</div>
+                                    <div class="statements-container">
+                                        <div class="switcher statement">
+                                            <div class="switch-toggle-slider" switch-toggle toggle-value="trackingData.statements.started">
+                                                <div class="switch-toggle-wrapper">
+                                                    <div class="switch-toggle-on"></div>
+                                                    <div class="switch-toogle-blob"></div>
+                                                    <div class="switch-toggle-off"></div>
+                                                </div>
+                                            </div>
+                                            <div class="switcher-text">Started</div>
+                                        </div>
+                                        <div class="switcher statement">
+                                            <div class="switch-toggle-slider" switch-toggle toggle-value="trackingData.statements.stopped">
+                                                <div class="switch-toggle-wrapper">
+                                                    <div class="switch-toggle-on"></div>
+                                                    <div class="switch-toogle-blob"></div>
+                                                    <div class="switch-toggle-off"></div>
+                                                </div>
+                                            </div>
+                                            <div class="switcher-text">Stopped</div>
+                                        </div>
+                                        <div class="switcher statement">
+                                            <div class="switch-toggle-slider" switch-toggle toggle-value="trackingData.statements.passed">
+                                                <div class="switch-toggle-wrapper">
+                                                    <div class="switch-toggle-on"></div>
+                                                    <div class="switch-toogle-blob"></div>
+                                                    <div class="switch-toggle-off"></div>
+                                                </div>
+                                            </div>
+                                            <div class="switcher-text">Passed</div>
+                                        </div>
+                                    </div>
+                                    <div class="statements-container">
+                                        <div class="switcher statement">
+                                            <div class="switch-toggle-slider" switch-toggle toggle-value="trackingData.statements.answered">
+                                                <div class="switch-toggle-wrapper">
+                                                    <div class="switch-toggle-on"></div>
+                                                    <div class="switch-toogle-blob"></div>
+                                                    <div class="switch-toggle-off"></div>
+                                                </div>
+                                            </div>
+                                            <div class="switcher-text">Answered</div>
+                                        </div>
+                                        <div class="switcher statement">
+                                            <div class="switch-toggle-slider" switch-toggle toggle-value="trackingData.statements.mastered">
+                                                <div class="switch-toggle-wrapper">
+                                                    <div class="switch-toggle-on"></div>
+                                                    <div class="switch-toogle-blob"></div>
+                                                    <div class="switch-toggle-off"></div>
+                                                </div>
+                                            </div>
+                                            <div class="switcher-text">Mastered</div>
+                                        </div>
+                                    </div>
+                                    <div class="statements-container">
+                                        <div class="switcher statement">
+                                            <div class="switch-toggle-slider" switch-toggle toggle-value="trackingData.statements.experienced">
+                                                <div class="switch-toggle-wrapper">
+                                                    <div class="switch-toggle-on"></div>
+                                                    <div class="switch-toogle-blob"></div>
+                                                    <div class="switch-toggle-off"></div>
+                                                </div>
+                                            </div>
+                                            <div class="switcher-text">Expirienced</div>
+                                        </div>
+                                        <div class="switcher statement">
+                                            <div class="switch-toggle-slider" switch-toggle toggle-value="trackingData.statements.failed">
+                                                <div class="switch-toggle-wrapper">
+                                                    <div class="switch-toggle-on"></div>
+                                                    <div class="switch-toogle-blob"></div>
+                                                    <div class="switch-toggle-off"></div>
+                                                </div>
+                                            </div>
+                                            <div class="switcher-text">Failed</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="preview-disabled" ng-hide="trackingData.customLrsEnabled()"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-seperator"></div>
+                <div class="settings-tab-wrapper">
+                    <div class="tab-header-container">
+                        <img src="img/mastery.png" />
+                        <div class="tab-header-wrapper">
+                            <h1 class="tab-header-title">Mastery score settings</h1>
+                            <div class="tab-content-container">
+                                <div class="mastery-score-container">
+                                    <div class="mastery-score-title">Mastery score (the score a learner needs to pass the course):</div>
+                                    <div data-trigger="spinner" class="spinner" spinner spinner-value="masteryScore.value">
+                                        <a class="spinner-button spinner-down" data-spin="down" disable-drag-and-drop></a>
+                                        <input type="text" maxlength="3" id="masteryScore.value" class="content-text-input" data-rule="quantity" data-max="100" data-min="0" number number-value="masteryScore.value" ng-model="masteryScore.value">
+                                        <a class="spinner-button spinner-up" data-spin="up" disable-drag-and-drop></a>
+                                        <div class="spiner-seperator"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="settings-tab-container languages" data-tab="languages">
+                <div class="settings-tab-wrapper">
+                    <div class="tab-header-container">
+                        <img src="img/language.png">
+                        <div class="tab-header-wrapper">
+                            <h1 class="tab-header-title">Choose language for your course</h1>
+                            <div class="tab-header-content">
+                                <div class="select-language">
+                                    <dropdown options="languages.languagesList" value="languages.selectedLanguageCode" options-value="'code'" options-text="'name'"></dropdown>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content-container">
+                        <table class="choose-language-table">
+                            <thead>
+                                <tr>
+                                    <th class="choose-language-table-header-text">Default</th>
+                                    <th class="choose-language-table-header-text">Translation</th>
+                                </tr>
+                            </thead>
+                            <tbody class="choose-language-table-content">
+                                <tr class="choose-language-table-row" ng-repeat="key in languages.selectedLanguage.resources | keys">
+                                    <td class="choose-language-table-key">{{ key }}</td>
+                                    <td class="choose-language-table-text-wrapper">
+                                        <div class="input-wrapper">
+                                            <div class="choose-language-table-input-wrapper" ng-if="languages.selectedLanguage.isEditable">
+                                                <input type="text" class="choose-language-table-input" ng-model="languages.selectedLanguage.resources[key]" />
+                                                <span class="edit-icon"></span>
+                                            </div>
+                                            <span ng-if="!languages.selectedLanguage.isEditable">{{ languages.selectedLanguage.resources[key] }}</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-tab-wrapper" ng-show="isError">Template settings are not initialized. Please reload the page and change the settings again. Contact support@easygenerator.com if problem persists.</div>
+    </div>
+</body>
+</html>

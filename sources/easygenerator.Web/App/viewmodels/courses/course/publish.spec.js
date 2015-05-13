@@ -208,20 +208,6 @@
                         });
                     });
 
-                    it('should set course id as the last visited in client context', function (done) {
-                        viewModel.activate(course.id).fin(function () {
-                            expect(clientContext.set).toHaveBeenCalledWith(constants.clientContextKeys.lastVistedCourse, course.id);
-                            done();
-                        });
-                    });
-
-                    it('should reset last visited objective in client context', function (done) {
-                        viewModel.activate(course.id).fin(function () {
-                            expect(clientContext.set).toHaveBeenCalledWith(constants.clientContextKeys.lastVisitedObjective, null);
-                            done();
-                        });
-                    });
-
                     it('should resolve promise', function (done) {
                         var promise = viewModel.activate(course.id);
 
