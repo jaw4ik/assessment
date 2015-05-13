@@ -5,7 +5,10 @@
     "previewImages": [
         "preview/images/preview.jpg"
     ],
-    "settingsUrl": "settings/settings.html",
+    "settingsUrls": {
+        "design": "settings/design/design.html",
+        "configure": "settings/configure/configure.html"
+    },
     "languages": [
         {
             "code": "en",

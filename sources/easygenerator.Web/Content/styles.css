@@ -1966,6 +1966,11 @@
   display: inline-block;
   font-size: 16px;
 }
+@media (max-width: 1200px) {
+  [lang~=uk] .course nav ul li {
+    font-size: 12px;
+  }
+}
 .course nav ul li a {
   color: #42515f;
   display: inline-block;
@@ -1976,6 +1981,12 @@
   padding: 12px 15px;
   text-align: center;
   text-transform: uppercase;
+  vertical-align: middle;
+}
+@media (max-width: 1200px) {
+  .course nav ul li a {
+    min-width: 110px;
+  }
 }
 .course nav ul li a:hover {
   box-shadow: 0 -2px #88d498 inset, 0 1px #88d498;
@@ -2007,6 +2018,7 @@
   display: inline-block;
   height: 12px;
   width: 8px;
+  vertical-align: middle;
 }
 /*#region EDIT FIELD*/
 /*.edit-field {
@@ -2236,4 +2248,3 @@
   }
   /*#endregion Create explanation tooltip*/
 }
-/*#endregion MEDIA*/
