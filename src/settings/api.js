@@ -109,7 +109,6 @@
             settings = JSON.parse(settingsData.settings);
         } else {
             settings = {
-                logo: {},
                 xApi: {
                     enabled: true,
                     selectedLrs: 'default',
