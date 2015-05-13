@@ -178,18 +178,27 @@
 
             describe('when image upload finished successfully', function () {
 
-                var url = 'http://xxx.com', urlParams = '?width=941&height=785', dfd, questionId = null;
+                var url = 'http://xxx.com',
+                    urlParams = '?width=941&height=785',
+                    changeBackgroundDefer,
+                    questionId = null;
 
                 beforeEach(function () {
                     spyOn(imageUpload, 'upload').and.callFake(function (spec) {
                         spec.success(url);
                     });
 
-                    dfd = Q.defer();
-                    spyOn(changeBackgroundCommand, 'execute').and.returnValue(dfd.promise);
+                    changeBackgroundDefer = Q.defer();
+                    spyOn(changeBackgroundCommand, 'execute').and.returnValue(changeBackgroundDefer.promise);
 
                     spyOn(notify, 'saved');
                     spyOn(eventTracker, 'publish');
+                });
+
+                it('should set background isLoading to true', function () {
+                    designer.background.isLoading(false);
+                    designer.uploadBackground();
+                    expect(designer.background.isLoading()).toBeTruthy();
                 });
 
                 it('should execute command to change background', function () {
@@ -201,29 +210,37 @@
                 describe('and command to change background was executed', function () {
 
                     beforeEach(function () {
-                        dfd.resolve();
+                        changeBackgroundDefer.resolve();
                     });
 
-                    it('should set background isLoading to true', function () {
-                        designer.background.isLoading(false);
-                        designer.uploadBackground();
-                        expect(designer.background.isLoading()).toBeTruthy();
-                    });
-
-                    it('should update background url', function () {
+                    it('should update background url', function (done) {
                         designer.background(undefined);
+
                         designer.uploadBackground();
-                        expect(designer.background()).toEqual(url + urlParams);
+
+                        changeBackgroundDefer.promise.fin(function () {
+                            expect(designer.background()).toEqual(url + urlParams);
+                            done();
+                        });
                     });
 
-                    it('should notify user that everything was saved', function () {
+                    it('should notify user that everything was saved', function (done) {
                         designer.uploadBackground();
-                        expect(notify.saved).toHaveBeenCalled();
+
+                        changeBackgroundDefer.promise.finally(function() {
+                            expect(notify.saved).toHaveBeenCalled();
+                            done();
+                        });
+                        
                     });
 
-                    it('should track event \'Change hotspot background\'', function () {
+                    it('should track event \'Change hotspot background\'', function (done) {
                         designer.uploadBackground();
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Change hotspot background');
+
+                        changeBackgroundDefer.promise.fin(function() {
+                            expect(eventTracker.publish).toHaveBeenCalledWith('Change hotspot background');
+                            done();
+                        });
                     });
 
                 });
