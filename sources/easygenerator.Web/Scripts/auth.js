@@ -1,7 +1,7 @@
 ﻿(function () {
     var tokenNamespace = 'token.';
-    var coockieTokens = ['preview', 'upgradeAccount'];
-    var requiredEndpoints = ['api', 'auth', 'storage', 'signalr', 'preview', 'upgradeAccount'];
+    var cookieTokens = ['preview', 'upgradeAccount'];
+    var requiredEndpoints = ['api', 'auth', 'storage', 'signalr', 'preview', 'upgradeAccount', 'settings'];
 
     window.auth = window.auth || {
         isUserLoggedIn: isUserLoggedIn,
@@ -20,9 +20,9 @@
                 return false;
             }
         }
-        // check tokens in coockies
-        for (index = 0; index < coockieTokens; index++) {
-            if (getCookie(coockieTokens[index]) === undefined) {
+        // check tokens in cookie
+        for (index = 0; index < cookieTokens; index++) {
+            if (getCookie(cookieTokens[index]) === undefined) {
                 return false;
             }
         }
@@ -52,8 +52,8 @@
                 localStorage.removeItem(key);
             }
         }
-        for (var index = 0; index < coockieTokens.length; index++) {
-            document.cookie = tokenNamespace + coockieTokens[index] + '=;expires=Wed 01 Jan 1970';
+        for (var index = 0; index < cookieTokens.length; index++) {
+            document.cookie = tokenNamespace + cookieTokens[index] + '=;expires=Wed 01 Jan 1970';
         }
     }
 
@@ -69,7 +69,7 @@
     function setTokens(tokens) {
         for (var index = 0; index < tokens.length; index++) {
             var t = tokens[index];
-            if (coockieTokens.indexOf(t.Endpoint) > -1) {
+            if (cookieTokens.indexOf(t.Endpoint) > -1) {
                 document.cookie = tokenNamespace + t.Endpoint + '=' + t.Token;
             }
             token(t.Endpoint, t.Token);

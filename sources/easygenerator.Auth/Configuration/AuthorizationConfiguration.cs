@@ -48,7 +48,7 @@ namespace easygenerator.Auth.Configuration
             }
 
             // Only for /preview/*
-            // Get access token from coockies for preview
+            // Get access token from cookie for preview
             if (oAuthRequestTokenContext.Request.Path.StartsWithSegments(new PathString("/preview")))
             {
                 var value = oAuthRequestTokenContext.Request.Cookies["token.preview"];
@@ -59,7 +59,7 @@ namespace easygenerator.Auth.Configuration
             }
             
             // Only for /account/upgrade/*
-            // Get access token from coockies.
+            // Get access token from cookie.
             // Upgrade account should be changed to token auth.
             if (oAuthRequestTokenContext.Request.Path.StartsWithSegments(new PathString("/account/upgrade")))
             {

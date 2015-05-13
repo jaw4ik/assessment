@@ -7,7 +7,7 @@ using easygenerator.Auth.Providers;
 
 namespace easygenerator.Auth.Attributes.Mvc
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
     public class ScopeAttribute : AuthorizeAttribute
     {
         string[] _scopes;

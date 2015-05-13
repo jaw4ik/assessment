@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel;
+﻿using easygenerator.Auth.Attributes.Mvc;
+using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.CourseEvents;
@@ -200,6 +201,7 @@ namespace easygenerator.Web.Controllers.Api
             });
         }
 
+        [Scope("settings")]
         [EntityCollaborator(typeof(Course))]
         [ActionName("TemplateSettings"), HttpGet]
         [Route("api/course/{courseId}/template/{templateId}")]
@@ -223,6 +225,7 @@ namespace easygenerator.Web.Controllers.Api
                 JsonRequestBehavior.AllowGet);
         }
 
+        [Scope("settings")]
         [EntityCollaborator(typeof(Course))]
         [ActionName("TemplateSettings"), HttpPost]
         [Route("api/course/{courseId}/template/{templateId}")]
