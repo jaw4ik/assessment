@@ -8,7 +8,7 @@
     function xApiEventsHandler($rootScope, requestManager, dataBuilder, xApiSettings, statementsStorage) {
         var unbindFunctions = [];
 
-        unbindFunctions.push($rootScope.$on('course:started', function () {
+        unbindFunctions.push($rootScope.$on('course:started', function () {          
             sendStatementIfAllowed(dataBuilder.courseStarted());
         }));
 
