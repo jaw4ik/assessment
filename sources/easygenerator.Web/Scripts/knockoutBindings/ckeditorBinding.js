@@ -22,7 +22,7 @@
             addBlank: 'Add blank (fill in the blanks)',
             addDropDownBlank: 'Add drop down (fill in the blanks)'
         };
-        
+
         var supportedCultures = CKEDITOR.lang.languages;
         CKEDITOR.config.language = supportedCultures[localizationManager.currentCulture] == 1 ? localizationManager.currentCulture : localizationManager.currentLanguage;
 
@@ -282,38 +282,23 @@
         }
 
         function addContentFilter() {
-            var widthRegExp = new RegExp('(^| )width\s*:\s*([^;]*)', 'g'),
-                heightRegExp = new RegExp('(^| )height\s*:\s*([^;]*)', 'g'),
-                floatRegExp = new RegExp('(^| )float\s*:\s*([^;]*)', 'g'),
-                borderStyleRegExp = new RegExp('(^| )border-style\s*:\s*([^;]*)', 'g'),
-                borderWidthRegExp = new RegExp('(^| )border-width\s*:\s*([^;]*)', 'g'),
-                marginRegExp = new RegExp('(^| )margin\s*:\s*([^;]*)', 'g'),
-                marginTopRegExp = new RegExp('(^| )margin-top\s*:\s*([^;]*)', 'g'),
-                marginLeftRegExp = new RegExp('(^| )margin-left\s*:\s*([^;]*)', 'g'),
-                marginRightRegExp = new RegExp('(^| )margin-right\s*:\s*([^;]*)', 'g'),
-                marginBottomRegExp = new RegExp('(^| )margin-bottom\s*:\s*([^;]*)', 'g');
+            var commonPropertiesToLeave = ['width', 'height', 'float', 'border-style', 'border-width', 'margin', 'margin-top', 'margin-left', 'margin-right', 'margin-bottom'];
+            var specificPropertiesToLeaveMapping = { 'td': ['text-align', 'vertical-align', 'border-color', 'background-color'] };
 
             var rules = {
                 elements: {
                     $: function (e) {
                         if (e.attributes.style) {
-                            var
-                                widthValue = e.attributes.style.match(widthRegExp) + ';',
-                                heightValue = e.attributes.style.match(heightRegExp) + ';',
-                                floatValue = e.attributes.style.match(floatRegExp) + ';',
-                                borderWidthValue = e.attributes.style.match(borderWidthRegExp) + ';',
-                                borderStyleValue = e.attributes.style.match(borderStyleRegExp) + ';',
-                                marginValue = e.attributes.style.match(marginRegExp) + ';',
-                                marginTopValue = e.attributes.style.match(marginTopRegExp) + ';',
-                                marginLeftValue = e.attributes.style.match(marginLeftRegExp) + ';',
-                                marginRightValue = e.attributes.style.match(marginRightRegExp) + ';',
-                                marginBottomValue = e.attributes.style.match(marginBottomRegExp) + ';';
-
-                            delete e.attributes.style;
-                            e.attributes.style = widthValue + heightValue
-                                + floatValue
-                                + borderWidthValue + borderStyleValue
-                                + marginValue + marginTopValue + marginLeftValue + marginRightValue + marginBottomValue;
+                            var style = '';
+                            var specificPropertiesToLeave = specificPropertiesToLeaveMapping[e.name];
+                            var stylePropertiesToLeave = specificPropertiesToLeave ? commonPropertiesToLeave.concat(specificPropertiesToLeave) : commonPropertiesToLeave;
+                            _.each(stylePropertiesToLeave, function (styleProperty) {
+                                var propValue = e.attributes.style.match(getStylePropertyRegExp(styleProperty));
+                                if (propValue) {
+                                    style = style + propValue + ';';
+                                }
+                            });
+                            e.attributes.style = style;
                         }
                         if (e.attributes.class) {
                             delete e.attributes.class;
@@ -324,6 +309,10 @@
 
             editor.dataProcessor.htmlFilter.addRules(rules);
             editor.dataProcessor.dataFilter.addRules(rules);
+        }
+
+        function getStylePropertyRegExp(attributeName) {
+            return new RegExp('(^| )' + attributeName + '\s*:\s*([^;]*)', 'g');
         }
 
         function filterContent(contentElement) {
@@ -369,7 +358,7 @@
             $toolbarElement.css('top', toolbarTopPosition);
         }
 
-        return ko.bindingHandlers.contentEditableFix.init(element, function() {
+        return ko.bindingHandlers.contentEditableFix.init(element, function () {
             return editor;
         });
     },
