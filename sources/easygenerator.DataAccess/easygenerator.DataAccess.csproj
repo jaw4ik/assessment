@@ -274,9 +274,9 @@
     <Compile Include="Migrations\201504200618589_AddCourseStatesTable.Designer.cs">
       <DependentUpon>201504200618589_AddCourseStatesTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201504210843339_AddGeneralFeedback.cs" />
-    <Compile Include="Migrations\201504210843339_AddGeneralFeedback.Designer.cs">
-      <DependentUpon>201504210843339_AddGeneralFeedback.cs</DependentUpon>
+    <Compile Include="Migrations\201504301031125_AddCollaboratorIsAccepted.cs" />
+    <Compile Include="Migrations\201504301031125_AddCollaboratorIsAccepted.Designer.cs">
+      <DependentUpon>201504301031125_AddCollaboratorIsAccepted.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -475,8 +475,8 @@
     <EmbeddedResource Include="Migrations\201504200618589_AddCourseStatesTable.resx">
       <DependentUpon>201504200618589_AddCourseStatesTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504210843339_AddGeneralFeedback.resx">
-      <DependentUpon>201504210843339_AddGeneralFeedback.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201504301031125_AddCollaboratorIsAccepted.resx">
+      <DependentUpon>201504301031125_AddCollaboratorIsAccepted.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

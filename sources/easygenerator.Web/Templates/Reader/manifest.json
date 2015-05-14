@@ -5,11 +5,18 @@
     "previewImages": [
         "images/reader.png"
     ],
-    "settingsUrl": "settings/settings.html",
+    "settingsUrls": {
+        "design": "settings/design/design.html",
+        "configure": "settings/configure/configure.html"
+    },
     "languages": [
         {
             "code": "en",
             "url": "lang/en.json"
+        },
+        {
+            "code": "nl",
+            "url": "lang/nl.json"
         },
         {
             "code": "ua",

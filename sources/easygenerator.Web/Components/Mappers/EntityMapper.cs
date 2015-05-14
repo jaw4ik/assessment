@@ -1,4 +1,4 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿ using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using System;
 

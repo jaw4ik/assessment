@@ -21,6 +21,9 @@
                     collaboratorRegistered: collaborationEventHandler.collaboratorRegistered,
                     courseCollaborationFinished: collaborationEventHandler.finished,
                     collaboratorRemoved: collaborationEventHandler.collaboratorRemoved,
+                    collaborationInviteRemoved: collaborationEventHandler.inviteRemoved,
+                    collaborationInviteCreated: collaborationEventHandler.inviteCreated,
+                    collaborationInviteAccepted: collaborationEventHandler.inviteAccepted,
 
                     courseStateChanged: courseEventHandler.stateChanged,
                     courseTitleUpdated: courseEventHandler.titleUpdated,

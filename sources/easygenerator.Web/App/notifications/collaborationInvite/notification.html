@@ -1,0 +1,33 @@
+﻿<div class="user-notification-wrapper collaboration-invite">
+    <div class="user-notification-header">
+        <div class="user-notification-header-image-wrapper">
+            <div class="user-notification-header-image" data-bind="text: coauthorAvatarLetter">
+            </div>
+        </div>
+        <div class="user-notification-header-content">
+            <span class="user-notification-title" data-bind="localize: { text: 'сonfirmСoauthoring' }"></span>
+            <span class="user-notification-sender">
+                <span data-bind="localize: { text: 'сonfirmСoauthoringFrom' }"></span>:&nbsp;<span data-bind="text: courseAuthorFirstname"></span>&nbsp;<span data-bind="text: courseAuthorLastname"></span>
+            </span>
+        </div>
+    </div>
+    <div class="user-notification-content">
+        <div class="user-notification-content-text">
+            <p><span data-bind="localize: { text: 'upgradeNotificationHi' }"></span>&nbsp;<span data-bind="text: firstname"></span>,</p>
+            <p class="top-indent">
+                <span data-bind="localize: { text: 'pleaseConformMyInvitation' }"></span>&nbsp;&quot;<span data-bind="limitedLengthText: { text: courseTitle, maxLength: 100 }"></span>&quot;&nbsp;<span data-bind="localize: { text: 'сonfirmСoauthoringCourse' }"></span>.
+            </p>
+        </div>
+        <div class="user-notification-actions">
+            <button class="btn green" data-bind="click: accept, css:{ 'disabled': isDeclining(), 'progress': isAccepting() }, disable: isAccepting() || isDeclining()">
+                <span class="btn-caption" data-bind="localize: { text: 'accept' }"></span>
+            </button>
+            <button class="btn green-white" data-bind="click: decline, css:{ 'disabled': isAccepting(), 'progress': isDeclining() }, disable: isAccepting() || isDeclining()">
+                <span class="btn-caption" data-bind="localize: { text: 'decline' }"></span>
+            </button>
+        </div>
+    </div>
+    <div class="user-notification-footer">
+        <div class="user-notification-footer-text" data-bind="localize: { text: 'confirmCoauthoringInfo' }"></div>
+    </div>
+</div>
