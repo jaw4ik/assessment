@@ -755,6 +755,21 @@
         'zh-cn': 'N/A[zh-cn]',
         'uk': 'Н/Д'
     },
+    reportingShowDetails: {
+        'en': 'Show details >>',
+        'zh-cn': 'Show details >>[zh-cn]',
+        'uk': 'Show details >>[uk]'
+    },
+    reportingHideDetails: {
+        'en': 'Hide details >>',
+        'zh-cn': 'Hide details >>[zh-cn]',
+        'uk': 'Hide details >>[uk]'
+    },
+    reportingLearnersAnswer: {
+        'en': 'Learners answer',
+        'zh-cn': 'Learners answer[zh-cn]',
+        'uk': 'Learners answer[uk]'
+    },
     sharePrivateLink: {
         'en': 'Share private link',
         'zh-cn': 'Share private link[zh-cn]',
@@ -2125,7 +2140,7 @@
     upgradeNotificationNote: {
         'en': 'Please note, you will be automatically downgraded to the Free Plan, if you don’t make the payment in time. More info on pricing plans',
         'zh-cn': '如果没有及时续费，您的使用权限将会自动回到基础级别。更多关于使用权限的价格信息在',
-        'uk': 'Будь-ласка, зверніть увагу, якщо Ви вчасно не здійсните платіж, Ваш тарифний план буде змінено на \"Free Plan\". Більше інформації про тарифні плани'
+        'uk': 'Зверніть увагу, якщо Ви вчасно не здійсните платіж, тарифний план буде змінено на \"Free Plan\". Більше про тарифні плани'
     },
     upgradeNotificationHere: {
         'en': 'here',
@@ -2140,7 +2155,7 @@
     upgradeMail: {
         'en': 'Any issues with your credit card and need more time?',
         'zh-cn': '若信用卡有问题导致需延后支付。',
-        'uk': 'Є проблеми з кредитною картою чи потребуєте більше часу?'
+        'uk': 'Виникли проблеми?'
     },
     upgradePleaseContact: {
         'en': 'Please contact:',
