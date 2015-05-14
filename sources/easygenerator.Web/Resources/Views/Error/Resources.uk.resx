@@ -121,7 +121,7 @@
     <value>Домашня сторінка</value>
   </data>
   <data name="PageNotFound" xml:space="preserve">
-    <value>Сторінка, яку Ви шукаєте незнайдена</value>
+    <value>Сторінка, яку Ви шукаєте, не знайдена</value>
   </data>
   <data name="PageNotFoundDescription" xml:space="preserve">
     <value>Натисніть на "Домашня сторінка". Відкрийте курс і спробуйте знову. Якщо проблема не зникне надішліть нам електронного листа на адресу support@easygenerator.com</value>

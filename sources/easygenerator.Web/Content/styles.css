@@ -1,4 +1,5 @@
 ﻿/*#region User avatar */
+/*#endregion */
 /*#region PAGE-LOADER ICON*/
 .icon-spinner-wrapper {
   position: absolute;
@@ -1597,7 +1598,7 @@
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 1980;
+  z-index: 1200;
   width: 100%;
 }
 .shell > header .content-section-wrapper .content-section {
@@ -2247,3 +2248,4 @@
   }
   /*#endregion Create explanation tooltip*/
 }
+/*#endregion MEDIA*/
