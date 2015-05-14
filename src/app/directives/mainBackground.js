@@ -40,7 +40,7 @@
                         'background-size': size,
                         'background-repeat': repeat
                     });
-                }
+                };
 
                 image.src = src;
 
