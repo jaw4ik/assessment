@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
     "use strict";
 
     angular.module('design')
@@ -17,11 +17,11 @@
                     .css('background-image', 'none');
 
                 scope.$watch('src', function (value) {
-                    $element.css('background-image', 'none')
+                    $element.css('background-image', 'none');
                     if (value) {
                         var image = new Image();
                         image.onload = function () {
-                            $element.css('background-image', 'url(' + value + ')')
+                            $element.css('background-image', 'url(' + value + ')');
                         };
                         image.src = value;
                     }
