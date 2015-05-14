@@ -729,6 +729,12 @@
     <Content Include="App\reporting\views\courseStatement.html" />
     <Content Include="App\reporting\views\objectiveStatement.html" />
     <Content Include="App\reporting\views\questionStatement.html" />
+    <Content Include="App\widgets\hotspotCursorTooltip\bindingHadlers\hotspotCursorTooltipBindingHandler.js" />
+    <Content Include="App\widgets\hotspotCursorTooltip\view.html" />
+    <Content Include="App\widgets\hotspotCursorTooltip\viewmodel.js" />
+    <Content Include="App\widgets\hotspotCursorTooltip\viewmodel.spec.js">
+      <DependentUpon>viewmodel.js</DependentUpon>
+    </Content>
     <Content Include="BuildCourse\Modules\js\branding.js" />
     <Content Include="Content\course.css">
       <DependentUpon>course.less</DependentUpon>
