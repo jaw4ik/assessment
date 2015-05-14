@@ -839,29 +839,6 @@
 .add-button:hover {
   border-style: solid;
 }
-.add-button-text-wrapper {
-  padding: 20px 10px;
-  text-align: center;
-}
-.add-button-text {
-  display: inline-block;
-  vertical-align: top;
-  position: relative;
-  padding-left: 34px;
-  color: #546677;
-  font-size: 16px;
-}
-.add-button-text:before {
-  background: url('images/sprites_24.png') -263px 0 no-repeat;
-  content: '';
-  display: block;
-  height: 24px;
-  left: 0;
-  margin-top: -12px;
-  position: absolute;
-  top: 50%;
-  width: 24px;
-}
 .add-button .question-answer-text-wrapper,
 .add-button .question-learning-content-wrapper {
   background-color: #fafafa;
@@ -879,6 +856,61 @@
 }
 .add-button .question-answer-text {
   padding-right: 54px;
+}
+.add-button.inline {
+  display: inline-block;
+  width: 45%;
+  margin: 0 4% 0 29px;
+}
+.add-button.inline:nth-child(even) {
+  margin: 0;
+}
+.add-button.inline .add-button-text-wrapper .add-button-text {
+  font: 14px 'OpenSans-SemiboldItalic';
+  text-transform: uppercase;
+  color: #42515f;
+}
+.add-button.inline .add-button-text-wrapper .add-button-text:before {
+  height: 36px;
+  margin-top: -18px;
+  background: url('images/sprites_64.png') no-repeat;
+}
+.add-button.inline.richtext .add-button-text {
+  padding-left: 50px;
+}
+.add-button.inline.hotspot-on-image .add-button-text {
+  padding-left: 70px;
+}
+.add-button.inline.hotspot-on-image .add-button-text:before {
+  width: 54px;
+  background-position: -74px -283px;
+}
+.add-button.inline.richtext .add-button-text:before {
+  width: 37px;
+  background-position: -152px -283px;
+}
+.add-button .add-button-text-wrapper {
+  padding: 20px 10px;
+  text-align: center;
+}
+.add-button .add-button-text-wrapper .add-button-text {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  padding-left: 34px;
+  color: #546677;
+  font-size: 16px;
+}
+.add-button .add-button-text-wrapper .add-button-text:before {
+  background: url('images/sprites_24.png') -263px 0 no-repeat;
+  content: '';
+  display: block;
+  height: 24px;
+  left: 0;
+  margin-top: -12px;
+  position: absolute;
+  top: 50%;
+  width: 24px;
 }
 /*#endregion add button*/
 /*#region Question type create actions*/

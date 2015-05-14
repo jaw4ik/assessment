@@ -65,6 +65,12 @@
                 expect(eventTracker.publish).toHaveBeenCalledWith('Add learning content', 'Information');
             });
 
+            it('should set isAddedButtonsShown to false', function () {
+                viewModel.isAddedButtonsShown(true);
+                viewModel.toggleIsAddedButtonsShown();
+                expect(viewModel.isAddedButtonsShown()).toBeFalsy();
+            });
+
         });
 
         describe('removeLearningContent:', function () {

@@ -64,6 +64,7 @@
         function addLearningContent() {
             publishActualEvent(events.addLearningContent);
             doAddLearningContent();
+            toggleIsAddedButtonsShown();
         }
 
         function removeLearningContent(learningContent) {

@@ -1018,59 +1018,101 @@
     border: 1px dashed #5bc0de;
     border-radius: 3px;
     cursor: pointer;
-}
 
-.add-button:hover {
-    border-style: solid;
-}
+    &:hover{
+        border-style: solid;
+    }
 
-.add-button-text-wrapper {
-    padding: 20px 10px;
-    text-align: center;
-}
+    .question-answer-text-wrapper,
+    .question-learning-content-wrapper {
+        background-color: #fafafa;
+        text-align: center;
+    }
 
-.add-button-text {
-    display: inline-block;
-    vertical-align: top;
-    position: relative;
-    padding-left: 34px;
-    color: #546677;
-    font-size: 16px;
-}
+    &:hover .question-answer-text-wrapper,
+    &:hover .question-learning-content-wrapper.enabled {
+        border-style: solid;
+        background-color: white;
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    }
 
-.add-button-text:before {
-    background: url('images/sprites_24.png') -263px 0 no-repeat;
-    content: '';
-    display: block;
-    height: 24px;
-    left: 0;
-    margin-top: -12px;
-    position: absolute;
-    top: 50%;
-    width: 24px;
-}
+    .question-answer-text-wrapper,
+    .question-learning-content-wrapper.enabled {
+        cursor: text;
+    }
 
-.add-button .question-answer-text-wrapper,
-.add-button .question-learning-content-wrapper {
-    background-color: #fafafa;
-    text-align: center;
-}
+    .question-answer-text {
+        padding-right: 54px;
+    }
 
+    &.inline{
+        display: inline-block;
+        width: 45%;
+        margin: 0 4% 0 29px;
 
-.add-button:hover .question-answer-text-wrapper,
-.add-button:hover .question-learning-content-wrapper.enabled {
-    border-style: solid;
-    background-color: white;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-}
+        &:nth-child(even){
+            margin: 0;
+        }
 
-.add-button .question-answer-text-wrapper,
-.add-button .question-learning-content-wrapper.enabled {
-    cursor: text;
-}
+        .add-button-text-wrapper{
 
-.add-button .question-answer-text {
-    padding-right: 54px;
+            .add-button-text{
+                font: 14px 'OpenSans-SemiboldItalic';
+                text-transform: uppercase;
+                color: #42515f;
+
+                &:before{
+                    height: 36px;
+                    margin-top: -18px;
+                    background: url('images/sprites_64.png') no-repeat;
+                }
+            }
+        }
+
+        &.richtext .add-button-text{
+            padding-left: 50px;
+        }
+
+        &.hotspot-on-image .add-button-text{
+            padding-left: 70px;
+        }
+
+        &.hotspot-on-image .add-button-text:before{
+            width: 54px;
+            background-position: -74px -283px;
+        }
+
+        &.richtext .add-button-text:before{
+            width: 37px;
+            background-position: -152px -283px;
+        }
+    }
+
+    .add-button-text-wrapper {
+        padding: 20px 10px;
+        text-align: center;
+
+        .add-button-text {
+            display: inline-block;
+            vertical-align: top;
+            position: relative;
+            padding-left: 34px;
+            color: #546677;
+            font-size: 16px;
+
+            &:before{
+                background: url('images/sprites_24.png') -263px 0 no-repeat;
+                content: '';
+                display: block;
+                height: 24px;
+                left: 0;
+                margin-top: -12px;
+                position: absolute;
+                top: 50%;
+                width: 24px;
+            }
+        }
+    }
 }
 
 /*#endregion add button*/
