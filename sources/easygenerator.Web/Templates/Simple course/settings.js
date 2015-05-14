@@ -5,6 +5,12 @@
     "theme": {
         "key": ""
     },
+    "background": {
+		"image": {
+			"src": null,
+			"type": "default"
+		}
+	},
     "xApi": {
         "enabled": true,
         "lrs": {

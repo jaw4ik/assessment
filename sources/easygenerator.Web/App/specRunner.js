@@ -46,6 +46,8 @@
 
             //#endregion dialogs
 
+            //#region errorHandling
+
             'errorHandling/httpErrorHandlers/defaultHttpErrorHandler.spec',
             'errorHandling/httpErrorHandlers/forbiddenHttpErrorHandler.spec',
             'errorHandling/httpErrorHandlers/serviceUnavailableHttpErrorHandler.spec',
@@ -53,13 +55,27 @@
             'errorHandling/errorHandlingConfiguration.spec',
             'errorHandling/globalErrorHandler.spec',
             'errorHandling/httpErrorHandlerRegistrator.spec',            
+
+            //#endregion
+
+            //#region notifications
+
+            'notifications/notification.spec',
+            'notifications/subscriptionExpiration/notificationController.spec',
+            'notifications/subscriptionExpiration/notification.spec',
+            
+            'notifications/collaborationInvite/notification.spec',
+            'notifications/collaborationInvite/queries/getInvites.spec',
+            'notifications/collaborationInvite/commands/acceptInvite.spec',
+            'notifications/collaborationInvite/commands/declineInvite.spec',
+            'notifications/collaborationInvite/notificationController.spec',
+
+            //#endregion 
+        
             'localization/localizationManager.spec',
             'models/course.spec',
             'models/user.spec',
-            'models/reportingStatement.spec',
-            'notifications/notification.spec',
-            'notifications/subscriptionExpirationNotificationController.spec',
-            'notifications/subscriptionExpirationNotification.spec',
+
             'repositories/answerRepository.spec',
             'repositories/commentRepository.spec',
             'repositories/collaboratorRepository.spec',
@@ -79,7 +95,20 @@
 
             //#endregion
 
+            //#region reporting
+
+            'models/reporting/statement.spec',
+            'models/reporting/actor.spec',
+
+            'reporting/xApiFilterCriteriaFactory.spec',
             'reporting/xApiProvider.spec',
+            'reporting/viewmodels/expandableStatement.spec',
+            'reporting/viewmodels/questionStatement.spec',
+            'reporting/viewmodels/objectiveStatement.spec',
+            'reporting/viewmodels/courseStatement.spec',
+            //'reporting/viewmodels/results.spec',
+
+            //#endregion
 
             //#region synchronization
 
@@ -91,6 +120,9 @@
             'synchronization/handlers/collaboration/handler.spec',
             'synchronization/handlers/collaboration/eventHandlers/started.spec',
             'synchronization/handlers/collaboration/eventHandlers/finished.spec',
+            'synchronization/handlers/collaboration/eventHandlers/inviteCreated.spec',
+            'synchronization/handlers/collaboration/eventHandlers/inviteRemoved.spec',
+            'synchronization/handlers/collaboration/eventHandlers/inviteAccepted.spec',
             'synchronization/handlers/collaboration/eventHandlers/collaboratorAdded.spec',
             'synchronization/handlers/collaboration/eventHandlers/collaboratorRemoved.spec',
             'synchronization/handlers/collaboration/eventHandlers/collaboratorRegistered.spec',
@@ -183,8 +215,8 @@
             //'viewmodels/courses/course/create/index.spec',
             'viewmodels/courses/course/create/course.spec',
             'viewmodels/courses/course/design.spec',
+            'viewmodels/courses/course/configure.spec',
             'viewmodels/courses/course/publish.spec',
-            'viewmodels/courses/course/results.spec',
             'viewmodels/courses/publishingActions/publishingAction.spec',
             'viewmodels/courses/publishingActions/build.spec',
             'viewmodels/courses/publishingActions/publish.spec',

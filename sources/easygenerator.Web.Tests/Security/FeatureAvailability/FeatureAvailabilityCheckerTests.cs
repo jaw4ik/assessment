@@ -235,7 +235,7 @@ namespace easygenerator.Web.Tests.Security.FeatureAvailability
         }
 
         [TestMethod]
-        public void CanAddCollaborator_ShouldReturnTrue_WhenOwnerJasStarterPlan()
+        public void CanAddCollaborator_ShouldReturnTrue_WhenOwnerHasStarterPlan()
         {
             //Arrange
             var course = Substitute.For<Course>();

@@ -23,10 +23,21 @@
               }
           },
           {
+              route: 'configure',
+              moduleId: 'viewmodels/courses/course/configure',
+              title: localizationManager.localize('courseConfigureItem'),
+              nav: 3,
+              hash: '#courses/:courseId/configure',
+              navigate: function () {
+                  eventTracker.publish('Navigate to configure course');
+                  router.navigate(this.dynamicHash());
+              }
+          },
+          {
               route: 'publish',
               moduleId: 'viewmodels/courses/course/publish',
               title: localizationManager.localize('coursePublishItem'),
-              nav: 3,
+              nav: 4,
               hash: '#courses/:courseId/publish',
               settings: {
                   localizationKey: 'course'
@@ -38,9 +49,9 @@
           },
           {
               route: 'results',
-              moduleId: 'viewmodels/courses/course/results',
+              moduleId: 'reporting/viewmodels/results',
               title: localizationManager.localize('courseResultsItem'),
-              nav: 4,
+              nav: 5,
               hash: '#courses/:courseId/results',
               settings: {
                   localizationKey: 'course'
@@ -102,7 +113,7 @@
 
     viewModel.title.beginEdit = function () {
         viewModel.title.isEditing(true);
-    }
+    };
 
     viewModel.title.endEdit = function () {
         var that = viewModel.title;
@@ -123,7 +134,7 @@
                 that(response.title);
             }
         });
-    }
+    };
 
     viewModel.title.isValid = ko.computed(function () {
         var length = viewModel.title() ? viewModel.title().trim().length : 0;

@@ -59,6 +59,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="DateTimeWrapper.cs" />
     <Compile Include="Cryptography.cs" />
+    <Compile Include="DomainModel\Mappings\CollaborationInvite.cs" />
     <Compile Include="DomainModel\HttpRequest.cs" />
     <Compile Include="DomainModel\MailNotification.cs" />
     <Compile Include="Errors.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="IScheduler.cs" />
     <Compile Include="ITask.cs" />
     <Compile Include="ITaskInvoker.cs" />
+    <Compile Include="ITypeMethodInvoker.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Locker.cs" />
     <Compile Include="Mail\IMailNotificationManager.cs" />

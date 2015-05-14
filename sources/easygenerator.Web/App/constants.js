@@ -139,6 +139,9 @@
                         finished: 'course:delivering-finished'
                     },
                     collaboration: {
+                        inviteCreated: 'course:collaboration-invite-created:',
+                        inviteRemoved: 'course:collaboration-invite-removed:',
+                        inviteAccepted: 'course:collaboration-invite-accepted',
                         collaboratorAdded: 'course:collaboration-collaboratorAdded:',
                         collaboratorRemoved: 'course:collaboration-collaboratorRemoved',
                         collaboratorRegistered: 'course:collaboration-collaboratorRegistered:',
@@ -235,11 +238,25 @@
                 sidePanel: {
                     expanded: 'sidePanel:expanded',
                     collapsed: 'sidePanel:collapsed'
+                },
+                notification: {
+
                 }
             },
 
             patterns: {
                 email: /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/
+            },
+
+            notification: {
+                keys: {
+                    subscriptionExpiration: 'notificationkeys:subscriptionExpiration',
+                    collaborationInvite: 'notificationkeys:collaborationInvite'
+                },
+                messages: {
+                    push: 'notification:push',
+                    remove: 'notification:remove'
+                }
             },
 
             upgradeEvent: 'Upgrade now',
@@ -276,11 +293,20 @@
             reporting: {
                 xApiVerbIds:
                 {
+                    started: 'http://adlnet.gov/expapi/verbs/launched',
                     passed: 'http://adlnet.gov/expapi/verbs/passed',
-                    failed: 'http://adlnet.gov/expapi/verbs/failed'
+                    failed: 'http://adlnet.gov/expapi/verbs/failed',
+                    answered: 'http://adlnet.gov/expapi/verbs/answered',
+                    mastered: 'http://adlnet.gov/expapi/verbs/mastered'
                 },
-                extensionKeys: {
-                    courseId: 'context.extensions.http://easygenerator/expapi/course/id'
+                filterKeys: {
+                    courseId: 'context.extensions.http://easygenerator/expapi/course/id',
+                    verb: 'verb',
+                    limit: 'limit',
+                    skip: 'skip',
+                    agent: 'agent',
+                    attemptId: 'registration',
+                    parentId: 'parent'
                 }
             },
             frameSize: {

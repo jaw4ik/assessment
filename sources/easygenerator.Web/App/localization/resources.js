@@ -358,6 +358,24 @@
     },
     /* End resource section for model General */
     
+    /* Resource section for model Videos */
+    videoLibrary: {
+        'en': 'Video Library',
+        'zh-cn': 'Video Library[zh-cn]',
+        'uk': 'Відео бібліотека'
+    },
+    uploadVideoDescription: {
+        'en': 'Upload your own video by click on this button',
+        'zh-cn': 'Upload your own video by click on this button[zh-cn]',
+        'uk': 'Завантажте своє власне відео натиснувши на кнопку'
+    },
+    videoEmbedCodeTitle: {
+        'en': 'Embed this code to your content',
+        'zh-cn': 'Embed this code to your content[zh-cn]',
+        'uk': 'Вставте цей код в ваш контент'
+    },
+    /* End resource section for model Videos */
+    
     /* Resource section for model Objectives */
     learningObjectives: {
         'en': 'Learning objectives',
@@ -433,24 +451,29 @@
         'uk': 'Неможливо видалити курс, так як в ньому є розділ(и) / цілі'
     },
     courseCreateItem: {
-        'en': '1. Create',
-        'zh-cn': '1. 创建',
-        'uk': '1. Створення'
+        'en': 'Create',
+        'zh-cn': '创建',
+        'uk': 'Створення'
     },
     courseDesignItem: {
-        'en': '2. Design',
-        'zh-cn': '2. 设计',
-        'uk': '2. Дизайн'
+        'en': 'Design',
+        'zh-cn': '设计',
+        'uk': 'Дизайн'
+    },
+    courseConfigureItem: {
+        'en': 'Configure',
+        'zh-cn': 'Configure[zh-cn]',
+        'uk': 'Конфігурація'
     },
     coursePublishItem: {
-        'en': '3. Publish',
-        'zh-cn': '3. 发布',
-        'uk': '3. Публікація'
+        'en': 'Publish',
+        'zh-cn': '发布',
+        'uk': 'Публікація'
     },
     courseResultsItem: {
-        'en': '4. Results',
-        'zh-cn': '4. 结果',
-        'uk': '4. Результати'
+        'en': 'Results',
+        'zh-cn': '结果',
+        'uk': 'Результати'
     },
     currentTemplate: {
         'en': 'Current template',
@@ -667,10 +690,10 @@
         'zh-cn': '确保此课程启用了“结果跟踪”',
         'uk': 'Переконайтеся, що \"звітування про результати\" дозволене для даного курсу:'
     },
-    goToDesignStep: {
-        'en': '1. Go to the \"Design\" step',
-        'zh-cn': '去到“设计”环节',
-        'uk': '1. Перейти до \"Дизайну\"'
+    goToConfigureStep: {
+        'en': '1. Go to the \"Configure\" step',
+        'zh-cn': '1. Go to the \"Configure\" step[zh-cn]',
+        'uk': '1. Перейти до \"Конфігурації\"'
     },
     resultTrackingShouldBeEnabled: {
         'en': '2. Enable results tracking',
@@ -701,6 +724,36 @@
         'en': 'Failed',
         'zh-cn': '失败',
         'uk': 'Не пройдено'
+    },
+    courseStartedAt: {
+        'en': 'Course started at',
+        'zh-cn': 'Course started at[zh-cn]',
+        'uk': 'Курс почато'
+    },
+    courseFinishedAt: {
+        'en': 'and finished at',
+        'zh-cn': 'and finished at[zh-cn]',
+        'uk': 'та закінчено'
+    },
+    reportingObjectiveTitle: {
+        'en': 'objective:',
+        'zh-cn': 'objective:[zh-cn]',
+        'uk': 'розділ / ціль:'
+    },
+    repotingNoQuestions: {
+        'en': 'No questions have been answered yet or results are not available for this objective',
+        'zh-cn': 'No questions have been answered yet or results are not available for this objective[zh-cn]',
+        'uk': 'Немає жодного пройденого питання або інформація про цей розділ недоступна'
+    },
+    reportingQuestionTitle: {
+        'en': 'question:',
+        'zh-cn': 'question:[zh-cn]',
+        'uk': 'питання:'
+    },
+    reportingScoreNotAvailable: {
+        'en': 'N/A',
+        'zh-cn': 'N/A[zh-cn]',
+        'uk': 'Н/Д'
     },
     sharePrivateLink: {
         'en': 'Share private link',
@@ -926,7 +979,22 @@
     chooseTemplate: {
         'en': 'Choose template',
         'zh-cn': '选择课程模板',
-        'uk': 'Обрати шаблон'
+        'uk': 'Оберіть шаблон'
+    },
+    defineTemplateDesignSettings: {
+        'en': 'Define template design settings',
+        'zh-cn': 'Define template design settings[zh-cn]',
+        'uk': 'Налаштуйте дизайн шаблону'
+    },
+    templateDesignSettingsNotAvailable: {
+        'en': 'Sorry, but the selected template doesn\'t contain design settings',
+        'zh-cn': 'Sorry, but the selected template doesn\'t contain design settings[zh-cn]',
+        'uk': 'Вибачте, але вибраний вами шаблон не підтримує налаштування дизайну'
+    },
+    templateConfigureSettingsNotAvailable: {
+        'en': 'Sorry, but the selected template doesn\'t contain settings',
+        'zh-cn': 'Sorry, but the selected template doesn\'t contain settings[zh-cn]',
+        'uk': 'Вибачте, але вибраний вами шаблон не підтримує налаштування'
     },
     powerPointImport: {
         'en': 'Create from PowerPoint',
@@ -1373,10 +1441,15 @@
         'zh-cn': 'Untitled open question[zh-cn]',
         'uk': 'Untitled open question[uk]'
     },
+    openQuestion: {
+        'en': 'Open question',
+        'zh-cn': 'Open question[zh-cn]',
+        'uk': 'Open question[uk]'
+    },
     openQuestionEditor: {
-        'en': '\"Open\" question editor',
-        'zh-cn': '\"Open\" question editor[zh-cn]',
-        'uk': '\"Open\" question editor[uk]'
+        'en': '\"Open question\" editor',
+        'zh-cn': '\"Open question\" editor[zh-cn]',
+        'uk': '\"Open question\" editor[uk]'
     },
     putYourFeedback: {
         'en': 'Create response for answer',
@@ -1742,6 +1815,11 @@
         'zh-cn': '等待注册中…',
         'uk': 'очікування реєстрації...'
     },
+    waitingForAcceptance: {
+        'en': 'waiting for acceptance...',
+        'zh-cn': 'waiting for acceptance...[zh-cn]',
+        'uk': 'очікування підтвердження...'
+    },
     addCollaboratorStarterWarning: {
         'en': 'You have reached the maximum of 3 co-authors for this course.  Upgrade to Plus Plan to invite additional co-authors.',
         'zh-cn': '您最多只能邀请4个人共同编辑，升级到Plus服务后可以邀请更多的人。',
@@ -1831,7 +1909,7 @@
         'uk': 'Створіть розділ / ціль'
     },
     defineObjectiveOnboardingTaskDescription: {
-        'en': '<section><header>What for?</header><article>Specify exactly what you want students to know or be able to do at the end of the course.</article></section><section><header>How to define objective?</header><ol><li>Click on <b>\"New objective/section\"</b> in the course editor</li><li>Type in your learning objective or section header title</li><li>Click on <b>\"Create and continue\"</b></li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#Course-Editor\">Read more</a></div></section>',
+        'en': '<section><header>What for?</header><article>Specify exactly what you want students to know or be able to do at the end of the course.</article></section><section><header>How to define objective?</header><ol><li>Click on <b>\"New objective/section\"</b> in the course editor</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#Course-Editor\">Read more</a></div></section>',
         'zh-cn': '<section><header>用来做什么？</header><article>清晰地说明你想学生在课程结束后能够了解什么或能够做什么。</article></section><section><header>如何定义课程目标？</header><ol><li>Click on <b>“新目标/部分”</b>在课程编辑器中</li><li>输入你的学习目标或分段标题</li><li>点击<b>“创建并继续”</b></li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#Course-Editor\">了解更多</a></div></section>',
         'uk': '<section><header>Для чого?</header><article>Вкажіть, що саме Ви хотіли б, щоб студент знав чи вмів робити після проходження даного курсу.</article></section><section><header>Як створити розділ / ціль?</header><ol><li>Натисніть на <b>\"Новий розділ / ціль\"</b> в редакторі курсів</li><li>Введіть назву свого розділу / цілі.</li><li>Натисніть на <b>\"Створити і продовжити\"</b></li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#Course-Editor\">Докладніше</a></div></section>'
     },
@@ -2047,7 +2125,7 @@
     upgradeNotificationNote: {
         'en': 'Please note, you will be automatically downgraded to the Free Plan, if you don’t make the payment in time. More info on pricing plans',
         'zh-cn': '如果没有及时续费，您的使用权限将会自动回到基础级别。更多关于使用权限的价格信息在',
-        'uk': 'Будь-ласка, зверніть увагу, якщо Ви вчасно не здійсните платіж, Ваш тарифний план буде змінено на \"Free Plan\". Більше інформації про тарифні плани'
+        'uk': 'Зверніть увагу, якщо Ви вчасно не здійсните платіж, тарифний план буде змінено на \"Free Plan\". Більше про тарифні плани'
     },
     upgradeNotificationHere: {
         'en': 'here',
@@ -2062,7 +2140,7 @@
     upgradeMail: {
         'en': 'Any issues with your credit card and need more time?',
         'zh-cn': '若信用卡有问题导致需延后支付。',
-        'uk': 'Є проблеми з кредитною картою чи потребуєте більше часу?'
+        'uk': 'Виникли проблеми?'
     },
     upgradePleaseContact: {
         'en': 'Please contact:',
@@ -2083,7 +2161,45 @@
         'en': 'Your {0} expires {1}.',
         'zh-cn': '您的 {0} {1} 到期。',
         'uk': 'Ваш {0} закінчиться {1}.'
-    }
+    },
     /* End resource section for model Upgrade Notification */
+    
+    /* Resource section for model Confirm coauthoring */
+    сonfirmСoauthoring: {
+        'en': 'Confirm co-authoring',
+        'zh-cn': 'Confirm co-authoring[zh-cn]',
+        'uk': 'Підтвержденя співавторства'
+    },
+    сonfirmСoauthoringFrom: {
+        'en': 'From',
+        'zh-cn': 'From[zh-cn]',
+        'uk': 'Від'
+    },
+    pleaseConformMyInvitation: {
+        'en': 'Please confirm my invitation to work with you on',
+        'zh-cn': 'Please confirm my invitation to work with you on[zh-cn]',
+        'uk': 'Будь-ласка, прийміть моє запрошення працювати разом з Вами над'
+    },
+    сonfirmСoauthoringCourse: {
+        'en': 'course',
+        'zh-cn': 'course[zh-cn]',
+        'uk': 'курсом'
+    },
+    accept: {
+        'en': 'Accept',
+        'zh-cn': 'Accept[zh-cn]',
+        'uk': 'Прийняти'
+    },
+    decline: {
+        'en': 'Decline',
+        'zh-cn': 'Decline[zh-cn]',
+        'uk': 'Відхилити'
+    },
+    confirmCoauthoringInfo: {
+        'en': 'The course will appear in your course list after accepting.',
+        'zh-cn': 'The course will appear in your course list after accepting.[zh-cn]',
+        'uk': 'Даний курс з\'явиться у Вашому списку курсів після підтверждення.'
+    }
+    /* End resource section for model Confirm coauthoring */
            
 });

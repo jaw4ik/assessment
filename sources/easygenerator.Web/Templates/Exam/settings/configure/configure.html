@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Template configure settings</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="../css/settings.css?v=1431423824525" rel="stylesheet" />
+    <script src="../api.js?v=1431423824525"></script>
+
+    <script src="js/vendor.min.js?v=1431423824525"></script>
+    <script src="js/configure.min.js?v=1431423824525"></script>
+</head>
+
+<body>
+    <div class="settings-container">
+        <!-- ko ifnot: isError -->
+        <div class="settings-tabs-container" data-bind="tabs: {}">
+            <ul class="settings-tabs-wrapper unstyled">
+                <li class="settings-tabs-item track-and-trace" data-tab-link="track-and-trace" data-bind="localize: 'results tracking'"></li>
+                <li class="settings-tabs-item languages" data-tab-link="languages" data-bind="localize: 'template language'"></li>
+            </ul>
+            <div class="settings-tab-container track-and-trace" data-tab="track-and-trace">
+                <div class="settings-tab-wrapper track-and-trace-settings" data-bind="with: trackingData">
+                    <div class=" tab-header-container">
+                        <img src="img/track.png?v=1431423824525" />
+                        <div class="tab-header-wrapper">
+                            <h1 class="tab-header-title" data-bind="localize: 'track and trace settings'"></h1>
+                            <div class="tab-header-content">
+                                <div class="switcher">
+                                    <div class="switcher-text" data-bind="css: { disabled: enableXAPI() }, localize: 'disabled'"></div>
+                                    <div class="switch-toggle-slider" data-bind="switchToggle: { value: enableXAPI }">
+                                        <div class="switch-toggle-wrapper">
+                                            <div class="switch-toggle-on"></div>
+                                            <div class="switch-toogle-blob"></div>
+                                            <div class="switch-toggle-off"></div>
+                                        </div>
+                                    </div>
+                                    <div class="switcher-text" data-bind="css: { disabled: !enableXAPI() }, localize: 'enabled'"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content-container">
+                        <div class="tab-content-title-container" data-bind="click: toggleAdvancedSettings" style="display: inline-block">
+                            <div class="tab-content-title" data-bind="css: { expanded: advancedSettingsExpanded(),  collapsed: !advancedSettingsExpanded() }, localize: 'advanced settings'"></div>
+                        </div>
+                        <div class="template-selector-container" data-bind="visible: advancedSettingsExpanded()">
+                            <div class="selector-items-container">
+                                <h2 class="selector-title" data-bind="localize: 'report to'"></h2>
+                                <ul class="selector-items-wrapper unstyled" data-bind="foreach: lrsOptions">
+                                    <li class="selector-item-container" data-bind="click: $parent.selectLrs, css: { selected: isSelected }">
+                                        <div class="selector-item-btn"></div>
+                                        <div class="selector-item-text" data-bind="localize: name"></div>
+                                    </li>
+                                </ul>
+                                <div class="preview-disabled" data-bind="visible: !enableXAPI()"></div>
+                            </div>
+                            <div class="selector-preview-container">
+                                <h2 class="selector-title" data-bind="localize: 'custom lrs settings'"></h2>
+                                <div class="preview-row">
+                                    <label for="lrsUrl" class="preview-label" data-bind="localize: 'lrs url'"></label>
+                                    <div class="preview-col">
+                                        <input class="preview-text-input" id="lrsUrl" type="text" data-bind="value: lrsUrl, valueUpdate: ['afterkeydown', 'afterpaste'], enable: customLrsEnabled" />
+                                    </div>
+                                </div>
+                                <div class="preview-row checkbox">
+                                    <div class="preview-col pull-right">
+                                        <label>
+                                            <span class="preview-checkbox">
+                                                <input class="preview-checkbox-input" type="checkbox" data-bind="checked: authenticationRequired">
+                                                <span class="preview-checkbox-checked"></span>
+                                            </span>
+                                            <span class="preview-label checkbox" data-bind="localize: 'authentication required'"></span>
+                                        </label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="preview-row">
+                                    <label for="lapLogin" class="preview-label" data-bind="localize: 'lap login'"></label>
+                                    <div class="preview-col">
+                                        <input class="preview-text-input" type="text" id="lapLogin" data-bind="value: lapLogin, valueUpdate: ['afterkeydown', 'afterpaste'], enable: credentialsEnabled" />
+                                    </div>
+                                </div>
+                                <div class="preview-row">
+                                    <label for="lapPassword" class="preview-label" data-bind="localize: 'lap password'"></label>
+                                    <div class="preview-col">
+                                        <input class="preview-text-input" type="text" id="lapPassword" data-bind="value: lapPassword, valueUpdate: ['afterkeydown', 'afterpaste'], enable: credentialsEnabled" />
+                                    </div>
+                                </div>
+                                <div class="preview-row statements">
+                                    <div class="statements-title" data-bind="localize: 'use statements'"></div>
+                                    <div class="statements-container">
+                                        <div class="switcher statement">
+                                            <div class="switch-toggle-slider" data-bind="switchToggle: { value: statements.started }">
+                                                <div class="switch-toggle-wrapper">
+                                                    <div class="switch-toggle-on"></div>
+                                                    <div class="switch-toogle-blob"></div>
+                                                    <div class="switch-toggle-off"></div>
+                                                </div>
+                                            </div>
+                                            <div class="switcher-text" data-bind="localize: 'started'"></div>
+                                        </div>
+                                        <div class="switcher statement">
+                                            <div class="switch-toggle-slider" data-bind="switchToggle: { value: statements.stopped }">
+                                                <div class="switch-toggle-wrapper">
+                                                    <div class="switch-toggle-on"></div>
+                                                    <div class="switch-toogle-blob"></div>
+                                                    <div class="switch-toggle-off"></div>
+                                                </div>
+                                            </div>
+                                            <div class="switcher-text" data-bind="localize: 'stopped'"></div>
+                                        </div>
+                                        <div class="switcher statement">
+                                            <div class="switch-toggle-slider" data-bind="switchToggle: { value: statements.passed }">
+                                                <div class="switch-toggle-wrapper">
+                                                    <div class="switch-toggle-on"></div>
+                                                    <div class="switch-toogle-blob"></div>
+                                                    <div class="switch-toggle-off"></div>
+                                                </div>
+                                            </div>
+                                            <div class="switcher-text" data-bind="localize: 'passed'"></div>
+                                        </div>
+                                    </div>
+                                    <div class="statements-container">
+                                        <div class="switcher statement">
+                                            <div class="switch-toggle-slider" data-bind="switchToggle: { value: statements.answered }">
+                                                <div class="switch-toggle-wrapper">
+                                                    <div class="switch-toggle-on"></div>
+                                                    <div class="switch-toogle-blob"></div>
+                                                    <div class="switch-toggle-off"></div>
+                                                </div>
+                                            </div>
+                                            <div class="switcher-text" data-bind="localize: 'answered'"></div>
+                                        </div>
+                                        <div class="switcher statement">
+                                            <div class="switch-toggle-slider" data-bind="switchToggle: { value: statements.mastered }">
+                                                <div class="switch-toggle-wrapper">
+                                                    <div class="switch-toggle-on"></div>
+                                                    <div class="switch-toogle-blob"></div>
+                                                    <div class="switch-toggle-off"></div>
+                                                </div>
+                                            </div>
+                                            <div class="switcher-text" data-bind="localize: 'mastered'"></div>
+                                        </div>
+                                        <div class="switcher statement">
+                                            <div class="switch-toggle-slider" data-bind="switchToggle: { value: statements.failed }">
+                                                <div class="switch-toggle-wrapper">
+                                                    <div class="switch-toggle-on"></div>
+                                                    <div class="switch-toogle-blob"></div>
+                                                    <div class="switch-toggle-off"></div>
+                                                </div>
+                                            </div>
+                                            <div class="switcher-text" data-bind="localize: 'failed'"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="preview-disabled" data-bind="visible: !customLrsEnabled()"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-seperator"></div>
+                <div class="settings-tab-wrapper">
+                    <div class="tab-header-container">
+                        <img src="img/mastery.png?v=1431423824525" />
+                        <div class="tab-header-wrapper">
+                            <h1 class="tab-header-title" data-bind="localize: 'mastery score settings'"></h1>
+                            <div class="tab-content-container">
+                                <div class="mastery-score-container">
+                                    <div class="mastery-score-title" data-bind="localize: 'mastery score hint'"></div>
+                                    <div data-trigger="spinner" class="spinner" data-bind="spinner: masteryScore.score">
+                                        <a class="spinner-button spinner-down" data-spin="down" data-bind="disableDragNDrop: {}"></a>
+                                        <input type="text" maxlength="3" id="masteryScore" class="content-text-input" data-rule="quantity" data-max="100" data-min="0" data-bind="value: masteryScore.score, valueUpdate: ['afterkeydown', 'afterpaste'], number: {}">
+                                        <a class="spinner-button spinner-up" data-spin="up" data-bind="disableDragNDrop: {}"></a>
+                                        <div class="spiner-seperator"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="settings-tab-container languages" data-tab="languages" data-bind="with: languages">
+                <div class="settings-tab-wrapper">
+                    <div class="tab-header-container">
+                        <img src="img/language.png?v=1431423824525">
+                        <div class="tab-header-wrapper">
+                            <h1 class="tab-header-title" data-bind="localize: 'choose language for your course'"></h1>
+                            <div class="tab-header-content">
+                                <div class="select-language">
+                                    <div id="selectedLanguage" data-bind="dropdown: { options: languages, value: selectedLanguageCode, optionsValue: 'code', optionsText: 'name' }"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content-container">
+                        <table class="choose-language-table">
+                            <thead>
+                                <tr>
+                                    <th class="choose-language-table-header-text" data-bind="localize: 'defaultText'"></th>
+                                    <th class="choose-language-table-header-text" data-bind="localize: 'translation'"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="choose-language-table-content" data-bind="ifnot: isLanguageLoading">
+                                <!-- ko foreach: selectedLanguageTranslations -->
+                                <tr class="choose-language-table-row">
+                                    <td class="choose-language-table-key" data-bind="text: key"></td>
+                                    <td class="choose-language-table-text-wrapper">
+                                        <div class="input-wrapper">
+                                            <!-- ko if: $parent.isLanguageEditable() -->
+                                            <div class="choose-language-table-input-wrapper">
+                                                <input type="text" class="choose-language-table-input" data-bind="value: value, valueUpdate: ['afterkeydown', 'afterpaste']" />
+                                                <span class="edit-icon"></span>
+                                            </div>
+                                            <!-- /ko -->
+                                            <!-- ko ifnot: $parent.isLanguageEditable() -->
+                                            <span data-bind="text: value"></span>
+                                            <!-- /ko -->
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- /ko -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: isError -->
+        <div class="settings-tab-wrapper" data-bind="localize: 'settings are not initialize'"></div>
+        <!-- /ko -->
+    </div>
+</body>
+
+</html>

@@ -84,6 +84,7 @@ namespace easygenerator.Web.Configuration
 
             builder.RegisterType<AuthenticationProvider>().As<IAuthenticationProvider>();
             builder.RegisterType<DependencyResolverWrapper>().As<IDependencyResolverWrapper>();
+            builder.RegisterType<TypeMethodInvoker>().As<ITypeMethodInvoker>();
 
             #region Broadcasting
 
@@ -113,6 +114,7 @@ namespace easygenerator.Web.Configuration
 
             RegisterGenericTypes(builder, applicationAssembly, typeof(IEntityModelMapper<>));
             builder.RegisterType<EntityMapper>().As<IEntityMapper>();
+            builder.RegisterType<CollaborationInviteMapper>().As<ICollaborationInviteMapper>();
 
             #endregion
 
