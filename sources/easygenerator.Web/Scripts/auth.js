@@ -15,7 +15,7 @@
     function isUserLoggedIn() {
         var index;
         // check tokens in storage
-        for (index = 0; index < requiredEndpoints; index++) {
+        for (index = 0; index < requiredEndpoints.length; index++) {
             if (token(requiredEndpoints[index]) === undefined) {
                 return false;
             }
@@ -45,14 +45,14 @@
     }
 
     function removeTokens() {
-        var key;
-        for (var i = 0; i < localStorage.length; i++) {
-            key = localStorage.key(i);
-            if (new RegExp('^' + tokenNamespace + '*').test(key)) {
-                localStorage.removeItem(key);
+        var index;
+        for (index = 0; index < requiredEndpoints.length; index++) {
+            if (token(requiredEndpoints[index]) !== undefined) {
+                localStorage.removeItem(tokenNamespace + requiredEndpoints[index]);
             }
         }
-        for (var index = 0; index < cookieTokens.length; index++) {
+
+        for (index = 0; index < cookieTokens.length; index++) {
             document.cookie = tokenNamespace + cookieTokens[index] + '=;expires=Wed 01 Jan 1970';
         }
     }
