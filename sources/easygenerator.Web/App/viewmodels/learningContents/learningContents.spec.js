@@ -1,4 +1,4 @@
-﻿define(['viewmodels/questions/learningContents'], function (viewModel) {
+﻿define(['viewmodels/learningContents/learningContents'], function (viewModel) {
     "use strict";
 
     var
@@ -873,8 +873,8 @@
                     it('should update order of learning contents', function () {
                         var currentLc = viewModel.learningContents();
                         var currentOrder = currentLc[0].id() + currentLc[1].id() + currentLc[2].id() + currentLc[3].id();
-                        
-                        viewModel.learningContentsReorderedByCollaborator({id: viewModel.questionId }, newLearningContentsIds);
+
+                        viewModel.learningContentsReorderedByCollaborator({ id: viewModel.questionId }, newLearningContentsIds);
 
                         var resultOrder = viewModel.learningContents();
                         expect(resultOrder[3].id() + resultOrder[2].id() + resultOrder[1].id() + resultOrder[0].id()).toBe(currentOrder);
@@ -890,7 +890,7 @@
                         viewModel.changesFromCollaborator = null;
                         var currentLc = viewModel.learningContents();
                         var currentOrder = currentLc[0].id() + currentLc[1].id() + currentLc[2].id() + currentLc[3].id();
-                        
+
                         viewModel.learningContentsReorderedByCollaborator({ id: viewModel.questionId }, newLearningContentsIds);
 
                         var resultOrder = viewModel.changesFromCollaborator.learningContentsIds;
@@ -901,7 +901,7 @@
                     it('should not update order of learning contents', function () {
                         var currentLc = viewModel.learningContents();
                         var currentOrder = currentLc[0].id() + currentLc[1].id() + currentLc[2].id() + currentLc[3].id();
-                        
+
                         viewModel.learningContentsReorderedByCollaborator({ id: viewModel.questionId }, newLearningContentsIds);
 
                         var resultOrder = viewModel.learningContents();
@@ -947,7 +947,7 @@
 
         describe('isAddedButtonsShown', function () {
 
-            it('should be observable', function() {
+            it('should be observable', function () {
                 expect(viewModel.isAddedButtonsShown).toBeObservable();
             });
 
@@ -955,11 +955,11 @@
 
         describe('toggleIsAddedButtonsShown:', function () {
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.toggleIsAddedButtonsShown).toBeFunction();
             });
 
-            describe('when added buttons shown', function() {
+            describe('when added buttons shown', function () {
 
                 it('should set isAddedButtonsShown to false', function () {
                     viewModel.isAddedButtonsShown(true);

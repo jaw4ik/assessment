@@ -688,6 +688,10 @@
       <DependentUpon>results.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\index.js" />
+    <Content Include="App\viewmodels\learningContents\learningContents.js" />
+    <Content Include="App\viewmodels\learningContents\learningContents.spec.js">
+      <DependentUpon>learningContents.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\objectives\index.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.spec.js">
@@ -719,6 +723,7 @@
     <Content Include="App\views\courses\publishActions\publishAsHtml.html" />
     <Content Include="App\views\courses\publishActions\publishAsScorm.html" />
     <Content Include="App\views\courses\publishActions\updatePublishedCourse.html" />
+    <Content Include="App\views\learningContents\learningContents.html" />
     <Content Include="App\views\objectives\index.html" />
     <Content Include="App\views\questions\statement\statement.html" />
     <Content Include="App\reporting\views\courseStatement.html" />
@@ -1505,7 +1510,6 @@
     <Content Include="App\views\questions\dragAndDropText\dragAndDropText.html" />
     <Content Include="App\views\questions\feedback.html" />
     <Content Include="App\views\questions\fillInTheBlank\fillInTheBlank.html" />
-    <Content Include="App\views\questions\learningContents.html" />
     <Content Include="App\views\questions\singleSelectImage\singleSelectImage.html" />
     <Content Include="App\views\questions\singleSelectImage\designer.html" />
     <Content Include="App\views\questions\singleSelectText\singleSelectText.html" />
@@ -2425,10 +2429,6 @@
     <Content Include="App\viewmodels\panels\tabs\reviewTab.js" />
     <Content Include="App\viewmodels\panels\tabs\reviewTab.spec.js">
       <DependentUpon>reviewTab.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\questions\learningContents.js" />
-    <Content Include="App\viewmodels\questions\learningContents.spec.js">
-      <DependentUpon>learningContents.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\questions\question.js" />
     <Content Include="App\viewmodels\questions\question.spec.js">

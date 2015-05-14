@@ -284,8 +284,9 @@
             'viewmodels/questions/hotspot/queries/getQuestionContentById.spec',
 
             'viewmodels/questions/questionTitle.spec',
-            'viewmodels/questions/learningContents.spec',
             'viewmodels/questions/feedback.spec',
+
+            'viewmodels/learningContents/learningContents.spec',
 
             //#endregion
 

@@ -1,5 +1,5 @@
 ﻿define(['repositories/learningContentRepository', 'repositories/questionRepository', 'localization/localizationManager', 'notify', 'constants', 'eventTracker', 'durandal/app'],
-    function(learningContentsrepository, questionRepository, localizationManager, notify, constants, eventTracker, app) {
+    function (learningContentsrepository, questionRepository, localizationManager, notify, constants, eventTracker, app) {
 
         var
             events = {
@@ -43,7 +43,7 @@
             localizationManager: localizationManager
         };
 
-        viewModel.isSortingEnabled = ko.computed(function() {
+        viewModel.isSortingEnabled = ko.computed(function () {
             return viewModel.learningContents().length > 1;
         });
 
