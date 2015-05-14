@@ -2,43 +2,46 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Hosting;
 using RazorEngine;
+using RazorEngine.Templating;
+
 
 namespace easygenerator.Web.Components
 {
     public class RazorTemplateProvider
     {
-        private readonly Dictionary<string, string> _templatesCache = new Dictionary<string, string>();
         private readonly object _locker = new object();
 
         public virtual string Get(string razorTemplateRelativePath, dynamic templateModel)
         {
-            var template = GetTemplateContent(razorTemplateRelativePath);
-            return Razor.Parse(template, templateModel);
+            var cacheName = GetOrAddTemplateCacheName(razorTemplateRelativePath);
+
+            return RazorEngineServiceExtensions.RunCompile(Engine.Razor, cacheName, null, templateModel);
         }
 
-        private string GetTemplateContent(string razorTemplateRelativePath)
+        private ITemplateKey GetOrAddTemplateCacheName(string razorTemplateRelativePath)
         {
             string templatePath = HostingEnvironment.MapPath(razorTemplateRelativePath);
             if (templatePath == null)
                 return null;
 
-            if (_templatesCache.ContainsKey(templatePath))
-            {
-                return _templatesCache[templatePath];
-            }
+            var cacheName = Engine.Razor.GetKey(templatePath);
 
-            lock (_locker)
+            if (!Engine.Razor.IsTemplateCached(cacheName, null))
             {
-                if (!_templatesCache.ContainsKey(templatePath))
+                lock (_locker)
                 {
-                    var content = File.ReadAllText(templatePath);
-                    _templatesCache[templatePath] = content;
+                    if (!Engine.Razor.IsTemplateCached(cacheName, null))
+                    {
+                        var content = File.ReadAllText(templatePath);
+                        Engine.Razor.AddTemplate(cacheName, new LoadedTemplateSource(content, templatePath));
+                    }
                 }
-                return _templatesCache[templatePath];
             }
+            return cacheName;
         }
     }
 }
