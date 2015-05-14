@@ -6,7 +6,7 @@
     function post(url, data) {
         app.trigger('authHttpWrapper:post-begin');
        
-        return httpRequestSender.post(url, data, window.auth.getHeader('storage')).then(function (response) {
+        return httpRequestSender.post(url, data, window.auth.getHeader('auth')).then(function (response) {
 
             if (!_.isObject(response)) {
                 throw 'Response data is not an object';
