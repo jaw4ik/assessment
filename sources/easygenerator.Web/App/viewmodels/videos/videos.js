@@ -28,7 +28,7 @@
     }
 
     function showVideoPopup(video) {
-        if (!video.vimeoId) {
+        if (!video.vimeoId()) {
             return;
         }
 

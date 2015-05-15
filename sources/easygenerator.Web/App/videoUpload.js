@@ -24,7 +24,7 @@
 
                         getTicket()
                             .then(function (data) {
-                                uploadVideo(file, data.uploadUrl, data.completeUrl);
+                                uploadVideo(file, data.uploadUrl, data.completeUrl); //TODO store completeUrl on server 
                             })
                             .fail(function (request) {
                                 throw request.status;
@@ -98,7 +98,6 @@
                 data: { uploadUrl: uploadUrl, completeUrl: completeUrl }
             })
             .then(function (finishData) {
-                videoToUpload.id = 'dssd-sdfdf-dfdsfsd-dfssdfsdf';
                 videoToUpload.vimeoId = 123454;
                 havingChanges = true;
             });
