@@ -176,7 +176,6 @@
                     titleUpdatedByCollaborator: 'question:titleUpdatedByCollaborator',
                     contentUpdatedByCollaborator: 'question:contentUpdatedByCollaborator',
                     backgroundChangedByCollaborator: 'question:backgroundChangedByCollaborator',
-                    generalFeedbackUpdatedByCollaborator: 'question:generalFeedbackUpdatedByCollaborator',
                     correctFeedbackUpdatedByCollaborator: 'question:correctFeedbackUpdatedByCollaborator',
                     incorrectFeedbackUpdatedByCollaborator: 'question:incorrectFeedbackUpdatedByCollaborator',
                     deletedByCollaborator: 'question:deletedByCollaborator',

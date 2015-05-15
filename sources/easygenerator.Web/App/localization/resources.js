@@ -1466,16 +1466,6 @@
         'zh-cn': '\"Open question\" editor[zh-cn]',
         'uk': '\"Open question\" editor[uk]'
     },
-    putYourFeedback: {
-        'en': 'Create response for answer',
-        'zh-cn': 'Create response for answer[zh-cn]',
-        'uk': 'Create response for answer[uk]'
-    },
-    generalFeedback: {
-        'en': 'Response for answer',
-        'zh-cn': 'Response for answer[zh-cn]',
-        'uk': 'Response for answer[uk]'
-    },
     /* End resource section for model OpenQuestion */
     
     /* Resource section for model QuestionFeedback */

@@ -69,7 +69,6 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess(new
             {
                 ModifiedOn = question.ModifiedOn,
-                GeneralFeedbackText = question.Feedback.GeneralText,
                 CorrectFeedbackText = question.Feedback.CorrectText,
                 IncorrectFeedbackText = question.Feedback.IncorrectText
             });
@@ -101,21 +100,6 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             question.UpdateIncorrectFeedbackText(feedbackText);
-
-            return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
-        }
-
-        [HttpPost]
-        [EntityCollaborator(typeof(Question))]
-        [Route("api/question/updateGeneralFeedback")]
-        public ActionResult UpdateGeneralFeedback(Question question, string feedbackText)
-        {
-            if (question == null)
-            {
-                return JsonLocalizableError(Errors.QuestionNotFoundError, Errors.QuestionNotFoundResourceKey);
-            }
-
-            question.UpdateGeneralFeedbackText(feedbackText);
 
             return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
         }

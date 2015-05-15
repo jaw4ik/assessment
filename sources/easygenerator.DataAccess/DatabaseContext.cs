@@ -109,7 +109,6 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Question>().HasMany(e => e.LearningContentsCollection).WithRequired(e => e.Question);
             modelBuilder.Entity<Question>().Property(e => e.Feedback.CorrectText).IsMaxLength().IsOptional();
             modelBuilder.Entity<Question>().Property(e => e.Feedback.IncorrectText).IsMaxLength().IsOptional();
-            modelBuilder.Entity<Question>().Property(e => e.Feedback.GeneralText).IsMaxLength().IsOptional();
             modelBuilder.Entity<Question>().Property(e => e.LearningContentsOrder).IsOptional();
 
             modelBuilder.Entity<Multipleselect>().HasMany(e => e.AnswersCollection).WithRequired(e => e.Question);

@@ -112,7 +112,6 @@ define(['durandal/app', 'eventTracker', 'constants',
                             viewmodel.hasQuestionView = viewModelData.hasQuestionView;
                             viewmodel.questionContent = viewModelData.hasQuestionContent ? vmContentField(question.content, eventsForQuestionContent, true, updateQuestionContent) : null;
                             viewmodel.hasFeedback = viewModelData.hasFeedback;
-                            viewmodel.showGeneralFeedback = viewModelData.showGeneralFeedback;
                         });
             });
         }

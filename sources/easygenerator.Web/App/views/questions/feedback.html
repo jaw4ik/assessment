@@ -13,25 +13,6 @@
         </div>
         <!-- /ko -->
         <!-- ko if: isExpanded -->
-        <!-- ko if: showGeneralFeedback() -->
-        <div class="question-feedback-wrapper general">
-            <div class="question-feedback-icon">
-                <div class="info-tooltip left-side">
-                    <span data-bind="localize: { text: 'generalFeedback' }">General feedback</span>
-                </div>
-            </div>
-            <div class="question-feedback" data-bind="with: generalFeedback, css: { active: generalFeedback.hasFocus, empty: generalFeedback.isEmpty }">
-                <div class="question-feedback-text-wrapper selectable" data-bind="ckeditor: { data: text, eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, blur: updateText, autosaveInterval: $root.autosaveInterval, localizationManager: $root.localizationManager }">
-                </div>
-                <!-- ko if: isEmpty() && !hasFocus() -->
-                <div class="question-feedback-info-wrapper">
-                    <span class="question-feedback-info" data-bind="localize: { text: 'putYourFeedback' }">Put your feedback</span>
-                </div>
-                <!-- /ko -->
-            </div>
-        </div>
-        <!-- /ko -->
-        <!-- ko ifnot: showGeneralFeedback() -->
         <div class="question-feedback-wrapper correct">
             <div class="question-feedback-icon">
                 <div class="info-tooltip left-side">
@@ -65,7 +46,6 @@
                 <!-- /ko -->
             </div>
         </div>
-        <!-- /ko -->
         <!-- /ko -->
     </div>
 </div>

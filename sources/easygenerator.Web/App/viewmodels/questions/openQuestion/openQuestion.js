@@ -13,8 +13,7 @@
                 return {
                     viewCaption: localizationManager.localize('openQuestionEditor'),
                     hasQuestionContent: true,
-                    hasFeedback: true,
-                    showGeneralFeedback: true
+                    hasFeedback: true
                 };
             });
         }

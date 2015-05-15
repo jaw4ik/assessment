@@ -651,10 +651,6 @@
     <Content Include="App\synchronization\handlers\questions\hotSpot\eventHandlers\polygonCreated.spec.js">
       <DependentUpon>polygonCreated.js</DependentUpon>
     </Content>
-    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\generalFeedbackUpdated.js" />
-    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\generalFeedbackUpdated.spec.js">
-      <DependentUpon>generalFeedbackUpdated.js</DependentUpon>
-    </Content>
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\learningContentsReordered.js" />
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\learningContentsReordered.spec.js">
       <DependentUpon>learningContentsReordered.js</DependentUpon>

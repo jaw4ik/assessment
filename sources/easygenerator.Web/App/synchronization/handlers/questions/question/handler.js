@@ -4,7 +4,6 @@
     'synchronization/handlers/questions/question/eventHandlers/backgroundChanged',
     'synchronization/handlers/questions/question/eventHandlers/correctFeedbackUpdated',
     'synchronization/handlers/questions/question/eventHandlers/incorrectFeedbackUpdated',
-    'synchronization/handlers/questions/question/eventHandlers/generalFeedbackUpdated',
     'synchronization/handlers/questions/question/eventHandlers/created',
     'synchronization/handlers/questions/question/eventHandlers/deleted',
     'synchronization/handlers/questions/question/eventHandlers/learningContentsReordered'],
@@ -14,7 +13,6 @@
         backgroundChanged,
         correctFeedbackUpdated,
         incorrectFeedbackUpdated,
-        generalFeedbackUpdated,
         created,
         deleted, 
         learningContentsReordered) {
@@ -26,7 +24,6 @@
             backgroundChanged: backgroundChanged,
             correctFeedbackUpdated: correctFeedbackUpdated,
             incorrectFeedbackUpdated: incorrectFeedbackUpdated,
-            generalFeedbackUpdated: generalFeedbackUpdated,
             created: created,
             deleted: deleted,
             learningContentsReordered: learningContentsReordered

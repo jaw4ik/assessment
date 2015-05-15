@@ -21,12 +21,6 @@
 
         });
 
-        describe('showGeneralFeedback:', function() {
-            it('should be observable', function() {
-                expect(viewModel.showGeneralFeedback).toBeObservable();
-            });
-        });
-
         describe('autosaveInterval:', function () {
 
             it('should be defined', function () {
@@ -389,168 +383,6 @@
 
         });
 
-        describe('generalFeedback:', function () {
-
-            it('should be defined', function () {
-                expect(viewModel.generalFeedback).toBeDefined();
-            });
-
-            describe('text:', function () {
-
-                it('should be observable', function () {
-                    expect(viewModel.generalFeedback.text).toBeObservable();
-                });
-
-            });
-
-            describe('previousText:', function () {
-
-                it('should be defined', function () {
-                    expect(viewModel.generalFeedback.previousText).toBeDefined();
-                });
-
-            });
-
-            describe('init:', function () {
-
-                it('should be function', function () {
-                    expect(viewModel.generalFeedback.init).toBeFunction();
-                });
-
-                it('should set text and previousText', function () {
-                    viewModel.generalFeedback.text('');
-                    viewModel.generalFeedback.previousText = '';
-
-                    viewModel.generalFeedback.init('new text');
-
-                    expect(viewModel.generalFeedback.text()).toBe('new text');
-                    expect(viewModel.generalFeedback.previousText).toBe('new text');
-                });
-
-            });
-
-            describe('hasFocus:', function () {
-
-                it('should be observable', function () {
-                    expect(viewModel.generalFeedback.hasFocus).toBeObservable();
-                });
-
-            });
-
-            describe('isEmpty:', function () {
-
-                it('should be computed', function () {
-                    expect(viewModel.generalFeedback.isEmpty).toBeComputed();
-                });
-
-                describe('when text is empty', function () {
-
-                    it('should be true', function () {
-                        viewModel.generalFeedback.text('');
-                        expect(viewModel.generalFeedback.isEmpty()).toBeTruthy();
-                    });
-
-                });
-
-                describe('when text is not empty', function () {
-
-                    it('should be false', function () {
-                        viewModel.generalFeedback.text('text');
-                        expect(viewModel.generalFeedback.isEmpty()).toBeFalsy();
-                    });
-
-                });
-
-            });
-
-            describe('updateText:', function () {
-
-                it('should be function', function () {
-                    expect(viewModel.generalFeedback.updateText).toBeFunction();
-                });
-
-                var updateGeneralFeedbackDefer;
-                beforeEach(function () {
-                    spyOn(eventTracker, 'publish');
-                    updateGeneralFeedbackDefer = Q.defer();
-                    spyOn(repository, 'updateGeneralFeedback').and.returnValue(updateGeneralFeedbackDefer.promise);
-                    updateGeneralFeedbackDefer.resolve();
-                });
-
-                describe('when text equal previousText', function () {
-
-                    beforeEach(function () {
-                        viewModel.generalFeedback.text('some text');
-                        viewModel.generalFeedback.previousText = 'some text';
-                    });
-
-                    it('should not update feedback', function () {
-                        viewModel.generalFeedback.updateText();
-                        expect(repository.updateGeneralFeedback).not.toHaveBeenCalled();
-                    });
-
-                    it('should not send event \'Update feedback content\'', function () {
-                        viewModel.generalFeedback.updateText();
-                        expect(eventTracker.publish).not.toHaveBeenCalled();
-                    });
-
-                });
-
-                describe('when text not equal previousText', function () {
-
-                    beforeEach(function () {
-                        viewModel.generalFeedback.text('<p>some text</p>');
-                        viewModel.generalFeedback.previousText = 'another text';
-                    });
-
-                    describe('and when html text is empty', function () {
-
-                        beforeEach(function () {
-                            viewModel.generalFeedback.text('   <p>    </p>   ');
-                            viewModel.generalFeedback.previousText = 'another text';
-                        });
-
-                        it('should remove feedback', function () {
-                            viewModel.generalFeedback.updateText();
-                            expect(viewModel.generalFeedback.text()).toBe(' ');
-                        });
-
-                    });
-
-                    it('should send event \'Update feedback content\'', function () {
-                        viewModel.generalFeedback.updateText();
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Update feedback content');
-                    });
-
-                    it('should set previousText equal to text', function () {
-                        viewModel.generalFeedback.updateText();
-                        expect(viewModel.generalFeedback.previousText).toBe(viewModel.generalFeedback.text());
-                    });
-
-                    it('should update feedback', function () {
-                        viewModel.generalFeedback.updateText();
-                        expect(repository.updateGeneralFeedback).toHaveBeenCalledWith(viewModel.questionId, viewModel.generalFeedback.text());
-                    });
-
-                    describe('and when feedback updated', function () {
-
-                        it('should notify user', function (done) {
-                            spyOn(notify, 'saved');
-                            viewModel.generalFeedback.updateText();
-                            updateGeneralFeedbackDefer.promise.fin(function () {
-                                expect(notify.saved).toHaveBeenCalled();
-                                done();
-                            });
-                        });
-
-                    });
-
-                });
-
-            });
-
-        });
-
         describe('correctFeedbackUpdatedByCollaborator:', function () {
 
             it('should be function', function () {
@@ -639,50 +471,6 @@
 
         });
 
-        describe('generalFeedbackUpdatedByCollaborator:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.generalFeedbackUpdatedByCollaborator).toBeFunction();
-            });
-
-            viewModel.questionId = 'questionId';
-            var question = { id: null };
-            var feedbackText = 'feedback text';
-
-            describe('when it is not current question', function () {
-
-                beforeEach(function () {
-                    question.id = 'another id';
-                });
-
-                it('should not update generalFeedback text', function () {
-                    viewModel.generalFeedback.text('');
-
-                    viewModel.generalFeedbackUpdatedByCollaborator(question, feedbackText);
-
-                    expect(viewModel.generalFeedback.text()).not.toBe(feedbackText);
-                });
-
-            });
-
-            describe('when it is current question', function () {
-
-                beforeEach(function () {
-                    question.id = viewModel.questionId;
-                });
-
-                it('should update generalFeedback text', function () {
-                    viewModel.incorrectFeedback.text('');
-
-                    viewModel.generalFeedbackUpdatedByCollaborator(question, feedbackText);
-
-                    expect(viewModel.generalFeedback.text()).toBe(feedbackText);
-                });
-
-            });
-
-        });
-
         describe('activate:', function () {
 
             it('should be function', function () {
@@ -695,8 +483,7 @@
 
             var questionId = '1',
                 activationData = {
-                    questionId: questionId,
-                    showGeneralFeedback: false
+                    questionId: questionId
                 },
                 getQuestionFeedbackDeferred;
 
@@ -704,7 +491,6 @@
                 getQuestionFeedbackDeferred = Q.defer();
                 spyOn(repository, 'getQuestionFeedback').and.returnValue(getQuestionFeedbackDeferred.promise);
                 getQuestionFeedbackDeferred.resolve({
-                    generalFeedbackText: 'feedback',
                     correctFeedbackText: 'correct',
                     incorrectFeedbackText: 'incorrect'
                 });
@@ -726,14 +512,6 @@
                 });
             });
 
-            it('should set showGeneralFeedback', function (done) {
-                viewModel.showGeneralFeedback(null);
-                viewModel.activate(activationData).fin(function () {
-                    expect(viewModel.showGeneralFeedback()).toBeFalsy();
-                    done();
-                });
-            });
-
             it('should get question feedback', function (done) {
                 viewModel.activate(activationData).fin(function () {
                     expect(repository.getQuestionFeedback).toHaveBeenCalledWith(questionId);
@@ -742,14 +520,6 @@
             });
 
             describe('and when question feedback received', function () {
-
-                it('should init general feedback', function (done) {
-                    spyOn(viewModel.generalFeedback, 'init');
-                    viewModel.activate(activationData).fin(function () {
-                        expect(viewModel.generalFeedback.init).toHaveBeenCalledWith('feedback');
-                        done();
-                    });
-                });
 
                 it('should init correct feedback', function (done) {
                     spyOn(viewModel.correctFeedback, 'init');

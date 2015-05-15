@@ -116,17 +116,6 @@ namespace easygenerator.Web.Controllers
             return Content(question.Feedback.IncorrectText);
         }
 
-        [Route("preview/{courseId}/content/{objectiveId}/{questionId}/generalFeedback.html")]
-        public ActionResult GetPreviewGeneralFeedback(Question question)
-        {
-            if (question == null)
-            {
-                return HttpNotFound();
-            }
-
-            return Content(question.Feedback.GeneralText);
-        }
-
         [Route("preview/{courseId}/content/data.js")]
         public ActionResult GetPreviewCourseData(Course course)
         {

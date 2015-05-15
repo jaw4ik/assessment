@@ -60,13 +60,6 @@ namespace easygenerator.DomainModel.Entities.Questions
 
         public Feedback Feedback { get; private set; }
 
-        public virtual void UpdateGeneralFeedbackText(string feedbackText)
-        {
-            Feedback.GeneralText = feedbackText;
-
-            RaiseEvent(new QuestionGeneralFeedbackUpdatedEvent(this));
-        }
-
         public virtual void UpdateCorrectFeedbackText(string feedbackText)
         {
             Feedback.CorrectText = feedbackText;

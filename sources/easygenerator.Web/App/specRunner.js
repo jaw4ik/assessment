@@ -167,7 +167,6 @@
             'synchronization/handlers/questions/question/eventHandlers/contentUpdated.spec',
             'synchronization/handlers/questions/question/eventHandlers/correctFeedbackUpdated.spec',
             'synchronization/handlers/questions/question/eventHandlers/incorrectFeedbackUpdated.spec',
-            'synchronization/handlers/questions/question/eventHandlers/generalFeedbackUpdated.spec',
             'synchronization/handlers/questions/question/eventHandlers/learningContentsReordered.spec',
 
             'synchronization/handlers/questions/fillInTheBlank/handler.spec',

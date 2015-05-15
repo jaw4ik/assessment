@@ -103,10 +103,6 @@ namespace easygenerator.Web.BuildCourse
                     {
                         _fileManager.WriteToFile(_buildPathProvider.GetIncorrectFeedbackContentFileName(buildDirectory, objective.Id, question.Id), question.Feedback.IncorrectText);
                     }
-                    if (question.HasGeneralFeedback)
-                    {
-                        _fileManager.WriteToFile(_buildPathProvider.GetGeneralFeedbackContentFileName(buildDirectory, objective.Id, question.Id), question.Feedback.GeneralText);
-                    }
                 }
             }
         }

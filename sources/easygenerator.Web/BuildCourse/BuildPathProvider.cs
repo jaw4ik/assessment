@@ -63,11 +63,6 @@ namespace easygenerator.Web.BuildCourse
             return Path.Combine(GetQuestionDirectoryName(buildDirectory, objectiveId, questionId), "incorrectFeedback" + ".html");
         }
 
-        public virtual string GetGeneralFeedbackContentFileName(string buildDirectory, string objectiveId, string questionId)
-        {
-            return Path.Combine(GetQuestionDirectoryName(buildDirectory, objectiveId, questionId), "generalFeedback" + ".html");
-        }
-
         public virtual string GetDataFileName(string buildDirectory)
         {
             return Path.Combine(GetContentDirectoryName(buildDirectory), "data.js");

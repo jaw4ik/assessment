@@ -33,12 +33,6 @@
             });
         });
 
-        describe('generalFeedbackUpdated:', function () {
-            it('should be defined', function () {
-                expect(handler.generalFeedbackUpdated).toBeDefined();
-            });
-        });
-
         describe('created:', function () {
             it('should be defined', function () {
                 expect(handler.created).toBeDefined();

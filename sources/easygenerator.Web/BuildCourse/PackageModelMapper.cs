@@ -214,7 +214,6 @@ namespace easygenerator.Web.BuildCourse
             packageModel.Feedback = question.Feedback ?? new Feedback();
             packageModel.HasCorrectFeedback = !String.IsNullOrWhiteSpace(question.Feedback.CorrectText);
             packageModel.HasIncorrectFeedback = !String.IsNullOrWhiteSpace(question.Feedback.IncorrectText);
-            packageModel.HasGeneralFeedback = !String.IsNullOrWhiteSpace(question.Feedback.GeneralText);
         }
 
         private AnswerOptionPackageModel MapAnswer(Answer answer)

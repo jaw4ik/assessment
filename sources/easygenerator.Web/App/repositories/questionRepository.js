@@ -204,7 +204,6 @@ define(['durandal/app', 'dataContext', 'constants', 'http/httpWrapper', 'guard',
                             question.modifiedOn = new Date(response.ModifiedOn);
 
                             return {
-                                generalFeedbackText: response.GeneralFeedbackText,
                                 correctFeedbackText: response.CorrectFeedbackText,
                                 incorrectFeedbackText: response.IncorrectFeedbackText
                             };
@@ -250,34 +249,6 @@ define(['durandal/app', 'dataContext', 'constants', 'http/httpWrapper', 'guard',
                     };
 
                     return httpWrapper.post('api/question/updateIncorrectFeedback', data)
-                        .then(function (response) {
-                            guard.throwIfNotAnObject(response, 'Response is not an object');
-                            guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
-
-                            var question = _.find(getQuestions(), function (item) {
-                                return item.id == questionId;
-                            });
-
-                            guard.throwIfNotAnObject(question, 'Question does not exist in dataContext');
-
-                            var modifiedOn = new Date(response.ModifiedOn);
-                            question.modifiedOn = modifiedOn;
-
-                            return modifiedOn;
-                        });
-                });
-            },
-
-            updateGeneralFeedback = function (questionId, feedbackText) {
-                return Q.fcall(function () {
-                    guard.throwIfNotString(questionId, 'Question id is not a string');
-
-                    var data = {
-                        questionId: questionId,
-                        feedbackText: feedbackText
-                    };
-
-                    return httpWrapper.post('api/question/updateGeneralFeedback', data)
                         .then(function (response) {
                             guard.throwIfNotAnObject(response, 'Response is not an object');
                             guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
@@ -445,7 +416,6 @@ define(['durandal/app', 'dataContext', 'constants', 'http/httpWrapper', 'guard',
             getQuestionFeedback: getQuestionFeedback,
             updateCorrectFeedback: updateCorrectFeedback,
             updateIncorrectFeedback: updateIncorrectFeedback,
-            updateGeneralFeedback: updateGeneralFeedback,
             updateLearningContentsOrder: updateLearningContentsOrder,
             getById: getById
         };

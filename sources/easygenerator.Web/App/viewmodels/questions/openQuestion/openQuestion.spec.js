@@ -66,13 +66,6 @@
 				    });
 				});
 
-				it('should have showGeneralFeedback property with true value', function (done) {
-				    var promise = viewModel.initialize();
-				    promise.then(function (result) {
-				        expect(result.showGeneralFeedback).toBeTruthy();
-				        done();
-				    });
-				});
 			});
 
 		});
