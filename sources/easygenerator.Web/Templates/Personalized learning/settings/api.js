@@ -154,6 +154,7 @@
 
         var requestArgs = {
             url: settingsUrl,
+            type: 'POST',
             headers: headers,
             cache: false,
             contentType: 'application/json',
