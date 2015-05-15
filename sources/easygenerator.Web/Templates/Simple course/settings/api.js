@@ -103,7 +103,7 @@
 
     function getUserModel(userData) {
         //  token auth support;
-        userDatais = isTokenAuthSupported ? userData.data : userData;
+        userData = isTokenAuthSupported ? userData.data : userData;
         //  token auth support;
         var user = { accessType: 0 };
         var starterAccessType = 1;
@@ -124,7 +124,6 @@
         } else {
             //TODO: need to be removed in next implementation
             settings = {
-                logo: {},
                 xApi: {
                     enabled: true,
                     selectedLrs: 'default',
@@ -154,9 +153,9 @@
 
         var requestArgs = {
             url: settingsUrl,
+            type: 'POST',
             headers: headers,
             cache: false,
-            contentType: 'application/json',
             dataType: 'json',
             data: data
         }
