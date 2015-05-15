@@ -10,7 +10,7 @@
         };
 
         function link(scope, element) {
-            autosize($(element));
+            autosize($(element), { setOverflowX: false, setOverflowY: false});
         }
     }
 }());
