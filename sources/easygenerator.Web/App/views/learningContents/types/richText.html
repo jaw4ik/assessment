@@ -1,0 +1,22 @@
+﻿<div class="question-learning-content-list-item-body-wrapper">
+    <div class="question-learning-content-list-item-body">
+        <div class="question-learning-content-drag-wrapper" data-bind="css:{ enabled: $parent.isSortingEnabled }, localize: { title: 'changeOrderTooltip' }"></div>
+        <div class="question-learning-content-body-wrapper" data-bind="css: { active: hasFocus }">
+            <div class="question-learning-content-body">
+                <div class="question-learning-content-wrapper">
+                    <div class="question-learning-content selectable" data-bind="ckeditor: { data: text, eventTracker: $parent.eventTracker, isEditing: hasFocus, save: $parent.updateText, focus: $parent.beginEditText, blur: function (data, event) { $parent.updateText(data, event), $parent.endEditText(data, event); }, autosaveInterval: $parent.autosaveInterval, localizationManager: $parent.localizationManager }">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="question-learning-content-delete-wrapper">
+            <span class="question-learning-content-delete-icon  info-tooltip-holder" data-bind="click: $parent.removeLearningContent">
+                <span class="info-tooltip right-side">
+                    <span data-bind="localize: { text: 'delete' }">
+                        Delete
+                    </span>
+                </span>
+            </span>
+        </div>
+    </div>
+</div>

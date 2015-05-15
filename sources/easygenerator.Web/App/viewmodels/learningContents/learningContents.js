@@ -77,7 +77,6 @@
                     uiLocker.lock();
                 },
                 success: function (url) {
-                    debugger;
                     var text = hotspotParser.getHotspot(url);
                     doAddLearningContent(undefined, text);
                 },
@@ -249,12 +248,13 @@
             doAddLearningContent(learningContent);
         }
 
-        function doAddLearningContent(learningContent, text) {
-            learningContent = learningContent || { id: '', text: text || '', hasFocus: true };
+        function doAddLearningContent(learningContent, text, type) {
+            learningContent = learningContent || { id: '', text: text || '', hasFocus: true, type: type || constants.learningContentsTypes.richText };
             viewModel.learningContents.push({
                 id: ko.observable(learningContent.id),
                 text: ko.observable(learningContent.text),
                 originalText: learningContent.text,
+                type: learningContent.type,
                 hasFocus: ko.observable(learningContent.hasFocus || false)
             });
         }

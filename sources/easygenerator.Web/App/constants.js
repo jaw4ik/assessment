@@ -47,6 +47,11 @@
                 }
             },
 
+            learningContentsTypes: {
+                richText: 'richText',
+                hotspot: 'hotspot'
+            },
+
             sortingOptions: {
                 byTitleAsc: 'byTitleAsc',
                 byTitleDesc: 'byTitleDesc'
