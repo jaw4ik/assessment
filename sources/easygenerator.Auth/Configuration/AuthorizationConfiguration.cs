@@ -47,9 +47,12 @@ namespace easygenerator.Auth.Configuration
                 }
             }
 
-            // Only for /preview/*
-            // Get access token from cookie for preview
-            if (oAuthRequestTokenContext.Request.Path.StartsWithSegments(new PathString("/preview")))
+            // Only for /preview/* /dashboard/* and /democourses/* which are rendered by razor
+            // Get access token from cookie
+            // TODO: This parts are need to be moved into SPA.
+            if (oAuthRequestTokenContext.Request.Path.StartsWithSegments(new PathString("/preview")) ||
+                oAuthRequestTokenContext.Request.Path.StartsWithSegments(new PathString("/dashboard")) ||
+                oAuthRequestTokenContext.Request.Path.StartsWithSegments(new PathString("/democourses")))
             {
                 var value = oAuthRequestTokenContext.Request.Cookies["token.preview"];
                 if (!string.IsNullOrEmpty(value))
@@ -60,7 +63,7 @@ namespace easygenerator.Auth.Configuration
             
             // Only for /account/upgrade/*
             // Get access token from cookie.
-            // Upgrade account should be changed to token auth.
+            // TODO: Upgrade account should be changed to token auth.
             if (oAuthRequestTokenContext.Request.Path.StartsWithSegments(new PathString("/account/upgrade")))
             {
                 var value = oAuthRequestTokenContext.Request.Cookies["token.upgradeAccount"];
