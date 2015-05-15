@@ -26,7 +26,7 @@
                 }
             }
 
-            function show(resourseKey) {
+            function show() {
                 cursorTolltip.isVisible(true);
             }
 

@@ -1,5 +1,6 @@
-﻿define(['repositories/learningContentRepository', 'repositories/questionRepository', 'localization/localizationManager', 'notify', 'constants', 'eventTracker', 'durandal/app'],
-    function (learningContentsrepository, questionRepository, localizationManager, notify, constants, eventTracker, app) {
+﻿define(['repositories/learningContentRepository', 'repositories/questionRepository', 'localization/localizationManager', 'notify', 'constants', 'eventTracker', 'durandal/app',
+    'imageUpload', 'uiLocker', 'viewmodels/learningContents/components/hotspotParser'],
+    function (learningContentsrepository, questionRepository, localizationManager, notify, constants, eventTracker, app, imageUpload, uiLocker, hotspotParser) {
 
         var
             events = {
@@ -21,6 +22,7 @@
             isAddedButtonsShown: ko.observable(false),
             toggleIsAddedButtonsShown: toggleIsAddedButtonsShown,
             addLearningContent: addLearningContent,
+            addHotspotOnImage: addHotspotOnImage,
             removeLearningContent: removeLearningContent,
 
             updateOrder: updateOrder,
@@ -67,6 +69,24 @@
             toggleIsAddedButtonsShown();
         }
 
+        function addHotspotOnImage() {
+            publishActualEvent(events.addLearningContent);
+            toggleIsAddedButtonsShown();
+            imageUpload.upload({
+                startLoading: function () {
+                    uiLocker.lock();
+                },
+                success: function (url) {
+                    debugger;
+                    var text = hotspotParser.getHotspot(url);
+                    doAddLearningContent(undefined, text);
+                },
+                complete: function () {
+                    uiLocker.unlock();
+                }
+            });
+        }
+
         function removeLearningContent(learningContent) {
             publishActualEvent(events.deleteLearningContent);
 
@@ -111,7 +131,7 @@
             if (viewModel.orderInProcess) {
                 viewModel.changesFromCollaborator = {
                     question: question, learningContentsIds: learningContentsIds
-                }
+                };
                 return;
             }
 
@@ -229,8 +249,8 @@
             doAddLearningContent(learningContent);
         }
 
-        function doAddLearningContent(learningContent) {
-            learningContent = learningContent || { id: '', text: '', hasFocus: true };
+        function doAddLearningContent(learningContent, text) {
+            learningContent = learningContent || { id: '', text: text || '', hasFocus: true };
             viewModel.learningContents.push({
                 id: ko.observable(learningContent.id),
                 text: ko.observable(learningContent.text),
