@@ -156,7 +156,6 @@
             type: 'POST',
             headers: headers,
             cache: false,
-            contentType: 'application/json',
             dataType: 'json',
             data: data
         }
