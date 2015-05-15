@@ -64,7 +64,7 @@
             _.each(videos, function (video) {
 
                 var vmVideo = _.find(viewModel.videos(), function (item) {
-                    return video.id == item.id;
+                    return video.id == item.id();
                 });
 
                 if (!vmVideo) {
