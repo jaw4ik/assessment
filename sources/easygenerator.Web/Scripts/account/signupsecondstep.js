@@ -116,7 +116,7 @@ app.signUpSecondStepModel = function () {
             username: username,
             password: password,
             grant_type: "password",
-            scope: window.auth.getRequiredScopes()
+            endpoints: window.auth.getRequiredEndpoints()
         };
 
         var requestArgs = {
@@ -126,11 +126,7 @@ app.signUpSecondStepModel = function () {
         };
 
         return $.ajax(requestArgs).done(function (response) {
-            if (response) {
-                if (response.success) {
-                    window.auth.setTokens(response.data);
-                }
-            }
+            return response && response.success && window.auth.login(response.data);
         });
     }
 

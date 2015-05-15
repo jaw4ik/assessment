@@ -31,7 +31,7 @@
 
             var taskInitializer = getTaskByName('createCourse');
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(taskInitializer).toBeFunction();
             });
 

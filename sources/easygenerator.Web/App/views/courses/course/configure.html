@@ -1,0 +1,17 @@
+﻿<section class="course configure view-module">
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <div class="template-settings-block">
+                <!-- ko if: settingsAvailable && !settingsVisibility() -->
+                <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center', style: { top: '300px' } } } --><!-- /ko -->
+                <!-- /ko -->
+                <!-- ko if: settingsAvailable -->
+                <iframe id="template-settings" data-bind="attr: { src: configureSettingsUrl + '?v=' + appVersion + '&courseId=' + courseId + '&templateId=' + currentTemplate.id }, event: { load: frameLoaded }, windowMessageListener: onGetTemplateMessage" frameborder="0" width="100%" height="2500px"></iframe>
+                <!-- /ko -->
+                <!-- ko ifnot: settingsAvailable -->
+                <span data-bind="localize: { text: 'templateConfigureSettingsNotAvailable' }">Sorry, but the selected template doesn't contain configure settings</span>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+</section>

@@ -62,8 +62,6 @@
             return userContext.identify().then(function () {
                 return repository.getById(courseId).then(function (course) {
                     viewModel.courseId = course.id;
-                    clientContext.set(constants.clientContextKeys.lastVistedCourse, course.id);
-                    clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
                 }).fail(function (reason) {
                     router.activeItem.settings.lifecycleData = { redirect: '404' };
                     throw reason;

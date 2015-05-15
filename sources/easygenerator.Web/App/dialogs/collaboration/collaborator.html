@@ -1,5 +1,5 @@
 ﻿<div class="collaborator-wrapper" data-bind="css: { 'activatable': canBeRemoved}">
-    <div class="collaborator" data-bind="css: { 'course-owner': isOwner, 'not-registered': !isRegistered(), 'locked': isLocked, 'active':  isRemoveConfirmationShown }">
+    <div class="collaborator" data-bind="css: { 'course-owner': isOwner, 'not-registered': !isRegistered(), 'inactive': !isRegistered() || !isAccepted(), 'locked': isLocked, 'active':  isRemoveConfirmationShown }">
         <div class="collaborator-avatar-container">
             <div class="collaborator-avatar-wrapper">
                 <!-- ko if: isLocked -->
@@ -13,10 +13,15 @@
         <div class="collaborator-info">
             <div class="collaborator-name" data-bind="text: name"></div>
             <!-- ko if: isRegistered -->
+            <!-- ko if: isAccepted -->
             <div class="collaborator-email" data-bind="text: email"></div>
             <!-- /ko -->
+            <!-- ko ifnot: isAccepted -->
+            <div class="collaborator-info-message" data-bind="localize: { text: 'waitingForAcceptance' }"></div>
+            <!-- /ko -->
+            <!-- /ko -->
             <!-- ko ifnot: isRegistered -->
-            <div class="collaborator-not-registered-message" data-bind="localize: { text: 'waitingForRegistration' }"></div>
+            <div class="collaborator-info-message" data-bind="localize: { text: 'waitingForRegistration' }"></div>
             <!-- /ko -->
         </div>
         <div class="collaborator-actions">

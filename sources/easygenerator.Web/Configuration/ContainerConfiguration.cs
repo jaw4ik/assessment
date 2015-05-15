@@ -114,6 +114,7 @@ namespace easygenerator.Web.Configuration
 
             RegisterGenericTypes(builder, applicationAssembly, typeof(IEntityModelMapper<>));
             builder.RegisterType<EntityMapper>().As<IEntityMapper>();
+            builder.RegisterType<CollaborationInviteMapper>().As<ICollaborationInviteMapper>();
 
             #endregion
 
@@ -214,7 +215,7 @@ namespace easygenerator.Web.Configuration
             #region Auth
 
             builder.RegisterType<Auth.Providers.JsonWebTokenProvider>().As<Auth.Providers.ITokenProvider>();
-            builder.RegisterType<Auth.Repositories.ClientsRepository>().As<Auth.Repositories.IClientsRepository>();
+            builder.RegisterType<Auth.Repositories.EndpointsRepository>().As<Auth.Repositories.IEndpointsRepository>();
 
             #endregion
             var container = builder.Build();

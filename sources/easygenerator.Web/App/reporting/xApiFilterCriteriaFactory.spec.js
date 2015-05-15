@@ -87,6 +87,14 @@
                 });
             });
 
+            describe('when spec contains limit', function () {
+                it('should fill instance with limit', function () {
+                    var spec = { limit: 20 };
+                    var criteria = filterCriteriaFactory.create(spec);
+                    expect(criteria[constants.reporting.filterKeys.limit]).toBe(spec.limit);
+                });
+            });
+
             describe('when spec contains skip', function () {
                 it('should fill instance with skip', function () {
                     var spec = { skip: 20 };
@@ -100,6 +108,14 @@
                     var spec = { attemptId: "attemptId" };
                     var criteria = filterCriteriaFactory.create(spec);
                     expect(criteria[constants.reporting.filterKeys.attemptId]).toBe(spec.attemptId);
+                });
+            });
+
+            describe('when spec contains parentId', function () {
+                it('should fill instance with parentId', function () {
+                    var spec = { parentId: "parentId" };
+                    var criteria = filterCriteriaFactory.create(spec);
+                    expect(criteria[constants.reporting.filterKeys.parentId]).toBe(spec.parentId);
                 });
             });
         });

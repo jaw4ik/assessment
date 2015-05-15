@@ -327,7 +327,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
             var course = CourseObjectMother.Create();
 
             //Act
-            _tracker.Handle(new CourseDeletedEvent(course, new List<string>(), "admin"));
+            _tracker.Handle(new CourseDeletedEvent(course, new List<string>(), new Dictionary<Guid, string>(), "admin"));
 
             //Asssert
             _stateStorage.Received().RemoveState(course);
@@ -340,7 +340,7 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking
             var course = CourseObjectMother.Create();
 
             //Act
-            _tracker.Handle(new CourseDeletedEvent(course, new List<string>(), "admin"));
+            _tracker.Handle(new CourseDeletedEvent(course, new List<string>(), new Dictionary<Guid, string>(), "admin"));
 
             //Asssert
             _infoStorage.Received().RemoveCourseInfo(course);

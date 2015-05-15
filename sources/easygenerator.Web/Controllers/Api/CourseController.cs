@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel;
+﻿using easygenerator.Auth.Attributes.Mvc;
+using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.CourseEvents;
@@ -16,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using WebGrease.Css.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -68,10 +70,12 @@ namespace easygenerator.Web.Controllers.Api
             if (course != null)
             {
                 var collaborators = course.Collaborators.Select(e => e.Email).ToList();
+                var invitedCollaborators = new Dictionary<Guid, string>();
+                course.Collaborators.Where(e => !e.Locked && !e.IsAccepted).ForEach(i => invitedCollaborators.Add(i.Id, i.Email));
 
                 _courseRepository.Remove(course);
 
-                _eventPublisher.Publish(new CourseDeletedEvent(course, collaborators, GetCurrentUsername()));
+                _eventPublisher.Publish(new CourseDeletedEvent(course, collaborators, invitedCollaborators, GetCurrentUsername()));
             }
 
             return JsonSuccess();
@@ -197,6 +201,7 @@ namespace easygenerator.Web.Controllers.Api
             });
         }
 
+        [Scope("settings")]
         [EntityCollaborator(typeof(Course))]
         [ActionName("TemplateSettings"), HttpGet]
         [Route("api/course/{courseId}/template/{templateId}")]
@@ -220,6 +225,7 @@ namespace easygenerator.Web.Controllers.Api
                 JsonRequestBehavior.AllowGet);
         }
 
+        [Scope("settings")]
         [EntityCollaborator(typeof(Course))]
         [ActionName("TemplateSettings"), HttpPost]
         [Route("api/course/{courseId}/template/{templateId}")]
@@ -236,7 +242,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             course.SaveTemplateSettings(template, settings, extraData);
-            
+
             return Json(true);
         }
 

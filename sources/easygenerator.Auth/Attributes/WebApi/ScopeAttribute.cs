@@ -7,7 +7,7 @@ using easygenerator.Auth.Providers;
 
 namespace easygenerator.Auth.Attributes.WebApi
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
     public class ScopeAttribute : AuthorizeAttribute
     {
         string[] _scopes;
@@ -25,7 +25,7 @@ namespace easygenerator.Auth.Attributes.WebApi
         protected override bool IsAuthorized(HttpActionContext actionContext)
         {
             var scopeClaimType = AuthorizationConfigurationProvider.ScopeClaimType;
-            var grantedScopes = ClaimsPrincipal.Current.FindAll(scopeClaimType).Select(c => c.Value).ToList();
+            var grantedScopes = ClaimsPrincipal.Current.FindAll(scopeClaimType).SelectMany(c => c.Value.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)).ToList();
             return _scopes.All(grantedScopes.Contains);
         }
     }

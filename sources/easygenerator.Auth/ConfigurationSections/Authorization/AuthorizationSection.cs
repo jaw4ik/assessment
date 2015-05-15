@@ -17,11 +17,11 @@ namespace easygenerator.Auth.ConfigurationSections.Authorization
             set { base["issuer"] = value; }
         }
 
-        [ConfigurationProperty("clients", IsRequired = true)]
-        public virtual ClientsCollection Clients
+        [ConfigurationProperty("endpoints", IsRequired = true)]
+        public virtual EndpointsCollection Endpoints
         {
-            get { return ((ClientsCollection)(base["clients"])); }
-            set { base["clients"] = value; }
+            get { return ((EndpointsCollection)(base["endpoints"])); }
+            set { base["endpoints"] = value; }
         }
     }
 }

@@ -39,7 +39,7 @@
         }
 
         function signOut() {
-            window.auth.removeTokens();
+            window.auth.logout();
             router.setLocation(constants.signinUrl);
         }
     }
