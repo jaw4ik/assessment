@@ -2050,6 +2050,8 @@ td.r-name {
   font-size: 13px;
   line-height: 28px;
   color: #42515f;
+  word-wrap: break-word;
+  white-space: pre;
 }
 .r-objective .r-question-text {
   font-family: OpenSansItalic;
