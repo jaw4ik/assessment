@@ -6,8 +6,8 @@
     window.auth = window.auth || {
         isUserLoggedIn: isUserLoggedIn,
         login: login,
+        logout: logout,
         getToken: getToken,
-        removeTokens: removeTokens,
         getHeader: getHeader,
         getRequiredEndpoints: getRequiredEndpoints
     };
@@ -40,8 +40,32 @@
         return false;
     }
 
+    function logout() {
+        removeTokens();
+    }
+
     function getToken(endpoints) {
         return token(endpoints);
+    }
+
+    function getHeader(endpoints) {
+        return { 'Authorization': 'Bearer ' + token(endpoints) };
+    }
+
+    function getRequiredEndpoints() {
+        return requiredEndpoints.join(' ');
+    }
+
+    //private
+  
+    function setTokens(tokens) {
+        for (var index = 0; index < tokens.length; index++) {
+            var t = tokens[index];
+            if (cookieTokens.indexOf(t.Endpoint) > -1) {
+                document.cookie = tokenNamespace + t.Endpoint + '=' + t.Token;
+            }
+            token(t.Endpoint, t.Token);
+        }
     }
 
     function removeTokens() {
@@ -54,25 +78,6 @@
 
         for (index = 0; index < cookieTokens.length; index++) {
             document.cookie = tokenNamespace + cookieTokens[index] + '=;expires=Wed 01 Jan 1970';
-        }
-    }
-
-    function getHeader(endpoints) {
-        return { 'Authorization': 'Bearer ' + token(endpoints) };
-    }
-
-    function getRequiredEndpoints() {
-        return requiredEndpoints.join(' ');
-    }
-
-    //private
-    function setTokens(tokens) {
-        for (var index = 0; index < tokens.length; index++) {
-            var t = tokens[index];
-            if (cookieTokens.indexOf(t.Endpoint) > -1) {
-                document.cookie = tokenNamespace + t.Endpoint + '=' + t.Token;
-            }
-            token(t.Endpoint, t.Token);
         }
     }
 

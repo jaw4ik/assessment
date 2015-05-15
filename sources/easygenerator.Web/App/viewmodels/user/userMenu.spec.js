@@ -151,38 +151,18 @@
             var length;
 
             beforeEach(function () {
-                //storage = {
-                //    'key': 'value',
-                //    'token-key': 'value',
-                //    'token-auth': 'value',
-                //    'token-api': 'value',
-                //    'key-token': 'value',
-                //    'tokenkey': 'value',
-                //    'toke-nkey': 'value'
-                //};
-                //length = 7;
-
                 spyOn(router, 'setLocation');
-                //spyOn(localStorage, 'getItem').and.callFake(function () {
-                //    return storage[key];
-                //});
-                //spyOn(localStorage, 'removeItem').and.callFake(function () {
-                //    length--;
-                //    delete storage[key];
-                //});
-                //spyOn(localStorage, 'key').and.callFake(function () {
-                //    return storage[index];
-                //});
+                spyOn(window.auth, 'logout');
             });
 
             it('should be function', function () {
                 expect(userMenu.signOut).toBeFunction();
             });
 
-            //it('should remove token-key', function () {
-            //    userMenu.signOut();
-            //    expect(localStorage.removeItem).toHaveBeenCalledWith('token-key');
-            //});
+            it('should call logout', function () {
+                userMenu.signOut();
+                expect(window.auth.logout).toHaveBeenCalled();
+            });
 
             it('should open signup page', function () {
                 userMenu.signOut();
