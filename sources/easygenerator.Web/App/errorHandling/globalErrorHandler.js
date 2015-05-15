@@ -11,6 +11,10 @@
                         return;
                     }
                 }
+                /* Vimeo return 308 as a success result status */
+                if (response && response.status == 308) {
+                    return;
+                }
 
                 defaultHttpErrorHandler.handleError(response);
             });

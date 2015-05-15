@@ -12,12 +12,19 @@
                 <!-- /ko -->
                 <!-- ko foreach: videos -->
                 <li class="video-list-item hovered" data-bind="click: $parent.showVideoPopup">
-                    <div class="video-list-item-container">
-                        <div class="video-list-item-thumbnail" data-bind="style: { backgroundImage: 'url(' + thumbnailUrl + ')' }">
-                            <span class="play-icon"></span>
-                        </div>
-                        <div class="video-list-item-title" data-bind="text: title, attr: { title: title }"></div>
+                    <!-- ko if: vimeoId -->
+                    <div class="video-list-item-thumbnail" data-bind="style: { backgroundImage: 'url(' + thumbnailUrl + ')' }">
+                        <span class="play-icon"></span>
                     </div>
+                    <!-- /ko-->
+                    <!-- ko ifnot: vimeoId -->
+                    <div class="video-list-item-thumbnail uploading">
+                        <canvas width="50" height="50" class="circle-progress" data-bind="circleProgress: { progress: progress }"></canvas>
+                        <br />
+                        <span class="video-uploading-text" data-bind="localize: { text : 'uploading' }">uploading...</span>
+                    </div>
+                    <!-- /ko-->
+                    <div class="video-list-item-title" data-bind="text: title, attr: { title: title }"></div>
                 </li>
                 <!-- /ko -->
 

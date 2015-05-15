@@ -521,7 +521,6 @@
     <Content Include="App\analytics\providers\mixpanelProvider.js" />
     <Content Include="App\analytics\providers\nudgespotProvider.js" />
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
-    <Content Include="App\bootstrapping\httpRequestSenderTask.js" />
     <Content Include="App\commands\createCourseCommand.js" />
     <Content Include="App\commands\createCourseCommand.spec.js">
       <DependentUpon>createCourseCommand.js</DependentUpon>
@@ -1061,6 +1060,7 @@
     <Content Include="Scripts\knockout-3.3.0.js" />
     <Content Include="Scripts\knockoutBindings\autosizeBinding.js" />
     <Content Include="Scripts\knockoutBindings\backgroundImageBinding.js" />
+    <Content Include="Scripts\knockoutBindings\circleProgressBinding.js" />
     <Content Include="Scripts\knockoutBindings\contentEditableFixBinding.js" />
     <Content Include="Scripts\knockoutBindings\copyToClipboardBinding.js" />
     <Content Include="Scripts\knockoutBindings\customHasFocusBinding.js" />

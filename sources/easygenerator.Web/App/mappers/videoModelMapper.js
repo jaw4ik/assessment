@@ -9,9 +9,7 @@
                     id: item.Id,
                     title: item.Title,
                     vimeoId: item.VimeoId,
-                    thumbnailUrl: item.ThumbnailUrl,
-                    videoIframe: item.VideoIframe,
-                    size: item.Size
+                    thumbnailUrl: item.ThumbnailUrl
 
                 });
             };

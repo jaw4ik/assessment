@@ -4,12 +4,15 @@
 
         return {
             post: post,
-            get: get,
-            configure: configure
+            get: get
         };
 
         function post(url, data, headers) {
             var deferred = Q.defer();
+            if (_.isObject(headers)) {
+                _.extend(headers, { "cache-control": "no-cache" });
+            }
+
             http.post(url, data, headers).done(function (response) {
                 if (!_.isObject(response)) {
                     deferred.reject('Response data is not an object');
@@ -45,22 +48,18 @@
 
         function get(url, query, headers) {
             var deferred = Q.defer();
+            if (_.isObject(headers)) {
+                _.extend(headers, { "cache-control": "no-cache" });
+            }
 
-             $.ajax(url, { data: query, headers: headers })
+            $.ajax(url, { data: query, headers: headers })
                 .done(function (response) {
                     deferred.resolve(response);
                 }).fail(function (reason) {
                     deferred.reject(reason);
-            });
+                });
 
             return deferred.promise;
         }
 
-        function configure() {
-            $.ajaxSetup({
-                headers: {
-                    "cache-control": "no-cache"
-                }
-            });
-        }
     });

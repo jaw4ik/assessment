@@ -1,10 +1,11 @@
-﻿define(['durandal/app', 'constants', 'http/apiHttpWrapper', 'mappers/courseModelMapper', 'mappers/objectiveModelMapper', 'mappers/templateModelMapper'],
-    function (app, constants, apiHttpWrapper, courseModelMapper, objectiveModelMapper, templateModelMapper) {
+﻿define(['durandal/app', 'constants', 'http/apiHttpWrapper', 'mappers/courseModelMapper', 'mappers/objectiveModelMapper', 'mappers/templateModelMapper', 'mappers/videoModelMapper'],
+    function (app, constants, apiHttpWrapper, courseModelMapper, objectiveModelMapper, templateModelMapper, videoModelMapper) {
         "use strict";
         var
             objectives = [],
             courses = [],
             templates = [],
+            videos = [],
 
             initialize = function () {
                 return Q.fcall(function () {
@@ -33,6 +34,13 @@
                             }
                         });
                     });
+                }).then(function () {
+                    return $.get('http://localhost:888/api/videos')
+                   .then(function (data) {
+                       _.each(data, function (item) {
+                           videos.push(videoModelMapper.map(item));
+                       });
+                   });
                 }).fail(function () {
                     app.showMessage("Failed to initialize datacontext.");
                 });
@@ -52,6 +60,7 @@
             objectives: objectives,
             courses: courses,
             templates: templates,
+            videos: videos,
             getQuestions: getQuestions
         };
     });

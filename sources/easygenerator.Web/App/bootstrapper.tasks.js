@@ -8,7 +8,6 @@
                 require('bootstrapping/compositionTask'),
                 require('bootstrapping/viewLocatorTask'),
                 require('bootstrapping/knockoutBindingsTask'),
-                require('bootstrapping/httpRequestSenderTask'),
                 require('bootstrapping/addWindowEventsTask')
             ];
         }

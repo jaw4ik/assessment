@@ -161,21 +161,5 @@
                 expect(httpRequestSender.get()).toBePromise();
             });
         });
-
-        describe('configure:', function () {
-
-            it('should be function', function () {
-                expect(httpRequestSender.configure).toBeFunction();
-            });
-
-            it('should configure ajax requests', function () {
-                spyOn($, 'ajaxSetup');
-                httpRequestSender.configure();
-                expect($.ajaxSetup).toHaveBeenCalledWith({
-                    headers: { "cache-control": "no-cache" }
-                });
-            });
-
-        });
     });
 });
