@@ -1,5 +1,7 @@
 ﻿using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web.Helpers;
 using easygenerator.Auth.Providers;
 using easygenerator.Auth.Repositories;
 using Microsoft.Owin;
@@ -31,6 +33,8 @@ namespace easygenerator.Auth.Configuration
                         OnRequestToken = OnRequestToken
                     }
                 });
+
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.Name;
         }
 
         private static Task OnRequestToken(OAuthRequestTokenContext oAuthRequestTokenContext)
@@ -60,7 +64,7 @@ namespace easygenerator.Auth.Configuration
                     oAuthRequestTokenContext.Token = value;
                 }
             }
-            
+
             // Only for /account/upgrade/*
             // Get access token from cookie.
             // TODO: Upgrade account should be changed to token auth.
