@@ -100,10 +100,10 @@
         })();
 
         that.logo = (function () {
-            var self = {},
-                isLoading = false;
+            var self = {};
 
             self.url = '';
+            self.isLoading = false;
             self.hasError = false;
             self.errorText = 'Unsupported image format';
             self.errorDescription = '(Supported formats: jpg, png, bmp)';
@@ -132,12 +132,13 @@
             }
 
             function upload() {
-                if (isLoading) {
+                if (self.isLoading) {
                     return;
                 }
 
                 uploadService(function () {
                     setLoadingStatus();
+                    that.$apply();
                 }).done(function (url) {
                     self.url = url;
                     setDefaultStatus();
@@ -149,20 +150,21 @@
             }
 
             function setLoadingStatus() {
-                isLoading = true;
+                self.clear();
+                self.isLoading = true;
             }
 
             function setDefaultStatus() {
-                isLoading = false;
+                self.isLoading = false;
                 self.hasError = false;
             }
 
             function setFailedStatus(reasonTitle, reasonDescription) {
-                isLoading = false;
                 self.clear();
+                self.isLoading = false;
+                self.hasError = true;
                 self.errorText = reasonTitle;
                 self.errorDescription = reasonDescription;
-                self.hasError = true;
             }
 
         })();
