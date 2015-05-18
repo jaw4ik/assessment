@@ -529,6 +529,7 @@
     <Content Include="App\commands\presentationCourseImportCommand.spec.js">
       <DependentUpon>presentationCourseImportCommand.js</DependentUpon>
     </Content>
+    <Content Include="App\components\polygonsEditor\hotspotOnImageShapeModel.js" />
     <Content Include="App\components\polygonsEditor\polygonShape.js" />
     <Content Include="App\components\polygonsEditor\polygonsEditor.js" />
     <Content Include="App\config.js" />
@@ -690,6 +691,7 @@
     <Content Include="App\viewmodels\courses\index.js" />
     <Content Include="App\viewmodels\learningContents\bindingHandlers\hotspotOnImageBindingHandler.js" />
     <Content Include="App\viewmodels\learningContents\components\hotspotParser.js" />
+    <Content Include="App\viewmodels\learningContents\components\polygonModel.js" />
     <Content Include="App\viewmodels\learningContents\learningContents.js" />
     <Content Include="App\viewmodels\learningContents\learningContents.spec.js">
       <DependentUpon>learningContents.js</DependentUpon>
