@@ -22,7 +22,7 @@
         position: fixed;
         left: 0;
         top: 0;
-        z-index: 1980;
+        z-index: 1200;
         width: 100%;
 
         .content-section-wrapper .content-section {
@@ -472,6 +472,11 @@
                 display: inline-block;
                 font-size: 16px;
 
+                @media (max-width: 1200px) {
+                    [lang~=uk] & {
+                        font-size: 12px;
+                    }
+                }
 
                 a {
                     color: #42515f;
@@ -483,6 +488,11 @@
                     padding: 12px 15px;
                     text-align: center;
                     text-transform: uppercase;
+                    vertical-align: middle;
+
+                    @media (max-width: 1200px) {
+                        min-width: 110px;
+                    }
 
                     &:hover {
                         box-shadow: 0 -2px #88d498 inset, 0 1px #88d498;
@@ -519,6 +529,7 @@
                     display: inline-block;
                     height: 12px;
                     width: 8px;
+                    vertical-align: middle;
                 }
             }
         }

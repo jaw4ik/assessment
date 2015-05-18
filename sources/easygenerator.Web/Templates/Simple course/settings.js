@@ -7,8 +7,8 @@
     },
     "background": {
 		"image": {
-		    "type": "default",
-			"src": null
+			"src": null,
+			"type": "default"
 		}
 	},
     "xApi": {

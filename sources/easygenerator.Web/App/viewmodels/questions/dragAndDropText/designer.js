@@ -94,11 +94,12 @@
             success: function (url) {
                 designer.background.isLoading(true);
                 var backgroundUrl = url + '?width=' + self.maxWidth + '&height=' + self.maxHeight;
-                changeBackgroundCommand.execute(self.questionId, backgroundUrl);
-                designer.background(backgroundUrl);
-                designer.background.isDirty(true);
-                notify.saved();
-                eventTracker.publish(self.events.changeBackground);
+                changeBackgroundCommand.execute(self.questionId, backgroundUrl).then(function() {
+                    designer.background(backgroundUrl);
+                    designer.background.isDirty(true);
+                    notify.saved();
+                    eventTracker.publish(self.events.changeBackground);
+                });
             },
             complete: function () {
                 uiLocker.unlock();

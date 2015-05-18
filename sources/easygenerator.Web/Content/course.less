@@ -356,15 +356,9 @@
 
 /*#endregion DEFINE STEP*/
 
-/*#endregion DEFINE STEP*/
-
 /*#region DESIGN STEP*/
 .transparent {
     opacity: 0;
-}
-
-.view-module.design {
-    padding-top: 20px;
 }
 
 .choose-template-holder {
@@ -392,10 +386,10 @@
 }
 
 .template-settings-header {
+    margin: 20px 0 10px;
+    padding: 5px;
     font: 19px OpenSans-Semibold;
     color: #303133;
-    padding: 15px 5px;
-    margin-top: 20px;
 }
 
 .choose-template-list {
@@ -419,14 +413,16 @@
     width: 22%;
     margin-right: 3.4%;
     margin-bottom: 30px;
-    border: 1px solid #e4e5eb;
-    border-radius: 10px;
-    overflow: hidden;
+}
+
+.rounded-border (@radius: 10px, @border: 1px solid #e4e5eb) {
+    border-radius: @radius;
+    border: @border;
 }
 
 .choose-template-item.selected,
 .choose-template-item.selected:hover {
-    border: 2px solid #65bd77;
+    .rounded-border(10px, 2px solid #65bd77);
 }
 
 .choose-template-item:hover {
@@ -442,8 +438,8 @@
 .choose-template-item.marked-as-new:after {
     content: '';
     position: absolute;
-    top: -3px;
-    right: -3px;
+    top: -4px;
+    right: -4px;
     width: 71px;
     height: 72px;
     background: url('/Content/images/newTemplate.png') no-repeat;
@@ -481,6 +477,8 @@
 }
 
 .template-image {
+    .rounded-border(10px 10px 0 0);
+    
     display: block;
     width: 100%;
 }
@@ -490,7 +488,7 @@
 }
 
 .choose-template-title-container {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding-left: 5px;
     border-radius: 6px;
 }
@@ -513,6 +511,8 @@
 }
 
 .choose-template-action-container {
+    .rounded-border(10px 10px 0 0);
+    
     position: absolute;
     top: 0;
     left: 0;
@@ -577,8 +577,10 @@
 }
 
 .template-name {
+    .rounded-border(0 0 10px 10px);
+    
+    border-top: none;
     background-color: #fff;
-    border-top: 1px solid #e4e5eb;
     color: #42515f;
     font: 17px 'OpenSans';
     overflow: hidden;
@@ -611,12 +613,6 @@
     top: 4px;
     left: 0;
     background: url('../Content/images/sprites_16.png') -42px -66px no-repeat;
-}
-
-.content-section-wrapper.template-settings {
-    background-color: #f9fafc;
-    border: 1px solid #e9e9eb;
-    transition-duration: 0.5s;
 }
 
 .visibility-switcher {

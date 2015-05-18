@@ -690,10 +690,10 @@
         'zh-cn': '确保此课程启用了“结果跟踪”',
         'uk': 'Переконайтеся, що \"звітування про результати\" дозволене для даного курсу:'
     },
-    goToDesignStep: {
-        'en': '1. Go to the \"Design\" step',
-        'zh-cn': '去到“设计”环节',
-        'uk': '1. Перейти до \"Дизайну\"'
+    goToConfigureStep: {
+        'en': '1. Go to the \"Configure\" step',
+        'zh-cn': '1. Go to the \"Configure\" step[zh-cn]',
+        'uk': '1. Перейти до \"Конфігурації\"'
     },
     resultTrackingShouldBeEnabled: {
         'en': '2. Enable results tracking',
@@ -2125,7 +2125,7 @@
     upgradeNotificationNote: {
         'en': 'Please note, you will be automatically downgraded to the Free Plan, if you don’t make the payment in time. More info on pricing plans',
         'zh-cn': '如果没有及时续费，您的使用权限将会自动回到基础级别。更多关于使用权限的价格信息在',
-        'uk': 'Будь-ласка, зверніть увагу, якщо Ви вчасно не здійсните платіж, Ваш тарифний план буде змінено на \"Free Plan\". Більше інформації про тарифні плани'
+        'uk': 'Зверніть увагу, якщо Ви вчасно не здійсните платіж, тарифний план буде змінено на \"Free Plan\". Більше про тарифні плани'
     },
     upgradeNotificationHere: {
         'en': 'here',
@@ -2140,7 +2140,7 @@
     upgradeMail: {
         'en': 'Any issues with your credit card and need more time?',
         'zh-cn': '若信用卡有问题导致需延后支付。',
-        'uk': 'Є проблеми з кредитною картою чи потребуєте більше часу?'
+        'uk': 'Виникли проблеми?'
     },
     upgradePleaseContact: {
         'en': 'Please contact:',
