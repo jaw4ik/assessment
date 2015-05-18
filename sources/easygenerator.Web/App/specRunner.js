@@ -123,6 +123,7 @@
             'synchronization/handlers/collaboration/eventHandlers/inviteCreated.spec',
             'synchronization/handlers/collaboration/eventHandlers/inviteRemoved.spec',
             'synchronization/handlers/collaboration/eventHandlers/inviteAccepted.spec',
+            'synchronization/handlers/collaboration/eventHandlers/inviteCourseTitleUpdated.spec',
             'synchronization/handlers/collaboration/eventHandlers/collaboratorAdded.spec',
             'synchronization/handlers/collaboration/eventHandlers/collaboratorRemoved.spec',
             'synchronization/handlers/collaboration/eventHandlers/collaboratorRegistered.spec',

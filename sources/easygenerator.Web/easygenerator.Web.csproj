@@ -623,6 +623,10 @@
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteAccepted.spec.js">
       <DependentUpon>inviteAccepted.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteCourseTitleUpdated.js" />
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteCourseTitleUpdated.spec.js">
+      <DependentUpon>inviteCourseTitleUpdated.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteCreated.js" />
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteRemoved.js" />
     <Content Include="App\synchronization\handlers\course\eventHandlers\stateChanged.js" />
