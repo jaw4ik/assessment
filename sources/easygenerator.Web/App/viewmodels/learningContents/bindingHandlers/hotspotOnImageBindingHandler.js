@@ -1,15 +1,9 @@
 ﻿define(['durandal/composition', 'durandal/system', 'components/polygonsEditor/polygonsEditor',
         'widgets/hotSpotOnImageTextEditor/viewmodel', 'viewmodels/learningContents/components/hotspotParser',
-        'widgets/hotspotCursorTooltip/viewmodel'],
-    function (composition, system, PolygonsEditor, hotSpotOnImageTextEditor, parser, cursorTooltip) {
+        'widgets/hotspotCursorTooltip/viewmodel', 'viewmodels/learningContents/components/polygonModel',
+        'components/polygonsEditor/hotspotOnImageShapeModel'],
+    function (composition, system, PolygonsEditor, hotSpotOnImageTextEditor, parser, cursorTooltip, PolygonModel, PolygonShape) {
         'use strict';
-
-        var PolygonModel = function (id, points, text, onClick) {
-            this.id = id || system.guid();
-            this.points = ko.observable(points);
-            this.text = text || '';
-            this.onClick = onClick || function () { };
-        };
 
         ko.bindingHandlers.hotspotOnImage = {
             init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
@@ -42,7 +36,6 @@
                     }
                 });
 
-
                 $('.upload-background-image', $wrapper).on('click', function () {
                     uploadBackground(function (url) {
                         loadImage(url);
@@ -61,37 +54,28 @@
                     setHoverOnActiveState: setHoverOnActiveState
                 };
 
-                var editor = new PolygonsEditor($element, domActions),
-                    polygons = ko.observableArray(parser.getPolygons(valueAccessor().data())),
-                    domData = ko.observable({
+                var editor = new PolygonsEditor($element, domActions, PolygonShape),
+                    domData = {
                         polygonsEditor: editor,
                         polygons: ko.observableArray([])
-                    });
+                    };
 
                 ko.utils.domData.set(element, 'ko_polygonEditor', domData);
 
                 loadImage();
 
                 editor.on('polygon:updated', function (polygonViewModel, points) {
-                    var polygon = _.find(polygons(), function (item) {
-                        return item.id == polygonViewModel.id;
-                    });
-
-                    polygon.points(points);
+                    data(parser.updateSpot(data(), polygonViewModel.id, polygonViewModel.text, points));
                     saveData();
                 });
 
                 editor.on('polygon:deleted', function (polygonViewModel) {
-                    polygons(_.reject(polygons(), function (polygon) {
-                        return polygon.id == polygonViewModel.id;
-                    }));
+                    data(parser.removeSpot(data(), polygonViewModel.id));
                     saveData();
                 });
 
                 editor.on('polygon:add', function (points) {
-                    console.log('add pol');
-                    var polygon = new PolygonModel('', points);
-                    polygons.push(polygon);
+                    data(parser.createSpot(data(), points));
                     saveData();
                 });
 
@@ -143,7 +127,6 @@
 
                 function saveData() {
                     if (!!saveHandler) {
-                        data(parser.createSpots(data(), polygons()));
                         saveHandler.call(that, viewModel);
                     }
                 }
@@ -180,29 +163,26 @@
                     background.src = imageUrl;
                 }
 
-                ko.applyBindingsToDescendants(bindingContext, element);
-
                 setUpHoverOnCanvas($element);
 
                 ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
                     $('html').unbind('click', blurEvent);
                     ko.utils.domData.clear(element);
                 });
-
-                return { 'controlsDescendantBindings': true };
             },
-            update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+            update: function (element, valueAccessor) {
                 var $element = $(element),
                     editor = ko.utils.domData.get(element, 'ko_polygonEditor');
-                editor().polygons(parser.getPolygons(valueAccessor().data()));
 
-                if (editor().polygons().length) {
+                editor.polygons(parser.getPolygons(valueAccessor().data()));
+
+                if (editor.polygons().length) {
                     $element.removeClass('empty');
                 } else {
                     $element.addClass('empty');
                 }
 
-                editor().polygonsEditor.updatePolygons(editor().polygons);
+                editor.polygonsEditor.updatePolygons(editor.polygons);
             }
         };
 

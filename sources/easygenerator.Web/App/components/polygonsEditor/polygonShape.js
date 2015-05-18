@@ -6,17 +6,23 @@
             selectedColor: 'green'
         };
 
-        function PolygonShape(id, points, onClick) {
+        function PolygonShape(id, points, needUpdatePoints) {
             var that = this;
             this.id = id;
             this.path = null;
-            this.isDitry = false;
-            this.onClick = onClick || function () { };
+            this.isDirty = false;
+            this.isUpdatePoints = needUpdatePoints || true;
+            this.settings = settings;
+            this.removePath = function() {
+                if (that.path) {
+                    that.path.remove();
+                }
+            }
             this.markAsDirty = function () {
-                that.isDitry = true;
+                that.isDirty = true;
             };
             this.markAsClean = function () {
-                that.isDitry = false;
+                that.isDirty = false;
             };
             this.updatePoints = function (data) {
                 if (data) {
@@ -33,16 +39,18 @@
                             closed: true
                         });
                     }
-                    that.path.fillColor = settings.fillColor;
+                    that.path.fillColor = that.settings.fillColor;
                     that.path.fillColor.alpha = 0.6;
-                    that.path.strokeColor = settings.strokeColor;
+                    that.path.strokeColor = that.settings.strokeColor;
                     that.path.strokeColor.alpha = 0.7;
-                    that.path.selectedColor = settings.selectedColor;
+                    that.path.selectedColor = that.settings.selectedColor;
                     that.path.selected = selected;
-                    that.path.onClick = that.onClick;
                 }
             };
-            this.updatePoints(points);
+
+            if (this.isUpdatePoints) {
+                this.updatePoints(points);
+            }
         }
 
         return PolygonShape;

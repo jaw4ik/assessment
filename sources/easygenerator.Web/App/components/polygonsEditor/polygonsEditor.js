@@ -17,9 +17,10 @@
             this.selectedSegment = null;
         };
 
-        var PolygonEditor = function ($element, domActions) {
+        var PolygonEditor = function ($element, domActions, polygonShape) {
             this._paper = new paper.PaperScope();
             this._editor = new Editor();
+            this._PolygonShape = polygonShape || PolygonShape;
 
             this.$element = null;
             this.updateCanvasSize = updateCanvasSize;
@@ -91,6 +92,12 @@
                             var path = that._editor.selectedPath = hitResult.item;
                             path.selected = true;
                             path.bringToFront();
+                            if (!(path.parent instanceof paper.Layer)) {
+                                var raster = path.parent.getItem({ class: paper.Raster });
+                                if (raster) {
+                                    raster.bringToFront();
+                                }
+                            }
                             that.domActions.setDraggingState();
                         }
                     } else {
@@ -150,6 +157,7 @@
             };
 
             rectangleTool.onMouseDrag = function (event) {
+                var raster;
                 var size = that._paper.view.size;
                 var viewRect = new that._paper.Rectangle(0, 0, size.width, size.height);
                 var deltaX = event.delta.x;
@@ -157,8 +165,13 @@
 
 
                 if (that._editor.selectedSegment) {
-                    dragging(that._editor.selectedSegment.getPath());
                     var segment = that._editor.selectedSegment;
+                    if (!(segment.path.parent instanceof paper.Layer)) {
+                        raster = segment.path.parent.getItem({ class: paper.Raster });
+                        if (raster) {
+                            raster.remove();
+                        }
+                    }
                     var point = segment.point.clone();
                     point.x += deltaX;
                     point.y += deltaY;
@@ -182,8 +195,13 @@
                         markPolygonAsDitryByPath(segment.path);
                     }
                 } else if (that._editor.selectedPath) {
-                    dragging(that._editor.selectedPath);
                     var path = that._editor.selectedPath;
+                    if (!(path.parent instanceof paper.Layer)) {
+                        raster = path.parent.getItem({ class: paper.Raster });
+                        if (raster) {
+                            raster.remove();
+                        }
+                    }
                     var bounds = path.bounds.clone();
                     bounds.x += deltaX;
                     bounds.y += deltaY;
@@ -221,7 +239,7 @@
 
             function addPolygonStart(startPoint) {
                 var rectangle = new that._paper.Rectangle(startPoint, new that._paper.Size(1, 1));
-                that._editor.polygonToAdd = new PolygonShape(null, rectangle);
+                that._editor.polygonToAdd = new that._PolygonShape(null, rectangle);
                 that._editor.polygonToAdd.path.selected = true;
                 that._editor.selectedSegment = that._editor.polygonToAdd.path.segments[2];
             }
@@ -238,7 +256,7 @@
 
             function markPolygonAsDitryByPath(path) {
                 var polygon = findPolygonByPath.call(that, path);
-                if (polygon && !polygon.isDitry) {
+                if (polygon && !polygon.isDirty) {
                     polygon.markAsDirty();
                 }
             }
@@ -249,26 +267,12 @@
 
             function updatePolygonByPath(path) {
                 var polygon = findPolygonByPath.call(that, path);
-                if (polygon && polygon.isDitry) {
+                if (polygon && polygon.isDirty) {
                     polygon.markAsClean();
                     var polygonViewModel = findPolygonViewModelById.call(that, polygon.id);
                     if (polygonViewModel) {
                         var points = getPointsFromPath(path);
                         that.fire('polygon:updated', polygonViewModel, points);
-                    } else {
-                        throw 'Polygon ViewModel in null';
-                    }
-                }
-            }
-
-            function dragging(path) {
-                var polygon = findPolygonByPath.call(that, path);
-                if (polygon && polygon.isDitry) {
-                    polygon.markAsClean();
-                    var polygonViewModel = findPolygonViewModelById.call(that, polygon.id);
-                    if (polygonViewModel) {
-                        var points = getPointsFromPath(path);
-                        that.fire('polygon:dragging', polygonViewModel, points);
                     } else {
                         throw 'Polygon ViewModel in null';
                     }
@@ -283,9 +287,11 @@
                     if (polygonViewModel) {
                         that.fire('polygon:deleted', polygonViewModel);
                     }
-
+                    polygon.removePath();
+                } else {
+                    path.remove();
                 }
-                path.remove();
+
             }
 
             function pathSizeIsValid(path) {
@@ -342,12 +348,13 @@
         function updatePolygons(polygons) {
             var that = this;
             that.polygons = polygons;
+            
             _.each(polygons(), function (polygon) {
                 var polygonInEditor = _.find(that._editor.polygons, function (polygonShape) { return polygon.id === polygonShape.id; });
                 if (polygonInEditor) {
                     polygonInEditor.updatePoints(polygon.points());
                 } else {
-                    that._editor.polygons.push(new PolygonShape(polygon.id, polygon.points(), polygon.onClick));
+                    that._editor.polygons.push(new that._PolygonShape(polygon.id, polygon.points(), polygon.onClick));
                 }
             });
             that._editor.polygons = _.filter(that._editor.polygons, function (polygonShape) {
