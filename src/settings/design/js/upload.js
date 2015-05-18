@@ -6,6 +6,9 @@
 
     function upload() {
         var url = location.protocol + '//' + location.host + '/storage/image/upload';
+        var token = localStorage['token.settings'];
+        var isTokenAuthSupported = token !== undefined;
+        var headers = isTokenAuthSupported ? { 'Authorization': 'Bearer ' + token } : {};
 
         var somethingWentWrongMessage = {
             title: 'Something went wrong',
@@ -51,9 +54,10 @@
                     $.ajax({
                         url: url,
                         type: 'POST',
+                        headers: headers,
                         data: formData,
                         contentType: false,
-                        processData: false,
+                        processData: false
                     }).done(function (response) {
                         try {
                             var obj = JSON.parse(response);
