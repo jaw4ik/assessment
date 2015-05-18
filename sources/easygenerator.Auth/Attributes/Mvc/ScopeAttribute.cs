@@ -29,7 +29,7 @@ namespace easygenerator.Auth.Attributes.Mvc
                 var scopeClaimType = AuthorizationConfigurationProvider.ScopeClaimType;
                 var grantedScopes = ClaimsPrincipal.Current.FindAll(scopeClaimType).SelectMany(c => c.Value.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)).ToList();
 
-                return _scopes.All(grantedScopes.Contains);
+                return _scopes.Any(grantedScopes.Contains);
             }
             return false;
         }

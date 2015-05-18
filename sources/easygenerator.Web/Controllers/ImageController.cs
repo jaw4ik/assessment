@@ -102,7 +102,7 @@ namespace easygenerator.Web.Controllers
 
         [NoCache]
         [HttpPost]
-        [Scope("api,settings")]
+        [Scope("api", "settings")]
         [Route("storage/image/upload")]
         public ActionResult Upload(HttpPostedFileBase file)
         {
