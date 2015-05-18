@@ -8,6 +8,8 @@
             getVideoEmbedCode: 'Get video embed code'
         };
 
+        var videoConstants = constants.course.video;
+
         var viewModel = {
 
             videoIframe: ko.observable(),
@@ -25,7 +27,9 @@
 
         return viewModel;
 
-        function show(videoIframe) {
+        function show(vimeoId) { //TODO make redirect
+            var videoIframe = '<iframe src="https://player.vimeo.com/video/' + vimeoId + '?color=ffffff&title=0&byline=0&portrait=0"' + ' width="' + videoConstants.iframeWidth + '" height="' + videoConstants.iframeHeight + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+
             eventTracker.publish(events.openVideoPopup);
 
             viewModel.videoIframe(videoIframe);

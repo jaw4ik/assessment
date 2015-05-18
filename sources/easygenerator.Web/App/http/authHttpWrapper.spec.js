@@ -43,7 +43,7 @@
 
                 authHttpWrapper.post(url, data);
 
-                expect(http.post).toHaveBeenCalledWith(url, data, { Authorization: jasmine.any(String) });
+                expect(http.post).toHaveBeenCalledWith(url, data, { Authorization: jasmine.any(String), 'cache-control': 'no-cache' });
             });
 
             describe('when post request succeed', function () {

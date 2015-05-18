@@ -1,5 +1,5 @@
-﻿define(['errorHandling/httpErrorHandlerRegistrator', 'errorHandling/httpErrorHandlers/defaultHttpErrorHandler'],
-    function (errorHandlerRegistrator, defaultHttpErrorHandler) {
+﻿define(['errorHandling/httpErrorHandlerRegistrator', 'errorHandling/httpErrorHandlers/defaultHttpErrorHandler', 'constants'],
+    function (errorHandlerRegistrator, defaultHttpErrorHandler, constants) {
         "use strict";
 
         var subscribeOnAjaxErrorEvents = function () {
@@ -12,7 +12,7 @@
                     }
                 }
                 /* Vimeo return 308 as a success result status */
-                if (response && response.status == 308) {
+                if (response && response.status == constants.course.video.vimeoVerifyStatus) {
                     return;
                 }
 

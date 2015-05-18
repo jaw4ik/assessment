@@ -164,6 +164,27 @@
                     questionsReordered: 'objective:questionsReordered',
                     questionsReorderedByCollaborator: 'objective:questionsReorderedByCollaborator'
                 },
+                video: {
+                    storage: {
+                        host: 'http://localhost:888',
+                        videosUrl: '/api/media/videos',
+                        ticketUrl: '/api/media/video/upload',
+                        finishUrl: '/api/media/video/upload/finish',
+                        loadingUrl: '/api/media/video/apload/loading'
+                    },
+                    statuses: {
+                        loaded: 'loaded',
+                        failed: 'failed',
+                        inProgress: 'inProgress'
+                    },
+                    vimeoVerifyStatus: 308,
+                    changesInUpload: 'video:changesInUpload',
+                    trackChangesInUploadTimeout: 500,
+                    iframeWidth: 600,
+                    iframeHeight: 335,
+                    sendLoadingTimeout: 60000,
+                    removeVideoAfterErrorTimeout: 5000
+                },
                 question: {
                     created: 'question:created',
                     createdByCollaborator: 'question:createdByCollaborator',

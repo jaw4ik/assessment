@@ -520,6 +520,7 @@
     <Content Include="App\analytics\providers\mixpanelProvider.js" />
     <Content Include="App\analytics\providers\nudgespotProvider.js" />
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
+    <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
     <Content Include="App\commands\createCourseCommand.js" />
     <Content Include="App\commands\createCourseCommand.spec.js">
       <DependentUpon>createCourseCommand.js</DependentUpon>
@@ -562,6 +563,10 @@
     <Content Include="App\http\authHttpWrapper.js" />
     <Content Include="App\http\authHttpWrapper.spec.js">
       <DependentUpon>authHttpWrapper.js</DependentUpon>
+    </Content>
+    <Content Include="App\http\storageHttpWrapper.js" />
+    <Content Include="App\http\storageHttpWrapper.spec.js">
+      <DependentUpon>storageHttpWrapper.js</DependentUpon>
     </Content>
     <Content Include="App\localization\resources.js" />
     <Content Include="App\mappers\videoModelMapper.js" />
@@ -681,7 +686,10 @@
     <Content Include="App\utils\waiter.spec.js">
       <DependentUpon>waiter.js</DependentUpon>
     </Content>
-    <Content Include="App\videoUpload.js" />
+    <Content Include="App\videoUpload\commands\progressHandler.js" />
+    <Content Include="App\videoUpload\commands\storage.js" />
+    <Content Include="App\videoUpload\commands\vimeo.js" />
+    <Content Include="App\videoUpload\videoUpload.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\courseIntroductionAnimationBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\elementCollapseBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\publishTabBinding.js" />

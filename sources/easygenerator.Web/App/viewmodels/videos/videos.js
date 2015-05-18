@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'eventTracker', 'repositories/videoRepository', 'dialogs/video/video', 'videoUpload'], function (app, eventTracker, repository, videoPopup, videoUpload) {
+﻿define(['durandal/app', 'constants', 'eventTracker', 'repositories/videoRepository', 'dialogs/video/video', 'videoUpload/videoUpload'], function (app, constants, eventTracker, repository, videoPopup, videoUpload) {
     "use strict";
 
     app.on('video upload changes', function () {
@@ -12,6 +12,7 @@
 
     var viewModel = {
         videos: ko.observableArray([]),
+        states: constants.course.video.states,
         addVideo: addVideo,
         activate: activate,
         showVideoPopup: showVideoPopup
@@ -32,7 +33,7 @@
             return;
         }
 
-        videoPopup.show(video.videoIframe);
+        videoPopup.show(video.vimeoId());
     }
 
     function activate() {
@@ -47,14 +48,14 @@
     function mapVideo(item) {
         var video = {};
 
+        video.id = item.id;
         video.title = item.title;
-        video.thumbnailUrl = item.thumbnailUrl;
-        video.videoIframe = item.videoIframe;
-        video.createdOn = item.createdOn;
-        video.modifiedOn = item.ModifiedOn;
-        video.id = ko.observable(item.id);
+        video.thumbnailUrl = ko.observable(item.thumbnailUrl);
+        video.createdOn = ko.observable(item.createdOn);
+        video.modifiedOn = ko.observable(item.ModifiedOn);
         video.vimeoId = ko.observable(item.vimeoId);
-        video.progress = ko.observable(item.progress || 0);
+        video.progress = ko.observable(item.progress || 100);
+        video.state = ko.observable(item.state || viewModel.states.loaded);
 
         return video;
     }
@@ -64,7 +65,7 @@
             _.each(videos, function (video) {
 
                 var vmVideo = _.find(viewModel.videos(), function (item) {
-                    return video.id == item.id();
+                    return video.id == item.id;
                 });
 
                 if (!vmVideo) {
@@ -72,6 +73,19 @@
                 } else {
                     vmVideo.progress(video.progress);
                     vmVideo.vimeoId(video.vimeoId);
+                    vmVideo.createdOn(video.createdOn);
+                    vmVideo.modifiedOn(video.modifiedOn);
+                    vmVideo.thumbnailUrl(video.thumbnailUrl);
+                    vmVideo.error(video.error);
+                }
+            });
+            _.each(viewModel.videos(), function (item) {
+                var video = _.find(videos, function (rpVideo) {
+                    return rpVideo.id == item.id;
+                });
+                if (!video) {
+                    var index = viewModel.videos().indexOf(item);
+                    viewModel.videos().splice(index, 1);
                 }
             });
         });

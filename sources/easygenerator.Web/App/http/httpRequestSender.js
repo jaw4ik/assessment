@@ -9,9 +9,6 @@
 
         function post(url, data, headers) {
             var deferred = Q.defer();
-            if (_.isObject(headers)) {
-                _.extend(headers, { "cache-control": "no-cache" });
-            }
 
             http.post(url, data, headers).done(function (response) {
                 if (!_.isObject(response)) {
@@ -48,9 +45,6 @@
 
         function get(url, query, headers) {
             var deferred = Q.defer();
-            if (_.isObject(headers)) {
-                _.extend(headers, { "cache-control": "no-cache" });
-            }
 
             $.ajax(url, { data: query, headers: headers })
                 .done(function (response) {

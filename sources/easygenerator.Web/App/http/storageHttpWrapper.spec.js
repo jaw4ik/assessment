@@ -1,4 +1,4 @@
-﻿define(['http/apiHttpWrapper'], function (apiHttpWrapper) {
+﻿define(['http/storageHttpWrapper'], function (storageHttpWrapper) {
     "use strict";
 
     var
@@ -6,10 +6,10 @@
         app = require('durandal/app'),
         notify = require('notify');
 
-    describe('[apiHttpWrapper]', function () {
+    describe('[storageHttpWrapper]', function () {
 
         it('should be object', function () {
-            expect(apiHttpWrapper).toBeObject();
+            expect(storageHttpWrapper).toBeObject();
         });
 
         describe('post:', function () {
@@ -23,34 +23,34 @@
             });
 
             it('should be function', function () {
-                expect(apiHttpWrapper.post).toBeFunction();
+                expect(storageHttpWrapper.post).toBeFunction();
             });
 
             it('should return promise', function () {
-                expect(apiHttpWrapper.post()).toBePromise();
+                expect(storageHttpWrapper.post()).toBePromise();
             });
 
-            it('should trigger \'apiHttpWrapper:post-begin\' event', function () {
-                apiHttpWrapper.post();
+            it('should trigger \'storageHttpWrapper:post-begin\' event', function () {
+                storageHttpWrapper.post();
 
-                expect(app.trigger).toHaveBeenCalledWith('apiHttpWrapper:post-begin');
+                expect(app.trigger).toHaveBeenCalledWith('storageHttpWrapper:post-begin');
             });
 
             it('should make a post request', function () {
                 var url = "url";
                 var data = { title: 'title' };
 
-                apiHttpWrapper.post(url, data);
+                storageHttpWrapper.post(url, data);
 
-                expect(http.post).toHaveBeenCalledWith(url, data, { Authorization: jasmine.any(String), 'cache-control' : 'no-cache' });
+                expect(http.post).toHaveBeenCalledWith(url, data, { Authorization: jasmine.any(String) });
             });
 
             describe('when post request succeed', function () {
 
-                it('should trigger \'apiHttpWrapper:post-end\' event', function (done) {
-                    var promise = apiHttpWrapper.post();
+                it('should trigger \'storageHttpWrapper:post-end\' event', function (done) {
+                    var promise = storageHttpWrapper.post();
                     promise.fin(function () {
-                        expect(app.trigger).toHaveBeenCalledWith('apiHttpWrapper:post-end');
+                        expect(app.trigger).toHaveBeenCalledWith('storageHttpWrapper:post-end');
                         done();
                     });
 
@@ -60,7 +60,7 @@
                 describe('and response data is not an object', function () {
 
                     it('should reject promise', function (done) {
-                        var promise = apiHttpWrapper.post();
+                        var promise = storageHttpWrapper.post();
                         promise.fin(function () {
                             expect(promise).toBeRejectedWith('Response data is not an object');
                             done();
@@ -81,7 +81,7 @@
                         });
 
                         it('should reject promise with response message', function (done) {
-                            var promise = apiHttpWrapper.post();
+                            var promise = storageHttpWrapper.post();
                             promise.fin(function () {
                                 expect(promise).toBeRejectedWith(message);
                                 done();
@@ -91,7 +91,7 @@
                         });
 
                         it('should show error notification with error message', function (done) {
-                            var promise = apiHttpWrapper.post();
+                            var promise = storageHttpWrapper.post();
                             promise.fin(function () {
                                 expect(notify.error).toHaveBeenCalledWith(message);
                                 done();
@@ -104,7 +104,7 @@
                     describe('and response state is success', function () {
 
                         it('should resolve promise with response data', function (done) {
-                            var promise = apiHttpWrapper.post();
+                            var promise = storageHttpWrapper.post();
                             promise.fin(function () {
                                 expect(promise).toBeResolvedWith(data);
                                 done();
@@ -123,10 +123,10 @@
 
             describe('when post request failed', function () {
 
-                it('should trigger \'apiHttpWrapper:post-end\' event', function (done) {
-                    var promise = apiHttpWrapper.post();
+                it('should trigger \'storageHttpWrapper:post-end\' event', function (done) {
+                    var promise = storageHttpWrapper.post();
                     promise.fin(function () {
-                        expect(app.trigger).toHaveBeenCalledWith('apiHttpWrapper:post-end');
+                        expect(app.trigger).toHaveBeenCalledWith('storageHttpWrapper:post-end');
                         done();
                     });
 

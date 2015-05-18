@@ -7,9 +7,10 @@
                 return new VideoModel({
 
                     id: item.Id,
+                    createdOn: item.CreatedOn,
+                    modifiedOn: item.ModifiedOn,
                     title: item.Title,
-                    vimeoId: item.VimeoId,
-                    thumbnailUrl: item.ThumbnailUrl
+                    vimeoId: item.VimeoId
 
                 });
             };

@@ -4,6 +4,7 @@
         identity: null,
         hasStarterAccess: hasStarterAccess,
         hasPlusAccess: hasPlusAccess,
+        availableStorageSpace: null,
         identify: identify
     };
 

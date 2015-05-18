@@ -64,7 +64,7 @@
             'notifications/notification.spec',
             'notifications/subscriptionExpiration/notificationController.spec',
             'notifications/subscriptionExpiration/notification.spec',
-            
+
             'notifications/collaborationInvite/notification.spec',
             'notifications/collaborationInvite/queries/getInvites.spec',
             'notifications/collaborationInvite/commands/acceptInvite.spec',
@@ -72,7 +72,7 @@
             'notifications/collaborationInvite/notificationController.spec',
 
             //#endregion 
-        
+
             'localization/localizationManager.spec',
             'models/course.spec',
             'models/user.spec',
@@ -302,6 +302,7 @@
             'guard.spec',
             'http/apiHttpWrapper.spec',
             'http/authHttpWrapper.spec',
+            'http/storageHttpWrapper.spec',
             'http/httpRequestSender.spec',
             'notify.spec',
             'uiLocker.spec',

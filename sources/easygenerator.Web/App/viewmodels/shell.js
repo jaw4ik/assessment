@@ -49,6 +49,13 @@
             requestsCounter(requestsCounter() - 1);
         });
 
+        app.on('storageHttpWrapper:post-end').then(function () {
+            requestsCounter(requestsCounter() - 1);
+        });
+        app.on('storageHttpWrapper:post-end').then(function () {
+            requestsCounter(requestsCounter() - 1);
+        });
+
         app.on(constants.messages.course.deletedByCollaborator, viewModel.courseDeleted);
         app.on(constants.messages.course.collaboration.finished, viewModel.courseCollaborationFinished);
         app.on(constants.messages.course.objectivesUnrelatedByCollaborator, viewModel.objectivesUnrelated);

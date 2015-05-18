@@ -5,8 +5,11 @@
 
     function post(url, data) {
         app.trigger('authHttpWrapper:post-begin');
-       
-        return httpRequestSender.post(url, data, window.auth.getHeader('auth')).then(function (response) {
+
+        var headers = window.auth.getHeader('auth');
+        _.extend(headers, { "cache-control": "no-cache" });
+
+        return httpRequestSender.post(url, data, headers).then(function (response) {
 
             if (!_.isObject(response)) {
                 throw 'Response data is not an object';

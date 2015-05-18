@@ -4,12 +4,9 @@
     return { post: post };
 
     function post(url, data) {
-        app.trigger('apiHttpWrapper:post-begin');
+        app.trigger('storageHttpWrapper:post-begin');
 
-        var headers = window.auth.getHeader('api');
-        _.extend(headers, { "cache-control": "no-cache" });
-
-        return httpRequestSender.post(url, data, headers).then(function (response) {
+        return httpRequestSender.post(url, data, window.auth.getHeader('storage')).then(function (response) {
 
             if (!_.isObject(response)) {
                 throw 'Response data is not an object';
@@ -22,7 +19,7 @@
 
             return response.data;
         }).fin(function () {
-            app.trigger('apiHttpWrapper:post-end');
+            app.trigger('storageHttpWrapper:post-end');
         });
     }
 });
