@@ -688,6 +688,7 @@
       <DependentUpon>results.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\index.js" />
+    <Content Include="App\viewmodels\learningContents\bindingHandlers\hotspotOnImageBindingHandler.js" />
     <Content Include="App\viewmodels\learningContents\components\hotspotParser.js" />
     <Content Include="App\viewmodels\learningContents\learningContents.js" />
     <Content Include="App\viewmodels\learningContents\learningContents.spec.js">
@@ -725,6 +726,8 @@
     <Content Include="App\views\courses\publishActions\publishAsScorm.html" />
     <Content Include="App\views\courses\publishActions\updatePublishedCourse.html" />
     <Content Include="App\views\learningContents\learningContents.html" />
+    <Content Include="App\views\learningContents\types\hotspot.html" />
+    <Content Include="App\views\learningContents\types\richText.html" />
     <Content Include="App\views\objectives\index.html" />
     <Content Include="App\views\questions\statement\statement.html" />
     <Content Include="App\reporting\views\courseStatement.html" />
@@ -736,6 +739,10 @@
     <Content Include="App\widgets\hotspotCursorTooltip\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
+    <Content Include="App\widgets\hotSpotOnImageTextEditor\bindingHadlers\hotspotOnImageTextEditorBindingHandler.js" />
+    <Content Include="App\widgets\hotSpotOnImageTextEditor\view.html" />
+    <Content Include="App\widgets\hotSpotOnImageTextEditor\viewmodel.js" />
+    <Content Include="App\widgets\hotSpotOnImageTextEditor\viewmodel.spec.js" />
     <Content Include="BuildCourse\Modules\js\branding.js" />
     <Content Include="Content\course.css">
       <DependentUpon>course.less</DependentUpon>
@@ -761,6 +768,7 @@
     <Content Include="Content\images\disabled-question1024.png" />
     <Content Include="Content\images\firefox.png" />
     <Content Include="Content\images\hotSpot-empty.png" />
+    <Content Include="Content\images\hotspot-on-image-info-icon.png" />
     <Content Include="Content\images\ie.png" />
     <Content Include="Content\images\newTemplate.png" />
     <Content Include="Content\images\no-spots.png" />

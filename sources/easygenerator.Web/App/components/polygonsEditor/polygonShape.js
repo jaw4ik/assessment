@@ -6,11 +6,12 @@
             selectedColor: 'green'
         };
 
-        function PolygonShape(id, points) {
+        function PolygonShape(id, points, onClick) {
             var that = this;
             this.id = id;
             this.path = null;
             this.isDitry = false;
+            this.onClick = onClick || function () { };
             this.markAsDirty = function () {
                 that.isDitry = true;
             };
@@ -38,6 +39,7 @@
                     that.path.strokeColor.alpha = 0.7;
                     that.path.selectedColor = settings.selectedColor;
                     that.path.selected = selected;
+                    that.path.onClick = that.onClick;
                 }
             };
             this.updatePoints(points);

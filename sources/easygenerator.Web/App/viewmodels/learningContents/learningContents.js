@@ -42,7 +42,8 @@
             toggleExpand: toggleExpand,
 
             activate: activate,
-            localizationManager: localizationManager
+            localizationManager: localizationManager,
+            uploadBackground: uploadBackground
         };
 
         viewModel.isSortingEnabled = ko.computed(function () {
@@ -72,13 +73,19 @@
         function addHotspotOnImage() {
             publishActualEvent(events.addLearningContent);
             toggleIsAddedButtonsShown();
+            uploadBackground(function (url) {
+                var text = hotspotParser.getHotspot(url);
+                doAddLearningContent(undefined, text, constants.learningContentsTypes.hotspot);
+            });
+        }
+
+        function uploadBackground(callback) {
             imageUpload.upload({
                 startLoading: function () {
                     uiLocker.lock();
                 },
                 success: function (url) {
-                    var text = hotspotParser.getHotspot(url);
-                    doAddLearningContent(undefined, text);
+                    callback(url);
                 },
                 complete: function () {
                     uiLocker.unlock();

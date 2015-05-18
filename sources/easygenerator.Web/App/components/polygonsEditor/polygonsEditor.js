@@ -347,7 +347,7 @@
                 if (polygonInEditor) {
                     polygonInEditor.updatePoints(polygon.points());
                 } else {
-                    that._editor.polygons.push(new PolygonShape(polygon.id, polygon.points()));
+                    that._editor.polygons.push(new PolygonShape(polygon.id, polygon.points(), polygon.onClick));
                 }
             });
             that._editor.polygons = _.filter(that._editor.polygons, function (polygonShape) {

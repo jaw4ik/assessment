@@ -1,9 +1,15 @@
 ﻿define(['durandal/composition', 'durandal/system', 'components/polygonsEditor/polygonsEditor',
-        'widgets/hotSpotOnImageTextEditor/viewmodel', 'viewmodels/learningContents/hotspotOnImage/utils/polygon',
-        'viewmodels/learningContents/hotspotOnImage/utils/hotspotOnImageParser',
+        'widgets/hotSpotOnImageTextEditor/viewmodel', 'viewmodels/learningContents/components/hotspotParser',
         'widgets/hotspotCursorTooltip/viewmodel'],
-    function (composition, system, PolygonsEditor, hotSpotOnImageTextEditor, PolygonModel, parser, cursorTooltip) {
+    function (composition, system, PolygonsEditor, hotSpotOnImageTextEditor, parser, cursorTooltip) {
         'use strict';
+
+        var PolygonModel = function (id, points, text, onClick) {
+            this.id = id || system.guid();
+            this.points = ko.observable(points);
+            this.text = text || '';
+            this.onClick = onClick || function () { };
+        };
 
         ko.bindingHandlers.hotspotOnImage = {
             init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
@@ -18,23 +24,6 @@
                     that = bindingContext.$root,
                     uploadBackground = valueAccessor().uploadBackground,
                     $wrapper = $element.closest('.hotspot-on-image-container');
-
-                $element.html(data());
-
-                var $spotsBtns = $element.find('.spot-btn');
-
-                $spotsBtns.each(function (index, elem) {
-                    $(elem).on('click', function () {
-                        var $that = $(this);
-                        var $parent = $that.parent();
-                        var top = $parent.offset().top + ($parent.height() / 2);
-                        var left = $parent.offset().left + $parent.width();
-                        hotSpotOnImageTextEditor.show($parent.attr('data-text'), top, left, function (text) {
-                            $parent.attr('data-text', text);
-                            saveData();
-                        });
-                    });
-                });
 
                 $element.attr('tabindex', 0).on('focus', function () {
                     if (!isEditing())
@@ -53,11 +42,11 @@
                     }
                 });
 
-                var $editor = $element.find('.hotspotOnImage');
 
                 $('.upload-background-image', $wrapper).on('click', function () {
                     uploadBackground(function (url) {
-                        parser.updateImage($editor, url);
+                        loadImage(url);
+                        data(parser.updateImage(data(), url));
                         saveData();
                     });
                 });
@@ -72,21 +61,19 @@
                     setHoverOnActiveState: setHoverOnActiveState
                 };
 
-                $element.data('polygonsEditor', {
-                    polygonsEditor: new PolygonsEditor($editor, domActions),
-                    polygons: ko.observableArray([])
-                });
+                var editor = new PolygonsEditor($element, domActions),
+                    polygons = ko.observableArray(parser.getPolygons(valueAccessor().data())),
+                    domData = ko.observable({
+                        polygonsEditor: editor,
+                        polygons: ko.observableArray([])
+                    });
 
-                var editor = $element.data('polygonsEditor');
+                ko.utils.domData.set(element, 'ko_polygonEditor', domData);
 
-                editor.polygonsEditor.on('polygon:dragging', function (polygonViewModel, points) {
-                    parser.updateSpot(polygonViewModel.id, points, $editor);
-                });
+                loadImage();
 
-                editor.polygonsEditor.on('polygon:updated', function (polygonViewModel, points) {
-                    parser.updateSpot(polygonViewModel.id, points, $editor);
-
-                    var polygon = _.find(editor.polygons(), function (item) {
+                editor.on('polygon:updated', function (polygonViewModel, points) {
+                    var polygon = _.find(polygons(), function (item) {
                         return item.id == polygonViewModel.id;
                     });
 
@@ -94,31 +81,17 @@
                     saveData();
                 });
 
-                editor.polygonsEditor.on('polygon:deleted', function (polygonViewModel) {
-                    parser.removeSpot(polygonViewModel.id, $editor);
-                    editor.polygons(_.reject(editor.polygons(), function (polygon) {
+                editor.on('polygon:deleted', function (polygonViewModel) {
+                    polygons(_.reject(polygons(), function (polygon) {
                         return polygon.id == polygonViewModel.id;
                     }));
                     saveData();
                 });
 
-                editor.polygonsEditor.on('polygon:add', function (points) {
+                editor.on('polygon:add', function (points) {
+                    console.log('add pol');
                     var polygon = new PolygonModel('', points);
-
-                    var $spot = parser.generateSpot(polygon.id, points);
-                    $('.spot-btn', $spot).on('click', function () {
-                        var $that = $(this);
-                        var $parent = $that.parent();
-                        var top = $parent.offset().top + ($parent.height() / 2);
-                        var left = $parent.offset().left + $parent.width();
-                        hotSpotOnImageTextEditor.show($parent.attr('data-text'), top, left, function (text) {
-                            $parent.attr('data-text', text);
-                            saveData();
-                        });
-                    });
-                    $editor.prepend($spot);
-
-                    editor.polygons.push(polygon);
+                    polygons.push(polygon);
                     saveData();
                 });
 
@@ -168,23 +141,9 @@
                     $element.addClass('active');
                 }
 
-                ko.applyBindingsToDescendants(bindingContext, element);
-
-                setUpHoverOnCanvas($element);
-
-                ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-                    $('html').unbind('click', blurEvent);
-                    $element.removeData('polygonsEditor');
-                });
-
-                return { 'controlsDescendantBindings': true };
-
                 function saveData() {
                     if (!!saveHandler) {
-                        var $clone = $element.clone();
-                        var $canvas = $clone.find('canvas');
-                        $canvas.remove();
-                        data($clone.html());
+                        data(parser.createSpots(data(), polygons()));
                         saveHandler.call(that, viewModel);
                     }
                 }
@@ -202,32 +161,48 @@
                 }
 
                 function blurEvent(event) {
-                    if (event.target !== editor.polygonsEditor.canvas) {
-                        editor.polygonsEditor.deselectAllElements();
+                    if (event.target !== editor.canvas) {
+                        editor.deselectAllElements();
                         $('html').unbind('click', blurEvent);
                     }
                 }
+
+                function loadImage(url) {
+                    var imageUrl = url || parser.getImageUrl(valueAccessor().data());
+
+                    var background = new Image();
+                    background.onload = function () {
+                        $element.width(this.width);
+                        $element.height(this.height);
+                        $element.css('background-image', 'url(' + imageUrl + ')');
+                        editor.updateCanvasSize(this.width, this.height);
+                    };
+                    background.src = imageUrl;
+                }
+
+                ko.applyBindingsToDescendants(bindingContext, element);
+
+                setUpHoverOnCanvas($element);
+
+                ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+                    $('html').unbind('click', blurEvent);
+                    ko.utils.domData.clear(element);
+                });
+
+                return { 'controlsDescendantBindings': true };
             },
             update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
                 var $element = $(element),
-                    editor = $element.data('polygonsEditor');
+                    editor = ko.utils.domData.get(element, 'ko_polygonEditor');
+                editor().polygons(parser.getPolygons(valueAccessor().data()));
 
-                var imageUrl = parser.getImageUrl(valueAccessor().data());
-                var background = new Image();
-                background.onload = function () {
-                    editor.polygonsEditor.updateCanvasSize(this.width, this.height);
-                };
-                background.src = imageUrl;
-
-                editor.polygons(parser.getPolygons(valueAccessor().data()));
-
-                if (editor.polygons().length) {
+                if (editor().polygons().length) {
                     $element.removeClass('empty');
                 } else {
                     $element.addClass('empty');
                 }
 
-                editor.polygonsEditor.updatePolygons(editor.polygons);
+                editor().polygonsEditor.updatePolygons(editor().polygons);
             }
         };
 

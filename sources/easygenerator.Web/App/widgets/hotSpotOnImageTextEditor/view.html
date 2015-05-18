@@ -1,0 +1,9 @@
+﻿<div class="hotspot-on-image-editor-container left" data-bind="hotspotOnImageTextEditor: { isVisible: isVisible, close: close, top: top, left: left}, style: { top: top() + 'px', left: left() + 'px' }">
+    <button class="hotspot-on-image-editor-button close" data-bind="click: close"></button>
+    <div class="hotspot-on-image-editor-pointer"></div>
+    <div class="hotspot-on-image-editor-text-container" data-bind="editableText: { text: text }, autofocus: { focus: isVisible(), autoselect: isVisible() }" data-text></div>
+    <div class="hotspot-on-image-editor-button-container">
+        <button class="hotspot-on-image-editor-button cancel" data-bind="click: close">Cancel</button>
+        <button class="hotspot-on-image-editor-button save" data-bind="click: save">Save</button>
+    </div>
+</div>

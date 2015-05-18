@@ -30,7 +30,6 @@
         <ul class="unstyled question-content-items-list" data-bind="sortableExtended: { data: learningContents, afterMove: updateOrder, isEnabled: isSortingEnabled, maxHeight: 150, options: { handle: '.question-learning-content-drag-wrapper', start: startReordering, stop: stopReordering, distance:5, visible: isExpanded }}">
             <li class="question-learning-content-list-item draggable">
                 <!-- ko compose: { view: 'learningContents/types/' + type } --><!-- /ko -->
-                
             </li>
         </ul>
         <!-- ko ifnot: isAddedButtonsShown -->

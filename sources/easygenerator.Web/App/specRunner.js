@@ -296,6 +296,7 @@
             'widgets/uiLockViewer/viewmodel.spec',
             'widgets/createQuestion/viewmodel.spec',
             'widgets/hotspotCursorTooltip/viewmodel.spec',
+            'widgets/hotSpotOnImageTextEditor/viewmodel.spec',
             'bootstrapper.spec',
             'guard.spec',
             'http/httpWrapper.spec',

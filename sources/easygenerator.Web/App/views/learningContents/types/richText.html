@@ -1,7 +1,7 @@
 ﻿<div class="question-learning-content-list-item-body-wrapper">
     <div class="question-learning-content-list-item-body">
         <div class="question-learning-content-drag-wrapper" data-bind="css:{ enabled: $parent.isSortingEnabled }, localize: { title: 'changeOrderTooltip' }"></div>
-        <div class="question-learning-content-body-wrapper" data-bind="css: { active: hasFocus }">
+        <div class="question-learning-content-body-wrapper" data-bind="css: { editing: hasFocus }">
             <div class="question-learning-content-body">
                 <div class="question-learning-content-wrapper">
                     <div class="question-learning-content selectable" data-bind="ckeditor: { data: text, eventTracker: $parent.eventTracker, isEditing: hasFocus, save: $parent.updateText, focus: $parent.beginEditText, blur: function (data, event) { $parent.updateText(data, event), $parent.endEditText(data, event); }, autosaveInterval: $parent.autosaveInterval, localizationManager: $parent.localizationManager }">
