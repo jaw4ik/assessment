@@ -28,7 +28,7 @@
     }
 
     function showVideoPopup(video) {
-        if (!video.vimeoId) {
+        if (!video.vimeoId()) {
             return;
         }
 
@@ -64,7 +64,7 @@
             _.each(videos, function (video) {
 
                 var vmVideo = _.find(viewModel.videos(), function (item) {
-                    return video.id == item.id;
+                    return video.id == item.id();
                 });
 
                 if (!vmVideo) {
