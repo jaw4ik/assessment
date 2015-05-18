@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using System;
 
