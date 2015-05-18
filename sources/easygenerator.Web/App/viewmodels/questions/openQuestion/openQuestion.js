@@ -13,7 +13,17 @@
                 return {
                     viewCaption: localizationManager.localize('openQuestionEditor'),
                     hasQuestionContent: true,
-                    hasFeedback: true
+                    hasFeedback: true,
+                    feedbackCaptions: {
+                        correctFeedback: {
+                            hint: localizationManager.localize('responseForProvidedAnswer'),
+                            instruction: localizationManager.localize('createResponseForProvidedAnswer')
+                        },
+                        incorrectFeedback: {
+                            hint: localizationManager.localize('responseForEmptyAnswer'),
+                            instruction: localizationManager.localize('createResponseForEmptyAnswer')
+                        }
+                    }
                 };
             });
         }

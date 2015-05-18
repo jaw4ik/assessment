@@ -66,6 +66,38 @@
 				    });
 				});
 
+				it('should have feedbackCaptions.correctFeedback.hint defined', function (done) {
+				    var promise = viewModel.initialize();
+				    promise.then(function (result) {
+				        expect(result.feedbackCaptions.correctFeedback.hint).toBe('responseForProvidedAnswer');
+				        done();
+				    });
+				});
+
+				it('should have feedbackCaptions.correctFeedback.instruction defined', function (done) {
+				    var promise = viewModel.initialize();
+				    promise.then(function (result) {
+				        expect(result.feedbackCaptions.correctFeedback.instruction).toBe('createResponseForProvidedAnswer');
+				        done();
+				    });
+				});
+
+				it('should have feedbackCaptions.correctFeedback.hint defined', function (done) {
+				    var promise = viewModel.initialize();
+				    promise.then(function (result) {
+				        expect(result.feedbackCaptions.incorrectFeedback.hint).toBe('responseForEmptyAnswer');
+				        done();
+				    });
+				});
+
+				it('should have feedbackCaptions.incorrectFeedback.instruction defined', function (done) {
+				    var promise = viewModel.initialize();
+				    promise.then(function (result) {
+				        expect(result.feedbackCaptions.incorrectFeedback.instruction).toBe('createResponseForEmptyAnswer');
+				        done();
+				    });
+				});
+
 			});
 
 		});

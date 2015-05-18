@@ -51,6 +51,11 @@
                 }
             },
 
+            questionFeedback: {
+                correct: 'correct',
+                incorrect: 'incorrect'
+            },
+
             sortingOptions: {
                 byTitleAsc: 'byTitleAsc',
                 byTitleDesc: 'byTitleDesc'

@@ -5,9 +5,16 @@
         constants = require('constants'),
         eventTracker = require('eventTracker'),
         repository = require('repositories/questionRepository'),
+        localizationManager = require('localization/localizationManager'),
         notify = require('notify');
 
     describe('viewModel [feedback]', function () {
+
+        beforeEach(function() {
+            spyOn(localizationManager, 'localize').and.callFake(function (arg) {
+                return arg;
+            });
+        });
 
         it('should be defined', function () {
             expect(viewModel).toBeDefined();
@@ -521,22 +528,97 @@
 
             describe('and when question feedback received', function () {
 
-                it('should init correct feedback', function (done) {
-                    spyOn(viewModel.correctFeedback, 'init');
-                    viewModel.activate(activationData).fin(function () {
-                        expect(viewModel.correctFeedback.init).toHaveBeenCalledWith('correct');
-                        done();
+                describe('and when feedback captions are defined', function () {
+                    var captions = {
+                        correctFeedback: {
+                            hint: 'correct hint',
+                            instruction: 'correct instruction'
+                        },
+                        incorrectFeedback: {
+                            hint: 'incorrect hint',
+                            instruction: 'incorrect instruction'
+                        }
+                    };
+                    beforeEach(function () {
+                        activationData.captions = captions;
+                    });
+
+                    it('should init correct feedback', function (done) {
+                        spyOn(viewModel.correctFeedback, 'init');
+                        viewModel.activate(activationData).fin(function () {
+                            expect(viewModel.correctFeedback.init).toHaveBeenCalledWith('correct', captions.correctFeedback);
+                            done();
+                        });
+                    });
+
+                    it('should init incorrect feedback', function (done) {
+                        spyOn(viewModel.incorrectFeedback, 'init');
+                        viewModel.activate(activationData).fin(function () {
+                            expect(viewModel.incorrectFeedback.init).toHaveBeenCalledWith('incorrect', captions.incorrectFeedback);
+                            done();
+                        });
                     });
                 });
 
-                it('should init incorrect feedback', function (done) {
-                    spyOn(viewModel.incorrectFeedback, 'init');
-                    viewModel.activate(activationData).fin(function () {
-                        expect(viewModel.incorrectFeedback.init).toHaveBeenCalledWith('incorrect');
-                        done();
+                describe('and when feedback captions are not defined', function () {
+                    beforeEach(function () {
+                        activationData.captions = undefined;
+                    });
+
+                    it('should init correct feedback', function (done) {
+                        spyOn(viewModel.correctFeedback, 'init');
+                        viewModel.activate(activationData).fin(function () {
+                            expect(viewModel.correctFeedback.init).toHaveBeenCalledWith('correct', {
+                                hint: 'correctFeedback',
+                                instruction: 'putYourPositiveFeedback'
+                            });
+                            done();
+                        });
+                    });
+
+                    it('should init incorrect feedback', function (done) {
+                        spyOn(viewModel.incorrectFeedback, 'init');
+                        viewModel.activate(activationData).fin(function () {
+                            expect(viewModel.incorrectFeedback.init).toHaveBeenCalledWith('incorrect', {
+                                hint: 'incorrectFeedback',
+                                instruction: 'putYourNegativeFeedback'
+                            });
+                            done();
+                        });
                     });
                 });
 
+                describe('and when feedback captions are partually defined', function () {
+                    var captions = {
+                        correctFeedback: {
+                            hint: 'correct hint',
+                            instruction: 'correct instruction'
+                        }
+                    };
+
+                    beforeEach(function () {
+                        activationData.captions = captions;
+                    });
+
+                    it('should init correct feedback', function (done) {
+                        spyOn(viewModel.correctFeedback, 'init');
+                        viewModel.activate(activationData).fin(function () {
+                            expect(viewModel.correctFeedback.init).toHaveBeenCalledWith('correct', captions.correctFeedback);
+                            done();
+                        });
+                    });
+
+                    it('should init incorrect feedback', function (done) {
+                        spyOn(viewModel.incorrectFeedback, 'init');
+                        viewModel.activate(activationData).fin(function () {
+                            expect(viewModel.incorrectFeedback.init).toHaveBeenCalledWith('incorrect', {
+                                hint: 'incorrectFeedback',
+                                instruction: 'putYourNegativeFeedback'
+                            });
+                            done();
+                        });
+                    });
+                });
             });
 
         });

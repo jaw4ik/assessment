@@ -1466,6 +1466,26 @@
         'zh-cn': '\"Open question\" editor[zh-cn]',
         'uk': '\"Open question\" editor[uk]'
     },
+    createResponseForProvidedAnswer: {
+        'en': 'Create response for provided answer',
+        'zh-cn': 'Create response for provided answer[zh-cn]',
+        'uk': 'Create response for provided answer[uk]'
+    },
+    responseForProvidedAnswer: {
+        'en': 'Response for provided answer',
+        'zh-cn': 'Response for provided answer[zh-cn]',
+        'uk': 'Response for provided answer[uk]'
+    },
+    createResponseForEmptyAnswer: {
+        'en': 'Create response for empty answer',
+        'zh-cn': 'Create response for empty answer[zh-cn]',
+        'uk': 'Create response for empty answer[uk]'
+    },
+    responseForEmptyAnswer: {
+        'en': 'Response for empty answer',
+        'zh-cn': 'Response for empty answer[zh-cn]',
+        'uk': 'Response for empty answer[uk]'
+    },
     /* End resource section for model OpenQuestion */
     
     /* Resource section for model QuestionFeedback */
