@@ -283,7 +283,10 @@
 
         function addContentFilter() {
             var commonPropertiesToLeave = ['width', 'height', 'float', 'border-style', 'border-width', 'margin', 'margin-top', 'margin-left', 'margin-right', 'margin-bottom'];
-            var specificPropertiesToLeaveMapping = { 'td': ['text-align', 'vertical-align'] };
+            var specificPropertiesToLeaveMapping = {
+                'td': ['text-align', 'vertical-align'],
+                'th': ['text-align', 'vertical-align']
+            };
 
             var rules = {
                 elements: {
