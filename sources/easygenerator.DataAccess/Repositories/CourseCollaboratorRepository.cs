@@ -44,6 +44,17 @@ namespace easygenerator.DataAccess.Repositories
             Database.ExecuteSqlCommand(command, new SqlParameter("@createdBy", email), new SqlParameter("@allowedCount", allowedCollaborationsCount));
         }
 
+        public void LockCollaboration(string email, int maxAllowedCollaborationsCount)
+        {
+            var command = @"UPDATE CourseCollaborators SET Locked = 1 WHERE Course_Id IN 
+                            (
+	                            SELECT Course_Id FROM CourseCollaborators WHERE CreatedBy = @createdBy
+	                            GROUP BY Course_Id
+	                            HAVING COUNT(*) > @allowedCount
+                            )";
+
+            Database.ExecuteSqlCommand(command, new SqlParameter("@createdBy", email), new SqlParameter("@allowedCount", maxAllowedCollaborationsCount));
+        }
 
         public void UnlockCollaboration(string email)
         {
