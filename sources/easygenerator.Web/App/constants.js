@@ -44,7 +44,16 @@
                 statement: {
                     type: 'statement',
                     image: '/Content/images/statement-question.png'
+                },
+                openQuestion: {
+                    type: 'openQuestion',
+                    image: '/Content/images/open-question.png'
                 }
+            },
+
+            questionFeedback: {
+                correct: 'correct',
+                incorrect: 'incorrect'
             },
 
             sortingOptions: {

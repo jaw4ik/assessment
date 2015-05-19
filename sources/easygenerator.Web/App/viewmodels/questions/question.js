@@ -99,23 +99,26 @@ define(['durandal/app', 'eventTracker', 'constants',
                 throw 'Invalid arguments';
             }
 
-            return questionRepository.getById(viewmodel.objectiveId, viewmodel.questionId).then(function (question) {
-                viewmodel.activeQuestionViewModel = setActiveViewModel(question);
-                viewmodel.questionType = question.type;
-                return viewmodel.activeQuestionViewModel.initialize(viewmodel.objectiveId, question).then(function (viewModelData) {
-                    viewmodel.viewCaption = viewModelData.viewCaption;
+            return questionRepository.getById(viewmodel.objectiveId, viewmodel.questionId)
+                .then(function (question) {
+                    viewmodel.activeQuestionViewModel = setActiveViewModel(question);
+                    viewmodel.questionType = question.type;
 
-                    viewmodel.questionTitle = vmQuestionTitle(viewmodel.objectiveId, question);
-                    viewmodel.isInformationContent = viewModelData.isInformationContent;
-                    if (viewModelData.isQuestionContentNeeded) {
-                        viewmodel.questionContent = vmContentField(question.content, eventsForQuestionContent, true, function (content) {
-                            return questionRepository.updateContent(question.id, content);
+                    return viewmodel.activeQuestionViewModel.initialize(viewmodel.objectiveId, question)
+                        .then(function (viewModelData) {
+                            viewmodel.viewCaption = viewModelData.viewCaption;
+
+                            viewmodel.questionTitle = vmQuestionTitle(viewmodel.objectiveId, question);
+                            viewmodel.hasQuestionView = viewModelData.hasQuestionView;
+                            viewmodel.questionContent = viewModelData.hasQuestionContent ? vmContentField(question.content, eventsForQuestionContent, true, updateQuestionContent) : null;
+                            viewmodel.hasFeedback = viewModelData.hasFeedback;
+                            viewmodel.feedbackCaptions = viewModelData.feedbackCaptions;
                         });
-                    } else {
-                        viewmodel.questionContent = null;
-                    }
                 });
-            });
+        }
+
+        function updateQuestionContent(content) {
+            return questionRepository.updateContent(viewmodel.questionId, content);
         }
 
         function back() {

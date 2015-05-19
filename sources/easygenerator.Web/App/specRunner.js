@@ -284,6 +284,8 @@
             'viewmodels/questions/hotspot/commands/changeType.spec',
             'viewmodels/questions/hotspot/queries/getQuestionContentById.spec',
 
+            'viewmodels/questions/openQuestion/openQuestion.spec',
+
             'viewmodels/questions/questionTitle.spec',
             'viewmodels/questions/learningContents.spec',
             'viewmodels/questions/feedback.spec',
