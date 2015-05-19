@@ -1479,7 +1479,7 @@
     createResponseForProvidedAnswer: {
         'en': 'Create response for provided answer',
         'zh-cn': 'Create response for provided answer[zh-cn]',
-        'uk': 'Додайте відгук на дану відповідь'
+        'uk': 'При наявності відповіді'
     },
     responseForProvidedAnswer: {
         'en': 'Response for provided answer',
@@ -1489,7 +1489,7 @@
     createResponseForEmptyAnswer: {
         'en': 'Create response for empty answer',
         'zh-cn': 'Create response for empty answer[zh-cn]',
-        'uk': 'Відсутність відповіді'
+        'uk': 'При відсутності відповіді'
     },
     responseForEmptyAnswer: {
         'en': 'Response for empty answer',
