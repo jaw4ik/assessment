@@ -54,6 +54,12 @@
             });
         });
 
+        describe('inviteCourseTitleUpdated:', function () {
+            it('should be function', function () {
+                expect(handler.inviteCourseTitleUpdated).toBeFunction();
+            });
+        });
+
     });
 
 })

@@ -24,6 +24,7 @@
                     collaborationInviteRemoved: collaborationEventHandler.inviteRemoved,
                     collaborationInviteCreated: collaborationEventHandler.inviteCreated,
                     collaborationInviteAccepted: collaborationEventHandler.inviteAccepted,
+                    collaborationInviteCourseTitleUpdated: collaborationEventHandler.inviteCourseTitleUpdated,
 
                     courseStateChanged: courseEventHandler.stateChanged,
                     courseTitleUpdated: courseEventHandler.titleUpdated,

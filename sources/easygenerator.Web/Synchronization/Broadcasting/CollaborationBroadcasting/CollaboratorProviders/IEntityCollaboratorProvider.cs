@@ -7,5 +7,6 @@ namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasti
         where T : Entity
     {
         IEnumerable<string> GetCollaborators(T entity);
+        IEnumerable<string> GetUsersInvitedToCollaboration(T entity);
     }
 }

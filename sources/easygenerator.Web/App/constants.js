@@ -151,6 +151,7 @@
                         inviteCreated: 'course:collaboration-invite-created:',
                         inviteRemoved: 'course:collaboration-invite-removed:',
                         inviteAccepted: 'course:collaboration-invite-accepted',
+                        inviteCourseTitleUpdated: 'course:collaboration-invite-course-title-updated',
                         collaboratorAdded: 'course:collaboration-collaboratorAdded:',
                         collaboratorRemoved: 'course:collaboration-collaboratorRemoved',
                         collaboratorRegistered: 'course:collaboration-collaboratorRegistered:',

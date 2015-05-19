@@ -318,9 +318,35 @@
                     oldNotification = { key: key, name: '1' },
                     newNotification = { key: key, name: '2' };
 
+                beforeEach(function () {
+                    viewModel.collection([oldNotification]);
+                });
+
+                describe('when notification on() is defined', function () {
+                    beforeEach(function () {
+                        newNotification.on = function () { };
+                        spyOn(newNotification, 'on');
+                    });
+
+                    it('should call notification on() for new added notification', function () {
+                        viewModel.pushNotification(newNotification);
+                        expect(newNotification.on).toHaveBeenCalled();
+                    });
+                });
+
+                describe('when existing notification off() is defined', function () {
+                    beforeEach(function () {
+                        oldNotification.off = function () { };
+                        spyOn(oldNotification, 'off');
+                    });
+
+                    it('should call existing notification off() method', function () {
+                        viewModel.pushNotification(newNotification);
+                        expect(oldNotification.off).toHaveBeenCalled();
+                    });
+                });
+
                 it('should replace notification', function () {
-                    viewModel.collection().length = 0;
-                    viewModel.collection.push(oldNotification);
                     viewModel.pushNotification(newNotification);
                     expect(viewModel.collection()[0]).toBe(newNotification);
                     expect(viewModel.collection().length).toBe(1);
@@ -329,7 +355,6 @@
                 describe('when notification with specified key is active notification', function () {
                     it('should update active notification', function () {
                         viewModel.activeNotification(oldNotification);
-                        viewModel.collection([oldNotification]);
                         viewModel.pushNotification(newNotification);
                         expect(viewModel.activeNotification()).toBe(newNotification);
                     });
@@ -338,7 +363,6 @@
                 describe('when notification with specified key is not an active notification', function () {
                     it('should not update active notification', function () {
                         viewModel.activeNotification(null);
-                        viewModel.collection([oldNotification]);
                         viewModel.pushNotification(newNotification);
                         expect(viewModel.activeNotification()).toBe(null);
                     });
@@ -349,8 +373,24 @@
                 var key = 'key',
                     newNotification = { key: key };
 
-                it('should replace notification', function () {
+                beforeEach(function () {
                     viewModel.collection([]);
+                });
+
+                describe('when notification on() is defined', function () {
+                    beforeEach(function () {
+                        newNotification.on = function () { };
+                        spyOn(newNotification, 'on');
+                    });
+
+                    it('should call notification on() for new added notification', function () {
+                        viewModel.pushNotification(newNotification);
+                        expect(newNotification.on).toHaveBeenCalled();
+                    });
+                });
+
+                it('should push notification', function () {
+
                     viewModel.pushNotification(newNotification);
                     expect(viewModel.collection()[0]).toBe(newNotification);
                     expect(viewModel.collection().length).toBe(1);
@@ -359,7 +399,6 @@
                 describe('when notification is a single item in collection', function () {
                     it('should set active notification', function () {
                         viewModel.activeNotification(null);
-                        viewModel.collection([]);
                         viewModel.pushNotification(newNotification);
                         expect(viewModel.activeNotification()).toBe(newNotification);
                     });
@@ -368,7 +407,7 @@
                 describe('when notification is not a single item in collection', function () {
                     it('should not update active notification', function () {
                         viewModel.activeNotification(null);
-                        viewModel.collection([{}]);
+                        viewModel.collection.push({});
                         viewModel.pushNotification(newNotification);
                         expect(viewModel.activeNotification()).toBe(null);
                     });
@@ -404,6 +443,8 @@
                 beforeEach(function () {
                     viewModel.collection([notification]);
                 });
+
+
 
                 describe('and when active notification has specified key', function () {
                     beforeEach(function () {
@@ -488,6 +529,18 @@
                 it('should remove notification', function () {
                     viewModel.removeNotification(key);
                     expect(viewModel.collection().length).toBe(0);
+                });
+
+                describe('when notification off method is defined', function () {
+                    beforeEach(function () {
+                        notification.off = function () { };
+                        spyOn(notification, 'off');
+                    });
+
+                    it('should call notification off()', function () {
+                        viewModel.removeNotification(key);
+                        expect(notification.off).toHaveBeenCalled();
+                    });
                 });
             });
         });
