@@ -14,7 +14,10 @@
         this.group = null;
         this.onClick = onClick;
         this.raster = null;
-        this.removePath = function() {
+        this.removePath = function () {
+            if (that.raster) {
+                raster.remove();
+            }
             if (that.group) {
                 that.group.removeChildren();
                 that.group.remove();

@@ -17,23 +17,6 @@
                     uploadBackground = valueAccessor().uploadBackground,
                     $wrapper = $element.closest('.hotspot-on-image-container');
 
-                $element.attr('tabindex', 0).on('focus', function () {
-                    if (!isEditing())
-                        isEditing(true);
-
-                    focusHandler.call(that, viewModel);
-
-                    saveIntervalId = setInterval(saveData, autosaveInterval);
-                }).on('blur', function () {
-                    clearInterval(saveIntervalId);
-
-                    isEditing(false);
-
-                    if (!!blurHandler) {
-                        blurHandler.call(that, viewModel);
-                    }
-                });
-
                 $('.upload-background-image', $wrapper).on('click', function () {
                     uploadBackground(function (url) {
                         loadImage(url);
@@ -62,6 +45,10 @@
                 ko.utils.domData.set(element, 'ko_polygonEditor', domData);
 
                 loadImage();
+
+                startEditing();
+
+                setUpHoverOnCanvas($element);
 
                 editor.on('polygon:updated', function (polygonViewModel, points) {
                     updateSpot(data, polygonViewModel.id(), polygonViewModel.text, points);
@@ -142,13 +129,33 @@
                         cursorTooltip.hide();
                         $element.removeClass('hover');
                     }).click(function () {
-                        document.activeElement.blur(); //emulate focus instead of calling it directly to avoid scrolling in IE
-                        $('html').bind('click', blurEvent);
+                        if (!isEditing()) {
+                            startEditing();
+                        }
+                        document.activeElement.blur();
                     });
+                }
+
+                function startEditing() {
+                    if (!isEditing())
+                        isEditing(true);
+
+                    focusHandler.call(that, viewModel);
+                    saveIntervalId = setInterval(saveData, autosaveInterval);
+                    $('html').bind('click', blurEvent);
+                }
+
+                function endEditing() {
+                    clearInterval(saveIntervalId);
+                    isEditing(false);
+                    if (!!blurHandler) {
+                        blurHandler.call(that, viewModel);
+                    }
                 }
 
                 function blurEvent(event) {
                     if (event.target !== editor.canvas) {
+                        endEditing();
                         editor.deselectAllElements();
                         $('html').unbind('click', blurEvent);
                     }
@@ -166,9 +173,7 @@
                     };
                     background.src = imageUrl;
                 }
-
-                setUpHoverOnCanvas($element);
-
+                
                 ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
                     $('html').unbind('click', blurEvent);
                     cursorTooltip.hide();

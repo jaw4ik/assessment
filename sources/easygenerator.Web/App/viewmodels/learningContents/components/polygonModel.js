@@ -9,7 +9,7 @@
                 var minMaxCoords = getMinMaxCoords(that.points());
                 var element = evt.target.getView().getElement();
                 var position = element.getBoundingClientRect();
-                var top = position.top +  minMaxCoords.minY + (minMaxCoords.maxY - minMaxCoords.minY) / 2;
+                var top = window.scrollY + position.top +  minMaxCoords.minY + (minMaxCoords.maxY - minMaxCoords.minY) / 2;
                 var left = position.left + minMaxCoords.maxX;
                 hotSpotOnImageTextEditor.show(that.text, top, left, function (value) {
                     that.text = value;
