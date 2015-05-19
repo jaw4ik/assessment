@@ -13,5 +13,13 @@ namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasti
 
             return users;
         }
+
+        public IEnumerable<string> GetUsersInvitedToCollaboration(Course course)
+        {
+            var users = course.Collaborators.Where(c => !c.IsAccepted).Select(c => c.Email).ToList();
+            users.Add(course.CreatedBy);
+
+            return users;
+        }
     }
 }

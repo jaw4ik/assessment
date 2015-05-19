@@ -68,6 +68,7 @@
                 return item.key === notification.key;
             });
 
+            turnNotificationOn(notification);
             if (_.isNullOrUndefined(existingNotification)) {
                 viewModel.collection.push(notification);
                 if (viewModel.collection().length === 1) {
@@ -75,6 +76,7 @@
                 }
             } else {
                 viewModel.collection.replace(existingNotification, notification);
+                turnNotificationOff(existingNotification);
                 if (existingNotification === viewModel.activeNotification()) {
                     viewModel.activeNotification(notification);
                 }
@@ -104,10 +106,24 @@
             }
 
             viewModel.collection.remove(notification);
+            turnNotificationOff(notification);
+
             if (viewModel.collection().length == 0) {
                 viewModel.activeNotification(null);
                 viewModel.isExpanded(false);
                 viewModel.moveDirection = null;
+            }
+        }
+
+        function turnNotificationOn(notification) {
+            if (notification.on) {
+                notification.on();
+            }
+        }
+
+        function turnNotificationOff(notification) {
+            if (notification.off) {
+                notification.off();
             }
         }
 

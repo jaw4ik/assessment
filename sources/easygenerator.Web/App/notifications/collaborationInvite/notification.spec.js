@@ -18,24 +18,27 @@
         beforeEach(function () {
             notification = new Notification(key, id, courseId, firstname, coauthorFirstname, coauthorLastname, courseTitle);
             spyOn(app, 'trigger');
+            spyOn(app, 'on');
+            spyOn(app, 'off');
+        });
+
+        describe('on:', function() {
+            it('should subscribe on event \'course.collaboration.inviteCourseTitleUpdated\'', function () {
+                notification.on();
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.collaboration.inviteCourseTitleUpdated + courseId, notification.courseTitleUpdated);
+            });
+        });
+
+        describe('off:', function() {
+            it('should unsubscribe on event \'course.collaboration.inviteCourseTitleUpdated\'', function () {
+                notification.off();
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.inviteCourseTitleUpdated + courseId, notification.courseTitleUpdated);
+            });
         });
 
         describe('key:', function () {
             it('should be set', function () {
                 expect(notification.key).toBe(key);
-            });
-        });
-
-        describe('id:', function () {
-            it('should be set', function () {
-                expect(notification.id).toBe(id);
-            });
-        });
-
-
-        describe('courseId:', function () {
-            it('should be set', function () {
-                expect(notification.courseId).toBe(courseId);
             });
         });
 
@@ -64,8 +67,24 @@
         });
 
         describe('courseTitle:', function () {
+            it('should be observable', function () {
+                expect(notification.courseTitle).toBeObservable();
+            });
+
             it('should be set', function () {
-                expect(notification.courseTitle).toBe(courseTitle);
+                expect(notification.courseTitle()).toBe(courseTitle);
+            });
+        });
+
+        describe('courseTitleUpdated:', function () {
+            beforeEach(function() {
+                notification.courseTitle('');
+            });
+
+            it('should update courseTitle', function () {
+                var value = 'new title';
+                notification.courseTitleUpdated(value);
+                expect(notification.courseTitle()).toBe(value);
             });
         });
 
