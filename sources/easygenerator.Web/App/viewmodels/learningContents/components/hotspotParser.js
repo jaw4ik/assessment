@@ -1,7 +1,7 @@
 ﻿define(['durandal/system', 'constants', 'viewmodels/learningContents/components/polygonModel'], function (system, constants, PolygonModel) {
     'use strict';
     var templates = {
-        hotspotWrapper: '<span data-type="' + constants.learningContentsTypes.hotspot + '" class="hotspotOnImage" style="position: relative;display: inline-block;"><img src="{url}" alt="" /></span>',
+        hotspotWrapper: '<span data-type="' + constants.learningContentsTypes.hotspot + '" class="hotspotOnImage" style="position: relative;display: inline-block;max-width: 100%"><img src="{url}" alt="" style="max-width:100%" /></span>',
         spotWrapper: '<span class="spot" style="position: absolute; display: inline-block;" data-text=""></span>'
     };
 
@@ -9,7 +9,6 @@
         getHotspot: getHotspot,
         getImageUrl: getImageUrl,
         getPolygons: getPolygons,
-        createSpots: createSpots,
 
         createSpot: createSpot,
         removeSpot: removeSpot,
@@ -66,31 +65,6 @@
             .attr('data-text', text)
             .css('top', minMaxCoords.minY)
             .css('left', minMaxCoords.minX);
-        return $output.html();
-    }
-
-    function createSpots(html, polygons) {
-        var $output = $('<output>');
-
-        $output.html(html);
-
-        var $spotWrapper = $('.hotspotOnImage', $output),
-            $spots = $('.spot', $spotWrapper);
-
-        $spots.remove();
-
-        _.each(polygons, function (polygon) {
-            var $spot = $(templates.spotWrapper),
-                minMaxCoords = getMinMaxCoords(polygon.points());
-            $spot.width(minMaxCoords.maxX - minMaxCoords.minX)
-                .height(minMaxCoords.maxY - minMaxCoords.minY)
-                .attr('data-id', polygon.id)
-                .attr('data-text', polygon.text)
-                .css('top', minMaxCoords.minY)
-                .css('left', minMaxCoords.minX);
-            $spotWrapper.append($spot);
-        });
-       
         return $output.html();
     }
 

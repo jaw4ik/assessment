@@ -73,7 +73,7 @@
 
         function onMouseUp(evt) {
             if (mouseDownPoint && mouseDownPoint.x === evt.point.x && mouseDownPoint.y === evt.point.y) {
-                onClick(evt);
+                onClick.call(that, evt);
             }
         }
 

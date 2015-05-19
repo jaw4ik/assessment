@@ -1551,17 +1551,22 @@
   overflow: visible;
   text-align: center;
 }
+.hotspot-on-image-container .hotspot-on-image-wrapper {
+  overflow-x: auto;
+}
 .hotspot-on-image-container .upload-background-image {
   right: -17px;
 }
 .hotspot-on-image-container .hotspot-on-image {
+  position: relative;
   display: inline-block;
 }
 .hotspot-on-image-container .hotspot-on-image.empty + .hotspot-tooltip-container {
   display: block;
 }
 .hotspot-on-image-container .hotspot-on-image .hotspot-area {
-  position: relative;
+  position: absolute;
+  left: 0;
   z-index: 10;
 }
 .hotspot-on-image-container .hotspot-tooltip-container {
@@ -1581,7 +1586,7 @@
 /*#endregion HotspotOnImage*/
 /*#region  HotspotOnImageWidget*/
 .hotspot-on-image-editor-container {
-  position: absolute;
+  position: fixed;
   display: none;
   width: 330px;
   padding: 20px 20px 15px;
@@ -1607,9 +1612,6 @@
   word-wrap: break-word;
   overflow: auto;
   cursor: text;
-  -moz-user-select: text;
-  -webkit-user-select: text;
-  -ms-user-select: text;
 }
 .hotspot-on-image-editor-text-container:before {
   content: '';

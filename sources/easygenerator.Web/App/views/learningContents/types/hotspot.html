@@ -4,12 +4,14 @@
         <div class="question-learning-content-body-wrapper" data-bind="css: { editing: hasFocus }">
             <div class="question-learning-content-body">
                 <div class="question-learning-content-wrapper hotspot-on-image-container">
-                    <div class="question-learning-content selectable hotspot-on-image" data-bind="hotspotOnImage: { data: text, uploadBackground: $parent.uploadBackground, eventTracker: $parent.eventTracker, updateHotSpotImage: $parent.updateHotSpotImage, isEditing: hasFocus, save: $parent.updateText, focus: $parent.beginEditText, blur: function (data, event) { $parent.updateText(data, event), $parent.endEditText(data, event); }, autosaveInterval: $parent.autosaveInterval, localizationManager: $parent.localizationManager }">
-                    </div>
-                    <div class="hotspot-tooltip-container">Click and drag on image to create the hotspot</div>
-                    <div class="upload-background-image info-tooltip-holder">
-                        <div class="info-tooltip browse-image">
-                            <span data-bind="localize: { text: 'changeBackgroundImage' }">Browse image</span>
+                    <div class="hotspot-on-image-wrapper">
+                        <div class="question-learning-content selectable hotspot-on-image" data-bind="hotspotOnImage: { data: text, uploadBackground: $parent.uploadBackground, eventTracker: $parent.eventTracker, updateHotSpotImage: $parent.updateHotSpotImage, isEditing: hasFocus, save: $parent.updateText, focus: $parent.beginEditText, blur: function (data, event) { $parent.updateText(data, event), $parent.endEditText(data, event); }, autosaveInterval: $parent.autosaveInterval, localizationManager: $parent.localizationManager }">
+                        </div>
+                        <div class="hotspot-tooltip-container">Click and drag on image to create the hotspot</div>
+                        <div class="upload-background-image info-tooltip-holder">
+                            <div class="info-tooltip browse-image">
+                                <span data-bind="localize: { text: 'changeBackgroundImage' }">Browse image</span>
+                            </div>
                         </div>
                     </div>
                 </div>

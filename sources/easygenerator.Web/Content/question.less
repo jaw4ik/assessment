@@ -1894,11 +1894,16 @@
     overflow: visible;
     text-align: center;
 
+    .hotspot-on-image-wrapper{
+        overflow-x: auto;
+    }
+
     .upload-background-image{
         right: -17px;
     }
 
     .hotspot-on-image{
+        position: relative;
         display: inline-block;
 
         &.empty + .hotspot-tooltip-container{
@@ -1906,7 +1911,8 @@
         }
 
         .hotspot-area{
-            position: relative;
+            position: absolute;
+            left: 0;
             z-index: 10;
         }
     }
@@ -1927,13 +1933,11 @@
     }
 }
 
-
-
 /*#endregion HotspotOnImage*/
 
 /*#region  HotspotOnImageWidget*/
 .hotspot-on-image-editor-container{
-    position: absolute;
+    position: fixed;
     display: none;
     width: 330px;
     padding: 20px 20px 15px;
@@ -1959,9 +1963,6 @@
     word-wrap: break-word;
     overflow: auto;
     cursor: text;
-    -moz-user-select: text;
-    -webkit-user-select: text;
-    -ms-user-select: text;
 }
             
 .hotspot-on-image-editor-text-container:before{

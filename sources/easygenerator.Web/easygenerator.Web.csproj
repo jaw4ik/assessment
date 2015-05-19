@@ -744,7 +744,9 @@
     <Content Include="App\widgets\hotSpotOnImageTextEditor\bindingHadlers\hotspotOnImageTextEditorBindingHandler.js" />
     <Content Include="App\widgets\hotSpotOnImageTextEditor\view.html" />
     <Content Include="App\widgets\hotSpotOnImageTextEditor\viewmodel.js" />
-    <Content Include="App\widgets\hotSpotOnImageTextEditor\viewmodel.spec.js" />
+    <Content Include="App\widgets\hotSpotOnImageTextEditor\viewmodel.spec.js">
+      <DependentUpon>viewmodel.js</DependentUpon>
+    </Content>
     <Content Include="BuildCourse\Modules\js\branding.js" />
     <Content Include="Content\course.css">
       <DependentUpon>course.less</DependentUpon>

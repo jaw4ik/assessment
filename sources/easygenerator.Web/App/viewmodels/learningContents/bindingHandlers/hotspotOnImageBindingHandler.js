@@ -64,12 +64,12 @@
                 loadImage();
 
                 editor.on('polygon:updated', function (polygonViewModel, points) {
-                    data(parser.updateSpot(data(), polygonViewModel.id, polygonViewModel.text, points));
+                    data(parser.updateSpot(data(), polygonViewModel.id(), polygonViewModel.text, points));
                     saveData();
                 });
 
                 editor.on('polygon:deleted', function (polygonViewModel) {
-                    data(parser.removeSpot(data(), polygonViewModel.id));
+                    data(parser.removeSpot(data(), polygonViewModel.id()));
                     saveData();
                 });
 
