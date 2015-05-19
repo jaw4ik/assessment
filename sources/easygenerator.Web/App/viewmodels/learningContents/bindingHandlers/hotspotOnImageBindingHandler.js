@@ -1,7 +1,6 @@
 ﻿define(['durandal/composition', 'components/polygonsEditor/polygonsEditor', 'viewmodels/learningContents/components/hotspotParser',
-        'widgets/hotspotCursorTooltip/viewmodel', 'viewmodels/learningContents/components/polygonModel',
-        'components/polygonsEditor/hotspotOnImageShapeModel'],
-    function (composition, PolygonsEditor, parser, cursorTooltip, PolygonModel, PolygonShape) {
+        'widgets/hotspotCursorTooltip/viewmodel', 'components/polygonsEditor/hotspotOnImageShapeModel'],
+    function (composition, PolygonsEditor, parser, cursorTooltip, PolygonShape) {
         'use strict';
 
         ko.bindingHandlers.hotspotOnImage = {
@@ -56,7 +55,8 @@
                 var editor = new PolygonsEditor($element, domActions, PolygonShape),
                     domData = {
                         polygonsEditor: editor,
-                        polygons: ko.observableArray([])
+                        polygons: ko.observableArray([]),
+                        updateCallback: updateSpot.bind(null, data)
                     };
 
                 ko.utils.domData.set(element, 'ko_polygonEditor', domData);
@@ -64,8 +64,7 @@
                 loadImage();
 
                 editor.on('polygon:updated', function (polygonViewModel, points) {
-                    data(parser.updateSpot(data(), polygonViewModel.id(), polygonViewModel.text, points));
-                    saveData();
+                    updateSpot(data, polygonViewModel.id(), polygonViewModel.text, points);
                 });
 
                 editor.on('polygon:deleted', function (polygonViewModel) {
@@ -77,6 +76,11 @@
                     data(parser.createSpot(data(), points));
                     saveData();
                 });
+
+                function updateSpot(data, id, text, points) {
+                    data(parser.updateSpot(data(), id, text, points));
+                    saveData();
+                }
 
                 function removeState() {
                     $element.removeClass('create creating resize resizing drag dragging active');
@@ -167,6 +171,7 @@
 
                 ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
                     $('html').unbind('click', blurEvent);
+                    cursorTooltip.hide();
                     ko.utils.domData.clear(element);
                 });
             },
@@ -174,7 +179,7 @@
                 var $element = $(element),
                     editor = ko.utils.domData.get(element, 'ko_polygonEditor');
 
-                editor.polygons(parser.getPolygons(valueAccessor().data()));
+                editor.polygons(parser.getPolygons(valueAccessor().data(), editor.updateCallback));
 
                 if (editor.polygons().length) {
                     $element.removeClass('empty');

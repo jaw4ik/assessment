@@ -19,7 +19,7 @@
         function getLearningContentType(text) {
             var $output = $('<output>');
             $output.html(text);
-            var dataType = $('data-type', $output).attr('data-type');
+            var dataType = $('[data-type]', $output).attr('data-type');
             switch (dataType) {
                 case constants.learningContentsTypes.hotspot:
                     return constants.learningContentsTypes.hotspot;

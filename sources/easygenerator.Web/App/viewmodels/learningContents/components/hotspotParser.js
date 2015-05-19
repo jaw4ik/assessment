@@ -68,7 +68,7 @@
         return $output.html();
     }
 
-    function getPolygons(html) {
+    function getPolygons(html, updateCallback) {
         var $output = $(html);
         var $spots = $output.find('[data-id]');
         var spots = [];
@@ -77,7 +77,7 @@
                 id = $spot.attr('data-id'),
                 points = getPoints($spot[0]),
                 text = $spot.attr('data-text');
-            var polygon = new PolygonModel(id, points, text);
+            var polygon = new PolygonModel(id, points, text, updateCallback);
             spots.push(polygon);
         });
         return spots;

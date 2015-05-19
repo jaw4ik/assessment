@@ -44,6 +44,7 @@
 
                 ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
                     $('html').unbind('click', blurHandler);
+                    cursorTooltip.hide();
                     ko.utils.domData.clear(element);
                 });
 

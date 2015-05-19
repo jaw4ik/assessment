@@ -1,6 +1,6 @@
 ﻿define(['durandal/system', 'widgets/hotSpotOnImageTextEditor/viewmodel'],
     function (system, hotSpotOnImageTextEditor) {
-        var PolygonModel = function (id, points, text) {
+        var PolygonModel = function (id, points, text, updateCallback) {
             var that = this;
             that.id = ko.observable(id || system.guid());
             that.points = ko.observable(points);
@@ -13,6 +13,7 @@
                 var left = position.left + minMaxCoords.maxX;
                 hotSpotOnImageTextEditor.show(that.text, top, left, function (value) {
                     that.text = value;
+                    updateCallback(that.id(), that.text, that.points());
                 });
             };
         };
