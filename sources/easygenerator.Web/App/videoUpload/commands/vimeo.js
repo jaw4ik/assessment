@@ -23,7 +23,7 @@
             method: 'PUT',
             headers: { 'Content-Range': 'bytes */*' }
         }).fail(function (request) {
-            if (request.status != constants.course.video.vimeoVerifyStatus) {
+            if (request.status != constants.messages.storage.video.vimeoVerifyStatus) {
                 deferred.reject();
                 return;
             }

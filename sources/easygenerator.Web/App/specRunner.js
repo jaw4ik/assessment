@@ -304,6 +304,7 @@
             'http/authHttpWrapper.spec',
             'http/storageHttpWrapper.spec',
             'http/httpRequestSender.spec',
+            'http/storageHttpRequestSender.spec',
             'notify.spec',
             'uiLocker.spec',
             'userContext.spec',

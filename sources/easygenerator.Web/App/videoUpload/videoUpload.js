@@ -2,7 +2,7 @@
 
     var queueUploads = [],
         uploadChanged = false,
-        videoConstants = constants.course.video;
+        videoConstants = constants.messages.storage.video;
 
     return {
 
@@ -44,7 +44,6 @@
         setTimeout(function () {
 
             if (uploadChanged) {
-
                 uploadChanged = false;
                 app.trigger(videoConstants.changesInUpload);
             }
@@ -56,9 +55,8 @@
 
     function startTrackUploadProgress() {
         setTimeout(function () {
-
+            
             if (queueUploads.length) {
-
                 var arrayPromises = [];
 
                 _.each(queueUploads, function (item) {
@@ -81,24 +79,24 @@
     }
 
     function startVideoUpload(filePath, file) {
-        return storageCommands.getTicket(file.size).then(function (data) {
-            uploadVideo(file, data.uploadUrl, data.videoId);
+        var title = getFileName(file.name);
+        return storageCommands.getTicket(file.size, title).then(function (data) {
+            uploadVideo(file, data.uploadUrl, data.videoId, title);
         });
     }
 
-    function uploadVideo(file, uploadUrl, videoId) {
-        var title = getFileName(file.name),
-            videoToUpload = saveToDataContext(videoId, title);
+    function uploadVideo(file, uploadUrl, videoId, title) {
+        var videoToUpload = saveToDataContext(videoId, title);
 
         addToUploadQueue(uploadUrl, file.size, videoToUpload);
 
         return vimeoCommands.putFile(uploadUrl, file).then(function () {
 
-            removeFromUploadQueue(videoToUpload.videoId);
+            removeFromUploadQueue(videoToUpload.id);
 
-            return storageCommands.finishUpload(videoToUpload.title).then(function (vimeoId) {
-
+            return storageCommands.finishUpload(videoToUpload.id).then(function (vimeoId) {
                 videoToUpload.vimeoId = vimeoId;
+                videoToUpload.status = videoConstants.statuses.loaded;
                 uploadChanged = true;
 
             }).fail(function (request) {

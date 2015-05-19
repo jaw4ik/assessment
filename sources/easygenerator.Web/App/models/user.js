@@ -10,6 +10,7 @@
         this.firstname = spec.firstname;
         this.lastname = spec.lastname;
         this.fullname = spec.firstname + ' ' + spec.lastname;
+        this.availableStorageSpace = spec.availableStorageSpace || 0;
 
         guard.throwIfNotAnObject(spec.subscription, 'You should provide subscription to create user');
         switch (spec.subscription.accessType) {
@@ -35,7 +36,7 @@
         }
     };
 
-    User.prototype.downgrade = function() {
+    User.prototype.downgrade = function () {
         this.subscription = {
             accessType: constants.accessType.free
         };
@@ -49,7 +50,7 @@
         };
     };
 
-    User.prototype.upgradeToPlus= function (expirationDate) {
+    User.prototype.upgradeToPlus = function (expirationDate) {
         guard.throwIfNotString(expirationDate, 'Expiration date is not specified');
         this.subscription = {
             accessType: constants.accessType.plus,

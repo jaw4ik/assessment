@@ -7,17 +7,18 @@
     function build(uploadUrl, fileSize, video, videoFileLoadedCallback) {
         var progressHandler = {
 
-            id: videoId,
+            id: video.id,
             updatedOn: new Date(),
             handler: function () {
                 return vimeoCommands.verifyUpload(uploadUrl).then(function (range) {
+
                     video.progress = getUploadProgress(range, fileSize);
 
                     if (video.progress >= 100) {
                         videoFileLoadedCallback(video.id);
                     }
 
-                    if (new Date() - this.updatedOn > constants.course.video.sendLoadingTimeout) {
+                    if (new Date() - this.updatedOn > constants.messages.storage.video.updateUploadTimeout) {
                         this.updatedOn = new Date();
                         storageCommands.updateUploadTimeout(video.id);
                     }

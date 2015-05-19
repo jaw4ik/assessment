@@ -12,20 +12,21 @@
                 <!-- /ko -->
                 <!-- ko foreach: videos -->
                 <li class="video-list-item hovered" data-bind="click: $parent.showVideoPopup">
-                    <!-- ko if: state == $parent.states.loaded -->
+                    <!-- ko if: status() == $parent.statuses.loaded -->
                     <div class="video-list-item-thumbnail" data-bind="style: { backgroundImage: 'url(' + thumbnailUrl + ')' }">
                         <span class="play-icon"></span>
                     </div>
                     <!-- /ko-->
-                    <!-- ko if: state == $parent.states.failed -->
+                    <!-- ko if: status() == $parent.statuses.failed -->
                     <div class="video-list-item-thumbnail error">
 
                     </div>
                     <!-- /ko -->
-                    <!-- ko if: state == $parent.states.inProgress -->
+                    <!-- ko if: status() == $parent.statuses.inProgress -->
                     <div class="video-list-item-thumbnail uploading">
-                        <canvas width="50" height="50" class="circle-progress" data-bind="circleProgress: { progress: progress }"></canvas>
+                        <canvas width="50" height="50" class="circle-progress" data-bind="circleProgress: { progress: progress, lineWidth: 2 }"></canvas>
                         <br />
+                        <span class="video-uploading-progress" data-bind="text: progress"></span>
                         <span class="video-uploading-text" data-bind="localize: { text : 'uploading' }">uploading...</span>
                     </div>
                     <!-- /ko -->

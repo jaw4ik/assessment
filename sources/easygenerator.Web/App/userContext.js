@@ -1,21 +1,22 @@
-﻿define(['durandal/app', 'constants', 'models/user', 'http/authHttpWrapper'], function (app, constants, User, authHttpWrapper) {
+﻿define(['durandal/app', 'constants', 'models/user', 'http/authHttpWrapper', 'http/storageHttpWrapper'], function (app, constants, User, authHttpWrapper, storageHttpWrapper) {
 
     var userContext = {
         identity: null,
         hasStarterAccess: hasStarterAccess,
         hasPlusAccess: hasPlusAccess,
-        availableStorageSpace: null,
         identify: identify
     };
 
     return userContext;
 
     function identify() {
-        return Q(authHttpWrapper.post('auth/identity')
-        ).then(function (user) {
+        return Q.all([authHttpWrapper.post('auth/identity').then(function (user) {
             userContext.identity = _.isString(user.email) ? new User(user) : null;
             app.trigger(constants.messages.user.identified, userContext.identity);
-        });
+        }),
+        storageHttpWrapper.get(constants.messages.storage.host + constants.messages.storage.userUrl).then(function (data) {
+            userContext.identity.availableStorageSpace = data.AvailableStorageSpace;
+        })]);
     }
 
     function hasStarterAccess() {

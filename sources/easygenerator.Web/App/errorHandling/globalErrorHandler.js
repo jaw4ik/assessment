@@ -12,7 +12,7 @@
                     }
                 }
                 /* Vimeo return 308 as a success result status */
-                if (response && response.status == constants.course.video.vimeoVerifyStatus) {
+                if (response && response.status == constants.messages.storage.video.vimeoVerifyStatus) {
                     return;
                 }
 

@@ -564,6 +564,10 @@
     <Content Include="App\http\authHttpWrapper.spec.js">
       <DependentUpon>authHttpWrapper.js</DependentUpon>
     </Content>
+    <Content Include="App\http\storageHttpRequestSender.js" />
+    <Content Include="App\http\storageHttpRequestSender.spec.js">
+      <DependentUpon>storageHttpRequestSender.js</DependentUpon>
+    </Content>
     <Content Include="App\http\storageHttpWrapper.js" />
     <Content Include="App\http\storageHttpWrapper.spec.js">
       <DependentUpon>storageHttpWrapper.js</DependentUpon>

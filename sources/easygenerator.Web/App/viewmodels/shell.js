@@ -42,9 +42,18 @@
             requestsCounter(requestsCounter() + 1);
         });
 
+        app.on('storageHttpWrapper:post-begin').then(function () {
+            requestsCounter(requestsCounter() + 1);
+        });
+
+        app.on('storageHttpWrapper:get-begin').then(function () {
+            requestsCounter(requestsCounter() + 1);
+        });
+
         app.on('apiHttpWrapper:post-end').then(function () {
             requestsCounter(requestsCounter() - 1);
         });
+
         app.on('authHttpWrapper:post-end').then(function () {
             requestsCounter(requestsCounter() - 1);
         });
@@ -52,7 +61,8 @@
         app.on('storageHttpWrapper:post-end').then(function () {
             requestsCounter(requestsCounter() - 1);
         });
-        app.on('storageHttpWrapper:post-end').then(function () {
+        
+        app.on('storageHttpWrapper:get-end').then(function () {
             requestsCounter(requestsCounter() - 1);
         });
 

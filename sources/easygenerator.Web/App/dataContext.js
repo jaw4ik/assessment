@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'constants', 'userContext', 'http/apiHttpWrapper', 'http/storageHttpWrapper', 'mappers/courseModelMapper', 'mappers/objectiveModelMapper', 'mappers/templateModelMapper', 'mappers/videoModelMapper'],
-    function (app, constants, userContext, apiHttpWrapper, storageHttpWrapper, courseModelMapper, objectiveModelMapper, templateModelMapper, videoModelMapper) {
+﻿define(['durandal/app', 'constants', 'http/apiHttpWrapper', 'http/storageHttpWrapper', 'mappers/courseModelMapper', 'mappers/objectiveModelMapper', 'mappers/templateModelMapper', 'mappers/videoModelMapper'],
+    function (app, constants, apiHttpWrapper, storageHttpWrapper, courseModelMapper, objectiveModelMapper, templateModelMapper, videoModelMapper) {
         "use strict";
         var
             objectives = [],
@@ -35,11 +35,10 @@
                         });
                     });
                 }).then(function () {
-                    return storageHttpWrapper.post(constants.course.video.storage.host + constants.course.video.storage.videosUrl)
+                    return storageHttpWrapper.get(constants.messages.storage.host + constants.messages.storage.mediaUrl)
                    .then(function (data) {
-                       userContext.availableStorageSpace = data.AvailableStorageSpace;
-                       _.each(data.media.videos, function (item) {
-                           videos.push(videoModelMapper.map(item));
+                       _.each(data.Videos, function (video) {
+                           videos.push(videoModelMapper.map(video));
                        });
                    });
                 }).fail(function () {

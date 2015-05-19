@@ -8,7 +8,7 @@
             getVideoEmbedCode: 'Get video embed code'
         };
 
-        var videoConstants = constants.course.video;
+        var videoConstants = constants.messages.storage.video;
 
         var viewModel = {
 

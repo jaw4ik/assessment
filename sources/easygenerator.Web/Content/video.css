@@ -66,6 +66,13 @@
 .videos .video-list .video-list-item .video-list-item-thumbnail.uploading {
   text-align: center;
 }
+.videos .video-list .video-list-item .video-list-item-thumbnail.uploading .video-uploading-progress {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  width: 40px;
+  margin-left: -22px;
+}
 .videos .video-list .video-list-item .video-list-item-thumbnail.uploading .circle-progress {
   margin-top: 35px;
   margin-bottom: 10px;

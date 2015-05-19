@@ -164,26 +164,27 @@
                     questionsReordered: 'objective:questionsReordered',
                     questionsReorderedByCollaborator: 'objective:questionsReorderedByCollaborator'
                 },
-                video: {
-                    storage: {
-                        host: 'http://localhost:888',
-                        videosUrl: '/api/media/videos',
+                storage: {
+                    host: 'http://localhost:888',
+                    mediaUrl: '/media',
+                    userUrl: '/user',
+                    video: {
                         ticketUrl: '/api/media/video/upload',
                         finishUrl: '/api/media/video/upload/finish',
-                        loadingUrl: '/api/media/video/apload/loading'
+                        progressUrl: '/api/media/video/upload/progress',
+                        statuses: {
+                            loaded: 'loaded',
+                            failed: 'failed',
+                            inProgress: 'inProgress'
+                        },
+                        vimeoVerifyStatus: 308,
+                        changesInUpload: 'video:changesInUpload',
+                        trackChangesInUploadTimeout: 500,
+                        iframeWidth: 600,
+                        iframeHeight: 335,
+                        updateUploadTimeout: 60000,
+                        removeVideoAfterErrorTimeout: 5000
                     },
-                    statuses: {
-                        loaded: 'loaded',
-                        failed: 'failed',
-                        inProgress: 'inProgress'
-                    },
-                    vimeoVerifyStatus: 308,
-                    changesInUpload: 'video:changesInUpload',
-                    trackChangesInUploadTimeout: 500,
-                    iframeWidth: 600,
-                    iframeHeight: 335,
-                    sendLoadingTimeout: 60000,
-                    removeVideoAfterErrorTimeout: 5000
                 },
                 question: {
                     created: 'question:created',

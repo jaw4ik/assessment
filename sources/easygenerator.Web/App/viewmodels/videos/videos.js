@@ -1,7 +1,7 @@
 ﻿define(['durandal/app', 'constants', 'eventTracker', 'repositories/videoRepository', 'dialogs/video/video', 'videoUpload/videoUpload'], function (app, constants, eventTracker, repository, videoPopup, videoUpload) {
     "use strict";
 
-    app.on('video upload changes', function () {
+    app.on(constants.messages.storage.video.changesInUpload, function () {
         updateVdieos();
     });
 
@@ -12,12 +12,12 @@
 
     var viewModel = {
         videos: ko.observableArray([]),
-        states: constants.course.video.states,
+        statuses: constants.messages.storage.video.statuses,
         addVideo: addVideo,
         activate: activate,
         showVideoPopup: showVideoPopup
     }
-
+    
     return viewModel;
 
     function addVideo() {
@@ -54,8 +54,8 @@
         video.createdOn = ko.observable(item.createdOn);
         video.modifiedOn = ko.observable(item.ModifiedOn);
         video.vimeoId = ko.observable(item.vimeoId);
-        video.progress = ko.observable(item.progress || 100);
-        video.state = ko.observable(item.state || viewModel.states.loaded);
+        video.progress = ko.observable(item.progress || 0);
+        video.status = ko.observable(item.status || viewModel.statuses.loaded);
 
         return video;
     }
@@ -76,7 +76,7 @@
                     vmVideo.createdOn(video.createdOn);
                     vmVideo.modifiedOn(video.modifiedOn);
                     vmVideo.thumbnailUrl(video.thumbnailUrl);
-                    vmVideo.error(video.error);
+                    vmVideo.status(video.status);
                 }
             });
             _.each(viewModel.videos(), function (item) {
