@@ -72,8 +72,8 @@
         }
 
         function onMouseUp(evt) {
-            if (mouseDownPoint.x === evt.point.x && mouseDownPoint.y === evt.point.y) {
-                onClick();
+            if (mouseDownPoint && mouseDownPoint.x === evt.point.x && mouseDownPoint.y === evt.point.y) {
+                onClick(evt);
             }
         }
 

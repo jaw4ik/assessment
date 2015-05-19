@@ -1,8 +1,7 @@
-﻿define(['durandal/composition', 'durandal/system', 'components/polygonsEditor/polygonsEditor',
-        'widgets/hotSpotOnImageTextEditor/viewmodel', 'viewmodels/learningContents/components/hotspotParser',
+﻿define(['durandal/composition', 'components/polygonsEditor/polygonsEditor', 'viewmodels/learningContents/components/hotspotParser',
         'widgets/hotspotCursorTooltip/viewmodel', 'viewmodels/learningContents/components/polygonModel',
         'components/polygonsEditor/hotspotOnImageShapeModel'],
-    function (composition, system, PolygonsEditor, hotSpotOnImageTextEditor, parser, cursorTooltip, PolygonModel, PolygonShape) {
+    function (composition, PolygonsEditor, parser, cursorTooltip, PolygonModel, PolygonShape) {
         'use strict';
 
         ko.bindingHandlers.hotspotOnImage = {
@@ -139,6 +138,7 @@
                         cursorTooltip.hide();
                         $element.removeClass('hover');
                     }).click(function () {
+                        document.activeElement.blur(); //emulate focus instead of calling it directly to avoid scrolling in IE
                         $('html').bind('click', blurEvent);
                     });
                 }
