@@ -366,6 +366,11 @@
         'zh-cn': '密码',
         'uk': 'Пароль'
     },
+    continue: {
+        'en': 'Continue',
+        'zh-cn': '继续',
+        'uk': 'Продовжити'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Videos */
@@ -768,17 +773,17 @@
     reportingShowDetails: {
         'en': 'Show details >>',
         'zh-cn': 'Show details >>[zh-cn]',
-        'uk': 'Show details >>[uk]'
+        'uk': 'Детальніше >>'
     },
     reportingHideDetails: {
         'en': 'Hide details >>',
         'zh-cn': 'Hide details >>[zh-cn]',
-        'uk': 'Hide details >>[uk]'
+        'uk': 'Приховати >>'
     },
     reportingLearnersAnswer: {
         'en': 'Learners answer',
         'zh-cn': 'Learners answer[zh-cn]',
-        'uk': 'Learners answer[uk]'
+        'uk': 'Відповідь учня'
     },
     sharePrivateLink: {
         'en': 'Share private link',
@@ -2440,6 +2445,26 @@
         'en': 'We\'ve sent you an e-mail with instructions on how to reset your password.',
         'zh-cn': '我们已经给你发送一封邮件说明如何重设密码',
         'uk': 'На ваш e-mail було надіслано листа з інструкціями для відновлення пароля.'
+    },
+    passwordRecovery: {
+        'en': 'Reset password',
+        'zh-cn': '重置密码',
+        'uk': 'Скинути пароль'
+    },
+    requestError: {
+        'en': 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists. ',
+        'zh-cn': '出错了。请重试。如果问题仍然存在请联系support@easygenerator.com',
+        'uk': 'Щось пішло не так. Спробуте знову. Якщо проблема не зникне надішліть нам електронного листа на адресу support@easygenerator.com'
+    },
+    couldNotVerifyPasswordRecovery: {
+        'en': 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists. ',
+        'zh-cn': '出错了。请重试。如果问题仍然存在请联系support@easygenerator.com',
+        'uk': 'Щось пішло не так. Спробуте знову. Якщо проблема не зникне надішліть нам електронного листа на адресу support@easygenerator.com'
+    },
+    restorePasswordCaption: {
+        'en': 'Enter your new password',
+        'zh-cn': '输入新密码',
+        'uk': 'Введіть новий пароль'
     }
     /* End resource section for model Sign In */
            
