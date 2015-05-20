@@ -2003,6 +2003,8 @@
     <Content Include="Templates\Reader\css\fonts\Ubuntu-Regular.svg" />
     <Content Include="Templates\Reader\css\fonts\Ubuntu-Regular.ttf" />
     <Content Include="Templates\Reader\css\fonts\Ubuntu-Regular.woff" />
+    <Content Include="Templates\Reader\css\img\background.png" />
+    <Content Include="Templates\Reader\css\img\reader.png" />
     <Content Include="Templates\Reader\css\jquery.mCustomScrollbar.min.css" />
     <Content Include="Templates\Reader\css\styles.css" />
     <Content Include="Templates\Reader\images\reader.png" />
