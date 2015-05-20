@@ -35,7 +35,9 @@
 
             return designer.activate(question.id).then(function () {
                 return {
-                    viewCaption: localizationManager.localize('DragAndDropTextEditor')
+                    viewCaption: localizationManager.localize('DragAndDropTextEditor'),
+                    hasQuestionView: true,
+                    hasFeedback: true
                 };
             });
         }

@@ -356,6 +356,16 @@
         'zh-cn': 'Duplicate[zh-cn]',
         'uk': 'Дублювати'
     },
+    email: {
+        'en': 'E-mail',
+        'zh-cn': 'E-mail',
+        'uk': 'E-mail'
+    },
+    password: {
+        'en': 'Password',
+        'zh-cn': '密码',
+        'uk': 'Пароль'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Videos */
@@ -754,6 +764,21 @@
         'en': 'N/A',
         'zh-cn': 'N/A[zh-cn]',
         'uk': 'Н/Д'
+    },
+    reportingShowDetails: {
+        'en': 'Show details >>',
+        'zh-cn': 'Show details >>[zh-cn]',
+        'uk': 'Show details >>[uk]'
+    },
+    reportingHideDetails: {
+        'en': 'Hide details >>',
+        'zh-cn': 'Hide details >>[zh-cn]',
+        'uk': 'Hide details >>[uk]'
+    },
+    reportingLearnersAnswer: {
+        'en': 'Learners answer',
+        'zh-cn': 'Learners answer[zh-cn]',
+        'uk': 'Learners answer[uk]'
     },
     sharePrivateLink: {
         'en': 'Share private link',
@@ -1439,27 +1464,37 @@
     newOpenQuestionTitle: {
         'en': 'Untitled open question',
         'zh-cn': 'Untitled open question[zh-cn]',
-        'uk': 'Untitled open question[uk]'
+        'uk': 'Питання без назви'
     },
     openQuestion: {
         'en': 'Open question',
         'zh-cn': 'Open question[zh-cn]',
-        'uk': 'Open question[uk]'
+        'uk': 'Розгорнута відповідь'
     },
     openQuestionEditor: {
         'en': '\"Open question\" editor',
         'zh-cn': '\"Open question\" editor[zh-cn]',
-        'uk': '\"Open question\" editor[uk]'
+        'uk': 'Редактор питання типу \"Розгорнута відповідь\"'
     },
-    putYourFeedback: {
-        'en': 'Create response for answer',
-        'zh-cn': 'Create response for answer[zh-cn]',
-        'uk': 'Create response for answer[uk]'
+    createResponseForProvidedAnswer: {
+        'en': 'Create response for provided answer',
+        'zh-cn': 'Create response for provided answer[zh-cn]',
+        'uk': 'При наявності відповіді'
     },
-    generalFeedback: {
-        'en': 'Response for answer',
-        'zh-cn': 'Response for answer[zh-cn]',
-        'uk': 'Response for answer[uk]'
+    responseForProvidedAnswer: {
+        'en': 'Response for provided answer',
+        'zh-cn': 'Response for provided answer[zh-cn]',
+        'uk': 'Відгук на дану відповідь'
+    },
+    createResponseForEmptyAnswer: {
+        'en': 'Create response for empty answer',
+        'zh-cn': 'Create response for empty answer[zh-cn]',
+        'uk': 'При відсутності відповіді'
+    },
+    responseForEmptyAnswer: {
+        'en': 'Response for empty answer',
+        'zh-cn': 'Response for empty answer[zh-cn]',
+        'uk': 'Відповідь відсутня'
     },
     /* End resource section for model OpenQuestion */
     
@@ -2199,7 +2234,213 @@
         'en': 'The course will appear in your course list after accepting.',
         'zh-cn': 'The course will appear in your course list after accepting.[zh-cn]',
         'uk': 'Даний курс з\'явиться у Вашому списку курсів після підтверждення.'
-    }
+    },
     /* End resource section for model Confirm coauthoring */
+    
+    /* Resource section for model SignUp */
+    createAccountTitle: {
+        'en': 'Start creating courses now!',
+        'zh-cn': '现在开始创建课程',
+        'uk': 'Почни створювати курси зараз!'
+    },
+    signUpSecondStepTitle: {
+        'en': 'Almost there...',
+        'zh-cn': '将要完成',
+        'uk': 'Майже все...'
+    },
+    emailCaption: {
+        'en': 'E-mail',
+        'zh-cn': 'E-mail',
+        'uk': 'E-mail'
+    },
+    passwordCaption: {
+        'en': 'Password',
+        'zh-cn': '密码',
+        'uk': 'Пароль'
+    },
+    signUpButton: {
+        'en': 'Sign up',
+        'zh-cn': '注册',
+        'uk': 'Зареєструватись'
+    },
+    pleaseUse: {
+        'en': 'Please use:',
+        'zh-cn': 'Please use:[zh-cn]',
+        'uk': 'Правила:'
+    },
+    noSpaces: {
+        'en': 'No spaces',
+        'zh-cn': '密码不能含有空格',
+        'uk': 'Немає пробілів'
+    },
+    notLessThan7Symbols: {
+        'en': 'Not less than 7 symbols',
+        'zh-cn': '至少7个字符长度',
+        'uk': 'Не менше 7 символів'
+    },
+    showPassword: {
+        'en': 'Show password',
+        'zh-cn': '显示密码',
+        'uk': 'Показати пароль'
+    },
+    hidePassword: {
+        'en': 'Hide password',
+        'zh-cn': '隐藏密码',
+        'uk': 'Сховати пароль'
+    },
+    finishSignup: {
+        'en': 'Start authoring!',
+        'zh-cn': '开始编写！',
+        'uk': 'Почніть створювати!'
+    },
+    notContainWhitespaceCharacters: {
+        'en': 'The password cannot contain spaces',
+        'zh-cn': '密码不能含有空格',
+        'uk': 'Пароль не може містити пробіли'
+    },
+    enterValidFirstName: {
+        'en': 'Fill in your first name',
+        'zh-cn': '输入姓',
+        'uk': 'Введіть ім\'я'
+    },
+    enterValidLastName: {
+        'en': 'Fill in your last name',
+        'zh-cn': '输入名',
+        'uk': 'Введіть прізвище'
+    },
+    enterValidOrganization: {
+        'en': 'Fill in your organization name',
+        'zh-cn': '输入组织名称',
+        'uk': 'Введіть назву організації'
+    },
+    enterValidPhoneNumber: {
+        'en': 'Fill in your phone number',
+        'zh-cn': '输入电话号码',
+        'uk': 'Введіть свій номер телефону'
+    },
+    enterValidCountry: {
+        'en': 'Fill in your country',
+        'zh-cn': '输入国家',
+        'uk': 'Виберіть свою країну'
+    },
+    accountAlreadyExists: {
+        'en': 'This account already exists. Click on Sign in and try again.',
+        'zh-cn': '此账号已存在。点击登录重试。',
+        'uk': 'Такий акаунт вже існує. Клікніть Авторизуватись і спробуйте знову'
+    },
+    passwordIsStrongEnough: {
+        'en': 'Password meets requirements',
+        'zh-cn': '密码符合要求',
+        'uk': 'Пароль відповідає вимогам'
+    },
+    passwordDoesNotMeetRequirements: {
+        'en': 'Password does not meet requirements',
+        'zh-cn': '密码不符合要求',
+        'uk': 'Пароль не відповідає вимогам'
+    },
+    licenseAgreeCaption: {
+        'en': 'By clicking \"Sign up\" I agree to the easygenerator\'s  <a href=\"{0}\"  target=”_blank”>Terms</a> and <a href=\"{1}\"  target=”_blank”>Privacy policy</a>',
+        'zh-cn': '点击“注册”表示我同意easygenerator的 <a href=\"{0}\" target=”_blank”>Terms</a> 和 <a href=\"{1}\" target=”_blank”>隐私条例</a>',
+        'uk': 'Натискаючи на \"Зареєструватись\", я погоджуюсь з  <a href=\"{0}\"  target=”_blank”>умовами</a> та <a href=\"{1}\"  target=”_blank”>політикою конфіденційності</a>'
+    },
+    checking: {
+        'en': 'Checking...',
+        'zh-cn': '正在检查…',
+        'uk': 'Перевірка...'
+    },
+    firstNameCaption: {
+        'en': 'First name',
+        'zh-cn': '姓',
+        'uk': 'Ім\'я'
+    },
+    lastNameCaption: {
+        'en': 'Last name',
+        'zh-cn': '名',
+        'uk': 'Прізвище'
+    },
+    phoneNumberCaption: {
+        'en': 'Phone number',
+        'zh-cn': '电话号码',
+        'uk': 'Номер телефону'
+    },
+    countryCaption: {
+        'en': 'Country',
+        'zh-cn': '国家',
+        'uk': 'Країна'
+    },
+    roleQuestion: {
+        'en': 'What is your role?',
+        'zh-cn': '你的角色？',
+        'uk': 'Яка ваша роль?'
+    },
+    teacherOption: {
+        'en': 'Teacher',
+        'zh-cn': '教师',
+        'uk': 'Вчитель'
+    },
+    trainerOption: {
+        'en': 'Trainer',
+        'zh-cn': '培训师',
+        'uk': 'Тренер'
+    },
+    smeOption: {
+        'en': 'Subject matter expert',
+        'zh-cn': '业务专家',
+        'uk': 'Експерт предметної області'
+    },
+    expertOption: {
+        'en': 'eLearning expert',
+        'zh-cn': 'eLearning专家',
+        'uk': 'Експерт з електронного навчання'
+    },
+    designerOption: {
+        'en': 'Instructional designer',
+        'zh-cn': '课程设计人员',
+        'uk': 'Instructional designer[uk]'
+    },
+    managerOption: {
+        'en': 'eLearning manager',
+        'zh-cn': 'eLearning管理人员',
+        'uk': 'Менеджер з електронного навчання'
+    },
+    studentOption: {
+        'en': 'Student',
+        'zh-cn': 'Student[zh-cn]',
+        'uk': 'Студент'
+    },
+    otherOption: {
+        'en': 'Other',
+        'zh-cn': '其它',
+        'uk': 'Інше'
+    },
+    wouldYouLikeAnIntroductionDemo: {
+        'en': 'I would like an introduction demo!',
+        'zh-cn': '请给我一个介绍性演示样本',
+        'uk': 'I would like an introduction demo![uk]'
+    },
+    chooseYourCountry: {
+        'en': 'Select your country...',
+        'zh-cn': '选择国家',
+        'uk': 'Виберіть свою країну...'
+    },
+    /* End resource section for model SignUp */
+    
+    /* Resource section for model Sign In */
+    signIn: {
+        'en': 'Sign in',
+        'zh-cn': '登录',
+        'uk': 'Авторизуватись'
+    },
+    forgotPassword: {
+        'en': 'Forgot password?',
+        'zh-cn': '忘记密码？',
+        'uk': 'Забули пароль?'
+    },
+    forgotPasswordSent: {
+        'en': 'We\'ve sent you an e-mail with instructions on how to reset your password.',
+        'zh-cn': '我们已经给你发送一封邮件说明如何重设密码',
+        'uk': 'На ваш e-mail було надіслано листа з інструкціями для відновлення пароля.'
+    }
+    /* End resource section for model Sign In */
            
 });

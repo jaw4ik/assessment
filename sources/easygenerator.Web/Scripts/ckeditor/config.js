@@ -21,7 +21,7 @@ CKEDITOR.editorConfig = function (config) {
     CKEDITOR.plugins.addExternal('fillintheblank', 'customPlugins/fillintheblank/');
 
     config.extraPlugins = 'semantictags,fileuploader,image,floatingspace,mediaembed,audioembed,imagelibrary,fillintheblank';
-    config.extraAllowedContent = 'iframe';
+    config.extraAllowedContent = 'iframe;td{*};th{*};';
 
     config.removeFormatTags = 'big,del,font,ins,kbd,s,small,strike,tt,var,figcaption,em,strong,u,abbr,acronym,blockquote,q,cite,dfn,code,samp,sub,sup,mark,time';
 

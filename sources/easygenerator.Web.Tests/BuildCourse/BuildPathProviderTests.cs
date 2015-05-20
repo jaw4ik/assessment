@@ -280,5 +280,43 @@ namespace easygenerator.Web.Tests.BuildCourse
         }
 
         #endregion
+
+        #region GetCorrectFeedbackContentFileName
+
+        [TestMethod]
+        public void GetCorrectFeedbackContentFileName_ReturnPackagePath()
+        {
+            //Arrange
+            var packagePath = "packagePath";
+            var objectiveId = "objectiveId";
+            var questionId = "questionId";
+
+            //Act
+            var result = _buildPathProvider.GetCorrectFeedbackContentFileName(packagePath, objectiveId, questionId);
+
+            //Assert
+            result.Should().Be("packagePath\\content\\objectiveId\\questionId\\correctFeedback.html");
+        }
+
+        #endregion
+
+        #region GetIncorrectFeedbackContentFileName
+
+        [TestMethod]
+        public void GetIncorrectFeedbackContentFileName_ReturnPackagePath()
+        {
+            //Arrange
+            var packagePath = "packagePath";
+            var objectiveId = "objectiveId";
+            var questionId = "questionId";
+
+            //Act
+            var result = _buildPathProvider.GetIncorrectFeedbackContentFileName(packagePath, objectiveId, questionId);
+
+            //Assert
+            result.Should().Be("packagePath\\content\\objectiveId\\questionId\\incorrectFeedback.html");
+        }
+
+        #endregion
     }
 }

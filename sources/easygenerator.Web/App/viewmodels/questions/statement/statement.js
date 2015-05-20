@@ -27,7 +27,9 @@
 
                 return {
                     viewCaption: localizationManager.localize('statementQuestionEditor'),
-                    isQuestionContentNeeded: true
+                    hasQuestionView: true,
+                    hasQuestionContent: true,
+                    hasFeedback: true
                 };
             });
         }

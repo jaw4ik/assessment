@@ -44,7 +44,16 @@
                 statement: {
                     type: 'statement',
                     image: '/Content/images/statement-question.png'
+                },
+                openQuestion: {
+                    type: 'openQuestion',
+                    image: '/Content/images/open-question.png'
                 }
+            },
+
+            questionFeedback: {
+                correct: 'correct',
+                incorrect: 'incorrect'
             },
 
             sortingOptions: {
@@ -142,6 +151,7 @@
                         inviteCreated: 'course:collaboration-invite-created:',
                         inviteRemoved: 'course:collaboration-invite-removed:',
                         inviteAccepted: 'course:collaboration-invite-accepted',
+                        inviteCourseTitleUpdated: 'course:collaboration-invite-course-title-updated',
                         collaboratorAdded: 'course:collaboration-collaboratorAdded:',
                         collaboratorRemoved: 'course:collaboration-collaboratorRemoved',
                         collaboratorRegistered: 'course:collaboration-collaboratorRegistered:',
