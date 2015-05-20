@@ -30,17 +30,20 @@
     function createSpot(html, points) {
         var $output = $('<output>');
         $output.html(html);
-
+        var id = system.guid();
         var $spotWrapper = $('.hotspotOnImage', $output),
             $spot = $(templates.spotWrapper),
             minMaxCoords = getMinMaxCoords(points);
         $spot.width(minMaxCoords.maxX - minMaxCoords.minX)
             .height(minMaxCoords.maxY - minMaxCoords.minY)
-            .attr('data-id', system.guid())
+            .attr('data-id', id)
             .css('top', minMaxCoords.minY)
             .css('left', minMaxCoords.minX);
         $spotWrapper.append($spot);
-        return $output.html();
+        return {
+            id: id,
+            data: $output.html()
+        };
     }
 
     function removeSpot(html, id) {

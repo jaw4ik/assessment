@@ -12,12 +12,9 @@
         var that = this,
             mouseDownPoint = null;
         this.group = null;
-        this.onClick = onClick;
+        this.onClick = null;
         this.raster = null;
         this.removePath = function () {
-            if (that.raster) {
-                raster.remove();
-            }
             if (that.group) {
                 that.group.removeChildren();
                 that.group.remove();
@@ -25,15 +22,11 @@
                 that.path.remove();
             }
         };
-        this.updatePoints = function (data) {
+        this.updatePoints = function (data, onClick) {
             if (data) {
                 var selected = false;
                 if (that.group) {
-                    that.group.remove();
-                }
-
-                if (that.raster) {
-                    that.raster.remove();
+                    that.group.removeChildren();
                 }
 
                 if (that.path) {
@@ -54,21 +47,24 @@
                 that.path.strokeColor.alpha = 0.7;
                 that.path.selectedColor = that.settings.selectedColor;
                 that.path.selected = selected;
+                that.onClick = onClick;
                 if (canDrawRaster()) {
                     var centerPoint = getShapeCenter(that.path);
                     that.raster = new paper.Raster(informationIcon, centerPoint);
                     that.group = new paper.Group([that.path, that.raster]);
+
+                    if (that.group) {
+                        that.group.on('mousedown', onMouseDown);
+                        that.group.on('mouseup', onMouseUp);
+                    }
+                } else {
+                    that.path.onMouseDown = onMouseDown;
+                    that.path.onMouseUp = onMouseUp;
                 }
-                if (that.group) {
-                    that.group.onMouseDown = onMouseDown;
-                    that.group.onMouseUp = onMouseUp;
-                }
-                that.path.onMouseDown = onMouseDown;
-                that.path.onMouseUp = onMouseUp;
             }
         };
 
-        this.updatePoints(points);
+        this.updatePoints(points, onClick);
 
         function onMouseDown(evt) {
             mouseDownPoint = evt.point;
@@ -76,7 +72,7 @@
 
         function onMouseUp(evt) {
             if (mouseDownPoint && mouseDownPoint.x === evt.point.x && mouseDownPoint.y === evt.point.y) {
-                onClick.call(that, evt);
+                that.onClick(evt, points);
             }
         }
 

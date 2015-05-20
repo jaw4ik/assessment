@@ -352,7 +352,7 @@
             _.each(polygons(), function (polygon) {
                 var polygonInEditor = _.find(that._editor.polygons, function (polygonShape) { return polygon.id === polygonShape.id; });
                 if (polygonInEditor) {
-                    polygonInEditor.updatePoints(polygon.points());
+                    polygonInEditor.updatePoints(polygon.points(), polygon.onClick);
                 } else {
                     that._editor.polygons.push(new that._PolygonShape(polygon.id, polygon.points(), polygon.onClick));
                 }

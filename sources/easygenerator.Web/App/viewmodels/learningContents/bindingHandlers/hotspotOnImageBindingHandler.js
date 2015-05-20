@@ -19,9 +19,10 @@
 
                 $('.upload-background-image', $wrapper).on('click', function () {
                     uploadBackground(function (url) {
-                        loadImage(url);
-                        data(parser.updateImage(data(), url));
-                        saveData();
+                        loadImage(url, function () {
+                            data(parser.updateImage(data(), url));
+                            saveData();
+                        });
                     });
                 });
 
@@ -51,17 +52,19 @@
                 setUpHoverOnCanvas($element);
 
                 editor.on('polygon:updated', function (polygonViewModel, points) {
-                    updateSpot(data, polygonViewModel.id(), polygonViewModel.text, points);
+                    updateSpot(data, polygonViewModel.id, polygonViewModel.text, points);
                 });
 
                 editor.on('polygon:deleted', function (polygonViewModel) {
-                    data(parser.removeSpot(data(), polygonViewModel.id()));
+                    data(parser.removeSpot(data(), polygonViewModel.id));
                     saveData();
                 });
 
                 editor.on('polygon:add', function (points) {
-                    data(parser.createSpot(data(), points));
+                    var spot = parser.createSpot(data(), points);
+                    data(spot.data);
                     saveData();
+                    editor.fire('polygon:added', spot.id);
                 });
 
                 function updateSpot(data, id, text, points) {
@@ -161,7 +164,7 @@
                     }
                 }
 
-                function loadImage(url) {
+                function loadImage(url, callback) {
                     var imageUrl = url || parser.getImageUrl(valueAccessor().data());
 
                     var background = new Image();
@@ -170,6 +173,9 @@
                         $element.height(this.height);
                         $element.css('background-image', 'url(' + imageUrl + ')');
                         editor.updateCanvasSize(this.width, this.height);
+                        if (_.isFunction(callback)) {
+                            callback();
+                        }
                     };
                     background.src = imageUrl;
                 }
@@ -182,9 +188,10 @@
             },
             update: function (element, valueAccessor) {
                 var $element = $(element),
-                    editor = ko.utils.domData.get(element, 'ko_polygonEditor');
+                    editor = ko.utils.domData.get(element, 'ko_polygonEditor'),
+                    data = valueAccessor().data;
 
-                editor.polygons(parser.getPolygons(valueAccessor().data(), editor.updateCallback));
+                editor.polygons(parser.getPolygons(data(), editor.updateCallback));
 
                 if (editor.polygons().length) {
                     $element.removeClass('empty');
