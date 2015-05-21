@@ -169,9 +169,12 @@
                     mediaUrl: '/media',
                     userUrl: '/user',
                     video: {
+                        videoUrl: '/video',
                         ticketUrl: '/api/media/video/upload',
                         finishUrl: '/api/media/video/upload/finish',
                         progressUrl: '/api/media/video/upload/progress',
+                        thumbnailLoadUrl: 'http://vimeo.com/api/v2/video/',
+                        defaultThumbnailUrl: 'http://i.vimeocdn.com/video/default_200x150.jpg',
                         statuses: {
                             loaded: 'loaded',
                             failed: 'failed',
@@ -182,7 +185,7 @@
                         trackChangesInUploadTimeout: 500,
                         iframeWidth: 600,
                         iframeHeight: 335,
-                        updateUploadTimeout: 60000,
+                        updateUploadTimeout: 120000,
                         removeVideoAfterErrorTimeout: 5000
                     },
                 },

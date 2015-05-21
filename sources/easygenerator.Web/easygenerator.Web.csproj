@@ -693,6 +693,7 @@
     <Content Include="App\videoUpload\commands\progressHandler.js" />
     <Content Include="App\videoUpload\commands\storage.js" />
     <Content Include="App\videoUpload\commands\vimeo.js" />
+    <Content Include="App\videoUpload\thumbnailLoader.js" />
     <Content Include="App\videoUpload\videoUpload.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\courseIntroductionAnimationBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\elementCollapseBinding.js" />

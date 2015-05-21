@@ -8,7 +8,7 @@
             getVideoEmbedCode: 'Get video embed code'
         };
 
-        var videoConstants = constants.messages.storage.video;
+        var videoConstants = constants.messages.storage;
 
         var viewModel = {
 
@@ -28,7 +28,7 @@
         return viewModel;
 
         function show(vimeoId) { //TODO make redirect
-            var videoIframe = '<iframe src="https://player.vimeo.com/video/' + vimeoId + '?color=ffffff&title=0&byline=0&portrait=0"' + ' width="' + videoConstants.iframeWidth + '" height="' + videoConstants.iframeHeight + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+            var videoIframe = buildIframe(vimeoId);
 
             eventTracker.publish(events.openVideoPopup);
 
@@ -45,6 +45,13 @@
 
             viewModel.isShown(false);
             viewModel.videoIframe(null);
+        }
+
+        function buildIframe(vimeoId) {
+            return '<iframe src="' + videoConstants.host + videoConstants.video.videoUrl + '/' + vimeoId + '?color=ffffff&title=0&byline=0&portrait=0"' +
+                ' width="' + videoConstants.video.iframeWidth +
+                '" height="' + videoConstants.video.iframeHeight +
+                '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
         }
 
         function copyEmbedCode() {

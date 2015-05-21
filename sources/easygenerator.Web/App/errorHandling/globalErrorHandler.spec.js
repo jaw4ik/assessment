@@ -35,18 +35,6 @@
 
                         var status = 503;
 
-                        describe('and response status is 308 (from Vimeo)', function () {
-
-                            it('should not call handle error', function () {
-                                var response = { status: 308 };
-
-                                ajaxErrorHandler({}, response);
-
-                                expect(defaultHttpErrorHandler.handleError).not.toHaveBeenCalledWith(response);
-                            });
-
-                        });
-
                         describe('and when error handler is registered for this status', function () {
 
                             var registeredErrorHandler;

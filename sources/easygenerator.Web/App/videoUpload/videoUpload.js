@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'constants', 'notify', 'repositories/videoRepository', './commands/storage', './commands/vimeo', './commands/progressHandler', 'models/video'], function (app, constants, notify, repository, storageCommands, vimeoCommands, progressHandler, VideoModel) {
+﻿define(['durandal/app', 'constants', 'notify', 'repositories/videoRepository', './commands/storage', './commands/vimeo', './commands/progressHandler', 'models/video', 'userContext'], function (app, constants, notify, repository, storageCommands, vimeoCommands, progressHandler, VideoModel, userContext) {
 
     var queueUploads = [],
         uploadChanged = false,
@@ -26,9 +26,15 @@
                         isExtensionValid = filePath.toLowerCase().match(extensionValidationRegex);
 
                     if (isExtensionValid) {
-                        startVideoUpload(filePath, file);
+
+                        if (file.size > userContext.identity.availableStorageSpace) {
+                            notify.error(settings.notAnoughSpaceMessage);
+                        } else {
+                            userContext.identity.availableStorageSpace -= file.size;
+                            startVideoUpload(filePath, file);
+                        }
                     } else {
-                        notify.error(settings.notSupportedFileMessage);
+                        notify.error(settings.notSupportedFileMessage); //TODO localize
                     }
 
                     input.remove();
@@ -55,7 +61,7 @@
 
     function startTrackUploadProgress() {
         setTimeout(function () {
-            
+
             if (queueUploads.length) {
                 var arrayPromises = [];
 
@@ -80,8 +86,10 @@
 
     function startVideoUpload(filePath, file) {
         var title = getFileName(file.name);
-        return storageCommands.getTicket(file.size, title).then(function (data) {
+        return storageCommands.getTicket(file.size, title).then(function(data) {
             uploadVideo(file, data.uploadUrl, data.videoId, title);
+        }).fail(function() {
+            userContext.identity.availableStorageSpace += file.size; //TODO notify
         });
     }
 
@@ -100,10 +108,12 @@
                 uploadChanged = true;
 
             }).fail(function (request) {
+                userContext.identity.availableStorageSpace += file.size;
                 uploadFail(videoToUpload, 'error occurred');   //TODO error on finish
             });
 
         }).fail(function (request) {
+            userContext.identity.availableStorageSpace += file.size;
             removeFromUploadQueue(videoToUpload.videoId);
             uploadFail(videoToUpload, 'error occurred');   //TODO error on put failed
         });
@@ -141,10 +151,11 @@
 
         var video = new VideoModel({
             id: videoId,
+            title: title,
             createdOn: null,
             modifiedOn: null,
-            title: title,
             vimeoId: null,
+            thumbnailUrl: videoConstants.defaultThumbnailUrl,
             status: videoConstants.statuses.inProgress,
             progress: 0
         });

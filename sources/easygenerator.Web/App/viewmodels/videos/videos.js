@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'constants', 'eventTracker', 'repositories/videoRepository', 'dialogs/video/video', 'videoUpload/videoUpload'], function (app, constants, eventTracker, repository, videoPopup, videoUpload) {
+﻿define(['durandal/app', 'constants', 'eventTracker', 'repositories/videoRepository', 'dialogs/video/video', 'videoUpload/videoUpload', 'videoUpload/thumbnailLoader', 'userContext'], function (app, constants, eventTracker, repository, videoPopup, videoUpload, thumbnailLoader, userContext) {
     "use strict";
 
     app.on(constants.messages.storage.video.changesInUpload, function () {
@@ -17,15 +17,27 @@
         activate: activate,
         showVideoPopup: showVideoPopup
     }
-    
+
     return viewModel;
 
     function addVideo() {
+        if (!checkUserPermissions()) {
+            return; //TODO Show popup
+        }
+
         videoUpload.upload({
             acceptedTypes: '*',
             supportedExtensions: ['mp4'],
-            notSupportedFileMessage: 'file is not supported'
+            notSupportedFileMessage: 'file is not supported',
+            notAnoughSpaceMessage: 'not anough space to upload file'
         });
+    }
+
+    function checkUserPermissions() {
+        /*if (!userContext.hasStarterAccess() && !userContext.hasPlusAccess()) {
+            return false;
+        }*/
+        return true;
     }
 
     function showVideoPopup(video) {
@@ -39,8 +51,10 @@
     function activate() {
         return repository.getCollection().then(function (videos) {
             viewModel.videos([]);
-            _.each(videos, function (video) {
-                viewModel.videos.push(mapVideo(video));
+            return thumbnailLoader.getThumbnailUrls(videos).then(function () {
+                _.each(videos, function (video) {
+                    viewModel.videos.push(mapVideo(video));
+                });
             });
         });
     }
@@ -54,6 +68,7 @@
         video.createdOn = ko.observable(item.createdOn);
         video.modifiedOn = ko.observable(item.ModifiedOn);
         video.vimeoId = ko.observable(item.vimeoId);
+        video.thumbnailUrl = ko.observable(item.thumbnailUrl);
         video.progress = ko.observable(item.progress || 0);
         video.status = ko.observable(item.status || viewModel.statuses.loaded);
 

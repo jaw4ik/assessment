@@ -6,8 +6,9 @@
             var obj = new Entity(spec);
             obj.title = spec.title;
             obj.vimeoId = spec.vimeoId;
-            obj.status = spec.status || constants.messages.storage.video.statuses.loaded;
+            obj.thumbnailUrl = spec.thumbnailUrl;
             obj.progress = spec.progress;
+            obj.status = spec.status || constants.messages.storage.video.statuses.loaded;
 
             return obj;
         };

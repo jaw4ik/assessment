@@ -11,7 +11,8 @@
             method: 'PUT',
             data: file,
             processData: false,
-            contentType: false
+            contentType: false,
+            global: false
         });
     }
 
@@ -21,7 +22,8 @@
         $.ajax({
             url: uploadUrl,
             method: 'PUT',
-            headers: { 'Content-Range': 'bytes */*' }
+            headers: { 'Content-Range': 'bytes */*' },
+            global: false
         }).fail(function (request) {
             if (request.status != constants.messages.storage.video.vimeoVerifyStatus) {
                 deferred.reject();

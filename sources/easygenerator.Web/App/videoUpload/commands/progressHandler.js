@@ -10,6 +10,7 @@
             id: video.id,
             updatedOn: new Date(),
             handler: function () {
+                var self = this;
                 return vimeoCommands.verifyUpload(uploadUrl).then(function (range) {
 
                     video.progress = getUploadProgress(range, fileSize);
@@ -18,8 +19,8 @@
                         videoFileLoadedCallback(video.id);
                     }
 
-                    if (new Date() - this.updatedOn > constants.messages.storage.video.updateUploadTimeout) {
-                        this.updatedOn = new Date();
+                    if (new Date() - self.updatedOn > constants.messages.storage.video.updateUploadTimeout) {
+                        self.updatedOn = new Date();
                         storageCommands.updateUploadTimeout(video.id);
                     }
                 });
