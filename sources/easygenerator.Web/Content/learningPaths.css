@@ -1,0 +1,45 @@
+﻿/*#region flex */
+/*#endregion */
+.learning-paths .main-content-header {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  position: relative;
+  margin-top: 20px;
+}
+.learning-paths .main-content-header.highlighted:after {
+  position: absolute;
+  content: '';
+  display: block;
+  top: -40px;
+  right: -225px;
+  height: 161px;
+  width: 657px;
+  z-index: -1;
+  background-repeat: no-repeat;
+  background: url('images/learning-path-empty-background.png');
+}
+.learning-paths .main-content-header .page-view-caption {
+  padding: 10px 0 15px 0;
+}
+.learning-paths .main-content-header .page-view-caption .page-view-caption-text {
+  font: 20px 'OpenSans-Semibold';
+}
+.learning-paths .main-content-header .page-view-caption .tooltip-icon {
+  margin-top: 3px;
+}
+.learning-paths .main-content-header .view-list-actions-holder {
+  width: auto;
+}
+.learning-paths .list-item-action.create .action-item-btn {
+  padding: 8px 25px;
+}
+.learning-paths .list-item-action.create .tip-arrow-holder {
+  right: 95%;
+  padding-top: 40px;
+}
+.learning-paths .list-item-action.create .tip-arrow-holder .tip-arrow-text {
+  width: 290px;
+  white-space: pre-wrap;
+}

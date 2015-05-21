@@ -278,6 +278,10 @@
     <Compile Include="Migrations\201504301031125_AddCollaboratorIsAccepted.Designer.cs">
       <DependentUpon>201504301031125_AddCollaboratorIsAccepted.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505211145424_AddLearningPaths.cs" />
+    <Compile Include="Migrations\201505211145424_AddLearningPaths.Designer.cs">
+      <DependentUpon>201505211145424_AddLearningPaths.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
@@ -286,6 +290,7 @@
     <Compile Include="Repositories\DemoCourseRepository.cs" />
     <Compile Include="Repositories\HttpRequestsReporitory.cs" />
     <Compile Include="Repositories\ImageFileRepository.cs" />
+    <Compile Include="Repositories\LearningPathRepository.cs" />
     <Compile Include="Repositories\MailNotificationRepository.cs" />
     <Compile Include="Repositories\ObjectiveRepository.cs" />
     <Compile Include="Repositories\OnboardingRepository.cs" />
@@ -477,6 +482,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504301031125_AddCollaboratorIsAccepted.resx">
       <DependentUpon>201504301031125_AddCollaboratorIsAccepted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505211145424_AddLearningPaths.resx">
+      <DependentUpon>201505211145424_AddLearningPaths.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,9 +1,10 @@
-﻿define(['durandal/app', 'plugins/http', 'constants', 'mappers/courseModelMapper', 'mappers/objectiveModelMapper', 'mappers/templateModelMapper'],
-    function (app, http, constants, courseModelMapper, objectiveModelMapper, templateModelMapper) {
+﻿define(['durandal/app', 'plugins/http', 'constants', 'mappers/courseModelMapper', 'mappers/objectiveModelMapper', 'mappers/templateModelMapper', 'mappers/learningPathModelMapper'],
+    function (app, http, constants, courseModelMapper, objectiveModelMapper, templateModelMapper, learningPathModelMapper) {
         "use strict";
         var
             objectives = [],
             courses = [],
+            learningPaths = [],
             templates = [],
 
             initialize = function () {
@@ -16,6 +17,17 @@
                     }).then(function (response) {
                         _.each(response.data, function (template) {
                             templates.push(templateModelMapper.map(template));
+                        });
+                    });
+                }).then(function () {
+                    return $.ajax({
+                        url: 'api/learningpaths',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        dataType: 'json'
+                    }).then(function (response) {
+                        _.each(response.data, function (item) {
+                            learningPaths.push(learningPathModelMapper.map(item));
                         });
                     });
                 }).then(function () {
@@ -64,6 +76,7 @@
             objectives: objectives,
             courses: courses,
             templates: templates,
+            learningPaths: learningPaths,
             getQuestions: getQuestions
         };
     });

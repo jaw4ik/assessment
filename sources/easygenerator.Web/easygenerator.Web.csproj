@@ -248,6 +248,7 @@
     <Compile Include="Components\Mappers\EntityMapper.cs" />
     <Compile Include="Components\Mappers\HotSpotPolygonMapper.cs" />
     <Compile Include="Components\Mappers\IEntityMapper.cs" />
+    <Compile Include="Components\Mappers\LearningPathMapper.cs" />
     <Compile Include="Components\Mappers\SingleSelectImageAnswerMapper.cs" />
     <Compile Include="Components\Mappers\TemplateMapper.cs" />
     <Compile Include="Components\Mappers\TextMatchingAnswerMapper.cs" />
@@ -256,6 +257,7 @@
     <Compile Include="Controllers\Api\HotSpotQuestionController.cs" />
     <Compile Include="Controllers\Api\DragAndDropTextQuestionController.cs" />
     <Compile Include="Controllers\Api\FillInTheBlanksController.cs" />
+    <Compile Include="Controllers\Api\LearningPathController.cs" />
     <Compile Include="Controllers\Api\OnboardingController.cs" />
     <Compile Include="Controllers\Api\OpenQuestionController.cs" />
     <Compile Include="Controllers\Api\SingleSelectImageController.cs" />
@@ -550,6 +552,8 @@
       <DependentUpon>moveCopyQuestion.js</DependentUpon>
     </Content>
     <Content Include="App\localization\resources.js" />
+    <Content Include="App\mappers\learningPathModelMapper.js" />
+    <Content Include="App\models\learningPath.js" />
     <Content Include="App\models\reporting\actor.js" />
     <Content Include="App\models\reporting\actor.spec.js">
       <DependentUpon>actor.js</DependentUpon>
@@ -694,6 +698,31 @@
       <DependentUpon>results.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\index.js" />
+    <Content Include="App\viewmodels\learningPaths\commands\createLearningPathCommand.js" />
+    <Content Include="App\viewmodels\learningPaths\commands\createLearningPathCommand.spec.js">
+      <DependentUpon>createLearningPathCommand.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningPaths\index.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath.spec.js">
+      <DependentUpon>learningPath.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPathBrief.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPathBrief.spec.js">
+      <DependentUpon>learningPathBrief.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPaths.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPaths.spec.js">
+      <DependentUpon>learningPaths.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningPaths\queries\getLearningPathCollectionQuery.js" />
+    <Content Include="App\viewmodels\learningPaths\queries\getLearningPathCollectionQuery.spec.js">
+      <DependentUpon>getLearningPathCollectionQuery.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningPaths\queries\getLearningPathByIdQuery.js" />
+    <Content Include="App\viewmodels\learningPaths\queries\getLearningPathByIdQuery.spec.js">
+      <DependentUpon>getLearningPathByIdQuery.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\objectives\index.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.spec.js">
@@ -729,6 +758,9 @@
     <Content Include="App\views\courses\publishActions\publishAsHtml.html" />
     <Content Include="App\views\courses\publishActions\publishAsScorm.html" />
     <Content Include="App\views\courses\publishActions\updatePublishedCourse.html" />
+    <Content Include="App\views\learningPaths\index.html" />
+    <Content Include="App\views\learningPaths\learningPath.html" />
+    <Content Include="App\views\learningPaths\learningPaths.html" />
     <Content Include="App\views\objectives\index.html" />
     <Content Include="App\views\questions\statement\statement.html" />
     <Content Include="App\reporting\views\courseStatement.html" />
@@ -760,6 +792,7 @@
     <Content Include="Content\images\firefox.png" />
     <Content Include="Content\images\hotSpot-empty.png" />
     <Content Include="Content\images\ie.png" />
+    <Content Include="Content\images\learning-path-empty-background.png" />
     <Content Include="Content\images\newTemplate.png" />
     <Content Include="Content\images\no-spots.png" />
     <Content Include="Content\images\noResultsHintSteps.png" />
@@ -775,6 +808,9 @@
     <Content Include="Content\images\upload-image.png" />
     <Content Include="Content\images\supported-browser-bg.png" />
     <Content Include="Content\images\tooth.png" />
+    <Content Include="Content\learningPaths.css">
+      <DependentUpon>learningPaths.less</DependentUpon>
+    </Content>
     <Content Include="Content\mixin.css">
       <DependentUpon>mixin.less</DependentUpon>
     </Content>
@@ -1659,6 +1695,7 @@
       <DependentUpon>inviteRemoved.js</DependentUpon>
     </Content>
     <Content Include="Content\mixin.less" />
+    <Content Include="Content\learningPaths.less" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />

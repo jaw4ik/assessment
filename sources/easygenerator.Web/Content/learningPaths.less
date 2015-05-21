@@ -1,0 +1,63 @@
+﻿@import "mixin.less";
+
+@view-caption-font: 20px 'OpenSans-Semibold';
+
+.learning-paths {
+    .main-content-header {
+        & {
+            .display-flex();
+            .justify-content(space-between);
+            position: relative;
+            margin-top: 20px;
+        }
+
+        &.highlighted:after {
+            position: absolute;
+            content: '';
+            display: block;
+            top: -40px;
+            right: -225px;
+            height: 161px;
+            width: 657px;
+            z-index: -1;
+            background-repeat: no-repeat;
+            background: url('images/learning-path-empty-background.png');
+        }
+
+        .page-view-caption {
+            & {
+                padding: 10px 0 15px 0;
+            }
+
+            .page-view-caption-text {
+                font: @view-caption-font;
+            }
+
+            .tooltip-icon {
+                margin-top: 3px;
+            }
+        }
+
+        .view-list-actions-holder {
+            width: auto;
+        }
+    }
+
+    .list-item-action.create {
+        .action-item-btn {
+            padding: 8px 25px;
+        }
+
+        .tip-arrow-holder {
+            & {
+                right: 95%;
+                padding-top: 40px;
+            }
+
+            .tip-arrow-text {
+                width: 290px;
+                white-space: pre-wrap;
+            }
+        }
+    }
+}

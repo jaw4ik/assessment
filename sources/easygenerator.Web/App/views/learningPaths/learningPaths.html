@@ -1,0 +1,39 @@
+﻿<section class="learning-paths view-module">
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <div class="main-content-header" data-bind="css: { highlighted: learningPaths().length === 0 }">
+                <div class="page-view-caption">
+                    <div class="page-view-caption-text" data-bind="localize: { text: 'learningPaths' }"></div>
+                    <div class="tooltip-icon" data-bind="tooltip:'top'">
+                        <h4 class="tooltip-title" data-bind="localize: { html:'tooltipLearningPathTitle'}"></h4>
+                        <div class="tooltip-content" data-bind="localize: { html: 'tooltipLearningPathDescription'}">
+                        </div>
+                        <div class="tooltip-buttons-holder" data-bind="localize: { html: 'tooltipContentLink'}">
+                        </div>
+                    </div>
+                </div>
+                <div class="view-list-actions-holder">
+                    <div class="list-item-action create">
+                        <div class="action-item-btn-wrapper">
+                            <button class="action-item-btn create-item btn green" data-bind="click: createLearningPath">
+                                <span class="action-item-btn-caption" data-bind="localize: { text: 'newLaerningPath' }"></span>
+                            </button>
+                            <!-- ko if: learningPaths().length === 0 -->
+                            <div class="tip-arrow-holder right">
+                                <div class="tip-arrow-text" data-bind="localize: { text : 'createFirstLearningPathHint' }"></div>
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="unstyled main-content-list">
+                <!-- ko foreach: learningPaths -->
+                <li>
+                    <div data-bind="text:title, click: navigateToDetails"></div>
+                </li>
+                <!-- /ko -->
+            </ul>
+        </div>
+    </div>
+</section>

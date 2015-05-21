@@ -53,6 +53,7 @@ namespace easygenerator.DataAccess
         public DbSet<Comment> Comments { get; set; }
         public DbSet<CourseCollaborator> CourseCollaborators { get; set; }
         public DbSet<Onboarding> Onboardings { get; set; }
+        public DbSet<LearningPath> LearningPaths { get; set; }
 
         public IDbSet<T> GetSet<T>() where T : Identifiable
         {
@@ -67,6 +68,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Properties<string>().Where(p => p.Name == "CreatedBy").Configure(p => p.IsRequired().HasMaxLength(254));
             modelBuilder.Properties<string>().Where(p => p.Name == "ModifiedBy").Configure(p => p.IsRequired().HasMaxLength(254));
 
+            modelBuilder.Entity<LearningPath>().Property(e => e.Title).HasMaxLength(255).IsRequired();
 
             modelBuilder.Entity<Objective>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Objective>().Property(e => e.ImageUrl).IsOptional();

@@ -389,6 +389,11 @@
         'zh-cn': 'Embed this code to your content[zh-cn]',
         'uk': 'Вставте цей код в ваш контент'
     },
+    videoUploadError: {
+        'en': 'Upload failed',
+        'zh-cn': 'Upload failed[zh-cn]',
+        'uk': 'Помилка завантаження'
+    },
     /* End resource section for model Videos */
     
     /* Resource section for model Objectives */
@@ -438,6 +443,69 @@
         'uk': 'Список розділей / цілей порожній...'
     },
     /* End resource section for model Objectives */
+    
+    /* Resource section for model Learning paths */
+    learningPaths: {
+        'en': 'Learning paths',
+        'zh-cn': 'Learning paths[zh-cn]',
+        'uk': 'Learning paths[uk]'
+    },
+    learningPath: {
+        'en': 'Learning path',
+        'zh-cn': 'Learning path[zh-cn]',
+        'uk': 'Learning path[uk]'
+    },
+    learningPathProperties: {
+        'en': 'Learning path properties',
+        'zh-cn': 'Learning path properties[zh-cn]',
+        'uk': 'Learning path properties[uk]'
+    },
+    newLaerningPath: {
+        'en': 'New learning path',
+        'zh-cn': 'New learning path[zh-cn]',
+        'uk': 'New learning path[uk]'
+    },
+    createFirstLearningPathHint: {
+        'en': 'Create learning path by clicking here',
+        'zh-cn': 'Create learning path by clicking here[zh-cn]',
+        'uk': 'Create learning path by clicking here[uk]'
+    },
+    learningPathTitle: {
+        'en': 'Learning path title',
+        'zh-cn': 'Learning path title[zh-cn]',
+        'uk': 'Learning path title[uk]'
+    },
+    coursesInThePath: {
+        'en': 'Courses in the path:',
+        'zh-cn': 'Courses in the path:[zh-cn]',
+        'uk': 'Courses in the path:[uk]'
+    },
+    noCoursesInTheLearningPath: {
+        'en': 'No courses in the learning path',
+        'zh-cn': 'No courses in the learning path[zh-cn]',
+        'uk': 'No courses in the learning path[uk]'
+    },
+    tooltipLearningPathTitle: {
+        'en': 'Learning path',
+        'zh-cn': 'Learning path[zh-cn]',
+        'uk': 'Learning path[uk]'
+    },
+    tooltipLearningPathDescription: {
+        'en': '<p>Learning paths help you know which courses to take in which particular order, so that you can work toward specific learning goals.</p>',
+        'zh-cn': '<p>Learning paths help you know which courses to take in which particular order, so that you can work toward specific learning goals.</p>[zh-cn]',
+        'uk': '<p>Learning paths help you know which courses to take in which particular order, so that you can work toward specific learning goals.</p>[uk]'
+    },
+    tooltipLearningPathLink: {
+        'en': '<a style=\"display:none;\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">read more</a>',
+        'zh-cn': '<a style=\"display:none;\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">read more</a>[zh-cn]',
+        'uk': '<a style=\"display:none;\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">read more</a>[uk]'
+    },
+    learningPathDefaultTitle: {
+        'en': 'Untitled learning path',
+        'zh-cn': 'Untitled learning path[zh-cn]',
+        'uk': 'Untitled learning path[uk]'
+    },
+    /* End resource section for model Learning paths */
     
     /* Resource section for model Courses */
     courses: {
@@ -2454,12 +2522,12 @@
     requestError: {
         'en': 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists. ',
         'zh-cn': '出错了。请重试。如果问题仍然存在请联系support@easygenerator.com',
-        'uk': 'Щось пішло не так. Спробуте знову. Якщо проблема не зникне надішліть нам електронного листа на адресу support@easygenerator.com'
+        'uk': 'Щось пішло не так. Спробуте знову. Якщо проблема не зникне, надішліть нам електронного листа на адресу support@easygenerator.com'
     },
     couldNotVerifyPasswordRecovery: {
         'en': 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists. ',
         'zh-cn': '出错了。请重试。如果问题仍然存在请联系support@easygenerator.com',
-        'uk': 'Щось пішло не так. Спробуте знову. Якщо проблема не зникне надішліть нам електронного листа на адресу support@easygenerator.com'
+        'uk': 'Щось пішло не так. Спробуте знову. Якщо проблема не зникне, надішліть нам електронного листа на адресу support@easygenerator.com'
     },
     restorePasswordCaption: {
         'en': 'Enter your new password',

@@ -4,7 +4,8 @@
         "use strict";
 
         var events = {
-            navigateToCourses: "Navigate to courses",
+            navigateToCourses: 'Navigate to courses',
+            navigateToLearningPaths: 'Navigate to learning paths',
             navigateToObjectives: 'Navigate to objectives'
         };
 
@@ -113,6 +114,19 @@
                             nav: true,
                             navigate: function () {
                                 eventTracker.publish(events.navigateToCourses);
+                                clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
+                                router.navigate(this.hash);
+                            }
+                        },
+                        {
+                            route: 'learningpaths*details',
+                            moduleId: 'viewmodels/learningPaths/index',
+                            title: localizationManager.localize('learningPaths'),
+                            hash: '#learningpaths',
+                            nav: true,
+                            navigate: function () {
+                                eventTracker.publish(events.navigateToLearningPaths);
+                                clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
                                 clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
                                 router.navigate(this.hash);
                             }

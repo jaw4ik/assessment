@@ -201,6 +201,17 @@
 
             //#endregion
 
+            //#region learning paths
+
+            'viewmodels/learningPaths/commands/createLearningPathCommand.spec',
+            'viewmodels/learningPaths/queries/getLearningPathByIdQuery.spec',
+            'viewmodels/learningPaths/queries/getLearningPathCollectionQuery.spec',
+            'viewmodels/learningPaths/learningPathBrief.spec',
+            'viewmodels/learningPaths/learningPaths.spec',
+            'viewmodels/learningPaths/learningPath.spec',
+
+            //#endregion
+
             'navigationBar/navigationBar.spec',
             'treeOfContent/handlers/treeOfContentEventHandler.spec',
             'treeOfContent/handlers/treeOfContentAutoExpandHandler.spec',

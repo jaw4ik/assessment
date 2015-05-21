@@ -1,1 +1,1 @@
-"%~dp0../../../../tools/ResourceGenerator/ResourceGenerator.exe" "%~dp0resources.xlsx" "%~dp0resources.js" "langs=en,uk,zh-cn"
+"%~dp0../../../../tools/ResourceGenerator/ResourceGenerator.exe" "%~dp0resources (7).xlsx" "%~dp0resources.js" "langs=en,uk,zh-cn"

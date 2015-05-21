@@ -49,6 +49,7 @@
     <Compile Include="Entities\CourseState.cs" />
     <Compile Include="Entities\DemoCourseInfo.cs" />
     <Compile Include="Entities\Identifiable.cs" />
+    <Compile Include="Entities\LearningPath.cs" />
     <Compile Include="Entities\Onboarding.cs" />
     <Compile Include="Entities\Questions\BlankAnswer.cs" />
     <Compile Include="Entities\Questions\OpenQuestion.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="Repositories\ICourseStateRepository.cs" />
     <Compile Include="Repositories\IDemoCourseRepository.cs" />
     <Compile Include="Repositories\IImageFileRepository.cs" />
+    <Compile Include="Repositories\ILearningPathRepository.cs" />
     <Compile Include="Repositories\IOnboardingRepository.cs" />
     <Compile Include="Repositories\IPasswordRecoveryTicketRepository.cs" />
     <Compile Include="Repositories\IQueryableRepository.cs" />

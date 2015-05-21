@@ -155,6 +155,7 @@
     <Compile Include="Components\BundleTransforms\ImageNoCacheParamTransformTests.cs" />
     <Compile Include="Components\ManifestFileManagerTests.cs" />
     <Compile Include="Components\ModelBinding\DateTimeModelBinderTests.cs" />
+    <Compile Include="Controllers\Api\LearningPathControllerTests.cs" />
     <Compile Include="Controllers\DashboardControllerTests.cs" />
     <Compile Include="Controllers\AccountControllerTests.cs" />
     <Compile Include="Controllers\Api\Aim4YouControllerTests.cs" />
