@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'constants', 'eventTracker', 'repositories/videoRepository', 'dialogs/video/video', 'videoUpload/videoUpload', 'videoUpload/thumbnailLoader', 'userContext'], function (app, constants, eventTracker, repository, videoPopup, videoUpload, thumbnailLoader, userContext) {
+﻿define(['durandal/app', 'plugins/router', 'constants', 'eventTracker', 'repositories/videoRepository', 'dialogs/video/video', 'videoUpload/videoUpload', 'videoUpload/thumbnailLoader', 'userContext'], function (app, router, constants, eventTracker, repository, videoPopup, videoUpload, thumbnailLoader, userContext) {
     "use strict";
 
     app.on(constants.messages.storage.video.changesInUpload, function () {
@@ -6,23 +6,29 @@
     });
 
 
-    var events = {
-
-    }
+    var uploadVideoEventCategory = 'Upload video',
+        events = {
+            upgradeNow: 'Upgrade now',
+            skipUpgrade: 'Skip upgrade'
+        }
 
     var viewModel = {
         videos: ko.observableArray([]),
         statuses: constants.messages.storage.video.statuses,
         addVideo: addVideo,
         activate: activate,
-        showVideoPopup: showVideoPopup
+        showVideoPopup: showVideoPopup,
+        upgradeToVideoUpload: upgradeToVideoUpload,
+        skipUpgradeForUploadVideo: skipUpgradeForUploadVideo,
+        upgradePopupVisibility: ko.observable(false)
     }
 
     return viewModel;
 
     function addVideo() {
         if (!checkUserPermissions()) {
-            return; //TODO Show popup
+            viewModel.upgradePopupVisibility(true);
+            return;
         }
 
         videoUpload.upload({
@@ -34,9 +40,9 @@
     }
 
     function checkUserPermissions() {
-        /*if (!userContext.hasStarterAccess() && !userContext.hasPlusAccess()) {
+        if (!userContext.hasStarterAccess() && !userContext.hasPlusAccess()) {
             return false;
-        }*/
+        }
         return true;
     }
 
@@ -48,12 +54,33 @@
         videoPopup.show(video.vimeoId());
     }
 
+    function upgradeToVideoUpload() {
+        upgradeNow(uploadVideoEventCategory);
+        viewModel.upgradePopupVisibility(false);
+    }
+
+    function upgradeNow(eventCategory) {
+        eventTracker.publish(events.upgradeNow, eventCategory);
+        router.openUrl(constants.upgradeUrl);
+    }
+
+    function skipUpgradeForUploadVideo() {
+        skipUpgrade(uploadVideoEventCategory);
+        viewModel.upgradePopupVisibility(false);
+    }
+
+    function skipUpgrade(eventCategory) {
+        eventTracker.publish(events.skipUpgrade, eventCategory);
+    }
+
     function activate() {
-        return repository.getCollection().then(function (videos) {
-            viewModel.videos([]);
-            return thumbnailLoader.getThumbnailUrls(videos).then(function () {
-                _.each(videos, function (video) {
-                    viewModel.videos.push(mapVideo(video));
+        return userContext.identifyStoragePermissions().then(function () {
+            return repository.getCollection().then(function (videos) {
+                viewModel.videos([]);
+                return thumbnailLoader.getThumbnailUrls(videos).then(function () {
+                    _.each(videos, function (video) {
+                        viewModel.videos.push(mapVideo(video));
+                    });
                 });
             });
         });

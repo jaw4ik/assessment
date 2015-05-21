@@ -782,6 +782,7 @@
     <Content Include="Content\font\heuristica-italic.svg" />
     <Content Include="Content\font\heuristica-regular.svg" />
     <Content Include="Content\font\opensans-bold.svg" />
+    <Content Include="Content\font\robotoslab-regular.svg" />
     <Content Include="Content\helpers.css">
       <DependentUpon>helpers.less</DependentUpon>
     </Content>
@@ -872,6 +873,9 @@
     <Content Include="App\views\questions\hotSpot\designer.html" />
     <Content Include="App\views\questions\hotSpot\hotSpot.html" />
     <Content Include="Content\images\hotspot-question.png" />
+    <Content Include="Content\upgradePopup.css">
+      <DependentUpon>upgradePopup.less</DependentUpon>
+    </Content>
     <Content Include="Content\video.css">
       <DependentUpon>video.less</DependentUpon>
     </Content>
@@ -1129,6 +1133,10 @@
     <Content Include="App\onboarding\tasks.spec.js">
       <DependentUpon>tasks.js</DependentUpon>
     </Content>
+    <Content Include="Content\font\robotoslab-regular.eot" />
+    <Content Include="Content\font\robotoslab-regular.ttf" />
+    <Content Include="Content\font\robotoslab-regular.woff" />
+    <Content Include="Content\upgradePopup.less" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />

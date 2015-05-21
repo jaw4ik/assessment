@@ -12,6 +12,7 @@
 @add-video-button-icon-background: url(../Content/images/sprites_64.png);
 @video-thumbnail-box-shadow: 0px 1px 6px 0px #c9ced0;
 @play-icon-background-image: url(../Content/images/sprites_24.png);
+@upload-error-background: url('../Content/images/sprites_64.png');
 @video-popup-close-icon: url(../Content/images/sprites_16.png);
 @video-embed-code-background-color: #fffddd;
 @video-popup-width: 600px;
@@ -34,8 +35,28 @@
             border: 1px solid @video-list-item-border-color;
             -webkit-box-shadow: @video-list-item-box-shadow;
             box-shadow: @video-list-item-box-shadow;
-            -webkit-transition: border, box-shadow, 0.3s;
-            transition: border, box-shadow, 0.3s;
+            -webkit-transition: 0.3s;
+            transition: 0.3s;
+
+            &:nth-child(4n+1) {
+                margin-left: 0;
+            }
+
+            @media (max-width: 1100px) {
+                margin-left: 20px;
+            }
+
+            @media (max-width: 1024px) {
+                margin-left: 45px;
+
+                &:nth-child(4n+1) {
+                    margin-left: 45px;
+                }
+
+                &:nth-child(3n+1) {
+                    margin-left: 0;
+                }
+            }
 
             &.hovered:hover {
                 border-color: @video-list-item-hover-border-color;
@@ -44,10 +65,6 @@
                 .play-icon {
                     opacity: 0.9;
                 }
-            }
-
-            &:nth-child(4n+1) {
-                margin-left: 0;
             }
 
             &.add-video-button {
@@ -88,23 +105,29 @@
                 height: @video-thumbnail-height;
                 -webkit-box-shadow: @video-thumbnail-box-shadow;
                 box-shadow: @video-thumbnail-box-shadow;
+                background-color: #f3f3f3;
 
                 &.uploading {
                     text-align: center;
 
-                    .video-uploading-progress {
+                    .circle-progress {
                         position: absolute;
-                        top: 50px;
+                        top: 40px;
                         left: 50%;
-                        width: 40px;
-                        margin-left: -22px; //TODO fix to 20px; canvas - absolute;
+                        margin-left: -35px;
+                        color: #d3dbe0;
+                        border-color: #f6a367;
                     }
 
-                    .circle-progress {
-                        margin-top: 35px;
-                        margin-bottom: 10px;
-                        color: #d4dce1;
-                        border-color: #f39d5f;
+                    .video-uploading-progress {
+                        position: absolute;
+                        top: 65px;
+                        left: 50%;
+                        width: 40px;
+                        font-family: 'RobotoSlab';
+                        font-size: 18px;
+                        color: #63798e;
+                        margin-left: -20px;
                     }
 
                     .video-uploading-text {
@@ -112,6 +135,28 @@
                         font-family: 'OpenSans';
                         color: #546677;
                         text-transform: lowercase;
+                    }
+                }
+
+                &.error {
+                    text-align: center;
+
+                    .video-upload-error-image {
+                        display: inline-block;
+                        width: 64px;
+                        height: 64px;
+                        margin-top: 35px;
+                        background: @upload-error-background 68px 64px;
+                    }
+
+                    .video-upload-error-title {
+                        display: inline-block;
+                        width: 100%;
+                        text-align: center;
+                        color: #63798e;
+                        font-size: 13px;
+                        font-family: 'RobotoSlab';
+                        text-transform: uppercase;
                     }
                 }
 
@@ -153,6 +198,7 @@
                 font-family: 'OpenSans';
                 color: #546677;
                 word-wrap: break-word;
+                background-color: #fff;
             }
         }
 

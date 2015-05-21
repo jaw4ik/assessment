@@ -4,19 +4,23 @@
         identity: null,
         hasStarterAccess: hasStarterAccess,
         hasPlusAccess: hasPlusAccess,
-        identify: identify
+        identify: identify,
+        identifyStoragePermissions: identifyStoragePermissions
     };
 
     return userContext;
 
     function identify() {
-        return Q.all([authHttpWrapper.post('auth/identity').then(function (user) {
+        return Q(authHttpWrapper.post('auth/identity').then(function (user) {
             userContext.identity = _.isString(user.email) ? new User(user) : null;
             app.trigger(constants.messages.user.identified, userContext.identity);
-        }),
-        storageHttpWrapper.get(constants.messages.storage.host + constants.messages.storage.userUrl).then(function (data) {
+        }));
+    }
+
+    function identifyStoragePermissions() {
+        return storageHttpWrapper.get(constants.messages.storage.host + constants.messages.storage.userUrl).then(function (data) {
             userContext.identity.availableStorageSpace = data.AvailableStorageSpace;
-        })]);
+        });
     }
 
     function hasStarterAccess() {

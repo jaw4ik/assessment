@@ -33,7 +33,7 @@ define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synch
         app.start().then(function () {
             bootstrapper.run();
 
-            return Q.all([userContext.identify(), synchronization.start(), onboarding.initialize()])
+            return Q.all([userContext.identify(), userContext.identifyStoragePermissions(), synchronization.start(), onboarding.initialize()])
                 .spread(function () {
                     app.setRoot('viewmodels/shell', null, document.getElementById('app'));
                 });
