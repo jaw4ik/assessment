@@ -6,7 +6,9 @@
         getTextMatchingAnswersById = require('viewmodels/questions/textMatching/queries/getTextMatchingAnswersById'),
         addTextMatchingAnswer = require('viewmodels/questions/textMatching/commands/addAnswer'),
         removeTextMatchingAnswer = require('viewmodels/questions/textMatching/commands/removeAnswer'),
-        TextMatchingAnswer = require('viewmodels/questions/textMatching/textMatchingAnswer');
+        TextMatchingAnswer = require('viewmodels/questions/textMatching/textMatchingAnswer'),
+        http = require('plugins/http'),
+        localizationManager = require('localization/localizationManager');
     
 
     describe('question [textMatching]', function () {
@@ -26,6 +28,10 @@
             beforeEach(function () {
                 dfd = Q.defer();
                 spyOn(getTextMatchingAnswersById, 'execute').and.returnValue(dfd.promise);
+                spyOn(http, 'post');
+                spyOn(localizationManager, 'localize').and.callFake(function (arg) {
+                    return arg;
+                });
             });
 
             it('should return promise', function () {
@@ -33,11 +39,28 @@
                 expect(promise).toBePromise();
             });
 
-            it('should initialize field', function () {
+            it('should set objectiveId', function () {
                 viewModel.initialize(objectiveId, question);
+
                 expect(viewModel.objectiveId).toBe(objectiveId);
+            });
+
+            it('should set questionId', function () {
+                viewModel.initialize(objectiveId, question);
+
                 expect(viewModel.questionId).toBe(question.id);
+            });
+
+            it('should set isExpanded in true', function () {
+                viewModel.initialize(objectiveId, question);
+
                 expect(viewModel.isExpanded()).toBeTruthy();
+            });
+
+            it('should get answers', function () {
+                viewModel.initialize(objectiveId, question);
+
+                expect(getTextMatchingAnswersById.execute).toHaveBeenCalledWith(question.id);
             });
 
             describe('when textMatching does not have answers', function () {
@@ -83,6 +106,55 @@
                         done();
                     });
                 });
+            });
+
+            describe('when answers is initialize', function() {
+                beforeEach(function() {
+                    dfd.resolve();
+                });
+
+                it('should return object', function (done) {
+                    var promise = viewModel.initialize(objectiveId, question);
+                    promise.then(function (result) {
+                        expect(result).toBeObject();
+                        done();
+                    });
+                });
+
+                describe('and result object', function () {
+                    it('should contain \'textMatchingEditor\' viewCaption', function (done) {
+                        var promise = viewModel.initialize(objectiveId, question);
+                        promise.then(function (result) {
+                            expect(result.viewCaption).toBe('textMatchingEditor');
+                            done();
+                        });
+                    });
+
+                    it('should have hasQuestionView property with true value', function (done) {
+                        var promise = viewModel.initialize(objectiveId, question);
+                        promise.then(function (result) {
+                            expect(result.hasQuestionView).toBeTruthy();
+                            done();
+                        });
+                    });
+
+                    it('should have hasQuestionContent property with true value', function (done) {
+                        var promise = viewModel.initialize(objectiveId, question);
+                        promise.then(function (result) {
+                            expect(result.hasQuestionContent).toBeTruthy();
+                            done();
+                        });
+                    });
+
+                    it('should have hasFeedback property with true value', function (done) {
+                        var promise = viewModel.initialize(objectiveId, question);
+                        promise.then(function (result) {
+                            expect(result.hasFeedback).toBeTruthy();
+                            done();
+                        });
+                    });
+                });
+
             });
         });
 

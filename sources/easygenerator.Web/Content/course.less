@@ -478,7 +478,6 @@
 
 .template-image {
     .rounded-border(10px 10px 0 0);
-    
     display: block;
     width: 100%;
 }
@@ -512,7 +511,6 @@
 
 .choose-template-action-container {
     .rounded-border(10px 10px 0 0);
-    
     position: absolute;
     top: 0;
     left: 0;
@@ -578,7 +576,6 @@
 
 .template-name {
     .rounded-border(0 0 10px 10px);
-    
     border-top: none;
     background-color: #fff;
     color: #42515f;
@@ -2199,7 +2196,7 @@ td.r-name {
 
     > div {
         display: table-cell;
-        padding: 13px 5px;
+        padding: 13px 4px;
     }
 }
 
@@ -2366,6 +2363,26 @@ td.r-name {
 
                 span {
                     padding-left: 25px;
+
+                    &:before {
+                        content: "(";
+                    }
+
+                    &:after {
+                        content: ")";
+                    }
+                }
+            }
+
+            &.no-result {
+                p:before {
+                    background-image: none;
+                }
+
+                p {
+                    span {
+                        padding-left: 15px;
+                    }
                 }
             }
         }
@@ -2406,11 +2423,84 @@ td.r-name {
                 }
             }
         }
+
+        .r-answer-container {
+            padding: 10px 0 20px;
+
+            .r-answer {
+                width: 660px;
+                padding: 45px 20px;
+                margin: 0 auto;
+                position: relative;
+                border-top: solid 1px #d7dcdf;
+                border-left: solid 1px #d7dcdf;
+                border-right: solid 1px #d7dcdf;
+                border-radius: 5px 5px 0 0;
+
+                &:before {
+                    content: "";
+                    left: 23px;
+                    top: 0;
+                    height: 20px;
+                    width: 620px;
+                    position: absolute;
+                    background-color: transparent;
+                    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDE0IDc5LjE1Njc5NywgMjAxNC8wOC8yMC0wOTo1MzowMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjFFRjQ4MjQ4RkE0NjExRTQ5Q0JGQ0FCMTUwMTlGOUMzIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjFFRjQ4MjQ5RkE0NjExRTQ5Q0JGQ0FCMTUwMTlGOUMzIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MUVGNDgyNDZGQTQ2MTFFNDlDQkZDQUIxNTAxOUY5QzMiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MUVGNDgyNDdGQTQ2MTFFNDlDQkZDQUIxNTAxOUY5QzMiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz681jMLAAABTElEQVR42mL8//8/Awy8f/8exrwIxEeBOEtQUJCBFMDEQGUwauCogdQwcNGiRTLv3r3jfvPmDR+QzUyqgYygnDJx4kRGUK4A4hYODg4BJiYmhh8/fjD8+/fvB1BsBhBX5ufn/yDFwEXy8vKxKioqDFxcXGCJv3//Mjx79ozh9u3bDN+/fz8NNNwBaOg3QgYyA/NqhIGBQZOamhoDKysrIiyAruTn52eQkJBg+Pz5szTQUDZzc/PdBMNQWlo6T1ZWFqcCTk5OBmVlZQYFBYVMoE/YCBoIVGhISJGIiAgD0Cc8QFcrEDQQ6K3fxAQ2yKVA/IeggcBIOUqMgcDIegVU+4CggcA01wmk/xNSCDSsPTU19R9BAy0sLA4A6RJ8ioBJZsXdu3cnEp0OQeDevXt2QKofiPWAmAVkDhA/AMo3PHnyZIm9vf1/YgwECDAAaFN3fHLmwQ8AAAAASUVORK5CYII=");
+                    background-size: 20px 20px;
+                }
+
+                &:after {
+                    content: "";
+                    left: 0;
+                    bottom: 0;
+                    height: 6px;
+                    width: 100%;
+                    margin-bottom: -5px;
+                    position: absolute;
+                    background-color: transparent;
+                    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAGCAYAAAD37n+BAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDE0IDc5LjE1Njc5NywgMjAxNC8wOC8yMC0wOTo1MzowMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkYxNzczQjg4RkEyNDExRTRCRTQwQkMyQUQzQUJGMzYxIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkYxNzczQjg5RkEyNDExRTRCRTQwQkMyQUQzQUJGMzYxIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RjE3NzNCODZGQTI0MTFFNEJFNDBCQzJBRDNBQkYzNjEiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RjE3NzNCODdGQTI0MTFFNEJFNDBCQzJBRDNBQkYzNjEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5OJkdUAAAAl0lEQVR42mK8fuf+D1FhQQZhAX4GfODF67cMHz59ZmACsmVfv31/5+2Hj+xANlb8/NUbdqDiw0C2CkjDayB2Bmq6AdSEYTJQMcPHz1/2AJn+QPyECSr+EqrpFrKml2/eghQfgSr+BhJjQTLsGRA7ATXtA9Jqf//+ZXj/8fNpINsHphhdAwg8BWJHoKZNQPo7VDGKOwECDAAV7kizj6GpTAAAAABJRU5ErkJggg==");
+                    background-size: 12px 6px;
+                    background-position: -1px 0;
+                }
+
+                .r-answer-title {
+                    padding-bottom: 10px;
+                    font-family: 'OpenSans-Semibold';
+                    font-size: 18px;
+                    line-height: 18px;
+                    color: #546677;
+                }
+
+                .r-answer-text {
+                    background-color: transparent;
+                    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAcCAYAAACgXdXMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDE0IDc5LjE1Njc5NywgMjAxNC8wOC8yMC0wOTo1MzowMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MDI3NDBFQ0NGQTM0MTFFNEEyOTRFMEVFNUE2QTNBQzEiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MDI3NDBFQ0JGQTM0MTFFNEEyOTRFMEVFNUE2QTNBQzEiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RUQ0RTQ4RDZFOEM5MTFFNDgyMjJEM0E3MEUzMjhGNzIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RUQ0RTQ4RDdFOEM5MTFFNDgyMjJEM0E3MEUzMjhGNzIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4PuTm4AAAAGklEQVR42mL4//8/AxMDEAwsce/evf8AAQYAtI4GzdY6gIYAAAAASUVORK5CYII=");
+                    background-size: 1px 28px;
+                    background-position: 0 -4px;
+                    font-family: 'OpenSans';
+                    font-size: 13px;
+                    line-height: 28px;
+                    color: #42515f;
+                    word-wrap: break-word;
+                    white-space: pre-line;
+                }
+            }
+        }
     }
 
     .r-question-text {
         font-family: OpenSansItalic;
         color: @reporting-statement-title-color-blue;
+
+        .r-show-details {
+            padding-left: 5px;
+            color: #63798e;
+            text-decoration: underline;
+            cursor: pointer;
+
+            &:hover {
+                color: #485c70;
+            }
+        }
     }
 }
 
@@ -2573,7 +2663,7 @@ td.r-name {
 
 /*#endregion COURSE RESULTS UPGRADE DIALOG*/
 
-@media (max-width: 1290px) {
+@media (max-width: 1270px) {
     .results-table th,
     .results-table td {
         padding: 0 15px;
@@ -2594,6 +2684,20 @@ td.r-name {
 
     .no-results-step.desc {
         width: 150px;
+    }
+
+    .r-objective {
+        .r-question {
+            .r-answer-container {
+                .r-answer {
+                    width: 480px;
+
+                    &:before {
+                        width: 440px;
+                    }
+                }
+            }
+        }
     }
 }
 

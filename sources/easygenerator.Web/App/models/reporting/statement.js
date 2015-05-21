@@ -13,6 +13,13 @@
         } else {
             this.score = null;
         }
+
+        if (spec.result && spec.result.response) {
+            this.response = spec.result.response;
+        } else {
+            this.response = null;
+        }
+
         this.verb = spec.verb.id;
 
         this.id = spec.object.id;

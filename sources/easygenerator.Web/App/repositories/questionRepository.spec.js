@@ -2032,7 +2032,7 @@
                 describe('when all arguments are valid', function () {
 
                     beforeEach(function () {
-                        feedbackText = 'correct feedback text';
+                        feedbackText = 'incorrect feedback text';
                     });
 
                     it('should send request to server to api/question/updateIncorrectFeedback', function (done) {

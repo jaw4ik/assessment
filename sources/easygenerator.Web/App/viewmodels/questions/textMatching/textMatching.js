@@ -144,7 +144,9 @@
                 
                 return {
                     viewCaption: localizationManager.localize('textMatchingEditor'),
-                    isQuestionContentNeeded: true
+                    hasQuestionView: true,
+                    hasQuestionContent: true,
+                    hasFeedback: true
                 };
             });
         }

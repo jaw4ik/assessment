@@ -19,6 +19,9 @@
             beforeEach(function () {
                 designerActivateDefer = Q.defer();
                 spyOn(designer, 'activate').and.returnValue(designerActivateDefer.promise);
+                spyOn(localizationManager, 'localize').and.callFake(function (arg) {
+                    return arg;
+                });
             });
 
             it('should return promise', function () {
@@ -26,11 +29,73 @@
                 expect(promise).toBePromise();
             });
 
-            it('should initialize field', function () {
+            it('should set objectiveId', function () {
                 viewModel.initialize(objectiveId, question);
+
                 expect(viewModel.objectiveId).toBe(objectiveId);
+            });
+
+            it('should set questionId', function () {
+                viewModel.initialize(objectiveId, question);
+
                 expect(viewModel.questionId).toBe(question.id);
             });
+
+            it('should call designer activate', function () {
+                viewModel.initialize(objectiveId, question);
+
+                expect(designer.activate).toHaveBeenCalledWith(question.id);
+            });
+
+            describe('when designer is activated', function () {
+                beforeEach(function () {
+                    designerActivateDefer.resolve();
+                });
+
+                it('should return object', function (done) {
+                    var promise = viewModel.initialize(objectiveId, question);
+                    promise.then(function (result) {
+                        expect(result).toBeObject();
+                        done();
+                    });
+                });
+
+                describe('and result object', function () {
+                    it('should contain \'hotSpotTextEditor\' viewCaption', function (done) {
+                        var promise = viewModel.initialize(objectiveId, question);
+                        promise.then(function (result) {
+                            expect(result.viewCaption).toBe('hotSpotTextEditor');
+                            done();
+                        });
+                    });
+
+                    it('should have hasQuestionView property with true value', function (done) {
+                        var promise = viewModel.initialize(objectiveId, question);
+                        promise.then(function (result) {
+                            expect(result.hasQuestionView).toBeTruthy();
+                            done();
+                        });
+                    });
+
+                    it('should have hasQuestionContent property with true value', function (done) {
+                        var promise = viewModel.initialize(objectiveId, question);
+                        promise.then(function (result) {
+                            expect(result.hasQuestionContent).toBeTruthy();
+                            done();
+                        });
+                    });
+
+                    it('should have hasFeedback property with true value', function (done) {
+                        var promise = viewModel.initialize(objectiveId, question);
+                        promise.then(function (result) {
+                            expect(result.hasFeedback).toBeTruthy();
+                            done();
+                        });
+                    });
+                });
+
+            });
+
         });
 
         describe('isExpanded:', function () {

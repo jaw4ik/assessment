@@ -1125,13 +1125,13 @@
 
 .question-type-action-wrapper {
     display: none;
-    width: 490px;
+    width: 726px;
     background-color: #fff;
     position: absolute;
     top: 49px;
     right: 0;
     border: 3px solid #9dbccc;
-    border-radius: 6px;
+    border-radius: 3px;
     -webkit-box-shadow: 0 3px 3px 0 rgba(0,0,0,.5);
     -moz-box-shadow: 0 3px 3px 0 rgba(0,0,0,.5);
     box-shadow: 1px 1px 7px rgba(0,0,0,.1);
@@ -1152,14 +1152,18 @@
     position: absolute;
     right: 50px;
     top: -8px;
-    -moz-transform: rotate(32deg) skewX(-30deg) skewY(-5deg);
-    -ms-transform: rotate(32deg) skewX(-30deg) skewY(-5deg);
-    -webkit-transform: rotate(32deg) skewX(-30deg) skewY(-5deg);
-    transform: rotate(32deg) skewX(-30deg) skewY(-5deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 
 .question-type-action-list {
     position: relative;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
     border-radius: 3px;
     font-size: 0;
     overflow: hidden;
@@ -1168,9 +1172,9 @@
 .question-type-action-item {
     display: inline-block;
     vertical-align: top;
-    width: 161px;
+    width: 144px;
     position: relative;
-    padding: 20px 0;
+    padding: 20px 0 15px;
     text-align: center;
     border-bottom: 1px solid #eeeeee;
 }
@@ -1241,6 +1245,10 @@
     background-position: -163px -78px;
 }
 
+.question-type-text.openQuestion:before {
+    background-position: -55px -159px;
+}
+
 .question-type-text.empty:before {
     height: 99px;
     width: 125px;
@@ -1253,15 +1261,15 @@
     background-image: none;
 }
 
-@media(max-height: 780px) {
+@media(max-width: 1100px) {
 
     .question-type-action-wrapper {
-        width: 430px;
+        width: 656px;
     }
 
     .question-type-action-item {
-        width: 141px;
-        padding: 10px 0;
+        width: 130px;
+        padding: 15px 0 10px;
     }
 
     .question-type-text {
@@ -1309,6 +1317,10 @@
 
     .question-type-text.hotspot:before {
         background: url(images/hotspot-question.png) 0 0;
+    }
+
+    .question-type-text.openQuestion:before {
+        background: url(images/open-question.png) 0 0;
     }
 
     .question-type-text.empty:before {
@@ -1655,7 +1667,7 @@
     margin-top: -9px;
 }
 
-@media (max-height: 780px) {
+@media (max-width: 1100px) {
 
     .disabled-question-container {
         height: 60px;

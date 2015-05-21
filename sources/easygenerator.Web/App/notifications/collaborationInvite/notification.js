@@ -5,24 +5,37 @@ function (app, acceptInvite, declineInvite, constants) {
 
     return function (key, id, courseId, firstname, courseAuthorFirstname, courseAuthorLastname, courseTitle) {
         this.key = key;
-        this.id = id;
-        this.courseId = courseId;
         this.firstname = firstname;
-        this.courseTitle = courseTitle;
+        this.courseTitle = ko.observable(courseTitle);
 
         this.courseAuthorFirstname = courseAuthorFirstname;
         this.courseAuthorLastname = courseAuthorLastname;
         this.coauthorAvatarLetter = courseAuthorFirstname.charAt(0);
+        this.on = on;
+        this.off = off;
         this.accept = accept;
         this.decline = decline;
+        this.courseTitleUpdated = courseTitleUpdated;
         this.isAccepting = ko.observable(false);
         this.isDeclining = ko.observable(false);
         var that = this;
 
+        function courseTitleUpdated(title) {
+            that.courseTitle(title);
+        }
+
+        function on() {
+            app.on(constants.messages.course.collaboration.inviteCourseTitleUpdated + courseId, courseTitleUpdated);
+        }
+
+        function off() {
+            app.off(constants.messages.course.collaboration.inviteCourseTitleUpdated + courseId, courseTitleUpdated);
+        }
+
         function accept() {
             that.isAccepting(true);
 
-            return acceptInvite.execute(that.courseId, that.id)
+            return acceptInvite.execute(courseId, id)
                 .then(function () {
                     app.trigger(constants.notification.messages.remove, key);
                 })
@@ -34,7 +47,7 @@ function (app, acceptInvite, declineInvite, constants) {
         function decline() {
             that.isDeclining(true);
 
-            return declineInvite.execute(that.courseId, that.id)
+            return declineInvite.execute(courseId, id)
                 .then(function () {
                     app.trigger(constants.notification.messages.remove, key);
                 })

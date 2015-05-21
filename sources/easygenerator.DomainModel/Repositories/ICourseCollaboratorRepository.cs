@@ -10,6 +10,7 @@ namespace easygenerator.DomainModel.Repositories
         IEnumerable<CollaborationInvite> GetCollaborationInvites(string userEmail);
         CollaborationInvite GetCollaborationInvite(CourseCollaborator collaborator);
         void LockCollaboration(string email);
+        void LockCollaboration(string email, int maxAllowedCollaborationsCount);
         void UnlockCollaboration(string email);
         void UnlockCollaboration(string email, int allowedCollaborationsCount);
     }

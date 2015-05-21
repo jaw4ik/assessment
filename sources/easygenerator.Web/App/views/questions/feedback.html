@@ -13,39 +13,24 @@
         </div>
         <!-- /ko -->
         <!-- ko if: isExpanded -->
-        <div class="question-feedback-wrapper correct">
+        <!-- ko foreach: items -->
+        <div class="question-feedback-wrapper" data-bind="css: key">
             <div class="question-feedback-icon">
                 <div class="info-tooltip left-side">
-                    <span data-bind="localize: { text: 'correctFeedback' }">Correct feedback</span>
+                    <span data-bind="text: captions.hint"></span>
                 </div>
             </div>
-            <div class="question-feedback" data-bind="with: correctFeedback, css: { active: correctFeedback.hasFocus, empty: correctFeedback.isEmpty }">
+            <div class="question-feedback" data-bind="css: { active: hasFocus, empty: isEmpty }">
                 <div class="question-feedback-text-wrapper selectable" data-bind="ckeditor: { data: text, eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, blur: updateText, autosaveInterval: $root.autosaveInterval, localizationManager: $root.localizationManager }">
                 </div>
                 <!-- ko if: isEmpty() && !hasFocus() -->
                 <div class="question-feedback-info-wrapper">
-                    <span class="question-feedback-info" data-bind="localize: { text: 'putYourPositiveFeedback' }">Put your positive feedback</span>
+                    <span class="question-feedback-info" data-bind="text: captions.instruction"></span>
                 </div>
                 <!-- /ko -->
             </div>
         </div>
-
-        <div class="question-feedback-wrapper incorrect">
-            <div class="question-feedback-icon">
-                <div class="info-tooltip left-side">
-                    <span data-bind="localize: { text: 'incorrectFeedback' }">Incorrect feedback</span>
-                </div>
-            </div>
-            <div class="question-feedback" data-bind="with: incorrectFeedback, css: { active: incorrectFeedback.hasFocus, empty: incorrectFeedback.isEmpty }">
-                <div class="question-feedback-text-wrapper selectable" data-bind="ckeditor: { data: text, eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, blur: updateText, autosaveInterval: $root.autosaveInterval, localizationManager: $root.localizationManager }">
-                </div>
-                <!-- ko if: isEmpty() && !hasFocus() -->
-                <div class="question-feedback-info-wrapper">
-                    <span class="question-feedback-info" data-bind="localize: { text: 'putYourNegativeFeedback' }">Put your negative feedback</span>
-                </div>
-                <!-- /ko -->
-            </div>
-        </div>
+        <!-- /ko -->
         <!-- /ko -->
     </div>
 </div>

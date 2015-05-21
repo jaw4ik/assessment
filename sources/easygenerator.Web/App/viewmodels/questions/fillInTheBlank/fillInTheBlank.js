@@ -37,7 +37,9 @@
                 });
 
                 return {
-                    viewCaption: localizationManager.localize('fillInTheBlanksEditor')
+                    viewCaption: localizationManager.localize('fillInTheBlanksEditor'),
+                    hasQuestionView: true,
+                    hasFeedback: true
                 };
             });
         }
