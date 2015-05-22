@@ -19,8 +19,8 @@
 
                 $('.upload-background-image', $wrapper).on('click', function () {
                     uploadBackground(function (url) {
-                        loadImage(url, function () {
-                            data(parser.updateImage(data(), url));
+                        loadImage(url, function (width, height) {
+                            data(parser.updateImage(data(), url, width, height));
                             saveData();
                         });
                     });
@@ -174,7 +174,7 @@
                         $element.css('background-image', 'url(' + imageUrl + ')');
                         editor.updateCanvasSize(this.width, this.height);
                         if (_.isFunction(callback)) {
-                            callback();
+                            callback(this.width, this.height);
                         }
                     };
                     background.src = imageUrl;

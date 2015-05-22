@@ -15,6 +15,9 @@
         this.onClick = null;
         this.raster = null;
         this.removePath = function () {
+            if (that.raster) {
+                that.raster.remove();
+            }
             if (that.group) {
                 that.group.removeChildren();
                 that.group.remove();
@@ -27,7 +30,7 @@
                 var selected = false;
                 if (that.group) {
                     that.group.removeChildren();
-                    //that.group.remove();
+                    that.group.remove();
                 }
 
                 if (that.path) {

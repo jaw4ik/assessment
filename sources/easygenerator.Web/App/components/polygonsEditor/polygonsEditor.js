@@ -361,7 +361,7 @@
                 if (polygonShape.id != null && _.find(polygons(), function (polygon) { return polygon.id === polygonShape.id; })) {
                     return true;
                 } else {
-                    polygonShape.path.remove();
+                    polygonShape.removePath();
                     return false;
                 }
             });

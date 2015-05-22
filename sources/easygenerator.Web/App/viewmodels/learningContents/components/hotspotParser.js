@@ -40,6 +40,7 @@
             .css('top', minMaxCoords.minY)
             .css('left', minMaxCoords.minX);
         $spotWrapper.append($spot);
+
         return {
             id: id,
             data: $output.html()
@@ -86,33 +87,12 @@
         return spots;
     }
 
-    function getMinMaxCoords(points) {
-        var minX = _.min(points, function (point) {
-                return point.x;
-            }),
-            minY = _.min(points, function (point) {
-                return point.y;
-            }),
-            maxX = _.max(points, function (point) {
-                return point.x;
-            }),
-            maxY = _.max(points, function (point) {
-                return point.y;
-            });
-
-        return {
-            minX: minX.x,
-            minY: minY.y,
-            maxX: maxX.x,
-            maxY: maxY.y
-        };
-    }
-
-    function updateImage(html, url) {
+    function updateImage(html, url, width, height) {
         var $output = $('<output>');
         $output.html(html);
         var $img = $('img', $output);
         $img.attr('src', url);
+        fitPointsIntoBounds($output, width, height);
         return $output.html();
     }
 
@@ -145,6 +125,50 @@
         });
 
         return points;
+    }
+
+    function getMinMaxCoords(points) {
+        var minX = _.min(points, function (point) {
+            return point.x;
+        }),
+            minY = _.min(points, function (point) {
+                return point.y;
+            }),
+            maxX = _.max(points, function (point) {
+                return point.x;
+            }),
+            maxY = _.max(points, function (point) {
+                return point.y;
+            });
+
+        return {
+            minX: minX.x,
+            minY: minY.y,
+            maxX: maxX.x,
+            maxY: maxY.y
+        };
+    }
+
+    function fitPointsIntoBounds($output, imageWidth, imageHeidht) {
+        var $spots = $output.find('[data-id]'),
+            counter = 0,
+            spotsLength = $spots.length;
+
+        while (true) {
+            var spot = $spots[counter],
+                width = parseInt(spot.style.width),
+                height = parseInt(spot.style.height),
+                top = parseInt(spot.style.top),
+                left = parseInt(spot.style.left);
+
+            if (width + left > imageWidth || height + top > imageHeidht) {
+                $(spot).remove();
+            } 
+            counter++;
+            if (counter === spotsLength) {
+                break;
+            }
+        }
     }
 
 });
