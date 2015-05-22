@@ -36,6 +36,5 @@
     "[tracking and tracing result success]": "Success",
     "[tracking and tracing result failed]": "Failed",
     "[tracking and tracing mastery score hint]": "The minimal score you need to succeed",
-    "[tracking and tracing reporting progress]": "reporting progress...",
-    "[type your answer here]": "Type your answer here..."
+    "[tracking and tracing reporting progress]": "reporting progress..."
 }
