@@ -1,10 +1,9 @@
-﻿define(['durandal/app', 'plugins/router', 'constants', 'eventTracker', 'repositories/videoRepository', 'dialogs/video/video', 'videoUpload/videoUpload', 'videoUpload/thumbnailLoader', 'userContext'], function (app, router, constants, eventTracker, repository, videoPopup, videoUpload, thumbnailLoader, userContext) {
+﻿define(['durandal/app', 'plugins/router', 'constants', 'eventTracker', 'repositories/videoRepository', 'dialogs/video/video', 'videoUpload/videoUpload', 'videoUpload/thumbnailLoader', 'userContext', 'localization/localizationManager'], function (app, router, constants, eventTracker, repository, videoPopup, videoUpload, thumbnailLoader, userContext, localizationManager) {
     "use strict";
 
     app.on(constants.messages.storage.video.changesInUpload, function () {
         updateVdieos();
     });
-
 
     var uploadVideoEventCategory = 'Upload video',
         events = {
@@ -20,30 +19,40 @@
         showVideoPopup: showVideoPopup,
         upgradeToVideoUpload: upgradeToVideoUpload,
         skipUpgradeForUploadVideo: skipUpgradeForUploadVideo,
-        upgradePopupVisibility: ko.observable(false)
+        upgradePopupVisibility: ko.observable(false),
+        availableStorageSpace: ko.observable(0),
+        availableStorageSpacePersentage: ko.observable(0),
+        storageSpaceProgressBarVisibility: ko.observable(false)
     }
 
     return viewModel;
 
+    function setAvailableStorageSpace() {
+        var free = userContext.identity.availableStorageSpace,
+            max = userContext.identity.totalStorageSpace,
+            value = free / 1073741824;
+
+        viewModel.availableStorageSpacePersentage(Math.round((max - free) / max * 100));
+
+        if (value >= 1) {
+            viewModel.availableStorageSpace(value.toFixed(1) + localizationManager.localize('gb'));
+            return;
+        }
+        value = value * 1024;
+        viewModel.availableStorageSpace(value.toFixed(1) + localizationManager.localize('mb'));
+    }
+
     function addVideo() {
-        if (!checkUserPermissions()) {
+        if (!userContext.hasStarterAccess() && !userContext.hasPlusAccess()) {
             viewModel.upgradePopupVisibility(true);
             return;
         }
-
         videoUpload.upload({
             acceptedTypes: '*',
-            supportedExtensions: ['mp4'],
-            notSupportedFileMessage: 'file is not supported',
-            notAnoughSpaceMessage: 'not anough space to upload file'
+            supportedExtensions: '*',
+            notSupportedFileMessage: localizationManager.localize('videoIsNotSupported'),
+            notAnoughSpaceMessage: localizationManager.localize('videoUploadNotAnoughSpace')
         });
-    }
-
-    function checkUserPermissions() {
-        if (!userContext.hasStarterAccess() && !userContext.hasPlusAccess()) {
-            return false;
-        }
-        return true;
     }
 
     function showVideoPopup(video) {
@@ -75,9 +84,10 @@
 
     function activate() {
         return userContext.identifyStoragePermissions().then(function () {
+            setAvailableStorageSpace();
             return repository.getCollection().then(function (videos) {
-                viewModel.videos([]);
                 return thumbnailLoader.getThumbnailUrls(videos).then(function () {
+                    viewModel.videos([]);
                     _.each(videos, function (video) {
                         viewModel.videos.push(mapVideo(video));
                     });

@@ -371,6 +371,16 @@
         'zh-cn': '继续',
         'uk': 'Продовжити'
     },
+    gb: {
+        'en': 'Gb',
+        'zh-cn': 'Gb[zh-cn]',
+        'uk': 'Гб'
+    },
+    mb: {
+        'en': 'Mb',
+        'zh-cn': 'Mb[zh-cn]',
+        'uk': 'Мб'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Videos */
@@ -397,7 +407,7 @@
     videoUpgradeToUpload: {
         'en': 'To upload video to easygenerator',
         'zh-cn': 'To upload video to easygenerator[zh-cn]',
-        'uk': 'для завантаження відео в easygenerator'
+        'uk': 'Для завантаження відео в easygenerator'
     },
     videoUpgradeToUploadHtml: {
         'en': '<ul><li>Unlimited storage space (fair use policy)</li><li>Beautiful HD playback</li><li>Unlimited HD plays</li></ul>',
@@ -408,6 +418,21 @@
         'en': 'Maybe later',
         'zh-cn': 'Maybe later[zh-cn]',
         'uk': 'Я зроблю це потім'
+    },
+    videoIsNotSupported: {
+        'en': 'This file is not supported.',
+        'zh-cn': 'This file is not supported.[zh-cn]',
+        'uk': 'Файл не підтримується.'
+    },
+    videoUploadNotAnoughSpace: {
+        'en': 'File size exceeds available free space',
+        'zh-cn': 'File size exceeds available free space[zh-cn]',
+        'uk': 'Розмір файлу перевищує вільний простір'
+    },
+    freeSpace: {
+        'en': 'Free space',
+        'zh-cn': 'Free space[zh-cn]',
+        'uk': 'Вільне місце'
     },
     /* End resource section for model Videos */
     
@@ -2427,9 +2452,9 @@
         'uk': 'Пароль не відповідає вимогам'
     },
     licenseAgreeCaption: {
-        'en': 'By clicking \"Sign up\" I agree to the easygenerator\'s  <a href=\"{0}\"  target=”_blank”>Terms</a> and <a href=\"{1}\"  target=”_blank”>Privacy policy</a>',
-        'zh-cn': '点击“注册”表示我同意easygenerator的 <a href=\"{0}\" target=”_blank”>Terms</a> 和 <a href=\"{1}\" target=”_blank”>隐私条例</a>',
-        'uk': 'Натискаючи на \"Зареєструватись\", я погоджуюсь з  <a href=\"{0}\"  target=”_blank”>умовами</a> та <a href=\"{1}\"  target=”_blank”>політикою конфіденційності</a>'
+        'en': 'By clicking \"Sign up\" I agree to the easygenerator\'s  <a href=\"/terms.html\"  target=”_blank”>Terms</a> and <a href=\"/privacypolicy.html\"  target=”_blank”>Privacy policy</a>',
+        'zh-cn': '点击“注册”表示我同意easygenerator的 <a href=\"/terms.html\"  target=”_blank”>Terms</a> 和 <a href=\"/privacypolicy.html\" target=”_blank”>隐私条例</a>',
+        'uk': 'Натискаючи на \"Зареєструватись\", я погоджуюсь з  <a href=\"/terms.html\"  target=”_blank”>умовами</a> та <a href=\"/privacypolicy.html\"  target=”_blank”>політикою конфіденційності</a>'
     },
     checking: {
         'en': 'Checking...',
@@ -2510,6 +2535,11 @@
         'en': 'Select your country...',
         'zh-cn': '选择国家',
         'uk': 'Виберіть свою країну...'
+    },
+    startAuthoring: {
+        'en': 'Start authoring!',
+        'zh-cn': '开始编写！',
+        'uk': 'Почніть створювати!'
     },
     /* End resource section for model SignUp */
     

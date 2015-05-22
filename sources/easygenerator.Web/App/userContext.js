@@ -20,6 +20,7 @@
     function identifyStoragePermissions() {
         return storageHttpWrapper.get(constants.messages.storage.host + constants.messages.storage.userUrl).then(function (data) {
             userContext.identity.availableStorageSpace = data.AvailableStorageSpace;
+            userContext.identity.totalStorageSpace = data.TotalStorageSpace;
         });
     }
 

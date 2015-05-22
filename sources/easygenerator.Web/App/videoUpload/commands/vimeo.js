@@ -2,7 +2,8 @@
 
     return {
         putFile: putFile,
-        verifyUpload: verifyUpload
+        verifyUpload: verifyUpload,
+        getThumbnailUrl: getThumbnailUrl
     }
 
     function putFile(uploadUrl, file) {
@@ -30,6 +31,26 @@
                 return;
             }
             deferred.resolve(request.getResponseHeader('Range'));
+        });
+
+        return deferred.promise();
+    }
+
+    function getThumbnailUrl(id) {
+        var deferred = $.Deferred();
+
+        $.ajax({
+            url: constants.messages.storage.video.thumbnailLoadUrl + id + '.json',
+            method: 'GET',
+            global: false
+        }).then(function (data) {
+            if (!data.length || !data[0]['thumbnail_medium']) {
+                deferred.resolve(constants.messages.storage.video.defaultThumbnailUrl);
+                return;
+            }
+            deferred.resolve(data[0]['thumbnail_medium']);
+        }).fail(function () {
+            deferred.resolve(constants.messages.storage.video.defaultThumbnailUrl);
         });
 
         return deferred.promise();

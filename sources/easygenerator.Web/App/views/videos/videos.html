@@ -3,7 +3,17 @@
         <div class="content-section">
             <ul class="video-list">
 
-                <li class="video-list-item add-video-button" data-bind="click: addVideo"></li>
+                <li class="video-list-item add-video-button" data-bind="click: addVideo">
+                    <div class="free-space-section">
+                        <span class="free-space-info">
+                            <span class="free-space-info-title" data-bind="localize: { text: 'freeSpace' }"></span>
+                            <span class="free-space-info-value" data-bind="text: availableStorageSpace"></span>
+                        </span>
+                        <span class="free-space-progress-bar">
+                            <span class="free-space-progress-bar-value" data-bind="style: { width: availableStorageSpacePersentage() + '%' }"></span>
+                        </span>
+                    </div>
+                </li>
 
                 <!-- ko ifnot: videos().length -->
                 <li class="add-video-button-description">
