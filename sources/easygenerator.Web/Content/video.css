@@ -72,6 +72,15 @@
   margin-left: -32px;
   background: url(../Content/images/sprites_64.png) 138px 66px;
 }
+.videos .video-list .video-list-item.add-video-button .free-space-section {
+  position: absolute;
+  bottom: 18px;
+  width: 100%;
+  text-align: center;
+  font-family: 'OpenSans';
+  font-size: 12px;
+  color: #63798e;
+}
 .videos .video-list .video-list-item .video-list-item-thumbnail {
   position: relative;
   width: 200px;
