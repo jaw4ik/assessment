@@ -208,6 +208,31 @@
 
         })();
 
+        that.timer = (function () {
+            var self = {};
+
+            self.enabled = false;
+            self.hours = 0;
+            self.minutes = 30;
+            self.seconds = 0;
+
+            self.init = init;
+
+            return self;
+
+            function init(timerSettings) {
+                if (!timerSettings || !timerSettings.time) {
+                    return;
+                }
+
+                self.enabled = timerSettings.enabled;
+
+                self.hours = timerSettings.time.hours;
+                self.minutes = timerSettings.time.minutes;
+                self.seconds = timerSettings.time.seconds;
+            }
+        })();
+
         angular.element($window).on('blur', saveChanges);
 
         function saveChanges() {
@@ -245,6 +270,14 @@
                 languages: {
                     selected: that.languages.selectedLanguageCode,
                     customTranslations: that.languages.getCustomTranslations()
+                },
+                timer: {
+                    enabled: that.timer.enabled,
+                    time: {
+                        hours: that.timer.hours,
+                        minutes: that.timer.minutes,
+                        seconds: that.timer.seconds
+                    }
                 }
             });
         }
@@ -258,6 +291,7 @@
             that.trackingData.init(settings.xApi);
             that.masteryScore.init(settings.masteryScore);
             that.languages.init(manifest.languages, settings.languages);
+            that.timer.init(settings.timer);
 
             currentSettings = getCurrentSettings(settings);
 

@@ -111,7 +111,7 @@ input[type="text"] {
         }
 /*#endregion buttons*/
 
-/*#region tabs */
+/*#region general styles */
 
 .settings-container {
     height: 100%;
@@ -165,6 +165,16 @@ input[type="text"] {
         background: url("img/sprites_16.png") 0 -21px no-repeat;
     }
 
+    .settings-tabs-item.general:before {
+        top: 4px;
+        background: url("img/sprites_16.png") -105px 0 no-repeat;
+    }
+
+    .settings-tabs-item.general:hover:before,
+    .settings-tabs-item.active.general:before {
+        background: url("img/sprites_16.png") -105px -21px no-repeat;
+    }
+
     .settings-tabs-item.track-and-trace:before {
         top: 4px;
         background: url("img/sprites_16.png") -42px 0 no-repeat;
@@ -190,6 +200,7 @@ input[type="text"] {
     padding-left: 40px;
 }
 
+/*#region old styles | should be removed when all settings pages will be redesigned */
 .settings-tab-wrapper {
     padding: 20px 16px;
     background-color: #fff;
@@ -287,6 +298,64 @@ input[type="text"] {
 .tab-content-wrapper {
     position: relative;
 }
+/*#endregion */
+
+/*#region new styles */
+.settings-wrapper {
+    padding: 30px 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 0 0 #f4f5f7;
+    color: #42515f;
+}
+
+.header-title {
+    font: 20px 'OpenSans-Semibold';
+}
+
+.content-container {
+    padding-top: 30px;
+}
+
+.switching-option {
+    margin-bottom: 20px;
+}
+
+    .switching-option .option-title,
+    .switching-option .switcher {
+        vertical-align: middle;
+    }
+
+    .switching-option .option-title {
+        margin-right: 20px;
+        font: 15px 'OpenSans-Semibold';
+    }
+
+    .spinners-container {
+        position: relative;
+    }
+
+.spinners-container .spinner-option,
+.spinners-container .time-separator {
+    vertical-align: bottom;
+}
+
+.spinner-option {
+    display: inline-block;
+}
+
+    .spinner-option .option-title {
+        margin-bottom: 5px;
+        font: 13px 'OpenSans';
+        color: #63798e;
+    }
+
+.spinners-container .time-separator {
+    display: inline-block;
+    padding: 0 5px 10px;
+    font: 14px 'OpenSans-Semibold';
+}
+/*#endregion */
 
 /*#endregion */
 
@@ -1244,6 +1313,10 @@ input[type="text"] {
     color: #42515f;
 }
 
+    .content-text-input[maxlength="2"] {
+        padding-left: 13px;
+    }
+
     .content-text-input:hover {
         box-shadow: 0 0 2px rgba(0,0,0,0.2);
     }
@@ -1387,6 +1460,10 @@ input[type="text"] {
 /*#region switcher*/
 
 .switcher {
+    display: inline-block;
+}
+
+.track-and-trace .switcher {
     padding-top: 23px;
 }
 
@@ -1485,29 +1562,30 @@ input[type="text"] {
     box-shadow: 0 0 0 1px #e85e5d;
 }
 
-.switcher.statement .switch-toggle-slider {
+.switcher.small .switch-toggle-slider {
     width: 37px;
     height: 22px;
 }
 
-.switcher.statement .switch-toggle-on,
-.switcher.statement .switch-toggle-off {
+.switcher.small .switch-toggle-on,
+.switcher.small .switch-toggle-off {
     width: 35px;
     height: 22px;
 }
 
-.switcher.statement .switch-toogle-blob {
+.switcher.small .switch-toogle-blob {
     height: 22px;
     margin-left: -20px;
     width: 22px;
 }
 
-.switcher.statement .switch-toggle-off {
+.switcher.small .switch-toggle-off,
+.switcher.small .switch-toggle-slider.off {
     background: none repeat scroll 0 0 #ddd;
 }
 
-.switcher.statement .switch-toggle-slider.off,
-.switcher.statement .switch-toggle-slider.off .switch-toogle-blob {
+.switcher.small .switch-toggle-slider.off,
+.switcher.small .switch-toggle-slider.off .switch-toogle-blob {
     -moz-box-shadow: 0 0 0 1px #d3d2d2;
     -webkit-box-shadow: 0 0 0 1px #d3d2d2;
     box-shadow: 0 0 0 1px #d3d2d2;
