@@ -1,4 +1,7 @@
-﻿/*#region User avatar */
+﻿/*#region flex */
+/*#endregion */
+/*#region User avatar */
+/*#endregion */
 /*#region PAGE-LOADER ICON*/
 .icon-spinner-wrapper {
   position: absolute;
@@ -2204,6 +2207,12 @@
     background: none;
   }
   /*#endregion Course actions list*/
+  .shell > header .header-menu-list-item.profile {
+    min-width: 0;
+  }
+  .shell > header .header-menu-list-item.profile .header-username-text {
+    display: none;
+  }
 }
 @media (max-width: 1220px) {
   /*#region HEADER*/
@@ -2247,3 +2256,9 @@
   }
   /*#endregion Create explanation tooltip*/
 }
+@media (max-width: 1290px) {
+  .shell > header .top-navigation-item {
+    min-width: 150px;
+  }
+}
+/*#endregion MEDIA*/

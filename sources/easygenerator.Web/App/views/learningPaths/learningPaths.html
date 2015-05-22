@@ -1,7 +1,7 @@
 ﻿<section class="learning-paths view-module">
     <div class="content-section-wrapper">
         <div class="content-section">
-            <div class="main-content-header" data-bind="css: { highlighted: learningPaths().length === 0 }">
+            <div class="main-content-header">
                 <div class="page-view-caption">
                     <div class="page-view-caption-text" data-bind="localize: { text: 'learningPaths' }"></div>
                     <div class="tooltip-icon" data-bind="tooltip:'top'">
@@ -27,10 +27,19 @@
                     </div>
                 </div>
             </div>
-            <ul class="unstyled main-content-list">
+            <ul class="unstyled learning-path-list">
                 <!-- ko foreach: learningPaths -->
-                <li>
-                    <div data-bind="text:title, click: navigateToDetails"></div>
+                <li class="learning-path-list-item-wrapper">
+                    <div class="learning-path-list-item" data-bind="click: navigateToDetails">
+                        <div class="learning-path-list-item-image-container">
+                            <img class="learning-path-list-item-image" src="content/images/learningPath/item-background.png" alt="">
+                            <div class="learning-path-list-item-open-action">
+                                <div class="learning-path-list-item-open-action-image"></div>
+                                <div class="learning-path-list-item-open-action-title" data-bind="localize: { html: 'open'}"></div>
+                            </div>
+                        </div>
+                        <div class="learning-path-list-item-title" data-bind="limitedLengthText: { text: title, maxLength: 44 }"></div>
+                    </div>
                 </li>
                 <!-- /ko -->
             </ul>

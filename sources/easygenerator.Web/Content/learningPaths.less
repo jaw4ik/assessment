@@ -1,27 +1,29 @@
 ﻿@import "mixin.less";
+@import "helpers.less";
 
 @view-caption-font: 20px 'OpenSans-Semibold';
+@learning-path-item-border-color: #dce4e8;
+@learning-path-selected-item-border-color: #65bd77;
+@learning-path-item-title-font: 13px 'OpenSans';
+@learning-path-item-title-color: #546677;
+@learning-path-item-title-bg-color: #fff;
+@learning-path-item-action-color: #fff;
+@learning-path-item-action-bg-color: rgba(115, 195, 132, 0.8);
+@learning-path-item-action-border-color: #6bb67b;
+@learning-path-item-action-title-font: 14px 'OpenSans';
+
 
 .learning-paths {
+    & {
+        min-width: 990px;
+    }
+
     .main-content-header {
         & {
             .display-flex();
             .justify-content(space-between);
             position: relative;
             margin-top: 20px;
-        }
-
-        &.highlighted:after {
-            position: absolute;
-            content: '';
-            display: block;
-            top: -40px;
-            right: -225px;
-            height: 161px;
-            width: 657px;
-            z-index: -1;
-            background-repeat: no-repeat;
-            background: url('images/learning-path-empty-background.png');
         }
 
         .page-view-caption {
@@ -59,5 +61,136 @@
                 white-space: pre-wrap;
             }
         }
+    }
+}
+
+.learning-path-list-item-wrapper {
+    display: inline-block;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    width: 200px;
+    height: 240px;
+    margin-right: 5.12%;
+    margin-bottom: 20px;
+
+    &:nth-of-type(4n) {
+        margin-right: 0;
+    }
+
+    &:hover {
+        border: 2px solid @learning-path-selected-item-border-color;
+
+        .learning-path-list-item {
+            border: none;
+            cursor: pointer;
+        }
+    }
+}
+
+.learning-path-list-item {
+    .display-flex();
+    .flex-direction(column);
+    height: 100%;
+    border: 1px solid @learning-path-item-border-color;
+    border-bottom: 2px solid @learning-path-item-border-color;
+    border-radius: 7px;
+    cursor: default;
+
+    .learning-path-list-item-open-action-title,
+    &:hover .learning-path-list-item-open-action-image {
+        opacity: 0;
+    }
+
+    .learning-path-list-item-open-action-image,
+    &:hover .learning-path-list-item-open-action-title {
+        opacity: 1;
+    }
+
+    .learning-path-list-item-image-container {
+        .flex-shrink(0);
+        position: relative;
+        height: 150px;
+        border-bottom: 1px solid #abb3b6;
+
+        .learning-path-list-item-image {
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .learning-path-list-item-open-action {
+        position: absolute;
+        .align-absolute-element();
+        width: 65px;
+        height: 65px;
+        box-sizing: border-box;
+        background-color: @learning-path-item-action-bg-color;
+        border: 2px solid @learning-path-item-action-border-color;
+        border-radius: 50px;
+
+        .learning-path-list-item-open-action-image {
+            position: absolute;
+            content: '';
+            width: 100%;
+            height: 100%;
+            background: url('images/learningPath/book-icon.png') no-repeat center;
+        }
+
+        .learning-path-list-item-open-action-title {
+            position: absolute;
+            .align-absolute-element();
+            color: @learning-path-item-action-color;
+            font: @learning-path-item-action-title-font;
+        }
+    }
+
+    .learning-path-list-item-title {
+        .flex-grow(1);
+        padding: 15px 10px;
+        border-bottom-left-radius: 7px;
+        border-bottom-right-radius: 7px;
+        background-color: @learning-path-item-title-bg-color;
+        color: @learning-path-item-title-color;
+        font: @learning-path-item-title-font;
+        box-shadow: inset 0 10px 10px -10px rgba(0,0,0,0.4);
+        word-wrap: break-word;
+    }
+}
+
+@media (max-width: 1175px) {
+    .learning-path-list-item-wrapper {
+        margin-right: 4.5%;
+    }
+}
+
+@media (max-width: 1125px) {
+    .learning-path-list-item-wrapper {
+        margin-right: 4.3%;
+    }
+}
+
+@media (max-width: 1100px) {
+    .learning-path-list-item-wrapper {
+        margin-right: 4.0%;
+    }
+}
+
+@media (max-width: 1075px) {
+    .learning-path-list-item-wrapper {
+        margin-right: 3.9%;
+    }
+}
+
+@media (max-width: 1050px) {
+    .learning-path-list-item-wrapper {
+        margin-right: 3.5%;
+    }
+}
+
+@media (max-width: 1024px) {
+    .learning-path-list-item-wrapper {
+        margin-right: 2.9%;
     }
 }

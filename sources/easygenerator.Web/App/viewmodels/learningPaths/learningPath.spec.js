@@ -24,9 +24,9 @@
                     getLearnigPathDefer.resolve(undefined);
                 });
 
-                it('should return false', function (done) {
+                it('should return redirect object', function (done) {
                     viewModel.canActivate(learningPath.id).then(function (data) {
-                        expect(data).toBeFalsy();
+                        expect(data).toBeObject();
                         done();
                     });
                 });
@@ -47,13 +47,13 @@
         });
 
         describe('activate:', function () {
-            it('should set learning path id', function() {
+            it('should set learning path id', function () {
                 viewModel.learningPathId = null;
                 viewModel.activate(learningPath.id);
                 expect(viewModel.learningPathId).toBe(learningPath.id);
             });
 
-            describe('when received learning path', function() {
+            describe('when received learning path', function () {
                 beforeEach(function () {
                     getLearnigPathDefer.resolve(learningPath);
                 });

@@ -1,5 +1,10 @@
 ﻿/*#region flex */
 /*#endregion */
+/*#region User avatar */
+/*#endregion */
+.learning-paths {
+  min-width: 990px;
+}
 .learning-paths .main-content-header {
   display: -webkit-flex;
   display: flex;
@@ -7,18 +12,6 @@
   justify-content: space-between;
   position: relative;
   margin-top: 20px;
-}
-.learning-paths .main-content-header.highlighted:after {
-  position: absolute;
-  content: '';
-  display: block;
-  top: -40px;
-  right: -225px;
-  height: 161px;
-  width: 657px;
-  z-index: -1;
-  background-repeat: no-repeat;
-  background: url('images/learning-path-empty-background.png');
 }
 .learning-paths .main-content-header .page-view-caption {
   padding: 10px 0 15px 0;
@@ -42,4 +35,127 @@
 .learning-paths .list-item-action.create .tip-arrow-holder .tip-arrow-text {
   width: 290px;
   white-space: pre-wrap;
+}
+.learning-path-list-item-wrapper {
+  display: inline-block;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  width: 200px;
+  height: 240px;
+  margin-right: 5.12%;
+  margin-bottom: 20px;
+}
+.learning-path-list-item-wrapper:nth-of-type(4n) {
+  margin-right: 0;
+}
+.learning-path-list-item-wrapper:hover {
+  border: 2px solid #65bd77;
+}
+.learning-path-list-item-wrapper:hover .learning-path-list-item {
+  border: none;
+  cursor: pointer;
+}
+.learning-path-list-item {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid #dce4e8;
+  border-bottom: 2px solid #dce4e8;
+  border-radius: 7px;
+  cursor: default;
+}
+.learning-path-list-item .learning-path-list-item-open-action-title,
+.learning-path-list-item:hover .learning-path-list-item-open-action-image {
+  opacity: 0;
+}
+.learning-path-list-item .learning-path-list-item-open-action-image,
+.learning-path-list-item:hover .learning-path-list-item-open-action-title {
+  opacity: 1;
+}
+.learning-path-list-item .learning-path-list-item-image-container {
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
+  position: relative;
+  height: 150px;
+  border-bottom: 1px solid #abb3b6;
+}
+.learning-path-list-item .learning-path-list-item-image-container .learning-path-list-item-image {
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  width: 100%;
+  height: 100%;
+}
+.learning-path-list-item .learning-path-list-item-open-action {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 65px;
+  height: 65px;
+  box-sizing: border-box;
+  background-color: rgba(115, 195, 132, 0.8);
+  border: 2px solid #6bb67b;
+  border-radius: 50px;
+}
+.learning-path-list-item .learning-path-list-item-open-action .learning-path-list-item-open-action-image {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  background: url('images/learningPath/book-icon.png') no-repeat center;
+}
+.learning-path-list-item .learning-path-list-item-open-action .learning-path-list-item-open-action-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  font: 14px 'OpenSans';
+}
+.learning-path-list-item .learning-path-list-item-title {
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  padding: 15px 10px;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  background-color: #ffffff;
+  color: #546677;
+  font: 13px 'OpenSans';
+  box-shadow: inset 0 10px 10px -10px rgba(0, 0, 0, 0.4);
+  word-wrap: break-word;
+}
+@media (max-width: 1175px) {
+  .learning-path-list-item-wrapper {
+    margin-right: 4.5%;
+  }
+}
+@media (max-width: 1125px) {
+  .learning-path-list-item-wrapper {
+    margin-right: 4.3%;
+  }
+}
+@media (max-width: 1100px) {
+  .learning-path-list-item-wrapper {
+    margin-right: 4.0%;
+  }
+}
+@media (max-width: 1075px) {
+  .learning-path-list-item-wrapper {
+    margin-right: 3.9%;
+  }
+}
+@media (max-width: 1050px) {
+  .learning-path-list-item-wrapper {
+    margin-right: 3.5%;
+  }
+}
+@media (max-width: 1024px) {
+  .learning-path-list-item-wrapper {
+    margin-right: 2.9%;
+  }
 }

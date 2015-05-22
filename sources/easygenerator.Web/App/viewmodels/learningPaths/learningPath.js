@@ -20,8 +20,12 @@
         function canActivate(learningPathId) {
             return getLearningPathByIdQuery.execute(learningPathId)
                 .then(function (learningPath) {
-                    return _.isObject(learningPath);
-                });
+                    if (_.isObject(learningPath)) {
+                        return true;
+                    }
+
+                return { redirect: '404' };
+            });
         }
 
         function activate(learningPathId) {
