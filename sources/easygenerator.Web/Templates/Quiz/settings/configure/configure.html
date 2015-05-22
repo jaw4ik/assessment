@@ -15,6 +15,9 @@
     <div class="settings-container" ng-controller="ConfigureController">
         <div class="settings-tabs-container" ng-hide="isError" tabs>
             <ul class="settings-tabs-wrapper unstyled">
+                <li class="settings-tabs-item general" data-tab-link="general">
+                    General settings
+                </li>
                 <li class="settings-tabs-item track-and-trace" data-tab-link="track-and-trace">
                     Results Tracking
                 </li>
@@ -22,6 +25,61 @@
                     Template language
                 </li>
             </ul>
+            <div class="settings-tab-container general" data-tab="general">
+                <div class="settings-wrapper">
+                    <div class="header-container">
+                        <h1 class="header-title">General settings</h1>
+                    </div>
+                    <div class="content-container">
+                        <div class="switching-option">
+                            <span class="option-title">Set time limit:</span>
+                            <div class="switcher small">
+                                <div class="switcher-text" ng-class="{ disabled: timer.enabled }">OFF</div>
+                                <div class="switch-toggle-slider" switch-toggle toggle-value="timer.enabled">
+                                    <div class="switch-toggle-wrapper">
+                                        <div class="switch-toggle-on"></div>
+                                        <div class="switch-toogle-blob"></div>
+                                        <div class="switch-toggle-off"></div>
+                                    </div>
+                                </div>
+                                <div class="switcher-text" ng-class="{ disabled: !timer.enabled }">ON</div>
+                            </div>
+                        </div>
+                        <div class="spinners-container">
+                            <div class="spinner-option">
+                                <div class="option-title">Hours</div>
+                                <div data-trigger="spinner" class="spinner" spinner spinner-value="timer.hours">
+                                    <a class="spinner-button spinner-down" data-spin="down" disable-drag-and-drop></a>
+                                    <input type="text" maxlength="2" id="timer.hours" class="content-text-input" data-rule="quantity" data-max="99" data-min="0" number number-value="masteryScore.value" ng-model="timer.hours">
+                                    <a class="spinner-button spinner-up" data-spin="up" disable-drag-and-drop></a>
+                                    <div class="spiner-seperator"></div>
+                                </div>
+                            </div>
+                            <span class="time-separator">:</span>
+                            <div class="spinner-option">
+                                <div class="option-title">Minutes</div>
+                                <div data-trigger="spinner" class="spinner" spinner spinner-value="timer.minutes">
+                                    <a class="spinner-button spinner-down" data-spin="down" disable-drag-and-drop></a>
+                                    <input type="text" maxlength="2" id="timer.minutes" class="content-text-input" data-rule="quantity" data-max="59" data-min="0" number number-value="masteryScore.value" ng-model="timer.minutes">
+                                    <a class="spinner-button spinner-up" data-spin="up" disable-drag-and-drop></a>
+                                    <div class="spiner-seperator"></div>
+                                </div>
+                            </div>
+                            <span class="time-separator">:</span>
+                            <div class="spinner-option">
+                                <div class="option-title">Seconds</div>
+                                <div data-trigger="spinner" class="spinner" spinner spinner-value="timer.seconds">
+                                    <a class="spinner-button spinner-down" data-spin="down" disable-drag-and-drop></a>
+                                    <input type="text" maxlength="2" id="timer.seconds" class="content-text-input" data-rule="quantity" data-max="59" data-min="0" number number-value="masteryScore.value" ng-model="timer.seconds">
+                                    <a class="spinner-button spinner-up" data-spin="up" disable-drag-and-drop></a>
+                                    <div class="spiner-seperator"></div>
+                                </div>
+                            </div>
+                            <div class="preview-disabled" ng-hide="timer.enabled"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="settings-tab-container track-and-trace" data-tab="track-and-trace">
                 <div class="settings-tab-wrapper">
                     <div class="tab-header-container">
@@ -93,7 +151,7 @@
                                 <div class="preview-row statements">
                                     <div class="statements-title">Use statements:</div>
                                     <div class="statements-container">
-                                        <div class="switcher statement">
+                                        <div class="switcher small">
                                             <div class="switch-toggle-slider" switch-toggle toggle-value="trackingData.statements.started">
                                                 <div class="switch-toggle-wrapper">
                                                     <div class="switch-toggle-on"></div>
@@ -103,7 +161,7 @@
                                             </div>
                                             <div class="switcher-text">Started</div>
                                         </div>
-                                        <div class="switcher statement">
+                                        <div class="switcher small">
                                             <div class="switch-toggle-slider" switch-toggle toggle-value="trackingData.statements.stopped">
                                                 <div class="switch-toggle-wrapper">
                                                     <div class="switch-toggle-on"></div>
@@ -113,7 +171,7 @@
                                             </div>
                                             <div class="switcher-text">Stopped</div>
                                         </div>
-                                        <div class="switcher statement">
+                                        <div class="switcher small">
                                             <div class="switch-toggle-slider" switch-toggle toggle-value="trackingData.statements.passed">
                                                 <div class="switch-toggle-wrapper">
                                                     <div class="switch-toggle-on"></div>
@@ -125,7 +183,7 @@
                                         </div>
                                     </div>
                                     <div class="statements-container">
-                                        <div class="switcher statement">
+                                        <div class="switcher small">
                                             <div class="switch-toggle-slider" switch-toggle toggle-value="trackingData.statements.answered">
                                                 <div class="switch-toggle-wrapper">
                                                     <div class="switch-toggle-on"></div>
@@ -135,7 +193,7 @@
                                             </div>
                                             <div class="switcher-text">Answered</div>
                                         </div>
-                                        <div class="switcher statement">
+                                        <div class="switcher small">
                                             <div class="switch-toggle-slider" switch-toggle toggle-value="trackingData.statements.mastered">
                                                 <div class="switch-toggle-wrapper">
                                                     <div class="switch-toggle-on"></div>
@@ -147,7 +205,7 @@
                                         </div>
                                     </div>
                                     <div class="statements-container">
-                                        <div class="switcher statement">
+                                        <div class="switcher small">
                                             <div class="switch-toggle-slider" switch-toggle toggle-value="trackingData.statements.experienced">
                                                 <div class="switch-toggle-wrapper">
                                                     <div class="switch-toggle-on"></div>
@@ -157,7 +215,7 @@
                                             </div>
                                             <div class="switcher-text">Expirienced</div>
                                         </div>
-                                        <div class="switcher statement">
+                                        <div class="switcher small">
                                             <div class="switch-toggle-slider" switch-toggle toggle-value="trackingData.statements.failed">
                                                 <div class="switch-toggle-wrapper">
                                                     <div class="switch-toggle-on"></div>
