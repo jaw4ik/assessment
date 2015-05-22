@@ -1,12 +1,18 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using ImageMagick;
+﻿using ImageMagick;
+using System;
 
 namespace easygenerator.Infrastructure.ImageProcessors
 {
     public class MagickImageResizer : IImageResizer
     {
+        public static void Configure(string cacheDirectory)
+        {
+            if (!String.IsNullOrEmpty(cacheDirectory))
+            {
+                MagickAnyCPU.CacheDirectory = cacheDirectory;
+            }
+        }
+
         public byte[] ResizeImage(string path, int width, int height, bool scaleBySmallerSide)
         {
             try
