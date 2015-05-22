@@ -1696,11 +1696,11 @@
   transform: rotate(45deg);
 }
 .left .hotspot-on-image-editor-pointer {
-  left: -6px;
+  left: -7px;
   border-width: 0 0 2px 2px;
 }
 .right .hotspot-on-image-editor-pointer {
-  right: -8px;
+  right: -7px;
   border-width: 2px 2px 0 0;
 }
 /*#region  HotspotOnImageWidget*/

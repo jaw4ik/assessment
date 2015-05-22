@@ -4,6 +4,8 @@
     var hotSpotOnImageTextEditor = {
         top: ko.observable(''),
         left: ko.observable(''),
+        wrapper: ko.observable(null),
+        points: ko.observable(null),
         close: close,
         save: save,
         show: show,
@@ -23,16 +25,20 @@
         hotSpotOnImageTextEditor.isVisible(false);
     }
 
-    function show(text, top, left, callback) {
-        hotSpotOnImageTextEditor.isVisible(true);
+    function show(text, wrapper, points, callback) {
         hotSpotOnImageTextEditor.text(text);
-        hotSpotOnImageTextEditor.top(top - 28);
-        hotSpotOnImageTextEditor.left(left + 6);
+        hotSpotOnImageTextEditor.wrapper(wrapper);
+        hotSpotOnImageTextEditor.points(points);
         hotSpotOnImageTextEditor.callback = callback;
+        hotSpotOnImageTextEditor.isVisible(true);
+        /*hotSpotOnImageTextEditor.top(top - 28);
+        hotSpotOnImageTextEditor.left(left + 6);*/
     }
 
     function save() {
-        hotSpotOnImageTextEditor.callback(hotSpotOnImageTextEditor.text());
+        if (_.isFunction(hotSpotOnImageTextEditor.callback)) {
+            hotSpotOnImageTextEditor.callback(hotSpotOnImageTextEditor.text());
+        }
         hotSpotOnImageTextEditor.isVisible(false);
     }
 });
