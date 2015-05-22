@@ -84,7 +84,7 @@
     }
 
     <script type="text/javascript">
-        @if (String.IsNullOrEmpty(ConfigurationManager.AppSettings["StorageServiceUrl"]))
+        @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["StorageServiceUrl"]))
         {
         <text>
         window.storageServiceUrl = '@ConfigurationManager.AppSettings["StorageServiceUrl"]';
