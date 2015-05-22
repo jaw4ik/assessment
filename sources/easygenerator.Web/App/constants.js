@@ -165,7 +165,7 @@
                     questionsReorderedByCollaborator: 'objective:questionsReorderedByCollaborator'
                 },
                 storage: {
-                    host: 'http://localhost:888',
+                    host: window.storageServiceUrl ? "//" + window.storageServiceUrl : '//localhost:888',
                     mediaUrl: '/media',
                     userUrl: '/user',
                     video: {
@@ -173,8 +173,8 @@
                         ticketUrl: '/api/media/video/upload',
                         finishUrl: '/api/media/video/upload/finish',
                         progressUrl: '/api/media/video/upload/progress',
-                        thumbnailLoadUrl: 'http://vimeo.com/api/v2/video/',
-                        defaultThumbnailUrl: 'http://i.vimeocdn.com/video/default_200x150.jpg',
+                        thumbnailLoadUrl: '//vimeo.com/api/v2/video/',
+                        defaultThumbnailUrl: '//i.vimeocdn.com/video/default_200x150.jpg',
                         statuses: {
                             loaded: 'loaded',
                             failed: 'failed',
@@ -187,7 +187,7 @@
                         iframeHeight: 335,
                         updateUploadTimeout: 120000,
                         removeVideoAfterErrorTimeout: 5000
-                    },
+                    }
                 },
                 question: {
                     created: 'question:created',
