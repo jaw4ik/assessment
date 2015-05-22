@@ -27,6 +27,7 @@
                 var selected = false;
                 if (that.group) {
                     that.group.removeChildren();
+                    //that.group.remove();
                 }
 
                 if (that.path) {
