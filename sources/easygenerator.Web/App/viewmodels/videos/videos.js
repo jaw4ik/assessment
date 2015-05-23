@@ -5,10 +5,20 @@
         updateVdieos();
     });
 
-    var uploadVideoEventCategory = 'Upload video',
+    app.on(constants.messages.storage.changesInQuota, function () {
+        setAvailableStorageSpace();
+    });
+
+    var eventCategory = 'Video library',
         events = {
             upgradeNow: 'Upgrade now',
             skipUpgrade: 'Skip upgrade'
+        },
+        uploadSettings = {
+            acceptedTypes: '*',
+            supportedExtensions: '*',
+            uploadErrorMessage: localizationManager.localize('videoUploadError'),
+            notAnoughSpaceMessage: localizationManager.localize('videoUploadNotAnoughSpace')
         }
 
     var viewModel = {
@@ -20,39 +30,19 @@
         upgradeToVideoUpload: upgradeToVideoUpload,
         skipUpgradeForUploadVideo: skipUpgradeForUploadVideo,
         upgradePopupVisibility: ko.observable(false),
+        storageSpaceProgressBarVisibility: ko.observable(false),
         availableStorageSpace: ko.observable(0),
-        availableStorageSpacePersentage: ko.observable(0),
-        storageSpaceProgressBarVisibility: ko.observable(false)
+        availableStorageSpacePersentages: ko.observable(0)
     }
 
     return viewModel;
-
-    function setAvailableStorageSpace() {
-        var free = userContext.identity.availableStorageSpace,
-            max = userContext.identity.totalStorageSpace,
-            value = free / 1073741824;
-
-        viewModel.availableStorageSpacePersentage(Math.round((max - free) / max * 100));
-
-        if (value >= 1) {
-            viewModel.availableStorageSpace(value.toFixed(1) + localizationManager.localize('gb'));
-            return;
-        }
-        value = value * 1024;
-        viewModel.availableStorageSpace(value.toFixed(1) + localizationManager.localize('mb'));
-    }
 
     function addVideo() {
         if (!userContext.hasStarterAccess() && !userContext.hasPlusAccess()) {
             viewModel.upgradePopupVisibility(true);
             return;
         }
-        videoUpload.upload({
-            acceptedTypes: '*',
-            supportedExtensions: '*',
-            notSupportedFileMessage: localizationManager.localize('videoIsNotSupported'),
-            notAnoughSpaceMessage: localizationManager.localize('videoUploadNotAnoughSpace')
-        });
+        videoUpload.upload(uploadSettings);
     }
 
     function showVideoPopup(video) {
@@ -64,33 +54,33 @@
     }
 
     function upgradeToVideoUpload() {
-        upgradeNow(uploadVideoEventCategory);
+        upgradeNow(eventCategory);
         viewModel.upgradePopupVisibility(false);
     }
 
-    function upgradeNow(eventCategory) {
-        eventTracker.publish(events.upgradeNow, eventCategory);
+    function upgradeNow(category) {
+        eventTracker.publish(events.upgradeNow, category);
         router.openUrl(constants.upgradeUrl);
     }
 
     function skipUpgradeForUploadVideo() {
-        skipUpgrade(uploadVideoEventCategory);
+        skipUpgrade(eventCategory);
         viewModel.upgradePopupVisibility(false);
     }
 
-    function skipUpgrade(eventCategory) {
-        eventTracker.publish(events.skipUpgrade, eventCategory);
+    function skipUpgrade(category) {
+        eventTracker.publish(events.skipUpgrade, category);
     }
 
     function activate() {
         return userContext.identifyStoragePermissions().then(function () {
-            setAvailableStorageSpace();
             return repository.getCollection().then(function (videos) {
                 return thumbnailLoader.getThumbnailUrls(videos).then(function () {
                     viewModel.videos([]);
                     _.each(videos, function (video) {
                         viewModel.videos.push(mapVideo(video));
                     });
+                    setAvailableStorageSpace();
                 });
             });
         });
@@ -101,10 +91,9 @@
 
         video.id = item.id;
         video.title = item.title;
-        video.thumbnailUrl = ko.observable(item.thumbnailUrl);
+        video.vimeoId = ko.observable(item.vimeoId);
         video.createdOn = ko.observable(item.createdOn);
         video.modifiedOn = ko.observable(item.ModifiedOn);
-        video.vimeoId = ko.observable(item.vimeoId);
         video.thumbnailUrl = ko.observable(item.thumbnailUrl);
         video.progress = ko.observable(item.progress || 0);
         video.status = ko.observable(item.status || viewModel.statuses.loaded);
@@ -115,31 +104,51 @@
     function updateVdieos() {
         repository.getCollection().then(function (videos) {
             _.each(videos, function (video) {
-
-                var vmVideo = _.find(viewModel.videos(), function (item) {
+                var viewModelVideo = _.find(viewModel.videos(), function (item) {
                     return video.id == item.id;
                 });
 
-                if (!vmVideo) {
+                if (!viewModelVideo) {
                     viewModel.videos.push(mapVideo(video));
                 } else {
-                    vmVideo.progress(video.progress);
-                    vmVideo.vimeoId(video.vimeoId);
-                    vmVideo.createdOn(video.createdOn);
-                    vmVideo.modifiedOn(video.modifiedOn);
-                    vmVideo.thumbnailUrl(video.thumbnailUrl);
-                    vmVideo.status(video.status);
+                    viewModelVideo.vimeoId(video.vimeoId);
+                    viewModelVideo.createdOn(video.createdOn);
+                    viewModelVideo.modifiedOn(video.modifiedOn);
+                    viewModelVideo.progress(video.progress);
+                    viewModelVideo.thumbnailUrl(video.thumbnailUrl);
+                    viewModelVideo.status(video.status);
                 }
             });
-            _.each(viewModel.videos(), function (item) {
-                var video = _.find(videos, function (rpVideo) {
-                    return rpVideo.id == item.id;
+            _.each(viewModel.videos(), function (viewModelVideo) {
+                var video = _.find(videos, function (item) {
+                    return item.id == viewModelVideo.id;
                 });
                 if (!video) {
-                    var index = viewModel.videos().indexOf(item);
-                    viewModel.videos().splice(index, 1);
+                    var index = viewModel.videos().indexOf(viewModelVideo);
+                    viewModel.videos.splice(index, 1);
                 }
             });
         });
+    }
+
+    function setAvailableStorageSpace() {
+        if (!userContext.hasStarterAccess() && !userContext.hasPlusAccess()) {
+            viewModel.storageSpaceProgressBarVisibility(false);
+            return;
+        }
+        viewModel.storageSpaceProgressBarVisibility(true);
+
+        var free = userContext.identity.availableStorageSpace,
+            max = userContext.identity.totalStorageSpace,
+            value = free / 1073741824;
+
+        viewModel.availableStorageSpacePersentages(Math.round((max - free) / max * 100));
+
+        if (value >= 1) {
+            viewModel.availableStorageSpace(value.toFixed(1) + localizationManager.localize('gb'));
+            return;
+        }
+        value = value * 1024;
+        viewModel.availableStorageSpace(value.toFixed(1) + localizationManager.localize('mb'));
     }
 });

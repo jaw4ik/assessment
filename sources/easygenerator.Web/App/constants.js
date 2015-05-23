@@ -168,11 +168,13 @@
                     host: 'http://localhost:888',
                     mediaUrl: '/media',
                     userUrl: '/user',
+                    changesInQuota: 'storage:changesInQuota',
                     video: {
                         videoUrl: '/video',
                         ticketUrl: '/api/media/video/upload',
                         finishUrl: '/api/media/video/upload/finish',
                         progressUrl: '/api/media/video/upload/progress',
+                        cancelUrl: '/api/media/video/upload/cancel',
                         thumbnailLoadUrl: 'http://vimeo.com/api/v2/video/',
                         defaultThumbnailUrl: 'http://i.vimeocdn.com/video/default_200x150.jpg',
                         statuses: {

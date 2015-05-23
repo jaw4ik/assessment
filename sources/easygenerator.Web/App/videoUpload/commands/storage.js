@@ -4,7 +4,8 @@
     return {
         getTicket: getTicket,
         finishUpload: finishUpload,
-        updateUploadTimeout: updateUploadTimeout
+        updateUploadTimeout: updateUploadTimeout,
+        cancelUpload: cancelUpload
     }
 
     function getTicket(size, title) {
@@ -22,5 +23,9 @@
 
     function updateUploadTimeout(videoId) {
         return storageHttpWrapper.post(storageConstants.host + storageConstants.video.progressUrl, { videoId: videoId });
+    }
+
+    function cancelUpload(videoId) {
+        return storageHttpWrapper.post(storageConstants.host + storageConstants.video.cancelUrl, { videoId: videoId });
     }
 });

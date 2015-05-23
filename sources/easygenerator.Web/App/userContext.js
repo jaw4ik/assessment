@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'constants', 'models/user', 'http/authHttpWrapper', 'http/storageHttpWrapper'], function (app, constants, User, authHttpWrapper, storageHttpWrapper) {
+﻿define(['durandal/app', 'constants', 'notify', 'localization/localizationManager', 'models/user', 'http/authHttpWrapper', 'http/storageHttpWrapper'], function (app, constants, notify, localizationManager, User, authHttpWrapper, storageHttpWrapper) {
 
     var userContext = {
         identity: null,
@@ -18,10 +18,12 @@
     }
 
     function identifyStoragePermissions() {
-        return storageHttpWrapper.get(constants.messages.storage.host + constants.messages.storage.userUrl).then(function (data) {
+        return Q(storageHttpWrapper.get(constants.messages.storage.host + constants.messages.storage.userUrl).then(function (data) {
             userContext.identity.availableStorageSpace = data.AvailableStorageSpace;
             userContext.identity.totalStorageSpace = data.TotalStorageSpace;
-        });
+        }).fail(function () {
+            notify.error(localizationManager.localize('storageFailed'));
+        }));
     }
 
     function hasStarterAccess() {

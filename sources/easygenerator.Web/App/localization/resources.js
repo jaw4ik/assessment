@@ -381,6 +381,21 @@
         'zh-cn': 'Mb[zh-cn]',
         'uk': 'Мб'
     },
+    copyrightText: {
+        'en': 'Copyright © 2015 easygenerator. All rights reserved.',
+        'zh-cn': 'Copyright © 2015 easygenerator. All rights reserved.',
+        'uk': '© 2015 easygenerator. Всі права захищені.'
+    },
+    termsOfUse: {
+        'en': 'Terms of use',
+        'zh-cn': '使用说明',
+        'uk': 'Умови користування'
+    },
+    privacyPolicy: {
+        'en': 'Privacy policy',
+        'zh-cn': '隐私条例',
+        'uk': 'Політика конфіденційності'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Videos */
@@ -399,15 +414,15 @@
         'zh-cn': 'Embed this code to your content[zh-cn]',
         'uk': 'Вставте цей код в ваш контент'
     },
-    videoUploadError: {
-        'en': 'Upload failed',
-        'zh-cn': 'Upload failed[zh-cn]',
-        'uk': 'Помилка завантаження'
-    },
     videoUpgradeToUpload: {
         'en': 'To upload video to easygenerator',
         'zh-cn': 'To upload video to easygenerator[zh-cn]',
         'uk': 'Для завантаження відео в easygenerator'
+    },
+    videoUploadShortError: {
+        'en': 'Upload failed',
+        'zh-cn': 'Upload failed[zh-cn]',
+        'uk': 'Помилка завантаження'
     },
     videoUpgradeToUploadHtml: {
         'en': '<ul><li>Unlimited storage space (fair use policy)</li><li>Beautiful HD playback</li><li>Unlimited HD plays</li></ul>',
@@ -419,10 +434,10 @@
         'zh-cn': 'Maybe later[zh-cn]',
         'uk': 'Я зроблю це потім'
     },
-    videoIsNotSupported: {
-        'en': 'This file is not supported.',
-        'zh-cn': 'This file is not supported.[zh-cn]',
-        'uk': 'Файл не підтримується.'
+    videoUploadError: {
+        'en': 'Something went wrong uploading the video. Please try again.',
+        'zh-cn': 'Something went wrong uploading the video. Please try again.[zh-cn]',
+        'uk': 'Помилка при завантаженні відео. Будь ласка, спробуйте знову.'
     },
     videoUploadNotAnoughSpace: {
         'en': 'File size exceeds available free space',
@@ -433,6 +448,11 @@
         'en': 'Free space',
         'zh-cn': 'Free space[zh-cn]',
         'uk': 'Вільне місце'
+    },
+    storageFailed: {
+        'en': 'Something went wrong, storage is currently anavailable.',
+        'zh-cn': 'Something went wrong, storage is currently anavailable.[zh-cn]',
+        'uk': 'Помилка при завантаженні медіа.'
     },
     /* End resource section for model Videos */
     
@@ -488,27 +508,27 @@
     learningPaths: {
         'en': 'Learning paths',
         'zh-cn': 'Learning paths[zh-cn]',
-        'uk': 'Learning paths[uk]'
+        'uk': 'Навчальні шляхи'
     },
     learningPath: {
         'en': 'Learning path',
         'zh-cn': 'Learning path[zh-cn]',
-        'uk': 'Learning path[uk]'
+        'uk': 'Навчальний шлях'
     },
     learningPathProperties: {
         'en': 'Learning path properties',
         'zh-cn': 'Learning path properties[zh-cn]',
-        'uk': 'Learning path properties[uk]'
+        'uk': 'Властивості навчального шляху'
     },
     newLaerningPath: {
         'en': 'New learning path',
         'zh-cn': 'New learning path[zh-cn]',
-        'uk': 'New learning path[uk]'
+        'uk': 'Новий навчальний шлях'
     },
     createFirstLearningPathHint: {
         'en': 'Create learning path by clicking here',
         'zh-cn': 'Create learning path by clicking here[zh-cn]',
-        'uk': 'Create learning path by clicking here[uk]'
+        'uk': 'Створіть навчальний шлях натиснувши цю кнопку'
     },
     learningPathTitle: {
         'en': 'Learning path title',
@@ -518,32 +538,32 @@
     coursesInThePath: {
         'en': 'Courses in the path:',
         'zh-cn': 'Courses in the path:[zh-cn]',
-        'uk': 'Courses in the path:[uk]'
+        'uk': 'Курси навчального шляху:'
     },
     noCoursesInTheLearningPath: {
         'en': 'No courses in the learning path',
         'zh-cn': 'No courses in the learning path[zh-cn]',
-        'uk': 'No courses in the learning path[uk]'
+        'uk': 'Навчальний шлях не містить жодного курсу'
     },
     tooltipLearningPathTitle: {
         'en': 'Learning path',
         'zh-cn': 'Learning path[zh-cn]',
-        'uk': 'Learning path[uk]'
+        'uk': 'Навчальний шлях'
     },
     tooltipLearningPathDescription: {
-        'en': '<p>Learning paths help you know which courses to take in which particular order, so that you can work toward specific learning goals.</p>',
-        'zh-cn': '<p>Learning paths help you know which courses to take in which particular order, so that you can work toward specific learning goals.</p>[zh-cn]',
-        'uk': '<p>Learning paths help you know which courses to take in which particular order, so that you can work toward specific learning goals.</p>[uk]'
+        'en': '<p>Learning paths help your learners know which courses to take in which particular order, so that you they work toward specific learning goals.</p>',
+        'zh-cn': '<p>Learning paths help your learners know which courses to take in which particular order, so that you they work toward specific learning goals.</p>[zh-cn]',
+        'uk': '<p>Навчальний шлях допоможе Вашим учням з\'ясувати які курси проходити та у якій послідовності, щоб досягти кращих результатів та зосередитися на цілі навчання.</p>'
     },
     tooltipLearningPathLink: {
         'en': '<a style=\"display:none;\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">read more</a>',
         'zh-cn': '<a style=\"display:none;\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">read more</a>[zh-cn]',
-        'uk': '<a style=\"display:none;\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">read more</a>[uk]'
+        'uk': '<a style=\"display:none;\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Більше тут</a>'
     },
     learningPathDefaultTitle: {
         'en': 'Untitled learning path',
         'zh-cn': 'Untitled learning path[zh-cn]',
-        'uk': 'Untitled learning path[uk]'
+        'uk': 'Навчальний шлях без назви'
     },
     /* End resource section for model Learning paths */
     
@@ -2351,6 +2371,11 @@
     /* End resource section for model Confirm coauthoring */
     
     /* Resource section for model SignUp */
+    signUp: {
+        'en': 'Sign up',
+        'zh-cn': '注册',
+        'uk': 'Зареєструватись'
+    },
     createAccountTitle: {
         'en': 'Start creating courses now!',
         'zh-cn': '现在开始创建课程',

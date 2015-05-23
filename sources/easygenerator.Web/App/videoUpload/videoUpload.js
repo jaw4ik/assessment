@@ -1,4 +1,10 @@
-﻿define(['durandal/app', 'constants', 'notify', 'repositories/videoRepository', './commands/storage', './commands/vimeo', './commands/progressHandler', 'models/video', 'userContext', './mediaUploader'], function (app, constants, notify, repository, storageCommands, vimeoCommands, progressHandler, VideoModel, userContext, mediaUploader) {
+﻿define(['durandal/app', 'constants', 'notify', 'repositories/videoRepository', './commands/storage', './commands/vimeo', './commands/progressHandler', 'models/video', 'userContext', './mediaUploader', 'eventTracker'], function (app, constants, notify, repository, storageCommands, vimeoCommands, progressHandler, VideoModel, userContext, mediaUploader, eventTracker) {
+
+    var eventCategory = 'Video library',
+        events = {
+            openUploadVideoDialog: 'Open \"choose video file\" dialog',
+            uploadVideoFile: 'Upload video file'
+        }
 
     var queueUploads = [],
         uploadChanged = false,
@@ -14,37 +20,42 @@
         upload: function (settings) {
             settings.startUpload = startVideoUpload;
             mediaUploader.upload(settings);
+            eventTracker.publish(events.openUploadVideoDialog, eventCategory);
         }
     };
 
-    function startVideoUpload(filePath, file) {
+    function startVideoUpload(filePath, file, settings) {
+        eventTracker.publish(events.uploadVideoFile, eventCategory);
         var title = getFileName(file.name);
+
         return storageCommands.getTicket(file.size, title).then(function (data) {
-            uploadVideo(file, data.uploadUrl, data.videoId, title);
-        }).fail(function () {
-            //TODO notify
+            return uploadVideo(file, data.uploadUrl, data.videoId, title, settings);
+        }).fail(function (status) {
+            status == 403 ? notify.error(settings.notAnoughSpaceMessage) : notify.error(settings.uploadErrorMessage);
         });
     }
 
-    function uploadVideo(file, uploadUrl, videoId, title) {
+    function uploadVideo(file, uploadUrl, videoId, title, settings) {
         var videoToUpload = saveVideo(videoId, title);
 
         addToUploadQueue(uploadUrl, file.size, videoToUpload);
 
-        return vimeoCommands.putFile(uploadUrl, file).then(function () {
+        return userContext.identifyStoragePermissions().then(function () {
+            app.trigger(constants.messages.storage.changesInQuota);
+            return vimeoCommands.putFile(uploadUrl, file).then(function () {
+                removeFromUploadQueue(videoToUpload.id);
 
-            removeFromUploadQueue(videoToUpload.id);
-
-            return storageCommands.finishUpload(videoToUpload.id).then(function (vimeoId) {
-                videoToUpload.vimeoId = vimeoId;
-                videoToUpload.status = videoConstants.statuses.loaded;
-                uploadChanged = true;
+                return storageCommands.finishUpload(videoToUpload.id).then(function (vimeoId) {
+                    videoToUpload.vimeoId = vimeoId;
+                    videoToUpload.status = videoConstants.statuses.loaded;
+                    uploadChanged = true;
+                }).fail(function () {
+                    uploadFail(videoToUpload, settings.uploadErrorMessage);
+                });
             }).fail(function () {
-                uploadFail(videoToUpload, 'error occurred');   //TODO error on finish
+                removeFromUploadQueue(videoToUpload.videoId);
+                uploadFail(videoToUpload, settings.uploadErrorMessage);
             });
-        }).fail(function () {
-            removeFromUploadQueue(videoToUpload.videoId);
-            uploadFail(videoToUpload, settings.notSupportedFileMessage);   //TODO error on put failed
         });
     }
 
@@ -72,6 +83,11 @@
         uploadChanged = true;
         removeVideo(video.id, videoConstants.removeVideoAfterErrorTimeout).then(function () {
             uploadChanged = true;
+        });
+        return storageCommands.cancelUpload(video.id).then(function () {
+            return userContext.identifyStoragePermissions().then(function() {
+                app.trigger(constants.messages.storage.changesInQuota);
+            });
         });
     }
 
@@ -102,8 +118,6 @@
 
                 $.when.apply($, arrayPromises).then(function () {
                     startTrackUploadProgress();
-                }).fail(function () {
-                    startTrackUploadProgress(); //TODO notify error ?
                 });
 
             } else {

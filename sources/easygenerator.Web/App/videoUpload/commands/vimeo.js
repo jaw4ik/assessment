@@ -27,7 +27,7 @@
             global: false
         }).fail(function (request) {
             if (request.status != constants.messages.storage.video.vimeoVerifyStatus) {
-                deferred.reject();
+                deferred.reject(request.status);
                 return;
             }
             deferred.resolve(request.getResponseHeader('Range'));

@@ -23,6 +23,8 @@
                         self.updatedOn = new Date();
                         storageCommands.updateUploadTimeout(video.id);
                     }
+                }).fail(function () {
+                    video.progress = 0;
                 });
             }
         }

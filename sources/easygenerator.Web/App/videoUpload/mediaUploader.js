@@ -29,12 +29,12 @@
                         if (file.size > userContext.identity.availableStorageSpace) {
                             notify.error(settings.notAnoughSpaceMessage);
                         } else {
-                            settings.startUpload(filePath, file);
+                            settings.startUpload(filePath, file, settings);
                         }
                     });
 
                 } else {
-                    notify.error(settings.notSupportedFileMessage);
+                    notify.error(settings.uploadErrorMessage);
                 }
 
                 input.remove();

@@ -1,5 +1,4 @@
 ﻿define(['viewmodels/shell', 'routing/isViewReadyMixin', 'localization/localizationManager', 'eventTracker'], function (shell, isViewReady, localizationManager, eventTracker) {
-
     "use strict";
 
     var events = {
@@ -36,7 +35,7 @@
         ]).mapUnknownRoutes('viewmodels/errors/404', '404').buildNavigationModel();
 
     isViewReady.assign(childRouter);
-    
+
     return {
         router: childRouter,
         activate: function () {

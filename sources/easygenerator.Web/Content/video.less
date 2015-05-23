@@ -100,12 +100,35 @@
 
                 .free-space-section {
                     position: absolute;
-                    bottom: 18px;
+                    bottom: 10px;
                     width: 100%;
                     text-align: center;
                     font-family: 'OpenSans';
                     font-size: 12px;
                     color: #63798e;
+
+                    .free-space-info-value {
+                        text-transform: uppercase;
+                    }
+
+                    .free-space-progress-bar {
+                        display: inline-block;
+                        width: 130px;
+                        margin-top: 7px;
+                        height: 3px;
+                        background: #c8cfda;
+                        border-radius: 1px;
+                        text-align: left;
+                        line-height: 0;
+                    }
+
+                    .free-space-progress-bar-value {
+                        display: inline-block;
+                        vertical-align: top;
+                        height: 3px;
+                        background: #509bfa;
+                        border-radius: 1px;
+                    }
                 }
             }
 
@@ -247,7 +270,7 @@
     left: 0;
     right: 0;
     z-index: 1500;
-    
+
     &:after {
         content: '';
         position: absolute;

@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'constants', 'http/apiHttpWrapper', 'http/storageHttpWrapper', 'mappers/courseModelMapper', 'mappers/objectiveModelMapper', 'mappers/templateModelMapper', 'mappers/videoModelMapper'],
-    function (app, constants, apiHttpWrapper, storageHttpWrapper, courseModelMapper, objectiveModelMapper, templateModelMapper, videoModelMapper) {
+﻿define(['durandal/app', 'constants', 'notify', 'localization/localizationManager', 'http/apiHttpWrapper', 'http/storageHttpWrapper', 'mappers/courseModelMapper', 'mappers/objectiveModelMapper', 'mappers/templateModelMapper', 'mappers/videoModelMapper'],
+    function (app, constants, notify, localizationManager, apiHttpWrapper, storageHttpWrapper, courseModelMapper, objectiveModelMapper, templateModelMapper, videoModelMapper) {
         "use strict";
         var
             objectives = [],
@@ -36,11 +36,13 @@
                     });
                 }).then(function () {
                     return storageHttpWrapper.get(constants.messages.storage.host + constants.messages.storage.mediaUrl)
-                   .then(function (data) {
-                       _.each(data.Videos, function (video) {
-                           videos.push(videoModelMapper.map(video));
-                       });
-                   });
+                        .then(function (data) {
+                            _.each(data.Videos, function (video) {
+                                videos.push(videoModelMapper.map(video));
+                            });
+                        }).fail(function () {
+                            notify.error(localizationManager.localize('storageFailed'));
+                        });
                 }).fail(function () {
                     app.showMessage("Failed to initialize datacontext.");
                 });

@@ -74,12 +74,32 @@
 }
 .videos .video-list .video-list-item.add-video-button .free-space-section {
   position: absolute;
-  bottom: 18px;
+  bottom: 10px;
   width: 100%;
   text-align: center;
   font-family: 'OpenSans';
   font-size: 12px;
   color: #63798e;
+}
+.videos .video-list .video-list-item.add-video-button .free-space-section .free-space-info-value {
+  text-transform: uppercase;
+}
+.videos .video-list .video-list-item.add-video-button .free-space-section .free-space-progress-bar {
+  display: inline-block;
+  width: 130px;
+  margin-top: 7px;
+  height: 3px;
+  background: #c8cfda;
+  border-radius: 1px;
+  text-align: left;
+  line-height: 0;
+}
+.videos .video-list .video-list-item.add-video-button .free-space-section .free-space-progress-bar-value {
+  display: inline-block;
+  vertical-align: top;
+  height: 3px;
+  background: #509bfa;
+  border-radius: 1px;
 }
 .videos .video-list .video-list-item .video-list-item-thumbnail {
   position: relative;

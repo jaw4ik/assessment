@@ -4,13 +4,13 @@
             <ul class="video-list">
 
                 <li class="video-list-item add-video-button" data-bind="click: addVideo">
-                    <div class="free-space-section">
+                    <div class="free-space-section" data-bind="visible: storageSpaceProgressBarVisibility">
                         <span class="free-space-info">
                             <span class="free-space-info-title" data-bind="localize: { text: 'freeSpace' }"></span>
                             <span class="free-space-info-value" data-bind="text: availableStorageSpace"></span>
                         </span>
                         <span class="free-space-progress-bar">
-                            <span class="free-space-progress-bar-value" data-bind="style: { width: availableStorageSpacePersentage() + '%' }"></span>
+                            <span class="free-space-progress-bar-value" data-bind="style: { width: availableStorageSpacePersentages() + '%' }"></span>
                         </span>
                     </div>
                 </li>
@@ -30,7 +30,7 @@
                     <!-- ko if: status() == $parent.statuses.failed -->
                     <div class="video-list-item-thumbnail error">
                         <span class="video-upload-error-image"></span>
-                        <span class="video-upload-error-title" data-bind="localize: { text: 'videoUploadError' }"></span>
+                        <span class="video-upload-error-title" data-bind="localize: { text: 'videoUploadShortError' }"></span>
                     </div>
                     <!-- /ko -->
                     <!-- ko if: status() == $parent.statuses.inProgress -->

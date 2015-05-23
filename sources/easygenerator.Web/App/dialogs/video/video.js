@@ -2,11 +2,11 @@
     function (eventTracker, constants) {
 
         "use strict";
-
-        var events = {
-            openVideoPopup: 'Open video popup',
-            getVideoEmbedCode: 'Get video embed code'
-        };
+        var eventCategory = 'Video library',
+            events = {
+                openVideoPopup: 'Open video preview',
+                copyVideoEmbedCode: 'Copy video embed code'
+            };
 
         var videoConstants = constants.messages.storage;
 
@@ -27,10 +27,10 @@
 
         return viewModel;
 
-        function show(vimeoId) { //TODO make redirect
+        function show(vimeoId) {
             var videoIframe = buildIframe(vimeoId);
 
-            eventTracker.publish(events.openVideoPopup);
+            eventTracker.publish(events.openVideoPopup, eventCategory);
 
             viewModel.videoIframe(videoIframe);
             viewModel.embedCode(videoIframe);
@@ -55,7 +55,7 @@
         }
 
         function copyEmbedCode() {
-            eventTracker.publish(events.getVideoEmbedCode);
+            eventTracker.publish(events.copyVideoEmbedCode, eventCategory);
 
             copyToClipboard(viewModel.embedCodeCopied);
         }
