@@ -5,6 +5,7 @@
         hasStarterAccess: hasStarterAccess,
         hasPlusAccess: hasPlusAccess,
         identify: identify,
+        storageIdentity: null,
         identifyStoragePermissions: identifyStoragePermissions
     };
 
@@ -19,9 +20,9 @@
 
     function identifyStoragePermissions() {
         return Q(storageHttpWrapper.get(constants.messages.storage.host + constants.messages.storage.userUrl).then(function (data) {
-            userContext.identity.availableStorageSpace = data.AvailableStorageSpace;
-            userContext.identity.totalStorageSpace = data.TotalStorageSpace;
+            userContext.storageIdentity = { availableStorageSpace: data.AvailableStorageSpace, totalStorageSpace: data.TotalStorageSpace }
         }).fail(function () {
+            userContext.storageIdentity = { availableStorageSpace: 0, totalStorageSpace: 0 }
             notify.error(localizationManager.localize('storageFailed'));
         }));
     }

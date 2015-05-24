@@ -10,8 +10,6 @@
         this.firstname = spec.firstname;
         this.lastname = spec.lastname;
         this.fullname = spec.firstname + ' ' + spec.lastname;
-        this.availableStorageSpace = spec.availableStorageSpace || 0;
-        this.maximumStorageSpace = spec.totalStorageSpace || 0;
 
         guard.throwIfNotAnObject(spec.subscription, 'You should provide subscription to create user');
         switch (spec.subscription.accessType) {

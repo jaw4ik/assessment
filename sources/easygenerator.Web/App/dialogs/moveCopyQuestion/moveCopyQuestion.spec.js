@@ -766,7 +766,7 @@
                         });
 
                         it('should navigate to new question in course', function () {
-                            viewModel.moveQuestion();
+                            viewModel.copyQuestion();
 
                             copyQuestionDefer.promise.fin(function () {
                                 expect(router.navigate).toHaveBeenCalledWith('courses/' + viewModel.courseId + '/objectives/' + viewModel.selectedObjectiveId() + '/questions/' + newQuestionId);

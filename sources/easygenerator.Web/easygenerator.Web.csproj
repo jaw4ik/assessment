@@ -583,6 +583,9 @@
     <Content Include="App\models\reporting\statement.spec.js">
       <DependentUpon>statement.js</DependentUpon>
     </Content>
+    <Content Include="App\models\video.spec.js">
+      <DependentUpon>video.js</DependentUpon>
+    </Content>
     <Content Include="App\reporting\viewmodels\courseStatement.spec.js">
       <DependentUpon>courseStatement.js</DependentUpon>
     </Content>

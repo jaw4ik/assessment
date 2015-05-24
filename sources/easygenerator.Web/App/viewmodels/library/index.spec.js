@@ -2,15 +2,9 @@
     "use strict";
 
     var
-        router = index.router,
-        eventTracker = require('eventTracker');
+        router = index.router;
 
     describe('viewModel [library index]', function () {
-
-        beforeEach(function () {
-            spyOn(router, 'navigate');
-            spyOn(eventTracker, 'publish');
-        });
 
         it('should be defined', function () {
             expect(index).toBeDefined();

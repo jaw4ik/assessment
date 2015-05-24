@@ -138,8 +138,8 @@
         }
         viewModel.storageSpaceProgressBarVisibility(true);
 
-        var free = userContext.identity.availableStorageSpace,
-            max = userContext.identity.totalStorageSpace,
+        var free = userContext.storageIdentity.availableStorageSpace,
+            max = userContext.storageIdentity.totalStorageSpace,
             value = free / 1073741824;
 
         viewModel.availableStorageSpacePersentages(Math.round((max - free) / max * 100));

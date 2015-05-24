@@ -25,7 +25,7 @@
     },
 
     addVideo = function (video) {
-        guard.throwIfNotAnObject(video, 'Video is not an object.');
+        guard.throwIfNotAnObject(video, 'Video is not an object');
         guard.throwIfNotString(video.id, 'Video id is not a string');
 
         dataContext.videos.unshift(video);

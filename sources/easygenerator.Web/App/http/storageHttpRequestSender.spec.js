@@ -1,14 +1,10 @@
-﻿define(['http/httpRequestSender'], function (httpRequestSender) {
+﻿define(['http/storageHttpRequestSender'], function (storageHttpRequestSender) {
     "use strict";
 
-    var
-        http = require('plugins/http'),
-        localizationManager = require('localization/localizationManager');
-
-    describe('[httpRequestSender]', function () {
+    describe('[storageHttpRequestSender]', function () {
 
         it('should be object', function () {
-            expect(httpRequestSender).toBeObject();
+            expect(storageHttpRequestSender).toBeObject();
         });
 
         describe('post:', function () {
@@ -17,15 +13,15 @@
 
             beforeEach(function () {
                 post = $.Deferred();
-                spyOn(http, 'post').and.returnValue(post.promise());
+                spyOn($, 'ajax').and.returnValue(post.promise());
             });
 
             it('should be function', function () {
-                expect(httpRequestSender.post).toBeFunction();
+                expect(storageHttpRequestSender.post).toBeFunction();
             });
 
             it('should return promise', function () {
-                expect(httpRequestSender.post()).toBePromise();
+                expect(storageHttpRequestSender.post()).toBePromise();
             });
 
             it('should make a post request', function () {
@@ -33,21 +29,27 @@
                 var data = { title: 'title' };
                 var headers = { auth: 'auth' };
 
-                httpRequestSender.post(url, data, headers);
+                storageHttpRequestSender.post(url, data, headers);
 
-                expect(http.post).toHaveBeenCalledWith(url, data, headers);
+                expect($.ajax).toHaveBeenCalledWith({
+                    url: url,
+                    data: data,
+                    method: 'POST',
+                    headers: headers,
+                    global: false
+                });
             });
 
             describe('when post request failed', function () {
 
-                it('should reject promise with reason', function (done) {
-                    var promise = httpRequestSender.post();
+                it('should reject promise with status', function (done) {
+                    var promise = storageHttpRequestSender.post();
                     promise.fin(function () {
-                        expect(promise).toBeRejectedWith(reason);
+                        expect(promise).toBeRejectedWith(reason.status);
                         done();
                     });
 
-                    var reason = "some reason";
+                    var reason = { status: 404 };
 
                     post.reject(reason);
                 });
@@ -55,97 +57,15 @@
 
             describe('when post request succeed', function () {
 
-                describe('and response data is not an object', function () {
-
-                    it('should reject promise', function (done) {
-                        var promise = httpRequestSender.post();
-                        promise.fin(function () {
-                            expect(promise).toBeRejectedWith('Response data is not an object');
-                            done();
-                        });
-
-                        post.resolve();
+                it('should resolve promise with response', function () {
+                    var promise = storageHttpRequestSender.post();
+                    promise.fin(function () {
+                        expect(promise).toBeResolvedWith(response);
+                        done();
                     });
 
-                });
-
-                describe('and response is an object', function () {
-
-                    describe('and response state is not success', function () {
-
-                        describe('and response resourceKey exists', function () {
-
-                            beforeEach(function () {
-                                spyOn(localizationManager, 'localize').and.returnValue("test localizable value");
-                            });
-
-                            it('should resolve promise with localizable value', function (done) {
-                                var resourceKey = "testResourceKey";
-                                var message = "test message";
-
-                                var promise = httpRequestSender.post();
-                                promise.fin(function () {
-                                    expect(localizationManager.localize).toHaveBeenCalledWith(resourceKey);
-                                    expect(promise).toBeResolvedWith({ success: false, errorMessage: "test localizable value" });
-                                    done();
-                                });
-
-                                post.resolve({ resourceKey: resourceKey, message: message });
-                            });
-                        });
-
-                        describe('and response resourceKey does not exist', function () {
-
-                            describe('and response message exists', function () {
-
-                                it('should resolved promise with response message', function (done) {
-                                    var message = "test message";
-
-                                    var promise = httpRequestSender.post();
-                                    promise.fin(function () {
-                                        expect(promise).toBeResolvedWith({ success: false, errorMessage: message });
-                                        done();
-                                    });
-
-                                    post.resolve({ message: message });
-                                });
-                            });
-
-                            describe('and response message does not exist', function () {
-
-                                beforeEach(function () {
-                                    spyOn(localizationManager, 'localize').and.returnValue("failed");
-                                });
-
-                                it('should resolve promise with default message', function (done) {
-                                    var promise = httpRequestSender.post();
-                                    promise.fin(function () {
-                                        expect(promise).toBeResolvedWith({ success: false, errorMessage: "failed" });
-                                        done();
-                                    });
-
-                                    post.resolve({});
-                                });
-                            });
-                        });
-                    });
-
-                    describe('and response state is success', function () {
-
-                        it('should resolve promise with response', function (done) {
-                            var promise = httpRequestSender.post();
-                            promise.fin(function () {
-                                expect(promise).toBeResolvedWith(data);
-                                done();
-                            });
-
-                            var data = { success: true, data: data };
-
-                            post.resolve(data);
-                        });
-
-                    });
-
+                    var response = {};
+                    post.resolve(response);
                 });
 
             });
@@ -153,12 +73,59 @@
         });
 
         describe('get:', function () {
+            var get;
+
+            beforeEach(function () {
+                get = $.Deferred();
+                spyOn($, 'ajax').and.returnValue(get.promise());
+            });
+
             it('should be function', function () {
-                expect(httpRequestSender.get).toBeFunction();
+                expect(storageHttpRequestSender.get).toBeFunction();
             });
 
             it('should return promise', function () {
-                expect(httpRequestSender.get()).toBePromise();
+                expect(storageHttpRequestSender.get()).toBePromise();
+            });
+
+            it('should make a get request', function () {
+                var url = "url";
+                var data = { title: 'title' };
+                var headers = { auth: 'auth' };
+
+                storageHttpRequestSender.get(url, data, headers);
+
+                expect($.ajax).toHaveBeenCalledWith(url, { data: data, headers: headers, global: false });
+            });
+
+            describe('when get request failed', function () {
+
+                it('should reject promise with status', function (done) {
+                    var promise = storageHttpRequestSender.get();
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith(reason.status);
+                        done();
+                    });
+
+                    var reason = { status: 404 };
+
+                    get.reject(reason);
+                });
+            });
+
+            describe('when get request succeed', function () {
+
+                it('should resolve promise with response', function () {
+                    var promise = storageHttpRequestSender.get();
+                    promise.fin(function () {
+                        expect(promise).toBeResolvedWith(response);
+                        done();
+                    });
+
+                    var response = {};
+                    get.resolve(response);
+                });
+
             });
         });
     });

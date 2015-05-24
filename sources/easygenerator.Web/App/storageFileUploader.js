@@ -35,7 +35,7 @@
 
                 if (isExtensionValid) {
                     userContext.identifyStoragePermissions().then(function () {
-                        if (file.size > userContext.identity.availableStorageSpace) {
+                        if (file.size > userContext.storageIdentity.availableStorageSpace) {
                             notify.error(settings.notAnoughSpaceMessage);
                         } else {
                             settings.startUpload(filePath, file, settings);
