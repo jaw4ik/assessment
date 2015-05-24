@@ -1,11 +1,20 @@
 ﻿define(['notify', 'userContext'], function (notify, userContext) {
     "use strict";
 
+    var defaultSettings = {
+        supportedExtensions: '*',
+        uploadErrorMessage: 'Something went wrong uploading the file. Please try again.',
+        acceptedTypes: '*',
+        notAnoughSpaceMessage: 'File size exceeds available free space',
+        startUpload: function () { }
+    };
+
     return {
         upload: upload
     }
 
-    function upload(settings) {
+    function upload(options) {
+        var settings = $.extend({}, defaultSettings, options);
 
         var input = $("<input>")
             .attr('type', 'file')

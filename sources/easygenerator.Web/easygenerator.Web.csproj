@@ -690,12 +690,12 @@
     <Content Include="App\utils\waiter.spec.js">
       <DependentUpon>waiter.js</DependentUpon>
     </Content>
-    <Content Include="App\videoUpload\commands\progressHandler.js" />
+    <Content Include="App\videoUpload\handlers\progress.js" />
     <Content Include="App\videoUpload\commands\storage.js" />
     <Content Include="App\videoUpload\commands\vimeo.js" />
-    <Content Include="App\videoUpload\mediaUploader.js" />
-    <Content Include="App\videoUpload\thumbnailLoader.js" />
-    <Content Include="App\videoUpload\videoUpload.js" />
+    <Content Include="App\storageFileUploader.js" />
+    <Content Include="App\videoUpload\handlers\thumbnails.js" />
+    <Content Include="App\videoUpload\upload.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\courseIntroductionAnimationBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\elementCollapseBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\publishTabBinding.js" />

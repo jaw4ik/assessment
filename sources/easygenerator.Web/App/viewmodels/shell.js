@@ -4,7 +4,8 @@
         "use strict";
 
         var events = {
-            navigateToCourses: "Navigate to courses"
+            navigateToCourses: "Navigate to courses",
+            navigateToMyMaterials: "Navigate to my materials"
         };
 
         var requestsCounter = ko.observable(0);
@@ -61,7 +62,7 @@
         app.on('storageHttpWrapper:post-end').then(function () {
             requestsCounter(requestsCounter() - 1);
         });
-        
+
         app.on('storageHttpWrapper:get-end').then(function () {
             requestsCounter(requestsCounter() - 1);
         });
@@ -147,6 +148,7 @@
                             hash: '#library',
                             nav: true,
                             navigate: function () {
+                                eventTracker.publish(events.navigateToMyMaterials);
                                 clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
                                 router.navigate(this.hash);
                             }

@@ -1,4 +1,4 @@
-﻿define(['./vimeo', './storage', 'constants'], function (vimeoCommands, storageCommands, constants) {
+﻿define(['../commands/vimeo', '../commands/storage', 'constants'], function (vimeoCommands, storageCommands, constants) {
 
     return {
         build: build

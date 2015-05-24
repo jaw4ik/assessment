@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'plugins/router', 'constants', 'eventTracker', 'repositories/videoRepository', 'dialogs/video/video', 'videoUpload/videoUpload', 'videoUpload/thumbnailLoader', 'userContext', 'localization/localizationManager'], function (app, router, constants, eventTracker, repository, videoPopup, videoUpload, thumbnailLoader, userContext, localizationManager) {
+﻿define(['durandal/app', 'plugins/router', 'constants', 'eventTracker', 'repositories/videoRepository', 'dialogs/video/video', 'videoUpload/upload', 'videoUpload/handlers/thumbnails', 'userContext', 'localization/localizationManager'], function (app, router, constants, eventTracker, repository, videoPopup, videoUpload, thumbnailLoader, userContext, localizationManager) {
     "use strict";
 
     app.on(constants.messages.storage.video.changesInUpload, function () {
@@ -23,16 +23,16 @@
 
     var viewModel = {
         videos: ko.observableArray([]),
+        upgradePopupVisibility: ko.observable(false),
+        storageSpaceProgressBarVisibility: ko.observable(false),
+        availableStorageSpace: ko.observable(0),
+        availableStorageSpacePersentages: ko.observable(0),
         statuses: constants.messages.storage.video.statuses,
         addVideo: addVideo,
         activate: activate,
         showVideoPopup: showVideoPopup,
         upgradeToVideoUpload: upgradeToVideoUpload,
-        skipUpgradeForUploadVideo: skipUpgradeForUploadVideo,
-        upgradePopupVisibility: ko.observable(false),
-        storageSpaceProgressBarVisibility: ko.observable(false),
-        availableStorageSpace: ko.observable(0),
-        availableStorageSpacePersentages: ko.observable(0)
+        skipUpgradeForUploadVideo: skipUpgradeForUploadVideo
     }
 
     return viewModel;
@@ -109,7 +109,7 @@
                 });
 
                 if (!viewModelVideo) {
-                    viewModel.videos.push(mapVideo(video));
+                    viewModel.videos.unshift(mapVideo(video));
                 } else {
                     viewModelVideo.vimeoId(video.vimeoId);
                     viewModelVideo.createdOn(video.createdOn);

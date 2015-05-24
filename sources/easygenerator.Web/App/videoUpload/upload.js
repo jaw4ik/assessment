@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'constants', 'notify', 'repositories/videoRepository', './commands/storage', './commands/vimeo', './commands/progressHandler', 'models/video', 'userContext', './mediaUploader', 'eventTracker'], function (app, constants, notify, repository, storageCommands, vimeoCommands, progressHandler, VideoModel, userContext, mediaUploader, eventTracker) {
+﻿define(['durandal/app', 'constants', 'notify', 'repositories/videoRepository', './commands/storage', './commands/vimeo', './handlers/progress', 'models/video', 'userContext', 'storageFileUploader', 'eventTracker'], function (app, constants, notify, repository, storageCommands, vimeoCommands, progressHandler, VideoModel, userContext, storageFileUploader, eventTracker) {
 
     var eventCategory = 'Video library',
         events = {
@@ -19,7 +19,7 @@
 
         upload: function (settings) {
             settings.startUpload = startVideoUpload;
-            mediaUploader.upload(settings);
+            storageFileUploader.upload(settings);
             eventTracker.publish(events.openUploadVideoDialog, eventCategory);
         }
     };
@@ -67,7 +67,7 @@
 
     function removeFromUploadQueue(videoId) {
         var handlerToRemove = _.find(queueUploads, function (item) {
-            return item.id = videoId;
+            return item.id == videoId;
         }),
             index = queueUploads.indexOf(handlerToRemove);
         if (index < 0) {
@@ -85,7 +85,7 @@
             uploadChanged = true;
         });
         return storageCommands.cancelUpload(video.id).then(function () {
-            return userContext.identifyStoragePermissions().then(function() {
+            return userContext.identifyStoragePermissions().then(function () {
                 app.trigger(constants.messages.storage.changesInQuota);
             });
         });

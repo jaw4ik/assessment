@@ -1,4 +1,4 @@
-﻿define(['videoUpload/videoUpload'], function (videoUpload) {
+﻿define(['videoUpload/upload'], function (videoUpload) {
 
     var task = {
         execute: execute

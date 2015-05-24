@@ -398,6 +398,19 @@
     },
     /* End resource section for model General */
     
+    /* Resource section for model Storage */
+    storageFailed: {
+        'en': 'Something went wrong, storage is currently anavailable.',
+        'zh-cn': 'Something went wrong, storage is currently anavailable.[zh-cn]',
+        'uk': 'Помилка при завантаженні медіа.'
+    },
+    freeSpace: {
+        'en': 'Free space',
+        'zh-cn': 'Free space[zh-cn]',
+        'uk': 'Вільне місце'
+    },
+    /* End resource section for model Storage */
+    
     /* Resource section for model Videos */
     videoLibrary: {
         'en': 'Video Library',
@@ -443,16 +456,6 @@
         'en': 'File size exceeds available free space',
         'zh-cn': 'File size exceeds available free space[zh-cn]',
         'uk': 'Розмір файлу перевищує вільний простір'
-    },
-    freeSpace: {
-        'en': 'Free space',
-        'zh-cn': 'Free space[zh-cn]',
-        'uk': 'Вільне місце'
-    },
-    storageFailed: {
-        'en': 'Something went wrong, storage is currently anavailable.',
-        'zh-cn': 'Something went wrong, storage is currently anavailable.[zh-cn]',
-        'uk': 'Помилка при завантаженні медіа.'
     },
     /* End resource section for model Videos */
     

@@ -1,4 +1,4 @@
-﻿define(['./commands/vimeo'], function (vimeo) {
+﻿define(['../commands/vimeo'], function (vimeo) {
 
     return {
         getThumbnailUrls: getThumbnailUrls

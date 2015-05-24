@@ -1,19 +1,15 @@
-﻿define(['dataContext'], function (dataContext) {
+﻿define(['dataContext', 'guard'], function (dataContext, guard) {
 
     var getCollection = function () {
         var deferred = Q.defer();
-
         deferred.resolve(dataContext.videos);
-
         return deferred.promise;
     },
 
     getById = function (id) {
         var deferred = Q.defer();
 
-        if (_.isNullOrUndefined(id)) {
-            throw 'Invalid argument';
-        }
+        guard.throwIfNotString(id, 'Video id (string) was expected');
 
         var result = _.find(dataContext.videos, function (item) {
             return item.id === id;
@@ -29,18 +25,16 @@
     },
 
     addVideo = function (video) {
-        if (!_.isObject(video)) {
-            throw 'Video is not an object.';
-        }
+        guard.throwIfNotAnObject(video, 'Video is not an object.');
+        guard.throwIfNotString(video.id, 'Video id is not a string');
 
-        dataContext.videos.push(video);
+        dataContext.videos.unshift(video);
     },
 
     removeVideo = function (id) {
         var videoToRemove = _.find(dataContext.videos, function (video) {
             return video.id == id;
         });
-
         if (videoToRemove) {
             var index = dataContext.videos.indexOf(videoToRemove);
             dataContext.videos.splice(index, 1);

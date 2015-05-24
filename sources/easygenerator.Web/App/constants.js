@@ -176,7 +176,7 @@
                         progressUrl: '/api/media/video/upload/progress',
                         thumbnailLoadUrl: '//vimeo.com/api/v2/video/',
                         defaultThumbnailUrl: '//i.vimeocdn.com/video/default_200x150.jpg',
-                        cancelUrl: '/api/media/video/upload/cancel'
+                        cancelUrl: '/api/media/video/upload/cancel',
                         statuses: {
                             loaded: 'loaded',
                             failed: 'failed',
