@@ -66,6 +66,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<BuildContentProvider>();
             builder.RegisterType<PhysicalFileManager>();
             builder.RegisterType<MagickImageResizer>().As<IImageResizer>();
+            builder.RegisterType<MagickImageResizerConfigurator>();
             builder.RegisterType<ManifestFileManager>().SingleInstance();
             builder.RegisterType<HttpRuntimeWrapper>();
             builder.RegisterType<BuildPackageCreator>();
