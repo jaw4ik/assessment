@@ -300,6 +300,7 @@
                 viewModel.questionType = questionType;
                 viewModel.learningContents([]);
                 viewModel.isExpanded(true);
+                viewModel.isAddedButtonsShown(false);
 
                 _.each(learningContentsList, doAddLearningContent);
             });
