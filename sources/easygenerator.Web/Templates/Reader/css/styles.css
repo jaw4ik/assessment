@@ -1,8 +1,8 @@
-@font-face{font-family:RobotoslabRegular;src:url(fonts/RobotoSlab-Regular-webfont.woff?v=1432300002199) format('woff'),url(fonts/RobotoSlab-Regular-webfont.ttf?v=1432300002199) format('truetype'),url(fonts/RobotoSlab-Regular-webfont.svg#roboto_slabregular) format('svg');font-weight:400;font-style:normal}
-@font-face{font-family:RobotoslabBold;src:url(fonts/RobotoSlab-Bold-webfont.woff?v=1432300002199) format('woff'),url(fonts/RobotoSlab-Bold-webfont.ttf?v=1432300002199) format('truetype'),url(fonts/RobotoSlab-Bold-webfont.svg#roboto_slabbold) format('svg');font-weight:400;font-style:normal}
-@font-face{font-family:RobotoslabLight;src:url(fonts/RobotoSlab-Light-webfont.woff?v=1432300002199) format('woff'),url(fonts/RobotoSlab-Light-webfont.ttf?v=1432300002199) format('truetype'),url(fonts/RobotoSlab-Light-webfont.svg#roboto_slablight) format('svg');font-weight:400;font-style:normal}
-@font-face{font-family:RobotoslabThin;src:url(fonts/RobotoSlab-Thin-webfont.woff?v=1432300002199) format('woff'),url(fonts/RobotoSlab-Thin-webfont.ttf?v=1432300002199) format('truetype'),url(fonts/RobotoSlab-Thin-webfont.svg#roboto_slabthin) format('svg');font-weight:400;font-style:normal}
-@font-face{font-family:Ubuntu;font-style:normal;font-weight:400;src:url(fonts/Ubuntu-Regular.woff?v=1432300002199) format('woff'),url(fonts/Ubuntu-Regular.ttf?v=1432300002199) format('truetype'),url(fonts/Ubuntu-Regular.svg#Ubuntu) format('svg')}
+@font-face{font-family:RobotoslabRegular;src:url(fonts/RobotoSlab-Regular-webfont.woff?v=1432565763450) format('woff'),url(fonts/RobotoSlab-Regular-webfont.ttf?v=1432565763450) format('truetype'),url(fonts/RobotoSlab-Regular-webfont.svg#roboto_slabregular) format('svg');font-weight:400;font-style:normal}
+@font-face{font-family:RobotoslabBold;src:url(fonts/RobotoSlab-Bold-webfont.woff?v=1432565763450) format('woff'),url(fonts/RobotoSlab-Bold-webfont.ttf?v=1432565763450) format('truetype'),url(fonts/RobotoSlab-Bold-webfont.svg#roboto_slabbold) format('svg');font-weight:400;font-style:normal}
+@font-face{font-family:RobotoslabLight;src:url(fonts/RobotoSlab-Light-webfont.woff?v=1432565763450) format('woff'),url(fonts/RobotoSlab-Light-webfont.ttf?v=1432565763450) format('truetype'),url(fonts/RobotoSlab-Light-webfont.svg#roboto_slablight) format('svg');font-weight:400;font-style:normal}
+@font-face{font-family:RobotoslabThin;src:url(fonts/RobotoSlab-Thin-webfont.woff?v=1432565763450) format('woff'),url(fonts/RobotoSlab-Thin-webfont.ttf?v=1432565763450) format('truetype'),url(fonts/RobotoSlab-Thin-webfont.svg#roboto_slabthin) format('svg');font-weight:400;font-style:normal}
+@font-face{font-family:Ubuntu;font-style:normal;font-weight:400;src:url(fonts/Ubuntu-Regular.woff?v=1432565763450) format('woff'),url(fonts/Ubuntu-Regular.ttf?v=1432565763450) format('truetype'),url(fonts/Ubuntu-Regular.svg#Ubuntu) format('svg')}
 .localized{overflow:hidden;text-overflow:ellipsis;max-width:100%;word-wrap:break-word;text-rendering:auto}
 *{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
 body,html{height:100%;margin:0;padding:0;width:100%}
@@ -168,6 +168,10 @@ ul.unstyled>li:before{background:0 0;display:none;height:0;margin:0;padding:0;wi
 .touch .scrollable::-webkit-scrollbar{display:none!important}
 .touch .button.next{right:0}
 .touch .close-button .close-button-text{display:none}
+.hotspotOnImage img{margin:0;padding:0}
+.tl-wrapper{font:16px RobotoslabRegular;color:#fff;background-color:rgba(29,80,98,.95)}
+.tl-wrapper.top .tl-arrow{border-color:rgba(29,80,98,.95) transparent transparent}
+.tl-wrapper.bottom .tl-arrow{border-color:transparent transparent rgba(29,80,98,.95)}
 @media (max-width:1780px){.course{padding-top:40px}
 .show-introduction-button-wrapper{top:20px}}
 @media (max-width:1699px){.course .objectives{max-width:1230px}}
