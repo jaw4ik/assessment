@@ -330,7 +330,7 @@
             },
 
             storage: {
-                host: window.storageServiceUrl ? "//" + window.storageServiceUrl : '//localhost:888',
+                host: window.storageServiceUrl ? "http://" + window.storageServiceUrl : 'http://localhost:888',
                 mediaUrl: '/media',
                 userUrl: '/user',
                 changesInQuota: 'storage:changesInQuota',
