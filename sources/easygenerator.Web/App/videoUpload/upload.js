@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'constants', 'notify', 'repositories/videoRepository', './commands/storage', './commands/vimeo', './handlers/progress', 'models/video', 'userContext', 'storageFileUploader', 'eventTracker'], function (app, constants, notify, repository, storageCommands, vimeoCommands, progressHandler, VideoModel, userContext, storageFileUploader, eventTracker) {
+﻿define(['durandal/app', 'constants', 'notify', 'repositories/videoRepository', './commands/storage', './commands/vimeo', './handlers/progress', 'models/video', 'userContext', 'storageFileUploader'], function (app, constants, notify, repository, storageCommands, vimeoCommands, progressHandler, VideoModel, userContext, storageFileUploader) {
 
     var eventCategory = 'Video library',
         events = {

@@ -293,6 +293,14 @@
 
             //#endregion
 
+            //#region video upload
+            'videoUpload/commands/storage.spec',
+            'videoUpload/commands/vimeo.spec',
+            'videoUpload/handlers/progress.spec',
+            'videoUpload/handlers/thumbnails.spec',
+            'videoUpload/upload.spec',
+            //#endregion
+
             'viewmodels/user/userMenu.spec',
             'viewmodels/shell.spec',
             'widgets/notifyViewer/viewmodel.spec',

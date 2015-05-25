@@ -9,7 +9,8 @@
                 require('bootstrapping/viewLocatorTask'),
                 require('bootstrapping/knockoutBindingsTask'),
                 require('bootstrapping/addWindowEventsTask'),
-                require('bootstrapping/trackVideoUploadTask')
+                require('bootstrapping/trackVideoUploadTask'),
+                require('bootstrapping/providersTask')
             ];
         }
     };

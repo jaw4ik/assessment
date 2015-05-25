@@ -693,12 +693,27 @@
     <Content Include="App\utils\waiter.spec.js">
       <DependentUpon>waiter.js</DependentUpon>
     </Content>
+    <Content Include="App\videoUpload\commands\storage.spec.js">
+      <DependentUpon>storage.js</DependentUpon>
+    </Content>
+    <Content Include="App\videoUpload\commands\vimeo.spec.js">
+      <DependentUpon>vimeo.js</DependentUpon>
+    </Content>
     <Content Include="App\videoUpload\handlers\progress.js" />
     <Content Include="App\videoUpload\commands\storage.js" />
     <Content Include="App\videoUpload\commands\vimeo.js" />
     <Content Include="App\storageFileUploader.js" />
+    <Content Include="App\videoUpload\handlers\progress.spec.js">
+      <DependentUpon>progress.js</DependentUpon>
+    </Content>
     <Content Include="App\videoUpload\handlers\thumbnails.js" />
+    <Content Include="App\videoUpload\handlers\thumbnails.spec.js">
+      <DependentUpon>thumbnails.js</DependentUpon>
+    </Content>
     <Content Include="App\videoUpload\upload.js" />
+    <Content Include="App\videoUpload\upload.spec.js">
+      <DependentUpon>upload.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\courses\bindingHandlers\courseIntroductionAnimationBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\elementCollapseBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\publishTabBinding.js" />
