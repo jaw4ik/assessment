@@ -8,7 +8,7 @@
                 copyVideoEmbedCode: 'Copy video embed code'
             };
 
-        var videoConstants = constants.messages.storage;
+        var videoConstants = constants.storage;
 
         var viewModel = {
 

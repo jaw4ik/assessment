@@ -1,11 +1,11 @@
 ﻿define(['durandal/app', 'plugins/router', 'constants', 'eventTracker', 'repositories/videoRepository', 'dialogs/video/video', 'videoUpload/upload', 'videoUpload/handlers/thumbnails', 'userContext', 'localization/localizationManager'], function (app, router, constants, eventTracker, repository, videoPopup, videoUpload, thumbnailLoader, userContext, localizationManager) {
     "use strict";
 
-    app.on(constants.messages.storage.video.changesInUpload, function () {
+    app.on(constants.storage.video.changesInUpload, function () {
         updateVdieos();
     });
 
-    app.on(constants.messages.storage.changesInQuota, function () {
+    app.on(constants.storage.changesInQuota, function () {
         setAvailableStorageSpace();
     });
 
@@ -27,7 +27,7 @@
         storageSpaceProgressBarVisibility: ko.observable(false),
         availableStorageSpace: ko.observable(0),
         availableStorageSpacePersentages: ko.observable(0),
-        statuses: constants.messages.storage.video.statuses,
+        statuses: constants.storage.video.statuses,
         addVideo: addVideo,
         activate: activate,
         showVideoPopup: showVideoPopup,

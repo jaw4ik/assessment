@@ -4,7 +4,7 @@
 
     var eventTracker = require('eventTracker'),
         constants = require('constants'),
-        videoConstants = constants.messages.storage;
+        videoConstants = constants.storage;
     ;
 
     describe('dialog [video]', function () {

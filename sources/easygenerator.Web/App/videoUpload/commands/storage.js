@@ -1,5 +1,5 @@
 ﻿define(['constants', 'http/storageHttpWrapper'], function (constants, storageHttpWrapper) {
-    var storageConstants = constants.messages.storage;
+    var storageConstants = constants.storage;
 
     return {
         getTicket: getTicket,

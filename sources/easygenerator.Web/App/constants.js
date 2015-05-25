@@ -164,33 +164,6 @@
                     questionsReordered: 'objective:questionsReordered',
                     questionsReorderedByCollaborator: 'objective:questionsReorderedByCollaborator'
                 },
-                storage: {
-                    host: window.storageServiceUrl ? "//" + window.storageServiceUrl : '//localhost:888',
-                    mediaUrl: '/media',
-                    userUrl: '/user',
-                    changesInQuota: 'storage:changesInQuota',
-                    video: {
-                        videoUrl: '/video',
-                        ticketUrl: '/api/media/video/upload',
-                        finishUrl: '/api/media/video/upload/finish',
-                        progressUrl: '/api/media/video/upload/progress',
-                        thumbnailLoadUrl: '//vimeo.com/api/v2/video/',
-                        defaultThumbnailUrl: '//i.vimeocdn.com/video/default_200x150.jpg',
-                        cancelUrl: '/api/media/video/upload/cancel',
-                        statuses: {
-                            loaded: 'loaded',
-                            failed: 'failed',
-                            inProgress: 'inProgress'
-                        },
-                        vimeoVerifyStatus: 308,
-                        changesInUpload: 'video:changesInUpload',
-                        trackChangesInUploadTimeout: 500,
-                        iframeWidth: 600,
-                        iframeHeight: 335,
-                        updateUploadTimeout: 120000,
-                        removeVideoAfterErrorTimeout: 5000
-                    }
-                },
                 question: {
                     created: 'question:created',
                     createdByCollaborator: 'question:createdByCollaborator',
@@ -354,6 +327,34 @@
 
             courseResults: {
                 pageSize: 10
+            },
+
+            storage: {
+                host: window.storageServiceUrl ? "//" + window.storageServiceUrl : '//localhost:888',
+                mediaUrl: '/media',
+                userUrl: '/user',
+                changesInQuota: 'storage:changesInQuota',
+                video: {
+                    videoUrl: '/video',
+                    ticketUrl: '/api/media/video/upload',
+                    finishUrl: '/api/media/video/upload/finish',
+                    progressUrl: '/api/media/video/upload/progress',
+                    thumbnailLoadUrl: '//vimeo.com/api/v2/video/',
+                    defaultThumbnailUrl: '//i.vimeocdn.com/video/default_200x150.jpg',
+                    cancelUrl: '/api/media/video/upload/cancel',
+                    statuses: {
+                        loaded: 'loaded',
+                        failed: 'failed',
+                        inProgress: 'inProgress'
+                    },
+                    vimeoVerifyStatus: 308,
+                    changesInUpload: 'video:changesInUpload',
+                    trackChangesInUploadTimeout: 500,
+                    iframeWidth: 600,
+                    iframeHeight: 335,
+                    updateUploadTimeout: 120000,
+                    removeVideoAfterErrorTimeout: 5000
+                }
             }
         }
     }

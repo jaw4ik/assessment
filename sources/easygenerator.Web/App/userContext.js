@@ -19,7 +19,7 @@
     }
 
     function identifyStoragePermissions() {
-        return Q(storageHttpWrapper.get(constants.messages.storage.host + constants.messages.storage.userUrl).then(function (data) {
+        return Q(storageHttpWrapper.get(constants.storage.host + constants.storage.userUrl).then(function (data) {
             userContext.storageIdentity = { availableStorageSpace: data.AvailableStorageSpace, totalStorageSpace: data.TotalStorageSpace }
         }).fail(function () {
             userContext.storageIdentity = { availableStorageSpace: 0, totalStorageSpace: 0 }

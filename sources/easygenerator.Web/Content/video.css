@@ -107,7 +107,8 @@
   height: 150px;
   -webkit-box-shadow: 0px 1px 6px 0px #c9ced0;
   box-shadow: 0px 1px 6px 0px #c9ced0;
-  background-color: #f3f3f3;
+  background: -webkit-radial-gradient(center, ellipse cover, #fefefe 0, #f3f3f3 100%);
+  background: radial-gradient(ellipse at center, #fefefe 0, #f3f3f3 100%);
 }
 .videos .video-list .video-list-item .video-list-item-thumbnail.uploading {
   text-align: center;
@@ -122,7 +123,7 @@
 }
 .videos .video-list .video-list-item .video-list-item-thumbnail.uploading .video-uploading-progress {
   position: absolute;
-  top: 65px;
+  top: 63px;
   left: 50%;
   width: 40px;
   font-family: 'RobotoSlab';
@@ -182,15 +183,21 @@
   margin-left: -10px;
   background: url(../Content/images/sprites_24.png) 200px 24px;
 }
-.videos .video-list .video-list-item .video-list-item-title {
+.videos .video-list .video-list-item .video-list-item-title-container {
   width: 200px;
   height: 56px;
   padding: 10px 8px;
   font-size: 13px;
   font-family: 'OpenSans';
   color: #546677;
-  word-wrap: break-word;
   background-color: #fff;
+}
+.videos .video-list .video-list-item .video-list-item-title-container .video-list-item-title {
+  display: inline-block;
+  width: 100%;
+  max-height: 38px;
+  overflow: hidden;
+  word-wrap: break-word;
 }
 .videos .video-list .add-video-button-description {
   position: relative;

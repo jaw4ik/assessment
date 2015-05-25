@@ -14,7 +14,7 @@
                         vimeoId = '123',
                         thumbnailUrl = '123',
                         progress = '123',
-                        status = constants.messages.storage.video.statuses.failed;
+                        status = constants.storage.video.statuses.failed;
 
                     var video = new Video({
                         id: id,
@@ -68,7 +68,7 @@
                     expect(video.vimeoId).toEqual(vimeoId);
                     expect(video.thumbnailUrl).toEqual(thumbnailUrl);
                     expect(video.progress).toEqual(progress);
-                    expect(video.status).toEqual(constants.messages.storage.video.statuses.loaded);
+                    expect(video.status).toEqual(constants.storage.video.statuses.loaded);
 
                 });
 

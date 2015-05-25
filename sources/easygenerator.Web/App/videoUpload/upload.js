@@ -8,7 +8,7 @@
 
     var queueUploads = [],
         uploadChanged = false,
-        videoConstants = constants.messages.storage.video;
+        videoConstants = constants.storage.video;
 
     return {
 
@@ -41,7 +41,7 @@
         addToUploadQueue(uploadUrl, file.size, videoToUpload);
 
         return userContext.identifyStoragePermissions().then(function () {
-            app.trigger(constants.messages.storage.changesInQuota);
+            app.trigger(constants.storage.changesInQuota);
             return vimeoCommands.putFile(uploadUrl, file).then(function () {
                 removeFromUploadQueue(videoToUpload.id);
 
@@ -86,7 +86,7 @@
         });
         return storageCommands.cancelUpload(video.id).then(function () {
             return userContext.identifyStoragePermissions().then(function () {
-                app.trigger(constants.messages.storage.changesInQuota);
+                app.trigger(constants.storage.changesInQuota);
             });
         });
     }

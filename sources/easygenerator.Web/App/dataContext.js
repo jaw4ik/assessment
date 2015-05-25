@@ -35,7 +35,7 @@
                         });
                     });
                 }).then(function () {
-                    return storageHttpWrapper.get(constants.messages.storage.host + constants.messages.storage.mediaUrl)
+                    return storageHttpWrapper.get(constants.storage.host + constants.storage.mediaUrl)
                         .then(function (data) {
                             _.each(data.Videos, function (video) {
                                 videos.push(videoModelMapper.map(video));

@@ -19,7 +19,7 @@
                         videoFileLoadedCallback(video.id);
                     }
 
-                    if (new Date() - self.updatedOn > constants.messages.storage.video.updateUploadTimeout) {
+                    if (new Date() - self.updatedOn > constants.storage.video.updateUploadTimeout) {
                         self.updatedOn = new Date();
                         storageCommands.updateUploadTimeout(video.id);
                     }

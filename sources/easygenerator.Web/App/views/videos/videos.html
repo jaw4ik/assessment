@@ -39,7 +39,9 @@
                         <span class="video-uploading-progress" data-bind="text: progress() + '%'"></span>
                     </div>
                     <!-- /ko -->
-                    <div class="video-list-item-title" data-bind="limitedLengthText: { text: title, maxLength: 20 }, attr: { title: title }"></div>
+                    <div class="video-list-item-title-container">
+                        <span class="video-list-item-title" data-bind="limitedLengthText: { text: title, maxLength: 40 }, attr: { title: title }"></span>
+                    </div>
                 </li>
                 <!-- /ko -->
 
