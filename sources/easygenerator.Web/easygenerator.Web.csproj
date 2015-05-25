@@ -698,10 +698,19 @@
     <Content Include="App\viewmodels\learningContents\bindingHandlers\hotspotOnImageBindingHandler.js" />
     <Content Include="App\viewmodels\learningContents\components\hotspotParser.js" />
     <Content Include="App\viewmodels\learningContents\components\polygonModel.js" />
+    <Content Include="App\viewmodels\learningContents\content.js" />
+    <Content Include="App\viewmodels\learningContents\content.spec.js">
+      <DependentUpon>content.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningContents\hotspotOnAnImage.js" />
+    <Content Include="App\viewmodels\learningContents\hotspotOnAnImage.spec.js">
+      <DependentUpon>hotspotOnAnImage.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\learningContents\learningContents.js" />
     <Content Include="App\viewmodels\learningContents\learningContents.spec.js">
       <DependentUpon>learningContents.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\learningContents\learningContentsViewModelFactory.js" />
     <Content Include="App\viewmodels\objectives\index.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.spec.js">

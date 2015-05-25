@@ -1620,8 +1620,6 @@
   outline: none;
   border: 1px solid #CAC3BD;
   border-radius: 5px;
-  word-wrap: break-word;
-  overflow: auto;
   resize: none;
 }
 .hotspot-on-image-editor-text-container:focus {

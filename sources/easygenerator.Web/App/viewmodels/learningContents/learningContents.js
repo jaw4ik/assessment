@@ -1,6 +1,7 @@
 ﻿define(['repositories/learningContentRepository', 'repositories/questionRepository', 'localization/localizationManager', 'notify', 'constants', 'eventTracker', 'durandal/app',
-    'imageUpload', 'uiLocker', 'viewmodels/learningContents/components/hotspotParser'],
-    function (learningContentsrepository, questionRepository, localizationManager, notify, constants, eventTracker, app, imageUpload, uiLocker, hotspotParser) {
+    'imageUpload', 'uiLocker', 'viewmodels/learningContents/components/hotspotParser', 'viewmodels/learningContents/learningContentsViewModelFactory'],
+    function (learningContentsrepository, questionRepository, localizationManager, notify, constants, eventTracker, app, imageUpload, uiLocker, hotspotParser,
+            learningContentsViewModelFactory) {
 
         var
             events = {
@@ -262,7 +263,8 @@
                 text: ko.observable(learningContent.text),
                 originalText: learningContent.text,
                 type: learningContent.type,
-                hasFocus: ko.observable(learningContent.hasFocus || false)
+                hasFocus: ko.observable(learningContent.hasFocus || false),
+                viewmodel: learningContentsViewModelFactory[learningContent.type]
             });
         }
 
