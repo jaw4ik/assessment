@@ -1623,7 +1623,19 @@
   list-style-type: none;
 }
 .shell > header .header-navigation-item {
+  position: relative;
   float: left;
+}
+.shell > header .header-navigation-item .top-navigation-item-beta-mark {
+  position: absolute;
+  top: 3px;
+  right: 10px;
+  color: #fff;
+  font: 9px 'OpenSans-Semibold';
+  text-transform: uppercase;
+  background-color: #469dd5;
+  padding: 0px 5px;
+  border-radius: 5px;
 }
 .shell > header .header-menu-list {
   float: right;
@@ -1839,7 +1851,8 @@
 .shell > header span.top-navigation-item.current {
   cursor: default;
 }
-.course > header {
+.course > header,
+.learning-path > header {
   background: #fff;
   -webkit-flex: 0 0 auto;
   flex: 0 0 auto;
@@ -1872,7 +1885,7 @@
 .course .course-title-wrapper ul.course-actions > li:last-child {
   margin-right: 0;
 }
-.course .course-title {
+.course .edit-field-wrapper {
   min-width: 0;
   -webkit-flex: 1 1;
   flex: 1 1;
