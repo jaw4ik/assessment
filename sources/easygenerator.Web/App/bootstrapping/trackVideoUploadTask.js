@@ -1,4 +1,4 @@
-﻿define(['videoUpload/upload'], function (videoUpload) {
+﻿define(['videoUpload/uploadTracking'], function (uploadTracking) {
 
     var task = {
         execute: execute
@@ -7,6 +7,6 @@
     return task;
 
     function execute() {
-        videoUpload.initialize();
+        uploadTracking.initialize();
     }
 });

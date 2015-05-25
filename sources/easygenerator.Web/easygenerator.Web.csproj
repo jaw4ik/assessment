@@ -714,6 +714,8 @@
     <Content Include="App\videoUpload\upload.spec.js">
       <DependentUpon>upload.js</DependentUpon>
     </Content>
+    <Content Include="App\videoUpload\uploadDataContext.js" />
+    <Content Include="App\videoUpload\uploadTracking.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\courseIntroductionAnimationBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\elementCollapseBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\publishTabBinding.js" />

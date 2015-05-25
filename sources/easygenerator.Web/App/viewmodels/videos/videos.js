@@ -8,11 +8,12 @@
     app.on(constants.storage.changesInQuota, function () {
         setAvailableStorageSpace();
     });
-
+   
     var eventCategory = 'Video library',
         events = {
             upgradeNow: 'Upgrade now',
-            skipUpgrade: 'Skip upgrade'
+            skipUpgrade: 'Skip upgrade',
+            openUploadVideoDialog: 'Open \"choose video file\" dialog'
         },
         uploadSettings = {
             acceptedTypes: '*',
@@ -43,6 +44,7 @@
             return;
         }
         videoUpload.upload(uploadSettings);
+        eventTracker.publish(events.openUploadVideoDialog, eventCategory);
     }
 
     function showVideoPopup(video) {
