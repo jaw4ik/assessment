@@ -2033,7 +2033,7 @@
     <Content Include="Templates\Reader\images\reader.png" />
     <Content Include="Templates\Reader\images\thumbnail.png" />
     <Content Include="Templates\Reader\index.html" />
-    <Content Include="Templates\Reader\js\lib\hotspotOnImagePlugin\hotspotOnImagePlugin.css" />
+    <Content Include="Templates\Reader\js\lib\hotspotOnImagePlugin\hotspotOnAnImagePlugin.css" />
     <Content Include="Templates\Reader\js\require.js" />
     <Content Include="Templates\Reader\js\vendor.min.js" />
     <Content Include="Templates\Reader\lang\en.json" />

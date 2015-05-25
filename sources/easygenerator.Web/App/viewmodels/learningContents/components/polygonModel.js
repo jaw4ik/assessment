@@ -6,11 +6,7 @@
             that.points = ko.observable(points);
             that.text = text || '';
             that.onClick = function(evt) {
-                var minMaxCoords = getMinMaxCoords(that.points()),
-                    element = evt.target.getView().getElement(),
-                    position = element.getBoundingClientRect(),
-                    top = window.scrollY + position.top + minMaxCoords.minY + (minMaxCoords.maxY - minMaxCoords.minY) / 2,
-                    left = position.left + minMaxCoords.maxX;
+                var element = evt.target.getView().getElement();
 
                 hotSpotOnImageTextEditor.show(that.text, element, that.points(), function (value) {
                     that.text = value;
@@ -20,27 +16,5 @@
         }; 
 
         return PolygonModel;
-
-        function getMinMaxCoords(points) {
-            var minX = _.min(points, function (point) {
-                    return point.x;
-                }),
-                minY = _.min(points, function (point) {
-                    return point.y;
-                }),
-                maxX = _.max(points, function (point) {
-                    return point.x;
-                }),
-                maxY = _.max(points, function (point) {
-                    return point.y;
-                });
-
-            return {
-                minX: minX.x,
-                minY: minY.y,
-                maxX: maxX.x,
-                maxY: maxY.y
-            };
-        }
     }
 );
