@@ -30,6 +30,13 @@
             this.updatePolygons = updatePolygons;
             this.deselectAllElements = deselectAllElements;
 
+            this.events = {
+                polygonBeforeAdded: 'polygon:beforeAdded',
+                polygonAfterAdded: 'polygon:afterAdded',
+                polygonDeleted: 'polygon:deleted',
+                polygonUpdated: 'polygon:updated'
+            };
+
             var eventsQueue = [];
 
             this.on = function (event, callback) {
@@ -229,7 +236,7 @@
                 }
             };
 
-            that.on('polygon:added', function (id) {
+            that.on(that.events.polygonAfterAdded, function (id) {
                 var polygon = findPolygonById.call(that, id);
                 polygon.path.selected = true;
                 that._paper.view.draw();
@@ -251,7 +258,7 @@
 
             function addPolygon(polygonToAdd) {
                 var points = getPointsFromPath(polygonToAdd.path);
-                that.fire('polygon:add', points);
+                that.fire(that.events.polygonBeforeAdded, points);
             }
 
             function markPolygonAsDitryByPath(path) {
@@ -272,7 +279,7 @@
                     var polygonViewModel = findPolygonViewModelById.call(that, polygon.id);
                     if (polygonViewModel) {
                         var points = getPointsFromPath(path);
-                        that.fire('polygon:updated', polygonViewModel, points);
+                        that.fire(that.events.polygonUpdated, polygonViewModel, points);
                     } else {
                         throw 'Polygon ViewModel in null';
                     }
@@ -285,7 +292,7 @@
                     var polygonViewModel = findPolygonViewModelById.call(that, polygon.id);
                     that._editor.polygons.splice(that._editor.polygons.indexOf(polygon), 1);
                     if (polygonViewModel) {
-                        that.fire('polygon:deleted', polygonViewModel);
+                        that.fire(that.events.polygonDeleted, polygonViewModel);
                     }
                     polygon.removePath();
                 } else {

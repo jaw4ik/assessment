@@ -25,17 +25,17 @@
 
                 ko.utils.domData.set(element, 'ko_polygonEditor', polygonsEditor);
                 
-                polygonsEditor.on('polygon:updated', function (polygonViewModel, points) {
+                polygonsEditor.on(polygonsEditor.events.polygonUpdated, function (polygonViewModel, points) {
                     actions.updatePolygon.end(polygonViewModel, points);
                 });
 
-                polygonsEditor.on('polygon:deleted', function (polygonViewModel) {
+                polygonsEditor.on(polygonsEditor.events.polygonDeleted, function (polygonViewModel) {
                     actions.removePolygon(polygonViewModel);
                 });
 
-                polygonsEditor.on('polygon:add', function (points) {
+                polygonsEditor.on(polygonsEditor.events.polygonBeforeAdded, function (points) {
                     actions.addPolygon(points).then(function (id) {
-                        polygonsEditor.fire('polygon:added', id);
+                        polygonsEditor.fire(polygonsEditor.events.polygonAfterAdded, id);
                     });
                 });
 

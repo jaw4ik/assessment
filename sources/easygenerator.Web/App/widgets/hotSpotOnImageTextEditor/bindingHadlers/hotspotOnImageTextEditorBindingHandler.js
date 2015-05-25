@@ -29,6 +29,7 @@
                     minMaxCoords = getMinMaxCoords(points),
                     $hotspotWrapper = $('.' + classList.hotspotOnImageContainer),
                     $html = $('html');
+
                 if (isVisible()) {
                     $element.css('top', getTopPosition(wrapperPositions, minMaxCoords));
                     $element.css('left', getLeftPosion($hotspotWrapper, $element, wrapperPositions, minMaxCoords));
@@ -55,10 +56,11 @@
     function getLeftPosion($hotspotWrapper, $popover, wrapperPositions, minMaxCoords) {
         var leftArrowPosition = 7,
             spotWidth = minMaxCoords.maxX - minMaxCoords.minX,
-            leftPosition = wrapperPositions.left + minMaxCoords.maxX;
+            leftPosition = wrapperPositions.left + minMaxCoords.maxX,
+            htspotWraperRightPosition = $hotspotWrapper.offset().left + $hotspotWrapper.outerWidth();
 
-        if ($hotspotWrapper.offset().left + $hotspotWrapper.outerWidth() < leftPosition
-            || $hotspotWrapper.offset().left + $hotspotWrapper.outerWidth() + $popover.width() > window.innerWidth) {
+        if (htspotWraperRightPosition < leftPosition
+            || htspotWraperRightPosition + $popover.width() > window.innerWidth) {
             $popover.removeClass(classList.left);
             $popover.addClass(classList.right);
             return leftPosition - spotWidth - $popover.outerWidth() - leftArrowPosition + 'px';

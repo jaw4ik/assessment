@@ -739,7 +739,7 @@
     <Content Include="App\views\courses\publishActions\updatePublishedCourse.html" />
     <Content Include="App\views\learningContents\learningContents.html" />
     <Content Include="App\views\learningContents\types\hotspot.html" />
-    <Content Include="App\views\learningContents\types\richText.html" />
+    <Content Include="App\views\learningContents\types\content.html" />
     <Content Include="App\views\objectives\index.html" />
     <Content Include="App\views\questions\statement\statement.html" />
     <Content Include="App\reporting\views\courseStatement.html" />

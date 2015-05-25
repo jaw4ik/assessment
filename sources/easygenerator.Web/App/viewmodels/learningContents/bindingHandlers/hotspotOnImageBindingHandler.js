@@ -51,20 +51,20 @@
 
                 setUpHoverOnCanvas($element);
 
-                editor.on('polygon:updated', function (polygonViewModel, points) {
+                editor.on(editor.events.polygonUpdated, function (polygonViewModel, points) {
                     updateSpot(data, polygonViewModel.id, polygonViewModel.text, points);
                 });
 
-                editor.on('polygon:deleted', function (polygonViewModel) {
+                editor.on(editor.events.polygonDeleted, function (polygonViewModel) {
                     data(parser.removeSpot(data(), polygonViewModel.id));
                     saveData();
                 });
 
-                editor.on('polygon:add', function (points) {
+                editor.on(editor.events.polygonBeforeAdded, function (points) {
                     var spot = parser.createSpot(data(), points);
                     data(spot.data);
                     saveData();
-                    editor.fire('polygon:added', spot.id);
+                    editor.fire(editor.events.polygonAfterAdded, spot.id);
                 });
 
                 function updateSpot(data, id, text, points) {
