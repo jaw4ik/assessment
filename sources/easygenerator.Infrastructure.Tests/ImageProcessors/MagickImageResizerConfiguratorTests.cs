@@ -1,6 +1,4 @@
 ﻿using easygenerator.Infrastructure.ImageProcessors;
-using FluentAssertions;
-using ImageMagick;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 
@@ -10,30 +8,31 @@ namespace easygenerator.Infrastructure.Tests.ImageProcessors
     public class MagickImageResizerConfiguratorTests
     {
         private PhysicalFileManager fileManager;
+        private MagickAnyCPUWrapper magickAnyCpuWrapper;
+
         private MagickImageResizerConfigurator configurator;
-        private const string DefaultCacheDirectory = @"C:\Windows\Temp";
-        private const string NewCacheDirectory = @"C:\";
+        private const string NewCacheDirectory = @"NewCacheDirectory";
 
         [TestInitialize]
         public void Initialize()
         {
             fileManager = Substitute.For<PhysicalFileManager>();
-            MagickAnyCPU.CacheDirectory = DefaultCacheDirectory;
-            configurator = new MagickImageResizerConfigurator(fileManager);
+            magickAnyCpuWrapper = Substitute.For<MagickAnyCPUWrapper>();
+            configurator = new MagickImageResizerConfigurator(fileManager, magickAnyCpuWrapper);
         }
 
         [TestMethod]
         public void Configure_ShouldNotUpdateCacheDirectory_IfCacheDirectoryIsNull()
         {
             configurator.Configure(null);
-            MagickAnyCPU.CacheDirectory.Should().Be(DefaultCacheDirectory);
+            magickAnyCpuWrapper.DidNotReceive().CacheDirectory = null;
         }
 
         [TestMethod]
         public void Configure_ShouldNotUpdateCacheDirectory_IfCacheDirectoryIsEmpty()
         {
             configurator.Configure(string.Empty);
-            MagickAnyCPU.CacheDirectory.Should().Be(DefaultCacheDirectory);
+            magickAnyCpuWrapper.DidNotReceive().CacheDirectory = string.Empty;
         }
 
         [TestMethod]
@@ -54,8 +53,9 @@ namespace easygenerator.Infrastructure.Tests.ImageProcessors
         [TestMethod]
         public void Configure_ShouldUpdateCacheDirectory_IfNotEmpty()
         {
+            fileManager.DirectoryExists(NewCacheDirectory).Returns(true);
             configurator.Configure(NewCacheDirectory);
-            MagickAnyCPU.CacheDirectory.Should().Be(NewCacheDirectory);
+            magickAnyCpuWrapper.Received().CacheDirectory = NewCacheDirectory;
         }
     }
 }

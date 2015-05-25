@@ -71,6 +71,7 @@
     <Compile Include="IDependencyResolverWrapper.cs" />
     <Compile Include="ILog.cs" />
     <Compile Include="ImageProcessors\IImageResizer.cs" />
+    <Compile Include="ImageProcessors\MagickAnyCPUWrapper.cs" />
     <Compile Include="ImageProcessors\MagickImageResizer.cs" />
     <Compile Include="ImageProcessors\ImageResizer.cs" />
     <Compile Include="ImageProcessors\MagickImageResizerConfigurator.cs" />
