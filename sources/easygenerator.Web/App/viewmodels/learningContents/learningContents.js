@@ -256,7 +256,7 @@
         }
 
         function doAddLearningContent(learningContent, text, type) {
-            learningContent = learningContent || { id: '', text: text || '', hasFocus: true, type: type || constants.learningContentsTypes.richText };
+            learningContent = learningContent || { id: '', text: text || '', hasFocus: true, type: type || constants.learningContentsTypes.content };
             viewModel.learningContents.push({
                 id: ko.observable(learningContent.id),
                 text: ko.observable(learningContent.text),

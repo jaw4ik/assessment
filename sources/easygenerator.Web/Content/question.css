@@ -878,7 +878,7 @@
   margin-top: -18px;
   background: url('images/sprites_64.png') no-repeat;
 }
-.add-button.inline.richtext .add-button-text {
+.add-button.inline.content .add-button-text {
   padding-left: 50px;
 }
 .add-button.inline.hotspot-on-image .add-button-text {
@@ -886,9 +886,9 @@
 }
 .add-button.inline.hotspot-on-image .add-button-text:before {
   width: 54px;
-  background-position: -74px -283px;
+  background-position: -74px -283p;
 }
-.add-button.inline.richtext .add-button-text:before {
+.add-button.inline.content .add-button-text:before {
   width: 37px;
   background-position: -152px -283px;
 }

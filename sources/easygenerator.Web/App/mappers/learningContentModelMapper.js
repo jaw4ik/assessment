@@ -24,7 +24,7 @@
                 case constants.learningContentsTypes.hotspot:
                     return constants.learningContentsTypes.hotspot;
                 default:
-                    return constants.learningContentsTypes.richText;
+                    return constants.learningContentsTypes.content;
             }
         }
     });

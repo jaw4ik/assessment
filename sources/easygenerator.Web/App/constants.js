@@ -57,7 +57,7 @@
             },
 
             learningContentsTypes: {
-                richText: 'richText',
+                content: 'content',
                 hotspot: 'hotspot'
             },
 

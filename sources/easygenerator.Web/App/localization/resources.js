@@ -371,7 +371,45 @@
         'zh-cn': '继续',
         'uk': 'Продовжити'
     },
+    gb: {
+        'en': 'Gb',
+        'zh-cn': 'Gb[zh-cn]',
+        'uk': 'Гб'
+    },
+    mb: {
+        'en': 'Mb',
+        'zh-cn': 'Mb[zh-cn]',
+        'uk': 'Мб'
+    },
+    copyrightText: {
+        'en': 'Copyright © 2015 easygenerator. All rights reserved.',
+        'zh-cn': 'Copyright © 2015 easygenerator. All rights reserved.',
+        'uk': '© 2015 easygenerator. Всі права захищені.'
+    },
+    termsOfUse: {
+        'en': 'Terms of use',
+        'zh-cn': '使用说明',
+        'uk': 'Умови користування'
+    },
+    privacyPolicy: {
+        'en': 'Privacy policy',
+        'zh-cn': '隐私条例',
+        'uk': 'Політика конфіденційності'
+    },
     /* End resource section for model General */
+    
+    /* Resource section for model Storage */
+    storageFailed: {
+        'en': 'Something went wrong, storage is currently anavailable.',
+        'zh-cn': 'Something went wrong, storage is currently anavailable.[zh-cn]',
+        'uk': 'Помилка при завантаженні медіа.'
+    },
+    freeSpace: {
+        'en': 'Free space',
+        'zh-cn': 'Free space[zh-cn]',
+        'uk': 'Вільне місце'
+    },
+    /* End resource section for model Storage */
     
     /* Resource section for model Videos */
     videoLibrary: {
@@ -388,6 +426,36 @@
         'en': 'Embed this code to your content',
         'zh-cn': 'Embed this code to your content[zh-cn]',
         'uk': 'Вставте цей код в ваш контент'
+    },
+    videoUpgradeToUpload: {
+        'en': 'To upload video to easygenerator',
+        'zh-cn': 'To upload video to easygenerator[zh-cn]',
+        'uk': 'Для завантаження відео в easygenerator'
+    },
+    videoUploadShortError: {
+        'en': 'Upload failed',
+        'zh-cn': 'Upload failed[zh-cn]',
+        'uk': 'Помилка завантаження'
+    },
+    videoUpgradeToUploadHtml: {
+        'en': '<ul><li>Unlimited storage space (fair use policy)</li><li>Beautiful HD playback</li><li>Unlimited HD plays</li></ul>',
+        'zh-cn': '<ul><li>Unlimited storage space (fair use policy)</li><li>Beautiful HD playback</li><li>Unlimited HD plays</li></ul>[zh-cn]',
+        'uk': '<ul><li>Необмежений обсяг завантаження</li><li>Відео у високій роздільній здатності</li><li>Необмежена кількість переглядів</li></ul>'
+    },
+    videoUpgradeDialogMaybeLater: {
+        'en': 'Maybe later',
+        'zh-cn': 'Maybe later[zh-cn]',
+        'uk': 'Я зроблю це потім'
+    },
+    videoUploadError: {
+        'en': 'Something went wrong uploading the video. Please try again.',
+        'zh-cn': 'Something went wrong uploading the video. Please try again.[zh-cn]',
+        'uk': 'Помилка при завантаженні відео. Будь ласка, спробуйте знову.'
+    },
+    videoUploadNotAnoughSpace: {
+        'en': 'File size exceeds available free space',
+        'zh-cn': 'File size exceeds available free space[zh-cn]',
+        'uk': 'Розмір файлу перевищує вільний простір'
     },
     /* End resource section for model Videos */
     
@@ -438,6 +506,69 @@
         'uk': 'Список розділей / цілей порожній...'
     },
     /* End resource section for model Objectives */
+    
+    /* Resource section for model Learning paths */
+    learningPaths: {
+        'en': 'Learning paths',
+        'zh-cn': 'Learning paths[zh-cn]',
+        'uk': 'Навчальні шляхи'
+    },
+    learningPath: {
+        'en': 'Learning path',
+        'zh-cn': 'Learning path[zh-cn]',
+        'uk': 'Навчальний шлях'
+    },
+    learningPathProperties: {
+        'en': 'Learning path properties',
+        'zh-cn': 'Learning path properties[zh-cn]',
+        'uk': 'Властивості навчального шляху'
+    },
+    newLaerningPath: {
+        'en': 'New learning path',
+        'zh-cn': 'New learning path[zh-cn]',
+        'uk': 'Новий навчальний шлях'
+    },
+    createFirstLearningPathHint: {
+        'en': 'Create learning path by clicking here',
+        'zh-cn': 'Create learning path by clicking here[zh-cn]',
+        'uk': 'Створіть навчальний шлях натиснувши цю кнопку'
+    },
+    learningPathTitle: {
+        'en': 'Learning path title',
+        'zh-cn': 'Learning path title[zh-cn]',
+        'uk': 'Learning path title[uk]'
+    },
+    coursesInThePath: {
+        'en': 'Courses in the path:',
+        'zh-cn': 'Courses in the path:[zh-cn]',
+        'uk': 'Курси навчального шляху:'
+    },
+    noCoursesInTheLearningPath: {
+        'en': 'No courses in the learning path',
+        'zh-cn': 'No courses in the learning path[zh-cn]',
+        'uk': 'Навчальний шлях не містить жодного курсу'
+    },
+    tooltipLearningPathTitle: {
+        'en': 'Learning path',
+        'zh-cn': 'Learning path[zh-cn]',
+        'uk': 'Навчальний шлях'
+    },
+    tooltipLearningPathDescription: {
+        'en': '<p>Learning paths help your learners know which courses to take in which particular order, so that you they work toward specific learning goals.</p>',
+        'zh-cn': '<p>Learning paths help your learners know which courses to take in which particular order, so that you they work toward specific learning goals.</p>[zh-cn]',
+        'uk': '<p>Навчальний шлях допоможе Вашим учням з\'ясувати які курси проходити та у якій послідовності, щоб досягти кращих результатів та зосередитися на цілі навчання.</p>'
+    },
+    tooltipLearningPathLink: {
+        'en': '<a style=\"display:none;\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">read more</a>',
+        'zh-cn': '<a style=\"display:none;\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">read more</a>[zh-cn]',
+        'uk': '<a style=\"display:none;\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Більше тут</a>'
+    },
+    learningPathDefaultTitle: {
+        'en': 'Untitled learning path',
+        'zh-cn': 'Untitled learning path[zh-cn]',
+        'uk': 'Навчальний шлях без назви'
+    },
+    /* End resource section for model Learning paths */
     
     /* Resource section for model Courses */
     courses: {
@@ -1088,6 +1219,11 @@
         'en': 'Content',
         'zh-cn': '内容',
         'uk': 'Навчальний матеріал'
+    },
+    hotspotOnAnImage: {
+        'en': 'Add hotspot on an image',
+        'zh-cn': 'Add hotspot on an image[zh-cn]',
+        'uk': 'Додати підказки на зображення'
     },
     clickToAddLearningContent: {
         'en': 'Click to add content',
@@ -2243,6 +2379,11 @@
     /* End resource section for model Confirm coauthoring */
     
     /* Resource section for model SignUp */
+    signUp: {
+        'en': 'Sign up',
+        'zh-cn': '注册',
+        'uk': 'Зареєструватись'
+    },
     createAccountTitle: {
         'en': 'Start creating courses now!',
         'zh-cn': '现在开始创建课程',
@@ -2344,9 +2485,9 @@
         'uk': 'Пароль не відповідає вимогам'
     },
     licenseAgreeCaption: {
-        'en': 'By clicking \"Sign up\" I agree to the easygenerator\'s  <a href=\"{0}\"  target=”_blank”>Terms</a> and <a href=\"{1}\"  target=”_blank”>Privacy policy</a>',
-        'zh-cn': '点击“注册”表示我同意easygenerator的 <a href=\"{0}\" target=”_blank”>Terms</a> 和 <a href=\"{1}\" target=”_blank”>隐私条例</a>',
-        'uk': 'Натискаючи на \"Зареєструватись\", я погоджуюсь з  <a href=\"{0}\"  target=”_blank”>умовами</a> та <a href=\"{1}\"  target=”_blank”>політикою конфіденційності</a>'
+        'en': 'By clicking \"Sign up\" I agree to the easygenerator\'s  <a href=\"/terms.html\"  target=”_blank”>Terms</a> and <a href=\"/privacypolicy.html\"  target=”_blank”>Privacy policy</a>',
+        'zh-cn': '点击“注册”表示我同意easygenerator的 <a href=\"/terms.html\"  target=”_blank”>Terms</a> 和 <a href=\"/privacypolicy.html\" target=”_blank”>隐私条例</a>',
+        'uk': 'Натискаючи на \"Зареєструватись\", я погоджуюсь з  <a href=\"/terms.html\"  target=”_blank”>умовами</a> та <a href=\"/privacypolicy.html\"  target=”_blank”>політикою конфіденційності</a>'
     },
     checking: {
         'en': 'Checking...',
@@ -2428,6 +2569,11 @@
         'zh-cn': '选择国家',
         'uk': 'Виберіть свою країну...'
     },
+    startAuthoring: {
+        'en': 'Start authoring!',
+        'zh-cn': '开始编写！',
+        'uk': 'Почніть створювати!'
+    },
     /* End resource section for model SignUp */
     
     /* Resource section for model Sign In */
@@ -2454,12 +2600,12 @@
     requestError: {
         'en': 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists. ',
         'zh-cn': '出错了。请重试。如果问题仍然存在请联系support@easygenerator.com',
-        'uk': 'Щось пішло не так. Спробуте знову. Якщо проблема не зникне надішліть нам електронного листа на адресу support@easygenerator.com'
+        'uk': 'Щось пішло не так. Спробуте знову. Якщо проблема не зникне, надішліть нам електронного листа на адресу support@easygenerator.com'
     },
     couldNotVerifyPasswordRecovery: {
         'en': 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists. ',
         'zh-cn': '出错了。请重试。如果问题仍然存在请联系support@easygenerator.com',
-        'uk': 'Щось пішло не так. Спробуте знову. Якщо проблема не зникне надішліть нам електронного листа на адресу support@easygenerator.com'
+        'uk': 'Щось пішло не так. Спробуте знову. Якщо проблема не зникне, надішліть нам електронного листа на адресу support@easygenerator.com'
     },
     restorePasswordCaption: {
         'en': 'Enter your new password',
