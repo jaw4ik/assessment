@@ -97,6 +97,10 @@ namespace easygenerator.Web.BuildCourse
             {
                 return MapInformationContent(question as InformationContent);
             }
+            if (questionType == typeof(OpenQuestion))
+            {
+                return MapOpenQuestion(question as OpenQuestion);
+            }
 
             throw new NotSupportedException();
         }
@@ -114,6 +118,12 @@ namespace easygenerator.Web.BuildCourse
         {
             return MapQuestion<InformationContentPackageModel>(question);
         }
+
+        private OpenQuestionPackageModel MapOpenQuestion(OpenQuestion question)
+        {
+            return MapQuestion<OpenQuestionPackageModel>(question);
+        }
+
 
         private TextMatchingPackageModel MapTextMatching(TextMatching question)
         {

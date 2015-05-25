@@ -199,6 +199,7 @@
     <Compile Include="BuildCourse\ICourseBuilder.cs" />
     <Compile Include="BuildCourse\Modules\IPackageModulesProvider.cs" />
     <Compile Include="BuildCourse\Modules\Models\PackageModule.cs" />
+    <Compile Include="BuildCourse\PackageModel\OpenQuestionPackageModel.cs" />
     <Compile Include="BuildCourse\PublishSettings\Models\PublishSettings.cs" />
     <Compile Include="BuildCourse\Modules\PackageModulesProvider.cs" />
     <Compile Include="BuildCourse\PackageModelMapper.cs" />
@@ -256,6 +257,7 @@
     <Compile Include="Controllers\Api\DragAndDropTextQuestionController.cs" />
     <Compile Include="Controllers\Api\FillInTheBlanksController.cs" />
     <Compile Include="Controllers\Api\OnboardingController.cs" />
+    <Compile Include="Controllers\Api\OpenQuestionController.cs" />
     <Compile Include="Controllers\Api\SingleSelectImageController.cs" />
     <Compile Include="Controllers\Api\InformationContentController.cs" />
     <Compile Include="Controllers\Api\SingleSelectTextController.cs" />
@@ -623,6 +625,10 @@
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteAccepted.spec.js">
       <DependentUpon>inviteAccepted.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteCourseTitleUpdated.js" />
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteCourseTitleUpdated.spec.js">
+      <DependentUpon>inviteCourseTitleUpdated.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteCreated.js" />
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteRemoved.js" />
     <Content Include="App\synchronization\handlers\course\eventHandlers\stateChanged.js" />
@@ -693,6 +699,10 @@
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.spec.js">
       <DependentUpon>changeType.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\questions\openQuestion\openQuestion.spec.js">
+      <DependentUpon>openQuestion.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\openQuestion\openQuestion.js" />
     <Content Include="App\viewmodels\questions\statement\statement.js" />
     <Content Include="App\viewmodels\questions\statement\statement.spec.js">
       <DependentUpon>statement.js</DependentUpon>
@@ -757,6 +767,7 @@
     <Content Include="Content\images\openhand.cur" />
     <Content Include="Content\images\import-pptx.png" />
     <Content Include="Content\images\dialog-header-background.png" />
+    <Content Include="Content\images\open-question.png" />
     <Content Include="Content\images\preview.png" />
     <Content Include="Content\images\safari.png" />
     <Content Include="Content\images\sprites_16.png" />
@@ -1853,6 +1864,7 @@
     <Content Include="Templates\Quiz\app\views\main.html" />
     <Content Include="Templates\Quiz\app\views\multipleSelectText.html" />
     <Content Include="Templates\Quiz\app\views\notFoundError.html" />
+    <Content Include="Templates\Quiz\app\views\openQuestion.html" />
     <Content Include="Templates\Quiz\app\views\singleSelectImage.html" />
     <Content Include="Templates\Quiz\app\views\singleSelectText.html" />
     <Content Include="Templates\Quiz\app\views\statement.html" />
@@ -1991,6 +2003,8 @@
     <Content Include="Templates\Reader\css\fonts\Ubuntu-Regular.svg" />
     <Content Include="Templates\Reader\css\fonts\Ubuntu-Regular.ttf" />
     <Content Include="Templates\Reader\css\fonts\Ubuntu-Regular.woff" />
+    <Content Include="Templates\Reader\css\img\background.png" />
+    <Content Include="Templates\Reader\css\img\reader.png" />
     <Content Include="Templates\Reader\css\jquery.mCustomScrollbar.min.css" />
     <Content Include="Templates\Reader\css\styles.css" />
     <Content Include="Templates\Reader\images\reader.png" />

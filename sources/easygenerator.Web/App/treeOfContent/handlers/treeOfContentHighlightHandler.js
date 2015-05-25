@@ -15,7 +15,7 @@
                     url += "?" + activeInstruction.queryString;
                 }
 
-                url = url.replace('/design', '').replace('/publish', '').replace('/results', '');
+                url = url.replace('/design', '').replace('/configure', '').replace('/publish', '').replace('/results', '');
 
                 //console.log('Highlighting URL ' + url);
 

@@ -38,7 +38,7 @@ $dbBackupName = $dbName + "-" + $date + ".bak"
 $dbBackupPath = "D:\SQL_Backup\" + $dbBackupName 
 $query = "BACKUP DATABASE [" + $dbName + "] TO DISK='" + $dbBackupPath + "' WITH STATS"
 
-SqlCmd -E -S . -Q $query
+SqlCmd -E -S ".\sql2014_web" -Q $query
 
 echo "Creating website backup:"
 

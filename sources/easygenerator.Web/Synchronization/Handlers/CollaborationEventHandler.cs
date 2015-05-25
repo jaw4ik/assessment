@@ -111,13 +111,16 @@ namespace easygenerator.Web.Synchronization.Handlers
 
         public void Handle(UserUpgradedToStarter args)
         {
-            _collaboratorRepository.UnlockCollaboration(args.User.Email, Constants.Collaboration.MaxCollaboratorsCountForStarterPlan);
+            const int maxCollaboratorsCount = Constants.Collaboration.MaxCollaboratorsCountForStarterPlan;
+            var courses = _courseRepository.GetOwnedCourses(args.User.Email);
 
-            var coursesToEnabledCollaboration =
-                _courseRepository.GetOwnedCourses(args.User.Email)
-                .Where(e => e.Collaborators.Count() <= Constants.Collaboration.MaxCollaboratorsCountForStarterPlan);
+            _collaboratorRepository.UnlockCollaboration(args.User.Email, maxCollaboratorsCount);
+            NotifyCoursesCollaborationUnlocked(args.User.Email, courses
+                .Where(e => e.Collaborators.Count() <= maxCollaboratorsCount));
 
-            NotifyCoursesCollaborationUnlocked(args.User.Email, coursesToEnabledCollaboration);
+            _collaboratorRepository.LockCollaboration(args.User.Email, maxCollaboratorsCount);
+            NotifyCoursesCollaborationLocked(args.User.Email, courses
+                .Where(e => e.Collaborators.Count() > maxCollaboratorsCount));
         }
 
         public void Handle(UserUpgradedToPlus args)

@@ -34,6 +34,8 @@ namespace easygenerator.Web.Synchronization.Handlers
         {
             _broadcaster.OtherCollaborators(args.Course)
                 .courseTitleUpdated(args.Course.Id.ToNString(), args.Course.Title, args.Course.ModifiedOn);
+
+            _broadcaster.UsersInvitedToCollaboration(args.Course).collaborationInviteCourseTitleUpdated(args.Course.Id.ToNString(), args.Course.Title);
         }
 
         public void Handle(CourseIntroductionContentUpdated args)

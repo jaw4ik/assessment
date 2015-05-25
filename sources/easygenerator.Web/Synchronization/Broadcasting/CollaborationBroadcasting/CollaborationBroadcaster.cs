@@ -36,6 +36,13 @@ namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasti
             return UsersExcept(GetCollaborators(entity), CurrentUsername);
         }
 
+        public dynamic UsersInvitedToCollaboration(T entity)
+        {
+            ThrowIfEntityNotValid(entity);
+
+            return Users(_collaboratorProvider.GetUsersInvitedToCollaboration(entity));
+        }
+
         private IEnumerable<string> GetCollaborators(T entity)
         {
             return _collaboratorProvider.GetCollaborators(entity);

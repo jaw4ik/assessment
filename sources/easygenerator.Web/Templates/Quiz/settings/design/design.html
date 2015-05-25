@@ -39,34 +39,54 @@
                                     </a>
                                 </div>
                                 <div class="template-logo-container">
-                                    <div class="template-logo-wrapper" ng-hide="logo.hasLogo() || logo.hasError">
-                                        <div class="template-logo-emty-img"></div>
-                                        <div class="template-logo-empty-text">
-                                            Your logo will appear here
-                                            <p>(recommended size 300 x 50 px)</p>
+                                    <div class="template-logo-wrapper" ng-hide="logo.hasLogo()">
+
+                                        <div class="template-logo-info" ng-hide="logo.hasError || logo.isLoading">
+                                            <div class="template-logo-empty-img"></div>
+                                            <div class="template-logo-empty-text">
+                                                <span>Your logo will appear here</span>
+                                                <p>(recommended size 300 x 50 px)</p>
+                                            </div>
                                         </div>
+
+                                        <div class="template-logo-info" ng-show="logo.hasError && !logo.isLoading">
+                                            <div class="template-logo-error-img"></div>
+                                            <div class="template-logo-empty-text">
+                                                <span>{{ logo.errorText }}</span>
+                                                <p>{{ logo.errorDescription }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="circular-loader x32 align-center grey" ng-show="logo.isLoading">
+                                            <div class="circular-loader-item"></div>
+                                            <div class="circular-loader-item"></div>
+                                            <div class="circular-loader-item"></div>
+                                            <div class="circular-loader-item"></div>
+                                            <div class="circular-loader-item"></div>
+                                            <div class="circular-loader-item"></div>
+                                            <div class="circular-loader-item"></div>
+                                            <div class="circular-loader-item"></div>
+                                        </div>
+
                                         <span class="vertical-align-helper"></span>
                                     </div>
-                                    <div class="template-logo-wrapper error" ng-show="logo.hasError && !logo.hasLogo()">
-                                        <div class="template-logo-emty-img"></div>
-                                        <div class="template-logo-empty-text">
-                                            <span>{{ logo.errorText }}</span>
-                                            <p>{{ logo.errorDescription }}</p>
+
+                                    <div ng-show="logo.hasLogo()">
+                                        <div class="template-logo-wrapper not-empty" ng-show="logo.hasLogo()">
+                                            <img class="template-logo" src="" alt="" ng-src="{{ logo.url }}" />
                                         </div>
-                                        <span class="vertical-align-helper"></span>
-                                    </div>
-                                    <div class="template-logo-wrapper not-empty" ng-show="logo.hasLogo()">
-                                        <img class="template-logo" src="" alt="" ng-src="{{ logo.url }}" />
-                                    </div>
-                                    <div class="template-logo-clear-wrapper" ng-show="logo.hasLogo()">
-                                        <div class="template-logo-clear-btn" ng-click="logo.clear()">
-                                            <div class="tooltip">
-                                                <span class="tooltip-text">Clear logo</span>
+                                        <div class="template-logo-clear-wrapper" ng-show="logo.hasLogo()">
+                                            <div class="template-logo-clear-btn" ng-click="logo.clear()">
+                                                <div class="tooltip">
+                                                    <span class="tooltip-text">Clear logo</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
+
                             <div class="no-access" fade-visible fade-visible-value="!userAccess.hasStarterPlan">
                                 <div class="no-access-img"></div>
                                 <div class="no-access-text">
@@ -74,6 +94,8 @@
                                     <a target="_blank" href="/account/upgrade">upgrade your account</a>
                                     in order to set custom course logo
                                 </div>
+                                <div class="no-access-overlay"></div>
+                                <span class="vertical-align-helper"></span>
                             </div>
                         </div>
                     </div>
@@ -141,6 +163,8 @@
                                 <div class="no-access-text">
                                     You have to <a target="_blank" href="/account/upgrade">upgrade your account</a> in order to set custom course background
                                 </div>
+                                <div class="no-access-overlay"></div>
+                                <span class="vertical-align-helper"></span>
                             </div>
                         </div>
                     </div>

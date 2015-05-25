@@ -1,8 +1,9 @@
 ﻿define(['synchronization/handlers/collaboration/eventHandlers/started', 'synchronization/handlers/collaboration/eventHandlers/finished',
     'synchronization/handlers/collaboration/eventHandlers/collaboratorAdded', 'synchronization/handlers/collaboration/eventHandlers/collaboratorRemoved',
     'synchronization/handlers/collaboration/eventHandlers/collaboratorRegistered', 'synchronization/handlers/collaboration/eventHandlers/inviteCreated',
-    'synchronization/handlers/collaboration/eventHandlers/inviteRemoved', 'synchronization/handlers/collaboration/eventHandlers/inviteAccepted'],
-    function (started, finished, collaboratorAdded, collaboratorRemoved, collaboratorRegistered, inviteCreated, inviteRemoved, inviteAccepted) {
+    'synchronization/handlers/collaboration/eventHandlers/inviteRemoved', 'synchronization/handlers/collaboration/eventHandlers/inviteAccepted',
+    'synchronization/handlers/collaboration/eventHandlers/inviteCourseTitleUpdated'],
+    function (started, finished, collaboratorAdded, collaboratorRemoved, collaboratorRegistered, inviteCreated, inviteRemoved, inviteAccepted, inviteCourseTitleUpdated) {
         "use strict";
 
         return {
@@ -13,7 +14,8 @@
             collaboratorRegistered: collaboratorRegistered,
             inviteCreated: inviteCreated,
             inviteRemoved: inviteRemoved,
-            inviteAccepted: inviteAccepted
+            inviteAccepted: inviteAccepted,
+            inviteCourseTitleUpdated: inviteCourseTitleUpdated
         }
     }
 );

@@ -11,8 +11,7 @@
         function initialize() {
             return Q.fcall(function () {
                 return {
-                    viewCaption: localizationManager.localize('informationContentEditor'),
-                    isInformationContent : true
+                    viewCaption: localizationManager.localize('informationContentEditor')
                 };
             });
         }
