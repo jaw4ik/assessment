@@ -29,7 +29,6 @@
                     minMaxCoords = getMinMaxCoords(points),
                     $hotspotWrapper = $('.' + classList.hotspotOnImageContainer),
                     $html = $('html');
-
                 if (isVisible()) {
                     $element.css('top', getTopPosition(wrapperPositions, minMaxCoords));
                     $element.css('left', getLeftPosion($hotspotWrapper, $element, wrapperPositions, minMaxCoords));
@@ -48,7 +47,7 @@
     function getTopPosition(wrapperPositions, minMaxCoords) {
         var topArrowPosition = 28,
             spotHeight = minMaxCoords.maxY - minMaxCoords.minY,
-            scrollYPosition = window.scrollY;
+            scrollYPosition = window.scrollY || window.pageYOffset;
          
         return scrollYPosition + wrapperPositions.top + minMaxCoords.minY + spotHeight / 2 - topArrowPosition + 'px';
     }
