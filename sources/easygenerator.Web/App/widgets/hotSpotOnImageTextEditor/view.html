@@ -1,6 +1,6 @@
 ﻿<div class="hotspot-on-image-editor-container" data-bind="hotspotOnImageTextEditor: { isVisible: isVisible, close: close, wrapper: wrapper, points: points}">
     <div class="hotspot-on-image-editor-pointer"></div>
-    <div class="hotspot-on-image-editor-text-container selectable" data-bind="editableText: { text: text }, autofocus: { focus: isVisible(), autoselect: isVisible() }" data-text></div>
+    <textarea class="hotspot-on-image-editor-text-container selectable" data-bind="value: text, valueUpdate: 'afterkeydown', autosize: { text: text }, event: {  }" data-text></textarea>
     <div class="hotspot-on-image-editor-button-container">
         <button class="hotspot-on-image-editor-button cancel" data-bind="click: close">Cancel</button>
         <button class="hotspot-on-image-editor-button save" data-bind="click: save">Save</button>
