@@ -91,7 +91,8 @@
                 courseTitleMaxLength: 255,
                 questionTitleMaxLength: 255,
                 textMatchingKeyMaxLength: 255,
-                textMatchingValueMaxLength: 255
+                textMatchingValueMaxLength: 255,
+                learningPathTitleMaxLength: 255
             },
 
             messages: {

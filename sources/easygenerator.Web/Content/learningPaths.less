@@ -159,6 +159,31 @@
     }
 }
 
+.learning-path {
+    .learning-path-header-content-section {
+        .display-flex();
+        padding: 20px 0px;
+
+        .content-section-title-wrapper {
+            .flex(1 0);
+            margin-right: 30px;
+        }
+
+        .content-section-actions-wrapper {
+            width: 250px;
+            .flex-shrink(0);
+        }
+    }
+
+    .page-view-caption {
+        padding: 20px 0;
+    }
+
+    .page-view-caption-text {
+        font: @view-caption-font;
+    }
+}
+
 @media (max-width: 1175px) {
     .learning-path-list-item-wrapper {
         margin-right: 4.5%;

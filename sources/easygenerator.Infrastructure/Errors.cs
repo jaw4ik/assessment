@@ -13,8 +13,10 @@ namespace easygenerator.Infrastructure
         public const string ObjectiveCannotBeDeleted = "Objective can not be deleted";
         public const string CoursePublishActionFailedError = "Failed. Try again.";
         public const string CollaboratorNotFoundError = "Collaborator is not found";
+        public const string LearningPathNotFoundError = "Learning path is not found";
 
         public const string CourseNotFoundResourceKey = "courseNotFoundError";
+        public const string LearningPathNotFoundResourceKey = "learningPathNotFoundError";
         public const string ObjectiveNotFoundResourceKey = "objectiveNotFoundError";
         public const string ObjectivesNotFoundResourceKey = "objectivesNotFoundError";
         public const string QuestionNotFoundResourceKey = "questionNotFoundError";

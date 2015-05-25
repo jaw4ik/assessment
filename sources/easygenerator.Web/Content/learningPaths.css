@@ -132,6 +132,27 @@
   box-shadow: inset 0 10px 10px -10px rgba(0, 0, 0, 0.4);
   word-wrap: break-word;
 }
+.learning-path .learning-path-header-content-section {
+  display: -webkit-flex;
+  display: flex;
+  padding: 20px 0px;
+}
+.learning-path .learning-path-header-content-section .content-section-title-wrapper {
+  -webkit-flex: 1 0;
+  flex: 1 0;
+  margin-right: 30px;
+}
+.learning-path .learning-path-header-content-section .content-section-actions-wrapper {
+  width: 250px;
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
+}
+.learning-path .page-view-caption {
+  padding: 20px 0;
+}
+.learning-path .page-view-caption-text {
+  font: 20px 'OpenSans-Semibold';
+}
 @media (max-width: 1175px) {
   .learning-path-list-item-wrapper {
     margin-right: 4.5%;

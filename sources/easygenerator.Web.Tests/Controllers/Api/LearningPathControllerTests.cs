@@ -8,6 +8,7 @@ using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
@@ -99,6 +100,43 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Assert
             result.Should().BeJsonSuccessResult().And.Data.Should().NotBeNull();
         }
+
+        #endregion
+
+        #region Update Title
+
+        [TestMethod]
+        public void Update_ShouldReturnJsonErrorResult_WhenLearningPathIsNull()
+        {
+            var result = _controller.UpdateTitle(null, String.Empty);
+
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Learning path is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("learningPathNotFoundError");
+        }
+
+        [TestMethod]
+        public void Update_ShouldUpdateLearningPathTitle()
+        {
+            const string title = "updated title";
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var learningPath = Substitute.For<LearningPath>("Some title", "author@com.ua");
+
+            _controller.UpdateTitle(learningPath, title);
+
+            learningPath.Received().UpdateTitle(title, user);
+        }
+
+        [TestMethod]
+        public void Update_ShouldReturnJsonSuccessResult()
+        {
+            var learningPath = Substitute.For<LearningPath>("Some title", "author@com.ua");
+
+            var result = _controller.UpdateTitle(learningPath, String.Empty);
+
+            result.Should().BeJsonSuccessResult();
+        }
+
 
         #endregion
 

@@ -2,13 +2,8 @@
 
     <header class="content-section-wrapper">
         <div class="content-section course-title-wrapper">
-            <div class="edit-field-wrapper course-title" data-bind="css: { 'active': title.isEditing(), 'error': !title.isValid() }">
-                <label data-bind="localize: { text: 'courseTitle' }">Course title</label>
-                <div class="edit-field selectable" data-bind="editableText: { text: title }, event: { focus: title.beginEdit, blur: title.endEdit }, autofocus: { focus: title.isSelected(), autoselect: title.isSelected() }"></div>
-                <div class="validation-message">
-                    <span data-bind="text: title() && title().length"></span>\<span data-bind="text: title.maxLength"></span>
-                </div>
-            </div>
+            <!--  ko compose: { model: titleField, view: 'views/common/titleField.html' }  -->
+            <!-- /ko -->
             <ul class="course-actions">
                 <!-- ko if: collaborate.enabled -->
                 <li class="">
@@ -48,7 +43,7 @@
         <div data-bind="router: {}, style: { opacity: router.isViewReady() ? '1' : '0' }"></div>
 
         <!-- ko ifnot: router.isViewReady -->
-            <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center', style: { top: '250px' } } } --><!-- /ko -->
+        <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center', style: { top: '250px' } } } --><!-- /ko -->
         <!-- /ko -->
     </div>
 

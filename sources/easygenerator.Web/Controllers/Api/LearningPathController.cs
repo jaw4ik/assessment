@@ -1,6 +1,7 @@
 ﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.Mappers;
 using System.Linq;
@@ -41,5 +42,20 @@ namespace easygenerator.Web.Controllers.Api
 
             return JsonSuccess(data);
         }
+
+        [HttpPost]
+        [Route("api/learningpath/title/update")]
+        public ActionResult UpdateTitle(LearningPath learningPath, string title)
+        {
+            if (learningPath == null)
+            {
+                return JsonLocalizableError(Errors.LearningPathNotFoundError, Errors.LearningPathNotFoundResourceKey);
+            }
+
+            learningPath.UpdateTitle(title, GetCurrentUsername());
+
+            return JsonSuccess();
+        }
+
     }
 }

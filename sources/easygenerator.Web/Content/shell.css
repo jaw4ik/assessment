@@ -273,7 +273,8 @@
 .shell > header span.top-navigation-item.current {
   cursor: default;
 }
-.course > header {
+.course > header,
+.learning-path > header {
   background: #fff;
   -webkit-flex: 0 0 auto;
   flex: 0 0 auto;
@@ -306,7 +307,7 @@
 .course .course-title-wrapper ul.course-actions > li:last-child {
   margin-right: 0;
 }
-.course .course-title {
+.course .edit-field-wrapper {
   min-width: 0;
   -webkit-flex: 1 1;
   flex: 1 1;

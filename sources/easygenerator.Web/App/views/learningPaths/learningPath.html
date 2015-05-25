@@ -1,3 +1,31 @@
-﻿<section>
-    <div data-bind="text: title"></div>
+﻿<section class="learning-path">
+
+    <header class="content-section-wrapper ">
+        <div class="content-section learning-path-header-content-section">
+            <div class="content-section-title-wrapper">
+                <!--  ko compose: { model: titleField, view: 'views/common/titleField.html' }  -->
+                <!-- /ko -->
+            </div>
+            <div class="content-section-actions-wrapper">
+            </div>
+        </div>
+    </header>
+
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <div class="page-view-caption clearfix">
+                <button class="page-view-caption-back-button info-tooltip-holder" data-bind="click: back">
+                    <div class="info-tooltip">
+                        <span data-bind="localize: { text: 'goBack' }">Go back</span>
+                    </div>
+                </button>
+                <div class="page-view-caption-text" data-bind="localize: { text: 'coursesInThePath' }"></div>
+            </div>
+            <div class="empty-list-wrapper">
+                <span class="empty-list" data-bind="localize: { text: 'noCoursesInTheLearningPath'}"></span>
+            </div>
+        </div>
+    </div>
+
+
 </section>

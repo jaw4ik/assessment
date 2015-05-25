@@ -320,14 +320,15 @@
     }
 }
 
-.course {
+.course > header,
+.learning-path > header {
+    background: #fff;
+    -webkit-flex: 0 0 auto;
+    flex: 0 0 auto;
+    border-bottom: 1px solid rgba(198, 209, 216, 0.7);
+}
 
-    & > header {
-        background: #fff;
-        -webkit-flex: 0 0 auto;
-        flex: 0 0 auto;
-        border-bottom: 1px solid rgba(198, 209, 216, 0.7);
-    }
+.course {
 
     .course-title-wrapper {
         padding-top: 20px;
@@ -361,7 +362,7 @@
         }
     }
 
-    .course-title {
+    .edit-field-wrapper {
         min-width: 0; // to force flexbox to break a very long word
         -webkit-flex: 1 1;
         flex: 1 1;

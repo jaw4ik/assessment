@@ -204,6 +204,7 @@
             //#region learning paths
 
             'viewmodels/learningPaths/commands/createLearningPathCommand.spec',
+            'viewmodels/learningPaths/commands/updateLearningPathTitleCommand.spec',
             'viewmodels/learningPaths/queries/getLearningPathByIdQuery.spec',
             'viewmodels/learningPaths/queries/getLearningPathCollectionQuery.spec',
             'viewmodels/learningPaths/learningPathBrief.spec',
@@ -222,6 +223,7 @@
             'treeOfContent/QuestionTreeNode.spec',
 
             'viewmodels/common/contentField.spec',
+            'viewmodels/common/titleField.spec',
             'viewmodels/courses/courses.spec',
             'viewmodels/courses/course/index.spec',
             //'viewmodels/courses/course/create/index.spec',

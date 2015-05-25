@@ -669,6 +669,10 @@
     <Content Include="App\utils\waiter.spec.js">
       <DependentUpon>waiter.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\common\titleField.js" />
+    <Content Include="App\viewmodels\common\titleField.spec.js">
+      <DependentUpon>titleField.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\courses\bindingHandlers\courseIntroductionAnimationBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\elementCollapseBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\publishTabBinding.js" />
@@ -702,6 +706,7 @@
     <Content Include="App\viewmodels\learningPaths\commands\createLearningPathCommand.spec.js">
       <DependentUpon>createLearningPathCommand.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\learningPaths\commands\updateLearningPathTitleCommand.js" />
     <Content Include="App\viewmodels\learningPaths\index.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath.spec.js">
@@ -740,6 +745,7 @@
     <Content Include="App\viewmodels\questions\statement\statementAnswers.spec.js">
       <DependentUpon>statementAnswers.js</DependentUpon>
     </Content>
+    <Content Include="App\views\common\titleField.html" />
     <Content Include="App\views\courses\course\configure.html" />
     <Content Include="App\reporting\viewmodels\courseStatement.js" />
     <Content Include="App\reporting\viewmodels\expandableStatement.js" />
@@ -1696,6 +1702,9 @@
     </Content>
     <Content Include="Content\mixin.less" />
     <Content Include="Content\learningPaths.less" />
+    <Content Include="App\viewmodels\learningPaths\commands\updateLearningPathTitleCommand.spec.js">
+      <DependentUpon>updateLearningPathTitleCommand.js</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />
