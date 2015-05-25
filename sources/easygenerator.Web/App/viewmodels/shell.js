@@ -124,6 +124,7 @@
                             title: localizationManager.localize('learningPaths'),
                             hash: '#learningpaths',
                             nav: true,
+                            isInBetaPhase: true,
                             navigate: function () {
                                 eventTracker.publish(events.navigateToLearningPaths);
                                 clientContext.set(constants.clientContextKeys.lastVistedCourse, null);

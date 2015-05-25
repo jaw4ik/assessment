@@ -1,4 +1,7 @@
-﻿/*#region User avatar */
+﻿/*#region flex */
+/*#endregion */
+/*#region User avatar */
+/*#endregion */
 .application {
   height: 100%;
   width: 100%;
@@ -42,7 +45,19 @@
   list-style-type: none;
 }
 .shell > header .header-navigation-item {
+  position: relative;
   float: left;
+}
+.shell > header .header-navigation-item .top-navigation-item-beta-mark {
+  position: absolute;
+  top: 3px;
+  right: 10px;
+  color: #fff;
+  font: 9px 'OpenSans-Semibold';
+  text-transform: uppercase;
+  background-color: #469dd5;
+  padding: 0px 5px;
+  border-radius: 5px;
 }
 .shell > header .header-menu-list {
   float: right;
