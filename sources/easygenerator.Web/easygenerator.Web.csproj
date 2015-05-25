@@ -792,7 +792,6 @@
     <Content Include="Content\images\firefox.png" />
     <Content Include="Content\images\hotSpot-empty.png" />
     <Content Include="Content\images\ie.png" />
-    <Content Include="Content\images\learningPath\book-icon.png" />
     <Content Include="Content\images\learningPath\item-background.png" />
     <Content Include="Content\images\newTemplate.png" />
     <Content Include="Content\images\no-spots.png" />
