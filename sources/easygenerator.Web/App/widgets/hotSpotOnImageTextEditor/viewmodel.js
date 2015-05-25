@@ -2,8 +2,6 @@
     "use strict";
 
     var hotSpotOnImageTextEditor = {
-        top: ko.observable(''),
-        left: ko.observable(''),
         wrapper: ko.observable(null),
         points: ko.observable(null),
         close: close,
@@ -31,8 +29,6 @@
         hotSpotOnImageTextEditor.points(points);
         hotSpotOnImageTextEditor.callback = callback;
         hotSpotOnImageTextEditor.isVisible(true);
-        /*hotSpotOnImageTextEditor.top(top - 28);
-        hotSpotOnImageTextEditor.left(left + 6);*/
     }
 
     function save() {

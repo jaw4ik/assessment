@@ -21,18 +21,18 @@
 
         });
 
-        describe('top:', function () {
+        describe('points:', function () {
 
             it('should be observable', function () {
-                expect(widget.top).toBeObservable();
+                expect(widget.points).toBeObservable();
             });
 
         });
 
-        describe('left:', function () {
+        describe('wrapper:', function () {
 
             it('should be observable', function () {
-                expect(widget.left).toBeObservable();
+                expect(widget.wrapper).toBeObservable();
             });
 
         });
@@ -78,12 +78,12 @@
 
         describe('show:', function () {
 
-            var someText, top, left, callback;
+            var someText, points, wrapper, callback;
 
             beforeEach(function () {
                 someText = 'some text';
-                top = 100;
-                left = 200;
+                points = {};
+                wrapper = {};
                 callback = function () { };
             });
 
@@ -98,10 +98,10 @@
             });
 
             it('should set initialize widget proprties', function () {
-                widget.show(someText, top, left, callback);
+                widget.show(someText, wrapper, points, callback);
                 expect(widget.text()).toBe(someText);
-                expect(widget.top()).toBe(top - 28);
-                expect(widget.left()).toBe(left + 6);
+                expect(widget.wrapper()).toBe(wrapper);
+                expect(widget.points()).toBe(points);
                 expect(widget.callback).toBe(callback);
             });
 

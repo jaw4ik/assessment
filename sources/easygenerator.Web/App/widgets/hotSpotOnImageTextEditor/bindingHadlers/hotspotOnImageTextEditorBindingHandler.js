@@ -58,7 +58,8 @@
             spotWidth = minMaxCoords.maxX - minMaxCoords.minX,
             leftPosition = wrapperPositions.left + minMaxCoords.maxX;
 
-        if ($hotspotWrapper.offset().left + $hotspotWrapper.outerWidth() < leftPosition) {
+        if ($hotspotWrapper.offset().left + $hotspotWrapper.outerWidth() < leftPosition
+            || $hotspotWrapper.offset().left + $hotspotWrapper.outerWidth() + $popover.width() > window.innerWidth) {
             $popover.removeClass(classList.left);
             $popover.addClass(classList.right);
             return leftPosition - spotWidth - $popover.outerWidth() - leftArrowPosition + 'px';
