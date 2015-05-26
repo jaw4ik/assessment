@@ -762,7 +762,7 @@
                     describe('when course is not undefined', function () {
 
                         beforeEach(function () {
-                            viewModel.courseId = 'courseid';
+                            viewModel.selectedCourse().id = 1;
                         });
 
                         it('should navigate to new question in course', function (done) {
