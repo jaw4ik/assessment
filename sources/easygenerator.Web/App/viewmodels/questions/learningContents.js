@@ -1,5 +1,5 @@
-﻿define(['repositories/learningContentRepository', 'repositories/questionRepository', 'localization/localizationManager', 'notify', 'constants', 'eventTracker', 'durandal/app'],
-    function (learningContentsrepository, questionRepository, localizationManager, notify, constants, eventTracker, app) {
+﻿define(['repositories/learningContentRepository', 'repositories/questionRepository', 'localization/localizationManager', 'notify', 'constants', 'eventTracker', 'durandal/app', 'plugins/router'],
+    function (learningContentsrepository, questionRepository, localizationManager, notify, constants, eventTracker, app, router) {
 
         var
             events = {
@@ -258,6 +258,10 @@
         }
 
         function activate(activationData) {
+            if (_.isNullOrUndefined(router.routeData().questionId)) {
+                return Q.fcall(function () { });
+            }
+           
             var questionId = activationData.questionId;
             var questionType = activationData.questionType;
 

@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'eventTracker', 'localization/localizationManager', 'constants', 'notify', 'repositories/questionRepository'],
-    function (app, eventTracker, localizationManager, constants, notify, repository) {
+﻿define(['durandal/app', 'eventTracker', 'localization/localizationManager', 'constants', 'notify', 'repositories/questionRepository', 'plugins/router'],
+    function (app, eventTracker, localizationManager, constants, notify, repository, router) {
         "use strict";
 
         var events = {
@@ -102,6 +102,10 @@
         }
 
         function activate(activationData) {
+            if (_.isNullOrUndefined(router.routeData().questionId)) {
+                return Q.fcall(function () { });
+            }
+
             return Q.fcall(function () {
                 viewModel.isExpanded(true);
                 viewModel.questionId = activationData.questionId;

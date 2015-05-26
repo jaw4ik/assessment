@@ -5,6 +5,7 @@
         repository = require('repositories/learningContentRepository'),
         questionRepository = require('repositories/questionRepository'),
         eventTracker = require('eventTracker'),
+        router = require('plugins/router'),
         notify = require('notify');
 
     describe('viewModel [learningContents]', function () {
@@ -939,6 +940,68 @@
             });
         });
 
+        describe('activate:', function() {
+
+            var activationData = {
+                    questionId: questionId
+                },
+                getLearningContentFeedbackDeferred;
+
+            beforeEach(function() {
+                getLearningContentFeedbackDeferred = Q.defer();
+                spyOn(repository, 'getCollection').and.returnValue(getLearningContentFeedbackDeferred.promise);
+            });
+
+            it('should be function', function () {
+                expect(viewModel.activate).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                getLearningContentFeedbackDeferred.resolve([]);
+                expect(viewModel.activate(activationData)).toBePromise();
+            });
+
+            describe('when route data has questionId', function () {
+                beforeEach(function () {
+                    spyOn(router, 'routeData').and.returnValue({ questionId: 'questionId' });
+                });
+
+                it('should call repository method to get learning contents', function(done) {
+                    getLearningContentFeedbackDeferred.resolve([]);
+                    viewModel.activate(activationData).fin(function () {
+                        expect(repository.getCollection).toHaveBeenCalledWith(questionId);
+                        done();
+                    });
+                });
+
+                describe('and when promise is rejected', function() {
+                    beforeEach(function() {
+                        spyOn(notify, 'error');
+                        getLearningContentFeedbackDeferred.reject('error');
+                    });
+
+                    it('notification with error should be shown', function (done) {
+                        viewModel.activate(activationData).fin(function () {
+                            expect(notify.error).toHaveBeenCalledWith('error');
+                            done();
+                        });
+                    });
+                });
+            });
+
+            describe('when route data does not have questionId', function () {
+                beforeEach(function () {
+                    spyOn(router, 'routeData').and.returnValue({ });
+                });
+
+                it('should not call repository method to get learning contents', function (done) {
+                    viewModel.activate(activationData).fin(function () {
+                        expect(repository.getCollection).not.toHaveBeenCalled();
+                        done();
+                    });
+                });
+            });
+        });
     });
 
 });
