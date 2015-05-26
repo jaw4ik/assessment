@@ -1,4 +1,5 @@
 ﻿define(['constants', 'repositories/videoRepository', './handlers/progress', 'models/video'], function (constants, repository, progressHandler, VideoModel) {
+    "use strict";
 
     var queueUploads = [],
         uploadChanges = false,
