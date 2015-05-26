@@ -120,6 +120,8 @@
                 return repository.getQuestionFeedback(viewModel.questionId).then(function (feedback) {
                     viewModel.correctFeedback.init(feedback.correctFeedbackText, captions.correctFeedback);
                     viewModel.incorrectFeedback.init(feedback.incorrectFeedbackText, captions.incorrectFeedback);
+                }, function (err) {
+                    notify.error(err);
                 });
             });
         }

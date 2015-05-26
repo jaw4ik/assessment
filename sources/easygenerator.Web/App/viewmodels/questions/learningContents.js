@@ -258,6 +258,7 @@
         }
 
         function activate(activationData) {
+            debugger;
             var questionId = activationData.questionId;
             var questionType = activationData.questionType;
 
@@ -268,6 +269,8 @@
                 viewModel.isExpanded(true);
 
                 _.each(learningContentsList, doAddLearningContent);
+            }, function(err) {
+                notify.error(err);
             });
         }
 
