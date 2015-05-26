@@ -1,7 +1,5 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using ImageMagick;
+﻿using ImageMagick;
+using System;
 
 namespace easygenerator.Infrastructure.ImageProcessors
 {

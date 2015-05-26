@@ -21,6 +21,7 @@ namespace easygenerator.Web
             RouteConfiguration.Configure();
             TaskConfiguration.Configure();
             JsonFormatterConfiguration.Configure();
+            MagickImageResizerConfiguration.Configure();
         }
 
         protected void Application_AcquireRequestState(object sender, EventArgs e)
