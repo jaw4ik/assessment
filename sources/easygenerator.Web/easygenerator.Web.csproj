@@ -1729,8 +1729,8 @@
     <Content Include="Scripts\moment-with-langs.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
-    <Content Include="Scripts\paper-full-0.9.20.js" />
-    <Content Include="Scripts\paper-full-0.9.20.min.js" />
+    <Content Include="Scripts\paper-full-0.9.22.js" />
+    <Content Include="Scripts\paper-full-0.9.22.min.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\underscore-min.map" />
