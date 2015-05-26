@@ -69,7 +69,7 @@
     border: 1px solid transparent;
     border-radius: 7px;
     width: 200px;
-    height: 240px;
+    /*height: 240px;*/
     margin-right: 5.12%;
     margin-bottom: 20px;
 
@@ -88,9 +88,6 @@
 }
 
 .learning-path-list-item {
-    .display-flex();
-    .flex-direction(column);
-    height: 100%;
     border: 1px solid @learning-path-item-border-color;
     border-bottom: 2px solid @learning-path-item-border-color;
     border-radius: 7px;
@@ -107,7 +104,6 @@
     }
 
     .learning-path-list-item-image-container {
-        .flex-shrink(0);
         position: relative;
         height: 150px;
         border-bottom: 1px solid #abb3b6;
@@ -146,8 +142,8 @@
         }
     }
 
-    .learning-path-list-item-title {
-        .flex-grow(1);
+    .learning-path-list-item-title-wrapper {
+        height: 85px;
         padding: 15px 10px;
         border-bottom-left-radius: 7px;
         border-bottom-right-radius: 7px;
@@ -155,7 +151,13 @@
         color: @learning-path-item-title-color;
         font: @learning-path-item-title-font;
         box-shadow: inset 0 10px 10px -10px rgba(0,0,0,0.4);
+        overflow: hidden;
+    }
+
+    .learning-path-list-item-title {
+        max-height: 56px;
         word-wrap: break-word;
+        overflow: hidden;
     }
 }
 
