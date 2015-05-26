@@ -21,8 +21,8 @@
             }
         }
         // check tokens in cookie
-        for (index = 0; index < cookieTokens; index++) {
-            if (getCookie(cookieTokens[index]) === undefined) {
+        for (index = 0; index < cookieTokens.length; index++) {
+            if (getCookieToken(cookieTokens[index]) === undefined) {
                 return false;
             }
         }
@@ -57,12 +57,15 @@
     }
 
     //private
-  
+
     function setTokens(tokens) {
         for (var index = 0; index < tokens.length; index++) {
             var t = tokens[index];
             if (cookieTokens.indexOf(t.Endpoint) > -1) {
-                document.cookie = tokenNamespace + t.Endpoint + '=' + t.Token;
+                var d = new Date();
+                d.setTime(d.getTime() + 2592000000);
+                var expires = "expires=" + d.toUTCString();
+                document.cookie = tokenNamespace + t.Endpoint + '=' + t.Token + "; " + expires;
             }
             token(t.Endpoint, t.Token);
         }
@@ -87,9 +90,9 @@
         }
         return localStorage[tokenNamespace + name];
     }
-
-    function getCookie(cname) {
-        var name = cname + "=";
+    
+    function getCookieToken(cname) {
+        var name = tokenNamespace + cname + "=";
         var ca = document.cookie.split(';');
         for (var i = 0; i < ca.length; i++) {
             var c = ca[i];
