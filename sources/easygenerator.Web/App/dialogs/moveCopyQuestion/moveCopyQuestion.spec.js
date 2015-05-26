@@ -759,7 +759,7 @@
 
                     });
 
-                    describe('when course is not undefined', function (done) {
+                    /*describe('when course is not undefined', function (done) {
 
                         beforeEach(function () {
                             viewModel.courseId = 'courseid';
@@ -774,7 +774,7 @@
                             });
                         });
 
-                    });
+                    });*/
                 });
 
             });
