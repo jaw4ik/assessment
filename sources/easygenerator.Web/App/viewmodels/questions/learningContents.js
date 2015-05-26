@@ -258,6 +258,7 @@
         }
 
         function activate(activationData) {
+            //fix for situation: collaborator deletes selected question but question is still activated (when go to another tab and return to course/create tab)
             if (_.isNullOrUndefined(router.routeData().questionId)) {
                 return Q.fcall(function () { });
             }
