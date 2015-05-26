@@ -1,5 +1,8 @@
-﻿define(['videoUpload/commands/storage', 'constants', 'http/storageHttpWrapper'], function (storageCommands, constants, storageHttpWrapper) {
+﻿define(['videoUpload/commands/storage'], function (storageCommands) {
     "use strict";
+
+    var constants = require('constants'),
+        storageHttpWrapper = require('http/storageHttpWrapper');
 
     var storageConstants = constants.storage;
 

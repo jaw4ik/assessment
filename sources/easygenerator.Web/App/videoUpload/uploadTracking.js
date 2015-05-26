@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'constants', 'videoUpload/uploadDataContext'], function (app, constants,  uploadDataContext) {
+﻿define(['durandal/app', 'constants', 'videoUpload/uploadDataContext'], function (app, constants, uploadDataContext) {
 
     var videoConstants = constants.storage.video;
 
@@ -35,7 +35,7 @@
                     }));
                 });
 
-                $.when.apply($, arrayPromises).then(function () {
+                Q.allSettled(arrayPromises).then(function () {
                     startTrackUploadProgress();
                 });
 

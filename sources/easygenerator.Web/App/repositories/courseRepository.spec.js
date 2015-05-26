@@ -6,22 +6,16 @@
         dataContext = require('dataContext'),
         constants = require('constants'),
         app = require('durandal/app'),
-        courseMapper = require('mappers/courseModelMapper'),
-        userContext = require('userContext');
+        courseMapper = require('mappers/courseModelMapper');
 
     describe('repository [courseRepository]', function () {
 
         var post;
-        var identity = {
-            email: 'email',
-            fullname: 'fullname'
-        };
 
         beforeEach(function () {
             post = Q.defer();
             spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise);
             spyOn(app, 'trigger');
-            userContext.identity = identity;
         });
 
         it('should be object', function () {

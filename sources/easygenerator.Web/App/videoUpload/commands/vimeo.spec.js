@@ -1,6 +1,6 @@
-﻿define(['videoUpload/commands/vimeo', 'constants'], function (vimeoCommands, constants) {
+﻿define(['videoUpload/commands/vimeo'], function (vimeoCommands) {
     "use strict";
-
+    var constants = require('constants');
     var storageConstants = constants.storage;
 
     describe('[vimeoCommands]', function () {
@@ -88,7 +88,7 @@
                         expect(promise).toBeRejectedWith(reason.status);
                         done();
                     });
-                                    
+
                 });
             });
 
@@ -112,55 +112,55 @@
 
         });
 
-       /* describe('updateUploadTimeout', function () {
-            var defer;
-
-            beforeEach(function () {
-                defer = Q.defer();
-                spyOn(storageHttpWrapper, 'post').and.returnValue(defer.promise);
-            });
-
-            it('should be function', function () {
-                expect(storageCommands.updateUploadTimeout).toBeFunction();
-            });
-
-            it('should return promise', function () {
-                expect(storageCommands.updateUploadTimeout()).toBePromise();
-            });
-
-            it('should send post request', function () {
-                var videoId = 0;
-                storageCommands.updateUploadTimeout(videoId);
-
-                expect(storageHttpWrapper.post).toHaveBeenCalledWith(storageConstants.host + storageConstants.video.progressUrl, { videoId: videoId });
-            });
-
-        });
-
-        describe('cancelUpload', function () {
-            var defer;
-
-            beforeEach(function () {
-                defer = Q.defer();
-                spyOn(storageHttpWrapper, 'post').and.returnValue(defer.promise);
-            });
-
-            it('should be function', function () {
-                expect(storageCommands.cancelUpload).toBeFunction();
-            });
-
-            it('should return promise', function () {
-                expect(storageCommands.cancelUpload()).toBePromise();
-            });
-
-            it('should send post request', function () {
-                var videoId = 0;
-                storageCommands.cancelUpload(videoId);
-
-                expect(storageHttpWrapper.post).toHaveBeenCalledWith(storageConstants.host + storageConstants.video.cancelUrl, { videoId: videoId });
-            });
-
-        });*/
+        /* describe('updateUploadTimeout', function () {
+             var defer;
+ 
+             beforeEach(function () {
+                 defer = Q.defer();
+                 spyOn(storageHttpWrapper, 'post').and.returnValue(defer.promise);
+             });
+ 
+             it('should be function', function () {
+                 expect(storageCommands.updateUploadTimeout).toBeFunction();
+             });
+ 
+             it('should return promise', function () {
+                 expect(storageCommands.updateUploadTimeout()).toBePromise();
+             });
+ 
+             it('should send post request', function () {
+                 var videoId = 0;
+                 storageCommands.updateUploadTimeout(videoId);
+ 
+                 expect(storageHttpWrapper.post).toHaveBeenCalledWith(storageConstants.host + storageConstants.video.progressUrl, { videoId: videoId });
+             });
+ 
+         });
+ 
+         describe('cancelUpload', function () {
+             var defer;
+ 
+             beforeEach(function () {
+                 defer = Q.defer();
+                 spyOn(storageHttpWrapper, 'post').and.returnValue(defer.promise);
+             });
+ 
+             it('should be function', function () {
+                 expect(storageCommands.cancelUpload).toBeFunction();
+             });
+ 
+             it('should return promise', function () {
+                 expect(storageCommands.cancelUpload()).toBePromise();
+             });
+ 
+             it('should send post request', function () {
+                 var videoId = 0;
+                 storageCommands.cancelUpload(videoId);
+ 
+                 expect(storageHttpWrapper.post).toHaveBeenCalledWith(storageConstants.host + storageConstants.video.cancelUrl, { videoId: videoId });
+             });
+ 
+         });*/
 
     });
 

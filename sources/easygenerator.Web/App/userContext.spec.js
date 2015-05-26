@@ -1,7 +1,9 @@
-﻿define(['userContext', 'notify', 'localization/localizationManager'], function (userContext, notify, localizationManager) {
+﻿define(['userContext'], function (userContext) {
 
     var authHttpWrapper = require('http/authHttpWrapper'),
-        storageHttpWrapper = require('http/storageHttpWrapper');
+        storageHttpWrapper = require('http/storageHttpWrapper'),
+        notify = require('notify'),
+        localizationManager = require('localization/localizationManager');
 
     describe('[userContext]', function () {
 

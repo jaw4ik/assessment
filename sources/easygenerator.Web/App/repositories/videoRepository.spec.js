@@ -1,8 +1,9 @@
-﻿define(['repositories/videoRepository', 'models/video'], function (repository, Video) {
+﻿define(['repositories/videoRepository'], function (repository) {
     "use strict";
 
     var
-       dataContext = require('dataContext')
+       dataContext = require('dataContext'),
+       Video = require('models/video')
     ;
 
     describe('repository [videoRepository]', function () {

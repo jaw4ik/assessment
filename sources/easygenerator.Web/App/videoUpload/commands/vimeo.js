@@ -18,7 +18,7 @@
     }
 
     function verifyUpload(uploadUrl) {
-        var deferred = $.Deferred();
+        var deferred = Q.defer();
 
         $.ajax({
             url: uploadUrl,
@@ -33,11 +33,11 @@
             deferred.resolve(request.getResponseHeader('Range'));
         });
 
-        return deferred.promise();
+        return deferred.promise;
     }
 
     function getThumbnailUrl(id) {
-        var deferred = $.Deferred();
+        var deferred = Q.defer();
 
         $.ajax({
             url: constants.storage.video.thumbnailLoadUrl + id + '.json',
@@ -53,6 +53,6 @@
             deferred.resolve(constants.storage.video.defaultThumbnailUrl);
         });
 
-        return deferred.promise();
+        return deferred.promise;
     }
 });

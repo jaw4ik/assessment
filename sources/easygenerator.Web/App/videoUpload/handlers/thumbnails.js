@@ -14,6 +14,6 @@
             }
         });
 
-        return $.when.apply($, arrayPromises);
+        return Q.allSettled(arrayPromises);
     }
 });
