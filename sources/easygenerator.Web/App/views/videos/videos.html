@@ -1,0 +1,75 @@
+﻿<section class="videos">
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <ul class="video-list">
+
+                <li class="video-list-item add-video-button" data-bind="click: addVideo">
+                    <div class="free-space-section" data-bind="visible: storageSpaceProgressBarVisibility">
+                        <span class="free-space-info">
+                            <span class="free-space-info-title" data-bind="localize: { text: 'freeSpace' }"></span>
+                            <span class="free-space-info-value" data-bind="text: availableStorageSpace"></span>
+                        </span>
+                        <span class="free-space-progress-bar">
+                            <span class="free-space-progress-bar-value" data-bind="style: { width: availableStorageSpacePersentages() + '%' }"></span>
+                        </span>
+                    </div>
+                </li>
+
+                <!-- ko ifnot: videos().length -->
+                <li class="add-video-button-description">
+                    <span class="tip-arrow-text" data-bind="localize: { text : 'uploadVideoDescription' }">Upload your own video by click on this button</span>
+                </li>
+                <!-- /ko -->
+                <!-- ko foreach: videos -->
+                <li class="video-list-item hovered" data-bind="click: $parent.showVideoPopup">
+                    <!-- ko if: status() == $parent.statuses.loaded -->
+                    <div class="video-list-item-thumbnail" data-bind="style: { backgroundImage: 'url(' + thumbnailUrl() + ')' }">
+                        <span class="play-icon"></span>
+                    </div>
+                    <!-- /ko-->
+                    <!-- ko if: status() == $parent.statuses.failed -->
+                    <div class="video-list-item-thumbnail error">
+                        <span class="video-upload-error-image"></span>
+                        <span class="video-upload-error-title" data-bind="localize: { text: 'videoUploadShortError' }"></span>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko if: status() == $parent.statuses.inProgress -->
+                    <div class="video-list-item-thumbnail uploading">
+                        <canvas width="70" height="70" class="circle-progress" data-bind="circleProgress: { progress: progress, lineWidth: 2 }"></canvas>
+                        <span class="video-uploading-progress" data-bind="text: progress() + '%'"></span>
+                    </div>
+                    <!-- /ko -->
+                    <div class="video-list-item-title-container">
+                        <span class="video-list-item-title" data-bind="limitedLengthText: { text: title, maxLength: 40 }, attr: { title: title }"></span>
+                    </div>
+                </li>
+                <!-- /ko -->
+
+            </ul>
+
+            <!-- ko compose: 'dialogs/video/video' --><!-- /ko -->
+
+            <section class="upgrade-dialog" data-bind="visible: upgradePopupVisibility">
+                <section class="upgrade-dialog-content video-upload-upgrade-dialog">
+                    <header>
+                        <div class="upgrade-dialog-title" data-bind="localize: { text: 'upgradeNow' }">Upgrade now</div>
+                        <div class="upgrade-dialog-description" data-bind="localize: { text: 'videoUpgradeToUpload' }">to upload video to easygenerator</div>
+                    </header>
+                    <div class="video-upload-upgrade-dialog-title-image"></div>
+                    <div class="upgrade-dialog-body" data-bind="localize: { html: 'videoUpgradeToUploadHtml' }">
+                        <ul>
+                            <li>Unlimited storage space (fair use policy)</li>
+                            <li>Beautiful HD playback</li>
+                            <li>Unlimited HD plays</li>
+                        </ul>
+                    </div>
+                    <div class="upgrade-dialog-buttons">
+                        <button class="btn green upgrade-dialog-btn-upgrade" data-bind="click: upgradeToVideoUpload, localize: { text: 'upgradeNow' }">Upgrade now</button><br />
+                        <a class="upgrade-dialog-btn-later" href="" data-bind="click: skipUpgradeForUploadVideo, localize: { text: 'videoUpgradeDialogMaybeLater' }">Maybe later</a>
+                    </div>
+                </section>
+            </section>
+
+        </div>
+    </div>
+</section>

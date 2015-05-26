@@ -1,8 +1,8 @@
-﻿define(['http/httpWrapper'], function (httpWrapper) {
+﻿define(['http/apiHttpWrapper'], function (apiHttpWrapper) {
 
     return {
         execute: function (questionId) {
-            return httpWrapper.post('/api/question/textmatching/answer/create', { questionId: questionId });
+            return apiHttpWrapper.post('/api/question/textmatching/answer/create', { questionId: questionId });
         }
     }
 

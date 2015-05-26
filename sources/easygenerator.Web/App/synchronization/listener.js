@@ -11,6 +11,10 @@
 
                 var hub = $.connection.eventHub;
 
+                // Send access token as query string parameter because of WebSockets doesn't support Authorization header
+                // Need to be changed as soon as another solutions will be found
+                $.connection.hub.qs = { 'access_token': window.auth.getToken('signalr') };
+
                 hub.client = {
                     userDowngraded: userEventHandler.downgraded,
                     userUpgradedToStarter: userEventHandler.upgradedToStarter,

@@ -44,7 +44,7 @@
             }
         };
 
-        ko.validation.configure({
+        ko.validation.init({
             insertMessages: false
         });
     }

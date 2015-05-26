@@ -1,7 +1,7 @@
 ﻿define(['viewmodels/questions/textMatching/queries/getTextMatchingAnswersById'], function (query) {
 
     var
-        httpWrapper = require('http/httpWrapper')
+        apiHttpWrapper = require('http/apiHttpWrapper')
     ;
 
     describe('query [getTextMatchingAnswersById]', function () {
@@ -12,7 +12,7 @@
 
             beforeEach(function () {
                 dfd = Q.defer();
-                spyOn(httpWrapper, 'post').and.returnValue(dfd.promise);
+                spyOn(apiHttpWrapper, 'post').and.returnValue(dfd.promise);
             });
 
             it('should be function', function () {

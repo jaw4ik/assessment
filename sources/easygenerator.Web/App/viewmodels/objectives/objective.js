@@ -222,7 +222,7 @@
             if (viewModel.courseId) {
                 router.navigate('#courses/' + viewModel.courseId);
             } else {
-                router.navigate('#objectives');
+                router.navigate('#library/objectives');
             }
         }
 
@@ -283,7 +283,7 @@
             if (viewModel.courseId) {
                 return '#courses/' + viewModel.courseId + '/objectives/' + viewModel.objectiveId + '/questions/' + questionId;
             } else {
-                return '#objectives/' + viewModel.objectiveId + '/questions/' + questionId;
+                return '#library/objectives/' + viewModel.objectiveId + '/questions/' + questionId;
             }
 
         }

@@ -63,7 +63,7 @@ define(['durandal/app', 'eventTracker', 'constants',
                 if (!_.isNullOrUndefined(viewmodel.courseId)) {
                     router.navigate('courses/' + viewmodel.courseId + '/objectives/' + viewmodel.objectiveId + '/questions/' + response.id);
                 } else {
-                    router.navigate('objectives/' + viewmodel.objectiveId + '/questions/' + response.id);
+                    router.navigate('library/objectives/' + viewmodel.objectiveId + '/questions/' + response.id);
                 }
             });
         }
@@ -141,7 +141,7 @@ define(['durandal/app', 'eventTracker', 'constants',
             if (viewmodel.courseId) {
                 router.navigate('#courses/' + viewmodel.courseId + '/objectives/' + viewmodel.objectiveId);
             } else {
-                router.navigate('#objectives/' + viewmodel.objectiveId);
+                router.navigate('#library/objectives/' + viewmodel.objectiveId);
             }
         }
 

@@ -12,7 +12,7 @@ using easygenerator.Web.Components.ActionFilters.Permissions;
 namespace easygenerator.Web.Controllers.Api
 {
     [NoCache]
-    public class LearningContentController : DefaultController
+    public class LearningContentController : DefaultApiController
     {
         private readonly IEntityFactory _entityFactory;
 

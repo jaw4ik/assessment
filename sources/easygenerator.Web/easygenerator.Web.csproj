@@ -20,6 +20,8 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,13 +45,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+    <Reference Include="Autofac, Version=3.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+      <HintPath>..\..\packages\Autofac.3.4.0\lib\net40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac.Integration.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Autofac.Mvc5.3.3.3\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\..\packages\Autofac.Mvc5.3.3.4\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
@@ -59,70 +60,72 @@
     <Reference Include="Elmah">
       <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
-    <Reference Include="Elmah.Mvc">
-      <HintPath>..\..\packages\Elmah.MVC.2.1.1\lib\net40\Elmah.Mvc.dll</HintPath>
+    <Reference Include="Elmah.Mvc, Version=2.1.2.1389, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Elmah.Mvc.2.1.2\lib\net40\Elmah.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Ionic.Zip">
-      <HintPath>..\..\packages\DotNetZip.1.9.2\lib\net20\Ionic.Zip.dll</HintPath>
+    <Reference Include="Ionic.Zip, Version=1.9.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\DotNetZip.1.9.3\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.Core">
-      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.1.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.2.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb">
-      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.1.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.0\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Owin, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Diagnostics">
-      <HintPath>..\..\packages\Microsoft.Owin.Diagnostics.3.0.0\lib\net45\Microsoft.Owin.Diagnostics.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Owin.Diagnostics, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.Owin.Host.SystemWeb.3.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Owin.Diagnostics.3.0.1\lib\net45\Microsoft.Owin.Diagnostics.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.Owin.Security.3.0.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Owin">
       <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
-    <Reference Include="RazorEngine, Version=3.4.1.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+    <Reference Include="RazorEngine, Version=3.7.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\RazorEngine.3.4.1\lib\net45\RazorEngine.dll</HintPath>
+      <HintPath>..\..\packages\RazorEngine.3.7.0\lib\net45\RazorEngine.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http.Extensions, Version=2.2.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Extensions.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http.Primitives">
-      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -132,19 +135,19 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.2\lib\net45\System.Web.Http.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -152,20 +155,19 @@
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
@@ -239,6 +241,7 @@
     <Compile Include="Components\BrowserSupport.cs" />
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
+    <Compile Include="Components\DefaultApiController.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
     <Compile Include="Components\ManifestFileManager.cs" />
     <Compile Include="Components\Mappers\AnswerMapper.cs" />
@@ -265,6 +268,7 @@
     <Compile Include="Controllers\Api\MultipleselectController.cs" />
     <Compile Include="Controllers\Api\StatementController.cs" />
     <Compile Include="Controllers\Api\TextMatchingQuestionController.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
     <Compile Include="Storage\CourseStateStorage.cs" />
@@ -519,7 +523,7 @@
     <Content Include="App\analytics\providers\mixpanelProvider.js" />
     <Content Include="App\analytics\providers\nudgespotProvider.js" />
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
-    <Content Include="App\bootstrapping\httpRequestSenderTask.js" />
+    <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
     <Content Include="App\commands\createCourseCommand.js" />
     <Content Include="App\commands\createCourseCommand.spec.js">
       <DependentUpon>createCourseCommand.js</DependentUpon>
@@ -550,14 +554,40 @@
     <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.spec.js">
       <DependentUpon>moveCopyQuestion.js</DependentUpon>
     </Content>
+    <Content Include="App\dialogs\video\video.html" />
+    <Content Include="App\dialogs\video\video.js" />
+    <Content Include="App\dialogs\video\video.spec.js">
+      <DependentUpon>video.js</DependentUpon>
+    </Content>
+    <Content Include="App\http\apiHttpWrapper.js" />
+    <Content Include="App\http\apiHttpWrapper.spec.js">
+      <DependentUpon>apiHttpWrapper.js</DependentUpon>
+    </Content>
+    <Content Include="App\http\authHttpWrapper.js" />
+    <Content Include="App\http\authHttpWrapper.spec.js">
+      <DependentUpon>authHttpWrapper.js</DependentUpon>
+    </Content>
+    <Content Include="App\http\storageHttpRequestSender.js" />
+    <Content Include="App\http\storageHttpRequestSender.spec.js">
+      <DependentUpon>storageHttpRequestSender.js</DependentUpon>
+    </Content>
+    <Content Include="App\http\storageHttpWrapper.js" />
+    <Content Include="App\http\storageHttpWrapper.spec.js">
+      <DependentUpon>storageHttpWrapper.js</DependentUpon>
+    </Content>
     <Content Include="App\localization\resources.js" />
+    <Content Include="App\mappers\videoModelMapper.js" />
     <Content Include="App\models\reporting\actor.js" />
     <Content Include="App\models\reporting\actor.spec.js">
       <DependentUpon>actor.js</DependentUpon>
     </Content>
+    <Content Include="App\models\video.js" />
     <Content Include="App\models\reporting\statement.js" />
     <Content Include="App\models\reporting\statement.spec.js">
       <DependentUpon>statement.js</DependentUpon>
+    </Content>
+    <Content Include="App\models\video.spec.js">
+      <DependentUpon>video.js</DependentUpon>
     </Content>
     <Content Include="App\reporting\viewmodels\courseStatement.spec.js">
       <DependentUpon>courseStatement.js</DependentUpon>
@@ -617,6 +647,10 @@
     <Content Include="App\reporting\xApiProvider.spec.js">
       <DependentUpon>xApiProvider.js</DependentUpon>
     </Content>
+    <Content Include="App\repositories\videoRepository.js" />
+    <Content Include="App\repositories\videoRepository.spec.js">
+      <DependentUpon>videoRepository.js</DependentUpon>
+    </Content>
     <Content Include="App\reporting\xApiFilterCriteriaFactory.js" />
     <Content Include="App\routing\isViewReadyMixin.js" />
     <Content Include="App\synchronization\handlers\answer\eventHandlers\answerCorrectnessUpdated.spec.js">
@@ -666,6 +700,35 @@
     <Content Include="App\utils\waiter.spec.js">
       <DependentUpon>waiter.js</DependentUpon>
     </Content>
+    <Content Include="App\videoUpload\commands\storage.spec.js">
+      <DependentUpon>storage.js</DependentUpon>
+    </Content>
+    <Content Include="App\videoUpload\commands\vimeo.spec.js">
+      <DependentUpon>vimeo.js</DependentUpon>
+    </Content>
+    <Content Include="App\videoUpload\handlers\progress.js" />
+    <Content Include="App\videoUpload\commands\storage.js" />
+    <Content Include="App\videoUpload\commands\vimeo.js" />
+    <Content Include="App\storageFileUploader.js" />
+    <Content Include="App\videoUpload\handlers\progress.spec.js">
+      <DependentUpon>progress.js</DependentUpon>
+    </Content>
+    <Content Include="App\videoUpload\handlers\thumbnails.js" />
+    <Content Include="App\videoUpload\handlers\thumbnails.spec.js">
+      <DependentUpon>thumbnails.js</DependentUpon>
+    </Content>
+    <Content Include="App\videoUpload\uploadDataContext.spec.js">
+      <DependentUpon>uploadDataContext.js</DependentUpon>
+    </Content>
+    <Content Include="App\videoUpload\upload.js" />
+    <Content Include="App\videoUpload\upload.spec.js">
+      <DependentUpon>upload.js</DependentUpon>
+    </Content>
+    <Content Include="App\videoUpload\uploadDataContext.js" />
+    <Content Include="App\videoUpload\uploadTracking.js" />
+    <Content Include="App\videoUpload\uploadTracking.spec.js">
+      <DependentUpon>uploadTracking.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\courses\bindingHandlers\courseIntroductionAnimationBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\elementCollapseBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\publishTabBinding.js" />
@@ -695,6 +758,10 @@
       <DependentUpon>results.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\index.js" />
+    <Content Include="App\viewmodels\library\index.js" />
+    <Content Include="App\viewmodels\library\index.spec.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\objectives\index.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.spec.js">
@@ -711,6 +778,10 @@
     <Content Include="App\viewmodels\questions\statement\statementAnswers.js" />
     <Content Include="App\viewmodels\questions\statement\statementAnswers.spec.js">
       <DependentUpon>statementAnswers.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\videos\videos.js" />
+    <Content Include="App\viewmodels\videos\videos.spec.js">
+      <DependentUpon>videos.js</DependentUpon>
     </Content>
     <Content Include="App\views\courses\course\configure.html" />
     <Content Include="App\reporting\viewmodels\courseStatement.js" />
@@ -730,8 +801,10 @@
     <Content Include="App\views\courses\publishActions\publishAsHtml.html" />
     <Content Include="App\views\courses\publishActions\publishAsScorm.html" />
     <Content Include="App\views\courses\publishActions\updatePublishedCourse.html" />
+    <Content Include="App\views\library\index.html" />
     <Content Include="App\views\objectives\index.html" />
     <Content Include="App\views\questions\statement\statement.html" />
+    <Content Include="App\views\videos\videos.html" />
     <Content Include="App\reporting\views\courseStatement.html" />
     <Content Include="App\reporting\views\objectiveStatement.html" />
     <Content Include="App\reporting\views\questionStatement.html" />
@@ -747,6 +820,7 @@
     <Content Include="Content\font\heuristica-italic.svg" />
     <Content Include="Content\font\heuristica-regular.svg" />
     <Content Include="Content\font\opensans-bold.svg" />
+    <Content Include="Content\font\robotoslab-regular.svg" />
     <Content Include="Content\helpers.css">
       <DependentUpon>helpers.less</DependentUpon>
     </Content>
@@ -838,6 +912,12 @@
     <Content Include="App\views\questions\hotSpot\designer.html" />
     <Content Include="App\views\questions\hotSpot\hotSpot.html" />
     <Content Include="Content\images\hotspot-question.png" />
+    <Content Include="Content\upgradePopup.css">
+      <DependentUpon>upgradePopup.less</DependentUpon>
+    </Content>
+    <Content Include="Content\video.css">
+      <DependentUpon>video.less</DependentUpon>
+    </Content>
     <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\a15336e3207b40aa86ae93f15c2d3927.html" />
     <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\content.html" />
     <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\8555e814ebef4f6a9f82cabfe8502894\a542a9cad6b64881844eed6e65d37044.html" />
@@ -856,6 +936,7 @@
     <Content Include="Sample Course\content\a3d951f91e8a4a61a55c173a27c904ca\127e66bc9063479caf0426ef270ffe3b\5b4be25686f943609de151884c5bf9f8.html" />
     <Content Include="Sample Course\content\a3d951f91e8a4a61a55c173a27c904ca\127e66bc9063479caf0426ef270ffe3b\9e26fe55dfd543329e53856468083572.html" />
     <Content Include="Sample Course\content\a3d951f91e8a4a61a55c173a27c904ca\77dcdee6255f44e588cdae7a0320ffa6\61cdd730fbe54fe9bf2a6ec95cb14535.html" />
+    <Content Include="Scripts\auth.js" />
     <Content Include="Scripts\Blob.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\build-config.js" />
@@ -1087,17 +1168,27 @@
     <Content Include="Scripts\ckeditor\styles.js" />
     <Content Include="Scripts\durandal\transitions\notificationTransition.js" />
     <Content Include="Scripts\FileSaver.js" />
-    <Content Include="Scripts\jquery.signalR-2.1.2.js" />
-    <Content Include="Scripts\jquery.signalR-2.1.2.min.js" />
-    <Content Include="Scripts\knockout-3.2.0.debug.js" />
-    <Content Include="Scripts\knockout-3.2.0.js" />
     <Content Include="App\onboarding\tasks.js" />
     <Content Include="App\onboarding\tasks.spec.js">
       <DependentUpon>tasks.js</DependentUpon>
     </Content>
+    <Content Include="Content\font\robotoslab-regular.eot" />
+    <Content Include="Content\font\robotoslab-regular.ttf" />
+    <Content Include="Content\font\robotoslab-regular.woff" />
+    <Content Include="Content\upgradePopup.less" />
+    <None Include="Scripts\jquery-2.1.3.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.3.js" />
+    <Content Include="Scripts\jquery-2.1.3.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.0.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
+    <Content Include="Scripts\knockout-3.3.0.debug.js" />
+    <Content Include="Scripts\knockout-3.3.0.js" />
+    <Content Include="Scripts\knockout.validation.js" />
+    <Content Include="Scripts\knockout.validation.min.js" />
     <Content Include="Scripts\knockoutBindings\limitedLengthTextBinding.js" />
     <Content Include="Scripts\knockoutBindings\autosizeBinding.js" />
     <Content Include="Scripts\knockoutBindings\backgroundImageBinding.js" />
+    <Content Include="Scripts\knockoutBindings\circleProgressBinding.js" />
     <Content Include="Scripts\knockoutBindings\contentEditableFixBinding.js" />
     <Content Include="Scripts\knockoutBindings\copyToClipboardBinding.js" />
     <Content Include="Scripts\knockoutBindings\customHasFocusBinding.js" />
@@ -1593,7 +1684,9 @@
     <Content Include="Mail\MailTemplates\HttpRequestFailedTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\NewsletterSubscriptionFailedTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\SignedUpUserTemplate.cshtml" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Mail\MailTemplates\InviteCollaboratorTemplate.cshtml" />
     <Content Include="Content\font\intro-regular.eot" />
     <Content Include="Content\font\intro-regular.ttf" />
@@ -1649,6 +1742,7 @@
     <Content Include="Content\collaboration.less" />
     <Content Include="Content\shell.less" />
     <Content Include="Content\editField.less" />
+    <Content Include="Content\video.less" />
     <Content Include="App\reporting\viewmodels\objectiveStatement.spec.js">
       <DependentUpon>objectiveStatement.js</DependentUpon>
     </Content>
@@ -1664,7 +1758,6 @@
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />
     <Content Include="Scripts\almond-custom.js" />
-    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\durandal\activator.js" />
     <Content Include="Scripts\durandal\app.js" />
     <Content Include="Scripts\durandal\binder.js" />
@@ -1681,8 +1774,6 @@
     <Content Include="Scripts\durandal\transitions\fadeTransition.js" />
     <Content Include="Scripts\durandal\viewEngine.js" />
     <Content Include="Scripts\durandal\viewLocator.js" />
-    <Content Include="Scripts\jquery-2.1.1.js" />
-    <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery.autosize.js" />
     <Content Include="Scripts\jquery.autosize.min.js" />
     <Content Include="Scripts\jquery.extensions.js" />
@@ -1694,15 +1785,18 @@
     <Content Include="Scripts\knockoutBindings\selectTextInAnswerBinding.js" />
     <Content Include="Scripts\knockoutBindings\switchToggleBinding.js" />
     <Content Include="Scripts\md5.js" />
-    <Content Include="Scripts\moment-with-langs.js" />
-    <Content Include="Scripts\moment-with-langs.min.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\paper-full-0.9.20.js" />
     <Content Include="Scripts\paper-full-0.9.20.min.js" />
+    <Content Include="Scripts\q.js" />
+    <Content Include="Scripts\q.min.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
-    <Content Include="Scripts\underscore-min.map" />
+    <Content Include="Scripts\underscore-min.js" />
+    <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\zeroclipboard.js" />
     <Content Include="Scripts\zeroclipboard.swf" />
     <Content Include="Templates\Exam\app\main.js" />
@@ -2154,22 +2248,24 @@
     <Content Include="Views\Account\_Layout.cshtml" />
     <Content Include="Views\Application\index.cshtml" />
     <Content Include="Views\Application\splash.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\DemoCourses\Index.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Review\ReviewCourse.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\notSupportedDevicePage.cshtml" />
+    <Content Include="Views\Shared\notSupportedPage.cshtml" />
     <Content Include="Views\Shared\_googleAnalytics.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_mixpanelAnalytics.cshtml" />
+    <Content Include="Views\Shared\_nudgespotAnalytics.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Scripts\jquery-2.1.1.min.map" />
-    <Content Include="Views\Shared\_nudgespotAnalytics.cshtml" />
-    <Content Include="Views\DemoCourses\Index.cshtml" />
-    <Content Include="Views\Shared\notSupportedPage.cshtml" />
-    <Content Include="Views\Shared\notSupportedDevicePage.cshtml" />
-    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Scripts\knockout.validation.min.js.map" />
+    <Content Include="Scripts\jquery-2.1.3.min.map" />
+    <Content Include="Scripts\underscore-min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2178,6 +2274,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\easygenerator.Auth\easygenerator.Auth.csproj">
+      <Project>{52f561c9-e7e1-4272-ab48-6767d6c64c65}</Project>
+      <Name>easygenerator.Auth</Name>
+    </ProjectReference>
     <ProjectReference Include="..\easygenerator.DataAccess\easygenerator.DataAccess.csproj">
       <Project>{67A666AE-DE1A-4744-80BC-455536DB1171}</Project>
       <Name>easygenerator.DataAccess</Name>
@@ -2269,10 +2369,6 @@
     <Content Include="App\guard.js" />
     <Content Include="App\guard.spec.js">
       <DependentUpon>guard.js</DependentUpon>
-    </Content>
-    <Content Include="App\http\httpWrapper.js" />
-    <Content Include="App\http\httpWrapper.spec.js">
-      <DependentUpon>httpWrapper.js</DependentUpon>
     </Content>
     <Content Include="App\localization\localizationManager.js" />
     <Content Include="App\localization\localizationManager.spec.js">
@@ -2642,8 +2738,6 @@
     <Content Include="Scripts\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="Scripts\knockout-sortable.js" />
     <Content Include="Scripts\knockout-sortable.min.js" />
-    <Content Include="Scripts\knockout.validation.debug.js" />
-    <Content Include="Scripts\knockout.validation.js" />
     <Content Include="Scripts\knockoutBindings\autofocusBinding.js" />
     <Content Include="Scripts\knockoutBindings\ckeditorBinding.js" />
     <Content Include="Scripts\knockoutBindings\clickElementBinding.js" />
@@ -2664,17 +2758,13 @@
     <Content Include="Scripts\knockoutBindings\slidingDialogBinding.js" />
     <Content Include="Scripts\knockoutBindings\sortableExtendedBinding.js" />
     <Content Include="Scripts\knockoutBindings\stopEventPropagationBinding.js" />
-    <Content Include="Scripts\q.js" />
-    <Content Include="Scripts\q.min.js" />
     <Content Include="Scripts\review\common.js" />
     <Content Include="Scripts\review\review.js" />
     <Content Include="Scripts\review\review.spec.js">
       <DependentUpon>review.js</DependentUpon>
     </Content>
     <Content Include="Scripts\text.js" />
-    <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\underscore.extensions.js" />
-    <Content Include="Scripts\underscore.js" />
     <Content Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>
@@ -2702,7 +2792,6 @@
   <ItemGroup>
     <Folder Include="Views\CourseImport\" />
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -2741,11 +2830,15 @@ IF NOT EXIST "$(ProjectDir)App\main-built.js" EXIT /B 1</PostBuildEvent>
       del "$(ProjectDir)App\main-built.js"
     </PreBuildEvent>
   </PropertyGroup>
-  <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
-  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
-    <Error Condition="!Exists('..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
-    <Error Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
   </Target>
+  <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

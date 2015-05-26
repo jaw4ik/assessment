@@ -11,7 +11,7 @@ using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
 {
-    public class DragAndDropTextQuestionController : DefaultController
+    public class DragAndDropTextQuestionController : DefaultApiController
     {
         private readonly IEntityFactory _entityFactory;
 

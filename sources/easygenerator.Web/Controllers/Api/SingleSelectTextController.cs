@@ -10,7 +10,7 @@ using easygenerator.Web.Resources.Controllers;
 
 namespace easygenerator.Web.Controllers.Api
 {
-    public class SingleSelectTextController : DefaultController
+    public class SingleSelectTextController : DefaultApiController
     {
         private readonly IEntityFactory _entityFactory;
 
