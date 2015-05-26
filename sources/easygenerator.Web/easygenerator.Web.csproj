@@ -253,6 +253,7 @@
     <Compile Include="Components\Mappers\TemplateMapper.cs" />
     <Compile Include="Components\Mappers\TextMatchingAnswerMapper.cs" />
     <Compile Include="Components\TypeMethodInvoker.cs" />
+    <Compile Include="Configuration\MagickImageResizerConfiguration.cs" />
     <Compile Include="Controllers\Api\CourseImportController.cs" />
     <Compile Include="Controllers\Api\HotSpotQuestionController.cs" />
     <Compile Include="Controllers\Api\DragAndDropTextQuestionController.cs" />
