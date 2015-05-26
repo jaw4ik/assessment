@@ -1,5 +1,5 @@
 ﻿define(['models/video'],
-    function (VideoModel) {
+    function (Video) {
         "use strict";
 
         var constants = require('constants');

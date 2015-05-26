@@ -76,6 +76,7 @@
             'localization/localizationManager.spec',
             'models/course.spec',
             'models/user.spec',
+            'models/video.spec',
 
             'repositories/answerRepository.spec',
             'repositories/commentRepository.spec',
