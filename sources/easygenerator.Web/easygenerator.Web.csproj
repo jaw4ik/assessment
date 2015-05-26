@@ -2769,6 +2769,8 @@
     <EmbeddedResource Include="Resources\Views\Shared\Resources.zh.resx" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Templates\Quiz\content\13b7e452d92c4915a977d32992a48cad\" />
+    <Folder Include="Templates\Quiz\content\eb143a0ce3e244869cafbf8d13d1ebcc\" />
     <Folder Include="Views\CourseImport\" />
   </ItemGroup>
   <PropertyGroup>
