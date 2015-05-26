@@ -9,7 +9,7 @@
                     <textarea readonly="readonly" class="embed-code-text" data-bind="value: embedCode, selectText: true"></textarea>
                 </div>
                 <div class="copy-btn-wrapper">
-                    <button class="btn green" data-bind="copyToClipboard: { value: embedCode, onCopied: copyEmbedCode, isDisabled: copyBtnDisabled }, css: { copied: embedCodeCopied, disabled: copyBtnDisabled }, attr: { disabled: copyBtnDisabled() }">
+                    <button class="btn green" data-bind="click: copyEmbedCodeEvent, copyToClipboard: { value: embedCode, onCopied: copyEmbedCode, isDisabled: copyBtnDisabled }, css: { copied: embedCodeCopied, disabled: copyBtnDisabled }, attr: { disabled: copyBtnDisabled() }">
                         <span data-bind="localize: { text: embedCodeCopied() ? 'copied' : 'copy' }"></span>
                     </button>
                 </div>

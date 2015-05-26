@@ -330,7 +330,7 @@
             },
 
             storage: {
-                host: window.storageServiceUrl ? "http://" + window.storageServiceUrl : 'http://localhost:888',
+                host: window.storageServiceUrl ? "//" + window.storageServiceUrl : '//localhost:888',
                 mediaUrl: '/media',
                 userUrl: '/user',
                 changesInQuota: 'storage:changesInQuota',
@@ -352,7 +352,7 @@
                     trackChangesInUploadTimeout: 500,
                     iframeWidth: 600,
                     iframeHeight: 335,
-                    updateUploadTimeout: 120000,
+                    updateUploadTimeout: 60000,
                     removeVideoAfterErrorTimeout: 5000
                 }
             }
