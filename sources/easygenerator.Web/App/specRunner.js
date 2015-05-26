@@ -299,6 +299,8 @@
             'videoUpload/commands/vimeo.spec',
             'videoUpload/handlers/progress.spec',
             'videoUpload/handlers/thumbnails.spec',
+            'videoUpload/uploadDataContext.spec',
+            'videoUpload/uploadTracking.spec',
             'videoUpload/upload.spec',
             //#endregion
 
