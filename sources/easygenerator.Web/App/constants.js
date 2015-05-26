@@ -296,6 +296,7 @@
             clientContextKeys: {
                 lastCreatedQuestionId: 'lastCreatedQuestionId',
                 lastCreatedCourseId: 'lastCreatedCourseId',
+                lastCreatedLearningPathId: 'lastCreatedLearningPathId',
                 lastCreatedObjectiveId: 'lastCreatedObjectiveId',
                 lastVistedCourse: 'lastVistedCourse',
                 lastVisitedObjective: 'lastVisitedObjective'

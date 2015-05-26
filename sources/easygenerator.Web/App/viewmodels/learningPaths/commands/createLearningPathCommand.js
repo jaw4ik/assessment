@@ -1,5 +1,5 @@
-﻿define(['http/httpWrapper', 'eventTracker', 'localization/localizationManager', 'uiLocker', 'plugins/router', 'mappers/learningpathModelMapper', 'dataContext'],
-    function (httpWrapper, eventTracker, localizationManager, uiLocker, router, mapper, dataContext) {
+﻿define(['http/httpWrapper', 'eventTracker', 'localization/localizationManager', 'uiLocker', 'plugins/router', 'mappers/learningpathModelMapper', 'dataContext', 'clientContext','constants'],
+    function (httpWrapper, eventTracker, localizationManager, uiLocker, router, mapper, dataContext, clientContext, constants) {
         "use strict";
         var
           events = {
@@ -15,6 +15,7 @@
                     .then(function (entity) {
                         var learningPath = mapper.map(entity);
                         dataContext.learningPaths.push(learningPath);
+                        clientContext.set(constants.clientContextKeys.lastCreatedLearningPathId, learningPath.id);
                         uiLocker.unlock();
                         router.navigate('learningpaths/' + learningPath.id);
                     })

@@ -7,7 +7,9 @@
         uiLocker = require('uiLocker'),
         router = require('plugins/router'),
         mapper = require('mappers/learningpathModelMapper'),
-        dataContext = require('dataContext')
+        dataContext = require('dataContext'),
+        clientContext = require('clientContext'),
+        constants = require('constants')
     ;
 
     describe('command [createLearningPath]', function () {
@@ -17,6 +19,7 @@
             spyOn(router, 'navigate');
             spyOn(uiLocker, 'lock');
             spyOn(uiLocker, 'unlock');
+            spyOn(clientContext, 'set');
             spyOn(localizationManager, "localize").and.callFake(function (key) {
                 return key;
             });
@@ -66,6 +69,13 @@
                 it('should navigate to the learning path', function (done) {
                     command.execute().fin(function () {
                         expect(router.navigate).toHaveBeenCalledWith('learningpaths/' + learningPath.id);
+                        done();
+                    });
+                });
+
+                it('should set last created learning path id to client context', function (done) {
+                    command.execute().fin(function () {
+                        expect(clientContext.set).toHaveBeenCalledWith(constants.clientContextKeys.lastCreatedLearningPathId, learningPath.id);
                         done();
                     });
                 });

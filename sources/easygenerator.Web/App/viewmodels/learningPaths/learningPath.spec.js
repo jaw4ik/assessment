@@ -4,7 +4,8 @@
          getLearningPathByIdQuery = require('viewmodels/learningPaths/queries/getLearningPathByIdQuery'),
          router = require('plugins/router'),
          constants = require('constants'),
-         updateTitleCommand = require('viewmodels/learningPaths/commands/updateLearningPathTitleCommand')
+         updateTitleCommand = require('viewmodels/learningPaths/commands/updateLearningPathTitleCommand'),
+         clientContext = require('clientContext')
     ;
 
     describe('viewModel [learningPath]', function () {
@@ -49,6 +50,10 @@
         });
 
         describe('activate:', function () {
+            beforeEach(function () {
+                spyOn(clientContext, 'remove');
+            });
+
             it('should set learning path id', function () {
                 viewModel.id = null;
                 viewModel.activate(learningPath.id);
@@ -64,6 +69,43 @@
                     viewModel.activate(learningPath.id).fin(function () {
                         expect(viewModel.titleField.title()).toBe(learningPath.title);
                         done();
+                    });
+                });
+
+                it('should remove constants.clientContextKeys.lastCreatedLearningPathId entry from client context', function (done) {
+                    viewModel.activate(learningPath.id).fin(function () {
+                        expect(clientContext.remove).toHaveBeenCalledWith(constants.clientContextKeys.lastCreatedLearningPathId);
+                        done();
+                    });
+                });
+
+                describe('when learning path is last created one', function() {
+                    beforeEach(function() {
+                        spyOn(clientContext, 'get').and.returnValue(learningPath.id);
+                    });
+
+                    it('should set title is selected to true', function(done) {
+                        viewModel.titleField.isSelected(false);
+
+                        viewModel.activate(learningPath.id).fin(function () {
+                            expect(viewModel.titleField.isSelected()).toBeTruthy();
+                            done();
+                        });
+                    });
+                });
+
+                describe('when learning path is not last created one', function () {
+                    beforeEach(function () {
+                        spyOn(clientContext, 'get').and.returnValue('some id');
+                    });
+
+                    it('should set title is selected to false', function (done) {
+                        viewModel.titleField.isSelected(true);
+
+                        viewModel.activate(learningPath.id).fin(function () {
+                            expect(viewModel.titleField.isSelected()).toBeFalsy();
+                            done();
+                        });
                     });
                 });
             });

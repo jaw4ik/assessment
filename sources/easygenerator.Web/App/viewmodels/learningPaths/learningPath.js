@@ -1,5 +1,6 @@
-﻿define(['viewmodels/learningPaths/queries/getLearningPathByIdQuery', 'plugins/router', 'viewmodels/common/titleField', 'constants', 'localization/localizationManager', 'viewmodels/learningPaths/commands/updateLearningPathTitleCommand'],
-    function (getLearningPathByIdQuery, router, titleField, constants, localizationManager,updateTitleCommand) {
+﻿define(['viewmodels/learningPaths/queries/getLearningPathByIdQuery', 'plugins/router', 'viewmodels/common/titleField', 'constants', 'localization/localizationManager',
+ 'clientContext', 'viewmodels/learningPaths/commands/updateLearningPathTitleCommand'],
+    function (getLearningPathByIdQuery, router, titleField, constants, localizationManager, clientContext, updateTitleCommand) {
         "use strict";
 
         var
@@ -38,6 +39,8 @@
 
             return getLearningPathByIdQuery.execute(viewModel.id).then(function (learningPath) {
                 viewModel.titleField.title(learningPath.title);
+                viewModel.titleField.isSelected(clientContext.get(constants.clientContextKeys.lastCreatedLearningPathId) === learningPath.id);
+                clientContext.remove(constants.clientContextKeys.lastCreatedLearningPathId);
             });
         }
 
