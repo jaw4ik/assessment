@@ -1,7 +1,7 @@
 ﻿define(['constants', 'repositories/videoRepository', './handlers/progress', 'models/video'], function (constants, repository, progressHandler, VideoModel) {
 
     var queueUploads = [],
-        uploadChangedProp = false,
+        uploadChanges = false,
         videoConstants = constants.storage.video;
 
     return {
@@ -15,9 +15,9 @@
 
     function uploadChanged(value) {
         if (value !== undefined) {
-            uploadChangedProp = value;
+            uploadChanges = value;
         }
-        return uploadChangedProp;
+        return uploadChanges;
     }
 
     function saveVideo(videoId, title) {

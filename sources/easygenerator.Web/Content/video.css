@@ -5,6 +5,7 @@
 }
 .videos .video-list .video-list-item {
   display: inline-block;
+  vertical-align: top;
   margin-left: 45px;
   margin-bottom: 30px;
   -webkit-border-radius: 5px;
