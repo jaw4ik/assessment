@@ -5,7 +5,8 @@
          router = require('plugins/router'),
          constants = require('constants'),
          updateTitleCommand = require('viewmodels/learningPaths/commands/updateLearningPathTitleCommand'),
-         clientContext = require('clientContext')
+         clientContext = require('clientContext'),
+         eventTracker = require('eventTracker')
     ;
 
     describe('viewModel [learningPath]', function () {
@@ -18,6 +19,7 @@
         beforeEach(function () {
             getLearnigPathDefer = Q.defer();
             spyOn(router, 'navigate');
+            spyOn(eventTracker, 'publish');
             spyOn(getLearningPathByIdQuery, 'execute').and.returnValue(getLearnigPathDefer.promise);
         });
 
@@ -79,12 +81,12 @@
                     });
                 });
 
-                describe('when learning path is last created one', function() {
-                    beforeEach(function() {
+                describe('when learning path is last created one', function () {
+                    beforeEach(function () {
                         spyOn(clientContext, 'get').and.returnValue(learningPath.id);
                     });
 
-                    it('should set title is selected to true', function(done) {
+                    it('should set title is selected to true', function (done) {
                         viewModel.titleField.isSelected(false);
 
                         viewModel.activate(learningPath.id).fin(function () {
@@ -112,6 +114,11 @@
         });
 
         describe('back:', function () {
+            it('should publish \'Navigate to learning paths\' event', function () {
+                viewModel.back();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to learning paths');
+            });
+
             it('should navigate to learning paths', function () {
                 viewModel.back();
                 expect(router.navigate).toHaveBeenCalledWith('#learningpaths');

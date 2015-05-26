@@ -1,11 +1,12 @@
 ﻿define(['viewmodels/learningPaths/queries/getLearningPathByIdQuery', 'plugins/router', 'viewmodels/common/titleField', 'constants', 'localization/localizationManager',
- 'clientContext', 'viewmodels/learningPaths/commands/updateLearningPathTitleCommand'],
-    function (getLearningPathByIdQuery, router, titleField, constants, localizationManager, clientContext, updateTitleCommand) {
+ 'clientContext', 'viewmodels/learningPaths/commands/updateLearningPathTitleCommand', 'eventTracker'],
+    function (getLearningPathByIdQuery, router, titleField, constants, localizationManager, clientContext, updateTitleCommand, eventTracker) {
         "use strict";
 
         var
             events = {
-                updateTitle: 'Update learning path title'
+                updateTitle: 'Update learning path title',
+                navigateToLearningPaths: 'Navigate to learning paths'
             },
             viewModel = {
                 id: null,
@@ -20,6 +21,7 @@
         return viewModel;
 
         function back() {
+            eventTracker.publish(events.navigateToLearningPaths);
             router.navigate('#learningpaths');
         }
 
