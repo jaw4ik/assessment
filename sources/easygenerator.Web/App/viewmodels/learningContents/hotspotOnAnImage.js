@@ -1,11 +1,11 @@
-﻿define(['knockout', 'viewmodels/learningContents/content', 'viewmodels/learningContents/components/hotspotParser',
+﻿define(['knockout','durandal/app', 'constants', 'viewmodels/learningContents/content', 'viewmodels/learningContents/components/hotspotParser',
         'imageUpload', 'uiLocker', 'viewmodels/learningContents/components/polygonModel'],
-    function (ko, Content, parser, imageUpload, uiLocker, PolygonModel) {
+    function (ko, app, constants, Content, parser, imageUpload, uiLocker, PolygonModel) {
         "use strict";
 
-        var viewModel = function (learningContent, questionId, questionType) {
+        var viewModel = function (learningContent, questionId, questionType, canBeAddedImmediately) {
             var that = this;
-            Content.call(this, learningContent, questionId, questionType);
+            Content.call(this, learningContent, questionId, questionType, canBeAddedImmediately);
 
             this.polygons = ko.observableArray([]);
 
@@ -15,8 +15,10 @@
             this.background.height = ko.observable();
             this.background.onload = function (width, height) {
                 fitPointsIntoBounds(width, height);
-                that.save();
+               	that.save();
             };
+
+            app.on(constants.messages.question.learningContent.updateText, textUpdatedByCollaborator);
 
             this.addPolygon = function (points) {
                 var polygon = new PolygonModel('', points, '', that.save);
@@ -42,6 +44,7 @@
             this.uploadBackground = function () {
                 imageUpload.upload({
                     startLoading: function () {
+                        that.canBeAdded(true);
                         uiLocker.lock();
                     },
                     success: function (url) {
@@ -54,8 +57,11 @@
             };
 
             this.save = function () {
-                that.text(parser.updateHotspotOnAnImage(that.text, that.background, that.polygons));
-                that.updateText();
+                var text = parser.updateHotspotOnAnImage(that.text, that.background, that.polygons);
+                if (text !== that.originalText) {
+                    that.text(text);
+                    that.updateText();
+                }
             };
 
             if (_.isEmpty(this.id())) {
@@ -63,9 +69,24 @@
             } else {
                 var data = parser.getViewModelData(this.text());
                 this.background(data.background);
+                var results = [];
                 _.each(data.polygons, function (polygon) {
-                    that.polygons.push(new PolygonModel(polygon.id, polygon.points, polygon.text, that.save));
+                    results.push(new PolygonModel(polygon.id, polygon.points, polygon.text, that.save));
                 });
+                that.polygons(results);
+            }
+
+            function textUpdatedByCollaborator(lc) {
+                if (that.id() === lc.id) {
+                    var data = parser.getViewModelData(that.text()),
+                        polygons = [];
+                    _.each(data.polygons, function (polygon) {
+                        polygons.push(new PolygonModel(polygon.id, polygon.points, polygon.text, that.save));
+                    });
+
+                    that.background(data.background);
+                    that.polygons(polygons);
+                }
             }
 
             function fitPointsIntoBounds(width, height) {

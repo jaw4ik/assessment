@@ -1,13 +1,11 @@
 ﻿define(['durandal/composition', 'components/polygonsEditor/polygonsEditor', 'viewmodels/learningContents/components/hotspotParser',
-        'widgets/hotspotCursorTooltip/viewmodel', 'components/polygonsEditor/hotspotOnImageShapeModel'],
+        'widgets/cursorTooltip/viewmodel', 'components/polygonsEditor/hotspotOnImageShapeModel'],
     function (composition, PolygonsEditor, parser, cursorTooltip, PolygonShape) {
         'use strict';
 
         ko.bindingHandlers.hotspotOnImage = {
             init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
                 var $element = $(element),
-                    data = valueAccessor().data,
-                    poygons = valueAccessor().polygons,
                     isEditing = valueAccessor().isEditing,
                     saveHandler = valueAccessor().save,
                     focusHandler = valueAccessor().focus,
@@ -29,7 +27,9 @@
 
                 ko.utils.domData.set(element, 'ko_polygonEditor', editor);
 
-                startEditing();
+                if (isEditing()) {
+                    startEditing();
+                }
 
                 setUpHoverOnCanvas($element);
 
@@ -48,11 +48,6 @@
                     editor.fire(editor.events.polygonAfterAdded, polygon.id);
                     saveData();
                 });
-
-                function updateSpot(data, id, text, points) {
-                    data(parser.updateSpot(data(), id, text, points));
-                    saveData();
-                }
 
                 function removeState() {
                     $element.removeClass('create creating resize resizing drag dragging active');
@@ -161,6 +156,10 @@
                     $element.removeClass('empty');
                 } else {
                     $element.addClass('empty');
+                }
+
+                if (_.isNullOrUndefined(background.width()) || _.isNullOrUndefined(background.height())) {
+                    return;
                 }
 
                 editor.updateCanvasSize(background.width(), background.height());

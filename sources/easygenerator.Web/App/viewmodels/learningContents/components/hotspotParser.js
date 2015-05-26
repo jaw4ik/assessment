@@ -1,4 +1,4 @@
-﻿define(['durandal/system', 'constants', 'viewmodels/learningContents/components/polygonModel'], function (system, constants, PolygonModel) {
+﻿define(['durandal/system', 'constants'], function (system, constants) {
     'use strict';
     var templates = {
             hotspotWrapper: '<span data-type="' + constants.learningContentsTypes.hotspot + '" class="hotspotOnImage" style="position: relative;display: inline-block;max-width: 100%"><img src="{url}" alt="" style="max-width:100%" />{spots}</span>',

@@ -68,25 +68,35 @@
         }
 
         function addContent() {
-            addLearnignContent(constants.learningContentsTypes.content);
+            addLearnignContent(constants.learningContentsTypes.content, true);
         }
 
         function addHotspotOnAnImage() {
-            addLearnignContent(constants.learningContentsTypes.hotspot)
+            addLearnignContent(constants.learningContentsTypes.hotspot, false);
         }
 
-        function addLearnignContent(type) {
+        function addLearnignContent(type, canBeAddedImmediately) {
             toggleIsAddedButtonsShown();
-            doAddLearningContent(undefined, type);
+            doAddLearningContent(undefined, type, canBeAddedImmediately);
         }
 
         function toggleExpand() {
             viewModel.isExpanded(!viewModel.isExpanded());
         }
 
-        function doAddLearningContent(learningContent, type) {
+        function doAddLearningContent(learningContent, type, canBeAddedImmediately) {
             learningContent = learningContent || { type: type || constants.learningContentsTypes.content };
-            viewModel.learningContents.push(new learningContentsViewModelFactory[learningContent.type](learningContent, viewModel.questionId, viewModel.questionType));
+            var createdLearningContent = new learningContentsViewModelFactory[learningContent.type](learningContent, viewModel.questionId, viewModel.questionType, canBeAddedImmediately);
+            if (createdLearningContent.canBeAdded()) {
+                viewModel.learningContents.push(createdLearningContent);
+            } else {
+                var subscribtion = createdLearningContent.canBeAdded.subscribe(function () {
+                    if (createdLearningContent.canBeAdded()) {
+                        viewModel.learningContents.push(createdLearningContent);
+                        subscribtion.dispose();
+                    }
+                });
+            }
         }
 
         function removeLearningContent(learningContent){
@@ -136,6 +146,7 @@
             updatedLearningContent.originalText = learningContent.text;
             if (!updatedLearningContent.hasFocus()) {
                 updatedLearningContent.text(learningContent.text);
+                app.trigger(constants.messages.question.learningContent.updateText, learningContent);
             }
         }
 

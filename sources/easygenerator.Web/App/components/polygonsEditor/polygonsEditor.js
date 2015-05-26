@@ -355,6 +355,7 @@
         function updatePolygons(polygons) {
             var that = this;
             that.polygons = polygons;
+            paper = that._paper.view._scope;
             
             _.each(polygons(), function (polygon) {
                 var polygonInEditor = _.find(that._editor.polygons, function (polygonShape) { return polygon.id === polygonShape.id; });

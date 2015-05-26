@@ -57,17 +57,21 @@
         var leftArrowPosition = 7,
             spotWidth = minMaxCoords.maxX - minMaxCoords.minX,
             leftPosition = wrapperPositions.left + minMaxCoords.maxX,
-            htspotWraperRightPosition = $hotspotWrapper.offset().left + $hotspotWrapper.outerWidth();
+            htspotWraperRightPosition = $hotspotWrapper.offset().left + $hotspotWrapper.outerWidth(),
+            currentLeftPosition = 0;
 
         if (htspotWraperRightPosition < leftPosition
             || htspotWraperRightPosition + $popover.width() > window.innerWidth) {
-            $popover.removeClass(classList.left);
-            $popover.addClass(classList.right);
-            return leftPosition - spotWidth - $popover.outerWidth() - leftArrowPosition + 'px';
+            $popover.removeClass(classList.left).addClass(classList.right);
+            currentLeftPosition = leftPosition - spotWidth - $popover.outerWidth() - leftArrowPosition;
         }
-        $popover.removeClass(classList.right);
-        $popover.addClass(classList.left);
-        return leftPosition + leftArrowPosition + 'px';
+
+        if (currentLeftPosition <= 0) {
+            $popover.removeClass(classList.right).addClass(classList.left);
+            return leftPosition + leftArrowPosition + 'px';
+        } else {
+            return currentLeftPosition + 'px';
+        }
     }
 
     function getMinMaxCoords(points) {

@@ -1,10 +1,9 @@
-﻿define(['widgets/hotspotCursorTooltip/viewmodel'], function(widget) {
+﻿define(['widgets/cursorTooltip/viewmodel'], function (widget) {
     'use strict';
 
-    var hotspotCursorTooltipBindingHandler = require('widgets/hotspotCursorTooltip/bindingHadlers/hotspotCursorTooltipBindingHandler'),
-        localizationManager = require('localization/localizationManager');
+    var cursorTooltipBindingHandler = require('widgets/cursorTooltip/bindingHadlers/cursorTooltipBindingHandler');
 
-    describe('widget hotspotCursorTooltip:', function () {
+    describe('widget cursorTooltip:', function () {
 
         describe('isVisible', function () {
 
@@ -25,7 +24,7 @@
         describe('activate:', function() {
 
             beforeEach(function() {
-                spyOn(hotspotCursorTooltipBindingHandler, 'install');
+                spyOn(cursorTooltipBindingHandler, 'install');
             });
 
             it('should be function', function() {
@@ -34,7 +33,7 @@
 
             it('should initialize tooltip binding', function() {
                 widget.activate();
-                expect(hotspotCursorTooltipBindingHandler.install).toHaveBeenCalled();
+                expect(cursorTooltipBindingHandler.install).toHaveBeenCalled();
             });
 
         });

@@ -9,8 +9,7 @@
         ko.bindingHandlers.cursorTooltip = {
             update: function (element, valueAccessor) {
                 var $element = $(element),
-                    isVisible = valueAccessor(),
-                    $html = $('html');
+                    isVisible = valueAccessor();
 
                 if (isVisible()) {
                     $element.show();

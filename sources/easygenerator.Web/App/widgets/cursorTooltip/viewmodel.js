@@ -1,6 +1,6 @@
-﻿define(['widgets/hotspotCursorTooltip/bindingHadlers/hotspotCursorTooltipBindingHandler',
+﻿define(['widgets/cursorTooltip/bindingHadlers/cursorTooltipBindingHandler',
         'localization/localizationManager'],
-        function (hotspotCursorTooltipBinding, localizationManager) {
+        function (cursorTooltipBindingHandler, localizationManager) {
             'use strict';
 
             var cursorTolltip = {
@@ -15,7 +15,7 @@
             return cursorTolltip;
 
             function activate() {
-                hotspotCursorTooltipBinding.install();
+                cursorTooltipBindingHandler.install();
             }
 
             function changeText(resourseKey) {

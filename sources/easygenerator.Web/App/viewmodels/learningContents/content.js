@@ -10,7 +10,7 @@
                 endEditText: 'End editing learning content',
             };
 
-        var viewModel = function (learningContent, questionId, questionType) {
+        var viewModel = function (learningContent, questionId, questionType, canBeAddedImmediately) {
             //private
             var _questionId = questionId,
                 _questionType = questionType;
@@ -23,9 +23,13 @@
             this.type = learningContent.type;
             this.hasFocus = ko.observable(false);
             this.isDeleted = false;
+            this.canBeAdded = ko.observable(canBeAddedImmediately);
 
             if (_.isEmpty(this.id())) {
+                publishActualEvent(events.addLearningContent);
                 this.hasFocus(true);
+            } else {
+                this.canBeAdded(true);
             }
 
             this.beginEditText = function () {
@@ -56,7 +60,7 @@
                 }
             };
 
-            this.endEditText = function () {
+            this.endEditText = function() {
                 publishActualEvent(events.endEditText);
 
                 if (!_.isNullOrUndefined(that.isDeleted) && that.isDeleted) {
@@ -70,12 +74,12 @@
                 if (_.isEmptyHtmlText(text)) {
                     app.trigger(constants.messages.question.learningContent.remove, that);
                     if (!_.isEmptyOrWhitespace(id)) {
-                        learningContentsrepository.removeLearningContent(_questionId, id).then(function (modifiedOn) {
+                        learningContentsrepository.removeLearningContent(_questionId, id).then(function(modifiedOn) {
                             showNotification(modifiedOn);
                         });
                     }
                 }
-            }
+            };
 
             this.removeLearningContent = function() {
                 publishActualEvent(events.deleteLearningContent);
@@ -92,8 +96,6 @@
                     });
                 });
             };
-
-            publishActualEvent(events.addLearningContent);
 
             function publishActualEvent(event) {
                 if (_questionType === constants.questionType.informationContent.type) {

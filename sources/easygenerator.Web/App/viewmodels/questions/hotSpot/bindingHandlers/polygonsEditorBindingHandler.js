@@ -1,4 +1,4 @@
-﻿define(['durandal/composition', 'components/polygonsEditor/polygonsEditor', 'widgets/hotspotCursorTooltip/viewmodel'], function (composition, PolygonsEditor, cursorTooltip) {
+﻿define(['durandal/composition', 'components/polygonsEditor/polygonsEditor', 'widgets/cursorTooltip/viewmodel'], function (composition, PolygonsEditor, cursorTooltip) {
     return {
         install: install
     };
