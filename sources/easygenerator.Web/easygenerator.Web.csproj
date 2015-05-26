@@ -1968,6 +1968,7 @@
     <Content Include="Templates\Quiz\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\content.html" />
     <Content Include="Templates\Quiz\content\content.html" />
     <Content Include="Templates\Quiz\content\data.js" />
+    <Content Include="Templates\Quiz\css\fonts.css" />
     <Content Include="Templates\Quiz\css\fonts\badscript-regular.eot" />
     <Content Include="Templates\Quiz\css\fonts\badscript-regular.svg" />
     <Content Include="Templates\Quiz\css\fonts\badscript-regular.ttf" />
@@ -2015,6 +2016,7 @@
     <Content Include="Templates\Quiz\css\img\notSupportedPage\supported-browser-bg.png" />
     <Content Include="Templates\Quiz\css\img\summary-questions-background.jpg" />
     <Content Include="Templates\Quiz\css\img\tooth.png" />
+    <Content Include="Templates\Quiz\css\styles.css" />
     <Content Include="Templates\Quiz\index.html" />
     <Content Include="Templates\Quiz\lang\en.json" />
     <Content Include="Templates\Quiz\lang\nl.json" />
