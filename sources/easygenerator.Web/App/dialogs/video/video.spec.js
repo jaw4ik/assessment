@@ -52,11 +52,6 @@
                 expect(viewModel.copyEmbedCode).toBeFunction();
             });
 
-            it('should publish event', function () {
-                viewModel.copyEmbedCode();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Copy video embed code', 'Video library');
-            });
-
             it('should set embedCodeCopied to true', function () {
                 viewModel.embedCodeCopied(false);
                 viewModel.copyEmbedCode();
@@ -69,6 +64,17 @@
                 viewModel.copyEmbedCode();
                 jasmine.clock().tick(constants.copyToClipboardWait + 100);
                 expect(viewModel.embedCodeCopied()).toBeFalsy();
+            });
+        });
+
+        describe('copyEmbedCodeEvent', function() {
+            it('should be function', function () {
+                expect(viewModel.copyEmbedCodeEvent).toBeFunction();
+            });
+
+            it('should publish event', function () {
+                viewModel.copyEmbedCodeEvent();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Copy video embed code', 'Video library');
             });
         });
 

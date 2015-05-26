@@ -352,7 +352,7 @@
                     trackChangesInUploadTimeout: 500,
                     iframeWidth: 600,
                     iframeHeight: 335,
-                    updateUploadTimeout: 120000,
+                    updateUploadTimeout: 60000,
                     removeVideoAfterErrorTimeout: 5000
                 }
             }

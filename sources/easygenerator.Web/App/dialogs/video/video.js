@@ -20,6 +20,7 @@
             copyBtnDisabled: ko.observable(false),
             embedCodeCopied: ko.observable(false),
             copyEmbedCode: copyEmbedCode,
+            copyEmbedCodeEvent: copyEmbedCodeEvent,
 
             show: show,
             hide: hide
@@ -54,9 +55,11 @@
                 '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
         }
 
-        function copyEmbedCode() {
+        function copyEmbedCodeEvent() {
             eventTracker.publish(events.copyVideoEmbedCode, eventCategory);
+        }
 
+        function copyEmbedCode() {
             copyToClipboard(viewModel.embedCodeCopied);
         }
 
