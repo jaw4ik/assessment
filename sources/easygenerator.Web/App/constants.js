@@ -203,7 +203,8 @@
                     learningContent: {
                         createdByCollaborator: 'learningContent:createdByCollaborator',
                         deletedByCollaborator: 'learningContent:deletedByCollaborator',
-                        textUpdatedByCollaborator: 'learningContent:textUpdatedByCollaborator'
+                        textUpdatedByCollaborator: 'learningContent:textUpdatedByCollaborator',
+                        remove: 'learningContent:remove'
                     },
 
                     fillInTheBlank: {

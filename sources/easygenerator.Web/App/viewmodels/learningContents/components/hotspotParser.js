@@ -1,99 +1,67 @@
 ﻿define(['durandal/system', 'constants', 'viewmodels/learningContents/components/polygonModel'], function (system, constants, PolygonModel) {
     'use strict';
     var templates = {
-        hotspotWrapper: '<span data-type="' + constants.learningContentsTypes.hotspot + '" class="hotspotOnImage" style="position: relative;display: inline-block;max-width: 100%"><img src="{url}" alt="" style="max-width:100%" /></span>',
-        spotWrapper: '<span class="spot" style="position: absolute; display: inline-block;" data-text=""></span>'
-    };
+            hotspotWrapper: '<span data-type="' + constants.learningContentsTypes.hotspot + '" class="hotspotOnImage" style="position: relative;display: inline-block;max-width: 100%"><img src="{url}" alt="" style="max-width:100%" />{spots}</span>',
+            spotWrapper: '<span class="spot" style="position: absolute; display: inline-block;" data-text=""></span>'
+        },
+        attributes = {
+            dataId: 'data-id',
+            dataText: 'data-text',
+            src: 'src'
+        };
 
     return {
-        getHotspot: getHotspot,
-        getImageUrl: getImageUrl,
-        getPolygons: getPolygons,
-
-        createSpot: createSpot,
-        removeSpot: removeSpot,
-        updateSpot: updateSpot,
-
-        updateImage: updateImage
+        getViewModelData: getViewModelData,
+        updateHotspotOnAnImage: updateHotspotOnAnImage,
     };
 
-    function getHotspot(url) {
-        return templates.hotspotWrapper.replace('{url}', url);
+    function updateHotspotOnAnImage(data, background, polygons) {
+        if (_.isEmpty(data())) {
+            return templates.hotspotWrapper.replace('{url}', background());
+        }
+
+        var $newData = $(templates.hotspotWrapper.replace('{url}', background()));
+
+        _.each(polygons(), function (polygon) {
+            var id = polygon.id,
+                text = polygon.text,
+                minMaxCoords = getMinMaxCoords(polygon.points()),
+                width = minMaxCoords.maxX - minMaxCoords.minX,
+                height = minMaxCoords.maxY - minMaxCoords.minY,
+                top = minMaxCoords.minY,
+                left = minMaxCoords.minX,
+                $spot = $(templates.spotWrapper);
+            $spot.attr(attributes.dataId, id).attr(attributes.dataText, text)
+                .width(width).height(height)
+                .css('top', top).css('left', left);
+            $newData.append($spot);
+        });
+
+        return $('<div>').append($newData).html();
     }
 
-    function getImageUrl(html) {
-        var $output = $(html);
-        var $img = $output.find('img');
-        return $img.attr('src');
-    }
+    function getViewModelData(data) {
+        var $data = $(data),
+            $spots = $data.find('[' + attributes.dataId + ']'),
+            background = $data.find('img').attr(attributes.src),
+            polygons = [];
 
-    function createSpot(html, points) {
-        var $output = $('<output>');
-        $output.html(html);
-        var id = system.guid();
-        var $spotWrapper = $('.hotspotOnImage', $output),
-            $spot = $(templates.spotWrapper),
-            minMaxCoords = getMinMaxCoords(points);
-        $spot.width(minMaxCoords.maxX - minMaxCoords.minX)
-            .height(minMaxCoords.maxY - minMaxCoords.minY)
-            .attr('data-id', id)
-            .css('top', minMaxCoords.minY)
-            .css('left', minMaxCoords.minX);
-        $spotWrapper.append($spot);
-
-        return {
-            id: id,
-            data: $output.html()
-        };
-    }
-
-    function removeSpot(html, id) {
-        var $output = $('<output>');
-        $output.html(html);
-        var $spotWrapper = $('.hotspotOnImage', $output),
-            $spot = $('[data-id="' + id + '"]', $spotWrapper);
-        $spot.remove();
-        return $output.html();
-    }
-    
-    function updateSpot(html, id, text, points) {
-        var $output = $('<output>');
-        $output.html(html);
-
-        var $spotWrapper = $('.hotspotOnImage', $output),
-            $spot = $('[data-id="' + id + '"]', $spotWrapper),
-            minMaxCoords = getMinMaxCoords(points);
-
-        $spot.width(minMaxCoords.maxX - minMaxCoords.minX)
-            .height(minMaxCoords.maxY - minMaxCoords.minY)
-            .attr('data-text', text)
-            .css('top', minMaxCoords.minY)
-            .css('left', minMaxCoords.minX);
-        return $output.html();
-    }
-
-    function getPolygons(html, updateCallback) {
-        var $output = $(html);
-        var $spots = $output.find('[data-id]');
-        var spots = [];
         $spots.each(function (index, element) {
             var $spot = $(element),
-                id = $spot.attr('data-id'),
+                id = $spot.attr(attributes.dataId),
                 points = getPoints($spot[0]),
-                text = $spot.attr('data-text');
-            var polygon = new PolygonModel(id, points, text, updateCallback);
-            spots.push(polygon);
+                text = $spot.attr(attributes.dataText);
+            var polygon = {
+                id: id,
+                points: points,
+                text: text
+            };
+            polygons.push(polygon);
         });
-        return spots;
-    }
-
-    function updateImage(html, url, width, height) {
-        var $output = $('<output>');
-        $output.html(html);
-        var $img = $('img', $output);
-        $img.attr('src', url);
-        fitPointsIntoBounds($output, width, height);
-        return $output.html();
+        return {
+            background: background,
+            polygons: polygons
+        };
     }
 
     function getPoints(element) {
@@ -129,8 +97,8 @@
 
     function getMinMaxCoords(points) {
         var minX = _.min(points, function (point) {
-            return point.x;
-        }),
+                return point.x;
+            }),
             minY = _.min(points, function (point) {
                 return point.y;
             }),
@@ -147,28 +115,6 @@
             maxX: maxX.x,
             maxY: maxY.y
         };
-    }
-
-    function fitPointsIntoBounds($output, imageWidth, imageHeidht) {
-        var $spots = $output.find('[data-id]'),
-            counter = 0,
-            spotsLength = $spots.length;
-
-        while (true) {
-            var spot = $spots[counter],
-                width = parseInt(spot.style.width),
-                height = parseInt(spot.style.height),
-                top = parseInt(spot.style.top),
-                left = parseInt(spot.style.left);
-
-            if (width + left > imageWidth || height + top > imageHeidht) {
-                $(spot).remove();
-            } 
-            counter++;
-            if (counter === spotsLength) {
-                break;
-            }
-        }
     }
 
 });

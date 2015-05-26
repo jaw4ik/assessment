@@ -1,14 +1,10 @@
-﻿define(['repositories/learningContentRepository', 'repositories/questionRepository', 'localization/localizationManager', 'notify', 'constants', 'eventTracker', 'durandal/app',
-    'imageUpload', 'uiLocker', 'viewmodels/learningContents/components/hotspotParser', 'viewmodels/learningContents/learningContentsViewModelFactory'],
-    function (learningContentsrepository, questionRepository, localizationManager, notify, constants, eventTracker, app, imageUpload, uiLocker, hotspotParser,
-            learningContentsViewModelFactory) {
+﻿define(['repositories/learningContentRepository', 'repositories/questionRepository', 'localization/localizationManager',
+        'notify', 'constants', 'eventTracker', 'durandal/app', 'viewmodels/learningContents/learningContentsViewModelFactory'],
+    function (learningContentsrepository, questionRepository, localizationManager,
+            notify, constants, eventTracker, app, learningContentsViewModelFactory) {
 
         var
             events = {
-                addLearningContent: 'Add learning content',
-                deleteLearningContent: 'Delete learning content',
-                beginEditText: 'Start editing learning content',
-                endEditText: 'End editing learning content',
                 changeLearningContentsOrder: 'Change order of Learning Contents'
             };
 
@@ -22,9 +18,8 @@
 
             isAddedButtonsShown: ko.observable(false),
             toggleIsAddedButtonsShown: toggleIsAddedButtonsShown,
-            addLearningContent: addLearningContent,
-            addHotspotOnImage: addHotspotOnImage,
-            removeLearningContent: removeLearningContent,
+            addContent: addContent,
+            addHotspotOnAnImage: addHotspotOnAnImage,
 
             updateOrder: updateOrder,
             startReordering: startReordering,
@@ -35,178 +30,74 @@
             deletedByCollaborator: deletedByCollaborator,
             textUpdatedByCollaborator: textUpdatedByCollaborator,
 
-            updateText: updateText,
-            beginEditText: beginEditText,
-            endEditText: endEditText,
-
             isExpanded: ko.observable(true),
             toggleExpand: toggleExpand,
 
             activate: activate,
-            localizationManager: localizationManager,
-            uploadBackground: uploadBackground
+            localizationManager: localizationManager
         };
 
         viewModel.isSortingEnabled = ko.computed(function () {
             return viewModel.learningContents().length > 1;
         });
 
-        viewModel.orderInProcess = false,
-            viewModel.changesFromCollaborator = null;
+        viewModel.orderInProcess = false;
+        viewModel.changesFromCollaborator = null;
 
         app.on(constants.messages.question.learningContent.createdByCollaborator, createdByCollaborator);
         app.on(constants.messages.question.learningContent.deletedByCollaborator, deletedByCollaborator);
         app.on(constants.messages.question.learningContent.textUpdatedByCollaborator, textUpdatedByCollaborator);
         app.on(constants.messages.question.learningContentsReorderedByCollaborator, learningContentsReorderedByCollaborator);
+        app.on(constants.messages.question.learningContent.remove, removeLearningContent);
 
         return viewModel;
 
-        function toggleIsAddedButtonsShown() {
-            viewModel.isAddedButtonsShown(!viewModel.isAddedButtonsShown());
+        function activate(activationData) {
+            var questionId = activationData.questionId;
+            var questionType = activationData.questionType;
+
+            return learningContentsrepository.getCollection(questionId).then(function (learningContentsList) {
+                viewModel.questionId = questionId;
+                viewModel.questionType = questionType;
+                viewModel.learningContents([]);
+                viewModel.isExpanded(true);
+                viewModel.isAddedButtonsShown(false);
+
+                _.each(learningContentsList, doAddLearningContent);
+            });
         }
 
-        function addLearningContent() {
-            publishActualEvent(events.addLearningContent);
-            doAddLearningContent();
+        function addContent() {
+            addLearnignContent(constants.learningContentsTypes.content);
+        }
+
+        function addHotspotOnAnImage() {
+            addLearnignContent(constants.learningContentsTypes.hotspot)
+        }
+
+        function addLearnignContent(type) {
             toggleIsAddedButtonsShown();
-        }
-
-        function addHotspotOnImage() {
-            publishActualEvent(events.addLearningContent);
-            toggleIsAddedButtonsShown();
-            uploadBackground(function (url) {
-                var text = hotspotParser.getHotspot(url);
-                doAddLearningContent(undefined, text, constants.learningContentsTypes.hotspot);
-            });
-        }
-
-        function uploadBackground(callback) {
-            imageUpload.upload({
-                startLoading: function () {
-                    uiLocker.lock();
-                },
-                success: function (url) {
-                    callback(url);
-                },
-                complete: function () {
-                    uiLocker.unlock();
-                }
-            });
-        }
-
-        function removeLearningContent(learningContent) {
-            publishActualEvent(events.deleteLearningContent);
-
-            if (!_.isNullOrUndefined(learningContent.isDeleted) && learningContent.isDeleted) {
-                viewModel.learningContents.remove(learningContent);
-                return;
-            }
-
-            performActionWhenLearningContentIdIsSet(learningContent, function () {
-                viewModel.learningContents.remove(learningContent);
-                learningContentsrepository.removeLearningContent(viewModel.questionId, ko.unwrap(learningContent.id)).then(function (response) {
-                    showNotification(response.modifiedOn);
-                });
-            });
-        }
-
-        function startReordering() {
-            viewModel.orderInProcess = true;
-        }
-
-        function stopReordering() {
-            viewModel.orderInProcess = false;
-            if (viewModel.changesFromCollaborator && viewModel.questionId == viewModel.changesFromCollaborator.question.id) {
-                reorderLearningContents(viewModel.changesFromCollaborator.learningContentsIds);
-            }
-            viewModel.changesFromCollaborator = null;
-        }
-
-        function updateOrder() {
-            eventTracker.publish(events.changeLearningContentsOrder);
-            questionRepository.updateLearningContentsOrder(viewModel.questionId, viewModel.learningContents()).then(function () {
-                showNotification();
-            });
-            viewModel.changesFromCollaborator = null;
-        }
-
-        function learningContentsReorderedByCollaborator(question, learningContentsIds) {
-            if (viewModel.questionId != question.id) {
-                return;
-            }
-
-            if (viewModel.orderInProcess) {
-                viewModel.changesFromCollaborator = {
-                    question: question, learningContentsIds: learningContentsIds
-                };
-                return;
-            }
-
-            reorderLearningContents(learningContentsIds);
-        }
-
-        function reorderLearningContents(learningContentsIds) {
-            viewModel.learningContents(_.chain(learningContentsIds)
-               .map(function (id) {
-                   return _.find(viewModel.learningContents(), function (learningContent) {
-                       return id == learningContent.id();
-                   });
-               })
-               .value());
-        }
-
-        function beginEditText() {
-            publishActualEvent(events.beginEditText);
-        }
-
-        function endEditText(learningContent) {
-            publishActualEvent(events.endEditText);
-
-            if (!_.isNullOrUndefined(learningContent.isDeleted) && learningContent.isDeleted) {
-                viewModel.learningContents.remove(learningContent);
-                return;
-            }
-
-            var id = ko.unwrap(learningContent.id);
-            var text = ko.unwrap(learningContent.text);
-
-            if (_.isEmptyHtmlText(text)) {
-                viewModel.learningContents.remove(learningContent);
-                if (!_.isEmptyOrWhitespace(id)) {
-                    learningContentsrepository.removeLearningContent(viewModel.questionId, id).then(function (modifiedOn) {
-                        showNotification(modifiedOn);
-                    });
-                }
-            }
-        }
-
-        function updateText(learningContent) {
-            var id = ko.unwrap(learningContent.id);
-            var text = ko.unwrap(learningContent.text);
-
-            if (_.isEmptyHtmlText(text) || ((!_.isNullOrUndefined(learningContent.isDeleted) && learningContent.isDeleted))) {
-                return;
-            }
-
-            if (_.isEmptyOrWhitespace(id)) {
-                learningContentsrepository.addLearningContent(viewModel.questionId, { text: text }).then(function (item) {
-                    learningContent.id(item.id);
-                    learningContent.originalText = text;
-                    showNotification(item.createdOn);
-                });
-            } else {
-                if (text != learningContent.originalText) {
-                    learningContentsrepository.updateText(viewModel.questionId, id, text).then(function (response) {
-                        learningContent.originalText = text;
-                        showNotification(response.modifiedOn);
-                    });
-                }
-            }
+            doAddLearningContent(undefined, type);
         }
 
         function toggleExpand() {
             viewModel.isExpanded(!viewModel.isExpanded());
         }
+
+        function doAddLearningContent(learningContent, type) {
+            learningContent = learningContent || { type: type || constants.learningContentsTypes.content };
+            viewModel.learningContents.push(new learningContentsViewModelFactory[learningContent.type](learningContent, viewModel.questionId, viewModel.questionType));
+        }
+
+        function removeLearningContent(learningContent){
+            viewModel.learningContents.remove(learningContent);
+        }
+
+        function toggleIsAddedButtonsShown() {
+            viewModel.isAddedButtonsShown(!viewModel.isAddedButtonsShown());
+        }
+
+        /*#region collaboration*/
 
         function deletedByCollaborator(question, learningContentId) {
             if (question.id != viewModel.questionId) {
@@ -256,57 +147,56 @@
             doAddLearningContent(learningContent);
         }
 
-        function doAddLearningContent(learningContent, text, type) {
-            learningContent = learningContent || { id: '', text: text || '', hasFocus: true, type: type || constants.learningContentsTypes.content };
-            viewModel.learningContents.push({
-                id: ko.observable(learningContent.id),
-                text: ko.observable(learningContent.text),
-                originalText: learningContent.text,
-                type: learningContent.type,
-                hasFocus: ko.observable(learningContent.hasFocus || false),
-                viewmodel: learningContentsViewModelFactory[learningContent.type]
-            });
-        }
-
-        function performActionWhenLearningContentIdIsSet(learningContent, action) {
-            if (_.isEmptyOrWhitespace(ko.unwrap(learningContent.id))) {
-                var subscription = learningContent.id.subscribe(function () {
-                    if (!_.isEmptyOrWhitespace(ko.unwrap(learningContent.id))) {
-                        action();
-                        subscription.dispose();
-                    }
-                });
-            } else {
-                action();
+        function learningContentsReorderedByCollaborator(question, learningContentsIds) {
+            if (viewModel.questionId != question.id) {
+                return;
             }
-        }
 
-        function showNotification() {
-            notify.saved();
-        }
-
-        function publishActualEvent(event) {
-            if (viewModel.questionType === constants.questionType.informationContent.type) {
-                eventTracker.publish(event, constants.eventCategories.informationContent);
-            } else {
-                eventTracker.publish(event);
+            if (viewModel.orderInProcess) {
+                viewModel.changesFromCollaborator = {
+                    question: question, learningContentsIds: learningContentsIds
+                };
+                return;
             }
+
+            reorderLearningContents(learningContentsIds);
         }
 
-        function activate(activationData) {
-            var questionId = activationData.questionId;
-            var questionType = activationData.questionType;
+        /*#endregion collaboration*/
 
-            return learningContentsrepository.getCollection(questionId).then(function (learningContentsList) {
-                viewModel.questionId = questionId;
-                viewModel.questionType = questionType;
-                viewModel.learningContents([]);
-                viewModel.isExpanded(true);
-                viewModel.isAddedButtonsShown(false);
+        /*#region ordering*/
 
-                _.each(learningContentsList, doAddLearningContent);
+        function startReordering() {
+            viewModel.orderInProcess = true;
+        }
+
+        function stopReordering() {
+            viewModel.orderInProcess = false;
+            if (viewModel.changesFromCollaborator && viewModel.questionId == viewModel.changesFromCollaborator.question.id) {
+                reorderLearningContents(viewModel.changesFromCollaborator.learningContentsIds);
+            }
+            viewModel.changesFromCollaborator = null;
+        }
+
+        function updateOrder() {
+            eventTracker.publish(events.changeLearningContentsOrder);
+            questionRepository.updateLearningContentsOrder(viewModel.questionId, viewModel.learningContents()).then(function () {
+                notify.saved();
             });
+            viewModel.changesFromCollaborator = null;
         }
+
+        function reorderLearningContents(learningContentsIds) {
+            viewModel.learningContents(_.chain(learningContentsIds)
+               .map(function (id) {
+                   return _.find(viewModel.learningContents(), function (learningContent) {
+                       return id == learningContent.id();
+                   });
+               })
+               .value());
+        }
+
+        /*#endregion ordering*/
 
     }
 );
