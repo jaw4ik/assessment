@@ -160,12 +160,12 @@ define(function (require) {
                         getCourseById.resolve({});
                     });
 
-                    describe('and objective exists', function() {
+                    describe('and objective exists', function () {
                         beforeEach(function () {
                             getObjectiveById.resolve({});
                         });
 
-                        describe('and question does not exist', function() {
+                        describe('and question does not exist', function () {
                             beforeEach(function () {
                                 getQuestionById.reject({});
                             });
@@ -178,7 +178,7 @@ define(function (require) {
                             });
                         });
 
-                        describe('and question exists', function() {
+                        describe('and question exists', function () {
                             beforeEach(function () {
                                 getQuestionById.resolve({});
                             });
@@ -292,8 +292,8 @@ define(function (require) {
                 });
             });
 
-            describe('when activated with 1 argument', function() {
-                it('should throw exception', function() {
+            describe('when activated with 1 argument', function () {
+                it('should throw exception', function () {
                     var f = function () { viewModel.canActivate(); }
                     expect(f).toThrow();
                 });
@@ -499,7 +499,7 @@ define(function (require) {
                     viewModel.courseId = null;
                     viewModel.objectiveId = 'objectiveId';
                     viewModel.back();
-                    expect(router.navigate).toHaveBeenCalledWith('#objectives/objectiveId');
+                    expect(router.navigate).toHaveBeenCalledWith('#library/objectives/objectiveId');
                 });
 
             });
@@ -671,7 +671,7 @@ define(function (require) {
                 it('should navigate to new question', function (done) {
                     viewModel.duplicateQuestion();
                     copyQuestionDefer.promise.fin(function () {
-                        expect(router.navigate).toHaveBeenCalledWith('objectives/' + objectiveId + '/questions/' + newQuestionId);
+                        expect(router.navigate).toHaveBeenCalledWith('library/objectives/' + objectiveId + '/questions/' + newQuestionId);
                         done();
                     });
                 });
