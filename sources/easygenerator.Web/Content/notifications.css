@@ -1,5 +1,7 @@
 ﻿/*#region User avatar */
+/*#endregion */
 /*#region flex */
+/*#endregion */
 .user-notification-viewer-wrapper {
   position: absolute;
   max-height: 0px;
@@ -257,3 +259,4 @@
 .user-notification-wrapper.collaboration-invite .user-notification-actions .btn + .btn {
   margin-left: 20px;
 }
+/*#endregion */

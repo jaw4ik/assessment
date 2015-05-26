@@ -62,7 +62,10 @@ namespace easygenerator.Web.Components.Mappers
             {
                 return Question.QuestionTypes.Statement;
             }
-
+            if (questionType == typeof(OpenQuestion))
+            {
+                return Question.QuestionTypes.OpenQuestion;
+            }
             throw new NotSupportedException();
         }
     }

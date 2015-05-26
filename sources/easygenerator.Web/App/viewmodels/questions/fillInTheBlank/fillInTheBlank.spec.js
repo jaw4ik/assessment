@@ -6,19 +6,24 @@
         router = require('plugins/router'),
         eventTracker = require('eventTracker'),
         questionRepository = require('repositories/questionRepository'),
-        http = require('plugins/http');
+        http = require('plugins/http'),
+        localizationManager = require('localization/localizationManager'),
 
-    var objectiveId = 'objectiveId';
+        objectiveId = 'objectiveId',
 
-    var question = {
-        id: '1',
-        title: 'lalala',
-        content: 'ololosh',
-        createdOn: new Date(),
-        modifiedOn: new Date(),
-        answerOptions: [],
-        learningContents: []
-    };
+        question = {
+            id: '1',
+            title: 'lalala',
+            content: 'ololosh',
+            createdOn: new Date(),
+            modifiedOn: new Date(),
+            answerOptions: [],
+            learningContents: []
+        },
+        
+        questionData = {
+            
+        };
 
     describe('question [fillInTheBlank]', function () {
         beforeEach(function () {
@@ -26,6 +31,9 @@
             spyOn(router, 'navigate');
             spyOn(router, 'navigateWithQueryString');
             spyOn(router, 'replace');
+            spyOn(localizationManager, 'localize').and.callFake(function (arg) {
+                return arg;
+            });
         });
 
         it('should be defined', function () {
@@ -54,7 +62,6 @@
             beforeEach(function () {
                 getFillInTheBlankDefer = Q.defer();
                 spyOn(questionRepository, 'getFillInTheBlank').and.returnValue(getFillInTheBlankDefer.promise);
-
                 spyOn(http, 'post');
             });
 
@@ -63,20 +70,74 @@
                 expect(promise).toBePromise();
             });
 
-            it('should initialize field', function () {
+            it('should set objectiveId', function () {
                 viewModel.initialize(objectiveId, question);
+
                 expect(viewModel.objectiveId).toBe(objectiveId);
+            });
+
+            it('should set questionId', function () {
+                viewModel.initialize(objectiveId, question);
+
                 expect(viewModel.questionId).toBe(question.id);
             });
 
-            it('should initialize fields', function (done) {
-                getFillInTheBlankDefer.resolve();
+            it('should get FillInBlanks data', function() {
+                viewModel.initialize(objectiveId, question);
 
-                var promise = viewModel.initialize(objectiveId, question);
-                promise.fin(function () {
-                    expect(viewModel.fillInTheBlank).toBeDefined();
-                    done();
+                expect(questionRepository.getFillInTheBlank).toHaveBeenCalledWith(question.id);
+            });
+
+            describe('when FillInBlanks data is taken', function () {
+                beforeEach(function() {
+                    getFillInTheBlankDefer.resolve(questionData);
                 });
+
+                it('should initialize fillInTheBlank', function (done) {
+                    viewModel.fillInTheBlank = null;
+
+                    var promise = viewModel.initialize(objectiveId, question);
+
+                    promise.fin(function () {
+                        expect(viewModel.fillInTheBlank).toBeDefined();
+                        done();
+                    });
+                });
+
+                it('should return object', function (done) {
+                    var promise = viewModel.initialize(objectiveId, question);
+                    promise.then(function (result) {
+                        expect(result).toBeObject();
+                        done();
+                    });
+                });
+
+                describe('and result object', function () {
+                    it('should contain \'fillInTheBlanksEditor\' viewCaption', function (done) {
+                        var promise = viewModel.initialize(objectiveId, question);
+                        promise.then(function (result) {
+                            expect(result.viewCaption).toBe('fillInTheBlanksEditor');
+                            done();
+                        });
+                    });
+
+                    it('should have hasQuestionView property with true value', function (done) {
+                        var promise = viewModel.initialize(objectiveId, question);
+                        promise.then(function (result) {
+                            expect(result.hasQuestionView).toBeTruthy();
+                            done();
+                        });
+                    });
+
+                    it('should have hasFeedback property with true value', function (done) {
+                        var promise = viewModel.initialize(objectiveId, question);
+                        promise.then(function (result) {
+                            expect(result.hasFeedback).toBeTruthy();
+                            done();
+                        });
+                    });
+                });
+
             });
 
         });

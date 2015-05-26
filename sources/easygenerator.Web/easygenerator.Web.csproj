@@ -201,6 +201,7 @@
     <Compile Include="BuildCourse\ICourseBuilder.cs" />
     <Compile Include="BuildCourse\Modules\IPackageModulesProvider.cs" />
     <Compile Include="BuildCourse\Modules\Models\PackageModule.cs" />
+    <Compile Include="BuildCourse\PackageModel\OpenQuestionPackageModel.cs" />
     <Compile Include="BuildCourse\PublishSettings\Models\PublishSettings.cs" />
     <Compile Include="BuildCourse\Modules\PackageModulesProvider.cs" />
     <Compile Include="BuildCourse\PackageModelMapper.cs" />
@@ -254,11 +255,13 @@
     <Compile Include="Components\Mappers\TemplateMapper.cs" />
     <Compile Include="Components\Mappers\TextMatchingAnswerMapper.cs" />
     <Compile Include="Components\TypeMethodInvoker.cs" />
+    <Compile Include="Configuration\MagickImageResizerConfiguration.cs" />
     <Compile Include="Controllers\Api\CourseImportController.cs" />
     <Compile Include="Controllers\Api\HotSpotQuestionController.cs" />
     <Compile Include="Controllers\Api\DragAndDropTextQuestionController.cs" />
     <Compile Include="Controllers\Api\FillInTheBlanksController.cs" />
     <Compile Include="Controllers\Api\OnboardingController.cs" />
+    <Compile Include="Controllers\Api\OpenQuestionController.cs" />
     <Compile Include="Controllers\Api\SingleSelectImageController.cs" />
     <Compile Include="Controllers\Api\InformationContentController.cs" />
     <Compile Include="Controllers\Api\SingleSelectTextController.cs" />
@@ -657,6 +660,10 @@
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteAccepted.spec.js">
       <DependentUpon>inviteAccepted.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteCourseTitleUpdated.js" />
+    <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteCourseTitleUpdated.spec.js">
+      <DependentUpon>inviteCourseTitleUpdated.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteCreated.js" />
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteRemoved.js" />
     <Content Include="App\synchronization\handlers\course\eventHandlers\stateChanged.js" />
@@ -760,6 +767,10 @@
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.spec.js">
       <DependentUpon>changeType.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\questions\openQuestion\openQuestion.spec.js">
+      <DependentUpon>openQuestion.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\openQuestion\openQuestion.js" />
     <Content Include="App\viewmodels\questions\statement\statement.js" />
     <Content Include="App\viewmodels\questions\statement\statement.spec.js">
       <DependentUpon>statement.js</DependentUpon>
@@ -831,6 +842,7 @@
     <Content Include="Content\images\openhand.cur" />
     <Content Include="Content\images\import-pptx.png" />
     <Content Include="Content\images\dialog-header-background.png" />
+    <Content Include="Content\images\open-question.png" />
     <Content Include="Content\images\preview.png" />
     <Content Include="Content\images\safari.png" />
     <Content Include="Content\images\sprites_16.png" />

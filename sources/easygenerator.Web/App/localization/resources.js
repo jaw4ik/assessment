@@ -400,8 +400,8 @@
     
     /* Resource section for model Storage */
     storageFailed: {
-        'en': 'Something went wrong, storage is currently anavailable.',
-        'zh-cn': 'Something went wrong, storage is currently anavailable.[zh-cn]',
+        'en': 'Something went wrong, storage is currently unavailable.',
+        'zh-cn': 'Something went wrong, storage is currently unavailable.[zh-cn]',
         'uk': 'Помилка при завантаженні медіа.'
     },
     freeSpace: {
@@ -413,18 +413,18 @@
     
     /* Resource section for model Videos */
     videoLibrary: {
-        'en': 'Video Library',
-        'zh-cn': 'Video Library[zh-cn]',
+        'en': 'Video library',
+        'zh-cn': 'Video library[zh-cn]',
         'uk': 'Відео бібліотека'
     },
     uploadVideoDescription: {
-        'en': 'Upload your own video by click on this button',
-        'zh-cn': 'Upload your own video by click on this button[zh-cn]',
+        'en': 'Upload your own video by clicking this button',
+        'zh-cn': 'Upload your own video by clicking this button[zh-cn]',
         'uk': 'Завантажте своє власне відео натиснувши на кнопку'
     },
     videoEmbedCodeTitle: {
-        'en': 'Embed this code to your content',
-        'zh-cn': 'Embed this code to your content[zh-cn]',
+        'en': 'Embed this code into your content',
+        'zh-cn': 'Embed this code into your content[zh-cn]',
         'uk': 'Вставте цей код в ваш контент'
     },
     videoUpgradeToUpload: {
@@ -448,14 +448,14 @@
         'uk': 'Я зроблю це потім'
     },
     videoUploadError: {
-        'en': 'Something went wrong uploading the video. Please try again.',
-        'zh-cn': 'Something went wrong uploading the video. Please try again.[zh-cn]',
+        'en': 'Something went wrong while uploading the video. Please try again.',
+        'zh-cn': 'Something went wrong while uploading the video. Please try again.[zh-cn]',
         'uk': 'Помилка при завантаженні відео. Будь ласка, спробуйте знову.'
     },
     videoUploadNotAnoughSpace: {
-        'en': 'File size exceeds available free space',
-        'zh-cn': 'File size exceeds available free space[zh-cn]',
-        'uk': 'Розмір файлу перевищує вільний простір'
+        'en': 'File size exceeds available free space in your plan',
+        'zh-cn': 'File size exceeds available free space in your plan[zh-cn]',
+        'uk': 'Розмір файлу перевищує доступний вільний простір'
     },
     /* End resource section for model Videos */
     
@@ -536,7 +536,7 @@
     learningPathTitle: {
         'en': 'Learning path title',
         'zh-cn': 'Learning path title[zh-cn]',
-        'uk': 'Learning path title[uk]'
+        'uk': 'Назва навчального шляху'
     },
     coursesInThePath: {
         'en': 'Courses in the path:',
@@ -554,9 +554,9 @@
         'uk': 'Навчальний шлях'
     },
     tooltipLearningPathDescription: {
-        'en': '<p>Learning paths help your learners know which courses to take in which particular order, so that you they work toward specific learning goals.</p>',
-        'zh-cn': '<p>Learning paths help your learners know which courses to take in which particular order, so that you they work toward specific learning goals.</p>[zh-cn]',
-        'uk': '<p>Навчальний шлях допоможе Вашим учням з\'ясувати які курси проходити та у якій послідовності, щоб досягти кращих результатів та зосередитися на цілі навчання.</p>'
+        'en': '<p>A learning path is a sequence of courses, quizzes and exams. It allows the learner to master a topic in small steps, over time.</p>',
+        'zh-cn': '<p>A learning path is a sequence of courses, quizzes and exams. It allows the learner to master a topic in small steps, over time.</p>[zh-cn]',
+        'uk': '<p>Навчальний шлях - це послідовність курсів та екзаменів, які допоможуть учням освоїти навчальний матеріал крок за кроком.</p>'
     },
     tooltipLearningPathLink: {
         'en': '<a style=\"display:none;\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">read more</a>',
@@ -1220,6 +1220,11 @@
         'zh-cn': '内容',
         'uk': 'Навчальний матеріал'
     },
+    hotspotOnAnImage: {
+        'en': 'Add hotspot on an image',
+        'zh-cn': 'Add hotspot on an image[zh-cn]',
+        'uk': 'Додати підказки на зображення'
+    },
     clickToAddLearningContent: {
         'en': 'Click to add content',
         'zh-cn': '点击添加内容',
@@ -1723,6 +1728,11 @@
         'en': 'There is a problem opening the objective.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists. ',
         'zh-cn': '打开目标时出现故障，请重试。如果问题依然存在，请联系support@easygenerator.com解决。',
         'uk': 'Виникла проблема в процесі відкриття розділу. Спробуйте відкрити курс ще раз. Якщо проблема не зникне, надішліть нам електронного листа на адресу support@easygenerator.com.'
+    },
+    learningPathNotFoundError: {
+        'en': 'There is a problem opening the learning path.  Click on Laerning paths. Open the learning path and try again. Contact support@easygenerator.com if the problem persists. ',
+        'zh-cn': 'There is a problem opening the learning path.  Click on Laerning paths. Open the learning path and try again. Contact support@easygenerator.com if the problem persists. [zh-cn]',
+        'uk': 'Виникла проблема в процесі відкриття навчального шляху. Спробуйте відкрити навчальний шлях ще раз. Якщо проблема не зникне, надішліть нам електронного листа на адресу support@easygenerator.com.'
     },
     objectivesNotFoundError: {
         'en': 'There is a problem opening the objective.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists. ',

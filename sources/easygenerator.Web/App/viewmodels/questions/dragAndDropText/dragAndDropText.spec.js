@@ -2,9 +2,102 @@
 
     var
         notify = require('notify'),
-        designer = require('viewmodels/questions/dragAndDropText/designer');
+        designer = require('viewmodels/questions/dragAndDropText/designer'),
+        localizationManager = require('localization/localizationManager');
 
     describe('dragAndDropText:', function () {
+
+        var objectiveId = 'objectiveId',
+            question = {
+                id: '1',
+                title: 'lalala',
+                content: 'ololosh',
+                createdOn: new Date(),
+                modifiedOn: new Date(),
+                answerOptions: [],
+                learningContents: []
+            };
+
+        describe('initialize:', function () {
+            var designerActivateDefer;
+
+            beforeEach(function () {
+                designerActivateDefer = Q.defer();
+                spyOn(designer, 'activate').and.returnValue(designerActivateDefer.promise);
+
+                spyOn(localizationManager, 'localize').and.callFake(function (arg) {
+                    return arg;
+                });
+            });
+
+            it('should be function', function () {
+                expect(viewModel.initialize).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                var promise = viewModel.initialize(objectiveId, question);
+                expect(promise).toBePromise();
+            });
+
+            it('should set objectiveId', function () {
+                viewModel.initialize(objectiveId, question);
+
+                expect(viewModel.objectiveId).toBe(objectiveId);
+            });
+
+            it('should set questionId', function () {
+                viewModel.initialize(objectiveId, question);
+
+                expect(viewModel.questionId).toBe(question.id);
+            });
+
+            it('should call designer activate', function () {
+                viewModel.initialize(objectiveId, question);
+
+                expect(designer.activate).toHaveBeenCalledWith(question.id);
+            });
+
+            describe('when designer is activated', function () {
+                beforeEach(function () {
+                    designerActivateDefer.resolve();
+                });
+
+                it('should return object', function (done) {
+                    var promise = viewModel.initialize(objectiveId, question);
+                    promise.then(function (result) {
+                        expect(result).toBeObject();
+                        done();
+                    });
+                });
+
+                describe('and result object', function () {
+                    it('should contain \'DragAndDropTextEditor\' viewCaption', function (done) {
+                        var promise = viewModel.initialize(objectiveId, question);
+                        promise.then(function (result) {
+                            expect(result.viewCaption).toBe('DragAndDropTextEditor');
+                            done();
+                        });
+                    });
+
+                    it('should have hasQuestionView property with true value', function (done) {
+                        var promise = viewModel.initialize(objectiveId, question);
+                        promise.then(function (result) {
+                            expect(result.hasQuestionView).toBeTruthy();
+                            done();
+                        });
+                    });
+
+                    it('should have hasFeedback property with true value', function (done) {
+                        var promise = viewModel.initialize(objectiveId, question);
+                        promise.then(function (result) {
+                            expect(result.hasFeedback).toBeTruthy();
+                            done();
+                        });
+                    });
+                });
+
+            });
+        });
 
         describe('backgroundChangedByCollaborator:', function () {
             var question = { id: '1', background: 'some image' };
@@ -101,8 +194,8 @@
                     spyOn(dropspot, 'changeOriginalText');
                 });
 
-                describe('and dropspot is found', function() {
-                    beforeEach(function() {
+                describe('and dropspot is found', function () {
+                    beforeEach(function () {
                         designer.dropspots([dropspot]);
                     });
 
@@ -134,7 +227,7 @@
                     });
                 });
             });
-           
+
         });
 
         describe('dropspotPositionChangedByCollaborator:', function () {
@@ -183,7 +276,7 @@
                 });
             });
 
-            describe('when it is not current question', function() {
+            describe('when it is not current question', function () {
                 var dropspot,
                     questionId = 'questionId';
 
@@ -232,7 +325,7 @@
                             spyOn(notify, 'error');
                         });
 
-                        it('should not delete dropspot from list', function() {
+                        it('should not delete dropspot from list', function () {
                             viewModel.dropspotDeletedByCollaborator(questionId, dropspot.id);
                             expect(designer.dropspots().length).toBe(1);
                         });
@@ -242,7 +335,7 @@
                             expect(dropspot.isDeleted).toBeTruthy();
                         });
 
-                        it('should show error notification', function() {
+                        it('should show error notification', function () {
                             viewModel.dropspotDeletedByCollaborator(questionId, dropspot.id);
                             expect(notify.error).toHaveBeenCalled();
                         });
@@ -272,7 +365,7 @@
                 });
             });
 
-            describe('when it is not current question', function() {
+            describe('when it is not current question', function () {
                 var dropspot,
                     questionId = 'questionId';
 

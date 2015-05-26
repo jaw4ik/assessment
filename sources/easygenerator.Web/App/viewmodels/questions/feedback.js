@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'eventTracker', 'localization/localizationManager', 'constants', 'notify', 'repositories/questionRepository'],
-    function (app, eventTracker, localizationManager, constants, notify, repository) {
+﻿define(['durandal/app', 'eventTracker', 'localization/localizationManager', 'constants', 'notify', 'repositories/questionRepository', 'plugins/router'],
+    function (app, eventTracker, localizationManager, constants, notify, repository, router) {
         "use strict";
 
         var events = {
@@ -14,8 +14,8 @@
             isExpanded: ko.observable(true),
             toggleExpand: toggleExpand,
 
-            correctFeedback: createFeedbackObject(updateCorrectFeedbackText),
-            incorrectFeedback: createFeedbackObject(updateIncorrectFeedbackText),
+            correctFeedback: createFeedbackObject(constants.questionFeedback.correct, updateCorrectFeedbackText),
+            incorrectFeedback: createFeedbackObject(constants.questionFeedback.incorrect, updateIncorrectFeedbackText),
 
             correctFeedbackUpdatedByCollaborator: correctFeedbackUpdatedByCollaborator,
             incorrectFeedbackUpdatedByCollaborator: incorrectFeedbackUpdatedByCollaborator,
@@ -26,18 +26,22 @@
             activate: activate
         };
 
+        viewModel.items = [viewModel.correctFeedback, viewModel.incorrectFeedback],
         app.on(constants.messages.question.correctFeedbackUpdatedByCollaborator, correctFeedbackUpdatedByCollaborator);
         app.on(constants.messages.question.incorrectFeedbackUpdatedByCollaborator, incorrectFeedbackUpdatedByCollaborator);
 
         return viewModel;
 
-        function createFeedbackObject(callback) {
+        function createFeedbackObject(key, callback) {
             var feedbackObject = {
+                key: key,
                 text: ko.observable(''),
                 previousText: '',
-                init: function (text) {
+                captions: {},
+                init: function (text, captions) {
                     feedbackObject.text(text || '');
                     feedbackObject.previousText = text || '';
+                    feedbackObject.captions = captions;
                 },
                 hasFocus: ko.observable(false),
                 updateText: function () {
@@ -73,7 +77,7 @@
 
         function updateCorrectFeedbackText() {
             eventTracker.publish(events.correctFeedbackUpdated);
-            repository.updateCorrectFeedback(viewModel.questionId, viewModel.correctFeedback.text()).then(function() {
+            repository.updateCorrectFeedback(viewModel.questionId, viewModel.correctFeedback.text()).then(function () {
                 notify.saved();
             });
         }
@@ -88,7 +92,7 @@
 
         function updateIncorrectFeedbackText() {
             eventTracker.publish(events.incorrectFeedbackUpdated);
-            repository.updateIncorrectFeedback(viewModel.questionId, viewModel.incorrectFeedback.text()).then(function() {
+            repository.updateIncorrectFeedback(viewModel.questionId, viewModel.incorrectFeedback.text()).then(function () {
                 notify.saved();
             });
         }
@@ -97,14 +101,32 @@
             viewModel.isExpanded(!viewModel.isExpanded());
         }
 
-        function activate(questionId) {
+        function activate(activationData) {
+            //fix for situation: collaborator deletes selected question but question is still activated (when go to another tab and return to course/create tab)
+            if (_.isNullOrUndefined(router.routeData().questionId)) {
+                return Q.fcall(function () { });
+            }
+
             return Q.fcall(function () {
                 viewModel.isExpanded(true);
-                viewModel.questionId = questionId;
+                viewModel.questionId = activationData.questionId;
+                var defaultCaptions = {
+                    correctFeedback: {
+                        hint: localizationManager.localize('correctFeedback'),
+                        instruction: localizationManager.localize('putYourPositiveFeedback')
+                    },
+                    incorrectFeedback: {
+                        hint: localizationManager.localize('incorrectFeedback'),
+                        instruction: localizationManager.localize('putYourNegativeFeedback')
+                    }
+                };
+                var captions = $.extend(true, {}, defaultCaptions, activationData.captions);
 
-                return repository.getQuestionFeedback(questionId).then(function (feedback) {
-                    viewModel.correctFeedback.init(feedback.correctFeedbackText);
-                    viewModel.incorrectFeedback.init(feedback.incorrectFeedbackText);
+                return repository.getQuestionFeedback(viewModel.questionId).then(function (feedback) {
+                    viewModel.correctFeedback.init(feedback.correctFeedbackText, captions.correctFeedback);
+                    viewModel.incorrectFeedback.init(feedback.incorrectFeedbackText, captions.incorrectFeedback);
+                }, function (err) {
+                    notify.error(err);
                 });
             });
         }

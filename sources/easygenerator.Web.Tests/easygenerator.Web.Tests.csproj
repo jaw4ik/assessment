@@ -176,6 +176,7 @@
     </Compile>
     <Compile Include="Controllers\Api\InformationContentControllerTests.cs" />
     <Compile Include="Controllers\Api\LearningContentControllerTests.cs" />
+    <Compile Include="Controllers\Api\OpenQuestionControllerTests.cs" />
     <Compile Include="Controllers\Api\StatementControllerTests.cs" />
     <Compile Include="Controllers\Api\OnboardingControllerTests.cs" />
     <Compile Include="Controllers\Api\SingleSelectImageControllerTests.cs" />

@@ -147,11 +147,10 @@
                     expect(app.trigger).toHaveBeenCalled();
                     expect(app.trigger.calls.mostRecent().args[0]).toBe(constants.notification.messages.push);
                     expect(app.trigger.calls.mostRecent().args[1].key).toBe(constants.notification.keys.collaborationInvite + invite.Id);
-                    expect(app.trigger.calls.mostRecent().args[1].courseId).toBe(invite.CourseId);
                     expect(app.trigger.calls.mostRecent().args[1].firstname).toBe(firstname);
                     expect(app.trigger.calls.mostRecent().args[1].courseAuthorFirstname).toBe( invite.CourseAuthorFirstName);
                     expect(app.trigger.calls.mostRecent().args[1].courseAuthorLastname).toBe( invite.CourseAuthorLastName);
-                    expect(app.trigger.calls.mostRecent().args[1].courseTitle).toBe( invite.CourseTitle);
+                    expect(app.trigger.calls.mostRecent().args[1].courseTitle()).toBe( invite.CourseTitle);
                 });
             });
 
