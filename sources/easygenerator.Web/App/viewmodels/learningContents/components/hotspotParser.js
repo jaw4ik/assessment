@@ -1,7 +1,7 @@
 ﻿define(['durandal/system', 'constants'], function (system, constants) {
     'use strict';
     var templates = {
-            hotspotWrapper: '<span data-type="' + constants.learningContentsTypes.hotspot + '" class="hotspotOnImage" style="position: relative;display: inline-block;max-width: 100%"><img src="{url}" alt="" style="max-width:100%" />{spots}</span>',
+            hotspotWrapper: '<span data-type="' + constants.learningContentsTypes.hotspot + '" class="hotspotOnImage" style="position: relative;display: inline-block;max-width: 100%"><img src="{url}" alt="" style="max-width:100%" /></span>',
             spotWrapper: '<span class="spot" style="position: absolute; display: inline-block;" data-text=""></span>'
         },
         attributes = {
