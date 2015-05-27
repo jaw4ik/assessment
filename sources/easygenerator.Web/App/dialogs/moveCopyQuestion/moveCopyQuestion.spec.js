@@ -552,7 +552,7 @@
                                 viewModel.moveQuestion();
 
                                 moveQuestionDefer.promise.fin(function () {
-                                    expect(router.navigate).toHaveBeenCalledWith('objectives/' + viewModel.objectiveId());
+                                    expect(router.navigate).toHaveBeenCalledWith('library/objectives/' + viewModel.objectiveId());
                                     done();
                                 });
                             });
@@ -752,29 +752,31 @@
                             viewModel.copyQuestion();
 
                             copyQuestionDefer.promise.fin(function () {
-                                expect(router.navigate).toHaveBeenCalledWith('objectives/' + viewModel.selectedObjectiveId() + '/questions/' + newQuestionId);
+                                expect(router.navigate).toHaveBeenCalledWith('library/objectives/' + viewModel.selectedObjectiveId() + '/questions/' + newQuestionId);
                                 done();
                             });
                         });
 
                     });
 
-                    describe('when course is not undefined', function (done) {
+                    describe('when course is not undefined', function () {
 
                         beforeEach(function () {
-                            viewModel.courseId = 'courseid';
+                            viewModel.selectedCourse().id = 1;
                         });
 
-                        it('should navigate to new question in course', function () {
-                            viewModel.moveQuestion();
+                        it('should navigate to new question in course', function (done) {
+                            viewModel.copyQuestion();
 
                             copyQuestionDefer.promise.fin(function () {
                                 expect(router.navigate).toHaveBeenCalledWith('courses/' + viewModel.courseId + '/objectives/' + viewModel.selectedObjectiveId() + '/questions/' + newQuestionId);
                                 done();
                             });
+
                         });
 
                     });
+
                 });
 
             });

@@ -239,7 +239,7 @@
 
                 it('should navigate to this question', function (done) {
                     command.execute('objectiveId').fin(function () {
-                        expect(router.navigate).toHaveBeenCalledWith('objectives/objectiveId/questions/questionId');
+                        expect(router.navigate).toHaveBeenCalledWith('library/objectives/objectiveId/questions/questionId');
                         done();
                     });
                 });

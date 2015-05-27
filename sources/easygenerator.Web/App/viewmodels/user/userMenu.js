@@ -8,7 +8,8 @@
             userPlanChanged: userPlanChanged,
             activate: activate,
             avatarLetter: null,
-            openUpgradePlanUrl: openUpgradePlanUrl
+            openUpgradePlanUrl: openUpgradePlanUrl,
+            signOut: signOut
         };
 
         return viewModel;
@@ -35,6 +36,11 @@
         function openUpgradePlanUrl() {
             eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.userMenuInHeader);
             router.openUrl(constants.upgradeUrl);
+        }
+
+        function signOut() {
+            window.auth.logout();
+            router.setLocation(constants.signinUrl);
         }
     }
 );

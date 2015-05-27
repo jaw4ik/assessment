@@ -1,7 +1,7 @@
 ﻿define(['notifications/collaborationInvite/commands/acceptInvite'], function (query) {
 
     var
-        httpWrapper = require('http/httpWrapper')
+        apiHttpWrapper = require('http/apiHttpWrapper')
     ;
 
     describe('collaboration invite notification command [acceptInvite]', function () {
@@ -13,7 +13,7 @@
 
             beforeEach(function () {
                 dfd = Q.defer();
-                spyOn(httpWrapper, 'post').and.returnValue(dfd.promise);
+                spyOn(apiHttpWrapper, 'post').and.returnValue(dfd.promise);
             });
 
             it('should be function', function () {

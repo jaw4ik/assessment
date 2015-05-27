@@ -19,7 +19,7 @@
                         });
                     } else {
                         uiLocker.unlock();
-                        router.navigate(navigateUrl);
+                        router.navigate('library/' + navigateUrl);
                     }
                 }).fail(function () {
                     uiLocker.unlock();

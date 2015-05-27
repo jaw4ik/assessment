@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'http/httpWrapper', 'guard', 'models/answerOption','mappers/answerModelMapper'],
-    function (dataContext, httpWrapper, guard, answerModel, answerMapper) {
+﻿define(['dataContext', 'http/apiHttpWrapper', 'guard', 'models/answerOption','mappers/answerModelMapper'],
+    function (dataContext, apiHttpWrapper, guard, answerModel, answerMapper) {
         "use strict";
 
         var repository = {
@@ -18,7 +18,7 @@
             return Q.fcall(function () {
                 guard.throwIfNotString(questionId, 'Question id is not a string');
 
-                return httpWrapper.post('api/answers', { questionId: questionId }).then(function (response) {
+                return apiHttpWrapper.post('api/answers', { questionId: questionId }).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotArray(response.Answers, 'Answers is not an array');
                     return _.map(response.Answers, function (answer) {
@@ -41,7 +41,7 @@
                     isCorrect: answer.isCorrect
                 };
 
-                return httpWrapper.post('api/answer/create', data).then(function (response) {
+                return apiHttpWrapper.post('api/answer/create', data).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.Id, 'Answer id is not a string');
                     guard.throwIfNotString(response.CreatedOn, 'Answer creation date is not a string');
@@ -67,7 +67,7 @@
                     answerId: answerId
                 };
 
-                return httpWrapper.post('api/answer/delete', data).then(function (response) {
+                return apiHttpWrapper.post('api/answer/delete', data).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
@@ -94,7 +94,7 @@
                     isCorrect: isCorrect
                 };
 
-                return httpWrapper.post('api/answer/update', data).then(function (response) {
+                return apiHttpWrapper.post('api/answer/update', data).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Answer modification date is not a string');
 
@@ -119,7 +119,7 @@
                     text: text
                 };
 
-                return httpWrapper.post('api/answer/updatetext', data).then(function (response) {
+                return apiHttpWrapper.post('api/answer/updatetext', data).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Answer modification date is not a string');
 
@@ -143,7 +143,7 @@
                     answerId: answerId
                 };
 
-                return httpWrapper.post('api/answer/singleselecttext/changecorrectanswer', data).then(function (response) {
+                return apiHttpWrapper.post('api/answer/singleselecttext/changecorrectanswer', data).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Answer modification date is not a string');
 

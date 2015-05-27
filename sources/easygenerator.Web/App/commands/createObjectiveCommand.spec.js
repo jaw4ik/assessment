@@ -136,7 +136,7 @@
 
                     it('should navigate to created objective', function () {
                         command.execute().fin(function () {
-                            expect(router.navigate).toHaveBeenCalledWith('objectives/' + objectiveId);
+                            expect(router.navigate).toHaveBeenCalledWith('library/objectives/' + objectiveId);
                             done();
                         });
                     });

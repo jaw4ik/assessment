@@ -8,7 +8,7 @@ using easygenerator.Web.Components.ActionFilters;
 namespace easygenerator.Web.Controllers.Api
 {
     [NoCache]
-    public class OnboardingController : DefaultController
+    public class OnboardingController : DefaultApiController
     {
         private readonly IOnboardingRepository _onboardingRepository;
 

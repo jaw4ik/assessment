@@ -47,20 +47,6 @@ namespace easygenerator.Web.Tests.Controllers
             //Assert
             ActionResultAssert.IsViewResult(result);
         }
-
-        [TestMethod]
-        public void Index_ShouldReturnRedirectToRouteResult_WhenUserIsNotAuthehticated()
-        {
-            //Arrange
-
-
-            //Act
-            var result = _controller.Index();
-
-            //Assert
-            ActionResultAssert.IsRedirectToRouteResult(result);
-        }
-
         #endregion
     }
 }

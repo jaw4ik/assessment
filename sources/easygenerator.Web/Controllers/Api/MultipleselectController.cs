@@ -17,7 +17,7 @@ using easygenerator.Web.ViewModels.Api;
 
 namespace easygenerator.Web.Controllers.Api
 {
-    public class MultipleselectController : DefaultController
+    public class MultipleselectController : DefaultApiController
     {
         private readonly IEntityFactory _entityFactory;
 

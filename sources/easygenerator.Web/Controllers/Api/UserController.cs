@@ -21,7 +21,6 @@ namespace easygenerator.Web.Controllers.Api
     {
         private readonly IUserRepository _repository;
         private readonly IEntityFactory _entityFactory;
-        private readonly IAuthenticationProvider _authenticationProvider;
         private readonly IDomainEventPublisher _eventPublisher;
         private readonly IMailSenderWrapper _mailSenderWrapper;
         private readonly ICourseRepository _courseRepository;
@@ -32,7 +31,6 @@ namespace easygenerator.Web.Controllers.Api
 
         public UserController(IUserRepository repository,
             IEntityFactory entityFactory,
-            IAuthenticationProvider authenticationProvider,
             IDomainEventPublisher eventPublisher,
             IMailSenderWrapper mailSenderWrapper,
             ICourseRepository courseRepository,
@@ -43,7 +41,6 @@ namespace easygenerator.Web.Controllers.Api
         {
             _repository = repository;
             _entityFactory = entityFactory;
-            _authenticationProvider = authenticationProvider;
             _eventPublisher = eventPublisher;
             _mailSenderWrapper = mailSenderWrapper;
             _courseRepository = courseRepository;
@@ -153,20 +150,6 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Signin(string username, string password)
-        {
-            var user = _repository.GetUserByEmail(username);
-            if (user == null || !user.VerifyPassword(password))
-            {
-                return JsonError(AccountRes.Resources.IncorrectEmailOrPassword);
-            }
-
-            _authenticationProvider.SignIn(username, true);
-            return JsonSuccess(new { username = user.Email, firstname = user.FirstName, lastname = user.LastName, role = user.Role });
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
         public ActionResult Signup(UserSignUpViewModel profile)
         {
             if (_repository.GetUserByEmail(profile.Email) != null)
@@ -182,8 +165,6 @@ namespace easygenerator.Web.Controllers.Api
 
             var onboarding = _entityFactory.Onboarding(user.Email);
             _onboardingRepository.Add(onboarding);
-
-            _authenticationProvider.SignIn(profile.Email, true);
 
             var demoCourses = _demoCoursesInMemoryStorage.DemoCourses;
             var defaultTemplate = _templateRepository.GetDefaultTemplate();
@@ -220,21 +201,6 @@ namespace easygenerator.Web.Controllers.Api
         {
             var exists = _repository.GetUserByEmail(email) != null;
             return JsonSuccess(exists);
-        }
-
-        [HttpPost]
-        [Route("api/identify")]
-        public ActionResult Identify()
-        {
-            var user = _repository.GetUserByEmail(GetCurrentUsername());
-
-            if (user == null)
-            {
-                return JsonDataResult(new { });
-            }
-
-            return JsonDataResult(new { email = user.Email, firstname = user.FirstName, lastname = user.LastName, role = user.Role, subscription = new { accessType = user.AccessType, expirationDate = user.ExpirationDate } });
-
         }
 
     }
