@@ -18,7 +18,7 @@
         'app/views/statement.html',
         'app/views/textMatching.html',
         'app/views/statementItem.html',
-        'app/views/statementItem.html'
+        'app/views/openQuestion.html'
     ];
 
     function preloadHtmlTask($q, fileReadingService) {

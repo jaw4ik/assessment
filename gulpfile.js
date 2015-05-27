@@ -122,9 +122,6 @@ gulp.task('build-app', ['clean', 'css'], function () {
         gulp.src(['./src/app/modules/xApi/views/**/*.html'])
             .pipe(gulp.dest(output + '/app/modules/xApi/views')),
 
-        gulp.src(['./src/content/**/*.*'])
-            .pipe(gulp.dest(output + '/content')),
-
         gulp.src('./src/manifest.json')
             .pipe(gulp.dest(output)),
 

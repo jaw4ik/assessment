@@ -5,9 +5,9 @@
         .module('quiz')
         .factory('dataContext', dataContext);
 
-    dataContext.$inject = ['$q', '$http', 'Quiz', 'SingleSelectText', 'MultipleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot', 'Objective', 'LearningContent', '$templateCache'];// jshint ignore:line
+    dataContext.$inject = ['$q', '$http', 'Quiz', 'SingleSelectText', 'MultipleSelectText', 'TextMatching', 'DragAndDropText', 'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot', 'OpenQuestion', 'Objective', 'LearningContent', '$templateCache'];// jshint ignore:line
 
-    function dataContext($q, $http, Quiz, SingleSelectText, MultipleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage, FillInTheBlanks, Hotspot, Objective, LearningContent, $templateCache) { // jshint ignore:line
+    function dataContext($q, $http, Quiz, SingleSelectText, MultipleSelectText, TextMatching, DragAndDropText, Statement, SingleSelectImage, FillInTheBlanks, Hotspot, OpenQuestion, Objective, LearningContent, $templateCache) { // jshint ignore:line
 
         var
             self = {
@@ -72,6 +72,10 @@
 
                                         if (dtq.type === 'multipleSelect') {
                                             question = new MultipleSelectText(dtq.id, dtq.title, dtq.type, dtq.answers);
+                                        }
+
+                                        if (dtq.type === 'openQuestion') {
+                                            question = new OpenQuestion(dtq.id, dtq.title, dtq.type);
                                         }
 
                                         if (question) {

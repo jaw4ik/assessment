@@ -13,7 +13,8 @@
             textMatching: 'textMatching',
             dragAndDropText: 'dragAndDropText',
             statement: 'statement',
-            hotspot: 'hotspot'
+            hotspot: 'hotspot',
+            openQuestion: 'openQuestion'
         };
 
         function checkIfQuestionSupported(type) {

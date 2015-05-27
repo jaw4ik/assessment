@@ -11,6 +11,81 @@
 
         that.isError = false;
 
+
+        that.background = new (function () {
+            var self = this;
+
+            self.image = {
+                src: null,
+                isUploading: false,
+                isEmpty: true
+            };
+
+            self.type = 'default';
+
+            self.setDefault = function () {
+                self.type = 'default';
+            };
+            self.setRepeat = function () {
+                self.type = 'repeat';
+            };
+            self.setFullscreen = function () {
+                self.type = 'fullscreen';
+            };
+
+            self.errorTitle = null;
+            self.errorDescription = null;
+            self.hasError = false;
+
+            self.changeImage = function () {
+                if (self.image.isUploading) {
+                    return;
+                }
+                uploadService(function () {
+                    self.image.isUploading = true;
+
+                    self.hasError = false;
+                    self.errorTitle = undefined;
+                    self.errorDescription = undefined;
+
+                    that.$apply();
+                }).done(function (url) {
+                    self.image.src = url;
+                    self.image.isEmpty = false;
+
+                }).fail(function (reason) {
+                    self.image.src = null;
+                    self.image.isEmpty = true;
+
+                    self.hasError = true;
+                    self.errorTitle = reason.title;
+                    self.errorDescription = reason.description;
+                }).always(function () {
+                    self.image.isUploading = false;
+
+                    that.$apply();
+                });
+            };
+
+            self.clearImage = function () {
+                self.image.src = null;
+                self.image.isEmpty = true;
+            };
+
+            self.init = function (background) {
+                if (background && background.image) {
+                    if (background.image.src) {
+                        self.image.src = background.image.src;
+                        self.image.isEmpty = false;
+                    }
+                    if (background.image.type) {
+                        self.type = background.image.type;
+                    }
+                }
+            }
+
+        })();
+
         that.userAccess = (function () {
             var self = {};
 
@@ -25,10 +100,10 @@
         })();
 
         that.logo = (function () {
-            var self = {},
-                isLoading = false;
+            var self = {};
 
             self.url = '';
+            self.isLoading = false;
             self.hasError = false;
             self.errorText = 'Unsupported image format';
             self.errorDescription = '(Supported formats: jpg, png, bmp)';
@@ -57,12 +132,13 @@
             }
 
             function upload() {
-                if (isLoading) {
+                if (self.isLoading) {
                     return;
                 }
 
                 uploadService(function () {
                     setLoadingStatus();
+                    that.$apply();
                 }).done(function (url) {
                     self.url = url;
                     setDefaultStatus();
@@ -74,23 +150,24 @@
             }
 
             function setLoadingStatus() {
-                isLoading = true;
+                self.clear();
+                self.isLoading = true;
             }
 
             function setDefaultStatus() {
-                isLoading = false;
+                self.isLoading = false;
                 self.hasError = false;
             }
 
             function setFailedStatus(reasonTitle, reasonDescription) {
-                isLoading = false;
                 self.clear();
+                self.isLoading = false;
+                self.hasError = true;
                 self.errorText = reasonTitle;
                 self.errorDescription = reasonDescription;
-                self.hasError = true;
             }
 
-        })(),
+        })();
 
         angular.element($window).on('blur', saveChanges);
 
@@ -110,6 +187,12 @@
             return $.extend({}, settings || currentSettings, {
                 logo: {
                     url: that.logo.url
+                },
+                background: {
+                    image: {
+                        src: that.background.image.src,
+                        type: that.background.type
+                    }
                 }
             });
         }
@@ -122,12 +205,13 @@
 
             that.userAccess.init(user);
             that.logo.init(settings.logo);
+            that.background.init(settings.background);
 
             currentSettings = getCurrentSettings(settings);
 
         }).fail(function () {
             that.isError = true;
-        }).always(function() {
+        }).always(function () {
             that.$applyAsync();
         });
 
