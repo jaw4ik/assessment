@@ -1563,6 +1563,7 @@
 }
 .hotspot-on-image-container .hotspot-on-image-wrapper {
   overflow-x: auto;
+  overflow-y: hidden;
 }
 .hotspot-on-image-container .upload-background-image {
   right: -17px;
