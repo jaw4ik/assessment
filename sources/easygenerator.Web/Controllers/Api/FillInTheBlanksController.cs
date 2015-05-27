@@ -14,7 +14,7 @@ using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {
-    public class FillInTheBlanksController : DefaultController
+    public class FillInTheBlanksController : DefaultApiController
     {
         private readonly IEntityFactory _entityFactory;
 

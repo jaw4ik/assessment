@@ -1,8 +1,8 @@
-﻿define(['http/httpWrapper'], function (httpWrapper) {
+﻿define(['http/apiHttpWrapper'], function (apiHttpWrapper) {
 
     return {
         execute: function (questionId, polygonId) {
-            return httpWrapper.post('/api/question/hotspot/polygon/delete', { questionId: questionId, polygonId: polygonId });
+            return apiHttpWrapper.post('/api/question/hotspot/polygon/delete', { questionId: questionId, polygonId: polygonId });
         }
     }
 

@@ -1,13 +1,13 @@
 ﻿
 define(['durandal/app', 'eventTracker', 'constants',
-        'repositories/questionRepository', 'repositories/objectiveRepository',
+        'repositories/questionRepository', 'repositories/objectiveRepository', 'repositories/courseRepository',
         'plugins/router',
         'viewmodels/questions/questionTitle',
         'viewmodels/common/contentField',
         'viewmodels/questions/questionViewModelFactory',
         'localization/localizationManager',
         'dialogs/moveCopyQuestion/moveCopyQuestion'],
-    function (app, eventTracker, constants, questionRepository, objectiveRepository, router, vmQuestionTitle, vmContentField,
+    function (app, eventTracker, constants, questionRepository, objectiveRepository, courseRepository, router, vmQuestionTitle, vmContentField,
         questionViewModelFactory, localizationManager, moveCopyQuestionDialog) {
         "use strict";
 
@@ -63,7 +63,7 @@ define(['durandal/app', 'eventTracker', 'constants',
                 if (!_.isNullOrUndefined(viewmodel.courseId)) {
                     router.navigate('courses/' + viewmodel.courseId + '/objectives/' + viewmodel.objectiveId + '/questions/' + response.id);
                 } else {
-                    router.navigate('objectives/' + viewmodel.objectiveId + '/questions/' + response.id);
+                    router.navigate('library/objectives/' + viewmodel.objectiveId + '/questions/' + response.id);
                 }
             });
         }
@@ -83,7 +83,23 @@ define(['durandal/app', 'eventTracker', 'constants',
         }
 
         function canActivate() {
-            return true;
+            var promises = [];
+            if (arguments.length === 3) {
+                promises.push(courseRepository.getById(arguments[0]));
+                promises.push(objectiveRepository.getById(arguments[1]));
+                promises.push(questionRepository.getById(arguments[1], arguments[2]));
+            } else if (arguments.length === 2) {
+                promises.push(objectiveRepository.getById(arguments[0]));
+                promises.push(questionRepository.getById(arguments[0], arguments[1]));
+            } else {
+                throw 'Invalid arguments';
+            }
+            
+            return Q.all(promises).then(function () {
+                return true;
+            }).catch(function () {
+                return { redirect: '404' };
+            });
         }
 
         function activate() {
@@ -125,7 +141,7 @@ define(['durandal/app', 'eventTracker', 'constants',
             if (viewmodel.courseId) {
                 router.navigate('#courses/' + viewmodel.courseId + '/objectives/' + viewmodel.objectiveId);
             } else {
-                router.navigate('#objectives/' + viewmodel.objectiveId);
+                router.navigate('#library/objectives/' + viewmodel.objectiveId);
             }
         }
 

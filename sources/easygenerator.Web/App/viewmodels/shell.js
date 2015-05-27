@@ -4,9 +4,9 @@
         "use strict";
 
         var events = {
-            navigateToCourses: 'Navigate to courses',
             navigateToLearningPaths: 'Navigate to learning paths',
-            navigateToObjectives: 'Navigate to objectives'
+            navigateToCourses: "Navigate to courses",
+            navigateToMyMaterials: "Navigate to my materials"
         };
 
         var requestsCounter = ko.observable(0);
@@ -36,11 +36,35 @@
             return '';
         });
 
-        app.on('httpWrapper:post-begin').then(function () {
+        app.on('apiHttpWrapper:post-begin').then(function () {
             requestsCounter(requestsCounter() + 1);
         });
 
-        app.on('httpWrapper:post-end').then(function () {
+        app.on('authHttpWrapper:post-begin').then(function () {
+            requestsCounter(requestsCounter() + 1);
+        });
+
+        app.on('storageHttpWrapper:post-begin').then(function () {
+            requestsCounter(requestsCounter() + 1);
+        });
+
+        app.on('storageHttpWrapper:get-begin').then(function () {
+            requestsCounter(requestsCounter() + 1);
+        });
+
+        app.on('apiHttpWrapper:post-end').then(function () {
+            requestsCounter(requestsCounter() - 1);
+        });
+
+        app.on('authHttpWrapper:post-end').then(function () {
+            requestsCounter(requestsCounter() - 1);
+        });
+
+        app.on('storageHttpWrapper:post-end').then(function () {
+            requestsCounter(requestsCounter() - 1);
+        });
+
+        app.on('storageHttpWrapper:get-end').then(function () {
             requestsCounter(requestsCounter() - 1);
         });
 
@@ -119,6 +143,7 @@
                             }
                         },
                         {
+
                             route: 'learningpaths*details',
                             moduleId: 'viewmodels/learningPaths/index',
                             title: localizationManager.localize('learningPaths'),
@@ -133,13 +158,13 @@
                             }
                         },
                         {
-                            route: 'objectives*details',
-                            moduleId: 'viewmodels/objectives/index',
+                            route: 'library*details',
+                            moduleId: 'viewmodels/library/index',
                             title: localizationManager.localize('materials'),
-                            hash: '#objectives',
+                            hash: '#library',
                             nav: true,
                             navigate: function () {
-                                eventTracker.publish(events.navigateToObjectives);
+                                eventTracker.publish(events.navigateToMyMaterials);
                                 clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
                                 router.navigate(this.hash);
                             }

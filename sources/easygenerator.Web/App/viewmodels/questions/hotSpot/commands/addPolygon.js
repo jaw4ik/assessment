@@ -1,8 +1,8 @@
-﻿define(['http/httpWrapper'], function (httpWrapper) {
+﻿define(['http/apiHttpWrapper'], function (apiHttpWrapper) {
 
     return {
         execute: function (questionId, points) {
-            return httpWrapper.post('/api/question/hotspot/polygon/create', { questionId: questionId, points: JSON.stringify(points) });
+            return apiHttpWrapper.post('/api/question/hotspot/polygon/create', { questionId: questionId, points: JSON.stringify(points) });
         }
     }
 

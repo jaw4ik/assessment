@@ -1,7 +1,7 @@
 ﻿define(['repositories/commentRepository'], function (repository) {
     "use strict";
 
-    var httpWrapper = require('http/httpWrapper');
+    var apiHttpWrapper = require('http/apiHttpWrapper');
 
     describe('repository [commentRepository]', function () {
 
@@ -9,7 +9,7 @@
 
         beforeEach(function () {
             post = Q.defer();
-            spyOn(httpWrapper, 'post').and.returnValue(post.promise);
+            spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise);
         });
 
         it('should be defined', function () {
@@ -70,7 +70,7 @@
                 var promise = repository.getCollection(courseId);
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/comments', { courseId: courseId });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/comments', { courseId: courseId });
                     done();
                 });
 

@@ -11,6 +11,7 @@ namespace easygenerator.Web.Configuration
             bundles.IgnoreList.Clear();
             bundles.IgnoreList.Ignore("*.spec.js");
             bundles.Add(new ScriptBundle("~/scripts/vendor")
+                    .Include("~/scripts/auth.js")
                     .Include("~/scripts/jquery-{version}.js")
                     .Include("~/scripts/jquery-ui-{version}.custom.js")
                     .Include("~/scripts/jquery.signalR-{version}.js")
@@ -38,6 +39,7 @@ namespace easygenerator.Web.Configuration
             bundles.Add(new Bundle("~/scripts/ckeditor.min").Include("~/scripts/ckeditor/ckeditor.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/scripts/account")
+                    .Include("~/scripts/auth.js")
                     .Include("~/scripts/jquery-{version}.js")
                     .Include("~/scripts/knockout-{version}.js")
                     .IncludeDirectory("~/scripts/account", "*.js")
@@ -87,6 +89,7 @@ namespace easygenerator.Web.Configuration
                 .Include("~/Content/switchToggle.css")
                 .Include("~/Content/onboarding.css")
                 .Include("~/Content/hotSpot.css")
+                .Include("~/Content/video.css")
                 .Include("~/Content/notSupportedPage.css");
             stylesBundle.Transforms.Add(new ImageNoCacheParamTransform());
             bundles.Add(stylesBundle);

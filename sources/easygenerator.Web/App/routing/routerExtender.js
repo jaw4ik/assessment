@@ -75,7 +75,7 @@
                     context.objectiveId = parts[i + 1];
                     i++;
                 }
-                if (parts[i] === 'question' && parts[i + 1]) {
+                if (parts[i] === 'questions' && parts[i + 1]) {
                     context.questionId = parts[i + 1];
                     i++;
                 }

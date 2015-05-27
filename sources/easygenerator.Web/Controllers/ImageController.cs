@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel;
+﻿using easygenerator.Auth.Attributes.Mvc;
+using easygenerator.DomainModel;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
@@ -82,7 +83,6 @@ namespace easygenerator.Web.Controllers
         }
 
         [NoCache]
-        [HttpGet]
         [Route("api/images")]
         public ActionResult GetCurrentUserImageCollection()
         {
@@ -102,6 +102,7 @@ namespace easygenerator.Web.Controllers
 
         [NoCache]
         [HttpPost]
+        [Scope("api", "settings")]
         [Route("storage/image/upload")]
         public ActionResult Upload(HttpPostedFileBase file)
         {

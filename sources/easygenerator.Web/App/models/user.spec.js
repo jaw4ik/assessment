@@ -215,10 +215,10 @@
             describe('when expiration date is not specified', function () {
 
                 it('should throw exception', function () {
-                    var f = function() {
+                    var f = function () {
                         user.upgradeToStarter();
                     };
-                    
+
                     expect(f).toThrow();
                 });
 

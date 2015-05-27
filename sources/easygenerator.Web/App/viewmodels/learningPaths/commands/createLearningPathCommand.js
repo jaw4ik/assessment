@@ -1,5 +1,5 @@
-﻿define(['http/httpWrapper', 'eventTracker', 'localization/localizationManager', 'uiLocker', 'plugins/router', 'mappers/learningpathModelMapper', 'dataContext', 'clientContext','constants'],
-    function (httpWrapper, eventTracker, localizationManager, uiLocker, router, mapper, dataContext, clientContext, constants) {
+﻿define(['http/apiHttpWrapper', 'eventTracker', 'localization/localizationManager', 'uiLocker', 'plugins/router', 'mappers/learningpathModelMapper', 'dataContext', 'clientContext', 'constants'],
+    function (apiHttpWrapper, eventTracker, localizationManager, uiLocker, router, mapper, dataContext, clientContext, constants) {
         "use strict";
         var
           events = {
@@ -11,7 +11,7 @@
                 eventTracker.publish(events.createLearningPath);
                 var title = localizationManager.localize('learningPathDefaultTitle');
                 uiLocker.lock();
-                return httpWrapper.post('/api/learningpath/create', { title: title })
+                return apiHttpWrapper.post('/api/learningpath/create', { title: title })
                     .then(function (entity) {
                         var learningPath = mapper.map(entity);
                         dataContext.learningPaths.push(learningPath);

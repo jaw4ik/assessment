@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {
-    public class LearningPathController : DefaultController
+    public class LearningPathController : DefaultApiController
     {
         private readonly ILearningPathRepository _repository;
         private readonly IEntityModelMapper<LearningPath> _mapper;

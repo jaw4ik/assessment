@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {
-    public class CourseImportController : DefaultController
+    public class CourseImportController : DefaultApiController
     {
         private readonly IEntityMapper _entityMapper;
         private readonly ICourseRepository _courseRepository;

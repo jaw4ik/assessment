@@ -1,5 +1,5 @@
-﻿define(['http/httpWrapper', 'guard', 'models/comment'],
-    function (httpWrapper, guard, Comment) {
+﻿define(['http/apiHttpWrapper', 'guard', 'models/comment'],
+    function (apiHttpWrapper, guard, Comment) {
         "use strict";
 
         var repository = {
@@ -12,7 +12,7 @@
             return Q.fcall(function () {
                 guard.throwIfNotString(courseId, 'Course id is not a string');
 
-                return httpWrapper.post('api/comments', { courseId: courseId }).then(function (response) {
+                return apiHttpWrapper.post('api/comments', { courseId: courseId }).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotArray(response.Comments, 'Comments is not an array');
 

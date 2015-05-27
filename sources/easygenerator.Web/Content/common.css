@@ -56,6 +56,13 @@
   font-style: normal;
 }
 @font-face {
+  font-family: 'RobotoSlab';
+  src: url('font/robotoslab-regular.eot');
+  src: url('font/robotoslab-regular.eot?#iefix') format('embedded-opentype'), url('font/robotoslab-regular.woff') format('woff'), url('font/robotoslab-regular.ttf') format('truetype'), url('font/robotoslab-regular.svg#RobotoSlab-Bold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
   font-family: 'RobotoSlab-Bold';
   src: url('font/robotoslab-bold.eot');
   src: url('font/robotoslab-bold.eot?#iefix') format('embedded-opentype'), url('font/robotoslab-bold.woff') format('woff'), url('font/robotoslab-bold.ttf') format('truetype'), url('font/robotoslab-bold.svg#RobotoSlab-Bold') format('svg');
@@ -489,3 +496,4 @@ img:hover {
 .styled-content th {
   font-weight: normal;
 }
+/*#endregion STYLED CONTENT*/

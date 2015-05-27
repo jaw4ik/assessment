@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'http/httpWrapper', 'guard', 'mappers/learningContentModelMapper'],
-    function (dataContext, httpWrapper, guard, learningContentModelMapper) {
+﻿define(['dataContext', 'http/apiHttpWrapper', 'guard', 'mappers/learningContentModelMapper'],
+    function (dataContext, apiHttpWrapper, guard, learningContentModelMapper) {
         "use strict";
 
         var repository = {
@@ -17,7 +17,7 @@
             return Q.fcall(function () {
                 guard.throwIfNotString(questionId, 'Question id is not a string');
 
-                return httpWrapper.post('api/learningContents', { questionId: questionId }).then(function (response) {
+                return apiHttpWrapper.post('api/learningContents', { questionId: questionId }).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotArray(response.LearningContents, 'Learning content is not an array');
 
@@ -37,7 +37,7 @@
                     text: learningContent.text
                 };
 
-                return httpWrapper.post('api/learningContent/create', data).then(function (response) {
+                return apiHttpWrapper.post('api/learningContent/create', data).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.Id, 'Learning content id is not a string');
                     guard.throwIfNotString(response.CreatedOn, 'Learning content creation date is not a string');
@@ -64,7 +64,7 @@
                     learningContentId: learningContentId
                 };
 
-                return httpWrapper.post('api/learningContent/delete', data).then(function (response) {
+                return apiHttpWrapper.post('api/learningContent/delete', data).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
@@ -89,7 +89,7 @@
                     text: text
                 };
 
-                return httpWrapper.post('api/learningContent/updateText', data).then(function (response) {
+                return apiHttpWrapper.post('api/learningContent/updateText', data).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Learning content modification date is not a string');
 

@@ -1,8 +1,8 @@
-﻿define(['http/httpWrapper'], function (httpWrapper) {
+﻿define(['http/apiHttpWrapper'], function (apiHttpWrapper) {
 
     return {
         execute: function () {
-            return httpWrapper.post('api/course/collaboration/invites');
+            return apiHttpWrapper.post('api/course/collaboration/invites');
         }
     }
 

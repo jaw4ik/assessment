@@ -14,7 +14,7 @@ using WebGrease.Css.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
 {
-    public class CollaborationController : DefaultController
+    public class CollaborationController : DefaultApiController
     {
         private readonly IUserRepository _userRepository;
         private readonly ICourseCollaboratorRepository _collaborationRepository;

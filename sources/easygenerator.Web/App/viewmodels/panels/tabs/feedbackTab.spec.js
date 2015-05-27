@@ -3,7 +3,7 @@
     var viewModel = require('viewmodels/panels/tabs/feedbackTab'),
         router = require('plugins/router'),
         eventTracker = require('eventTracker'),
-        httpWrapper = require('http/httpWrapper'),
+        apiHttpWrapper = require('http/apiHttpWrapper'),
         notify = require('notify'),
         userContext = require('userContext');
 
@@ -95,7 +95,7 @@
 
                 beforeEach(function () {
                     feedbackDefer = Q.defer();
-                    spyOn(httpWrapper, 'post').and.returnValue(feedbackDefer.promise);
+                    spyOn(apiHttpWrapper, 'post').and.returnValue(feedbackDefer.promise);
                     spyOn(notify, 'success');
                     viewModel.userEmail = 'easygenerator user online';
                     viewModel.feedbackMessageFromUser('some message');
@@ -110,7 +110,7 @@
                 it('should call \'api/feedback/sendfeedback\' with easygenerator user email and message', function () {
                     var data = { email: viewModel.userEmail, message: viewModel.feedbackMessageFromUser() };
                     viewModel.sendFeedback();
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/feedback/sendfeedback', data);
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/feedback/sendfeedback', data);
                 });
 
 

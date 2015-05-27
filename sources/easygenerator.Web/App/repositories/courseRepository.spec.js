@@ -2,26 +2,20 @@
     "use strict";
 
     var
-        httpWrapper = require('http/httpWrapper'),
+        apiHttpWrapper = require('http/apiHttpWrapper'),
         dataContext = require('dataContext'),
         constants = require('constants'),
         app = require('durandal/app'),
-        courseMapper = require('mappers/courseModelMapper'),
-        userContext = require('userContext');
+        courseMapper = require('mappers/courseModelMapper');
 
     describe('repository [courseRepository]', function () {
 
         var post;
-        var identity = {
-            email: 'email',
-            fullname: 'fullname'
-        };
 
         beforeEach(function () {
             post = Q.defer();
-            spyOn(httpWrapper, 'post').and.returnValue(post.promise);
+            spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise);
             spyOn(app, 'trigger');
-            userContext.identity = identity;
         });
 
         it('should be object', function () {
@@ -189,7 +183,7 @@
                 var promise = repository.addCourse(title);
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/course/create', { title: title });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/create', { title: title });
                     done();
                 });
 
@@ -330,7 +324,7 @@
                 var promise = repository.removeCourse(courseId);
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/course/delete', { courseId: courseId });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/delete', { courseId: courseId });
                     done();
                 });
 
@@ -467,7 +461,7 @@
                 var promise = repository.relateObjective(courseId, objectiveId, 5);
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/course/relateObjective', { courseId: courseId, objectiveId: objectiveId, index: 5 });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/relateObjective', { courseId: courseId, objectiveId: objectiveId, index: 5 });
                     done();
                 });
 
@@ -696,7 +690,7 @@
                 var promise = repository.unrelateObjectives(courseId, objectives);
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/course/unrelateObjectives', { courseId: courseId, objectives: mappedObjectives });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/unrelateObjectives', { courseId: courseId, objectives: mappedObjectives });
                     done();
                 });
 
@@ -921,7 +915,7 @@
                 var promise = repository.updateCourseTitle(courseId, courseTitle);
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/course/updateTitle', { courseId: courseId, courseTitle: courseTitle });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/updateTitle', { courseId: courseId, courseTitle: courseTitle });
                     done();
                 });
 
@@ -1148,7 +1142,7 @@
                 var promise = repository.updateCourseTemplate(courseId, templateId);
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/course/updateTemplate', { courseId: courseId, templateId: templateId });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/updateTemplate', { courseId: courseId, templateId: templateId });
                     done();
                 });
 
@@ -1316,7 +1310,7 @@
                 var promise = repository.updateIntroductionContent(courseId, introductionContent);
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/course/updateintroductioncontent', { courseId: courseId, introductionContent: introductionContent });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/updateintroductioncontent', { courseId: courseId, introductionContent: introductionContent });
                     done();
                 });
 
@@ -1522,7 +1516,7 @@
                 var promise = repository.updateObjectiveOrder(courseId, objectives);
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/course/updateobjectivesorder', { courseId: courseId, objectives: mappedObjectives });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/updateobjectivesorder', { courseId: courseId, objectives: mappedObjectives });
                     done();
                 });
 

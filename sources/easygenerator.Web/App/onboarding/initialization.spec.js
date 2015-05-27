@@ -2,7 +2,7 @@
     "use strict";
 
     var
-        httpWrapper = require('http/httpWrapper'),
+        apiHttpWrapper = require('http/apiHttpWrapper'),
         constants = require('constants'),
         app = require('durandal/app');
 
@@ -11,7 +11,7 @@
         var httpPostDefer;
         beforeEach(function () {
             httpPostDefer = Q.defer();
-            spyOn(httpWrapper, 'post').and.returnValue(httpPostDefer.promise);
+            spyOn(apiHttpWrapper, 'post').and.returnValue(httpPostDefer.promise);
 
             spyOn(app, 'trigger');
             spyOn(app, 'on');
@@ -42,7 +42,7 @@
             it('should call api \'api/onboarding/close\'', function () {
                 viewModel.closeOnboarding();
                 httpPostDefer.resolve();
-                expect(httpWrapper.post).toHaveBeenCalledWith('api/onboarding/close');
+                expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/onboarding/close');
             });
 
             describe('when request success', function () {
@@ -79,7 +79,7 @@
             it('should get states', function () {
                 httpPostDefer.resolve({});
                 viewModel.initialize();
-                expect(httpWrapper.post).toHaveBeenCalledWith('api/onboarding');
+                expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/onboarding');
             });
 
             it('should set isClosed', function(done) {

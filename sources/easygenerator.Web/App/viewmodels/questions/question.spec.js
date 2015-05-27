@@ -7,6 +7,8 @@ define(function (require) {
         constants = require('constants'),
         eventTracker = require('eventTracker'),
         questionRepository = require('repositories/questionRepository'),
+        objectiveRepository = require('repositories/objectiveRepository'),
+        courseRepository = require('repositories/courseRepository'),
         http = require('plugins/http'),
         vmQuestionTitle = require('viewmodels/questions/questionTitle'),
         vmContentField = require('viewmodels/common/contentField'),
@@ -130,6 +132,172 @@ define(function (require) {
                 expect(viewModel.questionContent).toBeDefined();
             });
 
+        });
+
+        describe('canActivate:', function () {
+
+            var getQuestionById, getObjectiveById, getCourseById;
+
+            beforeEach(function () {
+                getQuestionById = Q.defer();
+                getObjectiveById = Q.defer();
+                getCourseById = Q.defer();
+
+                spyOn(questionRepository, 'getById').and.returnValue(getQuestionById.promise);
+                spyOn(objectiveRepository, 'getById').and.returnValue(getObjectiveById.promise);
+                spyOn(courseRepository, 'getById').and.returnValue(getCourseById.promise);
+
+            });
+
+            it('should be function', function () {
+                expect(viewModel.canActivate).toBeFunction();
+            });
+
+            describe('when activated with 3 argument', function () {
+
+                describe('and course exists', function () {
+                    beforeEach(function () {
+                        getCourseById.resolve({});
+                    });
+
+                    describe('and objective exists', function () {
+                        beforeEach(function () {
+                            getObjectiveById.resolve({});
+                        });
+
+                        describe('and question does not exist', function () {
+                            beforeEach(function () {
+                                getQuestionById.reject({});
+                            });
+
+                            it('should redirect to 404', function (done) {
+                                viewModel.canActivate('courseId', 'objectiveId', 'questionId').then(function (result) {
+                                    expect(result).toEqual({ redirect: '404' });
+                                    done();
+                                });
+                            });
+                        });
+
+                        describe('and question exists', function () {
+                            beforeEach(function () {
+                                getQuestionById.resolve({});
+                            });
+
+                            it('should return true', function (done) {
+                                viewModel.canActivate('courseId', 'objectiveId', 'questionId').then(function (result) {
+                                    expect(result).toEqual(true);
+                                    done();
+                                });
+                            });
+                        });
+                    });
+
+                    describe('and objective does not exist', function () {
+                        beforeEach(function () {
+                            getObjectiveById.reject({});
+                        });
+
+                        describe('and question exists', function () {
+                            beforeEach(function () {
+                                getQuestionById.resolve({});
+                            });
+
+                            it('should redirect to 404', function (done) {
+                                viewModel.canActivate('courseId', 'objectiveId', 'questionId').then(function (result) {
+                                    expect(result).toEqual({ redirect: '404' });
+                                    done();
+                                });
+                            });
+                        });
+                    });
+                });
+
+                describe('and course does not exist', function () {
+                    beforeEach(function () {
+                        getCourseById.reject({});
+                    });
+
+                    describe('and objective exists', function () {
+                        beforeEach(function () {
+                            getObjectiveById.resolve({});
+                        });
+
+                        describe('and question exists', function () {
+                            beforeEach(function () {
+                                getQuestionById.resolve({});
+                            });
+
+                            it('should redirect to 404', function (done) {
+                                viewModel.canActivate('courseId', 'objectiveId', 'questionId').then(function (result) {
+                                    expect(result).toEqual({ redirect: '404' });
+                                    done();
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+
+            describe('when activated with 2 argument', function () {
+
+                describe('and objective exists', function () {
+                    beforeEach(function () {
+                        getObjectiveById.resolve({});
+                    });
+
+                    describe('and question does not exist', function () {
+                        beforeEach(function () {
+                            getQuestionById.reject({});
+                        });
+
+                        it('should redirect to 404', function (done) {
+                            viewModel.canActivate('objectiveId', 'questionId').then(function (result) {
+                                expect(result).toEqual({ redirect: '404' });
+                                done();
+                            });
+                        });
+                    });
+
+                    describe('and question exists', function () {
+                        beforeEach(function () {
+                            getQuestionById.resolve({});
+                        });
+
+                        it('should return true', function (done) {
+                            viewModel.canActivate('objectiveId', 'questionId').then(function (result) {
+                                expect(result).toEqual(true);
+                                done();
+                            });
+                        });
+                    });
+                });
+
+                describe('and objective does not exist', function () {
+                    beforeEach(function () {
+                        getObjectiveById.reject({});
+                    });
+
+                    describe('and question exists', function () {
+                        beforeEach(function () {
+                            getQuestionById.resolve({});
+                        });
+
+                        it('should redirect to 404', function (done) {
+                            viewModel.canActivate('objectiveId', 'questionId').then(function (result) {
+                                expect(result).toEqual({ redirect: '404' });
+                                done();
+                            });
+                        });
+                    });
+                });
+            });
+
+            describe('when activated with 1 argument', function () {
+                it('should throw exception', function () {
+                    var f = function () { viewModel.canActivate(); }
+                    expect(f).toThrow();
+                });
+            });
         });
 
         describe('activate:', function () {
@@ -331,7 +499,7 @@ define(function (require) {
                     viewModel.courseId = null;
                     viewModel.objectiveId = 'objectiveId';
                     viewModel.back();
-                    expect(router.navigate).toHaveBeenCalledWith('#objectives/objectiveId');
+                    expect(router.navigate).toHaveBeenCalledWith('#library/objectives/objectiveId');
                 });
 
             });
@@ -503,7 +671,7 @@ define(function (require) {
                 it('should navigate to new question', function (done) {
                     viewModel.duplicateQuestion();
                     copyQuestionDefer.promise.fin(function () {
-                        expect(router.navigate).toHaveBeenCalledWith('objectives/' + objectiveId + '/questions/' + newQuestionId);
+                        expect(router.navigate).toHaveBeenCalledWith('library/objectives/' + objectiveId + '/questions/' + newQuestionId);
                         done();
                     });
                 });

@@ -1,7 +1,7 @@
 ﻿define(['viewmodels/learningPaths/commands/createLearningPathCommand'], function (command) {
     "use strict";
     var
-        httpWrapper = require('http/httpWrapper'),
+        httpWrapper = require('http/apiHttpWrapper'),
         eventTracker = require('eventTracker'),
         localizationManager = require('localization/localizationManager'),
         uiLocker = require('uiLocker'),

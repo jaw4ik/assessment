@@ -12,7 +12,7 @@ using System.Web.Mvc;
 namespace easygenerator.Web.Controllers.Api
 {
     [NoCache]
-    public class AnswerController : DefaultController
+    public class AnswerController : DefaultApiController
     {
         private readonly IEntityFactory _entityFactory;
         private readonly IEntityMapper _entityMapper;

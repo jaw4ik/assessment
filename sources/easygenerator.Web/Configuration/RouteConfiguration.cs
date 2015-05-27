@@ -145,6 +145,12 @@ namespace easygenerator.Web.Configuration
             #endregion
 
             routes.MapRoute(
+               name: "Auth",
+               url: "auth/{action}",
+               defaults: new { controller = "Auth", action = "Index" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "",
                 defaults: new { controller = "Application", action = "Index" }

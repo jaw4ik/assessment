@@ -45,7 +45,6 @@
 
             editor.on('doubleclick', function (evt) {
                 var element = evt.data.element;
-
                 if (element.is('img') && !element.data('cke-realelement') && !element.isReadOnly())
                     evt.data.dialog = 'image';
             });

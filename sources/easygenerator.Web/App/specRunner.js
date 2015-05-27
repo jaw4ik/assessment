@@ -43,6 +43,7 @@
             'dialogs/collaboration/collaborator.spec',            
             'dialogs/publishCourse/publishCourse.spec',
             'dialogs/moveCopyQuestion/moveCopyQuestion.spec',
+            'dialogs/video/video.spec',
 
             //#endregion dialogs
 
@@ -75,6 +76,7 @@
             'localization/localizationManager.spec',
             'models/course.spec',
             'models/user.spec',
+            'models/video.spec',
 
             'repositories/answerRepository.spec',
             'repositories/commentRepository.spec',
@@ -84,6 +86,7 @@
             'repositories/objectiveRepository.spec',
             'repositories/templateRepository.spec',
             'repositories/questionRepository.spec',
+            'repositories/videoRepository.spec',
             'services/publishService.spec',
             'utils/waiter.spec',
 
@@ -223,6 +226,8 @@
             'treeOfContent/QuestionTreeNode.spec',
 
             'viewmodels/common/contentField.spec',
+            'viewmodels/library/index.spec',
+            'viewmodels/videos/videos.spec',
             'viewmodels/common/titleField.spec',
             'viewmodels/courses/courses.spec',
             'viewmodels/courses/course/index.spec',
@@ -305,6 +310,16 @@
 
             //#endregion
 
+            //#region video upload
+            'videoUpload/commands/storage.spec',
+            'videoUpload/commands/vimeo.spec',
+            'videoUpload/handlers/progress.spec',
+            'videoUpload/handlers/thumbnails.spec',
+            'videoUpload/uploadDataContext.spec',
+            'videoUpload/uploadTracking.spec',
+            'videoUpload/upload.spec',
+            //#endregion
+
             'viewmodels/user/userMenu.spec',
             'viewmodels/shell.spec',            
             'widgets/notifyViewer/viewmodel.spec',
@@ -312,8 +327,11 @@
             'widgets/createQuestion/viewmodel.spec',
             'bootstrapper.spec',
             'guard.spec',
-            'http/httpWrapper.spec',
+            'http/apiHttpWrapper.spec',
+            'http/authHttpWrapper.spec',
+            'http/storageHttpWrapper.spec',
             'http/httpRequestSender.spec',
+            'http/storageHttpRequestSender.spec',
             'notify.spec',
             'uiLocker.spec',
             'userContext.spec',

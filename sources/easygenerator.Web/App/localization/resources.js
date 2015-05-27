@@ -400,8 +400,8 @@
     
     /* Resource section for model Storage */
     storageFailed: {
-        'en': 'Something went wrong, storage is currently anavailable.',
-        'zh-cn': 'Something went wrong, storage is currently anavailable.[zh-cn]',
+        'en': 'Something went wrong, storage is currently unavailable.',
+        'zh-cn': 'Something went wrong, storage is currently unavailable.[zh-cn]',
         'uk': 'Помилка при завантаженні медіа.'
     },
     freeSpace: {
@@ -413,18 +413,18 @@
     
     /* Resource section for model Videos */
     videoLibrary: {
-        'en': 'Video Library',
-        'zh-cn': 'Video Library[zh-cn]',
+        'en': 'Video library',
+        'zh-cn': 'Video library[zh-cn]',
         'uk': 'Відео бібліотека'
     },
     uploadVideoDescription: {
-        'en': 'Upload your own video by click this button',
-        'zh-cn': 'Upload your own video by click this button[zh-cn]',
+        'en': 'Upload your own video by clicking this button',
+        'zh-cn': 'Upload your own video by clicking this button[zh-cn]',
         'uk': 'Завантажте своє власне відео натиснувши на кнопку'
     },
     videoEmbedCodeTitle: {
-        'en': 'Embed this code to your content',
-        'zh-cn': 'Embed this code to your content[zh-cn]',
+        'en': 'Embed this code into your content',
+        'zh-cn': 'Embed this code into your content[zh-cn]',
         'uk': 'Вставте цей код в ваш контент'
     },
     videoUpgradeToUpload: {
@@ -448,14 +448,14 @@
         'uk': 'Я зроблю це потім'
     },
     videoUploadError: {
-        'en': 'Something went wrong uploading the video. Please try again.',
-        'zh-cn': 'Something went wrong uploading the video. Please try again.[zh-cn]',
+        'en': 'Something went wrong while uploading the video. Please try again.',
+        'zh-cn': 'Something went wrong while uploading the video. Please try again.[zh-cn]',
         'uk': 'Помилка при завантаженні відео. Будь ласка, спробуйте знову.'
     },
     videoUploadNotAnoughSpace: {
-        'en': 'File size exceeds available free space',
-        'zh-cn': 'File size exceeds available free space[zh-cn]',
-        'uk': 'Розмір файлу перевищує вільний простір'
+        'en': 'File size exceeds available free space in your plan',
+        'zh-cn': 'File size exceeds available free space in your plan[zh-cn]',
+        'uk': 'Розмір файлу перевищує доступний вільний простір'
     },
     /* End resource section for model Videos */
     

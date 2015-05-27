@@ -1,10 +1,12 @@
 ﻿using System.Threading.Tasks;
+using easygenerator.Auth.Attributes.SignalR;
 using easygenerator.Web.Synchronization.Tracking;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 
 namespace easygenerator.Web.Synchronization.Hubs
 {
+    [Scope("signalr")]
     [HubName("eventHub")]
     public class EventHub : Hub
     {

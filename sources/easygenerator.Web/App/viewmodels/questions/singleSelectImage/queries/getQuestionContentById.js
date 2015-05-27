@@ -1,8 +1,8 @@
-﻿define(['http/httpWrapper'], function (httpWrapper) {
+﻿define(['http/apiHttpWrapper'], function (apiHttpWrapper) {
 
     return {
         execute: function (id) {
-            return httpWrapper.post('api/question/singleselectimage', { questionId: id });
+            return apiHttpWrapper.post('api/question/singleselectimage', { questionId: id });
         }
     }
 

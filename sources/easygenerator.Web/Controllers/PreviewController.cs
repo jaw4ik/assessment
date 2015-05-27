@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using easygenerator.Auth.Attributes.Mvc;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.Web.BuildCourse;
@@ -18,6 +19,7 @@ using Newtonsoft.Json.Serialization;
 namespace easygenerator.Web.Controllers
 {
     [NoCache]
+    [Scope("preview")]
     [PreviewAccess]
     public class PreviewController : Controller
     {
@@ -37,7 +39,7 @@ namespace easygenerator.Web.Controllers
             _templateStorage = templateStorage;
         }
 
-
+        [Scope("preview")]
         [Route("preview/{courseId}/settings.js")]
         public ActionResult GetPreviewCourseSettings(Course course)
         {

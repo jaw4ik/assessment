@@ -16,7 +16,7 @@ using System.Web.Mvc;
 namespace easygenerator.Web.Controllers.Api
 {
     [NoCache]
-    public class ObjectiveController : DefaultController
+    public class ObjectiveController : DefaultApiController
     {
         private readonly IEntityFactory _entityFactory;
         private readonly IObjectiveRepository _repository;
