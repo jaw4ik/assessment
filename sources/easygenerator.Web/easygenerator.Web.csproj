@@ -950,6 +950,12 @@
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\uk.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\plugin.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\eqneditor\dialogs\eqneditor.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\eqneditor\dialogs\lang\en.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\eqneditor\icons\eqneditor.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\eqneditor\lang\en.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\eqneditor\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\eqneditor\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\failed.png" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\info.png" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\de.js" />
