@@ -1,7 +1,7 @@
 ﻿define(['repositories/learningContentRepository', 'repositories/questionRepository', 'localization/localizationManager',
-        'notify', 'constants', 'eventTracker', 'durandal/app', 'viewmodels/learningContents/learningContentsViewModelFactory'],
+        'notify', 'constants', 'eventTracker', 'durandal/app', 'viewmodels/learningContents/learningContentsViewModelFactory', 'plugins/router'],
     function (learningContentsrepository, questionRepository, localizationManager,
-            notify, constants, eventTracker, app, learningContentsViewModelFactory) {
+            notify, constants, eventTracker, app, learningContentsViewModelFactory, router) {
 
         var
             events = {
@@ -53,6 +53,10 @@
         return viewModel;
 
         function activate(activationData) {
+            if (_.isNullOrUndefined(router.routeData().questionId)) {
+                return Q.fcall(function () { });
+            }
+
             var questionId = activationData.questionId;
             var questionType = activationData.questionType;
 
