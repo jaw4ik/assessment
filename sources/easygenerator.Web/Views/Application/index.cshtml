@@ -73,16 +73,6 @@
         </script>
     }
 
-    @if (HttpContext.Current.IsDebuggingEnabled)
-    {
-        <script data-src="/Scripts/require.js" data-main="/App/main"></script>
-    }
-    else
-    {
-        var bundlePath = "/App/main-built.js?v=" + DateTimeWrapper.InstanceStartTime.Ticks;
-        <script type="text/javascript" data-src="@bundlePath"></script>
-    }
-
     <script type="text/javascript">
         @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["StorageServiceUrl"]))
         {
