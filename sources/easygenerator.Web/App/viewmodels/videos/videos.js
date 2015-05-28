@@ -39,7 +39,7 @@
     return viewModel;
 
     function addVideo() {
-        if (!userContext.hasStarterAccess() && !userContext.hasPlusAccess()) {
+        if (!userContext.hasStarterAccess() || userContext.hasTrialAccess()) {
             viewModel.upgradePopupVisibility(true);
             return;
         }
@@ -134,7 +134,7 @@
     }
 
     function setAvailableStorageSpace() {
-        if (!userContext.hasStarterAccess() && !userContext.hasPlusAccess()) {
+        if (!userContext.hasStarterAccess() || userContext.hasTrialAccess()) {
             viewModel.storageSpaceProgressBarVisibility(false);
             return;
         }
