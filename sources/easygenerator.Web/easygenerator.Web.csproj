@@ -866,7 +866,6 @@
     <Content Include="Content\images\disabled-question1024.png" />
     <Content Include="Content\images\firefox.png" />
     <Content Include="Content\images\hotSpot-empty.png" />
-    <Content Include="Content\images\hotspot-on-image-info-icon.png" />
     <Content Include="Content\images\ie.png" />
     <Content Include="Content\images\newTemplate.png" />
     <Content Include="Content\images\no-spots.png" />
