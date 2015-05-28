@@ -56,7 +56,8 @@ namespace easygenerator.Auth.Configuration
             // TODO: This parts are need to be moved into SPA.
             if (oAuthRequestTokenContext.Request.Path.StartsWithSegments(new PathString("/preview")) ||
                 oAuthRequestTokenContext.Request.Path.StartsWithSegments(new PathString("/dashboard")) ||
-                oAuthRequestTokenContext.Request.Path.StartsWithSegments(new PathString("/democourses")))
+                oAuthRequestTokenContext.Request.Path.StartsWithSegments(new PathString("/democourses")) ||
+                oAuthRequestTokenContext.Request.Path.StartsWithSegments(new PathString("/templates")))
             {
                 var value = oAuthRequestTokenContext.Request.Cookies["token.preview"];
                 if (!string.IsNullOrEmpty(value))
