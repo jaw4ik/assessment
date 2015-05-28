@@ -1,14 +1,10 @@
-﻿define(['durandal/app', 'plugins/router', 'constants', 'eventTracker', 'repositories/videoRepository', 'dialogs/video/video', 'videoUpload/upload', 'videoUpload/handlers/thumbnails', 'userContext', 'localization/localizationManager'], function (app, router, constants, eventTracker, repository, videoPopup, videoUpload, thumbnailLoader, userContext, localizationManager) {
+﻿define(['durandal/app', 'plugins/router', 'constants', 'eventTracker', 'repositories/videoRepository', 'dialogs/video/video', 'videoUpload/upload', 'videoUpload/handlers/thumbnails', 'userContext', 'localization/localizationManager', 'storageFileUploader'], function (app, router, constants, eventTracker, repository, videoPopup, videoUpload, thumbnailLoader, userContext, localizationManager, storageFileUploader) {
     "use strict";
 
-    app.on(constants.storage.video.changesInUpload, function () {
-        updateVdieos();
-    });
+    app.on(constants.storage.video.changesInUpload, updateVideos);
 
-    app.on(constants.storage.changesInQuota, function () {
-        setAvailableStorageSpace();
-    });
-   
+    app.on(constants.storage.changesInQuota, setAvailableStorageSpace);
+
     var eventCategory = 'Video library',
         events = {
             upgradeNow: 'Upgrade now',
@@ -19,7 +15,8 @@
             acceptedTypes: '*',
             supportedExtensions: '*',
             uploadErrorMessage: localizationManager.localize('videoUploadError'),
-            notAnoughSpaceMessage: localizationManager.localize('videoUploadNotAnoughSpace')
+            notAnoughSpaceMessage: localizationManager.localize('videoUploadNotAnoughSpace'),
+            startUpload: videoUpload.upload
         }
 
     var viewModel = {
@@ -31,6 +28,7 @@
         statuses: constants.storage.video.statuses,
         addVideo: addVideo,
         activate: activate,
+        updateVideos: updateVideos,
         showVideoPopup: showVideoPopup,
         upgradeToVideoUpload: upgradeToVideoUpload,
         skipUpgradeForUploadVideo: skipUpgradeForUploadVideo
@@ -43,7 +41,7 @@
             viewModel.upgradePopupVisibility(true);
             return;
         }
-        videoUpload.upload(uploadSettings);
+        storageFileUploader.upload(uploadSettings);
         eventTracker.publish(events.openUploadVideoDialog, eventCategory);
     }
 
@@ -95,7 +93,7 @@
         video.title = item.title;
         video.vimeoId = ko.observable(item.vimeoId);
         video.createdOn = ko.observable(item.createdOn);
-        video.modifiedOn = ko.observable(item.ModifiedOn);
+        video.modifiedOn = ko.observable(item.modifiedOn);
         video.thumbnailUrl = ko.observable(item.thumbnailUrl);
         video.progress = ko.observable(item.progress || 0);
         video.status = ko.observable(item.status || viewModel.statuses.loaded);
@@ -103,8 +101,8 @@
         return video;
     }
 
-    function updateVdieos() {
-        repository.getCollection().then(function (videos) {
+    function updateVideos() {
+        return repository.getCollection().then(function (videos) {
             _.each(videos, function (video) {
                 var viewModelVideo = _.find(viewModel.videos(), function (item) {
                     return video.id == item.id;
