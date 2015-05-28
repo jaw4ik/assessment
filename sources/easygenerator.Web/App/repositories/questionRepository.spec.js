@@ -6,7 +6,7 @@
             app = require('durandal/app'),
             dataContext = require('dataContext'),
             constants = require('constants'),
-            httpWrapper = require('http/httpWrapper'),
+            apiHttpWrapper = require('http/apiHttpWrapper'),
             objectiveRepository = require('repositories/objectiveRepository'),
             QuestionModel = require('models/question'),
             questionModelMapper = require('mappers/questionModelMapper');
@@ -20,7 +20,7 @@
 
             beforeEach(function () {
                 post = Q.defer();
-                spyOn(httpWrapper, 'post').and.returnValue(post.promise);
+                spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise);
                 spyOn(app, 'trigger');
             });
 
@@ -123,7 +123,7 @@
                         var promise = questionRepository.addQuestion(objectiveId, question, questionType);
 
                         promise.fin(function () {
-                            expect(httpWrapper.post).toHaveBeenCalledWith('api/question/' + questionType + '/create', {
+                            expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/question/' + questionType + '/create', {
                                 objectiveId: objectiveId,
                                 title: question.title,
                             });
@@ -426,7 +426,7 @@
 
                         var promise = questionRepository.removeQuestions(objective.id, questionIds);
                         promise.fin(function () {
-                            expect(httpWrapper.post).toHaveBeenCalledWith('api/question/delete', {
+                            expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/question/delete', {
                                 objectiveId: objective.id,
                                 questions: ['SomeQuestionId1', 'SomeQuestionId2']
                             });
@@ -666,7 +666,7 @@
 
                         var promise = questionRepository.updateTitle(questionId, questionTitle);
                         promise.fin(function () {
-                            expect(httpWrapper.post).toHaveBeenCalledWith('api/question/updateTitle', {
+                            expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/question/updateTitle', {
                                 questionId: questionId,
                                 title: questionTitle
                             });
@@ -870,7 +870,7 @@
 
                         var promise = questionRepository.updateContent(questionId, questionContent);
                         promise.fin(function () {
-                            expect(httpWrapper.post).toHaveBeenCalledWith('api/question/updateContent', {
+                            expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/question/updateContent', {
                                 questionId: questionId,
                                 content: questionContent
                             });
@@ -1108,7 +1108,7 @@
                     var promise = questionRepository.updateLearningContentsOrder(question, [{ id: learningContent }]);
 
                     promise.fin(function () {
-                        expect(httpWrapper.post).toHaveBeenCalledWith('api/question/updateLearningContentsOrder', { questionId: question, learningContents: [learningContent] });
+                        expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/question/updateLearningContentsOrder', { questionId: question, learningContents: [learningContent] });
                         done();
                     });
 
@@ -1353,7 +1353,7 @@
 
                         var promise = questionRepository.updateFillInTheBlank(questionId, fillInTheBlank, answersCollection);
                         promise.fin(function () {
-                            expect(httpWrapper.post).toHaveBeenCalledWith('api/question/fillintheblank/update', {
+                            expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/question/fillintheblank/update', {
                                 questionId: questionId,
                                 fillInTheBlank: fillInTheBlank,
                                 answersCollection: answersCollection
@@ -1551,7 +1551,7 @@
 
                     var promise = questionRepository.getFillInTheBlank(questionId);
                     promise.fin(function () {
-                        expect(httpWrapper.post).toHaveBeenCalledWith('api/question/fillintheblank', {
+                        expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/question/fillintheblank', {
                             questionId: questionId
                         });
                         done();
@@ -1658,7 +1658,7 @@
 
                         var promise = questionRepository.getQuestionFeedback(questionId);
                         promise.fin(function () {
-                            expect(httpWrapper.post).toHaveBeenCalledWith('api/question/getQuestionFeedback', {
+                            expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/question/getQuestionFeedback', {
                                 questionId: questionId
                             });
                             done();
@@ -1852,7 +1852,7 @@
 
                         var promise = questionRepository.updateCorrectFeedback(questionId, feedbackText);
                         promise.fin(function () {
-                            expect(httpWrapper.post).toHaveBeenCalledWith('api/question/updateCorrectFeedback', {
+                            expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/question/updateCorrectFeedback', {
                                 questionId: questionId,
                                 feedbackText: feedbackText
                             });
@@ -2032,7 +2032,7 @@
                 describe('when all arguments are valid', function () {
 
                     beforeEach(function () {
-                        feedbackText = 'correct feedback text';
+                        feedbackText = 'incorrect feedback text';
                     });
 
                     it('should send request to server to api/question/updateIncorrectFeedback', function (done) {
@@ -2040,7 +2040,7 @@
 
                         var promise = questionRepository.updateIncorrectFeedback(questionId, feedbackText);
                         promise.fin(function () {
-                            expect(httpWrapper.post).toHaveBeenCalledWith('api/question/updateIncorrectFeedback', {
+                            expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/question/updateIncorrectFeedback', {
                                 questionId: questionId,
                                 feedbackText: feedbackText
                             });
@@ -2277,7 +2277,7 @@
                     var promise = questionRepository.copyQuestion(questionId, objectiveId);
 
                     promise.fin(function () {
-                        expect(httpWrapper.post).toHaveBeenCalledWith('api/question/copy', {
+                        expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/question/copy', {
                             questionId: questionId,
                             objectiveId: objectiveId
                         });
@@ -2570,7 +2570,7 @@
                     var promise = questionRepository.moveQuestion(questionId, sourceObjectiveId, destinationObjectiveId);
 
                     promise.fin(function () {
-                        expect(httpWrapper.post).toHaveBeenCalledWith('api/question/move', {
+                        expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/question/move', {
                             questionId: questionId,
                             objectiveId: destinationObjectiveId
                         });

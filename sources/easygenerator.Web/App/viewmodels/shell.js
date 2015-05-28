@@ -5,7 +5,7 @@
 
         var events = {
             navigateToCourses: "Navigate to courses",
-            navigateToObjectives: 'Navigate to objectives'
+            navigateToMyMaterials: "Navigate to my materials"
         };
 
         var requestsCounter = ko.observable(0);
@@ -15,7 +15,6 @@
             activate: activate,
             router: router,
             homeModuleName: 'courses',
-            isViewReady: ko.observable(true),
             showNavigation: showNavigation,
 
             navigation: ko.observableArray([]),
@@ -36,19 +35,35 @@
             return '';
         });
 
-        viewModel.isViewReady.subscribe(function (value) {
-            if (value && !_.isNullOrUndefined(clientContext.get('showCreateCoursePopup'))) {
-                dialog.show('dialogs/createCourse').then(function () {
-                    clientContext.remove('showCreateCoursePopup');
-                });
-            }
-        });
-
-        app.on('httpWrapper:post-begin').then(function () {
+        app.on('apiHttpWrapper:post-begin').then(function () {
             requestsCounter(requestsCounter() + 1);
         });
 
-        app.on('httpWrapper:post-end').then(function () {
+        app.on('authHttpWrapper:post-begin').then(function () {
+            requestsCounter(requestsCounter() + 1);
+        });
+
+        app.on('storageHttpWrapper:post-begin').then(function () {
+            requestsCounter(requestsCounter() + 1);
+        });
+
+        app.on('storageHttpWrapper:get-begin').then(function () {
+            requestsCounter(requestsCounter() + 1);
+        });
+
+        app.on('apiHttpWrapper:post-end').then(function () {
+            requestsCounter(requestsCounter() - 1);
+        });
+
+        app.on('authHttpWrapper:post-end').then(function () {
+            requestsCounter(requestsCounter() - 1);
+        });
+
+        app.on('storageHttpWrapper:post-end').then(function () {
+            requestsCounter(requestsCounter() - 1);
+        });
+
+        app.on('storageHttpWrapper:get-end').then(function () {
             requestsCounter(requestsCounter() - 1);
         });
 
@@ -127,13 +142,13 @@
                             }
                         },
                         {
-                            route: 'objectives*details',
-                            moduleId: 'viewmodels/objectives/index',
+                            route: 'library*details',
+                            moduleId: 'viewmodels/library/index',
                             title: localizationManager.localize('materials'),
-                            hash: '#objectives',
+                            hash: '#library',
                             nav: true,
                             navigate: function () {
-                                eventTracker.publish(events.navigateToObjectives);
+                                eventTracker.publish(events.navigateToMyMaterials);
                                 clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
                                 router.navigate(this.hash);
                             }
@@ -147,6 +162,13 @@
 
                     isViewReady.assign(router);
 
+                    viewModel.router.isViewReady.subscribe(function (value) {
+                        if (value && !_.isNullOrUndefined(clientContext.get('showCreateCoursePopup'))) {
+                            dialog.show('dialogs/createCourse').then(function () {
+                                clientContext.remove('showCreateCoursePopup');
+                            });
+                        }
+                    });
 
                     return router.buildNavigationModel()
                         .mapUnknownRoutes('viewmodels/errors/404', '404')

@@ -4,7 +4,8 @@
     var
         userContext = require('userContext'),
         eventTracker = require('eventTracker'),
-        constants = require('constants');
+        constants = require('constants'),
+        router = require('plugins/router');
 
     describe('viewModel [userMenu]', function () {
 
@@ -140,6 +141,32 @@
             it('should open upgrade link in new window', function () {
                 userMenu.openUpgradePlanUrl();
                 expect(window.open).toHaveBeenCalledWith(constants.upgradeUrl, '_blank');
+            });
+
+        });
+
+        describe('signOut:', function () {
+
+            var storage;
+            var length;
+
+            beforeEach(function () {
+                spyOn(router, 'setLocation');
+                spyOn(window.auth, 'logout');
+            });
+
+            it('should be function', function () {
+                expect(userMenu.signOut).toBeFunction();
+            });
+
+            it('should call logout', function () {
+                userMenu.signOut();
+                expect(window.auth.logout).toHaveBeenCalled();
+            });
+
+            it('should open signup page', function () {
+                userMenu.signOut();
+                expect(router.setLocation).toHaveBeenCalledWith(constants.signinUrl);
             });
 
         });

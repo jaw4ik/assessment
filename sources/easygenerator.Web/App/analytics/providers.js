@@ -1,7 +1,7 @@
 ﻿define(['analytics/providers/consoleProvider', 'analytics/providers/mixpanelProvider', 'analytics/providers/nudgespotProvider'],
     function (consoleProvider, mixpanelProvider, nudgespotProvider) {
 
-        var providers = [];
+       var providers = [];
 
         providers.identify = function () {
             _.each(providers, function (provider) {

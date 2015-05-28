@@ -36,6 +36,30 @@
 
         });
 
+        describe('inviteCreated:', function () {
+            it('should be function', function () {
+                expect(handler.inviteCreated).toBeFunction();
+            });
+        });
+
+        describe('inviteRemoved:', function () {
+            it('should be function', function () {
+                expect(handler.inviteRemoved).toBeFunction();
+            });
+        });
+
+        describe('inviteAccepted:', function () {
+            it('should be function', function () {
+                expect(handler.inviteAccepted).toBeFunction();
+            });
+        });
+
+        describe('inviteCourseTitleUpdated:', function () {
+            it('should be function', function () {
+                expect(handler.inviteCourseTitleUpdated).toBeFunction();
+            });
+        });
+
     });
 
 })

@@ -31,10 +31,11 @@
             it('should make a post request', function () {
                 var url = "url";
                 var data = { title: 'title' };
+                var headers = { auth: 'auth' };
 
-                httpRequestSender.post(url, data);
+                httpRequestSender.post(url, data, headers);
 
-                expect(http.post).toHaveBeenCalledWith(url, data);
+                expect(http.post).toHaveBeenCalledWith(url, data, headers);
             });
 
             describe('when post request failed', function () {
@@ -159,22 +160,6 @@
             it('should return promise', function() {
                 expect(httpRequestSender.get()).toBePromise();
             });
-        });
-
-        describe('configure:', function () {
-
-            it('should be function', function () {
-                expect(httpRequestSender.configure).toBeFunction();
-            });
-
-            it('should configure ajax requests', function () {
-                spyOn($, 'ajaxSetup');
-                httpRequestSender.configure();
-                expect($.ajaxSetup).toHaveBeenCalledWith({
-                    headers: { "cache-control": "no-cache" }
-                });
-            });
-
         });
     });
 });

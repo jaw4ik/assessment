@@ -11,6 +11,10 @@
 
                 var hub = $.connection.eventHub;
 
+                // Send access token as query string parameter because of WebSockets doesn't support Authorization header
+                // Need to be changed as soon as another solutions will be found
+                $.connection.hub.qs = { 'access_token': window.auth.getToken('signalr') };
+
                 hub.client = {
                     userDowngraded: userEventHandler.downgraded,
                     userUpgradedToStarter: userEventHandler.upgradedToStarter,
@@ -21,6 +25,10 @@
                     collaboratorRegistered: collaborationEventHandler.collaboratorRegistered,
                     courseCollaborationFinished: collaborationEventHandler.finished,
                     collaboratorRemoved: collaborationEventHandler.collaboratorRemoved,
+                    collaborationInviteRemoved: collaborationEventHandler.inviteRemoved,
+                    collaborationInviteCreated: collaborationEventHandler.inviteCreated,
+                    collaborationInviteAccepted: collaborationEventHandler.inviteAccepted,
+                    collaborationInviteCourseTitleUpdated: collaborationEventHandler.inviteCourseTitleUpdated,
 
                     courseStateChanged: courseEventHandler.stateChanged,
                     courseTitleUpdated: courseEventHandler.titleUpdated,

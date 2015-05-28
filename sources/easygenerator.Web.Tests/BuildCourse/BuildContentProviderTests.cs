@@ -229,7 +229,7 @@ namespace easygenerator.Web.Tests.BuildCourse
         public void AddBuildContentToPackageDirectory_ShouldWriteQuestionCorrectFeedbackToFile_WhenItIsNotEmpty()
         {
             //Arrange
-            var feedbackContentPath = "SomePath";
+            var feedbackContentPath = "correctFeedbackPath";
 
             _buildPathProvider.GetCorrectFeedbackContentFileName(Arg.Any<string>(),
                 _course.RelatedObjectives.ToArray()[0].Id.ToNString(),
@@ -247,7 +247,7 @@ namespace easygenerator.Web.Tests.BuildCourse
         public void AddBuildContentToPackageDirectory_ShouldWriteQuestionIncorrectFeedbackToFile_WhenItIsNotEmpty()
         {
             //Arrange
-            var feedbackContentPath = "SomePath";
+            var feedbackContentPath = "incorrectFeedbackPath";
 
             _buildPathProvider.GetIncorrectFeedbackContentFileName(Arg.Any<string>(),
                 _course.RelatedObjectives.ToArray()[0].Id.ToNString(),

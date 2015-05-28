@@ -9,7 +9,7 @@ using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
 {
-    public class InformationContentController : DefaultController
+    public class InformationContentController : DefaultApiController
     {
         private readonly IEntityFactory _entityFactory;
 

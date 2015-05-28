@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Template design settings</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="../css/settings.css?v=1432647159461" rel="stylesheet" />
+    <script src="../api.js?v=1432647159461"></script>
+
+    <script src="js/vendor.min.js?v=1432647159461"></script>
+    <script src="js/design.min.js?v=1432647159461"></script>
+</head>
+
+<body>
+    <div class="settings-container">
+        <!-- ko ifnot: isError -->
+        <div class="settings-tab-wrapper">
+            <div class="tab-header-container">
+                <img src="img/graphical.png?v=1432647159461" />
+                <div class="tab-header-wrapper">
+                    <h1 class="tab-header-title" data-bind="localize: 'customize your course'"></h1>
+                    <div class="tab-header-content">
+                        <span class="tab-header-content-text" data-bind="localize: 'look and feel of the course'"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content-container">
+                <div class="tab-content-row">
+                    <h1 class="template-logo-title" data-bind="localize: 'custom course logo'"></h1>
+                    <div class="tab-content-wrapper">
+                        <div class="has-access">
+                            <div class="template-logo-url-container">
+                                <input class="template-logo-url" type="text" placeholder="Paste image URL here..." id="imgUrl" data-bind="value: logo.url, valueUpdate: ['afterkeydown', 'afterpaste'], enable: userAccess.hasStarterPlan" />
+                                <span class="template-logo-or" data-bind="localize: 'or'"></span>
+                                <a class="btn grey template-logo" data-bind="click: logo.upload">
+                                    <span data-bind="localize: 'upload logo image'"></span>
+                                </a>
+                            </div>
+                            <div class="template-logo-container">
+                                <!-- ko ifnot: logo.hasLogo() -->
+                                <div class="template-logo-wrapper">
+
+                                    <!-- ko ifnot: logo.isError() || logo.isLoading() -->
+                                    <div class="template-logo-empty-img"></div>
+                                    <div class="template-logo-empty-text" data-bind="localize: 'logo hint'"></div>
+                                    <!-- /ko -->
+                                    <!-- ko if: logo.isError() && !logo.isLoading() -->
+                                    <div class="template-logo-error-img"></div>
+                                    <div class="template-logo-empty-text">
+                                        <span data-bind="text: logo.errorText">Unsupported image format</span>
+                                        <p data-bind="text: logo.errorDescription">(Supported formats: jpg, png, bmp)</p>
+                                    </div>
+                                    <!-- /ko -->
+                                    <!-- ko if: logo.isLoading() -->
+                                    <div class="circular-loader x32 align-center grey">
+                                        <div class="circular-loader-item"></div>
+                                        <div class="circular-loader-item"></div>
+                                        <div class="circular-loader-item"></div>
+                                        <div class="circular-loader-item"></div>
+                                        <div class="circular-loader-item"></div>
+                                        <div class="circular-loader-item"></div>
+                                        <div class="circular-loader-item"></div>
+                                        <div class="circular-loader-item"></div>
+                                    </div>
+                                    <!-- /ko -->
+
+                                    <span class="vertical-align-helper"></span>
+                                </div>
+                                <!-- /ko -->
+                                <!-- ko if: logo.hasLogo() -->
+                                <div class="template-logo-wrapper not-empty">
+                                    <img class="template-logo" src="" alt="" data-bind="attr: { src: logo.url }" />
+                                </div>
+                                <div class="template-logo-clear-wrapper">
+                                    <div class="template-logo-clear-btn" data-bind="click: logo.clear">
+                                        <div class="tooltip">
+                                            <span class="tooltip-text" data-bind="localize: 'clear logo'"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                        <div class="no-access" data-bind="fadeVisible: !userAccess.hasStarterPlan">
+                            <div class="no-access-img"></div>
+                            <div class="no-access-text" data-bind="localize: 'upgrade account hint'"></div>
+                            <div class="no-access-overlay"></div>
+                            <span class="vertical-align-helper"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: isError -->
+        <div class="settings-tab-wrapper" data-bind="localize: 'settings are not initialize'"></div>
+        <!-- /ko -->
+    </div>
+</body>
+
+</html>

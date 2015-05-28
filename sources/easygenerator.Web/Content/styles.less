@@ -41,6 +41,7 @@
 .application {
     .unselectable();
     width: 100%;
+    min-width: 950px;
 }
 
 .main-container {
@@ -1642,133 +1643,6 @@
 
 /*#endregion ENTITY CONTENT*/
 
-/*#region USER-NOTIFICATION*/
-
-.user-notification-viewer {
-    display: none;
-    position: absolute;
-    min-height: 38px;
-    width: 415px;
-    top: 57px;
-    right: -95px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-top: none;
-    box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.1);
-    font-size: 12px;
-    font-family: 'OpenSans';
-    color: #303133;
-    cursor: default;
-    z-index: 200;
-}
-
-.user-notification-list {
-    list-style-type: none;
-    padding: 10px 10px 0;
-}
-
-.user-notification-close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 17px;
-    height: 17px;
-    border: 1px solid #ddd;
-    background: url(../Content/images/sprites_16.png) -86px -1px;
-}
-
-.user-notification-close-btn:hover {
-    background-color: #f7f7f7;
-}
-
-.user-notification-wrapper {
-    margin-bottom: 14px;
-}
-
-.user-notification-header {
-    margin-bottom: 10px;
-}
-
-.user-notification-header > div {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.user-notification-header-image {
-    width: 53px;
-    height: 53px;
-    background: url(../Content/images/sprites_64.png) -76px -6px;
-}
-
-.user-notification-header-content {
-    margin-left: 10px;
-}
-
-.user-notification-title {
-    font-family: 'OpenSans-Semibold';
-    font-size: 13px;
-}
-
-.user-notification-sender {
-    display: block;
-    font-size: 11px;
-    color: #877f78;
-}
-
-.user-notification-expires {
-    margin: 5px 0;
-}
-
-.user-notification-btn-wrapper {
-    text-align: center;
-}
-
-.user-notification-btn {
-    display: inline-block;
-    min-width: 145px;
-    padding: 11px;
-    margin: 14px 0;
-    background-color: #96cb6b;
-    border-radius: 5px;
-    color: white;
-    font-family: 'OpenSans-Semibold';
-    font-size: 13px;
-}
-
-.user-notification-btn:hover {
-    background-color: #7da959;
-}
-
-.user-notification-link {
-    color: #50a6e9;
-    cursor: pointer;
-}
-
-.user-notification-link:hover {
-    text-decoration: underline;
-}
-
-.user-notification-mail {
-    position: relative;
-    padding-left: 30px;
-    color: #999999;
-    font-size: 11px;
-}
-
-.user-notification-mail:before {
-    content: '';
-    display: block;
-    height: 20px;
-    width: 20px;
-    position: absolute;
-    left: 0;
-    top: 50%;
-    margin-top: -10px;
-    background: url(images/sprites_24.png) -207px -2px;
-}
-
-/*#endregion USER-NOTIFICATION*/
-
 /*#region ERROR PAGES */
 
 .error-page {
@@ -2000,6 +1874,7 @@
 
 @import "shell.less";
 @import "editField.less";
+@import "upgradePopup.less";
 
 
 /*#region MEDIA CSS-STYLES*/

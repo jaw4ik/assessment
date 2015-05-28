@@ -34,6 +34,8 @@ namespace easygenerator.Web.Synchronization.Handlers
         {
             _broadcaster.OtherCollaborators(args.Course)
                 .courseTitleUpdated(args.Course.Id.ToNString(), args.Course.Title, args.Course.ModifiedOn);
+
+            _broadcaster.UsersInvitedToCollaboration(args.Course).collaborationInviteCourseTitleUpdated(args.Course.Id.ToNString(), args.Course.Title);
         }
 
         public void Handle(CourseIntroductionContentUpdated args)
@@ -62,11 +64,15 @@ namespace easygenerator.Web.Synchronization.Handlers
 
         public void Handle(CourseDeletedEvent args)
         {
-            var users = args.Collaborators;
+            var users = args.Collaborators.ToList();
             users.Add(args.Course.CreatedBy);
             users.Remove(args.DeletedBy);
 
             _broadcaster.Users(users).courseDeleted(args.Course.Id.ToNString());
+            foreach (var invitedCollaborator in args.InvitedCollaborators)
+            {
+                _broadcaster.User(invitedCollaborator.Value).collaborationInviteRemoved(invitedCollaborator.Key.ToNString());
+            }
         }
 
         public void Handle(CourseObjectiveRelatedEvent args)

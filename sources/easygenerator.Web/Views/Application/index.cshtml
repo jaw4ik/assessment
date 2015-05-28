@@ -1,4 +1,5 @@
-﻿@using System.Threading
+﻿@using System.Configuration
+@using System.Threading
 @using System.Web.Optimization
 @using easygenerator.Infrastructure
 @using easygenerator.Web.Components
@@ -72,15 +73,37 @@
         </script>
     }
 
-    @if (HttpContext.Current.IsDebuggingEnabled)
-    {
-        <script src="/Scripts/require.js" data-main="/App/main"></script>
-    }
-    else
-    {
-        var bundlePath = "/App/main-built.js?v=" + DateTimeWrapper.InstanceStartTime.Ticks;
-        <script type="text/javascript" src="@bundlePath"></script>
-    }
+    <script type="text/javascript">
+        @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["StorageServiceUrl"]))
+        {
+        <text>
+        window.storageServiceUrl = '@ConfigurationManager.AppSettings["StorageServiceUrl"]';
+        </text>
+        }
+        //bootstraper
+        (function() {
+            if (window.auth.isUserLoggedIn()) {
+                var js = document.createElement('script');
+                js.type = 'text/javascript';
+                js.async = true;
+                @if (HttpContext.Current.IsDebuggingEnabled)
+                {<text>
+                js.src = "/Scripts/require.js";
+                js.dataset.main = "/App/main";
+                </text>}
+                else
+                {<text>
+                js.src = '@("/App/main-built.js?v=" + DateTimeWrapper.InstanceStartTime.Ticks)';
+                </text>
+                }
+                document.body.appendChild(js);
+            }
+            else {
+                window.location.replace('/signin');
+            }
+        }());
+    </script>
 
 </body>
+
 </html>

@@ -1,13 +1,13 @@
 ﻿
 define(['durandal/app', 'eventTracker', 'constants',
-        'repositories/questionRepository', 'repositories/objectiveRepository',
+        'repositories/questionRepository', 'repositories/objectiveRepository', 'repositories/courseRepository',
         'plugins/router',
         'viewmodels/questions/questionTitle',
         'viewmodels/common/contentField',
         'viewmodels/questions/questionViewModelFactory',
         'localization/localizationManager',
         'dialogs/moveCopyQuestion/moveCopyQuestion'],
-    function (app, eventTracker, constants, questionRepository, objectiveRepository, router, vmQuestionTitle, vmContentField,
+    function (app, eventTracker, constants, questionRepository, objectiveRepository, courseRepository, router, vmQuestionTitle, vmContentField,
         questionViewModelFactory, localizationManager, moveCopyQuestionDialog) {
         "use strict";
 
@@ -63,7 +63,7 @@ define(['durandal/app', 'eventTracker', 'constants',
                 if (!_.isNullOrUndefined(viewmodel.courseId)) {
                     router.navigate('courses/' + viewmodel.courseId + '/objectives/' + viewmodel.objectiveId + '/questions/' + response.id);
                 } else {
-                    router.navigate('objectives/' + viewmodel.objectiveId + '/questions/' + response.id);
+                    router.navigate('library/objectives/' + viewmodel.objectiveId + '/questions/' + response.id);
                 }
             });
         }
@@ -83,7 +83,23 @@ define(['durandal/app', 'eventTracker', 'constants',
         }
 
         function canActivate() {
-            return true;
+            var promises = [];
+            if (arguments.length === 3) {
+                promises.push(courseRepository.getById(arguments[0]));
+                promises.push(objectiveRepository.getById(arguments[1]));
+                promises.push(questionRepository.getById(arguments[1], arguments[2]));
+            } else if (arguments.length === 2) {
+                promises.push(objectiveRepository.getById(arguments[0]));
+                promises.push(questionRepository.getById(arguments[0], arguments[1]));
+            } else {
+                throw 'Invalid arguments';
+            }
+            
+            return Q.all(promises).then(function () {
+                return true;
+            }).catch(function () {
+                return { redirect: '404' };
+            });
         }
 
         function activate() {
@@ -99,30 +115,33 @@ define(['durandal/app', 'eventTracker', 'constants',
                 throw 'Invalid arguments';
             }
 
-            return questionRepository.getById(viewmodel.objectiveId, viewmodel.questionId).then(function (question) {
-                viewmodel.activeQuestionViewModel = setActiveViewModel(question);
-                viewmodel.questionType = question.type;
-                return viewmodel.activeQuestionViewModel.initialize(viewmodel.objectiveId, question).then(function (viewModelData) {
-                    viewmodel.viewCaption = viewModelData.viewCaption;
+            return questionRepository.getById(viewmodel.objectiveId, viewmodel.questionId)
+                .then(function (question) {
+                    viewmodel.activeQuestionViewModel = setActiveViewModel(question);
+                    viewmodel.questionType = question.type;
 
-                    viewmodel.questionTitle = vmQuestionTitle(viewmodel.objectiveId, question);
-                    viewmodel.isInformationContent = viewModelData.isInformationContent;
-                    if (viewModelData.isQuestionContentNeeded) {
-                        viewmodel.questionContent = vmContentField(question.content, eventsForQuestionContent, true, function (content) {
-                            return questionRepository.updateContent(question.id, content);
+                    return viewmodel.activeQuestionViewModel.initialize(viewmodel.objectiveId, question)
+                        .then(function (viewModelData) {
+                            viewmodel.viewCaption = viewModelData.viewCaption;
+
+                            viewmodel.questionTitle = vmQuestionTitle(viewmodel.objectiveId, question);
+                            viewmodel.hasQuestionView = viewModelData.hasQuestionView;
+                            viewmodel.questionContent = viewModelData.hasQuestionContent ? vmContentField(question.content, eventsForQuestionContent, true, updateQuestionContent) : null;
+                            viewmodel.hasFeedback = viewModelData.hasFeedback;
+                            viewmodel.feedbackCaptions = viewModelData.feedbackCaptions;
                         });
-                    } else {
-                        viewmodel.questionContent = null;
-                    }
                 });
-            });
+        }
+
+        function updateQuestionContent(content) {
+            return questionRepository.updateContent(viewmodel.questionId, content);
         }
 
         function back() {
             if (viewmodel.courseId) {
                 router.navigate('#courses/' + viewmodel.courseId + '/objectives/' + viewmodel.objectiveId);
             } else {
-                router.navigate('#objectives/' + viewmodel.objectiveId);
+                router.navigate('#library/objectives/' + viewmodel.objectiveId);
             }
         }
 

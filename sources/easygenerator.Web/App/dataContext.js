@@ -1,42 +1,31 @@
-﻿define(['durandal/app', 'plugins/http', 'constants', 'mappers/courseModelMapper', 'mappers/objectiveModelMapper', 'mappers/templateModelMapper'],
-    function (app, http, constants, courseModelMapper, objectiveModelMapper, templateModelMapper) {
+﻿define(['durandal/app', 'constants', 'notify', 'localization/localizationManager', 'http/apiHttpWrapper', 'http/storageHttpWrapper', 'mappers/courseModelMapper', 'mappers/objectiveModelMapper', 'mappers/templateModelMapper', 'mappers/videoModelMapper'],
+    function (app, constants, notify, localizationManager, apiHttpWrapper, storageHttpWrapper, courseModelMapper, objectiveModelMapper, templateModelMapper, videoModelMapper) {
         "use strict";
         var
             objectives = [],
             courses = [],
             templates = [],
+            videos = [],
 
             initialize = function () {
                 return Q.fcall(function () {
-                    return $.ajax({
-                        url: 'api/templates',
-                        type: 'POST',
-                        contentType: 'application/json',
-                        dataType: 'json'
-                    }).then(function (response) {
-                        _.each(response.data, function (template) {
-                            templates.push(templateModelMapper.map(template));
+                    return apiHttpWrapper.post('api/templates')
+                        .then(function (data) {
+                            _.each(data, function (template) {
+                                templates.push(templateModelMapper.map(template));
+                            });
                         });
-                    });
                 }).then(function () {
-                    return $.ajax({
-                        url: 'api/objectives',
-                        type: 'POST',
-                        contentType: 'application/json',
-                        dataType: 'json'
-                    }).then(function (response) {
-                        _.each(response.data, function (item) {
-                            objectives.push(objectiveModelMapper.map(item));
-                        });
-                    });
+                    return apiHttpWrapper.post('api/objectives')
+                      .then(function (data) {
+                          _.each(data, function (item) {
+                              objectives.push(objectiveModelMapper.map(item));
+                          });
+                      });
                 }).then(function () {
-                    return $.ajax({
-                        url: 'api/courses',
-                        type: 'POST',
-                        contentType: 'application/json',
-                        dataType: 'json'
-                    }).then(function (response) {
-                        _.each(response.data, function (item) {
+                    return apiHttpWrapper.post('api/courses')
+                    .then(function (data) {
+                        _.each(data, function (item) {
                             // Temporary - do not display courses if user does not have template
                             if (_.find(templates, function (template) {
                                 return item.Template.Id === template.id;
@@ -45,6 +34,15 @@
                             }
                         });
                     });
+                }).then(function () {
+                    return storageHttpWrapper.get(constants.storage.host + constants.storage.mediaUrl)
+                        .then(function (data) {
+                            _.each(data.Videos, function (video) {
+                                videos.push(videoModelMapper.map(video));
+                            });
+                        }).fail(function () {
+                            notify.error(localizationManager.localize('storageFailed'));
+                        });
                 }).fail(function () {
                     app.showMessage("Failed to initialize datacontext.");
                 });
@@ -64,6 +62,7 @@
             objectives: objectives,
             courses: courses,
             templates: templates,
+            videos: videos,
             getQuestions: getQuestions
         };
     });

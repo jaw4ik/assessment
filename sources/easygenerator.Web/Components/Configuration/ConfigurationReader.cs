@@ -99,5 +99,20 @@ namespace easygenerator.Web.Components.Configuration
         {
             get { return ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString; }
         }
+
+        public virtual string PreviewAllowedUsers
+        {
+            get { return ConfigurationManager.AppSettings["preview.allowedUsers"] ?? string.Empty; }
+        }
+
+        public virtual string StorageServiceUrl
+        {
+            get { return ConfigurationManager.AppSettings["StorageServiceUrl"] ?? string.Empty; }
+        }
+
+        public virtual string MagickNetCacheDirectory
+        {
+            get { return ConfigurationManager.AppSettings["magick.net.cachedirectory"] ?? string.Empty; }
+        }
     }
 }

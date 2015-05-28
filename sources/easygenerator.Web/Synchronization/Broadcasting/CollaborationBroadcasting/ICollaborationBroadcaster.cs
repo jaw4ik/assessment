@@ -8,5 +8,6 @@ namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasti
         dynamic AllCollaborators(T entity);
         dynamic AllCollaboratorsExcept(T entity, params string[] excludeUsers);
         dynamic OtherCollaborators(T entity);
+        dynamic UsersInvitedToCollaboration(T entity);
     }
 }

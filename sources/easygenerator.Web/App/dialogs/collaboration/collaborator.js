@@ -11,8 +11,10 @@
                 email: collaborator.email,
                 isOwner: collaborator.email == courseOwner,
                 isRegistered: ko.observable(collaborator.registered),
+                isAccepted: ko.observable(collaborator.isAccepted),
                 name: ko.observable(_.isNullOrUndefined(collaborator.fullName) || _.isEmptyOrWhitespace(collaborator.fullName) ? collaborator.email : collaborator.fullName),
                 collaboratorRegistered: collaboratorRegistered,
+                collaborationAccepted: collaborationAccepted,
                 removeCollaborator: removeCollaborator,
                 showRemoveConfirmation: showRemoveConfirmation,
                 hideRemoveConfirmation: hideRemoveConfirmation,
@@ -35,6 +37,10 @@
                 app.on(constants.messages.course.collaboration.collaboratorRegistered + viewModel.email, viewModel.collaboratorRegistered);
             }
 
+            if (!viewModel.isAccepted()) {
+                app.on(constants.messages.course.collaboration.inviteAccepted + viewModel.id, viewModel.collaborationAccepted);
+            }
+
             return viewModel;
 
             function deactivate() {
@@ -43,6 +49,7 @@
                 }
 
                 app.off(constants.messages.course.collaboration.collaboratorRegistered + viewModel.email, viewModel.collaboratorRegistered);
+                app.off(constants.messages.course.collaboration.inviteAccepted + viewModel.id, viewModel.collaborationAccepted);
             }
 
             function showRemoveConfirmation() {
@@ -81,6 +88,12 @@
                 viewModel.isRegistered(true);
 
                 app.off(constants.messages.course.collaboration.collaboratorRegistered + viewModel.email, viewModel.collaboratorRegistered);
+            }
+
+            function collaborationAccepted() {
+                viewModel.isAccepted(true);
+
+                app.off(constants.messages.course.collaboration.inviteAccepted + viewModel.id, viewModel.collaborationAccepted);
             }
 
             function lock() {

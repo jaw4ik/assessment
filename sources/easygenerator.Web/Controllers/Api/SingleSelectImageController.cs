@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {
-    public class SingleSelectImageController : DefaultController
+    public class SingleSelectImageController : DefaultApiController
     {
         private readonly IEntityFactory _entityFactory;
         private readonly IEntityMapper _entityMapper;

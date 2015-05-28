@@ -375,7 +375,7 @@
                     it('should redirect to objectives', function () {
                         viewModel.courseId = null;
                         viewModel.back();
-                        expect(router.navigate).toHaveBeenCalledWith('#objectives');
+                        expect(router.navigate).toHaveBeenCalledWith('#library/objectives');
                     });
 
                 });
@@ -845,7 +845,7 @@
 
                         viewModel.navigateToEditQuestion(objective.questions[0]);
 
-                        expect(router.navigate).toHaveBeenCalledWith('#objectives/' + objective.id + '/questions/' + objective.questions[0].id);
+                        expect(router.navigate).toHaveBeenCalledWith('#library/objectives/' + objective.id + '/questions/' + objective.questions[0].id);
                     });
 
                 });

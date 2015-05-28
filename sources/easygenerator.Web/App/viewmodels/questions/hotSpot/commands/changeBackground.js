@@ -1,8 +1,8 @@
-﻿define(['http/httpWrapper'], function (httpWrapper) {
+﻿define(['http/apiHttpWrapper'], function (apiHttpWrapper) {
 
     return {
         execute: function (questionId, background) {
-            return httpWrapper.post('/api/question/hotspot/background/update', { questionId: questionId, background: background });
+            return apiHttpWrapper.post('/api/question/hotspot/background/update', { questionId: questionId, background: background });
         }
     }
 

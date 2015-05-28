@@ -2,7 +2,7 @@
     "use strict";
 
     var
-        httpWrapper = require('http/httpWrapper'),
+        apiHttpWrapper = require('http/apiHttpWrapper'),
         dataContext = require('dataContext');
 
     describe('repository [learningContentRepository]', function () {
@@ -11,7 +11,7 @@
 
         beforeEach(function () {
             post = Q.defer();
-            spyOn(httpWrapper, 'post').and.returnValue(post.promise);
+            spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise);
         });
 
         it('should be object', function () {
@@ -72,7 +72,7 @@
                 var promise = repository.getCollection(questionId);
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/learningContents', { questionId: questionId });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/learningContents', { questionId: questionId });
                     done();
                 });
 
@@ -269,7 +269,7 @@
                 var promise = repository.addLearningContent(questionId, learningContent);
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/learningContent/create', { questionId: questionId, text: learningContent.text });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/learningContent/create', { questionId: questionId, text: learningContent.text });
                     done();
                 });
 
@@ -497,7 +497,7 @@
                 var promise = repository.removeLearningContent(questionId, learningContentId);
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/learningContent/delete', { questionId: questionId, learningContentId: learningContentId });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/learningContent/delete', { questionId: questionId, learningContentId: learningContentId });
                     done();
                 });
 
@@ -745,7 +745,7 @@
                 var promise = repository.updateText(questionId, learningContentId, learningContentText);
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/learningContent/updateText', { learningContentId: learningContentId, text: learningContentText });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/learningContent/updateText', { learningContentId: learningContentId, text: learningContentText });
                     done();
                 });
 

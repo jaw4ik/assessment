@@ -17,5 +17,10 @@ namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasti
         {
             return objective.Courses.SelectMany(c => _courseCollaboratorProvider.GetCollaborators(c)).Distinct();
         }
+
+        public IEnumerable<string> GetUsersInvitedToCollaboration(Objective objective)
+        {
+            return objective.Courses.SelectMany(c => _courseCollaboratorProvider.GetUsersInvitedToCollaboration(c)).Distinct();
+        }
     }
 }

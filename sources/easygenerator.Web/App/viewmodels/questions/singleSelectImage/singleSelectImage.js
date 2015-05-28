@@ -20,7 +20,9 @@
             return designer.activate(question.id).then(function () {
                 return {
                     viewCaption: localizationManager.localize('singleSelectImageEditor'),
-                    isQuestionContentNeeded: true
+                    hasQuestionView: true,
+                    hasQuestionContent: true,
+                    hasFeedback: true
                 };
             });
         }

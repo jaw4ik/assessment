@@ -8,11 +8,18 @@
         this.date = new Date(spec.timestamp);
         this.actor = new Actor(spec.actor);
         
-        if (spec.result && spec.result.score && spec.result.score.scaled) {
+        if (spec.result && spec.result.score && _.isNumber(spec.result.score.scaled)) {
             this.score = Math.round(spec.result.score.scaled * 100);
         } else {
-            this.score = 0;
+            this.score = null;
         }
+
+        if (spec.result && spec.result.response) {
+            this.response = spec.result.response;
+        } else {
+            this.response = null;
+        }
+
         this.verb = spec.verb.id;
 
         this.id = spec.object.id;
@@ -24,6 +31,5 @@
             }
         }
     };
-
     return Statement;
 });

@@ -40,11 +40,14 @@
             'dialogs/createCourse.spec',
             'dialogs/collaboration/addCollaborator.spec',
             'dialogs/collaboration/collaboration.spec',
-            'dialogs/collaboration/collaborator.spec',            
+            'dialogs/collaboration/collaborator.spec',
             'dialogs/publishCourse/publishCourse.spec',
             'dialogs/moveCopyQuestion/moveCopyQuestion.spec',
+            'dialogs/video/video.spec',
 
             //#endregion dialogs
+
+            //#region errorHandling
 
             'errorHandling/httpErrorHandlers/defaultHttpErrorHandler.spec',
             'errorHandling/httpErrorHandlers/forbiddenHttpErrorHandler.spec',
@@ -52,15 +55,29 @@
             'errorHandling/httpErrorHandlers/unauthorizedHttpErrorHandler.spec',
             'errorHandling/errorHandlingConfiguration.spec',
             'errorHandling/globalErrorHandler.spec',
-            'errorHandling/httpErrorHandlerRegistrator.spec',            
+            'errorHandling/httpErrorHandlerRegistrator.spec',
+
+            //#endregion
+
+            //#region notifications
+
+            'notifications/notification.spec',
+            'notifications/subscriptionExpiration/notificationController.spec',
+            'notifications/subscriptionExpiration/notification.spec',
+
+            'notifications/collaborationInvite/notification.spec',
+            'notifications/collaborationInvite/queries/getInvites.spec',
+            'notifications/collaborationInvite/commands/acceptInvite.spec',
+            'notifications/collaborationInvite/commands/declineInvite.spec',
+            'notifications/collaborationInvite/notificationController.spec',
+
+            //#endregion 
+
             'localization/localizationManager.spec',
             'models/course.spec',
             'models/user.spec',
-            //'models/reporting/statement.spec',
-            'models/reporting/actor.spec',
-            'notifications/notification.spec',
-            'notifications/subscriptionExpirationNotificationController.spec',
-            'notifications/subscriptionExpirationNotification.spec',
+            'models/video.spec',
+
             'repositories/answerRepository.spec',
             'repositories/commentRepository.spec',
             'repositories/collaboratorRepository.spec',
@@ -69,6 +86,7 @@
             'repositories/objectiveRepository.spec',
             'repositories/templateRepository.spec',
             'repositories/questionRepository.spec',
+            'repositories/videoRepository.spec',
             'services/publishService.spec',
             'utils/waiter.spec',
 
@@ -80,8 +98,20 @@
 
             //#endregion
 
-            //'reporting/xApiFilterCriteriaFactory.spec',
-            //'reporting/xApiProvider.spec',
+            //#region reporting
+
+            'models/reporting/statement.spec',
+            'models/reporting/actor.spec',
+
+            'reporting/xApiFilterCriteriaFactory.spec',
+            'reporting/xApiProvider.spec',
+            'reporting/viewmodels/expandableStatement.spec',
+            'reporting/viewmodels/questionStatement.spec',
+            'reporting/viewmodels/objectiveStatement.spec',
+            'reporting/viewmodels/courseStatement.spec',
+            //'reporting/viewmodels/results.spec',
+
+            //#endregion
 
             //#region synchronization
 
@@ -93,6 +123,10 @@
             'synchronization/handlers/collaboration/handler.spec',
             'synchronization/handlers/collaboration/eventHandlers/started.spec',
             'synchronization/handlers/collaboration/eventHandlers/finished.spec',
+            'synchronization/handlers/collaboration/eventHandlers/inviteCreated.spec',
+            'synchronization/handlers/collaboration/eventHandlers/inviteRemoved.spec',
+            'synchronization/handlers/collaboration/eventHandlers/inviteAccepted.spec',
+            'synchronization/handlers/collaboration/eventHandlers/inviteCourseTitleUpdated.spec',
             'synchronization/handlers/collaboration/eventHandlers/collaboratorAdded.spec',
             'synchronization/handlers/collaboration/eventHandlers/collaboratorRemoved.spec',
             'synchronization/handlers/collaboration/eventHandlers/collaboratorRegistered.spec',
@@ -180,19 +214,21 @@
             'treeOfContent/QuestionTreeNode.spec',
 
             'viewmodels/common/contentField.spec',
+            'viewmodels/library/index.spec',
+            'viewmodels/videos/videos.spec',
             'viewmodels/courses/courses.spec',
             'viewmodels/courses/course/index.spec',
             //'viewmodels/courses/course/create/index.spec',
             'viewmodels/courses/course/create/course.spec',
             'viewmodels/courses/course/design.spec',
+            'viewmodels/courses/course/configure.spec',
             'viewmodels/courses/course/publish.spec',
-            //'reporting/viewmodels/results.spec',
             'viewmodels/courses/publishingActions/publishingAction.spec',
             'viewmodels/courses/publishingActions/build.spec',
             'viewmodels/courses/publishingActions/publish.spec',
             'viewmodels/courses/publishingActions/scormBuild.spec',
             'viewmodels/courses/publishingActions/publishToAim4You.spec',
-            'viewmodels/courses/courseComments.spec',            
+            'viewmodels/courses/courseComments.spec',
             'viewmodels/objectives/objectives.spec',
             'viewmodels/objectives/objective.spec',
             'viewmodels/objectives/objectiveBrief.spec',
@@ -253,21 +289,36 @@
             'viewmodels/questions/hotspot/commands/changeType.spec',
             'viewmodels/questions/hotspot/queries/getQuestionContentById.spec',
 
+            'viewmodels/questions/openQuestion/openQuestion.spec',
+
             'viewmodels/questions/questionTitle.spec',
             'viewmodels/questions/learningContents.spec',
             'viewmodels/questions/feedback.spec',
 
             //#endregion
 
+            //#region video upload
+            'videoUpload/commands/storage.spec',
+            'videoUpload/commands/vimeo.spec',
+            'videoUpload/handlers/progress.spec',
+            'videoUpload/handlers/thumbnails.spec',
+            'videoUpload/uploadDataContext.spec',
+            'videoUpload/uploadTracking.spec',
+            'videoUpload/upload.spec',
+            //#endregion
+
             'viewmodels/user/userMenu.spec',
-            'viewmodels/shell.spec',            
+            'viewmodels/shell.spec',
             'widgets/notifyViewer/viewmodel.spec',
             'widgets/uiLockViewer/viewmodel.spec',
             'widgets/createQuestion/viewmodel.spec',
             'bootstrapper.spec',
             'guard.spec',
-            'http/httpWrapper.spec',
+            'http/apiHttpWrapper.spec',
+            'http/authHttpWrapper.spec',
+            'http/storageHttpWrapper.spec',
             'http/httpRequestSender.spec',
+            'http/storageHttpRequestSender.spec',
             'notify.spec',
             'uiLocker.spec',
             'userContext.spec',

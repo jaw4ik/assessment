@@ -44,7 +44,16 @@
                 statement: {
                     type: 'statement',
                     image: '/Content/images/statement-question.png'
+                },
+                openQuestion: {
+                    type: 'openQuestion',
+                    image: '/Content/images/open-question.png'
                 }
+            },
+
+            questionFeedback: {
+                correct: 'correct',
+                incorrect: 'incorrect'
             },
 
             sortingOptions: {
@@ -139,6 +148,10 @@
                         finished: 'course:delivering-finished'
                     },
                     collaboration: {
+                        inviteCreated: 'course:collaboration-invite-created:',
+                        inviteRemoved: 'course:collaboration-invite-removed:',
+                        inviteAccepted: 'course:collaboration-invite-accepted',
+                        inviteCourseTitleUpdated: 'course:collaboration-invite-course-title-updated',
                         collaboratorAdded: 'course:collaboration-collaboratorAdded:',
                         collaboratorRemoved: 'course:collaboration-collaboratorRemoved',
                         collaboratorRegistered: 'course:collaboration-collaboratorRegistered:',
@@ -235,6 +248,9 @@
                 sidePanel: {
                     expanded: 'sidePanel:expanded',
                     collapsed: 'sidePanel:collapsed'
+                },
+                notification: {
+
                 }
             },
 
@@ -242,9 +258,21 @@
                 email: /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/
             },
 
+            notification: {
+                keys: {
+                    subscriptionExpiration: 'notificationkeys:subscriptionExpiration',
+                    collaborationInvite: 'notificationkeys:collaborationInvite'
+                },
+                messages: {
+                    push: 'notification:push',
+                    remove: 'notification:remove'
+                }
+            },
+
             upgradeEvent: 'Upgrade now',
 
             upgradeUrl: '/account/upgrade',
+            signinUrl: '/signin',
 
             upgradeCategory: {
                 scorm: 'SCORM 1.2',
@@ -309,6 +337,34 @@
 
             courseResults: {
                 pageSize: 10
+            },
+
+            storage: {
+                host: window.storageServiceUrl ? "//" + window.storageServiceUrl : '//localhost:888',
+                mediaUrl: '/media',
+                userUrl: '/user',
+                changesInQuota: 'storage:changesInQuota',
+                video: {
+                    videoUrl: '/video',
+                    ticketUrl: '/api/media/video/upload',
+                    finishUrl: '/api/media/video/upload/finish',
+                    progressUrl: '/api/media/video/upload/progress',
+                    thumbnailLoadUrl: '//vimeo.com/api/v2/video/',
+                    defaultThumbnailUrl: '//i.vimeocdn.com/video/default_200x150.jpg',
+                    cancelUrl: '/api/media/video/upload/cancel',
+                    statuses: {
+                        loaded: 'loaded',
+                        failed: 'failed',
+                        inProgress: 'inProgress'
+                    },
+                    vimeoVerifyStatus: 308,
+                    changesInUpload: 'video:changesInUpload',
+                    trackChangesInUploadTimeout: 500,
+                    iframeWidth: 600,
+                    iframeHeight: 335,
+                    updateUploadTimeout: 60000,
+                    removeVideoAfterErrorTimeout: 5000
+                }
             }
         }
     }

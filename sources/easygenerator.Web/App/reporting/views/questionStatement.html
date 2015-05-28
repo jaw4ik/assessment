@@ -1,9 +1,36 @@
 ﻿<li>
     <div class="r-table">
         <div class="r-text question" data-bind="localize: { text: 'reportingQuestionTitle' }">question:</div>
-        <div class="r-question-text selectable"><p>"<span data-bind="text: lrsStatement.name"></span>"</p></div>
-        <div class="r-score" data-bind="css: { correct: correct }">
-            <p>(<span data-bind="text: lrsStatement.score"></span>%)</p>
+        <div class="r-question-text selectable">
+            <p>
+                "<span data-bind="text: lrsStatement.name"></span>"
+                <!-- ko if: !hasScore && hasAnswer -->
+                <!-- ko ifnot: answerShown -->
+                <span class="r-show-details" data-bind="localize: { text: 'reportingShowDetails' }, click: showAnswer">Show details >></span>
+                <!-- /ko --> 
+                <!-- ko if: answerShown -->
+                <span class="r-show-details" data-bind="localize: { text: 'reportingHideDetails' },click: hideAnswer">Hide details >></span>
+                <!-- /ko --> 
+                <!-- /ko --> 
+            </p>
+        </div>
+        <div class="r-score" data-bind="css: { correct: correct, 'no-result': !hasScore }">
+            <p>
+                <!-- ko if: hasScore -->
+                <span data-bind="text: lrsStatement.score + '%'"></span>
+                <!-- /ko --> 
+                <!-- ko ifnot: hasScore -->
+                <span data-bind="localize: { text: 'reportingScoreNotAvailable' }"></span>
+                <!-- /ko -->
+            </p>
         </div>
     </div>
+    <!-- ko if: !hasScore && hasAnswer -->
+    <div class="r-answer-container" data-bind="visible: answerShown">
+        <div class="r-answer">
+            <div class="r-answer-title" data-bind="localize: { text: 'reportingLearnersAnswer' }">Learners answer</div>
+            <div class="r-answer-text selectable" data-bind="text: lrsStatement.response"></div>
+        </div>
+    </div>
+    <!-- /ko -->
 </li>

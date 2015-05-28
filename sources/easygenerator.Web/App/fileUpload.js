@@ -31,6 +31,7 @@
                     if ($(this).val().toLowerCase().match(new RegExp('\.(' + getSupportedExtensionsRegexBody(settings.supportedExtensions) + ')$'))) {
                         $(this).closest('form').ajaxSubmit({
                             global: false,
+                            headers: window.auth.getHeader('api'),
                             beforeSubmit: function () {
                                 settings.startLoading();
                             },

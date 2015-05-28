@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting.CollaboratorProviders
 {
-    public class QuestionCollaboratorProvider:IEntityCollaboratorProvider<Question>
+    public class QuestionCollaboratorProvider : IEntityCollaboratorProvider<Question>
     {
         private readonly IEntityCollaboratorProvider<Objective> _objectiveCollaboratorProvider;
 
@@ -16,6 +16,11 @@ namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasti
         public IEnumerable<string> GetCollaborators(Question question)
         {
             return _objectiveCollaboratorProvider.GetCollaborators(question.Objective);
+        }
+
+        public IEnumerable<string> GetUsersInvitedToCollaboration(Question question)
+        {
+            return _objectiveCollaboratorProvider.GetUsersInvitedToCollaboration(question.Objective);
         }
     }
 }

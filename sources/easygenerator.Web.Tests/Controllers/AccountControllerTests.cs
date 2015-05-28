@@ -147,20 +147,6 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void SignUp_ShouldRedirectToDefaultRoute_WhenExistingUserIsAlreadyAuthenticated()
-        {
-            //Arrange
-            _authenticationProvider.IsUserAuthenticated().Returns(true);
-            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(Substitute.For<User>());
-
-            //Act
-            var result = _controller.SignUp();
-
-            //Assert
-            ActionResultAssert.IsRedirectToRouteResult(result, "Default");
-        }
-
-        [TestMethod]
         public void SignUp_ShouldSetViewBagClickOnLogoDisabledToTrue_WhenExistingUserIsNotAuthenticated()
         {
             //Arrange
@@ -186,20 +172,6 @@ namespace easygenerator.Web.Tests.Controllers
 
             //Assert
             ActionResultAssert.IsViewResult(result);
-        }
-
-        [TestMethod]
-        public void SignUpSecondStep_ShouldRedirectToDefaultRoute_WhenExistingUserIsAlreadyAuthenticated()
-        {
-            //Arrange
-            _authenticationProvider.IsUserAuthenticated().Returns(true);
-            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(Substitute.For<User>());
-
-            //Act
-            var result = _controller.SignUpSecondStep();
-
-            //Assert
-            ActionResultAssert.IsRedirectToRouteResult(result, "Default");
         }
 
         [TestMethod]
@@ -245,50 +217,6 @@ namespace easygenerator.Web.Tests.Controllers
 
             //Assert
             ActionResultAssert.IsViewResult(result);
-        }
-
-        [TestMethod]
-        public void SignIn_ShouldRedirectToDefaultRoute_WhenExistingUserIsAlreadyAuthenticated()
-        {
-            //Arrange
-            _authenticationProvider.IsUserAuthenticated().Returns(true);
-            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(Substitute.For<User>());
-
-            //Act
-            var result = _controller.SignIn();
-
-            //Assert
-            ActionResultAssert.IsRedirectToRouteResult(result, "Default");
-        }
-
-        #endregion
-
-        #region SignOut
-
-        [TestMethod]
-        public void LogoutAndRedirectToLogin_ShouldRedirectToSignIn()
-        {
-            //Arrange
-
-
-            //Act
-            var result = _controller.SignOut();
-
-            //Assert
-            ActionResultAssert.IsRedirectToRouteResult(result, "SignIn");
-        }
-
-        [TestMethod]
-        public void LogoutAndRedirectToLogin_ShouldSignOutUser_WhenUserAuthenticated()
-        {
-            //Arrange
-            _authenticationProvider.IsUserAuthenticated().Returns(true);
-
-            //Act
-            var result = _controller.SignOut();
-
-            //Assert
-            _authenticationProvider.Received().SignOut();
         }
 
         #endregion
@@ -348,21 +276,6 @@ namespace easygenerator.Web.Tests.Controllers
 
             //Assert
             ActionResultAssert.IsRedirectToRouteResult(result, "Default");
-        }
-
-        [TestMethod]
-        public void PasswordRecovery_ShouldSignInUser_WhenTickenDefinedOnPost()
-        {
-            //Arrange
-            var ticket = PasswordRecoveryTicketObjectMother.Create();
-            var user = UserObjectMother.Create();
-            user.AddPasswordRecoveryTicket(ticket);
-
-            //Act
-            _controller.PasswordRecovery(ticket, "NewPassword123123");
-
-            //Assert
-            _authenticationProvider.Received().SignIn(ticket.User.Email, true);
         }
 
         [TestMethod]

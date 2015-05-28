@@ -1,7 +1,7 @@
 ﻿define(['viewmodels/questions/singleSelectImage/commands/updateAnswerImage'], function (command) {
     "use strict";
     var
-        httpWrapper = require('http/httpWrapper')
+        apiHttpWrapper = require('http/apiHttpWrapper')
     ;
 
     describe('command [updateAnswerImage]', function () {
@@ -11,7 +11,7 @@
             var dfd = Q.defer();
 
             beforeEach(function () {
-                spyOn(httpWrapper, 'post').and.returnValue(dfd.promise);
+                spyOn(apiHttpWrapper, 'post').and.returnValue(dfd.promise);
             });
 
             it('should be function', function () {
@@ -26,7 +26,7 @@
                 dfd.resolve();
 
                 command.execute().then(function () {
-                    expect(httpWrapper.post).toHaveBeenCalled();
+                    expect(apiHttpWrapper.post).toHaveBeenCalled();
                     done();
                 });
             });

@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'models/course', 'guard', 'http/httpWrapper', 'durandal/app', 'mappers/courseModelMapper'],
-    function (dataContext, constants, CourseModel, guard, httpWrapper, app, courseModelMapper) {
+﻿define(['dataContext', 'constants', 'models/course', 'guard', 'http/apiHttpWrapper', 'durandal/app', 'mappers/courseModelMapper'],
+    function (dataContext, constants, CourseModel, guard, apiHttpWrapper, app, courseModelMapper) {
         "use strict";
 
         var repository = {
@@ -46,7 +46,7 @@
 
                 guard.throwIfNotString(title, 'Course title (string) was expected');
 
-                return httpWrapper.post('api/course/create', { title: title }).then(function (response) {
+                return apiHttpWrapper.post('api/course/create', { title: title }).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
 
                     var course = courseModelMapper.map(response, dataContext.objectives, dataContext.templates);
@@ -63,7 +63,7 @@
             return Q.fcall(function () {
                 guard.throwIfNotString(courseId, 'Course id (string) was expected');
 
-                return httpWrapper.post('api/course/delete', { courseId: courseId }).then(function () {
+                return apiHttpWrapper.post('api/course/delete', { courseId: courseId }).then(function () {
                     dataContext.courses = _.reject(dataContext.courses, function (course) {
                         return course.id === courseId;
                     });
@@ -85,7 +85,7 @@
                     index: targetIndex
                 };
 
-                return httpWrapper.post('api/course/relateObjective', requestArgs).then(function (response) {
+                return apiHttpWrapper.post('api/course/relateObjective', requestArgs).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
@@ -128,7 +128,7 @@
                     })
                 };
 
-                return httpWrapper.post('api/course/unrelateObjectives', requestArgs).then(function (response) {
+                return apiHttpWrapper.post('api/course/unrelateObjectives', requestArgs).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
@@ -162,7 +162,7 @@
                     courseTitle: courseTitle
                 };
 
-                return httpWrapper.post('api/course/updateTitle', requestArgs).then(function (response) {
+                return apiHttpWrapper.post('api/course/updateTitle', requestArgs).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
@@ -193,7 +193,7 @@
                     templateId: templateId
                 };
 
-                return httpWrapper.post('api/course/updateTemplate', requestArgs).then(function (response) {
+                return apiHttpWrapper.post('api/course/updateTemplate', requestArgs).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
@@ -209,7 +209,7 @@
 
                     guard.throwIfNotAnObject(template, 'Template does not exist in dataContext');
 
-                    course.template = { id: template.id, name: template.name, thumbnail: template.thumbnail };
+                    course.template = template;
                     course.modifiedOn = new Date(response.ModifiedOn);
 
                     return {
@@ -224,7 +224,7 @@
             return Q.fcall(function () {
                 guard.throwIfNotString(courseId, 'Course id is not a string');
 
-                return httpWrapper.post('api/course/updateintroductioncontent', { courseId: courseId, introductionContent: introductionContent }).then(function (response) {
+                return apiHttpWrapper.post('api/course/updateintroductioncontent', { courseId: courseId, introductionContent: introductionContent }).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
@@ -256,7 +256,7 @@
                     })
                 };
 
-                return httpWrapper.post('api/course/updateobjectivesorder', requestArgs).then(function (response) {
+                return apiHttpWrapper.post('api/course/updateobjectivesorder', requestArgs).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response does not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 

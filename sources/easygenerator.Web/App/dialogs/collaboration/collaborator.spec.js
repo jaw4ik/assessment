@@ -85,7 +85,14 @@
                 viewModel = ctor(ownerEmail, { fullName: fullName, email: email, registered: true, id: 'id' });
                 expect(viewModel.isRegistered).toBeObservable();
             });
+        });
 
+        describe('isAccepted:', function () {
+
+            it('should be observable', function () {
+                viewModel = ctor(ownerEmail, { fullName: fullName, email: email, registered: true, id: 'id' });
+                expect(viewModel.isAccepted).toBeObservable();
+            });
         });
 
         describe('id', function () {
@@ -195,7 +202,7 @@
                 expect(viewModel.isRemoveSuccessMessageShown).toBeObservable();
             });
 
-            it('should be false', function() {
+            it('should be false', function () {
                 expect(viewModel.isRemoveSuccessMessageShown()).toBeFalsy();
             });
         });
@@ -227,12 +234,21 @@
                 expect(viewModel.deactivate).toBeFunction();
             });
 
-            it('should unsubscribe from collaboratorRegister event', function () {
+            it('should unsubscribe from collaboratorRegistered event', function () {
                 viewModel = ctor(ownerEmail, { fullName: fullName, email: email, id: 'id' });
 
                 viewModel.deactivate();
 
                 expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorRegistered + email, viewModel.collaboratorRegistered);
+            });
+
+
+            it('should unsubscribe from collaboration.inviteAccepted event', function () {
+                viewModel = ctor(ownerEmail, { fullName: fullName, email: email, id: 'id' });
+
+                viewModel.deactivate();
+
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.inviteAccepted + viewModel.id, viewModel.collaborationAccepted);
             });
 
             describe('when removing is not in progress', function () {
@@ -268,8 +284,17 @@
 
                 expect(app.on).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorRegistered + email, viewModel.collaboratorRegistered);
             });
-
         });
+
+        describe('when collaborator is not accepted', function () {
+
+            it('should subscribe for collaboration.inviteAccepted event', function () {
+                viewModel = ctor(ownerEmail, { fullName: fullName, email: email, id: 'id', isAccepted: false });
+
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.collaboration.inviteAccepted + viewModel.id, viewModel.collaborationAccepted);
+            });
+        });
+
 
         describe('collaboratorRegistered:', function () {
 
@@ -304,6 +329,25 @@
                 expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.collaboratorRegistered + email, viewModel.collaboratorRegistered);
             });
 
+        });
+
+        describe('collaborationAccepted:', function() {
+
+            it('should set isAccepted to true', function () {
+                viewModel = ctor(ownerEmail, { fullName: fullName, email: email, isAccepted: false });
+
+                viewModel.collaborationAccepted();
+
+                expect(viewModel.isAccepted()).toBeTruthy();
+            });
+
+            it('should unsubscribe from collaboration.inviteAccepted event', function () {
+                viewModel = ctor(ownerEmail, { fullName: fullName, email: email, id: 'id' });
+
+                viewModel.collaborationAccepted();
+
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.collaboration.inviteAccepted + viewModel.id, viewModel.collaborationAccepted);
+            });
         });
 
         describe('showRemoveConfirmation:', function () {

@@ -5,11 +5,9 @@
         viewModel = require('viewmodels/questions/singleSelectText/singleSelectText'),
         router = require('plugins/router'),
         eventTracker = require('eventTracker'),
-        constants = require('constants'),
         answerRepository = require('repositories/answerRepository'),
-        learningContentRepository = require('repositories/learningContentRepository'),
-        http = require('plugins/http')
-
+        http = require('plugins/http'),
+        localizationManager = require('localization/localizationManager')
     ;
 
     var objectiveId = 'objectiveId';
@@ -59,8 +57,10 @@
             beforeEach(function () {
                 getAnswerCollectionDefer = Q.defer();
                 spyOn(answerRepository, 'getCollection').and.returnValue(getAnswerCollectionDefer.promise);
-
                 spyOn(http, 'post');
+                spyOn(localizationManager, 'localize').and.callFake(function (arg) {
+                    return arg;
+                });
             });
 
             it('should return promise', function () {
@@ -68,20 +68,81 @@
                 expect(promise).toBePromise();
             });
 
-            it('should initialize field', function () {
+            it('should set objectiveId', function () {
                 viewModel.initialize(objectiveId, question);
+
                 expect(viewModel.objectiveId).toBe(objectiveId);
+            });
+
+            it('should set questionId', function () {
+                viewModel.initialize(objectiveId, question);
+
                 expect(viewModel.questionId).toBe(question.id);
             });
 
-            it('should initialize fields', function (done) {
-                getAnswerCollectionDefer.resolve();
+            it('should get answers', function () {
+                viewModel.initialize(objectiveId, question);
 
-                var promise = viewModel.initialize(objectiveId, question);
-                promise.fin(function () {
-                    expect(viewModel.answers).toBeDefined();
-                    done();
+                expect(answerRepository.getCollection).toHaveBeenCalledWith(question.id);
+            });
+
+            describe('when answers are recived', function () {
+                var answers = [];
+
+                beforeEach(function () {
+                    getAnswerCollectionDefer.resolve(answers);
                 });
+
+                it('should set answers', function () {
+                    viewModel.answers = null;
+
+                    viewModel.initialize(objectiveId, question);
+
+                    expect(viewModel.answers).toBeDefined();
+                });
+
+                it('should return object', function (done) {
+                    var promise = viewModel.initialize(objectiveId, question);
+                    promise.then(function (result) {
+                        expect(result).toBeObject();
+                        done();
+                    });
+                });
+
+                describe('and result object', function () {
+                    it('should contain \'singleSelectTextEditor\' viewCaption', function (done) {
+                        var promise = viewModel.initialize(objectiveId, question);
+                        promise.then(function (result) {
+                            expect(result.viewCaption).toBe('singleSelectTextEditor');
+                            done();
+                        });
+                    });
+
+                    it('should have hasQuestionView property with true value', function (done) {
+                        var promise = viewModel.initialize(objectiveId, question);
+                        promise.then(function (result) {
+                            expect(result.hasQuestionView).toBeTruthy();
+                            done();
+                        });
+                    });
+
+                    it('should have hasQuestionContent property with true value', function (done) {
+                        var promise = viewModel.initialize(objectiveId, question);
+                        promise.then(function (result) {
+                            expect(result.hasQuestionContent).toBeTruthy();
+                            done();
+                        });
+                    });
+
+                    it('should have hasFeedback property with true value', function (done) {
+                        var promise = viewModel.initialize(objectiveId, question);
+                        promise.then(function (result) {
+                            expect(result.hasFeedback).toBeTruthy();
+                            done();
+                        });
+                    });
+                });
+
             });
 
         });

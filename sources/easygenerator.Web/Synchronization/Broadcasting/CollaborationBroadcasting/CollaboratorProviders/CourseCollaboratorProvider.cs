@@ -8,7 +8,15 @@ namespace easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasti
     {
         public IEnumerable<string> GetCollaborators(Course course)
         {
-            var users = course.Collaborators.Select(c => c.Email).ToList();
+            var users = course.Collaborators.Where(c => c.IsAccepted).Select(c => c.Email).ToList();
+            users.Add(course.CreatedBy);
+
+            return users;
+        }
+
+        public IEnumerable<string> GetUsersInvitedToCollaboration(Course course)
+        {
+            var users = course.Collaborators.Where(c => !c.IsAccepted).Select(c => c.Email).ToList();
             users.Add(course.CreatedBy);
 
             return users;

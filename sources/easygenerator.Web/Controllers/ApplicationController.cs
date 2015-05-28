@@ -14,14 +14,7 @@ namespace easygenerator.Web.Controllers
         [NoCache]
         public ActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToRoute("SignUp");
-            }
+            return View();
         }
     }
 }

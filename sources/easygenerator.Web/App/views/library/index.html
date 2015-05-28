@@ -1,0 +1,19 @@
+﻿<section class="library">
+
+    <header class="content-section-wrapper">
+        <nav class="content-section">
+            <ul data-bind="foreach: router.navigationModel">
+                <li><a data-bind="attr: { href:  hash }, css: { active: isActive }, text: title, click: navigate"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <div data-bind="router: {}, style: { opacity: router.isViewReady() ? '1' : '0' }"></div>
+    <div class="loader-wrapper">
+        
+        <!-- ko ifnot: router.isViewReady -->
+        <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center' } } --><!-- /ko -->
+        <!-- /ko -->
+
+    </div>
+
+</section>

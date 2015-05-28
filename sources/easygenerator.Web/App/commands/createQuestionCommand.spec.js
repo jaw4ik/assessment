@@ -108,6 +108,25 @@
                     });
 
                 });
+
+                describe('and when question type is statement', function () {
+
+                    it('should send event \'Create new question (statement)\' with defined event category ', function () {
+                        command.execute('objectiveId', 'courseId', constants.questionType.statement.type, 'event category');
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (statement)', 'event category');
+                    });
+
+                });
+
+                describe('and when question type is open', function () {
+
+                    it('should send event \'Create new question (open question)\' with defined event category ', function () {
+                        command.execute('objectiveId', 'courseId', constants.questionType.openQuestion.type, 'event category');
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (open question)', 'event category');
+                    });
+
+                });
+
             });
 
             describe('when event category is undefined', function () {
@@ -220,7 +239,7 @@
 
                 it('should navigate to this question', function (done) {
                     command.execute('objectiveId').fin(function () {
-                        expect(router.navigate).toHaveBeenCalledWith('objectives/objectiveId/questions/questionId');
+                        expect(router.navigate).toHaveBeenCalledWith('library/objectives/objectiveId/questions/questionId');
                         done();
                     });
                 });
