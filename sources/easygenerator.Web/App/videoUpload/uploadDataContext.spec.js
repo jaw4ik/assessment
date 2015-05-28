@@ -128,7 +128,7 @@
 
             beforeEach(function () {
                 uploadDataContext.queueUploads = [];
-                spyOn(progressHandler, 'build').and.returnValue({});
+                spyOn(progressHandler, 'build').and.returnValue({ id: 1 });
             });
 
             it('should be function', function () {
@@ -139,21 +139,22 @@
                 var uploadUrl = '123',
                     fileSize = 100,
                     video = { id: 1 };
-                
+
                 uploadDataContext.addToUploadQueue(uploadUrl, fileSize, video);
                 expect(progressHandler.build).toHaveBeenCalledWith(uploadUrl, fileSize, video, uploadDataContext.removeFromUploadQueue);
             });
 
-            /*it('should add created handler to uploadQueue', function () {
-                var uploadUrl = '123',
-                    fileSize = 100,
-                    video = { id: 1 };
-                
-                uploadDataContext.addToUploadQueue(uploadUrl, fileSize, video);
-                
-                expect(uploadDataContext.queueUploads.length).toBe(1);
-                expect(uploadDataContext.queueUploads[0]).toEqual({});
-            });*/
+        });
+
+        describe('removeFromUploadQueue', function () {
+
+            beforeEach(function () {
+                uploadDataContext.queueUploads = [{ id: 1 }];
+            });
+
+            it('should be function', function () {
+                expect(uploadDataContext.removeFromUploadQueue).toBeFunction();
+            });
 
         });
 
