@@ -1,1049 +1,702 @@
-﻿//define(['viewmodels/learningContents/learningContents'], function (viewModel) {
-//    "use strict";
+﻿define(['knockout', 'viewmodels/learningContents/learningContents'], function (ko, viewModel) {
+    "use strict";
 
-//    var
-//        repository = require('repositories/learningContentRepository'),
-//        questionRepository = require('repositories/questionRepository'),
-//        eventTracker = require('eventTracker'),
-//        notify = require('notify');
-
-//    describe('viewModel [learningContents]', function () {
-
-//        var questionId = 'questionId';
-
-//        beforeEach(function () {
-//            viewModel.questionType = '';
-//            spyOn(notify, 'saved');
-//            spyOn(eventTracker, 'publish');
-//        });
-
-//        it('should be defined', function () {
-//            expect(viewModel).toBeDefined();
-//        });
-
-//        describe('learningContents:', function () {
-
-//            it('should be observable array', function () {
-//                expect(viewModel.learningContents).toBeObservableArray();
-//            });
+    var
+        repository = require('repositories/learningContentRepository'),
+        questionRepository = require('repositories/questionRepository'),
+        eventTracker = require('eventTracker'),
+        notify = require('notify'),
+        constants = require('constants'),
+        learningContentsViewModelFactory = require('viewmodels/learningContents/learningContentsViewModelFactory'),
+        router = require('plugins/router');
 
-//        });
+    describe('viewModel [learningContents]', function () {
 
-//        describe('localizationManager:', function () {
+        var questionId = 'questionId';
 
-//            it('should be defined', function () {
-//                expect(viewModel.localizationManager).toBeDefined();
-//            });
+        beforeEach(function () {
+            viewModel.questionType = '';
+            spyOn(notify, 'saved');
+            spyOn(eventTracker, 'publish');
+        });
 
-//        });
+        it('should be defined', function () {
+            expect(viewModel).toBeDefined();
+        });
 
-//        describe('addLearningContent:', function () {
+        describe('autosaveInterval', function () {
 
-//            it('should be function', function () {
-//                expect(viewModel.addLearningContent).toBeFunction();
-//            });
+            it('should be defined', function() {
+                expect(viewModel.autosaveInterval).toBeDefined();
+            });
 
-//            it('should add empty learning content', function () {
-//                viewModel.addLearningContent();
-//                expect(viewModel.learningContents().length).toEqual(1);
-//                expect(viewModel.learningContents()[0].id).toBeObservable();
-//                expect(viewModel.learningContents()[0].id()).toEqual("");
-//                expect(viewModel.learningContents()[0].text).toBeObservable();
-//                expect(viewModel.learningContents()[0].text()).toEqual("");
-//                expect(viewModel.learningContents()[0].hasFocus).toBeObservable();
-//                expect(viewModel.learningContents()[0].hasFocus()).toBeTruthy();
-//            });
+        });
 
-//            it('should send event \'Add learning content\'', function () {
-//                viewModel.addLearningContent();
-//                expect(eventTracker.publish).toHaveBeenCalledWith('Add learning content');
-//            });
+        describe('learningContents:', function () {
 
-//            it('should send event \'Add learning content\' with category \'Information\' for informationContent question type', function () {
-//                viewModel.questionType = 'informationContent';
-//                viewModel.addLearningContent();
-//                expect(eventTracker.publish).toHaveBeenCalledWith('Add learning content', 'Information');
-//            });
+            it('should be observable array', function () {
+                expect(viewModel.learningContents).toBeObservableArray();
+            });
 
-//            it('should set isAddedButtonsShown to false', function () {
-//                viewModel.isAddedButtonsShown(true);
-//                viewModel.toggleIsAddedButtonsShown();
-//                expect(viewModel.isAddedButtonsShown()).toBeFalsy();
-//            });
+        });
 
-//        });
+        describe('questionId', function () {
 
-//        describe('removeLearningContent:', function () {
+            it('should be defined', function() {
+                expect(viewModel.questionId).toBeDefined();
+            });
 
-//            var removeLearningContent;
-//            var learningContent;
+        });
 
-//            beforeEach(function () {
-//                learningContent = { id: ko.observable(''), text: ko.observable('') };
+        describe('questionType', function () {
 
-//                removeLearningContent = Q.defer();
-//                spyOn(repository, 'removeLearningContent').and.returnValue(removeLearningContent.promise);
-//            });
+            it('should be defined', function() {
+                expect(viewModel.questionType).toBeDefined();
+            });
 
-//            it('should be function', function () {
-//                expect(viewModel.removeLearningContent).toBeFunction();
-//            });
+        });
 
-//            it('should send event \'Delete learning content\'', function () {
-//                viewModel.removeLearningContent(learningContent);
-//                expect(eventTracker.publish).toHaveBeenCalledWith('Delete learning content');
-//            });
+        describe('eventTracker', function () {
 
-//            it('should send event \'Delete learning content\' with category \'Information\' for informationContent question type', function () {
-//                viewModel.questionType = 'informationContent';
-//                viewModel.removeLearningContent(learningContent);
-//                expect(eventTracker.publish).toHaveBeenCalledWith('Delete learning content', 'Information');
-//            });
+            it('should be defined', function() {
+                expect(viewModel.eventTracker).toBeDefined();
+            });
 
-//            describe('when learningContent has been deleted by collaborator', function () {
-//                it('should be removed from learningContents list', function () {
-//                    learningContent.isDeleted = true;
-//                    viewModel.learningContents([learningContent]);
-//                    viewModel.removeLearningContent(learningContent);
-//                    expect(viewModel.learningContents().length).toBe(0);
-//                });
-//            });
+        });
 
-//            describe('when learning content id is set', function () {
-//                beforeEach(function () {
-//                    learningContent.id('id');
-//                });
+        describe('isAddedButtonsShown', function () {
 
-//                it('should remove learning content from the repository', function () {
-//                    viewModel.learningContents([learningContent]);
-//                    viewModel.questionId = questionId;
+            it('should be defined', function() {
+                expect(viewModel.isAddedButtonsShown).toBeObservable();
+            });
 
-//                    viewModel.removeLearningContent(learningContent);
+        });
 
-//                    expect(repository.removeLearningContent).toHaveBeenCalledWith(questionId, learningContent.id());
-//                });
+        describe('toggleIsAddedButtonsShown:', function () {
 
-//                it('should remove learning content from the viewModel', function () {
-//                    viewModel.learningContents([learningContent]);
+            it('should be function', function() {
+                expect(viewModel.toggleIsAddedButtonsShown).toBeFunction();
+            });
 
-//                    viewModel.removeLearningContent(learningContent);
+            describe('when added buttons shown', function () {
 
-//                    expect(viewModel.learningContents().length).toEqual(0);
-//                });
+                it('should set isAddedButtonsShown to false', function () {
+                    viewModel.isAddedButtonsShown(true);
+                    viewModel.toggleIsAddedButtonsShown();
+                    expect(viewModel.isAddedButtonsShown()).toBeFalsy();
+                });
 
-//                it('should show notification', function (done) {
-//                    viewModel.learningContents([learningContent]);
-//                    removeLearningContent.resolve({ modifiedOn: new Date() });
+            });
 
-//                    viewModel.removeLearningContent(learningContent);
+            describe('when added buttons not shown', function () {
 
-//                    removeLearningContent.promise.fin(function () {
-//                        expect(notify.saved).toHaveBeenCalled();
-//                        done();
-//                    });
-//                });
+                it('should set isAddedButtonsShown to true', function () {
+                    viewModel.isAddedButtonsShown(false);
+                    viewModel.toggleIsAddedButtonsShown();
+                    expect(viewModel.isAddedButtonsShown()).toBeTruthy();
+                });
 
-//            });
+            });
 
-//            describe('when learning content id is not set initially', function () {
-//                beforeEach(function () {
-//                    learningContent.id('');
-//                });
+        });
 
-//                it('should not remove learning content from the repository', function () {
+        describe('addContent', function () {
 
-//                    viewModel.learningContents([learningContent]);
-//                    viewModel.removeLearningContent(learningContent);
+            var content;
 
-//                    expect(repository.removeLearningContent).not.toHaveBeenCalledWith(questionId, learningContent.id());
-//                });
+            beforeEach(function() {
+                content = {
+                    type: constants.learningContentsTypes.content,
+                    canBeAdded: ko.observable(true)
+                };
 
-//                it('should not remove learning content from the viewModel', function () {
-//                    viewModel.learningContents([learningContent]);
+                spyOn(learningContentsViewModelFactory, constants.learningContentsTypes.content).and.returnValue(content);
+            });
 
-//                    viewModel.removeLearningContent(learningContent);
+            it('should be function', function() {
+                expect(viewModel.addContent).toBeFunction();
+            });
 
-//                    expect(viewModel.learningContents().length).toEqual(1);
-//                });
+            it('should add content to array', function () {
+                viewModel.learningContents([]);
+                viewModel.addContent();
+                expect(viewModel.learningContents()[0]).toBe(content);
+            });
 
-//                it('should not show notification', function (done) {
-//                    viewModel.learningContents([learningContent]);
-//                    removeLearningContent.resolve({ modifiedOn: new Date() });
 
-//                    viewModel.removeLearningContent(learningContent);
+        });
 
-//                    removeLearningContent.promise.fin(function () {
-//                        expect(notify.saved).not.toHaveBeenCalled();
-//                        done();
-//                    });
-//                });
+        describe('addHotspotOnAnImage:', function () {
 
-//                describe('and learning content id is set later', function () {
+            var hotspot;
 
-//                    it('should remove learning content from the repository', function () {
-//                        viewModel.learningContents([learningContent]);
+            beforeEach(function() {
+                hotspot = {
+                    type: constants.learningContentsTypes.hotspot,
+                    canBeAdded: ko.observable(true)
+                };
 
-//                        viewModel.removeLearningContent(learningContent);
-//                        learningContent.id('id');
+                spyOn(learningContentsViewModelFactory, constants.learningContentsTypes.hotspot).and.returnValue(hotspot);
+            });
 
-//                        expect(repository.removeLearningContent).toHaveBeenCalledWith(questionId, learningContent.id());
-//                    });
+            it('should be function', function() {
+                expect(viewModel.addHotspotOnAnImage).toBeFunction();
+            });
 
-//                    it('should remove learning content from the viewModel', function () {
-//                        viewModel.learningContents([learningContent]);
+            it('should add content to array', function () {
+                viewModel.learningContents([]);
+                viewModel.addHotspotOnAnImage();
+                expect(viewModel.learningContents()[0]).toBe(hotspot);
+            });
 
-//                        viewModel.removeLearningContent(learningContent);
-//                        learningContent.id('id');
+        });
 
-//                        expect(viewModel.learningContents().length).toEqual(0);
-//                    });
+        describe('updateOrder:', function () {
 
-//                    it('should show notification', function (done) {
-//                        viewModel.learningContents([learningContent]);
-//                        removeLearningContent.resolve({ modifiedOn: new Date() });
+            beforeEach(function () {
+                var def = Q.defer();
+                def.resolve();
+                spyOn(questionRepository, 'updateLearningContentsOrder').and.returnValue(def.promise);
+            });
 
-//                        viewModel.removeLearningContent(learningContent);
-//                        learningContent.id('id');
+            it('should be function', function () {
+                expect(viewModel.updateOrder).toBeFunction();
+            });
 
-//                        removeLearningContent.promise.fin(function () {
-//                            expect(notify.saved).toHaveBeenCalled();
-//                            done();
-//                        });
-//                    });
+            it('should reset changesFromCollaborator', function () {
+                viewModel.changesFromCollaborator = {
+                    question: { id: 'id' }, learningContentsIds: ['id2', 'id1']
+                }
+                viewModel.updateOrder();
+                expect(viewModel.changesFromCollaborator).toBeNull();
+            });
 
-//                });
-//            });
+            it('should send event to mixPanel', function () {
+                viewModel.updateOrder();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Change order of Learning Contents');
+            });
+
+            it('should update learning contents order', function () {
+                viewModel.updateOrder();
+                expect(questionRepository.updateLearningContentsOrder).toHaveBeenCalled();
+            });
+
+        });
 
-//        });
+        describe('startReordering:', function () {
 
-//        describe('beginEditText:', function () {
+            it('should be function', function () {
+                expect(viewModel.startReordering).toBeFunction();
+            });
 
-//            it('should be function', function () {
-//                expect(viewModel.beginEditText).toBeFunction();
-//            });
+            it('should set orderInProcess', function () {
+                viewModel.orderInProcess = false;
+                viewModel.startReordering();
 
-//            it('should send event \'Start editing learning content\'', function () {
-//                viewModel.beginEditText({});
-//                expect(eventTracker.publish).toHaveBeenCalledWith('Start editing learning content');
-//            });
+                expect(viewModel.orderInProcess).toBeTruthy();
+            });
 
-//            it('should send event \'Start editing learning content\' with category \'Information\' for informationContent question type', function () {
-//                viewModel.questionType = 'informationContent';
-//                viewModel.beginEditText({});
-//                expect(eventTracker.publish).toHaveBeenCalledWith('Start editing learning content', 'Information');
-//            });
-//        });
+        });
 
-//        describe('endEditText:', function () {
+        describe('stopReordering:', function () {
 
-//            var removeLearningContent;
-//            beforeEach(function () {
-//                removeLearningContent = Q.defer();
-//                spyOn(repository, 'removeLearningContent').and.returnValue(removeLearningContent.promise);
-//            });
+            beforeEach(function () {
+                viewModel.learningContents([{ id: ko.observable('id1') }, { id: ko.observable('id2') }]);
+                viewModel.questionId = 'id';
+            });
 
-//            it('should be function', function () {
-//                expect(viewModel.endEditText).toBeFunction();
-//            });
+            it('should be function', function () {
+                expect(viewModel.stopReordering).toBeFunction();
+            });
 
-//            it('should send event \'End editing learning content\'', function () {
-//                var learningContent = { id: ko.observable('learningContentId'), text: ko.observable('') };
-//                viewModel.endEditText(learningContent);
-//                expect(eventTracker.publish).toHaveBeenCalledWith('End editing learning content');
-//            });
+            it('should reset orderInProcess', function () {
+                viewModel.orderInProcess = true;
+                viewModel.stopReordering();
+                expect(viewModel.orderInProcess).toBeFalsy();
+            });
 
-//            it('should send event \'End editing learning content\' with category \'Information\' for informationContent question type', function () {
-//                viewModel.questionType = 'informationContent';
-//                var learningContent = { id: ko.observable('learningContentId'), text: ko.observable('') };
-//                viewModel.endEditText(learningContent);
-//                expect(eventTracker.publish).toHaveBeenCalledWith('End editing learning content', 'Information');
-//            });
+            it('should reset changesFromCollaborator', function () {
+                viewModel.orderInProcess = true;
+                viewModel.changesFromCollaborator = {
+                    question: { id: 'id' }, learningContentsIds: ['id1', 'id2']
+                };
+                viewModel.stopReordering();
+                expect(viewModel.changesFromCollaborator).toBeNull();
+            });
 
-//            describe('when learningContent has been deleted by collaborator', function () {
-//                it('should be removed from learningContents list', function () {
-//                    var learningContent = { id: ko.observable('learningContentId'), text: ko.observable(''), isDeleted: true };
-//                    viewModel.learningContents([learningContent]);
+            describe('when learning contents have not been reordered by collaborator', function () {
 
-//                    viewModel.endEditText(learningContent);
+                it('should not reorder learning contents', function () {
+                    var learningContentsIds = viewModel.learningContents()[0].id() + viewModel.learningContents()[1].id();
+                    viewModel.changesFromCollaborator = null;
+                    viewModel.stopReordering();
+                    expect(viewModel.learningContents()[0].id() + viewModel.learningContents()[1].id()).toBe(learningContentsIds);
+                });
 
-//                    expect(viewModel.learningContents().length).toBe(0);
-//                });
-//            });
+            });
 
-//            describe('when text is empty', function () {
+            describe('when learning contents have been reordered by collaborator', function () {
 
-//                describe('and id is not empty', function () {
+                describe('and question Id is equals to current question Id', function () {
 
-//                    it('should remove learning content from the repository', function () {
-//                        var learningContent = { id: ko.observable('learningContentId'), text: ko.observable('') };
-//                        viewModel.learningContents([learningContent]);
+                    it('should reorder learning contents', function () {
+                        var learningContentsIds = viewModel.learningContents()[1].id() + viewModel.learningContents()[0].id();
+                        viewModel.changesFromCollaborator = {
+                            question: { id: 'id' }, learningContentsIds: ['id2', 'id1']
+                        }
+                        viewModel.stopReordering();
+                        expect(viewModel.learningContents()[0].id() + viewModel.learningContents()[1].id()).toBe(learningContentsIds);
+                    });
+                });
 
-//                        viewModel.endEditText(learningContent);
+                describe('and question Id is not equals to current question Id', function () {
 
-//                        expect(repository.removeLearningContent).toHaveBeenCalledWith(questionId, learningContent.id());
-//                    });
+                    it('should not reorder learning contents', function () {
+                        var learningContentsIds = viewModel.learningContents()[0].id() + viewModel.learningContents()[1].id();
+                        viewModel.changesFromCollaborator = {
+                            question: { id: 'anotherid' }, learningContentsIds: ['id2', 'id1']
+                        }
+                        viewModel.stopReordering();
+                        expect(viewModel.learningContents()[0].id() + viewModel.learningContents()[1].id()).toBe(learningContentsIds);
+                    });
+                });
 
-//                    it('should show notification', function (done) {
-//                        var learningContent = { id: ko.observable('learningContentId'), text: ko.observable('') };
-//                        viewModel.learningContents([learningContent]);
-//                        removeLearningContent.resolve(new Date());
+            });
 
-//                        viewModel.endEditText(learningContent);
+        });
 
-//                        removeLearningContent.promise.fin(function () {
-//                            expect(notify.saved).toHaveBeenCalled();
-//                            done();
-//                        });
-//                    });
+        describe('learningContentsReorderedByCollaborator:', function () {
+            beforeEach(function () {
+                var learningContents = [
+                            { id: ko.observable('id1') },
+                            { id: ko.observable('id2') },
+                            { id: ko.observable('id3') },
+                            { id: ko.observable('id4') }
+                ];
+                viewModel.learningContents(learningContents);
+            });
 
-//                });
+            it('should be function', function () {
+                expect(viewModel.learningContentsReorderedByCollaborator).toBeFunction();
+            });
 
-//                describe('and id is empty', function () {
+            describe('when question id corresponds current question', function () {
 
-//                    it('should not remove learning content from the repository', function () {
-//                        var learningContent = { id: ko.observable(''), text: ko.observable('') };
-//                        viewModel.learningContents([learningContent]);
+                var newLearningContentsIds = ['id4', 'id3', 'id2', 'id1'];
 
-//                        viewModel.endEditText(learningContent);
+                beforeEach(function () {
+                    viewModel.questionId = 'qid';
+                });
 
-//                        expect(repository.removeLearningContent).not.toHaveBeenCalled();
-//                    });
+                describe('and orderInProcess is false', function () {
 
-//                });
+                    beforeEach(function () {
+                        viewModel.orderInProcess = false;
+                    });
 
-//                it('should remove learning content from the viewModel', function () {
-//                    var learningContent = { id: ko.observable(''), text: ko.observable('') };
-//                    viewModel.learningContents([learningContent]);
+                    it('should update order of learning contents', function () {
+                        var currentLc = viewModel.learningContents();
+                        var currentOrder = currentLc[0].id() + currentLc[1].id() + currentLc[2].id() + currentLc[3].id();
 
-//                    viewModel.endEditText(learningContent);
+                        viewModel.learningContentsReorderedByCollaborator({ id: viewModel.questionId }, newLearningContentsIds);
 
-//                    expect(viewModel.learningContents().length).toEqual(0);
-//                });
+                        var resultOrder = viewModel.learningContents();
+                        expect(resultOrder[3].id() + resultOrder[2].id() + resultOrder[1].id() + resultOrder[0].id()).toBe(currentOrder);
+                    });
+                });
 
-//            });
+                describe('and orderInProcess is true', function () {
+                    beforeEach(function () {
+                        viewModel.orderInProcess = true;
+                    });
 
-//        });
+                    it('should set changesFromCollaborator', function () {
+                        viewModel.changesFromCollaborator = null;
+                        var currentLc = viewModel.learningContents();
+                        var currentOrder = currentLc[0].id() + currentLc[1].id() + currentLc[2].id() + currentLc[3].id();
 
-//        describe('updateText:', function () {
+                        viewModel.learningContentsReorderedByCollaborator({ id: viewModel.questionId }, newLearningContentsIds);
 
-//            var addLearningContent;
-//            var updateLearningContentText;
+                        var resultOrder = viewModel.changesFromCollaborator.learningContentsIds;
 
-//            var learningContents = [{ id: '0', text: '0' }, { id: '1', text: '1' }];
+                        expect(resultOrder[3] + resultOrder[2] + resultOrder[1] + resultOrder[0]).toBe(currentOrder);
+                    });
 
-//            beforeEach(function () {
-//                addLearningContent = Q.defer();
-//                updateLearningContentText = Q.defer();
+                    it('should not update order of learning contents', function () {
+                        var currentLc = viewModel.learningContents();
+                        var currentOrder = currentLc[0].id() + currentLc[1].id() + currentLc[2].id() + currentLc[3].id();
 
-//                spyOn(repository, 'addLearningContent').and.returnValue(addLearningContent.promise);
-//                spyOn(repository, 'updateText').and.returnValue(updateLearningContentText.promise);
-//            });
+                        viewModel.learningContentsReorderedByCollaborator({ id: viewModel.questionId }, newLearningContentsIds);
 
-//            it('should be function', function () {
-//                expect(viewModel.updateText).toBeFunction();
-//            });
+                        var resultOrder = viewModel.learningContents();
+                        expect(resultOrder[0].id() + resultOrder[1].id() + resultOrder[2].id() + resultOrder[3].id()).toBe(currentOrder);
+                    });
+                });
+            });
 
-//            describe('when text is not empty', function () {
+            describe('when question id doesn\'t correspond current question', function () {
 
-//                describe('and id is not empty', function () {
-//                    var text = 'text';
-//                    var learningContent = { id: ko.observable('learningContentId'), text: ko.observable(text) };
+                var collaboratorslearningContents = [
+                            'id4',
+                            'id3',
+                            'id2',
+                            'id1'
+                ];
 
-//                    describe('and text is not modified', function () {
-//                        beforeEach(function () {
-//                            learningContent.originalText = text;
-//                        });
+                beforeEach(function () {
+                    viewModel.questionId = 'someId';
+                });
 
-//                        it('should not update learning content text in the repository', function () {
-//                            viewModel.updateText(learningContent);
-//                            expect(repository.updateText).not.toHaveBeenCalledWith(learningContent.id(), learningContent.text());
-//                        });
+                it('should not update order of learning contents', function () {
+                    var question = { id: 'id' };
+                    var currentLc = viewModel.learningContents();
+                    var currentOrder = currentLc[0].id() + currentLc[1].id() + currentLc[2].id() + currentLc[3].id();
 
-//                    });
+                    viewModel.learningContentsReorderedByCollaborator(question, collaboratorslearningContents);
 
-//                    describe('and text is modified', function () {
-//                        beforeEach(function () {
-//                            learningContent.originalText = 'text2';
-//                        });
+                    var resultOrder = viewModel.learningContents();
+                    expect(resultOrder[0].id() + resultOrder[1].id() + resultOrder[2].id() + resultOrder[3].id()).toBe(currentOrder);
+                });
 
-//                        it('should update learning content text in the repository', function (done) {
-//                            updateLearningContentText.resolve();
+                it('should not set changes from collaborator', function () {
+                    var question = { id: 'id' };
+                    viewModel.changesFromCollaborator = null;
+                    viewModel.learningContentsReorderedByCollaborator(question, collaboratorslearningContents);
 
-//                            viewModel.updateText(learningContent);
+                    expect(viewModel.changesFromCollaborator).toBeNull();
+                });
 
-//                            updateLearningContentText.promise.fin(function () {
-//                                expect(repository.updateText).toHaveBeenCalledWith(questionId, learningContent.id(), learningContent.text());
-//                                done();
-//                            });
-//                        });
+            });
+        });
 
-//                        it('should show notification', function (done) {
-//                            updateLearningContentText.resolve({ modifiedOn: new Date() });
+        describe('createdByCollaborator:', function () {
+            var question = { id: questionId },
+                learningContent = { id: 'learningContentId', text: 'some text', type: constants.learningContentsTypes.content };
 
-//                            viewModel.updateText(learningContent);
+            beforeEach(function() {
+                viewModel.questionId = questionId;
+            });
 
-//                            updateLearningContentText.promise.fin(function () {
-//                                expect(notify.saved).toHaveBeenCalled();
-//                                done();
-//                            });
-//                        });
+            it('should be function', function () {
+                expect(viewModel.createdByCollaborator).toBeFunction();
+            });
 
-//                        it('should update learning content original text', function (done) {
-//                            updateLearningContentText.resolve(new Date());
+            describe('when it is current question', function () {
 
-//                            viewModel.updateText(learningContent);
+                it('should add learning content to list', function () {
+                    viewModel.learningContents([]);
+                    viewModel.createdByCollaborator(question, learningContent);
 
-//                            updateLearningContentText.promise.fin(function () {
-//                                expect(learningContent.originalText).toBe(learningContent.text());
-//                                done();
-//                            });
-//                        });
+                    expect(viewModel.learningContents().length).toBe(1);
+                    expect(viewModel.learningContents()[0].id()).toBe(learningContent.id);
+                });
 
-//                    });
+            });
 
-//                });
+            describe('when it is not current question', function () {
 
-//                describe('and id is empty', function () {
+                it('should not add learning content to list', function () {
+                    viewModel.learningContents([]);
+                    question.id = 'another id';
+                    viewModel.createdByCollaborator(question, learningContent);
 
-//                    var id = 'id';
-//                    var learningContent;
+                    expect(viewModel.learningContents().length).toBe(0);
+                });
 
-//                    beforeEach(function () {
-//                        learningContent = { id: ko.observable(''), text: ko.observable('text') };
-//                    });
+            });
 
-//                    it('should add learning content to the repository', function () {
-//                        viewModel.updateText(learningContent);
-//                        expect(repository.addLearningContent).toHaveBeenCalledWith(questionId, { text: learningContent.text() });
-//                    });
+        });
 
-//                    it('should update learning content id in the viewModel', function (done) {
-//                        addLearningContent.resolve({ id: id, createdOn: new Date() });
+        describe('deletedByCollaborator:', function () {
+            var question = { id: questionId },
+                learningContentId = 'learningContentId';
 
-//                        viewModel.updateText(learningContent);
+            it('should be function', function () {
+                expect(viewModel.deletedByCollaborator).toBeFunction();
+            });
 
-//                        addLearningContent.promise.fin(function () {
-//                            expect(learningContent.id()).toEqual(id);
-//                            done();
-//                        });
-//                    });
+            describe('when question is not current question', function () {
 
+                it('should not delete learning content from list', function () {
+                    viewModel.learningContents([{ id: ko.observable(learningContentId), hasFocus: ko.observable(false) }]);
+                    question.id = 'another id';
 
-//                    it('should show notification', function (done) {
-//                        addLearningContent.resolve({ id: id, createdOn: new Date() });
-//                        viewModel.updateText(learningContent);
+                    viewModel.deletedByCollaborator(question, learningContentId);
+                    expect(viewModel.learningContents().length).toEqual(1);
+                });
 
-//                        addLearningContent.promise.fin(function () {
-//                            expect(notify.saved).toHaveBeenCalled();
-//                            done();
-//                        });
-//                    });
+            });
 
-//                    it('should set learning content original text', function (done) {
-//                        addLearningContent.resolve({ id: id, createdOn: new Date() });
+            describe('when question is current question', function () {
 
-//                        viewModel.updateText(learningContent);
+                beforeEach(function () {
+                    viewModel.questionId = question.id;
+                });
 
-//                        addLearningContent.promise.fin(function () {
-//                            expect(learningContent.originalText).toBe(learningContent.text());
-//                            done();
-//                        });
-//                    });
-//                });
-//            });
-//        });
+                describe('and learning content with appropriate id exists', function () {
 
-//        describe('isExpanded:', function () {
+                    describe('and does not have focus', function () {
 
-//            it('should be observable', function () {
-//                expect(viewModel.isExpanded).toBeObservable();
-//            });
+                        it('should remove learning objective', function () {
+                            viewModel.learningContents([{ id: ko.observable(learningContentId), hasFocus: ko.observable(false) }]);
+                            viewModel.deletedByCollaborator(question, learningContentId);
 
-//            it('should be true by default', function () {
-//                expect(viewModel.isExpanded()).toBeTruthy();
-//            });
+                            expect(viewModel.learningContents().length).toEqual(0);
+                        });
 
-//        });
+                    });
 
-//        describe('toggleExpand:', function () {
+                    describe('and has focus', function () {
 
-//            it('should be function', function () {
-//                expect(viewModel.toggleExpand).toBeFunction();
-//            });
+                        beforeEach(function () {
+                            viewModel.learningContents([{ id: ko.observable(learningContentId), hasFocus: ko.observable(true) }]);
+                            spyOn(notify, 'error');
+                        });
 
-//            it('should toggle isExpanded value', function () {
-//                viewModel.isExpanded(false);
-//                viewModel.toggleExpand();
-//                expect(viewModel.isExpanded()).toEqual(true);
-//            });
+                        it('should not remove learning objective', function () {
+                            viewModel.deletedByCollaborator(question, learningContentId);
+                            expect(viewModel.learningContents().length).toEqual(1);
+                        });
 
-//        });
+                        it('should show error notification', function () {
+                            viewModel.deletedByCollaborator(question, learningContentId);
+                            expect(notify.error).toHaveBeenCalled();
+                        });
 
-//        describe('autosaveInterval:', function () {
+                        it('should set \'isDeleted\' of learningContent to true', function () {
+                            viewModel.deletedByCollaborator(question, learningContentId);
+                            expect(viewModel.learningContents()[0].isDeleted).toBeTruthy();
+                        });
 
-//            it('should be number', function () {
-//                expect(viewModel.autosaveInterval).toEqual(jasmine.any(Number));
-//            });
+                    });
 
-//        });
+                });
 
-//        describe('createdByCollaborator:', function () {
-//            var question = { id: questionId },
-//                learningContent = { id: 'learningContentId', text: 'some text' };
+                describe('and learning content with appropriate id does not exist', function () {
 
-//            it('should be function', function () {
-//                expect(viewModel.createdByCollaborator).toBeFunction();
-//            });
+                    it('should not remove learning objective', function () {
+                        viewModel.learningContents([{ id: ko.observable('otherId') }]);
+                        viewModel.deletedByCollaborator(question, learningContentId);
 
-//            describe('when it is current question', function () {
+                        expect(viewModel.learningContents().length).toEqual(1);
+                    });
 
-//                it('should add learning content to list', function () {
-//                    viewModel.learningContents([]);
-//                    viewModel.createdByCollaborator(question, learningContent);
+                });
 
-//                    expect(viewModel.learningContents().length).toBe(1);
-//                    expect(viewModel.learningContents()[0].id()).toBe(learningContent.id);
-//                });
+            });
 
-//            });
+        });
 
-//            describe('when it is not current question', function () {
+        describe('textUpdatedByCollaborator:', function () {
+            var question = { id: questionId },
+                learningContent = { id: ko.observable('0'), text: ko.observable(''), originalText: '', hasFocus: ko.observable(false) },
+                updatedLearningContent = { id: '0', text: 'newLearningContent' };
 
-//                it('should not add learning content to list', function () {
-//                    viewModel.learningContents([]);
-//                    question.id = 'another id';
-//                    viewModel.createdByCollaborator(question, learningContent);
+            it('should be function', function () {
+                expect(viewModel.textUpdatedByCollaborator).toBeFunction();
+            });
 
-//                    expect(viewModel.learningContents().length).toBe(0);
-//                });
+            describe('when question is not current question', function () {
 
-//            });
+                it('should not update learning content', function () {
+                    viewModel.learningContents([{ id: ko.observable('0'), text: ko.observable(''), originalText: '', hasFocus: ko.observable(false) }]);
 
-//        });
+                    viewModel.textUpdatedByCollaborator(question, updatedLearningContent);
+                    expect(viewModel.learningContents()[0].text()).toBe('');
+                });
 
-//        describe('deletedByCollaborator:', function () {
-//            var question = { id: questionId },
-//                learningContentId = 'learningContentId';
+            });
 
-//            it('should be function', function () {
-//                expect(viewModel.deletedByCollaborator).toBeFunction();
-//            });
+            describe('when question is current question', function () {
 
-//            describe('when question is not current question', function () {
+                beforeEach(function () {
+                    viewModel.questionId = question.id;
+                });
 
-//                it('should not delete learning content from list', function () {
-//                    viewModel.learningContents([{ id: ko.observable(learningContentId), hasFocus: ko.observable(false) }]);
-//                    question.id = 'another id';
+                describe('and learning content is found', function () {
 
-//                    viewModel.deletedByCollaborator(question, learningContentId);
-//                    expect(viewModel.learningContents().length).toEqual(1);
-//                });
+                    beforeEach(function () {
+                        viewModel.learningContents([learningContent]);
+                    });
 
-//            });
+                    it('should update original text', function () {
+                        viewModel.learningContents()[0].originalText = '';
+                        viewModel.textUpdatedByCollaborator(question, updatedLearningContent);
 
-//            describe('when question is current question', function () {
+                        expect(viewModel.learningContents()[0].originalText).toBe(updatedLearningContent.text);
+                    });
 
-//                beforeEach(function () {
-//                    viewModel.questionId = question.id;
-//                });
+                    describe('and it does not have focus', function () {
 
-//                describe('and learning content with appropriate id exists', function () {
+                        it('should be updated', function () {
+                            viewModel.learningContents()[0].text('');
+                            viewModel.learningContents()[0].hasFocus(false);
+                            viewModel.textUpdatedByCollaborator(question, updatedLearningContent);
 
-//                    describe('and does not have focus', function () {
+                            expect(viewModel.learningContents()[0].text()).toBe(updatedLearningContent.text);
+                        });
 
-//                        it('should remove learning objective', function () {
-//                            viewModel.learningContents([{ id: ko.observable(learningContentId), hasFocus: ko.observable(false) }]);
-//                            viewModel.deletedByCollaborator(question, learningContentId);
+                    });
 
-//                            expect(viewModel.learningContents().length).toEqual(0);
-//                        });
+                    describe('and has focus', function () {
 
-//                    });
+                        it('should not be updated', function () {
+                            viewModel.learningContents()[0].text('');
+                            viewModel.learningContents()[0].hasFocus(true);
+                            viewModel.textUpdatedByCollaborator(question, updatedLearningContent);
 
-//                    describe('and has focus', function () {
+                            expect(viewModel.learningContents()[0].text()).not.toBe(updatedLearningContent.text);
+                        });
 
-//                        beforeEach(function () {
-//                            viewModel.learningContents([{ id: ko.observable(learningContentId), hasFocus: ko.observable(true) }]);
-//                            spyOn(notify, 'error');
-//                        });
+                    });
 
-//                        it('should not remove learning objective', function () {
-//                            viewModel.deletedByCollaborator(question, learningContentId);
-//                            expect(viewModel.learningContents().length).toEqual(1);
-//                        });
+                });
 
-//                        it('should show error notification', function () {
-//                            viewModel.deletedByCollaborator(question, learningContentId);
-//                            expect(notify.error).toHaveBeenCalled();
-//                        });
+            });
 
-//                        it('should set \'isDeleted\' of learningContent to true', function () {
-//                            viewModel.deletedByCollaborator(question, learningContentId);
-//                            expect(viewModel.learningContents()[0].isDeleted).toBeTruthy();
-//                        });
+        });
 
-//                    });
+        describe('isExpanded:', function () {
 
-//                });
+            it('should be observable', function () {
+                expect(viewModel.isExpanded).toBeObservable();
+            });
 
-//                describe('and learning content with appropriate id does not exist', function () {
+            it('should be true by default', function () {
+                expect(viewModel.isExpanded()).toBeTruthy();
+            });
 
-//                    it('should not remove learning objective', function () {
-//                        viewModel.learningContents([{ id: ko.observable('otherId') }]);
-//                        viewModel.deletedByCollaborator(question, learningContentId);
+        });
 
-//                        expect(viewModel.learningContents().length).toEqual(1);
-//                    });
+        describe('toggleExpand:', function () {
 
-//                });
+            it('should be function', function () {
+                expect(viewModel.toggleExpand).toBeFunction();
+            });
 
-//            });
+            it('should toggle isExpanded value', function () {
+                viewModel.isExpanded(false);
+                viewModel.toggleExpand();
+                expect(viewModel.isExpanded()).toEqual(true);
+            });
 
-//        });
+        });
 
-//        describe('textUpdatedByCollaborator:', function () {
-//            var question = { id: questionId },
-//                learningContent = { id: ko.observable('0'), text: ko.observable(''), originalText: '', hasFocus: ko.observable(false) },
-//                updatedLearningContent = { id: '0', text: 'newLearningContent' };
+        describe('activate:', function () {
 
-//            it('should be function', function () {
-//                expect(viewModel.textUpdatedByCollaborator).toBeFunction();
-//            });
+            var activationData = {
+                questionId: questionId
+            },
+                getLearningContentFeedbackDeferred;
 
-//            describe('when question is not current question', function () {
+            beforeEach(function () {
+                getLearningContentFeedbackDeferred = Q.defer();
+                spyOn(repository, 'getCollection').and.returnValue(getLearningContentFeedbackDeferred.promise);
+            });
 
-//                it('should not update learning content', function () {
-//                    viewModel.learningContents([{ id: ko.observable('0'), text: ko.observable(''), originalText: '', hasFocus: ko.observable(false) }]);
+            it('should be function', function () {
+                expect(viewModel.activate).toBeFunction();
+            });
 
-//                    viewModel.textUpdatedByCollaborator(question, updatedLearningContent);
-//                    expect(viewModel.learningContents()[0].text()).toBe('');
-//                });
+            it('should return promise', function () {
+                getLearningContentFeedbackDeferred.resolve([]);
+                expect(viewModel.activate(activationData)).toBePromise();
+            });
 
-//            });
+            describe('when route data has questionId', function () {
+                beforeEach(function () {
+                    spyOn(router, 'routeData').and.returnValue({ questionId: 'questionId' });
+                });
 
-//            describe('when question is current question', function () {
+                it('should call repository method to get learning contents', function (done) {
+                    getLearningContentFeedbackDeferred.resolve([]);
+                    viewModel.activate(activationData).fin(function () {
+                        expect(repository.getCollection).toHaveBeenCalledWith(questionId);
+                        done();
+                    });
+                });
+                
+            });
 
-//                beforeEach(function () {
-//                    viewModel.questionId = question.id;
-//                });
+            describe('when route data does not have questionId', function () {
+                beforeEach(function () {
+                    spyOn(router, 'routeData').and.returnValue({});
+                });
 
-//                describe('and learning content is found', function () {
+                it('should not call repository method to get learning contents', function (done) {
+                    viewModel.activate(activationData).fin(function () {
+                        expect(repository.getCollection).not.toHaveBeenCalled();
+                        done();
+                    });
+                });
+            });
+        });
 
-//                    beforeEach(function () {
-//                        viewModel.learningContents([learningContent]);
-//                    });
+        describe('localizationManager:', function () {
 
-//                    it('should update original text', function () {
-//                        viewModel.learningContents()[0].originalText = '';
-//                        viewModel.textUpdatedByCollaborator(question, updatedLearningContent);
+            it('should be defined', function () {
+                expect(viewModel.localizationManager).toBeDefined();
+            });
 
-//                        expect(viewModel.learningContents()[0].originalText).toBe(updatedLearningContent.text);
-//                    });
+        });
 
-//                    describe('and it does not have focus', function () {
+        describe('isSortingEnabled:', function () {
 
-//                        it('should be updated', function () {
-//                            viewModel.learningContents()[0].text('');
-//                            viewModel.learningContents()[0].hasFocus(false);
-//                            viewModel.textUpdatedByCollaborator(question, updatedLearningContent);
+            it('should be computed', function () {
+                expect(viewModel.isSortingEnabled).toBeComputed();
+            });
 
-//                            expect(viewModel.learningContents()[0].text()).toBe(updatedLearningContent.text);
-//                        });
+            describe('when learning contents count is 0', function () {
 
-//                    });
+                it('should be falsy', function () {
+                    viewModel.learningContents([]);
 
-//                    describe('and has focus', function () {
+                    expect(viewModel.isSortingEnabled()).toBeFalsy();
+                });
 
-//                        it('should not be updated', function () {
-//                            viewModel.learningContents()[0].text('');
-//                            viewModel.learningContents()[0].hasFocus(true);
-//                            viewModel.textUpdatedByCollaborator(question, updatedLearningContent);
+            });
 
-//                            expect(viewModel.learningContents()[0].text()).not.toBe(updatedLearningContent.text);
-//                        });
+            describe('when learning contents count is 1', function () {
 
-//                    });
+                it('should be falsy', function () {
+                    viewModel.learningContents([{ id: 'id' }]);
 
-//                });
+                    expect(viewModel.isSortingEnabled()).toBeFalsy();
+                });
 
-//            });
+            });
 
-//        });
+            describe('when learning contents count is more than 1', function () {
 
-//        describe('orderInProcess:', function () {
+                it('should be truthy', function () {
+                    viewModel.learningContents([
+                        { id: 'id' },
+                        { id: 'id2' }
+                    ]);
 
-//            it('should be defined', function () {
-//                expect(viewModel.orderInProcess).toBeDefined();
-//            });
+                    expect(viewModel.isSortingEnabled()).toBeTruthy();
+                });
 
-//        });
+            });
 
-//        describe('changesFromCollaborator:', function () {
+        });
 
-//            it('should be defined', function () {
-//                expect(viewModel.changesFromCollaborator).toBeDefined();
-//            });
+        describe('orderInProcess:', function () {
 
-//        });
+            it('should be defined', function () {
+                expect(viewModel.orderInProcess).toBeDefined();
+            });
 
-//        describe('isSortingEnabled:', function () {
+        });
 
-//            it('should be computed', function () {
-//                expect(viewModel.isSortingEnabled).toBeComputed();
-//            });
+        describe('changesFromCollaborator:', function () {
 
-//            describe('when learning contents count is 0', function () {
+            it('should be defined', function () {
+                expect(viewModel.changesFromCollaborator).toBeDefined();
+            });
 
-//                it('should be falsy', function () {
-//                    viewModel.learningContents([]);
+        });
 
-//                    expect(viewModel.isSortingEnabled()).toBeFalsy();
-//                });
+    });
 
-//            });
-
-//            describe('when learning contents count is 1', function () {
-
-//                it('should be falsy', function () {
-//                    viewModel.learningContents([{ id: 'id' }]);
-
-//                    expect(viewModel.isSortingEnabled()).toBeFalsy();
-//                });
-
-//            });
-
-//            describe('when learning contents count is more than 1', function () {
-
-//                it('should be truthy', function () {
-//                    viewModel.learningContents([
-//                        { id: 'id' },
-//                        { id: 'id2' }
-//                    ]);
-
-//                    expect(viewModel.isSortingEnabled()).toBeTruthy();
-//                });
-
-//            });
-
-//        });
-
-//        describe('startReordering:', function () {
-
-//            it('should be function', function () {
-//                expect(viewModel.startReordering).toBeFunction();
-//            });
-
-//            it('should set orderInProcess', function () {
-//                viewModel.orderInProcess = false;
-//                viewModel.startReordering();
-
-//                expect(viewModel.orderInProcess).toBeTruthy();
-//            });
-
-//        });
-
-//        describe('stopReordering:', function () {
-
-//            beforeEach(function () {
-//                viewModel.learningContents([{ id: ko.observable('id1') }, { id: ko.observable('id2') }]);
-//                viewModel.questionId = 'id';
-//            });
-
-//            it('should be function', function () {
-//                expect(viewModel.stopReordering).toBeFunction();
-//            });
-
-//            it('should reset orderInProcess', function () {
-//                viewModel.orderInProcess = true;
-//                viewModel.stopReordering();
-//                expect(viewModel.orderInProcess).toBeFalsy();
-//            });
-
-//            it('should reset changesFromCollaborator', function () {
-//                viewModel.orderInProcess = true;
-//                viewModel.changesFromCollaborator = {
-//                    question: { id: 'id' }, learningContentsIds: ['id1', 'id2']
-//                };
-//                viewModel.stopReordering();
-//                expect(viewModel.changesFromCollaborator).toBeNull();
-//            });
-
-//            describe('when learning contents have not been reordered by collaborator', function () {
-
-//                it('should not reorder learning contents', function () {
-//                    var learningContentsIds = viewModel.learningContents()[0].id() + viewModel.learningContents()[1].id();
-//                    viewModel.changesFromCollaborator = null;
-//                    viewModel.stopReordering();
-//                    expect(viewModel.learningContents()[0].id() + viewModel.learningContents()[1].id()).toBe(learningContentsIds);
-//                });
-
-//            });
-
-//            describe('when learning contents have been reordered by collaborator', function () {
-
-//                describe('and question Id is equals to current question Id', function () {
-
-//                    it('should reorder learning contents', function () {
-//                        var learningContentsIds = viewModel.learningContents()[1].id() + viewModel.learningContents()[0].id();
-//                        viewModel.changesFromCollaborator = {
-//                            question: { id: 'id' }, learningContentsIds: ['id2', 'id1']
-//                        }
-//                        viewModel.stopReordering();
-//                        expect(viewModel.learningContents()[0].id() + viewModel.learningContents()[1].id()).toBe(learningContentsIds);
-//                    });
-//                });
-
-//                describe('and question Id is not equals to current question Id', function () {
-
-//                    it('should not reorder learning contents', function () {
-//                        var learningContentsIds = viewModel.learningContents()[0].id() + viewModel.learningContents()[1].id();
-//                        viewModel.changesFromCollaborator = {
-//                            question: { id: 'anotherid' }, learningContentsIds: ['id2', 'id1']
-//                        }
-//                        viewModel.stopReordering();
-//                        expect(viewModel.learningContents()[0].id() + viewModel.learningContents()[1].id()).toBe(learningContentsIds);
-//                    });
-//                });
-
-//            });
-
-//        });
-
-//        describe('updateOrder:', function () {
-
-//            beforeEach(function () {
-//                var def = Q.defer();
-//                def.resolve();
-//                spyOn(questionRepository, 'updateLearningContentsOrder').and.returnValue(def.promise);
-//            });
-
-//            it('should be function', function () {
-//                expect(viewModel.updateOrder).toBeFunction();
-//            });
-
-//            it('should reset changesFromCollaborator', function () {
-//                viewModel.changesFromCollaborator = {
-//                    question: { id: 'id' }, learningContentsIds: ['id2', 'id1']
-//                }
-//                viewModel.updateOrder();
-//                expect(viewModel.changesFromCollaborator).toBeNull();
-//            });
-
-//            it('should send event to mixPanel', function () {
-//                viewModel.updateOrder();
-//                expect(eventTracker.publish).toHaveBeenCalledWith('Change order of Learning Contents');
-//            });
-
-//            it('should update learning contents order', function () {
-//                viewModel.updateOrder();
-//                expect(questionRepository.updateLearningContentsOrder).toHaveBeenCalled();
-//            });
-
-//        });
-
-//        describe('learningContentsReorderedByCollaborator:', function () {
-//            beforeEach(function () {
-//                var learningContents = [
-//                            { id: ko.observable('id1') },
-//                            { id: ko.observable('id2') },
-//                            { id: ko.observable('id3') },
-//                            { id: ko.observable('id4') }
-//                ];
-//                viewModel.learningContents(learningContents);
-//            });
-
-//            it('should be function', function () {
-//                expect(viewModel.learningContentsReorderedByCollaborator).toBeFunction();
-//            });
-
-//            describe('when question id corresponds current question', function () {
-
-//                var newLearningContentsIds = ['id4', 'id3', 'id2', 'id1'];
-
-//                beforeEach(function () {
-//                    viewModel.questionId = 'qid';
-//                });
-
-//                describe('and orderInProcess is false', function () {
-
-//                    beforeEach(function () {
-//                        viewModel.orderInProcess = false;
-//                    });
-
-//                    it('should update order of learning contents', function () {
-//                        var currentLc = viewModel.learningContents();
-//                        var currentOrder = currentLc[0].id() + currentLc[1].id() + currentLc[2].id() + currentLc[3].id();
-
-//                        viewModel.learningContentsReorderedByCollaborator({ id: viewModel.questionId }, newLearningContentsIds);
-
-//                        var resultOrder = viewModel.learningContents();
-//                        expect(resultOrder[3].id() + resultOrder[2].id() + resultOrder[1].id() + resultOrder[0].id()).toBe(currentOrder);
-//                    });
-//                });
-
-//                describe('and orderInProcess is true', function () {
-//                    beforeEach(function () {
-//                        viewModel.orderInProcess = true;
-//                    });
-
-//                    it('should set changesFromCollaborator', function () {
-//                        viewModel.changesFromCollaborator = null;
-//                        var currentLc = viewModel.learningContents();
-//                        var currentOrder = currentLc[0].id() + currentLc[1].id() + currentLc[2].id() + currentLc[3].id();
-
-//                        viewModel.learningContentsReorderedByCollaborator({ id: viewModel.questionId }, newLearningContentsIds);
-
-//                        var resultOrder = viewModel.changesFromCollaborator.learningContentsIds;
-
-//                        expect(resultOrder[3] + resultOrder[2] + resultOrder[1] + resultOrder[0]).toBe(currentOrder);
-//                    });
-
-//                    it('should not update order of learning contents', function () {
-//                        var currentLc = viewModel.learningContents();
-//                        var currentOrder = currentLc[0].id() + currentLc[1].id() + currentLc[2].id() + currentLc[3].id();
-
-//                        viewModel.learningContentsReorderedByCollaborator({ id: viewModel.questionId }, newLearningContentsIds);
-
-//                        var resultOrder = viewModel.learningContents();
-//                        expect(resultOrder[0].id() + resultOrder[1].id() + resultOrder[2].id() + resultOrder[3].id()).toBe(currentOrder);
-//                    });
-//                });
-//            });
-
-//            describe('when question id doesn\'t correspond current question', function () {
-
-//                var collaboratorslearningContents = [
-//                            'id4',
-//                            'id3',
-//                            'id2',
-//                            'id1'
-//                ];
-
-//                beforeEach(function () {
-//                    viewModel.questionId = 'someId';
-//                });
-
-//                it('should not update order of learning contents', function () {
-//                    var question = { id: 'id' };
-//                    var currentLc = viewModel.learningContents();
-//                    var currentOrder = currentLc[0].id() + currentLc[1].id() + currentLc[2].id() + currentLc[3].id();
-
-//                    viewModel.learningContentsReorderedByCollaborator(question, collaboratorslearningContents);
-
-//                    var resultOrder = viewModel.learningContents();
-//                    expect(resultOrder[0].id() + resultOrder[1].id() + resultOrder[2].id() + resultOrder[3].id()).toBe(currentOrder);
-//                });
-
-//                it('should not set changes from collaborator', function () {
-//                    var question = { id: 'id' };
-//                    viewModel.changesFromCollaborator = null;
-//                    viewModel.learningContentsReorderedByCollaborator(question, collaboratorslearningContents);
-
-//                    expect(viewModel.changesFromCollaborator).toBeNull();
-//                });
-
-//            });
-//        });
-
-//        describe('isAddedButtonsShown', function () {
-
-//            it('should be observable', function () {
-//                expect(viewModel.isAddedButtonsShown).toBeObservable();
-//            });
-
-//        });
-
-//        describe('toggleIsAddedButtonsShown:', function () {
-
-//            it('should be function', function () {
-//                expect(viewModel.toggleIsAddedButtonsShown).toBeFunction();
-//            });
-
-//            describe('when added buttons shown', function () {
-
-//                it('should set isAddedButtonsShown to false', function () {
-//                    viewModel.isAddedButtonsShown(true);
-//                    viewModel.toggleIsAddedButtonsShown();
-//                    expect(viewModel.isAddedButtonsShown()).toBeFalsy();
-//                });
-
-//            });
-
-//            describe('when added buttons not shown', function () {
-
-//                it('should set isAddedButtonsShown to true', function () {
-//                    viewModel.isAddedButtonsShown(false);
-//                    viewModel.toggleIsAddedButtonsShown();
-//                    expect(viewModel.isAddedButtonsShown()).toBeTruthy();
-//                });
-
-//            });
-
-//        });
-
-//    });
-
-//});
-
-//describe('activate:', function () {
-
-//    var activationData = {
-//        questionId: questionId
-//    },
-//        getLearningContentFeedbackDeferred;
-
-//    beforeEach(function () {
-//        getLearningContentFeedbackDeferred = Q.defer();
-//        spyOn(repository, 'getCollection').and.returnValue(getLearningContentFeedbackDeferred.promise);
-//    });
-
-//    it('should be function', function () {
-//        expect(viewModel.activate).toBeFunction();
-//    });
-
-//    it('should return promise', function () {
-//        getLearningContentFeedbackDeferred.resolve([]);
-//        expect(viewModel.activate(activationData)).toBePromise();
-//    });
-
-//    describe('when route data has questionId', function () {
-//        beforeEach(function () {
-//            spyOn(router, 'routeData').and.returnValue({ questionId: 'questionId' });
-//        });
-
-//        it('should call repository method to get learning contents', function (done) {
-//            getLearningContentFeedbackDeferred.resolve([]);
-//            viewModel.activate(activationData).fin(function () {
-//                expect(repository.getCollection).toHaveBeenCalledWith(questionId);
-//                done();
-//            });
-//        });
-
-//        describe('and when promise is rejected', function () {
-//            beforeEach(function () {
-//                spyOn(notify, 'error');
-//                getLearningContentFeedbackDeferred.reject('error');
-//            });
-
-//            it('notification with error should be shown', function (done) {
-//                viewModel.activate(activationData).fin(function () {
-//                    expect(notify.error).toHaveBeenCalledWith('error');
-//                    done();
-//                });
-//            });
-//        });
-//    });
-
-//    describe('when route data does not have questionId', function () {
-//        beforeEach(function () {
-//            spyOn(router, 'routeData').and.returnValue({});
-//        });
-
-//        it('should not call repository method to get learning contents', function (done) {
-//            viewModel.activate(activationData).fin(function () {
-//                expect(repository.getCollection).not.toHaveBeenCalled();
-//                done();
-//            });
-//        });
-//    });
-//});
+});
