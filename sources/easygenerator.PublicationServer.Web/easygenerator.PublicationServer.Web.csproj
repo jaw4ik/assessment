@@ -81,12 +81,12 @@
   <ItemGroup>
     <Content Include="content\css\account.css" />
     <Content Include="content\css\common.css" />
-    <Content Include="content\css\font\buxtonsketch.svg" />
-    <Content Include="content\css\font\opensans-italic.svg" />
-    <Content Include="content\css\font\opensans-regular.svg" />
-    <Content Include="content\css\font\opensans-semibold.svg" />
-    <Content Include="content\css\font\opensans-semibolditalic.svg" />
-    <Content Include="content\css\font\rabiohead.svg" />
+    <Content Include="content\css\font\buxtonsketch.woff" />
+    <Content Include="content\css\font\opensans-italic.woff" />
+    <Content Include="content\css\font\opensans-regular.woff" />
+    <Content Include="content\css\font\opensans-semibold.woff" />
+    <Content Include="content\css\font\opensans-semibolditalic.woff" />
+    <Content Include="content\css\font\rabiohead.woff" />
     <Content Include="content\css\styles.css" />
     <Content Include="content\html\404.html" />
     <Content Include="content\html\500.html" />
@@ -101,24 +101,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="content\css\font\opensans-regular.eot" />
-    <Content Include="content\css\font\opensans-regular.ttf" />
-    <Content Include="content\css\font\opensans-regular.woff" />
-    <Content Include="content\css\font\opensans-semibold.eot" />
-    <Content Include="content\css\font\opensans-semibold.ttf" />
-    <Content Include="content\css\font\opensans-semibold.woff" />
-    <Content Include="content\css\font\buxtonsketch.eot" />
-    <Content Include="content\css\font\buxtonsketch.ttf" />
-    <Content Include="content\css\font\buxtonsketch.woff" />
-    <Content Include="content\css\font\opensans-italic.eot" />
-    <Content Include="content\css\font\opensans-italic.ttf" />
-    <Content Include="content\css\font\opensans-italic.woff" />
-    <Content Include="content\css\font\opensans-semibolditalic.eot" />
-    <Content Include="content\css\font\opensans-semibolditalic.ttf" />
-    <Content Include="content\css\font\opensans-semibolditalic.woff" />
-    <Content Include="content\css\font\rabiohead.eot" />
-    <Content Include="content\css\font\rabiohead.ttf" />
-    <Content Include="content\css\font\rabiohead.woff" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
