@@ -1,19 +1,21 @@
-﻿<div class="modal-dialog-wrapper video" data-bind="dialog: { autoclose: true, isShown: isShown, onHide: hide }, css: { visible: isShown}">
-    <div class="model-dialog-close-btn" data-bind="click: hide"></div>
-    <div class="video-dialogue-container">
-        <div data-bind="html: videoIframe"></div>
-        <div class="video-embed-container">
-            <div class="video-embed-code-title" data-bind="localize: { text: 'videoEmbedCodeTitle' }"></div>
-            <div class="video-embed-actions-container">
-                <div class="private-link-control-wrapper">
-                    <textarea readonly="readonly" class="embed-code-text" data-bind="value: embedCode, selectText: true"></textarea>
-                </div>
-                <div class="copy-btn-wrapper">
-                    <button class="btn green" data-bind="click: copyEmbedCodeEvent, copyToClipboard: { value: embedCode, onCopied: copyEmbedCode, isDisabled: copyBtnDisabled }, css: { copied: embedCodeCopied, disabled: copyBtnDisabled }, attr: { disabled: copyBtnDisabled() }">
-                        <span data-bind="localize: { text: embedCodeCopied() ? 'copied' : 'copy' }"></span>
-                    </button>
+﻿<section data-bind="if: isShown">
+    <div class="modal-dialog-wrapper video" data-bind="dialog: { autoclose: true, isShown: isShown, onHide: hide }, css: { visible: isShown}">
+        <div class="model-dialog-close-btn" data-bind="click: hide"></div>
+        <div class="video-dialogue-container">
+            <div data-bind="html: videoIframe"></div>
+            <div class="video-embed-container">
+                <div class="video-embed-code-title" data-bind="localize: { text: 'videoEmbedCodeTitle' }"></div>
+                <div class="video-embed-actions-container">
+                    <div class="private-link-control-wrapper">
+                        <textarea readonly="readonly" class="embed-code-text" data-bind="value: embedCode, selectText: true"></textarea>
+                    </div>
+                    <div class="copy-btn-wrapper">
+                        <button class="btn green" data-bind="click: copyEmbedCodeEvent, copyToClipboard: { value: embedCode, onCopied: copyEmbedCode, isDisabled: copyBtnDisabled }, css: { copied: embedCodeCopied, disabled: copyBtnDisabled }, attr: { disabled: copyBtnDisabled() }">
+                            <span data-bind="localize: { text: embedCodeCopied() ? 'copied' : 'copy' }"></span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
