@@ -1653,10 +1653,7 @@
   min-width: 100px;
   font: 13px 'OpenSans';
   text-transform: uppercase;
-  border: 1px solid #61b472;
   border-radius: 5px;
-  background-color: #65bd77;
-  color: #fff;
 }
 .hotspot-on-image-editor-button.close {
   position: absolute;

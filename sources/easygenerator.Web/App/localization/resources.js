@@ -568,6 +568,31 @@
         'zh-cn': 'Untitled learning path[zh-cn]',
         'uk': 'Навчальний шлях без назви'
     },
+    searchCourses: {
+        'en': 'Search courses...',
+        'zh-cn': 'Search courses...[zh-cn]',
+        'uk': 'Пошук курсів...'
+    },
+    selectCoursesHint: {
+        'en': 'Select courses to add them to the learning path',
+        'zh-cn': 'Select courses to add them to the learning path[zh-cn]',
+        'uk': 'Оберіть курси, які бажаєте додати до навчального шляху'
+    },
+    addCourses: {
+        'en': 'Add courses',
+        'zh-cn': 'Add courses[zh-cn]',
+        'uk': 'Додати курси'
+    },
+    done: {
+        'en': 'Done',
+        'zh-cn': 'Done[zh-cn]',
+        'uk': 'Готово'
+    },
+    removeFromPath: {
+        'en': 'Remove from path',
+        'zh-cn': 'Remove from path[zh-cn]',
+        'uk': 'Видалити з навчального шляху'
+    },
     /* End resource section for model Learning paths */
     
     /* Resource section for model Courses */
@@ -1492,6 +1517,16 @@
         'en': 'Processing...',
         'zh-cn': '处理中…',
         'uk': 'Обробка...'
+    },
+    typeDescription: {
+        'en': 'Type description...',
+        'zh-cn': 'Type description...[zh-cn]',
+        'uk': 'Введіть опис...'
+    },
+    hotspotOnAnImageEmptyTooltip: {
+        'en': 'Click and drag on image to create the hotspot',
+        'zh-cn': 'Click and drag on image to create the hotspot[zh-cn]',
+        'uk': 'Щоб додати підказку натисніть та потягніть на картинці'
     },
     changeImage: {
         'en': 'Change image',
