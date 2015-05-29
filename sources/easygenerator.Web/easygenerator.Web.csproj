@@ -815,12 +815,22 @@
     <Content Include="Content\editField.css">
       <DependentUpon>editField.less</DependentUpon>
     </Content>
-    <Content Include="Content\font\heuristica-bold.svg" />
-    <Content Include="Content\font\heuristica-bolditalic.svg" />
-    <Content Include="Content\font\heuristica-italic.svg" />
-    <Content Include="Content\font\heuristica-regular.svg" />
-    <Content Include="Content\font\opensans-bold.svg" />
-    <Content Include="Content\font\robotoslab-regular.svg" />
+    <Content Include="Content\font\buxtonsketch.woff" />
+    <Content Include="Content\font\heuristica-bold.woff" />
+    <Content Include="Content\font\heuristica-bolditalic.woff" />
+    <Content Include="Content\font\heuristica-italic.woff" />
+    <Content Include="Content\font\heuristica-regular.woff" />
+    <Content Include="Content\font\intro-regular.woff" />
+    <Content Include="Content\font\myriadpro-regular.woff" />
+    <Content Include="Content\font\myriadpro-semibold.woff" />
+    <Content Include="Content\font\opensans-bold.woff" />
+    <Content Include="Content\font\opensans-italic.woff" />
+    <Content Include="Content\font\opensans-regular.woff" />
+    <Content Include="Content\font\opensans-semibold.woff" />
+    <Content Include="Content\font\opensans-semibolditalic.woff" />
+    <Content Include="Content\font\rabiohead.woff" />
+    <Content Include="Content\font\robotoslab-bold.woff" />
+    <Content Include="Content\font\robotoslab-regular.woff" />
     <Content Include="Content\helpers.css">
       <DependentUpon>helpers.less</DependentUpon>
     </Content>
@@ -1172,9 +1182,6 @@
     <Content Include="App\onboarding\tasks.spec.js">
       <DependentUpon>tasks.js</DependentUpon>
     </Content>
-    <Content Include="Content\font\robotoslab-regular.eot" />
-    <Content Include="Content\font\robotoslab-regular.ttf" />
-    <Content Include="Content\font\robotoslab-regular.woff" />
     <Content Include="Content\upgradePopup.less" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
@@ -1632,28 +1639,6 @@
       <DependentUpon>dragAndDropText.less</DependentUpon>
     </Content>
     <Content Include="Content\eula\easygenerator_EULA.pdf" />
-    <Content Include="Content\font\buxtonsketch.eot" />
-    <Content Include="Content\font\buxtonsketch.ttf" />
-    <Content Include="Content\font\buxtonsketch.woff" />
-    <Content Include="Content\font\intro-regular.svg" />
-    <Content Include="Content\font\myriadpro-regular.svg" />
-    <Content Include="Content\font\myriadpro-semibold.svg" />
-    <Content Include="Content\font\opensans-italic.eot" />
-    <Content Include="Content\font\opensans-italic.ttf" />
-    <Content Include="Content\font\opensans-italic.woff" />
-    <Content Include="Content\font\opensans-regular.eot" />
-    <Content Include="Content\font\opensans-regular.ttf" />
-    <Content Include="Content\font\opensans-regular.woff" />
-    <Content Include="Content\font\opensans-semibold.eot" />
-    <Content Include="Content\font\opensans-semibold.ttf" />
-    <Content Include="Content\font\opensans-semibold.woff" />
-    <Content Include="Content\font\opensans-semibolditalic.eot" />
-    <Content Include="Content\font\opensans-semibolditalic.ttf" />
-    <Content Include="Content\font\opensans-semibolditalic.woff" />
-    <Content Include="Content\font\rabiohead.eot" />
-    <Content Include="Content\font\rabiohead.ttf" />
-    <Content Include="Content\font\rabiohead.woff" />
-    <Content Include="Content\font\robotoslab-bold.svg" />
     <Content Include="Content\imagePreview.css">
       <DependentUpon>imagePreview.less</DependentUpon>
     </Content>
@@ -1688,33 +1673,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Mail\MailTemplates\InviteCollaboratorTemplate.cshtml" />
-    <Content Include="Content\font\intro-regular.eot" />
-    <Content Include="Content\font\intro-regular.ttf" />
-    <Content Include="Content\font\intro-regular.woff" />
-    <Content Include="Content\font\robotoslab-bold.eot" />
-    <Content Include="Content\font\robotoslab-bold.ttf" />
-    <Content Include="Content\font\robotoslab-bold.woff" />
-    <Content Include="Content\font\myriadpro-regular.eot" />
-    <Content Include="Content\font\myriadpro-regular.ttf" />
-    <Content Include="Content\font\myriadpro-regular.woff" />
-    <Content Include="Content\font\myriadpro-semibold.eot" />
-    <Content Include="Content\font\myriadpro-semibold.ttf" />
-    <Content Include="Content\font\myriadpro-semibold.woff" />
-    <Content Include="Content\font\heuristica-bold.eot" />
-    <Content Include="Content\font\heuristica-bold.ttf" />
-    <Content Include="Content\font\heuristica-bold.woff" />
-    <Content Include="Content\font\heuristica-bolditalic.eot" />
-    <Content Include="Content\font\heuristica-bolditalic.ttf" />
-    <Content Include="Content\font\heuristica-bolditalic.woff" />
-    <Content Include="Content\font\heuristica-italic.eot" />
-    <Content Include="Content\font\heuristica-italic.ttf" />
-    <Content Include="Content\font\heuristica-italic.woff" />
-    <Content Include="Content\font\heuristica-regular.eot" />
-    <Content Include="Content\font\heuristica-regular.ttf" />
-    <Content Include="Content\font\heuristica-regular.woff" />
-    <Content Include="Content\font\opensans-bold.eot" />
-    <Content Include="Content\font\opensans-bold.ttf" />
-    <Content Include="Content\font\opensans-bold.woff" />
     <Content Include="Content\account.less" />
     <Content Include="Content\ckeditor.less" />
     <Content Include="Content\common.less" />
@@ -2593,12 +2551,6 @@
       <DependentUpon>courses.less</DependentUpon>
     </Content>
     <Content Include="Content\durandal.css" />
-    <Content Include="Content\font\buxtonsketch.svg" />
-    <Content Include="Content\font\opensans-italic.svg" />
-    <Content Include="Content\font\opensans-regular.svg" />
-    <Content Include="Content\font\opensans-semibold.svg" />
-    <Content Include="Content\font\opensans-semibolditalic.svg" />
-    <Content Include="Content\font\rabiohead.svg" />
     <Content Include="Content\images\account\log-in.jpg" />
     <Content Include="Content\images\account\pointer-left-big.png" />
     <Content Include="Content\images\account\pointer-right-big.png" />
