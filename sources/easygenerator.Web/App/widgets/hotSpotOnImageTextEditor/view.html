@@ -1,8 +1,8 @@
 ﻿<div class="hotspot-on-image-editor-container" data-bind="hotspotOnImageTextEditor: { isVisible: isVisible, close: close, wrapper: wrapper, points: points}">
     <div class="hotspot-on-image-editor-pointer"></div>
-    <textarea class="hotspot-on-image-editor-text-container selectable" data-bind="value: text, localize: { placeholder: 'typeDescription' }, valueUpdate: 'afterkeydown', autosize: { text: text }, event: {  }" data-text></textarea>
+    <textarea class="hotspot-on-image-editor-text-container selectable" data-bind="value: text, localize: { placeholder: 'typeDescription' }, valueUpdate: 'afterkeydown', autosize: { text: text }, event: { blur: save }, autofocus: { focus: function(){}, autoselect: true }" data-text></textarea>
     <div class="hotspot-on-image-editor-button-container">
-        <button class="hotspot-on-image-editor-button cancel" data-bind="click: close">Cancel</button>
-        <button class="hotspot-on-image-editor-button save btn green" data-bind="click: save">Save</button>
+        <button class="hotspot-on-image-editor-button cancel" data-bind="click: close, localize: { text: 'cancel'}">Cancel</button>
+        <button class="hotspot-on-image-editor-button save btn green" data-bind="click: saveAndClose, localize: { text: 'save'}">Save</button>
     </div>
 </div>

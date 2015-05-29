@@ -123,7 +123,6 @@
                 expect(viewModel.learningContents()[0]).toBe(content);
             });
 
-
         });
 
         describe('addHotspotOnAnImage:', function () {

@@ -76,6 +76,44 @@
 
         });
 
+        describe('save', function() {
+
+            it('should be function', function() {
+                expect(widget.save).toBeFunction();
+            });
+
+            describe('when callback is function', function() {
+
+                it('should call callback', function() {
+                    spyOn(widget, 'callback');
+                    widget.save();
+                    expect(widget.callback).toHaveBeenCalledWith(widget.text());
+                });
+
+            });
+
+        });
+
+        describe('saveAndClose', function () {
+
+            it('should be function', function() {
+                expect(widget.saveAndClose).toBeFunction();
+            });
+
+            it('should save text', function() {
+                spyOn(widget, 'callback');
+                widget.saveAndClose();
+                expect(widget.callback).toHaveBeenCalledWith(widget.text());
+            });
+
+            it('should hide popover', function () {
+                widget.isVisible(true);
+                widget.saveAndClose();
+                expect(widget.isVisible()).toBeFalsy();
+            });
+
+        });
+
         describe('show:', function () {
 
             var someText, points, wrapper, callback;

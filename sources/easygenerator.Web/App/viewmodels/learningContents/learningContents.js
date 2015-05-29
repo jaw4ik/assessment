@@ -80,7 +80,6 @@
         }
 
         function addLearnignContent(type, canBeAddedImmediately) {
-            toggleIsAddedButtonsShown();
             doAddLearningContent(undefined, type, canBeAddedImmediately);
         }
 
@@ -92,10 +91,12 @@
             learningContent = learningContent || { type: type || constants.learningContentsTypes.content };
             var createdLearningContent = new learningContentsViewModelFactory[learningContent.type](learningContent, viewModel.questionId, viewModel.questionType, canBeAddedImmediately);
             if (createdLearningContent.canBeAdded()) {
+                toggleIsAddedButtonsShown();
                 viewModel.learningContents.push(createdLearningContent);
             } else {
                 var subscribtion = createdLearningContent.canBeAdded.subscribe(function () {
                     if (createdLearningContent.canBeAdded()) {
+                        toggleIsAddedButtonsShown();
                         viewModel.learningContents.push(createdLearningContent);
                         subscribtion.dispose();
                     }
