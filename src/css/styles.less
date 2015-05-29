@@ -36,19 +36,38 @@ button {
     }
 }
 
-header {
+.app-header {
+    display: table;
+    width: 100%;
+    padding-left: 50px;
+    padding-right: 50px;
+    .border-box;
+
     &.main-logo-wrapper {
         height: 50px;
-        padding: 10px 0;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
 
-    .main-logo {
+    .logo-wrapper {
         position: relative;
-        display: inline-block;
-        max-height: 50px;
-        max-width: 300px;
-        margin-left: 50px;
+        display: table-cell;
         vertical-align: middle;
+        z-index: 1;
+
+        .main-logo {
+            display: inline-block;
+            max-height: 50px;
+            max-width: 300px;
+            vertical-align: middle;
+        }
+    }
+
+    .timer {
+        display: table-cell;
+        width: 150px;
+        vertical-align: middle;
+        z-index: 1;
     }
 }
 
@@ -93,6 +112,7 @@ header {
 @import "notSupportedPage";
 @import "introduction";
 @import "questions";
+@import "timer";
 
 @import "login";
 @import "errors";
