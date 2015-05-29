@@ -1,4 +1,4 @@
-﻿define(['widgets/hotSpotOnImageTextEditor/bindingHadlers/hotspotOnImageTextEditorBindingHandler'], function (hotspotOnImageTextEditorBindingHandler) {
+﻿define(['widgets/hotSpotOnImageTextEditor/bindingHadlers/hotspotOnImageTextEditorBindingHandler', 'viewmodels/learningContents/components/hotspotParser'], function (hotspotOnImageTextEditorBindingHandler, parser) {
     "use strict";
 
     var hotSpotOnImageTextEditor = {
@@ -16,7 +16,7 @@
     return hotSpotOnImageTextEditor;
 
     function activate() {
-        hotspotOnImageTextEditorBindingHandler.install();
+        hotspotOnImageTextEditorBindingHandler.install(parser);
     }
 
     function close() {

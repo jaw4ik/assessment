@@ -1,6 +1,8 @@
 ﻿define(function () {
     'use strict';
 
+    var units = 'px';
+
     var classList = {
         left: 'left',
         right: 'right',
@@ -11,9 +13,9 @@
         install: install
     };
 
-    function install() {
+    function install(parser) {
         ko.bindingHandlers.hotspotOnImageTextEditor = {
-            init: function (element, valueAccessor) {
+            init: function (element) {
                 var $element = $(element);
                 $element.on('mousedown', function (evt) {
                     evt.stopPropagation();
@@ -26,7 +28,7 @@
                     wrapperPositions = wrapper && wrapper.getBoundingClientRect(),
                     points = valueAccessor().points(),
                     close = valueAccessor().close,
-                    minMaxCoords = getMinMaxCoords(points),
+                    minMaxCoords = parser.getMinMaxCoords(points),
                     $hotspotWrapper = $('.' + classList.hotspotOnImageContainer),
                     $html = $('html');
 
@@ -50,7 +52,7 @@
             spotHeight = minMaxCoords.maxY - minMaxCoords.minY,
             scrollYPosition = window.scrollY || window.pageYOffset;
          
-        return scrollYPosition + wrapperPositions.top + minMaxCoords.minY + spotHeight / 2 - topArrowPosition + 'px';
+        return scrollYPosition + wrapperPositions.top + minMaxCoords.minY + spotHeight / 2 - topArrowPosition + units;
     }
 
     function getLeftPosion($hotspotWrapper, $popover, wrapperPositions, minMaxCoords) {
@@ -68,32 +70,10 @@
 
         if (currentLeftPosition <= 0) {
             $popover.removeClass(classList.right).addClass(classList.left);
-            return leftPosition + leftArrowPosition + 'px';
+            return leftPosition + leftArrowPosition + units;
         } else {
-            return currentLeftPosition + 'px';
+            return currentLeftPosition + units;
         }
-    }
-
-    function getMinMaxCoords(points) {
-        var minX = _.min(points, function (point) {
-            return point.x;
-        }),
-            minY = _.min(points, function (point) {
-                return point.y;
-            }),
-            maxX = _.max(points, function (point) {
-                return point.x;
-            }),
-            maxY = _.max(points, function (point) {
-                return point.y;
-            });
-
-        return {
-            minX: minX.x,
-            minY: minY.y,
-            maxX: maxX.x,
-            maxY: maxY.y
-        };
     }
 
 });

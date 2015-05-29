@@ -13,6 +13,7 @@
     return {
         getViewModelData: getViewModelData,
         updateHotspotOnAnImage: updateHotspotOnAnImage,
+        getMinMaxCoords: getMinMaxCoords
     };
 
     function updateHotspotOnAnImage(data, background, polygons) {
