@@ -72,6 +72,7 @@
         }
 
         function addContent() {
+            toggleIsAddedButtonsShown();
             addLearnignContent(constants.learningContentsTypes.content, true);
         }
 
@@ -91,7 +92,6 @@
             learningContent = learningContent || { type: type || constants.learningContentsTypes.content };
             var createdLearningContent = new learningContentsViewModelFactory[learningContent.type](learningContent, viewModel.questionId, viewModel.questionType, canBeAddedImmediately);
             if (createdLearningContent.canBeAdded()) {
-                toggleIsAddedButtonsShown();
                 viewModel.learningContents.push(createdLearningContent);
             } else {
                 var subscribtion = createdLearningContent.canBeAdded.subscribe(function () {
