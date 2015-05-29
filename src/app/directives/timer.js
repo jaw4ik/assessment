@@ -13,26 +13,26 @@
             },
             templateUrl: 'app/views/timer.html',
             link: function ($scope) {
-                var intervalId;
-
                 $scope.time = $scope.hoursValue * 3600 + $scope.minutesValue * 60 + $scope.secondsValue;
                 $scope.$on('$timerStart', start);
 
                 function start() {
-                    intervalId = setInterval(tick, 1000);
+                    setTimeout(tick, 1000);
                 }
 
                 function stop() {
-                    clearInterval(intervalId);
                     $scope.$emit('$timerStopped');
                 }
 
                 function tick() {
                     $scope.time--;
+                    $scope.$apply();
+
                     if ($scope.time <= 0) {
                         stop();
+                    } else {
+                        setTimeout(tick, 1000);
                     }
-                    $scope.$apply();
                 }
             }
         };
