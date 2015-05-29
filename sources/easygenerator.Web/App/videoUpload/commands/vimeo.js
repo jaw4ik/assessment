@@ -40,15 +40,16 @@
         var deferred = Q.defer();
 
         $.ajax({
-            url: constants.storage.video.thumbnailLoadUrl + id + '.json',
+            url: constants.storage.video.vimeoApiVideosUrl + id + '/pictures',
+            headers: { Authorization: constants.storage.video.vimeoToken },
             method: 'GET',
             global: false
-        }).then(function (data) {
-            if (!data.length || !data[0]['thumbnail_medium']) {
+        }).then(function (response) {
+            try {
+                deferred.resolve(_.where(response.data[0].sizes, { width: 200, height: 150 })[0].link);
+            } catch (exception) {
                 deferred.resolve(constants.storage.video.defaultThumbnailUrl);
-                return;
             }
-            deferred.resolve(data[0]['thumbnail_medium']);
         }).fail(function () {
             deferred.resolve(constants.storage.video.defaultThumbnailUrl);
         });

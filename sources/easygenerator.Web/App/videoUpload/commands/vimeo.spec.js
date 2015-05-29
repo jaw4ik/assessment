@@ -136,7 +136,8 @@
                 vimeoCommands.getThumbnailUrl(videoId);
 
                 expect($.ajax).toHaveBeenCalledWith({
-                    url: constants.storage.video.thumbnailLoadUrl + videoId + '.json',
+                    url: constants.storage.video.vimeoApiVideosUrl + videoId + '/pictures',
+                    headers: { Authorization: constants.storage.video.vimeoToken },
                     method: 'GET',
                     global: false
                 });
@@ -159,9 +160,9 @@
 
             });
 
-            describe('when get request resolved without thumbnail_medium field', function () {
+            describe('when get request resolved without thumbnail 150 * 200', function () {
 
-                it('should resolve promise with status', function (done) {
+                it('should resolve promise with default image', function (done) {
 
                     var videoId = 0;
 
@@ -176,17 +177,33 @@
                 });
             });
 
-            describe('when get request resolved with thumbnail_medium field', function () {
+            describe('when get request resolved with correct data', function () {
 
-                it('should resolve promise with status', function (done) {
+                it('should resolve promise with thumbnail', function (done) {
 
                     var videoId = 0;
-                    var resolved = [{ thumbnail_medium: 'thumbnail' }];
+                    var resolved = {
+                        data: [{
+                            sizes: [
+                               {
+                                   width: 350,
+                                   height: 150,
+                                   link: 'false'
+                               },
+                               {
+                                   width: 200,
+                                   height: 150,
+                                   link: 'thumbnail'
+                               }
+                            ]
+                        }]
+                    };
+
                     defer.resolve(resolved);
 
                     var promise = vimeoCommands.getThumbnailUrl(videoId);
                     promise.fin(function () {
-                        expect(promise).toBeResolvedWith(resolved[0].thumbnail_medium);
+                        expect(promise).toBeResolvedWith(resolved.data[0].sizes[1].link);
                         done();
                     });
 
