@@ -222,7 +222,7 @@
 
         function onBlur() {
             var doc = editor.document,
-                selected = document.activeElement;
+                $selected = $(document.activeElement);
 
             clearInterval(saveIntervalId);
 
@@ -232,7 +232,7 @@
                 $('html').unbind('mouseup', setData);
             }
 
-            if (!doc || selected.contentEditable || $(selected).is('input, textarea')) {
+            if (!doc || $selected.attr('contentEditable') || $selected.is('input, textarea')) {
                 return;
             }
 

@@ -45,11 +45,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac, Version=3.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Autofac.3.4.0\lib\net40\Autofac.dll</HintPath>
+      <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac.Integration.Mvc">
+    <Reference Include="Autofac.Integration.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Autofac.Mvc5.3.3.4\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -536,6 +537,7 @@
     <Content Include="App\commands\presentationCourseImportCommand.spec.js">
       <DependentUpon>presentationCourseImportCommand.js</DependentUpon>
     </Content>
+    <Content Include="App\components\polygonsEditor\hotspotOnImageShapeModel.js" />
     <Content Include="App\components\polygonsEditor\polygonShape.js" />
     <Content Include="App\components\polygonsEditor\polygonsEditor.js" />
     <Content Include="App\config.js" />
@@ -758,6 +760,22 @@
       <DependentUpon>results.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\index.js" />
+    <Content Include="App\viewmodels\learningContents\bindingHandlers\hotspotOnImageBindingHandler.js" />
+    <Content Include="App\viewmodels\learningContents\components\hotspotParser.js" />
+    <Content Include="App\viewmodels\learningContents\components\polygonModel.js" />
+    <Content Include="App\viewmodels\learningContents\content.js" />
+    <Content Include="App\viewmodels\learningContents\content.spec.js">
+      <DependentUpon>content.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningContents\hotspotOnAnImage.js" />
+    <Content Include="App\viewmodels\learningContents\hotspotOnAnImage.spec.js">
+      <DependentUpon>hotspotOnAnImage.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningContents\learningContents.js" />
+    <Content Include="App\viewmodels\learningContents\learningContents.spec.js">
+      <DependentUpon>learningContents.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningContents\learningContentsViewModelFactory.js" />
     <Content Include="App\viewmodels\library\index.js" />
     <Content Include="App\viewmodels\library\index.spec.js">
       <DependentUpon>index.js</DependentUpon>
@@ -801,6 +819,9 @@
     <Content Include="App\views\courses\publishActions\publishAsHtml.html" />
     <Content Include="App\views\courses\publishActions\publishAsScorm.html" />
     <Content Include="App\views\courses\publishActions\updatePublishedCourse.html" />
+    <Content Include="App\views\learningContents\learningContents.html" />
+    <Content Include="App\views\learningContents\types\hotspot.html" />
+    <Content Include="App\views\learningContents\types\content.html" />
     <Content Include="App\views\library\index.html" />
     <Content Include="App\views\objectives\index.html" />
     <Content Include="App\views\questions\statement\statement.html" />
@@ -808,6 +829,18 @@
     <Content Include="App\reporting\views\courseStatement.html" />
     <Content Include="App\reporting\views\objectiveStatement.html" />
     <Content Include="App\reporting\views\questionStatement.html" />
+    <Content Include="App\widgets\cursorTooltip\bindingHadlers\cursorTooltipBindingHandler.js" />
+    <Content Include="App\widgets\cursorTooltip\view.html" />
+    <Content Include="App\widgets\cursorTooltip\viewmodel.js" />
+    <Content Include="App\widgets\cursorTooltip\viewmodel.spec.js">
+      <DependentUpon>viewmodel.js</DependentUpon>
+    </Content>
+    <Content Include="App\widgets\hotSpotOnImageTextEditor\bindingHadlers\hotspotOnImageTextEditorBindingHandler.js" />
+    <Content Include="App\widgets\hotSpotOnImageTextEditor\view.html" />
+    <Content Include="App\widgets\hotSpotOnImageTextEditor\viewmodel.js" />
+    <Content Include="App\widgets\hotSpotOnImageTextEditor\viewmodel.spec.js">
+      <DependentUpon>viewmodel.js</DependentUpon>
+    </Content>
     <Content Include="BuildCourse\Modules\js\branding.js" />
     <Content Include="Content\course.css">
       <DependentUpon>course.less</DependentUpon>
@@ -815,12 +848,22 @@
     <Content Include="Content\editField.css">
       <DependentUpon>editField.less</DependentUpon>
     </Content>
-    <Content Include="Content\font\heuristica-bold.svg" />
-    <Content Include="Content\font\heuristica-bolditalic.svg" />
-    <Content Include="Content\font\heuristica-italic.svg" />
-    <Content Include="Content\font\heuristica-regular.svg" />
-    <Content Include="Content\font\opensans-bold.svg" />
-    <Content Include="Content\font\robotoslab-regular.svg" />
+    <Content Include="Content\font\buxtonsketch.woff" />
+    <Content Include="Content\font\heuristica-bold.woff" />
+    <Content Include="Content\font\heuristica-bolditalic.woff" />
+    <Content Include="Content\font\heuristica-italic.woff" />
+    <Content Include="Content\font\heuristica-regular.woff" />
+    <Content Include="Content\font\intro-regular.woff" />
+    <Content Include="Content\font\myriadpro-regular.woff" />
+    <Content Include="Content\font\myriadpro-semibold.woff" />
+    <Content Include="Content\font\opensans-bold.woff" />
+    <Content Include="Content\font\opensans-italic.woff" />
+    <Content Include="Content\font\opensans-regular.woff" />
+    <Content Include="Content\font\opensans-semibold.woff" />
+    <Content Include="Content\font\opensans-semibolditalic.woff" />
+    <Content Include="Content\font\rabiohead.woff" />
+    <Content Include="Content\font\robotoslab-bold.woff" />
+    <Content Include="Content\font\robotoslab-regular.woff" />
     <Content Include="Content\helpers.css">
       <DependentUpon>helpers.less</DependentUpon>
     </Content>
@@ -1178,9 +1221,6 @@
     <Content Include="App\onboarding\tasks.spec.js">
       <DependentUpon>tasks.js</DependentUpon>
     </Content>
-    <Content Include="Content\font\robotoslab-regular.eot" />
-    <Content Include="Content\font\robotoslab-regular.ttf" />
-    <Content Include="Content\font\robotoslab-regular.woff" />
     <Content Include="Content\upgradePopup.less" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
@@ -1614,7 +1654,6 @@
     <Content Include="App\views\questions\dragAndDropText\dragAndDropText.html" />
     <Content Include="App\views\questions\feedback.html" />
     <Content Include="App\views\questions\fillInTheBlank\fillInTheBlank.html" />
-    <Content Include="App\views\questions\learningContents.html" />
     <Content Include="App\views\questions\singleSelectImage\singleSelectImage.html" />
     <Content Include="App\views\questions\singleSelectImage\designer.html" />
     <Content Include="App\views\questions\singleSelectText\singleSelectText.html" />
@@ -1638,28 +1677,6 @@
       <DependentUpon>dragAndDropText.less</DependentUpon>
     </Content>
     <Content Include="Content\eula\easygenerator_EULA.pdf" />
-    <Content Include="Content\font\buxtonsketch.eot" />
-    <Content Include="Content\font\buxtonsketch.ttf" />
-    <Content Include="Content\font\buxtonsketch.woff" />
-    <Content Include="Content\font\intro-regular.svg" />
-    <Content Include="Content\font\myriadpro-regular.svg" />
-    <Content Include="Content\font\myriadpro-semibold.svg" />
-    <Content Include="Content\font\opensans-italic.eot" />
-    <Content Include="Content\font\opensans-italic.ttf" />
-    <Content Include="Content\font\opensans-italic.woff" />
-    <Content Include="Content\font\opensans-regular.eot" />
-    <Content Include="Content\font\opensans-regular.ttf" />
-    <Content Include="Content\font\opensans-regular.woff" />
-    <Content Include="Content\font\opensans-semibold.eot" />
-    <Content Include="Content\font\opensans-semibold.ttf" />
-    <Content Include="Content\font\opensans-semibold.woff" />
-    <Content Include="Content\font\opensans-semibolditalic.eot" />
-    <Content Include="Content\font\opensans-semibolditalic.ttf" />
-    <Content Include="Content\font\opensans-semibolditalic.woff" />
-    <Content Include="Content\font\rabiohead.eot" />
-    <Content Include="Content\font\rabiohead.ttf" />
-    <Content Include="Content\font\rabiohead.woff" />
-    <Content Include="Content\font\robotoslab-bold.svg" />
     <Content Include="Content\imagePreview.css">
       <DependentUpon>imagePreview.less</DependentUpon>
     </Content>
@@ -1694,33 +1711,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Mail\MailTemplates\InviteCollaboratorTemplate.cshtml" />
-    <Content Include="Content\font\intro-regular.eot" />
-    <Content Include="Content\font\intro-regular.ttf" />
-    <Content Include="Content\font\intro-regular.woff" />
-    <Content Include="Content\font\robotoslab-bold.eot" />
-    <Content Include="Content\font\robotoslab-bold.ttf" />
-    <Content Include="Content\font\robotoslab-bold.woff" />
-    <Content Include="Content\font\myriadpro-regular.eot" />
-    <Content Include="Content\font\myriadpro-regular.ttf" />
-    <Content Include="Content\font\myriadpro-regular.woff" />
-    <Content Include="Content\font\myriadpro-semibold.eot" />
-    <Content Include="Content\font\myriadpro-semibold.ttf" />
-    <Content Include="Content\font\myriadpro-semibold.woff" />
-    <Content Include="Content\font\heuristica-bold.eot" />
-    <Content Include="Content\font\heuristica-bold.ttf" />
-    <Content Include="Content\font\heuristica-bold.woff" />
-    <Content Include="Content\font\heuristica-bolditalic.eot" />
-    <Content Include="Content\font\heuristica-bolditalic.ttf" />
-    <Content Include="Content\font\heuristica-bolditalic.woff" />
-    <Content Include="Content\font\heuristica-italic.eot" />
-    <Content Include="Content\font\heuristica-italic.ttf" />
-    <Content Include="Content\font\heuristica-italic.woff" />
-    <Content Include="Content\font\heuristica-regular.eot" />
-    <Content Include="Content\font\heuristica-regular.ttf" />
-    <Content Include="Content\font\heuristica-regular.woff" />
-    <Content Include="Content\font\opensans-bold.eot" />
-    <Content Include="Content\font\opensans-bold.ttf" />
-    <Content Include="Content\font\opensans-bold.woff" />
     <Content Include="Content\account.less" />
     <Content Include="Content\ckeditor.less" />
     <Content Include="Content\common.less" />
@@ -1795,8 +1785,8 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
-    <Content Include="Scripts\paper-full-0.9.20.js" />
-    <Content Include="Scripts\paper-full-0.9.20.min.js" />
+    <Content Include="Scripts\paper-full-0.9.22.js" />
+    <Content Include="Scripts\paper-full-0.9.22.min.js" />
     <Content Include="Scripts\q.js" />
     <Content Include="Scripts\q.min.js" />
     <Content Include="Scripts\r.js" />
@@ -2111,6 +2101,7 @@
     <Content Include="Templates\Reader\images\reader.png" />
     <Content Include="Templates\Reader\images\thumbnail.png" />
     <Content Include="Templates\Reader\index.html" />
+    <Content Include="Templates\Reader\js\lib\hotspotOnImagePlugin\hotspotOnAnImagePlugin.css" />
     <Content Include="Templates\Reader\js\require.js" />
     <Content Include="Templates\Reader\js\vendor.min.js" />
     <Content Include="Templates\Reader\lang\en.json" />
@@ -2543,10 +2534,6 @@
     <Content Include="App\viewmodels\panels\tabs\reviewTab.spec.js">
       <DependentUpon>reviewTab.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\questions\learningContents.js" />
-    <Content Include="App\viewmodels\questions\learningContents.spec.js">
-      <DependentUpon>learningContents.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\questions\question.js" />
     <Content Include="App\viewmodels\questions\question.spec.js">
       <DependentUpon>question.js</DependentUpon>
@@ -2599,12 +2586,6 @@
       <DependentUpon>courses.less</DependentUpon>
     </Content>
     <Content Include="Content\durandal.css" />
-    <Content Include="Content\font\buxtonsketch.svg" />
-    <Content Include="Content\font\opensans-italic.svg" />
-    <Content Include="Content\font\opensans-regular.svg" />
-    <Content Include="Content\font\opensans-semibold.svg" />
-    <Content Include="Content\font\opensans-semibolditalic.svg" />
-    <Content Include="Content\font\rabiohead.svg" />
     <Content Include="Content\images\account\log-in.jpg" />
     <Content Include="Content\images\account\pointer-left-big.png" />
     <Content Include="Content\images\account\pointer-right-big.png" />

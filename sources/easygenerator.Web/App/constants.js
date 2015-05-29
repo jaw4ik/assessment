@@ -56,6 +56,11 @@
                 incorrect: 'incorrect'
             },
 
+            learningContentsTypes: {
+                content: 'content',
+                hotspot: 'hotspot'
+            },
+
             sortingOptions: {
                 byTitleAsc: 'byTitleAsc',
                 byTitleDesc: 'byTitleDesc'
@@ -198,7 +203,9 @@
                     learningContent: {
                         createdByCollaborator: 'learningContent:createdByCollaborator',
                         deletedByCollaborator: 'learningContent:deletedByCollaborator',
-                        textUpdatedByCollaborator: 'learningContent:textUpdatedByCollaborator'
+                        textUpdatedByCollaborator: 'learningContent:textUpdatedByCollaborator',
+                        remove: 'learningContent:remove',
+                        updateText: 'learningContent:updateText'
                     },
 
                     fillInTheBlank: {
