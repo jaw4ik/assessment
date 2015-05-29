@@ -57,6 +57,11 @@
                 incorrect: 'incorrect'
             },
 
+            learningContentsTypes: {
+                content: 'content',
+                hotspot: 'hotspot'
+            },
+
             sortingOptions: {
                 byTitleAsc: 'byTitleAsc',
                 byTitleDesc: 'byTitleDesc'
@@ -199,7 +204,9 @@
                     learningContent: {
                         createdByCollaborator: 'learningContent:createdByCollaborator',
                         deletedByCollaborator: 'learningContent:deletedByCollaborator',
-                        textUpdatedByCollaborator: 'learningContent:textUpdatedByCollaborator'
+                        textUpdatedByCollaborator: 'learningContent:textUpdatedByCollaborator',
+                        remove: 'learningContent:remove',
+                        updateText: 'learningContent:updateText'
                     },
 
                     fillInTheBlank: {
@@ -346,11 +353,12 @@
                 userUrl: '/user',
                 changesInQuota: 'storage:changesInQuota',
                 video: {
+                    vimeoToken: 'bearer a6b8a8d804e9044f9aa091b6687e70c1',
+                    vimeoApiVideosUrl: 'https://api.vimeo.com/videos/',
                     videoUrl: '/video',
                     ticketUrl: '/api/media/video/upload',
                     finishUrl: '/api/media/video/upload/finish',
                     progressUrl: '/api/media/video/upload/progress',
-                    thumbnailLoadUrl: '//vimeo.com/api/v2/video/',
                     defaultThumbnailUrl: '//i.vimeocdn.com/video/default_200x150.jpg',
                     cancelUrl: '/api/media/video/upload/cancel',
                     statuses: {

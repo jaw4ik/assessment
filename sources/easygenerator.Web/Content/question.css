@@ -724,7 +724,7 @@
 .question-learning-content-body-wrapper:hover {
   border: 1px solid #e6e6e6;
 }
-.question-learning-content-body-wrapper.active {
+.question-learning-content-body-wrapper.editing {
   border: 1px solid #5bc0de;
   position: relative;
   z-index: 1;
@@ -755,6 +755,9 @@
 .question-learning-content.blankContent {
   vertical-align: middle;
   clear: both;
+}
+.hotspotOnImage .hotspot-area {
+  position: absolute;
 }
 /*#endregion Learning content*/
 /*#region drag button*/
@@ -839,29 +842,6 @@
 .add-button:hover {
   border-style: solid;
 }
-.add-button-text-wrapper {
-  padding: 20px 10px;
-  text-align: center;
-}
-.add-button-text {
-  display: inline-block;
-  vertical-align: top;
-  position: relative;
-  padding-left: 34px;
-  color: #546677;
-  font-size: 16px;
-}
-.add-button-text:before {
-  background: url('images/sprites_24.png') -263px 0 no-repeat;
-  content: '';
-  display: block;
-  height: 24px;
-  left: 0;
-  margin-top: -12px;
-  position: absolute;
-  top: 50%;
-  width: 24px;
-}
 .add-button .question-answer-text-wrapper,
 .add-button .question-learning-content-wrapper {
   background-color: #fafafa;
@@ -880,6 +860,61 @@
 .add-button .question-answer-text {
   padding-right: 54px;
 }
+.add-button.inline {
+  display: inline-block;
+  width: 45%;
+  margin: 0 4% 0 29px;
+}
+.add-button.inline:nth-child(even) {
+  margin: 0;
+}
+.add-button.inline .add-button-text-wrapper .add-button-text {
+  font: 14px 'OpenSans-SemiboldItalic';
+  text-transform: uppercase;
+  color: #42515f;
+}
+.add-button.inline .add-button-text-wrapper .add-button-text:before {
+  height: 36px;
+  margin-top: -18px;
+  background: url('images/sprites_64.png') no-repeat;
+}
+.add-button.inline.content .add-button-text {
+  padding-left: 50px;
+}
+.add-button.inline.hotspot-on-image .add-button-text {
+  padding-left: 70px;
+}
+.add-button.inline.hotspot-on-image .add-button-text:before {
+  width: 54px;
+  background-position: -74px -283px;
+}
+.add-button.inline.content .add-button-text:before {
+  width: 37px;
+  background-position: -152px -283px;
+}
+.add-button .add-button-text-wrapper {
+  padding: 20px 10px;
+  text-align: center;
+}
+.add-button .add-button-text-wrapper .add-button-text {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  padding-left: 34px;
+  color: #546677;
+  font-size: 16px;
+}
+.add-button .add-button-text-wrapper .add-button-text:before {
+  background: url('images/sprites_24.png') -263px 0 no-repeat;
+  content: '';
+  display: block;
+  height: 24px;
+  left: 0;
+  margin-top: -12px;
+  position: absolute;
+  top: 50%;
+  width: 24px;
+}
 /*#endregion add button*/
 /*#region Question type create actions*/
 .question-type-action-wrapper {
@@ -894,7 +929,7 @@
   -webkit-box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.5);
   box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.1);
-  z-index: 10;
+  z-index: 20;
 }
 .expanded + .question-type-action-wrapper {
   display: block;
@@ -1519,6 +1554,149 @@
   }
 }
 /*#endregion Feedback*/
+/*#region HotspotOnImage*/
+.hotspot-on-image-container {
+  position: relative;
+  padding: 20px;
+  overflow: visible;
+  text-align: center;
+}
+.hotspot-on-image-container .hotspot-on-image-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.hotspot-on-image-container .upload-background-image {
+  right: -17px;
+}
+.hotspot-on-image-container .hotspot-on-image {
+  position: relative;
+  display: inline-block;
+}
+.hotspot-on-image-container .hotspot-on-image.empty + .hotspot-tooltip-container {
+  display: block;
+}
+.hotspot-on-image-container .hotspot-on-image .hotspot-area {
+  position: absolute;
+  left: 0;
+  z-index: 10;
+}
+.hotspot-on-image-container .hotspot-tooltip-container {
+  position: absolute;
+  display: none;
+  top: 50%;
+  left: 20px;
+  right: 20px;
+  height: 50px;
+  margin-top: -25px;
+  padding: 12px;
+  color: #fff;
+  font: 18px 'OpenSans-Semibold';
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+/*#endregion HotspotOnImage*/
+/*#region  HotspotOnImageWidget*/
+.hotspot-on-image-editor-container {
+  position: absolute;
+  display: none;
+  width: 330px;
+  padding: 20px 20px 15px;
+  border: 2px solid #95b8d9;
+  border-radius: 5px;
+  background-color: #fff;
+  -webkit-box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
+  z-index: 200;
+}
+.hotspot-on-image-editor-text-container {
+  position: relative;
+  min-height: 78px;
+  max-height: 300px;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px;
+  font: 14px 'OpenSans';
+  color: #63798e;
+  line-height: 20px;
+  outline: none;
+  border: 1px solid #CAC3BD;
+  border-radius: 5px;
+  resize: none;
+}
+.hotspot-on-image-editor-text-container:focus {
+  border: 1px solid rgba(0, 168, 255, 0.75);
+  box-shadow: 0 0 3px rgba(0, 168, 255, 0.75);
+}
+.hotspot-on-image-editor-button-container {
+  text-align: right;
+}
+.hotspot-on-image-editor-button {
+  padding: 0;
+  border: none;
+  outline: none;
+  background: none;
+}
+.hotspot-on-image-editor-button:hover {
+  cursor: pointer;
+}
+.hotspot-on-image-editor-button.cancel {
+  margin-right: 30px;
+  font: 12px 'OpenSans';
+  color: #546677;
+}
+.hotspot-on-image-editor-button.cancel:hover {
+  text-decoration: underline;
+}
+.hotspot-on-image-editor-button.save {
+  display: inline-block;
+  height: 36px;
+  min-width: 100px;
+  font: 13px 'OpenSans';
+  text-transform: uppercase;
+  border-radius: 5px;
+}
+.hotspot-on-image-editor-button.close {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: -10px;
+  right: -10px;
+  border-radius: 50%;
+  background-color: #63798e;
+  line-height: 0;
+  color: #fff;
+}
+.hotspot-on-image-editor-button.close:before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 8px;
+  height: 8px;
+  top: 50%;
+  left: 50%;
+  margin-top: -4px;
+  margin-left: -4px;
+  background: url('images/sprites_16.png') -25px -88px no-repeat;
+}
+.hotspot-on-image-editor-pointer {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: #95b8d9;
+  border-style: solid;
+  background-color: #fff;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.left .hotspot-on-image-editor-pointer {
+  left: -7px;
+  border-width: 0 0 2px 2px;
+}
+.right .hotspot-on-image-editor-pointer {
+  right: -7px;
+  border-width: 2px 2px 0 0;
+}
+/*#region  HotspotOnImageWidget*/
 .answers {
   background-color: #e9f0f4;
   border-top: 1px solid rgba(198, 209, 216, 0.7);
