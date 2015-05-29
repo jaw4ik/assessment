@@ -5,48 +5,42 @@
 /*#region FONTS CONNECTIONS*/
 @font-face {
     font-family: 'OpenSans';
-    src: url('./font/opensans-regular.eot');
-    src: url('./font/opensans-regular.eot?#iefix') format('embedded-opentype'), url('./font/opensans-regular.woff') format('woff'), url('./font/opensans-regular.ttf') format('truetype'), url('./font/opensans-regular.svg#OpenSansRegular') format('svg');
+    src: url('./font/opensans-regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'OpenSans-Semibold';
-    src: url('./font/opensans-semibold.eot');
-    src: url('./font/opensans-semibold.eot?#iefix') format('embedded-opentype'), url('./font/opensans-semibold.woff') format('woff'), url('./font/opensans-semibold.ttf') format('truetype'), url('./font/opensans-semibold.svg#OpenSansSemibold') format('svg');
+    src: url('./font/opensans-semibold.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'OpenSansItalic';
-    src: url('./font/opensans-italic.eot');
-    src: url('./font/opensans-italic.eot?#iefix') format('embedded-opentype'), url('./font/opensans-italic.woff') format('woff'), url('./font/opensans-italic.ttf') format('truetype'), url('./font/opensans-italic.svg#OpenSansItalic') format('svg');
+    src: url('./font/opensans-italic.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'OpenSans-SemiboldItalic';
-    src: url('./font/opensans-semibolditalic.eot');
-    src: url('./font/opensans-semibolditalic.eot?#iefix') format('embedded-opentype'), url('./font/opensans-semibolditalic.woff') format('woff'), url('./font/opensans-semibolditalic.ttf') format('truetype'), url('./font/opensans-semibolditalic.svg#OpenSansSemiboldItalic') format('svg');
+    src: url('./font/opensans-semibolditalic.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'BuxtonSketch';
-    src: url('./font/buxtonsketch.eot');
-    src: url('./font/buxtonsketch.eot?#iefix') format('embedded-opentype'), url('./font/buxtonsketch.woff') format('woff'), url('./font/buxtonsketch.ttf') format('truetype'), url('./font/buxtonsketch.svg#BuxtonSketch') format('svg');
+    src: url('./font/buxtonsketch.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Rabiohead';
-    src: url('./font/rabiohead.eot');
-    src: url('./font/rabiohead.eot?#iefix') format('embedded-opentype'), url('./font/rabiohead.woff') format('woff'), url('./font/rabiohead.ttf') format('truetype'), url('./font/rabiohead.svg#Rabiohead') format('svg');
+    src: url('./font/rabiohead.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
