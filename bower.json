@@ -29,6 +29,7 @@
     "scriptjs": "*",
     "angular-translate": "~2.6.1",
     "angular-translate-loader-static-files": "~2.6.1",
-    "autosize": "*"
+    "autosize": "*",
+	"easygenerator-hotspot-on-an-image-plugin": "*"
   }
 }
