@@ -1,0 +1,30 @@
+﻿<div class="question-learning-content-list-item-body-wrapper">
+    <div class="question-learning-content-list-item-body">
+        <div class="question-learning-content-drag-wrapper" data-bind="css:{ enabled: $parent.isSortingEnabled }, localize: { title: 'changeOrderTooltip' }"></div>
+        <div class="question-learning-content-body-wrapper" data-bind="css: { editing: hasFocus }">
+            <div class="question-learning-content-body">
+                <div class="question-learning-content-wrapper hotspot-on-image-container">
+                    <div class="hotspot-on-image-wrapper">
+                        <div class="question-learning-content selectable hotspot-on-image" data-bind="background: background, hotspotOnImage: { background: background, polygons: polygons, isEditing: hasFocus, save: save, focus: beginEditText, blur: function (data, event) { save(data, event), endEditText(data, event); }, actions: { add: addPolygon, update: updatePolygon, delete: deletePolygon} }">
+                        </div>
+                        <div class="hotspot-tooltip-container" data-bind="localize: { text: 'hotspotOnAnImageEmptyTooltip'}">Click and drag on image to create the hotspot</div>
+                        <div class="upload-background-image info-tooltip-holder" data-bind="click: uploadBackground">
+                            <div class="info-tooltip browse-image">
+                                <span data-bind="localize: { text: 'changeBackgroundImage' }">Browse image</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="question-learning-content-delete-wrapper">
+            <span class="question-learning-content-delete-icon  info-tooltip-holder" data-bind="click: removeLearningContent">
+                <span class="info-tooltip right-side">
+                    <span data-bind="localize: { text: 'delete' }">
+                        Delete
+                    </span>
+                </span>
+            </span>
+        </div>
+    </div>
+</div>
