@@ -1,4 +1,4 @@
-﻿<div class="question-hint-container">
+<div class="question-hint-container">
     <div class="hint-button-container">
         <div class="hint-button" ng-click="question.hint.isDisplayed ? question.hint.hide(false) : question.hint.show()" ng-class="{'hint-displayed': question.hint.isDisplayed}">
             <span class="hint-button-caption">{{ question.hint.isDisplayed ? '[hide hint]' : '[show hint]' | translate }}</span>
@@ -13,7 +13,7 @@
                 <div class="color-ball yellow">&nbsp;</div>
             </div>
             <div class="hint-content" ng-if="question.hint.isLoaded" ng-repeat="learningContent in question.hint.learningContents" show-toggle="question.hint.isLoaded && question.hint.isDisplayed">
-                <div html-compile="learningContent.content" styled-content></div>
+                <div hint="learningContent.content" styled-content></div>
             </div>
         </div>
         <div class="hint-footer">
