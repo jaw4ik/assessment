@@ -1,4 +1,4 @@
-﻿define(['viewmodels/learningPaths/commands/updateLearningPathTitleCommand'], function (command) {
+﻿define(['viewmodels/learningPaths/learningPath/commands/updateLearningPathTitleCommand'], function (command) {
     "use strict";
     var
         httpWrapper = require('http/apiHttpWrapper'),

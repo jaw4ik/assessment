@@ -1,0 +1,55 @@
+﻿<section class="learning-path">
+
+    <!--  ko compose: { model: courseSelector, view: 'views/learningPaths/courseSelector/courseSelector.html' }  -->
+    <!-- /ko -->
+
+    <div class="loader-container">
+        <header class="content-section-wrapper ">
+            <div class="content-section learning-path-header-content-section">
+                <!--  ko compose: { model: titleField, view: 'views/common/titleField.html' }  -->
+                <!-- /ko -->
+                <div class="content-section-actions-wrapper">
+                </div>
+            </div>
+        </header>
+        <div class="content-section-wrapper">
+            <div class="content-section">
+                <div class="page-view-caption-wrapper">
+                    <div class="page-view-caption">
+                        <button class="page-view-caption-back-button info-tooltip-holder" data-bind="click: back">
+                            <div class="info-tooltip">
+                                <span data-bind="localize: { text: 'goBack' }">Go back</span>
+                            </div>
+                        </button>
+                        <div class="page-view-caption-text" data-bind="localize: { text: 'coursesInThePath' }"></div>
+                    </div>
+                    <div class="page-view-caption-actions">
+                        <!-- ko if: courseSelector.isExpanded -->
+                        <button class="action-item-btn create-item btn confirm" data-bind="click: finishAddingCourses">
+                            <span class="action-item-btn-caption" data-bind="localize: { text: 'done' }"></span>
+                        </button>
+                        <!-- /ko -->
+                        <!-- ko ifnot: courseSelector.isExpanded -->
+                        <button class="action-item-btn create-item btn add-courses green" data-bind="click: addCourses">
+                            <span class="action-item-btn-caption" data-bind="localize: { text: 'addCourses' }"></span>
+                        </button>
+                        <!-- /ko -->
+                    </div>
+                </div>
+                <!-- ko if: courses().length === 0 -->
+                <div class="empty-list-wrapper">
+                    <span class="empty-list" data-bind="localize: { text: 'noCoursesInTheLearningPath'}"></span>
+                </div>
+                <!-- /ko -->
+                <!-- ko ifnot: courses().length === 0  -->
+                <ul class="unstyled main-content-list">
+                    <!-- ko foreach: courses -->
+                    <!--  ko compose: { model: $data, view: 'views/learningPaths/learningPath/courseBrief.html', activationData: currentLanguage }  -->
+                    <!-- /ko -->
+                    <!-- /ko -->
+                </ul>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+</section>

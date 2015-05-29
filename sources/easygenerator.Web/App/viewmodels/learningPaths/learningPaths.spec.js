@@ -59,9 +59,5 @@
                 expect(result).toBe(defer.promise);
             });
         });
-
-        describe('activate:', function () {
-
-        });
     });
 });

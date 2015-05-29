@@ -109,7 +109,7 @@
             stateChanged: stateChanged
         };
 
-        viewModel.titleField = titleField('', constants.validation.courseTitleMaxLength, localizationManager.localize('courseTitle'), events.updateCourseTitle, getTitle, updateTitle);
+        viewModel.titleField = titleField('', constants.validation.courseTitleMaxLength, localizationManager.localize('courseTitle'), getTitle, updateTitle);
 
         collaborate.enabled = ko.computed(function () {
             return (userContext.identity && userContext.identity.email) === viewModel.createdBy();
@@ -124,6 +124,7 @@
         }
 
         function updateTitle(title) {
+            eventTracker.publish(events.updateCourseTitle);
             return repository.updateCourseTitle(viewModel.id, title);
         }
 

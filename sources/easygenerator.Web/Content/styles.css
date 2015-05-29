@@ -1111,6 +1111,34 @@
 .action-item-btn.create-item.disabled .action-item-btn-caption:before {
   background-position: -206px -32px;
 }
+/*#region confirm btn */
+.btn.confirm {
+  padding: 0px 40px;
+  background: #469dd5;
+  border-color: #469dd5;
+  text-shadow: none;
+  text-transform: uppercase;
+}
+.btn.confirm:hover,
+.btn.confirm.active,
+.btn.confirm.active:active {
+  background: #3b8abc;
+  border-color: #3b8abc;
+  box-shadow: none;
+}
+.btn.confirm .action-item-btn-caption:before {
+  content: '';
+  display: block;
+  height: 16px;
+  width: 16px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -9px;
+  background-image: url('images/sprites_16.png');
+  background-position: -228px -84px;
+}
+/*#endregion */
 /*connect and finish connecting objectives list item button*/
 .btn.connect-item {
   margin-right: 20px;

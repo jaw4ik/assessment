@@ -1,7 +1,7 @@
-﻿define(['notify', 'constants', 'eventTracker'],
-    function (notify, constants, eventTracker) {
+﻿define(['notify'],
+    function (notify) {
 
-        var ctor = function (title, maxLength, caption, updateTitleEventName, getTitleHandler, updateTitleHandler) {
+        var ctor = function (title, maxLength, caption, getTitleHandler, updateTitleHandler) {
             var viewModel = {
                 title: ko.observable(title),
                 maxLength: maxLength,
@@ -10,7 +10,6 @@
                 beginEdit: beginEdit,
                 endEdit: endEdit,
                 caption: caption,
-                updateTitleEventName: updateTitleEventName,
                 getTitleHandler: getTitleHandler,
                 updateTitleHandler: updateTitleHandler
             }
@@ -34,8 +33,6 @@
                     if (viewModel.title() === currentTitle) {
                         return;
                     }
-
-                    eventTracker.publish(updateTitleEventName);
 
                     if (viewModel.isValid()) {
                         updateTitleHandler(viewModel.title()).then(notify.saved);

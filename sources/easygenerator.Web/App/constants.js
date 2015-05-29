@@ -166,6 +166,10 @@
                         }
                     }
                 },
+                learningPath: {
+                    addCourse: 'learningPath:addCourse',
+                    removeCourse: 'learningPath:removeCourse'
+                },
                 objective: {
                     createdInCourse: 'objective:createdInCourse',
                     titleUpdated: 'objective:titleUpdated',

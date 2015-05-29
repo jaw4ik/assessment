@@ -3,8 +3,6 @@
 
     var
         ctor = require('viewmodels/common/titleField'),
-        eventTracker = require('eventTracker'),
-        constants = require('constants'),
         notify = require('notify');
 
     describe('viewModel [titleField]', function () {
@@ -13,7 +11,6 @@
             title = 'title',
             maxLength = 255,
             caption = 'caption',
-            updateTitleEventName = 'update title',
             getTitleDefer = Q.defer(),
             updateTitleDefer = Q.defer(),
             handlers = {
@@ -23,14 +20,13 @@
 
         beforeEach(function () {
             spyOn(notify, 'saved');
-            spyOn(eventTracker, 'publish');
             spyOn(handlers, "getTitle").and.callFake(function () {
                 return getTitleDefer.promise;
             });
             spyOn(handlers, "updateTitle").and.callFake(function () {
                 return updateTitleDefer.promise;
             });
-            viewModel = ctor(title, maxLength, caption, updateTitleEventName, handlers.getTitle, handlers.updateTitle);
+            viewModel = ctor(title, maxLength, caption, handlers.getTitle, handlers.updateTitle);
         });
 
         describe('title:', function () {
@@ -40,12 +36,6 @@
 
             it('should be set', function () {
                 expect(viewModel.title()).toBe(title);
-            });
-        });
-
-        describe('updateTitleEventName:', function () {
-            it('should be set', function () {
-                expect(viewModel.updateTitleEventName).toBe(updateTitleEventName);
             });
         });
 
@@ -73,7 +63,7 @@
             describe('when title is longer than 255', function () {
 
                 it('should be false', function () {
-                    viewModel.title(utils.createString(constants.validation.courseTitleMaxLength + 1));
+                    viewModel.title(utils.createString(maxLength + 1));
                     expect(viewModel.isValid()).toBeFalsy();
                 });
 
@@ -82,7 +72,7 @@
             describe('when title is longer than 255 but after trimming is not longer than 255', function () {
 
                 it('should be true', function () {
-                    viewModel.title('   ' + utils.createString(constants.validation.courseTitleMaxLength - 1) + '   ');
+                    viewModel.title('   ' + utils.createString(maxLength - 1) + '   ');
                     expect(viewModel.isValid()).toBeTruthy();
                 });
 
@@ -91,7 +81,7 @@
             describe('when title is not empty and not longer than 255', function () {
 
                 it('should be true', function () {
-                    viewModel.title(utils.createString(constants.validation.courseTitleMaxLength - 1));
+                    viewModel.title(utils.createString(maxLength - 1));
                     expect(viewModel.isValid()).toBeTruthy();
                 });
 
@@ -182,15 +172,6 @@
                     viewModel.title(newTitle);
                     promise = getTitleDefer.promise.fin(function () { });
                     getTitleDefer.resolve(title);
-                });
-
-                it('should send event', function (done) {
-                    viewModel.endEdit();
-
-                    promise.fin(function () {
-                        expect(eventTracker.publish).toHaveBeenCalledWith(updateTitleEventName);
-                        done();
-                    });
                 });
 
                 describe('and when title is valid', function () {

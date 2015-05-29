@@ -1,12 +1,14 @@
-﻿define(['viewmodels/learningPaths/learningPath'], function (viewModel) {
+﻿define(['viewmodels/learningPaths/learningPath/learningPath'], function (viewModel) {
     "use strict";
     var
-         getLearningPathByIdQuery = require('viewmodels/learningPaths/queries/getLearningPathByIdQuery'),
+         getLearningPathByIdQuery = require('viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery'),
          router = require('plugins/router'),
          constants = require('constants'),
-         updateTitleCommand = require('viewmodels/learningPaths/commands/updateLearningPathTitleCommand'),
+         updateTitleCommand = require('viewmodels/learningPaths/learningPath/commands/updateLearningPathTitleCommand'),
          clientContext = require('clientContext'),
-         eventTracker = require('eventTracker')
+         eventTracker = require('eventTracker'),
+         courseSelector = require('viewmodels/learningPaths/courseSelector/courseSelector'),
+         app = require('durandal/app')
     ;
 
     describe('viewModel [learningPath]', function () {
@@ -18,8 +20,12 @@
 
         beforeEach(function () {
             getLearnigPathDefer = Q.defer();
+            spyOn(app, 'on');
+            spyOn(app, 'off');
             spyOn(router, 'navigate');
             spyOn(eventTracker, 'publish');
+            spyOn(courseSelector, 'expand');
+            spyOn(courseSelector, 'collapse');
             spyOn(getLearningPathByIdQuery, 'execute').and.returnValue(getLearnigPathDefer.promise);
         });
 
@@ -60,6 +66,24 @@
                 viewModel.id = null;
                 viewModel.activate(learningPath.id);
                 expect(viewModel.id).toBe(learningPath.id);
+            });
+
+            it('should set current language', function() {
+                var lang = 'en';
+                viewModel.currentLanguage = '';
+                localizationManager.currentLanguage = lang;
+                viewModel.activate(learningPath.id);
+                expect(viewModel.currentLanguage).toBe(lang);
+            });
+
+            it('should subscribe on learningPath.addCourse event', function () {
+                viewModel.activate(learningPath.id);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.addCourse, viewModel.addCourse);
+            });
+
+            it('should subscribe on learningPath.removeCourse event', function () {
+                viewModel.activate(learningPath.id);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.removeCourse, viewModel.removeCourse);
             });
 
             describe('when received learning path', function () {
@@ -113,6 +137,18 @@
             });
         });
 
+        describe('deactivate:', function() {
+            it('should unsubscribe from learningPath.addCourse event', function () {
+                viewModel.deactivate();
+                expect(app.off).toHaveBeenCalledWith(constants.messages.learningPath.addCourse, viewModel.addCourse);
+            });
+
+            it('should unsubscribe from learningPath.removeCourse event', function () {
+                viewModel.deactivate();
+                expect(app.off).toHaveBeenCalledWith(constants.messages.learningPath.removeCourse, viewModel.removeCourse);
+            });
+        });
+
         describe('back:', function () {
             it('should publish \'Navigate to learning paths\' event', function () {
                 viewModel.back();
@@ -131,6 +167,12 @@
             });
         });
 
+        describe('currentLanguage:', function () {
+            it('should be defined', function () {
+                expect(viewModel.currentLanguage).toBeDefined();
+            });
+        });
+
         describe('titleField:', function () {
             it('should be defined', function () {
                 expect(viewModel.titleField).toBeDefined();
@@ -139,12 +181,6 @@
             describe('maxLength:', function () {
                 it('should be constants.validation.learningPathTitleMaxLength', function () {
                     expect(viewModel.titleField.maxLength).toBe(constants.validation.learningPathTitleMaxLength);
-                });
-            });
-
-            describe('updateTitleEventName:', function () {
-                it('should be \'Update learning path title\'', function () {
-                    expect(viewModel.titleField.updateTitleEventName).toBe('Update learning path title');
                 });
             });
 
@@ -165,6 +201,11 @@
                     viewModel.id = id;
                     viewModel.titleField.updateTitleHandler(newTitle);
                     expect(updateTitleCommand.execute).toHaveBeenCalledWith(id, newTitle);
+                });
+
+                it('should publish \'Update learning path title\' event', function () {
+                    viewModel.titleField.updateTitleHandler('new title2');
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Update learning path title');
                 });
             });
 
@@ -188,6 +229,20 @@
                     });
 
                 });
+            });
+        });
+
+        describe('addCourses:', function () {
+            it('should expand course selector', function () {
+                viewModel.addCourses();
+                expect(courseSelector.expand).toHaveBeenCalled();
+            });
+        });
+
+        describe('finishAddingCourses:', function () {
+            it('should collapse course selector', function () {
+                viewModel.finishAddingCourses();
+                expect(courseSelector.collapse).toHaveBeenCalled();
             });
         });
     });

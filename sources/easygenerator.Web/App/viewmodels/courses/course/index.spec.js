@@ -55,12 +55,6 @@
                 });
             });
 
-            describe('updateTitleEventName:', function () {
-                it('should be \'Update course title\'', function () {
-                    expect(viewModel.titleField.updateTitleEventName).toBe('Update course title');
-                });
-            });
-
             describe('updateTitleHandler:', function () {
                 var updateDefer;
 
@@ -78,6 +72,11 @@
                     viewModel.id = id;
                     viewModel.titleField.updateTitleHandler(newTitle);
                     expect(repository.updateCourseTitle).toHaveBeenCalledWith(id, newTitle);
+                });
+
+                it('should publish \'Update course title\' event', function () {
+                    viewModel.titleField.updateTitleHandler('new title2');
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Update course title');
                 });
             });
 
