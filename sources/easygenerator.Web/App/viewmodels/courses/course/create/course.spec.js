@@ -11,7 +11,8 @@
         clientContext = require('clientContext'),
         userContext = require('userContext'),
         imageUpload = require('imageUpload'),
-        createObjectiveCommand = require('commands/createObjectiveCommand')
+        createObjectiveCommand = require('commands/createObjectiveCommand'),
+        constants = require('constants')
     ;
 
     describe('viewModel [course]', function () {
