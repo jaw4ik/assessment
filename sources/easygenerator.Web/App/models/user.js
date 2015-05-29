@@ -30,6 +30,12 @@
                     expirationDate: new Date(spec.subscription.expirationDate)
                 };
                 break;
+            case 100:
+                this.subscription = {
+                    accessType: constants.accessType.trial,
+                    expirationDate: new Date(spec.subscription.expirationDate)
+                };
+                break;
             default:
                 throw 'Provided subscription is not supported';
         }
