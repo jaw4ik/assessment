@@ -753,7 +753,7 @@
                 userContext.identity = {
                     email: 'test@test.com',
                     subscription: {
-                        accessType: 0
+                        accessType: constants.accessType.free
                     }
                 }
 

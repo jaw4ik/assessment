@@ -75,7 +75,7 @@
             describe('when user email is a string', function () {
 
                 it('should set user identity', function (done) {
-                    ajax.resolve({ email: 'user@easygenerator.com', subscription: { accessType: 0 } });
+                    ajax.resolve({ email: 'user@easygenerator.com', subscription: { accessType: constants.accessType.free } });
 
                     userContext.identify().fin(function () {
                         expect(userContext.identity.__moduleId__).toEqual("models/user");
