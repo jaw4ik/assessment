@@ -4,6 +4,7 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.Mappers;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -56,6 +57,59 @@ namespace easygenerator.Web.Controllers.Api
 
             return JsonSuccess();
         }
+
+        [HttpPost]
+        [Route("api/learningpath/course/add")]
+        public ActionResult AddCourse(LearningPath learningPath, Course course, int? index)
+        {
+            if (learningPath == null)
+            {
+                return JsonLocalizableError(Errors.LearningPathNotFoundError, Errors.LearningPathNotFoundResourceKey);
+            }
+
+            if (course == null)
+            {
+                return JsonLocalizableError(Errors.CourseNotFoundError, Errors.CourseNotFoundResourceKey);
+            }
+
+            learningPath.AddCourse(course, index, GetCurrentUsername());
+
+            return JsonSuccess();
+        }
+
+        [HttpPost]
+        [Route("api/learningpath/course/remove")]
+        public ActionResult RemoveCourse(LearningPath learningPath, Course course)
+        {
+            if (learningPath == null)
+            {
+                return JsonLocalizableError(Errors.LearningPathNotFoundError, Errors.LearningPathNotFoundResourceKey);
+            }
+
+            if (course == null)
+            {
+                return JsonLocalizableError(Errors.CourseNotFoundError, Errors.CourseNotFoundResourceKey);
+            }
+
+            learningPath.RemoveCourse(course, GetCurrentUsername());
+
+            return JsonSuccess();
+        }
+
+        [HttpPost]
+        [Route("api/learningpath/courses/order/update")]
+        public ActionResult UpdateCourseOrder(LearningPath learningPath, ICollection<Course> courses)
+        {
+            if (learningPath == null)
+            {
+                return HttpNotFound(Errors.LearningPathNotFoundError);
+            }
+
+            learningPath.UpdateCoursesOrder(courses, GetCurrentUsername());
+
+            return JsonSuccess();
+        }
+
 
     }
 }

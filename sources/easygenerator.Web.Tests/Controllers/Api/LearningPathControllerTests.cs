@@ -2,6 +2,7 @@
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.Infrastructure;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Tests.Utils;
@@ -9,6 +10,8 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
@@ -140,5 +143,176 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
+        #region AddCourse
+
+        [TestMethod]
+        public void AddCourse_ShouldReturnJson()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(Username);
+            var learningPath = LearningPathObjectMother.Create();
+            var course = CourseObjectMother.Create();
+
+            //Act
+            var result = _controller.AddCourse(learningPath, course, null);
+
+            //Assert
+            ActionResultAssert.IsJsonSuccessResult(result);
+        }
+
+        [TestMethod]
+        public void AddCourse_ShouldAddCourseToLearningPath()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(Username);
+            var learningPath = Substitute.For<LearningPath>();
+            var course = CourseObjectMother.Create();
+
+            //Act
+            _controller.AddCourse(learningPath, course, null);
+
+            //Assert
+            learningPath.Received().AddCourse(course, null, Username);
+        }
+
+        [TestMethod]
+        public void AddCourse_ShouldReturnJsonErrorResult_WhenLearningPathIsNull()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(Username);
+            var course = CourseObjectMother.Create();
+
+            //Act
+            var result = _controller.AddCourse(null, course, null);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.LearningPathNotFoundError);
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be(Errors.LearningPathNotFoundResourceKey);
+        }
+
+        [TestMethod]
+        public void AddCourse_ShouldReturnJsonErrorResult_WhenCourseIsNull()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(Username);
+            var learningPath = Substitute.For<LearningPath>();
+
+            //Act
+            var result = _controller.AddCourse(learningPath, null, null);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseNotFoundError);
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be(Errors.CourseNotFoundResourceKey);
+        }
+
+        #endregion
+
+        #region RemoveCourse
+
+        [TestMethod]
+        public void RemoveCourse_ShouldReturnJson()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(Username);
+            var learningPath = LearningPathObjectMother.Create();
+            var course = CourseObjectMother.Create();
+
+            //Act
+            var result = _controller.RemoveCourse(learningPath, course);
+
+            //Assert
+            ActionResultAssert.IsJsonSuccessResult(result);
+        }
+
+        [TestMethod]
+        public void RemoveCourse_ShouldRemoveCourseFromLearningPath()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(Username);
+            var learningPath = Substitute.For<LearningPath>();
+            var course = CourseObjectMother.Create();
+
+            //Act
+            _controller.RemoveCourse(learningPath, course);
+
+            //Assert
+            learningPath.Received().RemoveCourse(course, Username);
+        }
+
+        [TestMethod]
+        public void RemoveCourse_ShouldReturnJsonErrorResult_WhenLearningPathIsNull()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(Username);
+            var course = CourseObjectMother.Create();
+
+            //Act
+            var result = _controller.RemoveCourse(null, course);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.LearningPathNotFoundError);
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be(Errors.LearningPathNotFoundResourceKey);
+        }
+
+        [TestMethod]
+        public void RemoveCourse_ShouldReturnJsonErrorResult_WhenCourseIsNull()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(Username);
+            var learningPath = Substitute.For<LearningPath>();
+
+            //Act
+            var result = _controller.RemoveCourse(learningPath, null);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseNotFoundError);
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be(Errors.CourseNotFoundResourceKey);
+        }
+
+        #endregion
+
+        #region UpdateCourseOrder
+
+        [TestMethod]
+        public void UpdateCourseOrder_ShouldReturnHttpNotFound_WhenCourseIsNull()
+        {
+            //Arrange
+
+            //Act
+            var result = _controller.UpdateCourseOrder(null, new List<Course>());
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.LearningPathNotFoundError);
+        }
+
+        [TestMethod]
+        public void UpdateCourseOrder_ShouldCallMethodReorderCourses()
+        {
+            //Arrange
+            var learningPath = Substitute.For<LearningPath>();
+            var courses = new Collection<Course>();
+            _user.Identity.Name.Returns(Username);
+
+            //Act
+            _controller.UpdateCourseOrder(learningPath, courses);
+
+            //Assert
+            learningPath.Received().UpdateCoursesOrder(courses, Username);
+        }
+
+        [TestMethod]
+        public void UpdateCourseOrder_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            var learnignPath = LearningPathObjectMother.Create();
+
+            //Act
+            var result = _controller.UpdateCourseOrder(learnignPath, new List<Course>());
+
+            //Assert
+            result.Should().BeJsonSuccessResult();
+        }
+
+        #endregion UpdateObjectivesOrder
     }
 }

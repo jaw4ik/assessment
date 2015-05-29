@@ -50,6 +50,12 @@ namespace easygenerator.DomainModel.Entities
             RaiseEvent(new CourseTemplateUpdatedEvent(this));
         }
 
+        protected internal virtual ICollection<LearningPath> LearningPathCollection { get; set; }
+
+        public virtual IEnumerable<LearningPath> LearningPaths
+        {
+            get { return LearningPathCollection.AsEnumerable(); }
+        }
 
         #region Collaboration
 
@@ -218,25 +224,13 @@ namespace easygenerator.DomainModel.Entities
 
         private void DoUpdateOrder(ICollection<Objective> objectives, string modifiedBy)
         {
-            ObjectivesOrder = objectives.Count == 0 ? null : String.Join(",", objectives.Select(i => i.Id).ToArray());
+            ObjectivesOrder = OrderingUtils.GetOrder(objectives);
             MarkAsModified(modifiedBy);
         }
 
         private IList<Objective> GetOrderedRelatedObjectives()
         {
-            if (ObjectivesOrder == null)
-            {
-                return RelatedObjectivesCollection.ToList();
-            }
-
-            var orderedObjectiveIds = ObjectivesOrder.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).ToList();
-            return RelatedObjectivesCollection.OrderBy(objective => GetObjectiveIndex(orderedObjectiveIds, objective)).ToList();
-        }
-
-        private int GetObjectiveIndex(List<string> orderedObjectiveIds, Objective objective)
-        {
-            var index = orderedObjectiveIds.IndexOf(objective.Id.ToString());
-            return index > -1 ? index : orderedObjectiveIds.Count;
+            return OrderingUtils.OrderCollection(RelatedObjectivesCollection, ObjectivesOrder);
         }
 
         #endregion
