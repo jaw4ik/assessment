@@ -188,34 +188,14 @@
   box-shadow: 0 4px 3px rgba(50, 50, 50, 0.2);
   color: #fff;
   left: 0;
-  padding: 3px 10px;
   position: absolute;
   top: 0;
   white-space: nowrap;
   z-index: 99;
   font-size: 13px;
 }
-.hover .cursor-tooltip {
-  display: block;
-}
-.hover .cursor-tooltip span {
-  display: none;
-}
-.creating .cursor-tooltip,
-.resizing .cursor-tooltip,
-.dragging .cursor-tooltip {
-  display: none;
-}
-.create .cursor-tooltip .create {
-  display: block;
-}
-.active .cursor-tooltip .active {
-  display: block;
-}
-.resize .cursor-tooltip .resize {
-  display: block;
-}
-.drag .cursor-tooltip .drag {
-  display: block;
+.cursor-tooltip span {
+  display: inline-block;
+  padding: 3px 10px;
 }
 /*#endregion CURSOR TOOLTOP*/

@@ -55,9 +55,8 @@
         <main id="view_content" data-bind="router: {}, style: { opacity: router.isViewReady() ? '1' : '0' }"></main>
 
         <!-- ko ifnot: router.isViewReady -->
-            <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center' } } --><!-- /ko -->
+        <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center' } } --><!-- /ko -->
         <!-- /ko -->
-
         <!-- ko compose: { model: 'viewmodels/panels/sidePanel' } --><!-- /ko -->
 
     </section>
@@ -65,4 +64,6 @@
     <div data-bind="widget: { kind: 'uiLockViewer' }"></div>
     <div data-bind="widget: { kind: 'imagePreview' }"></div>
     <div data-bind="widget: { kind: 'notifyViewer' }"></div>
+    <div data-bind="widget: { kind: 'cursorTooltip' }"></div>
+    <div data-bind="widget: { kind: 'hotSpotOnImageTextEditor' }"></div>
 </section>

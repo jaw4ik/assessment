@@ -1518,6 +1518,16 @@
         'zh-cn': '处理中…',
         'uk': 'Обробка...'
     },
+    typeDescription: {
+        'en': 'Type description...',
+        'zh-cn': 'Type description...[zh-cn]',
+        'uk': 'Введіть опис...'
+    },
+    hotspotOnAnImageEmptyTooltip: {
+        'en': 'Click and drag on image to create the hotspot',
+        'zh-cn': 'Click and drag on image to create the hotspot[zh-cn]',
+        'uk': 'Щоб додати підказку натисніть та потягніть на картинці'
+    },
     changeImage: {
         'en': 'Change image',
         'zh-cn': '更换图片',

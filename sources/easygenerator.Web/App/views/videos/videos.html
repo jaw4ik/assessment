@@ -21,7 +21,7 @@
                 </li>
                 <!-- /ko -->
                 <!-- ko foreach: videos -->
-                <li class="video-list-item hovered" data-bind="click: $parent.showVideoPopup">
+                <li class="video-list-item" data-bind="click: $parent.showVideoPopup, css: { hovered: status() == $parent.statuses.loaded }">
                     <!-- ko if: status() == $parent.statuses.loaded -->
                     <div class="video-list-item-thumbnail" data-bind="style: { backgroundImage: 'url(' + thumbnailUrl() + ')' }">
                         <span class="play-icon"></span>

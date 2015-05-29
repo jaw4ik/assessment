@@ -4,6 +4,11 @@
             $editableFix = $('<input type="text" style="position:absolute;width:0;height:0;margin:0;padding:0;border:none;" />').appendTo('body');
 
         trackedElement.on('blur', function () {
+            var $selected = $(document.activeElement);
+            if ($selected.attr('contentEditable') || $selected.is('input, textarea')) {
+                return;
+            }
+
             $editableFix.focus();
             $editableFix[0].setSelectionRange(0, 0);
             $editableFix.blur();

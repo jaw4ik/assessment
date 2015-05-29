@@ -13,6 +13,7 @@
     require('viewmodels/courses/bindingHandlers/windowMessageListenerBinding');
     require('viewmodels/courses/bindingHandlers/courseIntroductionAnimationBinding');
     require('viewmodels/courses/bindingHandlers/publishTabBinding');
+    require('viewmodels/learningContents/bindingHandlers/hotspotOnImageBindingHandler');
 
     var task = {
         execute: execute

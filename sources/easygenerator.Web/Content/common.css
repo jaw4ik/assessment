@@ -4,110 +4,97 @@
 /*#region FONTS CONNECTIONS*/
 @font-face {
   font-family: 'OpenSans';
-  src: url('font/opensans-regular.eot?') format('embedded-opentype'), url('font/opensans-regular.woff') format('woff'), url('font/opensans-regular.ttf') format('truetype'), url('font/opensans-regular.svg#OpenSansRegular') format('svg');
+  src: url('font/opensans-regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'OpenSans-Semibold';
-  src: url('font/opensans-semibold.eot?') format('embedded-opentype'), url('font/opensans-semibold.woff') format('woff'), url('font/opensans-semibold.ttf') format('truetype'), url('font/opensans-semibold.svg#OpenSansSemibold') format('svg');
+  src: url('font/opensans-semibold.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'OpenSansItalic';
-  src: url('font/opensans-italic.eot');
-  src: url('font/opensans-italic.eot?#iefix') format('embedded-opentype'), url('font/opensans-italic.woff') format('woff'), url('font/opensans-italic.ttf') format('truetype'), url('font/opensans-italic.svg#OpenSansItalic') format('svg');
+  src: url('font/opensans-italic.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'OpenSans-SemiboldItalic';
-  src: url('font/opensans-semibolditalic.eot');
-  src: url('font/opensans-semibolditalic.eot?#iefix') format('embedded-opentype'), url('font/opensans-semibolditalic.woff') format('woff'), url('font/opensans-semibolditalic.ttf') format('truetype'), url('font/opensans-semibolditalic.svg#OpenSansSemiboldItalic') format('svg');
+  src: url('font/opensans-semibolditalic.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'OpenSans-Bold';
-  src: url('font/opensans-bold.eot?') format('embedded-opentype'), url('font/opensans-bold.woff') format('woff'), url('font/opensans-bold.ttf') format('truetype'), url('font/opensans-bold.svg#OpenSansBold') format('svg');
+  src: url('font/opensans-bold.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'BuxtonSketch';
-  src: url('font/buxtonsketch.eot');
-  src: url('font/buxtonsketch.eot?#iefix') format('embedded-opentype'), url('font/buxtonsketch.woff') format('woff'), url('font/buxtonsketch.ttf') format('truetype'), url('font/buxtonsketch.svg#BuxtonSketch') format('svg');
+  src: url('font/buxtonsketch.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'Rabiohead';
-  src: url('font/rabiohead.eot');
-  src: url('font/rabiohead.eot?#iefix') format('embedded-opentype'), url('font/rabiohead.woff') format('woff'), url('font/rabiohead.ttf') format('truetype'), url('font/rabiohead.svg#Rabiohead') format('svg');
+  src: url('font/rabiohead.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'IntroRegular';
-  src: url('font/intro-regular.eot');
-  src: url('font/intro-regular.eot?#iefix') format('embedded-opentype'), url('font/intro-regular.woff') format('woff'), url('font/intro-regular.ttf') format('truetype'), url('font/intro-regular.svg#IntroRegular') format('svg');
+  src: url('font/intro-regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'RobotoSlab';
-  src: url('font/robotoslab-regular.eot');
-  src: url('font/robotoslab-regular.eot?#iefix') format('embedded-opentype'), url('font/robotoslab-regular.woff') format('woff'), url('font/robotoslab-regular.ttf') format('truetype'), url('font/robotoslab-regular.svg#RobotoSlab-Bold') format('svg');
+  src: url('font/robotoslab-regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'RobotoSlab-Bold';
-  src: url('font/robotoslab-bold.eot');
-  src: url('font/robotoslab-bold.eot?#iefix') format('embedded-opentype'), url('font/robotoslab-bold.woff') format('woff'), url('font/robotoslab-bold.ttf') format('truetype'), url('font/robotoslab-bold.svg#RobotoSlab-Bold') format('svg');
+  src: url('font/robotoslab-bold.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'MyriadProRegular';
-  src: url('font/myriadpro-regular.eot');
-  src: url('font/myriadpro-regular.eot?#iefix') format('embedded-opentype'), url('font/myriadpro-regular.woff') format('woff'), url('font/myriadpro-regular.ttf') format('truetype'), url('font/myriadpro-regular.svg#MyriadProRegular') format('svg');
+  src: url('font/myriadpro-regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'MyriadProSemibold';
-  src: url('font/myriadpro-semibold.eot');
-  src: url('font/myriadpro-semibold.eot?#iefix') format('embedded-opentype'), url('font/myriadpro-semibold.woff') format('woff'), url('font/myriadpro-semibold.ttf') format('truetype'), url('font/myriadpro-semibold.svg#MyriadProSemibold') format('svg');
+  src: url('font/myriadpro-semibold.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'Heuristica-Bold';
-  src: url('font/heuristica-bold.eot');
-  src: url('font/heuristica-bold.eot?#iefix') format('embedded-opentype'), url('font/heuristica-bold.woff') format('woff'), url('font/heuristica-bold.ttf') format('truetype'), url('font/heuristica-bold.svg#HeuristicaBold') format('svg');
+  src: url('font/heuristica-bold.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'Heuristica-Regular';
-  src: url('font/heuristica-regular.eot');
-  src: url('font/heuristica-regular.eot?#iefix') format('embedded-opentype'), url('font/heuristica-regular.woff') format('woff'), url('font/heuristica-regular.ttf') format('truetype'), url('font/heuristica-regular.svg#HeuristicaRegular') format('svg');
+  src: url('font/heuristica-regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'Heuristica-Italic';
-  src: url('font/heuristica-italic.eot');
-  src: url('font/heuristica-italic.eot?#iefix') format('embedded-opentype'), url('font/heuristica-italic.woff') format('woff'), url('font/heuristica-italic.ttf') format('truetype'), url('font/heuristica-italic.svg#HeuristicaItalic') format('svg');
+  src: url('font/heuristica-italic.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'Heuristica-BoldItalic';
-  src: url('font/heuristica-bolditalic.eot');
-  src: url('font/heuristica-bolditalic.eot?#iefix') format('embedded-opentype'), url('font/heuristica-bolditalic.woff') format('woff'), url('font/heuristica-bolditalic.ttf') format('truetype'), url('font/heuristica-bolditalic.svg#HeuristicaBoldItalic') format('svg');
+  src: url('font/heuristica-bolditalic.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }

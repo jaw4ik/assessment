@@ -286,8 +286,11 @@
             'viewmodels/questions/openQuestion/openQuestion.spec',
 
             'viewmodels/questions/questionTitle.spec',
-            'viewmodels/questions/learningContents.spec',
             'viewmodels/questions/feedback.spec',
+
+            'viewmodels/learningContents/learningContents.spec',
+            'viewmodels/learningContents/content.spec',
+            'viewmodels/learningContents/hotspotOnAnImage.spec',
 
             //#endregion
 
@@ -306,6 +309,8 @@
             'widgets/notifyViewer/viewmodel.spec',
             'widgets/uiLockViewer/viewmodel.spec',
             'widgets/createQuestion/viewmodel.spec',
+            'widgets/cursorTooltip/viewmodel.spec',
+            'widgets/hotSpotOnImageTextEditor/viewmodel.spec',
             'bootstrapper.spec',
             'guard.spec',
             'http/apiHttpWrapper.spec',

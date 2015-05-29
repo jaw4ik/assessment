@@ -51,12 +51,11 @@ namespace easygenerator.Auth.Configuration
                 }
             }
 
-            // Only for /preview/* /dashboard/* and /democourses/* which are rendered by razor
             // Get access token from cookie
-            // TODO: This parts are need to be moved into SPA.
-            if (oAuthRequestTokenContext.Request.Path.StartsWithSegments(new PathString("/preview")) ||
-                oAuthRequestTokenContext.Request.Path.StartsWithSegments(new PathString("/dashboard")) ||
-                oAuthRequestTokenContext.Request.Path.StartsWithSegments(new PathString("/democourses")))
+            // TODO: This parts are need to be moved into SPA or opened to unauthorized request
+
+            var paths = new[] { "/preview", "/dashboard", "/democourses", "/templates" };
+            if (paths.Any(_ => oAuthRequestTokenContext.Request.Path.StartsWithSegments(new PathString(_))))
             {
                 var value = oAuthRequestTokenContext.Request.Cookies["token.preview"];
                 if (!string.IsNullOrEmpty(value))

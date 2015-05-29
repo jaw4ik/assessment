@@ -65,7 +65,7 @@
 
         function copyToClipboard(value) {
             value(true);
-            _.delay(function () {
+            setTimeout(function () {
                 value(false);
             }, constants.copyToClipboardWait);
         }

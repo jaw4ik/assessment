@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'constants', 'notify', './commands/storage', './commands/vimeo', 'userContext', 'storageFileUploader', 'videoUpload/uploadDataContext', 'eventTracker'], function (app, constants, notify, storageCommands, vimeoCommands, userContext, storageFileUploader, uploadDataContext, eventTracker) {
+﻿define(['durandal/app', 'constants', 'notify', './commands/storage', './commands/vimeo', 'userContext', 'videoUpload/uploadDataContext', 'eventTracker'], function (app, constants, notify, storageCommands, vimeoCommands, userContext, uploadDataContext, eventTracker) {
 
     var videoConstants = constants.storage.video,
         eventCategory = 'Video library',
@@ -7,13 +7,10 @@
         }
 
     return {
-        upload: function (settings) {
-            settings.startUpload = startVideoUpload;
-            storageFileUploader.upload(settings);
-        }
+        upload: upload
     };
 
-    function startVideoUpload(filePath, file, settings) {
+    function upload(file, settings) {
         eventTracker.publish(events.uploadVideoFile, eventCategory);
         var title = getFileName(file.name);
 
@@ -42,7 +39,7 @@
                     uploadFail(videoToUpload, settings.uploadErrorMessage);
                 });
             }).fail(function () {
-                uploadDataContext.removeFromUploadQueue(videoToUpload.videoId);
+                uploadDataContext.removeFromUploadQueue(videoToUpload.id);
                 uploadFail(videoToUpload, settings.uploadErrorMessage);
             });
         });
