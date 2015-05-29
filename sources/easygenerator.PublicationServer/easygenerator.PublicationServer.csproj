@@ -143,50 +143,16 @@
     <Compile Include="MultipartFormData\CourseMultipartFormDataStreamProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="content\css\font\buxtonsketch.svg" />
-    <Content Include="content\css\font\opensans-italic.svg" />
-    <Content Include="content\css\font\opensans-regular.eot">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="content\css\font\opensans-regular.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="content\css\font\opensans-regular.woff">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="content\css\font\opensans-semibold.eot">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="content\css\font\opensans-semibold.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="content\css\font\opensans-semibold.woff">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="app.config" />
-    <None Include="content\css\font\buxtonsketch.eot" />
-    <None Include="content\css\font\buxtonsketch.ttf" />
     <None Include="content\css\font\buxtonsketch.woff" />
-    <None Include="content\css\font\opensans-italic.eot" />
-    <None Include="content\css\font\opensans-italic.ttf" />
     <None Include="content\css\font\opensans-italic.woff" />
-    <None Include="content\css\font\opensans-semibolditalic.eot" />
-    <None Include="content\css\font\opensans-semibolditalic.ttf" />
     <None Include="content\css\font\opensans-semibolditalic.woff" />
-    <None Include="content\css\font\rabiohead.eot" />
-    <None Include="content\css\font\rabiohead.ttf" />
     <None Include="content\css\font\rabiohead.woff" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="content\css\font\opensans-regular.svg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="content\css\font\opensans-semibold.svg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="content\css\font\opensans-semibolditalic.svg" />
-    <Content Include="content\css\font\rabiohead.svg" />
+    <Content Include="content\css\font\opensans-regular.woff" />
+    <Content Include="content\css\font\opensans-semibold.woff" />
     <Content Include="content\html\404.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
