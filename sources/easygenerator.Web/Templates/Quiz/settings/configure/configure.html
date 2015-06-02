@@ -6,10 +6,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="../css/settings.css" rel="stylesheet" />
-    <script src="../api.js"></script>
-    <script src="js/vendor.min.js"></script>
-    <script src="js/configure.min.js"></script>
+    <link href="../css/settings.css?v=1433237875926" rel="stylesheet" />
+    <script src="../api.js?v=1433237875926"></script>
+    <script src="js/vendor.min.js?v=1433237875926"></script>
+    <script src="js/configure.min.js?v=1433237875926"></script>
 </head>
 <body>
     <div class="settings-container" ng-controller="ConfigureController">
@@ -23,12 +23,15 @@
                 </li>
             </ul>
             <div class="settings-tab-container track-and-trace" data-tab="track-and-trace">
-                <div class="settings-tab-wrapper">
-                    <div class="tab-header-container">
-                        <img src="img/track.png" />
-                        <div class="tab-header-wrapper">
-                            <h1 class="tab-header-title">Track and trace settings</h1>
-                            <div class="tab-header-content">
+                <div class="settings-section">
+                    <h1 class="section-header">Track and trace settings</h1>
+                    <div class="section-content">
+                        <div class="settings-row">
+                            <div class="settings-caption">
+                                <div>Results tracking:</div>
+                                <div class="settings-hint">(will not affect tracking and tracing in SCORM/LMS)</div>
+                            </div>
+                            <div class="settings-column">
                                 <div class="switcher">
                                     <div class="switcher-text" ng-class="{ disabled: trackingData.enableXAPI }">Disabled</div>
                                     <div class="switch-toggle-slider" switch-toggle toggle-value="trackingData.enableXAPI">
@@ -42,10 +45,27 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="settings-row">
+                            <div class="settings-caption">Allow user to skip tracking and tracing:</div>
+                            <div class="settings-column">
+                                <div class="switcher">
+                                    <div class="switcher-text" ng-class="{ disabled: trackingData.allowToSkipTracking }">Forbid</div>
+                                    <div class="switch-toggle-slider" switch-toggle toggle-value="trackingData.allowToSkipTracking">
+                                        <div class="switch-toggle-wrapper">
+                                            <div class="switch-toggle-on"></div>
+                                            <div class="switch-toogle-blob"></div>
+                                            <div class="switch-toggle-off"></div>
+                                        </div>
+                                    </div>
+                                    <div class="switcher-text" ng-class="{ disabled: !trackingData.allowToSkipTracking }">Allow</div>
+                                </div>
+                            </div>
+                            <div class="preview-disabled" ng-hide="trackingData.enableXAPI"></div>
+                        </div>
                     </div>
-                    <div class="tab-content-container">
-                        <div class="tab-content-title-container" ng-click="trackingData.toggleAdvancedSettings()">
-                            <div class="tab-content-title" ng-class="{ expanded: trackingData.advancedSettingsExpanded, collapsed: !trackingData.advancedSettingsExpanded }">Advanced settings</div>
+                    <div class="advanced-settings">
+                        <div class="advanced-settings-title-container" ng-click="trackingData.toggleAdvancedSettings()">
+                            <div class="advanced-settings-title" ng-class="{ expanded: trackingData.advancedSettingsExpanded, collapsed: !trackingData.advancedSettingsExpanded }">Advanced settings</div>
                         </div>
                         <div class="template-selector-container" ng-show="trackingData.advancedSettingsExpanded">
                             <div class="selector-items-container">
@@ -174,21 +194,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-seperator"></div>
-                <div class="settings-tab-wrapper">
-                    <div class="tab-header-container">
-                        <img src="img/mastery.png" />
-                        <div class="tab-header-wrapper">
-                            <h1 class="tab-header-title">Mastery score settings</h1>
-                            <div class="tab-content-container">
-                                <div class="mastery-score-container">
-                                    <div class="mastery-score-title">Mastery score (the score a learner needs to pass the course):</div>
-                                    <div data-trigger="spinner" class="spinner" spinner spinner-value="masteryScore.value">
-                                        <a class="spinner-button spinner-down" data-spin="down" disable-drag-and-drop></a>
-                                        <input type="text" maxlength="3" id="masteryScore.value" class="content-text-input" data-rule="quantity" data-max="100" data-min="0" number number-value="masteryScore.value" ng-model="masteryScore.value">
-                                        <a class="spinner-button spinner-up" data-spin="up" disable-drag-and-drop></a>
-                                        <div class="spiner-seperator"></div>
-                                    </div>
+                <div class="settings-section">
+                    <h1 class="section-header">Mastery score settings</h1>
+                    <div class="section-content">
+                        <div class="settings-row">
+                            <div class="settings-caption">
+                                <div>Mastery score:</div>
+                                <div class="settings-hint">(the score a learner needs to pass the course)</div>
+                            </div>
+                            <div class="settings-column">
+                                <div data-trigger="spinner" class="spinner" spinner spinner-value="masteryScore.value">
+                                    <a class="spinner-button spinner-down" data-spin="down" disable-drag-and-drop></a>
+                                    <input type="text" maxlength="3" id="masteryScore.value" class="content-text-input" data-rule="quantity" data-max="100" data-min="0" number number-value="masteryScore.value" ng-model="masteryScore.value">
+                                    <a class="spinner-button spinner-up" data-spin="up" disable-drag-and-drop></a>
+                                    <div class="spiner-seperator"></div>
                                 </div>
                             </div>
                         </div>
@@ -199,7 +218,7 @@
             <div class="settings-tab-container languages" data-tab="languages">
                 <div class="settings-tab-wrapper">
                     <div class="tab-header-container">
-                        <img src="img/language.png">
+                        <img src="img/language.png?v=1433237875926">
                         <div class="tab-header-wrapper">
                             <h1 class="tab-header-title">Choose language for your course</h1>
                             <div class="tab-header-content">
