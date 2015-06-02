@@ -3,10 +3,12 @@
     <introduction class="introduction-container at-top-position" ng-show="quiz.hasIntroductionContent">
         <div class="introduction-wrapper">
             <header class="app-header header">
-                <span class="logo-wrapper">
-                    <img class="main-logo" ng-src="{{ quiz.logoUrl }}" />
-                </span>
-                <timer class="timer" ng-show="timerEnabled" time-in-seconds="timerRemainingTime"></timer>
+                <div class="app-header-content">
+                    <span class="logo-wrapper">
+                        <img class="main-logo" ng-src="{{ quiz.logoUrl }}" />
+                    </span>
+                    <timer class="timer" ng-show="timerEnabled" time-in-seconds="timerRemainingTime"></timer>
+                </div>
             </header>
             <div class="content-container">
                 <div class="content-wrapper" content>
@@ -38,19 +40,21 @@
         </div>
     </introduction>
     <header class="app-header main-header">
-        <span class="logo-wrapper">
-            <img class="main-logo" ng-src="{{ quiz.logoUrl }}" />
-        </span>
         <span class="main-background"></span>
-        <div class="button-container" ng-click="scrollToQuestions()">
-            <span class="vertical-align-helper"></span>
-            <button class="button small emphasize default">
-                <span class="text-wrapper">
-                    {{ '[start quiz]' | translate }}
-                </span>
-            </button>
+        <div class="app-header-content">
+            <span class="logo-wrapper">
+                <img class="main-logo" ng-src="{{ quiz.logoUrl }}" />
+            </span>
+            <div class="button-container" ng-click="scrollToQuestions()">
+                <span class="vertical-align-helper"></span>
+                <button class="button small emphasize default">
+                    <span class="text-wrapper">
+                        {{ '[start quiz]' | translate }}
+                    </span>
+                </button>
+            </div>
+            <timer class="timer" ng-show="timerEnabled" time-in-seconds="timerRemainingTime"></timer>
         </div>
-        <timer class="timer" ng-show="timerEnabled" time-in-seconds="timerRemainingTime"></timer>
     </header>
     <questions class="questions-container">
         <div class="questions-wrapper">
