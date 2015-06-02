@@ -3,115 +3,100 @@
  */
 /*#region FONTS CONNECTIONS*/
 @font-face {
-    font-family: 'OpenSans';
-    src: url('font/opensans-regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'OpenSans';
+  src: url('font/opensans-regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
-
 @font-face {
-    font-family: 'OpenSans-Semibold';
-    src: url('font/opensans-semibold.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'OpenSans-Semibold';
+  src: url('font/opensans-semibold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
-
 @font-face {
-    font-family: 'OpenSansItalic';
-    src: url('font/opensans-italic.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'OpenSansItalic';
+  src: url('font/opensans-italic.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
-
 @font-face {
-    font-family: 'OpenSans-SemiboldItalic';
-    src: url('font/opensans-semibolditalic.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'OpenSans-SemiboldItalic';
+  src: url('font/opensans-semibolditalic.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
-
 @font-face {
-    font-family: 'OpenSans-Bold';
-    src: url('font/opensans-bold.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'OpenSans-Bold';
+  src: url('font/opensans-bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
-
 @font-face {
-    font-family: 'BuxtonSketch';
-    src: url('font/buxtonsketch.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'BuxtonSketch';
+  src: url('font/buxtonsketch.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
-
 @font-face {
-    font-family: 'Rabiohead';
-    src: url('font/rabiohead.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'Rabiohead';
+  src: url('font/rabiohead.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
-
 @font-face {
-    font-family: 'IntroRegular';
-    src: url('font/intro-regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'IntroRegular';
+  src: url('font/intro-regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
-
 @font-face {
-    font-family: 'RobotoSlab';
-    src: url('font/robotoslab-regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'RobotoSlab';
+  src: url('font/robotoslab-regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
-
 @font-face {
-    font-family: 'RobotoSlab-Bold';
-    src: url('font/robotoslab-bold.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'RobotoSlab-Bold';
+  src: url('font/robotoslab-bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
-
 @font-face {
-    font-family: 'MyriadProRegular';
-    src: url('font/myriadpro-regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'MyriadProRegular';
+  src: url('font/myriadpro-regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
-
 @font-face {
-    font-family: 'MyriadProSemibold';
-    src: url('font/myriadpro-semibold.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'MyriadProSemibold';
+  src: url('font/myriadpro-semibold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
-
 @font-face {
-    font-family: 'Heuristica-Bold';
-    src: url('font/heuristica-bold.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'Heuristica-Bold';
+  src: url('font/heuristica-bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
-
 @font-face {
-    font-family: 'Heuristica-Regular';
-    src: url('font/heuristica-regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'Heuristica-Regular';
+  src: url('font/heuristica-regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
-
 @font-face {
-    font-family: 'Heuristica-Italic';
-    src: url('font/heuristica-italic.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'Heuristica-Italic';
+  src: url('font/heuristica-italic.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
-
 @font-face {
-    font-family: 'Heuristica-BoldItalic';
-    src: url('font/heuristica-bolditalic.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'Heuristica-BoldItalic';
+  src: url('font/heuristica-bolditalic.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 /*#endregion FONTS CONNECTIONS*/
 /*#region RESET CSS-STYLES IN FOREIGN BROWSERS */
@@ -192,11 +177,10 @@ summary,
 mark,
 audio,
 video {
-    padding: 0;
-    margin: 0;
-    outline: 0;
+  padding: 0;
+  margin: 0;
+  outline: 0;
 }
-
 html,
 div,
 article,
@@ -206,11 +190,10 @@ header,
 menu,
 nav,
 section {
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
-
 article,
 aside,
 details,
@@ -222,337 +205,281 @@ hgroup,
 menu,
 nav,
 section {
-    display: block;
+  display: block;
 }
-
 button::-moz-focus-inner,
 input::-moz-focus-inner {
-    border: 0;
-    padding: 0;
+  border: 0;
+  padding: 0;
 }
-
 * {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 /*#endregion RESET CSS-STYLES IN FOREIGN BROWSERS */
 /*#region COMMON TAGS CSS-STYLES*/
 html {
-    overflow-y: hidden;
-    height: 100%;
-    width: 100%;
-    overflow-y: scroll;
-    overflow-x: auto;
+  overflow-y: hidden;
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: auto;
 }
-
 body {
-    font-family: 'OpenSans', sans-serif;
-    background-color: #f3f7f9;
-    height: 100%;
-    width: 100%;
+  font-family: 'OpenSans', sans-serif;
+  background-color: #f3f7f9;
+  height: 100%;
+  width: 100%;
 }
-
 table {
-    border-collapse: collapse;
-    border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
-
 input[type="radio"],
 input[type="checkbox"] {
-    margin: 0;
+  margin: 0;
 }
-
 input[type="password"]::-ms-reveal {
-    visibility: hidden;
+  visibility: hidden;
 }
-
 input::-ms-clear {
-    visibility: hidden;
+  visibility: hidden;
 }
-
 :focus,
 :active {
-    outline: none;
+  outline: none;
 }
-
 a {
-    outline: 0;
-    text-decoration: none;
+  outline: 0;
+  text-decoration: none;
 }
-
-    a:hover,
-    a:active {
-        outline: 0;
-    }
-
-    a:focus {
-        text-decoration: none;
-    }
-
+a:hover,
+a:active {
+  outline: 0;
+}
+a:focus {
+  text-decoration: none;
+}
 h1 {
-    font-size: 2.0em;
-    -webkit-margin-before: 0.67em;
-    -webkit-margin-after: 0.67em;
+  font-size: 2.0em;
+  -webkit-margin-before: 0.67em;
+  -webkit-margin-after: 0.67em;
 }
-
 img:hover {
-    opacity: 1;
+  opacity: 1;
 }
 /*#endregion COMMON*/
 /*#region COMMON CLASSES CSS-STYLES*/
 .clear {
-    clear: both;
+  clear: both;
 }
-
 .clearfix:after {
-    content: "";
-    display: block;
-    clear: both;
+  content: "";
+  display: block;
+  clear: both;
 }
-
 .pull-left {
-    float: left;
+  float: left;
 }
-
 .pull-right {
-    float: right;
+  float: right;
 }
-
 .unstyled {
-    list-style: none;
+  list-style: none;
 }
-
 .selectable {
-    -moz-user-select: text;
-    -webkit-user-select: text;
-    -ms-user-select: text;
+  -moz-user-select: text;
+  -webkit-user-select: text;
+  -ms-user-select: text;
 }
-
 .bold {
-    font-family: 'OpenSans-Semibold';
+  font-family: 'OpenSans-Semibold';
 }
-
 .preloader-block {
-    height: 1px;
-    width: 1px;
-    position: absolute;
-    overflow: hidden;
-    visibility: hidden;
+  height: 1px;
+  width: 1px;
+  position: absolute;
+  overflow: hidden;
+  visibility: hidden;
 }
-
 .tb-row {
-    display: table-row;
-    vertical-align: top;
+  display: table-row;
+  vertical-align: top;
 }
-
 .tb-cell {
-    display: table-cell;
-    vertical-align: top;
+  display: table-cell;
+  vertical-align: top;
 }
-
-    .tb-cell > .colspan-cell {
-        width: 100%;
-        position: absolute;
-    }
+.tb-cell > .colspan-cell {
+  width: 100%;
+  position: absolute;
+}
 /*#endregion COMMON CLASSES CSS-STYLES*/
 /*#region STYLED CONTENT*/
 .styled-content {
-    padding: 12px 20px;
-    font: 18px 'Heuristica-Regular';
-    text-align: justify;
-    line-height: 30px;
-    overflow-y: hidden;
-    overflow-x: auto;
-    color: #333333;
-    background-color: #fff;
+  padding: 12px 20px;
+  font: 18px 'Heuristica-Regular';
+  text-align: justify;
+  line-height: 30px;
+  overflow-y: hidden;
+  overflow-x: auto;
+  color: #333333;
+  background-color: #fff;
 }
-
-    .styled-content h1,
-    .styled-content h2,
-    .styled-content h3 {
-        margin: 40px 0 15px 0;
-        -webkit-margin-before: 40px;
-        -webkit-margin-after: 15px;
-        font-family: 'Heuristica-Bold';
-        font-weight: normal;
-    }
-
-        .styled-content h1:first-child,
-        .styled-content h2:first-child,
-        .styled-content h3:first-child {
-            margin-top: 28px;
-            -webkit-margin-before: 28px;
-        }
-
-    .styled-content h1 {
-        font-size: 26px;
-        line-height: 40px;
-    }
-
-    .styled-content h2 {
-        font-size: 24px;
-        line-height: 40px;
-    }
-
-    .styled-content h3 {
-        font-size: 20px;
-        line-height: 34px;
-    }
-
-    .styled-content p,
-    .styled-content ul,
-    .styled-content ol {
-        margin: 0 0 20px 0;
-    }
-
-    .styled-content ul,
-    .styled-content ol {
-        padding-left: 50px;
-    }
-
-    .styled-content ul {
-        list-style: none;
-    }
-
-        .styled-content ul > li {
-            position: relative;
-        }
-
-            .styled-content ul > li:before {
-                content: "• ";
-                position: absolute;
-                left: -20px;
-                width: 20px;
-                color: #76cbe3;
-                /* or whatever color you prefer */
-            }
-
-    .styled-content em {
-        font-family: 'Heuristica-Italic';
-        font-style: normal;
-    }
-
-    .styled-content strong {
-        font-family: 'Heuristica-Bold';
-    }
-
-    .styled-content img {
-        margin: 30px auto 20px;
-        border-radius: 5px;
-        display: block;
-    }
-
-        .styled-content img[style*="float:left"],
-        .styled-content img[style*="float: left"] {
-            margin-top: 10px;
-            margin-right: 30px;
-        }
-
-        .styled-content img[style*="float:right"],
-        .styled-content img[style*="float: right"] {
-            margin-top: 10px;
-            margin-left: 30px;
-        }
-
-        .styled-content img:first-child {
-            margin-top: 10px;
-        }
-
+.styled-content h1,
+.styled-content h2,
+.styled-content h3 {
+  margin: 40px 0 15px 0;
+  -webkit-margin-before: 40px;
+  -webkit-margin-after: 15px;
+  font-family: 'Heuristica-Bold';
+  font-weight: normal;
+}
+.styled-content h1:first-child,
+.styled-content h2:first-child,
+.styled-content h3:first-child {
+  margin-top: 28px;
+  -webkit-margin-before: 28px;
+}
+.styled-content h1 {
+  font-size: 26px;
+  line-height: 40px;
+}
+.styled-content h2 {
+  font-size: 24px;
+  line-height: 40px;
+}
+.styled-content h3 {
+  font-size: 20px;
+  line-height: 34px;
+}
+.styled-content p,
+.styled-content ul,
+.styled-content ol {
+  margin: 0 0 20px 0;
+}
+.styled-content ul,
+.styled-content ol {
+  padding-left: 50px;
+}
+.styled-content ul {
+  list-style: none;
+}
+.styled-content ul > li {
+  position: relative;
+}
+.styled-content ul > li:before {
+  content: "• ";
+  position: absolute;
+  left: -20px;
+  width: 20px;
+  color: #76cbe3;
+  /* or whatever color you prefer */
+}
+.styled-content em {
+  font-family: 'Heuristica-Italic';
+  font-style: normal;
+}
+.styled-content strong {
+  font-family: 'Heuristica-Bold';
+}
+.styled-content img {
+  margin: 30px auto 20px;
+  border-radius: 5px;
+  display: block;
+}
+.styled-content img[style*="float:left"],
+.styled-content img[style*="float: left"] {
+  margin-top: 10px;
+  margin-right: 30px;
+}
+.styled-content img[style*="float:right"],
+.styled-content img[style*="float: right"] {
+  margin-top: 10px;
+  margin-left: 30px;
+}
+.styled-content img:first-child {
+  margin-top: 10px;
+}
 .cke_widget_wrapper img {
-    margin: 0;
+  margin: 0;
 }
-
 .styled-content cite {
-    position: relative;
-    display: block;
-    margin: 15px 165px;
-    font: 18px 'Heuristica-BoldItalic';
-    font-style: normal;
-    line-height: 30px;
-    white-space: pre-line;
+  position: relative;
+  display: block;
+  margin: 15px 165px;
+  font: 18px 'Heuristica-BoldItalic';
+  font-style: normal;
+  line-height: 30px;
+  white-space: pre-line;
 }
-
-    .styled-content cite:before,
-    .styled-content cite:after {
-        position: absolute;
-        font: 50px 'Heuristica-Regular';
-        color: #63c4df;
-    }
-
-    .styled-content cite:before {
-        content: '“';
-        top: -10px;
-        margin-left: -25px;
-    }
-
-    .styled-content cite:after {
-        content: '”';
-        bottom: -40px;
-        margin-left: 5px;
-    }
-
-    .styled-content cite:first-child {
-        margin-top: 3px;
-    }
-
+.styled-content cite:before,
+.styled-content cite:after {
+  position: absolute;
+  font: 50px 'Heuristica-Regular';
+  color: #63c4df;
+}
+.styled-content cite:before {
+  content: '“';
+  top: -10px;
+  margin-left: -25px;
+}
+.styled-content cite:after {
+  content: '”';
+  bottom: -40px;
+  margin-left: 5px;
+}
+.styled-content cite:first-child {
+  margin-top: 3px;
+}
 .styled-content a {
-    color: #449eeb;
-    border-bottom: 1px solid #449eeb;
+  color: #449eeb;
+  border-bottom: 1px solid #449eeb;
 }
-
-    .styled-content a:hover,
-    .styled-content a:active,
-    .styled-content a:focus {
-        color: #0088ae;
-        border-bottom-color: #0088ae;
-    }
-
+.styled-content a:hover,
+.styled-content a:active,
+.styled-content a:focus {
+  color: #0088ae;
+  border-bottom-color: #0088ae;
+}
 .styled-content mark {
-    padding: 0 3px;
-    background-color: #ffe725;
-    color: inherit;
+  padding: 0 3px;
+  background-color: #ffe725;
+  color: inherit;
 }
-
 .styled-content table {
-    margin: 20px auto;
-    border: none;
-    border-collapse: collapse;
-    font-size: 16px;
-    color: #3c3c3c;
-    table-layout: fixed;
+  margin: 20px auto;
+  border: none;
+  border-collapse: collapse;
+  font-size: 16px;
+  color: #3c3c3c;
+  table-layout: fixed;
 }
-
 .styled-content th,
 .styled-content td {
-    border: 1px dashed #ccc;
-    overflow: hidden;
+  border: 1px dashed #ccc;
+  overflow: hidden;
 }
-
 .styled-content th {
-    background-color: #76cbe3;
-    font-family: 'Heuristica-Bold';
+  background-color: #76cbe3;
+  font-family: 'Heuristica-Bold';
 }
-
 .styled-content th,
 .styled-content td {
-    padding: 10px 15px;
-    text-align: left;
+  padding: 10px 15px;
+  text-align: left;
 }
-
 .styled-content tr {
-    background-color: #f4fafc;
+  background-color: #f4fafc;
 }
-
 .styled-content table p {
-    margin: 0;
+  margin: 0;
 }
-
 .styled-content ul p {
-    display: inline;
+  display: inline;
 }
-
 .styled-content strong,
 .styled-content th {
-    font-weight: normal;
+  font-weight: normal;
 }
