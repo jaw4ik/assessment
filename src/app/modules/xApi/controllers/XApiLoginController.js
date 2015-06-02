@@ -24,6 +24,8 @@
         that.emailModified = false,
         that.usernameModified = false;
 
+        that.allowToSkip = !settings.xApi.required;
+
         that.usernameIsValid = function () {
             return !!that.username && !!that.username.trim();
         };
@@ -51,6 +53,10 @@
         };
 
         that.skip = function () {
+            if (!that.allowToSkip) {
+                return;
+            }
+
             xAPIManager.off();
             startCourse();
         };

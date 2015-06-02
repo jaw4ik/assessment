@@ -14,6 +14,7 @@
         $rootScope.title = quiz.title;
 
         that.logoUrl = settings.logo.url;
+        that.allowToContinue = !settings.xApi.required;
 
         that.restartCourse = function () {
             $rootScope.isCourseStarted = false;
@@ -21,6 +22,9 @@
         };
 
         that.continue = function () {
+            if (!that.allowToContinue) {
+                return;
+            }
             xAPIManager.off();
             $location.path(backUrl);
         };

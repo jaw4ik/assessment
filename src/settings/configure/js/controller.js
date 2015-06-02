@@ -15,6 +15,7 @@
             var self = {};
 
             self.enableXAPI = true,
+            self.allowToSkipTracking = false,
             self.lrsOptions = [
                 {
                     key: 'default',
@@ -80,6 +81,7 @@
 
             function init(xApiSettings) {
                 self.enableXAPI = xApiSettings.enabled || false;
+                self.allowToSkipTracking = !xApiSettings.required;
                 var defaultLrs = xApiSettings.enabled ? 'custom' : 'default';
                 self.selectedLrs = xApiSettings.selectedLrs || defaultLrs;
                 self.lrsUrl = xApiSettings.lrs.uri || '';
@@ -251,6 +253,7 @@
             return $.extend({}, settings || currentSettings, {
                 xApi: {
                     enabled: that.trackingData.enableXAPI,
+                    required: !that.trackingData.allowToSkipTracking,
                     selectedLrs: that.trackingData.selectedLrs,
                     lrs: {
                         uri: that.trackingData.lrsUrl,
