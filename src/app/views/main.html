@@ -6,7 +6,7 @@
                 <span class="logo-wrapper">
                     <img class="main-logo" ng-src="{{ quiz.logoUrl }}" />
                 </span>
-                <timer class="timer" ng-show="timerEnabled" hours="timerHoursValue" minutes="timerMinutesValue" seconds="timerSecondsValue"></timer>
+                <timer class="timer" ng-show="timerEnabled" time-in-seconds="timerRemainingTime"></timer>
             </header>
             <div class="content-container">
                 <div class="content-wrapper" content>
@@ -50,7 +50,7 @@
                 </span>
             </button>
         </div>
-        <timer class="timer" ng-show="timerEnabled" hours="timerHoursValue" minutes="timerMinutesValue" seconds="timerSecondsValue"></timer>
+        <timer class="timer" ng-show="timerEnabled" time-in-seconds="timerRemainingTime"></timer>
     </header>
     <questions class="questions-container">
         <div class="questions-wrapper">

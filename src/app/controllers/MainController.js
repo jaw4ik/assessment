@@ -11,7 +11,7 @@
         'Statement', 'SingleSelectImage', 'FillInTheBlanks', 'Hotspot', 'OpenQuestion',
         'SingleSelectTextViewModel', 'MultipleSelectTextViewModel', 'TextMatchingViewModel', 'DragAndDropTextViewModel',
         'StatementViewModel', 'SingleSelectImageViewModel', 'FillInTheBlanksViewModel', 'HotspotViewModel', 'OpenQuestionViewModel',
-        'quiz', 'settings'
+        'quiz', 'settings', 'timer'
     ];
 
     function MainController($scope, $rootScope, $location,
@@ -19,7 +19,7 @@
         Statement, SingleSelectImage, FillInTheBlanks, Hotspot, OpenQuestion,
         SingleSelectTextViewModel, MultipleSelectTextViewModel, TextMatchingViewModel, DragAndDropTextViewModel,
         StatementViewModel, SingleSelectImageViewModel, FillInTheBlanksViewModel, HotspotViewModel, OpenQuestionViewModel,
-        quiz, settings) {
+        quiz, settings, timer) {
         var that = this;
 
         that.title = $rootScope.title = quiz.title;
@@ -68,22 +68,27 @@
             $location.path('/summary').replace();
         };
 
+        // timer definition
         $scope.timerEnabled = settings.timer.enabled;
+        if (settings.timer.enabled) {
+            var time = settings.timer.time,
+                timeInSeconds = time.hours * 3600 + time.minutes * 60 + time.seconds;
 
-        if (settings.timer.enabled && settings.timer.time) {
-            $scope.timerHoursValue = settings.timer.time.hours;
-            $scope.timerMinutesValue = settings.timer.time.minutes;
-            $scope.timerSecondsValue = settings.timer.time.seconds;
+            timer.setTime(timeInSeconds);
+            $scope.timerRemainingTime = timeInSeconds;
 
-            var timerStoppedSubscription = $scope.$on('$timerStopped', function () {
-                timerStoppedSubscription();
+            timer.onTick(function (remainingTime) {
+                $scope.timerRemainingTime = remainingTime;
+                $scope.$apply();
+            });
 
+            timer.onStopped(function () {
                 that.submit();
                 $scope.$apply();
             });
 
             $scope.$on('$quizStarted', function () {
-                $scope.$broadcast('$timerStart');
+                timer.start();
             });
         }
     }
