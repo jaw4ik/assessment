@@ -11,7 +11,7 @@
                     url: 'css/img/eg-logo.png'
                 },
                 xApi: {
-                    enabled: false,
+                    enabled: true,
                     selectedLrs: 'default'
                 },
                 masteryScore: {
