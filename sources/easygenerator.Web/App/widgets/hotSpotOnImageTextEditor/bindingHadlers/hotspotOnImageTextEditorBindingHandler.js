@@ -24,6 +24,7 @@
             update: function (element, valueAccessor) {
                 var $element = $(element),
                     isVisible = valueAccessor().isVisible,
+                    hasFocus = valueAccessor().hasFocus,
                     wrapper = valueAccessor().wrapper(),
                     wrapperPositions = wrapper && wrapper.getBoundingClientRect(),
                     points = valueAccessor().points(),
@@ -37,6 +38,7 @@
                     $element.css('left', getLeftPosion($hotspotWrapper, $element, wrapperPositions, minMaxCoords));
                     $element.show();
                     _.defer(function () {
+                        hasFocus(true);
                         $html.on('mousedown', close);
                     });
                 } else {

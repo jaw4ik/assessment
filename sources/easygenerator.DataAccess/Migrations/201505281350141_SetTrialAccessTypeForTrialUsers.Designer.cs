@@ -7,13 +7,13 @@ namespace easygenerator.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddCoursesToLearningPath : IMigrationMetadata
+    public sealed partial class SetTrialAccessTypeForTrialUsers : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddCoursesToLearningPath));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(SetTrialAccessTypeForTrialUsers));
         
         string IMigrationMetadata.Id
         {
-            get { return "201505291115032_AddCoursesToLearningPath"; }
+            get { return "201505281350141_SetTrialAccessTypeForTrialUsers"; }
         }
         
         string IMigrationMetadata.Source

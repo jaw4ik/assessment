@@ -3,10 +3,23 @@ namespace easygenerator.DataAccess.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddCoursesToLearningPath : DbMigration
+    public partial class AddLearningPath : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.LearningPaths",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        Title = c.String(nullable: false, maxLength: 255),
+                        CreatedBy = c.String(nullable: false, maxLength: 254),
+                        CreatedOn = c.DateTime(nullable: false),
+                        ModifiedBy = c.String(nullable: false, maxLength: 254),
+                        ModifiedOn = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
             CreateTable(
                 "dbo.LearningPathCourses",
                 c => new
@@ -29,6 +42,7 @@ namespace easygenerator.DataAccess.Migrations
             DropIndex("dbo.LearningPathCourses", new[] { "Course_Id" });
             DropIndex("dbo.LearningPathCourses", new[] { "LearningPath_Id" });
             DropTable("dbo.LearningPathCourses");
+            DropTable("dbo.LearningPaths");
         }
     }
 }

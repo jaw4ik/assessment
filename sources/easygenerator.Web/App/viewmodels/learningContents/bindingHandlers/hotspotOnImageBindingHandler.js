@@ -47,6 +47,7 @@
                     var polygon = actions.add(points);
                     editor.fire(editor.events.polygonAfterAdded, polygon.id);
                     saveData();
+                    polygon.onClick($('canvas', $element)[0]);
                 });
 
                 function removeState() {

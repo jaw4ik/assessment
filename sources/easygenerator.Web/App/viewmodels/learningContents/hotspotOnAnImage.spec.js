@@ -81,13 +81,29 @@
                 it('should delete polygon', function() {
                     var polygon = {
                         id: 1,
-                        points: ko.observable({ x: 0 })
+                        points: ko.observable({ x: 0 }),
+                        removed: function() {}
                     };
 
                     ctor.polygons([]);
                     ctor.polygons.push(polygon);
                     ctor.deletePolygon(1);
                     expect(ctor.polygons().length).toBe(0);
+                });
+
+                it('should call removed from polygon', function () {
+                    var polygon = {
+                        id: 1,
+                        points: ko.observable({ x: 0 }),
+                        removed: function(){}
+                    };
+
+                    spyOn(polygon, 'removed');
+
+                    ctor.polygons([]);
+                    ctor.polygons.push(polygon);
+                    ctor.deletePolygon(1);
+                    expect(polygon.removed).toHaveBeenCalled();
                 });
 
             });

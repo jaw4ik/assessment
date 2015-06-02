@@ -282,13 +282,13 @@
     <Compile Include="Migrations\201504301031125_AddCollaboratorIsAccepted.Designer.cs">
       <DependentUpon>201504301031125_AddCollaboratorIsAccepted.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201505211145424_AddLearningPaths.cs" />
-    <Compile Include="Migrations\201505211145424_AddLearningPaths.Designer.cs">
-      <DependentUpon>201505211145424_AddLearningPaths.cs</DependentUpon>
+    <Compile Include="Migrations\201505281350141_SetTrialAccessTypeForTrialUsers.cs" />
+    <Compile Include="Migrations\201505281350141_SetTrialAccessTypeForTrialUsers.Designer.cs">
+      <DependentUpon>201505281350141_SetTrialAccessTypeForTrialUsers.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201505291115032_AddCoursesToLearningPath.cs" />
-    <Compile Include="Migrations\201505291115032_AddCoursesToLearningPath.Designer.cs">
-      <DependentUpon>201505291115032_AddCoursesToLearningPath.cs</DependentUpon>
+    <Compile Include="Migrations\201506020859279_AddLearningPath.cs" />
+    <Compile Include="Migrations\201506020859279_AddLearningPath.Designer.cs">
+      <DependentUpon>201506020859279_AddLearningPath.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -491,11 +491,11 @@
     <EmbeddedResource Include="Migrations\201504301031125_AddCollaboratorIsAccepted.resx">
       <DependentUpon>201504301031125_AddCollaboratorIsAccepted.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505211145424_AddLearningPaths.resx">
-      <DependentUpon>201505211145424_AddLearningPaths.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201505281350141_SetTrialAccessTypeForTrialUsers.resx">
+      <DependentUpon>201505281350141_SetTrialAccessTypeForTrialUsers.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505291115032_AddCoursesToLearningPath.resx">
-      <DependentUpon>201505291115032_AddCoursesToLearningPath.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201506020859279_AddLearningPath.resx">
+      <DependentUpon>201506020859279_AddLearningPath.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -26,7 +26,7 @@
 
         describe('autosaveInterval', function () {
 
-            it('should be defined', function() {
+            it('should be defined', function () {
                 expect(viewModel.autosaveInterval).toBeDefined();
             });
 
@@ -42,7 +42,7 @@
 
         describe('questionId', function () {
 
-            it('should be defined', function() {
+            it('should be defined', function () {
                 expect(viewModel.questionId).toBeDefined();
             });
 
@@ -50,7 +50,7 @@
 
         describe('questionType', function () {
 
-            it('should be defined', function() {
+            it('should be defined', function () {
                 expect(viewModel.questionType).toBeDefined();
             });
 
@@ -58,7 +58,7 @@
 
         describe('eventTracker', function () {
 
-            it('should be defined', function() {
+            it('should be defined', function () {
                 expect(viewModel.eventTracker).toBeDefined();
             });
 
@@ -66,7 +66,7 @@
 
         describe('isAddedButtonsShown', function () {
 
-            it('should be defined', function() {
+            it('should be defined', function () {
                 expect(viewModel.isAddedButtonsShown).toBeObservable();
             });
 
@@ -74,7 +74,7 @@
 
         describe('toggleIsAddedButtonsShown:', function () {
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.toggleIsAddedButtonsShown).toBeFunction();
             });
 
@@ -104,7 +104,7 @@
 
             var content;
 
-            beforeEach(function() {
+            beforeEach(function () {
                 content = {
                     type: constants.learningContentsTypes.content,
                     canBeAdded: ko.observable(true)
@@ -113,7 +113,7 @@
                 spyOn(learningContentsViewModelFactory, constants.learningContentsTypes.content).and.returnValue(content);
             });
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.addContent).toBeFunction();
             });
 
@@ -123,6 +123,11 @@
                 expect(viewModel.learningContents()[0]).toBe(content);
             });
 
+            it('should hide add buttons', function () {
+                viewModel.isAddedButtonsShown(true);
+                viewModel.addContent();
+                expect(viewModel.isAddedButtonsShown()).toBeFalsy();
+            });
 
         });
 
@@ -130,23 +135,31 @@
 
             var hotspot;
 
-            beforeEach(function() {
+            beforeEach(function () {
                 hotspot = {
                     type: constants.learningContentsTypes.hotspot,
-                    canBeAdded: ko.observable(true)
+                    canBeAdded: ko.observable(false)
                 };
 
                 spyOn(learningContentsViewModelFactory, constants.learningContentsTypes.hotspot).and.returnValue(hotspot);
             });
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.addHotspotOnAnImage).toBeFunction();
             });
 
-            it('should add content to array', function () {
+            it('should add content to array later', function () {
                 viewModel.learningContents([]);
                 viewModel.addHotspotOnAnImage();
+                hotspot.canBeAdded(true);
                 expect(viewModel.learningContents()[0]).toBe(hotspot);
+            });
+
+            it('should hide add buttons', function () {
+                viewModel.isAddedButtonsShown(true);
+                viewModel.addContent();
+                hotspot.canBeAdded(true);
+                expect(viewModel.isAddedButtonsShown()).toBeFalsy();
             });
 
         });
@@ -373,7 +386,7 @@
             var question = { id: questionId },
                 learningContent = { id: 'learningContentId', text: 'some text', type: constants.learningContentsTypes.content };
 
-            beforeEach(function() {
+            beforeEach(function () {
                 viewModel.questionId = questionId;
             });
 
@@ -615,7 +628,7 @@
                         done();
                     });
                 });
-                
+
             });
 
             describe('when route data does not have questionId', function () {

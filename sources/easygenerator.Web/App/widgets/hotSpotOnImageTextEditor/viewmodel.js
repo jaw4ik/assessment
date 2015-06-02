@@ -7,8 +7,10 @@
         close: close,
         save: save,
         show: show,
+        saveAndClose: saveAndClose,
         isVisible: ko.observable(false),
         text: ko.observable(''),
+        hasFocus: ko.observable(false),
         activate: activate,
         callback: null,
     };
@@ -35,6 +37,10 @@
         if (_.isFunction(hotSpotOnImageTextEditor.callback)) {
             hotSpotOnImageTextEditor.callback(hotSpotOnImageTextEditor.text());
         }
-        hotSpotOnImageTextEditor.isVisible(false);
+    }
+
+    function saveAndClose() {
+        hotSpotOnImageTextEditor.save();
+        hotSpotOnImageTextEditor.close();
     }
 });

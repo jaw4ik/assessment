@@ -39,6 +39,7 @@
                     return id == polygon.id;
                 });
                 that.polygons.remove(polygonToDelete);
+                polygonToDelete.removed();
             };
 
             this.uploadBackground = function () {

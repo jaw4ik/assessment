@@ -52,7 +52,7 @@
                 email: 'a.drebot@gmail.com',
                 role: 'Teacher',
                 subscription: {
-                    accessType: 1
+                    accessType: constants.accessType.starter
                 }
             };
 
@@ -74,7 +74,7 @@
                     lastname: 'lastname',
                     email: 'a.drebot@gmail.com',
                     subscription: {
-                        accessType: 1,
+                        accessType: constants.accessType.starter,
                         expirationDate: "2014-03-19T12:49:34.7396182Z"
                     }
                 };
@@ -98,7 +98,7 @@
                     lastname: 'lastname',
                     email: 'a.drebot@gmail.com',
                     subscription: {
-                        accessType: 2,
+                        accessType: constants.accessType.plus,
                         expirationDate: "2014-03-19T12:49:34.7396182Z"
                     }
                 };
@@ -114,6 +114,30 @@
 
         });
 
+        describe('when trial subscription is specified', function () {
+
+            it('should create user with starter subscription', function () {
+                var spec = {
+                    firstname: 'firstname',
+                    lastname: 'lastname',
+                    email: 'a.drebot@gmail.com',
+                    subscription: {
+                        accessType: constants.accessType.trial,
+                        expirationDate: "2014-03-19T12:49:34.7396182Z"
+                    }
+                };
+
+                var user = new User(spec);
+
+                expect(user.subscription).toEqual({
+                    accessType: constants.accessType.trial,
+                    expirationDate: new Date("2014-03-19T12:49:34.7396182Z")
+                });
+
+            });
+
+        });
+
         describe('when free subscription is specified', function () {
 
             it('should create user with starter subscription', function () {
@@ -122,7 +146,7 @@
                     lastname: 'lastname',
                     email: 'a.drebot@gmail.com',
                     subscription: {
-                        accessType: 0,
+                        accessType: constants.accessType.free,
                     }
                 };
 
@@ -167,7 +191,7 @@
                     lastname: 'lastname',
                     email: 'a.drebot@gmail.com',
                     subscription: {
-                        accessType: 1,
+                        accessType: constants.accessType.starter,
                         expirationDate: "2014-03-19T12:49:34.7396182Z"
                     }
                 });
@@ -195,7 +219,7 @@
                     lastname: 'lastname',
                     email: 'a.drebot@gmail.com',
                     subscription: {
-                        accessType: 0
+                        accessType: constants.accessType.free
                     }
                 });
             });
@@ -234,7 +258,7 @@
                     lastname: 'lastname',
                     email: 'a.drebot@gmail.com',
                     subscription: {
-                        accessType: 0
+                        accessType: constants.accessType.free
                     }
                 });
             });

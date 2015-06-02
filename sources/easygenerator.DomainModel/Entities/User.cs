@@ -33,7 +33,7 @@ namespace easygenerator.DomainModel.Entities
             Role = role;
             PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket>();
 
-            AccessType = AccessType.Plus;
+            AccessType = AccessType.Trial;
             ExpirationDate = CreatedOn.AddDays(TrialPeriodDays);
         }
 
@@ -99,6 +99,11 @@ namespace easygenerator.DomainModel.Entities
         public virtual bool HasPlusAccess()
         {
             return AccessType >= AccessType.Plus && !IsAccessExpired();
+        }
+
+        public virtual bool HasTrialAccess()
+        {
+            return AccessType == AccessType.Trial && !IsAccessExpired();
         }
 
         private bool IsAccessExpired()

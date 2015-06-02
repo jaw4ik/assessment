@@ -4,6 +4,7 @@
         identity: null,
         hasStarterAccess: hasStarterAccess,
         hasPlusAccess: hasPlusAccess,
+        hasTrialAccess: hasTrialAccess,
         identify: identify,
         storageIdentity: null,
         identifyStoragePermissions: identifyStoragePermissions
@@ -33,6 +34,10 @@
 
     function hasPlusAccess() {
         return hasAccess(constants.accessType.plus);
+    }
+
+    function hasTrialAccess() {
+        return hasAccess(constants.accessType.trial);
     }
 
     function hasAccess(accessType) {

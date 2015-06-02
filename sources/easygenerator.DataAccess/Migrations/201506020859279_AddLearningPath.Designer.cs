@@ -6,14 +6,14 @@ namespace easygenerator.DataAccess.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class AddLearningPaths : IMigrationMetadata
+    [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
+    public sealed partial class AddLearningPath : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddLearningPaths));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddLearningPath));
         
         string IMigrationMetadata.Id
         {
-            get { return "201505211145424_AddLearningPaths"; }
+            get { return "201506020859279_AddLearningPath"; }
         }
         
         string IMigrationMetadata.Source
