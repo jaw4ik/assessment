@@ -1,5 +1,6 @@
-﻿define(['viewmodels/learningPaths/courseSelector/queries/getOwnedCoursesQuery', 'viewmodels/learningPaths/courseSelector/courseBrief'],
-    function (getOwnedCoursesQuery, CourseBrief) {
+﻿define(['viewmodels/learningPaths/courseSelector/queries/getOwnedCoursesQuery', 'viewmodels/learningPaths/courseSelector/courseBrief',
+    'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery'],
+    function (getOwnedCoursesQuery, CourseBrief, getLearningPathByIdQuery) {
         "use strict";
 
         var viewModel = {
@@ -20,16 +21,29 @@
             viewModel.isExpanded(false);
         }
 
-        function activate() {
-            return getOwnedCoursesQuery.execute()
-                .then(function (courses) {
-                    var collection = _.chain(courses)
-                        .sortBy(function (item) { return -item.createdOn; })
-                        .map(function (item) {
-                            return new CourseBrief(item);
-                        }).value();
+        function activate(learningPathId) {
+            return getLearningPathByIdQuery.execute(learningPathId)
+                .then(function (learningPath) {
+                    return getOwnedCoursesQuery.execute()
+                        .then(function (courses) {
+                            var collection = _.chain(courses)
+                                .sortBy(function (item) { return -item.createdOn; })
+                                .map(function (item) {
+                                    return mapCourseBrief(item, learningPath.courses);
+                                }).value();
 
-                    viewModel.courses(collection);
+                            viewModel.courses(collection);
+                        });
                 });
+        }
+
+        function mapCourseBrief(course, attachedCourses) {
+            var courseBrief = new CourseBrief(course);
+            var isSelected = _.some(attachedCourses, function (attachedCourse) {
+                return courseBrief.id === attachedCourse.id;
+            });
+
+            courseBrief.isSelected(isSelected);
+            return courseBrief;
         }
     });

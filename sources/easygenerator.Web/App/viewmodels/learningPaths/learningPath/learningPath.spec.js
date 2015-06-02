@@ -1,20 +1,26 @@
 ﻿define(['viewmodels/learningPaths/learningPath/learningPath'], function (viewModel) {
     "use strict";
     var
-         getLearningPathByIdQuery = require('viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery'),
-         router = require('plugins/router'),
-         constants = require('constants'),
-         updateTitleCommand = require('viewmodels/learningPaths/learningPath/commands/updateLearningPathTitleCommand'),
-         clientContext = require('clientContext'),
-         eventTracker = require('eventTracker'),
-         courseSelector = require('viewmodels/learningPaths/courseSelector/courseSelector'),
-         app = require('durandal/app')
+        getLearningPathByIdQuery = require('viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery'),
+        router = require('plugins/router'),
+        constants = require('constants'),
+        updateTitleCommand = require('viewmodels/learningPaths/learningPath/commands/updateTitleCommand'),
+        clientContext = require('clientContext'),
+        eventTracker = require('eventTracker'),
+        courseSelector = require('viewmodels/learningPaths/courseSelector/courseSelector'),
+        localizationManager = require('localization/localizationManager'),
+        app = require('durandal/app'),
+        courseRepository = require('repositories/courseRepository'),
+        notify = require('notify'),
+        addCourseCommand = require('viewmodels/learningPaths/learningPath/commands/addCourseCommand'),
+        removeCourseCommand = require('viewmodels/learningPaths/learningPath/commands/removeCourseCommand')
     ;
 
     describe('viewModel [learningPath]', function () {
         var learningPath = {
             id: 'id',
-            title: 'title'
+            title: 'title',
+            courses: [{ id: '0', template: {} }, { id: '1', template: {} }]
         },
             getLearnigPathDefer;
 
@@ -22,6 +28,7 @@
             getLearnigPathDefer = Q.defer();
             spyOn(app, 'on');
             spyOn(app, 'off');
+            spyOn(notify, 'saved');
             spyOn(router, 'navigate');
             spyOn(eventTracker, 'publish');
             spyOn(courseSelector, 'expand');
@@ -68,7 +75,7 @@
                 expect(viewModel.id).toBe(learningPath.id);
             });
 
-            it('should set current language', function() {
+            it('should set current language', function () {
                 var lang = 'en';
                 viewModel.currentLanguage = '';
                 localizationManager.currentLanguage = lang;
@@ -105,6 +112,14 @@
                     });
                 });
 
+                it('should set courses', function (done) {
+                    viewModel.courses([]);
+                    viewModel.activate(learningPath.id).fin(function () {
+                        expect(viewModel.courses().length).toBe(learningPath.courses.length);
+                        done();
+                    });
+                });
+
                 describe('when learning path is last created one', function () {
                     beforeEach(function () {
                         spyOn(clientContext, 'get').and.returnValue(learningPath.id);
@@ -137,7 +152,7 @@
             });
         });
 
-        describe('deactivate:', function() {
+        describe('deactivate:', function () {
             it('should unsubscribe from learningPath.addCourse event', function () {
                 viewModel.deactivate();
                 expect(app.off).toHaveBeenCalledWith(constants.messages.learningPath.addCourse, viewModel.addCourse);
@@ -233,6 +248,11 @@
         });
 
         describe('addCourses:', function () {
+            it('should publish \'Show courses available for the learning path\' event', function () {
+                viewModel.addCourses();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Show courses available for the learning path');
+            });
+
             it('should expand course selector', function () {
                 viewModel.addCourses();
                 expect(courseSelector.expand).toHaveBeenCalled();
@@ -240,9 +260,96 @@
         });
 
         describe('finishAddingCourses:', function () {
+            it('should publish \'Hide courses available for the learning path\' event', function () {
+                viewModel.finishAddingCourses();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Hide courses available for the learning path');
+            });
+
             it('should collapse course selector', function () {
                 viewModel.finishAddingCourses();
                 expect(courseSelector.collapse).toHaveBeenCalled();
+            });
+        });
+
+        describe('addCourse:', function () {
+            var course = { id: 'id', template: {} },
+                getCourseDefer,
+                addCourseDefer;
+
+            beforeEach(function () {
+                getCourseDefer = Q.defer();
+                addCourseDefer = Q.defer();
+                spyOn(courseRepository, 'getById').and.returnValue(getCourseDefer.promise);
+                spyOn(addCourseCommand, 'execute').and.returnValue(addCourseDefer.promise);
+            });
+
+            it('should publish \'Add course to the learning path\' event', function () {
+                viewModel.addCourse(course);
+                expect(eventTracker.publish).toHaveBeenCalledWith('Add course to the learning path');
+            });
+
+            describe('when course received', function () {
+                beforeEach(function () {
+                    getCourseDefer.resolve(course);
+                });
+
+                it('should push course to courses collection', function (done) {
+                    viewModel.courses([]);
+                    viewModel.addCourse(course);
+                    courseRepository.getById(course.id).fin(function () {
+                        expect(viewModel.courses().length).toBe(1);
+                        done();
+                    });
+                });
+
+                describe('and when course added', function () {
+                    beforeEach(function () {
+                        addCourseDefer.resolve();
+                    });
+
+                    it('should show saved notification', function (done) {
+                        viewModel.addCourse(course);
+                        addCourseCommand.execute(viewModel.id, course.id).fin(function () {
+                            expect(notify.saved).toHaveBeenCalled();
+                            done();
+                        });
+                    });
+                });
+            });
+        });
+
+        describe('removeCourse:', function () {
+            var course = { id: 'id', template: {} },
+                removeCourseDefer;
+
+            beforeEach(function () {
+                removeCourseDefer = Q.defer();
+                spyOn(removeCourseCommand, 'execute').and.returnValue(removeCourseDefer.promise);
+            });
+
+            it('should publish \'Remove course from the learning path\' event', function () {
+                viewModel.removeCourse(course.id);
+                expect(eventTracker.publish).toHaveBeenCalledWith('Remove course from the learning path');
+            });
+
+            it('should remove course from courses collection', function () {
+                viewModel.courses([course]);
+                viewModel.removeCourse(course.id);
+                expect(viewModel.courses().length).toBe(0);
+            });
+
+            describe('and when course removed', function () {
+                beforeEach(function () {
+                    removeCourseDefer.resolve();
+                });
+
+                it('should show saved notification', function (done) {
+                    viewModel.removeCourse(course.id);
+                    removeCourseCommand.execute(viewModel.id, course.id).fin(function () {
+                        expect(notify.saved).toHaveBeenCalled();
+                        done();
+                    });
+                });
             });
         });
     });

@@ -1,14 +1,20 @@
 ﻿define(['viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery', 'plugins/router', 'viewmodels/common/titleField', 'constants', 'localization/localizationManager',
- 'clientContext', 'viewmodels/learningPaths/learningPath/commands/updateLearningPathTitleCommand', 'eventTracker', 'viewmodels/learningPaths/courseSelector/courseSelector',
- 'durandal/app', 'viewmodels/learningPaths/learningPath/courseBrief', 'repositories/courseRepository'],
+ 'clientContext', 'viewmodels/learningPaths/learningPath/commands/updateTitleCommand', 'eventTracker', 'viewmodels/learningPaths/courseSelector/courseSelector',
+ 'durandal/app', 'viewmodels/learningPaths/learningPath/courseBrief', 'viewmodels/learningPaths/learningPath/commands/addCourseCommand',
+'viewmodels/learningPaths/learningPath/commands/removeCourseCommand', 'repositories/courseRepository', 'notify'],
     function (getLearningPathByIdQuery, router, titleField, constants, localizationManager, clientContext, updateTitleCommand, eventTracker, courseSelector, app, CourseBrief,
-        courseRepository) {
+         addCourseCommand, removeCourseCommand, courseRepository, notify) {
         "use strict";
 
         var
             events = {
                 updateTitle: 'Update learning path title',
-                navigateToLearningPaths: 'Navigate to learning paths'
+                navigateToLearningPaths: 'Navigate to learning paths',
+                addCourse: 'Add course to the learning path',
+                removeCourse: 'Remove course from the learning path',
+                showAvailableCourses: 'Show courses available for the learning path',
+                hideAvailableCourses: 'Hide courses available for the learning path',
+                changeOrder: 'Change order of courses '
             },
             viewModel = {
                 id: null,
@@ -58,6 +64,13 @@
                 viewModel.titleField.title(learningPath.title);
                 viewModel.titleField.isSelected(clientContext.get(constants.clientContextKeys.lastCreatedLearningPathId) === learningPath.id);
                 clientContext.remove(constants.clientContextKeys.lastCreatedLearningPathId);
+
+                var collection = _.chain(learningPath.courses)
+                     .map(function (item) {
+                         return new CourseBrief(item);
+                     }).value();
+
+                viewModel.courses(collection);
             });
         }
 
@@ -78,23 +91,35 @@
         }
 
         function addCourses() {
+            eventTracker.publish(events.showAvailableCourses);
             courseSelector.expand();
         }
 
         function finishAddingCourses() {
+            eventTracker.publish(events.hideAvailableCourses);
             courseSelector.collapse();
         }
 
         function addCourse(courseId) {
+            eventTracker.publish(events.addCourse);
             courseRepository.getById(courseId).then(function (course) {
                 viewModel.courses.push(new CourseBrief(course));
+            });
+
+            addCourseCommand.execute(viewModel.id, courseId).then(function () {
+                notify.saved();
             });
         }
 
         function removeCourse(courseId) {
+            eventTracker.publish(events.removeCourse);
             viewModel.courses(_.reject(viewModel.courses(), function (item) {
                 return item.id === courseId;
             }));
+
+            removeCourseCommand.execute(viewModel.id, courseId).then(function () {
+                notify.saved();
+            });
         }
     }
 );

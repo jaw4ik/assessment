@@ -1,5 +1,6 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.Web.Extensions;
+using System.Linq;
 
 namespace easygenerator.Web.Components.Mappers
 {
@@ -13,7 +14,11 @@ namespace easygenerator.Web.Components.Mappers
                 Title = entity.Title,
                 CreatedOn = entity.CreatedOn,
                 CreatedBy = entity.CreatedBy,
-                ModifiedOn = entity.ModifiedOn
+                ModifiedOn = entity.ModifiedOn,
+                Courses = entity.Courses.Select(e => new
+                {
+                    Id = e.Id.ToNString()
+                })
             };
         }
     }

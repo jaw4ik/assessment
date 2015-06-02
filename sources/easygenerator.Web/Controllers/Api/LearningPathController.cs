@@ -39,7 +39,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             var username = GetCurrentUsername();
             var learningPaths = _repository.GetCollection(e => e.CreatedBy == username);
-            var data = learningPaths.OrderByDescending(i => i.CreatedOn).Select(e => _mapper.Map(e));
+            var data = learningPaths.Select(e => _mapper.Map(e));
 
             return JsonSuccess(data);
         }

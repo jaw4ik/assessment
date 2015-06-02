@@ -784,6 +784,17 @@
       <DependentUpon>learningContents.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\learningContents\learningContentsViewModelFactory.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\commands\addCourseCommand.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\commands\addCourseCommand.spec.js">
+      <DependentUpon>addCourseCommand.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\commands\removeCourseCommand.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\commands\removeCourseCommand.spec.js">
+      <DependentUpon>removeCourseCommand.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\commands\updateTitleCommand.spec.js">
+      <DependentUpon>updateTitleCommand.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\courseBrief.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\courseBrief.spec.js">
       <DependentUpon>courseBrief.js</DependentUpon>
@@ -808,7 +819,7 @@
     <Content Include="App\viewmodels\learningPaths\commands\createLearningPathCommand.spec.js">
       <DependentUpon>createLearningPathCommand.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\learningPaths\learningPath\commands\updateLearningPathTitleCommand.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\commands\updateTitleCommand.js" />
     <Content Include="App\viewmodels\learningPaths\index.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\learningPath.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\learningPath.spec.js">
@@ -1811,9 +1822,6 @@
     </Content>
     <Content Include="Content\mixin.less" />
     <Content Include="Content\learningPaths.less" />
-    <Content Include="App\viewmodels\learningPaths\learningPath\commands\updateLearningPathTitleCommand.spec.js">
-      <DependentUpon>updateLearningPathTitleCommand.js</DependentUpon>
-    </Content>
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />

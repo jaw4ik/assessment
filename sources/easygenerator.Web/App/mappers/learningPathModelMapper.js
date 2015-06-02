@@ -3,13 +3,19 @@
         "use strict";
 
         var
-            map = function (learningPath) {
+            map = function (learningPath, courses) {
+
                 return new LearningPath({
                     id: learningPath.Id,
                     title: learningPath.Title,
                     createdBy: learningPath.CreatedBy,
                     createdOn: new Date(learningPath.CreatedOn),
-                    modifiedOn: new Date(learningPath.ModifiedOn)
+                    modifiedOn: new Date(learningPath.ModifiedOn),
+                    courses: _.map(learningPath.Courses, function (item) {
+                        return _.find(courses, function (course) {
+                            return course.id == item.Id;
+                        });
+                    }),
                 });
             };
 

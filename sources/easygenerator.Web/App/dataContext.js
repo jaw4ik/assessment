@@ -40,7 +40,7 @@
                     return apiHttpWrapper.post('api/learningpaths')
                     .then(function (data) {
                         _.each(data, function (item) {
-                            learningPaths.push(learningPathModelMapper.map(item));
+                            learningPaths.push(learningPathModelMapper.map(item, courses));
                         });
                     });
                 }).then(function () {

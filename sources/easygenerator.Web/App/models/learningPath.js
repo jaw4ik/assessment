@@ -7,6 +7,7 @@
             var obj = new EntityModel(spec);
 
             obj.title = spec.title;
+            obj.courses = spec.courses;
 
             return obj;
         };

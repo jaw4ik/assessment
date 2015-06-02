@@ -1,11 +1,11 @@
-﻿define(['viewmodels/learningPaths/learningPath/commands/updateLearningPathTitleCommand'], function (command) {
+﻿define(['viewmodels/learningPaths/learningPath/commands/updateTitleCommand'], function (command) {
     "use strict";
     var
         httpWrapper = require('http/apiHttpWrapper'),
         dataContext= require('dataContext')
     ;
 
-    describe('command [updateLearningPathTitleCommand]', function () {
+    describe('command learning path [updateTitleCommand]', function () {
 
         describe('execute:', function () {
 

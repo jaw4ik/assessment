@@ -2,7 +2,8 @@
     "use strict";
 
     var
-        getOwnedCoursesQuery = require('viewmodels/learningPaths/courseSelector/queries/getOwnedCoursesQuery')
+        getOwnedCoursesQuery = require('viewmodels/learningPaths/courseSelector/queries/getOwnedCoursesQuery'),
+        getLearningPathByIdQuery = require('viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery')
     ;
 
 
@@ -17,8 +18,8 @@
             });
         });
 
-        describe('courses:', function() {
-            it('should be observable array', function() {
+        describe('courses:', function () {
+            it('should be observable array', function () {
                 expect(viewModel.courses).toBeObservableArray();
             });
         });
@@ -40,38 +41,61 @@
         });
 
         describe('activate:', function () {
-            var defer,
+            var getCoursesDefer,
+                getLearningPathDefer,
                 courses = [
                 {
                     id: '0',
                     createdOn: new Date(1)
                 },
                 {
-                    id: '0',
+                    id: '1',
                     createdOn: new Date(1)
                 }
-                ];
+                ],
+                learningPath = {
+                    courses: [courses[0]]
+                };
 
             beforeEach(function () {
-                defer = Q.defer();
-                spyOn(getOwnedCoursesQuery, 'execute').and.returnValue(defer.promise);
+                getCoursesDefer = Q.defer();
+                getLearningPathDefer = Q.defer();
+                spyOn(getOwnedCoursesQuery, 'execute').and.returnValue(getCoursesDefer.promise);
+                spyOn(getLearningPathByIdQuery, 'execute').and.returnValue(getLearningPathDefer.promise);
             });
 
-            describe('when courses retrieved', function () {
+            describe('when learning path retrieved', function () {
                 beforeEach(function () {
-                    defer.resolve(courses);
+                    getLearningPathDefer.resolve(learningPath);
                 });
 
-                it('should set courses ordered by created on', function (done) {
-                    viewModel.courses([]);
-                    viewModel.activate().fin(function () {
-                        expect(viewModel.courses().length).toBe(courses.length);
-                        expect(viewModel.courses()[0].createdOn.toLocaleString()).toBe(courses[1].createdOn.toLocaleString());
-                        expect(viewModel.courses()[1].createdOn.toLocaleString()).toBe(courses[0].createdOn.toLocaleString());
-                        done();
+                describe('when courses retrieved', function () {
+                    beforeEach(function () {
+                        getCoursesDefer.resolve(courses);
+                    });
+
+                    it('should set courses ordered by created on', function (done) {
+                        viewModel.courses([]);
+                        viewModel.activate().fin(function () {
+                            expect(viewModel.courses().length).toBe(courses.length);
+                            expect(viewModel.courses()[0].createdOn.toLocaleString()).toBe(courses[1].createdOn.toLocaleString());
+                            expect(viewModel.courses()[1].createdOn.toLocaleString()).toBe(courses[0].createdOn.toLocaleString());
+                            done();
+                        });
+                    });
+
+                    it('should set correct isSelected field for each course', function (done) {
+                        viewModel.courses([]);
+                        viewModel.activate().fin(function () {
+                            expect(viewModel.courses().length).toBe(courses.length);
+                            expect(viewModel.courses()[0].isSelected()).toBeTruthy();
+                            expect(viewModel.courses()[1].isSelected()).toBeFalsy();
+                            done();
+                        });
                     });
                 });
             });
+
         });
 
     });
