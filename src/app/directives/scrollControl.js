@@ -21,9 +21,7 @@
                 }
 
                 if (!$scope.quiz.hasIntroductionContent) {
-                    $timeout(function () {
-                        broadcastQuizStartedEvent($scope);
-                    }, 1000);
+                    broadcastQuizStartedEvent($scope);
                 }
 
                 if ($routeParams.tryAgain) {
