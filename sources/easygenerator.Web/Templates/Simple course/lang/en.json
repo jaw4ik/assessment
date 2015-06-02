@@ -33,7 +33,7 @@
     "[page not found title]": "Page not found (404)",
     "[page not found message]": "Sorry, the page you have been looking for has not been found. Try checking the URL on errors, use the navigation above or click 'Home' link below.",
     "[tracking and tracing header]": "Your credentials for progress tracking",
-    "[tracking and tracing hint]": "Please enter your credentials and click \"Start and report my results \"to enable result tracking. Otherwise, click \"Do not report, just start\".",
+    "[tracking and tracing hint]": "Please enter your credentials and click \"Start and report my results\" to enable result tracking. Otherwise, click \"Do not report, just start\".",
     "[tracking and tracing name field]": "Your name",
     "[tracking and tracing email field]": "Your e-mail",
     "[tracking and tracing name is not valid]": "Fill in your name",
@@ -47,5 +47,7 @@
     "[tracking and tracing reporting progress]": "reporting results...",
     "[type your answer here]":  "Type your answer here...",
     "[your answer was stored]": "Your answer was stored",
-    "[your answer is empty and was not stored]": "Your answer is empty and was not stored"
+    "[your answer is empty and was not stored]": "Your answer is empty and was not stored",
+    "[tracking and tracing hint without skip]": "Please enter your credentials and click \"Start and report my results\" to start the course.",
+    "[tracking and tracing error hint without continue]": "Restart the course. Contact your course provider if the problem persists."
 }

@@ -42,5 +42,7 @@
     "[tracking and tracing error]": "Something is wrong",
     "[tracking and tracing error hint]": "If you continue without restarting, your learning results will not be reported.",
     "[tracking and tracing restart course]": "Restart course",
-    "[tracking and tracing continue anyway]": "Continue anyway"
+    "[tracking and tracing continue anyway]": "Continue anyway",
+    "[tracking and tracing hint without skip]": "Please enter your credentials and click \"Start and report my results\" to start the course.",
+    "[tracking and tracing error hint without continue]":  "Restart the course. Contact your course provider if the problem persists."
 }

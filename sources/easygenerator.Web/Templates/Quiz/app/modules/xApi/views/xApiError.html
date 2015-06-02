@@ -9,10 +9,10 @@
                 {{ '[tracking and tracing error]' | translate }}
             </div>
             <div class="error-message-container">
-                {{ '[tracking and tracing error hint]' | translate }}
+                {{ xApiError.allowToContinue ? '[tracking and tracing error hint]' : '[tracking and tracing error hint without continue]' | translate }}
             </div>
             <div class="error-button-container">
-                <button ng-click="xApiError.continue()" class="button large emphasize default">
+                <button ng-if="xApiError.allowToContinue" ng-click="xApiError.continue()" class="button large emphasize default">
                     <span class="text-wrapper">
                         {{ '[tracking and tracing continue anyway]' | translate }}
                     </span>

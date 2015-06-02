@@ -37,5 +37,6 @@
     "[tracking and tracing result failed]": "Невдача",
     "[tracking and tracing mastery score hint]": "Мінімальна оцінка для завершення",
     "[tracking and tracing reporting progress]": "збереження прогресу...",
-    "[type your answer here]":  "Вкажіть свою відповідь..."
+    "[type your answer here]": "Вкажіть свою відповідь...",
+    "[tracking and tracing error hint without continue]": "Restart the course. Contact your course provider if the problem persists."
 }
