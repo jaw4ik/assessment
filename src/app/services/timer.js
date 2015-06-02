@@ -56,19 +56,22 @@
         }
 
         function fireTickEvent() {
-            onTickSubscribers.forEach(function (callbackFn) {
-                callbackFn(remainingTime);
+            onTickSubscribers.forEach(function (callback) {
+                callback(remainingTime);
             });
         }
 
         function fireStoppedEvent() {
-            onStoppedSubscribers.forEach(function (callbackFn) {
-                callbackFn();
+            onStoppedSubscribers.forEach(function (callback) {
+                callback();
             });
         }
 
         function dispose() {
+            remainingTime = 0;
             isTimerOn = false;
+            onTickSubscribers = [];
+            onStoppedSubscribers = [];
         }
     }
 
