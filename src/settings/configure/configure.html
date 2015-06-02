@@ -34,7 +34,10 @@
                     <h1 class="section-header">Track and trace settings</h1>
                     <div class="section-content">
                         <div class="settings-row">
-                            <div class="settings-caption">Results tracking:</div>
+                            <div class="settings-caption">
+                                <div>Results tracking:</div>
+                                <div class="settings-hint">(will not affect tracking and tracing in SCORM/LMS)</div>
+                            </div>
                             <div class="settings-column">
                                 <div class="switcher">
                                     <div class="switcher-text" ng-class="{ disabled: trackingData.enableXAPI }">Disabled</div>
@@ -48,7 +51,6 @@
                                     <div class="switcher-text" ng-class="{ disabled: !trackingData.enableXAPI }">Enabled</div>
                                 </div>
                             </div>
-                            <div class="settings-hint">(will not affect tracking and tracing in SCORM/LMS)</div>
                         </div>
                         <div class="settings-row">
                             <div class="settings-caption">Allow user to skip tracking and tracing:</div>
@@ -203,7 +205,10 @@
                     <h1 class="section-header">Mastery score settings</h1>
                     <div class="section-content">
                         <div class="settings-row">
-                            <div class="settings-caption">Mastery score:</div>
+                            <div class="settings-caption">
+                                <div>Mastery score:</div>
+                                <div class="settings-hint">(the score a learner needs to pass the course)</div>
+                            </div>
                             <div class="settings-column">
                                 <div data-trigger="spinner" class="spinner" spinner spinner-value="masteryScore.value">
                                     <a class="spinner-button spinner-down" data-spin="down" disable-drag-and-drop></a>
@@ -212,7 +217,6 @@
                                     <div class="spiner-seperator"></div>
                                 </div>
                             </div>
-                            <div class="settings-hint">(the score a learner needs to pass the course)</div>
                         </div>
                     </div>
 
