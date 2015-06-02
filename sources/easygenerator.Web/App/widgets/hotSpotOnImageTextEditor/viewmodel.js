@@ -10,6 +10,7 @@
         saveAndClose: saveAndClose,
         isVisible: ko.observable(false),
         text: ko.observable(''),
+        hasFocus: ko.observable(false),
         activate: activate,
         callback: null,
     };
