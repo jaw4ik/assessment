@@ -293,8 +293,23 @@
         }
     }
 
-    .list-item-content-holder {
-        cursor: default;
+    .learning-path-content {
+        position: relative;
+
+        .list-item-content-holder {
+            cursor: default;
+        }
+
+        .tip-arrow-holder {
+            top: 150%;
+            left: 0;
+
+            .tip-arrow-text {
+                word-wrap: break-word;
+                white-space: pre-wrap;
+                max-width: 340px;
+            }
+        }
     }
 }
 

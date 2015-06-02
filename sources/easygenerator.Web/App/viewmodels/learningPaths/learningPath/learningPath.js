@@ -63,6 +63,7 @@
             return getLearningPathByIdQuery.execute(viewModel.id).then(function (learningPath) {
                 viewModel.titleField.title(learningPath.title);
                 viewModel.titleField.isSelected(clientContext.get(constants.clientContextKeys.lastCreatedLearningPathId) === learningPath.id);
+                viewModel.courseSelector.isExpanded(learningPath.courses.length === 0);
                 clientContext.remove(constants.clientContextKeys.lastCreatedLearningPathId);
 
                 var collection = _.chain(learningPath.courses)

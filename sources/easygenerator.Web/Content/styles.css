@@ -1126,6 +1126,15 @@
   border-color: #3b8abc;
   box-shadow: none;
 }
+.btn.confirm.disabled,
+.btn.confirm.disabled:hover,
+.btn.confirm.disabled:active {
+  background: #469dd5;
+  border-color: #469dd5;
+}
+.btn.confirm .action-item-btn-caption {
+  padding-left: 28px;
+}
 .btn.confirm .action-item-btn-caption:before {
   content: '';
   display: block;

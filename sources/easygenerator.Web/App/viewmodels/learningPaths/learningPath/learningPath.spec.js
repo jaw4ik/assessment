@@ -17,11 +17,7 @@
     ;
 
     describe('viewModel [learningPath]', function () {
-        var learningPath = {
-            id: 'id',
-            title: 'title',
-            courses: [{ id: '0', template: {} }, { id: '1', template: {} }]
-        },
+        var learningPath,
             getLearnigPathDefer;
 
         beforeEach(function () {
@@ -34,6 +30,11 @@
             spyOn(courseSelector, 'expand');
             spyOn(courseSelector, 'collapse');
             spyOn(getLearningPathByIdQuery, 'execute').and.returnValue(getLearnigPathDefer.promise);
+            learningPath = {
+                id: 'id',
+                title: 'title',
+                courses: [{ id: '0', template: {} }, { id: '1', template: {} }]
+            };
         });
 
         describe('canActivate:', function () {
@@ -117,6 +118,28 @@
                     viewModel.activate(learningPath.id).fin(function () {
                         expect(viewModel.courses().length).toBe(learningPath.courses.length);
                         done();
+                    });
+                });
+
+                it('should set course selector isExpaneded to false', function (done) {
+                    viewModel.courseSelector.isExpanded(true);
+                    viewModel.activate(learningPath.id).fin(function () {
+                        expect(viewModel.courseSelector.isExpanded()).toBeFalsy();
+                        done();
+                    });
+                });
+
+                describe('when there are no courses in the learning path', function () {
+                    beforeEach(function () {
+                        learningPath.courses = [];
+                    });
+
+                    it('should set course selector isExpaneded to true', function(done) {
+                        viewModel.courseSelector.isExpanded(false);
+                        viewModel.activate(learningPath.id).fin(function () {
+                            expect(viewModel.courseSelector.isExpanded()).toBeTruthy();
+                            done();
+                        });
                     });
                 });
 

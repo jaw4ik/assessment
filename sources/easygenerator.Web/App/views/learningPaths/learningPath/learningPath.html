@@ -13,7 +13,7 @@
             </div>
         </header>
         <div class="content-section-wrapper">
-            <div class="content-section">
+            <div class="content-section learning-path-content">
                 <div class="page-view-caption-wrapper">
                     <div class="page-view-caption">
                         <button class="page-view-caption-back-button info-tooltip-holder" data-bind="click: back">
@@ -25,12 +25,12 @@
                     </div>
                     <div class="page-view-caption-actions">
                         <!-- ko if: courseSelector.isExpanded -->
-                        <button class="action-item-btn create-item btn confirm" data-bind="click: finishAddingCourses">
+                        <button class="action-item-btn btn confirm" data-bind="click: finishAddingCourses, css: { disabled: courses().length === 0 }, enable: courses().length > 0">
                             <span class="action-item-btn-caption" data-bind="localize: { text: 'done' }"></span>
                         </button>
                         <!-- /ko -->
                         <!-- ko ifnot: courseSelector.isExpanded -->
-                        <button class="action-item-btn create-item btn add-courses green" data-bind="click: addCourses">
+                        <button class="action-item-btn btn add-courses green" data-bind="click: addCourses">
                             <span class="action-item-btn-caption" data-bind="localize: { text: 'addCourses' }"></span>
                         </button>
                         <!-- /ko -->
@@ -39,6 +39,9 @@
                 <!-- ko if: courses().length === 0 -->
                 <div class="empty-list-wrapper">
                     <span class="empty-list" data-bind="localize: { text: 'noCoursesInTheLearningPath'}"></span>
+                </div>
+                <div class="tip-arrow-holder">
+                    <div class="tip-arrow-text" data-bind="localize: { text : 'selectCoursesHint' }"></div>
                 </div>
                 <!-- /ko -->
                 <!-- ko ifnot: courses().length === 0  -->
