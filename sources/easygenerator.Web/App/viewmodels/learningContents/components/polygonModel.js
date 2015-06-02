@@ -18,6 +18,9 @@
                     updateCallback(that.id, that.text, that.points());
                 });
             };
+            that.removed = function() {
+                hotSpotOnImageTextEditor.close();
+            };
         }; 
 
         return PolygonModel;
