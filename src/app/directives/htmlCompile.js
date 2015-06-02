@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     'use strict';
     
     //Unlike ngBindHtml, this directive allows you to use nested bindings and emit event $includeContentLoaded.
