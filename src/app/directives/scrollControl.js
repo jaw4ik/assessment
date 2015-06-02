@@ -114,7 +114,7 @@
                     introGone = windowScrollTop >= ($questions.offset().top - $header.height());
 
                 //Fix for browser initial scrolling
-                if (scrollableHeight <= 0) {
+                if (scrollableHeight < 0) {
                     return;
                 }
 
