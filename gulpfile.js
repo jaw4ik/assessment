@@ -29,6 +29,11 @@ require('jshint-stylish');
 
 function addBuildVersion() {
     return eventStream.map(function (file, callback) {
+		var filePath = file.history[0];
+        if (filePath && filePath.match(/\.(js)$/gi)) {
+            callback(null, file);
+            return;
+        }
         var fileContent = String(file.contents);
         fileContent = fileContent
             .replace(/(\?|\&)v=([0-9]+)/gi, '') // remove build version
@@ -102,6 +107,7 @@ gulp.task('build-app', ['clean', 'css'], function () {
             .pipe(gulpif('*.css', css()))
             .pipe(assets.restore())
             .pipe(useref())
+			.pipe(addBuildVersion())
             .pipe(gulp.dest(output)),
 
         gulp.src(['./src/css/fonts/**', '!./src/css/fonts/*.less'])
@@ -162,6 +168,7 @@ gulp.task('build-design-settings', ['clean'], function () {
       .pipe(gulpif('*.js', uglify()))
       .pipe(assets.restore())
       .pipe(useref())
+	  .pipe(addBuildVersion())
       .pipe(gulp.dest(output + '/settings/design'));
 
     gulp.src('./src/settings/design/img/**')
@@ -177,6 +184,7 @@ gulp.task('build-configure-settings', ['clean'], function () {
       .pipe(gulpif('*.js', uglify()))
       .pipe(assets.restore())
       .pipe(useref())
+	  .pipe(addBuildVersion())
       .pipe(gulp.dest(output + '/settings/configure'));
 
     gulp.src('./src/settings/configure/img/**')
