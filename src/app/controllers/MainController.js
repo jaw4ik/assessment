@@ -90,6 +90,10 @@
             $scope.$on('$quizStarted', function () {
                 timer.start();
             });
+
+            $scope.$on('$destroy', function() {
+                timer.dispose();
+            });
         }
     }
 

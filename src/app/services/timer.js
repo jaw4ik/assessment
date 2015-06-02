@@ -9,13 +9,15 @@
     function timer($timeout) {
         var onTickSubscribers = [],
             onStoppedSubscribers = [],
-            remainingTime;
+            remainingTime,
+            isTimerOn = false;
 
         return {
             setTime: setTime,
             onStopped: onStopped,
             onTick: onTick,
-            start: start
+            start: start,
+            dispose: dispose
         };
 
         function setTime(timeInSeconds) {
@@ -31,18 +33,26 @@
         }
 
         function start() {
-            $timeout(tick, 1000);
+            isTimerOn = true;
+            tick();
         }
 
         function tick() {
-            remainingTime--;
-            fireTickEvent();
+            $timeout(function () {
+                if (!isTimerOn) {
+                    return;
+                }
 
-            if (remainingTime <= 0) {
-                fireStoppedEvent();
-            } else {
-                $timeout(tick, 1000);
-            }
+                remainingTime--;
+                fireTickEvent();
+
+                if (remainingTime <= 0) {
+                    fireStoppedEvent();
+                    dispose();
+                } else {
+                    tick();
+                }
+            }, 1000);
         }
 
         function fireTickEvent() {
@@ -55,6 +65,10 @@
             onStoppedSubscribers.forEach(function (callbackFn) {
                 callbackFn();
             });
+        }
+
+        function dispose() {
+            isTimerOn = false;
         }
     }
 
