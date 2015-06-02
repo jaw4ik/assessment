@@ -2043,8 +2043,6 @@
     <Content Include="Templates\Quiz\settings\api.js" />
     <Content Include="Templates\Quiz\settings\configure\configure.html" />
     <Content Include="Templates\Quiz\settings\configure\img\language.png" />
-    <Content Include="Templates\Quiz\settings\configure\img\mastery.png" />
-    <Content Include="Templates\Quiz\settings\configure\img\track.png" />
     <Content Include="Templates\Quiz\settings\configure\js\configure.min.js" />
     <Content Include="Templates\Quiz\settings\configure\js\vendor.min.js" />
     <Content Include="Templates\Quiz\settings\css\fonts\opensans-400.woff" />
