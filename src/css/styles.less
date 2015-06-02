@@ -36,19 +36,38 @@ button {
     }
 }
 
-header {
-    &.main-logo-wrapper {
-        height: 50px;
-        padding: 10px 0;
+.app-header {
+    width: 100%;
+    height: 70px;
+    padding-left: 50px;
+    padding-right: 50px;
+    .border-box;
+
+    .app-header-content {
+        display: table;
+        width: 100%;
+        height: 100%;
+    }
+
+    .logo-wrapper {
+        position: relative;
+        display: table-cell;
+        vertical-align: middle;
+        z-index: 1;
     }
 
     .main-logo {
-        position: relative;
         display: inline-block;
         max-height: 50px;
         max-width: 300px;
-        margin-left: 50px;
         vertical-align: middle;
+    }
+
+    .timer {
+        display: table-cell;
+        width: 150px;
+        vertical-align: middle;
+        z-index: 1;
     }
 }
 
@@ -93,12 +112,13 @@ header {
 @import "notSupportedPage";
 @import "introduction";
 @import "questions";
+@import "timer";
 
 @import "login";
 @import "errors";
 @import "../vendor/easygenerator-hotspot-on-an-image-plugin/hotspotOnAnImagePlugin.css";
 
-.tl-wrapper{
+.tl-wrapper {
     font: 16px @default-font;
     color: #fff;
 }

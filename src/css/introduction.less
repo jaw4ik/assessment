@@ -13,39 +13,52 @@
     width: 100%;
     top: 0;
     left: 0;
-    height: @header-full-height;
+    height: @header-full-height + 1;
+    padding: 0 50px;
     .bottom-border;
     overflow: hidden;
     background-color: #fff;
     opacity: 0.97;
     z-index: 100;
 
+    @media (max-width: 1499px) {
+        .questions-reached & {
+            visibility: visible;
+        }
+    }
+
     .main-background {
         position: absolute;
     }
 
-    .scrolled-to-questions &,
+    .intro-gone &,
     .without-intro & {
         visibility: visible;
         height: @header-small-height;
     }
 
-    .scrolled-to-questions & {
+    .intro-gone & {
         transition: height .2s linear;
     }
 
     .button-container {
         display: none;
-        float: right;
         max-width: 45%;
-        height: 100%;
-        margin-right: 50px;
+        vertical-align: middle;
         text-align: right;
 
         .button {
             max-width: 98%;
             vertical-align: middle;
         }
+    }
+
+    .timer {
+        position: relative;
+        display: table-cell;
+        width: 150px;
+        vertical-align: middle;
+        z-index: 1;
     }
 }
 
@@ -65,7 +78,7 @@
         height: 100%;
         overflow: auto;
 
-        .scrolled-to-questions & {
+        .intro-gone & {
             background-color: #fff;
             border-bottom: none;
         }
@@ -77,13 +90,19 @@
             left: 0;
             transition: height .2s linear;
 
-            .scrolled-to-questions & {
+            .intro-gone & {
                 height: @header-small-height;
             }
 
             @media (min-width: 1500px) {
                 & {
                     position: fixed;
+                }
+            }
+
+            @media (max-width: 1499px) {
+                .questions-reached & {
+                    display: none;
                 }
             }
         }
@@ -288,13 +307,21 @@
         box-shadow: 0 0 30px -10px #323232;
 
         .button-container {
-            display: inline-block;
+            display: table-cell;
         }
 
-        &.hide-buttons {
-            .button-container {
-                display: none;
-            }
+        .timer {
+            display: none;
+        }
+    }
+
+    & .questions-reached {
+        .button-container {
+            display: none;
+        }
+
+        .timer {
+            display: table-cell;
         }
     }
 
