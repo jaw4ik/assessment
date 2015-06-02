@@ -309,20 +309,25 @@
     }
 
     .learning-path-content {
-        position: relative;
-
         .list-item-content-holder {
             cursor: default;
         }
 
         .tip-arrow-holder {
-            top: 150%;
-            left: 0;
+            position: fixed;
+            top: 460px;
+            left: 330px;
 
             .tip-arrow-text {
+                padding-left: 95px;
                 word-wrap: break-word;
                 white-space: pre-wrap;
                 max-width: 340px;
+
+                &:before {
+                    .transform(rotate(30deg) scaleY(-1));
+                    top: -10px;
+                }
             }
         }
     }
