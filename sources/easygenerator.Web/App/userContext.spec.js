@@ -75,7 +75,7 @@
             describe('when user email is a string', function () {
 
                 it('should set user identity', function (done) {
-                    ajax.resolve({ email: 'user@easygenerator.com', subscription: { accessType: 0 } });
+                    ajax.resolve({ email: 'user@easygenerator.com', subscription: { accessType: constants.accessType.free } });
 
                     userContext.identify().fin(function () {
                         expect(userContext.identity.__moduleId__).toEqual("models/user");
@@ -387,6 +387,66 @@
                 });
             });
 
+            describe('when user has trial subscription', function () {
+                var today = new Date();
+
+                describe('and expiration date is null', function () {
+
+                    beforeEach(function () {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: constants.accessType.trial,
+                                expirationDate: null
+                            }
+                        };
+                    });
+
+                    it('should be false', function () {
+                        expect(userContext.hasStarterAccess()).toBeFalsy();
+                    });
+
+                });
+
+                describe('and expiration date has expired', function () {
+
+                    var yesterday = new Date();
+                    yesterday.setDate(today.getDate() - 1);
+
+                    beforeEach(function () {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: constants.accessType.trial,
+                                expirationDate: yesterday
+                            }
+                        };
+                    });
+
+                    it('should be false', function () {
+                        expect(userContext.hasStarterAccess()).toBeFalsy();
+                    });
+
+                });
+
+                describe('and expiration date has not yet expired', function () {
+
+                    var tomorrow = new Date();
+                    tomorrow.setDate(today.getDate() + 1);
+
+                    beforeEach(function () {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: constants.accessType.trial,
+                                expirationDate: tomorrow
+                            }
+                        };
+                    });
+
+                    it('should be true', function () {
+                        expect(userContext.hasStarterAccess()).toBeTruthy();
+                    });
+
+                });
+            });
         });
 
         describe('hasPlusAccess:', function () {
@@ -516,6 +576,215 @@
                 });
             });
 
+            describe('when user has trial subscription', function () {
+                var today = new Date();
+
+                describe('and expiration date is null', function () {
+
+                    beforeEach(function () {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: constants.accessType.trial,
+                                expirationDate: null
+                            }
+                        };
+                    });
+
+                    it('should be false', function () {
+                        expect(userContext.hasPlusAccess()).toBeFalsy();
+                    });
+
+                });
+
+                describe('and expiration date has expired', function () {
+
+                    var yesterday = new Date();
+                    yesterday.setDate(today.getDate() - 1);
+
+                    beforeEach(function () {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: constants.accessType.trial,
+                                expirationDate: yesterday
+                            }
+                        };
+                    });
+
+                    it('should be false', function () {
+                        expect(userContext.hasPlusAccess()).toBeFalsy();
+                    });
+
+                });
+
+                describe('and expiration date has not yet expired', function () {
+
+                    var tomorrow = new Date();
+                    tomorrow.setDate(today.getDate() + 1);
+
+                    beforeEach(function () {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: constants.accessType.trial,
+                                expirationDate: tomorrow
+                            }
+                        };
+                    });
+
+                    it('should be true', function () {
+                        expect(userContext.hasPlusAccess()).toBeTruthy();
+                    });
+
+                });
+            });
+
+        });
+
+        describe('hasTrialAccess:', function () {
+
+            it('should be function', function () {
+                expect(userContext.hasTrialAccess).toBeFunction();
+            });
+
+            describe('when user identity is not an object', function () {
+
+                beforeEach(function () {
+                    userContext.identity = null;
+                });
+
+                it('should be false', function () {
+                    expect(userContext.hasTrialAccess()).toBeFalsy();
+                });
+
+            });
+
+            describe('when user identity subscription is not an object', function () {
+
+                beforeEach(function () {
+                    userContext.identity = {};
+                });
+
+                it('should be false', function () {
+                    expect(userContext.hasTrialAccess()).toBeFalsy();
+                });
+
+            });
+
+            describe('when user has free subscription', function () {
+
+                beforeEach(function () {
+                    userContext.identity = {
+                        subscription: {
+                            accessType: constants.accessType.free
+                        }
+                    };
+                });
+
+                it('should be false', function () {
+                    expect(userContext.hasTrialAccess()).toBeFalsy();
+                });
+
+            });
+
+            describe('when user has starter subscription', function () {
+
+                beforeEach(function () {
+                    var today = new Date(),
+                        tomorrow = new Date();
+                    tomorrow.setDate(today.getDate() + 1);
+
+                    userContext.identity = {
+                        subscription: {
+                            accessType: constants.accessType.starter,
+                            expirationDate: tomorrow
+                        }
+                    };
+                });
+
+                it('should be false', function () {
+                    expect(userContext.hasTrialAccess()).toBeFalsy();
+                });
+            });
+
+            describe('when user has plus subscription', function () {
+
+                beforeEach(function () {
+                    var today = new Date(),
+                        tomorrow = new Date();
+                    tomorrow.setDate(today.getDate() + 1);
+
+                    userContext.identity = {
+                        subscription: {
+                            accessType: constants.accessType.plus,
+                            expirationDate: tomorrow
+                        }
+                    };
+                });
+
+                it('should be false', function () {
+                    expect(userContext.hasTrialAccess()).toBeFalsy();
+                });
+            });
+
+            describe('when user has trial subscription', function () {
+                var today = new Date();
+
+                describe('and expiration date is null', function () {
+
+                    beforeEach(function () {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: constants.accessType.trial,
+                                expirationDate: null
+                            }
+                        };
+                    });
+
+                    it('should be false', function () {
+                        expect(userContext.hasTrialAccess()).toBeFalsy();
+                    });
+
+                });
+
+                describe('and expiration date has expired', function () {
+
+                    var yesterday = new Date();
+                    yesterday.setDate(today.getDate() - 1);
+
+                    beforeEach(function () {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: constants.accessType.trial,
+                                expirationDate: yesterday
+                            }
+                        };
+                    });
+
+                    it('should be false', function () {
+                        expect(userContext.hasTrialAccess()).toBeFalsy();
+                    });
+
+                });
+
+                describe('and expiration date has not yet expired', function () {
+
+                    var tomorrow = new Date();
+                    tomorrow.setDate(today.getDate() + 1);
+
+                    beforeEach(function () {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: constants.accessType.trial,
+                                expirationDate: tomorrow
+                            }
+                        };
+                    });
+
+                    it('should be true', function () {
+                        expect(userContext.hasTrialAccess()).toBeTruthy();
+                    });
+
+                });
+            });
         });
     });
 

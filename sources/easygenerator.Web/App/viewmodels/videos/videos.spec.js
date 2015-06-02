@@ -78,11 +78,10 @@
                 expect(viewModel.addVideo).toBeFunction();
             });
 
-            describe('when user have free plan', function () {
+            describe('when user has free plan', function () {
 
                 beforeEach(function () {
                     spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
-                    spyOn(userContext, 'hasPlusAccess').and.returnValue(false);
                 });
 
                 it('should show upgrade popup', function () {
@@ -98,11 +97,31 @@
 
             });
 
-            describe('when user have not free plan', function () {
+            describe('when user has trial plan', function () {
 
                 beforeEach(function () {
                     spyOn(userContext, 'hasStarterAccess').and.returnValue(true);
-                    spyOn(userContext, 'hasPlusAccess').and.returnValue(true);
+                    spyOn(userContext, 'hasTrialAccess').and.returnValue(true);
+                });
+
+                it('should show upgrade popup', function () {
+                    viewModel.upgradePopupVisibility(false);
+                    viewModel.addVideo();
+                    expect(viewModel.upgradePopupVisibility()).toBeTruthy();
+                });
+
+                it('should not upload video', function () {
+                    viewModel.addVideo();
+                    expect(storageFileUploader.upload).not.toHaveBeenCalled();
+                });
+
+            });
+
+            describe('when user has not free plan', function () {
+
+                beforeEach(function () {
+                    spyOn(userContext, 'hasStarterAccess').and.returnValue(true);
+                    spyOn(userContext, 'hasTrialAccess').and.returnValue(false);
                 });
 
                 it('should not show upgrade popup', function () {
@@ -122,7 +141,6 @@
                 });
 
             });
-
         });
 
         describe('activate', function () {
@@ -191,7 +209,7 @@
 
             });
 
-            describe('when user have free plan', function () {
+            describe('when user has free plan', function () {
 
                 beforeEach(function () {
                     spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
@@ -211,7 +229,7 @@
 
             });
 
-            describe('when user have not free plan', function () {
+            describe('when user has not free plan', function () {
 
                 beforeEach(function () {
                     spyOn(userContext, 'hasStarterAccess').and.returnValue(true);

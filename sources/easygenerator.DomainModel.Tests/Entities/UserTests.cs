@@ -210,10 +210,11 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.ModifiedOn.Should().Be(creationDate);
             user.CreatedBy.Should().Be(CreatedBy);
             user.ModifiedBy.Should().Be(CreatedBy);
+            user.AccessType.Should().Be(AccessType.Trial);
         }
 
         [TestMethod]
-        public void User_ShouldCreateUserWithPlusPlanAnd14DaysTrialPeriod()
+        public void User_ShouldCreateUserWithTrialPlanwith14DaysTrialPeriod()
         {
             //Arrange
             var expirationDate = CurrentDate.AddDays(14);
@@ -222,7 +223,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var user = UserObjectMother.Create();
 
             //Assert
-            user.AccessType.Should().Be(AccessType.Plus);
+            user.AccessType.Should().Be(AccessType.Trial);
             user.ExpirationDate.Should().Be(expirationDate);
         }
 
@@ -539,11 +540,40 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
+        public void IsFreeAccess_ShouldReturnFalse_WhenUserHasTrialAccess()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Trial;
+
+            //Act
+            var result = user.IsFreeAccess();
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
         public void IsFreeAccess_ShouldReturnTrue_WhenUserHasPlusAccessButAccessExpired()
         {
             //Arrange
             var user = UserObjectMother.Create();
             user.AccessType = AccessType.Plus;
+            DateTimeWrapper.Now = () => new DateTime(2015, 1, 1);
+
+            //Act
+            var result = user.IsFreeAccess();
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void IsFreeAccess_ShouldReturnTrue_WhenUserHasTrialAccessButAccessExpired()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Trial;
             DateTimeWrapper.Now = () => new DateTime(2015, 1, 1);
 
             //Act
@@ -628,6 +658,21 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
+        public void HasStarterAcces_ShouldReturnTrue_WhenUserAccessTypeIsTrial()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Trial;
+
+            //Act
+            var result = user.HasStarterAccess();
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+
+        [TestMethod]
         public void HasStarterAccess_ShouldReturnFalse_WhenUserAccessTypeIsPlusButAccessExpired()
         {
             //Arrange
@@ -642,11 +687,39 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
+        public void HasStarterAccess_ShouldReturnFalse_WhenUserAccessTypeIsTrialButAccessExpired()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Trial;
+            DateTimeWrapper.Now = () => new DateTime(2015, 1, 1);
+            //Act
+            var result = user.HasStarterAccess();
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
         public void HasStarterAccess_ShouldReturnFalse_WhenUserAccessTypeIsPlusButExpirationDateIsNotSet()
         {
             //Arrange
             var user = UserObjectMother.Create();
             user.AccessType = AccessType.Plus;
+            user.ExpirationDate = null;
+            //Act
+            var result = user.HasStarterAccess();
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void HasStarterAccess_ShouldReturnFalse_WhenUserAccessTypeIsTrialButExpirationDateIsNotSet()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Trial;
             user.ExpirationDate = null;
             //Act
             var result = user.HasStarterAccess();
@@ -724,6 +797,95 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.ExpirationDate = null;
             //Act
             var result = user.HasPlusAccess();
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        #endregion
+
+        #region HasTrialAccess
+
+        [TestMethod]
+        public void HasTrialAccess_ShouldReturnFalse_WhenUserHasFreeAccessType()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Free;
+
+            //Act
+            var result = user.HasTrialAccess();
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void HasTrialAccess_ShouldReturnFalse_WhenUserAccessTypeIsStarter()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Starter;
+
+            //Act
+            var result = user.HasTrialAccess();
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void HasTrialAccess_ShouldReturnFalse_WhenUserAccessTypeIsPlus()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Plus;
+
+            //Act
+            var result = user.HasTrialAccess();
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+
+        [TestMethod]
+        public void HasTrialAccess_ShouldReturnTrue_WhenUserAccessTypeIsTrial()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Trial;
+
+            //Act
+            var result = user.HasTrialAccess();
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void HasTrialAccess_ShouldReturnFalse_WhenUserAccessTypeIsTrialButAccessExpired()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Trial;
+            DateTimeWrapper.Now = () => new DateTime(2015, 1, 1);
+            //Act
+            var result = user.HasTrialAccess();
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void HasTrialAccess_ShouldReturnFalse_WhenUserAccessTypeIsHasTrialAccessButExpirationDateIsNotSet()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Trial;
+            user.ExpirationDate = null;
+            //Act
+            var result = user.HasTrialAccess();
 
             //Assert
             result.Should().BeFalse();

@@ -334,7 +334,7 @@
             beforeEach(function () {
                 userContext.identity = {
                     subscription: {
-                        accessType: 0
+                        accessType: constants.accessType.free
                     }
                 };
 

@@ -3,9 +3,10 @@
 
         return {
             accessType: {
-                free: '0',
-                starter: '1',
-                plus: '2'
+                free: 0,
+                starter: 1,
+                plus: 2,
+                trial: 100
             },
 
             questionType: {

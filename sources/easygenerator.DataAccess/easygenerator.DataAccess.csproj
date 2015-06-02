@@ -282,6 +282,10 @@
     <Compile Include="Migrations\201504301031125_AddCollaboratorIsAccepted.Designer.cs">
       <DependentUpon>201504301031125_AddCollaboratorIsAccepted.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505281350141_SetTrialAccessTypeForTrialUsers.cs" />
+    <Compile Include="Migrations\201505281350141_SetTrialAccessTypeForTrialUsers.Designer.cs">
+      <DependentUpon>201505281350141_SetTrialAccessTypeForTrialUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
@@ -481,6 +485,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504301031125_AddCollaboratorIsAccepted.resx">
       <DependentUpon>201504301031125_AddCollaboratorIsAccepted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505281350141_SetTrialAccessTypeForTrialUsers.resx">
+      <DependentUpon>201505281350141_SetTrialAccessTypeForTrialUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
