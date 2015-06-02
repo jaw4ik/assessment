@@ -1,5 +1,9 @@
 ﻿define(['userContext'], function (userContext) {
 
+    var authHttpWrapper = require('http/authHttpWrapper'),
+        storageHttpWrapper = require('http/storageHttpWrapper'),
+        notify = require('notify'),
+        localizationManager = require('localization/localizationManager');
 
     describe('[userContext]', function () {
 
@@ -26,7 +30,7 @@
 
             beforeEach(function () {
                 ajax = $.Deferred();
-                spyOn($, 'ajax').and.returnValue(ajax.promise());
+                spyOn(authHttpWrapper, 'post').and.returnValue(ajax.promise());
                 spyOn(app, 'trigger');
             });
 
@@ -71,7 +75,7 @@
             describe('when user email is a string', function () {
 
                 it('should set user identity', function (done) {
-                    ajax.resolve({ email: 'user@easygenerator.com', subscription: { accessType: 0 } });
+                    ajax.resolve({ email: 'user@easygenerator.com', subscription: { accessType: constants.accessType.free } });
 
                     userContext.identify().fin(function () {
                         expect(userContext.identity.__moduleId__).toEqual("models/user");
@@ -98,6 +102,117 @@
                     expect(app.trigger).toHaveBeenCalledWith(constants.messages.user.identified, null);
                     done();
                 }).done();
+            });
+
+        });
+
+        describe('identifyStoragePermissions:', function () {
+
+            var ajax;
+
+            beforeEach(function () {
+                ajax = $.Deferred();
+                spyOn(storageHttpWrapper, 'get').and.returnValue(ajax.promise());
+                spyOn(notify, 'error');
+            });
+
+            it('should be function', function () {
+                expect(userContext.identifyStoragePermissions).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(userContext.identifyStoragePermissions()).toBePromise();
+            });
+
+            describe('when an error occured while getting user', function () {
+
+                beforeEach(function (done) {
+                    ajax.reject();
+                    done();
+                });
+
+                it('should reject promise', function (done) {
+                    var promise = userContext.identifyStoragePermissions();
+
+                    promise.fail(function () {
+                        done();
+                    }).done();
+                });
+
+                it('should show notification error', function (done) {
+                    var promise = userContext.identifyStoragePermissions();
+
+                    promise.fail(function () {
+                        done();
+                    }).done();
+
+                    expect(notify.error).toHaveBeenCalledWith(localizationManager.localize('storageFailed'));
+                });
+
+                it('should set availableStorageSpace to zero', function (done) {
+                    userContext.storageIdentity = {};
+
+                    var promise = userContext.identifyStoragePermissions();
+
+                    promise.fail(function () {
+                        done();
+                    }).done();
+
+                    expect(userContext.storageIdentity.availableStorageSpace).toBe(0);
+                });
+
+                it('should set totalStorageSpace to zero', function (done) {
+                    userContext.storageIdentity = {};
+
+                    var promise = userContext.identifyStoragePermissions();
+
+                    promise.fail(function () {
+                        done();
+                    }).done();
+
+                    expect(userContext.storageIdentity.totalStorageSpace).toBe(0);
+                });
+
+            });
+
+            it('should resolve promise', function (done) {
+                ajax.resolve({ AvailableStorageSpace: 10, TotalStorageSpace: 100 });
+
+                var promise = userContext.identifyStoragePermissions();
+                promise.fin(function () {
+                    expect(promise).toBeResolved();
+                    done();
+                }).done();
+            });
+
+            it('should set availableStorageSpace', function (done) {
+                userContext.storageIdentity = {};
+                userContext.storageIdentity.availableStorageSpace = 0;
+
+                ajax.resolve({ AvailableStorageSpace: 10, TotalStorageSpace: 100 });
+
+                var promise = userContext.identifyStoragePermissions();
+                promise.fin(function () {
+                    expect(promise).toBeResolved();
+                    done();
+                }).done();
+
+                expect(userContext.storageIdentity.availableStorageSpace).toBe(10);
+            });
+
+            it('should set totalStorageSpace', function (done) {
+                userContext.storageIdentity = {};
+                userContext.storageIdentity.totalStorageSpace = 0;
+
+                ajax.resolve({ AvailableStorageSpace: 10, TotalStorageSpace: 100 });
+
+                var promise = userContext.identifyStoragePermissions();
+                promise.fin(function () {
+                    expect(promise).toBeResolved();
+                    done();
+                }).done();
+
+                expect(userContext.storageIdentity.totalStorageSpace).toBe(100);
             });
 
         });
@@ -272,6 +387,66 @@
                 });
             });
 
+            describe('when user has trial subscription', function () {
+                var today = new Date();
+
+                describe('and expiration date is null', function () {
+
+                    beforeEach(function () {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: constants.accessType.trial,
+                                expirationDate: null
+                            }
+                        };
+                    });
+
+                    it('should be false', function () {
+                        expect(userContext.hasStarterAccess()).toBeFalsy();
+                    });
+
+                });
+
+                describe('and expiration date has expired', function () {
+
+                    var yesterday = new Date();
+                    yesterday.setDate(today.getDate() - 1);
+
+                    beforeEach(function () {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: constants.accessType.trial,
+                                expirationDate: yesterday
+                            }
+                        };
+                    });
+
+                    it('should be false', function () {
+                        expect(userContext.hasStarterAccess()).toBeFalsy();
+                    });
+
+                });
+
+                describe('and expiration date has not yet expired', function () {
+
+                    var tomorrow = new Date();
+                    tomorrow.setDate(today.getDate() + 1);
+
+                    beforeEach(function () {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: constants.accessType.trial,
+                                expirationDate: tomorrow
+                            }
+                        };
+                    });
+
+                    it('should be true', function () {
+                        expect(userContext.hasStarterAccess()).toBeTruthy();
+                    });
+
+                });
+            });
         });
 
         describe('hasPlusAccess:', function () {
@@ -401,6 +576,215 @@
                 });
             });
 
+            describe('when user has trial subscription', function () {
+                var today = new Date();
+
+                describe('and expiration date is null', function () {
+
+                    beforeEach(function () {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: constants.accessType.trial,
+                                expirationDate: null
+                            }
+                        };
+                    });
+
+                    it('should be false', function () {
+                        expect(userContext.hasPlusAccess()).toBeFalsy();
+                    });
+
+                });
+
+                describe('and expiration date has expired', function () {
+
+                    var yesterday = new Date();
+                    yesterday.setDate(today.getDate() - 1);
+
+                    beforeEach(function () {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: constants.accessType.trial,
+                                expirationDate: yesterday
+                            }
+                        };
+                    });
+
+                    it('should be false', function () {
+                        expect(userContext.hasPlusAccess()).toBeFalsy();
+                    });
+
+                });
+
+                describe('and expiration date has not yet expired', function () {
+
+                    var tomorrow = new Date();
+                    tomorrow.setDate(today.getDate() + 1);
+
+                    beforeEach(function () {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: constants.accessType.trial,
+                                expirationDate: tomorrow
+                            }
+                        };
+                    });
+
+                    it('should be true', function () {
+                        expect(userContext.hasPlusAccess()).toBeTruthy();
+                    });
+
+                });
+            });
+
+        });
+
+        describe('hasTrialAccess:', function () {
+
+            it('should be function', function () {
+                expect(userContext.hasTrialAccess).toBeFunction();
+            });
+
+            describe('when user identity is not an object', function () {
+
+                beforeEach(function () {
+                    userContext.identity = null;
+                });
+
+                it('should be false', function () {
+                    expect(userContext.hasTrialAccess()).toBeFalsy();
+                });
+
+            });
+
+            describe('when user identity subscription is not an object', function () {
+
+                beforeEach(function () {
+                    userContext.identity = {};
+                });
+
+                it('should be false', function () {
+                    expect(userContext.hasTrialAccess()).toBeFalsy();
+                });
+
+            });
+
+            describe('when user has free subscription', function () {
+
+                beforeEach(function () {
+                    userContext.identity = {
+                        subscription: {
+                            accessType: constants.accessType.free
+                        }
+                    };
+                });
+
+                it('should be false', function () {
+                    expect(userContext.hasTrialAccess()).toBeFalsy();
+                });
+
+            });
+
+            describe('when user has starter subscription', function () {
+
+                beforeEach(function () {
+                    var today = new Date(),
+                        tomorrow = new Date();
+                    tomorrow.setDate(today.getDate() + 1);
+
+                    userContext.identity = {
+                        subscription: {
+                            accessType: constants.accessType.starter,
+                            expirationDate: tomorrow
+                        }
+                    };
+                });
+
+                it('should be false', function () {
+                    expect(userContext.hasTrialAccess()).toBeFalsy();
+                });
+            });
+
+            describe('when user has plus subscription', function () {
+
+                beforeEach(function () {
+                    var today = new Date(),
+                        tomorrow = new Date();
+                    tomorrow.setDate(today.getDate() + 1);
+
+                    userContext.identity = {
+                        subscription: {
+                            accessType: constants.accessType.plus,
+                            expirationDate: tomorrow
+                        }
+                    };
+                });
+
+                it('should be false', function () {
+                    expect(userContext.hasTrialAccess()).toBeFalsy();
+                });
+            });
+
+            describe('when user has trial subscription', function () {
+                var today = new Date();
+
+                describe('and expiration date is null', function () {
+
+                    beforeEach(function () {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: constants.accessType.trial,
+                                expirationDate: null
+                            }
+                        };
+                    });
+
+                    it('should be false', function () {
+                        expect(userContext.hasTrialAccess()).toBeFalsy();
+                    });
+
+                });
+
+                describe('and expiration date has expired', function () {
+
+                    var yesterday = new Date();
+                    yesterday.setDate(today.getDate() - 1);
+
+                    beforeEach(function () {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: constants.accessType.trial,
+                                expirationDate: yesterday
+                            }
+                        };
+                    });
+
+                    it('should be false', function () {
+                        expect(userContext.hasTrialAccess()).toBeFalsy();
+                    });
+
+                });
+
+                describe('and expiration date has not yet expired', function () {
+
+                    var tomorrow = new Date();
+                    tomorrow.setDate(today.getDate() + 1);
+
+                    beforeEach(function () {
+                        userContext.identity = {
+                            subscription: {
+                                accessType: constants.accessType.trial,
+                                expirationDate: tomorrow
+                            }
+                        };
+                    });
+
+                    it('should be true', function () {
+                        expect(userContext.hasTrialAccess()).toBeTruthy();
+                    });
+
+                });
+            });
         });
     });
 

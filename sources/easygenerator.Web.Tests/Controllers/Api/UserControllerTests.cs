@@ -30,7 +30,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IUserRepository _userRepository;
         private UserController _controller;
         private IEntityFactory _entityFactory;
-        private IAuthenticationProvider _authenticationProvider;
         private IDomainEventPublisher _eventPublisher;
         private IMailSenderWrapper _mailSenderWrapper;
         private ICourseRepository _courseRepository;
@@ -47,7 +46,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             _userRepository = Substitute.For<IUserRepository>();
             _entityFactory = Substitute.For<IEntityFactory>();
-            _authenticationProvider = Substitute.For<IAuthenticationProvider>();
             _eventPublisher = Substitute.For<IDomainEventPublisher>();
             _mailSenderWrapper = Substitute.For<IMailSenderWrapper>();
             _courseRepository = Substitute.For<ICourseRepository>();
@@ -58,7 +56,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _controller = new UserController(_userRepository,
                 _entityFactory,
-                _authenticationProvider,
                 _eventPublisher,
                 _mailSenderWrapper,
                 _courseRepository,
@@ -348,67 +345,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
-        #region Signin
-
-        [TestMethod]
-        public void Signin_ShouldReturnJsonErrorResult_WhenUserDoesNotExist()
-        {
-            var result = _controller.Signin(null, null);
-
-            result.Should().BeJsonErrorResult();
-        }
-
-        [TestMethod]
-        public void Signin_ShouldReturnJsonErrorResult_WhenPasswordIsWrong()
-        {
-            const string username = "username@easygenerator.com";
-            const string password = "Abc123!";
-
-            var user = Substitute.For<User>();
-            _userRepository.GetUserByEmail(username).Returns(user);
-            user.VerifyPassword(password).Returns(false);
-
-            var result = _controller.Signin(username, password);
-
-            result.Should().BeJsonErrorResult();
-        }
-
-        [TestMethod]
-        public void Signin_ShouldAuthenticateUser()
-        {
-            const string username = "username@easygenerator.com";
-            const string password = "Abc123!";
-
-            var user = Substitute.For<User>();
-            _userRepository.GetUserByEmail(username).Returns(user);
-            user.VerifyPassword(password).Returns(true);
-
-            _controller.Signin(username, password);
-
-            _authenticationProvider.Received().SignIn(username, true);
-        }
-
-        [TestMethod]
-        public void Signin_ShouldReturnJsonSuccessResult()
-        {
-            const string username = "username@easygenerator.com";
-            const string password = "Abc123!";
-
-            var user = UserObjectMother.Create(username, password);
-            _userRepository.GetUserByEmail(username).Returns(user);
-
-            var result = _controller.Signin(username, password);
-
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new
-            {
-                username = user.Email,
-                firstname = user.FirstName,
-                lastname = user.LastName
-            });
-        }
-
-        #endregion
-
         #region Signup
 
         [TestMethod]
@@ -469,22 +405,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             _eventPublisher.Received().Publish(Arg.Is<UserSignedUpEvent>(_ => _.User == user && _.UserRole == profile.UserRole));
-        }
-
-
-        [TestMethod]
-        public void Signup_ShouldSignInNewUser()
-        {
-            //Arrange
-            var profile = GetTestUserSignUpViewModel();
-            var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email).Returns(user);
-
-            //Act
-            _controller.Signup(profile);
-
-            //Assert
-            _authenticationProvider.Received().SignIn(profile.Email, true);
         }
 
         [TestMethod]
@@ -623,44 +543,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             result.Should().BeJsonSuccessResult().And.Data.Should().Be(false);
-        }
-
-        #endregion
-
-        #region Identify
-
-        [TestMethod]
-        public void Identify_ShouldReturnEmptyJsonResult_WhenUserDoesNotExist()
-        {
-            //Arrange
-            //const string email = "username@easygenerator.com";
-            //_user.Identity.Name.Returns(email);
-            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns((User)null);
-
-            //Act
-            var result = _controller.Identify();
-
-            //Assert
-            result.Should().BeJsonDataResult().And.Data.ShouldBeSimilar(new { });
-        }
-
-        [TestMethod]
-        public void Identify_ShoudReturnJsonResultWithUserIdentity_WhenUserExists()
-        {
-            //Arrange
-            var user = UserObjectMother.Create();
-            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
-
-            //Act
-            var result = _controller.Identify();
-
-            //Assert
-            result.Should().BeJsonDataResult().And.Data.ShouldBeSimilar(new
-            {
-                email = user.Email,
-                firstname = user.FirstName,
-                lastname = user.LastName
-            });
         }
 
         #endregion

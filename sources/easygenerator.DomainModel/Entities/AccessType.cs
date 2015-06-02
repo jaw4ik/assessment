@@ -4,6 +4,7 @@
     {
         Free = 0,
         Starter = 1,
-        Plus = 2
+        Plus = 2,
+        Trial = 100
     }
 }

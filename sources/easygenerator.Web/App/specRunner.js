@@ -40,9 +40,10 @@
             'dialogs/createCourse.spec',
             'dialogs/collaboration/addCollaborator.spec',
             'dialogs/collaboration/collaboration.spec',
-            'dialogs/collaboration/collaborator.spec',            
+            'dialogs/collaboration/collaborator.spec',
             'dialogs/publishCourse/publishCourse.spec',
             'dialogs/moveCopyQuestion/moveCopyQuestion.spec',
+            'dialogs/video/video.spec',
 
             //#endregion dialogs
 
@@ -54,7 +55,7 @@
             'errorHandling/httpErrorHandlers/unauthorizedHttpErrorHandler.spec',
             'errorHandling/errorHandlingConfiguration.spec',
             'errorHandling/globalErrorHandler.spec',
-            'errorHandling/httpErrorHandlerRegistrator.spec',            
+            'errorHandling/httpErrorHandlerRegistrator.spec',
 
             //#endregion
 
@@ -63,7 +64,7 @@
             'notifications/notification.spec',
             'notifications/subscriptionExpiration/notificationController.spec',
             'notifications/subscriptionExpiration/notification.spec',
-            
+
             'notifications/collaborationInvite/notification.spec',
             'notifications/collaborationInvite/queries/getInvites.spec',
             'notifications/collaborationInvite/commands/acceptInvite.spec',
@@ -71,10 +72,11 @@
             'notifications/collaborationInvite/notificationController.spec',
 
             //#endregion 
-        
+
             'localization/localizationManager.spec',
             'models/course.spec',
             'models/user.spec',
+            'models/video.spec',
 
             'repositories/answerRepository.spec',
             'repositories/commentRepository.spec',
@@ -84,6 +86,7 @@
             'repositories/objectiveRepository.spec',
             'repositories/templateRepository.spec',
             'repositories/questionRepository.spec',
+            'repositories/videoRepository.spec',
             'services/publishService.spec',
             'utils/waiter.spec',
 
@@ -211,6 +214,8 @@
             'treeOfContent/QuestionTreeNode.spec',
 
             'viewmodels/common/contentField.spec',
+            'viewmodels/library/index.spec',
+            'viewmodels/videos/videos.spec',
             'viewmodels/courses/courses.spec',
             'viewmodels/courses/course/index.spec',
             //'viewmodels/courses/course/create/index.spec',
@@ -223,7 +228,7 @@
             'viewmodels/courses/publishingActions/publish.spec',
             'viewmodels/courses/publishingActions/scormBuild.spec',
             'viewmodels/courses/publishingActions/publishToAim4You.spec',
-            'viewmodels/courses/courseComments.spec',            
+            'viewmodels/courses/courseComments.spec',
             'viewmodels/objectives/objectives.spec',
             'viewmodels/objectives/objective.spec',
             'viewmodels/objectives/objectiveBrief.spec',
@@ -287,20 +292,38 @@
             'viewmodels/questions/openQuestion/openQuestion.spec',
 
             'viewmodels/questions/questionTitle.spec',
-            'viewmodels/questions/learningContents.spec',
             'viewmodels/questions/feedback.spec',
+
+            'viewmodels/learningContents/learningContents.spec',
+            'viewmodels/learningContents/content.spec',
+            'viewmodels/learningContents/hotspotOnAnImage.spec',
 
             //#endregion
 
+            //#region video upload
+            'videoUpload/commands/storage.spec',
+            'videoUpload/commands/vimeo.spec',
+            'videoUpload/handlers/progress.spec',
+            'videoUpload/handlers/thumbnails.spec',
+            'videoUpload/uploadDataContext.spec',
+            'videoUpload/uploadTracking.spec',
+            'videoUpload/upload.spec',
+            //#endregion
+
             'viewmodels/user/userMenu.spec',
-            'viewmodels/shell.spec',            
+            'viewmodels/shell.spec',
             'widgets/notifyViewer/viewmodel.spec',
             'widgets/uiLockViewer/viewmodel.spec',
             'widgets/createQuestion/viewmodel.spec',
+            'widgets/cursorTooltip/viewmodel.spec',
+            'widgets/hotSpotOnImageTextEditor/viewmodel.spec',
             'bootstrapper.spec',
             'guard.spec',
-            'http/httpWrapper.spec',
+            'http/apiHttpWrapper.spec',
+            'http/authHttpWrapper.spec',
+            'http/storageHttpWrapper.spec',
             'http/httpRequestSender.spec',
+            'http/storageHttpRequestSender.spec',
             'notify.spec',
             'uiLocker.spec',
             'userContext.spec',

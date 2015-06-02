@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'constants', 'http/httpWrapper', 'onboarding/tasks'],
-    function (app, constants, httpWrapper, tasks) {
+﻿define(['durandal/app', 'constants', 'http/apiHttpWrapper', 'onboarding/tasks'],
+    function (app, constants, apiHttpWrapper, tasks) {
         "use strict";
 
         var tasksList = [];
@@ -17,7 +17,7 @@
         return onboarding;
 
         function initialize() {
-            return httpWrapper.post('api/onboarding').then(function (onboardingStates) {
+            return apiHttpWrapper.post('api/onboarding').then(function (onboardingStates) {
                 onboarding.isClosed(!_.isNullOrUndefined(onboardingStates) ? onboardingStates.isClosed : true);
 
                 if (onboarding.isClosed()) {
@@ -86,7 +86,7 @@
         }
 
         function closeOnboarding() {
-            return httpWrapper.post('api/onboarding/close').then(function () {
+            return apiHttpWrapper.post('api/onboarding/close').then(function () {
                 onboarding.isClosed(true);
                 app.trigger(constants.messages.onboarding.closed);
             });

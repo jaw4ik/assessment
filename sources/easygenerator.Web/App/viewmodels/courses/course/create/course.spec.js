@@ -11,7 +11,8 @@
         clientContext = require('clientContext'),
         userContext = require('userContext'),
         imageUpload = require('imageUpload'),
-        createObjectiveCommand = require('commands/createObjectiveCommand')
+        createObjectiveCommand = require('commands/createObjectiveCommand'),
+        constants = require('constants')
     ;
 
     describe('viewModel [course]', function () {
@@ -753,7 +754,7 @@
                 userContext.identity = {
                     email: 'test@test.com',
                     subscription: {
-                        accessType: 0
+                        accessType: constants.accessType.free
                     }
                 }
 

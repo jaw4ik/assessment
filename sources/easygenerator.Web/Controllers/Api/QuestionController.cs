@@ -14,7 +14,7 @@ using System.Web.Mvc;
 namespace easygenerator.Web.Controllers.Api
 {
     [NoCache]
-    public class QuestionController : DefaultController
+    public class QuestionController : DefaultApiController
     {
         private ICloner _cloner;
         private IEntityModelMapper<Question> _entityModelMapper;

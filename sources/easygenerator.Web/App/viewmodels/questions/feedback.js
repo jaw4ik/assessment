@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'eventTracker', 'localization/localizationManager', 'constants', 'notify', 'repositories/questionRepository'],
-    function (app, eventTracker, localizationManager, constants, notify, repository) {
+﻿define(['durandal/app', 'eventTracker', 'localization/localizationManager', 'constants', 'notify', 'repositories/questionRepository', 'plugins/router'],
+    function (app, eventTracker, localizationManager, constants, notify, repository, router) {
         "use strict";
 
         var events = {
@@ -102,6 +102,11 @@
         }
 
         function activate(activationData) {
+            //fix for situation: collaborator deletes selected question but question is still activated (when go to another tab and return to course/create tab)
+            if (_.isNullOrUndefined(router.routeData().questionId)) {
+                return Q.fcall(function () { });
+            }
+
             return Q.fcall(function () {
                 viewModel.isExpanded(true);
                 viewModel.questionId = activationData.questionId;
@@ -120,6 +125,8 @@
                 return repository.getQuestionFeedback(viewModel.questionId).then(function (feedback) {
                     viewModel.correctFeedback.init(feedback.correctFeedbackText, captions.correctFeedback);
                     viewModel.incorrectFeedback.init(feedback.incorrectFeedbackText, captions.incorrectFeedback);
+                }, function (err) {
+                    notify.error(err);
                 });
             });
         }

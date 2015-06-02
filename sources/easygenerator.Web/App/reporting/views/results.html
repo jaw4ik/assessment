@@ -73,35 +73,35 @@
             </div>
         </div>
     </div>
-    <section class="course-results-upgrade-dialog" data-bind="visible: isResultsDialogShown() || isDownloadDialogShown">
-        <section class="course-results-upgrade-dialog-content" data-bind="visible: isResultsDialogShown">
+    <section class="upgrade-dialog" data-bind="visible: isResultsDialogShown() || isDownloadDialogShown">
+        <section class="upgrade-dialog-content course-results-upgrade-dialog" data-bind="visible: isResultsDialogShown">
             <header>
-                <div class="course-results-upgrade-dialog-title" data-bind="localize: { text: 'resultsUpgradeDialogBoldTitle' }">Upgrade now</div>
-                <div data-bind="localize: { text: 'resultsUpgradeDialogTitle2' }">to get full list of results</div>
+                <div class="upgrade-dialog-title" data-bind="localize: { text: 'resultsUpgradeDialogBoldTitle' }">Upgrade now</div>
+                <div class="upgrade-dialog-description" data-bind="localize: { text: 'resultsUpgradeDialogTitle2' }">to get full list of results</div>
             </header>
             <div class="course-results-upgrade-dialog-title-image"></div>
             <div data-bind="localize: { text: 'resultsUpgradeDialogText' }">On the Free Plan you will only see the first 10 results</div>
-            <div class="course-results-upgrade-download-dialog-buttons">
-                <button class="btn green course-results-upgrade-dialog-btn-upgrade" data-bind="click: upgradeNowForLoadMore, localize: { text: 'resultsUpgradeDialogUpgradeNow' }">Upgrade now</button><br />
-                <a class="course-results-upgrade-dialog-btn-later" href="" data-bind="click: skipUpgradeForLoadMore, localize: { text: 'resultsUpgradeDialogMaybeLater' }">Maybe later</a>
+            <div class="upgrade-dialog-buttons">
+                <button class="btn green upgrade-dialog-btn-upgrade" data-bind="click: upgradeNowForLoadMore, localize: { text: 'resultsUpgradeDialogUpgradeNow' }">Upgrade now</button><br />
+                <a class="upgrade-dialog-btn-later" href="" data-bind="click: skipUpgradeForLoadMore, localize: { text: 'resultsUpgradeDialogMaybeLater' }">Maybe later</a>
             </div>
         </section>
-        <section class="course-results-upgrade-download-dialog-content" data-bind="visible: isDownloadDialogShown">
+        <section class="upgrade-dialog-content course-results-upgrade-download-dialog" data-bind="visible: isDownloadDialogShown">
             <header>
-                <div class="course-results-upgrade-dialog-title" data-bind="localize: { text: 'resultsUpgradeDialogBoldTitle' }">Upgrade now</div>
-                <div data-bind="localize: { text: 'resultsUpgradeForDownloadCSVDialogTitle2' }">to download results as CSV-file</div>
+                <div class="upgrade-dialog-title" data-bind="localize: { text: 'resultsUpgradeDialogBoldTitle' }">Upgrade now</div>
+                <div class="upgrade-dialog-description" data-bind="localize: { text: 'resultsUpgradeForDownloadCSVDialogTitle2' }">to download results as CSV-file</div>
             </header>
             <div class="course-results-upgrade-download-dialog-title-image"></div>
-            <div class="course-results-upgrade-download-dialog-body" data-bind="localize: { html: 'resultsUpgradeForDownloadCSVDialogHtml' }">
+            <div class="upgrade-dialog-body" data-bind="localize: { html: 'resultsUpgradeForDownloadCSVDialogHtml' }">
                 <ul>
                     <li>Download your learners results</li>
                     <li>Import your results in a spreadsheet</li>
                     <li>Or any program that supports CSV</li>
                 </ul>
             </div>
-            <div class="course-results-upgrade-download-dialog-buttons">
-                <button class="btn green course-results-upgrade-dialog-btn-upgrade" data-bind="click: upgradeNowForDownloadCsv, localize: { text: 'resultsUpgradeDialogUpgradeNow' }">Upgrade now</button><br />
-                <a class="course-results-upgrade-dialog-btn-later" href="" data-bind="click: skipUpgradeForDownloadCsv, localize: { text: 'resultsUpgradeDialogMaybeLater' }">Maybe later</a>
+            <div class="upgrade-dialog-buttons">
+                <button class="btn green upgrade-dialog-btn-upgrade" data-bind="click: upgradeNowForDownloadCsv, localize: { text: 'resultsUpgradeDialogUpgradeNow' }">Upgrade now</button><br />
+                <a class="upgrade-dialog-btn-later" href="" data-bind="click: skipUpgradeForDownloadCsv, localize: { text: 'resultsUpgradeDialogMaybeLater' }">Maybe later</a>
             </div>
         </section>
     </section>

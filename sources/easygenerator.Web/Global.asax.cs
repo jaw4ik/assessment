@@ -21,6 +21,7 @@ namespace easygenerator.Web
             RouteConfiguration.Configure();
             TaskConfiguration.Configure();
             JsonFormatterConfiguration.Configure();
+            MagickImageResizerConfiguration.Configure();
         }
 
         protected void Application_AcquireRequestState(object sender, EventArgs e)
@@ -43,7 +44,5 @@ namespace easygenerator.Web
             Thread.CurrentThread.CurrentCulture = culture;
             Thread.CurrentThread.CurrentUICulture = culture;
         }
-
-
     }
 }

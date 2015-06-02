@@ -1,13 +1,14 @@
-﻿using System;
-using System.Web;
-using easygenerator.DomainModel.Entities;
+﻿using DocumentFormat.OpenXml.Office.CustomXsn;
+using easygenerator.Auth.Attributes.Mvc;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.Mappers;
-using System.Linq;
-using System.Web.Mvc;
 using easygenerator.Web.Storage;
+using System;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -26,6 +27,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [Scope("api")]
         [Route("api/templates")]
         public ActionResult GetCollection()
         {

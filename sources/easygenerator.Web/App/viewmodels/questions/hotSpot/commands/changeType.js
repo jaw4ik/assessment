@@ -1,8 +1,8 @@
-﻿define(['http/httpWrapper'], function (httpWrapper) {
+﻿define(['http/apiHttpWrapper'], function (apiHttpWrapper) {
 
     return {
         execute: function (questionId, isMultiple) {
-            return httpWrapper.post('/api/question/hotspot/type', { questionId: questionId, isMultiple: isMultiple });
+            return apiHttpWrapper.post('/api/question/hotspot/type', { questionId: questionId, isMultiple: isMultiple });
         }
     }
 

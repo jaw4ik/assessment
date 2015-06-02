@@ -3,7 +3,7 @@
 
     var
        constants = require('constants'),
-       httpWrapper = require('http/httpWrapper'),
+       apiHttpWrapper = require('http/apiHttpWrapper'),
        dataContext = require('dataContext'),
        app = require('durandal/app')
     ;
@@ -14,7 +14,7 @@
 
         beforeEach(function () {
             post = Q.defer();
-            spyOn(httpWrapper, 'post').and.returnValue(post.promise);
+            spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise);
             spyOn(app, 'trigger');
         });
 
@@ -185,7 +185,7 @@
                 var promise = repository.addObjective(objective);
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/objective/create', objective);
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/objective/create', objective);
                     done();
                 });
 
@@ -386,7 +386,7 @@
                 var promise = repository.updateTitle(obj.id, obj.title);
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/objective/updatetitle', { objectiveId: obj.id, title: obj.title });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/objective/updatetitle', { objectiveId: obj.id, title: obj.title });
                     done();
                 });
 
@@ -567,7 +567,7 @@
                 var promise = repository.updateImage(obj.id, obj.imageUrl);
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/objective/updateimage', { objectiveId: obj.id, imageUrl: obj.imageUrl + '?width=120&height=120&scaleBySmallerSide=true' });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/objective/updateimage', { objectiveId: obj.id, imageUrl: obj.imageUrl + '?width=120&height=120&scaleBySmallerSide=true' });
                     done();
                 });
 
@@ -738,7 +738,7 @@
                 var promise = repository.removeObjective(objectiveId);
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/objective/delete', { objectiveId: objectiveId });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/objective/delete', { objectiveId: objectiveId });
                     done();
                 });
 
@@ -861,7 +861,7 @@
                 var promise = repository.updateQuestionsOrder(objectiveId, [{ id: questionId }]);
 
                 promise.fin(function () {
-                    expect(httpWrapper.post).toHaveBeenCalledWith('api/objective/updatequestionsorder', { objectiveId: objectiveId, questions: [questionId] });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/objective/updatequestionsorder', { objectiveId: objectiveId, questions: [questionId] });
                     done();
                 });
 

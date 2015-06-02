@@ -123,7 +123,7 @@
             beforeEach(function () {
                 userContext.identity = {
                     subscription: {
-                        accessType: 0
+                        accessType: constants.accessType.free
                     }
                 };
 
@@ -244,7 +244,7 @@
                         userContext.identity = {
                             email: courseOwner,
                             subscription: {
-                                accessType: 0
+                                accessType: constants.accessType.free
                             }
                         };
                     });
@@ -287,7 +287,7 @@
                     userContext.identity = {
                         email: courseOwner,
                         subscription: {
-                            accessType: 0
+                            accessType: constants.accessType.free
                         }
                     };
                 });
@@ -318,7 +318,7 @@
                 userContext.identity = {
                     email: courseOwner,
                     subscription: {
-                        accessType: 0
+                        accessType: constants.accessType.free
                     }
                 };
 
@@ -433,7 +433,7 @@
                 userContext.identity = {
                     email: courseOwner,
                     subscription: {
-                        accessType: 0
+                        accessType: constants.accessType.free
                     }
                 };
             });
@@ -473,7 +473,7 @@
                 userContext.identity = {
                     email: courseOwner,
                     subscription: {
-                        accessType: 0
+                        accessType: constants.accessType.free
                     }
                 };
             });
@@ -507,7 +507,7 @@
                 beforeEach(function () {
                     userContext.identity = {
                         subscription: {
-                            accessType: "0"
+                            accessType: constants.accessType.free
                         }
                     };
                 });
@@ -579,7 +579,7 @@
                 beforeEach(function () {
                     userContext.identity = {
                         subscription: {
-                            accessType: "1"
+                            accessType: constants.accessType.starter
                         }
                     };
                 });
@@ -728,7 +728,7 @@
                 beforeEach(function () {
                     userContext.identity = {
                         subscription: {
-                            accessType: "2"
+                            accessType: constants.accessType.plus
                         }
                     };
                     viewModel.collaborators([collaborators[0], collaborators[1]]);

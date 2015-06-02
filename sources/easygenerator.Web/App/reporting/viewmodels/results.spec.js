@@ -374,7 +374,7 @@
             //            userContext.identity = {
             //                email: 'test@test.com',
             //                subscription: {
-            //                    accessType: 0,
+            //                    accessType: constants.accessType.free,
             //                    expirationDate: new Date().setYear(1990)
             //                }
             //            };
@@ -410,7 +410,7 @@
             //            userContext.identity = {
             //                email: 'test@test.com',
             //                subscription: {
-            //                    accessType: 2,
+            //                    accessType: constants.accessType.plus,
             //                    expirationDate: new Date().setYear(2055)
             //                }
             //            };
@@ -608,7 +608,7 @@
                     userContext.identity = {
                         email: 'test@test.com',
                         subscription: {
-                            accessType: 2,
+                            accessType: constants.accessType.plus,
                             expirationDate: new Date().setYear(2055)
                         }
                     };
@@ -638,7 +638,7 @@
                     userContext.identity = {
                         email: 'test@test.com',
                         subscription: {
-                            accessType: 0,
+                            accessType: constants.accessType.free,
                             expirationDate: new Date().setYear(1990)
                         }
                     };

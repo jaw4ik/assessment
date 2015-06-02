@@ -1,8 +1,8 @@
-﻿define(['http/httpWrapper'], function (httpWrapper) {
+﻿define(['http/apiHttpWrapper'], function (apiHttpWrapper) {
     "use strict";
     return {
         execute: function (answerId, imageUrl) {
-            return httpWrapper.post('/api/question/singleselectimage/answer/image/update', { singleSelectImageAnswerId: answerId, imageUrl: imageUrl });
+            return apiHttpWrapper.post('/api/question/singleselectimage/answer/image/update', { singleSelectImageAnswerId: answerId, imageUrl: imageUrl });
         }
     }
 

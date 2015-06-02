@@ -7,7 +7,7 @@ namespace easygenerator.Web.Components.ActionFilters.Authorization
     {
         protected override bool CheckAccess(AuthorizationContext authorizationContext, User user)
         {
-            return user != null &&  user.HasStarterAccess();
+            return user != null && user.HasStarterAccess();
         }
     }
 }

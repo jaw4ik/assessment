@@ -12,7 +12,7 @@ using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
 {
-    public class HotSpotQuestionController : DefaultController
+    public class HotSpotQuestionController : DefaultApiController
     {
         private readonly IEntityFactory _entityFactory;
 

@@ -66,6 +66,8 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<BuildContentProvider>();
             builder.RegisterType<PhysicalFileManager>();
             builder.RegisterType<MagickImageResizer>().As<IImageResizer>();
+            builder.RegisterType<MagickImageResizerConfigurator>();
+            builder.RegisterType<MagickAnyCPUWrapper>();
             builder.RegisterType<ManifestFileManager>().SingleInstance();
             builder.RegisterType<HttpRuntimeWrapper>();
             builder.RegisterType<BuildPackageCreator>();
@@ -77,7 +79,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<PackageModulesProvider>();
             builder.RegisterType<ScormPackageModulesProvider>();
             builder.RegisterType<PublishSettingsProvider>();
-
+            
             builder.RegisterModule(new DataAccessModule());
 
             builder.RegisterType<EntityFactory>().As<IEntityFactory>();
@@ -211,6 +213,13 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<DemoCoursesInMemoryStorage>().As<IDemoCoursesStorage>().SingleInstance();
             builder.RegisterType<CourseInfoInMemoryStorage>().As<ICourseInfoInMemoryStorage>().SingleInstance();
 
+
+            #region Auth
+
+            builder.RegisterType<Auth.Providers.JsonWebTokenProvider>().As<Auth.Providers.ITokenProvider>();
+            builder.RegisterType<Auth.Repositories.EndpointsRepository>().As<Auth.Repositories.IEndpointsRepository>();
+
+            #endregion
             var container = builder.Build();
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

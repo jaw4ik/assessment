@@ -10,7 +10,7 @@
             key = 'notificationKey',
             firstname = 'firstName',
             amountOfDays = 2,
-            accessType = '2',
+            accessType = constants.accessType.plus,
             expirationDate = new Date();
 
         beforeEach(function () {
@@ -81,7 +81,7 @@
 
             describe('when accessType is starter', function () {
                 beforeEach(function () {
-                    type = '1';
+                    type = constants.accessType.starter;
                 });
 
                 describe('and amount of days is 0', function () {
@@ -144,7 +144,7 @@
             describe('when accessType is plus', function () {
 
                 beforeEach(function () {
-                    type = '2';
+                    type = constants.accessType.plus;
                 });
 
                 describe('and amount of days is 0', function () {

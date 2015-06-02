@@ -1,4 +1,6 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using DocumentFormat.OpenXml.Office.CustomXsn;
+using easygenerator.Auth.Attributes.Mvc;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
@@ -41,9 +43,6 @@ namespace easygenerator.Web.Controllers
         [NoCache]
         public ActionResult SignUp()
         {
-            if (IsExistingUserAuthenticated())
-                return RedirectToRoute("Default");
-
             ViewBag.ClickOnLogoDisabled = true;
 
             return View();
@@ -52,11 +51,6 @@ namespace easygenerator.Web.Controllers
         [NoCache]
         public ActionResult SignUpSecondStep()
         {
-            if (IsExistingUserAuthenticated())
-            {
-                return RedirectToRoute("Default");
-            }
-
             ViewBag.ClickOnLogoDisabled = true;
             ViewBag.NavigationLinksAreDisabled = true;
 
@@ -66,19 +60,7 @@ namespace easygenerator.Web.Controllers
         [NoCache]
         public ActionResult SignIn()
         {
-            if (IsExistingUserAuthenticated())
-                return RedirectToRoute("Default");
-
             return View();
-        }
-
-        [NoCache]
-        public ActionResult SignOut()
-        {
-            if (_authenticationProvider.IsUserAuthenticated())
-                _authenticationProvider.SignOut();
-
-            return RedirectToRoute("SignIn");
         }
 
         [HttpGet]
@@ -101,7 +83,6 @@ namespace easygenerator.Web.Controllers
             }
 
             ticket.User.RecoverPasswordUsingTicket(ticket, password);
-            _authenticationProvider.SignIn(ticket.User.Email, true);
 
             return RedirectToRoute("Default");
         }
@@ -118,7 +99,7 @@ namespace easygenerator.Web.Controllers
             return View("SignUp");
         }
 
-        [Route("account/upgrade")]
+        [Route("account/upgrade"), Scope("upgradeAccount")]
         public ActionResult UpgradeAccount()
         {
             return Redirect(_wooCommerceAutologinUrlProvider.GetAutologinUrl(User.Identity.Name));

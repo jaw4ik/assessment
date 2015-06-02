@@ -30,12 +30,18 @@
                     expirationDate: new Date(spec.subscription.expirationDate)
                 };
                 break;
+            case 100:
+                this.subscription = {
+                    accessType: constants.accessType.trial,
+                    expirationDate: new Date(spec.subscription.expirationDate)
+                };
+                break;
             default:
                 throw 'Provided subscription is not supported';
         }
     };
 
-    User.prototype.downgrade = function() {
+    User.prototype.downgrade = function () {
         this.subscription = {
             accessType: constants.accessType.free
         };
@@ -49,7 +55,7 @@
         };
     };
 
-    User.prototype.upgradeToPlus= function (expirationDate) {
+    User.prototype.upgradeToPlus = function (expirationDate) {
         guard.throwIfNotString(expirationDate, 'Expiration date is not specified');
         this.subscription = {
             accessType: constants.accessType.plus,

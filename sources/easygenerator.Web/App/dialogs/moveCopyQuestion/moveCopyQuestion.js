@@ -97,7 +97,7 @@
                 if (!_.isNullOrUndefined(viewModel.courseId)) {
                         router.navigate('courses/' + viewModel.courseId + '/objectives/' + viewModel.objectiveId());
                 } else {
-                        router.navigate('objectives/' + viewModel.objectiveId());
+                        router.navigate('library/objectives/' + viewModel.objectiveId());
                 }
             });
         } else {
@@ -115,7 +115,7 @@
             if (!_.isNullOrUndefined(viewModel.selectedCourse().id)) {
                     router.navigate('courses/' + viewModel.selectedCourse().id + '/objectives/' + viewModel.selectedObjectiveId() + '/questions/' + response.id);
             } else {
-                    router.navigate('objectives/' + viewModel.selectedObjectiveId() + '/questions/' + response.id);
+                    router.navigate('library/objectives/' + viewModel.selectedObjectiveId() + '/questions/' + response.id);
             }
         });
     }

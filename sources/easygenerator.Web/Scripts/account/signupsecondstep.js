@@ -19,9 +19,9 @@ app.signUpSecondStepModel = function () {
         isCountrySuccessVisible: ko.observable(false),
         isCountryErrorVisible: ko.observable(false),
         isPhoneErrorVisible: ko.observable(false),
-        
+
         validatePhone: validatePhone,
-        
+
         isSignupRequestPending: ko.observable(false),
         isInitializationContextCorrect: isInitializationContextCorrect,
 
@@ -89,7 +89,7 @@ app.signUpSecondStepModel = function () {
         data.userRole = viewModel.userRole() || null;
         data.phone = viewModel.phone();
         data.country = viewModel.country();
-        
+
         viewModel.isSignupRequestPending(true);
 
         $.ajax({
@@ -97,17 +97,37 @@ app.signUpSecondStepModel = function () {
             data: data,
             type: 'POST'
         }).done(function (response) {
-            app.clientSessionContext.remove(app.constants.userSignUpFirstStepData);
             $.when(
+                login(response.data, data.password),
                 app.trackEvent(app.constants.events.signupSecondStep, { username: response.data, firstname: data.firstName, lastname: data.lastName, role: data.userRole }),
                 app.trackPageview(app.constants.pageviewUrls.signupSecondStep)
-                ).done(function () {
-                    localStorage.setItem('showCreateCoursePopup', true);
-                    app.openHomePage();
-                });
+            ).done(function () {
+                app.clientSessionContext.remove(app.constants.userSignUpFirstStepData);
+                localStorage.setItem('showCreateCoursePopup', true);
+                app.openHomePage();
+            });
         }).fail(function () {
             viewModel.isSignupRequestPending(false);
         });
     };
+
+    function login(username, password) {
+        var data = {
+            username: username,
+            password: password,
+            grant_type: "password",
+            endpoints: window.auth.getRequiredEndpoints()
+        };
+
+        var requestArgs = {
+            url: '/auth/token',
+            data: data,
+            type: 'POST'
+        };
+
+        return $.ajax(requestArgs).done(function (response) {
+            return response && response.success && window.auth.login(response.data);
+        });
+    }
 
 }

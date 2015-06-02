@@ -3,9 +3,10 @@
 
         return {
             accessType: {
-                free: '0',
-                starter: '1',
-                plus: '2'
+                free: 0,
+                starter: 1,
+                plus: 2,
+                trial: 100
             },
 
             questionType: {
@@ -54,6 +55,11 @@
             questionFeedback: {
                 correct: 'correct',
                 incorrect: 'incorrect'
+            },
+
+            learningContentsTypes: {
+                content: 'content',
+                hotspot: 'hotspot'
             },
 
             sortingOptions: {
@@ -198,7 +204,9 @@
                     learningContent: {
                         createdByCollaborator: 'learningContent:createdByCollaborator',
                         deletedByCollaborator: 'learningContent:deletedByCollaborator',
-                        textUpdatedByCollaborator: 'learningContent:textUpdatedByCollaborator'
+                        textUpdatedByCollaborator: 'learningContent:textUpdatedByCollaborator',
+                        remove: 'learningContent:remove',
+                        updateText: 'learningContent:updateText'
                     },
 
                     fillInTheBlank: {
@@ -272,6 +280,7 @@
             upgradeEvent: 'Upgrade now',
 
             upgradeUrl: '/account/upgrade',
+            signinUrl: '/signin',
 
             upgradeCategory: {
                 scorm: 'SCORM 1.2',
@@ -336,6 +345,35 @@
 
             courseResults: {
                 pageSize: 10
+            },
+
+            storage: {
+                host: window.storageServiceUrl ? "//" + window.storageServiceUrl : '//localhost:888',
+                mediaUrl: '/media',
+                userUrl: '/user',
+                changesInQuota: 'storage:changesInQuota',
+                video: {
+                    vimeoToken: 'bearer a6b8a8d804e9044f9aa091b6687e70c1',
+                    vimeoApiVideosUrl: 'https://api.vimeo.com/videos/',
+                    videoUrl: '/video',
+                    ticketUrl: '/api/media/video/upload',
+                    finishUrl: '/api/media/video/upload/finish',
+                    progressUrl: '/api/media/video/upload/progress',
+                    defaultThumbnailUrl: '//i.vimeocdn.com/video/default_200x150.jpg',
+                    cancelUrl: '/api/media/video/upload/cancel',
+                    statuses: {
+                        loaded: 'loaded',
+                        failed: 'failed',
+                        inProgress: 'inProgress'
+                    },
+                    vimeoVerifyStatus: 308,
+                    changesInUpload: 'video:changesInUpload',
+                    trackChangesInUploadTimeout: 500,
+                    iframeWidth: 600,
+                    iframeHeight: 335,
+                    updateUploadTimeout: 60000,
+                    removeVideoAfterErrorTimeout: 5000
+                }
             }
         }
     }

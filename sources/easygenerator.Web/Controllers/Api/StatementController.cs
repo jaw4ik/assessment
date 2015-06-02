@@ -12,7 +12,7 @@ namespace easygenerator.Web.Controllers.Api
 {
     namespace easygenerator.Web.Controllers.Api
     {
-        public class StatementController : DefaultController
+        public class StatementController : DefaultApiController
         {
             private readonly IEntityFactory _entityFactory;
 
