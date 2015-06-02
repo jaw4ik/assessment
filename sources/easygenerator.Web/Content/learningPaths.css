@@ -195,8 +195,11 @@
 .learning-path .navigation-bar-wrapper.course-selector .course-selector-courses .course-selector-course:hover {
   border-bottom: 2px solid #65bd77;
 }
-.learning-path .navigation-bar-wrapper.course-selector .course-selector-courses .course-selector-course:hover .course-selector-checkbox {
-  border: 2px solid #76c486;
+.learning-path .navigation-bar-wrapper.course-selector .course-selector-courses .course-selector-course:hover .course-selector-checkbox-wrapper {
+  border: 1px solid #76c486;
+}
+.learning-path .navigation-bar-wrapper.course-selector .course-selector-courses .course-selector-course:hover .course-selector-checkbox-wrapper .course-selector-checkbox {
+  border: 1px solid #76c486;
 }
 .learning-path .navigation-bar-wrapper.course-selector .course-selector-courses .course-selector-course:last-of-type {
   margin-bottom: 0px;
@@ -211,23 +214,32 @@
   min-width: 0;
   word-wrap: break-word;
 }
-.learning-path .navigation-bar-wrapper.course-selector .course-selector-courses .course-selector-course .course-selector-checkbox {
+.learning-path .navigation-bar-wrapper.course-selector .course-selector-courses .course-selector-course .course-selector-checkbox-wrapper {
   -webkit-flex: 0 0 30px;
   flex: 0 0 30px;
   position: relative;
   height: 30px;
   width: 30px;
   margin-left: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  transition: border 0.1s ease;
+}
+.learning-path .navigation-bar-wrapper.course-selector .course-selector-courses .course-selector-course .course-selector-checkbox-wrapper.checked {
+  border: 1px solid #76c486;
+}
+.learning-path .navigation-bar-wrapper.course-selector .course-selector-courses .course-selector-course .course-selector-checkbox-wrapper .course-selector-checkbox {
+  height: 100%;
   border: 1px solid #c2c6cb;
   border-radius: 3px;
   transition: background-color 0.1s ease;
   transition: border 0.1s ease;
 }
-.learning-path .navigation-bar-wrapper.course-selector .course-selector-courses .course-selector-course .course-selector-checkbox.checked {
-  border: 2px solid #76c486;
+.learning-path .navigation-bar-wrapper.course-selector .course-selector-courses .course-selector-course .course-selector-checkbox-wrapper.checked .course-selector-checkbox {
+  border: 1px solid #76c486;
   background-color: #76c486;
 }
-.learning-path .navigation-bar-wrapper.course-selector .course-selector-courses .course-selector-course .course-selector-checkbox.checked:after {
+.learning-path .navigation-bar-wrapper.course-selector .course-selector-courses .course-selector-course .course-selector-checkbox-wrapper.checked .course-selector-checkbox:after {
   content: '';
   position: absolute;
   height: 30px;

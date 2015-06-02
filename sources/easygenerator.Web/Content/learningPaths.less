@@ -243,8 +243,12 @@
                     border-bottom: 2px solid @course-selector-hover-item-border-color;
 
 
-                    .course-selector-checkbox {
-                        border: 2px solid @course-selector-checkbox-color;
+                    .course-selector-checkbox-wrapper {
+                        border: 1px solid @course-selector-checkbox-color;
+
+                        .course-selector-checkbox {
+                            border: 1px solid @course-selector-checkbox-color;
+                        }
                     }
                 }
 
@@ -263,19 +267,30 @@
                     word-wrap: break-word;
                 }
 
-                .course-selector-checkbox {
+                .course-selector-checkbox-wrapper {
                     .flex(0 0 30px);
                     position: relative;
                     height: 30px;
                     width: 30px;
                     margin-left: 20px;
-                    border: 1px solid @course-selector-inactive-checkbox-color;
-                    border-radius: 3px;
-                    transition: background-color 0.1s ease;
+                    border: 1px solid transparent;
+                    border-radius: 4px;
                     transition: border 0.1s ease;
 
                     &.checked {
-                        border: 2px solid @course-selector-checkbox-color;
+                        border: 1px solid @course-selector-checkbox-color;
+                    }
+
+                    .course-selector-checkbox {
+                        height: 100%;
+                        border: 1px solid @course-selector-inactive-checkbox-color;
+                        border-radius: 3px;
+                        transition: background-color 0.1s ease;
+                        transition: border 0.1s ease;
+                    }
+
+                    &.checked .course-selector-checkbox {
+                        border: 1px solid @course-selector-checkbox-color;
                         background-color: @course-selector-checkbox-color;
 
                         &:after {

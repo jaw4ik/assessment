@@ -4,7 +4,9 @@
             <!-- ko foreach: courses -->
             <li class="course-selector-course" data-bind="click: toggleSelection, css: { selected: isSelected }">
                 <div class="course-selector-course-title" data-bind="text: title"></div>
-                <div class="course-selector-checkbox" data-bind="css: { checked: isSelected }">
+                <div class="course-selector-checkbox-wrapper" data-bind="css: { checked: isSelected }">
+                    <div class="course-selector-checkbox">
+                    </div>
                 </div>
             </li>
             <!-- /ko -->
