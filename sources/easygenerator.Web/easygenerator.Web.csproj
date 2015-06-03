@@ -2034,6 +2034,7 @@
     <Content Include="Templates\Quiz\app\views\statementItem.html" />
     <Content Include="Templates\Quiz\app\views\summary.html" />
     <Content Include="Templates\Quiz\app\views\textMatching.html" />
+    <Content Include="Templates\Quiz\app\views\timer.html" />
     <Content Include="Templates\Quiz\app\views\widgets\imageLoader.html" />
     <Content Include="Templates\Quiz\app\views\widgets\tooltip.html" />
     <Content Include="Templates\Quiz\content\1b4769525d54430295cc1f0971833894\b33d6ef71e504337a74443b0fad006ee\d0aabb7b5a9d447bbe16d4c585d659bf.html" />
@@ -2093,7 +2094,6 @@
     <Content Include="Templates\Quiz\css\img\eg-logo.png" />
     <Content Include="Templates\Quiz\css\img\error_big.png" />
     <Content Include="Templates\Quiz\css\img\error_min.png" />
-    <Content Include="Templates\Quiz\css\img\logo.png" />
     <Content Include="Templates\Quiz\css\img\main-background.jpg" />
     <Content Include="Templates\Quiz\css\img\notSupportedPage\chrome.png" />
     <Content Include="Templates\Quiz\css\img\notSupportedPage\firefox.png" />
@@ -2115,8 +2115,6 @@
     <Content Include="Templates\Quiz\settings\api.js" />
     <Content Include="Templates\Quiz\settings\configure\configure.html" />
     <Content Include="Templates\Quiz\settings\configure\img\language.png" />
-    <Content Include="Templates\Quiz\settings\configure\img\mastery.png" />
-    <Content Include="Templates\Quiz\settings\configure\img\track.png" />
     <Content Include="Templates\Quiz\settings\configure\js\configure.min.js" />
     <Content Include="Templates\Quiz\settings\configure\js\vendor.min.js" />
     <Content Include="Templates\Quiz\settings\css\fonts\opensans-400.woff" />

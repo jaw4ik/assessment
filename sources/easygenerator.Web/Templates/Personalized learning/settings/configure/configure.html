@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="../css/settings.css?v=1432821266023" rel="stylesheet" />
-    <script src="../api.js?v=1432821266023"></script>
+    <link href="../css/settings.css?v=1433237625230" rel="stylesheet" />
+    <script src="../api.js?v=1433237625230"></script>
 
-    <script src="js/vendor.min.js?v=1432821266023"></script>
-    <script src="js/configure.min.js?v=1432821266023"></script>
+    <script src="js/vendor.min.js?v=1433237625230"></script>
+    <script src="js/configure.min.js?v=1433237625230"></script>
 </head>
 
 <body>
@@ -23,12 +23,15 @@
                 <li class="settings-tabs-item languages" data-tab-link="languages" data-bind="localize: 'template language'"></li>
             </ul>
             <div class="settings-tab-container track-and-trace" data-tab="track-and-trace">
-                <div class="settings-tab-wrapper track-and-trace-settings" data-bind="with: trackingData">
-                    <div class=" tab-header-container">
-                        <img src="img/track.png?v=1432821266023" />
-                        <div class="tab-header-wrapper">
-                            <h1 class="tab-header-title" data-bind="localize: 'track and trace settings'"></h1>
-                            <div class="tab-header-content">
+                <div class="settings-section" data-bind="with: trackingData">
+                    <h1 class="section-header" data-bind="localize: 'track and trace settings'"></h1>
+                    <div class="section-content">
+                        <div class="settings-row">
+                            <div class="settings-caption">
+                                <div data-bind="localize: 'results tracking option'"></div>
+                                <div class="settings-hint" data-bind="localize: 'results tracking hint'"></div>
+                            </div>
+                            <div class="settings-column">
                                 <div class="switcher">
                                     <div class="switcher-text" data-bind="css: { disabled: enableXAPI() }, localize: 'disabled'"></div>
                                     <div class="switch-toggle-slider" data-bind="switchToggle: { value: enableXAPI }">
@@ -42,10 +45,27 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="settings-row">
+                            <div class="settings-caption" data-bind="localize: 'allow user to skip option'"></div>
+                            <div class="settings-column">
+                                <div class="switcher">
+                                    <div class="switcher-text" data-bind="css: { disabled: allowToSkipTracking() }, localize: 'forbid'"></div>
+                                    <div class="switch-toggle-slider" data-bind="switchToggle: { value: allowToSkipTracking }">
+                                        <div class="switch-toggle-wrapper">
+                                            <div class="switch-toggle-on"></div>
+                                            <div class="switch-toogle-blob"></div>
+                                            <div class="switch-toggle-off"></div>
+                                        </div>
+                                    </div>
+                                    <div class="switcher-text" data-bind="css: { disabled: !allowToSkipTracking() }, localize: 'allow'"></div>
+                                </div>
+                            </div>
+                            <div class="preview-disabled" data-bind="visible: !enableXAPI()"></div>
+                        </div>
                     </div>
-                    <div class="tab-content-container">
-                        <div class="tab-content-title-container" data-bind="click: toggleAdvancedSettings" style="display: inline-block">
-                            <div class="tab-content-title" data-bind="css: { expanded: advancedSettingsExpanded(),  collapsed: !advancedSettingsExpanded() }, localize: 'advanced settings'"></div>
+                    <div class="advanced-settings">
+                        <div class="advanced-settings-title-container" data-bind="click: toggleAdvancedSettings">
+                            <div class="advanced-settings-title" data-bind="css: { expanded: advancedSettingsExpanded(),  collapsed: !advancedSettingsExpanded() }, localize: 'advanced settings'"></div>
                         </div>
                         <div class="template-selector-container" data-bind="visible: advancedSettingsExpanded()">
                             <div class="selector-items-container">
@@ -166,7 +186,7 @@
             <div class="settings-tab-container languages" data-tab="languages" data-bind="with: languages">
                 <div class="settings-tab-wrapper">
                     <div class="tab-header-container">
-                        <img src="img/language.png?v=1432821266023">
+                        <img src="img/language.png?v=1433237625230">
                         <div class="tab-header-wrapper">
                             <h1 class="tab-header-title" data-bind="localize: 'choose language for your course'"></h1>
                             <div class="tab-header-content">
