@@ -18,7 +18,6 @@
     display: inline-block;
     text-align: center;
     overflow-x: auto;
-    width: 100%;
 }
 
 .default-table() {
@@ -36,7 +35,8 @@
 }
 
 .list() {
-    padding-left: 60px;
+    list-style-type: none;
+    padding-left: 40px;
 }
 
 .clear {
@@ -65,6 +65,8 @@
 }
 
 .styled-content {
+    .clear;
+
     font-family: @default-font;
     font-size: @default-font-size;
     color: @default-font-color;
@@ -73,7 +75,6 @@
 
     p {
         .basic;
-        .clear;
     }
 
     ol, ul {
@@ -81,27 +82,31 @@
         .list;
 
         li {
-            p, div {
-                display: inline-block;
-                .clear;
+            p, div, h1, h2, h3 {
+                display: inline;
+            }
+        }
+    }
+
+    ol {
+        li {
+            counter-increment: list-items;
+
+            &:before {
+                content: counter(list-items) ".";
+                margin-right: 10px;
             }
         }
     }
 
     ul {
-        list-style-type: none;
-
-        li {
-            position: relative;
-        }
-
         li:before {
-            position: absolute;
+            display: inline-block;
             font-size: 30px;
-            width: 15px;
-            content: "\2022 ";
-            left: -22px;
+            width: 20px;
+            content: "\2022";
             color: @list-style-type-color;
+            vertical-align: middle;
         }
     }
 
@@ -186,7 +191,8 @@
     .image-wrapper {
         .wrapper;
         margin: 30px 0;
-
+        max-width: 100%;
+        
         img {
             border-radius: @wrapper-border-radius;
         }
@@ -211,6 +217,7 @@
     .table-wrapper {
         .wrapper;
         margin: 40px 0;
+        width: 100%;
 
         table {
             text-align: left;
