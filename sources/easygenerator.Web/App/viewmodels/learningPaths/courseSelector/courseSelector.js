@@ -1,6 +1,6 @@
 ﻿define(['viewmodels/learningPaths/courseSelector/queries/getOwnedCoursesQuery', 'viewmodels/learningPaths/courseSelector/courseBrief',
-    'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery'],
-    function (getOwnedCoursesQuery, CourseBrief, getLearningPathByIdQuery) {
+    'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery', 'durandal/app', 'constants'],
+    function (getOwnedCoursesQuery, CourseBrief, getLearningPathByIdQuery, app, constants) {
         "use strict";
 
         var viewModel = {
@@ -8,7 +8,9 @@
             expand: expand,
             collapse: collapse,
             activate: activate,
-            courses: ko.observableArray([])
+            deactivate: deactivate,
+            courses: ko.observableArray([]),
+            courseRemoved: courseRemoved
         };
 
         return viewModel;
@@ -22,6 +24,8 @@
         }
 
         function activate(learningPathId) {
+            app.on(constants.messages.learningPath.removeCourse, viewModel.courseRemoved);
+
             return getLearningPathByIdQuery.execute(learningPathId)
                 .then(function (learningPath) {
                     return getOwnedCoursesQuery.execute()
@@ -37,6 +41,10 @@
                 });
         }
 
+        function deactivate() {
+            app.off(constants.messages.learningPath.removeCourse, viewModel.courseRemoved);
+        }
+
         function mapCourseBrief(course, attachedCourses) {
             var courseBrief = new CourseBrief(course);
             var isSelected = _.some(attachedCourses, function (attachedCourse) {
@@ -45,5 +53,15 @@
 
             courseBrief.isSelected(isSelected);
             return courseBrief;
+        }
+
+        function courseRemoved(courseId) {
+            var course = _.find(viewModel.courses(), function (item) {
+                return item.id === courseId;
+            });
+
+            if (course) {
+                course.isSelected(false);
+            }
         }
     });

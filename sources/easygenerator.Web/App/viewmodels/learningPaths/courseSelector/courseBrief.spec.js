@@ -53,9 +53,9 @@
                     expect(viewModel.isSelected()).toBeFalsy();
                 });
 
-                it('should trigger learningPath.removeCourse app event', function () {
+                it('should trigger learningPath.courseSelector.courseDeselected app event', function () {
                     viewModel.toggleSelection();
-                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.learningPath.removeCourse, course.id);
+                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.learningPath.courseSelector.courseDeselected, course.id);
                 });
             });
 
@@ -69,9 +69,9 @@
                     expect(viewModel.isSelected()).toBeTruthy();
                 });
 
-                it('should trigger learningPath.addCourse app event', function () {
+                it('should trigger learningPath.courseSelector.courseSelected app event', function () {
                     viewModel.toggleSelection();
-                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.learningPath.addCourse, course.id);
+                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.learningPath.courseSelector.courseSelected, course.id);
                 });
             });
         });

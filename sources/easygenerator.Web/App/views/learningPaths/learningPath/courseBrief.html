@@ -15,6 +15,13 @@
                         <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: currentLanguage }"></span>
                     </div>
                 </div>
+                <div class="list-item-remove">
+                    <button class="list-item-remove-btn info-tooltip-holder" data-bind="click: remove">
+                        <div class="info-tooltip">
+                            <span data-bind="localize: { text: 'removeFromPath' }"></span>
+                        </div>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

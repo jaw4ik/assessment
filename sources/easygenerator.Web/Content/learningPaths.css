@@ -251,6 +251,31 @@
 .learning-path .learning-path-content .list-item-content-holder {
   cursor: default;
 }
+.learning-path .learning-path-content .list-item-content-holder .list-item-remove {
+  display: table-cell;
+  vertical-align: middle;
+  width: 95px;
+  padding-right: 20px;
+  text-align: right;
+}
+.learning-path .learning-path-content .list-item-content-holder .list-item-remove .list-item-remove-btn {
+  display: inline-block;
+  vertical-align: top;
+  height: 30px;
+  width: 30px;
+  position: relative;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background: url('images/sprites_24.png') 0px -87px no-repeat;
+}
+.learning-path .learning-path-content .list-item-content-holder .list-item-remove .list-item-remove-btn:hover {
+  background: url('images/sprites_24.png') -30px -87px no-repeat;
+}
+.learning-path .learning-path-content .list-item-content-holder .list-item-remove .list-item-remove-btn .info-tooltip {
+  width: 130px;
+  margin-left: -65px;
+  white-space: nowrap;
+}
 .learning-path .learning-path-content .tip-arrow-holder {
   position: fixed;
   top: 460px;

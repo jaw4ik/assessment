@@ -10,13 +10,18 @@
                 modifiedOn: ko.observable(course.modifiedOn),
                 thumbnail: ko.observable(course.template.thumbnail),
                 currentLanguage: '',
-                activate:activate
+                activate: activate,
+                remove: remove
             };
 
             return viewModel;
 
             function activate(currentLanguage) {
                 viewModel.currentLanguage = currentLanguage;
+            }
+
+            function remove() {
+                app.trigger(constants.messages.learningPath.removeCourse, viewModel.id);
             }
         };
     }

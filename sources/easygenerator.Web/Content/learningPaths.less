@@ -311,6 +311,35 @@
     .learning-path-content {
         .list-item-content-holder {
             cursor: default;
+
+            .list-item-remove {
+                display: table-cell;
+                vertical-align: middle;
+                width: 95px;
+                padding-right: 20px;
+                text-align: right;
+
+                .list-item-remove-btn {
+                    display: inline-block;
+                    vertical-align: top;
+                    height: 30px;
+                    width: 30px;
+                    position: relative;
+                    border: 1px solid transparent;
+                    cursor: pointer;
+                    background: url('images/sprites_24.png') 0px -87px no-repeat;
+
+                    &:hover {
+                        background: url('images/sprites_24.png') -30px -87px no-repeat;
+                    }
+
+                    .info-tooltip {
+                        width: 130px;
+                        margin-left: -65px;
+                        white-space: nowrap;
+                    }
+                }
+            }
         }
 
         .tip-arrow-holder {

@@ -60,6 +60,13 @@
             });
         });
 
+        describe('remove:', function() {
+            it('should trigger learningPath.removeCourse app event', function () {
+                viewModel.remove();
+                expect(app.trigger).toHaveBeenCalledWith(constants.messages.learningPath.removeCourse, course.id);
+            });
+        });
+
     });
 
 });

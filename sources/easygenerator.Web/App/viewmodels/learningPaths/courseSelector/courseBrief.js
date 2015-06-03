@@ -16,7 +16,7 @@
 
             function toggleSelection() {
                 app.trigger(viewModel.isSelected() ?
-                    constants.messages.learningPath.removeCourse : constants.messages.learningPath.addCourse,
+                    constants.messages.learningPath.courseSelector.courseDeselected : constants.messages.learningPath.courseSelector.courseSelected,
                     viewModel.id);
 
                 viewModel.isSelected(!viewModel.isSelected());

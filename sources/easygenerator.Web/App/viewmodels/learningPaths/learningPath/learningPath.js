@@ -57,7 +57,8 @@
 
             viewModel.currentLanguage = localizationManager.currentLanguage;
 
-            app.on(constants.messages.learningPath.addCourse, viewModel.addCourse);
+            app.on(constants.messages.learningPath.courseSelector.courseSelected, viewModel.addCourse);
+            app.on(constants.messages.learningPath.courseSelector.courseDeselected, viewModel.removeCourse);
             app.on(constants.messages.learningPath.removeCourse, viewModel.removeCourse);
 
             return getLearningPathByIdQuery.execute(viewModel.id).then(function (learningPath) {
@@ -76,7 +77,8 @@
         }
 
         function deactivate() {
-            app.off(constants.messages.learningPath.addCourse, viewModel.addCourse);
+            app.off(constants.messages.learningPath.courseSelector.courseSelected, viewModel.addCourse);
+            app.off(constants.messages.learningPath.courseSelector.courseDeselected, viewModel.removeCourse);
             app.off(constants.messages.learningPath.removeCourse, viewModel.removeCourse);
         }
 
@@ -117,6 +119,10 @@
             viewModel.courses(_.reject(viewModel.courses(), function (item) {
                 return item.id === courseId;
             }));
+           
+            if (!viewModel.courseSelector.isExpanded() && viewModel.courses().length === 0) {
+                viewModel.courseSelector.expand();
+            }
 
             removeCourseCommand.execute(viewModel.id, courseId).then(function () {
                 notify.saved();

@@ -591,7 +591,7 @@
     removeFromPath: {
         'en': 'Remove from path',
         'zh-cn': 'Remove from path[zh-cn]',
-        'uk': 'Видалити з навчального шляху'
+        'uk': 'Видалити зі шляху'
     },
     /* End resource section for model Learning paths */
     

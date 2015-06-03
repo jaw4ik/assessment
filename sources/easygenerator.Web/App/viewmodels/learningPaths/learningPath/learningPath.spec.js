@@ -24,6 +24,7 @@
             getLearnigPathDefer = Q.defer();
             spyOn(app, 'on');
             spyOn(app, 'off');
+            spyOn(app, 'trigger');
             spyOn(notify, 'saved');
             spyOn(router, 'navigate');
             spyOn(eventTracker, 'publish');
@@ -84,9 +85,14 @@
                 expect(viewModel.currentLanguage).toBe(lang);
             });
 
-            it('should subscribe on learningPath.addCourse event', function () {
+            it('should subscribe on learningPath.courseSelector.courseSelected event', function () {
                 viewModel.activate(learningPath.id);
-                expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.addCourse, viewModel.addCourse);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.courseSelector.courseSelected, viewModel.addCourse);
+            });
+
+            it('should subscribe on learningPath.courseSelector.courseDeselected event', function () {
+                viewModel.activate(learningPath.id);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.courseSelector.courseDeselected, viewModel.removeCourse);
             });
 
             it('should subscribe on learningPath.removeCourse event', function () {
@@ -134,7 +140,7 @@
                         learningPath.courses = [];
                     });
 
-                    it('should set course selector isExpaneded to true', function(done) {
+                    it('should set course selector isExpaneded to true', function (done) {
                         viewModel.courseSelector.isExpanded(false);
                         viewModel.activate(learningPath.id).fin(function () {
                             expect(viewModel.courseSelector.isExpanded()).toBeTruthy();
@@ -176,12 +182,17 @@
         });
 
         describe('deactivate:', function () {
-            it('should unsubscribe from learningPath.addCourse event', function () {
+            it('should unsubscribe on learningPath.courseSelector.courseSelected event', function () {
                 viewModel.deactivate();
-                expect(app.off).toHaveBeenCalledWith(constants.messages.learningPath.addCourse, viewModel.addCourse);
+                expect(app.off).toHaveBeenCalledWith(constants.messages.learningPath.courseSelector.courseSelected, viewModel.addCourse);
             });
 
-            it('should unsubscribe from learningPath.removeCourse event', function () {
+            it('should unsubscribe on learningPath.courseSelector.courseDeselected event', function () {
+                viewModel.deactivate();
+                expect(app.off).toHaveBeenCalledWith(constants.messages.learningPath.courseSelector.courseDeselected, viewModel.removeCourse);
+            });
+
+            it('should unsubscribe on learningPath.removeCourse event', function () {
                 viewModel.deactivate();
                 expect(app.off).toHaveBeenCalledWith(constants.messages.learningPath.removeCourse, viewModel.removeCourse);
             });
@@ -359,6 +370,23 @@
                 viewModel.courses([course]);
                 viewModel.removeCourse(course.id);
                 expect(viewModel.courses().length).toBe(0);
+            });
+
+            describe('when courseSelector is collapsed', function () {
+                beforeEach(function () {
+                    viewModel.courseSelector.isExpanded(false);
+                });
+
+                describe('and when course was the last in collection', function () {
+                    beforeEach(function () {
+                        viewModel.courses([course]);
+                    });
+
+                    it('should expand course selector', function () {
+                        viewModel.removeCourse(course.id);
+                        expect(viewModel.courseSelector.expand).toHaveBeenCalled();
+                    });
+                });
             });
 
             describe('and when course removed', function () {

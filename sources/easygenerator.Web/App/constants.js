@@ -173,7 +173,10 @@
                     }
                 },
                 learningPath: {
-                    addCourse: 'learningPath:addCourse',
+                    courseSelector: {
+                        courseSelected: 'learningPath:course-selector:course-selected',
+                        courseDeselected: 'learningPath:course-selector:course-deselected'
+                    },
                     removeCourse: 'learningPath:removeCourse'
                 },
                 objective: {
