@@ -792,6 +792,10 @@
     <Content Include="App\viewmodels\learningPaths\learningPath\commands\removeCourseCommand.spec.js">
       <DependentUpon>removeCourseCommand.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\commands\updateCoursesOrderCommand.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\commands\updateCoursesOrderCommand.spec.js">
+      <DependentUpon>updateCoursesOrderCommand.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\commands\updateTitleCommand.spec.js">
       <DependentUpon>updateTitleCommand.js</DependentUpon>
     </Content>
@@ -885,7 +889,6 @@
     <Content Include="App\views\learningContents\types\hotspot.html" />
     <Content Include="App\views\learningContents\types\content.html" />
     <Content Include="App\views\learningPaths\courseSelector\courseSelector.html" />
-    <Content Include="App\views\learningPaths\learningPath\courseBrief.html" />
     <Content Include="App\views\library\index.html" />
     <Content Include="App\views\learningPaths\index.html" />
     <Content Include="App\views\learningPaths\learningPath\learningPath.html" />

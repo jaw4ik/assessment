@@ -45,10 +45,43 @@
                 </div>
                 <!-- /ko -->
                 <!-- ko ifnot: courses().length === 0  -->
-                <ul class="unstyled main-content-list">
+                <ul class="unstyled main-content-list" data-bind="sortable: { data: courses, afterMove: updateCoursesOrder, isEnabled: isSortingEnabled, options: {handle: '.list-item-drag-icon' }}">
                     <!-- ko foreach: courses -->
-                    <!--  ko compose: { model: $data, view: 'views/learningPaths/learningPath/courseBrief.html', activationData: currentLanguage }  -->
-                    <!-- /ko -->
+                    <li class="main-content-list-item">
+                        <div class="list-item-content-holder">
+                            <!-- ko if: $parent.isSortingEnabled() -->
+                            <div class="list-item-drag-icon" data-bind="localize: { title: 'changeOrderTooltip' }"></div>
+                            <!-- /ko -->
+                            <!-- ko ifnot: $parent.isSortingEnabled() -->
+                            <div class="list-item-drag-icon disabled"></div>
+                            <!-- /ko -->
+                            <div class="empty-list-item"></div>
+                            <div class="list-item-info-holder">
+                                <div class="info-holder-table">
+                                    <div class="list-item-logo">
+                                        <span class="list-item-logo-image-wrapper">
+                                            <img class="list-item-logo-image" alt="" data-bind="attr: { src: thumbnail }">
+                                        </span>
+                                    </div>
+                                    <div class="list-item-info">
+                                        <div class="list-item-title">
+                                            <span class="selectable" data-bind="text: title"></span>
+                                        </div>
+                                        <div class="list-item-saved">
+                                            <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: currentLanguage }"></span>
+                                        </div>
+                                    </div>
+                                    <div class="list-item-remove">
+                                        <button class="list-item-remove-btn info-tooltip-holder" data-bind="click: remove">
+                                            <div class="info-tooltip">
+                                                <span data-bind="localize: { text: 'removeFromPath' }"></span>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                     <!-- /ko -->
                 </ul>
                 <!-- /ko -->

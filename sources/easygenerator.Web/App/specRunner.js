@@ -191,6 +191,7 @@
             'viewmodels/learningPaths/learningPath/commands/updateTitleCommand.spec',
             'viewmodels/learningPaths/learningPath/commands/addCourseCommand.spec',
             'viewmodels/learningPaths/learningPath/commands/removeCourseCommand.spec',
+            'viewmodels/learningPaths/learningPath/commands/updateCoursesOrderCommand.spec',
             'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery.spec',
             'viewmodels/learningPaths/learningPath/learningPath.spec',
             'viewmodels/learningPaths/learningPath/courseBrief.spec',

@@ -13,7 +13,8 @@
         courseRepository = require('repositories/courseRepository'),
         notify = require('notify'),
         addCourseCommand = require('viewmodels/learningPaths/learningPath/commands/addCourseCommand'),
-        removeCourseCommand = require('viewmodels/learningPaths/learningPath/commands/removeCourseCommand')
+        removeCourseCommand = require('viewmodels/learningPaths/learningPath/commands/removeCourseCommand'),
+        updateCoursesOrderCommand = require('viewmodels/learningPaths/learningPath/commands/updateCoursesOrderCommand')
     ;
 
     describe('viewModel [learningPath]', function () {
@@ -222,6 +223,29 @@
             });
         });
 
+        describe('isSortingEnabled:', function () {
+            describe('when courses count > 1', function () {
+                it('should be true', function() {
+                    viewModel.courses([{}, {}]);
+                    expect(viewModel.isSortingEnabled()).toBeTruthy();
+                });
+            });
+
+            describe('when courses count == 1', function () {
+                it('should be true', function () {
+                    viewModel.courses([{}]);
+                    expect(viewModel.isSortingEnabled()).toBeFalsy();
+                });
+            });
+
+            describe('when courses count == 0', function () {
+                it('should be true', function () {
+                    viewModel.courses([]);
+                    expect(viewModel.isSortingEnabled()).toBeFalsy();
+                });
+            });
+        });
+
         describe('titleField:', function () {
             it('should be defined', function () {
                 expect(viewModel.titleField).toBeDefined();
@@ -397,6 +421,34 @@
                 it('should show saved notification', function (done) {
                     viewModel.removeCourse(course.id);
                     removeCourseCommand.execute(viewModel.id, course.id).fin(function () {
+                        expect(notify.saved).toHaveBeenCalled();
+                        done();
+                    });
+                });
+            });
+        });
+
+        describe('updateCoursesOrder:', function () {
+            var updateCoursesOrderDefer;
+
+            beforeEach(function () {
+                updateCoursesOrderDefer = Q.defer();
+                spyOn(updateCoursesOrderCommand, 'execute').and.returnValue(updateCoursesOrderDefer.promise);
+            });
+
+            it('should publish \'Change order of courses\' event', function () {
+                viewModel.updateCoursesOrder();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Change order of courses');
+            });
+
+            describe('when courses order updated successfully', function () {
+                beforeEach(function () {
+                    updateCoursesOrderDefer.resolve();
+                });
+
+                it('should show saved notification', function (done) {
+                    viewModel.updateCoursesOrder();
+                    updateCoursesOrderCommand.execute(viewModel.id, viewModel.courses()).fin(function () {
                         expect(notify.saved).toHaveBeenCalled();
                         done();
                     });

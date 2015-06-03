@@ -1,9 +1,9 @@
 ﻿define(['viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery', 'plugins/router', 'viewmodels/common/titleField', 'constants', 'localization/localizationManager',
  'clientContext', 'viewmodels/learningPaths/learningPath/commands/updateTitleCommand', 'eventTracker', 'viewmodels/learningPaths/courseSelector/courseSelector',
  'durandal/app', 'viewmodels/learningPaths/learningPath/courseBrief', 'viewmodels/learningPaths/learningPath/commands/addCourseCommand',
-'viewmodels/learningPaths/learningPath/commands/removeCourseCommand', 'repositories/courseRepository', 'notify'],
+'viewmodels/learningPaths/learningPath/commands/removeCourseCommand', 'repositories/courseRepository', 'notify', 'viewmodels/learningPaths/learningPath/commands/updateCoursesOrderCommand'],
     function (getLearningPathByIdQuery, router, titleField, constants, localizationManager, clientContext, updateTitleCommand, eventTracker, courseSelector, app, CourseBrief,
-         addCourseCommand, removeCourseCommand, courseRepository, notify) {
+         addCourseCommand, removeCourseCommand, courseRepository, notify, updateCoursesOrderCommand) {
         "use strict";
 
         var
@@ -14,7 +14,7 @@
                 removeCourse: 'Remove course from the learning path',
                 showAvailableCourses: 'Show courses available for the learning path',
                 hideAvailableCourses: 'Hide courses available for the learning path',
-                changeOrder: 'Change order of courses '
+                changeCoursesOrder: 'Change order of courses'
             },
             viewModel = {
                 id: null,
@@ -29,10 +29,15 @@
                 addCourse: addCourse,
                 removeCourse: removeCourse,
                 courses: ko.observableArray([]),
-                currentLanguage: ''
+                currentLanguage: '',
+                updateCoursesOrder: updateCoursesOrder
             };
 
         viewModel.titleField = titleField('', constants.validation.learningPathTitleMaxLength, localizationManager.localize('learningPathTitle'), getTitle, updateTitle);
+
+        viewModel.isSortingEnabled = ko.computed(function () {
+            return viewModel.courses().length > 1;
+        });
 
         return viewModel;
 
@@ -119,7 +124,7 @@
             viewModel.courses(_.reject(viewModel.courses(), function (item) {
                 return item.id === courseId;
             }));
-           
+
             if (!viewModel.courseSelector.isExpanded() && viewModel.courses().length === 0) {
                 viewModel.courseSelector.expand();
             }
@@ -127,6 +132,14 @@
             removeCourseCommand.execute(viewModel.id, courseId).then(function () {
                 notify.saved();
             });
+        }
+
+        function updateCoursesOrder() {
+            eventTracker.publish(events.changeCoursesOrder);
+            updateCoursesOrderCommand.execute(viewModel.id, viewModel.courses())
+                .then(function () {
+                    notify.saved();
+                });
         }
     }
 );
