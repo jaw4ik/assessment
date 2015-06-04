@@ -12,7 +12,9 @@ if (process.argv.length === 3){
 		'exam',
 		'personalized-learning',
 		'quiz-v2',
-		'reader'
+		'reader',
+		'lango-personalized-learning',
+		'quiz-marketing'
 	];
 
 	var releaseVersion = process.argv[2];
