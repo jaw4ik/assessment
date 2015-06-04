@@ -235,7 +235,7 @@
             }
         })();
         
-        that.questionsPool = (function () {
+        that.questionPool = (function () {
             var self = {};
 
             self.modes = {
@@ -252,15 +252,15 @@
 
             return self;
 
-            function init(questionsPoolSettings) {
-                if (!questionsPoolSettings) {
+            function init(questionPoolSettings) {
+                if (!questionPoolSettings) {
                     return;
                 }
 
-                self.mode = questionsPoolSettings.mode;
-                self.subsetSize = questionsPoolSettings.subsetSize;
-                self.randomizeOrder = questionsPoolSettings.randomizeOrder;
-                self.randomizePerAttempt = questionsPoolSettings.randomizePerAttempt;
+                self.mode = questionPoolSettings.mode;
+                self.subsetSize = questionPoolSettings.subsetSize;
+                self.randomizeOrder = questionPoolSettings.randomizeOrder;
+                self.randomizePerAttempt = questionPoolSettings.randomizePerAttempt;
             }
         })();
 
@@ -311,11 +311,11 @@
                         seconds: that.timer.seconds
                     }
                 },
-                questionsPool: {
-                    mode: that.questionsPool.mode,
-                    subsetSize: that.questionsPool.subsetSize,
-                    randomizeOrder: that.questionsPool.randomizeOrder,
-                    randomizePerAttempt: that.questionsPool.randomizePerAttempt
+                questionPool: {
+                    mode: that.questionPool.mode,
+                    subsetSize: that.questionPool.subsetSize,
+                    randomizeOrder: that.questionPool.randomizeOrder,
+                    randomizePerAttempt: that.questionPool.randomizePerAttempt
                 }
             });
         }
@@ -330,7 +330,7 @@
             that.masteryScore.init(settings.masteryScore);
             that.languages.init(manifest.languages, settings.languages);
             that.timer.init(settings.timer);
-            that.questionsPool.init(settings.questionsPool);
+            that.questionPool.init(settings.questionPool);
 
             currentSettings = getCurrentSettings(settings);
 

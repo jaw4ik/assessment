@@ -433,13 +433,13 @@ input[type="text"] {
 
 /*#endregion */
 
-/*#region questions-pool*/
+/*#region question-pool*/
 
-.questions-pool .radio-selector {
+.question-pool .radio-selector {
     margin-top: 13px;
 }
 
-.questions-pool .spinner {
+.question-pool .spinner {
     margin: -7px 7px;
 }
 
