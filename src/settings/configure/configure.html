@@ -35,17 +35,17 @@
                                     <div class="settings-column-row">
                                         <span class="settings-caption">Question pool:</span>
                                         <ul class="radio-selector small unstyled">
-                                            <li class="selector-item-container" ng-class="{ selected: questionsPool.mode == questionsPool.modes.all }" ng-click="questionsPool.mode = questionsPool.modes.all">
+                                            <li class="selector-item-container" ng-class="{ selected: questionPool.mode == questionPool.modes.all }" ng-click="questionPool.mode = questionPool.modes.all">
                                                 <div class="selector-item-btn"></div>
                                                 <div class="selector-item-text">Show all questions</div>
                                             </li>
-                                            <li class="selector-item-container" ng-class="{ selected: questionsPool.mode == questionsPool.modes.subset }" ng-click="questionsPool.mode = questionsPool.modes.subset">
+                                            <li class="selector-item-container" ng-class="{ selected: questionPool.mode == questionPool.modes.subset }" ng-click="questionPool.mode = questionPool.modes.subset">
                                                 <div class="selector-item-btn"></div>
                                                 <div class="selector-item-text">
                                                     <span>Show a subset of</span>
-                                                    <div data-trigger="spinner" class="spinner" spinner spinner-value="questionsPool.subsetSize">
+                                                    <div data-trigger="spinner" class="spinner" spinner spinner-value="questionPool.subsetSize">
                                                         <a class="spinner-button spinner-down" data-spin="down" disable-drag-and-drop></a>
-                                                        <input type="text" maxlength="3" id="questionsPool.subsetSize" class="content-text-input" data-rule="quantity" data-max="999" data-min="1" number ng-model="questionsPool.subsetSize">
+                                                        <input type="text" maxlength="3" id="questionPool.subsetSize" class="content-text-input" data-rule="quantity" data-max="999" data-min="1" number ng-model="questionPool.subsetSize">
                                                         <a class="spinner-button spinner-up" data-spin="up" disable-drag-and-drop></a>
                                                         <div class="spiner-seperator"></div>
                                                     </div>
@@ -57,29 +57,29 @@
                                     <div class="settings-column-row">
                                         <span class="settings-caption">Question order:</span>
                                         <div class="questions-order">
-                                            <div ng-show="questionsPool.mode == questionsPool.modes.all">
-                                                <label class="checkbox" ng-class="{ checked: questionsPool.randomizeOrder }">
+                                            <div ng-show="questionPool.mode == questionPool.modes.all">
+                                                <label class="checkbox" ng-class="{ checked: questionPool.randomizeOrder }">
                                                     <span class="checkbox-control">
-                                                        <input class="checkbox-control-input" type="checkbox" ng-model="questionsPool.randomizeOrder">
+                                                        <input class="checkbox-control-input" type="checkbox" ng-model="questionPool.randomizeOrder">
                                                         <span class="checkbox-control-input-checked"></span>
                                                     </span>
                                                     <span class="checkbox-label">Randomize question order</span>
                                                 </label>
                                                 <div class="second-level">
-                                                    <label class="checkbox" ng-class="{ checked: questionsPool.randomizePerAttempt && questionsPool.randomizeOrder }">
+                                                    <label class="checkbox" ng-class="{ checked: questionPool.randomizePerAttempt && questionPool.randomizeOrder }">
                                                         <span class="checkbox-control">
-                                                            <input class="checkbox-control-input" type="checkbox" ng-model="questionsPool.randomizePerAttempt">
+                                                            <input class="checkbox-control-input" type="checkbox" ng-model="questionPool.randomizePerAttempt">
                                                             <span class="checkbox-control-input-checked"></span>
                                                         </span>
                                                         <span class="checkbox-label">On every attempt</span>
                                                     </label>
-                                                    <div class="disabled-feature-overlay" ng-hide="questionsPool.randomizeOrder"></div>
+                                                    <div class="disabled-feature-overlay" ng-hide="questionPool.randomizeOrder"></div>
                                                 </div>
                                             </div>
-                                            <div ng-show="questionsPool.mode == questionsPool.modes.subset">
-                                                <label class="checkbox" ng-class="{ checked: questionsPool.randomizePerAttempt }">
+                                            <div ng-show="questionPool.mode == questionPool.modes.subset">
+                                                <label class="checkbox" ng-class="{ checked: questionPool.randomizePerAttempt }">
                                                     <span class="checkbox-control">
-                                                        <input class="checkbox-control-input" type="checkbox" ng-model="questionsPool.randomizePerAttempt">
+                                                        <input class="checkbox-control-input" type="checkbox" ng-model="questionPool.randomizePerAttempt">
                                                         <span class="checkbox-control-input-checked"></span>
                                                     </span>
                                                     <span class="checkbox-label">Randomize question order after every attempt</span>
