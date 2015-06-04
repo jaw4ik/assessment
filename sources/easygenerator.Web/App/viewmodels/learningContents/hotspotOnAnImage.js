@@ -71,9 +71,13 @@
                 });
             };
 
-            this.updateHotspotOnAnImage = function () {
+            this.updateHotspotOnAnImage = function (callback) {
                 var text = parser.updateHotspotOnAnImage(that.text, that.background, that.polygons);
                 if (text !== that.originalText) {
+                    if (_.isFunction(callback)) {
+                        debugger;
+                        callback();
+                    }
                     that.text(text);
                     that.updateLearningContent();
                     that.endEditLearningContent();
@@ -100,8 +104,9 @@
             }
 
             function updateTextInHotspotContentBlock() {
-                that.publishActualEvent(events.editText);
-                that.updateHotspotOnAnImage();
+                that.updateHotspotOnAnImage(function() {
+                    that.publishActualEvent(events.editText);
+                });
             }
 
             function textUpdatedByCollaborator(lc) {
