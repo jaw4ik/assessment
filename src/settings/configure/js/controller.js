@@ -234,6 +234,35 @@
                 self.seconds = timerSettings.time.seconds;
             }
         })();
+        
+        that.questionsPool = (function () {
+            var self = {};
+
+            self.modes = {
+                all: 'all',
+                subset: 'subset'
+            };
+            self.mode = self.modes.all;
+            
+            self.subsetSize = 10;
+            self.randomizeOrder = true;
+            self.randomizePerAttempt = false;
+            
+            self.init = init;
+
+            return self;
+
+            function init(questionsPoolSettings) {
+                if (!questionsPoolSettings) {
+                    return;
+                }
+
+                self.mode = questionsPoolSettings.mode;
+                self.subsetSize = questionsPoolSettings.subsetSize;
+                self.randomizeOrder = questionsPoolSettings.randomizeOrder;
+                self.randomizePerAttempt = questionsPoolSettings.randomizePerAttempt;
+            }
+        })();
 
         angular.element($window).on('blur', saveChanges);
 
@@ -281,6 +310,12 @@
                         minutes: that.timer.minutes,
                         seconds: that.timer.seconds
                     }
+                },
+                questionsPool: {
+                    mode: that.questionsPool.mode,
+                    subsetSize: that.questionsPool.subsetSize,
+                    randomizeOrder: that.questionsPool.randomizeOrder,
+                    randomizePerAttempt: that.questionsPool.randomizePerAttempt
                 }
             });
         }
@@ -295,6 +330,7 @@
             that.masteryScore.init(settings.masteryScore);
             that.languages.init(manifest.languages, settings.languages);
             that.timer.init(settings.timer);
+            that.questionsPool.init(settings.questionsPool);
 
             currentSettings = getCurrentSettings(settings);
 
