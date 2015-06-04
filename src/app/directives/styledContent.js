@@ -10,7 +10,7 @@
             link: function ($scope, element) {
                 var $element = $(element),
                     imageWrapper = '<div class="image-wrapper"></div>',
-                    tableWrapper = '<figure class="table-wrapper"></figure>';
+                    tableWrapper = '<div class="table-wrapper"></div>';
                 $element.addClass('styled-content');
 
                 $scope.$on('$includeContentLoaded', function () {
