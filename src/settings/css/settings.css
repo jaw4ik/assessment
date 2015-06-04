@@ -443,11 +443,11 @@ input[type="text"] {
     margin: -7px 7px;
 }
 
-.questions-order {
+.question-order {
       margin-top: 20px;
 }
 
-.questions-order .second-level {
+.question-order .second-level {
     position: relative;
     margin: 15px 0 0 25px;
 }
