@@ -35,7 +35,6 @@
 }
 
 .list() {
-    list-style-type: none;
     padding-left: 40px;
 }
 
@@ -89,17 +88,12 @@
     }
 
     ol {
-        li {
-            counter-increment: list-items;
-
-            &:before {
-                content: counter(list-items) ".";
-                margin-right: 10px;
-            }
-        }
+        list-style-position: inside;
     }
 
     ul {
+        list-style-type: none;
+
         li:before {
             display: inline-block;
             font-size: 30px;

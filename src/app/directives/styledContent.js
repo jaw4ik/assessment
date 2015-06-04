@@ -9,7 +9,7 @@
             restrict: 'A',
             link: function ($scope, element) {
                 var $element = $(element),
-                    imageWrapper = '<figure class="image-wrapper"></figure>',
+                    imageWrapper = '<div class="image-wrapper"></div>',
                     tableWrapper = '<figure class="table-wrapper"></figure>';
                 $element.addClass('styled-content');
 
