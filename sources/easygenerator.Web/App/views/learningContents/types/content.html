@@ -4,13 +4,13 @@
         <div class="question-learning-content-body-wrapper" data-bind="css: { editing: hasFocus }">
             <div class="question-learning-content-body">
                 <div class="question-learning-content-wrapper">
-                    <div class="question-learning-content selectable" data-bind="ckeditor: { data: text, eventTracker: $parent.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: $parent.autosaveInterval, localizationManager: $parent.localizationManager }">
+                    <div class="question-learning-content selectable" data-bind="ckeditor: { data: text, eventTracker: $parent.eventTracker, isEditing: hasFocus, save: updateLearningContent, focus: beginEditText, blur: function (data, event) { updateLearningContent(data, event), endEditText(data, event); }, autosaveInterval: $parent.autosaveInterval, localizationManager: $parent.localizationManager }">
                     </div>
                 </div>
             </div>
         </div>
         <div class="question-learning-content-delete-wrapper">
-            <span class="question-learning-content-delete-icon  info-tooltip-holder" data-bind="click: removeLearningContent">
+            <span class="question-learning-content-delete-icon  info-tooltip-holder" data-bind="click: remove">
                 <span class="info-tooltip right-side">
                     <span data-bind="localize: { text: 'delete' }">
                         Delete
