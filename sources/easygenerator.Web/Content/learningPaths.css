@@ -130,6 +130,9 @@
   word-wrap: break-word;
   overflow: hidden;
 }
+.learning-path .loader-container {
+  margin-left: 0px;
+}
 .learning-path .learning-path-header-content-section {
   display: -webkit-flex;
   display: flex;
