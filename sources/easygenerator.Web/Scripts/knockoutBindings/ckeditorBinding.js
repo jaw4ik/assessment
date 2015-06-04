@@ -158,9 +158,17 @@
                 CKEDITOR.dialog._.currentTop.hide();
 
             clearInterval(saveIntervalId);
-
-            editor.destroy(true);
             $(element).removeAttr('contenteditable');
+
+            (function destroyInstance() {
+                if (editor.status === 'ready') {
+                    editor.destroy(true);
+                } else {
+                    setTimeout(function () {
+                        destroyInstance();
+                    }, 100);
+                }
+            })();
         });
 
         function setData(evt) {
