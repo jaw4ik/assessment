@@ -75,7 +75,6 @@
                 var text = parser.updateHotspotOnAnImage(that.text, that.background, that.polygons);
                 if (text !== that.originalText) {
                     if (_.isFunction(callback)) {
-                        debugger;
                         callback();
                     }
                     that.text(text);
