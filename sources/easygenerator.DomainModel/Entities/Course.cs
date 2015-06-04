@@ -16,6 +16,7 @@ namespace easygenerator.DomainModel.Entities
             CommentsCollection = new Collection<Comment>();
             CollaboratorsCollection = new Collection<CourseCollaborator>();
             TemplateSettings = new Collection<CourseTemplateSettings>();
+            LearningPathCollection = new Collection<LearningPath>();
         }
 
         protected internal Course(string title, Template template, string createdBy)
@@ -30,6 +31,7 @@ namespace easygenerator.DomainModel.Entities
             CommentsCollection = new Collection<Comment>();
             CollaboratorsCollection = new Collection<CourseCollaborator>();
             TemplateSettings = new Collection<CourseTemplateSettings>();
+            LearningPathCollection = new Collection<LearningPath>();
             BuildOn = null;
             IntroductionContent = null;
             ObjectivesOrder = null;

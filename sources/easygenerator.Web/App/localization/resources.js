@@ -621,6 +621,11 @@
         'zh-cn': '不能删除有学习目标的课程',
         'uk': 'Неможливо видалити курс, так як в ньому є розділ(и) / цілі'
     },
+    courseCannotBeDeletedErrorMessage: {
+        'en': 'Course cannot be deleted if it has learning objective(s) or connected to learning path(s)',
+        'zh-cn': 'Course cannot be deleted if it has learning objective(s) or connected to learning path(s)[zh-cn]',
+        'uk': 'Course cannot be deleted if it has learning objective(s) or connected to learning path(s)[uk]'
+    },
     courseCreateItem: {
         'en': 'Create',
         'zh-cn': '创建',
