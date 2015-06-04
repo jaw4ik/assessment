@@ -20,17 +20,30 @@
                     subscribeToEvents($scope, $element, $timeout);
                 }
 
+                if (!$scope.quiz.hasIntroductionContent) {
+                    broadcastQuizStartedEvent($scope);
+                }
+
                 if ($routeParams.tryAgain) {
-                    $timeout($scope.scrollToQuestions, 1000).then(function () {
-                        $location.search('tryAgain', null);
-                    });
+                    $location.search('tryAgain', null);
+
+                    if ($scope.scrollToQuestions) {
+                        $timeout($scope.scrollToQuestions, 1000);
+                    }
                 }
             }
         };
     }
 
     function scrollTo(scrollTop) {
-        $('html, body').animate({scrollTop: scrollTop}, 1000);
+        $('html, body').animate({ scrollTop: scrollTop }, 1000);
+    }
+
+    function broadcastQuizStartedEvent($scope) {
+        if (!$scope.quizStarted) {
+            $scope.quizStarted = true;
+            $scope.$emit('$quizStarted');
+        }
     }
 
     function subscribeToMobileEvents($scope, $container) {
@@ -42,13 +55,15 @@
             scrollTo($questions.offset().top - $header.height());
         };
 
-        var 
+        var
             //Events handlers
             windowScrollHandler = function () {
-                var introEndReached = $window.scrollTop() >= $questions.offset().top - $header.height(),
-                    documentEndReached = $window.scrollTop() >= $(document).height() - $window.height() - 10;
+                var questionsReached = $window.scrollTop() >= $questions.offset().top - $window.height();
 
-                $header.toggleClass('hide-buttons', introEndReached || documentEndReached);
+                if (questionsReached) {
+                    broadcastQuizStartedEvent($scope);
+                    $container.addClass('questions-reached');
+                }
             },
 
             previousWindowSize = {},
@@ -94,14 +109,18 @@
         var
             windowScrollHandler = function () {
                 var scrollableHeight = $questions.offset().top - $introduction.height(),
-                    windowScrollTop = $window.scrollTop();
+                    windowScrollTop = $window.scrollTop(),
+                    questionsReached = windowScrollTop >= scrollableHeight,
+                    introGone = windowScrollTop >= ($questions.offset().top - $header.height());
 
                 //Fix for browser initial scrolling
                 if (scrollableHeight < 0) {
                     return;
                 }
 
-                if (windowScrollTop >= scrollableHeight) {
+                if (questionsReached) {
+                    broadcastQuizStartedEvent($scope);
+
                     $introduction
                         .css('top', scrollableHeight)
                         .css('position', 'absolute');
@@ -114,7 +133,9 @@
                 $introductionContent.scrollTop(windowScrollTop);
 
                 //Header logo appearance
-                $container.toggleClass('scrolled-to-questions', windowScrollTop >= ($questions.offset().top - $header.height()));
+                $container
+                    .toggleClass('questions-reached', questionsReached)
+                    .toggleClass('intro-gone', introGone);
             },
             windowResizeHandler = function () {
                 $introduction.height($window.height());
@@ -127,7 +148,7 @@
                 var scrollTop = Math.round($introductionContent.scrollTop()),
                     isTopPosition = scrollTop === 0,
                     isBottomPosition = scrollTop >= ($introductionContent[0].scrollHeight - $introductionContent.outerHeight() - 1);
-                
+
                 $introduction
                     .toggleClass(topPositionClass, isTopPosition)
                     .toggleClass(bottomPositionClass, isBottomPosition);
