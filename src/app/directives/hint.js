@@ -17,6 +17,7 @@
                         switch(dataType){
                             case 'hotspot': 
                                 var hotspotOnImage = new HotspotOnImage($(newValue)[0]);
+                                $element.addClass('hotspot-on-image-container');
                                 $element.html(hotspotOnImage.element);
                                 break;
                             default:
