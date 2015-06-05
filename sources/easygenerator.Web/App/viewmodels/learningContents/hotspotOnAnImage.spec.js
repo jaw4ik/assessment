@@ -6,7 +6,7 @@
         uiLocker = require('uiLocker'),
         imageUpload = require('imageUpload'),
         hotspotParser = require('viewmodels/learningContents/components/hotspotParser'),
-        PolygonModel = require('viewmodels/learningContents/components/polygonModel');
+        eventTracker = require('eventTracker');
 
     describe('viewmodel HotspotOnAnImage', function () {
 
@@ -25,6 +25,7 @@
             beforeEach(function() {
                 ctor = new HotspotOnAnImage(learningContent, _questionId, _questionType, canBeAddedImmediately);
                 spyOn(app, 'trigger');
+                spyOn(eventTracker, 'publish');
             });
 
             it('should initialize field', function() {
@@ -40,15 +41,15 @@
                 expect(ctor.hasFocus()).toBeFalsy();
                 expect(ctor.isDeleted).toBeFalsy();
                 expect(ctor.canBeAdded()).toBeTruthy();
-                expect(ctor.beginEditText).toBeFunction();
-                expect(ctor.updateText).toBeFunction();
-                expect(ctor.endEditText).toBeFunction();
+                expect(ctor.updateLearningContent).toBeFunction();
+                expect(ctor.endEditLearningContent).toBeFunction();
                 expect(ctor.removeLearningContent).toBeFunction();
                 expect(ctor.addPolygon).toBeFunction();
                 expect(ctor.updatePolygon).toBeFunction();
                 expect(ctor.deletePolygon).toBeFunction();
                 expect(ctor.uploadBackground).toBeFunction();
-                expect(ctor.save).toBeFunction();
+                expect(ctor.updateHotspotOnAnImage).toBeFunction();
+                expect(ctor.remove).toBeFunction();
             });
 
             describe('addPolygon:', function () {
@@ -58,57 +59,95 @@
                     expect(ctor.polygons().length).toBe(1);
                 });
 
+                it('should send event \'Add rectangle in hotspot content block\'', function () {
+                    ctor.addPolygon({});
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Add rectangle in hotspot content block');
+                });
+
+                it('should send event \'Add rectangle in hotspot content block\' with category \'Information\' for informationContent question type', function () {
+                    var ctor2 = new HotspotOnAnImage(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
+                    ctor2.addPolygon({});
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Add rectangle in hotspot content block', 'Information');
+                });
+
             });
 
             describe('updatePolygon:', function () {
 
-                it('should update polygon', function() {
-                    var polygon = {
+                var polygon;
+
+                beforeEach(function() {
+                    polygon = {
                         id: 1,
                         points: ko.observable({ x: 0 })
                     };
 
                     ctor.polygons([]);
                     ctor.polygons.push(polygon);
+                });
+
+                it('should update polygon', function() {
                     ctor.updatePolygon(1, { x: 10 });
                     expect(ctor.polygons()[0].points().x).toBe(10);
+                });
+
+                it('should send event \'Resize/move rectangle in hotspot content block\'', function () {
+                    ctor.updatePolygon(1, { x: 10 });
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Resize/move rectangle in hotspot content block');
+                });
+
+                it('should send event \'Resize/move rectangle in hotspot content block\' with category \'Information\' for informationContent question type', function () {
+                    var ctor2 = new HotspotOnAnImage(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
+                    ctor2.polygons([]);
+                    ctor2.polygons.push(polygon);
+                    ctor2.updatePolygon(1, { x: 10 });
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Resize/move rectangle in hotspot content block', 'Information');
                 });
 
             });
 
             describe('deletePolygon:', function () {
+                
+                var polygon;
 
-                it('should delete polygon', function() {
-                    var polygon = {
+                beforeEach(function() {
+                    polygon = {
                         id: 1,
                         points: ko.observable({ x: 0 }),
-                        removed: function() {}
+                        removed: function () { }
                     };
 
                     ctor.polygons([]);
                     ctor.polygons.push(polygon);
+                    spyOn(polygon, 'removed');
+                });
+
+                it('should delete polygon', function() {
                     ctor.deletePolygon(1);
                     expect(ctor.polygons().length).toBe(0);
                 });
 
                 it('should call removed from polygon', function () {
-                    var polygon = {
-                        id: 1,
-                        points: ko.observable({ x: 0 }),
-                        removed: function(){}
-                    };
-
-                    spyOn(polygon, 'removed');
-
-                    ctor.polygons([]);
-                    ctor.polygons.push(polygon);
                     ctor.deletePolygon(1);
                     expect(polygon.removed).toHaveBeenCalled();
                 });
 
+                it('should send event \'Delete rectangle in hotspot content block\'', function () {
+                    ctor.deletePolygon(1);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Delete rectangle in hotspot content block');
+                });
+
+                it('should send event \'Delete rectangle in hotspot content block\' with category \'Information\' for informationContent question type', function () {
+                    var ctor2 = new HotspotOnAnImage(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
+                    ctor2.polygons([]);
+                    ctor2.polygons.push(polygon);
+                    ctor2.deletePolygon(1);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Delete rectangle in hotspot content block', 'Information');
+                });
+
             });
 
-            describe('save:', function () {
+            describe('updateHotspotOnAnImage:', function () {
 
                 var text = 'text2dsad';
 
@@ -117,21 +156,21 @@
                 });
 
                 it('should call parser update', function() {
-                    ctor.save();
+                    ctor.updateHotspotOnAnImage();
                     expect(hotspotParser.updateHotspotOnAnImage).toHaveBeenCalledWith(ctor.text, ctor.background, ctor.polygons);
                 });
 
                 describe('when text is not equal original text', function() {
                     
                     it('should update text', function() {
-                        ctor.save();
+                        ctor.updateHotspotOnAnImage();
                         expect(ctor.text()).toBe(text);
                     });
 
                     it('should call updateText', function () {
-                        spyOn(ctor, 'updateText');
-                        ctor.save();
-                        expect(ctor.updateText).toHaveBeenCalled();
+                        spyOn(ctor, 'updateLearningContent');
+                        ctor.updateHotspotOnAnImage();
+                        expect(ctor.updateLearningContent).toHaveBeenCalled();
                     });
 
                 });
@@ -270,6 +309,18 @@
                         expect(ctor.background()).toEqual(url);
                     });
 
+
+                    it('should send event \'Change background of hotspot content block\'', function () {
+                        ctor.uploadBackground();
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Change background of hotspot content block');
+                    });
+
+                    it('should send event \'Change background of hotspot content block\' with category \'Information\' for informationContent question type', function () {
+                        var ctor2 = new HotspotOnAnImage(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
+                        ctor2.uploadBackground();
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Change background of hotspot content block', 'Information');
+                    });
+
                 });
 
                 describe('when image upload finished', function () {
@@ -284,6 +335,27 @@
                         ctor.uploadBackground();
                         expect(uiLocker.unlock).toHaveBeenCalled();
                     });
+                });
+
+            });
+
+            describe('remove:', function () {
+
+                it('should send event \'Delete hotspot content block\'', function () {
+                    ctor.remove();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Delete hotspot content block');
+                });
+
+                it('should send event \'Delete hotspot content block\' with category \'Information\' for informationContent question type', function () {
+                    var ctor2 = new HotspotOnAnImage(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
+                    ctor2.remove();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Delete hotspot content block', 'Information');
+                });
+
+                it('should call removeLearningContent', function () {
+                    spyOn(ctor, 'removeLearningContent');
+                    ctor.remove();
+                    expect(ctor.removeLearningContent).toHaveBeenCalled();
                 });
 
             });
