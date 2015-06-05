@@ -28,6 +28,7 @@
         return viewModel;
 
         function expand() {
+            viewModel.filter.clear();
             viewModel.isExpanded(true);
         }
 

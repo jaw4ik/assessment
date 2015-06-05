@@ -5,7 +5,8 @@
         getOwnedCoursesQuery = require('viewmodels/learningPaths/courseSelector/queries/getOwnedCoursesQuery'),
         getLearningPathByIdQuery = require('viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery'),
         app = require('durandal/app'),
-        constants = require('constants')
+        constants = require('constants'),
+        courseFilter = require('viewmodels/learningPaths/courseSelector/courseFilter')
     ;
 
 
@@ -89,6 +90,12 @@
         });
 
         describe('expand:', function () {
+            it('should clear course filter', function () {
+                spyOn(courseFilter, 'clear');
+                viewModel.expand();
+                expect(courseFilter.clear).toHaveBeenCalled();
+            });
+
             it('should set isExpanded to true', function () {
                 viewModel.isExpanded(false);
                 viewModel.expand();
