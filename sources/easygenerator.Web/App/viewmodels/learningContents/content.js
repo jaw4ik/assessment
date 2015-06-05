@@ -8,6 +8,7 @@
                 deleteLearningContent: 'Delete learning content',
                 beginEditText: 'Start editing learning content',
                 endEditText: 'End editing learning content',
+                restoreLearningContent: 'Undo delete learning content'
             };
 
         var viewModel = function (learningContent, questionId, questionType, canBeAddedImmediately) {
@@ -24,6 +25,7 @@
             this.hasFocus = ko.observable(false);
             this.isDeleted = false;
             this.canBeAdded = ko.observable(canBeAddedImmediately);
+            this.isRemoved = ko.observable(false);
 
             if (_.isEmpty(this.id())) {
                 publishActualEvent(events.addLearningContent);
@@ -51,7 +53,7 @@
                         showNotification(item.createdOn);
                     });
                 } else {
-                    if (text != that.originalText) {
+                    if (text != that.originalText && !that.isRemoved()) {
                         learningContentsrepository.updateText(_questionId, id, text).then(function (response) {
                             that.originalText = text;
                             showNotification(response.modifiedOn);
@@ -60,7 +62,7 @@
                 }
             };
 
-            this.endEditText = function() {
+            this.endEditText = function () {
                 publishActualEvent(events.endEditText);
 
                 if (!_.isNullOrUndefined(that.isDeleted) && that.isDeleted) {
@@ -74,14 +76,14 @@
                 if (_.isEmptyHtmlText(text)) {
                     app.trigger(constants.messages.question.learningContent.remove, that);
                     if (!_.isEmptyOrWhitespace(id)) {
-                        learningContentsrepository.removeLearningContent(_questionId, id).then(function(modifiedOn) {
+                        learningContentsrepository.removeLearningContent(_questionId, id).then(function (modifiedOn) {
                             showNotification(modifiedOn);
                         });
                     }
                 }
             };
 
-            this.removeLearningContent = function() {
+            this.removeLearningContent = function () {
                 publishActualEvent(events.deleteLearningContent);
 
                 if (!_.isNullOrUndefined(that.isDeleted) && that.isDeleted) {
@@ -89,13 +91,26 @@
                     return;
                 }
 
-                performActionWhenLearningContentIdIsSet(function() {
+                performActionWhenLearningContentIdIsSet(function () {
                     app.trigger(constants.messages.question.learningContent.remove, that);
-                    learningContentsrepository.removeLearningContent(_questionId, ko.unwrap(that.id)).then(function(response) {
+                    learningContentsrepository.removeLearningContent(_questionId, ko.unwrap(that.id)).then(function (response) {
                         showNotification(response.modifiedOn);
                     });
                 });
             };
+
+            this.restoreLearningContent = function () {
+                var text = ko.unwrap(that.text);
+
+                publishActualEvent(events.restoreLearningContent);
+
+                learningContentsrepository.addLearningContent(_questionId, { text: text }).then(function (item) {
+                    that.id(item.id);
+                    that.originalText = text;
+                    app.trigger(constants.messages.question.learningContent.restore, that);
+                    showNotification(item.createdOn);
+                });
+            }
 
             function publishActualEvent(event) {
                 if (_questionType === constants.questionType.informationContent.type) {

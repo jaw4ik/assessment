@@ -49,6 +49,7 @@
         app.on(constants.messages.question.learningContent.textUpdatedByCollaborator, textUpdatedByCollaborator);
         app.on(constants.messages.question.learningContentsReorderedByCollaborator, learningContentsReorderedByCollaborator);
         app.on(constants.messages.question.learningContent.remove, removeLearningContent);
+        app.on(constants.messages.question.learningContent.restore, restoreLearningContent);
 
         return viewModel;
 
@@ -104,8 +105,15 @@
             }
         }
 
-        function removeLearningContent(learningContent){
-            viewModel.learningContents.remove(learningContent);
+        function removeLearningContent(learningContent) {
+            _.isEmptyOrWhitespace(learningContent.id()) || learningContent.isDeleted ? viewModel.learningContents.remove(learningContent) : learningContent.isRemoved(true);
+        }
+
+        function restoreLearningContent(learningContent) {
+            learningContent.isRemoved(false);
+            return questionRepository.updateLearningContentsOrder(viewModel.questionId, viewModel.learningContents()).then(function () {
+                notify.saved();
+            });
         }
 
         function toggleIsAddedButtonsShown() {
@@ -196,13 +204,22 @@
 
         function updateOrder() {
             eventTracker.publish(events.changeLearningContentsOrder);
-            questionRepository.updateLearningContentsOrder(viewModel.questionId, viewModel.learningContents()).then(function () {
+            questionRepository.updateLearningContentsOrder(viewModel.questionId, _.reject(viewModel.learningContents(), function (item) { return item.isRemoved() == true; }))
+            .then(function () {
                 notify.saved();
             });
             viewModel.changesFromCollaborator = null;
         }
 
         function reorderLearningContents(learningContentsIds) {
+            var index;
+            _.each(viewModel.learningContents(), function (item, position) {
+                index = learningContentsIds.indexOf(item.id());
+                if (index < 0) {
+                    position ? learningContentsIds.splice(learningContentsIds.indexOf(viewModel.learningContents()[position - 1].id()) + 1, 0, item.id()) : learningContentsIds.unshift(item.id());
+                }
+            });
+
             viewModel.learningContents(_.chain(learningContentsIds)
                .map(function (id) {
                    return _.find(viewModel.learningContents(), function (learningContent) {
