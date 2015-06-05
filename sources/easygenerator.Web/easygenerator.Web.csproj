@@ -784,6 +784,10 @@
       <DependentUpon>learningContents.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\learningContents\learningContentsViewModelFactory.js" />
+    <Content Include="App\viewmodels\learningPaths\courseSelector\courseFilter.js" />
+    <Content Include="App\viewmodels\learningPaths\courseSelector\courseFilter.spec.js">
+      <DependentUpon>courseFilter.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\commands\addCourseCommand.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\commands\addCourseCommand.spec.js">
       <DependentUpon>addCourseCommand.js</DependentUpon>
@@ -888,6 +892,7 @@
     <Content Include="App\views\learningContents\learningContents.html" />
     <Content Include="App\views\learningContents\types\hotspot.html" />
     <Content Include="App\views\learningContents\types\content.html" />
+    <Content Include="App\views\learningPaths\courseSelector\courseFilter.html" />
     <Content Include="App\views\learningPaths\courseSelector\courseSelector.html" />
     <Content Include="App\views\library\index.html" />
     <Content Include="App\views\learningPaths\index.html" />

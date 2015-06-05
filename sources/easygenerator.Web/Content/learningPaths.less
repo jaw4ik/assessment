@@ -13,7 +13,7 @@
 @learning-path-item-action-title-font: 14px 'OpenSans';
 
 @course-selector-bg-color: #e4eaed;
-@course-selector-item-title-font: 13px 'OpenSans';
+@course-selector-regular-font: 13px 'OpenSans';
 @course-selector-regular-item-color: #42515f;
 @course-selector-regular-item-border-color: #c6d1d8;
 @course-selector-hover-item-border-color: #65bd77;
@@ -22,6 +22,10 @@
 @course-selector-item-bg-color: #fff;
 @course-selector-checkbox-color: #76c486;
 @course-selector-inactive-checkbox-color: #c2c6cb;
+
+@course-selector-filter-regular-color: #42515f;
+@course-selector-filter-active-color: #469dd5;
+@course-selector-filter-inactive-color: #abbbc6;
 
 
 .learning-paths {
@@ -222,11 +226,90 @@
 
         .navigation-bar {
             background-color: @course-selector-bg-color;
+            padding: 15px;
+        }
+
+        .course-filter {
+            margin-bottom: 20px;
+
+            &.active {
+                .course-filter-input-wrapper {
+                    border-bottom: solid 1px @course-selector-filter-active-color;
+                    box-shadow: 0 6px 4px -7px @course-selector-filter-active-color;
+
+                    &:after {
+                        background-position: -63px -84px;
+                    }
+                }
+            }
+
+            .course-filter-input-wrapper {
+                .display-flex();
+                .align-items(center);
+                position: relative;
+                padding-left: 30px;
+                height: 30px;
+                outline: none;
+                transition: box-shadow 0.2s ease;
+                transition: border 0.2s ease;
+                border-bottom: solid 1px @course-selector-filter-inactive-color;
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    top: 6px;
+                    left: 0;
+                    height: 16px;
+                    width: 16px;
+                    background-image: url(images/sprites_16.png);
+                    background-position: -84px -84px;
+                    background-repeat: no-repeat;
+                }
+
+                &:hover {
+                    border-bottom: solid 1px @course-selector-filter-active-color;
+                }
+
+                .course-filter-input {
+                    .flex(1 0);
+                    position: relative;
+                    height: 100%;
+                    width: 100%;
+                    top: 0;
+                    left: 0;
+                    border: none;
+                    background-color: transparent;
+                    color: @course-selector-filter-regular-color;
+                    font: @course-selector-regular-font;
+
+                    &:focus {
+                        color: @course-selector-filter-active-color;
+                    }
+
+                    .placeholder-color(@course-selector-filter-regular-color);
+                }
+
+                .course-filter-clear-btn {
+                    .flex(0 0 10px);
+                    .align-self(flex-end);
+                    visibility: hidden;
+                    width: 10px;
+                    height: 10px;
+                    margin-bottom: 8px;
+                    padding-left: 0px;
+                    background: url(images/sprites_16.png) -125px -45px no-repeat;
+                    cursor: pointer;
+                    border: 0px;
+
+                    &.shown {
+                        visibility: visible;
+                    }
+                }
+            }
         }
 
         .course-selector-courses {
             list-style: none;
-            margin: 15px;
 
             .course-selector-course {
                 .display-flex();
@@ -235,7 +318,7 @@
                 margin-bottom: 10px;
                 padding: 10px;
                 color: @course-selector-regular-item-color;
-                font: @course-selector-item-title-font;
+                font: @course-selector-regular-font;
                 background-color: @course-selector-item-bg-color;
                 border-radius: 5px;
                 border: 2px solid transparent;

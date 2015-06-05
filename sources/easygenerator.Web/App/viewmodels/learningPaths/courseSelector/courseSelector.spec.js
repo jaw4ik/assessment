@@ -28,6 +28,66 @@
             });
         });
 
+        describe('filteredCourses:', function () {
+            var courses = [
+                {
+                    id: '0',
+                    title: ko.observable('title'),
+                    createdOn: new Date(1)
+                },
+                {
+                    id: '1',
+                    title: ko.observable('courseTitle'),
+                    createdOn: new Date(1)
+                },
+                {
+                    id: '1',
+                    title: ko.observable('trololo'),
+                    createdOn: new Date(1)
+                }
+            ];
+
+            beforeEach(function () {
+                viewModel.courses(courses);
+            });
+
+            describe('when filter does not have a value', function () {
+                beforeEach(function () {
+                    viewModel.filter.value('');
+                });
+
+                it('should return courses collection', function () {
+                    expect(viewModel.filteredCourses()).toBe(courses);
+                });
+            });
+
+            describe('when filter has value', function () {
+                describe('when value is in upper case', function () {
+                    beforeEach(function () {
+                        viewModel.filter.value('T');
+                    });
+
+                    it('should return filtered courses collection', function () {
+                        expect(viewModel.filteredCourses().length).toBe(2);
+                        expect(viewModel.filteredCourses()[0].title()).toBe(courses[0].title());
+                        expect(viewModel.filteredCourses()[1].title()).toBe(courses[2].title());
+                    });
+                });
+
+                describe('when value is in lower case', function () {
+                    beforeEach(function () {
+                        viewModel.filter.value('t');
+                    });
+
+                    it('should return filtered courses collection', function () {
+                        expect(viewModel.filteredCourses().length).toBe(2);
+                        expect(viewModel.filteredCourses()[0].title()).toBe(courses[0].title());
+                        expect(viewModel.filteredCourses()[1].title()).toBe(courses[2].title());
+                    });
+                });
+            });
+        });
+
         describe('expand:', function () {
             it('should set isExpanded to true', function () {
                 viewModel.isExpanded(false);
@@ -116,9 +176,10 @@
 
         describe('courseRemoved:', function () {
             var courseBrief;
-            beforeEach(function() {
+            beforeEach(function () {
                 courseBrief = {
                     id: 'id',
+                    title: ko.observable(''),
                     isSelected: ko.observable(true)
                 };
             });

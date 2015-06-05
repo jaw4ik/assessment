@@ -188,6 +188,7 @@
             'viewmodels/learningPaths/courseSelector/queries/getOwnedCoursesQuery.spec',
             'viewmodels/learningPaths/courseSelector/courseSelector.spec',
             'viewmodels/learningPaths/courseSelector/courseBrief.spec',
+            'viewmodels/learningPaths/courseSelector/courseFilter.spec',
             'viewmodels/learningPaths/learningPath/commands/updateTitleCommand.spec',
             'viewmodels/learningPaths/learningPath/commands/addCourseCommand.spec',
             'viewmodels/learningPaths/learningPath/commands/removeCourseCommand.spec',
