@@ -16,6 +16,7 @@
             this.hasFocus = ko.observable(false);
             this.isDeleted = false;
             this.canBeAdded = ko.observable(canBeAddedImmediately);
+            this.isRemoved = ko.observable(false);
 
             this.updateLearningContent = function () {
                 var id = ko.unwrap(that.id);
@@ -32,7 +33,7 @@
                         showNotification(item.createdOn);
                     });
                 } else {
-                    if (text != that.originalText) {
+                    if (text != that.originalText && !that.isRemoved()) {
                         learningContentsrepository.updateText(_questionId, id, text).then(function (response) {
                             that.originalText = text;
                             showNotification(response.modifiedOn);
@@ -73,6 +74,17 @@
                     });
                 });
             };
+
+            this.restoreLearningContent = function () {
+                var text = ko.unwrap(that.text);
+
+                learningContentsrepository.addLearningContent(_questionId, { text: text }).then(function (item) {
+                    that.id(item.id);
+                    that.originalText = text;
+                    app.trigger(constants.messages.question.learningContent.restore, that);
+                    showNotification(item.createdOn);
+                });
+            }
 
             this.publishActualEvent = function (event) {
                 if (_questionType === constants.questionType.informationContent.type) {

@@ -111,7 +111,9 @@
 
         function restoreLearningContent(learningContent) {
             learningContent.isRemoved(false);
-            return questionRepository.updateLearningContentsOrder(viewModel.questionId, viewModel.learningContents()).then(function () {
+            return questionRepository.updateLearningContentsOrder(viewModel.questionId, _.reject(viewModel.learningContents(), function (item) {
+                return item.isRemoved() == true;
+            })).then(function () {
                 notify.saved();
             });
         }

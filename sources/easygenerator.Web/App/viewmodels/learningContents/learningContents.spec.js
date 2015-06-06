@@ -170,6 +170,7 @@
                 var def = Q.defer();
                 def.resolve();
                 spyOn(questionRepository, 'updateLearningContentsOrder').and.returnValue(def.promise);
+                viewModel.learningContents([]);
             });
 
             it('should be function', function () {
