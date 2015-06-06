@@ -1,5 +1,5 @@
 <div class="error-page-container">
-    <header class="app-header">
+    <header class="main-logo-wrapper">
         <img class="main-logo" ng-src="{{ xApiError.logoUrl }}">
         <span class="vertical-align-helper"></span>
     </header>
@@ -9,10 +9,10 @@
                 {{ '[tracking and tracing error]' | translate }}
             </div>
             <div class="error-message-container">
-                {{ xApiError.allowToContinue ? '[tracking and tracing error hint]' : '[tracking and tracing error hint without continue]' | translate }}
+                {{ '[tracking and tracing error hint]' | translate }}
             </div>
             <div class="error-button-container">
-                <button ng-if="xApiError.allowToContinue" ng-click="xApiError.continue()" class="button large emphasize default">
+                <button ng-click="xApiError.continue()" class="button large emphasize default">
                     <span class="text-wrapper">
                         {{ '[tracking and tracing continue anyway]' | translate }}
                     </span>

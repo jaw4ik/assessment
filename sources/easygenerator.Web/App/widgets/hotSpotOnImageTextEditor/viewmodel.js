@@ -7,7 +7,6 @@
         close: close,
         save: save,
         show: show,
-        saveAndClose: saveAndClose,
         isVisible: ko.observable(false),
         text: ko.observable(''),
         hasFocus: ko.observable(false),
@@ -37,10 +36,5 @@
         if (_.isFunction(hotSpotOnImageTextEditor.callback)) {
             hotSpotOnImageTextEditor.callback(hotSpotOnImageTextEditor.text());
         }
-    }
-
-    function saveAndClose() {
-        hotSpotOnImageTextEditor.save();
-        hotSpotOnImageTextEditor.close();
     }
 });

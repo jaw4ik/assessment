@@ -8,8 +8,6 @@
                 var $element = $(element),
                     isEditing = valueAccessor().isEditing,
                     saveHandler = valueAccessor().save,
-                    focusHandler = valueAccessor().focus,
-                    blurHandler = valueAccessor().blur,
                     actions = valueAccessor().actions,
                     that = bindingContext.$root;
 
@@ -121,15 +119,11 @@
                     if (!isEditing())
                         isEditing(true);
 
-                    focusHandler.call(that, viewModel);
                     $('html').bind('click', blurEvent);
                 }
 
                 function endEditing() {
                     isEditing(false);
-                    if (!!blurHandler) {
-                        blurHandler.call(that, viewModel);
-                    }
                 }
 
                 function blurEvent(event) {
