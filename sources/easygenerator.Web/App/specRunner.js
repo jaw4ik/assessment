@@ -293,6 +293,7 @@
             'viewmodels/questions/feedback.spec',
 
             'viewmodels/learningContents/learningContents.spec',
+            'viewmodels/learningContents/learningContentBase.spec',
             'viewmodels/learningContents/content.spec',
             'viewmodels/learningContents/hotspotOnAnImage.spec',
 

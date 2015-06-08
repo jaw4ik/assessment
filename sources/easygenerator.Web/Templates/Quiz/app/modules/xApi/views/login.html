@@ -2,8 +2,8 @@
     <span class="main-background"></span>
     <div class="login-overlay"></div>
     <div class="login-container">
-        <div ng-if="login.allowToSkip" class="login-skip-button" login-leave="skip"></div>
-        <div ng-if="login.allowToSkip" class="login-skip-text-wrapper">
+        <div class="login-skip-button" login-leave="skip"></div>
+        <div class="login-skip-text-wrapper">
             <span class="login-skip-text-arrow"></span>
             <span class="login-skip-text">{{ '[tracking and tracing skip step]' | translate }}</span>
         </div>
@@ -33,7 +33,7 @@
                                 <span>*</span>
                             </span>
                         </button>
-                        <div ng-if ="login.allowToSkip" class="login-skip-link" login-leave="skip">{{ '[tracking and tracing do not report]' | translate }}</div>
+                        <div class="login-skip-link" login-leave="skip">{{ '[tracking and tracing do not report]' | translate }}</div>
                         <span class="login-description">
                             * By clicking the button “{{ '[tracking and tracing start]' | translate }}” you agree to the fact that your results and scores will be stored. These results will only be visible to the organizer (author) of your course.
                         </span>

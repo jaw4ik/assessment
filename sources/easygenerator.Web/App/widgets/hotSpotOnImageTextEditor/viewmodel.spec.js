@@ -94,26 +94,6 @@
 
         });
 
-        describe('saveAndClose', function () {
-
-            it('should be function', function() {
-                expect(widget.saveAndClose).toBeFunction();
-            });
-
-            it('should save text', function() {
-                spyOn(widget, 'callback');
-                widget.saveAndClose();
-                expect(widget.callback).toHaveBeenCalledWith(widget.text());
-            });
-
-            it('should hide popover', function () {
-                widget.isVisible(true);
-                widget.saveAndClose();
-                expect(widget.isVisible()).toBeFalsy();
-            });
-
-        });
-
         describe('show:', function () {
 
             var someText, points, wrapper, callback;

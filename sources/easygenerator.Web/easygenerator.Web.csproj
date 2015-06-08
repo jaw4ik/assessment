@@ -779,6 +779,10 @@
     <Content Include="App\viewmodels\learningContents\hotspotOnAnImage.spec.js">
       <DependentUpon>hotspotOnAnImage.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\learningContents\learningContentBase.js" />
+    <Content Include="App\viewmodels\learningContents\learningContentBase.spec.js">
+      <DependentUpon>learningContentBase.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\learningContents\learningContents.js" />
     <Content Include="App\viewmodels\learningContents\learningContents.spec.js">
       <DependentUpon>learningContents.js</DependentUpon>
