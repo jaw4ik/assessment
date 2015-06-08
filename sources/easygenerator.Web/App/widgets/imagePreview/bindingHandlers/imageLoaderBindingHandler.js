@@ -4,10 +4,8 @@
     image.style.display = 'none';
     image.style.width = 'auto'; //Fix for IE
     image.style.height = 'auto';
-
     ko.bindingHandlers.imageLoader = {
         init: function (element, valueAccessor) {
-
             var $element = $(element),
                 data = valueAccessor() || {},
                 isLoaded = data.isLoaded;
@@ -32,7 +30,6 @@
             $element.append(image);
         },
         update: function (element, valueAccessor) {
-
             var $element = $(element),
                 data = valueAccessor() || {},
                 isLoaded = data.isLoaded,
@@ -43,7 +40,6 @@
             var browserWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
             var browserHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
             var maxSize = browserWidth > browserHeight ? browserWidth : browserHeight;
-
             var resizedImageUrl = imageUrl + '?height=' + maxSize + '&width=' + maxSize;
             image.onload = function () {
                 if (data.imageUrl() === imageUrl) {
