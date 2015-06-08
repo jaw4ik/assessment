@@ -6,8 +6,6 @@
     "[finish course]": "Закінчити курс",
     "[learning objective]": "Мета навчання",
     "[mastered objectives]": "Вами досягнуто такі навчальні цілі:",
-    "[show recommended reading]": "Показати рекомендації",
-    "[hide recommended reading]": "Сховати рекомендації",
     "[recommended reading]": "Рекомендовано до вивчення",
     "[start]": "Почати",
     "[questions]": "Питання",
@@ -43,6 +41,8 @@
     "[tracking and tracing error hint]": "Натисніть 'Спробувати ще'. Якщо помилка повторюється і ви бажаєте продовжити курс без відправки результатів - натисніть 'Продовжити'.",
     "[tracking and tracing restart course]": "Спробувати ще",
     "[tracking and tracing continue anyway]": "Продовжити",
+    "[answered]": "пройдено",
+    "[overall progress]": "загальний прогрес",
     "[tracking and tracing hint without skip]": "Будь-ласка, вкажіть необхідні дані та натисніть \"Так, відстежувати мій прогрес\" для того, щоб розпочати курс",
     "[tracking and tracing error hint without continue]": "Натисніть 'Спробувати ще'. Якщо помилка виникне знову зв'яжіться з організацією, що надала вам курс."
 }
