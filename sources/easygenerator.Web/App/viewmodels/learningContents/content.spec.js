@@ -1,18 +1,18 @@
-﻿define(['knockout', 'viewmodels/learningContents/content'], function(ko, Content) {
+﻿define(['knockout', 'viewmodels/learningContents/content'], function (ko, Content) {
     'use strict';
 
     var app = require('durandal/app'),
         constants = require('constants'),
         notify = require('notify'),
-        eventTracker = require('eventTracker'),
-        repository = require('repositories/learningContentRepository');
+        eventTracker = require('eventTracker');
+        
 
-    describe('viewModel Content', function() {
+    describe('viewModel Content', function () {
         var _questionId = 'questionId',
             _questionType = 'questionType',
             canBeAddedImmediately = true;
 
-        describe('when learningContent is defined in database', function() {
+        describe('when learningContent is defined in database', function () {
             var learningContent = {
                 id: 'contentId',
                 text: 'text',
@@ -20,11 +20,12 @@
             },
             ctor = null;
 
-            beforeEach(function() {
+            beforeEach(function () {
                 ctor = new Content(learningContent, _questionId, _questionType, canBeAddedImmediately);
                 spyOn(eventTracker, 'publish');
                 spyOn(notify, 'saved');
                 spyOn(app, 'trigger');
+                spyOn(ctor, 'removeLearningContent').and.callFake(function () { });
             });
 
             it('should initialize field', function () {
@@ -65,12 +66,12 @@
 
                 it('should send event \'Delete learning content\' with category \'Information\' for informationContent question type', function () {
                     var ctor2 = new Content(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
+                    spyOn(ctor2, 'removeLearningContent').and.callFake(function () { });
                     ctor2.remove();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Delete learning content', 'Information');
                 });
 
-                it('should call removeLearningContent', function() {
-                    spyOn(ctor, 'removeLearningContent');
+                it('should call removeLearningContent', function () {
                     ctor.remove();
                     expect(ctor.removeLearningContent).toHaveBeenCalled();
                 });
