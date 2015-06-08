@@ -6,11 +6,13 @@ CKEDITOR.editorConfig = function (config) {
     config.toolbar = [
         ['Cut', 'Copy', 'Paste', 'PasteText', '-', 'Undo', 'Redo'],
         ['Bold', 'Italic', 'Underline', '-', 'RemoveFormat'],
+        ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
         ['NumberedList', 'BulletedList'],
         ['Link', 'Unlink', 'Table', 'Image', 'Iframe', 'AudioEmbed', 'MediaEmbed', 'EqnEditor'],
         ['semanticTags']
     ];
 
+    CKEDITOR.plugins.addExternal('justify', 'customPlugins/justify/');
     CKEDITOR.plugins.addExternal('semantictags', 'customPlugins/semantictags/');
     CKEDITOR.plugins.addExternal('fileuploader', 'customPlugins/fileuploader/');
     CKEDITOR.plugins.addExternal('image', 'customPlugins/image/');
@@ -21,7 +23,7 @@ CKEDITOR.editorConfig = function (config) {
 	CKEDITOR.plugins.addExternal('eqneditor', 'customPlugins/eqneditor/');
     CKEDITOR.plugins.addExternal('fillintheblank', 'customPlugins/fillintheblank/');
 
-    config.extraPlugins = 'semantictags,fileuploader,image,floatingspace,mediaembed,audioembed,imagelibrary,eqneditor,fillintheblank';
+    config.extraPlugins = 'justify,semantictags,fileuploader,image,floatingspace,mediaembed,audioembed,imagelibrary,eqneditor,fillintheblank';
     config.extraAllowedContent = 'iframe;td{*};th{*};';
 
     config.removeFormatTags = 'big,del,font,ins,kbd,s,small,strike,tt,var,figcaption,em,strong,u,abbr,acronym,blockquote,q,cite,dfn,code,samp,sub,sup,mark,time';
@@ -51,7 +53,11 @@ CKEDITOR.editorConfig = function (config) {
         'link': 'Open "Create link" dialog',
         'unlink': 'Remove link',
         'table': 'Open "Create table" dialog',
-        'image': 'Open "Create image" dialog'
+        'image': 'Open "Create image" dialog',
+        'justifyleft': 'Set text align left',
+        'justifycenter': 'Set text align center',
+        'justifyright': 'Set text align right',
+        'justifyblock': 'Set text align justify'
     };
 
     var editor = this;

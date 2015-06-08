@@ -290,7 +290,7 @@
         }
 
         function addContentFilter() {
-            var commonPropertiesToLeave = ['width', 'height', 'float', 'border-style', 'border-width', 'margin', 'margin-top', 'margin-left', 'margin-right', 'margin-bottom'];
+            var commonPropertiesToLeave = ['width', 'height', 'float', 'border-style', 'border-width', 'margin', 'margin-top', 'margin-left', 'margin-right', 'margin-bottom', 'text-align'];
             var specificPropertiesToLeaveMapping = {
                 'td': ['text-align', 'vertical-align', 'border-color', 'background-color'],
                 'th': ['text-align', 'vertical-align', 'border-color', 'background-color']
