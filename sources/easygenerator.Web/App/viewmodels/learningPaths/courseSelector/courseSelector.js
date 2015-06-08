@@ -22,7 +22,7 @@
 
             var value = viewModel.filter.value();
             return _.filter(viewModel.courses(), function (course) {
-                return course.title().toLowerCase().indexOf(value.toLowerCase()) === 0;
+                return course.title().toLowerCase().indexOf(value.toLowerCase()) >= 0;
             });
         });
 

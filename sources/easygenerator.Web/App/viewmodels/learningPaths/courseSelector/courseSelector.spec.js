@@ -63,27 +63,27 @@
             });
 
             describe('when filter has value', function () {
-                describe('when value is in upper case', function () {
+                describe('and when value is in upper case', function () {
                     beforeEach(function () {
-                        viewModel.filter.value('T');
+                        viewModel.filter.value('TITLE');
                     });
 
-                    it('should return filtered courses collection', function () {
+                    it('should courses collection', function () {
                         expect(viewModel.filteredCourses().length).toBe(2);
                         expect(viewModel.filteredCourses()[0].title()).toBe(courses[0].title());
-                        expect(viewModel.filteredCourses()[1].title()).toBe(courses[2].title());
+                        expect(viewModel.filteredCourses()[1].title()).toBe(courses[1].title());
                     });
                 });
 
-                describe('when value is in lower case', function () {
+                describe('and when value is in lower case', function () {
                     beforeEach(function () {
-                        viewModel.filter.value('t');
+                        viewModel.filter.value('title');
                     });
 
                     it('should return filtered courses collection', function () {
                         expect(viewModel.filteredCourses().length).toBe(2);
                         expect(viewModel.filteredCourses()[0].title()).toBe(courses[0].title());
-                        expect(viewModel.filteredCourses()[1].title()).toBe(courses[2].title());
+                        expect(viewModel.filteredCourses()[1].title()).toBe(courses[1].title());
                     });
                 });
             });
@@ -226,7 +226,7 @@
 
             it('should not throw when course not found in collection', function () {
                 viewModel.courses([]);
-                var f = function() {
+                var f = function () {
                     viewModel.courseTitleUpdated(course);
                 };
 
