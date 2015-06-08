@@ -1,5 +1,5 @@
 ﻿define(['knockout', 'durandal/app', 'constants', 'notify', 'eventTracker', 'repositories/learningContentRepository'],
-    function (ko, app, constants, notify, eventTracker, learningContentsrepository) {
+    function (ko, app, constants, notify, eventTracker, learningContentRepository) {
         "use strict";
 
         var viewModel = function (learningContent, questionId, questionType, canBeAddedImmediately) {
@@ -26,14 +26,14 @@
                 }
 
                 if (_.isEmptyOrWhitespace(id)) {
-                    learningContentsrepository.addLearningContent(_questionId, { text: text }).then(function (item) {
+                    learningContentRepository.addLearningContent(_questionId, { text: text }).then(function (item) {
                         that.id(item.id);
                         that.originalText = text;
                         showNotification(item.createdOn);
                     });
                 } else {
                     if (text != that.originalText) {
-                        learningContentsrepository.updateText(_questionId, id, text).then(function (response) {
+                        learningContentRepository.updateText(_questionId, id, text).then(function (response) {
                             that.originalText = text;
                             showNotification(response.modifiedOn);
                         });
@@ -53,7 +53,7 @@
                 if (_.isEmptyHtmlText(text)) {
                     app.trigger(constants.messages.question.learningContent.remove, that);
                     if (!_.isEmptyOrWhitespace(id)) {
-                        learningContentsrepository.removeLearningContent(_questionId, id).then(function (modifiedOn) {
+                        learningContentRepository.removeLearningContent(_questionId, id).then(function (modifiedOn) {
                             showNotification(modifiedOn);
                         });
                     }
@@ -68,7 +68,7 @@
 
                 performActionWhenLearningContentIdIsSet(function () {
                     app.trigger(constants.messages.question.learningContent.remove, that);
-                    learningContentsrepository.removeLearningContent(_questionId, ko.unwrap(that.id)).then(function (response) {
+                    learningContentRepository.removeLearningContent(_questionId, ko.unwrap(that.id)).then(function (response) {
                         showNotification(response.modifiedOn);
                     });
                 });

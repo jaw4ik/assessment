@@ -7,7 +7,7 @@
                 addLearningContent: 'Add learning content',
                 deleteLearningContent: 'Delete learning content',
                 beginEditText: 'Start editing learning content',
-                endEditText: 'End editing learning content',
+                endEditText: 'End editing learning content'
             };
 
         var viewModel = function (learningContent, questionId, questionType, canBeAddedImmediately) {

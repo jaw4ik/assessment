@@ -15,7 +15,6 @@
                 $(element).css('background-image', 'url(' + '' + ')');
                 return;
             }
-
             var img = new Image();
             img.src = imageUrl;
             img.onload = function () {

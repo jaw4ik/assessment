@@ -14,21 +14,23 @@
             _questionType = 'questionType',
             canBeAddedImmediately = false;
 
-        describe('when learningContent is defined in database', function() {
+        describe('when learningContent is defined in database', function () {
             var learningContent = {
-                    id: 'hotspotId',
-                    text: 'text',
-                    type: constants.learningContentsTypes.hotspot
-                },
+                id: 'hotspotId',
+                text: 'text',
+                type: constants.learningContentsTypes.hotspot
+            },
                 ctor = null;
 
-            beforeEach(function() {
+            beforeEach(function () {
                 ctor = new HotspotOnAnImage(learningContent, _questionId, _questionType, canBeAddedImmediately);
                 spyOn(app, 'trigger');
                 spyOn(eventTracker, 'publish');
+                spyOn(ctor, 'updateLearningContent').and.callFake(function () { });
+                spyOn(ctor, 'removeLearningContent').and.callFake(function () { });
             });
 
-            it('should initialize field', function() {
+            it('should initialize field', function () {
                 expect(ctor.id()).toBe(learningContent.id);
                 expect(ctor.text()).toBe(learningContent.text);
                 expect(ctor.originalText).toBe(learningContent.text);
@@ -54,7 +56,7 @@
 
             describe('addPolygon:', function () {
 
-                it('should add polygon', function() {
+                it('should add polygon', function () {
                     ctor.addPolygon({});
                     expect(ctor.polygons().length).toBe(1);
                 });
@@ -76,7 +78,7 @@
 
                 var polygon;
 
-                beforeEach(function() {
+                beforeEach(function () {
                     polygon = {
                         id: 1,
                         points: ko.observable({ x: 0 })
@@ -86,7 +88,7 @@
                     ctor.polygons.push(polygon);
                 });
 
-                it('should update polygon', function() {
+                it('should update polygon', function () {
                     ctor.updatePolygon(1, { x: 10 });
                     expect(ctor.polygons()[0].points().x).toBe(10);
                 });
@@ -107,10 +109,10 @@
             });
 
             describe('deletePolygon:', function () {
-                
+
                 var polygon;
 
-                beforeEach(function() {
+                beforeEach(function () {
                     polygon = {
                         id: 1,
                         points: ko.observable({ x: 0 }),
@@ -122,7 +124,7 @@
                     spyOn(polygon, 'removed');
                 });
 
-                it('should delete polygon', function() {
+                it('should delete polygon', function () {
                     ctor.deletePolygon(1);
                     expect(ctor.polygons().length).toBe(0);
                 });
@@ -151,24 +153,24 @@
 
                 var text = 'text2dsad';
 
-                beforeEach(function() {
+                beforeEach(function () {
                     spyOn(hotspotParser, 'updateHotspotOnAnImage').and.returnValue(text);
                 });
 
-                it('should call parser update', function() {
+                it('should call parser update', function () {
                     ctor.updateHotspotOnAnImage();
                     expect(hotspotParser.updateHotspotOnAnImage).toHaveBeenCalledWith(ctor.text, ctor.background, ctor.polygons);
                 });
 
-                describe('when text is not equal original text', function() {
-                    
-                    it('should update text', function() {
+                describe('when text is not equal original text', function () {
+
+                    it('should update text', function () {
                         ctor.updateHotspotOnAnImage();
                         expect(ctor.text()).toBe(text);
                     });
 
                     it('should call updateText', function () {
-                        spyOn(ctor, 'updateLearningContent');
+
                         ctor.updateHotspotOnAnImage();
                         expect(ctor.updateLearningContent).toHaveBeenCalled();
                     });
@@ -348,12 +350,12 @@
 
                 it('should send event \'Delete hotspot content block\' with category \'Information\' for informationContent question type', function () {
                     var ctor2 = new HotspotOnAnImage(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
+                    spyOn(ctor2, 'removeLearningContent').and.callFake(function () { });
                     ctor2.remove();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Delete hotspot content block', 'Information');
                 });
 
                 it('should call removeLearningContent', function () {
-                    spyOn(ctor, 'removeLearningContent');
                     ctor.remove();
                     expect(ctor.removeLearningContent).toHaveBeenCalled();
                 });
@@ -362,6 +364,5 @@
 
         });
     });
-
-
+    
 });
