@@ -1,8 +1,8 @@
-﻿define(['viewmodels/learningPaths/learningPaths'], function (viewModel) {
+﻿define(['viewmodels/learningPaths/learningPaths/learningPaths'], function (viewModel) {
     "use strict";
     var
-         createLearningPathCommand = require('viewmodels/learningPaths/commands/createLearningPathCommand'),
-         getLearningPathCollectionQuery = require('viewmodels/learningPaths/queries/getLearningPathCollectionQuery')
+         createLearningPathCommand = require('viewmodels/learningPaths/learningPaths/commands/createLearningPathCommand'),
+         getLearningPathCollectionQuery = require('viewmodels/learningPaths/learningPaths/queries/getLearningPathCollectionQuery')
     ;
 
     describe('viewModel [learningPaths]', function () {

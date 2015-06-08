@@ -1,4 +1,4 @@
-﻿define(['viewmodels/learningPaths/learningPathBrief'], function (ctor) {
+﻿define(['viewmodels/learningPaths/learningPaths/learningPathBrief'], function (ctor) {
     "use strict";
     var
          router = require('plugins/router'),

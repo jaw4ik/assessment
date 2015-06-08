@@ -183,8 +183,10 @@
 
             //#region learning paths
 
-            'viewmodels/learningPaths/commands/createLearningPathCommand.spec',
-            'viewmodels/learningPaths/queries/getLearningPathCollectionQuery.spec',
+            'viewmodels/learningPaths/learningPaths/commands/createLearningPathCommand.spec',
+            'viewmodels/learningPaths/learningPaths/queries/getLearningPathCollectionQuery.spec',
+            'viewmodels/learningPaths/learningPaths/learningPathBrief.spec',
+            'viewmodels/learningPaths/learningPaths/learningPaths.spec',
             'viewmodels/learningPaths/courseSelector/queries/getOwnedCoursesQuery.spec',
             'viewmodels/learningPaths/courseSelector/courseSelector.spec',
             'viewmodels/learningPaths/courseSelector/courseBrief.spec',
@@ -196,9 +198,7 @@
             'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery.spec',
             'viewmodels/learningPaths/learningPath/learningPath.spec',
             'viewmodels/learningPaths/learningPath/courseBrief.spec',
-            'viewmodels/learningPaths/learningPathBrief.spec',
-            'viewmodels/learningPaths/learningPaths.spec',
-
+            
             //#endregion
 
             'navigationBar/navigationBar.spec',

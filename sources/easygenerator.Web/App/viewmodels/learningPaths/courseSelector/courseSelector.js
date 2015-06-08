@@ -10,7 +10,7 @@
             activate: activate,
             deactivate: deactivate,
             courses: ko.observableArray([]),
-            courseRemoved: courseRemoved,
+            courseRemovedFromPath: courseRemovedFromPath,
             filter: courseFilter,
             courseTitleUpdated: courseTitleUpdated
         };
@@ -38,7 +38,7 @@
         }
 
         function activate(learningPathId) {
-            app.on(constants.messages.learningPath.removeCourse, viewModel.courseRemoved);
+            app.on(constants.messages.learningPath.removeCourse, viewModel.courseRemovedFromPath);
             app.on(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
 
             return getLearningPathByIdQuery.execute(learningPathId)
@@ -57,7 +57,7 @@
         }
 
         function deactivate() {
-            app.off(constants.messages.learningPath.removeCourse, viewModel.courseRemoved);
+            app.off(constants.messages.learningPath.removeCourse, viewModel.courseRemovedFromPath);
             app.off(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
         }
 
@@ -71,7 +71,7 @@
             return courseBrief;
         }
 
-        function courseRemoved(courseId) {
+        function courseRemovedFromPath(courseId) {
             var course = _.find(viewModel.courses(), function (item) {
                 return item.id === courseId;
             });

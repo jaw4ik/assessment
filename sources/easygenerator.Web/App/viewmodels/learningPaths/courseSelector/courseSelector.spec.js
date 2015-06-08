@@ -137,7 +137,7 @@
 
             it('should subscribe on learningPath.removeCourse event', function () {
                 viewModel.activate();
-                expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.removeCourse, viewModel.courseRemoved);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.removeCourse, viewModel.courseRemovedFromPath);
             });
 
             it('should subscribe on course.titleUpdatedByCollaborator event', function () {
@@ -182,7 +182,7 @@
         describe('deactivate:', function () {
             it('should unsubscribe from learningPath.removeCourse event', function () {
                 viewModel.deactivate();
-                expect(app.off).toHaveBeenCalledWith(constants.messages.learningPath.removeCourse, viewModel.courseRemoved);
+                expect(app.off).toHaveBeenCalledWith(constants.messages.learningPath.removeCourse, viewModel.courseRemovedFromPath);
             });
 
             it('should unsubscribe from course.titleUpdatedByCollaborator event', function () {
@@ -192,7 +192,7 @@
 
         });
 
-        describe('courseRemoved:', function () {
+        describe('courseRemovedFromPath:', function () {
             var courseBrief = {
                 id: 'id',
                 title: ko.observable(''),
@@ -201,7 +201,7 @@
 
             it('should set course isSelected to false', function () {
                 viewModel.courses([courseBrief]);
-                viewModel.courseRemoved(courseBrief.id);
+                viewModel.courseRemovedFromPath(courseBrief.id);
                 expect(courseBrief.isSelected()).toBeFalsy();
             });
         });

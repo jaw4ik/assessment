@@ -1,4 +1,4 @@
-﻿define(['viewmodels/learningPaths/queries/getLearningPathCollectionQuery'], function (query) {
+﻿define(['viewmodels/learningPaths/learningPaths/queries/getLearningPathCollectionQuery'], function (query) {
     "use strict";
     var
         dataContext = require('dataContext')

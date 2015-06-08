@@ -827,8 +827,8 @@
     <Content Include="App\viewmodels\library\index.spec.js">
       <DependentUpon>index.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\learningPaths\commands\createLearningPathCommand.js" />
-    <Content Include="App\viewmodels\learningPaths\commands\createLearningPathCommand.spec.js">
+    <Content Include="App\viewmodels\learningPaths\learningPaths\commands\createLearningPathCommand.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPaths\commands\createLearningPathCommand.spec.js">
       <DependentUpon>createLearningPathCommand.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\commands\updateTitleCommand.js" />
@@ -837,16 +837,16 @@
     <Content Include="App\viewmodels\learningPaths\learningPath\learningPath.spec.js">
       <DependentUpon>learningPath.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\learningPaths\learningPathBrief.js" />
-    <Content Include="App\viewmodels\learningPaths\learningPathBrief.spec.js">
+    <Content Include="App\viewmodels\learningPaths\learningPaths\learningPathBrief.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPaths\learningPathBrief.spec.js">
       <DependentUpon>learningPathBrief.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\learningPaths\learningPaths.js" />
-    <Content Include="App\viewmodels\learningPaths\learningPaths.spec.js">
+    <Content Include="App\viewmodels\learningPaths\learningPaths\learningPaths.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPaths\learningPaths.spec.js">
       <DependentUpon>learningPaths.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\learningPaths\queries\getLearningPathCollectionQuery.js" />
-    <Content Include="App\viewmodels\learningPaths\queries\getLearningPathCollectionQuery.spec.js">
+    <Content Include="App\viewmodels\learningPaths\learningPaths\queries\getLearningPathCollectionQuery.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPaths\queries\getLearningPathCollectionQuery.spec.js">
       <DependentUpon>getLearningPathCollectionQuery.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\queries\getLearningPathByIdQuery.js" />
@@ -901,7 +901,7 @@
     <Content Include="App\views\library\index.html" />
     <Content Include="App\views\learningPaths\index.html" />
     <Content Include="App\views\learningPaths\learningPath\learningPath.html" />
-    <Content Include="App\views\learningPaths\learningPaths.html" />
+    <Content Include="App\views\learningPaths\learningPaths\learningPaths.html" />
     <Content Include="App\views\objectives\index.html" />
     <Content Include="App\views\questions\statement\statement.html" />
     <Content Include="App\views\videos\videos.html" />
