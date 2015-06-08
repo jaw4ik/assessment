@@ -23,9 +23,10 @@
 @course-selector-checkbox-color: #76c486;
 @course-selector-inactive-checkbox-color: #c2c6cb;
 
-@course-selector-filter-regular-color: #42515f;
-@course-selector-filter-active-color: #469dd5;
-@course-selector-filter-inactive-color: #abbbc6;
+@course-filter-regular-color: #63798e;
+@course-filter-active-text-color:#42515f;
+@course-filter-active-color: #469dd5;
+@course-filter-inactive-color: #abbbc6;
 
 
 .learning-paths {
@@ -254,8 +255,8 @@
 
             &.active {
                 .course-filter-input-wrapper {
-                    border-bottom: solid 1px @course-selector-filter-active-color;
-                    box-shadow: 0 6px 4px -7px @course-selector-filter-active-color;
+                    border-bottom: solid 1px @course-filter-active-color;
+                    box-shadow: 0 6px 4px -7px @course-filter-active-color;
 
                     &:after {
                         background-position: -63px -84px;
@@ -272,7 +273,7 @@
                 outline: none;
                 transition: box-shadow 0.2s ease;
                 transition: border 0.2s ease;
-                border-bottom: solid 1px @course-selector-filter-inactive-color;
+                border-bottom: solid 1px @course-filter-inactive-color;
 
                 &:after {
                     content: '';
@@ -287,7 +288,11 @@
                 }
 
                 &:hover {
-                    border-bottom: solid 1px @course-selector-filter-active-color;
+                    border-bottom: solid 1px @course-filter-active-color;
+
+                     &:after {
+                        background-position: -63px -84px;
+                    }
                 }
 
                 .course-filter-input {
@@ -299,14 +304,14 @@
                     left: 0;
                     border: none;
                     background-color: transparent;
-                    color: @course-selector-filter-regular-color;
+                    color: @course-filter-regular-color;
                     font: @course-selector-regular-font;
 
                     &:focus {
-                        color: @course-selector-filter-active-color;
+                        color: @course-filter-active-text-color;
                     }
 
-                    .placeholder-color(@course-selector-filter-regular-color);
+                    .placeholder-color(@course-filter-regular-color);
                 }
 
                 .course-filter-clear-btn {

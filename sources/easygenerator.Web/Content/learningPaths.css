@@ -233,6 +233,9 @@
 .learning-path .navigation-bar-wrapper.course-selector .course-filter .course-filter-input-wrapper:hover {
   border-bottom: solid 1px #469dd5;
 }
+.learning-path .navigation-bar-wrapper.course-selector .course-filter .course-filter-input-wrapper:hover:after {
+  background-position: -63px -84px;
+}
 .learning-path .navigation-bar-wrapper.course-selector .course-filter .course-filter-input-wrapper .course-filter-input {
   -webkit-flex: 1 0;
   flex: 1 0;
@@ -243,25 +246,25 @@
   left: 0;
   border: none;
   background-color: transparent;
-  color: #42515f;
+  color: #63798e;
   font: 13px 'OpenSans';
 }
 .learning-path .navigation-bar-wrapper.course-selector .course-filter .course-filter-input-wrapper .course-filter-input:focus {
-  color: #469dd5;
+  color: #42515f;
 }
 .learning-path .navigation-bar-wrapper.course-selector .course-filter .course-filter-input-wrapper .course-filter-input::-webkit-input-placeholder {
-  color: #42515f;
+  color: #63798e;
 }
 .learning-path .navigation-bar-wrapper.course-selector .course-filter .course-filter-input-wrapper .course-filter-input:-moz-placeholder {
   /* Firefox 18- */
-  color: #42515f;
+  color: #63798e;
 }
 .learning-path .navigation-bar-wrapper.course-selector .course-filter .course-filter-input-wrapper .course-filter-input::-moz-placeholder {
   /* Firefox 19+ */
-  color: #42515f;
+  color: #63798e;
 }
 .learning-path .navigation-bar-wrapper.course-selector .course-filter .course-filter-input-wrapper .course-filter-input:-ms-input-placeholder {
-  color: #42515f;
+  color: #63798e;
 }
 .learning-path .navigation-bar-wrapper.course-selector .course-filter .course-filter-input-wrapper .course-filter-clear-btn {
   -webkit-flex: 0 0 10px;
