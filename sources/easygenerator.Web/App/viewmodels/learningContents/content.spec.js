@@ -1,4 +1,4 @@
-﻿define(['knockout', 'viewmodels/learningContents/content'], function(ko, Content) {
+﻿define(['knockout', 'viewmodels/learningContents/content'], function (ko, Content) {
     'use strict';
 
     var app = require('durandal/app'),
@@ -7,12 +7,12 @@
         eventTracker = require('eventTracker'),
         repository = require('repositories/learningContentRepository');
 
-    describe('viewModel Content', function() {
+    describe('viewModel Content', function () {
         var _questionId = 'questionId',
             _questionType = 'questionType',
             canBeAddedImmediately = true;
 
-        describe('when learningContent is defined in database', function() {
+        describe('when learningContent is defined in database', function () {
             var learningContent = {
                 id: 'contentId',
                 text: 'text',
@@ -20,7 +20,7 @@
             },
             ctor = null;
 
-            beforeEach(function() {
+            beforeEach(function () {
                 ctor = new Content(learningContent, _questionId, _questionType, canBeAddedImmediately);
                 spyOn(eventTracker, 'publish');
                 spyOn(notify, 'saved');
@@ -69,7 +69,7 @@
                     expect(eventTracker.publish).toHaveBeenCalledWith('Delete learning content', 'Information');
                 });
 
-                it('should call removeLearningContent', function() {
+                it('should call removeLearningContent', function () {
                     spyOn(ctor, 'removeLearningContent');
                     ctor.remove();
                     expect(ctor.removeLearningContent).toHaveBeenCalled();
@@ -94,6 +94,51 @@
                     spyOn(ctor, 'endEditLearningContent');
                     ctor.endEditText();
                     expect(ctor.endEditLearningContent).toHaveBeenCalled();
+                });
+
+            });
+
+            describe('restore:', function () {
+
+                beforeEach(function() {
+                    spyOn(ctor, 'restoreLearningContent');
+                });
+
+                describe('when content is not removed', function () {
+
+                    beforeEach(function () {
+                        ctor.isRemoved(false);
+                    });
+
+                    it('should not publish event', function () {
+                        ctor.restore();
+                        expect(eventTracker.publish).not.toHaveBeenCalled();
+                    });
+
+                    it('should not restore content', function () {
+                        ctor.restore();
+                        expect(ctor.restoreLearningContent).not.toHaveBeenCalled();
+                    });
+
+                });
+
+                it('should send event \'Undo delete learning content\'', function () {
+                    ctor.isRemoved(true);
+                    ctor.restore();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Undo delete learning content');
+                });
+
+                it('should send event \'Undo delete learning content\' with category \'Information\' for informationContent question type', function () {
+                    var learnContent = new Content(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
+                    learnContent.isRemoved(true);
+                    learnContent.restore();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Undo delete learning content', 'Information');
+                });
+
+                it('should call restoreLearningContent', function () {
+                    ctor.isRemoved(true);
+                    ctor.restore();
+                    expect(ctor.restoreLearningContent).toHaveBeenCalled();
                 });
 
             });

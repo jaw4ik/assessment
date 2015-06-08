@@ -90,6 +90,10 @@
             };
 
             this.restore = function () {
+                if (!that.isRemoved()) {
+                    return;
+                }
+
                 that.publishActualEvent(events.restoreHotspotContentBlock);
                 that.restoreLearningContent();
             }

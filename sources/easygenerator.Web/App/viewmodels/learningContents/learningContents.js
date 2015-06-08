@@ -106,7 +106,11 @@
         }
 
         function removeLearningContent(learningContent) {
-            _.isEmptyOrWhitespace(learningContent.id()) || learningContent.isDeleted ? viewModel.learningContents.remove(learningContent) : learningContent.isRemoved(true);
+            if (_.isEmptyOrWhitespace(learningContent.id()) || learningContent.isDeleted) {
+                viewModel.learningContents.remove(learningContent);
+            } else {
+                learningContent.isRemoved(true);
+            }
         }
 
         function restoreLearningContent(learningContent) {
@@ -217,9 +221,16 @@
             var index;
             _.each(viewModel.learningContents(), function (item, position) {
                 index = learningContentsIds.indexOf(item.id());
-                if (index < 0) {
-                    position ? learningContentsIds.splice(learningContentsIds.indexOf(viewModel.learningContents()[position - 1].id()) + 1, 0, item.id()) : learningContentsIds.unshift(item.id());
+                if (index > -1) {
+                    return;
                 }
+
+                if (position != 0) {
+                    learningContentsIds.splice(learningContentsIds.indexOf(viewModel.learningContents()[position - 1].id()) + 1, 0, item.id());
+                } else {
+                    learningContentsIds.unshift(item.id());
+                }
+
             });
 
             viewModel.learningContents(_.chain(learningContentsIds)

@@ -26,6 +26,10 @@
                     return;
                 }
 
+                if (that.isRemoved()) {
+                    return;
+                }
+
                 if (_.isEmptyOrWhitespace(id)) {
                     learningContentsrepository.addLearningContent(_questionId, { text: text }).then(function (item) {
                         that.id(item.id);
@@ -33,7 +37,7 @@
                         showNotification(item.createdOn);
                     });
                 } else {
-                    if (text != that.originalText && !that.isRemoved()) {
+                    if (text != that.originalText) {
                         learningContentsrepository.updateText(_questionId, id, text).then(function (response) {
                             that.originalText = text;
                             showNotification(response.modifiedOn);

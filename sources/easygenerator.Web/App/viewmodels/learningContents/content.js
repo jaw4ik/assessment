@@ -30,6 +30,10 @@
             };
 
             this.restore = function () {
+                if (!that.isRemoved()) {
+                    return;
+                }
+
                 that.publishActualEvent(events.restoreLearningContent);
                 that.restoreLearningContent();
             }
