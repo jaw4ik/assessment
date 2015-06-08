@@ -37,7 +37,7 @@
         viewModel.titleField = titleField('', constants.validation.learningPathTitleMaxLength, localizationManager.localize('learningPathTitle'), getTitle, updateTitle);
 
         viewModel.isSortingEnabled = ko.computed(function () {
-            return viewModel.courses().length === 1;
+            return viewModel.courses().length > 1;
         });
 
         return viewModel;
