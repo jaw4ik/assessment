@@ -229,7 +229,8 @@
                 }
 
                 if (position != 0) {
-                    learningContentsIds.splice(learningContentsIds.indexOf(viewModel.learningContents()[position - 1].id()) + 1, 0, item.id());
+                    var previousElementPosition = learningContentsIds.indexOf(viewModel.learningContents()[position - 1].id());
+                    learningContentsIds.splice(previousElementPosition + 1, 0, item.id());
                 } else {
                     learningContentsIds.unshift(item.id());
                 }
