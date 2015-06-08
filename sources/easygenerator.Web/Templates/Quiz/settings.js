@@ -22,10 +22,21 @@
             "failed"
         ]
     },
-    "masteryScore": {
-        "score": 75
-    },
     "languages": {
         "selected": "en"
+    },
+    "background": {
+        "image": {
+            "src": null,
+            "type": "default"
+        }
+    },
+    "timer": {
+        "enabled": false,
+        "time": {
+            "hours": 0,
+            "minutes": 30,
+            "seconds": 0
+        }
     }
 }
