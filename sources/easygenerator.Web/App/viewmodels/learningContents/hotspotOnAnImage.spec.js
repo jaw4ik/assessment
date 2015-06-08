@@ -26,6 +26,9 @@
                 ctor = new HotspotOnAnImage(learningContent, _questionId, _questionType, canBeAddedImmediately);
                 spyOn(app, 'trigger');
                 spyOn(eventTracker, 'publish');
+                spyOn(ctor, 'updateLearningContent').and.callFake(function () { });
+                spyOn(ctor, 'removeLearningContent').and.callFake(function () { });
+                spyOn(ctor, 'restoreLearningContent').and.callFake(function () { });
             });
 
             it('should initialize field', function () {
@@ -168,7 +171,7 @@
                     });
 
                     it('should call updateText', function () {
-                        spyOn(ctor, 'updateLearningContent');
+
                         ctor.updateHotspotOnAnImage();
                         expect(ctor.updateLearningContent).toHaveBeenCalled();
                     });
@@ -348,12 +351,12 @@
 
                 it('should send event \'Delete hotspot content block\' with category \'Information\' for informationContent question type', function () {
                     var ctor2 = new HotspotOnAnImage(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
+                    spyOn(ctor2, 'removeLearningContent').and.callFake(function () { });
                     ctor2.remove();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Delete hotspot content block', 'Information');
                 });
 
                 it('should call removeLearningContent', function () {
-                    spyOn(ctor, 'removeLearningContent');
                     ctor.remove();
                     expect(ctor.removeLearningContent).toHaveBeenCalled();
                 });
@@ -361,10 +364,6 @@
             });
 
             describe('restore:', function () {
-
-                beforeEach(function () {
-                    spyOn(ctor, 'restoreLearningContent');
-                });
 
                 describe('when content is not removed', function () {
 
