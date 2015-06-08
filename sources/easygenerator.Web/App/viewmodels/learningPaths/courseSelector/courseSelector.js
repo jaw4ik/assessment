@@ -11,7 +11,8 @@
             deactivate: deactivate,
             courses: ko.observableArray([]),
             courseRemoved: courseRemoved,
-            filter: courseFilter
+            filter: courseFilter,
+            courseTitleUpdated: courseTitleUpdated
         };
 
         viewModel.filteredCourses = ko.computed(function () {
@@ -38,6 +39,7 @@
 
         function activate(learningPathId) {
             app.on(constants.messages.learningPath.removeCourse, viewModel.courseRemoved);
+            app.on(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
 
             return getLearningPathByIdQuery.execute(learningPathId)
                 .then(function (learningPath) {
@@ -56,6 +58,7 @@
 
         function deactivate() {
             app.off(constants.messages.learningPath.removeCourse, viewModel.courseRemoved);
+            app.off(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
         }
 
         function mapCourseBrief(course, attachedCourses) {
@@ -76,5 +79,16 @@
             if (course) {
                 course.isSelected(false);
             }
+        }
+
+        function courseTitleUpdated(course) {
+            var courseBrief = _.find(viewModel.courses(), function (item) {
+                return item.id === course.id;
+            });
+
+            if (!courseBrief)
+                return;
+
+            courseBrief.title(course.title);
         }
     });

@@ -140,6 +140,11 @@
                 expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.removeCourse, viewModel.courseRemoved);
             });
 
+            it('should subscribe on course.titleUpdatedByCollaborator event', function () {
+                viewModel.activate();
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
+            });
+
             describe('when learning path retrieved', function () {
                 beforeEach(function () {
                     getLearningPathDefer.resolve(learningPath);
@@ -179,22 +184,53 @@
                 viewModel.deactivate();
                 expect(app.off).toHaveBeenCalledWith(constants.messages.learningPath.removeCourse, viewModel.courseRemoved);
             });
+
+            it('should unsubscribe from course.titleUpdatedByCollaborator event', function () {
+                viewModel.deactivate();
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
+            });
+
         });
 
         describe('courseRemoved:', function () {
-            var courseBrief;
-            beforeEach(function () {
-                courseBrief = {
-                    id: 'id',
-                    title: ko.observable(''),
-                    isSelected: ko.observable(true)
-                };
-            });
+            var courseBrief = {
+                id: 'id',
+                title: ko.observable(''),
+                isSelected: ko.observable(true)
+            };
 
             it('should set course isSelected to false', function () {
                 viewModel.courses([courseBrief]);
                 viewModel.courseRemoved(courseBrief.id);
                 expect(courseBrief.isSelected()).toBeFalsy();
+            });
+        });
+
+        describe('courseTitleUpdated:', function () {
+            var courseBrief = {
+                id: 'id',
+                title: ko.observable(''),
+                isSelected: ko.observable(true)
+            },
+                course = {
+                    id: courseBrief.id,
+                    title: 'title'
+                };
+
+            it('should update course title', function () {
+                courseBrief.title('');
+                viewModel.courses([courseBrief]);
+                viewModel.courseTitleUpdated(course);
+                expect(courseBrief.title()).toBe(course.title);
+            });
+
+            it('should not throw when course not found in collection', function () {
+                viewModel.courses([]);
+                var f = function() {
+                    viewModel.courseTitleUpdated(course);
+                };
+
+                expect(f).not.toThrow();
             });
         });
 

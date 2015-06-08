@@ -30,13 +30,14 @@
                 removeCourse: removeCourse,
                 courses: ko.observableArray([]),
                 currentLanguage: '',
-                updateCoursesOrder: updateCoursesOrder
+                updateCoursesOrder: updateCoursesOrder,
+                courseTitleUpdated: courseTitleUpdated
             };
 
         viewModel.titleField = titleField('', constants.validation.learningPathTitleMaxLength, localizationManager.localize('learningPathTitle'), getTitle, updateTitle);
 
         viewModel.isSortingEnabled = ko.computed(function () {
-            return viewModel.courses().length > 1;
+            return viewModel.courses().length === 1;
         });
 
         return viewModel;
@@ -65,6 +66,7 @@
             app.on(constants.messages.learningPath.courseSelector.courseSelected, viewModel.addCourse);
             app.on(constants.messages.learningPath.courseSelector.courseDeselected, viewModel.removeCourse);
             app.on(constants.messages.learningPath.removeCourse, viewModel.removeCourse);
+            app.on(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
 
             return getLearningPathByIdQuery.execute(viewModel.id).then(function (learningPath) {
                 viewModel.titleField.title(learningPath.title);
@@ -85,6 +87,7 @@
             app.off(constants.messages.learningPath.courseSelector.courseSelected, viewModel.addCourse);
             app.off(constants.messages.learningPath.courseSelector.courseDeselected, viewModel.removeCourse);
             app.off(constants.messages.learningPath.removeCourse, viewModel.removeCourse);
+            app.off(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
         }
 
         function getTitle() {
@@ -140,6 +143,17 @@
                 .then(function () {
                     notify.saved();
                 });
+        }
+
+        function courseTitleUpdated(course) {
+            var courseBrief = _.find(viewModel.courses(), function (item) {
+                return item.id === course.id;
+            });
+
+            if (!courseBrief)
+                return;
+
+            courseBrief.title(course.title);
         }
     }
 );
