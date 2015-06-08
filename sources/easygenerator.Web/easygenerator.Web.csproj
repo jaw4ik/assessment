@@ -1987,11 +1987,18 @@
     <Content Include="Templates\Personalized learning\css\font\opensans-semibold.svg" />
     <Content Include="Templates\Personalized learning\css\font\opensans-semibold.ttf" />
     <Content Include="Templates\Personalized learning\css\font\opensans-semibold.woff" />
+    <Content Include="Templates\Personalized learning\css\font\roboto-regular.svg" />
+    <Content Include="Templates\Personalized learning\css\font\robotocondensed-regular.svg" />
+    <Content Include="Templates\Personalized learning\css\font\robotoslab-light.svg" />
+    <Content Include="Templates\Personalized learning\css\font\robotoslab-regular.svg" />
+    <Content Include="Templates\Personalized learning\css\font\twcenmt-condensed.svg" />
     <Content Include="Templates\Personalized learning\css\general.css" />
     <Content Include="Templates\Personalized learning\images\chrome.png" />
     <Content Include="Templates\Personalized learning\images\eg-logo.png" />
     <Content Include="Templates\Personalized learning\images\firefox.png" />
+    <Content Include="Templates\Personalized learning\images\header-bg.jpg" />
     <Content Include="Templates\Personalized learning\images\ie.png" />
+    <Content Include="Templates\Personalized learning\images\newSprite.png" />
     <Content Include="Templates\Personalized learning\images\previewImages\previewPersonilized.jpg" />
     <Content Include="Templates\Personalized learning\images\safari.png" />
     <Content Include="Templates\Personalized learning\images\sprite.png" />
@@ -2340,6 +2347,16 @@
     <Content Include="Scripts\knockout.validation.min.js.map" />
     <Content Include="Scripts\jquery-2.1.3.min.map" />
     <Content Include="Scripts\underscore-min.map" />
+    <Content Include="Templates\Personalized learning\css\font\roboto-regular.ttf" />
+    <Content Include="Templates\Personalized learning\css\font\roboto-regular.woff" />
+    <Content Include="Templates\Personalized learning\css\font\robotocondensed-regular.ttf" />
+    <Content Include="Templates\Personalized learning\css\font\robotocondensed-regular.woff" />
+    <Content Include="Templates\Personalized learning\css\font\robotoslab-light.ttf" />
+    <Content Include="Templates\Personalized learning\css\font\robotoslab-light.woff" />
+    <Content Include="Templates\Personalized learning\css\font\robotoslab-regular.ttf" />
+    <Content Include="Templates\Personalized learning\css\font\robotoslab-regular.woff" />
+    <Content Include="Templates\Personalized learning\css\font\twcenmt-condensed.ttf" />
+    <Content Include="Templates\Personalized learning\css\font\twcenmt-condensed.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
