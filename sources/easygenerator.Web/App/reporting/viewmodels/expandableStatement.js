@@ -1,4 +1,4 @@
-﻿define(function () {
+﻿define(['userContext', 'dialogs/upgrade/upgradeDialog'], function (userContext, upgradeDialog) {
     "use strict";
 
     var ExpandableStatement = function (lrsStatement, expandLoadAction) {
@@ -13,6 +13,11 @@
     ExpandableStatement.prototype.expand = function () {
         var that = this;
         return Q.fcall(function () {
+            if (!userContext.hasStarterAccess()) {
+                upgradeDialog.show();
+                return undefined;
+            }
+
             if (that.isExpandable) {
                 if (that.children === null || that.children().length) {
                     that.isExpanded(true);

@@ -55,6 +55,8 @@
 
         describe('[expand]', function () {
 
+            var userContext = require('userContext');
+
             it('should be function', function () {
                 expect(statement.expand).toBeFunction();
             });
@@ -63,7 +65,74 @@
                 expect(statement.expand()).toBePromise();
             });
 
-            describe('when isExpandable is false', function () {
+            describe('when user has starter access', function() {
+                beforeEach(function () {
+                    spyOn(userContext, 'hasStarterAccess').and.returnValue(true);
+                });
+
+                describe('and when isExpandable is false', function () {
+                    it('promise should return undefined', function (done) {
+                        lrsStatement.attemptId = null;
+                        statement = new ExpandableStatement(lrsStatement, expandAction);
+                        statement.expand().fin(function (result) {
+                            expect(result).toBeUndefined();
+                            done();
+                        });
+                    });
+                });
+
+                describe('and when isExpandable is true', function () {
+                    describe('when children is null', function () {
+                        it('should set isExpanded to true and return undefined', function (done) {
+                            statement.children = null;
+                            statement.expand().fin(function (result) {
+                                expect(statement.isExpanded()).toBeTruthy();
+                                expect(result).toBeUndefined();
+                                done();
+                            });
+                        });
+                    });
+
+                    describe('when children array is not empty', function () {
+                        it('should set isExpanded to true and return undefined', function (done) {
+                            statement.children = ko.observableArray([{}]);
+                            statement.expand().fin(function (result) {
+                                expect(statement.isExpanded()).toBeTruthy();
+                                expect(result).toBeUndefined();
+                                done();
+                            });
+                        });
+                    });
+
+                    describe('when children array length is 0', function () {
+                        it('should return expandLoadAction', function (done) {
+                            statement.children = ko.observableArray([]);
+                            statement.expand().fin(function (result) {
+                                expect(result).toBe(expandAction());
+                                done();
+                            });
+                        });
+                    });
+                });
+            });
+
+            describe('when user does not have starter access', function() {
+                var upgradeDialog = require('dialogs/upgrade/upgradeDialog');
+
+                beforeEach(function () {
+                    spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
+                    spyOn(upgradeDialog, 'show');
+                });
+
+                it('should show upgrade dialog', function (done) {
+                    lrsStatement.attemptId = null;
+                    statement = new ExpandableStatement(lrsStatement, expandAction);
+                    statement.expand().fin(function () {
+                        expect(upgradeDialog.show).toHaveBeenCalled();
+                        done();
+                    });
+                });
+
                 it('promise should return undefined', function (done) {
                     lrsStatement.attemptId = null;
                     statement = new ExpandableStatement(lrsStatement, expandAction);
@@ -74,39 +143,7 @@
                 });
             });
 
-            describe('when isExpandable is true', function () {
-                describe('when children is null', function () {
-                    it('should set isExpanded to true and return undefined', function (done) {
-                        statement.children = null;
-                        statement.expand().fin(function (result) {
-                            expect(statement.isExpanded()).toBeTruthy();
-                            expect(result).toBeUndefined();
-                            done();
-                        });
-                    });
-                });
-
-                describe('when children array is not empty', function () {
-                    it('should set isExpanded to true and return undefined', function (done) {
-                        statement.children = ko.observableArray([{}]);
-                        statement.expand().fin(function (result) {
-                            expect(statement.isExpanded()).toBeTruthy();
-                            expect(result).toBeUndefined();
-                            done();
-                        });
-                    });
-                });
-
-                describe('when children array length is 0', function () {
-                    it('should return expandLoadAction', function (done) {
-                        statement.children = ko.observableArray([]);
-                        statement.expand().fin(function (result) {
-                            expect(result).toBe(expandAction());
-                            done();
-                        });
-                    });
-                });
-            });
+            
         });
     });
 });
