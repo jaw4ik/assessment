@@ -2,16 +2,20 @@
     <span class="main-background" ng-show="quiz.hasIntroductionContent"></span>
     <introduction class="introduction-container at-top-position" ng-show="quiz.hasIntroductionContent">
         <div class="introduction-wrapper">
-            <header class="header">
-                <img class="main-logo" ng-src="{{quiz.logoUrl}}" />
-                <span class="vertical-align-helper"></span>
+            <header class="app-header header">
+                <div class="app-header-content">
+                    <span class="logo-wrapper">
+                        <img class="main-logo" ng-src="{{ quiz.logoUrl }}" />
+                    </span>
+                    <timer class="timer" ng-show="timerEnabled" time-in-seconds="timerRemainingTime"></timer>
+                </div>
             </header>
             <div class="content-container">
                 <div class="content-wrapper" content>
                     <div class="header-title-container">
                         <div class="header-title-wrapper">
                             <div class="header-quiz-label">{{ '[quiz]' | translate }}</div>
-                            <div class="header-quiz-title">“{{quiz.title}}”</div>
+                            <div class="header-quiz-title">“{{ quiz.title }}”</div>
                             <div class="header-questions-label">{{ quiz.questions.length }} {{ '[questions]' | translate }}</div>
                         </div>
                     </div>
@@ -35,17 +39,21 @@
             </div>
         </div>
     </introduction>
-    <header class="main-header">
+    <header class="app-header main-header">
         <span class="main-background"></span>
-        <img class="main-logo" ng-src="{{quiz.logoUrl}}" />
-        <span class="vertical-align-helper"></span>
-        <div class="button-container" ng-click="scrollToQuestions()">
-            <span class="vertical-align-helper"></span>
-            <button class="button small emphasize default">
-                <span class="text-wrapper">
-                    {{ '[start quiz]' | translate }}
-                </span>
-            </button>
+        <div class="app-header-content">
+            <span class="logo-wrapper">
+                <img class="main-logo" ng-src="{{ quiz.logoUrl }}" />
+            </span>
+            <div class="button-container" ng-click="scrollToQuestions()">
+                <span class="vertical-align-helper"></span>
+                <button class="button small emphasize default">
+                    <span class="text-wrapper">
+                        {{ '[start quiz]' | translate }}
+                    </span>
+                </button>
+            </div>
+            <timer class="timer" ng-show="timerEnabled" time-in-seconds="timerRemainingTime"></timer>
         </div>
     </header>
     <questions class="questions-container">
@@ -55,8 +63,8 @@
                     <article>
                         <div class="question-container">
                             <h2 class="question-title">
-                            <span class="index">{{ $index + 1 | leadingZeros: 2 }}</span>
-                            {{ question.title }}
+                                <span class="index">{{ $index + 1 | leadingZeros: 2 }}</span>
+                                {{ question.title }}
                             </h2>
                             <h3 class="question-content" ng-if="question.content">
                                 <div html-compile="question.content" styled-content></div>
