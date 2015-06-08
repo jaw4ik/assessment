@@ -82,7 +82,7 @@
             this.restoreLearningContent = function () {
                 var text = ko.unwrap(that.text);
 
-                learningContentRepository.addLearningContent(_questionId, { text: text }).then(function (item) {
+                return learningContentRepository.addLearningContent(_questionId, { text: text }).then(function (item) {
                     that.id(item.id);
                     that.originalText = text;
                     app.trigger(constants.messages.question.learningContent.restore, that);

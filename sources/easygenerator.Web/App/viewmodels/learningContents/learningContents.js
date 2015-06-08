@@ -34,7 +34,10 @@
             toggleExpand: toggleExpand,
 
             activate: activate,
-            localizationManager: localizationManager
+            localizationManager: localizationManager,
+
+            removeLearningContent: removeLearningContent,
+            restoreLearningContent: restoreLearningContent
         };
 
         viewModel.isSortingEnabled = ko.computed(function () {

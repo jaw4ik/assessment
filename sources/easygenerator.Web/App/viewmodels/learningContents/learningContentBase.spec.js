@@ -39,6 +39,7 @@
                 expect(ctor.endEditLearningContent).toBeFunction();
                 expect(ctor.removeLearningContent).toBeFunction();
                 expect(ctor.publishActualEvent).toBeFunction();
+                expect(ctor.isRemoved()).toBeFalsy();
             });
 
             describe('updateLearningContent:', function () {
@@ -56,111 +57,117 @@
 
                 describe('when text is not empty', function () {
 
-                    describe('and id is not empty', function () {
-                        var text = 'text';
+                    describe('and learning content is not removed', function () {
 
-                        describe('and text is not modified', function () {
-                            beforeEach(function () {
-                                ctor.originalText = text;
+                        describe('and id is not empty', function () {
+                            var text = 'text';
+
+                            describe('and text is not modified', function () {
+                                beforeEach(function () {
+                                    ctor.originalText = text;
+                                });
+
+                                it('should not update learning content text in the repository', function () {
+                                    ctor.updateLearningContent();
+                                    expect(repository.updateText).not.toHaveBeenCalledWith(ctor.id(), ctor.text());
+                                });
+
                             });
 
-                            it('should not update learning content text in the repository', function () {
-                                ctor.updateLearningContent();
-                                expect(repository.updateText).not.toHaveBeenCalledWith(ctor.id(), ctor.text());
+                            describe('and text is modified', function () {
+                                beforeEach(function () {
+                                    ctor.originalText = 'text2';
+                                });
+
+                                it('should update learning content text in the repository', function (done) {
+                                    updateLearningContentText.resolve({});
+
+                                    ctor.updateLearningContent();
+
+                                    updateLearningContentText.promise.fin(function () {
+                                        expect(repository.updateText).toHaveBeenCalledWith(_questionId, ctor.id(), ctor.text());
+                                        done();
+                                    });
+                                });
+
+                                it('should show notification', function (done) {
+                                    updateLearningContentText.resolve({ modifiedOn: new Date() });
+
+                                    ctor.updateLearningContent();
+
+                                    updateLearningContentText.promise.fin(function () {
+                                        expect(notify.saved).toHaveBeenCalled();
+                                        done();
+                                    });
+                                });
+
+                                it('should update learning content original text', function (done) {
+                                    updateLearningContentText.resolve(new Date());
+
+                                    ctor.updateLearningContent();
+
+                                    updateLearningContentText.promise.fin(function () {
+                                        expect(ctor.originalText).toBe(ctor.text());
+                                        done();
+                                    });
+                                });
+
                             });
 
                         });
 
-                        describe('and text is modified', function () {
+                        describe('and id is empty', function () {
+
+                            var id = 'id',
+                                ctor2;
+
                             beforeEach(function () {
-                                ctor.originalText = 'text2';
+                                ctor2 = new LearningContentBase({ text: 'sometext' }, _questionId, _questionType, canBeAddedImmediately);
                             });
 
-                            it('should update learning content text in the repository', function (done) {
-                                updateLearningContentText.resolve({});
+                            it('should add learning content to the repository', function () {
+                                ctor2.updateLearningContent();
+                                expect(repository.addLearningContent).toHaveBeenCalledWith(_questionId, { text: ctor2.text() });
+                            });
 
-                                ctor.updateLearningContent();
+                            it('should update learning content id in the viewModel', function (done) {
+                                addLearningContent.resolve({ id: id, createdOn: new Date() });
 
-                                updateLearningContentText.promise.fin(function () {
-                                    expect(repository.updateText).toHaveBeenCalledWith(_questionId, ctor.id(), ctor.text());
+                                ctor2.updateLearningContent();
+
+                                addLearningContent.promise.fin(function () {
+                                    expect(ctor2.id()).toEqual(id);
                                     done();
                                 });
                             });
 
+
                             it('should show notification', function (done) {
-                                updateLearningContentText.resolve({ modifiedOn: new Date() });
+                                addLearningContent.resolve({ id: id, createdOn: new Date() });
+                                ctor2.updateLearningContent();
 
-                                ctor.updateLearningContent();
-
-                                updateLearningContentText.promise.fin(function () {
+                                addLearningContent.promise.fin(function () {
                                     expect(notify.saved).toHaveBeenCalled();
                                     done();
                                 });
                             });
 
-                            it('should update learning content original text', function (done) {
-                                updateLearningContentText.resolve(new Date());
+                            it('should set learning content original text', function (done) {
+                                addLearningContent.resolve({ id: id, createdOn: new Date() });
 
-                                ctor.updateLearningContent();
+                                ctor2.updateLearningContent();
 
-                                updateLearningContentText.promise.fin(function () {
-                                    expect(ctor.originalText).toBe(ctor.text());
+                                addLearningContent.promise.fin(function () {
+                                    expect(ctor2.originalText).toBe(ctor2.text());
                                     done();
                                 });
                             });
-
                         });
 
                     });
 
-                    describe('and id is empty', function () {
-
-                        var id = 'id',
-                            ctor2;
-
-                        beforeEach(function () {
-                            ctor2 = new LearningContentBase({ text: 'sometext' }, _questionId, _questionType, canBeAddedImmediately);
-                        });
-
-                        it('should add learning content to the repository', function () {
-                            ctor2.updateLearningContent();
-                            expect(repository.addLearningContent).toHaveBeenCalledWith(_questionId, { text: ctor2.text() });
-                        });
-
-                        it('should update learning content id in the viewModel', function (done) {
-                            addLearningContent.resolve({ id: id, createdOn: new Date() });
-
-                            ctor2.updateLearningContent();
-
-                            addLearningContent.promise.fin(function () {
-                                expect(ctor2.id()).toEqual(id);
-                                done();
-                            });
-                        });
-
-
-                        it('should show notification', function (done) {
-                            addLearningContent.resolve({ id: id, createdOn: new Date() });
-                            ctor2.updateLearningContent();
-
-                            addLearningContent.promise.fin(function () {
-                                expect(notify.saved).toHaveBeenCalled();
-                                done();
-                            });
-                        });
-
-                        it('should set learning content original text', function (done) {
-                            addLearningContent.resolve({ id: id, createdOn: new Date() });
-
-                            ctor2.updateLearningContent();
-
-                            addLearningContent.promise.fin(function () {
-                                expect(ctor2.originalText).toBe(ctor2.text());
-                                done();
-                            });
-                        });
-                    });
                 });
+
             });
 
             describe('removeLearningContent:', function () {
@@ -337,12 +344,64 @@
 
             });
 
+            describe('restoreLearningContent:', function () {
+                var restoreLearningContent;
+
+                beforeEach(function () {
+                    restoreLearningContent = Q.defer();
+                    spyOn(repository, 'addLearningContent').and.returnValue(restoreLearningContent.promise);
+                });
+
+                it('should be function', function () {
+                    expect(ctor.restoreLearningContent).toBeFunction();
+                });
+
+                it('should return promise', function () {
+                    expect(ctor.restoreLearningContent()).toBePromise();
+                });
+
+                it('should add learning content', function () {
+                    ctor.restoreLearningContent();
+                    expect(repository.addLearningContent).toHaveBeenCalledWith(_questionId, { text: ctor.text() });
+                });
+
+                it('should update learning content with new parameters', function(done) {
+                    restoreLearningContent.resolve({ id: '132' });
+                    var text = ctor.text();
+                    var promise = ctor.restoreLearningContent();
+                    promise.fin(function () {
+                        expect(ctor.id()).toBe('132');
+                        expect(ctor.originalText).toBe(text);
+                        done();
+                    });
+                });
+
+                it('should trigger event to restore learning content', function (done) {
+                    restoreLearningContent.resolve({ id: '132' });
+                    var promise = ctor.restoreLearningContent();
+                    promise.fin(function () {
+                        expect(app.trigger).toHaveBeenCalled();
+                        done();
+                    });
+                });
+
+                it('should show notification', function() {
+                    restoreLearningContent.resolve({ id: '132' });
+                    var promise = ctor.restoreLearningContent();
+                    promise.fin(function () {
+                        expect(notify.saved).toHaveBeenCalled();
+                        done();
+                    });
+                });
+
+            });
+
             describe('publishActualEvent:', function () {
                 var event = 'event';
 
                 describe('when question type is Information content', function () {
-                    
-                    it('should send event with category \''+ constants.eventCategories.informationContent + '\'', function () {
+
+                    it('should send event with category \'' + constants.eventCategories.informationContent + '\'', function () {
                         var ctor2 = new LearningContentBase(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
                         ctor2.publishActualEvent(event);
                         expect(eventTracker.publish).toHaveBeenCalledWith(event, constants.eventCategories.informationContent);
@@ -350,9 +409,9 @@
 
                 });
 
-                describe('when question type is not Information content', function() {
+                describe('when question type is not Information content', function () {
 
-                    it('should send event without category', function() {
+                    it('should send event without category', function () {
                         ctor.publishActualEvent(event);
                         expect(eventTracker.publish).toHaveBeenCalledWith(event);
                     });
