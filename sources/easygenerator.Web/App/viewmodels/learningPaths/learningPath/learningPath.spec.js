@@ -316,9 +316,9 @@
         });
 
         describe('addCourses:', function () {
-            it('should publish \'Show courses available for the learning path\' event', function () {
+            it('should publish \'Show courses available for the learning path (Add courses)\' event', function () {
                 viewModel.addCourses();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Show courses available for the learning path');
+                expect(eventTracker.publish).toHaveBeenCalledWith('Show courses available for the learning path (Add courses)');
             });
 
             it('should expand course selector', function () {
@@ -328,9 +328,9 @@
         });
 
         describe('finishAddingCourses:', function () {
-            it('should publish \'Hide courses available for the learning path\' event', function () {
+            it('should publish \'Hide courses available for the learning path (Done)\' event', function () {
                 viewModel.finishAddingCourses();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Hide courses available for the learning path');
+                expect(eventTracker.publish).toHaveBeenCalledWith('Hide courses available for the learning path (Done)');
             });
 
             it('should collapse course selector', function () {

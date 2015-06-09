@@ -36,11 +36,6 @@
                         <!-- /ko -->
                     </div>
                 </div>
-                <!-- ko if: courses().length === 0 -->
-                <div class="empty-list-wrapper">
-                    <span class="empty-list" data-bind="localize: { text: 'noCoursesInTheLearningPath'}"></span>
-                </div>
-                <!-- /ko -->
                 <!-- ko ifnot: courses().length === 0  -->
                 <ul class="unstyled main-content-list" data-bind="sortable: { data: courses, afterMove: updateCoursesOrder, isEnabled: isSortingEnabled, options: {handle: '.list-item-drag-icon' }}">
                     <!-- ko foreach: courses -->

@@ -12,8 +12,8 @@
                 navigateToLearningPaths: 'Navigate to learning paths',
                 addCourse: 'Add course to the learning path',
                 removeCourse: 'Remove course from the learning path',
-                showAvailableCourses: 'Show courses available for the learning path',
-                hideAvailableCourses: 'Hide courses available for the learning path',
+                showAvailableCourses: 'Show courses available for the learning path (Add courses)',
+                hideAvailableCourses: 'Hide courses available for the learning path (Done)',
                 changeCoursesOrder: 'Change order of courses'
             },
             viewModel = {
