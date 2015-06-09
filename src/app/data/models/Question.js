@@ -5,13 +5,23 @@
         .module('quiz')
         .factory('Question', factory);
 
-    factory.$inject = ['$rootScope'];
+    factory.$inject = ['$rootScope', 'LearningContent', 'htmlContentLoader', '$q'];
 
-    function factory($rootScope) {
-        return function Question(id, title, type, _protected) {
+    function factory($rootScope, LearningContent, htmlContentLoader, $q) {
+        return function Question(objectiveId, id, title, hasContent, learningContents, type, _protected) {
             var that = this;
             that.id = id;
+            that.objectiveId = objectiveId;
             that.title = title;
+
+            that.hasContent = hasContent;
+            that.content = null;
+
+            that.learningContents = learningContents.map(function (learningContent) {
+                var learningContentUrl = 'content/' + that.objectiveId + '/' + that.id + '/' + learningContent.id + '.html';
+                return new LearningContent(learningContent.id, learningContentUrl);
+            });
+
             that.type = type;
             that.score = 0;
 
@@ -30,7 +40,19 @@
                     time: time
                 });
             };
+
+            that.loadContent = function () {
+                return $q.when(null, function () {
+                    if (!that.hasContent || that.content) {
+                        return;
+                    }
+
+                    return htmlContentLoader.load('content/' + that.objectiveId + '/' + that.id + '/content.html').success(function (content) {
+                        that.content = content;
+                    });
+                });
+            };
         };
     }
 
-}());
+} ());

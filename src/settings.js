@@ -38,8 +38,8 @@
         }
     },
     "questionPool": {
-        "mode": "subset",
-        "subsetSize": 200,
+        "mode": "all",
+        "subsetSize": 10,
         "randomizeOrder": true,
         "randomizePerAttempt": false
     }
