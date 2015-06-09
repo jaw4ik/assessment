@@ -6,8 +6,6 @@
     "[finish course]": "Beeindig cusrus",
     "[learning objective]": "Leerdoel",
     "[mastered objectives]":  "You hebt the volgende leerdoelen al behaald:",
-    "[show recommended reading]": "Toon aanbevolen leeslijst",
-    "[hide recommended reading]": "Verberg aanbeveolen leeslijst",
     "[recommended reading]": "Leeslijst",
     "[start]": "Start",
     "[questions]": "Vragen",
@@ -42,5 +40,7 @@
     "[tracking and tracing error]": "Er is iets mis",
     "[tracking and tracing error hint]": "Als je doorgaat zullen je leerresultaten niet worden vastgelegd. Probeer opnieuw te starten. Neem contact op met de docent als dit niet werkt.",
     "[tracking and tracing restart course]": "Herstart cursus",
-    "[tracking and tracing continue anyway]": "Ga door"
+    "[tracking and tracing continue anyway]": "Ga door",
+    "[answered]": "beantwoord",
+    "[overall progress]": "Totale voortgang"
 }
