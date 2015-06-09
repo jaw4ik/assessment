@@ -8,13 +8,13 @@
     factory.$inject = ['Question'];
 
     function factory(Question) {
-        return function Hotspot(id, title, type, background, spots, isMultiple) {
+        return function Hotspot(objectiveId, id, title, hasContent, learningContents, type, background, spots, isMultiple) {
             var that = this,
                 _protected = {
                     answer: answer
                 };
 
-            Question.call(that, id, title, type, _protected);
+            Question.call(that, objectiveId, id, title, hasContent, learningContents, type, _protected);
 
             that.background = background;
 

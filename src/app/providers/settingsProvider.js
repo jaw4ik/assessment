@@ -34,6 +34,12 @@
                         seconds: 0
                     }
                 },
+                questionPool: {
+                    mode: 'all',
+                    subsetSize: 10,
+                    randomizeOrder: true,
+                    randomizePerAttempt: false
+                }
             };
 
 
@@ -67,6 +73,10 @@
 
                 if (!_.isObject(settings.timer) || _.isUndefined(settings.timer.enabled)) {
                     _.extend(settings, { timer: defaultSettings.timer });
+                }
+                
+                if (!_.isObject(settings.questionPool) || _.isUndefined(settings.questionPool.mode)) {
+                    _.extend(settings, { questionPool: defaultSettings.questionPool });
                 }
 
                 cachedSettings = settings;

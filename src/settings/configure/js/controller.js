@@ -64,6 +64,7 @@
             self.toggleAdvancedSettings = toggleAdvancedSettings;
 
             self.init = init;
+            self.getData = getData;
 
             return self;
 
@@ -98,13 +99,34 @@
                     }
                 }
             }
+            
+            function getData() {
+                return {
+                    enabled: self.enableXAPI,
+                    required: !self.allowToSkipTracking,
+                    selectedLrs: self.selectedLrs,
+                    lrs: {
+                        uri: self.lrsUrl,
+                        authenticationRequired: self.authenticationRequired,
+                        credentials: {
+                            username: self.lapLogin,
+                            password: self.lapPassword
+                        }
+                    },
+                    allowedVerbs: $.map(self.statements, function (value, key) {
+                        return value ? key : undefined;
+                    })
+                };
+            }
         })();
 
         that.masteryScore = (function () {
             var self = {};
 
             self.value = 0;
+            
             self.init = init;
+            self.getData = getData;
 
             return self;
 
@@ -114,6 +136,12 @@
                 } else {
                     self.value = 100;
                 }
+            }
+            
+            function getData() {
+                return {
+                    score: self.value || 0
+                };
             }
         })();
 
@@ -128,7 +156,9 @@
             self.selectedLanguage = null;
 
             self.getCustomTranslations = getCustomTranslations;
+            
             self.init = init;
+            self.getData = getData;
 
             that.$watch('languages.selectedLanguageCode', function () {
                 var language = _getLanguage(self.selectedLanguageCode);
@@ -161,6 +191,13 @@
                 self.languagesList.push(customLanguage);
 
                 self.selectedLanguageCode = (languagesSettings && languagesSettings.selected) ? languagesSettings.selected : defaultLanguageCode;
+            }
+            
+            function getData() {
+                return {
+                    selected: self.selectedLanguageCode,
+                    customTranslations: self.getCustomTranslations()
+                };
             }
 
             function _getLanguage(code) {
@@ -219,6 +256,7 @@
             self.seconds = 0;
 
             self.init = init;
+            self.getData = getData;
 
             return self;
 
@@ -232,6 +270,63 @@
                 self.hours = timerSettings.time.hours;
                 self.minutes = timerSettings.time.minutes;
                 self.seconds = timerSettings.time.seconds;
+            }
+            
+            function getData() {
+                return {
+                    enabled: self.enabled,
+                    time: {
+                        hours: self.hours,
+                        minutes: self.minutes,
+                        seconds: self.seconds
+                    }
+                };
+            }
+        })();
+
+        that.questionPool = (function () {
+            var self = {};
+
+            self.modes = {
+                all: 'all',
+                subset: 'subset'
+            };
+            self.mode = self.modes.all;
+
+            self.subsetSize = 10;
+            self.randomizeOrder = true;
+            self.randomizePerAttempt = false;
+
+            self.init = init;
+            self.getData = getData;
+
+            return self;
+
+            function init(questionPoolSettings) {
+                if (!questionPoolSettings) {
+                    return;
+                }
+
+                self.mode = questionPoolSettings.mode;
+                self.subsetSize = questionPoolSettings.subsetSize;
+                self.randomizeOrder = questionPoolSettings.randomizeOrder;
+                self.randomizePerAttempt = questionPoolSettings.randomizePerAttempt;
+            }
+
+            function getData() {
+                var resultData = {};
+
+                resultData.mode = self.mode;
+                resultData.subsetSize = self.subsetSize;
+                if (self.mode === self.modes.all) {
+                    resultData.randomizeOrder = self.randomizeOrder;
+                    resultData.randomizePerAttempt = self.randomizeOrder && self.randomizePerAttempt;
+                } else if (self.mode === self.modes.subset) {
+                    resultData.randomizeOrder = self.randomizePerAttempt;
+                    resultData.randomizePerAttempt = self.randomizePerAttempt;
+                }
+
+                return resultData;
             }
         })();
 
@@ -251,37 +346,11 @@
 
         function getCurrentSettings(settings) {
             return $.extend({}, settings || currentSettings, {
-                xApi: {
-                    enabled: that.trackingData.enableXAPI,
-                    required: !that.trackingData.allowToSkipTracking,
-                    selectedLrs: that.trackingData.selectedLrs,
-                    lrs: {
-                        uri: that.trackingData.lrsUrl,
-                        authenticationRequired: that.trackingData.authenticationRequired,
-                        credentials: {
-                            username: that.trackingData.lapLogin,
-                            password: that.trackingData.lapPassword
-                        }
-                    },
-                    allowedVerbs: $.map(that.trackingData.statements, function (value, key) {
-                        return value ? key : undefined;
-                    })
-                },
-                masteryScore: {
-                    score: that.masteryScore.value || 0
-                },
-                languages: {
-                    selected: that.languages.selectedLanguageCode,
-                    customTranslations: that.languages.getCustomTranslations()
-                },
-                timer: {
-                    enabled: that.timer.enabled,
-                    time: {
-                        hours: that.timer.hours,
-                        minutes: that.timer.minutes,
-                        seconds: that.timer.seconds
-                    }
-                }
+                xApi: that.trackingData.getData(),
+                masteryScore: that.masteryScore.getData(),
+                languages: that.languages.getData(),
+                timer: that.timer.getData(),
+                questionPool: that.questionPool.getData()
             });
         }
 
@@ -295,6 +364,7 @@
             that.masteryScore.init(settings.masteryScore);
             that.languages.init(manifest.languages, settings.languages);
             that.timer.init(settings.timer);
+            that.questionPool.init(settings.questionPool);
 
             currentSettings = getCurrentSettings(settings);
 

@@ -8,13 +8,13 @@
     factory.$inject = ['Question'];
 
     function factory(Question) {
-        return function TextMatching(id, title, type, answers) {
+        return function TextMatching(objectiveId, id, title, hasContent, learningContents, type, answers) {
             var that = this,
                 _protected = {
                     answer: answer
                 };
 
-            Question.call(that, id, title, type, _protected);
+            Question.call(that, objectiveId, id, title, hasContent, learningContents, type, _protected);
 
             that.answers = answers;
 

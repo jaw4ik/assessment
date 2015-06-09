@@ -5,9 +5,9 @@
         .module('quiz')
         .controller('SummaryController', SummaryController);
 
-    SummaryController.$inject = ['$rootScope', '$scope', 'dataContext', '$location', '$timeout', 'settings', '$window', 'quiz'];
+    SummaryController.$inject = ['$rootScope', '$scope', 'dataContext', '$location', '$timeout', 'settings', '$window', 'quiz', 'questionPool'];
 
-    function SummaryController($rootScope, $scope, dataContext, $location, $timeout, settings, $window, quiz) {
+    function SummaryController($rootScope, $scope, dataContext, $location, $timeout, settings, $window, quiz, questionPool) {
         var that = this;
         $rootScope.title = 'Summary | ' + quiz.title;
         that.title = quiz.title;
@@ -34,6 +34,7 @@
             
             quiz.finish(function(){
               that.isSendingRequest = false;
+              questionPool.refresh();
               quiz.start();
               $location.path('/').search('tryAgain');
             });
