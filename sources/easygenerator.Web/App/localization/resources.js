@@ -396,6 +396,11 @@
         'zh-cn': '隐私条例',
         'uk': 'Політика конфіденційності'
     },
+    undo: {
+        'en': 'Undo',
+        'zh-cn': 'Undo[zh-cn]',
+        'uk': 'Відновити'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Storage */
@@ -591,7 +596,12 @@
     removeFromPath: {
         'en': 'Remove from path',
         'zh-cn': 'Remove from path[zh-cn]',
-        'uk': 'Видалити з навчального шляху'
+        'uk': 'Видалити зі шляху'
+    },
+    download: {
+        'en': 'Download',
+        'zh-cn': 'Download[zh-cn]',
+        'uk': 'Download[uk]'
     },
     /* End resource section for model Learning paths */
     
@@ -620,6 +630,11 @@
         'en': 'Course cannot be deleted when it has learning objective(s)',
         'zh-cn': '不能删除有学习目标的课程',
         'uk': 'Неможливо видалити курс, так як в ньому є розділ(и) / цілі'
+    },
+    courseCannotBeDeletedErrorMessage: {
+        'en': 'Course cannot be deleted if it has learning objective(s) or connected to learning path(s)',
+        'zh-cn': 'Course cannot be deleted if it has learning objective(s) or connected to learning path(s)[zh-cn]',
+        'uk': 'Course cannot be deleted if it has learning objective(s) or connected to learning path(s)[uk]'
     },
     courseCreateItem: {
         'en': 'Create',
@@ -1324,6 +1339,11 @@
         'en': 'There are no objectives in the course. Please choose a course that contains at least one objective.',
         'zh-cn': 'There are no objectives in the course. Please choose a course that contains at least one objective.[zh-cn]',
         'uk': 'Курс не містить розділів/цілей. Будь ласка виберіть курс, що включає в себе хоча б один розділ/ціль.'
+    },
+    learningContentRemoved: {
+        'en': 'Content was removed',
+        'zh-cn': 'Content was removed[zh-cn]',
+        'uk': 'Навчальний матеріал видалено'
     },
     /* End resource section for model Question */
     
