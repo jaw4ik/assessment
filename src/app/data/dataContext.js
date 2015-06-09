@@ -4,9 +4,9 @@
     angular.module('quiz')
         .factory('dataContext', dataContext);
 
-    dataContext.$inject = ['$rootScope', '$q', '$http', 'Quiz', 'Objective', '$templateCache', 'questionsFactory', 'settings'];// jshint ignore:line
+    dataContext.$inject = ['$rootScope', '$q', '$http', 'Quiz', 'Objective', '$templateCache', 'questionsFactory', 'questionPool'];// jshint ignore:line
 
-    function dataContext($rootScope, $q, $http, Quiz, Objective, $templateCache, questionsFactory, settings) { // jshint ignore:line
+    function dataContext($rootScope, $q, $http, Quiz, Objective, $templateCache, questionsFactory, questionPool) { // jshint ignore:line
         
         var self = {
             isInited: false,
@@ -62,32 +62,19 @@
 
         function getQuiz() {
             if (!self.isInited) {
+                self.isInited = true;
                 return init().then(function () {
-                    self.isInited = true;
                     return getQuiz();
                 });
             }
 
-            if (!self.quiz) {
-                var questionPoolSettings = settings.questionPool,
-                    questionPool = self.questions;
+            if (!self.quiz || questionPool.isRefreshed()) {
+                var questionsForCourse = questionPool.getQuestions(self.questions);
 
-                if (questionPoolSettings.randomizeOrder) {
-                    questionPool = _.shuffle(questionPool);
-                }
-                if (questionPoolSettings.mode === 'subset') {
-                    questionPool = _.first(questionPool, questionPoolSettings.subsetSize);
-                }
-                if (questionPoolSettings.randomizePerAttempt) {
-                    $rootScope.$on('course:started', function () {
-                        self.quiz = null;
-                    });
-                }
-
-                return $q.all(questionPool.map(function (question) {
+                return $q.all(questionsForCourse.map(function (question) {
                     return question.loadContent();
                 })).then(function () {
-                    return self.quiz = new Quiz(self.id, self.title, self.objectives, questionPool, self.hasIntroductionContent);
+                    return self.quiz = new Quiz(self.id, self.title, self.objectives, questionsForCourse, self.hasIntroductionContent);
                 });
             }
 
