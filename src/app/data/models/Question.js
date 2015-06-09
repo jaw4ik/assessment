@@ -5,9 +5,9 @@
         .module('quiz')
         .factory('Question', factory);
 
-    factory.$inject = ['$rootScope', 'LearningContent', 'htmlContentLoader', '$q'];
+    factory.$inject = ['$q', '$rootScope', 'LearningContent', 'htmlContentLoader'];
 
-    function factory($rootScope, LearningContent, htmlContentLoader, $q) {
+    function factory($q, $rootScope, LearningContent, htmlContentLoader) {
         return function Question(objectiveId, id, title, hasContent, learningContents, type, _protected) {
             var that = this;
             that.id = id;
