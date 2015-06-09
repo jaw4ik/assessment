@@ -1,4 +1,4 @@
-﻿ko.bindingHandlers.scrollToElement = {
+﻿ko.bindingHandlers.scrollTo = {
     init: function (element) {
         var $scrollElement = $(element);
         $('html, body').animate({
