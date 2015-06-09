@@ -1,6 +1,6 @@
 ﻿<div class="question-learning-content-list-item-body-wrapper" data-bind="css: { removed: isRemoved }">
     <!-- ko if: isRemoved -->
-    <div class="question-learning-content-list-item-removed">
+    <div class="question-learning-content-list-item-removed" data-bind="scrollTo: {}">
         <span class="question-learning-content-removed-info">
             <span class="question-learning-content-removed-text" data-bind="localize: { text: 'learningContentRemoved' }"></span>
             <span class="question-learning-content-removed-undo" data-bind="localize: { text: 'undo' }, click: restore"></span>
