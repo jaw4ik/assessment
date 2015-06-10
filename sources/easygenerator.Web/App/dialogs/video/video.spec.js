@@ -64,6 +64,7 @@
                 viewModel.copyEmbedCode();
                 jasmine.clock().tick(constants.copyToClipboardWait + 100);
                 expect(viewModel.embedCodeCopied()).toBeFalsy();
+                jasmine.clock().uninstall();
             });
         });
 
