@@ -70,11 +70,12 @@
 
             if (!self.quiz || questionPool.isRefreshed()) {
                 var questionsForCourse = questionPool.getQuestions(self.questions);
+                var objectivesForCourse = questionPool.getObjectives(self.objectives, questionsForCourse);
 
                 return $q.all(questionsForCourse.map(function (question) {
                     return question.loadContent();
                 })).then(function () {
-                    return self.quiz = new Quiz(self.id, self.title, self.objectives, questionsForCourse, self.hasIntroductionContent);
+                    return self.quiz = new Quiz(self.id, self.title, objectivesForCourse, questionsForCourse, self.hasIntroductionContent);
                 });
             }
 
