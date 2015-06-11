@@ -6,6 +6,7 @@
         var events = {
             addHotsppotContentBlock: 'Add hotspot content block',
             deleteHotsppotContentBlock: 'Delete hotspot content block',
+            restoreHotspotContentBlock: 'Undo delete hotspot content block',
             changeBackground: 'Change background of hotspot content block',
             addPolygon: 'Add rectangle in hotspot content block',
             updatePolygon: 'Resize/move rectangle in hotspot content block',
@@ -87,7 +88,16 @@
                 that.publishActualEvent(events.deleteHotsppotContentBlock);
                 that.removeLearningContent();
             };
-            
+
+            this.restore = function () {
+                if (!that.isRemoved()) {
+                    return;
+                }
+
+                that.publishActualEvent(events.restoreHotspotContentBlock);
+                that.restoreLearningContent();
+            }
+
             if (_.isEmpty(this.id())) {
                 this.publishActualEvent(events.addHotsppotContentBlock);
                 this.uploadBackground();
@@ -103,7 +113,7 @@
             }
 
             function updateTextInHotspotContentBlock() {
-                that.updateHotspotOnAnImage(function() {
+                that.updateHotspotOnAnImage(function () {
                     that.publishActualEvent(events.editText);
                 });
             }

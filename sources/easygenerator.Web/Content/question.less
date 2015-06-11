@@ -1,4 +1,7 @@
-﻿.question.view-module {
+﻿@learning-content-delete-section-width: 25px;
+@learning-content-drag-section-width: 28px;
+
+.question.view-module {
     padding-bottom: 40px;
     color: #666;
     font-size: 14px;
@@ -607,7 +610,7 @@
         margin-bottom: 10px;
     }
 
-    .sortable-list-placeholder{
+    .sortable-list-placeholder {
         margin-right: 26px;
     }
 }
@@ -816,6 +819,79 @@
     border: 1px solid transparent;
 }
 
+.question-learning-content-list-item-body-wrapper {
+
+    &.removed {
+        position: relative;
+        margin-left: @learning-content-drag-section-width;
+        margin-right: @learning-content-delete-section-width;
+        height: 54px;
+        overflow: hidden;
+        border: 1px solid #dddddd;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+
+        .question-learning-content-list-item-removed {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+            opacity: 0.95;
+            background: #fff;
+            text-align: center;
+
+            .question-learning-content-removed-info {
+                display: inline-block;
+                height: 100%;
+                padding: 12px;
+
+                .question-learning-content-removed-text {
+                    font-family: 'OpenSans-Semibold';
+                    font-size: 15px;
+                    color: #63798e;
+                    padding-right: 35px;
+                }
+
+                .question-learning-content-removed-undo {
+                    display: inline-block;
+                    padding: 5px;
+                    font-family: 'OpenSans-Semibold';
+                    font-size: 14px;
+                    color: #469dd5;
+                    border-bottom: 1px solid #469dd5;
+                    text-transform: uppercase;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: #3e8bbd;
+                        border-color: #3e8bbd;
+
+                        &:before {
+                            background: url(images/sprites_16.png) 60px 16px;
+                        }
+                    }
+
+
+                    &:before {
+                        content: "";
+                        display: inline-block;
+                        vertical-align: middle;
+                        margin-top: -2px;
+                        width: 16px;
+                        height: 16px;
+                        margin-right: 7px;
+                        background: url(images/sprites_16.png) 81px 16px;
+                    }
+                }
+            }
+        }
+
+        .question-learning-content-body-wrapper {
+            border: none;
+        }
+    }
+}
+
 .question-learning-content-list-item.ui-sortable-helper {
 
     .question-learning-content-list-item-body-wrapper {
@@ -825,6 +901,14 @@
         .question-learning-content-body-wrapper {
             background: #daebf7;
             border-color: transparent;
+
+            .question-learning-content-body {
+                background: #daebf7;
+
+                .question-learning-content {
+                    background: #daebf7;
+                }
+            }
         }
 
         .question-learning-content-drag-wrapper {
@@ -844,7 +928,7 @@
         content: '';
         display: block;
         position: absolute;
-        bottom: -8px;  
+        bottom: -8px;
         right: 26px;
         left: 0;
         height: 8px;
@@ -918,7 +1002,7 @@
     clear: both;
 }
 
-.hotspotOnImage .hotspot-area{
+.hotspotOnImage .hotspot-area {
     position: absolute;
 }
 
@@ -927,7 +1011,7 @@
 /*#region drag button*/
 
 .question-learning-content-drag-wrapper {
-    width: 28px;
+    width: @learning-content-drag-section-width;
     display: table-cell;
     vertical-align: middle;
     text-align: center;
@@ -973,9 +1057,9 @@
 }
 
 .question-learning-content-delete-wrapper {
-    width: 25px;
+    width: @learning-content-delete-section-width;
     text-align: right;
-    
+
     .question-learning-content-delete-icon {
         display: inline-block;
         height: 14px;
@@ -984,13 +1068,13 @@
         background-position: -85px -22px;
         cursor: pointer;
 
-        &:hover{
+        &:hover {
             background-position: -106px -22px;
         }
     }
 }
 
-.answer-option-item.active .question-answer-delete-wrapper{
+.answer-option-item.active .question-answer-delete-wrapper {
     border-left-color: #a0dfff;
 }
 
@@ -1023,7 +1107,7 @@
     border-radius: 3px;
     cursor: pointer;
 
-    &:hover{
+    &:hover {
         border-style: solid;
     }
 
@@ -1049,23 +1133,23 @@
         padding-right: 54px;
     }
 
-    &.inline{
+    &.inline {
         display: inline-block;
         width: 45%;
         margin: 0 4% 0 29px;
 
-        &:nth-child(even){
+        &:nth-child(even) {
             margin: 0;
         }
 
-        .add-button-text-wrapper{
+        .add-button-text-wrapper {
 
-            .add-button-text{
+            .add-button-text {
                 font: 14px 'OpenSans-SemiboldItalic';
                 text-transform: uppercase;
                 color: #42515f;
 
-                &:before{
+                &:before {
                     height: 36px;
                     margin-top: -18px;
                     background: url('images/sprites_64.png') no-repeat;
@@ -1073,20 +1157,20 @@
             }
         }
 
-        &.content .add-button-text{
+        &.content .add-button-text {
             padding-left: 50px;
         }
 
-        &.hotspot-on-image .add-button-text{
+        &.hotspot-on-image .add-button-text {
             padding-left: 70px;
         }
 
-        &.hotspot-on-image .add-button-text:before{
+        &.hotspot-on-image .add-button-text:before {
             width: 54px;
             background-position: -74px -283px;
         }
 
-        &.content .add-button-text:before{
+        &.content .add-button-text:before {
             width: 37px;
             background-position: -152px -283px;
         }
@@ -1104,7 +1188,7 @@
             color: #546677;
             font-size: 16px;
 
-            &:before{
+            &:before {
                 background: url('images/sprites_24.png') -263px 0 no-repeat;
                 content: '';
                 display: block;
@@ -1900,37 +1984,37 @@
 
 /*#region HotspotOnImage*/
 
-.hotspot-on-image-container{
+.hotspot-on-image-container {
     position: relative;
     padding: 20px;
     overflow: visible;
     text-align: center;
 
-    .hotspot-on-image-wrapper{
+    .hotspot-on-image-wrapper {
         overflow-x: auto;
         overflow-y: hidden;
     }
 
-    .upload-background-image{
+    .upload-background-image {
         right: -17px;
     }
 
-    .hotspot-on-image{
+    .hotspot-on-image {
         position: relative;
         display: inline-block;
 
-        &.empty + .hotspot-tooltip-container{
+        &.empty + .hotspot-tooltip-container {
             display: block;
         }
 
-        .hotspot-area{
+        .hotspot-area {
             position: absolute;
             left: 0;
             z-index: 10;
         }
     }
 
-    .hotspot-tooltip-container{
+    .hotspot-tooltip-container {
         position: absolute;
         display: none;
         top: 50%;
@@ -1949,7 +2033,7 @@
 /*#endregion HotspotOnImage*/
 
 /*#region  HotspotOnImageWidget*/
-.hotspot-on-image-editor-container{
+.hotspot-on-image-editor-container {
     position: absolute;
     display: none;
     width: 330px;
@@ -1961,7 +2045,8 @@
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     z-index: 200;
 }
-.hotspot-on-image-editor-text-container{
+
+.hotspot-on-image-editor-text-container {
     position: relative;
     min-height: 78px;
     max-height: 300px;
@@ -1972,28 +2057,28 @@
     color: #63798e;
     line-height: 20px;
     outline: none;
-    border: 1px solid #CAC3BD; 
+    border: 1px solid #CAC3BD;
     border-radius: 5px;
     resize: none;
 }
 
 .hotspot-on-image-editor-text-container:focus {
-  border: 1px solid rgba(0, 168, 255, 0.75);
-  box-shadow: 0 0 3px rgba(0, 168, 255, 0.75);
+    border: 1px solid rgba(0, 168, 255, 0.75);
+    box-shadow: 0 0 3px rgba(0, 168, 255, 0.75);
 }
 
-.hotspot-on-image-editor-button-container{
+.hotspot-on-image-editor-button-container {
     text-align: right;
 }
-            
-.hotspot-on-image-editor-button{
+
+.hotspot-on-image-editor-button {
     padding: 0;
     border: none;
     outline: none;
     background: none;
 }
-            
-.hotspot-on-image-editor-button:hover{
+
+.hotspot-on-image-editor-button:hover {
     cursor: pointer;
 }
             
@@ -2005,8 +2090,8 @@
     text-transform: uppercase;
     border-radius: 5px;
 }
-   
-.hotspot-on-image-editor-pointer{
+
+.hotspot-on-image-editor-pointer {
     position: absolute;
     width: 10px;
     height: 10px;
@@ -2016,18 +2101,18 @@
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
 }
-            
-.left .hotspot-on-image-editor-pointer{
+
+.left .hotspot-on-image-editor-pointer {
     left: -7px;
     border-width: 0 0 2px 2px;
 }
-            
-.right .hotspot-on-image-editor-pointer{
+
+.right .hotspot-on-image-editor-pointer {
     right: -7px;
     border-width: 2px 2px 0 0;
 }
 
-/*#region  HotspotOnImageWidget*/ 
+/*#region  HotspotOnImageWidget*/
 
 .answers {
     background-color: #e9f0f4;

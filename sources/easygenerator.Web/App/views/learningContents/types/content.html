@@ -1,6 +1,16 @@
-﻿<div class="question-learning-content-list-item-body-wrapper">
+﻿<div class="question-learning-content-list-item-body-wrapper" data-bind="css: { removed: isRemoved }">
+    <!-- ko if: isRemoved -->
+    <div class="question-learning-content-list-item-removed" data-bind="scrollTo: {}">
+        <span class="question-learning-content-removed-info">
+            <span class="question-learning-content-removed-text" data-bind="localize: { text: 'learningContentRemoved' }"></span>
+            <span class="question-learning-content-removed-undo" data-bind="localize: { text: 'undo' }, click: restore"></span>
+        </span>
+    </div>
+    <!-- /ko -->
     <div class="question-learning-content-list-item-body">
+        <!-- ko ifnot: isRemoved -->
         <div class="question-learning-content-drag-wrapper" data-bind="css:{ enabled: $parent.isSortingEnabled }, localize: { title: 'changeOrderTooltip' }"></div>
+        <!-- /ko -->
         <div class="question-learning-content-body-wrapper" data-bind="css: { editing: hasFocus }">
             <div class="question-learning-content-body">
                 <div class="question-learning-content-wrapper">
@@ -9,6 +19,7 @@
                 </div>
             </div>
         </div>
+        <!-- ko ifnot: isRemoved -->
         <div class="question-learning-content-delete-wrapper">
             <span class="question-learning-content-delete-icon  info-tooltip-holder" data-bind="click: remove">
                 <span class="info-tooltip right-side">
@@ -18,5 +29,6 @@
                 </span>
             </span>
         </div>
+        <!-- /ko -->
     </div>
 </div>
