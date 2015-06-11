@@ -3,10 +3,10 @@
         'viewmodels/courses/publishingActions/scormBuild', 'viewmodels/courses/publishingActions/publish', 'userContext',
         'viewmodels/courses/publishingActions/publishToAim4You', 'clientContext', 'localization/localizationManager', 'eventTracker',
         'reporting/xApiProvider', 'plugins/dialog', 'utils/fileSaverWrapper', 'reporting/viewmodels/courseStatement',
-        'dialogs/upgrade/viewmodels/upgradeLoadMoreResults', 'dialogs/upgrade/viewmodels/upgradeDownloadResults'
+        'widgets/upgradeDialog/viewmodel'
 ],
     function (repository, router, constants, courseRepository, buildPublishingAction, scormBuildPublishingAction, publishPublishingAction, userContext, publishToAim4You,
-        clientContext, localizationManager, eventTracker, xApiProvider, dialog, fileSaverWrapper, CourseStatement, upgradeLoadMoreResultsDialog, upgradeDownloadResultsDialog) {
+        clientContext, localizationManager, eventTracker, xApiProvider, dialog, fileSaverWrapper, CourseStatement, upgradeDialog) {
         "use strict";
 
         var events = {
@@ -121,7 +121,14 @@
                     return undefined;
                 }
                 if (!userContext.hasStarterAccess()) {
-                    upgradeLoadMoreResultsDialog.show();
+                    var settings = {
+                        containerCss: 'upgrade-dialog-all-results',
+                        eventCategory: 'Load more results',
+                        subtitle: localizationManager.localize('resultsUpgradeDialogTitle2'),
+                        description: localizationManager.localize('resultsUpgradeDialogText')
+                    };
+
+                    upgradeDialog.show(settings);
                     return undefined;
                 }
 
@@ -137,7 +144,14 @@
             eventTracker.publish(events.downloadResults);
             return Q.fcall(function () {
                 if (!userContext.hasStarterAccess()) {
-                    upgradeDownloadResultsDialog.show();
+                    var settings = {
+                        containerCss: 'upgrade-dialog-download-results',
+                        eventCategory: 'Download results CSV',
+                        subtitle: localizationManager.localize('resultsUpgradeForDownloadCSVDialogTitle2'),
+                        description: localizationManager.localize('resultsUpgradeForDownloadCSVDialogHtml')
+                    };
+
+                    upgradeDialog.show(settings);
                     return;
                 }
 

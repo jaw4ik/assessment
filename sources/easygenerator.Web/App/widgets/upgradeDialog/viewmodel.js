@@ -7,26 +7,38 @@
             skipUpgrade: 'Skip upgrade'
         };
 
-        var ctor = function (category) {
-            this.category = category;
+        var viewmodel = {
+            containerCss: ko.observable(''),
+            subtitle: ko.observable(''),
+            description: ko.observable(''),
+            eventCategory: '',
 
-            this.isShown = ko.observable(false);
+            isShown: ko.observable(false),
+
+            show: show,
+            upgrade: upgrade,
+            skip: skip
         };
 
-        ctor.prototype.upgrade = function () {
-            eventTracker.publish(events.upgradeNow, this.category);
+        return viewmodel;
+
+        function show(settings) {
+            viewmodel.containerCss(settings.containerCss);
+            viewmodel.subtitle (settings.subtitle);
+            viewmodel.description(settings.description);
+            viewmodel.eventCategory = settings.eventCategory;
+
+            viewmodel.isShown(true);
+        }
+
+        function upgrade() {
+            eventTracker.publish(events.upgradeNow, viewmodel.eventCategory);
             router.openUrl(constants.upgradeUrl);
-            this.isShown(false);
+            viewmodel.isShown(false);
         }
 
-        ctor.prototype.show = function () {
-            this.isShown(true);
+        function skip() {
+            eventTracker.publish(events.skipUpgrade, viewmodel.eventCategory);
+            viewmodel.isShown(false);
         }
-
-        ctor.prototype.skip = function () {
-            eventTracker.publish(events.skipUpgrade, this.category);
-            this.isShown(false);
-        }
-
-        return ctor;
     });

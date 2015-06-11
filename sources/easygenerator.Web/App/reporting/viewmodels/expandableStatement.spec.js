@@ -117,7 +117,7 @@
             });
 
             describe('when user does not have plus access', function() {
-                var upgradeDialog = require('dialogs/upgrade/viewmodels/upgradeExtendedResults');
+                var upgradeDialog = require('widgets/upgradeDialog/viewmodel');
 
                 beforeEach(function () {
                     spyOn(userContext, 'hasPlusAccess').and.returnValue(false);

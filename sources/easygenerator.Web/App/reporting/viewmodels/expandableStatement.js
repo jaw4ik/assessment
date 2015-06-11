@@ -1,4 +1,4 @@
-﻿define(['userContext', 'dialogs/upgrade/viewmodels/upgradeExtendedResults'], function (userContext, upgradeExtendedResultsDialog) {
+﻿define(['userContext', 'widgets/upgradeDialog/viewmodel', 'localization/localizationManager'], function (userContext, upgradeDialog, localizationManager) {
     "use strict";
 
     var ExpandableStatement = function (lrsStatement, expandLoadAction) {
@@ -14,7 +14,13 @@
         var that = this;
         return Q.fcall(function () {
             if (!userContext.hasPlusAccess()) {
-                upgradeExtendedResultsDialog.show();
+                var settings = {
+                    containerCss: 'upgrade-dialog-extended-results',
+                    eventCategory: 'Load extended results',
+                    subtitle: localizationManager.localize('resultsUpgradeForExtendedResultsTitle2'),
+                    description: localizationManager.localize('resultsUpgradeForExtendedResultsHtml')
+                };
+                upgradeDialog.show(settings);
                 return undefined;
             }
 

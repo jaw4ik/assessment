@@ -60,12 +60,12 @@
         });
 
         describe('addVideo', function () {
-            var upgradeVideoUploadDialog = require('dialogs/upgrade/viewmodels/upgradeVideoUpload');
+            var upgradeDialog = require('widgets/upgradeDialog/viewmodel');
 
             beforeEach(function () {
                 spyOn(storageFileUploader, 'upload');
                 spyOn(eventTracker, 'publish');
-                spyOn(upgradeVideoUploadDialog, 'show');
+                spyOn(upgradeDialog, 'show');
             });
 
             it('should be function', function () {
@@ -79,7 +79,7 @@
 
                 it('should show upgrade popup', function () {
                     viewModel.addVideo();
-                    expect(upgradeVideoUploadDialog.show).toHaveBeenCalled();
+                    expect(upgradeDialog.show).toHaveBeenCalled();
                 });
 
                 it('should not upload video', function () {
@@ -97,7 +97,7 @@
 
                 it('should show upgrade popup', function () {
                     viewModel.addVideo();
-                    expect(upgradeVideoUploadDialog.show).toHaveBeenCalled();
+                    expect(upgradeDialog.show).toHaveBeenCalled();
                 });
 
                 it('should not upload video', function () {

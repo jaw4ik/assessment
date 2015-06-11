@@ -1,8 +1,8 @@
 ﻿define(['durandal/app', 'plugins/router', 'constants', 'eventTracker', 'repositories/videoRepository', 'dialogs/video/video',
     'videoUpload/upload', 'videoUpload/handlers/thumbnails', 'userContext', 'localization/localizationManager',
-    'storageFileUploader', 'dialogs/upgrade/viewmodels/upgradeVideoUpload'
+    'storageFileUploader', 'widgets/upgradeDialog/viewmodel'
 ],
-    function (app, router, constants, eventTracker, repository, videoPopup, videoUpload, thumbnailLoader, userContext, localizationManager, storageFileUploader, upgradeVideoUploadDialog) {
+    function (app, router, constants, eventTracker, repository, videoPopup, videoUpload, thumbnailLoader, userContext, localizationManager, storageFileUploader, upgradeDialog) {
     "use strict";
 
     app.on(constants.storage.video.changesInUpload, updateVideos);
@@ -37,7 +37,14 @@
 
     function addVideo() {
         if (!userContext.hasStarterAccess() || userContext.hasTrialAccess()) {
-            upgradeVideoUploadDialog.show();
+            var settings = {
+                containerCss: 'upgrade-dialog-video-upload',
+                eventCategory: eventCategory,
+                subtitle: localizationManager.localize('videoUpgradeToUpload'),
+                description: localizationManager.localize('videoUpgradeToUploadHtml')
+            };
+
+            upgradeDialog.show(settings);
             return;
         }
         storageFileUploader.upload(uploadSettings);

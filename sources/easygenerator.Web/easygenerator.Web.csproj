@@ -560,27 +560,7 @@
     <Content Include="App\widgets\upgradeDialog\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
-    <Content Include="App\dialogs\upgrade\viewmodels\upgradeLoadMoreResults.js" />
-    <Content Include="App\dialogs\upgrade\viewmodels\upgradeLoadMoreResults.spec.js">
-      <DependentUpon>upgradeLoadMoreResults.js</DependentUpon>
-    </Content>
     <Content Include="App\widgets\upgradeDialog\view.html" />
-    <Content Include="App\dialogs\upgrade\viewmodels\upgradeDownloadResults.js" />
-    <Content Include="App\dialogs\upgrade\viewmodels\upgradeDownloadResults.spec.js">
-      <DependentUpon>upgradeDownloadResults.js</DependentUpon>
-    </Content>
-    <Content Include="App\dialogs\upgrade\viewmodels\upgradeVideoUpload.js" />
-    <Content Include="App\dialogs\upgrade\viewmodels\upgradeVideoUpload.spec.js">
-      <DependentUpon>upgradeVideoUpload.js</DependentUpon>
-    </Content>
-    <Content Include="App\dialogs\upgrade\views\upgradeExtendedResults.html" />
-    <Content Include="App\dialogs\upgrade\viewmodels\upgradeExtendedResults.js" />
-    <Content Include="App\dialogs\upgrade\viewmodels\upgradeExtendedResults.spec.js">
-      <DependentUpon>upgradeExtendedResults.js</DependentUpon>
-    </Content>
-    <Content Include="App\dialogs\upgrade\views\upgradeDownloadResults.html" />
-    <Content Include="App\dialogs\upgrade\views\upgradeLoadMoreResults.html" />
-    <Content Include="App\dialogs\upgrade\views\upgradeVideoUpload.html" />
     <Content Include="App\dialogs\video\video.html" />
     <Content Include="App\dialogs\video\video.js" />
     <Content Include="App\dialogs\video\video.spec.js">

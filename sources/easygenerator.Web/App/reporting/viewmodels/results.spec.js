@@ -541,10 +541,10 @@
             });
 
             describe('when user access type forbids to view more results', function () {
-                var upgradeDownloadDialog = require('dialogs/upgrade/viewmodels/upgradeDownloadResults');
+                var upgradeDialog = require('widgets/upgradeDialog/viewmodel');
 
                 beforeEach(function () {
-                    spyOn(upgradeDownloadDialog, 'show');
+                    spyOn(upgradeDialog, 'show');
                     userContext.identity = {
                         email: 'test@test.com',
                         subscription: {
@@ -556,7 +556,7 @@
 
                 it('should show upgrade results dialog', function (done) {
                     viewModel.downloadResults().fin(function () {
-                        expect(upgradeDownloadDialog.show).toHaveBeenCalled();
+                        expect(upgradeDialog.show).toHaveBeenCalled();
                         done();
                     });
                 });
