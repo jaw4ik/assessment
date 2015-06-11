@@ -13,7 +13,6 @@
 
 		return {
 			getQuestions: getQuestions,
-			getObjectives: getObjectives,
 			isRefreshed: isRefreshed,
 			refresh: refresh
 		};
@@ -30,24 +29,6 @@
 			}
 
 			return questionPool;
-		}
-
-		function getObjectives(allObjectives, poolOfQuestions) {
-			var objectivesIds = _.chain(poolOfQuestions)
-				.map(function (question) {
-					return question.objectiveId;
-				})
-				.uniq()
-				.value();
-
-			return _.chain(allObjectives)
-				.filter(function (objective) {
-					return _.contains(objectivesIds, objective.id);
-				})
-				.each(function (objective) {
-					objective.questions = _.intersection(objective.questions, poolOfQuestions);
-				})
-				.value();
 		}
 
 		function isRefreshed() {
