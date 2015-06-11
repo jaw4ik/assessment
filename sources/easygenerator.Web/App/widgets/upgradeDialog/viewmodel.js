@@ -7,10 +7,8 @@
             skipUpgrade: 'Skip upgrade'
         };
 
-        var ctor = function (category, subtitle, text) {
+        var ctor = function (category) {
             this.category = category;
-            this.subtitle = subtitle;
-            this.text = text;
 
             this.isShown = ko.observable(false);
         };

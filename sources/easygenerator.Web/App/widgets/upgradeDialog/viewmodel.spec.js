@@ -1,10 +1,8 @@
-﻿define(['dialogs/upgrade/viewmodels/upgradeDialog'], function (UpgradeDialog) {
+﻿define(['widgets/upgradeDialog/viewmodel'], function (UpgradeDialog) {
     'use strict';
 
     describe('[upgradeDialog]', function () {
         var upgradeDialog,
-            subtitle = 'subtitle',
-            text = 'text',
             category = 'category',
             eventTracker = require('eventTracker'),
             constants = require('constants'),
@@ -13,7 +11,7 @@
         beforeEach(function () {
             spyOn(eventTracker, 'publish');
             spyOn(router, 'openUrl');
-            upgradeDialog = new UpgradeDialog(category, subtitle, text);
+            upgradeDialog = new UpgradeDialog(category);
         });
 
         it('should be constructor function', function () {
@@ -23,9 +21,6 @@
         describe('ctor:', function() {
             it('should initialize fields with proper values', function () {
                 expect(upgradeDialog.category).toBe(category);
-                expect(upgradeDialog.subtitle).toBe(subtitle);
-                expect(upgradeDialog.text).toBe(text);
-
                 expect(upgradeDialog.isShown()).toBeFalsy();
             });
         });

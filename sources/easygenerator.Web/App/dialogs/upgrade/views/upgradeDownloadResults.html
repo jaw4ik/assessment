@@ -1,4 +1,6 @@
 ﻿<section class="upgrade-dialog-download-results">
-    <!--  ko compose: { view: 'dialogs/upgrade/views/upgradeDialog', model: $data  } -->
-    <!-- /ko -->
+    <div data-bind="widget: {kind:'upgradeDialog', model: $data}">
+        <span data-part="subtitle" data-bind="localize: {text: 'resultsUpgradeForDownloadCSVDialogTitle2'}"></span>
+        <span data-part="description" data-bind="localize: {html: 'resultsUpgradeForDownloadCSVDialogHtml'}"></span>
+    </div>
 </section>
