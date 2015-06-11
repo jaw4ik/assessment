@@ -1,7 +1,7 @@
-﻿define(['dialogs/upgrade/upgradeDialog'], function (viewModel) {
+﻿define(['dialogs/upgrade/viewmodels/upgradeLoadMoreResults'], function (viewModel) {
     'use strict';
 
-    describe('[upgradeDialog]', function () {
+    describe('[upgradeLoadMoreResults]', function () {
         var eventTracker = require('eventTracker'),
                 constants = require('constants'),
                 router = require('plugins/router');
@@ -32,21 +32,7 @@
             });
 
         });
-
-        describe('hide:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.hide).toBeFunction();
-            });
-
-            it('should hide dialog', function () {
-                viewModel.isShown(true);
-                viewModel.hide();
-                expect(viewModel.isShown()).toBeFalsy();
-            });
-
-        });
-
+        
         describe('upgrade:', function() {
 
             it('should be function', function () {
@@ -61,7 +47,7 @@
 
             it('should send event \'Upgrade now\'', function () {
                 viewModel.upgrade();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Upgrade now', 'Load extended results');
+                expect(eventTracker.publish).toHaveBeenCalledWith('Upgrade now', 'Load more results');
             });
 
             it('should open upgrade url', function () {
@@ -83,7 +69,7 @@
 
             it('should send event \'Skip upgrade\'', function () {
                 viewModel.skip();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Skip upgrade', 'Load extended results');
+                expect(eventTracker.publish).toHaveBeenCalledWith('Skip upgrade', 'Load more results');
             });
         });
     });

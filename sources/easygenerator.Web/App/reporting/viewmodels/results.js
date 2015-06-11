@@ -2,20 +2,17 @@
         'repositories/courseRepository', 'plugins/router', 'constants', 'repositories/courseRepository', 'viewmodels/courses/publishingActions/build',
         'viewmodels/courses/publishingActions/scormBuild', 'viewmodels/courses/publishingActions/publish', 'userContext',
         'viewmodels/courses/publishingActions/publishToAim4You', 'clientContext', 'localization/localizationManager', 'eventTracker',
-        'reporting/xApiProvider', 'plugins/dialog', 'utils/fileSaverWrapper', 'reporting/viewmodels/courseStatement'
+        'reporting/xApiProvider', 'plugins/dialog', 'utils/fileSaverWrapper', 'reporting/viewmodels/courseStatement',
+        'dialogs/upgrade/viewmodels/upgradeLoadMoreResults', 'dialogs/upgrade/viewmodels/upgradeDownloadResults'
 ],
     function (repository, router, constants, courseRepository, buildPublishingAction, scormBuildPublishingAction, publishPublishingAction, userContext, publishToAim4You,
-        clientContext, localizationManager, eventTracker, xApiProvider, dialog, fileSaverWrapper, CourseStatement) {
+        clientContext, localizationManager, eventTracker, xApiProvider, dialog, fileSaverWrapper, CourseStatement, upgradeLoadMoreResultsDialog, upgradeDownloadResultsDialog) {
         "use strict";
 
-        var loadMoreEventCategory = 'Load more results',
-            downloadAsCsvEventCategory = 'Download results CSV',
-            events = {
+        var events = {
                 navigateToCourses: 'Navigate to courses',
                 showMoreResults: 'Show more results',
-                downloadResults: 'Download results',
-                upgradeNow: 'Upgrade now',
-                skipUpgrade: 'Skip upgrade'
+                downloadResults: 'Download results'
             };
 
         var viewModel = {
@@ -33,13 +30,7 @@
             allResultsLoaded: false,
             isLoading: ko.observable(true),
             results: ko.observableArray([]),
-            isResultsDialogShown: ko.observable(false),
-            isDownloadDialogShown: ko.observable(false),
             showMoreResults: showMoreResults,
-            upgradeNowForLoadMore: upgradeNowForLoadMore,
-            upgradeNowForDownloadCsv: upgradeNowForDownloadCsv,
-            skipUpgradeForLoadMore: skipUpgradeForLoadMore,
-            skipUpgradeForDownloadCsv: skipUpgradeForDownloadCsv,
             downloadResults: downloadResults,
             getResultsFileName: getResultsFileName,
             generateResultsCsvBlob: generateResultsCsvBlob
@@ -64,8 +55,6 @@
             viewModel.loadedResults = [];
             viewModel.pageNumber = 1;
             viewModel.courseId = courseId;
-            viewModel.isResultsDialogShown(false);
-            viewModel.isDownloadDialogShown(false);
             viewModel.allResultsLoaded = false;
 
             return courseRepository.getById(courseId).then(function (course) {
@@ -132,7 +121,7 @@
                     return undefined;
                 }
                 if (!userContext.hasStarterAccess()) {
-                    viewModel.isResultsDialogShown(true);
+                    upgradeLoadMoreResultsDialog.show();
                     return undefined;
                 }
 
@@ -144,40 +133,11 @@
             });
         }
 
-        function upgradeNowForLoadMore() {
-            upgradeNow(loadMoreEventCategory);
-            viewModel.isResultsDialogShown(false);
-        }
-
-        function upgradeNowForDownloadCsv() {
-            upgradeNow(downloadAsCsvEventCategory);
-            viewModel.isDownloadDialogShown(false);
-        }
-
-        function upgradeNow(eventCategory) {
-            eventTracker.publish(events.upgradeNow, eventCategory);
-            router.openUrl(constants.upgradeUrl);
-        }
-
-        function skipUpgradeForLoadMore() {
-            skipUpgrade(loadMoreEventCategory);
-            viewModel.isResultsDialogShown(false);
-        }
-
-        function skipUpgradeForDownloadCsv() {
-            skipUpgrade(downloadAsCsvEventCategory);
-            viewModel.isDownloadDialogShown(false);
-        }
-
-        function skipUpgrade(eventCategory) {
-            eventTracker.publish(events.skipUpgrade, eventCategory);
-        }
-
         function downloadResults() {
             eventTracker.publish(events.downloadResults);
             return Q.fcall(function () {
                 if (!userContext.hasStarterAccess()) {
-                    viewModel.isDownloadDialogShown(true);
+                    upgradeDownloadResultsDialog.show();
                     return;
                 }
 

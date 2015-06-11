@@ -43,7 +43,10 @@
             'dialogs/collaboration/collaborator.spec',
             'dialogs/publishCourse/publishCourse.spec',
             'dialogs/moveCopyQuestion/moveCopyQuestion.spec',
-            'dialogs/upgrade/upgradeDialog.spec',
+            'dialogs/upgrade/viewmodels/upgradeDialog.spec',
+            'dialogs/upgrade/viewmodels/upgradeLoadMoreResults.spec',
+            'dialogs/upgrade/viewmodels/upgradeDownloadResults.spec',
+            'dialogs/upgrade/viewmodels/upgradeExtendedResults.spec',
             'dialogs/video/video.spec',
 
             //#endregion dialogs

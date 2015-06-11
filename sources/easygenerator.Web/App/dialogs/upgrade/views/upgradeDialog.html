@@ -1,12 +1,12 @@
-﻿<section class="upgrade-dialog-container">
+﻿<section>
     <section class="upgrade-dialog" data-bind="visible: isShown">
-        <section class="upgrade-dialog-content course-results-extended-upgrade-dialog" data-bind="visible: isShown">
+        <section class="upgrade-dialog-content" data-bind="visible: isShown">
             <header>
                 <div class="upgrade-dialog-title" data-bind="localize: { text: 'resultsUpgradeDialogBoldTitle' }">Upgrade now</div>
-                <div class="upgrade-dialog-description" data-bind="localize: { text: 'resultsUpgradeForExtendedResultsTitle2' }">to get full list of results</div>
+                <div class="upgrade-dialog-description" data-bind="text: subtitle">to get full list of results</div>
             </header>
-            <div class="course-results-extended-upgrade-dialog-title-image"></div>
-            <div class="upgrade-dialog-body" data-bind="localize: { html: 'resultsUpgradeForExtendedResultsHtml' }"></div>
+            <div class="upgrade-dialog-title-image"></div>
+            <div class="upgrade-dialog-body" data-bind="html: text"></div>
             <div class="upgrade-dialog-buttons">
                 <button class="btn green upgrade-dialog-btn-upgrade" data-bind="click: upgrade, localize: { text: 'resultsUpgradeDialogUpgradeNow' }">Upgrade now</button><br />
                 <a class="upgrade-dialog-btn-later" href="" data-bind="click: skip, localize: { text: 'resultsUpgradeDialogMaybeLater' }">Maybe later</a>

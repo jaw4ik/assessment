@@ -1,4 +1,8 @@
-﻿define(['durandal/app', 'plugins/router', 'constants', 'eventTracker', 'repositories/videoRepository', 'dialogs/video/video', 'videoUpload/upload', 'videoUpload/handlers/thumbnails', 'userContext', 'localization/localizationManager', 'storageFileUploader'], function (app, router, constants, eventTracker, repository, videoPopup, videoUpload, thumbnailLoader, userContext, localizationManager, storageFileUploader) {
+﻿define(['durandal/app', 'plugins/router', 'constants', 'eventTracker', 'repositories/videoRepository', 'dialogs/video/video',
+    'videoUpload/upload', 'videoUpload/handlers/thumbnails', 'userContext', 'localization/localizationManager',
+    'storageFileUploader', 'dialogs/upgrade/viewmodels/upgradeVideoUpload'
+],
+    function (app, router, constants, eventTracker, repository, videoPopup, videoUpload, thumbnailLoader, userContext, localizationManager, storageFileUploader, upgradeVideoUploadDialog) {
     "use strict";
 
     app.on(constants.storage.video.changesInUpload, updateVideos);
@@ -7,8 +11,6 @@
 
     var eventCategory = 'Video library',
         events = {
-            upgradeNow: 'Upgrade now',
-            skipUpgrade: 'Skip upgrade',
             openUploadVideoDialog: 'Open \"choose video file\" dialog'
         },
         uploadSettings = {
@@ -21,7 +23,6 @@
 
     var viewModel = {
         videos: ko.observableArray([]),
-        upgradePopupVisibility: ko.observable(false),
         storageSpaceProgressBarVisibility: ko.observable(false),
         availableStorageSpace: ko.observable(0),
         availableStorageSpacePersentages: ko.observable(0),
@@ -29,16 +30,14 @@
         addVideo: addVideo,
         activate: activate,
         updateVideos: updateVideos,
-        showVideoPopup: showVideoPopup,
-        upgradeToVideoUpload: upgradeToVideoUpload,
-        skipUpgradeForUploadVideo: skipUpgradeForUploadVideo
+        showVideoPopup: showVideoPopup
     }
 
     return viewModel;
 
     function addVideo() {
         if (!userContext.hasStarterAccess() || userContext.hasTrialAccess()) {
-            viewModel.upgradePopupVisibility(true);
+            upgradeVideoUploadDialog.show();
             return;
         }
         storageFileUploader.upload(uploadSettings);
@@ -51,25 +50,6 @@
         }
 
         videoPopup.show(video.vimeoId());
-    }
-
-    function upgradeToVideoUpload() {
-        upgradeNow(eventCategory);
-        viewModel.upgradePopupVisibility(false);
-    }
-
-    function upgradeNow(category) {
-        eventTracker.publish(events.upgradeNow, category);
-        router.openUrl(constants.upgradeUrl);
-    }
-
-    function skipUpgradeForUploadVideo() {
-        skipUpgrade(eventCategory);
-        viewModel.upgradePopupVisibility(false);
-    }
-
-    function skipUpgrade(category) {
-        eventTracker.publish(events.skipUpgrade, category);
     }
 
     function activate() {

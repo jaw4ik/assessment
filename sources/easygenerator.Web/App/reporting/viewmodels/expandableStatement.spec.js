@@ -65,9 +65,9 @@
                 expect(statement.expand()).toBePromise();
             });
 
-            describe('when user has starter access', function() {
+            describe('when user has plus access', function() {
                 beforeEach(function () {
-                    spyOn(userContext, 'hasStarterAccess').and.returnValue(true);
+                    spyOn(userContext, 'hasPlusAccess').and.returnValue(true);
                 });
 
                 describe('and when isExpandable is false', function () {
@@ -116,11 +116,11 @@
                 });
             });
 
-            describe('when user does not have starter access', function() {
-                var upgradeDialog = require('dialogs/upgrade/upgradeDialog');
+            describe('when user does not have plus access', function() {
+                var upgradeDialog = require('dialogs/upgrade/viewmodels/upgradeExtendedResults');
 
                 beforeEach(function () {
-                    spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
+                    spyOn(userContext, 'hasPlusAccess').and.returnValue(false);
                     spyOn(upgradeDialog, 'show');
                 });
 

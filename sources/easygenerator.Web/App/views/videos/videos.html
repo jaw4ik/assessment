@@ -49,26 +49,8 @@
 
             <!-- ko compose: 'dialogs/video/video' --><!-- /ko -->
 
-            <section class="upgrade-dialog" data-bind="visible: upgradePopupVisibility">
-                <section class="upgrade-dialog-content video-upload-upgrade-dialog">
-                    <header>
-                        <div class="upgrade-dialog-title" data-bind="localize: { text: 'upgradeNow' }">Upgrade now</div>
-                        <div class="upgrade-dialog-description" data-bind="localize: { text: 'videoUpgradeToUpload' }">to upload video to easygenerator</div>
-                    </header>
-                    <div class="video-upload-upgrade-dialog-title-image"></div>
-                    <div class="upgrade-dialog-body" data-bind="localize: { html: 'videoUpgradeToUploadHtml' }">
-                        <ul>
-                            <li>Unlimited storage space (fair use policy)</li>
-                            <li>Beautiful HD playback</li>
-                            <li>Unlimited HD plays</li>
-                        </ul>
-                    </div>
-                    <div class="upgrade-dialog-buttons">
-                        <button class="btn green upgrade-dialog-btn-upgrade" data-bind="click: upgradeToVideoUpload, localize: { text: 'upgradeNow' }">Upgrade now</button><br />
-                        <a class="upgrade-dialog-btn-later" href="" data-bind="click: skipUpgradeForUploadVideo, localize: { text: 'videoUpgradeDialogMaybeLater' }">Maybe later</a>
-                    </div>
-                </section>
-            </section>
+            <!--  ko compose: { view: 'dialogs/upgrade/views/upgradeVideoUpload', model: 'dialogs/upgrade/viewmodels/upgradeVideoUpload' } -->
+            <!-- /ko -->
 
         </div>
     </div>
