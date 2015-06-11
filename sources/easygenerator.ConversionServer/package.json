@@ -1,0 +1,15 @@
+{
+  "name": "easygenerator.ConversionServer",
+  "version": "0.0.0",
+  "description": "easygenerator.ConversionServer",
+  "main": "server.js",
+  "author": {
+    "name": "a.drebot",
+    "email": ""
+  },
+  "dependencies": {
+    "busboy": "^0.2.9",
+    "express": "^4.12.4",
+    "node-uuid": "^1.4.3"
+  }
+}
