@@ -16,12 +16,17 @@
             this.hasFocus = ko.observable(false);
             this.isDeleted = false;
             this.canBeAdded = ko.observable(canBeAddedImmediately);
+            this.isRemoved = ko.observable(false);
 
             this.updateLearningContent = function () {
                 var id = ko.unwrap(that.id);
                 var text = ko.unwrap(that.text);
 
                 if (_.isEmptyHtmlText(text) || ((!_.isNullOrUndefined(that.isDeleted) && that.isDeleted))) {
+                    return;
+                }
+
+                if (that.isRemoved()) {
                     return;
                 }
 
@@ -73,6 +78,17 @@
                     });
                 });
             };
+
+            this.restoreLearningContent = function () {
+                var text = ko.unwrap(that.text);
+
+                return learningContentRepository.addLearningContent(_questionId, { text: text }).then(function (item) {
+                    that.id(item.id);
+                    that.originalText = text;
+                    app.trigger(constants.messages.question.learningContent.restore, that);
+                    showNotification(item.createdOn);
+                });
+            }
 
             this.publishActualEvent = function (event) {
                 if (_questionType === constants.questionType.informationContent.type) {
