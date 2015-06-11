@@ -277,7 +277,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region UpdateCourseOrder
 
         [TestMethod]
-        public void UpdateCourseOrder_ShouldReturnHttpNotFound_WhenCourseIsNull()
+        public void UpdateCourseOrder_ShouldReturnHttpNotFound_WhenLearningPathIsNull()
         {
             //Arrange
 

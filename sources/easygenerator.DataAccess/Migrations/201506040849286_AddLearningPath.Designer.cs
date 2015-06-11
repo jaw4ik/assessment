@@ -13,7 +13,7 @@ namespace easygenerator.DataAccess.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201506020859279_AddLearningPath"; }
+            get { return "201506040849286_AddLearningPath"; }
         }
         
         string IMigrationMetadata.Source

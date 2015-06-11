@@ -1,4 +1,4 @@
-﻿define(['viewmodels/learningPaths/commands/createLearningPathCommand', 'viewmodels/learningPaths/queries/getLearningPathCollectionQuery', 'viewmodels/learningPaths/learningPathBrief'],
+﻿define(['viewmodels/learningPaths/learningPaths/commands/createLearningPathCommand', 'viewmodels/learningPaths/learningPaths/queries/getLearningPathCollectionQuery', 'viewmodels/learningPaths/learningPaths/learningPathBrief'],
     function (createLearningPathCommand, getLearningPathCollectionQuery, LearningPathBrief) {
         "use strict";
 

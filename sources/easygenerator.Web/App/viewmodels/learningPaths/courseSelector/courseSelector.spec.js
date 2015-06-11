@@ -5,7 +5,8 @@
         getOwnedCoursesQuery = require('viewmodels/learningPaths/courseSelector/queries/getOwnedCoursesQuery'),
         getLearningPathByIdQuery = require('viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery'),
         app = require('durandal/app'),
-        constants = require('constants')
+        constants = require('constants'),
+        courseFilter = require('viewmodels/learningPaths/courseSelector/courseFilter')
     ;
 
 
@@ -28,7 +29,73 @@
             });
         });
 
+        describe('filteredCourses:', function () {
+            var courses = [
+                {
+                    id: '0',
+                    title: ko.observable('title'),
+                    createdOn: new Date(1)
+                },
+                {
+                    id: '1',
+                    title: ko.observable('courseTitle'),
+                    createdOn: new Date(1)
+                },
+                {
+                    id: '1',
+                    title: ko.observable('trololo'),
+                    createdOn: new Date(1)
+                }
+            ];
+
+            beforeEach(function () {
+                viewModel.courses(courses);
+            });
+
+            describe('when filter does not have a value', function () {
+                beforeEach(function () {
+                    viewModel.filter.value('');
+                });
+
+                it('should return courses collection', function () {
+                    expect(viewModel.filteredCourses()).toBe(courses);
+                });
+            });
+
+            describe('when filter has value', function () {
+                describe('and when value is in upper case', function () {
+                    beforeEach(function () {
+                        viewModel.filter.value('TITLE');
+                    });
+
+                    it('should courses collection', function () {
+                        expect(viewModel.filteredCourses().length).toBe(2);
+                        expect(viewModel.filteredCourses()[0].title()).toBe(courses[0].title());
+                        expect(viewModel.filteredCourses()[1].title()).toBe(courses[1].title());
+                    });
+                });
+
+                describe('and when value is in lower case', function () {
+                    beforeEach(function () {
+                        viewModel.filter.value('title');
+                    });
+
+                    it('should return filtered courses collection', function () {
+                        expect(viewModel.filteredCourses().length).toBe(2);
+                        expect(viewModel.filteredCourses()[0].title()).toBe(courses[0].title());
+                        expect(viewModel.filteredCourses()[1].title()).toBe(courses[1].title());
+                    });
+                });
+            });
+        });
+
         describe('expand:', function () {
+            it('should clear course filter', function () {
+                spyOn(courseFilter, 'clear');
+                viewModel.expand();
+                expect(courseFilter.clear).toHaveBeenCalled();
+            });
+
             it('should set isExpanded to true', function () {
                 viewModel.isExpanded(false);
                 viewModel.expand();
@@ -70,7 +137,12 @@
 
             it('should subscribe on learningPath.removeCourse event', function () {
                 viewModel.activate();
-                expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.removeCourse, viewModel.courseRemoved);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.removeCourse, viewModel.courseRemovedFromPath);
+            });
+
+            it('should subscribe on course.titleUpdatedByCollaborator event', function () {
+                viewModel.activate();
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
             });
 
             describe('when learning path retrieved', function () {
@@ -110,23 +182,55 @@
         describe('deactivate:', function () {
             it('should unsubscribe from learningPath.removeCourse event', function () {
                 viewModel.deactivate();
-                expect(app.off).toHaveBeenCalledWith(constants.messages.learningPath.removeCourse, viewModel.courseRemoved);
+                expect(app.off).toHaveBeenCalledWith(constants.messages.learningPath.removeCourse, viewModel.courseRemovedFromPath);
             });
+
+            it('should unsubscribe from course.titleUpdatedByCollaborator event', function () {
+                viewModel.deactivate();
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
+            });
+
         });
 
-        describe('courseRemoved:', function () {
-            var courseBrief;
-            beforeEach(function() {
-                courseBrief = {
-                    id: 'id',
-                    isSelected: ko.observable(true)
-                };
-            });
+        describe('courseRemovedFromPath:', function () {
+            var courseBrief = {
+                id: 'id',
+                title: ko.observable(''),
+                isSelected: ko.observable(true)
+            };
 
             it('should set course isSelected to false', function () {
                 viewModel.courses([courseBrief]);
-                viewModel.courseRemoved(courseBrief.id);
+                viewModel.courseRemovedFromPath(courseBrief.id);
                 expect(courseBrief.isSelected()).toBeFalsy();
+            });
+        });
+
+        describe('courseTitleUpdated:', function () {
+            var courseBrief = {
+                id: 'id',
+                title: ko.observable(''),
+                isSelected: ko.observable(true)
+            },
+                course = {
+                    id: courseBrief.id,
+                    title: 'title'
+                };
+
+            it('should update course title', function () {
+                courseBrief.title('');
+                viewModel.courses([courseBrief]);
+                viewModel.courseTitleUpdated(course);
+                expect(courseBrief.title()).toBe(course.title);
+            });
+
+            it('should not throw when course not found in collection', function () {
+                viewModel.courses([]);
+                var f = function () {
+                    viewModel.courseTitleUpdated(course);
+                };
+
+                expect(f).not.toThrow();
             });
         });
 

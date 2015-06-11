@@ -13,8 +13,8 @@
                 navigateToLearningPaths: 'Navigate to learning paths',
                 addCourse: 'Add course to the learning path',
                 removeCourse: 'Remove course from the learning path',
-                showAvailableCourses: 'Show courses available for the learning path',
-                hideAvailableCourses: 'Hide courses available for the learning path',
+                showAvailableCourses: 'Show courses available for the learning path (Add courses)',
+                hideAvailableCourses: 'Hide courses available for the learning path (Done)',
                 changeCoursesOrder: 'Change order of courses'
             },
             viewModel = {
@@ -32,6 +32,7 @@
                 courses: ko.observableArray([]),
                 currentLanguage: '',
                 updateCoursesOrder: updateCoursesOrder,
+                courseTitleUpdated: courseTitleUpdated,
                 downloadAction: downloadAction()
             };
 
@@ -67,6 +68,7 @@
             app.on(constants.messages.learningPath.courseSelector.courseSelected, viewModel.addCourse);
             app.on(constants.messages.learningPath.courseSelector.courseDeselected, viewModel.removeCourse);
             app.on(constants.messages.learningPath.removeCourse, viewModel.removeCourse);
+            app.on(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
 
             return getLearningPathByIdQuery.execute(viewModel.id).then(function (learningPath) {
                 viewModel.titleField.title(learningPath.title);
@@ -88,6 +90,7 @@
             app.off(constants.messages.learningPath.courseSelector.courseSelected, viewModel.addCourse);
             app.off(constants.messages.learningPath.courseSelector.courseDeselected, viewModel.removeCourse);
             app.off(constants.messages.learningPath.removeCourse, viewModel.removeCourse);
+            app.off(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
         }
 
         function getTitle() {
@@ -143,6 +146,17 @@
                 .then(function () {
                     notify.saved();
                 });
+        }
+
+        function courseTitleUpdated(course) {
+            var courseBrief = _.find(viewModel.courses(), function (item) {
+                return item.id === course.id;
+            });
+
+            if (!courseBrief)
+                return;
+
+            courseBrief.title(course.title);
         }
     }
 );

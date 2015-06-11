@@ -273,7 +273,7 @@
   cursor: default;
 }
 .course > header,
-.learning-path > header {
+.learning-path-header-wrapper {
   background: #fff;
   -webkit-flex: 0 0 auto;
   flex: 0 0 auto;

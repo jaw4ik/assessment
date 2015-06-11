@@ -1,6 +1,6 @@
 ﻿define(['viewmodels/learningPaths/courseSelector/queries/getOwnedCoursesQuery', 'viewmodels/learningPaths/courseSelector/courseBrief',
-    'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery', 'durandal/app', 'constants'],
-    function (getOwnedCoursesQuery, CourseBrief, getLearningPathByIdQuery, app, constants) {
+    'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery', 'durandal/app', 'constants', 'viewmodels/learningPaths/courseSelector/courseFilter'],
+    function (getOwnedCoursesQuery, CourseBrief, getLearningPathByIdQuery, app, constants, courseFilter) {
         "use strict";
 
         var viewModel = {
@@ -10,12 +10,26 @@
             activate: activate,
             deactivate: deactivate,
             courses: ko.observableArray([]),
-            courseRemoved: courseRemoved
+            courseRemovedFromPath: courseRemovedFromPath,
+            filter: courseFilter,
+            courseTitleUpdated: courseTitleUpdated
         };
+
+        viewModel.filteredCourses = ko.computed(function () {
+            if (!viewModel.filter.hasValue()) {
+                return viewModel.courses();
+            }
+
+            var value = viewModel.filter.value();
+            return _.filter(viewModel.courses(), function (course) {
+                return course.title().toLowerCase().indexOf(value.toLowerCase()) >= 0;
+            });
+        });
 
         return viewModel;
 
         function expand() {
+            viewModel.filter.clear();
             viewModel.isExpanded(true);
         }
 
@@ -24,7 +38,8 @@
         }
 
         function activate(learningPathId) {
-            app.on(constants.messages.learningPath.removeCourse, viewModel.courseRemoved);
+            app.on(constants.messages.learningPath.removeCourse, viewModel.courseRemovedFromPath);
+            app.on(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
 
             return getLearningPathByIdQuery.execute(learningPathId)
                 .then(function (learningPath) {
@@ -42,7 +57,8 @@
         }
 
         function deactivate() {
-            app.off(constants.messages.learningPath.removeCourse, viewModel.courseRemoved);
+            app.off(constants.messages.learningPath.removeCourse, viewModel.courseRemovedFromPath);
+            app.off(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
         }
 
         function mapCourseBrief(course, attachedCourses) {
@@ -55,7 +71,7 @@
             return courseBrief;
         }
 
-        function courseRemoved(courseId) {
+        function courseRemovedFromPath(courseId) {
             var course = _.find(viewModel.courses(), function (item) {
                 return item.id === courseId;
             });
@@ -63,5 +79,16 @@
             if (course) {
                 course.isSelected(false);
             }
+        }
+
+        function courseTitleUpdated(course) {
+            var courseBrief = _.find(viewModel.courses(), function (item) {
+                return item.id === course.id;
+            });
+
+            if (!courseBrief)
+                return;
+
+            courseBrief.title(course.title);
         }
     });

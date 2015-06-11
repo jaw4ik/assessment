@@ -69,6 +69,11 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (course != null)
             {
+                if (course.RelatedObjectives.Any() || course.LearningPaths.Any())
+                {
+                    return JsonLocalizableError(Errors.CourseCannotBeDeleted, Errors.CourseCannotBeDeletedResourceKey);
+                }
+
                 var collaborators = course.Collaborators.Select(e => e.Email).ToList();
                 var invitedCollaborators = new Dictionary<Guid, string>();
                 course.Collaborators.Where(e => !e.Locked && !e.IsAccepted).ForEach(i => invitedCollaborators.Add(i.Id, i.Email));

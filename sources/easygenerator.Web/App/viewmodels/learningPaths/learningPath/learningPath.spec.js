@@ -101,6 +101,11 @@
                 expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.removeCourse, viewModel.removeCourse);
             });
 
+            it('should subscribe on course.titleUpdatedByCollaborator event', function () {
+                viewModel.activate(learningPath.id);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
+            });
+
             describe('when received learning path', function () {
                 beforeEach(function () {
                     getLearnigPathDefer.resolve(learningPath);
@@ -196,6 +201,11 @@
             it('should unsubscribe on learningPath.removeCourse event', function () {
                 viewModel.deactivate();
                 expect(app.off).toHaveBeenCalledWith(constants.messages.learningPath.removeCourse, viewModel.removeCourse);
+            });
+
+            it('should unsubscribe from course.titleUpdatedByCollaborator event', function () {
+                viewModel.deactivate();
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
             });
         });
 
@@ -306,9 +316,9 @@
         });
 
         describe('addCourses:', function () {
-            it('should publish \'Show courses available for the learning path\' event', function () {
+            it('should publish \'Show courses available for the learning path (Add courses)\' event', function () {
                 viewModel.addCourses();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Show courses available for the learning path');
+                expect(eventTracker.publish).toHaveBeenCalledWith('Show courses available for the learning path (Add courses)');
             });
 
             it('should expand course selector', function () {
@@ -318,9 +328,9 @@
         });
 
         describe('finishAddingCourses:', function () {
-            it('should publish \'Hide courses available for the learning path\' event', function () {
+            it('should publish \'Hide courses available for the learning path (Done)\' event', function () {
                 viewModel.finishAddingCourses();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Hide courses available for the learning path');
+                expect(eventTracker.publish).toHaveBeenCalledWith('Hide courses available for the learning path (Done)');
             });
 
             it('should collapse course selector', function () {
@@ -453,6 +463,33 @@
                         done();
                     });
                 });
+            });
+        });
+
+        describe('courseTitleUpdated:', function () {
+            var courseBrief = {
+                id: 'id',
+                title: ko.observable('')
+            },
+                course = {
+                    id: courseBrief.id,
+                    title: 'title'
+                };
+
+            it('should update course title', function () {
+                courseBrief.title('');
+                viewModel.courses([courseBrief]);
+                viewModel.courseTitleUpdated(course);
+                expect(courseBrief.title()).toBe(course.title);
+            });
+
+            it('should not throw when course not found in collection', function () {
+                viewModel.courses([]);
+                var f = function () {
+                    viewModel.courseTitleUpdated(course);
+                };
+
+                expect(f).not.toThrow();
             });
         });
     });

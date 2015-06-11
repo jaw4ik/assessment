@@ -4,7 +4,7 @@
     <!-- /ko -->
 
     <div class="loader-container">
-        <header class="content-section-wrapper ">
+        <header class="content-section-wrapper learning-path-header-wrapper">
             <div class="content-section learning-path-header-content-section">
                 <!--  ko compose: { model: titleField, view: 'views/common/titleField.html' }  -->
                 <!-- /ko -->
@@ -38,20 +38,12 @@
                         </button>
                         <!-- /ko -->
                         <!-- ko ifnot: courseSelector.isExpanded -->
-                        <button class="action-item-btn btn add-courses green" data-bind="click: addCourses">
+                        <button class="action-item-btn btn create-item add-courses green" data-bind="click: addCourses">
                             <span class="action-item-btn-caption" data-bind="localize: { text: 'addCourses' }"></span>
                         </button>
                         <!-- /ko -->
                     </div>
                 </div>
-                <!-- ko if: courses().length === 0 -->
-                <div class="empty-list-wrapper">
-                    <span class="empty-list" data-bind="localize: { text: 'noCoursesInTheLearningPath'}"></span>
-                </div>
-                <div class="tip-arrow-holder">
-                    <div class="tip-arrow-text" data-bind="localize: { text : 'selectCoursesHint' }"></div>
-                </div>
-                <!-- /ko -->
                 <!-- ko ifnot: courses().length === 0  -->
                 <ul class="unstyled main-content-list" data-bind="sortable: { data: courses, afterMove: updateCoursesOrder, isEnabled: isSortingEnabled, options: {handle: '.list-item-drag-icon' }}">
                     <!-- ko foreach: courses -->
@@ -95,5 +87,10 @@
                 <!-- /ko -->
             </div>
         </div>
+        <!-- ko if: courses().length === 0 -->
+        <div class="tip-arrow-holder">
+            <div class="tip-arrow-text" data-bind="localize: { text : 'selectCoursesHint' }"></div>
+        </div>
+        <!-- /ko -->
     </div>
 </section>

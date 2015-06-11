@@ -1,6 +1,6 @@
-﻿define(['repositories/learningContentRepository', 'repositories/questionRepository', 'localization/localizationManager',
+﻿define(['knockout', 'repositories/learningContentRepository', 'repositories/questionRepository', 'localization/localizationManager',
         'notify', 'constants', 'eventTracker', 'durandal/app', 'viewmodels/learningContents/learningContentsViewModelFactory', 'plugins/router'],
-    function (learningContentsrepository, questionRepository, localizationManager,
+    function (ko, learningContentRepository, questionRepository, localizationManager,
             notify, constants, eventTracker, app, learningContentsViewModelFactory, router) {
 
         var
@@ -60,7 +60,7 @@
             var questionId = activationData.questionId;
             var questionType = activationData.questionType;
 
-            return learningContentsrepository.getCollection(questionId).then(function (learningContentsList) {
+            return learningContentRepository.getCollection(questionId).then(function (learningContentsList) {
                 viewModel.questionId = questionId;
                 viewModel.questionType = questionType;
                 viewModel.learningContents([]);

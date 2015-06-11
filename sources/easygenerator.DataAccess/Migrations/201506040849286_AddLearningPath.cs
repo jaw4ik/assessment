@@ -13,6 +13,7 @@ namespace easygenerator.DataAccess.Migrations
                     {
                         Id = c.Guid(nullable: false),
                         Title = c.String(nullable: false, maxLength: 255),
+                        CoursesOrder = c.String(),
                         CreatedBy = c.String(nullable: false, maxLength: 254),
                         CreatedOn = c.DateTime(nullable: false),
                         ModifiedBy = c.String(nullable: false, maxLength: 254),
@@ -24,23 +25,23 @@ namespace easygenerator.DataAccess.Migrations
                 "dbo.LearningPathCourses",
                 c => new
                     {
-                        LearningPath_Id = c.Guid(nullable: false),
                         Course_Id = c.Guid(nullable: false),
+                        LearningPath_Id = c.Guid(nullable: false),
                     })
-                .PrimaryKey(t => new { t.LearningPath_Id, t.Course_Id })
-                .ForeignKey("dbo.LearningPaths", t => t.LearningPath_Id, cascadeDelete: true)
+                .PrimaryKey(t => new { t.Course_Id, t.LearningPath_Id })
                 .ForeignKey("dbo.Courses", t => t.Course_Id, cascadeDelete: true)
-                .Index(t => t.LearningPath_Id)
-                .Index(t => t.Course_Id);
+                .ForeignKey("dbo.LearningPaths", t => t.LearningPath_Id, cascadeDelete: true)
+                .Index(t => t.Course_Id)
+                .Index(t => t.LearningPath_Id);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.LearningPathCourses", "Course_Id", "dbo.Courses");
             DropForeignKey("dbo.LearningPathCourses", "LearningPath_Id", "dbo.LearningPaths");
-            DropIndex("dbo.LearningPathCourses", new[] { "Course_Id" });
+            DropForeignKey("dbo.LearningPathCourses", "Course_Id", "dbo.Courses");
             DropIndex("dbo.LearningPathCourses", new[] { "LearningPath_Id" });
+            DropIndex("dbo.LearningPathCourses", new[] { "Course_Id" });
             DropTable("dbo.LearningPathCourses");
             DropTable("dbo.LearningPaths");
         }

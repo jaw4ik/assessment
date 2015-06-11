@@ -286,13 +286,9 @@
     <Compile Include="Migrations\201505281350141_SetTrialAccessTypeForTrialUsers.Designer.cs">
       <DependentUpon>201505281350141_SetTrialAccessTypeForTrialUsers.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201506020859279_AddLearningPath.cs" />
-    <Compile Include="Migrations\201506020859279_AddLearningPath.Designer.cs">
-      <DependentUpon>201506020859279_AddLearningPath.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506031218537_AddLearningPathCoursesOrder.cs" />
-    <Compile Include="Migrations\201506031218537_AddLearningPathCoursesOrder.Designer.cs">
-      <DependentUpon>201506031218537_AddLearningPathCoursesOrder.cs</DependentUpon>
+    <Compile Include="Migrations\201506040849286_AddLearningPath.cs" />
+    <Compile Include="Migrations\201506040849286_AddLearningPath.Designer.cs">
+      <DependentUpon>201506040849286_AddLearningPath.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -498,11 +494,8 @@
     <EmbeddedResource Include="Migrations\201505281350141_SetTrialAccessTypeForTrialUsers.resx">
       <DependentUpon>201505281350141_SetTrialAccessTypeForTrialUsers.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506020859279_AddLearningPath.resx">
-      <DependentUpon>201506020859279_AddLearningPath.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506031218537_AddLearningPathCoursesOrder.resx">
-      <DependentUpon>201506031218537_AddLearningPathCoursesOrder.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201506040849286_AddLearningPath.resx">
+      <DependentUpon>201506040849286_AddLearningPath.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
