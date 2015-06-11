@@ -3,6 +3,7 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
+using easygenerator.Web.BuildLearningPath;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Tests.Utils;
@@ -30,6 +31,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private ILearningPathRepository _repository;
         private IEntityModelMapper<LearningPath> _mapper;
         private IEntityFactory _entityFactory;
+        private ILearningPathBuilder _builder;
         IPrincipal _user;
         HttpContextBase _context;
 
@@ -39,12 +41,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityFactory = Substitute.For<IEntityFactory>();
             _mapper = Substitute.For<IEntityModelMapper<LearningPath>>();
             _repository = Substitute.For<ILearningPathRepository>();
+            _builder = Substitute.For<ILearningPathBuilder>();
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
             _context.User.Returns(_user);
 
-            _controller = new LearningPathController(_repository, _mapper, _entityFactory);
+            _controller = new LearningPathController(_repository, _mapper, _entityFactory, _builder);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -314,5 +317,66 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         #endregion UpdateObjectivesOrder
+
+        #region Build
+
+        [TestMethod]
+        public void Build_ShouldReturnJsonErrorResult_WhenLearningPathIsNull()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(Username);
+
+            //Act
+            var result = _controller.Build(null);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.LearningPathNotFoundError);
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be(Errors.LearningPathNotFoundResourceKey);
+        }
+
+        [TestMethod]
+        public void Build_ShouldBuildLearningPath()
+        {
+            //Arrange
+            var learningPath = Substitute.For<LearningPath>();
+            _builder.Build(learningPath).Returns(new BuildResult(true, ""));
+
+            //Act
+            _controller.Build(learningPath);
+
+            //Assert
+            _builder.Received().Build(learningPath);
+        }
+
+        [TestMethod]
+        public void Build_ShouldReturnJsonErrorResult_WhenBuildIsFailed()
+        {
+            //Arrange
+            var learningPath = Substitute.For<LearningPath>();
+            _builder.Build(learningPath).Returns(new BuildResult(false, ""));
+
+            //Act
+            var result = _controller.Build(learningPath);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.LearningPathBuildActionFailedError);
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be(Errors.LearningPathBuildActionFailedResourceKey);
+        }
+
+        [TestMethod]
+        public void Build_ShoudReturnPackageUrl_WhenBuildIsSucced()
+        {
+            //Arrange
+            var learningPath = Substitute.For<LearningPath>();
+            _builder.Build(learningPath).Returns(new BuildResult(true, "packageUrl"));
+
+            //Act
+            var result = _controller.Build(learningPath);
+
+            //Assert
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { PackageUrl = "packageUrl" });
+        }
+
+        #endregion
     }
 }

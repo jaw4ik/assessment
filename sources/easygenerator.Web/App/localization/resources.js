@@ -396,6 +396,11 @@
         'zh-cn': '隐私条例',
         'uk': 'Політика конфіденційності'
     },
+    undo: {
+        'en': 'Undo',
+        'zh-cn': 'Undo[zh-cn]',
+        'uk': 'Відновити'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Storage */
@@ -593,6 +598,16 @@
         'zh-cn': 'Remove from path[zh-cn]',
         'uk': 'Видалити зі шляху'
     },
+    download: {
+        'en': 'Download',
+        'zh-cn': 'Download[zh-cn]',
+        'uk': 'Завантажити'
+    },
+    learningPathBuildFailed: {
+        'en': 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists. ',
+        'zh-cn': '出错了，请重试。如果问题依然存在，请联系support@easygenerator.com解决。',
+        'uk': 'Щось пішло не так. Спробуйте знову. Якщо проблема не зникне - надішліть нам електронного листа на адресу support@easygenerator.com'
+    },
     /* End resource section for model Learning paths */
     
     /* Resource section for model Courses */
@@ -620,6 +635,11 @@
         'en': 'Course cannot be deleted when it has learning objective(s)',
         'zh-cn': '不能删除有学习目标的课程',
         'uk': 'Неможливо видалити курс, так як в ньому є розділ(и) / цілі'
+    },
+    courseCannotBeDeletedErrorMessage: {
+        'en': 'Course cannot be deleted if it has learning objective(s) or connected to learning path(s)',
+        'zh-cn': 'Course cannot be deleted if it has learning objective(s) or connected to learning path(s)[zh-cn]',
+        'uk': 'Course cannot be deleted if it has learning objective(s) or connected to learning path(s)[uk]'
     },
     courseCreateItem: {
         'en': 'Create',
@@ -1324,6 +1344,11 @@
         'en': 'There are no objectives in the course. Please choose a course that contains at least one objective.',
         'zh-cn': 'There are no objectives in the course. Please choose a course that contains at least one objective.[zh-cn]',
         'uk': 'Курс не містить розділів/цілей. Будь ласка виберіть курс, що включає в себе хоча б один розділ/ціль.'
+    },
+    learningContentRemoved: {
+        'en': 'Content was removed',
+        'zh-cn': 'Content was removed[zh-cn]',
+        'uk': 'Навчальний матеріал видалено'
     },
     /* End resource section for model Question */
     
@@ -2285,6 +2310,11 @@
         'zh-cn': 'to download results as CSV-file[zh-cn]',
         'uk': 'для завантаження списку результатів у вигляді CSV-файлу'
     },
+    resultsUpgradeForExtendedResultsTitle2: {
+        'en': 'to get detailed results',
+        'zh-cn': 'to get detailed results[zh-cn]',
+        'uk': 'для завантаження детального списку результатів'
+    },
     resultsUpgradeDialogText: {
         'en': 'On the Free Plan you can only see the last 10 results',
         'zh-cn': 'On the Free Plan you can only see the last 10 results[zh-cn]',
@@ -2294,6 +2324,11 @@
         'en': '<ul><li>Download your learners results</li><li>Export your results in a spreadsheet</li><li>Or any program that supports CSV</li></ul>',
         'zh-cn': '<ul><li>Download your learners results</li><li>Export your results in a spreadsheet</li><li>Or any program that supports CSV</li></ul>[zh-cn]',
         'uk': '<ul><li>Завантажте результати учнів</li><li>Відкрийте їх в таблицях spreadsheet</li><li>Або в будь-якій іншій програмі, яка підтримує формат CSV</li></ul>'
+    },
+    resultsUpgradeForExtendedResultsHtml: {
+        'en': '<ul><li>Get results per objective</li><li>Get results per question</li><li>Check start date and finish date of each attempt</li></ul>',
+        'zh-cn': '<ul><li>Get results per objective</li><li>Get results per question</li><li>Check start date and finish date of each attempt</li></ul>[zh-cn]',
+        'uk': '<ul><li>Отримати результати за кожною ціллю</li><li>Отримати результати за кожним питанням</li><li>Перевірити час початку і час закінчення кожної спроби</li></ul>'
     },
     resultsUpgradeDialogUpgradeNow: {
         'en': 'Upgrade now',

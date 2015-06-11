@@ -3,7 +3,7 @@
         "use strict";
 
         function buildCourse(courseId) {
-            return apiHttpWrapper.post('course/build', { courseId: courseId }).then(function (data) {
+            return apiHttpWrapper.post('api/course/build', { courseId: courseId }).then(function (data) {
                 return {
                     packageUrl: data.PackageUrl,
                     builtOn: new Date(data.BuildOn)
@@ -12,7 +12,7 @@
         };
 
         function publishCourse(courseId) {
-            return apiHttpWrapper.post('course/publish', { courseId: courseId }).then(function (data) {
+            return apiHttpWrapper.post('api/course/publish', { courseId: courseId }).then(function (data) {
                 return {
                     publishedPackageUrl: data.PublishedPackageUrl
                 };
@@ -20,7 +20,7 @@
         };
 
         function scormBuildCourse(courseId) {
-            return apiHttpWrapper.post('course/scormbuild', { courseId: courseId }).then(function (data) {
+            return apiHttpWrapper.post('api/course/scormbuild', { courseId: courseId }).then(function (data) {
                 return {
                     scormPackageUrl: data.ScormPackageUrl
                 };
@@ -33,9 +33,17 @@
         };
 
         function publishCourseForReview(courseId) {
-            return apiHttpWrapper.post('course/publishForReview', { courseId: courseId }).then(function (data) {
+            return apiHttpWrapper.post('api/course/publishForReview', { courseId: courseId }).then(function (data) {
                 return {
                     reviewUrl: data.ReviewUrl
+                };
+            });
+        };
+
+        function buildLearningPath(learningPathId) {
+            return apiHttpWrapper.post('api/learningpath/build', { learningPathId: learningPathId }).then(function (data) {
+                return {
+                    packageUrl: data.PackageUrl
                 };
             });
         };
@@ -45,6 +53,7 @@
             publishCourse: publishCourse,
             scormBuildCourse: scormBuildCourse,
             publishCourseToStore: publishCourseToStore,
-            publishCourseForReview: publishCourseForReview
+            publishCourseForReview: publishCourseForReview,
+            buildLearningPath: buildLearningPath
         };
     });

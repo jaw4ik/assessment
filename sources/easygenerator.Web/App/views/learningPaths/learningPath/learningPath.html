@@ -8,9 +8,17 @@
             <div class="content-section learning-path-header-content-section">
                 <!--  ko compose: { model: titleField, view: 'views/common/titleField.html' }  -->
                 <!-- /ko -->
-                <div class="content-section-actions-wrapper">
+                <div class="content-section-actions-wrapper" data-bind="with: downloadAction">
+                    <!-- ko if: isPublishing() -->
+                    <span href="" class="learning-path-action action-in-progress" data-bind="localize: { text: 'publishing' }"></span>
+                    <!-- /ko -->
+                    <!-- ko ifnot: isPublishing() -->
+                    <a href="" class="learning-path-action action-download" data-bind="click: download">
+                        <span data-bind="localize: { text: 'download' }"></span>
+                    </a>
+                    <!-- /ko -->
                 </div>
-            </div> 
+            </div>
         </header>
         <div class="content-section-wrapper">
             <div class="content-section learning-path-content">

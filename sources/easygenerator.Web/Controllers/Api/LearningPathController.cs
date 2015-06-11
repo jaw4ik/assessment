@@ -1,7 +1,9 @@
-﻿using easygenerator.DomainModel;
+﻿using System.IO.Packaging;
+using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
+using easygenerator.Web.BuildLearningPath;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.Mappers;
 using System.Collections.Generic;
@@ -15,12 +17,14 @@ namespace easygenerator.Web.Controllers.Api
         private readonly ILearningPathRepository _repository;
         private readonly IEntityModelMapper<LearningPath> _mapper;
         private readonly IEntityFactory _entityFactory;
+        private readonly ILearningPathBuilder _builder;
 
-        public LearningPathController(ILearningPathRepository repository, IEntityModelMapper<LearningPath> mapper, IEntityFactory entityFactory)
+        public LearningPathController(ILearningPathRepository repository, IEntityModelMapper<LearningPath> mapper, IEntityFactory entityFactory, ILearningPathBuilder builder)
         {
             _repository = repository;
             _mapper = mapper;
             _entityFactory = entityFactory;
+            _builder = builder;
         }
 
         [HttpPost]
@@ -110,6 +114,23 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess();
         }
 
+        [HttpPost]
+        [Route("api/learningpath/build")]
+        public ActionResult Build(LearningPath learningPath)
+        {
+            if (learningPath == null)
+            {
+                return JsonLocalizableError(Errors.LearningPathNotFoundError, Errors.LearningPathNotFoundResourceKey);
+            }
 
+            var result = _builder.Build(learningPath);
+
+            if (!result.Success)
+            {
+                return JsonLocalizableError(Errors.LearningPathBuildActionFailedError, Errors.LearningPathBuildActionFailedResourceKey);
+            }
+
+            return JsonSuccess(new { PackageUrl = result.PackageUrl });
+        }
     }
 }

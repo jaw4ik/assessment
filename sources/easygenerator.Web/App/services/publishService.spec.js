@@ -34,7 +34,7 @@
                 var promise = service.buildCourse(course.id);
                 promise.fin(done);
 
-                expect(apiHttpWrapper.post).toHaveBeenCalledWith('course/build', { courseId: course.id });
+                expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/build', { courseId: course.id });
             });
 
             describe('and send request to server', function () {
@@ -79,7 +79,7 @@
                 post.resolve({});
                 var promise = service.scormBuildCourse(course.id);
                 promise.fin(function () {
-                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('course/scormbuild', { courseId: course.id });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/scormbuild', { courseId: course.id });
                     done();
                 });
             });
@@ -127,7 +127,7 @@
                 post.resolve({});
                 var promise = service.publishCourse(course.id);
                 promise.fin(function () {
-                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('course/publish', { courseId: course.id });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/publish', { courseId: course.id });
                     done();
                 });
 
@@ -180,7 +180,7 @@
                 var promise = service.publishCourseForReview(course.id);
 
                 promise.fin(function () {
-                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('course/publishForReview', { courseId: course.id });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/publishForReview', { courseId: course.id });
                     done();
                 });
             });
@@ -251,6 +251,51 @@
                             done();
                         });
 
+                    });
+
+                });
+
+            });
+        });
+
+        describe('buildLearningPath:', function() {
+            var post,
+                learningPathId;
+
+            beforeEach(function () {
+                post = Q.defer();
+                learningPathId = 'learnigPathId';
+                spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise);
+            });
+
+            it('should be a function', function () {
+                expect(service.buildLearningPath).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                var promise = service.buildLearningPath(learningPathId);
+
+                expect(promise).toBePromise();
+            });
+
+            it('should send request', function (done) {
+                post.resolve({});
+
+                var promise = service.buildLearningPath(learningPathId);
+                promise.fin(done);
+
+                expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/learningpath/build', { learningPathId: learningPathId });
+            });
+
+            describe('when server return response', function () {
+
+                it('should resolve promise with packageUrl', function (done) {
+                    post.resolve({ PackageUrl: 'SomeUrl' });
+
+                    var promise = service.buildLearningPath(learningPathId);
+                    promise.then(function () {
+                        expect(promise).toBeResolvedWith({ packageUrl: 'SomeUrl' });
+                        done();
                     });
 
                 });

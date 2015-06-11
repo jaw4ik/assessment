@@ -1,9 +1,10 @@
 ﻿define(['viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery', 'plugins/router', 'viewmodels/common/titleField', 'constants', 'localization/localizationManager',
  'clientContext', 'viewmodels/learningPaths/learningPath/commands/updateTitleCommand', 'eventTracker', 'viewmodels/learningPaths/courseSelector/courseSelector',
  'durandal/app', 'viewmodels/learningPaths/learningPath/courseBrief', 'viewmodels/learningPaths/learningPath/commands/addCourseCommand',
-'viewmodels/learningPaths/learningPath/commands/removeCourseCommand', 'repositories/courseRepository', 'notify', 'viewmodels/learningPaths/learningPath/commands/updateCoursesOrderCommand'],
+'viewmodels/learningPaths/learningPath/commands/removeCourseCommand', 'repositories/courseRepository', 'notify', 'viewmodels/learningPaths/learningPath/commands/updateCoursesOrderCommand',
+'knockout', 'viewmodels/learningPaths/learningPath/actions/download'],
     function (getLearningPathByIdQuery, router, titleField, constants, localizationManager, clientContext, updateTitleCommand, eventTracker, courseSelector, app, CourseBrief,
-         addCourseCommand, removeCourseCommand, courseRepository, notify, updateCoursesOrderCommand) {
+         addCourseCommand, removeCourseCommand, courseRepository, notify, updateCoursesOrderCommand, ko, downloadAction) {
         "use strict";
 
         var
@@ -30,7 +31,8 @@
                 removeCourse: removeCourse,
                 courses: ko.observableArray([]),
                 currentLanguage: '',
-                updateCoursesOrder: updateCoursesOrder
+                updateCoursesOrder: updateCoursesOrder,
+                downloadAction: downloadAction()
             };
 
         viewModel.titleField = titleField('', constants.validation.learningPathTitleMaxLength, localizationManager.localize('learningPathTitle'), getTitle, updateTitle);
@@ -78,6 +80,7 @@
                      }).value();
 
                 viewModel.courses(collection);
+                viewModel.downloadAction.activate(learningPath);
             });
         }
 

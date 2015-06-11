@@ -14,6 +14,7 @@ using easygenerator.Web.BuildCourse.Modules;
 using easygenerator.Web.BuildCourse.PublishSettings;
 using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.BuildCourse.Scorm.Modules;
+using easygenerator.Web.BuildLearningPath;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Components.Elmah;
@@ -58,6 +59,8 @@ namespace easygenerator.Web.Configuration
 
             builder.RegisterType<CourseBuilder>().As<ICourseBuilder>();
             builder.RegisterType<ScormCourseBuilder>().As<IScormCourseBuilder>();
+
+            builder.RegisterType<LearningPathBuilder>().As<ILearningPathBuilder>();
 
             builder.RegisterGeneric(typeof(EntityModelBinder<>)).As(typeof(IEntityModelBinder<>));
             builder.RegisterGeneric(typeof(EntityCollectionModelBinder<>)).As(typeof(IEntityCollectionModelBinder<>));

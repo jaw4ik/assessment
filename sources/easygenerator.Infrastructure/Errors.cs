@@ -12,6 +12,7 @@ namespace easygenerator.Infrastructure
         public const string TemplateNotFoundError = "Template not found";
         public const string ObjectiveCannotBeDeleted = "Objective can not be deleted";
         public const string CoursePublishActionFailedError = "Failed. Try again.";
+        public const string LearningPathBuildActionFailedError = "Failed. Try again.";
         public const string CollaboratorNotFoundError = "Collaborator is not found";
         public const string LearningPathNotFoundError = "Learning path is not found";
 
@@ -24,6 +25,7 @@ namespace easygenerator.Infrastructure
         public const string LearningContentNotFoundResourceKey = "learningContentNotFoundError";
         public const string ObjectiveCannotBeDeletedResourceKey = "objectiveCannnotBeDeleted";
         public const string CoursePublishActionFailedResourceKey = "publishFailed";
+        public const string LearningPathBuildActionFailedResourceKey = "learningPathBuildFailed";
 
         public const string UpgradeToStarterPlanToUseScormResourceKey = "upgradeToStarterPlanToUseScormErrorMessage";
         public const string UpgradeToStarterPlanToUseCommentsErrorMessage = "upgradeToStarterPlanToUseCommentsErrorMessage";
