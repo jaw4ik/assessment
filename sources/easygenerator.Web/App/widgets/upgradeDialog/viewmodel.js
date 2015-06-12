@@ -1,5 +1,5 @@
-﻿define(['eventTracker', 'plugins/router', 'constants'],
-    function (eventTracker, router, constants) {
+﻿define(['eventTracker', 'plugins/router', 'constants', 'localization/localizationManager'],
+    function (eventTracker, router, constants, localizationManager) {
         "use strict";
 
         var events = {
@@ -24,8 +24,8 @@
 
         function show(settings) {
             viewmodel.containerCss(settings.containerCss);
-            viewmodel.subtitle (settings.subtitle);
-            viewmodel.description(settings.description);
+            viewmodel.subtitle(localizationManager.localize(settings.subtitleKey));
+            viewmodel.description(localizationManager.localize(settings.descriptionKey));
             viewmodel.eventCategory = settings.eventCategory;
 
             viewmodel.isShown(true);

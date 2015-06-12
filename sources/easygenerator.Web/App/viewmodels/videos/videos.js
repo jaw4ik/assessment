@@ -40,8 +40,8 @@
             var settings = {
                 containerCss: 'upgrade-dialog-video-upload',
                 eventCategory: eventCategory,
-                subtitle: localizationManager.localize('videoUpgradeToUpload'),
-                description: localizationManager.localize('videoUpgradeToUploadHtml')
+                subtitleKey: 'videoUpgradeToUpload',
+                descriptionKey: 'videoUpgradeToUploadHtml'
             };
 
             upgradeDialog.show(settings);

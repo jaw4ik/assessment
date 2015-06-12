@@ -124,8 +124,8 @@
                     var settings = {
                         containerCss: 'upgrade-dialog-all-results',
                         eventCategory: 'Load more results',
-                        subtitle: localizationManager.localize('resultsUpgradeDialogTitle2'),
-                        description: localizationManager.localize('resultsUpgradeDialogText')
+                        subtitleKey: 'resultsUpgradeDialogTitle2',
+                        descriptionKey: 'resultsUpgradeDialogText'
                     };
 
                     upgradeDialog.show(settings);
@@ -147,8 +147,8 @@
                     var settings = {
                         containerCss: 'upgrade-dialog-download-results',
                         eventCategory: 'Download results CSV',
-                        subtitle: localizationManager.localize('resultsUpgradeForDownloadCSVDialogTitle2'),
-                        description: localizationManager.localize('resultsUpgradeForDownloadCSVDialogHtml')
+                        subtitleKey: 'resultsUpgradeForDownloadCSVDialogTitle2',
+                        descriptionKey: 'resultsUpgradeForDownloadCSVDialogHtml'
                     };
 
                     upgradeDialog.show(settings);

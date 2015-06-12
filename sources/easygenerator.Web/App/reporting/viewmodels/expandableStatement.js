@@ -1,4 +1,4 @@
-﻿define(['userContext', 'widgets/upgradeDialog/viewmodel', 'localization/localizationManager'], function (userContext, upgradeDialog, localizationManager) {
+﻿define(['userContext', 'widgets/upgradeDialog/viewmodel'], function (userContext, upgradeDialog) {
     "use strict";
 
     var ExpandableStatement = function (lrsStatement, expandLoadAction) {
@@ -17,8 +17,8 @@
                 var settings = {
                     containerCss: 'upgrade-dialog-extended-results',
                     eventCategory: 'Load extended results',
-                    subtitle: localizationManager.localize('resultsUpgradeForExtendedResultsTitle2'),
-                    description: localizationManager.localize('resultsUpgradeForExtendedResultsHtml')
+                    subtitleKey: 'resultsUpgradeForExtendedResultsTitle2',
+                    descriptionKey: 'resultsUpgradeForExtendedResultsHtml'
                 };
                 upgradeDialog.show(settings);
                 return undefined;

@@ -11,7 +11,8 @@
 
         var eventTracker = require('eventTracker'),
             constants = require('constants'),
-            router = require('plugins/router');
+            router = require('plugins/router'),
+            localizationManager = require('localization/localizationManager');   
 
         beforeEach(function () {
             spyOn(eventTracker, 'publish');
@@ -60,6 +61,10 @@
 
         describe('show:', function () {
 
+            beforeEach(function () {
+                spyOn(localizationManager, 'localize').and.returnValue('localized text');
+            });
+
             it('should be function', function () {
                 expect(viewmodel.show).toBeFunction();
             });
@@ -73,13 +78,13 @@
             it('should set subtitle', function () {
                 viewmodel.subtitle('');
                 viewmodel.show(settings);
-                expect(viewmodel.subtitle()).toBe('subtitle');
+                expect(viewmodel.subtitle()).toBe('localized text');
             });
 
             it('should set description', function () {
                 viewmodel.description('');
                 viewmodel.show(settings);
-                expect(viewmodel.description()).toBe('description');
+                expect(viewmodel.description()).toBe('localized text');
             });
 
             it('should set eventCategory', function () {
@@ -108,8 +113,9 @@
             });
 
             it('should send event \'Upgrade now\'', function () {
+                viewmodel.eventCategory = settings.eventCategory;
                 viewmodel.upgrade();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Upgrade now', 'category');
+                expect(eventTracker.publish).toHaveBeenCalledWith('Upgrade now', settings.eventCategory);
             });
 
             it('should open upgrade url', function () {
@@ -130,8 +136,9 @@
             });
 
             it('should send event \'Skip upgrade\'', function () {
+                viewmodel.eventCategory = settings.eventCategory;
                 viewmodel.skip();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Skip upgrade', 'category');
+                expect(eventTracker.publish).toHaveBeenCalledWith('Skip upgrade', settings.eventCategory);
             });
         });
     });
