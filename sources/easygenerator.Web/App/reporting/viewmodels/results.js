@@ -121,14 +121,7 @@
                     return undefined;
                 }
                 if (!userContext.hasStarterAccess()) {
-                    var settings = {
-                        containerCss: 'upgrade-dialog-all-results',
-                        eventCategory: 'Load more results',
-                        subtitleKey: 'resultsUpgradeDialogTitle2',
-                        descriptionKey: 'resultsUpgradeDialogText'
-                    };
-
-                    upgradeDialog.show(settings);
+                    upgradeDialog.show(constants.dialogs.upgrade.settings.loadMoreResults);
                     return undefined;
                 }
 
@@ -144,14 +137,7 @@
             eventTracker.publish(events.downloadResults);
             return Q.fcall(function () {
                 if (!userContext.hasStarterAccess()) {
-                    var settings = {
-                        containerCss: 'upgrade-dialog-download-results',
-                        eventCategory: 'Download results CSV',
-                        subtitleKey: 'resultsUpgradeForDownloadCSVDialogTitle2',
-                        descriptionKey: 'resultsUpgradeForDownloadCSVDialogHtml'
-                    };
-
-                    upgradeDialog.show(settings);
+                    upgradeDialog.show(constants.dialogs.upgrade.settings.downloadResults);
                     return;
                 }
 

@@ -79,7 +79,7 @@
 
                 it('should show upgrade popup', function () {
                     viewModel.addVideo();
-                    expect(upgradeDialog.show).toHaveBeenCalled();
+                    expect(upgradeDialog.show).toHaveBeenCalledWith(constants.dialogs.upgrade.settings.videoUpload);
                 });
 
                 it('should not upload video', function () {
@@ -97,7 +97,7 @@
 
                 it('should show upgrade popup', function () {
                     viewModel.addVideo();
-                    expect(upgradeDialog.show).toHaveBeenCalled();
+                    expect(upgradeDialog.show).toHaveBeenCalledWith(constants.dialogs.upgrade.settings.videoUpload);
                 });
 
                 it('should not upload video', function () {

@@ -9,10 +9,13 @@
 
         var viewmodel = {
             containerCss: ko.observable(''),
+            title: ko.observable(''),
             subtitle: ko.observable(''),
             description: ko.observable(''),
-            eventCategory: '',
+            upgradeBtnText: ko.observable(''),
+            skipBtnText: ko.observable(''),
 
+            eventCategory: '',
             isShown: ko.observable(false),
 
             show: show,
@@ -23,12 +26,27 @@
         return viewmodel;
 
         function show(settings) {
-            viewmodel.containerCss(settings.containerCss);
-            viewmodel.subtitle(localizationManager.localize(settings.subtitleKey));
-            viewmodel.description(localizationManager.localize(settings.descriptionKey));
-            viewmodel.eventCategory = settings.eventCategory;
+            var defaults = constants.dialogs.upgrade.settings.default;
+            var dialogSettings = _.isNullOrUndefined(settings) ? defaults : _.defaults(settings, defaults);
 
+            update(dialogSettings);
             viewmodel.isShown(true);
+        }
+
+        function update(settings) {
+            viewmodel.containerCss(settings.containerCss);
+
+            viewmodel.title(getLocalizedValue(settings.titleKey));
+            viewmodel.subtitle(getLocalizedValue(settings.subtitleKey));
+            viewmodel.description(getLocalizedValue(settings.descriptionKey));
+            viewmodel.upgradeBtnText(getLocalizedValue(settings.upgradeBtnTextKey));
+            viewmodel.skipBtnText(getLocalizedValue(settings.skipBtnTextKey));
+
+            viewmodel.eventCategory = settings.eventCategory;
+        }
+
+        function getLocalizedValue(key) {
+            return _.isEmptyOrWhitespace(key) ? '' : localizationManager.localize(key);
         }
 
         function upgrade() {

@@ -2162,6 +2162,9 @@
   font-size: 18px;
   color: #42515f;
 }
+.upgrade-dialog-empty .upgrade-dialog-content {
+  margin-top: -133px;
+}
 .upgrade-dialog-all-results .upgrade-dialog-content {
   margin-top: -255px;
 }

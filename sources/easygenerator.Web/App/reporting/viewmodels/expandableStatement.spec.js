@@ -117,7 +117,8 @@
             });
 
             describe('when user does not have plus access', function() {
-                var upgradeDialog = require('widgets/upgradeDialog/viewmodel');
+                var constants = require('constants'),
+                    upgradeDialog = require('widgets/upgradeDialog/viewmodel');
 
                 beforeEach(function () {
                     spyOn(userContext, 'hasPlusAccess').and.returnValue(false);
@@ -128,7 +129,7 @@
                     lrsStatement.attemptId = null;
                     statement = new ExpandableStatement(lrsStatement, expandAction);
                     statement.expand().fin(function () {
-                        expect(upgradeDialog.show).toHaveBeenCalled();
+                        expect(upgradeDialog.show).toHaveBeenCalledWith(constants.dialogs.upgrade.settings.extendedResults);
                         done();
                     });
                 });

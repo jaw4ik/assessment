@@ -540,7 +540,7 @@
                 });
             });
 
-            describe('when user access type forbids to view more results', function () {
+            describe('when user access type forbids to downloadResults', function () {
                 var upgradeDialog = require('widgets/upgradeDialog/viewmodel');
 
                 beforeEach(function () {
@@ -556,7 +556,7 @@
 
                 it('should show upgrade results dialog', function (done) {
                     viewModel.downloadResults().fin(function () {
-                        expect(upgradeDialog.show).toHaveBeenCalled();
+                        expect(upgradeDialog.show).toHaveBeenCalledWith(constants.dialogs.upgrade.settings.downloadResults);
                         done();
                     });
                 });

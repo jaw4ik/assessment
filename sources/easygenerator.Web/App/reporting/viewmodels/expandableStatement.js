@@ -1,4 +1,4 @@
-﻿define(['userContext', 'widgets/upgradeDialog/viewmodel'], function (userContext, upgradeDialog) {
+﻿define(['userContext', 'widgets/upgradeDialog/viewmodel', 'constants'], function (userContext, upgradeDialog, constants) {
     "use strict";
 
     var ExpandableStatement = function (lrsStatement, expandLoadAction) {
@@ -14,13 +14,7 @@
         var that = this;
         return Q.fcall(function () {
             if (!userContext.hasPlusAccess()) {
-                var settings = {
-                    containerCss: 'upgrade-dialog-extended-results',
-                    eventCategory: 'Load extended results',
-                    subtitleKey: 'resultsUpgradeForExtendedResultsTitle2',
-                    descriptionKey: 'resultsUpgradeForExtendedResultsHtml'
-                };
-                upgradeDialog.show(settings);
+                upgradeDialog.show(constants.dialogs.upgrade.settings.extendedResults);
                 return undefined;
             }
 
