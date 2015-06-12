@@ -37,14 +37,7 @@
 
     function addVideo() {
         if (!userContext.hasStarterAccess() || userContext.hasTrialAccess()) {
-            var settings = {
-                containerCss: 'upgrade-dialog-video-upload',
-                eventCategory: eventCategory,
-                subtitleKey: 'videoUpgradeToUpload',
-                descriptionKey: 'videoUpgradeToUploadHtml'
-            };
-
-            upgradeDialog.show(settings);
+            upgradeDialog.show(constants.dialogs.upgrade.settings.videoUpload);
             return;
         }
         storageFileUploader.upload(uploadSettings);
