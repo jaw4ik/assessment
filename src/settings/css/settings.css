@@ -439,8 +439,8 @@ input[type="text"] {
 /*#region question-pool*/
 
 .settings-column.question-pool {
-    -webkit-flex: 1 1 auto;
-    flex: 1 1 auto;
+    -webkit-flex: 1 1 280px;
+    flex: 1 1 280px;
 }
 
 .question-pool .radio-selector {
