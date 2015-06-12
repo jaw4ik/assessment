@@ -55,6 +55,7 @@
   font: 13px 'OpenSans';
   color: #546677;
   text-align: center;
+  overflow: hidden;
 }
 .upgrade-dialog .upgrade-dialog-content button {
   height: 43px;
@@ -115,7 +116,9 @@
   color: #64798d;
   cursor: pointer;
   font-family: 'OpenSans';
+  opacity: .7;
 }
 .upgrade-dialog .upgrade-dialog-content .upgrade-dialog-buttons .upgrade-dialog-btn-later:hover {
+  opacity: 1;
   text-decoration: underline;
 }
