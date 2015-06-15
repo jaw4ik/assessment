@@ -2283,7 +2283,7 @@
   font-family: 'OpenSans';
 }
 .upgrade-dialog .upgrade-dialog-content .upgrade-dialog-buttons .upgrade-dialog-btn-later:hover {
-  opacity: 1;
+  color: #64798d;
   text-decoration: underline;
 }
 /*#region MEDIA CSS-STYLES*/
