@@ -553,6 +553,11 @@
     <Content Include="App\dialogs\collaboration\collaborator.spec.js">
       <DependentUpon>collaborator.js</DependentUpon>
     </Content>
+    <Content Include="App\dialogs\learningPath\deleteLearningPath.html" />
+    <Content Include="App\dialogs\learningPath\deleteLearningPath.js" />
+    <Content Include="App\dialogs\learningPath\deleteLearningPath.spec.js">
+      <DependentUpon>deleteLearningPath.js</DependentUpon>
+    </Content>
     <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.html" />
     <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.js" />
     <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.spec.js">
@@ -791,6 +796,10 @@
     <Content Include="App\viewmodels\learningPaths\courseSelector\courseFilter.js" />
     <Content Include="App\viewmodels\learningPaths\courseSelector\courseFilter.spec.js">
       <DependentUpon>courseFilter.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\learningPath\commands\deleteLearningPathCommand.js" />
+    <Content Include="App\dialogs\learningPath\commands\deleteLearningPathCommand.spec.js">
+      <DependentUpon>deleteLearningPathCommand.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\commands\addCourseCommand.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\commands\addCourseCommand.spec.js">

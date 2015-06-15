@@ -2,7 +2,6 @@
     "use strict";
     var
         httpWrapper = require('http/apiHttpWrapper'),
-        eventTracker = require('eventTracker'),
         localizationManager = require('localization/localizationManager'),
         uiLocker = require('uiLocker'),
         router = require('plugins/router'),
@@ -15,7 +14,6 @@
     describe('command [createLearningPath]', function () {
 
         beforeEach(function () {
-            spyOn(eventTracker, 'publish');
             spyOn(router, 'navigate');
             spyOn(uiLocker, 'lock');
             spyOn(uiLocker, 'unlock');
@@ -36,11 +34,6 @@
             it('should lock ui', function () {
                 command.execute();
                 expect(uiLocker.lock).toHaveBeenCalled();
-            });
-
-            it('should publish \'Create learning path and open its properties\' event', function () {
-                command.execute();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Create learning path and open its properties');
             });
 
             it('should send request to the server to create learning path', function () {

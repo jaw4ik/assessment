@@ -177,7 +177,8 @@
                         courseSelected: 'learningPath:course-selector:course-selected',
                         courseDeselected: 'learningPath:course-selector:course-deselected'
                     },
-                    removeCourse: 'learningPath:removeCourse'
+                    removeCourse: 'learningPath:removeCourse',
+                    deleted:'learningPath:deleted'
                 },
                 objective: {
                     createdInCourse: 'objective:createdInCourse',

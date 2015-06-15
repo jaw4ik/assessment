@@ -42,6 +42,8 @@
             'dialogs/publishCourse/publishCourse.spec',
             'dialogs/moveCopyQuestion/moveCopyQuestion.spec',
             'dialogs/video/video.spec',
+            'dialogs/learningPath/commands/deleteLearningPathCommand.spec',
+            'dialogs/learningPath/deleteLearningPath.spec',
 
             //#endregion dialogs
 

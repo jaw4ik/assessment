@@ -888,6 +888,69 @@
   background: #a3d47c;
   border-color: #93c66a;
 }
+/*red button*/
+.btn.red {
+  min-width: 100px;
+  margin: 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-family: 'OpenSans-Semibold';
+  -webkit-text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  position: relative;
+  height: 40px;
+  text-shadow: none;
+  text-transform: uppercase;
+  padding: 0 10px;
+  white-space: nowrap;
+  background: #ee6556;
+  border: 1px solid #e85e5d;
+  color: #fff;
+}
+.btn.red:active {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset;
+}
+.btn.red:disabled {
+  cursor: default;
+  opacity: 0.3;
+}
+.btn.red:hover {
+  background: #ec5444;
+  border: 1px solid #e54d4c;
+}
+/*red button*/
+.btn.white.grey-border {
+  min-width: 100px;
+  margin: 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-family: 'OpenSans-Semibold';
+  -webkit-text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  position: relative;
+  height: 40px;
+  text-shadow: none;
+  text-transform: uppercase;
+  padding: 0 10px;
+  white-space: nowrap;
+  background: #fff;
+  border: 1px solid #c6d1d8;
+  border-bottom: 2px solid #c6d1d8;
+  color: #64798d;
+}
+.btn.white.grey-border:active {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset;
+}
+.btn.white.grey-border:disabled {
+  cursor: default;
+  opacity: 0.3;
+}
+.btn.white.grey-border:hover {
+  border: 1px solid #7c95ae;
+  border-bottom: 2px solid #7c95ae;
+}
 /*green button*/
 .btn.green {
   background: #65bd77;
@@ -1618,6 +1681,35 @@
   line-height: 20px !important;
 }
 /*#endregion autosize*/
+/*#region CONTEXT ACTIONS */
+.list-item-context-actions-wrapper {
+  height: 25px;
+  position: absolute;
+  top: 0;
+  right: 5px;
+  z-index: 1;
+  overflow: hidden;
+}
+.list-item-context-actions-wrapper:hover {
+  overflow: visible;
+}
+.list-item-context-actions-wrapper .list-item-context-action {
+  display: inline-block;
+  vertical-align: top;
+  height: 21px;
+  width: 20px;
+  position: relative;
+  top: -22px;
+  background-color: #0c0c0c;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: top 0.1s linear;
+}
+.list-item-context-actions-wrapper .info-tooltip {
+  width: 100px;
+  margin-left: -50px;
+}
+/*#endregion */
 .application {
   height: 100%;
   width: 100%;

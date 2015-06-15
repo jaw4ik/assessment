@@ -110,6 +110,17 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess();
         }
 
+        [HttpPost]
+        [Route("api/learningpath/delete")]
+        public ActionResult Delete(LearningPath learningPath)
+        {
+            if (learningPath != null)
+            {
+                _repository.Remove(learningPath);
+            }
+
+            return JsonSuccess();
+        }
 
     }
 }
