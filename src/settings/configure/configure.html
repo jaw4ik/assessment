@@ -35,21 +35,25 @@
                                     <div class="settings-column-row">
                                         <span class="settings-caption">Question pool:</span>
                                         <ul class="radio-selector small unstyled">
-                                            <li class="selector-item-container" ng-class="{ selected: questionPool.mode == questionPool.modes.all }" ng-click="questionPool.mode = questionPool.modes.all">
-                                                <div class="selector-item-btn"></div>
-                                                <div class="selector-item-text">Show all questions</div>
+                                            <li class="selector-item-container" ng-class="{ selected: questionPool.mode == questionPool.modes.all }">
+                                                <div class="selector-item-wrapper" ng-click="questionPool.mode = questionPool.modes.all">
+                                                    <div class="selector-item-btn"></div>
+                                                    <div class="selector-item-text">Show all questions</div>
+                                                </div>
                                             </li>
-                                            <li class="selector-item-container" ng-class="{ selected: questionPool.mode == questionPool.modes.subset }" ng-click="questionPool.mode = questionPool.modes.subset">
-                                                <div class="selector-item-btn"></div>
-                                                <div class="selector-item-text">
-                                                    <span>Show a subset of</span>
-                                                    <div data-trigger="spinner" class="spinner" spinner spinner-value="questionPool.subsetSize">
-                                                        <a class="spinner-button spinner-down" data-spin="down" disable-drag-and-drop></a>
-                                                        <input type="text" maxlength="3" id="questionPool.subsetSize" class="content-text-input" data-rule="quantity" data-max="999" data-min="1" number ng-model="questionPool.subsetSize">
-                                                        <a class="spinner-button spinner-up" data-spin="up" disable-drag-and-drop></a>
-                                                        <div class="spiner-seperator"></div>
+                                            <li class="selector-item-container" ng-class="{ selected: questionPool.mode == questionPool.modes.subset }">
+                                                <div class="selector-item-wrapper" ng-click="questionPool.mode = questionPool.modes.subset">
+                                                    <div class="selector-item-btn"></div>
+                                                    <div class="selector-item-text">
+                                                        <span>Show a subset of</span>
+                                                        <div data-trigger="spinner" class="spinner" spinner spinner-value="questionPool.subsetSize">
+                                                            <a class="spinner-button spinner-down" data-spin="down" disable-drag-and-drop></a>
+                                                            <input type="text" maxlength="3" id="questionPool.subsetSize" class="content-text-input" data-rule="quantity" data-max="999" data-min="1" number ng-model="questionPool.subsetSize">
+                                                            <a class="spinner-button spinner-up" data-spin="up" disable-drag-and-drop></a>
+                                                            <div class="spiner-seperator"></div>
+                                                        </div>
+                                                        <span>random questions</span>
                                                     </div>
-                                                    <span>random questions</span>
                                                 </div>
                                             </li>
                                         </ul>

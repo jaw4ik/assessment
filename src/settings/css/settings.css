@@ -391,7 +391,7 @@ input[type="text"] {
 /*#region timer */
 
 .settings-column.timer {
-    -weblit-flex: 1 0 auto;
+    -webkit-flex: 1 0 auto;
     flex: 1 0 auto;
 }
 
@@ -749,15 +749,15 @@ input[type="text"] {
 
 /*#region radio button*/
 
-.radio-selector {
-    cursor: pointer;
-}
-
-.radio-selector .selector-item-container {
+.radio-selector .selector-item-container,
+.radio-selector .selector-item-wrapper {
     display: -webkit-flex;
     display: flex;
     -webkit-align-items: center;
     align-items: center;
+}
+
+.radio-selector .selector-item-container {
     position: relative;
     transition: background-color 500ms ease-out 0s;
 }
@@ -777,11 +777,19 @@ input[type="text"] {
         background-color: #f3f3f3;
     }
 
-    .radio-selector .selector-item-container.selected {
+    .radio-selector.small .selector-item-wrapper {
+        cursor: pointer;
+    }
+    .radio-selector.small .selector-item-container.selected .selector-item-wrapper {
         cursor: default;
+    }
+    
+    .radio-selector.large .selector-item-container {
+        cursor: pointer;
     }
     .radio-selector.large .selector-item-container.selected {
         background-color: #fafbfc;
+        cursor: default;
     }
 
         .radio-selector.large .selector-item-container.selected:after {
@@ -799,6 +807,12 @@ input[type="text"] {
             -webkit-transform: rotate(45deg);
             transform: rotate(45deg);
         }
+
+.radio-selector .selector-item-btn,
+.radio-selector .selector-item-text {
+    display: inline-block;
+    vertical-align: middle;
+}
 
 .radio-selector .selector-item-btn {
     position: relative;
