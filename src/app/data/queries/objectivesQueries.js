@@ -7,17 +7,15 @@
 
     function factory(dataContext) {
         return {
-            getObjectiveByQuestionId: getObjectiveByQuestionId
+            getObjectiveById: getObjectiveById
         };
 
-        function getObjectiveByQuestionId(questionId) {
-            var quiz = dataContext.getQuiz().$$state.value,
+        function getObjectiveById(objectiveId) {
+            var quiz = dataContext.getQuiz(),
                 currentObjective = null;
 
             currentObjective = _.find(quiz.objectives, function (objective) {
-                return _.some(objective.questions, function (question) {
-                    return question.id === questionId;
-                });
+                return objective.id === objectiveId;
             });
 
             return currentObjective;

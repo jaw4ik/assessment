@@ -322,7 +322,7 @@
                     resultData.randomizeOrder = self.randomizeOrder;
                     resultData.randomizePerAttempt = self.randomizeOrder && self.randomizePerAttempt;
                 } else if (self.mode === self.modes.subset) {
-                    resultData.randomizeOrder = self.randomizePerAttempt;
+                    resultData.randomizeOrder = true;
                     resultData.randomizePerAttempt = self.randomizePerAttempt;
                 }
 

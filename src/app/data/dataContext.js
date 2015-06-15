@@ -15,8 +15,7 @@
             id: null,
             title: null,
             hasIntroductionContent: false,
-            objectives: [],
-            questions: []
+            objectives: []
         };
 
         return {
@@ -45,7 +44,6 @@
 
         function readObjectives(objectives) {
             objectives.forEach(function (objective) {
-
                 if (_.isArray(objective.questions)) {
                     var objectiveQuestions = _.chain(objective.questions)
                         .map(function (questionData) {
@@ -55,9 +53,31 @@
                         .value();
 
                     self.objectives.push(new Objective(objective.id, objective.title, objectiveQuestions));
-                    self.questions = self.questions.concat(objectiveQuestions);
                 }
             });
+        }
+
+        function getAllQuestions() {
+            return _.chain(self.objectives)
+                .pluck('questions')
+                .flatten()
+                .value();
+        }
+
+        function generateObjectives(questions) {
+            var objectivesIds = _.chain(questions)
+                .pluck('objectiveId')
+                .uniq()
+                .value();
+
+            return _.chain(self.objectives)
+                .filter(function (objective) {
+                    return _.contains(objectivesIds, objective.id);
+                })
+                .map(function (objective) {
+                    return new Objective(objective.id, objective.title, _.intersection(objective.questions, questions));
+                })
+                .value();
         }
 
         function getQuiz() {
@@ -69,12 +89,13 @@
             }
 
             if (!self.quiz || questionPool.isRefreshed()) {
-                var questionsForCourse = questionPool.getQuestions(self.questions);
+                var questionsForCourse = questionPool.getQuestions(getAllQuestions()),
+                    objectivesForCourse = generateObjectives(questionsForCourse);
 
                 return $q.all(questionsForCourse.map(function (question) {
                     return question.loadContent();
                 })).then(function () {
-                    return self.quiz = new Quiz(self.id, self.title, self.objectives, questionsForCourse, self.hasIntroductionContent);
+                    return self.quiz = new Quiz(self.id, self.title, objectivesForCourse, questionsForCourse, self.hasIntroductionContent);
                 });
             }
 

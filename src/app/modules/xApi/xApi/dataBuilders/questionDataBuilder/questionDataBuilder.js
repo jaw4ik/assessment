@@ -23,7 +23,7 @@
 
             var question = item.question,
                 answers = item.answers,
-                objective = objectivesQueries.getObjectiveByQuestionId(question.id),
+                objective = objectivesQueries.getObjectiveById(question.objectiveId),
                 questionUrl = rootUrl + '#objective/' + objective.id + '/question/' + question.id,
                 parentUrl = rootUrl + '#objectives?objective_id=' + objective.id,
                 data = null,

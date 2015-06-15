@@ -302,8 +302,6 @@ input[type="text"] {
     position: relative;
     display: -webkit-flex;
     display: flex;
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
     -webkit-flex-direction: row;
     flex-direction: row;
 }
@@ -392,6 +390,11 @@ input[type="text"] {
 
 /*#region timer */
 
+.settings-column.timer {
+    -webkit-flex: 1 0 auto;
+    flex: 1 0 auto;
+}
+
 .switching-option {
     margin-bottom: 20px;
 }
@@ -434,6 +437,11 @@ input[type="text"] {
 /*#endregion */
 
 /*#region question-pool*/
+
+.settings-column.question-pool {
+    -webkit-flex: 1 1 280px;
+    flex: 1 1 280px;
+}
 
 .question-pool .radio-selector {
     margin-top: 13px;
@@ -648,14 +656,15 @@ input[type="text"] {
 /*#region selector*/
 
 .template-selector-container {
-    display: table;
+    display: -webkit-flex;
+    display: flex;
     color: #42515f;
 }
 
 .selector-items-container {
-    display: table-cell;
     position: relative;
-    min-width: 275px;
+    -webkit-flex: 0 1 250px;
+    flex: 0 1 250px;
     border-right: 1px solid #e9e7e7;
     vertical-align: top;
 }
@@ -669,7 +678,8 @@ input[type="text"] {
 }
 
 .selector-preview-container {
-    display: table-cell;
+    -webkit-flex: 1 1 auto;
+    flex: 1 1 auto;
     width: 620px;
     padding-left: 10px;
     vertical-align: top;
@@ -741,15 +751,15 @@ input[type="text"] {
 
 /*#region radio button*/
 
-.radio-selector {
-    cursor: pointer;
-}
-
-.radio-selector .selector-item-container {
+.radio-selector .selector-item-container,
+.radio-selector .selector-item-wrapper {
     display: -webkit-flex;
     display: flex;
     -webkit-align-items: center;
     align-items: center;
+}
+
+.radio-selector .selector-item-container {
     position: relative;
     transition: background-color 500ms ease-out 0s;
 }
@@ -761,6 +771,11 @@ input[type="text"] {
     padding: 7px 10px;
 }
 
+.radio-selector .selector-item-wrapper {
+    -webkit-flex: 0 1 auto;
+    flex: 0 1 auto;
+}
+
     .radio-selector .selector-item-container:first-child {
         margin-top: 0;
     }
@@ -769,11 +784,19 @@ input[type="text"] {
         background-color: #f3f3f3;
     }
 
-    .radio-selector .selector-item-container.selected {
+    .radio-selector.small .selector-item-wrapper {
+        cursor: pointer;
+    }
+    .radio-selector.small .selector-item-container.selected .selector-item-wrapper {
         cursor: default;
+    }
+    
+    .radio-selector.large .selector-item-container {
+        cursor: pointer;
     }
     .radio-selector.large .selector-item-container.selected {
         background-color: #fafbfc;
+        cursor: default;
     }
 
         .radio-selector.large .selector-item-container.selected:after {
@@ -792,18 +815,25 @@ input[type="text"] {
             transform: rotate(45deg);
         }
 
+.radio-selector .selector-item-btn,
+.radio-selector .selector-item-text {
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .radio-selector .selector-item-btn {
     position: relative;
-    -webkit-flex: none;
-    flex: none;
+    -webkit-flex: 0 0 auto;
+    flex: 0 0 auto;
     
     border: 1px solid #ebebeb;
     border-radius: 50%;
+    box-sizing: border-box;
     transition: background-color 500ms ease-out 0s;
 }
 .radio-selector.small .selector-item-btn {
-    width: 23px;
-    height: 23px;
+    width: 24px;
+    height: 24px;
 }
 .radio-selector.large .selector-item-btn {
     width: 30px;
@@ -819,8 +849,8 @@ input[type="text"] {
     border-radius: 50%;
 }
 .radio-selector.small .selector-item-container.selected .selector-item-btn:before{
-    width: 13px;
-    height: 13px;
+    width: 14px;
+    height: 14px;
     margin-top: -7px;
     margin-left: -7px;
 }
@@ -836,14 +866,14 @@ input[type="text"] {
 }
 
 .radio-selector .selector-item-container .selector-item-text {
-    -webkit-flex: 1;
-    flex: 1;
+    -webkit-flex: 1 1 auto;
+    flex: 1 1 auto;
     margin-left: 10px;
     font-size: 13px;
     line-height: 13px;
     color: #42515f;
 }
-.radio-selector.small .selector-item-container:hover .selector-item-text,
+.radio-selector.small .selector-item-wrapper:hover .selector-item-text,
 .radio-selector.small .selector-item-container.selected .selector-item-text {
     color: #262827;
 }
@@ -1961,10 +1991,6 @@ input[type="text"] {
 /*#endregion*/
 
 @media (max-width: 800px) {
-    .selector-items-container {
-        min-width: 175px;
-    }
-
     .settings-tab-container.track-and-trace .selector-preview-container {
         padding-left: 30px;
     }

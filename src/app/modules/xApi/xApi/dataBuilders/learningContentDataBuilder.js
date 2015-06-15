@@ -12,7 +12,7 @@
         };
 
         function learningContentExperienced(question, spentTime, rootUrl) {
-            var objective = objectivesQueries.getObjectiveByQuestionId(question.id),
+            var objective = objectivesQueries.getObjectiveById(question.objectiveId),
                 questionUrl = rootUrl + '#objective/' + objective.id + '/question/' + question.id,
                 parentUrl = rootUrl + '#objectives?objective_id=' + objective.id,
                 learningContentUrl = rootUrl + '#objective/' + objective.id + '/question/' + question.id + '/learningContents';
