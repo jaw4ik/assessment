@@ -347,7 +347,7 @@
             courseResults: {
                 pageSize: 10
             },
-
+            
             storage: {
                 host: window.storageServiceUrl ? "//" + window.storageServiceUrl : '//localhost:888',
                 mediaUrl: '/media',
@@ -374,6 +374,50 @@
                     iframeHeight: 335,
                     updateUploadTimeout: 60000,
                     removeVideoAfterErrorTimeout: 5000
+                }
+            },
+
+            dialogs: {
+                upgrade: {
+                    settings: {
+                        default: {
+                            titleKey: 'upgradeDialogBoldTitle',
+                            subtitleKey: '',
+                            descriptionKey: '',
+                            upgradeBtnTextKey: 'upgradeDialogUpgradeNow',
+                            skipBtnTextKey: 'upgradeDialogMaybeLater',
+                            containerCss: 'upgrade-dialog-empty',
+                            eventCategory: ''
+                        },
+
+                        downloadResults: {
+                            containerCss: 'upgrade-dialog-download-results',
+                            eventCategory: 'Download results CSV',
+                            subtitleKey: 'resultsUpgradeForDownloadCSVDialogTitle2',
+                            descriptionKey: 'resultsUpgradeForDownloadCSVDialogHtml'
+                        },
+
+                        loadMoreResults: {
+                            containerCss: 'upgrade-dialog-all-results',
+                            eventCategory: 'Load more results',
+                            subtitleKey: 'resultsUpgradeDialogTitle2',
+                            descriptionKey: 'resultsUpgradeDialogText'
+                        },
+
+                        extendedResults: {
+                            containerCss: 'upgrade-dialog-extended-results',
+                            eventCategory: 'Load extended results',
+                            subtitleKey: 'resultsUpgradeForExtendedResultsTitle2',
+                            descriptionKey: 'resultsUpgradeForExtendedResultsHtml'
+                        },
+
+                        videoUpload: {
+                            containerCss: 'upgrade-dialog-video-upload',
+                            eventCategory: 'Video library',
+                            subtitleKey: 'videoUpgradeToUpload',
+                            descriptionKey: 'videoUpgradeToUploadHtml'
+                        }
+                    }
                 }
             }
         }
