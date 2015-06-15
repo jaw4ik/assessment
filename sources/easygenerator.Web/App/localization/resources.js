@@ -2321,7 +2321,7 @@
         'uk': '<ul><li>Завантажте результати учнів</li><li>Відкрийте їх в таблицях spreadsheet</li><li>Або в будь-якій іншій програмі, яка підтримує формат CSV</li></ul>'
     },
     resultsUpgradeForExtendedResultsHtml: {
-        'en': '<ul><li>Get results per objective</li><li>Get results per question</li><li>Check start date and finish date of each attempt</li></ul>',
+        'en': '<ul><li>Get results per objective</li><li>Get results per question</li><li>Check start and finish date of each attempt</li></ul>',
         'zh-cn': '<ul><li>Get results per objective</li><li>Get results per question</li><li>Check start date and finish date of each attempt</li></ul>[zh-cn]',
         'uk': '<ul><li>Отримати результати за кожною ціллю</li><li>Отримати результати за кожним питанням</li><li>Перевірити час початку і час закінчення кожної спроби</li></ul>'
     },
