@@ -769,6 +769,11 @@ input[type="text"] {
     padding: 7px 10px;
 }
 
+.radio-selector .selector-item-wrapper {
+    -webkit-flex: 1;
+    flex: 1;
+}
+
     .radio-selector .selector-item-container:first-child {
         margin-top: 0;
     }

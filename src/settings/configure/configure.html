@@ -194,8 +194,10 @@
                                     <h2 class="selector-title">Report to:</h2>
                                     <ul class="radio-selector large unstyled">
                                         <li class="selector-item-container" ng-click="option.select()" ng-class="{ selected: option.isSelected() }" ng-repeat="option in trackingData.lrsOptions">
-                                            <div class="selector-item-btn"></div>
-                                            <div class="selector-item-text">{{option.text}}</div>
+                                            <div class="selector-item-wrapper">
+                                                <div class="selector-item-btn"></div>
+                                                <div class="selector-item-text">{{option.text}}</div>
+                                            </div>
                                         </li>
                                     </ul>
                                     <div class="disabled-feature-overlay" ng-hide="trackingData.enableXAPI"></div>
