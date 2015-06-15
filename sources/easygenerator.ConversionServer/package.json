@@ -11,5 +11,13 @@
     "busboy": "^0.2.9",
     "express": "^4.12.4",
     "node-uuid": "^1.4.3"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.5",
+    "sinon": "^1.15.3",
+    "supertest": "^1.0.1"
+  },
+  "scripts": {
+    "test": "node node_modules/mocha/bin/mocha"
   }
 }

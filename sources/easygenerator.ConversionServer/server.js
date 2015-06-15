@@ -3,11 +3,12 @@ var app = express();
 
 var path = require('path'),
     fs = require('fs'),
-    uuid = require('node-uuid');
+    uuid = require('node-uuid'),
+    config = require('./config')
+    ;
 
 var Busboy = require('busboy');
 
-var TEMP_DIR = "D:\\TEMP";
 
 app.get('/', function (req, res) {
     res.send('<html>' +
@@ -27,40 +28,38 @@ app.post('/', function (req, res) {
     var busboy = new Busboy({ headers: req.headers });
     
     busboy.on('file', function (name, file, filename) {
-        fs.mkdirSync(path.join(TEMP_DIR, id));
-        file.pipe(fs.createWriteStream(path.join(TEMP_DIR, id, filename)));
+        fs.mkdirSync(path.join(config.TEMP_FOLDER, id));
+        file.pipe(fs.createWriteStream(path.join(config.TEMP_FOLDER, id, filename)));
     });
     busboy.on('finish', function () {
-        res.writeHead(200, { 'Connection': 'close' });
-        res.end('<html>' +
-            '       <head>' +
-            '       </head>' +
-            '       <body>' +
-            '           That\'s all folks! id: <a href="http://localhost:3000/file/' + id + '">' + id + '</a>' +
-            '       </body>' +
-            '   </html>');
+        res.status(200).send({
+            id: id
+        });
     });
     return req.pipe(busboy);
 });
 
 app.get('/file/:id', function (req, res) {
-    var id = req.params('id');
+    var id = req.params.id;
     
-    if (id.length != 36) {
-        res.status(400).end();
-    } else {
-        var files = fs.readdirSync(path.join(TEMP_DIR, id));
-        if (files && files.length) {
-            var file = path.join(TEMP_DIR, id, files[0]);
-            
-            res.writeHead(200, {
-                //'Content-Type': 'audio/mpeg',
-                'Content-Length': fs.statSync(file).size
-            });
-            
-            fs.createReadStream(file).pipe(res);
+    
+    fs.readdir(path.join(config.TEMP_FOLDER, id), function (err, files) {
+        if (err) {
+            res.status(404).end();
+        } else {
+            if (files && files.length) {
+                var file = path.join(config.TEMP_FOLDER, id, files[0]);
+                
+                res.writeHead(200, {
+                    'Content-Length': fs.statSync(file).size
+                });
+                
+                fs.createReadStream(file).pipe(res);
+            }
         }
-    }
+       
+    });
+
 });
 
 var server = app.listen(3000, function () {
@@ -71,3 +70,5 @@ var server = app.listen(3000, function () {
     console.log('Example app listening at http://%s:%s', host, port);
 
 });
+
+module.exports = app;
