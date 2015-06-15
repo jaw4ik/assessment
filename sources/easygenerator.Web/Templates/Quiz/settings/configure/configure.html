@@ -5,10 +5,10 @@
         <title>Template configure settings</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="../css/settings.css?v=1434115438172" rel="stylesheet" />
-        <script src="../api.js?v=1434115438172"></script>
-        <script src="js/vendor.min.js?v=1434115438172"></script>
-        <script src="js/configure.min.js?v=1434115438172"></script>
+        <link href="../css/settings.css?v=1434351348187" rel="stylesheet" />
+        <script src="../api.js?v=1434351348187"></script>
+        <script src="js/vendor.min.js?v=1434351348187"></script>
+        <script src="js/configure.min.js?v=1434351348187"></script>
     </head>
     
     <body>
@@ -28,21 +28,25 @@
                                     <div class="settings-column-row">
                                         <span class="settings-caption">Question pool:</span>
                                         <ul class="radio-selector small unstyled">
-                                            <li class="selector-item-container" ng-class="{ selected: questionPool.mode == questionPool.modes.all }" ng-click="questionPool.mode = questionPool.modes.all">
-                                                <div class="selector-item-btn"></div>
-                                                <div class="selector-item-text">Show all questions</div>
+                                            <li class="selector-item-container" ng-class="{ selected: questionPool.mode == questionPool.modes.all }">
+                                                <div class="selector-item-wrapper" ng-click="questionPool.mode = questionPool.modes.all">
+                                                    <div class="selector-item-btn"></div>
+                                                    <div class="selector-item-text">Show all questions</div>
+                                                </div>
                                             </li>
-                                            <li class="selector-item-container" ng-class="{ selected: questionPool.mode == questionPool.modes.subset }" ng-click="questionPool.mode = questionPool.modes.subset">
-                                                <div class="selector-item-btn"></div>
-                                                <div class="selector-item-text">
-                                                    <span>Show a subset of</span>
-                                                    <div data-trigger="spinner" class="spinner" spinner spinner-value="questionPool.subsetSize">
-                                                        <a class="spinner-button spinner-down" data-spin="down" disable-drag-and-drop></a>
-                                                        <input type="text" maxlength="3" id="questionPool.subsetSize" class="content-text-input" data-rule="quantity" data-max="999" data-min="1" number ng-model="questionPool.subsetSize">
-                                                        <a class="spinner-button spinner-up" data-spin="up" disable-drag-and-drop></a>
-                                                        <div class="spiner-seperator"></div>
+                                            <li class="selector-item-container" ng-class="{ selected: questionPool.mode == questionPool.modes.subset }">
+                                                <div class="selector-item-wrapper" ng-click="questionPool.mode = questionPool.modes.subset">
+                                                    <div class="selector-item-btn"></div>
+                                                    <div class="selector-item-text">
+                                                        <span>Show a subset of</span>
+                                                        <div data-trigger="spinner" class="spinner" spinner spinner-value="questionPool.subsetSize">
+                                                            <a class="spinner-button spinner-down" data-spin="down" disable-drag-and-drop></a>
+                                                            <input type="text" maxlength="3" id="questionPool.subsetSize" class="content-text-input" data-rule="quantity" data-max="999" data-min="1" number ng-model="questionPool.subsetSize">
+                                                            <a class="spinner-button spinner-up" data-spin="up" disable-drag-and-drop></a>
+                                                            <div class="spiner-seperator"></div>
+                                                        </div>
+                                                        <span>random questions</span>
                                                     </div>
-                                                    <span>random questions</span>
                                                 </div>
                                             </li>
                                         </ul>
@@ -328,7 +332,7 @@
                 <div class="settings-tab-container languages" data-tab="languages">
                     <div class="settings-tab-wrapper">
                         <div class="tab-header-container">
-                            <img src="img/language.png?v=1434115438172">
+                            <img src="img/language.png?v=1434351348187">
                             <div class="tab-header-wrapper">
                                 <h1 class="tab-header-title">Choose language for your course</h1>
                                 <div class="tab-header-content">
