@@ -464,6 +464,19 @@
     },
     /* End resource section for model Videos */
     
+    /* Resource section for model Audios */
+    audioLibrary: {
+        'en': 'Audio library',
+        'zh-cn': 'Audio library[zh-cn]',
+        'uk': 'Аудіо бібліотека'
+    },
+    uploadAudioDescription: {
+        'en': 'Upload your own audio by clicking this button',
+        'zh-cn': 'Upload your own audio by clicking this button[zh-cn]',
+        'uk': 'Завантажте своє власне аудіо натиснувши на кнопку'
+    },
+    /* End resource section for model Audios */
+    
     /* Resource section for model Objectives */
     learningObjectives: {
         'en': 'Learning objectives',

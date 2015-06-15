@@ -27,14 +27,6 @@
 
         });
 
-        describe('upgradePopupVisibility', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.upgradePopupVisibility).toBeObservable();
-            });
-
-        });
-
         describe('storageSpaceProgressBarVisibility', function () {
 
             it('should be observable', function () {
@@ -68,10 +60,12 @@
         });
 
         describe('addVideo', function () {
+            var upgradeDialog = require('widgets/upgradeDialog/viewmodel');
 
             beforeEach(function () {
                 spyOn(storageFileUploader, 'upload');
                 spyOn(eventTracker, 'publish');
+                spyOn(upgradeDialog, 'show');
             });
 
             it('should be function', function () {
@@ -79,15 +73,13 @@
             });
 
             describe('when user has free plan', function () {
-
                 beforeEach(function () {
                     spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
                 });
 
                 it('should show upgrade popup', function () {
-                    viewModel.upgradePopupVisibility(false);
                     viewModel.addVideo();
-                    expect(viewModel.upgradePopupVisibility()).toBeTruthy();
+                    expect(upgradeDialog.show).toHaveBeenCalledWith(constants.dialogs.upgrade.settings.videoUpload);
                 });
 
                 it('should not upload video', function () {
@@ -98,16 +90,14 @@
             });
 
             describe('when user has trial plan', function () {
-
                 beforeEach(function () {
                     spyOn(userContext, 'hasStarterAccess').and.returnValue(true);
                     spyOn(userContext, 'hasTrialAccess').and.returnValue(true);
                 });
 
                 it('should show upgrade popup', function () {
-                    viewModel.upgradePopupVisibility(false);
                     viewModel.addVideo();
-                    expect(viewModel.upgradePopupVisibility()).toBeTruthy();
+                    expect(upgradeDialog.show).toHaveBeenCalledWith(constants.dialogs.upgrade.settings.videoUpload);
                 });
 
                 it('should not upload video', function () {
@@ -122,12 +112,6 @@
                 beforeEach(function () {
                     spyOn(userContext, 'hasStarterAccess').and.returnValue(true);
                     spyOn(userContext, 'hasTrialAccess').and.returnValue(false);
-                });
-
-                it('should not show upgrade popup', function () {
-                    viewModel.upgradePopupVisibility(false);
-                    viewModel.addVideo();
-                    expect(viewModel.upgradePopupVisibility()).toBeFalsy();
                 });
 
                 it('should upload video', function () {
@@ -307,89 +291,6 @@
 
                 });
 
-            });
-
-        });
-
-        describe('showVideoPopup', function () {
-
-            beforeEach(function () {
-                spyOn(videoDialog, 'show');
-            });
-
-            describe('when video has not vimeoId', function () {
-                var videoToShow = {};
-                videoToShow.vimeoId = function () { return null; };
-
-                it('should not show video popup', function () {
-                    viewModel.showVideoPopup(videoToShow);
-                    expect(videoDialog.show).not.toHaveBeenCalled();
-                });
-
-            });
-
-            describe('when video has vimeoId', function () {
-                var videoToShow = {};
-                videoToShow.vimeoId = function () { return 123; };
-
-                it('should not show video popup', function () {
-                    viewModel.showVideoPopup(videoToShow);
-                    expect(videoDialog.show).toHaveBeenCalledWith(videoToShow.vimeoId());
-                });
-
-            });
-
-        });
-
-        describe('upgradeToVideoUpload', function () {
-
-            beforeEach(function () {
-                spyOn(eventTracker, 'publish');
-                spyOn(router, 'openUrl');
-            });
-
-            it('should be function', function () {
-                expect(viewModel.upgradeToVideoUpload).toBeFunction();
-            });
-
-            it('should publish event', function () {
-                viewModel.upgradeToVideoUpload();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Upgrade now', 'Video library');
-            });
-
-            it('should open page for upgrade', function () {
-                viewModel.upgradeToVideoUpload();
-                expect(router.openUrl).toHaveBeenCalledWith(constants.upgradeUrl);
-            });
-
-            it('should hide upgrade popup', function () {
-                viewModel.upgradePopupVisibility(true);
-                viewModel.upgradeToVideoUpload();
-                expect(viewModel.upgradePopupVisibility()).toBe(false);
-            });
-
-        });
-
-        describe('skipUpgradeForUploadVideo', function () {
-
-            beforeEach(function () {
-                spyOn(eventTracker, 'publish');
-                spyOn(router, 'openUrl');
-            });
-
-            it('should be function', function () {
-                expect(viewModel.skipUpgradeForUploadVideo).toBeFunction();
-            });
-
-            it('should publish event', function () {
-                viewModel.skipUpgradeForUploadVideo();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Skip upgrade', 'Video library');
-            });
-
-            it('should hide upgrade popup', function () {
-                viewModel.upgradePopupVisibility(true);
-                viewModel.skipUpgradeForUploadVideo();
-                expect(viewModel.upgradePopupVisibility()).toBe(false);
             });
 
         });
