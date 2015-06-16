@@ -28,7 +28,7 @@ app.post('/', function (req, res) {
     
     var files = [];
     
-    busboy.on('file', function (name, file, filename) {
+    busboy.on('file', function (name, file, filename, transferEncoding, mimeType) {
         var id = uuid.v4();
         
         var directoryPath = path.join(config.TEMP_FOLDER, id);
@@ -68,15 +68,6 @@ app.get('/file/:id', function (req, res) {
         }
        
     });
-
-});
-
-var server = app.listen(3000, function () {
-    
-    var host = server.address().address;
-    var port = server.address().port;
-    
-    console.log('Example app listening at http://%s:%s', host, port);
 
 });
 

@@ -5,6 +5,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <Name>easygenerator.ConversionServer</Name>
     <RootNamespace>easygenerator.ConversionServer</RootNamespace>
+    <NameOfLastUsedPublishProfile>local</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -12,7 +13,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>0f187409-200c-4a8b-9af0-9326c941ad55</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>server.js</StartupFile>
+    <StartupFile>www.js</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -33,6 +34,8 @@
     <Compile Include="config.js" />
     <Compile Include="server.js" />
     <Compile Include="test\server.spec.js" />
+    <Compile Include="www.js" />
+    <Content Include="Web.config" />
     <Content Include="package.json" />
     <Content Include="README.md" />
   </ItemGroup>
