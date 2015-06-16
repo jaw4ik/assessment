@@ -2,6 +2,7 @@
     "logo": {
         "url": ""
     },
+    "background":null,
     "xApi": {
         "enabled": false,
         "lrs": {
