@@ -1995,6 +1995,10 @@
     .info-tooltip {
         width: 100px;
         margin-left: -50px;
+        /* fix for Safari to hide tooltip correctly */
+        visibility: initial;
+        transition: none;
+        -webkit-transition: none;
     }
 }
 
