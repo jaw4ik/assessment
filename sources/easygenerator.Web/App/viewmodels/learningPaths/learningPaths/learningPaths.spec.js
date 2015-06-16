@@ -102,9 +102,9 @@
                 expect(deleteLearningPathDialog.show).toHaveBeenCalledWith(learningPath.id, learningPath.title());
             });
 
-            it('should publish \'Delete learning path\' event', function () {
+            it('should publish \'Open \'Delete learning path\' dialog\' event', function () {
                 viewModel.deleteLearningPath(learningPath);
-                expect(eventTracker.publish).toHaveBeenCalledWith('Delete learning path');
+                expect(eventTracker.publish).toHaveBeenCalledWith('Open \'Delete learning path\' dialog');
             });
         });
 
