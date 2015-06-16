@@ -1,0 +1,16 @@
+﻿<section data-bind="css: containerCss">
+    <section class="upgrade-dialog" data-bind="visible: isShown">
+        <section class="upgrade-dialog-content" data-bind="visible: isShown">
+            <header>
+                <div class="upgrade-dialog-title" data-bind="text: title">Upgrade now</div>
+                <div class="upgrade-dialog-description" data-bind="text: subtitle"></div>
+            </header>
+            <div class="upgrade-dialog-title-image"></div>
+            <div class="upgrade-dialog-body" data-bind="html: description"></div>
+            <div class="upgrade-dialog-buttons">
+                <button class="btn green upgrade-dialog-btn-upgrade" data-bind="click: upgrade, text: upgradeBtnText">Upgrade now</button><br />
+                <a class="upgrade-dialog-btn-later" href="" data-bind="click: skip, text: skipBtnText">Maybe later</a>
+            </div>
+        </section>
+    </section>
+</section>

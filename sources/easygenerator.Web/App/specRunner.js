@@ -318,6 +318,7 @@
             'widgets/createQuestion/viewmodel.spec',
             'widgets/cursorTooltip/viewmodel.spec',
             'widgets/hotSpotOnImageTextEditor/viewmodel.spec',
+            'widgets/upgradeDialog/viewmodel.spec',
             'bootstrapper.spec',
             'guard.spec',
             'http/apiHttpWrapper.spec',
