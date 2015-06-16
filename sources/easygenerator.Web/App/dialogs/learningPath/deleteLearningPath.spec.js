@@ -125,21 +125,6 @@
                     });
                 });
             });
-
-            describe('when failed to delete learning path', function () {
-                beforeEach(function () {
-                    dfd.reject();
-                });
-
-                it('should set isDeleting to false', function (done) {
-                    viewModel.isDeleting(true);
-                    viewModel.deleteLearningPath();
-                    command.execute().fin(function () {
-                        expect(viewModel.isDeleting()).toBeFalsy();
-                        done();
-                    });
-                });
-            });
         });
     });
 

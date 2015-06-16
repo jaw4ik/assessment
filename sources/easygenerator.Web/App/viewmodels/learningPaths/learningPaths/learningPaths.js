@@ -4,7 +4,7 @@
         "use strict";
 
         var events = {
-            deleteLearningPath: 'Delete learning path',
+            deleteLearningPath: 'Open \'Delete learning path\' dialog',
             createLearningPath: 'Create learning path and open its properties'
         };
 
