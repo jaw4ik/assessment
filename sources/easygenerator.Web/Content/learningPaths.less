@@ -501,7 +501,7 @@
 
 .modal-dialog-wrapper.delete-learning-path {
     @dialog-background-color: #fff;
-    @dialog-border-shadow-color: #d8d8d8;
+    @dialog-border-shadow-color: #d0d0d1;
     @dialog-title-font: 20px 'OpenSans-Semibold';
     @dialog-learning-path-title-font: 16px 'OpenSans';
     @dialog-title-color: #546677;
@@ -511,10 +511,14 @@
     border: 1px solid #d8d8d8;
     width: 520px;
     height: 280px;
-    padding: 40px;
-    padding-top: 30px;
     background-color: @dialog-background-color;
-    box-shadow: 0 8px 6px -6px @dialog-border-shadow-color;
+
+    .modal-dialog {
+        height: 100%;
+        padding: 40px;
+        padding-top: 30px;
+        box-shadow: 0 20px 20px -10px @dialog-border-shadow-color;
+    }
 
     .modal-dialog-close-btn {
         position: absolute;

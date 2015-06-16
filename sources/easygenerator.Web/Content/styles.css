@@ -900,6 +900,7 @@
   cursor: pointer;
   position: relative;
   height: 40px;
+  font: 13px 'OpenSans-Semibold';
   text-shadow: none;
   text-transform: uppercase;
   padding: 0 10px;
@@ -931,6 +932,7 @@
   cursor: pointer;
   position: relative;
   height: 40px;
+  font: 13px 'OpenSans-Semibold';
   text-shadow: none;
   text-transform: uppercase;
   padding: 0 10px;
