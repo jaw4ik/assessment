@@ -11,8 +11,7 @@
             isPublishing: ko.observable(false),
 
             download: download,
-            activate: activate,
-            deactivate: deactivate
+            activate: activate
         }
         return viewModel;
 
@@ -35,10 +34,6 @@
 
         function activate(learningPath) {
             viewModel.learningPath = learningPath;
-        }
-
-        function deactivate() {
-
         }
     };
 

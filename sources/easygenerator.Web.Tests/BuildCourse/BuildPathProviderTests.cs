@@ -2,6 +2,7 @@
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.Components;
 using FluentAssertions;
+using Microsoft.Ajax.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 
@@ -315,6 +316,24 @@ namespace easygenerator.Web.Tests.BuildCourse
 
             //Assert
             result.Should().Be("packagePath\\content\\objectiveId\\questionId\\incorrectFeedback.html");
+        }
+
+        #endregion
+
+        #region GetStartupPage
+
+        [TestMethod]
+        public void GetStartupPage_ShouldReturnDefaultStartupPageForDirectory()
+        {
+            //Arrange
+            var directoryPath = "DefaultDirectoryName";
+            var expectedPath = "DefaultDirectoryName\\index.html";
+
+            //Act
+            var result = _buildPathProvider.GetStartupPage(directoryPath);
+
+            //Assert
+            result.Should().Be(expectedPath);
         }
 
         #endregion

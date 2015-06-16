@@ -198,6 +198,7 @@
             'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery.spec',
             'viewmodels/learningPaths/learningPath/learningPath.spec',
             'viewmodels/learningPaths/learningPath/courseBrief.spec',
+            'viewmodels/learningPaths/learningPath/actions/download.spec',
             
             //#endregion
 

@@ -235,6 +235,8 @@
     <Compile Include="BuildLearningPath\BuildResult.cs" />
     <Compile Include="BuildLearningPath\ILearningPathBuilder.cs" />
     <Compile Include="BuildLearningPath\LearningPathBuilder.cs" />
+    <Compile Include="BuildLearningPath\LearningPathCourseBuilder.cs" />
+    <Compile Include="BuildLearningPath\StartPageGenerator.cs" />
     <Compile Include="Components\ActionFilters\ApplicationAuthorize.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AllowedUsersAttribute.cs" />
@@ -796,6 +798,9 @@
       <DependentUpon>courseFilter.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\actions\download.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\actions\download.spec.js">
+      <DependentUpon>download.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\commands\addCourseCommand.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\commands\addCourseCommand.spec.js">
       <DependentUpon>addCourseCommand.js</DependentUpon>

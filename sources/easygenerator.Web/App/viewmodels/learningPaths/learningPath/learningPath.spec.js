@@ -133,6 +133,15 @@
                     });
                 });
 
+                it('should call activate download action', function(done) {
+                    spyOn(viewModel.downloadAction, 'activate');
+
+                    viewModel.activate(learningPath.id).fin(function() {
+                        expect(viewModel.downloadAction.activate).toHaveBeenCalledWith(learningPath);
+                        done();
+                    });
+                });
+
                 it('should set course selector isExpaneded to false', function (done) {
                     viewModel.courseSelector.isExpanded(true);
                     viewModel.activate(learningPath.id).fin(function () {
@@ -490,6 +499,12 @@
                 };
 
                 expect(f).not.toThrow();
+            });
+        });
+
+        describe('downloadAction:', function() {
+            it('should be object', function() {
+                expect(viewModel.downloadAction).toBeObject();
             });
         });
     });
