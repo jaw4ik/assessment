@@ -20,55 +20,56 @@
                 text: 'text',
                 type: constants.learningContentsTypes.hotspot
             },
-                ctor = null;
+                learningContentInstance = null;
 
             beforeEach(function () {
-                ctor = new HotspotOnAnImage(learningContent, _questionId, _questionType, canBeAddedImmediately);
+                learningContentInstance = new HotspotOnAnImage(learningContent, _questionId, _questionType, canBeAddedImmediately);
                 spyOn(app, 'trigger');
                 spyOn(eventTracker, 'publish');
-                spyOn(ctor, 'updateLearningContent').and.callFake(function () { });
-                spyOn(ctor, 'removeLearningContent').and.callFake(function () { });
+                spyOn(learningContentInstance, 'updateLearningContent').and.callFake(function () { });
+                spyOn(learningContentInstance, 'removeLearningContent').and.callFake(function () { });
+                spyOn(learningContentInstance, 'restoreLearningContent').and.callFake(function () { });
             });
 
             it('should initialize field', function () {
-                expect(ctor.id()).toBe(learningContent.id);
-                expect(ctor.text()).toBe(learningContent.text);
-                expect(ctor.originalText).toBe(learningContent.text);
-                expect(ctor.type).toBe(learningContent.type);
-                expect(ctor.polygons).toBeObservableArray();
-                expect(ctor.background).toBeObservable();
-                expect(ctor.background.width).toBeObservable();
-                expect(ctor.background.height).toBeObservable();
-                expect(ctor.background.onload).toBeFunction();
-                expect(ctor.hasFocus()).toBeFalsy();
-                expect(ctor.isDeleted).toBeFalsy();
-                expect(ctor.canBeAdded()).toBeTruthy();
-                expect(ctor.updateLearningContent).toBeFunction();
-                expect(ctor.endEditLearningContent).toBeFunction();
-                expect(ctor.removeLearningContent).toBeFunction();
-                expect(ctor.addPolygon).toBeFunction();
-                expect(ctor.updatePolygon).toBeFunction();
-                expect(ctor.deletePolygon).toBeFunction();
-                expect(ctor.uploadBackground).toBeFunction();
-                expect(ctor.updateHotspotOnAnImage).toBeFunction();
-                expect(ctor.remove).toBeFunction();
+                expect(learningContentInstance.id()).toBe(learningContent.id);
+                expect(learningContentInstance.text()).toBe(learningContent.text);
+                expect(learningContentInstance.originalText).toBe(learningContent.text);
+                expect(learningContentInstance.type).toBe(learningContent.type);
+                expect(learningContentInstance.polygons).toBeObservableArray();
+                expect(learningContentInstance.background).toBeObservable();
+                expect(learningContentInstance.background.width).toBeObservable();
+                expect(learningContentInstance.background.height).toBeObservable();
+                expect(learningContentInstance.background.onload).toBeFunction();
+                expect(learningContentInstance.hasFocus()).toBeFalsy();
+                expect(learningContentInstance.isDeleted).toBeFalsy();
+                expect(learningContentInstance.canBeAdded()).toBeTruthy();
+                expect(learningContentInstance.updateLearningContent).toBeFunction();
+                expect(learningContentInstance.endEditLearningContent).toBeFunction();
+                expect(learningContentInstance.removeLearningContent).toBeFunction();
+                expect(learningContentInstance.addPolygon).toBeFunction();
+                expect(learningContentInstance.updatePolygon).toBeFunction();
+                expect(learningContentInstance.deletePolygon).toBeFunction();
+                expect(learningContentInstance.uploadBackground).toBeFunction();
+                expect(learningContentInstance.updateHotspotOnAnImage).toBeFunction();
+                expect(learningContentInstance.remove).toBeFunction();
             });
 
             describe('addPolygon:', function () {
 
                 it('should add polygon', function () {
-                    ctor.addPolygon({});
-                    expect(ctor.polygons().length).toBe(1);
+                    learningContentInstance.addPolygon({});
+                    expect(learningContentInstance.polygons().length).toBe(1);
                 });
 
                 it('should send event \'Add rectangle in hotspot content block\'', function () {
-                    ctor.addPolygon({});
+                    learningContentInstance.addPolygon({});
                     expect(eventTracker.publish).toHaveBeenCalledWith('Add rectangle in hotspot content block');
                 });
 
                 it('should send event \'Add rectangle in hotspot content block\' with category \'Information\' for informationContent question type', function () {
-                    var ctor2 = new HotspotOnAnImage(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
-                    ctor2.addPolygon({});
+                    var learningContentInstance2 = new HotspotOnAnImage(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
+                    learningContentInstance2.addPolygon({});
                     expect(eventTracker.publish).toHaveBeenCalledWith('Add rectangle in hotspot content block', 'Information');
                 });
 
@@ -84,25 +85,25 @@
                         points: ko.observable({ x: 0 })
                     };
 
-                    ctor.polygons([]);
-                    ctor.polygons.push(polygon);
+                    learningContentInstance.polygons([]);
+                    learningContentInstance.polygons.push(polygon);
                 });
 
                 it('should update polygon', function () {
-                    ctor.updatePolygon(1, { x: 10 });
-                    expect(ctor.polygons()[0].points().x).toBe(10);
+                    learningContentInstance.updatePolygon(1, { x: 10 });
+                    expect(learningContentInstance.polygons()[0].points().x).toBe(10);
                 });
 
                 it('should send event \'Resize/move rectangle in hotspot content block\'', function () {
-                    ctor.updatePolygon(1, { x: 10 });
+                    learningContentInstance.updatePolygon(1, { x: 10 });
                     expect(eventTracker.publish).toHaveBeenCalledWith('Resize/move rectangle in hotspot content block');
                 });
 
                 it('should send event \'Resize/move rectangle in hotspot content block\' with category \'Information\' for informationContent question type', function () {
-                    var ctor2 = new HotspotOnAnImage(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
-                    ctor2.polygons([]);
-                    ctor2.polygons.push(polygon);
-                    ctor2.updatePolygon(1, { x: 10 });
+                    var learningContentInstance2 = new HotspotOnAnImage(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
+                    learningContentInstance2.polygons([]);
+                    learningContentInstance2.polygons.push(polygon);
+                    learningContentInstance2.updatePolygon(1, { x: 10 });
                     expect(eventTracker.publish).toHaveBeenCalledWith('Resize/move rectangle in hotspot content block', 'Information');
                 });
 
@@ -119,31 +120,31 @@
                         removed: function () { }
                     };
 
-                    ctor.polygons([]);
-                    ctor.polygons.push(polygon);
+                    learningContentInstance.polygons([]);
+                    learningContentInstance.polygons.push(polygon);
                     spyOn(polygon, 'removed');
                 });
 
                 it('should delete polygon', function () {
-                    ctor.deletePolygon(1);
-                    expect(ctor.polygons().length).toBe(0);
+                    learningContentInstance.deletePolygon(1);
+                    expect(learningContentInstance.polygons().length).toBe(0);
                 });
 
                 it('should call removed from polygon', function () {
-                    ctor.deletePolygon(1);
+                    learningContentInstance.deletePolygon(1);
                     expect(polygon.removed).toHaveBeenCalled();
                 });
 
                 it('should send event \'Delete rectangle in hotspot content block\'', function () {
-                    ctor.deletePolygon(1);
+                    learningContentInstance.deletePolygon(1);
                     expect(eventTracker.publish).toHaveBeenCalledWith('Delete rectangle in hotspot content block');
                 });
 
                 it('should send event \'Delete rectangle in hotspot content block\' with category \'Information\' for informationContent question type', function () {
-                    var ctor2 = new HotspotOnAnImage(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
-                    ctor2.polygons([]);
-                    ctor2.polygons.push(polygon);
-                    ctor2.deletePolygon(1);
+                    var learningContentInstance2 = new HotspotOnAnImage(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
+                    learningContentInstance2.polygons([]);
+                    learningContentInstance2.polygons.push(polygon);
+                    learningContentInstance2.deletePolygon(1);
                     expect(eventTracker.publish).toHaveBeenCalledWith('Delete rectangle in hotspot content block', 'Information');
                 });
 
@@ -158,21 +159,21 @@
                 });
 
                 it('should call parser update', function () {
-                    ctor.updateHotspotOnAnImage();
-                    expect(hotspotParser.updateHotspotOnAnImage).toHaveBeenCalledWith(ctor.text, ctor.background, ctor.polygons);
+                    learningContentInstance.updateHotspotOnAnImage();
+                    expect(hotspotParser.updateHotspotOnAnImage).toHaveBeenCalledWith(learningContentInstance.text, learningContentInstance.background, learningContentInstance.polygons);
                 });
 
                 describe('when text is not equal original text', function () {
 
                     it('should update text', function () {
-                        ctor.updateHotspotOnAnImage();
-                        expect(ctor.text()).toBe(text);
+                        learningContentInstance.updateHotspotOnAnImage();
+                        expect(learningContentInstance.text()).toBe(text);
                     });
 
                     it('should call updateText', function () {
 
-                        ctor.updateHotspotOnAnImage();
-                        expect(ctor.updateLearningContent).toHaveBeenCalled();
+                        learningContentInstance.updateHotspotOnAnImage();
+                        expect(learningContentInstance.updateLearningContent).toHaveBeenCalled();
                     });
 
                 });
@@ -182,8 +183,8 @@
             describe('background.onload:', function () {
 
                 beforeEach(function () {
-                    spyOn(ctor, 'deletePolygon');
-                    spyOn(ctor, 'updatePolygon');
+                    spyOn(learningContentInstance, 'deletePolygon');
+                    spyOn(learningContentInstance, 'updatePolygon');
                 });
 
                 var width = 500;
@@ -200,13 +201,13 @@
                             { x: 10, y: 1 }
                         ])
                     };
-                    ctor.polygons([polygon]);
+                    learningContentInstance.polygons([polygon]);
 
-                    ctor.background.onload(width, height);
+                    learningContentInstance.background.onload(width, height);
 
-                    expect(ctor.polygons().length).toBe(1);
+                    expect(learningContentInstance.polygons().length).toBe(1);
 
-                    expect(ctor.polygons()[0].points()).toBe(polygon.points());
+                    expect(learningContentInstance.polygons()[0].points()).toBe(polygon.points());
 
                 });
 
@@ -220,10 +221,10 @@
                             { x: 1010, y: 1001 }
                         ])
                     };
-                    ctor.polygons([polygon]);
-                    ctor.background.onload(width, height);
+                    learningContentInstance.polygons([polygon]);
+                    learningContentInstance.background.onload(width, height);
 
-                    expect(ctor.deletePolygon).toHaveBeenCalledWith(polygon.id);
+                    expect(learningContentInstance.deletePolygon).toHaveBeenCalledWith(polygon.id);
                 });
 
                 it('should remove polygons which are smaller then the minimal size', function () {
@@ -237,10 +238,10 @@
                         ])
                     };
 
-                    ctor.polygons([polygon]);
-                    ctor.background.onload(width, height);
+                    learningContentInstance.polygons([polygon]);
+                    learningContentInstance.background.onload(width, height);
 
-                    expect(ctor.deletePolygon).toHaveBeenCalledWith(polygon.id);
+                    expect(learningContentInstance.deletePolygon).toHaveBeenCalledWith(polygon.id);
                 });
 
                 it('should edit polygons which are partly out of bounds', function () {
@@ -259,10 +260,10 @@
                         { x: width, y: height },
                         { x: width, y: 1 }
                     ];
-                    ctor.polygons([polygon]);
-                    ctor.background.onload(width, height);
+                    learningContentInstance.polygons([polygon]);
+                    learningContentInstance.background.onload(width, height);
 
-                    expect(ctor.updatePolygon).toHaveBeenCalledWith(polygon.id, correctPoints);
+                    expect(learningContentInstance.updatePolygon).toHaveBeenCalledWith(polygon.id, correctPoints);
                 });
             });
 
@@ -275,7 +276,7 @@
 
                 it('should upload image', function () {
                     spyOn(imageUpload, 'upload');
-                    ctor.uploadBackground();
+                    learningContentInstance.uploadBackground();
                     expect(imageUpload.upload).toHaveBeenCalled();
                 });
 
@@ -288,7 +289,7 @@
                     });
 
                     it('should lock ui', function () {
-                        ctor.uploadBackground();
+                        learningContentInstance.uploadBackground();
                         expect(uiLocker.lock).toHaveBeenCalled();
                     });
                 });
@@ -304,22 +305,22 @@
                     });
 
                     it('should update background url', function () {
-                        ctor.background(undefined);
+                        learningContentInstance.background(undefined);
 
-                        ctor.uploadBackground();
+                        learningContentInstance.uploadBackground();
 
-                        expect(ctor.background()).toEqual(url);
+                        expect(learningContentInstance.background()).toEqual(url);
                     });
 
 
                     it('should send event \'Change background of hotspot content block\'', function () {
-                        ctor.uploadBackground();
+                        learningContentInstance.uploadBackground();
                         expect(eventTracker.publish).toHaveBeenCalledWith('Change background of hotspot content block');
                     });
 
                     it('should send event \'Change background of hotspot content block\' with category \'Information\' for informationContent question type', function () {
-                        var ctor2 = new HotspotOnAnImage(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
-                        ctor2.uploadBackground();
+                        var learningContentInstance2 = new HotspotOnAnImage(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
+                        learningContentInstance2.uploadBackground();
                         expect(eventTracker.publish).toHaveBeenCalledWith('Change background of hotspot content block', 'Information');
                     });
 
@@ -334,7 +335,7 @@
                     });
 
                     it('should unlock ui', function () {
-                        ctor.uploadBackground();
+                        learningContentInstance.uploadBackground();
                         expect(uiLocker.unlock).toHaveBeenCalled();
                     });
                 });
@@ -344,25 +345,67 @@
             describe('remove:', function () {
 
                 it('should send event \'Delete hotspot content block\'', function () {
-                    ctor.remove();
+                    learningContentInstance.remove();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Delete hotspot content block');
                 });
 
                 it('should send event \'Delete hotspot content block\' with category \'Information\' for informationContent question type', function () {
-                    var ctor2 = new HotspotOnAnImage(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
-                    spyOn(ctor2, 'removeLearningContent').and.callFake(function () { });
-                    ctor2.remove();
+                    var learningContentInstance2 = new HotspotOnAnImage(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
+                    spyOn(learningContentInstance2, 'removeLearningContent').and.callFake(function () { });
+                    learningContentInstance2.remove();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Delete hotspot content block', 'Information');
                 });
 
                 it('should call removeLearningContent', function () {
-                    ctor.remove();
-                    expect(ctor.removeLearningContent).toHaveBeenCalled();
+                    learningContentInstance.remove();
+                    expect(learningContentInstance.removeLearningContent).toHaveBeenCalled();
+                });
+
+            });
+
+            describe('restore:', function () {
+
+                describe('when content is not removed', function () {
+
+                    beforeEach(function () {
+                        learningContentInstance.isRemoved(false);
+                    });
+
+                    it('should not publish event', function () {
+                        learningContentInstance.restore();
+                        expect(eventTracker.publish).not.toHaveBeenCalled();
+                    });
+
+                    it('should not restore content', function () {
+                        learningContentInstance.restore();
+                        expect(learningContentInstance.restoreLearningContent).not.toHaveBeenCalled();
+                    });
+
+                });
+
+                it('should send event \'Undo delete hotspot content block\'', function () {
+                    learningContentInstance.isRemoved(true);
+                    learningContentInstance.restore();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Undo delete hotspot content block');
+                });
+
+                it('should send event \'Undo delete hotspot content block\' with category \'Information\' for informationContent question type', function () {
+                    var learnContent = new HotspotOnAnImage(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
+                    learnContent.isRemoved(true);
+                    learnContent.restore();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Undo delete hotspot content block', 'Information');
+                });
+
+                it('should call restoreLearningContent', function () {
+                    learningContentInstance.isRemoved(true);
+                    learningContentInstance.restore();
+                    expect(learningContentInstance.restoreLearningContent).toHaveBeenCalled();
                 });
 
             });
 
         });
+
     });
-    
+
 });

@@ -34,7 +34,10 @@
             toggleExpand: toggleExpand,
 
             activate: activate,
-            localizationManager: localizationManager
+            localizationManager: localizationManager,
+
+            removeLearningContent: removeLearningContent,
+            restoreLearningContent: restoreLearningContent
         };
 
         viewModel.isSortingEnabled = ko.computed(function () {
@@ -49,6 +52,7 @@
         app.on(constants.messages.question.learningContent.textUpdatedByCollaborator, textUpdatedByCollaborator);
         app.on(constants.messages.question.learningContentsReorderedByCollaborator, learningContentsReorderedByCollaborator);
         app.on(constants.messages.question.learningContent.remove, removeLearningContent);
+        app.on(constants.messages.question.learningContent.restore, restoreLearningContent);
 
         return viewModel;
 
@@ -104,8 +108,21 @@
             }
         }
 
-        function removeLearningContent(learningContent){
-            viewModel.learningContents.remove(learningContent);
+        function removeLearningContent(learningContent) {
+            if (_.isEmptyOrWhitespace(learningContent.id()) || learningContent.isDeleted) {
+                viewModel.learningContents.remove(learningContent);
+            } else {
+                learningContent.isRemoved(true);
+            }
+        }
+
+        function restoreLearningContent(learningContent) {
+            learningContent.isRemoved(false);
+            return questionRepository.updateLearningContentsOrder(viewModel.questionId, _.reject(viewModel.learningContents(), function (item) {
+                return item.isRemoved() == true;
+            })).then(function () {
+                notify.saved();
+            });
         }
 
         function toggleIsAddedButtonsShown() {
@@ -196,13 +213,30 @@
 
         function updateOrder() {
             eventTracker.publish(events.changeLearningContentsOrder);
-            questionRepository.updateLearningContentsOrder(viewModel.questionId, viewModel.learningContents()).then(function () {
+            questionRepository.updateLearningContentsOrder(viewModel.questionId, _.reject(viewModel.learningContents(), function (item) { return item.isRemoved() == true; }))
+            .then(function () {
                 notify.saved();
             });
             viewModel.changesFromCollaborator = null;
         }
 
         function reorderLearningContents(learningContentsIds) {
+            var index;
+            _.each(viewModel.learningContents(), function (item, position) {
+                index = learningContentsIds.indexOf(item.id());
+                if (index > -1) {
+                    return;
+                }
+
+                if (position != 0) {
+                    var previousElementPosition = learningContentsIds.indexOf(viewModel.learningContents()[position - 1].id());
+                    learningContentsIds.splice(previousElementPosition + 1, 0, item.id());
+                } else {
+                    learningContentsIds.unshift(item.id());
+                }
+
+            });
+
             viewModel.learningContents(_.chain(learningContentsIds)
                .map(function (id) {
                    return _.find(viewModel.learningContents(), function (learningContent) {

@@ -318,6 +318,48 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion UpdateObjectivesOrder
 
+        #region DeleteLearningPath
+
+        [TestMethod]
+        public void DeleteLearningPath_ShouldReturnJsonSuccess_WhenLearningPathIsNull()
+        {
+            //Arrange
+
+            //Act
+            var result = _controller.Delete(null);
+
+            //Assert
+            result.Should().BeJsonSuccessResult();
+        }
+
+        [TestMethod]
+        public void DeleteLearningPath_ShouldDeleteLearningPath()
+        {
+            //Arrange
+            var learningPath = LearningPathObjectMother.Create();
+
+            //Act
+            _controller.Delete(learningPath);
+
+            //Assert
+            _repository.Received().Remove(learningPath);
+        }
+
+        [TestMethod]
+        public void DeleteLearningPath_ShouldReturnJsonSuccess()
+        {
+            //Arrange
+            var learningPath = LearningPathObjectMother.Create();
+
+            //Act
+            var result = _controller.Delete(learningPath);
+
+            //Assert
+            result.Should().BeJsonSuccessResult();
+        }
+
+        #endregion DeleteCourse
+
         #region Build
 
         [TestMethod]

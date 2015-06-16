@@ -35,7 +35,7 @@
   width: 290px;
   white-space: pre-wrap;
 }
-.learning-path-list-item-wrapper {
+.learning-paths .learning-path-list-item-wrapper {
   display: inline-block;
   border-bottom: 1px solid #dce4e8;
   border-radius: 7px;
@@ -46,42 +46,76 @@
   border: 1px solid transparent;
   transition: border 0.2s ease;
 }
-.learning-path-list-item-wrapper:nth-of-type(4n) {
+.learning-paths .learning-path-list-item-wrapper:nth-of-type(4n) {
   margin-right: 0;
 }
-.learning-path-list-item-wrapper:hover {
+.learning-paths .learning-path-list-item-wrapper:hover {
   border: 1px solid #65bd77;
 }
-.learning-path-list-item-wrapper:hover .learning-path-list-item {
+.learning-paths .learning-path-list-item-wrapper:hover .learning-path-list-item {
   border: 1px solid #65bd77;
   cursor: pointer;
 }
-.learning-path-list-item-wrapper .learning-path-list-item {
+.learning-paths .learning-path-list-item-wrapper .learning-path-list-item {
   border: 1px solid #dce4e8;
   border-radius: 7px;
   cursor: default;
   transition: border 0.2s ease;
 }
-.learning-path-list-item-wrapper .learning-path-list-item .learning-path-list-item-open-action-title,
-.learning-path-list-item-wrapper .learning-path-list-item:hover .learning-path-list-item-open-action-image {
+.learning-paths .learning-path-list-item-wrapper .learning-path-list-item .learning-path-list-item-open-action-title,
+.learning-paths .learning-path-list-item-wrapper .learning-path-list-item:hover .learning-path-list-item-open-action-image {
   opacity: 0;
 }
-.learning-path-list-item-wrapper .learning-path-list-item .learning-path-list-item-open-action-image,
-.learning-path-list-item-wrapper .learning-path-list-item:hover .learning-path-list-item-open-action-title {
+.learning-paths .learning-path-list-item-wrapper .learning-path-list-item .learning-path-list-item-open-action-image,
+.learning-paths .learning-path-list-item-wrapper .learning-path-list-item:hover .learning-path-list-item-open-action-title {
   opacity: 1;
 }
-.learning-path-list-item-wrapper .learning-path-list-item .learning-path-list-item-image-container {
+.learning-paths .learning-path-list-item-wrapper .learning-path-list-item .list-item-context-actions-wrapper {
+  height: 31px;
+}
+.learning-paths .learning-path-list-item-wrapper .learning-path-list-item .list-item-context-actions-wrapper .list-item-context-action {
+  height: 27px;
+  width: 27px;
+  position: relative;
+  top: -28px;
+  background-color: #4b5d6c;
+  background-image: none;
+}
+.learning-paths .learning-path-list-item-wrapper .learning-path-list-item .list-item-context-actions-wrapper .list-item-context-action.delete-learning-path:after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  content: '';
+  width: 16px;
+  height: 16px;
+  background: url(images/sprites_16.png);
+  background-position: -146px -84px;
+  background-repeat: no-repeat;
+}
+.learning-paths .learning-path-list-item-wrapper .learning-path-list-item .list-item-context-actions-wrapper .list-item-context-action.delete-learning-path:hover:after {
+  background-position: -167px -84px;
+}
+.learning-paths .learning-path-list-item-wrapper .learning-path-list-item .list-item-context-actions-wrapper .list-item-context-action .info-tooltip {
+  width: 80px;
+  margin-left: -40px;
+}
+.learning-paths .learning-path-list-item-wrapper .learning-path-list-item:hover .list-item-context-actions-wrapper .list-item-context-action {
+  top: 4px;
+}
+.learning-paths .learning-path-list-item-wrapper .learning-path-list-item .learning-path-list-item-image-container {
   position: relative;
   height: 150px;
   border-bottom: 1px solid #abb3b6;
 }
-.learning-path-list-item-wrapper .learning-path-list-item .learning-path-list-item-image-container .learning-path-list-item-image {
+.learning-paths .learning-path-list-item-wrapper .learning-path-list-item .learning-path-list-item-image-container .learning-path-list-item-image {
   border-top-left-radius: 7px;
   border-top-right-radius: 7px;
   width: 100%;
   height: 100%;
 }
-.learning-path-list-item-wrapper .learning-path-list-item .learning-path-list-item-open-action {
+.learning-paths .learning-path-list-item-wrapper .learning-path-list-item .learning-path-list-item-open-action {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -94,7 +128,7 @@
   border: 2px solid #6bb67b;
   border-radius: 50px;
 }
-.learning-path-list-item-wrapper .learning-path-list-item .learning-path-list-item-open-action .learning-path-list-item-open-action-image {
+.learning-paths .learning-path-list-item-wrapper .learning-path-list-item .learning-path-list-item-open-action .learning-path-list-item-open-action-image {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -104,7 +138,7 @@
   height: 32px;
   background: url("images/sprites_32.png") -185px 0 no-repeat;
 }
-.learning-path-list-item-wrapper .learning-path-list-item .learning-path-list-item-open-action .learning-path-list-item-open-action-title {
+.learning-paths .learning-path-list-item-wrapper .learning-path-list-item .learning-path-list-item-open-action .learning-path-list-item-open-action-title {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -113,7 +147,7 @@
   color: #ffffff;
   font: 14px 'OpenSans';
 }
-.learning-path-list-item-wrapper .learning-path-list-item .learning-path-list-item-title-wrapper {
+.learning-paths .learning-path-list-item-wrapper .learning-path-list-item .learning-path-list-item-title-wrapper {
   height: 85px;
   padding: 15px 10px;
   border-bottom-left-radius: 7px;
@@ -124,7 +158,7 @@
   box-shadow: inset 0 10px 10px -10px rgba(0, 0, 0, 0.4);
   overflow: hidden;
 }
-.learning-path-list-item-wrapper .learning-path-list-item .learning-path-list-item-title {
+.learning-paths .learning-path-list-item-wrapper .learning-path-list-item .learning-path-list-item-title {
   max-height: 56px;
   word-wrap: break-word;
   overflow: hidden;
@@ -427,6 +461,88 @@
   width: 130px;
   margin-left: -65px;
   white-space: nowrap;
+}
+.modal-dialog-wrapper.delete-learning-path {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  border: 1px solid #d8d8d8;
+  width: 520px;
+  height: 280px;
+  background-color: #ffffff;
+}
+.modal-dialog-wrapper.delete-learning-path .modal-dialog {
+  height: 100%;
+  padding: 40px;
+  padding-top: 30px;
+  box-shadow: 0 20px 20px -10px #d0d0d1;
+}
+.modal-dialog-wrapper.delete-learning-path .modal-dialog-close-btn {
+  position: absolute;
+  top: -24px;
+  right: -24px;
+  width: 16px;
+  height: 16px;
+  opacity: 0.8;
+  background: url(images/sprites_16.png);
+  background-position: 0px -105px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  border: 0px;
+}
+.modal-dialog-wrapper.delete-learning-path .modal-dialog-close-btn:hover {
+  opacity: 1;
+}
+.modal-dialog-wrapper.delete-learning-path .modal-dialog-title-wrapper {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  color: #546677;
+}
+.modal-dialog-wrapper.delete-learning-path .modal-dialog-title-wrapper .modal-dialog-title-img {
+  width: 40px;
+  height: 45px;
+  background: url(images/sprites_64.png);
+  background-position: -12px -346px;
+  background-repeat: no-repeat;
+}
+.modal-dialog-wrapper.delete-learning-path .modal-dialog-title-wrapper .modal-dialog-title {
+  margin-top: 25px;
+  font: 20px 'OpenSans-Semibold';
+}
+.modal-dialog-wrapper.delete-learning-path .modal-dialog-title-wrapper .modal-dialog-learning-path-title {
+  display: -webkit-flex;
+  display: flex;
+  margin-top: 15px;
+  font: 16px 'OpenSans';
+}
+.modal-dialog-wrapper.delete-learning-path .modal-dialog-title-wrapper .modal-dialog-learning-path-title .modal-dialog-learning-path-title-text {
+  display: inline-block;
+  max-width: 415px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.modal-dialog-wrapper.delete-learning-path .modal-dialog-actions {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+  margin-top: 35px;
+}
+.modal-dialog-wrapper.delete-learning-path .modal-dialog-actions .delete-learning-path-btn {
+  min-width: 180px;
+}
+.modal-dialog-wrapper.delete-learning-path .modal-dialog-actions .cancel-delete-learning-path-btn {
+  min-width: 180px;
 }
 /*#region Media queries */
 @media screen and (max-width: 1630px) {

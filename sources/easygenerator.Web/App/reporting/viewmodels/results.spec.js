@@ -134,16 +134,6 @@
             });
         });
 
-        describe('isResultsDialogShown:', function () {
-            it('should be observable', function () {
-                expect(viewModel.isResultsDialogShown).toBeObservable();
-            });
-
-            it('should be false by default', function () {
-                expect(viewModel.isResultsDialogShown()).toBeFalsy();
-            });
-        });
-
         describe('navigateToCoursesEvent:', function () {
 
             it('should be function', function () {
@@ -498,89 +488,7 @@
             //    });
             //});
         });
-
-        describe('upgradeNowForLoadMore:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.upgradeNowForLoadMore).toBeFunction();
-            });
-
-            it('should close dialog', function () {
-                viewModel.upgradeNowForLoadMore();
-                expect(viewModel.isResultsDialogShown()).toBeFalsy();
-            });
-
-            it('should send event \'Upgrade now\'', function () {
-                viewModel.upgradeNowForLoadMore();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Upgrade now', 'Load more results');
-            });
-
-            it('should open upgrade url', function () {
-                viewModel.upgradeNowForLoadMore();
-                expect(router.openUrl).toHaveBeenCalledWith(constants.upgradeUrl);
-            });
-
-        });
-
-        describe('upgradeNowForDownloadCsv:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.upgradeNowForDownloadCsv).toBeFunction();
-            });
-
-            it('should close dialog', function () {
-                viewModel.upgradeNowForDownloadCsv();
-                expect(viewModel.isDownloadDialogShown()).toBeFalsy();
-            });
-
-            it('should send event \'Upgrade now\'', function () {
-                viewModel.upgradeNowForDownloadCsv();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Upgrade now', 'Download results CSV');
-            });
-
-            it('should open upgrade url', function () {
-                viewModel.upgradeNowForDownloadCsv();
-                expect(router.openUrl).toHaveBeenCalledWith(constants.upgradeUrl);
-            });
-
-        });
-
-        describe('skipUpgradeForLoadMore:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.skipUpgradeForLoadMore).toBeFunction();
-            });
-
-            it('should close dialog', function () {
-                viewModel.skipUpgradeForLoadMore();
-                expect(viewModel.isResultsDialogShown()).toBeFalsy();
-            });
-
-            it('should send event \'Skip upgrade\'', function () {
-                viewModel.skipUpgradeForLoadMore();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Skip upgrade', 'Load more results');
-            });
-
-        });
-
-        describe('skipUpgradeForDownloadCsv:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.skipUpgradeForDownloadCsv).toBeFunction();
-            });
-
-            it('should close dialog', function () {
-                viewModel.skipUpgradeForDownloadCsv();
-                expect(viewModel.isDownloadDialogShown()).toBeFalsy();
-            });
-
-            it('should send event \'Skip upgrade\'', function () {
-                viewModel.skipUpgradeForDownloadCsv();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Skip upgrade', 'Download results CSV');
-            });
-
-        });
-
+        
         describe('downloadResults:', function () {
             beforeEach(function () {
                 fileSaverWrapper.saveAs = function () { };
@@ -632,9 +540,11 @@
                 });
             });
 
-            describe('when user access type forbids to view more results', function () {
+            describe('when user access type forbids to downloadResults', function () {
+                var upgradeDialog = require('widgets/upgradeDialog/viewmodel');
 
                 beforeEach(function () {
+                    spyOn(upgradeDialog, 'show');
                     userContext.identity = {
                         email: 'test@test.com',
                         subscription: {
@@ -646,7 +556,7 @@
 
                 it('should show upgrade results dialog', function (done) {
                     viewModel.downloadResults().fin(function () {
-                        expect(viewModel.isDownloadDialogShown()).toBeTruthy();
+                        expect(upgradeDialog.show).toHaveBeenCalledWith(constants.dialogs.upgrade.settings.downloadResults);
                         done();
                     });
                 });

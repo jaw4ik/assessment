@@ -673,6 +673,66 @@
   display: block;
   border: 1px solid transparent;
 }
+.question-learning-content-list-item-body-wrapper.removed {
+  position: relative;
+  margin-left: 28px;
+  margin-right: 25px;
+  height: 54px;
+  overflow: hidden;
+  border: 1px solid #dddddd;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+.question-learning-content-list-item-body-wrapper.removed .question-learning-content-list-item-removed {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  opacity: 0.95;
+  background: #fff;
+  text-align: center;
+}
+.question-learning-content-list-item-body-wrapper.removed .question-learning-content-list-item-removed .question-learning-content-removed-info {
+  display: inline-block;
+  height: 100%;
+  padding: 12px;
+}
+.question-learning-content-list-item-body-wrapper.removed .question-learning-content-list-item-removed .question-learning-content-removed-info .question-learning-content-removed-text {
+  font-family: 'OpenSans-Semibold';
+  font-size: 15px;
+  color: #63798e;
+  padding-right: 35px;
+}
+.question-learning-content-list-item-body-wrapper.removed .question-learning-content-list-item-removed .question-learning-content-removed-info .question-learning-content-removed-undo {
+  display: inline-block;
+  padding: 5px;
+  font-family: 'OpenSans-Semibold';
+  font-size: 14px;
+  color: #469dd5;
+  border-bottom: 1px solid #469dd5;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.question-learning-content-list-item-body-wrapper.removed .question-learning-content-list-item-removed .question-learning-content-removed-info .question-learning-content-removed-undo:hover {
+  color: #3e8bbd;
+  border-color: #3e8bbd;
+}
+.question-learning-content-list-item-body-wrapper.removed .question-learning-content-list-item-removed .question-learning-content-removed-info .question-learning-content-removed-undo:hover:before {
+  background: url(images/sprites_16.png) 60px 16px;
+}
+.question-learning-content-list-item-body-wrapper.removed .question-learning-content-list-item-removed .question-learning-content-removed-info .question-learning-content-removed-undo:before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -2px;
+  width: 16px;
+  height: 16px;
+  margin-right: 7px;
+  background: url(images/sprites_16.png) 81px 16px;
+}
+.question-learning-content-list-item-body-wrapper.removed .question-learning-content-body-wrapper {
+  border: none;
+}
 .question-learning-content-list-item.ui-sortable-helper .question-learning-content-list-item-body-wrapper {
   height: 100%;
   overflow: hidden;
@@ -680,6 +740,12 @@
 .question-learning-content-list-item.ui-sortable-helper .question-learning-content-list-item-body-wrapper .question-learning-content-body-wrapper {
   background: #daebf7;
   border-color: transparent;
+}
+.question-learning-content-list-item.ui-sortable-helper .question-learning-content-list-item-body-wrapper .question-learning-content-body-wrapper .question-learning-content-body {
+  background: #daebf7;
+}
+.question-learning-content-list-item.ui-sortable-helper .question-learning-content-list-item-body-wrapper .question-learning-content-body-wrapper .question-learning-content-body .question-learning-content {
+  background: #daebf7;
 }
 .question-learning-content-list-item.ui-sortable-helper .question-learning-content-list-item-body-wrapper .question-learning-content-drag-wrapper {
   background: #daebf7;

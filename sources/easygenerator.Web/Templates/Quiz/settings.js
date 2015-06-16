@@ -8,9 +8,7 @@
         "lrs": {
             "uri": "http://cloud.scorm.com/ScormEngineInterface/TCAPI/public/statements?limit=25&related_activities=false&related_agents=false",
             "authenticationRequired": false,
-            "credentials": {
-
-            }
+            "credentials": {}
         },
         "allowedVerbs": [
             "started",
@@ -38,5 +36,11 @@
             "minutes": 30,
             "seconds": 0
         }
+    },
+    "questionPool": {
+        "mode": "all",
+        "subsetSize": 10,
+        "randomizeOrder": true,
+        "randomizePerAttempt": false
     }
 }
