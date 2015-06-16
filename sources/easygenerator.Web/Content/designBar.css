@@ -1,0 +1,5 @@
+﻿@media screen and (max-width: 1630px) {
+  .design.left-side-bar + * {
+    padding-left: 300px;
+  }
+}

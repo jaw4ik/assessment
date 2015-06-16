@@ -220,7 +220,7 @@
             'viewmodels/courses/course/index.spec',
             //'viewmodels/courses/course/create/index.spec',
             'viewmodels/courses/course/create/course.spec',
-            'viewmodels/courses/course/design.spec',
+            'viewmodels/courses/course/design/design.spec',
             'viewmodels/courses/course/configure.spec',
             'viewmodels/courses/course/publish.spec',
             'viewmodels/courses/publishingActions/publishingAction.spec',

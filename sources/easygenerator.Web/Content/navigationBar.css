@@ -1,13 +1,4 @@
-﻿.navigation-bar-wrapper {
-  border-right: 1px solid #dedede;
-  bottom: 0;
-  left: 0;
-  min-width: 50px;
-  position: fixed;
-  top: 56px;
-  z-index: 190;
-}
-.navigation-bar {
+﻿.navigation-bar {
   background: #f1f1f1;
   display: block;
   height: 100%;
@@ -70,13 +61,15 @@
   bottom: 360px;
 }
 @media screen and (max-width: 1630px) {
-  .navigation-bar-wrapper + div {
-    margin-left: 50px;
-    -moz-transition: margin .4s linear 0s;
-    -webkit-transition: margin .4s linear 0s;
-    transition: margin .4s linear 0s;
+  .navigation-bar-wrapper.left-side-bar + * {
+    padding-left: 50px;
   }
-  .navigation-bar-wrapper.expanded + div {
-    margin-left: 300px;
+  .navigation-bar-wrapper.left-side-bar.animating + * {
+    -moz-transition: padding .4s linear 0s;
+    -webkit-transition: padding .4s linear 0s;
+    transition: padding .4s linear 0s;
+  }
+  .navigation-bar-wrapper.left-side-bar.expanded + * {
+    padding-left: 300px;
   }
 }
