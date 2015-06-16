@@ -16,8 +16,8 @@ describe('controller', function () {
     
     before(function (done) {
         config.TEMP_FOLDER = path.join(__dirname, "TEMP");
-
-        fs.mkdir(path.join(config.TEMP_FOLDER), function(err) {
+        
+        fs.mkdir(path.join(config.TEMP_FOLDER), function (err) {
             if (err && err.code != "EEXIST") {
                 throw err;
             } else {
@@ -55,7 +55,7 @@ describe('controller', function () {
                     if (err) {
                         return done(err);
                     }
-                    assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body.id, 'README.MD')));
+                    assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, 'README.MD')));
                     done();
                 });
         });
@@ -70,7 +70,7 @@ describe('controller', function () {
                     if (err) {
                         return done(err);
                     }
-                    assert(res.body.id.length === 36);
+                    assert(res.body[0].id.length === 36);
                     done();
                 });
         });
@@ -84,13 +84,13 @@ describe('controller', function () {
                 .get('/file/_id')
                 .expect(404, done);
         });
-
-        it('returns file when it exists', function(done) {
+        
+        it('returns file when it exists', function (done) {
             var id = uuid.v4();
             var filename = "filename.txt";
             fs.mkdirSync(path.join(config.TEMP_FOLDER, id));
             fs.writeFileSync(path.join(config.TEMP_FOLDER, id, filename), 'Hello Node');
-
+            
             request(app)
                 .get('/file/' + id)
                 .expect(200, done);
@@ -99,8 +99,8 @@ describe('controller', function () {
     });
     
     after(function () {
-        fs.readdirSync(config.TEMP_FOLDER).forEach(function(subfolder) {
-            fs.readdirSync(path.join(config.TEMP_FOLDER, subfolder)).forEach(function(filename) {
+        fs.readdirSync(config.TEMP_FOLDER).forEach(function (subfolder) {
+            fs.readdirSync(path.join(config.TEMP_FOLDER, subfolder)).forEach(function (filename) {
                 fs.unlinkSync(path.join(config.TEMP_FOLDER, subfolder, filename));
             });
             fs.rmdirSync(path.join(config.TEMP_FOLDER, subfolder));

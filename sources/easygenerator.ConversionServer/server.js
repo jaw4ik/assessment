@@ -24,24 +24,33 @@ app.get('/', function (req, res) {
 });
 
 app.post('/', function (req, res) {
-    var id = uuid.v4();
     var busboy = new Busboy({ headers: req.headers });
     
+    var files = [];
+    
     busboy.on('file', function (name, file, filename) {
-        fs.mkdirSync(path.join(config.TEMP_FOLDER, id));
-        file.pipe(fs.createWriteStream(path.join(config.TEMP_FOLDER, id, filename)));
+        var id = uuid.v4();
+        
+        var directoryPath = path.join(config.TEMP_FOLDER, id);
+        fs.mkdirSync(directoryPath);
+        
+        var filePath = path.join(directoryPath, filename);
+        file.on('end', function () {
+            files.push({
+                id: id
+            });
+        });
+        file.pipe(fs.createWriteStream(filePath));
     });
     busboy.on('finish', function () {
-        res.status(200).send({
-            id: id
-        });
+        res.status(200).send(files);
     });
+
     return req.pipe(busboy);
 });
 
 app.get('/file/:id', function (req, res) {
     var id = req.params.id;
-    
     
     fs.readdir(path.join(config.TEMP_FOLDER, id), function (err, files) {
         if (err) {
