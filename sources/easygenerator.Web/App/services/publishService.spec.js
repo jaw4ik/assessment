@@ -2,7 +2,7 @@
     "use strict";
 
     var
-        apiHttpWrapper = require('http/apiHttpWrapper');
+        publishHttpWrapper = require('http/publishHttpWrapper');
 
     describe('service [publishCourse]', function () {
 
@@ -15,7 +15,7 @@
                 course = { id: 'someId' };
 
                 post = Q.defer();
-                spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise);
+                spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
             });
 
             it('should be function', function () {
@@ -34,7 +34,7 @@
                 var promise = service.buildCourse(course.id);
                 promise.fin(done);
 
-                expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/build', { courseId: course.id });
+                expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/build', { courseId: course.id });
             });
 
             describe('and send request to server', function () {
@@ -62,7 +62,7 @@
                 course = { id: 'someId' };
 
                 post = Q.defer();
-                spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise);
+                spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
             });
 
             it('should be function', function () {
@@ -79,7 +79,7 @@
                 post.resolve({});
                 var promise = service.scormBuildCourse(course.id);
                 promise.fin(function () {
-                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/scormbuild', { courseId: course.id });
+                    expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/scormbuild', { courseId: course.id });
                     done();
                 });
             });
@@ -110,7 +110,7 @@
                 course = { id: 'someId' };
 
                 post = Q.defer();
-                spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise);
+                spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
             });
 
             it('should be function', function () {
@@ -127,7 +127,7 @@
                 post.resolve({});
                 var promise = service.publishCourse(course.id);
                 promise.fin(function () {
-                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/publish', { courseId: course.id });
+                    expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/publish', { courseId: course.id });
                     done();
                 });
 
@@ -160,7 +160,7 @@
                 course = { id: 'someId' };
 
                 post = Q.defer();
-                spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise);
+                spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
             });
 
             it('should be function', function () {
@@ -180,7 +180,7 @@
                 var promise = service.publishCourseForReview(course.id);
 
                 promise.fin(function () {
-                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/publishForReview', { courseId: course.id });
+                    expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/publishForReview', { courseId: course.id });
                     done();
                 });
             });
@@ -212,7 +212,7 @@
                 course = { id: 'someId' };
 
                 post = Q.defer();
-                spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise);
+                spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
             });
 
             it('should be function', function () {
@@ -231,7 +231,7 @@
                 var promise = service.publishCourseToStore(course.id);
 
                 promise.fin(function () {
-                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/aim4you/publish', { courseId: course.id });
+                    expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/aim4you/publish', { courseId: course.id });
                     done();
                 });
 
@@ -265,7 +265,7 @@
             beforeEach(function () {
                 post = Q.defer();
                 learningPathId = 'learnigPathId';
-                spyOn(apiHttpWrapper, 'post').and.returnValue(post.promise);
+                spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
             });
 
             it('should be a function', function () {
@@ -284,7 +284,7 @@
                 var promise = service.buildLearningPath(learningPathId);
                 promise.fin(done);
 
-                expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/learningpath/build', { learningPathId: learningPathId });
+                expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/learningpath/build', { learningPathId: learningPathId });
             });
 
             describe('when server return response', function () {

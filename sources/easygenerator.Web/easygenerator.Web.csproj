@@ -568,6 +568,10 @@
     <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.spec.js">
       <DependentUpon>moveCopyQuestion.js</DependentUpon>
     </Content>
+    <Content Include="App\http\publishHttpWrapper.spec.js">
+      <DependentUpon>publishHttpWrapper.js</DependentUpon>
+    </Content>
+    <Content Include="App\http\publishHttpWrapper.js" />
     <Content Include="App\widgets\upgradeDialog\viewmodel.js" />
     <Content Include="App\widgets\upgradeDialog\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>

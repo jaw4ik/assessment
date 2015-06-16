@@ -40,6 +40,12 @@
                 expect(viewModel.learningPath).toBeDefined();
             });
 
+            it('should set isPublishing', function () {
+                viewModel.isPublishing(false);
+                viewModel.activate({ isDelivering: true });
+                expect(viewModel.isPublishing()).toBeTruthy();
+            });
+
         });
 
         describe('download:', function () {
@@ -108,18 +114,18 @@
             describe('when build success', function () {
 
                 beforeEach(function () {
-                    buildDefer.resolve({ packageUrl: 'packageUrl' });
+                    buildDefer.resolve('packageUrl');
                 });
 
-                it('should download package', function(done) {
+                it('should download package', function (done) {
                     viewModel.download().fin(function () {
                         expect(fileHelper.downloadFile).toHaveBeenCalledWith('download/packageUrl');
                         done();
                     });
                 });
 
-                it('should set isPublishing in false', function () {
-                    viewModel.download().fin(function (done) {
+                it('should set isPublishing in false', function (done) {
+                    viewModel.download().fin(function () {
                         expect(viewModel.isPublishing()).toBeFalsy();
                         done();
                     });

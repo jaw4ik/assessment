@@ -34,6 +34,7 @@
 
         function activate(learningPath) {
             viewModel.learningPath = learningPath;
+            viewModel.isPublishing(learningPath.isDelivering);
         }
     };
 

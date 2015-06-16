@@ -61,6 +61,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<ScormCourseBuilder>().As<IScormCourseBuilder>();
 
             builder.RegisterType<LearningPathCourseBuilder>();
+            builder.RegisterType<StartPageGenerator>();
             builder.RegisterType<LearningPathBuilder>().As<ILearningPathBuilder>();
             
             builder.RegisterGeneric(typeof(EntityModelBinder<>)).As(typeof(IEntityModelBinder<>));
