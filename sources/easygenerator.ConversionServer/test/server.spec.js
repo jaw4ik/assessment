@@ -12,7 +12,7 @@ var
     fs = require('fs'),
     path = require('path');
 
-describe('controller', function () {
+describe('server', function () {
     
     before(function (done) {
         config.TEMP_FOLDER = path.join(__dirname, "TEMP");
@@ -60,7 +60,7 @@ describe('controller', function () {
                 });
         });
         
-        it('returns json with file id', function (done) {
+        it('returns json with file list when accept type is application/json', function (done) {
             request(app)
                 .post('/')
                 .set('Accept', 'application/json')
@@ -73,6 +73,29 @@ describe('controller', function () {
                     assert(res.body[0].id.length === 36);
                     done();
                 });
+        });
+
+        it('returns html with file list when accept type is text/html', function (done) {
+            request(app)
+                .post('/')
+                .set('Accept', 'text/html')
+                .attach('file', 'README.MD')
+                .expect(200)
+                .end(function(err, res) {
+                    if (err) {
+                        return done(err);
+                    }
+                    assert(res.text.indexOf('<html>') === 0);
+                    done();
+                });
+        });
+
+        it('returns 406 when accept type is not supported', function (done) {
+            request(app)
+                .post('/')
+                .set('Accept', 'text/undefined')
+                .attach('file', 'README.MD')
+                .expect(406, done);                
         });
 
     });

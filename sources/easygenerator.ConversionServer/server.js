@@ -1,19 +1,17 @@
 ﻿var 
-    express = require('express'),
-    cors = require('cors'),
-    app = express();
-
-var path = require('path'),
     fs = require('fs'),
-    uuid = require('node-uuid'),
-    config = require('./config')
-    ;
+    path = require('path'),
 
+    express = require('express'),
+    app = express(),
+    cors = require('cors'),
+    Busboy = require('busboy'),
+    uuid = require('node-uuid'),
+
+    config = require('./config')
+;
 
 app.use(cors());
-
-var Busboy = require('busboy');
-
 
 app.get('/', function (req, res) {
     res.send('<html>' +
@@ -48,7 +46,25 @@ app.post('/', function (req, res) {
         file.pipe(fs.createWriteStream(filePath));
     });
     busboy.on('finish', function () {
-        res.status(200).send(files);
+        res.format({
+            'text/html': function () {
+                res.send('<html>' +
+                    '       <head>' +
+                    '       </head>' +
+                    '       <body>' +
+                    '           <ul>' +
+                    files.map(function (item) { return '<li><a href="/file/' + item.id + '">' + item.id + '</a></li>'; }).join() +
+                    '           </ul>' +
+                    '       </body>' +
+                    '     </html>');
+            },
+            'application/json': function () {
+                res.send(files);
+            },
+            'default': function () {
+                res.status(406).send('Not Acceptable');
+            }
+        });
     });
     
     return req.pipe(busboy);
