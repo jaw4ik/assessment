@@ -1,4 +1,6 @@
-﻿var 
+﻿'use strict';
+
+var 
     fs = require('fs'),
     path = require('path'),
 
@@ -40,7 +42,8 @@ app.post('/', function (req, res) {
         var filePath = path.join(directoryPath, filename);
         file.on('end', function () {
             files.push({
-                id: id
+                id: id,
+                url: req.protocol + '://' + req.get('host') + req.originalUrl + 'file/' + id
             });
         });
         file.pipe(fs.createWriteStream(filePath));
@@ -53,7 +56,7 @@ app.post('/', function (req, res) {
                     '       </head>' +
                     '       <body>' +
                     '           <ul>' +
-                    files.map(function (item) { return '<li><a href="/file/' + item.id + '">' + item.id + '</a></li>'; }).join() +
+                    files.map(function (item) { return '<li><a href="' + item.url + '">' + item.url + '</a></li>'; }).join() +
                     '           </ul>' +
                     '       </body>' +
                     '     </html>');

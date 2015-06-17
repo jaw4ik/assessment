@@ -107,13 +107,13 @@ describe('server', function () {
                 .get('/file/_id')
                 .expect(404, done);
         });
-        
-        it('returns file when it exists', function (done) {
+
+        it('returns file when it exists', function(done) {
             var id = uuid.v4();
             var filename = "filename.txt";
             fs.mkdirSync(path.join(config.TEMP_FOLDER, id));
             fs.writeFileSync(path.join(config.TEMP_FOLDER, id, filename), 'Hello Node');
-            
+
             request(app)
                 .get('/file/' + id)
                 .expect(200, done);
