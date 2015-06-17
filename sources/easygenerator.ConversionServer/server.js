@@ -1,11 +1,16 @@
-﻿var express = require('express');
-var app = express();
+﻿var 
+    express = require('express'),
+    cors = require('cors'),
+    app = express();
 
 var path = require('path'),
     fs = require('fs'),
     uuid = require('node-uuid'),
     config = require('./config')
     ;
+
+
+app.use(cors());
 
 var Busboy = require('busboy');
 
@@ -45,7 +50,7 @@ app.post('/', function (req, res) {
     busboy.on('finish', function () {
         res.status(200).send(files);
     });
-
+    
     return req.pipe(busboy);
 });
 
