@@ -2,7 +2,9 @@
 
     var events = {
         updateCourseTitle: 'Update course title',
-        previewCourse: 'Preview course'
+        previewCourse: 'Preview course',
+        openManageCoAuthorsDialog: 'Open \'manage co-authors\' dialog',
+        openShareDialog: 'Open \'share\' dialog'
     };
 
     //#region Router setup
@@ -148,6 +150,7 @@
     return viewModel;
 
     function collaborate() {
+        eventTracker.publish(events.openManageCoAuthorsDialog);
         collaborationPopup.show(viewModel.id, viewModel.createdBy());
     }
 
@@ -157,6 +160,7 @@
     }
 
     function share() {
+        eventTracker.publish(events.openShareDialog);
         sharePopup.show(viewModel.id);
     }
 
