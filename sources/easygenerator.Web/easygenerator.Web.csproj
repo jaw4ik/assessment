@@ -907,7 +907,6 @@
     <Content Include="Content\images\safari.png" />
     <Content Include="Content\images\sprites_16.png" />
     <Content Include="Content\images\statement-question.png" />
-    <Content Include="Content\images\upgradeAudio.png" />
     <Content Include="Content\images\upload-image.png" />
     <Content Include="Content\images\supported-browser-bg.png" />
     <Content Include="Content\images\tooth.png" />
