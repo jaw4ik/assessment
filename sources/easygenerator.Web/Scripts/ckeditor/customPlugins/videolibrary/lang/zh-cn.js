@@ -1,7 +1,7 @@
 ﻿CKEDITOR.plugins.setLang('videolibrary', 'zh-cn', {
-    addFromLibrary: '图库',
-    videoLibrary: '图库',
-    noVideos: '还没有照片',
-    somethingWentWrong: '出错了',
-    tryAgain: '再试一遍'
+    addFromLibrary: 'Video library',
+    videoLibrary: 'Video library',
+    noVideos: 'No videos yet',
+    somethingWentWrong: 'Something went wrong. ',
+    tryAgain: 'Try again'
 });
