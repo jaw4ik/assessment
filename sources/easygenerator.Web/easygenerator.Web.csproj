@@ -556,6 +556,11 @@
     <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.spec.js">
       <DependentUpon>moveCopyQuestion.js</DependentUpon>
     </Content>
+    <Content Include="App\widgets\upgradeDialog\viewmodel.js" />
+    <Content Include="App\widgets\upgradeDialog\viewmodel.spec.js">
+      <DependentUpon>viewmodel.js</DependentUpon>
+    </Content>
+    <Content Include="App\widgets\upgradeDialog\view.html" />
     <Content Include="App\dialogs\video\video.html" />
     <Content Include="App\dialogs\video\video.js" />
     <Content Include="App\dialogs\video\video.spec.js">
