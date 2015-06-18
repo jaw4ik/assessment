@@ -216,6 +216,7 @@
             'viewmodels/common/contentField.spec',
             'viewmodels/library/index.spec',
             'viewmodels/videos/videos.spec',
+            'viewmodels/audios/audios.spec',
             'viewmodels/courses/courses.spec',
             'viewmodels/courses/course/index.spec',
             //'viewmodels/courses/course/create/index.spec',
