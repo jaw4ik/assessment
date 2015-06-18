@@ -1,10 +1,10 @@
-﻿(function() {
+﻿(function () {
 
     var plugin = CKEDITOR.plugins.mediaembed;
 
+
     CKEDITOR.dialog.add(plugin.dialogName, function (editor) {
         var lang = editor.lang.mediaembed;
-
         return {
             title: lang.embedMedia,
             minWidth: 550,
@@ -12,7 +12,14 @@
             contents: [{
                 id: 'iframe',
                 expand: true,
-                elements: [{
+                elements: [
+                {
+                    type: 'addVideoFromLibraryButton',
+                    id: 'addVideoFromLibrary',
+                    embedCodeAreaId: 'embedArea',
+                    parentContainerId: 'iframe'
+                },
+                {
                     id: 'embedArea',
                     type: 'textarea',
                     label: lang.pasteEmbedCodeHere,

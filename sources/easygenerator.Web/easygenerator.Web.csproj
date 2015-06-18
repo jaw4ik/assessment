@@ -1125,6 +1125,14 @@
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\styles.css" />
+    <Content Include="Scripts\ckeditor\customPlugins\videolibrary\dialogs\videoLibrary.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\videolibrary\icons\error.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\videolibrary\icons\no-videos.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\en.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\zh-cn.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\videolibrary\plugin.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\videolibrary\styles.css" />
     <Content Include="Scripts\ckeditor\lang\en.js" />
     <Content Include="Scripts\ckeditor\lang\uk.js" />
     <Content Include="Scripts\ckeditor\lang\zh-cn.js" />
