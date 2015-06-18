@@ -4,7 +4,7 @@
     var
         defaultCulture = "en",
         supportedCultures = [
-            "en", "en-US", 'uk', 'zh-cn'
+            "en", "en-US", 'uk', 'zh-cn', 'pt-br'
         ],
         currentCulture = defaultCulture,
         currentLanguage = '',
