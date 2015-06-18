@@ -20,10 +20,10 @@
             expect(viewModel).toBeObject();
         });
 
-        describe('isPublishing:', function () {
+        describe('isBuilding:', function () {
 
             it('should be observable', function () {
-                expect(viewModel.isPublishing).toBeObservable();
+                expect(viewModel.isBuilding).toBeObservable();
             });
 
         });
@@ -40,10 +40,10 @@
                 expect(viewModel.learningPath).toBeDefined();
             });
 
-            it('should set isPublishing', function () {
-                viewModel.isPublishing(false);
-                viewModel.activate({ isDelivering: true });
-                expect(viewModel.isPublishing()).toBeTruthy();
+            it('should set isBuilding', function () {
+                viewModel.isBuilding(false);
+                viewModel.activate({ isBuilding: true });
+                expect(viewModel.isBuilding()).toBeTruthy();
             });
 
         });
@@ -53,7 +53,7 @@
 
             beforeEach(function () {
                 buildDefer = Q.defer();
-                viewModel.isPublishing(false);
+                viewModel.isBuilding(false);
                 viewModel.learningPath = { build: function () { } };
                 spyOn(viewModel.learningPath, 'build').and.returnValue(buildDefer.promise);
             });
@@ -62,10 +62,10 @@
                 expect(viewModel.download).toBeFunction();
             });
 
-            describe('when isPublishing is true', function () {
+            describe('when isBuilding is true', function () {
 
                 beforeEach(function () {
-                    viewModel.isPublishing(true);
+                    viewModel.isBuilding(true);
                 });
 
                 it('should not build learningPath again', function () {
@@ -75,9 +75,9 @@
 
             });
 
-            it('should set isPublishing in true', function () {
+            it('should set isBuilding in true', function () {
                 viewModel.download();
-                expect(viewModel.isPublishing()).toBeTruthy();
+                expect(viewModel.isBuilding()).toBeTruthy();
             });
 
             it('should publish \'Download learning path (HTML)\' event', function () {
@@ -102,9 +102,9 @@
                     });
                 });
 
-                it('should set isPublishing in false', function (done) {
+                it('should set isBuilding in false', function (done) {
                     viewModel.download().fin(function () {
-                        expect(viewModel.isPublishing()).toBeFalsy();
+                        expect(viewModel.isBuilding()).toBeFalsy();
                         done();
                     });
                 });
@@ -124,9 +124,9 @@
                     });
                 });
 
-                it('should set isPublishing in false', function (done) {
+                it('should set isBuilding in false', function (done) {
                     viewModel.download().fin(function () {
-                        expect(viewModel.isPublishing()).toBeFalsy();
+                        expect(viewModel.isBuilding()).toBeFalsy();
                         done();
                     });
                 });

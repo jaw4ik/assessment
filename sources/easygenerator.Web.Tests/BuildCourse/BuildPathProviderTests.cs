@@ -330,7 +330,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             var expectedPath = "DefaultDirectoryName\\index.html";
 
             //Act
-            var result = _buildPathProvider.GetStartupPage(directoryPath);
+            var result = _buildPathProvider.GetStartupPageFileName(directoryPath);
 
             //Assert
             result.Should().Be(expectedPath);

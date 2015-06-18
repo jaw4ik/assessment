@@ -1,5 +1,4 @@
-﻿using System.IO.Packaging;
-using easygenerator.DomainModel;
+﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
@@ -137,12 +136,8 @@ namespace easygenerator.Web.Controllers.Api
 
             var result = _builder.Build(learningPath);
 
-            if (!result.Success)
-            {
-                return JsonLocalizableError(Errors.LearningPathBuildActionFailedError, Errors.LearningPathBuildActionFailedResourceKey);
-            }
-
-            return JsonSuccess(new { PackageUrl = result.PackageUrl });
+            return result.Success ? JsonSuccess(new { PackageUrl = result.PackageUrl }) :
+                JsonLocalizableError(Errors.LearningPathBuildActionFailedError, Errors.LearningPathBuildActionFailedResourceKey);
         }
     }
 }

@@ -8,7 +8,7 @@
     var ctor = function () {
         var viewModel = {
             learningPath: null,
-            isPublishing: ko.observable(false),
+            isBuilding: ko.observable(false),
 
             download: download,
             activate: activate
@@ -16,11 +16,11 @@
         return viewModel;
 
         function download() {
-            if (viewModel.isPublishing()) {
+            if (viewModel.isBuilding()) {
                 return;
             }
 
-            viewModel.isPublishing(true);
+            viewModel.isBuilding(true);
             eventTracker.publish(events.downloadLearningPath);
 
             return viewModel.learningPath.build().then(function (packageUrl) {
@@ -28,13 +28,13 @@
             }).fail(function (message) {
                 notify.error(message);
             }).fin(function() {
-                viewModel.isPublishing(false);
+                viewModel.isBuilding(false);
             });
         }
 
         function activate(learningPath) {
             viewModel.learningPath = learningPath;
-            viewModel.isPublishing(learningPath.isDelivering);
+            viewModel.isBuilding(learningPath.isBuilding);
         }
     };
 

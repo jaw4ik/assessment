@@ -6,7 +6,7 @@ using System.Text;
 
 namespace easygenerator.Web.BuildLearningPath
 {
-    public class StartPageGenerator
+    public class StartupPageGenerator
     {
         public virtual string Generate(LearningPath learningPath)
         {

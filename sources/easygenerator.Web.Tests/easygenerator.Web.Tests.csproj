@@ -140,6 +140,8 @@
     <Compile Include="BuildCourse\CourseBuilderTests.cs" />
     <Compile Include="BuildCourse\BuildPathProviderTests.cs" />
     <Compile Include="BuildCourse\BuildPackageCreatorTests.cs" />
+    <Compile Include="BuildLearningPath\LearningPathBuilderTests.cs" />
+    <Compile Include="BuildLearningPath\LearningPathCourseBuilderTests.cs" />
     <Compile Include="Components\ActionFilters\ApplicationAuthorizeAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCollaboratorsAmountAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\Authorization\ExternalApiAuthorizeAttributeTests.cs" />

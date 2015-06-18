@@ -86,7 +86,7 @@ namespace easygenerator.Web.BuildCourse
 
         #endregion
 
-        public virtual string GetStartupPage(string buildDirectory)
+        public virtual string GetStartupPageFileName(string buildDirectory)
         {
             return Path.Combine(buildDirectory, "index.html");
         }

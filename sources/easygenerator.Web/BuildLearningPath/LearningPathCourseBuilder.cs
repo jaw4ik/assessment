@@ -3,56 +3,38 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildCourse.Modules;
 using easygenerator.Web.Extensions;
-using System;
 
 namespace easygenerator.Web.BuildLearningPath
 {
-    public class LearningPathCourseBuilder
+    public class LearningPathCourseBuilder : ILearningPathCourseBuilder
     {
-        protected readonly PhysicalFileManager FileManager;
-        protected readonly BuildPathProvider BuildPathProvider;
-        private readonly BuildContentProvider _buildContentProvider;
+        private readonly PhysicalFileManager _fileManager;
+        private readonly BuildPathProvider _buildPathProvider;
+        private readonly IBuildContentProvider _buildContentProvider;
         private readonly IPackageModulesProvider _packageModulesProvider;
-        private readonly ILog _logger;
 
         public LearningPathCourseBuilder(PhysicalFileManager fileManager, BuildPathProvider buildPathProvider,
-            BuildContentProvider buildContentProvider, PackageModulesProvider packageModulesProvider, ILog logger)
+            IBuildContentProvider buildContentProvider, PackageModulesProvider packageModulesProvider)
         {
-            FileManager = fileManager;
-            BuildPathProvider = buildPathProvider;
+            _fileManager = fileManager;
+            _buildPathProvider = buildPathProvider;
             _buildContentProvider = buildContentProvider;
             _packageModulesProvider = packageModulesProvider;
-            _logger = logger;
         }
 
-
-        public virtual bool Build(Course course, string buildId)
+        public virtual void Build(Course course, string buildId)
         {
             var courseId = course.Id.ToNString();
-            var isBuildSuccessful = true;
+            var courseDirectoryPath = _buildPathProvider.GetBuildDirectoryName(buildId, courseId);
+            CreateCourseDirectory(courseDirectoryPath);
 
-            try
-            {
-                var buildDirectoryPath = BuildPathProvider.GetBuildDirectoryName(buildId, courseId);
-
-                CreateBuildDirectory(buildDirectoryPath);
-
-                var modulesList = _packageModulesProvider.GetModulesList(course);
-                _buildContentProvider.AddBuildContentToPackageDirectory(buildDirectoryPath, course, modulesList);
-            }
-            catch (Exception exception)
-            {
-                _logger.LogException(exception);
-                isBuildSuccessful = false;
-            }
-
-            return isBuildSuccessful;
+            var modulesList = _packageModulesProvider.GetModulesList(course);
+            _buildContentProvider.AddBuildContentToPackageDirectory(courseDirectoryPath, course, modulesList);
         }
 
-        private void CreateBuildDirectory(string buildDirectory)
+        private void CreateCourseDirectory(string directoryPath)
         {
-            FileManager.CreateDirectory(buildDirectory);
+            _fileManager.CreateDirectory(directoryPath);
         }
-
     }
 }

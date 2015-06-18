@@ -8,22 +8,22 @@ namespace easygenerator.Web.BuildLearningPath
 {
     public class LearningPathBuilder : ILearningPathBuilder
     {
-        private readonly LearningPathCourseBuilder _courseBuilder;
+        private readonly ILearningPathCourseBuilder _courseBuilder;
         private readonly ILog _logger;
         private readonly PhysicalFileManager _fileManager;
         private readonly BuildPathProvider _buildPathProvider;
         private readonly BuildPackageCreator _buildPackageCreator;
-        private readonly StartPageGenerator _startPageGenerator;
-        
-        public LearningPathBuilder(LearningPathCourseBuilder courseBuilder, ILog logger, PhysicalFileManager fileManager,
-            BuildPathProvider buildPathProvider, BuildPackageCreator buildPackageCreator, StartPageGenerator startPageGenerator)
+        private readonly StartupPageGenerator _startupPageGenerator;
+
+        public LearningPathBuilder(ILearningPathCourseBuilder courseBuilder, ILog logger, PhysicalFileManager fileManager,
+            BuildPathProvider buildPathProvider, BuildPackageCreator buildPackageCreator, StartupPageGenerator startupPageGenerator)
         {
             _courseBuilder = courseBuilder;
             _logger = logger;
             _fileManager = fileManager;
             _buildPackageCreator = buildPackageCreator;
             _buildPathProvider = buildPathProvider;
-            _startPageGenerator = startPageGenerator;
+            _startupPageGenerator = startupPageGenerator;
         }
 
         public BuildResult Build(LearningPath learningPath)
@@ -44,7 +44,7 @@ namespace easygenerator.Web.BuildLearningPath
                     _courseBuilder.Build(course, buildId);
                 }
 
-                AddStartPage(buildDirectoryPath, learningPath);
+                AddStartupPage(buildDirectoryPath, learningPath);
 
                 CreatePackageFromDirectory(buildId);
                 packageUrl = buildId + ".zip";
@@ -52,7 +52,7 @@ namespace easygenerator.Web.BuildLearningPath
             catch (Exception exception)
             {
                 _logger.LogException(exception);
-                buildResult =false;
+                buildResult = false;
             }
 
             try
@@ -68,12 +68,12 @@ namespace easygenerator.Web.BuildLearningPath
             return new BuildResult(buildResult, packageUrl);
         }
 
-        private void AddStartPage(string buildDirectoryPath, LearningPath learningPath)
+        private void AddStartupPage(string buildDirectoryPath, LearningPath learningPath)
         {
-            var fileName = _buildPathProvider.GetStartupPage(buildDirectoryPath);
-            var startPageContent = _startPageGenerator.Generate(learningPath);
-            
-            _fileManager.WriteToFile(fileName, startPageContent);
+            var fileName = _buildPathProvider.GetStartupPageFileName(buildDirectoryPath);
+            var startupPageContent = _startupPageGenerator.Generate(learningPath);
+
+            _fileManager.WriteToFile(fileName, startupPageContent);
         }
 
         private void CreatePackageDirectory(string buildDirectory)

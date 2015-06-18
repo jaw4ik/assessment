@@ -9,18 +9,18 @@
             obj.title = spec.title;
             obj.courses = spec.courses;
 
-            obj.isDelivering = false;
+            obj.isBuilding = false;
             obj.build = build;
 
             return obj;
 
             function build() {
                 return Q.fcall(function() {
-                    if (obj.isDelivering) {
+                    if (obj.isBuilding) {
                         return;
                     }
 
-                    obj.isDelivering = true;
+                    obj.isBuilding = true;
 
                     return publishService.buildLearningPath(obj.id)
                         .then(function (buildInfo) {
@@ -30,7 +30,7 @@
                             throw message;
                         })
                         .fin(function () {
-                            obj.isDelivering = false;
+                            obj.isBuilding = false;
                         }
                     );
 

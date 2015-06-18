@@ -199,6 +199,7 @@
     <Compile Include="BuildCourse\BuildPathProvider.cs" />
     <Compile Include="BuildCourse\CourseBuilder.cs" />
     <Compile Include="BuildCourse\CourseBuilderBase.cs" />
+    <Compile Include="BuildCourse\IBuildContentProvider.cs" />
     <Compile Include="BuildCourse\ICourseBuilder.cs" />
     <Compile Include="BuildCourse\Modules\IPackageModulesProvider.cs" />
     <Compile Include="BuildCourse\Modules\Models\PackageModule.cs" />
@@ -234,6 +235,7 @@
     <Compile Include="BuildCourse\Scorm\ScormCourseBuilder.cs" />
     <Compile Include="BuildLearningPath\BuildResult.cs" />
     <Compile Include="BuildLearningPath\ILearningPathBuilder.cs" />
+    <Compile Include="BuildLearningPath\ILearningPathCourseBuilder.cs" />
     <Compile Include="BuildLearningPath\LearningPathBuilder.cs" />
     <Compile Include="BuildLearningPath\LearningPathCourseBuilder.cs" />
     <Compile Include="BuildLearningPath\StartPageGenerator.cs" />
