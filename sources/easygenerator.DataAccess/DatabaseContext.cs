@@ -53,6 +53,7 @@ namespace easygenerator.DataAccess
         public DbSet<Comment> Comments { get; set; }
         public DbSet<CourseCollaborator> CourseCollaborators { get; set; }
         public DbSet<Onboarding> Onboardings { get; set; }
+        public DbSet<LearningPath> LearningPaths { get; set; }
 
         public IDbSet<T> GetSet<T>() where T : Identifiable
         {
@@ -67,6 +68,9 @@ namespace easygenerator.DataAccess
             modelBuilder.Properties<string>().Where(p => p.Name == "CreatedBy").Configure(p => p.IsRequired().HasMaxLength(254));
             modelBuilder.Properties<string>().Where(p => p.Name == "ModifiedBy").Configure(p => p.IsRequired().HasMaxLength(254));
 
+            modelBuilder.Entity<LearningPath>().Property(e => e.CoursesOrder).IsOptional();
+            modelBuilder.Entity<LearningPath>().Property(e => e.Title).HasMaxLength(255).IsRequired();
+            modelBuilder.Entity<LearningPath>().HasMany(e => e.CoursesCollection).WithMany(e => e.LearningPathCollection).Map(m => m.ToTable("LearningPathCourses"));
 
             modelBuilder.Entity<Objective>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Objective>().Property(e => e.ImageUrl).IsOptional();
@@ -79,6 +83,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Course>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Course>().HasRequired(e => e.Template).WithMany(e => e.Courses).WillCascadeOnDelete(false);
             modelBuilder.Entity<Course>().HasMany(e => e.RelatedObjectivesCollection).WithMany(e => e.RelatedCoursesCollection).Map(m => m.ToTable("CourseObjectives"));
+            modelBuilder.Entity<Course>().HasMany(e => e.LearningPathCollection).WithMany(e => e.CoursesCollection).Map(m => m.ToTable("LearningPathCourses"));
             modelBuilder.Entity<Course>().HasMany(e => e.TemplateSettings).WithRequired(e => e.Course).WillCascadeOnDelete(true);
             modelBuilder.Entity<Course>().Property(e => e.IntroductionContent).IsMaxLength().IsOptional();
             modelBuilder.Entity<Course>().HasMany(e => e.CommentsCollection).WithRequired(e => e.Course).WillCascadeOnDelete(true);

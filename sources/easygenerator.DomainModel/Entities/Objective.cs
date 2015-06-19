@@ -135,24 +135,12 @@ namespace easygenerator.DomainModel.Entities
 
         private void DoUpdateQuestionsOrder(ICollection<Question> questions)
         {
-            QuestionsOrder = questions.Count == 0 ? null : String.Join(",", questions.Select(i => i.Id).ToArray());
+            QuestionsOrder = OrderingUtils.GetOrder(questions);
         }
 
         private ICollection<Question> GetOrderedQuestions()
         {
-            if (String.IsNullOrEmpty(QuestionsOrder))
-            {
-                return QuestionsCollection.ToList();
-            }
-
-            var orderedQuestionIds = QuestionsOrder.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).ToList();
-            return QuestionsCollection.OrderBy(item => GetQuestionIndex(orderedQuestionIds, item)).ToList();
-        }
-
-        private int GetQuestionIndex(List<string> orderedQuestionIds, Question question)
-        {
-            var index = orderedQuestionIds.IndexOf(question.Id.ToString());
-            return index > -1 ? index : orderedQuestionIds.Count;
+            return OrderingUtils.OrderCollection(QuestionsCollection, QuestionsOrder);
         }
 
         private void ThrowIfTitleIsInvalid(string title)

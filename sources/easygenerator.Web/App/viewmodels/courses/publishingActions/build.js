@@ -1,5 +1,5 @@
-﻿define(['constants', 'viewmodels/courses/publishingActions/publishingAction', 'durandal/app', 'notify', 'eventTracker', 'fileHelper', 'repositories/courseRepository'],
-    function (constants, publishingAction, app, notify, eventTracker, fileHelper, repository) {
+﻿define(['constants', 'viewmodels/courses/publishingActions/publishingAction', 'notify', 'eventTracker', 'fileHelper', 'repositories/courseRepository'],
+    function (constants, publishingAction, notify, eventTracker, fileHelper, repository) {
 
         var
            events = {

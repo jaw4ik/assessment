@@ -69,6 +69,11 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (course != null)
             {
+                if (course.RelatedObjectives.Any() || course.LearningPaths.Any())
+                {
+                    return JsonLocalizableError(Errors.CourseCannotBeDeleted, Errors.CourseCannotBeDeletedResourceKey);
+                }
+
                 var collaborators = course.Collaborators.Select(e => e.Email).ToList();
                 var invitedCollaborators = new Dictionary<Guid, string>();
                 course.Collaborators.Where(e => !e.Locked && !e.IsAccepted).ForEach(i => invitedCollaborators.Add(i.Id, i.Email));
@@ -83,7 +88,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [EntityCollaborator(typeof(Course))]
-        [Route("course/build")]
+        [Route("api/course/build")]
         public ActionResult Build(Course course)
         {
             return Deliver(course, () => _builder.Build(course), () => JsonSuccess(new { PackageUrl = course.PackageUrl, BuildOn = course.BuildOn }));
@@ -91,7 +96,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [EntityCollaborator(typeof(Course))]
         [HttpPost, StarterAccess(ErrorMessageResourceKey = Errors.UpgradeToStarterPlanToUseScormResourceKey)]
-        [Route("course/scormbuild")]
+        [Route("api/course/scormbuild")]
         public ActionResult ScormBuild(Course course)
         {
             return Deliver(course, () => _scormCourseBuilder.Build(course), () => JsonSuccess(new { ScormPackageUrl = course.ScormPackageUrl }));
@@ -99,7 +104,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [EntityCollaborator(typeof(Course))]
-        [Route("course/publish")]
+        [Route("api/course/publish")]
         public ActionResult Publish(Course course)
         {
             return Deliver(course, () => _coursePublisher.Publish(course), () => JsonSuccess(new { PublishedPackageUrl = course.PublicationUrl }));
@@ -107,7 +112,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [EntityCollaborator(typeof(Course))]
-        [Route("course/publishForReview")]
+        [Route("api/course/publishForReview")]
         public ActionResult PublishForReview(Course course)
         {
             return Deliver(course, () => _coursePublisher.Publish(course), () => JsonSuccess(new { ReviewUrl = GetCourseReviewUrl(course.Id.ToString()) }));

@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace easygenerator.Web.BuildCourse
 {
-    public class BuildContentProvider
+    public class BuildContentProvider : IBuildContentProvider
     {
         private readonly PhysicalFileManager _fileManager;
         private readonly BuildPathProvider _buildPathProvider;
@@ -34,7 +34,7 @@ namespace easygenerator.Web.BuildCourse
             _templateStorage = templateStorage;
         }
 
-        public virtual void AddBuildContentToPackageDirectory(string buildDirectory, Course course, IEnumerable<PackageModule> modules)
+        public void AddBuildContentToPackageDirectory(string buildDirectory, Course course, IEnumerable<PackageModule> modules)
         {
             var coursePackageModel = _packageModelMapper.MapCourse(course);
 

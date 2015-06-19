@@ -109,6 +109,10 @@ namespace easygenerator.DataAccess
                .As<IQuerableRepository<CourseState>>()
                .As<ICourseStateRepository>();
 
+            builder.RegisterType<LearningPathRepository>()
+               .As<IQuerableRepository<LearningPath>>()
+               .As<ILearningPathRepository>();
+
             base.Load(builder);
         }
     }

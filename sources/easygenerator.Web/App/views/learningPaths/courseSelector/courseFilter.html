@@ -1,0 +1,6 @@
+﻿<div class="course-filter" data-bind="css: { active: isEditing }">
+    <div class="course-filter-input-wrapper">
+        <input class="course-filter-input" data-bind="localize: { placeholder: 'searchCourses'}, value: value, valueUpdate: 'afterkeydown', hasFocus: isEditing" ondrop="return false;" />
+        <button class="course-filter-clear-btn" data-bind="css: { shown: hasValue }, click: clear"></button>
+    </div>
+</div>
