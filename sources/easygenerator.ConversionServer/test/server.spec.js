@@ -113,10 +113,49 @@ describe('server', function () {
             var filename = "filename.txt";
             fs.mkdirSync(path.join(config.TEMP_FOLDER, id));
             fs.writeFileSync(path.join(config.TEMP_FOLDER, id, filename), 'Hello Node');
-            
+
             request(app)
                 .get(config.LOCATION + '/file/' + id)
                 .expect(200, done);
+        });
+
+    });
+    
+    describe('delete \'/file/:id\'', function () {
+        
+        it('returns 204 when file doest not exist', function (done) {
+            request(app)
+                .delete(config.LOCATION + '/file/_id')
+                .expect(204, done);
+        });
+        
+        it('deletes file with specified id when file was deleted', function (done) {
+            var id = uuid.v4();
+            var filename = "filename.txt";
+            fs.mkdirSync(path.join(config.TEMP_FOLDER, id));
+            fs.writeFileSync(path.join(config.TEMP_FOLDER, id, filename), 'Hello Node');
+
+            request(app)
+                .delete(config.LOCATION + '/file/' + id)
+                .end(function(err) {
+                    if (err) {
+                        return done(err);
+                    }
+                    assert(!fs.existsSync(path.join(config.TEMP_FOLDER, id, filename)));
+                    assert(!fs.existsSync(path.join(config.TEMP_FOLDER, id)));
+                    done();
+                });
+        });
+        
+        it('returns 204 when file was deleted', function (done) {
+            var id = uuid.v4();
+            var filename = "filename.txt";
+            fs.mkdirSync(path.join(config.TEMP_FOLDER, id));
+            fs.writeFileSync(path.join(config.TEMP_FOLDER, id, filename), 'Hello Node');
+
+            request(app)
+                .delete(config.LOCATION + '/file/' + id)
+                .expect(204, done);
         });
 
     });

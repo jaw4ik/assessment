@@ -28,7 +28,7 @@ app.get(config.LOCATION + '/', function (req, res) {
         '    </html>');
 });
 
-app.post(config.LOCATION +'/', function (req, res) {
+app.post(config.LOCATION + '/', function (req, res) {
     var busboy = new Busboy({ headers: req.headers });
     
     var files = [];
@@ -73,7 +73,7 @@ app.post(config.LOCATION +'/', function (req, res) {
     return req.pipe(busboy);
 });
 
-app.get(config.LOCATION +'/file/:id', function (req, res) {
+app.get(config.LOCATION + '/file/:id', function (req, res) {
     var id = req.params.id;
     
     fs.readdir(path.join(config.TEMP_FOLDER, id), function (err, files) {
@@ -91,6 +91,27 @@ app.get(config.LOCATION +'/file/:id', function (req, res) {
             }
         }
        
+    });
+});
+
+app.delete(config.LOCATION + '/file/:id', function (req, res) {
+    var id = req.params.id;
+    
+    fs.readdir(path.join(config.TEMP_FOLDER, id), function (err, files) {
+        if (err) {
+            if (err.code != "ENOENT") {
+                throw err;
+            } else {
+                res.status(204).end();
+            }
+        } else {
+            files.forEach(function (filename) {
+                fs.unlinkSync(path.join(config.TEMP_FOLDER, id, filename));
+            });
+            fs.rmdirSync(path.join(config.TEMP_FOLDER, id));
+            res.end();
+        }
+
     });
 
 });
