@@ -1,13 +1,9 @@
 ﻿define(['viewmodels/audios/audios'], function (viewModel) {
     "use strict";
 
-    var app = require('durandal/app'),
-        router = require('plugins/router'),
-        constants = require('constants'),
+    var constants = require('constants'),
         eventTracker = require('eventTracker'),
         repository = require('repositories/videoRepository'),
-        videoDialog = require('dialogs/video/video'),
-        videoUpload = require('videoUpload/upload'),
         userContext = require('userContext'),
         localizationManager = require('localization/localizationManager'),
         storageFileUploader = require('storageFileUploader');
