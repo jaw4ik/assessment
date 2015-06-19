@@ -15,7 +15,7 @@ var
 
 app.use(cors());
 
-app.get('/', function (req, res) {
+app.get(config.LOCATION + '/', function (req, res) {
     res.send('<html>' +
         '       <head>' +
         '       </head>' +
@@ -28,7 +28,7 @@ app.get('/', function (req, res) {
         '    </html>');
 });
 
-app.post('/', function (req, res) {
+app.post(config.LOCATION +'/', function (req, res) {
     var busboy = new Busboy({ headers: req.headers });
     
     var files = [];
@@ -43,7 +43,7 @@ app.post('/', function (req, res) {
         file.on('end', function () {
             files.push({
                 id: id,
-                url: req.protocol + '://' + req.get('host') + req.originalUrl + 'file/' + id
+                url: req.protocol + '://' + req.get('host') + req.originalUrl + '/file/' + id
             });
         });
         file.pipe(fs.createWriteStream(filePath));
@@ -73,7 +73,7 @@ app.post('/', function (req, res) {
     return req.pipe(busboy);
 });
 
-app.get('/file/:id', function (req, res) {
+app.get(config.LOCATION +'/file/:id', function (req, res) {
     var id = req.params.id;
     
     fs.readdir(path.join(config.TEMP_FOLDER, id), function (err, files) {
