@@ -1133,6 +1133,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\dialogs\videoLibrary.js" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\icons\error.png" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\icons\no-videos.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\videolibrary\icons\video-icon.png" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\uk.js" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\zh-cn.js" />
