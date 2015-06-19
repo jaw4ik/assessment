@@ -128,6 +128,7 @@
 
                 it('should send event \'Undo delete learning content\' with category \'Information\' for informationContent question type', function () {
                     var learnContent = new Content(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
+                    spyOn(learnContent, 'restoreLearningContent').and.callFake(function () { });
                     learnContent.isRemoved(true);
                     learnContent.restore();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Undo delete learning content', 'Information');

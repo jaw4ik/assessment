@@ -11,12 +11,12 @@ namespace easygenerator.Web.BuildCourse
         protected readonly PhysicalFileManager FileManager;
         protected readonly BuildPathProvider BuildPathProvider;
         private readonly BuildPackageCreator _buildPackageCreator;
-        private readonly BuildContentProvider _buildContentProvider;
+        private readonly IBuildContentProvider _buildContentProvider;
         private readonly IPackageModulesProvider _packageModulesProvider;
         private readonly ILog _logger;
 
         protected CourseBuilderBase(PhysicalFileManager fileManager, BuildPathProvider buildPathProvider, BuildPackageCreator buildPackageCreator,
-            BuildContentProvider buildContentProvider, IPackageModulesProvider packageModulesProvider, ILog logger)
+            IBuildContentProvider buildContentProvider, IPackageModulesProvider packageModulesProvider, ILog logger)
         {
             FileManager = fileManager;
             BuildPathProvider = buildPathProvider;

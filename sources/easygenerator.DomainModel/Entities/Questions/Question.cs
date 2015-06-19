@@ -1,7 +1,7 @@
-﻿using System;
-using easygenerator.DomainModel.Events.LearningContentEvents;
+﻿using easygenerator.DomainModel.Events.LearningContentEvents;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -155,24 +155,12 @@ namespace easygenerator.DomainModel.Entities.Questions
 
         private void DoUpdateLearningContentsOrder(ICollection<LearningContent> learningContents)
         {
-            LearningContentsOrder = learningContents.Count == 0 ? null : String.Join(",", learningContents.Select(i => i.Id).ToArray());
+            LearningContentsOrder = OrderingUtils.GetOrder(learningContents);
         }
 
         private ICollection<LearningContent> GetOrderedLearningContents()
         {
-            if (String.IsNullOrEmpty(LearningContentsOrder))
-            {
-                return LearningContentsCollection.ToList();
-            }
-
-            var orderedLearningContentsIds = LearningContentsOrder.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).ToList();
-            return LearningContentsCollection.OrderBy(item => GetLearningContentIndex(orderedLearningContentsIds, item)).ToList();
-        }
-
-        private static int GetLearningContentIndex(IList<string> orderedLearningContentsIds, Identifiable learningContent)
-        {
-            var index = orderedLearningContentsIds.IndexOf(learningContent.Id.ToString());
-            return index > -1 ? index : orderedLearningContentsIds.Count;
+            return OrderingUtils.OrderCollection(LearningContentsCollection, LearningContentsOrder);
         }
 
         private static void ThrowIfTitleIsInvalid(string title)

@@ -1,21 +1,19 @@
-﻿using System.Collections.Generic;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildCourse.Modules.Models;
 using easygenerator.Web.BuildCourse.PackageModel;
-using easygenerator.Web.BuildCourse.PublishSettings;
 using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.BuildCourse.Scorm.Models;
 using easygenerator.Web.BuildCourse.Scorm.Modules;
 using easygenerator.Web.Components;
-using easygenerator.Web.Storage;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace easygenerator.Web.Tests.BuildCourse
@@ -28,7 +26,7 @@ namespace easygenerator.Web.Tests.BuildCourse
         private HttpRuntimeWrapper _httpRuntimeWrapper;
         private BuildPathProvider _buildPathProvider;
         private BuildPackageCreator _buildPackageCreator;
-        private BuildContentProvider _buildContentProvider;
+        private IBuildContentProvider _buildContentProvider;
         private RazorTemplateProvider _razorTemplateProvider;
         private ScormPackageModulesProvider _scormPackageModulesProvider;
 
@@ -52,10 +50,7 @@ namespace easygenerator.Web.Tests.BuildCourse
 
             _razorTemplateProvider = Substitute.For<RazorTemplateProvider>();
 
-            var packageModelMapper = Substitute.For<PackageModelMapper>(Substitute.For<IUrlHelperWrapper>(), Substitute.For<IUserRepository>());
-            var packageModelSerializer = Substitute.For<PackageModelSerializer>();
-            var templateStorage = Substitute.For<ITemplateStorage>();
-            _buildContentProvider = Substitute.For<BuildContentProvider>(_fileManager, _buildPathProvider, packageModelSerializer, packageModelMapper, new PublishSettingsProvider(), templateStorage);
+            _buildContentProvider = Substitute.For<IBuildContentProvider>();
 
             var userRepository = Substitute.For<IUserRepository>();
             _scormPackageModulesProvider = Substitute.For<ScormPackageModulesProvider>(userRepository);
