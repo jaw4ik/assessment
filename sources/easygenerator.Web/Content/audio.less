@@ -1,17 +1,28 @@
-﻿@add-audio-border-color: #e8e8e8;
-@add-audio-box-shadow: 0px 2px 0px 0px @add-audio-border-color;
+﻿@import "mixin.less";
+
+@shadow-color: #e8e8e8;
+
+@add-audio-border-color: #fff;
+@add-audio-box-shadow: 0px 2px 0px 0px @shadow-color;
 @add-audio-button-width: 202px;
 @add-audio-button-height: 208px;
-@add-audio-button-background-webkit: -webkit-linear-gradient(-29deg,rgba(224,242,255,1) 50%,rgba(224,242,255,.7) 50%);
+@add-audio-button-background-webkit: -webkit-linear-gradient(120deg,rgba(224,242,255,1) 50%,rgba(224,242,255,.7) 50%);
 @add-audio-button-background: linear-gradient(-29deg,rgba(224,242,255,1) 50%,rgba(224,242,255,.7) 50%);
 @add-audio-button-icon-background: url(../Content/images/sprites_64.png);
+
+@audio-background-color: #fff;
 @audio-action-hover-border-color: #71c3ff;
 @upload-error-background: url('../Content/images/sprites_32.png');
 @audio-loaded-text-color: #546677;
-@audio-uploading-text-color:  #77899b;
-@audio-uploading-progress-color:  #f5a46a;
-@audio-upload-failed-text-color:  #63798e;
+@audio-uploading-text-color: #77899b;
+@audio-uploading-progress-color: #f5a46a;
+@audio-uploading-progress-background-color: #d4dce1;
+@audio-upload-failed-text-color: #63798e;
 @audio-play-icon-color: #7ab5ff;
+
+@free-space-progress-background-color: #c8cfda;
+@free-space-progress-color: #509bfa;
+@free-space-text-color: #63798e;
 
 .audios {
 
@@ -21,20 +32,14 @@
         .add-audio-button {
             float: left;
             position: relative;
-            background: @add-audio-button-background;
             background: @add-audio-button-background-webkit;
-            border: 1px solid @add-audio-border-color;
-            border: 3px solid #fff;
+            background: @add-audio-button-background;
+            border: 3px solid @add-audio-border-color;
             border-radius: 15px;
             box-shadow: @add-audio-box-shadow;
-            box-shadow: none;
             cursor: pointer;
             height: @add-audio-button-height;
             transition: border 0.3s;
-            -webkit-border-radius: 15px;
-            -webkit-box-shadow: @add-audio-box-shadow;
-            -webkit-box-shadow: @add-audio-box-shadow;
-            -webkit-transition: border 0.3s;
             width: @add-audio-button-width;
 
             &:hover {
@@ -61,7 +66,7 @@
                 text-align: center;
                 font-family: 'OpenSans';
                 font-size: 12px;
-                color: #63798e;
+                color: @free-space-text-color;
 
                 .free-space-info-value {
                     text-transform: uppercase;
@@ -72,7 +77,7 @@
                     width: 130px;
                     margin-top: 7px;
                     height: 3px;
-                    background: #c8cfda;
+                    background: @free-space-progress-background-color;
                     border-radius: 1px;
                     text-align: left;
                     line-height: 0;
@@ -82,7 +87,7 @@
                     display: inline-block;
                     vertical-align: top;
                     height: 3px;
-                    background: #509bfa;
+                    background-color: @free-space-progress-color;
                     border-radius: 1px;
                 }
             }
@@ -114,38 +119,77 @@
             margin-left: 240px;
 
             li {
-                position: relative;
-                background-color: #fff;
+                .display-flex();
+                .align-items(center);
+                .justify-content(center);
+                
+                background-color: @audio-background-color;
                 border-radius: 5px;
-                -webkit-border-radius: 5px;
-                box-shadow: 0 3px 0 #e8e8e8;
+                box-shadow: 0 3px 0 @shadow-color;
+                color: @audio-loaded-text-color;
                 font-family: 'OpenSans';
                 font-size: 13px;
+                height: 50px;
                 margin-bottom: 13px;
-                padding: 16px 20px;
+                padding: 0 10px;
+
+                &.hovered:hover {
+                    box-shadow: 0 0 0 2px @audio-action-hover-border-color;
+                    cursor: pointer;
+                }
+
+                .play-icon {
+                    position: relative;
+                    width: 30px;
+                    height: 30px;
+                    background-color: @audio-play-icon-color;
+                    border-radius: 15px;
+
+                    &:after {
+                        content: "";
+                        border-bottom: 5px solid transparent;
+                        border-left: 8px solid @audio-background-color;
+                        border-top: 5px solid transparent;
+                        height: 0;
+                        left: 12px;
+                        position: absolute;
+                        top: 10px;
+                        width: 0;
+                    }
+                }
 
                 .audio-title {
+                    .flex(1);
+
+                    margin: 0 10px;
                     overflow: hidden;
                     text-overflow: ellipsis;
                     white-space: nowrap;
                 }
 
                 .audio-duration {
-                    display: inline-block;
-                    float: right;
+                    .flex(0 0 auto);
+
                     font-style: italic;
-                    margin-left: 20px;
+                    max-width: 30%;
+                    margin: 0 10px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
                 }
 
                 &.error {
+                    position: relative;
                     font-family: 'RobotoSlab';
                     color: @audio-upload-failed-text-color;
                     text-transform: uppercase;
                     text-align: center;
 
                     .upload-failed {
+                        overflow: hidden;
                         padding-left: 30px;
-                        margin: auto;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
 
                         &:before {
                             content: "";
@@ -156,65 +200,24 @@
                             top: 50%;
                             margin-top: -13px;
                             margin-left: -30px;
-                            background: @upload-error-background 31px 29px;
+                            background: @upload-error-background -297px -40px;
                         }
                     }
                 }
 
                 &.uploading {
                     color: @audio-uploading-text-color;
-                    padding-left: 60px;
 
                     .circle-progress {
-                        position: absolute;
                         border-color: @audio-uploading-progress-color;
-                        color: #d4dce1;
-                        left: 10px;
-                        top: 50%;
-                        margin-top: -20px;
+                        color: @audio-uploading-progress-background-color;
                     }
 
                     .circle-progress-text {
-                        position: absolute;
-                        left: 14px;
-                        top: 16px;
+                        margin-left: -36px;
                         overflow: hidden;
                         text-align: center;
                         width: 32px;
-                    }
-                }
-
-                &.loaded {
-                    color: @audio-loaded-text-color;
-                    padding-left: 50px;
-
-                    &:hover {
-                        box-shadow: 0 0 0 2px @audio-action-hover-border-color;
-                        cursor: pointer;
-                    }
-
-                    .play-icon {
-                        position: absolute;
-                        left: 10px;
-                        top: 50%;
-                        margin-top: -15px;
-                        width: 30px;
-                        height: 30px;
-                        background-color: @audio-play-icon-color;
-                        border-radius: 15px;
-                        -webkit-border-radius: 15px;
-
-                        &:after {
-                            content: "";
-                            border-bottom: 5px solid transparent;
-                            border-left: 8px solid #fff;
-                            border-top: 5px solid transparent;
-                            height: 0;
-                            left: 12PX;
-                            position: absolute;
-                            top: 10px;
-                            width: 0;
-                        }
                     }
                 }
             }

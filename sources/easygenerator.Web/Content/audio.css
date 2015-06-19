@@ -1,22 +1,19 @@
-﻿.audios .audio-library {
+﻿/*#region flex */
+/*#endregion */
+.audios .audio-library {
   margin-top: 30px;
 }
 .audios .audio-library .add-audio-button {
   float: left;
   position: relative;
+  background: -webkit-linear-gradient(120deg, #e0f2ff 50%, rgba(224, 242, 255, 0.7) 50%);
   background: linear-gradient(-29deg, #e0f2ff 50%, rgba(224, 242, 255, 0.7) 50%);
-  background: -webkit-linear-gradient(-29deg, #e0f2ff 50%, rgba(224, 242, 255, 0.7) 50%);
-  border: 1px solid #e8e8e8;
-  border: 3px solid #fff;
+  border: 3px solid #ffffff;
   border-radius: 15px;
   box-shadow: 0px 2px 0px 0px #e8e8e8;
-  box-shadow: none;
   cursor: pointer;
   height: 208px;
   transition: border 0.3s;
-  -webkit-border-radius: 15px;
-  -webkit-box-shadow: 0px 2px 0px 0px #e8e8e8;
-  -webkit-transition: border 0.3s;
   width: 202px;
 }
 .audios .audio-library .add-audio-button:hover {
@@ -60,7 +57,7 @@
   display: inline-block;
   vertical-align: top;
   height: 3px;
-  background: #509bfa;
+  background-color: #509bfa;
   border-radius: 1px;
 }
 .audios .audio-library .add-audio-button-description {
@@ -86,36 +83,74 @@
   margin-left: 240px;
 }
 .audios .audio-library .audio-list li {
-  position: relative;
-  background-color: #fff;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  background-color: #ffffff;
   border-radius: 5px;
-  -webkit-border-radius: 5px;
   box-shadow: 0 3px 0 #e8e8e8;
+  color: #546677;
   font-family: 'OpenSans';
   font-size: 13px;
+  height: 50px;
   margin-bottom: 13px;
-  padding: 16px 20px;
+  padding: 0 10px;
+}
+.audios .audio-library .audio-list li.hovered:hover {
+  box-shadow: 0 0 0 2px #71c3ff;
+  cursor: pointer;
+}
+.audios .audio-library .audio-list li .play-icon {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  background-color: #7ab5ff;
+  border-radius: 15px;
+}
+.audios .audio-library .audio-list li .play-icon:after {
+  content: "";
+  border-bottom: 5px solid transparent;
+  border-left: 8px solid #ffffff;
+  border-top: 5px solid transparent;
+  height: 0;
+  left: 12px;
+  position: absolute;
+  top: 10px;
+  width: 0;
 }
 .audios .audio-library .audio-list li .audio-title {
+  -webkit-flex: 1;
+  flex: 1;
+  margin: 0 10px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .audios .audio-library .audio-list li .audio-duration {
-  display: inline-block;
-  float: right;
+  -webkit-flex: 0 0 auto;
+  flex: 0 0 auto;
   font-style: italic;
-  margin-left: 20px;
+  max-width: 30%;
+  margin: 0 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .audios .audio-library .audio-list li.error {
+  position: relative;
   font-family: 'RobotoSlab';
   color: #63798e;
   text-transform: uppercase;
   text-align: center;
 }
 .audios .audio-library .audio-list li.error .upload-failed {
+  overflow: hidden;
   padding-left: 30px;
-  margin: auto;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .audios .audio-library .audio-list li.error .upload-failed:before {
   content: "";
@@ -126,55 +161,18 @@
   top: 50%;
   margin-top: -13px;
   margin-left: -30px;
-  background: url('../Content/images/sprites_32.png') 31px 29px;
+  background: url('../Content/images/sprites_32.png') -297px -40px;
 }
 .audios .audio-library .audio-list li.uploading {
   color: #77899b;
-  padding-left: 60px;
 }
 .audios .audio-library .audio-list li.uploading .circle-progress {
-  position: absolute;
   border-color: #f5a46a;
   color: #d4dce1;
-  left: 10px;
-  top: 50%;
-  margin-top: -20px;
 }
 .audios .audio-library .audio-list li.uploading .circle-progress-text {
-  position: absolute;
-  left: 14px;
-  top: 16px;
+  margin-left: -36px;
   overflow: hidden;
   text-align: center;
   width: 32px;
-}
-.audios .audio-library .audio-list li.loaded {
-  color: #546677;
-  padding-left: 50px;
-}
-.audios .audio-library .audio-list li.loaded:hover {
-  box-shadow: 0 0 0 2px #71c3ff;
-  cursor: pointer;
-}
-.audios .audio-library .audio-list li.loaded .play-icon {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  margin-top: -15px;
-  width: 30px;
-  height: 30px;
-  background-color: #7ab5ff;
-  border-radius: 15px;
-  -webkit-border-radius: 15px;
-}
-.audios .audio-library .audio-list li.loaded .play-icon:after {
-  content: "";
-  border-bottom: 5px solid transparent;
-  border-left: 8px solid #fff;
-  border-top: 5px solid transparent;
-  height: 0;
-  left: 12PX;
-  position: absolute;
-  top: 10px;
-  width: 0;
 }

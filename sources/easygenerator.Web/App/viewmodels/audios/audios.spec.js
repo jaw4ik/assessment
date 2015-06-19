@@ -14,7 +14,7 @@
             expect(viewModel).toBeObject();
         });
 
-        describe('audios', function () {
+        describe('audios:', function () {
 
             it('should be observable array', function () {
                 expect(viewModel.audios).toBeObservableArray();
@@ -22,7 +22,7 @@
 
         });
 
-        describe('storageSpaceProgressBarVisibility', function () {
+        describe('storageSpaceProgressBarVisibility:', function () {
 
             it('should be observable', function () {
                 expect(viewModel.storageSpaceProgressBarVisibility).toBeObservable();
@@ -30,7 +30,7 @@
 
         });
 
-        describe('availableStorageSpace', function () {
+        describe('availableStorageSpace:', function () {
 
             it('should be observable', function () {
                 expect(viewModel.availableStorageSpace).toBeObservable();
@@ -38,7 +38,7 @@
 
         });
 
-        describe('availableStorageSpacePersentages', function () {
+        describe('availableStorageSpacePersentages:', function () {
 
             it('should be observable', function () {
                 expect(viewModel.availableStorageSpacePersentages).toBeObservable();
@@ -46,7 +46,7 @@
 
         });
 
-        describe('statuses', function () {
+        describe('statuses:', function () {
 
             it('should be object from constants', function () {
                 expect(viewModel.statuses).toEqual(constants.storage.audio.statuses);
@@ -54,7 +54,7 @@
 
         });
 
-        describe('addAudio', function () {
+        describe('addAudio:', function () {
             var upgradeDialog = require('widgets/upgradeDialog/viewmodel');
 
             beforeEach(function () {
@@ -122,7 +122,7 @@
             });
         });
 
-        describe('activate', function () {
+        describe('activate:', function () {
             var identifyStoragePermissionsDeferred = Q.defer(),
                 repositoryGetCollectionDeferred = Q.defer(),
                 thumbnailLoaderGetThumbnailUrlsDeferred = Q.defer(),
@@ -276,7 +276,7 @@
 
         });
 
-        describe('updateAudios', function () {
+        describe('updateAudios:', function () {
             var getAudioCollectionDeferred = Q.defer(),
                 audio1 = {
                     id: 1,
@@ -346,7 +346,7 @@
 
         });
 
-        describe('showAudioPopup', function () {
+        describe('showAudioPopup:', function () {
             var popup = require('dialogs/video/video');
 
             beforeEach(function () {
