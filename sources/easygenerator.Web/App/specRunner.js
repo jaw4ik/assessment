@@ -27,7 +27,6 @@
             'authorization/limitCoursesAmount.spec',
 
             //#region commands
-
             'commands/createQuestionCommand.spec',
             'commands/createObjectiveCommand.spec',
             'commands/createCourseCommand.spec',
@@ -36,7 +35,6 @@
             //#endregion commands
 
             //#region dialogs
-
             'dialogs/createCourse.spec',
             'dialogs/collaboration/addCollaborator.spec',
             'dialogs/collaboration/collaboration.spec',
@@ -44,11 +42,12 @@
             'dialogs/publishCourse/publishCourse.spec',
             'dialogs/moveCopyQuestion/moveCopyQuestion.spec',
             'dialogs/video/video.spec',
+            'dialogs/learningPath/commands/deleteLearningPathCommand.spec',
+            'dialogs/learningPath/deleteLearningPath.spec',
 
             //#endregion dialogs
 
             //#region errorHandling
-
             'errorHandling/httpErrorHandlers/defaultHttpErrorHandler.spec',
             'errorHandling/httpErrorHandlers/forbiddenHttpErrorHandler.spec',
             'errorHandling/httpErrorHandlers/serviceUnavailableHttpErrorHandler.spec',
@@ -60,11 +59,9 @@
             //#endregion
 
             //#region notifications
-
             'notifications/notification.spec',
             'notifications/subscriptionExpiration/notificationController.spec',
             'notifications/subscriptionExpiration/notification.spec',
-
             'notifications/collaborationInvite/notification.spec',
             'notifications/collaborationInvite/queries/getInvites.spec',
             'notifications/collaborationInvite/commands/acceptInvite.spec',
@@ -72,12 +69,10 @@
             'notifications/collaborationInvite/notificationController.spec',
 
             //#endregion 
-
             'localization/localizationManager.spec',
             'models/course.spec',
             'models/user.spec',
             'models/video.spec',
-
             'repositories/answerRepository.spec',
             'repositories/commentRepository.spec',
             'repositories/collaboratorRepository.spec',
@@ -91,7 +86,6 @@
             'utils/waiter.spec',
 
             //#region onboarding
-
             'onboarding/initialization.spec',
             'onboarding/tasks.spec',
             'onboarding/onboarding.spec',
@@ -99,10 +93,8 @@
             //#endregion
 
             //#region reporting
-
             'models/reporting/statement.spec',
             'models/reporting/actor.spec',
-
             'reporting/xApiFilterCriteriaFactory.spec',
             'reporting/xApiProvider.spec',
             'reporting/viewmodels/expandableStatement.spec',
@@ -114,12 +106,10 @@
             //#endregion
 
             //#region synchronization
-
             'synchronization/handlers/objective/handler.spec',
             'synchronization/handlers/objective/eventHandlers/titleUpdated.spec',
             'synchronization/handlers/objective/eventHandlers/imageUrlUpdated.spec',
             'synchronization/handlers/objective/eventHandlers/questionsReordered.spec',
-
             'synchronization/handlers/collaboration/handler.spec',
             'synchronization/handlers/collaboration/eventHandlers/started.spec',
             'synchronization/handlers/collaboration/eventHandlers/finished.spec',
@@ -130,7 +120,6 @@
             'synchronization/handlers/collaboration/eventHandlers/collaboratorAdded.spec',
             'synchronization/handlers/collaboration/eventHandlers/collaboratorRemoved.spec',
             'synchronization/handlers/collaboration/eventHandlers/collaboratorRegistered.spec',
-
             'synchronization/handlers/course/handler.spec',
             'synchronization/handlers/course/eventHandlers/deleted.spec',
             'synchronization/handlers/course/eventHandlers/introductionContentUpdated.spec',
@@ -142,27 +131,22 @@
             'synchronization/handlers/course/eventHandlers/templateUpdated.spec',
             'synchronization/handlers/course/eventHandlers/titleUpdated.spec',
             'synchronization/handlers/course/eventHandlers/stateChanged.spec',
-
             'synchronization/handlers/learningContent/handler.spec',
             'synchronization/handlers/learningContent/eventHandlers/created.spec',
             'synchronization/handlers/learningContent/eventHandlers/deleted.spec',
             'synchronization/handlers/learningContent/eventHandlers/textUpdated.spec',
-
             'synchronization/handlers/answer/handler.spec',
             'synchronization/handlers/answer/eventHandlers/created.spec',
             'synchronization/handlers/answer/eventHandlers/deleted.spec',
             'synchronization/handlers/answer/eventHandlers/textUpdated.spec',
             'synchronization/handlers/answer/eventHandlers/answerCorrectnessUpdated.spec',
-
             'synchronization/handlers/user/handler.spec',
             'synchronization/handlers/user/eventHandlers/upgradedToStarter.spec',
             'synchronization/handlers/user/eventHandlers/upgradedToPlus.spec',
             'synchronization/handlers/user/eventHandlers/downgraded.spec',
 
             //#region synchronization questions
-
             'synchronization/handlers/questions/handler.spec',
-
             'synchronization/handlers/questions/question/handler.spec',
             'synchronization/handlers/questions/question/eventHandlers/titleUpdated.spec',
             'synchronization/handlers/questions/question/eventHandlers/backgroundChanged.spec',
@@ -172,28 +156,23 @@
             'synchronization/handlers/questions/question/eventHandlers/correctFeedbackUpdated.spec',
             'synchronization/handlers/questions/question/eventHandlers/incorrectFeedbackUpdated.spec',
             'synchronization/handlers/questions/question/eventHandlers/learningContentsReordered.spec',
-
             'synchronization/handlers/questions/fillInTheBlank/handler.spec',
             'synchronization/handlers/questions/fillInTheBlank/eventHandlers/updated.spec',
-
             'synchronization/handlers/questions/dragAndDropText/handler.spec',
             'synchronization/handlers/questions/dragAndDropText/eventHandlers/dropspotCreated.spec',
             'synchronization/handlers/questions/dragAndDropText/eventHandlers/dropspotDeleted.spec',
             'synchronization/handlers/questions/dragAndDropText/eventHandlers/dropspotPositionChanged.spec',
             'synchronization/handlers/questions/dragAndDropText/eventHandlers/dropspotTextChanged.spec',
-
             'synchronization/handlers/questions/textMatching/handler.spec',
             'synchronization/handlers/questions/textMatching/eventHandlers/answerCreated.spec',
             'synchronization/handlers/questions/textMatching/eventHandlers/answerDeleted.spec',
             'synchronization/handlers/questions/textMatching/eventHandlers/answerKeyChanged.spec',
             'synchronization/handlers/questions/textMatching/eventHandlers/answerValueChanged.spec',
-
             'synchronization/handlers/questions/singleSelectImage/handler.spec',
             'synchronization/handlers/questions/singleSelectImage/eventHandlers/answerCreated.spec',
             'synchronization/handlers/questions/singleSelectImage/eventHandlers/answerDeleted.spec',
             'synchronization/handlers/questions/singleSelectImage/eventHandlers/answerImageUpdated.spec',
             'synchronization/handlers/questions/singleSelectImage/eventHandlers/correctAnswerChanged.spec',
-
             'synchronization/handlers/questions/hotSpot/handler.spec',
             'synchronization/handlers/questions/hotSpot/eventHandlers/polygonCreated.spec',
             'synchronization/handlers/questions/hotSpot/eventHandlers/polygonDeleted.spec',
@@ -202,6 +181,27 @@
 
             //#endregion
 
+            //#endregion
+
+            //#region learning paths
+
+            'viewmodels/learningPaths/learningPaths/commands/createLearningPathCommand.spec',
+            'viewmodels/learningPaths/learningPaths/queries/getLearningPathCollectionQuery.spec',
+            'viewmodels/learningPaths/learningPaths/learningPathBrief.spec',
+            'viewmodels/learningPaths/learningPaths/learningPaths.spec',
+            'viewmodels/learningPaths/courseSelector/queries/getOwnedCoursesQuery.spec',
+            'viewmodels/learningPaths/courseSelector/courseSelector.spec',
+            'viewmodels/learningPaths/courseSelector/courseBrief.spec',
+            'viewmodels/learningPaths/courseSelector/courseFilter.spec',
+            'viewmodels/learningPaths/learningPath/commands/updateTitleCommand.spec',
+            'viewmodels/learningPaths/learningPath/commands/addCourseCommand.spec',
+            'viewmodels/learningPaths/learningPath/commands/removeCourseCommand.spec',
+            'viewmodels/learningPaths/learningPath/commands/updateCoursesOrderCommand.spec',
+            'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery.spec',
+            'viewmodels/learningPaths/learningPath/learningPath.spec',
+            'viewmodels/learningPaths/learningPath/courseBrief.spec',
+            'viewmodels/learningPaths/learningPath/actions/download.spec',
+            
             //#endregion
 
             'navigationBar/navigationBar.spec',
@@ -216,9 +216,9 @@
             'viewmodels/common/contentField.spec',
             'viewmodels/library/index.spec',
             'viewmodels/videos/videos.spec',
+            'viewmodels/common/titleField.spec',
             'viewmodels/courses/courses.spec',
             'viewmodels/courses/course/index.spec',
-            //'viewmodels/courses/course/create/index.spec',
             'viewmodels/courses/course/create/course.spec',
             'viewmodels/courses/course/design/design.spec',
             'viewmodels/courses/course/configure.spec',
@@ -322,6 +322,7 @@
             'bootstrapper.spec',
             'guard.spec',
             'http/apiHttpWrapper.spec',
+            'http/publishHttpWrapper.spec',
             'http/authHttpWrapper.spec',
             'http/storageHttpWrapper.spec',
             'http/httpRequestSender.spec',

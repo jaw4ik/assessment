@@ -1,4 +1,6 @@
-﻿/*#region User avatar */
+﻿/*#region flex */
+/*#endregion */
+/*#region User avatar */
 /*#endregion */
 .application {
   height: 100%;
@@ -52,7 +54,19 @@
   list-style-type: none;
 }
 .shell > header .header-navigation-item {
+  position: relative;
   float: left;
+}
+.shell > header .header-navigation-item .top-navigation-item-beta-mark {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  color: #fff;
+  font: 9px 'OpenSans-Semibold';
+  text-transform: uppercase;
+  background-color: #469dd5;
+  padding: 0px 5px;
+  border-radius: 5px;
 }
 .shell > header .header-menu-list {
   float: right;
@@ -268,6 +282,13 @@
 .shell > header span.top-navigation-item.current {
   cursor: default;
 }
+.course > header,
+.learning-path-header-wrapper {
+  background: #fff;
+  -webkit-flex: 0 0 auto;
+  flex: 0 0 auto;
+  border-bottom: 1px solid rgba(198, 209, 216, 0.7);
+}
 .course .course-title-wrapper {
   padding-top: 20px;
   display: -webkit-flex;
@@ -295,7 +316,7 @@
 .course .course-title-wrapper ul.course-actions > li:last-child {
   margin-right: 0;
 }
-.course .course-title {
+.course .edit-field-wrapper {
   min-width: 0;
   -webkit-flex: 1 1;
   flex: 1 1;

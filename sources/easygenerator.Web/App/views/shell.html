@@ -30,6 +30,9 @@
                                         <span data-bind="text: title "></span>
                                     </span>
                                     <!-- /ko -->
+                                    <!-- ko if: $data.isInBetaPhase -->
+                                    <span class="top-navigation-item-beta-mark">beta</span>
+                                    <!-- /ko -->
                                 </li>
                                 <!-- /ko -->
                             </ul>

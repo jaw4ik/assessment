@@ -1,5 +1,6 @@
-﻿/*#region User avatar */
+﻿/*#region flex */
 /*#endregion */
+/*#region User avatar */
 /*#region PAGE-LOADER ICON*/
 .icon-spinner-wrapper {
   position: absolute;
@@ -886,6 +887,71 @@
   background: #a3d47c;
   border-color: #93c66a;
 }
+/*red button*/
+.btn.red {
+  min-width: 100px;
+  margin: 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-family: 'OpenSans-Semibold';
+  -webkit-text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  position: relative;
+  height: 40px;
+  font: 13px 'OpenSans-Semibold';
+  text-shadow: none;
+  text-transform: uppercase;
+  padding: 0 10px;
+  white-space: nowrap;
+  background: #ee6556;
+  border: 1px solid #e85e5d;
+  color: #fff;
+}
+.btn.red:active {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset;
+}
+.btn.red:disabled {
+  cursor: default;
+  opacity: 0.3;
+}
+.btn.red:hover {
+  background: #ec5444;
+  border: 1px solid #e54d4c;
+}
+/*red button*/
+.btn.white.grey-border {
+  min-width: 100px;
+  margin: 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-family: 'OpenSans-Semibold';
+  -webkit-text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  position: relative;
+  height: 40px;
+  font: 13px 'OpenSans-Semibold';
+  text-shadow: none;
+  text-transform: uppercase;
+  padding: 0 10px;
+  white-space: nowrap;
+  background: #fff;
+  border: 1px solid #c6d1d8;
+  border-bottom: 2px solid #c6d1d8;
+  color: #64798d;
+}
+.btn.white.grey-border:active {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset;
+}
+.btn.white.grey-border:disabled {
+  cursor: default;
+  opacity: 0.3;
+}
+.btn.white.grey-border:hover {
+  border: 1px solid #7c95ae;
+  border-bottom: 2px solid #7c95ae;
+}
 /*green button*/
 .btn.green {
   background: #65bd77;
@@ -1109,6 +1175,43 @@
 .action-item-btn.create-item.disabled .action-item-btn-caption:before {
   background-position: -206px -32px;
 }
+/*#region confirm btn */
+.btn.confirm {
+  padding: 0px 40px;
+  background: #469dd5;
+  border-color: #469dd5;
+  text-shadow: none;
+  text-transform: uppercase;
+}
+.btn.confirm:hover,
+.btn.confirm.active,
+.btn.confirm.active:active {
+  background: #3b8abc;
+  border-color: #3b8abc;
+  box-shadow: none;
+}
+.btn.confirm.disabled,
+.btn.confirm.disabled:hover,
+.btn.confirm.disabled:active {
+  background: #469dd5;
+  border-color: #469dd5;
+}
+.btn.confirm .action-item-btn-caption {
+  padding-left: 28px;
+}
+.btn.confirm .action-item-btn-caption:before {
+  content: '';
+  display: block;
+  height: 16px;
+  width: 16px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -9px;
+  background-image: url('images/sprites_16.png');
+  background-position: -228px -84px;
+}
+/*#endregion */
 /*connect and finish connecting objectives list item button*/
 .btn.connect-item {
   margin-right: 20px;
@@ -1579,6 +1682,39 @@
   line-height: 20px !important;
 }
 /*#endregion autosize*/
+/*#region CONTEXT ACTIONS */
+.list-item-context-actions-wrapper {
+  height: 25px;
+  position: absolute;
+  top: 0;
+  right: 5px;
+  z-index: 1;
+  overflow: hidden;
+}
+.list-item-context-actions-wrapper:hover {
+  overflow: visible;
+}
+.list-item-context-actions-wrapper .list-item-context-action {
+  display: inline-block;
+  vertical-align: top;
+  height: 21px;
+  width: 20px;
+  position: relative;
+  top: -22px;
+  background-color: #0c0c0c;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: top 0.1s linear;
+}
+.list-item-context-actions-wrapper .info-tooltip {
+  width: 100px;
+  margin-left: -50px;
+  /* fix for Safari to hide tooltip correctly */
+  visibility: initial;
+  transition: none;
+  -webkit-transition: none;
+}
+/*#endregion */
 .application {
   height: 100%;
   width: 100%;
@@ -1631,7 +1767,19 @@
   list-style-type: none;
 }
 .shell > header .header-navigation-item {
+  position: relative;
   float: left;
+}
+.shell > header .header-navigation-item .top-navigation-item-beta-mark {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  color: #fff;
+  font: 9px 'OpenSans-Semibold';
+  text-transform: uppercase;
+  background-color: #469dd5;
+  padding: 0px 5px;
+  border-radius: 5px;
 }
 .shell > header .header-menu-list {
   float: right;
@@ -1847,6 +1995,13 @@
 .shell > header span.top-navigation-item.current {
   cursor: default;
 }
+.course > header,
+.learning-path-header-wrapper {
+  background: #fff;
+  -webkit-flex: 0 0 auto;
+  flex: 0 0 auto;
+  border-bottom: 1px solid rgba(198, 209, 216, 0.7);
+}
 .course .course-title-wrapper {
   padding-top: 20px;
   display: -webkit-flex;
@@ -1874,7 +2029,7 @@
 .course .course-title-wrapper ul.course-actions > li:last-child {
   margin-right: 0;
 }
-.course .course-title {
+.course .edit-field-wrapper {
   min-width: 0;
   -webkit-flex: 1 1;
   flex: 1 1;
@@ -2595,6 +2750,12 @@
     background: none;
   }
   /*#endregion Course actions list*/
+  .shell > header .header-menu-list-item.profile {
+    min-width: 0;
+  }
+  .shell > header .header-menu-list-item.profile .header-username-text {
+    display: none;
+  }
 }
 @media (max-width: 1220px) {
   /*#region HEADER*/
@@ -2638,4 +2799,8 @@
   }
   /*#endregion Create explanation tooltip*/
 }
-/*#endregion MEDIA*/
+@media (max-width: 1290px) {
+  .shell > header .top-navigation-item {
+    min-width: 150px;
+  }
+}

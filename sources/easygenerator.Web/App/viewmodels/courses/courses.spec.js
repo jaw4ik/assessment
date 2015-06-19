@@ -476,20 +476,22 @@
 
             describe('when there is only 1 selected objective', function () {
 
-                var repository = require('repositories/courseRepository');
-
-                var removeCourse;
+                var repository = require('repositories/courseRepository'),
+                    removeCourse,
+                    courseId = 'id';
 
                 beforeEach(function () {
                     removeCourse = Q.defer();
+                    spyOn(notify, 'error');
+                    spyOn(notify, 'saved');
                     spyOn(repository, 'removeCourse').and.returnValue(removeCourse.promise);
                 });
 
-                describe('and course has related learning objectives', function () {
+                describe('and course is related to learning path', function () {
 
                     beforeEach(function () {
-                        viewModel.courses([{ isSelected: ko.observable(true), objectives: [{}] }]);
-                        spyOn(notify, 'error');
+                        viewModel.courses([{ id: courseId, isSelected: ko.observable(true), objectives: [{}] }]);
+                        dataContext.learningPaths = [{ courses: [{ id: courseId }] }];
                     });
 
                     it('should show error notification', function () {
@@ -501,46 +503,68 @@
                         viewModel.deleteSelectedCourses();
                         expect(repository.removeCourse).not.toHaveBeenCalled();
                     });
-
                 });
 
-                describe('and course has no related learning objectives', function () {
-
+                describe('and when course is not related to learning path', function () {
                     beforeEach(function () {
-                        viewModel.courses([{ id: 'id', isSelected: ko.observable(true), objectives: [] }]);
-                        spyOn(notify, 'saved');
+                        dataContext.learningPaths = [];
                     });
 
-                    it('should remove course from repository', function () {
-                        viewModel.deleteSelectedCourses();
-                        expect(repository.removeCourse).toHaveBeenCalledWith('id');
+
+                    describe('and course has related learning objectives', function () {
+
+                        beforeEach(function () {
+                            viewModel.courses([{ id: courseId, isSelected: ko.observable(true), objectives: [{}] }]);
+                        });
+
+                        it('should show error notification', function () {
+                            viewModel.deleteSelectedCourses();
+                            expect(notify.error).toHaveBeenCalled();
+                        });
+
+                        it('should not remove course from repository', function () {
+                            viewModel.deleteSelectedCourses();
+                            expect(repository.removeCourse).not.toHaveBeenCalled();
+                        });
+
                     });
 
-                    describe('and course was successfully removed from repository', function () {
+                    describe('and course has no related learning objectives', function () {
 
-                        it('should remove course from view model', function (done) {
-                            viewModel.deleteSelectedCourses();
-
-                            removeCourse.resolve();
-
-                            removeCourse.promise.fin(function () {
-                                expect(viewModel.courses().length).toBe(0);
-                                done();
-                            });
+                        beforeEach(function () {
+                            viewModel.courses([{ id: 'id', isSelected: ko.observable(true), objectives: [] }]);
                         });
 
-                        it('should show saved notification', function (done) {
-                            removeCourse.resolve();
-
+                        it('should remove course from repository', function () {
                             viewModel.deleteSelectedCourses();
+                            expect(repository.removeCourse).toHaveBeenCalledWith('id');
+                        });
 
-                            removeCourse.promise.fin(function () {
-                                expect(notify.saved).toHaveBeenCalled();
-                                done();
+                        describe('and course was successfully removed from repository', function () {
+
+                            it('should remove course from view model', function (done) {
+                                viewModel.deleteSelectedCourses();
+
+                                removeCourse.resolve();
+
+                                removeCourse.promise.fin(function () {
+                                    expect(viewModel.courses().length).toBe(0);
+                                    done();
+                                });
+                            });
+
+                            it('should show saved notification', function (done) {
+                                removeCourse.resolve();
+                                viewModel.deleteSelectedCourses();
+
+                                removeCourse.promise.fin(function () {
+                                    expect(notify.saved).toHaveBeenCalled();
+                                    done();
+                                });
+
                             });
 
                         });
-
                     });
                 });
 

@@ -1,0 +1,7 @@
+﻿<div class="edit-field-wrapper" data-bind="css: { 'active': isEditing(), 'error': !isValid() }">
+    <label data-bind="text: caption"></label>
+    <div class="edit-field selectable" data-bind="editableText: { text: title }, event: { focus: beginEdit, blur: endEdit }, autofocus: { focus: isSelected(), autoselect: isSelected() }"></div>
+    <div class="validation-message">
+        <span data-bind="text: title() && title().length"></span>/<span data-bind="text: maxLength"></span>
+    </div>
+</div>
