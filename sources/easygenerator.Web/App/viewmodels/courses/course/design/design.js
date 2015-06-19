@@ -19,8 +19,10 @@
 
         var viewModel = {
             courseId: '',
+            previewUrl: ko.observable(null),
 
             currentTemplate: ko.observable(),
+            loadingTemplate: ko.observable(false),
             templates: [],
 
             onGetTemplateMessage: onGetTemplateMessage,
@@ -29,21 +31,18 @@
             canUnloadSettings: ko.observable(true),
 
             selectTemplate: selectTemplate,
+            reloadPreview: reloadPreview,
+            templatesSectionSelected: ko.observable(true),
+            selectTemplatesSection: selectTemplatesSection,
+            selectSettingsSection: selectSettingsSection,
 
             activate: activate,
             canDeactivate: canDeactivate,
 
-            toggleTemplatesListVisibility: toggleTemplatesListVisibility,
-            templatesListCollapsed: ko.observable(false),
-
-            frameLoaded: frameLoaded
+            settingsFrameLoaded: settingsFrameLoaded
         };
 
         return viewModel;
-
-        function toggleTemplatesListVisibility() {
-            viewModel.templatesListCollapsed(!viewModel.templatesListCollapsed());
-        }
 
         function canDeactivate() {
             var defer = Q.defer();
@@ -65,6 +64,8 @@
 
             return courseRepository.getById(courseId).then(function (course) {
                 viewModel.courseId = course.id;
+                viewModel.previewUrl('/preview/' + viewModel.courseId);
+                viewModel.templatesSectionSelected(true);
 
                 return templateRepository.getCollection().then(function (templates) {
                     viewModel.templates = _.chain(templates)
@@ -107,6 +108,7 @@
             }
 
             template.loadingTemplate(true);
+            viewModel.loadingTemplate(true);
 
             eventTracker.publish(events.updateCourseTemplate + ' \'' + (template.isCustom ? 'custom' : template.name) + '\'');
 
@@ -120,6 +122,7 @@
                     return courseRepository.updateCourseTemplate(viewModel.courseId, template.id).then(function () {
                         viewModel.currentTemplate(template);
                         template.loadingTemplate(false);
+                        viewModel.loadingTemplate(false);
                         notify.success(templateChangedNotification);
                     });
                 });
@@ -139,6 +142,7 @@
 
                     if (data.success) {
                         data.message ? notify.success(data.message) : notify.saved();
+                        viewModel.reloadPreview();
                     } else {
                         notify.error(data.message || templateSettingsErrorNotification);
                     }
@@ -146,9 +150,22 @@
             }
         }
 
-        function frameLoaded() {
+        function selectTemplatesSection() {
+            viewModel.templatesSectionSelected(true);
+        }
+
+        function selectSettingsSection() {
+            viewModel.templatesSectionSelected(false);
+        }
+
+        function reloadPreview() {
+            viewModel.previewUrl.valueHasMutated();
+        }
+
+        function settingsFrameLoaded() {
             viewModel.settingsVisibility(true);
             viewModel.canUnloadSettings(true);
         }
+
     }
 );

@@ -176,6 +176,27 @@
                     getCourseDefer.resolve(course);
                 });
 
+                it('should set templatesSectionSelected to true', function (done) {
+                    getTemplateCollectionDefer.reject();
+                    viewModel.templatesSectionSelected(false);
+
+                    viewModel.activate(course.id).fin(function () {
+                        expect(viewModel.templatesSectionSelected()).toBeTruthy();
+                        done();
+                    });
+
+                });
+
+                it('should set previewUrl', function (done) {
+                    getTemplateCollectionDefer.reject();
+
+                    viewModel.activate(course.id).fin(function () {
+                        expect(viewModel.previewUrl()).toBe('/preview/' + course.id);
+                        done();
+                    });
+
+                });
+
                 it('should get collection of templates from repository', function (done) {
                     getTemplateCollectionDefer.reject();
 
@@ -313,7 +334,7 @@
 
                         describe('designSettingsUrl:', function () {
 
-                            it('should be defined', function() {
+                            it('should be defined', function () {
                                 expect(template.designSettingsUrl).toBeDefined();
                             });
 
@@ -328,7 +349,7 @@
                         });
 
                         describe('loadingTemplate:', function () {
-                            
+
                             it('should be defined', function () {
                                 expect(template.loadingTemplate).toBeDefined();
                             });
@@ -499,9 +520,13 @@
                         });
 
                         it('should finish loading template', function (done) {
+                            template.loadingTemplate(true);
+                            viewModel.loadingTemplate(true);
+
                             var promise = viewModel.selectTemplate(template);
                             promise.fin(function () {
                                 expect(template.loadingTemplate()).toBeFalsy();
+                                expect(viewModel.loadingTemplate()).toBeFalsy();
                                 done();
                             });
                         });
@@ -600,6 +625,22 @@
 
         });
 
+        describe('previewUrl:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.previewUrl).toBeObservable();
+            });
+
+        });
+
+        describe('loadingTemplate:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.loadingTemplate).toBeObservable();
+            });
+
+        });
+
         describe('currentTemplate:', function () {
 
             it('should be observable', function () {
@@ -624,58 +665,75 @@
 
         });
 
-        describe('frameLoaded:', function () {
+        describe('reloadPreview:', function () {
+
+            beforeEach(function () {
+                spyOn(viewModel.previewUrl, 'valueHasMutated');
+            });
 
             it('should be function', function () {
-                expect(viewModel.frameLoaded).toBeFunction();
+                expect(viewModel.reloadPreview).toBeFunction();
+            });
+
+            it('should reset previewUrl', function () {
+                viewModel.reloadPreview();
+                expect(viewModel.previewUrl.valueHasMutated).toHaveBeenCalled();
+            });
+
+        });
+
+        describe('templatesSectionSelected:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.templatesSectionSelected).toBeObservable();
+            });
+
+        });
+
+        describe('selectTemplatesSection', function () {
+
+            it('should be function', function () {
+                expect(viewModel.selectTemplatesSection).toBeFunction();
+            });
+
+            it('should set templatesSectionSelected to true', function () {
+                viewModel.templatesSectionSelected(false);
+                viewModel.selectTemplatesSection();
+                expect(viewModel.templatesSectionSelected()).toBeTruthy();
+            });
+
+        });
+
+        describe('selectSettingsSection', function () {
+
+            it('should be function', function () {
+                expect(viewModel.selectSettingsSection).toBeFunction();
+            });
+
+            it('should set templatesSectionSelected to false', function () {
+                viewModel.templatesSectionSelected(true);
+                viewModel.selectSettingsSection();
+                expect(viewModel.templatesSectionSelected()).toBeFalsy();
+            });
+
+        });
+
+        describe('settingsFrameLoaded:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.settingsFrameLoaded).toBeFunction();
             });
 
             it('should show template settings', function () {
                 viewModel.settingsVisibility(false);
-                viewModel.frameLoaded();
+                viewModel.settingsFrameLoaded();
                 expect(viewModel.settingsVisibility()).toBeTruthy();
             });
 
             it('shoul set save state for template settings', function () {
                 viewModel.canUnloadSettings(false);
-                viewModel.frameLoaded();
+                viewModel.settingsFrameLoaded();
                 expect(viewModel.canUnloadSettings()).toBeTruthy();
-            });
-
-        });
-
-        describe('templatesListCollapsed:', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.templatesListCollapsed).toBeObservable();
-            });
-
-        });
-
-        describe('toggleTemplatesListVisibility:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.toggleTemplatesListVisibility).toBeFunction();
-            });
-
-            describe('when templates list is not collapsed', function () {
-
-                it('should collapse templates list', function () {
-                    viewModel.templatesListCollapsed(false);
-                    viewModel.toggleTemplatesListVisibility();
-                    expect(viewModel.templatesListCollapsed()).toBeTruthy();
-                });
-
-            });
-
-            describe('when templates list is collapsed', function () {
-
-                it('should expand templates list', function () {
-                    viewModel.templatesListCollapsed(true);
-                    viewModel.toggleTemplatesListVisibility();
-                    expect(viewModel.templatesListCollapsed()).toBeFalsy();
-                });
-
             });
 
         });
@@ -776,6 +834,13 @@
                         message.data = {
                             success: true
                         };
+
+                        spyOn(viewModel, 'reloadPreview');
+                    });
+
+                    it('should reload preview', function () {
+                        viewModel.onGetTemplateMessage(message);
+                        expect(viewModel.reloadPreview).toHaveBeenCalled();
                     });
 
                     describe('and when message exists', function () {

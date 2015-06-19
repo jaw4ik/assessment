@@ -47,37 +47,42 @@
                 } else {
                     var attachedHandler = lastRouter.on('router:navigation:attached').then(function () {
                         attachedHandler.off();
-                        var view = false,
-                            model = false;
-
-                        _.each(bars, function (barConfig) {
-                            var bar = _.find(barConfig.viewmodels, function (viewmodel) {
-                                var hashCorrect = true;
-                                if (viewmodel.pattern) {
-                                    hashCorrect = viewmodel.pattern.test(lastRouter.activeInstruction().config.hash);
-                                }
-                                return viewmodel.id == currentInstance.__moduleId__ && hashCorrect;
-                            });
-
-                            if (bar) {
-                                view = barConfig.path;
-                                if (barConfig.model) {
-                                    model = currentInstance;
-                                    return;
-                                }
-                                model = false;
-                            }
-                        });
-
-                        if (model) {
-                            viewModel.bar({ view: view, model: model, activate: false });
-                            return;
-                        }
-                        viewModel.bar(view);
+                        onViewModelAttached(currentInstance, lastRouter.activeInstruction().config.hash);
                     });
                 }
             })(instance);
 
         });
     }
+
+    function onViewModelAttached(instance, hash) {
+        var view = false,
+            model = false;
+
+        _.each(bars, function (barConfig) {
+            var bar = _.find(barConfig.viewmodels, function (viewmodel) {
+                var hashCorrect = true;
+                if (viewmodel.pattern) {
+                    hashCorrect = viewmodel.pattern.test(hash);
+                }
+                return viewmodel.id == instance.__moduleId__ && hashCorrect;
+            });
+
+            if (bar) {
+                view = barConfig.path;
+                if (barConfig.model) {
+                    model = instance;
+                    return;
+                }
+                model = false;
+            }
+        });
+
+        if (model) {
+            viewModel.bar({ view: view, model: model, activate: false });
+            return;
+        }
+        viewModel.bar(view);
+    }
+
 });

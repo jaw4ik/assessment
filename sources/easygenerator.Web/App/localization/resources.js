@@ -401,6 +401,16 @@
         'zh-cn': 'Undo[zh-cn]',
         'uk': 'Відновити'
     },
+    template: {
+        'en': 'Template',
+        'zh-cn': 'Template[zh-cn]',
+        'uk': 'Шаблон'
+    },
+    settings: {
+        'en': 'Settings',
+        'zh-cn': 'Settings[zh-cn]',
+        'uk': 'Опції'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Storage */
@@ -463,6 +473,34 @@
         'uk': 'Розмір файлу перевищує доступний вільний простір'
     },
     /* End resource section for model Videos */
+    
+    /* Resource section for model Audios */
+    audioLibrary: {
+        'en': 'Audio library',
+        'zh-cn': 'Audio library[zh-cn]',
+        'uk': 'Аудіо бібліотека'
+    },
+    uploadAudioDescription: {
+        'en': 'Upload your own audio by clicking this button',
+        'zh-cn': 'Upload your own audio by clicking this button[zh-cn]',
+        'uk': 'Завантажте своє власне аудіо натиснувши на кнопку'
+    },
+    audioUploadError: {
+        'en': 'Upload failed',
+        'zh-cn': 'Upload failed[zh-cn]',
+        'uk': 'Помилка завантаження'
+    },
+    audioUploadUpgradeSubtitle: {
+        'en': 'to upload audio to easygenerator',
+        'zh-cn': 'to upload audio to easygenerator[zh-cn]',
+        'uk': 'Для завантаження аудіо в easygenerator'
+    },
+    audioUploadUpgradeText: {
+        'en': '<ul><li>Unlimited storage space (fair use policy)</li><li>Beautiful playback</li><li>Unlimited plays</li></ul>',
+        'zh-cn': '<ul><li>Unlimited storage space (fair use policy)</li><li>Beautiful playback</li><li>Unlimited plays</li></ul>[zh-cn]',
+        'uk': '<ul><li>Необмежений обсяг завантаження</li><li>Аудіо у високій якості</li><li>Необмежена кількість програвань</li></ul>'
+    },
+    /* End resource section for model Audios */
     
     /* Resource section for model Objectives */
     learningObjectives: {
@@ -602,6 +640,16 @@
         'en': 'Download',
         'zh-cn': 'Download[zh-cn]',
         'uk': 'Завантажити'
+    },
+    learningPathBuildFailed: {
+        'en': 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists. ',
+        'zh-cn': '出错了，请重试。如果问题依然存在，请联系support@easygenerator.com解决。',
+        'uk': 'Щось пішло не так. Спробуйте знову. Якщо проблема не зникне - надішліть нам електронного листа на адресу support@easygenerator.com'
+    },
+    deleteLearningPath: {
+        'en': 'Delete learning path',
+        'zh-cn': 'Delete learning path[zh-cn]',
+        'uk': 'Видалити навчальний шлях'
     },
     /* End resource section for model Learning paths */
     
@@ -1984,7 +2032,7 @@
     addPeopleForCollaboration: {
         'en': 'Add co-authors',
         'zh-cn': '添加多个人共同编辑',
-        'uk': 'Додавання співавторів'
+        'uk': 'Додати співавтора'
     },
     addCollaborator: {
         'en': 'Add co-author',
@@ -2322,7 +2370,7 @@
     },
     resultsUpgradeForExtendedResultsHtml: {
         'en': '<ul><li>Get results per objective</li><li>Get results per question</li><li>Check start and finish date of each attempt</li></ul>',
-        'zh-cn': '<ul><li>Get results per objective</li><li>Get results per question</li><li>Check start date and finish date of each attempt</li></ul>[zh-cn]',
+        'zh-cn': '<ul><li>Get results per objective</li><li>Get results per question</li><li>Check start and finish date of each attempt</li></ul>[zh-cn]',
         'uk': '<ul><li>Отримати результати за кожною ціллю</li><li>Отримати результати за кожним питанням</li><li>Перевірити час початку і час закінчення кожної спроби</li></ul>'
     },
     upgradeDialogUpgradeNow: {

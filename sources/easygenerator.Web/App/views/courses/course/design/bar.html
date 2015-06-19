@@ -1,60 +1,59 @@
-﻿<section class="design left-side-bar" style="overflow: scroll; width:300px;">
-    <div class="content-section-wrapper">
-        <div class="content-section">
-            <div class="choose-template-title-container" data-bind="click: templatesListCollapsed() ? toggleTemplatesListVisibility : null, css: { clickable: templatesListCollapsed() }">
-                <h2 class="choose-template-title">
-                    <span data-bind="localize: { text: templatesListCollapsed() ? 'currentTemplate' : 'chooseTemplate' }"></span>
-                    <span class="current-template-name-minus" data-bind="visible: templatesListCollapsed">-</span>
-                    <span class="current-template-name" data-bind="text: '('+currentTemplate().name+')', visible: templatesListCollapsed"></span>
-                </h2>
-                <div class="tooltip-icon" data-bind="tooltip:'top', stopEventPropagation: { event: 'click' }">
+﻿<section class="design left-side-bar">
+    <div class="design-bar-navigation">
+        <ul class="design-bar-navigation-list">
+            <li class="design-bar-navigation-item" data-bind="click: selectTemplatesSection, css: { selected: templatesSectionSelected }">
+                <div class="navigation-item-thumbnail template-thumbnail"></div>
+                <div class="navigation-item-title" data-bind="localize: { text: 'template' }">Template</div>
+                <div class="border-radius-effect-bottom"></div>
+            </li>
+            <li class="design-bar-navigation-item" data-bind="click: selectSettingsSection, css: { selected: !templatesSectionSelected() }">
+                <div class="border-radius-effect-top"></div>
+                <div class="navigation-item-thumbnail settings-thumbnail"></div>
+                <div class="navigation-item-title" data-bind="localize: { text: 'settings' }">Settings</div>
+                <div class="border-radius-effect-bottom"></div>
+            </li>
+        </ul>
+    </div>
+    <div class="design-bar-content">
+        <!-- ko if: templatesSectionSelected -->
+        <div class="templates-section">
+            <header class="templates-section-header">
+                <h2 class="template-list-title" data-bind="localize: { text : 'chooseTemplate' }">Choose template</h2>
+                <div class="tooltip-icon" data-bind="tooltip:'top'">
                     <h4 class="tooltip-title" data-bind="localize: { html: 'tooltipCourseTemplateTitle'}"></h4>
                     <div class="tooltip-content" data-bind="localize: { html: 'tooltipCourseTemplateDescription'}">
                     </div>
                     <div class="tooltip-buttons-holder" data-bind="localize: { html: 'tooltipCourseTemplateLink'}">
                     </div>
                 </div>
-                <button class="visibility-switcher"
-                        data-bind="localize: { html: templatesListCollapsed() ? 'plus' : 'minus' }, click: toggleTemplatesListVisibility, stopEventPropagation: { event: 'click' }"></button>
-            </div>
-            <div class="choose-template-holder" data-bind="elementCollapse: templatesListCollapsed">
-                <ul class="choose-template-list unstyled" data-animate="">
-                    <!-- ko foreach: templates -->
-                    <li class="choose-template-item" data-bind="css: { 'marked-as-new': isNew, selected: $data == $parent.currentTemplate() }">
-                        <div class="template-image-container" data-bind="click: $parent.selectTemplate">
-                            <div class="template-settings-spinner" data-bind="visible: loadingTemplate">
-                                <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 grey align-center' } } --><!-- /ko -->
-                            </div>
-                            <img class="template-image" data-bind="attr: {src: previewImages[0]}, css: { 'transparent': loadingTemplate }" src="" alt="" />
-                            <div class="choose-template-action-container" data-bind="visible: !loadingTemplate()">
-                                <a href="" class="preview-link" data-bind="localize: { text: 'preview'}, visible: previewDemoUrl, click: openPreview">Preview</a>
-                                <button class="choose-template-btn preview" data-bind="localize: { text: 'preview'}, visible: previewDemoUrl, click: openPreview">Preview</button>
-                                <button class="choose-template-btn select" data-bind="localize: { text: 'select'}">Select</button>
-                            </div>
-                            <div class="selected-template"></div>
+            </header>
+            <ul class="template-list">
+                <!-- ko foreach: templates -->
+                <li class="template-list-item" data-bind="css: { 'marked-as-new': isNew, selected: $data == $parent.currentTemplate() }">
+                    <h3 class="template-title" data-bind="text: name"></h3>
+                    <div class="template-thumbnail-container" data-bind="click: $parent.selectTemplate">
+                        <div class="template-selected-icon"></div>
+                        <div class="template-spinner" data-bind="visible: loadingTemplate">
+                            <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 grey align-center' } } --><!-- /ko -->
                         </div>
-                        <div class="template-name" data-bind="text: name"></div>
-                    </li>
-                    <!-- /ko -->
-                </ul>
-            </div>
+                        <img class="template-thumbnail" data-bind="attr: {src: previewImages[0]}, css: { 'transparent': loadingTemplate }" src="" alt="" />
+                    </div>
+                </li>
+                <!-- /ko -->
+            </ul>
         </div>
-    </div>
-    <div class="content-section-wrapper">
-        <div class="content-section">
-            <h2 class="template-settings-header" data-bind="localize: { text: 'defineTemplateDesignSettings' }">Define template design settings</h2>
-            <div class="template-settings-block">
-                <!-- ko if: currentTemplate().settingsAvailable && !settingsVisibility() -->
-                <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center', style: { top: '300px' } } } --><!-- /ko -->
-                <!-- /ko -->
-                <!-- ko if: currentTemplate().settingsAvailable -->
-                <iframe id="template-settings" data-bind="style: { visibility: settingsVisibility() ? 'visible' : 'hidden' }, attr: { src: currentTemplate().designSettingsUrl + '?v=' + appVersion + '&courseId=' + courseId + '&templateId=' + currentTemplate().id }, event: { load: frameLoaded }, windowMessageListener: onGetTemplateMessage" frameborder="0" width="100%" height="2500px"></iframe>
-                <!-- /ko -->
-                <!-- ko ifnot: currentTemplate().settingsAvailable -->
-                <span data-bind="localize: { text: 'templateDesignSettingsNotAvailable' }">Sorry, but the selected template doesn't contain design settings</span>
-                <!-- /ko -->
-            </div>
-        </div>
+        <!-- /ko -->
+        <!-- ko ifnot: templatesSectionSelected -->
+        <!-- ko if: currentTemplate().settingsAvailable && !settingsVisibility() -->
+        <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center', style: { top: '300px' } } } --><!-- /ko -->
+        <!-- /ko -->
+        <!-- ko if: currentTemplate().settingsAvailable -->
+        <iframe id="template-settings" class="template-settings" data-bind="style: { visibility: settingsVisibility() ? 'visible' : 'hidden' }, attr: { src: currentTemplate().designSettingsUrl + '?v=' + appVersion + '&courseId=' + courseId + '&templateId=' + currentTemplate().id }, event: { load: settingsFrameLoaded }, windowMessageListener: onGetTemplateMessage" frameborder="0"></iframe>
+        <!-- /ko -->
+        <!-- ko ifnot: currentTemplate().settingsAvailable -->
+        <span class="unavailable-settings" data-bind="localize: { text: 'templateDesignSettingsNotAvailable' }">Sorry, but the selected template doesn't contain design settings</span>
+        <!-- /ko -->
+        <!-- /ko -->
     </div>
 </section>
 
