@@ -119,20 +119,28 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-left: -53px;
-    margin-top: -29px;
 }
 
-    .image-library-empty .image-library-empty-image {
-        display: block;
-        margin: 0 auto 8px;
-    }
+.image-library-empty-image {
+    display: block;
+    width: 200px;
+    height: 40px;
+    margin-left: -95px;
+    margin-top: -15px;
+}
 
-    .image-library-empty .image-library-empty-text {
-        font-size: 16px;
-        color: #999999;
-        font-family: OpenSans;
-    }
+.image-library-empty-image span {
+    font-size: 18px;
+    color: #5b6874;
+    font-family: OpenSans;
+    padding-top: 10px;
+    display: inline-block;
+    padding-left: 20px;
+}
+
+.image-library-empty-image img {
+    float: left;
+}
 
 /*#endregion EMPTY IMAGES LIST*/
 
