@@ -4,7 +4,6 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildLearningPath;
 using easygenerator.Web.Components;
-using easygenerator.Web.Extensions;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
@@ -44,7 +43,7 @@ namespace easygenerator.Web.Tests.BuildLearningPath
         {
             //Arrange
             LearningPath learningPath = LearningPathObjectMother.Create();
-            var buildId = GetBuildId(learningPath.Id);
+            var buildId = GetBuildId(learningPath);
             var buildDirectory = "buildDirectoryPath";
             _buildPathProvider.GetBuildDirectoryName(buildId).Returns(buildDirectory);
 
@@ -62,7 +61,7 @@ namespace easygenerator.Web.Tests.BuildLearningPath
             LearningPath learningPath = LearningPathObjectMother.Create();
             Course course = CourseObjectMother.Create();
             learningPath.AddCourse(course, null, "author");
-            var buildId = GetBuildId(learningPath.Id);
+            var buildId = GetBuildId(learningPath);
 
             //Act
             _learningPathBuilder.Build(learningPath);
@@ -93,7 +92,7 @@ namespace easygenerator.Web.Tests.BuildLearningPath
         {
             //Arrange
             LearningPath learningPath = LearningPathObjectMother.Create();
-            var buildId = GetBuildId(learningPath.Id);
+            var buildId = GetBuildId(learningPath);
             var buildDirectory = "buildDirectoryPath";
             var packageName = "packageName";
             _buildPathProvider.GetBuildDirectoryName(buildId).Returns(buildDirectory);
@@ -111,8 +110,8 @@ namespace easygenerator.Web.Tests.BuildLearningPath
         {
             //Arrange
             LearningPath learningPath = LearningPathObjectMother.Create();
-            var buildId = GetBuildId(learningPath.Id);
-            var deletePattern = learningPath.Id.ToNString() + "*.zip";
+            var buildId = GetBuildId(learningPath);
+            var deletePattern = learningPath.Title + "*.zip";
             var currentPackageName = buildId + ".zip";
             var downloadPath = "downloadPath";
             _buildPathProvider.GetDownloadPath().Returns(downloadPath);
@@ -129,7 +128,7 @@ namespace easygenerator.Web.Tests.BuildLearningPath
         {
             //Arrange
             LearningPath learningPath = LearningPathObjectMother.Create();
-            var buildId = GetBuildId(learningPath.Id);
+            var buildId = GetBuildId(learningPath);
             var buildDirectory = "buildDirectoryPath";
             _buildPathProvider.GetBuildDirectoryName(buildId).Returns(buildDirectory);
 
@@ -145,7 +144,7 @@ namespace easygenerator.Web.Tests.BuildLearningPath
         {
             //Arrange
             LearningPath learningPath = LearningPathObjectMother.Create();
-            var packageName = GetBuildId(learningPath.Id) + ".zip";
+            var packageName = GetBuildId(learningPath) + ".zip";
 
             //Act
             var result = _learningPathBuilder.Build(learningPath);
@@ -218,9 +217,9 @@ namespace easygenerator.Web.Tests.BuildLearningPath
 
         #endregion
 
-        private string GetBuildId(Guid id)
+        private string GetBuildId(LearningPath learningPath)
         {
-            return id.ToNString() + String.Format(" {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now());
+            return learningPath.Title + String.Format(" {0:yyyyMMdd-HH-mm-ss}", DateTimeWrapper.Now());
         }
     }
 }

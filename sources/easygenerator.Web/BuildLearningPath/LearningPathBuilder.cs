@@ -1,13 +1,15 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System.Text.RegularExpressions;
+using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
-using easygenerator.Web.Extensions;
 using System;
 
 namespace easygenerator.Web.BuildLearningPath
 {
     public class LearningPathBuilder : ILearningPathBuilder
     {
+        private static int MAX_TITLE_LENGTH = 32;
+
         private readonly ILearningPathCourseBuilder _courseBuilder;
         private readonly ILog _logger;
         private readonly PhysicalFileManager _fileManager;
@@ -30,8 +32,8 @@ namespace easygenerator.Web.BuildLearningPath
         {
             var buildResult = true;
             var packageUrl = String.Empty;
-            var learningPathId = learningPath.Id.ToNString();
-            var buildId = GenerateBuildId(learningPathId);
+            var packageId = GetPackageId(learningPath.Title);
+            var buildId = GenerateBuildId(packageId);
 
             try
             {
@@ -57,7 +59,7 @@ namespace easygenerator.Web.BuildLearningPath
 
             try
             {
-                DeleteOutdatedPackages(learningPathId, packageUrl);
+                DeleteOutdatedPackages(packageId, packageUrl);
                 DeleteTempPackageDirectory(buildId);
             }
             catch (Exception exception)
@@ -98,9 +100,21 @@ namespace easygenerator.Web.BuildLearningPath
             _fileManager.DeleteDirectory(_buildPathProvider.GetBuildDirectoryName(buildId));
         }
 
+        private string GetPackageId(string title)
+        {
+            var formatedTitle = new Regex("[^\\w\\d _-]").Replace(title, "_");
+
+            if (formatedTitle.Length > MAX_TITLE_LENGTH)
+            {
+                formatedTitle = formatedTitle.Substring(0, MAX_TITLE_LENGTH - 3) + "...";
+            }
+
+            return formatedTitle;
+        }
+
         private string GenerateBuildId(string packageId)
         {
-            var buildDate = String.Format(" {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now());
+            var buildDate = String.Format(" {0:yyyyMMdd-HH-mm-ss}", DateTimeWrapper.Now());
             return packageId + buildDate;
         }
     }
