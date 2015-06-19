@@ -28,7 +28,7 @@
                         <div class="audio-duration" data-bind="text: time"></div>
                     </li>
                     <!-- /ko-->
-                    <!-- ko if: status() == $parent.statuses.failed||true -->
+                    <!-- ko if: status() == $parent.statuses.failed -->
                     <li class="error">
                         <span class="upload-failed" data-bind="localize: { text : 'audioUploadError' }"></span>
                     </li>
