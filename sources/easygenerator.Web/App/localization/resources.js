@@ -401,6 +401,16 @@
         'zh-cn': 'Undo[zh-cn]',
         'uk': 'Відновити'
     },
+    template: {
+        'en': 'Template',
+        'zh-cn': 'Template[zh-cn]',
+        'uk': 'Шаблон'
+    },
+    settings: {
+        'en': 'Settings',
+        'zh-cn': 'Settings[zh-cn]',
+        'uk': 'Опції'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Storage */
@@ -486,9 +496,9 @@
         'uk': 'Для завантаження аудіо в easygenerator'
     },
     audioUploadUpgradeText: {
-        'en': '<ul><li>Unlimited storage space (fair use policy)</li><li>Beautiful playback</li><li>Unlimited plays</li></ul>',
-        'zh-cn': '<ul><li>Unlimited storage space (fair use policy)</li><li>Beautiful playback</li><li>Unlimited plays</li></ul>[zh-cn]',
-        'uk': '<ul><li>Необмежений обсяг завантаження</li><li>Аудіо у високій якості</li><li>Необмежена кількість програвань</li></ul>'
+        'en': '<ul><li>Unlimited storage space (fair use policy)</li><li>Unlimited number of plays</li><li>HTML5 player: play anywhere on any device</li></ul>',
+        'zh-cn': '<ul><li>Unlimited storage space (fair use policy)</li><li>Unlimited number of plays</li><li>HTML5 player: play anywhere on any device</li></ul>[zh-cn]',
+        'uk': '<ul><li>Необмежений обсяг завантаження</li><li>Необмежена кількість програвань</li><li>HTML5 програвач: аудіо можна прослухати на будь-якому пристрої</li></ul>'
     },
     /* End resource section for model Audios */
     
@@ -625,11 +635,6 @@
         'en': 'Remove from path',
         'zh-cn': 'Remove from path[zh-cn]',
         'uk': 'Видалити зі шляху'
-    },
-    download: {
-        'en': 'Download',
-        'zh-cn': 'Download[zh-cn]',
-        'uk': 'Завантажити'
     },
     learningPathBuildFailed: {
         'en': 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists. ',
@@ -2022,7 +2027,7 @@
     addPeopleForCollaboration: {
         'en': 'Add co-authors',
         'zh-cn': '添加多个人共同编辑',
-        'uk': 'Додавання співавторів'
+        'uk': 'Додати співавтора'
     },
     addCollaborator: {
         'en': 'Add co-author',
