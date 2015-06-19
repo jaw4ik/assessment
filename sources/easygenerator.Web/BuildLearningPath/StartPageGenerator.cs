@@ -22,7 +22,7 @@ namespace easygenerator.Web.BuildLearningPath
 
                 foreach (var course in learningPath.Courses)
                 {
-                    stringBuilder.AppendLine(String.Format("<li><a href=\"{0}\">{1}</a></li>",
+                    stringBuilder.AppendLine(String.Format("<li><a href=\"{0}\" target=\"blank\">{1}</a></li>",
                         course.Id.ToNString() + "/index.html", course.Title));
                 }
 
