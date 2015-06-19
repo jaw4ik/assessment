@@ -38,5 +38,9 @@
     "[tracking and tracing mastery score hint]": "The minimal score you need to succeed",
     "[tracking and tracing reporting progress]": "reporting progress...",
     "[type your answer here]": "Type your answer here...",
-    "[tracking and tracing error hint without continue]": "Restart the course. Contact your course provider if the problem persists."
+    "[tracking and tracing error hint without continue]": "Restart the course. Contact your course provider if the problem persists.",
+    "[attempts note limit acceeded]": "You have acceeded the number of allowed attempts",
+    "[attempts note]": "Note:",
+    "[attempts note you have]": "you have",
+    "[attempts note allowed attempts]": "allowed attempts"
 }

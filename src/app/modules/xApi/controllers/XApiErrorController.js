@@ -17,7 +17,7 @@
         that.allowToContinue = !settings.xApi.required;
 
         that.restartCourse = function () {
-            $rootScope.isCourseStarted = false;
+            $rootScope.isXApiInitialized = false;
             $location.path('/').replace();
         };
 

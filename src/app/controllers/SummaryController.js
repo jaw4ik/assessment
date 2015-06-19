@@ -5,9 +5,9 @@
         .module('quiz')
         .controller('SummaryController', SummaryController);
 
-    SummaryController.$inject = ['$rootScope', '$scope', 'dataContext', '$location', '$timeout', 'settings', '$window', 'quiz', 'questionPool'];
+    SummaryController.$inject = ['$rootScope', '$scope', 'dataContext', '$location', '$timeout', 'settings', '$window', 'quiz', 'questionPool', 'attemptsLimiter'];
 
-    function SummaryController($rootScope, $scope, dataContext, $location, $timeout, settings, $window, quiz, questionPool) {
+    function SummaryController($rootScope, $scope, dataContext, $location, $timeout, settings, $window, quiz, questionPool, attemptsLimiter) {
         var that = this;
         $rootScope.title = 'Summary | ' + quiz.title;
         that.title = quiz.title;
@@ -24,6 +24,9 @@
         that.reachMasteryScore = that.progress >= that.masteryScore;
         that.finished = false;
         that.isSendingRequest = false;
+        that.attemptsLimited = attemptsLimiter.hasLimit;
+        that.availableAttemptCount = attemptsLimiter.getAvailableAttemptCount();
+        that.canTryAgain = attemptsLimiter.hasAvailableAttempt();
 
         that.tryAgain = function () {
             if (that.finished) {
@@ -31,12 +34,11 @@
             }
             that.isSendingRequest = true;
             that.finished = true;
-            
-            quiz.finish(function(){
-              that.isSendingRequest = false;
-              questionPool.refresh();
-              quiz.start();
-              $location.path('/').search('tryAgain');
+
+            quiz.finish(function () {
+                that.isSendingRequest = false;
+                questionPool.refresh();
+                $location.path('/').search('tryAgain');
             });
         };
 

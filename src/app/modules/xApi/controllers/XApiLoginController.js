@@ -62,7 +62,7 @@
         };
 
         function startCourse() {
-            quiz.start();
+            $rootScope.isXApiInitialized = true;
             $location.path('/').replace();
         }
     }

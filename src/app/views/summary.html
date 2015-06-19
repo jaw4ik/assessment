@@ -15,16 +15,28 @@
                 <progress-control class="progress-control" progress="summary.progress" mastery-score="summary.masteryScore"></progress-control>
             </div>
             <div class="summary-buttons">
-                <button class="summary-button button large emphasize" ng-class="{ primary:!summary.reachMasteryScore, default:summary.reachMasteryScore }" ng-click="summary.tryAgain()">
-                    <span class="text-wrapper">
-                        {{ '[try again]' | translate }}
-                    </span>
-                </button>
-                <button class="summary-button button large emphasize" ng-class="{ primary:summary.reachMasteryScore, default:!summary.reachMasteryScore }" ng-click="summary.finish()">
-                    <span class="text-wrapper">
-                        {{ '[finish course]' | translate }}
-                    </span>
-                </button>
+                <div class="summary-button-container">
+                    <button class="summary-button button large emphasize" ng-disabled="!summary.canTryAgain" ng-class="{ primary:!summary.reachMasteryScore, default:summary.reachMasteryScore, disabled: !summary.canTryAgain }" ng-click="summary.tryAgain()">
+                        <span class="text-wrapper">
+                            {{ '[try again]' | translate }}
+                        </span>
+                    </button>
+                    <div class="summary-retry-notification-container" ng-show="summary.attemptsLimited">
+                        <div class="summary-retry-notification" ng-show="!summary.canTryAgain">
+                            <span>{{ '[attempts note limit acceeded]' | translate }}</span>
+                        </div>
+                        <div class="summary-retry-notification" ng-show="summary.canTryAgain">
+                            <span><b>{{ '[attempts note]' | translate }}</b>&nbsp;{{ '[attempts note you have]' | translate }}</span>&nbsp;<span><b>{{ summary.availableAttemptCount }}</b></span>&nbsp;<span>{{ '[attempts note allowed attempts]' | translate }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="summary-button-container">
+                    <button class="summary-button button large emphasize" ng-class="{ primary:summary.reachMasteryScore || !summary.canTryAgain, default:!summary.reachMasteryScore }" ng-click="summary.finish()">
+                        <span class="text-wrapper">
+                            {{ '[finish course]' | translate }}
+                        </span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

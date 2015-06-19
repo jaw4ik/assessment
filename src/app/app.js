@@ -47,12 +47,21 @@
                 });
         }
     ]).run([
-        '$rootScope', '$location', 'settings', 'htmlTemplatesCache', '$templateCache', function ($rootScope, $location, settings, htmlTemplatesCache, $templateCache) {
+        '$rootScope', '$location', 'settings', 'htmlTemplatesCache', '$templateCache', 'attemptsLimiter',
+        function ($rootScope, $location, settings, htmlTemplatesCache, $templateCache, attemptsLimiter) {
             $rootScope.$on('$routeChangeStart', function (event, next) {
                 var xApiEnabled = settings.xApi.enabled;
-                if (xApiEnabled && !$rootScope.isCourseStarted) {
-                    if (next.originalPath !== '/login') {
-                        $location.path('/login');
+                if (xApiEnabled && !$rootScope.isXApiInitialized) {
+                    forbidRedirects('/login');
+                }
+
+                if (!attemptsLimiter.hasAvailableAttempt()) {
+                    forbidRedirects('/summary');
+                }
+
+                function forbidRedirects(urlHash) {
+                    if (next.originalPath !== urlHash) {
+                        $location.path(urlHash);
                     }
                 }
             });
@@ -64,6 +73,8 @@
             _.each(htmlTemplatesCache, function (template) {
                 $templateCache.put(template.key, template.value);
             });
+
+
         }
     ]);
 })();

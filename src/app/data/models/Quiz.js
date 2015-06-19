@@ -31,7 +31,6 @@
             };
 
             that.start = function () {
-                $rootScope.isCourseStarted = true;
                 eventPublisher.publishRootScopeEvent('course:started');
             };
 
