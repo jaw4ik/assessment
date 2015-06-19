@@ -1,4 +1,4 @@
-﻿/*#region ADD IMAGE FROM LIBRARY BUTTON*/
+﻿/*#region ADD VIDEO FROM LIBRARY BUTTON*/
 
 .add-from-library-button {
     padding: 4px 0 !important;
@@ -18,9 +18,9 @@
     background: url('icons/info.png') no-repeat;
 }
 
-/*#endregion ADD IMAGE FROM LIBRARY BUTTON*/
+/*#endregion ADD VIDEO FROM LIBRARY BUTTON*/
 
-/*#region IMAGE LIBRARY LIST*/
+/*#region VIDEO LIBRARY LIST*/
 
 .videos-list-wrapper {
     bottom: 50px;
@@ -52,6 +52,16 @@
     padding: 2px;
     border: 2px solid transparent;
     border-radius: 2px;
+}
+
+.video-library-item-img-wrapper,
+.video-library-item-img-wrapper .video-library-item-img img {
+    cursor: pointer;
+}
+
+.video-library-item .video-library-item-img-wrapper img {
+    width: 173px;
+    height: 128px;
 }
 
 .video-library-item.selected .video-library-item-img-wrapper {
@@ -87,27 +97,40 @@
 }
 
 .video-library-item-text {
+    position: relative;
     display: inline-block;
     float: left;
-    color: #999999;
+    color: #8d9dac;
     font-family: OpenSans;
     font-size: 11px;
-    padding-left: 5px;
-    cursor: default;
-    width: 175px;
+    padding-top: 2px;
+    padding-left: 22px;
+    width: 158px;
     -ms-text-overflow: ellipsis;
     text-overflow: ellipsis;
     overflow: hidden;
+    cursor: pointer;
 }
+
+    .video-library-item-text:before {
+        position: absolute;
+        display: inline-block;
+        content: '';
+        width: 14px;
+        height: 16px;
+        background: url(icons/video-icon.png) no-repeat;
+        top: 1px;
+        left: 4px;
+    }
 
 .video-library-item:hover .video-library-item-text,
 .video-library-item.selected .video-library-item-text {
-    color: #333333;
+    color: #5b6874;
 }
 
-/*#endregion IMAGE LIBRARY DIALOG*/
+/*#endregion VIDEO LIBRARY DIALOG*/
 
-/*#region EMPTY IMAGES LIST*/
+/*#region EMPTY VIDEOS LIST*/
 
 .video-library-empty {
     position: absolute;
@@ -128,9 +151,9 @@
         font-family: OpenSans;
     }
 
-/*#endregion EMPTY IMAGES LIST*/
+/*#endregion EMPTY VIDEOS LIST*/
 
-/*#region IMAGE LIBRARY ERROR*/
+/*#region VIDEO LIBRARY ERROR*/
 
 .video-library-error {
     position: absolute;
@@ -173,4 +196,4 @@
             text-decoration: none;
         }
 
-/*#endregion IMAGE LIBRARY ERROR*/
+/*#endregion VIDEO LIBRARY ERROR*/
