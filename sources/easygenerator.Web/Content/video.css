@@ -71,7 +71,7 @@
   left: 50%;
   margin-top: -32px;
   margin-left: -32px;
-  background: url(../Content/images/sprites_64.png) 138px 66px;
+  background: url(../Content/images/sprites_64.png) -207px -267px;
 }
 .videos .video-list .video-list-item.add-video-button .free-space-section {
   position: absolute;
@@ -146,7 +146,7 @@
   width: 64px;
   height: 64px;
   margin-top: 35px;
-  background: url('../Content/images/sprites_64.png') 68px 64px;
+  background: url('../Content/images/sprites_64.png') -277px -266px;
 }
 .videos .video-list .video-list-item .video-list-item-thumbnail.error .video-upload-error-title {
   display: inline-block;
@@ -182,7 +182,7 @@
   left: 50%;
   margin-top: -12px;
   margin-left: -10px;
-  background: url(../Content/images/sprites_24.png) 200px 24px;
+  background: url(../Content/images/sprites_24.png) -88px -87px;
 }
 .videos .video-list .video-list-item .video-list-item-title-container {
   width: 200px;
@@ -244,7 +244,7 @@
   right: -26px;
   width: 16px;
   height: 16px;
-  background: url(../Content/images/sprites_16.png) 144px 0;
+  background: url(../Content/images/sprites_16.png) -42px 0;
   opacity: 0.7;
   cursor: pointer;
 }
@@ -275,3 +275,4 @@
 .modal-dialog-wrapper.video .video-dialogue-container .video-embed-container .video-embed-actions-container .embed-code-text {
   background: #fffddd;
 }
+/*#endregion */

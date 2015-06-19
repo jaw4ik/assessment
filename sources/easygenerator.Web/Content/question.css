@@ -718,7 +718,7 @@
   border-color: #3e8bbd;
 }
 .question-learning-content-list-item-body-wrapper.removed .question-learning-content-list-item-removed .question-learning-content-removed-info .question-learning-content-removed-undo:hover:before {
-  background: url(images/sprites_16.png) 60px 16px;
+  background: url(images/sprites_16.png) -126px -84px;
 }
 .question-learning-content-list-item-body-wrapper.removed .question-learning-content-list-item-removed .question-learning-content-removed-info .question-learning-content-removed-undo:before {
   content: "";
@@ -728,7 +728,7 @@
   width: 16px;
   height: 16px;
   margin-right: 7px;
-  background: url(images/sprites_16.png) 81px 16px;
+  background: url(images/sprites_16.png) -105px -84px;
 }
 .question-learning-content-list-item-body-wrapper.removed .question-learning-content-body-wrapper {
   border: none;
