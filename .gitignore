@@ -201,3 +201,4 @@ FakesAssemblies/
 /sources/easygenerator.PublicationServer.Web/courses/*
 *.ncrunchproject
 *.ncrunchsolution
+/sources/easygenerator.ConversionServer/iisnode
