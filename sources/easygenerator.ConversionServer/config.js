@@ -1,4 +1,4 @@
 ﻿module.exports = {
     LOCATION: "/conversion",
-    TEMP_FOLDER: "D:\\TEMP"
+    TEMP_FOLDER: "D:\\TEMP\\ConversionService"
 };
