@@ -39,7 +39,7 @@
                                         id: plugin.videoListContainerId
                                     },
                                     {
-                                        type: 'vbox',
+                                        type: 'hbox',
                                         id: plugin.emptyListIndicatorId,
                                         className: 'video-library-empty',
                                         hidden: true,
@@ -47,12 +47,7 @@
                                             {
                                                 type: 'html',
                                                 className: 'video-library-empty-video',
-                                                html: '<img src="' + plugin.path + 'icons/no-videos.png" />'
-                                            },
-                                            {
-                                                type: 'html',
-                                                className: 'video-library-empty-text',
-                                                html: '<span>' + lang.noVideos + '</span>'
+                                                html: '<div><img src="' + plugin.path + 'icons/no-videos.png" /><span>' + lang.noVideos + '</span></div>'
                                             }
                                         ]
                                     },
