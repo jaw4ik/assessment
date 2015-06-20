@@ -1,7 +1,7 @@
 ﻿define(['plugins/router'], function (router) {
     'use strict';
 
-    var bars = [
+    var barsConfigurations = [
         {
             path: 'navigationBar/navigationBar',
             viewmodels: [
@@ -19,6 +19,13 @@
             path: 'views/courses/course/design/bar',
             viewmodels: [{ id: 'viewmodels/courses/course/design/design' }],
             model: true
+        },
+        {
+            path: 'views/learningPaths/courseSelector/courseSelector',
+            viewmodels: [{ id: 'viewmodels/learningPaths/learningPath/learningPath' }],
+            model: 'viewmodels/learningPaths/courseSelector/courseSelector',
+            activate: true,
+            activationDataProperty: 'id'
         }
     ];
 
@@ -57,9 +64,11 @@
 
     function onViewModelAttached(instance, hash) {
         var view = false,
-            model = false;
+            model = false,
+            activate = false,
+            activationData = false;
 
-        _.each(bars, function (barConfig) {
+        _.each(barsConfigurations, function (barConfig) {
             var bar = _.find(barConfig.viewmodels, function (viewmodel) {
                 var hashCorrect = true;
                 if (viewmodel.pattern) {
@@ -70,16 +79,25 @@
 
             if (bar) {
                 view = barConfig.path;
-                if (barConfig.model) {
-                    model = instance;
+                activate = barConfig.activate || false;
+
+                if (_.isString(barConfig.activationDataProperty)) {
+                    activationData = _.isFunction(instance[barConfig.activationDataProperty]) ? instance[barConfig.activationDataProperty]() : instance[barConfig.activationDataProperty];
+                }
+
+                if (_.isString(barConfig.model)) {
+                    model = barConfig.model;
                     return;
                 }
-                model = false;
+
+                if (barConfig.model) {
+                    model = instance;
+                }
             }
         });
 
         if (model) {
-            viewModel.bar({ view: view, model: model, activate: false });
+            viewModel.bar({ view: view, model: model, activate: activate, activationData: activationData });
             return;
         }
         viewModel.bar(view);
