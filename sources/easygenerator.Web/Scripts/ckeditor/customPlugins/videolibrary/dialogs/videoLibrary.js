@@ -6,7 +6,8 @@
         videoListContainerId: 'videosList',
         selectedVideoContainerId: 'selectedVideoUrl',
         emptyListIndicatorId: 'emptyVideoList',
-        loadingErrorIndicatorId: 'listLoadingError'
+        loadingErrorIndicatorId: 'listLoadingError',
+        loaderContainerId: 'progressContainerId'
     });
 
     CKEDITOR.dialog.add(plugin.videoLibraryDialogName, function (editor) {
@@ -48,6 +49,18 @@
                                                 type: 'html',
                                                 className: 'video-library-empty-video',
                                                 html: '<div><img src="' + plugin.path + 'icons/no-videos.png" /><span>' + lang.noVideos + '</span></div>'
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        type: 'hbox',
+                                        id: plugin.loaderContainerId,
+                                        className: 'video-library-loader',
+                                        children: [
+                                            {
+                                                type: 'html',
+                                                className: 'video-library-empty-video',
+                                                html: '<div class="video-circular-loader"><div class="video-circular-loader-item"></div><div class="video-circular-loader-item"></div><div class="video-circular-loader-item"></div><div class="video-circular-loader-item"></div><div class="video-circular-loader-item"></div><div class="video-circular-loader-item"></div><div class="video-circular-loader-item"></div><div class="video-circular-loader-item"></div></div>'
                                             }
                                         ]
                                     },

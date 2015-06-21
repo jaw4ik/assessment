@@ -116,6 +116,11 @@
                     editor.addCommand(plugin.commands.updateVideoList, new CKEDITOR.command(editor, {
                         exec: function () {
                             var loadingErrorDialogElement = dialog.getContentElement(plugin.mainTabId, plugin.loadingErrorIndicatorId).getElement();
+                            var loaderDialogElement = dialog.getContentElement(plugin.mainTabId, plugin.loaderContainerId).getElement();
+                            var emptyListDialogElement = dialog.getContentElement(plugin.mainTabId, plugin.emptyListIndicatorId).getElement();
+
+                            loaderDialogElement.show();
+                            emptyListDialogElement.hide();
                             loadingErrorDialogElement.hide();
 
                             var getThumbnailUrl = function (id) {
@@ -154,18 +159,15 @@
 
                             $.ajax(plugin.constants.storage.host + plugin.constants.storage.mediaUrl, { headers: window.auth.getHeader('storage'), global: false, cache: false })
                                 .done(function (response) {
-                                    var emptyListDialogElement = dialog.getContentElement(plugin.mainTabId, plugin.emptyListIndicatorId).getElement();
-
                                     if (!response || !response.Videos || response.Videos.length === 0) {
                                         emptyListDialogElement.show();
+                                        loaderDialogElement.hide();
                                         return;
                                     }
 
                                     emptyListDialogElement.hide();
-                                    loadingErrorDialogElement.hide();
 
                                     var videos = response.Videos;
-                                    resizeDialog(videos.length);
 
                                     return getThumbnailUrls(videos).then(function () {
                                         videos.forEach(function (video) {
@@ -182,9 +184,11 @@
                                                 }
                                             );
                                         });
-                                        
+                                        loaderDialogElement.hide();
+                                        resizeDialog(videos.length);
                                     });
                                 }).fail(function () {
+                                    loaderDialogElement.hide();
                                     loadingErrorDialogElement.show();
                                 });
                         }
