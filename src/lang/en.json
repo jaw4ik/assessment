@@ -39,8 +39,8 @@
     "[tracking and tracing reporting progress]": "reporting progress...",
     "[type your answer here]": "Type your answer here...",
     "[tracking and tracing error hint without continue]": "Restart the course. Contact your course provider if the problem persists.",
-    "[attempts note limit acceeded]": "You have acceeded the number of allowed attempts",
+    "[attempts note limit acceeded]": "You have exceeded the number of allowed attempts",
     "[attempts note]": "Note:",
     "[attempts note you have]": "you have",
-    "[attempts note allowed attempts]": "allowed attempts"
+    "[attempts note allowed attempts]": "more allowed attempts"
 }
