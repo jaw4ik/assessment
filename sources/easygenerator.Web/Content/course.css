@@ -295,7 +295,7 @@
 /*#endregion DEFINE STEP*/
 /*#region DESIGN STEP*/
 .course-preview-container {
-  padding: 0 20px 0 320px;
+  padding: 0 40px 0 320px;
 }
 @media screen and (max-width: 1630px) {
   .course-preview-container {

@@ -88,6 +88,7 @@
   text-align: center;
 }
 .design.left-side-bar .design-bar-content {
+  position: relative;
   display: -webkit-flex;
   display: flex;
   -webkit-flex: 1;
