@@ -464,6 +464,19 @@
     },
     /* End resource section for model Videos */
     
+    /* Resource section for model Audios */
+    audioLibrary: {
+        'en': 'Audio library',
+        'zh-cn': 'Audio library[zh-cn]',
+        'uk': 'Аудіо бібліотека'
+    },
+    uploadAudioDescription: {
+        'en': 'Upload your own audio by clicking this button',
+        'zh-cn': 'Upload your own audio by clicking this button[zh-cn]',
+        'uk': 'Завантажте своє власне аудіо натиснувши на кнопку'
+    },
+    /* End resource section for model Audios */
+    
     /* Resource section for model Objectives */
     learningObjectives: {
         'en': 'Learning objectives',
@@ -601,7 +614,17 @@
     download: {
         'en': 'Download',
         'zh-cn': 'Download[zh-cn]',
-        'uk': 'Download[uk]'
+        'uk': 'Завантажити'
+    },
+    learningPathBuildFailed: {
+        'en': 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists. ',
+        'zh-cn': '出错了，请重试。如果问题依然存在，请联系support@easygenerator.com解决。',
+        'uk': 'Щось пішло не так. Спробуйте знову. Якщо проблема не зникне - надішліть нам електронного листа на адресу support@easygenerator.com'
+    },
+    deleteLearningPath: {
+        'en': 'Delete learning path',
+        'zh-cn': 'Delete learning path[zh-cn]',
+        'uk': 'Видалити навчальний шлях'
     },
     /* End resource section for model Learning paths */
     
@@ -2290,7 +2313,7 @@
     /* End resource section for model ExplanationTooltips */
     
     /* Resource section for model Course results upgrade dialog */
-    resultsUpgradeDialogBoldTitle: {
+    upgradeDialogBoldTitle: {
         'en': 'Upgrade now',
         'zh-cn': 'Upgrade now[zh-cn]',
         'uk': 'Оновити'
@@ -2305,6 +2328,11 @@
         'zh-cn': 'to download results as CSV-file[zh-cn]',
         'uk': 'для завантаження списку результатів у вигляді CSV-файлу'
     },
+    resultsUpgradeForExtendedResultsTitle2: {
+        'en': 'to get detailed results',
+        'zh-cn': 'to get detailed results[zh-cn]',
+        'uk': 'для завантаження детального списку результатів'
+    },
     resultsUpgradeDialogText: {
         'en': 'On the Free Plan you can only see the last 10 results',
         'zh-cn': 'On the Free Plan you can only see the last 10 results[zh-cn]',
@@ -2315,12 +2343,17 @@
         'zh-cn': '<ul><li>Download your learners results</li><li>Export your results in a spreadsheet</li><li>Or any program that supports CSV</li></ul>[zh-cn]',
         'uk': '<ul><li>Завантажте результати учнів</li><li>Відкрийте їх в таблицях spreadsheet</li><li>Або в будь-якій іншій програмі, яка підтримує формат CSV</li></ul>'
     },
-    resultsUpgradeDialogUpgradeNow: {
+    resultsUpgradeForExtendedResultsHtml: {
+        'en': '<ul><li>Get results per objective</li><li>Get results per question</li><li>Check start and finish date of each attempt</li></ul>',
+        'zh-cn': '<ul><li>Get results per objective</li><li>Get results per question</li><li>Check start and finish date of each attempt</li></ul>[zh-cn]',
+        'uk': '<ul><li>Отримати результати за кожною ціллю</li><li>Отримати результати за кожним питанням</li><li>Перевірити час початку і час закінчення кожної спроби</li></ul>'
+    },
+    upgradeDialogUpgradeNow: {
         'en': 'Upgrade now',
         'zh-cn': 'Upgrade now[zh-cn]',
         'uk': 'Оновити'
     },
-    resultsUpgradeDialogMaybeLater: {
+    upgradeDialogMaybeLater: {
         'en': 'Maybe later',
         'zh-cn': 'Maybe later[zh-cn]',
         'uk': 'Не зараз'

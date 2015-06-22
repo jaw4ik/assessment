@@ -14,6 +14,7 @@ using easygenerator.Web.BuildCourse.Modules;
 using easygenerator.Web.BuildCourse.PublishSettings;
 using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.BuildCourse.Scorm.Modules;
+using easygenerator.Web.BuildLearningPath;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Components.Elmah;
@@ -59,11 +60,15 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<CourseBuilder>().As<ICourseBuilder>();
             builder.RegisterType<ScormCourseBuilder>().As<IScormCourseBuilder>();
 
+            builder.RegisterType<LearningPathCourseBuilder>().As<ILearningPathCourseBuilder>();
+            builder.RegisterType<StartupPageGenerator>();
+            builder.RegisterType<LearningPathBuilder>().As<ILearningPathBuilder>();
+            
             builder.RegisterGeneric(typeof(EntityModelBinder<>)).As(typeof(IEntityModelBinder<>));
             builder.RegisterGeneric(typeof(EntityCollectionModelBinder<>)).As(typeof(IEntityCollectionModelBinder<>));
 
             builder.RegisterType<BuildPathProvider>();
-            builder.RegisterType<BuildContentProvider>();
+            builder.RegisterType<BuildContentProvider>().As<IBuildContentProvider>();
             builder.RegisterType<PhysicalFileManager>();
             builder.RegisterType<MagickImageResizer>().As<IImageResizer>();
             builder.RegisterType<MagickImageResizerConfigurator>();

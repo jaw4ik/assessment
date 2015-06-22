@@ -16,9 +16,10 @@ namespace easygenerator.Web.BuildCourse
             DownloadPath = Path.Combine(WebsitePath, "Download");
         }
 
-        public virtual string GetBuildDirectoryName(string buildId)
+        public virtual string GetBuildDirectoryName(params string[] buildIds)
         {
-            return Path.Combine(BuildPath, buildId);
+            var subPath = Path.Combine(buildIds);
+            return Path.Combine(BuildPath, subPath);
         }
 
         #region Build Content
@@ -84,6 +85,11 @@ namespace easygenerator.Web.BuildCourse
         }
 
         #endregion
+
+        public virtual string GetStartupPageFileName(string buildDirectory)
+        {
+            return Path.Combine(buildDirectory, "index.html");
+        }
 
         public virtual string GetDownloadPath()
         {

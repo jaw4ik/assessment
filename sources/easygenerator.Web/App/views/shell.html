@@ -27,6 +27,9 @@
                                         <span data-bind="text: title "></span>
                                     </span>
                                     <!-- /ko -->
+                                    <!-- ko if: $data.isInBetaPhase -->
+                                    <span class="top-navigation-item-beta-mark">beta</span>
+                                    <!-- /ko -->
                                 </li>
                                 <!-- /ko -->
                             </ul>
@@ -63,4 +66,5 @@
     <div data-bind="widget: { kind: 'notifyViewer' }"></div>
     <div data-bind="widget: { kind: 'cursorTooltip' }"></div>
     <div data-bind="widget: { kind: 'hotSpotOnImageTextEditor' }"></div>
+    <div data-bind="widget: { kind: 'upgradeDialog' }"></div>
 </section>

@@ -1,8 +1,14 @@
-﻿define(['durandal/app', 'plugins/router', 'routing/isViewReadyMixin', 'viewmodels/courses/index', 'repositories/courseRepository', 'repositories/collaboratorRepository', 'userContext', 'clientContext', 'eventTracker', 'notify', 'constants', 'localization/localizationManager', 'dialogs/collaboration/collaboration', 'dialogs/publishCourse/publishCourse'], function (app, router, isViewReady, index, repository, collaboratorRepository, userContext, clientContext, eventTracker, notify, constants, localizationManager, collaborationPopup, sharePopup) {
+﻿define(['durandal/app', 'plugins/router', 'routing/isViewReadyMixin', 'viewmodels/courses/index', 'repositories/courseRepository', 'repositories/collaboratorRepository',
+    'userContext', 'clientContext', 'eventTracker', 'notify', 'constants', 'localization/localizationManager', 'dialogs/collaboration/collaboration',
+    'dialogs/publishCourse/publishCourse', 'viewmodels/common/titleField'],
+    function (app, router, isViewReady, index, repository, collaboratorRepository, userContext, clientContext, eventTracker, notify, constants, localizationManager,
+        collaborationPopup, sharePopup, titleField) {
 
     var events = {
         updateCourseTitle: 'Update course title',
-        previewCourse: 'Preview course'
+        previewCourse: 'Preview course',
+        openManageCoAuthorsDialog: 'Open \'manage co-authors\' dialog',
+        openShareDialog: 'Open \'share\' dialog'
     };
 
     //#region Router setup
@@ -87,7 +93,6 @@
         router: childRouter,
 
         id: '',
-        title: ko.observable(),
         createdBy: ko.observable(),
         isDirty: ko.observable(),
 
@@ -106,48 +111,27 @@
         stateChanged: stateChanged
     };
 
-    viewModel.title.maxLength = constants.validation.courseTitleMaxLength;
+        viewModel.titleField = titleField('', constants.validation.courseTitleMaxLength, localizationManager.localize('courseTitle'), getTitle, updateTitle);
 
-    viewModel.title.isEditing = ko.observable();
-    viewModel.title.isSelected = ko.observable();
-
-    viewModel.title.beginEdit = function () {
-        viewModel.title.isEditing(true);
-    };
-
-    viewModel.title.endEdit = function () {
-        var that = viewModel.title;
-
-        that(that() && that().trim());
-        that.isEditing(false);
-
-        repository.getById(viewModel.id).then(function (response) {
-            if (that() === response.title) {
-                return;
-            }
-
-            eventTracker.publish(events.updateCourseTitle);
-
-            if (that.isValid()) {
-                repository.updateCourseTitle(viewModel.id, that()).then(notify.saved);
-            } else {
-                that(response.title);
-            }
+        collaborate.enabled = ko.computed(function () {
+            return (userContext.identity && userContext.identity.email) === viewModel.createdBy();
         });
-    };
 
-    viewModel.title.isValid = ko.computed(function () {
-        var length = viewModel.title() ? viewModel.title().trim().length : 0;
-        return length > 0 && length <= viewModel.title.maxLength;
-    });
+        return viewModel;
 
-    collaborate.enabled = ko.computed(function () {
-        return (userContext.identity && userContext.identity.email) === viewModel.createdBy();
-    });
+        function getTitle() {
+            return repository.getById(viewModel.id).then(function (response) {
+                return response.title;
+            });
+            }
 
-    return viewModel;
+        function updateTitle(title) {
+            eventTracker.publish(events.updateCourseTitle);
+            return repository.updateCourseTitle(viewModel.id, title);
+            }
 
     function collaborate() {
+        eventTracker.publish(events.openManageCoAuthorsDialog);
         collaborationPopup.show(viewModel.id, viewModel.createdBy());
     }
 
@@ -157,6 +141,7 @@
     }
 
     function share() {
+        eventTracker.publish(events.openShareDialog);
         sharePopup.show(viewModel.id);
     }
 
@@ -172,14 +157,14 @@
     function activate(courseId) {
         return repository.getById(courseId).then(function (course) {
             viewModel.id = course.id;
-            viewModel.title(course.title);
+                viewModel.titleField.title(course.title);
             viewModel.createdBy(course.createdBy);
             viewModel.isDirty(course.isDirty);
 
             clientContext.set(constants.clientContextKeys.lastVistedCourse, course.id);
             clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
 
-            viewModel.title.isSelected(clientContext.get(constants.clientContextKeys.lastCreatedCourseId) === course.id);
+                viewModel.titleField.isSelected(clientContext.get(constants.clientContextKeys.lastCreatedCourseId) === course.id);
             clientContext.remove(constants.clientContextKeys.lastCreatedCourseId);
             app.on(constants.messages.course.stateChanged + courseId, stateChanged);
 
@@ -217,11 +202,11 @@
     }
 
     function titleUpdated(course) {
-        if (course.id !== viewModel.id || viewModel.title.isEditing()) {
+            if (course.id !== viewModel.id || viewModel.titleField.isEditing()) {
             return;
         }
 
-        viewModel.title(course.title);
+            viewModel.titleField.title(course.title);
     }
 
     function stateChanged(state) {
