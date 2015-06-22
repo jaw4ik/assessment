@@ -485,6 +485,7 @@
         'zh-cn': 'Upload your own audio by clicking this button[zh-cn]',
         'uk': 'Завантажте своє власне аудіо натиснувши на кнопку'
     },
+<<<<<<< HEAD
     audioUploadError: {
         'en': 'Upload failed',
         'zh-cn': 'Upload failed[zh-cn]',
@@ -500,6 +501,8 @@
         'zh-cn': '<ul><li>Unlimited storage space (fair use policy)</li><li>Unlimited number of plays</li><li>HTML5 player: play anywhere on any device</li></ul>[zh-cn]',
         'uk': '<ul><li>Необмежений обсяг завантаження</li><li>Необмежена кількість програвань</li><li>HTML5 програвач: аудіо можна прослухати на будь-якому пристрої</li></ul>'
     },
+=======
+>>>>>>> upstream/master
     /* End resource section for model Audios */
     
     /* Resource section for model Objectives */
@@ -635,6 +638,16 @@
         'en': 'Remove from path',
         'zh-cn': 'Remove from path[zh-cn]',
         'uk': 'Видалити зі шляху'
+    },
+    learningPathBuildFailed: {
+        'en': 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists. ',
+        'zh-cn': '出错了，请重试。如果问题依然存在，请联系support@easygenerator.com解决。',
+        'uk': 'Щось пішло не так. Спробуйте знову. Якщо проблема не зникне - надішліть нам електронного листа на адресу support@easygenerator.com'
+    },
+    deleteLearningPath: {
+        'en': 'Delete learning path',
+        'zh-cn': 'Delete learning path[zh-cn]',
+        'uk': 'Видалити навчальний шлях'
     },
     learningPathBuildFailed: {
         'en': 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists. ',

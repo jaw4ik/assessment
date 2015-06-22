@@ -1,0 +1,96 @@
+﻿<section class="learning-path">
+
+    <!--  ko compose: { model: courseSelector, view: 'views/learningPaths/courseSelector/courseSelector.html', activationData: id }  -->
+    <!-- /ko -->
+
+    <div class="loader-container">
+        <header class="content-section-wrapper learning-path-header-wrapper">
+            <div class="content-section learning-path-header-content-section">
+                <!--  ko compose: { model: titleField, view: 'views/common/titleField.html' }  -->
+                <!-- /ko -->
+                <div class="content-section-actions-wrapper" data-bind="with: downloadAction">
+                    <!-- ko if: isBuilding() -->
+                    <span href="" class="learning-path-action action-in-progress" data-bind="localize: { text: 'publishing' }"></span>
+                    <!-- /ko -->
+                    <!-- ko ifnot: isBuilding() -->
+                    <a href="" class="learning-path-action action-download" data-bind="click: download">
+                        <span data-bind="localize: { text: 'publish' }"></span>
+                    </a>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </header>
+        <div class="content-section-wrapper">
+            <div class="content-section learning-path-content">
+                <div class="page-view-caption-wrapper">
+                    <div class="page-view-caption">
+                        <button class="page-view-caption-back-button info-tooltip-holder" data-bind="click: back">
+                            <div class="info-tooltip">
+                                <span data-bind="localize: { text: 'goBack' }">Go back</span>
+                            </div>
+                        </button>
+                        <div class="page-view-caption-text" data-bind="localize: { text: 'coursesInThePath' }"></div>
+                    </div>
+                    <div class="page-view-caption-actions">
+                        <!-- ko if: courseSelector.isExpanded -->
+                        <button class="action-item-btn btn confirm" data-bind="click: finishAddingCourses, css: { disabled: courses().length === 0 }, enable: courses().length > 0">
+                            <span class="action-item-btn-caption" data-bind="localize: { text: 'done' }"></span>
+                        </button>
+                        <!-- /ko -->
+                        <!-- ko ifnot: courseSelector.isExpanded -->
+                        <button class="action-item-btn btn create-item add-courses green" data-bind="click: addCourses">
+                            <span class="action-item-btn-caption" data-bind="localize: { text: 'addCourses' }"></span>
+                        </button>
+                        <!-- /ko -->
+                    </div>
+                </div>
+                <!-- ko ifnot: courses().length === 0  -->
+                <ul class="unstyled main-content-list" data-bind="sortable: { data: courses, afterMove: updateCoursesOrder, isEnabled: isSortingEnabled, options: {handle: '.list-item-drag-icon' }}">
+                    <!-- ko foreach: courses -->
+                    <li class="main-content-list-item">
+                        <div class="list-item-content-holder">
+                            <!-- ko if: $parent.isSortingEnabled() -->
+                            <div class="list-item-drag-icon" data-bind="localize: { title: 'changeOrderTooltip' }"></div>
+                            <!-- /ko -->
+                            <!-- ko ifnot: $parent.isSortingEnabled() -->
+                            <div class="list-item-drag-icon disabled"></div>
+                            <!-- /ko -->
+                            <div class="empty-list-item"></div>
+                            <div class="list-item-info-holder">
+                                <div class="info-holder-table">
+                                    <div class="list-item-logo">
+                                        <span class="list-item-logo-image-wrapper">
+                                            <img class="list-item-logo-image" alt="" data-bind="attr: { src: thumbnail }">
+                                        </span>
+                                    </div>
+                                    <div class="list-item-info">
+                                        <div class="list-item-title">
+                                            <span class="selectable" data-bind="text: title"></span>
+                                        </div>
+                                        <div class="list-item-saved">
+                                            <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: currentLanguage }"></span>
+                                        </div>
+                                    </div>
+                                    <div class="list-item-remove">
+                                        <button class="list-item-remove-btn info-tooltip-holder" data-bind="click: remove">
+                                            <div class="info-tooltip">
+                                                <span data-bind="localize: { text: 'removeFromPath' }"></span>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- /ko -->
+                </ul>
+                <!-- /ko -->
+            </div>
+        </div>
+        <!-- ko if: courses().length === 0 -->
+        <div class="tip-arrow-holder">
+            <div class="tip-arrow-text" data-bind="localize: { text : 'selectCoursesHint' }"></div>
+        </div>
+        <!-- /ko -->
+    </div>
+</section>

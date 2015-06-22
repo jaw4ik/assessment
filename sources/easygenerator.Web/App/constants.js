@@ -97,7 +97,8 @@
                 courseTitleMaxLength: 255,
                 questionTitleMaxLength: 255,
                 textMatchingKeyMaxLength: 255,
-                textMatchingValueMaxLength: 255
+                textMatchingValueMaxLength: 255,
+                learningPathTitleMaxLength: 255
             },
 
             messages: {
@@ -170,6 +171,14 @@
                             failed: 'collaborator:deleting-failed:'
                         }
                     }
+                },
+                learningPath: {
+                    courseSelector: {
+                        courseSelected: 'learningPath:course-selector:course-selected',
+                        courseDeselected: 'learningPath:course-selector:course-deselected'
+                    },
+                    removeCourse: 'learningPath:removeCourse',
+                    deleted:'learningPath:deleted'
                 },
                 objective: {
                     createdInCourse: 'objective:createdInCourse',
@@ -305,6 +314,7 @@
             clientContextKeys: {
                 lastCreatedQuestionId: 'lastCreatedQuestionId',
                 lastCreatedCourseId: 'lastCreatedCourseId',
+                lastCreatedLearningPathId: 'lastCreatedLearningPathId',
                 lastCreatedObjectiveId: 'lastCreatedObjectiveId',
                 lastVistedCourse: 'lastVistedCourse',
                 lastVisitedObjective: 'lastVisitedObjective'

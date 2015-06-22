@@ -8,9 +8,7 @@ using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildCourse.Modules;
 using easygenerator.Web.BuildCourse.Modules.Models;
 using easygenerator.Web.BuildCourse.PackageModel;
-using easygenerator.Web.BuildCourse.PublishSettings;
 using easygenerator.Web.Components;
-using easygenerator.Web.Storage;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -25,10 +23,9 @@ namespace easygenerator.Web.Tests.BuildCourse
     {
         private CourseBuilder _builder;
         private PhysicalFileManager _fileManager;
-        private HttpRuntimeWrapper _httpRuntimeWrapper;
         private BuildPathProvider _buildPathProvider;
         private BuildPackageCreator _buildPackageCreator;
-        private BuildContentProvider _buildContentProvider;
+        private IBuildContentProvider _buildContentProvider;
         private PackageModulesProvider _packageModulesProvider;
         private IDomainEventPublisher _eventPublisher;
 
@@ -43,18 +40,12 @@ namespace easygenerator.Web.Tests.BuildCourse
 
             _fileManager = Substitute.For<PhysicalFileManager>();
 
-            _httpRuntimeWrapper = Substitute.For<HttpRuntimeWrapper>();
-            _httpRuntimeWrapper.GetDomainAppPath().Returns(string.Empty);
-
-            _buildPathProvider = Substitute.For<BuildPathProvider>(_httpRuntimeWrapper);
+            _buildPathProvider = Substitute.For<BuildPathProvider>(Substitute.For<HttpRuntimeWrapper>());
             _buildPackageCreator = Substitute.For<BuildPackageCreator>(_fileManager);
             DateTimeWrapper.Now = () => new DateTime(2013, 10, 12);
 
-            var packageModelMapper = Substitute.For<PackageModelMapper>(Substitute.For<IUrlHelperWrapper>(), Substitute.For<IUserRepository>());
-            var packageModelSerializer = Substitute.For<PackageModelSerializer>();
-            var templateStorage = Substitute.For<ITemplateStorage>();
             _eventPublisher = Substitute.For<IDomainEventPublisher>();
-            _buildContentProvider = Substitute.For<BuildContentProvider>(_fileManager, _buildPathProvider, packageModelSerializer, packageModelMapper, new PublishSettingsProvider(), templateStorage);
+            _buildContentProvider = Substitute.For<IBuildContentProvider>();
 
             var userRepository = Substitute.For<IUserRepository>();
             _packageModulesProvider = Substitute.For<PackageModulesProvider>(userRepository);
@@ -79,7 +70,7 @@ namespace easygenerator.Web.Tests.BuildCourse
         {
             //Arrange
             var buildDirectory = "SomeDirectoryPath";
-            var buildId = _coursePackageModel.Id + String.Format(" {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now());
+            var buildId = GetBuildId();
             _buildPathProvider.GetBuildDirectoryName(buildId).Returns(buildDirectory);
 
             //Act

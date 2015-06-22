@@ -32,8 +32,15 @@
 }
 
 .align-items(@value) {
+    -webkit-flex-align: @value;
+    -ms-flex-align: @value;
     -webkit-align-items: @value;
     align-items: @value;
+}
+
+.align-content(@value) {
+    -webkit-align-content: @value;
+    align-content: @value;
 }
 
 .justify-content(@value) {
@@ -41,4 +48,40 @@
     justify-content: @value;
 }
 
+.flex-wrap(@value) {
+    -webkit-flex-wrap: @value;
+    flex-wrap: @value;
+}
+
 /*#endregion */
+
+.transform(@value) {
+    -webkit-transform: @value;
+    transform: @value;
+}
+
+.user-select(@value) {
+    -moz-user-select: @value;
+    -ms-user-select: @value;
+    -webkit-user-select: @value;
+    user-select: @value;
+}
+
+
+.placeholder-color(@color) {
+    &::-webkit-input-placeholder {
+        color: @color;
+    }
+
+    &:-moz-placeholder { /* Firefox 18- */
+        color: @color;
+    }
+
+    &::-moz-placeholder { /* Firefox 19+ */
+        color: @color;
+    }
+
+    &:-ms-input-placeholder {
+        color: @color;
+    }
+}
