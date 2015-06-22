@@ -1,6 +1,7 @@
 ﻿/*#region flex */
 /*#endregion */
 /*#region User avatar */
+/*#endregion */
 /*#region PAGE-LOADER ICON*/
 .icon-spinner-wrapper {
   position: absolute;
@@ -176,7 +177,7 @@
   width: 16px;
   height: 16px;
   background: url('images/sprites_16.png');
-  background-position: 39px -63px;
+  background-position: -147px -63px;
   margin-top: 11px;
 }
 .advanced-features-dropdown.expanded .btn-head,
@@ -436,7 +437,7 @@
   width: 16px;
   height: 16px;
   background: url('images/sprites_16.png');
-  background-position: 81px -63px;
+  background-position: -105px -63px;
   margin-top: 11px;
 }
 .delete-btn.btn-head:hover {
@@ -448,7 +449,7 @@
   opacity: 1;
 }
 .delete-btn.btn-head:hover:before {
-  background-position: 60px -63px;
+  background-position: -126px -63px;
 }
 /*#endregion DELETE SELECTED BUTTON*/
 /*#region MAIN CONTENT*/
@@ -2557,3 +2558,4 @@
     min-width: 150px;
   }
 }
+/*#endregion MEDIA*/
