@@ -1,0 +1,12 @@
+﻿.embed-code-label-container {
+    padding-left: 8px;
+    padding-top: 4px;
+}
+
+.embed-code-label-container span {
+    font-size: 13px;
+}
+
+.embed-code-textarea textarea {
+    white-space: normal;
+}

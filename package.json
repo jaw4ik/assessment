@@ -1,0 +1,30 @@
+{
+  "name": "easygenerator",
+  "version": "1.27.0",
+  "description": "easygenerator web edition http://easygenerator.com",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/easygenerator/easygenerator.git"
+  },
+  "keywords": [
+    "easygenerator",
+    "eLearning",
+    "courses"
+  ],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/easygenerator/easygenerator/issues"
+  },
+  "homepage": "https://github.com/easygenerator/easygenerator#readme",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-less": "^3.0.3",
+    "gulp-load-plugins": "^1.0.0-rc.1",
+    "gulp-plumber": "^1.0.1"
+  }
+}
