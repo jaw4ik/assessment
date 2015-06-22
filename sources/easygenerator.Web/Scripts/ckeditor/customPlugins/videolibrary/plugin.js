@@ -251,11 +251,13 @@
                     editor.addCommand(plugin.commands.selectVideo, new CKEDITOR.command(editor, {
                         exec: function () {
                             var vimeoId = this.data;
-                            var embedCode = '<iframe src="' + plugin.constants.storage.host + plugin.constants.storage.video.videoUrl + '/' + vimeoId + '?color=ffffff&title=0&byline=0&portrait=0"' +
-                                            ' width="' + plugin.constants.storage.video.iframeWidth +
-                                            '" height="' + plugin.constants.storage.video.iframeHeight +
-                                            '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
-                            dialog.setValueOf(elementDefinition.parentContainerId, elementDefinition.embedCodeAreaId, embedCode);
+                            if (vimeoId) {
+                                var embedCode = '<iframe src="' + plugin.constants.storage.host + plugin.constants.storage.video.videoUrl + '/' + vimeoId + '?color=ffffff&title=0&byline=0&portrait=0"' +
+                                    ' width="' + plugin.constants.storage.video.iframeWidth +
+                                    '" height="' + plugin.constants.storage.video.iframeHeight +
+                                    '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+                                dialog.setValueOf(elementDefinition.parentContainerId, elementDefinition.embedCodeAreaId, embedCode);
+                            }
                         }
                     }));
 
