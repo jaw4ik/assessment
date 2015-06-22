@@ -1,5 +1,5 @@
 ﻿CKEDITOR.plugins.setLang('videolibrary', 'uk', {
-    addFromLibrary: 'Бібліотека відео',
+    addFromLibrary: 'Додати відео з бібліотеки',
     videoLibrary: 'Бібліотека відео',
     noVideos: 'Відео відсутні',
     somethingWentWrong: 'Щось пішло не так. ',
