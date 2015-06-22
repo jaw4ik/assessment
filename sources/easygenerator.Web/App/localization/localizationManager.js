@@ -23,6 +23,10 @@
             return resources.hasOwnProperty(key);
         },
 
+        addLangTagToHtml = function(lang) {
+            $('html').attr('lang', lang);
+        },
+
         initialize = function (userCultures) {
             userCultures = userCultures || [];
 
@@ -46,6 +50,8 @@
 
             this.currentCulture = _.isString(match) ? match : defaultCulture;
             this.currentLanguage = this.currentCulture.substring(0, 2);
+
+            addLangTagToHtml(this.currentCulture);
         };
 
 
