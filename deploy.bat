@@ -8,6 +8,12 @@ SET Transform=%2
 IF "%1"=="" SET DeploymentDirectory="D:\Applications\easygenerator"
 IF "%2"=="" SET Transform="Release"
 
+call npm install
+IF NOT %ERRORLEVEL% == 0 GOTO ERROR
+
+call node node_modules/gulp/bin/gulp build
+IF NOT %ERRORLEVEL% == 0 GOTO ERROR
+
 ECHO "Cleaning ..."
 RMDIR  /S /Q "%DeploymentDirectory%"
 

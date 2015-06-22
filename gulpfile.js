@@ -7,14 +7,12 @@ var $ = require('gulp-load-plugins')({
 var config = {
     less: {
         src: ['./sources/easygenerator.Web/Content/**/*.less'],
-        dest: './sources/easygenerator.Web/Content'
+        dest: './sources/easygenerator.Web/Content',
+
+        browsers: ['last 1 Chrome version', 'last 1 Firefox version', 'last 1 Explorer version', 'last 1 Safari version']
     }
-}
+};
 
-
-gulp.task('watch', function () {
-    gulp.watch('./css/*', ['styles']);
-});
 
 gulp.task('styles', function () {
     return gulp.src(config.less.src)
@@ -26,8 +24,15 @@ gulp.task('styles', function () {
         }))
         .pipe($.less())
         .pipe($.autoprefixer({
-            browsers: ['last 1 Chrome version', 'last 1 Firefox version', 'last 1 Explorer version', 'last 1 Safari version'],
+            browsers: config.less.browsers,
             cascade: false
         }))
         .pipe(gulp.dest(config.less.dest));
+});
+
+
+gulp.task('build', ['styles']);
+
+gulp.task('watch', ['styles'], function () {
+    gulp.watch(config.less.src, ['styles']);
 });
