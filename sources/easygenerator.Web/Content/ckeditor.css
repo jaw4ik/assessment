@@ -1,5 +1,29 @@
-﻿.semantic-dropdown a .cke_combo_text {
-  width: 121px !important;
+﻿.cke_combo_button .cke_combo_text {
+  width: 100%;
+  padding-right: 20px;
+  box-sizing: border-box;
+}
+.cke_combo_button .cke_combo_open {
+  margin: 0 7px 0 -12px;
+}
+.cke_combopanel {
+  height: 175px !important;
+}
+.cke_combopanel,
+.cke_combo_button {
+  width: 150px;
+}
+[lang~=en] .cke_combopanel,
+[lang~=en] .cke_combo_button {
+  width: 180px;
+}
+[lang~=uk] .cke_combopanel,
+[lang~=uk] .cke_combo_button {
+  width: 210px;
+}
+[lang~=pt-br] .cke_combopanel,
+[lang~=pt-br] .cke_combo_button {
+  width: 200px;
 }
 /* Special class appended to the Ok button. */
 a.cke_dialog_ui_button_ok {
@@ -28,7 +52,4 @@ a.cke_dialog_ui_button_ok:hover {
 /* Text shadow used for inner part of OK dialog button in footer. */
 a.cke_dialog_ui_button_ok span {
   text-shadow: 0 1px 0 #fff !important;
-}
-.cke_combopanel {
-  height: 175px !important;
 }

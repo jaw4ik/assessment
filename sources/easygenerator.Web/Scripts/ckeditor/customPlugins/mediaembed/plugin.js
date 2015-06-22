@@ -17,7 +17,7 @@
 
         icons: 'mediaembed',
         hidpi: true,
-        lang: 'en,uk,zh-cn',
+        lang: 'en,uk,zh-cn,pt-br',
 
         commands: {
             openDialog: 'mediaEmbedOpenDialog',

@@ -1,17 +1,50 @@
-﻿.semantic-dropdown a .cke_combo_text
-{
-    width: 121px !important;
+﻿.cke_combo_button {
+    .cke_combo_text {
+        width: 100%;
+        padding-right: 20px;
+        box-sizing: border-box;
+    }
+
+    .cke_combo_open {
+        margin: 0 7px 0 -12px;
+    }
 }
 
+.cke_combopanel {
+    height: 175px !important;
+}
+
+.cke_combopanel,
+.cke_combo_button {
+    width: 150px;
+}
+
+[lang~=en] {
+    .cke_combopanel,
+    .cke_combo_button {
+        width: 180px;
+    }
+}
+[lang~=uk] {
+    .cke_combopanel,
+    .cke_combo_button {
+        width: 210px;
+    }
+}
+[lang~=pt-br] {
+    .cke_combopanel,
+    .cke_combo_button {
+        width: 200px;
+    }
+}
+
+
 /* Special class appended to the Ok button. */
-a.cke_dialog_ui_button_ok
-{
+a.cke_dialog_ui_button_ok {
     color: #333 !important;
     text-shadow: none !important;
     border: 1px solid #b6b6b6 !important;
-
     background: #e4e4e4 !important;
-
     background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#e4e4e4)) !important;
     background-image: -webkit-linear-gradient(top, #ffffff, #e4e4e4) !important;
     background-image: -o-linear-gradient(top, #ffffff, #e4e4e4) !important;
@@ -21,10 +54,8 @@ a.cke_dialog_ui_button_ok
     filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#ffffff', endColorstr='#e4e4e4') !important;
 }
 
-a.cke_dialog_ui_button_ok:hover
-{
+a.cke_dialog_ui_button_ok:hover {
     border-color: #9e9e9e !important;
-
     background: #ccc !important;
     background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#ccc)) !important;
     background: -webkit-linear-gradient(top, #f2f2f2, #ccc) !important;
@@ -35,11 +66,6 @@ a.cke_dialog_ui_button_ok:hover
 }
 
 /* Text shadow used for inner part of OK dialog button in footer. */
-a.cke_dialog_ui_button_ok span
-{
+a.cke_dialog_ui_button_ok span {
     text-shadow: 0 1px 0 #fff !important;
-}
-
-.cke_combopanel {
-    height: 175px !important;
 }
