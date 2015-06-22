@@ -1997,7 +1997,7 @@
         'en': 'True / False',
         'zh-cn': '对/错',
         'uk': 'Так / Ні',
-        'pt-br': 'Verdadeiro / Falso'
+        'pt-br': 'Real / Falso'
     },
     statements: {
         'en': 'Statement',
@@ -2021,7 +2021,7 @@
         'en': 'TRUE',
         'zh-cn': '对',
         'uk': 'Так',
-        'pt-br': 'VERDADEIRO'
+        'pt-br': 'REAL'
     },
     statementFalse: {
         'en': 'FALSE',
