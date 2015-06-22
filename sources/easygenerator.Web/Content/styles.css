@@ -1,4 +1,5 @@
 ﻿/*#region User avatar */
+/*#endregion */
 /*#region PAGE-LOADER ICON*/
 .icon-spinner-wrapper {
   position: absolute;
@@ -1998,6 +1999,14 @@
   text-transform: uppercase;
   vertical-align: middle;
 }
+.course nav ul li a:after,
+.library nav ul li a:after {
+  content: attr(data-text);
+  display: block;
+  height: 0;
+  font-family: 'OpenSans-Semibold';
+  visibility: hidden;
+}
 .course nav ul li a:hover,
 .library nav ul li a:hover {
   box-shadow: 0 -2px #88d498 inset, 0 1px #88d498;
@@ -2025,16 +2034,6 @@
 .course nav ul li a.active:hover,
 .library nav ul li a.active:hover {
   box-shadow: 0 -2px #65bd77 inset, 0 1px #65bd77;
-}
-.course nav ul li a:after,
-.library nav ul li a:after {
-  display: block;
-  content: attr(data-text);
-  font-family: 'OpenSans-Semibold';
-  height: 1px;
-  color: transparent;
-  overflow: hidden;
-  visibility: hidden;
 }
 @media (max-width: 1200px) {
   [lang~=uk] .course nav ul li a {

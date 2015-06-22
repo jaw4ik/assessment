@@ -86,6 +86,9 @@
             if (_.isString(value['html'])) {
                 $(element).html(localizationManager.localize(value['html']));
             }
+            if (_.isString(value['data-text'])) {
+                $(element).attr('data-text', localizationManager.localize(value['data-text']));
+            }
         };
     })();
 

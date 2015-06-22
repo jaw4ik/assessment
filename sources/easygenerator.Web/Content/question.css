@@ -1,4 +1,6 @@
-﻿.question.view-module {
+﻿/*#region User avatar */
+/*#endregion */
+.question.view-module {
   padding-bottom: 40px;
   color: #666;
   font-size: 14px;
@@ -180,9 +182,20 @@
   line-height: 22px;
   cursor: pointer;
 }
+.question .modal-dialog-wrapper.move-copy-question .modal-dialog-content .move-copy-question-footer .switcher .switcher-text:after {
+  content: attr(data-text);
+  display: block;
+  height: 0;
+  font-family: 'OpenSans-Semibold';
+  visibility: hidden;
+}
+.question .modal-dialog-wrapper.move-copy-question .modal-dialog-content .move-copy-question-footer .switcher .switcher-text:first-child {
+  text-align: right;
+}
 .question .modal-dialog-wrapper.move-copy-question .modal-dialog-content .move-copy-question-footer .switcher .switcher-text.selected {
   color: #42515f;
   font-family: 'OpenSans-Semibold';
+  cursor: default;
 }
 .question .modal-dialog-wrapper.move-copy-question .modal-dialog-content .move-copy-question-footer .switcher .switch-toggle-slider {
   margin: 0 7px;
@@ -1418,6 +1431,11 @@
   font-size: 12px;
   cursor: pointer;
 }
+[lang~=pt-br] .upgrade-user-link {
+  font-size: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
 .upgrade-user-link:hover {
   color: #52adc8;
   border: 1px solid #52adc8;
@@ -1426,6 +1444,9 @@
   padding-left: 17px;
   position: relative;
   text-transform: uppercase;
+}
+[lang~=pt-br] .upgrade-user-text {
+  padding-left: 12px;
 }
 .upgrade-user-text:before {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAOCAYAAAAWo42rAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NUQxMDQ1ODJFMTlCMTFFMzhERDZGOUZFQ0VBRTkxRTciIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NUQxMDQ1ODNFMTlCMTFFMzhERDZGOUZFQ0VBRTkxRTciPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo1RDEwNDU4MEUxOUIxMUUzOERENkY5RkVDRUFFOTFFNyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo1RDEwNDU4MUUxOUIxMUUzOERENkY5RkVDRUFFOTFFNyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PnmeKQUAAACRSURBVHjaYvz//z8DMog5eD8VRC+xV5yNLM6IrBCoyApI7YdynYCKj2IoBCqSAVKngVgCKvcCiE2Bip+AOExQRexAai2SIgYoey1QjgOuEAhmALEZAyYAiU0HWx194F4ekJ7IgB8UsACJg0BsAsQ8QHwATYEDEH8B4j/InuEHUh/QFAoAPfMR2Y0EwbBSCBBgAB63LpMlLnF2AAAAAElFTkSuQmCC);

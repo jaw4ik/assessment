@@ -18,7 +18,7 @@
         <div class="question-answer-options-area">
             <div class="content-section">
                 <div class="switcher" data-bind="css: { disable: !background() }">
-                    <div class="switcher-text" data-bind="localize: { text: 'singleResponse' }, css: { selected: !isMultiple() }"></div>
+                    <div class="switcher-text" data-bind="localize: { text: 'singleResponse', 'data-text': 'singleResponse' }, css: { selected: !isMultiple() }, click: setToSingle"></div>
                     <div class="switch-toggle-slider" data-bind="switchToggle: { value: isMultiple, onValueChanged: changeType }">
                         <div class="switch-toggle-wrapper">
                             <div class="switch-toggle-on"></div>
@@ -26,7 +26,7 @@
                             <div class="switch-toggle-off"></div>
                         </div>
                     </div>
-                    <div class="switcher-text multiple" data-bind="localize: { text: 'multipleResponse' }, css: { selected: isMultiple() }"></div>
+                    <div class="switcher-text" data-bind="localize: { text: 'multipleResponse', 'data-text': 'multipleResponse' }, css: { selected: isMultiple() }, click: setToMutiple"></div>
                     <div class="overlay"></div>
                 </div>
                 <!-- ko ifnot: background -->

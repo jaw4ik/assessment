@@ -1,4 +1,6 @@
-﻿.hotspot-designer {
+﻿/*#region User avatar */
+/*#endregion */
+.hotspot-designer {
   border: 2px dashed #a5c0d2;
   border-radius: 4px;
   font: 14px 'OpenSans';
@@ -13,7 +15,8 @@
 }
 .hotspot-designer-empty-holder {
   width: 430px;
-  margin: 40px auto 20px;
+  margin: 40px auto;
+  text-align: center;
 }
 .hotspot-designer-background-loader-wrapper {
   min-height: 90px;
@@ -107,24 +110,32 @@
 .switcher {
   margin-bottom: 15px;
 }
-.switcher .overlay {
-  display: none;
-}
 .switcher > div {
   display: inline-block;
   vertical-align: middle;
 }
-.switcher-text {
+.switcher .switcher-text {
   font: 12px 'OpenSans';
   color: #757575;
-  width: 92px;
+  cursor: pointer;
 }
-.switcher-text.multiple {
-  width: 105px;
+.switcher .switcher-text:after {
+  content: attr(data-text);
+  display: block;
+  height: 0;
+  font-family: 'OpenSans-Semibold';
+  visibility: hidden;
 }
-.switcher-text.selected {
+.switcher .switcher-text:first-child {
+  text-align: right;
+}
+.switcher .switcher-text.selected {
   font-family: 'OpenSans-Semibold';
   color: #0a9084;
+  cursor: default;
+}
+.switcher .overlay {
+  display: none;
 }
 .hot-spot .switch-toggle-slider,
 .hot-spot .switch-toggle-on,

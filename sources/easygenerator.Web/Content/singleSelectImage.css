@@ -153,7 +153,7 @@
   display: inline-block;
   vertical-align: top;
   height: 30px;
-  width: 86px;
+  max-width: 140px;
   background-color: #5bc0de;
   border: 1px solid white;
   box-shadow: 0 0 0 1px #EFEFEF;
