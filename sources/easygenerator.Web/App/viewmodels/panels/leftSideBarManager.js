@@ -3,8 +3,8 @@
 
     var barsConfigurations = [
         {
-            path: 'navigationBar/navigationBar',
-            viewmodels: [
+            view: 'navigationBar/navigationBar',
+            subscribedPages: [
                 { id: 'viewmodels/courses/courses' },
                 { id: 'viewmodels/courses/course/create/course' },
                 { id: 'viewmodels/courses/course/configure' },
@@ -13,16 +13,16 @@
                 { id: 'viewmodels/objectives/objective', pattern: /courses\/[\w]+\/objectives\/[\w]+/ },
                 { id: 'viewmodels/questions/question', pattern: /courses\/[\w]+\/objectives\/[\w]+\/questions\/[\w]+/ }
             ],
-            model: false
+            model: 'navigationBar/navigationBar'
         },
         {
-            path: 'views/courses/course/design/bar',
-            viewmodels: [{ id: 'viewmodels/courses/course/design/design' }],
-            model: true
+            view: 'views/courses/course/design/bar',
+            subscribedPages: [{ id: 'viewmodels/courses/course/design/design' }],
+            model: 'viewmodels/courses/course/design/design'
         },
         {
-            path: 'views/learningPaths/courseSelector/courseSelector',
-            viewmodels: [{ id: 'viewmodels/learningPaths/learningPath/learningPath' }],
+            view: 'views/learningPaths/courseSelector/courseSelector',
+            subscribedPages: [{ id: 'viewmodels/learningPaths/learningPath/learningPath' }],
             model: 'viewmodels/learningPaths/courseSelector/courseSelector',
             activate: true,
             activationDataProperty: 'id'
@@ -69,38 +69,28 @@
             activationData = false;
 
         _.each(barsConfigurations, function (barConfig) {
-            var bar = _.find(barConfig.viewmodels, function (viewmodel) {
+            var bar = _.find(barConfig.subscribedPages, function (page) {
                 var hashCorrect = true;
-                if (viewmodel.pattern) {
-                    hashCorrect = viewmodel.pattern.test(hash);
+                if (page.pattern) {
+                    hashCorrect = page.pattern.test(hash);
                 }
-                return viewmodel.id == instance.__moduleId__ && hashCorrect;
+                return page.id == instance.__moduleId__ && hashCorrect;
             });
 
             if (bar) {
-                view = barConfig.path;
+                view = barConfig.view;
                 activate = barConfig.activate || false;
 
                 if (_.isString(barConfig.activationDataProperty)) {
-                    activationData = _.isFunction(instance[barConfig.activationDataProperty]) ? instance[barConfig.activationDataProperty]() : instance[barConfig.activationDataProperty];
+                    activationData = instance[barConfig.activationDataProperty];
                 }
 
                 if (_.isString(barConfig.model)) {
                     model = barConfig.model;
-                    return;
-                }
-
-                if (barConfig.model) {
-                    model = instance;
                 }
             }
         });
-
-        if (model) {
-            viewModel.bar({ view: view, model: model, activate: activate, activationData: activationData });
-            return;
-        }
-        viewModel.bar(view);
+        viewModel.bar({ view: view, model: model, activate: activate, activationData: activationData });
     }
 
 });
