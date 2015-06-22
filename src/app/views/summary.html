@@ -22,12 +22,10 @@
                         </span>
                     </button>
                     <div class="summary-retry-notification-container" ng-show="summary.attemptsLimited">
-                        <div class="summary-retry-notification" ng-show="!summary.canTryAgain">
-                            <span>{{ '[attempts note limit acceeded]' | translate }}</span>
-                        </div>
-                        <div class="summary-retry-notification" ng-show="summary.canTryAgain">
-                            <span><b>{{ '[attempts note]' | translate }}</b>&nbsp;{{ '[attempts note you have]' | translate }}</span>&nbsp;<span><b>{{ summary.availableAttemptCount }}</b></span>&nbsp;<span>{{ '[attempts note allowed attempts]' | translate }}</span>
-                        </div>
+                        <span class="summary-retry-notification" ng-show="!summary.canTryAgain">{{ '[attempts note limit acceeded]' | translate }}</span>
+                        <span class="summary-retry-notification" ng-show="summary.canTryAgain">
+                            <b>{{ '[attempts note]' | translate }}</b>&nbsp;{{ '[attempts note you have]' | translate }}&nbsp;<b>{{ summary.availableAttemptCount }}</b>&nbsp;{{ '[attempts note allowed attempts]' | translate }}
+                        </span>
                     </div>
                 </div>
                 <div class="summary-button-container">
