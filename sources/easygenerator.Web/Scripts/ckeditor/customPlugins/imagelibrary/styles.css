@@ -131,7 +131,7 @@
 
 .image-library-empty-image span {
     font-size: 18px;
-    color: #5b6874;
+    color: rgba(91, 104, 116, 0.6);
     font-family: OpenSans;
     padding-top: 10px;
     display: inline-block;
