@@ -1596,6 +1596,9 @@
 .tooltip-content {
   margin-bottom: 20px;
 }
+.tooltip-content ul {
+  list-style-position: inside;
+}
 .tooltip-buttons-holder {
   text-align: center;
 }
