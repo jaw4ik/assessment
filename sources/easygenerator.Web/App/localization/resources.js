@@ -977,7 +977,7 @@
         'en': 'Upgrade now',
         'zh-cn': '立即升级',
         'uk': 'Оновити план',
-        'pt-br': 'Faça upgrade agora'
+        'pt-br': 'Upgrade agora'
     },
     limitCoursesInformerTextForStarter: {
         'en': 'You have reached the limit of ',
