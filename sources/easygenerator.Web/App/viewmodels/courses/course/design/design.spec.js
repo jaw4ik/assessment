@@ -176,6 +176,16 @@
                     getCourseDefer.resolve(course);
                 });
 
+                it('should publish navigate to templates event', function (done) {
+                    getTemplateCollectionDefer.reject();
+
+                    viewModel.activate(course.id).fin(function () {
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to \'choose template\' section');
+                        done();
+                    });
+
+                });
+
                 it('should set templatesSectionSelected to true', function (done) {
                     getTemplateCollectionDefer.reject();
                     viewModel.templatesSectionSelected(false);
@@ -702,6 +712,11 @@
                 expect(viewModel.templatesSectionSelected()).toBeTruthy();
             });
 
+            it('should publish navigate to templates event', function () {
+                viewModel.selectTemplatesSection();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to \'choose template\' section');
+            });
+
         });
 
         describe('selectSettingsSection', function () {
@@ -714,6 +729,11 @@
                 viewModel.templatesSectionSelected(true);
                 viewModel.selectSettingsSection();
                 expect(viewModel.templatesSectionSelected()).toBeFalsy();
+            });
+
+            it('should publish navigate to settings event', function () {
+                viewModel.selectSettingsSection();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to \'design settings\' section');
             });
 
         });

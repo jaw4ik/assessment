@@ -3,7 +3,9 @@
 
         var
             events = {
-                updateCourseTemplate: 'Change course template to'
+                updateCourseTemplate: 'Change course template to',
+                navigateToTemplatesSection: 'Navigate to \'choose template\' section',
+                navigateToSettingsSection: 'Navigate to \'design settings\' section'
             },
 
             templateMessageTypes = {
@@ -66,6 +68,8 @@
                 viewModel.courseId = course.id;
                 viewModel.previewUrl('/preview/' + viewModel.courseId);
                 viewModel.templatesSectionSelected(true);
+
+                eventTracker.publish(events.navigateToTemplatesSection);
 
                 return templateRepository.getCollection().then(function (templates) {
                     viewModel.templates = _.chain(templates)
@@ -152,10 +156,12 @@
 
         function selectTemplatesSection() {
             viewModel.templatesSectionSelected(true);
+            eventTracker.publish(events.navigateToTemplatesSection);
         }
 
         function selectSettingsSection() {
             viewModel.templatesSectionSelected(false);
+            eventTracker.publish(events.navigateToSettingsSection);
         }
 
         function reloadPreview() {
