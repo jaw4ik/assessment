@@ -479,7 +479,19 @@
         'en': 'Undo',
         'zh-cn': 'Undo[zh-cn]',
         'uk': 'Відновити',
-        'pt-br': 'Undo[pt-br]'
+        'pt-br': 'Desfazer'
+    },
+    template: {
+        'en': 'Template',
+        'zh-cn': 'Template[zh-cn]',
+        'uk': 'Шаблон',
+        'pt-br': 'Template[pt-br]'
+    },
+    settings: {
+        'en': 'Settings',
+        'zh-cn': 'Settings[zh-cn]',
+        'uk': 'Опції',
+        'pt-br': 'Settings[pt-br]'
     },
     /* End resource section for model General */
     
@@ -560,31 +572,31 @@
         'en': 'Audio library',
         'zh-cn': 'Audio library[zh-cn]',
         'uk': 'Аудіо бібліотека',
-        'pt-br': 'Audio library[pt-br]'
+        'pt-br': 'Biblioteca de audio'
     },
     uploadAudioDescription: {
         'en': 'Upload your own audio by clicking this button',
         'zh-cn': 'Upload your own audio by clicking this button[zh-cn]',
         'uk': 'Завантажте своє власне аудіо натиснувши на кнопку',
-        'pt-br': 'Upload your own audio by clicking this button[pt-br]'
+        'pt-br': 'Carregue seu próprio audio clicando este botão'
     },
     audioUploadError: {
         'en': 'Upload failed',
         'zh-cn': 'Upload failed[zh-cn]',
         'uk': 'Помилка завантаження',
-        'pt-br': 'Upload failed[pt-br]'
+        'pt-br': 'Carga falhou'
     },
     audioUploadUpgradeSubtitle: {
         'en': 'to upload audio to easygenerator',
         'zh-cn': 'to upload audio to easygenerator[zh-cn]',
         'uk': 'Для завантаження аудіо в easygenerator',
-        'pt-br': 'to upload audio to easygenerator[pt-br]'
+        'pt-br': 'para carregar audio para o Easygenerator'
     },
     audioUploadUpgradeText: {
-        'en': '<ul><li>Unlimited storage space (fair use policy)</li><li>Beautiful playback</li><li>Unlimited plays</li></ul>',
-        'zh-cn': '<ul><li>Unlimited storage space (fair use policy)</li><li>Beautiful playback</li><li>Unlimited plays</li></ul>[zh-cn]',
-        'uk': '<ul><li>Необмежений обсяг завантаження</li><li>Аудіо у високій якості</li><li>Необмежена кількість програвань</li></ul>',
-        'pt-br': '<ul><li>Unlimited storage space (fair use policy)</li><li>Beautiful playback</li><li>Unlimited plays</li></ul>[pt-br]'
+        'en': '<ul><li>Unlimited storage space (fair use policy)</li><li>Unlimited number of plays</li><li>HTML5 player: play anywhere on any device</li></ul>',
+        'zh-cn': '<ul><li>Unlimited storage space (fair use policy)</li><li>Unlimited number of plays</li><li>HTML5 player: play anywhere on any device</li></ul>[zh-cn]',
+        'uk': '<ul><li>Необмежений обсяг завантаження</li><li>Необмежена кількість програвань</li><li>HTML5 програвач: аудіо можна прослухати на будь-якому пристрої</li></ul>',
+        'pt-br': '<ul><li>Espaço de armazenagem ilimitado (política de uso justo)</li><li>Bela reprodução</li><li>Ilimitadas reproduções</li></ul>'
     },
     /* End resource section for model Audios */
     
@@ -748,23 +760,17 @@
         'uk': 'Видалити зі шляху',
         'pt-br': 'Remover do caminho'
     },
-    download: {
-        'en': 'Download',
-        'zh-cn': 'Download[zh-cn]',
-        'uk': 'Завантажити',
-        'pt-br': 'Download[pt-br]'
-    },
     learningPathBuildFailed: {
         'en': 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists. ',
         'zh-cn': '出错了，请重试。如果问题依然存在，请联系support@easygenerator.com解决。',
         'uk': 'Щось пішло не так. Спробуйте знову. Якщо проблема не зникне - надішліть нам електронного листа на адресу support@easygenerator.com',
-        'pt-br': 'Something went wrong. Try again. Contact support@easygenerator.com if the problem persists. [pt-br]'
+        'pt-br': 'Algo não funcionou corretamente. Tente novamente. Contate support@easygenerator.com se o problema persistir.'
     },
     deleteLearningPath: {
         'en': 'Delete learning path',
         'zh-cn': 'Delete learning path[zh-cn]',
         'uk': 'Видалити навчальний шлях',
-        'pt-br': 'Delete learning path[pt-br]'
+        'pt-br': 'Excluir caminho de aprendizado'
     },
     /* End resource section for model Learning paths */
     
@@ -803,7 +809,7 @@
         'en': 'Course cannot be deleted if it has learning objective(s) or connected to learning path(s)',
         'zh-cn': 'Course cannot be deleted if it has learning objective(s) or connected to learning path(s)[zh-cn]',
         'uk': 'Course cannot be deleted if it has learning objective(s) or connected to learning path(s)[uk]',
-        'pt-br': 'Course cannot be deleted if it has learning objective(s) or connected to learning path(s)[pt-br]'
+        'pt-br': 'Curso não pode ser excluido se tiver objetivo(s) de aprendizado ou estiver conectado a caminho(s) de aprendizado'
     },
     courseCreateItem: {
         'en': 'Create',
@@ -1652,7 +1658,7 @@
         'en': 'Content was removed',
         'zh-cn': 'Content was removed[zh-cn]',
         'uk': 'Навчальний матеріал видалено',
-        'pt-br': 'Content was removed[pt-br]'
+        'pt-br': 'Conteúdo foi removido'
     },
     /* End resource section for model Question */
     
@@ -1889,13 +1895,13 @@
         'en': 'Type description...',
         'zh-cn': 'Type description...[zh-cn]',
         'uk': 'Введіть опис...',
-        'pt-br': 'Type description...[pt-br]'
+        'pt-br': 'Digite a descrição...'
     },
     hotspotOnAnImageEmptyTooltip: {
         'en': 'Click and drag on image to create the hotspot',
         'zh-cn': 'Click and drag on image to create the hotspot[zh-cn]',
         'uk': 'Щоб додати підказку натисніть та потягніть на картинці',
-        'pt-br': 'Click and drag on image to create the hotspot[pt-br]'
+        'pt-br': 'Clique e arraste sobre a imagem para criar hotspot'
     },
     changeImage: {
         'en': 'Change image',
@@ -2413,7 +2419,7 @@
     addPeopleForCollaboration: {
         'en': 'Add co-authors',
         'zh-cn': '添加多个人共同编辑',
-        'uk': 'Додавання співавторів',
+        'uk': 'Додати співавтора',
         'pt-br': 'Adicione co-autores'
     },
     addCollaborator: {
@@ -2801,7 +2807,7 @@
         'en': 'to get detailed results',
         'zh-cn': 'to get detailed results[zh-cn]',
         'uk': 'для завантаження детального списку результатів',
-        'pt-br': 'to get detailed results[pt-br]'
+        'pt-br': 'para ter resultados detalhados'
     },
     resultsUpgradeDialogText: {
         'en': 'On the Free Plan you can only see the last 10 results',
@@ -2819,7 +2825,7 @@
         'en': '<ul><li>Get results per objective</li><li>Get results per question</li><li>Check start and finish date of each attempt</li></ul>',
         'zh-cn': '<ul><li>Get results per objective</li><li>Get results per question</li><li>Check start and finish date of each attempt</li></ul>[zh-cn]',
         'uk': '<ul><li>Отримати результати за кожною ціллю</li><li>Отримати результати за кожним питанням</li><li>Перевірити час початку і час закінчення кожної спроби</li></ul>',
-        'pt-br': '<ul><li>Get results per objective</li><li>Get results per question</li><li>Check start and finish date of each attempt</li></ul>[pt-br]'
+        'pt-br': '<ul><li>Obter resultados por objetivo</li><li>Obter resultados por questão</li><li>Verifique data de início e fim de cada tentativa</li></ul>'
     },
     upgradeDialogUpgradeNow: {
         'en': 'Upgrade now',

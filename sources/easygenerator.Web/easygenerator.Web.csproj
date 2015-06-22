@@ -1306,6 +1306,15 @@
       <DependentUpon>tasks.js</DependentUpon>
     </Content>
     <Content Include="Content\upgradePopup.less" />
+    <EmbeddedResource Include="Resources\Controllers\Resources.pt.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.pt.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Account\Resources.pt.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.pt.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
@@ -2866,12 +2875,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Account\Resources.uk.resx" />
     <EmbeddedResource Include="Resources\Views\Account\Resources.zh.resx" />
+    <EmbeddedResource Include="Resources\Views\Error\Resources.pt.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.pt.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Error\Resources.resx" />
     <EmbeddedResource Include="Resources\Views\Error\Resources.uk.resx" />
     <EmbeddedResource Include="Resources\Views\Error\Resources.zh.resx" />
+    <EmbeddedResource Include="Resources\Views\Review\Resources.pt.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.pt.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Review\Resources.resx" />
     <EmbeddedResource Include="Resources\Views\Review\Resources.uk.resx" />
     <EmbeddedResource Include="Resources\Views\Review\Resources.zh.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\Resources.pt.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.pt.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\Resources.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\Resources.uk.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\Resources.zh.resx" />
