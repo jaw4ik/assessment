@@ -109,7 +109,7 @@ app.delete(config.LOCATION + '/file/:id', function (req, res) {
                 fs.unlinkSync(path.join(config.TEMP_FOLDER, id, filename));
             });
             fs.rmdirSync(path.join(config.TEMP_FOLDER, id));
-            res.end();
+            res.status(204).end();
         }
 
     });
