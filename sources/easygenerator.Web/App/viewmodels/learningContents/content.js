@@ -29,14 +29,14 @@
                 that.removeLearningContent();
             };
 
-            this.restore = function () {
+            this.restore = function() {
                 if (!that.isRemoved()) {
                     return;
                 }
 
                 that.publishActualEvent(events.restoreLearningContent);
                 that.restoreLearningContent();
-            }
+            };
 
             if (_.isEmpty(this.id())) {
                 this.publishActualEvent(events.addLearningContent);

@@ -14,6 +14,10 @@
         <div class="question-learning-content-body-wrapper" data-bind="css: { editing: hasFocus }">
             <div class="question-learning-content-body">
                 <div class="question-learning-content-wrapper hotspot-on-image-container">
+                    <!-- ko ifnot: background.isLoaded -->
+                    <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 grey align-center' } } --><!-- /ko -->
+                    <!-- /ko -->
+                    <!-- ko if: background.isLoaded -->
                     <div class="hotspot-on-image-wrapper">
                         <div class="question-learning-content selectable hotspot-on-image" data-bind="background: background, hotspotOnImage: { background: background, polygons: polygons, isEditing: hasFocus, save: updateHotspotOnAnImage, actions: { add: addPolygon, update: updatePolygon, delete: deletePolygon} }">
                         </div>
@@ -24,6 +28,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- /ko -->
                 </div>
             </div>
         </div>

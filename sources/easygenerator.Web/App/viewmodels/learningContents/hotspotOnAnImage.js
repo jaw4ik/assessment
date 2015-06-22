@@ -27,7 +27,11 @@
             this.background.onload = function (width, height) {
                 fitPointsIntoBounds(width, height);
                 that.updateHotspotOnAnImage();
+                setTimeout(function() {
+                    that.background.isLoaded(true);
+                }, 60000);
             };
+            this.background.isLoaded = ko.observable(true);
 
             app.on(constants.messages.question.learningContent.updateText, textUpdatedByCollaborator);
 
@@ -65,6 +69,7 @@
                     success: function (url) {
                         that.publishActualEvent(events.changeBackground);
                         that.background(url);
+                        that.background.isLoaded(false);
                     },
                     complete: function () {
                         uiLocker.unlock();
@@ -96,7 +101,7 @@
 
                 that.publishActualEvent(events.restoreHotspotContentBlock);
                 that.restoreLearningContent();
-            }
+            };
 
             if (_.isEmpty(this.id())) {
                 this.publishActualEvent(events.addHotsppotContentBlock);
@@ -105,6 +110,7 @@
             } else {
                 var data = parser.getViewModelData(this.text());
                 this.background(data.background);
+                this.background.isLoaded(false);
                 var results = [];
                 _.each(data.polygons, function (polygon) {
                     results.push(new PolygonModel(polygon.id, polygon.points, polygon.text, updateTextInHotspotContentBlock));
