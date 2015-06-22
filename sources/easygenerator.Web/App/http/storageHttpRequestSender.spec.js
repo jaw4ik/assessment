@@ -95,7 +95,7 @@
 
                 storageHttpRequestSender.get(url, data, headers);
 
-                expect($.ajax).toHaveBeenCalledWith(url, { data: data, headers: headers, global: false });
+                expect($.ajax).toHaveBeenCalledWith(url, { data: data, headers: headers, global: false, cache: false });
             });
 
             describe('when get request failed', function () {

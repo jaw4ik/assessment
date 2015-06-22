@@ -109,15 +109,15 @@
     "TermSemicolons": true
   },
   "Less": {
-    "CompileOnBuild": true,
-    "CompileOnSave": true,
-    "EnableChainCompilation": true,
+    "CompileOnBuild": false,
+    "CompileOnSave": false,
+    "EnableChainCompilation": false,
     "GenerateSourceMaps": false,
     "MinifyInPlace": false,
     "OutputDirectory": null,
-    "ProcessSourceMapsForEditorEnhancements": true,
+    "ProcessSourceMapsForEditorEnhancements": false,
     "ShowPreviewPane": true,
-    "StrictMath": true
+    "StrictMath": false
   },
   "LiveScript": {
     "CompileOnBuild": false,

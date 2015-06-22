@@ -56,16 +56,8 @@
                     <!-- /ko -->
                     <!-- ko if: isLoading -->
                     <div class="loading-results">
-                        <div class="circular-loader x32 grey align-center">
-                            <div class="circular-loader-item"></div>
-                            <div class="circular-loader-item"></div>
-                            <div class="circular-loader-item"></div>
-                            <div class="circular-loader-item"></div>
-                            <div class="circular-loader-item"></div>
-                            <div class="circular-loader-item"></div>
-                            <div class="circular-loader-item"></div>
-                            <div class="circular-loader-item"></div>
-                        </div>
+                        <!-- ko compose: { view: 'views/common/circularLoader', model: {css: 'x32 grey align-center'} } -->
+                        <!-- /ko -->
                         <div class="loading-results-text" data-bind="localize: { text: 'loadingReportedResults' }"></div>
                     </div>
                     <!-- /ko -->
