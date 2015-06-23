@@ -185,6 +185,7 @@
                 beforeEach(function () {
                     spyOn(learningContentInstance, 'deletePolygon');
                     spyOn(learningContentInstance, 'updatePolygon');
+                    spyOn(learningContentInstance, 'updateHotspotOnAnImage');
                 });
 
                 var width = 500;
@@ -391,6 +392,7 @@
 
                 it('should send event \'Undo delete hotspot content block\' with category \'Information\' for informationContent question type', function () {
                     var learnContent = new HotspotOnAnImage(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
+                    spyOn(learnContent, 'restoreLearningContent');
                     learnContent.isRemoved(true);
                     learnContent.restore();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Undo delete hotspot content block', 'Information');

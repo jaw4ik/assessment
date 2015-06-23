@@ -50,8 +50,10 @@
 
         onLoad: function () {
             CKEDITOR.dialog.add(this.dialogName, this.path + 'dialogs/mediaembed.js');
+            CKEDITOR.document.appendStyleSheet(this.path + 'styles.css');
         }
     };
 
     CKEDITOR.plugins.add('mediaembed', CKEDITOR.plugins.mediaembed);
+
 })();

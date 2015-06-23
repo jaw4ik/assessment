@@ -39,7 +39,7 @@
                                         id: plugin.imageListContainerId
                                     },
                                     {
-                                        type: 'vbox',
+                                        type: 'hbox',
                                         id: plugin.emptyListIndicatorId,
                                         className: 'image-library-empty',
                                         hidden: true,
@@ -47,12 +47,7 @@
                                             {
                                                 type: 'html',
                                                 className: 'image-library-empty-image',
-                                                html: '<img src="' + plugin.path + 'icons/no-images.png" />'
-                                            },
-                                            {
-                                                type: 'html',
-                                                className: 'image-library-empty-text',
-                                                html: '<span>' + lang.noImages + '</span>'
+                                                html: '<div><img src="' + plugin.path + 'icons/no-images.png" /><span>' + lang.noImages + '</span></div>'
                                             }
                                         ]
                                     },

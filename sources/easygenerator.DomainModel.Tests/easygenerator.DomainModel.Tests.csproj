@@ -70,6 +70,7 @@
     <Compile Include="Entities\CourseCollaboratorTests.cs" />
     <Compile Include="Entities\CourseStateTests.cs" />
     <Compile Include="Entities\DemoCourseInfoTests.cs" />
+    <Compile Include="Entities\LearningPathTests.cs" />
     <Compile Include="Entities\OnboardingTests.cs" />
     <Compile Include="Entities\Questions\AnswerTests.cs" />
     <Compile Include="Entities\FillInTheBlanksTests.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="ObjectMothers\ImageFileObjectMother.cs" />
     <Compile Include="ObjectMothers\CourseObjectMother.cs" />
     <Compile Include="ObjectMothers\LearningContentObjectMother.cs" />
+    <Compile Include="ObjectMothers\LearningPathObjectMother.cs" />
     <Compile Include="ObjectMothers\StatementObjectMother.cs" />
     <Compile Include="ObjectMothers\ObjectiveObjectMother.cs" />
     <Compile Include="ObjectMothers\OnboardingObjectMother.cs" />

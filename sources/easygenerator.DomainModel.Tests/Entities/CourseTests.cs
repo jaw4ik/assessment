@@ -1700,5 +1700,28 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
+
+        #region LearningPaths
+
+        [TestMethod]
+        public void LearningPaths_ShouldReturnLearningPaths()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var learningPath = LearningPathObjectMother.Create();
+
+            course.LearningPathCollection = new List<LearningPath>()
+            {
+                learningPath
+            };
+            
+            //Act
+            var result = course.LearningPaths;
+
+            //Assert
+            result.Should().Contain(learningPath);
+        }
+
+        #endregion
     }
 }
