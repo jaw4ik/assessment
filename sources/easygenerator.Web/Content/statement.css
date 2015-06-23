@@ -6,7 +6,8 @@
 }
 .statement .content-section-answer-value-header {
   float: left;
-  width: 95px;
+  width: 80px;
+  text-align: center;
 }
 .statement .content-section-answer-text-header {
   margin-left: 95px;

@@ -1997,7 +1997,7 @@
         'en': 'True / False',
         'zh-cn': '对/错',
         'uk': 'Так / Ні',
-        'pt-br': 'Real / Falso'
+        'pt-br': 'Verdadeiro / Falso'
     },
     statements: {
         'en': 'Statement',
@@ -2021,13 +2021,13 @@
         'en': 'TRUE',
         'zh-cn': '对',
         'uk': 'Так',
-        'pt-br': 'REAL'
+        'pt-br': 'V'
     },
     statementFalse: {
         'en': 'FALSE',
         'zh-cn': '错',
         'uk': 'Ні',
-        'pt-br': 'FALSO'
+        'pt-br': 'F'
     },
     /* End resource section for model StatementQuestion */
     
