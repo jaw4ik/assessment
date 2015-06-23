@@ -1,9 +1,9 @@
 ﻿define(['durandal/app', 'constants', 'eventTracker', 'userContext', 'localization/localizationManager',
     'widgets/upgradeDialog/viewmodel', 'repositories/videoRepository', 'storageFileUploader',
-    'videoUpload/upload', 'dialogs/video/video'
+    'videoUpload/upload', 'dialogs/video/video', 'videoUpload/handlers/durations'
 ],
 function (app, constants, eventTracker, userContext, localizationManager,
-    upgradeDialog, repository, storageFileUploader, videoUpload, videoPopup) {
+    upgradeDialog, repository, storageFileUploader, videoUpload, videoPopup, durationsLoader) {
     "use strict";
 
     app.on(constants.storage.changesInQuota, setAvailableStorageSpace);
@@ -36,11 +36,13 @@ function (app, constants, eventTracker, userContext, localizationManager,
     function activate() {
         return userContext.identifyStoragePermissions().then(function () {
             return repository.getCollection().then(function (audios) {
-                viewModel.audios([]);
-                _.each(audios, function (audio) {
-                    viewModel.audios.push(mapAudio(audio));
+                return durationsLoader.getVideoDurations(audios).then(function () {
+                    viewModel.audios([]);
+                    _.each(audios, function (audio) {
+                        viewModel.audios.push(mapAudio(audio));
+                    });
+                    setAvailableStorageSpace();
                 });
-                setAvailableStorageSpace();
             });
         });
     }
@@ -53,9 +55,19 @@ function (app, constants, eventTracker, userContext, localizationManager,
         audio.vimeoId = ko.observable(item.vimeoId);
         audio.progress = ko.observable(item.progress || 0);
         audio.status = ko.observable(item.status || viewModel.statuses.loaded);
-        audio.time = "32:05";
+        audio.time = ko.observable(getTimeString(item.duration || 0));
 
         return audio;
+    }
+
+    function getTimeString(number) {
+        var minutes = Math.floor(number / 60);
+        var seconds = number - (minutes * 60);
+
+        if (minutes < 10) { minutes = "0" + minutes; }
+        if (seconds < 10) { seconds = "0" + seconds; }
+        
+        return minutes + ':' + seconds;
     }
 
     function setAvailableStorageSpace() {

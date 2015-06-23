@@ -5,6 +5,7 @@
         eventTracker = require('eventTracker'),
         repository = require('repositories/videoRepository'),
         userContext = require('userContext'),
+        durationsHandler = require('videoUpload/handlers/durations'),
         localizationManager = require('localization/localizationManager'),
         storageFileUploader = require('storageFileUploader');
 
@@ -125,16 +126,17 @@
         describe('activate:', function () {
             var identifyStoragePermissionsDeferred = Q.defer(),
                 repositoryGetCollectionDeferred = Q.defer(),
-                thumbnailLoaderGetThumbnailUrlsDeferred = Q.defer(),
-                audio = { id: 1, title: 'title', vimeoId: 'audioId', progress: 100, status: viewModel.statuses.loaded };
+                durationsLoaderGetThumbnailUrlsDeferred = Q.defer(),
+                audio = { id: 1, title: 'title', vimeoId: 'audioId', progress: 100, status: viewModel.statuses.loaded, duration: 60 };
 
             beforeEach(function () {
                 spyOn(userContext, 'identifyStoragePermissions').and.returnValue(identifyStoragePermissionsDeferred.promise);
                 spyOn(repository, 'getCollection').and.returnValue(repositoryGetCollectionDeferred.promise);
+                spyOn(durationsHandler, 'getVideoDurations').and.returnValue(durationsLoaderGetThumbnailUrlsDeferred.promise);
                 
                 identifyStoragePermissionsDeferred.resolve();
                 repositoryGetCollectionDeferred.resolve([audio]);
-                thumbnailLoaderGetThumbnailUrlsDeferred.resolve();
+                durationsLoaderGetThumbnailUrlsDeferred.resolve();
             });
 
             it('should be function', function () {
@@ -160,6 +162,16 @@
 
             });
 
+            it('should load durations for all audios', function (done) {
+                var promise = viewModel.activate();
+
+                promise.fin(function () {
+                    expect(durationsHandler.getVideoDurations).toHaveBeenCalledWith([audio]);
+                    done();
+                });
+
+            });
+
             it('should map all audios', function (done) {
                 var promise = viewModel.activate();
 
@@ -169,6 +181,7 @@
                     expect(viewModel.audios()[0].vimeoId()).toBe(audio.vimeoId);
                     expect(viewModel.audios()[0].progress()).toBe(audio.progress);
                     expect(viewModel.audios()[0].status()).toBe(audio.status);
+                    expect(viewModel.audios()[0].time()).toBe("01:00");
                     done();
                 });
 

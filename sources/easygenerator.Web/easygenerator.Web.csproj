@@ -574,6 +574,10 @@
       <DependentUpon>publishHttpWrapper.js</DependentUpon>
     </Content>
     <Content Include="App\http\publishHttpWrapper.js" />
+    <Content Include="App\videoUpload\handlers\durations.js" />
+    <Content Include="App\videoUpload\handlers\durations.spec.js">
+      <DependentUpon>durations.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\audios\audios.js" />
     <Content Include="App\viewmodels\audios\audios.spec.js">
       <DependentUpon>audios.js</DependentUpon>
