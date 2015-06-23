@@ -7,6 +7,7 @@ var
     express = require('express'),
     app = express(),
     cors = require('cors'),
+    morgan = require('morgan'),
     Busboy = require('busboy'),
     uuid = require('node-uuid'),
 
@@ -14,6 +15,7 @@ var
 ;
 
 app.use(cors());
+app.use(morgan('dev'));
 
 app.get(config.LOCATION + '/', function (req, res) {
     res.send('<html>' +
