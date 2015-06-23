@@ -14,21 +14,21 @@
         <div class="question-learning-content-body-wrapper" data-bind="css: { editing: hasFocus }">
             <div class="question-learning-content-body">
                 <div class="question-learning-content-wrapper hotspot-on-image-container">
-                    <!-- ko ifnot: background.isLoaded -->
+                    <!-- ko if: background.isLoading -->
                     <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 grey align-center' } } --><!-- /ko -->
                     <!-- /ko -->
-                    <!-- ko if: background.isLoaded -->
                     <div class="hotspot-on-image-wrapper">
                         <div class="question-learning-content selectable hotspot-on-image" data-bind="background: background, hotspotOnImage: { background: background, polygons: polygons, isEditing: hasFocus, save: updateHotspotOnAnImage, actions: { add: addPolygon, update: updatePolygon, delete: deletePolygon} }">
                         </div>
+                        <!-- ko ifnot: background.isLoading -->
                         <div class="hotspot-tooltip-container" data-bind="localize: { text: 'hotspotOnAnImageEmptyTooltip'}">Click and drag on image to create the hotspot</div>
                         <div class="upload-background-image info-tooltip-holder" data-bind="click: uploadBackground">
                             <div class="info-tooltip browse-image">
                                 <span data-bind="localize: { text: 'changeBackgroundImage' }">Browse image</span>
                             </div>
                         </div>
+                        <!-- /ko -->
                     </div>
-                    <!-- /ko -->
                 </div>
             </div>
         </div>

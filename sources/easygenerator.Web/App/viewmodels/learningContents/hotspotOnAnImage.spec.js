@@ -40,6 +40,7 @@
                 expect(learningContentInstance.background).toBeObservable();
                 expect(learningContentInstance.background.width).toBeObservable();
                 expect(learningContentInstance.background.height).toBeObservable();
+                expect(learningContentInstance.background.isLoading).toBeObservable();
                 expect(learningContentInstance.background.onload).toBeFunction();
                 expect(learningContentInstance.hasFocus()).toBeFalsy();
                 expect(learningContentInstance.isDeleted).toBeFalsy();
@@ -192,6 +193,14 @@
                 var height = 500;
                 var minPolygonSize = 10;
 
+                it('should stop loading', function() {
+                    learningContentInstance.background.isLoading(true);
+
+                    learningContentInstance.background.onload(width, height);
+
+                    expect(learningContentInstance.background.isLoading()).toBeFalsy();
+                });
+
                 it('should not change polygons which are in bounds', function () {
                     var polygon = {
                         id: 'id',
@@ -325,6 +334,12 @@
                         expect(eventTracker.publish).toHaveBeenCalledWith('Change background of hotspot content block', 'Information');
                     });
 
+
+                    it('should start load image', function () {
+                        learningContentInstance.background.isLoading(false);
+                        learningContentInstance.uploadBackground();
+                        expect(learningContentInstance.background.isLoading()).toBeTruthy();
+                    });
                 });
 
                 describe('when image upload finished', function () {
