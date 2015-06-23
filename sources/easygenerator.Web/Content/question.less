@@ -1,4 +1,6 @@
-﻿@learning-content-delete-section-width: 25px;
+﻿@import "helpers.less";
+
+@learning-content-delete-section-width: 25px;
 @learning-content-drag-section-width: 28px;
 
 .question.view-module {
@@ -215,11 +217,17 @@
                             font-size: 13px;
                             line-height: 22px;
                             cursor: pointer;
-                        }
+                            .fix-bold-text-expanding;
 
-                        .switcher-text.selected {
-                            color: #42515f;
-                            font-family: 'OpenSans-Semibold';
+                            &:first-child {
+                                text-align: right;
+                            }
+
+                            &.selected {
+                                color: #42515f;
+                                font-family: 'OpenSans-Semibold';
+                                cursor: default;
+                            }
                         }
 
                         .switch-toggle-slider {
@@ -1221,7 +1229,7 @@
     -webkit-box-shadow: 0 3px 3px 0 rgba(0,0,0,.5);
     -moz-box-shadow: 0 3px 3px 0 rgba(0,0,0,.5);
     box-shadow: 1px 1px 7px rgba(0,0,0,.1);
-    z-index: 20;
+    z-index: 110;
 }
 
 .expanded + .question-type-action-wrapper {
@@ -1699,11 +1707,6 @@
 
 /*#region Disabled question*/
 
-.question-type-action-item .disabled:hover {
-    background-color: #ffffff;
-    cursor: default;
-}
-
 .disabled-question-container {
     height: 64px;
     position: relative;
@@ -1726,6 +1729,11 @@
     font-family: 'OpenSans-Semibold';
     font-size: 12px;
     cursor: pointer;
+
+    [lang~=pt-br] & {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
 }
 
 .upgrade-user-link:hover {
@@ -1737,6 +1745,10 @@
     padding-left: 17px;
     position: relative;
     text-transform: uppercase;
+
+    [lang~=pt-br] & {
+        padding-left: 14px;
+    }
 }
 
 .upgrade-user-text:before {
