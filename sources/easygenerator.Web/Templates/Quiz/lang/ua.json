@@ -38,5 +38,9 @@
     "[tracking and tracing mastery score hint]": "Мінімальна оцінка для завершення",
     "[tracking and tracing reporting progress]": "збереження прогресу...",
     "[type your answer here]": "Вкажіть свою відповідь...",
-    "[tracking and tracing error hint without continue]": "Restart the course. Contact your course provider if the problem persists."
+    "[tracking and tracing error hint without continue]": "Restart the course. Contact your course provider if the problem persists.",
+    "[attempts note limit acceeded]": "Ви використали всі спроби",
+    "[attempts note]": "Зверніть увагу!",
+    "[attempts note you have]": "У Вас залишилось",
+    "[attempts note allowed attempts]": "спроб(и)"
 }
