@@ -98,6 +98,12 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'Badscript';
+  src: url('font/badscript-regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 /*#endregion FONTS CONNECTIONS*/
 /*#region RESET CSS-STYLES IN FOREIGN BROWSERS */
 html,
@@ -485,4 +491,3 @@ img:hover {
 .cke_widget_wrapper img {
   margin: 0;
 }
-/*#endregion STYLED CONTENT*/

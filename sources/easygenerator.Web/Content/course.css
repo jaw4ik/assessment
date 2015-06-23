@@ -112,7 +112,7 @@
   text-align: center;
 }
 .placeholder span {
-  font: bold 18px 'Rabiohead';
+  font: bold 18px 'Rabiohead', 'Badscript', sans-serif;
   text-transform: uppercase;
   color: #7b7b7b;
   position: relative;
@@ -228,7 +228,7 @@
 .empty-list-caption {
   padding-top: 6px;
   text-align: center;
-  font-family: 'Rabiohead', 'Sans-Serif';
+  font-family: 'Rabiohead', 'Badscript', sans-serif;
   font-size: 26px;
   color: #7b7b7b;
 }

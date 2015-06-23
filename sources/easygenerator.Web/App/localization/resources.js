@@ -521,7 +521,7 @@
         'en': 'Upload your own video by clicking this button',
         'zh-cn': 'Upload your own video by clicking this button[zh-cn]',
         'uk': 'Завантажте своє власне відео натиснувши на кнопку',
-        'pt-br': 'Carregue seu próprio video clicando neste botão'
+        'pt-br': 'Carregue seu proprio video clicando neste botao'
     },
     videoEmbedCodeTitle: {
         'en': 'Embed this code into your content',
@@ -635,7 +635,7 @@
         'en': 'Drag objective here',
         'zh-cn': '拖动学习目标到这',
         'uk': 'Перемістіть розділи / цілі сюди',
-        'pt-br': 'Arraste o objetivo para cá'
+        'pt-br': 'Arraste o objetivo para aqui'
     },
     dropHere: {
         'en': 'Drop here',
@@ -965,7 +965,7 @@
         'en': 'Start from here',
         'zh-cn': '从这里开始',
         'uk': 'Почніть звідси',
-        'pt-br': 'Começar aquí'
+        'pt-br': 'Comecar aqui'
     },
     courseListIsEmpty: {
         'en': 'Course list is empty',
@@ -1370,7 +1370,7 @@
         'en': '<b>Drop objectives here</b>',
         'zh-cn': '<b>在这里放下目标</b>',
         'uk': 'Перемістіть розділи / цілі сюди',
-        'pt-br': '<b>Soltar objetivos aquí</b>'
+        'pt-br': '<b>Soltar objetivos aqui</b>'
     },
     howToCreateObjectiveTipHeader: {
         'en': 'Do you know how to create learning objectives?',
