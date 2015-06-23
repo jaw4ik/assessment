@@ -27,6 +27,8 @@
             $location.path('/summary').replace();
         };
 
+        quiz.start();
+
         // timer definition
         $scope.timerEnabled = settings.timer.enabled;
         if (settings.timer.enabled) {

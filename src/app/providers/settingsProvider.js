@@ -39,9 +39,12 @@
                     subsetSize: 10,
                     randomizeOrder: true,
                     randomizePerAttempt: false
+                },
+                attempt: {
+                    hasLimit: true,
+                    limit: 3
                 }
             };
-
 
         return {
             setSettings: function (settings) {
@@ -74,9 +77,13 @@
                 if (!_.isObject(settings.timer) || _.isUndefined(settings.timer.enabled)) {
                     _.extend(settings, { timer: defaultSettings.timer });
                 }
-                
+
                 if (!_.isObject(settings.questionPool) || _.isUndefined(settings.questionPool.mode)) {
                     _.extend(settings, { questionPool: defaultSettings.questionPool });
+                }
+
+                if (!_.isObject(settings.attempt) || _.isUndefined(settings.attempt.hasLimit) || _.isUndefined(settings.attempt.limit)) {
+                    _.extend(settings, { attempt: defaultSettings.attempt });
                 }
 
                 cachedSettings = settings;

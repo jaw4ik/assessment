@@ -76,13 +76,53 @@
                 text-align: center;
                 padding-top: 25px;
 
-                .summary-button {
-                    min-width: 250px;
-                    line-height: 54px;
-                    padding: 0 20px;
-                    .crop-text-by-size-with-dots(300px);
+                .summary-button-container {
+                    position: relative;
 
-                    + .summary-button {
+                    .summary-retry-notification-container {
+                        @summary-attempt-notification-bg-color: #f7d19f;
+                        @summary-attempt-notification-border-color: #d99539;
+                        @summary-attempt-notification-color: #89632e;
+                        position: absolute;
+                        margin-top: 10px;
+                        font: 14px RobotoslabRegular;
+                        color: @summary-attempt-notification-color;
+                        background-color: @summary-attempt-notification-bg-color;
+                        border: 1px solid @summary-attempt-notification-border-color;
+                        border-radius: 5px;
+
+
+                        &:after {
+                            content: '';
+                            position: absolute;
+                            height: 10px;
+                            width: 10px;
+                            left: 30px;
+                            top: -6px;
+                            -webkit-transform: rotate(45deg);
+                            transform: rotate(45deg);
+                            line-height: 14px;
+                            border: 0 solid transparent;
+                            border-left: 1px solid @summary-attempt-notification-border-color;
+                            background-color: @summary-attempt-notification-bg-color;
+                            border-top: 1px solid @summary-attempt-notification-border-color;
+                        }
+
+                        .summary-retry-notification {
+                            .crop-text-by-size-with-dots(520px, block);
+                            vertical-align: middle;
+                            padding: 6px 10px;
+                        }
+                    }
+
+                    .summary-button {
+                        min-width: 250px;
+                        line-height: 54px;
+                        padding: 0 20px;
+                        .crop-text-by-size-with-dots(300px);
+                    }
+
+                    + .summary-button-container {
                         margin-left: 40px;
                     }
                 }

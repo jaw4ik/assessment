@@ -99,7 +99,7 @@
                     }
                 }
             }
-            
+
             function getData() {
                 return {
                     enabled: self.enableXAPI,
@@ -124,7 +124,7 @@
             var self = {};
 
             self.value = 0;
-            
+
             self.init = init;
             self.getData = getData;
 
@@ -137,7 +137,7 @@
                     self.value = 100;
                 }
             }
-            
+
             function getData() {
                 return {
                     score: self.value || 0
@@ -156,7 +156,7 @@
             self.selectedLanguage = null;
 
             self.getCustomTranslations = getCustomTranslations;
-            
+
             self.init = init;
             self.getData = getData;
 
@@ -192,7 +192,7 @@
 
                 self.selectedLanguageCode = (languagesSettings && languagesSettings.selected) ? languagesSettings.selected : defaultLanguageCode;
             }
-            
+
             function getData() {
                 return {
                     selected: self.selectedLanguageCode,
@@ -271,7 +271,7 @@
                 self.minutes = timerSettings.time.minutes;
                 self.seconds = timerSettings.time.seconds;
             }
-            
+
             function getData() {
                 return {
                     enabled: self.enabled,
@@ -330,6 +330,32 @@
             }
         })();
 
+        that.attempt = (function () {
+            var self = {
+                hasLimit: false,
+                limit: 3,
+                init: init,
+                getData: getData
+            };
+
+            return self;
+
+            function init(attemptsSettings) {
+                if (!attemptsSettings)
+                    return;
+
+                self.hasLimit = attemptsSettings.hasLimit;
+                self.limit = attemptsSettings.limit;
+            }
+
+            function getData() {
+                return {
+                    hasLimit: self.hasLimit,
+                    limit: self.limit
+                };
+            }
+        })();
+
         angular.element($window).on('blur', saveChanges);
 
         function saveChanges() {
@@ -350,7 +376,8 @@
                 masteryScore: that.masteryScore.getData(),
                 languages: that.languages.getData(),
                 timer: that.timer.getData(),
-                questionPool: that.questionPool.getData()
+                questionPool: that.questionPool.getData(),
+                attempt: that.attempt.getData()
             });
         }
 
@@ -365,6 +392,7 @@
             that.languages.init(manifest.languages, settings.languages);
             that.timer.init(settings.timer);
             that.questionPool.init(settings.questionPool);
+            that.attempt.init(settings.attempt);
 
             currentSettings = getCurrentSettings(settings);
 

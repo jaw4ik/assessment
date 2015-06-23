@@ -10,7 +10,7 @@ html, body {
         float: none !important;
         margin: 30px 0 30px !important;
     }
-    
+
     .hotspotOnImage figure.image-wrapper {
         margin: 0 !important;
     }
@@ -137,11 +137,23 @@ html, body {
             .summary-buttons {
                 .flex-direction(column);
 
-                .summary-button {
-                    max-width: 100%;
+                .summary-button-container {
+                    .summary-retry-notification-container {
+                        max-width: 100%;
+                        margin-top: 7px;
 
-                    + .summary-button {
-                        margin: 30px 0 0;
+                        .summary-retry-notification {
+                            max-width: 100%;
+                        }
+                    }
+
+                    .summary-button {
+                        width: 100%;
+                        max-width: 100%;
+                    }
+
+                    + .summary-button-container {
+                        margin: 50px 0 0;
                     }
                 }
             }
