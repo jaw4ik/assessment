@@ -97,6 +97,14 @@ describe('server', function () {
                 .attach('file', 'README.MD')
                 .expect(406, done);
         });
+        
+        it('returns 400 when no file attached', function (done) {
+            request(app)
+                .post(config.LOCATION + '/')
+                .set('Accept', 'text/html')
+                .field('Content-Type', 'multipart/form-data')
+                .expect(400, done);
+        });
 
     });
     
@@ -113,7 +121,7 @@ describe('server', function () {
             var filename = "filename.txt";
             fs.mkdirSync(path.join(config.TEMP_FOLDER, id));
             fs.writeFileSync(path.join(config.TEMP_FOLDER, id, filename), 'Hello Node');
-
+            
             request(app)
                 .get(config.LOCATION + '/file/' + id)
                 .expect(200, done);

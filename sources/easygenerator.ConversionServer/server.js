@@ -36,24 +36,32 @@ app.post(config.LOCATION + '/', function (req, res) {
     var files = [];
     
     busboy.on('file', function (name, file, filename, transferEncoding, mimeType) {
-        var id = uuid.v4();
-        
-        var directoryPath = path.join(config.TEMP_FOLDER, id);
-        fs.mkdirSync(directoryPath);
-        
-        var filePath = path.join(directoryPath, filename);
-        file.on('end', function () {
-            files.push({
-                id: id,
-                url: req.protocol + '://' + req.get('host') + req.originalUrl + '/file/' + id
+        if (filename.length === 0) {
+            file.resume();
+        } else {
+            var id = uuid.v4();
+            
+            var directoryPath = path.join(config.TEMP_FOLDER, id);
+            fs.mkdirSync(directoryPath);
+            
+            var filePath = path.join(directoryPath, filename);
+            
+            file.on('end', function () {
+                files.push({
+                    id: id,
+                    url: req.protocol + '://' + req.get('host') + req.originalUrl + '/file/' + id
+                });
             });
-        });
-        file.pipe(fs.createWriteStream(filePath));
+            file.pipe(fs.createWriteStream(filePath));
+        }
     });
     busboy.on('finish', function () {
-        res.format({
-            'text/html': function () {
-                res.send('<html>' +
+        if (files.length === 0) {
+            res.status(400).send('Bad request');
+        } else {
+            res.format({
+                'text/html': function () {
+                    res.send('<html>' +
                     '       <head>' +
                     '       </head>' +
                     '       <body>' +
@@ -62,14 +70,15 @@ app.post(config.LOCATION + '/', function (req, res) {
                     '           </ul>' +
                     '       </body>' +
                     '     </html>');
-            },
-            'application/json': function () {
-                res.send(files);
-            },
-            'default': function () {
-                res.status(406).send('Not Acceptable');
-            }
-        });
+                },
+                'application/json': function () {
+                    res.send(files);
+                },
+                'default': function () {
+                    res.status(406).send('Not Acceptable');
+                }
+            });
+        }
     });
     
     return req.pipe(busboy);
