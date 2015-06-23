@@ -53,9 +53,8 @@
                 var xApiEnabled = settings.xApi.enabled;
                 if (xApiEnabled && !$rootScope.isXApiInitialized) {
                     forbidRedirects('/login');
-                }
-
-                if (!attemptsLimiter.hasAvailableAttempt()) {
+                } 
+                else if (!attemptsLimiter.hasAvailableAttempt()) {
                     forbidRedirects('/summary');
                 }
 
