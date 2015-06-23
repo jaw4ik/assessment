@@ -41,7 +41,7 @@
                     randomizePerAttempt: false
                 },
                 attempt: {
-                    hasLimit: true,
+                    hasLimit: false,
                     limit: 3
                 }
             };
