@@ -42,5 +42,9 @@
         "subsetSize": 10,
         "randomizeOrder": true,
         "randomizePerAttempt": false
+    },
+    "attempt":{
+        "hasLimit": true,
+        "limit": 3
     }
 }
