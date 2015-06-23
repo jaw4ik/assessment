@@ -191,6 +191,18 @@
 
 .connecting-objectives-item-wrapper {
     position: relative;
+
+    @media (max-width: 1200px) {
+        .tip-arrow-holder {
+            right: 40%;
+
+            [lang~=uk] & {
+                .tip-arrow-text {
+                    font-size: 18px;
+                }
+            }
+        }
+    }
 }
 
 .connecting-objectives-item-container {

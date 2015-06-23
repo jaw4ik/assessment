@@ -158,6 +158,14 @@
 .connecting-objectives-item-wrapper {
   position: relative;
 }
+@media (max-width: 1200px) {
+  .connecting-objectives-item-wrapper .tip-arrow-holder {
+    right: 40%;
+  }
+  [lang~=uk] .connecting-objectives-item-wrapper .tip-arrow-holder .tip-arrow-text {
+    font-size: 18px;
+  }
+}
 .connecting-objectives-item-container {
   background-color: #fff;
   border-bottom: 1px solid #e8e8e8;

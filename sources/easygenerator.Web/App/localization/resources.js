@@ -2546,7 +2546,7 @@
         'en': 'Add co-authors to your course',
         'zh-cn': 'Add co-authors to your course[zh-cn]',
         'uk': 'Додайте співавторів до курсу',
-        'pt-br': 'Add co-authors to your course'
+        'pt-br': 'Adicionar co-autores de seu curso'
     },
     coAuthor: {
         'en': 'Co-author',
