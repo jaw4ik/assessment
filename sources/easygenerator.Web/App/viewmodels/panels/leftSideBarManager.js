@@ -3,7 +3,7 @@
 
     var barsConfigurations = [
         {
-            view: 'navigationBar/navigationBar',
+            viewToCompose: 'navigationBar/navigationBar',
             subscribedPages: [
                 { id: 'viewmodels/courses/courses' },
                 { id: 'viewmodels/courses/course/create/course' },
@@ -13,19 +13,19 @@
                 { id: 'viewmodels/objectives/objective', pattern: /courses\/[\w]+\/objectives\/[\w]+/ },
                 { id: 'viewmodels/questions/question', pattern: /courses\/[\w]+\/objectives\/[\w]+\/questions\/[\w]+/ }
             ],
-            model: 'navigationBar/navigationBar'
+            modelToCompose: null
         },
         {
-            view: 'views/courses/course/design/bar',
+            viewToCompose: 'views/courses/course/design/bar',
             subscribedPages: [{ id: 'viewmodels/courses/course/design/design' }],
-            model: 'viewmodels/courses/course/design/design'
+            modelToCompose: 'viewmodels/courses/course/design/design'
         },
         {
-            view: 'views/learningPaths/courseSelector/courseSelector',
+            viewToCompose: 'views/learningPaths/courseSelector/courseSelector',
             subscribedPages: [{ id: 'viewmodels/learningPaths/learningPath/learningPath' }],
-            model: 'viewmodels/learningPaths/courseSelector/courseSelector',
+            modelToCompose: 'viewmodels/learningPaths/courseSelector/courseSelector',
             activate: true,
-            activationDataProperty: 'id'
+            activationData: 'id'
         }
     ];
 
@@ -78,19 +78,23 @@
             });
 
             if (bar) {
-                view = barConfig.view;
+                view = barConfig.viewToCompose;
                 activate = barConfig.activate || false;
 
-                if (_.isString(barConfig.activationDataProperty)) {
-                    activationData = instance[barConfig.activationDataProperty];
+                if (_.isString(barConfig.activationData)) {
+                    activationData = instance[barConfig.activationData];
                 }
 
-                if (_.isString(barConfig.model)) {
-                    model = barConfig.model;
+                if (_.isString(barConfig.modelToCompose)) {
+                    model = barConfig.modelToCompose;
                 }
             }
         });
-        viewModel.bar({ view: view, model: model, activate: activate, activationData: activationData });
+        if (model) {
+            viewModel.bar({ view: view, model: model, activate: activate, activationData: activationData });
+            return;
+        }
+        viewModel.bar(view);
     }
 
 });
