@@ -136,7 +136,7 @@
 }
 
 .placeholder span {
-    font: bold 18px 'Rabiohead';
+    font: bold 18px 'Rabiohead', 'Badscript', sans-serif;
     text-transform: uppercase;
     color: #7b7b7b;
     position: relative;
@@ -191,6 +191,18 @@
 
 .connecting-objectives-item-wrapper {
     position: relative;
+
+    @media (max-width: 1200px) {
+        .tip-arrow-holder {
+            right: 40%;
+
+            [lang~=uk] & {
+                .tip-arrow-text {
+                    font-size: 18px;
+                }
+            }
+        }
+    }
 }
 
 .connecting-objectives-item-container {
@@ -277,7 +289,7 @@
 .empty-list-caption {
     padding-top: 6px;
     text-align: center;
-    font-family: 'Rabiohead', 'Sans-Serif';
+    font-family: 'Rabiohead', 'Badscript', sans-serif;
     font-size: 26px;
     color: #7b7b7b;
 }
