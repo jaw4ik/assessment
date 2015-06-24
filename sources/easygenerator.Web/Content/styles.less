@@ -206,7 +206,7 @@
     width: 16px;
     height: 16px;
     background: url('images/sprites_16.png');
-    background-position: 39px -63px;
+    background-position: -147px -63px;
     margin-top: 11px;
 }
 
@@ -369,8 +369,9 @@
     position: relative;
     padding-left: 80px;
     color: #7b7b7b;
-    font-family: 'Rabiohead', sans-serif;
+    font-family: 'Rabiohead', 'Badscript', sans-serif;
     font-size: 26px;
+    line-height: 29px;
     white-space: nowrap;
 }
 
@@ -512,7 +513,7 @@
     width: 16px;
     height: 16px;
     background: url('images/sprites_16.png');
-    background-position: 81px -63px;
+    background-position: -105px -63px;
     margin-top: 11px;
 }
 
@@ -527,7 +528,7 @@
 }
 
 .delete-btn.btn-head:hover:before {
-    background-position: 60px -63px;
+    background-position: -126px -63px;
 }
 
 /*#endregion DELETE SELECTED BUTTON*/
@@ -1053,6 +1054,54 @@
     border-color: #93c66a;
 }
 
+.btn() {
+    & {
+        position: relative;
+        height: 40px;
+        font: 13px 'OpenSans-Semibold';
+        text-shadow: none;
+        text-transform: uppercase;
+        padding: 0 10px;
+        white-space: nowrap;
+
+        &:active {
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset;
+        }
+
+        &:disabled {
+            cursor: default;
+            opacity: 0.3;
+        }
+    }
+}
+
+/*red button*/
+.btn.red {
+    .btn();
+    background: #ee6556;
+    border: 1px solid #e85e5d;
+    color: #fff;
+
+    &:hover {
+        background: #ec5444;
+        border: 1px solid #e54d4c;
+    }
+}
+
+/*red button*/
+.btn.white.grey-border {
+    .btn();
+    background: #fff;
+    border: 1px solid #c6d1d8;
+    border-bottom: 2px solid #c6d1d8;
+    color: #64798d;
+
+    &:hover {
+        border: 1px solid #7c95ae;
+        border-bottom: 2px solid #7c95ae;
+    }
+}
+
 /*green button*/
 .btn.green {
     background: #65bd77;
@@ -1308,6 +1357,51 @@
 .action-item-btn.create-item.disabled .action-item-btn-caption:before {
     background-position: -206px -32px;
 }
+
+/*#region confirm btn */
+
+.btn.confirm {
+    padding: 0px 40px;
+    background: #469dd5;
+    border-color: #469dd5;
+    text-shadow: none;
+    text-transform: uppercase;
+
+    &:hover,
+    &.active,
+    &.active:active {
+        background: #3b8abc;
+        border-color: #3b8abc;
+        box-shadow: none;
+    }
+
+    &.disabled,
+    &.disabled:hover,
+    &.disabled:active {
+        background: #469dd5;
+        border-color: #469dd5;
+    }
+
+    .action-item-btn-caption {
+        padding-left: 28px;
+    }
+
+    .action-item-btn-caption:before {
+        content: '';
+        display: block;
+        height: 16px;
+        width: 16px;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        margin-top: -9px;
+        background-image: url('images/sprites_16.png');
+        background-position: -228px -84px;
+    }
+}
+
+
+/*#endregion */
 
 /*connect and finish connecting objectives list item button*/
 
@@ -1661,10 +1755,9 @@
 /*#region UI LOCKER*/
 
 .modal-fade {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    right: 0;
     z-index: 999;
     width: 100%;
     height: 100%;
@@ -1767,6 +1860,10 @@
 
 .tooltip-content {
     margin-bottom: 20px;
+
+    & ul {
+        list-style-position: inside;
+    }
 }
 
 .tooltip-buttons-holder {
@@ -1872,6 +1969,45 @@
 
 /*#endregion autosize*/
 
+/*#region CONTEXT ACTIONS */
+
+.list-item-context-actions-wrapper {
+    height: 25px;
+    position: absolute;
+    top: 0;
+    right: 5px;
+    z-index: 1;
+    overflow: hidden;
+
+    &:hover {
+        overflow: visible;
+    }
+
+    .list-item-context-action {
+        display: inline-block;
+        vertical-align: top;
+        height: 21px;
+        width: 20px;
+        position: relative;
+        top: -22px;
+        background-color: #0c0c0c;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: top 0.1s linear;
+    }
+
+    .info-tooltip {
+        width: 100px;
+        margin-left: -50px;
+        /* fix for Safari to hide tooltip correctly */
+        visibility: initial;
+        transition: none;
+        -webkit-transition: none;
+    }
+}
+
+/*#endregion */
+
 @import "shell.less";
 @import "editField.less";
 @import "upgradePopup.less";
@@ -1918,6 +2054,8 @@
 
 @media (max-width: 1060px) {
 
+
+
     .create-tip {
         left: -17px;
     }
@@ -1957,6 +2095,14 @@
     }
 
     /*#endregion Course actions list*/
+
+    .shell > header .header-menu-list-item.profile {
+        min-width: 0;
+
+        .header-username-text {
+            display: none;
+        }
+    }
 }
 
 @media (max-width: 1220px ) {
@@ -2010,6 +2156,13 @@
         white-space: normal;
     }
     /*#endregion Create explanation tooltip*/
+}
+
+@media (max-width: 1290px) {
+
+    .shell > header .top-navigation-item {
+        min-width: 150px;
+    }
 }
 
 /*#endregion MEDIA*/

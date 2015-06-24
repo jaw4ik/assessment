@@ -122,8 +122,14 @@
             }
 
             var selectedCourse = selectedCourses[0];
-            if (selectedCourse.objectives.length > 0) {
-                notify.error(localizationManager.localize('courseCannotBeDeleted'));
+            var isConnectedToLearningPath = _.some(dataContext.learningPaths, function (learningPath) {
+                return _.some(learningPath.courses, function (learningPathCourse) {
+                    return learningPathCourse.id === selectedCourse.id;
+                });
+            });
+         
+            if (selectedCourse.objectives.length > 0 || isConnectedToLearningPath) {
+                notify.error(localizationManager.localize('courseCannotBeDeletedErrorMessage'));
                 return;
             }
 

@@ -10,7 +10,8 @@
         clientContext = require('clientContext'),
         constants = require('constants'),
         eventTracker = require('eventTracker'),
-        notify = require('notify')
+        notify = require('notify'),
+        localizationManager = require('localization/localizationManager')
     ;
 
     describe('viewModel [course index]', function () {
@@ -20,6 +21,9 @@
             spyOn(notify, 'saved');
             spyOn(app, 'on');
             spyOn(app, 'off');
+            spyOn(localizationManager, "localize").and.callFake(function (key) {
+                return key;
+            });
         });
 
         it('should be object', function () {
@@ -40,240 +44,67 @@
 
         });
 
-        describe('title:', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.title).toBeObservable();
+        describe('titleField:', function () {
+            it('should be defined', function () {
+                expect(viewModel.titleField).toBeDefined();
             });
 
             describe('maxLength:', function () {
-
-                it('should be defined', function () {
-                    expect(viewModel.title.maxLength).toEqual(constants.validation.courseTitleMaxLength);
+                it('should be constants.validation.courseTitleMaxLength', function () {
+                    expect(viewModel.titleField.maxLength).toBe(constants.validation.courseTitleMaxLength);
                 });
-
             });
 
-            describe('isValid:', function () {
-
-                it('should be computed', function () {
-                    expect(viewModel.title.isValid).toBeComputed();
-                });
-
-                describe('when title is empty', function () {
-
-                    it('should be false', function () {
-                        viewModel.title('');
-                        expect(viewModel.title.isValid()).toBeFalsy();
-                    });
-
-                });
-
-                describe('when title is longer than 255', function () {
-
-                    it('should be false', function () {
-                        viewModel.title(utils.createString(constants.validation.courseTitleMaxLength + 1));
-                        expect(viewModel.title.isValid()).toBeFalsy();
-                    });
-
-                });
-
-                describe('when title is longer than 255 but after trimming is not longer than 255', function () {
-
-                    it('should be true', function () {
-                        viewModel.title('   ' + utils.createString(constants.validation.courseTitleMaxLength - 1) + '   ');
-                        expect(viewModel.title.isValid()).toBeTruthy();
-                    });
-
-                });
-
-                describe('when title is not empty and not longer than 255', function () {
-
-                    it('should be true', function () {
-                        viewModel.title(utils.createString(constants.validation.courseTitleMaxLength - 1));
-                        expect(viewModel.title.isValid()).toBeTruthy();
-                    });
-
-                });
-
-            });
-
-            describe('isEditing:', function () {
-
-                it('should be observable', function () {
-                    expect(viewModel.title.isEditing).toBeObservable();
-                });
-
-            });
-
-            describe('isSelected:', function () {
-
-                it('should be function', function () {
-                    expect(viewModel.title.isSelected).toBeObservable();
-                });
-
-            });
-
-            describe('beginEdit:', function () {
-
-                it('should be function', function () {
-                    expect(viewModel.title.beginEdit).toBeFunction();
-                });
-
-                it('should change isEditing to true', function () {
-                    viewModel.title.isEditing(false);
-
-                    viewModel.title.beginEdit();
-
-                    expect(viewModel.title.isEditing()).toBeTruthy();
-                });
-
-            });
-
-            describe('endEdit:', function () {
-
-                var update, getById,
-                    course = {
-                        id: '1',
-                        title: 'course',
-                        objectives: [],
-                        packageUrl: '',
-                        createdOn: 'createdOn',
-                        createdBy: 'createdBy',
-                        modifiedOn: 'modifiedOn',
-                        builtOn: 'builtOn',
-                    };
+            describe('updateTitleHandler:', function () {
+                var updateDefer;
 
                 beforeEach(function () {
-                    update = Q.defer();
-                    getById = Q.defer();
-
-                    spyOn(repository, 'getById').and.returnValue(getById.promise);
-                    spyOn(repository, 'updateCourseTitle').and.returnValue(update.promise);
+                    updateDefer = Q.defer();
+                    spyOn(repository, 'updateCourseTitle').and.returnValue(updateDefer.promise);
                 });
 
-                it('should be function', function () {
-                    expect(viewModel.title.endEdit).toBeFunction();
+                it('should return promise', function () {
+                    expect(viewModel.titleField.updateTitleHandler()).toBePromise();
                 });
 
-                it('should change isEditing to false', function () {
-                    viewModel.title.isEditing(true);
-
-                    viewModel.title.endEdit();
-
-                    expect(viewModel.title.isEditing()).toBeFalsy();
+                it('should call repository update title', function () {
+                    var newTitle = 'new title', id = 'id';
+                    viewModel.id = id;
+                    viewModel.titleField.updateTitleHandler(newTitle);
+                    expect(repository.updateCourseTitle).toHaveBeenCalledWith(id, newTitle);
                 });
 
+                it('should publish \'Update course title\' event', function () {
+                    viewModel.titleField.updateTitleHandler('new title2');
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Update course title');
+                });
+            });
 
-                it('should trim title', function () {
-                    viewModel.title('    Some title     ');
-                    viewModel.title.endEdit();
-                    expect(viewModel.title()).toEqual('Some title');
+            describe('getTitleHandler:', function () {
+                var getDefer;
+
+                beforeEach(function () {
+                    getDefer = Q.defer();
+                    spyOn(repository, 'getById').and.returnValue(getDefer.promise);
                 });
 
-                describe('when title is not modified', function () {
-                    var promise = null;
+                it('should return promise', function () {
+                    expect(viewModel.titleField.getTitleHandler()).toBePromise();
+                });
+
+                describe('when data received', function () {
+                    var title = 'title';
                     beforeEach(function () {
-                        viewModel.title(course.title);
-                        promise = getById.promise.finally(function () { });
-                        getById.resolve(course);
+                        getDefer.resolve({ title: title });
                     });
 
-                    it('should not send event', function (done) {
-                        viewModel.title.endEdit();
-
-                        promise.fin(function () {
-                            expect(promise).toBeResolved();
-                            expect(eventTracker.publish).not.toHaveBeenCalled();
+                    it('should return title', function (done) {
+                        viewModel.titleField.getTitleHandler().then(function (result) {
+                            expect(result).toEqual(title);
                             done();
                         });
                     });
 
-                    it('should not show notification', function (done) {
-                        viewModel.title.endEdit();
-
-                        promise.fin(function () {
-                            expect(promise).toBeResolved();
-                            expect(notify.saved).not.toHaveBeenCalled();
-                            done();
-                        });
-                    });
-
-                    it('should not update course in repository', function (done) {
-                        viewModel.title.endEdit();
-
-                        promise.fin(function () {
-                            expect(promise).toBeResolved();
-                            expect(repository.updateCourseTitle).not.toHaveBeenCalled();
-                            done();
-                        });
-                    });
-                });
-
-                describe('when title is modified', function () {
-
-                    var getPromise = null, newTitle = course.title + 'test';
-                    beforeEach(function () {
-                        viewModel.title(newTitle);
-                        getPromise = getById.promise.finally(function () { });
-                        getById.resolve(course);
-                    });
-
-                    it('should send event \'Update course title\'', function (done) {
-                        viewModel.title.endEdit();
-
-                        getPromise.fin(function () {
-                            expect(getPromise).toBeResolved();
-                            expect(eventTracker.publish).toHaveBeenCalledWith('Update course title');
-                            done();
-                        });
-                    });
-
-                    describe('and when title is valid', function () {
-
-                        it('should update course in repository', function (done) {
-                            viewModel.title.endEdit();
-
-                            getPromise.fin(function () {
-                                expect(getPromise).toBeResolved();
-                                expect(repository.updateCourseTitle).toHaveBeenCalled();
-                                expect(repository.updateCourseTitle.calls.mostRecent().args[1]).toEqual(newTitle);
-                                done();
-                            });
-                        });
-
-                        describe('and when course updated successfully', function () {
-
-                            it('should update notificaion', function (done) {
-                                var promise = update.promise.fin(function () { });
-                                update.resolve(new Date());
-
-                                viewModel.title.endEdit();
-
-                                promise.fin(function () {
-                                    expect(promise).toBeResolved();
-                                    expect(notify.saved).toHaveBeenCalled();
-                                    done();
-                                });
-                            });
-
-                        });
-
-                    });
-
-                    describe('and when title is not valid', function () {
-
-                        it('should revert course title value', function (done) {
-                            viewModel.title('');
-                            viewModel.title.endEdit();
-
-                            getPromise.fin(function () {
-                                expect(viewModel.title()).toBe(course.title);
-                                done();
-                            });
-                        });
-
-                    });
                 });
             });
         });
@@ -523,10 +354,10 @@
                 });
 
                 it('should set title', function (done) {
-                    viewModel.title('');
+                    viewModel.titleField.title('');
 
                     viewModel.activate(course.id).fin(function () {
-                        expect(viewModel.title()).toEqual(course.title);
+                        expect(viewModel.titleField.title()).toEqual(course.title);
                         done();
                     });
                 });
@@ -585,27 +416,27 @@
                 });
 
 
-                describe('when last created course is current course', function () {
+                describe('and when last created course is current course', function () {
                     beforeEach(function () {
                         spyOn(clientContext, 'get').and.returnValue(course.id);
                     });
 
                     it('should select title', function (done) {
                         viewModel.activate(course.id).fin(function () {
-                            expect(viewModel.title.isSelected()).toBeTruthy();
+                            expect(viewModel.titleField.isSelected()).toBeTruthy();
                             done();
                         });
                     });
                 });
 
-                describe('when last created course is not current course', function () {
+                describe('and when last created course is not current course', function () {
                     beforeEach(function () {
                         spyOn(clientContext, 'get').and.returnValue('other id');
                     });
 
                     it('should not select title', function (done) {
                         viewModel.activate(course.id).fin(function () {
-                            expect(viewModel.title.isSelected()).toBeFalsy();
+                            expect(viewModel.titleField.isSelected()).toBeFalsy();
                             done();
                         });
                     });
@@ -739,28 +570,28 @@
             describe('when course is current course', function () {
                 beforeEach(function () {
                     viewModel.id = course.id;
-                    viewModel.title('');
+                    viewModel.titleField.title('');
                 });
 
                 describe('when course title is editing', function () {
                     beforeEach(function () {
-                        viewModel.title.isEditing(true);
+                        viewModel.titleField.isEditing(true);
                     });
 
                     it('should not update course title', function () {
                         viewModel.titleUpdated(course);
-                        expect(viewModel.title()).toBe('');
+                        expect(viewModel.titleField.title()).toBe('');
                     });
                 });
 
                 describe('when course title is not editing', function () {
                     beforeEach(function () {
-                        viewModel.title.isEditing(false);
+                        viewModel.titleField.isEditing(false);
                     });
 
                     it('should update course title', function () {
                         viewModel.titleUpdated(course);
-                        expect(viewModel.title()).toBe(course.title);
+                        expect(viewModel.titleField.title()).toBe(course.title);
                     });
                 });
             });
@@ -768,10 +599,10 @@
             describe('when course is not current course', function () {
                 it('should not update course title', function () {
                     viewModel.id = 'qwe';
-                    viewModel.title('');
+                    viewModel.titleField.title('');
                     viewModel.titleUpdated(course);
 
-                    expect(viewModel.title()).toBe('');
+                    expect(viewModel.titleField.title()).toBe('');
                 });
             });
         });

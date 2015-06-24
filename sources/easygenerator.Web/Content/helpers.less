@@ -1,27 +1,24 @@
 ﻿
+@import "mixin.less";
+
 @maxWidth: 960px;
 @minWidth: 635px;
 
 .unselectable() {
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
+    .user-select(none);
     cursor: default;
 }
 
 .vertical-align() {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-justify-content: center;
-    justify-content: center;
+    .display-flex();
+    .align-items(center);
+    .justify-content(center);
+}
+
+.align-absolute-element() {
+    top: 50%;
+    left: 50%;
+    .transform(translate(-50%, -50%));
 }
 
 .container() {
@@ -56,4 +53,13 @@
 
 /*#endregion */
 
+.fix-bold-text-expanding(@font: 'OpenSans-Semibold') {
+    &:after {
+        content: attr(data-text);
+        display: block;
+        height: 0;
+        font-family: @font;
+        visibility: hidden;
+    }
+}
 

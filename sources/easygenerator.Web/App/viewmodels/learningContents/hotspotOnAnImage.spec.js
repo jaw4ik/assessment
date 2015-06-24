@@ -40,6 +40,7 @@
                 expect(learningContentInstance.background).toBeObservable();
                 expect(learningContentInstance.background.width).toBeObservable();
                 expect(learningContentInstance.background.height).toBeObservable();
+                expect(learningContentInstance.background.isLoading).toBeObservable();
                 expect(learningContentInstance.background.onload).toBeFunction();
                 expect(learningContentInstance.hasFocus()).toBeFalsy();
                 expect(learningContentInstance.isDeleted).toBeFalsy();
@@ -53,6 +54,73 @@
                 expect(learningContentInstance.uploadBackground).toBeFunction();
                 expect(learningContentInstance.updateHotspotOnAnImage).toBeFunction();
                 expect(learningContentInstance.remove).toBeFunction();
+            });
+
+            describe('when learning content is already saved on server', function() {
+                var data = null,
+                    learningContentFromServer = {
+                        id: 'hotspotId',
+                        text: 'text',
+                        type: constants.learningContentsTypes.hotspot
+                    },
+                    learningContentInstanceFromServer = null;
+
+                beforeEach(function () {
+                    data = {
+                        background: 'url',
+                        polygons: []
+                    };
+                    learningContent.id = null;
+                    spyOn(hotspotParser, 'getViewModelData').and.returnValue(data);
+                });
+
+                it('should parse data', function() {
+                    learningContentInstanceFromServer = new HotspotOnAnImage(learningContentFromServer, _questionId, _questionType, canBeAddedImmediately);
+                    expect(hotspotParser.getViewModelData).toHaveBeenCalledWith(learningContentFromServer.text);
+                });
+
+                it('should set background', function () {
+                    learningContentInstanceFromServer = new HotspotOnAnImage(learningContentFromServer, _questionId, _questionType, canBeAddedImmediately);
+                    expect(learningContentInstanceFromServer.background()).toBe(data.background);
+                });
+
+                it('should start load background', function() {
+                    learningContentInstanceFromServer.background.isLoading(false);
+                    learningContentInstanceFromServer = new HotspotOnAnImage(learningContentFromServer, _questionId, _questionType, canBeAddedImmediately);
+                    expect(learningContentInstanceFromServer.background.isLoading()).toBeTruthy();
+                });
+
+                it('should set polygons', function() {
+                    learningContentInstanceFromServer = new HotspotOnAnImage(learningContentFromServer, _questionId, _questionType, canBeAddedImmediately);
+                    expect(learningContentInstanceFromServer.polygons().length).toBe(0);
+                });
+
+            });
+
+            describe('when learning content is already added', function() {
+                var learningContentAdded = {
+                        type: constants.learningContentsTypes.hotspot
+                    },
+                    learningContentInstanceAdded = null;
+
+                beforeEach(function() {
+                    spyOn(imageUpload, 'upload');
+                });
+
+                it('should send event \'Add hotspot content block\'', function () {
+                    learningContentInstanceAdded = new HotspotOnAnImage(learningContentAdded, _questionId, _questionType, canBeAddedImmediately);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Add hotspot content block');
+                });
+
+                it('should set focus to field', function() {
+                    learningContentInstanceAdded = new HotspotOnAnImage(learningContentAdded, _questionId, _questionType, canBeAddedImmediately);
+                    expect(learningContentInstanceAdded.hasFocus()).toBeTruthy();
+                });
+
+                it('should call uploadBackground', function () {
+                    learningContentInstanceAdded = new HotspotOnAnImage(learningContentAdded, _questionId, _questionType, canBeAddedImmediately);
+                    expect(imageUpload.upload).toHaveBeenCalled();
+                });
             });
 
             describe('addPolygon:', function () {
@@ -185,11 +253,20 @@
                 beforeEach(function () {
                     spyOn(learningContentInstance, 'deletePolygon');
                     spyOn(learningContentInstance, 'updatePolygon');
+                    spyOn(learningContentInstance, 'updateHotspotOnAnImage');
                 });
 
                 var width = 500;
                 var height = 500;
                 var minPolygonSize = 10;
+
+                it('should stop loading', function() {
+                    learningContentInstance.background.isLoading(true);
+
+                    learningContentInstance.background.onload(width, height);
+
+                    expect(learningContentInstance.background.isLoading()).toBeFalsy();
+                });
 
                 it('should not change polygons which are in bounds', function () {
                     var polygon = {
@@ -324,6 +401,12 @@
                         expect(eventTracker.publish).toHaveBeenCalledWith('Change background of hotspot content block', 'Information');
                     });
 
+
+                    it('should start load image', function () {
+                        learningContentInstance.background.isLoading(false);
+                        learningContentInstance.uploadBackground();
+                        expect(learningContentInstance.background.isLoading()).toBeTruthy();
+                    });
                 });
 
                 describe('when image upload finished', function () {
@@ -391,6 +474,7 @@
 
                 it('should send event \'Undo delete hotspot content block\' with category \'Information\' for informationContent question type', function () {
                     var learnContent = new HotspotOnAnImage(learningContent, _questionId, 'informationContent', canBeAddedImmediately);
+                    spyOn(learnContent, 'restoreLearningContent');
                     learnContent.isRemoved(true);
                     learnContent.restore();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Undo delete hotspot content block', 'Information');

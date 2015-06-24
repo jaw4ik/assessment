@@ -4,7 +4,7 @@
     var
         defaultCulture = "en",
         supportedCultures = [
-            "en", "en-US", 'uk', 'zh-cn'
+            "en", "en-US", 'uk', 'zh-cn', 'pt-br'
         ],
         currentCulture = defaultCulture,
         currentLanguage = '',
@@ -21,6 +21,10 @@
 
         hasKey = function (key) {
             return resources.hasOwnProperty(key);
+        },
+
+        addLangTagToHtml = function(lang) {
+            $('html').attr('lang', lang);
         },
 
         initialize = function (userCultures) {
@@ -46,6 +50,8 @@
 
             this.currentCulture = _.isString(match) ? match : defaultCulture;
             this.currentLanguage = this.currentCulture.substring(0, 2);
+
+            addLangTagToHtml(this.currentCulture);
         };
 
 
@@ -79,6 +85,9 @@
             }
             if (_.isString(value['html'])) {
                 $(element).html(localizationManager.localize(value['html']));
+            }
+            if (_.isString(value['data-text'])) {
+                $(element).attr('data-text', localizationManager.localize(value['data-text']));
             }
         };
     })();

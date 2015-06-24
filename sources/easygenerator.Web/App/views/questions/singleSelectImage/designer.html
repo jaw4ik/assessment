@@ -28,20 +28,20 @@
                             <!-- /ko -->
                             <!-- ko ifnot: isProcessing -->
                                 <!-- ko if: hasImage -->
-                                <div class="single-select-image-actions-wrapper">
-                                    <div class="info-tooltip-holder update-answer-image" data-bind="click: $parent.updateAnswerImage">
-                                        <div class="info-tooltip">
-                                            <span data-bind="localize: { text: 'changeImage' }"></span>
-                                        </div>
+                            <div class="list-item-context-actions-wrapper">
+                                <div class="list-item-context-action info-tooltip-holder update-answer-image" data-bind="click: $parent.updateAnswerImage">
+                                    <div class="info-tooltip">
+                                        <span data-bind="localize: { text: 'changeImage' }"></span>
                                     </div>
-                                    <!-- ko if: $parent.canRemoveAnswer() -->
-                                    <div class="info-tooltip-holder remove-answer" data-bind="click: $parent.removeAnswer">
-                                        <div class="info-tooltip">
-                                            <span data-bind="localize: { text: 'removeAnswer' }"></span>
-                                        </div>
-                                    </div>
-                                    <!-- /ko -->
                                 </div>
+                                <!-- ko if: $parent.canRemoveAnswer() -->
+                                <div class="list-item-context-action info-tooltip-holder remove-answer" data-bind="click: $parent.removeAnswer">
+                                    <div class="info-tooltip">
+                                        <span data-bind="localize: { text: 'removeAnswer' }"></span>
+                                    </div>
+                                </div>
+                                <!-- /ko -->
+                            </div>
                                 <div class="item-overlay" data-bind="click: $parent.previewAnswerImage"></div>
                                 <!-- /ko -->
                                 <!-- ko ifnot: hasImage -->
