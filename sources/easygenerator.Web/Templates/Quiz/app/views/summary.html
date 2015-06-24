@@ -24,7 +24,7 @@
                     <div class="summary-retry-notification-container" ng-show="summary.attemptsLimited">
                         <span class="summary-retry-notification" ng-show="!summary.canTryAgain">{{ '[attempts note limit acceeded]' | translate }}</span>
                         <span class="summary-retry-notification" ng-show="summary.canTryAgain">
-                            <b>{{ '[attempts note]' | translate }}</b>&nbsp;{{ '[attempts note you have]' | translate }}&nbsp;<b>{{ summary.availableAttemptCount }}</b>&nbsp;{{ '[attempts note allowed attempts]' | translate }}
+                            {{ '[attempts remaining]' | translate }}&nbsp;{{ summary.availableAttemptCount }}
                         </span>
                     </div>
                 </div>
