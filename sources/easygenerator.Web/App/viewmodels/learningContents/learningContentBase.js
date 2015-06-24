@@ -88,7 +88,7 @@
                     app.trigger(constants.messages.question.learningContent.restore, that);
                     showNotification(item.createdOn);
                 });
-            }
+            };
 
             this.publishActualEvent = function (event) {
                 if (_questionType === constants.questionType.informationContent.type) {
