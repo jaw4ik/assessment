@@ -7,6 +7,7 @@
                 navigateToTemplatesSection: 'Navigate to \'choose template\' section',
                 navigateToSettingsSection: 'Navigate to \'design settings\' section'
             },
+            eventCategory = 'Design step',
 
             templateMessageTypes = {
                 freeze: 'freeze',
@@ -69,7 +70,7 @@
                 viewModel.previewUrl('/preview/' + viewModel.courseId);
                 viewModel.templatesSectionSelected(true);
 
-                eventTracker.publish(events.navigateToTemplatesSection);
+                eventTracker.publish(events.navigateToTemplatesSection, eventCategory);
 
                 return templateRepository.getCollection().then(function (templates) {
                     viewModel.templates = _.chain(templates)
@@ -156,12 +157,12 @@
 
         function selectTemplatesSection() {
             viewModel.templatesSectionSelected(true);
-            eventTracker.publish(events.navigateToTemplatesSection);
+            eventTracker.publish(events.navigateToTemplatesSection, eventCategory);
         }
 
         function selectSettingsSection() {
             viewModel.templatesSectionSelected(false);
-            eventTracker.publish(events.navigateToSettingsSection);
+            eventTracker.publish(events.navigateToSettingsSection, eventCategory);
         }
 
         function reloadPreview() {
