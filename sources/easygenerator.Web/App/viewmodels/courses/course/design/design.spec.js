@@ -180,7 +180,7 @@
                     getTemplateCollectionDefer.reject();
 
                     viewModel.activate(course.id).fin(function () {
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to \'choose template\' section');
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to \'choose template\' section', 'Design step');
                         done();
                     });
 
@@ -714,7 +714,7 @@
 
             it('should publish navigate to templates event', function () {
                 viewModel.selectTemplatesSection();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to \'choose template\' section');
+                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to \'choose template\' section', 'Design step');
             });
 
         });
@@ -733,7 +733,7 @@
 
             it('should publish navigate to settings event', function () {
                 viewModel.selectSettingsSection();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to \'design settings\' section');
+                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to \'design settings\' section', 'Design step');
             });
 
         });
