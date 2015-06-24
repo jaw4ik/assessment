@@ -40,7 +40,5 @@
     "[type your answer here]": "Вкажіть свою відповідь...",
     "[tracking and tracing error hint without continue]": "Restart the course. Contact your course provider if the problem persists.",
     "[attempts note limit acceeded]": "Ви використали всі спроби",
-    "[attempts note]": "Зверніть увагу!",
-    "[attempts note you have]": "У Вас залишилось",
-    "[attempts note allowed attempts]": "спроб(и)"
+    "[attempts remaining]": "Залишилось спроб:"
 }
