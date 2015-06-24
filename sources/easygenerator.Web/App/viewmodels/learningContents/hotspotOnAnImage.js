@@ -24,7 +24,9 @@
 
             this.background.width = ko.observable();
             this.background.height = ko.observable();
+            this.background.isLoading = ko.observable(false);
             this.background.onload = function (width, height) {
+                that.background.isLoading(false);
                 fitPointsIntoBounds(width, height);
                 that.updateHotspotOnAnImage();
             };
@@ -65,6 +67,7 @@
                     success: function (url) {
                         that.publishActualEvent(events.changeBackground);
                         that.background(url);
+                        that.background.isLoading(true);
                     },
                     complete: function () {
                         uiLocker.unlock();
@@ -96,7 +99,7 @@
 
                 that.publishActualEvent(events.restoreHotspotContentBlock);
                 that.restoreLearningContent();
-            }
+            };
 
             if (_.isEmpty(this.id())) {
                 this.publishActualEvent(events.addHotsppotContentBlock);
@@ -105,6 +108,7 @@
             } else {
                 var data = parser.getViewModelData(this.text());
                 this.background(data.background);
+                this.background.isLoading(true);
                 var results = [];
                 _.each(data.polygons, function (polygon) {
                     results.push(new PolygonModel(polygon.id, polygon.points, polygon.text, updateTextInHotspotContentBlock));

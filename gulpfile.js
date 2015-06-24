@@ -13,7 +13,6 @@ var config = {
     }
 };
 
-
 gulp.task('styles', function () {
     return gulp.src(config.less.src)
         .pipe($.plumber({
@@ -22,7 +21,10 @@ gulp.task('styles', function () {
                 this.emit('end');
             }
         }))
-        .pipe($.less())
+        .pipe($.less({
+            strictMath: true,
+            strictUnits: true
+        }))
         .pipe($.autoprefixer({
             browsers: config.less.browsers,
             cascade: false

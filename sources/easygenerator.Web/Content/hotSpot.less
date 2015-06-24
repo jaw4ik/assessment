@@ -1,24 +1,27 @@
-﻿.hotspot-designer {
+﻿@import "helpers.less";
+
+.hotspot-designer {
     border: 2px dashed #a5c0d2;
     border-radius: 4px;
     font: 14px 'OpenSans';
 }
 
-    .hotspot-designer.background {
-        position: relative;
-        margin-right: 15px;
-        border-style: solid;
-    }
+.hotspot-designer.background {
+    position: relative;
+    margin-right: 15px;
+    border-style: solid;
+}
 
-    .hotspot-designer.empty {
-        color: #80a6c6;
-    }
+.hotspot-designer.empty {
+    color: #80a6c6;
+}
 
-    
-    .hotspot-designer-empty-holder {
-        width: 430px;
-        margin: 40px auto 20px;
-    }
+
+.hotspot-designer-empty-holder {
+    width: 430px;
+    margin: 40px auto;
+    text-align: center;
+}
 
 .hotspot-designer-background-loader-wrapper {
     min-height: 90px;
@@ -120,9 +123,11 @@
 .drag .hotspot-area {
     cursor: url('/Content/images/openhand.cur'), move;
 }
+
 .dragging .hotspot-area {
     cursor: url('/Content/images/closedhand.cur'), move;
 }
+
 .active .hotspot-area {
     cursor: url('/Content/images/openhand.cur'), move;
 }
@@ -130,30 +135,32 @@
 
 .switcher {
     margin-bottom: 15px;
-}
 
-.switcher .overlay {
-    display: none;
-}
+    & > div {
+        display: inline-block;
+        vertical-align: middle;
+    }
 
-.switcher > div {
-    display: inline-block;
-    vertical-align: middle;
-}
+    .switcher-text {
+        font: 12px 'OpenSans';
+        color: #757575;
+        cursor: pointer;
+        .fix-bold-text-expanding;
 
-.switcher-text {
-    font: 12px 'OpenSans';
-    color: #757575;
-    width: 92px;
-}
+        &:first-child {
+            text-align: right;
+        }
 
-.switcher-text.multiple {
-    width: 105px;
-}
+        &.selected {
+            font-family: 'OpenSans-Semibold';
+            color: #0a9084;
+            cursor: default;
+        }
+    }
 
-.switcher-text.selected {
-    font-family: 'OpenSans-Semibold';
-    color: #0a9084;
+    .overlay {
+        display: none;
+    }
 }
 
 .hot-spot .switch-toggle-slider,
@@ -199,8 +206,8 @@
     color: #8a8a8a;
 }
 
-.hot-spot .switcher.disable  .switch-toggle-on,
-.hot-spot .switcher.disable  .switch-toggle-off {
+.hot-spot .switcher.disable .switch-toggle-on,
+.hot-spot .switcher.disable .switch-toggle-off {
     background-color: #e1e1e1;
 }
 
@@ -214,10 +221,10 @@
 
 .hot-spot .switcher.disable .switch-toogle-blob {
     background: #fefefe;
-    background: -moz-linear-gradient(top,  #fefefe 0%, #efefef 100%);
-    background: -webkit-linear-gradient(top,  #fefefe 0%,#efefef 100%);
-    background: -ms-linear-gradient(top,  #fefefe 0%,#efefef 100%);
-    background: linear-gradient(to bottom,  #fefefe 0%,#efefef 100%);
+    background: -moz-linear-gradient(top, #fefefe 0%, #efefef 100%);
+    background: -webkit-linear-gradient(top, #fefefe 0%,#efefef 100%);
+    background: -ms-linear-gradient(top, #fefefe 0%,#efefef 100%);
+    background: linear-gradient(to bottom, #fefefe 0%,#efefef 100%);
 }
 
 /*#region CURSOR TOOLTOP*/
@@ -234,7 +241,7 @@
     z-index: 99;
     font-size: 13px;
 
-    span{
+    span {
         display: inline-block;
         padding: 3px 10px;
     }

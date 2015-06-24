@@ -34,6 +34,9 @@
         background: ko.observable(),
         uploadBackground: uploadBackground,
 
+        setToMutiple: setToMutiple,
+        setToSingle: setToSingle,
+
         polygons: ko.observableArray(),
         addPolygon: addPolygon,
         updatePolygon: {},
@@ -91,6 +94,24 @@
                 designer.polygons([]);
             }
         });
+    }
+
+    function setToMutiple() {
+        if (designer.isMultiple()) {
+            return;
+        }
+
+        designer.isMultiple(true);
+        changeType();
+    }
+
+    function setToSingle() {
+        if (!designer.isMultiple()) {
+            return;
+        }
+
+        designer.isMultiple(false);
+        changeType();
     }
 
     function changeType() {
