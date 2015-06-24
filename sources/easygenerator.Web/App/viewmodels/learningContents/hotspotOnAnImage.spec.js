@@ -56,6 +56,73 @@
                 expect(learningContentInstance.remove).toBeFunction();
             });
 
+            describe('when learning content is already saved on server', function() {
+                var data = null,
+                    learningContentFromServer = {
+                        id: 'hotspotId',
+                        text: 'text',
+                        type: constants.learningContentsTypes.hotspot
+                    },
+                    learningContentInstanceFromServer = null;
+
+                beforeEach(function () {
+                    data = {
+                        background: 'url',
+                        polygons: []
+                    };
+                    learningContent.id = null;
+                    spyOn(hotspotParser, 'getViewModelData').and.returnValue(data);
+                });
+
+                it('should parse data', function() {
+                    learningContentInstanceFromServer = new HotspotOnAnImage(learningContentFromServer, _questionId, _questionType, canBeAddedImmediately);
+                    expect(hotspotParser.getViewModelData).toHaveBeenCalledWith(learningContentFromServer.text);
+                });
+
+                it('should set background', function () {
+                    learningContentInstanceFromServer = new HotspotOnAnImage(learningContentFromServer, _questionId, _questionType, canBeAddedImmediately);
+                    expect(learningContentInstanceFromServer.background()).toBe(data.background);
+                });
+
+                it('should start load background', function() {
+                    learningContentInstanceFromServer.background.isLoading(false);
+                    learningContentInstanceFromServer = new HotspotOnAnImage(learningContentFromServer, _questionId, _questionType, canBeAddedImmediately);
+                    expect(learningContentInstanceFromServer.background.isLoading()).toBeTruthy();
+                });
+
+                it('should set polygons', function() {
+                    learningContentInstanceFromServer = new HotspotOnAnImage(learningContentFromServer, _questionId, _questionType, canBeAddedImmediately);
+                    expect(learningContentInstanceFromServer.polygons().length).toBe(0);
+                });
+
+            });
+
+            describe('when learning content is already added', function() {
+                var learningContentAdded = {
+                        type: constants.learningContentsTypes.hotspot
+                    },
+                    learningContentInstanceAdded = null;
+
+                beforeEach(function() {
+                    spyOn(imageUpload, 'upload');
+                });
+
+                it('should send event \'Add hotspot content block\'', function () {
+                    learningContentInstanceAdded = new HotspotOnAnImage(learningContentAdded, _questionId, _questionType, canBeAddedImmediately);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Add hotspot content block');
+                });
+
+                it('should set focus to field', function() {
+                    learningContentInstanceAdded = new HotspotOnAnImage(learningContentAdded, _questionId, _questionType, canBeAddedImmediately);
+                    expect(learningContentInstanceAdded.hasFocus()).toBeTruthy();
+                });
+
+                it('should call uploadBackground', function () {
+                    learningContentInstanceAdded = new HotspotOnAnImage(learningContentAdded, _questionId, _questionType, canBeAddedImmediately);
+                    expect(imageUpload.upload).toHaveBeenCalled();
+                });
+            });
+
             describe('addPolygon:', function () {
 
                 it('should add polygon', function () {
