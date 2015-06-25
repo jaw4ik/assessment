@@ -81,22 +81,6 @@
                                         </p>
                                     </a>
                                 </td>
-                                <td class="supported-browser-item chrome-mac">
-                                    <a href="https://www.google.com/chrome/browser/desktop/" class="download-browser-link" target="_blank">
-                                        <img class="browser-image" src="css/img/notSupportedPage/chrome.png" alt="">
-                                        <p>
-                                            <span class="browser-title">google chrome</span>
-                                        </p>
-                                    </a>
-                                </td>
-                                <td class="supported-browser-item chrome-mobile">
-                                    <a href="https://play.google.com/store/apps/details?id=com.android.chrome&pcampaignid=website" class="download-browser-link" target="_blank">
-                                        <img class="browser-image" src="css/img/notSupportedPage/chrome.png" alt="">
-                                        <p>
-                                            <span class="browser-title">google chrome</span>
-                                        </p>
-                                    </a>
-                                </td>
                                 <td class="supported-browser-item firefox">
                                     <a href="http://www.mozilla.com/firefox" class="download-browser-link" target="_blank">
                                         <img class="browser-image" src="css/img/notSupportedPage/firefox.png" alt="">
@@ -218,7 +202,7 @@
             function isSupportedMobile() {
                 if (isIos()) {
                     var v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
-                    if (parseInt(v[1], 10) >= 6 && ua.indexOf("opera") == -1 && ua.indexOf("firefox") == -1 && ua.indexOf("chrome") == -1 && ua.indexOf('crios') == -1) {
+                    if (parseInt(v[1], 10) >= 6 && ua.indexOf("opera") == -1 && ua.indexOf('opios') == -1 && ua.indexOf("firefox") == -1) {
                         return true;
                     }
                 }
