@@ -27,7 +27,7 @@
     function get(url, query, headers) {
         var deferred = Q.defer();
 
-        $.ajax(url, { data: query, headers: headers, global: false })
+        $.ajax(url, { data: query, headers: headers, global: false, cache: false })
             .then(function (response) {
                 deferred.resolve(response);
             }).fail(function (reason) {

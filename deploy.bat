@@ -44,9 +44,16 @@ echo Running Jasmine tests...
 call "tools/grunt/node_modules/.bin/grunt" jasmine --gruntfile=tools/grunt/gruntfile.js
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 
+call npm install
+IF NOT %ERRORLEVEL% == 0 GOTO ERROR
+
+call node node_modules/gulp/bin/gulp build
+IF NOT %ERRORLEVEL% == 0 GOTO ERROR
+
 ECHO "Deploying to %DeploymentDirectory% ..."
 IF NOT EXIST "%DeploymentDirectory%\Download" MKDIR "%DeploymentDirectory%\Download"
 
+XCOPY "./sources/easygenerator.Web/Content/*.css" "%DeploymentDirectory%\Content\" /Y /F /I
 XCOPY "./sources/easygenerator.Web/App/main-built.js" "%DeploymentDirectory%\App\" /Y /F /I
 XCOPY "tools/WebConfigTransform/%Transform%.config" "%DeploymentDirectory%\Web.config" /Y /F /I
 DEL "tools\WebConfigTransform\%Transform%.config"
@@ -61,6 +68,7 @@ DEL /S /Q /F "%DeploymentDirectory%\*.spec.js"
 DEL /S /Q /F "%DeploymentDirectory%\apple-touch-icon*"
 DEL /S /Q /F "%DeploymentDirectory%\Scripts\*.map"
 DEL /Q /F "%DeploymentDirectory%\humans.txt"
+DEL /S /Q /F "%DeploymentDirectory%\Content\*.less"
 RMDIR /S /Q "%DeploymentDirectory%\Scripts\jasmine"
 
 XCOPY "./sources/easygenerator.ConversionServer/package.json" "%DeploymentDirectory%\conversion\" /Y /F /I
