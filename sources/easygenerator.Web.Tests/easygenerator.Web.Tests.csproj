@@ -133,7 +133,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuildCourse\BuildContentProviderTests.cs" />
+    <Compile Include="BuildCourse\CourseContentProviderTests.cs" />
+    <Compile Include="BuildCourse\CourseContentPathProviderTests.cs" />
     <Compile Include="BuildCourse\Modules\PackageModulesProviderTests.cs" />
     <Compile Include="BuildCourse\Modules\ScormPackageModulesProviderTests.cs" />
     <Compile Include="BuildCourse\ScormCourseBuilderTests.cs" />
@@ -141,7 +142,10 @@
     <Compile Include="BuildCourse\BuildPathProviderTests.cs" />
     <Compile Include="BuildCourse\BuildPackageCreatorTests.cs" />
     <Compile Include="BuildLearningPath\LearningPathBuilderTests.cs" />
+    <Compile Include="BuildLearningPath\LearningPathContentPathProviderTests.cs" />
+    <Compile Include="BuildLearningPath\LearningPathContentProviderTests.cs" />
     <Compile Include="BuildLearningPath\LearningPathCourseBuilderTests.cs" />
+    <Compile Include="BuildLearningPath\LearningPathPackageModelMapperTests.cs" />
     <Compile Include="Components\ActionFilters\ApplicationAuthorizeAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCollaboratorsAmountAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\Authorization\ExternalApiAuthorizeAttributeTests.cs" />

@@ -10,22 +10,20 @@ namespace easygenerator.Web.BuildLearningPath
     {
         private static int MAX_TITLE_LENGTH = 32;
 
-        private readonly ILearningPathCourseBuilder _courseBuilder;
         private readonly ILog _logger;
         private readonly PhysicalFileManager _fileManager;
         private readonly BuildPathProvider _buildPathProvider;
         private readonly BuildPackageCreator _buildPackageCreator;
-        private readonly StartupPageGenerator _startupPageGenerator;
+        private readonly ILearningPathContentProvider _contentProvider;
 
-        public LearningPathBuilder(ILearningPathCourseBuilder courseBuilder, ILog logger, PhysicalFileManager fileManager,
-            BuildPathProvider buildPathProvider, BuildPackageCreator buildPackageCreator, StartupPageGenerator startupPageGenerator)
+        public LearningPathBuilder(ILog logger, PhysicalFileManager fileManager,
+            BuildPathProvider buildPathProvider, BuildPackageCreator buildPackageCreator, ILearningPathContentProvider contentProvider)
         {
-            _courseBuilder = courseBuilder;
             _logger = logger;
             _fileManager = fileManager;
             _buildPackageCreator = buildPackageCreator;
             _buildPathProvider = buildPathProvider;
-            _startupPageGenerator = startupPageGenerator;
+            _contentProvider = contentProvider;
         }
 
         public BuildResult Build(LearningPath learningPath)
@@ -41,12 +39,7 @@ namespace easygenerator.Web.BuildLearningPath
 
                 CreatePackageDirectory(buildDirectoryPath);
 
-                foreach (var course in learningPath.Courses)
-                {
-                    _courseBuilder.Build(course, buildId);
-                }
-
-                AddStartupPage(buildDirectoryPath, learningPath);
+                _contentProvider.AddContentToPackageDirectory(buildDirectoryPath, learningPath);
 
                 CreatePackageFromDirectory(buildId);
                 packageUrl = buildId + ".zip";
@@ -68,14 +61,6 @@ namespace easygenerator.Web.BuildLearningPath
             }
 
             return new BuildResult(buildResult, packageUrl);
-        }
-
-        private void AddStartupPage(string buildDirectoryPath, LearningPath learningPath)
-        {
-            var fileName = _buildPathProvider.GetStartupPageFileName(buildDirectoryPath);
-            var startupPageContent = _startupPageGenerator.Generate(learningPath);
-
-            _fileManager.WriteToFile(fileName, startupPageContent);
         }
 
         private void CreatePackageDirectory(string buildDirectory)

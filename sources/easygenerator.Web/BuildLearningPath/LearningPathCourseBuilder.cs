@@ -9,23 +9,23 @@ namespace easygenerator.Web.BuildLearningPath
     public class LearningPathCourseBuilder : ILearningPathCourseBuilder
     {
         private readonly PhysicalFileManager _fileManager;
-        private readonly BuildPathProvider _buildPathProvider;
-        private readonly IBuildContentProvider _buildContentProvider;
+        private readonly LearningPathContentPathProvider _contentPathProvider;
+        private readonly ICourseContentProvider _buildContentProvider;
         private readonly IPackageModulesProvider _packageModulesProvider;
 
-        public LearningPathCourseBuilder(PhysicalFileManager fileManager, BuildPathProvider buildPathProvider,
-            IBuildContentProvider buildContentProvider, PackageModulesProvider packageModulesProvider)
+        public LearningPathCourseBuilder(PhysicalFileManager fileManager, LearningPathContentPathProvider contentPathProvider,
+            ICourseContentProvider buildContentProvider, PackageModulesProvider packageModulesProvider)
         {
             _fileManager = fileManager;
-            _buildPathProvider = buildPathProvider;
+            _contentPathProvider = contentPathProvider;
             _buildContentProvider = buildContentProvider;
             _packageModulesProvider = packageModulesProvider;
         }
 
-        public virtual void Build(Course course, string buildId)
+        public virtual void Build(string buildDirectory, Course course)
         {
             var courseId = course.Id.ToNString();
-            var courseDirectoryPath = _buildPathProvider.GetBuildDirectoryName(buildId, courseId);
+            var courseDirectoryPath = _contentPathProvider.GetCourseDirectoryName(buildDirectory, courseId);
             CreateCourseDirectory(courseDirectoryPath);
 
             var modulesList = _packageModulesProvider.GetModulesList(course);

@@ -18,14 +18,14 @@ using System.Linq;
 namespace easygenerator.Web.Tests.BuildCourse
 {
     [TestClass]
-    public class BuildContentProviderTests
+    public class CourseContentProviderTests
     {
-        private BuildContentProvider _buildContentProvider;
+        private CourseContentProvider _buildContentProvider;
 
         private Course _course;
         private CoursePackageModel _coursePackageModel;
 
-        private BuildPathProvider _buildPathProvider;
+        private CourseContentPathProvider _buildPathProvider;
         private HttpRuntimeWrapper _httpRuntimeWrapper;
         private PhysicalFileManager _fileManager;
         private PackageModelSerializer _packageModelSerializer;
@@ -48,14 +48,14 @@ namespace easygenerator.Web.Tests.BuildCourse
             _httpRuntimeWrapper = Substitute.For<HttpRuntimeWrapper>();
             _httpRuntimeWrapper.GetDomainAppPath().Returns(string.Empty);
 
-            _buildPathProvider = Substitute.For<BuildPathProvider>(_httpRuntimeWrapper);
+            _buildPathProvider = Substitute.For<CourseContentPathProvider>();
             _packageModelMapper = Substitute.For<PackageModelMapper>(Substitute.For<IUrlHelperWrapper>(), Substitute.For<IUserRepository>());
             _packageModelMapper.MapCourse(_course).Returns(_coursePackageModel);
 
             _publishSettingsProvider = Substitute.For<PublishSettingsProvider>();
 
             _templateStorage = Substitute.For<ITemplateStorage>();
-            _buildContentProvider = new BuildContentProvider(_fileManager, _buildPathProvider, _packageModelSerializer, _packageModelMapper, _publishSettingsProvider, _templateStorage);
+            _buildContentProvider = new CourseContentProvider(_fileManager, _buildPathProvider, _packageModelSerializer, _packageModelMapper, _publishSettingsProvider, _templateStorage);
         }
 
         #region AddBuildContentToPackageDirectory
