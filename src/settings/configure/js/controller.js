@@ -185,12 +185,20 @@
                     self.languagesList.push(new Language(language.code, language.name, language.url, false));
                 });
 
+                orderLanguages();
+
                 var defaultLanguage = _getLanguage(defaultLanguageCode);
                 var customLanguage = new Language(customLanguageCode, 'Custom', defaultLanguage ? defaultLanguage.resourcesUrl : null, true, languagesSettings ? languagesSettings.customTranslations : null);
 
                 self.languagesList.push(customLanguage);
 
                 self.selectedLanguageCode = (languagesSettings && languagesSettings.selected) ? languagesSettings.selected : defaultLanguageCode;
+            }
+
+            function orderLanguages() {
+                self.languagesList.sort(function (a, b) {
+                    return a.name.localeCompare(b.name);
+                });
             }
 
             function getData() {
