@@ -2456,6 +2456,18 @@
     <Content Include="Templates\Personalized learning\css\font\robotoslab-regular.woff" />
     <Content Include="Templates\Personalized learning\css\font\twcenmt-condensed.ttf" />
     <Content Include="Templates\Personalized learning\css\font\twcenmt-condensed.woff" />
+    <Content Include="Templates\Exam\lang\de.json" />
+    <Content Include="Templates\Exam\lang\fr.json" />
+    <Content Include="Templates\Exam\lang\pt-br.json" />
+    <Content Include="Templates\Personalized learning\lang\de.json" />
+    <Content Include="Templates\Personalized learning\lang\fr.json" />
+    <Content Include="Templates\Personalized learning\lang\pt-br.json" />
+    <Content Include="Templates\Quiz\lang\de.json" />
+    <Content Include="Templates\Quiz\lang\fr.json" />
+    <Content Include="Templates\Quiz\lang\pt-br.json" />
+    <Content Include="Templates\Reader\lang\de.json" />
+    <Content Include="Templates\Reader\lang\fr.json" />
+    <Content Include="Templates\Reader\lang\pt-br.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

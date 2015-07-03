@@ -24,6 +24,21 @@
             "code": "ua",
             "name": "Ukrainian",
             "url": "lang/ua.json"
+        },
+        {
+            "code": "de",
+            "name": "German",
+            "url": "lang/de.json"
+        },
+        {
+            "code": "fr",
+            "name": "French",
+            "url": "lang/fr.json"
+        },
+        {
+            "code": "pt-br",
+            "name": "Portuguese - Brazil",
+            "url": "lang/pt-br.json"
         }
     ]
 }
