@@ -956,7 +956,12 @@
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
     <Content Include="BuildCourse\Modules\js\branding.js" />
+    <Content Include="BuildLearningPath\Template\css\font\roboto-regular.svg" />
+    <Content Include="BuildLearningPath\Template\css\font\robotoslab-regular.svg" />
+    <Content Include="BuildLearningPath\Template\css\styles.min.css" />
     <Content Include="BuildLearningPath\Template\index.html" />
+    <Content Include="BuildLearningPath\Template\js\main.min.js" />
+    <Content Include="BuildLearningPath\Template\js\vendor.min.js" />
     <Content Include="Content\font\buxtonsketch.woff" />
     <Content Include="Content\font\heuristica-bold.woff" />
     <Content Include="Content\font\heuristica-bolditalic.woff" />
@@ -1407,6 +1412,10 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="Content\font\badscript-regular.woff" />
+    <Content Include="BuildLearningPath\Template\css\font\roboto-regular.ttf" />
+    <Content Include="BuildLearningPath\Template\css\font\roboto-regular.woff" />
+    <Content Include="BuildLearningPath\Template\css\font\robotoslab-regular.ttf" />
+    <Content Include="BuildLearningPath\Template\css\font\robotoslab-regular.woff" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
