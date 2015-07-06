@@ -1,4 +1,6 @@
-﻿@bar-width: 300px;
+﻿@import "mixin.less";
+
+@bar-width: 300px;
 @bar-background: #e4eaed;
 @icons-backround: url(../Content/images/sprites_64.png);
 @icons-font: 13px 'OpenSans';
@@ -34,10 +36,12 @@
             .design-bar-navigation-list {
 
                 .design-bar-navigation-item {
+                    .display-flex();
+                    .flex-direction(column);
+                    .justify-content(center);
                     width: 100%;
-                    height: 80px;
+                    height: 85px;
                     position: relative;
-                    padding-top: 12px;
                     color: @font-color-ligth;
                     font: @icons-font;
                     cursor: pointer;
