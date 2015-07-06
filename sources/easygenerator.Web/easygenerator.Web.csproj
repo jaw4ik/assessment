@@ -2202,17 +2202,13 @@
     <Content Include="Templates\Quiz\settings.js" />
     <Content Include="Templates\Quiz\settings\api.js" />
     <Content Include="Templates\Quiz\settings\configure\configure.html" />
+    <Content Include="Templates\Quiz\settings\configure\css\configure.css" />
     <Content Include="Templates\Quiz\settings\configure\img\language.png" />
+    <Content Include="Templates\Quiz\settings\configure\img\sprites_16.png" />
     <Content Include="Templates\Quiz\settings\configure\js\configure.min.js" />
     <Content Include="Templates\Quiz\settings\configure\js\vendor.min.js" />
-    <Content Include="Templates\Quiz\settings\css\fonts\opensans-400.woff" />
-    <Content Include="Templates\Quiz\settings\css\fonts\opensans-600.woff" />
-    <Content Include="Templates\Quiz\settings\css\fonts\opensans-bold.woff" />
-    <Content Include="Templates\Quiz\settings\css\fonts\opensans-italic-400.woff" />
-    <Content Include="Templates\Quiz\settings\css\img\sprites_16.png" />
-    <Content Include="Templates\Quiz\settings\css\settings.css" />
+    <Content Include="Templates\Quiz\settings\design\css\design.css" />
     <Content Include="Templates\Quiz\settings\design\design.html" />
-    <Content Include="Templates\Quiz\settings\design\img\graphical.png" />
     <Content Include="Templates\Quiz\settings\design\js\design.min.js" />
     <Content Include="Templates\Quiz\settings\design\js\vendor.min.js" />
     <Content Include="Templates\Reader\app\main.js" />
@@ -2465,6 +2461,14 @@
     <Content Include="Templates\Reader\settings\design\css\fonts\opensans-600.woff" />
     <Content Include="Templates\Reader\settings\design\css\fonts\opensans-bold.woff" />
     <Content Include="Templates\Reader\settings\design\css\fonts\opensans-italic-400.woff" />
+    <Content Include="Templates\Quiz\settings\configure\css\fonts\opensans-400.woff" />
+    <Content Include="Templates\Quiz\settings\configure\css\fonts\opensans-600.woff" />
+    <Content Include="Templates\Quiz\settings\configure\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Quiz\settings\configure\css\fonts\opensans-italic-400.woff" />
+    <Content Include="Templates\Quiz\settings\design\css\fonts\opensans-400.woff" />
+    <Content Include="Templates\Quiz\settings\design\css\fonts\opensans-600.woff" />
+    <Content Include="Templates\Quiz\settings\design\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Quiz\settings\design\css\fonts\opensans-italic-400.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2957,6 +2961,7 @@
   <ItemGroup>
     <Folder Include="Templates\Exam\settings\design\img\" />
     <Folder Include="Templates\Personalized learning\settings\design\img\" />
+    <Folder Include="Templates\Quiz\settings\design\img\" />
     <Folder Include="Templates\Reader\settings\design\img\" />
     <Folder Include="Views\CourseImport\" />
   </ItemGroup>
