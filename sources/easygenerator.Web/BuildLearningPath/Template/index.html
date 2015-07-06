@@ -2,9 +2,9 @@
 <html>
 <head>
     <title data-bind="text: title"></title>
-    <link rel="stylesheet" href="css/styles.min.css?v=1436191384353">
-    <script src="js/vendor.min.js?v=1436191384353"></script>
-    <script src="js/main.min.js?v=1436191384353"></script>
+    <link rel="stylesheet" href="css/styles.min.css?v=1436192727985">
+    <script src="js/vendor.min.js?v=1436192727985"></script>
+    <script src="js/main.min.js?v=1436192727985"></script>
 </head>
 <body>
     <div class="learning-path-container clearfix">
@@ -19,7 +19,7 @@
             <ul class="courses-list">
                 <!-- ko foreach: courses -->
                 <li>
-                    <a class="course-item" target="blank" data-bind="attr: { href: link}, css: { linked: $index() < $parent.courses.length - 1}">
+                    <a class="course-item" target="_blank" data-bind="attr: { href: link}, css: { linked: $index() < $parent.courses.length - 1}">
                         <span class="course-image"></span>
                         <span class="course-title" data-bind="css: { 'middle': title.length > 60 && title.length <= 140, 'long': title.length > 140}">
                             <span class="course-title-text" data-bind="text: title"></span>
