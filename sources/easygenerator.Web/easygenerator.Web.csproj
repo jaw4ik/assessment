@@ -2389,20 +2389,23 @@
     <Content Include="Templates\Simple course\settings.js" />
     <Content Include="Templates\Simple course\settings\api.js" />
     <Content Include="Templates\Simple course\settings\configure\configure.html" />
+    <Content Include="Templates\Simple course\settings\configure\css\configure.css" />
+    <Content Include="Templates\Simple course\settings\configure\css\img\preview-templates-sprite.png" />
+    <Content Include="Templates\Simple course\settings\configure\css\img\sprites_16.png" />
     <Content Include="Templates\Simple course\settings\configure\img\language.png" />
     <Content Include="Templates\Simple course\settings\configure\img\mastery.png" />
     <Content Include="Templates\Simple course\settings\configure\img\track.png" />
+    <Content Include="Templates\Simple course\settings\configure\js\configure.js" />
     <Content Include="Templates\Simple course\settings\configure\js\configure.min.js" />
+    <Content Include="Templates\Simple course\settings\configure\js\knockoutBindings.js" />
+    <Content Include="Templates\Simple course\settings\configure\js\localize.js" />
+    <Content Include="Templates\Simple course\settings\configure\js\models.js" />
     <Content Include="Templates\Simple course\settings\configure\js\vendor.min.js" />
-    <Content Include="Templates\Simple course\settings\css\fonts\opensans-400.woff" />
-    <Content Include="Templates\Simple course\settings\css\fonts\opensans-600.woff" />
-    <Content Include="Templates\Simple course\settings\css\fonts\opensans-bold.woff" />
-    <Content Include="Templates\Simple course\settings\css\fonts\opensans-italic-400.woff" />
-    <Content Include="Templates\Simple course\settings\css\img\preview-templates-sprite.png" />
-    <Content Include="Templates\Simple course\settings\css\img\sprites_16.png" />
-    <Content Include="Templates\Simple course\settings\css\settings.css" />
+    <Content Include="Templates\Simple course\settings\configure\js\vendor\jquery.min.js" />
+    <Content Include="Templates\Simple course\settings\configure\js\vendor\jquery.spinner.min.js" />
+    <Content Include="Templates\Simple course\settings\configure\js\vendor\knockout.min.js" />
+    <Content Include="Templates\Simple course\settings\design\css\design.css" />
     <Content Include="Templates\Simple course\settings\design\design.html" />
-    <Content Include="Templates\Simple course\settings\design\img\graphical.png" />
     <Content Include="Templates\Simple course\settings\design\js\design.min.js" />
     <Content Include="Templates\Simple course\settings\design\js\vendor.min.js" />
     <Content Include="Views\Account\InvalidPasswordRecovery.cshtml" />
@@ -2443,6 +2446,10 @@
     <Content Include="Templates\Personalized learning\css\font\robotoslab-regular.woff" />
     <Content Include="Templates\Personalized learning\css\font\twcenmt-condensed.ttf" />
     <Content Include="Templates\Personalized learning\css\font\twcenmt-condensed.woff" />
+    <Content Include="Templates\Simple course\settings\configure\css\fonts\opensans-400.woff" />
+    <Content Include="Templates\Simple course\settings\configure\css\fonts\opensans-600.woff" />
+    <Content Include="Templates\Simple course\settings\configure\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Simple course\settings\configure\css\fonts\opensans-italic-400.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
