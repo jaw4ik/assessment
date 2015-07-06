@@ -2393,15 +2393,8 @@
     <Content Include="Templates\Simple course\settings\configure\css\img\preview-templates-sprite.png" />
     <Content Include="Templates\Simple course\settings\configure\css\img\sprites_16.png" />
     <Content Include="Templates\Simple course\settings\configure\img\language.png" />
-    <Content Include="Templates\Simple course\settings\configure\js\configure.js" />
     <Content Include="Templates\Simple course\settings\configure\js\configure.min.js" />
-    <Content Include="Templates\Simple course\settings\configure\js\knockoutBindings.js" />
-    <Content Include="Templates\Simple course\settings\configure\js\localize.js" />
-    <Content Include="Templates\Simple course\settings\configure\js\models.js" />
     <Content Include="Templates\Simple course\settings\configure\js\vendor.min.js" />
-    <Content Include="Templates\Simple course\settings\configure\js\vendor\jquery.min.js" />
-    <Content Include="Templates\Simple course\settings\configure\js\vendor\jquery.spinner.min.js" />
-    <Content Include="Templates\Simple course\settings\configure\js\vendor\knockout.min.js" />
     <Content Include="Templates\Simple course\settings\design\css\design.css" />
     <Content Include="Templates\Simple course\settings\design\design.html" />
     <Content Include="Templates\Simple course\settings\design\js\design.min.js" />
