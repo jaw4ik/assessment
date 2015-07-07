@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="css/design.css?v=1436195870689" rel="stylesheet" />
-    <script src="../api.js?v=1436195870689"></script>
+    <link href="css/design.css?v=1436256150516" rel="stylesheet" />
+    <script src="../api.js?v=1436256150516"></script>
 
-    <script src="js/vendor.min.js?v=1436195870689"></script>
-    <script src="js/design.min.js?v=1436195870689"></script>
+    <script src="js/vendor.min.js?v=1436256150516"></script>
+    <script src="js/design.min.js?v=1436256150516"></script>
 </head>
 
     <body>
@@ -54,12 +54,12 @@
                             </div>
                         </div>
                         <!-- /ko -->
-                        <!-- ko if: !logo.isError() && !logo.isLoading() -->
+                        <!-- ko if: (!logo.isError() && !logo.isLoading()) || logo.hasLogo -->
                         <div class="logo-message-container">
                             - recommended size 300x50 px, allowed formats: jpeg, jpg, png, bmp, gif
                         </div>
                         <!-- /ko -->
-                        <!-- ko if: logo.isError() && !logo.isLoading() -->
+                        <!-- ko if: logo.isError() && !logo.isLoading() && !logo.hasLogo() -->
                         <div class="error-container">
                             <div class="error-title-container" data-bind="text: logo.errorText"></div>
                             <div class="error-message-container" data-bind="text: logo.errorDescription"></div>
@@ -146,7 +146,7 @@
                     <!-- /ko -->
                     <div class="flex direction-column no-access-contatiner" data-bind="fadeVisible: !userAccess.hasStarterPlan">
                         <div class="no-access-img"></div>
-                        <div class="no-access-text" data-bind="localize: 'upgrade account hint'"></div>
+                        <div class="no-access-text" data-bind="localize: 'background upgrade account hint'"></div>
                     </div>
                 </section>
             </article>

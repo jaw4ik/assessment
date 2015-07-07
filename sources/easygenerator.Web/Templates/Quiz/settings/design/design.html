@@ -6,10 +6,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="css/design.css?v=1436196200739" rel="stylesheet" />
-    <script src="../api.js?v=1436196200739"></script>
-    <script src="js/vendor.min.js?v=1436196200739"></script>
-    <script src="js/design.min.js?v=1436196200739"></script>
+    <link href="css/design.css?v=1436256063499" rel="stylesheet" />
+    <script src="../api.js?v=1436256063499"></script>
+    <script src="js/vendor.min.js?v=1436256063499"></script>
+    <script src="js/design.min.js?v=1436256063499"></script>
 </head>
 <body>
    <main ng-controller="DesignController">
@@ -46,10 +46,10 @@
                             </button>
                         </div>
                     </div>
-                    <div class="logo-message-container" ng-hide="logo.hasError || logo.isLoading">
+                    <div class="logo-message-container" ng-show="(!logo.isError && !logo.isLoading) || logo.hasLogo()">
                         - recommended size 300x50 px, allowed formats: jpeg, jpg, png, bmp, gif
                     </div>
-                    <div class="error-container" ng-show="logo.hasError && !logo.isLoading">
+                    <div class="error-container" ng-show="logo.hasError && !logo.isLoading && !logo.hasLogo()">
                         <div class="error-title-container">{{ logo.errorText }}</div>
                         <div class="error-message-container">{{ logo.errorDescription }}</div>
                     </div>
@@ -59,7 +59,7 @@
                     <div class="no-access-text">
                         You have to
                         <a target="_blank" href="/account/upgrade">upgrade your account</a>
-                        in order to set custom course logo
+                        in order to set custom background
                     </div>
                 </div>
             </section>
