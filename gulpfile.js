@@ -143,16 +143,6 @@ gulp.task('build-app', ['clean', 'css'], function () {
 });
 
 gulp.task('build-settings', ['build-design-settings', 'build-configure-settings'], function () {
-    gulp.src('./src/settings/css/fonts/**')
-      .pipe(gulp.dest(output + '/settings/css/fonts'));
-
-    gulp.src('./src/settings/css/img/**')
-      .pipe(gulp.dest(output + '/settings/css/img'));
-
-    gulp.src('./src/settings/css/settings.css')
-      .pipe(css())
-      .pipe(gulp.dest(output + '/settings/css'));
-
     gulp.src('./src/settings/api.js')
       .pipe(removeDebugBlocks())
       .pipe(uglify())
@@ -170,9 +160,13 @@ gulp.task('build-design-settings', ['clean'], function () {
       .pipe(useref())
 	  .pipe(addBuildVersion())
       .pipe(gulp.dest(output + '/settings/design'));
-
-    gulp.src('./src/settings/design/img/**')
-      .pipe(gulp.dest(output + '/settings/design/img'));
+    
+    gulp.src('./src/settings/design/css/fonts/**')
+      .pipe(gulp.dest(output + '/settings/design/css/fonts'));
+    
+    gulp.src('./src/settings/design/css/design.css')
+      .pipe(css())
+      .pipe(gulp.dest(output + '/settings/design/css'));
 
 });
 
@@ -189,5 +183,15 @@ gulp.task('build-configure-settings', ['clean'], function () {
 
     gulp.src('./src/settings/configure/img/**')
       .pipe(gulp.dest(output + '/settings/configure/img'));
+    
+    gulp.src('./src/settings/configure/css/img/**')
+      .pipe(gulp.dest(output + '/settings/configure/css/img'));
+    
+    gulp.src('./src/settings/configure/css/fonts/**')
+      .pipe(gulp.dest(output + '/settings/configure/css/fonts'));
+    
+    gulp.src('./src/settings/configure/css/configure.css')
+      .pipe(css())
+      .pipe(gulp.dest(output + '/settings/configure/css'));
 
 });
