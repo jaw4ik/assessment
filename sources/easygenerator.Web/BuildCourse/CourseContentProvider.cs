@@ -10,17 +10,17 @@ using Newtonsoft.Json;
 
 namespace easygenerator.Web.BuildCourse
 {
-    public class BuildContentProvider : IBuildContentProvider
+    public class CourseContentProvider : ICourseContentProvider
     {
         private readonly PhysicalFileManager _fileManager;
-        private readonly BuildPathProvider _buildPathProvider;
+        private readonly CourseContentPathProvider _buildPathProvider;
         private readonly PackageModelSerializer _packageModelSerializer;
         private readonly PackageModelMapper _packageModelMapper;
         private readonly PublishSettingsProvider _publishSettingsProvider;
         private readonly ITemplateStorage _templateStorage;
 
-        public BuildContentProvider(PhysicalFileManager fileManager,
-                                    BuildPathProvider buildPathProvider,
+        public CourseContentProvider(PhysicalFileManager fileManager,
+                                    CourseContentPathProvider buildPathProvider,
                                     PackageModelSerializer packageModelSerializer,
                                     PackageModelMapper packageModelMapper,
                                     PublishSettingsProvider publishSettingsProvider,

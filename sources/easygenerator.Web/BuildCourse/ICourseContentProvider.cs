@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace easygenerator.Web.BuildCourse
 {
-    public interface IBuildContentProvider
+    public interface ICourseContentProvider
     {
         void AddBuildContentToPackageDirectory(string buildDirectory, Course course, IEnumerable<PackageModule> modules);
     }
