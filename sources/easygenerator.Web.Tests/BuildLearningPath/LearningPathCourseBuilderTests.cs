@@ -18,32 +18,32 @@ namespace easygenerator.Web.Tests.BuildLearningPath
     {
         private LearningPathCourseBuilder _builder;
         private PhysicalFileManager _fileManager;
-        private BuildPathProvider _buildPathProvider;
-        private IBuildContentProvider _buildContentProvider;
+        private LearningPathContentPathProvider _contentPathProvider;
+        private ICourseContentProvider _buildContentProvider;
         private PackageModulesProvider _packageModulesProvider;
 
         [TestInitialize]
         public void InitializeContext()
         {
             _fileManager = Substitute.For<PhysicalFileManager>();
-            _buildPathProvider = Substitute.For<BuildPathProvider>(Substitute.For<HttpRuntimeWrapper>());
-            _buildContentProvider = Substitute.For<IBuildContentProvider>();
+            _contentPathProvider = Substitute.For<LearningPathContentPathProvider>(Substitute.For<HttpRuntimeWrapper>());
+            _buildContentProvider = Substitute.For<ICourseContentProvider>();
             _packageModulesProvider = Substitute.For<PackageModulesProvider>(Substitute.For<IUserRepository>());
 
-            _builder = new LearningPathCourseBuilder(_fileManager, _buildPathProvider, _buildContentProvider, _packageModulesProvider);
+            _builder = new LearningPathCourseBuilder(_fileManager, _contentPathProvider, _buildContentProvider, _packageModulesProvider);
         }
 
         [TestMethod]
         public void Build_ShouldCreateCourseBuildDirectory()
         {
             //Arrange
-            var buildId = "buildId";
+            var buildDirectoryPath = "buildDirectoryPath";
             var course = CourseObjectMother.Create();
             var courseDirectory = "courseDirectory";
-            _buildPathProvider.GetBuildDirectoryName(buildId, course.Id.ToNString()).Returns(courseDirectory);
+            _contentPathProvider.GetCourseDirectoryName(buildDirectoryPath, course.Id.ToNString()).Returns(courseDirectory);
 
             //Act
-            _builder.Build(course, buildId);
+            _builder.Build(buildDirectoryPath, course);
 
             //Assert
             _fileManager.Received().CreateDirectory(courseDirectory);
@@ -53,15 +53,15 @@ namespace easygenerator.Web.Tests.BuildLearningPath
         public void Build_ShouldAddCourseContentIntoCourseDirectory()
         {
             //Arrange
-            var buildId = "buildId";
+            var buildDirectoryPath = "buildDirectoryPath";
             var course = CourseObjectMother.Create();
             var courseDirectory = "courseDirectory";
-            _buildPathProvider.GetBuildDirectoryName(buildId, course.Id.ToNString()).Returns(courseDirectory);
+            _contentPathProvider.GetCourseDirectoryName(buildDirectoryPath, course.Id.ToNString()).Returns(courseDirectory);
             List<PackageModule> modules = new List<PackageModule>();
             _packageModulesProvider.GetModulesList(course).Returns(modules);
 
             //Act
-            _builder.Build(course, buildId);
+            _builder.Build(buildDirectoryPath, course);
 
             //Assert
             _buildContentProvider.Received().AddBuildContentToPackageDirectory(courseDirectory, course, modules);
