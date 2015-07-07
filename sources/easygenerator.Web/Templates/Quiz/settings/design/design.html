@@ -6,10 +6,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="css/design.css?v=1436256063499" rel="stylesheet" />
-    <script src="../api.js?v=1436256063499"></script>
-    <script src="js/vendor.min.js?v=1436256063499"></script>
-    <script src="js/design.min.js?v=1436256063499"></script>
+    <link href="css/design.css?v=1436265369845" rel="stylesheet" />
+    <script src="../api.js?v=1436265369845"></script>
+    <script src="js/vendor.min.js?v=1436265369845"></script>
+    <script src="js/design.min.js?v=1436265369845"></script>
 </head>
 <body>
    <main ng-controller="DesignController">
@@ -17,7 +17,7 @@
             <header class="settings-item-title">Custom course logo:</header>
             <section class="settings-item-content">
                 <div class="flex direction-row logo-container">
-                    <input id="imgUrl" class="logo-url-input" type="text" placeholder="Paste image URL here..." ng-disabled="!userAccess.hasStarterPlan" ng-model="logo.url" />
+                    <input id="imgUrl" class="logo-url-input" type="text" placeholder="Paste image URL here..." ng-change="logo.hasError = false;" ng-blur="saveChanges()" ng-disabled="!userAccess.hasStarterPlan" ng-model="logo.url" />
                     <span class="logo-help-text">or</span>
                 </div>
                 <div class="flex direction-column logo-container">
@@ -36,17 +36,17 @@
                         <div class="btn-image-action-container">
                             <button class="btn-image-action upload" ng-click="userAccess.hasStarterPlan && logo.upload()">
                                 <span class="tooltip">
-                                    <span class="tooltip-text">Upload logo image</span>
+                                    <span class="tooltip-text">Change</span>
                                 </span>
                             </button>
                             <button class="btn-image-action delete" ng-click="logo.clear()">
                                 <span class="tooltip">
-                                    <span class="tooltip-text">Clear logo</span>
+                                    <span class="tooltip-text">Clear</span>
                                 </span>
                             </button>
                         </div>
                     </div>
-                    <div class="logo-message-container" ng-show="(!logo.isError && !logo.isLoading) || logo.hasLogo()">
+                    <div class="logo-message-container" ng-show="(!logo.hasError && !logo.isLoading) || logo.hasLogo()">
                         - recommended size 300x50 px, allowed formats: jpeg, jpg, png, bmp, gif
                     </div>
                     <div class="error-container" ng-show="logo.hasError && !logo.isLoading && !logo.hasLogo()">
