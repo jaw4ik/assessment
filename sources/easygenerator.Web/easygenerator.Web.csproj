@@ -778,8 +778,8 @@
       <DependentUpon>course.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\course\create\index.js" />
-    <Content Include="App\viewmodels\courses\course\design.js" />
-    <Content Include="App\viewmodels\courses\course\design.spec.js">
+    <Content Include="App\viewmodels\courses\course\design\design.js" />
+    <Content Include="App\viewmodels\courses\course\design\design.spec.js">
       <DependentUpon>design.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\course\index.js" />
@@ -889,6 +889,7 @@
       <DependentUpon>getLearningPathByIdQuery.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\objectives\index.js" />
+    <Content Include="App\viewmodels\panels\leftSideBarManager.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.js" />
     <Content Include="App\viewmodels\questions\hotSpot\commands\changeType.spec.js">
       <DependentUpon>changeType.js</DependentUpon>
@@ -916,8 +917,9 @@
     <Content Include="App\reporting\viewmodels\objectiveStatement.js" />
     <Content Include="App\reporting\viewmodels\questionStatement.js" />
     <Content Include="App\views\courses\course\create\index.html" />
+    <Content Include="App\views\courses\course\design\bar.html" />
     <Content Include="App\views\courses\course\publish.html" />
-    <Content Include="App\views\courses\course\design.html" />
+    <Content Include="App\views\courses\course\design\design.html" />
     <Content Include="App\views\courses\course\index.html" />
     <Content Include="App\reporting\views\results.html" />
     <Content Include="App\views\courses\index.html" />
@@ -1402,6 +1404,7 @@
       <DependentUpon>tasks.js</DependentUpon>
     </Content>
     <Content Include="Content\upgradePopup.less" />
+    <Content Include="Content\designBar.less" />
     <EmbeddedResource Include="Resources\Controllers\Resources.pt.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.pt.Designer.cs</LastGenOutput>
@@ -2039,19 +2042,13 @@
     <Content Include="Templates\Exam\settings.js" />
     <Content Include="Templates\Exam\settings\api.js" />
     <Content Include="Templates\Exam\settings\configure\configure.html" />
+    <Content Include="Templates\Exam\settings\configure\css\configure.css" />
     <Content Include="Templates\Exam\settings\configure\img\language.png" />
-    <Content Include="Templates\Exam\settings\configure\img\mastery.png" />
-    <Content Include="Templates\Exam\settings\configure\img\track.png" />
+    <Content Include="Templates\Exam\settings\configure\img\sprites_16.png" />
     <Content Include="Templates\Exam\settings\configure\js\configure.min.js" />
     <Content Include="Templates\Exam\settings\configure\js\vendor.min.js" />
-    <Content Include="Templates\Exam\settings\css\fonts\opensans-400.woff" />
-    <Content Include="Templates\Exam\settings\css\fonts\opensans-600.woff" />
-    <Content Include="Templates\Exam\settings\css\fonts\opensans-bold.woff" />
-    <Content Include="Templates\Exam\settings\css\fonts\opensans-italic-400.woff" />
-    <Content Include="Templates\Exam\settings\css\img\sprites_16.png" />
-    <Content Include="Templates\Exam\settings\css\settings.css" />
+    <Content Include="Templates\Exam\settings\design\css\design.css" />
     <Content Include="Templates\Exam\settings\design\design.html" />
-    <Content Include="Templates\Exam\settings\design\img\graphical.png" />
     <Content Include="Templates\Exam\settings\design\js\design.min.js" />
     <Content Include="Templates\Exam\settings\design\js\vendor.min.js" />
     <Content Include="Templates\Personalized learning\app\main.js" />
@@ -2100,7 +2097,6 @@
     <Content Include="Templates\Personalized learning\images\newSprite.png" />
     <Content Include="Templates\Personalized learning\images\previewImages\previewPersonilized.jpg" />
     <Content Include="Templates\Personalized learning\images\safari.png" />
-    <Content Include="Templates\Personalized learning\images\sprite.png" />
     <Content Include="Templates\Personalized learning\images\supported-browser-bg.png" />
     <Content Include="Templates\Personalized learning\images\thumbnail.png" />
     <Content Include="Templates\Personalized learning\images\tooth.png" />
@@ -2115,18 +2111,13 @@
     <Content Include="Templates\Personalized learning\settings.js" />
     <Content Include="Templates\Personalized learning\settings\api.js" />
     <Content Include="Templates\Personalized learning\settings\configure\configure.html" />
+    <Content Include="Templates\Personalized learning\settings\configure\css\configure.css" />
     <Content Include="Templates\Personalized learning\settings\configure\img\language.png" />
-    <Content Include="Templates\Personalized learning\settings\configure\img\track.png" />
+    <Content Include="Templates\Personalized learning\settings\configure\img\sprites_16.png" />
     <Content Include="Templates\Personalized learning\settings\configure\js\configure.min.js" />
     <Content Include="Templates\Personalized learning\settings\configure\js\vendor.min.js" />
-    <Content Include="Templates\Personalized learning\settings\css\fonts\opensans-400.woff" />
-    <Content Include="Templates\Personalized learning\settings\css\fonts\opensans-600.woff" />
-    <Content Include="Templates\Personalized learning\settings\css\fonts\opensans-bold.woff" />
-    <Content Include="Templates\Personalized learning\settings\css\fonts\opensans-italic-400.woff" />
-    <Content Include="Templates\Personalized learning\settings\css\img\sprites_16.png" />
-    <Content Include="Templates\Personalized learning\settings\css\settings.css" />
+    <Content Include="Templates\Personalized learning\settings\design\css\design.css" />
     <Content Include="Templates\Personalized learning\settings\design\design.html" />
-    <Content Include="Templates\Personalized learning\settings\design\img\graphical.png" />
     <Content Include="Templates\Personalized learning\settings\design\js\design.min.js" />
     <Content Include="Templates\Personalized learning\settings\design\js\vendor.min.js" />
     <Content Include="Templates\Quiz\app\app.js" />
@@ -2227,17 +2218,13 @@
     <Content Include="Templates\Quiz\settings.js" />
     <Content Include="Templates\Quiz\settings\api.js" />
     <Content Include="Templates\Quiz\settings\configure\configure.html" />
+    <Content Include="Templates\Quiz\settings\configure\css\configure.css" />
     <Content Include="Templates\Quiz\settings\configure\img\language.png" />
+    <Content Include="Templates\Quiz\settings\configure\img\sprites_16.png" />
     <Content Include="Templates\Quiz\settings\configure\js\configure.min.js" />
     <Content Include="Templates\Quiz\settings\configure\js\vendor.min.js" />
-    <Content Include="Templates\Quiz\settings\css\fonts\opensans-400.woff" />
-    <Content Include="Templates\Quiz\settings\css\fonts\opensans-600.woff" />
-    <Content Include="Templates\Quiz\settings\css\fonts\opensans-bold.woff" />
-    <Content Include="Templates\Quiz\settings\css\fonts\opensans-italic-400.woff" />
-    <Content Include="Templates\Quiz\settings\css\img\sprites_16.png" />
-    <Content Include="Templates\Quiz\settings\css\settings.css" />
+    <Content Include="Templates\Quiz\settings\design\css\design.css" />
     <Content Include="Templates\Quiz\settings\design\design.html" />
-    <Content Include="Templates\Quiz\settings\design\img\graphical.png" />
     <Content Include="Templates\Quiz\settings\design\js\design.min.js" />
     <Content Include="Templates\Quiz\settings\design\js\vendor.min.js" />
     <Content Include="Templates\Reader\app\main.js" />
@@ -2295,17 +2282,13 @@
     <Content Include="Templates\Reader\settings.js" />
     <Content Include="Templates\Reader\settings\api.js" />
     <Content Include="Templates\Reader\settings\configure\configure.html" />
+    <Content Include="Templates\Reader\settings\configure\css\configure.css" />
     <Content Include="Templates\Reader\settings\configure\img\language.png" />
+    <Content Include="Templates\Reader\settings\configure\img\sprites_16.png" />
     <Content Include="Templates\Reader\settings\configure\js\configure.min.js" />
     <Content Include="Templates\Reader\settings\configure\js\vendor.min.js" />
-    <Content Include="Templates\Reader\settings\css\fonts\opensans-400.woff" />
-    <Content Include="Templates\Reader\settings\css\fonts\opensans-600.woff" />
-    <Content Include="Templates\Reader\settings\css\fonts\opensans-bold.woff" />
-    <Content Include="Templates\Reader\settings\css\fonts\opensans-italic-400.woff" />
-    <Content Include="Templates\Reader\settings\css\img\sprites_16.png" />
-    <Content Include="Templates\Reader\settings\css\settings.css" />
+    <Content Include="Templates\Reader\settings\design\css\design.css" />
     <Content Include="Templates\Reader\settings\design\design.html" />
-    <Content Include="Templates\Reader\settings\design\img\graphical.png" />
     <Content Include="Templates\Reader\settings\design\js\design.min.js" />
     <Content Include="Templates\Reader\settings\design\js\vendor.min.js" />
     <Content Include="Templates\Simple course\app\main.js" />
@@ -2402,20 +2385,14 @@
     <Content Include="Templates\Simple course\settings.js" />
     <Content Include="Templates\Simple course\settings\api.js" />
     <Content Include="Templates\Simple course\settings\configure\configure.html" />
+    <Content Include="Templates\Simple course\settings\configure\css\configure.css" />
+    <Content Include="Templates\Simple course\settings\configure\css\img\preview-templates-sprite.png" />
+    <Content Include="Templates\Simple course\settings\configure\css\img\sprites_16.png" />
     <Content Include="Templates\Simple course\settings\configure\img\language.png" />
-    <Content Include="Templates\Simple course\settings\configure\img\mastery.png" />
-    <Content Include="Templates\Simple course\settings\configure\img\track.png" />
     <Content Include="Templates\Simple course\settings\configure\js\configure.min.js" />
     <Content Include="Templates\Simple course\settings\configure\js\vendor.min.js" />
-    <Content Include="Templates\Simple course\settings\css\fonts\opensans-400.woff" />
-    <Content Include="Templates\Simple course\settings\css\fonts\opensans-600.woff" />
-    <Content Include="Templates\Simple course\settings\css\fonts\opensans-bold.woff" />
-    <Content Include="Templates\Simple course\settings\css\fonts\opensans-italic-400.woff" />
-    <Content Include="Templates\Simple course\settings\css\img\preview-templates-sprite.png" />
-    <Content Include="Templates\Simple course\settings\css\img\sprites_16.png" />
-    <Content Include="Templates\Simple course\settings\css\settings.css" />
+    <Content Include="Templates\Simple course\settings\design\css\design.css" />
     <Content Include="Templates\Simple course\settings\design\design.html" />
-    <Content Include="Templates\Simple course\settings\design\img\graphical.png" />
     <Content Include="Templates\Simple course\settings\design\js\design.min.js" />
     <Content Include="Templates\Simple course\settings\design\js\vendor.min.js" />
     <Content Include="Views\Account\InvalidPasswordRecovery.cshtml" />
@@ -2468,6 +2445,46 @@
     <Content Include="Templates\Reader\lang\de.json" />
     <Content Include="Templates\Reader\lang\fr.json" />
     <Content Include="Templates\Reader\lang\pt-br.json" />
+    <Content Include="Templates\Simple course\settings\configure\css\fonts\opensans-400.woff" />
+    <Content Include="Templates\Simple course\settings\configure\css\fonts\opensans-600.woff" />
+    <Content Include="Templates\Simple course\settings\configure\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Simple course\settings\configure\css\fonts\opensans-italic-400.woff" />
+    <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-400.woff" />
+    <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-600.woff" />
+    <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-italic-400.woff" />
+    <Content Include="Templates\Exam\settings\configure\css\fonts\opensans-400.woff" />
+    <Content Include="Templates\Exam\settings\configure\css\fonts\opensans-600.woff" />
+    <Content Include="Templates\Exam\settings\configure\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Exam\settings\configure\css\fonts\opensans-italic-400.woff" />
+    <Content Include="Templates\Exam\settings\design\css\fonts\opensans-400.woff" />
+    <Content Include="Templates\Exam\settings\design\css\fonts\opensans-600.woff" />
+    <Content Include="Templates\Exam\settings\design\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Exam\settings\design\css\fonts\opensans-italic-400.woff" />
+    <Content Include="Templates\Personalized learning\settings\configure\css\fonts\opensans-400.woff" />
+    <Content Include="Templates\Personalized learning\settings\configure\css\fonts\opensans-600.woff" />
+    <Content Include="Templates\Personalized learning\settings\configure\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Personalized learning\settings\configure\css\fonts\opensans-italic-400.woff" />
+    <Content Include="Templates\Personalized learning\settings\design\css\fonts\opensans-400.woff" />
+    <Content Include="Templates\Personalized learning\settings\design\css\fonts\opensans-600.woff" />
+    <Content Include="Templates\Personalized learning\settings\design\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Personalized learning\settings\design\css\fonts\opensans-italic-400.woff" />
+    <Content Include="Templates\Reader\settings\configure\css\fonts\opensans-400.woff" />
+    <Content Include="Templates\Reader\settings\configure\css\fonts\opensans-600.woff" />
+    <Content Include="Templates\Reader\settings\configure\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Reader\settings\configure\css\fonts\opensans-italic-400.woff" />
+    <Content Include="Templates\Reader\settings\design\css\fonts\opensans-400.woff" />
+    <Content Include="Templates\Reader\settings\design\css\fonts\opensans-600.woff" />
+    <Content Include="Templates\Reader\settings\design\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Reader\settings\design\css\fonts\opensans-italic-400.woff" />
+    <Content Include="Templates\Quiz\settings\configure\css\fonts\opensans-400.woff" />
+    <Content Include="Templates\Quiz\settings\configure\css\fonts\opensans-600.woff" />
+    <Content Include="Templates\Quiz\settings\configure\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Quiz\settings\configure\css\fonts\opensans-italic-400.woff" />
+    <Content Include="Templates\Quiz\settings\design\css\fonts\opensans-400.woff" />
+    <Content Include="Templates\Quiz\settings\design\css\fonts\opensans-600.woff" />
+    <Content Include="Templates\Quiz\settings\design\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Quiz\settings\design\css\fonts\opensans-italic-400.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2958,6 +2975,10 @@
     <EmbeddedResource Include="Resources\Views\Shared\Resources.zh.resx" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Templates\Exam\settings\design\img\" />
+    <Folder Include="Templates\Personalized learning\settings\design\img\" />
+    <Folder Include="Templates\Quiz\settings\design\img\" />
+    <Folder Include="Templates\Reader\settings\design\img\" />
     <Folder Include="Views\CourseImport\" />
   </ItemGroup>
   <PropertyGroup>

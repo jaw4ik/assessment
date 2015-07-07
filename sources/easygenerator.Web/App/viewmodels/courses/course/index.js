@@ -19,7 +19,7 @@
       }).map([
           {
               route: 'design',
-              moduleId: 'viewmodels/courses/course/design',
+              moduleId: 'viewmodels/courses/course/design/design',
               title: localizationManager.localize('courseDesignItem'),
               nav: 2,
               hash: '#courses/:courseId/design',
