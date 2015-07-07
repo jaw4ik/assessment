@@ -12,7 +12,7 @@
         that.isError = false;
 
 
-        that.background = new (function () {
+        that.background = new (function (saveChanges) {
             var self = this;
 
             self.image = {
@@ -25,12 +25,15 @@
 
             self.setDefault = function () {
                 self.type = 'default';
+                saveChanges();
             };
             self.setRepeat = function () {
                 self.type = 'repeat';
+                saveChanges();
             };
             self.setFullscreen = function () {
                 self.type = 'fullscreen';
+                saveChanges();
             };
 
             self.errorTitle = null;
@@ -62,7 +65,8 @@
                     self.errorDescription = reason.description;
                 }).always(function () {
                     self.image.isUploading = false;
-
+                    saveChanges();
+                    
                     that.$apply();
                 });
             };
@@ -70,6 +74,7 @@
             self.clearImage = function () {
                 self.image.src = null;
                 self.image.isEmpty = true;
+                saveChanges();
             };
 
             self.init = function (background) {
@@ -84,7 +89,7 @@
                 }
             }
 
-        })();
+        })(saveChanges);
 
         that.userAccess = (function () {
             var self = {};
@@ -99,7 +104,7 @@
             }
         })();
 
-        that.logo = (function () {
+        that.logo = (function (saveChanges) {
             var self = {};
 
             self.url = '';
@@ -122,6 +127,7 @@
 
             function clear() {
                 self.url = '';
+                saveChanges();
             }
 
             function init(logoSettings) {
@@ -145,6 +151,7 @@
                 }).fail(function (reason) {
                     setFailedStatus(reason.title, reason.description);
                 }).always(function () {
+                    saveChanges();
                     that.$apply();
                 });
             }
@@ -167,7 +174,9 @@
                 self.errorDescription = reasonDescription;
             }
 
-        })();
+        })(saveChanges);
+        
+        that.saveChanges = saveChanges;
 
         angular.element($window).on('blur', saveChanges);
 
