@@ -36,7 +36,7 @@ namespace easygenerator.Web.BuildLearningPath
 
         public virtual string GetCourseLink(string courseId)
         {
-            return ContentDirectoryName + "/" + courseId + "/index.html";
+            return ContentDirectoryName + "/" + courseId;
         }
     }
 }

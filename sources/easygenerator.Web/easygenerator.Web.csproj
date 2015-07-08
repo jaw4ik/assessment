@@ -960,6 +960,7 @@
     <Content Include="BuildLearningPath\Template\css\font\robotoslab-regular.svg" />
     <Content Include="BuildLearningPath\Template\css\styles.min.css" />
     <Content Include="BuildLearningPath\Template\favicon.ico" />
+    <Content Include="BuildLearningPath\Template\img\default.png" />
     <Content Include="BuildLearningPath\Template\index.html" />
     <Content Include="BuildLearningPath\Template\js\main.min.js" />
     <Content Include="BuildLearningPath\Template\js\vendor.min.js" />
