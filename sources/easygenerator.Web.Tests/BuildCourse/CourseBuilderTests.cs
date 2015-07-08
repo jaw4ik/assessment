@@ -25,7 +25,7 @@ namespace easygenerator.Web.Tests.BuildCourse
         private PhysicalFileManager _fileManager;
         private BuildPathProvider _buildPathProvider;
         private BuildPackageCreator _buildPackageCreator;
-        private IBuildContentProvider _buildContentProvider;
+        private ICourseContentProvider _buildContentProvider;
         private PackageModulesProvider _packageModulesProvider;
         private IDomainEventPublisher _eventPublisher;
 
@@ -45,7 +45,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             DateTimeWrapper.Now = () => new DateTime(2013, 10, 12);
 
             _eventPublisher = Substitute.For<IDomainEventPublisher>();
-            _buildContentProvider = Substitute.For<IBuildContentProvider>();
+            _buildContentProvider = Substitute.For<ICourseContentProvider>();
 
             var userRepository = Substitute.For<IUserRepository>();
             _packageModulesProvider = Substitute.For<PackageModulesProvider>(userRepository);

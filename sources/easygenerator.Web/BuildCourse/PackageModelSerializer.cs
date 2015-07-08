@@ -1,15 +1,14 @@
-﻿using easygenerator.Web.BuildCourse.PackageModel;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace easygenerator.Web.BuildCourse
 {
     public class PackageModelSerializer
     {
-        public virtual string Serialize(CoursePackageModel coursePackageModel)
+        public virtual string Serialize(object packageModel)
         {
             return JsonConvert.SerializeObject(
-                coursePackageModel,
+                packageModel,
                 Formatting.None,
                 new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() }
             );

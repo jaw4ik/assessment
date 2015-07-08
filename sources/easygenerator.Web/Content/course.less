@@ -369,295 +369,28 @@
 /*#endregion DEFINE STEP*/
 
 /*#region DESIGN STEP*/
-.transparent {
-    opacity: 0;
-}
 
-.choose-template-holder {
-    font-family: 'OpenSans';
-    color: #303133;
-    overflow: hidden;
-}
+.course-preview-container {
+    padding: 0 40px 0 320px;
 
-.choose-template-title {
-    display: inline-block;
-    padding: 5px 0;
-    font: 19px 'OpenSans-Semibold';
-    color: #303133;
-    cursor: default;
-}
+    @media screen and (max-width : 1630px) {
+        padding-left: 20px;
+    }
 
-.template-settings-block {
-    position: relative;
-}
+    .course-preview-iframe-container {
+        width: 100%;
+        height: 700px;
+        -webkit-box-shadow: 0 0 10px 0 #aaa;
+        box-shadow: 0 0 10px 0 #aaa;
 
-.template-settings-block .template-settings-spinner {
-    position: absolute;
-    width: 100%;
-    height: 600px;
-}
-
-.template-settings-header {
-    margin: 20px 0 10px;
-    padding: 5px;
-    font: 19px OpenSans-Semibold;
-    color: #303133;
-}
-
-.choose-template-list {
-    position: relative;
-    list-style-type: none;
-    margin-bottom: -30px;
-}
-
-.current-template-name-minus {
-    padding-left: 5px;
-}
-
-.current-template-name {
-    display: inline-block;
-    color: #546677;
-}
-
-.choose-template-item {
-    position: relative;
-    display: inline-block;
-    width: 22%;
-    margin-right: 3.4%;
-    margin-bottom: 30px;
-}
-
-.rounded-border (@radius: 10px, @border: 1px solid #e4e5eb) {
-    border-radius: @radius;
-    border: @border;
-}
-
-.choose-template-item.selected,
-.choose-template-item.selected:hover {
-    .rounded-border(10px, 2px solid #65bd77);
-}
-
-.choose-template-item:hover {
-    -webkit-box-shadow: 0 3px 4px 0 rgba(240,240,240,1);
-    -moz-box-shadow: 0 3px 4px 0 rgba(240,240,240,1);
-    box-shadow: 0 3px 4px 0 rgba(240,240,240,1);
-}
-
-.choose-template-item:nth-of-type(4n) {
-    margin-right: 0;
-}
-
-.choose-template-item.marked-as-new:after {
-    content: '';
-    position: absolute;
-    top: -4px;
-    right: -4px;
-    width: 71px;
-    height: 72px;
-    background: url('/Content/images/newTemplate.png') no-repeat;
-}
-
-.template-image-container {
-    position: relative;
-}
-
-.selected-template {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 54px;
-    height: 54px;
-    background: linear-gradient(135deg, rgba(116,195,132,1) 50%,rgba(119,196,134,0) 51%,rgba(255,255,255,0) 100%);
-    border-top-left-radius: 5px;
-}
-
-.selected-template:before {
-    content: '';
-    position: absolute;
-    top: 25%;
-    left: 25%;
-    width: 20px;
-    height: 16px;
-    margin-left: -6px;
-    margin-top: -6px;
-    background: url('/Content/images/sprites_24.png') -118px -32px no-repeat;
-}
-
-.choose-template-item.selected .selected-template {
-    display: block;
-}
-
-.template-image {
-    .rounded-border(10px 10px 0 0);
-    display: block;
-    width: 100%;
-}
-
-.transparent.template-image {
-    opacity: 0;
-}
-
-.choose-template-title-container {
-    margin-bottom: 10px;
-    padding-left: 5px;
-    border-radius: 6px;
-}
-
-.choose-template-title-container.clickable {
-    background: #f9fafc;
-    cursor: pointer;
-}
-
-.choose-template-title-container.clickable .choose-template-title {
-    cursor: pointer;
-}
-
-.choose-template-title-container .tooltip-icon {
-    top: 11px;
-}
-
-.choose-template-title-container.clickable:hover {
-    background-color: #f1f2f4;
-}
-
-.choose-template-action-container {
-    .rounded-border(10px 10px 0 0);
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #fff;
-    opacity: 0;
-    cursor: pointer;
-    transition: opacity 0.2s ease 0s;
-}
-
-.choose-template-item:hover .choose-template-action-container {
-    opacity: 0.95;
-}
-
-.choose-template-btn {
-    position: absolute;
-    display: block;
-    width: 120px;
-    height: 40px;
-    top: 50%;
-    left: 50%;
-    margin-top: -20px;
-    margin-left: -60px;
-    font: 17px 'OpenSans';
-    background-color: transparent;
-    border: 1px solid;
-    border-radius: 5px;
-    cursor: pointer;
-
-    [lang~=pt-br] & {
-        font-size: 14px;
+        .preview-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
     }
 }
 
-
-.choose-template-item.selected .choose-template-btn.preview {
-    display: block;
-}
-
-.choose-template-item.selected .choose-template-btn.select,
-.choose-template-item.selected .preview-link {
-    display: none;
-}
-
-.choose-template-btn.preview {
-    display: none;
-    border-color: #469dd5;
-    color: #469dd5;
-}
-
-.choose-template-btn.preview:hover,
-.choose-template-btn.preview:active {
-    border-color: #3d8abc;
-    color: #3d8abc;
-}
-
-.choose-template-btn.select {
-    border-color: #61b472;
-    color: #61b472;
-}
-
-.choose-template-btn.select:hover,
-.choose-template-btn.select:active {
-    border-color: #539860;
-    color: #539860;
-}
-
-.template-name {
-    .rounded-border(0 0 10px 10px);
-    border-top: none;
-    background-color: #fff;
-    color: #42515f;
-    font: 17px 'OpenSans';
-    overflow: hidden;
-    padding: 10px 0;
-    text-align: center;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.preview-link {
-    position: relative;
-    display: inline-block;
-    margin-top: 15px;
-    margin-left: 10px;
-    font: 13px 'OpenSans';
-    color: #546677;
-    padding-left: 23px;
-}
-
-.preview-link:hover {
-    border-bottom: 1px solid #546677;
-    cursor: pointer;
-}
-
-.preview-link:before {
-    content: '';
-    position: absolute;
-    width: 16px;
-    height: 10px;
-    top: 4px;
-    left: 0;
-    background: url('../Content/images/sprites_16.png') -42px -66px no-repeat;
-}
-
-.visibility-switcher {
-    float: right;
-    height: 18px;
-    width: 18px;
-    margin: 10px;
-    padding: 0;
-    font: 14px 'OpenSans-Bold';
-    background-color: #f7f7f7;
-    border: 1px solid #D8DDE5;
-    border-radius: 3px;
-    color: #555555;
-    line-height: 14px;
-    cursor: pointer;
-}
-
-.visibility-switcher:hover {
-    background-color: #e7e7e7;
-}
-
-@media (max-width: 1175px) {
-    .choose-template-item {
-        width: 24%;
-        margin-right: 0.5%;
-    }
-
-    .template-name {
-        font-size: 15px;
-    }
-}
 /*#endregion DESIGN STEP*/
 
 /*#region PUBLISH STEP*/
@@ -2593,6 +2326,15 @@ td.r-name {
                     }
                 }
             }
+        }
+    }
+}
+
+[lang~=uk] {
+    .r-result {
+        .info-tooltip {
+            width: 90px;
+            margin-left: -45px;
         }
     }
 }

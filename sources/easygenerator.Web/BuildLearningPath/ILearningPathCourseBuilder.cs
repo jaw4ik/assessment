@@ -4,6 +4,6 @@ namespace easygenerator.Web.BuildLearningPath
 {
     public interface ILearningPathCourseBuilder
     {
-        void Build(Course course, string buildId);
+        void Build(string buildDirectory, Course course);
     }
 }
