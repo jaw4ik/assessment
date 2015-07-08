@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/router', 'routing/isViewReadyMixin', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'plugins/dialog', 'notify', 'constants'],
-    function (app, router, isViewReady, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, dialog, notify, constants) {
+﻿define(['durandal/app', 'plugins/router', 'routing/isViewReadyMixin', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'plugins/dialog', 'notify', 'constants', 'viewmodels/panels/leftSideBarManager'],
+    function (app, router, isViewReady, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, dialog, notify, constants, leftSideBarManager) {
 
         "use strict";
 
@@ -23,7 +23,8 @@
             objectivesUnrelated: objectivesUnrelated,
             questionsDeleted: questionsDeleted,
             courseCollaborationFinished: courseCollaborationFinished,
-            openUpgradePlanUrl: openUpgradePlanUrl
+            openUpgradePlanUrl: openUpgradePlanUrl,
+            leftSideBarManager: leftSideBarManager
         };
 
         viewModel.activeModuleName = ko.computed(function () {
@@ -114,6 +115,8 @@
                         }
                     };
 
+                    leftSideBarManager.initialize();
+
                     router.on('router:navigation:composition-complete').then(function () {
                         clientContext.set(hex_md5(userContext.identity.email), { hash: window.location.hash });
                     });
@@ -142,21 +145,21 @@
                                 router.navigate(this.hash);
                             }
                         },
-                        //{
+                        {
 
-                        //    route: 'learningpaths*details',
-                        //    moduleId: 'viewmodels/learningPaths/index',
-                        //    title: localizationManager.localize('learningPaths'),
-                        //    hash: '#learningpaths',
-                        //    nav: true,
-                        //    isInBetaPhase: true,
-                        //    navigate: function () {
-                        //        eventTracker.publish(events.navigateToLearningPaths);
-                        //        clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
-                        //        clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
-                        //        router.navigate(this.hash);
-                        //    }
-                        //},
+                            route: 'learningpaths*details',
+                            moduleId: 'viewmodels/learningPaths/index',
+                            title: localizationManager.localize('learningPaths'),
+                            hash: '#learningpaths',
+                            nav: true,
+                            isInBetaPhase: true,
+                            navigate: function () {
+                                eventTracker.publish(events.navigateToLearningPaths);
+                                clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
+                                clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
+                                router.navigate(this.hash);
+                            }
+                        },
                         {
                             route: 'library*details',
                             moduleId: 'viewmodels/library/index',

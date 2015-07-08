@@ -15,23 +15,21 @@ namespace easygenerator.Web.Tests.BuildLearningPath
     public class LearningPathBuilderTests
     {
         private LearningPathBuilder _learningPathBuilder;
-        private ILearningPathCourseBuilder _courseBuilder;
         private ILog _logger;
         private PhysicalFileManager _fileManager;
         private BuildPathProvider _buildPathProvider;
         private BuildPackageCreator _buildPackageCreator;
-        private StartupPageGenerator _startPageGenerator;
+        private ILearningPathContentProvider _contentProvider;
 
         [TestInitialize]
         public void InitializeContext()
         {
-            _courseBuilder = Substitute.For<ILearningPathCourseBuilder>();
             _logger = Substitute.For<ILog>();
             _fileManager = Substitute.For<PhysicalFileManager>();
             _buildPathProvider = Substitute.For<BuildPathProvider>(Substitute.For<HttpRuntimeWrapper>());
             _buildPackageCreator = Substitute.For<BuildPackageCreator>(Substitute.For<PhysicalFileManager>());
-            _startPageGenerator = Substitute.For<StartupPageGenerator>();
-            _learningPathBuilder = new LearningPathBuilder(_courseBuilder, _logger, _fileManager, _buildPathProvider, _buildPackageCreator, _startPageGenerator);
+            _contentProvider = Substitute.For<ILearningPathContentProvider>();
+            _learningPathBuilder = new LearningPathBuilder(_logger, _fileManager, _buildPathProvider, _buildPackageCreator, _contentProvider);
 
             DateTimeWrapper.Now = () => new DateTime(2013, 10, 12);
         }
@@ -55,36 +53,19 @@ namespace easygenerator.Web.Tests.BuildLearningPath
         }
 
         [TestMethod]
-        public void Build_ShouldBuildCoursesInLearningPath()
+        public void Build_ShouldAddLearningPathContent()
         {
             //Arrange
             LearningPath learningPath = LearningPathObjectMother.Create();
-            Course course = CourseObjectMother.Create();
-            learningPath.AddCourse(course, null, "author");
             var buildId = GetBuildId(learningPath);
+            var buildDirectory = "buildDirectoryPath";
+            _buildPathProvider.GetBuildDirectoryName(buildId).Returns(buildDirectory);
 
             //Act
             _learningPathBuilder.Build(learningPath);
 
             //Assert
-            _courseBuilder.Received().Build(course, buildId);
-        }
-
-        [TestMethod]
-        public void Build_ShouldAddStartupPage()
-        {
-            //Arrange
-            LearningPath learningPath = LearningPathObjectMother.Create();
-            string startPagePath = "startPagePath";
-            string startPageContent = "startPageContent";
-            _buildPathProvider.GetStartupPageFileName(Arg.Any<string>()).Returns(startPagePath);
-            _startPageGenerator.Generate(learningPath).Returns(startPageContent);
-
-            //Act
-            _learningPathBuilder.Build(learningPath);
-
-            //Assert
-            _fileManager.Received().WriteToFile(startPagePath, startPageContent);
+            _contentProvider.Received().AddContentToPackageDirectory(buildDirectory, learningPath);
         }
 
         [TestMethod]

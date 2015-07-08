@@ -59,16 +59,19 @@ namespace easygenerator.Web.Configuration
 
             builder.RegisterType<CourseBuilder>().As<ICourseBuilder>();
             builder.RegisterType<ScormCourseBuilder>().As<IScormCourseBuilder>();
+            builder.RegisterType<CourseContentPathProvider>();
+            builder.RegisterType<CourseContentProvider>().As<ICourseContentProvider>();
 
             builder.RegisterType<LearningPathCourseBuilder>().As<ILearningPathCourseBuilder>();
-            builder.RegisterType<StartupPageGenerator>();
+            builder.RegisterType<LearningPathContentPathProvider>();
+            builder.RegisterType<LearningPathContentProvider>().As<ILearningPathContentProvider>();
+            builder.RegisterType<LearningPathPackageModelMapper>();
             builder.RegisterType<LearningPathBuilder>().As<ILearningPathBuilder>();
             
             builder.RegisterGeneric(typeof(EntityModelBinder<>)).As(typeof(IEntityModelBinder<>));
             builder.RegisterGeneric(typeof(EntityCollectionModelBinder<>)).As(typeof(IEntityCollectionModelBinder<>));
 
             builder.RegisterType<BuildPathProvider>();
-            builder.RegisterType<BuildContentProvider>().As<IBuildContentProvider>();
             builder.RegisterType<PhysicalFileManager>();
             builder.RegisterType<MagickImageResizer>().As<IImageResizer>();
             builder.RegisterType<MagickImageResizerConfigurator>();

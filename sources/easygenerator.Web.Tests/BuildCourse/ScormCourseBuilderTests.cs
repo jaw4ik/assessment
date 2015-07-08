@@ -26,7 +26,7 @@ namespace easygenerator.Web.Tests.BuildCourse
         private HttpRuntimeWrapper _httpRuntimeWrapper;
         private BuildPathProvider _buildPathProvider;
         private BuildPackageCreator _buildPackageCreator;
-        private IBuildContentProvider _buildContentProvider;
+        private ICourseContentProvider _buildContentProvider;
         private RazorTemplateProvider _razorTemplateProvider;
         private ScormPackageModulesProvider _scormPackageModulesProvider;
 
@@ -50,7 +50,7 @@ namespace easygenerator.Web.Tests.BuildCourse
 
             _razorTemplateProvider = Substitute.For<RazorTemplateProvider>();
 
-            _buildContentProvider = Substitute.For<IBuildContentProvider>();
+            _buildContentProvider = Substitute.For<ICourseContentProvider>();
 
             var userRepository = Substitute.For<IUserRepository>();
             _scormPackageModulesProvider = Substitute.For<ScormPackageModulesProvider>(userRepository);
