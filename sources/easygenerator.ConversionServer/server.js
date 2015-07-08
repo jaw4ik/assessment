@@ -36,7 +36,7 @@ app.post(config.LOCATION + '/', function (req, res) {
     var files = [];
     
     busboy.on('file', function (name, file, filename, transferEncoding, mimeType) {
-        if (filename.length === 0) {
+        if (filename.length === 0 || mimeType.indexOf('audio/') !== 0) {
             file.resume();
         } else {
             var id = uuid.v4();

@@ -12,10 +12,15 @@ var
     fs = require('fs'),
     path = require('path');
 
+
+
+
 describe('server', function () {
     
     before(function (done) {
         config.TEMP_FOLDER = path.join(__dirname, "TEMP");
+        config.SAMPLE_MP3 = "sample.mp3";
+        config.SAMPLE_TXT = "sample.txt";
         
         fs.mkdir(path.join(config.TEMP_FOLDER), function (err) {
             if (err && err.code != "EEXIST") {
@@ -49,13 +54,13 @@ describe('server', function () {
             request(app)
                 .post(config.LOCATION + '/')
                 .set('Accept', 'application/json')
-                .attach('file', 'README.MD')
+                .attach('file', config.SAMPLE_MP3)
                 .expect(200)
                 .end(function(err, res) {
                     if (err) {
                         return done(err);
                     }
-                    assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, 'README.MD')));
+                    assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, config.SAMPLE_MP3)));
                     done();
                 });
         });
@@ -64,7 +69,7 @@ describe('server', function () {
             request(app)
                 .post(config.LOCATION + '/')
                 .set('Accept', 'application/json')
-                .attach('file', 'README.MD')
+                .attach('file', config.SAMPLE_MP3)
                 .expect(200)
                 .end(function(err, res) {
                     if (err) {
@@ -79,7 +84,7 @@ describe('server', function () {
             request(app)
                 .post(config.LOCATION + '/')
                 .set('Accept', 'text/html')
-                .attach('file', 'README.MD')
+                .attach('file', config.SAMPLE_MP3)
                 .expect(200)
                 .end(function(err, res) {
                     if (err) {
@@ -94,7 +99,7 @@ describe('server', function () {
             request(app)
                 .post(config.LOCATION + '/')
                 .set('Accept', 'text/undefined')
-                .attach('file', 'README.MD')
+                .attach('file', config.SAMPLE_MP3)
                 .expect(406, done);
         });
         
@@ -103,6 +108,14 @@ describe('server', function () {
                 .post(config.LOCATION + '/')
                 .set('Accept', 'text/html')
                 .field('Content-Type', 'multipart/form-data')
+                .expect(400, done);
+        });
+
+        it('return 400 when only non-audio file attached', function(done) {
+            request(app)
+                .post(config.LOCATION + '/')
+                .set('Accept', 'application/json')
+                .attach('file', config.SAMPLE_TXT)
                 .expect(400, done);
         });
 
