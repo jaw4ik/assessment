@@ -1,0 +1,50 @@
+﻿<section class="audios">
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <div class="audio-library clearfix">
+                <div class="add-audio-button" data-bind="click: addAudio">
+                    <div class="free-space-section" data-bind="visible: storageSpaceProgressBarVisibility">
+                        <span class="free-space-info">
+                            <span class="free-space-info-title" data-bind="localize: { text: 'freeSpace' }"></span>
+                            <span class="free-space-info-value" data-bind="text: availableStorageSpace"></span>
+                        </span>
+                        <span class="free-space-progress-bar">
+                            <span class="free-space-progress-bar-value" data-bind="style: { width: availableStorageSpacePersentages() + '%' }"></span>
+                        </span>
+                    </div>
+                </div>
+                <!-- ko ifnot: audios().length -->
+                <div class="add-audio-button-description">
+                    <span class="tip-arrow-text" data-bind="localize: { text : 'uploadAudioDescription' }">Upload your own audio by click on this button</span>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: audios().length -->
+                <ul class="audio-list">
+                    <!-- ko foreach: audios -->
+                    <!-- ko if: status() == $parent.statuses.loaded -->
+                    <li data-bind="click: $parent.showAudioPopup, css: { hovered: status() == $parent.statuses.loaded }">
+                        <div class="play-icon"></div>
+                        <div class="audio-title" data-bind="text: title"></div>
+                        <div class="audio-duration" data-bind="text: time"></div>
+                    </li>
+                    <!-- /ko-->
+                    <!-- ko if: status() == $parent.statuses.failed -->
+                    <li class="error">
+                        <span class="upload-failed" data-bind="localize: { text : 'audioUploadError' }"></span>
+                    </li>
+                    <!-- /ko-->
+                    <!-- ko if: status() == $parent.statuses.inProgress -->
+                    <li class="uploading">
+                        <canvas width="40" height="40" class="circle-progress" data-bind="circleProgress: { progress: progress, lineWidth: 1 }"></canvas>
+                        <div class="circle-progress-text" data-bind="text: progress() + '%'"></div>
+                        <div class="audio-title" data-bind="text: title"></div>
+                    </li>
+                    <!-- /ko-->
+                    <!-- /ko -->
+                </ul>
+                <!-- /ko -->
+            </div>
+            <!-- ko compose: 'dialogs/video/video' --><!-- /ko -->
+        </div>
+    </div>
+</section>
