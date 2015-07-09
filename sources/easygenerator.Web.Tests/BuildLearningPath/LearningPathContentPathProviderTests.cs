@@ -103,7 +103,7 @@ namespace easygenerator.Web.Tests.BuildLearningPath
             var result = _contentPathProvider.GetCourseLink(courseId);
 
             //Assert
-            result.Should().Be("data/courseId/index.html");
+            result.Should().Be("data/courseId");
         }
 
         #endregion
