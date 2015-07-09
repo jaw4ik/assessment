@@ -26,7 +26,7 @@
             // First make sure we have loaded the necessary scripts
             CKEDITOR.scriptLoader.load([
                 plugin.domain + '/js/eq_config.js',
-                plugin.domain + '/js/eq_editor-lite-16.js'
+                plugin.domain + '/js/eq_editor-lite-18.js'
             ]);
 
             // Load Additional CSS 

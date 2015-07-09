@@ -29,10 +29,11 @@
         animateSettings['width'] = widthToResize + 'px';
         animateSettings['min-width'] = widthToResize + 'px';
 
-        var animation = $element.finish().animate(animateSettings, speed, 'linear');
+        var animation = $element.finish().addClass('animating').animate(animateSettings, speed, 'linear');
 
         $.when(animation).done(function () {
             if (onCollapsed && !isExpanded) {
+                $element.removeClass('animating');
                 onCollapsed();
             }
         });

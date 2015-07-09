@@ -5,6 +5,8 @@ COLOR
 SET DeploymentDirectory=%1
 SET Transform=%2
 
+SET CurrentDirectory=%~dp0
+
 IF "%1"=="" SET DeploymentDirectory="D:\Applications\easygenerator"
 IF "%2"=="" SET Transform="Release"
 
@@ -68,6 +70,14 @@ DEL /S /Q /F "%DeploymentDirectory%\Scripts\*.map"
 DEL /Q /F "%DeploymentDirectory%\humans.txt"
 DEL /S /Q /F "%DeploymentDirectory%\Content\*.less"
 RMDIR /S /Q "%DeploymentDirectory%\Scripts\jasmine"
+
+XCOPY "./sources/easygenerator.ConversionServer/package.json" "%DeploymentDirectory%\conversion\" /Y /F /I
+XCOPY "./sources/easygenerator.ConversionServer/www.js" "%DeploymentDirectory%\conversion\" /Y /F /I
+XCOPY "./sources/easygenerator.ConversionServer/server.js" "%DeploymentDirectory%\conversion\" /Y /F /I
+XCOPY "./sources/easygenerator.ConversionServer/config.js" "%DeploymentDirectory%\conversion\" /Y /F /I
+cd "%DeploymentDirectory%\conversion"
+call npm install --production
+cd "%CurrentDirectory%"
 
 ECHO Success!!!
 COLOR A

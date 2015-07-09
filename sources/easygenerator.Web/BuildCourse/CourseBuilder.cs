@@ -11,7 +11,7 @@ namespace easygenerator.Web.BuildCourse
         private readonly IDomainEventPublisher _eventPublisher;
 
         public CourseBuilder(PhysicalFileManager fileManager, BuildPathProvider buildPathProvider, BuildPackageCreator buildPackageCreator,
-            IBuildContentProvider buildContentProvider, PackageModulesProvider packageModulesProvider, ILog logger, IDomainEventPublisher eventPublisher)
+            ICourseContentProvider buildContentProvider, PackageModulesProvider packageModulesProvider, ILog logger, IDomainEventPublisher eventPublisher)
             : base(fileManager, buildPathProvider, buildPackageCreator, buildContentProvider, packageModulesProvider, logger)
         {
             _eventPublisher = eventPublisher;
