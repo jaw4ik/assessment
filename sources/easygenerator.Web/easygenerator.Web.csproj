@@ -2515,6 +2515,10 @@
       <Project>{E186A113-426B-4AB1-A4B1-5ECC54FA4E80}</Project>
       <Name>easygenerator.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\easygenerator.Lti\easygenerator.Lti.csproj">
+      <Project>{f9ad4e48-ce38-4c64-853f-d1403fb14149}</Project>
+      <Name>easygenerator.Lti</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="apple-touch-icon-114x114-precomposed.png" />
