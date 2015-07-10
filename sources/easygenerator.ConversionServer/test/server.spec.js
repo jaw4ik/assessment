@@ -32,8 +32,8 @@ describe('server', function () {
     });
     
     describe('get \'/\'', function () {
-        
-        it('returns html form to upload file', function (done) {
+
+        it('returns html form to upload file', function(done) {
             request(app)
                 .get(config.LOCATION + '/')
                 .expect(200)
@@ -61,6 +61,21 @@ describe('server', function () {
                         return done(err);
                     }
                     assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, config.SAMPLE_MP3)));
+                    done();
+                });
+        });
+        
+        it('converts input mp3 to mp4', function (done) {
+            request(app)
+                .post(config.LOCATION + '/')
+                .set('Accept', 'application/json')
+                .attach('file', config.SAMPLE_MP3)
+                .expect(200)
+                .end(function(err, res) {
+                    if (err) {
+                        return done(err);
+                    }
+                    assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, config.OUTPUT_NAME)));
                     done();
                 });
         });
@@ -110,8 +125,8 @@ describe('server', function () {
                 .field('Content-Type', 'multipart/form-data')
                 .expect(400, done);
         });
-
-        it('return 400 when only non-audio file attached', function(done) {
+        
+        it('return 400 when only non-audio file attached', function (done) {
             request(app)
                 .post(config.LOCATION + '/')
                 .set('Accept', 'application/json')
@@ -121,7 +136,7 @@ describe('server', function () {
 
     });
     
-    describe('get \'/file/:id\'', function () {
+    describe('get \'/:id\'', function () {
         
         it('returns not found when file does not exist', function (done) {
             request(app)
@@ -131,22 +146,22 @@ describe('server', function () {
         
         it('returns file when it exists', function (done) {
             var id = uuid.v4();
-            var filename = "filename.txt";
+            var filename = "output.mp4";
             fs.mkdirSync(path.join(config.TEMP_FOLDER, id));
             fs.writeFileSync(path.join(config.TEMP_FOLDER, id, filename), 'Hello Node');
-            
+
             request(app)
-                .get(config.LOCATION + '/file/' + id)
+                .get(config.LOCATION + '/' + id)
                 .expect(200, done);
         });
 
     });
     
-    describe('delete \'/file/:id\'', function () {
+    describe('delete \'/:id\'', function () {
         
         it('returns 204 when file doest not exist', function (done) {
             request(app)
-                .delete(config.LOCATION + '/file/_id')
+                .delete(config.LOCATION + '/_id')
                 .expect(204, done);
         });
         
@@ -157,7 +172,7 @@ describe('server', function () {
             fs.writeFileSync(path.join(config.TEMP_FOLDER, id, filename), 'Hello Node');
 
             request(app)
-                .delete(config.LOCATION + '/file/' + id)
+                .delete(config.LOCATION + '/' + id)
                 .end(function(err) {
                     if (err) {
                         return done(err);
@@ -175,7 +190,7 @@ describe('server', function () {
             fs.writeFileSync(path.join(config.TEMP_FOLDER, id, filename), 'Hello Node');
 
             request(app)
-                .delete(config.LOCATION + '/file/' + id)
+                .delete(config.LOCATION + '/' + id)
                 .expect(204, done);
         });
 
