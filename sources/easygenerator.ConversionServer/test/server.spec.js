@@ -13,14 +13,12 @@ var
     path = require('path');
 
 
-
-
 describe('server', function () {
     
     before(function (done) {
         config.TEMP_FOLDER = path.join(__dirname, "TEMP");
-        config.SAMPLE_MP3 = "sample.mp3";
-        config.SAMPLE_TXT = "sample.txt";
+        config.SAMPLE_WAV = "sample.wav";
+        config.SAMPLE_TXT = "README.MD";
         
         fs.mkdir(path.join(config.TEMP_FOLDER), function (err) {
             if (err && err.code != "EEXIST") {
@@ -50,26 +48,26 @@ describe('server', function () {
     
     describe('post \'/\'', function () {
         
-        it('saves original file to temporary directory', function (done) {
-            request(app)
-                .post(config.LOCATION + '/')
-                .set('Accept', 'application/json')
-                .attach('file', config.SAMPLE_MP3)
-                .expect(200)
-                .end(function(err, res) {
-                    if (err) {
-                        return done(err);
-                    }
-                    assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, config.SAMPLE_MP3)));
-                    done();
-                });
-        });
+        //it('saves original file to temporary directory', function (done) {
+        //    request(app)
+        //        .post(config.LOCATION + '/')
+        //        .set('Accept', 'application/json')
+        //        .attach('file', config.SAMPLE_WAV)
+        //        .expect(200)
+        //        .end(function(err, res) {
+        //            if (err) {
+        //                return done(err);
+        //            }
+        //            assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, config.SAMPLE_WAV)));
+        //            done();
+        //        });
+        //});
         
         it('converts input mp3 to mp4', function (done) {
             request(app)
                 .post(config.LOCATION + '/')
                 .set('Accept', 'application/json')
-                .attach('file', config.SAMPLE_MP3)
+                .attach('file', config.SAMPLE_WAV)
                 .expect(200)
                 .end(function(err, res) {
                     if (err) {
@@ -84,7 +82,7 @@ describe('server', function () {
             request(app)
                 .post(config.LOCATION + '/')
                 .set('Accept', 'application/json')
-                .attach('file', config.SAMPLE_MP3)
+                .attach('file', config.SAMPLE_WAV)
                 .expect(200)
                 .end(function(err, res) {
                     if (err) {
@@ -99,7 +97,7 @@ describe('server', function () {
             request(app)
                 .post(config.LOCATION + '/')
                 .set('Accept', 'text/html')
-                .attach('file', config.SAMPLE_MP3)
+                .attach('file', config.SAMPLE_WAV)
                 .expect(200)
                 .end(function(err, res) {
                     if (err) {
@@ -114,7 +112,7 @@ describe('server', function () {
             request(app)
                 .post(config.LOCATION + '/')
                 .set('Accept', 'text/undefined')
-                .attach('file', config.SAMPLE_MP3)
+                .attach('file', config.SAMPLE_WAV)
                 .expect(406, done);
         });
         

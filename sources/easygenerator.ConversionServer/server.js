@@ -40,9 +40,9 @@ app.get(config.LOCATION + '/', function (req, res) {
 app.post(config.LOCATION + '/', function (req, res) {
     var busboy = new Busboy({ headers: req.headers });
     
-    var files = [];
-
-    busboy.on('file', function(name, file, filename, transferEncoding, mimeType) {
+    var promises = [];
+    
+    busboy.on('file', function (name, file, filename, transferEncoding, mimeType) {
         if (filename.length === 0 || mimeType.indexOf('audio/') !== 0) {
             file.resume();
         } else {
@@ -51,49 +51,36 @@ app.post(config.LOCATION + '/', function (req, res) {
             var directoryPath = path.join(config.TEMP_FOLDER, id);
             fs.mkdirSync(directoryPath);
 
-            var filePath = path.join(directoryPath, filename);
+            promises.push(
+                new Promise(function(resolve, reject) {
+                    var output = path.join(config.TEMP_FOLDER, id, config.OUTPUT_NAME);
+                    ffmpeg()
+                        .format('mp4')
+                        .addInput(file)
+                        .addInput('D:\\Development\\ffmpeg\\image.jpg')
+                        .videoCodec('mpeg4')
+                        .audioCodec('libmp3lame')
+                        .output(output)
+                        .on('end', function() {
+                            resolve(id);
+                        })
+                        .on('error', function(err, stdout, stderr) {
+                            console.log('Cannot process video: ' + err.message);
+                            reject(err.message);
 
-            file.on('end', function() {
-                files.push({
-                    id: id,
-                    url: req.protocol + '://' + req.get('host') + req.originalUrl + '/' + id,
-                    filePath: filePath
-                });
-            });
-            file.pipe(fs.createWriteStream(filePath));
+                        }).run();
+                })
+            );
+
         }
     });
 
     busboy.on('finish', function() {
-        if (files.length === 0) {
-            res.status(400).send('Bad request');
-        } else {
-            var promises = [];
+        Promise.all(promises).then(function(files) {
+                if (files.length === 0) {
+                    res.status(400).send('Bad request');
+                } else {
 
-            files.forEach(function(file) {
-                promises.push(
-                    new Promise(function(resolve, reject) {
-                        var output = path.join(config.TEMP_FOLDER, file.id, config.OUTPUT_NAME);
-                        ffmpeg()
-                            .addInput('D:\\Development\\ffmpeg\\image.jpg')
-                            .addInput(file.filePath)
-                            .videoCodec('mpeg4')
-                            .audioCodec('libmp3lame')
-                            .output(output)
-                            .on('end', function() {
-                                resolve(output);
-                            })
-                            .on('error', function(err, stdout, stderr) {
-                                console.log('Cannot process video: ' + err.message);
-                                reject(err.message);
-
-                            }).run();
-                    })
-                );
-            });
-
-            Promise.all(promises)
-                .then(function() {
                     res.format({
                         'text/html': function() {
                             res.send('<html>' +
@@ -101,16 +88,19 @@ app.post(config.LOCATION + '/', function (req, res) {
                                 '       </head>' +
                                 '       <body>' +
                                 '           <ul>' +
-                                files.map(function(item) { return '<li><a href="' + item.url + '">' + item.url + '</a></li>'; }).join() +
+                                files.map(function(id) {
+                                    var url = req.protocol + '://' + req.get('host') + req.originalUrl + '/' + id;
+                                    return '<li><a href="' + url + '">' + url + '</a></li>';
+                                }).join() +
                                 '           </ul>' +
                                 '       </body>' +
                                 '     </html>');
                         },
                         'application/json': function() {
-                            res.send(files.map(function(item) {
+                            res.send(files.map(function(id) {
                                 return {
-                                    id: item.id,
-                                    url: item.url
+                                    id: id,
+                                    url: req.protocol + '://' + req.get('host') + req.originalUrl + '/' + id
                                 };
                             }));
                         },
@@ -118,11 +108,13 @@ app.post(config.LOCATION + '/', function (req, res) {
                             res.status(406).send('Not Acceptable');
                         }
                     });
-                })
-                .catch(function(reason) {
-                    res.status(500).send('Internal Server Error');
-                });
-        }
+                }
+            })
+            .catch(function(reason) {
+                console.log(reason);
+                res.status(500).send('Internal Server Error');
+            });
+
     });
     
     return req.pipe(busboy);
@@ -130,19 +122,19 @@ app.post(config.LOCATION + '/', function (req, res) {
 
 app.get(config.LOCATION + '/:id', function (req, res) {
     var id = req.params.id;
-
-    fs.readdir(path.join(config.TEMP_FOLDER, id), function(err, files) {
+    
+    fs.readdir(path.join(config.TEMP_FOLDER, id), function (err, files) {
         if (err) {
             res.status(404).end();
         } else {
-            if (files && files.indexOf('output.mp4') > -1) {
+            if (files && files.indexOf(config.OUTPUT_NAME) > -1) {
                 var file = path.join(config.TEMP_FOLDER, id, config.OUTPUT_NAME);
-                console.log(files.indexOf('output.mp4'));
+                
                 res.writeHead(200, {
                     'Content-Length': fs.statSync(file).size,
                     'Content-disposition': 'attachment; filename=' + config.OUTPUT_NAME
                 });
-
+                
                 fs.createReadStream(file).pipe(res);
             } else {
                 res.status(404).end();
@@ -153,8 +145,8 @@ app.get(config.LOCATION + '/:id', function (req, res) {
 
 app.delete(config.LOCATION + '/:id', function (req, res) {
     var id = req.params.id;
-
-    fs.readdir(path.join(config.TEMP_FOLDER, id), function(err, files) {
+    
+    fs.readdir(path.join(config.TEMP_FOLDER, id), function (err, files) {
         if (err) {
             if (err.code != "ENOENT") {
                 throw err;
@@ -162,7 +154,7 @@ app.delete(config.LOCATION + '/:id', function (req, res) {
                 res.status(204).end();
             }
         } else {
-            files.forEach(function(filename) {
+            files.forEach(function (filename) {
                 fs.unlinkSync(path.join(config.TEMP_FOLDER, id, filename));
             });
             fs.rmdirSync(path.join(config.TEMP_FOLDER, id));
