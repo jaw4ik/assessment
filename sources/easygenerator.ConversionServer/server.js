@@ -13,7 +13,7 @@ var
 
     ffmpeg = require('fluent-ffmpeg'),
 
-    Promise = require('promise'),
+    Q = require('q'),
 
     config = require('./config')
 ;
@@ -41,8 +41,8 @@ app.post(config.LOCATION + '/', function (req, res) {
     var busboy = new Busboy({ headers: req.headers });
     
     var promises = [];
-    
-    busboy.on('file', function (name, file, filename, transferEncoding, mimeType) {
+
+    busboy.on('file', function(name, file, filename, transferEncoding, mimeType) {
         if (filename.length === 0 || mimeType.indexOf('audio/') !== 0) {
             file.resume();
         } else {
@@ -51,32 +51,31 @@ app.post(config.LOCATION + '/', function (req, res) {
             var directoryPath = path.join(config.TEMP_FOLDER, id);
             fs.mkdirSync(directoryPath);
 
-            promises.push(
-                new Promise(function(resolve, reject) {
-                    var output = path.join(config.TEMP_FOLDER, id, config.OUTPUT_NAME);
-                    ffmpeg()
-                        .format('mp4')
-                        .addInput(file)
-                        .addInput('D:\\Development\\ffmpeg\\image.jpg')
-                        .videoCodec('mpeg4')
-                        .audioCodec('libmp3lame')
-                        .output(output)
-                        .on('end', function() {
-                            resolve(id);
-                        })
-                        .on('error', function(err, stdout, stderr) {
-                            console.log('Cannot process video: ' + err.message);
-                            reject(err.message);
+            var dfd = Q.defer();
 
-                        }).run();
+            ffmpeg()
+                .format('mp4')
+                .input(file)
+                .input('D:\\Development\\ffmpeg\\image.jpg')
+                .videoCodec('mpeg4')
+                .audioCodec('libmp3lame')
+                .output(path.join(directoryPath, config.OUTPUT_NAME))
+                .on('end', function() {
+                    dfd.resolve(id);
                 })
-            );
+                .on('error', function(err, stdout, stderr) {
+                    file.resume();
+                    dfd.reject(err.message);
+
+                }).run();
+
+            promises.push(dfd.promise);
 
         }
     });
 
     busboy.on('finish', function() {
-        Promise.all(promises).then(function(files) {
+        Q.all(promises).then(function(files) {
                 if (files.length === 0) {
                     res.status(400).send('Bad request');
                 } else {
