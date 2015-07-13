@@ -64,6 +64,8 @@ describe('server', function () {
         //});
         
         it('converts input mp3 to mp4', function (done) {
+            var filename = "output.mp4";
+
             request(app)
                 .post(config.LOCATION + '/')
                 .set('Accept', 'application/json')
@@ -73,7 +75,7 @@ describe('server', function () {
                     if (err) {
                         return done(err);
                     }
-                    assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, config.OUTPUT_NAME)));
+                    assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, filename)));
                     done();
                 });
         });

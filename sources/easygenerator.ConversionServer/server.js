@@ -4,6 +4,7 @@ var
     fs = require('fs'),
     path = require('path'),
 
+    Q = require('q'),
     express = require('express'),
     app = express(),
     cors = require('cors'),
@@ -11,15 +12,9 @@ var
     Busboy = require('busboy'),
     uuid = require('node-uuid'),
 
-    ffmpeg = require('fluent-ffmpeg'),
-
-    Q = require('q'),
-
+    converter = require('./converter'),
     config = require('./config')
 ;
-
-ffmpeg.setFfmpegPath(config.FFMPEG_PATH);
-ffmpeg.setFfprobePath(config.FFMPEG_PROBE_PATH);
 
 app.use(cors());
 app.use(morgan('dev'));
@@ -37,9 +32,9 @@ app.get(config.LOCATION + '/', function (req, res) {
         '    </html>');
 });
 
-app.post(config.LOCATION + '/', function (req, res) {
+app.post(config.LOCATION + '/', function(req, res) {
     var busboy = new Busboy({ headers: req.headers });
-    
+
     var promises = [];
 
     busboy.on('file', function(name, file, filename, transferEncoding, mimeType) {
@@ -51,26 +46,14 @@ app.post(config.LOCATION + '/', function (req, res) {
             var directoryPath = path.join(config.TEMP_FOLDER, id);
             fs.mkdirSync(directoryPath);
 
-            var dfd = Q.defer();
-
-            ffmpeg()
-                .format('mp4')
-                .input(file)
-                .input('D:\\Development\\ffmpeg\\image.jpg')
-                .videoCodec('mpeg4')
-                .audioCodec('libmp3lame')
-                .output(path.join(directoryPath, config.OUTPUT_NAME))
-                .on('end', function() {
-                    dfd.resolve(id);
+            promises.push(converter.run(file, directoryPath)
+                .then(function() {
+                    return id;
                 })
-                .on('error', function(err, stdout, stderr) {
+                .catch(function(reason) {
                     file.resume();
-                    dfd.reject(err.message);
-
-                }).run();
-
-            promises.push(dfd.promise);
-
+                    throw reason;
+                }));
         }
     });
 
@@ -115,26 +98,28 @@ app.post(config.LOCATION + '/', function (req, res) {
             });
 
     });
-    
+
     return req.pipe(busboy);
 });
 
-app.get(config.LOCATION + '/:id', function (req, res) {
+app.get(config.LOCATION + '/:id', function(req, res) {
     var id = req.params.id;
-    
-    fs.readdir(path.join(config.TEMP_FOLDER, id), function (err, files) {
+
+    var directoryPath = path.join(config.TEMP_FOLDER, id);
+    fs.readdir(directoryPath, function(err, files) {
         if (err) {
             res.status(404).end();
         } else {
-            if (files && files.indexOf(config.OUTPUT_NAME) > -1) {
-                var file = path.join(config.TEMP_FOLDER, id, config.OUTPUT_NAME);
-                
+            if (files && files.length) {
+                var fileName = files[0];
+                var filePath = path.join(directoryPath, fileName);
+
                 res.writeHead(200, {
-                    'Content-Length': fs.statSync(file).size,
-                    'Content-disposition': 'attachment; filename=' + config.OUTPUT_NAME
+                    'Content-Length': fs.statSync(filePath).size,
+                    'Content-disposition': 'attachment; filename=' + fileName
                 });
-                
-                fs.createReadStream(file).pipe(res);
+
+                fs.createReadStream(filePath).pipe(res);
             } else {
                 res.status(404).end();
             }
@@ -142,10 +127,10 @@ app.get(config.LOCATION + '/:id', function (req, res) {
     });
 });
 
-app.delete(config.LOCATION + '/:id', function (req, res) {
+app.delete(config.LOCATION + '/:id', function(req, res) {
     var id = req.params.id;
-    
-    fs.readdir(path.join(config.TEMP_FOLDER, id), function (err, files) {
+
+    fs.readdir(path.join(config.TEMP_FOLDER, id), function(err, files) {
         if (err) {
             if (err.code != "ENOENT") {
                 throw err;
@@ -153,7 +138,7 @@ app.delete(config.LOCATION + '/:id', function (req, res) {
                 res.status(204).end();
             }
         } else {
-            files.forEach(function (filename) {
+            files.forEach(function(filename) {
                 fs.unlinkSync(path.join(config.TEMP_FOLDER, id, filename));
             });
             fs.rmdirSync(path.join(config.TEMP_FOLDER, id));
