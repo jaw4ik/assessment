@@ -15,11 +15,11 @@ function run(input, output, options) {
     var dfd = Q.defer();
     
     options = options || {};
-    
+
     _.defaults(options, {
         name: 'output',
         format: 'mp4',
-        image: 'D:\\Development\\ffmpeg\\image.jpg',
+        image: path.join(__dirname, '..', 'audio_image.jpg'),
         videoCodec: 'mpeg4',
         audioCodec: 'libmp3lame'
     });

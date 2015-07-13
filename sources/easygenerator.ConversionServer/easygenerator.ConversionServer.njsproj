@@ -38,6 +38,7 @@
     <Compile Include="server.js" />
     <Compile Include="test\server.spec.js" />
     <Compile Include="www.js" />
+    <Content Include="audio_image.jpg" />
     <Content Include="package.json" />
     <Content Include="README.md" />
   </ItemGroup>
