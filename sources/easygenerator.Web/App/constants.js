@@ -357,7 +357,7 @@
             courseResults: {
                 pageSize: 10
             },
-            
+
             storage: {
                 host: window.storageServiceUrl ? "//" + window.storageServiceUrl : '//localhost:888',
                 mediaUrl: '/media',
@@ -384,6 +384,14 @@
                     iframeHeight: 335,
                     updateUploadTimeout: 60000,
                     removeVideoAfterErrorTimeout: 5000
+                },
+                audio: {
+                    statuses: {
+                        loaded: 'loaded',
+                        failed: 'failed',
+                        inProgress: 'inProgress'
+                    },
+                    changesInUpload: 'video:changesInUpload',
                 }
             },
 
@@ -426,6 +434,13 @@
                             eventCategory: 'Video library',
                             subtitleKey: 'videoUpgradeToUpload',
                             descriptionKey: 'videoUpgradeToUploadHtml'
+                        },
+
+                        audioUpload: {
+                            containerCss: 'upgrade-dialog-audio-upload',
+                            eventCategory: 'Audio library',
+                            subtitleKey: 'audioUploadUpgradeSubtitle',
+                            descriptionKey: 'audioUploadUpgradeText'
                         }
                     }
                 }

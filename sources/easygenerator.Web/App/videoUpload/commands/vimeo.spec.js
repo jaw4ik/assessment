@@ -8,7 +8,7 @@
             expect(vimeoCommands).toBeObject();
         });
 
-        describe('putFile', function () {
+        describe('putFile:', function () {
             var defer;
 
             beforeEach(function () {
@@ -43,7 +43,7 @@
 
         });
 
-        describe('verifyUpload', function () {
+        describe('verifyUpload:', function () {
             var defer;
 
             beforeEach(function () {
@@ -115,7 +115,7 @@
 
         });
 
-        describe('getThumbnailUrl', function () {
+        describe('getThumbnailUrl:', function () {
             var defer;
 
             beforeEach(function () {
@@ -204,6 +204,88 @@
                     var promise = vimeoCommands.getThumbnailUrl(videoId);
                     promise.fin(function () {
                         expect(promise).toBeResolvedWith(resolved.data[0].sizes[1].link);
+                        done();
+                    });
+
+                });
+            });
+
+        });
+
+        describe('getVideoDuration:', function () {
+            var defer;
+
+            beforeEach(function () {
+                defer = $.Deferred();
+                spyOn($, 'ajax').and.returnValue(defer.promise());
+            });
+
+            it('should be function', function () {
+                expect(vimeoCommands.getVideoDuration).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(vimeoCommands.getVideoDuration()).toBePromise();
+            });
+
+            it('should send get request', function () {
+                var videoId = 0;
+                vimeoCommands.getVideoDuration(videoId);
+
+                expect($.ajax).toHaveBeenCalledWith({
+                    url: constants.storage.video.vimeoApiVideosUrl + videoId,
+                    headers: { Authorization: constants.storage.video.vimeoToken },
+                    method: 'GET',
+                    global: false
+                });
+            });
+
+            describe('when get request failed', function () {
+
+                it('should resolve promise with zero duration', function (done) {
+                    var videoId = 0;
+
+                    defer.reject();
+
+                    var promise = vimeoCommands.getVideoDuration(videoId);
+                    promise.fin(function () {
+                        expect(promise).toBeResolvedWith(0);
+                        done();
+                    });
+
+                });
+
+            });
+
+            describe('when get request resolved without duration', function () {
+
+                it('should resolve promise with zero duration', function (done) {
+
+                    var videoId = 0;
+
+                    defer.resolve({});
+
+                    var promise = vimeoCommands.getVideoDuration(videoId);
+                    promise.fin(function () {
+                        expect(promise).toBeResolvedWith(0);
+                        done();
+                    });
+
+                });
+            });
+
+            describe('when get request resolved with correct data', function () {
+
+                it('should resolve promise with duration', function (done) {
+
+                    var videoId = 0;
+                    var resolved = { duration: 10 };
+
+                    defer.resolve(resolved);
+
+                    var promise = vimeoCommands.getVideoDuration(videoId);
+                    promise.fin(function () {
+                        expect(promise).toBeResolvedWith(10);
                         done();
                     });
 

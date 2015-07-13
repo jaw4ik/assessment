@@ -580,6 +580,15 @@
       <DependentUpon>publishHttpWrapper.js</DependentUpon>
     </Content>
     <Content Include="App\http\publishHttpWrapper.js" />
+    <Content Include="App\videoUpload\handlers\durations.js" />
+    <Content Include="App\videoUpload\handlers\durations.spec.js">
+      <DependentUpon>durations.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\audios\audios.js" />
+    <Content Include="App\viewmodels\audios\audios.spec.js">
+      <DependentUpon>audios.js</DependentUpon>
+    </Content>
+    <Content Include="App\views\audios\audios.html" />
     <Content Include="App\widgets\upgradeDialog\viewmodel.js" />
     <Content Include="App\widgets\upgradeDialog\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
@@ -1422,6 +1431,7 @@
     <Content Include="BuildLearningPath\Template\css\font\roboto-regular.woff" />
     <Content Include="BuildLearningPath\Template\css\font\robotoslab-regular.ttf" />
     <Content Include="BuildLearningPath\Template\css\font\robotoslab-regular.woff" />
+    <Content Include="Content\audio.less" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
