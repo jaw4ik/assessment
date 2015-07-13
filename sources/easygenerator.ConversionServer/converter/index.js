@@ -15,13 +15,13 @@ function run(input, output, options) {
     var dfd = Q.defer();
     
     options = options || {};
-
+    
     _.defaults(options, {
-        name: 'output',
-        format: 'mp4',
-        image: path.join(__dirname, '..', 'audio_image.jpg'),
-        videoCodec: 'mpeg4',
-        audioCodec: 'libmp3lame'
+        name: config.OUTPUT_FILE_NAME,
+        format: config.OUTPUT_FILE_FORMAT,
+        image: config.INPUT_IMAGE,
+        videoCodec: config.FFMPEG_VIDEO_CODEC,
+        audioCodec: config.FFMPEG_AUDIO_CODEC
     });
 
     ffmpeg()
@@ -37,7 +37,7 @@ function run(input, output, options) {
         .on('error', function(err, stdout, stderr) {
             dfd.reject(err.message);
         }).run();
-    
+
     return dfd.promise;
 }
 
