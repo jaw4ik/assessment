@@ -290,6 +290,10 @@
     <Compile Include="Migrations\201506040849286_AddLearningPath.Designer.cs">
       <DependentUpon>201506040849286_AddLearningPath.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507140815401_CreateConsumerToolsTable.cs" />
+    <Compile Include="Migrations\201507140815401_CreateConsumerToolsTable.Designer.cs">
+      <DependentUpon>201507140815401_CreateConsumerToolsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ConsumerToolRepository.cs" />
@@ -497,6 +501,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506040849286_AddLearningPath.resx">
       <DependentUpon>201506040849286_AddLearningPath.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507140815401_CreateConsumerToolsTable.resx">
+      <DependentUpon>201507140815401_CreateConsumerToolsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
