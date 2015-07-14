@@ -21,18 +21,18 @@
                 isEmpty: true
             };
 
-            self.type = 'default';
+            self.type = 'fullscreen';
 
-            self.setDefault = function () {
-                self.type = 'default';
+            self.setFullscreen = function () {
+                self.type = 'fullscreen';
                 saveChanges();
             };
             self.setRepeat = function () {
                 self.type = 'repeat';
                 saveChanges();
             };
-            self.setFullscreen = function () {
-                self.type = 'fullscreen';
+            self.setOriginal = function () {
+                self.type = 'original';
                 saveChanges();
             };
 
@@ -66,7 +66,7 @@
                 }).always(function () {
                     self.image.isUploading = false;
                     saveChanges();
-                    
+
                     that.$apply();
                 });
             };
@@ -175,7 +175,7 @@
             }
 
         })(saveChanges);
-        
+
         that.saveChanges = saveChanges;
 
         angular.element($window).on('blur', saveChanges);
