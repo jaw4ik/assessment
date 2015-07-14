@@ -1,4 +1,5 @@
 ﻿using easygenerator.Auth.Configuration;
+using easygenerator.Lti.Owin.Security;
 using Microsoft.Owin;
 using Owin;
 
@@ -12,6 +13,7 @@ namespace easygenerator.Web.Configuration
         {
             AuthorizationConfiguration.Configure(app);
             app.MapSignalR();
+            app.UseLtiAuthentication(new LtiAuthOptions());
         }
     }
 }
