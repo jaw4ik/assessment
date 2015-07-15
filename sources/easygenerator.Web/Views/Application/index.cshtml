@@ -62,13 +62,13 @@
         var userCultures = Request.UserLanguages.Select(l => l.Split(';')[0]).ToList();
         <script type="text/javascript">
 
-            window.top.userCultures = [];
-            window.top.appVersion = @DateTimeWrapper.InstanceStartTime.Ticks;
-            window.top.BOMSymbol = '\ufeff';
+            window.userCultures = [];
+            window.appVersion = @DateTimeWrapper.InstanceStartTime.Ticks;
+            window.BOMSymbol = '\ufeff';
 
             @for (var i = 0; i < userCultures.Count(); i++)
         {
-            <text>window.top.userCultures.push('@userCultures[i]');</text>;
+            <text>window.userCultures.push('@userCultures[i]');</text>;
         }
         </script>
     }

@@ -89,7 +89,7 @@
                                 isCustom: template.isCustom,
                                 openPreview: function (item, event) {
                                     event.stopPropagation();
-                                    router.openUrl(item.previewDemoUrl + '?v=' + window.top.appVersion);
+                                    router.openUrl(item.previewDemoUrl + '?v=' + window.appVersion);
                                 },
                                 loadingTemplate: ko.observable(false)
                             };
