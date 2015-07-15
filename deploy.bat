@@ -75,6 +75,9 @@ XCOPY "./sources/easygenerator.ConversionServer/package.json" "%DeploymentDirect
 XCOPY "./sources/easygenerator.ConversionServer/www.js" "%DeploymentDirectory%\conversion\" /Y /F /I
 XCOPY "./sources/easygenerator.ConversionServer/server.js" "%DeploymentDirectory%\conversion\" /Y /F /I
 XCOPY "./sources/easygenerator.ConversionServer/config.js" "%DeploymentDirectory%\conversion\" /Y /F /I
+XCOPY "./sources/easygenerator.ConversionServer/converter/config.js" "%DeploymentDirectory%\conversion\converter\" /Y /F /I
+XCOPY "./sources/easygenerator.ConversionServer/converter/index.js" "%DeploymentDirectory%\conversion\converter\" /Y /F /I
+XCOPY "./sources/easygenerator.ConversionServer/audio_image.jpg" "%DeploymentDirectory%\conversion\" /Y /F /I
 cd "%DeploymentDirectory%\conversion"
 call npm install --production
 cd "%CurrentDirectory%"
