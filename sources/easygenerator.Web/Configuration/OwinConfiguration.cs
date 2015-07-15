@@ -13,7 +13,7 @@ namespace easygenerator.Web.Configuration
         {
             AuthorizationConfiguration.Configure(app);
             app.MapSignalR();
-            app.UseLtiAuthentication(new LtiAuthOptions());
+            app.UseLtiAuthentication(new LtiAuthOptions { SignInAsAuthenticationType = "ApplicationCookie" });
         }
     }
 }
