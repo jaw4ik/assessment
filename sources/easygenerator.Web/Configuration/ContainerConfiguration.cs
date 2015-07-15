@@ -228,6 +228,13 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<Auth.Repositories.EndpointsRepository>().As<Auth.Repositories.IEndpointsRepository>();
 
             #endregion
+
+            #region Lti
+
+            builder.RegisterType<Lti.Owin.Security.LtiAuthProvider>().SingleInstance();
+
+            #endregion
+
             var container = builder.Build();
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

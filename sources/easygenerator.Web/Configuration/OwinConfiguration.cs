@@ -2,6 +2,7 @@
 using easygenerator.Lti.Owin.Security;
 using Microsoft.Owin;
 using Owin;
+using System.Web.Mvc;
 
 [assembly: OwinStartup(typeof(easygenerator.Web.Configuration.OwinConfiguration))]
 
@@ -13,7 +14,9 @@ namespace easygenerator.Web.Configuration
         {
             AuthorizationConfiguration.Configure(app);
             app.MapSignalR();
-            app.UseLtiAuthentication(new LtiAuthOptions { SignInAsAuthenticationType = "ApplicationCookie" });
+
+            var ltiAuthProvider = DependencyResolver.Current.GetService<LtiAuthProvider>();
+            app.UseLtiAuthentication(new LtiAuthOptions { Provider = ltiAuthProvider, SignInAsAuthenticationType = "ApplicationCookie" });
         }
     }
 }
