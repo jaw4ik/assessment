@@ -210,6 +210,11 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<CourseState>().HasRequired(e => e.Course);
 
+            modelBuilder.Entity<ConsumerTool>().Property(e => e.Title).HasMaxLength(255);
+            modelBuilder.Entity<ConsumerTool>().Property(e => e.Domain).HasMaxLength(255);
+            modelBuilder.Entity<ConsumerTool>().Property(e => e.Key).IsRequired();
+            modelBuilder.Entity<ConsumerTool>().Property(e => e.Secret).IsRequired();
+
             base.OnModelCreating(modelBuilder);
         }
 

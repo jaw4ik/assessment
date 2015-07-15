@@ -13,7 +13,7 @@ namespace easygenerator.DataAccess.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201507140815401_CreateConsumerToolsTable"; }
+            get { return "201507150654252_CreateConsumerToolsTable"; }
         }
         
         string IMigrationMetadata.Source
