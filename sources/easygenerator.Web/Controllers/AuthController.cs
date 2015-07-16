@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Web.Mvc;
-using easygenerator.Auth.Attributes.Mvc;
-using easygenerator.Auth.Models;
+﻿using easygenerator.Auth.Attributes.Mvc;
 using easygenerator.Auth.Providers;
-using easygenerator.Auth.Repositories;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers
 {
@@ -17,13 +11,11 @@ namespace easygenerator.Web.Controllers
     {
         private readonly IUserRepository _repository;
         private readonly ITokenProvider _tokenProvider;
-        private readonly IEndpointsRepository _endpointsRepository;
 
-        public AuthController(IUserRepository repository, ITokenProvider tokenProvider, IEndpointsRepository clientsRepository)
+        public AuthController(IUserRepository repository, ITokenProvider tokenProvider)
         {
             _repository = repository;
             _tokenProvider = tokenProvider;
-            _endpointsRepository = clientsRepository;
         }
 
         [HttpPost, AllowAnonymous]
@@ -34,31 +26,7 @@ namespace easygenerator.Web.Controllers
                 var user = _repository.GetUserByEmail(username);
                 if (user != null && user.VerifyPassword(password))
                 {
-                    var tokens = new List<TokenModel>();
-                    var requestedEndpoints = endpoints.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-                    var existingEndpoints = _endpointsRepository.GetCollection();
-                    foreach (string endpointName in requestedEndpoints)
-                    {
-                        var endpoint =
-                            existingEndpoints.SingleOrDefault(t => t.Name.Equals(endpointName, StringComparison.OrdinalIgnoreCase));
-                        if (endpoint != null)
-                        {
-                            tokens.Add(new TokenModel()
-                            {
-                                Endpoint = endpoint.Name,
-                                Token = _tokenProvider.CreateToken(
-                                    issuer: Request.Url.Host,
-                                    audience: endpoint.Audience,
-                                    secret: endpoint.Secret,
-                                    claims: new List<Claim> {
-                                        new Claim(ClaimTypes.Name, user.Email),
-                                        new Claim(AuthorizationConfigurationProvider.ScopeClaimType, endpoint.Scopes)
-                                    }
-                                )
-                            });
-                        }
-                    }
-
+                    var tokens = _tokenProvider.GenerateTokens(username, Request.Url.Host, endpoints);
                     return JsonSuccess(tokens);
                 }
             }
