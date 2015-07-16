@@ -216,12 +216,12 @@ describe('server', function () {
                 .expect(400, done);
         });
         
-        it('return 422 when only non-audio file attached', function (done) {
+        it('return 400 when only non-audio file attached', function (done) {
             request(app)
                 .post(config.LOCATION + '/')
                 .set('Accept', 'application/json')
                 .attach('file', config.SAMPLE_TXT)
-                .expect(422, done);
+                .expect(400, done);
         });
 
     });

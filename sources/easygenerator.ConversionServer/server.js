@@ -94,7 +94,7 @@ app.post(config.LOCATION + '/', function(req, res) {
             })
             .catch(function(reason) {
                 console.log(reason);
-                res.status(422).send('Unable to process file(s)');
+                res.status(400).send('Unable to process file(s)');
             });
 
     });
