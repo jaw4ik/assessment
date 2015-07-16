@@ -1,5 +1,6 @@
 ﻿using easygenerator.Auth.Configuration;
 using easygenerator.Lti.Owin.Security;
+using easygenerator.Web.Components.Configuration;
 using Microsoft.Owin;
 using Owin;
 using System.Web.Mvc;
@@ -16,7 +17,14 @@ namespace easygenerator.Web.Configuration
             app.MapSignalR();
 
             var ltiAuthProvider = DependencyResolver.Current.GetService<LtiAuthProvider>();
-            app.UseLtiAuthentication(new LtiAuthOptions { Provider = ltiAuthProvider, SignInAsAuthenticationType = "ApplicationCookie" });
+            var configuration = DependencyResolver.Current.GetService<ConfigurationReader>();
+
+            app.UseLtiAuthentication(new LtiAuthOptions
+            {
+                Provider = ltiAuthProvider, 
+                AuthPath = configuration.LtiAuthPath, 
+                SignInAsAuthenticationType = "ApplicationCookie"
+            });
         }
     }
 }
