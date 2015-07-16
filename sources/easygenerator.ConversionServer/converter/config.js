@@ -2,8 +2,8 @@
 
 
 module.exports = {
-    FFMPEG_PATH: 'D:\\ffmpeg\\ffmpeg.exe',
-    FFMPEG_PROBE_PATH: 'D:\\ffmpeg\\ffprobe.exe',
+    FFMPEG_PATH: path.join(__dirname, 'ffmpeg.exe'),
+    FFMPEG_PROBE_PATH: path.join(__dirname, 'ffprobe.exe'),
     
     INPUT_IMAGE: path.join(__dirname, '..', 'audio_image.jpg'),
     

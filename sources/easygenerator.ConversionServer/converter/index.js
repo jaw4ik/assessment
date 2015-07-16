@@ -30,6 +30,7 @@ function run(input, output, options) {
         .input(options.image)
         .videoCodec(options.videoCodec)
         .audioCodec(options.audioCodec)
+        .addOption('-strict', '-1')
         .output(path.join(output, options.name + '.' + options.format))
         .on('end', function() {
             dfd.resolve();
