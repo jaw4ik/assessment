@@ -17,6 +17,11 @@ describe('server', function () {
     
     before(function (done) {
         config.TEMP_FOLDER = path.join(__dirname, "TEMP");
+        config.SAMPLE_MP3 = "sample.wav";
+        config.SAMPLE_AU = "sample.au";
+        config.SAMPLE_AIF = "sample.aif";
+        config.SAMPLE_FLAC = "sample.flac";
+        config.SAMPLE_OGG = "sample.ogg";
         config.SAMPLE_WAV = "sample.wav";
         config.SAMPLE_TXT = "README.MD";
         
@@ -69,7 +74,7 @@ describe('server', function () {
             request(app)
                 .post(config.LOCATION + '/')
                 .set('Accept', 'application/json')
-                .attach('file', config.SAMPLE_WAV)
+                .attach('file', config.SAMPLE_MP3)
                 .expect(200)
                 .end(function(err, res) {
                     if (err) {
@@ -80,6 +85,91 @@ describe('server', function () {
                 });
         });
         
+        it('converts input aif to mp4', function (done) {
+            var filename = "output.mp4";
+            
+            request(app)
+                .post(config.LOCATION + '/')
+                .set('Accept', 'application/json')
+                .attach('file', config.SAMPLE_AIF)
+                .expect(200)
+                .end(function (err, res) {
+                if (err) {
+                    return done(err);
+                }
+                assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, filename)));
+                done();
+            });
+        });
+        
+        it('converts input au to mp4', function (done) {
+            var filename = "output.mp4";
+            
+            request(app)
+                .post(config.LOCATION + '/')
+                .set('Accept', 'application/json')
+                .attach('file', config.SAMPLE_AU)
+                .expect(200)
+                .end(function (err, res) {
+                if (err) {
+                    return done(err);
+                }
+                assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, filename)));
+                done();
+            });
+        });
+        
+        it('converts input flac to mp4', function (done) {
+            var filename = "output.mp4";
+            
+            request(app)
+                .post(config.LOCATION + '/')
+                .set('Accept', 'application/json')
+                .attach('file', config.SAMPLE_FLAC)
+                .expect(200)
+                .end(function (err, res) {
+                if (err) {
+                    return done(err);
+                }
+                assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, filename)));
+                done();
+            });
+        });
+        
+        it('converts input ogg to mp4', function (done) {
+            var filename = "output.mp4";
+            
+            request(app)
+                .post(config.LOCATION + '/')
+                .set('Accept', 'application/json')
+                .attach('file', config.SAMPLE_OGG)
+                .expect(200)
+                .end(function (err, res) {
+                if (err) {
+                    return done(err);
+                }
+                assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, filename)));
+                done();
+            });
+        });
+        
+        it('converts input wav to mp4', function (done) {
+            var filename = "output.mp4";
+            
+            request(app)
+                .post(config.LOCATION + '/')
+                .set('Accept', 'application/json')
+                .attach('file', config.SAMPLE_WAV)
+                .expect(200)
+                .end(function (err, res) {
+                if (err) {
+                    return done(err);
+                }
+                assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, filename)));
+                done();
+            });
+        });
+
         it('returns json with file list when accept type is application/json', function (done) {
             request(app)
                 .post(config.LOCATION + '/')
@@ -126,12 +216,12 @@ describe('server', function () {
                 .expect(400, done);
         });
         
-        it('return 400 when only non-audio file attached', function (done) {
+        it('return 422 when only non-audio file attached', function (done) {
             request(app)
                 .post(config.LOCATION + '/')
                 .set('Accept', 'application/json')
                 .attach('file', config.SAMPLE_TXT)
-                .expect(400, done);
+                .expect(422, done);
         });
 
     });

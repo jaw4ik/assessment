@@ -43,6 +43,12 @@
     <Content Include="converter\ffprobe.exe" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="sample.aif" />
+    <Content Include="sample.au" />
+    <Content Include="sample.flac" />
+    <Content Include="sample.mp3" />
+    <Content Include="sample.ogg" />
+    <Content Include="sample.wav" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="converter\" />

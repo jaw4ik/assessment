@@ -37,8 +37,8 @@ app.post(config.LOCATION + '/', function(req, res) {
 
     var promises = [];
 
-    busboy.on('file', function(name, file, filename, transferEncoding, mimeType) {
-        if (filename.length === 0 || mimeType.indexOf('audio/') !== 0) {
+    busboy.on('file', function (name, file, filename) {        
+        if (filename.length === 0) {
             file.resume();
         } else {
             var id = uuid.v4();
@@ -60,7 +60,7 @@ app.post(config.LOCATION + '/', function(req, res) {
     busboy.on('finish', function() {
         Q.all(promises).then(function(files) {
                 if (files.length === 0) {
-                    res.status(400).send('Bad request');
+                    res.status(400).send('You have to provide at least 1 file');
                 } else {
 
                     res.format({
@@ -94,7 +94,7 @@ app.post(config.LOCATION + '/', function(req, res) {
             })
             .catch(function(reason) {
                 console.log(reason);
-                res.status(500).send('Internal Server Error');
+                res.status(422).send('Unable to process file(s)');
             });
 
     });
