@@ -6,10 +6,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="css/design.css?v=1436335708859" rel="stylesheet" />
-    <script src="../api.js?v=1436335708859"></script>
-    <script src="js/vendor.min.js?v=1436335708859"></script>
-    <script src="js/design.min.js?v=1436335708859"></script>
+    <link href="css/design.css?v=1436792183029" rel="stylesheet" />
+    <script src="../api.js?v=1436792183029"></script>
+    <script src="js/vendor.min.js?v=1436792183029"></script>
+    <script src="js/design.min.js?v=1436792183029"></script>
 </head>
 <body>
    <main ng-controller="DesignController">
@@ -88,9 +88,9 @@
                 </div>
                 <ul class="background-position-options flex direction-column" ng-if="!background.image.isEmpty">
                     <li class="background-position-option">
-                        <button class="background-position-option-btn default" ng-click="background.setDefault()" ng-class="{ active: background.type === 'default' }">
+                        <button class="background-position-option-btn fullscreen" ng-click="background.setFullscreen()" ng-class="{ active: background.type === 'fullscreen' }">
                             <span class="tooltip">
-                                <span class="tooltip-text">Default</span>
+                                <span class="tooltip-text">Fullscreen</span>
                             </span>
                         </button>
                     </li>
@@ -102,9 +102,9 @@
                         </button>
                     </li>
                     <li class="background-position-option">
-                        <button class="background-position-option-btn fullscreen" ng-click="background.setFullscreen()" ng-class="{ active: background.type === 'fullscreen' }">
+                        <button class="background-position-option-btn original" ng-click="background.setOriginal()" ng-class="{ active: background.type === 'original' }">
                             <span class="tooltip">
-                                <span class="tooltip-text">Fullscreen</span>
+                                <span class="tooltip-text">Original</span>
                             </span>
                         </button>
                     </li>
