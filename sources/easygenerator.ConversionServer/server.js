@@ -4,6 +4,7 @@ var
     fs = require('fs'),
     path = require('path'),
 
+    Q = require('q'),
     express = require('express'),
     app = express(),
     cors = require('cors'),
@@ -11,6 +12,7 @@ var
     Busboy = require('busboy'),
     uuid = require('node-uuid'),
 
+    converter = require('./converter'),
     config = require('./config')
 ;
 
@@ -30,85 +32,105 @@ app.get(config.LOCATION + '/', function (req, res) {
         '    </html>');
 });
 
-app.post(config.LOCATION + '/', function (req, res) {
+app.post(config.LOCATION + '/', function(req, res) {
     var busboy = new Busboy({ headers: req.headers });
-    
-    var files = [];
-    
-    busboy.on('file', function (name, file, filename, transferEncoding, mimeType) {
+
+    var promises = [];
+
+    busboy.on('file', function (name, file, filename) {        
         if (filename.length === 0) {
             file.resume();
         } else {
             var id = uuid.v4();
-            
+
             var directoryPath = path.join(config.TEMP_FOLDER, id);
             fs.mkdirSync(directoryPath);
-            
-            var filePath = path.join(directoryPath, filename);
-            
-            file.on('end', function () {
-                files.push({
-                    id: id,
-                    url: req.protocol + '://' + req.get('host') + req.originalUrl + '/file/' + id
-                });
-            });
-            file.pipe(fs.createWriteStream(filePath));
+
+            promises.push(converter.run(file, directoryPath)
+                .then(function() {
+                    return id;
+                })
+                .catch(function(reason) {
+                    file.resume();
+                    throw reason;
+                }));
         }
     });
-    busboy.on('finish', function () {
-        if (files.length === 0) {
-            res.status(400).send('Bad request');
-        } else {
-            res.format({
-                'text/html': function () {
-                    res.send('<html>' +
-                    '       <head>' +
-                    '       </head>' +
-                    '       <body>' +
-                    '           <ul>' +
-                    files.map(function (item) { return '<li><a href="' + item.url + '">' + item.url + '</a></li>'; }).join() +
-                    '           </ul>' +
-                    '       </body>' +
-                    '     </html>');
-                },
-                'application/json': function () {
-                    res.send(files);
-                },
-                'default': function () {
-                    res.status(406).send('Not Acceptable');
+
+    busboy.on('finish', function() {
+        Q.all(promises).then(function(files) {
+                if (files.length === 0) {
+                    res.status(400).send('You have to provide at least 1 file');
+                } else {
+
+                    res.format({
+                        'text/html': function() {
+                            res.send('<html>' +
+                                '       <head>' +
+                                '       </head>' +
+                                '       <body>' +
+                                '           <ul>' +
+                                files.map(function(id) {
+                                    var url = req.protocol + '://' + req.get('host') + req.originalUrl + '/' + id;
+                                    return '<li><a href="' + url + '">' + url + '</a></li>';
+                                }).join() +
+                                '           </ul>' +
+                                '       </body>' +
+                                '     </html>');
+                        },
+                        'application/json': function() {
+                            res.send(files.map(function(id) {
+                                return {
+                                    id: id,
+                                    url: req.protocol + '://' + req.get('host') + req.originalUrl + '/' + id
+                                };
+                            }));
+                        },
+                        'default': function() {
+                            res.status(406).send('Not Acceptable');
+                        }
+                    });
                 }
+            })
+            .catch(function(reason) {
+                console.log(reason);
+                res.status(400).send('Unable to process file(s)');
             });
-        }
+
     });
-    
+
     return req.pipe(busboy);
 });
 
-app.get(config.LOCATION + '/file/:id', function (req, res) {
+app.get(config.LOCATION + '/:id', function(req, res) {
     var id = req.params.id;
-    
-    fs.readdir(path.join(config.TEMP_FOLDER, id), function (err, files) {
+
+    var directoryPath = path.join(config.TEMP_FOLDER, id);
+    fs.readdir(directoryPath, function(err, files) {
         if (err) {
             res.status(404).end();
         } else {
             if (files && files.length) {
-                var file = path.join(config.TEMP_FOLDER, id, files[0]);
-                
+                var fileName = files[0];
+                var filePath = path.join(directoryPath, fileName);
+
                 res.writeHead(200, {
-                    'Content-Length': fs.statSync(file).size
+                    'Content-Length': fs.statSync(filePath).size,
+                    'Content-disposition': 'attachment; filename=' + fileName
                 });
-                
-                fs.createReadStream(file).pipe(res);
+
+                fs.createReadStream(filePath).pipe(res);
+            } else {
+                res.status(404).end();
             }
         }
-       
     });
 });
 
-app.delete(config.LOCATION + '/file/:id', function (req, res) {
+app.delete(config.LOCATION + '/:id', function(req, res) {
     var id = req.params.id;
-    
-    fs.readdir(path.join(config.TEMP_FOLDER, id), function (err, files) {
+
+    fs.readdir(path.join(config.TEMP_FOLDER, id), function(err, files) {
         if (err) {
             if (err.code != "ENOENT") {
                 throw err;
@@ -116,7 +138,7 @@ app.delete(config.LOCATION + '/file/:id', function (req, res) {
                 res.status(204).end();
             }
         } else {
-            files.forEach(function (filename) {
+            files.forEach(function(filename) {
                 fs.unlinkSync(path.join(config.TEMP_FOLDER, id, filename));
             });
             fs.rmdirSync(path.join(config.TEMP_FOLDER, id));

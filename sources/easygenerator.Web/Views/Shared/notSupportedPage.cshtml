@@ -94,7 +94,7 @@
 </div>
 
 <script type="text/javascript">
-    (function () {
+    function checkBrowserSupport() {
         "use strict";
 
         var browser = detectBrowser(),
@@ -250,5 +250,6 @@
                 elem.style.display = 'block';
             }
         }
-    }());
+    };
+    checkBrowserSupport();
 </script>

@@ -26,7 +26,7 @@
     "background": {
         "image": {
             "src": null,
-            "type": "default"
+            "type": "original"
         }
     },
     "timer": {

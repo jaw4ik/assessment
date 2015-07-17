@@ -11,8 +11,11 @@
     "busboy": "^0.2.9",
     "cors": "^2.7.1",
     "express": "^4.12.4",
+    "fluent-ffmpeg": "^2.0.1",
+    "lodash": "^3.10.0",
     "morgan": "^1.6.0",
-    "node-uuid": "^1.4.3"
+    "node-uuid": "^1.4.3",
+    "q": "^1.4.1"
   },
   "devDependencies": {
     "mocha": "^2.2.5",
