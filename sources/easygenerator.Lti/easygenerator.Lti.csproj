@@ -67,6 +67,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\easygenerator.Auth\easygenerator.Auth.csproj">
+      <Project>{52f561c9-e7e1-4272-ab48-6767d6c64c65}</Project>
+      <Name>easygenerator.Auth</Name>
+    </ProjectReference>
     <ProjectReference Include="..\easygenerator.DomainModel\easygenerator.DomainModel.csproj">
       <Project>{b1a55d50-7948-471a-9fa8-403512c179a6}</Project>
       <Name>easygenerator.DomainModel</Name>

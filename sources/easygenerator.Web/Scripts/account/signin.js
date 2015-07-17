@@ -63,7 +63,7 @@ app.signinViewModel = function () {
             grant_type: "password",
             endpoints: window.auth.getRequiredEndpoints()
         };
-
+        
         var requestArgs = {
             url: '/auth/token',
             data: data,

@@ -5,6 +5,6 @@ namespace easygenerator.Auth.Providers
 {
     public interface ITokenProvider
     {
-        List<TokenModel> GenerateTokens(string username, string issuer, string endpoints);
+        List<TokenModel> GenerateTokens(string username, string issuer, IEnumerable<string> endpoints);
     }
 }

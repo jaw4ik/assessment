@@ -19,7 +19,7 @@ namespace easygenerator.Web.Controllers
         }
 
         [HttpPost, AllowAnonymous]
-        public ActionResult Token(string username, string password, string grant_type, string endpoints)
+        public ActionResult Token(string username, string password, string grant_type, string[] endpoints)
         {
             if (grant_type == "password")
             {

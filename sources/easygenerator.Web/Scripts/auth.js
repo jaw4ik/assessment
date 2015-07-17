@@ -53,7 +53,7 @@
     }
 
     function getRequiredEndpoints() {
-        return requiredEndpoints.join(' ');
+        return requiredEndpoints;
     }
 
     //private

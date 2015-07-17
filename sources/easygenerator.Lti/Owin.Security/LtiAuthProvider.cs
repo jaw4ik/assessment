@@ -1,4 +1,6 @@
-﻿using easygenerator.DomainModel.Repositories;
+﻿using System.Linq;
+using easygenerator.Auth.Providers;
+using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using LtiLibrary.Core.Common;
 using LtiLibrary.Core.OAuth;
@@ -11,11 +13,13 @@ namespace easygenerator.Lti.Owin.Security
     public class LtiAuthProvider : LtiAuthenticationProvider
     {
         private readonly IConsumerToolRepository _consumerToolRepository;
+        private readonly ITokenProvider _tokenProvider;
 
-        public LtiAuthProvider(IConsumerToolRepository consumerToolRepository)
+        public LtiAuthProvider(IConsumerToolRepository consumerToolRepository, ITokenProvider tokenProvider)
         {
             _consumerToolRepository = consumerToolRepository;
-            
+            _tokenProvider = tokenProvider;
+
             OnAuthenticate = context =>
             {
                 var timeout = TimeSpan.FromMinutes(5);
@@ -42,8 +46,15 @@ namespace easygenerator.Lti.Owin.Security
 
             OnAuthenticated = context =>
             {
+                //Request.Url.Host,
+
+                //TODO: validate user first
+
                 if (!string.IsNullOrWhiteSpace(context.LtiRequest.LisPersonEmailPrimary))
                 {
+
+                    var tokens = _tokenProvider.GenerateTokens(context.LtiRequest.LisPersonEmailPrimary, context.Request.Uri.Host,
+                        AuthorizationConfigurationProvider.Endpoints.Select(_ => _.Name));
                     //_authenticationManager.SignIn(
                     //    context.LtiRequest.LisPersonEmailPrimary,
                     //    context.LtiRequest.LisPersonNameGiven,

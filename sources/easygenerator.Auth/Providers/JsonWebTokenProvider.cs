@@ -18,13 +18,12 @@ namespace easygenerator.Auth.Providers
             _endpointsRepository = clientsRepository;
         }
 
-        public List<TokenModel> GenerateTokens(string username, string issuer, string endpoints)
+        public List<TokenModel> GenerateTokens(string username, string issuer, IEnumerable<string> endpoints)
         {
             var tokens = new List<TokenModel>();
-            var requestedEndpoints = endpoints.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
             var existingEndpoints = _endpointsRepository.GetCollection();
 
-            foreach (string endpointName in requestedEndpoints)
+            foreach (string endpointName in endpoints)
             {
                 var endpoint =
                     existingEndpoints.SingleOrDefault(t => t.Name.Equals(endpointName, StringComparison.OrdinalIgnoreCase));
