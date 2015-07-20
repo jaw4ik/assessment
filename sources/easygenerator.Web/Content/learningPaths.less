@@ -254,7 +254,7 @@
 
     .learning-path-header-content-section {
         .display-flex();
-        padding: 20px 0px;
+        padding: 20px 0 0;
 
         .edit-field-wrapper {
             .flex(1 1);
@@ -313,6 +313,60 @@
                         top: 0;
                         left: 50%;
                         margin-left: -12px;
+                    }
+                }
+            }
+        }
+    }
+
+    nav {
+        font-size: 0;
+
+        ul {
+            list-style: none;
+
+            li {
+                display: inline-block;
+
+                a {
+                    color: #42515f;
+                    display: inline-block;
+                    font-family: 'OpenSans';
+                    font-size: 16px;
+                    font-weight: normal;
+                    line-height: 1;
+                    padding: 12px 15px;
+                    text-align: center;
+                    text-transform: uppercase;
+                    vertical-align: middle;
+                    .fix-bold-text-expanding;
+
+                    &:hover {
+                        box-shadow: 0 -2px #88d498 inset, 0 1px #88d498;
+                    }
+
+                    &.active {
+                        box-shadow: 0 -2px #65bd77 inset, 0 1px #65bd77;
+                        color: #37434f;
+                        font-family: 'OpenSans-Semibold';
+                        position: relative;
+
+                        &:before {
+                            border: 6px solid transparent;
+                            border-top-color: #65bd77;
+                            bottom: -12px;
+                            content: '';
+                            display: inline-block;
+                            height: 0;
+                            left: 50%;
+                            margin-left: -6px;
+                            position: absolute;
+                            width: 0;
+                        }
+
+                        &:hover {
+                            box-shadow: 0 -2px #65bd77 inset, 0 1px #65bd77;
+                        }
                     }
                 }
             }

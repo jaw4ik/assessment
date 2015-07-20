@@ -772,6 +772,42 @@
         'uk': 'Видалити навчальний шлях',
         'pt-br': 'Excluir caminho de aprendizado'
     },
+    learningPathUrl: {
+        'en': 'Learning path URL',
+        'zh-cn': 'Learning path URL[zh-cn]',
+        'uk': 'Learning path URL[uk]',
+        'pt-br': 'Learning path URL[pt-br]'
+    },
+    learningPathCopyLinkDescription: {
+        'en': 'Copy and paste the URL of your learning path to share or view.',
+        'zh-cn': 'Copy and paste the URL of your learning path to share or view.[zh-cn]',
+        'uk': 'Copy and paste the URL of your learning path to share or view.[uk]',
+        'pt-br': 'Copy and paste the URL of your learning path to share or view.[pt-br]'
+    },
+    getLearningPathLink: {
+        'en': 'Get learning path link',
+        'zh-cn': 'Get learning path link[zh-cn]',
+        'uk': 'Get learning path link[uk]',
+        'pt-br': 'Get learning path link[pt-br]'
+    },
+    learningPathCopyEmbedCodeDescription: {
+        'en': 'Paste this code into your HTML page where you want the learning path to appear',
+        'zh-cn': 'Paste this code into your HTML page where you want the learning path to appear[zh-cn]',
+        'uk': 'Paste this code into your HTML page where you want the learning path to appear[uk]',
+        'pt-br': 'Paste this code into your HTML page where you want the learning path to appear[pt-br]'
+    },
+    updateLearningPathDescription: {
+        'en': 'The learning path might have been changed since it was last published. Click \"Update learning path\" to apply last changes.',
+        'zh-cn': 'The learning path might have been changed since it was last published. Click \"Update learning path\" to apply last changes.[zh-cn]',
+        'uk': 'The learning path might have been changed since it was last published. Click \"Update learning path\" to apply last changes.[uk]',
+        'pt-br': 'The learning path might have been changed since it was last published. Click \"Update learning path\" to apply last changes.[pt-br]'
+    },
+    updateLearningPath: {
+        'en': 'Update learning path',
+        'zh-cn': 'Update learning path[zh-cn]',
+        'uk': 'Update learning path[uk]',
+        'pt-br': 'Update learning path[pt-br]'
+    },
     /* End resource section for model Learning paths */
     
     /* Resource section for model Courses */

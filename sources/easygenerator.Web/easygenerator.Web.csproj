@@ -580,6 +580,23 @@
       <DependentUpon>publishHttpWrapper.js</DependentUpon>
     </Content>
     <Content Include="App\http\publishHttpWrapper.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\actions\publish.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\actions\publish.spec.js">
+      <DependentUpon>publish.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\index.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\details.spec.js">
+      <DependentUpon>details.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\index.spec.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\publish.js" />
+    <Content Include="App\views\learningPaths\learningPath\details.html" />
+    <Content Include="App\views\learningPaths\learningPath\publish.html" />
+    <Content Include="App\views\learningPaths\learningPath\publish\publishAsHtml.html" />
+    <Content Include="App\views\learningPaths\learningPath\publish\publishToPublicationServerEmbed.html" />
+    <Content Include="App\views\learningPaths\learningPath\publish\publishToPublicationServerLink.html" />
     <Content Include="App\widgets\upgradeDialog\viewmodel.js" />
     <Content Include="App\widgets\upgradeDialog\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
@@ -868,10 +885,7 @@
     </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\commands\updateTitleCommand.js" />
     <Content Include="App\viewmodels\learningPaths\index.js" />
-    <Content Include="App\viewmodels\learningPaths\learningPath\learningPath.js" />
-    <Content Include="App\viewmodels\learningPaths\learningPath\learningPath.spec.js">
-      <DependentUpon>learningPath.js</DependentUpon>
-    </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\details.js" />
     <Content Include="App\viewmodels\learningPaths\learningPaths\learningPathBrief.js" />
     <Content Include="App\viewmodels\learningPaths\learningPaths\learningPathBrief.spec.js">
       <DependentUpon>learningPathBrief.js</DependentUpon>
@@ -937,7 +951,7 @@
     <Content Include="App\views\learningPaths\courseSelector\courseSelector.html" />
     <Content Include="App\views\library\index.html" />
     <Content Include="App\views\learningPaths\index.html" />
-    <Content Include="App\views\learningPaths\learningPath\learningPath.html" />
+    <Content Include="App\views\learningPaths\learningPath\index.html" />
     <Content Include="App\views\learningPaths\learningPaths\learningPaths.html" />
     <Content Include="App\views\objectives\index.html" />
     <Content Include="App\views\questions\statement\statement.html" />

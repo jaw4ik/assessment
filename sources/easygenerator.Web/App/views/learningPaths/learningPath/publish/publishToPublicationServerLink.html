@@ -1,0 +1,63 @@
+﻿<div class="publish-tab-content" data-tab-content="private-link">
+    <div class="publish-tab-content-wrapper">
+        <!-- ko if: publishLink() -->
+        <div class="publish-to-publication-server-container">
+            <div class="publish-tab-update-course-wrapper shown">
+                <div class="publish-tab-update-course">
+                    <div class="publish-tab-update-course-info">
+                        <div class="publish-tab-update-course-image"></div>
+                        <div class="publish-tab-update-course-text" data-bind="localize: {text: 'updateLearningPathDescription'}">
+                            The learning path might have been changed since it was last published. Click "Update learning path" to apply last changes.
+                        </div>
+                    </div>
+                    <div class="publish-tab-update-course-action">
+                        <button class="btn green publish-tab-btn" data-bind="click: publish, css:{ 'disabled': isPublishing(), 'progress': isPublishing() }, disable: isPublishing()">
+                            <!-- ko if: isPublishing() -->
+                            <span class="publish-tab-btn-caption"></span>
+                            <!-- /ko -->
+                            <!-- ko ifnot: isPublishing() -->
+                            <span class="publish-tab-btn-caption" data-bind="localize: { text: 'updateLearningPath' }"></span>
+                            <!-- /ko -->
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="publish-tab-link-container">
+                <h2 class="publish-tab-header" data-bind="localize: { text: 'learningPathUrl' }">
+                    Learning path URL
+                </h2>
+                <div class="publish-tab-action-content" data-bind="localize: { text: 'learningPathCopyLinkDescription' }">
+                    Copy and paste the URL of your learning path to share or view.
+                </div>
+                <div class="publish-tab-link-control-container">
+                    <input type="text" class="publish-tab-input" readonly="readonly" data-bind="value: publishLink(), selectText: !isPublishing()" />
+                    <div class="copy-btn-wrapper">
+                        <button class="btn" data-bind="copyToClipboard: { value: publishLink, onCopied: onCopyLink, isDisabled: copyDisabled }, css: { green: !publishAvailable(), 'green-white': publishAvailable(), copied: linkCopied, disabled: copyDisabled }, attr: { disabled: copyDisabled() }">
+                            <span data-bind="localize: { text: linkCopied() ? 'copied' : 'copy' }"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="publish-tab-item-service">
+                    <a class="private-link" data-bind="localize: { text: 'openInNewWindow' }, click: openPublishLink, attr: { href: publishLink() }"></a>
+                </div>
+                <div class="publish-tab-overlay" data-bind="visible: isPublishing()"></div>
+            </div>
+        </div>
+        <div class="publish-to-publication-server-helper"></div>
+        <!-- /ko -->
+        <!-- ko ifnot: publishLink() -->
+        <div class="publish-tab-container">
+            <h2 class="publish-tab-header" data-bind="localize: { text: 'getLearningPathLink' }">Get learning path link</h2>
+            <div class="publish-tab-action-content" data-bind="localize: { text: 'learningPathCopyLinkDescription' }">Copy and paste the URL of your learning path to share or view.</div>
+            <button class="btn green publish-tab-btn" data-bind="click: publish, css:{ disabled: isPublishing(), progress : isPublishing()}">
+                <!-- ko if: isPublishing() -->
+                <span data-bind="localize: { text: 'publishing' }" class="publish-tab-btn-caption"></span>
+                <!-- /ko -->
+                <!-- ko ifnot: isPublishing() -->
+                <span data-bind="localize: { text: 'getPrivateLink' }" class="publish-tab-btn-caption"></span>
+                <!-- /ko -->
+            </button>
+        </div>
+        <!-- /ko -->
+    </div>
+</div>

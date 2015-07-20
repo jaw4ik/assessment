@@ -7,7 +7,7 @@
         fileHelper = require('fileHelper')
     ;
 
-    describe('viewModel [download]', function () {
+    describe('viewModel [learningPath download]', function () {
 
         beforeEach(function () {
             viewModel = downloadAction();

@@ -1,0 +1,74 @@
+﻿<div class="publish-tab-content" data-tab-content="embed">
+    <div class="publish-tab-content-wrapper">
+        <!-- ko if: publishLink() -->
+        <div class="publish-to-publication-server-container">
+            <div class="publish-tab-update-course-wrapper shown">
+                <div class="publish-tab-update-course">
+                    <div class="publish-tab-update-course-info">
+                        <div class="publish-tab-update-course-image"></div>
+                        <div class="publish-tab-update-course-text" data-bind="localize: {text: 'updateLearningPathDescription'}">
+                            The learning path might have been changed since it was last published. Click "Update learning path" to apply last changes.
+                        </div>
+                    </div>
+                    <div class="publish-tab-update-course-action">
+                        <button class="btn green publish-tab-btn" data-bind="click: publish, css:{ 'disabled': isPublishing(), 'progress': isPublishing() }, disable: isPublishing()">
+                            <!-- ko if: isPublishing() -->
+                            <span class="publish-tab-btn-caption"></span>
+                            <!-- /ko -->
+                            <!-- ko ifnot: isPublishing() -->
+                            <span class="publish-tab-btn-caption" data-bind="localize: { text: 'updateLearningPath' }"></span>
+                            <!-- /ko -->
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="publish-tab-link-container">
+                <h2 class="publish-tab-header" data-bind="localize: {text: 'embedAsAWidget'}">
+                    Embed as a widget
+                </h2>
+                <div class="publish-tab-action-content" data-bind="localize: {text: 'learningPathCopyEmbedCodeDescription'}">
+                    Paste this code into your HTML page where you want the learning path to appear
+                </div>
+                <div class="publish-tab-link-control-container">
+                    <textarea readonly="readonly" class="publish-tab-textarea" data-bind="value: embedCode, selectText: publishAvailable()"></textarea>
+                    <div class="copy-btn-wrapper">
+                        <button class="btn" data-bind="copyToClipboard: { value: embedCode, onCopied: onCopyEmbedCode, isDisabled: copyDisabled }, css: { green: !publishAvailable(), 'green-white': publishAvailable(), copied: embedCodeCopied, disabled: copyDisabled }, attr: { disabled: copyDisabled() }">
+                            <span data-bind="localize: { text: embedCodeCopied() ? 'copied' : 'copy' }"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="publish-tab-item-service embed-code">
+                    <div class="proportions-title" data-bind="localize: { text: 'frameSize' }"></div>
+                    <div class="proportions-values-container">
+                        <span class="proportions-value-container">
+                            <span class="proportions-text" data-bind="localize: { text: 'width' }"></span>
+                            <input type="text" class="proportions-value" min="0" data-bind="numericField: {}, value: frameWidth, valueUpdate: ['afterkeydown', 'input'], event: { blur: validateFrameWidth }" />
+                        </span>
+                        <span class="proportions-value-container">
+                            <span class="proportions-text" data-bind="localize: { text: 'height' }"></span>
+                            <input type="text" class="proportions-value" min="0" data-bind="numericField: {}, value: frameHeight, valueUpdate: ['afterkeydown', 'input'], event: { blur: validateFrameHeight }" />
+                        </span>
+                        <span class="propotions-size-unit" data-bind="localize: { text: 'croppedPixels' }"></span>
+                    </div>
+                </div>
+                <div class="publish-tab-overlay" data-bind="visible: isPublishing()"></div>
+            </div>
+        </div>
+        <div class="publish-to-publication-server-helper"></div>
+        <!-- /ko -->
+        <!-- ko ifnot: publishLink() -->
+        <div class="publish-tab-container">
+            <h2 class="publish-tab-header" data-bind="localize: { text: 'getEmbedCode' }">Get course link</h2>
+            <div class="publish-tab-action-content" data-bind="localize: {text: 'learningPathCopyEmbedCodeDescription'}">Paste this code into your HTML page where you want the learning path to appear.</div>
+            <button class="btn green publish-tab-btn" data-bind="click: publish, css:{ disabled: isPublishing(), progress : isPublishing()}">
+                <!-- ko if: isPublishing() -->
+                <span data-bind="localize: { text: 'publishing' }" class="publish-tab-btn-caption"></span>
+                <!-- /ko -->
+                <!-- ko ifnot: isPublishing() -->
+                <span data-bind="localize: { text: 'getEmbedCode' }" class="publish-tab-btn-caption"></span>
+                <!-- /ko -->
+            </button>
+        </div>
+        <!-- /ko -->
+    </div>
+</div>

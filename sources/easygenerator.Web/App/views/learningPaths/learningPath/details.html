@@ -1,22 +1,5 @@
-﻿<section class="learning-path">
-    <div class="loader-container">
-        <header class="content-section-wrapper learning-path-header-wrapper">
-            <div class="content-section learning-path-header-content-section">
-                <!--  ko compose: { model: titleField, view: 'views/common/titleField.html' }  -->
-                <!-- /ko -->
-                <div class="content-section-actions-wrapper" data-bind="with: downloadAction">
-                    <!-- ko if: isBuilding() -->
-                    <span href="" class="learning-path-action action-in-progress" data-bind="localize: { text: 'publishing' }"></span>
-                    <!-- /ko -->
-                    <!-- ko ifnot: isBuilding() -->
-                    <a href="" class="learning-path-action action-download" data-bind="click: download">
-                        <span data-bind="localize: { text: 'publish' }"></span>
-                    </a>
-                    <!-- /ko -->
-                </div>
-            </div>
-        </header>
-        <div class="content-section-wrapper">
+﻿<section class="create view-module">
+    <div class="content-section-wrapper">
             <div class="content-section learning-path-content">
                 <div class="page-view-caption-wrapper">
                     <div class="page-view-caption">
@@ -83,10 +66,9 @@
                 <!-- /ko -->
             </div>
         </div>
-        <!-- ko if: courses().length === 0 -->
-        <div class="tip-arrow-holder">
-            <div class="tip-arrow-text" data-bind="localize: { text : 'selectCoursesHint' }"></div>
-        </div>
-        <!-- /ko -->
+    <!-- ko if: courses().length === 0 -->
+    <div class="tip-arrow-holder">
+        <div class="tip-arrow-text" data-bind="localize: { text : 'selectCoursesHint' }"></div>
     </div>
+    <!-- /ko -->
 </section>

@@ -1,0 +1,19 @@
+﻿<div class="publish-tab-content" data-tab-content="html">
+    <div class="publish-tab-content-wrapper">
+        <div class="publish-tab-container">
+            <h2 class="publish-tab-header" data-bind="localize: { text: 'downloadCourse' }">Publish to your webserver or cloud storage</h2>
+            <div class="publish-tab-action-content">
+                <p data-bind="localize: { text: 'publishHtmlCaptionFirst' }">Want to run your course offline on your desktop or on your own server?</p>
+                <p data-bind="localize: { text: 'publishHtmlCaptionSecond' }">We package up all the HTML, CSS and JS of your course for you to download.</p>
+            </div>
+            <button class="btn green publish-tab-btn" data-bind="click: download, css:{'disabled': isBuilding(), 'progress' : isBuilding()}">
+                <!-- ko if: isBuilding() -->
+                <span data-bind="localize: { text: 'assembling' }" class="publish-tab-btn-caption"></span>
+                <!-- /ko -->
+                <!-- ko ifnot: isBuilding() -->
+                <span data-bind="localize: { text: 'courseDownloadAction' }" class="publish-tab-btn-caption"></span>
+                <!-- /ko -->
+            </button>
+        </div>
+    </div>
+</div>
