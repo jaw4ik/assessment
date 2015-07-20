@@ -1,0 +1,34 @@
+﻿<section class="learning-path">
+    <div class="loader-container">
+        <header class="content-section-wrapper learning-path-header-wrapper">
+            <div class="content-section learning-path-header-content-section">
+                <!--  ko compose: { model: titleField, view: 'views/common/titleField.html' }  -->
+                <!-- /ko -->
+                <div class="content-section-actions-wrapper" data-bind="with: downloadAction">
+                    <!-- ko if: isBuilding() -->
+                    <span href="" class="learning-path-action action-in-progress" data-bind="localize: { text: 'publishing' }"></span>
+                    <!-- /ko -->
+                    <!-- ko ifnot: isBuilding() -->
+                    <a href="" class="learning-path-action action-download" data-bind="click: download">
+                        <span data-bind="localize: { text: 'publish' }"></span>
+                    </a>
+                    <!-- /ko -->
+                </div>
+            </div>
+            <nav class="content-section">
+                <ul data-bind="foreach: router.navigationModel">
+                    <li>
+                        <a data-bind="attr: { href:  dynamicHash, 'data-text': ($index() + 1) + '. ' + title }, css: { active: isActive }, text: ($index() + 1) + '. ' + title, click: navigate"></a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <div class="loader-container">
+            <div data-bind="router: {}, style: { opacity: router.isViewReady() ? '1' : '0' }"></div>
+
+            <!-- ko ifnot: router.isViewReady -->
+            <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center', style: { top: '250px' } } } --><!-- /ko -->
+            <!-- /ko -->
+        </div>
+    </div>
+</section>
