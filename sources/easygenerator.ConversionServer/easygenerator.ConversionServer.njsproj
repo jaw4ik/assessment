@@ -41,10 +41,7 @@
     <Content Include="audio_image.jpg" />
     <Content Include="converter\ffmpeg.exe" />
     <Content Include="converter\ffprobe.exe" />
-    <Content Include="iisnode.fs">
-      <SubType>
-      </SubType>
-    </Content>
+    <Content Include="iisnode.yml" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="sample.aif" />
