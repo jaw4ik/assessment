@@ -93,10 +93,10 @@ gulp.task('clean', function (cb) {
     del([output], cb);
 });
 
-gulp.task('build', ['clean', 'css', 'build-app', 'build-settings', 'assets'], function () {
+gulp.task('build', ['clean', 'css', 'build-app', 'build-settings'], function () {
 });
 
-gulp.task('build-app', ['clean', 'css'], function () {
+gulp.task('build-app', ['clean', 'css', 'assets'], function () {
     var assets = useref.assets();
 
     return merge(
