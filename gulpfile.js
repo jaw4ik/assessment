@@ -78,7 +78,7 @@ function analyzejscs(sources) {
 }
 
 gulp.task('css', function () {
-    gulp.src(['./src/css/fonts/fonts.less', './src/css/styles.less'])
+    gulp.src(['./src/css/font/fonts.less', './src/css/styles.less'])
        .pipe(less())
        .pipe(css())
        .pipe(csso())
@@ -110,8 +110,8 @@ gulp.task('build-app', ['clean', 'css'], function () {
 			.pipe(addBuildVersion())
             .pipe(gulp.dest(output)),
 
-        gulp.src(['./src/css/fonts/**', '!./src/css/fonts/*.less'])
-            .pipe(gulp.dest(output + '/css/fonts')),
+        gulp.src(['./src/css/font/**', '!./src/css/font/*.less'])
+            .pipe(gulp.dest(output + '/css/font')),
 
 		gulp.src(['./src/css/img/**'])
             .pipe(gulp.dest(output + '/css/img')),
