@@ -17,64 +17,78 @@
     @Html.Partial("_nudgespotAnalytics")
 </head>
 <body class="try">
+    <div id="app" class="app">
+        <div class="main-container try">
+            <div class="preloader-block">
+                <span class="opensans-semibolditalic">a</span>
+                <span class="opensans-italic">a</span>
+            </div>
+            <header class="page-header try">
+                <div class="content-wrapper try">
+                    @if (ViewBag.ClickOnLogoDisabled != null && ViewBag.ClickOnLogoDisabled)
+                    {
+                        <span class="logo">Logo</span>
+                    }
+                    else
+                    {
+                        <a href="/" class="logo">Logo</a>
+                    }
+                </div>
+            </header>
+
+            <div class="content-wrapper try eg-bg-image">
+                @RenderBody()
+            </div>
+
+        </div>
+
+        <footer class="footer try">
+            <div class="content-wrapper try clearfix">
+                <div class="footer-item pull-left">
+                    <span class="selectable cursor-default">@Resources.CopyrightText</span>
+                </div>
+                <div class="footer-item pull-right">
+                    <ul class="footer-menu-list">
+                        <li class="footer-menu-item">
+                            @Html.NavigationLink(Resources.TermsOfUse, "TermsOfUse", "Account", "footer-menu-link", true)
+                        </li>
+                        <li class="footer-menu-item">
+                            @Html.NavigationLink(Resources.PrivacyPolicy, "PrivacyPolicy", "Account", "footer-menu-link", true)
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </div>
+
     @if (BrowserSupport.IsSupportedDevice(HttpContext.Current.Request.UserAgent))
     {
-        if (BrowserSupport.IsFullySupportedBrowser(HttpContext.Current.Request.UserAgent, HttpContext.Current.Request.Browser) ||
-            BrowserSupport.IsPartiallySupportedBrowser(HttpContext.Current.Request.UserAgent, HttpContext.Current.Request.Browser))
-        {
-            <div id="app" class="app">
-                <div class="main-container try">
-                    <div class="preloader-block">
-                        <span class="opensans-semibolditalic">a</span>
-                        <span class="opensans-italic">a</span>
-                    </div>
-                    <header class="page-header try">
-                        <div class="content-wrapper try">
-                            @if (ViewBag.ClickOnLogoDisabled != null && ViewBag.ClickOnLogoDisabled)
-                            {
-                                <span class="logo">Logo</span>
-                            }
-                            else
-                            {
-                                <a href="/" class="logo">Logo</a>
-                            }
-                        </div>
-                    </header>
-
-                    <div class="content-wrapper try eg-bg-image">
-                        @RenderBody()
-                    </div>
-
-                </div>
-
-                <footer class="footer try">
-                    <div class="content-wrapper try clearfix">
-                        <div class="footer-item pull-left">
-                            <span class="selectable cursor-default">@Resources.CopyrightText</span>
-                        </div>
-                        <div class="footer-item pull-right">
-                            <ul class="footer-menu-list">
-                                <li class="footer-menu-item">
-                                    @Html.NavigationLink(Resources.TermsOfUse, "TermsOfUse", "Account", "footer-menu-link", true)
-                                </li>
-                                <li class="footer-menu-item">
-                                    @Html.NavigationLink(Resources.PrivacyPolicy, "PrivacyPolicy", "Account", "footer-menu-link", true)
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </footer>
-            </div>
-        }
-
         if (!BrowserSupport.IsFullySupportedBrowser(HttpContext.Current.Request.UserAgent, HttpContext.Current.Request.Browser))
         {
             @Html.Partial("notSupportedPage")
+
+            if (!BrowserSupport.IsPartiallySupportedBrowser(HttpContext.Current.Request.UserAgent, HttpContext.Current.Request.Browser))
+            {
+                <script type="text/javascript">
+                    function removeAppContent() {
+                        var content = document.getElementById('app');
+                        content.parentNode.removeChild(content);
+                    }
+                    removeAppContent();
+                </script>
+            }
         }
     }
     else
     {
         @Html.Partial("notSupportedDevicePage")
+        <script type="text/javascript">
+            function removeAppContent() {
+                var content = document.getElementById('app');
+                content.parentNode.removeChild(content);
+            }
+            removeAppContent();
+        </script>
     }
 
     @RenderSection("Scripts", required: false)
