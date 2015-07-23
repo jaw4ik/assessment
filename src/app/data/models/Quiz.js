@@ -18,6 +18,7 @@
             that.questions = questions || [];
             that.hasIntroductionContent = hasIntroductionContent || false;
             that.isCompleted = false;
+            that.isFinished = false;
 
             that.getResult = function () {
                 if (that.questions.length === 0) {
@@ -36,12 +37,21 @@
             };
 
             that.finish = function (callback) {
+                that.isFinished = true;
                 eventPublisher.publishRootScopeEvent('course:finished', that, callback);
             };
 
             that.sendCourseResult = function (masteryScore) {
                 that.isCompleted = that.getResult() >= masteryScore;
                 eventPublisher.publishRootScopeEvent('course:results', that);
+            };
+
+            that.getStatus = function () {
+                if (!that.isFinished) {
+                    return 'inProgress';
+                }
+
+                return that.isCompleted ? 'completed' : 'failed';
             };
         };
     }

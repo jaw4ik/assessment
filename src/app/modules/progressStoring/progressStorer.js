@@ -16,7 +16,7 @@
 
             var result = {
                 score: quiz.getResult(),
-                isCompleted: quiz.isCompleted
+                status: quiz.getStatus()
             };
 
             try {
