@@ -2472,6 +2472,7 @@
     <Content Include="Templates\Quiz\css\font\robotoslab-regular.woff" />
     <Content Include="Templates\Quiz\css\font\twcenmt-condensed.ttf" />
     <Content Include="Templates\Quiz\css\font\twcenmt-condensed.woff" />
+    <Content Include="Templates\Simple course\css\font\robotocondensed-regular.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
