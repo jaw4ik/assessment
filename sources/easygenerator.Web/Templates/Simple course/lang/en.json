@@ -1,7 +1,12 @@
 {
     "[course]": "Course:",
-    "[start course]": "Start course",
+    "[start course]": "Start",
     "[finish course]": "Finish course",
+    "[cancel]": "Cancel",
+    "[finish course popup title]": "You are one step away from finishing the course",
+    "[finish course popup explanation title]": "Please note that:",
+    "[finish course popup first remark]": "- your final score will be reported",
+    "[finish course popup second remark]": "- your current progress will NOT be restored when you open the course next time",
     "[learning objectives]": "Learning objectives:",
     "[start]": "Start",
     "[home]": "Home",
@@ -27,11 +32,12 @@
     "[progress has been saved]": "Progress has been saved!",
     "[progress not saved]": "Your course progress has not been saved yet! If you want to save it:\n  1. Press \"Stay on this Page\"\n  2. Press \"Save my current progress\" in the top of the page of the course.\nOr Press \"Leave this Page\" to close the course without saving your progress.",
     "[progress cannot be saved]": "Course progress cannot be saved. Please try again or contact your teacher if the problem persists.",
+    "[not enough memory to save progress]": "Not enough browser memory to save your progress",
     "[there are no questions]": "No questions",
     "[browser not supported]": "Your browser is currently not supported.",
     "[browser not supported hint]": "Don't worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions.",
-    "[page not found title]": "Page not found (404)",
-    "[page not found message]": "Sorry, the page you have been looking for has not been found. Try checking the URL on errors, use the navigation above or click 'Home' link below.",
+    "[page not found title]": "Page not found",
+    "[page not found message]": "Click on Home. Contact support@easygenerator.com if the problem persists.",
     "[tracking and tracing header]": "Your credentials for progress tracking",
     "[tracking and tracing hint]": "Please enter your credentials and click \"Start and report my results\" to enable result tracking. Otherwise, click \"Do not report, just start\".",
     "[tracking and tracing name field]": "Your name",
@@ -49,5 +55,6 @@
     "[your answer was stored]": "Your answer was stored",
     "[your answer is empty and was not stored]": "Your answer is empty and was not stored",
     "[tracking and tracing hint without skip]": "Please enter your credentials and click \"Start and report my results\" to start the course.",
-    "[tracking and tracing error hint without continue]": "Restart the course. Contact your course provider if the problem persists."
+    "[tracking and tracing error hint without continue]": "Restart the course. Contact your course provider if the problem persists.",
+    "[question]": "question"
 }
