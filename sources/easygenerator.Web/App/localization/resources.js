@@ -772,6 +772,42 @@
         'uk': 'Видалити навчальний шлях',
         'pt-br': 'Excluir caminho de aprendizado'
     },
+    learningPathUrl: {
+        'en': 'Learning path URL',
+        'zh-cn': 'Learning path URL[zh-cn]',
+        'uk': 'Learning path URL[uk]',
+        'pt-br': 'Learning path URL[pt-br]'
+    },
+    learningPathCopyLinkDescription: {
+        'en': 'Copy and paste the URL of your learning path to share or view.',
+        'zh-cn': 'Copy and paste the URL of your learning path to share or view.[zh-cn]',
+        'uk': 'Copy and paste the URL of your learning path to share or view.[uk]',
+        'pt-br': 'Copy and paste the URL of your learning path to share or view.[pt-br]'
+    },
+    getLearningPathLink: {
+        'en': 'Get learning path link',
+        'zh-cn': 'Get learning path link[zh-cn]',
+        'uk': 'Get learning path link[uk]',
+        'pt-br': 'Get learning path link[pt-br]'
+    },
+    learningPathCopyEmbedCodeDescription: {
+        'en': 'Paste this code into your HTML page where you want the learning path to appear',
+        'zh-cn': 'Paste this code into your HTML page where you want the learning path to appear[zh-cn]',
+        'uk': 'Paste this code into your HTML page where you want the learning path to appear[uk]',
+        'pt-br': 'Paste this code into your HTML page where you want the learning path to appear[pt-br]'
+    },
+    updateLearningPathDescription: {
+        'en': 'The learning path might have been changed since it was last published. Click \"Update learning path\" to apply last changes.',
+        'zh-cn': 'The learning path might have been changed since it was last published. Click \"Update learning path\" to apply last changes.[zh-cn]',
+        'uk': 'The learning path might have been changed since it was last published. Click \"Update learning path\" to apply last changes.[uk]',
+        'pt-br': 'The learning path might have been changed since it was last published. Click \"Update learning path\" to apply last changes.[pt-br]'
+    },
+    updateLearningPath: {
+        'en': 'Update learning path',
+        'zh-cn': 'Update learning path[zh-cn]',
+        'uk': 'Update learning path[uk]',
+        'pt-br': 'Update learning path[pt-br]'
+    },
     /* End resource section for model Learning paths */
     
     /* Resource section for model Courses */
@@ -1909,13 +1945,49 @@
         'uk': 'Змінити ',
         'pt-br': 'Trocar imagem'
     },
+    newMultipleChoiceQuestionTitle: {
+        'en': 'Untitled multiple choice question',
+        'zh-cn': 'Untitled multiple choice question[zh-cn]',
+        'uk': 'Питання \"Декілька з багатьох\" без назви',
+        'pt-br': 'Untitled multiple choice question[pt-br]'
+    },
+    newSingleChoiceTextQuestionTitle: {
+        'en': 'Untitled single choice question',
+        'zh-cn': 'Untitled single choice question[zh-cn]',
+        'uk': 'Питання \"Один з багатьох\" без назви',
+        'pt-br': 'Untitled single choice question[pt-br]'
+    },
+    newFillInTheBlanksQuestionTitle: {
+        'en': 'Untitled fill in the blanks question',
+        'zh-cn': 'Untitled fill in the blanks question[zh-cn]',
+        'uk': 'Питання \"Текст з пропусками\" без назви',
+        'pt-br': 'Untitled fill in the blanks question[pt-br]'
+    },
+    newDragAndDropTextQuestionTitle: {
+        'en': 'Untitled drag and drop text question',
+        'zh-cn': 'Untitled drag and drop text question[zh-cn]',
+        'uk': 'Питання \"Тексти на зображенні\" без назви',
+        'pt-br': 'Untitled drag and drop text question[pt-br]'
+    },
+    newSingleChoiceImageQuestionTitle: {
+        'en': 'Untitled single choice image question',
+        'zh-cn': 'Untitled single choice image question[zh-cn]',
+        'uk': 'Питання \"Вибір зображення\" без назви',
+        'pt-br': 'Untitled single choice image question[pt-br]'
+    },
+    newTextMatchingQuestionTitle: {
+        'en': 'Untitled text matching question',
+        'zh-cn': 'Untitled text matching question[zh-cn]',
+        'uk': 'Питання \"Вибір відповідності\" без назви',
+        'pt-br': 'Untitled text matching question[pt-br]'
+    },
     /* End resource section for model Questions */
     
     /* Resource section for model HotspotQuestion */
     newHotspotQuestionTitle: {
         'en': 'Untitled hotspot question',
         'zh-cn': '未命名的热点问题',
-        'uk': 'Питання без назви',
+        'uk': 'Питання \"Область відповіді\" без назви',
         'pt-br': 'Questão hotspot sem título'
     },
     hotSpotDesigner: {
@@ -2014,7 +2086,7 @@
     newStatementQuestionTitle: {
         'en': 'Untitled statement question',
         'zh-cn': '未命名的判断题',
-        'uk': 'Питання без назви',
+        'uk': 'Питання \"Твердження\" без назви',
         'pt-br': 'Questão tipo afirmação sem título'
     },
     statementTrue: {
@@ -2035,7 +2107,7 @@
     newOpenQuestionTitle: {
         'en': 'Untitled open question',
         'zh-cn': 'Untitled open question[zh-cn]',
-        'uk': 'Питання без назви',
+        'uk': 'Питання \"Розгорнута відповідь\" без назви',
         'pt-br': 'Questão aberta sem título'
     },
     openQuestion: {
