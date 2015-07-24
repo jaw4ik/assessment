@@ -1987,7 +1987,7 @@
     newHotspotQuestionTitle: {
         'en': 'Untitled hotspot question',
         'zh-cn': '未命名的热点问题',
-        'uk': 'Питання без назви',
+        'uk': 'Питання \"Область відповіді\"',
         'pt-br': 'Questão hotspot sem título'
     },
     hotSpotDesigner: {
@@ -2086,7 +2086,7 @@
     newStatementQuestionTitle: {
         'en': 'Untitled statement question',
         'zh-cn': '未命名的判断题',
-        'uk': 'Питання без назви',
+        'uk': 'Питання \"Твердження\" без назви',
         'pt-br': 'Questão tipo afirmação sem título'
     },
     statementTrue: {
@@ -2107,7 +2107,7 @@
     newOpenQuestionTitle: {
         'en': 'Untitled open question',
         'zh-cn': 'Untitled open question[zh-cn]',
-        'uk': 'Питання без назви',
+        'uk': 'Питання \"Розгорнута відповідь\" без назви',
         'pt-br': 'Questão aberta sem título'
     },
     openQuestion: {
