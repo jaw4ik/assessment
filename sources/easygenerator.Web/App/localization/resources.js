@@ -1987,7 +1987,7 @@
     newHotspotQuestionTitle: {
         'en': 'Untitled hotspot question',
         'zh-cn': '未命名的热点问题',
-        'uk': 'Питання \"Область відповіді\"',
+        'uk': 'Питання \"Область відповіді\" без назви',
         'pt-br': 'Questão hotspot sem título'
     },
     hotSpotDesigner: {
