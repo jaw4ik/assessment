@@ -9,6 +9,7 @@
         "design": "settings/design/design.html",
         "configure": "settings/configure/configure.html"
     },
+    "progressTrackable":  false,
     "languages": [
         {
             "code": "nl",
