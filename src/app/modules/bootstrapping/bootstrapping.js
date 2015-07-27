@@ -40,6 +40,18 @@
                 bootstrapModules.push('quiz.publishSettings');
             }
 
+            if (publishSettings && publishSettings.modules) {
+                var hasLms = _.some(publishSettings.modules, function (module) {
+                    return module.name === 'lms';
+                });
+
+                if (!hasLms) {
+                    bootstrapModules.push('quiz.progressStorer');
+                }
+            } else {
+                bootstrapModules.push('quiz.progressStorer');
+            }
+
             angular.bootstrap(document, bootstrapModules);
         });
 

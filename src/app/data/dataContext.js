@@ -7,7 +7,7 @@
     dataContext.$inject = ['$rootScope', '$q', '$http', 'Quiz', 'Objective', '$templateCache', 'questionsFactory', 'questionPool'];// jshint ignore:line
 
     function dataContext($rootScope, $q, $http, Quiz, Objective, $templateCache, questionsFactory, questionPool) { // jshint ignore:line
-        
+
         var self = {
             isInited: false,
             quiz: null,
@@ -25,9 +25,9 @@
         function init() {
             return $http.get('content/data.js').success(function (response) {
                 var promises = [];
-
                 self.id = response.id;
                 self.title = response.title;
+                self.createdOn = new Date(response.createdOn);
                 self.hasIntroductionContent = response.hasIntroductionContent;
 
                 if (response.hasIntroductionContent) {
@@ -95,7 +95,7 @@
                 return $q.all(questionsForCourse.map(function (question) {
                     return question.loadContent();
                 })).then(function () {
-                    return self.quiz = new Quiz(self.id, self.title, objectivesForCourse, questionsForCourse, self.hasIntroductionContent);
+                    return self.quiz = new Quiz(self.id, self.title, self.createdOn, objectivesForCourse, questionsForCourse, self.hasIntroductionContent);
                 });
             }
 
@@ -103,4 +103,4 @@
         }
     }
 
-} ());
+}());
