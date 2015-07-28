@@ -71,6 +71,7 @@
             //#endregion 
             'localization/localizationManager.spec',
             'models/course.spec',
+            'models/learningPath.spec',
             'models/user.spec',
             'models/video.spec',
             'repositories/answerRepository.spec',
