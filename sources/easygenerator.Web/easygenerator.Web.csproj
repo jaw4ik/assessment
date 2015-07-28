@@ -260,6 +260,7 @@
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
     <Compile Include="Components\DefaultApiController.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
+    <Compile Include="Components\HttpContextWrapper.cs" />
     <Compile Include="Components\ManifestFileManager.cs" />
     <Compile Include="Components\Mappers\AnswerMapper.cs" />
     <Compile Include="Components\Mappers\BlankAnswerMapper.cs" />
@@ -290,6 +291,9 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
+    <Compile Include="Controllers\Lti\AuthenticationController.cs" />
+    <Compile Include="InMemoryStorages\ISessionStorage.cs" />
+    <Compile Include="InMemoryStorages\SessionStorage.cs" />
     <Compile Include="Storage\CourseStateStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\AnswerChangedEvent.cs" />
@@ -1967,6 +1971,7 @@
     <Content Include="Scripts\knockoutBindings\scrollToBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextInAnswerBinding.js" />
     <Content Include="Scripts\knockoutBindings\switchToggleBinding.js" />
+    <Content Include="Scripts\lti\launch.js" />
     <Content Include="Scripts\md5.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />

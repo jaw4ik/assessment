@@ -55,6 +55,10 @@ namespace easygenerator.Lti.Owin.Security
 
                     var tokens = _tokenProvider.GenerateTokens(context.LtiRequest.LisPersonEmailPrimary, context.Request.Uri.Host,
                         AuthorizationConfigurationProvider.Endpoints.Select(_ => _.Name));
+
+                    context.Response.StatusCode = 302;
+                    //context.Response.Headers.Set("Location", urlToRedirect);
+
                     //_authenticationManager.SignIn(
                     //    context.LtiRequest.LisPersonEmailPrimary,
                     //    context.LtiRequest.LisPersonNameGiven,
