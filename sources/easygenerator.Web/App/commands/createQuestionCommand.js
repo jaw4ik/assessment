@@ -60,12 +60,24 @@
 
         function getActualQuestionName(questionType) {
             switch (questionType) {
-                case constants.questionType.informationContent.type:
-                    return localizationManager.localize('newInformationContentTitle');
-                case constants.questionType.statement.type:
-                    return localizationManager.localize('newStatementQuestionTitle');
+                case constants.questionType.multipleSelect.type:
+                    return localizationManager.localize('newMultipleChoiceQuestionTitle');
+                case constants.questionType.fillInTheBlank.type:
+                    return localizationManager.localize('newFillInTheBlanksQuestionTitle');
+                case constants.questionType.dragAndDropText.type:
+                    return localizationManager.localize('newDragAndDropTextQuestionTitle');
                 case constants.questionType.hotspot.type:
                     return localizationManager.localize('newHotspotQuestionTitle');
+                case constants.questionType.singleSelectText.type:
+                    return localizationManager.localize('newSingleChoiceTextQuestionTitle');
+                case constants.questionType.singleSelectImage.type:
+                    return localizationManager.localize('newSingleChoiceImageQuestionTitle');
+                case constants.questionType.informationContent.type:
+                    return localizationManager.localize('newInformationContentTitle');
+                case constants.questionType.textMatching.type:
+                    return localizationManager.localize('newTextMatchingQuestionTitle');
+                case constants.questionType.statement.type:
+                    return localizationManager.localize('newStatementQuestionTitle');
                 case constants.questionType.openQuestion.type:
                     return localizationManager.localize('newOpenQuestionTitle');
                 default:

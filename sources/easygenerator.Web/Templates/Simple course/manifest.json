@@ -1,9 +1,9 @@
 {
     "name": "Simple course",
     "shortDescription": "This template is a basic course format",
-    "thumbnail": "img/thumbnail.png",
+    "thumbnail": "preview/thumbnail.png",
     "previewImages": [
-        "img/previewImages/previewSimple.jpg"
+        "preview/images/preview.jpg"
     ],
     "settingsUrls": {
         "design": "settings/design/design.html",

@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
     <meta name="viewport" content="width=800,maximum-scale=1.0">
 
-    <link href="css/styles.css?v=1436792183029" rel="stylesheet" />
+    <link rel="stylesheet" href="css/vendor.css?v=1437993709193">
+
+    <link href="css/styles.css?v=1437993709193" rel="stylesheet" />
 </head>
 
 <body>
@@ -44,234 +46,64 @@
         <footer></footer>
     </div>
 
-    <div id="not-supported-page" style="display:none">
-        <table class="bg-table" border="0" cellpadding="0" cellspacing="0">
-            <tr>
-                <td class="top-bg">&nbsp;</td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="toothed-bg">&nbsp;</div>
-                </td>
-            </tr>
-            <tr>
-                <td class="bottom-bg">&nbsp;</td>
-            </tr>
-        </table>
-        <table class="markup-table" border="0" cellpadding="0" cellspacing="0">
-            <tr>
-                <td colspan="3" class="eg-logo-wrapper">
-                    <div class="eg-logo">&nbsp;</div>
-                </td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td class="content-cell">
-                    <div class="content">
-                        <h1 class="page-caption">Your browser is currently not supported</h1>
-                        <p class="page-caption-description">Don't worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions.</p>
-                        <table class="supported-browsers-group" border="0" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td>&nbsp;</td>
-                                <td class="supported-browser-item chrome">
-                                    <a href="http://www.google.com/chrome" class="download-browser-link" target="_blank">
-                                        <img class="browser-image" src="css/img/notSupportedPage/chrome.png?v=1436792183029" alt="">
-                                        <p>
-                                            <span class="browser-title">google chrome</span>
-                                        </p>
-                                    </a>
-                                </td>
-                                <td class="supported-browser-item firefox">
-                                    <a href="http://www.mozilla.com/firefox" class="download-browser-link" target="_blank">
-                                        <img class="browser-image" src="css/img/notSupportedPage/firefox.png?v=1436792183029" alt="">
-                                        <p>
-                                            <span class="browser-title">mozilla firefox</span>
-                                        </p>
+    <script src="app/vendor.js?v=1437993709193"></script>
 
-                                    </a>
-                                </td>
-                                <td class="supported-browser-item safari">
-                                    <a href="http://www.apple.com/safari/" class="download-browser-link" target="_blank">
-                                        <img class="browser-image" src="css/img/notSupportedPage/safari.png?v=1436792183029" alt="">
-                                        <p>
-                                            <span class="browser-title">apple safari</span>
-                                        </p>
-                                    </a>
-                                </td>
-                                <td class="supported-browser-item ie">
-                                    <a href="http://windows.microsoft.com/en-US/internet-explorer/download-ie" class="download-browser-link" target="_blank">
-                                        <img class="browser-image" src="css/img/notSupportedPage/ie.png?v=1436792183029" alt="">
-                                        <p>
-                                            <span class="browser-title">internet explorer</span>
-                                        </p>
-                                    </a>
-                                </td>
-                                <td>&nbsp;</td>
-                            </tr>
-                        </table>
-                        <div class="try-anyway-wrapper">
-                            <span>or </span>
-                            <a href="" id="skip-not-supported-page" class="try-anyway">let me try it anyway...</a>
-                        </div>
-                    </div>
-                </td>
-                <td>&nbsp;</td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="bottom-aligner">&nbsp;</div>
-                </td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-            </tr>
-        </table>
-    </div>
-
-    <!-- Check browser support -->
     <script type="text/javascript">
-        var browserSupport = browserSupportProvider();
-
-        if (!browserSupport.isSupportedMobile && !browserSupport.isSupportedBrowser) {
-            getById('main-app').style.display = 'none';
-            document.getElementsByTagName("html")[0].style.height = '100%';
-            document.getElementsByTagName("body")[0].style.height = '100%';
-
-            var view = getById('not-supported-page');
-            view.style.display = 'block';
-
-            if (browserSupport.isIos || browserSupport.isAndroid) {
-                view.className += ' mobile';
-                view.className += browserSupport.isIos ? ' ios' : ' android';
-            } else {
-                view.className += browserSupport.isMac ? 'mac' : 'windows';
-            }
-            bindSkip('skip-not-supported-page');
-        }
-
-        function browserSupportProvider() {
-
-            var ua = navigator.userAgent.toLowerCase();
-
-            var browserSupport = {
-                isSupportedMobile: null,
-                isSupportedBrowser: null,
-                isIos: null,
-                isMac: null,
-                isAndroid: null
-            };
-
-            function initialize() {
-                var browserInfo = getBrowserInfo();
-                browserSupport.isSupportedMobile = isSupportedMobile();
-                browserSupport.isSupportedBrowser = isSupportedBrowser(browserInfo);
-                browserSupport.isIos = isIos();
-                browserSupport.isMac = isMac();
-                browserSupport.isAndroid = isAndroid();
-                return browserSupport;
-            };
-
-            function getBrowserInfo() {
-                var N = navigator.appName,
-                    tem,
-                    M = ua.match(/(chrome|safari|firefox|msie)\/?\s*([\d\.]+)/i) || [];
-
-                M = M[2] ? [M[1], M[2]] : [N, navigator.appVersion, '-?'];
-                if (M && (tem = ua.match(/version\/([\.\d]+)/i)) != null) M[2] = tem[1];
-
-                var browser = M[0].toLowerCase();
-                var version = parseInt(M[1], 10);
-
-                return {
-                    browser: browser,
-                    version: version
-            };
-            };
-
-            function isIos() {
-                return /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
-            }
-
-            function isMac() {
-                return ua.indexOf('macintosh') != -1 || ua.indexOf('mac os') != -1;
-            }
-
-            function isAndroid() {
-                return ua.indexOf('android') != -1;
-            }
-
-            function isSupportedMobile() {
-                if (isIos()) {
-                    var v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
-                    if (parseInt(v[1], 10) >= 6 && ua.indexOf("opera") == -1 && ua.indexOf('opios') == -1 && ua.indexOf("firefox") == -1) {
-                        return true;
+        supportedBrowser.configure({
+            browsers: {
+                win: {
+                    chrome: {},
+                    firefox: {},    
+                    msie: {}
+                },
+                mac: {
+                    safari: {},
+                    chrome: {}
+                },
+                android: {
+                    native: {
+                        title: 'Android Browser',
+                        image: 'css/img/browsers/android.png?v=1437993709193'
+                    },
+                    chrome: {
+                        version: 39
                     }
+                },
+                ios: {
+                    safari: {},
+                    chrome: {}
                 }
-
-                //Android is supported but not chrome, opera or firefox
-                if (isAndroid() &&
-                    ua.indexOf("opera") == -1 &&
-                    ua.indexOf("firefox") == -1 &&
-                    parseFloat(ua.slice(ua.indexOf("android") + 8)) > 2.2) {
-                    return true;
+            },
+            mainAppContainerId: 'main-app',
+            globalBrowsersInfo: {
+                chrome: {
+                    title: 'Google Chrome',
+                    link: 'http://www.google.com/chrome',
+                    image: 'css/img/browsers/chrome.png?v=1437993709193',
+                    version: 43
+                },
+                firefox: {
+                    title: 'Mozilla Firefox',
+                    link: 'http://www.mozilla.com/firefox',
+                    image: 'css/img/browsers/firefox.png?v=1437993709193',
+                    version: 33
+                },
+                msie: {
+                    title: 'Internet Explorer',
+                    link: 'http://windows.microsoft.com/en-US/internet-explorer/download-ie',
+                    image: 'css/img/browsers/ie.png?v=1437993709193',
+                    version: 11
+                },
+                safari: {
+                    title: 'Apple Safari',
+                    link: 'http://www.apple.com/safari',
+                    image: 'css/img/browsers/safari.png?v=1437993709193'
                 }
-
-                return false;
-            };
-
-            function isSupportedBrowser(browserInfo) {
-                if (isIos() || isAndroid()) {
-                    return false;
-                }
-
-                //Mac OS only Safary
-                if (isMac()) {
-                    if (ua.indexOf('opera') != -1 || ua.indexOf('firefox') != -1) {
-                        return false;
-                    }
-                    return true;
-                }
-                // Opera is not supported
-                if (navigator.appName.toLowerCase() == "opera" || navigator.userAgent.indexOf("OPR") != -1)
-                    return false;
-
-                //Chrome 28+, Firefox 22+, Safari 5+ are supported
-                var browser = browserInfo.browser;
-                var version = browserInfo.version;
-
-                if (browser == "chrome" && version >= 28 ||
-                        browser == "firefox" && version >= 22)
-                    return true;
-
-                // IE 11 is supported
-                if (ua.indexOf('rv:11.0') != -1) {
-                    return true;
-                }
-
-                return false;
-            };
-
-            return initialize();
-        };
-
-        function getById(id) {
-            return document.getElementById(id);
-        }
-
-        function bindSkip(id) {
-            getById(id).onclick = function () {
-                document.getElementsByTagName("html")[0].style.height = '';
-                document.getElementsByTagName("body")[0].style.height = '';
-
-                getById('not-supported-page').style.display = 'none';
-                getById('main-app').style.display = '';
             }
-        }
+        }).init();
     </script>
-    <!-- endCheck -->
 
-    <script src="app/vendor.js?v=1436792183029"></script>
-
-    <script src="app/app.js?v=1436792183029"></script>
+    <script src="app/app.js?v=1437993709193"></script>
 </body>
 
 </html>
