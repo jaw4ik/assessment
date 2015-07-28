@@ -200,6 +200,7 @@
             'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery.spec',
             'viewmodels/learningPaths/learningPath/index.spec',
             'viewmodels/learningPaths/learningPath/details.spec',
+            'viewmodels/learningPaths/learningPath/publish.spec',
             'viewmodels/learningPaths/learningPath/courseBrief.spec',
             'viewmodels/learningPaths/learningPath/actions/download.spec',
             'viewmodels/learningPaths/learningPath/actions/publish.spec',

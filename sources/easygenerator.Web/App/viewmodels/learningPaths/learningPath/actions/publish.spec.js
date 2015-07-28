@@ -1,4 +1,4 @@
-﻿define(['viewmodels/learningPaths/learningPath/actions/publish'], function(publishAction) {
+﻿define(['viewmodels/learningPaths/learningPath/actions/publish'], function (publishAction) {
     'use strict';
     var
         viewModel,
@@ -6,26 +6,29 @@
         eventTracker = require('eventTracker'),
         clientContext = require('clientContext'),
         constants = require('constants'),
-        router = require('plugins/router');
+        router = require('plugins/router'),
+        app = require('durandal/app');
 
-    describe('viewModel [learningPath publish]', function() {
+    describe('viewModel [learningPath publish action]', function () {
 
         beforeEach(function () {
             viewModel = publishAction();
             spyOn(eventTracker, 'publish');
             spyOn(notify, 'error');
             spyOn(router, 'openUrl');
+            spyOn(app, 'on');
+            spyOn(app, 'off');
         });
 
-        describe('learningPath:', function() {
-            it('should be defined', function() {
+        describe('learningPath:', function () {
+            it('should be defined', function () {
                 expect(viewModel.learningPath).toBeDefined();
             });
         });
 
-        describe('publishLink:', function() {
-            it('should be observable', function() {
-                expect(viewModel.publishLink).toBeObservable();
+        describe('publicationUrl:', function () {
+            it('should be observable', function () {
+                expect(viewModel.publicationUrl).toBeObservable();
             });
         });
 
@@ -35,26 +38,32 @@
             });
         });
 
-        describe('linkCopied:', function() {
-            it('should be observable', function() {
+        describe('isDelivering:', function () {
+            it('should be observable', function () {
+                expect(viewModel.isDelivering).toBeObservable();
+            });
+        });
+
+        describe('linkCopied:', function () {
+            it('should be observable', function () {
                 expect(viewModel.linkCopied).toBeObservable();
             });
         });
 
-        describe('embedCodeCopied:', function() {
-            it('should be observable', function() {
+        describe('embedCodeCopied:', function () {
+            it('should be observable', function () {
                 expect(viewModel.embedCodeCopied).toBeObservable();
             });
         });
 
-        describe('copyDisabled:', function() {
-            it('should be observable', function() {
+        describe('copyDisabled:', function () {
+            it('should be observable', function () {
                 expect(viewModel.copyDisabled).toBeObservable();
             });
         });
 
-        describe('publishAvailable:', function() {
-            it('should be observable', function() {
+        describe('publishAvailable:', function () {
+            it('should be observable', function () {
                 expect(viewModel.publishAvailable).toBeObservable();
             });
         });
@@ -84,17 +93,17 @@
             it('should be equal embedCode', function () {
                 viewModel.frameWidth(640);
                 viewModel.frameHeight(480);
-                viewModel.publishLink('publishLink');
-                var embedCode = '<iframe width="640" height="480" src="publishLink" frameborder="0" allowfullscreen></iframe>';
+                viewModel.publicationUrl('publicationUrl');
+                var embedCode = '<iframe width="640" height="480" src="publicationUrl" frameborder="0" allowfullscreen></iframe>';
 
                 expect(viewModel.embedCode()).toBe(embedCode);
             });
 
         });
 
-        describe('onCopyLink:', function() {
+        describe('onCopyLink:', function () {
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.onCopyLink).toBeFunction();
             });
 
@@ -106,9 +115,9 @@
 
         });
 
-        describe('onCopyEmbedCode:', function() {
-            
-            it('should be function', function() {
+        describe('onCopyEmbedCode:', function () {
+
+            it('should be function', function () {
                 expect(viewModel.onCopyEmbedCode).toBeFunction();
             });
 
@@ -120,29 +129,29 @@
 
         });
 
-        describe('openPublishLink:', function() {
+        describe('openPublishLink:', function () {
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.openPublishLink).toBeFunction();
             });
 
-            describe('when publish link is empty', function() {
-                it('should not open link', function() {
-                    viewModel.publishLink('');
+            describe('when publish link is empty', function () {
+                it('should not open link', function () {
+                    viewModel.publicationUrl('');
                     viewModel.openPublishLink();
                     expect(router.openUrl).not.toHaveBeenCalled();
                 });
             });
 
-            it('should open link', function() {
-                viewModel.publishLink('publishLink');
+            it('should open link', function () {
+                viewModel.publicationUrl('publicationUrl');
                 viewModel.openPublishLink();
-                expect(router.openUrl).toHaveBeenCalledWith('publishLink');
+                expect(router.openUrl).toHaveBeenCalledWith('publicationUrl');
             });
 
         });
 
-        describe('validateFrameHeight:', function() {
+        describe('validateFrameHeight:', function () {
 
             describe('when frame height is undefined', function () {
                 it('should set default value', function () {
@@ -152,16 +161,16 @@
                 });
             });
 
-            describe('when frame height is 0', function() {
-                it('should set default value', function() {
+            describe('when frame height is 0', function () {
+                it('should set default value', function () {
                     viewModel.frameHeight(0);
                     viewModel.validateFrameHeight();
                     expect(viewModel.frameHeight()).toBe(constants.frameSize.height.value);
                 });
             });
 
-            describe('when frame height is correct', function() {
-                it('should not change value', function() {
+            describe('when frame height is correct', function () {
+                it('should not change value', function () {
                     viewModel.frameHeight(10);
                     viewModel.validateFrameHeight();
                     expect(viewModel.frameHeight()).toBe(10);
@@ -170,8 +179,8 @@
 
         });
 
-        describe('validateFrameWidth:', function() {
-            
+        describe('validateFrameWidth:', function () {
+
             describe('when frame width is undefined', function () {
                 it('should set default value', function () {
                     viewModel.frameWidth('');
@@ -198,20 +207,229 @@
 
         });
 
-        describe('publish:', function() {
+        describe('publish:', function () {
+            var publishDefer;
 
-            it('should be function', function() {
+            beforeEach(function () {
+                publishDefer = Q.defer();
+                viewModel.isPublishing(false);
+                viewModel.isDelivering(false);
+                viewModel.learningPath = { publish: function () { } };
+                spyOn(viewModel.learningPath, 'publish').and.returnValue(publishDefer.promise);
+            });
+
+            it('should be function', function () {
                 expect(viewModel.publish).toBeFunction();
+            });
+
+            it('should return promise', function() {
+                expect(viewModel.publish()).toBePromise();
+            });
+
+            describe('when isPublishing is true', function () {
+
+                beforeEach(function () {
+                    viewModel.isPublishing(true);
+                });
+
+                it('should not build learningPath again', function () {
+                    viewModel.publish();
+                    expect(viewModel.learningPath.publish).not.toHaveBeenCalled();
+                });
+
+            });
+
+            describe('when isDelivering is true', function () {
+
+                beforeEach(function () {
+                    viewModel.isDelivering(true);
+                });
+
+                it('should not build learningPath again', function () {
+                    viewModel.publish();
+                    expect(viewModel.learningPath.publish).not.toHaveBeenCalled();
+                });
+
+            });
+
+            it('should set isPublishing in true', function () {
+                viewModel.publish();
+                expect(viewModel.isPublishing()).toBeTruthy();
+            });
+
+            it('should publish \'Publish learning path\' event', function () {
+                viewModel.publish();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Publish learning path');
+            });
+
+            it('should publish learningPath', function () {
+                viewModel.publish();
+                expect(viewModel.learningPath.publish).toHaveBeenCalled();
+            });
+
+            describe('when publish failed', function () {
+                beforeEach(function () {
+                    publishDefer.reject('error message');
+                });
+
+                it('notify error message', function (done) {
+                    viewModel.publish().fin(function () {
+                        expect(notify.error).toHaveBeenCalledWith('error message');
+                        done();
+                    });
+                });
+
+                it('should set isBuilding in false', function (done) {
+                    viewModel.publish().fin(function () {
+                        expect(viewModel.isPublishing()).toBeFalsy();
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when publish success', function () {
+
+                beforeEach(function () {
+                    publishDefer.resolve('publicationUrl');
+                });
+
+                it('should update publication url', function (done) {
+                    viewModel.publicationUrl('');
+
+                    viewModel.publish().fin(function () {
+                        expect(viewModel.publicationUrl()).toBe('publicationUrl');
+                        done();
+                    });
+                });
+
+                it('should set isPublishing false', function (done) {
+                    viewModel.publish().fin(function () {
+                        expect(viewModel.isPublishing()).toBeFalsy();
+                        done();
+                    });
+                });
+
             });
 
         });
 
-        describe('activate:', function() {
+        describe('onDeliveringStarted:', function () {
+
+            beforeEach(function () {
+                viewModel.learningPath = { id: 'learningPathId' };
+            });
+
+            it('should be function', function () {
+                expect(viewModel.onDeliveringStarted).toBeFunction();
+            });
+
+            describe('when current learning path is delivered', function () {
+                it('should set isDelivering true', function () {
+                    viewModel.isDelivering(false);
+                    viewModel.onDeliveringStarted({ id: 'learningPathId' });
+                    expect(viewModel.isDelivering()).toBeTruthy();
+                });
+            });
+
+            describe('when other learning path is delivered', function () {
+                it('should not set isDelivering true', function () {
+                    viewModel.isDelivering(false);
+                    viewModel.onDeliveringStarted({ id: 'otherLearningPathId' });
+                    expect(viewModel.isDelivering()).not.toBeTruthy();
+                });
+            });
+        });
+
+        describe('onDeliveringFinished:', function () {
+
+            beforeEach(function () {
+                viewModel.learningPath = { id: 'learningPathId' };
+            });
+
+            it('should be function', function () {
+                expect(viewModel.onDeliveringFinished).toBeFunction();
+            });
+
+            describe('when current learning path is delivered', function () {
+                it('should set isDelivering false', function () {
+                    viewModel.isDelivering(true);
+                    viewModel.onDeliveringFinished({ id: 'learningPathId' });
+                    expect(viewModel.isDelivering()).toBeFalsy();
+                });
+            });
+
+            describe('when other learning path is delivered', function () {
+                it('should not set isDelivering false', function () {
+                    viewModel.isDelivering(true);
+                    viewModel.onDeliveringFinished({ id: 'otherLearningPathId' });
+                    expect(viewModel.isDelivering()).not.toBeFalsy();
+                });
+            });
+        });
+
+        describe('activate:', function () {
+            var learningPath;
+
+            beforeEach(function () {
+                learningPath = {
+                    id: 'learningPathId',
+                    isPublishing: false,
+                    publicationUrl: 'publicationUrl',
+                    isDelivering: function () { return false; }
+                };
+            });
 
             it('should be function', function () {
                 expect(viewModel.activate).toBeFunction();
             });
-            
+
+            it('should set isPublishing', function () {
+                viewModel.isPublishing(null);
+                viewModel.activate(learningPath);
+                expect(viewModel.isPublishing()).toBe(learningPath.isPublishing);
+            });
+
+            it('should set publicationUrl', function () {
+                viewModel.publicationUrl(null);
+                viewModel.activate(learningPath);
+                expect(viewModel.publicationUrl()).toBe(learningPath.publicationUrl);
+            });
+
+            it('should set isDelivering', function () {
+                viewModel.isDelivering(null);
+                viewModel.activate(learningPath);
+                expect(viewModel.isDelivering()).toBe(learningPath.isDelivering());
+            });
+
+            it('should on learning path delivering started event', function () {
+                viewModel.activate(learningPath);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.delivering.started, viewModel.onDeliveringStarted);
+            });
+
+            it('should on learning path delivering finished event', function () {
+                viewModel.activate(learningPath);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.delivering.finished, viewModel.onDeliveringFinished);
+            });
+
+        });
+
+        describe('deactivate:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.deactivate).toBeFunction();
+            });
+
+            it('should off learning path delivering started event', function () {
+                viewModel.deactivate();
+                expect(app.off).toHaveBeenCalledWith(constants.messages.learningPath.delivering.started, viewModel.onDeliveringStarted);
+            });
+
+            it('should off learning path delivering finished event', function () {
+                viewModel.deactivate();
+                expect(app.off).toHaveBeenCalledWith(constants.messages.learningPath.delivering.finished, viewModel.onDeliveringFinished);
+            });
+
         });
 
     });

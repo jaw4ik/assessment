@@ -1,4 +1,4 @@
-﻿define(['eventTracker', 'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery', 'viewmodels/learningPaths/learningPath/actions/download', 'viewmodels/learningPaths/learningPath/actions/publish'], function (eventTracker, getLearningPathByIdQuery, downloadAction, buildAction) {
+﻿define(['eventTracker', 'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery', 'viewmodels/learningPaths/learningPath/actions/download', 'viewmodels/learningPaths/learningPath/actions/publish'], function (eventTracker, getLearningPathByIdQuery, downloadAction, publishAction) {
     'use strict';
 
     var events = {
@@ -9,38 +9,39 @@
 
     var viewModel = {
         learningPath: null,
-        buildAction: downloadAction(),
-        publishAction: buildAction(),
+        downloadAction: downloadAction(),
+        publishAction: publishAction(),
+
+        onOpenLinkTab: onOpenLinkTab,
+        onOpenEmbedTab: onOpenEmbedTab,
+        onOpenHtmlTab: onOpenHtmlTab,
 
         activate: activate,
-        deactivate: deactivate,
-
-        sendOpenLinkTab: sendOpenLinkTab,
-        sendOpenEmbedTab: sendOpenEmbedTab,
-        sendOpenHtmlTab: sendOpenHtmlTab
+        deactivate: deactivate
     };
 
     return viewModel;
 
     function activate(learningPathId) {
-        return getLearningPathByIdQuery.execute(learningPathId).then(function(learningPath) {
+        return getLearningPathByIdQuery.execute(learningPathId).then(function (learningPath) {
             viewModel.learningPath = learningPath;
         });
     }
 
     function deactivate() {
-
+        viewModel.downloadAction.deactivate();
+        viewModel.publishAction.deactivate();
     }
 
-    function sendOpenLinkTab() {
+    function onOpenLinkTab() {
         eventTracker.publish(events.openLinkTab);
     }
 
-    function sendOpenEmbedTab() {
+    function onOpenEmbedTab() {
         eventTracker.publish(events.openEmbedTab);
     }
 
-    function sendOpenHtmlTab() {
+    function onOpenHtmlTab() {
         eventTracker.publish(events.openHtmlTab);
     }
 });

@@ -808,6 +808,30 @@
         'uk': 'Update learning path[uk]',
         'pt-br': 'Update learning path[pt-br]'
     },
+    downloadAsHtml: {
+        'en': 'Download as HTML',
+        'zh-cn': '下载为HTML格式',
+        'uk': 'Завантажити пакет HTML',
+        'pt-br': 'Download como HTML'
+    },
+    downloadAsHtmlDescription: {
+        'en': 'Publish to your webserver or cloud storage',
+        'zh-cn': '在您的网站或者云存储上发布',
+        'uk': 'Опублікуйте на своєму веб-сервері чи хмарній системі зберігання даних',
+        'pt-br': 'Publicar para o seu servidor web ou armazenamento na nuvem'
+    },
+    learningPathDownloadAsHtmlHint1: {
+        'en': 'Want to run your learning path offline on your desktop or on your own server?',
+        'zh-cn': 'Want to run your learning path offline on your desktop or on your own server?[zh-cn]',
+        'uk': 'Хочете запустити свій навчальний шлях в режимі офлайн чи на власному сервері?',
+        'pt-br': 'Want to run your learning path offline on your desktop or on your own server?[pt-br]'
+    },
+    learningPathDownloadAsHtmlHint2: {
+        'en': 'We package up all the HTML, CSS and JS of your learning path for you to download.',
+        'zh-cn': 'We package up all the HTML, CSS and JS of your learning path for you to download.[zh-cn]',
+        'uk': 'Ми створимо HTML, CSS,  JS пакет для Вас.',
+        'pt-br': 'We package up all the HTML, CSS and JS of your learning path for you to download.[pt-br]'
+    },
     /* End resource section for model Learning paths */
     
     /* Resource section for model Courses */
@@ -1945,13 +1969,49 @@
         'uk': 'Змінити ',
         'pt-br': 'Trocar imagem'
     },
+    newMultipleChoiceQuestionTitle: {
+        'en': 'Untitled multiple choice question',
+        'zh-cn': 'Untitled multiple choice question[zh-cn]',
+        'uk': 'Питання \"Декілька з багатьох\" без назви',
+        'pt-br': 'Untitled multiple choice question[pt-br]'
+    },
+    newSingleChoiceTextQuestionTitle: {
+        'en': 'Untitled single choice question',
+        'zh-cn': 'Untitled single choice question[zh-cn]',
+        'uk': 'Питання \"Один з багатьох\" без назви',
+        'pt-br': 'Untitled single choice question[pt-br]'
+    },
+    newFillInTheBlanksQuestionTitle: {
+        'en': 'Untitled fill in the blanks question',
+        'zh-cn': 'Untitled fill in the blanks question[zh-cn]',
+        'uk': 'Питання \"Текст з пропусками\" без назви',
+        'pt-br': 'Untitled fill in the blanks question[pt-br]'
+    },
+    newDragAndDropTextQuestionTitle: {
+        'en': 'Untitled drag and drop text question',
+        'zh-cn': 'Untitled drag and drop text question[zh-cn]',
+        'uk': 'Питання \"Тексти на зображенні\" без назви',
+        'pt-br': 'Untitled drag and drop text question[pt-br]'
+    },
+    newSingleChoiceImageQuestionTitle: {
+        'en': 'Untitled single choice image question',
+        'zh-cn': 'Untitled single choice image question[zh-cn]',
+        'uk': 'Питання \"Вибір зображення\" без назви',
+        'pt-br': 'Untitled single choice image question[pt-br]'
+    },
+    newTextMatchingQuestionTitle: {
+        'en': 'Untitled text matching question',
+        'zh-cn': 'Untitled text matching question[zh-cn]',
+        'uk': 'Питання \"Вибір відповідності\" без назви',
+        'pt-br': 'Untitled text matching question[pt-br]'
+    },
     /* End resource section for model Questions */
     
     /* Resource section for model HotspotQuestion */
     newHotspotQuestionTitle: {
         'en': 'Untitled hotspot question',
         'zh-cn': '未命名的热点问题',
-        'uk': 'Питання без назви',
+        'uk': 'Питання \"Область відповіді\" без назви',
         'pt-br': 'Questão hotspot sem título'
     },
     hotSpotDesigner: {
@@ -2050,7 +2110,7 @@
     newStatementQuestionTitle: {
         'en': 'Untitled statement question',
         'zh-cn': '未命名的判断题',
-        'uk': 'Питання без назви',
+        'uk': 'Питання \"Твердження\" без назви',
         'pt-br': 'Questão tipo afirmação sem título'
     },
     statementTrue: {
@@ -2071,7 +2131,7 @@
     newOpenQuestionTitle: {
         'en': 'Untitled open question',
         'zh-cn': 'Untitled open question[zh-cn]',
-        'uk': 'Питання без назви',
+        'uk': 'Питання \"Розгорнута відповідь\" без назви',
         'pt-br': 'Questão aberta sem título'
     },
     openQuestion: {

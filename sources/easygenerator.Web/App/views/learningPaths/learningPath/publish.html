@@ -3,21 +3,21 @@
         <div class="content-section">
             <div class="publish-container" data-bind="publishTabs: {}">
                 <ul class="publish-tabs unstyled">
-                    <li class="publish-tab active" data-bind="click: sendOpenLinkTab" data-tab-link="private-link">
+                    <li class="publish-tab active" data-bind="click: onOpenLinkTab" data-tab-link="private-link">
                         <div class="active-indicator"></div>
                         <div class="publish-tab-image-container">
                             <span class="publish-tab-image private-link"></span>
                         </div>
                         <span data-bind="localize: {text: 'sharePrivateLink'}">Share private link</span>
                     </li>
-                    <li class="publish-tab" data-bind="click: sendOpenEmbedTab" data-tab-link="embed">
+                    <li class="publish-tab" data-bind="click: onOpenEmbedTab" data-tab-link="embed">
                         <div class="active-indicator"></div>
                         <div class="publish-tab-image-container">
                             <span class="publish-tab-image embed"></span>
                         </div>
                         <span data-bind="localize: {text: 'insideAWebsite'}">Inside a website</span>
                     </li>
-                    <li class="publish-tab" data-bind="click: sendOpenHtmlTab" data-tab-link="html">
+                    <li class="publish-tab" data-bind="click: onOpenHtmlTab" data-tab-link="html">
                         <div class="active-indicator"></div>
                         <div class="publish-tab-image-container">
                             <span class="publish-tab-image html"></span>
@@ -30,7 +30,7 @@
                     <!-- /ko -->
                     <!-- ko compose: { view: 'views/learningPaths/learningPath/publish/publishToPublicationServerEmbed', model: publishAction, activationData: learningPath } -->
                     <!-- /ko -->
-                    <!-- ko compose: { view: 'views/learningPaths/learningPath/publish/publishAsHtml', model: buildAction, activationData: learningPath } -->
+                    <!-- ko compose: { view: 'views/learningPaths/learningPath/publish/publishAsHtml', model: downloadAction, activationData: learningPath } -->
                     <!-- /ko -->
                 </div>
             </div>

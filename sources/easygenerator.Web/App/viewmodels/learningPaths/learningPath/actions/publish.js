@@ -1,4 +1,4 @@
-﻿define(['knockout', 'notify', 'eventTracker', 'clientContext', 'constants', 'plugins/router'], function (ko, notify, eventTracker, clientContext, constants, router) {
+﻿define(['knockout', 'notify', 'eventTracker', 'clientContext', 'constants', 'plugins/router', 'durandal/app', 'constants'], function (ko, notify, eventTracker, clientContext, constants, router, app, constants) {
 
     var
        events = {
@@ -11,8 +11,10 @@
         var viewModel = {
             learningPath: null,
 
-            publishLink: ko.observable(''),
+            publicationUrl: ko.observable(''),
             isPublishing: ko.observable(false),
+            isDelivering: ko.observable(false),
+
             linkCopied: ko.observable(false),
             embedCodeCopied: ko.observable(false),
             copyDisabled: ko.observable(false),
@@ -25,7 +27,11 @@
             validateFrameWidth: validateFrameWidth,
 
             publish: publish,
-            activate: activate
+            onDeliveringStarted: onDeliveringStarted,
+            onDeliveringFinished: onDeliveringFinished,
+
+            activate: activate,
+            deactivate: deactivate
         }
 
         viewModel.frameWidth = ko.observable(_.isNullOrUndefined(clientContext.get(constants.frameSize.width.name)) ? constants.frameSize.width.value : clientContext.get(constants.frameSize.width.name));
@@ -36,7 +42,7 @@
             clientContext.set(constants.frameSize.height.name, viewModel.frameHeight());
             return constants.embedCode.replace('{W}', viewModel.frameWidth())
                                       .replace('{H}', viewModel.frameHeight())
-                                      .replace('{src}', viewModel.publishLink());
+                                      .replace('{src}', viewModel.publicationUrl());
         });
 
         return viewModel;
@@ -59,8 +65,8 @@
         }
 
         function openPublishLink() {
-            if (viewModel.publishLink()) {
-                router.openUrl(viewModel.publishLink());
+            if (viewModel.publicationUrl()) {
+                router.openUrl(viewModel.publicationUrl());
             }
         }
 
@@ -77,26 +83,54 @@
         }
 
         function publish() {
-            if (viewModel.isPublishing()) {
+            if (viewModel.isPublishing() || viewModel.isDelivering()) {
                 return;
             }
 
             viewModel.isPublishing(true);
             eventTracker.publish(events.publishLearningPath);
 
-            return viewModel.learningPath.publish().then(function (publishLink) {
-                viewModel.publishLink(publishLink);
-            }).fail(function (message) {
-                notify.error(message);
-            }).fin(function () {
-                viewModel.isPublishing(false);
-            });
+            return viewModel.learningPath.publish()
+                .then(function (publicationUrl) {
+                    viewModel.publicationUrl(publicationUrl);
+                })
+                .fail(function (message) {
+                    notify.error(message);
+                })
+                .fin(function () {
+                    viewModel.isPublishing(false);
+                });
         }
 
         function activate(learningPath) {
             viewModel.learningPath = learningPath;
-            viewModel.publishLink(learningPath.publishLink);
+            viewModel.publicationUrl(learningPath.publicationUrl);
             viewModel.isPublishing(learningPath.isPublishing);
+            viewModel.isDelivering(learningPath.isDelivering());
+
+            app.on(constants.messages.learningPath.delivering.started, viewModel.onDeliveringStarted);
+            app.on(constants.messages.learningPath.delivering.finished, viewModel.onDeliveringFinished);
+        }
+
+        function deactivate() {
+            app.off(constants.messages.learningPath.delivering.started, viewModel.onDeliveringStarted);
+            app.off(constants.messages.learningPath.delivering.finished, viewModel.onDeliveringFinished);
+        }
+
+        function onDeliveringStarted(learningPath) {
+            if (viewModel.learningPath.id != learningPath.id) {
+                return;
+            }
+
+            viewModel.isDelivering(true);
+        }
+
+        function onDeliveringFinished(learningPath) {
+            if (viewModel.learningPath.id != learningPath.id) {
+                return;
+            }
+
+            viewModel.isDelivering(false);
         }
     };
 

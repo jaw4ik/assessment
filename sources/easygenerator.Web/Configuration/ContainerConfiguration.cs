@@ -142,6 +142,7 @@ namespace easygenerator.Web.Configuration
             #region Publisher dependencies
 
             builder.RegisterType<CoursePublisher>().As<ICoursePublisher>();
+            builder.RegisterType<LearningPathPublisher>().As<ILearningPathPublisher>();
 
             #endregion
 

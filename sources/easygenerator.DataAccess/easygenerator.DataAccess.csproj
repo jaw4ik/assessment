@@ -290,6 +290,10 @@
     <Compile Include="Migrations\201506040849286_AddLearningPath.Designer.cs">
       <DependentUpon>201506040849286_AddLearningPath.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507221152232_AddPackageAndPublicationLinksToLearningPath.cs" />
+    <Compile Include="Migrations\201507221152232_AddPackageAndPublicationLinksToLearningPath.Designer.cs">
+      <DependentUpon>201507221152232_AddPackageAndPublicationLinksToLearningPath.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
@@ -496,6 +500,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506040849286_AddLearningPath.resx">
       <DependentUpon>201506040849286_AddLearningPath.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507221152232_AddPackageAndPublicationLinksToLearningPath.resx">
+      <DependentUpon>201507221152232_AddPackageAndPublicationLinksToLearningPath.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

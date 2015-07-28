@@ -71,6 +71,8 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<LearningPath>().Property(e => e.CoursesOrder).IsOptional();
             modelBuilder.Entity<LearningPath>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<LearningPath>().HasMany(e => e.CoursesCollection).WithMany(e => e.LearningPathCollection).Map(m => m.ToTable("LearningPathCourses"));
+            modelBuilder.Entity<LearningPath>().Property(e => e.PackageUrl).HasMaxLength(255);
+            modelBuilder.Entity<LearningPath>().Property(e => e.PublicationUrl).HasMaxLength(255);
 
             modelBuilder.Entity<Objective>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Objective>().Property(e => e.ImageUrl).IsOptional();

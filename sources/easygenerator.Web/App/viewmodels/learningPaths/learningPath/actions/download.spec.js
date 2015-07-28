@@ -4,16 +4,20 @@
     var viewModel,
         eventTracker = require('eventTracker'),
         notify = require('notify'),
-        fileHelper = require('fileHelper')
+        fileHelper = require('fileHelper'),
+        app = require('durandal/app'),
+        constants = require('constants')
     ;
 
-    describe('viewModel [learningPath download]', function () {
+    describe('viewModel [learningPath download action]', function () {
 
         beforeEach(function () {
             viewModel = downloadAction();
             spyOn(eventTracker, 'publish');
             spyOn(notify, 'error');
             spyOn(fileHelper, 'downloadFile');
+            spyOn(app, 'on');
+            spyOn(app, 'off');
         });
 
         it('should be object', function () {
@@ -28,7 +32,23 @@
 
         });
 
+        describe('isDelivering:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.isDelivering).toBeObservable();
+            });
+
+        });
+
         describe('activate:', function () {
+            var learningPath;
+            beforeEach(function () {
+                learningPath = {
+                    id: 'learningPathId',
+                    isBuilding: false,
+                    isDelivering: function () { return false; }
+                };
+            });
 
             it('should be function', function () {
                 expect(viewModel.activate).toBeFunction();
@@ -36,14 +56,48 @@
 
             it('should set learningPath', function () {
                 viewModel.learningPath = null;
-                viewModel.activate({});
-                expect(viewModel.learningPath).toBeDefined();
+                viewModel.activate(learningPath);
+                expect(viewModel.learningPath).toBe(learningPath);
             });
 
             it('should set isBuilding', function () {
-                viewModel.isBuilding(false);
-                viewModel.activate({ isBuilding: true });
-                expect(viewModel.isBuilding()).toBeTruthy();
+                viewModel.isBuilding(null);
+                viewModel.activate(learningPath);
+                expect(viewModel.isBuilding()).toBe(learningPath.isBuilding);
+            });
+
+            it('should set isDelivering', function () {
+                viewModel.isDelivering(null);
+                viewModel.activate(learningPath);
+                expect(viewModel.isDelivering()).toBe(learningPath.isDelivering());
+            });
+
+            it('should on learning path delivering started event', function () {
+                viewModel.activate(learningPath);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.delivering.started, viewModel.onDeliveringStarted);
+            });
+
+            it('should on learning path delivering finished event', function () {
+                viewModel.activate(learningPath);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.delivering.finished, viewModel.onDeliveringFinished);
+            });
+
+        });
+
+        describe('deactivate:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.deactivate).toBeFunction();
+            });
+
+            it('should off learning path delivering started event', function () {
+                viewModel.deactivate();
+                expect(app.off).toHaveBeenCalledWith(constants.messages.learningPath.delivering.started, viewModel.onDeliveringStarted);
+            });
+
+            it('should off learning path delivering finished event', function () {
+                viewModel.deactivate();
+                expect(app.off).toHaveBeenCalledWith(constants.messages.learningPath.delivering.finished, viewModel.onDeliveringFinished);
             });
 
         });
@@ -54,6 +108,7 @@
             beforeEach(function () {
                 buildDefer = Q.defer();
                 viewModel.isBuilding(false);
+                viewModel.isDelivering(false);
                 viewModel.learningPath = { build: function () { } };
                 spyOn(viewModel.learningPath, 'build').and.returnValue(buildDefer.promise);
             });
@@ -66,6 +121,19 @@
 
                 beforeEach(function () {
                     viewModel.isBuilding(true);
+                });
+
+                it('should not build learningPath again', function () {
+                    viewModel.download();
+                    expect(viewModel.learningPath.build).not.toHaveBeenCalled();
+                });
+
+            });
+
+            describe('when isDelivering is true', function () {
+
+                beforeEach(function () {
+                    viewModel.isDelivering(true);
                 });
 
                 it('should not build learningPath again', function () {
@@ -135,5 +203,58 @@
 
         });
 
+        describe('onDeliveringStarted:', function () {
+
+            beforeEach(function () {
+                viewModel.learningPath = { id: 'learningPathId' };
+            });
+
+            it('should be function', function () {
+                expect(viewModel.onDeliveringStarted).toBeFunction();
+            });
+
+            describe('when current learning path is delivered', function () {
+                it('should set isDelivering true', function () {
+                    viewModel.isDelivering(false);
+                    viewModel.onDeliveringStarted({ id: 'learningPathId' });
+                    expect(viewModel.isDelivering()).toBeTruthy();
+                });
+            });
+
+            describe('when other learning path is delivered', function () {
+                it('should not set isDelivering true', function () {
+                    viewModel.isDelivering(false);
+                    viewModel.onDeliveringStarted({ id: 'otherLearningPathId' });
+                    expect(viewModel.isDelivering()).not.toBeTruthy();
+                });
+            });
+        });
+
+        describe('onDeliveringFinished:', function () {
+
+            beforeEach(function () {
+                viewModel.learningPath = { id: 'learningPathId' };
+            });
+
+            it('should be function', function () {
+                expect(viewModel.onDeliveringFinished).toBeFunction();
+            });
+
+            describe('when current learning path is delivered', function () {
+                it('should set isDelivering false', function () {
+                    viewModel.isDelivering(true);
+                    viewModel.onDeliveringFinished({ id: 'learningPathId' });
+                    expect(viewModel.isDelivering()).toBeFalsy();
+                });
+            });
+
+            describe('when other learning path is delivered', function () {
+                it('should not set isDelivering false', function () {
+                    viewModel.isDelivering(true);
+                    viewModel.onDeliveringFinished({ id: 'otherLearningPathId' });
+                    expect(viewModel.isDelivering()).not.toBeFalsy();
+                });
+            });
+        });
     });
 });

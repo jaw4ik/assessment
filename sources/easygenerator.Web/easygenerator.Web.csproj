@@ -234,7 +234,6 @@
     <Compile Include="BuildCourse\Scorm\Models\MetadataModel.cs" />
     <Compile Include="BuildCourse\Scorm\Modules\ScormPackageModulesProvider.cs" />
     <Compile Include="BuildCourse\Scorm\ScormCourseBuilder.cs" />
-    <Compile Include="BuildLearningPath\BuildResult.cs" />
     <Compile Include="BuildLearningPath\ILearningPathBuilder.cs" />
     <Compile Include="BuildLearningPath\ILearningPathContentProvider.cs" />
     <Compile Include="BuildLearningPath\ILearningPathCourseBuilder.cs" />
@@ -287,6 +286,8 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
+    <Compile Include="Publish\ILearningPathPublisher.cs" />
+    <Compile Include="Publish\LearningPathPublisher.cs" />
     <Compile Include="Storage\CourseStateStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\AnswerChangedEvent.cs" />
@@ -580,6 +581,9 @@
       <DependentUpon>publishHttpWrapper.js</DependentUpon>
     </Content>
     <Content Include="App\http\publishHttpWrapper.js" />
+    <Content Include="App\models\learningPath.spec.js">
+      <DependentUpon>learningPath.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\actions\publish.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\actions\publish.spec.js">
       <DependentUpon>publish.js</DependentUpon>
@@ -592,6 +596,9 @@
       <DependentUpon>index.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\publish.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\publish.spec.js">
+      <DependentUpon>publish.js</DependentUpon>
+    </Content>
     <Content Include="App\views\learningPaths\learningPath\details.html" />
     <Content Include="App\views\learningPaths\learningPath\publish.html" />
     <Content Include="App\views\learningPaths\learningPath\publish\publishAsHtml.html" />
