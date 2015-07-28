@@ -548,6 +548,10 @@
     <Content Include="App\commands\createObjectiveCommand.spec.js">
       <DependentUpon>createObjectiveCommand.js</DependentUpon>
     </Content>
+    <Content Include="App\commands\duplicateCourseCommand.js" />
+    <Content Include="App\commands\duplicateCourseCommand.spec.js">
+      <DependentUpon>duplicateCourseCommand.js</DependentUpon>
+    </Content>
     <Content Include="App\commands\presentationCourseImportCommand.js" />
     <Content Include="App\commands\presentationCourseImportCommand.spec.js">
       <DependentUpon>presentationCourseImportCommand.js</DependentUpon>

@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'models/course', 'guard', 'http/apiHttpWrapper', 'durandal/app', 'mappers/courseModelMapper'],
-    function (dataContext, constants, CourseModel, guard, apiHttpWrapper, app, courseModelMapper) {
+﻿define(['dataContext', 'constants', 'models/course', 'guard', 'http/apiHttpWrapper', 'durandal/app', 'mappers/courseModelMapper', 'mappers/objectiveModelMapper'],
+    function (dataContext, constants, CourseModel, guard, apiHttpWrapper, app, courseModelMapper, objectiveModelMapper) {
         "use strict";
 
         var repository = {
@@ -10,6 +10,7 @@
             updateCourseTitle: updateCourseTitle,
             updateCourseTemplate: updateCourseTemplate,
             removeCourse: removeCourse,
+            duplicateCourse: duplicateCourse,
 
             relateObjective: relateObjective,
             unrelateObjectives: unrelateObjectives,
@@ -69,6 +70,33 @@
                     });
 
                     app.trigger(constants.messages.course.deleted, courseId);
+                });
+            });
+        }
+
+        function duplicateCourse(courseId) {
+            return Q.fcall(function () {
+                var course = _.find(dataContext.courses, function (exp) {
+                    return exp.id == courseId;
+                });
+                guard.throwIfNotAnObject(course, "Course doesn`t exist");
+
+                return apiHttpWrapper.post('api/course/duplicate', { courseId: courseId }).then(function (response) {
+                    guard.throwIfNotAnObject(response, 'Response is not an object');
+                    guard.throwIfNotAnObject(response.course, 'Course is not an object');
+                    
+                    var objectivesData = response.objectives;
+                    if (objectivesData && _.isArray(objectivesData)) {
+                        _.each(objectivesData, function (objectiveData) {
+                            var objective = objectiveModelMapper.map(objectiveData);
+                            dataContext.objectives.push(objective);
+                        });
+                    }
+                    
+                    var duplicatedCourse = courseModelMapper.map(response.course, dataContext.objectives, dataContext.templates);
+                    dataContext.courses.push(duplicatedCourse);
+
+                    return duplicatedCourse;
                 });
             });
         }

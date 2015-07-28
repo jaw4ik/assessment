@@ -1,7 +1,7 @@
 ﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/courseRepository', 'notify', 'localization/localizationManager',
-    'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'commands/createCourseCommand', 'uiLocker', 'commands/presentationCourseImportCommand'],
+    'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'commands/createCourseCommand', 'uiLocker', 'commands/presentationCourseImportCommand', 'commands/duplicateCourseCommand'],
     function (app, dataContext, userContext, constants, eventTracker, router, courseRepository, notify, localizationManager, clientContext, fileHelper, limitCoursesAmount,
-        createCourseCommand, uiLocker, presentationCourseImportCommand) {
+        createCourseCommand, uiLocker, presentationCourseImportCommand, duplicateCourseCommand) {
         "use strict";
 
         var
@@ -32,7 +32,7 @@
             coursesStarterLimit: limitCoursesAmount.getStarterLimit(),
 
             toggleSelection: toggleSelection,
-
+            duplicateCourse: duplicateCourse,
             navigateToDetails: navigateToDetails,
             navigateToPublish: navigateToPublish,
 
@@ -91,6 +91,17 @@
                 eventTracker.publish(events.courseUnselected);
 
             course.isSelected(!course.isSelected());
+        }
+
+        function duplicateCourse(course) {
+            return Q.fcall(function() {
+                if (!viewModel.isCreateCourseAvailable()) {
+                    return null;
+                }
+                return duplicateCourseCommand.execute(course.id, 'Courses').then(function(duplicatedCourse) {
+                    viewModel.courses.unshift(mapCourse(duplicatedCourse));
+                });
+            });
         }
 
         function navigateToDetails(course) {

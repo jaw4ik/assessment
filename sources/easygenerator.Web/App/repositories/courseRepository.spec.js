@@ -6,7 +6,8 @@
         dataContext = require('dataContext'),
         constants = require('constants'),
         app = require('durandal/app'),
-        courseMapper = require('mappers/courseModelMapper');
+        courseMapper = require('mappers/courseModelMapper'),
+        objectiveMapper = require('mappers/objectiveModelMapper');
 
     describe('repository [courseRepository]', function () {
 
@@ -359,6 +360,120 @@
                     });
 
                     post.resolve();
+                });
+
+            });
+
+        });
+
+        describe('duplicateCourse:', function () {
+
+            var course = { id: 'courseId' };
+
+            beforeEach(function () {
+                dataContext.courses.push(course);
+            });
+
+            afterEach(function () {
+                dataContext.courses.splice(dataContext.courses.indexOf(course), 1);
+            });
+
+            it('should be function', function () {
+                expect(repository.duplicateCourse).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(repository.duplicateCourse()).toBePromise();
+            });
+
+            describe('when course doesn`t exist', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.duplicateCourse(undefined);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Course doesn`t exist');
+                        done();
+                    });
+                });
+
+            });
+
+            it('should send request to \'api/course/duplicate\'', function (done) {
+                var promise = repository.duplicateCourse(course.id);
+
+                promise.fin(function () {
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/duplicate', { courseId: course.id });
+                    done();
+                });
+
+                post.reject('He`s dead Jim');
+            });
+
+            describe('when course successfully created on server', function () {
+
+                describe('and response is not an object', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = repository.duplicateCourse(course.id);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response is not an object');
+                            done();
+                        });
+
+                        post.resolve('He`s dead Jim');
+                    });
+
+                });
+
+                describe('and response is an object', function () {
+
+                    describe('and course is not an object', function () {
+
+                        it('should reject promise', function (done) {
+                            var promise = repository.duplicateCourse(course.id);
+
+                            promise.fin(function () {
+                                expect(promise).toBeRejectedWith('Course is not an object');
+                                done();
+                            });
+
+                            post.resolve({ course: 'course' });
+                        });
+
+                    });
+
+                    describe('and course is an object', function () {
+
+                        var mappedCourse,
+                            createdOnDate = new Date();
+
+                        beforeEach(function () {
+                            mappedCourse = {
+                                id: course.id,
+                                title: 'asdfg',
+                                template: {
+                                    id: 'rtyu'
+                                },
+                                objectives: [],
+                                createdOn: createdOnDate.toISOString(),
+                                modifiedOn: createdOnDate.toISOString(),
+                                createdBy: 'asasd@ukr.net'
+                            };
+
+                            spyOn(courseMapper, 'map').and.returnValue(mappedCourse);
+                            dataContext.templates = [mappedCourse.template];
+                            dataContext.objectives = [];
+                            dataContext.courses = [];
+                        });
+
+                        describe('and course does not have objectives', function() {
+
+                        });
+
+                    });
+
                 });
 
             });

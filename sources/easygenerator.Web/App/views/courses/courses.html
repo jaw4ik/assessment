@@ -110,6 +110,11 @@
                                 </div>
                             </div>
                             <div class="course-actions-panel">
+                                <button class="course-action-btn duplicate-btn info-tooltip-holder" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.duplicateCourse, css: { disabled: !$parent.isCreateCourseAvailable() }">
+                                    <div class="info-tooltip duplicate-item">
+                                        <span data-bind="localize: { text: 'duplicate' }">Duplicate</span>
+                                    </div>
+                                </button>
                                 <a class="course-action-btn publish-btn info-tooltip-holder" href="#" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.navigateToPublish, attr: { href: '#publish/' + id }">
                                     <div class="info-tooltip publish-item">
                                         <span data-bind="localize: { text: 'publish' }">Publish</span>
@@ -155,6 +160,11 @@
                                 </div>
                             </div>
                             <div class="course-actions-panel">
+                                <button class="course-action-btn duplicate-btn info-tooltip-holder" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.duplicateCourse, css: { disabled: !$parent.isCreateCourseAvailable() }">
+                                    <div class="info-tooltip duplicate-item">
+                                        <span data-bind="localize: { text: 'duplicate' }">Duplicate</span>
+                                    </div>
+                                </button>
                                 <a class="course-action-btn publish-btn info-tooltip-holder" href="#" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.navigateToPublish, attr: { href: '#publish/' + id }">
                                     <div class="info-tooltip publish-item">
                                         <span data-bind="localize: { text: 'publish' }">Publish</span>

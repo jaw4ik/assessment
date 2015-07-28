@@ -30,6 +30,7 @@
             'commands/createQuestionCommand.spec',
             'commands/createObjectiveCommand.spec',
             'commands/createCourseCommand.spec',
+            'commands/duplicateCourseCommand.spec',
             'commands/presentationCourseImportCommand.spec',
 
             //#endregion commands
