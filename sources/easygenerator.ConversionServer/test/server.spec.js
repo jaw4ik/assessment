@@ -170,7 +170,7 @@ describe('server', function () {
             });
         });
 
-        it('returns json with file list when accept type is application/json', function (done) {
+        it('returns json with file list', function (done) {
             request(app)
                 .post(config.LOCATION + '/')
                 .set('Accept', 'application/json')
@@ -183,30 +183,7 @@ describe('server', function () {
                     assert(res.body[0].id.length === 36);
                     done();
                 });
-        });
-        
-        it('returns html with file list when accept type is text/html', function (done) {
-            request(app)
-                .post(config.LOCATION + '/')
-                .set('Accept', 'text/html')
-                .attach('file', config.SAMPLE_WAV)
-                .expect(200)
-                .end(function(err, res) {
-                    if (err) {
-                        return done(err);
-                    }
-                    assert(res.text.indexOf('<html>') === 0);
-                    done();
-                });
-        });
-        
-        it('returns 406 when accept type is not supported', function (done) {
-            request(app)
-                .post(config.LOCATION + '/')
-                .set('Accept', 'text/undefined')
-                .attach('file', config.SAMPLE_WAV)
-                .expect(406, done);
-        });
+        });        
         
         it('returns 400 when no file attached', function (done) {
             request(app)
