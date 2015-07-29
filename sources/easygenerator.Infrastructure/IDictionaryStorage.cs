@@ -1,6 +1,6 @@
-﻿namespace easygenerator.Web.InMemoryStorages
+﻿namespace easygenerator.Infrastructure
 {
-    public interface ISessionStorage
+    public interface IDictionaryStorage
     {
         void Add(string key, object value);
 

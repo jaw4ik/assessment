@@ -292,7 +292,6 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
     <Compile Include="Controllers\Lti\AuthenticationController.cs" />
-    <Compile Include="InMemoryStorages\ISessionStorage.cs" />
     <Compile Include="InMemoryStorages\SessionStorage.cs" />
     <Compile Include="Storage\CourseStateStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />

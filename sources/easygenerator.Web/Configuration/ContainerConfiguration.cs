@@ -220,7 +220,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<EntityCloner>().As<ICloner>().SingleInstance();
             builder.RegisterType<DemoCoursesInMemoryStorage>().As<IDemoCoursesStorage>().SingleInstance();
             builder.RegisterType<CourseInfoInMemoryStorage>().As<ICourseInfoInMemoryStorage>().SingleInstance();
-            builder.RegisterType<SessionStorage>().As<ISessionStorage>().SingleInstance();
+            builder.RegisterType<SessionStorage>().As<IDictionaryStorage>().SingleInstance();
             builder.RegisterType<HttpContextWrapper>();
 
             #region Auth

@@ -83,6 +83,7 @@
     <Compile Include="ImageProcessors\ImageResizer.cs" />
     <Compile Include="ImageProcessors\MagickImageResizerConfigurator.cs" />
     <Compile Include="IScheduler.cs" />
+    <Compile Include="IDictionaryStorage.cs" />
     <Compile Include="ITask.cs" />
     <Compile Include="ITaskInvoker.cs" />
     <Compile Include="ITypeMethodInvoker.cs" />

@@ -1,8 +1,9 @@
 ﻿using System.Web;
+using easygenerator.Infrastructure;
 
 namespace easygenerator.Web.InMemoryStorages
 {
-    public class SessionStorage : ISessionStorage
+    public class SessionStorage : IDictionaryStorage
     {
         private readonly HttpContextWrapper _httpContext;
 
