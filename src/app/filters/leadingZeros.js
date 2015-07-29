@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    angular.module('quiz')
+    angular.module('assessment')
         .filter('leadingZeros', pad);
 
     function pad() {

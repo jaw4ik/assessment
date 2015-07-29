@@ -8,25 +8,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WebEssentials-Settings.json = WebEssentials-Settings.json
 	EndProjectSection
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Quiz-v2", "http://localhost:62302", "{0215A5BC-18CA-4D84-B513-A416644A7564}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Assessment", "http://localhost:62302", "{0215A5BC-18CA-4D84-B513-A416644A7564}"
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "true"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_62302"
-		Debug.AspNetCompiler.PhysicalPath = "..\quiz-v2\"
+		Debug.AspNetCompiler.PhysicalPath = "..\assessment\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_62302\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/localhost_62302"
-		Release.AspNetCompiler.PhysicalPath = "..\quiz-v2\"
+		Release.AspNetCompiler.PhysicalPath = "..\assessment\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_62302\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "..\quiz-v2\"
+		SlnRelativePath = "..\assessment\"
 	EndProjectSection
 EndProject
 Global

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('quiz')
+        .module('assessment')
         .factory('SingleSelectImageViewModel', factory);
 
     factory.$inject = ['QuestionViewModel'];

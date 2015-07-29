@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('quiz.xApi').factory('xApiVerbs', xApiVerbs);
+    angular.module('assessment.xApi').factory('xApiVerbs', xApiVerbs);
 
     function xApiVerbs() {
         var verbs = {

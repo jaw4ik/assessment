@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('quiz.xApi').factory('dragAndDropTextDataBuilder', factory);
+    angular.module('assessment.xApi').factory('dragAndDropTextDataBuilder', factory);
 
     factory.$inject = ['xApiInteractionTypes'];
 

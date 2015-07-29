@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('quiz.publishSettings', []).run(runBlock);
+    angular.module('assessment.publishSettings', []).run(runBlock);
 
     runBlock.$inject = ['publishSettings', 'publishModulesInitializer'];
 

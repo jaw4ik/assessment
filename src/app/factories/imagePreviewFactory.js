@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('quiz')
+    angular.module('assessment')
            .factory('imagePreviewFactory',  imagePreviewFactory);
 
     imagePreviewFactory.$inject = ['$rootScope'];

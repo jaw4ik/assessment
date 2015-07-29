@@ -1,7 +1,7 @@
 {
-    "[quiz]": "Quiz",
+    "[assessment]": "Quiz",
     "[questions]": "Question(s)",
-    "[start quiz]": "Démarrer le quiz",
+    "[start assessment]": "Démarrer le quiz",
     "[or scroll to start]": "Ou dérouler jusqu'au démarrage",
     "[show hint]": "Montrer les indices",
     "[hide hint]": "Cacher les indices",

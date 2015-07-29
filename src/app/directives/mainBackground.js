@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    angular.module('quiz')
+    angular.module('assessment')
         .directive('mainBackground', directive);
 
     directive.$inject = ['settings'];

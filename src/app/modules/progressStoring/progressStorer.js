@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('quiz.progressStorer', []).run(runBlock);
+    angular.module('assessment.progressStorer', []).run(runBlock);
 
     runBlock.$inject = ['$rootScope', 'dataContext'];
 
@@ -11,12 +11,12 @@
         });
 
         function saveResult() {
-            var quiz = dataContext.getQuiz();
-            var resultKey = 'course_result' + quiz.id + quiz.createdOn;
+            var assessment = dataContext.getAssessment();
+            var resultKey = 'course_result' + assessment.id + assessment.createdOn;
 
             var result = {
-                score: quiz.getResult(),
-                status: quiz.getStatus()
+                score: assessment.getResult(),
+                status: assessment.getStatus()
             };
 
             try {

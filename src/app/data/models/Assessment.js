@@ -2,13 +2,13 @@
     'use strict';
 
     angular
-        .module('quiz')
-        .factory('Quiz', factory);
+        .module('assessment')
+        .factory('Assessment', factory);
 
     factory.$inject = ['$rootScope', 'eventPublisher'];
 
     function factory($rootScope, eventPublisher) {
-        return function Quiz(id, title, createdOn, objectives, questions, hasIntroductionContent) {
+        return function Assessment(id, title, createdOn, objectives, questions, hasIntroductionContent) {
             var that = this;
 
             that.id = id;

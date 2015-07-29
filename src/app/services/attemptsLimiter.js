@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    angular.module('quiz')
+    angular.module('assessment')
 		.service('attemptsLimiter', attemptsLimiter);
 
     attemptsLimiter.$inject = ['$rootScope', 'settings'];

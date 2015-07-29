@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    var app = angular.module('quiz', ['ngRoute', 'pascalprecht.translate']);
+    var app = angular.module('assessment', ['ngRoute', 'pascalprecht.translate']);
 
     app.config([
         '$routeProvider', function ($routeProvider) {
@@ -8,12 +8,12 @@
                 .when('/', {
                     templateUrl: 'app/views/main.html',
                     controller: 'MainController',
-                    controllerAs: 'quiz',
+                    controllerAs: 'assessment',
                     reloadOnSearch: false,
                     resolve: {
-                        quiz: [
+                        assessment: [
                             'dataContext', function (dataContext) {
-                                return dataContext.getQuiz();
+                                return dataContext.getAssessment();
                             }
                         ]
                     }
@@ -23,9 +23,9 @@
                     controller: 'SummaryController',
                     controllerAs: 'summary',
                     resolve: {
-                        quiz: [
+                        assessment: [
                             'dataContext', function (dataContext) {
-                                return dataContext.getQuiz();
+                                return dataContext.getAssessment();
                             }
                         ]
                     }
@@ -35,9 +35,9 @@
                     controller: 'NotFoundErrorController',
                     controllerAs: 'notFoundError',
                     resolve: {
-                        quiz: [
+                        assessment: [
                             'dataContext', function (dataContext) {
-                                return dataContext.getQuiz();
+                                return dataContext.getAssessment();
                             }
                         ]
                     }
