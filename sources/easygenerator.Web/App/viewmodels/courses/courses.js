@@ -94,14 +94,30 @@
         }
 
         function duplicateCourse(course) {
-            return Q.fcall(function() {
+            return Q.fcall(function () {
                 if (!viewModel.isCreateCourseAvailable()) {
                     return null;
                 }
-                return duplicateCourseCommand.execute(course.id, 'Courses').then(function(duplicatedCourse) {
-                    viewModel.courses.unshift(mapCourse(duplicatedCourse));
+
+                var fakeCourse = createFakeCourse(course);
+                viewModel.courses.unshift(fakeCourse);
+
+                return Q.all([duplicateCourseCommand.execute(course.id, 'Courses'), waitMinimalTimeForCourseDuplicating(50000)]).then(function (response) {
+                    var index = viewModel.courses.indexOf(fakeCourse);
+                    viewModel.courses.remove(fakeCourse);
+                    viewModel.courses.splice(index, 0, mapCourse(response[0]));
                 });
             });
+        }
+
+        function waitMinimalTimeForCourseDuplicating(time) {
+            var courseDuplicatingDeferred = Q.defer();
+
+            setTimeout(function () {
+                courseDuplicatingDeferred.resolve();
+            }, time);
+
+            return courseDuplicatingDeferred.promise;
         }
 
         function navigateToDetails(course) {
@@ -138,7 +154,7 @@
                     return learningPathCourse.id === selectedCourse.id;
                 });
             });
-         
+
             if (selectedCourse.objectives.length > 0 || isConnectedToLearningPath) {
                 notify.error(localizationManager.localize('courseCannotBeDeletedErrorMessage'));
                 return;
@@ -245,8 +261,22 @@
             course.createdOn = item.createdOn;
             course.isSelected = ko.observable(false);
             course.objectives = item.objectives;
+            course.isProcessed = ko.observable(true);
 
             return course;
+        }
+
+        function createFakeCourse(course) {
+            return {
+                id: new Date(),
+                title: course.title(),
+                thumbnail: course.thumbnail,
+                createdOn: new Date(),
+                modifiedOn: new Date(),
+                isSelected: ko.observable(false),
+                objectives: course.objectives,
+                isProcessed: ko.observable(false)
+            };
         }
 
         function createNewCourse() {
