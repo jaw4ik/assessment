@@ -12,9 +12,10 @@
         that.title = $rootScope.title = assessment.title;
         that.hasIntroductionContent = assessment.hasIntroductionContent;
         that.logoUrl = settings.logo.url;
+        that.mode = settings.assessmentMode;
 
         that.questions = assessment.questions.map(function (question) {
-            return viewmodelsFactory.createQuestionViewmodel(question); 
+            return viewmodelsFactory.createQuestionViewmodel(question);
         });
 
         that.submit = function () {
@@ -52,7 +53,7 @@
                 timer.start();
             });
 
-            $scope.$on('$destroy', function() {
+            $scope.$on('$destroy', function () {
                 timer.dispose();
             });
         }

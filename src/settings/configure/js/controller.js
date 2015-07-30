@@ -364,6 +364,32 @@
             }
         })();
 
+        that.assessmentMode = (function () {
+            var self = {
+                init: init,
+                getData: getData
+            };
+            self.modes = {
+                quiz: 'quiz',
+                exam: 'exam'
+            };
+            self.mode = self.modes.quiz;
+
+            return self;
+
+            function init(assessmentMode) {
+                if (!assessmentMode) {
+                    return;
+                }
+
+                self.mode = assessmentMode;
+            }
+
+            function getData() {
+                return self.mode;
+            }
+        })();
+
         angular.element($window).on('blur', saveChanges);
 
         function saveChanges() {
@@ -385,7 +411,8 @@
                 languages: that.languages.getData(),
                 timer: that.timer.getData(),
                 questionPool: that.questionPool.getData(),
-                attempt: that.attempt.getData()
+                attempt: that.attempt.getData(),
+                assessmentMode: that.assessmentMode.getData()
             });
         }
 
@@ -401,6 +428,7 @@
             that.timer.init(settings.timer);
             that.questionPool.init(settings.questionPool);
             that.attempt.init(settings.attempt);
+            that.assessmentMode.init(settings.assessmentMode);
 
             currentSettings = getCurrentSettings(settings);
 

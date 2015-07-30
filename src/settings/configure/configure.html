@@ -36,16 +36,16 @@
                                     <div class="settings-caption">Choose between quiz and exam mode:</div>
                                     <div class="settings-content">
                                         <ul class="radio-selector small unstyled">
-                                            <li class="selector-item-container" ng-class="">
-                                                <div class="selector-item-wrapper" ng-click="">
+                                            <li class="selector-item-container" ng-class="{ selected: assessmentMode.mode == assessmentMode.modes.quiz }">
+                                                <div class="selector-item-wrapper" ng-click="assessmentMode.mode = assessmentMode.modes.quiz">
                                                     <div class="selector-item-btn"></div>
                                                     <div class="selector-item-text">
                                                         <span class="settings-option">Quiz</span>&nbsp;<span class="settings-option-hint">(learner CAN see hints)</span>
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="selector-item-container" ng-class="">
-                                                <div class="selector-item-wrapper" ng-click="">
+                                            <li class="selector-item-container" ng-class="{ selected: assessmentMode.mode == assessmentMode.modes.exam }">
+                                                <div class="selector-item-wrapper" ng-click="assessmentMode.mode = assessmentMode.modes.exam">
                                                     <div class="selector-item-btn"></div>
                                                     <div class="selector-item-text">
                                                         <span class="settings-option">Exam</span>&nbsp;<span class="settings-option-hint">(learner can NOT see hints)</span>

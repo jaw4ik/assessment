@@ -43,7 +43,8 @@
                 attempt: {
                     hasLimit: false,
                     limit: 3
-                }
+                },
+                assessmentMode: 'quiz'
             };
 
         return {
@@ -84,6 +85,10 @@
 
                 if (!_.isObject(settings.attempt) || _.isUndefined(settings.attempt.hasLimit) || _.isUndefined(settings.attempt.limit)) {
                     _.extend(settings, { attempt: defaultSettings.attempt });
+                }
+
+                if (_.isUndefined(settings.assessmentMode)) {
+                    _.extend(settings, { assessmentMode: defaultSettings.assessmentMode });
                 }
 
                 cachedSettings = settings;

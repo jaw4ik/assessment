@@ -46,5 +46,6 @@
     "attempt":{
         "hasLimit": true,
         "limit": 3
-    }
+    },
+    "assessmentMode": "quiz"
 }

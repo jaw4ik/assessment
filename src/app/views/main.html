@@ -71,7 +71,7 @@
                             </h3>
                             <div class="question-body" ng-include="'app/views/' + question.getType() + '.html'"></div>
                         </div>
-                        <div class="hint-container">
+                        <div class="hint-container" ng-if="assessment.mode == 'quiz'">
                             <div ng-if="question.hint.exists" ng-include="'app/views/hint.html'"></div>
                         </div>
                     </article>
