@@ -29,7 +29,7 @@
             </header>
             <ul class="template-list">
                 <!-- ko foreach: templates -->
-                <li class="template-list-item" data-bind="css: { 'marked-as-new': isNew, selected: $data == $parent.currentTemplate() }">
+                <li class="template-list-item" data-bind="css: { 'marked-as-new': isNew, 'marked-as-deprecated': isDeprecated, selected: $data == $parent.currentTemplate() }">
                     <h3 class="template-title" data-bind="text: name"></h3>
                     <div class="template-thumbnail-container" data-bind="click: $parent.selectTemplate">
                         <div class="template-selected-icon"></div>

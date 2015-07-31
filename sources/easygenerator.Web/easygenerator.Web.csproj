@@ -996,7 +996,8 @@
     <Content Include="Content\images\hotSpot-empty.png" />
     <Content Include="Content\images\ie.png" />
     <Content Include="Content\images\learningPath\learning-path-item-background.png" />
-    <Content Include="Content\images\newTemplate.png" />
+    <Content Include="Content\images\templates\deprecated-template.png" />
+    <Content Include="Content\images\templates\new-template.png" />
     <Content Include="Content\images\no-spots.png" />
     <Content Include="Content\images\noResultsHintSteps.png" />
     <Content Include="Content\images\objective-default-image.jpg" />

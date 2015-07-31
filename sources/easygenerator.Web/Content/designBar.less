@@ -12,7 +12,8 @@
 @thumbnail-selected-box-shadow: 0 0 3px 2px #65bd77;
 @template-selected-icon-background-color: #6ab97a;
 @template-selected-icon-bacground: url(../Content/images/sprites_16.png);
-@template-marked-as-new-label-background: url('/Content/images/newTemplate.png');
+@template-marked-as-new-label-background: url('/Content/images/templates/new-template.png');
+@template-marked-as-deprecated-label-background: url('/Content/images/templates/deprecated-template.png');
 
 .design {
     &.left-side-bar {
@@ -214,6 +215,22 @@
                                     width: 71px;
                                     height: 72px;
                                     background: @template-marked-as-new-label-background no-repeat;
+                                }
+                            }
+                        }
+
+                        &.marked-as-deprecated {
+                            .template-thumbnail-container {
+
+                                &:after {
+                                    left: 50%;
+                                    transform: translate(-50%,0%);
+                                    content: '';
+                                    position: absolute;
+                                    top: 10px;
+                                    width: 122px;
+                                    height: 36px;
+                                    background: @template-marked-as-deprecated-label-background no-repeat;
                                 }
                             }
                         }
