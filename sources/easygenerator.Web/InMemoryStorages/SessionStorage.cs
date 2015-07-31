@@ -5,25 +5,25 @@ namespace easygenerator.Web.InMemoryStorages
 {
     public class SessionStorage : IDictionaryStorage
     {
-        private readonly HttpContextWrapper _httpContext;
+        private readonly Components.HttpContextWrapper _httpContext;
 
-        public SessionStorage(HttpContextWrapper httpContext)
+        public SessionStorage(Components.HttpContextWrapper httpContext)
         {
             _httpContext = httpContext;
         }
         public void Add(string key, object value)
         {
-            _httpContext.Session[key] = value;
+            _httpContext.Current.Session[key] = value;
         }
 
         public T Get<T>(string key) where T : class
         {
-            return _httpContext.Session[key] as T;
+            return _httpContext.Current.Session[key] as T;
         }
 
         public void Remove(string key)
         {
-            _httpContext.Session.Remove(key);
+            _httpContext.Current.Session.Remove(key);
         }
     }
 }
