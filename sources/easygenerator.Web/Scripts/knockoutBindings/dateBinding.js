@@ -8,7 +8,7 @@
             return;
 
         var date = moment(value);
-        date.lang(language);
+        date.locale(language);
         if (formatString == null) {
             $(element).text(date.format('DD/MM/YY'));
         }

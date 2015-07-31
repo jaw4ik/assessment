@@ -15,7 +15,8 @@ if (process.argv.length === 3){
 		'reader',
 		'lango-personalized-learning',
 		'quiz-marketing',
-		'quiz-for-learni'
+		'quiz-for-learni',
+		'lango-simple'
 	];
 
 	var releaseVersion = process.argv[2];
