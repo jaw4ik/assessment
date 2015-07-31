@@ -25,6 +25,7 @@
         that.finished = false;
         that.isSendingRequest = false;
         that.attemptsLimited = attemptsLimiter.hasLimit;
+        that.singleAttempt = attemptsLimiter.limit === 1;
         that.availableAttemptCount = attemptsLimiter.getAvailableAttemptCount();
         that.canTryAgain = attemptsLimiter.hasAvailableAttempt();
 
