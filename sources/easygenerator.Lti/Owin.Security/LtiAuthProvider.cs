@@ -14,11 +14,13 @@ namespace easygenerator.Lti.Owin.Security
     {
         private readonly IConsumerToolRepository _consumerToolRepository;
         private readonly ITokenProvider _tokenProvider;
+        private readonly IDictionaryStorage _storage;
 
-        public LtiAuthProvider(IConsumerToolRepository consumerToolRepository, ITokenProvider tokenProvider)
+        public LtiAuthProvider(IConsumerToolRepository consumerToolRepository, ITokenProvider tokenProvider, IDictionaryStorage storage)
         {
             _consumerToolRepository = consumerToolRepository;
             _tokenProvider = tokenProvider;
+            _storage = storage;
 
             OnAuthenticate = context =>
             {
@@ -56,15 +58,7 @@ namespace easygenerator.Lti.Owin.Security
                     var tokens = _tokenProvider.GenerateTokens(context.LtiRequest.LisPersonEmailPrimary, context.Request.Uri.Host,
                         AuthorizationConfigurationProvider.Endpoints.Select(_ => _.Name));
 
-                    context.Response.StatusCode = 302;
-                    //context.Response.Headers.Set("Location", urlToRedirect);
-
-                    //_authenticationManager.SignIn(
-                    //    context.LtiRequest.LisPersonEmailPrimary,
-                    //    context.LtiRequest.LisPersonNameGiven,
-                    //    context.LtiRequest.LisPersonNameFamily,
-                    //    context.LtiRequest.LisPersonNameFull
-                    //    );
+                    _storage.Add(Constants.TokensStorageKey, tokens);
                 }
                 return Task.FromResult<object>(null);
             };

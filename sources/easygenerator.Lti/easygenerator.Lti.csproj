@@ -52,9 +52,11 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="Owin.Security\LtiAuthExtensions.cs" />
     <Compile Include="Owin.Security\LtiAuthHandler.cs" />
     <Compile Include="Owin.Security\LtiAuthMiddleware.cs" />
