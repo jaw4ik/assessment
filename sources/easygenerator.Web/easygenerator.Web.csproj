@@ -291,7 +291,7 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
-    <Compile Include="Controllers\Lti\AuthenticationController.cs" />
+    <Compile Include="Controllers\LtiController.cs" />
     <Compile Include="InMemoryStorages\SessionStorage.cs" />
     <Compile Include="Storage\CourseStateStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
@@ -586,6 +586,7 @@
       <DependentUpon>publishHttpWrapper.js</DependentUpon>
     </Content>
     <Content Include="App\http\publishHttpWrapper.js" />
+    <Content Include="App\viewmodels\lti\launch.js" />
     <Content Include="App\widgets\upgradeDialog\viewmodel.js" />
     <Content Include="App\widgets\upgradeDialog\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
@@ -1970,7 +1971,6 @@
     <Content Include="Scripts\knockoutBindings\scrollToBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextInAnswerBinding.js" />
     <Content Include="Scripts\knockoutBindings\switchToggleBinding.js" />
-    <Content Include="Scripts\lti\launch.js" />
     <Content Include="Scripts\md5.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
@@ -2480,6 +2480,7 @@
     <Content Include="Templates\Quiz\css\font\twcenmt-condensed.ttf" />
     <Content Include="Templates\Quiz\css\font\twcenmt-condensed.woff" />
     <Content Include="Templates\Simple course\css\font\robotocondensed-regular.woff" />
+    <Content Include="Views\_ViewStart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

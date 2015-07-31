@@ -1,13 +1,14 @@
 ﻿using System.Web.Mvc;
-using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
+using easygenerator.Web.Components;
 
-namespace easygenerator.Web.Controllers.Lti
+namespace easygenerator.Web.Controllers
 {
     [NoCache]
-    public class AuthenticationController : DefaultApiController
+    [AllowAnonymous]
+    public class LtiController : DefaultController
     {
-        [HttpPost, AllowAnonymous]
+        [HttpPost]
         [Route("lti/authenticate")]
         public ActionResult Authenticate()
         {
@@ -23,5 +24,5 @@ namespace easygenerator.Web.Controllers.Lti
             //return JsonError(AccountRes.Resources.IncorrectEmailOrPassword);
             return null;
         }
-    }
+    }   
 }
