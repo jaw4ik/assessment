@@ -374,6 +374,16 @@
                 exam: 'exam'
             };
             self.mode = self.modes.quiz;
+            self.attemptsSettings = {
+                quiz: {
+                    hasLimit: true,
+                    limit: 3,
+                },
+                exam: {
+                    hasLimit: true,
+                    limit: 1,
+                }
+            };
 
             return self;
 
@@ -389,6 +399,11 @@
                 return self.mode;
             }
         })();
+
+        $scope.$watch('assessmentMode.mode', function (mode, prevMode) {
+            that.assessmentMode.attemptsSettings[prevMode] = that.attempt.getData();
+            that.attempt.init(that.assessmentMode.attemptsSettings[mode]);
+        });
 
         angular.element($window).on('blur', saveChanges);
 
