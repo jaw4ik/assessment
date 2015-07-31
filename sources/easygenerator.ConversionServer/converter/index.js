@@ -23,7 +23,7 @@ function run(input, output, options) {
         videoCodec: config.FFMPEG_VIDEO_CODEC,
         audioCodec: config.FFMPEG_AUDIO_CODEC
     });
-
+    
     ffmpeg()
         .format(options.format)
         .input(input)
@@ -33,12 +33,18 @@ function run(input, output, options) {
         .addOption('-strict', '-1')
         .output(path.join(output, options.name + '.' + options.format))
         .on('end', function() {
-            dfd.resolve();
+            this.ffprobe(function(err, metadata) {
+                if (err) {
+                    dfd.reject(err.message);
+                    return;
+                }
+                dfd.resolve(metadata.format);
+            });
         })
         .on('error', function(err, stdout, stderr) {
             dfd.reject(err.message);
         }).run();
-
+    
     return dfd.promise;
 }
 

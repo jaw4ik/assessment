@@ -87,87 +87,87 @@ describe('server', function () {
         
         it('converts input aif to mp4', function (done) {
             var filename = "output.mp4";
-            
+
             request(app)
                 .post(config.LOCATION + '/')
                 .set('Accept', 'application/json')
                 .attach('file', config.SAMPLE_AIF)
                 .expect(200)
-                .end(function (err, res) {
-                if (err) {
-                    return done(err);
-                }
-                assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, filename)));
-                done();
-            });
+                .end(function(err, res) {
+                    if (err) {
+                        return done(err);
+                    }
+                    assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, filename)));
+                    done();
+                });
         });
         
         it('converts input au to mp4', function (done) {
             var filename = "output.mp4";
-            
+
             request(app)
                 .post(config.LOCATION + '/')
                 .set('Accept', 'application/json')
                 .attach('file', config.SAMPLE_AU)
                 .expect(200)
-                .end(function (err, res) {
-                if (err) {
-                    return done(err);
-                }
-                assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, filename)));
-                done();
-            });
+                .end(function(err, res) {
+                    if (err) {
+                        return done(err);
+                    }
+                    assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, filename)));
+                    done();
+                });
         });
         
         it('converts input flac to mp4', function (done) {
             var filename = "output.mp4";
-            
+
             request(app)
                 .post(config.LOCATION + '/')
                 .set('Accept', 'application/json')
                 .attach('file', config.SAMPLE_FLAC)
                 .expect(200)
-                .end(function (err, res) {
-                if (err) {
-                    return done(err);
-                }
-                assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, filename)));
-                done();
-            });
+                .end(function(err, res) {
+                    if (err) {
+                        return done(err);
+                    }
+                    assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, filename)));
+                    done();
+                });
         });
         
         it('converts input ogg to mp4', function (done) {
             var filename = "output.mp4";
-            
+
             request(app)
                 .post(config.LOCATION + '/')
                 .set('Accept', 'application/json')
                 .attach('file', config.SAMPLE_OGG)
                 .expect(200)
-                .end(function (err, res) {
-                if (err) {
-                    return done(err);
-                }
-                assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, filename)));
-                done();
-            });
+                .end(function(err, res) {
+                    if (err) {
+                        return done(err);
+                    }
+                    assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, filename)));
+                    done();
+                });
         });
         
         it('converts input wav to mp4', function (done) {
             var filename = "output.mp4";
-            
+
             request(app)
                 .post(config.LOCATION + '/')
                 .set('Accept', 'application/json')
                 .attach('file', config.SAMPLE_WAV)
                 .expect(200)
-                .end(function (err, res) {
-                if (err) {
-                    return done(err);
-                }
-                assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, filename)));
-                done();
-            });
+                .end(function(err, res) {
+                    if (err) {
+                        return done(err);
+                    }
+                    assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, filename)));
+                    done();
+                });
         });
 
         it('returns json with file list', function (done) {
@@ -210,8 +210,8 @@ describe('server', function () {
                 .get(config.LOCATION + '/file/_id')
                 .expect(404, done);
         });
-        
-        it('returns file when it exists', function (done) {
+
+        it('returns file when it exists', function(done) {
             var id = uuid.v4();
             var filename = "output.mp4";
             fs.mkdirSync(path.join(config.TEMP_FOLDER, id));
@@ -231,8 +231,8 @@ describe('server', function () {
                 .delete(config.LOCATION + '/_id')
                 .expect(204, done);
         });
-        
-        it('deletes file with specified id when file was deleted', function (done) {
+
+        it('deletes file with specified id when file was deleted', function(done) {
             var id = uuid.v4();
             var filename = "filename.txt";
             fs.mkdirSync(path.join(config.TEMP_FOLDER, id));
@@ -249,8 +249,8 @@ describe('server', function () {
                     done();
                 });
         });
-        
-        it('returns 204 when file was deleted', function (done) {
+
+        it('returns 204 when file was deleted', function(done) {
             var id = uuid.v4();
             var filename = "filename.txt";
             fs.mkdirSync(path.join(config.TEMP_FOLDER, id));

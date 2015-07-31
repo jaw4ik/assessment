@@ -47,9 +47,10 @@ app.post(config.LOCATION + '/', function(req, res) {
             fs.mkdirSync(directoryPath);
 
             promises.push(converter.run(file, directoryPath)
-                .then(function() {
+                .then(function(metadata) {
                     return {
-                        id: id
+                        id: id,
+                        duration: metadata.duration
                     };
                 })
                 .catch(function(reason) {
@@ -67,6 +68,7 @@ app.post(config.LOCATION + '/', function(req, res) {
                     res.send(files.map(function(file) {
                         return {
                             id: file.id,
+                            duration: file.duration,
                             url: req.protocol + '://' + req.get('host') + req.originalUrl + '/' + file.id
                         };
                     }));
