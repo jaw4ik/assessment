@@ -5,9 +5,9 @@
         .module('quiz')
         .factory('SingleSelectTextViewModel', factory);
 
-    factory.$inject = ['QuestionViewModel'];
+    factory.$inject = ['QuestionViewModel', 'settings'];
 
-    function factory(QuestionViewModel) {
+    function factory(QuestionViewModel, settings) {
         return function SingleSelectTextViewModel(question) {
 
             QuestionViewModel.call(this, question);
@@ -23,6 +23,10 @@
                     checked: false
                 };
             });
+
+            if (settings.questionPool.randomizeAnswerOptions) {
+                that.answers = _.shuffle(that.answers);
+            }
 
             that.checkAnswer = function (answer) {
                 that.answers.forEach(function (item) {

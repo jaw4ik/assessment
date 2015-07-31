@@ -38,6 +38,7 @@
                     mode: 'all',
                     subsetSize: 10,
                     randomizeOrder: true,
+                    randomizeAnswerOptions: false,
                     randomizePerAttempt: false
                 },
                 attempt: {

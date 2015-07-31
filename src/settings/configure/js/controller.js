@@ -303,6 +303,7 @@
 
             self.subsetSize = 10;
             self.randomizeOrder = true;
+            self.randomizeAnswerOptions = false;
             self.randomizePerAttempt = false;
 
             self.init = init;
@@ -318,6 +319,7 @@
                 self.mode = questionPoolSettings.mode;
                 self.subsetSize = questionPoolSettings.subsetSize;
                 self.randomizeOrder = questionPoolSettings.randomizeOrder;
+                self.randomizeAnswerOptions = questionPoolSettings.randomizeAnswerOptions;
                 self.randomizePerAttempt = questionPoolSettings.randomizePerAttempt;
             }
 
@@ -326,6 +328,8 @@
 
                 resultData.mode = self.mode;
                 resultData.subsetSize = self.subsetSize;
+                resultData.randomizeAnswerOptions = self.randomizeAnswerOptions;
+
                 if (self.mode === self.modes.all) {
                     resultData.randomizeOrder = self.randomizeOrder;
                     resultData.randomizePerAttempt = self.randomizeOrder && self.randomizePerAttempt;

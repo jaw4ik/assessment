@@ -5,9 +5,9 @@
         .module('quiz')
         .factory('StatementViewModel', factory);
 
-    factory.$inject = ['QuestionViewModel'];
+    factory.$inject = ['QuestionViewModel', 'settings'];
 
-    function factory(QuestionViewModel) {
+    function factory(QuestionViewModel, settings) {
         return function StatementViewModel(question) {
             QuestionViewModel.call(this, question);
 
@@ -22,6 +22,10 @@
                     state: undefined
                 };
             });
+
+            if (settings.questionPool.randomizeAnswerOptions) {
+                that.statements = _.shuffle(that.statements);
+            }
 
             that.setTrueState = function (statement) {
                 statement.state = statement.state === true ? undefined : true;

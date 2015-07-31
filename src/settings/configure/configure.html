@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html ng-app="configure">
 
 <head>
@@ -89,6 +89,18 @@
                                                 <span class="checkbox-label">Randomize and show new subset after every attempt</span>
                                             </label>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="settings-column-row">
+                                    <span class="settings-caption">Answer options order:</span>
+                                    <div class="question-order">
+                                        <label class="checkbox" ng-class="{ checked: questionPool.randomizeAnswerOptions }">
+                                            <span class="checkbox-control">
+                                                <input class="checkbox-control-input" type="checkbox" ng-model="questionPool.randomizeAnswerOptions">
+                                                <span class="checkbox-control-input-checked"></span>
+                                            </span>
+                                            <span class="checkbox-label">Randomize answer options</span>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
