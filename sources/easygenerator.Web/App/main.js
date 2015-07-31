@@ -16,8 +16,8 @@ define('knockout', function () {
     return ko;
 });
 
-define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synchronization/listener', 'onboarding/initialization'],
-    function (system, app, bootstrapper, userContext, synchronization, onboarding) {
+define(['durandal/system', 'durandal/app', 'plugins/router', 'bootstrapper', 'userContext', 'synchronization/listener', 'onboarding/initialization'],
+    function (system, app, router, bootstrapper, userContext, synchronization, onboarding) {
         if (!has('release')) {
             system.debug(true);
         }
@@ -30,15 +30,34 @@ define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synch
             widget: true
         });
 
-        app.start().then(function () {
-            bootstrapper.run();
+        var hashPart = window.location.hash.replace('#', '');
+        var hashParams = router.parseQueryString(hashPart);
 
-            return Q.all([userContext.identify(), userContext.identifyStoragePermissions(), synchronization.start(), onboarding.initialize()])
-                .spread(function () {
-                    app.setRoot('viewmodels/shell', null, document.getElementById('app'));
+        var ltiAuthDefer;
+        if (hashParams && hashParams['token.lti']) {
+            ltiAuthDefer =
+                $.ajax({ url: '/lti/authenticate', type: 'POST' }).done(function (response) {
+                    if (response && response.success) {
+
+                        window.auth.login(response.data);
+                    }
+                }).complete(function() {
+                    
                 });
+        } else {
+            ltiAuthDefer = Q.fcall(function () { });
+        }
 
-        }).done();
+        ltiAuthDefer.then(function () {
+            app.start().then(function () {
+                bootstrapper.run();
 
+                return Q.all([userContext.identify(), userContext.identifyStoragePermissions(), synchronization.start(), onboarding.initialize()])
+                    .spread(function () {
+                        app.setRoot('viewmodels/shell', null, document.getElementById('app'));
+                    });
+
+            }).done();
+        });
     }
 );
