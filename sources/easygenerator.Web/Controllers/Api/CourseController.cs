@@ -76,7 +76,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (course == null)
             {
-                return JsonSuccess();
+                return BadRequest();
             }
 
             var duplicatedCourse = GetDuplicatedCourse(course);

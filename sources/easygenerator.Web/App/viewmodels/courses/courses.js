@@ -1,7 +1,7 @@
 ﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/courseRepository', 'notify', 'localization/localizationManager',
-    'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'commands/createCourseCommand', 'uiLocker', 'commands/presentationCourseImportCommand', 'commands/duplicateCourseCommand'],
+    'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'commands/createCourseCommand', 'uiLocker', 'commands/presentationCourseImportCommand', 'commands/duplicateCourseCommand', 'widgets/upgradeDialog/viewmodel'],
     function (app, dataContext, userContext, constants, eventTracker, router, courseRepository, notify, localizationManager, clientContext, fileHelper, limitCoursesAmount,
-        createCourseCommand, uiLocker, presentationCourseImportCommand, duplicateCourseCommand) {
+        createCourseCommand, uiLocker, presentationCourseImportCommand, duplicateCourseCommand, upgradeDialog) {
         "use strict";
 
         var
@@ -96,13 +96,14 @@
         function duplicateCourse(course) {
             return Q.fcall(function () {
                 if (!viewModel.isCreateCourseAvailable()) {
+                    upgradeDialog.show(constants.dialogs.upgrade.settings.duplicateCourse);
                     return null;
                 }
 
                 var fakeCourse = createFakeCourse(course);
                 viewModel.courses.unshift(fakeCourse);
 
-                return Q.all([duplicateCourseCommand.execute(course.id, 'Courses'), waitMinimalTimeForCourseDuplicating(50000)]).then(function (response) {
+                return Q.all([duplicateCourseCommand.execute(course.id, 'Courses'), waitMinimalTimeForCourseDuplicating(500)]).then(function (response) {
                     var index = viewModel.courses.indexOf(fakeCourse);
                     viewModel.courses.remove(fakeCourse);
                     viewModel.courses.splice(index, 0, mapCourse(response[0]));

@@ -14,7 +14,9 @@
         limitCoursesAmount = require('authorization/limitCoursesAmount'),
         uiLocker = require('uiLocker'),
         createCourseCommand = require('commands/createCourseCommand'),
-        presentationCourseImportCommand = require('commands/presentationCourseImportCommand')
+        presentationCourseImportCommand = require('commands/presentationCourseImportCommand'),
+        duplicateCourseCommand = require('commands/duplicateCourseCommand'),
+        upgradeDialog = require('widgets/upgradeDialog/viewmodel')
     ;
 
     var
@@ -399,6 +401,105 @@
                 course.isSelected(false);
                 viewModel.toggleSelection(course);
                 expect(eventTracker.publish).toHaveBeenCalledWith('Course selected');
+            });
+
+        });
+
+        describe('duplicateCourse:', function () {
+            var dfd;
+
+            beforeEach(function () {
+                dfd = Q.defer();
+                spyOn(duplicateCourseCommand, 'execute').and.returnValue(dfd.promise);
+                spyOn(upgradeDialog, 'show');
+            });
+
+            it('should be function', function () {
+                expect(viewModel.duplicateCourse).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(viewModel.duplicateCourse()).toBePromise();
+            });
+
+            describe('when creating course is not available', function () {
+
+                beforeEach(function () {
+                    viewModel.isCreateCourseAvailable(false);
+                });
+
+                it('should show upgrade dialog', function (done) {
+                    var promise = viewModel.duplicateCourse();
+
+                    promise.fin(function () {
+                        expect(upgradeDialog.show).toHaveBeenCalledWith(constants.dialogs.upgrade.settings.duplicateCourse);
+                        done();
+                    });
+
+                });
+
+            });
+
+            describe('when creating course is available', function () {
+
+                var course = {
+                    id: '',
+                    title: ko.observable(''),
+                    thumbnail: '',
+                    createdOn: new Date(),
+                    modifiedOn: new Date(),
+                    isSelected: ko.observable(false),
+                    objectives: [],
+                    isProcessed: ko.observable(true)
+                };
+
+                beforeEach(function () {
+                    viewModel.isCreateCourseAvailable(true);
+                    viewModel.courses([]);
+                });
+
+                it('should add fake course to the top of the course list', function (done) {
+                    var promise = viewModel.duplicateCourse(course);
+
+                    promise.fin(function () {
+                        expect(viewModel.courses()[0].title).toBe(course.title());
+                        expect(viewModel.courses()[0].thumbnail).toBe(course.thumbnail);
+                        expect(viewModel.courses()[0].isSelected()).toBe(course.isSelected());
+                        expect(viewModel.courses()[0].objectives).toBe(course.objectives);
+                        expect(viewModel.courses()[0].isProcessed()).toBeFalsy();
+                        done();
+                    });
+
+                    dfd.reject();
+
+                });
+
+                it('should duplicate course and remove fake course after minimal duplicating time', function (done) {
+                    var resolvedCourse = {
+                        id: 'new',
+                        title: '',
+                        template: { thumbnail: '' },
+                        modifiedOn: new Date(),
+                        createdOn: new Date(),
+                        objectives: []
+                    }
+
+                    var promise = viewModel.duplicateCourse(course);
+
+                    promise.fin(function () {
+                        expect(viewModel.courses()[0].id).toBe(resolvedCourse.id);
+                        expect(viewModel.courses()[0].title()).toBe(resolvedCourse.title);
+                        expect(viewModel.courses()[0].thumbnail).toBe(resolvedCourse.template.thumbnail);
+                        expect(viewModel.courses()[0].objectives).toBe(resolvedCourse.objectives);
+                        expect(viewModel.courses()[0].isSelected()).toBeFalsy();
+                        expect(viewModel.courses()[0].isProcessed()).toBeTruthy();
+                        done();
+                    });
+
+                    dfd.resolve(resolvedCourse);
+
+                });
+
             });
 
         });

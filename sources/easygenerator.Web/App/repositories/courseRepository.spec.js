@@ -370,14 +370,6 @@
 
             var course = { id: 'courseId' };
 
-            beforeEach(function () {
-                dataContext.courses.push(course);
-            });
-
-            afterEach(function () {
-                dataContext.courses.splice(dataContext.courses.indexOf(course), 1);
-            });
-
             it('should be function', function () {
                 expect(repository.duplicateCourse).toBeFunction();
             });
@@ -400,10 +392,12 @@
             });
 
             it('should send request to \'api/course/duplicate\'', function (done) {
+                dataContext.courses.push(course);
                 var promise = repository.duplicateCourse(course.id);
 
                 promise.fin(function () {
                     expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/duplicate', { courseId: course.id });
+                    dataContext.courses.splice(dataContext.courses.indexOf(course), 1);
                     done();
                 });
 
@@ -411,6 +405,10 @@
             });
 
             describe('when course successfully created on server', function () {
+
+                beforeEach(function() {
+                    dataContext.courses = [course];
+                });
 
                 describe('and response is not an object', function () {
 
@@ -461,14 +459,87 @@
                                 modifiedOn: createdOnDate.toISOString(),
                                 createdBy: 'asasd@ukr.net'
                             };
-
-                            spyOn(courseMapper, 'map').and.returnValue(mappedCourse);
+                            
                             dataContext.templates = [mappedCourse.template];
-                            dataContext.objectives = [];
-                            dataContext.courses = [];
+                            spyOn(courseMapper, 'map').and.returnValue(mappedCourse);
                         });
 
-                        describe('and course does not have objectives', function() {
+                        describe('and course does not have objectives', function () {
+
+                            it('should resolve promise with duplicated course', function (done) {
+                                var promise = repository.duplicateCourse(course.id);
+
+                                promise.fin(function () {
+                                    expect(promise).toBeResolvedWith(mappedCourse);
+                                    done();
+                                });
+
+                                post.resolve({ course: {} });
+                            });
+
+                            it('should push duplicated course to dataContext', function (done) {
+                                var promise = repository.duplicateCourse(course.id);
+
+                                promise.fin(function () {
+                                    expect(dataContext.courses[dataContext.courses.length - 1]).toBe(mappedCourse);
+                                    done();
+                                });
+
+                                post.resolve({ course: {} });
+                            });
+
+                        });
+
+                        describe('and course have objectives', function () {
+
+                            var objective = { id: '' },
+                                mappedObjective = {
+                                    id: 'ObjectiveId',
+                                    title: 'obj_title',
+                                    createdOn: createdOnDate.toISOString(),
+                                    modifiedOn: createdOnDate.toISOString(),
+                                    createdBy: 'asasd@ukr.net',
+                                    questions: []
+                                }
+
+                            beforeEach(function () {
+                                spyOn(objectiveMapper, 'map').and.returnValue(mappedObjective);
+                                dataContext.objectives = [];
+                                mappedCourse.objectives = [objective];
+                            });
+
+                            it('should resolve promise with duplicated course', function (done) {
+                                var promise = repository.duplicateCourse(course.id);
+
+                                promise.fin(function () {
+                                    expect(promise).toBeResolvedWith(mappedCourse);
+                                    done();
+                                });
+
+                                post.resolve({ course: {} });
+                            });
+
+                            it('should push duplicated course to dataContext', function (done) {
+                                var promise = repository.duplicateCourse(course.id);
+
+                                promise.fin(function () {
+                                    expect(dataContext.courses[dataContext.courses.length - 1]).toBe(mappedCourse);
+                                    done();
+                                });
+
+                                post.resolve({ course: {} });
+                            });
+
+                            it('should push objectives to dataContext', function (done) {
+                                var promise = repository.duplicateCourse(course.id);
+
+                                promise.fin(function () {
+                                    expect(dataContext.objectives[0]).toBe(mappedObjective);
+                                    done();
+                                });
+
+                                post.resolve({ course: {}, objectives: [objective] });
+                            });
 
                         });
 

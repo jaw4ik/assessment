@@ -113,7 +113,7 @@
                             </div>
                             <div class="course-actions-panel">
                                 <!-- ko if: isProcessed -->
-                                <button class="course-action-btn duplicate-btn info-tooltip-holder" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.duplicateCourse, css: { disabled: !$parent.isCreateCourseAvailable() }">
+                                <button class="course-action-btn duplicate-btn info-tooltip-holder" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.duplicateCourse">
                                     <div class="info-tooltip duplicate-item">
                                         <span data-bind="localize: { text: 'duplicate' }">Duplicate</span>
                                     </div>
@@ -127,15 +127,15 @@
                             </div>
                         </div>
                     </div>
-                    <!-- ko if: !isProcessed() -->
+                    <!-- ko ifnot: isProcessed -->
                     <div class="processing-block-container">
                         <div class="processing-block">
                             <div class="circular-loader-container">
                                 <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 orange align-center', style: { top: '50%' } } } --><!-- /ko -->
                             </div>
                             <div class="processing-message-block">
-                                <h4 class="processing-message-title">Course is duplicating...</h4>
-                                <div class="processing-message-description">Please wait, it may take few minutes</div>
+                                <h4 class="processing-message-title" data-bind="localize: { text: 'courseIsDuplicating' }">Course is duplicating...</h4>
+                                <div class="processing-message-description" data-bind="localize: { text: 'PleaseWaitFewMinutes' }">Please wait, it may take few minutes</div>
                             </div>
                         </div>
                     </div>
@@ -177,7 +177,7 @@
                                 </div>
                             </div>
                             <div class="course-actions-panel">
-                                <button class="course-action-btn duplicate-btn info-tooltip-holder" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.duplicateCourse, css: { disabled: !$parent.isCreateCourseAvailable() }">
+                                <button class="course-action-btn duplicate-btn info-tooltip-holder" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.duplicateCourse">
                                     <div class="info-tooltip duplicate-item">
                                         <span data-bind="localize: { text: 'duplicate' }">Duplicate</span>
                                     </div>
