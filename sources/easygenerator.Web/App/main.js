@@ -16,8 +16,8 @@ define('knockout', function () {
     return ko;
 });
 
-define(['durandal/system', 'durandal/app', 'plugins/router', 'bootstrapper', 'userContext', 'synchronization/listener', 'onboarding/initialization'],
-    function (system, app, router, bootstrapper, userContext, synchronization, onboarding) {
+define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synchronization/listener', 'onboarding/initialization'],
+    function (system, app, bootstrapper, userContext, synchronization, onboarding) {
         if (!has('release')) {
             system.debug(true);
         }
@@ -30,20 +30,12 @@ define(['durandal/system', 'durandal/app', 'plugins/router', 'bootstrapper', 'us
             widget: true
         });
 
-        var hashPart = window.location.hash.replace('#', '');
-        var hashParams = router.parseQueryString(hashPart);
-
         var ltiAuthDefer;
-        if (hashParams && hashParams['token.lti']) {
-            ltiAuthDefer =
-                $.ajax({ url: '/lti/authenticate', type: 'POST' }).done(function (response) {
-                    if (response && response.success) {
-
-                        window.auth.login(response.data);
-                    }
-                }).complete(function() {
-                    
-                });
+        if (window.lti.isAuthTokenPresent()) {
+            window.auth.logout();
+            ltiAuthDefer = window.lti.authenticate().complete(function () {
+                window.location.replace('/#');
+            });
         } else {
             ltiAuthDefer = Q.fcall(function () { });
         }

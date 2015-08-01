@@ -82,7 +82,7 @@
         }
         //bootstraper
         (function() {
-            if (window.auth.isUserLoggedIn()) {
+            if (window.auth.isUserLoggedIn() || window.lti.isAuthTokenPresent()) {
                 var js = document.createElement('script');
                 js.type = 'text/javascript';
                 js.async = true;
