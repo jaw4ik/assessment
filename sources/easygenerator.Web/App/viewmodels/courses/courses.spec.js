@@ -453,9 +453,18 @@
                     isProcessed: ko.observable(true)
                 };
 
+                var originalTimeout;
+
                 beforeEach(function () {
                     viewModel.isCreateCourseAvailable(true);
                     viewModel.courses([]);
+
+                    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+                    jasmine.DEFAULT_TIMEOUT_INTERVAL = 1500;
+                });
+
+                afterEach(function() {
+                    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
                 });
 
                 it('should add fake course to the top of the course list', function (done) {
@@ -467,6 +476,8 @@
                         expect(viewModel.courses()[0].isSelected()).toBe(course.isSelected());
                         expect(viewModel.courses()[0].objectives).toBe(course.objectives);
                         expect(viewModel.courses()[0].isProcessed()).toBeFalsy();
+                        expect(viewModel.courses()[0].isDuplicatingFinished()).toBeFalsy();
+                        expect(viewModel.courses()[0].finishDuplicating).toBeFalsy();
                         done();
                     });
 
@@ -474,7 +485,7 @@
 
                 });
 
-                it('should duplicate course and remove fake course after minimal duplicating time', function (done) {
+                it('should set to fake course a function for removing fake course and adding duplicated course after minimal duplicating time', function (done) {
                     var resolvedCourse = {
                         id: 'new',
                         title: '',
@@ -487,6 +498,11 @@
                     var promise = viewModel.duplicateCourse(course);
 
                     promise.fin(function () {
+                        
+                        expect(viewModel.courses()[0].isDuplicatingFinished()).toBeTruthy();
+
+                        viewModel.courses()[0].finishDuplicating();
+
                         expect(viewModel.courses()[0].id).toBe(resolvedCourse.id);
                         expect(viewModel.courses()[0].title()).toBe(resolvedCourse.title);
                         expect(viewModel.courses()[0].thumbnail).toBe(resolvedCourse.template.thumbnail);
@@ -729,14 +745,14 @@
             });
 
             it('should update course title', function () {
-                viewModel.courses(vmCourse);
+                viewModel.courses([vmCourse]);
                 viewModel.titleUpdated(course);
 
                 expect(vmCourse.title()).toBe(course.title);
             });
 
             it('should update course modified on date', function () {
-                viewModel.courses(vmCourse);
+                viewModel.courses([vmCourse]);
                 viewModel.courseUpdated(course);
 
                 expect(vmCourse.modifiedOn().toISOString()).toBe(course.modifiedOn.toISOString());
@@ -760,7 +776,7 @@
             });
 
             it('should update course modified on date', function () {
-                viewModel.courses(vmCourse);
+                viewModel.courses([vmCourse]);
                 viewModel.courseUpdated(course);
 
                 expect(vmCourse.modifiedOn().toISOString()).toBe(course.modifiedOn.toISOString());

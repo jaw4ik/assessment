@@ -577,6 +577,17 @@
     box-shadow: 0 2px 0 0#e8e8e8;
 
     &.processing {
+        margin-top: -60px;
+        opacity: 0;
+
+        @keyframes fadeIn {
+            to {
+                margin-top: 0;
+                opacity: 1;
+            }
+        }
+
+        animation: fadeIn 0.4s forwards;
 
         &:hover {
             background-color: white;
@@ -610,6 +621,15 @@
             background-color: rgba(231,231,231, 0.3);
             text-align: center;
             overflow: hidden;
+            transform: scale(0, 0);
+                      
+            @keyframes zoomIn {
+                to {
+                    transform: scale(1, 1);
+                }
+            }
+
+            animation: zoomIn 0.4s forwards;
 
             .circular-loader-container {
                 display: inline-block;
@@ -1383,6 +1403,7 @@
 .action-item-btn-wrapper {
     position: relative;
     height: 100%;
+    z-index: 2;
 }
 
 .action-item-btn {

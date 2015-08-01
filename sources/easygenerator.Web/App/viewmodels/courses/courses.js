@@ -103,10 +103,13 @@
                 var fakeCourse = createFakeCourse(course);
                 viewModel.courses.unshift(fakeCourse);
 
-                return Q.all([duplicateCourseCommand.execute(course.id, 'Courses'), waitMinimalTimeForCourseDuplicating(500)]).then(function (response) {
-                    var index = viewModel.courses.indexOf(fakeCourse);
-                    viewModel.courses.remove(fakeCourse);
-                    viewModel.courses.splice(index, 0, mapCourse(response[0]));
+                return Q.all([duplicateCourseCommand.execute(course.id, 'Courses'), waitMinimalTimeForCourseDuplicating(1000)]).then(function (response) {
+                    fakeCourse.finishDuplicating = function () {
+                        var index = viewModel.courses.indexOf(fakeCourse);
+                        viewModel.courses.remove(fakeCourse);
+                        viewModel.courses.splice(index, 0, mapCourse(response[0]));
+                    };
+                    fakeCourse.isDuplicatingFinished(true);
                 });
             });
         }
@@ -276,7 +279,9 @@
                 modifiedOn: new Date(),
                 isSelected: ko.observable(false),
                 objectives: course.objectives,
-                isProcessed: ko.observable(false)
+                isProcessed: ko.observable(false),
+                isDuplicatingFinished: ko.observable(false),
+                finishDuplicating: false
             };
         }
 

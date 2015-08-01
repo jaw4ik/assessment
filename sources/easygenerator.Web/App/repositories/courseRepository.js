@@ -96,6 +96,8 @@
                     var duplicatedCourse = courseModelMapper.map(response.course, dataContext.objectives, dataContext.templates);
                     dataContext.courses.push(duplicatedCourse);
 
+                    app.trigger(constants.messages.course.created, duplicatedCourse);
+
                     return duplicatedCourse;
                 });
             });
