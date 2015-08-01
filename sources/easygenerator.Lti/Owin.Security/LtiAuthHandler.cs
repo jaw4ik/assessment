@@ -1,4 +1,5 @@
-﻿using LtiLibrary.Owin.Security.Lti;
+﻿using System;
+using LtiLibrary.Owin.Security.Lti;
 using System.Threading.Tasks;
 
 namespace easygenerator.Lti.Owin.Security

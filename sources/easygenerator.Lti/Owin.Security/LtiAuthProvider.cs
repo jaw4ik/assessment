@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Security.Policy;
 using easygenerator.Auth.Providers;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
@@ -54,11 +55,21 @@ namespace easygenerator.Lti.Owin.Security
 
                 if (!string.IsNullOrWhiteSpace(context.LtiRequest.LisPersonEmailPrimary))
                 {
-
                     var tokens = _tokenProvider.GenerateTokens(context.LtiRequest.LisPersonEmailPrimary, context.Request.Uri.Host,
                         AuthorizationConfigurationProvider.Endpoints.Select(_ => _.Name));
 
+                    var ltiAuthUrl = context.LtiRequest.Parameters[Constants.ToolProviderAuthUrl];
+                    var ltiToken = "launch";
+
+                    if (ltiAuthUrl == null)
+                    {
+                        ltiAuthUrl = context.Request.Uri.GetLeftPart(UriPartial.Authority);
+                    }
+                    ltiAuthUrl = string.Format(ltiAuthUrl.Contains("#") ? "{0}&token.lti={1}" : "{0}#token.lti={1}", ltiAuthUrl, ltiToken);
+
                     _storage.Add(Constants.TokensStorageKey, tokens);
+
+                    context.RedirectUrl = ltiAuthUrl;
                 }
                 return Task.FromResult<object>(null);
             };

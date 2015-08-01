@@ -10,5 +10,6 @@ namespace easygenerator.Lti
     public static class Constants
     {
         public const string TokensStorageKey = "LtiTokensStorageKey";
+        public const string ToolProviderAuthUrl = "custom_tool_provider_auth_url";
     }
 }
