@@ -290,13 +290,13 @@
     <Compile Include="Migrations\201506040849286_AddLearningPath.Designer.cs">
       <DependentUpon>201506040849286_AddLearningPath.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201507160901146_CreateConsumerToolsTable.cs" />
-    <Compile Include="Migrations\201507160901146_CreateConsumerToolsTable.Designer.cs">
-      <DependentUpon>201507160901146_CreateConsumerToolsTable.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201507291211326_MarkAllSimpleCoursesAsChanged.cs" />
     <Compile Include="Migrations\201507291211326_MarkAllSimpleCoursesAsChanged.Designer.cs">
       <DependentUpon>201507291211326_MarkAllSimpleCoursesAsChanged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508011808070_CreateConsumerToolsTable.cs" />
+    <Compile Include="Migrations\201508011808070_CreateConsumerToolsTable.Designer.cs">
+      <DependentUpon>201508011808070_CreateConsumerToolsTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -506,11 +506,11 @@
     <EmbeddedResource Include="Migrations\201506040849286_AddLearningPath.resx">
       <DependentUpon>201506040849286_AddLearningPath.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507160901146_CreateConsumerToolsTable.resx">
-      <DependentUpon>201507160901146_CreateConsumerToolsTable.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507291211326_MarkAllSimpleCoursesAsChanged.resx">
       <DependentUpon>201507291211326_MarkAllSimpleCoursesAsChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508011808070_CreateConsumerToolsTable.resx">
+      <DependentUpon>201508011808070_CreateConsumerToolsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
