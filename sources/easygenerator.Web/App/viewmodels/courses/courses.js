@@ -265,7 +265,7 @@
             course.createdOn = item.createdOn;
             course.isSelected = ko.observable(false);
             course.objectives = item.objectives;
-            course.isProcessed = ko.observable(true);
+            course.isProcessed = true;
 
             return course;
         }
@@ -279,7 +279,7 @@
                 modifiedOn: new Date(),
                 isSelected: ko.observable(false),
                 objectives: course.objectives,
-                isProcessed: ko.observable(false),
+                isProcessed: false,
                 isDuplicatingFinished: ko.observable(false),
                 finishDuplicating: false
             };

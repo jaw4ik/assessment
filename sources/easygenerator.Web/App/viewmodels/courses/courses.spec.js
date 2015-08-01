@@ -450,7 +450,7 @@
                     modifiedOn: new Date(),
                     isSelected: ko.observable(false),
                     objectives: [],
-                    isProcessed: ko.observable(true)
+                    isProcessed: true
                 };
 
                 var originalTimeout;
@@ -475,7 +475,7 @@
                         expect(viewModel.courses()[0].thumbnail).toBe(course.thumbnail);
                         expect(viewModel.courses()[0].isSelected()).toBe(course.isSelected());
                         expect(viewModel.courses()[0].objectives).toBe(course.objectives);
-                        expect(viewModel.courses()[0].isProcessed()).toBeFalsy();
+                        expect(viewModel.courses()[0].isProcessed).toBeFalsy();
                         expect(viewModel.courses()[0].isDuplicatingFinished()).toBeFalsy();
                         expect(viewModel.courses()[0].finishDuplicating).toBeFalsy();
                         done();
@@ -508,7 +508,7 @@
                         expect(viewModel.courses()[0].thumbnail).toBe(resolvedCourse.template.thumbnail);
                         expect(viewModel.courses()[0].objectives).toBe(resolvedCourse.objectives);
                         expect(viewModel.courses()[0].isSelected()).toBeFalsy();
-                        expect(viewModel.courses()[0].isProcessed()).toBeTruthy();
+                        expect(viewModel.courses()[0].isProcessed).toBeTruthy();
                         done();
                     });
 

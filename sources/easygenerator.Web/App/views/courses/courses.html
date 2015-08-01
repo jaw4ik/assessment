@@ -79,7 +79,7 @@
                 </li>
                 <!-- /ko -->
                 <!-- ko foreach: courses -->
-                <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected, processing: !isProcessed() }">
+                <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected, processing: !isProcessed }">
                     <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
                         <div class="checkbox-holder" data-bind="click: $parent.toggleSelection, stopEventPropagation: { event: 'click' }">
                             <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }">
