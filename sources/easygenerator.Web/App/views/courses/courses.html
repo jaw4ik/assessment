@@ -128,7 +128,7 @@
                         </div>
                     </div>
                     <!-- ko ifnot: isProcessed -->
-                    <div class="processing-block-container" data-bind="fadeOutWithCallback: { predicate: isDuplicatingFinished, callback: finishDuplicating, duration: 500 }">
+                    <div class="processing-block-container" data-bind="fadeOutWithCallback: { predicate: isDuplicatingFinished, callback: finishDuplicating, duration: 500 }, scrollTo: {}">
                         <div class="processing-block">
                             <div class="circular-loader-container">
                                 <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 orange align-center', style: { top: '50%' } } } --><!-- /ko -->
