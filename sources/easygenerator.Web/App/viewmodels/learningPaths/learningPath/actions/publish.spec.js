@@ -129,23 +129,23 @@
 
         });
 
-        describe('openPublishLink:', function () {
+        describe('openPublicationUrl:', function () {
 
             it('should be function', function () {
-                expect(viewModel.openPublishLink).toBeFunction();
+                expect(viewModel.openPublicationUrl).toBeFunction();
             });
 
             describe('when publish link is empty', function () {
                 it('should not open link', function () {
                     viewModel.publicationUrl('');
-                    viewModel.openPublishLink();
+                    viewModel.openPublicationUrl();
                     expect(router.openUrl).not.toHaveBeenCalled();
                 });
             });
 
             it('should open link', function () {
                 viewModel.publicationUrl('publicationUrl');
-                viewModel.openPublishLink();
+                viewModel.openPublicationUrl();
                 expect(router.openUrl).toHaveBeenCalledWith('publicationUrl');
             });
 
@@ -330,6 +330,12 @@
                     viewModel.onDeliveringStarted({ id: 'learningPathId' });
                     expect(viewModel.isDelivering()).toBeTruthy();
                 });
+
+                it('should update publishing state', function() {
+                    viewModel.isPublishing(false);
+                    viewModel.onDeliveringStarted({id: 'learningPathId', isPublishing: true });
+                    expect(viewModel.isPublishing()).toBeTruthy();
+                });
             });
 
             describe('when other learning path is delivered', function () {
@@ -337,6 +343,12 @@
                     viewModel.isDelivering(false);
                     viewModel.onDeliveringStarted({ id: 'otherLearningPathId' });
                     expect(viewModel.isDelivering()).not.toBeTruthy();
+                });
+
+                it('should not update publishing state', function() {
+                    viewModel.isPublishing(false);
+                    viewModel.onDeliveringStarted({ id: 'otherLearningPathId', isPublishing: true });
+                    expect(viewModel.isPublishing()).not.toBeTruthy();
                 });
             });
         });
@@ -357,6 +369,18 @@
                     viewModel.onDeliveringFinished({ id: 'learningPathId' });
                     expect(viewModel.isDelivering()).toBeFalsy();
                 });
+
+                it('should update publishing state', function() {
+                    viewModel.isPublishing(true);
+                    viewModel.onDeliveringFinished({ id: 'learningPathId', isPublishing: false });
+                    expect(viewModel.isPublishing()).toBeFalsy();
+                });
+
+                it('should update publication url', function() {
+                    viewModel.publicationUrl('');
+                    viewModel.onDeliveringFinished({ id: 'learningPathId', publicationUrl: 'publicationUrl' });
+                    expect(viewModel.publicationUrl()).toBe('publicationUrl');
+                });
             });
 
             describe('when other learning path is delivered', function () {
@@ -364,6 +388,18 @@
                     viewModel.isDelivering(true);
                     viewModel.onDeliveringFinished({ id: 'otherLearningPathId' });
                     expect(viewModel.isDelivering()).not.toBeFalsy();
+                });
+
+                it('should not update publishing state', function () {
+                    viewModel.isPublishing(true);
+                    viewModel.onDeliveringFinished({ id: 'otherLearningPathId', isPublishing: false });
+                    expect(viewModel.isPublishing()).not.toBeFalsy();
+                });
+
+                it('should not update publication url', function () {
+                    viewModel.publicationUrl('');
+                    viewModel.onDeliveringFinished({ id: 'otherLearningPathId', publicationUrl: 'publicationUrl' });
+                    expect(viewModel.publicationUrl()).toBe('');
                 });
             });
         });

@@ -22,7 +22,7 @@
 
             onCopyLink: onCopyLink,
             onCopyEmbedCode: onCopyEmbedCode,
-            openPublishLink: openPublishLink,
+            openPublicationUrl: openPublicationUrl,
             validateFrameHeight: validateFrameHeight,
             validateFrameWidth: validateFrameWidth,
 
@@ -64,7 +64,7 @@
             }, constants.copyToClipboardWait);
         }
 
-        function openPublishLink() {
+        function openPublicationUrl() {
             if (viewModel.publicationUrl()) {
                 router.openUrl(viewModel.publicationUrl());
             }
@@ -123,6 +123,7 @@
             }
 
             viewModel.isDelivering(true);
+            viewModel.isPublishing(learningPath.isPublishing);
         }
 
         function onDeliveringFinished(learningPath) {
@@ -131,6 +132,8 @@
             }
 
             viewModel.isDelivering(false);
+            viewModel.isPublishing(learningPath.isPublishing);
+            viewModel.publicationUrl(learningPath.publicationUrl);
         }
     };
 

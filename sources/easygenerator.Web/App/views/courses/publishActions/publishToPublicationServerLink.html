@@ -10,8 +10,10 @@
                 <div class="publish-tab-action-content" data-bind="localize: { text: 'privateLinkCaption' }">
                     Copy and paste the URL of your course to share or view.
                 </div>
-                <div class="publish-tab-link-control-container">
-                    <input type="text" class="publish-tab-input" readonly="readonly" data-bind="value: packageUrl(), selectText: state() === states.succeed" />
+                <div class="copy-control">
+                    <div class="copy-text-container">
+                        <input type="text" class="copy-text-link" readonly="readonly" data-bind="value: packageUrl(), selectText: state() === states.succeed" />
+                    </div>
                     <div class="copy-btn-wrapper">
                         <button class="btn" data-bind="copyToClipboard: { value: packageUrl, onCopied: copyLinkToClipboard, isDisabled: copyBtnDisabled }, css: { green: !courseIsDirty(), 'green-white': courseIsDirty(), copied: linkCopied, disabled: copyBtnDisabled }, attr: { disabled: copyBtnDisabled() }">
                             <span data-bind="localize: { text: linkCopied() ? 'copied' : 'copy' }"></span>

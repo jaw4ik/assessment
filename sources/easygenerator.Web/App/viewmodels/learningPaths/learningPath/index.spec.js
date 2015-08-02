@@ -7,13 +7,14 @@
         updateTitleCommand = require('viewmodels/learningPaths/learningPath/commands/updateTitleCommand'),
         clientContext = require('clientContext'),
         constants = require('constants'),
-        eventTracker = require('eventTracker');
+        eventTracker = require('eventTracker'),
+        shareLearningPathDialog = require('dialogs/learningPath/shareLearningPath');
 
     describe('viewModel [learningPath index]', function () {
         var learningPath,
             getLearnigPathDefer;
 
-        beforeEach(function() {
+        beforeEach(function () {
             getLearnigPathDefer = Q.defer();
             spyOn(getLearningPathByIdQuery, 'execute').and.returnValue(getLearnigPathDefer.promise);
             spyOn(eventTracker, 'publish');
@@ -95,12 +96,6 @@
             });
         });
 
-        describe('downloadAction:', function () {
-            it('should be object', function () {
-                expect(viewModel.downloadAction).toBeObject();
-            });
-        });
-
         describe('canActivate:', function () {
             describe('when learning path is not found', function () {
                 beforeEach(function () {
@@ -159,15 +154,6 @@
                     });
                 });
 
-                it('should call activate download action', function (done) {
-                    spyOn(viewModel.downloadAction, 'activate');
-
-                    viewModel.activate(learningPath.id).fin(function () {
-                        expect(viewModel.downloadAction.activate).toHaveBeenCalledWith(learningPath);
-                        done();
-                    });
-                });
-
                 describe('when learning path is last created one', function () {
                     beforeEach(function () {
                         spyOn(clientContext, 'get').and.returnValue(learningPath.id);
@@ -200,6 +186,26 @@
             });
         });
 
+        describe('share:', function () {
+            beforeEach(function () {
+                spyOn(shareLearningPathDialog, 'show');
+            });
+
+            it('should be function', function () {
+                expect(viewModel.share).toBeFunction();
+            });
+
+            it('should publish \'Open \'share\' dialog\' event', function () {
+                viewModel.share();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Open \'share\' dialog');
+            });
+
+            it('should show publish learning path dialog', function () {
+                viewModel.id = 'learningPathId';
+                viewModel.share();
+                expect(shareLearningPathDialog.show).toHaveBeenCalledWith('learningPathId');
+            });
+        });
     });
 
 });

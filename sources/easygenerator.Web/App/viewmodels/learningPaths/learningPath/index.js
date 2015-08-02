@@ -8,14 +8,16 @@
         'viewmodels/learningPaths/learningPath/commands/updateTitleCommand',
         'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery',
         'clientContext',
-        'viewmodels/learningPaths/learningPath/actions/download'],
-function (eventTracker, index, router, isViewReady, titleField, constants, localizationManager, updateTitleCommand, getLearningPathByIdQuery, clientContext, downloadAction) {
+        'dialogs/learningPath/shareLearningPath'
+],
+function (eventTracker, index, router, isViewReady, titleField, constants, localizationManager, updateTitleCommand, getLearningPathByIdQuery, clientContext, publishLearningPathDialog) {
     'use stict';
 
     var events = {
         updateTitle: 'Update learning path title',
         navigateToDetails: 'Navigate to learning path details',
-        navigateToPublish: 'Navigate to publish learning path'
+        navigateToPublish: 'Navigate to publish learning path',
+        openShareDialog: 'Open \'share\' dialog'
     };
 
     var childRouter = index.router.createChildRouter()
@@ -59,8 +61,10 @@ function (eventTracker, index, router, isViewReady, titleField, constants, local
         router: childRouter,
 
         id: null,
+        learningPath: null,
         title: ko.observable(''),
-        downloadAction: downloadAction(),
+        share: share,
+
         activate: activate,
         canActivate: canActivate
     };
@@ -68,6 +72,11 @@ function (eventTracker, index, router, isViewReady, titleField, constants, local
     viewModel.titleField = titleField('', constants.validation.learningPathTitleMaxLength, localizationManager.localize('learningPathTitle'), getTitle, updateTitle);
 
     return viewModel;
+
+    function share() {
+        eventTracker.publish(events.openShareDialog);
+        publishLearningPathDialog.show(viewModel.learningPath);
+    }
 
     function canActivate(learningPathId) {
         return getLearningPathByIdQuery.execute(learningPathId).then(function (learningPath) {
@@ -86,7 +95,7 @@ function (eventTracker, index, router, isViewReady, titleField, constants, local
             viewModel.titleField.title(learningPath.title);
             viewModel.titleField.isSelected(clientContext.get(constants.clientContextKeys.lastCreatedLearningPathId) === learningPath.id);
             clientContext.remove(constants.clientContextKeys.lastCreatedLearningPathId);
-            viewModel.downloadAction.activate(learningPath);
+            viewModel.learningPath = learningPath;
         });
     }
 

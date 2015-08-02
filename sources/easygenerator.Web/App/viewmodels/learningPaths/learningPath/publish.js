@@ -4,7 +4,7 @@
     var events = {
         openEmbedTab: 'Open embed tab',
         openLinkTab: 'Open link tab',
-        openHtmlTab: 'Open \'downoload HTML\'',
+        openHtmlTab: 'Open \'downoload HTML\''
     };
 
     var viewModel = {

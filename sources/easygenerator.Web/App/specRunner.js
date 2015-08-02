@@ -342,7 +342,7 @@
             '../Scripts/common/serviceUnavailableAjaxErrorHandler.spec'
         ];
 
-        require(specs, function () {
+        require(['viewmodels/learningPaths/learningPath/actions/publish.spec'], function () {
             env.execute();
         });
     });
