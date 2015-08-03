@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html ng-app="design">
+<head>
+    <title>Template design settings</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="css/design.css?v=1438584863890" rel="stylesheet" />
+    <script src="../api.js?v=1438584863890"></script>
+    <script src="js/vendor.min.js?v=1438584863890"></script>
+    <script src="js/design.min.js?v=1438584863890"></script>
+</head>
+<body>
+   <main ng-controller="DesignController">
+        <article class="flex direction-column settings-item-container" ng-hide="isError">
+            <header class="settings-item-title">Custom course logo:</header>
+            <section class="settings-item-content">
+                <div class="flex direction-row logo-container">
+                    <input id="imgUrl" class="logo-url-input" type="text" placeholder="Paste image URL here..." ng-change="logo.hasError = false;" ng-blur="saveChanges()" ng-disabled="!userAccess.hasStarterPlan" ng-model="logo.url" />
+                    <span class="logo-help-text">or</span>
+                </div>
+                <div class="flex direction-column logo-container">
+                    <div class="flex direction-row logo-image-container" ng-hide="logo.hasLogo()" ng-click="userAccess.hasStarterPlan && logo.upload()">
+                        <figure class="flex direction-column logo-image-wrapper">
+                            <div class="logo-image blue">
+                                <div class="logo-image gray"></div>
+                            </div>
+                            <figcaption class="logo-upload-text">Upload logo image</figcaption>
+                        </figure>
+                    </div>
+                    <div class="flex direction-row logo-image-container has-logo" ng-show="logo.hasLogo()">
+                        <figure class="flex direction-column logo-image-wrapper">
+                            <img class="template-logo" src="" alt=""  ng-src="{{ logo.url }}" />
+                        </figure>
+                        <div class="btn-image-action-container">
+                            <button class="btn-image-action upload" ng-click="userAccess.hasStarterPlan && logo.upload()">
+                                <span class="tooltip">
+                                    <span class="tooltip-text">Change</span>
+                                </span>
+                            </button>
+                            <button class="btn-image-action delete" ng-click="logo.clear()">
+                                <span class="tooltip">
+                                    <span class="tooltip-text">Clear</span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="logo-message-container" ng-show="(!logo.hasError && !logo.isLoading) || logo.hasLogo()">
+                        - recommended size 300x50 px, allowed formats: jpeg, jpg, png, bmp, gif
+                    </div>
+                    <div class="error-container" ng-show="logo.hasError && !logo.isLoading && !logo.hasLogo()">
+                        <div class="error-title-container">{{ logo.errorText }}</div>
+                        <div class="error-message-container">{{ logo.errorDescription }}</div>
+                    </div>
+                </div>
+                <div class="flex direction-column no-access-contatiner" fade-visible fade-visible-value="!userAccess.hasStarterPlan">
+                    <div class="no-access-img"></div>
+                    <div class="no-access-text">
+                        You have to
+                        <a target="_blank" href="/account/upgrade">upgrade your account</a>
+                        in order to set custom background
+                    </div>
+                </div>
+            </section>
+            <footer class="settings-item-seperator"></footer>
+        </article>
+        <article class="flex direction-column settings-item-container" ng-hide="isError">
+            <header class="settings-item-title">
+                Change background:
+            </header>
+            <section class="settings-item-content flex direction-row" ng-class="{ 'flex-wrap': background.hasError }">
+                <div class="background-container" ng-class="{ 'empty': background.image.isEmpty, 'uploading': background.image.isUploading, 'error': background. hasError }">
+                    <button class="background-upload" ng-click="background.changeImage()"></button>
+                    <div class="background-image" background src="background.image.src"></div>
+                    <div class="btn-image-action-container">
+                        <button class="btn-image-action upload" ng-click="background.changeImage()">
+                            <span class="tooltip">
+                                <span class="tooltip-text">Change background</span>
+                            </span>
+                        </button>
+                        <button class="btn-image-action delete" ng-click="background.clearImage()">
+                            <span class="tooltip">
+                                <span class="tooltip-text">Clear background</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <ul class="background-position-options flex direction-column" ng-if="!background.image.isEmpty">
+                    <li class="background-position-option">
+                        <button class="background-position-option-btn fullscreen" ng-click="background.setFullscreen()" ng-class="{ active: background.type === 'fullscreen' }">
+                            <span class="tooltip">
+                                <span class="tooltip-text">Fullscreen</span>
+                            </span>
+                        </button>
+                    </li>
+                    <li class="background-position-option">
+                        <button class="background-position-option-btn repeat" ng-click="background.setRepeat()" ng-class="{ active: background.type === 'repeat' }">
+                            <span class="tooltip">
+                                <span class="tooltip-text">Repeat</span>
+                            </span>
+                        </button>
+                    </li>
+                    <li class="background-position-option">
+                        <button class="background-position-option-btn original" ng-click="background.setOriginal()" ng-class="{ active: background.type === 'original' }">
+                            <span class="tooltip">
+                                <span class="tooltip-text">Original</span>
+                            </span>
+                        </button>
+                    </li>
+                </ul>
+                <div class="error-container" ng-if="background.hasError">
+                    <div class="error-title-container">{{background.errorTitle}}</div>
+                    <div class="error-message-container">{{background.errorDescription}}</div>
+                </div>
+                <div class="flex direction-column no-access-contatiner" fade-visible fade-visible-value="!userAccess.hasStarterPlan">
+                    <div class="no-access-img"></div>
+                    <div class="no-access-text">
+                        You have to <a target="_blank" href="/account/upgrade">upgrade your account</a> in order to set custom course background
+                    </div>
+                </div>
+            </section>
+        </article>
+        <!-- ko if: isError -->
+        <div class="settings-tab-wrapper"  ng-show="isError">
+            Template settings are not initialized. Please reload the page and change the settings again. Contact support@easygenerator.com if problem persists.
+        </div>
+        <!-- /ko -->
+    </main>
+</body>
+</html>

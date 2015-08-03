@@ -29,7 +29,8 @@ namespace easygenerator.Web.Components.Mappers
                 PreviewDemoUrl = template.PreviewUrl,
                 Order = template.Order,
                 IsCustom = template.IsCustom,
-                IsNew = template.IsNew
+                IsNew = template.IsNew,
+                IsDeprecated = template.IsDeprecated
             };
         }
     }

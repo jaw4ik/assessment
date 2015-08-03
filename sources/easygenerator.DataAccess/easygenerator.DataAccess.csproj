@@ -294,9 +294,13 @@
     <Compile Include="Migrations\201507291211326_MarkAllSimpleCoursesAsChanged.Designer.cs">
       <DependentUpon>201507291211326_MarkAllSimpleCoursesAsChanged.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201508030757441_AddPackageAndPublicationLinksToLearningPath.cs" />
-    <Compile Include="Migrations\201508030757441_AddPackageAndPublicationLinksToLearningPath.Designer.cs">
-      <DependentUpon>201508030757441_AddPackageAndPublicationLinksToLearningPath.cs</DependentUpon>
+    <Compile Include="Migrations\201507301220204_MergeQuizAndExamToAssessment.cs" />
+    <Compile Include="Migrations\201507301220204_MergeQuizAndExamToAssessment.Designer.cs">
+      <DependentUpon>201507301220204_MergeQuizAndExamToAssessment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508031353526_AddPackageAndPublicationLinksToLearningPath.cs" />
+    <Compile Include="Migrations\201508031353526_AddPackageAndPublicationLinksToLearningPath.Designer.cs">
+      <DependentUpon>201508031353526_AddPackageAndPublicationLinksToLearningPath.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -508,8 +512,11 @@
     <EmbeddedResource Include="Migrations\201507291211326_MarkAllSimpleCoursesAsChanged.resx">
       <DependentUpon>201507291211326_MarkAllSimpleCoursesAsChanged.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508030757441_AddPackageAndPublicationLinksToLearningPath.resx">
-      <DependentUpon>201508030757441_AddPackageAndPublicationLinksToLearningPath.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201507301220204_MergeQuizAndExamToAssessment.resx">
+      <DependentUpon>201507301220204_MergeQuizAndExamToAssessment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508031353526_AddPackageAndPublicationLinksToLearningPath.resx">
+      <DependentUpon>201508031353526_AddPackageAndPublicationLinksToLearningPath.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
