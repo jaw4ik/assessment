@@ -298,6 +298,10 @@
     <Compile Include="Migrations\201508011808070_CreateConsumerToolsTable.Designer.cs">
       <DependentUpon>201508011808070_CreateConsumerToolsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508031325143_CreateLtiUserInfoTable.cs" />
+    <Compile Include="Migrations\201508031325143_CreateLtiUserInfoTable.Designer.cs">
+      <DependentUpon>201508031325143_CreateLtiUserInfoTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ConsumerToolRepository.cs" />
@@ -511,6 +515,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508011808070_CreateConsumerToolsTable.resx">
       <DependentUpon>201508011808070_CreateConsumerToolsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508031325143_CreateLtiUserInfoTable.resx">
+      <DependentUpon>201508031325143_CreateLtiUserInfoTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

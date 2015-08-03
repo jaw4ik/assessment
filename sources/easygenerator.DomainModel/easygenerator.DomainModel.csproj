@@ -49,6 +49,7 @@
     <Compile Include="Entities\ConsumerTool.cs" />
     <Compile Include="Entities\CourseState.cs" />
     <Compile Include="Entities\DemoCourseInfo.cs" />
+    <Compile Include="Entities\LtiUserInfo.cs" />
     <Compile Include="Entities\OrderingUtils.cs" />
     <Compile Include="Entities\Identifiable.cs" />
     <Compile Include="Entities\LearningPath.cs" />

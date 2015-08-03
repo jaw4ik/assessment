@@ -219,5 +219,25 @@ namespace easygenerator.DomainModel.Entities
                 throw new ArgumentException("Expiration date is invalid", "expirationDate");
             }
         }
+
+        #region Aim4You integration
+
+        public virtual LtiUserInfo LtiUserInfo { get; private set; }
+
+        public virtual void UpdateLtiUserInfo(string ltiUserId)
+        {
+            if (LtiUserInfo == null)
+            {
+                LtiUserInfo = new LtiUserInfo();
+            }
+            LtiUserInfo.UpdateLtiUserId(ltiUserId);
+        }
+
+        public bool IsLtiUser()
+        {
+            return LtiUserInfo != null;
+        }
+
+        #endregion
     }
 }
