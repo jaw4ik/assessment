@@ -38,8 +38,10 @@
                     mode: 'all',
                     subsetSize: 10,
                     randomizeOrder: true,
-                    randomizeAnswerOptions: false,
                     randomizePerAttempt: false
+                },
+                answers: {
+                    randomize: false
                 },
                 attempt: {
                     hasLimit: false,

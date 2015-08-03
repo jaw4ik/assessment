@@ -303,7 +303,6 @@
 
             self.subsetSize = 10;
             self.randomizeOrder = true;
-            self.randomizeAnswerOptions = false;
             self.randomizePerAttempt = false;
 
             self.init = init;
@@ -319,7 +318,6 @@
                 self.mode = questionPoolSettings.mode;
                 self.subsetSize = questionPoolSettings.subsetSize;
                 self.randomizeOrder = questionPoolSettings.randomizeOrder;
-                self.randomizeAnswerOptions = questionPoolSettings.randomizeAnswerOptions;
                 self.randomizePerAttempt = questionPoolSettings.randomizePerAttempt;
             }
 
@@ -328,8 +326,7 @@
 
                 resultData.mode = self.mode;
                 resultData.subsetSize = self.subsetSize;
-                resultData.randomizeAnswerOptions = self.randomizeAnswerOptions;
-
+                
                 if (self.mode === self.modes.all) {
                     resultData.randomizeOrder = self.randomizeOrder;
                     resultData.randomizePerAttempt = self.randomizeOrder && self.randomizePerAttempt;
@@ -339,6 +336,29 @@
                 }
 
                 return resultData;
+            }
+        })();
+
+        that.answers = (function () {
+            var self = {
+                randomize: false,
+                init: init,
+                getData: getData
+            };
+
+            return self;
+
+            function init(answersSettings) {
+                if (!answersSettings)
+                    return;
+
+                self.randomize = answersSettings.randomize;
+            }
+
+            function getData() {
+                return {
+                    randomize: self.randomize
+                };
             }
         })();
 
@@ -389,6 +409,7 @@
                 languages: that.languages.getData(),
                 timer: that.timer.getData(),
                 questionPool: that.questionPool.getData(),
+                answers: that.answers.getData(),
                 attempt: that.attempt.getData()
             });
         }
@@ -404,6 +425,7 @@
             that.languages.init(manifest.languages, settings.languages);
             that.timer.init(settings.timer);
             that.questionPool.init(settings.questionPool);
+            that.answers.init(settings.answers);
             that.attempt.init(settings.attempt);
 
             currentSettings = getCurrentSettings(settings);

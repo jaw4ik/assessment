@@ -25,7 +25,7 @@
                 };
             });
 
-            if (settings.questionPool.randomizeAnswerOptions) {
+            if (settings.answers.randomize) {
                 that.answers = _.shuffle(that.answers);
             }
 

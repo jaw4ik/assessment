@@ -5,9 +5,9 @@
         .module('quiz')
         .factory('DragAndDropTextViewModel', factory);
 
-    factory.$inject = ['QuestionViewModel'];
+    factory.$inject = ['QuestionViewModel', 'settings'];
 
-    function factory(QuestionViewModel) {
+    function factory(QuestionViewModel, settings) {
         return function DragAndDropTextViewModel(question) {
 
             QuestionViewModel.call(this, question);
@@ -24,6 +24,11 @@
                     text: dropspot.text
                 };
             });
+
+            if (settings.answers.randomize) {
+                that.texts = _.shuffle(that.texts);
+            }
+
             that.texts.acceptValue = function (value) {
                 that.texts.push(value);
             };

@@ -23,7 +23,7 @@
                 };
             });
 
-            if (settings.questionPool.randomizeAnswerOptions) {
+            if (settings.answers.randomize) {
                 that.statements = _.shuffle(that.statements);
             }
 

@@ -34,7 +34,7 @@
                     return source;
                 });
 
-            if (settings.questionPool.randomizeAnswerOptions) {
+            if (settings.answers.randomize) {
                 that.sources = _.shuffle(that.sources);
             }
 
