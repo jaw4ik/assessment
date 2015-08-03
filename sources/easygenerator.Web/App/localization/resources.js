@@ -493,6 +493,12 @@
         'uk': 'Опції',
         'pt-br': 'Settings[pt-br]'
     },
+    PleaseWaitFewMinutes: {
+        'en': 'Please wait, it may take few minutes',
+        'zh-cn': 'Please wait, it may take few minutes[zh-cn]',
+        'uk': 'Будь ласка зачекайте кілька хвилин',
+        'pt-br': 'Please wait, it may take few minutes[pt-br]'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Storage */
@@ -775,38 +781,68 @@
     learningPathUrl: {
         'en': 'Learning path URL',
         'zh-cn': 'Learning path URL[zh-cn]',
-        'uk': 'Learning path URL[uk]',
+        'uk': 'URL навчального шляху',
         'pt-br': 'Learning path URL[pt-br]'
     },
     learningPathCopyLinkDescription: {
         'en': 'Copy and paste the URL of your learning path to share or view.',
         'zh-cn': 'Copy and paste the URL of your learning path to share or view.[zh-cn]',
-        'uk': 'Copy and paste the URL of your learning path to share or view.[uk]',
+        'uk': 'Скопіюйте та вставте URL навчального шляху, щоб поділитись чи продивитись його.',
         'pt-br': 'Copy and paste the URL of your learning path to share or view.[pt-br]'
     },
     getLearningPathLink: {
         'en': 'Get learning path link',
         'zh-cn': 'Get learning path link[zh-cn]',
-        'uk': 'Get learning path link[uk]',
+        'uk': 'Отримати посилання на навчальний шлях',
         'pt-br': 'Get learning path link[pt-br]'
     },
     learningPathCopyEmbedCodeDescription: {
         'en': 'Paste this code into your HTML page where you want the learning path to appear',
         'zh-cn': 'Paste this code into your HTML page where you want the learning path to appear[zh-cn]',
-        'uk': 'Paste this code into your HTML page where you want the learning path to appear[uk]',
+        'uk': 'Якщо ви хочете, щоб навчальний шлях з\'явився на вашому сайті, вставте цей код у Вашу HTML сторінку',
         'pt-br': 'Paste this code into your HTML page where you want the learning path to appear[pt-br]'
     },
     updateLearningPathDescription: {
         'en': 'The learning path might have been changed since it was last published. Click \"Update learning path\" to apply last changes.',
         'zh-cn': 'The learning path might have been changed since it was last published. Click \"Update learning path\" to apply last changes.[zh-cn]',
-        'uk': 'The learning path might have been changed since it was last published. Click \"Update learning path\" to apply last changes.[uk]',
+        'uk': 'Навчальний шлях може містити зміни з часу останньої публікації. Натисніть \"Оновити навчальний шлях\" щоб застосувати зміни',
         'pt-br': 'The learning path might have been changed since it was last published. Click \"Update learning path\" to apply last changes.[pt-br]'
     },
     updateLearningPath: {
         'en': 'Update learning path',
         'zh-cn': 'Update learning path[zh-cn]',
-        'uk': 'Update learning path[uk]',
+        'uk': 'Оновити навчальний шлях',
         'pt-br': 'Update learning path[pt-br]'
+    },
+    downloadAsHtml: {
+        'en': 'Download as HTML',
+        'zh-cn': '下载为HTML格式',
+        'uk': 'Завантажити пакет HTML',
+        'pt-br': 'Download como HTML'
+    },
+    downloadAsHtmlDescription: {
+        'en': 'Publish to your webserver or cloud storage',
+        'zh-cn': '在您的网站或者云存储上发布',
+        'uk': 'Опублікуйте на своєму веб-сервері чи хмарній системі зберігання даних',
+        'pt-br': 'Publicar para o seu servidor web ou armazenamento na nuvem'
+    },
+    learningPathDownloadAsHtmlHint1: {
+        'en': 'Want to run your learning path offline on your desktop or on your own server?',
+        'zh-cn': 'Want to run your learning path offline on your desktop or on your own server?[zh-cn]',
+        'uk': 'Хочете запустити свій навчальний шлях в режимі офлайн чи на власному сервері?',
+        'pt-br': 'Want to run your learning path offline on your desktop or on your own server?[pt-br]'
+    },
+    learningPathDownloadAsHtmlHint2: {
+        'en': 'We package up all the HTML, CSS and JS of your learning path for you to download.',
+        'zh-cn': 'We package up all the HTML, CSS and JS of your learning path for you to download.[zh-cn]',
+        'uk': 'Ми створимо HTML, CSS,  JS пакет для Вас.',
+        'pt-br': 'We package up all the HTML, CSS and JS of your learning path for you to download.[pt-br]'
+    },
+    shareLearningPathTitle: {
+        'en': 'Get an easygenerator link and share',
+        'zh-cn': '获取easygenerator链接并分享',
+        'uk': 'Опублікувати навчальний шлях та поділитися ним',
+        'pt-br': 'Obter um link easygenerator e compartilhar'
     },
     /* End resource section for model Learning paths */
     
@@ -822,6 +858,24 @@
         'zh-cn': '课程',
         'uk': 'Курс',
         'pt-br': 'Curso'
+    },
+    courseIsDuplicating: {
+        'en': 'Course is duplicating...',
+        'zh-cn': 'Course is duplicating...[zh-cn]',
+        'uk': 'Курс дублюється...',
+        'pt-br': 'Course is duplicating...[pt-br]'
+    },
+    coursesUpgradeToHaveMore: {
+        'en': 'To have more courses',
+        'zh-cn': 'To have more courses[zh-cn]',
+        'uk': 'Щоб мати більше курсів',
+        'pt-br': 'To have more courses[pt-br]'
+    },
+    coursesUpgradeToHaveMoreHtml: {
+        'en': '<ul><li>Unlimited number of courses</li><li>Unlimited storage space (fair use policy)</li><li>Unlimited number of duplicates</li></ul>',
+        'zh-cn': '<ul><li>Unlimited number of courses</li><li>Unlimited storage space (fair use policy)</li><li>Unlimited number of duplicates</li></ul>[zh-cn]',
+        'uk': '<ul><li>Необмежена кількість курсів</li><li>Необмежений обсяг інформації</li><li>Необмежена кількість дублікацій</li></ul>',
+        'pt-br': '<ul><li>Unlimited number of courses</li><li>Unlimited storage space (fair use policy)</li><li>Unlimited number of duplicates</li></ul>[pt-br]'
     },
     courseDownloadAction: {
         'en': 'Download as HTML',
@@ -1542,6 +1596,18 @@
         'zh-cn': '把PowerPoint导入的幻灯片做为你的课程内容',
         'uk': 'Використайте PowerPoint слайди як контент до курсу',
         'pt-br': 'Importar slides do PowerPoint e usá-los como seu conteudo de curso'
+    },
+    examTemplateHintText: {
+        'en': '<p>Exam will not be available anymore after August 21st</p>',
+        'zh-cn': '<p>Exam will not be available anymore after August 21st</p>[zh-cn]',
+        'uk': '<p>Exam will not be available anymore after August 21st</p>[uk]',
+        'pt-br': '<p>Exam will not be available anymore after August 21st</p>[pt-br]'
+    },
+    examTemplateHintLink: {
+        'en': '<a style=\"display:none;\" target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>',
+        'zh-cn': '<a style=\"display:none;\" target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>[zh-cn]',
+        'uk': '<a style=\"display:none;\" target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>[uk]',
+        'pt-br': '<a style=\"display:none;\" target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>[pt-br]'
     },
     /* End resource section for model CreateCourse */
     
