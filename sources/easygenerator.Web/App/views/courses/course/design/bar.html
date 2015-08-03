@@ -37,6 +37,12 @@
                             <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 grey align-center' } } --><!-- /ko -->
                         </div>
                         <img class="template-thumbnail" data-bind="attr: {src: previewImages[0]}, css: { 'transparent': loadingTemplate }" src="" alt="" />
+                        <!-- ko if: name==='Exam' -->
+                        <div class="template-hint">
+                            <div class="template-hint-text" data-bind="localize: { html: 'examTemplateHintText'}"></div>
+                            <div class="template-hint-link" data-bind="localize: { html: 'examTemplateHintLink'}, stopEventPropagation: { event: 'click' }"></div>
+                        </div>
+                        <!-- /ko -->
                     </div>
                 </li>
                 <!-- /ko -->
