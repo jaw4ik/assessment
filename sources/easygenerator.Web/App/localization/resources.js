@@ -1604,10 +1604,10 @@
         'pt-br': '<p>Exam will not be available anymore after August 21st</p>[pt-br]'
     },
     examTemplateHintLink: {
-        'en': '<a target="_blank" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>',
-        'zh-cn': '<a target="_blank" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>[zh-cn]',
-        'uk': '<a target="_blank" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>[uk]',
-        'pt-br': '<a target="_blank" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>[pt-br]'
+        'en': '<a style=\"display:none;\" target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>',
+        'zh-cn': '<a style=\"display:none;\" target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>[zh-cn]',
+        'uk': '<a style=\"display:none;\" target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>[uk]',
+        'pt-br': '<a style=\"display:none;\" target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>[pt-br]'
     },
     /* End resource section for model CreateCourse */
     

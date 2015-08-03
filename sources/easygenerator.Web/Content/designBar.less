@@ -219,7 +219,7 @@
                                 border-bottom-right-radius: 5px;
 
                                 .template-hint-link {
-                                    display: inline-block;
+                                    display: inline;
                                     font: @template-hint-link-font;
 
                                     a {
@@ -253,11 +253,10 @@
                             .template-thumbnail-container {
 
                                 &:after {
-                                    left: 50%;
-                                    transform: translate(-50%,0%);
                                     content: '';
                                     position: absolute;
                                     top: 10px;
+                                    left: 30px;
                                     width: 122px;
                                     height: 36px;
                                     background: @template-marked-as-deprecated-label-background no-repeat;
