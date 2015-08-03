@@ -7,13 +7,13 @@ namespace easygenerator.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddPackageAndPublicationLinksToLearningPath : IMigrationMetadata
+    public sealed partial class MarkAllSimpleCoursesAsChanged : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddPackageAndPublicationLinksToLearningPath));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(MarkAllSimpleCoursesAsChanged));
         
         string IMigrationMetadata.Id
         {
-            get { return "201507221152232_AddPackageAndPublicationLinksToLearningPath"; }
+            get { return "201507291211326_MarkAllSimpleCoursesAsChanged"; }
         }
         
         string IMigrationMetadata.Source
