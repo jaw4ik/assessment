@@ -781,37 +781,37 @@
     learningPathUrl: {
         'en': 'Learning path URL',
         'zh-cn': 'Learning path URL[zh-cn]',
-        'uk': 'Learning path URL[uk]',
+        'uk': 'URL навчального шляху',
         'pt-br': 'Learning path URL[pt-br]'
     },
     learningPathCopyLinkDescription: {
         'en': 'Copy and paste the URL of your learning path to share or view.',
         'zh-cn': 'Copy and paste the URL of your learning path to share or view.[zh-cn]',
-        'uk': 'Copy and paste the URL of your learning path to share or view.[uk]',
+        'uk': 'Скопіюйте та вставте URL навчального шляху, щоб поділитись чи продивитись його.',
         'pt-br': 'Copy and paste the URL of your learning path to share or view.[pt-br]'
     },
     getLearningPathLink: {
         'en': 'Get learning path link',
         'zh-cn': 'Get learning path link[zh-cn]',
-        'uk': 'Get learning path link[uk]',
+        'uk': 'Отримати посилання на навчальний шлях',
         'pt-br': 'Get learning path link[pt-br]'
     },
     learningPathCopyEmbedCodeDescription: {
         'en': 'Paste this code into your HTML page where you want the learning path to appear',
         'zh-cn': 'Paste this code into your HTML page where you want the learning path to appear[zh-cn]',
-        'uk': 'Paste this code into your HTML page where you want the learning path to appear[uk]',
+        'uk': 'Якщо ви хочете, щоб навчальний шлях з\'явився на вашому сайті, вставте цей код у Вашу HTML сторінку',
         'pt-br': 'Paste this code into your HTML page where you want the learning path to appear[pt-br]'
     },
     updateLearningPathDescription: {
         'en': 'The learning path might have been changed since it was last published. Click \"Update learning path\" to apply last changes.',
         'zh-cn': 'The learning path might have been changed since it was last published. Click \"Update learning path\" to apply last changes.[zh-cn]',
-        'uk': 'The learning path might have been changed since it was last published. Click \"Update learning path\" to apply last changes.[uk]',
+        'uk': 'Навчальний шлях може містити зміни з часу останньої публікації. Натисніть \"Оновити навчальний шлях\" щоб застосувати зміни',
         'pt-br': 'The learning path might have been changed since it was last published. Click \"Update learning path\" to apply last changes.[pt-br]'
     },
     updateLearningPath: {
         'en': 'Update learning path',
         'zh-cn': 'Update learning path[zh-cn]',
-        'uk': 'Update learning path[uk]',
+        'uk': 'Оновити навчальний шлях',
         'pt-br': 'Update learning path[pt-br]'
     },
     downloadAsHtml: {
@@ -1596,6 +1596,18 @@
         'zh-cn': '把PowerPoint导入的幻灯片做为你的课程内容',
         'uk': 'Використайте PowerPoint слайди як контент до курсу',
         'pt-br': 'Importar slides do PowerPoint e usá-los como seu conteudo de curso'
+    },
+    examTemplateHintText: {
+        'en': '<p>Exam will not be available anymore after August 21st</p>',
+        'zh-cn': '<p>Exam will not be available anymore after August 21st</p>[zh-cn]',
+        'uk': '<p>Exam will not be available anymore after August 21st</p>[uk]',
+        'pt-br': '<p>Exam will not be available anymore after August 21st</p>[pt-br]'
+    },
+    examTemplateHintLink: {
+        'en': '<a style=\"display:none;\" target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>',
+        'zh-cn': '<a style=\"display:none;\" target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>[zh-cn]',
+        'uk': '<a style=\"display:none;\" target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>[uk]',
+        'pt-br': '<a style=\"display:none;\" target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>[pt-br]'
     },
     /* End resource section for model CreateCourse */
     
