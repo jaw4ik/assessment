@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using System.Security.Policy;
 using easygenerator.Auth.Providers;
+using easygenerator.DomainModel;
+using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using LtiLibrary.Core.Common;
@@ -8,6 +10,7 @@ using LtiLibrary.Core.OAuth;
 using LtiLibrary.Owin.Security.Lti.Provider;
 using System;
 using System.Threading.Tasks;
+using easygenerator.DomainModel.Events.UserEvents;
 
 namespace easygenerator.Lti.Owin.Security
 {
@@ -16,12 +19,19 @@ namespace easygenerator.Lti.Owin.Security
         private readonly IConsumerToolRepository _consumerToolRepository;
         private readonly ITokenProvider _tokenProvider;
         private readonly IDictionaryStorage _storage;
+        private readonly IUserRepository _userRepository;
+        private readonly IEntityFactory _entityFactory;
+        private readonly IDomainEventPublisher _eventPublisher;
 
-        public LtiAuthProvider(IConsumerToolRepository consumerToolRepository, ITokenProvider tokenProvider, IDictionaryStorage storage)
+        public LtiAuthProvider(IConsumerToolRepository consumerToolRepository, ITokenProvider tokenProvider, IDictionaryStorage storage,
+            IUserRepository userRepository, IEntityFactory entityFactory, IDomainEventPublisher eventPublisher)
         {
             _consumerToolRepository = consumerToolRepository;
             _tokenProvider = tokenProvider;
             _storage = storage;
+            _userRepository = userRepository;
+            _entityFactory = entityFactory;
+            _eventPublisher = eventPublisher;
 
             OnAuthenticate = context =>
             {
@@ -49,13 +59,22 @@ namespace easygenerator.Lti.Owin.Security
 
             OnAuthenticated = context =>
             {
-                //Request.Url.Host,
 
                 //TODO: validate user first
-
+                var userEmail = context.LtiRequest.LisPersonEmailPrimary;
                 if (!string.IsNullOrWhiteSpace(context.LtiRequest.LisPersonEmailPrimary))
                 {
-                    var tokens = _tokenProvider.GenerateTokens(context.LtiRequest.LisPersonEmailPrimary, context.Request.Uri.Host,
+                    var user = userRepository.GetUserByEmail(userEmail);
+                    if (user == null)
+                    {
+                        CreateNewUser(userEmail, context.LtiRequest.LisPersonNameGiven,
+                            context.LtiRequest.LisPersonNameFamily);
+                    } else
+                    {
+                        
+                    }
+
+                    var tokens = _tokenProvider.GenerateTokens(userEmail, context.Request.Uri.Host,
                         AuthorizationConfigurationProvider.Endpoints.Select(_ => _.Name));
 
                     var ltiAuthUrl = context.LtiRequest.Parameters[Constants.ToolProviderAuthUrl];
@@ -75,6 +94,12 @@ namespace easygenerator.Lti.Owin.Security
             };
         }
 
+        public void CreateNewUser(string email, string firstName, string lastName)
+        {
+            var user = _entityFactory.User(email, "LTI", firstName, lastName, "LTI", "LTI", "LTI", email);
+            _userRepository.Add(user);
 
+            _eventPublisher.Publish(new CreateUserInitialDataEvent(user));
+        }
     }
 }
