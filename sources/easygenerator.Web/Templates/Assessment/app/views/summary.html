@@ -15,7 +15,7 @@
                 <progress-control class="progress-control" progress="summary.progress" mastery-score="summary.masteryScore"></progress-control>
             </div>
             <div class="summary-buttons">
-                <div class="summary-button-container">
+                <div class="summary-button-container" ng-if="!summary.singleAttempt">
                     <button class="summary-button button large emphasize" ng-disabled="!summary.canTryAgain" ng-class="{ primary:!summary.reachMasteryScore, default:summary.reachMasteryScore, disabled: !summary.canTryAgain }" ng-click="summary.tryAgain()">
                         <span class="text-wrapper">
                             {{ '[try again]' | translate }}
@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="summary-button-container">
-                    <button class="summary-button button large emphasize" ng-class="{ primary:summary.reachMasteryScore || !summary.canTryAgain, default:!summary.reachMasteryScore }" ng-click="summary.finish()">
+                    <button class="summary-button button large emphasize" ng-class="{ primary:summary.reachMasteryScore || !summary.canTryAgain || summary.singleAttempt, default:!summary.reachMasteryScore }" ng-click="summary.finish()">
                         <span class="text-wrapper">
                             {{ '[finish course]' | translate }}
                         </span>
