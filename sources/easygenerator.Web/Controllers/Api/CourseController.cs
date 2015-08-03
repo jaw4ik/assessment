@@ -330,9 +330,9 @@ namespace easygenerator.Web.Controllers.Api
             return getSuccessResultAction();
         }
 
-        private Course GetDuplicatedCourse (Course course)
+        private Course GetDuplicatedCourse(Course course)
         {
-            var duplicatedCourse = _cloner.Clone(course, GetCurrentUsername());
+            var duplicatedCourse = _cloner.Clone(course, GetCurrentUsername(), true);
 
             if (duplicatedCourse.Title == null || duplicatedCourse.Title.EndsWith(DuplicatedCourseTitleSuffix))
                 return duplicatedCourse;

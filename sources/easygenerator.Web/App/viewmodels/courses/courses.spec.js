@@ -16,7 +16,8 @@
         createCourseCommand = require('commands/createCourseCommand'),
         presentationCourseImportCommand = require('commands/presentationCourseImportCommand'),
         duplicateCourseCommand = require('commands/duplicateCourseCommand'),
-        upgradeDialog = require('widgets/upgradeDialog/viewmodel')
+        upgradeDialog = require('widgets/upgradeDialog/viewmodel'),
+        waiter = require('utils/waiter')
     ;
 
     var
@@ -406,12 +407,15 @@
         });
 
         describe('duplicateCourse:', function () {
-            var dfd;
+            var dfd,
+                waiterDfd;
 
             beforeEach(function () {
                 dfd = Q.defer();
+                waiterDfd = Q.defer();
                 spyOn(duplicateCourseCommand, 'execute').and.returnValue(dfd.promise);
                 spyOn(upgradeDialog, 'show');
+                spyOn(waiter, 'waitTime').and.returnValue(waiterDfd.promise);
             });
 
             it('should be function', function () {
@@ -453,18 +457,9 @@
                     isProcessed: true
                 };
 
-                var originalTimeout;
-
                 beforeEach(function () {
                     viewModel.isCreateCourseAvailable(true);
                     viewModel.courses([]);
-
-                    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-                    jasmine.DEFAULT_TIMEOUT_INTERVAL = 1500;
-                });
-
-                afterEach(function() {
-                    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
                 });
 
                 it('should add fake course to the top of the course list', function (done) {
@@ -498,7 +493,7 @@
                     var promise = viewModel.duplicateCourse(course);
 
                     promise.fin(function () {
-                        
+
                         expect(viewModel.courses()[0].isDuplicatingFinished()).toBeTruthy();
 
                         viewModel.courses()[0].finishDuplicating();
@@ -513,7 +508,7 @@
                     });
 
                     dfd.resolve(resolvedCourse);
-
+                    waiterDfd.resolve();
                 });
 
             });

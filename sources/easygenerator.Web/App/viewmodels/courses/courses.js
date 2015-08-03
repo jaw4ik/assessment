@@ -1,7 +1,7 @@
 ﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/courseRepository', 'notify', 'localization/localizationManager',
-    'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'commands/createCourseCommand', 'uiLocker', 'commands/presentationCourseImportCommand', 'commands/duplicateCourseCommand', 'widgets/upgradeDialog/viewmodel'],
+    'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'commands/createCourseCommand', 'uiLocker', 'commands/presentationCourseImportCommand', 'commands/duplicateCourseCommand', 'widgets/upgradeDialog/viewmodel', 'utils/waiter'],
     function (app, dataContext, userContext, constants, eventTracker, router, courseRepository, notify, localizationManager, clientContext, fileHelper, limitCoursesAmount,
-        createCourseCommand, uiLocker, presentationCourseImportCommand, duplicateCourseCommand, upgradeDialog) {
+        createCourseCommand, uiLocker, presentationCourseImportCommand, duplicateCourseCommand, upgradeDialog, waiter) {
         "use strict";
 
         var
@@ -103,7 +103,7 @@
                 var fakeCourse = createFakeCourse(course);
                 viewModel.courses.unshift(fakeCourse);
 
-                return Q.all([duplicateCourseCommand.execute(course.id, 'Courses'), waitMinimalTimeForCourseDuplicating(1000)]).then(function (response) {
+                return Q.all([duplicateCourseCommand.execute(course.id, 'Courses'), waiter.waitTime(1000)]).then(function (response) {
                     fakeCourse.finishDuplicating = function () {
                         var index = viewModel.courses.indexOf(fakeCourse);
                         viewModel.courses.remove(fakeCourse);
@@ -112,16 +112,6 @@
                     fakeCourse.isDuplicatingFinished(true);
                 });
             });
-        }
-
-        function waitMinimalTimeForCourseDuplicating(time) {
-            var courseDuplicatingDeferred = Q.defer();
-
-            setTimeout(function () {
-                courseDuplicatingDeferred.resolve();
-            }, time);
-
-            return courseDuplicatingDeferred.promise;
         }
 
         function navigateToDetails(course) {
