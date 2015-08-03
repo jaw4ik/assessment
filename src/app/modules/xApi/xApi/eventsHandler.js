@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('quiz.xApi').factory('xApiEventsHandler', xApiEventsHandler);
+    angular.module('assessment.xApi').factory('xApiEventsHandler', xApiEventsHandler);
 
     xApiEventsHandler.$inject = ['$rootScope', 'xApiRequestManager', 'xApiDataBuilder', 'xApiSettings', 'StatementsStorage'];
 

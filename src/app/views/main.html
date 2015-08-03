@@ -1,11 +1,11 @@
-﻿<div class="main-container" ng-class="{'without-intro': !quiz.hasIntroductionContent}" scroll-control>
-    <span class="main-background" ng-show="quiz.hasIntroductionContent"></span>
-    <introduction class="introduction-container at-top-position" ng-show="quiz.hasIntroductionContent">
+﻿<div class="main-container" ng-class="{'without-intro': !assessment.hasIntroductionContent}" scroll-control>
+    <span class="main-background" ng-show="assessment.hasIntroductionContent"></span>
+    <introduction class="introduction-container at-top-position" ng-show="assessment.hasIntroductionContent">
         <div class="introduction-wrapper">
             <header class="app-header header">
                 <div class="app-header-content">
                     <span class="logo-wrapper">
-                        <img class="main-logo" ng-src="{{ quiz.logoUrl }}" />
+                        <img class="main-logo" ng-src="{{ assessment.logoUrl }}" />
                     </span>
                     <timer class="timer" ng-show="timerEnabled" time-in-seconds="timerRemainingTime"></timer>
                 </div>
@@ -14,9 +14,9 @@
                 <div class="content-wrapper" content>
                     <div class="header-title-container">
                         <div class="header-title-wrapper">
-                            <div class="header-quiz-label">{{ '[quiz]' | translate }}</div>
-                            <div class="header-quiz-title">“{{ quiz.title }}”</div>
-                            <div class="header-questions-label">{{ quiz.questions.length }} {{ '[questions]' | translate }}</div>
+                            <div class="header-assessment-label">{{ '[assessment]' | translate }}</div>
+                            <div class="header-assessment-title">“{{ assessment.title }}”</div>
+                            <div class="header-questions-label">{{ assessment.questions.length }} {{ '[questions]' | translate }}</div>
                         </div>
                     </div>
                     <div class="content" ng-include src="'content/content.html'" onload="contentLoaded()" styled-content></div>
@@ -26,7 +26,7 @@
                 <div class="buttons-container">
                     <button class="button large emphasize primary">
                         <span class="text-wrapper">
-                            {{ '[start quiz]' | translate }}
+                            {{ '[start assessment]' | translate }}
                         </span>
                     </button>
                 </div>
@@ -43,13 +43,13 @@
         <span class="main-background"></span>
         <div class="app-header-content">
             <span class="logo-wrapper">
-                <img class="main-logo" ng-src="{{ quiz.logoUrl }}" />
+                <img class="main-logo" ng-src="{{ assessment.logoUrl }}" />
             </span>
             <div class="button-container" ng-click="scrollToQuestions()">
                 <span class="vertical-align-helper"></span>
                 <button class="button small emphasize default">
                     <span class="text-wrapper">
-                        {{ '[start quiz]' | translate }}
+                        {{ '[start assessment]' | translate }}
                     </span>
                 </button>
             </div>
@@ -59,7 +59,7 @@
     <questions class="questions-container">
         <div class="questions-wrapper">
             <ul class="unstyled">
-                <li class="question" ng-repeat="question in quiz.questions">
+                <li class="question" ng-repeat="question in assessment.questions">
                     <article>
                         <div class="question-container">
                             <h2 class="question-title">
@@ -71,7 +71,7 @@
                             </h3>
                             <div class="question-body" ng-include="'app/views/' + question.getType() + '.html'"></div>
                         </div>
-                        <div class="hint-container">
+                        <div class="hint-container" ng-if="assessment.mode == 'quiz'">
                             <div ng-if="question.hint.exists" ng-include="'app/views/hint.html'"></div>
                         </div>
                     </article>
@@ -79,7 +79,7 @@
             </ul>
 
             <div class="submit-wrapper">
-                <button class="button large primary emphasize" ng-click="quiz.submit()">
+                <button class="button large primary emphasize" ng-click="assessment.submit()">
                     <span class="text-wrapper">
                         {{ '[submit all answers]' | translate }}
                     </span>

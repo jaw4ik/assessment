@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html ng-app="configure">
 
 <head>
@@ -28,39 +28,69 @@
             </ul>
             <div class="settings-tab-container general" data-tab="general">
                 <div class="settings-section">
-                    <h1 class="section-header">General settings</h1>
                     <div class="section-content">
+                        <div class="settings-row assessment-mode">
+                            <div class="settings-column">
+                                <h1 class="section-header">General settings</h1>
+                                <div class="settings-column-row">
+                                    <div class="settings-caption">Choose between quiz and exam mode:</div>
+                                    <div class="settings-content">
+                                        <ul class="radio-selector small unstyled">
+                                            <li class="selector-item-container" ng-class="{ selected: assessmentMode.mode == assessmentMode.modes.quiz }">
+                                                <div class="selector-item-wrapper" ng-click="assessmentMode.mode = assessmentMode.modes.quiz">
+                                                    <div class="selector-item-btn"></div>
+                                                    <div class="selector-item-text">
+                                                        <span class="settings-option">Quiz</span>&nbsp;<span class="settings-option-hint">(learner CAN see hints)</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="selector-item-container" ng-class="{ selected: assessmentMode.mode == assessmentMode.modes.exam }">
+                                                <div class="selector-item-wrapper" ng-click="assessmentMode.mode = assessmentMode.modes.exam">
+                                                    <div class="selector-item-btn"></div>
+                                                    <div class="selector-item-text">
+                                                        <span class="settings-option">Exam</span>&nbsp;<span class="settings-option-hint">(learner CANNOT see hints)</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="settings-row">
                             <div class="settings-column question-pool left">
+                                <h1 class="section-header">Questions and answer options:</h1>
                                 <div class="settings-column-row">
-                                    <span class="settings-caption">Question pool:</span>
-                                    <ul class="radio-selector small unstyled">
-                                        <li class="selector-item-container" ng-class="{ selected: questionPool.mode == questionPool.modes.all }">
-                                            <div class="selector-item-wrapper" ng-click="questionPool.mode = questionPool.modes.all">
-                                                <div class="selector-item-btn"></div>
-                                                <div class="selector-item-text">Show all questions</div>
-                                            </div>
-                                        </li>
-                                        <li class="selector-item-container" ng-class="{ selected: questionPool.mode == questionPool.modes.subset }">
-                                            <div class="selector-item-wrapper" ng-click="questionPool.mode = questionPool.modes.subset">
-                                                <div class="selector-item-btn"></div>
-                                                <div class="selector-item-text">
-                                                    <span>Show a subset of</span>
-                                                    <div data-trigger="spinner" class="spinner" spinner spinner-value="questionPool.subsetSize">
-                                                        <a class="spinner-button spinner-down" data-spin="down" disable-drag-and-drop></a>
-                                                        <input type="text" maxlength="3" id="questionPool.subsetSize" class="content-text-input" data-rule="quantity" data-max="999" data-min="1" number ng-model="questionPool.subsetSize">
-                                                        <a class="spinner-button spinner-up" data-spin="up" disable-drag-and-drop></a>
-                                                        <div class="spiner-seperator"></div>
-                                                    </div>
-                                                    <span>random questions</span>
+                                    <div class="settings-caption">Question pool:</div>
+                                    <div class="settings-content">
+                                        <ul class="radio-selector small unstyled">
+                                            <li class="selector-item-container" ng-class="{ selected: questionPool.mode == questionPool.modes.all }">
+                                                <div class="selector-item-wrapper" ng-click="questionPool.mode = questionPool.modes.all">
+                                                    <div class="selector-item-btn"></div>
+                                                    <div class="selector-item-text">Show all questions</div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                            </li>
+                                            <li class="selector-item-container" ng-class="{ selected: questionPool.mode == questionPool.modes.subset }">
+                                                <div class="selector-item-wrapper" ng-click="questionPool.mode = questionPool.modes.subset">
+                                                    <div class="selector-item-btn"></div>
+                                                    <div class="selector-item-text">
+                                                        <span>Show a subset of</span>
+                                                        <div data-trigger="spinner" class="spinner" spinner spinner-value="questionPool.subsetSize">
+                                                            <a class="spinner-button spinner-down" data-spin="down" disable-drag-and-drop></a>
+                                                            <input type="text" maxlength="3" id="questionPool.subsetSize" class="content-text-input" data-rule="quantity" data-max="999" data-min="1" number ng-model="questionPool.subsetSize">
+                                                            <a class="spinner-button spinner-up" data-spin="up" disable-drag-and-drop></a>
+                                                            <div class="spiner-seperator"></div>
+                                                        </div>
+                                                        <span>random questions</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                                 <div class="settings-column-row">
                                     <span class="settings-caption">Question order:</span>
-                                    <div class="question-order">
+                                    <div class="settings-content question-order">
                                         <div ng-show="questionPool.mode == questionPool.modes.all">
                                             <label class="checkbox" ng-class="{ checked: questionPool.randomizeOrder }">
                                                 <span class="checkbox-control">
@@ -93,6 +123,7 @@
                                 </div>
                             </div>
                             <div class="settings-column right">
+                                <h1 class="section-header">Difficulty:</h1>
                                 <div class="settings-column-row timer">
                                     <div class="switching-option">
                                         <span class="settings-caption option-title">Set time limit:</span>
@@ -142,30 +173,32 @@
                                     </div>
                                 </div>
                                 <div class="settings-column-row attempts">
-                                    <span class="settings-caption">Number of attempts:</span>
-                                    <ul class="radio-selector small unstyled">
-                                        <li class="selector-item-container" ng-class="{ selected: !attempt.hasLimit }">
-                                            <div class="selector-item-wrapper" ng-click="attempt.hasLimit = false">
-                                                <div class="selector-item-btn"></div>
-                                                <div class="selector-item-text">Unlimited</div>
-                                            </div>
-                                        </li>
-                                        <li class="selector-item-container" ng-class="{ selected: attempt.hasLimit }">
-                                            <div class="selector-item-wrapper" ng-click="attempt.hasLimit = true">
-                                                <div class="selector-item-btn"></div>
-                                                <div class="selector-item-text">
-                                                    <span>Limit number of attempts:</span>
-                                                    <div data-trigger="spinner" class="spinner" spinner spinner-value="attempt.limit">
-                                                        <a class="spinner-button spinner-down" data-spin="down" disable-drag-and-drop></a>
-                                                        <input type="text" maxlength="3" class="content-text-input" data-rule="quantity" data-max="100" data-min="1" number ng-model="attempt.limit">
-                                                        <a class="spinner-button spinner-up" data-spin="up" disable-drag-and-drop></a>
-                                                        <div class="spiner-seperator"></div>
-                                                    </div>
-                                                    <span>attempt (s)</span>
+                                    <div class="settings-caption">Number of attempts:</div>
+                                    <div class="settings-content">
+                                        <ul class="radio-selector small unstyled">
+                                            <li class="selector-item-container" ng-class="{ selected: !attempt.hasLimit }">
+                                                <div class="selector-item-wrapper" ng-click="attempt.hasLimit = false">
+                                                    <div class="selector-item-btn"></div>
+                                                    <div class="selector-item-text">Unlimited</div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                            </li>
+                                            <li class="selector-item-container" ng-class="{ selected: attempt.hasLimit }">
+                                                <div class="selector-item-wrapper" ng-click="attempt.hasLimit = true">
+                                                    <div class="selector-item-btn"></div>
+                                                    <div class="selector-item-text">
+                                                        <span>Limit number of attempts:</span>
+                                                        <div data-trigger="spinner" class="spinner" spinner spinner-value="attempt.limit">
+                                                            <a class="spinner-button spinner-down" data-spin="down" disable-drag-and-drop></a>
+                                                            <input type="text" maxlength="3" class="content-text-input" data-rule="quantity" data-max="100" data-min="1" number ng-model="attempt.limit">
+                                                            <a class="spinner-button spinner-up" data-spin="up" disable-drag-and-drop></a>
+                                                            <div class="spiner-seperator"></div>
+                                                        </div>
+                                                        <span>attempt (s)</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>

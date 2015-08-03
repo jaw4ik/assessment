@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('quiz')
+        .module('assessment')
         .factory('MultipleSelectTextViewModel', factory);
 
     factory.$inject = ['QuestionViewModel'];

@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    angular.module('quiz')
+    angular.module('assessment')
         .directive('adjustDropspotWidth', adjustDropspotWidth);
 
     function adjustDropspotWidth() {

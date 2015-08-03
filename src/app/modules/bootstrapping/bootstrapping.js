@@ -16,12 +16,12 @@
         };
 
         $q.all(tasks).then(function (data) {
-            var bootstrapModules = ['quiz'],
+            var bootstrapModules = ['assessment'],
                 settings = data.readSettings,
                 publishSettings = data.readPublishSettings,
                 preloadHtmls = data.preloadHtmlTask;
 
-            angular.module('quiz').config(['$routeProvider', 'settingsProvider', 'htmlTemplatesCacheProvider', '$translateProvider', function ($routeProvider, settingsProvider, htmlTemplatesCacheProvider, $translateProvider) {
+            angular.module('assessment').config(['$routeProvider', 'settingsProvider', 'htmlTemplatesCacheProvider', '$translateProvider', function ($routeProvider, settingsProvider, htmlTemplatesCacheProvider, $translateProvider) {
                 settingsProvider.setSettings(settings);
                 htmlTemplatesCacheProvider.set(preloadHtmls);
 
@@ -29,15 +29,15 @@
             }]);
 
             if (!settings || _.isEmpty(settings) || (settings.xApi && settings.xApi.enabled)) {
-                bootstrapModules.push('quiz.xApi');
+                bootstrapModules.push('assessment.xApi');
             }
 
             if (publishSettings) {
-                angular.module('quiz.publishSettings').config(['publishSettingsProvider', function (publishSettingsProvider) {
+                angular.module('assessment.publishSettings').config(['publishSettingsProvider', function (publishSettingsProvider) {
                     publishSettingsProvider.setSettings(publishSettings);
                 }]);
 
-                bootstrapModules.push('quiz.publishSettings');
+                bootstrapModules.push('assessment.publishSettings');
             }
 
             if (publishSettings && publishSettings.modules) {
@@ -46,10 +46,10 @@
                 });
 
                 if (!hasLms) {
-                    bootstrapModules.push('quiz.progressStorer');
+                    bootstrapModules.push('assessment.progressStorer');
                 }
             } else {
-                bootstrapModules.push('quiz.progressStorer');
+                bootstrapModules.push('assessment.progressStorer');
             }
 
             angular.bootstrap(document, bootstrapModules);

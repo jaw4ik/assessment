@@ -1,7 +1,7 @@
 {
-    "[quiz]": "Quiz",
+    "[assessment]": "Quiz",
     "[questions]": "Vragen",
-    "[start quiz]": "Start Quiz",
+    "[start assessment]": "Start Quiz",
     "[or scroll to start]": "of scroll naar beneden om te starten",
     "[show hint]": "Toon hint",
     "[hide hint]": "Verberg hint",

@@ -6,18 +6,18 @@
     };
 
     angular
-        .module('quiz.xApi')
+        .module('assessment.xApi')
         .controller('XApiLoginController', LoginController);
 
-    LoginController.$inject = ['$rootScope', '$location', 'xAPIManager', 'settings', 'quiz'];
+    LoginController.$inject = ['$rootScope', '$location', 'xAPIManager', 'settings', 'assessment'];
 
-    function LoginController($rootScope, $location, xAPIManager, settings, quiz) {
+    function LoginController($rootScope, $location, xAPIManager, settings, assessment) {
         var that = this;
 
-        $rootScope.title = quiz.title;
+        $rootScope.title = assessment.title;
 
-        that.courseTitle = quiz.title;
-        that.questionsLength = quiz.questions.length;
+        that.courseTitle = assessment.title;
+        that.questionsLength = assessment.questions.length;
         that.username = '';
         that.email = '';
 
@@ -44,7 +44,7 @@
 
         that.submit = function () {
             if (that.usernameIsValid() && that.emailIsValid()) {
-                xAPIManager.init(quiz.id, quiz.title, $location.absUrl(), that.email.trim(), that.username.trim(), settings.xApi);
+                xAPIManager.init(assessment.id, assessment.title, $location.absUrl(), that.email.trim(), that.username.trim(), settings.xApi);
                 startCourse();
             } else {
                 that.markUsernameAsModified();

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     
-    angular.module('quiz.xApi').factory('xApiInteractionTypes', xApiInteractionTypes);
+    angular.module('assessment.xApi').factory('xApiInteractionTypes', xApiInteractionTypes);
     
     function xApiInteractionTypes() {
         var interactionTypes = {

@@ -1,6 +1,6 @@
 ﻿(function () {
     'use strict';
-    angular.module('quiz.publishSettings')
+    angular.module('assessment.publishSettings')
            .service('publishModulesInitializer', PublishModulesInitializer);
 
     PublishModulesInitializer.$inject = ['$rootScope', '$q', 'publishModuleLoader'];

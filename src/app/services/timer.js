@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    angular.module('quiz')
+    angular.module('assessment')
         .service('timer', timer);
 
     timer.$inject = ['$timeout'];

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('quiz.xApi').factory('objectiveDataBuilder', factory);
+    angular.module('assessment.xApi').factory('objectiveDataBuilder', factory);
 
     factory.$inject = ['xApiVerbs'];
 

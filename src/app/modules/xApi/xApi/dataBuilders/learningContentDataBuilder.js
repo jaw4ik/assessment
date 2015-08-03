@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('quiz.xApi').factory('learningContentDataBuilder', factory);
+    angular.module('assessment.xApi').factory('learningContentDataBuilder', factory);
 
     factory.$inject = ['xApiVerbs', 'objectivesQueries', 'dateTimeConverter'];
 

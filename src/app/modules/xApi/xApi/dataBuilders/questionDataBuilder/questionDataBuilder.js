@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('quiz.xApi').factory('questionDataBuilder', factory);
+    angular.module('assessment.xApi').factory('questionDataBuilder', factory);
 
     factory.$inject = ['xApiVerbs', 'xApiSupportedQuestionTypes', 'objectivesQueries',
                       'dragAndDropTextDataBuilder', 'fillInTheBlanksDataBuilder', 'hotspotDataBuilder', 'multipleChoiceDataBuilder',

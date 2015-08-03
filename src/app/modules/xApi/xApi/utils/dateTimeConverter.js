@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('quiz.xApi').factory('dateTimeConverter', factory);
+    angular.module('assessment.xApi').factory('dateTimeConverter', factory);
 
     function factory() {
         return {

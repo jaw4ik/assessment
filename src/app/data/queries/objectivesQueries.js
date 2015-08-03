@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('quiz').factory('objectivesQueries', factory);
+    angular.module('assessment').factory('objectivesQueries', factory);
 
     factory.$inject = ['dataContext'];
 
@@ -11,10 +11,10 @@
         };
 
         function getObjectiveById(objectiveId) {
-            var quiz = dataContext.getQuiz(),
+            var assessment = dataContext.getAssessment(),
                 currentObjective = null;
 
-            currentObjective = _.find(quiz.objectives, function (objective) {
+            currentObjective = _.find(assessment.objectives, function (objective) {
                 return objective.id === objectiveId;
             });
 

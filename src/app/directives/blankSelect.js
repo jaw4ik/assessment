@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    angular.module('quiz')
+    angular.module('assessment')
         .directive('blankSelect', blankSelect);
 
     function blankSelect() {

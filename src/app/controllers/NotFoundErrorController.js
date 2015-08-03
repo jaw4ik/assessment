@@ -2,15 +2,15 @@
     'use strict';
 
     angular
-        .module('quiz')
+        .module('assessment')
         .controller('NotFoundErrorController', ErrorController);
 
-    ErrorController.$inject = ['$rootScope', '$location', 'settings', 'quiz'];
+    ErrorController.$inject = ['$rootScope', '$location', 'settings', 'assessment'];
 
-    function ErrorController($rootScope, $location, settings, quiz) {
+    function ErrorController($rootScope, $location, settings, assessment) {
         var that = this;
 
-        $rootScope.title = '404 |' + quiz.title;
+        $rootScope.title = '404 |' + assessment.title;
         
         that.logoUrl = settings.logo.url;
         

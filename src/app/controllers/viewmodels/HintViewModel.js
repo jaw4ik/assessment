@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('quiz')
+        .module('assessment')
         .factory('HintViewModel', factory);
 
     factory.$inject = ['$q', '$http', '$templateCache', '$timeout'];

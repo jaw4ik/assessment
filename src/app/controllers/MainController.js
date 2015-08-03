@@ -1,20 +1,21 @@
 (function () {
     'use strict';
 
-    angular.module('quiz')
+    angular.module('assessment')
         .controller('MainController', MainController);
 
-    MainController.$inject = ['$scope', '$rootScope', '$location', 'quiz', 'settings', 'timer', 'viewmodelsFactory'];
+    MainController.$inject = ['$scope', '$rootScope', '$location', 'assessment', 'settings', 'timer', 'viewmodelsFactory'];
 
-    function MainController($scope, $rootScope, $location, quiz, settings, timer, viewmodelsFactory) {
+    function MainController($scope, $rootScope, $location, assessment, settings, timer, viewmodelsFactory) {
         var that = this;
 
-        that.title = $rootScope.title = quiz.title;
-        that.hasIntroductionContent = quiz.hasIntroductionContent;
+        that.title = $rootScope.title = assessment.title;
+        that.hasIntroductionContent = assessment.hasIntroductionContent;
         that.logoUrl = settings.logo.url;
+        that.mode = settings.assessmentMode;
 
-        that.questions = quiz.questions.map(function (question) {
-            return viewmodelsFactory.createQuestionViewmodel(question); 
+        that.questions = assessment.questions.map(function (question) {
+            return viewmodelsFactory.createQuestionViewmodel(question);
         });
 
         that.submit = function () {
@@ -22,12 +23,12 @@
                 question.submit();
             });
 
-            quiz.sendCourseResult(settings.masteryScore.score);
+            assessment.sendCourseResult(settings.masteryScore.score);
 
             $location.path('/summary').replace();
         };
 
-        quiz.start();
+        assessment.start();
 
         // timer definition
         $scope.timerEnabled = settings.timer.enabled;
@@ -48,11 +49,11 @@
                 $scope.$apply();
             });
 
-            $scope.$on('$quizStarted', function () {
+            $scope.$on('$assessmentStarted', function () {
                 timer.start();
             });
 
-            $scope.$on('$destroy', function() {
+            $scope.$on('$destroy', function () {
                 timer.dispose();
             });
         }
