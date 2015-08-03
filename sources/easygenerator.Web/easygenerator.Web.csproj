@@ -292,6 +292,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
     <Compile Include="Controllers\LtiController.cs" />
+    <Compile Include="DomainEvents\Handlers\CreateUserInitialDataHandler.cs" />
     <Compile Include="InMemoryStorages\SessionStorage.cs" />
     <Compile Include="Storage\CourseStateStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
