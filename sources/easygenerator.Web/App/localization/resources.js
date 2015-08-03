@@ -803,16 +803,16 @@
         'pt-br': 'Paste this code into your HTML page where you want the learning path to appear[pt-br]'
     },
     updateLearningPathDescription: {
-        'en': 'The learning path might have been changed since it was last published. Click \"Update learning path\" to apply last changes.',
-        'zh-cn': 'The learning path might have been changed since it was last published. Click \"Update learning path\" to apply last changes.[zh-cn]',
-        'uk': 'Навчальний шлях може містити зміни з часу останньої публікації. Натисніть \"Оновити навчальний шлях\" щоб застосувати зміни',
-        'pt-br': 'The learning path might have been changed since it was last published. Click \"Update learning path\" to apply last changes.[pt-br]'
+        'en': 'The learning path might have been changed since it was last published. Click \"Update path\" to apply last changes.',
+        'zh-cn': 'The learning path might have been changed since it was last published. Click \"Update path\" to apply last changes.[zh-cn]',
+        'uk': 'Навчальний шлях може містити зміни з часу останньої публікації. Натисніть \"Оновити шлях\" щоб застосувати зміни',
+        'pt-br': 'The learning path might have been changed since it was last published. Click \"Update path\" to apply last changes.[pt-br]'
     },
     updateLearningPath: {
-        'en': 'Update learning path',
-        'zh-cn': 'Update learning path[zh-cn]',
-        'uk': 'Оновити навчальний шлях',
-        'pt-br': 'Update learning path[pt-br]'
+        'en': 'Update path',
+        'zh-cn': 'Update path[zh-cn]',
+        'uk': 'Оновити шлях',
+        'pt-br': 'Update path[pt-br]'
     },
     downloadAsHtml: {
         'en': 'Download as HTML',
@@ -1596,6 +1596,18 @@
         'zh-cn': '把PowerPoint导入的幻灯片做为你的课程内容',
         'uk': 'Використайте PowerPoint слайди як контент до курсу',
         'pt-br': 'Importar slides do PowerPoint e usá-los como seu conteudo de curso'
+    },
+    examTemplateHintText: {
+        'en': '<p>Exam will not be available anymore after August 21st</p>',
+        'zh-cn': '<p>Exam will not be available anymore after August 21st</p>[zh-cn]',
+        'uk': '<p>Exam will not be available anymore after August 21st</p>[uk]',
+        'pt-br': '<p>Exam will not be available anymore after August 21st</p>[pt-br]'
+    },
+    examTemplateHintLink: {
+        'en': '<a style=\"display:none;\" target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>',
+        'zh-cn': '<a style=\"display:none;\" target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>[zh-cn]',
+        'uk': '<a style=\"display:none;\" target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>[uk]',
+        'pt-br': '<a style=\"display:none;\" target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>[pt-br]'
     },
     /* End resource section for model CreateCourse */
     
