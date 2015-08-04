@@ -10,7 +10,9 @@
             eventCategory = 'Design step',
 
             templateMessageTypes = {
-                freeze: 'freeze',
+                showSettings: 'show-settings',
+                freezeEditor: 'freeze-editor',
+                unfreezeEditor: 'unfreeze-editor',
                 notification: 'notification'
             },
 
@@ -64,6 +66,7 @@
         }
 
         function activate(courseId) {
+            viewModel.settingsVisibility(false);
 
             return courseRepository.getById(courseId).then(function (course) {
                 viewModel.courseId = course.id;
@@ -135,13 +138,19 @@
         }
 
         function onGetTemplateMessage(message) {
-            if (!message || !message.type || !message.data) {
+            if (!message || !message.type) {
                 return;
             }
 
             switch (message.type) {
-                case templateMessageTypes.freeze:
-                    viewModel.canUnloadSettings(message.data.freezeEditor ? !message.data.freezeEditor : true);
+                case templateMessageTypes.showSettings:
+                    viewModel.settingsVisibility(true);
+                    break;
+                case templateMessageTypes.freezeEditor:
+                    viewModel.canUnloadSettings(false);
+                    break;
+                case templateMessageTypes.unfreezeEditor:
+                    viewModel.canUnloadSettings(true);
                     break;
                 case templateMessageTypes.notification:
                     var data = message.data;
@@ -157,6 +166,7 @@
         }
 
         function selectTemplatesSection() {
+            viewModel.settingsVisibility(false);
             viewModel.templatesSectionSelected(true);
             eventTracker.publish(events.navigateToTemplatesSection, eventCategory);
         }
@@ -171,7 +181,6 @@
         }
 
         function settingsFrameLoaded() {
-            viewModel.settingsVisibility(true);
             viewModel.canUnloadSettings(true);
         }
 

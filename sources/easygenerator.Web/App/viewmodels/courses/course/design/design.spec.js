@@ -131,6 +131,12 @@
                 expect(viewModel.activate()).toBePromise();
             });
 
+            it('should set settingsVisibility to false', function () {
+                viewModel.settingsVisibility(true);
+                viewModel.activate();
+                expect(viewModel.settingsVisibility()).toBeFalsy();
+            });
+
             it('should get course from repository', function () {
                 var courseId = 'courseId';
                 viewModel.activate(courseId);
@@ -706,6 +712,12 @@
                 expect(viewModel.selectTemplatesSection).toBeFunction();
             });
 
+            it('should set settingsVisibility to false', function () {
+                viewModel.settingsVisibility(true);
+                viewModel.selectTemplatesSection();
+                expect(viewModel.settingsVisibility()).toBeFalsy();
+            });
+
             it('should set templatesSectionSelected to true', function () {
                 viewModel.templatesSectionSelected(false);
                 viewModel.selectTemplatesSection();
@@ -742,12 +754,6 @@
 
             it('should be function', function () {
                 expect(viewModel.settingsFrameLoaded).toBeFunction();
-            });
-
-            it('should show template settings', function () {
-                viewModel.settingsVisibility(false);
-                viewModel.settingsFrameLoaded();
-                expect(viewModel.settingsVisibility()).toBeTruthy();
             });
 
             it('shoul set save state for template settings', function () {
@@ -788,61 +794,49 @@
 
             });
 
-            describe('when message object have freeze type', function () {
+            describe('when message object have \'show-settings\' type', function () {
 
                 beforeEach(function () {
-                    message = { type: 'freeze' };
+                    message = { type: 'show-settings' };
                 });
 
-                describe('when data.freezeEditor is true', function () {
-
-                    beforeEach(function () {
-                        message.data = {
-                            freezeEditor: true
-                        };
-                    });
-
-                    it('should set settings into not saved state', function () {
-                        viewModel.canUnloadSettings(true);
-                        viewModel.onGetTemplateMessage(message);
-                        expect(viewModel.canUnloadSettings()).toBeFalsy();
-                    });
-
-                });
-
-                describe('when data.freezeEditor is false', function () {
-
-                    beforeEach(function () {
-                        message.data = {
-                            freezeEditor: false
-                        };
-                    });
-
-                    it('should set settings into saved state', function () {
-                        viewModel.canUnloadSettings(false);
-                        viewModel.onGetTemplateMessage(message);
-                        expect(viewModel.canUnloadSettings()).toBeTruthy();
-                    });
-
-                });
-
-                describe('when data.freezeEditor is empty', function () {
-
-                    beforeEach(function () {
-                        message.data = {};
-                    });
-
-                    it('should set settings into saved state', function () {
-                        viewModel.canUnloadSettings(false);
-                        viewModel.onGetTemplateMessage(message);
-                        expect(viewModel.canUnloadSettings()).toBeTruthy();
-                    });
-
+                it('should set settingsVisibility to true', function () {
+                    viewModel.settingsVisibility(false);
+                    viewModel.onGetTemplateMessage(message);
+                    expect(viewModel.settingsVisibility()).toBeTruthy();
                 });
 
             });
 
-            describe('when message object have notification type', function () {
+            describe('when message object have \'freeze-editor\' type', function () {
+
+                beforeEach(function () {
+                    message = { type: 'freeze-editor' };
+                });
+
+                it('should set settings into not saved state', function () {
+                    viewModel.canUnloadSettings(true);
+                    viewModel.onGetTemplateMessage(message);
+                    expect(viewModel.canUnloadSettings()).toBeFalsy();
+                });
+
+            });
+
+            describe('when message object have \'unfreeze-editor\' type', function () {
+
+                beforeEach(function () {
+                    message = { type: 'unfreeze-editor' };
+                });
+
+                it('should set settings into saved state', function () {
+                    viewModel.canUnloadSettings(false);
+                    viewModel.onGetTemplateMessage(message);
+                    expect(viewModel.canUnloadSettings()).toBeTruthy();
+                });
+
+            });
+
+            describe('when message object have \'notification\' type', function () {
 
                 beforeEach(function () {
                     message = { type: 'notification' };
