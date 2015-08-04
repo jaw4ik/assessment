@@ -24,7 +24,6 @@
                     text: dropspot.text
                 };
             });
-
             that.texts.acceptValue = function (value) {
                 that.texts.push(value);
             };
