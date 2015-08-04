@@ -286,6 +286,8 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
+    <Compile Include="Publish\ILearningPathPublisher.cs" />
+    <Compile Include="Publish\LearningPathPublisher.cs" />
     <Compile Include="Storage\CourseStateStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\AnswerChangedEvent.cs" />
