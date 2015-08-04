@@ -1,15 +1,14 @@
-﻿define(['viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery', 'plugins/router', 'viewmodels/common/titleField', 'constants', 'localization/localizationManager',
- 'clientContext', 'viewmodels/learningPaths/learningPath/commands/updateTitleCommand', 'eventTracker', 'viewmodels/learningPaths/courseSelector/courseSelector',
+﻿define(['viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery', 'plugins/router', 'constants', 'localization/localizationManager',
+ 'eventTracker', 'viewmodels/learningPaths/courseSelector/courseSelector',
  'durandal/app', 'viewmodels/learningPaths/learningPath/courseBrief', 'viewmodels/learningPaths/learningPath/commands/addCourseCommand',
 'viewmodels/learningPaths/learningPath/commands/removeCourseCommand', 'repositories/courseRepository', 'notify', 'viewmodels/learningPaths/learningPath/commands/updateCoursesOrderCommand',
-'knockout', 'viewmodels/learningPaths/learningPath/actions/download'],
-    function (getLearningPathByIdQuery, router, titleField, constants, localizationManager, clientContext, updateTitleCommand, eventTracker, courseSelector, app, CourseBrief,
-         addCourseCommand, removeCourseCommand, courseRepository, notify, updateCoursesOrderCommand, ko, downloadAction) {
+'knockout'],
+    function (getLearningPathByIdQuery, router, constants, localizationManager, eventTracker, courseSelector, app, CourseBrief,
+         addCourseCommand, removeCourseCommand, courseRepository, notify, updateCoursesOrderCommand, ko) {
         "use strict";
 
         var
             events = {
-                updateTitle: 'Update learning path title',
                 navigateToLearningPaths: 'Navigate to learning paths',
                 addCourse: 'Add course to the learning path',
                 removeCourse: 'Remove course from the learning path',
@@ -19,9 +18,7 @@
             },
             viewModel = {
                 id: null,
-                title: ko.observable(''),
                 activate: activate,
-                canActivate: canActivate,
                 deactivate: deactivate,
                 back: back,
                 addCourses: addCourses,
@@ -32,11 +29,8 @@
                 courses: ko.observableArray([]),
                 currentLanguage: '',
                 updateCoursesOrder: updateCoursesOrder,
-                courseTitleUpdated: courseTitleUpdated,
-                downloadAction: downloadAction()
+                courseTitleUpdated: courseTitleUpdated
             };
-
-        viewModel.titleField = titleField('', constants.validation.learningPathTitleMaxLength, localizationManager.localize('learningPathTitle'), getTitle, updateTitle);
 
         viewModel.isSortingEnabled = ko.computed(function () {
             return viewModel.courses().length > 1;
@@ -49,20 +43,8 @@
             router.navigate('#learningpaths');
         }
 
-        function canActivate(learningPathId) {
-            return getLearningPathByIdQuery.execute(learningPathId)
-                .then(function (learningPath) {
-                    if (_.isObject(learningPath)) {
-                        return true;
-                    }
-
-                    return { redirect: '404' };
-                });
-        }
-
         function activate(learningPathId) {
             viewModel.id = learningPathId;
-
             viewModel.currentLanguage = localizationManager.currentLanguage;
 
             app.on(constants.messages.learningPath.courseSelector.courseSelected, viewModel.addCourse);
@@ -71,18 +53,14 @@
             app.on(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
 
             return getLearningPathByIdQuery.execute(viewModel.id).then(function (learningPath) {
-                viewModel.titleField.title(learningPath.title);
-                viewModel.titleField.isSelected(clientContext.get(constants.clientContextKeys.lastCreatedLearningPathId) === learningPath.id);
                 viewModel.courseSelector.isExpanded(learningPath.courses.length === 0);
-                clientContext.remove(constants.clientContextKeys.lastCreatedLearningPathId);
-
+                
                 var collection = _.chain(learningPath.courses)
                      .map(function (item) {
                          return new CourseBrief(item);
                      }).value();
 
                 viewModel.courses(collection);
-                viewModel.downloadAction.activate(learningPath);
             });
         }
 
@@ -91,17 +69,6 @@
             app.off(constants.messages.learningPath.courseSelector.courseDeselected, viewModel.removeCourse);
             app.off(constants.messages.learningPath.removeCourse, viewModel.removeCourse);
             app.off(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
-        }
-
-        function getTitle() {
-            return getLearningPathByIdQuery.execute(viewModel.id).then(function (learningPath) {
-                return learningPath.title;
-            });
-        }
-
-        function updateTitle(title) {
-            eventTracker.publish(events.updateTitle);
-            return updateTitleCommand.execute(viewModel.id, title);
         }
 
         function addCourses() {

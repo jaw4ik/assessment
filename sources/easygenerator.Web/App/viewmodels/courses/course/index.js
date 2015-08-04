@@ -123,12 +123,12 @@
             return repository.getById(viewModel.id).then(function (response) {
                 return response.title;
             });
-            }
+        }
 
         function updateTitle(title) {
             eventTracker.publish(events.updateCourseTitle);
             return repository.updateCourseTitle(viewModel.id, title);
-            }
+        }
 
     function collaborate() {
         eventTracker.publish(events.openManageCoAuthorsDialog);

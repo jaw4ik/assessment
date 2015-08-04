@@ -1,4 +1,4 @@
-﻿define(['knockout', 'notify', 'eventTracker', 'fileHelper'], function (ko, notify, eventTracker, fileHelper) {
+﻿define(['knockout', 'notify', 'eventTracker', 'fileHelper', 'durandal/app', 'constants'], function (ko, notify, eventTracker, fileHelper, app, constants) {
 
     var
        events = {
@@ -9,14 +9,19 @@
         var viewModel = {
             learningPath: null,
             isBuilding: ko.observable(false),
+            isDelivering: ko.observable(false),
 
             download: download,
-            activate: activate
+            onDeliveringStarted: onDeliveringStarted,
+            onDeliveringFinished: onDeliveringFinished,
+
+            activate: activate,
+            deactivate: deactivate
         }
         return viewModel;
 
         function download() {
-            if (viewModel.isBuilding()) {
+            if (viewModel.isBuilding() || viewModel.isDelivering()) {
                 return;
             }
 
@@ -27,7 +32,7 @@
                 fileHelper.downloadFile('download/' + packageUrl);
             }).fail(function (message) {
                 notify.error(message);
-            }).fin(function() {
+            }).fin(function () {
                 viewModel.isBuilding(false);
             });
         }
@@ -35,6 +40,24 @@
         function activate(learningPath) {
             viewModel.learningPath = learningPath;
             viewModel.isBuilding(learningPath.isBuilding);
+            viewModel.isDelivering(learningPath.isDelivering());
+
+            app.on(constants.messages.learningPath.delivering.started + viewModel.learningPath.id, viewModel.onDeliveringStarted);
+            app.on(constants.messages.learningPath.delivering.finished + viewModel.learningPath.id, viewModel.onDeliveringFinished);
+        }
+
+        function deactivate() {
+            app.off(constants.messages.learningPath.delivering.started + viewModel.learningPath.id, viewModel.onDeliveringStarted);
+            app.off(constants.messages.learningPath.delivering.finished + viewModel.learningPath.id, viewModel.onDeliveringFinished);
+        }
+
+        function onDeliveringStarted()
+        {
+            viewModel.isDelivering(true);
+        }
+
+        function onDeliveringFinished() {
+            viewModel.isDelivering(false);
         }
     };
 
