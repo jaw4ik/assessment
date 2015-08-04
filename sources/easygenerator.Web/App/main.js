@@ -31,6 +31,11 @@ define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synch
         });
 
         var ltiAuthDefer;
+        if (window.lti.isForceLogoutKeyPresent()) {
+            window.auth.logout();
+            window.location.replace('/#');
+        }
+
         if (window.lti.isAuthTokenPresent()) {
             window.auth.logout();
             ltiAuthDefer = window.lti.authenticate().complete(function () {

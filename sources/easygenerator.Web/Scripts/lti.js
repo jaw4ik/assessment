@@ -3,6 +3,7 @@
 
     window.lti = window.lti || {
         isAuthTokenPresent: isAuthTokenPresent,
+        isForceLogoutKeyPresent: isForceLogoutKeyPresent,
         authenticate: authenticate
     };
 
@@ -12,6 +13,11 @@
                 window.auth.login(response.data);
             }
         });
+    }
+
+    function isForceLogoutKeyPresent() {
+        var hashParams = getHashParams(window.location.hash);
+        return hashParams && hashParams.hasOwnProperty('logout');
     }
 
     function isAuthTokenPresent() {

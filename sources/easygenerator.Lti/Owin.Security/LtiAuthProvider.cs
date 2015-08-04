@@ -22,9 +22,10 @@ namespace easygenerator.Lti.Owin.Security
         private readonly IUserRepository _userRepository;
         private readonly IEntityFactory _entityFactory;
         private readonly IDomainEventPublisher _eventPublisher;
+        private readonly IDependencyResolverWrapper _dependencyResolver;
 
         public LtiAuthProvider(IConsumerToolRepository consumerToolRepository, ITokenProvider tokenProvider, IDictionaryStorage storage,
-            IUserRepository userRepository, IEntityFactory entityFactory, IDomainEventPublisher eventPublisher)
+            IUserRepository userRepository, IEntityFactory entityFactory, IDomainEventPublisher eventPublisher, IDependencyResolverWrapper dependencyResolver)
         {
             _consumerToolRepository = consumerToolRepository;
             _tokenProvider = tokenProvider;
@@ -32,6 +33,7 @@ namespace easygenerator.Lti.Owin.Security
             _userRepository = userRepository;
             _entityFactory = entityFactory;
             _eventPublisher = eventPublisher;
+            _dependencyResolver = dependencyResolver;
 
             OnAuthenticate = context =>
             {
@@ -59,32 +61,36 @@ namespace easygenerator.Lti.Owin.Security
 
             OnAuthenticated = context =>
             {
-
                 //TODO: validate user first
                 var userEmail = context.LtiRequest.LisPersonEmailPrimary;
                 if (!string.IsNullOrWhiteSpace(context.LtiRequest.LisPersonEmailPrimary))
                 {
-                    var user = userRepository.GetUserByEmail(userEmail);
-                    if (user == null)
-                    {
-                        CreateNewUser(userEmail, context.LtiRequest.LisPersonNameGiven,
-                            context.LtiRequest.LisPersonNameFamily);
-                    } else
-                    {
-                        
-                    }
-
-                    var tokens = _tokenProvider.GenerateTokens(userEmail, context.Request.Uri.Host,
-                        AuthorizationConfigurationProvider.Endpoints.Select(_ => _.Name));
-
+                    var user = _userRepository.GetUserByEmail(userEmail);
                     var ltiAuthUrl = context.LtiRequest.Parameters[Constants.ToolProviderAuthUrl];
-                    var ltiToken = "launch";
 
                     if (ltiAuthUrl == null)
                     {
                         ltiAuthUrl = context.Request.Uri.GetLeftPart(UriPartial.Authority);
                     }
-                    ltiAuthUrl = string.Format(ltiAuthUrl.Contains("#") ? "{0}&token.lti={1}" : "{0}#token.lti={1}", ltiAuthUrl, ltiToken);
+
+                    if (user == null)
+                    {
+                        CreateNewUser(userEmail, context.LtiRequest.LisPersonNameGiven,
+                            context.LtiRequest.LisPersonNameFamily, context.LtiRequest.UserId);
+
+                    }
+                    else if (!user.IsLtiUser() || user.LtiUserInfo.LtiUserId != context.LtiRequest.UserId)
+                    {
+                        context.RedirectUrl = string.Format("{0}#logout=true", ltiAuthUrl);
+                        return Task.FromResult<object>(null);
+                    }
+
+                    var tokens = _tokenProvider.GenerateTokens(userEmail, context.Request.Uri.Host,
+                        AuthorizationConfigurationProvider.Endpoints.Select(_ => _.Name));
+
+                    var ltiToken = "launch";
+
+                    ltiAuthUrl = string.Format("{0}#token.lti={1}", ltiAuthUrl, ltiToken);
 
                     _storage.Add(Constants.TokensStorageKey, tokens);
 
@@ -94,12 +100,19 @@ namespace easygenerator.Lti.Owin.Security
             };
         }
 
-        public void CreateNewUser(string email, string firstName, string lastName)
+        public void CreateNewUser(string email, string firstName, string lastName, string ltiUserId)
         {
-            var user = _entityFactory.User(email, "LTI", firstName, lastName, "LTI", "LTI", "LTI", email);
-            _userRepository.Add(user);
+            var dataContext = _dependencyResolver.GetService<IUnitOfWork>();
+            var userRepository = _dependencyResolver.GetService<IUserRepository>();
+            var user = _entityFactory.User(email, Guid.NewGuid().ToString("N"), firstName, lastName, "LTI", "LTI", "LTI", email);
+            user.UpgradePlanToPlus(DateTimeWrapper.Now().AddYears(50));
+            user.UpdateLtiUserInfo(ltiUserId);
+
+            userRepository.Add(user);
 
             _eventPublisher.Publish(new CreateUserInitialDataEvent(user));
+
+            dataContext.Save();
         }
     }
 }
