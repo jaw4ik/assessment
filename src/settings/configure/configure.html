@@ -73,7 +73,7 @@
                                             <li class="selector-item-container" ng-class="{ selected: questionPool.mode == questionPool.modes.subset }">
                                                 <div class="selector-item-wrapper" ng-click="questionPool.mode = questionPool.modes.subset">
                                                     <div class="selector-item-btn"></div>
-                                                    <div class="selector-item-text">
+                                                    <div class="selector-item-text spinner-container">
                                                         <span>Show a subset of</span>
                                                         <div data-trigger="spinner" class="spinner" spinner spinner-value="questionPool.subsetSize">
                                                             <a class="spinner-button spinner-down" data-spin="down" disable-drag-and-drop></a>
@@ -185,7 +185,7 @@
                                             <li class="selector-item-container" ng-class="{ selected: attempt.hasLimit }">
                                                 <div class="selector-item-wrapper" ng-click="attempt.hasLimit = true">
                                                     <div class="selector-item-btn"></div>
-                                                    <div class="selector-item-text">
+                                                    <div class="selector-item-text spinner-container">
                                                         <span>Limit number of attempts:</span>
                                                         <div data-trigger="spinner" class="spinner" spinner spinner-value="attempt.limit">
                                                             <a class="spinner-button spinner-down" data-spin="down" disable-drag-and-drop></a>
