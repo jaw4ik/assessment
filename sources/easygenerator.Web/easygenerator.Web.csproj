@@ -234,7 +234,6 @@
     <Compile Include="BuildCourse\Scorm\Models\MetadataModel.cs" />
     <Compile Include="BuildCourse\Scorm\Modules\ScormPackageModulesProvider.cs" />
     <Compile Include="BuildCourse\Scorm\ScormCourseBuilder.cs" />
-    <Compile Include="BuildLearningPath\BuildResult.cs" />
     <Compile Include="BuildLearningPath\ILearningPathBuilder.cs" />
     <Compile Include="BuildLearningPath\ILearningPathContentProvider.cs" />
     <Compile Include="BuildLearningPath\ILearningPathCourseBuilder.cs" />
@@ -287,6 +286,8 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
+    <Compile Include="Publish\ILearningPathPublisher.cs" />
+    <Compile Include="Publish\LearningPathPublisher.cs" />
     <Compile Include="Storage\CourseStateStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\AnswerChangedEvent.cs" />
@@ -575,6 +576,11 @@
     <Content Include="App\dialogs\learningPath\deleteLearningPath.spec.js">
       <DependentUpon>deleteLearningPath.js</DependentUpon>
     </Content>
+    <Content Include="App\dialogs\learningPath\shareLearningPath.html" />
+    <Content Include="App\dialogs\learningPath\shareLearningPath.js" />
+    <Content Include="App\dialogs\learningPath\shareLearningPath.spec.js">
+      <DependentUpon>shareLearningPath.js</DependentUpon>
+    </Content>
     <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.html" />
     <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.js" />
     <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.spec.js">
@@ -584,6 +590,30 @@
       <DependentUpon>publishHttpWrapper.js</DependentUpon>
     </Content>
     <Content Include="App\http\publishHttpWrapper.js" />
+    <Content Include="App\models\learningPath.spec.js">
+      <DependentUpon>learningPath.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\actions\publish.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\actions\publish.spec.js">
+      <DependentUpon>publish.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\index.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\details.spec.js">
+      <DependentUpon>details.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\index.spec.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\publish.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\publish.spec.js">
+      <DependentUpon>publish.js</DependentUpon>
+    </Content>
+    <Content Include="App\views\learningPaths\learningPath\details.html" />
+    <Content Include="App\views\learningPaths\learningPath\publish.html" />
+    <Content Include="App\views\learningPaths\learningPath\publish\publishAsHtml.html" />
+    <Content Include="App\views\learningPaths\learningPath\publish\publishToPublicationServerEmbed.html" />
+    <Content Include="App\views\learningPaths\learningPath\publish\publishToPublicationServerLink.html" />
+    <Content Include="App\views\learningPaths\learningPath\publish\updatePublication.html" />
     <Content Include="App\widgets\upgradeDialog\viewmodel.js" />
     <Content Include="App\widgets\upgradeDialog\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
@@ -872,10 +902,7 @@
     </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\commands\updateTitleCommand.js" />
     <Content Include="App\viewmodels\learningPaths\index.js" />
-    <Content Include="App\viewmodels\learningPaths\learningPath\learningPath.js" />
-    <Content Include="App\viewmodels\learningPaths\learningPath\learningPath.spec.js">
-      <DependentUpon>learningPath.js</DependentUpon>
-    </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\details.js" />
     <Content Include="App\viewmodels\learningPaths\learningPaths\learningPathBrief.js" />
     <Content Include="App\viewmodels\learningPaths\learningPaths\learningPathBrief.spec.js">
       <DependentUpon>learningPathBrief.js</DependentUpon>
@@ -941,7 +968,7 @@
     <Content Include="App\views\learningPaths\courseSelector\courseSelector.html" />
     <Content Include="App\views\library\index.html" />
     <Content Include="App\views\learningPaths\index.html" />
-    <Content Include="App\views\learningPaths\learningPath\learningPath.html" />
+    <Content Include="App\views\learningPaths\learningPath\index.html" />
     <Content Include="App\views\learningPaths\learningPaths\learningPaths.html" />
     <Content Include="App\views\objectives\index.html" />
     <Content Include="App\views\questions\statement\statement.html" />
@@ -1436,6 +1463,7 @@
     <Content Include="BuildLearningPath\Template\app\main.js.map" />
     <Content Include="BuildLearningPath\Template\css\font\roboto-lightItalic.ttf" />
     <Content Include="BuildLearningPath\Template\css\font\roboto-lightItalic.woff" />
+    <Content Include="Content\publish.less" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />

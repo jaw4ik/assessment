@@ -178,7 +178,11 @@
                         courseDeselected: 'learningPath:course-selector:course-deselected'
                     },
                     removeCourse: 'learningPath:removeCourse',
-                    deleted:'learningPath:deleted'
+                    deleted: 'learningPath:deleted',
+                    delivering: {
+                        started: 'learningPath:delivering-started',
+                        finished: 'learningPath:delivering-finished'
+                    }
                 },
                 objective: {
                     createdInCourse: 'objective:createdInCourse',

@@ -32,6 +32,27 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
+        public string PackageUrl { get; private set; }
+        public virtual void UpdatePackageUrl(string packageUrl)
+        {
+            ThrowIfPackageUrlIsInvalid(packageUrl);
+
+            PackageUrl = packageUrl;
+        }
+
+        public string PublicationUrl { get; private set; }
+        public virtual void UpdatePublicationUrl(string publicationUrl)
+        {
+            ThrowIfPublicationUrlIsInvalid(publicationUrl);
+
+            PublicationUrl = publicationUrl;
+        }
+
+        public void ResetPublicationUrl()
+        {
+            PublicationUrl = null;
+        }
+
         #region Courses
 
         protected internal virtual ICollection<Course> CoursesCollection { get; set; }
@@ -113,6 +134,17 @@ namespace easygenerator.DomainModel.Entities
             ArgumentValidation.ThrowIfNull(course, "course");
         }
 
+        private void ThrowIfPackageUrlIsInvalid(string packageUrl)
+        {
+            ArgumentValidation.ThrowIfNullOrEmpty(packageUrl, "packageUrl");
+        }
+
+        private void ThrowIfPublicationUrlIsInvalid(string publicationUrl)
+        {
+            ArgumentValidation.ThrowIfNullOrEmpty(publicationUrl, "publicationUrl");
+        }
+
         #endregion
+
     }
 }
