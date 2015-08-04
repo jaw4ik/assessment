@@ -540,6 +540,7 @@
     <Content Include="App\analytics\providers\nudgespotProvider.js" />
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
+    <Content Include="App\browse.js" />
     <Content Include="App\commands\createCourseCommand.js" />
     <Content Include="App\commands\createCourseCommand.spec.js">
       <DependentUpon>createCourseCommand.js</DependentUpon>
@@ -552,6 +553,7 @@
     <Content Include="App\commands\presentationCourseImportCommand.spec.js">
       <DependentUpon>presentationCourseImportCommand.js</DependentUpon>
     </Content>
+    <Content Include="App\components\bindingHandlers\fileBrowserBindingHandler.js" />
     <Content Include="App\components\polygonsEditor\hotspotOnImageShapeModel.js" />
     <Content Include="App\components\polygonsEditor\polygonShape.js" />
     <Content Include="App\components\polygonsEditor\polygonsEditor.js" />
@@ -580,6 +582,8 @@
       <DependentUpon>publishHttpWrapper.js</DependentUpon>
     </Content>
     <Content Include="App\http\publishHttpWrapper.js" />
+    <Content Include="App\mappers\audioModelMapper.js" />
+    <Content Include="App\models\audio.js" />
     <Content Include="App\videoUpload\handlers\durations.js" />
     <Content Include="App\videoUpload\handlers\durations.spec.js">
       <DependentUpon>durations.js</DependentUpon>
@@ -588,6 +592,15 @@
     <Content Include="App\viewmodels\audios\audios.spec.js">
       <DependentUpon>audios.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\audios\AudioViewModel.js" />
+    <Content Include="App\viewmodels\audios\commands\factory.js" />
+    <Content Include="App\viewmodels\audios\commands\factory.spec.js">
+      <DependentUpon>factory.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\audios\commands\model.js" />
+    <Content Include="App\viewmodels\audios\context.js" />
+    <Content Include="App\viewmodels\audios\queries\getCollection.js" />
+    <Content Include="App\viewmodels\audios\UploadAudioViewModel.js" />
     <Content Include="App\views\audios\audios.html" />
     <Content Include="App\widgets\upgradeDialog\viewmodel.js" />
     <Content Include="App\widgets\upgradeDialog\viewmodel.spec.js">

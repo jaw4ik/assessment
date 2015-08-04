@@ -3,6 +3,7 @@
 
     require('components/bindingHandlers/tooltipBindingHandler').install();
     require('components/bindingHandlers/backgroundBindingHandler');
+    require('components/bindingHandlers/fileBrowserBindingHandler');
     require('viewmodels/questions/dragAndDropText/bindingHandlers/draggableTextBindingHandler');
     require('viewmodels/questions/hotSpot/bindingHandlers/polygonsEditorBindingHandler').install();
     require('viewmodels/questions/fillInTheBlank/bindingHandlers/fillInTheBlankBindingHandler');
@@ -13,7 +14,7 @@
     require('viewmodels/courses/bindingHandlers/windowMessageListenerBinding');
     require('viewmodels/courses/bindingHandlers/courseIntroductionAnimationBinding');
     require('viewmodels/courses/bindingHandlers/publishTabBinding');
-    require('viewmodels/learningContents/bindingHandlers/hotspotOnImageBindingHandler');
+    require('viewmodels/learningContents/bindingHandlers/hotspotOnImageBindingHandler');    
 
     var task = {
         execute: execute

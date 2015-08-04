@@ -1,27 +1,15 @@
-﻿define(['durandal/app', 'constants', 'eventTracker', 'userContext', 'localization/localizationManager',
-    'widgets/upgradeDialog/viewmodel', 'repositories/videoRepository', 'storageFileUploader',
-    'videoUpload/upload', 'dialogs/video/video', 'videoUpload/handlers/durations'
-],
-function (app, constants, eventTracker, userContext, localizationManager,
-    upgradeDialog, repository, storageFileUploader, videoUpload, videoPopup, durationsLoader) {
+﻿define(['durandal/app', 'constants', 'eventTracker', 'userContext', 'localization/localizationManager', 'widgets/upgradeDialog/viewmodel', 'dialogs/video/video', 'viewmodels/audios/queries/getCollection', 'viewmodels/audios/commands/factory', 'viewmodels/audios/AudioViewModel', 'viewmodels/audios/UploadAudioViewModel'],
+function (app, constants, eventTracker, userContext, localizationManager, upgradeDialog, videoPopup, getCollection, factory, AudioViewModel, UploadAudioViewModel) {
     "use strict";
-
+    
     app.on(constants.storage.changesInQuota, setAvailableStorageSpace);
-    app.on(constants.storage.audio.changesInUpload, updateAudios);
 
     var eventCategory = 'Audio library',
         events = {
             openUploadAudioDialog: 'Open \"choose audio file\" dialog'
-        },
-        uploadSettings = {
-            acceptedTypes: '*',
-            supportedExtensions: '*',
-            uploadErrorMessage: localizationManager.localize('videoUploadError'),
-            notAnoughSpaceMessage: localizationManager.localize('videoUploadNotAnoughSpace'),
-            startUpload: videoUpload.upload
-        }
-
+        };
     var viewModel = {
+        uploads: [],
         audios: ko.observableArray([]),
         storageSpaceProgressBarVisibility: ko.observable(false),
         availableStorageSpace: ko.observable(0),
@@ -29,46 +17,39 @@ function (app, constants, eventTracker, userContext, localizationManager,
         statuses: constants.storage.audio.statuses,
         addAudio: addAudio,
         activate: activate,
+        deactivate: deactivate,
         showAudioPopup: showAudioPopup,
-        updateAudios: updateAudios
+        ensureCanAddAudio: ensureCanAddAudio
     };
 
     function activate() {
-        return userContext.identifyStoragePermissions().then(function () {
-            return repository.getCollection().then(function (audios) {
-                return durationsLoader.getVideoDurations(audios).then(function () {
-                    viewModel.audios([]);
-                    _.each(audios, function (audio) {
-                        viewModel.audios.push(mapAudio(audio));
-                    });
-                    setAvailableStorageSpace();
+        return getCollection.execute().then(function (audios) {
+            return userContext.identifyStoragePermissions().then(function () {
+                viewModel.audios([]);
+                _.each(audios, function (audio) {
+                    viewModel.audios.push(new AudioViewModel(audio));
                 });
+
+                _.each(viewModel.uploads, function (model) {
+                    if (model.status !== 'success') {
+                        viewModel.audios.push(new UploadAudioViewModel(model));
+                    }
+                });
+
+                viewModel.uploads = _.reject(viewModel.uploads, function (model) {
+                    return model.status === 'success' || model.status === 'error';
+                });
+
+                setAvailableStorageSpace();
             });
         });
     }
 
-    function mapAudio(item) {
-        var audio = {};
+    function deactivate() {
 
-        audio.id = item.id;
-        audio.title = item.title;
-        audio.vimeoId = ko.observable(item.vimeoId);
-        audio.progress = ko.observable(item.progress || 0);
-        audio.status = ko.observable(item.status || viewModel.statuses.loaded);
-        audio.time = ko.observable(getTimeString(item.duration || 0));
-
-        return audio;
     }
 
-    function getTimeString(number) {
-        var minutes = Math.floor(number / 60);
-        var seconds = number - (minutes * 60);
 
-        if (minutes < 10) { minutes = "0" + minutes; }
-        if (seconds < 10) { seconds = "0" + seconds; }
-        
-        return minutes + ':' + seconds;
-    }
 
     function setAvailableStorageSpace() {
         if (!userContext.hasStarterAccess() || userContext.hasTrialAccess()) {
@@ -91,41 +72,14 @@ function (app, constants, eventTracker, userContext, localizationManager,
         viewModel.availableStorageSpace(value.toFixed(1) + localizationManager.localize('mb'));
     }
 
-    function addAudio() {
-        if (!userContext.hasStarterAccess() || userContext.hasTrialAccess()) {
-            upgradeDialog.show(constants.dialogs.upgrade.settings.audioUpload);
-            return;
-        }
-
-        storageFileUploader.upload(uploadSettings);
+    function addAudio(file) {
         eventTracker.publish(events.openUploadAudioDialog, eventCategory);
-    }
 
-    function updateAudios() {
-        return repository.getCollection().then(function (audios) {
-            _.each(audios, function (audio) {
-                var viewModelAudio = _.find(viewModel.audios(), function (item) {
-                    return audio.id == item.id;
-                });
+        var model = factory.create(file);
+        model.start();
 
-                if (!viewModelAudio) {
-                    viewModel.audios.unshift(mapAudio(audio));
-                } else {
-                    viewModelAudio.vimeoId(audio.vimeoId);
-                    viewModelAudio.progress(audio.progress);
-                    viewModelAudio.status(audio.status);
-                }
-            });
-            _.each(viewModel.audios(), function (viewModelAudio) {
-                var audio = _.find(audios, function (item) {
-                    return item.id == viewModelAudio.id;
-                });
-                if (!audio) {
-                    var index = viewModel.audios().indexOf(viewModelAudio);
-                    viewModel.audios.splice(index, 1);
-                }
-            });
-        });
+        viewModel.uploads.push(model);
+        viewModel.audios.push(new UploadAudioViewModel(model));
     }
 
     function showAudioPopup(audio) {
@@ -137,4 +91,15 @@ function (app, constants, eventTracker, userContext, localizationManager,
     }
 
     return viewModel;
+
+
+
+    function ensureCanAddAudio() {
+        if (!userContext.hasStarterAccess() || userContext.hasTrialAccess()) {
+            upgradeDialog.show(constants.dialogs.upgrade.settings.audioUpload);
+            return false;
+        }
+        return true;
+    }
+
 });
