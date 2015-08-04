@@ -201,9 +201,9 @@
             });
 
             it('should show publish learning path dialog', function () {
-                viewModel.id = 'learningPathId';
+                viewModel.learningPath = learningPath;
                 viewModel.share();
-                expect(shareLearningPathDialog.show).toHaveBeenCalledWith('learningPathId');
+                expect(shareLearningPathDialog.show).toHaveBeenCalledWith(learningPath);
             });
         });
     });

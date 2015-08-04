@@ -108,29 +108,21 @@
             viewModel.isPublishing(learningPath.isPublishing);
             viewModel.isDelivering(learningPath.isDelivering());
 
-            app.on(constants.messages.learningPath.delivering.started, viewModel.onDeliveringStarted);
-            app.on(constants.messages.learningPath.delivering.finished, viewModel.onDeliveringFinished);
+            app.on(constants.messages.learningPath.delivering.started + viewModel.learningPath.id, viewModel.onDeliveringStarted);
+            app.on(constants.messages.learningPath.delivering.finished + viewModel.learningPath.id, viewModel.onDeliveringFinished);
         }
 
         function deactivate() {
-            app.off(constants.messages.learningPath.delivering.started, viewModel.onDeliveringStarted);
-            app.off(constants.messages.learningPath.delivering.finished, viewModel.onDeliveringFinished);
+            app.off(constants.messages.learningPath.delivering.started + viewModel.learningPath.id, viewModel.onDeliveringStarted);
+            app.off(constants.messages.learningPath.delivering.finished + viewModel.learningPath.id, viewModel.onDeliveringFinished);
         }
 
         function onDeliveringStarted(learningPath) {
-            if (viewModel.learningPath.id != learningPath.id) {
-                return;
-            }
-
             viewModel.isDelivering(true);
             viewModel.isPublishing(learningPath.isPublishing);
         }
 
         function onDeliveringFinished(learningPath) {
-            if (viewModel.learningPath.id != learningPath.id) {
-                return;
-            }
-
             viewModel.isDelivering(false);
             viewModel.isPublishing(learningPath.isPublishing);
             viewModel.publicationUrl(learningPath.publicationUrl);

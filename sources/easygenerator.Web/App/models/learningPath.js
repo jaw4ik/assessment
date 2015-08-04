@@ -29,7 +29,7 @@
                     }
 
                     obj.isBuilding = true;
-                    app.trigger(constants.messages.learningPath.delivering.started, obj);
+                    app.trigger(constants.messages.learningPath.delivering.started + obj.id, obj);
 
                     return publishService.buildLearningPath(obj.id)
                         .then(function(buildInfo) {
@@ -40,7 +40,7 @@
                         })
                         .fin(function() {
                                 obj.isBuilding = false;
-                                app.trigger(constants.messages.learningPath.delivering.finished, obj);
+                                app.trigger(constants.messages.learningPath.delivering.finished + obj.id, obj);
                             }
                         );
                 });
@@ -53,7 +53,7 @@
                     }
 
                     obj.isPublishing = true;
-                    app.trigger(constants.messages.learningPath.delivering.started, obj);
+                    app.trigger(constants.messages.learningPath.delivering.started + obj.id, obj);
 
                     return publishService.buildLearningPath(obj.id)
                         .then(function () {
@@ -72,7 +72,7 @@
                         })
                         .fin(function () {
                             obj.isPublishing = false;
-                            app.trigger(constants.messages.learningPath.delivering.finished, obj);
+                            app.trigger(constants.messages.learningPath.delivering.finished + obj.id, obj);
                         });
                 });
             }

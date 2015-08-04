@@ -5,9 +5,15 @@
     var
         learningPathId = 'learningPathId',
         learningPath = new learningPathModel({ id: learningPathId }),
-        publishService = require('services/publishService');
+        publishService = require('services/publishService'),
+        app = require('durandal/app'),
+        constants = require('constants');
 
     describe('model [learningPath]', function () {
+
+        beforeEach(function() {
+            spyOn(app, 'trigger');
+        });
 
         describe('isDelivering:', function() {
             it('should be function', function() {
@@ -99,6 +105,17 @@
                 });
             });
 
+            it('should rise delivering started event', function(done) {
+                buildDefer.reject();
+
+                learningPath.build();
+
+                buildDefer.promise.fin(function () {
+                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.learningPath.delivering.started + learningPathId, learningPath);
+                    done();
+                });
+            });
+
             it('should build learning path', function (done) {
                 buildDefer.reject();
 
@@ -133,6 +150,15 @@
                     });
                 });
 
+                it('should rise delivering finished event', function (done) {
+                    var promise = learningPath.build();
+
+                    promise.fin(function () {
+                        expect(app.trigger).toHaveBeenCalledWith(constants.messages.learningPath.delivering.finished + learningPathId, learningPath);
+                        done();
+                    });
+                });
+
             });
 
             describe('when build is succed', function () {
@@ -154,6 +180,15 @@
 
                     promise.fin(function () {
                         expect(learningPath.isBuilding).toBeFalsy();
+                        done();
+                    });
+                });
+
+                it('should rise delivering finished event', function (done) {
+                    var promise = learningPath.build();
+
+                    promise.fin(function () {
+                        expect(app.trigger).toHaveBeenCalledWith(constants.messages.learningPath.delivering.finished + learningPathId, learningPath);
                         done();
                     });
                 });
@@ -245,6 +280,17 @@
                 });
             });
 
+            it('should rise delivering started event', function (done) {
+                buildDefer.reject();
+
+                learningPath.publish();
+
+                buildDefer.promise.fin(function () {
+                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.learningPath.delivering.started + learningPathId, learningPath);
+                    done();
+                });
+            });
+
             it('should build learning path', function (done) {
                 buildDefer.reject();
                 publishDefer.reject();
@@ -300,6 +346,15 @@
                     });
                 });
 
+                it('should rise delivering finished event', function (done) {
+                    var promise = learningPath.publish();
+
+                    promise.fin(function () {
+                        expect(app.trigger).toHaveBeenCalledWith(constants.messages.learningPath.delivering.finished + learningPathId, learningPath);
+                        done();
+                    });
+                });
+
             });
 
             describe('when build is succed', function () {
@@ -351,6 +406,15 @@
                             done();
                         });
                     });
+
+                    it('should rise delivering finished event', function (done) {
+                        var promise = learningPath.publish();
+
+                        promise.fin(function () {
+                            expect(app.trigger).toHaveBeenCalledWith(constants.messages.learningPath.delivering.finished + learningPathId, learningPath);
+                            done();
+                        });
+                    });
                 });
 
                 describe('and publish is succed', function () {
@@ -372,6 +436,15 @@
 
                         promise.fin(function () {
                             expect(learningPath.isPublishing).toBeFalsy();
+                            done();
+                        });
+                    });
+
+                    it('should rise delivering finished event', function (done) {
+                        var promise = learningPath.publish();
+
+                        promise.fin(function () {
+                            expect(app.trigger).toHaveBeenCalledWith(constants.messages.learningPath.delivering.finished + learningPathId, learningPath);
                             done();
                         });
                     });

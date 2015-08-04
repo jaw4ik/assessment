@@ -74,17 +74,22 @@
 
             it('should on learning path delivering started event', function () {
                 viewModel.activate(learningPath);
-                expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.delivering.started, viewModel.onDeliveringStarted);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.delivering.started + learningPath.id, viewModel.onDeliveringStarted);
             });
 
             it('should on learning path delivering finished event', function () {
                 viewModel.activate(learningPath);
-                expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.delivering.finished, viewModel.onDeliveringFinished);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.delivering.finished + learningPath.id, viewModel.onDeliveringFinished);
             });
 
         });
 
         describe('deactivate:', function () {
+            var learningPath = { id: 'learningPathId' };
+
+            beforeEach(function () {
+                viewModel.learningPath = learningPath;
+            });
 
             it('should be function', function () {
                 expect(viewModel.deactivate).toBeFunction();
@@ -92,12 +97,12 @@
 
             it('should off learning path delivering started event', function () {
                 viewModel.deactivate();
-                expect(app.off).toHaveBeenCalledWith(constants.messages.learningPath.delivering.started, viewModel.onDeliveringStarted);
+                expect(app.off).toHaveBeenCalledWith(constants.messages.learningPath.delivering.started + learningPath.id, viewModel.onDeliveringStarted);
             });
 
             it('should off learning path delivering finished event', function () {
                 viewModel.deactivate();
-                expect(app.off).toHaveBeenCalledWith(constants.messages.learningPath.delivering.finished, viewModel.onDeliveringFinished);
+                expect(app.off).toHaveBeenCalledWith(constants.messages.learningPath.delivering.finished + learningPath.id, viewModel.onDeliveringFinished);
             });
 
         });
@@ -213,20 +218,10 @@
                 expect(viewModel.onDeliveringStarted).toBeFunction();
             });
 
-            describe('when current learning path is delivered', function () {
-                it('should set isDelivering true', function () {
-                    viewModel.isDelivering(false);
-                    viewModel.onDeliveringStarted({ id: 'learningPathId' });
-                    expect(viewModel.isDelivering()).toBeTruthy();
-                });
-            });
-
-            describe('when other learning path is delivered', function () {
-                it('should not set isDelivering true', function () {
-                    viewModel.isDelivering(false);
-                    viewModel.onDeliveringStarted({ id: 'otherLearningPathId' });
-                    expect(viewModel.isDelivering()).not.toBeTruthy();
-                });
+            it('should set isDelivering true', function () {
+                viewModel.isDelivering(false);
+                viewModel.onDeliveringStarted({ id: 'learningPathId' });
+                expect(viewModel.isDelivering()).toBeTruthy();
             });
         });
 
@@ -240,21 +235,12 @@
                 expect(viewModel.onDeliveringFinished).toBeFunction();
             });
 
-            describe('when current learning path is delivered', function () {
-                it('should set isDelivering false', function () {
-                    viewModel.isDelivering(true);
-                    viewModel.onDeliveringFinished({ id: 'learningPathId' });
-                    expect(viewModel.isDelivering()).toBeFalsy();
-                });
-            });
-
-            describe('when other learning path is delivered', function () {
-                it('should not set isDelivering false', function () {
-                    viewModel.isDelivering(true);
-                    viewModel.onDeliveringFinished({ id: 'otherLearningPathId' });
-                    expect(viewModel.isDelivering()).not.toBeFalsy();
-                });
+            it('should set isDelivering false', function () {
+                viewModel.isDelivering(true);
+                viewModel.onDeliveringFinished({ id: 'learningPathId' });
+                expect(viewModel.isDelivering()).toBeFalsy();
             });
         });
+
     });
 });
