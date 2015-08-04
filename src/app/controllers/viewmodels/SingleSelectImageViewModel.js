@@ -5,9 +5,9 @@
         .module('quiz')
         .factory('SingleSelectImageViewModel', factory);
 
-    factory.$inject = ['QuestionViewModel', 'settings'];
+    factory.$inject = ['QuestionViewModel'];
 
-    function factory(QuestionViewModel, settings) {
+    function factory(QuestionViewModel) {
         return function SingleSelectImageViewModel(question) {
 
             QuestionViewModel.call(this, question);
@@ -24,10 +24,6 @@
                     checked: false
                 };
             });
-
-            if (settings.answers.randomize) {
-                that.answers = _.shuffle(that.answers);
-            }
 
             that.checkAnswer = function (answer) {
                 that.answers.forEach(function (item) {

@@ -5,9 +5,9 @@
         .module('quiz')
         .factory('TextMatchingViewModel', factory);
 
-    factory.$inject = ['QuestionViewModel', 'settings'];
+    factory.$inject = ['QuestionViewModel'];
 
-    function factory(QuestionViewModel, settings) {
+    function factory(QuestionViewModel) {
         return function TextMatchingViewModel(question) {
             QuestionViewModel.call(this, question);
 
@@ -33,11 +33,6 @@
 
                     return source;
                 });
-
-            if (settings.answers.randomize) {
-                that.sources = _.shuffle(that.sources);
-            }
-
 
             that.targets = _.chain(question.answers)
                 .map(function (answer) {
