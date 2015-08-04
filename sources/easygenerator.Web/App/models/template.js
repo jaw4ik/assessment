@@ -14,6 +14,7 @@
             obj.order = spec.order;
             obj.isCustom = spec.isCustom;
             obj.isNew = spec.isNew;
+            obj.isDeprecated = spec.isDeprecated;
 
             return obj;
         };
