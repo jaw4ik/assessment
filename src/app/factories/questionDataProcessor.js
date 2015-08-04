@@ -17,9 +17,9 @@
             multipleSelect: function (data) { return randomize(data, 'answers'); },
         };
 
-        function randomize(data, key) {
+        function randomize(data, property) {
             if (settings.answers.randomize) {
-                data[key] = _.shuffle(data[key]);
+                data[property] = _.shuffle(data[property]);
             }
 
             return data;
