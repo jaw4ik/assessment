@@ -12,7 +12,7 @@
                 </div>
                 <div class="copy-control">
                     <div class="copy-text-container">
-                        <textarea readonly="readonly" class="copy-text-embed-code" data-bind="value: embedCode, selectText: publishAvailable()"></textarea>
+                        <textarea readonly="readonly" class="copy-text-embed-code" data-bind="value: embedCode, selectText: !isPublishing()"></textarea>
                     </div>
                     <div class="copy-btn-wrapper">
                         <button class="btn" data-bind="copyToClipboard: { value: embedCode, onCopied: onCopyEmbedCode, isDisabled: copyDisabled }, css: { green: !publishAvailable(), 'green-white': publishAvailable(), copied: embedCodeCopied, disabled: copyDisabled }, attr: { disabled: copyDisabled() }">

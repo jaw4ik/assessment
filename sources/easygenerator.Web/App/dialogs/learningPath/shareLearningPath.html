@@ -21,7 +21,7 @@
                             <div class="modal-dialog-tab-item-title" data-bind="localize: { text: 'privateLink' }"></div>
                             <div class="copy-control">
                                 <div class="copy-text-container">
-                                    <input type="text" class="copy-text-link" readonly="readonly" data-bind="value: publicationUrl(), selectText: publishAvailable()" />
+                                    <input type="text" class="copy-text-link" readonly="readonly" data-bind="value: publicationUrl(), selectText: !isPublishing()" />
                                 </div>
                                 <div class="copy-btn-wrapper">
                                     <button class="btn green-white" data-bind="copyToClipboard: { value: publicationUrl, onCopied: onCopyLink, isDisabled: copyDisabled }, css: { copied: linkCopied, disabled: copyDisabled }, attr: { disabled: copyDisabled() }">
@@ -37,7 +37,7 @@
                             <div class="modal-dialog-tab-item-title" data-bind="localize: { text: 'code' }"></div>
                             <div class="copy-control">
                                 <div class="copy-text-container">
-                                    <textarea readonly="readonly" class="copy-text-embed-code" data-bind="value: embedCode, selectText: publishAvailable()"></textarea>
+                                    <textarea readonly="readonly" class="copy-text-embed-code" data-bind="value: embedCode, selectText: !isPublishing()"></textarea>
                                 </div>
                                 <div class="copy-btn-wrapper">
                                     <button class="btn green-white" data-bind="copyToClipboard: { value: embedCode, onCopied: onCopyEmbedCode, isDisabled: copyDisabled }, css: { copied: embedCodeCopied, disabled: copyDisabled }, attr: { disabled: copyDisabled() }">
