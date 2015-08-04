@@ -90,6 +90,10 @@
                     _.extend(settings, { attempt: defaultSettings.attempt });
                 }
 
+                if (!_.isObject(settings.answers) || _.isUndefined(settings.answers.randomize)) {
+                    _.extend(settings, { answers: defaultSettings.answers });
+                }
+
                 if (_.isUndefined(settings.assessmentMode)) {
                     _.extend(settings, { assessmentMode: defaultSettings.assessmentMode });
                 }
