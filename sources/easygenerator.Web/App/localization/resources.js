@@ -803,16 +803,16 @@
         'pt-br': 'Paste this code into your HTML page where you want the learning path to appear[pt-br]'
     },
     updateLearningPathDescription: {
-        'en': 'The learning path might have been changed since it was last published. Click \"Update learning path\" to apply last changes.',
-        'zh-cn': 'The learning path might have been changed since it was last published. Click \"Update learning path\" to apply last changes.[zh-cn]',
-        'uk': 'Навчальний шлях може містити зміни з часу останньої публікації. Натисніть \"Оновити навчальний шлях\" щоб застосувати зміни',
-        'pt-br': 'The learning path might have been changed since it was last published. Click \"Update learning path\" to apply last changes.[pt-br]'
+        'en': 'The learning path might have been changed since it was last published. Click \"Update path\" to apply last changes.',
+        'zh-cn': 'The learning path might have been changed since it was last published. Click \"Update path\" to apply last changes.[zh-cn]',
+        'uk': 'Навчальний шлях може містити зміни з часу останньої публікації. Натисніть \"Оновити шлях\" щоб застосувати зміни',
+        'pt-br': 'The learning path might have been changed since it was last published. Click \"Update path\" to apply last changes.[pt-br]'
     },
     updateLearningPath: {
-        'en': 'Update learning path',
-        'zh-cn': 'Update learning path[zh-cn]',
-        'uk': 'Оновити навчальний шлях',
-        'pt-br': 'Update learning path[pt-br]'
+        'en': 'Update path',
+        'zh-cn': 'Update path[zh-cn]',
+        'uk': 'Оновити шлях',
+        'pt-br': 'Update path[pt-br]'
     },
     downloadAsHtml: {
         'en': 'Download as HTML',

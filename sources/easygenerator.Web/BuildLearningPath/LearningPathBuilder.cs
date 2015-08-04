@@ -26,7 +26,7 @@ namespace easygenerator.Web.BuildLearningPath
             _contentProvider = contentProvider;
         }
 
-        public BuildResult Build(LearningPath learningPath)
+        public bool Build(LearningPath learningPath)
         {
             var buildResult = true;
             var packageUrl = String.Empty;
@@ -43,6 +43,7 @@ namespace easygenerator.Web.BuildLearningPath
 
                 CreatePackageFromDirectory(buildId);
                 packageUrl = buildId + ".zip";
+                learningPath.UpdatePackageUrl(packageUrl);
             }
             catch (Exception exception)
             {
@@ -60,7 +61,7 @@ namespace easygenerator.Web.BuildLearningPath
                 _logger.LogException(exception);
             }
 
-            return new BuildResult(buildResult, packageUrl);
+            return buildResult;
         }
 
         private void CreatePackageDirectory(string buildDirectory)

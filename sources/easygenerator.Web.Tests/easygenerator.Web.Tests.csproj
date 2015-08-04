@@ -202,6 +202,7 @@
     <Compile Include="Controllers\ImageControllerTests.cs" />
     <Compile Include="Controllers\PreviewControllerTests.cs" />
     <Compile Include="Controllers\RedirectToNewStorageControllerTests.cs" />
+    <Compile Include="Publish\LearningPathPublisherTests.cs" />
     <Compile Include="Storage\CourseStateStorageTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTrackerTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\HotSpotPolygonChangeTrackerTests.cs" />
