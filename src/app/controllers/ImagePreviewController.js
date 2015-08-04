@@ -1,7 +1,7 @@
 ﻿(function () {
 
     angular
-        .module('quiz')
+        .module('assessment')
         .controller('ImagePreviewController', ImagePreviewController);
 
     ImagePreviewController.$inject = ['$scope', '$rootScope', 'imagePreviewFactory'];

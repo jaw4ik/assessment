@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('quiz')
+        .module('assessment')
         .factory('Question', factory);
 
     factory.$inject = ['$q', '$rootScope', 'LearningContent', 'htmlContentLoader'];

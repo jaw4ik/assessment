@@ -2,7 +2,7 @@
     'use strict';
     
     //Unlike ngBindHtml, this directive allows you to use nested bindings and emit event $includeContentLoaded.
-    angular.module('quiz').directive('htmlCompile', directive);
+    angular.module('assessment').directive('htmlCompile', directive);
 
     directive.$inject = ['$compile'];
 

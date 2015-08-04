@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('quiz.xApi')
+    angular.module('assessment.xApi')
         .service('xAPIManager', xAPIManager);
 
     xAPIManager.$inject = ['errorsHandler', 'xApiDataBuilder', 'xApiEventsHandler', 'xApiSettings', 'xApiRequestManager'];

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('quiz.xApi')
+    angular.module('assessment.xApi')
         .factory('xApiSupportedQuestionTypes', xApisupportedQeustionTypes);
 
     function xApisupportedQeustionTypes() {

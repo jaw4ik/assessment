@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('quiz.xApi').directive('loginLeave', directive);
+    angular.module('assessment.xApi').directive('loginLeave', directive);
 
     function directive() {
         return {

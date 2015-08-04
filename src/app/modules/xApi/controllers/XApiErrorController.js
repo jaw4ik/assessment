@@ -2,16 +2,16 @@
     'use strict';
 
     angular
-        .module('quiz.xApi')
+        .module('assessment.xApi')
         .controller('XApiErrorController', ErrorsController);
 
-    ErrorsController.$inject = ['$rootScope', '$location', '$routeParams', 'settings', 'xAPIManager', 'quiz'];
+    ErrorsController.$inject = ['$rootScope', '$location', '$routeParams', 'settings', 'xAPIManager', 'assessment'];
 
-    function ErrorsController($rootScope, $location, $routeParams, settings, xAPIManager, quiz) {
+    function ErrorsController($rootScope, $location, $routeParams, settings, xAPIManager, assessment) {
         var that = this,
             backUrl = $routeParams.backUrl || '/';
 
-        $rootScope.title = quiz.title;
+        $rootScope.title = assessment.title;
 
         that.logoUrl = settings.logo.url;
         that.allowToContinue = !settings.xApi.required;

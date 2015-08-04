@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     
-    angular.module('quiz').directive('hint', directive);
+    angular.module('assessment').directive('hint', directive);
 
     directive.$inject = ['$compile'];
 

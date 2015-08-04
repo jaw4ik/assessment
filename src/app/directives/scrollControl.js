@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    angular.module('quiz')
+    angular.module('assessment')
         .directive('scrollControl', scrollControl);
 
     function isMobileDevice() {
@@ -16,12 +16,12 @@
             link: function ($scope, $element) {
                 if (isMobileDevice()) {
                     subscribeToMobileEvents($scope, $element);
-                } else if ($scope.quiz.hasIntroductionContent) {
+                } else if ($scope.assessment.hasIntroductionContent) {
                     subscribeToEvents($scope, $element, $timeout);
                 }
 
-                if (!$scope.quiz.hasIntroductionContent) {
-                    broadcastQuizStartedEvent($scope);
+                if (!$scope.assessment.hasIntroductionContent) {
+                    broadcastAssessmentStartedEvent($scope);
                 }
 
                 if ($routeParams.tryAgain) {
@@ -39,10 +39,10 @@
         $('html, body').animate({ scrollTop: scrollTop }, 1000);
     }
 
-    function broadcastQuizStartedEvent($scope) {
-        if (!$scope.quizStarted) {
-            $scope.quizStarted = true;
-            $scope.$emit('$quizStarted');
+    function broadcastAssessmentStartedEvent($scope) {
+        if (!$scope.assessmentStarted) {
+            $scope.assessmentStarted = true;
+            $scope.$emit('$assessmentStarted');
         }
     }
 
@@ -61,7 +61,7 @@
                 var questionsReached = $window.scrollTop() >= $questions.offset().top - $window.height();
 
                 if (questionsReached) {
-                    broadcastQuizStartedEvent($scope);
+                    broadcastAssessmentStartedEvent($scope);
                     $container.addClass('questions-reached');
                 }
             },
@@ -119,7 +119,7 @@
                 }
 
                 if (questionsReached) {
-                    broadcastQuizStartedEvent($scope);
+                    broadcastAssessmentStartedEvent($scope);
 
                     $introduction
                         .css('top', scrollableHeight)

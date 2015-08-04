@@ -1,16 +1,16 @@
 (function () {
     'use strict';
 
-    angular.module('quiz')
+    angular.module('assessment')
         .factory('dataContext', dataContext);
 
-    dataContext.$inject = ['$rootScope', '$q', '$http', 'Quiz', 'Objective', '$templateCache', 'questionsFactory', 'questionPool', 'questionDataProcessor'];// jshint ignore:line
+    dataContext.$inject = ['$rootScope', '$q', '$http', 'Assessment', 'Objective', '$templateCache', 'questionsFactory', 'questionPool', 'questionDataProcessor'];// jshint ignore:line
 
-    function dataContext($rootScope, $q, $http, Quiz, Objective, $templateCache, questionsFactory, questionPool, questionDataProcessor) { // jshint ignore:line
+    function dataContext($rootScope, $q, $http, Assessment, Objective, $templateCache, questionsFactory, questionPool, questionDataProcessor) { // jshint ignore:line
 
         var self = {
             isInited: false,
-            quiz: null,
+            assessment: null,
 
             id: null,
             title: null,
@@ -19,7 +19,7 @@
         };
 
         return {
-            getQuiz: getQuiz
+            getAssessment: getAssessment
         };
 
         function init() {
@@ -80,26 +80,26 @@
                 .value();
         }
 
-        function getQuiz() {
+        function getAssessment() {
             if (!self.isInited) {
                 self.isInited = true;
                 return init().then(function () {
-                    return getQuiz();
+                    return getAssessment();
                 });
             }
 
-            if (!self.quiz || questionPool.isRefreshed()) {
+            if (!self.assessment || questionPool.isRefreshed()) {
                 var questionsForCourse = questionPool.getQuestions(getAllQuestions()),
                     objectivesForCourse = generateObjectives(questionsForCourse);
 
                 return $q.all(questionsForCourse.map(function (question) {
                     return question.loadContent();
                 })).then(function () {
-                    return self.quiz = new Quiz(self.id, self.title, self.createdOn, objectivesForCourse, questionsForCourse, self.hasIntroductionContent);
+                    return self.assessment = new Assessment(self.id, self.title, self.createdOn, objectivesForCourse, questionsForCourse, self.hasIntroductionContent);
                 });
             }
 
-            return self.quiz;
+            return self.assessment;
         }
     }
 

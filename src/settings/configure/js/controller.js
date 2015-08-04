@@ -388,6 +388,47 @@
             }
         })();
 
+        that.assessmentMode = (function () {
+            var self = {
+                init: init,
+                getData: getData
+            };
+            self.modes = {
+                quiz: 'quiz',
+                exam: 'exam'
+            };
+            self.mode = self.modes.quiz;
+            self.attemptsSettings = {
+                quiz: {
+                    hasLimit: true,
+                    limit: 3,
+                },
+                exam: {
+                    hasLimit: true,
+                    limit: 1,
+                }
+            };
+
+            return self;
+
+            function init(assessmentMode) {
+                if (!assessmentMode) {
+                    return;
+                }
+
+                self.mode = assessmentMode;
+            }
+
+            function getData() {
+                return self.mode;
+            }
+        })();
+
+        $scope.$watch('assessmentMode.mode', function (mode, prevMode) {
+            that.assessmentMode.attemptsSettings[prevMode] = that.attempt.getData();
+            that.attempt.init(that.assessmentMode.attemptsSettings[mode]);
+        });
+
         angular.element($window).on('blur', saveChanges);
 
         function saveChanges() {
@@ -409,8 +450,9 @@
                 languages: that.languages.getData(),
                 timer: that.timer.getData(),
                 questionPool: that.questionPool.getData(),
-                answers: that.answers.getData(),
-                attempt: that.attempt.getData()
+                attempt: that.attempt.getData(),
+                assessmentMode: that.assessmentMode.getData(),
+                answers: that.answers.getData()
             });
         }
 
@@ -427,6 +469,7 @@
             that.questionPool.init(settings.questionPool);
             that.answers.init(settings.answers);
             that.attempt.init(settings.attempt);
+            that.assessmentMode.init(settings.assessmentMode);
 
             currentSettings = getCurrentSettings(settings);
 

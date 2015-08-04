@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    var app = angular.module('quiz.xApi', ['ngRoute']);
+    var app = angular.module('assessment.xApi', ['ngRoute']);
 
     app.config(['$routeProvider', function ($routeProvider) {
         $routeProvider
@@ -10,8 +10,8 @@
                 controller: 'XApiLoginController',
                 controllerAs: 'login',
                 resolve: {
-                    quiz: ['dataContext', function (dataContext) {
-                        return dataContext.getQuiz();
+                    assessment: ['dataContext', function (dataContext) {
+                        return dataContext.getAssessment();
                     }]
                 }
             })
@@ -20,8 +20,8 @@
                 controller: 'XApiErrorController',
                 controllerAs: 'xApiError',
                 resolve: {
-                    quiz: ['dataContext', function (dataContext) {
-                        return dataContext.getQuiz();
+                    assessment: ['dataContext', function (dataContext) {
+                        return dataContext.getAssessment();
                     }]
                 }
             });

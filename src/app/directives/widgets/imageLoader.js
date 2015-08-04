@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('quiz')
+    angular.module('assessment')
     .directive('imageLoader', imageLoader);
     function imageLoader() {
         return {

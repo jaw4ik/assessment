@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('quiz.xApi').factory('errorsHandler', errorsHandler);
+    angular.module('assessment.xApi').factory('errorsHandler', errorsHandler);
 
     errorsHandler.$inject = ['$location', '$timeout'];
 

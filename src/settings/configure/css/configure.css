@@ -298,7 +298,7 @@ input[type="text"] {
 
 .settings-row {
     min-width: 560px;
-    padding: 25px 10px;
+    padding: 25px 0px;
     position: relative;
     display: -webkit-flex;
     display: flex;
@@ -322,7 +322,7 @@ input[type="text"] {
         border-left: 1px solid #e2e8eb;
     }
 
-.settings-column-row + .settings-column-row {
+.settings-column-row {
     margin-top: 25px;
 }
 
@@ -334,6 +334,11 @@ input[type="text"] {
     font-family: 'OpenSans';
     font-weight: 600;
     font-size: 15px;
+    margin-bottom: 14px;
+}
+
+.settings-content {
+    margin-left: 10px;
 }
 
 .settings-cell {
@@ -347,6 +352,15 @@ input[type="text"] {
     color: #42515f;
     font-size: 13px;
     font-weight: normal;
+}
+
+.settings-option {
+    font-weight: 600;
+    color: #252728;
+}
+
+.settings-option-hint {
+    color: #63798e;
 }
 
 .advanced-settings-title-container {
@@ -402,6 +416,18 @@ input[type="text"] {
 
 /*#endregion */
 
+/*#region assesment-mode */
+
+.assessment-mode.settings-row {
+    padding: 0px;
+}
+
+.assessment-mode.settings-row + .settings-row {
+    border: none;
+}
+
+/*#endregion */
+
 /*#region timer */
 
 .switching-option {
@@ -447,10 +473,6 @@ input[type="text"] {
 
 /*#region question-pool*/
 
-.question-pool .radio-selector {
-    margin-top: 13px;
-}
-
 .question-pool .spinner {
     margin: -7px 7px;
 }
@@ -472,13 +494,9 @@ input[type="text"] {
     margin-top: 30px;
 }
 
-    .attempts .radio-selector {
-        margin-top: 13px;
-    }
-
-    .attempts .spinner {
-        margin: -7px 7px;
-    }
+.attempts .spinner {
+    margin: -7px 7px;
+}
 
 /*#endregion */
 
@@ -870,7 +888,7 @@ input[type="text"] {
     position: absolute;
     top: 50%;
     left: 50%;
-    background-color: #5bc0de;
+    background-color: #469dd5;
     border-radius: 50%;
 }
 

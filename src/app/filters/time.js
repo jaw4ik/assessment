@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    angular.module('quiz')
+    angular.module('assessment')
         .filter('time', timeFilter);
 
     function timeFilter() {

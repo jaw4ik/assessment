@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('quiz.xApi').factory('statementDataBuilder', factory);
+    angular.module('assessment.xApi').factory('statementDataBuilder', factory);
 
     factory.$inject = ['xApiInteractionTypes'];
 
