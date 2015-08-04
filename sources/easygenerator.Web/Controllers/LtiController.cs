@@ -23,6 +23,8 @@ namespace easygenerator.Web.Controllers
         public ActionResult Authenticate()
          {
             var tokens = _storage.Get<List<TokenModel>>(Lti.Constants.TokensStorageKey);
+            _storage.Remove(Lti.Constants.TokensStorageKey);
+
             if (tokens != null)
             {
                 return JsonSuccess(tokens);
