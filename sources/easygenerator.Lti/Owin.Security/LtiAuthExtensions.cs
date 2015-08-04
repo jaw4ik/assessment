@@ -19,15 +19,6 @@ namespace easygenerator.Lti.Owin.Security
                 throw new ArgumentNullException("options");
             }
 
-            app.Use((context, next) =>
-            {
-                var httpContext = context.Get<HttpContextBase>(typeof(HttpContextBase).FullName);
-                httpContext.SetSessionStateBehavior(SessionStateBehavior.Required);
-                return next();
-            });
-
-            app.UseStageMarker(PipelineStage.MapHandler);
-
             return app.Use(typeof(LtiAuthMiddleware), app, options);
         }
     }

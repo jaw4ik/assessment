@@ -31,14 +31,15 @@ define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synch
         });
 
         var ltiAuthDefer;
-        if (window.lti.isForceLogoutKeyPresent()) {
+
+        if (window.auth.isLogoutKeyPresentInHash()) {
             window.auth.logout();
             window.location.replace('/#');
         }
 
-        if (window.lti.isAuthTokenPresent()) {
+        if (window.auth.isAuthTokenPresentInHash()) {
             window.auth.logout();
-            ltiAuthDefer = window.lti.authenticate().complete(function () {
+            ltiAuthDefer = window.auth.loginByAuthToken().then(function () {
                 window.location.replace('/#');
             });
         } else {

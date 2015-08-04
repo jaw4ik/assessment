@@ -18,18 +18,16 @@ namespace easygenerator.Lti.Owin.Security
     {
         private readonly IConsumerToolRepository _consumerToolRepository;
         private readonly ITokenProvider _tokenProvider;
-        private readonly IDictionaryStorage _storage;
         private readonly IUserRepository _userRepository;
         private readonly IEntityFactory _entityFactory;
         private readonly IDomainEventPublisher _eventPublisher;
         private readonly IDependencyResolverWrapper _dependencyResolver;
 
-        public LtiAuthProvider(IConsumerToolRepository consumerToolRepository, ITokenProvider tokenProvider, IDictionaryStorage storage,
-            IUserRepository userRepository, IEntityFactory entityFactory, IDomainEventPublisher eventPublisher, IDependencyResolverWrapper dependencyResolver)
+        public LtiAuthProvider(IConsumerToolRepository consumerToolRepository, ITokenProvider tokenProvider, IUserRepository userRepository, 
+            IEntityFactory entityFactory, IDomainEventPublisher eventPublisher, IDependencyResolverWrapper dependencyResolver)
         {
             _consumerToolRepository = consumerToolRepository;
             _tokenProvider = tokenProvider;
-            _storage = storage;
             _userRepository = userRepository;
             _entityFactory = entityFactory;
             _eventPublisher = eventPublisher;
@@ -85,14 +83,9 @@ namespace easygenerator.Lti.Owin.Security
                         return Task.FromResult<object>(null);
                     }
 
-                    var tokens = _tokenProvider.GenerateTokens(userEmail, context.Request.Uri.Host,
-                        AuthorizationConfigurationProvider.Endpoints.Select(_ => _.Name));
+                    var authToken = _tokenProvider.GenerateTokens(userEmail, context.Request.Uri.Host, new[] { "auth" });
 
-                    var ltiToken = "launch";
-
-                    ltiAuthUrl = string.Format("{0}#token.lti={1}", ltiAuthUrl, ltiToken);
-
-                    _storage.Add(Constants.TokensStorageKey, tokens);
+                    ltiAuthUrl = string.Format("{0}#token.auth={1}", ltiAuthUrl, authToken[0].Token);
 
                     context.RedirectUrl = ltiAuthUrl;
                 }

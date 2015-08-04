@@ -34,6 +34,13 @@ namespace easygenerator.Web.Controllers
         }
 
         [HttpPost, Scope("auth")]
+        public ActionResult Tokens(string[] endpoints)
+        {
+            var tokens = _tokenProvider.GenerateTokens(GetCurrentUsername(), Request.Url.Host, endpoints);
+            return JsonSuccess(tokens);
+        }
+
+        [HttpPost, Scope("auth")]
         public ActionResult Identity()
         {
             var user = _repository.GetUserByEmail(GetCurrentUsername());

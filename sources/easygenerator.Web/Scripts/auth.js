@@ -9,8 +9,39 @@
         logout: logout,
         getToken: getToken,
         getHeader: getHeader,
-        getRequiredEndpoints: getRequiredEndpoints
+        getRequiredEndpoints: getRequiredEndpoints,
+        isAuthTokenPresentInHash: isAuthTokenPresentInHash,
+        loginByAuthToken: loginByAuthToken,
+        isLogoutKeyPresentInHash: isLogoutKeyPresentInHash
     };
+
+    function isAuthTokenPresentInHash() {
+        var hashParams = getHashParams(window.location.hash);
+        return hashParams && !_.isNullOrUndefined(hashParams['token.auth']);
+    }
+
+    function loginByAuthToken() {
+        var hashParams = getHashParams(window.location.hash);
+        var authToken = hashParams['token.auth'];
+        
+        token('auth', authToken);
+
+        var endpoints = _.filter(requiredEndpoints, function (endpoint) { return endpoint !== 'auth'; });
+
+        var headers = window.auth.getHeader('auth');
+        _.extend(headers, { "cache-control": "no-cache" });
+        
+        return $.ajax({ url: '/auth/tokens', type: 'POST', data: { endpoints: endpoints }, headers: headers }).done(function (response) {
+            if (response && response.success) {
+                setTokens(response.data);
+            }
+        });
+    }
+
+    function isLogoutKeyPresentInHash() {
+        var hashParams = getHashParams(window.location.hash);
+        return hashParams && hashParams.hasOwnProperty('logout');
+    }
 
     function isUserLoggedIn() {
         var index;
@@ -104,6 +135,21 @@
             }
         }
         return undefined;
+    }
+
+    function getHashParams(queryString) {
+        var query = (queryString || window.location.hash).substring(1);
+        if (!query) {
+            return false;
+        }
+        return _
+        .chain(query.split('&'))
+        .map(function (params) {
+            var p = params.split('=');
+            return [p[0], decodeURIComponent(p[1])];
+        })
+        .object()
+        .value();
     }
 
 }());
