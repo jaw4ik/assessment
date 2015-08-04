@@ -1524,7 +1524,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            course.TemplateSettings = new List<Course.CourseTemplateSettings>();
+            course.TemplateSettings = new List<CourseTemplateSettings>();
 
             //Act
             var settings = course.GetTemplateSettings(TemplateObjectMother.Create());
@@ -1540,7 +1540,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var course = CourseObjectMother.Create();
             var template = TemplateObjectMother.Create();
             const string json = "{ url: \"http://google.com\"";
-            course.TemplateSettings = new List<Course.CourseTemplateSettings>()
+            course.TemplateSettings = new List<CourseTemplateSettings>()
             {
                 CourseTemplateSettingsObjectMother.Create(course, template, json, "")
             };
@@ -1574,7 +1574,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            course.TemplateSettings = new List<Course.CourseTemplateSettings>();
+            course.TemplateSettings = new List<CourseTemplateSettings>();
 
             //Act
             var settings = course.GetExtraDataForTemplate(TemplateObjectMother.Create());
@@ -1590,7 +1590,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var course = CourseObjectMother.Create();
             var template = TemplateObjectMother.Create();
             const string extraData = "some extra data";
-            course.TemplateSettings = new List<Course.CourseTemplateSettings>()
+            course.TemplateSettings = new List<CourseTemplateSettings>()
             {
                 CourseTemplateSettingsObjectMother.Create(course, template, "", extraData)
             };
@@ -1627,7 +1627,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var template = TemplateObjectMother.Create();
             const string settings = "settings";
             const string extraData = "extra data";
-            course.TemplateSettings = new Collection<Course.CourseTemplateSettings>()
+            course.TemplateSettings = new Collection<CourseTemplateSettings>()
             {
                 CourseTemplateSettingsObjectMother.Create(course, template, "previous settings", "previous extra data")
             };
@@ -1649,7 +1649,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var template = TemplateObjectMother.Create();
             const string settings = "settings";
             const string extraData = "extra data";
-            course.TemplateSettings = new Collection<Course.CourseTemplateSettings>()
+            course.TemplateSettings = new Collection<CourseTemplateSettings>()
             {
                 CourseTemplateSettingsObjectMother.Create(course, template, "previous settings", "previous extra data")
             };
@@ -1669,7 +1669,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var template = TemplateObjectMother.Create();
             const string settings = "settings";
             const string extraData = "extra data";
-            course.TemplateSettings = new Collection<Course.CourseTemplateSettings>();
+            course.TemplateSettings = new Collection<CourseTemplateSettings>();
 
             //Act
             course.SaveTemplateSettings(template, settings, extraData);
@@ -1690,7 +1690,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var template = TemplateObjectMother.Create();
             const string settings = "settings";
             const string extraData = "extra data";
-            course.TemplateSettings = new Collection<Course.CourseTemplateSettings>();
+            course.TemplateSettings = new Collection<CourseTemplateSettings>();
 
             //Act
             course.SaveTemplateSettings(template, settings, extraData);

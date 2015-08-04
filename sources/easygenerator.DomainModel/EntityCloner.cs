@@ -61,7 +61,7 @@ namespace easygenerator.DomainModel
                         member = propertyInfo;
                     }
 
-                    if (type == typeof(Course) || type == typeof(Course.CourseTemplateSettings))
+                    if (type == typeof(Course) || type == typeof(CourseTemplateSettings))
                     {
                         if (member.Name == "Template")
                         {
