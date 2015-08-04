@@ -1,0 +1,20 @@
+﻿<div class="update-publication-control-container shown">
+    <div class="update-publication-control">
+        <div class="update-publication-message">
+            <div class="update-publication-message-image"></div>
+            <div class="update-publication-message-text" data-bind="localize: {text: 'updateLearningPathDescription'}">
+                The learning path might have been changed since it was last published. Click "Update learning path" to apply last changes.
+            </div>
+        </div>
+        <div class="update-publication-button-container">
+            <button class="btn green publish-tab-btn" data-bind="click: publish, css:{ 'disabled': isDelivering(), 'progress': isPublishing() }, disable: isDelivering()">
+                <!-- ko if: isPublishing() -->
+                <span class="publish-tab-btn-caption"></span>
+                <!-- /ko -->
+                <!-- ko ifnot: isPublishing() -->
+                <span class="publish-tab-btn-caption" data-bind="localize: { text: 'updateLearningPath' }"></span>
+                <!-- /ko -->
+            </button>
+        </div>
+    </div>
+</div>

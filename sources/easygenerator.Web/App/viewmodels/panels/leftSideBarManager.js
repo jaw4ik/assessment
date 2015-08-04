@@ -22,7 +22,7 @@
         },
         {
             viewToCompose: 'views/learningPaths/courseSelector/courseSelector',
-            subscribedPages: [{ id: 'viewmodels/learningPaths/learningPath/learningPath' }],
+            subscribedPages: [{ id: 'viewmodels/learningPaths/learningPath/details' }],
             modelToCompose: 'viewmodels/learningPaths/courseSelector/courseSelector',
             activate: true,
             activationData: 'id'

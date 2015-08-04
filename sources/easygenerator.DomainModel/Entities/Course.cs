@@ -273,7 +273,6 @@ namespace easygenerator.DomainModel.Entities
         }
 
         public DateTime? BuildOn { get; protected internal set; }
-
         public string PackageUrl { get; private set; }
 
         public virtual void UpdatePackageUrl(string packageUrl)

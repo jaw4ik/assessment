@@ -303,6 +303,51 @@
             });
         });
 
+        describe('publishLearningPath:', function () {
+            var post,
+                learningPathId;
+
+            beforeEach(function () {
+                post = Q.defer();
+                learningPathId = 'learnigPathId';
+                spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
+            });
+
+            it('should be a function', function () {
+                expect(service.publishLearningPath).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                var promise = service.publishLearningPath(learningPathId);
+
+                expect(promise).toBePromise();
+            });
+
+            it('should send request', function (done) {
+                post.resolve({});
+
+                var promise = service.publishLearningPath(learningPathId);
+                promise.fin(done);
+
+                expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/learningpath/publish', { learningPathId: learningPathId });
+            });
+
+            describe('when server return response', function () {
+
+                it('should resolve promise with packageUrl', function (done) {
+                    post.resolve({ PublicationUrl: 'SomeUrl' });
+
+                    var promise = service.publishLearningPath(learningPathId);
+                    promise.then(function () {
+                        expect(promise).toBeResolvedWith({ publicationUrl: 'SomeUrl' });
+                        done();
+                    });
+
+                });
+
+            });
+        });
+
     });
 
 });
