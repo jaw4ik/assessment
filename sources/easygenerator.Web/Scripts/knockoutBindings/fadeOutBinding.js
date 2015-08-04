@@ -1,4 +1,4 @@
-﻿ko.bindingHandlers.fadeOutWithCallback = {
+﻿ko.bindingHandlers.fadeOut = {
     update: function (element, valueAccessor) {
         var value = valueAccessor(),
             predicate = ko.unwrap(value.predicate),
