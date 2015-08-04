@@ -1598,10 +1598,10 @@
         'pt-br': 'Importar slides do PowerPoint e usá-los como seu conteudo de curso'
     },
     examTemplateHintText: {
-        'en': '<p>Exam will not be available anymore after August 21st</p>',
-        'zh-cn': '<p>Exam will not be available anymore after August 21st</p>[zh-cn]',
-        'uk': '<p>Exam will not be available anymore after August 21st</p>[uk]',
-        'pt-br': '<p>Exam will not be available anymore after August 21st</p>[pt-br]'
+        'en': '<p>Exam will be a part of the Assessment after Aug 28th</p>',
+        'zh-cn': '<p>Exam will be a part of the Assessment after Aug 28th</p>[zh-cn]',
+        'uk': '<p>Exam will be a part of the Assessment after Aug 28th</p>[uk]',
+        'pt-br': '<p>Exam will be a part of the Assessment after Aug 28th</p>[pt-br]'
     },
     examTemplateHintLink: {
         'en': '<a style=\"display:none;\" target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>',
