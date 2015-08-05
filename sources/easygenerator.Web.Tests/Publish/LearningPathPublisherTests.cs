@@ -21,7 +21,7 @@ namespace easygenerator.Web.Tests.Publish
     {
         private ILog _logger;
         private PhysicalFileManager _fileManager;
-        private BuildPathProvider _pathProvider; 
+        private BuildPathProvider _pathProvider;
         private HttpClient _httpClient;
         private ConfigurationReader _configurationReader;
         private LearningPathPublisher _publisher;
@@ -140,7 +140,7 @@ namespace easygenerator.Web.Tests.Publish
             //Assert
             _logger.Received().LogException(Arg.Is<InvalidOperationException>(ex => ex.Message == String.Format("Post learning path package failed. LearningPathId: {0}", learningPath.Id)));
         }
-        
+
         [TestMethod]
         public void Publish_ShouldReturnFalse_WhenPostFailed()
         {
@@ -172,6 +172,6 @@ namespace easygenerator.Web.Tests.Publish
             learningPath.PublicationUrl.Should().Be(null);
         }
 
-    #endregion
+        #endregion
     }
 }

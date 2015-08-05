@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System.Linq;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Clonning;
@@ -60,7 +61,7 @@ namespace easygenerator.DomainModel
                         member = propertyInfo;
                     }
 
-                    if (type == typeof(Course) || type == typeof(Course.CourseTemplateSettings))
+                    if (type == typeof(Course) || type == typeof(CourseTemplateSettings))
                     {
                         if (member.Name == "Template")
                         {
@@ -72,8 +73,21 @@ namespace easygenerator.DomainModel
                     if (type == typeof(Course))
                     {
                         if (member.Name == "BuildOn" || member.Name == "PackageUrl" || member.Name == "PublishedOn" || member.Name == "ScormPackageUrl" || member.Name == "PublicationUrl"
-                            || member.Name == "CommentsCollection" || member.Name == "CollaboratorsCollection" || member.Name == "TemplateSettings" || member.Name == "Aim4YouIntegration")
+                            || member.Name == "CommentsCollection" || member.Name == "CollaboratorsCollection" || member.Name == "Aim4YouIntegration" || member.Name == "LearningPathCollection")
                         {
+                            continue;
+                        }
+
+                        if (member.Name == "TemplateSettings")
+                        {
+                            list.Add(
+                            Expression.IfThen(
+                                Expression.AndAlso(
+                                    Expression.GreaterThan(Expression.Property(args, "Length"), Expression.Constant(1)),
+                                    Expression.Convert(Expression.ArrayAccess(args, Expression.Constant(1)),
+                                        typeof(bool))
+                                    ), GetPropertyCopyExpression(member, source, target, cloned, args)));
+
                             continue;
                         }
 

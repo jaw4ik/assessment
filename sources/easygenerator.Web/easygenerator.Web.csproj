@@ -549,6 +549,10 @@
     <Content Include="App\commands\createObjectiveCommand.spec.js">
       <DependentUpon>createObjectiveCommand.js</DependentUpon>
     </Content>
+    <Content Include="App\commands\duplicateCourseCommand.js" />
+    <Content Include="App\commands\duplicateCourseCommand.spec.js">
+      <DependentUpon>duplicateCourseCommand.js</DependentUpon>
+    </Content>
     <Content Include="App\commands\presentationCourseImportCommand.js" />
     <Content Include="App\commands\presentationCourseImportCommand.spec.js">
       <DependentUpon>presentationCourseImportCommand.js</DependentUpon>
@@ -1469,6 +1473,7 @@
     <Content Include="Scripts\knockout-3.3.0.js" />
     <Content Include="Scripts\knockout.validation.js" />
     <Content Include="Scripts\knockout.validation.min.js" />
+    <Content Include="Scripts\knockoutBindings\fadeOutBinding.js" />
     <Content Include="Scripts\knockoutBindings\limitedLengthTextBinding.js" />
     <Content Include="Scripts\knockoutBindings\autosizeBinding.js" />
     <Content Include="Scripts\knockoutBindings\backgroundImageBinding.js" />
