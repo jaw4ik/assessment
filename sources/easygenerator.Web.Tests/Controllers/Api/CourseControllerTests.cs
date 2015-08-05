@@ -6,6 +6,7 @@ using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
+using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.Components;
@@ -44,6 +45,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IEntityMapper _entityMapper;
         private IDomainEventPublisher _eventPublisher;
         private ITemplateRepository _templateRepository;
+        private ICloner _cloner;
 
         [TestInitialize]
         public void InitializeContext()
@@ -57,13 +59,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityMapper = Substitute.For<IEntityMapper>();
             _eventPublisher = Substitute.For<IDomainEventPublisher>();
             _templateRepository = Substitute.For<ITemplateRepository>();
-
+            _cloner = Substitute.For<ICloner>();
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
 
             _context.User.Returns(_user);
 
-            _controller = new CourseController(_builder, _scormCourseBuilder, _courseRepository, _entityFactory, _urlHelper, _coursePublisher, _entityMapper, _eventPublisher, _templateRepository);
+            _controller = new CourseController(_builder, _scormCourseBuilder, _courseRepository, _entityFactory, _urlHelper, _coursePublisher, _entityMapper, _eventPublisher, _templateRepository, _cloner);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -99,6 +101,60 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.Create(title);
 
             ActionResultAssert.IsJsonSuccessResult(result);
+        }
+
+        #endregion
+
+        #region Duplicate course
+
+        [TestMethod]
+        public void Duplicate_WhenCourseIsNotExistsShouldReturnJsonSuccessResult()
+        {
+            var result = _controller.Duplicate(null);
+            result.Should().BeBadRequestResult();
+        }
+
+        [TestMethod]
+        public void Duplicate_ShouldAddDuplicatedCourseToRepository()
+        {
+            
+            Course courseToDuplicate = CourseObjectMother.Create();
+            _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
+            _controller.Duplicate(courseToDuplicate);
+
+            _courseRepository.Received().Add(courseToDuplicate);
+        }
+
+        [TestMethod]
+        public void Duplicate_ShouldAddDuplicatedCourseSuffixToCourseTitle()
+        {
+            Course courseToDuplicate = CourseObjectMother.Create();
+            var courseTitle = courseToDuplicate.Title;
+            _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
+            _controller.Duplicate(courseToDuplicate);
+            courseToDuplicate.Title.Should().Be(courseTitle + " (copy)");
+        }
+
+        [TestMethod]
+        public void Duplicate_ShouldRemoveLast10SymbolsOfCourseTitleAndAddBigDuplicatedCourseSuffix()
+        {
+            Course courseToDuplicate = CourseObjectMother.Create();
+            courseToDuplicate.UpdateTitle("New course!New course!NewNew course!New course!NewNew course!New course!NewNew course!New course!NewNew course!New course!NewNew course!New course!NewNew course!New course!NewNew course!New course!NewNew course!New course!NewNew course!New course!New cour", "modifier");
+            var courseTitle = courseToDuplicate.Title;
+            var newTitle = String.Format("{0} {1}", courseTitle.Substring(0, 244), "... (copy)");
+            _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
+            _controller.Duplicate(courseToDuplicate);
+
+            courseToDuplicate.Title.Should().Be(newTitle);
+        }
+
+        [TestMethod]
+        public void Duplicate_ShouldReturnJsonSuccessResult()
+        {
+            Course courseToDuplicate = CourseObjectMother.Create();
+            _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
+            var result = _controller.Duplicate(courseToDuplicate);
+            result.Should().BeJsonSuccessResult();
         }
 
         #endregion

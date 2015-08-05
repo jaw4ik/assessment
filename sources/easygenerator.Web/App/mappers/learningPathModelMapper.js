@@ -8,6 +8,7 @@
                 return new LearningPath({
                     id: learningPath.Id,
                     title: learningPath.Title,
+                    publicationUrl: learningPath.PublicationUrl,
                     createdBy: learningPath.CreatedBy,
                     createdOn: new Date(learningPath.CreatedOn),
                     modifiedOn: new Date(learningPath.ModifiedOn),

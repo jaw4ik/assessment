@@ -273,7 +273,6 @@ namespace easygenerator.DomainModel.Entities
         }
 
         public DateTime? BuildOn { get; protected internal set; }
-
         public string PackageUrl { get; private set; }
 
         public virtual void UpdatePackageUrl(string packageUrl)
@@ -315,25 +314,6 @@ namespace easygenerator.DomainModel.Entities
         }
 
         #region Course template settings
-
-        protected internal class CourseTemplateSettings : Entity
-        {
-            public CourseTemplateSettings()
-            {
-
-            }
-
-            public CourseTemplateSettings(string createdBy)
-                : base(createdBy)
-            {
-
-            }
-
-            public virtual Course Course { get; set; }
-            public virtual Template Template { get; set; }
-            public string Settings { get; set; }
-            public string ExtraData { get; set; }
-        }
 
         protected internal virtual ICollection<CourseTemplateSettings> TemplateSettings { get; set; }
 

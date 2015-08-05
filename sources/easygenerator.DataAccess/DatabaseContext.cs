@@ -71,6 +71,8 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<LearningPath>().Property(e => e.CoursesOrder).IsOptional();
             modelBuilder.Entity<LearningPath>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<LearningPath>().HasMany(e => e.CoursesCollection).WithMany(e => e.LearningPathCollection).Map(m => m.ToTable("LearningPathCourses"));
+            modelBuilder.Entity<LearningPath>().Property(e => e.PackageUrl).HasMaxLength(255);
+            modelBuilder.Entity<LearningPath>().Property(e => e.PublicationUrl).HasMaxLength(255);
 
             modelBuilder.Entity<Objective>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Objective>().Property(e => e.ImageUrl).IsOptional();
@@ -101,10 +103,10 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Aim4YouIntegration>().Property(e => e.Aim4YouCourseId).IsRequired();
             modelBuilder.Entity<Aim4YouIntegration>().HasRequired(e => e.Course).WithOptional(c => c.Aim4YouIntegration).WillCascadeOnDelete(true);
 
-            modelBuilder.Entity<Course.CourseTemplateSettings>().Property(e => e.Settings);
-            modelBuilder.Entity<Course.CourseTemplateSettings>().Property(e => e.ExtraData).IsOptional();
-            modelBuilder.Entity<Course.CourseTemplateSettings>().HasRequired(e => e.Course);
-            modelBuilder.Entity<Course.CourseTemplateSettings>().HasRequired(e => e.Template);
+            modelBuilder.Entity<CourseTemplateSettings>().Property(e => e.Settings);
+            modelBuilder.Entity<CourseTemplateSettings>().Property(e => e.ExtraData).IsOptional();
+            modelBuilder.Entity<CourseTemplateSettings>().HasRequired(e => e.Course);
+            modelBuilder.Entity<CourseTemplateSettings>().HasRequired(e => e.Template);
 
             modelBuilder.Entity<Comment>().HasRequired(e => e.Course);
             modelBuilder.Entity<Comment>().Property(e => e.Text).IsRequired();
@@ -178,6 +180,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Template>().Property(e => e.PreviewUrl).HasMaxLength(255);
             modelBuilder.Entity<Template>().Property(e => e.Order);
             modelBuilder.Entity<Template>().Property(e => e.IsNew);
+            modelBuilder.Entity<Template>().Property(e => e.IsDeprecated);
             modelBuilder.Entity<Template>().HasMany(e => e.Courses);
             modelBuilder.Entity<Template>().HasMany(e => e.AccessControlList).WithRequired(e => e.Template).WillCascadeOnDelete(true);
 

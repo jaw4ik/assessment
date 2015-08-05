@@ -4,6 +4,6 @@ namespace easygenerator.Web.BuildLearningPath
 {
     public interface ILearningPathBuilder
     {
-        BuildResult Build(LearningPath learningPath);
+        bool Build(LearningPath learningPath);
     }
 }

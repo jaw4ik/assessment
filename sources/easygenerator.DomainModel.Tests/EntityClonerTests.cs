@@ -256,7 +256,7 @@ namespace easygenerator.DomainModel.Tests
         }
 
         [TestMethod]
-        public void Cloner_ShouldIgnoreCourseTemplateSettings()
+        public void Cloner_ShouldIgnoreCourseTemplateSettingsIfNotSpecifiedInArgs()
         {
             var course = CourseObjectMother.Create();
             var template = TemplateObjectMother.Create();
@@ -264,6 +264,17 @@ namespace easygenerator.DomainModel.Tests
 
             var clonedCourse = _cloner.Clone(course, "owner");
             clonedCourse.GetTemplateSettings(template).Should().Be(null);
+        }
+
+        [TestMethod]
+        public void Cloner_ShouldCloneCourseTemplateSettingsIfSpecifiedInArgs()
+        {
+            var course = CourseObjectMother.Create();
+            var template = TemplateObjectMother.Create();
+            course.SaveTemplateSettings(template, "settings", null);
+
+            var clonedCourse = _cloner.Clone(course, "owner", true);
+            clonedCourse.GetTemplateSettings(template).Should().Be("settings");
         }
 
         [TestMethod]

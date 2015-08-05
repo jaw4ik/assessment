@@ -175,6 +175,110 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
+        #region UpdatePackageUrl
+
+        [TestMethod]
+        public void UpdatePackageUrl_ShouldThowArgumentNullException_WhenParameterIsNull()
+        {
+            //Arrange
+            var learningPath = LearningPathObjectMother.Create();
+
+            //Act
+            Action action = ()=> learningPath.UpdatePackageUrl(null);
+
+            //Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("packageUrl");
+        }
+
+        [TestMethod]
+        public void UpdatePackageUrl_ShouldThowArgumentException_WhenParameterIsEmptyString()
+        {
+            //Arrange
+            var learningPath = LearningPathObjectMother.Create();
+
+            //Act
+            Action action = () => learningPath.UpdatePackageUrl("");
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("packageUrl");
+        }
+
+        [TestMethod]
+        public void UpdatePackageUrl_ShouldUpdatePackageUrl()
+        {
+            //Arrange
+            var learningPath = LearningPathObjectMother.Create();
+
+            //Act
+            learningPath.UpdatePackageUrl("packageUrl");
+
+            //Assert
+            learningPath.PackageUrl.Should().Be("packageUrl");
+        }
+
+        #endregion
+
+        #region UpdatePublicationUrl
+
+        [TestMethod]
+        public void UpdatePublicationUrl_ShouldThowArgumentNullException_WhenParameterIsNull()
+        {
+            //Arrange
+            var learningPath = LearningPathObjectMother.Create();
+
+            //Act
+            Action action = () => learningPath.UpdatePublicationUrl(null);
+
+            //Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("publicationUrl");
+        }
+
+        [TestMethod]
+        public void UpdatePublicationUrl_ShouldThowArgumentException_WhenParameterIsEmptyString()
+        {
+            //Arrange
+            var learningPath = LearningPathObjectMother.Create();
+
+            //Act
+            Action action = () => learningPath.UpdatePublicationUrl("");
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("publicationUrl");
+        }
+
+        [TestMethod]
+        public void UpdatePublicationUrl_ShouldUpdatePackageUrl()
+        {
+            //Arrange
+            var learningPath = LearningPathObjectMother.Create();
+
+            //Act
+            learningPath.UpdatePublicationUrl("publicationUrl");
+
+            //Assert
+            learningPath.PublicationUrl.Should().Be("publicationUrl");
+        }
+
+        #endregion
+
+        #region ResetPublicationUrl
+
+        [TestMethod]
+        public void ResetPublicationUrl_ShouldSetNullToPublicationUrl()
+        {
+            //Arrange
+            var learningPath = LearningPathObjectMother.Create();
+            learningPath.UpdatePublicationUrl("publicationUrl");
+
+            //Act
+            learningPath.ResetPublicationUrl();
+
+            //Assert
+            learningPath.PublicationUrl.Should().Be(null);
+        }
+
+        #endregion
+
         #region AddCourse
 
         [TestMethod]

@@ -1,0 +1,44 @@
+{
+    "name": "Assessment",
+    "shortDescription": "Use this when you want to create an assessment",
+    "thumbnail": "preview/thumbnail.png",
+    "previewImages": [
+        "preview/images/preview.jpg"
+    ],
+    "settingsUrls": {
+        "design": "settings/design/design.html",
+        "configure": "settings/configure/configure.html"
+    },
+    "languages": [
+        {
+            "code": "en",
+            "name": "English",
+            "url": "lang/en.json"
+        },
+        {
+            "code": "nl",
+            "name": "Dutch",
+            "url": "lang/nl.json"
+        },
+        {
+            "code": "ua",
+            "name": "Ukrainian",
+            "url": "lang/ua.json"
+        },
+        {
+            "code": "de",
+            "name": "German",
+            "url": "lang/de.json"
+        },
+        {
+            "code": "fr",
+            "name": "French",
+            "url": "lang/fr.json"
+        },
+        {
+            "code": "pt-br",
+            "name": "Portuguese - Brazil",
+            "url": "lang/pt-br.json"
+        }
+    ]
+}

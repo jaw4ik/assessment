@@ -9,6 +9,7 @@
                     previewDemoUrl: item.PreviewDemoUrl,
                     order: item.Order,
                     isNew: item.IsNew,
+                    isDeprecated: item.IsDeprecated,
                     isCustom: item.IsCustom
                 };
                 var manifestData = getManifestData(JSON.parse(item.Manifest), item.TemplateUrl);

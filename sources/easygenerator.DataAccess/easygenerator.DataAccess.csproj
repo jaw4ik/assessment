@@ -294,6 +294,14 @@
     <Compile Include="Migrations\201507291211326_MarkAllSimpleCoursesAsChanged.Designer.cs">
       <DependentUpon>201507291211326_MarkAllSimpleCoursesAsChanged.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507301220204_MergeQuizAndExamToAssessment.cs" />
+    <Compile Include="Migrations\201507301220204_MergeQuizAndExamToAssessment.Designer.cs">
+      <DependentUpon>201507301220204_MergeQuizAndExamToAssessment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508031353526_AddPackageAndPublicationLinksToLearningPath.cs" />
+    <Compile Include="Migrations\201508031353526_AddPackageAndPublicationLinksToLearningPath.Designer.cs">
+      <DependentUpon>201508031353526_AddPackageAndPublicationLinksToLearningPath.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201508011808070_CreateConsumerToolsTable.cs" />
     <Compile Include="Migrations\201508011808070_CreateConsumerToolsTable.Designer.cs">
       <DependentUpon>201508011808070_CreateConsumerToolsTable.cs</DependentUpon>
@@ -512,6 +520,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507291211326_MarkAllSimpleCoursesAsChanged.resx">
       <DependentUpon>201507291211326_MarkAllSimpleCoursesAsChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507301220204_MergeQuizAndExamToAssessment.resx">
+      <DependentUpon>201507301220204_MergeQuizAndExamToAssessment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508031353526_AddPackageAndPublicationLinksToLearningPath.resx">
+      <DependentUpon>201508031353526_AddPackageAndPublicationLinksToLearningPath.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508011808070_CreateConsumerToolsTable.resx">
       <DependentUpon>201508011808070_CreateConsumerToolsTable.cs</DependentUpon>

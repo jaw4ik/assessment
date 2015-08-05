@@ -86,6 +86,7 @@
                                 previewDemoUrl: template.previewDemoUrl,
                                 order: template.order,
                                 isNew: template.isNew,
+                                isDeprecated: template.isDeprecated,
                                 isCustom: template.isCustom,
                                 openPreview: function (item, event) {
                                     event.stopPropagation();
