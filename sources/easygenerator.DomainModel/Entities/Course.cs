@@ -315,25 +315,6 @@ namespace easygenerator.DomainModel.Entities
 
         #region Course template settings
 
-        protected internal class CourseTemplateSettings : Entity
-        {
-            public CourseTemplateSettings()
-            {
-
-            }
-
-            public CourseTemplateSettings(string createdBy)
-                : base(createdBy)
-            {
-
-            }
-
-            public virtual Course Course { get; set; }
-            public virtual Template Template { get; set; }
-            public string Settings { get; set; }
-            public string ExtraData { get; set; }
-        }
-
         protected internal virtual ICollection<CourseTemplateSettings> TemplateSettings { get; set; }
 
         public virtual string GetTemplateSettings(Template template)

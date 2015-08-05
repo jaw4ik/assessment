@@ -11,7 +11,7 @@ namespace easygenerator.Web.Publish
     {
         private ILog _logger;
         private PhysicalFileManager _fileManager;
-        private BuildPathProvider _pathProvider; 
+        private BuildPathProvider _pathProvider;
         private HttpClient _httpClient;
         private readonly ConfigurationReader _configurationReader;
 

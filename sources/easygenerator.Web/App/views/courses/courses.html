@@ -79,7 +79,7 @@
                 </li>
                 <!-- /ko -->
                 <!-- ko foreach: courses -->
-                <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected }">
+                <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected, processing: !isProcessed }">
                     <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
                         <div class="checkbox-holder" data-bind="click: $parent.toggleSelection, stopEventPropagation: { event: 'click' }">
                             <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }">
@@ -101,6 +101,7 @@
                                         <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
                                     </div>
                                 </div>
+                                <!-- ko if: isProcessed -->
                                 <div class="list-item-open">
                                     <div class="list-item-open-btn course-action-btn info-tooltip-holder">
                                         <div class="info-tooltip open-item">
@@ -108,16 +109,37 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- /ko -->
                             </div>
                             <div class="course-actions-panel">
+                                <!-- ko if: isProcessed -->
+                                <button class="course-action-btn duplicate-btn info-tooltip-holder" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.duplicateCourse">
+                                    <div class="info-tooltip duplicate-item">
+                                        <span data-bind="localize: { text: 'duplicate' }">Duplicate</span>
+                                    </div>
+                                </button>
                                 <a class="course-action-btn publish-btn info-tooltip-holder" href="#" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.navigateToPublish, attr: { href: '#publish/' + id }">
                                     <div class="info-tooltip publish-item">
                                         <span data-bind="localize: { text: 'publish' }">Publish</span>
                                     </div>
                                 </a>
+                                <!-- /ko -->
                             </div>
                         </div>
                     </div>
+                    <!-- ko ifnot: isProcessed -->
+                    <div class="processing-block-container" data-bind="fadeOut: { predicate: isDuplicatingFinished, callback: finishDuplicating, duration: 500 }, scrollTo: {}">
+                        <div class="processing-block">
+                            <div class="circular-loader-container">
+                                <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 orange align-center', style: { top: '50%' } } } --><!-- /ko -->
+                            </div>
+                            <div class="processing-message-block">
+                                <h4 class="processing-message-title" data-bind="localize: { text: 'courseIsDuplicating' }">Course is duplicating...</h4>
+                                <div class="processing-message-description" data-bind="localize: { text: 'PleaseWaitFewMinutes' }">Please wait, it may take few minutes</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
                 </li>
                 <!-- /ko -->
             </ul>
@@ -155,6 +177,11 @@
                                 </div>
                             </div>
                             <div class="course-actions-panel">
+                                <button class="course-action-btn duplicate-btn info-tooltip-holder" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.duplicateCourse">
+                                    <div class="info-tooltip duplicate-item">
+                                        <span data-bind="localize: { text: 'duplicate' }">Duplicate</span>
+                                    </div>
+                                </button>
                                 <a class="course-action-btn publish-btn info-tooltip-holder" href="#" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.navigateToPublish, attr: { href: '#publish/' + id }">
                                     <div class="info-tooltip publish-item">
                                         <span data-bind="localize: { text: 'publish' }">Publish</span>

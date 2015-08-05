@@ -430,6 +430,13 @@
                             eventCategory: 'Video library',
                             subtitleKey: 'videoUpgradeToUpload',
                             descriptionKey: 'videoUpgradeToUploadHtml'
+                        },
+
+                        duplicateCourse: {
+                            containerCss: 'upgrade-dialog-duplicate-course',
+                            eventCategory: 'Duplicate course',
+                            subtitleKey: 'coursesUpgradeToHaveMore',
+                            descriptionKey: 'coursesUpgradeToHaveMoreHtml'
                         }
                     }
                 }

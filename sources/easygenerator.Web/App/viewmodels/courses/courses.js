@@ -1,7 +1,7 @@
 ﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/courseRepository', 'notify', 'localization/localizationManager',
-    'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'commands/createCourseCommand', 'uiLocker', 'commands/presentationCourseImportCommand'],
+    'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'commands/createCourseCommand', 'uiLocker', 'commands/presentationCourseImportCommand', 'commands/duplicateCourseCommand', 'widgets/upgradeDialog/viewmodel', 'utils/waiter'],
     function (app, dataContext, userContext, constants, eventTracker, router, courseRepository, notify, localizationManager, clientContext, fileHelper, limitCoursesAmount,
-        createCourseCommand, uiLocker, presentationCourseImportCommand) {
+        createCourseCommand, uiLocker, presentationCourseImportCommand, duplicateCourseCommand, upgradeDialog, waiter) {
         "use strict";
 
         var
@@ -32,7 +32,7 @@
             coursesStarterLimit: limitCoursesAmount.getStarterLimit(),
 
             toggleSelection: toggleSelection,
-
+            duplicateCourse: duplicateCourse,
             navigateToDetails: navigateToDetails,
             navigateToPublish: navigateToPublish,
 
@@ -93,6 +93,27 @@
             course.isSelected(!course.isSelected());
         }
 
+        function duplicateCourse(course) {
+            return Q.fcall(function () {
+                if (!viewModel.isCreateCourseAvailable()) {
+                    upgradeDialog.show(constants.dialogs.upgrade.settings.duplicateCourse);
+                    return null;
+                }
+
+                var fakeCourse = createFakeCourse(course);
+                viewModel.courses.unshift(fakeCourse);
+
+                return Q.all([duplicateCourseCommand.execute(course.id, 'Courses'), waiter.waitTime(1000)]).then(function (response) {
+                    fakeCourse.finishDuplicating = function () {
+                        var index = viewModel.courses.indexOf(fakeCourse);
+                        viewModel.courses.remove(fakeCourse);
+                        viewModel.courses.splice(index, 0, mapCourse(response[0]));
+                    };
+                    fakeCourse.isDuplicatingFinished(true);
+                });
+            });
+        }
+
         function navigateToDetails(course) {
             eventTracker.publish(events.navigateToCourseDetails);
             router.navigate('courses/' + course.id);
@@ -127,7 +148,7 @@
                     return learningPathCourse.id === selectedCourse.id;
                 });
             });
-         
+
             if (selectedCourse.objectives.length > 0 || isConnectedToLearningPath) {
                 notify.error(localizationManager.localize('courseCannotBeDeletedErrorMessage'));
                 return;
@@ -234,8 +255,24 @@
             course.createdOn = item.createdOn;
             course.isSelected = ko.observable(false);
             course.objectives = item.objectives;
+            course.isProcessed = true;
 
             return course;
+        }
+
+        function createFakeCourse(course) {
+            return {
+                id: new Date(),
+                title: course.title(),
+                thumbnail: course.thumbnail,
+                createdOn: new Date(),
+                modifiedOn: new Date(),
+                isSelected: ko.observable(false),
+                objectives: course.objectives,
+                isProcessed: false,
+                isDuplicatingFinished: ko.observable(false),
+                finishDuplicating: false
+            };
         }
 
         function createNewCourse() {
