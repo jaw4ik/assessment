@@ -29,7 +29,7 @@ namespace easygenerator.DomainModel.Entities.Questions
         protected internal virtual Collection<TextMatchingAnswer> AnswersCollection { get; set; }
         public IEnumerable<TextMatchingAnswer> Answers
         {
-            get { return AnswersCollection.AsEnumerable(); }
+            get { return AnswersCollection.AsEnumerable().OrderBy(i => i.CreatedOn); }
         }
 
         public virtual void AddAnswer(TextMatchingAnswer answer, string modifiedBy)

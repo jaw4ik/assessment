@@ -43,6 +43,9 @@
         "randomizeOrder": true,
         "randomizePerAttempt": false
     },
+    "answers": {
+        "randomize": false
+    },
     "attempt":{
         "hasLimit": true,
         "limit": 3
