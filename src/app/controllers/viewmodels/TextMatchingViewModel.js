@@ -16,25 +16,23 @@
                 return 'textMatching';
             };
 
-            that.sources = _.chain(question.answers)
-                .map(function (answer) {
+
+            that.sources = _.map(question.answers, function(answer) {
                     var source = {
                         id: answer.id,
                         key: answer.key,
                         value: null,
 
-                        acceptValue: function (value) {
+                        acceptValue: function(value) {
                             source.value = value;
                         },
-                        rejectValue: function () {
+                        rejectValue: function() {
                             source.value = null;
                         }
                     };
 
                     return source;
-                })
-                .shuffle()
-                .value();
+                });
 
             that.targets = _.chain(question.answers)
                 .map(function (answer) {

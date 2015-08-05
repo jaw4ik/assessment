@@ -4,9 +4,9 @@
     angular.module('assessment')
         .factory('dataContext', dataContext);
 
-    dataContext.$inject = ['$rootScope', '$q', '$http', 'Assessment', 'Objective', '$templateCache', 'questionsFactory', 'questionPool'];// jshint ignore:line
+    dataContext.$inject = ['$rootScope', '$q', '$http', 'Assessment', 'Objective', '$templateCache', 'questionsFactory', 'questionPool', 'questionDataProcessor'];// jshint ignore:line
 
-    function dataContext($rootScope, $q, $http, Assessment, Objective, $templateCache, questionsFactory, questionPool) { // jshint ignore:line
+    function dataContext($rootScope, $q, $http, Assessment, Objective, $templateCache, questionsFactory, questionPool, questionDataProcessor) { // jshint ignore:line
 
         var self = {
             isInited: false,
@@ -47,7 +47,7 @@
                 if (_.isArray(objective.questions)) {
                     var objectiveQuestions = _.chain(objective.questions)
                         .map(function (questionData) {
-                            return questionsFactory.createQuestion(objective.id, questionData);
+                            return questionsFactory.createQuestion(objective.id, questionDataProcessor.process(questionData));
                         })
                         .compact()
                         .value();

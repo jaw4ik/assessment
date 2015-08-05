@@ -326,6 +326,7 @@
 
                 resultData.mode = self.mode;
                 resultData.subsetSize = self.subsetSize;
+                
                 if (self.mode === self.modes.all) {
                     resultData.randomizeOrder = self.randomizeOrder;
                     resultData.randomizePerAttempt = self.randomizeOrder && self.randomizePerAttempt;
@@ -335,6 +336,29 @@
                 }
 
                 return resultData;
+            }
+        })();
+
+        that.answers = (function () {
+            var self = {
+                randomize: false,
+                init: init,
+                getData: getData
+            };
+
+            return self;
+
+            function init(answersSettings) {
+                if (!answersSettings)
+                    return;
+
+                self.randomize = answersSettings.randomize;
+            }
+
+            function getData() {
+                return {
+                    randomize: self.randomize
+                };
             }
         })();
 
@@ -427,7 +451,8 @@
                 timer: that.timer.getData(),
                 questionPool: that.questionPool.getData(),
                 attempt: that.attempt.getData(),
-                assessmentMode: that.assessmentMode.getData()
+                assessmentMode: that.assessmentMode.getData(),
+                answers: that.answers.getData()
             });
         }
 
@@ -442,6 +467,7 @@
             that.languages.init(manifest.languages, settings.languages);
             that.timer.init(settings.timer);
             that.questionPool.init(settings.questionPool);
+            that.answers.init(settings.answers);
             that.attempt.init(settings.attempt);
             that.assessmentMode.init(settings.assessmentMode);
 
