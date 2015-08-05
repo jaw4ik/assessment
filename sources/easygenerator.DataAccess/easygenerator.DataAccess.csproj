@@ -302,13 +302,13 @@
     <Compile Include="Migrations\201508031353526_AddPackageAndPublicationLinksToLearningPath.Designer.cs">
       <DependentUpon>201508031353526_AddPackageAndPublicationLinksToLearningPath.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201508011808070_CreateConsumerToolsTable.cs" />
-    <Compile Include="Migrations\201508011808070_CreateConsumerToolsTable.Designer.cs">
-      <DependentUpon>201508011808070_CreateConsumerToolsTable.cs</DependentUpon>
+    <Compile Include="Migrations\201508050903440_CreateConsumerToolsTable.cs" />
+    <Compile Include="Migrations\201508050903440_CreateConsumerToolsTable.Designer.cs">
+      <DependentUpon>201508050903440_CreateConsumerToolsTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201508031325143_CreateLtiUserInfoTable.cs" />
-    <Compile Include="Migrations\201508031325143_CreateLtiUserInfoTable.Designer.cs">
-      <DependentUpon>201508031325143_CreateLtiUserInfoTable.cs</DependentUpon>
+    <Compile Include="Migrations\201508050906360_CreateLtiUserInfoesTable.cs" />
+    <Compile Include="Migrations\201508050906360_CreateLtiUserInfoesTable.Designer.cs">
+      <DependentUpon>201508050906360_CreateLtiUserInfoesTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -527,11 +527,11 @@
     <EmbeddedResource Include="Migrations\201508031353526_AddPackageAndPublicationLinksToLearningPath.resx">
       <DependentUpon>201508031353526_AddPackageAndPublicationLinksToLearningPath.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508011808070_CreateConsumerToolsTable.resx">
-      <DependentUpon>201508011808070_CreateConsumerToolsTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201508050903440_CreateConsumerToolsTable.resx">
+      <DependentUpon>201508050903440_CreateConsumerToolsTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508031325143_CreateLtiUserInfoTable.resx">
-      <DependentUpon>201508031325143_CreateLtiUserInfoTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201508050906360_CreateLtiUserInfoesTable.resx">
+      <DependentUpon>201508050906360_CreateLtiUserInfoesTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

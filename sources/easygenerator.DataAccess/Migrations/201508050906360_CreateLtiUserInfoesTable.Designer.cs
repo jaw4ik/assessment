@@ -7,13 +7,13 @@ namespace easygenerator.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class CreateLtiUserInfoTable : IMigrationMetadata
+    public sealed partial class CreateLtiUserInfoesTable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateLtiUserInfoTable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateLtiUserInfoesTable));
         
         string IMigrationMetadata.Id
         {
-            get { return "201508031325143_CreateLtiUserInfoTable"; }
+            get { return "201508050906360_CreateLtiUserInfoesTable"; }
         }
         
         string IMigrationMetadata.Source

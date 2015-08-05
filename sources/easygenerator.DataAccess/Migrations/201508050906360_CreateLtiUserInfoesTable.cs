@@ -3,7 +3,7 @@ namespace easygenerator.DataAccess.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CreateLtiUserInfoTable : DbMigration
+    public partial class CreateLtiUserInfoesTable : DbMigration
     {
         public override void Up()
         {

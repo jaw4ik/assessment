@@ -219,7 +219,7 @@ namespace easygenerator.DomainModel.Entities
             }
         }
 
-        #region Aim4You integration
+        #region LtiUserInfo
 
         public virtual LtiUserInfo LtiUserInfo { get; private set; }
 
