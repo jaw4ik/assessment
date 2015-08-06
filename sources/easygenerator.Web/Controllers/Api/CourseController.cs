@@ -342,7 +342,7 @@ namespace easygenerator.Web.Controllers.Api
         private static string GetDuplicatedEntityTitle(string title)
         {
             var newTitle = title;
-            if (title == null || title.EndsWith(DuplicatedEntityBigTitleSuffix))
+            if (title == null || title.EndsWith(DuplicatedEntityTitleSuffix))
             {
                 return newTitle;
             }
