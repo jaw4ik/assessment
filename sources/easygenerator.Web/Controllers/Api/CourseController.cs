@@ -1,10 +1,12 @@
-﻿using easygenerator.Auth.Attributes.Mvc;
+﻿using DocumentFormat.OpenXml.InkML;
+using easygenerator.Auth.Attributes.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
+using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.Components;
@@ -24,6 +26,9 @@ namespace easygenerator.Web.Controllers.Api
     [NoCache]
     public class CourseController : DefaultApiController
     {
+        private const string DuplicatedEntityTitleSuffix = "(copy)";
+        private const string DuplicatedEntityBigTitleSuffix = "... (copy)";
+
         private readonly ICourseBuilder _builder;
         private readonly IEntityFactory _entityFactory;
         private readonly ICourseRepository _courseRepository;
@@ -33,10 +38,11 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IEntityMapper _entityMapper;
         private readonly IDomainEventPublisher _eventPublisher;
         private readonly ITemplateRepository _templateRepository;
+        private readonly ICloner _cloner;
 
         public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository courseRepository, IEntityFactory entityFactory,
             IUrlHelperWrapper urlHelper, ICoursePublisher coursePublisher, IEntityMapper entityMapper,
-            IDomainEventPublisher eventPublisher, ITemplateRepository templateRepository)
+            IDomainEventPublisher eventPublisher, ITemplateRepository templateRepository, ICloner cloner)
         {
             _builder = courseBuilder;
             _courseRepository = courseRepository;
@@ -47,6 +53,7 @@ namespace easygenerator.Web.Controllers.Api
             _entityMapper = entityMapper;
             _eventPublisher = eventPublisher;
             _templateRepository = templateRepository;
+            _cloner = cloner;
         }
 
         [HttpPost]
@@ -60,6 +67,26 @@ namespace easygenerator.Web.Controllers.Api
             _courseRepository.Add(course);
 
             return JsonSuccess(_entityMapper.Map(course));
+        }
+
+        [HttpPost]
+        [LimitCoursesAmount]
+        [Route("api/course/duplicate")]
+        public ActionResult Duplicate(Course course)
+        {
+            if (course == null)
+            {
+                return BadRequest();
+            }
+
+            var duplicatedCourse = GetDuplicatedCourse(course);
+            _courseRepository.Add(duplicatedCourse);
+
+            return JsonSuccess(new
+            {
+                course = _entityMapper.Map(duplicatedCourse),
+                objectives = duplicatedCourse.RelatedObjectives.Select(e => _entityMapper.Map(e))
+            });
         }
 
         [HttpPost]
@@ -301,6 +328,30 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             return getSuccessResultAction();
+        }
+
+        private Course GetDuplicatedCourse(Course course)
+        {
+            var duplicatedCourse = _cloner.Clone(course, GetCurrentUsername(), true);
+            duplicatedCourse.UpdateTitle(GetDuplicatedEntityTitle(duplicatedCourse.Title), GetCurrentUsername());
+            duplicatedCourse.RelatedObjectives.ForEach(obj => obj.UpdateTitle(GetDuplicatedEntityTitle(obj.Title), GetCurrentUsername()));
+
+            return duplicatedCourse;
+        }
+
+        private static string GetDuplicatedEntityTitle(string title)
+        {
+            var newTitle = title;
+            if (title == null || title.EndsWith(DuplicatedEntityBigTitleSuffix))
+            {
+                return newTitle;
+            }
+            newTitle = string.Format("{0} {1}", title, DuplicatedEntityTitleSuffix);
+            if (newTitle.Length > 255)
+            {
+                newTitle = string.Format("{0} {1}", title.Substring(0, 244), DuplicatedEntityBigTitleSuffix);
+            }
+            return newTitle;
         }
     }
 }

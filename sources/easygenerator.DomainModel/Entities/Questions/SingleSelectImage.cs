@@ -35,7 +35,7 @@ namespace easygenerator.DomainModel.Entities.Questions
         protected internal virtual Collection<SingleSelectImageAnswer> AnswerCollection { get; set; }
         public IEnumerable<SingleSelectImageAnswer> Answers
         {
-            get { return AnswerCollection.AsEnumerable(); }
+            get { return AnswerCollection.AsEnumerable().OrderBy(i => i.CreatedOn); }
         }
 
         public virtual void AddAnswer(SingleSelectImageAnswer answer, string modifiedBy)

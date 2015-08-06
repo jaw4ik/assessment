@@ -30,7 +30,7 @@ namespace easygenerator.DomainModel.Entities.Questions
 
         public IEnumerable<Answer> Answers
         {
-            get { return AnswersCollection.AsEnumerable(); }
+            get { return AnswersCollection.AsEnumerable().OrderBy(i => i.CreatedOn); }
         }
 
         public virtual void AddAnswer(Answer answer, string modifiedBy)

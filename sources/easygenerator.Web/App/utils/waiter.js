@@ -27,8 +27,21 @@
             }
         }
 
+        function waitTime(time) {
+            quard.throwIfNotPositiveNumber(time, 'time is not a positive number');
+
+            var defer = Q.defer();
+
+            setTimeout(function() {
+                defer.resolve();
+            }, time);
+
+            return defer.promise;
+        }
+
         return {
-            waitFor: waitFor
+            waitFor: waitFor,
+            waitTime: waitTime
         };
     }
 );
