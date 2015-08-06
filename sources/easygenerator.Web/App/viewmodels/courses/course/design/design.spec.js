@@ -34,6 +34,22 @@
             expect(viewModel).toBeDefined();
         });
 
+        describe('settingsLoadingTimeoutId:', function () {
+
+            it('should be defined', function () {
+                expect(viewModel.settingsLoadingTimeoutId).toBeDefined();
+            });
+
+        });
+
+        describe('settingsVisibilitySubscription:', function () {
+
+            it('should be defined', function () {
+                expect(viewModel.settingsVisibilitySubscription).toBeDefined();
+            });
+
+        });
+
         describe('canDeactivate:', function () {
 
             var dfd;
@@ -135,6 +151,26 @@
                 viewModel.settingsVisibility(true);
                 viewModel.activate();
                 expect(viewModel.settingsVisibility()).toBeFalsy();
+            });
+
+            it('should subscribe to settingsVisibility', function () {
+                viewModel.settingsVisibilitySubscription = null;
+                viewModel.activate();
+                expect(viewModel.settingsVisibilitySubscription).not.toBeNull();
+            });
+
+            describe('and after subscribe', function () {
+
+                it('should clear timeout when settingsVisibility changed', function () {
+                    viewModel.settingsVisibility(false);
+                    viewModel.settingsLoadingTimeoutId = 'some_id';
+
+                    viewModel.activate();
+                    viewModel.settingsVisibility(true);
+
+                    expect(viewModel.settingsLoadingTimeoutId).toBeNull();
+                });
+
             });
 
             it('should get course from repository', function () {
@@ -389,6 +425,29 @@
                         });
                     });
 
+                });
+
+            });
+
+        });
+
+        describe('deactivate:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.deactivate).toBeFunction();
+            });
+
+            describe('when settingsVisibilitySubscription is not null', function () {
+
+                beforeEach(function () {
+                    viewModel.settingsVisibilitySubscription = {
+                        dispose: jasmine.createSpy()
+                    };
+                });
+
+                it('should dispose subscription', function () {
+                    viewModel.deactivate();
+                    expect(viewModel.settingsVisibilitySubscription.dispose).toHaveBeenCalled();
                 });
 
             });
@@ -760,6 +819,23 @@
                 viewModel.canUnloadSettings(false);
                 viewModel.settingsFrameLoaded();
                 expect(viewModel.canUnloadSettings()).toBeTruthy();
+            });
+
+            it('should set settingsLoadingTimeoutId', function () {
+                viewModel.settingsLoadingTimeoutId = null;
+                viewModel.settingsFrameLoaded();
+                expect(viewModel.settingsLoadingTimeoutId).not.toBeNull();
+            });
+
+            it('should show settings after timeout', function () {
+                jasmine.clock().install();
+                viewModel.settingsVisibility(false);
+
+                viewModel.settingsFrameLoaded();
+                jasmine.clock().tick(2100);
+
+                expect(viewModel.settingsVisibility()).toBeTruthy();
+                jasmine.clock().uninstall();
             });
 
         });

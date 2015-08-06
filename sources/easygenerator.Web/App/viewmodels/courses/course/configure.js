@@ -9,6 +9,7 @@
                 notification: 'notification'
             },
 
+            templateSettingsLoadingTimeout = 2000,
             templateSettingsErrorNotification = localizationManager.localize('templateSettingsError'),
 
             delay = 100,
@@ -27,9 +28,13 @@
             canUnloadSettings: ko.observable(true),
 
             activate: activate,
+            deactivate: deactivate,
             canDeactivate: canDeactivate,
 
-            frameLoaded: frameLoaded
+            frameLoaded: frameLoaded,
+
+            settingsLoadingTimeoutId: null,
+            settingsVisibilitySubscription: null
         };
 
         return viewModel;
@@ -50,8 +55,20 @@
             return defer.promise;
         }
 
+        function deactivate() {
+            if (viewModel.settingsVisibilitySubscription) {
+                viewModel.settingsVisibilitySubscription.dispose();
+            }
+        }
+
         function activate(courseId) {
             viewModel.settingsVisibility(false);
+            viewModel.settingsVisibilitySubscription = viewModel.settingsVisibility.subscribe(function () {
+                if (viewModel.settingsLoadingTimeoutId) {
+                    clearTimeout(viewModel.settingsLoadingTimeoutId);
+                    viewModel.settingsLoadingTimeoutId = null;
+                }
+            });
 
             return courseRepository.getById(courseId).then(function (course) {
                 viewModel.courseId = course.id;
@@ -94,6 +111,11 @@
 
         function frameLoaded() {
             viewModel.canUnloadSettings(true);
+            viewModel.settingsLoadingTimeoutId = _.delay(showSettings, templateSettingsLoadingTimeout);
+        }
+
+        function showSettings() {
+            viewModel.settingsVisibility(true);
         }
     }
 );
