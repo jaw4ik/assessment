@@ -136,7 +136,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Duplicate_ShouldRemoveLast10SymbolsOfCourseTitleAndAddBigDuplicatedCourseSuffix()
+        public void Duplicate_WhenCourseTitleIsLarge_ShouldRemoveLast10SymbolsOfCourseTitleAndAddBigDuplicatedCourseSuffix()
         {
             Course courseToDuplicate = CourseObjectMother.Create();
             courseToDuplicate.UpdateTitle("New course!New course!NewNew course!New course!NewNew course!New course!NewNew course!New course!NewNew course!New course!NewNew course!New course!NewNew course!New course!NewNew course!New course!NewNew course!New course!NewNew course!New course!New cour", "modifier");
@@ -146,6 +146,32 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.Duplicate(courseToDuplicate);
 
             courseToDuplicate.Title.Should().Be(newTitle);
+        }
+
+        [TestMethod]
+        public void Duplicate_ShouldAddDuplicatedObjectiveSuffixToObjectivesTitles()
+        {
+            Course courseToDuplicate = CourseObjectMother.Create();
+            Objective objectiveToDuplicate = ObjectiveObjectMother.Create();
+            courseToDuplicate.RelateObjective(objectiveToDuplicate, 0, "some@user.com");
+            var objectiveTitle = objectiveToDuplicate.Title;
+            _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
+            _controller.Duplicate(courseToDuplicate);
+            objectiveToDuplicate.Title.Should().Be(objectiveTitle + " (copy)");
+        }
+
+        [TestMethod]
+        public void Duplicate_WhenObjectiveTitleIsLarge_ShouldRemoveLast10SymbolsOfCourseTitleAndAddBigDuplicatedObjectiveSuffix()
+        {
+            Course courseToDuplicate = CourseObjectMother.Create();
+            Objective objectiveToDuplicate = ObjectiveObjectMother.Create();
+            objectiveToDuplicate.UpdateTitle("New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New", "modifier");
+            courseToDuplicate.RelateObjective(objectiveToDuplicate, 0, "some@user.com");
+            var objectiveTitle = objectiveToDuplicate.Title;
+            var newTitle = String.Format("{0} {1}", objectiveTitle.Substring(0, 244), "... (copy)");
+            _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
+            _controller.Duplicate(courseToDuplicate);
+            objectiveToDuplicate.Title.Should().Be(newTitle);
         }
 
         [TestMethod]
