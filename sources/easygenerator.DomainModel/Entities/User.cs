@@ -13,7 +13,8 @@ namespace easygenerator.DomainModel.Entities
 
         protected internal User() { }
 
-        protected internal User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy)
+        protected internal User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy,
+            AccessType accessPlan, DateTime? expirationDate = null)
             : base(createdBy)
         {
             ThrowIfEmailIsNotValid(email);
@@ -32,8 +33,17 @@ namespace easygenerator.DomainModel.Entities
             Role = role;
             PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket>();
 
-            AccessType = AccessType.Trial;
-            ExpirationDate = CreatedOn.AddDays(TrialPeriodDays);
+            AccessType = accessPlan;
+
+            if (expirationDate.HasValue)
+            {
+                ThrowIfExpirationDateIsInvalid(expirationDate);
+                ExpirationDate = expirationDate;
+            }
+            else
+            {
+                ExpirationDate = CreatedOn.AddDays(TrialPeriodDays);
+            }
         }
 
         public string Email { get; protected set; }
@@ -183,9 +193,8 @@ namespace easygenerator.DomainModel.Entities
 
             AccessType = AccessType.Plus;
             ExpirationDate = expirationDate;
-
             RaiseEvent(new UserUpgradedToPlus(this));
-        }
+       }
 
         public virtual void DowngradePlanToFree()
         {
