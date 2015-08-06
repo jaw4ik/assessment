@@ -40,6 +40,9 @@
                     randomizeOrder: true,
                     randomizePerAttempt: false
                 },
+                answers: {
+                    randomize: false
+                },
                 attempt: {
                     hasLimit: false,
                     limit: 3
@@ -85,6 +88,10 @@
 
                 if (!_.isObject(settings.attempt) || _.isUndefined(settings.attempt.hasLimit) || _.isUndefined(settings.attempt.limit)) {
                     _.extend(settings, { attempt: defaultSettings.attempt });
+                }
+
+                if (!_.isObject(settings.answers) || _.isUndefined(settings.answers.randomize)) {
+                    _.extend(settings, { answers: defaultSettings.answers });
                 }
 
                 if (_.isUndefined(settings.assessmentMode)) {
