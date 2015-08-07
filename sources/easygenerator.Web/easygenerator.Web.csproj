@@ -2304,11 +2304,6 @@
     <Content Include="Templates\Reader\content\a3d951f91e8a4a61a55c173a27c904ca\77dcdee6255f44e588cdae7a0320ffa6\61cdd730fbe54fe9bf2a6ec95cb14535.html" />
     <Content Include="Templates\Reader\content\content.html" />
     <Content Include="Templates\Reader\content\data.js" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Bold-webfont.svg" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Light-webfont.svg" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Regular-webfont.svg" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Thin-webfont.svg" />
-    <Content Include="Templates\Reader\css\font\Ubuntu-Regular.svg" />
     <Content Include="Templates\Reader\css\general.css" />
     <Content Include="Templates\Reader\css\img\background.png" />
     <Content Include="Templates\Reader\css\img\browsers\android.png" />
@@ -2321,6 +2316,8 @@
     <Content Include="Templates\Reader\css\img\easy-supported-browser-middle-part-bg.png" />
     <Content Include="Templates\Reader\css\img\easy-supported-browser-top-part-bg.png" />
     <Content Include="Templates\Reader\css\img\reader.png" />
+    <Content Include="Templates\Reader\css\themes\black.css" />
+    <Content Include="Templates\Reader\css\themes\light.css" />
     <Content Include="Templates\Reader\css\vendor.css" />
     <Content Include="Templates\Reader\index.html" />
     <Content Include="Templates\Reader\js\require.js" />
@@ -2466,16 +2463,6 @@
     <Content Include="Templates\Exam\css\font\opensans-regular.woff" />
     <Content Include="Templates\Exam\css\font\robotocondensed-regular.woff" />
     <Content Include="Templates\Reader\css\font\robotocondensed-regular.woff" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Bold-webfont.ttf" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Bold-webfont.woff" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Light-webfont.ttf" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Light-webfont.woff" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Regular-webfont.ttf" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Regular-webfont.woff" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Thin-webfont.ttf" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Thin-webfont.woff" />
-    <Content Include="Templates\Reader\css\font\Ubuntu-Regular.ttf" />
-    <Content Include="Templates\Reader\css\font\Ubuntu-Regular.woff" />
     <Content Include="Templates\Simple course\css\font\robotocondensed-regular.woff" />
     <Content Include="Templates\Assessment\css\font\badscript-regular.eot" />
     <Content Include="Templates\Assessment\css\font\badscript-regular.ttf" />
