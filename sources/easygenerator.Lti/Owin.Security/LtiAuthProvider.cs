@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Security.Policy;
-using easygenerator.Auth.Providers;
+﻿using easygenerator.Auth.Providers;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
@@ -94,11 +92,13 @@ namespace easygenerator.Lti.Owin.Security
             };
         }
 
-        public void CreateNewUser(string email, string firstName, string lastName, string ltiUserId)
+        private void CreateNewUser(string email, string firstName, string lastName, string ltiUserId)
         {
+            const string ltiMockData = "LTI";
             var dataContext = _dependencyResolver.GetService<IUnitOfWork>();
             var userRepository = _dependencyResolver.GetService<IUserRepository>();
-            var user = _entityFactory.User(email, Guid.NewGuid().ToString("N"), firstName, lastName, "LTI", "LTI", "LTI", email, AccessType.Plus, DateTimeWrapper.Now().AddYears(50));
+            var user = _entityFactory.User(email, Guid.NewGuid().ToString("N"), firstName, lastName, ltiMockData, ltiMockData, ltiMockData, email, AccessType.Plus, DateTimeWrapper.Now().AddYears(50));
+
             user.UpdateLtiUserInfo(ltiUserId);
 
             userRepository.Add(user);
