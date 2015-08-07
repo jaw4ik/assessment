@@ -12,7 +12,6 @@ namespace easygenerator.Web.Configuration
             bundles.IgnoreList.Ignore("*.spec.js");
             bundles.Add(new ScriptBundle("~/scripts/vendor")
                     .Include("~/scripts/auth.js")
-                    .Include("~/scripts/lti.js")
                     .Include("~/scripts/jquery-{version}.js")
                     .Include("~/scripts/jquery-ui-{version}.custom.js")
                     .Include("~/scripts/jquery.signalR-{version}.js")
@@ -41,7 +40,6 @@ namespace easygenerator.Web.Configuration
 
             bundles.Add(new ScriptBundle("~/bundles/scripts/account")
                     .Include("~/scripts/auth.js")
-                    .Include("~/scripts/lti.js")
                     .Include("~/scripts/jquery-{version}.js")
                     .Include("~/scripts/knockout-{version}.js")
                     .IncludeDirectory("~/scripts/account", "*.js")
