@@ -58,17 +58,12 @@ namespace easygenerator.Lti.Owin.Security
 
             OnAuthenticated = context =>
             {
-                //TODO: validate user first
                 var userEmail = context.LtiRequest.LisPersonEmailPrimary;
                 if (!string.IsNullOrWhiteSpace(context.LtiRequest.LisPersonEmailPrimary))
                 {
                     var user = _userRepository.GetUserByEmail(userEmail);
-                    var ltiAuthUrl = context.LtiRequest.Parameters[Constants.ToolProviderAuthUrl];
-
-                    if (ltiAuthUrl == null)
-                    {
-                        ltiAuthUrl = context.Request.Uri.GetLeftPart(UriPartial.Authority);
-                    }
+                    var ltiProviderUrl = context.LtiRequest.Parameters[Constants.ToolProviderUrl] ??
+                                     context.Request.Uri.GetLeftPart(UriPartial.Authority);
 
                     if (user == null)
                     {
@@ -78,15 +73,13 @@ namespace easygenerator.Lti.Owin.Security
                     }
                     else if (!user.IsLtiUser() || user.LtiUserInfo.LtiUserId != context.LtiRequest.UserId)
                     {
-                        context.RedirectUrl = string.Format("{0}#logout=true", ltiAuthUrl);
+                        context.RedirectUrl = string.Format("{0}#logout", ltiProviderUrl);
                         return Task.FromResult<object>(null);
                     }
 
                     var authToken = _tokenProvider.GenerateTokens(userEmail, context.Request.Uri.Host, new[] { "auth" });
 
-                    ltiAuthUrl = string.Format("{0}#token.auth={1}", ltiAuthUrl, authToken[0].Token);
-
-                    context.RedirectUrl = ltiAuthUrl;
+                    context.RedirectUrl = string.Format("{0}#token.auth={1}", ltiProviderUrl, authToken[0].Token);
                 }
                 return Task.FromResult<object>(null);
             };
