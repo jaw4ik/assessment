@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Web;
-using System.Web.SessionState;
-using Microsoft.Owin.Extensions;
 using Owin;
 
-namespace easygenerator.Lti.Owin.Security
+namespace easygenerator.Web.Lti.Auth
 {
     public static class LtiAuthExtensions
     {

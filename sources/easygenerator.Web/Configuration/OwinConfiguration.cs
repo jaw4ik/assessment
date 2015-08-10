@@ -1,6 +1,6 @@
 ﻿using easygenerator.Auth.Configuration;
-using easygenerator.Lti.Owin.Security;
 using easygenerator.Web.Components.Configuration;
+using easygenerator.Web.Lti.Auth;
 using Microsoft.Owin;
 using Owin;
 using System.Web.Mvc;

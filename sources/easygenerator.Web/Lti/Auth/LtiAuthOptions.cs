@@ -1,6 +1,6 @@
 ﻿using LtiLibrary.Owin.Security.Lti;
 
-namespace easygenerator.Lti.Owin.Security
+namespace easygenerator.Web.Lti.Auth
 {
     public class LtiAuthOptions : LtiAuthenticationOptions
     {

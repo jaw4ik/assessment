@@ -11,7 +11,7 @@ using System;
 using System.Threading.Tasks;
 using easygenerator.DomainModel.Events.UserEvents;
 
-namespace easygenerator.Lti.Owin.Security
+namespace easygenerator.Web.Lti.Auth
 {
     public class LtiAuthProvider : LtiAuthenticationProvider
     {

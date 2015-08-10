@@ -3,7 +3,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Infrastructure;
 using Owin;
 
-namespace easygenerator.Lti.Owin.Security
+namespace easygenerator.Web.Lti.Auth
 {
     public class LtiAuthMiddleware : LtiAuthenticationMiddleware
     {

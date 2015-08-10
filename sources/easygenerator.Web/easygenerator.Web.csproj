@@ -77,6 +77,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\DotNetZip.1.9.3\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
+    <Reference Include="LtiLibrary.Core, Version=1.6.5669.24698, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libraries\LtiLibrary.Core.dll</HintPath>
+    </Reference>
     <Reference Include="LtiLibrary.Owin.Security.Lti">
       <HintPath>..\..\libraries\LtiLibrary.Owin.Security.Lti.dll</HintPath>
     </Reference>
@@ -290,6 +294,12 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
+    <Compile Include="Lti\Constants.cs" />
+    <Compile Include="Lti\Auth\LtiAuthExtensions.cs" />
+    <Compile Include="Lti\Auth\LtiAuthHandler.cs" />
+    <Compile Include="Lti\Auth\LtiAuthMiddleware.cs" />
+    <Compile Include="Lti\Auth\LtiAuthOptions.cs" />
+    <Compile Include="Lti\Auth\LtiAuthProvider.cs" />
     <Compile Include="Publish\ILearningPathPublisher.cs" />
     <Compile Include="Publish\LearningPathPublisher.cs" />
     <Compile Include="DomainEvents\Handlers\CreateUserInitialDataHandler.cs" />
@@ -2549,10 +2559,6 @@
     <ProjectReference Include="..\easygenerator.Infrastructure\easygenerator.Infrastructure.csproj">
       <Project>{E186A113-426B-4AB1-A4B1-5ECC54FA4E80}</Project>
       <Name>easygenerator.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\easygenerator.Lti\easygenerator.Lti.csproj">
-      <Project>{f9ad4e48-ce38-4c64-853f-d1403fb14149}</Project>
-      <Name>easygenerator.Lti</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

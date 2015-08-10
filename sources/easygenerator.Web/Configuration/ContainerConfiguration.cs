@@ -232,7 +232,7 @@ namespace easygenerator.Web.Configuration
 
             #region Lti
 
-            builder.RegisterType<Lti.Owin.Security.LtiAuthProvider>().SingleInstance();
+            builder.RegisterType<Lti.Auth.LtiAuthProvider>().SingleInstance();
 
             #endregion
 

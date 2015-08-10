@@ -1,4 +1,4 @@
-﻿namespace easygenerator.Lti
+﻿namespace easygenerator.Web.Lti
 {
     public static class Constants
     {
