@@ -9,6 +9,7 @@
             isShown = valueAccessor().isShown,
             autoclose = ko.unwrap(valueAccessor().autoclose) || false,
             onHide = valueAccessor().onHide,
+            onClose = valueAccessor().onClose,
             scrollLocker = createScrollLocker();
 
         if (isShown()) {
@@ -31,36 +32,43 @@
 
             if (autoclose) {
                 $blockout.click(function () {
-                    isShown(false);
+                    close();
                 });
             }
 
-            $html.on('keyup', hideOnEscape);
+            $html.on('keyup', closeOnEscape);
             $container.css({
                 overflowY: 'hidden'
             });
         }
 
         function hide() {
-            $element.fadeOut(speed, function () {
-                $('.modal-dialog-blockout').fadeOut(speed, function () {
-                    scrollLocker.releaseScroll();
-                    $(this).remove();
-                    $html.off('keyup', hideOnEscape);
-                    $container.css({
-                        overflowY: 'visible'
-                    });
-
-                    if (_.isFunction(onHide)) {
-                        onHide();
-                    }
+            $('.modal-dialog-blockout').fadeOut(speed, function () {
+                scrollLocker.releaseScroll();
+                $(this).remove();
+                $html.off('keyup', closeOnEscape);
+                $container.css({
+                    overflowY: 'visible'
                 });
+
+                if (_.isFunction(onHide)) {
+                    onHide();
+                }
             });
+
+            $element.fadeOut(speed);
         }
 
-        function hideOnEscape(evt) {
+        function close() {
+            hide();
+            if (_.isFunction(onClose)) {
+                onClose(true);
+            }
+        }
+
+        function closeOnEscape(evt) {
             if (evt.keyCode == 27) {
-                hide();
+                close();
             }
         }
 

@@ -45,6 +45,9 @@
             'dialogs/video/video.spec',
             'dialogs/learningPath/commands/deleteLearningPathCommand.spec',
             'dialogs/learningPath/deleteLearningPath.spec',
+            'dialogs/course/createCourse/createCourse.spec',
+            'dialogs/course/createCourse/steps/courseTemplateStep.spec',
+            'dialogs/course/createCourse/steps/courseTitleStep.spec',
 
             //#endregion dialogs
 
@@ -206,7 +209,7 @@
             'viewmodels/learningPaths/learningPath/courseBrief.spec',
             'viewmodels/learningPaths/learningPath/actions/download.spec',
             'viewmodels/learningPaths/learningPath/actions/publish.spec',
-            
+
             //#endregion
 
             'navigationBar/navigationBar.spec',
@@ -316,14 +319,18 @@
             'videoUpload/upload.spec',
             //#endregion
 
-            'viewmodels/user/userMenu.spec',
-            'viewmodels/shell.spec',
+            //#region widgets
             'widgets/notifyViewer/viewmodel.spec',
             'widgets/uiLockViewer/viewmodel.spec',
             'widgets/createQuestion/viewmodel.spec',
             'widgets/cursorTooltip/viewmodel.spec',
             'widgets/hotSpotOnImageTextEditor/viewmodel.spec',
             'widgets/upgradeDialog/viewmodel.spec',
+            'widgets/dialog/viewmodel.spec',
+            //#endregion
+
+            'viewmodels/user/userMenu.spec',
+            'viewmodels/shell.spec',
             'bootstrapper.spec',
             'guard.spec',
             'http/apiHttpWrapper.spec',

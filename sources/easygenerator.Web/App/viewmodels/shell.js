@@ -1,5 +1,6 @@
-﻿define(['durandal/app', 'plugins/router', 'routing/isViewReadyMixin', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'plugins/dialog', 'notify', 'constants', 'viewmodels/panels/leftSideBarManager'],
-    function (app, router, isViewReady, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, dialog, notify, constants, leftSideBarManager) {
+﻿define(['durandal/app', 'plugins/router', 'routing/isViewReadyMixin', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'plugins/dialog',
+    'notify', 'constants', 'viewmodels/panels/leftSideBarManager', 'plugins/widget'],
+    function (app, router, isViewReady, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, dialog, notify, constants, leftSideBarManager, widget) {
 
         "use strict";
 
@@ -88,6 +89,12 @@
         function activate() {
             return dataContext.initialize()
                 .then(function () {
+                    var widgets = ['dialog', 'dialogWizard'];
+                    widgets.forEach(function (widgetName) {
+                        var path = 'widgets/' + widgetName + '/' + widgetName;
+                        widget.mapKind(widgetName, path, path);
+                    });
+                    
                     router.guardRoute = function (routeInfo) {
                         if (isFirstVisitPage && routeInfo.__moduleId__ == "viewmodels/errors/404") {
                             return 'courses';
