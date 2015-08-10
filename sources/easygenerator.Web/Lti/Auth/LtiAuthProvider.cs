@@ -22,7 +22,7 @@ namespace easygenerator.Web.Lti.Auth
         private readonly IDomainEventPublisher _eventPublisher;
         private readonly IDependencyResolverWrapper _dependencyResolver;
 
-        public LtiAuthProvider(IConsumerToolRepository consumerToolRepository, ITokenProvider tokenProvider, IUserRepository userRepository, 
+        public LtiAuthProvider(IConsumerToolRepository consumerToolRepository, ITokenProvider tokenProvider, IUserRepository userRepository,
             IEntityFactory entityFactory, IDomainEventPublisher eventPublisher, IDependencyResolverWrapper dependencyResolver)
         {
             _consumerToolRepository = consumerToolRepository;
@@ -59,28 +59,30 @@ namespace easygenerator.Web.Lti.Auth
             OnAuthenticated = context =>
             {
                 var userEmail = context.LtiRequest.LisPersonEmailPrimary;
-                if (!string.IsNullOrWhiteSpace(context.LtiRequest.LisPersonEmailPrimary))
+                if (string.IsNullOrWhiteSpace(context.LtiRequest.LisPersonEmailPrimary))
                 {
-                    var user = _userRepository.GetUserByEmail(userEmail);
-                    var ltiProviderUrl = context.LtiRequest.Parameters[Constants.ToolProviderUrl] ??
-                                     context.Request.Uri.GetLeftPart(UriPartial.Authority);
-
-                    if (user == null)
-                    {
-                        CreateNewUser(userEmail, context.LtiRequest.LisPersonNameGiven,
-                            context.LtiRequest.LisPersonNameFamily, context.LtiRequest.UserId);
-
-                    }
-                    else if (!user.IsLtiUser() || user.LtiUserInfo.LtiUserId != context.LtiRequest.UserId)
-                    {
-                        context.RedirectUrl = string.Format("{0}#logout", ltiProviderUrl);
-                        return Task.FromResult<object>(null);
-                    }
-
-                    var authToken = _tokenProvider.GenerateTokens(userEmail, context.Request.Uri.Host, new[] { "auth" });
-
-                    context.RedirectUrl = string.Format("{0}#token.auth={1}", ltiProviderUrl, authToken[0].Token);
+                    throw new LtiException("Invalid LisPersonEmailPrimary: Email of the user is null or white space.");
                 }
+
+                var user = _userRepository.GetUserByEmail(userEmail);
+                var ltiProviderUrl = context.LtiRequest.Parameters[Constants.ToolProviderUrl] ??
+                                 context.Request.Uri.GetLeftPart(UriPartial.Authority);
+
+                if (user == null)
+                {
+                    CreateNewUser(userEmail, context.LtiRequest.LisPersonNameGiven,
+                        context.LtiRequest.LisPersonNameFamily, context.LtiRequest.UserId);
+
+                }
+                else if (!user.IsLtiUser() || user.LtiUserInfo.LtiUserId != context.LtiRequest.UserId)
+                {
+                    context.RedirectUrl = string.Format("{0}#logout", ltiProviderUrl);
+                    return Task.FromResult<object>(null);
+                }
+
+                var authToken = _tokenProvider.GenerateTokens(userEmail, context.Request.Uri.Host, new[] { "auth" });
+                context.RedirectUrl = string.Format("{0}#token.auth={1}", ltiProviderUrl, authToken[0].Token);
+
                 return Task.FromResult<object>(null);
             };
         }
@@ -90,6 +92,7 @@ namespace easygenerator.Web.Lti.Auth
             const string ltiMockData = "LTI";
             var dataContext = _dependencyResolver.GetService<IUnitOfWork>();
             var userRepository = _dependencyResolver.GetService<IUserRepository>();
+
             var user = _entityFactory.User(email, Guid.NewGuid().ToString("N"), firstName, lastName, ltiMockData, ltiMockData, ltiMockData, email, AccessType.Plus, DateTimeWrapper.Now().AddYears(50));
 
             user.UpdateLtiUserInfo(ltiUserId);
