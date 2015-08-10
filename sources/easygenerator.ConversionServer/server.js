@@ -113,7 +113,7 @@ app.delete(config.LOCATION + '/:id', function(req, res) {
 
     fs.readdir(path.join(config.TEMP_FOLDER, id), function(err, files) {
         if (err) {
-            if (err.code != "ENOENT") {
+            if (err.code !== "ENOENT") {
                 throw err;
             } else {
                 res.status(204).end();

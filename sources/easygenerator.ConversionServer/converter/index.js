@@ -11,7 +11,7 @@ ffmpeg.setFfmpegPath(config.FFMPEG_PATH);
 ffmpeg.setFfprobePath(config.FFMPEG_PROBE_PATH);
 
 
-function run(input, output, options) {
+function run(input, outputDirectory, options) {
     var dfd = Q.defer();
     
     options = options || {};
@@ -24,6 +24,8 @@ function run(input, output, options) {
         audioCodec: config.FFMPEG_AUDIO_CODEC
     });
     
+    var ouputFile = path.join(outputDirectory, options.name + '.' + options.format);
+
     ffmpeg()
         .format(options.format)
         .input(input)
@@ -31,9 +33,9 @@ function run(input, output, options) {
         .videoCodec(options.videoCodec)
         .audioCodec(options.audioCodec)
         .addOption('-strict', '-1')
-        .output(path.join(output, options.name + '.' + options.format))
+        .output(ouputFile)
         .on('end', function() {
-            this.ffprobe(function(err, metadata) {
+            ffmpeg.ffprobe(ouputFile, function(err, metadata) {
                 if (err) {
                     dfd.reject(err.message);
                     return;
