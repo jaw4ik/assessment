@@ -359,13 +359,14 @@
 
     .modal-dialog-body {
         margin-bottom: 20px;
-        padding: 20px 0px;
+        padding-bottom: 20px;
     }
 
     .modal-dialog-actions {
         .vertical-align();
         height: 100px;
         background-color: #f3f7f9;
+        z-index: 1;
 
         .btn {
             min-width: 180px;
@@ -406,3 +407,135 @@
     .modal-dialog.create-course-title-step {
     }
 }
+
+/*#region common */
+
+.template-selector {
+    @template-selector-selected-border-color: #469dd5;
+    @template-selector-selected-text-color: #42515f;
+    @template-selector-regular-text-color: #63798e;
+    @template-selector-regular-border-color: #f3f7f9;
+
+    @template-selector-description-title-color: #37434f;
+    @template-selector-description-text-color: #42515f;
+
+    display: flex;
+    height: 100%;
+
+    .templates-list {
+        flex: 0 0 235px;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        padding: 0px 20px;
+        border-right: 1px solid @template-selector-regular-border-color;
+
+        .template-item {
+            display: flex;
+            align-items: center;
+            position: relative;
+            height: 50px;
+            font: 15px 'OpenSans-Semibold';
+            color: @template-selector-regular-text-color;
+            padding-left: 10px;
+            border-top: 1px solid transparent;
+            border-bottom: 1px solid transparent;
+
+            & + .template-item {
+                border-top: 1px solid @template-selector-regular-border-color;
+            }
+
+            &.selected, &:hover {
+                color: @template-selector-selected-text-color;
+            }
+
+            &:after {
+                display: block;
+                position: absolute;
+                left: 0;
+                bottom: -1px;
+                width: 0;
+                height: 1px;
+                background-color: @template-selector-selected-border-color;
+                content: "";
+                transition: width 0.2s ease-out;
+            }
+
+            &:hover {
+                cursor: pointer;
+
+                &:after {
+                    width: 100%;
+                }
+            }
+
+            &.selected {
+                cursor: default;
+
+                &:after {
+                    width: 100%;
+                    height: 2px;
+                }
+
+                &:before {
+                    display: block;
+                    position: absolute;
+                    right: -29px;
+                    bottom: 12px;
+                    width: 0;
+                    height: 0;
+                    border-top: 10px solid transparent;
+                    border-left: 8px solid @template-selector-regular-border-color;
+                    border-bottom: 10px solid transparent;
+                    content: "";
+                    transition: width 0.2s ease-out;
+                }
+            }
+
+            .template-item-image {
+                width: 30px;
+                height: 30px;
+                border-radius: 50px;
+                margin-right: 12px;
+            }
+
+            .template-item-text {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+    }
+
+    .template-details {
+        flex: 1 0;
+        padding: 20px 35px;
+
+        .template-details-section {
+            color: @template-selector-description-text-color;
+            font: 13px 'OpenSans';
+
+            & + .template-details-section {
+                margin-top: 25px;
+            }
+
+            .template-details-section-header {
+                font: 13px 'OpenSans-Semibold';
+                color: @template-selector-description-title-color;
+                margin-bottom: 10px;
+            }
+
+            .template-details-description {
+                line-height: 2em;
+            }
+
+            .template-details-didactical-structure-image {
+                width: 200px;
+                height: 190px;
+                border-radius: 5px;
+            }
+        }
+    }
+}
+
+/*#endregion */

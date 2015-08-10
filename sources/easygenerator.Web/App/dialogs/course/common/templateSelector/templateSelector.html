@@ -1,5 +1,20 @@
-﻿<ul class="template-selector" data-bind="foreach: templates">
-    <li class="template-selector-item">
-        <div data-bind="text: name"></div>
-    </li>
-</ul>
+﻿<div class="template-selector">
+    <ul class="templates-list" data-bind="foreach: templates">
+        <li class="template-item" data-bind="css: {selected: $parent.selectedTemplate() ? $parent.selectedTemplate().id === id : false }, click: $parent.selectTemplate">
+            <img class="template-item-image" alt="" data-bind="attr: { src: thumbnail }">
+            <div class="template-item-text" data-bind="text: name"></div>
+        </li>
+    </ul>
+    <div class="template-details" data-bind="with: selectedTemplate">
+        <div class="template-details-section">
+            <div class="template-details-section-header">Description:</div>
+            <div class="template-details-description" data-bind="text: description"></div>
+        </div>
+        <div class="template-details-section">
+            <div class="template-details-section-header">Didactical structure:</div>
+            <div class="template-details-didactical-structure">
+                <img class="template-details-didactical-structure-image" alt="" data-bind="attr: { src: previewImages[0] }">
+            </div>
+        </div>
+    </div>
+</div>

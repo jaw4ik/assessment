@@ -23,6 +23,6 @@
         }
 
         function getSelectedTemplateId() {
-            return viewModel.templateSelector.selectedTemplate().id;
+            return viewModel.templateSelector.getSelectedTemplateId();
         }
     });
