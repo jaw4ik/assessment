@@ -84,7 +84,7 @@ namespace easygenerator.DomainModel.Entities
 
         public virtual bool RemoveCollaborator(ICloner entityCloner, string collaboratorEmail)
         {
-            var collaborator = CollaboratorsCollection.FirstOrDefault(i => i.Email == collaboratorEmail);
+            var collaborator = CollaboratorsCollection.FirstOrDefault(e => e.Email.Equals(collaboratorEmail, StringComparison.InvariantCultureIgnoreCase));
             if (collaborator == null)
             {
                 return false;
