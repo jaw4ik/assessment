@@ -572,6 +572,7 @@
       <DependentUpon>collaborator.js</DependentUpon>
     </Content>
     <Content Include="App\dialogs\course\common\templateSelector\templateBrief.js" />
+    <Content Include="App\dialogs\course\common\templateSelector\templateDetails.html" />
     <Content Include="App\dialogs\course\common\templateSelector\templateSelector.html" />
     <Content Include="App\dialogs\course\common\templateSelector\templateSelector.js" />
     <Content Include="App\dialogs\course\createCourse\steps\courseTemplateStep.html" />
