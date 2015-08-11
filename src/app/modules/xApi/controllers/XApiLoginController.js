@@ -18,8 +18,8 @@
 
         that.courseTitle = assessment.title;
         that.questionsLength = assessment.questions.length;
-        that.username = '';
-        that.email = '';
+        that.username = $location.search()['name'];
+        that.email = $location.search()['email'];
 
         that.emailModified = false,
         that.usernameModified = false;
@@ -60,6 +60,10 @@
             xAPIManager.off();
             startCourse();
         };
+
+        if (that.username && that.email) {
+            that.submit();
+        }
 
         function startCourse() {
             $rootScope.isXApiInitialized = true;
