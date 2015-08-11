@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System;
+using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.DomainModel.Tests.ObjectMothers
 {
@@ -45,9 +46,9 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
         }
 
         public static User Create(string email = Email, string password = Password, string firstname = FirstName, string lastname = LastName, string phone = Phone,
-            string country = Country, string role = Role, string createdBy = CreatedBy)
+            string country = Country, string role = Role, string createdBy = CreatedBy, AccessType accessType = AccessType.Trial, DateTime? expirationDate = null)
         {
-            return new User(email, password, firstname, lastname, phone, country, role, createdBy, AccessType.Trial);
+            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessType, expirationDate);
         }
     }
 }
