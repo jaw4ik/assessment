@@ -1,4 +1,5 @@
 ﻿using System;
+using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities
 {
@@ -9,6 +10,7 @@ namespace easygenerator.DomainModel.Entities
 
         public virtual void UpdateLtiUserId(string ltiUserId)
         {
+            ArgumentValidation.ThrowIfNullOrEmpty(ltiUserId, "ltiUserId");
             LtiUserId = ltiUserId;
         }
 
