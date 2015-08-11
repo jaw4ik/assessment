@@ -4,6 +4,7 @@
         var viewModel = {
             title: ko.observable(''),
             maxLength: 250,
+            isChanged: ko.observable(false),
             isEditing: ko.observable(),
             isSelected: ko.observable(),
             beginEdit: beginEdit,
@@ -23,6 +24,8 @@
 
         function activate() {
             viewModel.title('');
+            viewModel.isChanged(false);
+            viewModel.isSelected(true);
             viewModel.isEditing(true);
         }
 
@@ -32,6 +35,7 @@
         }
 
         function beginEdit() {
+            viewModel.isChanged(true);
             viewModel.isEditing(true);
         }
 

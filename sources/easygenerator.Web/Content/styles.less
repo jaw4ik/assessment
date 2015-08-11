@@ -622,7 +622,7 @@
             text-align: center;
             overflow: hidden;
             transform: scale(0, 0);
-                      
+
             @keyframes zoomIn {
                 to {
                     transform: scale(1, 1);
@@ -1775,6 +1775,14 @@
 .editable-text-binding {
     white-space: pre-wrap;
     word-wrap: break-word;
+}
+
+[contenteditable=true]:empty:after {
+    content: attr(placeholder);
+    display: block; /* For Firefox */
+    font-size: 20px;
+    font-family: 'OpenSans';
+    color: #bcbcc4;
 }
 
 /*#endregion EDITABLE-TEXT*/
