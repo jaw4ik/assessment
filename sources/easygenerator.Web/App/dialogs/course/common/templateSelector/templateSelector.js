@@ -11,6 +11,8 @@
     return viewModel;
 
     function activate(selectedTemplateId) {
+        console.log('Activate template selector');
+
         if (viewModel.templates().length === 0) {
             viewModel.isLoading(true);
             return templateRepository.getCollection().then(function (templates) {

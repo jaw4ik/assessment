@@ -4,7 +4,8 @@
 
         var defaultSettings = {
             autoclose: false,
-            containerCss: ''
+            containerCss: '',
+            activate: true
         };
 
         var viewModel = {

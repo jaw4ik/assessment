@@ -3,21 +3,29 @@
         return system.defer(function (dfd) {
             context.triggerAttach();
             if (context.activeView) {
-                var $currentView = $(context.activeView),
-                    $targetView = $(context.child),
-                    speed = 300;
-                
-                $targetView.show();
+                //var $currentView = $(context.activeView),
+                //    $targetView = $(context.child),
+                //    speed = 300;
 
-                var targetHeight = $targetView.outerHeight();
-                var currentHeight = $currentView.outerHeight();
-                $targetView.height(currentHeight);
+                //$currentView.hide();
+                //$targetView.fadeIn(speed, function () {
+                //    dfd.resolve();
+                //});
 
-                $currentView.hide();
+                //var targetHeight = $targetView.outerHeight();
+                //var currentHeight = $currentView.outerHeight();
 
-                $targetView.animate({ height: targetHeight }, speed);
-                dfd.resolve();
+                //$targetView.height(currentHeight);
 
+                //$targetView.animate({ height: targetHeight }, speed, function () {
+                //    $targetView.removeAttr('style');
+                //});
+
+                $(context.activeView).fadeOut(200, function () {
+                    $(context.child).fadeIn(200, function () {
+                        dfd.resolve();
+                    });
+                });
             } else {
                 dfd.resolve();
             }

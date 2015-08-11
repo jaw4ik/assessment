@@ -12,7 +12,6 @@
             navigate: navigate,
             navigateToNextStep: navigateToNextStep
         };
-            //dialogActivator = activator.create();
 
         return viewModel;
 
@@ -21,11 +20,10 @@
 
             _.each(steps, function (step) {
                 viewModel.steps.push(step);
-                //dialogActivator.activateItem(step);
             });
 
+            settings.activate = false;
             viewModel.activeStep(viewModel.steps()[0]);
-
             dialog.show(viewModel, settings);
             dialog.on(constants.dialogs.dialogClosed, viewModel.closed);
         }
@@ -35,10 +33,6 @@
         }
 
         function closed() {
-            //_.each(viewModel.steps, function (step) {
-            //    dialogActivator.deactivateItem(step);
-            //});
-
             viewModel.activeStep(null);
             dialog.off(constants.dialogs.dialogClosed, viewModel.closed);
         }

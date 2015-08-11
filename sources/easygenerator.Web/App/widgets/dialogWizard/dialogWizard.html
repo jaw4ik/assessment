@@ -1,5 +1,5 @@
 ﻿<section class="modal-dialog-wizard-container">
-        <!-- ko compose: { model: activeStep, transition: 'dialogStepTransition'} --><!-- /ko -->
+        <!-- ko compose: { model: activeStep().model, transition: 'dialogStepTransition', activationData: activeStep().data } --><!-- /ko -->
         <!-- ko if: steps().length > 1 -->
         <nav class="modal-dialog-navigation" data-bind="foreach: steps()">
             <button class="modal-dialog-navigation-btn" data-bind="click: $parent.navigate, css:{ active: $data===$parent.activeStep() }"></button>

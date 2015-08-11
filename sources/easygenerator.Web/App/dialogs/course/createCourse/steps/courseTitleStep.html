@@ -1,8 +1,18 @@
 ﻿<div class="modal-dialog create-course-title-step">
     <div class="modal-dialog-title">Create your first course</div>
-    <div class="modal-dialog-body"></div>
+    <div class="modal-dialog-body scrollable">
+        <div class="title-wrapper">
+            <div class="edit-field-wrapper" data-bind="css: { 'active': isEditing(), 'error': !isValid() }">
+                <label data-bind="text: caption"></label>
+                <div class="edit-field selectable" data-bind="editableText: { text: title }, event: { focus: beginEdit, blur: endEdit }, autofocus: { focus: isSelected(), autoselect: isSelected() }"></div>
+                <div class="validation-message">
+                    <span data-bind="text: !_.isNullOrUndefined(title()) && title().length"></span>/<span data-bind="text: maxLength"></span>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal-dialog-actions">
-        <button class="btn green next-btn" data-bind="click: submit">
+        <button class="btn green next-btn" data-bind="click: submit, css: { disabled: !isValid()}, enable: isValid()">
             <span class="btn-caption">Create course</span>
         </button>
     </div>
