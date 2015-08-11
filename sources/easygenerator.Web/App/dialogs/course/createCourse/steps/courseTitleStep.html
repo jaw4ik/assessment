@@ -1,4 +1,4 @@
-﻿<form class="modal-dialog create-course-title-step" data-bind="submit: submit">
+﻿<div class="modal-dialog create-course-title-step">
     <div class="modal-dialog-title">Create your first course</div>
     <div class="modal-dialog-body">
         <div class="title-wrapper scrollable">
@@ -12,8 +12,8 @@
         </div>
     </div>
     <div class="modal-dialog-actions">
-        <button class="btn green" data-bind="click: submit, css: { disabled: !isValid()}, enable: isValid()">
+        <button class="btn green" data-bind="click: submit, css: { disabled: !isValid(), progress: isProcessing }, enable: isValid() && !isProcessing()">
             <span class="btn-caption">Create course</span>
         </button>
     </div>
-</form>
+</div>

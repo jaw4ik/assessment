@@ -39,9 +39,13 @@
         }
 
         function courseTitleStepSubmitted() {
+            courseTitleStep.isProcessing(true);
             createCourseCommand.execute(courseTitleStep.title(), courseTemplateStep.getSelectedTemplateId()).then(function (course) {
                 dialog.close();
+
                 router.navigate('courses/' + course.id);
+            }).fin(function () {
+                courseTitleStep.isProcessing(false);
             });
         }
     });

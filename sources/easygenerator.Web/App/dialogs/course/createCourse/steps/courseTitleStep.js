@@ -36,7 +36,6 @@
                 return;
 
             viewModel.title(viewModel.title() && viewModel.title().trim());
-            viewModel.isProcessing(true);
             viewModel.trigger(constants.dialogs.stepSubmitted);
         }
 
