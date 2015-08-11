@@ -62,13 +62,14 @@
 
             function removeCollaborator() {
                 eventTracker.publish(events.removeCollaborator);
-                var collaborationId = viewModel.id;
-                var courseId = router.routeData().courseId;
+                var collaborationId = viewModel.id,
+                    collaboratorEmail = viewModel.email,
+                    courseId = router.routeData().courseId;
 
                 viewModel.isRemoving(true);
                 app.trigger(constants.messages.course.collaboration.deleting.started + collaborationId, collaborationId);
 
-                return collaboratorRepository.remove(courseId, collaborationId)
+                return collaboratorRepository.remove(courseId, collaboratorEmail)
                     .then(function (collaboration) {
                         viewModel.isRemoveSuccessMessageShown(true);
                         app.trigger(constants.messages.course.collaboration.deleting.completed + collaborationId, collaboration);
