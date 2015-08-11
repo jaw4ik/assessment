@@ -1,5 +1,6 @@
-﻿define(['constants', 'dialogs/course/createCourse/steps/courseTitleStep', 'dialogs/course/createCourse/steps/courseTemplateStep', 'widgets/dialogWizard/dialogWizard', 'repositories/templateRepository'],
-    function (constants, courseTitleStep, courseTemplateStep, dialog, templateRepository) {
+﻿define(['constants', 'dialogs/course/createCourse/steps/courseTitleStep', 'dialogs/course/createCourse/steps/courseTemplateStep', 'widgets/dialogWizard/dialogWizard',
+    'repositories/templateRepository', 'commands/createCourseCommand', 'plugins/router'],
+    function (constants, courseTitleStep, courseTemplateStep, dialog, templateRepository, createCourseCommand, router) {
         var viewModel = {
             show: show,
             closed: closed,
@@ -21,13 +22,14 @@
 
                 courseTemplateStep.on(constants.dialogs.stepSubmitted, courseTemplateStepSubmitted);
                 courseTitleStep.on(constants.dialogs.stepSubmitted, courseTitleStepSubmitted);
+                dialog.on(constants.dialogs.dialogClosed, closed);
             });
-
         }
 
         function closed() {
             courseTemplateStep.off(constants.dialogs.stepSubmitted, courseTemplateStepSubmitted);
             courseTitleStep.off(constants.dialogs.stepSubmitted, courseTitleStepSubmitted);
+            dialog.off(constants.dialogs.dialogClosed, closed);
         }
 
         function courseTemplateStepSubmitted() {
@@ -37,6 +39,9 @@
         }
 
         function courseTitleStepSubmitted() {
-            dialog.close();
+            createCourseCommand.execute(courseTitleStep.title(), courseTemplateStep.getSelectedTemplateId()).then(function (course) {
+                dialog.close();
+                router.navigate('courses/' + course.id);
+            });
         }
     });

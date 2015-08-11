@@ -1,5 +1,5 @@
-﻿define(['widgets/dialog/dialog', 'durandal/activator', 'constants'],
-    function (dialog, activator, constants) {
+﻿define(['widgets/dialog/dialog', 'durandal/activator', 'constants', 'durandal/events'],
+    function (dialog, activator, constants, events) {
         "use strict";
 
         var viewModel = {
@@ -13,6 +13,7 @@
             navigateToNextStep: navigateToNextStep
         };
 
+        events.includeIn(viewModel);
         return viewModel;
 
         function show(steps, settings) {
@@ -35,6 +36,7 @@
         function closed() {
             viewModel.activeStep(null);
             dialog.off(constants.dialogs.dialogClosed, viewModel.closed);
+            viewModel.trigger(constants.dialogs.dialogClosed);
         }
 
         function navigate(step) {

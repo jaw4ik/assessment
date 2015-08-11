@@ -7,6 +7,7 @@
             isChanged: ko.observable(false),
             isEditing: ko.observable(),
             isSelected: ko.observable(),
+            isProcessing: ko.observable(false),
             beginEdit: beginEdit,
             endEdit: endEdit,
             caption: '',
@@ -27,10 +28,15 @@
             viewModel.isChanged(false);
             viewModel.isSelected(true);
             viewModel.isEditing(true);
+            viewModel.isProcessing(false);
         }
 
         function submit() {
+            if (!viewModel.isValid())
+                return;
+
             viewModel.title(viewModel.title() && viewModel.title().trim());
+            viewModel.isProcessing(true);
             viewModel.trigger(constants.dialogs.stepSubmitted);
         }
 

@@ -36,7 +36,6 @@
             viewModel.isShown(false);
             viewModel.isCancelled(isCancelled);
             viewModel.dialog(null);
-
             viewModel.trigger(constants.dialogs.dialogClosed);
         }
     });

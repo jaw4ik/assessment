@@ -2,10 +2,8 @@
     function (repository, localizationManager, eventTracker, router, clientContext, constants) {
 
         return {
-            execute: function (eventCategory) {
-                eventTracker.publish('Create course and open its properties', eventCategory);
-                var title = localizationManager.localize('courseDefaultTitle');
-                return repository.addCourse(title).then(function (course) {
+            execute: function (title, templateId) {
+                return repository.addCourse(title, templateId).then(function (course) {
                     clientContext.set(constants.clientContextKeys.lastCreatedCourseId, course.id);
                     return course;
                 });
