@@ -5,10 +5,9 @@
         eventTracker = require('eventTracker'),
         userContext = require('userContext'),
         localizationManager = require('localization/localizationManager'),
-        storageFileUploader = require('storageFileUploader'),
         getCollection = require('viewmodels/audios/queries/getCollection'),
-        factory = require('viewmodels/audios/commands/factory'),
-        UploadModel = require('viewmodels/audios/commands/model')
+        factory = require('viewmodels/audios/factory'),
+        UploadModel = require('viewmodels/audios/UploadAudioModel')
     ;
 
     describe('viewModel [audios]', function () {
@@ -126,7 +125,6 @@
         describe('addAudio:', function () {
 
             beforeEach(function () {
-                spyOn(storageFileUploader, 'upload');
                 spyOn(eventTracker, 'publish');
             });
 
@@ -141,13 +139,13 @@
                 model = new UploadModel(file);
 
                 spyOn(factory, 'create').and.returnValue(model);
-                spyOn(model, 'start');
+                spyOn(model, 'upload');
             });
 
 
             it('should start file upload', function () {
                 viewModel.addAudio(file);
-                expect(model.start).toHaveBeenCalled();
+                expect(model.upload).toHaveBeenCalled();
             });
 
             it('should add file upload view model', function () {

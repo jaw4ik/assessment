@@ -201,7 +201,7 @@
             'viewmodels/learningPaths/learningPath/learningPath.spec',
             'viewmodels/learningPaths/learningPath/courseBrief.spec',
             'viewmodels/learningPaths/learningPath/actions/download.spec',
-            
+
             //#endregion
 
             'navigationBar/navigationBar.spec',
@@ -340,7 +340,12 @@
             '../Scripts/common/serviceUnavailableAjaxErrorHandler.spec'
         ];
 
-        require(specs, function () {
+        require([
+            //'viewmodels/audios/audios.spec',
+            'viewmodels/audios/AudioViewModel.spec',
+            'viewmodels/audios/UploadAudioViewModel.spec',
+            'viewmodels/audios/UploadAudioModel.spec'
+        ], function () {
             env.execute();
         });
     });

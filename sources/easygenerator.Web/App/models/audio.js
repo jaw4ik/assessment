@@ -5,7 +5,8 @@
         var Audio = function (spec) {
             var obj = new Entity(spec);
             obj.title = spec.title;
-            obj.vimeoId = spec.vimeoId;            
+            obj.duration = spec.duration;
+            obj.vimeoId = spec.vimeoId;
 
             return obj;
         };

@@ -1,7 +1,7 @@
-﻿define(['durandal/app', 'constants', 'eventTracker', 'userContext', 'localization/localizationManager', 'widgets/upgradeDialog/viewmodel', 'dialogs/video/video', 'viewmodels/audios/queries/getCollection', 'viewmodels/audios/commands/factory', 'viewmodels/audios/AudioViewModel', 'viewmodels/audios/UploadAudioViewModel'],
+﻿define(['durandal/app', 'constants', 'eventTracker', 'userContext', 'localization/localizationManager', 'widgets/upgradeDialog/viewmodel', 'dialogs/video/video', 'viewmodels/audios/queries/getCollection', 'viewmodels/audios/factory', 'viewmodels/audios/AudioViewModel', 'viewmodels/audios/UploadAudioViewModel'],
 function (app, constants, eventTracker, userContext, localizationManager, upgradeDialog, videoPopup, getCollection, factory, AudioViewModel, UploadAudioViewModel) {
     "use strict";
-    
+
     app.on(constants.storage.changesInQuota, setAvailableStorageSpace);
 
     var eventCategory = 'Audio library',
@@ -31,9 +31,7 @@ function (app, constants, eventTracker, userContext, localizationManager, upgrad
                 });
 
                 _.each(viewModel.uploads, function (model) {
-                    if (model.status !== 'success') {
-                        viewModel.audios.push(new UploadAudioViewModel(model));
-                    }
+                    viewModel.audios.push(new UploadAudioViewModel(model));
                 });
 
                 viewModel.uploads = _.reject(viewModel.uploads, function (model) {
@@ -44,6 +42,7 @@ function (app, constants, eventTracker, userContext, localizationManager, upgrad
             });
         });
     }
+
 
     function deactivate() {
 
@@ -76,7 +75,7 @@ function (app, constants, eventTracker, userContext, localizationManager, upgrad
         eventTracker.publish(events.openUploadAudioDialog, eventCategory);
 
         var model = factory.create(file);
-        model.start();
+        model.upload();
 
         viewModel.uploads.push(model);
         viewModel.audios.push(new UploadAudioViewModel(model));
@@ -86,7 +85,6 @@ function (app, constants, eventTracker, userContext, localizationManager, upgrad
         if (!audio.vimeoId()) {
             return;
         }
-
         videoPopup.show(audio.vimeoId());
     }
 

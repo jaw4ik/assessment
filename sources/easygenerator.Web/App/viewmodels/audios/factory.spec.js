@@ -1,4 +1,4 @@
-﻿define(['viewmodels/audios/commands/factory'], function (factory) {
+﻿define(['viewmodels/audios/factory'], function (factory) {
 
     describe('[audio upload factory]', function () {
 
@@ -8,7 +8,7 @@
                 expect(factory.create).toBeFunction();
             });
 
-            it('should return an instance of UploadModel', function () {
+            it('should return an instance of UploadAudioModel', function () {
                 var model = factory.create({
                     name: 'sample.wav'
                 });
