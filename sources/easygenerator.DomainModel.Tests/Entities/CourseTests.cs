@@ -1201,16 +1201,31 @@ namespace easygenerator.DomainModel.Tests.Entities
         #region RemoveCollaborator
 
         [TestMethod]
-        public void RemoveCollaborator_ShouldThrowNullArgumentException_WhenCollaborationIsNull()
+        public void RemoveCollaborator_ShouldReturnFalse_WhenCollaboratorNotExist()
         {
             // Arrange
             var course = CourseObjectMother.Create();
 
             // Act
-            Action action = () => course.RemoveCollaborator(_cloner, null);
+            var result = course.RemoveCollaborator(_cloner, "some_email");
 
             // Assert
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("courseCollaborator");
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void RemoveCollaborator_ShouldReturnTrue_WhenCollaboratorExists()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create();
+            var email = "eguser2@easygenerator.com";
+            course.Collaborate(email, "createdBy");
+
+            // Act
+            var result = course.RemoveCollaborator(_cloner, email);
+
+            // Assert
+            result.Should().BeTrue();
         }
 
         [TestMethod]
@@ -1219,10 +1234,9 @@ namespace easygenerator.DomainModel.Tests.Entities
             // Arrange
             var course = CourseObjectMother.Create();
             var email = "eguser2@easygenerator.com";
-            var collaborator = course.Collaborate(email, "createdBy");
 
             // Act
-            course.RemoveCollaborator(_cloner, collaborator);
+            course.RemoveCollaborator(_cloner, email);
 
             // Assert
             course.Collaborators.Count().Should().Be(0);
@@ -1234,10 +1248,10 @@ namespace easygenerator.DomainModel.Tests.Entities
             // Arrange
             var course = CourseObjectMother.Create();
             var email = "eguser2@easygenerator.com";
-            var collaborator = course.Collaborate(email, "createdBy");
+            course.Collaborate(email, "createdBy");
 
             // Act
-            course.RemoveCollaborator(_cloner, collaborator);
+            course.RemoveCollaborator(_cloner, email);
 
             // Assert
             course.Events.Should().ContainSingle(e => e.GetType() == typeof(CourseCollaboratorRemovedEvent));
@@ -1249,11 +1263,10 @@ namespace easygenerator.DomainModel.Tests.Entities
             // Arrange
             var course = CourseObjectMother.Create();
             var email = "eguser2@easygenerator.com";
-
-            var collaborator = course.Collaborate(email, "createdBy");
+            course.Collaborate(email, "createdBy");
 
             // Act
-            course.RemoveCollaborator(_cloner, collaborator);
+            course.RemoveCollaborator(_cloner, email);
 
             // Assert
             course.ModifiedOn.Should().Be(_currentDate);
@@ -1277,10 +1290,10 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             course.RelateObjective(objective, null, email);
             course.RelateObjective(objective2, null, email);
-            var collaborator = course.Collaborate(email, "createdBy");
+            course.Collaborate(email, "createdBy");
 
             // Act
-            course.RemoveCollaborator(_cloner, collaborator);
+            course.RemoveCollaborator(_cloner, email);
 
             // Assert
             course.Events.Where(e => e.GetType() == typeof(CourseObjectivesClonedEvent))
@@ -1306,10 +1319,10 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             course.RelateObjective(objective, null, email);
             course.RelateObjective(objective2, null, email);
-            var collaborator = course.Collaborate(email, "createdBy");
+            course.Collaborate(email, "createdBy");
 
             // Act
-            course.RemoveCollaborator(_cloner, collaborator);
+            course.RemoveCollaborator(_cloner, email);
 
             // Assert            
             course.Events.Where(e => e.GetType() == typeof(CourseObjectivesClonedEvent))
@@ -1328,12 +1341,11 @@ namespace easygenerator.DomainModel.Tests.Entities
             var clonedObjective = ObjectiveObjectMother.Create(createdBy: email);
 
             _cloner.Clone(Arg.Is<Objective>(i => i.Id == objective.Id), Arg.Any<object>()).Returns(clonedObjective);
-
             course.RelateObjective(objective, null, email);
-            var collaborator = course.Collaborate(email, "createdBy");
+            course.Collaborate(email, "createdBy");
 
             // Act
-            course.RemoveCollaborator(_cloner, collaborator);
+            course.RemoveCollaborator(_cloner, email);
 
             // Assert
             course.RelatedObjectivesCollection.ElementAt(0).Should().Be(clonedObjective);
@@ -1356,10 +1368,10 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             course.RelateObjective(objective, null, email);
             course.RelateObjective(objective2, 0, email);
-            var collaborator = course.Collaborate(email, "createdBy");
+            course.Collaborate(email, "createdBy");
 
             // Act
-            course.RemoveCollaborator(_cloner, collaborator);
+            course.RemoveCollaborator(_cloner, email);
 
             // Assert
             course.ObjectivesOrder.Should().Be(clonedObjective2.Id + "," + clonedObjective.Id);

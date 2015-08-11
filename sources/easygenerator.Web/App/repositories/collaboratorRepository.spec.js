@@ -10,9 +10,9 @@
         var post,
          courseId = 'courseId',
          course = { id: courseId },
-         email = 'email@email.com',
-         collaborator = { Id: '1', state: '' },
-         mappedCollaborator = { id: '1' };
+         collaboratorEmail = 'email@email.com',
+         collaborator = { Email: '1', state: '' },
+         mappedCollaborator = { email: '1' };
 
         beforeEach(function () {
             post = Q.defer();
@@ -145,7 +145,7 @@
 
                     promise.fin(function () {
                         expect(promise.inspect().value.length).toEqual(1);
-                        expect(promise.inspect().value[0].id).toEqual(mappedCollaborator.id);
+                        expect(promise.inspect().value[0].email).toEqual(mappedCollaborator.email);
                         done();
                     });
                 });
@@ -164,7 +164,7 @@
 
             describe('when course id is undefined', function () {
                 it('should reject promise', function (done) {
-                    var promise = repository.add(undefined, email);
+                    var promise = repository.add(undefined, collaboratorEmail);
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Course id is not a string');
@@ -175,7 +175,7 @@
 
             describe('when course id is null', function () {
                 it('should reject promise', function (done) {
-                    var promise = repository.add(null, email);
+                    var promise = repository.add(null, collaboratorEmail);
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Course id is not a string');
@@ -186,7 +186,7 @@
 
             describe('when course id is not a string', function () {
                 it('should reject promise', function (done) {
-                    var promise = repository.add({}, email);
+                    var promise = repository.add({}, collaboratorEmail);
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Course id is not a string');
@@ -195,44 +195,44 @@
                 });
             });
 
-            describe('when email is undefined', function () {
+            describe('when collaborator email is undefined', function () {
                 it('should reject promise', function (done) {
                     var promise = repository.add(courseId, undefined);
 
                     promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Email is not a string');
+                        expect(promise).toBeRejectedWith('Collaborator email is not a string');
                         done();
                     });
                 });
             });
 
-            describe('when email is null', function () {
+            describe('when collaborator email is null', function () {
                 it('should reject promise', function (done) {
                     var promise = repository.add(courseId, null);
 
                     promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Email is not a string');
+                        expect(promise).toBeRejectedWith('Collaborator email is not a string');
                         done();
                     });
                 });
             });
 
-            describe('when email is not a string', function () {
+            describe('when collaborator email is not a string', function () {
                 it('should reject promise', function (done) {
                     var promise = repository.add(courseId, {});
 
                     promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Email is not a string');
+                        expect(promise).toBeRejectedWith('Collaborator email is not a string');
                         done();
                     });
                 });
             });
 
             it('should send request to \'api/course/collaborator/add\'', function (done) {
-                var promise = repository.add(courseId, email);
+                var promise = repository.add(courseId, collaboratorEmail);
 
                 promise.fin(function () {
-                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/collaborator/add', { courseId: courseId, email: email });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/collaborator/add', { courseId: courseId, collaboratorEmail: collaboratorEmail });
                     done();
                 });
 
@@ -244,7 +244,7 @@
                 describe('and response has no Email', function () {
 
                     it('should reject promise', function (done) {
-                        var promise = repository.add(courseId, email);
+                        var promise = repository.add(courseId, collaboratorEmail);
 
                         promise.fin(function () {
                             expect(promise).toBeRejectedWith('Email is not a string');
@@ -268,7 +268,7 @@
                             FullName: 'name'
                         };
 
-                        var promise = repository.add(courseId, email);
+                        var promise = repository.add(courseId, collaboratorEmail);
 
                         promise.fin(function () {
                             expect(promise).toBeRejectedWith('Course does not exist in dataContext');
@@ -296,7 +296,7 @@
                             FullName: 'name'
                         };
 
-                        var promise = repository.add(courseId, email);
+                        var promise = repository.add(courseId, collaboratorEmail);
 
                         promise.fin(function () {
                             expect(dataContext.courses[0].collaborators.length).toBe(1);
@@ -321,7 +321,7 @@
                         CreatedOn: date.toISOString()
                     };
 
-                    var promise = repository.add(courseId, email);
+                    var promise = repository.add(courseId, collaboratorEmail);
 
                     promise.fin(function () {
                         expect(promise.inspect().value.email).toEqual(receivedData.Email);
@@ -338,7 +338,6 @@
         });
 
         describe('remove:', function () {
-            var collaborationId = 'collaborationId';
 
             it('should be function', function () {
                 expect(repository.remove).toBeFunction();
@@ -350,7 +349,7 @@
 
             describe('when course id is undefined', function () {
                 it('should reject promise', function (done) {
-                    var promise = repository.remove(undefined, collaborationId);
+                    var promise = repository.remove(undefined, collaboratorEmail);
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Course id is not a string');
@@ -361,7 +360,7 @@
 
             describe('when course id is null', function () {
                 it('should reject promise', function (done) {
-                    var promise = repository.remove(null, collaborationId);
+                    var promise = repository.remove(null, collaboratorEmail);
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Course id is not a string');
@@ -372,7 +371,7 @@
 
             describe('when course id is not a string', function () {
                 it('should reject promise', function (done) {
-                    var promise = repository.remove({}, collaborationId);
+                    var promise = repository.remove({}, collaboratorEmail);
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Course id is not a string');
@@ -381,34 +380,34 @@
                 });
             });
 
-            describe('when collaboration id is undefined', function () {
+            describe('when collaborator email is undefined', function () {
                 it('should reject promise', function (done) {
                     var promise = repository.remove(courseId, undefined);
 
                     promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Collaboration id is not a string');
+                        expect(promise).toBeRejectedWith('Collaborator email is not a string');
                         done();
                     });
                 });
             });
 
-            describe('when collaboration id is null', function () {
+            describe('when collaborator email is null', function () {
                 it('should reject promise', function (done) {
                     var promise = repository.remove(courseId, null);
 
                     promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Collaboration id is not a string');
+                        expect(promise).toBeRejectedWith('Collaborator email is not a string');
                         done();
                     });
                 });
             });
 
-            describe('when collaboration id is not a string', function () {
+            describe('when collaborator email is not a string', function () {
                 it('should reject promise', function (done) {
                     var promise = repository.remove(courseId, {});
 
                     promise.fin(function () {
-                        expect(promise).toBeRejectedWith('Collaboration id is not a string');
+                        expect(promise).toBeRejectedWith('Collaborator email is not a string');
                         done();
                     });
                 });
@@ -418,7 +417,7 @@
                 it('should reject promise', function (done) {
                     dataContext.courses = [course];
 
-                    var promise = repository.remove('otherId', collaborationId);
+                    var promise = repository.remove('otherId', collaboratorEmail);
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Course does not exist in dataContext');
@@ -427,11 +426,11 @@
                 });
             });
 
-            describe('when collaborator with specified id does not exist', function () {
+            describe('when collaborator with specified email does not exist', function () {
                 it('should reject promise', function (done) {
                     dataContext.courses = [course];
 
-                    var promise = repository.remove(courseId, 'other id');
+                    var promise = repository.remove(courseId, 'other email');
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Collaborator does not exist in course');
@@ -444,16 +443,16 @@
 
                 beforeEach(function () {
                     dataContext.courses = [course];
-                    collaborator.id = '1';
+                    collaborator.email = 'mail@asd.com';
                     collaborator.state = '';
                     course.collaborators = [collaborator];
                 });
 
                 it('should send request to \'api/course/collaborator/remove\'', function (done) {
-                    var promise = repository.remove(courseId, collaborator.Id);
+                    var promise = repository.remove(courseId, collaborator.email);
 
                     promise.fin(function () {
-                        expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/collaborator/remove', { courseId: courseId, courseCollaboratorId: collaborator.Id });
+                        expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/collaborator/remove', { courseId: courseId, collaboratorEmail: collaborator.email });
                         done();
                     });
 
@@ -463,7 +462,7 @@
                 describe('when collaborator removed on server', function () {
 
                     it('should set state to \'\'', function (done) {
-                        var promise = repository.remove(courseId, collaborator.Id);
+                        var promise = repository.remove(courseId, collaborator.email);
 
                         promise.fin(function () {
                             expect(collaborator.state).toBe('');
@@ -477,7 +476,7 @@
 
                 describe('when collaborator doesn not removed on server', function () {
                     it('should set state to \'\'', function (done) {
-                        var promise = repository.remove(courseId, collaborator.Id);
+                        var promise = repository.remove(courseId, collaborator.email);
 
                         promise.fin(function () {
                             expect(collaborator.state).toBe('');
@@ -488,7 +487,7 @@
                     });
 
                     it('should reject the promise', function (done) {
-                        var promise = repository.remove(courseId, collaborator.Id);
+                        var promise = repository.remove(courseId, collaborator.email);
 
                         promise.fin(function () {
                             expect(promise).toBeRejectedWith('some message');
@@ -505,16 +504,16 @@
 
                 beforeEach(function () {
                     dataContext.courses = [course];
-                    collaborator.id = '1';
+                    collaborator.email = 'mail@asd.com';
                     collaborator.state = 'deleting';
                     course.collaborators = [collaborator];
                 });
 
                 it('should not send request to \'api/course/collaborator/remove\'', function (done) {
-                    var promise = repository.remove(courseId, collaborator.Id);
+                    var promise = repository.remove(courseId, collaborator.email);
 
                     promise.fin(function () {
-                        expect(apiHttpWrapper.post).not.toHaveBeenCalledWith('api/course/collaborator/remove', { courseId: courseId, courseCollaboratorId: collaborator.Id });
+                        expect(apiHttpWrapper.post).not.toHaveBeenCalledWith('api/course/collaborator/remove', { courseId: courseId, collaboratorEmail: collaborator.email });
                         done();
                     });
 

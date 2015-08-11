@@ -219,17 +219,22 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void RemoveCollaborator_ShouldCallCourseRemoveCollaboratorMethod()
         {
             var course = Substitute.For<Course>();
-            var collaborator = CourseCollaboratorObjectMother.Create(course, "aa@aa.aa");
-            _controller.RemoveCollaborator(course, collaborator);
+            var collaboratorEmail = "aa@aa.aa";
+            
+            _controller.RemoveCollaborator(course, collaboratorEmail);
 
-            course.Received().RemoveCollaborator(_cloner, collaborator);
+            course.Received().RemoveCollaborator(_cloner, collaboratorEmail);
         }
 
         [TestMethod]
         public void RemoveCollaborator_ShouldReturnJsonSuccess_WhenCollaboratorRemoved()
         {
             var course = CourseObjectMother.Create();
-            var result = _controller.RemoveCollaborator(course, CourseCollaboratorObjectMother.Create(course, "aa@aa.aa"));
+            var collaboratorEmail = "aa@aa.aa";
+            course.Collaborate(collaboratorEmail, "createdBy");
+
+            var result = _controller.RemoveCollaborator(course, collaboratorEmail);
+            
             result.Should().BeJsonSuccessResult();
         }
         #endregion

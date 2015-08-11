@@ -67,13 +67,13 @@ namespace easygenerator.Web.Controllers.Api
         [LimitCollaboratorsAmount]
         [EntityOwner(typeof(Course))]
         [Route("api/course/collaborator/add")]
-        public ActionResult AddCollaborator(Course course, string email)
+        public ActionResult AddCollaborator(Course course, string collaboratorEmail)
         {
             if (course == null)
             {
                 return HttpNotFound(Errors.CourseNotFoundError);
             }
-            var colaboratorEmail = email.Trim().ToLowerInvariant();
+            var colaboratorEmail = collaboratorEmail.Trim().ToLowerInvariant();
             var authorName = GetCurrentUsername();
             var collaborator = course.Collaborate(colaboratorEmail, authorName);
             if (collaborator == null)
@@ -95,19 +95,17 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [EntityOwner(typeof(Course))]
         [Route("api/course/collaborator/remove")]
-        public ActionResult RemoveCollaborator(Course course, CourseCollaborator courseCollaborator)
+        public ActionResult RemoveCollaborator(Course course, string collaboratorEmail)
         {
             if (course == null)
             {
                 return HttpNotFound(Errors.CourseNotFoundError);
             }
 
-            if (courseCollaborator == null)
+            if (!course.RemoveCollaborator(_cloner, collaboratorEmail))
             {
                 return HttpNotFound(Errors.CollaboratorNotFoundError);
             }
-
-            course.RemoveCollaborator(_cloner, courseCollaborator);
 
             return JsonSuccess();
         }
