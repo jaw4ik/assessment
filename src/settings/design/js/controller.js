@@ -222,6 +222,7 @@
             that.isError = true;
         }).always(function () {
             that.$applyAsync();
+            api.showSettings();
         });
 
         //#endregion Initialization
