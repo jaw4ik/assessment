@@ -34,9 +34,14 @@ $websiteBackupsFolder = "E:\Website_backups\"
 echo "Creating database backup:"
 
 $dbName = "live.easygenerator.com"
+$dbBackupFolder = "E:\SQL_Backup_Users\"
 $dbBackupName = $dbName + "-" + $date + ".bak"
-$dbBackupPath = "E:\SQL_Backup_Users\" + $dbBackupName
+$dbBackupPath = $dbBackupFolder + $dbBackupName
 $query = "BACKUP DATABASE [" + $dbName + "] TO DISK='" + $dbBackupPath + "' WITH STATS"
+
+echo "Removing old sql backups:"
+$removeCommand = "Remove-Item " + $dbBackupFolder + "*"
+Invoke-Expression -command "$removeCommand"
 
 SqlCmd -E -S ".\sql2014_web" -Q $query
 
@@ -44,6 +49,10 @@ $sourcePath = "D:\Applications\live.easygenerator.com\"
 
 echo "Removing download folder:"
 $removeCommand = "Remove-Item " + $sourcePath + "Download\*"
+Invoke-Expression -command "$removeCommand"
+
+echo "Removing old website backups:"
+$removeCommand = "Remove-Item " + $websiteBackupsFolder + "*"
 Invoke-Expression -command "$removeCommand"
 
 echo "Creating website backup:"
