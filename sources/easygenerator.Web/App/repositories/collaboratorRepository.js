@@ -36,15 +36,15 @@
             });
         }
 
-        function add(courseId, email) {
+        function add(courseId, collaboratorEmail) {
             return Q.fcall(function () {
                 guard.throwIfNotString(courseId, 'Course id is not a string');
-                guard.throwIfNotString(email, 'Email is not a string');
+                guard.throwIfNotString(collaboratorEmail, 'Collaborator email is not a string');
 
                 return apiHttpWrapper.post('api/course/collaborator/add',
                     {
                         courseId: courseId,
-                        email: email
+                        collaboratorEmail: collaboratorEmail
                     })
                     .then(function (data) {
                         if (!_.isObject(data)) {
@@ -68,38 +68,38 @@
                     });
             });
         }
-
-        function remove(courseId, collaborationId) {
+            
+        function remove(courseId, collaboratorEmail) {
             return Q.fcall(function () {
                 guard.throwIfNotString(courseId, 'Course id is not a string');
-                guard.throwIfNotString(collaborationId, 'Collaboration id is not a string');
+                guard.throwIfNotString(collaboratorEmail, 'Collaborator email is not a string');
 
                 var course = _.find(dataContext.courses, function (item) {
                     return item.id == courseId;
                 });
 
                 guard.throwIfNotAnObject(course, 'Course does not exist in dataContext');
-
-                var collaboration = _.find(course.collaborators, function (item) {
-                    return item.id == collaborationId;
+                
+                var collaborator = _.find(course.collaborators, function (item) {
+                    return item.email == collaboratorEmail;
                 });
 
-                guard.throwIfNotAnObject(collaboration, 'Collaborator does not exist in course');
+                guard.throwIfNotAnObject(collaborator, 'Collaborator does not exist in course');
 
-                if (collaboration.state !== constants.collaboratorStates.deleting) {
-                    collaboration.state = constants.collaboratorStates.deleting;
+                if (collaborator.state !== constants.collaboratorStates.deleting) {
+                    collaborator.state = constants.collaboratorStates.deleting;
 
                     return apiHttpWrapper.post('api/course/collaborator/remove',
                         {
                             courseId: courseId,
-                            courseCollaboratorId: collaborationId
+                            collaboratorEmail: collaboratorEmail
                         })
                         .then(function () {
-                            course.collaborators = _.without(course.collaborators, collaboration);
-                            return collaboration;
+                            course.collaborators = _.without(course.collaborators, collaborator);
+                            return collaborator;
                         })
                         .fin(function () {
-                            collaboration.state = '';
+                            collaborator.state = '';
                         });
                 }
             });

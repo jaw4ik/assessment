@@ -113,6 +113,10 @@ namespace easygenerator.DataAccess
                .As<IQuerableRepository<LearningPath>>()
                .As<ILearningPathRepository>();
 
+            builder.RegisterType<ConsumerToolRepository>()
+               .As<IQuerableRepository<ConsumerTool>>()
+               .As<IConsumerToolRepository>();
+
             base.Load(builder);
         }
     }

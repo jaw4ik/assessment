@@ -404,7 +404,7 @@
 
             it('should remove collaborator', function () {
                 viewModel.removeCollaborator();
-                expect(repository.remove).toHaveBeenCalledWith(courseId, id);
+                expect(repository.remove).toHaveBeenCalledWith(courseId, email);
             });
 
             describe('when collaborator removed successfully', function () {

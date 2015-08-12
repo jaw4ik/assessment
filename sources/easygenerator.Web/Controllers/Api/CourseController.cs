@@ -25,8 +25,8 @@ namespace easygenerator.Web.Controllers.Api
     [NoCache]
     public class CourseController : DefaultApiController
     {
-        private const string DuplicatedCourseTitleSuffix = "(copy)";
-        private const string DuplicatedCourseBigTitleSuffix = "... (copy)";
+        private const string DuplicatedEntityTitleSuffix = "(copy)";
+        private const string DuplicatedEntityBigTitleSuffix = "... (copy)";
 
         private readonly ICourseBuilder _builder;
         private readonly IEntityFactory _entityFactory;
@@ -331,18 +331,25 @@ namespace easygenerator.Web.Controllers.Api
         private Course GetDuplicatedCourse(Course course)
         {
             var duplicatedCourse = _cloner.Clone(course, GetCurrentUsername(), true);
+            duplicatedCourse.UpdateTitle(GetDuplicatedEntityTitle(duplicatedCourse.Title), GetCurrentUsername());
+            duplicatedCourse.RelatedObjectives.ForEach(obj => obj.UpdateTitle(GetDuplicatedEntityTitle(obj.Title), GetCurrentUsername()));
 
-            if (duplicatedCourse.Title == null || duplicatedCourse.Title.EndsWith(DuplicatedCourseTitleSuffix))
-                return duplicatedCourse;
+            return duplicatedCourse;
+        }
 
-            var newTitle = string.Format("{0} {1}", duplicatedCourse.Title, DuplicatedCourseTitleSuffix);
+        private static string GetDuplicatedEntityTitle(string title)
+        {
+            var newTitle = title;
+            if (title == null || title.EndsWith(DuplicatedEntityTitleSuffix))
+            {
+                return newTitle;
+            }
+            newTitle = string.Format("{0} {1}", title, DuplicatedEntityTitleSuffix);
             if (newTitle.Length > 255)
             {
-                newTitle = string.Format("{0} {1}", duplicatedCourse.Title.Substring(0, 244),
-                    DuplicatedCourseBigTitleSuffix);
+                newTitle = string.Format("{0} {1}", title.Substring(0, 244), DuplicatedEntityBigTitleSuffix);
             }
-            duplicatedCourse.UpdateTitle(newTitle, GetCurrentUsername());
-            return duplicatedCourse;
+            return newTitle;
         }
     }
 }
