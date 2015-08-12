@@ -19,7 +19,8 @@
 
             isShown: ko.observable(false),
             settings: ko.observable(defaultSettings)
-        };
+        },
+            dialogActivator = activator.create();
 
         events.includeIn(viewModel);
         return viewModel;
@@ -45,6 +46,9 @@
             viewModel.trigger(constants.dialogs.dialogClosed);
 
             viewModel.activeStep(null);
+            _.each(viewModel.steps(), function (step) {
+                dialogActivator.deactivateItem(step);
+            });
         }
 
         function navigate(step) {

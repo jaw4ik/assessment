@@ -37,6 +37,7 @@
         function navigate() {
             if (!$currentStep || $currentStep.length === 0) {
                 $targetStep.show();
+                setFocus();
                 return;
             }
 
@@ -56,11 +57,15 @@
             $currentStep.fadeOut(100, function () {
                 $currentStep.height('auto');
                 $targetStep.fadeIn(100, function () {
-                    setTimeout(function () {
-                        $element.find('autofocus').focus();
-                    }, 0);
+                    setFocus();
                 });
             });
+        }
+
+        function setFocus() {
+            setTimeout(function () {
+                $element.find('.autofocus').focus();
+            }, 0);
         }
     }
 };

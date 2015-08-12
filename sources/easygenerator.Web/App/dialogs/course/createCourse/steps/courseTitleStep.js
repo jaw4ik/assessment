@@ -3,16 +3,16 @@
 
         var viewModel = {
             title: ko.observable(''),
-            maxLength: 250,
-            isChanged: ko.observable(false),
+            maxLength: constants.validation.courseTitleMaxLength,
             isEditing: ko.observable(),
-            isSelected: ko.observable(),
+            isChanged: ko.observable(),
             isProcessing: ko.observable(false),
             beginEdit: beginEdit,
             endEdit: endEdit,
-            caption: '',
             submit: submit,
-            activate: activate
+            activate: activate,
+            deactivate: deactivate,
+            titleSubscription: undefined
         };
 
         viewModel.isValid = ko.computed(function () {
@@ -26,26 +26,35 @@
         function activate() {
             viewModel.title('');
             viewModel.isChanged(false);
-            viewModel.isSelected(true);
             viewModel.isEditing(true);
             viewModel.isProcessing(false);
+            viewModel.titleSubscription = viewModel.title.subscribe(titleChanged);
+        }
+
+        function deactivate() {
+            viewModel.titleSubscription.dispose();
         }
 
         function submit() {
-            if (!viewModel.isValid())
+            if (!viewModel.isValid()) {
+                viewModel.isChanged(true);
                 return;
+            }
 
             viewModel.title(viewModel.title() && viewModel.title().trim());
             viewModel.trigger(constants.dialogs.stepSubmitted);
         }
 
         function beginEdit() {
-            viewModel.isChanged(true);
             viewModel.isEditing(true);
         }
 
         function endEdit() {
             viewModel.isEditing(false);
+        }
+
+        function titleChanged() {
+            viewModel.isChanged(true);
         }
 
     });

@@ -3,8 +3,7 @@
     <div class="modal-dialog-body">
         <div class="title-wrapper scrollable">
             <div class="edit-field-wrapper" data-bind="css: { 'active': isEditing(), 'error': isChanged() && !isValid() }">
-                <label data-bind="text: caption"></label>
-                <div class="edit-field selectable autofocus" placeholder="Give a name to your course..." data-bind="editableText: { text: title, onEnterKeyPress: submit }, event: { focus: beginEdit, blur: endEdit }, autofocus: { focus: isSelected() }"></div>
+                <div class="edit-field selectable autofocus" placeholder="Give a name to your course..." data-bind="editableText: { text: title, onEnterKeyPress: submit }, event: { focus: beginEdit, blur: endEdit }"></div>
                 <div class="validation-message">
                     <span data-bind="text: !_.isNullOrUndefined(title()) && title().length"></span>/<span data-bind="text: maxLength"></span>
                 </div>
