@@ -341,7 +341,7 @@
         ];
 
         require([
-            //'viewmodels/audios/audios.spec',
+            'viewmodels/audios/audios.spec',
             'viewmodels/audios/AudioViewModel.spec',
             'viewmodels/audios/UploadAudioViewModel.spec',
             'viewmodels/audios/UploadAudioModel.spec'

@@ -7,7 +7,9 @@
         localizationManager = require('localization/localizationManager'),
         getCollection = require('viewmodels/audios/queries/getCollection'),
         factory = require('viewmodels/audios/factory'),
-        UploadModel = require('viewmodels/audios/UploadAudioModel')
+        UploadModel = require('viewmodels/audios/UploadAudioModel'),
+        AudioViewModel = require('viewmodels/audios/AudioViewModel')
+
     ;
 
     describe('viewModel [audios]', function () {
@@ -166,6 +168,33 @@
                 expect(eventTracker.publish).toHaveBeenCalledWith('Open \"choose audio file\" dialog', 'Audio library');
             });
 
+            describe('when upload has finished', function () {
+
+                beforeEach(function (done) {
+                    viewModel.uploads = [];
+                    viewModel.audios([]);
+
+                    viewModel.addAudio(file);
+
+                    model.on('success').then(function () {
+                        done();
+                    });
+
+                    model.trigger('success', {});
+                });
+
+                it('should replace UploadAudioViewModel with AudioViewModel in the list', function () {
+                    expect(viewModel.audios().length).toEqual(1);
+                    expect(viewModel.audios()[0]).toBeInstanceOf(AudioViewModel);
+                });
+
+                it('should remove upload from the background', function () {
+                    expect(viewModel.uploads.length).toEqual(0);
+                });
+
+            });
+
+
         });
 
         describe('activate:', function () {
@@ -232,6 +261,40 @@
                     expect(viewModel.audios().length).toBe(2);
                     done();
                 });
+            });
+
+            describe('when upload has finished', function () {
+
+                var model;
+
+                beforeEach(function (done) {
+                    model = new UploadModel({ name: 'sample.wav' });
+
+                    viewModel.audios([]);
+                    viewModel.uploads = [model];
+
+                    viewModel.activate().then(function () {
+                        done();
+                    });
+                });
+
+                it('should replace UploadAudioViewModel with AudioViewModel in the list', function (done) {
+                    model.on('success').then(function () {
+                        expect(viewModel.audios().length).toEqual(2);
+                        expect(viewModel.audios()[1]).toBeInstanceOf(AudioViewModel);
+                        done();
+                    });
+                    model.trigger('success', {});
+                });
+
+                it('should remove upload from the background', function (done) {
+                    model.on('success').then(function () {
+                        expect(viewModel.uploads.length).toEqual(0);
+                        done();
+                    });
+                    model.trigger('success', {});
+                });
+
             });
 
             it('should map all current uploads that have error', function (done) {
@@ -398,6 +461,33 @@
 
             });
 
+        });
+
+        describe('deactivate:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.deactivate).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(viewModel.deactivate()).toBePromise();
+            });
+
+            it('should turn off subscriptions for uploads', function (done) {
+                var model1 = new UploadModel({ name: 'sample.wav' });
+                var model2 = new UploadModel({ name: 'sample.mp3' });
+
+                spyOn(model1, 'off');
+                spyOn(model2, 'off');
+
+                viewModel.uploads = [model1, model2];
+
+                viewModel.deactivate().then(function () {
+                    expect(model1.off).toHaveBeenCalledWith();
+                    expect(model2.off).toHaveBeenCalledWith();
+                    done();
+                });
+            });
         });
 
 

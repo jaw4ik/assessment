@@ -30,12 +30,16 @@ function (app, constants, eventTracker, userContext, localizationManager, upgrad
                     viewModel.audios.push(new AudioViewModel(audio));
                 });
 
-                _.each(viewModel.uploads, function (model) {
-                    viewModel.audios.push(new UploadAudioViewModel(model));
+                viewModel.uploads = _.reject(viewModel.uploads, function (model) {
+                    return model.status === 'success';
+                });
+
+                _.each(viewModel.uploads, function (model) {                    
+                    viewModel.audios.push(mapUploadModel(model));
                 });
 
                 viewModel.uploads = _.reject(viewModel.uploads, function (model) {
-                    return model.status === 'success' || model.status === 'error';
+                    return model.status === 'error';
                 });
 
                 setAvailableStorageSpace();
@@ -45,7 +49,11 @@ function (app, constants, eventTracker, userContext, localizationManager, upgrad
 
 
     function deactivate() {
-
+        return Q.fcall(function () {
+            _.each(viewModel.uploads, function (model) {
+                model.off();
+            });
+        });
     }
 
 
@@ -78,7 +86,17 @@ function (app, constants, eventTracker, userContext, localizationManager, upgrad
         model.upload();
 
         viewModel.uploads.push(model);
-        viewModel.audios.push(new UploadAudioViewModel(model));
+        viewModel.audios.push(mapUploadModel(model));
+    }
+
+    function mapUploadModel(model) {
+        var uploadAudioViewModel = new UploadAudioViewModel(model);
+
+        model.on('success').then(function (entity) {
+            viewModel.audios.replace(uploadAudioViewModel, new AudioViewModel(entity));
+            viewModel.uploads = _.without(viewModel.uploads, model);
+        });
+        return uploadAudioViewModel;
     }
 
     function showAudioPopup(audio) {
