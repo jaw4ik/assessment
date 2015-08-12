@@ -1,18 +1,18 @@
-﻿define(['eventTracker', 'durandal/app', 'constants', 'dialogs/learningPath/commands/deleteLearningPathCommand', 'widgets/dialog/dialog'],
-    function (eventTracker, app, constants, deleteLearningPathCommand, dialog) {
+﻿define(['eventTracker', 'durandal/app', 'constants', 'dialogs/learningPath/commands/deleteLearningPathCommand'],
+    function (eventTracker, app, constants, deleteLearningPathCommand) {
         var events = {
             confirmDelete: 'Confirm delete learning path',
             cancelDelete: 'Cancel delete learning path'
         };
 
         var viewModel = {
+            isShown: ko.observable(false),
             isDeleting: ko.observable(false),
             learningPathId: '',
             learningPathTitle: ko.observable(''),
             deleteLearningPath: deleteLearningPath,
             show: show,
-            closed: closed,
-            cancel: cancel
+            close: close
         };
 
         return viewModel;
@@ -20,21 +20,12 @@
         function show(learningPathId, learningPathTitle) {
             viewModel.learningPathId = learningPathId;
             viewModel.learningPathTitle(learningPathTitle);
-            dialog.show(viewModel, constants.dialogs.deleteLearningPath.settings);
-            dialog.on(constants.dialogs.dialogClosed, closed);
+            viewModel.isShown(true);
         }
 
-        function closed() {
-            if (dialog.isCancelled()) {
-                eventTracker.publish(events.cancelDelete);
-            }
-
-            dialog.off(constants.dialogs.dialogClosed, closed);
-        }
-
-        function cancel() {
+        function close() {
             eventTracker.publish(events.cancelDelete);
-            dialog.close();
+            viewModel.isShown(false);
         }
 
         function deleteLearningPath() {
@@ -43,7 +34,7 @@
             deleteLearningPathCommand.execute(viewModel.learningPathId)
                 .then(function () {
                     app.trigger(constants.messages.learningPath.deleted, viewModel.learningPathId);
-                    dialog.close();
+                    viewModel.isShown(false);
                 })
                 .fin(function () {
                     viewModel.isDeleting(false);

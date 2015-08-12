@@ -1,0 +1,18 @@
+﻿<section class="modal-dialog-container" data-bind="css: { shown: isShown }">
+    <div class="modal-dialog-wrapper" data-bind="dialog: { isShown: isShown, autoclose: settings().autoclose, onClose: close }, css: settings().containerCss">
+        <button class="modal-dialog-close-btn" data-bind="click: close"></button>
+        <section class="modal-dialog-wizard-container" data-bind="dialogWizard: {activeStep: activeStep}">
+            <!-- ko foreach: steps -->
+            <div class="modal-dialog-wizard-step" data-bind="css: { active:  $data===$parent.activeStep()}">
+                <!-- ko compose: { model: model, activationData: data } --><!-- /ko -->
+            </div>
+            <!-- /ko -->
+            <!-- ko if: steps().length > 1 -->
+            <nav class="modal-dialog-navigation" data-bind="foreach: steps()">
+                <button class="modal-dialog-navigation-btn" data-bind="click: $parent.navigate, css:{ active: $data===$parent.activeStep() }"></button>
+            </nav>
+            <!-- /ko -->
+        </section>
+    </div>
+</section>
+

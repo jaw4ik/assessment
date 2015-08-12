@@ -89,12 +89,6 @@
         function activate() {
             return dataContext.initialize()
                 .then(function () {
-                    var widgets = ['dialog', 'dialogWizard'];
-                    widgets.forEach(function (widgetName) {
-                        var path = 'widgets/' + widgetName + '/' + widgetName;
-                        widget.mapKind(widgetName, path, path);
-                    });
-                    
                     router.guardRoute = function (routeInfo) {
                         if (isFirstVisitPage && routeInfo.__moduleId__ == "viewmodels/errors/404") {
                             return 'courses';

@@ -1,6 +1,11 @@
-﻿define(['widgets/dialog/dialog', 'durandal/activator', 'constants', 'durandal/events'],
-    function (dialog, activator, constants, events) {
+﻿define(['durandal/activator', 'constants', 'durandal/events'],
+    function (activator, constants, events) {
         "use strict";
+
+        var defaultSettings = {
+            autoclose: false,
+            containerCss: ''
+        };
 
         var viewModel = {
             steps: ko.observableArray([]),
@@ -10,7 +15,10 @@
             close: close,
             closed: closed,
             navigate: navigate,
-            navigateToNextStep: navigateToNextStep
+            navigateToNextStep: navigateToNextStep,
+
+            isShown: ko.observable(false),
+            settings: ko.observable(defaultSettings)
         };
 
         events.includeIn(viewModel);
@@ -23,20 +31,20 @@
                 viewModel.steps.push(step);
             });
 
-            settings.activate = false;
             viewModel.activeStep(viewModel.steps()[0]);
-            dialog.show(viewModel, settings);
-            dialog.on(constants.dialogs.dialogClosed, viewModel.closed);
+
+            if (settings) {
+                viewModel.settings(_.defaults(settings, defaultSettings));
+            }
+
+            viewModel.isShown(true);
         }
 
         function close() {
-            dialog.close();
-        }
-
-        function closed() {
-            viewModel.activeStep(null);
-            dialog.off(constants.dialogs.dialogClosed, viewModel.closed);
+            viewModel.isShown(false);
             viewModel.trigger(constants.dialogs.dialogClosed);
+
+            viewModel.activeStep(null);
         }
 
         function navigate(step) {

@@ -3,8 +3,7 @@
     var eventTracker = require('eventTracker'),
         app = require('durandal/app'),
         constants = require('constants'),
-        command = require('dialogs/learningPath/commands/deleteLearningPathCommand'),
-        dialog = require('widgets/dialog/viewmodel');
+        command = require('dialogs/learningPath/commands/deleteLearningPathCommand');
 
     describe('dialog [deleteLearningPath]', function () {
 
@@ -13,11 +12,16 @@
             id: 'id'
         };
 
+
         beforeEach(function () {
             spyOn(eventTracker, 'publish');
             spyOn(app, 'trigger');
-            spyOn(dialog, 'show');
-            spyOn(dialog, 'hide');
+        });
+
+        describe('isShown:', function () {
+            it('should be observable', function () {
+                expect(viewModel.isShown).toBeObservable();
+            });
         });
 
         describe('isDeleting:', function () {
@@ -52,28 +56,23 @@
                 expect(viewModel.learningPathTitle()).toBe(learningPath.title);
             });
 
-            it('should call dialog show', function () {
+            it('should set is shown to true', function () {
+                viewModel.isShown(false);
                 viewModel.show(learningPath.id, learningPath.title);
-                expect(dialog.show).toHaveBeenCalledWith(viewModel, constants.dialogs.deleteLearningPath.settings);
+                expect(viewModel.isShown()).toBeTruthy();
             });
         });
 
-        describe('cancel:', function () {
+        describe('close:', function () {
             it('should publish \'Cancel delete learning path\' event', function () {
-                viewModel.cancel();
+                viewModel.close();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Cancel delete learning path');
             });
 
-            it('should call dialog hide', function () {
-                viewModel.cancel();
-                expect(dialog.hide).toHaveBeenCalled();
-            });
-        });
-
-        describe('closed:', function () {
-            it('should publish \'Cancel delete learning path\' event', function () {
-                viewModel.closed();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Cancel delete learning path');
+            it('should set is shown to false', function () {
+                viewModel.isShown(true);
+                viewModel.close();
+                expect(viewModel.isShown()).toBeFalsy();
             });
         });
 
@@ -108,12 +107,28 @@
                     });
                 });
 
-                it('should call dialog hide', function () {
+                it('should set isShown to false', function (done) {
+                    viewModel.isShown(true);
                     viewModel.deleteLearningPath();
                     command.execute().fin(function () {
-                        expect(dialog.hide).toHaveBeenCalled();
+                        expect(viewModel.isShown()).toBeFalsy();
                         done();
                     });
+                });
+
+                it('should set isDeleting to false', function (done) {
+                    viewModel.isDeleting(true);
+                    viewModel.deleteLearningPath();
+                    command.execute().fin(function () {
+                        expect(viewModel.isDeleting()).toBeFalsy();
+                        done();
+                    });
+                });
+            });
+
+            describe('when failed to delete learning path', function () {
+                beforeEach(function () {
+                    dfd.reject();
                 });
 
                 it('should set isDeleting to false', function (done) {

@@ -326,7 +326,7 @@
             'widgets/cursorTooltip/viewmodel.spec',
             'widgets/hotSpotOnImageTextEditor/viewmodel.spec',
             'widgets/upgradeDialog/viewmodel.spec',
-            'widgets/dialog/viewmodel.spec',
+            'widgets/dialogWizard/viewmodel.spec',
             //#endregion
 
             'viewmodels/user/userMenu.spec',

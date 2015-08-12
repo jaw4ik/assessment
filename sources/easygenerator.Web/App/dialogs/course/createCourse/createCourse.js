@@ -1,4 +1,4 @@
-﻿define(['constants', 'dialogs/course/createCourse/steps/courseTitleStep', 'dialogs/course/createCourse/steps/courseTemplateStep', 'widgets/dialogWizard/dialogWizard',
+﻿define(['constants', 'dialogs/course/createCourse/steps/courseTitleStep', 'dialogs/course/createCourse/steps/courseTemplateStep', 'widgets/dialogWizard/viewmodel',
     'repositories/templateRepository', 'commands/createCourseCommand', 'plugins/router'],
     function (constants, courseTitleStep, courseTemplateStep, dialog, templateRepository, createCourseCommand, router) {
         var viewModel = {
@@ -33,7 +33,6 @@
         }
 
         function courseTemplateStepSubmitted() {
-            console.log('step submitted');
             viewModel.courseTemplateId(courseTemplateStep.getSelectedTemplateId());
             dialog.navigateToNextStep();
         }

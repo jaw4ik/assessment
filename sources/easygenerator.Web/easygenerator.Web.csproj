@@ -632,16 +632,12 @@
     <Content Include="App\views\learningPaths\learningPath\publish\publishToPublicationServerEmbed.html" />
     <Content Include="App\views\learningPaths\learningPath\publish\publishToPublicationServerLink.html" />
     <Content Include="App\views\learningPaths\learningPath\publish\updatePublication.html" />
-    <Content Include="App\widgets\dialogWizard\dialogWizard.html" />
-    <Content Include="App\widgets\dialogWizard\dialogWizard.js" />
+    <Content Include="App\widgets\dialogWizard\view.html" />
+    <Content Include="App\widgets\dialogWizard\viewmodel.js" />
+    <Content Include="App\widgets\dialogWizard\bindingHandlers\dialogWizardBindingHandler.js" />
     <Content Include="App\widgets\dialogWizard\viewmodel.spec.js">
-      <DependentUpon>dialogWizard.js</DependentUpon>
+      <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
-    <Content Include="App\widgets\dialog\viewmodel.spec.js">
-      <DependentUpon>dialog.js</DependentUpon>
-    </Content>
-    <Content Include="App\widgets\dialog\dialog.html" />
-    <Content Include="App\widgets\dialog\dialog.js" />
     <Content Include="App\widgets\upgradeDialog\viewmodel.js" />
     <Content Include="App\widgets\upgradeDialog\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
@@ -1464,7 +1460,6 @@
     <Content Include="Scripts\ckeditor\skins\moono\images\refresh.png" />
     <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
     <Content Include="Scripts\ckeditor\styles.js" />
-    <Content Include="Scripts\durandal\transitions\dialogStepTransition.js" />
     <Content Include="Scripts\durandal\transitions\notificationTransition.js" />
     <Content Include="Scripts\FileSaver.js" />
     <Content Include="App\onboarding\tasks.js" />

@@ -2,7 +2,7 @@
     var constants = require('constants'),
         courseTitleStep = require('dialogs/course/createCourse/steps/courseTitleStep'),
         courseTemplateStep = require('dialogs/course/createCourse/steps/courseTemplateStep'),
-        dialog = require('widgets/dialogWizard/dialogWizard');
+        dialog = require('widgets/dialogWizard/viewmodel');
 
     describe('dialog course [createCourse]', function () {
 
