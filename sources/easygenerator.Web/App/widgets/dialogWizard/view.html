@@ -4,7 +4,7 @@
         <section class="modal-dialog-wizard-container" data-bind="dialogWizard: {activeStep: activeStep}">
             <!-- ko foreach: steps -->
             <div class="modal-dialog-wizard-step" data-bind="css: { active:  $data===$parent.activeStep()}">
-                <!-- ko compose: { model: model, activationData: data } --><!-- /ko -->
+                <!-- ko compose: { model: $data } --><!-- /ko -->
             </div>
             <!-- /ko -->
             <!-- ko if: steps().length > 1 -->

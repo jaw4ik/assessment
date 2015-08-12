@@ -3,27 +3,17 @@
     function (constants, courseTitleStep, courseTemplateStep, dialog, templateRepository, createCourseCommand, router) {
         var viewModel = {
             show: show,
-            closed: closed,
-            courseTemplateId: ko.observable(''),
-            courseTitle: ko.observable('')
+            closed: closed
         };
 
         return viewModel;
 
         function show() {
+            dialog.show([courseTemplateStep, courseTitleStep], constants.dialogs.createCourse.settings);
 
-            return templateRepository.getDefaultTemplate().then(function (defaultTemplate) {
-                viewModel.courseTemplateId(defaultTemplate.id);
-
-                dialog.show([
-             { model: courseTemplateStep, data: viewModel.courseTemplateId },
-             { model: courseTitleStep, data: viewModel.courseTitle }],
-             constants.dialogs.createCourse.settings);
-
-                courseTemplateStep.on(constants.dialogs.stepSubmitted, courseTemplateStepSubmitted);
-                courseTitleStep.on(constants.dialogs.stepSubmitted, courseTitleStepSubmitted);
-                dialog.on(constants.dialogs.dialogClosed, closed);
-            });
+            courseTemplateStep.on(constants.dialogs.stepSubmitted, courseTemplateStepSubmitted);
+            courseTitleStep.on(constants.dialogs.stepSubmitted, courseTitleStepSubmitted);
+            dialog.on(constants.dialogs.dialogClosed, closed);
         }
 
         function closed() {
@@ -33,7 +23,6 @@
         }
 
         function courseTemplateStepSubmitted() {
-            viewModel.courseTemplateId(courseTemplateStep.getSelectedTemplateId());
             dialog.navigateToNextStep();
         }
 
