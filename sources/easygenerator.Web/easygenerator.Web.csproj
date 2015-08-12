@@ -77,6 +77,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\DotNetZip.1.9.3\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
+    <Reference Include="LtiLibrary.Owin.Security.Lti, Version=1.0.5669.24699, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libraries\LtiLibrary.Owin.Security.Lti.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.2.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
@@ -256,6 +260,7 @@
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
     <Compile Include="Components\DefaultApiController.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
+    <Compile Include="Components\HttpContextWrapper.cs" />
     <Compile Include="Components\ManifestFileManager.cs" />
     <Compile Include="Components\Mappers\AnswerMapper.cs" />
     <Compile Include="Components\Mappers\BlankAnswerMapper.cs" />
@@ -288,6 +293,7 @@
     <Compile Include="Controllers\DemoCoursesController.cs" />
     <Compile Include="Publish\ILearningPathPublisher.cs" />
     <Compile Include="Publish\LearningPathPublisher.cs" />
+    <Compile Include="DomainEvents\Handlers\CreateUserInitialDataHandler.cs" />
     <Compile Include="Storage\CourseStateStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\AnswerChangedEvent.cs" />
@@ -2516,6 +2522,7 @@
     <Content Include="Templates\Assessment\settings\design\css\fonts\opensans-600.woff" />
     <Content Include="Templates\Assessment\settings\design\css\fonts\opensans-bold.woff" />
     <Content Include="Templates\Assessment\settings\design\css\fonts\opensans-italic-400.woff" />
+    <Content Include="Views\_ViewStart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

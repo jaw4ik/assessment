@@ -114,5 +114,10 @@ namespace easygenerator.Web.Components.Configuration
         {
             get { return ConfigurationManager.AppSettings["magick.net.cachedirectory"] ?? string.Empty; }
         }
+
+        public string LtiAuthPath
+        {
+            get { return ConfigurationManager.AppSettings["lti.auth.path"]; }
+        }
     }
 }

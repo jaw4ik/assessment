@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse.Modules;
 using easygenerator.Web.BuildCourse.Modules.Models;
 using FluentAssertions;
@@ -16,12 +17,15 @@ namespace easygenerator.Web.Tests.BuildCourse.Modules
     {
         private IUserRepository _userRepository;
         private PackageModulesProvider _packageModulesProvider;
+        private readonly DateTime CurrentDate = new DateTime(2014, 3, 19);
 
         [TestInitialize]
         public void InitializeContext()
         {
             _userRepository = Substitute.For<IUserRepository>();
             _packageModulesProvider = new PackageModulesProvider(_userRepository);
+
+            DateTimeWrapper.Now = () => CurrentDate;
         }
 
         [TestMethod]

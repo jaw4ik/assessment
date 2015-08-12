@@ -52,12 +52,6 @@ namespace easygenerator.Web.Configuration
             #region Users
 
             routes.MapRoute(
-                name: "SigninUser",
-                url: "api/user/signin",
-                defaults: new { controller = "User", action = "Signin" }
-            );
-
-            routes.MapRoute(
                 name: "SignupUser",
                 url: "api/user/signup",
                 defaults: new { controller = "User", action = "Signup" }
@@ -79,12 +73,6 @@ namespace easygenerator.Web.Configuration
                name: "GetCurrentUserInfo",
                url: "api/user",
                defaults: new { controller = "User", action = "GetCurrentUserInfo" }
-            );
-
-            routes.MapRoute(
-                name: "SignUpFirstStep",
-                url: "api/user/signupfirststep",
-                defaults: new { controller = "User", action = "SignUpFirstStep" }
             );
 
             #endregion

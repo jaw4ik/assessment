@@ -8,7 +8,7 @@
     return task;
 
     function execute() {        
-        localizationManager.initialize(window.top.userCultures);
+        localizationManager.initialize(window.userCultures);
     }
 
 });

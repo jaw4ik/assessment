@@ -30,15 +30,32 @@ define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synch
             widget: true
         });
 
-        app.start().then(function () {
-            bootstrapper.run();
+        var ltiAuthDefer;
 
-            return Q.all([userContext.identify(), userContext.identifyStoragePermissions(), synchronization.start(), onboarding.initialize()])
-                .spread(function () {
-                    app.setRoot('viewmodels/shell', null, document.getElementById('app'));
-                });
+        if (window.auth.isLogoutKeyPresentInHash()) {
+            window.auth.logout();
+            window.location.replace('/#');
+        }
 
-        }).done();
+        if (window.auth.isAuthTokenPresentInHash()) {
+            window.auth.logout();
+            ltiAuthDefer = window.auth.loginByAuthToken().then(function () {
+                window.location.replace('/#');
+            });
+        } else {
+            ltiAuthDefer = Q.fcall(function () { });
+        }
 
+        ltiAuthDefer.then(function () {
+            app.start().then(function () {
+                bootstrapper.run();
+
+                return Q.all([userContext.identify(), userContext.identifyStoragePermissions(), synchronization.start(), onboarding.initialize()])
+                    .spread(function () {
+                        app.setRoot('viewmodels/shell', null, document.getElementById('app'));
+                    });
+
+            }).done();
+        });
     }
 );

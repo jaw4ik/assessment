@@ -57,12 +57,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller = new UserController(_userRepository,
                 _entityFactory,
                 _eventPublisher,
-                _mailSenderWrapper,
-                _courseRepository,
-                _onboardingRepository,
-                _demoCoursesInMemoryStorage,
-                _templateRepository,
-                _cloner);
+                _mailSenderWrapper
+                );
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -378,21 +374,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Signup_ShouldAddOnboardingToRepository()
-        {
-            var profile = GetTestUserSignUpViewModel();
-            var user = UserObjectMother.Create(profile.Email, profile.Password);
-            var onboarding = OnboardingObjectMother.CreateWithUserEmail(user.Email);
-
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email).Returns(user);
-            _entityFactory.Onboarding(user.Email).Returns(onboarding);
-
-            _controller.Signup(profile);
-
-            _onboardingRepository.Received().Add(onboarding);
-        }
-
-        [TestMethod]
         public void Signup_ShouldRaiseEventAboutUserCreation()
         {
             //Arrange
@@ -408,6 +389,21 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void Signup_ShouldRaiseEventAboutCreationInitialData()
+        {
+            //Arrange
+            var profile = GetTestUserSignUpViewModel();
+            var user = UserObjectMother.Create(profile.Email, profile.Password);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email).Returns(user);
+
+            //Act
+            _controller.Signup(profile);
+
+            //Assert
+            _eventPublisher.Received().Publish(Arg.Is<CreateUserInitialDataEvent>(_ => _.User == user));
+        }
+
+        [TestMethod]
         public void Signup_ShouldReturnJsonSuccessResult()
         {
             //Arrange
@@ -420,35 +416,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             result.Should().BeJsonSuccessResult().And.Data.Should().Be(profile.Email);
-        }
-
-        [TestMethod]
-        public void Signup_ShouldCreateDemoCoursesWithDefaultTemplate()
-        {
-            //Arrange
-            var profile = GetTestUserSignUpViewModel();
-            var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email).Returns(user);
-
-            var demoCourse1 = CourseObjectMother.Create();
-            var demoCourse2 = CourseObjectMother.Create();
-            var defaultTemplate = TemplateObjectMother.Create();
-            var otherTemplate = TemplateObjectMother.Create();
-
-            demoCourse1.UpdateTemplate(otherTemplate, demoCourse1.ModifiedBy);
-            demoCourse2.UpdateTemplate(otherTemplate, demoCourse2.ModifiedBy);
-
-            _demoCoursesInMemoryStorage.DemoCourses.Returns(new[] { demoCourse1, demoCourse2 });
-            _templateRepository.GetDefaultTemplate().Returns(defaultTemplate);
-            _cloner.Clone(demoCourse1, profile.Email).Returns(demoCourse1);
-            _cloner.Clone(demoCourse2, profile.Email).Returns(demoCourse2);
-
-            //Act
-            _controller.Signup(profile);
-
-            //Assert
-            _courseRepository.Received().Add(demoCourse1);
-            _courseRepository.Received().Add(demoCourse2);
         }
 
         private UserSignUpViewModel GetTestUserSignUpViewModel()
