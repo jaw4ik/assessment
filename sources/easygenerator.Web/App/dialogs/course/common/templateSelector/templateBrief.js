@@ -6,8 +6,7 @@
             thumbnail: template.thumbnail,
             previewImages: template.previewImages,
             description: template.shortDescription,
-            order: template.order,
-            loadingTemplate: ko.observable(false)
+            order: template.order
         };
 
         return viewModel;

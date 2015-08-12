@@ -2,9 +2,7 @@
 
     var
         repository = require('repositories/courseRepository'),
-        localizationManager = require('localization/localizationManager'),
         router = require('plugins/router'),
-        eventTracker = require('eventTracker'),
         clientContext = require('clientContext'),
         constants = require('constants')
     ;
@@ -12,18 +10,15 @@
     describe('command [createCourseCommand]', function () {
 
         describe('execute:', function () {
-
-            var addCourse,
-                defaultTitle = 'default title',
-                eventCategory = 'eventCategory';
+            var title = 'title',
+                templateId = 'templateId',
+                addCourse;
 
             beforeEach(function () {
                 addCourse = Q.defer();
 
                 spyOn(router, 'navigate');
                 spyOn(repository, 'addCourse').and.returnValue(addCourse.promise);
-                spyOn(eventTracker, 'publish');
-                spyOn(localizationManager, 'localize').and.returnValue(defaultTitle);
                 spyOn(clientContext, 'set');
             });
 
@@ -32,17 +27,12 @@
             });
 
             it('should return promise', function () {
-                expect(command.execute(eventCategory)).toBePromise();
-            });
-
-            it('should publish event \'Create course and open its properties\'', function () {
-                command.execute(eventCategory);
-                expect(eventTracker.publish).toHaveBeenCalledWith('Create course and open its properties', eventCategory);
+                expect(command.execute(title, templateId)).toBePromise();
             });
 
             it('should add course', function () {
-                command.execute(eventCategory);
-                expect(repository.addCourse).toHaveBeenCalledWith(defaultTitle);
+                command.execute(title, templateId);
+                expect(repository.addCourse).toHaveBeenCalledWith(title, templateId);
             });
 
             describe('when course added', function () {
@@ -54,7 +44,7 @@
                 });
 
                 it('should set client context lastCreatedCourseId', function (done) {
-                    var promise = command.execute(eventCategory);
+                    var promise = command.execute(title, templateId);
 
                     promise.fin(function () {
                         expect(clientContext.set).toHaveBeenCalledWith(constants.clientContextKeys.lastCreatedCourseId, course.id);
@@ -63,7 +53,7 @@
                 });
 
                 it('should resolve promise with course', function (done) {
-                    var promise = command.execute(eventCategory);
+                    var promise = command.execute(title, templateId);
 
                     promise.fin(function () {
                         expect(promise.inspect().value).toBe(course);

@@ -1,5 +1,5 @@
 ﻿<section class="modal-dialog-container" data-bind="css: { shown: isShown }">
-    <div class="modal-dialog-wrapper" data-bind="dialog: { isShown: isShown, autoclose: settings().autoclose, onClose: close }, css: settings().containerCss">
+    <div class="modal-dialog-wrapper" data-bind="dialog: { isShown: isShown, autoclose: settings().autoclose, onHide: closed }, css: settings().containerCss">
         <button class="modal-dialog-close-btn" data-bind="click: close"></button>
         <section class="modal-dialog-wizard-container" data-bind="dialogWizard: {activeStep: activeStep}">
             <!-- ko foreach: steps -->

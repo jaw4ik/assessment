@@ -1,9 +1,18 @@
 ﻿define(['constants', 'dialogs/course/createCourse/steps/courseTitleStep', 'dialogs/course/createCourse/steps/courseTemplateStep', 'widgets/dialogWizard/viewmodel',
-    'repositories/templateRepository', 'commands/createCourseCommand', 'plugins/router'],
-    function (constants, courseTitleStep, courseTemplateStep, dialog, templateRepository, createCourseCommand, router) {
+    'commands/createCourseCommand', 'plugins/router', 'eventTracker'],
+    function (constants, courseTitleStep, courseTemplateStep, dialog, createCourseCommand, router, eventTracker) {
+        "use strict";
+
+        var events = {
+            chooseTemplateAndProceed: 'Choose template and proceed',
+            defineCourseTitleAndProceed: 'Define course title and proceed'
+           };
+
         var viewModel = {
             show: show,
-            closed: closed
+            closed: closed,
+            courseTemplateStepSubmitted: courseTemplateStepSubmitted,
+            courseTitleStepSubmitted: courseTitleStepSubmitted
         };
 
         return viewModel;
@@ -23,12 +32,14 @@
         }
 
         function courseTemplateStepSubmitted() {
+            eventTracker.publish(events.chooseTemplateAndProceed);
             dialog.navigateToNextStep();
         }
 
         function courseTitleStepSubmitted() {
+            eventTracker.publish(events.defineCourseTitleAndProceed);
             courseTitleStep.isProcessing(true);
-            createCourseCommand.execute(courseTitleStep.title(), courseTemplateStep.getSelectedTemplateId()).then(function (course) {
+            return createCourseCommand.execute(courseTitleStep.title(), courseTemplateStep.getSelectedTemplateId()).then(function (course) {
                 dialog.close();
 
                 router.navigate('courses/' + course.id);

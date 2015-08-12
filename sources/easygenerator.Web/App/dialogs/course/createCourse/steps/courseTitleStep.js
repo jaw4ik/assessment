@@ -1,6 +1,6 @@
 ﻿define(['durandal/events', 'constants'],
     function (events, constants) {
-
+        "use strict";
         var viewModel = {
             title: ko.observable(''),
             maxLength: constants.validation.courseTitleMaxLength,
@@ -12,7 +12,7 @@
             submit: submit,
             activate: activate,
             deactivate: deactivate,
-            titleSubscription: undefined
+            titleChanged: titleChanged
         };
 
         viewModel.isValid = ko.computed(function () {
@@ -26,13 +26,14 @@
         function activate() {
             viewModel.title('');
             viewModel.isChanged(false);
-            viewModel.isEditing(true);
             viewModel.isProcessing(false);
             viewModel.titleSubscription = viewModel.title.subscribe(titleChanged);
         }
 
         function deactivate() {
-            viewModel.titleSubscription.dispose();
+            if (viewModel.titleSubscription) {
+                viewModel.titleSubscription.dispose();
+            }
         }
 
         function submit() {
@@ -56,5 +57,4 @@
         function titleChanged() {
             viewModel.isChanged(true);
         }
-
     });

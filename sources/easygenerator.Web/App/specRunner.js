@@ -45,6 +45,8 @@
             'dialogs/video/video.spec',
             'dialogs/learningPath/commands/deleteLearningPathCommand.spec',
             'dialogs/learningPath/deleteLearningPath.spec',
+            'dialogs/course/common/templateSelector/templateBrief.spec',
+            'dialogs/course/common/templateSelector/templateSelector.spec',
             'dialogs/course/createCourse/createCourse.spec',
             'dialogs/course/createCourse/steps/courseTemplateStep.spec',
             'dialogs/course/createCourse/steps/courseTitleStep.spec',

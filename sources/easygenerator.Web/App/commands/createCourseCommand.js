@@ -1,5 +1,5 @@
-﻿define(['repositories/courseRepository', 'localization/localizationManager', 'eventTracker', 'plugins/router', 'clientContext', 'constants'],
-    function (repository, localizationManager, eventTracker, router, clientContext, constants) {
+﻿define(['repositories/courseRepository', 'plugins/router', 'clientContext', 'constants'],
+    function (repository, router, clientContext, constants) {
 
         return {
             execute: function (title, templateId) {

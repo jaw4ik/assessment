@@ -18,9 +18,8 @@
             navigateToNextStep: navigateToNextStep,
 
             isShown: ko.observable(false),
-            settings: ko.observable(defaultSettings)
-        },
-            dialogActivator = activator.create();
+            settings: ko.observable()
+        };
 
         events.includeIn(viewModel);
         return viewModel;
@@ -36,6 +35,8 @@
 
             if (settings) {
                 viewModel.settings(_.defaults(settings, defaultSettings));
+            } else {
+                viewModel.settings(defaultSettings);
             }
 
             viewModel.isShown(true);
@@ -43,9 +44,13 @@
 
         function close() {
             viewModel.isShown(false);
+        }
+
+        function closed() {
             viewModel.trigger(constants.dialogs.dialogClosed);
 
             viewModel.activeStep(null);
+            var dialogActivator = activator.create();
             _.each(viewModel.steps(), function (step) {
                 dialogActivator.deactivateItem(step);
             });

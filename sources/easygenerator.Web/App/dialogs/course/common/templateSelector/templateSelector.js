@@ -12,7 +12,6 @@
 
     function activate(selectedTemplateId) {
         viewModel.templates.removeAll();
-        console.log('Activate template selector');
 
         viewModel.isLoading(true);
         return templateRepository.getCollection().then(function (templates) {
@@ -24,20 +23,20 @@
                 .value());
 
             selectTemplateById(selectedTemplateId);
-        }).then(function () {
-            viewModel.isLoading(false);
         }).fail(function (reason) {
             router.activeItem.settings.lifecycleData = { redirect: '404' };
             throw reason;
+        }).fin(function () {
+            viewModel.isLoading(false);
         });
     }
 
     function selectTemplate(template) {
-        if (template.id === getSelectedTemplateId()) {
-            return;
-        }
+        viewModel.selectedTemplate(template);
+    }
 
-        selectTemplateById(template.id);
+    function getSelectedTemplateId() {
+        return viewModel.selectedTemplate() ? viewModel.selectedTemplate().id : null;
     }
 
     function selectTemplateById(id) {
@@ -46,9 +45,5 @@
         } else {
             viewModel.selectedTemplate(viewModel.templates()[0]);
         }
-    }
-
-    function getSelectedTemplateId() {
-        return viewModel.selectedTemplate() ? viewModel.selectedTemplate().id : null;
     }
 });
