@@ -77,11 +77,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\DotNetZip.1.9.3\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
-    <Reference Include="LtiLibrary.Core, Version=1.6.5669.24698, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="LtiLibrary.Owin.Security.Lti, Version=1.0.5669.24699, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\libraries\LtiLibrary.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="LtiLibrary.Owin.Security.Lti">
       <HintPath>..\..\libraries\LtiLibrary.Owin.Security.Lti.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -294,12 +291,6 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
-    <Compile Include="Lti\Constants.cs" />
-    <Compile Include="Lti\Auth\LtiAuthExtensions.cs" />
-    <Compile Include="Lti\Auth\LtiAuthHandler.cs" />
-    <Compile Include="Lti\Auth\LtiAuthMiddleware.cs" />
-    <Compile Include="Lti\Auth\LtiAuthOptions.cs" />
-    <Compile Include="Lti\Auth\LtiAuthProvider.cs" />
     <Compile Include="Publish\ILearningPathPublisher.cs" />
     <Compile Include="Publish\LearningPathPublisher.cs" />
     <Compile Include="DomainEvents\Handlers\CreateUserInitialDataHandler.cs" />

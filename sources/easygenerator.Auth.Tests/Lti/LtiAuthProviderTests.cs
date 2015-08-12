@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
+using easygenerator.Auth.Lti;
 using easygenerator.Auth.Models;
 using easygenerator.Auth.Providers;
 using easygenerator.DomainModel;
@@ -9,7 +10,6 @@ using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
-using easygenerator.Web.Lti.Auth;
 using LtiLibrary.Core.Common;
 using LtiLibrary.Core.Lti1;
 using LtiLibrary.Core.OAuth;
@@ -20,7 +20,7 @@ using System;
 using NSubstitute;
 using FluentAssertions;
 
-namespace easygenerator.Web.Tests.Lti.Auth
+namespace easygenerator.Auth.Tests.Lti
 {
     [TestClass]
     public class LtiAuthProviderTests
@@ -235,7 +235,7 @@ namespace easygenerator.Web.Tests.Lti.Auth
 
             var customUrl = "http://localhost/";
 
-            _ltiRequestParams.Add(Web.Lti.Constants.ToolProviderUrl, customUrl);
+            _ltiRequestParams.Add(easygenerator.Auth.Lti.Constants.ToolProviderUrl, customUrl);
             var user = UserObjectMother.CreateWithEmail(email);
 
             _entityFactory.User(email, Arg.Any<string>(), firstName, lastName, ltiMockData, ltiMockData, ltiMockData,

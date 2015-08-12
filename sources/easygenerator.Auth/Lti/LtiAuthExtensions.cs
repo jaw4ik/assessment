@@ -1,7 +1,7 @@
 ﻿using System;
 using Owin;
 
-namespace easygenerator.Web.Lti.Auth
+namespace easygenerator.Auth.Lti
 {
     public static class LtiAuthExtensions
     {

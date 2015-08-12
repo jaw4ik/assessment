@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Builder;
 using Autofac.Integration.Mvc;
+using easygenerator.Auth.Lti;
 using easygenerator.DataAccess;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Events;
@@ -232,7 +233,7 @@ namespace easygenerator.Web.Configuration
 
             #region Lti
 
-            builder.RegisterType<Lti.Auth.LtiAuthProvider>().SingleInstance();
+            builder.RegisterType<LtiAuthProvider>().SingleInstance();
 
             #endregion
 

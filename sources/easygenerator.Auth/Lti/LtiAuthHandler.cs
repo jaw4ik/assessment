@@ -1,8 +1,7 @@
-﻿using System;
-using LtiLibrary.Owin.Security.Lti;
+﻿using LtiLibrary.Owin.Security.Lti;
 using System.Threading.Tasks;
 
-namespace easygenerator.Web.Lti.Auth
+namespace easygenerator.Auth.Lti
 {
     public class LtiAuthHandler : LtiAuthenticationHandler
     {
