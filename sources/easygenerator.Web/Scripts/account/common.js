@@ -11,7 +11,7 @@ $(function () {
     if ($(".log-in").length) {
         ko.applyBindings(app.signinViewModel(), $(".log-in")[0]);
     }
-
+  
     if ($('.sign-up-second-step').length) {
         var viewModel = app.signUpSecondStepModel();
         if (!viewModel.isInitializationContextCorrect()) {

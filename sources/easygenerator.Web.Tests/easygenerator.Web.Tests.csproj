@@ -255,10 +255,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\easygenerator.Auth\easygenerator.Auth.csproj">
-      <Project>{52f561c9-e7e1-4272-ab48-6767d6c64c65}</Project>
-      <Name>easygenerator.Auth</Name>
-    </ProjectReference>
     <ProjectReference Include="..\easygenerator.DataAccess\easygenerator.DataAccess.csproj">
       <Project>{67a666ae-de1a-4744-80bc-455536db1171}</Project>
       <Name>easygenerator.DataAccess</Name>
