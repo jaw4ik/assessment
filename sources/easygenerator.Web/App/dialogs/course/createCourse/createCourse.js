@@ -12,12 +12,22 @@
             show: show,
             closed: closed,
             courseTemplateStepSubmitted: courseTemplateStepSubmitted,
-            courseTitleStepSubmitted: courseTitleStepSubmitted
+            courseTitleStepSubmitted: courseTitleStepSubmitted,
+            eventCategory: undefined
         };
 
         return viewModel;
 
         function show() {
+            if (_.isNullOrUndefined(clientContext.get(constants.clientContextKeys.showCreateCoursePopup))) {
+                courseTitleStep.caption('Create your course');
+                viewModel.eventCategory = undefined;
+            } else {
+                courseTitleStep.caption('Create your first course');
+                viewModel.eventCategory = 'Splash pop-up after signup';
+                clientContext.remove(constants.clientContextKeys.showCreateCoursePopup);
+            }
+
             dialog.show([courseTemplateStep, courseTitleStep], constants.dialogs.createCourse.settings);
 
             courseTemplateStep.on(constants.dialogs.stepSubmitted, courseTemplateStepSubmitted);
@@ -26,20 +36,18 @@
         }
 
         function closed() {
-            clientContext.remove(constants.clientContextKeys.showCreateCoursePopup);
-
             courseTemplateStep.off(constants.dialogs.stepSubmitted, courseTemplateStepSubmitted);
             courseTitleStep.off(constants.dialogs.stepSubmitted, courseTitleStepSubmitted);
             dialog.off(constants.dialogs.dialogClosed, closed);
         }
 
         function courseTemplateStepSubmitted() {
-            eventTracker.publish(events.chooseTemplateAndProceed);
+            eventTracker.publish(events.chooseTemplateAndProceed, viewModel.eventCategory);
             dialog.navigateToNextStep();
         }
 
         function courseTitleStepSubmitted() {
-            eventTracker.publish(events.defineCourseTitleAndProceed);
+            eventTracker.publish(events.defineCourseTitleAndProceed, viewModel.eventCategory);
             courseTitleStep.isProcessing(true);
             return createCourseCommand.execute(courseTitleStep.title(), courseTemplateStep.getSelectedTemplateId()).then(function (course) {
                 dialog.close();

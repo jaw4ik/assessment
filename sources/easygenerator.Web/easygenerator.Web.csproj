@@ -2619,11 +2619,6 @@
     <Content Include="App\dialogs\collaboration\addCollaborator.spec.js">
       <DependentUpon>addCollaborator.js</DependentUpon>
     </Content>
-    <Content Include="App\dialogs\createCourse.html" />
-    <Content Include="App\dialogs\createCourse.js" />
-    <Content Include="App\dialogs\createCourse.spec.js">
-      <DependentUpon>createCourse.js</DependentUpon>
-    </Content>
     <Content Include="App\errorHandling\errorHandlingConfiguration.js" />
     <Content Include="App\errorHandling\errorHandlingConfiguration.spec.js">
       <DependentUpon>errorHandlingConfiguration.js</DependentUpon>

@@ -13,7 +13,7 @@
             activate: activate,
             deactivate: deactivate,
             titleChanged: titleChanged,
-            caption: ''
+            caption: ko.observable('Create your course')
         };
 
         viewModel.isValid = ko.computed(function () {
@@ -25,9 +25,6 @@
         return viewModel;
 
         function activate() {
-            viewModel.caption = _.isNullOrUndefined(clientContext.get(constants.clientContextKeys.showCreateCoursePopup)) ?
-                'Create your course' : 'Create your first course';
-
             viewModel.title('');
             viewModel.isChanged(false);
             viewModel.isProcessing(false);

@@ -2,8 +2,7 @@
     "use strict";
 
     var
-        constants = require('constants'),
-        clientContext = require('clientContext')
+        constants = require('constants')
     ;
 
     describe('dialog course step [courseTitleStep]', function () {
@@ -17,6 +16,12 @@
         describe('isEditing:', function () {
             it('should be observable', function () {
                 expect(viewModel.isEditing).toBeObservable();
+            });
+        });
+
+        describe('caption:', function () {
+            it('should be observable', function () {
+                expect(viewModel.caption).toBeObservable();
             });
         });
 
@@ -74,28 +79,6 @@
         });
 
         describe('activate:', function () {
-            describe('when client context has show create course popup flag', function() {
-                beforeEach(function() {
-                    spyOn(clientContext, 'get').and.returnValue(true);
-                });
-
-                it('should set caption', function () {
-                    viewModel.activate();
-                    expect(viewModel.caption).toBe('Create your first course');
-                });
-            });
-
-            describe('when client context does not have show create course popup flag', function () {
-                beforeEach(function () {
-                    spyOn(clientContext, 'get').and.returnValue(null);
-                });
-
-                it('should set caption', function () {
-                    viewModel.activate();
-                    expect(viewModel.caption).toBe('Create your course');
-                });
-            });
-
             it('should clear title', function () {
                 viewModel.title('title');
                 viewModel.activate();
