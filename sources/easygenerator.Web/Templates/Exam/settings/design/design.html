@@ -7,15 +7,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="css/design.css?v=1437487844774" rel="stylesheet" />
-    <script src="../api.js?v=1437487844774"></script>
+    <link href="css/design.css?v=1438700687635" rel="stylesheet" />
+    <script src="../api.js?v=1438700687635"></script>
 
-    <script src="js/vendor.min.js?v=1437487844774"></script>
-    <script src="js/design.min.js?v=1437487844774"></script>
+    <script src="js/vendor.min.js?v=1438700687635"></script>
+    <script src="js/design.min.js?v=1438700687635"></script>
 </head>
 
     <body>
-        <main>
+        <main data-bind="template: { afterRender: egApi.showSettings }">
             <!-- ko ifnot: isError -->
             <article class="flex direction-column settings-item-container">
                 <header class="settings-item-title" data-bind="localize: 'custom course logo'">Custom course logo:</header>

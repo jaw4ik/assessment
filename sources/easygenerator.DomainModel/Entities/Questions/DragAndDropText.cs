@@ -19,7 +19,7 @@ namespace easygenerator.DomainModel.Entities.Questions
         protected internal virtual Collection<Dropspot> DropspotsCollection { get; set; }
         public IEnumerable<Dropspot> Dropspots
         {
-            get { return DropspotsCollection.AsEnumerable(); }
+            get { return DropspotsCollection.AsEnumerable().OrderBy(i => i.CreatedOn); }
         }
 
         public virtual void AddDropspot(Dropspot dropspot, string modifiedBy)

@@ -2,17 +2,14 @@
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.UserEvents;
 using easygenerator.DomainModel.Repositories;
-using easygenerator.Infrastructure.Clonning;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Authorization;
-using easygenerator.Web.InMemoryStorages;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Mail;
 using easygenerator.Web.ViewModels.Account;
 using System;
 using System.Web.Mvc;
-using WebGrease.Css.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -23,31 +20,13 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IEntityFactory _entityFactory;
         private readonly IDomainEventPublisher _eventPublisher;
         private readonly IMailSenderWrapper _mailSenderWrapper;
-        private readonly ICourseRepository _courseRepository;
-        private readonly IOnboardingRepository _onboardingRepository;
-        private readonly IDemoCoursesStorage _demoCoursesInMemoryStorage;
-        private readonly ITemplateRepository _templateRepository;
-        private readonly ICloner _cloner;
 
-        public UserController(IUserRepository repository,
-            IEntityFactory entityFactory,
-            IDomainEventPublisher eventPublisher,
-            IMailSenderWrapper mailSenderWrapper,
-            ICourseRepository courseRepository,
-            IOnboardingRepository onboardingRepository,
-            IDemoCoursesStorage demoCoursesInMemoryStorage,
-            ITemplateRepository templateRepository,
-            ICloner cloner)
+        public UserController(IUserRepository repository, IEntityFactory entityFactory, IDomainEventPublisher eventPublisher, IMailSenderWrapper mailSenderWrapper)
         {
             _repository = repository;
             _entityFactory = entityFactory;
             _eventPublisher = eventPublisher;
             _mailSenderWrapper = mailSenderWrapper;
-            _courseRepository = courseRepository;
-            _onboardingRepository = onboardingRepository;
-            _demoCoursesInMemoryStorage = demoCoursesInMemoryStorage;
-            _templateRepository = templateRepository;
-            _cloner = cloner;
         }
 
         [HttpPost]
@@ -161,19 +140,9 @@ namespace easygenerator.Web.Controllers.Api
                 profile.Country, profile.UserRole, profile.Email);
 
             _repository.Add(user);
+
             _eventPublisher.Publish(new UserSignedUpEvent(user, profile.Password, profile.UserRole));
-
-            var onboarding = _entityFactory.Onboarding(user.Email);
-            _onboardingRepository.Add(onboarding);
-
-            var demoCourses = _demoCoursesInMemoryStorage.DemoCourses;
-            var defaultTemplate = _templateRepository.GetDefaultTemplate();
-            demoCourses.ForEach(demoCourse =>
-            {
-                var clonedCourse = _cloner.Clone(demoCourse, profile.Email);
-                clonedCourse.UpdateTemplate(defaultTemplate, clonedCourse.CreatedBy);
-                _courseRepository.Add(clonedCourse);
-            });
+            _eventPublisher.Publish(new CreateUserInitialDataEvent(user));
 
             return JsonSuccess(profile.Email);
         }

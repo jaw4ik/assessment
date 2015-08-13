@@ -48,12 +48,21 @@
             });
         };
 
+        function publishLearningPath(learningPathId) {
+            return publishHttpWrapper.post('api/learningpath/publish', { learningPathId: learningPathId }).then(function (data) {
+                return {
+                    publicationUrl: data.PublicationUrl
+                };
+            });
+        };
+
         return {
             buildCourse: buildCourse,
             publishCourse: publishCourse,
             scormBuildCourse: scormBuildCourse,
             publishCourseToStore: publishCourseToStore,
             publishCourseForReview: publishCourseForReview,
-            buildLearningPath: buildLearningPath
+            buildLearningPath: buildLearningPath,
+            publishLearningPath: publishLearningPath
         };
     });

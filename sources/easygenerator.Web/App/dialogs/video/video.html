@@ -5,9 +5,9 @@
             <div data-bind="html: videoIframe"></div>
             <div class="video-embed-container">
                 <div class="video-embed-code-title" data-bind="localize: { text: 'videoEmbedCodeTitle' }"></div>
-                <div class="video-embed-actions-container">
-                    <div class="private-link-control-wrapper">
-                        <textarea readonly="readonly" class="embed-code-text" data-bind="value: embedCode, selectText: true"></textarea>
+                <div class="copy-control">
+                    <div class="copy-text-container">
+                        <textarea readonly="readonly" class="copy-text-embed-code" data-bind="value: embedCode, selectText: true"></textarea>
                     </div>
                     <div class="copy-btn-wrapper">
                         <button class="btn green" data-bind="click: copyEmbedCodeEvent, copyToClipboard: { value: embedCode, onCopied: copyEmbedCode, isDisabled: copyBtnDisabled }, css: { copied: embedCodeCopied, disabled: copyBtnDisabled }, attr: { disabled: copyBtnDisabled() }">

@@ -13,6 +13,7 @@ namespace easygenerator.DomainModel.Entities
         public string PreviewUrl { get; private set; }
         public int Order { get; private set; }
         public int IsNew { get; private set; }
+        public int IsDeprecated { get; private set; }
 
         public virtual bool IsCustom
         {

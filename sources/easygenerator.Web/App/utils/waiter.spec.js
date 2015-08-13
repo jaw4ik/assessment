@@ -105,6 +105,44 @@
 
         });
 
+        describe('waitTime', function() {
+
+            it('should be function', function() {
+                expect(waiter.waitTime).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(waiter.waitTime(100)).toBePromise();
+            });
+
+            describe('when time is not positive number', function() {
+
+                it('should throw error', function () {
+                    expect(function() { waiter.waitTime(-25); }).toThrow();
+                });
+
+            });
+
+            describe('when time is a positive number', function() {
+
+                beforeEach(function() {
+                    jasmine.clock().install();
+                });
+
+                afterEach(function() {
+                    jasmine.clock().uninstall();
+                });
+
+                it('should resolve promise after time is end', function() {
+                    var promise = waiter.waitTime(100);
+                    jasmine.clock().tick(150);
+                    expect(promise).toBeResolved();
+                });
+
+            });
+
+        });
+
     });
 
 });

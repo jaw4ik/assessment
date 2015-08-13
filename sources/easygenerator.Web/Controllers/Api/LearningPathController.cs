@@ -8,6 +8,7 @@ using easygenerator.Web.Components.Mappers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using easygenerator.Web.Publish;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -17,13 +18,15 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IEntityModelMapper<LearningPath> _mapper;
         private readonly IEntityFactory _entityFactory;
         private readonly ILearningPathBuilder _builder;
+        private readonly ILearningPathPublisher _publisher;
 
-        public LearningPathController(ILearningPathRepository repository, IEntityModelMapper<LearningPath> mapper, IEntityFactory entityFactory, ILearningPathBuilder builder)
+        public LearningPathController(ILearningPathRepository repository, IEntityModelMapper<LearningPath> mapper, IEntityFactory entityFactory, ILearningPathBuilder builder, ILearningPathPublisher publisher)
         {
             _repository = repository;
             _mapper = mapper;
             _entityFactory = entityFactory;
             _builder = builder;
+            _publisher = publisher;
         }
 
         [HttpPost]
@@ -136,8 +139,23 @@ namespace easygenerator.Web.Controllers.Api
 
             var result = _builder.Build(learningPath);
 
-            return result.Success ? JsonSuccess(new { PackageUrl = result.PackageUrl }) :
+            return result ? JsonSuccess(new { PackageUrl = learningPath.PackageUrl }) :
                 JsonLocalizableError(Errors.LearningPathBuildActionFailedError, Errors.LearningPathBuildActionFailedResourceKey);
+        }
+
+        [HttpPost]
+        [Route("api/learningpath/publish")]
+        public ActionResult Publish(LearningPath learningPath)
+        {
+            if (learningPath == null)
+            {
+                return JsonLocalizableError(Errors.LearningPathNotFoundError, Errors.LearningPathNotFoundResourceKey);
+            }
+
+            var result = _publisher.Publish(learningPath);
+
+            return result ? JsonSuccess(new { PublicationUrl = learningPath.PublicationUrl })
+                : JsonLocalizableError(Errors.LearningPathPublishActionFailedError, Errors.LearningPathPublishActionFailedResourceKey); ;
         }
     }
 }

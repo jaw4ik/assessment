@@ -183,6 +183,25 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
+        public void User_ShouldThrowArgumentException_WhenExpirationDateSpecified_AndDateTimeLessThanSqlMinDate()
+        {
+            var minDate = new DateTime(2000, 1, 1);
+            DateTimeWrapper.MinValue = () => minDate;
+
+            var email = "easygenerator3@easygenerator.com";
+            var password = "Easy123!";
+            var firstname = "easygenerator user firstname";
+            var lastname = "easygenerator user lastname";
+            var phone = "some phone";
+            var country = "some country";
+            var role = "Teacher";
+            var accessPlan = AccessType.Starter;
+
+            Action action = () => UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, new DateTime(1999, 12, 30));
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("expirationDate");
+        }
+
+        [TestMethod]
         public void User_ShouldCreateUser()
         {
             //Arrange
@@ -194,9 +213,11 @@ namespace easygenerator.DomainModel.Tests.Entities
             var country = "some country";
             var role = "Teacher";
             var creationDate = CurrentDate;
+            var accessPlan = AccessType.Starter;
 
             //Act
-            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy);
+            var expirationDate = DateTimeWrapper.Now().AddDays(20);
+            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, expirationDate);
 
             //Assert
             user.Id.Should().NotBeEmpty();
@@ -210,11 +231,12 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.ModifiedOn.Should().Be(creationDate);
             user.CreatedBy.Should().Be(CreatedBy);
             user.ModifiedBy.Should().Be(CreatedBy);
-            user.AccessType.Should().Be(AccessType.Trial);
+            user.AccessType.Should().Be(accessPlan);
+            user.ExpirationDate.Should().Be(expirationDate);
         }
 
         [TestMethod]
-        public void User_ShouldCreateUserWithTrialPlanwith14DaysTrialPeriod()
+        public void User_ShouldCreateUserWithTrialPlanwith14DaysTrialPeriod_IfExpirationDateIsNotSpecified()
         {
             //Arrange
             var expirationDate = CurrentDate.AddDays(14);

@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace easygenerator.DomainModel.Entities
 {
@@ -14,7 +13,8 @@ namespace easygenerator.DomainModel.Entities
 
         protected internal User() { }
 
-        protected internal User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy)
+        protected internal User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy,
+            AccessType accessPlan, DateTime? expirationDate = null)
             : base(createdBy)
         {
             ThrowIfEmailIsNotValid(email);
@@ -33,8 +33,17 @@ namespace easygenerator.DomainModel.Entities
             Role = role;
             PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket>();
 
-            AccessType = AccessType.Trial;
-            ExpirationDate = CreatedOn.AddDays(TrialPeriodDays);
+            AccessType = accessPlan;
+
+            if (expirationDate.HasValue)
+            {
+                ThrowIfExpirationDateIsInvalid(expirationDate);
+                ExpirationDate = expirationDate;
+            }
+            else
+            {
+                ExpirationDate = CreatedOn.AddDays(TrialPeriodDays);
+            }
         }
 
         public string Email { get; protected set; }
@@ -184,9 +193,8 @@ namespace easygenerator.DomainModel.Entities
 
             AccessType = AccessType.Plus;
             ExpirationDate = expirationDate;
-
             RaiseEvent(new UserUpgradedToPlus(this));
-        }
+       }
 
         public virtual void DowngradePlanToFree()
         {
@@ -219,5 +227,25 @@ namespace easygenerator.DomainModel.Entities
                 throw new ArgumentException("Expiration date is invalid", "expirationDate");
             }
         }
+
+        #region LtiUserInfo
+
+        public virtual LtiUserInfo LtiUserInfo { get; private set; }
+
+        public virtual void UpdateLtiUserInfo(string ltiUserId)
+        {
+            if (LtiUserInfo == null)
+            {
+                LtiUserInfo = new LtiUserInfo();
+            }
+            LtiUserInfo.UpdateLtiUserId(ltiUserId);
+        }
+
+        public bool IsLtiUser()
+        {
+            return LtiUserInfo != null;
+        }
+
+        #endregion
     }
 }

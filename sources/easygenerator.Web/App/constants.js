@@ -178,6 +178,11 @@
                         courseDeselected: 'learningPath:course-selector:course-deselected'
                     },
                     removeCourse: 'learningPath:removeCourse',
+                    deleted: 'learningPath:deleted',
+                    delivering: {
+                        started: 'learningPath:delivering-started',
+                        finished: 'learningPath:delivering-finished'
+                    },
                     deleted: 'learningPath:deleted'
                 },
                 objective: {
@@ -322,13 +327,13 @@
 
             reporting: {
                 xApiVerbIds:
-                {
-                    started: 'http://adlnet.gov/expapi/verbs/launched',
-                    passed: 'http://adlnet.gov/expapi/verbs/passed',
-                    failed: 'http://adlnet.gov/expapi/verbs/failed',
-                    answered: 'http://adlnet.gov/expapi/verbs/answered',
-                    mastered: 'http://adlnet.gov/expapi/verbs/mastered'
-                },
+                    {
+                        started: 'http://adlnet.gov/expapi/verbs/launched',
+                        passed: 'http://adlnet.gov/expapi/verbs/passed',
+                        failed: 'http://adlnet.gov/expapi/verbs/failed',
+                        answered: 'http://adlnet.gov/expapi/verbs/answered',
+                        mastered: 'http://adlnet.gov/expapi/verbs/mastered'
+                    },
                 filterKeys: {
                     courseId: 'context.extensions.http://easygenerator/expapi/course/id',
                     verb: 'verb',
@@ -437,6 +442,13 @@
                             eventCategory: 'Video library',
                             subtitleKey: 'videoUpgradeToUpload',
                             descriptionKey: 'videoUpgradeToUploadHtml'
+                        },
+
+                        duplicateCourse: {
+                            containerCss: 'upgrade-dialog-duplicate-course',
+                            eventCategory: 'Duplicate course',
+                            subtitleKey: 'coursesUpgradeToHaveMore',
+                            descriptionKey: 'coursesUpgradeToHaveMoreHtml'
                         },
 
                         audioUpload: {

@@ -90,6 +90,7 @@ namespace easygenerator.Web.Configuration
                 .Include("~/Content/onboarding.css")
                 .Include("~/Content/hotSpot.css")
                 .Include("~/Content/video.css")
+                .Include("~/Content/publish.css")
                 .Include("~/Content/audio.css")
                 .Include("~/Content/notSupportedPage.css");
             stylesBundle.Transforms.Add(new ImageNoCacheParamTransform());

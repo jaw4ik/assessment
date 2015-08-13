@@ -87,6 +87,19 @@ namespace easygenerator.Web.Tests.BuildLearningPath
         }
 
         [TestMethod]
+        public void Build_ShouldUpdateLearningPathPackageUrl()
+        {
+            //Arrange
+            LearningPath learningPath = LearningPathObjectMother.Create();
+            var packageName = GetBuildId(learningPath) + ".zip";
+            //Act
+            _learningPathBuilder.Build(learningPath);
+
+            //Assert
+            learningPath.PackageUrl.Should().Be(packageName);
+        }
+
+        [TestMethod]
         public void Build_ShouldDeleteOutdatedPackages()
         {
             //Arrange
@@ -121,21 +134,18 @@ namespace easygenerator.Web.Tests.BuildLearningPath
         }
 
         [TestMethod]
-        public void Build_ShouldReturnSuccessResultWithPackageUrl()
+        public void Build_ShouldReturnSuccessResult()
         {
             //Arrange
             LearningPath learningPath = LearningPathObjectMother.Create();
-            var packageName = GetBuildId(learningPath) + ".zip";
 
             //Act
             var result = _learningPathBuilder.Build(learningPath);
 
             //Assert
-            result.Success.Should().Be(true);
-            result.PackageUrl.Should().Be(packageName);
+            result.Should().Be(true);
         }
-
-
+        
         [TestMethod]
         public void Build_ShouldLogException_WhenExceptionRicedDuringBuild()
         {
@@ -163,7 +173,7 @@ namespace easygenerator.Web.Tests.BuildLearningPath
             var result = _learningPathBuilder.Build(learningPath);
 
             //Assert
-            result.Success.Should().Be(false);
+            result.Should().Be(false);
         }
 
         [TestMethod]
@@ -193,7 +203,7 @@ namespace easygenerator.Web.Tests.BuildLearningPath
             var result = _learningPathBuilder.Build(learningPath);
 
             //Assert
-            result.Success.Should().Be(true);
+            result.Should().Be(true);
         }
 
         #endregion

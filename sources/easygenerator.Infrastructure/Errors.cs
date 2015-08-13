@@ -16,6 +16,7 @@ namespace easygenerator.Infrastructure
         public const string LearningPathBuildActionFailedError = "Failed. Try again.";
         public const string CollaboratorNotFoundError = "Collaborator is not found";
         public const string LearningPathNotFoundError = "Learning path is not found";
+        public const string LearningPathPublishActionFailedError = "Failed. Try again.";
 
         public const string CourseNotFoundResourceKey = "courseNotFoundError";
         public const string LearningPathNotFoundResourceKey = "learningPathNotFoundError";
@@ -28,6 +29,7 @@ namespace easygenerator.Infrastructure
         public const string CoursePublishActionFailedResourceKey = "publishFailed";
         public const string CourseCannotBeDeletedResourceKey = "courseCannotBeDeletedErrorMessage";
         public const string LearningPathBuildActionFailedResourceKey = "learningPathBuildFailed";
+        public const string LearningPathPublishActionFailedResourceKey = "publishFailed";
 
         public const string UpgradeToStarterPlanToUseScormResourceKey = "upgradeToStarterPlanToUseScormErrorMessage";
         public const string UpgradeToStarterPlanToUseCommentsErrorMessage = "upgradeToStarterPlanToUseCommentsErrorMessage";

@@ -1,0 +1,57 @@
+﻿<div class="publish-tab-content" data-tab-content="embed">
+    <div class="publish-tab-content-wrapper">
+        <!-- ko if: publicationUrl() -->
+        <div class="publish-to-publication-server-container">
+            <!-- ko compose: { view: 'views/learningPaths/learningPath/publish/updatePublication', model: $data, activate: false } --><!-- /ko -->
+            <div class="publish-tab-link-container">
+                <h2 class="publish-tab-header" data-bind="localize: {text: 'embedAsAWidget'}">
+                    Embed as a widget
+                </h2>
+                <div class="publish-tab-action-content" data-bind="localize: {text: 'learningPathCopyEmbedCodeDescription'}">
+                    Paste this code into your HTML page where you want the learning path to appear
+                </div>
+                <div class="copy-control">
+                    <div class="copy-text-container">
+                        <textarea readonly="readonly" class="copy-text-embed-code" data-bind="value: embedCode, selectText: !isPublishing()"></textarea>
+                    </div>
+                    <div class="copy-btn-wrapper">
+                        <button class="btn" data-bind="copyToClipboard: { value: embedCode, onCopied: onCopyEmbedCode, isDisabled: copyDisabled }, css: { green: !publishAvailable(), 'green-white': publishAvailable(), copied: embedCodeCopied, disabled: copyDisabled }, attr: { disabled: copyDisabled() }">
+                            <span data-bind="localize: { text: embedCodeCopied() ? 'copied' : 'copy' }"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="publish-tab-item-service embed-code">
+                    <div class="proportions-title" data-bind="localize: { text: 'frameSize' }"></div>
+                    <div class="proportions-values-container">
+                        <span class="proportions-value-container">
+                            <span class="proportions-value-caption" data-bind="localize: { text: 'width' }"></span>
+                            <input type="text" class="proportions-value" min="0" data-bind="numericField: {}, value: frameWidth, valueUpdate: ['afterkeydown', 'input'], event: { blur: validateFrameWidth }" />
+                        </span>
+                        <span class="proportions-value-container">
+                            <span class="proportions-value-caption" data-bind="localize: { text: 'height' }"></span>
+                            <input type="text" class="proportions-value" min="0" data-bind="numericField: {}, value: frameHeight, valueUpdate: ['afterkeydown', 'input'], event: { blur: validateFrameHeight }" />
+                        </span>
+                        <span class="propotions-size-unit" data-bind="localize: { text: 'croppedPixels' }"></span>
+                    </div>
+                </div>
+                <div class="publish-tab-overlay" data-bind="visible: isDelivering()"></div>
+            </div>
+        </div>
+        <div class="publish-to-publication-server-helper"></div>
+        <!-- /ko -->
+        <!-- ko ifnot: publicationUrl() -->
+        <div class="publish-tab-container">
+            <h2 class="publish-tab-header" data-bind="localize: { text: 'getEmbedCode' }">Get course link</h2>
+            <div class="publish-tab-action-content" data-bind="localize: {text: 'learningPathCopyEmbedCodeDescription'}">Paste this code into your HTML page where you want the learning path to appear.</div>
+            <button class="btn green publish-tab-btn" data-bind="click: publish, css:{ disabled: isDelivering(), progress : isPublishing()}, disable: isDelivering()">
+                <!-- ko if: isPublishing() -->
+                <span data-bind="localize: { text: 'publishing' }" class="publish-tab-btn-caption"></span>
+                <!-- /ko -->
+                <!-- ko ifnot: isPublishing() -->
+                <span data-bind="localize: { text: 'getEmbedCode' }" class="publish-tab-btn-caption"></span>
+                <!-- /ko -->
+            </button>
+        </div>
+        <!-- /ko -->
+    </div>
+</div>
