@@ -178,7 +178,7 @@
                         courseDeselected: 'learningPath:course-selector:course-deselected'
                     },
                     removeCourse: 'learningPath:removeCourse',
-                    deleted:'learningPath:deleted'
+                    deleted: 'learningPath:deleted'
                 },
                 objective: {
                     createdInCourse: 'objective:createdInCourse',
@@ -386,12 +386,15 @@
                     removeVideoAfterErrorTimeout: 5000
                 },
                 audio: {
+                    conversionUrl: window.conversionServiceUrl ? "//" + window.conversionServiceUrl : '//staging.easygenerator.com/conversion',
+                    pullUrl: '/api/media/audio/pull',
                     statuses: {
+                        notStarted: 'notStarted',
                         loaded: 'loaded',
                         failed: 'failed',
                         inProgress: 'inProgress'
                     },
-                    changesInUpload: 'video:changesInUpload',
+                    changesInUpload: 'video:changesInUpload'
                 }
             },
 

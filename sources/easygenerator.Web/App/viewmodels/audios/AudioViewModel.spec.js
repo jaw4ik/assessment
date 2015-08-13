@@ -1,7 +1,8 @@
-﻿define(['viewmodels/audios/AudioViewModel'], function (ViewModel) {
+﻿define(['viewmodels/audios/AudioViewModel', 'viewmodels/audios/UploadAudioModel'], function (ViewModel, UploadAudioModel) {
 
     describe('[AudioViewModel]', function () {
 
+        var constants = require('constants');
 
         it('should be constructor function', function () {
             expect(ViewModel).toBeFunction();
@@ -13,13 +14,6 @@
 
 
         describe('when create an instance', function () {
-
-            it('id should be defined', function () {
-                var viewModel = new ViewModel({
-                    id: 'id'
-                });
-                expect(viewModel.id).toEqual('id');
-            });
 
             it('title should be defined', function () {
                 var viewModel = new ViewModel({
@@ -92,6 +86,87 @@
 
             });
 
+
+            describe('when model reports progress', function () {
+
+                var model, viewModel;
+
+                beforeEach(function (done) {
+                    model = new UploadAudioModel({
+                        name: 'sample.wav'
+                    });
+                    viewModel = new ViewModel(model);
+
+                    model.on(constants.storage.audio.statuses.inProgress, function () {
+                        done();
+                    });
+                    model.trigger(constants.storage.audio.statuses.inProgress, 20);
+                });
+
+                it('should update status', function () {
+                    expect(viewModel.status()).toEqual(constants.storage.audio.statuses.inProgress);
+                });
+
+                it('should update progress', function () {
+                    expect(viewModel.progress()).toEqual(20);
+                });
+
+            });
+
+            describe('when model reports success', function () {
+
+                var model, viewModel;
+
+                beforeEach(function (done) {
+                    model = new UploadAudioModel({
+                        name: 'sample.wav'
+                    });
+                    viewModel = new ViewModel(model);
+
+                    model.on(constants.storage.audio.statuses.loaded, function () {
+                        done();
+                    });
+                    model.trigger(constants.storage.audio.statuses.loaded, {
+                        vimeoId: 'vimeoId',
+                        duration: 10
+                    });
+                });
+
+                it('should update status', function () {
+                    expect(viewModel.status()).toEqual(constants.storage.audio.statuses.loaded);
+                });
+
+                it('should update vimeoId', function () {
+                    expect(viewModel.vimeoId()).toEqual('vimeoId');
+                });
+
+                it('should update duration', function () {
+                    expect(viewModel.duration()).toEqual('00:10');
+                });
+
+            });
+
+            describe('when model reports error', function () {
+
+                var model, viewModel;
+
+                beforeEach(function (done) {
+                    model = new UploadAudioModel({
+                        name: 'sample.wav'
+                    });
+                    viewModel = new ViewModel(model);
+
+                    model.on(constants.storage.audio.statuses.failed, function () {
+                        done();
+                    });
+                    model.trigger(constants.storage.audio.statuses.failed, 'reason');
+                });
+
+                it('should update status', function () {
+                    expect(viewModel.status()).toEqual(constants.storage.audio.statuses.failed);
+                });
+
+            });
         });
 
     });

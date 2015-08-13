@@ -1,14 +1,14 @@
 ﻿define(['constants'], function (constants) {
 
-    return function AudioViewModel(item) {
+    return function AudioViewModel(entity) {
         var that = this;
-        that.id = item.id;
-        that.title = item.title;
-        that.vimeoId = ko.observable(item.vimeoId);
-        that.progress = ko.observable(item.progress || 0);
-        that.status = ko.observable(item.status || constants.storage.audio.statuses.loaded);
 
-        var duration = ko.observable(item.duration);
+        that.title = entity.title;
+        that.vimeoId = ko.observable(entity.vimeoId);
+        that.progress = ko.observable(entity.progress || 0);
+        that.status = ko.observable(entity.status || constants.storage.audio.statuses.loaded);
+
+        var duration = ko.observable(entity.duration);
 
         that.duration = ko.computed({
             read: function () {
@@ -28,6 +28,21 @@
                 duration(value);
             }
         });
+
+        if (entity.on) {
+            entity.on(constants.storage.audio.statuses.inProgress).then(function (progress) {
+                that.status(constants.storage.audio.statuses.inProgress);
+                that.progress(progress || 0);
+            });
+            entity.on(constants.storage.audio.statuses.loaded).then(function (entity) {
+                that.status(constants.storage.audio.statuses.loaded);
+                that.vimeoId(entity.vimeoId);
+                that.duration(entity.duration);
+            });
+            entity.on(constants.storage.audio.statuses.failed).then(function (reason) {
+                that.status(constants.storage.audio.statuses.failed);
+            });
+        }
     };
 
 })

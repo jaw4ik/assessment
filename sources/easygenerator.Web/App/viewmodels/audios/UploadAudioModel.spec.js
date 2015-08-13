@@ -2,6 +2,7 @@
 
     describe('[UploadAudioModel]', function () {
 
+        var constants = require('constants');
 
         it('should be constructor function', function () {
             expect(Model).toBeFunction();
@@ -19,12 +20,12 @@
             expect(model.trigger).toBeFunction();
         });
 
-        it('name should be defined', function () {
+        it('title should be defined', function () {
             var model = new Model({
                 name: 'sample.mp3'
             });
-            expect(model.name).toBeDefined();
-            expect(model.name).toEqual('sample');
+            expect(model.title).toBeDefined();
+            expect(model.title).toEqual('sample');
         });
 
         it('size should be defined', function () {
@@ -49,7 +50,7 @@
                 name: 'sample.mp3'
             });
             expect(model.status).toBeDefined();
-            expect(model.status).toEqual('not started');
+            expect(model.status).toEqual(constants.storage.audio.statuses.notStarted);
         });
 
         it('error should be defined', function () {
@@ -86,9 +87,9 @@
                 expect(model.upload()).toBePromise();
             });
 
-            it('should set status to started', function () {
+            it('should set status to inProgress', function () {
                 model.upload();
-                expect(model.status).toEqual('started');
+                expect(model.status).toEqual(constants.storage.audio.statuses.inProgress);
             });
 
             it('should convert audio to video', function (done) {
@@ -100,7 +101,7 @@
                 }).done();
             });
 
-            describe('when progres is reported', function () {
+            describe('when progress is reported', function () {
 
                 it('should set progress status', function (done) {
                     var promise = model.upload();
@@ -113,13 +114,13 @@
                     }).done();
                 });
 
-                it('should trigger progress event', function (done) {
+                it('should trigger inProgress event', function (done) {
                     var promise = model.upload();
                     convertDfd.notify(20);
                     convertDfd.resolve({});
                     pullDfd.resolve({});
                     promise.then(function () {
-                        expect(model.trigger.calls.all()[1].args).toEqual(['progress', 20]);
+                        expect(model.trigger.calls.all()[1].args).toEqual([constants.storage.audio.statuses.inProgress, 20]);
                         done();
                     }).done();
                 });
@@ -151,20 +152,20 @@
                         }).done();
                     });
 
-                    it('should set success status', function (done) {
+                    it('should set loaded status', function (done) {
                         convertDfd.resolve({});
                         pullDfd.resolve({});
                         model.upload().then(function () {
-                            expect(model.status).toEqual('success');
+                            expect(model.status).toEqual(constants.storage.audio.statuses.loaded);
                             done();
                         }).done();
                     });
 
-                    it('should trigger success event', function (done) {
+                    it('should trigger loaded event', function (done) {
                         convertDfd.resolve({});
                         pullDfd.resolve({});
                         model.upload().then(function () {
-                            expect(model.trigger.calls.mostRecent().args).toEqual(['success', jasmine.any(Object)]);
+                            expect(model.trigger.calls.mostRecent().args).toEqual([constants.storage.audio.statuses.loaded, jasmine.any(Object)]);
                             done();
                         }).done();
                     });
@@ -177,7 +178,7 @@
                         convertDfd.resolve({});
                         pullDfd.reject({});
                         model.upload().catch(function () {
-                            expect(model.status).toEqual('error');
+                            expect(model.status).toEqual(constants.storage.audio.statuses.failed);
                             done();
                         }).done();
                     });
@@ -186,7 +187,7 @@
                         convertDfd.resolve({});
                         pullDfd.reject({});
                         model.upload().catch(function () {
-                            expect(model.trigger.calls.mostRecent().args).toEqual(['error', jasmine.any(Object)]);
+                            expect(model.trigger.calls.mostRecent().args).toEqual([constants.storage.audio.statuses.failed, jasmine.any(Object)]);
                             done();
                         }).done();
                     });
@@ -201,7 +202,7 @@
                     convertDfd.reject({});
                     pullDfd.resolve({});
                     model.upload().catch(function () {
-                        expect(model.status).toEqual('error');
+                        expect(model.status).toEqual(constants.storage.audio.statuses.failed);
                         done();
                     }).done();
                 });
@@ -210,13 +211,12 @@
                     convertDfd.reject({});
                     pullDfd.resolve({});
                     model.upload().catch(function () {
-                        expect(model.trigger.calls.mostRecent().args).toEqual(['error', jasmine.any(Object)]);
+                        expect(model.trigger.calls.mostRecent().args).toEqual([constants.storage.audio.statuses.failed, jasmine.any(Object)]);
                         done();
                     }).done();
                 });
 
             });
-
 
         });
     });

@@ -80,6 +80,12 @@
         window.storageServiceUrl = '@ConfigurationManager.AppSettings["StorageServiceUrl"]';
         </text>
         }
+        @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["ConversionServiceUrl"]))
+        {
+        <text>
+        window.conversionServiceUrl = '@ConfigurationManager.AppSettings["ConversionServiceUrl"]';
+        </text>
+        }
         //bootstraper
         (function() {
             if (window.auth.isUserLoggedIn()) {
@@ -87,12 +93,14 @@
                 js.type = 'text/javascript';
                 js.async = true;
                 @if (HttpContext.Current.IsDebuggingEnabled)
-                {<text>
+                {
+                <text>
                 js.src = "/Scripts/require.js";
                 js.dataset.main = "/App/main";
-                </text>}
-                else
-                {<text>
+                </text>
+                }
+                else {
+                <text>
                 js.src = '@("/App/main-built.js?v=" + DateTimeWrapper.InstanceStartTime.Ticks)';
                 </text>
                 }

@@ -1,16 +1,15 @@
-﻿define(['durandal/events', 'models/Audio', 'viewmodels/audios/commands/convert', 'viewmodels/audios/commands/pull', 'dataContext'], function (Events, Audio, convert, pull, dataContext) {
+﻿define(['durandal/events', 'constants', 'models/Audio', 'viewmodels/audios/commands/convert', 'viewmodels/audios/commands/pull', 'dataContext'], function (Events, constants, Audio, convert, pull, dataContext) {
 
     return function (file) {
         var that = this;
 
         Events.includeIn(that);
 
-        that.name = file.name.replace(/\.[^/.]+$/, '');
         that.title = file.name.replace(/\.[^/.]+$/, '');
         that.size = file.size;
         that.progress = 0;
 
-        that.status = 'not started';
+        that.status = constants.storage.audio.statuses.notStarted;
         that.error = null;
 
         function setStatus(title, data) {
@@ -19,17 +18,17 @@
         }
 
         that.upload = function () {
-            setStatus('started');
+            setStatus(constants.storage.audio.statuses.inProgress);
 
             return convert.execute(file)
                 .then(function (result) {
-                    return pull.execute({ title: that.name, size: that.size, duration: result.duration, url: result.url })
+                    return pull.execute({ title: that.title, size: that.size, duration: result.duration, url: result.url })
                         .then(function (entity) {
                             var audio = new Audio({
                                 id: entity.Id,
                                 createdOn: entity.CreatedOn,
                                 modifiedOn: entity.CreatedOn,
-                                title: that.name,
+                                title: that.title,
                                 duration: result.duration,
                                 vimeoId: entity.VimeoId
                             });
@@ -37,13 +36,13 @@
                             return audio;
                         });
                 }).then(function (data) {
-                    setStatus('success', data);
+                    setStatus(constants.storage.audio.statuses.loaded, data);
                 }, function (reason) {
-                    setStatus('error', reason);
+                    setStatus(constants.storage.audio.statuses.failed, reason);
                     throw reason;
                 }, function (progress) {
                     that.progress = progress;
-                    that.trigger('progress', progress);
+                    that.trigger(constants.storage.audio.statuses.inProgress, progress);
                 });
         }
     }

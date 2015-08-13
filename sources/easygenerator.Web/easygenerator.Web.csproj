@@ -593,24 +593,29 @@
       <DependentUpon>audios.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\audios\AudioViewModel.js" />
-    <Content Include="App\viewmodels\audios\UploadAudioViewModel.spec.js">
-      <DependentUpon>UploadAudioViewModel.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\audios\AudioViewModel.spec.js">
       <DependentUpon>AudioViewModel.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\audios\commands\convert.js" />
+    <Content Include="App\viewmodels\audios\commands\convert.spec.js">
+      <DependentUpon>convert.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\audios\commands\pull.js" />
+    <Content Include="App\viewmodels\audios\commands\pull.spec.js">
+      <DependentUpon>pull.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\audios\factory.js" />
     <Content Include="App\viewmodels\audios\factory.spec.js">
       <DependentUpon>factory.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\audios\queries\getCollection.js" />
+    <Content Include="App\viewmodels\audios\queries\getCollection.spec.js">
+      <DependentUpon>getCollection.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\audios\UploadAudioModel.js" />
     <Content Include="App\viewmodels\audios\UploadAudioModel.spec.js">
       <DependentUpon>UploadAudioModel.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\audios\UploadAudioViewModel.js" />
     <Content Include="App\views\audios\audios.html" />
     <Content Include="App\widgets\upgradeDialog\viewmodel.js" />
     <Content Include="App\widgets\upgradeDialog\viewmodel.spec.js">

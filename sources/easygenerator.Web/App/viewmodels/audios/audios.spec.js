@@ -168,33 +168,6 @@
                 expect(eventTracker.publish).toHaveBeenCalledWith('Open \"choose audio file\" dialog', 'Audio library');
             });
 
-            describe('when upload has finished', function () {
-
-                beforeEach(function (done) {
-                    viewModel.uploads = [];
-                    viewModel.audios([]);
-
-                    viewModel.addAudio(file);
-
-                    model.on('success').then(function () {
-                        done();
-                    });
-
-                    model.trigger('success', {});
-                });
-
-                it('should replace UploadAudioViewModel with AudioViewModel in the list', function () {
-                    expect(viewModel.audios().length).toEqual(1);
-                    expect(viewModel.audios()[0]).toBeInstanceOf(AudioViewModel);
-                });
-
-                it('should remove upload from the background', function () {
-                    expect(viewModel.uploads.length).toEqual(0);
-                });
-
-            });
-
-
         });
 
         describe('activate:', function () {
@@ -247,7 +220,7 @@
 
             });
 
-            it('should map all current uploads that are in progress', function (done) {
+            it('should add current upload in progress', function (done) {
                 var model = new UploadModel({
                     name: 'sample.wav'
                 });
@@ -263,41 +236,7 @@
                 });
             });
 
-            describe('when upload has finished', function () {
-
-                var model;
-
-                beforeEach(function (done) {
-                    model = new UploadModel({ name: 'sample.wav' });
-
-                    viewModel.audios([]);
-                    viewModel.uploads = [model];
-
-                    viewModel.activate().then(function () {
-                        done();
-                    });
-                });
-
-                it('should replace UploadAudioViewModel with AudioViewModel in the list', function (done) {
-                    model.on('success').then(function () {
-                        expect(viewModel.audios().length).toEqual(2);
-                        expect(viewModel.audios()[1]).toBeInstanceOf(AudioViewModel);
-                        done();
-                    });
-                    model.trigger('success', {});
-                });
-
-                it('should remove upload from the background', function (done) {
-                    model.on('success').then(function () {
-                        expect(viewModel.uploads.length).toEqual(0);
-                        done();
-                    });
-                    model.trigger('success', {});
-                });
-
-            });
-
-            it('should map all current uploads that have error', function (done) {
+            it('should add upload with error', function (done) {
                 var model = new UploadModel({
                     name: 'sample.wav'
                 });
@@ -313,12 +252,12 @@
                 });
             });
 
-            it('should not map successfull uploads', function (done) {
+            it('should not add successfull upload', function (done) {
                 var model = new UploadModel({
                     name: 'sample.wav'
                 });
 
-                model.status = 'success';
+                model.status = constants.storage.audio.statuses.loaded;
 
                 viewModel.uploads = [model];
                 viewModel.audios([]);
@@ -329,12 +268,12 @@
                 });
             });
 
-            it('should remove all uploads that finished successfully', function (done) {
+            it('should remove all successfull uploads from the background', function (done) {
                 var model = new UploadModel({
                     name: 'sample.wav'
                 });
 
-                model.status = 'success';
+                model.status = constants.storage.audio.statuses.loaded;
 
                 viewModel.uploads = [model];
                 viewModel.audios([]);
@@ -345,12 +284,12 @@
                 });
             });
 
-            it('should remove all uploads that have error', function (done) {
+            it('should remove all failed uploads from the background', function (done) {
                 var model = new UploadModel({
                     name: 'sample.wav'
                 });
 
-                model.status = 'error';
+                model.status = constants.storage.audio.statuses.failed;
 
                 viewModel.uploads = [model];
                 viewModel.audios([]);
@@ -414,7 +353,6 @@
                             expect(viewModel.availableStorageSpace()).toBe('1.0' + localizationManager.localize('gb'));
                             done();
                         });
-
                     });
 
                     it('should set available storage space in perseteges on progress bar', function (done) {
@@ -489,7 +427,6 @@
                 });
             });
         });
-
 
         describe('showAudioPopup:', function () {
             var popup = require('dialogs/video/video');

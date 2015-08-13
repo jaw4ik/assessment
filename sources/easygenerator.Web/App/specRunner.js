@@ -341,9 +341,11 @@
         ];
 
         require([
+            'viewmodels/audios/commands/convert.spec',
+            'viewmodels/audios/commands/pull.spec',
+            'viewmodels/audios/queries/getCollection.spec',
             'viewmodels/audios/audios.spec',
             'viewmodels/audios/AudioViewModel.spec',
-            'viewmodels/audios/UploadAudioViewModel.spec',
             'viewmodels/audios/UploadAudioModel.spec'
         ], function () {
             env.execute();

@@ -5,7 +5,7 @@
     };
 
     function execute(file) {
-        return storageHttpWrapper.post(constants.storage.host + '/api/media/audio/pull', file);
+        return storageHttpWrapper.post(constants.storage.host + constants.storage.audio.pullUrl, file);
     }
 
 })

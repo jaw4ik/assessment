@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'constants', 'eventTracker', 'userContext', 'localization/localizationManager', 'widgets/upgradeDialog/viewmodel', 'dialogs/video/video', 'viewmodels/audios/queries/getCollection', 'viewmodels/audios/factory', 'viewmodels/audios/AudioViewModel', 'viewmodels/audios/UploadAudioViewModel'],
-function (app, constants, eventTracker, userContext, localizationManager, upgradeDialog, videoPopup, getCollection, factory, AudioViewModel, UploadAudioViewModel) {
+﻿define(['durandal/app', 'constants', 'eventTracker', 'userContext', 'localization/localizationManager', 'widgets/upgradeDialog/viewmodel', 'dialogs/video/video', 'viewmodels/audios/queries/getCollection', 'viewmodels/audios/factory', 'viewmodels/audios/AudioViewModel'],
+function (app, constants, eventTracker, userContext, localizationManager, upgradeDialog, videoPopup, getCollection, factory, AudioViewModel) {
     "use strict";
 
     app.on(constants.storage.changesInQuota, setAvailableStorageSpace);
@@ -26,20 +26,19 @@ function (app, constants, eventTracker, userContext, localizationManager, upgrad
         return getCollection.execute().then(function (audios) {
             return userContext.identifyStoragePermissions().then(function () {
                 viewModel.audios([]);
+
                 _.each(audios, function (audio) {
                     viewModel.audios.push(new AudioViewModel(audio));
                 });
 
-                viewModel.uploads = _.reject(viewModel.uploads, function (model) {
-                    return model.status === 'success';
-                });
-
-                _.each(viewModel.uploads, function (model) {                    
-                    viewModel.audios.push(mapUploadModel(model));
+                _.each(viewModel.uploads, function (model) {
+                    if (model.status !== constants.storage.audio.statuses.loaded) {
+                        viewModel.audios.push(new AudioViewModel(model));
+                    }
                 });
 
                 viewModel.uploads = _.reject(viewModel.uploads, function (model) {
-                    return model.status === 'error';
+                    return model.status === constants.storage.audio.statuses.failed || model.status === constants.storage.audio.statuses.loaded;
                 });
 
                 setAvailableStorageSpace();
@@ -83,20 +82,10 @@ function (app, constants, eventTracker, userContext, localizationManager, upgrad
         eventTracker.publish(events.openUploadAudioDialog, eventCategory);
 
         var model = factory.create(file);
-        model.upload();
-
         viewModel.uploads.push(model);
-        viewModel.audios.push(mapUploadModel(model));
-    }
+        viewModel.audios.push(new AudioViewModel(model));
 
-    function mapUploadModel(model) {
-        var uploadAudioViewModel = new UploadAudioViewModel(model);
-
-        model.on('success').then(function (entity) {
-            viewModel.audios.replace(uploadAudioViewModel, new AudioViewModel(entity));
-            viewModel.uploads = _.without(viewModel.uploads, model);
-        });
-        return uploadAudioViewModel;
+        model.upload();
     }
 
     function showAudioPopup(audio) {
