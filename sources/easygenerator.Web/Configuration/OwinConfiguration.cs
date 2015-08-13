@@ -19,6 +19,8 @@ namespace easygenerator.Web.Configuration
             var ltiAuthProvider = DependencyResolver.Current.GetService<LtiAuthProvider>();
             var configuration = DependencyResolver.Current.GetService<ConfigurationReader>();
 
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+
             app.UseLtiAuthentication(new LtiAuthOptions
             {
                 Provider = ltiAuthProvider, 
