@@ -5,6 +5,7 @@
         constants = require('constants'),
         router = require('plugins/router'),
         eventTracker = require('eventTracker'),
+        clientContext = require('clientContext'),
         dialog = require('widgets/dialogWizard/viewmodel'),
         createCourseCommand = require('commands/createCourseCommand'),
         courseTitleStep = require('dialogs/course/createCourse/steps/courseTitleStep'),
@@ -46,6 +47,15 @@
         });
 
         describe('closed:', function () {
+            beforeEach(function () {
+                spyOn(clientContext, 'remove');
+            });
+
+            it('should remove show create course popup flag from client context', function () {
+                viewModel.closed();
+                expect(clientContext.remove).toHaveBeenCalledWith(constants.clientContextKeys.showCreateCoursePopup);
+            });
+
             it('should unsubscribe from courseTemplateStep.submitted event', function () {
                 viewModel.closed();
                 expect(courseTemplateStep.off).toHaveBeenCalledWith(constants.dialogs.stepSubmitted, viewModel.courseTemplateStepSubmitted);

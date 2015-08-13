@@ -18,7 +18,7 @@
             navigateToNextStep: navigateToNextStep,
 
             isShown: ko.observable(false),
-            settings: ko.observable()
+            settings: ko.observable(defaultSettings)
         };
 
         events.includeIn(viewModel);

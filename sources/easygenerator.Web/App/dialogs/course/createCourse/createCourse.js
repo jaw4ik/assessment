@@ -1,12 +1,12 @@
 ﻿define(['constants', 'dialogs/course/createCourse/steps/courseTitleStep', 'dialogs/course/createCourse/steps/courseTemplateStep', 'widgets/dialogWizard/viewmodel',
-    'commands/createCourseCommand', 'plugins/router', 'eventTracker'],
-    function (constants, courseTitleStep, courseTemplateStep, dialog, createCourseCommand, router, eventTracker) {
+    'commands/createCourseCommand', 'plugins/router', 'eventTracker', 'clientContext'],
+    function (constants, courseTitleStep, courseTemplateStep, dialog, createCourseCommand, router, eventTracker, clientContext) {
         "use strict";
 
         var events = {
             chooseTemplateAndProceed: 'Choose template and proceed',
             defineCourseTitleAndProceed: 'Define course title and proceed'
-           };
+        };
 
         var viewModel = {
             show: show,
@@ -26,6 +26,8 @@
         }
 
         function closed() {
+            clientContext.remove(constants.clientContextKeys.showCreateCoursePopup);
+
             courseTemplateStep.off(constants.dialogs.stepSubmitted, courseTemplateStepSubmitted);
             courseTitleStep.off(constants.dialogs.stepSubmitted, courseTitleStepSubmitted);
             dialog.off(constants.dialogs.dialogClosed, closed);

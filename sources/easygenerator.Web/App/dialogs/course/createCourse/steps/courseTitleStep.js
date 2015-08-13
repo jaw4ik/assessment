@@ -1,5 +1,5 @@
-﻿define(['durandal/events', 'constants'],
-    function (events, constants) {
+﻿define(['durandal/events', 'constants', 'clientContext', 'localization/localizationManager'],
+    function (events, constants, clientContext, localizationManager) {
         "use strict";
         var viewModel = {
             title: ko.observable(''),
@@ -12,7 +12,8 @@
             submit: submit,
             activate: activate,
             deactivate: deactivate,
-            titleChanged: titleChanged
+            titleChanged: titleChanged,
+            caption: ''
         };
 
         viewModel.isValid = ko.computed(function () {
@@ -24,6 +25,9 @@
         return viewModel;
 
         function activate() {
+            viewModel.caption = _.isNullOrUndefined(clientContext.get(constants.clientContextKeys.showCreateCoursePopup)) ?
+                'Create your course' : 'Create your first course';
+
             viewModel.title('');
             viewModel.isChanged(false);
             viewModel.isProcessing(false);

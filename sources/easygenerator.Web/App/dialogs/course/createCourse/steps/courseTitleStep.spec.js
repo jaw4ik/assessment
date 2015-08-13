@@ -2,7 +2,9 @@
     "use strict";
 
     var
-        constants = require('constants');
+        constants = require('constants'),
+        clientContext = require('clientContext')
+    ;
 
     describe('dialog course step [courseTitleStep]', function () {
 
@@ -72,6 +74,28 @@
         });
 
         describe('activate:', function () {
+            describe('when client context has show create course popup flag', function() {
+                beforeEach(function() {
+                    spyOn(clientContext, 'get').and.returnValue(true);
+                });
+
+                it('should set caption', function () {
+                    viewModel.activate();
+                    expect(viewModel.caption).toBe('Create your first course');
+                });
+            });
+
+            describe('when client context does not have show create course popup flag', function () {
+                beforeEach(function () {
+                    spyOn(clientContext, 'get').and.returnValue(null);
+                });
+
+                it('should set caption', function () {
+                    viewModel.activate();
+                    expect(viewModel.caption).toBe('Create your course');
+                });
+            });
+
             it('should clear title', function () {
                 viewModel.title('title');
                 viewModel.activate();
@@ -143,8 +167,8 @@
             });
         });
 
-        describe('beginEdit:', function() {
-            it('should set isEditing to true', function() {
+        describe('beginEdit:', function () {
+            it('should set isEditing to true', function () {
                 viewModel.isEditing(false);
                 viewModel.beginEdit();
                 expect(viewModel.isEditing()).toBeTruthy();

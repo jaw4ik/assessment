@@ -321,7 +321,8 @@
                 lastCreatedLearningPathId: 'lastCreatedLearningPathId',
                 lastCreatedObjectiveId: 'lastCreatedObjectiveId',
                 lastVistedCourse: 'lastVistedCourse',
-                lastVisitedObjective: 'lastVisitedObjective'
+                lastVisitedObjective: 'lastVisitedObjective',
+                showCreateCoursePopup: 'showCreateCoursePopup'
             },
 
             reporting: {

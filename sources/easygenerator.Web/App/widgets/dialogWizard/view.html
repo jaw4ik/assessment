@@ -8,9 +8,9 @@
             </div>
             <!-- /ko -->
             <!-- ko if: steps().length > 1 -->
-            <nav class="modal-dialog-navigation" data-bind="foreach: steps()">
+            <div class="modal-dialog-navigation" data-bind="foreach: steps()">
                 <button class="modal-dialog-navigation-btn" data-bind="click: $parent.navigate, css:{ active: $data===$parent.activeStep() }"></button>
-            </nav>
+            </div>
             <!-- /ko -->
         </section>
     </div>
