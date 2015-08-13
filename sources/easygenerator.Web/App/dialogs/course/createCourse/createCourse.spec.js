@@ -6,7 +6,7 @@
         router = require('plugins/router'),
         eventTracker = require('eventTracker'),
         clientContext = require('clientContext'),
-        dialog = require('widgets/dialogWizard/viewmodel'),
+        dialog = require('widgets/dialog/viewmodel'),
         createCourseCommand = require('commands/createCourseCommand'),
         localozationManager = require('localization/localizationManager'),
         courseTitleStep = require('dialogs/course/createCourse/steps/courseTitleStep'),

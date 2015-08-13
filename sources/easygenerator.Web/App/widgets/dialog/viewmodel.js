@@ -27,9 +27,13 @@
         function show(steps, settings) {
             viewModel.steps.removeAll();
 
-            _.each(steps, function (step) {
-                viewModel.steps.push(step);
-            });
+            if (_.isArray(steps)) {
+                _.each(steps, function(step) {
+                    viewModel.steps.push(step);
+                });
+            } else {
+                viewModel.steps.push(steps);
+            }
 
             viewModel.activeStep(viewModel.steps()[0]);
 

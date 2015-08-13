@@ -641,10 +641,10 @@
     <Content Include="App\views\learningPaths\learningPath\publish\publishToPublicationServerEmbed.html" />
     <Content Include="App\views\learningPaths\learningPath\publish\publishToPublicationServerLink.html" />
     <Content Include="App\views\learningPaths\learningPath\publish\updatePublication.html" />
-    <Content Include="App\widgets\dialogWizard\view.html" />
-    <Content Include="App\widgets\dialogWizard\viewmodel.js" />
-    <Content Include="App\widgets\dialogWizard\bindingHandlers\dialogWizardBindingHandler.js" />
-    <Content Include="App\widgets\dialogWizard\viewmodel.spec.js">
+    <Content Include="App\widgets\dialog\bindingHandlers\dialogWizardBindingHandler.js" />
+    <Content Include="App\widgets\dialog\view.html" />
+    <Content Include="App\widgets\dialog\viewmodel.js" />
+    <Content Include="App\widgets\dialog\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
     <Content Include="App\widgets\upgradeDialog\viewmodel.js" />

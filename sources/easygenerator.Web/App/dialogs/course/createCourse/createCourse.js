@@ -1,5 +1,5 @@
 ﻿define([
-    'constants', 'dialogs/course/createCourse/steps/courseTitleStep', 'dialogs/course/createCourse/steps/courseTemplateStep', 'widgets/dialogWizard/viewmodel',
+    'constants', 'dialogs/course/createCourse/steps/courseTitleStep', 'dialogs/course/createCourse/steps/courseTemplateStep', 'widgets/dialog/viewmodel',
     'commands/createCourseCommand', 'plugins/router', 'eventTracker', 'clientContext', 'localization/localizationManager'],
     function (constants, courseTitleStep, courseTemplateStep, dialog, createCourseCommand, router, eventTracker, clientContext, localizationManager) {
         "use strict";

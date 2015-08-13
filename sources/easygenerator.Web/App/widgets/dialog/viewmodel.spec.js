@@ -1,10 +1,10 @@
-﻿define(['widgets/dialogWizard/viewmodel'], function (viewModel) {
+﻿define(['widgets/dialog/viewmodel'], function (viewModel) {
     "use strict";
 
     var constants = require('constants'),
         activator = require('durandal/activator');
 
-    describe('widget [dialogWizard]', function () {
+    describe('widget [dialog]', function () {
         describe('isShown:', function () {
             it('should be observable', function () {
                 expect(viewModel.isShown).toBeObservable();
@@ -126,25 +126,42 @@
             var steps = [{ name: 'step1' }, { name: 'step2' }],
                 settings = {
                     containerCss: 'container'
-                }
+                };
 
-            it('should push steps', function () {
-                viewModel.steps([]);
-                viewModel.show(steps, settings);
-                expect(viewModel.steps()[0]).toBe(steps[0]);
-                expect(viewModel.steps()[1]).toBe(steps[1]);
+            describe('when steps is an array', function () {
+                it('should push steps', function () {
+                    viewModel.steps([]);
+                    viewModel.show(steps, settings);
+                    expect(viewModel.steps()[0]).toBe(steps[0]);
+                    expect(viewModel.steps()[1]).toBe(steps[1]);
+                });
+
+                it('should set activeStep to first step in array', function () {
+                    viewModel.activeStep(null);
+                    viewModel.show(steps);
+                    expect(viewModel.activeStep()).toBe(steps[0]);
+                });
+            });
+
+            describe('when steps is an object', function () {
+                it('should push step to steps collection', function () {
+                    viewModel.steps([]);
+                    viewModel.show(steps[0], settings);
+                    expect(viewModel.steps()[0]).toBe(steps[0]);
+                    expect(viewModel.steps().length).toBe(1);
+                });
+
+                it('should set activeStep to step', function () {
+                    viewModel.activeStep(null);
+                    viewModel.show(steps[0]);
+                    expect(viewModel.activeStep()).toBe(steps[0]);
+                });
             });
 
             it('should set isShown to true', function () {
                 viewModel.isShown(false);
                 viewModel.show(steps);
                 expect(viewModel.isShown()).toBeTruthy();
-            });
-
-            it('should set activeStep', function () {
-                viewModel.activeStep(null);
-                viewModel.show(steps);
-                expect(viewModel.activeStep()).toBe(steps[0]);
             });
 
             describe('when settings are not defined', function () {

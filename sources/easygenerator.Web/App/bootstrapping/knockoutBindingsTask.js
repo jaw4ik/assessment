@@ -14,7 +14,7 @@
     require('viewmodels/courses/bindingHandlers/courseIntroductionAnimationBinding');
     require('viewmodels/courses/bindingHandlers/publishTabBinding');
     require('viewmodels/learningContents/bindingHandlers/hotspotOnImageBindingHandler');
-    require('widgets/dialogWizard/bindingHandlers/dialogWizardBindingHandler');
+    require('widgets/dialog/bindingHandlers/dialogWizardBindingHandler');
 
     var task = {
         execute: execute
