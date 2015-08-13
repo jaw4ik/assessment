@@ -293,7 +293,7 @@
 
             describe('when username is empty', function () {
 
-                it('should not send request to /api/user/signin', function () {
+                it('should not send request to /auth/token', function () {
                     viewModel.username("");
                     viewModel.password("abc123");
 
@@ -306,7 +306,7 @@
 
             describe('when username is whitespace', function () {
 
-                it('should not send request to /api/user/signin', function () {
+                it('should not send request to /auth/token', function () {
                     viewModel.username("            ");
                     viewModel.password("abc123");
 
@@ -319,7 +319,7 @@
 
             describe('when username is not an email string', function () {
 
-                it('should not send request to /api/user/signin', function () {
+                it('should not send request to /auth/token', function () {
                     viewModel.username("username");
                     viewModel.password("abc123");
 
@@ -331,7 +331,7 @@
 
             describe('when password is empty', function () {
 
-                it('should not send request to /api/user/signin', function () {
+                it('should not send request to /auth/token', function () {
                     viewModel.username("username@easygenerator.com");
                     viewModel.password("");
 
@@ -344,7 +344,7 @@
 
             describe('when password is whitespace', function () {
 
-                it('should not send request to /api/user/signin', function () {
+                it('should not send request to /auth/token', function () {
                     viewModel.username("username@easygenerator.com");
                     viewModel.password("            ");
 

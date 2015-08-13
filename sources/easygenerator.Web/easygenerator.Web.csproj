@@ -77,6 +77,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\DotNetZip.1.9.3\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
+    <Reference Include="LtiLibrary.Owin.Security.Lti, Version=1.0.5669.24699, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libraries\LtiLibrary.Owin.Security.Lti.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.2.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
@@ -255,6 +259,7 @@
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
     <Compile Include="Components\DefaultApiController.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
+    <Compile Include="Components\HttpContextWrapper.cs" />
     <Compile Include="Components\ManifestFileManager.cs" />
     <Compile Include="Components\Mappers\AnswerMapper.cs" />
     <Compile Include="Components\Mappers\BlankAnswerMapper.cs" />
@@ -287,6 +292,7 @@
     <Compile Include="Controllers\DemoCoursesController.cs" />
     <Compile Include="Publish\ILearningPathPublisher.cs" />
     <Compile Include="Publish\LearningPathPublisher.cs" />
+    <Compile Include="DomainEvents\Handlers\CreateUserInitialDataHandler.cs" />
     <Compile Include="Storage\CourseStateStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\AnswerChangedEvent.cs" />
@@ -2301,11 +2307,6 @@
     <Content Include="Templates\Reader\content\a3d951f91e8a4a61a55c173a27c904ca\77dcdee6255f44e588cdae7a0320ffa6\61cdd730fbe54fe9bf2a6ec95cb14535.html" />
     <Content Include="Templates\Reader\content\content.html" />
     <Content Include="Templates\Reader\content\data.js" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Bold-webfont.svg" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Light-webfont.svg" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Regular-webfont.svg" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Thin-webfont.svg" />
-    <Content Include="Templates\Reader\css\font\Ubuntu-Regular.svg" />
     <Content Include="Templates\Reader\css\general.css" />
     <Content Include="Templates\Reader\css\img\background.png" />
     <Content Include="Templates\Reader\css\img\browsers\android.png" />
@@ -2318,6 +2319,8 @@
     <Content Include="Templates\Reader\css\img\easy-supported-browser-middle-part-bg.png" />
     <Content Include="Templates\Reader\css\img\easy-supported-browser-top-part-bg.png" />
     <Content Include="Templates\Reader\css\img\reader.png" />
+    <Content Include="Templates\Reader\css\themes\black.css" />
+    <Content Include="Templates\Reader\css\themes\light.css" />
     <Content Include="Templates\Reader\css\vendor.css" />
     <Content Include="Templates\Reader\index.html" />
     <Content Include="Templates\Reader\js\require.js" />
@@ -2463,16 +2466,6 @@
     <Content Include="Templates\Exam\css\font\opensans-regular.woff" />
     <Content Include="Templates\Exam\css\font\robotocondensed-regular.woff" />
     <Content Include="Templates\Reader\css\font\robotocondensed-regular.woff" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Bold-webfont.ttf" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Bold-webfont.woff" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Light-webfont.ttf" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Light-webfont.woff" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Regular-webfont.ttf" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Regular-webfont.woff" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Thin-webfont.ttf" />
-    <Content Include="Templates\Reader\css\font\RobotoSlab-Thin-webfont.woff" />
-    <Content Include="Templates\Reader\css\font\Ubuntu-Regular.ttf" />
-    <Content Include="Templates\Reader\css\font\Ubuntu-Regular.woff" />
     <Content Include="Templates\Simple course\css\font\robotocondensed-regular.woff" />
     <Content Include="Templates\Assessment\css\font\badscript-regular.eot" />
     <Content Include="Templates\Assessment\css\font\badscript-regular.ttf" />
@@ -2513,6 +2506,7 @@
     <Content Include="Templates\Assessment\settings\design\css\fonts\opensans-600.woff" />
     <Content Include="Templates\Assessment\settings\design\css\fonts\opensans-bold.woff" />
     <Content Include="Templates\Assessment\settings\design\css\fonts\opensans-italic-400.woff" />
+    <Content Include="Views\_ViewStart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

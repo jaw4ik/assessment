@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Builder;
 using Autofac.Integration.Mvc;
+using easygenerator.Auth.Lti;
 using easygenerator.DataAccess;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Events;
@@ -219,7 +220,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<EntityCloner>().As<ICloner>().SingleInstance();
             builder.RegisterType<DemoCoursesInMemoryStorage>().As<IDemoCoursesStorage>().SingleInstance();
             builder.RegisterType<CourseInfoInMemoryStorage>().As<ICourseInfoInMemoryStorage>().SingleInstance();
-
+            builder.RegisterType<HttpContextWrapper>();
 
             #region Auth
 
@@ -227,6 +228,13 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<Auth.Repositories.EndpointsRepository>().As<Auth.Repositories.IEndpointsRepository>();
 
             #endregion
+
+            #region Lti
+
+            builder.RegisterType<LtiAuthProvider>().SingleInstance();
+
+            #endregion
+
             var container = builder.Build();
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

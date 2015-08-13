@@ -307,7 +307,17 @@
       <DependentUpon>201508121347474_RemoveLockedFromCourseCollaborators.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\201508050903440_CreateConsumerToolsTable.cs" />
+    <Compile Include="Migrations\201508050903440_CreateConsumerToolsTable.Designer.cs">
+      <DependentUpon>201508050903440_CreateConsumerToolsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508050906360_CreateLtiUserInfoesTable.cs" />
+    <Compile Include="Migrations\201508050906360_CreateLtiUserInfoesTable.Designer.cs">
+      <DependentUpon>201508050906360_CreateLtiUserInfoesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ConsumerToolRepository.cs" />
     <Compile Include="Repositories\CourseCollaboratorRepository.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
     <Compile Include="Repositories\CourseStateRepository.cs" />
@@ -524,6 +534,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508121347474_RemoveLockedFromCourseCollaborators.resx">
       <DependentUpon>201508121347474_RemoveLockedFromCourseCollaborators.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508050903440_CreateConsumerToolsTable.resx">
+      <DependentUpon>201508050903440_CreateConsumerToolsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508050906360_CreateLtiUserInfoesTable.resx">
+      <DependentUpon>201508050906360_CreateLtiUserInfoesTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Security.Claims;
+using easygenerator.Auth.Models;
 
 namespace easygenerator.Auth.Providers
 {
     public interface ITokenProvider
     {
-        string CreateToken(string issuer, string audience, byte[] secret, IEnumerable<Claim> claims);
+        List<TokenModel> GenerateTokens(string username, string issuer, IEnumerable<string> endpoints);
     }
 }

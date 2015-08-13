@@ -46,9 +46,11 @@
   <ItemGroup>
     <Compile Include="Entities\ACL\AccessControlListEntry.cs" />
     <Compile Include="Entities\ACL\TemplateAccessControlListEntry.cs" />
+    <Compile Include="Entities\ConsumerTool.cs" />
     <Compile Include="Entities\CourseState.cs" />
     <Compile Include="Entities\CourseTemplateSettings.cs" />
     <Compile Include="Entities\DemoCourseInfo.cs" />
+    <Compile Include="Entities\LtiUserInfo.cs" />
     <Compile Include="Entities\OrderingUtils.cs" />
     <Compile Include="Entities\Identifiable.cs" />
     <Compile Include="Entities\LearningPath.cs" />
@@ -151,6 +153,7 @@
     <Compile Include="Events\QuestionEvents\TextMatchingEvents\TextMatchingAnswerEvent.cs" />
     <Compile Include="Events\QuestionEvents\TextMatchingEvents\TextMatchingAnswerKeyChangedEvent.cs" />
     <Compile Include="Events\QuestionEvents\TextMatchingEvents\TextMatchingAnswerValueChangedEvent.cs" />
+    <Compile Include="Events\UserEvents\CreateUserInitialDataEvent.cs" />
     <Compile Include="Events\UserEvents\UserEvent.cs" />
     <Compile Include="Events\UserEvents\UserFeedbackEvent.cs" />
     <Compile Include="Events\UserEvents\UserSignedUpEvent.cs" />
@@ -159,6 +162,7 @@
     <Compile Include="Events\UserEvents\UserUpgradedToPlus.cs" />
     <Compile Include="Events\UserEvents\UserUpgradedToStarter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IConsumerToolRepository.cs" />
     <Compile Include="Repositories\ICourseCollaboratorRepository.cs" />
     <Compile Include="Repositories\ICourseStateRepository.cs" />
     <Compile Include="Repositories\IDemoCourseRepository.cs" />

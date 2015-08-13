@@ -212,6 +212,15 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<CourseState>().HasRequired(e => e.Course);
 
+            modelBuilder.Entity<ConsumerTool>().Property(e => e.Title).HasMaxLength(255);
+            modelBuilder.Entity<ConsumerTool>().Property(e => e.Domain).HasMaxLength(255);
+            modelBuilder.Entity<ConsumerTool>().Property(e => e.Key).IsRequired();
+            modelBuilder.Entity<ConsumerTool>().Property(e => e.Secret).IsRequired();
+
+            modelBuilder.Entity<LtiUserInfo>().HasKey(e => new { e.Id });
+            modelBuilder.Entity<LtiUserInfo>().Property(e => e.LtiUserId).IsRequired();
+            modelBuilder.Entity<LtiUserInfo>().HasRequired(e => e.User).WithOptional(c => c.LtiUserInfo).WillCascadeOnDelete(true);
+
             base.OnModelCreating(modelBuilder);
         }
 

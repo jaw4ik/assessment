@@ -71,6 +71,7 @@
     <Compile Include="Entities\CourseStateTests.cs" />
     <Compile Include="Entities\DemoCourseInfoTests.cs" />
     <Compile Include="Entities\LearningPathTests.cs" />
+    <Compile Include="Entities\LtiUserInfoTests.cs" />
     <Compile Include="Entities\OnboardingTests.cs" />
     <Compile Include="Entities\Questions\AnswerTests.cs" />
     <Compile Include="Entities\FillInTheBlanksTests.cs" />
