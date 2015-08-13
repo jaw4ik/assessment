@@ -36,7 +36,6 @@
             //#endregion commands
 
             //#region dialogs
-            'dialogs/createCourse.spec',
             'dialogs/collaboration/addCollaborator.spec',
             'dialogs/collaboration/collaboration.spec',
             'dialogs/collaboration/collaborator.spec',

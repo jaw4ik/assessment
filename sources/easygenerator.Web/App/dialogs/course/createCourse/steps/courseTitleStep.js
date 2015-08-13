@@ -1,5 +1,5 @@
-﻿define(['durandal/events', 'constants', 'clientContext', 'localization/localizationManager'],
-    function (events, constants, clientContext, localizationManager) {
+﻿define(['durandal/events', 'constants', 'localization/localizationManager'],
+    function (events, constants, localizationManager) {
         "use strict";
         var viewModel = {
             title: ko.observable(''),
@@ -13,7 +13,7 @@
             activate: activate,
             deactivate: deactivate,
             titleChanged: titleChanged,
-            caption: ko.observable('Create your course')
+            caption: ko.observable(localizationManager.localize('createYourCourse'))
         };
 
         viewModel.isValid = ko.computed(function () {

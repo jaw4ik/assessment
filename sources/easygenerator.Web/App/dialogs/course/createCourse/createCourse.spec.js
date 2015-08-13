@@ -8,6 +8,7 @@
         clientContext = require('clientContext'),
         dialog = require('widgets/dialogWizard/viewmodel'),
         createCourseCommand = require('commands/createCourseCommand'),
+        localozationManager = require('localization/localizationManager'),
         courseTitleStep = require('dialogs/course/createCourse/steps/courseTitleStep'),
         courseTemplateStep = require('dialogs/course/createCourse/steps/courseTemplateStep');
 
@@ -25,6 +26,22 @@
         });
 
         describe('show:', function () {
+            var createCourse = 'create course',
+                createFirstCourse = 'create first course';
+
+            beforeEach(function () {
+                spyOn(localozationManager, 'localize').and.callFake(function (key) {
+                    switch (key) {
+                        case 'createYourFirstCourse':
+                            return createFirstCourse;
+                        case 'createYourCourse':
+                            return createCourse;
+                        default:
+                            return key;
+                    }
+                });
+            });
+
             describe('when client context has show create course popup flag', function () {
                 beforeEach(function () {
                     spyOn(clientContext, 'get').and.returnValue(true);
@@ -33,7 +50,7 @@
 
                 it('should set courseTitleStep caption', function () {
                     viewModel.show();
-                    expect(courseTitleStep.caption()).toBe('Create your first course');
+                    expect(courseTitleStep.caption()).toBe(createFirstCourse);
                 });
 
                 it('should set event category to \'Splash pop-up after signup\'', function () {
@@ -54,7 +71,7 @@
 
                 it('should set courseTitleStep caption', function () {
                     viewModel.show();
-                    expect(courseTitleStep.caption()).toBe('Create your course');
+                    expect(courseTitleStep.caption()).toBe(createCourse);
                 });
 
                 it('should set event category to undefined', function () {
