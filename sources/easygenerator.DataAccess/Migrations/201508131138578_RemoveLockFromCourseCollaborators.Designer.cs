@@ -7,13 +7,13 @@ namespace easygenerator.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class RemoveLockedFromCourseCollaborators : IMigrationMetadata
+    public sealed partial class RemoveLockFromCourseCollaborators : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(RemoveLockedFromCourseCollaborators));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RemoveLockFromCourseCollaborators));
         
         string IMigrationMetadata.Id
         {
-            get { return "201508121347474_RemoveLockedFromCourseCollaborators"; }
+            get { return "201508131138578_RemoveLockFromCourseCollaborators"; }
         }
         
         string IMigrationMetadata.Source

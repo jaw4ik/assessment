@@ -302,11 +302,6 @@
     <Compile Include="Migrations\201508031353526_AddPackageAndPublicationLinksToLearningPath.Designer.cs">
       <DependentUpon>201508031353526_AddPackageAndPublicationLinksToLearningPath.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201508121347474_RemoveLockedFromCourseCollaborators.cs" />
-    <Compile Include="Migrations\201508121347474_RemoveLockedFromCourseCollaborators.Designer.cs">
-      <DependentUpon>201508121347474_RemoveLockedFromCourseCollaborators.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\201508050903440_CreateConsumerToolsTable.cs" />
     <Compile Include="Migrations\201508050903440_CreateConsumerToolsTable.Designer.cs">
       <DependentUpon>201508050903440_CreateConsumerToolsTable.cs</DependentUpon>
@@ -314,6 +309,10 @@
     <Compile Include="Migrations\201508050906360_CreateLtiUserInfoesTable.cs" />
     <Compile Include="Migrations\201508050906360_CreateLtiUserInfoesTable.Designer.cs">
       <DependentUpon>201508050906360_CreateLtiUserInfoesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508131138578_RemoveLockFromCourseCollaborators.cs" />
+    <Compile Include="Migrations\201508131138578_RemoveLockFromCourseCollaborators.Designer.cs">
+      <DependentUpon>201508131138578_RemoveLockFromCourseCollaborators.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -532,14 +531,14 @@
     <EmbeddedResource Include="Migrations\201508031353526_AddPackageAndPublicationLinksToLearningPath.resx">
       <DependentUpon>201508031353526_AddPackageAndPublicationLinksToLearningPath.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508121347474_RemoveLockedFromCourseCollaborators.resx">
-      <DependentUpon>201508121347474_RemoveLockedFromCourseCollaborators.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508050903440_CreateConsumerToolsTable.resx">
       <DependentUpon>201508050903440_CreateConsumerToolsTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508050906360_CreateLtiUserInfoesTable.resx">
       <DependentUpon>201508050906360_CreateLtiUserInfoesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508131138578_RemoveLockFromCourseCollaborators.resx">
+      <DependentUpon>201508131138578_RemoveLockFromCourseCollaborators.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

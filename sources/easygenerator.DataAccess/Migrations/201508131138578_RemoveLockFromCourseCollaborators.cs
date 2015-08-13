@@ -3,7 +3,7 @@ namespace easygenerator.DataAccess.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class RemoveLockedFromCourseCollaborators : DbMigration
+    public partial class RemoveLockFromCourseCollaborators : DbMigration
     {
         public override void Up()
         {
