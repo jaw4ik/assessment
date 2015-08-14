@@ -1775,17 +1775,7 @@
 
 .editable-text-binding {
     white-space: pre-wrap;
-    word-wrap: break-word;
-
-    &[contenteditable=true]:empty:after {
-        content: attr(placeholder);
-        position: absolute;
-        top: 0;
-        display: block; /* For Firefox */
-        font-size: 20px;
-        font-family: 'OpenSans';
-        color: #bcbcc4;
-    }
+    word-wrap: break-word;   
 }
 
 /*#endregion EDITABLE-TEXT*/
