@@ -82,12 +82,12 @@
 
             function lockScroll() {
                 $('.scrollable', $element).on(eventNames, trapScroll);
-                $element.on(eventNames, preventScroll);
+                $element.on(eventNames, preventOuterScroll);
             }
 
             function releaseScroll() {
                 $('.scrollable', $element).off(eventNames, trapScroll);
-                $element.off(eventNames, preventScroll);
+                $element.off(eventNames, preventOuterScroll);
             }
 
             function trapScroll(ev) {
@@ -109,11 +109,25 @@
                 var scrollDist = Math.ceil(scrollHeight / scrollCount),
                 scrollDelta = up ? scrollDist * -1 : scrollDist;
 
+                ev.data = { isProcessed: true };
                 $this.scrollTop(scrollTop + scrollDelta);
                 return preventScroll(ev);
             }
 
+            function preventOuterScroll(ev) {
+                if (ev.target && !(ev.data && ev.data.isProcessed)) {
+                    var $target = $(ev.target),
+                        $scrollableParent = $target.parents('.scrollable');
+                    if ($scrollableParent.length > 0) {
+                        trapScroll.call($scrollableParent[0], ev);
+                    }
+                }
+
+                return preventScroll(ev);
+            }
+
             function preventScroll(ev) {
+                ev.data = { isProcessed: false };
                 ev.stopPropagation();
                 ev.preventDefault();
                 ev.returnValue = false;

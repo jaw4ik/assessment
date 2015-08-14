@@ -289,7 +289,7 @@
     @template-selector-description-text-color: #42515f;
 
     display: flex;
-    height: 100%;
+    width: 100%;
 
     .templates-list-wrapper {
         flex: 0 0 235px;
@@ -324,7 +324,7 @@
                 align-items: center;
                 position: relative;
                 flex: 0 0;
-                height: 50px;
+                min-height: 50px;
                 font: 15px 'OpenSans-Semibold';
                 color: @template-selector-regular-text-color;
                 padding-left: 10px;
@@ -387,7 +387,10 @@
 
     .template-details {
         flex: 1 0;
-        padding: 20px 35px;
+        margin-right: 20px;
+        padding: 20px 15px 20px 35px;
+        overflow: hidden;
+        overflow-y: auto;
 
         .template-details-section {
             color: @template-selector-description-text-color;
@@ -556,17 +559,18 @@
 
             &.next {
                 .btn-caption {
+                    display: inline-block;
                     margin-left: -10px;
 
                     &:after {
                         content: '';
                         position: absolute;
-                        right: -17px;
                         top: 50%;
-                        display: inline-block;
+                        right: -12px;
+                        display: block;
                         width: 8px;
                         height: 12px;
-                        margin-top: -5px;
+                        margin-top: -6px;
                         background: url('images/sprites_16.png') -89px -107px no-repeat;
                     }
                 }
@@ -576,12 +580,15 @@
 
     .modal-dialog.create-course-template-step {
         .modal-dialog-body {
-            height: 370px;
+            display: flex;
+            min-height: 370px;
+            max-height: 370px;
         }
     }
 
     .modal-dialog.create-course-title-step {
         .modal-dialog-body {
+            flex: none;
             padding: 0px 70px 30px 70px;
 
             .title-wrapper {

@@ -12,6 +12,7 @@
             activeStepViewModel = ko.unwrap(valueAccessor().activeStep),
             stepClassSelector = '.modal-dialog-wizard-step',
             $currentStep = $element.find(stepClassSelector + '.active'),
+            $currentStepDialogBody = $currentStep.find('.modal-dialog-body').height('100%'),
             $targetStep = getTargetStep();
 
         if (!$targetStep) {
@@ -48,16 +49,17 @@
 
             $currentStep.height('100%');
             $targetStep.height('100%');
+            $currentStepDialogBody.height('100%');
 
-            $element.animate({ height: targetHeight }, 300, function () {
+            $element.animate({ height: targetHeight }, 200, function () {
                 $targetStep.height('auto');
-                $currentStep.height('auto');
                 $element.removeAttr('style');
             });
 
             $currentStep.fadeOut(100, function () {
                 $currentStep.height('auto');
                 $targetStep.fadeIn(100, function () {
+                    $currentStepDialogBody.height('auto');
                     setFocus();
                 });
             });
