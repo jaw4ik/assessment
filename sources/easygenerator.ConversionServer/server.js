@@ -16,7 +16,7 @@ var
     config = require('./config')
 ;
 
-app.use(cors());
+//app.use(cors());
 app.use(morgan('dev'));
 
 app.get(config.LOCATION + '/', function(req, res) {
