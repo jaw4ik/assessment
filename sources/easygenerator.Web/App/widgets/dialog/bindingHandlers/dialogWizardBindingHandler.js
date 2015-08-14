@@ -51,6 +51,7 @@
 
             $element.animate({ height: targetHeight }, 300, function () {
                 $targetStep.height('auto');
+                $currentStep.height('auto');
                 $element.removeAttr('style');
             });
 
@@ -63,9 +64,9 @@
         }
 
         function setFocus() {
-            setTimeout(function () {
+            _.defer(function () {
                 $element.find('.autofocus').focus();
-            }, 0);
+            });
         }
     }
 };
