@@ -168,6 +168,20 @@
                 expect(eventTracker.publish).toHaveBeenCalledWith('Open \"choose audio file\" dialog', 'Audio library');
             });
 
+            describe('when upload failed', function () {
+
+                it('should remove upload from the background', function (done) {
+                    viewModel.uploads = [];
+                    viewModel.addAudio(file);
+                    model.on(constants.storage.audio.statuses.failed).then(function () {
+                        expect(viewModel.uploads.length).toEqual(0);
+                        done();
+                    });
+                    model.trigger(constants.storage.audio.statuses.failed);
+                });
+
+            });
+
         });
 
         describe('activate:', function () {

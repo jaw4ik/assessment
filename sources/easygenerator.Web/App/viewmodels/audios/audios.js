@@ -85,6 +85,10 @@ function (app, constants, eventTracker, userContext, localizationManager, upgrad
         viewModel.uploads.push(model);
         viewModel.audios.push(new AudioViewModel(model));
 
+        model.on(constants.storage.audio.statuses.failed).then(function () {
+            viewModel.uploads = _.without(viewModel.uploads, model);
+        });
+
         model.upload();
     }
 
