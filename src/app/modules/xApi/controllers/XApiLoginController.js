@@ -9,17 +9,17 @@
         .module('assessment.xApi')
         .controller('XApiLoginController', LoginController);
 
-    LoginController.$inject = ['$rootScope', '$location', 'xAPIManager', 'settings', 'assessment'];
+    LoginController.$inject = ['$rootScope', '$location', 'xAPIManager', 'settings', 'assessment', 'user'];
 
-    function LoginController($rootScope, $location, xAPIManager, settings, assessment) {
+    function LoginController($rootScope, $location, xAPIManager, settings, assessment, user) {
         var that = this;
 
         $rootScope.title = assessment.title;
 
         that.courseTitle = assessment.title;
         that.questionsLength = assessment.questions.length;
-        that.username = $location.search()['name'];
-        that.email = $location.search()['email'];
+        that.username = user ? user.username : '';
+        that.email = user ? user.email : '';
 
         that.emailModified = false,
         that.usernameModified = false;
