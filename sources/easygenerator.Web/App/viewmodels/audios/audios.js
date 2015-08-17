@@ -27,14 +27,14 @@ function (app, constants, eventTracker, userContext, localizationManager, upgrad
             return userContext.identifyStoragePermissions().then(function () {
                 viewModel.audios([]);
 
-                _.each(audios, function (audio) {
-                    viewModel.audios.push(new AudioViewModel(audio));
-                });
-
                 _.each(viewModel.uploads, function (model) {
                     if (model.status !== constants.storage.audio.statuses.loaded) {
                         viewModel.audios.push(new AudioViewModel(model));
                     }
+                });
+
+                _.each(audios, function (audio) {
+                    viewModel.audios.push(new AudioViewModel(audio));
                 });
 
                 viewModel.uploads = _.reject(viewModel.uploads, function (model) {
@@ -82,8 +82,8 @@ function (app, constants, eventTracker, userContext, localizationManager, upgrad
         eventTracker.publish(events.openUploadAudioDialog, eventCategory);
 
         var model = factory.create(file);
-        viewModel.uploads.push(model);
-        viewModel.audios.push(new AudioViewModel(model));
+        viewModel.uploads.unshift(model);
+        viewModel.audios.unshift(new AudioViewModel(model));
 
         model.on(constants.storage.audio.statuses.failed).then(function () {
             viewModel.uploads = _.without(viewModel.uploads, model);
