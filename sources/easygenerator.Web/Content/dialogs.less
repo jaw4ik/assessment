@@ -388,7 +388,7 @@
     .template-details {
         flex: 1 0;
         margin-right: 20px;
-        padding: 20px 15px 20px 35px;
+        padding: 20px 15px 0px 35px;
         overflow: hidden;
         overflow-y: auto;
 
@@ -411,9 +411,11 @@
             }
 
             .template-details-didactical-structure-image {
-                width: 200px;
-                height: 190px;
-                border-radius: 5px;
+                width: auto;
+                height: auto;
+                max-width: 330px;
+                max-height: 210px;
+                border-radius: 5px;                
             }
         }
     }
