@@ -1,6 +1,6 @@
 ﻿define(['durandal/app', 'constants', 'notify', 'localization/localizationManager', 'http/apiHttpWrapper', 'http/storageHttpWrapper', 'mappers/courseModelMapper',
-    'mappers/objectiveModelMapper', 'mappers/templateModelMapper', 'mappers/videoModelMapper', 'mappers/learningPathModelMapper'],
-    function (app, constants, notify, localizationManager, apiHttpWrapper, storageHttpWrapper, courseModelMapper, objectiveModelMapper, templateModelMapper, videoModelMapper, learningPathModelMapper) {
+    'mappers/objectiveModelMapper', 'mappers/templateModelMapper', 'mappers/videoModelMapper', 'mappers/audioModelMapper', 'mappers/learningPathModelMapper'],
+    function (app, constants, notify, localizationManager, apiHttpWrapper, storageHttpWrapper, courseModelMapper, objectiveModelMapper, templateModelMapper, videoModelMapper, audioModelMapper, learningPathModelMapper) {
         "use strict";
         var
             objectives = [],
@@ -8,53 +8,58 @@
             templates = [],
             learningPaths = [],
             videos = [],
+            audios = [],
 
             initialize = function () {
-                return Q.fcall(function () {
+                return Q.fcall(function() {
                     return apiHttpWrapper.post('api/templates')
-                        .then(function (data) {
-                            _.each(data, function (template) {
+                        .then(function(data) {
+                            _.each(data, function(template) {
                                 templates.push(templateModelMapper.map(template));
                             });
                         });
-                }).then(function () {
+                }).then(function() {
                     return apiHttpWrapper.post('api/objectives')
-                      .then(function (data) {
-                          _.each(data, function (item) {
-                              objectives.push(objectiveModelMapper.map(item));
-                          });
-                      });
-                }).then(function () {
-                    return apiHttpWrapper.post('api/courses')
-                    .then(function (data) {
-                        _.each(data, function (item) {
-                            // Temporary - do not display courses if user does not have template
-                            if (_.find(templates, function (template) {
-                                return item.Template.Id === template.id;
-                            })) {
-                                courses.push(courseModelMapper.map(item, objectives, templates));
-                            }
-                        });
-                    });
-                }).then(function () {
-                    return apiHttpWrapper.post('api/learningpaths')
-                    .then(function (data) {
-                        _.each(data, function (item) {
-                            learningPaths.push(learningPathModelMapper.map(item, courses));
-                        });
-                    });
-                }).then(function () {
-                        return storageHttpWrapper.get(constants.storage.host + constants.storage.mediaUrl)
-                            .then(function (data) {
-                                _.each(data.Videos, function (video) {
-                                    videos.push(videoModelMapper.map(video));
-                                });
-                            }).fail(function () {
-                                notify.error(localizationManager.localize('storageFailed'));
+                        .then(function(data) {
+                            _.each(data, function(item) {
+                                objectives.push(objectiveModelMapper.map(item));
                             });
-                    }).fail(function () {
-                        app.showMessage("Failed to initialize datacontext.");
-                    });
+                        });
+                }).then(function() {
+                    return apiHttpWrapper.post('api/courses')
+                        .then(function(data) {
+                            _.each(data, function(item) {
+                                // Temporary - do not display courses if user does not have template
+                                if (_.find(templates, function(template) {
+                                    return item.Template.Id === template.id;
+                                })) {
+                                    courses.push(courseModelMapper.map(item, objectives, templates));
+                                }
+                            });
+                        });
+                }).then(function() {
+                    return apiHttpWrapper.post('api/learningpaths')
+                        .then(function(data) {
+                            _.each(data, function(item) {
+                                learningPaths.push(learningPathModelMapper.map(item, courses));
+                            });
+                        });
+                }).then(function() {
+                    return storageHttpWrapper.get(constants.storage.host + constants.storage.mediaUrl)
+                        .then(function(data) {
+                            _.each(data.Videos, function(video) {
+                                videos.push(videoModelMapper.map(video));
+                            });
+                            _.each(data.Audios, function(audio) {
+                                audios.push(audioModelMapper.map(audio));
+                            });
+
+                        }).fail(function() {
+                            notify.error(localizationManager.localize('storageFailed'));
+                        });
+                }).fail(function() {
+                    app.showMessage("Failed to initialize datacontext.");
+                });
             },
 
 
@@ -73,6 +78,7 @@
             templates: templates,
             learningPaths: learningPaths,
             videos: videos,
+            audios: audios,
             getQuestions: getQuestions
         };
     });

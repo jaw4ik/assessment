@@ -16,10 +16,10 @@ var
     config = require('./config')
 ;
 
-app.use(cors());
+//app.use(cors());
 app.use(morgan('dev'));
 
-app.get(config.LOCATION + '/', function (req, res) {
+app.get(config.LOCATION + '/', function(req, res) {
     res.send('<html>' +
         '       <head>' +
         '       </head>' +
@@ -37,7 +37,7 @@ app.post(config.LOCATION + '/', function(req, res) {
 
     var promises = [];
 
-    busboy.on('file', function (name, file, filename) {        
+    busboy.on('file', function(name, file, filename) {
         if (filename.length === 0) {
             file.resume();
         } else {
@@ -47,8 +47,11 @@ app.post(config.LOCATION + '/', function(req, res) {
             fs.mkdirSync(directoryPath);
 
             promises.push(converter.run(file, directoryPath)
-                .then(function() {
-                    return id;
+                .then(function(metadata) {
+                    return {
+                        id: id,
+                        duration: metadata.duration
+                    };
                 })
                 .catch(function(reason) {
                     file.resume();
@@ -62,41 +65,19 @@ app.post(config.LOCATION + '/', function(req, res) {
                 if (files.length === 0) {
                     res.status(400).send('You have to provide at least 1 file');
                 } else {
-
-                    res.format({
-                        'text/html': function() {
-                            res.send('<html>' +
-                                '       <head>' +
-                                '       </head>' +
-                                '       <body>' +
-                                '           <ul>' +
-                                files.map(function(id) {
-                                    var url = req.protocol + '://' + req.get('host') + req.originalUrl + '/' + id;
-                                    return '<li><a href="' + url + '">' + url + '</a></li>';
-                                }).join() +
-                                '           </ul>' +
-                                '       </body>' +
-                                '     </html>');
-                        },
-                        'application/json': function() {
-                            res.send(files.map(function(id) {
-                                return {
-                                    id: id,
-                                    url: req.protocol + '://' + req.get('host') + req.originalUrl + '/' + id
-                                };
-                            }));
-                        },
-                        'default': function() {
-                            res.status(406).send('Not Acceptable');
-                        }
-                    });
+                    res.send(files.map(function(file) {
+                        return {
+                            id: file.id,
+                            duration: file.duration,
+                            url: req.protocol + '://' + req.get('host') + req.originalUrl + '/' + file.id
+                        };
+                    }));
                 }
             })
             .catch(function(reason) {
                 console.log(reason);
                 res.status(400).send('Unable to process file(s)');
             });
-
     });
 
     return req.pipe(busboy);
@@ -132,7 +113,7 @@ app.delete(config.LOCATION + '/:id', function(req, res) {
 
     fs.readdir(path.join(config.TEMP_FOLDER, id), function(err, files) {
         if (err) {
-            if (err.code != "ENOENT") {
+            if (err.code !== "ENOENT") {
                 throw err;
             } else {
                 res.status(204).end();
@@ -149,7 +130,7 @@ app.delete(config.LOCATION + '/:id', function(req, res) {
 
 });
 
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
     console.error(err.stack);
     res.status(500).send('Something went wrong!');
 });

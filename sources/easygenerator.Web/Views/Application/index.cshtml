@@ -4,6 +4,10 @@
 @using easygenerator.Infrastructure
 @using easygenerator.Web.Components
 
+@{
+    Layout = null;
+}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,13 +66,13 @@
         var userCultures = Request.UserLanguages.Select(l => l.Split(';')[0]).ToList();
         <script type="text/javascript">
 
-            window.top.userCultures = [];
-            window.top.appVersion = @DateTimeWrapper.InstanceStartTime.Ticks;
-            window.top.BOMSymbol = '\ufeff';
+            window.userCultures = [];
+            window.appVersion = @DateTimeWrapper.InstanceStartTime.Ticks;
+            window.BOMSymbol = '\ufeff';
 
             @for (var i = 0; i < userCultures.Count(); i++)
         {
-            <text>window.top.userCultures.push('@userCultures[i]');</text>;
+            <text>window.userCultures.push('@userCultures[i]');</text>;
         }
         </script>
     }
@@ -80,19 +84,27 @@
         window.storageServiceUrl = '@ConfigurationManager.AppSettings["StorageServiceUrl"]';
         </text>
         }
+        @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["ConversionServiceUrl"]))
+        {
+        <text>
+        window.conversionServiceUrl = '@ConfigurationManager.AppSettings["ConversionServiceUrl"]';
+        </text>
+        }
         //bootstraper
         (function() {
-            if (window.auth.isUserLoggedIn()) {
+            if (window.auth.isUserLoggedIn() || window.auth.isAuthTokenPresentInHash()) {
                 var js = document.createElement('script');
                 js.type = 'text/javascript';
                 js.async = true;
                 @if (HttpContext.Current.IsDebuggingEnabled)
-                {<text>
+                {
+                <text>
                 js.src = "/Scripts/require.js";
                 js.dataset.main = "/App/main";
-                </text>}
-                else
-                {<text>
+                </text>
+                }
+                else {
+                <text>
                 js.src = '@("/App/main-built.js?v=" + DateTimeWrapper.InstanceStartTime.Ticks)';
                 </text>
                 }

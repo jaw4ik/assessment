@@ -68,31 +68,36 @@ namespace easygenerator.DomainModel.Entities
             get { return CollaboratorsCollection.AsEnumerable(); }
         }
 
-        public virtual CourseCollaborator Collaborate(string username, string createdBy)
+        public virtual CourseCollaborator Collaborate(string userEmail, string createdBy)
         {
-            ThrowIfUserEmailIsInvalid(username);
-            if (CreatedBy == username || Collaborators.Any(e => e.Email.Equals(username, StringComparison.InvariantCultureIgnoreCase)))
+            ThrowIfUserEmailIsInvalid(userEmail);
+            if (CreatedBy == userEmail || Collaborators.Any(e => e.Email.Equals(userEmail, StringComparison.InvariantCultureIgnoreCase)))
                 return null;
 
-            var collaborator = new CourseCollaborator(this, username, createdBy);
+            var collaborator = new CourseCollaborator(this, userEmail, createdBy);
             CollaboratorsCollection.Add(collaborator);
-            Template.GrantAccessTo(username);
+            Template.GrantAccessTo(userEmail);
             RaiseEvent(new CourseCollaboratorAddedEvent(collaborator));
 
             return collaborator;
         }
 
-        public virtual void RemoveCollaborator(ICloner entityCloner, CourseCollaborator collaborator)
+        public virtual bool RemoveCollaborator(ICloner entityCloner, string collaboratorEmail)
         {
-            ThrowIfCollaboratorIsInvalid(collaborator);
+            var collaborator = CollaboratorsCollection.FirstOrDefault(e => e.Email.Equals(collaboratorEmail, StringComparison.InvariantCultureIgnoreCase));
+            if (collaborator == null)
+            {
+                return false;
+            }
 
             collaborator.Course = null;
             CollaboratorsCollection.Remove(collaborator);
             CloneObjectivesOfCollaborator(entityCloner, collaborator.Email);
 
             MarkAsModified(CreatedBy);
-
             RaiseEvent(new CourseCollaboratorRemovedEvent(this, collaborator));
+
+            return true;
         }
 
         public virtual void AcceptCollaboration(CourseCollaborator collaborator)
@@ -273,7 +278,6 @@ namespace easygenerator.DomainModel.Entities
         }
 
         public DateTime? BuildOn { get; protected internal set; }
-
         public string PackageUrl { get; private set; }
 
         public virtual void UpdatePackageUrl(string packageUrl)
@@ -315,25 +319,6 @@ namespace easygenerator.DomainModel.Entities
         }
 
         #region Course template settings
-
-        protected internal class CourseTemplateSettings : Entity
-        {
-            public CourseTemplateSettings()
-            {
-
-            }
-
-            public CourseTemplateSettings(string createdBy)
-                : base(createdBy)
-            {
-
-            }
-
-            public virtual Course Course { get; set; }
-            public virtual Template Template { get; set; }
-            public string Settings { get; set; }
-            public string ExtraData { get; set; }
-        }
 
         protected internal virtual ICollection<CourseTemplateSettings> TemplateSettings { get; set; }
 

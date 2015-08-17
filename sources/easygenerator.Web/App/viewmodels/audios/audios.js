@@ -1,27 +1,15 @@
-﻿define(['durandal/app', 'constants', 'eventTracker', 'userContext', 'localization/localizationManager',
-    'widgets/upgradeDialog/viewmodel', 'repositories/videoRepository', 'storageFileUploader',
-    'videoUpload/upload', 'dialogs/video/video', 'videoUpload/handlers/durations'
-],
-function (app, constants, eventTracker, userContext, localizationManager,
-    upgradeDialog, repository, storageFileUploader, videoUpload, videoPopup, durationsLoader) {
+﻿define(['durandal/app', 'constants', 'eventTracker', 'userContext', 'localization/localizationManager', 'widgets/upgradeDialog/viewmodel', 'dialogs/video/video', 'viewmodels/audios/queries/getCollection', 'viewmodels/audios/factory', 'viewmodels/audios/AudioViewModel'],
+function (app, constants, eventTracker, userContext, localizationManager, upgradeDialog, videoPopup, getCollection, factory, AudioViewModel) {
     "use strict";
 
     app.on(constants.storage.changesInQuota, setAvailableStorageSpace);
-    app.on(constants.storage.audio.changesInUpload, updateAudios);
 
     var eventCategory = 'Audio library',
         events = {
             openUploadAudioDialog: 'Open \"choose audio file\" dialog'
-        },
-        uploadSettings = {
-            acceptedTypes: '*',
-            supportedExtensions: '*',
-            uploadErrorMessage: localizationManager.localize('videoUploadError'),
-            notAnoughSpaceMessage: localizationManager.localize('videoUploadNotAnoughSpace'),
-            startUpload: videoUpload.upload
-        }
-
+        };
     var viewModel = {
+        uploads: [],
         audios: ko.observableArray([]),
         storageSpaceProgressBarVisibility: ko.observable(false),
         availableStorageSpace: ko.observable(0),
@@ -29,46 +17,45 @@ function (app, constants, eventTracker, userContext, localizationManager,
         statuses: constants.storage.audio.statuses,
         addAudio: addAudio,
         activate: activate,
+        deactivate: deactivate,
         showAudioPopup: showAudioPopup,
-        updateAudios: updateAudios
+        ensureCanAddAudio: ensureCanAddAudio
     };
 
     function activate() {
-        return userContext.identifyStoragePermissions().then(function () {
-            return repository.getCollection().then(function (audios) {
-                return durationsLoader.getVideoDurations(audios).then(function () {
-                    viewModel.audios([]);
-                    _.each(audios, function (audio) {
-                        viewModel.audios.push(mapAudio(audio));
-                    });
-                    setAvailableStorageSpace();
+        return getCollection.execute().then(function (audios) {
+            return userContext.identifyStoragePermissions().then(function () {
+                viewModel.audios([]);
+
+                _.each(viewModel.uploads, function (model) {
+                    if (model.status !== constants.storage.audio.statuses.loaded) {
+                        viewModel.audios.push(new AudioViewModel(model));
+                    }
                 });
+
+                _.each(audios, function (audio) {
+                    viewModel.audios.push(new AudioViewModel(audio));
+                });
+
+                viewModel.uploads = _.reject(viewModel.uploads, function (model) {
+                    return model.status === constants.storage.audio.statuses.failed || model.status === constants.storage.audio.statuses.loaded;
+                });
+
+                setAvailableStorageSpace();
             });
         });
     }
 
-    function mapAudio(item) {
-        var audio = {};
 
-        audio.id = item.id;
-        audio.title = item.title;
-        audio.vimeoId = ko.observable(item.vimeoId);
-        audio.progress = ko.observable(item.progress || 0);
-        audio.status = ko.observable(item.status || viewModel.statuses.loaded);
-        audio.time = ko.observable(getTimeString(item.duration || 0));
-
-        return audio;
+    function deactivate() {
+        return Q.fcall(function () {
+            _.each(viewModel.uploads, function (model) {
+                model.off();
+            });
+        });
     }
 
-    function getTimeString(number) {
-        var minutes = Math.floor(number / 60);
-        var seconds = number - (minutes * 60);
 
-        if (minutes < 10) { minutes = "0" + minutes; }
-        if (seconds < 10) { seconds = "0" + seconds; }
-        
-        return minutes + ':' + seconds;
-    }
 
     function setAvailableStorageSpace() {
         if (!userContext.hasStarterAccess() || userContext.hasTrialAccess()) {
@@ -91,50 +78,37 @@ function (app, constants, eventTracker, userContext, localizationManager,
         viewModel.availableStorageSpace(value.toFixed(1) + localizationManager.localize('mb'));
     }
 
-    function addAudio() {
-        if (!userContext.hasStarterAccess() || userContext.hasTrialAccess()) {
-            upgradeDialog.show(constants.dialogs.upgrade.settings.audioUpload);
-            return;
-        }
-
-        storageFileUploader.upload(uploadSettings);
+    function addAudio(file) {
         eventTracker.publish(events.openUploadAudioDialog, eventCategory);
-    }
 
-    function updateAudios() {
-        return repository.getCollection().then(function (audios) {
-            _.each(audios, function (audio) {
-                var viewModelAudio = _.find(viewModel.audios(), function (item) {
-                    return audio.id == item.id;
-                });
+        var model = factory.create(file);
+        viewModel.uploads.unshift(model);
+        viewModel.audios.unshift(new AudioViewModel(model));
 
-                if (!viewModelAudio) {
-                    viewModel.audios.unshift(mapAudio(audio));
-                } else {
-                    viewModelAudio.vimeoId(audio.vimeoId);
-                    viewModelAudio.progress(audio.progress);
-                    viewModelAudio.status(audio.status);
-                }
-            });
-            _.each(viewModel.audios(), function (viewModelAudio) {
-                var audio = _.find(audios, function (item) {
-                    return item.id == viewModelAudio.id;
-                });
-                if (!audio) {
-                    var index = viewModel.audios().indexOf(viewModelAudio);
-                    viewModel.audios.splice(index, 1);
-                }
-            });
+        model.on(constants.storage.audio.statuses.failed).then(function () {
+            viewModel.uploads = _.without(viewModel.uploads, model);
         });
+
+        model.upload();
     }
 
     function showAudioPopup(audio) {
         if (!audio.vimeoId()) {
             return;
         }
-
         videoPopup.show(audio.vimeoId());
     }
 
     return viewModel;
+
+
+
+    function ensureCanAddAudio() {
+        if (!userContext.hasStarterAccess() || userContext.hasTrialAccess()) {
+            upgradeDialog.show(constants.dialogs.upgrade.settings.audioUpload);
+            return false;
+        }
+        return true;
+    }
+
 });

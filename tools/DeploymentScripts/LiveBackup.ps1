@@ -29,24 +29,34 @@ C:\Windows\System32\inetsrv\appcmd.exe start site /site.name:"live.easygenerator
 
 $date = Get-Date -UFormat "%d.%m.%Y"
 $7zAdd ="cmd /C 'C:\Program Files\7-Zip\7z.exe' a "
-$websiteBackupsFolder = "D:\Website_backups\"
+$websiteBackupsFolder = "E:\Website_backups\"
 
 echo "Creating database backup:"
 
 $dbName = "live.easygenerator.com"
-$dbBackupName = $dbName + "-" + $date + ".bak"
-$dbBackupPath = "D:\SQL_Backup\" + $dbBackupName 
+$dbBackupFolder = "E:\SQL_Backup_Users\"
+$dbBackupPath = $dbBackupFolder + $dbName + "-" + $date + ".bak"
 $query = "BACKUP DATABASE [" + $dbName + "] TO DISK='" + $dbBackupPath + "' WITH STATS"
+
+echo "Removing old sql backups:"
+$removeCommand = "Remove-Item " + $dbBackupFolder + "*"
+Invoke-Expression -command "$removeCommand"
 
 SqlCmd -E -S ".\sql2014_web" -Q $query
 
+$sourcePath = "D:\Applications\live.easygenerator.com\"
+
+echo "Removing download folder:"
+$removeCommand = "Remove-Item " + $sourcePath + "Download\*"
+Invoke-Expression -command "$removeCommand"
+
+echo "Removing old website backups:"
+$removeCommand = "Remove-Item " + $websiteBackupsFolder + "*"
+Invoke-Expression -command "$removeCommand"
+
 echo "Creating website backup:"
-
-$sourcePath = "D:\Applications\live.easygenerator.com\*"
 $websiteBackupsPath = "'" + $websiteBackupsFolder + "live.easygenerator.com-website-backup-" + $date + ".zip'"
-
-$backupCommand = $7zAdd + $websiteBackupsPath + " " + $sourcePath
-
+$backupCommand = $7zAdd + $websiteBackupsPath + " " + $sourcePath + "*"
 Invoke-Expression -command "$backupCommand"
 
 echo "Creating filestorage backup:"

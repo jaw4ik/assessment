@@ -6,12 +6,18 @@
 @icons-font: 13px 'OpenSans';
 @header-font: 15px 'OpenSans-Semibold';
 @bold-font: 13px 'OpenSans-Semibold';
+@template-hint-font: 12px 'OpenSans';
+@template-hint-link-font: 12px 'OpenSans-SemiboldItalic';
+@template-hint-color: #fff;
+@template-hint-background-color: #42515f;
 @font-color-dark: #42515f;
 @font-color-ligth: #7c858e;
-@thumbnail-box-shadow: 0 0 3px 2px #65bd77;
+@thumbnail-box-shadow: 0 0 0 2px white;
+@thumbnail-selected-box-shadow: 0 0 3px 2px #65bd77;
 @template-selected-icon-background-color: #6ab97a;
 @template-selected-icon-bacground: url(../Content/images/sprites_16.png);
-@template-marked-as-new-label-background: url('/Content/images/newTemplate.png');
+@template-marked-as-new-label-background: url('/Content/images/templates/new-template.png');
+@template-marked-as-deprecated-label-background: url('/Content/images/templates/deprecated-template.png');
 
 .design {
     &.left-side-bar {
@@ -160,6 +166,7 @@
                     list-style: none;
 
                     .template-list-item {
+                        position: relative;
                         margin-bottom: 25px;
 
                         .template-title {
@@ -181,10 +188,12 @@
                             cursor: pointer;
                             -webkit-transition: 0.3s;
                             transition: 0.3s;
+                            -webkit-box-shadow: @thumbnail-box-shadow;
+                            box-shadow: @thumbnail-box-shadow;
 
                             &:hover {
-                                -webkit-box-shadow: @thumbnail-box-shadow;
-                                box-shadow: @thumbnail-box-shadow;
+                                -webkit-box-shadow: @thumbnail-selected-box-shadow;
+                                box-shadow: @thumbnail-selected-box-shadow;
                             }
 
                             .template-thumbnail {
@@ -195,6 +204,31 @@
 
                                 &.transparent {
                                     opacity: 0;
+                                }
+                            }
+
+                            .template-hint {
+                                position: absolute;
+                                bottom: 0px;
+                                padding: 10px;
+                                font: @template-hint-font;
+                                color: @template-hint-color;
+                                background-color: @template-hint-background-color;
+                                opacity: 0.75;
+                                border-bottom-left-radius: 5px;
+                                border-bottom-right-radius: 5px;
+
+                                .template-hint-link {
+                                    display: inline;
+                                    font: @template-hint-link-font;
+
+                                    a {
+                                        color: @template-hint-color;
+
+                                        &:hover {
+                                            text-decoration: underline;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -215,11 +249,26 @@
                             }
                         }
 
+                        &.marked-as-deprecated {
+                            .template-thumbnail-container {
+
+                                &:after {
+                                    content: '';
+                                    position: absolute;
+                                    top: 10px;
+                                    left: 30px;
+                                    width: 122px;
+                                    height: 36px;
+                                    background: @template-marked-as-deprecated-label-background no-repeat;
+                                }
+                            }
+                        }
+
                         &.selected {
 
                             .template-thumbnail-container {
-                                -webkit-box-shadow: @thumbnail-box-shadow;
-                                box-shadow: @thumbnail-box-shadow;
+                                -webkit-box-shadow: @thumbnail-selected-box-shadow;
+                                box-shadow: @thumbnail-selected-box-shadow;
 
                                 .template-selected-icon-default {
                                     top: 5px;

@@ -30,6 +30,7 @@
             'commands/createQuestionCommand.spec',
             'commands/createObjectiveCommand.spec',
             'commands/createCourseCommand.spec',
+            'commands/duplicateCourseCommand.spec',
             'commands/presentationCourseImportCommand.spec',
 
             //#endregion commands
@@ -71,6 +72,7 @@
             //#endregion 
             'localization/localizationManager.spec',
             'models/course.spec',
+            'models/learningPath.spec',
             'models/user.spec',
             'models/video.spec',
             'repositories/answerRepository.spec',
@@ -198,10 +200,13 @@
             'viewmodels/learningPaths/learningPath/commands/removeCourseCommand.spec',
             'viewmodels/learningPaths/learningPath/commands/updateCoursesOrderCommand.spec',
             'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery.spec',
-            'viewmodels/learningPaths/learningPath/learningPath.spec',
+            'viewmodels/learningPaths/learningPath/index.spec',
+            'viewmodels/learningPaths/learningPath/details.spec',
+            'viewmodels/learningPaths/learningPath/publish.spec',
             'viewmodels/learningPaths/learningPath/courseBrief.spec',
             'viewmodels/learningPaths/learningPath/actions/download.spec',
-            
+            'viewmodels/learningPaths/learningPath/actions/publish.spec',
+
             //#endregion
 
             'navigationBar/navigationBar.spec',
@@ -217,7 +222,12 @@
             'viewmodels/library/index.spec',
             'viewmodels/videos/videos.spec',
             'viewmodels/common/titleField.spec',
+            'viewmodels/audios/commands/convert.spec',
+            'viewmodels/audios/commands/pull.spec',
+            'viewmodels/audios/queries/getCollection.spec',
             'viewmodels/audios/audios.spec',
+            'viewmodels/audios/AudioViewModel.spec',
+            'viewmodels/audios/UploadAudioModel.spec',
             'viewmodels/courses/courses.spec',
             'viewmodels/courses/course/index.spec',
             'viewmodels/courses/course/create/course.spec',

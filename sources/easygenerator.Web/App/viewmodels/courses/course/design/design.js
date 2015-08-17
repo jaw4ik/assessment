@@ -10,10 +10,13 @@
             eventCategory = 'Design step',
 
             templateMessageTypes = {
-                freeze: 'freeze',
+                showSettings: 'show-settings',
+                freezeEditor: 'freeze-editor',
+                unfreezeEditor: 'unfreeze-editor',
                 notification: 'notification'
             },
 
+            templateSettingsLoadingTimeout = 2000,
             templateSettingsErrorNotification = localizationManager.localize('templateSettingsError'),
             templateChangedNotification = localizationManager.localize('templateChanged'),
 
@@ -40,9 +43,13 @@
             selectSettingsSection: selectSettingsSection,
 
             activate: activate,
+            deactivate: deactivate,
             canDeactivate: canDeactivate,
 
-            settingsFrameLoaded: settingsFrameLoaded
+            settingsFrameLoaded: settingsFrameLoaded,
+
+            settingsLoadingTimeoutId: null,
+            settingsVisibilitySubscription: null
         };
 
         return viewModel;
@@ -63,7 +70,20 @@
             return defer.promise;
         }
 
+        function deactivate() {
+            if (viewModel.settingsVisibilitySubscription) {
+                viewModel.settingsVisibilitySubscription.dispose();
+            }
+        }
+
         function activate(courseId) {
+            viewModel.settingsVisibility(false);
+            viewModel.settingsVisibilitySubscription = viewModel.settingsVisibility.subscribe(function () {
+                if (viewModel.settingsLoadingTimeoutId) {
+                    clearTimeout(viewModel.settingsLoadingTimeoutId);
+                    viewModel.settingsLoadingTimeoutId = null;
+                }
+            });
 
             return courseRepository.getById(courseId).then(function (course) {
                 viewModel.courseId = course.id;
@@ -86,10 +106,11 @@
                                 previewDemoUrl: template.previewDemoUrl,
                                 order: template.order,
                                 isNew: template.isNew,
+                                isDeprecated: template.isDeprecated,
                                 isCustom: template.isCustom,
                                 openPreview: function (item, event) {
                                     event.stopPropagation();
-                                    router.openUrl(item.previewDemoUrl + '?v=' + window.top.appVersion);
+                                    router.openUrl(item.previewDemoUrl + '?v=' + window.appVersion);
                                 },
                                 loadingTemplate: ko.observable(false)
                             };
@@ -134,13 +155,19 @@
         }
 
         function onGetTemplateMessage(message) {
-            if (!message || !message.type || !message.data) {
+            if (!message || !message.type) {
                 return;
             }
 
             switch (message.type) {
-                case templateMessageTypes.freeze:
-                    viewModel.canUnloadSettings(message.data.freezeEditor ? !message.data.freezeEditor : true);
+                case templateMessageTypes.showSettings:
+                    viewModel.settingsVisibility(true);
+                    break;
+                case templateMessageTypes.freezeEditor:
+                    viewModel.canUnloadSettings(false);
+                    break;
+                case templateMessageTypes.unfreezeEditor:
+                    viewModel.canUnloadSettings(true);
                     break;
                 case templateMessageTypes.notification:
                     var data = message.data;
@@ -156,6 +183,7 @@
         }
 
         function selectTemplatesSection() {
+            viewModel.settingsVisibility(false);
             viewModel.templatesSectionSelected(true);
             eventTracker.publish(events.navigateToTemplatesSection, eventCategory);
         }
@@ -170,9 +198,12 @@
         }
 
         function settingsFrameLoaded() {
-            viewModel.settingsVisibility(true);
             viewModel.canUnloadSettings(true);
+            viewModel.settingsLoadingTimeoutId = _.delay(showSettings, templateSettingsLoadingTimeout);
         }
 
+        function showSettings() {
+            viewModel.settingsVisibility(true);
+        }
     }
 );

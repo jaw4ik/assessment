@@ -14,7 +14,10 @@
         limitCoursesAmount = require('authorization/limitCoursesAmount'),
         uiLocker = require('uiLocker'),
         createCourseCommand = require('commands/createCourseCommand'),
-        presentationCourseImportCommand = require('commands/presentationCourseImportCommand')
+        presentationCourseImportCommand = require('commands/presentationCourseImportCommand'),
+        duplicateCourseCommand = require('commands/duplicateCourseCommand'),
+        upgradeDialog = require('widgets/upgradeDialog/viewmodel'),
+        waiter = require('utils/waiter')
     ;
 
     var
@@ -403,6 +406,115 @@
 
         });
 
+        describe('duplicateCourse:', function () {
+            var dfd,
+                waiterDfd;
+
+            beforeEach(function () {
+                dfd = Q.defer();
+                waiterDfd = Q.defer();
+                spyOn(duplicateCourseCommand, 'execute').and.returnValue(dfd.promise);
+                spyOn(upgradeDialog, 'show');
+                spyOn(waiter, 'waitTime').and.returnValue(waiterDfd.promise);
+            });
+
+            it('should be function', function () {
+                expect(viewModel.duplicateCourse).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(viewModel.duplicateCourse()).toBePromise();
+            });
+
+            describe('when creating course is not available', function () {
+
+                beforeEach(function () {
+                    viewModel.isCreateCourseAvailable(false);
+                });
+
+                it('should show upgrade dialog', function (done) {
+                    var promise = viewModel.duplicateCourse();
+
+                    promise.fin(function () {
+                        expect(upgradeDialog.show).toHaveBeenCalledWith(constants.dialogs.upgrade.settings.duplicateCourse);
+                        done();
+                    });
+
+                });
+
+            });
+
+            describe('when creating course is available', function () {
+
+                var course = {
+                    id: '',
+                    title: ko.observable(''),
+                    thumbnail: '',
+                    createdOn: new Date(),
+                    modifiedOn: new Date(),
+                    isSelected: ko.observable(false),
+                    objectives: [],
+                    isProcessed: true
+                };
+
+                beforeEach(function () {
+                    viewModel.isCreateCourseAvailable(true);
+                    viewModel.courses([]);
+                });
+
+                it('should add fake course to the top of the course list', function (done) {
+                    var promise = viewModel.duplicateCourse(course);
+
+                    promise.fin(function () {
+                        expect(viewModel.courses()[0].title).toBe(course.title());
+                        expect(viewModel.courses()[0].thumbnail).toBe(course.thumbnail);
+                        expect(viewModel.courses()[0].isSelected()).toBe(course.isSelected());
+                        expect(viewModel.courses()[0].objectives).toBe(course.objectives);
+                        expect(viewModel.courses()[0].isProcessed).toBeFalsy();
+                        expect(viewModel.courses()[0].isDuplicatingFinished()).toBeFalsy();
+                        expect(viewModel.courses()[0].finishDuplicating).toBeFalsy();
+                        done();
+                    });
+
+                    dfd.reject();
+
+                });
+
+                it('should set to fake course a function for removing fake course and adding duplicated course after minimal duplicating time', function (done) {
+                    var resolvedCourse = {
+                        id: 'new',
+                        title: '',
+                        template: { thumbnail: '' },
+                        modifiedOn: new Date(),
+                        createdOn: new Date(),
+                        objectives: []
+                    }
+
+                    var promise = viewModel.duplicateCourse(course);
+
+                    promise.fin(function () {
+
+                        expect(viewModel.courses()[0].isDuplicatingFinished()).toBeTruthy();
+
+                        viewModel.courses()[0].finishDuplicating();
+
+                        expect(viewModel.courses()[0].id).toBe(resolvedCourse.id);
+                        expect(viewModel.courses()[0].title()).toBe(resolvedCourse.title);
+                        expect(viewModel.courses()[0].thumbnail).toBe(resolvedCourse.template.thumbnail);
+                        expect(viewModel.courses()[0].objectives).toBe(resolvedCourse.objectives);
+                        expect(viewModel.courses()[0].isSelected()).toBeFalsy();
+                        expect(viewModel.courses()[0].isProcessed).toBeTruthy();
+                        done();
+                    });
+
+                    dfd.resolve(resolvedCourse);
+                    waiterDfd.resolve();
+                });
+
+            });
+
+        });
+
         describe('enableDeleteCourses:', function () {
 
             it('should be computed', function () {
@@ -628,14 +740,14 @@
             });
 
             it('should update course title', function () {
-                viewModel.courses(vmCourse);
+                viewModel.courses([vmCourse]);
                 viewModel.titleUpdated(course);
 
                 expect(vmCourse.title()).toBe(course.title);
             });
 
             it('should update course modified on date', function () {
-                viewModel.courses(vmCourse);
+                viewModel.courses([vmCourse]);
                 viewModel.courseUpdated(course);
 
                 expect(vmCourse.modifiedOn().toISOString()).toBe(course.modifiedOn.toISOString());
@@ -659,7 +771,7 @@
             });
 
             it('should update course modified on date', function () {
-                viewModel.courses(vmCourse);
+                viewModel.courses([vmCourse]);
                 viewModel.courseUpdated(course);
 
                 expect(vmCourse.modifiedOn().toISOString()).toBe(course.modifiedOn.toISOString());

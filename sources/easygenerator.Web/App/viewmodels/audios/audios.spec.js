@@ -3,16 +3,27 @@
 
     var constants = require('constants'),
         eventTracker = require('eventTracker'),
-        repository = require('repositories/videoRepository'),
         userContext = require('userContext'),
-        durationsHandler = require('videoUpload/handlers/durations'),
         localizationManager = require('localization/localizationManager'),
-        storageFileUploader = require('storageFileUploader');
+        getCollection = require('viewmodels/audios/queries/getCollection'),
+        factory = require('viewmodels/audios/factory'),
+        UploadModel = require('viewmodels/audios/UploadAudioModel'),
+        AudioViewModel = require('viewmodels/audios/AudioViewModel')
+
+    ;
 
     describe('viewModel [audios]', function () {
 
         it('should be object', function () {
             expect(viewModel).toBeObject();
+        });
+
+        describe('uploads:', function () {
+
+            it('should be array', function () {
+                expect(viewModel.uploads).toBeArray();
+            });
+
         });
 
         describe('audios:', function () {
@@ -55,17 +66,17 @@
 
         });
 
-        describe('addAudio:', function () {
+        describe('ensureCanAddAudio:', function () {
+
             var upgradeDialog = require('widgets/upgradeDialog/viewmodel');
 
             beforeEach(function () {
-                spyOn(storageFileUploader, 'upload');
-                spyOn(eventTracker, 'publish');
                 spyOn(upgradeDialog, 'show');
             });
 
+
             it('should be function', function () {
-                expect(viewModel.addAudio).toBeFunction();
+                expect(viewModel.ensureCanAddAudio).toBeFunction();
             });
 
             describe('when user has free plan', function () {
@@ -74,13 +85,12 @@
                 });
 
                 it('should show upgrade popup', function () {
-                    viewModel.addAudio();
+                    viewModel.ensureCanAddAudio();
                     expect(upgradeDialog.show).toHaveBeenCalledWith(constants.dialogs.upgrade.settings.audioUpload);
                 });
 
-                it('should not upload audio', function () {
-                    viewModel.addAudio();
-                    expect(storageFileUploader.upload).not.toHaveBeenCalled();
+                it('should return false', function () {
+                    expect(viewModel.ensureCanAddAudio()).toBeFalsy();
                 });
 
             });
@@ -92,51 +102,98 @@
                 });
 
                 it('should show upgrade popup', function () {
-                    viewModel.addAudio();
+                    viewModel.ensureCanAddAudio();
                     expect(upgradeDialog.show).toHaveBeenCalledWith(constants.dialogs.upgrade.settings.audioUpload);
                 });
 
-                it('should not upload audio', function () {
-                    viewModel.addAudio();
-                    expect(storageFileUploader.upload).not.toHaveBeenCalled();
+                it('should return false', function () {
+                    expect(viewModel.ensureCanAddAudio()).toBeFalsy();
                 });
 
             });
 
-            describe('when user has not free plan', function () {
 
+            describe('when user has paid plan', function () {
                 beforeEach(function () {
                     spyOn(userContext, 'hasStarterAccess').and.returnValue(true);
                     spyOn(userContext, 'hasTrialAccess').and.returnValue(false);
                 });
-
-                it('should upload audio', function () {
-                    viewModel.addAudio();
-                    expect(storageFileUploader.upload).toHaveBeenCalled();
+                it('should return true', function () {
+                    expect(viewModel.ensureCanAddAudio()).toBeTruthy();
                 });
+            });
+        });
 
-                it('should publish event', function () {
-                    viewModel.addAudio();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Open \"choose audio file\" dialog', 'Audio library');
+        describe('addAudio:', function () {
+
+            beforeEach(function () {
+                spyOn(eventTracker, 'publish');
+            });
+
+            it('should be function', function () {
+                expect(viewModel.addAudio).toBeFunction();
+            });
+
+            var file, model;
+
+            beforeEach(function () {
+                file = { name: 'sample.wav' };
+                model = new UploadModel(file);
+
+                spyOn(factory, 'create').and.returnValue(model);
+                spyOn(model, 'upload');
+            });
+
+
+            it('should start file upload', function () {
+                viewModel.addAudio(file);
+                expect(model.upload).toHaveBeenCalled();
+            });
+
+            it('should add file upload view model', function () {
+                viewModel.audios([]);
+                viewModel.addAudio(file);
+                expect(viewModel.audios().length).toEqual(1);
+            });
+
+            it('should save upload model in the background', function () {
+                viewModel.uploads = [];
+                viewModel.addAudio(file);
+
+                expect(viewModel.uploads.length).toEqual(1);
+            });
+
+            it('should publish event', function () {
+                viewModel.addAudio();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Open \"choose audio file\" dialog', 'Audio library');
+            });
+
+            describe('when upload failed', function () {
+
+                it('should remove upload from the background', function (done) {
+                    viewModel.uploads = [];
+                    viewModel.addAudio(file);
+                    model.on(constants.storage.audio.statuses.failed).then(function () {
+                        expect(viewModel.uploads.length).toEqual(0);
+                        done();
+                    });
+                    model.trigger(constants.storage.audio.statuses.failed);
                 });
 
             });
+
         });
 
         describe('activate:', function () {
             var identifyStoragePermissionsDeferred = Q.defer(),
-                repositoryGetCollectionDeferred = Q.defer(),
-                durationsLoaderGetThumbnailUrlsDeferred = Q.defer(),
+                getCollectionDeferred = Q.defer(),
                 audio = { id: 1, title: 'title', vimeoId: 'audioId', progress: 100, status: viewModel.statuses.loaded, duration: 60 };
 
             beforeEach(function () {
                 spyOn(userContext, 'identifyStoragePermissions').and.returnValue(identifyStoragePermissionsDeferred.promise);
-                spyOn(repository, 'getCollection').and.returnValue(repositoryGetCollectionDeferred.promise);
-                spyOn(durationsHandler, 'getVideoDurations').and.returnValue(durationsLoaderGetThumbnailUrlsDeferred.promise);
-                
+                spyOn(getCollection, 'execute').and.returnValue(getCollectionDeferred.promise);
                 identifyStoragePermissionsDeferred.resolve();
-                repositoryGetCollectionDeferred.resolve([audio]);
-                durationsLoaderGetThumbnailUrlsDeferred.resolve();
+                getCollectionDeferred.resolve([audio]);
             });
 
             it('should be function', function () {
@@ -147,44 +204,114 @@
                 expect(viewModel.activate()).toBePromise();
             });
 
-            it('should identify storage permissions', function () {
-                viewModel.activate();
-                expect(userContext.identifyStoragePermissions).toHaveBeenCalled();
+            it('should identify storage permissions', function (done) {
+                viewModel.activate().then(function () {
+                    expect(userContext.identifyStoragePermissions).toHaveBeenCalled();
+                    done();
+                });
             });
 
             it('should get audio collection', function (done) {
                 var promise = viewModel.activate();
 
                 promise.fin(function () {
-                    expect(repository.getCollection).toHaveBeenCalled();
-                    done();
-                });
-
-            });
-
-            it('should load durations for all audios', function (done) {
-                var promise = viewModel.activate();
-
-                promise.fin(function () {
-                    expect(durationsHandler.getVideoDurations).toHaveBeenCalledWith([audio]);
+                    expect(getCollection.execute).toHaveBeenCalled();
                     done();
                 });
 
             });
 
             it('should map all audios', function (done) {
+                viewModel.uploads = [];
+                viewModel.audios([]);
+
                 var promise = viewModel.activate();
 
                 promise.fin(function () {
                     expect(viewModel.audios().length).toBe(1);
-                    expect(viewModel.audios()[0].id).toBe(audio.id);
-                    expect(viewModel.audios()[0].vimeoId()).toBe(audio.vimeoId);
-                    expect(viewModel.audios()[0].progress()).toBe(audio.progress);
-                    expect(viewModel.audios()[0].status()).toBe(audio.status);
-                    expect(viewModel.audios()[0].time()).toBe("01:00");
                     done();
                 });
 
+            });
+
+            it('should add current upload in progress', function (done) {
+                var model = new UploadModel({
+                    name: 'sample.wav'
+                });
+
+                model.status = 'progress';
+
+                viewModel.uploads = [model];
+                viewModel.audios([]);
+
+                viewModel.activate().then(function () {
+                    expect(viewModel.audios().length).toBe(2);
+                    done();
+                });
+            });
+
+            it('should add upload with error', function (done) {
+                var model = new UploadModel({
+                    name: 'sample.wav'
+                });
+
+                model.status = 'error';
+
+                viewModel.uploads = [model];
+                viewModel.audios([]);
+
+                viewModel.activate().then(function () {
+                    expect(viewModel.audios().length).toBe(2);
+                    done();
+                });
+            });
+
+            it('should not add successfull upload', function (done) {
+                var model = new UploadModel({
+                    name: 'sample.wav'
+                });
+
+                model.status = constants.storage.audio.statuses.loaded;
+
+                viewModel.uploads = [model];
+                viewModel.audios([]);
+
+                viewModel.activate().then(function () {
+                    expect(viewModel.audios().length).toBe(1);
+                    done();
+                });
+            });
+
+            it('should remove all successfull uploads from the background', function (done) {
+                var model = new UploadModel({
+                    name: 'sample.wav'
+                });
+
+                model.status = constants.storage.audio.statuses.loaded;
+
+                viewModel.uploads = [model];
+                viewModel.audios([]);
+
+                viewModel.activate().then(function () {
+                    expect(viewModel.uploads.length).toEqual(0);
+                    done();
+                });
+            });
+
+            it('should remove all failed uploads from the background', function (done) {
+                var model = new UploadModel({
+                    name: 'sample.wav'
+                });
+
+                model.status = constants.storage.audio.statuses.failed;
+
+                viewModel.uploads = [model];
+                viewModel.audios([]);
+
+                viewModel.activate().then(function () {
+                    expect(viewModel.uploads.length).toEqual(0);
+                    done();
+                });
             });
 
             describe('when user has free plan', function () {
@@ -240,7 +367,6 @@
                             expect(viewModel.availableStorageSpace()).toBe('1.0' + localizationManager.localize('gb'));
                             done();
                         });
-
                     });
 
                     it('should set available storage space in perseteges on progress bar', function (done) {
@@ -289,74 +415,31 @@
 
         });
 
-        describe('updateAudios:', function () {
-            var getAudioCollectionDeferred = Q.defer(),
-                audio1 = {
-                    id: 1,
-                    title: 'title',
-                    vimeoId: 'audioId',
-                    progress: 100,
-                    status: viewModel.statuses.loaded
-                },
-                audio2 = {
-                    id: 2,
-                    title: 'title',
-                    vimeoId: ko.observable(null),
-                    progress: ko.observable(50),
-                    status: ko.observable(viewModel.statuses.inProgress)
-                },
-                audio3 = {
-                    id: 3,
-                    title: 'title',
-                    vimeoId: ko.observable(null),
-                    progress: ko.observable(80),
-                    status: ko.observable(viewModel.statuses.inProgress)
-                },
-                audio3Updated = {
-                    id: 3,
-                    title: 'title',
-                    vimeoId: 123,
-                    progress: 100,
-                    status: viewModel.statuses.loaded
-                }
-
-            beforeEach(function () {
-                spyOn(repository, 'getCollection').and.returnValue(getAudioCollectionDeferred.promise);
-                getAudioCollectionDeferred.resolve([audio1, audio3Updated]);
-                viewModel.audios([audio2, audio3]);
-            });
+        describe('deactivate:', function () {
 
             it('should be function', function () {
-                expect(viewModel.updateAudios).toBeFunction();
+                expect(viewModel.deactivate).toBeFunction();
             });
 
             it('should return promise', function () {
-                expect(viewModel.updateAudios()).toBePromise();
+                expect(viewModel.deactivate()).toBePromise();
             });
 
-            it('should apply all changes from dataContext to viewModel', function (done) {
-                var promise = viewModel.updateAudios();
+            it('should turn off subscriptions for uploads', function (done) {
+                var model1 = new UploadModel({ name: 'sample.wav' });
+                var model2 = new UploadModel({ name: 'sample.mp3' });
 
-                promise.fin(function () {
-                    expect(viewModel.audios().length).toBe(2);
+                spyOn(model1, 'off');
+                spyOn(model2, 'off');
 
-                    expect(viewModel.audios()[0].id).toBe(audio1.id);
-                    expect(viewModel.audios()[0].title).toBe(audio1.title);
-                    expect(viewModel.audios()[0].vimeoId()).toBe(audio1.vimeoId);
-                    expect(viewModel.audios()[0].progress()).toBe(audio1.progress);
-                    expect(viewModel.audios()[0].status()).toBe(audio1.status);
+                viewModel.uploads = [model1, model2];
 
-                    expect(viewModel.audios()[1].id).toBe(audio3Updated.id);
-                    expect(viewModel.audios()[1].title).toBe(audio3Updated.title);
-                    expect(viewModel.audios()[1].vimeoId()).toBe(audio3Updated.vimeoId);
-                    expect(viewModel.audios()[1].progress()).toBe(audio3Updated.progress);
-                    expect(viewModel.audios()[1].status()).toBe(audio3Updated.status);
-
+                viewModel.deactivate().then(function () {
+                    expect(model1.off).toHaveBeenCalledWith();
+                    expect(model2.off).toHaveBeenCalledWith();
                     done();
                 });
-
             });
-
         });
 
         describe('showAudioPopup:', function () {
@@ -371,13 +454,13 @@
             });
 
             describe('when audio has vimeo identifier', function () {
-                it('should show audio popup', function() {
+                it('should show audio popup', function () {
                     viewModel.showAudioPopup({ vimeoId: ko.observable("vimeoId") });
                     expect(popup.show).toHaveBeenCalledWith("vimeoId");
                 });
             });
 
-            describe('when audio does not have vimeo identifier', function() {
+            describe('when audio does not have vimeo identifier', function () {
                 it('should not show audio popup', function () {
                     viewModel.showAudioPopup({ vimeoId: ko.observable(null) });
                     expect(popup.show).not.toHaveBeenCalled();

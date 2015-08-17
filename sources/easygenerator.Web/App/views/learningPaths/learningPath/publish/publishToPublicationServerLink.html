@@ -1,0 +1,46 @@
+﻿<div class="publish-tab-content" data-tab-content="private-link">
+    <div class="publish-tab-content-wrapper">
+        <!-- ko if: publicationUrl() -->
+        <div class="publish-to-publication-server-container">
+            <!-- ko compose: { view: 'views/learningPaths/learningPath/publish/updatePublication', model: $data, activate: false } --><!-- /ko -->
+            <div class="publish-tab-link-container">
+                <h2 class="publish-tab-header" data-bind="localize: { text: 'learningPathUrl' }">
+                    Learning path URL
+                </h2>
+                <div class="publish-tab-action-content" data-bind="localize: { text: 'learningPathCopyLinkDescription' }">
+                    Copy and paste the URL of your learning path to share or view.
+                </div>
+                <div class="copy-control">
+                    <div class="copy-text-container">
+                        <input type="text" class="copy-text-link" readonly="readonly" data-bind="value: publicationUrl(), selectText: !isPublishing()" />
+                    </div>
+                    <div class="copy-btn-wrapper">
+                        <button class="btn" data-bind="copyToClipboard: { value: publicationUrl, onCopied: onCopyLink, isDisabled: copyDisabled }, css: { green: !publishAvailable(), 'green-white': publishAvailable(), copied: linkCopied, disabled: copyDisabled }, attr: { disabled: copyDisabled() }">
+                            <span data-bind="localize: { text: linkCopied() ? 'copied' : 'copy' }"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="publish-tab-item-service">
+                    <a class="private-link" data-bind="localize: { text: 'openInNewWindow' }, click: openPublicationUrl, attr: { href: publicationUrl() }"></a>
+                </div>
+                <div class="publish-tab-overlay" data-bind="visible: isDelivering()"></div>
+            </div>
+        </div>
+        <div class="publish-to-publication-server-helper"></div>
+        <!-- /ko -->
+        <!-- ko ifnot: publicationUrl() -->
+        <div class="publish-tab-container">
+            <h2 class="publish-tab-header" data-bind="localize: { text: 'getLearningPathLink' }">Get learning path link</h2>
+            <div class="publish-tab-action-content" data-bind="localize: { text: 'learningPathCopyLinkDescription' }">Copy and paste the URL of your learning path to share or view.</div>
+            <button class="btn green publish-tab-btn" data-bind="click: publish, css:{ disabled: isDelivering(), progress : isPublishing() }, disable: isDelivering()">
+                <!-- ko if: isPublishing() -->
+                <span data-bind="localize: { text: 'publishing' }" class="publish-tab-btn-caption"></span>
+                <!-- /ko -->
+                <!-- ko ifnot: isPublishing() -->
+                <span data-bind="localize: { text: 'getPrivateLink' }" class="publish-tab-btn-caption"></span>
+                <!-- /ko -->
+            </button>
+        </div>
+        <!-- /ko -->
+    </div>
+</div>

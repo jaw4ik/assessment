@@ -33,6 +33,8 @@ namespace easygenerator.DomainModel
         Answer Answer(string text, bool isCorrect, string createdBy, DateTime createdOn);
         LearningContent LearningContent(string text, string createdBy);
         User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy);
+        User User(string email, string password, string firstname, string lastname, string phone, string country,
+            string role, string createdBy, AccessType accessPlan, DateTime expirationDate);
         PasswordRecoveryTicket PasswordRecoveryTicket(User user);
         ImageFile ImageFile(string title, string createdBy);
         InformationContent InformationContent(string title, string createdBy);
@@ -132,7 +134,12 @@ namespace easygenerator.DomainModel
 
         public User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy)
         {
-            return new User(email, password, firstname, lastname, phone, country, role, createdBy);
+            return new User(email, password, firstname, lastname, phone, country, role, createdBy, AccessType.Trial);
+        }
+
+        public User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, AccessType accessPlan, DateTime expirationDate)
+        {
+            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessPlan, expirationDate);
         }
 
         public PasswordRecoveryTicket PasswordRecoveryTicket(User user)

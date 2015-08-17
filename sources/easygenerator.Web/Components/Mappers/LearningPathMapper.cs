@@ -12,6 +12,8 @@ namespace easygenerator.Web.Components.Mappers
             {
                 Id = entity.Id.ToNString(),
                 Title = entity.Title,
+                PackageUrl = entity.PackageUrl,
+                PublicationUrl = entity.PublicationUrl,
                 CreatedOn = entity.CreatedOn,
                 CreatedBy = entity.CreatedBy,
                 ModifiedOn = entity.ModifiedOn,

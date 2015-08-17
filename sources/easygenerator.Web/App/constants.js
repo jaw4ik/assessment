@@ -178,7 +178,12 @@
                         courseDeselected: 'learningPath:course-selector:course-deselected'
                     },
                     removeCourse: 'learningPath:removeCourse',
-                    deleted:'learningPath:deleted'
+                    deleted: 'learningPath:deleted',
+                    delivering: {
+                        started: 'learningPath:delivering-started',
+                        finished: 'learningPath:delivering-finished'
+                    },
+                    deleted: 'learningPath:deleted'
                 },
                 objective: {
                     createdInCourse: 'objective:createdInCourse',
@@ -322,13 +327,13 @@
 
             reporting: {
                 xApiVerbIds:
-                {
-                    started: 'http://adlnet.gov/expapi/verbs/launched',
-                    passed: 'http://adlnet.gov/expapi/verbs/passed',
-                    failed: 'http://adlnet.gov/expapi/verbs/failed',
-                    answered: 'http://adlnet.gov/expapi/verbs/answered',
-                    mastered: 'http://adlnet.gov/expapi/verbs/mastered'
-                },
+                    {
+                        started: 'http://adlnet.gov/expapi/verbs/launched',
+                        passed: 'http://adlnet.gov/expapi/verbs/passed',
+                        failed: 'http://adlnet.gov/expapi/verbs/failed',
+                        answered: 'http://adlnet.gov/expapi/verbs/answered',
+                        mastered: 'http://adlnet.gov/expapi/verbs/mastered'
+                    },
                 filterKeys: {
                     courseId: 'context.extensions.http://easygenerator/expapi/course/id',
                     verb: 'verb',
@@ -386,12 +391,15 @@
                     removeVideoAfterErrorTimeout: 5000
                 },
                 audio: {
+                    conversionUrl: window.conversionServiceUrl ? "//" + window.conversionServiceUrl : '//staging.easygenerator.com/conversion',
+                    pullUrl: '/api/media/audio/pull',
                     statuses: {
+                        notStarted: 'notStarted',
                         loaded: 'loaded',
                         failed: 'failed',
                         inProgress: 'inProgress'
                     },
-                    changesInUpload: 'video:changesInUpload',
+                    changesInUpload: 'video:changesInUpload'
                 }
             },
 
@@ -434,6 +442,13 @@
                             eventCategory: 'Video library',
                             subtitleKey: 'videoUpgradeToUpload',
                             descriptionKey: 'videoUpgradeToUploadHtml'
+                        },
+
+                        duplicateCourse: {
+                            containerCss: 'upgrade-dialog-duplicate-course',
+                            eventCategory: 'Duplicate course',
+                            subtitleKey: 'coursesUpgradeToHaveMore',
+                            descriptionKey: 'coursesUpgradeToHaveMoreHtml'
                         },
 
                         audioUpload: {
