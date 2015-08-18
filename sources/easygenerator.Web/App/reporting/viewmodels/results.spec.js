@@ -506,15 +506,6 @@
                     };
                 });
 
-                //it('should call generateResultsCsvBlob method', function (done) {
-                //    viewModel.downloadResults().fin(function () {
-                //        expect(viewModel.generateResultsCsvBlob).toHaveBeenCalled();
-                //        done();
-                //    });
-                //});
-
-              
-                /////////////////////////////////////
                 describe('and all results were already loaded', function () {
                     beforeEach(function () {
                         viewModel.loadedResults = [];
@@ -549,16 +540,32 @@
                         });
                     });
                 });
-                /////////////////////////////////////
-                //it('should call saveAs method with proper args', function (done) {
-                    
-                //    viewModel.generateResultsCsvBlob().fin(function (result) {
-                //        viewModel.downloadResults().fin(function () {
-                //            expect(fileSaverWrapper.saveAs).toHaveBeenCalledWith(result, viewModel.getResultsFileName());
-                //            done();
-                //        });
-                //    });
-                //});
+
+                it('should call saveAs method with proper args', function (done) {
+                    viewModel.courseTitle = 'Course-123.\\/ фывяй 续约我的服务';
+                    viewModel.allResultsLoaded = true;
+                    viewModel.loadedResults = [
+                    {
+                        lrsStatement: {
+                            actor: {
+                                name: 'name',
+                                email: 'email'
+                            },
+                            score: 100,
+                            date: new Date()
+                        },
+                        passed: true,
+
+                    }];
+
+                    viewModel.downloadResults().fin(function (result) {
+                        viewModel.downloadResults().fin(function () {
+                            expect(fileSaverWrapper.saveAs).toHaveBeenCalledWith(jasmine.any(Blob), 'results_Course-123_2015-02-03_05-38.csv');
+                            expect(fileSaverWrapper.saveAs.calls.mostRecent().args[0].size).toBe(98);
+                            done();
+                        });
+                    });
+                });
             });
 
             describe('when user access type forbids to downloadResults', function () {
@@ -592,37 +599,6 @@
             });
 
         });
-
-        //describe('getResultsFileName:', function () {
-
-        //    it('should be function', function () {
-        //        expect(viewModel.getResultsFileName).toBeFunction();
-        //    });
-
-        //    it('should call moment', function () {
-        //        var a = viewModel.getResultsFileName();
-        //        expect(moment().format).toHaveBeenCalled();
-        //    });
-
-        //    it('should call moment', function () {
-        //        viewModel.courseTitle = 'Course-123.\\/ фывяй 续约我的服务';
-        //        var a = viewModel.getResultsFileName();
-        //        expect(a).toBe('results_Course-123_2015-02-03_05-38.csv');
-        //    });
-
-        //});
-
-        //describe('generateResultsCsvBlob:', function () {
-        //    it('should be function', function () {
-        //        expect(viewModel.generateResultsCsvBlob).toBeFunction();
-        //    });
-
-        //    it('should retur promise', function() {
-        //        expect(viewModel.generateResultsCsvBlob()).toBePromise();
-        //    });
-
-            
-        //});
 
         describe('noResults:', function () {
             it('should be computed', function () {
