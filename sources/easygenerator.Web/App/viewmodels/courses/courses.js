@@ -1,7 +1,8 @@
 ﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/courseRepository', 'notify', 'localization/localizationManager',
-    'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'commands/createCourseCommand', 'uiLocker', 'commands/presentationCourseImportCommand', 'commands/duplicateCourseCommand', 'widgets/upgradeDialog/viewmodel', 'utils/waiter'],
+    'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'uiLocker', 'commands/presentationCourseImportCommand', 'commands/duplicateCourseCommand',
+    'widgets/upgradeDialog/viewmodel', 'utils/waiter','dialogs/course/createCourse/createCourse'],
     function (app, dataContext, userContext, constants, eventTracker, router, courseRepository, notify, localizationManager, clientContext, fileHelper, limitCoursesAmount,
-        createCourseCommand, uiLocker, presentationCourseImportCommand, duplicateCourseCommand, upgradeDialog, waiter) {
+        uiLocker, presentationCourseImportCommand, duplicateCourseCommand, upgradeDialog, waiter, createCourseDialog) {
         "use strict";
 
         var
@@ -276,15 +277,7 @@
         }
 
         function createNewCourse() {
-            uiLocker.lock();
-            return createCourseCommand.execute('Courses')
-                .then(function (course) {
-                    uiLocker.unlock();
-                    router.navigate('courses/' + course.id);
-                })
-                .fail(function () {
-                    uiLocker.unlock();
-                });
+            createCourseDialog.show();
         }
 
         function importCourseFromPresentation() {

@@ -1609,6 +1609,48 @@
         'uk': '<a style=\"display:none;\" target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>[uk]',
         'pt-br': '<a style=\"display:none;\" target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>[pt-br]'
     },
+    createYourCourse: {
+        'en': 'Create your course',
+        'zh-cn': 'Create your course[zh-cn]',
+        'uk': 'Створення курсу',
+        'pt-br': 'Create your course[pt-br]'
+    },
+    createYourFirstCourse: {
+        'en': 'Create your first course',
+        'zh-cn': 'Create your first course[zh-cn]',
+        'uk': 'Створення Вашого першого курсу',
+        'pt-br': 'Create your first course[pt-br]'
+    },
+    giveNameToYourCourse: {
+        'en': 'Give a name to your course...',
+        'zh-cn': 'Give a name to your course...[zh-cn]',
+        'uk': 'Дайте ім\'я курсу...',
+        'pt-br': 'Give a name to your course...[pt-br]'
+    },
+    whatDoYouWantToCreate: {
+        'en': 'What do you want to create?',
+        'zh-cn': 'What do you want to create?[zh-cn]',
+        'uk': 'Який курс бажаєте створити?',
+        'pt-br': 'What do you want to create?[pt-br]'
+    },
+    templateDescriptionCaption: {
+        'en': 'Description:',
+        'zh-cn': 'Description:[zh-cn]',
+        'uk': 'Опис:',
+        'pt-br': 'Description:[pt-br]'
+    },
+    templateDidacticalStructureCaption: {
+        'en': 'Didactical structure:',
+        'zh-cn': 'Didactical structure:[zh-cn]',
+        'uk': 'Дидактична структура:',
+        'pt-br': 'Didactical structure:[pt-br]'
+    },
+    nextStep: {
+        'en': 'Next',
+        'zh-cn': 'Next[zh-cn]',
+        'uk': 'Далі',
+        'pt-br': 'Next[pt-br]'
+    },
     /* End resource section for model CreateCourse */
     
     /* Resource section for model Question */

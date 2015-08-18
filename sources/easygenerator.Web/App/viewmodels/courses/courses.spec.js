@@ -17,7 +17,8 @@
         presentationCourseImportCommand = require('commands/presentationCourseImportCommand'),
         duplicateCourseCommand = require('commands/duplicateCourseCommand'),
         upgradeDialog = require('widgets/upgradeDialog/viewmodel'),
-        waiter = require('utils/waiter')
+        waiter = require('utils/waiter'),
+        createCourseDialog = require('dialogs/course/createCourse/createCourse')
     ;
 
     var
@@ -203,65 +204,14 @@
         });
 
         describe('createNewCourse:', function () {
-
-            var createCourse;
-
             beforeEach(function () {
-                createCourse = Q.defer();
-                spyOn(createCourseCommand, 'execute').and.returnValue(createCourse.promise);
+                spyOn(createCourseDialog, 'show');
             });
 
-            it('should be a function', function () {
-                expect(viewModel.createNewCourse).toBeFunction();
-            });
-
-            it('should lock ui', function () {
+            it('should show create course dialog', function() {
                 viewModel.createNewCourse();
-                expect(uiLocker.lock).toHaveBeenCalled();
+                expect(createCourseDialog.show).toHaveBeenCalled();
             });
-
-            it('should execute create course command', function () {
-                viewModel.createNewCourse();
-                expect(createCourseCommand.execute).toHaveBeenCalledWith('Courses');
-            });
-
-            describe('when course created successfully', function () {
-
-                var course = { id: 'courseId' };
-
-                beforeEach(function () {
-                    createCourse.resolve(course);
-                });
-
-                it('should navigate to the course', function (done) {
-                    viewModel.createNewCourse().fin(function () {
-                        expect(router.navigate).toHaveBeenCalledWith('courses/courseId');
-                        done();
-                    });
-                });
-
-                it('should unlock ui', function (done) {
-                    viewModel.createNewCourse().fin(function () {
-                        expect(uiLocker.unlock).toHaveBeenCalled();
-                        done();
-                    });
-                });
-            });
-
-            describe('when failed to create course', function () {
-
-                beforeEach(function () {
-                    createCourse.reject();
-                });
-
-                it('should unlock ui', function (done) {
-                    viewModel.createNewCourse().fin(function () {
-                        expect(uiLocker.unlock).toHaveBeenCalled();
-                        done();
-                    });
-                });
-            });
-
         });
 
         describe('importCourseFromPresentation:', function () {
