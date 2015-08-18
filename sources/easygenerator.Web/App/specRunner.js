@@ -103,7 +103,7 @@
             'reporting/viewmodels/questionStatement.spec',
             'reporting/viewmodels/objectiveStatement.spec',
             'reporting/viewmodels/courseStatement.spec',
-            //'reporting/viewmodels/results.spec',
+            'reporting/viewmodels/results.spec',
 
             //#endregion
 

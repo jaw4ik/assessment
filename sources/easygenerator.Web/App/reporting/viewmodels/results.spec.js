@@ -180,24 +180,6 @@
                 expect(viewModel.pageNumber).toBe(1);
             });
 
-            it('should reset isResultsDialogShown', function () {
-                viewModel.isResultsDialogShown(true);
-                viewModel.activate(courseId);
-                expect(viewModel.isResultsDialogShown()).toBeFalsy();
-            });
-
-            it('should reset isDownloadDialogShown', function () {
-                viewModel.isDownloadDialogShown(true);
-                viewModel.activate(courseId);
-                expect(viewModel.isDownloadDialogShown()).toBeFalsy();
-            });
-
-            it('should reset isDownloadDialogShown', function () {
-                viewModel.isDownloadDialogShown(true);
-                viewModel.activate(courseId);
-                expect(viewModel.isDownloadDialogShown()).toBeFalsy();
-            });
-
             it('should set allResultsLoaded to false', function () {
                 viewModel.allResultsLoaded = true;
                 viewModel.activate(courseId);
@@ -213,7 +195,7 @@
                     getCourseDefer.resolve(course);
                 });
 
-                it('should set courseTitle', function () {
+                it('should set courseTitle', function (done) {
                     viewModel.activate(course.id).fin(function () {
                         expect(viewModel.courseTitle).toBe(course.title);
                         done();
@@ -311,186 +293,188 @@
                 dfd.resolve(courseStatements);
             });
 
-            //it('should be function', function () {
-            //    expect(viewModel.showMoreResults).toBeFunction();
-            //});
+            it('should be function', function () {
+                expect(viewModel.showMoreResults).toBeFunction();
+            });
 
-            //it('should send event \'Show more results\'', function (done) {
-            //    viewModel.showMoreResults().fin(function () {
-            //        expect(eventTracker.publish).toHaveBeenCalledWith('Show more results');
-            //        done();
-            //    });
-            //});
+            it('should send event \'Show more results\'', function (done) {
+                viewModel.showMoreResults().fin(function () {
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Show more results');
+                    done();
+                });
+            });
 
-            //it('should return promise', function () {
-            //    expect(viewModel.showMoreResults()).toBePromise();
-            //});
+            it('should return promise', function () {
+                expect(viewModel.showMoreResults()).toBePromise();
+            });
 
-            //describe('when no more results', function () {
-            //    beforeEach(function () {
-            //        viewModel.hasMoreResults = ko.observable(false);
-            //    });
+            describe('when no more results', function () {
+                beforeEach(function () {
+                    viewModel.loadedResults = [1, 2, 3];
+                    viewModel.results([]);
+                });
 
-            //    it('should not call getCourseCompletedStatements', function () {
-            //        viewModel.showMoreResults().fin(function (done) {
-            //            expect(xApiProvider.getCourseCompletedStatements).not.toHaveBeenCalled();
-            //            done();
-            //        });
-            //    });
+                it('should not call getCourseCompletedStatements', function (done) {
+                    viewModel.showMoreResults().fin(function () {
+                        expect(xApiProvider.getCourseCompletedStatements).not.toHaveBeenCalled();
+                        done();
+                    });
+                });
 
-            //    it('should not change page number', function (done) {
-            //        viewModel.pageNumber = 1;
-            //        viewModel.showMoreResults().fin(function () {
-            //            expect(viewModel.pageNumber).toEqual(1);
-            //            done();
-            //        });
+                it('should not change page number', function (done) {
+                    viewModel.pageNumber = 1;
+                    viewModel.showMoreResults().fin(function () {
+                        expect(viewModel.pageNumber).toEqual(1);
+                        done();
+                    });
 
-            //    });
-            //});
+                });
+            });
 
-            //describe('when not all results are shown', function () {
+            describe('when not all results are shown', function () {
 
-            //    beforeEach(function () {
-            //        viewModel.hasMoreResults = ko.observable(true);
-            //        viewModel.pageNumber = 0;
-            //        viewModel.loadedResults = [1, 2, 3];
-            //        constants.courseResults.pageSize = 1;
-            //        viewModel.results([]);
-            //    });
+                beforeEach(function () {
+                    viewModel.pageNumber = 0;
+                    viewModel.loadedResults = [1, 2, 3];
+                    constants.courseResults.pageSize = 1;
+                    viewModel.results([]);
+                });
 
-            //    describe('when user access type forbids to view more results', function () {
-            //        beforeEach(function () {
-            //            viewModel.isResultsDialogShown = ko.observable(false);
-            //            userContext.identity = {
-            //                email: 'test@test.com',
-            //                subscription: {
-            //                    accessType: constants.accessType.free,
-            //                    expirationDate: new Date().setYear(1990)
-            //                }
-            //            };
-            //        });
+                describe('when user access type forbids to view more results', function () {
+                    beforeEach(function () {
+                        userContext.identity = {
+                            email: 'test@test.com',
+                            subscription: {
+                                accessType: constants.accessType.free,
+                                expirationDate: new Date().setYear(1990)
+                            }
+                        };
+                    });
 
-            //        it('should not increase page number', function (done) {
-            //            var pageNumber = viewModel.pageNumber;
-            //            viewModel.showMoreResults().fin(function () {
-            //                expect(viewModel.pageNumber).toEqual(pageNumber);
-            //                done();
-            //            });
-            //        });
+                    it('should not increase page number', function (done) {
+                        var pageNumber = viewModel.pageNumber;
+                        viewModel.showMoreResults().fin(function () {
+                            expect(viewModel.pageNumber).toEqual(pageNumber);
+                            done();
+                        });
+                    });
 
-            //        it('should show upgrade results dialog', function (done) {
-            //            viewModel.showMoreResults().fin(function () {
-            //                expect(viewModel.isResultsDialogShown()).toBeTruthy();
-            //                done();
-            //            });
-            //        });
+                    it('should not add loaded result for new page to results array', function (done) {
+                        viewModel.showMoreResults().fin(function () {
+                            expect(viewModel.results().length).toEqual(0);
+                            done();
+                        });
+                    });
 
-            //        it('should not add loaded result for new page to results array', function (done) {
-            //            viewModel.showMoreResults().fin(function () {
-            //                expect(viewModel.results().length).toEqual(0);
-            //                done();
-            //            });
-            //        });
+                });
 
-            //    });
+                describe('when user access type allows to view more results', function () {
 
-            //    describe('when user access type allows to view more results', function () {
+                    beforeEach(function () {
+                        userContext.identity = {
+                            email: 'test@test.com',
+                            subscription: {
+                                accessType: constants.accessType.plus,
+                                expirationDate: new Date().setYear(2055)
+                            }
+                        };
+                    });
 
-            //        beforeEach(function () {
-            //            userContext.identity = {
-            //                email: 'test@test.com',
-            //                subscription: {
-            //                    accessType: constants.accessType.plus,
-            //                    expirationDate: new Date().setYear(2055)
-            //                }
-            //            };
-            //        });
+                    it('should increase page number', function (done) {
+                        var pageNumber = viewModel.pageNumber;
+                        viewModel.showMoreResults().fin(function () {
+                            expect(viewModel.pageNumber).toEqual(pageNumber + 1);
+                            done();
+                        });
+                    });
 
-            //        it('should increase page number', function (done) {
-            //            var pageNumber = viewModel.pageNumber;
-            //            viewModel.showMoreResults().fin(function () {
-            //                expect(viewModel.pageNumber).toEqual(pageNumber + 1);
-            //                done();
-            //            });
-            //        });
+                    describe('when requested results were already loaded', function () {
+                        it('should not call getCourseCompletedStatements to load results', function (done) {
+                            viewModel.showMoreResults().fin(function () {
+                                expect(xApiProvider.getCourseCompletedStatements).not.toHaveBeenCalled();
+                                done();
+                            });
+                        });
 
-            //        describe('when requested results were already loaded', function () {
-            //            it('should not call getCourseCompletedStatements to load results', function () {
-            //                viewModel.showMoreResults().fin(function (done) {
-            //                    expect(xApiProvider.getCourseCompletedStatements).not.toHaveBeenCalled();
-            //                    done();
-            //                });
-            //            });
+                        it('should add loaded result for new page to results array', function (done) {
+                            viewModel.showMoreResults().fin(function () {
+                                expect(viewModel.results().length).toEqual(viewModel.pageNumber * constants.courseResults.pageSize);
+                                done();
+                            });
+                        });
+                    });
 
-            //            it('should add loaded result for new page to results array', function () {
-            //                viewModel.showMoreResults().fin(function () {
-            //                    expect(viewModel.results().length).toEqual(viewModel.pageNumber * constants.courseResults.pageSize);
-            //                });
-            //            });
-            //        });
+                    describe('when all results were loaded by download results functionality', function () {
+                        beforeEach(function () {
+                            constants.courseResults.pageSize = 5;
+                            viewModel.allResultsLoaded = true;
+                        });
 
-            //        describe('when all results were loaded by download results functionality', function () {
-            //            beforeEach(function () {
-            //                constants.courseResults.pageSize = 5;
-            //                viewModel.allResultsLoaded = true;
-            //            });
+                        it('should not call getCourseCompletedStatements to load results', function (done) {
+                            viewModel.showMoreResults().fin(function () {
+                                expect(xApiProvider.getCourseCompletedStatements).not.toHaveBeenCalled();
+                                done();
+                            });
+                        });
 
-            //            it('should not call getCourseCompletedStatements to load results', function () {
-            //                viewModel.showMoreResults().fin(function (done) {
-            //                    expect(xApiProvider.getCourseCompletedStatements).not.toHaveBeenCalled();
-            //                    done();
-            //                });
-            //            });
+                        it('should add loaded result for new page to results array', function (done) {
+                            viewModel.showMoreResults().fin(function () {
+                                expect(viewModel.results().length).toEqual(3);
+                                done();
+                            });
+                        });
+                    });
 
-            //            it('should add loaded result for new page to results array', function () {
-            //                viewModel.showMoreResults().fin(function () {
-            //                    expect(viewModel.results().length).toEqual(3);
-            //                });
-            //            });
-            //        });
+                    describe('when requested results were not loaded yet', function () {
+                        beforeEach(function () {
+                            viewModel.loadedResults = [];
+                            viewModel.allResultsLoaded = false;
+                            viewModel.pageNumber = 1;
+                            constants.courseResults.pageSize = 1;
+                        });
 
-            //        describe('when requested results were not loaded yet', function () {
-            //            beforeEach(function () {
-            //                viewModel.loadedResults = [];
-            //                viewModel.allResultsLoaded = false;
-            //                viewModel.pageNumber = 1;
-            //                constants.courseResults.pageSize = 1;
-            //            });
+                        it('should call getCourseCompletedStatements with correct params', function (done) {
+                            viewModel.showMoreResults().fin(function () {
+                                expect(xApiProvider.getCourseCompletedStatements).toHaveBeenCalled();
+                                done();
+                            });
+                        });
 
-            //            it('should call getCourseCompletedStatements with correct params', function () {
-            //                viewModel.showMoreResults().fin(function (done) {
-            //                    expect(xApiProvider.getCourseCompletedStatements).toHaveBeenCalled();
-            //                    done();
-            //                });
-            //            });
+                        describe('when getCourseCompletedStatements returned statements', function () {
+                            it('should fill results field with results', function (done) {
+                                viewModel.showMoreResults().fin(function () {
+                                    expect(viewModel.results()[0].lrsStatement).toBe(courseStatements[0]);
+                                    expect(viewModel.results()[0]).toBeInstanceOf(CourseStatement);
+                                    expect(viewModel.results().length).toBe(1);
+                                    done();
+                                });
+                            });
+                        });
 
-            //            describe('when getCourseCompletedStatements returned statements', function () {
-            //                it('should fill results field with results', function (done) {
-            //                    viewModel.showMoreResults().fin(function () {
-            //                        expect(viewModel.results()[0].lrsStatement).toBe(courseStatements[0]);
-            //                        expect(viewModel.results()[0]).toBeInstanceOf(CourseStatement);
-            //                        expect(viewModel.results().length).toBe(1);
-            //                        done();
-            //                    });
-            //                });
-            //            });
-
-            //            describe('when all results are loaded', function () {
-            //                it('should set allResultsLoaded to true', function (done) {
-            //                    constants.courseResults.pageSize = 10;
-            //                    viewModel.showMoreResults().fin(function () {
-            //                        expect(viewModel.allResultsLoaded).toBeTruthy();
-            //                        done();
-            //                    });
-            //                });
-            //            });
-            //        });
-            //    });
-            //});
+                        describe('when all results are loaded', function () {
+                            it('should set allResultsLoaded to true', function (done) {
+                                constants.courseResults.pageSize = 10;
+                                viewModel.showMoreResults().fin(function () {
+                                    expect(viewModel.allResultsLoaded).toBeTruthy();
+                                    done();
+                                });
+                            });
+                        });
+                    });
+                });
+            });
         });
         
         describe('downloadResults:', function () {
+
+            var dfd;
+
             beforeEach(function () {
+                dfd = Q.defer();
+                viewModel.activate(courseId);
+                spyOn(xApiProvider, 'getCourseCompletedStatements').and.returnValue(dfd.promise);;
+                dfd.resolve(courseStatements);
+
                 fileSaverWrapper.saveAs = function () { };
                 spyOn(fileSaverWrapper, 'saveAs');
             });
@@ -520,24 +504,61 @@
                             expirationDate: new Date().setYear(2055)
                         }
                     };
-                    spyOn(viewModel, 'generateResultsCsvBlob').and.callThrough();
                 });
 
-                it('should call generateResultsCsvBlob method', function () {
-                    viewModel.downloadResults().fin(function () {
-                        expect(viewModel.generateResultsCsvBlob).toHaveBeenCalled();
-                        done();
+                //it('should call generateResultsCsvBlob method', function (done) {
+                //    viewModel.downloadResults().fin(function () {
+                //        expect(viewModel.generateResultsCsvBlob).toHaveBeenCalled();
+                //        done();
+                //    });
+                //});
+
+              
+                /////////////////////////////////////
+                describe('and all results were already loaded', function () {
+                    beforeEach(function () {
+                        viewModel.loadedResults = [];
+                        viewModel.allResultsLoaded = true;
                     });
-                });
 
-                it('should call saveAs method with proper args', function () {
-                    viewModel.generateResultsCsvBlob().fin(function (result) {
+                    it('should not call getCourseCompletedStatements', function (done) {
                         viewModel.downloadResults().fin(function () {
-                            expect(fileSaverWrapper.saveAs).toHaveBeenCalledWith(result, viewModel.getResultsFileName());
+                            expect(xApiProvider.getCourseCompletedStatements).not.toHaveBeenCalled();
                             done();
                         });
                     });
                 });
+
+                describe('and all results were not loaded yet', function () {
+                    beforeEach(function () {
+                        viewModel.loadedResults = [];
+                        viewModel.allResultsLoaded = false;
+                    });
+
+                    it('should call getCourseCompletedStatements', function (done) {
+                        viewModel.downloadResults().fin(function () {
+                            expect(xApiProvider.getCourseCompletedStatements).toHaveBeenCalledWith(viewModel.courseId);
+                            done();
+                        });
+                    });
+
+                    it('should set allResultsLoaded to true', function (done) {
+                        viewModel.downloadResults().fin(function () {
+                            expect(viewModel.allResultsLoaded).toBeTruthy();
+                            done();
+                        });
+                    });
+                });
+                /////////////////////////////////////
+                //it('should call saveAs method with proper args', function (done) {
+                    
+                //    viewModel.generateResultsCsvBlob().fin(function (result) {
+                //        viewModel.downloadResults().fin(function () {
+                //            expect(fileSaverWrapper.saveAs).toHaveBeenCalledWith(result, viewModel.getResultsFileName());
+                //            done();
+                //        });
+                //    });
+                //});
             });
 
             describe('when user access type forbids to downloadResults', function () {
@@ -572,66 +593,36 @@
 
         });
 
-        describe('getResultsFileName:', function () {
+        //describe('getResultsFileName:', function () {
 
-            it('should be function', function () {
-                expect(viewModel.getResultsFileName).toBeFunction();
-            });
+        //    it('should be function', function () {
+        //        expect(viewModel.getResultsFileName).toBeFunction();
+        //    });
 
-            it('should call moment', function () {
-                var a = viewModel.getResultsFileName();
-                expect(moment().format).toHaveBeenCalled();
-            });
+        //    it('should call moment', function () {
+        //        var a = viewModel.getResultsFileName();
+        //        expect(moment().format).toHaveBeenCalled();
+        //    });
 
-            it('should call moment', function () {
-                viewModel.courseTitle = 'Course-123.\\/ фывяй 续约我的服务';
-                var a = viewModel.getResultsFileName();
-                expect(a).toBe('results_Course-123_2015-02-03_05-38.csv');
-            });
+        //    it('should call moment', function () {
+        //        viewModel.courseTitle = 'Course-123.\\/ фывяй 续约我的服务';
+        //        var a = viewModel.getResultsFileName();
+        //        expect(a).toBe('results_Course-123_2015-02-03_05-38.csv');
+        //    });
 
-        });
+        //});
 
-        describe('generateResultsCsvBlob:', function () {
-            it('should be function', function () {
-                expect(viewModel.generateResultsCsvBlob).toBeFunction();
-            });
+        //describe('generateResultsCsvBlob:', function () {
+        //    it('should be function', function () {
+        //        expect(viewModel.generateResultsCsvBlob).toBeFunction();
+        //    });
 
-            it('should retur promise', function() {
-                expect(viewModel.generateResultsCsvBlob()).toBePromise();
-            });
+        //    it('should retur promise', function() {
+        //        expect(viewModel.generateResultsCsvBlob()).toBePromise();
+        //    });
 
-            describe('when all results were already loaded', function () {
-                beforeEach(function() {
-                    viewModel.loadedResults = [];
-                    viewModel.allResultsLoaded = true;
-                });
-
-                it('should not call getCourseCompletedStatements', function () {
-                    viewModel.generateResultsCsvBlob().fin(function() {
-                        expect(xApiProvider.getCourseCompletedStatements).not.toHaveBeenCalled();
-                    });
-                });
-            });
-
-            describe('when all results were not loaded yet', function() {
-                beforeEach(function () {
-                    viewModel.loadedResults = [];
-                    viewModel.allResultsLoaded = false;
-                });
-
-                it('should call getCourseCompletedStatements', function () {
-                    viewModel.generateResultsCsvBlob().fin(function () {
-                        expect(xApiProvider.getCourseCompletedStatements).toHaveBeenCalledWith(viewModel.courseId);
-                    });
-                });
-
-                it('should set allResultsLoaded to true', function () {
-                    viewModel.generateResultsCsvBlob().fin(function () {
-                        expect(viewModel.allResultsLoaded).toBeTruthy();
-                    });
-                });
-            });
-        });
+            
+        //});
 
         describe('noResults:', function () {
             it('should be computed', function () {
@@ -651,7 +642,7 @@
 
         describe('hasMoreResults:', function () {
 
-            it('should be observable', function () {
+            it('should be computed', function () {
                 expect(viewModel.hasMoreResults).toBeComputed();
             });
 
@@ -680,5 +671,4 @@
         });
 
     });
-
 });
