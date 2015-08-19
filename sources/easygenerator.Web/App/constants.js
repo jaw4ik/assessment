@@ -320,7 +320,8 @@
                 lastCreatedLearningPathId: 'lastCreatedLearningPathId',
                 lastCreatedObjectiveId: 'lastCreatedObjectiveId',
                 lastVistedCourse: 'lastVistedCourse',
-                lastVisitedObjective: 'lastVisitedObjective'
+                lastVisitedObjective: 'lastVisitedObjective',
+                showCreateCoursePopup: 'showCreateCoursePopup'
             },
 
             reporting: {
@@ -360,7 +361,7 @@
             courseResults: {
                 pageSize: 10
             },
-            
+
             storage: {
                 host: window.storageServiceUrl ? "//" + window.storageServiceUrl : '//localhost:888',
                 mediaUrl: '/media',
@@ -391,6 +392,18 @@
             },
 
             dialogs: {
+                stepSubmitted: 'dialog:step-submitted',
+                dialogClosed: 'dialog:dialogClosed',
+                deleteLearningPath: {
+                    settings: {
+                        containerCss: 'delete-learning-path'
+                    }
+                },
+                createCourse: {
+                    settings: {
+                        containerCss: 'create-course'
+                    }
+                },
                 upgrade: {
                     settings: {
                         default: {
