@@ -3,14 +3,15 @@
 
     angular.module('bootstrapping', []).run(runBlock);
 
-    runBlock.$inject = ['$q', 'detectDeviceTask', 'loadFontsTask', 'readSettingsTask', 'readPublishSettingsTask', 'preloadImages', 'preloadHtmlTask'];
+    runBlock.$inject = ['$q', 'detectDeviceTask', 'loadFontsTask', 'readSettingsTask', 'readPublishSettingsTask', 'preloadImages', 'preloadHtmlTask', 'authenticationTask'];
 
-    function runBlock($q, detectDeviceTask, loadFontsTask, readSettingsTask, readPublishSettingsTask, preloadImages, preloadHtmlTask) {
+    function runBlock($q, detectDeviceTask, loadFontsTask, readSettingsTask, readPublishSettingsTask, preloadImages, preloadHtmlTask, authenticationTask) {
         var tasks = {
             'detectDeviceTask': detectDeviceTask,
             'loadFontsTask': loadFontsTask,
             'readSettings': readSettingsTask,
             'readPublishSettings': readPublishSettingsTask,
+            'authenticationTask': authenticationTask,
             'preloadHtmlTask': preloadHtmlTask,
             'preloadImages': preloadImages
         };
@@ -19,10 +20,12 @@
             var bootstrapModules = ['assessment'],
                 settings = data.readSettings,
                 publishSettings = data.readPublishSettings,
+                user = data.authenticationTask,
                 preloadHtmls = data.preloadHtmlTask;
 
-            angular.module('assessment').config(['$routeProvider', 'settingsProvider', 'htmlTemplatesCacheProvider', '$translateProvider', function ($routeProvider, settingsProvider, htmlTemplatesCacheProvider, $translateProvider) {
+            angular.module('assessment').config(['$routeProvider', 'settingsProvider', 'htmlTemplatesCacheProvider', 'userProvider', '$translateProvider', function ($routeProvider, settingsProvider, htmlTemplatesCacheProvider, userProvider, $translateProvider) {
                 settingsProvider.setSettings(settings);
+                userProvider.set(user);
                 htmlTemplatesCacheProvider.set(preloadHtmls);
 
                 configureTranslateProvider($translateProvider, settings);
