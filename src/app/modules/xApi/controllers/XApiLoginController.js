@@ -61,7 +61,7 @@
             startCourse();
         };
 
-        if (that.username && that.email) {
+        if (that.username || that.email) {
             that.submit();
         }
 
