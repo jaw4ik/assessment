@@ -560,9 +560,13 @@
 
                     viewModel.downloadResults().fin(function (result) {
                         viewModel.downloadResults().fin(function () {
-                            expect(fileSaverWrapper.saveAs).toHaveBeenCalledWith(jasmine.any(Object), 'results_Course-123_2015-02-03_05-38.csv');
-                            expect(fileSaverWrapper.saveAs.calls.mostRecent().args[0].size).toBe(98);
-                            done();
+                            var reader = new window.FileReader();
+                            reader.readAsDataURL(fileSaverWrapper.saveAs.calls.mostRecent().args[0]);
+                            reader.onloadend = function () {
+                                expect(fileSaverWrapper.saveAs).toHaveBeenCalledWith(jasmine.any(Object), 'results_Course-123_2015-02-03_05-38.csv');
+                                expect(reader.result).toBe("data:text/csv;base64,77u/TmFtZSAoRS1tYWlsKSxSZXN1bHQsU2NvcmUsRGF0ZSxUaW1lDQpuYW1lIChlbWFpbCksUGFzc2VkLDEwMCwyMDE1LTAyLTAzXzA1LTM4LDIwMTUtMDItMDNfMDUtMzg=");
+                                done();
+                            }
                         });
                     });
                 });
