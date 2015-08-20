@@ -2,8 +2,17 @@
 
     <header class="content-section-wrapper">
         <div class="content-section course-title-wrapper">
-            <!--  ko compose: { model: titleField, view: 'views/common/titleField.html' }  -->
-            <!-- /ko -->
+            <div class="course-template" data-bind="click: changeTemplate, style: { backgroundImage: 'url(\'' + template.thumbnail() + '\')'}">
+                <div class="course-template-overlay">Change</div>
+            </div>
+            <div class="course-title">
+                <!--  ko compose: { model: titleField, view: 'views/common/titleField.html' }  -->
+                <!-- /ko -->
+                <div class="course-template-hint">
+                    <div>Current template:&nbsp;</div>
+                    <div class="course-template-hint-template-name" data-bind="click: changeTemplate, text: template.name"></div>
+                </div>
+            </div>
             <ul class="course-actions">
                 <!-- ko if: collaborate.enabled -->
                 <li class="">

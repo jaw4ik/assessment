@@ -44,6 +44,30 @@
 
         });
 
+        describe('template:', function () {
+            it('should be defined:', function () {
+                expect(viewModel.template).toBeDefined();
+            });
+
+            describe('id:', function () {
+                it('should be observable:', function () {
+                    expect(viewModel.template.id).toBeObservable();
+                });
+            });
+
+            describe('name:', function () {
+                it('should be observable:', function () {
+                    expect(viewModel.template.name).toBeObservable();
+                });
+            });
+
+            describe('thumbnail:', function () {
+                it('should be observable:', function () {
+                    expect(viewModel.template.thumbnail).toBeObservable();
+                });
+            });
+        });
+
         describe('titleField:', function () {
             it('should be defined', function () {
                 expect(viewModel.titleField).toBeDefined();
@@ -333,7 +357,12 @@
                     id: 'id',
                     title: 'title',
                     createdBy: 'createdBy',
-                    isDirty: true
+                    isDirty: true,
+                    template: {
+                        name: 'template',
+                        id: 'templateId',
+                        thumbnail: 'template.thumbnail'
+                    }
                 };
 
                 var collaborators = [{ email: 'a@a.a' }, { email: 'b@b.b' }];
@@ -380,6 +409,33 @@
                     });
                 });
 
+                it('should set template name', function (done) {
+                    viewModel.template.name('');
+
+                    viewModel.activate(course.id).fin(function () {
+                        expect(viewModel.template.name()).toBe(course.template.name);
+                        done();
+                    });
+                });
+
+                it('should set template id', function (done) {
+                    viewModel.template.id('');
+
+                    viewModel.activate(course.id).fin(function () {
+                        expect(viewModel.template.id()).toBe(course.template.id);
+                        done();
+                    });
+                });
+
+                it('should set template thumbnail', function (done) {
+                    viewModel.template.thumbnail('');
+
+                    viewModel.activate(course.id).fin(function () {
+                        expect(viewModel.template.thumbnail()).toBe(course.template.thumbnail);
+                        done();
+                    });
+                });
+
                 it('should subscribe to courseStateChanged event', function (done) {
                     viewModel.activate(course.id).fin(function () {
                         expect(app.on).toHaveBeenCalledWith(constants.messages.course.stateChanged + course.id, viewModel.stateChanged);
@@ -414,7 +470,6 @@
                         done();
                     });
                 });
-
 
                 describe('and when last created course is current course', function () {
                     beforeEach(function () {

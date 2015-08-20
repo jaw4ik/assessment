@@ -348,6 +348,42 @@
         display: flex;
         justify-content: flex-end;
 
+        .course-template {
+            flex: 0 0 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 60px;
+            min-width: 60px;
+            min-height: 60px;
+            margin-right: 12px;
+            border: 1px solid #f5f5f5;
+            border-radius: 10px;
+            cursor: pointer;
+            background-size: cover;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+
+            .course-template-overlay {
+                font: 12px 'OpenSans-SemiboldItalic';
+                color: #546677;
+                background-color: #fff;
+                opacity: 0;
+                border-radius: 5px;
+                padding: 2px 4px;
+                transition: opacity 0.2s, transform 0.2s;
+                transform: translateY(-10px);
+            }
+
+            &:hover {
+                .course-template-overlay {
+                    opacity: 0.9;
+                    transform: translateY(0px);
+                }
+            }
+        }
+
         ul.course-actions {
             display: -webkit-flex;
             display: flex;
@@ -374,11 +410,32 @@
         }
     }
 
-    .edit-field-wrapper {
+    .course-title {
         min-width: 0; // to force flexbox to break a very long word
-        -webkit-flex: 1 1;
         flex: 1 1;
         padding-right: 50px;
+
+        .edit-field-wrapper {
+            padding-bottom: 7px;
+        }
+
+        .course-template-hint {
+            display: flex;
+            font: 12px 'OpenSansItalic';
+            color: #9aa8b2;
+
+            .course-template-hint-template-name {
+                cursor: pointer;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                flex: 1 0;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
     }
 
     .course-action {
