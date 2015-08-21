@@ -202,3 +202,4 @@ FakesAssemblies/
 *.ncrunchproject
 *.ncrunchsolution
 /sources/easygenerator.Web/Content/*.css
+.grunt/
