@@ -32,6 +32,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="auth.js" />
     <Compile Include="config.js" />
     <Compile Include="converter\config.js" />
     <Compile Include="converter\index.js" />

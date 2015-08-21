@@ -8,14 +8,15 @@ var
 
     uuid = require('node-uuid'),
 
-    request = require('supertest'),
+    request = require('supertest')(app),
+    nock = require('nock'),
     fs = require('fs'),
     path = require('path');
 
 
-describe('server', function () {
-    
-    before(function (done) {
+describe('server', function() {
+
+    before(function(done) {
         config.TEMP_FOLDER = path.join(__dirname, "TEMP");
         config.SAMPLE_MP3 = "sample.wav";
         config.SAMPLE_AU = "sample.au";
@@ -24,222 +25,261 @@ describe('server', function () {
         config.SAMPLE_OGG = "sample.ogg";
         config.SAMPLE_WAV = "sample.wav";
         config.SAMPLE_TXT = "README.MD";
-        
-        fs.mkdir(path.join(config.TEMP_FOLDER), function (err) {
+
+        fs.mkdir(path.join(config.TEMP_FOLDER), function(err) {
             if (err && err.code != "EEXIST") {
                 throw err;
             } else {
                 done();
             }
         });
-    });
-    
-    describe('get \'/\'', function () {
-
-        it('returns html form to upload file', function(done) {
-            request(app)
-                .get(config.LOCATION + '/')
-                .expect(200)
-                .end(function(err, res) {
-                    if (err) {
-                        return done(err);
-                    }
-                    assert(res.text.indexOf('<html>') === 0);
-                    done();
-                });
-        });
 
     });
-    
-    describe('post \'/\'', function () {
-        
-        //it('saves original file to temporary directory', function (done) {
-        //    request(app)
-        //        .post(config.LOCATION + '/')
-        //        .set('Accept', 'application/json')
-        //        .attach('file', config.SAMPLE_WAV)
-        //        .expect(200)
-        //        .end(function(err, res) {
-        //            if (err) {
-        //                return done(err);
-        //            }
-        //            assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, config.SAMPLE_WAV)));
-        //            done();
-        //        });
-        //});
-        
-        it('converts input mp3 to mp4', function (done) {
-            var filename = "output.mp4";
 
-            request(app)
-                .post(config.LOCATION + '/')
-                .set('Accept', 'application/json')
-                .attach('file', config.SAMPLE_MP3)
-                .expect(200)
-                .end(function(err, res) {
-                    if (err) {
-                        return done(err);
-                    }
-                    assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, filename)));
-                    done();
-                });
-        });
-        
-        it('converts input aif to mp4', function (done) {
-            var filename = "output.mp4";
 
-            request(app)
-                .post(config.LOCATION + '/')
-                .set('Accept', 'application/json')
-                .attach('file', config.SAMPLE_AIF)
-                .expect(200)
-                .end(function(err, res) {
-                    if (err) {
-                        return done(err);
-                    }
-                    assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, filename)));
-                    done();
-                });
+    after(function() {
+        fs.readdirSync(config.TEMP_FOLDER).forEach(function(subfolder) {
+            fs.readdirSync(path.join(config.TEMP_FOLDER, subfolder)).forEach(function(filename) {
+                fs.unlinkSync(path.join(config.TEMP_FOLDER, subfolder, filename));
+            });
+            fs.rmdirSync(path.join(config.TEMP_FOLDER, subfolder));
         });
-        
-        it('converts input au to mp4', function (done) {
-            var filename = "output.mp4";
+        fs.rmdirSync(path.join(config.TEMP_FOLDER));
+    });
 
-            request(app)
-                .post(config.LOCATION + '/')
-                .set('Accept', 'application/json')
-                .attach('file', config.SAMPLE_AU)
-                .expect(200)
-                .end(function(err, res) {
-                    if (err) {
-                        return done(err);
-                    }
-                    assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, filename)));
-                    done();
-                });
-        });
-        
-        it('converts input flac to mp4', function (done) {
-            var filename = "output.mp4";
 
-            request(app)
-                .post(config.LOCATION + '/')
-                .set('Accept', 'application/json')
-                .attach('file', config.SAMPLE_FLAC)
-                .expect(200)
-                .end(function(err, res) {
-                    if (err) {
-                        return done(err);
-                    }
-                    assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, filename)));
-                    done();
-                });
-        });
-        
-        it('converts input ogg to mp4', function (done) {
-            var filename = "output.mp4";
+    afterEach(function() {
+        nock.cleanAll();
+    });
 
-            request(app)
-                .post(config.LOCATION + '/')
-                .set('Accept', 'application/json')
-                .attach('file', config.SAMPLE_OGG)
-                .expect(200)
-                .end(function(err, res) {
-                    if (err) {
-                        return done(err);
-                    }
-                    assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, filename)));
-                    done();
-                });
-        });
-        
-        it('converts input wav to mp4', function (done) {
-            var filename = "output.mp4";
+    describe('post \'/\'', function() {
 
-            request(app)
-                .post(config.LOCATION + '/')
-                .set('Accept', 'application/json')
-                .attach('file', config.SAMPLE_WAV)
-                .expect(200)
-                .end(function(err, res) {
-                    if (err) {
-                        return done(err);
-                    }
-                    assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, filename)));
-                    done();
+        describe('when user is authorized', function() {
+
+            beforeEach(function() {
+                nock('http://localhost:666')
+                    .post('/auth/identity')
+                    .reply(200, "{ \"success\": true, \"data\": { \"email\": \"a@a.aa\"} }");
+
+            });
+
+            it('returns 200', function(done) {
+                request
+                    .post(config.LOCATION + '/')
+                    .set('Accept', 'application/json')
+                    .set('Authorization', 'TOKEN')
+                    .attach('file', config.SAMPLE_MP3)
+                    .expect(200, done);
+            });
+
+            it('converts input mp3 to mp4', function(done) {
+                request
+                    .post(config.LOCATION + '/')
+                    .set('Accept', 'application/json')
+                    .set('Authorization', 'TOKEN')
+                    .attach('file', config.SAMPLE_MP3)
+                    .end(function(err, res) {
+                        if (err) {
+                            return done(err);
+                        }
+                        assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, "output.mp4")));
+                        done();
+                    });
+            });
+
+            it('converts input aif to mp4', function(done) {
+                request
+                    .post(config.LOCATION + '/')
+                    .set('Accept', 'application/json')
+                    .set('Authorization', 'TOKEN')
+                    .attach('file', config.SAMPLE_AIF).end(function(err, res) {
+                        if (err) {
+                            return done(err);
+                        }
+                        assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, "output.mp4")));
+                        done();
+                    });
+            });
+
+            it('converts input au to mp4', function(done) {
+                request
+                    .post(config.LOCATION + '/')
+                    .set('Accept', 'application/json')
+                    .set('Authorization', 'TOKEN')
+                    .attach('file', config.SAMPLE_AU)
+                    .end(function(err, res) {
+                        if (err) {
+                            return done(err);
+                        }
+                        assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, "output.mp4")));
+                        done();
+                    });
+            });
+
+            it('converts input flac to mp4', function(done) {
+                request
+                    .post(config.LOCATION + '/')
+                    .set('Accept', 'application/json')
+                    .set('Authorization', 'TOKEN')
+                    .attach('file', config.SAMPLE_FLAC)
+                    .end(function(err, res) {
+                        if (err) {
+                            return done(err);
+                        }
+                        assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, "output.mp4")));
+                        done();
+                    });
+            });
+
+            it('converts input ogg to mp4', function(done) {
+                request
+                    .post(config.LOCATION + '/')
+                    .set('Accept', 'application/json')
+                    .set('Authorization', 'TOKEN')
+                    .attach('file', config.SAMPLE_OGG)
+                    .expect(200)
+                    .end(function(err, res) {
+                        if (err) {
+                            return done(err);
+                        }
+                        assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, "output.mp4")));
+                        done();
+                    });
+            });
+
+            it('converts input wav to mp4', function(done) {
+                request
+                    .post(config.LOCATION + '/')
+                    .set('Accept', 'application/json')
+                    .set('Authorization', 'TOKEN')
+                    .attach('file', config.SAMPLE_WAV)
+                    .end(function(err, res) {
+                        if (err) {
+                            return done(err);
+                        }
+                        assert(fs.existsSync(path.join(config.TEMP_FOLDER, res.body[0].id, "output.mp4")));
+                        done();
+                    });
+            });
+
+            it('returns json with file list', function(done) {
+                request
+                    .post(config.LOCATION + '/')
+                    .set('Accept', 'application/json')
+                    .set('Authorization', 'TOKEN')
+                    .attach('file', config.SAMPLE_WAV)
+                    .end(function(err, res) {
+                        if (err) {
+                            return done(err);
+                        }
+                        assert(res.body[0].id.length === 36);
+                        done();
+                    });
+            });
+
+            describe('when no file attached', function() {
+
+                it('returns 400', function(done) {
+                    request
+                        .post(config.LOCATION + '/')
+                        .set('Accept', 'text/html')
+                        .set('Authorization', 'TOKEN')
+                        .field('Content-Type', 'multipart/form-data')
+                        .expect(400, done);
                 });
+
+            });
+
+            describe('when audio is not attached', function() {
+
+                it('returns 400', function(done) {
+                    request
+                        .post(config.LOCATION + '/')
+                        .set('Accept', 'application/json')
+                        .set('Authorization', 'TOKEN')
+                        .attach('file', config.SAMPLE_TXT)
+                        .expect(400, done);
+                });
+
+            });
+
         });
 
-        it('returns json with file list', function (done) {
-            request(app)
-                .post(config.LOCATION + '/')
-                .set('Accept', 'application/json')
-                .attach('file', config.SAMPLE_WAV)
-                .expect(200)
-                .end(function(err, res) {
-                    if (err) {
-                        return done(err);
-                    }
-                    assert(res.body[0].id.length === 36);
-                    done();
-                });
-        });        
-        
-        it('returns 400 when no file attached', function (done) {
-            request(app)
-                .post(config.LOCATION + '/')
-                .set('Accept', 'text/html')
-                .field('Content-Type', 'multipart/form-data')
-                .expect(400, done);
+        describe('when authorization header was not supplied', function() {
+
+            beforeEach(function() {
+                nock('http://localhost:666')
+                    .post('/auth/identity')
+                    .reply(200, "{ \"success\": true, \"data\": { \"email\": \"a@a.aa\"} }");
+            });
+
+            it('returns 401', function(done) {
+                request
+                    .post(config.LOCATION + '/')
+                    .set('Accept', 'application/json')
+                    .expect(401)
+                    .end(function(err) {
+                        if (err) {
+                            return done(err);
+                        }
+                        done();
+                    });
+            });
+
         });
-        
-        it('return 400 when only non-audio file attached', function (done) {
-            request(app)
-                .post(config.LOCATION + '/')
-                .set('Accept', 'application/json')
-                .attach('file', config.SAMPLE_TXT)
-                .expect(400, done);
+
+        describe('when authorization header was not approved by auth server', function() {
+
+            beforeEach(function() {
+                nock('http://localhost:666')
+                    .post('/auth/identity')
+                    .reply(200, "{ \"success\": false }");
+            });
+
+            it('returns 401', function(done) {
+                request
+                    .post(config.LOCATION + '/')
+                    .set('Accept', 'application/json')
+                    .set('Authorization', 'TOKEN')
+                    .expect(401)
+                    .end(function(err) {
+                        if (err) {
+                            return done(err);
+                        }
+                        done();
+                    });
+            });
+
         });
 
     });
-    
-    describe('get \'/:id\'', function () {
-        
-        it('returns not found when file does not exist', function (done) {
-            request(app)
-                .get(config.LOCATION + '/file/_id')
-                .expect(404, done);
-        });
 
-        it('returns file when it exists', function(done) {
-            var id = uuid.v4();
-            var filename = "output.mp4";
-            fs.mkdirSync(path.join(config.TEMP_FOLDER, id));
-            fs.writeFileSync(path.join(config.TEMP_FOLDER, id, filename), 'Hello Node');
+    describe('delete \'/:id\'', function() {
 
-            request(app)
-                .get(config.LOCATION + '/' + id)
-                .expect(200, done);
-        });
+        it('returns 204 when file doest not exist', function(done) {
+            nock('http://localhost:666')
+                .post('/auth/identity')
+                .reply(200, "{ \"success\": true, \"data\": { \"email\": \"a@a.aa\"} }");
 
-    });
-    
-    describe('delete \'/:id\'', function () {
-        
-        it('returns 204 when file doest not exist', function (done) {
-            request(app)
+            request
                 .delete(config.LOCATION + '/_id')
+                .set('Authorization', 'TOKEN')
                 .expect(204, done);
         });
 
-        it('deletes file with specified id when file was deleted', function(done) {
+        it('deletes file with specified id', function(done) {
+            nock('http://localhost:666')
+                .post('/auth/identity')
+                .reply(200, "{ \"success\": true, \"data\": { \"email\": \"a@a.aa\"} }");
+
             var id = uuid.v4();
             var filename = "filename.txt";
             fs.mkdirSync(path.join(config.TEMP_FOLDER, id));
             fs.writeFileSync(path.join(config.TEMP_FOLDER, id, filename), 'Hello Node');
 
-            request(app)
+            request
                 .delete(config.LOCATION + '/' + id)
+                .set('Authorization', 'TOKEN')
                 .end(function(err) {
                     if (err) {
                         return done(err);
@@ -250,27 +290,81 @@ describe('server', function () {
                 });
         });
 
-        it('returns 204 when file was deleted', function(done) {
+        it('returns 204', function(done) {
+            nock('http://localhost:666')
+                .post('/auth/identity')
+                .reply(200, "{ \"success\": true, \"data\": { \"email\": \"a@a.aa\"} }");
+
             var id = uuid.v4();
             var filename = "filename.txt";
             fs.mkdirSync(path.join(config.TEMP_FOLDER, id));
             fs.writeFileSync(path.join(config.TEMP_FOLDER, id, filename), 'Hello Node');
 
-            request(app)
+            request
                 .delete(config.LOCATION + '/' + id)
+                .set('Authorization', 'TOKEN')
                 .expect(204, done);
         });
 
-    });
-    
-    after(function () {
-        fs.readdirSync(config.TEMP_FOLDER).forEach(function (subfolder) {
-            fs.readdirSync(path.join(config.TEMP_FOLDER, subfolder)).forEach(function (filename) {
-                fs.unlinkSync(path.join(config.TEMP_FOLDER, subfolder, filename));
+        describe('when authorization header was not supplied', function() {
+
+            it('returns 401 when authorization header was not supplied', function(done) {
+                request
+                    .delete(config.LOCATION + '/' + uuid.v4())
+                    .expect(401)
+                    .end(function(err) {
+                        if (err) {
+                            return done(err);
+                        }
+                        done();
+                    });
             });
-            fs.rmdirSync(path.join(config.TEMP_FOLDER, subfolder));
+
         });
-        fs.rmdirSync(path.join(config.TEMP_FOLDER));
+
+        describe('when authorization header was not approved by auth server', function() {
+
+            beforeEach(function() {
+                nock('http://localhost:666')
+                    .post('/auth/identity')
+                    .reply(200, "{ \"success\": false }");
+            });
+
+            it('returns 401', function(done) {
+                request
+                    .delete(config.LOCATION + '/' + uuid.v4())
+                    .set('Authorization', 'TOKEN')
+                    .expect(401)
+                    .end(function(err) {
+                        if (err) {
+                            return done(err);
+                        }
+                        done();
+                    });
+            });
+        });
+
+    });
+
+    describe('get \'/:id\'', function() {
+
+        it('returns not found when file does not exist', function(done) {
+            request
+                .get(config.LOCATION + '/file/_id')
+                .expect(404, done);
+        });
+
+        it('returns file when it exists', function(done) {
+            var id = uuid.v4();
+            var filename = "output.mp4";
+            fs.mkdirSync(path.join(config.TEMP_FOLDER, id));
+            fs.writeFileSync(path.join(config.TEMP_FOLDER, id, filename), 'Hello Node');
+
+            request
+                .get(config.LOCATION + '/' + id)
+                .expect(200, done);
+        });
+
     });
 
 });

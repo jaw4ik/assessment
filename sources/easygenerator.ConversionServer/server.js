@@ -13,30 +13,54 @@ var
     uuid = require('node-uuid'),
 
     converter = require('./converter'),
-    config = require('./config')
+    config = require('./config'),
+
+    request = require('request')
 ;
 
 //app.use(cors());
 app.use(morgan('dev'));
 
-app.get(config.LOCATION + '/', function(req, res) {
-    res.send('<html>' +
-        '       <head>' +
-        '       </head>' +
-        '       <body>' +
-        '           <form method="POST" enctype="multipart/form-data">' +
-        '               <input type="file" name="file">' +
-        '               <input type="submit">' +
-        '           </form>' +
-        '       </body>' +
-        '    </html>');
+app.get(config.LOCATION + '/', function (req, res) {
+    res.send('OK');
 });
 
-app.post(config.LOCATION + '/', function(req, res) {
+function authorize(req, res, next) {
+    if (req && req.headers && req.headers.authorization) {
+        request({
+            url: config.IDENTITY_URL,
+            method: 'POST',
+            headers: {
+                Authorization: req.headers.authorization
+            }
+        }, function (err, response, body) {
+            if (err) {
+                res.status(401).send('401 Unauthorized');
+                return;
+            }
+            
+            try {
+                var json = JSON.parse(body);
+                if (json.success && json.data && json.data.email) {
+                    next();
+                } else {
+                    res.status(401).send('401 Unauthorized');
+                }
+            } catch (e) {
+                res.status(401).send('401 Unauthorized');
+            }
+        });
+
+    } else {
+        res.status(401).send('401 Unauthorized');
+    }
+}
+
+app.post(config.LOCATION + '/', [authorize], function(req, res) {
+
     var busboy = new Busboy({ headers: req.headers });
 
     var promises = [];
-
     busboy.on('file', function(name, file, filename) {
         if (filename.length === 0) {
             file.resume();
@@ -75,12 +99,33 @@ app.post(config.LOCATION + '/', function(req, res) {
                 }
             })
             .catch(function(reason) {
-                console.log(reason);
                 res.status(400).send('Unable to process file(s)');
             });
     });
 
     return req.pipe(busboy);
+});
+
+app.delete(config.LOCATION + '/:id', [authorize], function(req, res) {
+    var id = req.params.id;
+
+    fs.readdir(path.join(config.TEMP_FOLDER, id), function(err, files) {
+        if (err) {
+            if (err.code !== "ENOENT") {
+                throw err;
+            } else {
+                res.status(204).end();
+            }
+        } else {
+            files.forEach(function(filename) {
+                fs.unlinkSync(path.join(config.TEMP_FOLDER, id, filename));
+            });
+            fs.rmdirSync(path.join(config.TEMP_FOLDER, id));
+            res.status(204).end();
+        }
+
+    });
+
 });
 
 app.get(config.LOCATION + '/:id', function(req, res) {
@@ -108,27 +153,6 @@ app.get(config.LOCATION + '/:id', function(req, res) {
     });
 });
 
-app.delete(config.LOCATION + '/:id', function(req, res) {
-    var id = req.params.id;
-
-    fs.readdir(path.join(config.TEMP_FOLDER, id), function(err, files) {
-        if (err) {
-            if (err.code !== "ENOENT") {
-                throw err;
-            } else {
-                res.status(204).end();
-            }
-        } else {
-            files.forEach(function(filename) {
-                fs.unlinkSync(path.join(config.TEMP_FOLDER, id, filename));
-            });
-            fs.rmdirSync(path.join(config.TEMP_FOLDER, id));
-            res.status(204).end();
-        }
-
-    });
-
-});
 
 app.use(function(err, req, res, next) {
     console.error(err.stack);
