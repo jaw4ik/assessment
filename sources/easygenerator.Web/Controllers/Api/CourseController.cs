@@ -106,7 +106,7 @@ namespace easygenerator.Web.Controllers.Api
 
                 var collaborators = course.Collaborators.Select(e => e.Email).ToList();
                 var invitedCollaborators = new Dictionary<Guid, string>();
-                course.Collaborators.Where(e => !e.Locked && !e.IsAccepted).ForEach(i => invitedCollaborators.Add(i.Id, i.Email));
+                course.Collaborators.Where(e => !e.IsAccepted).ForEach(i => invitedCollaborators.Add(i.Id, i.Email));
 
                 _courseRepository.Remove(course);
 

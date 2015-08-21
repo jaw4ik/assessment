@@ -10,16 +10,11 @@
             hide: hide,
             courseId: '',
             courseOwner: '',
-            openUpgradePlanUrl: openUpgradePlanUrl,
             collaboratorAdded: collaboratorAdded,
             collaboratorRemoved: collaboratorRemoved,
             addCollaboratorViewModel: addCollaboratorViewModel,
             isLoadingCollaborators: ko.observable(false),
-            collaborators: ko.observableArray([]),
-            updateCollaborationStatus: updateCollaborationStatus,
-            isCollaborationLocked: ko.observable(false),
-            isAddCollaboratorLocked: ko.observable(false),
-            isUpgradeInvitationShown: ko.observable(false)
+            collaborators: ko.observableArray([])
         };
 
         return viewModel;
@@ -39,12 +34,6 @@
             app.on(constants.messages.course.collaboration.collaboratorAdded + viewModel.courseId, viewModel.collaboratorAdded);
             app.on(constants.messages.course.collaboration.collaboratorRemoved + viewModel.courseId, viewModel.collaboratorRemoved);
 
-            if (courseOwner === userContext.identity.email) {
-                app.on(constants.messages.user.downgraded, viewModel.updateCollaborationStatus);
-                app.on(constants.messages.user.upgradedToStarter, viewModel.updateCollaborationStatus);
-                app.on(constants.messages.user.upgradedToPlus, viewModel.updateCollaborationStatus);
-            }
-
             repository.getCollection(viewModel.courseId).then(function (collaborators) {
                 var collaboratorsList = _.chain(collaborators)
                        .sortBy(function (item) {
@@ -56,7 +45,6 @@
                        .value();
 
                 viewModel.collaborators(collaboratorsList);
-                viewModel.updateCollaborationStatus();
 
                 viewModel.isLoadingCollaborators(false);
                 addCollaboratorViewModel.isEnabled(true);
@@ -71,15 +59,12 @@
             });
 
             viewModel.collaborators(items);
-            viewModel.updateCollaborationStatus();
         }
 
         function collaboratorRemoved(collaboratorEmail) {
             viewModel.collaborators(_.reject(viewModel.collaborators(), function (item) {
                 return item.email == collaboratorEmail;
             }));
-
-            viewModel.updateCollaborationStatus();
         }
 
         function hide() {
@@ -90,67 +75,11 @@
                 item.deactivate();
             });
 
-            if (viewModel.courseOwner === userContext.identity.email) {
-                app.off(constants.messages.user.downgraded, viewModel.updateCollaborationStatus);
-                app.off(constants.messages.user.upgradedToStarter, viewModel.updateCollaborationStatus);
-                app.off(constants.messages.user.upgradedToPlus, viewModel.updateCollaborationStatus);
-            }
-
             viewModel.isShown(false);
-        }
-
-        function openUpgradePlanUrl() {
-            eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.collaboration);
-            router.openUrl(constants.upgradeUrl);
-        }
-
-        function updateCollaborationStatus() {
-            var collaboratorsCount = viewModel.collaborators().length;
-
-            if (userContext.identity.subscription.accessType === constants.accessType.free) {
-                viewModel.isUpgradeInvitationShown(collaboratorsCount === 1);
-                lockCollaboration();
-                viewModel.isAddCollaboratorLocked(true);
-                viewModel.collaborationWarning(localizationManager.localize('addCollaboratorFreeWarning'));
-            }
-            else if (userContext.identity.subscription.accessType === constants.accessType.starter) {
-                viewModel.isUpgradeInvitationShown(false);
-                if (collaboratorsCount > constants.maxStarterPlanCollaborators + 1) {
-                    lockCollaboration();
-                } else {
-                    unlockCollaboration();
-                }
-
-                viewModel.isAddCollaboratorLocked(collaboratorsCount >= constants.maxStarterPlanCollaborators + 1);
-                viewModel.collaborationWarning(localizationManager.localize('addCollaboratorStarterWarning'));
-            }
-            else {
-                viewModel.isUpgradeInvitationShown(false);
-                unlockCollaboration();
-                viewModel.isAddCollaboratorLocked(false);
-                viewModel.collaborationWarning('');
-            }
-        }
-
-        function lockCollaboration() {
-            viewModel.isCollaborationLocked(true);
-            _.each(viewModel.collaborators(), function (item) {
-                item.lock();
-            });
-        }
-
-        function unlockCollaboration() {
-            viewModel.isCollaborationLocked(false);
-            _.each(viewModel.collaborators(), function (item) {
-                item.unlock();
-            });
         }
 
         function reset() {
             addCollaboratorViewModel.reset();
-            viewModel.isUpgradeInvitationShown(false);
-            viewModel.isCollaborationLocked(false);
-            viewModel.isAddCollaboratorLocked(false);
         }
     }
 );
