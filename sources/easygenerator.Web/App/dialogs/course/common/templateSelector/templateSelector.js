@@ -27,11 +27,14 @@
             router.activeItem.settings.lifecycleData = { redirect: '404' };
             throw reason;
         }).fin(function () {
-           viewModel.isLoading(false);
+            viewModel.isLoading(false);
         });
     }
 
     function selectTemplate(template) {
+        if (template.id === getSelectedTemplateId())
+            return;
+
         viewModel.selectedTemplate(template);
     }
 
