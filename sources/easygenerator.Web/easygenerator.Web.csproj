@@ -259,7 +259,6 @@
     <Compile Include="Components\ActionFilters\Authorization\AllowedUsersAttribute.cs" />
     <Compile Include="Components\ActionFilters\Permissions\PreviewAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttribute.cs" />
-    <Compile Include="Components\ActionFilters\Authorization\LimitCollaboratorsAmountAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\QuestionAccessAttribute.cs" />
     <Compile Include="Components\BrowserSupport.cs" />
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
@@ -483,8 +482,6 @@
     <Compile Include="Resources\Views\Error\Resources.Designer.cs" />
     <Compile Include="Resources\Views\Review\Resources.Designer.cs" />
     <Compile Include="Resources\Views\Shared\Resources.Designer.cs" />
-    <Compile Include="Security\FeatureAvailability\FeatureAvailabilityChecker.cs" />
-    <Compile Include="Security\FeatureAvailability\IFeatureAvailabilityChecker.cs" />
     <Compile Include="Security\PermissionsCheckers\AnswerPermissionsChecker.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -583,6 +580,26 @@
     <Content Include="App\dialogs\collaboration\collaborator.spec.js">
       <DependentUpon>collaborator.js</DependentUpon>
     </Content>
+    <Content Include="App\dialogs\course\common\templateSelector\templateBrief.js" />
+    <Content Include="App\dialogs\course\common\templateSelector\templateSelector.html" />
+    <Content Include="App\dialogs\course\common\templateSelector\templateSelector.js" />
+    <Content Include="App\dialogs\course\common\templateSelector\templateSelector.spec.js">
+      <DependentUpon>templateSelector.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\course\createCourse\steps\courseTemplateStep.html" />
+    <Content Include="App\dialogs\course\createCourse\steps\courseTemplateStep.spec.js">
+      <DependentUpon>courseTemplateStep.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\course\createCourse\steps\courseTemplateStep.js" />
+    <Content Include="App\dialogs\course\createCourse\steps\courseTitleStep.html" />
+    <Content Include="App\dialogs\course\createCourse\steps\courseTitleStep.js" />
+    <Content Include="App\dialogs\course\createCourse\steps\courseTitleStep.spec.js">
+      <DependentUpon>courseTitleStep.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\course\createCourse\createCourse.js" />
+    <Content Include="App\dialogs\course\createCourse\createCourse.spec.js">
+      <DependentUpon>createCourse.js</DependentUpon>
+    </Content>
     <Content Include="App\dialogs\learningPath\deleteLearningPath.html" />
     <Content Include="App\dialogs\learningPath\deleteLearningPath.js" />
     <Content Include="App\dialogs\learningPath\deleteLearningPath.spec.js">
@@ -626,6 +643,12 @@
     <Content Include="App\views\learningPaths\learningPath\publish\publishToPublicationServerEmbed.html" />
     <Content Include="App\views\learningPaths\learningPath\publish\publishToPublicationServerLink.html" />
     <Content Include="App\views\learningPaths\learningPath\publish\updatePublication.html" />
+    <Content Include="App\widgets\dialog\bindingHandlers\dialogWizardBindingHandler.js" />
+    <Content Include="App\widgets\dialog\view.html" />
+    <Content Include="App\widgets\dialog\viewmodel.js" />
+    <Content Include="App\widgets\dialog\viewmodel.spec.js">
+      <DependentUpon>viewmodel.js</DependentUpon>
+    </Content>
     <Content Include="App\widgets\upgradeDialog\viewmodel.js" />
     <Content Include="App\widgets\upgradeDialog\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
@@ -1476,6 +1499,10 @@
     <Content Include="BuildLearningPath\Template\css\font\roboto-lightItalic.ttf" />
     <Content Include="BuildLearningPath\Template\css\font\roboto-lightItalic.woff" />
     <Content Include="Content\publish.less" />
+    <Content Include="Content\dialogs.less" />
+    <Content Include="App\dialogs\course\common\templateSelector\templateBrief.spec.js">
+      <DependentUpon>templateBrief.js</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
@@ -2019,6 +2046,7 @@
     <Content Include="Scripts\knockoutBindings\scrollToBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextInAnswerBinding.js" />
     <Content Include="Scripts\knockoutBindings\switchToggleBinding.js" />
+    <Content Include="Scripts\knockoutBindings\withAnimatedBinding.js" />
     <Content Include="Scripts\md5.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
@@ -2580,11 +2608,6 @@
     <Content Include="App\dialogs\collaboration\addCollaborator.js" />
     <Content Include="App\dialogs\collaboration\addCollaborator.spec.js">
       <DependentUpon>addCollaborator.js</DependentUpon>
-    </Content>
-    <Content Include="App\dialogs\createCourse.html" />
-    <Content Include="App\dialogs\createCourse.js" />
-    <Content Include="App\dialogs\createCourse.spec.js">
-      <DependentUpon>createCourse.js</DependentUpon>
     </Content>
     <Content Include="App\errorHandling\errorHandlingConfiguration.js" />
     <Content Include="App\errorHandling\errorHandlingConfiguration.spec.js">

@@ -18,10 +18,7 @@
                 removeCollaborator: removeCollaborator,
                 showRemoveConfirmation: showRemoveConfirmation,
                 hideRemoveConfirmation: hideRemoveConfirmation,
-                deactivate: deactivate,
-                isLocked: ko.observable(false),
-                lock: lock,
-                unlock: unlock
+                deactivate: deactivate
             }
 
             viewModel.avatarLetter = ko.computed(function () {
@@ -95,20 +92,6 @@
                 viewModel.isAccepted(true);
 
                 app.off(constants.messages.course.collaboration.inviteAccepted + viewModel.id, viewModel.collaborationAccepted);
-            }
-
-            function lock() {
-                if (viewModel.isOwner)
-                    return;
-
-                viewModel.isLocked(true);
-            }
-
-            function unlock() {
-                if (viewModel.isOwner)
-                    return;
-
-                viewModel.isLocked(false);
             }
         };
 

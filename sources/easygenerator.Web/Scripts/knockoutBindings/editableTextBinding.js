@@ -2,7 +2,8 @@
     init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var
             $element = $(element),
-            text = valueAccessor().text;
+            text = valueAccessor().text,
+            onEnterKeyPress = valueAccessor().onEnterKeyPress;
 
         $element.text(ko.unwrap(text));
         $element.toggleClass('editable-text-binding', true);
@@ -18,7 +19,12 @@
             if (event.keyCode != 13) {
                 return;
             }
+
             $element.blur();
+            if (onEnterKeyPress) {
+                onEnterKeyPress();
+            }
+
             event.preventDefault();
             event.stopPropagation();
         }).on('drop dragover', function(event) {

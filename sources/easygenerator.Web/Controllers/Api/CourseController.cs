@@ -1,5 +1,4 @@
-﻿using DocumentFormat.OpenXml.InkML;
-using easygenerator.Auth.Attributes.Mvc;
+﻿using easygenerator.Auth.Attributes.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
@@ -59,9 +58,13 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [LimitCoursesAmount]
         [Route("api/course/create")]
-        public ActionResult Create(string title)
+        public ActionResult Create(string title, Template template)
         {
-            var template = _templateRepository.GetDefaultTemplate();
+            if (template == null)
+            {
+                template = _templateRepository.GetDefaultTemplate();
+            }
+
             var course = _entityFactory.Course(title, template, GetCurrentUsername());
 
             _courseRepository.Add(course);
@@ -103,7 +106,7 @@ namespace easygenerator.Web.Controllers.Api
 
                 var collaborators = course.Collaborators.Select(e => e.Email).ToList();
                 var invitedCollaborators = new Dictionary<Guid, string>();
-                course.Collaborators.Where(e => !e.Locked && !e.IsAccepted).ForEach(i => invitedCollaborators.Add(i.Id, i.Email));
+                course.Collaborators.Where(e => !e.IsAccepted).ForEach(i => invitedCollaborators.Add(i.Id, i.Email));
 
                 _courseRepository.Remove(course);
 

@@ -1,3 +1,5 @@
+
+/// <binding ProjectOpened='watch' />
 var gulp = require('gulp'),
     del = require('del'),
     args = require('yargs').argv,

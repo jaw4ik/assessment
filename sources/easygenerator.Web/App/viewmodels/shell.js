@@ -1,5 +1,6 @@
-﻿define(['durandal/app', 'plugins/router', 'routing/isViewReadyMixin', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'plugins/dialog', 'notify', 'constants', 'viewmodels/panels/leftSideBarManager'],
-    function (app, router, isViewReady, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, dialog, notify, constants, leftSideBarManager) {
+﻿define(['durandal/app', 'plugins/router', 'routing/isViewReadyMixin', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'plugins/dialog',
+    'notify', 'constants', 'viewmodels/panels/leftSideBarManager', 'plugins/widget','dialogs/course/createCourse/createCourse'],
+    function (app, router, isViewReady, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, dialog, notify, constants, leftSideBarManager, widget, createCourseDialog) {
 
         "use strict";
 
@@ -182,10 +183,8 @@
                     isViewReady.assign(router);
 
                     viewModel.router.isViewReady.subscribe(function (value) {
-                        if (value && !_.isNullOrUndefined(clientContext.get('showCreateCoursePopup'))) {
-                            dialog.show('dialogs/createCourse').then(function () {
-                                clientContext.remove('showCreateCoursePopup');
-                            });
+                        if (value && !_.isNullOrUndefined(clientContext.get(constants.clientContextKeys.showCreateCoursePopup))) {
+                            createCourseDialog.show();
                         }
                     });
 

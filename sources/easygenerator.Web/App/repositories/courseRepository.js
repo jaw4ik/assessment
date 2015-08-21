@@ -42,12 +42,13 @@
             });
         }
 
-        function addCourse(title) {
+        function addCourse(title, templateId) {
             return Q.fcall(function () {
 
                 guard.throwIfNotString(title, 'Course title (string) was expected');
+                guard.throwIfNotString(templateId, 'TemplateId (string) was expected');
 
-                return apiHttpWrapper.post('api/course/create', { title: title }).then(function (response) {
+                return apiHttpWrapper.post('api/course/create', { title: title, templateId: templateId }).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
 
                     var course = courseModelMapper.map(response, dataContext.objectives, dataContext.templates);
