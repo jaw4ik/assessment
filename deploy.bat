@@ -74,6 +74,9 @@ RMDIR /S /Q "%DeploymentDirectory%\Scripts\jasmine"
 XCOPY "./sources/easygenerator.ConversionServer/package.json" "%DeploymentDirectory%\conversion\" /Y /F /I
 XCOPY "./sources/easygenerator.ConversionServer/www.js" "%DeploymentDirectory%\conversion\" /Y /F /I
 XCOPY "./sources/easygenerator.ConversionServer/server.js" "%DeploymentDirectory%\conversion\" /Y /F /I
+XCOPY "./sources/easygenerator.ConversionServer/ticketController.js" "%DeploymentDirectory%\conversion\" /Y /F /I
+XCOPY "./sources/easygenerator.ConversionServer/ticketDispatcher.js" "%DeploymentDirectory%\conversion\" /Y /F /I
+XCOPY "./sources/easygenerator.ConversionServer/fileController.js" "%DeploymentDirectory%\conversion\" /Y /F /I
 XCOPY "./sources/easygenerator.ConversionServer/config.js" "%DeploymentDirectory%\conversion\" /Y /F /I
 XCOPY "./sources/easygenerator.ConversionServer/iisnode.yml" "%DeploymentDirectory%\conversion\" /Y /F /I
 XCOPY "./sources/easygenerator.ConversionServer/audio_image.jpg" "%DeploymentDirectory%\conversion\" /Y /F /I

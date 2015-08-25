@@ -25,7 +25,7 @@ describe('server', function () {
         config.SAMPLE_OGG = path.join(__dirname, 'sample.ogg');
         config.SAMPLE_WAV = path.join(__dirname, 'sample.wav');
         config.SAMPLE_TXT = path.join(__dirname, '..', 'README.MD');
-        config.apps = [ApplicationId];
+        config.applications = [ApplicationId];
         
         fs.mkdir(path.join(config.TEMP_FOLDER), function (err) {
             if (err && err.code != "EEXIST") {
@@ -55,10 +55,13 @@ describe('server', function () {
 
             beforeEach(function(done) {
                 request
-                    .post(config.LOCATION + '/ticket')
+                    .post(config.LOCATION + '/tickets')
                     .set('Accept', 'application/json')
                     .set('Authorization', 'Bearer ' + ApplicationId)
                     .end(function(err, res) {
+                        if (err) {
+                            return done(err);
+                        }
                         ticketId = res.text;
                         done();
                     });
@@ -251,7 +254,7 @@ describe('server', function () {
 
             beforeEach(function(done) {
                 request
-                    .post(config.LOCATION + '/ticket')
+                    .post(config.LOCATION + '/tickets')
                     .set('Accept', 'application/json')
                     .set('Authorization', 'Bearer ' + ApplicationId)
                     .end(function(err, res) {
@@ -332,6 +335,7 @@ describe('server', function () {
                         done();
                     });
             });
+
         });
 
     });

@@ -37,6 +37,9 @@
     <Compile Include="converter\index.js" />
     <Compile Include="server.js" />
     <Compile Include="test\server.spec.js" />
+    <Compile Include="ticketController.js" />
+    <Compile Include="ticketDispatcher.js" />
+    <Compile Include="fileController.js" />
     <Compile Include="www.js" />
     <Content Include="converter\audio_image.jpg" />
     <Content Include="converter\ffmpeg.exe" />

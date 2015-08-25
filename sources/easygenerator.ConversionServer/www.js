@@ -1,7 +1,18 @@
-﻿var app = require('./server');
+﻿var 
+    app = require('./server'),
+    config = require('./config');
 
-app.set('port', process.env.PORT || 3000);
 
-var server = app.listen(app.get('port'), function () {
-    console.log('Express server listening on port ' + server.address().port);
+if (config.cors) {
+    app.use(require('cors')());
+}
+
+if (config.morgan) {
+    app.use(require('morgan')(config.morgan));
+}
+
+var port = process.env.PORT || 3000;
+
+app.listen(port, function () {
+    console.log('Express server listening on port ' + port);
 });
