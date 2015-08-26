@@ -25,7 +25,7 @@ namespace easygenerator.DataAccess.Repositories
         public ICollection<Course> GetAvailableCoursesCollection(string username)
         {
             return _dataContext.GetSet<Course>().Where(course => course.CreatedBy == username ||
-                   course.CollaboratorsCollection.Any(collaboration => collaboration.Email == username && !collaboration.Locked && collaboration.IsAccepted)
+                   course.CollaboratorsCollection.Any(collaboration => collaboration.Email == username && collaboration.IsAccepted)
                    ).AsNoTracking().ToList();
         }
 

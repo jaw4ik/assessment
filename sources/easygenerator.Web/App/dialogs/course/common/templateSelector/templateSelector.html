@@ -13,8 +13,18 @@
         </ul>
     </div>
     <!-- ko if: selectedTemplate -->
-    <!-- ko compose: { model: selectedTemplate, view: 'dialogs/course/common/templateSelector/templateDetails', transition: 'fadeTransition' } -->
-    <!-- /ko -->
+    <div class="template-details scrollable" data-bind="withAnimated: selectedTemplate">
+        <div class="template-details-section">
+            <div class="template-details-section-header" data-bind="localize: { text: 'templateDescriptionCaption' }"></div>
+            <div class="template-details-description" data-bind="text: description"></div>
+        </div>
+        <div class="template-details-section">
+            <div class="template-details-section-header" data-bind="localize: { text: 'templateDidacticalStructureCaption' }"></div>
+            <div class="template-details-didactical-structure">
+                <img class="template-details-didactical-structure-image" alt="" data-bind="attr: { src: previewImages[0]+'?v='+window.appVersion }">
+            </div>
+        </div>
+    </div>
     <!-- /ko -->
     <!-- /ko -->
 </div>

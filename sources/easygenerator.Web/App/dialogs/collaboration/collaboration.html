@@ -1,13 +1,5 @@
 ﻿<div class="modal-dialog-wrapper collaboration" data-bind="dialog: { autoclose: true, isShown: isShown, onHide: hide }, css: { visible: isShown}">
     <div class="modal-dialog-close-btn" data-bind="click: hide"></div>
-    <!-- ko if: isUpgradeInvitationShown -->
-    <div class="collaboration-upgrade-invitation">
-        <div class="collaboration-upgrade-invitation-title" data-bind="localize: { text: 'addCoauthorsToYourCourse' }"></div>
-        <div class="collaboration-upgrade-invitation-message" data-bind="text: collaborationWarning"></div>
-        <button class="btn green collaboration-upgrade-btn" data-bind="click: openUpgradePlanUrl, localize: { text: 'upgradeNow' }"></button>
-    </div>
-    <!-- /ko -->
-    <!-- ko ifnot: isUpgradeInvitationShown -->
     <div class="modal-dialog-header">
         <div class="modal-dialog-header-text" data-bind="localize: { text: 'manageCoauthors' }"></div>
     </div>
@@ -32,16 +24,9 @@
         </ul>
         <!-- /ko -->
     </div>
-    <!-- ko if: isAddCollaboratorLocked -->
-    <div class="collaboration-locked-info-block">
-        <div class="collaboration-locked-info-block-message" data-bind="text: collaborationWarning"></div>
-        <button class="btn green collaboration-locked-info-block-upgrade-btn" data-bind="click: openUpgradePlanUrl, localize: { text: 'upgradeNow' }"></button>
-    </div>
-    <!-- /ko -->
-    <!-- ko ifnot: isAddCollaboratorLocked -->
+    
     <!-- ko compose: { view: 'dialogs/collaboration/addCollaborator', model: addCollaboratorViewModel } -->
     <!-- /ko -->
-    <!-- /ko -->
-    <!-- /ko -->
+    
 </div>
 

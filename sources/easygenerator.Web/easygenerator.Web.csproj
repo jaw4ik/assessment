@@ -259,7 +259,6 @@
     <Compile Include="Components\ActionFilters\Authorization\AllowedUsersAttribute.cs" />
     <Compile Include="Components\ActionFilters\Permissions\PreviewAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttribute.cs" />
-    <Compile Include="Components\ActionFilters\Authorization\LimitCollaboratorsAmountAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\QuestionAccessAttribute.cs" />
     <Compile Include="Components\BrowserSupport.cs" />
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
@@ -483,8 +482,6 @@
     <Compile Include="Resources\Views\Error\Resources.Designer.cs" />
     <Compile Include="Resources\Views\Review\Resources.Designer.cs" />
     <Compile Include="Resources\Views\Shared\Resources.Designer.cs" />
-    <Compile Include="Security\FeatureAvailability\FeatureAvailabilityChecker.cs" />
-    <Compile Include="Security\FeatureAvailability\IFeatureAvailabilityChecker.cs" />
     <Compile Include="Security\PermissionsCheckers\AnswerPermissionsChecker.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -584,7 +581,6 @@
       <DependentUpon>collaborator.js</DependentUpon>
     </Content>
     <Content Include="App\dialogs\course\common\templateSelector\templateBrief.js" />
-    <Content Include="App\dialogs\course\common\templateSelector\templateDetails.html" />
     <Content Include="App\dialogs\course\common\templateSelector\templateSelector.html" />
     <Content Include="App\dialogs\course\common\templateSelector\templateSelector.js" />
     <Content Include="App\dialogs\course\common\templateSelector\templateSelector.spec.js">
@@ -2050,6 +2046,7 @@
     <Content Include="Scripts\knockoutBindings\scrollToBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextInAnswerBinding.js" />
     <Content Include="Scripts\knockoutBindings\switchToggleBinding.js" />
+    <Content Include="Scripts\knockoutBindings\withAnimatedBinding.js" />
     <Content Include="Scripts\md5.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />

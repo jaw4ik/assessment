@@ -207,10 +207,37 @@
         });
 
         describe('selectTemplate:', function () {
-            it('should set selected template', function () {
-                viewModel.selectedTemplate(null);
-                viewModel.selectTemplate(template);
-                expect(viewModel.selectedTemplate()).toBe(template);
+            describe('when there is selected template set', function () {
+                describe('and selected template id equals template to select id', function () {
+                    it('should not change selected template', function () {
+                        var selectedTemplate = { id: template.id };
+                        viewModel.selectedTemplate(selectedTemplate);
+                        viewModel.selectTemplate(template);
+                        expect(viewModel.selectedTemplate()).toBe(selectedTemplate);
+                    });
+                });
+
+                describe('and selected template id is not equal template to select id', function () {
+                    beforeEach(function () {
+                        viewModel.selectedTemplate({ id: 'idd' });
+                    });
+
+                    it('should set selected template', function () {
+                        viewModel.selectTemplate(template);
+                        expect(viewModel.selectedTemplate()).toBe(template);
+                    });
+                });
+            });
+
+            describe('when there is no selected template', function () {
+                beforeEach(function () {
+                    viewModel.selectedTemplate(null);
+                });
+
+                it('should set selected template', function () {
+                    viewModel.selectTemplate(template);
+                    expect(viewModel.selectedTemplate()).toBe(template);
+                });
             });
         });
     });

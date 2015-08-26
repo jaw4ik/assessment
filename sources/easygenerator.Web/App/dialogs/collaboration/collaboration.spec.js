@@ -98,35 +98,11 @@
             });
         });
 
-        describe('isCollaborationLocked:', function () {
-            it('should be observable', function () {
-                expect(viewModel.isCollaborationLocked).toBeObservable();
-            });
-        });
-
-        describe('isAddCollaboratorLocked:', function () {
-            it('should be observable', function () {
-                expect(viewModel.isAddCollaboratorLocked).toBeObservable();
-            });
-        });
-
-        describe('isUpgradeInvitationShown:', function () {
-            it('should be observable', function () {
-                expect(viewModel.isUpgradeInvitationShown).toBeObservable();
-            });
-        });
-
         describe('show:', function () {
 
             var getCollaborators;
 
             beforeEach(function () {
-                userContext.identity = {
-                    subscription: {
-                        accessType: constants.accessType.free
-                    }
-                };
-
                 getCollaborators = Q.defer();
                 spyOn(repository, 'getCollection').and.returnValue(getCollaborators.promise);
                 router.routeData({ courseId: courseId });
@@ -171,18 +147,6 @@
                 viewModel.courseOwner = '';
                 viewModel.show(courseId, courseOwner);
                 expect(viewModel.courseOwner).toBe(courseOwner);
-            });
-
-            it('should set isUpgradeInvitationShown shown to false', function () {
-                viewModel.isUpgradeInvitationShown(true);
-                viewModel.show(courseId, courseOwner);
-                expect(viewModel.isUpgradeInvitationShown()).toBeFalsy();
-            });
-
-            it('should set isAddCollaboratorLocked shown to false', function () {
-                viewModel.isAddCollaboratorLocked(true);
-                viewModel.show(courseId, courseOwner);
-                expect(viewModel.isAddCollaboratorLocked()).toBeFalsy();
             });
 
             it('should set is shown to true', function () {
@@ -249,19 +213,6 @@
                         };
                     });
 
-                    it('should call updateCollaborationStatus', function (done) {
-                        var promise = getCollaborators.promise.finally(function () { });
-                        spyOn(viewModel, 'updateCollaborationStatus');
-                        getCollaborators.resolve(collaborators);
-
-                        viewModel.show(courseId, courseOwner);
-
-                        promise.fin(function () {
-                            expect(viewModel.updateCollaborationStatus).toHaveBeenCalled();
-
-                            done();
-                        });
-                    });
                 });
 
                 it('should order members by created on date', function () {
@@ -290,24 +241,6 @@
                             accessType: constants.accessType.free
                         }
                     };
-                });
-
-                it('should subscribe on user downgraded event', function () {
-                    viewModel.show(courseId, courseOwner);
-
-                    expect(app.on).toHaveBeenCalledWith(constants.messages.user.downgraded, viewModel.updateCollaborationStatus);
-                });
-
-                it('should subscribe from user upgradedToStarter event', function () {
-                    viewModel.show(courseId, courseOwner);
-
-                    expect(app.on).toHaveBeenCalledWith(constants.messages.user.upgradedToStarter, viewModel.updateCollaborationStatus);
-                });
-
-                it('should subscribe from user upgradedToPlus event', function () {
-                    viewModel.show(courseId, courseOwner);
-
-                    expect(app.on).toHaveBeenCalledWith(constants.messages.user.upgradedToPlus, viewModel.updateCollaborationStatus);
                 });
             });
 
@@ -367,48 +300,7 @@
                 beforeEach(function () {
                     viewModel.courseOwner = courseOwner;
                 });
-
-                it('should unsubscribe from user downgraded event', function () {
-                    viewModel.hide();
-
-                    expect(app.off).toHaveBeenCalledWith(constants.messages.user.downgraded, viewModel.updateCollaborationStatus);
-                });
-
-                it('should unsubscribe from user upgradedToStarter event', function () {
-                    viewModel.hide();
-
-                    expect(app.off).toHaveBeenCalledWith(constants.messages.user.upgradedToStarter, viewModel.updateCollaborationStatus);
-                });
-
-                it('should unsubscribe from user upgradedToPlus event', function () {
-                    viewModel.hide();
-
-                    expect(app.off).toHaveBeenCalledWith(constants.messages.user.upgradedToPlus, viewModel.updateCollaborationStatus);
-                });
-
             });
-        });
-
-        describe('openUpgradePlanUrl:', function () {
-
-            beforeEach(function () {
-                spyOn(window, 'open');
-            });
-
-            it('should be function', function () {
-                expect(viewModel.openUpgradePlanUrl).toBeFunction();
-            });
-
-            it('should send event \'Upgrade now\'', function () {
-                viewModel.openUpgradePlanUrl();
-                expect(eventTracker.publish).toHaveBeenCalledWith(constants.upgradeEvent, constants.upgradeCategory.collaboration);
-            });
-
-            it('should open upgrade link in new window', function () {
-                viewModel.openUpgradePlanUrl();
-                expect(window.open).toHaveBeenCalledWith(constants.upgradeUrl, '_blank');
-            });
-
         });
 
         describe('addCollaboratorViewModel', function () {
@@ -457,14 +349,6 @@
                 expect(viewModel.collaborators()[2].email).toBe(collaborators[2].email);
                 expect(viewModel.collaborators()[3].email).toBe(collaborator.email);
             });
-
-            it('should update collaboration status', function () {
-                spyOn(viewModel, 'updateCollaborationStatus');
-                viewModel.collaborators(collaborators);
-                viewModel.collaboratorAdded(collaborator);
-
-                expect(viewModel.updateCollaborationStatus).toHaveBeenCalled();
-            });
         });
 
         describe('collaboratorRemoved:', function () {
@@ -486,291 +370,6 @@
                 viewModel.collaborators([collaborators[0]]);
                 viewModel.collaboratorRemoved(collaborators[0].email);
                 expect(viewModel.collaborators().length).toBe(0);
-            });
-
-            it('should update collaboration status', function () {
-                spyOn(viewModel, 'updateCollaborationStatus');
-                viewModel.collaborators(collaborators);
-                viewModel.collaboratorRemoved(collaborators[0]);
-
-                expect(viewModel.updateCollaborationStatus).toHaveBeenCalled();
-            });
-        });
-
-        describe('updateCollaborationStatus:', function () {
-            it('should be function', function () {
-                expect(viewModel.updateCollaborationStatus).toBeFunction();
-            });
-
-            describe('when user has free access type', function () {
-
-                beforeEach(function () {
-                    userContext.identity = {
-                        subscription: {
-                            accessType: constants.accessType.free
-                        }
-                    };
-                });
-
-                it('should set collaborationWarning to addCollaboratorFreeWarning', function () {
-                    viewModel.updateCollaborationStatus();
-
-                    expect(localizationManager.localize).toHaveBeenCalledWith('addCollaboratorFreeWarning');
-                    expect(viewModel.collaborationWarning()).toEqual(localizedMessage);
-                });
-
-                it('should set isCollaborationLocked to true', function () {
-                    viewModel.isCollaborationLocked(false);
-                    viewModel.updateCollaborationStatus();
-
-                    expect(viewModel.isCollaborationLocked()).toBeTruthy();
-                });
-
-                it('should set isAddCollaboratorLocked to true', function () {
-                    viewModel.isAddCollaboratorLocked(false);
-                    viewModel.updateCollaborationStatus();
-
-                    expect(viewModel.isAddCollaboratorLocked()).toBeTruthy();
-                });
-
-                it('should call lock function for all collaborators', function () {
-                    var member1 = { lock: function () { } },
-                        member2 = { lock: function () { } };
-                    spyOn(member1, 'lock');
-                    spyOn(member2, 'lock');
-                    viewModel.collaborators([member1, member2]);
-
-                    viewModel.updateCollaborationStatus();
-
-                    expect(member1.lock).toHaveBeenCalled();
-                    expect(member2.lock).toHaveBeenCalled();
-                });
-
-                describe('and when collaborators count == 1', function () {
-                    beforeEach(function () {
-                        viewModel.collaborators([collaborators[0]]);
-                    });
-
-                    it('should set isUpgradeInvitationShown to true', function () {
-                        viewModel.isUpgradeInvitationShown(false);
-                        viewModel.updateCollaborationStatus();
-
-                        expect(viewModel.isUpgradeInvitationShown()).toBeTruthy();
-                    });
-                });
-
-                describe('and when collaborators count > 1', function () {
-                    beforeEach(function () {
-                        viewModel.collaborators([collaborators[0], collaborators[1]]);
-                    });
-
-                    it('should set isUpgradeInvitationShown to false', function () {
-                        viewModel.isUpgradeInvitationShown(true);
-                        viewModel.updateCollaborationStatus();
-
-                        expect(viewModel.isUpgradeInvitationShown()).toBeFalsy();
-                    });
-                });
-
-            });
-
-            describe('when user has starter access type', function () {
-
-                beforeEach(function () {
-                    userContext.identity = {
-                        subscription: {
-                            accessType: constants.accessType.starter
-                        }
-                    };
-                });
-
-                describe('and collaborators count more than max allowed', function () {
-
-                    beforeEach(function () {
-                        viewModel.collaborators([collaborators[0], collaborators[1], collaborators[2], collaborators[0], collaborators[1]]);
-                    });
-
-                    it('should set collaborationWarning to addCollaboratorStarterWarning', function () {
-                        viewModel.updateCollaborationStatus();
-
-                        expect(localizationManager.localize).toHaveBeenCalledWith('addCollaboratorStarterWarning');
-                        expect(viewModel.collaborationWarning()).toEqual(localizedMessage);
-                    });
-
-                    it('should set isCollaborationLocked to true', function () {
-                        viewModel.isCollaborationLocked(false);
-                        viewModel.updateCollaborationStatus();
-
-                        expect(viewModel.isCollaborationLocked()).toBeTruthy();
-                    });
-
-                    it('should call lock function for all collaborators', function () {
-                        spyOn(collaborators[0], 'lock');
-                        spyOn(collaborators[1], 'lock');
-                        spyOn(collaborators[2], 'lock');
-
-                        viewModel.updateCollaborationStatus();
-
-                        expect(collaborators[0].lock).toHaveBeenCalled();
-                        expect(collaborators[1].lock).toHaveBeenCalled();
-                        expect(collaborators[2].lock).toHaveBeenCalled();
-                    });
-
-                    it('should set isAddCollaboratorLocked to true', function () {
-                        viewModel.isCollaborationLocked(false);
-                        viewModel.updateCollaborationStatus();
-
-                        expect(viewModel.isAddCollaboratorLocked()).toBeTruthy();
-                    });
-
-                    it('should set isUpgradeInvitationShown to false', function () {
-                        viewModel.isUpgradeInvitationShown(true);
-                        viewModel.updateCollaborationStatus();
-
-                        expect(viewModel.isUpgradeInvitationShown()).toBeFalsy();
-                    });
-                });
-
-                describe('and collaborators count is max allowed', function () {
-
-                    beforeEach(function () {
-                        viewModel.collaborators([collaborators[0], collaborators[1], collaborators[2], collaborators[0]]);
-                    });
-
-                    it('should set collaborationWarning to addCollaboratorStarterWarning', function () {
-                        viewModel.updateCollaborationStatus();
-
-                        expect(localizationManager.localize).toHaveBeenCalledWith('addCollaboratorStarterWarning');
-                        expect(viewModel.collaborationWarning()).toEqual(localizedMessage);
-                    });
-
-                    it('should set isCollaborationLocked to false', function () {
-                        viewModel.isCollaborationLocked(true);
-                        viewModel.updateCollaborationStatus();
-
-                        expect(viewModel.isCollaborationLocked()).toBeFalsy();
-                    });
-
-                    it('should call unlock function for all collaborators', function () {
-                        spyOn(collaborators[0], 'unlock');
-                        spyOn(collaborators[1], 'unlock');
-                        spyOn(collaborators[2], 'unlock');
-
-                        viewModel.updateCollaborationStatus();
-
-                        expect(collaborators[0].unlock).toHaveBeenCalled();
-                        expect(collaborators[1].unlock).toHaveBeenCalled();
-                        expect(collaborators[2].unlock).toHaveBeenCalled();
-                    });
-
-                    it('should set isAddCollaboratorLocked to true', function () {
-                        viewModel.isCollaborationLocked(false);
-                        viewModel.updateCollaborationStatus();
-
-                        expect(viewModel.isAddCollaboratorLocked()).toBeTruthy();
-                    });
-
-                    it('should set isUpgradeInvitationShown to false', function () {
-                        viewModel.isUpgradeInvitationShown(true);
-                        viewModel.updateCollaborationStatus();
-
-                        expect(viewModel.isUpgradeInvitationShown()).toBeFalsy();
-                    });
-                });
-
-                describe('and collaborators count less than max allowed', function () {
-
-                    beforeEach(function () {
-                        viewModel.collaborators([collaborators[0], collaborators[1]]);
-                    });
-
-                    it('should set collaborationWarning to addCollaboratorStarterWarning', function () {
-                        viewModel.updateCollaborationStatus();
-
-                        expect(localizationManager.localize).toHaveBeenCalledWith('addCollaboratorStarterWarning');
-                        expect(viewModel.collaborationWarning()).toEqual(localizedMessage);
-                    });
-
-                    it('should set isCollaborationLocked to false', function () {
-                        viewModel.isCollaborationLocked(true);
-                        viewModel.updateCollaborationStatus();
-
-                        expect(viewModel.isCollaborationLocked()).toBeFalsy();
-                    });
-
-                    it('should call unlock function for all collaborators', function () {
-                        spyOn(collaborators[0], 'unlock');
-                        spyOn(collaborators[1], 'unlock');
-
-                        viewModel.updateCollaborationStatus();
-
-                        expect(collaborators[0].unlock).toHaveBeenCalled();
-                        expect(collaborators[1].unlock).toHaveBeenCalled();
-                    });
-
-                    it('should set isAddCollaboratorLocked to false', function () {
-                        viewModel.isCollaborationLocked(true);
-                        viewModel.updateCollaborationStatus();
-
-                        expect(viewModel.isAddCollaboratorLocked()).toBeFalsy();
-                    });
-
-                    it('should set isUpgradeInvitationShown to false', function () {
-                        viewModel.isUpgradeInvitationShown(true);
-                        viewModel.updateCollaborationStatus();
-
-                        expect(viewModel.isUpgradeInvitationShown()).toBeFalsy();
-                    });
-                });
-            });
-
-            describe('when user has plus access type', function () {
-                beforeEach(function () {
-                    userContext.identity = {
-                        subscription: {
-                            accessType: constants.accessType.plus
-                        }
-                    };
-                    viewModel.collaborators([collaborators[0], collaborators[1]]);
-                });
-
-                it('should set collaborationWarning to empty string', function () {
-                    viewModel.collaborationWarning('error');
-                    viewModel.updateCollaborationStatus();
-
-                    expect(viewModel.collaborationWarning()).toEqual('');
-                });
-
-                it('should set isCollaborationLocked to false', function () {
-                    viewModel.isCollaborationLocked(true);
-                    viewModel.updateCollaborationStatus();
-
-                    expect(viewModel.isCollaborationLocked()).toBeFalsy();
-                });
-
-                it('should call unlock function for all collaborators', function () {
-                    spyOn(collaborators[0], 'unlock');
-                    spyOn(collaborators[1], 'unlock');
-
-                    viewModel.updateCollaborationStatus();
-
-                    expect(collaborators[0].unlock).toHaveBeenCalled();
-                    expect(collaborators[1].unlock).toHaveBeenCalled();
-                });
-
-                it('should set isAddCollaboratorLocked to false', function () {
-                    viewModel.isCollaborationLocked(true);
-                    viewModel.updateCollaborationStatus();
-
-                    expect(viewModel.isAddCollaboratorLocked()).toBeFalsy();
-                });
-
-                it('should set isUpgradeInvitationShown to false', function () {
-                    viewModel.isUpgradeInvitationShown(true);
-                    viewModel.updateCollaborationStatus();
-
-                    expect(viewModel.isUpgradeInvitationShown()).toBeFalsy();
-                });
             });
         });
 
