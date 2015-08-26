@@ -36,5 +36,9 @@
     "[tracking and tracing result success]": "Gelukt",
     "[tracking and tracing result failed]": "Niet gelukt",
     "[tracking and tracing mastery score hint]": "The minimale score om te slagen",
-    "[tracking and tracing reporting progress]": "Rapporteer voortgang"
+    "[tracking and tracing reporting progress]": "Rapporteer voortgang",
+    "[type your answer here]": "Vul uw antwoord hier in...",
+    "[tracking and tracing error hint without continue]": "Herstart de cursus. Neem contact op met uw cursusleider als het probleem niet is opgelost.",
+    "[attempts note limit acceeded]": "Je hebt het maximale nummer pogingen bereikt",
+    "[attempts remaining]": "Resterende pogingen"
 }
