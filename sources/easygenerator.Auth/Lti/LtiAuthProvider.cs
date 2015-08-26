@@ -93,7 +93,7 @@ namespace easygenerator.Auth.Lti
             var dataContext = _dependencyResolver.GetService<IUnitOfWork>();
             var userRepository = _dependencyResolver.GetService<IUserRepository>();
 
-            var user = _entityFactory.User(email, Guid.NewGuid().ToString("N"), firstName, lastName, ltiMockData, ltiMockData, ltiMockData, email, AccessType.Plus, DateTimeWrapper.Now().AddYears(50));
+            var user = _entityFactory.User(email, Guid.NewGuid().ToString("N"), firstName, lastName, ltiMockData, ltiMockData, ltiMockData, email, AccessType.Plus, "1.0.0", DateTimeWrapper.Now().AddYears(50));
 
             user.UpdateLtiUserInfo(ltiUserId);
 

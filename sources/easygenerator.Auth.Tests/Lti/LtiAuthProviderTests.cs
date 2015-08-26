@@ -143,7 +143,7 @@ namespace easygenerator.Auth.Tests.Lti
             var user = UserObjectMother.CreateWithEmail(email);
 
             _entityFactory.User(email, Arg.Any<string>(), firstName, lastName, ltiMockData, ltiMockData, ltiMockData,
-                email, AccessType.Plus, DateTimeWrapper.Now().AddYears(50)).Returns(user);
+                email, AccessType.Plus, /*user.LastReadReleaseNote,*/ DateTimeWrapper.Now().AddYears(50)).Returns(user);
 
             _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
 
@@ -162,7 +162,7 @@ namespace easygenerator.Auth.Tests.Lti
             var user = UserObjectMother.CreateWithEmail(email);
 
             _entityFactory.User(email, Arg.Any<string>(), firstName, lastName, ltiMockData, ltiMockData, ltiMockData,
-                email, AccessType.Plus, DateTimeWrapper.Now().AddYears(50)).Returns(user);
+                email, AccessType.Plus, /*user.LastReadReleaseNote,*/ DateTimeWrapper.Now().AddYears(50)).Returns(user);
 
             _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
 
@@ -217,7 +217,7 @@ namespace easygenerator.Auth.Tests.Lti
             var user = UserObjectMother.CreateWithEmail(email);
 
             _entityFactory.User(email, Arg.Any<string>(), firstName, lastName, ltiMockData, ltiMockData, ltiMockData,
-                email, AccessType.Plus, DateTimeWrapper.Now().AddYears(50)).Returns(user);
+                email, AccessType.Plus, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50)).Returns(user);
 
             _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
 
@@ -239,7 +239,7 @@ namespace easygenerator.Auth.Tests.Lti
             var user = UserObjectMother.CreateWithEmail(email);
 
             _entityFactory.User(email, Arg.Any<string>(), firstName, lastName, ltiMockData, ltiMockData, ltiMockData,
-                email, AccessType.Plus, DateTimeWrapper.Now().AddYears(50)).Returns(user);
+                email, AccessType.Plus, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50)).Returns(user);
 
             _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
 

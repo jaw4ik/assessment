@@ -1,0 +1,19 @@
+﻿<div class="modal-dialog">
+    <div class="modal-dialog-title"></div>
+    <div class="modal-dialog-body">
+        <div class="title-wrapper scrollable">
+            <div class="edit-field-wrapper" data-bind="css: { 'active': isEditing(), 'error': isChanged() && !isValid() }">
+                <div class="edit-field-paceholder" data-bind="localize: {text: 'giveNameToYourCourse'}, visible: title().length===0"></div>
+                <div class="edit-field selectable autofocus" data-bind=" editableText: { text: title, onEnterKeyPress: submit }, event: { focus: beginEdit, blur: endEdit }"></div>
+                <div class="validation-message">
+                    <span data-bind="text: !_.isNullOrUndefined(title()) && title().length"></span>/<span data-bind="text: maxLength"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-dialog-actions">
+        <button class="btn green" data-bind="click: submit, css: { disabled: !isValid(), progress: isProcessing }, enable: isValid() && !isProcessing()">
+            <span class="btn-caption" data-bind="localize: { text: 'createCourse' }"></span>
+        </button>
+    </div>
+</div>

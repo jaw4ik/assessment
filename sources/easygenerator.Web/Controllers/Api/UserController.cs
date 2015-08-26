@@ -137,7 +137,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             var user = _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone,
-                profile.Country, profile.UserRole, profile.Email);
+                profile.Country, profile.UserRole, profile.Email, "1.0.0");
 
             _repository.Add(user);
 

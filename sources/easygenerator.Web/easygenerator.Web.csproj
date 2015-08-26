@@ -22,6 +22,7 @@
     <IISExpressUseClassicPipelineMode />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -615,6 +616,9 @@
     <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.spec.js">
       <DependentUpon>moveCopyQuestion.js</DependentUpon>
     </Content>
+    <Content Include="App\dialogs\releaseNotes\releaseNotes.html" />
+    <Content Include="App\dialogs\releaseNotes\releaseNotes.js" />
+    <Content Include="App\dialogs\releaseNotes\releaseNotes.spec.js" />
     <Content Include="App\http\publishHttpWrapper.spec.js">
       <DependentUpon>publishHttpWrapper.js</DependentUpon>
     </Content>
