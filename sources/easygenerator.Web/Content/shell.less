@@ -373,14 +373,14 @@
                 opacity: 0;
                 border-radius: 5px;
                 padding: 2px 4px;
-                transition: opacity 0.2s, transform 0.2s;
-                transform: translateY(-10px);
+                transition: opacity 0.15s, margin-top 0.15s;
+                margin-top: -20px;
             }
 
             &:hover {
                 .course-template-overlay {
                     opacity: 0.9;
-                    transform: translateY(0px);
+                    margin-top: 0px;
                 }
             }
         }
@@ -425,14 +425,14 @@
             font: 12px 'OpenSansItalic';
             color: #9aa8b2;
 
-            .course-template-hint-template-name-wrapper {               
+            .course-template-hint-template-name-wrapper {
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 flex: 1 0;
 
                 .course-template-hint-template-name {
-                     cursor: pointer;
+                    cursor: pointer;
 
                     &:hover {
                         text-decoration: underline;
