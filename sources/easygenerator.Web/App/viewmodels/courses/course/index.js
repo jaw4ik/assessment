@@ -1,8 +1,8 @@
 ﻿define(['durandal/app', 'plugins/router', 'routing/isViewReadyMixin', 'viewmodels/courses/index', 'repositories/courseRepository', 'repositories/collaboratorRepository',
     'userContext', 'clientContext', 'eventTracker', 'notify', 'constants', 'localization/localizationManager', 'dialogs/collaboration/collaboration',
-    'dialogs/publishCourse/publishCourse', 'viewmodels/common/titleField'],
+    'dialogs/publishCourse/publishCourse', 'viewmodels/common/titleField', 'dialogs/course/changeTemplate/changeTemplate'],
     function (app, router, isViewReady, index, repository, collaboratorRepository, userContext, clientContext, eventTracker, notify, constants, localizationManager,
-        collaborationPopup, sharePopup, titleField) {
+        collaborationPopup, sharePopup, titleField, changeTemplateDialog) {
 
         var events = {
             updateCourseTitle: 'Update course title',
@@ -108,6 +108,8 @@
             titleUpdated: titleUpdated,
             collaboratorAdded: collaboratorAdded,
             collaboratorRemoved: collaboratorRemoved,
+            templateUpdated: templateUpdated,
+            templateUpdatedByCollaborator: templateUpdatedByCollaborator,
             stateChanged: stateChanged,
             changeTemplate: changeTemplate,
             template: {
@@ -152,7 +154,7 @@
         }
 
         function changeTemplate() {
-            alert('Change template!');
+            changeTemplateDialog.show(viewModel.id, viewModel.template.id());
         }
 
         function canActivate(courseId) {
@@ -170,20 +172,22 @@
                 viewModel.titleField.title(course.title);
                 viewModel.createdBy(course.createdBy);
                 viewModel.isDirty(course.isDirty);
-                viewModel.template.id(course.template.id);
-                viewModel.template.name(course.template.name);
-                viewModel.template.thumbnail(course.template.thumbnail);
+
+                updateTemplateInfo(course.template);
 
                 clientContext.set(constants.clientContextKeys.lastVistedCourse, course.id);
                 clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
 
                 viewModel.titleField.isSelected(clientContext.get(constants.clientContextKeys.lastCreatedCourseId) === course.id);
                 clientContext.remove(constants.clientContextKeys.lastCreatedCourseId);
-                app.on(constants.messages.course.stateChanged + courseId, stateChanged);
+                app.on(constants.messages.course.stateChanged + courseId, viewModel.stateChanged);
+
+                app.on(constants.messages.course.templateUpdated + viewModel.id, viewModel.templateUpdated);
+                app.on(constants.messages.course.templateUpdatedByCollaborator, viewModel.templateUpdatedByCollaborator);
 
                 return collaboratorRepository.getCollection(courseId).then(function (collection) {
-                    app.on(constants.messages.course.collaboration.collaboratorAdded + courseId, collaboratorAdded);
-                    app.on(constants.messages.course.collaboration.collaboratorRemoved + courseId, collaboratorRemoved);
+                    app.on(constants.messages.course.collaboration.collaboratorAdded + courseId, viewModel.collaboratorAdded);
+                    app.on(constants.messages.course.collaboration.collaboratorRemoved + courseId, viewModel.collaboratorRemoved);
 
                     app.on(constants.messages.course.titleUpdatedByCollaborator, viewModel.titleUpdated);
 
@@ -195,11 +199,31 @@
         }
 
         function deactivate() {
-            app.off(constants.messages.course.collaboration.collaboratorAdded + viewModel.id, collaboratorAdded);
-            app.off(constants.messages.course.collaboration.collaboratorRemoved + viewModel.id, collaboratorRemoved);
+            app.off(constants.messages.course.collaboration.collaboratorAdded + viewModel.id, viewModel.collaboratorAdded);
+            app.off(constants.messages.course.collaboration.collaboratorRemoved + viewModel.id, viewModel.collaboratorRemoved);
 
             app.off(constants.messages.course.titleUpdatedByCollaborator, viewModel.titleUpdated);
-            app.off(constants.messages.course.stateChanged + viewModel.id, stateChanged);
+            app.off(constants.messages.course.stateChanged + viewModel.id, viewModel.stateChanged);
+
+            app.off(constants.messages.course.templateUpdated + viewModel.id, viewModel.templateUpdated);
+            app.off(constants.messages.course.templateUpdatedByCollaborator, viewModel.templateUpdatedByCollaborator);
+        }
+
+        function updateTemplateInfo(template) {
+            viewModel.template.id(template.id);
+            viewModel.template.name(template.name);
+            viewModel.template.thumbnail(template.thumbnail);
+        }
+
+        function templateUpdated(template) {
+            updateTemplateInfo(template);
+        }
+
+        function templateUpdatedByCollaborator(course) {
+            if (course.id !== viewModel.id)
+                return;
+
+            updateTemplateInfo(course.template);
         }
 
         function collaboratorAdded(collaborator) {

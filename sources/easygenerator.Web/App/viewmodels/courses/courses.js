@@ -64,7 +64,7 @@
         app.on(constants.messages.course.deletedByCollaborator, viewModel.deletedByCollaborator);
         app.on(constants.messages.course.titleUpdatedByCollaborator, viewModel.titleUpdated);
         app.on(constants.messages.course.introductionContentUpdatedByCollaborator, viewModel.courseUpdated);
-        app.on(constants.messages.course.templateUpdated, viewModel.courseUpdated);
+        app.on(constants.messages.course.templateUpdatedByCollaborator, viewModel.courseUpdated);
         app.on(constants.messages.course.objectivesReorderedByCollaborator, viewModel.courseUpdated);
         app.on(constants.messages.course.objectiveRelatedByCollaborator, viewModel.courseUpdated);
         app.on(constants.messages.course.objectivesUnrelatedByCollaborator, viewModel.courseUpdated);

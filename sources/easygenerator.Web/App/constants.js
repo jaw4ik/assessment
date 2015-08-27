@@ -122,6 +122,7 @@
                     objectivesUnrelatedByCollaborator: 'course:objectivesUnrelatedByCollaborator',
                     objectivesReordered: 'course:objectivesReordered',
                     objectivesReorderedByCollaborator: 'course:objectivesReorderedByCollaborator',
+                    templateUpdatedByCollaborator: 'course:templateUpdatedByCollaborator',
                     templateUpdated: 'course:templateUpdated',
                     stateChanged: 'course:stateChanged',
 
@@ -403,6 +404,11 @@
                 createCourse: {
                     settings: {
                         containerCss: 'create-course'
+                    }
+                },
+                changeCourseTemplate: {
+                    settings: {
+                        containerCss: 'change-course-template'
                     }
                 },
                 upgrade: {

@@ -7,7 +7,11 @@
         notify = require('notify'),
         courseRepository = require('repositories/courseRepository'),
         templateRepository = require('repositories/templateRepository'),
-        waiter = require('utils/waiter');
+        waiter = require('utils/waiter'),
+        templateBrief = require('viewmodels/courses/course/design/templateBrief'),
+        constants = require('constants'),
+        app = require('durandal/app')
+    ;
 
     describe('viewModel [design]', function () {
 
@@ -28,6 +32,8 @@
             spyOn(router, 'replace');
             spyOn(eventTracker, 'publish');
             spyOn(notify, 'saved');
+            spyOn(app, 'on');
+            spyOn(app, 'off');
         });
 
         it('should be defined', function () {
@@ -139,10 +145,6 @@
 
         describe('activate:', function () {
 
-            it('should be function', function () {
-                expect(viewModel.activate).toBeFunction();
-            });
-
             it('should return promise', function () {
                 expect(viewModel.activate()).toBePromise();
             });
@@ -218,213 +220,48 @@
                     getCourseDefer.resolve(course);
                 });
 
-                it('should publish navigate to templates event', function (done) {
-                    getTemplateCollectionDefer.reject();
+                it('should set courseId', function (done) {
+                    viewModel.courseId = null;
+                    viewModel.activate(course.id).fin(function () {
+                        expect(viewModel.courseId).toBe(course.id);
+                        done();
+                    });
+                });
 
+                it('should publish navigate to templates event', function (done) {
                     viewModel.activate(course.id).fin(function () {
                         expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to \'choose template\' section', 'Design step');
                         done();
                     });
-
-                });
-
-                it('should set templatesSectionSelected to true', function (done) {
-                    getTemplateCollectionDefer.reject();
-                    viewModel.templatesSectionSelected(false);
-
-                    viewModel.activate(course.id).fin(function () {
-                        expect(viewModel.templatesSectionSelected()).toBeTruthy();
-                        done();
-                    });
-
                 });
 
                 it('should set previewUrl', function (done) {
-                    getTemplateCollectionDefer.reject();
-
                     viewModel.activate(course.id).fin(function () {
                         expect(viewModel.previewUrl()).toBe('/preview/' + course.id);
                         done();
                     });
-
                 });
 
-                it('should get collection of templates from repository', function (done) {
-                    getTemplateCollectionDefer.reject();
-
+                it('should set template', function (done) {
+                    viewModel.template(null);
                     viewModel.activate(course.id).fin(function () {
-                        expect(templateRepository.getCollection).toHaveBeenCalled();
+                        expect(viewModel.template()).toBeDefined();
                         done();
                     });
                 });
 
-                describe('and an error occured when getting templates', function () {
-
-                    beforeEach(function () {
-                        getTemplateCollectionDefer.reject('reason');
+                it('should subscribe to templateUpdated event', function (done) {
+                    viewModel.activate(course.id).fin(function () {
+                        expect(app.on).toHaveBeenCalledWith(constants.messages.course.templateUpdated + course.id, viewModel.templateUpdated);
+                        done();
                     });
-
-                    it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function (done) {
-                        router.activeItem.settings.lifecycleData = null;
-
-                        viewModel.activate(course.id).fin(function () {
-                            expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
-                            done();
-                        });
-                    });
-
-                    it('should reject promise', function (done) {
-                        var promise = viewModel.activate(course.id);
-
-                        promise.fin(function () {
-                            expect(promise).toBeRejectedWith('reason');
-                            done();
-                        });
-                    });
-
                 });
 
-                describe('and got templates', function () {
-
-                    beforeEach(function () {
-                        getTemplateCollectionDefer.resolve(templates);
+                it('should subscribe to templateUpdatedByCollaborator event', function (done) {
+                    viewModel.activate(course.id).fin(function () {
+                        expect(app.on).toHaveBeenCalledWith(constants.messages.course.templateUpdatedByCollaborator, viewModel.templateUpdatedByCollaborator);
+                        done();
                     });
-
-                    describe('should map templates:', function () {
-
-                        beforeEach(function (done) {
-                            viewModel.activate().fin(function () {
-                                template = viewModel.templates[0];
-                                done();
-                            });
-                        });
-
-                        describe('id:', function () {
-
-                            it('should be defined', function () {
-                                expect(template.id).toBeDefined();
-                            });
-
-                        });
-
-                        describe('name:', function () {
-
-                            it('should be defined', function () {
-                                expect(template.name).toBeDefined();
-                            });
-
-                        });
-
-                        describe('description:', function () {
-
-                            it('should be defined', function () {
-                                expect(template.description).toBeDefined();
-                            });
-
-                        });
-
-                        describe('isNew:', function () {
-
-                            it('should be defined', function () {
-                                expect(template.isNew).toBeDefined();
-                            });
-
-                        });
-
-                        describe('isCustom:', function () {
-
-                            it('should be defined', function () {
-                                expect(template.isNew).toBeDefined();
-                            });
-
-                        });
-
-                        describe('thumbnail:', function () {
-
-                            it('should be defined', function () {
-                                expect(template.thumbnail).toBeDefined();
-                            });
-
-                        });
-
-                        describe('previewImages:', function () {
-
-                            it('should be array', function () {
-                                expect(template.previewImages.length).toBeDefined();
-                            });
-
-                        });
-
-                        describe('openPreview:', function () {
-
-                            var event = {
-                                stopPropagation: function () { }
-                            };
-
-                            beforeEach(function () {
-                                spyOn(event, 'stopPropagation');
-                                spyOn(router, 'openUrl').and.callFake(function () { });
-                            });
-
-                            it('should be function', function () {
-                                expect(template.openPreview).toBeFunction();
-                            });
-
-                            it('should stop propagation', function () {
-                                template.openPreview(template, event);
-                                expect(event.stopPropagation).toHaveBeenCalled();
-                            });
-
-                            it('should open template preview in new tab', function () {
-                                template.openPreview(template, event);
-                                var previewUrl = router.openUrl.calls.mostRecent().args[0];
-                                var url = previewUrl.substring(0, previewUrl.indexOf('?'));
-                                expect(url).toBe(template.previewDemoUrl);
-                            });
-
-                        });
-
-                        describe('designSettingsUrl:', function () {
-
-                            it('should be defined', function () {
-                                expect(template.designSettingsUrl).toBeDefined();
-                            });
-
-                        });
-
-                        describe('settingsAvailable:', function () {
-
-                            it('should be defined', function () {
-                                expect(template.settingsAvailable).toBeDefined();
-                            });
-
-                        });
-
-                        describe('loadingTemplate:', function () {
-
-                            it('should be defined', function () {
-                                expect(template.loadingTemplate).toBeDefined();
-                            });
-
-                        });
-
-                    });
-
-                    it('should set a list of available templates by order', function (done) {
-                        viewModel.activate(course.id).fin(function () {
-                            expect(viewModel.templates[0].id).toBe(templates[1].id);
-                            expect(viewModel.templates[1].id).toBe(templates[0].id);
-                            done();
-                        });
-                    });
-
-                    it('should set currentTemplate', function (done) {
-                        viewModel.activate(course.id).fin(function () {
-                            expect(viewModel.currentTemplate().id).toBe(template.id);
-                            done();
-                        });
-                    });
-
                 });
 
             });
@@ -452,9 +289,19 @@
 
             });
 
+            it('should unsubscribe from templateUpdated event', function () {
+                viewModel.deactivate();
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.templateUpdated + viewModel.courseId, viewModel.templateUpdated);
+            });
+
+            it('should unsubscribe from templateUpdatedByCollaborator event', function () {
+                viewModel.deactivate();
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.templateUpdatedByCollaborator, viewModel.templateUpdatedByCollaborator);
+            });
+
         });
 
-        describe('selectTemplate:', function () {
+        describe('templateUpdated:', function () {
 
             var dfd, template;
 
@@ -464,284 +311,311 @@
                 spyOn(notify, 'success');
                 spyOn(notify, 'error');
 
-                template = { id: "0", name: "Default", thumbnail: "path/to/image1.png", previewImages: ["path/to/previewImg.png"], description: "Default template", previewDemoUrl: 'preview_url_default', settingsUrls: { design: null, configure: null }, order: 1, isNew: false, isCustom: false, loadingTemplate: ko.observable(false) };
+                template = {
+                    id: "0",
+                    name: "Default",
+                    thumbnail: "path/to/image1.png",
+                    previewImages: ["path/to/previewImg.png"],
+                    description: "Default template",
+                    previewDemoUrl: 'preview_url_default',
+                    settingsUrls: { design: null, configure: null }, order: 1, isNew: false, isCustom: false, loadingTemplate: ko.observable(false)
+                };
             });
 
-            it('should be function', function () {
-                expect(viewModel.selectTemplate).toBeFunction();
-            });
-
-
-            describe('when template is already selected', function () {
-
+            describe('when template is current template', function () {
                 beforeEach(function () {
-                    viewModel.courseId = 'courseId';
-                    viewModel.currentTemplate(template);
+                    viewModel.template(template);
                 });
 
-                it('should not send event \'Change course template to \'selectedTemplateName\'\'', function () {
-                    viewModel.selectTemplate(template);
-
-                    expect(eventTracker.publish).not.toHaveBeenCalled();
-                });
-
-                it('should not change template from repository', function () {
-                    viewModel.selectTemplate(template);
-
-                    expect(courseRepository.updateCourseTemplate).not.toHaveBeenCalled();
-                });
-
-                it('should not wait for save template settings', function () {
-                    viewModel.selectTemplate(template);
-
+                it('should not wait for load template settings', function () {
+                    viewModel.templateUpdated(template);
                     expect(waiter.waitFor).not.toHaveBeenCalled();
                 });
-
             });
 
-            describe('when template is not yet selected', function () {
-
-                describe('when template is custom', function () {
-
-                    it('should send event \'Change course template to \'custom\'\'', function () {
-                        template.isCustom = true;
-
-                        viewModel.selectTemplate(template);
-
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Change course template to \'custom\'');
-                    });
+            describe('when template is not current template', function () {
+                var currentTemplate = { id: 'someId', loadingTemplate: ko.observable() };
+                beforeEach(function () {
+                    viewModel.template(currentTemplate);
                 });
 
-                describe('when template is default', function () {
+                it('should mark template as loading', function () {
+                    currentTemplate.loadingTemplate(false);
+                    viewModel.templateUpdated(template);
 
-                    it('should send event \'Change course template to \'selectedTemplateName\'\'', function () {
-                        viewModel.selectTemplate(template);
+                    expect(currentTemplate.loadingTemplate()).toBeTruthy();
+                });
 
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Change course template to \'' + template.name + '\'');
-                    });
+                it('should mark as loading template', function () {
+                    viewModel.loadingTemplate(false);
+                    viewModel.templateUpdated(template);
 
+                    expect(viewModel.loadingTemplate()).toBeTruthy();
                 });
 
                 it('should wait for save template settings', function () {
-                    viewModel.selectTemplate(template);
+                    viewModel.templateUpdated(template);
 
                     expect(waiter.waitFor).toHaveBeenCalled();
                 });
 
-                describe('when waiter resolve promise', function () {
-
-                    it('should not send notification error', function (done) {
+                describe('when waiter successed', function () {
+                    beforeEach(function () {
                         dfd.resolve();
-
-                        var promise = viewModel.selectTemplate(template);
-                        updateCourseTemplateDefer.resolve();
-                        promise.fin(function () {
-                            expect(notify.error).not.toHaveBeenCalled();
-                            done();
-                        });
                     });
 
                     it('should hide template settings', function (done) {
-                        dfd.resolve();
-
                         viewModel.settingsVisibility(true);
 
-                        var promise = viewModel.selectTemplate(template);
-                        updateCourseTemplateDefer.resolve();
-                        promise.fin(function () {
+                        viewModel.templateUpdated(template).fin(function () {
                             expect(viewModel.settingsVisibility()).toBeFalsy();
                             done();
                         });
                     });
 
-                    it('should change course template', function (done) {
-                        dfd.resolve();
+                    it('should set loadingTemplate to false', function (done) {
+                        viewModel.loadingTemplate(true);
 
-                        var courseId = 'courseId';
-                        viewModel.courseId = courseId;
-
-                        var promise = viewModel.selectTemplate(template);
-                        updateCourseTemplateDefer.resolve();
-                        promise.fin(function () {
-                            expect(courseRepository.updateCourseTemplate).toHaveBeenCalledWith(courseId, template.id);
+                        viewModel.templateUpdated(template).fin(function () {
+                            expect(viewModel.loadingTemplate()).toBeFalsy();
                             done();
                         });
                     });
 
-                    describe('and template was changed', function () {
+                    it('should update template', function (done) {
+                        viewModel.template(currentTemplate);
 
-                        var modifiedOn;
-
-                        beforeEach(function () {
-                            modifiedOn = new Date();
-                            dfd.resolve();
-                            updateCourseTemplateDefer.resolve({ modifiedOn: modifiedOn });
+                        viewModel.templateUpdated(template).fin(function () {
+                            expect(viewModel.template().id).toBe(template.id);
+                            done();
                         });
-
-                        it('should show update notification', function (done) {
-                            var promise = viewModel.selectTemplate(template);
-                            promise.fin(function () {
-                                expect(notify.success).toHaveBeenCalled();
-                                done();
-                            });
-                        });
-
-                        it('should change current template', function (done) {
-                            var promise = viewModel.selectTemplate(template);
-                            promise.fin(function () {
-                                expect(viewModel.currentTemplate()).toBe(template);
-                                done();
-                            });
-                        });
-
-                        it('should finish loading template', function (done) {
-                            template.loadingTemplate(true);
-                            viewModel.loadingTemplate(true);
-
-                            var promise = viewModel.selectTemplate(template);
-                            promise.fin(function () {
-                                expect(template.loadingTemplate()).toBeFalsy();
-                                expect(viewModel.loadingTemplate()).toBeFalsy();
-                                done();
-                            });
-                        });
-
                     });
-
                 });
 
-                describe('when waiter reject promise', function () {
+                describe('when waiter failed', function () {
+                    beforeEach(function () {
+                        dfd.reject();
+                    });
 
                     it('should send notification error', function (done) {
-                        dfd.reject();
-
-                        var promise = viewModel.selectTemplate(template);
-                        updateCourseTemplateDefer.resolve();
-                        promise.fin(function () {
+                        viewModel.templateUpdated(template).fin(function () {
                             expect(notify.error).toHaveBeenCalled();
                             done();
                         });
                     });
 
                     it('should hide template settings', function (done) {
-                        dfd.reject();
-
                         viewModel.settingsVisibility(true);
 
-                        var promise = viewModel.selectTemplate(template);
-                        updateCourseTemplateDefer.resolve();
-                        promise.fin(function () {
+                        viewModel.templateUpdated(template).fin(function () {
                             expect(viewModel.settingsVisibility()).toBeFalsy();
                             done();
                         });
                     });
 
-                    it('should change course template', function (done) {
-                        dfd.reject();
+                    it('should set loadingTemplate to false', function (done) {
+                        viewModel.loadingTemplate(true);
 
-                        var courseId = 'courseId';
-                        viewModel.courseId = courseId;
-
-                        var promise = viewModel.selectTemplate(template);
-                        updateCourseTemplateDefer.resolve();
-                        promise.fin(function () {
-                            expect(courseRepository.updateCourseTemplate).toHaveBeenCalledWith(courseId, template.id);
+                        viewModel.templateUpdated(template).fin(function () {
+                            expect(viewModel.loadingTemplate()).toBeFalsy();
                             done();
                         });
                     });
 
-                    describe('and template was changed', function () {
+                    it('should update template', function (done) {
+                        viewModel.template(currentTemplate);
 
-                        var modifiedOn;
-
-                        beforeEach(function () {
-                            modifiedOn = new Date();
-                            dfd.reject();
-                            updateCourseTemplateDefer.resolve({ modifiedOn: modifiedOn });
+                        viewModel.templateUpdated(template).fin(function () {
+                            expect(viewModel.template().id).toBe(template.id);
+                            done();
                         });
-
-                        it('should show update notification', function (done) {
-                            var promise = viewModel.selectTemplate(template);
-                            promise.fin(function () {
-                                expect(notify.success).toHaveBeenCalled();
-                                done();
-                            });
-                        });
-
-                        it('should change current template', function (done) {
-                            var promise = viewModel.selectTemplate(template);
-                            promise.fin(function () {
-                                expect(viewModel.currentTemplate()).toBe(template);
-                                done();
-                            });
-                        });
-
-                        it('should finish loading template', function (done) {
-                            var promise = viewModel.selectTemplate(template);
-                            promise.fin(function () {
-                                expect(template.loadingTemplate()).toBeFalsy();
-                                done();
-                            });
-                        });
-
                     });
-
                 });
+            });
+        });
 
+        describe('templateUpdatedByCollaborator:', function () {
+
+            var dfd, template, course;
+
+            beforeEach(function () {
+                dfd = Q.defer();
+                spyOn(waiter, 'waitFor').and.returnValue(dfd.promise);
+                spyOn(notify, 'error');
+
+                template = {
+                    id: "0",
+                    name: "Default",
+                    thumbnail: "path/to/image1.png",
+                    previewImages: ["path/to/previewImg.png"],
+                    description: "Default template",
+                    previewDemoUrl: 'preview_url_default',
+                    settingsUrls: { design: null, configure: null }, order: 1, isNew: false, isCustom: false, loadingTemplate: ko.observable(false)
+                };
+
+                course = { template: template, id: 'courseId' };
             });
 
+            describe('when course is current course', function () {
+                beforeEach(function() {
+                    viewModel.courseId = course.id;
+                });
+
+                describe('when template is current template', function () {
+                    beforeEach(function () {
+                        viewModel.template(template);
+                    });
+
+                    it('should not wait for load template settings', function () {
+                        viewModel.templateUpdated(template);
+                        expect(waiter.waitFor).not.toHaveBeenCalled();
+                    });
+                });
+
+                describe('when template is not current template', function () {
+                    var currentTemplate = { id: 'someId', loadingTemplate: ko.observable() };
+                    beforeEach(function () {
+                        viewModel.template(currentTemplate);
+                    });
+
+                    it('should mark template as loading', function () {
+                        currentTemplate.loadingTemplate(false);
+                        viewModel.templateUpdated(template);
+
+                        expect(currentTemplate.loadingTemplate()).toBeTruthy();
+                    });
+
+                    it('should mark as loading template', function () {
+                        viewModel.loadingTemplate(false);
+                        viewModel.templateUpdated(template);
+
+                        expect(viewModel.loadingTemplate()).toBeTruthy();
+                    });
+
+                    it('should wait for save template settings', function () {
+                        viewModel.templateUpdated(template);
+
+                        expect(waiter.waitFor).toHaveBeenCalled();
+                    });
+
+                    describe('when waiter successed', function () {
+                        beforeEach(function () {
+                            dfd.resolve();
+                        });
+
+                        it('should hide template settings', function (done) {
+                            viewModel.settingsVisibility(true);
+
+                            viewModel.templateUpdated(template).fin(function () {
+                                expect(viewModel.settingsVisibility()).toBeFalsy();
+                                done();
+                            });
+                        });
+
+                        it('should set loadingTemplate to false', function (done) {
+                            viewModel.loadingTemplate(true);
+
+                            viewModel.templateUpdated(template).fin(function () {
+                                expect(viewModel.loadingTemplate()).toBeFalsy();
+                                done();
+                            });
+                        });
+
+                        it('should update template', function (done) {
+                            viewModel.template(currentTemplate);
+
+                            viewModel.templateUpdated(template).fin(function () {
+                                expect(viewModel.template().id).toBe(template.id);
+                                done();
+                            });
+                        });
+                    });
+
+                    describe('when waiter failed', function () {
+                        beforeEach(function () {
+                            dfd.reject();
+                        });
+
+                        it('should send notification error', function (done) {
+                            viewModel.templateUpdated(template).fin(function () {
+                                expect(notify.error).toHaveBeenCalled();
+                                done();
+                            });
+                        });
+
+                        it('should hide template settings', function (done) {
+                            viewModel.settingsVisibility(true);
+
+                            viewModel.templateUpdated(template).fin(function () {
+                                expect(viewModel.settingsVisibility()).toBeFalsy();
+                                done();
+                            });
+                        });
+
+                        it('should set loadingTemplate to false', function (done) {
+                            viewModel.loadingTemplate(true);
+
+                            viewModel.templateUpdated(template).fin(function () {
+                                expect(viewModel.loadingTemplate()).toBeFalsy();
+                                done();
+                            });
+                        });
+
+                        it('should update template', function (done) {
+                            viewModel.template(currentTemplate);
+
+                            viewModel.templateUpdated(template).fin(function () {
+                                expect(viewModel.template().id).toBe(template.id);
+                                done();
+                            });
+                        });
+                    });
+                });
+            });
+
+            describe('when course is not current course', function() {
+                beforeEach(function () {
+                    viewModel.courseId = 'some id';
+                });
+
+                it('should not wait for load template settings', function () {
+                    viewModel.templateUpdated(template);
+                    expect(waiter.waitFor).not.toHaveBeenCalled();
+                });
+            });
         });
 
         describe('courseId:', function () {
-
             it('should be defined', function () {
                 expect(viewModel.courseId).toBeDefined();
             });
-
         });
 
         describe('previewUrl:', function () {
-
             it('should be observable', function () {
                 expect(viewModel.previewUrl).toBeObservable();
             });
-
         });
 
         describe('loadingTemplate:', function () {
-
             it('should be observable', function () {
                 expect(viewModel.loadingTemplate).toBeObservable();
             });
-
         });
 
-        describe('currentTemplate:', function () {
-
+        describe('template:', function () {
             it('should be observable', function () {
-                expect(viewModel.currentTemplate).toBeObservable();
+                expect(viewModel.template).toBeObservable();
             });
-
         });
 
         describe('canUnloadSettings:', function () {
-
             it('should be observable', function () {
                 expect(viewModel.canUnloadSettings).toBeObservable();
             });
-
-        });
-
-        describe('templates:', function () {
-
-            it('should be defined', function () {
-                expect(viewModel.templates).toBeDefined();
-            });
-
         });
 
         describe('reloadPreview:', function () {
-
             beforeEach(function () {
                 spyOn(viewModel.previewUrl, 'valueHasMutated');
             });
@@ -754,63 +628,9 @@
                 viewModel.reloadPreview();
                 expect(viewModel.previewUrl.valueHasMutated).toHaveBeenCalled();
             });
-
-        });
-
-        describe('templatesSectionSelected:', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.templatesSectionSelected).toBeObservable();
-            });
-
-        });
-
-        describe('selectTemplatesSection', function () {
-
-            it('should be function', function () {
-                expect(viewModel.selectTemplatesSection).toBeFunction();
-            });
-
-            it('should set settingsVisibility to false', function () {
-                viewModel.settingsVisibility(true);
-                viewModel.selectTemplatesSection();
-                expect(viewModel.settingsVisibility()).toBeFalsy();
-            });
-
-            it('should set templatesSectionSelected to true', function () {
-                viewModel.templatesSectionSelected(false);
-                viewModel.selectTemplatesSection();
-                expect(viewModel.templatesSectionSelected()).toBeTruthy();
-            });
-
-            it('should publish navigate to templates event', function () {
-                viewModel.selectTemplatesSection();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to \'choose template\' section', 'Design step');
-            });
-
-        });
-
-        describe('selectSettingsSection', function () {
-
-            it('should be function', function () {
-                expect(viewModel.selectSettingsSection).toBeFunction();
-            });
-
-            it('should set templatesSectionSelected to false', function () {
-                viewModel.templatesSectionSelected(true);
-                viewModel.selectSettingsSection();
-                expect(viewModel.templatesSectionSelected()).toBeFalsy();
-            });
-
-            it('should publish navigate to settings event', function () {
-                viewModel.selectSettingsSection();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to \'design settings\' section', 'Design step');
-            });
-
         });
 
         describe('settingsFrameLoaded:', function () {
-
             it('should be function', function () {
                 expect(viewModel.settingsFrameLoaded).toBeFunction();
             });
@@ -837,7 +657,6 @@
                 expect(viewModel.settingsVisibility()).toBeTruthy();
                 jasmine.clock().uninstall();
             });
-
         });
 
         describe('onGetTemplateMessage', function () {

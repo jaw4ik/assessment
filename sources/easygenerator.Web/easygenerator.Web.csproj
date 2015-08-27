@@ -22,6 +22,7 @@
     <IISExpressUseClassicPipelineMode />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -583,6 +584,11 @@
     <Content Include="App\dialogs\collaboration\collaborator.spec.js">
       <DependentUpon>collaborator.js</DependentUpon>
     </Content>
+    <Content Include="App\dialogs\course\changeTemplate\changeTemplate.html" />
+    <Content Include="App\dialogs\course\changeTemplate\changeTemplate.js" />
+    <Content Include="App\dialogs\course\changeTemplate\changeTemplate.spec.js">
+      <DependentUpon>changeTemplate.js</DependentUpon>
+    </Content>
     <Content Include="App\dialogs\course\common\templateSelector\templateBrief.js" />
     <Content Include="App\dialogs\course\common\templateSelector\templateSelector.html" />
     <Content Include="App\dialogs\course\common\templateSelector\templateSelector.js" />
@@ -624,6 +630,10 @@
     <Content Include="App\http\publishHttpWrapper.js" />
     <Content Include="App\models\learningPath.spec.js">
       <DependentUpon>learningPath.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\course\design\templateBrief.js" />
+	 <Content Include="App\viewmodels\courses\course\design\templateBrief.spec.js">
+      <DependentUpon>templateBrief.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\actions\publish.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\actions\publish.spec.js">

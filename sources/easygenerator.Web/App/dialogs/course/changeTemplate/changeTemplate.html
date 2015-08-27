@@ -1,0 +1,12 @@
+﻿<div class="modal-dialog change-course-template-dialog">
+    <div class="modal-dialog-title" data-bind="localize: { text: 'whatDoYouWantToCreate' }"></div>
+    <div class="modal-dialog-body">
+        <!-- ko compose: { model: templateSelector, activationData: templateId } -->
+        <!-- /ko -->
+    </div>
+    <div class="modal-dialog-actions">
+        <button class="btn green" data-bind="click: submit, css: { progress: isProcessing }, enable: !isProcessing()">
+            <span class="btn-caption">done</span>
+        </button>
+    </div>
+</div>
