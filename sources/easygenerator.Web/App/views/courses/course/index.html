@@ -2,7 +2,7 @@
 
     <header class="content-section-wrapper">
         <div class="content-section course-title-wrapper">
-            <div class="course-template" data-bind="click: changeTemplate, style: { backgroundImage: 'url(\'' + template.thumbnail() + '\')'}">
+            <div class="course-template" data-bind="click: changeTemplate, style: { backgroundImage: 'url(\'' + template.thumbnail() + '?v='+window.appVersion + '\')'}">
                 <div class="course-template-overlay" data-bind="localize: { text: 'change' }"></div>
             </div>
             <div class="course-title">
