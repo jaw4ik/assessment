@@ -24,6 +24,8 @@
             return localizationManager.localize("upgradeStarterPlan");
         } else if (accessType === constants.accessType.plus) {
             return localizationManager.localize("upgradePlusPlan");
+        } else if (accessType === constants.accessType.trial) {
+            return localizationManager.localize("upgradeTrialPlan");
         }
 
         throw "Undefined access type";
