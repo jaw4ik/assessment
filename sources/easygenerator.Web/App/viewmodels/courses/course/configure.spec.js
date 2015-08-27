@@ -226,7 +226,7 @@
             describe('when course exists', function () {
 
                 var
-                    template = { id: "0", name: "Default", thumbnail: "path/to/image1.png", previewImages: ["path/to/previewImg.png"], description: "Default template", previewDemoUrl: 'preview_url_default', settingsUrls: { design: null, configure: null }, order: 1, isNew: true, isCustom: true, loadingTemplate: ko.observable(false) },
+                    template = { id: "0", name: "Default", thumbnail: "path/to/image1.png", previewImages: ["path/to/previewImg.png"], description: "Default template", previewDemoUrl: 'preview_url_default', settingsUrls: { design: null, configure: null }, isLoading: ko.observable(false) },
                     course = { id: 'courseId', template: template };
 
                 beforeEach(function () {
@@ -540,7 +540,7 @@
 
 
         describe('templateUpdated:', function () {
-            var template = { id: "0", name: "Default", thumbnail: "path/to/image1.png", previewImages: ["path/to/previewImg.png"], description: "Default template", previewDemoUrl: 'preview_url_default', settingsUrls: { design: null, configure: null }, order: 1, isNew: true, isCustom: true, loadingTemplate: ko.observable(false) };
+            var template = { id: "0", name: "Default", thumbnail: "path/to/image1.png", previewImages: ["path/to/previewImg.png"], description: "Default template", previewDemoUrl: 'preview_url_default', settingsUrls: { design: null, configure: null }, isLoading: ko.observable(false) };
 
             describe('when template id is not equal to current template id', function () {
                 beforeEach(function () {
@@ -639,7 +639,7 @@
                 beforeEach(function () {
                     viewModel.id = course.id;
                 });
-                
+
                 describe('when template id is not equal to current template id', function () {
                     beforeEach(function () {
                         viewModel.templateId('');

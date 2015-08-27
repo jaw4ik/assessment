@@ -9,8 +9,10 @@
                 <!--  ko compose: { model: titleField, view: 'views/common/titleField.html' }  -->
                 <!-- /ko -->
                 <div class="course-template-hint">
-                    <div>Current template:&nbsp;</div>
-                    <div class="course-template-hint-template-name" data-bind="click: changeTemplate, text: template.name"></div>
+                    <div class="course-template-hint-title">Current template:&nbsp;</div>
+                    <div class="course-template-hint-template-name-wrapper">
+                        <span class="course-template-hint-template-name" data-bind="click: changeTemplate, text: template.name"></span>
+                    </div>
                 </div>
             </div>
             <ul class="course-actions">

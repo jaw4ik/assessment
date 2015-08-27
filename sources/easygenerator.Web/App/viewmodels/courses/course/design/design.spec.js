@@ -210,8 +210,8 @@
 
                 var
                     templates = [
-                        { id: "0", name: "Default", thumbnail: "path/to/image1.png", previewImages: ["path/to/previewImg.png"], description: "Default template", previewDemoUrl: 'preview_url_default', settingsUrls: { design: null, configure: null }, order: 1, isNew: true, isCustom: true, loadingTemplate: ko.observable(false) },
-                        { id: "1", name: "Quiz", thumbnail: "path/to/image2.png", previewImages: ["path/to/previewImg.png"], description: "Quiz template", previewDemoUrl: 'preview_url_quiz', settingsUrls: { design: null, configure: null }, order: 0, isNew: false, isCustom: false, loadingTemplate: ko.observable(false) }
+                        { id: "0", name: "Default", thumbnail: "path/to/image1.png", previewImages: ["path/to/previewImg.png"], description: "Default template", previewDemoUrl: 'preview_url_default', settingsUrls: { design: null, configure: null }, isLoading: ko.observable(false) },
+                        { id: "1", name: "Quiz", thumbnail: "path/to/image2.png", previewImages: ["path/to/previewImg.png"], description: "Quiz template", previewDemoUrl: 'preview_url_quiz', settingsUrls: { design: null, configure: null }, isLoading: ko.observable(false) }
                     ],
                     template = templates[1],
                     course = { id: 'courseId', template: template };
@@ -318,7 +318,7 @@
                     previewImages: ["path/to/previewImg.png"],
                     description: "Default template",
                     previewDemoUrl: 'preview_url_default',
-                    settingsUrls: { design: null, configure: null }, order: 1, isNew: false, isCustom: false, loadingTemplate: ko.observable(false)
+                    settingsUrls: { design: null, configure: null }, order: 1, isNew: false, isCustom: false, isLoading: ko.observable(false)
                 };
             });
 
@@ -334,16 +334,16 @@
             });
 
             describe('when template is not current template', function () {
-                var currentTemplate = { id: 'someId', loadingTemplate: ko.observable() };
+                var currentTemplate = { id: 'someId', isLoading: ko.observable() };
                 beforeEach(function () {
                     viewModel.template(currentTemplate);
                 });
 
                 it('should mark template as loading', function () {
-                    currentTemplate.loadingTemplate(false);
+                    currentTemplate.isLoading(false);
                     viewModel.templateUpdated(template);
 
-                    expect(currentTemplate.loadingTemplate()).toBeTruthy();
+                    expect(currentTemplate.isLoading()).toBeTruthy();
                 });
 
                 it('should mark as loading template', function () {
@@ -450,14 +450,14 @@
                     previewImages: ["path/to/previewImg.png"],
                     description: "Default template",
                     previewDemoUrl: 'preview_url_default',
-                    settingsUrls: { design: null, configure: null }, order: 1, isNew: false, isCustom: false, loadingTemplate: ko.observable(false)
+                    settingsUrls: { design: null, configure: null }, order: 1, isNew: false, isCustom: false, isLoading: ko.observable(false)
                 };
 
                 course = { template: template, id: 'courseId' };
             });
 
             describe('when course is current course', function () {
-                beforeEach(function() {
+                beforeEach(function () {
                     viewModel.courseId = course.id;
                 });
 
@@ -473,16 +473,16 @@
                 });
 
                 describe('when template is not current template', function () {
-                    var currentTemplate = { id: 'someId', loadingTemplate: ko.observable() };
+                    var currentTemplate = { id: 'someId', isLoading: ko.observable() };
                     beforeEach(function () {
                         viewModel.template(currentTemplate);
                     });
 
                     it('should mark template as loading', function () {
-                        currentTemplate.loadingTemplate(false);
+                        currentTemplate.isLoading(false);
                         viewModel.templateUpdated(template);
 
-                        expect(currentTemplate.loadingTemplate()).toBeTruthy();
+                        expect(currentTemplate.isLoading()).toBeTruthy();
                     });
 
                     it('should mark as loading template', function () {
@@ -573,7 +573,7 @@
                 });
             });
 
-            describe('when course is not current course', function() {
+            describe('when course is not current course', function () {
                 beforeEach(function () {
                     viewModel.courseId = 'some id';
                 });

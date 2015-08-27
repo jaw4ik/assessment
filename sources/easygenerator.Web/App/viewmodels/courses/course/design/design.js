@@ -104,7 +104,7 @@
             if (template.id === viewModel.template().id)
                 return;
 
-            viewModel.template().loadingTemplate(true);
+            viewModel.template().isLoading(true);
             viewModel.loadingTemplate(true);
 
             return waiter.waitFor(viewModel.canUnloadSettings, delay, limit)

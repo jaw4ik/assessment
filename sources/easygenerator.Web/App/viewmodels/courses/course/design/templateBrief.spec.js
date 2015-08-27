@@ -81,9 +81,9 @@
             });
         });
 
-        describe('loadingTemplate:', function () {
+        describe('isLoading:', function () {
             it('should be observable', function () {
-                expect(viewModel.loadingTemplate).toBeObservable();
+                expect(viewModel.isLoading).toBeObservable();
             });
         });
     });

@@ -9,7 +9,7 @@
             designSettingsUrl: template.settingsUrls.design,
             settingsAvailable: template.settingsUrls.design != null,
             previewDemoUrl: template.previewDemoUrl,
-            loadingTemplate: ko.observable(false)
+            isLoading: ko.observable(false)
         };
 
         return viewModel;
