@@ -4,7 +4,6 @@ using System.Linq;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
-using easygenerator.Web.Security.FeatureAvailability;
 using easygenerator.Web.Security.PermissionsCheckers;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,7 +15,6 @@ namespace easygenerator.Web.Tests.Security.PermissionsCheckers
     public class CoursePermissionsCheckerTests
     {
         private CoursePermissionsChecker _checker;
-        private IFeatureAvailabilityChecker _featureAvailabilityChecker;
         private const string CreatedBy = "creator@user.com";
         private const string Username = "user@user.com";
         private readonly DateTime CurrentDate = new DateTime(2014, 3, 19);
@@ -24,8 +22,7 @@ namespace easygenerator.Web.Tests.Security.PermissionsCheckers
         [TestInitialize]
         public void Initialize()
         {
-            _featureAvailabilityChecker = Substitute.For<IFeatureAvailabilityChecker>();
-            _checker = new CoursePermissionsChecker(_featureAvailabilityChecker);
+            _checker = new CoursePermissionsChecker();
             DateTimeWrapper.Now = () => CurrentDate;
         }
 
@@ -88,25 +85,7 @@ namespace easygenerator.Web.Tests.Security.PermissionsCheckers
         }
 
         [TestMethod]
-        public void HasCollaboratorPermissions_ShouldReturnFalse_WhenUserIsCollaboratorButCollaborationDisabled()
-        {
-            //Arrange
-            var course = Substitute.For<Course>();
-            var collaborator = Substitute.For<CourseCollaborator>();
-            collaborator.Email.Returns(Username);
-            course.Collaborators.Returns(new List<CourseCollaborator>() { collaborator });
-
-            _featureAvailabilityChecker.IsCourseCollaborationEnabled(course).Returns(false);
-
-            //Act
-            var result = _checker.HasCollaboratorPermissions(Username, course);
-
-            //Assert
-            result.Should().BeFalse();
-        }
-
-        [TestMethod]
-        public void HasCollaboratorPermissions_ShouldReturnTrue_WhenUserIsCollaborator_AndIsAccepted_AndCollaborationEnabled()
+        public void HasCollaboratorPermissions_ShouldReturnTrue_WhenUserIsCollaborator_AndIsAccepted()
         {
             //Arrange
             var course = CourseObjectMother.Create();
@@ -114,31 +93,11 @@ namespace easygenerator.Web.Tests.Security.PermissionsCheckers
             var collaborator = course.Collaborators.First();
             course.AcceptCollaboration(collaborator);
 
-            _featureAvailabilityChecker.IsCourseCollaborationEnabled(course).Returns(true);
-
             //Act
             var result = _checker.HasCollaboratorPermissions(Username, course);
 
             //Assert
             result.Should().BeTrue();
-        }
-
-        [TestMethod]
-        public void HasCollaboratorPermissions_ShouldReturnFalse_WhenUserIsCollaborator_AndNotAccepted_AndCollaborationEnabled()
-        {
-            //Arrange
-            var course = Substitute.For<Course>();
-            var collaborator = Substitute.For<CourseCollaborator>();
-            collaborator.Email.Returns(Username);
-            course.Collaborators.Returns(new List<CourseCollaborator>() { collaborator });
-
-            _featureAvailabilityChecker.IsCourseCollaborationEnabled(course).Returns(true);
-
-            //Act
-            var result = _checker.HasCollaboratorPermissions(Username, course);
-
-            //Assert
-            result.Should().BeFalse();
         }
 
         #endregion

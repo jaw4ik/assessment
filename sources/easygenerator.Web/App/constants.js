@@ -304,7 +304,6 @@
                 header: 'Header',
                 userMenuInHeader: 'User menu in header',
                 questions: 'Questions',
-                collaboration: 'Collaboration',
                 expirationNotification: 'Expiration notification',
                 courseLimitNotification: 'Course limit notification'
             },

@@ -6,7 +6,6 @@ namespace easygenerator.DomainModel.Entities
     {
         public virtual Course Course { get; protected internal set; }
         public virtual string Email { get; protected internal set; }
-        public bool Locked { get; protected internal set; }
         public bool IsAccepted { get; protected internal set; }
 
         protected internal CourseCollaborator() { }

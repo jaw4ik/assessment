@@ -27,40 +27,6 @@ namespace easygenerator.DataAccess.Repositories
             return GetCollection(collaborator => collaborator.Email == email || collaborator.CreatedBy == email).Select(item => item.Course).ToList();
         }
 
-        public void LockCollaboration(string email)
-        {
-            Database.ExecuteSqlCommand("UPDATE CourseCollaborators SET Locked = 1 WHERE CreatedBy = @createdBy", new SqlParameter("@createdBy", email));
-        }
-
-        public void UnlockCollaboration(string email, int allowedCollaborationsCount)
-        {
-            var command = @"UPDATE CourseCollaborators SET Locked = 0 WHERE Course_Id IN 
-                            (
-	                            SELECT Course_Id FROM CourseCollaborators WHERE CreatedBy = @createdBy
-	                            GROUP BY Course_Id
-	                            HAVING COUNT(*) <= @allowedCount
-                            )";
-
-            Database.ExecuteSqlCommand(command, new SqlParameter("@createdBy", email), new SqlParameter("@allowedCount", allowedCollaborationsCount));
-        }
-
-        public void LockCollaboration(string email, int maxAllowedCollaborationsCount)
-        {
-            var command = @"UPDATE CourseCollaborators SET Locked = 1 WHERE Course_Id IN 
-                            (
-	                            SELECT Course_Id FROM CourseCollaborators WHERE CreatedBy = @createdBy
-	                            GROUP BY Course_Id
-	                            HAVING COUNT(*) > @allowedCount
-                            )";
-
-            Database.ExecuteSqlCommand(command, new SqlParameter("@createdBy", email), new SqlParameter("@allowedCount", maxAllowedCollaborationsCount));
-        }
-
-        public void UnlockCollaboration(string email)
-        {
-            Database.ExecuteSqlCommand("UPDATE CourseCollaborators SET Locked = 0 WHERE CreatedBy = @createdBy", new SqlParameter("@createdBy", email));
-        }
-
         public IEnumerable<CollaborationInvite> GetCollaborationInvites(string userEmail)
         {
             const string query = @"
@@ -72,7 +38,7 @@ namespace easygenerator.DataAccess.Repositories
                 FROM CourseCollaborators collaborator
                       INNER JOIN Users author ON author.Email = collaborator.CreatedBy
                       INNER JOIN Courses course ON course.Id = collaborator.Course_Id
-                WHERE collaborator.Locked = 0 AND collaborator.IsAccepted = 0 AND collaborator.Email = @userEmail
+                WHERE collaborator.IsAccepted = 0 AND collaborator.Email = @userEmail
 			";
 
             return Database.SqlQuery<CollaborationInvite>(query,
@@ -90,7 +56,7 @@ namespace easygenerator.DataAccess.Repositories
                 FROM CourseCollaborators collaborator
                       INNER JOIN Users author ON author.Email = collaborator.CreatedBy
                       INNER JOIN Courses course ON course.Id = collaborator.Course_Id
-                WHERE collaborator.Locked = 0 AND collaborator.IsAccepted = 0 AND collaborator.Id = @id
+                WHERE collaborator.IsAccepted = 0 AND collaborator.Id = @id
 			";
 
             return Database.SqlQuery<CollaborationInvite>(query,

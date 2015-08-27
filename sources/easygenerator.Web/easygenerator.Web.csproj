@@ -260,7 +260,6 @@
     <Compile Include="Components\ActionFilters\Authorization\AllowedUsersAttribute.cs" />
     <Compile Include="Components\ActionFilters\Permissions\PreviewAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttribute.cs" />
-    <Compile Include="Components\ActionFilters\Authorization\LimitCollaboratorsAmountAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\QuestionAccessAttribute.cs" />
     <Compile Include="Components\BrowserSupport.cs" />
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
@@ -484,8 +483,6 @@
     <Compile Include="Resources\Views\Error\Resources.Designer.cs" />
     <Compile Include="Resources\Views\Review\Resources.Designer.cs" />
     <Compile Include="Resources\Views\Shared\Resources.Designer.cs" />
-    <Compile Include="Security\FeatureAvailability\FeatureAvailabilityChecker.cs" />
-    <Compile Include="Security\FeatureAvailability\IFeatureAvailabilityChecker.cs" />
     <Compile Include="Security\PermissionsCheckers\AnswerPermissionsChecker.cs">
       <SubType>Code</SubType>
     </Compile>
