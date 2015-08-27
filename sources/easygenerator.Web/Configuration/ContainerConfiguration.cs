@@ -235,6 +235,8 @@ namespace easygenerator.Web.Configuration
 
             #endregion
 
+            builder.RegisterType<ReleaseNoteFileReader>().As<IFileReader>().SingleInstance();
+
             var container = builder.Build();
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

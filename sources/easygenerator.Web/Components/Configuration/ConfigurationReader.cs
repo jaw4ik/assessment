@@ -119,5 +119,10 @@ namespace easygenerator.Web.Components.Configuration
         {
             get { return ConfigurationManager.AppSettings["lti.auth.path"]; }
         }
+
+        public string ReleaseVersion
+        {
+            get { return ConfigurationManager.AppSettings["version"]; }
+        }
     }
 }

@@ -21,9 +21,10 @@ namespace easygenerator.Auth.Lti
         private readonly IEntityFactory _entityFactory;
         private readonly IDomainEventPublisher _eventPublisher;
         private readonly IDependencyResolverWrapper _dependencyResolver;
+        private readonly IReleaseNoteFileReader _releaseNoteFileReader;
 
         public LtiAuthProvider(IConsumerToolRepository consumerToolRepository, ITokenProvider tokenProvider, IUserRepository userRepository,
-            IEntityFactory entityFactory, IDomainEventPublisher eventPublisher, IDependencyResolverWrapper dependencyResolver)
+            IEntityFactory entityFactory, IDomainEventPublisher eventPublisher, IDependencyResolverWrapper dependencyResolver, IReleaseNoteFileReader releaseNoteFileReader)
         {
             _consumerToolRepository = consumerToolRepository;
             _tokenProvider = tokenProvider;
@@ -31,6 +32,7 @@ namespace easygenerator.Auth.Lti
             _entityFactory = entityFactory;
             _eventPublisher = eventPublisher;
             _dependencyResolver = dependencyResolver;
+            _releaseNoteFileReader = releaseNoteFileReader;
 
             OnAuthenticate = context =>
             {
@@ -93,7 +95,7 @@ namespace easygenerator.Auth.Lti
             var dataContext = _dependencyResolver.GetService<IUnitOfWork>();
             var userRepository = _dependencyResolver.GetService<IUserRepository>();
 
-            var user = _entityFactory.User(email, Guid.NewGuid().ToString("N"), firstName, lastName, ltiMockData, ltiMockData, ltiMockData, email, AccessType.Plus, "1.0.0", DateTimeWrapper.Now().AddYears(50));
+            var user = _entityFactory.User(email, Guid.NewGuid().ToString("N"), firstName, lastName, ltiMockData, ltiMockData, ltiMockData, email, AccessType.Plus, _releaseNoteFileReader.GetReleaseVersion(), DateTimeWrapper.Now().AddYears(50));
 
             user.UpdateLtiUserInfo(ltiUserId);
 

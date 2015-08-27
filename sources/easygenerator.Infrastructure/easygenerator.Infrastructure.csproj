@@ -76,6 +76,7 @@
     <Compile Include="Http\IHttpRequestsManager.cs" />
     <Compile Include="Http\IHttpRequestsRepository.cs" />
     <Compile Include="IDependencyResolverWrapper.cs" />
+    <Compile Include="IFileReader.cs" />
     <Compile Include="ILog.cs" />
     <Compile Include="ImageProcessors\IImageResizer.cs" />
     <Compile Include="ImageProcessors\MagickAnyCPUWrapper.cs" />
