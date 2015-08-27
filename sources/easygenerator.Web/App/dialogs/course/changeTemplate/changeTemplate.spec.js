@@ -51,6 +51,11 @@
                 expect(viewModel.templateId()).toBe(templateId);
             });
 
+            it('should trigger event', function () {
+                viewModel.show(courseId, templateId);
+                expect(eventTracker.publish).toHaveBeenCalledWith('Open \'change template\' dialog');
+            });
+
             it('should call dialog show', function () {
                 viewModel.show(courseId, templateId);
                 expect(dialog.show).toHaveBeenCalledWith(viewModel, constants.dialogs.changeCourseTemplate.settings);

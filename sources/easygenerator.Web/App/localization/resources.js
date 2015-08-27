@@ -1285,6 +1285,12 @@
         'uk': 'Відповідь учня',
         'pt-br': 'Resposta do aluno'
     },
+    publishToCompany: {
+        'en': 'Publish to {companyName}',
+        'zh-cn': 'Publish to {companyName}[zh-cn]',
+        'uk': 'Опублікувати в {companyName}',
+        'pt-br': 'Publish to {companyName}[pt-br]'
+    },
     sharePrivateLink: {
         'en': 'Share private link',
         'zh-cn': 'Share private link[zh-cn]',
