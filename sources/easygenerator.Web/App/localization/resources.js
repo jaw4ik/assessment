@@ -1375,6 +1375,18 @@
         'uk': 'Отримати посилання на курс',
         'pt-br': 'Obter link de curso'
     },
+    change: {
+        'en': 'Change',
+        'zh-cn': 'Change[zh-cn]',
+        'uk': 'Зміна',
+        'pt-br': 'Change[pt-br]'
+    },
+    changeYourCourseTemplate: {
+        'en': 'Change your course template',
+        'zh-cn': 'Change your course template[zh-cn]',
+        'uk': 'Зміна шаблону курсу',
+        'pt-br': 'Change your course template[pt-br]'
+    },
     /* End resource section for model Courses */
     
     /* Resource section for model CreateObjective */
@@ -3099,6 +3111,12 @@
         'zh-cn': '高级使用权限',
         'uk': 'Plus Plan',
         'pt-br': 'Plano Plus'
+    },
+    upgradeTrialPlan: {
+        'en': 'Trial Plan',
+        'zh-cn': 'Trial Plan[zh-cn]',
+        'uk': 'Trial Plan',
+        'pt-br': 'Trial Plan[pt-br]'
     },
     upgradeNotificationContent: {
         'en': 'Your {0} expires {1}.',
