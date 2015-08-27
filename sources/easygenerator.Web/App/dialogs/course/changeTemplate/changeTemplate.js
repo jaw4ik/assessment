@@ -3,6 +3,7 @@
         "use strict";
 
         var events = {
+            openChangeTemplateDialog:'Open \'change template\' dialog',
             updateCourseTemplate: 'Change course template to'
         },
 
@@ -20,6 +21,7 @@
         function show(courseId, templateId) {
             viewModel.courseId = courseId;
             viewModel.templateId(templateId);
+            eventTracker.publish(events.openChangeTemplateDialog);
             dialog.show(viewModel, constants.dialogs.changeCourseTemplate.settings);
         }
 
