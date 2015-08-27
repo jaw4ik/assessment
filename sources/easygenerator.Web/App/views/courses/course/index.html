@@ -3,13 +3,15 @@
     <header class="content-section-wrapper">
         <div class="content-section course-title-wrapper">
             <div class="course-template" data-bind="click: changeTemplate, style: { backgroundImage: 'url(\'' + template.thumbnail() + '\')'}">
-                <div class="course-template-overlay">Change</div>
+                <div class="course-template-overlay" data-bind="localize: { text: 'change' }"></div>
             </div>
             <div class="course-title">
                 <!--  ko compose: { model: titleField, view: 'views/common/titleField.html' }  -->
                 <!-- /ko -->
                 <div class="course-template-hint">
-                    <div class="course-template-hint-title">Current template:&nbsp;</div>
+                    <div class="course-template-hint-title">
+                        <span data-bind="localize: { text: 'currentTemplate' }"></span>:&nbsp;
+                    </div>
                     <div class="course-template-hint-template-name-wrapper">
                         <span class="course-template-hint-template-name" data-bind="click: changeTemplate, text: template.name"></span>
                     </div>
