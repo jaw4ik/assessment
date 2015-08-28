@@ -3,13 +3,6 @@
     function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, waiter, TemplateBrief, constants, app) {
 
         var
-            events = {
-                updateCourseTemplate: 'Change course template to',
-                navigateToTemplatesSection: 'Navigate to \'choose template\' section',
-                navigateToSettingsSection: 'Navigate to \'design settings\' section'
-            },
-            eventCategory = 'Design step',
-
             templateMessageTypes = {
                 showSettings: 'show-settings',
                 freezeEditor: 'freeze-editor',
@@ -89,7 +82,6 @@
                 viewModel.courseId = course.id;
                 viewModel.previewUrl('/preview/' + viewModel.courseId);
 
-                eventTracker.publish(events.navigateToTemplatesSection, eventCategory);
                 viewModel.template(new TemplateBrief(course.template));
 
                 app.on(constants.messages.course.templateUpdated + viewModel.courseId, viewModel.templateUpdated);

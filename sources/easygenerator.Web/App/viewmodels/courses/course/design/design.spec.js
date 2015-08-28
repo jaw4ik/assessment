@@ -228,13 +228,6 @@
                     });
                 });
 
-                it('should publish navigate to templates event', function (done) {
-                    viewModel.activate(course.id).fin(function () {
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to \'choose template\' section', 'Design step');
-                        done();
-                    });
-                });
-
                 it('should set previewUrl', function (done) {
                     viewModel.activate(course.id).fin(function () {
                         expect(viewModel.previewUrl()).toBe('/preview/' + course.id);
