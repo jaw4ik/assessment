@@ -3100,6 +3100,12 @@
         'uk': 'Plus Plan',
         'pt-br': 'Plano Plus'
     },
+    upgradeTrialPlan: {
+        'en': 'Trial Plan',
+        'zh-cn': 'Trial Plan[zh-cn]',
+        'uk': 'Trial Plan',
+        'pt-br': 'Trial Plan[pt-br]'
+    },
     upgradeNotificationContent: {
         'en': 'Your {0} expires {1}.',
         'zh-cn': '您的 {0} {1} 到期。',

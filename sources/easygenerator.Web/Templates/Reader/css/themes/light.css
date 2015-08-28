@@ -274,13 +274,17 @@ input:invalid {
   border: 2px solid black;
   font-family: Roboto;
 }
+.button.disabled {
+  cursor: default;
+  opacity: .5;
+}
 .button.default {
   max-width: 100%;
   font-size: 18px;
   border-color: #50b2ac;
   color: #50b2ac;
 }
-.button.default:hover {
+.button.default:not(.disabled):hover {
   background-color: #50b2ac;
   color: #ffffff;
 }
@@ -293,7 +297,7 @@ input:invalid {
   height: 60px;
   max-width: 100%;
 }
-.button.primary:hover {
+.button.primary:not(.disabled):hover {
   background-color: #43aaa3;
   border-color: #43aaa3;
   box-shadow: none;
@@ -311,11 +315,11 @@ input:invalid {
   position: relative;
   font-weight: 400;
 }
-.button.link:hover {
+.button.link:not(.disabled):hover {
   color: #8c8c8e;
   border-color: #a5a5a5;
 }
-.button.link:hover:before {
+.button.link:not(.disabled):hover:before {
   position: absolute;
   width: 100%;
   content: '';
@@ -330,7 +334,7 @@ input:invalid {
   background-color: transparent;
   max-width: 100%;
 }
-.button.danger:hover {
+.button.danger:not(.disabled):hover {
   color: #ffffff;
   background-color: #f16162;
   border-color: #f16162;
@@ -339,7 +343,7 @@ input:invalid {
   border-color: #e5e5e5;
   color: #cbcaca;
 }
-.button.info:hover {
+.button.info:not(.disabled):hover {
   color: #bab9b9;
   border-color: #cbcaca;
 }
@@ -349,7 +353,7 @@ input:invalid {
   background-color: transparent;
   font-weight: 400;
 }
-.button.success:hover {
+.button.success:not(.disabled):hover {
   color: #ffffff;
   background-color: #50b2ac;
 }
