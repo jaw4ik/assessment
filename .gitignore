@@ -195,6 +195,7 @@ FakesAssemblies/
 # Visual Studio 6 workspace options file
 *.opt
 
+
 # Custom easygenerator files
 /sources/easygenerator.Web/App/main-built.js
 /sources/easygenerator.Web/FileStorage/
