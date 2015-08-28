@@ -21,6 +21,8 @@ var
     replace = require('gulp-replace'),
     del = require('del'),
 
+    bower = require('gulp-bower'),
+
     output = './.output',
     buildVersion = +new Date()
     ;
@@ -77,7 +79,22 @@ function analyzejscs(sources) {
         .pipe(jscs('.jscsrc'));
 }
 
-gulp.task('css', function () {
+gulp.task('watch', function () {
+    gulp.watch('./src/css/*', ['css']);
+});
+
+gulp.task('build', ['pre-build', 'build-app', 'build-settings'], function () {
+});
+
+gulp.task('clean', function (cb) {
+    del([output], cb);
+});
+
+gulp.task('bower', ['clean'], function () {
+    return bower({ cmd: 'update' });
+});
+
+gulp.task('css', ['clean', 'bower'], function () {
     gulp.src(['./src/css/font/fonts.less', './src/css/styles.less'])
         .pipe(less())
         .pipe(css())
@@ -85,18 +102,17 @@ gulp.task('css', function () {
         .pipe(gulp.dest('./src/css/'));
 });
 
-gulp.task('watch', function () {
-    gulp.watch('./src/css/*', ['css']);
+gulp.task('assets', ['clean', 'bower'], function () {
+    gulp.src('./src/vendor/easy-supported-browser/css/img/*')
+        .pipe(gulp.dest(output + '/css/img'));
+    gulp.src('./src/vendor/easy-supported-browser/css/font/*')
+        .pipe(gulp.dest(output + '/css/font'));
 });
 
-gulp.task('clean', function (cb) {
-    del([output], cb);
+gulp.task('pre-build', ['clean', 'bower', 'css', 'assets'], function () {
 });
 
-gulp.task('build', ['clean', 'css', 'build-app', 'build-settings'], function () {
-});
-
-gulp.task('build-app', ['clean', 'css', 'assets'], function () {
+gulp.task('build-app', ['pre-build'], function () {
     var assets = useref.assets();
 
     return merge(
@@ -142,13 +158,6 @@ gulp.task('build-app', ['clean', 'css', 'assets'], function () {
         );
 });
 
-gulp.task('assets', ['clean'], function () {
-    gulp.src('./src/vendor/easy-supported-browser/css/img/*')
-        .pipe(gulp.dest(output + '/css/img'));
-    gulp.src('./src/vendor/easy-supported-browser/css/font/*')
-        .pipe(gulp.dest(output + '/css/font'));
-});
-
 gulp.task('build-settings', ['build-design-settings', 'build-configure-settings'], function () {
     gulp.src('./src/settings/api.js')
         .pipe(removeDebugBlocks())
@@ -157,7 +166,7 @@ gulp.task('build-settings', ['build-design-settings', 'build-configure-settings'
 
 });
 
-gulp.task('build-design-settings', ['clean'], function () {
+gulp.task('build-design-settings', ['pre-build'], function () {
     var assets = useref.assets();
 
     gulp.src(['./src/settings/design/design.html'])
@@ -177,7 +186,7 @@ gulp.task('build-design-settings', ['clean'], function () {
 
 });
 
-gulp.task('build-configure-settings', ['clean'], function () {
+gulp.task('build-configure-settings', ['pre-build'], function () {
     var assets = useref.assets();
 
     gulp.src(['./src/settings/configure/configure.html'])
