@@ -404,6 +404,11 @@
                         containerCss: 'create-course'
                     }
                 },
+                releaseNote: {
+                    settings: {
+                        containerCss: 'release-note'
+                    }
+                },
                 upgrade: {
                     settings: {
                         default: {

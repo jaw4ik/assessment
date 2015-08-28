@@ -1,19 +1,23 @@
 ﻿<div class="modal-dialog">
-    <div class="modal-dialog-title"></div>
+    <div class="modal-dialog-title">
+        <h1>What‘s new (v 1.0.09)</h1>
+        <p>from our previous release</p>
+    </div>
     <div class="modal-dialog-body">
-        <div class="title-wrapper scrollable">
-            <div class="edit-field-wrapper" data-bind="css: { 'active': isEditing(), 'error': isChanged() && !isValid() }">
-                <div class="edit-field-paceholder" data-bind="localize: {text: 'giveNameToYourCourse'}, visible: title().length===0"></div>
-                <div class="edit-field selectable autofocus" data-bind=" editableText: { text: title, onEnterKeyPress: submit }, event: { focus: beginEdit, blur: endEdit }"></div>
-                <div class="validation-message">
-                    <span data-bind="text: !_.isNullOrUndefined(title()) && title().length"></span>/<span data-bind="text: maxLength"></span>
-                </div>
-            </div>
+        <!-- ko foreach: releaseNotes -->
+        <div class="release-notes" data-bind="css: name">
+            <span class="release-notes-title" data-bind="text: name"></span>
+            <ul class="release-notes-list" data-bind="foreach: notes">
+                <li class="release-notes-list-item">
+                    <span data-bind="text: $data"></span>
+                </li>
+            </ul>
         </div>
+        <!-- /ko -->
     </div>
     <div class="modal-dialog-actions">
-        <button class="btn green" data-bind="click: submit, css: { disabled: !isValid(), progress: isProcessing }, enable: isValid() && !isProcessing()">
-            <span class="btn-caption" data-bind="localize: { text: 'createCourse' }"></span>
+        <button class="btn green">
+            <span class="btn-caption">i got it</span>
         </button>
     </div>
 </div>

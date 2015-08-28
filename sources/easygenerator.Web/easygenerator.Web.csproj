@@ -289,6 +289,7 @@
     <Compile Include="Controllers\Api\LearningPathController.cs" />
     <Compile Include="Controllers\Api\OnboardingController.cs" />
     <Compile Include="Controllers\Api\OpenQuestionController.cs" />
+    <Compile Include="Controllers\Api\ReleaseNoteController.cs" />
     <Compile Include="Controllers\Api\SingleSelectImageController.cs" />
     <Compile Include="Controllers\Api\InformationContentController.cs" />
     <Compile Include="Controllers\Api\SingleSelectTextController.cs" />
@@ -617,6 +618,8 @@
     <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.spec.js">
       <DependentUpon>moveCopyQuestion.js</DependentUpon>
     </Content>
+    <Content Include="App\dialogs\releaseNotes\commands\getReleaseNote.js" />
+    <Content Include="App\dialogs\releaseNotes\commands\getReleaseNote.spec.js" />
     <Content Include="App\dialogs\releaseNotes\releaseNotes.html" />
     <Content Include="App\dialogs\releaseNotes\releaseNotes.js" />
     <Content Include="App\dialogs\releaseNotes\releaseNotes.spec.js" />

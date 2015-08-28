@@ -235,7 +235,7 @@ namespace easygenerator.Web.Configuration
 
             #endregion
 
-            builder.RegisterType<ReleaseNoteFileReader>().As<IFileReader>().SingleInstance();
+            builder.RegisterType<ReleaseNoteFileReader>().As<IReleaseNoteFileReader>().SingleInstance();
 
             var container = builder.Build();
 

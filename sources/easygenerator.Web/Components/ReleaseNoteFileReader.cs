@@ -10,7 +10,7 @@ namespace easygenerator.Web.Components
         private readonly ConfigurationReader _configurationReader;
         private readonly HttpRuntimeWrapper _httpRuntimeWrapper;
 
-        private readonly string _cachedCurrentReleaseNote;
+        private string _cachedCurrentReleaseNote;
 
         private readonly string _releaseVersion;
 
@@ -34,16 +34,16 @@ namespace easygenerator.Web.Components
                 return _cachedCurrentReleaseNote;
             }
 
-            var path = Path.Combine(_httpRuntimeWrapper.GetDomainAppPath(), "ReleaseNotes/" + _releaseVersion + ".json");
+            var path = Path.Combine(_httpRuntimeWrapper.GetDomainAppPath(), "ReleaseNotes\\" + _releaseVersion + ".json");
 
-            if (_physicalFileManager.FileExists(path))
+            if (!_physicalFileManager.FileExists(path))
             {
                 return null;
             }
            
-            var releaseNote = _physicalFileManager.ReadAllFromFile(path);
+            _cachedCurrentReleaseNote = _physicalFileManager.ReadAllFromFile(path);
 
-            return releaseNote;
+            return _cachedCurrentReleaseNote;
         }
     }
 }

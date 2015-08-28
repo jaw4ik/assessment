@@ -208,7 +208,8 @@
 /*#region Common */
 
 .modal-dialog-wrapper.delete-learning-path,
-.modal-dialog-wrapper.create-course {
+.modal-dialog-wrapper.create-course,
+.modal-dialog-wrapper.release-note {
     position: relative;
 
     .modal-dialog {
@@ -493,7 +494,8 @@
 
 /*#region Create course */
 
-.modal-dialog-wrapper.create-course {
+.modal-dialog-wrapper.create-course,
+.modal-dialog-wrapper.release-note {
     @dialog-title-font: 28px 'RobotoSlab';
     @dialog-title-color: #546677;
 
@@ -616,4 +618,108 @@
     }
 }
 
+.modal-dialog-wrapper {
+
+    &.release-note {
+        width: 620px;
+        height: 65vh;
+
+        .modal-dialog {
+            color: #42515f;
+
+            .modal-dialog-title,
+            .modal-dialog-body {
+                padding: 0 30px;
+            }
+
+            .modal-dialog-title {
+                text-align: left;
+                padding-top: 30px;
+                padding-bottom: 20px;
+
+                h1 {
+                    margin: 0;
+                    font-family: 'RobotoSlab-Bold';
+                    font-size: 26px;
+                    line-height: 36px;
+                }
+
+                p {
+                    font-family: 'OpenSans';
+                    font-size: 13px;
+                    line-height: 24px;
+                }
+            }
+
+            .modal-dialog-body {
+                padding-top: 20px;
+                border-top: 1px solid #ddd;
+
+                .release-notes {
+                    font-family: 'OpenSans';
+
+                    &.added {
+                        .release-notes-list {
+                            color: #65bd77;
+                        }
+
+                        .release-notes-title {
+                            background-color: #65bd77;
+                        }
+                    }
+
+                    &.fixed {
+                        .release-notes-list {
+                            color: #f59957;
+                        }
+
+                        .release-notes-title {
+                            background-color: #f59957;
+                        }
+                    }
+
+                    &.futureFeatures {
+                        .release-notes-list {
+                            color: #459bd2;
+                        }
+
+                        .release-notes-title {
+                            background-color: #459bd2;
+                        }
+                    }
+
+                    &:last-child{
+                        .release-notes-list{
+                             margin-bottom: 0;
+                        }
+                    }
+
+                    .release-notes-title {
+                        display: inline-block;
+                        margin-bottom: 12px;
+                        padding: 0 5px;
+                        border-radius: 5px;
+                        font-size: 11px;
+                        line-height: 20px;
+                        color: #fff;
+                    }
+
+                    .release-notes-list {
+                        margin-bottom: 40px;
+                        list-style-position: inside;
+
+                        .release-notes-list-item {
+                            font-size: 13px;
+                            line-height: 23px;
+
+                            span {
+                                color: #42515f;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 /*#endregion */

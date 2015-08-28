@@ -32,6 +32,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IEntityFactory _entityFactory;
         private IDomainEventPublisher _eventPublisher;
         private IMailSenderWrapper _mailSenderWrapper;
+        private IReleaseNoteFileReader _releaseNoteFileReader;
         private ICourseRepository _courseRepository;
         private IOnboardingRepository _onboardingRepository;
         private IDemoCoursesStorage _demoCoursesInMemoryStorage;
@@ -53,11 +54,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _demoCoursesInMemoryStorage = Substitute.For<IDemoCoursesStorage>();
             _templateRepository = Substitute.For<ITemplateRepository>();
             _cloner = Substitute.For<ICloner>();
+            _releaseNoteFileReader = Substitute.For<IReleaseNoteFileReader>();
 
             _controller = new UserController(_userRepository,
                 _entityFactory,
                 _eventPublisher,
-                _mailSenderWrapper
+                _mailSenderWrapper,
+                _releaseNoteFileReader
                 );
 
             _user = Substitute.For<IPrincipal>();
