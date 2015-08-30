@@ -3,8 +3,8 @@
 
     return {
         execute: function () {
-            return apiHttpWrapper.post('/api/releasenote/get');
+            return apiHttpWrapper.post('/api/user/releasenote');
         }
-    }
+    };
 
 })

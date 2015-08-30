@@ -1,15 +1,18 @@
 ﻿{
-  "added": [
-    "You can now create hover for hotspots! Available in the action options in the easygenerator editor.",
-    "We worked hard on improving transitions, they are now smooth like butter.",
-    "You no longer have to reload your templates when you add a hotspot, everything updates in real-time!"
-  ],
-  "fixed": [
-    "We worked hard on improving transitions, they are now smooth like butter.",
-    "Worked hard on improving transitions, they are now smooth like butter."
-  ],
-  "futureFeatures": [
-    "Hard on improving transitions, they are now smooth like butter.",
-    "Improving transitions, they are now smooth like butter."
-  ]
+  "notes": {
+    "added": [
+      "You can now create hover for hotspots! Available in the action options in the easygenerator editor.",
+      "We worked hard on improving transitions, they are now smooth like butter.",
+      "You no longer have to reload your templates when you add a hotspot, everything updates in real-time!"
+    ],
+    "fixed": [
+      "We worked hard on improving transitions, they are now smooth like butter.",
+      "Worked hard on improving transitions, they are now smooth like butter."
+    ],
+    "futureFeatures": [
+      "Hard on improving transitions, they are now smooth like butter.",
+      "Improving transitions, they are now smooth like butter."
+    ]
+  },
+  "version": "1.0.0"
 }

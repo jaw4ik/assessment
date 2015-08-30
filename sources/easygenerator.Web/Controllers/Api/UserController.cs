@@ -175,5 +175,14 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess(exists);
         }
 
+        [HttpPost]
+        [Route("api/user/releasenote")]
+        public ActionResult UpdateLastReadReleaseNoteVersion()
+        {
+            var user = _repository.GetUserByEmail(GetCurrentUsername());
+            user.UpdateLastReadReleaseNote(_releaseNoteFileReader.GetReleaseVersion(), GetCurrentUsername());
+            return JsonSuccess();
+        }
+
     }
 }

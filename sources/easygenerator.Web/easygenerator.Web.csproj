@@ -569,6 +569,7 @@
     <Content Include="App\commands\presentationCourseImportCommand.spec.js">
       <DependentUpon>presentationCourseImportCommand.js</DependentUpon>
     </Content>
+    <Content Include="App\components\bindingHandlers\customScrollbarBindingHandler.js" />
     <Content Include="App\components\polygonsEditor\hotspotOnImageShapeModel.js" />
     <Content Include="App\components\polygonsEditor\polygonShape.js" />
     <Content Include="App\components\polygonsEditor\polygonsEditor.js" />
@@ -620,6 +621,8 @@
     </Content>
     <Content Include="App\dialogs\releaseNotes\commands\getReleaseNote.js" />
     <Content Include="App\dialogs\releaseNotes\commands\getReleaseNote.spec.js" />
+    <Content Include="App\dialogs\releaseNotes\commands\updateLastReadReleaseNote.js" />
+    <Content Include="App\dialogs\releaseNotes\commands\updateLastReadReleaseNote.spec.js" />
     <Content Include="App\dialogs\releaseNotes\releaseNotes.html" />
     <Content Include="App\dialogs\releaseNotes\releaseNotes.js" />
     <Content Include="App\dialogs\releaseNotes\releaseNotes.spec.js" />
@@ -1513,6 +1516,7 @@
     </Content>
     <Content Include="ReleaseNotes\1.0.0.json" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
+    <Content Include="Scripts\iscroll.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.js" />

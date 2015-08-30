@@ -1,22 +1,24 @@
 ﻿<div class="modal-dialog">
     <div class="modal-dialog-title">
-        <h1>What‘s new (v 1.0.09)</h1>
+        <h1>What‘s new (v <span data-bind="text: version"></span>)</h1>
         <p>from our previous release</p>
     </div>
-    <div class="modal-dialog-body">
-        <!-- ko foreach: releaseNotes -->
-        <div class="release-notes" data-bind="css: name">
-            <span class="release-notes-title" data-bind="text: name"></span>
-            <ul class="release-notes-list" data-bind="foreach: notes">
-                <li class="release-notes-list-item">
-                    <span data-bind="text: $data"></span>
-                </li>
-            </ul>
+    <div class="modal-dialog-body scroll" data-bind="scrollbar: {}">
+        <div class="release-notes-container">
+            <!-- ko foreach: releaseNotes -->
+            <div class="release-notes" data-bind="css: key">
+                <span class="release-notes-title" data-bind="text: name"></span>
+                <ul class="release-notes-list" data-bind="foreach: notes">
+                    <li class="release-notes-list-item">
+                        <span data-bind="text: $data"></span>
+                    </li>
+                </ul>
+            </div>
+            <!-- /ko -->
         </div>
-        <!-- /ko -->
     </div>
     <div class="modal-dialog-actions">
-        <button class="btn green">
+        <button class="btn green" data-bind="click: submit">
             <span class="btn-caption">i got it</span>
         </button>
     </div>
