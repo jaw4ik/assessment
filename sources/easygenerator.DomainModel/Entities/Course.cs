@@ -47,7 +47,7 @@ namespace easygenerator.DomainModel.Entities
             Template = template;
             MarkAsModified(modifiedBy);
 
-            template.GrantAccessTo(Collaborators.Select(_ => _.Email).ToArray());
+            template.GrantAccessTo(Collaborators.Select(_ => _.Email).Concat(new[] { CreatedBy }).ToArray());
 
             RaiseEvent(new CourseTemplateUpdatedEvent(this));
         }

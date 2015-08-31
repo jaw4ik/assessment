@@ -2355,7 +2355,6 @@
     <Content Include="Templates\Reader\content\content.html" />
     <Content Include="Templates\Reader\content\data.js" />
     <Content Include="Templates\Reader\css\general.css" />
-    <Content Include="Templates\Reader\css\img\background.png" />
     <Content Include="Templates\Reader\css\img\browsers\android.png" />
     <Content Include="Templates\Reader\css\img\browsers\chrome.png" />
     <Content Include="Templates\Reader\css\img\browsers\firefox.png" />
