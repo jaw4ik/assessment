@@ -25,6 +25,7 @@
     "gulp-autoprefixer": "^2.3.1",
     "gulp-less": "^3.0.3",
     "gulp-load-plugins": "^1.0.0-rc.1",
+    "gulp-msbuild": "^0.2.13",
     "gulp-plumber": "^1.0.1"
   }
 }
