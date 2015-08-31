@@ -4,7 +4,7 @@ COLOR
 
 SET DeploymentDirectory=%1
 SET Instance=%2
-SET Version = %3
+SET Version=%3
 
 IF "%1"=="" SET DeploymentDirectory="D:\Applications\easygenerator"
 IF "%2"=="" SET Instance="Release"
