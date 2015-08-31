@@ -92,7 +92,12 @@ gulp.task('build-web-config', function () {
 });
 
 gulp.task('build-unit-tests', function () {
-    return gulp.src('./sources/**/**Tests.csproj')
+    return gulp.src([
+        './sources/easygenerator.DomainModel.Tests/easygenerator.DomainModel.Tests.csproj',
+        './sources/easygenerator.DataAccess.Tests/easygenerator.DataAccess.Tests.csproj',
+        './sources/easygenerator.Infrastructure.Tests/easygenerator.Infrastructure.Tests.csproj',
+        './sources/easygenerator.Web.Tests/easygenerator.Web.Tests.csproj'
+    ])
         .pipe($.msbuild({
             stdout: true,
             errorOnFail: true,
@@ -119,8 +124,7 @@ gulp.task('run-server-tests', function (cb) {
         './sources/easygenerator.DomainModel.Tests/bin/Debug/easygenerator.DomainModel.Tests.dll',
         './sources/easygenerator.DataAccess.Tests/bin/Debug/easygenerator.DataAccess.Tests.dll',
         './sources/easygenerator.Infrastructure.Tests/bin/easygenerator.Infrastructure.Tests.dll',
-        './sources/easygenerator.Web.Tests/bin/Debug/easygenerator.Web.Tests.dll',
-        './sources/easygenerator.Auth.Tests/bin/Debug/easygenerator.Auth.Tests.dll'
+        './sources/easygenerator.Web.Tests/bin/Debug/easygenerator.Web.Tests.dll'
     ];
 
     var defer = Q.defer();
