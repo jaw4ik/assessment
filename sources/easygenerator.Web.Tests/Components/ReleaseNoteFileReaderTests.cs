@@ -12,7 +12,7 @@ using easygenerator.Web.Components.Configuration;
 namespace easygenerator.Web.Tests.Components
 {
     [TestClass]
-    class ReleaseNoteFileReaderTests
+    public class ReleaseNoteFileReaderTests
     {
         private PhysicalFileManager _physicalFileManager;
         private ConfigurationReader _configurationReader;
