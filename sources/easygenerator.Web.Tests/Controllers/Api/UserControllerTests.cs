@@ -520,5 +520,36 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         #endregion
+
+        #region UpdateLastReadReleaseNoteVersion
+
+        [TestMethod]
+        public void UpdateLastReadReleaseNoteVersion_ShouldUpdateLastReadReleaseNote()
+        {
+            var email = "easygenerator@easygenerator.com";
+            var user = UserObjectMother.CreateWithEmail(email);
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
+            _releaseNoteFileReader.GetReleaseVersion().Returns("255");
+
+           _controller.UpdateLastReadReleaseNoteVersion();
+
+            user.LastReadReleaseNote.Should().Be("255");
+        }
+
+        [TestMethod]
+        public void UpdateLastReadReleaseNoteVersion_ShouldReturnJsonSuccessResult()
+        {
+            var email = "easygenerator@easygenerator.com";
+            var user = UserObjectMother.CreateWithEmail(email);
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
+            _releaseNoteFileReader.GetReleaseVersion().Returns("255");
+
+            var result = _controller.UpdateLastReadReleaseNoteVersion();
+
+            result.Should().BeJsonSuccessResult();
+
+        }
+
+        #endregion
     }
 }
