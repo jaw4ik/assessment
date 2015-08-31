@@ -4,11 +4,14 @@
 
 
 if (config.cors) {
-    app.use(require('cors')());
+    var cors = require('cors')();
+    app.use(cors());
+    app.options('*', cors());
 }
 
 if (config.morgan) {
-    app.use(require('morgan')(config.morgan));
+    var morgan = require('morgan');
+    app.use(morgan(config.morgan));
 }
 
 var port = process.env.PORT || 3000;
