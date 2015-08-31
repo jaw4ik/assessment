@@ -1,4 +1,5 @@
 /// <binding ProjectOpened='watch' />
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 var gulp = require('gulp'),
     del = require('del'),
     args = require('yargs').argv,
