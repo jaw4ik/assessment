@@ -4,17 +4,17 @@
     var dialogWidget = require('widgets/dialog/viewmodel'),
         constants = require('constants'),
         getReleaseNoteCommand = require('dialogs/releaseNotes/commands/getReleaseNote'),
-        updateLastReadReleaseNote = require('dialogs/releaseNotes/commands/updateLastReadReleaseNote'),
-        localizationManager = require('localization/localizationManager');
+        updateLastReadReleaseNote = require('dialogs/releaseNotes/commands/updateLastReadReleaseNote');
 
     describe('dialog [releaseNotes]', function () {
-        var dfd = Q.defer();
+        var dfd;
 
-        beforeEach(function() {
+        beforeEach(function () {
+            dfd = Q.defer();
             spyOn(dialogWidget, 'close');
         });
 
-        describe('show', function () {
+        describe('show:', function () {
 
             beforeEach(function () {
                 spyOn(getReleaseNoteCommand, 'execute').and.returnValue(dfd.promise);
@@ -29,11 +29,11 @@
                 expect(getReleaseNoteCommand.execute).toHaveBeenCalled();
             });
 
-            describe('when response is not defined', function (done) {
+            describe('when response is not defined', function () {
 
-                it('should close dialog', function () {
+                it('should close dialog', function (done) {
                     dialog.show();
-                    dfd.resolve(null);
+                    dfd.resolve();
                     dfd.promise.fin(function () {
                         expect(dialogWidget.close).toHaveBeenCalled();
                         done();
@@ -44,21 +44,59 @@
 
             describe('when release notes defined', function () {
                 var releaseNotes = {
-
+                    version: '1.0.0',
+                    notes: {
+                        added: ['boo'],
+                        fixed: ['foo']
+                    }
                 };
+
                 beforeEach(function() {
-                    
+                    spyOn(dialogWidget, 'on');
+                    spyOn(dialogWidget, 'show');
                 });
 
-                it('should set release version', function() {
-                    
+                it('should set release version', function (done) {
+                    dfd.resolve(JSON.stringify(releaseNotes));
+                    dialog.show();
+                    dfd.promise.fin(function () {
+                        expect(dialog.version).toBe(releaseNotes.version);
+                        done();
+                    });
+                });
+
+                it('should set release notes', function (done) {
+                    dfd.resolve(JSON.stringify(releaseNotes));
+                    dialog.show();
+                    dfd.promise.fin(function () {
+                        expect(dialog.releaseNotes()[0].notes[0]).toBe(releaseNotes.notes.added[0]);
+                        done();
+                    });
+                });
+
+                it('should show dialog', function (done) {
+                    dfd.resolve(JSON.stringify(releaseNotes));
+                    dialog.show();
+                    dfd.promise.fin(function () {
+                        expect(dialogWidget.show).toHaveBeenCalledWith(dialog, constants.dialogs.releaseNote.settings);
+                        done();
+                    });
+                });
+
+                it('should subscribe on dialog close event', function (done) {
+                    dfd.resolve(JSON.stringify(releaseNotes));
+                    dialog.show();
+                    dfd.promise.fin(function () {
+                        expect(dialogWidget.on).toHaveBeenCalledWith(constants.dialogs.dialogClosed, dialog.closed);
+                        done();
+                    });
                 });
 
             });
 
         });
 
-        describe('submit', function () {
+        describe('submit:', function () {
 
             it('should be function', function () {
                 expect(dialog.submit).toBeFunction();
@@ -71,7 +109,7 @@
 
         });
 
-        describe('closed', function () {
+        describe('closed:', function () {
 
             beforeEach(function () {
                 spyOn(updateLastReadReleaseNote, 'execute').and.returnValue(dfd.promise);
@@ -85,6 +123,7 @@
             describe('when callbackAfterClose is function', function () {
 
                 beforeEach(function () {
+                    dialog.callbackAfterClose = function() {};
                     spyOn(dialog, 'callbackAfterClose');
                 });
 
@@ -107,7 +146,7 @@
 
         });
 
-        describe('callbackAfterClose', function () {
+        describe('callbackAfterClose:', function () {
 
             it('should be defined', function () {
                 expect(dialog.callbackAfterClose).toBeDefined();
