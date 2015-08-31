@@ -96,7 +96,7 @@ gulp.task('build-unit-tests', function () {
         .pipe($.msbuild({
             stdout: true,
             errorOnFail: true,
-            maxBuffer: 1024 * 1000,
+            maxBuffer: 16 * 1024 * 1000,
             toolsVersion: 12.0,
             properties: {
                 PreBuildEvent: '',
