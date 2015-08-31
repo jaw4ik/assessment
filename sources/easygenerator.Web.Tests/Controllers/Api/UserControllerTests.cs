@@ -365,7 +365,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var profile = GetTestUserSignUpViewModel();
-            var lastReadReleaseNote = "1.0.0";
+            var lastReadReleaseNote = "";
             var user = UserObjectMother.Create(profile.Email, profile.Password);
 
             _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email, lastReadReleaseNote).Returns(user);
@@ -382,7 +382,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var profile = GetTestUserSignUpViewModel();
-            var lastReadReleaseNote = "1.0.0";
+            var lastReadReleaseNote = "";
             var user = UserObjectMother.Create(profile.Email, profile.Password);
             _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email, lastReadReleaseNote).Returns(user);
 
@@ -398,7 +398,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var profile = GetTestUserSignUpViewModel();
-            var lastReadReleaseNote = "1.0.0";
+            var lastReadReleaseNote = "";
             var user = UserObjectMother.Create(profile.Email, profile.Password);
             _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email, lastReadReleaseNote).Returns(user);
 
@@ -414,7 +414,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var profile = GetTestUserSignUpViewModel();
-            var lastReadReleaseNote = "1.0.0";
+            var lastReadReleaseNote = "";
             var user = UserObjectMother.Create(profile.Email, profile.Password);
             _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email, lastReadReleaseNote).Returns(user);
 

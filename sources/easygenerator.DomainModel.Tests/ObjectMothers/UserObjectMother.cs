@@ -14,7 +14,7 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
         private const string Country = "Ukraine";
         private const string Role = "Teacher";
         private const string Organization = "Easygenerator";
-        private const string LastReadReleaseNote = "1.0.0";
+        private const string LastReadReleaseNote = "";
 
         public static User CreateWithPassword(string password)
         {
