@@ -145,6 +145,12 @@
         'uk': 'Публікація',
         'pt-br': 'Publicar'
     },
+    update: {
+        'en': 'Update',
+        'zh-cn': 'Update[zh-cn]',
+        'uk': 'Оновити',
+        'pt-br': 'Update[pt-br]'
+    },
     upgradeNow: {
         'en': 'Upgrade now',
         'zh-cn': '立即升级',
@@ -498,6 +504,24 @@
         'zh-cn': 'Please wait, it may take few minutes[zh-cn]',
         'uk': 'Будь ласка зачекайте кілька хвилин',
         'pt-br': 'Please wait, it may take few minutes[pt-br]'
+    },
+    added: {
+        'en': 'Added',
+        'zh-cn': 'Added[zh-cn]',
+        'uk': 'Додано',
+        'pt-br': 'Added[pt-br]'
+    },
+    fixed: {
+        'en': 'Fixed',
+        'zh-cn': 'Fixed[zh-cn]',
+        'uk': 'Виправленно',
+        'pt-br': 'Fixed[pt-br]'
+    },
+    futureFeatures: {
+        'en': 'What we are working on',
+        'zh-cn': 'What we are working on[zh-cn]',
+        'uk': 'Над чим ми працюємо',
+        'pt-br': 'What we are working on[pt-br]'
     },
     /* End resource section for model General */
     
@@ -1285,6 +1309,24 @@
         'uk': 'Відповідь учня',
         'pt-br': 'Resposta do aluno'
     },
+    publishToCompany: {
+        'en': 'Publish to {companyName}',
+        'zh-cn': 'Publish to {companyName}[zh-cn]',
+        'uk': 'Опублікувати в {companyName}',
+        'pt-br': 'Publish to {companyName}[pt-br]'
+    },
+    updateInCompany: {
+        'en': 'Update in {companyName}',
+        'zh-cn': 'Update in {companyName}[zh-cn]',
+        'uk': 'Оновити в {companyName}',
+        'pt-br': 'Update in {companyName}[pt-br]'
+    },
+    publishedCourseIsUpToDate: {
+        'en': 'Published course is up-to-date',
+        'zh-cn': 'Published course is up-to-date[zh-cn]',
+        'uk': 'Опублікований курс є актуальним',
+        'pt-br': 'Published course is up-to-date[pt-br]'
+    },
     sharePrivateLink: {
         'en': 'Share private link',
         'zh-cn': 'Share private link[zh-cn]',
@@ -1374,6 +1416,18 @@
         'zh-cn': 'Get course link[zh-cn]',
         'uk': 'Отримати посилання на курс',
         'pt-br': 'Obter link de curso'
+    },
+    change: {
+        'en': 'Change',
+        'zh-cn': 'Change[zh-cn]',
+        'uk': 'Зміна',
+        'pt-br': 'Change[pt-br]'
+    },
+    changeYourCourseTemplate: {
+        'en': 'Change your course template',
+        'zh-cn': 'Change your course template[zh-cn]',
+        'uk': 'Зміна шаблону курсу',
+        'pt-br': 'Change your course template[pt-br]'
     },
     /* End resource section for model Courses */
     
@@ -2403,6 +2457,12 @@
         'zh-cn': '我们遇到了一个问题，请重试。如果问题依然存在，请联系support@easygenerator.com解决。',
         'uk': 'Виникла проблема. Натисніть \"Курси\", відкрийте курс та спробуйте ще раз. Якщо проблема не зникне, надішліть нам електронного листа на адресу support@easygenerator.com.',
         'pt-br': 'Encontramos um problema. Clique em Cursos. Abra o curso e tente novamente. Contate support@easygenerator.com se o problema persistir.'
+    },
+    userNotMemberOfAnyCompany: {
+        'en': 'You are not a member of any company.',
+        'zh-cn': 'You are not a member of any company.[zh-cn]',
+        'uk': 'Ви не є членом якої небудь компанії.',
+        'pt-br': 'You are not a member of any company.[pt-br]'
     },
     /* End resource section for model Server error notification */
     

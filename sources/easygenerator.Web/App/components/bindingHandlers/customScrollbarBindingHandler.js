@@ -6,16 +6,18 @@
 
             scrollbar = new IScroll(element, {
                 mouseWheel: true,
-                scrollbars: true
+                scrollbars: 'custom',
             });
 
             ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
                 scrollbar.destroy();
                 scrollbar = null;
             });
+
+            document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
         }
     };
 
-    composition.addBindingHandler('scrollbar')
+    composition.addBindingHandler('scrollbar');
 
 });

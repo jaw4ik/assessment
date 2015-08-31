@@ -19,8 +19,9 @@
             if (_.isNullOrUndefined(response)) {
                 dialog.close();
             } else {
-                viewmodel.version = response.version;
-                viewmodel.releaseNotes(_.map(JSON.parse(response.notes), function (value, key) {
+                var parsedResponse = JSON.parse(response);
+                viewmodel.version = parsedResponse.version;
+                viewmodel.releaseNotes(_.map(parsedResponse.notes, function (value, key) {
                     return {
                         key: key,
                         name: mapReleaseNoteKey(key),
@@ -49,11 +50,11 @@
     function mapReleaseNoteKey(key) {
         switch (key) {
             case 'added':
-                return 'Added';
+                return localizationManager.localize('added');
             case 'fixed':
-                return 'Fixed';
+                return localizationManager.localize('fixed');
             case 'futureFeatures':
-                return 'What we are working on';
+                return localizationManager.localize('futureFeatures');
             default:
                 return '';
         }

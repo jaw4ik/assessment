@@ -151,10 +151,11 @@ gulp.task('run-server-tests', function (cb) {
     }
 });
 
-gulp.task('run-jasmine-tests', function (cb) {
-    var gulp_grunt = require('gulp-grunt');
-    gulp_grunt.tasks()['grunt-default'](cb);
-});
+gulp.task('run-jasmine-tests', $.shell.task([
+    '"tools/grunt/node_modules/.bin/grunt" jasmine --gruntfile=tools/grunt/gruntfile.js'
+], {
+    maxBuffer: 64 * 1024 * 1024
+}));
 
 gulp.task('run-unit-tests', function(cb){
     runSequence('run-server-tests', 'run-jasmine-tests', cb);

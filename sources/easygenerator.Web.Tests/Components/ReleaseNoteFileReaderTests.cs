@@ -32,7 +32,51 @@ namespace easygenerator.Web.Tests.Components
 
         #region Read
 
-        
+        [TestMethod]
+        public void Read_ShouldReadReleaseNoteFile_WhenItIsNotExistsInCahce()
+        {
+            _physicalFileManager.ReadAllFromFile(Arg.Any<string>()).Returns("manifest");
+
+            _releaseNoteFileReader.Read();
+
+            _physicalFileManager.ReceivedWithAnyArgs().ReadAllFromFile(Arg.Any<string>());
+        }
+
+        [TestMethod]
+        public void Read_ShouldReadManifestFromCache_WhenManifestLoadSecondTime()
+        {
+            _releaseNoteFileReader.Read();
+            _releaseNoteFileReader.Read();
+
+            _physicalFileManager.Received(1).ReadAllFromFile(Arg.Any<string>());
+        }
+
+        [TestMethod]
+        public void Read_ShouldNotReadFile_WhenManifestFileDoesNotExist()
+        {
+            _releaseNoteFileReader.Read();
+
+            _physicalFileManager.DidNotReceive().ReadAllFromFile(Arg.Any<string>());
+        }
+
+        [TestMethod]
+        public void Read_ShouldReturnNull_WhenManifestFileDoesNotExist()
+        {
+            var result = _releaseNoteFileReader.Read();
+
+            result.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void Read_ShouldReturnManifestFile()
+        {
+            var releaseNote = "notes";
+            _physicalFileManager.ReadAllFromFile(Arg.Any<string>()).Returns(releaseNote);
+
+            var result = _releaseNoteFileReader.Read();
+
+            result.Should().Be(releaseNote);
+        }
 
         #endregion
     }
