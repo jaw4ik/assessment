@@ -29,7 +29,7 @@ namespace easygenerator.Web.Components
 
         public string Read()
         {
-            if (!string.IsNullOrEmpty(_cachedCurrentReleaseNote) && _cachedCurrentReleaseNote == _releaseVersion)
+            if (!string.IsNullOrEmpty(_cachedCurrentReleaseNote) && _configurationReader.ReleaseVersion == _releaseVersion)
             {
                 return _cachedCurrentReleaseNote;
             }

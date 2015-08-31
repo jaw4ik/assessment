@@ -35,7 +35,8 @@ namespace easygenerator.Web.Tests.Components
         [TestMethod]
         public void Read_ShouldReadReleaseNoteFile_WhenItIsNotExistsInCahce()
         {
-            _physicalFileManager.ReadAllFromFile(Arg.Any<string>()).Returns("manifest");
+            _physicalFileManager.ReadAllFromFile(Arg.Any<string>()).Returns("foo");
+            _physicalFileManager.FileExists(Arg.Any<string>()).Returns(true);
 
             _releaseNoteFileReader.Read();
 
@@ -45,6 +46,8 @@ namespace easygenerator.Web.Tests.Components
         [TestMethod]
         public void Read_ShouldReadManifestFromCache_WhenManifestLoadSecondTime()
         {
+            _physicalFileManager.FileExists(Arg.Any<string>()).Returns(true);
+            _physicalFileManager.ReadAllFromFile(Arg.Any<string>()).Returns("foo");
             _releaseNoteFileReader.Read();
             _releaseNoteFileReader.Read();
 
@@ -68,9 +71,10 @@ namespace easygenerator.Web.Tests.Components
         }
 
         [TestMethod]
-        public void Read_ShouldReturnManifestFile()
+        public void Read_ShouldReturnReleaseNoteFile()
         {
             var releaseNote = "notes";
+            _physicalFileManager.FileExists(Arg.Any<string>()).Returns(true);
             _physicalFileManager.ReadAllFromFile(Arg.Any<string>()).Returns(releaseNote);
 
             var result = _releaseNoteFileReader.Read();
