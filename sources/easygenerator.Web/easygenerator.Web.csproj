@@ -629,7 +629,7 @@
       <DependentUpon>learningPath.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\course\design\templateBrief.js" />
-	 <Content Include="App\viewmodels\courses\course\design\templateBrief.spec.js">
+    <Content Include="App\viewmodels\courses\course\design\templateBrief.spec.js">
       <DependentUpon>templateBrief.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\actions\publish.js" />
@@ -2976,7 +2976,7 @@
     <Content Include="Scripts\knockoutBindings\ckeditorBinding.js" />
     <Content Include="Scripts\knockoutBindings\clickElementBinding.js" />
     <Content Include="Scripts\knockoutBindings\dateBinding.js" />
-    <Content Include="Scripts\knockoutBindings\dialogBinding.js" />
+    <Content Include="App\widgets\dialog\bindingHandlers\dialogBindingHandler.js" />
     <Content Include="Scripts\knockoutBindings\dropDownBinding.js" />
     <Content Include="Scripts\knockoutBindings\editableTextBinding.js" />
     <Content Include="Scripts\knockoutBindings\expanderBinding.js" />
