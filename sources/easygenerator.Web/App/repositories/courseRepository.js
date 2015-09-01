@@ -243,9 +243,7 @@
                     course.template = template;
                     course.modifiedOn = new Date(response.ModifiedOn);
 
-                    return {
-                        modifiedOn: course.modifiedOn
-                    };
+                    return course.template;
                 });
 
             });

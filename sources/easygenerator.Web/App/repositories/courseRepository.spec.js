@@ -1457,19 +1457,20 @@
                     post.resolve({ ModifiedOn: modifiedDate.toISOString() });
                 });
 
-                it('should resolve promise with received modification date', function (done) {
+                it('should resolve promise with course template', function (done) {
                     var
                         courseId = 'qweqeqweqw',
                         templateId = 'dfgjghjdghj',
-                        modifiedDate = new Date();
+                        modifiedDate = new Date(),
+                        course = { id: courseId, title: '', modifiedOn: new Date('') };
 
-                    dataContext.courses = [{ id: courseId, title: '', modifiedOn: new Date('') }];
+                    dataContext.courses = [course];
                     dataContext.templates = [{ id: templateId, name: 'template.name', thumbnail: 'template.image' }];
 
                     var promise = repository.updateCourseTemplate(courseId, templateId);
 
                     promise.fin(function () {
-                        expect(promise.inspect().value.modifiedOn).toEqual(modifiedDate);
+                        expect(promise.inspect().value).toEqual(course.template);
                         done();
                     });
 

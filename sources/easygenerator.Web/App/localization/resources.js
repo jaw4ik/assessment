@@ -1285,6 +1285,12 @@
         'uk': 'Відповідь учня',
         'pt-br': 'Resposta do aluno'
     },
+    publishToCompany: {
+        'en': 'Publish to {companyName}',
+        'zh-cn': 'Publish to {companyName}[zh-cn]',
+        'uk': 'Опублікувати в {companyName}',
+        'pt-br': 'Publish to {companyName}[pt-br]'
+    },
     sharePrivateLink: {
         'en': 'Share private link',
         'zh-cn': 'Share private link[zh-cn]',
@@ -1374,6 +1380,18 @@
         'zh-cn': 'Get course link[zh-cn]',
         'uk': 'Отримати посилання на курс',
         'pt-br': 'Obter link de curso'
+    },
+    change: {
+        'en': 'Change',
+        'zh-cn': 'Change[zh-cn]',
+        'uk': 'Зміна',
+        'pt-br': 'Change[pt-br]'
+    },
+    changeYourCourseTemplate: {
+        'en': 'Change your course template',
+        'zh-cn': 'Change your course template[zh-cn]',
+        'uk': 'Зміна шаблону курсу',
+        'pt-br': 'Change your course template[pt-br]'
     },
     /* End resource section for model Courses */
     

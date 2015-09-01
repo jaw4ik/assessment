@@ -1,7 +1,8 @@
-﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'clientContext', 'constants', 'utils/waiter'],
-    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, clientContext, constants, waiter) {
+﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'clientContext', 'constants',
+    'utils/waiter', 'durandal/app'],
+    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, clientContext, constants, waiter, app) {
 
-        var 
+        var
             templateMessageTypes = {
                 showSettings: 'show-settings',
                 freezeEditor: 'freeze-editor',
@@ -18,9 +19,9 @@
         var viewModel = {
             courseId: '',
 
-            currentTemplate: null,
-            configureSettingsUrl: null,
-            settingsAvailable: false,
+            templateId: ko.observable(),
+            configureSettingsUrl: ko.observable(),
+            settingsAvailable: ko.observable(false),
 
             onGetTemplateMessage: onGetTemplateMessage,
 
@@ -30,7 +31,8 @@
             activate: activate,
             deactivate: deactivate,
             canDeactivate: canDeactivate,
-
+            templateUpdated: templateUpdated,
+            templateUpdatedByCollaborator: templateUpdatedByCollaborator,
             frameLoaded: frameLoaded,
 
             settingsLoadingTimeoutId: null,
@@ -59,6 +61,9 @@
             if (viewModel.settingsVisibilitySubscription) {
                 viewModel.settingsVisibilitySubscription.dispose();
             }
+
+            app.off(constants.messages.course.templateUpdated + viewModel.courseId, viewModel.templateUpdated);
+            app.off(constants.messages.course.templateUpdatedByCollaborator, viewModel.templateUpdatedByCollaborator);
         }
 
         function activate(courseId) {
@@ -72,10 +77,12 @@
 
             return courseRepository.getById(courseId).then(function (course) {
                 viewModel.courseId = course.id;
+                viewModel.templateId(course.template.id);
+                viewModel.configureSettingsUrl(course.template.settingsUrls.configure);
+                viewModel.settingsAvailable(viewModel.configureSettingsUrl() != null);
 
-                viewModel.currentTemplate = course.template;
-                viewModel.configureSettingsUrl = course.template.settingsUrls.configure;
-                viewModel.settingsAvailable = viewModel.configureSettingsUrl != null;
+                app.on(constants.messages.course.templateUpdated + viewModel.courseId, viewModel.templateUpdated);
+                app.on(constants.messages.course.templateUpdatedByCollaborator, viewModel.templateUpdatedByCollaborator);
             }).fail(function (reason) {
                 router.activeItem.settings.lifecycleData = { redirect: '404' };
                 throw reason;
@@ -107,6 +114,23 @@
                     }
                     break;
             }
+        }
+
+
+        function templateUpdated(template) {
+            if (template.id === viewModel.templateId())
+                return;
+
+            viewModel.templateId(template.id);
+            viewModel.configureSettingsUrl(template.settingsUrls.configure);
+            viewModel.settingsAvailable(viewModel.configureSettingsUrl() != null);
+        }
+
+        function templateUpdatedByCollaborator(course) {
+            if (course.id !== viewModel.courseId)
+                return;
+
+            templateUpdated(course.template);
         }
 
         function frameLoaded() {
