@@ -25,6 +25,10 @@
         return viewModel;
 
         function show(steps, settings) {
+            if (viewModel.isShown()) {
+                return;
+            }
+            
             viewModel.steps.removeAll();
 
             if (_.isArray(steps)) {
