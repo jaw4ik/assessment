@@ -165,6 +165,7 @@
     <Compile Include="Components\ModelBinding\DateTimeModelBinderTests.cs" />
     <Compile Include="Components\ReleaseNoteFileReaderTests.cs" />
     <Compile Include="Controllers\Api\LearningPathControllerTests.cs" />
+    <Compile Include="Controllers\Api\ReleaseNoteControllerTests.cs" />
     <Compile Include="Controllers\DashboardControllerTests.cs" />
     <Compile Include="Controllers\AccountControllerTests.cs" />
     <Compile Include="Controllers\Api\Aim4YouControllerTests.cs" />
