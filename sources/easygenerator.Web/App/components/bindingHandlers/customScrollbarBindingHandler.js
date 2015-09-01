@@ -7,7 +7,9 @@
                 scrollbar = null,
                 options = {
                     mouseWheel: true,
-                    scrollbars: 'custom'
+                    disableMouse: true,
+                    scrollbars: 'custom',
+                    interactiveScrollbars: true
                 };
 
             if (byClass) {
