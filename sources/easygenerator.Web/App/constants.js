@@ -410,6 +410,11 @@
                         containerCss: 'change-course-template'
                     }
                 },
+                releaseNote: {
+                    settings: {
+                        containerCss: 'release-note'
+                    }
+                },
                 upgrade: {
                     settings: {
                         default: {

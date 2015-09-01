@@ -1,7 +1,7 @@
 ﻿define(['dialogs/learningPath/shareLearningPath'], function(viewModel) {
     'use strict';
 
-    describe('dialog [deleteLearningPath]', function() {
+    describe('dialog [shareLearningPath]', function() {
         
     });
 });

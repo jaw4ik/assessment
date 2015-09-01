@@ -314,6 +314,10 @@
     <Compile Include="Migrations\201508131138578_RemoveLockFromCourseCollaborators.Designer.cs">
       <DependentUpon>201508131138578_RemoveLockFromCourseCollaborators.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508261347099_AddColumnLastReadReleaseNoteInUserTable.cs" />
+    <Compile Include="Migrations\201508261347099_AddColumnLastReadReleaseNoteInUserTable.Designer.cs">
+      <DependentUpon>201508261347099_AddColumnLastReadReleaseNoteInUserTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ConsumerToolRepository.cs" />
@@ -539,6 +543,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508131138578_RemoveLockFromCourseCollaborators.resx">
       <DependentUpon>201508131138578_RemoveLockFromCourseCollaborators.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508261347099_AddColumnLastReadReleaseNoteInUserTable.resx">
+      <DependentUpon>201508261347099_AddColumnLastReadReleaseNoteInUserTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -3,6 +3,7 @@
 
     require('components/bindingHandlers/tooltipBindingHandler').install();
     require('components/bindingHandlers/backgroundBindingHandler');
+    require('components/bindingHandlers/customScrollbarBindingHandler');
     require('viewmodels/questions/dragAndDropText/bindingHandlers/draggableTextBindingHandler');
     require('viewmodels/questions/hotSpot/bindingHandlers/polygonsEditorBindingHandler').install();
     require('viewmodels/questions/fillInTheBlank/bindingHandlers/fillInTheBlankBindingHandler');

@@ -50,6 +50,9 @@
             'dialogs/course/createCourse/createCourse.spec',
             'dialogs/course/createCourse/steps/courseTemplateStep.spec',
             'dialogs/course/createCourse/steps/courseTitleStep.spec',
+            'dialogs/releaseNotes/commands/updateLastReadReleaseNote.spec',
+            'dialogs/releaseNotes/commands/getReleaseNote.spec',
+            'dialogs/releaseNotes/releaseNotes.spec',
 
             //#endregion dialogs
 
