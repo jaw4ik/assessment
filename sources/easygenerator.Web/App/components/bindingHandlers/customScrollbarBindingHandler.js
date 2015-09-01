@@ -16,6 +16,10 @@
                 scrollbar = new IScroll(element, options);
             }
 
+            _.defer(function() {
+                scrollbar.refresh();
+            });
+
             ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
                 scrollbar.destroy();
                 scrollbar = null;
