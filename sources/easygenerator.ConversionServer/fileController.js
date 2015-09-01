@@ -2,6 +2,7 @@
 
 var 
     fs = require('fs'),
+    rmrf = require('rimraf'),
     path = require('path'),
     Q = require('q'),
     uuid = require('node-uuid'),
@@ -10,14 +11,14 @@ var
     
     router = express.Router();
 
-var
+var 
     ticketDispatcher = require('./ticketDispatcher'),
     converter = require('./converter'),
 
     config = require('./config');
 
 
-function useTicket(req, res, next) {    
+function useTicket(req, res, next) {
     if (ticketDispatcher.use(req.get('ticket'))) {
         next();
     } else {
@@ -77,21 +78,12 @@ router.post('/', [useTicket], function(req, res) {
 router.delete('/:id', [useTicket], function(req, res) {
     var id = req.params.id;
 
-    fs.readdir(path.join(config.TEMP_FOLDER, id), function(err, files) {
+    rmrf(path.join(config.TEMP_FOLDER, id), function(err, a) {
         if (err) {
-            if (err.code !== "ENOENT") {
-                throw err;
-            } else {
-                res.status(204).end();
-            }
+            res.status(500).end();
         } else {
-            files.forEach(function(filename) {
-                fs.unlinkSync(path.join(config.TEMP_FOLDER, id, filename));
-            });
-            fs.rmdirSync(path.join(config.TEMP_FOLDER, id));
             res.status(204).end();
         }
-
     });
 });
 
