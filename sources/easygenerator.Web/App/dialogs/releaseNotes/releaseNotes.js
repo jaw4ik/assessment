@@ -8,8 +8,7 @@
         closed: closed,
         submit: submit,
         callbackAfterClose: null,
-        releaseNotes: ko.observableArray([]),
-        version: ''
+        releaseNotes: ''
     };
 
     return viewmodel;
