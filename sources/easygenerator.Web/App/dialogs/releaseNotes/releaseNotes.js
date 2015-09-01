@@ -1,6 +1,6 @@
 ﻿define(['widgets/dialog/viewmodel', 'constants', 'dialogs/releaseNotes/commands/getReleaseNote',
-        'dialogs/releaseNotes/commands/updateLastReadReleaseNote', 'localization/localizationManager'],
-        function (dialog, constants, getReleaseNote, updateLastReadReleaseNote, localizationManager) {
+        'dialogs/releaseNotes/commands/updateLastReadReleaseNote'],
+        function (dialog, constants, getReleaseNote, updateLastReadReleaseNote) {
     'use strict';
 
     var viewmodel = {
@@ -16,18 +16,10 @@
 
     function show(callbackAfterClose) {
         getReleaseNote.execute().then(function (response) {
-            if (_.isNullOrUndefined(response)) {
+            if (_.isNullOrUndefined(response) || _.isEmptyOrWhitespace(response)) {
                 dialog.close();
             } else {
-                var parsedResponse = JSON.parse(response);
-                viewmodel.version = parsedResponse.version;
-                viewmodel.releaseNotes(_.map(parsedResponse.notes, function (value, key) {
-                    return {
-                        key: key,
-                        name: mapReleaseNoteKey(key),
-                        notes: value
-                    };
-                }));
+                viewmodel.releaseNotes = response;
                 viewmodel.callbackAfterClose = callbackAfterClose;
                 dialog.show(viewmodel, constants.dialogs.releaseNote.settings);
                 dialog.on(constants.dialogs.dialogClosed, viewmodel.closed);
@@ -45,18 +37,5 @@
         }
         updateLastReadReleaseNote.execute();
         dialog.off(constants.dialogs.dialogClosed, viewmodel.closed);
-    }
-
-    function mapReleaseNoteKey(key) {
-        switch (key) {
-            case 'added':
-                return localizationManager.localize('added');
-            case 'fixed':
-                return localizationManager.localize('fixed');
-            case 'futureFeatures':
-                return localizationManager.localize('futureFeatures');
-            default:
-                return '';
-        }
     }
 });

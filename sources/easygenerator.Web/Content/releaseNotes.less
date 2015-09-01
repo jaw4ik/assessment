@@ -1,0 +1,97 @@
+﻿.release-notes-header-container{
+    text-align: left;
+    color: #42515f;
+    margin-bottom: 15px;
+
+    h1 {
+        margin: 0;
+        font-family: 'RobotoSlab-Bold';
+        font-size: 26px;
+        line-height: 36px;
+        color: #546677;
+    }
+
+    p {
+        font-family: 'OpenSans';
+        font-size: 13px;
+        line-height: 24px;
+    }
+}
+
+.release-notes-content-container{
+    position: relative;
+    width: 620px;
+    color: #42515f;
+    border-top: 1px solid #ddd;
+    overflow: hidden;
+
+    .release-notes-content-wrapper{
+        font-family: 'OpenSans';
+        padding-top: 20px;
+
+        section{
+
+            &.added{
+                h2{
+                    background-color: #65bd77;
+                }
+
+                ul{
+                    color: #65bd77;
+                }
+            }
+
+            &.fixed{
+                h2{
+                    background-color: #f59957;
+                }
+
+                ul{
+                    color: #f59957;
+                }
+            }
+
+            &.futureFeatures{
+                h2{
+                    background-color: #459bd2;
+                }
+
+                ul{
+                    color: #459bd2;
+                }
+            }
+
+            &:last-child{
+                ul{
+                    margin-bottom: 0;
+                }
+            }
+
+            h2{
+                display: inline-block;
+                margin-bottom: 12px;
+                padding: 0 6px;
+                border-radius: 4px;
+                font-size: 11px;
+                line-height: 20px;
+                text-transform: uppercase;
+                color: #fff;
+            }
+
+            ul{
+                margin-left: 20px;
+                margin-bottom: 40px;
+                list-style-position: outside;
+
+                li{
+                    font-size: 13px;
+                    line-height: 23px;
+
+                    span {
+                        color: #42515f;
+                    }
+                }
+            }
+        }
+    }
+}

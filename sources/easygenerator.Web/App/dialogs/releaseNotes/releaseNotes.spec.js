@@ -43,39 +43,24 @@
             });
 
             describe('when release notes defined', function () {
-                var releaseNotes = {
-                    version: '1.0.0',
-                    notes: {
-                        added: ['boo'],
-                        fixed: ['foo']
-                    }
-                };
+                var releaseNotes = "foobar";
 
                 beforeEach(function() {
                     spyOn(dialogWidget, 'on');
                     spyOn(dialogWidget, 'show');
                 });
 
-                it('should set release version', function (done) {
-                    dfd.resolve(JSON.stringify(releaseNotes));
-                    dialog.show();
-                    dfd.promise.fin(function () {
-                        expect(dialog.version).toBe(releaseNotes.version);
-                        done();
-                    });
-                });
-
                 it('should set release notes', function (done) {
-                    dfd.resolve(JSON.stringify(releaseNotes));
+                    dfd.resolve(releaseNotes);
                     dialog.show();
                     dfd.promise.fin(function () {
-                        expect(dialog.releaseNotes()[0].notes[0]).toBe(releaseNotes.notes.added[0]);
+                        expect(dialog.releaseNotes).toBe(releaseNotes);
                         done();
                     });
                 });
 
                 it('should show dialog', function (done) {
-                    dfd.resolve(JSON.stringify(releaseNotes));
+                    dfd.resolve(releaseNotes);
                     dialog.show();
                     dfd.promise.fin(function () {
                         expect(dialogWidget.show).toHaveBeenCalledWith(dialog, constants.dialogs.releaseNote.settings);
@@ -84,7 +69,7 @@
                 });
 
                 it('should subscribe on dialog close event', function (done) {
-                    dfd.resolve(JSON.stringify(releaseNotes));
+                    dfd.resolve(releaseNotes);
                     dialog.show();
                     dfd.promise.fin(function () {
                         expect(dialogWidget.on).toHaveBeenCalledWith(constants.dialogs.dialogClosed, dialog.closed);
@@ -156,8 +141,8 @@
 
         describe('releaseNotes', function () {
 
-            it('should be observable', function () {
-                expect(dialog.releaseNotes).toBeObservable();
+            it('should be defined', function () {
+                expect(dialog.releaseNotes).toBeDefined();
             });
 
         });

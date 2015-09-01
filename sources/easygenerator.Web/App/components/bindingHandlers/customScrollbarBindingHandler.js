@@ -1,13 +1,20 @@
 ﻿define(['knockout', 'durandal/composition'], function (ko, composition) {
 
     ko.bindingHandlers.scrollbar = {
-        init: function (element) {
-            var scrollbar = null;
+        init: function (element, valueAccessor) {
+            var $element = $(element),
+                byClass = valueAccessor().byClass,
+                scrollbar = null,
+                options = {
+                    mouseWheel: true,
+                    scrollbars: 'custom'
+                };
 
-            scrollbar = new IScroll(element, {
-                mouseWheel: true,
-                scrollbars: 'custom',
-            });
+            if (byClass) {
+                scrollbar = new IScroll($element.find('.' + byClass)[0], options);
+            } else {
+                scrollbar = new IScroll(element, options);
+            }
 
             ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
                 scrollbar.destroy();

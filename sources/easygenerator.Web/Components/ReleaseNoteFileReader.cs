@@ -34,7 +34,7 @@ namespace easygenerator.Web.Components
                 return _cachedCurrentReleaseNote;
             }
 
-            var path = Path.Combine(_httpRuntimeWrapper.GetDomainAppPath(), "ReleaseNotes\\" + _releaseVersion + ".json");
+            var path = Path.Combine(_httpRuntimeWrapper.GetDomainAppPath(), "ReleaseNotes\\" + _releaseVersion + ".html");
 
             if (!_physicalFileManager.FileExists(path))
             {
