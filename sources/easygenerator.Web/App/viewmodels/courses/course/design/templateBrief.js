@@ -6,8 +6,10 @@
             thumbnail: template.thumbnail,
             previewImages: template.previewImages,
             description: template.shortDescription,
-            order: template.order,
-            isCustom: template.isCustom
+            designSettingsUrl: template.settingsUrls.design,
+            settingsAvailable: template.settingsUrls.design != null,
+            previewDemoUrl: template.previewDemoUrl,
+            isLoading: ko.observable(false)
         };
 
         return viewModel;
