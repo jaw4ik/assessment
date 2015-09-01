@@ -163,7 +163,6 @@
             });
 
             it('should set isShown to true', function () {
-                viewModel.isShown(false);
                 viewModel.show(steps);
                 expect(viewModel.isShown()).toBeTruthy();
             });
