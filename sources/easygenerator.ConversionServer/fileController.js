@@ -3,6 +3,7 @@
 var 
     fs = require('fs'),
     rmrf = require('rimraf'),
+    del = require('del'),
     path = require('path'),
     Q = require('q'),
     uuid = require('node-uuid'),
@@ -78,7 +79,9 @@ router.post('/', [useTicket], function(req, res) {
 router.delete('/:id', [useTicket], function(req, res) {
     var id = req.params.id;
 
-    rmrf(path.join(config.TEMP_FOLDER, id), function(err, a) {
+    console.log(path.join(config.TEMP_FOLDER, id, '**');
+
+    del(path.join(config.TEMP_FOLDER, id), function(err, a) {
         if (err) {
             res.status(500).end();
         } else {
