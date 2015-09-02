@@ -1,6 +1,6 @@
 {
     "name": "Personalized learning",
-    "shortDescription": "A smart course that will give your learner a personalized advice",
+    "shortDescription": "A smart eLearning course with a study advice for the learner\n\nDetails:\nThe learner will see all questions in an assessment first. Based on the results of that assessment the course will present a study advice with the weak points of the learner. In order to use this successful, don’t use the content items, but add the content directly to the question!",
     "thumbnail": "preview/thumbnail.png",
     "previewImages": [
         "preview/images/preview.jpg"
