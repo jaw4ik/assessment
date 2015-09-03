@@ -79,8 +79,6 @@ router.post('/', [useTicket], function(req, res) {
 router.delete('/:id', [useTicket], function(req, res) {
     var id = req.params.id;
 
-    console.log(path.join(config.TEMP_FOLDER, id, '**');
-
     del(path.join(config.TEMP_FOLDER, id), function(err, a) {
         if (err) {
             res.status(500).end();
@@ -98,15 +96,7 @@ router.get('/:id', function(req, res) {
             res.status(404).end();
         } else {
             if (files && files.length) {
-                var fileName = files[0];
-                var filePath = path.join(directoryPath, fileName);
-
-                res.writeHead(200, {
-                    'Content-Length': fs.statSync(filePath).size,
-                    'Content-disposition': 'attachment; filename=' + fileName
-                });
-
-                fs.createReadStream(filePath).pipe(res);
+                res.download(path.join(directoryPath, files[0]));
             } else {
                 res.status(404).end();
             }
