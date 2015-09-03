@@ -17,8 +17,7 @@
     "morgan": "^1.6.0",
     "node-uuid": "^1.4.3",
     "q": "^1.4.1",
-    "request": "^2.60.0",
-    "rimraf": "^2.4.3"
+    "request": "^2.60.0"
   },
   "devDependencies": {
     "mocha": "^2.2.5",

@@ -2,7 +2,6 @@
 
 var 
     fs = require('fs'),
-    rmrf = require('rimraf'),
     del = require('del'),
     path = require('path'),
     Q = require('q'),
@@ -79,12 +78,10 @@ router.post('/', [useTicket], function(req, res) {
 router.delete('/:id', [useTicket], function(req, res) {
     var id = req.params.id;
 
-    del(path.join(config.TEMP_FOLDER, id), function(err, a) {
-        if (err) {
-            res.status(500).end();
-        } else {
-            res.status(204).end();
-        }
+    del([path.join(config.TEMP_FOLDER, id)], { force: true }).then(function() {
+        res.status(204).end();
+    }).catch(function() {
+        res.status(500).end();
     });
 });
 
