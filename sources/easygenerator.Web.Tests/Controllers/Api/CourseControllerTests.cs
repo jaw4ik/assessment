@@ -1,5 +1,4 @@
-﻿using DocumentFormat.OpenXml.Office2010.ExcelAc;
-using easygenerator.DomainModel;
+﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.CourseEvents;
@@ -13,7 +12,6 @@ using easygenerator.Web.Components;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Publish;
-using easygenerator.Web.Security.PermissionsCheckers;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -69,26 +67,42 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
-        #region Create course
+        #region Create
 
         [TestMethod]
-        public void Create_ShouldAddCourse()
+        public void Create_WhenTemplateDefined_ShouldAddCourse()
         {
             const string title = "Course title";
-            var user = "Test user";
-            _user.Identity.Name.Returns(user);
-            var course = CourseObjectMother.CreateWithTitle(title);
             var template = TemplateObjectMother.Create();
-            _entityFactory.Course(title, template, user).Returns(course);
-            _templateRepository.GetDefaultTemplate().Returns(template);
+            _user.Identity.Name.Returns(CreatedBy);
+            var course = CourseObjectMother.CreateWithTitle(title);
+            course.UpdateTemplate(template, CreatedBy);
 
-            _controller.Create(title);
+            _entityFactory.Course(title, template, CreatedBy).Returns(course);
+
+            _controller.Create(title, template);
 
             _courseRepository.Received().Add(Arg.Is<Course>(exp => exp.Title == title));
         }
 
         [TestMethod]
-        public void Create_ShouldReturnJsonSuccessResult()
+        public void Create_WhenTemplateDefined_ShouldReturnJsonSuccessResult()
+        {
+            const string title = "Course title";
+            var template = TemplateObjectMother.Create();
+            _user.Identity.Name.Returns(CreatedBy);
+            var course = CourseObjectMother.CreateWithTitle(title);
+            course.UpdateTemplate(template, CreatedBy);
+
+            _entityFactory.Course(title, template, CreatedBy).Returns(course);
+
+            var result = _controller.Create(title, template);
+
+            ActionResultAssert.IsJsonSuccessResult(result);
+        }
+
+        [TestMethod]
+        public void Create_WhenTemplateNotDefined_ShouldAddCourse_WithDefaultTemplate()
         {
             const string title = "Course title";
             var user = "Test user";
@@ -98,7 +112,23 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityFactory.Course(title, template, user).Returns(course);
             _templateRepository.GetDefaultTemplate().Returns(template);
 
-            var result = _controller.Create(title);
+            _controller.Create(title, null);
+
+            _courseRepository.Received().Add(Arg.Is<Course>(exp => exp.Title == title));
+        }
+
+        [TestMethod]
+        public void Create_WhenTemplateNotDefined_ShouldReturnJsonSuccessResult()
+        {
+            const string title = "Course title";
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var course = CourseObjectMother.CreateWithTitle(title);
+            var template = TemplateObjectMother.Create();
+            _entityFactory.Course(title, template, user).Returns(course);
+            _templateRepository.GetDefaultTemplate().Returns(template);
+
+            var result = _controller.Create(title, null);
 
             ActionResultAssert.IsJsonSuccessResult(result);
         }
@@ -117,7 +147,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void Duplicate_ShouldAddDuplicatedCourseToRepository()
         {
-            
+
             Course courseToDuplicate = CourseObjectMother.Create();
             _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
             _controller.Duplicate(courseToDuplicate);

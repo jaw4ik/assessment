@@ -475,3 +475,34 @@ img:hover {
 }
 
 /*#endregion STYLED CONTENT*/
+
+/*#region CUSTOM SROLLBAR*/
+
+.iScrollHorizontalScrollbar{
+    /*this is applied to the horizontal container*/
+}
+
+.iScrollVerticalScrollbar{
+    /*this is applied to the vertical container*/
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    z-index: 9999;
+    width: 5px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.iScrollIndicator{
+    /*the actual scrollbar indicator*/
+    border-radius: 10px;
+    background-color: rgba(188, 188, 196, .5);
+
+}
+
+.iScrollBothScrollbars{
+    /*this is added to the container elements when both scrollbars are shown. */
+}
+
+/*#endregion CUSTOM SROLLBAR*/

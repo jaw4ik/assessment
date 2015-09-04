@@ -1,0 +1,104 @@
+﻿.release-notes-header-container{
+    flex-shrink: 0;
+    text-align: left;
+    color: #42515f;
+    margin-bottom: 15px;
+
+    h1 {
+        margin: 0;
+        font-family: 'RobotoSlab-Bold';
+        font-size: 26px;
+        line-height: 36px;
+        color: #546677;
+    }
+
+    p {
+        font-family: 'OpenSans';
+        font-size: 13px;
+        line-height: 24px;
+    }
+}
+
+.release-notes-content-container{
+    position: relative;
+    color: #42515f;
+    border-top: 1px solid #ddd;
+    overflow: hidden;
+
+    & *{
+        max-width: 100%;
+    }
+
+    .release-notes-content-wrapper{
+        font-family: 'OpenSans';
+        margin-right: 10px;
+        padding-top: 20px;
+        overflow: hidden;
+
+        section{
+
+            &.green{
+                h2.header{
+                    background-color: #65bd77;
+                }
+
+                ul.list{
+                    color: #65bd77;
+                }
+            }
+
+            &.orange{
+                h2.header{
+                    background-color: #f59957;
+                }
+
+                ul.list{
+                    color: #f59957;
+                }
+            }
+
+            &.blue{
+                h2.header{
+                    background-color: #459bd2;
+                }
+
+                ul.list{
+                    color: #459bd2;
+                }
+            }
+
+            &:last-child{
+                ul.list{
+                    margin-bottom: 0;
+                }
+            }
+
+            h2.header{
+                display: inline-block;
+                margin-bottom: 12px;
+                padding: 0 6px;
+                border-radius: 4px;
+                font-size: 11px;
+                line-height: 20px;
+                text-transform: uppercase;
+                color: #fff;
+            }
+
+            ul.list{
+                margin-left: 20px;
+                margin-bottom: 40px;
+                list-style-position: outside;
+
+                li{
+                    position: relative;
+                    font-size: 13px;
+                    line-height: 23px;
+
+                    span {
+                        color: #42515f;
+                    }
+                }
+            }
+        }
+    }
+}

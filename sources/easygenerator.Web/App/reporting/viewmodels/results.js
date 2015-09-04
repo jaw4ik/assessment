@@ -31,9 +31,7 @@
             isLoading: ko.observable(true),
             results: ko.observableArray([]),
             showMoreResults: showMoreResults,
-            downloadResults: downloadResults,
-            getResultsFileName: getResultsFileName,
-            generateResultsCsvBlob: generateResultsCsvBlob
+            downloadResults: downloadResults
         };
 
         viewModel.noResults = ko.computed(function () {
@@ -140,7 +138,7 @@
                     upgradeDialog.show(constants.dialogs.upgrade.settings.downloadResults);
                     return;
                 }
-
+                
                 var name = getResultsFileName();
                 generateResultsCsvBlob().then(function (blob) {
                     fileSaverWrapper.saveAs(blob, name);
@@ -159,6 +157,7 @@
         }
 
         function generateResultsCsvBlob() {
+            
             var passed = localizationManager.localize('passed');
             var failed = localizationManager.localize('failed');
 

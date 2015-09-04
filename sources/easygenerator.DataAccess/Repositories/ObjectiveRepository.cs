@@ -23,7 +23,7 @@ namespace easygenerator.DataAccess.Repositories
 		            (
 			            SELECT c.Id FROM Courses c WHERE c.CreatedBy = @createdBy
 			            UNION
-			            SELECT cc.Course_Id FROM CourseCollaborators cc	WHERE cc.Email = @createdBy AND cc.Locked = 0 AND cc.IsAccepted = 1
+			            SELECT cc.Course_Id FROM CourseCollaborators cc	WHERE cc.Email = @createdBy AND cc.IsAccepted = 1
 		            )
 	            )
             ";

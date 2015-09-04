@@ -32,6 +32,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IEntityFactory _entityFactory;
         private IDomainEventPublisher _eventPublisher;
         private IMailSenderWrapper _mailSenderWrapper;
+        private IReleaseNoteFileReader _releaseNoteFileReader;
         private ICourseRepository _courseRepository;
         private IOnboardingRepository _onboardingRepository;
         private IDemoCoursesStorage _demoCoursesInMemoryStorage;
@@ -53,11 +54,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _demoCoursesInMemoryStorage = Substitute.For<IDemoCoursesStorage>();
             _templateRepository = Substitute.For<ITemplateRepository>();
             _cloner = Substitute.For<ICloner>();
+            _releaseNoteFileReader = Substitute.For<IReleaseNoteFileReader>();
 
             _controller = new UserController(_userRepository,
                 _entityFactory,
                 _eventPublisher,
-                _mailSenderWrapper
+                _mailSenderWrapper,
+                _releaseNoteFileReader
                 );
 
             _user = Substitute.For<IPrincipal>();
@@ -362,9 +365,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var profile = GetTestUserSignUpViewModel();
+            var lastReadReleaseNote = "";
             var user = UserObjectMother.Create(profile.Email, profile.Password);
 
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email, lastReadReleaseNote).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -378,8 +382,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var profile = GetTestUserSignUpViewModel();
+            var lastReadReleaseNote = "";
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email, lastReadReleaseNote).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -393,8 +398,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var profile = GetTestUserSignUpViewModel();
+            var lastReadReleaseNote = "";
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email, lastReadReleaseNote).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -408,8 +414,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var profile = GetTestUserSignUpViewModel();
+            var lastReadReleaseNote = "";
             var user = UserObjectMother.Create(profile.Email, profile.Password);
-            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email).Returns(user);
+            _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone, profile.Country, profile.UserRole, profile.Email, lastReadReleaseNote).Returns(user);
 
             //Act
             var result = _controller.Signup(profile);
@@ -510,6 +517,37 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             result.Should().BeJsonSuccessResult().And.Data.Should().Be(false);
+        }
+
+        #endregion
+
+        #region UpdateLastReadReleaseNoteVersion
+
+        [TestMethod]
+        public void UpdateLastReadReleaseNoteVersion_ShouldUpdateLastReadReleaseNote()
+        {
+            var email = "easygenerator@easygenerator.com";
+            var user = UserObjectMother.CreateWithEmail(email);
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
+            _releaseNoteFileReader.GetReleaseVersion().Returns("255");
+
+           _controller.UpdateLastReadReleaseNoteVersion();
+
+            user.LastReadReleaseNote.Should().Be("255");
+        }
+
+        [TestMethod]
+        public void UpdateLastReadReleaseNoteVersion_ShouldReturnJsonSuccessResult()
+        {
+            var email = "easygenerator@easygenerator.com";
+            var user = UserObjectMother.CreateWithEmail(email);
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
+            _releaseNoteFileReader.GetReleaseVersion().Returns("255");
+
+            var result = _controller.UpdateLastReadReleaseNoteVersion();
+
+            result.Should().BeJsonSuccessResult();
+
         }
 
         #endregion

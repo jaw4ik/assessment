@@ -1,12 +1,7 @@
 ﻿<section class="design left-side-bar">
     <div class="design-bar-navigation">
         <ul class="design-bar-navigation-list">
-            <li class="design-bar-navigation-item" data-bind="click: selectTemplatesSection, css: { selected: templatesSectionSelected }">
-                <div class="navigation-item-thumbnail template-thumbnail"></div>
-                <div class="navigation-item-title" data-bind="localize: { text: 'template' }">Template</div>
-                <div class="border-radius-effect-bottom"></div>
-            </li>
-            <li class="design-bar-navigation-item" data-bind="click: selectSettingsSection, css: { selected: !templatesSectionSelected() }">
+            <li class="design-bar-navigation-item selected">
                 <div class="border-radius-effect-top"></div>
                 <div class="navigation-item-thumbnail settings-thumbnail"></div>
                 <div class="navigation-item-title" data-bind="localize: { text: 'settings' }">Settings</div>
@@ -15,50 +10,14 @@
         </ul>
     </div>
     <div class="design-bar-content">
-        <!-- ko if: templatesSectionSelected -->
-        <div class="templates-section">
-            <header class="templates-section-header">
-                <h2 class="template-list-title" data-bind="localize: { text : 'chooseTemplate' }">Choose template</h2>
-                <div class="tooltip-icon" data-bind="tooltip:'top'">
-                    <h4 class="tooltip-title" data-bind="localize: { html: 'tooltipCourseTemplateTitle'}"></h4>
-                    <div class="tooltip-content" data-bind="localize: { html: 'tooltipCourseTemplateDescription'}">
-                    </div>
-                    <div class="tooltip-buttons-holder" data-bind="localize: { html: 'tooltipCourseTemplateLink'}">
-                    </div>
-                </div>
-            </header>
-            <ul class="template-list">
-                <!-- ko foreach: templates -->
-                <li class="template-list-item" data-bind="css: { 'marked-as-new': isNew, 'marked-as-deprecated': isDeprecated, selected: $data == $parent.currentTemplate() }">
-                    <h3 class="template-title" data-bind="text: name"></h3>
-                    <div class="template-thumbnail-container" data-bind="click: $parent.selectTemplate">
-                        <div class="template-selected-icon"></div>
-                        <div class="template-spinner" data-bind="visible: loadingTemplate">
-                            <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 grey align-center' } } --><!-- /ko -->
-                        </div>
-                        <img class="template-thumbnail" data-bind="attr: {src: previewImages[0]}, css: { 'transparent': loadingTemplate }" src="" alt="" />
-                        <!-- ko if: name==='Exam' -->
-                        <div class="template-hint">
-                            <div class="template-hint-text" data-bind="localize: { html: 'examTemplateHintText'}"></div>
-                            <div class="template-hint-link" data-bind="localize: { html: 'examTemplateHintLink'}, stopEventPropagation: { event: 'click' }"></div>
-                        </div>
-                        <!-- /ko -->
-                    </div>
-                </li>
-                <!-- /ko -->
-            </ul>
-        </div>
-        <!-- /ko -->
-        <!-- ko ifnot: templatesSectionSelected -->
-        <!-- ko if: currentTemplate().settingsAvailable && !settingsVisibility() -->
+        <!-- ko if: template().settingsAvailable && !settingsVisibility() -->
         <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center', style: { top: '300px' } } } --><!-- /ko -->
         <!-- /ko -->
-        <!-- ko if: currentTemplate().settingsAvailable -->
-        <iframe id="template-settings" class="template-settings" data-bind="style: { visibility: settingsVisibility() ? 'visible' : 'hidden' }, attr: { src: currentTemplate().designSettingsUrl + '?v=' + appVersion + '&courseId=' + courseId + '&templateId=' + currentTemplate().id }, event: { load: settingsFrameLoaded }, windowMessageListener: onGetTemplateMessage" frameborder="0"></iframe>
+        <!-- ko if: template().settingsAvailable -->
+        <iframe id="template-settings" class="template-settings" data-bind="style: { visibility: settingsVisibility() ? 'visible' : 'hidden' }, attr: { src: template().designSettingsUrl + '?v=' + appVersion + '&courseId=' + courseId + '&templateId=' + template().id }, event: { load: settingsFrameLoaded }, windowMessageListener: onGetTemplateMessage" frameborder="0"></iframe>
         <!-- /ko -->
-        <!-- ko ifnot: currentTemplate().settingsAvailable -->
+        <!-- ko ifnot: template().settingsAvailable -->
         <span class="unavailable-settings" data-bind="localize: { text: 'templateDesignSettingsNotAvailable' }">Sorry, but the selected template doesn't contain design settings</span>
-        <!-- /ko -->
         <!-- /ko -->
     </div>
 </section>

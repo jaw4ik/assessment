@@ -6,7 +6,8 @@
         app = require('durandal/app'),
         templateRepository = require('repositories/templateRepository'),
         templateModelMapper = require('mappers/templateModelMapper'),
-        emptyTemplate = { Manifest: '{ "name": "TemplateName" }' }
+        emptyTemplate = { Manifest: '{ "name": "TemplateName" }' },
+        constants = require('constants')
     ;
 
     describe('synchronization course [templateUpdated]', function () {
@@ -102,7 +103,7 @@
             dataContext.courses = [mappedCourse];
             dataContext.templates = [template];
             handler(mappedCourse.id, emptyTemplate, modifiedOn.toISOString());
-            expect(app.trigger).toHaveBeenCalled();
+            expect(app.trigger).toHaveBeenCalledWith(constants.messages.course.templateUpdatedByCollaborator, mappedCourse);
         });
     });
 

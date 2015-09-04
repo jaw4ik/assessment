@@ -260,7 +260,6 @@
     <Compile Include="Components\ActionFilters\Authorization\AllowedUsersAttribute.cs" />
     <Compile Include="Components\ActionFilters\Permissions\PreviewAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttribute.cs" />
-    <Compile Include="Components\ActionFilters\Authorization\LimitCollaboratorsAmountAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\QuestionAccessAttribute.cs" />
     <Compile Include="Components\BrowserSupport.cs" />
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
@@ -280,6 +279,7 @@
     <Compile Include="Components\Mappers\SingleSelectImageAnswerMapper.cs" />
     <Compile Include="Components\Mappers\TemplateMapper.cs" />
     <Compile Include="Components\Mappers\TextMatchingAnswerMapper.cs" />
+    <Compile Include="Components\ReleaseNoteFileReader.cs" />
     <Compile Include="Components\TypeMethodInvoker.cs" />
     <Compile Include="Configuration\MagickImageResizerConfiguration.cs" />
     <Compile Include="Controllers\Api\CourseImportController.cs" />
@@ -289,6 +289,7 @@
     <Compile Include="Controllers\Api\LearningPathController.cs" />
     <Compile Include="Controllers\Api\OnboardingController.cs" />
     <Compile Include="Controllers\Api\OpenQuestionController.cs" />
+    <Compile Include="Controllers\Api\ReleaseNoteController.cs" />
     <Compile Include="Controllers\Api\SingleSelectImageController.cs" />
     <Compile Include="Controllers\Api\InformationContentController.cs" />
     <Compile Include="Controllers\Api\SingleSelectTextController.cs" />
@@ -484,8 +485,6 @@
     <Compile Include="Resources\Views\Error\Resources.Designer.cs" />
     <Compile Include="Resources\Views\Review\Resources.Designer.cs" />
     <Compile Include="Resources\Views\Shared\Resources.Designer.cs" />
-    <Compile Include="Security\FeatureAvailability\FeatureAvailabilityChecker.cs" />
-    <Compile Include="Security\FeatureAvailability\IFeatureAvailabilityChecker.cs" />
     <Compile Include="Security\PermissionsCheckers\AnswerPermissionsChecker.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -612,6 +611,7 @@
     <Content Include="App\commands\presentationCourseImportCommand.spec.js">
       <DependentUpon>presentationCourseImportCommand.js</DependentUpon>
     </Content>
+    <Content Include="App\components\bindingHandlers\customScrollbarBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\fileBrowserBindingHandler.js" />
     <Content Include="App\components\polygonsEditor\hotspotOnImageShapeModel.js" />
     <Content Include="App\components\polygonsEditor\polygonShape.js" />
@@ -626,6 +626,31 @@
     <Content Include="App\dialogs\collaboration\collaborator.js" />
     <Content Include="App\dialogs\collaboration\collaborator.spec.js">
       <DependentUpon>collaborator.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\course\changeTemplate\changeTemplate.html" />
+    <Content Include="App\dialogs\course\changeTemplate\changeTemplate.js" />
+    <Content Include="App\dialogs\course\changeTemplate\changeTemplate.spec.js">
+      <DependentUpon>changeTemplate.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\course\common\templateSelector\templateBrief.js" />
+    <Content Include="App\dialogs\course\common\templateSelector\templateSelector.html" />
+    <Content Include="App\dialogs\course\common\templateSelector\templateSelector.js" />
+    <Content Include="App\dialogs\course\common\templateSelector\templateSelector.spec.js">
+      <DependentUpon>templateSelector.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\course\createCourse\steps\courseTemplateStep.html" />
+    <Content Include="App\dialogs\course\createCourse\steps\courseTemplateStep.spec.js">
+      <DependentUpon>courseTemplateStep.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\course\createCourse\steps\courseTemplateStep.js" />
+    <Content Include="App\dialogs\course\createCourse\steps\courseTitleStep.html" />
+    <Content Include="App\dialogs\course\createCourse\steps\courseTitleStep.js" />
+    <Content Include="App\dialogs\course\createCourse\steps\courseTitleStep.spec.js">
+      <DependentUpon>courseTitleStep.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\course\createCourse\createCourse.js" />
+    <Content Include="App\dialogs\course\createCourse\createCourse.spec.js">
+      <DependentUpon>createCourse.js</DependentUpon>
     </Content>
     <Content Include="App\dialogs\learningPath\deleteLearningPath.html" />
     <Content Include="App\dialogs\learningPath\deleteLearningPath.js" />
@@ -642,6 +667,13 @@
     <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.spec.js">
       <DependentUpon>moveCopyQuestion.js</DependentUpon>
     </Content>
+    <Content Include="App\dialogs\releaseNotes\commands\getReleaseNote.js" />
+    <Content Include="App\dialogs\releaseNotes\commands\getReleaseNote.spec.js" />
+    <Content Include="App\dialogs\releaseNotes\commands\updateLastReadReleaseNote.js" />
+    <Content Include="App\dialogs\releaseNotes\commands\updateLastReadReleaseNote.spec.js" />
+    <Content Include="App\dialogs\releaseNotes\releaseNotes.html" />
+    <Content Include="App\dialogs\releaseNotes\releaseNotes.js" />
+    <Content Include="App\dialogs\releaseNotes\releaseNotes.spec.js" />
     <Content Include="App\http\publishHttpWrapper.spec.js">
       <DependentUpon>publishHttpWrapper.js</DependentUpon>
     </Content>
@@ -664,6 +696,10 @@
     <Content Include="App\views\audios\audios.html" />
     <Content Include="App\models\learningPath.spec.js">
       <DependentUpon>learningPath.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\course\design\templateBrief.js" />
+    <Content Include="App\viewmodels\courses\course\design\templateBrief.spec.js">
+      <DependentUpon>templateBrief.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\actions\publish.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\actions\publish.spec.js">
@@ -696,6 +732,12 @@
     <Content Include="App\vimeo\queries\getVideo.js" />
     <Content Include="App\vimeo\queries\getVideo.spec.js">
       <DependentUpon>getVideo.js</DependentUpon>
+    </Content>
+    <Content Include="App\widgets\dialog\bindingHandlers\dialogWizardBindingHandler.js" />
+    <Content Include="App\widgets\dialog\view.html" />
+    <Content Include="App\widgets\dialog\viewmodel.js" />
+    <Content Include="App\widgets\dialog\viewmodel.spec.js">
+      <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
     <Content Include="App\widgets\upgradeDialog\viewmodel.js" />
     <Content Include="App\widgets\upgradeDialog\viewmodel.spec.js">
@@ -1548,7 +1590,14 @@
     <Content Include="BuildLearningPath\Template\css\font\roboto-lightItalic.woff" />
     <Content Include="Content\publish.less" />
     <Content Include="Content\audio.less" />
+    <Content Include="Content\dialogs.less" />
+    <Content Include="App\dialogs\course\common\templateSelector\templateBrief.spec.js">
+      <DependentUpon>templateBrief.js</DependentUpon>
+    </Content>
+    <Content Include="ReleaseNotes\1.0.0.html" />
+    <Content Include="Content\releaseNotes.less" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
+    <Content Include="Scripts\iscroll.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.js" />
@@ -2091,6 +2140,7 @@
     <Content Include="Scripts\knockoutBindings\scrollToBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextInAnswerBinding.js" />
     <Content Include="Scripts\knockoutBindings\switchToggleBinding.js" />
+    <Content Include="Scripts\knockoutBindings\withAnimatedBinding.js" />
     <Content Include="Scripts\md5.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
@@ -2389,7 +2439,6 @@
     <Content Include="Templates\Reader\content\content.html" />
     <Content Include="Templates\Reader\content\data.js" />
     <Content Include="Templates\Reader\css\general.css" />
-    <Content Include="Templates\Reader\css\img\background.png" />
     <Content Include="Templates\Reader\css\img\browsers\android.png" />
     <Content Include="Templates\Reader\css\img\browsers\chrome.png" />
     <Content Include="Templates\Reader\css\img\browsers\firefox.png" />
@@ -2652,11 +2701,6 @@
     <Content Include="App\dialogs\collaboration\addCollaborator.js" />
     <Content Include="App\dialogs\collaboration\addCollaborator.spec.js">
       <DependentUpon>addCollaborator.js</DependentUpon>
-    </Content>
-    <Content Include="App\dialogs\createCourse.html" />
-    <Content Include="App\dialogs\createCourse.js" />
-    <Content Include="App\dialogs\createCourse.spec.js">
-      <DependentUpon>createCourse.js</DependentUpon>
     </Content>
     <Content Include="App\errorHandling\errorHandlingConfiguration.js" />
     <Content Include="App\errorHandling\errorHandlingConfiguration.spec.js">
@@ -3015,7 +3059,7 @@
     <Content Include="Scripts\knockoutBindings\ckeditorBinding.js" />
     <Content Include="Scripts\knockoutBindings\clickElementBinding.js" />
     <Content Include="Scripts\knockoutBindings\dateBinding.js" />
-    <Content Include="Scripts\knockoutBindings\dialogBinding.js" />
+    <Content Include="App\widgets\dialog\bindingHandlers\dialogBindingHandler.js" />
     <Content Include="Scripts\knockoutBindings\dropDownBinding.js" />
     <Content Include="Scripts\knockoutBindings\editableTextBinding.js" />
     <Content Include="Scripts\knockoutBindings\expanderBinding.js" />

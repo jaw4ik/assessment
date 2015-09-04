@@ -40,7 +40,6 @@
             //#endregion commands
 
             //#region dialogs
-            'dialogs/createCourse.spec',
             'dialogs/collaboration/addCollaborator.spec',
             'dialogs/collaboration/collaboration.spec',
             'dialogs/collaboration/collaborator.spec',
@@ -49,6 +48,15 @@
             'dialogs/video/video.spec',
             'dialogs/learningPath/commands/deleteLearningPathCommand.spec',
             'dialogs/learningPath/deleteLearningPath.spec',
+            'dialogs/course/common/templateSelector/templateBrief.spec',
+            'dialogs/course/common/templateSelector/templateSelector.spec',
+            'dialogs/course/changeTemplate/changeTemplate.spec',
+            'dialogs/course/createCourse/createCourse.spec',
+            'dialogs/course/createCourse/steps/courseTemplateStep.spec',
+            'dialogs/course/createCourse/steps/courseTitleStep.spec',
+            'dialogs/releaseNotes/commands/updateLastReadReleaseNote.spec',
+            'dialogs/releaseNotes/commands/getReleaseNote.spec',
+            'dialogs/releaseNotes/releaseNotes.spec',
 
             //#endregion dialogs
 
@@ -107,7 +115,7 @@
             'reporting/viewmodels/questionStatement.spec',
             'reporting/viewmodels/objectiveStatement.spec',
             'reporting/viewmodels/courseStatement.spec',
-            //'reporting/viewmodels/results.spec',
+            'reporting/viewmodels/results.spec',
 
             //#endregion
 
@@ -230,6 +238,7 @@
             'viewmodels/courses/course/index.spec',
             'viewmodels/courses/course/create/course.spec',
             'viewmodels/courses/course/design/design.spec',
+            'viewmodels/courses/course/design/templateBrief.spec',
             'viewmodels/courses/course/configure.spec',
             'viewmodels/courses/course/publish.spec',
             'viewmodels/courses/publishingActions/publishingAction.spec',
@@ -321,14 +330,18 @@
             'videoUpload/upload.spec',
             //#endregion
 
-            'viewmodels/user/userMenu.spec',
-            'viewmodels/shell.spec',
+            //#region widgets
             'widgets/notifyViewer/viewmodel.spec',
             'widgets/uiLockViewer/viewmodel.spec',
             'widgets/createQuestion/viewmodel.spec',
             'widgets/cursorTooltip/viewmodel.spec',
             'widgets/hotSpotOnImageTextEditor/viewmodel.spec',
             'widgets/upgradeDialog/viewmodel.spec',
+            'widgets/dialog/viewmodel.spec',
+            //#endregion
+
+            'viewmodels/user/userMenu.spec',
+            'viewmodels/shell.spec',
             'bootstrapper.spec',
             'guard.spec',
             'http/apiHttpWrapper.spec',

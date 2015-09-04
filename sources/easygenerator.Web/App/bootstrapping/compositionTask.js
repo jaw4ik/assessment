@@ -16,6 +16,8 @@
         composition.addBindingHandler('autosize');
         composition.addBindingHandler('introAnimate');
         composition.addBindingHandler('publishTabs');
+        composition.addBindingHandler('dialogBindingHandler');
+        composition.addBindingHandler('dialogWizardBindingHandler');
     }
 
 });

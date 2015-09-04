@@ -11,7 +11,8 @@
         constants = require('constants'),
         eventTracker = require('eventTracker'),
         notify = require('notify'),
-        localizationManager = require('localization/localizationManager')
+        localizationManager = require('localization/localizationManager'),
+        changeTemplateDialog = require('dialogs/course/changeTemplate/changeTemplate')
     ;
 
     describe('viewModel [course index]', function () {
@@ -24,6 +25,7 @@
             spyOn(localizationManager, "localize").and.callFake(function (key) {
                 return key;
             });
+            spyOn(changeTemplateDialog, 'show');
         });
 
         it('should be object', function () {
@@ -42,6 +44,30 @@
                 expect(viewModel.id).toBeDefined();
             });
 
+        });
+
+        describe('template:', function () {
+            it('should be defined:', function () {
+                expect(viewModel.template).toBeDefined();
+            });
+
+            describe('id:', function () {
+                it('should be observable:', function () {
+                    expect(viewModel.template.id).toBeObservable();
+                });
+            });
+
+            describe('name:', function () {
+                it('should be observable:', function () {
+                    expect(viewModel.template.name).toBeObservable();
+                });
+            });
+
+            describe('thumbnail:', function () {
+                it('should be observable:', function () {
+                    expect(viewModel.template.thumbnail).toBeObservable();
+                });
+            });
         });
 
         describe('titleField:', function () {
@@ -333,7 +359,12 @@
                     id: 'id',
                     title: 'title',
                     createdBy: 'createdBy',
-                    isDirty: true
+                    isDirty: true,
+                    template: {
+                        name: 'template',
+                        id: 'templateId',
+                        thumbnail: 'template.thumbnail'
+                    }
                 };
 
                 var collaborators = [{ email: 'a@a.a' }, { email: 'b@b.b' }];
@@ -380,9 +411,50 @@
                     });
                 });
 
+                it('should set template name', function (done) {
+                    viewModel.template.name('');
+
+                    viewModel.activate(course.id).fin(function () {
+                        expect(viewModel.template.name()).toBe(course.template.name);
+                        done();
+                    });
+                });
+
+                it('should set template id', function (done) {
+                    viewModel.template.id('');
+
+                    viewModel.activate(course.id).fin(function () {
+                        expect(viewModel.template.id()).toBe(course.template.id);
+                        done();
+                    });
+                });
+
+                it('should set template thumbnail', function (done) {
+                    viewModel.template.thumbnail('');
+
+                    viewModel.activate(course.id).fin(function () {
+                        expect(viewModel.template.thumbnail()).toBe(course.template.thumbnail);
+                        done();
+                    });
+                });
+
                 it('should subscribe to courseStateChanged event', function (done) {
                     viewModel.activate(course.id).fin(function () {
                         expect(app.on).toHaveBeenCalledWith(constants.messages.course.stateChanged + course.id, viewModel.stateChanged);
+                        done();
+                    });
+                });
+
+                it('should subscribe to templateUpdated event', function (done) {
+                    viewModel.activate(course.id).fin(function () {
+                        expect(app.on).toHaveBeenCalledWith(constants.messages.course.templateUpdated + course.id, viewModel.templateUpdated);
+                        done();
+                    });
+                });
+
+                it('should subscribe to templateUpdatedByCollaborator event', function (done) {
+                    viewModel.activate(course.id).fin(function () {
+                        expect(app.on).toHaveBeenCalledWith(constants.messages.course.templateUpdatedByCollaborator, viewModel.templateUpdatedByCollaborator);
                         done();
                     });
                 });
@@ -414,7 +486,6 @@
                         done();
                     });
                 });
-
 
                 describe('and when last created course is current course', function () {
                     beforeEach(function () {
@@ -506,6 +577,16 @@
             it('should unsubscribe from courseStateChanged event', function () {
                 viewModel.deactivate();
                 expect(app.off).toHaveBeenCalledWith(constants.messages.course.stateChanged + viewModel.id, viewModel.stateChanged);
+            });
+
+            it('should unsubscribe from templateUpdated event', function () {
+                viewModel.deactivate();
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.templateUpdated + viewModel.id, viewModel.templateUpdated);
+            });
+
+            it('should unsubscribe from templateUpdatedByCollaborator event', function () {
+                viewModel.deactivate();
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.templateUpdatedByCollaborator, viewModel.templateUpdatedByCollaborator);
             });
         });
 
@@ -618,6 +699,106 @@
                 viewModel.isDirty(false);
                 viewModel.stateChanged(state);
                 expect(viewModel.isDirty()).toBe(state.isDirty);
+            });
+        });
+
+        describe('changeTemplate:', function () {
+            it('should show change template dialog', function () {
+                var id = 'id',
+                    templateId = 'templateId';
+                viewModel.id = id;
+                viewModel.template.id(templateId);
+
+                viewModel.changeTemplate();
+                expect(changeTemplateDialog.show).toHaveBeenCalledWith(id, templateId);
+            });
+        });
+
+        describe('templateUpdated:', function () {
+            var template = {
+                name: 'template',
+                id: 'templateId',
+                thumbnail: 'template.thumbnail'
+            }
+
+            it('should set template name', function () {
+                viewModel.template.name('');
+                viewModel.templateUpdated(template);
+                expect(viewModel.template.name()).toBe(template.name);
+            });
+
+            it('should set template id', function () {
+                viewModel.template.id('');
+                viewModel.templateUpdated(template);
+                expect(viewModel.template.id()).toBe(template.id);
+            });
+
+            it('should set template thumbnail', function () {
+                viewModel.template.thumbnail('');
+                viewModel.templateUpdated(template);
+                expect(viewModel.template.thumbnail()).toBe(template.thumbnail);
+            });
+        });
+
+        describe('templateUpdatedByCollaborator:', function() {
+            var course = {
+                id: 'id',
+                title: 'title',
+                createdBy: 'createdBy',
+                isDirty: true,
+                template: {
+                    name: 'template',
+                    id: 'templateId',
+                    thumbnail: 'template.thumbnail'
+                }
+            };
+
+            describe('when course is current course', function() {
+                beforeEach(function() {
+                    viewModel.id = course.id;
+                });
+
+                it('should set template name', function () {
+                    viewModel.template.name('');
+                    viewModel.templateUpdatedByCollaborator(course);
+                    expect(viewModel.template.name()).toBe(course.template.name);
+                });
+
+                it('should set template id', function () {
+                    viewModel.template.id('');
+                    viewModel.templateUpdatedByCollaborator(course);
+                    expect(viewModel.template.id()).toBe(course.template.id);
+                });
+
+                it('should set template thumbnail', function () {
+                    viewModel.template.thumbnail('');
+                    viewModel.templateUpdatedByCollaborator(course);
+                    expect(viewModel.template.thumbnail()).toBe(course.template.thumbnail);
+                });
+            });
+
+            describe('when course is not current course', function () {
+                beforeEach(function () {
+                    viewModel.id = 'some id';
+                });
+
+                it('should not update template name', function () {
+                    viewModel.template.name('');
+                    viewModel.templateUpdatedByCollaborator(course);
+                    expect(viewModel.template.name()).toBe('');
+                });
+
+                it('should not update template id', function () {
+                    viewModel.template.id('');
+                    viewModel.templateUpdatedByCollaborator(course);
+                    expect(viewModel.template.id()).toBe('');
+                });
+
+                it('should not update template thumbnail', function () {
+                    viewModel.template.thumbnail('');
+                    viewModel.templateUpdatedByCollaborator(course);
+                    expect(viewModel.template.thumbnail()).toBe('');
+                });
             });
         });
     });

@@ -1,7 +1,8 @@
 ﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/courseRepository', 'notify', 'localization/localizationManager',
-    'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'commands/createCourseCommand', 'uiLocker', 'commands/presentationCourseImportCommand', 'commands/duplicateCourseCommand', 'widgets/upgradeDialog/viewmodel', 'utils/waiter'],
+    'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'uiLocker', 'commands/presentationCourseImportCommand', 'commands/duplicateCourseCommand',
+    'widgets/upgradeDialog/viewmodel', 'utils/waiter','dialogs/course/createCourse/createCourse'],
     function (app, dataContext, userContext, constants, eventTracker, router, courseRepository, notify, localizationManager, clientContext, fileHelper, limitCoursesAmount,
-        createCourseCommand, uiLocker, presentationCourseImportCommand, duplicateCourseCommand, upgradeDialog, waiter) {
+        uiLocker, presentationCourseImportCommand, duplicateCourseCommand, upgradeDialog, waiter, createCourseDialog) {
         "use strict";
 
         var
@@ -63,7 +64,7 @@
         app.on(constants.messages.course.deletedByCollaborator, viewModel.deletedByCollaborator);
         app.on(constants.messages.course.titleUpdatedByCollaborator, viewModel.titleUpdated);
         app.on(constants.messages.course.introductionContentUpdatedByCollaborator, viewModel.courseUpdated);
-        app.on(constants.messages.course.templateUpdated, viewModel.courseUpdated);
+        app.on(constants.messages.course.templateUpdatedByCollaborator, viewModel.courseUpdated);
         app.on(constants.messages.course.objectivesReorderedByCollaborator, viewModel.courseUpdated);
         app.on(constants.messages.course.objectiveRelatedByCollaborator, viewModel.courseUpdated);
         app.on(constants.messages.course.objectivesUnrelatedByCollaborator, viewModel.courseUpdated);
@@ -276,15 +277,7 @@
         }
 
         function createNewCourse() {
-            uiLocker.lock();
-            return createCourseCommand.execute('Courses')
-                .then(function (course) {
-                    uiLocker.unlock();
-                    router.navigate('courses/' + course.id);
-                })
-                .fail(function () {
-                    uiLocker.unlock();
-                });
+            createCourseDialog.show();
         }
 
         function importCourseFromPresentation() {
