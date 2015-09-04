@@ -32,7 +32,6 @@ using easygenerator.Web.Newsletter;
 using easygenerator.Web.Newsletter.MailChimp;
 using easygenerator.Web.Publish;
 using easygenerator.Web.Publish.Aim4You;
-using easygenerator.Web.Security.FeatureAvailability;
 using easygenerator.Web.Security.PermissionsCheckers;
 using easygenerator.Web.Storage;
 using easygenerator.Web.Synchronization.Broadcasting;
@@ -108,7 +107,6 @@ namespace easygenerator.Web.Configuration
 
             #region Security
 
-            builder.RegisterType<FeatureAvailabilityChecker>().As<IFeatureAvailabilityChecker>();
             RegisterGenericTypes(builder, Assembly.GetAssembly(typeof(IEntityPermissionsChecker<>)), typeof(IEntityPermissionsChecker<>));
 
             #endregion
@@ -236,6 +234,8 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<LtiAuthProvider>().SingleInstance();
 
             #endregion
+
+            builder.RegisterType<ReleaseNoteFileReader>().As<IReleaseNoteFileReader>().SingleInstance();
 
             var container = builder.Build();
 

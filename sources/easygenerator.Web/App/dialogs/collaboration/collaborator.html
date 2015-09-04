@@ -1,13 +1,8 @@
 ﻿<div class="collaborator-wrapper" data-bind="css: { 'activatable': canBeRemoved}">
-    <div class="collaborator" data-bind="css: { 'course-owner': isOwner, 'not-registered': !isRegistered(), 'inactive': !isRegistered() || !isAccepted(), 'locked': isLocked, 'active':  isRemoveConfirmationShown }">
+    <div class="collaborator" data-bind="css: { 'course-owner': isOwner, 'not-registered': !isRegistered(), 'inactive': !isRegistered() || !isAccepted(), 'active':  isRemoveConfirmationShown }">
         <div class="collaborator-avatar-container">
             <div class="collaborator-avatar-wrapper">
-                <!-- ko if: isLocked -->
-                <div class="collaborator-avatar"></div>
-                <!-- /ko -->
-                <!-- ko ifnot: isLocked -->
                 <div class="collaborator-avatar" data-bind="text: avatarLetter"></div>
-                <!-- /ko -->
             </div>
         </div>
         <div class="collaborator-info">

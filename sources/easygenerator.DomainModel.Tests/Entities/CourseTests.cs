@@ -539,14 +539,14 @@ namespace easygenerator.DomainModel.Tests.Entities
         [TestMethod]
         public void UpdateTemplate_ShouldGrantAccessToCollaborators()
         {
-            var course = CourseObjectMother.Create();
+            var course = CourseObjectMother.Create(createdBy: "creator");
             course.Collaborate("aa@aa.aa", "creator");
             course.Collaborate("bb@bb.bb", "creator");
 
             var template = Substitute.For<Template>();
             course.UpdateTemplate(template, "user");
 
-            template.Received().GrantAccessTo(new[] { "aa@aa.aa", "bb@bb.bb" });
+            template.Received().GrantAccessTo(new[] { "aa@aa.aa", "bb@bb.bb", "creator" });
         }
 
         #endregion
@@ -1726,7 +1726,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             {
                 learningPath
             };
-            
+
             //Act
             var result = course.LearningPaths;
 

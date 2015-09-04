@@ -3,6 +3,7 @@
     var eventTracker = require('eventTracker'),
         app = require('durandal/app'),
         constants = require('constants'),
+        dialog = require('widgets/dialog/viewmodel'),
         command = require('dialogs/learningPath/commands/deleteLearningPathCommand');
 
     describe('dialog [deleteLearningPath]', function () {
@@ -12,16 +13,11 @@
             id: 'id'
         };
 
-
         beforeEach(function () {
             spyOn(eventTracker, 'publish');
             spyOn(app, 'trigger');
-        });
-
-        describe('isShown:', function () {
-            it('should be observable', function () {
-                expect(viewModel.isShown).toBeObservable();
-            });
+            spyOn(dialog, 'show');
+            spyOn(dialog, 'close');
         });
 
         describe('isDeleting:', function () {
@@ -56,23 +52,21 @@
                 expect(viewModel.learningPathTitle()).toBe(learningPath.title);
             });
 
-            it('should set is shown to true', function () {
-                viewModel.isShown(false);
+            it('should show dialog', function () {
                 viewModel.show(learningPath.id, learningPath.title);
-                expect(viewModel.isShown()).toBeTruthy();
+                expect(dialog.show).toHaveBeenCalledWith(viewModel, constants.dialogs.deleteLearningPath.settings);
             });
         });
 
-        describe('close:', function () {
+        describe('cancel:', function () {
             it('should publish \'Cancel delete learning path\' event', function () {
-                viewModel.close();
+                viewModel.cancel();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Cancel delete learning path');
             });
 
-            it('should set is shown to false', function () {
-                viewModel.isShown(true);
-                viewModel.close();
-                expect(viewModel.isShown()).toBeFalsy();
+            it('should close dialog', function () {
+                viewModel.cancel();
+                expect(dialog.close).toHaveBeenCalled();
             });
         });
 
@@ -107,11 +101,10 @@
                     });
                 });
 
-                it('should set isShown to false', function (done) {
-                    viewModel.isShown(true);
+                it('should close dialog', function (done) {
                     viewModel.deleteLearningPath();
                     command.execute().fin(function () {
-                        expect(viewModel.isShown()).toBeFalsy();
+                        expect(dialog.close).toHaveBeenCalled();
                         done();
                     });
                 });
@@ -120,8 +113,8 @@
                     viewModel.isDeleting(true);
                     viewModel.deleteLearningPath();
                     command.execute().fin(function () {
-                        expect(viewModel.isDeleting()).toBeFalsy();
                         done();
+                        expect(viewModel.isDeleting()).toBeFalsy();
                     });
                 });
             });

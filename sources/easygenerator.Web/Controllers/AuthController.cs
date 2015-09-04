@@ -11,11 +11,13 @@ namespace easygenerator.Web.Controllers
     {
         private readonly IUserRepository _repository;
         private readonly ITokenProvider _tokenProvider;
+        private readonly IReleaseNoteFileReader _releaseNoteFileReader;
 
-        public AuthController(IUserRepository repository, ITokenProvider tokenProvider)
+        public AuthController(IUserRepository repository, ITokenProvider tokenProvider, IReleaseNoteFileReader releaseNoteFileReader)
         {
             _repository = repository;
             _tokenProvider = tokenProvider;
+            _releaseNoteFileReader = releaseNoteFileReader;
         }
 
         [HttpPost, AllowAnonymous]
@@ -44,6 +46,7 @@ namespace easygenerator.Web.Controllers
         public ActionResult Identity()
         {
             var user = _repository.GetUserByEmail(GetCurrentUsername());
+            var releaseVersion = _releaseNoteFileReader.GetReleaseVersion();
 
             if (user == null)
             {
@@ -60,7 +63,8 @@ namespace easygenerator.Web.Controllers
                 {
                     accessType = user.AccessType,
                     expirationDate = user.ExpirationDate
-                }
+                },
+                showReleaseNote = releaseVersion != user.LastReadReleaseNote
             });
 
         }

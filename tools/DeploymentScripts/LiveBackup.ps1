@@ -31,26 +31,25 @@ $date = Get-Date -UFormat "%d.%m.%Y"
 $7zAdd ="cmd /C 'C:\Program Files\7-Zip\7z.exe' a "
 $websiteBackupsFolder = "E:\Website_backups\"
 
-echo "Creating database backup:"
-
 $dbName = "live.easygenerator.com"
 $dbBackupFolder = "E:\SQL_Backup_Users\"
 $dbBackupPath = $dbBackupFolder + $dbName + "-" + $date + ".bak"
 $query = "BACKUP DATABASE [" + $dbName + "] TO DISK='" + $dbBackupPath + "' WITH STATS"
 
-echo "Removing old sql backups:"
+echo "Removing old sql backups..."
 $removeCommand = "Remove-Item " + $dbBackupFolder + "*"
 Invoke-Expression -command "$removeCommand"
 
+echo "Creating database backup:"
 SqlCmd -E -S ".\sql2014_web" -Q $query
 
 $sourcePath = "D:\Applications\live.easygenerator.com\"
 
-echo "Removing download folder:"
+echo "Removing download folder..."
 $removeCommand = "Remove-Item " + $sourcePath + "Download\*"
 Invoke-Expression -command "$removeCommand"
 
-echo "Removing old website backups:"
+echo "Removing old website backups..."
 $removeCommand = "Remove-Item " + $websiteBackupsFolder + "*"
 Invoke-Expression -command "$removeCommand"
 

@@ -10,6 +10,7 @@
         this.firstname = spec.firstname;
         this.lastname = spec.lastname;
         this.fullname = spec.firstname + ' ' + spec.lastname;
+        this.showReleaseNote = spec.showReleaseNote;
 
         guard.throwIfNotAnObject(spec.subscription, 'You should provide subscription to create user');
         switch (spec.subscription.accessType) {

@@ -24,7 +24,8 @@
 
         progressProvider: {
             getProgress: getProgress,
-            saveProgress: saveProgress
+            saveProgress: saveProgress,
+            removeProgress: removeProgress
         },
 
         courseFinished: sendCourseFinished
@@ -49,6 +50,18 @@
             //console.dir(progress);
 
             self.apiWrapper.doLMSSetValue("cmi.core.exit", "suspend");
+            self.apiWrapper.doLMSCommit();
+        }
+
+        return result;
+    }
+
+    function removeProgress() {
+        var result = self.apiWrapper.doLMSSetValue("cmi.suspend_data", "") == "true";
+        if (result) {
+            console.log('Progress was removed');
+
+            self.apiWrapper.doLMSSetValue("cmi.core.exit", "");
             self.apiWrapper.doLMSCommit();
         }
 

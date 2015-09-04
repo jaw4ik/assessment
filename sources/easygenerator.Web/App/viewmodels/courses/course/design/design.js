@@ -1,14 +1,8 @@
-﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'utils/waiter'],
-    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, waiter) {
+﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'utils/waiter',
+    'viewmodels/courses/course/design/templateBrief', 'constants', 'durandal/app'],
+    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, waiter, TemplateBrief, constants, app) {
 
         var
-            events = {
-                updateCourseTemplate: 'Change course template to',
-                navigateToTemplatesSection: 'Navigate to \'choose template\' section',
-                navigateToSettingsSection: 'Navigate to \'design settings\' section'
-            },
-            eventCategory = 'Design step',
-
             templateMessageTypes = {
                 showSettings: 'show-settings',
                 freezeEditor: 'freeze-editor',
@@ -18,7 +12,6 @@
 
             templateSettingsLoadingTimeout = 2000,
             templateSettingsErrorNotification = localizationManager.localize('templateSettingsError'),
-            templateChangedNotification = localizationManager.localize('templateChanged'),
 
             delay = 100,
             limit = 100;
@@ -27,20 +20,15 @@
             courseId: '',
             previewUrl: ko.observable(null),
 
-            currentTemplate: ko.observable(),
+            template: ko.observable(),
             loadingTemplate: ko.observable(false),
-            templates: [],
 
             onGetTemplateMessage: onGetTemplateMessage,
 
             settingsVisibility: ko.observable(false),
             canUnloadSettings: ko.observable(true),
 
-            selectTemplate: selectTemplate,
             reloadPreview: reloadPreview,
-            templatesSectionSelected: ko.observable(true),
-            selectTemplatesSection: selectTemplatesSection,
-            selectSettingsSection: selectSettingsSection,
 
             activate: activate,
             deactivate: deactivate,
@@ -49,7 +37,9 @@
             settingsFrameLoaded: settingsFrameLoaded,
 
             settingsLoadingTimeoutId: null,
-            settingsVisibilitySubscription: null
+            settingsVisibilitySubscription: null,
+            templateUpdated: templateUpdated,
+            templateUpdatedByCollaborator: templateUpdatedByCollaborator
         };
 
         return viewModel;
@@ -74,6 +64,9 @@
             if (viewModel.settingsVisibilitySubscription) {
                 viewModel.settingsVisibilitySubscription.dispose();
             }
+
+            app.off(constants.messages.course.templateUpdated + viewModel.courseId, viewModel.templateUpdated);
+            app.off(constants.messages.course.templateUpdatedByCollaborator, viewModel.templateUpdatedByCollaborator);
         }
 
         function activate(courseId) {
@@ -88,70 +81,40 @@
             return courseRepository.getById(courseId).then(function (course) {
                 viewModel.courseId = course.id;
                 viewModel.previewUrl('/preview/' + viewModel.courseId);
-                viewModel.templatesSectionSelected(true);
 
-                eventTracker.publish(events.navigateToTemplatesSection, eventCategory);
+                viewModel.template(new TemplateBrief(course.template));
 
-                return templateRepository.getCollection().then(function (templates) {
-                    viewModel.templates = _.chain(templates)
-                        .map(function (template) {
-                            return {
-                                id: template.id,
-                                name: template.name,
-                                thumbnail: template.thumbnail,
-                                previewImages: template.previewImages,
-                                description: template.description,
-                                designSettingsUrl: template.settingsUrls.design,
-                                settingsAvailable: template.settingsUrls.design != null,
-                                previewDemoUrl: template.previewDemoUrl,
-                                order: template.order,
-                                isNew: template.isNew,
-                                isDeprecated: template.isDeprecated,
-                                isCustom: template.isCustom,
-                                openPreview: function (item, event) {
-                                    event.stopPropagation();
-                                    router.openUrl(item.previewDemoUrl + '?v=' + window.appVersion);
-                                },
-                                loadingTemplate: ko.observable(false)
-                            };
-                        })
-                        .sortBy(function (template) { return template.order; })
-                        .value();
-
-                    return Q.fcall(function () {
-                        viewModel.currentTemplate(_.find(viewModel.templates, function (item) { return item.id == course.template.id; }));
-                    });
-                });
+                app.on(constants.messages.course.templateUpdated + viewModel.courseId, viewModel.templateUpdated);
+                app.on(constants.messages.course.templateUpdatedByCollaborator, viewModel.templateUpdatedByCollaborator);
             }).fail(function (reason) {
                 router.activeItem.settings.lifecycleData = { redirect: '404' };
                 throw reason;
             });
         }
 
-        function selectTemplate(template) {
-            if (template == viewModel.currentTemplate()) {
-                return Q.fcall(function () { });
-            }
+        function templateUpdated(template) {
+            if (template.id === viewModel.template().id)
+                return;
 
-            template.loadingTemplate(true);
+            viewModel.template().isLoading(true);
             viewModel.loadingTemplate(true);
 
-            eventTracker.publish(events.updateCourseTemplate + ' \'' + (template.isCustom ? 'custom' : template.name) + '\'');
-
             return waiter.waitFor(viewModel.canUnloadSettings, delay, limit)
-                .fail(function () {
-                    notify.error(templateSettingsErrorNotification);
-                })
-                .fin(function () {
-                    viewModel.settingsVisibility(false);
+            .fail(function () {
+                notify.error(templateSettingsErrorNotification);
+            })
+            .fin(function () {
+                viewModel.settingsVisibility(false);
+                viewModel.template(new TemplateBrief(template));
+                viewModel.loadingTemplate(false);
+            });
+        }
 
-                    return courseRepository.updateCourseTemplate(viewModel.courseId, template.id).then(function () {
-                        viewModel.currentTemplate(template);
-                        template.loadingTemplate(false);
-                        viewModel.loadingTemplate(false);
-                        notify.success(templateChangedNotification);
-                    });
-                });
+        function templateUpdatedByCollaborator(course) {
+            if (course.id !== viewModel.courseId)
+                return;
+
+            templateUpdated(course.template);
         }
 
         function onGetTemplateMessage(message) {
@@ -180,17 +143,6 @@
                     }
                     break;
             }
-        }
-
-        function selectTemplatesSection() {
-            viewModel.settingsVisibility(false);
-            viewModel.templatesSectionSelected(true);
-            eventTracker.publish(events.navigateToTemplatesSection, eventCategory);
-        }
-
-        function selectSettingsSection() {
-            viewModel.templatesSectionSelected(false);
-            eventTracker.publish(events.navigateToSettingsSection, eventCategory);
         }
 
         function reloadPreview() {

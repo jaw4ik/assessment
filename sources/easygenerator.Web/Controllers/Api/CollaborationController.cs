@@ -64,7 +64,6 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [LimitCollaboratorsAmount]
         [EntityOwner(typeof(Course))]
         [Route("api/course/collaborator/add")]
         public ActionResult AddCollaborator(Course course, string collaboratorEmail)

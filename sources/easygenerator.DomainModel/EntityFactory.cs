@@ -32,9 +32,9 @@ namespace easygenerator.DomainModel
         Answer Answer(string text, bool isCorrect, string createdBy);
         Answer Answer(string text, bool isCorrect, string createdBy, DateTime createdOn);
         LearningContent LearningContent(string text, string createdBy);
-        User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy);
+        User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, string lastReadReleaseNote);
         User User(string email, string password, string firstname, string lastname, string phone, string country,
-            string role, string createdBy, AccessType accessPlan, DateTime expirationDate);
+            string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, DateTime expirationDate);
         PasswordRecoveryTicket PasswordRecoveryTicket(User user);
         ImageFile ImageFile(string title, string createdBy);
         InformationContent InformationContent(string title, string createdBy);
@@ -132,14 +132,14 @@ namespace easygenerator.DomainModel
             return new LearningContent(text, createdBy);
         }
 
-        public User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy)
+        public User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, string lastReadReleaseNote)
         {
-            return new User(email, password, firstname, lastname, phone, country, role, createdBy, AccessType.Trial);
+            return new User(email, password, firstname, lastname, phone, country, role, createdBy, AccessType.Trial, lastReadReleaseNote);
         }
 
-        public User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, AccessType accessPlan, DateTime expirationDate)
+        public User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, DateTime expirationDate)
         {
-            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessPlan, expirationDate);
+            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessPlan, lastReadReleaseNote, expirationDate);
         }
 
         public PasswordRecoveryTicket PasswordRecoveryTicket(User user)

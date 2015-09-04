@@ -16,7 +16,7 @@
             var template = _.find(dataContext.templates, function (item) {
                 return item.id == courseTemplate.Id;
             });
-            
+
             if (_.isNullOrUndefined(template)) {
                 template = templateModelMapper.map(courseTemplate);
                 templateRepository.add(template);
@@ -27,6 +27,6 @@
             course.template = template;
             course.modifiedOn = new Date(modifiedOn);
 
-            app.trigger(constants.messages.course.templateUpdated, course);
+            app.trigger(constants.messages.course.templateUpdatedByCollaborator, course);
         }
     });

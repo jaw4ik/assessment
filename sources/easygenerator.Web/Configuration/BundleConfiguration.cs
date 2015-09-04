@@ -31,6 +31,7 @@ namespace easygenerator.Web.Configuration
                     .Include("~/scripts/zeroclipboard.js")
                     .Include("~/scripts/Blob.js")
                     .Include("~/scripts/FileSaver.js")
+                    .Include("~/scripts/iscroll.js")
                     .IncludeDirectory("~/scripts/knockoutBindings", "*Binding.js")
                 );
 
@@ -91,8 +92,11 @@ namespace easygenerator.Web.Configuration
                 .Include("~/Content/hotSpot.css")
                 .Include("~/Content/video.css")
                 .Include("~/Content/publish.css")
+                .Include("~/Content/dialogs.css")
                 .Include("~/Content/audio.css")
-                .Include("~/Content/notSupportedPage.css");
+                .Include("~/Content/notSupportedPage.css")
+                .Include("~/Content/releaseNotes.css");
+                                
             stylesBundle.Transforms.Add(new ImageNoCacheParamTransform());
             bundles.Add(stylesBundle);
 

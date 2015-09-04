@@ -122,6 +122,7 @@
                     objectivesUnrelatedByCollaborator: 'course:objectivesUnrelatedByCollaborator',
                     objectivesReordered: 'course:objectivesReordered',
                     objectivesReorderedByCollaborator: 'course:objectivesReorderedByCollaborator',
+                    templateUpdatedByCollaborator: 'course:templateUpdatedByCollaborator',
                     templateUpdated: 'course:templateUpdated',
                     stateChanged: 'course:stateChanged',
 
@@ -304,7 +305,6 @@
                 header: 'Header',
                 userMenuInHeader: 'User menu in header',
                 questions: 'Questions',
-                collaboration: 'Collaboration',
                 expirationNotification: 'Expiration notification',
                 courseLimitNotification: 'Course limit notification'
             },
@@ -322,7 +322,8 @@
                 lastCreatedLearningPathId: 'lastCreatedLearningPathId',
                 lastCreatedObjectiveId: 'lastCreatedObjectiveId',
                 lastVistedCourse: 'lastVistedCourse',
-                lastVisitedObjective: 'lastVisitedObjective'
+                lastVisitedObjective: 'lastVisitedObjective',
+                showCreateCoursePopup: 'showCreateCoursePopup'
             },
 
             reporting: {
@@ -404,6 +405,28 @@
             },
 
             dialogs: {
+                stepSubmitted: 'dialog:step-submitted',
+                dialogClosed: 'dialog:dialogClosed',
+                deleteLearningPath: {
+                    settings: {
+                        containerCss: 'delete-learning-path'
+                    }
+                },
+                createCourse: {
+                    settings: {
+                        containerCss: 'create-course'
+                    }
+                },
+                changeCourseTemplate: {
+                    settings: {
+                        containerCss: 'change-course-template'
+                    }
+                },
+                releaseNote: {
+                    settings: {
+                        containerCss: 'release-note'
+                    }
+                },
                 upgrade: {
                     settings: {
                         default: {

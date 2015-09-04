@@ -1,0 +1,24 @@
+﻿<div class="template-selector">
+    <!-- ko if: isLoading -->
+    <!-- ko compose: { view: 'views/common/circularLoader', model: {css: 'x32 grey align-center'} } -->
+    <!-- /ko -->
+    <!-- /ko -->
+    <!-- ko ifnot: isLoading -->
+    <div class="templates-list-wrapper">
+        <ul class="templates-list scrollable" data-bind="foreach: templates">
+            <li class="template-item" data-bind="css: {selected: $parent.selectedTemplate() ? $parent.selectedTemplate().id === id : false }, click: $parent.selectTemplate, attr: { title: name }">
+                <img class="template-item-image" alt="" data-bind="attr: { src: thumbnail }">
+                <div class="template-item-text" data-bind="text: name"></div>
+            </li>
+        </ul>
+    </div>
+    <!-- ko if: selectedTemplate -->
+    <div class="template-details scrollable" data-bind="withAnimated: selectedTemplate">
+        <div class="template-details-section">
+            <div class="template-details-section-header" data-bind="localize: { text: 'templateDescriptionCaption' }"></div>
+            <div class="template-details-description" data-bind="text: description"></div>
+        </div>
+    </div>
+    <!-- /ko -->
+    <!-- /ko -->
+</div>

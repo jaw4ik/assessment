@@ -131,7 +131,8 @@
 
         describe('addCourse:', function () {
 
-            var title = 'course title';
+            var title = 'course title',
+                templateId = 'templateId';
 
             it('should be function', function () {
                 expect(repository.addCourse).toBeFunction();
@@ -144,7 +145,7 @@
             describe('when course title is undefined', function () {
 
                 it('should reject promise', function (done) {
-                    var promise = repository.addCourse(undefined);
+                    var promise = repository.addCourse(undefined, templateId);
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Course title (string) was expected');
@@ -157,7 +158,7 @@
             describe('when course title is null', function () {
 
                 it('should reject promise', function (done) {
-                    var promise = repository.addCourse(null);
+                    var promise = repository.addCourse(null, templateId);
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Course title (string) was expected');
@@ -170,7 +171,7 @@
             describe('when course title is not a string', function () {
 
                 it('should reject promise', function (done) {
-                    var promise = repository.addCourse({});
+                    var promise = repository.addCourse({}, templateId);
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Course title (string) was expected');
@@ -180,11 +181,51 @@
 
             });
 
+            describe('when course templateId is undefined', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.addCourse(title, undefined);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('TemplateId (string) was expected');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when course templateId is null', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.addCourse(title, null);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('TemplateId (string) was expected');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when course templateId is not a string', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.addCourse(title, {});
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('TemplateId (string) was expected');
+                        done();
+                    });
+                });
+
+            });
+
+
             it('should send request to \'api/course/create\'', function (done) {
-                var promise = repository.addCourse(title);
+                var promise = repository.addCourse(title, templateId);
 
                 promise.fin(function () {
-                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/create', { title: title });
+                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/create', { title: title, templateId: templateId });
                     done();
                 });
 
@@ -221,7 +262,7 @@
                 describe('and response is not an object', function () {
 
                     it('should reject promise', function (done) {
-                        var promise = repository.addCourse(title);
+                        var promise = repository.addCourse(title, templateId);
 
                         promise.fin(function () {
                             expect(promise).toBeRejectedWith('Response is not an object');
@@ -234,7 +275,7 @@
                 });
 
                 it('should add created course to data context', function (done) {
-                    var promise = repository.addCourse(title);
+                    var promise = repository.addCourse(title, templateId);
 
                     promise.fin(function () {
                         expect(dataContext.courses.length).toEqual(1);
@@ -246,7 +287,7 @@
                 });
 
                 it('should trigger course:created event', function (done) {
-                    var promise = repository.addCourse(title);
+                    var promise = repository.addCourse(title, templateId);
 
                     promise.fin(function () {
                         expect(app.trigger).toHaveBeenCalled();
@@ -257,7 +298,7 @@
                 });
 
                 it('should resolve promise with received data', function (done) {
-                    var promise = repository.addCourse(title);
+                    var promise = repository.addCourse(title, templateId);
 
                     promise.fin(function () {
                         expect(promise.inspect().value).toBe(mappedCourse);
@@ -406,7 +447,7 @@
 
             describe('when course successfully created on server', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     dataContext.courses = [course];
                 });
 
@@ -459,7 +500,7 @@
                                 modifiedOn: createdOnDate.toISOString(),
                                 createdBy: 'asasd@ukr.net'
                             };
-                            
+
                             dataContext.templates = [mappedCourse.template];
                             spyOn(courseMapper, 'map').and.returnValue(mappedCourse);
                         });
@@ -1416,19 +1457,20 @@
                     post.resolve({ ModifiedOn: modifiedDate.toISOString() });
                 });
 
-                it('should resolve promise with received modification date', function (done) {
+                it('should resolve promise with course template', function (done) {
                     var
                         courseId = 'qweqeqweqw',
                         templateId = 'dfgjghjdghj',
-                        modifiedDate = new Date();
+                        modifiedDate = new Date(),
+                        course = { id: courseId, title: '', modifiedOn: new Date('') };
 
-                    dataContext.courses = [{ id: courseId, title: '', modifiedOn: new Date('') }];
+                    dataContext.courses = [course];
                     dataContext.templates = [{ id: templateId, name: 'template.name', thumbnail: 'template.image' }];
 
                     var promise = repository.updateCourseTemplate(courseId, templateId);
 
                     promise.fin(function () {
-                        expect(promise.inspect().value.modifiedOn).toEqual(modifiedDate);
+                        expect(promise.inspect().value).toEqual(course.template);
                         done();
                     });
 

@@ -97,8 +97,7 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<CourseCollaborator>().HasRequired(e => e.Course);
             modelBuilder.Entity<CourseCollaborator>().Property(e => e.Email).IsRequired().HasMaxLength(254);
-            modelBuilder.Entity<CourseCollaborator>().Property(e => e.Locked).IsRequired();
-
+            
             modelBuilder.Entity<Aim4YouIntegration>().HasKey(e => new { e.Id });
             modelBuilder.Entity<Aim4YouIntegration>().Property(e => e.Aim4YouCourseId).IsRequired();
             modelBuilder.Entity<Aim4YouIntegration>().HasRequired(e => e.Course).WithOptional(c => c.Aim4YouIntegration).WillCascadeOnDelete(true);
@@ -168,6 +167,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<User>().Property(e => e.Country).IsRequired();
             modelBuilder.Entity<User>().Property(e => e.Role).IsOptional();
             modelBuilder.Entity<User>().Property(e => e.Organization).IsOptional();
+            modelBuilder.Entity<User>().Property(e => e.LastReadReleaseNote).IsOptional().HasMaxLength(25);
             modelBuilder.Entity<User>().HasMany(e => e.PasswordRecoveryTicketCollection).WithRequired(e => e.User);
             modelBuilder.Entity<User>().Map(e => e.ToTable("Users"));
 

@@ -147,7 +147,6 @@
     <Compile Include="BuildLearningPath\LearningPathCourseBuilderTests.cs" />
     <Compile Include="BuildLearningPath\LearningPathPackageModelMapperTests.cs" />
     <Compile Include="Components\ActionFilters\ApplicationAuthorizeAttributeTests.cs" />
-    <Compile Include="Components\ActionFilters\Authorization\LimitCollaboratorsAmountAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\Authorization\ExternalApiAuthorizeAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\Authorization\LimitCoursesAmountAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttributeTest.cs" />
@@ -164,7 +163,9 @@
     <Compile Include="Components\BundleTransforms\ImageNoCacheParamTransformTests.cs" />
     <Compile Include="Components\ManifestFileManagerTests.cs" />
     <Compile Include="Components\ModelBinding\DateTimeModelBinderTests.cs" />
+    <Compile Include="Components\ReleaseNoteFileReaderTests.cs" />
     <Compile Include="Controllers\Api\LearningPathControllerTests.cs" />
+    <Compile Include="Controllers\Api\ReleaseNoteControllerTests.cs" />
     <Compile Include="Controllers\DashboardControllerTests.cs" />
     <Compile Include="Controllers\AccountControllerTests.cs" />
     <Compile Include="Controllers\Api\Aim4YouControllerTests.cs" />
@@ -225,7 +226,6 @@
     <Compile Include="Publish\Aim4You\Aim4YouCoursePublisherTests.cs" />
     <Compile Include="Publish\CoursePublisherTest.cs" />
     <Compile Include="Controllers\ReviewControllerTests.cs" />
-    <Compile Include="Security\FeatureAvailability\FeatureAvailabilityCheckerTests.cs" />
     <Compile Include="Security\PermissionsCheckers\AnswerPermissionsCheckerTests.cs" />
     <Compile Include="Security\PermissionsCheckers\CoursePermissionsCheckerTests.cs" />
     <Compile Include="Security\PermissionsCheckers\HotSpotPolygonPermissionsCheckerTests.cs" />
