@@ -24,7 +24,7 @@
         return Q;
     });
 
-    require(['bootstrapper'], function (bootstrapper) {
+    require(['bootstrapper'], function(bootstrapper) {
         bootstrapper.run();
 
         var specs = [
@@ -198,7 +198,6 @@
             //#endregion
 
             //#region learning paths
-
             'viewmodels/learningPaths/learningPaths/commands/createLearningPathCommand.spec',
             'viewmodels/learningPaths/learningPaths/queries/getLearningPathCollectionQuery.spec',
             'viewmodels/learningPaths/learningPaths/learningPathBrief.spec',
@@ -220,7 +219,6 @@
             'viewmodels/learningPaths/learningPath/actions/publish.spec',
 
             //#endregion
-
             'navigationBar/navigationBar.spec',
             'treeOfContent/handlers/treeOfContentEventHandler.spec',
             'treeOfContent/handlers/treeOfContentAutoExpandHandler.spec',
@@ -229,11 +227,10 @@
             'treeOfContent/CourseTreeNode.spec',
             'treeOfContent/RelatedObjectiveTreeNode.spec',
             'treeOfContent/QuestionTreeNode.spec',
-
             'viewmodels/common/contentField.spec',
             'viewmodels/library/index.spec',
             'viewmodels/videos/videos.spec',
-            'viewmodels/common/titleField.spec',            
+            'viewmodels/common/titleField.spec',
             'viewmodels/courses/courses.spec',
             'viewmodels/courses/course/index.spec',
             'viewmodels/courses/course/create/course.spec',
@@ -255,7 +252,6 @@
             'viewmodels/panels/tabs/feedbackTab.spec',
 
             //#region questions
-
             'viewmodels/questions/question.spec',
             'viewmodels/questions/answers.spec',
             'viewmodels/questions/multipleSelect/multipleSelectAnswers.spec',
@@ -265,10 +261,8 @@
             'viewmodels/questions/fillInTheBlank/fillInTheBlank.spec',
             'viewmodels/questions/fillInTheBlank/fibControl.spec',
             'viewmodels/questions/informationContent/informationContent.spec',
-
             'viewmodels/questions/statement/statement.spec',
             'viewmodels/questions/statement/statementAnswers.spec',
-
             'viewmodels/questions/dragAndDropText/dragAndDropText.spec',
             'viewmodels/questions/dragAndDropText/designer.spec',
             'viewmodels/questions/dragAndDropText/dropspot.spec',
@@ -279,7 +273,6 @@
             'viewmodels/questions/dragAndDropText/commands/changeDropspotPosition.spec',
             'viewmodels/questions/dragAndDropText/commands/changeBackground.spec',
             'viewmodels/questions/dragAndDropText/queries/getQuestionContentById.spec',
-
             'viewmodels/questions/singleSelectImage/singleSelectImage.spec',
             'viewmodels/questions/singleSelectImage/designer.spec',
             'viewmodels/questions/singleSelectImage/answer.spec',
@@ -288,7 +281,6 @@
             'viewmodels/questions/singleSelectImage/commands/setCorrectAnswer.spec',
             'viewmodels/questions/singleSelectImage/commands/updateAnswerImage.spec',
             'viewmodels/questions/singleSelectImage/queries/getQuestionContentById.spec',
-
             'viewmodels/questions/textMatching/textMatching.spec',
             'viewmodels/questions/textMatching/textMatchingAnswer.spec',
             'viewmodels/questions/textMatching/queries/getTextMatchingAnswersById.spec',
@@ -296,7 +288,6 @@
             'viewmodels/questions/textMatching/commands/removeAnswer.spec',
             'viewmodels/questions/textMatching/commands/changeAnswerKey.spec',
             'viewmodels/questions/textMatching/commands/changeAnswerValue.spec',
-
             'viewmodels/questions/hotspot/designer.spec',
             'viewmodels/questions/hotspot/hotSpot.spec',
             'viewmodels/questions/hotspot/polygon.spec',
@@ -306,12 +297,9 @@
             'viewmodels/questions/hotspot/commands/changeBackground.spec',
             'viewmodels/questions/hotspot/commands/changeType.spec',
             'viewmodels/questions/hotspot/queries/getQuestionContentById.spec',
-
             'viewmodels/questions/openQuestion/openQuestion.spec',
-
             'viewmodels/questions/questionTitle.spec',
             'viewmodels/questions/feedback.spec',
-
             'viewmodels/learningContents/learningContents.spec',
             'viewmodels/learningContents/learningContentBase.spec',
             'viewmodels/learningContents/content.spec',
@@ -330,6 +318,24 @@
             'videoUpload/upload.spec',
             //#endregion
 
+            //#region audio upload
+            'viewmodels/audios/audios.spec',
+            'viewmodels/audios/AudioViewModel.spec',
+            'audio/commands/markAvailable.spec',
+            'audio/convertion/commands/convert.spec',
+            'audio/convertion/commands/finalize.spec',
+            'audio/convertion/commands/getTicket.spec',
+            'audio/queries/getCollection.spec',
+            'audio/queries/getNotAvailable.spec',
+            'audio/vimeo/commands/pull.spec',
+            'audio/vimeo/availabilityTracker.spec',
+            'audio/factory.spec',
+            'audio/finishUpload.spec',
+            'audio/UploadAudioModel.spec',
+            'vimeo/queries/checkAvailability.spec',
+            'vimeo/queries/getVideo.spec',
+            //#endregion
+
             //#region widgets
             'widgets/notifyViewer/viewmodel.spec',
             'widgets/uiLockViewer/viewmodel.spec',
@@ -339,7 +345,6 @@
             'widgets/upgradeDialog/viewmodel.spec',
             'widgets/dialog/viewmodel.spec',
             //#endregion
-
             'viewmodels/user/userMenu.spec',
             'viewmodels/shell.spec',
             'bootstrapper.spec',
@@ -361,35 +366,9 @@
             '../Scripts/common/serviceUnavailableAjaxErrorHandler.spec'
         ];
 
-        require([
-            'audio/commands/markAvailable.spec',
-
-            
-            'audio/convertion/commands/convert.spec',
-            'audio/convertion/commands/finalize.spec',
-            'audio/convertion/commands/getTicket.spec',
-            
-            'audio/queries/getCollection.spec',
-            'audio/queries/getNotAvailable.spec',
-
-            'audio/vimeo/commands/pull.spec',
-            'audio/vimeo/availabilityTracker.spec',
-            
-            'audio/factory.spec',
-            'audio/finishUpload.spec',
-
-            'audio/UploadAudioModel.spec',
-
-            'viewmodels/audios/audios.spec',
-            'viewmodels/audios/AudioViewModel.spec',
-
-            'vimeo/queries/checkAvailability.spec',
-            'vimeo/queries/getVideo.spec'
-
-            
-        ], function () {
-                env.execute();
-            });
+        require(specs, function() {
+            env.execute();
+        });
     });
 
 }
