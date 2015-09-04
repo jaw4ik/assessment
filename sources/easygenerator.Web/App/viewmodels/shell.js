@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/router', 'routing/isViewReadyMixin', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'plugins/dialog', 'notify', 'constants', 'viewmodels/panels/leftSideBarManager'],
-    function (app, router, isViewReady, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, dialog, notify, constants, leftSideBarManager) {
+﻿define(['durandal/app', 'plugins/router', 'routing/isViewReadyMixin', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'plugins/dialog', 'notify', 'constants', 'viewmodels/panels/leftSideBarManager', 'audio/index'],
+    function (app, router, isViewReady, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, dialog, notify, constants, leftSideBarManager, audio) {
 
         "use strict";
 
@@ -115,6 +115,7 @@
                         }
                     };
 
+                    audio.initialize();
                     leftSideBarManager.initialize();
 
                     router.on('router:navigation:composition-complete').then(function () {

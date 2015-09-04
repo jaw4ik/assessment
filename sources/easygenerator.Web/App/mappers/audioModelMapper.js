@@ -1,5 +1,5 @@
-﻿define(['models/audio'],
-    function (Audio) {
+﻿define(['models/audio', 'constants'],
+    function (Audio, constants) {
         "use strict";
 
         var
@@ -10,7 +10,9 @@
                     modifiedOn: item.ModifiedOn,
                     title: item.Title,
                     duration: item.Duration,
-                    vimeoId: item.VimeoId
+                    vimeoId: item.VimeoId,
+                    available: !!item.Status,
+                    source: item.Source
                 });
             };
 

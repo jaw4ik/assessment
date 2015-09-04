@@ -1,4 +1,4 @@
-﻿define(['viewmodels/audios/UploadAudioModel'], function (Model) {
+﻿define(['audio/UploadAudioModel'], function (Model) {
 
     describe('[UploadAudioModel]', function () {
 
@@ -62,8 +62,8 @@
 
         describe('upload:', function () {
 
-            var convert = require('viewmodels/audios/commands/convert'),
-                pull = require('viewmodels/audios/commands/pull'),
+            var convert = require('audio/convertion/commands/convert'),
+                pull = require('audio/vimeo/commands/pull'),
                 convertDfd, pullDfd, model;
 
             beforeEach(function () {

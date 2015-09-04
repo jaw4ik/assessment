@@ -1,4 +1,4 @@
-﻿define(['viewmodels/audios/queries/getCollection'], function (query) {
+﻿define(['audio/queries/getCollection'], function (query) {
 
     describe('[audio getCollection query]', function () {
 

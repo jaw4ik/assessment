@@ -5,11 +5,9 @@
         eventTracker = require('eventTracker'),
         userContext = require('userContext'),
         localizationManager = require('localization/localizationManager'),
-        getCollection = require('viewmodels/audios/queries/getCollection'),
-        factory = require('viewmodels/audios/factory'),
-        UploadModel = require('viewmodels/audios/UploadAudioModel'),
-        AudioViewModel = require('viewmodels/audios/AudioViewModel')
-
+        getCollection = require('audio/queries/getCollection'),
+        factory = require('audio/factory'),
+        UploadModel = require('audio/UploadAudioModel')
     ;
 
     describe('viewModel [audios]', function () {

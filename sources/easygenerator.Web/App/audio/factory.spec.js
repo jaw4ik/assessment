@@ -1,4 +1,4 @@
-﻿define(['viewmodels/audios/factory'], function (factory) {
+﻿define(['audio/factory'], function (factory) {
 
     describe('[audio upload factory]', function () {
 

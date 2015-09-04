@@ -72,7 +72,7 @@
             }
 
         },
-        xhr2: function (file, url) {
+        xhr2: function (url, file, headers) {
             var dfd = Q.defer();
 
             var xhr = new XMLHttpRequest();
@@ -97,6 +97,15 @@
             };
             xhr.open('POST', url, true);
             xhr.responseType = 'text';
+
+            if (headers) {
+                for (var header in headers) {
+                    if (headers.hasOwnProperty(header)) {
+                        xhr.setRequestHeader(header, headers[header]);
+                    }
+                }
+            }
+
 
             var formData = new FormData();
             formData.append('file', file);

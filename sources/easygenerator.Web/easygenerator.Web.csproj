@@ -22,6 +22,7 @@
     <IISExpressUseClassicPipelineMode />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -551,9 +552,50 @@
     <Content Include="App\analytics\providers\consoleProvider.js" />
     <Content Include="App\analytics\providers\mixpanelProvider.js" />
     <Content Include="App\analytics\providers\nudgespotProvider.js" />
+    <Content Include="App\audio\convertion\commands\convert.spec.js">
+      <DependentUpon>convert.js</DependentUpon>
+    </Content>
+    <Content Include="App\audio\convertion\commands\finalize.js" />
+    <Content Include="App\audio\convertion\commands\getTicket.js" />
+    <Content Include="App\audio\commands\markAvailable.spec.js" />
+    <Content Include="App\audio\commands\markAvailable.js" />
+    <Content Include="App\audio\convertion\commands\getTicket.spec.js">
+      <DependentUpon>getTicket.js</DependentUpon>
+    </Content>
+    <Content Include="App\audio\factory.js" />
+    <Content Include="App\audio\factory.spec.js">
+      <DependentUpon>factory.js</DependentUpon>
+    </Content>
+    <Content Include="App\audio\index.js" />
+    <Content Include="App\audio\queries\getCollection.js" />
+    <Content Include="App\audio\queries\getCollection.spec.js">
+      <DependentUpon>getCollection.js</DependentUpon>
+    </Content>
+    <Content Include="App\audio\queries\getNotAvailable.spec.js">
+      <DependentUpon>getNotAvailable.js</DependentUpon>
+    </Content>
+    <Content Include="App\audio\queries\getNotAvailable.js" />
+    <Content Include="App\audio\UploadAudioModel.js" />
+    <Content Include="App\audio\UploadAudioModel.spec.js">
+      <DependentUpon>UploadAudioModel.js</DependentUpon>
+    </Content>
+    <Content Include="App\audio\vimeo\availabilityTracker.js" />
+    <Content Include="App\audio\vimeo\availabilityTracker.spec.js">
+      <DependentUpon>availabilityTracker.js</DependentUpon>
+    </Content>
+    <Content Include="App\audio\finishUpload.js" />
+    <Content Include="App\audio\finishUpload.spec.js">
+      <DependentUpon>finishUpload.js</DependentUpon>
+    </Content>
+    <Content Include="App\audio\vimeo\commands\pull.js" />
+    <Content Include="App\audio\vimeo\commands\pull.spec.js">
+      <DependentUpon>pull.js</DependentUpon>
+    </Content>
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
     <Content Include="App\browse.js" />
+    <Content Include="App\Query.js" />
+    <Content Include="App\Command.js" />
     <Content Include="App\commands\createCourseCommand.js" />
     <Content Include="App\commands\createCourseCommand.spec.js">
       <DependentUpon>createCourseCommand.js</DependentUpon>
@@ -618,26 +660,7 @@
     <Content Include="App\viewmodels\audios\AudioViewModel.spec.js">
       <DependentUpon>AudioViewModel.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\audios\commands\convert.js" />
-    <Content Include="App\viewmodels\audios\commands\convert.spec.js">
-      <DependentUpon>convert.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\audios\commands\pull.js" />
-    <Content Include="App\viewmodels\audios\commands\pull.spec.js">
-      <DependentUpon>pull.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\audios\factory.js" />
-    <Content Include="App\viewmodels\audios\factory.spec.js">
-      <DependentUpon>factory.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\audios\queries\getCollection.js" />
-    <Content Include="App\viewmodels\audios\queries\getCollection.spec.js">
-      <DependentUpon>getCollection.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\audios\UploadAudioModel.js" />
-    <Content Include="App\viewmodels\audios\UploadAudioModel.spec.js">
-      <DependentUpon>UploadAudioModel.js</DependentUpon>
-    </Content>
+    <Content Include="App\audio\convertion\commands\convert.js" />
     <Content Include="App\views\audios\audios.html" />
     <Content Include="App\models\learningPath.spec.js">
       <DependentUpon>learningPath.js</DependentUpon>
@@ -663,6 +686,17 @@
     <Content Include="App\views\learningPaths\learningPath\publish\publishToPublicationServerEmbed.html" />
     <Content Include="App\views\learningPaths\learningPath\publish\publishToPublicationServerLink.html" />
     <Content Include="App\views\learningPaths\learningPath\publish\updatePublication.html" />
+    <Content Include="App\audio\convertion\commands\finalize.spec.js">
+      <DependentUpon>finalize.js</DependentUpon>
+    </Content>
+    <Content Include="App\vimeo\queries\checkAvailability.spec.js">
+      <DependentUpon>checkAvailability.js</DependentUpon>
+    </Content>
+    <Content Include="App\vimeo\queries\checkAvailability.js" />
+    <Content Include="App\vimeo\queries\getVideo.js" />
+    <Content Include="App\vimeo\queries\getVideo.spec.js">
+      <DependentUpon>getVideo.js</DependentUpon>
+    </Content>
     <Content Include="App\widgets\upgradeDialog\viewmodel.js" />
     <Content Include="App\widgets\upgradeDialog\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>

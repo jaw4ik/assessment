@@ -1,8 +1,12 @@
-﻿define(['viewmodels/audios/commands/pull'], function (command) {
+﻿define(['audio/commands/markAvailable'], function (command) {
 
-    describe('[audio pull command]', function () {
+    describe('[audio markAvailable command]', function () {
 
         var storageHttpWrapper = require('http/storageHttpWrapper');
+
+        it('should be object', function () {
+            expect(command).toBeObject();
+        });
 
         describe('execute:', function () {
 
@@ -19,42 +23,47 @@
             });
 
             it('should return promise', function () {
-                expect(command.execute()).toBePromise();
+                expect(command.execute({})).toBePromise();
             });
 
-            it('should post pull url to the storage', function () {
+            it('should send request to mark audio as available', function () {
                 command.execute({});
                 expect(storageHttpWrapper.post).toHaveBeenCalled();
             });
 
-            describe('when pull finished', function () {
+            describe('when request finished successfully', function () {
 
-                var entity;
+                var audio = {};
 
                 beforeEach(function () {
-                    entity = {};
-                    dfd.resolve(entity);
+                    dfd.resolve();
+                });
+
+                it('should mark audio as availble', function(done) {
+                    command.execute(audio).then(function () {
+                        expect(audio.available).toBeTruthy();
+                        done();
+                    }).done();
                 });
 
                 it('should resolve promise', function (done) {
-                    command.execute().then(function (item) {
-                        expect(item).toEqual(entity);
+                    command.execute({}).then(function () {
                         done();
-                    });
+                    }).done();
                 });
 
             });
 
-            describe('when pull failed', function () {
+            describe('when request failed', function () {
 
                 beforeEach(function () {
                     dfd.reject();
                 });
 
                 it('should reject promise', function (done) {
-                    command.execute().catch(function () {
+                    command.execute({}).catch(function () {
                         done();
-                    });
+                    }).done();
                 });
 
             });
@@ -62,4 +71,6 @@
         });
 
     });
+
+
 })

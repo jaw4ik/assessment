@@ -1,8 +1,8 @@
-﻿define(['viewmodels/audios/commands/convert'], function (command) {
+﻿define(['audio/vimeo/commands/pull'], function (command) {
 
-    describe('[audio convert command]', function () {
+    describe('[audio pull command]', function () {
 
-        var fileUpload = require('fileUpload');
+        var storageHttpWrapper = require('http/storageHttpWrapper');
 
         describe('execute:', function () {
 
@@ -11,7 +11,7 @@
             beforeEach(function () {
                 dfd = Q.defer();
 
-                spyOn(fileUpload, 'xhr2').and.returnValue(dfd.promise);
+                spyOn(storageHttpWrapper, 'post').and.returnValue(dfd.promise);
             });
 
             it('should be function', function () {
@@ -22,33 +22,31 @@
                 expect(command.execute()).toBePromise();
             });
 
-            it('should post file to the conversion server', function () {
+
+            it('should post pull url to the storage', function () {
                 command.execute({});
-                expect(fileUpload.xhr2).toHaveBeenCalled();
+                expect(storageHttpWrapper.post).toHaveBeenCalled();
             });
 
-            describe('when conversion finished', function () {
+            describe('when pull finished', function () {
+
+                var entity;
 
                 beforeEach(function () {
-                    dfd.resolve([
-                    {
-                        url: 'url',
-                        duration: 1
-                    }]);
+                    entity = {};
+                    dfd.resolve(entity);
                 });
 
                 it('should resolve promise', function (done) {
-                    command.execute({}).then(function (convertedFile) {
-                        expect(convertedFile).toBeObject();
-                        expect(convertedFile.url).toEqual('url');
-                        expect(convertedFile.duration).toEqual(1);
+                    command.execute().then(function (item) {
+                        expect(item).toEqual(entity);
                         done();
                     });
                 });
 
             });
 
-            describe('when conversion failed', function () {
+            describe('when pull failed', function () {
 
                 beforeEach(function () {
                     dfd.reject();

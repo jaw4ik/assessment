@@ -20,6 +20,10 @@
         return ko;
     });
 
+    define('Q', function () {
+        return Q;
+    });
+
     require(['bootstrapper'], function (bootstrapper) {
         bootstrapper.run();
 
@@ -221,13 +225,7 @@
             'viewmodels/common/contentField.spec',
             'viewmodels/library/index.spec',
             'viewmodels/videos/videos.spec',
-            'viewmodels/common/titleField.spec',
-            'viewmodels/audios/commands/convert.spec',
-            'viewmodels/audios/commands/pull.spec',
-            'viewmodels/audios/queries/getCollection.spec',
-            'viewmodels/audios/audios.spec',
-            'viewmodels/audios/AudioViewModel.spec',
-            'viewmodels/audios/UploadAudioModel.spec',
+            'viewmodels/common/titleField.spec',            
             'viewmodels/courses/courses.spec',
             'viewmodels/courses/course/index.spec',
             'viewmodels/courses/course/create/course.spec',
@@ -350,9 +348,35 @@
             '../Scripts/common/serviceUnavailableAjaxErrorHandler.spec'
         ];
 
-        require(specs, function () {
-            env.execute();
-        });
+        require([
+            'audio/commands/markAvailable.spec',
+
+            
+            'audio/convertion/commands/convert.spec',
+            'audio/convertion/commands/finalize.spec',
+            'audio/convertion/commands/getTicket.spec',
+            
+            'audio/queries/getCollection.spec',
+            'audio/queries/getNotAvailable.spec',
+
+            'audio/vimeo/commands/pull.spec',
+            'audio/vimeo/availabilityTracker.spec',
+            
+            'audio/factory.spec',
+            'audio/finishUpload.spec',
+
+            'audio/UploadAudioModel.spec',
+
+            'viewmodels/audios/audios.spec',
+            'viewmodels/audios/AudioViewModel.spec',
+
+            'vimeo/queries/checkAvailability.spec',
+            'vimeo/queries/getVideo.spec'
+
+            
+        ], function () {
+                env.execute();
+            });
     });
 
 }
