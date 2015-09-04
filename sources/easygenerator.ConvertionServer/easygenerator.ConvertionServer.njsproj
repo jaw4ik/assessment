@@ -3,7 +3,7 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <Name>easygenerator.ConversionServer</Name>
+    <Name>easygenerator.ConvertionServer</Name>
     <RootNamespace>easygenerator.ConversionServer</RootNamespace>
     <NameOfLastUsedPublishProfile>local</NameOfLastUsedPublishProfile>
     <LaunchUrl>/conversion</LaunchUrl>
@@ -13,7 +13,8 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>0f187409-200c-4a8b-9af0-9326c941ad55</ProjectGuid>
-    <ProjectHome>.</ProjectHome>
+    <ProjectHome>
+    </ProjectHome>
     <StartupFile>www.js</StartupFile>
     <SearchPath>
     </SearchPath>

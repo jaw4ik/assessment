@@ -1,7 +1,7 @@
 {
-  "name": "easygenerator.ConversionServer",
+  "name": "easygenerator.ConvertionServer",
   "version": "0.0.0",
-  "description": "easygenerator.ConversionServer",
+  "description": "easygenerator.ConvertionServer",
   "main": "server.js",
   "author": {
     "name": "a.drebot",

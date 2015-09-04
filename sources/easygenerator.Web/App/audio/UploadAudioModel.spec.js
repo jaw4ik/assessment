@@ -129,7 +129,7 @@
 
             describe('when video is converted', function () {
 
-                it('should request vimeo to pull video from conversion server', function (done) {
+                it('should request vimeo to pull video from convertion server', function (done) {
                     convertDfd.resolve({});
                     pullDfd.resolve({});
                     model.upload().then(function () {

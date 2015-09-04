@@ -26,7 +26,7 @@
                 expect(command.execute()).toBePromise();
             });
 
-            it('should get ticket to the conversion server', function (done) {
+            it('should get ticket to the convertion server', function (done) {
                 getTicketDfd.resolve('ticket');
                 xhr2Dfd.resolve([{}]);
                 command.execute().then(function () {
@@ -55,7 +55,7 @@
                     getTicketDfd.resolve('ticket');
                 });
 
-                it('should post file to the conversion server', function (done) {
+                it('should post file to the convertion server', function (done) {
                     xhr2Dfd.resolve([{}]);
                     command.execute({}).then(function () {
                         expect(fileUpload.xhr2).toHaveBeenCalled();
@@ -63,7 +63,7 @@
                     }).done();
                 });
 
-                describe('when conversion finished', function () {
+                describe('when convertion finished', function () {
 
                     beforeEach(function () {
                         xhr2Dfd.resolve([{ url: 'url', duration: 1 }]);
@@ -80,7 +80,7 @@
 
                 });
 
-                describe('when conversion failed', function () {
+                describe('when convertion failed', function () {
 
                     beforeEach(function () {
                         xhr2Dfd.reject();

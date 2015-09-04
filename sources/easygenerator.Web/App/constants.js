@@ -392,7 +392,7 @@
                     removeVideoAfterErrorTimeout: 5000
                 },
                 audio: {
-                    conversionUrl: window.conversionServiceUrl ? "//" + window.conversionServiceUrl : '//staging.easygenerator.com/conversion',
+                    convertionUrl: window.convertionServiceUrl ? "//" + window.convertionServiceUrl : '//staging.easygenerator.com/convertion',
                     pullUrl: '/api/media/audio/pull',
                     ticketUrl: '/api/media/audio/ticket',
                     trackerTimeout: 25000,
