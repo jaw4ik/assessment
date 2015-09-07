@@ -295,42 +295,75 @@
 
     .templates-list-container{
         position: relative;
-        .templates-list-wrapper {
-            flex: 0 0 235px;
-            max-width: 235px;
-            display: flex;
-            position: relative;
-            padding: 0px 10px;
-            border-right: 1px solid @template-selector-regular-border-color;
+        display: flex;
+        padding: 0 24px 0 21px;
+        border-right: 1px solid @template-selector-regular-border-color;
 
-            &:after {
-                display: block;
-                position: absolute;
-                right: -9px;
-                top: 16px;
-                width: 0;
-                height: 0;
-                border-top: 10px solid transparent;
-                border-left: 8px solid @template-selector-regular-border-color;
-                border-bottom: 10px solid transparent;
-                content: "";
+        &:after {
+            content: "";
+            position: absolute;
+            top: 16px;
+            right: -9px;
+            display: block;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-left: 8px solid @template-selector-regular-border-color;
+            border-bottom: 10px solid transparent;
+        }
+
+        .template-list-custom-scrollbar-container{
+            position: relative;
+            flex: 1 1 0;
+
+            &.cs-scroll-started{
+            
+                &:before{
+                    content: '';
+                    display: block;
+                    border-bottom: 1px solid #e5e6e6;
+                    box-shadow: 0px 0px 3px 1px #e5e6e6;
+                }
             }
 
+            &.cs-scroll-enabled{
+
+                &:after{
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    display: block;
+                    width: 100%;
+                    border-top: 1px solid #e5e6e6;
+                    box-shadow: 0px 0px 3px 1px #e5e6e6;
+                }
+            }
+
+            .iScrollVerticalScrollbar{
+                right: -20px;
+            }
+        }
+
+        .templates-list-wrapper {
+            position: relative;
+            display: flex;
+            flex: 0 0 190px;
+            max-width: 190px;
+
             .templates-list {
-                list-style: none;
                 display: flex;
                 flex-direction: column;
-                padding: 0px 10px;
+                list-style: none;
+                width: 100%;
 
                 .template-item {
+                    position: relative;
                     display: flex;
                     align-items: center;
-                    position: relative;
                     flex: 0 0;
                     min-height: 50px;
                     font: 15px 'OpenSans-Semibold';
                     color: @template-selector-regular-text-color;
-                    padding-left: 10px;
                     border-top: 1px solid transparent;
                     border-bottom: 1px solid transparent;
 

@@ -1,7 +1,7 @@
 ﻿<div class="modal-dialog create-course-title-step">
     <div class="modal-dialog-title" data-bind="text: caption"></div>
     <div class="modal-dialog-body">
-        <div class="title-wrapper scrollable" data-bind="scrollbar: {}">
+        <div class="title-wrapper scrollable" data-bind="scrollbar: { checkDOMChanges: true, scrollToEndAfterDOMChanged: true }">
             <div class="title-container">
                 <div class="edit-field-wrapper" data-bind="css: { 'active': isEditing(), 'error': isChanged() && !isValid() }">
                     <div class="edit-field-paceholder" data-bind="localize: {text: 'giveNameToYourCourse'}, visible: title().length===0"></div>
