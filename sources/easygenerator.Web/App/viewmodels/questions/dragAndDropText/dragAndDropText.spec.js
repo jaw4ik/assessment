@@ -87,6 +87,14 @@
                         });
                     });
 
+                    it('should have hasQuestionContent property with true value', function (done) {
+                        var promise = viewModel.initialize(objectiveId, question);
+                        promise.then(function (result) {
+                            expect(result.hasQuestionContent).toBeTruthy();
+                            done();
+                        });
+                    });
+
                     it('should have hasFeedback property with true value', function (done) {
                         var promise = viewModel.initialize(objectiveId, question);
                         promise.then(function (result) {
