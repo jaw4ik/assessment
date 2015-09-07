@@ -30,6 +30,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
         private const string subscribeMethodPath = "serviceUrl/lists/subscribe";
         private const string updateMethodPath = "serviceUrl/lists/update-member";
         private const AccessType accessType = AccessType.Starter;
+        private const string country = "Ukraine";
 
         [TestInitialize]
         public void InitializeManager()
@@ -58,7 +59,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _configurationReader.MailChimpConfiguration.Returns(_mailChimpConfiguration);
 
             // Act
-            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType, country);
 
             // Assert
             result.Should().BeTrue();
@@ -69,7 +70,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
         {
             // Arrange
             // Act
-            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType, country);
 
             // Assert
             _httpClient.Received().Post<MailChimpLists>(Arg.Is(getListMethodPath), Arg.Any<object>());
@@ -84,7 +85,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpClient.Post<MailChimpLists>(null, null).ReturnsForAnyArgs(_ => { throw new Exception(); });
 
             // Act
-            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType, country);
 
             // Assert
             result.Should().BeFalse();
@@ -99,7 +100,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpClient.Post<MailChimpLists>(null, null).ReturnsForAnyArgs(mailChimpLists);
 
             // Act
-            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType, country);
 
             // Assert
             result.Should().BeFalse();
@@ -114,7 +115,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpClient.Post<MailChimpLists>(null, null).ReturnsForAnyArgs(mailChimpLists);
 
             // Act
-            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType, country);
 
             // Assert
             result.Should().BeFalse();
@@ -133,7 +134,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpClient.Post<MailChimpLists>(null, (object)null).ReturnsForAnyArgs(mailChimpLists);
 
             // Act
-            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType, country);
 
             // Assert
             _httpClient.Received().Post<MailChimpSubscription>(Arg.Is(subscribeMethodPath), Arg.Any<object>());
@@ -153,7 +154,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpClient.Post<MailChimpSubscription>(null, null).ReturnsForAnyArgs(_ => { throw new Exception(); });
 
             // Act
-            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType, country);
 
             // Assert
             result.Should().BeFalse();
@@ -173,7 +174,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpClient.Post<MailChimpSubscription>(null, null).Returns(new MailChimpSubscription() { Email = "someother@mail.com" });
 
             // Act
-            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType, country);
 
             // Assert
             result.Should().BeFalse();
@@ -193,7 +194,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpClient.Post<MailChimpSubscription>(null, (object)null).ReturnsForAnyArgs(new MailChimpSubscription() { Email = emailToSubscribe });
 
             // Act
-            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+            var result = _subscriptionManager.CreateSubscription(emailToSubscribe, firstName, lastName, role, accessType, country);
 
             // Assert
             result.Should().BeTrue();
@@ -211,7 +212,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _configurationReader.MailChimpConfiguration.Returns(_mailChimpConfiguration);
 
             // Act
-            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType, country);
 
             // Assert
             result.Should().BeTrue();
@@ -222,7 +223,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
         {
             // Arrange
             // Act
-            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType, country);
 
             // Assert
             _httpClient.Received().Post<MailChimpLists>(Arg.Is(getListMethodPath), Arg.Any<object>());
@@ -237,7 +238,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpClient.Post<MailChimpLists>(null, null).ReturnsForAnyArgs(_ => { throw new Exception(); });
 
             // Act
-            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType, country);
 
             // Assert
             result.Should().BeFalse();
@@ -252,7 +253,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpClient.Post<MailChimpLists>(null, null).ReturnsForAnyArgs(mailChimpLists);
 
             // Act
-            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType, country);
 
             // Assert
             result.Should().BeFalse();
@@ -267,7 +268,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpClient.Post<MailChimpLists>(null, null).ReturnsForAnyArgs(mailChimpLists);
 
             // Act
-            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType, country);
 
             // Assert
             result.Should().BeFalse();
@@ -286,7 +287,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpClient.Post<MailChimpLists>(null, (object)null).ReturnsForAnyArgs(mailChimpLists);
 
             // Act
-            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType, country);
 
             // Assert
             _httpClient.Received().Post<MailChimpSubscription>(Arg.Is(updateMethodPath), Arg.Any<object>());
@@ -306,7 +307,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpClient.Post<MailChimpSubscription>(null, null).ReturnsForAnyArgs(_ => { throw new Exception(); });
 
             // Act
-            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType, country);
 
             // Assert
             result.Should().BeFalse();
@@ -326,7 +327,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpClient.Post<MailChimpSubscription>(null, null).Returns(new MailChimpSubscription() { Email = "someother@mail.com" });
 
             // Act
-            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType, country);
 
             // Assert
             result.Should().BeFalse();
@@ -346,7 +347,7 @@ namespace easygenerator.Web.Tests.Newsletter.MailChimp
             _httpClient.Post<MailChimpSubscription>(null, (object)null).ReturnsForAnyArgs(new MailChimpSubscription() { Email = emailToSubscribe });
 
             // Act
-            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType);
+            var result = _subscriptionManager.UpdateSubscription(emailToSubscribe, firstName, lastName, role, accessType, country);
 
             // Assert
             result.Should().BeTrue();
