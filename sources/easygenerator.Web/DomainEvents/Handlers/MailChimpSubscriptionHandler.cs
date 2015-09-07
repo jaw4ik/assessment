@@ -47,12 +47,12 @@ namespace easygenerator.Web.DomainEvents.Handlers
             HandleSubscriptionEvent(_subscriptionManager.CreateSubscription, args, CreateSubscriptionFailedMessage);
         }
 
-        private void HandleSubscriptionEvent(Func<string, string, string, string, AccessType, bool> subscriptionAction, UserEvent args, string failureMessage)
+        private void HandleSubscriptionEvent(Func<string, string, string, string, AccessType, string, bool> subscriptionAction, UserEvent args, string failureMessage)
         {
             Task.Run
                (() =>
                {
-                   if (!subscriptionAction(args.User.Email, args.User.FirstName, args.User.LastName, args.User.Role, args.User.AccessType))
+                   if (!subscriptionAction(args.User.Email, args.User.FirstName, args.User.LastName, args.User.Role, args.User.AccessType, args.User.Country))
                    {
                        _mailNotificationManager.AddMailNotificationToQueue(
                            Constants.MailTemplates.NewsletterSubscriptionFailedTemplate,
@@ -63,7 +63,8 @@ namespace easygenerator.Web.DomainEvents.Handlers
                                FirstName = args.User.FirstName,
                                LastName = args.User.LastName,
                                Role = args.User.Role,
-                               AccessType = args.User.AccessType
+                               AccessType = args.User.AccessType,
+                               Country = args.User.Country
                            });
                    }
                }
