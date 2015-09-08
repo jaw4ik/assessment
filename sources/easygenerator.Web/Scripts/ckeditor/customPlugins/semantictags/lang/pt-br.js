@@ -1,6 +1,6 @@
 ﻿CKEDITOR.plugins.setLang('semantictags', 'pt-br', {
     p: 'Normal',
-    cite: 'Inclinado',
+    cite: 'Citado',
     mark: 'Destacado',
     h1: 'Cabeçalho 1',
     h2: 'Cabeçalho 2',

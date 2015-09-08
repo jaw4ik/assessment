@@ -29,5 +29,8 @@
     "[tracking and tracing error hint]": "Se você continuar sem re-iniciar, seus resultados do aprendizado não serão relatados",
     "[tracking and tracing restart course]": "Re-iniciar curso",
     "[tracking and tracing continue anyway]": "Continuar mesmo assim",
-    "[tracking and tracing reporting progress]": "Relatando os resultados..."
+    "[tracking and tracing reporting progress]": "Relatando os resultados...",
+    "[type your answer here]": "Digite sua resposta aqui...",
+    "[tracking and tracing hint without skip]": "Favor digitar suas credenciais e clicar \"Iniciar e reportar meus resultados\" para iniciar o curso.",
+    "[tracking and tracing error hint without continue]": "Reinicie o curso. Contate seu provedor de cursos se o problema persistir."
 }

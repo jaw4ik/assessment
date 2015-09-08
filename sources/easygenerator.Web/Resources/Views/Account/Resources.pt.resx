@@ -295,7 +295,7 @@ Time Easygenerator&lt;/p&gt;
     <value>Senha satisfaz requerimento</value>
   </data>
   <data name="PasswordRecovery" xml:space="preserve">
-    <value>ressetar senha</value>
+    <value>Ressetar senha</value>
   </data>
   <data name="PasswordRequirementsTitle" xml:space="preserve">
     <value>Password is required to:</value>
