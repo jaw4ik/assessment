@@ -184,16 +184,8 @@
                     isViewReady.assign(router);
 
                     viewModel.router.isViewReady.subscribe(function (value) {
-                        if (userContext.identity.showReleaseNote) {
-                            releaseNotesDialog.show(function() {
-                                if (value && !_.isNullOrUndefined(clientContext.get(constants.clientContextKeys.showCreateCoursePopup))) {
-                                    createCourseDialog.show();
-                                }
-                            });
-                        } else {
-                            if (value && !_.isNullOrUndefined(clientContext.get(constants.clientContextKeys.showCreateCoursePopup))) {
-                                createCourseDialog.show();
-                            }
+                        if (value && !_.isNullOrUndefined(clientContext.get(constants.clientContextKeys.showCreateCoursePopup))) {
+                            createCourseDialog.show();
                         }
                     });
 
