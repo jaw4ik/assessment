@@ -36,6 +36,7 @@
             return designer.activate(question.id).then(function () {
                 return {
                     viewCaption: localizationManager.localize('DragAndDropTextEditor'),
+                    hasQuestionContent: true,
                     hasQuestionView: true,
                     hasFeedback: true
                 };
