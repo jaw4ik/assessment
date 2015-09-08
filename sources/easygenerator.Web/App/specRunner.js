@@ -46,9 +46,13 @@
             'dialogs/learningPath/deleteLearningPath.spec',
             'dialogs/course/common/templateSelector/templateBrief.spec',
             'dialogs/course/common/templateSelector/templateSelector.spec',
+            'dialogs/course/changeTemplate/changeTemplate.spec',
             'dialogs/course/createCourse/createCourse.spec',
             'dialogs/course/createCourse/steps/courseTemplateStep.spec',
             'dialogs/course/createCourse/steps/courseTitleStep.spec',
+            'dialogs/releaseNotes/commands/updateLastReadReleaseNote.spec',
+            'dialogs/releaseNotes/commands/getReleaseNote.spec',
+            'dialogs/releaseNotes/releaseNotes.spec',
 
             //#endregion dialogs
 
@@ -230,6 +234,7 @@
             'viewmodels/courses/course/index.spec',
             'viewmodels/courses/course/create/course.spec',
             'viewmodels/courses/course/design/design.spec',
+            'viewmodels/courses/course/design/templateBrief.spec',
             'viewmodels/courses/course/configure.spec',
             'viewmodels/courses/course/publish.spec',
             'viewmodels/courses/publishingActions/publishingAction.spec',

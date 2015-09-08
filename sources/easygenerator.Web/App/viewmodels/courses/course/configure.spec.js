@@ -7,7 +7,10 @@
         notify = require('notify'),
         courseRepository = require('repositories/courseRepository'),
         templateRepository = require('repositories/templateRepository'),
-        waiter = require('utils/waiter');
+        waiter = require('utils/waiter'),
+        app = require('durandal/app'),
+        constants = require('constants')
+    ;
 
     describe('viewModel [configure]', function () {
 
@@ -28,26 +31,42 @@
             spyOn(router, 'replace');
             spyOn(eventTracker, 'publish');
             spyOn(notify, 'saved');
+            spyOn(app, 'on');
+            spyOn(app, 'off');
         });
 
         it('should be defined', function () {
             expect(viewModel).toBeDefined();
         });
 
-        describe('settingsLoadingTimeoutId:', function () {
+        describe('templateId:', function () {
+            it('should be observable', function () {
+                expect(viewModel.templateId).toBeObservable();
+            });
+        });
 
+        describe('settingsAvailable:', function () {
+            it('should be observable', function () {
+                expect(viewModel.settingsAvailable).toBeObservable();
+            });
+        });
+
+        describe('configureSettingsUrl:', function () {
+            it('should be observable', function () {
+                expect(viewModel.configureSettingsUrl).toBeObservable();
+            });
+        });
+
+        describe('settingsLoadingTimeoutId:', function () {
             it('should be defined', function () {
                 expect(viewModel.settingsLoadingTimeoutId).toBeDefined();
             });
-
         });
 
         describe('settingsVisibilitySubscription:', function () {
-
             it('should be defined', function () {
                 expect(viewModel.settingsVisibilitySubscription).toBeDefined();
             });
-
         });
 
         describe('canDeactivate:', function () {
@@ -207,7 +226,7 @@
             describe('when course exists', function () {
 
                 var
-                    template = { id: "0", name: "Default", thumbnail: "path/to/image1.png", previewImages: ["path/to/previewImg.png"], description: "Default template", previewDemoUrl: 'preview_url_default', settingsUrls: { design: null, configure: null }, order: 1, isNew: true, isCustom: true, loadingTemplate: ko.observable(false) },
+                    template = { id: "0", name: "Default", thumbnail: "path/to/image1.png", previewImages: ["path/to/previewImg.png"], description: "Default template", previewDemoUrl: 'preview_url_default', settingsUrls: { design: null, configure: null }, isLoading: ko.observable(false) },
                     course = { id: 'courseId', template: template };
 
                 beforeEach(function () {
@@ -216,67 +235,75 @@
 
                 it('should set courseId', function (done) {
                     viewModel.courseId = null;
-
                     viewModel.activate(course.id).fin(function () {
                         expect(viewModel.courseId).toBe(course.id);
                         done();
                     });
                 });
 
-                it('should set currentTemplate', function (done) {
-                    viewModel.currentTemplate = null;
+                it('should set template id', function (done) {
+                    viewModel.templateId(null);
 
                     viewModel.activate(course.id).fin(function () {
-                        expect(viewModel.currentTemplate).toBe(course.template);
+                        expect(viewModel.templateId()).toBe(course.template.id);
                         done();
                     });
                 });
 
                 it('should set configureSettingsUrl', function (done) {
-                    viewModel.configureSettingsUrl = null;
+                    viewModel.configureSettingsUrl(null);
 
                     viewModel.activate(course.id).fin(function () {
-                        expect(viewModel.configureSettingsUrl).toBe(course.template.settingsUrls.configure);
+                        expect(viewModel.configureSettingsUrl()).toBe(course.template.settingsUrls.configure);
                         done();
                     });
                 });
 
                 describe('and when settingsUrls.configure does not exist', function () {
-
-                    beforeEach(function() {
+                    beforeEach(function () {
                         course.template.settingsUrls.configure = null;
                     });
 
                     it('should set settingsAvailable to false', function (done) {
-                        viewModel.settingsAvailable = true;
+                        viewModel.settingsAvailable(true);
 
                         viewModel.activate(course.id).fin(function () {
-                            expect(viewModel.settingsAvailable).toBeFalsy();
+                            expect(viewModel.settingsAvailable()).toBeFalsy();
                             done();
                         });
                     });
-
                 });
 
-                describe('and when settingsUrls.configure exists', function() {
-                    
+                describe('and when settingsUrls.configure exists', function () {
+
                     beforeEach(function () {
                         course.template.settingsUrls.configure = 'some/url';
                     });
 
                     it('should set settingsAvailable to true', function (done) {
-                        viewModel.settingsAvailable = false;
+                        viewModel.settingsAvailable(false);
 
                         viewModel.activate(course.id).fin(function () {
-                            expect(viewModel.settingsAvailable).toBeTruthy();
+                            expect(viewModel.settingsAvailable()).toBeTruthy();
                             done();
                         });
                     });
-
                 });
 
-            });
+                it('should subscribe to templateUpdated event', function (done) {
+                    viewModel.activate(course.id).fin(function () {
+                        expect(app.on).toHaveBeenCalledWith(constants.messages.course.templateUpdated + course.id, viewModel.templateUpdated);
+                        done();
+                    });
+                });
 
+                it('should subscribe to templateUpdatedByCollaborator event', function (done) {
+                    viewModel.activate(course.id).fin(function () {
+                        expect(app.on).toHaveBeenCalledWith(constants.messages.course.templateUpdatedByCollaborator, viewModel.templateUpdatedByCollaborator);
+                        done();
+                    });
+                });
+            });
         });
 
         describe('deactivate:', function () {
@@ -286,7 +313,6 @@
             });
 
             describe('when settingsVisibilitySubscription is not null', function () {
-
                 beforeEach(function () {
                     viewModel.settingsVisibilitySubscription = {
                         dispose: jasmine.createSpy()
@@ -297,23 +323,24 @@
                     viewModel.deactivate();
                     expect(viewModel.settingsVisibilitySubscription.dispose).toHaveBeenCalled();
                 });
-
             });
 
+            it('should unsubscribe from templateUpdated event', function () {
+                viewModel.courseId = 'id';
+                viewModel.deactivate();
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.templateUpdated + viewModel.courseId, viewModel.templateUpdated);
+            });
+
+            it('should unsubscribe from templateUpdatedByCollaborator event', function () {
+                viewModel.deactivate();
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.templateUpdatedByCollaborator, viewModel.templateUpdatedByCollaborator);
+            });
         });
 
         describe('courseId:', function () {
 
             it('should be defined', function () {
                 expect(viewModel.courseId).toBeDefined();
-            });
-
-        });
-
-        describe('currentTemplate:', function () {
-
-            it('should be defined', function () {
-                expect(viewModel.currentTemplate).toBeDefined();
             });
 
         });
@@ -511,6 +538,279 @@
 
         });
 
+
+        describe('templateUpdated:', function () {
+            var template = { id: "0", name: "Default", thumbnail: "path/to/image1.png", previewImages: ["path/to/previewImg.png"], description: "Default template", previewDemoUrl: 'preview_url_default', settingsUrls: { design: null, configure: null }, isLoading: ko.observable(false) };
+
+            describe('when template id is not equal to current template id', function () {
+                beforeEach(function () {
+                    viewModel.templateId('');
+                });
+
+                it('should set template id', function () {
+                    viewModel.templateId('');
+                    viewModel.templateUpdated(template);
+                    expect(viewModel.templateId()).toBe(template.id);
+                });
+
+                it('should set configureSettingsUrl', function () {
+                    viewModel.configureSettingsUrl(null);
+                    viewModel.templateUpdated(template);
+                    expect(viewModel.configureSettingsUrl()).toBe(template.settingsUrls.configure);
+                });
+
+                describe('and when settingsUrls.configure does not exist', function () {
+                    beforeEach(function () {
+                        template.settingsUrls.configure = null;
+                    });
+                    it('should set settingsAvailable to false', function () {
+                        viewModel.settingsAvailable(true);
+                        viewModel.templateUpdated(template);
+                        expect(viewModel.settingsAvailable()).toBeFalsy();
+                    });
+                });
+
+                describe('and when settingsUrls.configure exists', function () {
+                    beforeEach(function () {
+                        template.settingsUrls.configure = 'some/url';
+                    });
+
+                    it('should set settingsAvailable to true', function () {
+                        viewModel.settingsAvailable(false);
+                        viewModel.templateUpdated(template);
+                        expect(viewModel.settingsAvailable()).toBeTruthy();
+                    });
+                });
+            });
+
+            describe('when template id equals to current template id', function () {
+                beforeEach(function () {
+                    viewModel.templateId(template.id);
+                });
+
+                it('should not change template id', function () {
+                    viewModel.templateId('');
+                    viewModel.templateUpdated(template);
+                    expect(viewModel.templateId()).toBe(template.id);
+                });
+
+                it('should not change configureSettingsUrl', function () {
+                    viewModel.configureSettingsUrl(null);
+                    viewModel.templateUpdated(template);
+                    expect(viewModel.configureSettingsUrl()).toBe(null);
+                });
+
+                describe('and when settingsUrls.configure does not exist', function () {
+                    beforeEach(function () {
+                        template.settingsUrls.configure = null;
+                    });
+                    it('should not change settingsAvailable', function () {
+                        viewModel.settingsAvailable(true);
+                        viewModel.templateUpdated(template);
+                        expect(viewModel.settingsAvailable()).toBeTruthy();
+                    });
+                });
+
+                describe('and when settingsUrls.configure exists', function () {
+                    beforeEach(function () {
+                        template.settingsUrls.configure = 'some/url';
+                    });
+
+                    it('should not change settingsAvailable', function () {
+                        viewModel.settingsAvailable(false);
+                        viewModel.templateUpdated(template);
+                        expect(viewModel.settingsAvailable()).toBeFalsy();
+                    });
+                });
+            });
+        });
+
+        describe('templateUpdatedByCollaborator:', function () {
+            var template = { id: "0", name: "Default", thumbnail: "path/to/image1.png", previewImages: ["path/to/previewImg.png"], description: "Default template", previewDemoUrl: 'preview_url_default', settingsUrls: { design: null, configure: null }, order: 1, isNew: true, isCustom: true, loadingTemplate: ko.observable(false) },
+            course = {
+                id: 'id',
+                title: 'title',
+                createdBy: 'createdBy',
+                isDirty: true,
+                template: template
+            };
+
+            describe('when course is current course', function () {
+                beforeEach(function () {
+                    viewModel.id = course.id;
+                });
+
+                describe('when template id is not equal to current template id', function () {
+                    beforeEach(function () {
+                        viewModel.templateId('');
+                    });
+
+                    it('should set template id', function () {
+                        viewModel.templateId('');
+                        viewModel.templateUpdatedByCollaborator(course);
+                        expect(viewModel.templateId()).toBe(template.id);
+                    });
+
+                    it('should set configureSettingsUrl', function () {
+                        viewModel.configureSettingsUrl(null);
+                        viewModel.templateUpdatedByCollaborator(course);
+                        expect(viewModel.configureSettingsUrl()).toBe(template.settingsUrls.configure);
+                    });
+
+                    describe('and when settingsUrls.configure does not exist', function () {
+                        beforeEach(function () {
+                            template.settingsUrls.configure = null;
+                        });
+                        it('should set settingsAvailable to false', function () {
+                            viewModel.settingsAvailable(true);
+                            viewModel.templateUpdatedByCollaborator(course);
+                            expect(viewModel.settingsAvailable()).toBeFalsy();
+                        });
+                    });
+
+                    describe('and when settingsUrls.configure exists', function () {
+                        beforeEach(function () {
+                            template.settingsUrls.configure = 'some/url';
+                        });
+
+                        it('should set settingsAvailable to true', function () {
+                            viewModel.settingsAvailable(false);
+                            viewModel.templateUpdatedByCollaborator(course);
+                            expect(viewModel.settingsAvailable()).toBeTruthy();
+                        });
+                    });
+                });
+
+                describe('when template id equals to current template id', function () {
+                    beforeEach(function () {
+                        viewModel.templateId(template.id);
+                    });
+
+                    it('should not change template id', function () {
+                        viewModel.templateId('');
+                        viewModel.templateUpdatedByCollaborator(course);
+                        expect(viewModel.templateId()).toBe(template.id);
+                    });
+
+                    it('should not change configureSettingsUrl', function () {
+                        viewModel.configureSettingsUrl(null);
+                        viewModel.templateUpdatedByCollaborator(course);
+                        expect(viewModel.configureSettingsUrl()).toBe(null);
+                    });
+
+                    describe('and when settingsUrls.configure does not exist', function () {
+                        beforeEach(function () {
+                            template.settingsUrls.configure = null;
+                        });
+                        it('should not change settingsAvailable', function () {
+                            viewModel.settingsAvailable(true);
+                            viewModel.templateUpdatedByCollaborator(course);
+                            expect(viewModel.settingsAvailable()).toBeTruthy();
+                        });
+                    });
+
+                    describe('and when settingsUrls.configure exists', function () {
+                        beforeEach(function () {
+                            template.settingsUrls.configure = 'some/url';
+                        });
+
+                        it('should not change settingsAvailable', function () {
+                            viewModel.settingsAvailable(false);
+                            viewModel.templateUpdatedByCollaborator(course);
+                            expect(viewModel.settingsAvailable()).toBeFalsy();
+                        });
+                    });
+                });
+            });
+
+            describe('when course is not current course', function () {
+                beforeEach(function () {
+                    viewModel.courseId = 'some id';
+                });
+
+                describe('and when template id is not equal to current template id', function () {
+                    beforeEach(function () {
+                        viewModel.templateId('');
+                    });
+
+                    it('should not change template id', function () {
+                        viewModel.templateId('');
+                        viewModel.templateUpdatedByCollaborator(course);
+                        expect(viewModel.templateId()).toBe('');
+                    });
+
+                    it('should not change configureSettingsUrl', function () {
+                        viewModel.configureSettingsUrl(null);
+                        viewModel.templateUpdatedByCollaborator(course);
+                        expect(viewModel.configureSettingsUrl()).toBe(null);
+                    });
+
+                    describe('and when settingsUrls.configure does not exist', function () {
+                        beforeEach(function () {
+                            template.settingsUrls.configure = null;
+                        });
+                        it('should not change settingsAvailable', function () {
+                            viewModel.settingsAvailable(true);
+                            viewModel.templateUpdatedByCollaborator(course);
+                            expect(viewModel.settingsAvailable()).toBeTruthy();
+                        });
+                    });
+
+                    describe('and when settingsUrls.configure exists', function () {
+                        beforeEach(function () {
+                            template.settingsUrls.configure = 'some/url';
+                        });
+
+                        it('should not change settingsAvailable', function () {
+                            viewModel.settingsAvailable(false);
+                            viewModel.templateUpdatedByCollaborator(course);
+                            expect(viewModel.settingsAvailable()).toBeFalsy();
+                        });
+                    });
+                });
+
+                describe('and when template id equals to current template id', function () {
+                    beforeEach(function () {
+                        viewModel.templateId(template.id);
+                    });
+
+                    it('should not change template id', function () {
+                        viewModel.templateId('');
+                        viewModel.templateUpdatedByCollaborator(course);
+                        expect(viewModel.templateId()).toBe('');
+                    });
+
+                    it('should not change configureSettingsUrl', function () {
+                        viewModel.configureSettingsUrl(null);
+                        viewModel.templateUpdatedByCollaborator(course);
+                        expect(viewModel.configureSettingsUrl()).toBe(null);
+                    });
+
+                    describe('and when settingsUrls.configure does not exist', function () {
+                        beforeEach(function () {
+                            template.settingsUrls.configure = null;
+                        });
+                        it('should not change settingsAvailable', function () {
+                            viewModel.settingsAvailable(true);
+                            viewModel.templateUpdatedByCollaborator(course);
+                            expect(viewModel.settingsAvailable()).toBeTruthy();
+                        });
+                    });
+
+                    describe('and when settingsUrls.configure exists', function () {
+                        beforeEach(function () {
+                            template.settingsUrls.configure = 'some/url';
+                        });
+
+                        it('should not change settingsAvailable', function () {
+                            viewModel.settingsAvailable(false);
+                            viewModel.templateUpdatedByCollaborator(course);
+                            expect(viewModel.settingsAvailable()).toBeFalsy();
+                        });
+                    });
+                });
+            });
+        });
     });
 
 });

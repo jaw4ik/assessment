@@ -14,6 +14,7 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
         private const string Country = "Ukraine";
         private const string Role = "Teacher";
         private const string Organization = "Easygenerator";
+        private const string LastReadReleaseNote = "";
 
         public static User CreateWithPassword(string password)
         {
@@ -51,10 +52,11 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
         }
 
         public static User Create(string email = Email, string password = Password, string firstname = FirstName, string lastname = LastName, string phone = Phone,
-            string country = Country, string role = Role, string createdBy = CreatedBy, AccessType accessType = AccessType.Trial, DateTime? expirationDate = null,
+            string country = Country, string role = Role, string createdBy = CreatedBy, AccessType accessType = AccessType.Trial, string lastReadReleaseNote = LastReadReleaseNote, DateTime? expirationDate = null)
             Company company = null)
         {
-            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessType, expirationDate, company);
+            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessType, expirationDate);
+            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessType, lastReadReleaseNote, expirationDate, company);
         }
     }
 }

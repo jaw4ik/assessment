@@ -10,6 +10,7 @@ using easygenerator.Web.Mail;
 using easygenerator.Web.ViewModels.Account;
 using System;
 using System.Web.Mvc;
+using easygenerator.Infrastructure;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -20,13 +21,15 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IEntityFactory _entityFactory;
         private readonly IDomainEventPublisher _eventPublisher;
         private readonly IMailSenderWrapper _mailSenderWrapper;
+        private readonly IReleaseNoteFileReader _releaseNoteFileReader;
 
-        public UserController(IUserRepository repository, IEntityFactory entityFactory, IDomainEventPublisher eventPublisher, IMailSenderWrapper mailSenderWrapper)
+        public UserController(IUserRepository repository, IEntityFactory entityFactory, IDomainEventPublisher eventPublisher, IMailSenderWrapper mailSenderWrapper, IReleaseNoteFileReader fileReader)
         {
             _repository = repository;
             _entityFactory = entityFactory;
             _eventPublisher = eventPublisher;
             _mailSenderWrapper = mailSenderWrapper;
+            _releaseNoteFileReader = fileReader;
         }
 
         [HttpPost]
@@ -137,7 +140,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             var user = _entityFactory.User(profile.Email, profile.Password, profile.FirstName, profile.LastName, profile.Phone,
-                profile.Country, profile.UserRole, profile.Email);
+                profile.Country, profile.UserRole, profile.Email, _releaseNoteFileReader.GetReleaseVersion());
 
             _repository.Add(user);
 
@@ -170,6 +173,15 @@ namespace easygenerator.Web.Controllers.Api
         {
             var exists = _repository.GetUserByEmail(email) != null;
             return JsonSuccess(exists);
+        }
+
+        [HttpPost]
+        [Route("api/user/releasenote")]
+        public ActionResult UpdateLastReadReleaseNoteVersion()
+        {
+            var user = _repository.GetUserByEmail(GetCurrentUsername());
+            user.UpdateLastReadReleaseNote(_releaseNoteFileReader.GetReleaseVersion(), GetCurrentUsername());
+            return JsonSuccess();
         }
 
     }

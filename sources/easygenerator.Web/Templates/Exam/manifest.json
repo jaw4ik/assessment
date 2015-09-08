@@ -1,6 +1,6 @@
 {
     "name": "Exam",
-    "shortDescription": "Use this when you want to create a formal examination",
+    "shortDescription": "Exam template is deprecated and is now part of the 'Assessment' template. It's no longer supported and will be removed on Sep 24th.",
     "thumbnail": "preview/thumbnail.png",
     "previewImages": [
         "preview/images/preview.jpg"

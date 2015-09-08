@@ -113,8 +113,8 @@
                     viewModel.isDeleting(true);
                     viewModel.deleteLearningPath();
                     command.execute().fin(function () {
-                        expect(viewModel.isDeleting()).toBeFalsy();
                         done();
+                        expect(viewModel.isDeleting()).toBeFalsy();
                     });
                 });
             });

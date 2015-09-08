@@ -196,8 +196,9 @@ namespace easygenerator.DomainModel.Tests.Entities
             var country = "some country";
             var role = "Teacher";
             var accessPlan = AccessType.Starter;
+            var lastReadReleaseNote = "1.0.0";
 
-            Action action = () => UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, new DateTime(1999, 12, 30));
+            Action action = () => UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, lastReadReleaseNote, new DateTime(1999, 12, 30));
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("expirationDate");
         }
 
@@ -214,10 +215,11 @@ namespace easygenerator.DomainModel.Tests.Entities
             var role = "Teacher";
             var creationDate = CurrentDate;
             var accessPlan = AccessType.Starter;
+            var lastReadReleaseNote = "1.0.0";
 
             //Act
             var expirationDate = DateTimeWrapper.Now().AddDays(20);
-            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, expirationDate);
+            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, lastReadReleaseNote, expirationDate);
 
             //Assert
             user.Id.Should().NotBeEmpty();
@@ -233,6 +235,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.ModifiedBy.Should().Be(CreatedBy);
             user.AccessType.Should().Be(accessPlan);
             user.ExpirationDate.Should().Be(expirationDate);
+            user.LastReadReleaseNote.Should().Be(lastReadReleaseNote);
         }
 
         [TestMethod]
@@ -1420,6 +1423,89 @@ namespace easygenerator.DomainModel.Tests.Entities
             DateTimeWrapper.Now = () => dateTime;
 
             user.UpdateCountry("aaa", modifiedBy);
+
+            user.ModifiedOn.Should().Be(dateTime);
+        }
+
+        #endregion
+
+        #region UpdateLastReadReleaseNote
+
+        [TestMethod]
+        public void UpdateLastReadReleaseNote_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdateLastReadReleaseNote("UA", null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateLastReadReleaseNote_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdateLastReadReleaseNote("UA", string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateLastReadReleaseNote_ShouldThrowArgumentNullException_WhenLastReadReleaseNoteIsNull()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdateLastReadReleaseNote(null, "aaa");
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("last read release note");
+        }
+
+        [TestMethod]
+        public void UpdateLastReadReleaseNote_ShouldThrowArgumentException_WhenLastReadReleaseNoteIsEmpty()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.UpdateLastReadReleaseNote(string.Empty, "aaa");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("last read release note");
+        }
+
+        [TestMethod]
+        public void UpdateLastReadReleaseNote_ShouldSetCountry()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+
+            //Act
+            user.UpdateLastReadReleaseNote("Ukraine", "someUser");
+
+            //Assert
+            user.Country.Should().Be("Ukraine");
+            user.ModifiedBy.Should().Be("someUser");
+        }
+
+        [TestMethod]
+        public void UpdateLastReadReleaseNote_ShouldUpdateMoidifiedBy()
+        {
+            const string modifiedBy = "admin";
+            var user = UserObjectMother.Create();
+            user.UpdateLastReadReleaseNote("aaa", modifiedBy);
+
+            user.ModifiedBy.Should().Be(modifiedBy);
+        }
+
+        [TestMethod]
+        public void UpdateLastReadReleaseNote_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            const string modifiedBy = "admin";
+            var user = UserObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            user.UpdateLastReadReleaseNote("aaa", modifiedBy);
 
             user.ModifiedOn.Should().Be(dateTime);
         }

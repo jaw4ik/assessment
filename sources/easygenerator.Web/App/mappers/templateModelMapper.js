@@ -31,9 +31,9 @@
 
             return {
                 name: manifest.name,
-                thumbnail: templateUrl + manifest.thumbnail,
+                thumbnail: templateUrl + manifest.thumbnail + '?v=' + window.appVersion,
                 previewImages: _.map(manifest.previewImages, function (img) {
-                    return templateUrl + img;
+                    return templateUrl + img + '?v=' + window.appVersion;
                 }),
                 settingsUrls: {
                     design: (manifest.settingsUrls && manifest.settingsUrls.design) ? templateUrl + manifest.settingsUrls.design : null,

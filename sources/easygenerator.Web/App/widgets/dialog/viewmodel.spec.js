@@ -128,6 +128,10 @@
                     containerCss: 'container'
                 };
 
+            beforeEach(function() {
+                viewModel.isShown(false);
+            });
+
             describe('when steps is an array', function () {
                 it('should push steps', function () {
                     viewModel.steps([]);
@@ -159,7 +163,6 @@
             });
 
             it('should set isShown to true', function () {
-                viewModel.isShown(false);
                 viewModel.show(steps);
                 expect(viewModel.isShown()).toBeTruthy();
             });

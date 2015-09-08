@@ -145,12 +145,6 @@
         'uk': 'Публікація',
         'pt-br': 'Publicar'
     },
-    update: {
-        'en': 'Update',
-        'zh-cn': 'Update[zh-cn]',
-        'uk': 'Оновити',
-        'pt-br': 'Update[pt-br]'
-    },
     upgradeNow: {
         'en': 'Upgrade now',
         'zh-cn': '立即升级',
@@ -1296,18 +1290,6 @@
         'zh-cn': 'Publish to {companyName}[zh-cn]',
         'uk': 'Опублікувати в {companyName}',
         'pt-br': 'Publish to {companyName}[pt-br]'
-    },
-    updateInCompany: {
-        'en': 'Update in {companyName}',
-        'zh-cn': 'Update in {companyName}[zh-cn]',
-        'uk': 'Оновити в {companyName}',
-        'pt-br': 'Update in {companyName}[pt-br]'
-    },
-    publishedCourseIsUpToDate: {
-        'en': 'Published course is up-to-date',
-        'zh-cn': 'Published course is up-to-date[zh-cn]',
-        'uk': 'Опублікований курс є актуальним',
-        'pt-br': 'Published course is up-to-date[pt-br]'
     },
     sharePrivateLink: {
         'en': 'Share private link',

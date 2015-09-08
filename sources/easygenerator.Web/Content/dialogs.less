@@ -208,7 +208,9 @@
 /*#region Common */
 
 .modal-dialog-wrapper.delete-learning-path,
-.modal-dialog-wrapper.create-course {
+.modal-dialog-wrapper.create-course,
+.modal-dialog-wrapper.change-course-template,
+.modal-dialog-wrapper.release-note {
     position: relative;
 
     .modal-dialog {
@@ -411,14 +413,8 @@
 
             .template-details-description {
                 line-height: 2em;
-            }
-
-            .template-details-didactical-structure-image {
-                width: auto;
-                height: auto;
-                max-width: 330px;
-                max-height: 210px;
-                border-radius: 5px;
+                white-space: pre-line;
+                text-align: justify;
             }
         }
     }
@@ -493,7 +489,9 @@
 
 /*#region Create course */
 
-.modal-dialog-wrapper.create-course {
+.modal-dialog-wrapper.create-course,
+.modal-dialog-wrapper.change-course-template,
+.modal-dialog-wrapper.release-note {
     @dialog-title-font: 28px 'RobotoSlab';
     @dialog-title-color: #546677;
 
@@ -583,7 +581,8 @@
         }
     }
 
-    .modal-dialog.create-course-template-step {
+    .modal-dialog.create-course-template-step,
+    .modal-dialog.change-course-template-dialog {
         .modal-dialog-body {
             display: flex;
             min-height: 370px;
@@ -616,4 +615,13 @@
     }
 }
 
+.modal-dialog-wrapper.release-note{
+    width: 620px;
+}
+.modal-dialog-helper{
+    display: flex;
+    flex-direction: column;
+    max-height: 65vh;
+    padding: 20px 30px;
+}
 /*#endregion */

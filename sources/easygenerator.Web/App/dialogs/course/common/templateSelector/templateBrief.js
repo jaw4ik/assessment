@@ -6,7 +6,8 @@
             thumbnail: template.thumbnail,
             previewImages: template.previewImages,
             description: template.shortDescription,
-            order: template.order
+            order: template.order,
+            isCustom: template.isCustom
         };
 
         return viewModel;
