@@ -38,6 +38,8 @@
                 customScrollbarContainer.classList.add(cssClasses.scrollEnabled);
             }
 
+            scrollEnabled();
+
             ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
                 customScroll.destroy();
                 customScroll = null;
@@ -57,11 +59,18 @@
                     if (scrollToEndAfterDOMChanged) {
                         customScroll.scrollTo(0, customScroll.maxScrollY);
                     }
+                    scrollEnabled();
                 }, 500);
 
                 ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
                     clearInterval(interval);
                 });
+            }
+
+            function scrollEnabled() {
+                if (customScroll.hasVerticalScroll) {
+                    customScrollbarContainer.classList.add(cssClasses.scrollEnabled);
+                }
             }
         }
     };
