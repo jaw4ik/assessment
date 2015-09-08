@@ -1,7 +1,7 @@
 ﻿define(['durandal/app', 'plugins/router', 'routing/isViewReadyMixin', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'plugins/dialog',
-    'notify', 'constants', 'viewmodels/panels/leftSideBarManager', 'plugins/widget', 'dialogs/course/createCourse/createCourse', 'dialogs/releaseNotes/releaseNotes', 'audio/index'],
+    'notify', 'constants', 'viewmodels/panels/leftSideBarManager', 'plugins/widget', 'dialogs/course/createCourse/createCourse', 'dialogs/releaseNotes/releaseNotes'],
     function (app, router, isViewReady, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, dialog, notify,
-        constants, leftSideBarManager, widget, createCourseDialog, releaseNotesDialog, audio) {
+        constants, leftSideBarManager, widget, createCourseDialog, releaseNotesDialog) {
 
         "use strict";
 
@@ -116,8 +116,7 @@
                             }
                         }
                     };
-
-                    audio.initialize();
+                    
                     leftSideBarManager.initialize();
 
                     router.on('router:navigation:composition-complete').then(function () {

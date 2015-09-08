@@ -14,11 +14,14 @@
                 expect(query.execute()).toBePromise();
             });
 
-            it('should resolve promise with audio collection', function (done) {
-                dataContext.audios = [{}, {}];
+            it('should resolve promise with audio collection sorted desc', function (done) {
+                dataContext.audios = [{ createdOn: '2013-09-08T08:25:51.777' }, { createdOn: '2014-09-08T08:25:51.777' }, { createdOn: '2015-09-08T08:25:51.777' }];
 
                 query.execute().then(function (result) {
-                    expect(result.length).toEqual(2);
+                    expect(result.length).toEqual(3);
+                    expect(result[0].createdOn).toEqual('2015-09-08T08:25:51.777');
+                    expect(result[1].createdOn).toEqual('2014-09-08T08:25:51.777');
+                    expect(result[2].createdOn).toEqual('2013-09-08T08:25:51.777');
                     done();
                 }).done();
             });
