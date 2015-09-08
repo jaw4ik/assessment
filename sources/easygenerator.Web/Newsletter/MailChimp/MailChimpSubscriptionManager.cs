@@ -46,17 +46,17 @@ namespace easygenerator.Web.Newsletter.MailChimp
             _logger = logger;
         }
 
-        public bool CreateSubscription(string userEmail, string firstname, string lastname, string userRole, AccessType accessType)
+        public bool CreateSubscription(string userEmail, string firstname, string lastname, string userRole, AccessType accessType, string country)
         {
-            return SendSubscriptionRequest(SubscribeMethodPath, userEmail, firstname, lastname, userRole, accessType);
+            return SendSubscriptionRequest(SubscribeMethodPath, userEmail, firstname, lastname, userRole, accessType, country);
         }
 
-        public bool UpdateSubscription(string userEmail, string firstname, string lastname, string userRole, AccessType accessType)
+        public bool UpdateSubscription(string userEmail, string firstname, string lastname, string userRole, AccessType accessType, string country)
         {
-            return SendSubscriptionRequest(UpdateSubscriptionMethodPath, userEmail, firstname, lastname, userRole, accessType);
+            return SendSubscriptionRequest(UpdateSubscriptionMethodPath, userEmail, firstname, lastname, userRole, accessType, country);
         }
 
-        private bool SendSubscriptionRequest(string methodPath, string userEmail, string firstname, string lastname, string userRole, AccessType accessType)
+        private bool SendSubscriptionRequest(string methodPath, string userEmail, string firstname, string lastname, string userRole, AccessType accessType, string country)
         {
             if (_configurationReader.MailChimpConfiguration.Enabled)
             {
@@ -69,7 +69,7 @@ namespace easygenerator.Web.Newsletter.MailChimp
                             apikey = ApiKey,
                             id = ListIdForSubscription,
                             email = new { email = userEmail },
-                            merge_vars = new { fname = firstname, lname = lastname, role = userRole, plan = accessType.ToString() },
+                            merge_vars = new { fname = firstname, lname = lastname, role = userRole, plan = accessType.ToString(), country = country },
                             double_optin = confirmationRequired
                         });
                     return string.Equals(responseData.Email, userEmail, StringComparison.CurrentCultureIgnoreCase);
