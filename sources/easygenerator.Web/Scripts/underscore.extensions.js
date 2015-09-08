@@ -30,6 +30,9 @@
                 .replace(/[\u200B-\u200D\uFEFF]/g, '')
                 .replace(/&nbsp;/g, '')
                 .trim());
+        },
+        isDefined: function (obj) {
+            return !_.isUndefined(obj);
         }
     });
 

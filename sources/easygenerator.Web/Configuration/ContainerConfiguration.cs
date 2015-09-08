@@ -32,6 +32,7 @@ using easygenerator.Web.Newsletter;
 using easygenerator.Web.Newsletter.MailChimp;
 using easygenerator.Web.Publish;
 using easygenerator.Web.Publish.Aim4You;
+using easygenerator.Web.Publish.External;
 using easygenerator.Web.Security.PermissionsCheckers;
 using easygenerator.Web.Storage;
 using easygenerator.Web.Synchronization.Broadcasting;
@@ -142,6 +143,7 @@ namespace easygenerator.Web.Configuration
 
             builder.RegisterType<CoursePublisher>().As<ICoursePublisher>();
             builder.RegisterType<LearningPathPublisher>().As<ILearningPathPublisher>();
+            builder.RegisterType<ExternalCoursePublisher>().As<IExternalCoursePublisher>();
 
             #endregion
 

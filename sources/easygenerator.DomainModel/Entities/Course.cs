@@ -385,6 +385,17 @@ namespace easygenerator.DomainModel.Entities
 
         #endregion
 
+        #region External publish
+
+        public bool IsPublishedToExternalLms { get; private set; }
+
+        public virtual void SetPublishedToExternalLms(bool state)
+        {
+            IsPublishedToExternalLms = state;
+        }
+
+        #endregion
+
         #region Guard methods
 
         private void ThrowIfCommentIsInvalid(Comment comment)

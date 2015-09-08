@@ -45,10 +45,16 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             return Create(country: country);
         }
 
-        public static User Create(string email = Email, string password = Password, string firstname = FirstName, string lastname = LastName, string phone = Phone,
-            string country = Country, string role = Role, string createdBy = CreatedBy, AccessType accessType = AccessType.Trial, DateTime? expirationDate = null)
+        public static User CreateWithCompany(Company company)
         {
-            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessType, expirationDate);
+            return Create(company: company);
+        }
+
+        public static User Create(string email = Email, string password = Password, string firstname = FirstName, string lastname = LastName, string phone = Phone,
+            string country = Country, string role = Role, string createdBy = CreatedBy, AccessType accessType = AccessType.Trial, DateTime? expirationDate = null,
+            Company company = null)
+        {
+            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessType, expirationDate, company);
         }
     }
 }

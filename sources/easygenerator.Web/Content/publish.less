@@ -423,6 +423,8 @@
 
 .publish-tab {
     position: relative;
+    display: flex;
+    flex-direction: column;
     min-height: 110px;
     box-shadow: -10px 0 7px -10px rgba(234, 238, 240, 1) inset;
     overflow: hidden;
@@ -455,7 +457,17 @@
 }
 
 .publish-tab-image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 0 50px;
     padding: 12px 0;
+}
+
+.publish-tab-text {
+    display: inline-block;
+    flex: 0 0 auto;
+    padding: 0 5px 12px 5px;
 }
 
 .publish-tab-image {
@@ -463,6 +475,16 @@
     width: 50px;
     height: 50px;
     background: url('images/sprites_64.png') no-repeat;
+}
+
+.custom-publish-tab-image {
+    max-height: 50px;
+    max-width: 130px;
+}
+
+.publish-tab:hover .img-grayscaled,
+.publish-tab.active .img-grayscaled {
+    visibility: hidden;
 }
 
 .publish-tab-image.private-link {
@@ -530,7 +552,6 @@
 .publish-tab-content-wrapper {
     display: flex;
     flex: 1;
-    -webkit-flex: 1;
 }
 
 .publish-tab-container {

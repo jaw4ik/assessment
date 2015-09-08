@@ -145,6 +145,12 @@
         'uk': 'Публікація',
         'pt-br': 'Publicar'
     },
+    update: {
+        'en': 'Update',
+        'zh-cn': 'Update[zh-cn]',
+        'uk': 'Оновити',
+        'pt-br': 'Update[pt-br]'
+    },
     upgradeNow: {
         'en': 'Upgrade now',
         'zh-cn': '立即升级',
@@ -1285,6 +1291,24 @@
         'uk': 'Відповідь учня',
         'pt-br': 'Resposta do aluno'
     },
+    publishToCompany: {
+        'en': 'Publish to {companyName}',
+        'zh-cn': 'Publish to {companyName}[zh-cn]',
+        'uk': 'Опублікувати в {companyName}',
+        'pt-br': 'Publish to {companyName}[pt-br]'
+    },
+    updateInCompany: {
+        'en': 'Update in {companyName}',
+        'zh-cn': 'Update in {companyName}[zh-cn]',
+        'uk': 'Оновити в {companyName}',
+        'pt-br': 'Update in {companyName}[pt-br]'
+    },
+    publishedCourseIsUpToDate: {
+        'en': 'Published course is up-to-date',
+        'zh-cn': 'Published course is up-to-date[zh-cn]',
+        'uk': 'Опублікований курс є актуальним',
+        'pt-br': 'Published course is up-to-date[pt-br]'
+    },
     sharePrivateLink: {
         'en': 'Share private link',
         'zh-cn': 'Share private link[zh-cn]',
@@ -1374,6 +1398,18 @@
         'zh-cn': 'Get course link[zh-cn]',
         'uk': 'Отримати посилання на курс',
         'pt-br': 'Obter link de curso'
+    },
+    change: {
+        'en': 'Change',
+        'zh-cn': 'Change[zh-cn]',
+        'uk': 'Зміна',
+        'pt-br': 'Change[pt-br]'
+    },
+    changeYourCourseTemplate: {
+        'en': 'Change your course template',
+        'zh-cn': 'Change your course template[zh-cn]',
+        'uk': 'Зміна шаблону курсу',
+        'pt-br': 'Change your course template[pt-br]'
     },
     /* End resource section for model Courses */
     
@@ -3099,6 +3135,12 @@
         'zh-cn': '高级使用权限',
         'uk': 'Plus Plan',
         'pt-br': 'Plano Plus'
+    },
+    upgradeTrialPlan: {
+        'en': 'Trial Plan',
+        'zh-cn': 'Trial Plan[zh-cn]',
+        'uk': 'Trial Plan',
+        'pt-br': 'Trial Plan[pt-br]'
     },
     upgradeNotificationContent: {
         'en': 'Your {0} expires {1}.',

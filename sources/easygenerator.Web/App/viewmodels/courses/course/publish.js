@@ -1,8 +1,8 @@
-﻿define(['repositories/courseRepository', 'plugins/router', 'constants', 'viewmodels/courses/publishingActions/build',
-        'viewmodels/courses/publishingActions/scormBuild', 'viewmodels/courses/publishingActions/publish', 'userContext',
-        'viewmodels/courses/publishingActions/publishToAim4You', 'clientContext', 'localization/localizationManager', 'eventTracker'],
-    function (repository, router, constants, buildPublishingAction, scormBuildPublishingAction, publishPublishingAction, userContext, publishToAim4You,
-        clientContext, localizationManager, eventTracker) {
+﻿define(['repositories/courseRepository', 'plugins/router', 'constants', 'userContext', 'clientContext', 'localization/localizationManager', 'eventTracker',
+        'viewmodels/courses/publishingActions/build', 'viewmodels/courses/publishingActions/scormBuild', 'viewmodels/courses/publishingActions/publish', 
+        'viewmodels/courses/publishingActions/publishToAim4You', 'viewmodels/courses/publishingActions/publishToCustomLMS'],
+    function (repository, router, constants, userContext, clientContext, localizationManager, eventTracker, 
+        buildPublishingAction, scormBuildPublishingAction, publishPublishingAction, publishToAim4You, publishToCustomLmsAction) {
 
         var events = {
             navigateToCourses: 'Navigate to courses',
@@ -11,20 +11,25 @@
             openScormTab: 'Open \'download SCORM\'',
             openHtmlTab: 'Open \'downoload HTML\'',
             openAim4YouTab: 'Open \'Publish to Aim4You\'',
+            openCustomPublishTab: 'Open custom publish tab'
         };
 
         var viewModel = {
             courseId: '',
+            companyInfo: null,
+
             buildAction: buildPublishingAction(),
             scormBuildAction: scormBuildPublishingAction(),
             publishAction: publishPublishingAction(),
             publishToAim4YouAction: publishToAim4You(),
+            publishToCustomLms: publishToCustomLmsAction(),
 
             navigateToCoursesEvent: navigateToCoursesEvent,
 
             activate: activate,
             deactivate: deactivate,
 
+            sendOpenCustomPublishTab: sendOpenCustomPublishTab,
             sendOpenLinkTab: sendOpenLinkTab,
             sendOpenEmbedTab: sendOpenEmbedTab,
             sendOpenScormTab: sendOpenScormTab,
@@ -36,6 +41,10 @@
 
         function navigateToCoursesEvent() {
             eventTracker.publish(events.navigateToCourses);
+        }
+
+        function sendOpenCustomPublishTab() {
+            eventTracker.publish(events.openCustomPublishTab);
         }
 
         function sendOpenLinkTab() {
@@ -60,6 +69,8 @@
 
         function activate(courseId) {
             return userContext.identify().then(function () {
+                viewModel.companyInfo = userContext.identity.company;
+
                 return repository.getById(courseId).then(function (course) {
                     viewModel.courseId = course.id;
                 }).fail(function (reason) {

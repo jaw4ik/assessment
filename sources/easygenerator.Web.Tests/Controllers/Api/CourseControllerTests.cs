@@ -23,6 +23,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using easygenerator.Web.Publish.External;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -43,6 +44,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IEntityMapper _entityMapper;
         private IDomainEventPublisher _eventPublisher;
         private ITemplateRepository _templateRepository;
+        private IExternalCoursePublisher _externalCoursePublisher;
+        private IUserRepository _userRepository;
         private ICloner _cloner;
 
         [TestInitialize]
@@ -57,13 +60,16 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityMapper = Substitute.For<IEntityMapper>();
             _eventPublisher = Substitute.For<IDomainEventPublisher>();
             _templateRepository = Substitute.For<ITemplateRepository>();
+            _externalCoursePublisher = Substitute.For<IExternalCoursePublisher>();
+            _userRepository = Substitute.For<IUserRepository>();
             _cloner = Substitute.For<ICloner>();
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
 
             _context.User.Returns(_user);
 
-            _controller = new CourseController(_builder, _scormCourseBuilder, _courseRepository, _entityFactory, _urlHelper, _coursePublisher, _entityMapper, _eventPublisher, _templateRepository, _cloner);
+            _controller = new CourseController(_builder, _scormCourseBuilder, _courseRepository, _entityFactory, _urlHelper, _coursePublisher,
+                _entityMapper, _eventPublisher, _templateRepository, _externalCoursePublisher, _userRepository, _cloner);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -459,6 +465,87 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ReviewUrl = "url" });
+        }
+
+        #endregion
+
+        #region Publish to custom LMS
+
+        [TestMethod]
+        public void PublishToCustomLms_ShouldReturnJsonErrorResult_WhenUserDoesNotExist()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns((User)null);
+
+            //Act
+            var result = _controller.PublishToCustomLms(course);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.UserDoesntExist);
+        }
+
+        [TestMethod]
+        public void PublishToCustomLms_ShouldReturnJsonErrorResult_WhenUserNotMemberOfAnyCompany()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var user = UserObjectMother.Create();
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
+
+            //Act
+            var result = _controller.PublishToCustomLms(course);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.UserNotMemberOfAnyCompany);
+        }
+
+        [TestMethod]
+        public void PublishToCustomLms_ShouldReturnJsonErrorResult_WhenCourseNotFound()
+        {
+            //Arrange
+            var user = UserObjectMother.CreateWithCompany(new Company());
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
+
+            //Act
+            var result = _controller.PublishToCustomLms(null);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseNotFoundError);
+        }
+
+        [TestMethod]
+        public void PublishToCustomLms_ShouldReturnJsonErrorResult_WhenPublishFails()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var company = new Company();
+            var user = UserObjectMother.CreateWithCompany(company);
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
+            _externalCoursePublisher.PublishCourseUrl(course, company, user.Email).Returns(false);
+
+            //Act
+            var result = _controller.PublishToCustomLms(course);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CoursePublishActionFailedError);
+        }
+
+        [TestMethod]
+        public void PublishToCustomLms_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var company = new Company();
+            var user = UserObjectMother.CreateWithCompany(company);
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
+            _externalCoursePublisher.PublishCourseUrl(course, company, user.Email).Returns(true);
+
+            //Act
+            var result = _controller.PublishToCustomLms(course);
+
+            //Assert
+            result.Should().BeJsonSuccessResult();
         }
 
         #endregion

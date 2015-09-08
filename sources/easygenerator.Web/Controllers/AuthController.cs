@@ -1,8 +1,10 @@
 ﻿using easygenerator.Auth.Attributes.Mvc;
 using easygenerator.Auth.Providers;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
+using easygenerator.Web.Components.Mappers;
 using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers
@@ -11,11 +13,13 @@ namespace easygenerator.Web.Controllers
     {
         private readonly IUserRepository _repository;
         private readonly ITokenProvider _tokenProvider;
+        private readonly IEntityModelMapper<Company> _companyMapper;
 
-        public AuthController(IUserRepository repository, ITokenProvider tokenProvider)
+        public AuthController(IUserRepository repository, ITokenProvider tokenProvider, IEntityModelMapper<Company> companyMapper)
         {
             _repository = repository;
             _tokenProvider = tokenProvider;
+            _companyMapper = companyMapper;
         }
 
         [HttpPost, AllowAnonymous]
@@ -56,6 +60,7 @@ namespace easygenerator.Web.Controllers
                 firstname = user.FirstName,
                 lastname = user.LastName,
                 role = user.Role,
+                company = _companyMapper.Map(user.Company),
                 subscription = new
                 {
                     accessType = user.AccessType,

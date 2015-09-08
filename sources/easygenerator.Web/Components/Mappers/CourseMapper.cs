@@ -34,7 +34,8 @@ namespace easygenerator.Web.Components.Mappers
                 RelatedObjectives = course.RelatedObjectives.Select(obj => new
                 {
                     Id = obj.Id.ToNString()
-                })
+                }),
+                IsPublishedToExternalLms = course.IsPublishedToExternalLms
             };
         }
 

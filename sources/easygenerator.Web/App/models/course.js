@@ -15,12 +15,14 @@
             this.introductionContent = spec.introductionContent;
             this.collaborators = spec.collaborators;
             this.isDirty = spec.isDirty;
+            this.isPublishedToExternalLms = spec.isPublishedToExternalLms;
 
             this.build = deliveringAction.call(this, buildActionHandler, spec.packageUrl);
             this.scormBuild = buildingAction.call(this, scormBuildActionHandler, spec.scormPackageUrl);
             this.publish = deliveringAction.call(this, publishActionHandler, spec.publishedPackageUrl);
             this.publishForReview = deliveringAction.call(this, publishForReviewActionHandler, spec.reviewUrl);
             this.publishToStore = deliveringAction.call(this, publishToStoreActionHandler);
+            this.publishToCustomLms = publishToCustomLms;
 
             this.getState = getState;
             this.isDelivering = false;
@@ -205,9 +207,27 @@
 
                     return that;
                 }).fail(function (message) {
-                    action.setState(constants.publishingStates.failed, that.publishToStore);
+                    action.setState(constants.publishingStates.failed);
                     app.trigger(constants.messages.course.publishToAim4You.failed, that, message);
 
+                    throw message;
+                });
+            });
+        };
+
+        function publishToCustomLms() {
+            var that = this;
+            return Q.fcall(function () {
+                if (!that.builtOn) {
+                    throw 'Course is not builded.';
+                }
+
+                app.trigger(constants.messages.course.publishToCustomLms.started, that);
+                return publishService.publishCourseToCustomLms(that.id).then(function () {
+                    app.trigger(constants.messages.course.publishToCustomLms.completed, that);
+                    return that;
+                }).fail(function (message) {
+                    app.trigger(constants.messages.course.publishToCustomLms.failed, that, message);
                     throw message;
                 });
             });

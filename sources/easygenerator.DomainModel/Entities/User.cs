@@ -14,7 +14,7 @@ namespace easygenerator.DomainModel.Entities
         protected internal User() { }
 
         protected internal User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy,
-            AccessType accessPlan, DateTime? expirationDate = null)
+            AccessType accessPlan, DateTime? expirationDate = null, Company company = null)
             : base(createdBy)
         {
             ThrowIfEmailIsNotValid(email);
@@ -32,6 +32,7 @@ namespace easygenerator.DomainModel.Entities
             Country = country;
             Role = role;
             PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket>();
+            Company = company;
 
             AccessType = accessPlan;
 
@@ -57,6 +58,7 @@ namespace easygenerator.DomainModel.Entities
         public string Country { get; private set; }
         public AccessType AccessType { get; protected internal set; }
         public DateTime? ExpirationDate { get; protected internal set; }
+        public virtual Company Company { get; private set; }
 
         public virtual bool VerifyPassword(string password)
         {

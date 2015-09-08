@@ -1,4 +1,4 @@
-﻿define(['constants', 'guard'], function (constants, guard) {
+﻿define(['constants', 'guard', 'mappers/companyMapper'], function (constants, guard, companyMapper) {
 
     function User(spec) {
         guard.throwIfNotAnObject(spec, 'You should provide specification to create user');
@@ -10,6 +10,8 @@
         this.firstname = spec.firstname;
         this.lastname = spec.lastname;
         this.fullname = spec.firstname + ' ' + spec.lastname;
+
+        this.company = spec.company ? companyMapper.map(spec.company) : null;
 
         guard.throwIfNotAnObject(spec.subscription, 'You should provide subscription to create user');
         switch (spec.subscription.accessType) {
