@@ -1,5 +1,5 @@
-﻿define(['models/audio', 'constants'],
-    function (Audio, constants) {
+﻿define(['models/audio'],
+    function (Audio) {
         "use strict";
 
         var
