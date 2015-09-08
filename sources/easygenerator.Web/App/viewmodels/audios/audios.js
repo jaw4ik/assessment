@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'constants', 'eventTracker', 'userContext', 'localization/localizationManager', 'widgets/upgradeDialog/viewmodel', 'dialogs/video/video', 'viewmodels/audios/queries/getCollection', 'viewmodels/audios/factory', 'viewmodels/audios/AudioViewModel'],
+﻿define(['durandal/app', 'constants', 'eventTracker', 'userContext', 'localization/localizationManager', 'widgets/upgradeDialog/viewmodel', 'dialogs/video/video', 'audio/queries/getCollection', 'audio/factory', 'viewmodels/audios/AudioViewModel'],
 function (app, constants, eventTracker, userContext, localizationManager, upgradeDialog, videoPopup, getCollection, factory, AudioViewModel) {
     "use strict";
 

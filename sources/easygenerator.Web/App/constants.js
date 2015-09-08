@@ -328,13 +328,13 @@
 
             reporting: {
                 xApiVerbIds:
-                    {
-                        started: 'http://adlnet.gov/expapi/verbs/launched',
-                        passed: 'http://adlnet.gov/expapi/verbs/passed',
-                        failed: 'http://adlnet.gov/expapi/verbs/failed',
-                        answered: 'http://adlnet.gov/expapi/verbs/answered',
-                        mastered: 'http://adlnet.gov/expapi/verbs/mastered'
-                    },
+                {
+                    started: 'http://adlnet.gov/expapi/verbs/launched',
+                    passed: 'http://adlnet.gov/expapi/verbs/passed',
+                    failed: 'http://adlnet.gov/expapi/verbs/failed',
+                    answered: 'http://adlnet.gov/expapi/verbs/answered',
+                    mastered: 'http://adlnet.gov/expapi/verbs/mastered'
+                },
                 filterKeys: {
                     courseId: 'context.extensions.http://easygenerator/expapi/course/id',
                     verb: 'verb',
@@ -392,9 +392,13 @@
                     removeVideoAfterErrorTimeout: 5000
                 },
                 audio: {
-                    conversionUrl: window.conversionServiceUrl ? "//" + window.conversionServiceUrl : '//staging.easygenerator.com/conversion',
+                    convertionUrl: window.convertionServiceUrl ? "//" + window.convertionServiceUrl : '//staging.easygenerator.com/convertion',
                     pullUrl: '/api/media/audio/pull',
+                    ticketUrl: '/api/media/audio/ticket',
+                    trackerTimeout: 25000,
                     statuses: {
+                        available: 'available',
+                        notAvailable: 'notAvailable',
                         notStarted: 'notStarted',
                         loaded: 'loaded',
                         failed: 'failed',

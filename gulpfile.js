@@ -15,12 +15,12 @@ var $ = require('gulp-load-plugins')({
 });
 
 var config = {
-        less: {
-            src: ['./sources/easygenerator.Web/Content/**/*.less'],
-            dest: './sources/easygenerator.Web/Content',
-            browsers: ['last 1 Chrome version', 'last 1 Firefox version', 'last 1 Explorer version', 'last 1 Safari version']
-        }
-    },
+    less: {
+        src: ['./sources/easygenerator.Web/Content/**/*.less'],
+        dest: './sources/easygenerator.Web/Content',
+        browsers: ['last 1 Chrome version', 'last 1 Firefox version', 'last 1 Explorer version', 'last 1 Safari version']
+    }
+},
     outputDirectory = args.output || 'D:/Applications/easygenerator',
     instance = args.instance || 'Release',
     version = typeof args.version === 'string' && args.version !== '' ? args.version : '1.0.0',
@@ -111,7 +111,7 @@ gulp.task('build-unit-tests', function () {
         }));
 });
 
-gulp.task('build', function(cb){
+gulp.task('build', function (cb) {
     runSequence('clean', 'build-main-project', 'build-unit-tests', 'build-web-config', 'styles', cb)
 });
 
@@ -162,7 +162,7 @@ gulp.task('run-jasmine-tests', $.shell.task([
     maxBuffer: 64 * 1024 * 1024
 }));
 
-gulp.task('run-unit-tests', function(cb){
+gulp.task('run-unit-tests', function (cb) {
     runSequence('run-server-tests', 'run-jasmine-tests', cb);
 });
 
@@ -171,40 +171,62 @@ gulp.task('run-unit-tests', function(cb){
 /*#region deploy*/
 
 gulp.task('deploy', function (cb) {
-    runSequence('build', 'deploy-download-folder', 'deploy-css', 'deploy-main-built-js', 'deploy-web-config', 'remove-extra-files', 'add-version', 'run-unit-tests', function(){
-        if(createTags){
+    runSequence('build', 'deploy-download-folder', 'deploy-css', 'deploy-main-built-js', 'deploy-web-config','deploy-convertion-server', 'remove-extra-files', 'add-version', 'run-unit-tests', function () {
+        if (createTags) {
             runSequence('create-tags', cb);
-        }else{
+        } else {
             cb();
         }
     });
 });
 
-gulp.task('deploy-download-folder', function(cb){
+gulp.task('deploy-download-folder', function (cb) {
     var folderToCreate = outputDirectory + '/Download';
-    if (!fs.existsSync(folderToCreate)){
+    if (!fs.existsSync(folderToCreate)) {
         fs.mkdirSync(folderToCreate);
     }
     cb();
 });
 
-gulp.task('deploy-css', function(){
+gulp.task('deploy-css', function () {
     return gulp.src('./sources/easygenerator.Web/Content/*.css')
         .pipe(gulp.dest(outputDirectory + '/Content'));
 });
 
-gulp.task('deploy-main-built-js', function(){
+gulp.task('deploy-main-built-js', function () {
     return gulp.src('./sources/easygenerator.Web/App/main-built.js')
         .pipe(gulp.dest(outputDirectory + '/App'));
 });
 
-gulp.task('deploy-web-config', function(){
+gulp.task('deploy-web-config', function () {
     return gulp.src('./tools/WebConfigTransform/' + instance + '.config')
         .pipe($.rename('Web.config'))
         .pipe(gulp.dest(outputDirectory));
 });
 
-gulp.task('remove-extra-files', function(cb){
+gulp.task('copy-convertion-server', function () {
+    var files = [
+        './sources/easygenerator.ConvertionServer/package.json',
+        './sources/easygenerator.ConvertionServer/www.js',
+        './sources/easygenerator.ConvertionServer/server.js',
+        './sources/easygenerator.ConvertionServer/ticketController.js',
+        './sources/easygenerator.ConvertionServer/ticketDispatcher.js',
+        './sources/easygenerator.ConvertionServer/fileController.js',
+        './sources/easygenerator.ConvertionServer/config.js',
+        './sources/easygenerator.ConvertionServer/iisnode.yml',
+        './sources/easygenerator.ConvertionServer/audio_image.jpg',
+        './sources/easygenerator.ConvertionServer/converter/*.*'
+    ];
+    return gulp.src(files, { base: "./sources/easygenerator.ConvertionServer/" })
+        .pipe(gulp.dest(outputDirectory + '/convertion/'));
+});
+
+gulp.task('deploy-convertion-server', ['copy-convertion-server'], function () {
+    return gulp.src([outputDirectory + '/convertion/package.json'])
+        .pipe($.install());
+});
+
+gulp.task('remove-extra-files', function (cb) {
     del([outputDirectory + '/*debug.config',
         outputDirectory + '/*release.config',
         outputDirectory + '/packages.config',
@@ -222,15 +244,15 @@ gulp.task('remove-extra-files', function(cb){
 
 /*#endregion*/
 
-gulp.task('add-version', function(cb){
-    xmlpoke(outputDirectory +'/Web.config', function(webConfig){
+gulp.task('add-version', function (cb) {
+    xmlpoke(outputDirectory + '/Web.config', function (webConfig) {
         webConfig.withBasePath('configuration')
             .setOrAdd("appSettings/add[@key='version']/@value", version);
     });
     cb();
 });
 
-gulp.task('create-tags', function(){
+gulp.task('create-tags', function () {
     // token for easygenerator-ci (replace with one if you want to crete realeses from your name)
     var authToken = '4a6abc571a3ebeac204f1980e81b1474a0aa1d5f',
         reposOwner = 'easygenerator',
@@ -255,36 +277,36 @@ gulp.task('create-tags', function(){
             timeout: 5000
         });
 
-	github.authenticate({
-	    type: "oauth",
-	    token: authToken
-	});
-    
+    github.authenticate({
+        type: "oauth",
+        token: authToken
+    });
+
     var defer = Q.defer();
 
     createTag(reposList.shift(), defer);
 
     return defer.promise;
 
-	function createTag(repoName, defer){
-		github.releases.createRelease({
-			owner: reposOwner,	
-			repo: repoName,
-			tag_name: version,
-			name: 'Release v'+ version
-		}, function(err, result){
-			if(err === null){
-				console.log(repoName + ' - Created');
-			} else {
-				console.log(repoName + ' - Failed');
-			}
-            
+    function createTag(repoName, defer) {
+        github.releases.createRelease({
+            owner: reposOwner,
+            repo: repoName,
+            tag_name: version,
+            name: 'Release v' + version
+        }, function (err, result) {
+            if (err === null) {
+                console.log(repoName + ' - Created');
+            } else {
+                console.log(repoName + ' - Failed');
+            }
+
             var nextRepo = reposList.shift();
             if (typeof nextRepo !== 'undefined') {
                 createTag(nextRepo, defer);
             } else {
                 defer.resolve();
             }
-		});
-	}
+        });
+    }
 });
