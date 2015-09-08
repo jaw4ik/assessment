@@ -318,9 +318,9 @@
     <Compile Include="Migrations\201508261347099_AddColumnLastReadReleaseNoteInUserTable.Designer.cs">
       <DependentUpon>201508261347099_AddColumnLastReadReleaseNoteInUserTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201509010710443_CreateCompaniesTableAndAddRelationToUser.cs" />
-    <Compile Include="Migrations\201509010710443_CreateCompaniesTableAndAddRelationToUser.Designer.cs">
-      <DependentUpon>201509010710443_CreateCompaniesTableAndAddRelationToUser.cs</DependentUpon>
+    <Compile Include="Migrations\201509080841551_CreateCompaniesTableAndAddRelationToUserAdd.cs" />
+    <Compile Include="Migrations\201509080841551_CreateCompaniesTableAndAddRelationToUserAdd.Designer.cs">
+      <DependentUpon>201509080841551_CreateCompaniesTableAndAddRelationToUserAdd.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -551,8 +551,8 @@
     <EmbeddedResource Include="Migrations\201508261347099_AddColumnLastReadReleaseNoteInUserTable.resx">
       <DependentUpon>201508261347099_AddColumnLastReadReleaseNoteInUserTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509010710443_CreateCompaniesTableAndAddRelationToUser.resx">
-      <DependentUpon>201509010710443_CreateCompaniesTableAndAddRelationToUser.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201509080841551_CreateCompaniesTableAndAddRelationToUserAdd.resx">
+      <DependentUpon>201509080841551_CreateCompaniesTableAndAddRelationToUserAdd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

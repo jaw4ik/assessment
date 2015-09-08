@@ -3,7 +3,7 @@ namespace easygenerator.DataAccess.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CreateCompaniesTableAndAddRelationToUser : DbMigration
+    public partial class CreateCompaniesTableAndAddRelationToUserAdd : DbMigration
     {
         public override void Up()
         {

@@ -7,13 +7,13 @@ namespace easygenerator.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class CreateCompaniesTableAndAddRelationToUser : IMigrationMetadata
+    public sealed partial class CreateCompaniesTableAndAddRelationToUserAdd : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateCompaniesTableAndAddRelationToUser));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateCompaniesTableAndAddRelationToUserAdd));
         
         string IMigrationMetadata.Id
         {
-            get { return "201509010710443_CreateCompaniesTableAndAddRelationToUser"; }
+            get { return "201509080841551_CreateCompaniesTableAndAddRelationToUserAdd"; }
         }
         
         string IMigrationMetadata.Source
