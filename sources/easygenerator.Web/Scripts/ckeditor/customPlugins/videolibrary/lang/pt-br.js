@@ -1,7 +1,7 @@
 ﻿CKEDITOR.plugins.setLang('videolibrary', 'pt-br', {
-    addFromLibrary: 'Add video from library',
-    videoLibrary: 'Video library',
-    noVideos: 'No videos yet',
-    somethingWentWrong: 'Something went wrong. ',
-    tryAgain: 'Try again'
+    addFromLibrary: 'Adicione video da biblioteca',
+    videoLibrary: 'Biblioteca de Videos',
+    noVideos: 'Ainda sem videos',
+    somethingWentWrong: 'Algo não funcionou corretamente.',
+    tryAgain: 'Tente novamente'
 });
