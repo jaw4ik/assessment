@@ -23,6 +23,11 @@ namespace easygenerator.Web.Publish.External
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(course.PublicationUrl))
+                {
+                    throw new Exception("Course is already not published.");
+                }
+
                 _httpClient.Post<string>(GetExternalApiUrl(company), new
                 {
                     id = course.Id,

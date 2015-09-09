@@ -13,15 +13,15 @@
             getByIdDefer,
             eventCategory = 'some/event/category';
 
-        var publishAction = function() { };
+        var publishAction = function () { };
         publishAction.state = 'someState';
         publishAction.packageUrl = 'some/package/url';
 
-        var publishToCustomLmsAction = function() {};
+        var publishToCustomLmsAction = function () { };
 
         var course = { id: 'someId', isDelivering: true, publish: publishAction, publishToCustomLms: publishToCustomLmsAction, isDirty: true };
 
-        beforeEach(function() {
+        beforeEach(function () {
             viewModel = publishToCustomLms(eventCategory);
 
             spyOn(eventTracker, 'publish');
@@ -278,11 +278,11 @@
 
         describe('eventCategory:', function () {
 
-            it('should be defined', function() {
+            it('should be defined', function () {
                 expect(viewModel.eventCategory).toBeDefined();
             });
 
-            it('shoulb be equal constructor argument', function() {
+            it('shoulb be equal constructor argument', function () {
                 expect(viewModel.eventCategory).toBe(eventCategory);
             });
 
@@ -290,7 +290,7 @@
 
         describe('courseId:', function () {
 
-            it('should be defined', function() {
+            it('should be defined', function () {
                 expect(viewModel.courseId).toBeDefined();
             });
 
@@ -298,7 +298,7 @@
 
         describe('isDirty:', function () {
 
-            it('should be observable', function() {
+            it('should be observable', function () {
                 expect(viewModel.isDirty).toBeObservable();
             });
 
@@ -322,18 +322,18 @@
 
         describe('isPublishing:', function () {
 
-            it('should be computed', function() {
+            it('should be computed', function () {
                 expect(viewModel.isPublishing).toBeComputed();
             });
 
             describe('when isCourseDelivering and isPublishingToLms are false', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     viewModel.isCourseDelivering(false);
                     viewModel.isPublishingToLms(false);
                 });
 
-                it('should be false', function() {
+                it('should be false', function () {
                     expect(viewModel.isPublishing()).toBeFalsy();
                 });
 
@@ -369,7 +369,7 @@
 
         describe('publishToCustomLms:', function () {
 
-            it('should be defined', function() {
+            it('should be defined', function () {
                 expect(viewModel.publishToCustomLms).toBeDefined();
             });
 
@@ -380,7 +380,7 @@
 
             var publishDefer,
                 publishToCustomLmsDefer;
-            beforeEach(function() {
+            beforeEach(function () {
                 publishDefer = Q.defer();
                 publishToCustomLmsDefer = Q.defer();
                 spyOn(course, 'publish').and.returnValue(publishDefer.promise);
@@ -393,6 +393,7 @@
 
                 beforeEach(function () {
                     viewModel.isDirty(true);
+                    publishToCustomLmsDefer.resolve();
                 });
 
                 it('should call publish action', function (done) {
@@ -403,14 +404,14 @@
                     });
                 });
 
-                describe('and when publish action rejected', function() {
+                describe('and when publish action rejected', function () {
 
                     var errorReason = 'some reason';
-                    beforeEach(function() {
+                    beforeEach(function () {
                         publishDefer.reject(errorReason);
                     });
 
-                    it('should notify error', function(done) {
+                    it('should notify error', function (done) {
                         spyOn(notify, 'error');
                         viewModel.publishToCustomLms().fin(function () {
                             expect(notify.error).toHaveBeenCalledWith(errorReason);
@@ -428,7 +429,7 @@
 
                     describe('and when isPublished true', function () {
 
-                        beforeEach(function() {
+                        beforeEach(function () {
                             viewModel.isPublished(true);
                         });
 
@@ -454,23 +455,6 @@
                             });
                         });
 
-                        describe('and when publishToCustomLms rejected', function () {
-
-                            var errorReason = 'some reason';
-                            beforeEach(function () {
-                                publishToCustomLmsDefer.reject(errorReason);
-                            });
-
-                            it('should notify error', function(done) {
-                                spyOn(notify, 'error');
-                                viewModel.publishToCustomLms().fin(function () {
-                                    expect(notify.error).toHaveBeenCalledWith(errorReason);
-                                    done();
-                                });
-                            });
-
-                        });
-
                     });
 
                 });
@@ -479,13 +463,13 @@
 
         });
 
-        describe('activate:', function() {
+        describe('activate:', function () {
 
             beforeEach(function () {
                 getByIdDefer.resolve(course);
             });
 
-            it('should set courseId', function(done) {
+            it('should set courseId', function (done) {
                 viewModel.courseId = null;
 
                 viewModel.activate(course.id).fin(function () {
@@ -552,7 +536,7 @@
 
         describe('courseStateChanged:', function () {
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.courseStateChanged).toBeFunction();
             });
 
@@ -670,6 +654,7 @@
 
             describe('and when course is current course', function () {
 
+                var errorReason = 'some reason';
                 beforeEach(function () {
                     viewModel.courseId = course.id;
                 });
@@ -677,9 +662,17 @@
                 it('should set isPublishingToLms to false', function () {
                     viewModel.isPublishingToLms(true);
 
-                    viewModel.coursePublishFailed(course);
+                    viewModel.coursePublishFailed(course, errorReason);
 
                     expect(viewModel.isPublishingToLms()).toBeFalsy();
+                });
+
+                it('should notify error', function () {
+                    spyOn(notify, 'error');
+
+                    viewModel.coursePublishFailed(course, errorReason);
+
+                    expect(notify.error).toHaveBeenCalledWith(errorReason);
                 });
 
             });

@@ -67,9 +67,7 @@
                 return publishCourse().then(function () {
                     if (!viewModel.isPublished()) {
                         return repository.getById(viewModel.courseId).then(function (course) {
-                            course.publishToCustomLms().fail(function (message) {
-                                notify.error(message);
-                            });
+                            return course.publishToCustomLms();
                         });
                     }
                 });
@@ -96,11 +94,12 @@
                 viewModel.isPublished(true);
             };
 
-            function coursePublishFailed(course) {
+            function coursePublishFailed(course, message) {
                 if (course.id !== viewModel.courseId)
                     return;
-
+                
                 viewModel.isPublishingToLms(false);
+                notify.error(message);
             };
 
             //#endregion

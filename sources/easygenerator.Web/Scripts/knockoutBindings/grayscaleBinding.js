@@ -9,20 +9,15 @@
 
         $element
             .attr('class', '')
-            .css({ position: 'absolute', left: '0', top: '0' })
             .wrap($wrapper);
 
         var $grayElement = $element.clone()
-            .css({ 'z-index': '1', opacity: '1' })
+            .css({ position: 'absolute', left: '0', top: '0', 'z-index': '1', opacity: '1' })
             .addClass('img-grayscaled')
             .insertBefore($element);
 
-        grayscale($element.attr('src')).then(function (result) {
-            $grayElement
-                .attr('src', result.dataURL)
-                .parent()
-                .width(result.width)
-                .height(result.height);
+        grayscale($element.attr('src')).then(function (dataURL) {
+            $grayElement.attr('src', dataURL);
         });
 
         function grayscale(src) {
@@ -49,11 +44,7 @@
                         }
                     }
                     ctx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
-                    defer.resolve({
-                        dataURL: canvas.toDataURL(),
-                        width: canvas.width,
-                        height: canvas.height
-                    });
+                    defer.resolve(canvas.toDataURL());
                 };
             } catch (e) {
                 defer.reject(e.message);

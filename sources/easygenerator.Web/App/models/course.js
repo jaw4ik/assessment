@@ -26,7 +26,7 @@
 
             this.getState = getState;
             this.isDelivering = false;
-        };
+        }
 
         return Course;
 
@@ -50,7 +50,7 @@
             };
 
             return self;
-        };
+        }
 
         function deliveringAction(actionHandler, packageUrl) {
             var course = this;
@@ -60,7 +60,7 @@
                     return actionHandler.call(course, action, buildInfo);
                 });
             }, packageUrl);
-        };
+        }
 
         function getState() {
             return this._lastState;
@@ -90,7 +90,7 @@
                     throw message;
                 });
             });
-        };
+        }
 
 
         /*-------------Actions handlers--------------*/
@@ -133,7 +133,7 @@
                     throw message;
                 });
             });
-        };
+        }
 
         function publishActionHandler(action) {
             var that = this;
@@ -161,7 +161,7 @@
                     throw message;
                 });
             });
-        };
+        }
 
         function publishForReviewActionHandler(action) {
             var that = this;
@@ -189,7 +189,7 @@
                     throw message;
                 });
             });
-        };
+        }
 
         function publishToStoreActionHandler(action) {
             var that = this;
@@ -213,25 +213,25 @@
                     throw message;
                 });
             });
-        };
+        }
 
         function publishToCustomLms() {
             var that = this;
             return Q.fcall(function () {
-                if (!that.builtOn) {
-                    throw 'Course is not builded.';
-                }
-
                 app.trigger(constants.messages.course.publishToCustomLms.started, that);
+
                 return publishService.publishCourseToCustomLms(that.id).then(function () {
+                    that.isPublishedToExternalLms = true;
                     app.trigger(constants.messages.course.publishToCustomLms.completed, that);
+
                     return that;
                 }).fail(function (message) {
                     app.trigger(constants.messages.course.publishToCustomLms.failed, that, message);
+
                     throw message;
                 });
             });
-        };
+        }
 
     }
 );
