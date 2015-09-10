@@ -17,8 +17,8 @@
         </div>
     </div>
     <!-- ko if: selectedTemplate -->
-    <div class="template-details scrollable" data-bind="withAnimated: selectedTemplate, scrollbar: {}">
-        <div class="template-details-section">
+    <div class="template-details scrollable" data-bind="scrollbar: {}">
+        <div class="template-details-section" data-bind="withAnimated: selectedTemplate">
             <div class="template-details-section-header" data-bind="localize: { text: 'templateDescriptionCaption' }"></div>
             <div class="template-details-description" data-bind="text: description"></div>
         </div>

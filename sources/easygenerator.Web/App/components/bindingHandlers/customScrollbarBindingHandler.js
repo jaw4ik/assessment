@@ -61,11 +61,7 @@
             }
 
             function scrollEnabled() {
-                if (customScroll.hasVerticalScroll) {
-                    customScrollbarContainer.classList.add(cssClasses.scrollEnabled);
-                } else {
-                    customScrollbarContainer.classList.remove(cssClasses.scrollEnabled);
-                }
+                customScrollbarContainer.classList.toggle(cssClasses.scrollEnabled, customScroll.hasVerticalScroll);
             }
         }
     };
