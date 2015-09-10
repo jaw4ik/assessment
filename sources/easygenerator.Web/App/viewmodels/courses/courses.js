@@ -16,7 +16,8 @@
                 courseBuildFailed: 'Course build is failed',
                 coursePublishFailed: 'Course publish is failed',
                 publishCourse: 'Publish course',
-                deleteCourse: 'Delete selected courses'
+                deleteCourse: 'Delete selected courses',
+                createNewCourse: 'Open \'Create course\' dialog'
             };
 
 
@@ -43,6 +44,7 @@
 
             deleteSelectedCourses: deleteSelectedCourses,
             createNewCourse: createNewCourse,
+            createCourseCallback: createCourseCallback,
             importCourseFromPresentation: importCourseFromPresentation,
 
             courseCollaborationStarted: courseCollaborationStarted,
@@ -276,8 +278,13 @@
             };
         }
 
+        function createCourseCallback(course) {
+            router.navigate('courses/' + course.id);
+        }
+
         function createNewCourse() {
-            createCourseDialog.show();
+            eventTracker.publish(events.createNewCourse);
+            createCourseDialog.show(viewModel.createCourseCallback);
         }
 
         function importCourseFromPresentation() {

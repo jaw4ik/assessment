@@ -3,7 +3,6 @@
 
     var
         constants = require('constants'),
-        router = require('plugins/router'),
         eventTracker = require('eventTracker'),
         clientContext = require('clientContext'),
         dialog = require('widgets/dialog/viewmodel'),
@@ -25,9 +24,16 @@
             spyOn(dialog, 'off');
         });
 
+        describe('callback', function() {
+            it('should be function', function() {
+                expect(viewModel.callback).toBeFunction();
+            });
+        });
+
         describe('show:', function () {
             var createCourse = 'create course',
-                createFirstCourse = 'create first course';
+                createFirstCourse = 'create first course',
+                callback = function() {};
 
             beforeEach(function () {
                 spyOn(localozationManager, 'localize').and.callFake(function (key) {
@@ -40,6 +46,34 @@
                             return key;
                     }
                 });
+            });
+
+            describe('when callback is not a function', function() {
+
+                beforeEach(function () {
+                    spyOn(clientContext, 'get').and.returnValue(true);
+                    spyOn(clientContext, 'remove');
+                });
+
+                it('should not set callback', function() {
+                    viewModel.show(undefined);
+                    expect(viewModel.callback).not.toBe(undefined);
+                });
+
+            });
+
+            describe('when callback is a function', function () {
+
+                beforeEach(function () {
+                    spyOn(clientContext, 'get').and.returnValue(true);
+                    spyOn(clientContext, 'remove');
+                });
+
+                it('should set callback', function () {
+                    viewModel.show(callback);
+                    expect(viewModel.callback).toBe(callback);
+                });
+
             });
 
             describe('when client context has show create course popup flag', function () {
@@ -151,7 +185,6 @@
                 courseTitleStep.title(title);
                 spyOn(courseTemplateStep, 'getSelectedTemplateId').and.returnValue(templateId);
                 spyOn(dialog, 'close');
-                spyOn(router, 'navigate');
                 viewModel.eventCategory = eventCategory;
             });
 
@@ -174,6 +207,7 @@
             describe('when course created', function () {
                 beforeEach(function () {
                     createCourseDefer.resolve(course);
+                    spyOn(viewModel, 'callback');
                 });
 
                 it('should close dialog', function (done) {
@@ -185,11 +219,11 @@
                     });
                 });
 
-                it('should navigate to course page', function (done) {
+                it('should call callback', function (done) {
                     var promise = viewModel.courseTitleStepSubmitted();
 
                     promise.fin(function () {
-                        expect(router.navigate).toHaveBeenCalledWith('courses/' + course.id);
+                        expect(viewModel.callback).toHaveBeenCalledWith(course);
                         done();
                     });
                 });

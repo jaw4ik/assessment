@@ -1,7 +1,7 @@
 ﻿define([
     'constants', 'dialogs/course/createCourse/steps/courseTitleStep', 'dialogs/course/createCourse/steps/courseTemplateStep', 'widgets/dialog/viewmodel',
-    'commands/createCourseCommand', 'plugins/router', 'eventTracker', 'clientContext', 'localization/localizationManager'],
-    function (constants, courseTitleStep, courseTemplateStep, dialog, createCourseCommand, router, eventTracker, clientContext, localizationManager) {
+    'commands/createCourseCommand', 'eventTracker', 'clientContext', 'localization/localizationManager'],
+    function (constants, courseTitleStep, courseTemplateStep, dialog, createCourseCommand, eventTracker, clientContext, localizationManager) {
         "use strict";
 
         var events = {
@@ -11,6 +11,7 @@
 
         var viewModel = {
             show: show,
+            callback: function() {},
             closed: closed,
             courseTemplateStepSubmitted: courseTemplateStepSubmitted,
             courseTitleStepSubmitted: courseTitleStepSubmitted,
@@ -19,7 +20,10 @@
 
         return viewModel;
 
-        function show() {
+        function show(callback) {
+            if (_.isFunction(callback)) {
+                viewModel.callback = callback;
+            }
             if (_.isNullOrUndefined(clientContext.get(constants.clientContextKeys.showCreateCoursePopup))) {
                 courseTitleStep.caption(localizationManager.localize('createYourCourse'));
                 viewModel.eventCategory = undefined;
@@ -52,8 +56,8 @@
             courseTitleStep.isProcessing(true);
             return createCourseCommand.execute(courseTitleStep.title(), courseTemplateStep.getSelectedTemplateId()).then(function (course) {
                 dialog.close();
-
-                router.navigate('courses/' + course.id);
+                viewModel.callback(course);
+                
             }).fin(function () {
                 courseTitleStep.isProcessing(false);
             });

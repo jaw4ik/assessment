@@ -203,15 +203,35 @@
 
         });
 
+        describe('createCourseCallback', function () {
+
+            it('should be function', function () {
+                expect(viewModel.createCourseCallback).toBeFunction();
+            });
+
+            it('should navigate to course page', function() {
+                viewModel.createCourseCallback({ id: 'id' });
+                expect(router.navigate).toHaveBeenCalledWith('courses/id');
+            });
+
+        });
+
         describe('createNewCourse:', function () {
+
             beforeEach(function () {
                 spyOn(createCourseDialog, 'show');
             });
 
-            it('should show create course dialog', function() {
+            it('should publish event', function() {
                 viewModel.createNewCourse();
-                expect(createCourseDialog.show).toHaveBeenCalled();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Open \'Create course\' dialog');
             });
+
+            it('should call showing create course dialog with callback', function() {
+                viewModel.createNewCourse();
+                expect(createCourseDialog.show).toHaveBeenCalledWith(viewModel.createCourseCallback);
+            });
+
         });
 
         describe('importCourseFromPresentation:', function () {
