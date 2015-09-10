@@ -28,17 +28,8 @@
             }
 
             customScroll.on('scroll', function () {
-                if (this.y < 0) {
-                    customScrollbarContainer.classList.add(cssClasses.scrollStarted);
-                } else {
-                    customScrollbarContainer.classList.remove(cssClasses.scrollStarted);
-                }
-
-                if (this.y === customScroll.maxScrollY) {
-                    customScrollbarContainer.classList.add(cssClasses.scrollFinished);
-                } else {
-                    customScrollbarContainer.classList.remove(cssClasses.scrollFinished);
-                }
+                customScrollbarContainer.classList.toggle(cssClasses.scrollStarted, this.y < 0);
+                customScrollbarContainer.classList.toggle(cssClasses.scrollFinished, this.y === customScroll.maxScrollY);
             });
 
             scrollEnabled();
