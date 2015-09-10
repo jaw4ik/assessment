@@ -37,7 +37,6 @@
             ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
                 customScroll.destroy();
                 customScroll = null;
-                clearInterval(interval);
             });
 
             document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
