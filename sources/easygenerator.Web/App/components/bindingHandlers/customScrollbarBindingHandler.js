@@ -15,6 +15,7 @@
                 },
                 cssClasses = {
                     scrollStarted: 'cs-scroll-started',
+                    scrollFinished: 'cs-scroll-finished',
                     scrollEnabled: 'cs-scroll-enabled'
                 };
 
@@ -32,11 +33,13 @@
                 } else {
                     customScrollbarContainer.classList.remove(cssClasses.scrollStarted);
                 }
-            });
 
-            if (customScroll.hasVerticalScroll) {
-                customScrollbarContainer.classList.add(cssClasses.scrollEnabled);
-            }
+                if (this.y === customScroll.maxScrollY) {
+                    customScrollbarContainer.classList.add(cssClasses.scrollFinished);
+                } else {
+                    customScrollbarContainer.classList.remove(cssClasses.scrollFinished);
+                }
+            });
 
             scrollEnabled();
 
@@ -70,6 +73,8 @@
             function scrollEnabled() {
                 if (customScroll.hasVerticalScroll) {
                     customScrollbarContainer.classList.add(cssClasses.scrollEnabled);
+                } else {
+                    customScrollbarContainer.classList.remove(cssClasses.scrollEnabled);
                 }
             }
         }
