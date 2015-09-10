@@ -40,5 +40,10 @@ namespace easygenerator.Infrastructure
         public const string DataHasBeenChangedErrorMessageKey = "dataHasBeenChangedErrorMessage";
         public const string UserWithSpecifiedEmailDoesntExist = "Account with this email doesn't exist";
         public const string UserWithSpecifiedEmailDoesntExistResourceKey = "enterEmailOfExistingUser";
+
+        public const string UserDoesntExist = "User doesn't exist";
+        public const string UserDoesntExistResourceKey = "responseFailed";
+        public const string UserNotMemberOfAnyCompany = "Current user is not a member of any company";
+        public const string UserNotMemberOfAnyCompanyResourceKey = "userNotMemberOfAnyCompany";
     }
 }

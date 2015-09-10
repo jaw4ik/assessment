@@ -27,6 +27,10 @@
             });
         };
 
+        function publishCourseToCustomLms(courseId) {
+            return publishHttpWrapper.post('api/course/publishToCustomLms', { courseId: courseId });
+        };
+
       
         function publishCourseToStore(courseId) {
             return publishHttpWrapper.post('api/aim4you/publish', { courseId: courseId });
@@ -60,6 +64,7 @@
             buildCourse: buildCourse,
             publishCourse: publishCourse,
             scormBuildCourse: scormBuildCourse,
+            publishCourseToCustomLms: publishCourseToCustomLms,
             publishCourseToStore: publishCourseToStore,
             publishCourseForReview: publishCourseForReview,
             buildLearningPath: buildLearningPath,

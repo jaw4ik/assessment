@@ -348,6 +348,36 @@
             });
         });
 
+        describe('publishCourseToCustomLms:', function () {
+            var course;
+            var post;
+
+            beforeEach(function () {
+                course = { id: 'someId' };
+
+                post = Q.defer();
+                spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
+            });
+
+            it('should be a function', function () {
+                expect(service.publishCourseToCustomLms).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(service.publishCourseToCustomLms()).toBePromise();
+            });
+
+            it('should send request', function (done) {
+                post.resolve({});
+                var promise = service.publishCourseToCustomLms(course.id);
+                promise.fin(function () {
+                    expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/publishToCustomLms', { courseId: course.id });
+                    done();
+                });
+            });
+
+        });
+
     });
 
 });

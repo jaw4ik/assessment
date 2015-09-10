@@ -151,6 +151,11 @@
                         completed: 'course:publishToAim4You-comleted',
                         failed: 'course:publishToAim4You-failed'
                     },
+                    publishToCustomLms: {
+                        started: 'course:publishToCustomLms-started',
+                        completed: 'course:publishToCustomLms-comleted',
+                        failed: 'course:publishToCustomLms-failed'
+                    },
                     delivering: {
                         started: 'course:delivering-started',
                         finished: 'course:delivering-finished'

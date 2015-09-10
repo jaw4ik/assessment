@@ -23,7 +23,8 @@
                     template: _.find(templates, function (tItem) {
                         return tItem.id === item.Template.Id;
                     }),
-                    introductionContent: item.IntroductionContent
+                    introductionContent: item.IntroductionContent,
+                    isPublishedToExternalLms: item.IsPublishedToExternalLms
                 });
             };
 

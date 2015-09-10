@@ -293,109 +293,154 @@
     display: flex;
     width: 100%;
 
-    .templates-list-wrapper {
-        flex: 0 0 235px;
-        max-width: 235px;
-        display: flex;
+    .templates-list-container{
         position: relative;
-        padding: 0px 10px;
+        display: flex;
+        padding: 0 24px 0 21px;
         border-right: 1px solid @template-selector-regular-border-color;
 
-        &:after {
-            display: block;
-            position: absolute;
-            right: -9px;
-            top: 16px;
-            width: 0;
-            height: 0;
-            border-top: 10px solid transparent;
-            border-left: 8px solid @template-selector-regular-border-color;
-            border-bottom: 10px solid transparent;
-            content: "";
+        .template-list-custom-scrollbar-container{
+            position: relative;
+            flex: 1 1 0;
+
+            &.cs-scroll-started{
+            
+                &:before{
+                    content: '';
+                    display: block;
+                    border-bottom: 1px solid #e5e6e6;
+                    box-shadow: 0px 0px 3px 1px #e5e6e6;
+                }
+            }
+
+            &.cs-scroll-enabled{
+
+                &:after{
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    display: block;
+                    width: 100%;
+                    border-top: 1px solid #e5e6e6;
+                    box-shadow: 0px 0px 3px 1px #e5e6e6;
+                }
+
+                &.cs-scroll-finished{
+
+                    &:after{
+                        display: none;
+                    }
+                }
+            }
+
+            .iScrollVerticalScrollbar{
+                right: -20px;
+            }
         }
 
-        .templates-list {
-            list-style: none;
+        .templates-list-wrapper {
+            position: relative;
             display: flex;
-            flex-direction: column;
-            padding: 0px 10px;
-            overflow: hidden;
-            overflow-y: auto;
+            flex: 0 0 190px;
+            max-width: 190px;
 
-            .template-item {
+            .templates-list {
                 display: flex;
-                align-items: center;
-                position: relative;
-                flex: 0 0;
-                min-height: 50px;
-                font: 15px 'OpenSans-Semibold';
-                color: @template-selector-regular-text-color;
-                padding-left: 10px;
-                border-top: 1px solid transparent;
-                border-bottom: 1px solid transparent;
+                flex-direction: column;
+                list-style: none;
+                width: 100%;
 
-                & + .template-item {
-                    border-top: 1px solid @template-selector-regular-border-color;
-                }
+                .template-item {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    flex: 0 0;
+                    min-height: 50px;
+                    font: 15px 'OpenSans-Semibold';
+                    color: @template-selector-regular-text-color;
+                    border-top: 1px solid transparent;
+                    border-bottom: 1px solid transparent;
 
-                &.selected, &:hover {
-                    color: @template-selector-selected-text-color;
-                }
+                    & + .template-item {
+                        border-top: 1px solid @template-selector-regular-border-color;
+                    }
 
-                &:after {
-                    display: block;
-                    position: absolute;
-                    left: 0;
-                    bottom: -1px;
-                    width: 0;
-                    height: 1px;
-                    background-color: @template-selector-selected-border-color;
-                    content: "";
-                    transition: width 0.2s ease-out;
-                }
+                    &.selected, &:hover {
+                        color: @template-selector-selected-text-color;
+                    }
 
-                &:hover {
-                    cursor: pointer;
+                    &.selected{
+
+                        &:before {
+                            content: "";
+                            position: absolute;
+                            top: 16px;
+                            right: -33px;
+                            display: block;
+                            width: 0;
+                            height: 0;
+                            border-top: 10px solid transparent;
+                            border-left: 8px solid @template-selector-regular-border-color;
+                            border-bottom: 10px solid transparent;
+                        }
+
+                    }
 
                     &:after {
-                        width: 100%;
+                        display: block;
+                        position: absolute;
+                        left: 0;
+                        bottom: -1px;
+                        width: 0;
+                        height: 1px;
+                        background-color: @template-selector-selected-border-color;
+                        content: "";
+                        transition: width 0.2s ease-out;
                     }
-                }
 
-                &.selected {
-                    cursor: default;
+                    &:hover {
+                        cursor: pointer;
 
-                    &:after {
-                        width: 100%;
-                        height: 2px;
+                        &:after {
+                            width: 100%;
+                        }
                     }
-                }
 
-                .template-item-image {
-                    width: 30px;
-                    height: 30px;
-                    min-width: 30px;
-                    min-height: 30px;
-                    border-radius: 50px;
-                    margin-right: 12px;
-                }
+                    &.selected {
+                        cursor: default;
 
-                .template-item-text {
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
+                        &:after {
+                            width: 100%;
+                            height: 2px;
+                        }
+                    }
+
+                    .template-item-image {
+                        width: 30px;
+                        height: 30px;
+                        min-width: 30px;
+                        min-height: 30px;
+                        border-radius: 50px;
+                        margin-right: 12px;
+                    }
+
+                    .template-item-text {
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
                 }
             }
         }
     }
+    
 
 
     .template-details {
         flex: 1 0;
         margin-right: 20px;
         padding: 20px 15px 0px 35px;
-        overflow: hidden;
-        overflow-y: auto;
+        position: relative;
 
         .template-details-section {
             color: @template-selector-description-text-color;
@@ -596,9 +641,9 @@
             padding: 0px 70px 30px 70px;
 
             .title-wrapper {
+                position: relative;
                 max-height: 55vh;
                 overflow: hidden;
-                overflow-y: auto;
                 padding: 0px 10px;
             }
         }
