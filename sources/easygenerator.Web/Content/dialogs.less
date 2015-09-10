@@ -299,19 +299,6 @@
         padding: 0 24px 0 21px;
         border-right: 1px solid @template-selector-regular-border-color;
 
-        &:after {
-            content: "";
-            position: absolute;
-            top: 16px;
-            right: -9px;
-            display: block;
-            width: 0;
-            height: 0;
-            border-top: 10px solid transparent;
-            border-left: 8px solid @template-selector-regular-border-color;
-            border-bottom: 10px solid transparent;
-        }
-
         .template-list-custom-scrollbar-container{
             position: relative;
             flex: 1 1 0;
@@ -373,6 +360,23 @@
 
                     &.selected, &:hover {
                         color: @template-selector-selected-text-color;
+                    }
+
+                    &.selected{
+
+                        &:before {
+                            content: "";
+                            position: absolute;
+                            top: 16px;
+                            right: -33px;
+                            display: block;
+                            width: 0;
+                            height: 0;
+                            border-top: 10px solid transparent;
+                            border-left: 8px solid @template-selector-regular-border-color;
+                            border-bottom: 10px solid transparent;
+                        }
+
                     }
 
                     &:after {
