@@ -24,9 +24,8 @@ var config = {
     outputDirectory = args.output || 'D:/Applications/easygenerator',
     instance = args.instance || 'Release',
     version = typeof args.version === 'string' && args.version !== '' ? args.version : '1.0.0',
-    createTags = args.createTags;
-
-
+    createTags = Boolean(args.createTags);
+	
 gulp.task('styles', function () {
     return gulp.src(config.less.src)
         .pipe($.plumber({
