@@ -7,6 +7,7 @@
     MainController.$inject = ['$scope', '$rootScope', '$location', 'assessment', 'settings', 'timer', 'viewmodelsFactory'];
 
     function MainController($scope, $rootScope, $location, assessment, settings, timer, viewmodelsFactory) {
+        var submitted = false;
         var that = this;
 
         that.title = $rootScope.title = assessment.title;
@@ -19,6 +20,11 @@
         });
 
         that.submit = function () {
+            if (submitted) {
+                return;
+            }
+
+            submitted = true;
             that.questions.forEach(function (question) {
                 question.submit();
             });
