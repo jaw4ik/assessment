@@ -6,8 +6,10 @@ using easygenerator.DomainModel.Events;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.DomainModel;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 
@@ -106,8 +108,18 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<CourseTemplateSettings>().Property(e => e.Settings);
             modelBuilder.Entity<CourseTemplateSettings>().Property(e => e.ExtraData).IsOptional();
-            modelBuilder.Entity<CourseTemplateSettings>().HasRequired(e => e.Course);
-            modelBuilder.Entity<CourseTemplateSettings>().HasRequired(e => e.Template);
+            modelBuilder.Entity<CourseTemplateSettings>().HasRequired(e => e.Course).WithMany().HasForeignKey(p => p.Course_Id);
+            modelBuilder.Entity<CourseTemplateSettings>().HasRequired(e => e.Template).WithMany().HasForeignKey(p => p.Template_Id);
+            modelBuilder.Entity<CourseTemplateSettings>().Property(e => e.Course_Id)
+                .HasColumnAnnotation("Index", new IndexAnnotation(new[] {
+                    new IndexAttribute("IX_Course_Id"),
+                    new IndexAttribute("UI_CourseTemplateSettings_Course_Id_Template_Id", 1) { IsUnique = true }
+                }));
+            modelBuilder.Entity<CourseTemplateSettings>().Property(e => e.Template_Id)
+                .HasColumnAnnotation("Index", new IndexAnnotation(new[]{
+                    new IndexAttribute("IX_Template_Id"),
+                    new IndexAttribute("UI_CourseTemplateSettings_Course_Id_Template_Id", 2) { IsUnique = true }
+                }));
 
             modelBuilder.Entity<Comment>().HasRequired(e => e.Course);
             modelBuilder.Entity<Comment>().Property(e => e.Text).IsRequired();
