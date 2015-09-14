@@ -1,19 +1,19 @@
-﻿<section class="modal-dialog-container" data-bind="css: { shown: isShown }">
-    <div class="modal-dialog-wrapper" data-bind="dialog: { isShown: isShown, autoclose: settings().autoclose, onHide: closed }, css: settings().containerCss">
-        <button class="modal-dialog-close-btn" data-bind="click: close"></button>
+﻿<section class="dialog-container" data-bind="css: { shown: isShown }">
+    <div class="dialog-wrapper" data-bind="dialog: { isShown: isShown, autoclose: settings().autoclose, onHide: closed }, css: settings().containerCss">
+        <button class="dialog-close-btn" data-bind="click: close"></button>
         <!-- ko if: steps().length === 1 -->
         <!-- ko compose: { model: activeStep } --><!-- /ko -->
         <!-- /ko -->
         <!-- ko if: steps().length > 1 -->
-        <section class="modal-dialog-wizard-container" data-bind="dialogWizard: {activeStep: activeStep}">
+        <section class="dialog-wizard-container" data-bind="dialogWizard: {activeStep: activeStep}">
             <!-- ko foreach: steps -->
-            <div class="modal-dialog-wizard-step" data-bind="css: { active:  $data===$parent.activeStep()}">
+            <div class="dialog-wizard-step" data-bind="css: { active:  $data===$parent.activeStep()}">
                 <!-- ko compose: { model: $data } --><!-- /ko -->
             </div>
             <!-- /ko -->
             <!-- ko if: steps().length > 1 -->
-            <div class="modal-dialog-navigation" data-bind="foreach: steps()">
-                <button class="modal-dialog-navigation-btn" data-bind="click: $parent.navigate, css:{ active: $data===$parent.activeStep() }"></button>
+            <div class="dialog-navigation" data-bind="foreach: steps()">
+                <button class="dialog-navigation-btn" data-bind="click: $parent.navigate, css:{ active: $data===$parent.activeStep() }"></button>
             </div>
             <!-- /ko -->
         </section>
