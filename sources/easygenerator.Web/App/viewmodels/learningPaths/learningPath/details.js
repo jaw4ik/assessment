@@ -118,6 +118,7 @@
         function createCourseCallback(course) {
             viewModel.addCourse(course.id);
             courseSelector.courseAddedToPath(course);
+            app.trigger(constants.messages.learningPath.createCourse, course);
         }
 
         function createNewCourse() {

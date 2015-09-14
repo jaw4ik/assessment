@@ -209,7 +209,7 @@
                 expect(viewModel.createCourseCallback).toBeFunction();
             });
 
-            it('should navigate to course page', function() {
+            it('should navigate to course page', function () {
                 viewModel.createCourseCallback({ id: 'id' });
                 expect(router.navigate).toHaveBeenCalledWith('courses/id');
             });
@@ -222,12 +222,12 @@
                 spyOn(createCourseDialog, 'show');
             });
 
-            it('should publish event', function() {
+            it('should publish event', function () {
                 viewModel.createNewCourse();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Open \'Create course\' dialog');
             });
 
-            it('should call showing create course dialog with callback', function() {
+            it('should call showing create course dialog with callback', function () {
                 viewModel.createNewCourse();
                 expect(createCourseDialog.show).toHaveBeenCalledWith(viewModel.createCourseCallback);
             });
@@ -793,6 +793,21 @@
             it('should open upgrade link in new window', function () {
                 viewModel.openUpgradePlanUrl();
                 expect(window.open).toHaveBeenCalledWith(constants.upgradeUrl, '_blank');
+            });
+
+        });
+
+        describe('newCourseCreated', function () {
+
+            it('should be function', function () {
+                expect(viewModel.newCourseCreated).toBeFunction();
+            });
+
+            it('should add course to the list of courses', function () {
+                var course = { id: 'id', title: 'title', template: { thumbnail: 'thumbnail' } };
+                viewModel.newCourseCreated(course);
+                expect(viewModel.courses()[0].id).toBe(course.id);
+                expect(viewModel.courses()[0].title()).toBe(course.title);
             });
 
         });

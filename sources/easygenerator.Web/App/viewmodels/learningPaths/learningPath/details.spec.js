@@ -381,6 +381,12 @@
                 expect(courseSelector.courseAddedToPath).toHaveBeenCalledWith(course);
             });
 
+            it('should trigger event "New course added"', function() {
+                var course = { id: 'id' };
+                viewModel.createCourseCallback(course);
+                expect(app.trigger).toHaveBeenCalledWith(constants.messages.learningPath.createCourse, course);
+            });
+
         });
 
         describe('createNewCourse', function () {

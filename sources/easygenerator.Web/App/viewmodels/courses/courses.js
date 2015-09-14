@@ -54,6 +54,7 @@
             collaborationFinished: collaborationFinished,
 
             openUpgradePlanUrl: openUpgradePlanUrl,
+            newCourseCreated: newCourseCreated,
 
             activate: activate
         };
@@ -71,6 +72,7 @@
         app.on(constants.messages.course.objectiveRelatedByCollaborator, viewModel.courseUpdated);
         app.on(constants.messages.course.objectivesUnrelatedByCollaborator, viewModel.courseUpdated);
         app.on(constants.messages.course.collaboration.finished, viewModel.collaborationFinished);
+        app.on(constants.messages.learningPath.createCourse, viewModel.newCourseCreated);
 
         return viewModel;
 
@@ -276,6 +278,10 @@
                 isDuplicatingFinished: ko.observable(false),
                 finishDuplicating: false
             };
+        }
+
+        function newCourseCreated(course) {
+            viewModel.courses.unshift(mapCourse(course));
         }
 
         function createCourseCallback(course) {
