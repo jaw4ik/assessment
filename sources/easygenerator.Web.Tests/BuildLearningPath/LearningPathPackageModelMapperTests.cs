@@ -1,5 +1,6 @@
 ﻿using System;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.Infrastructure;
 using easygenerator.Web.BuildLearningPath;
 using easygenerator.Web.Components;
 using easygenerator.Web.Extensions;
@@ -21,9 +22,11 @@ namespace easygenerator.Web.Tests.BuildLearningPath
             _contentPathProvider = Substitute.For<LearningPathContentPathProvider>(Substitute.For<HttpRuntimeWrapper>());
 
             _modelMapper = new LearningPathPackageModelMapper(_contentPathProvider);
+
+            DateTimeWrapper.Now = () => new DateTime(2013, 10, 12);
         }
 
-        #region MyRegion
+        #region MapLearningPath
 
         [TestMethod]
         public void MapLearningPath_ShouldThrowArgumentNullException_WhenLearningPathIsNull()
@@ -48,6 +51,8 @@ namespace easygenerator.Web.Tests.BuildLearningPath
 
             //Assert
             result.Title.Should().Be("Learning path title");
+            result.Id.Should().Be(learningPath.Id.ToNString());
+            result.CreatedOn.Should().Be(DateTimeWrapper.Now());
         }
 
         [TestMethod]
