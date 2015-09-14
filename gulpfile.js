@@ -22,6 +22,7 @@ var config = {
     }
 },
     outputDirectory = args.output || 'D:/Applications/easygenerator',
+    outputConvertionServer = args.outputConvertion || 'D:/Applications/convertion',
     instance = args.instance || 'Release',
     version = typeof args.version === 'string' && args.version !== '' ? args.version : '1.0.0',
     createTags = args.createTags;
@@ -171,7 +172,7 @@ gulp.task('run-unit-tests', function (cb) {
 /*#region deploy*/
 
 gulp.task('deploy', function (cb) {
-    runSequence('build', 'deploy-download-folder', 'deploy-css', 'deploy-main-built-js', 'deploy-web-config','deploy-convertion-server', 'remove-extra-files', 'add-version', 'run-unit-tests', function () {
+    runSequence('build', 'deploy-download-folder', 'deploy-css', 'deploy-main-built-js', 'deploy-web-config', 'remove-extra-files', 'add-version', 'run-unit-tests', function () {
         if (createTags) {
             runSequence('create-tags', cb);
         } else {
@@ -202,28 +203,6 @@ gulp.task('deploy-web-config', function () {
     return gulp.src('./tools/WebConfigTransform/' + instance + '.config')
         .pipe($.rename('Web.config'))
         .pipe(gulp.dest(outputDirectory));
-});
-
-gulp.task('copy-convertion-server', function () {
-    var files = [
-        './sources/easygenerator.ConvertionServer/package.json',
-        './sources/easygenerator.ConvertionServer/www.js',
-        './sources/easygenerator.ConvertionServer/server.js',
-        './sources/easygenerator.ConvertionServer/ticketController.js',
-        './sources/easygenerator.ConvertionServer/ticketDispatcher.js',
-        './sources/easygenerator.ConvertionServer/fileController.js',
-        './sources/easygenerator.ConvertionServer/config.js',
-        './sources/easygenerator.ConvertionServer/iisnode.yml',
-        './sources/easygenerator.ConvertionServer/audio_image.jpg',
-        './sources/easygenerator.ConvertionServer/converter/*.*'
-    ];
-    return gulp.src(files, { base: "./sources/easygenerator.ConvertionServer/" })
-        .pipe(gulp.dest(outputDirectory + '/convertion/'));
-});
-
-gulp.task('deploy-convertion-server', ['copy-convertion-server'], function () {
-    return gulp.src([outputDirectory + '/convertion/package.json'])
-        .pipe($.install());
 });
 
 gulp.task('remove-extra-files', function (cb) {
@@ -310,3 +289,35 @@ gulp.task('create-tags', function () {
         });
     }
 });
+
+/*#region deploy convertion server*/
+
+gulp.task('clean-convertion-server', function(callback){
+    del([outputConvertionServer], { force: true }, callback);
+});
+
+gulp.task('copy-convertion-server', ['clean-convertion-server'], function () {
+    var files = [
+        './sources/easygenerator.ConvertionServer/package.json',
+        './sources/easygenerator.ConvertionServer/www.js',
+        './sources/easygenerator.ConvertionServer/server.js',
+        './sources/easygenerator.ConvertionServer/ticketController.js',
+        './sources/easygenerator.ConvertionServer/ticketDispatcher.js',
+        './sources/easygenerator.ConvertionServer/fileController.js',
+        './sources/easygenerator.ConvertionServer/config.js',
+        './sources/easygenerator.ConvertionServer/iisnode.yml',
+        './sources/easygenerator.ConvertionServer/audio_image.jpg',
+        './sources/easygenerator.ConvertionServer/converter/*.*',
+        './sources/easygenerator.ConvertionServer/Web.config'
+    ];
+    
+    return gulp.src(files, { base: "./sources/easygenerator.ConvertionServer/" })
+        .pipe(gulp.dest(outputConvertionServer));
+});
+
+gulp.task('deploy-convertion-server', ['copy-convertion-server'], function () {
+    return gulp.src([outputConvertionServer + '/package.json'])
+        .pipe($.install());
+});
+
+/*#endregion deploy convertion server*/
