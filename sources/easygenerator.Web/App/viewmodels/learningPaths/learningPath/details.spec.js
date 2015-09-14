@@ -363,6 +363,7 @@
 
             beforeEach(function () {
                 spyOn(viewModel, 'addCourse');
+                spyOn(courseSelector, 'courseAddedToPath');
             });
 
             it('should be function', function () {
@@ -374,11 +375,17 @@
                 expect(viewModel.addCourse).toHaveBeenCalledWith('id');
             });
 
+            it('should add course to learning path selector', function () {
+                var course = { id: 'id' };
+                viewModel.createCourseCallback(course);
+                expect(courseSelector.courseAddedToPath).toHaveBeenCalledWith(course);
+            });
+
         });
 
-        describe('createNewCourse', function() {
+        describe('createNewCourse', function () {
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.createNewCourse).toBeFunction();
             });
 
@@ -387,7 +394,7 @@
                 expect(eventTracker.publish).toHaveBeenCalledWith('Open \'Create course\' dialog');
             });
 
-            it('should call show add course dialog with callback', function() {
+            it('should call show add course dialog with callback', function () {
                 viewModel.createNewCourse();
                 expect(createCourseDialog.show).toHaveBeenCalledWith(viewModel.createCourseCallback);
             });

@@ -185,6 +185,7 @@
                 courseTitleStep.title(title);
                 spyOn(courseTemplateStep, 'getSelectedTemplateId').and.returnValue(templateId);
                 spyOn(dialog, 'close');
+                spyOn(viewModel, 'callback');
                 viewModel.eventCategory = eventCategory;
             });
 
@@ -207,7 +208,6 @@
             describe('when course created', function () {
                 beforeEach(function () {
                     createCourseDefer.resolve(course);
-                    spyOn(viewModel, 'callback');
                 });
 
                 it('should close dialog', function (done) {
@@ -228,7 +228,7 @@
                     });
                 });
 
-                it('should set courseTitleStep.isProcessing to false', function () {
+                it('should set courseTitleStep.isProcessing to false', function (done) {
                     courseTitleStep.isProcessing(true);
                     var promise = viewModel.courseTitleStepSubmitted();
 
@@ -244,7 +244,7 @@
                     createCourseDefer.reject();
                 });
 
-                it('should set courseTitleStep.isProcessing to false', function () {
+                it('should set courseTitleStep.isProcessing to false', function (done) {
                     courseTitleStep.isProcessing(true);
                     var promise = viewModel.courseTitleStepSubmitted();
 
