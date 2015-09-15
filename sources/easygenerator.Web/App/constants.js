@@ -184,6 +184,7 @@
                         courseDeselected: 'learningPath:course-selector:course-deselected'
                     },
                     removeCourse: 'learningPath:removeCourse',
+                    createCourse: 'learningPath:createCourse',
                     deleted: 'learningPath:deleted',
                     delivering: {
                         started: 'learningPath:delivering-started',

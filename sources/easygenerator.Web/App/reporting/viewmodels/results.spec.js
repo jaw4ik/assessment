@@ -310,8 +310,8 @@
 
             describe('when no more results', function () {
                 beforeEach(function () {
-                    viewModel.loadedResults = [1, 2, 3];
-                    viewModel.results([]);
+                    viewModel.loadedResults = [1];
+                    viewModel.results([1, 2, 3]);
                 });
 
                 it('should not call getCourseCompletedStatements', function (done) {

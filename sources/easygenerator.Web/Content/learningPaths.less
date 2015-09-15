@@ -328,33 +328,43 @@
 
     .learning-path-content {
         .list-item-content-holder {
-            cursor: default;
 
-            .list-item-remove {
+            .list-item-actions {
                 display: table-cell;
                 vertical-align: middle;
-                width: 95px;
-                padding-right: 20px;
+                width: 100px;
+                padding-right: 16px;
                 text-align: right;
+
+                .list-item-open-btn-wrapper {
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 30px;
+                }
 
                 .list-item-remove-btn {
                     display: inline-block;
-                    vertical-align: top;
+                    vertical-align: middle;
                     height: 30px;
                     width: 30px;
                     position: relative;
+                    margin-right: 6px;
                     border: 1px solid transparent;
+                    border-radius: 15px;
+                    box-shadow: 0 1px 3px 0 #bdbdbd;
                     cursor: pointer;
-                    background: url('images/sprites_24.png') 0px -87px no-repeat;
+                    background: url('images/sprites_16.png') -141px -36px no-repeat;
+                    transition: box-shadow 0.3s;
 
                     &:hover {
-                        background: url('images/sprites_24.png') -30px -87px no-repeat;
+                        box-shadow: 0 2px 4px 0 #bdbdbd;
                     }
 
                     .info-tooltip {
                         width: 130px;
                         margin-left: -65px;
                         white-space: nowrap;
+                        font-family: 'OpenSans'
                     }
                 }
             }

@@ -3,7 +3,6 @@
 
     var
         constants = require('constants'),
-        router = require('plugins/router'),
         eventTracker = require('eventTracker'),
         clientContext = require('clientContext'),
         dialog = require('widgets/dialog/viewmodel'),
@@ -27,7 +26,8 @@
 
         describe('show:', function () {
             var createCourse = 'create course',
-                createFirstCourse = 'create first course';
+                createFirstCourse = 'create first course',
+                callback = function() {};
 
             beforeEach(function () {
                 spyOn(localozationManager, 'localize').and.callFake(function (key) {
@@ -40,6 +40,14 @@
                             return key;
                     }
                 });
+            });
+
+            it('should set callback', function() {
+                spyOn(clientContext, 'get').and.returnValue(true);
+                spyOn(clientContext, 'remove');
+
+                viewModel.show(callback);
+                expect(viewModel.callback).toBe(callback);
             });
 
             describe('when client context has show create course popup flag', function () {
@@ -151,7 +159,6 @@
                 courseTitleStep.title(title);
                 spyOn(courseTemplateStep, 'getSelectedTemplateId').and.returnValue(templateId);
                 spyOn(dialog, 'close');
-                spyOn(router, 'navigate');
                 viewModel.eventCategory = eventCategory;
             });
 
@@ -185,16 +192,24 @@
                     });
                 });
 
-                it('should navigate to course page', function (done) {
-                    var promise = viewModel.courseTitleStepSubmitted();
+                describe('when callback is a function', function () {
 
-                    promise.fin(function () {
-                        expect(router.navigate).toHaveBeenCalledWith('courses/' + course.id);
-                        done();
+                    it('should call callback', function (done) {
+                        viewModel.callback = function () { };
+                        spyOn(viewModel, 'callback');
+
+                        var promise = viewModel.courseTitleStepSubmitted();
+
+                        promise.fin(function () {
+                            expect(viewModel.callback).toHaveBeenCalledWith(course);
+                            done();
+                        });
+
                     });
+
                 });
 
-                it('should set courseTitleStep.isProcessing to false', function () {
+                it('should set courseTitleStep.isProcessing to false', function (done) {
                     courseTitleStep.isProcessing(true);
                     var promise = viewModel.courseTitleStepSubmitted();
 
@@ -203,6 +218,7 @@
                         done();
                     });
                 });
+
             });
 
             describe('when failed to create course', function () {
@@ -210,7 +226,7 @@
                     createCourseDefer.reject();
                 });
 
-                it('should set courseTitleStep.isProcessing to false', function () {
+                it('should set courseTitleStep.isProcessing to false', function (done) {
                     courseTitleStep.isProcessing(true);
                     var promise = viewModel.courseTitleStepSubmitted();
 

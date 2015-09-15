@@ -16,7 +16,8 @@
                 courseBuildFailed: 'Course build is failed',
                 coursePublishFailed: 'Course publish is failed',
                 publishCourse: 'Publish course',
-                deleteCourse: 'Delete selected courses'
+                deleteCourse: 'Delete selected courses',
+                createNewCourse: 'Open \'Create course\' dialog'
             };
 
 
@@ -43,6 +44,7 @@
 
             deleteSelectedCourses: deleteSelectedCourses,
             createNewCourse: createNewCourse,
+            createCourseCallback: createCourseCallback,
             importCourseFromPresentation: importCourseFromPresentation,
 
             courseCollaborationStarted: courseCollaborationStarted,
@@ -52,6 +54,7 @@
             collaborationFinished: collaborationFinished,
 
             openUpgradePlanUrl: openUpgradePlanUrl,
+            newCourseCreated: newCourseCreated,
 
             activate: activate
         };
@@ -69,6 +72,7 @@
         app.on(constants.messages.course.objectiveRelatedByCollaborator, viewModel.courseUpdated);
         app.on(constants.messages.course.objectivesUnrelatedByCollaborator, viewModel.courseUpdated);
         app.on(constants.messages.course.collaboration.finished, viewModel.collaborationFinished);
+        app.on(constants.messages.learningPath.createCourse, viewModel.newCourseCreated);
 
         return viewModel;
 
@@ -276,8 +280,17 @@
             };
         }
 
+        function newCourseCreated(course) {
+            viewModel.courses.unshift(mapCourse(course));
+        }
+
+        function createCourseCallback(course) {
+            router.navigate('courses/' + course.id);
+        }
+
         function createNewCourse() {
-            createCourseDialog.show();
+            eventTracker.publish(events.createNewCourse);
+            createCourseDialog.show(viewModel.createCourseCallback);
         }
 
         function importCourseFromPresentation() {

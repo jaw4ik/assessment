@@ -1,71 +1,92 @@
 ﻿<section class="create view-module">
     <div class="content-section-wrapper">
-            <div class="content-section learning-path-content">
-                <div class="page-view-caption-wrapper">
-                    <div class="page-view-caption">
-                        <button class="page-view-caption-back-button info-tooltip-holder" data-bind="click: back">
-                            <div class="info-tooltip">
-                                <span data-bind="localize: { text: 'goBack' }">Go back</span>
-                            </div>
+        <div class="content-section learning-path-content">
+            <div class="page-view-caption-wrapper">
+                <div class="page-view-caption">
+                    <button class="page-view-caption-back-button info-tooltip-holder" data-bind="click: back">
+                        <div class="info-tooltip">
+                            <span data-bind="localize: { text: 'goBack' }">Go back</span>
+                        </div>
+                    </button>
+                    <div class="page-view-caption-text" data-bind="localize: { text: 'coursesInThePath' }"></div>
+                </div>
+                <div class="page-view-caption-actions action-item-btn-wrapper">
+                    <button class="action-item-btn btn confirm" data-bind="click: finishAddingCourses, css: { disabled: courses().length === 0 }, enable: courses().length > 0, visible: courseSelector.isExpanded">
+                        <span class="action-item-btn-caption" data-bind="localize: { text: 'done' }"></span>
+                    </button>
+                    <div data-bind="visible: !courseSelector.isExpanded()">
+                        <button class="action-item-btn btn create-item dropdown add-courses green" data-bind="click: toggleAddCoursesPopoverVisibility, outsideClick: { action: hideAddCoursesPopover }, css: { expanded: addCoursesPopoverVisibility() }">
+                            <span class="action-item-btn-caption" data-bind="localize: { text: 'addCourses' }">Add courses</span>
                         </button>
-                        <div class="page-view-caption-text" data-bind="localize: { text: 'coursesInThePath' }"></div>
-                    </div>
-                    <div class="page-view-caption-actions">
-                        <!-- ko if: courseSelector.isExpanded -->
-                        <button class="action-item-btn btn confirm" data-bind="click: finishAddingCourses, css: { disabled: courses().length === 0 }, enable: courses().length > 0">
-                            <span class="action-item-btn-caption" data-bind="localize: { text: 'done' }"></span>
-                        </button>
-                        <!-- /ko -->
-                        <!-- ko ifnot: courseSelector.isExpanded -->
-                        <button class="action-item-btn btn create-item add-courses green" data-bind="click: addCourses">
-                            <span class="action-item-btn-caption" data-bind="localize: { text: 'addCourses' }"></span>
-                        </button>
-                        <!-- /ko -->
+                        <div class="new-course-action-wrapper" data-bind="css: { visible: addCoursesPopoverVisibility }">
+                            <ul class="new-course-action-items">
+                                <li class="new-course-action-item" data-bind="click: addCourses">
+                                    <span class="new-course-action-add-existing-icon"></span>
+                                    <span class="new-course-action-item-title" data-bind="localize: { text: 'existingCourse' }">Existing course</span>
+                                </li>
+                                <li class="new-course-actions-separator"></li>
+                                <li class="new-course-action-item" data-bind="click: createNewCourse">
+                                    <span class="new-course-action-create-course-icon"></span>
+                                    <span class="new-course-action-item-title" data-bind="localize: { text: 'createNewCourse' }">New course</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <!-- ko ifnot: courses().length === 0  -->
-                <ul class="unstyled main-content-list" data-bind="sortable: { data: courses, afterMove: updateCoursesOrder, isEnabled: isSortingEnabled, options: {handle: '.list-item-drag-icon' }}">
-                    <!-- ko foreach: courses -->
-                    <li class="main-content-list-item">
-                        <div class="list-item-content-holder">
-                            <!-- ko if: $parent.isSortingEnabled() -->
-                            <div class="list-item-drag-icon" data-bind="localize: { title: 'changeOrderTooltip' }"></div>
-                            <!-- /ko -->
-                            <!-- ko ifnot: $parent.isSortingEnabled() -->
-                            <div class="list-item-drag-icon disabled"></div>
-                            <!-- /ko -->
-                            <div class="empty-list-item"></div>
-                            <div class="list-item-info-holder">
-                                <div class="info-holder-table">
-                                    <div class="list-item-logo">
-                                        <span class="list-item-logo-image-wrapper">
-                                            <img class="list-item-logo-image" alt="" data-bind="attr: { src: thumbnail }">
-                                        </span>
+            </div>
+            <!-- ko ifnot: courses().length === 0  -->
+            <ul class="unstyled main-content-list" data-bind="sortable: { data: courses, afterMove: updateCoursesOrder, isEnabled: isSortingEnabled, options: {handle: '.list-item-drag-icon' }}">
+                <!-- ko foreach: courses -->
+                <li class="main-content-list-item draggable">
+                    <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
+                        <!-- ko if: $parent.isSortingEnabled() -->
+                        <div class="list-item-drag-icon" data-bind="localize: { title: 'changeOrderTooltip' }, stopEventPropagation: { event: 'click' }"></div>
+                        <!-- /ko -->
+                        <!-- ko ifnot: $parent.isSortingEnabled() -->
+                        <div class="list-item-drag-icon disabled" data-bind="stopEventPropagation: { event: 'click' }"></div>
+                        <!-- /ko -->
+                        <div class="empty-list-item"></div>
+                        <div class="list-item-info-holder">
+                            <div class="info-holder-table">
+                                <div class="list-item-logo">
+                                    <span class="list-item-logo-image-wrapper">
+                                        <img class="list-item-logo-image" alt="" data-bind="attr: { src: thumbnail }">
+                                    </span>
+                                </div>
+                                <div class="list-item-info">
+                                    <div class="list-item-title">
+                                        <span class="selectable" data-bind="text: title"></span>
                                     </div>
-                                    <div class="list-item-info">
-                                        <div class="list-item-title">
-                                            <span class="selectable" data-bind="text: title"></span>
-                                        </div>
-                                        <div class="list-item-saved">
-                                            <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: currentLanguage }"></span>
-                                        </div>
+                                    <div class="list-item-saved">
+                                        <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: currentLanguage }"></span>
                                     </div>
-                                    <div class="list-item-remove">
-                                        <button class="list-item-remove-btn info-tooltip-holder" data-bind="click: remove">
-                                            <div class="info-tooltip">
-                                                <span data-bind="localize: { text: 'removeFromPath' }"></span>
+                                </div>
+                                <div class="list-item-separator">
+                                    
+                                </div>
+                                <div class="list-item-actions">
+                                    <button class="list-item-remove-btn info-tooltip-holder" data-bind="stopEventPropagation: { event: 'click' }, click: remove">
+                                        <div class="info-tooltip">
+                                            <span data-bind="localize: { text: 'removeFromPath' }"></span>
+                                        </div>
+                                    </button>
+                                    <div class="list-item-open-btn-wrapper">
+                                        <div class="list-item-open-btn course-action-btn info-tooltip-holder">
+                                            <div class="info-tooltip open-item">
+                                                <span data-bind="localize: { text: 'open' }">Open</span>
                                             </div>
-                                        </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </li>
-                    <!-- /ko -->
-                </ul>
+                    </div>
+                </li>
                 <!-- /ko -->
-            </div>
+            </ul>
+            <!-- /ko -->
         </div>
+    </div>
     <!-- ko if: courses().length === 0 -->
     <div class="tip-arrow-holder">
         <div class="tip-arrow-text" data-bind="localize: { text : 'selectCoursesHint' }"></div>

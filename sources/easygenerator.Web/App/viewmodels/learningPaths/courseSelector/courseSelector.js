@@ -11,6 +11,7 @@
             deactivate: deactivate,
             courses: ko.observableArray([]),
             courseRemovedFromPath: courseRemovedFromPath,
+            courseAddedToPath: courseAddedToPath,
             filter: courseFilter,
             courseTitleUpdated: courseTitleUpdated
         };
@@ -79,6 +80,12 @@
             if (course) {
                 course.isSelected(false);
             }
+        }
+
+        function courseAddedToPath(course) {
+            var courseBrief = new CourseBrief(course);
+            courseBrief.isSelected(true);
+            viewModel.courses.unshift(courseBrief);
         }
 
         function courseTitleUpdated(course) {
