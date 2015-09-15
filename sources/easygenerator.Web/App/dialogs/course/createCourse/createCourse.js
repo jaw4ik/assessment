@@ -11,7 +11,7 @@
 
         var viewModel = {
             show: show,
-            callback: function() {},
+            callback: null,
             closed: closed,
             courseTemplateStepSubmitted: courseTemplateStepSubmitted,
             courseTitleStepSubmitted: courseTitleStepSubmitted,
@@ -21,9 +21,7 @@
         return viewModel;
 
         function show(callback) {
-            if (_.isFunction(callback)) {
-                viewModel.callback = callback;
-            }
+            viewModel.callback = callback;
             if (_.isNullOrUndefined(clientContext.get(constants.clientContextKeys.showCreateCoursePopup))) {
                 courseTitleStep.caption(localizationManager.localize('createYourCourse'));
                 viewModel.eventCategory = undefined;
@@ -56,7 +54,10 @@
             courseTitleStep.isProcessing(true);
             return createCourseCommand.execute(courseTitleStep.title(), courseTemplateStep.getSelectedTemplateId()).then(function (course) {
                 dialog.close();
-                viewModel.callback(course);
+                
+                if (_.isFunction(viewModel.callback)) {
+                    viewModel.callback(course);
+                }
                 
             }).fin(function () {
                 courseTitleStep.isProcessing(false);
