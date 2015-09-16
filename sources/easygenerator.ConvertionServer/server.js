@@ -6,6 +6,9 @@ var
 
     app = express();
 
+if (config.cors) {
+    app.use(require('cors')());
+}
 
 app.use(config.LOCATION + '/tickets', require('./ticketController'));
 app.use(config.LOCATION, require('./fileController.js'));
