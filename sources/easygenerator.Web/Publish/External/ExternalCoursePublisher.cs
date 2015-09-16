@@ -28,11 +28,12 @@ namespace easygenerator.Web.Publish.External
                     throw new Exception("Course is already not published.");
                 }
 
-                _httpClient.Post<string>(GetExternalApiUrl(company), new
+                _httpClient.Post<string>(company.PublishCourseApiUrl, new
                 {
                     id = course.Id,
                     userEmail = userEmail,
-                    publishedCourseUrl = course.PublicationUrl
+                    publishedCourseUrl = course.PublicationUrl,
+                    apiKey = company.SecretKey
                 });
 
                 course.SetPublishedToExternalLms(true);
@@ -43,11 +44,6 @@ namespace easygenerator.Web.Publish.External
                 _logger.LogException(e);
                 return false;
             }
-        }
-
-        private string GetExternalApiUrl(Company company)
-        {
-            return String.Format("{0}?key={1}", company.PublishCourseApiUrl, company.SecretKey);
         }
     }
 }
