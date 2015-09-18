@@ -35,6 +35,10 @@
     "[tracking and tracing continue anyway]": "Continuar mesmo assim",
     "[tracking and tracing result success]": "Sucesso",
     "[tracking and tracing result failed]": "Falhou",
-    "[tracking and tracing mastery score hint]": "Pontuação mínima necessária precisa para ter sucesso",
-    "[tracking and tracing reporting progress]": "relatando o progresso..."
+    "[tracking and tracing mastery score hint]": "Pontuação mínima necessária para ter sucesso",
+    "[tracking and tracing reporting progress]": "relatando o progresso...",
+    "[type your answer here]": "Digite sua resposta aqui...",
+    "[tracking and tracing error hint without continue]": "Reinicie o curso. Contate seu provedor de cursos se o problema persistir.",
+    "[attempts note limit acceeded]": "Você exedeu o número de tentativas permitidas",
+    "[attempts remaining]": "Tentativas restantes"
 }

@@ -107,13 +107,13 @@
         'en': 'Please delete your courses one by one. Multi-delete is not implemented yet.',
         'zh-cn': '请逐个删除您的课程，暂不支持批量删除',
         'uk': 'Будь ласка, видаляйте курси по одному. Видалення декількох курсів поки що неможливе.',
-        'pt-br': 'Favor excluir seus cursos uma a um. Multi-exclusão não está implementada ainda.'
+        'pt-br': 'Favor excluir seus cursos um a um. Multi-exclusão não está implementada ainda.'
     },
     deleteSeveralObjectivesError: {
         'en': 'Please delete your learning objectives one by one. Multi-delete is not implemented yet.',
         'zh-cn': '请逐个删除您的学习目标，暂不支持批量删除',
         'uk': 'Будь ласка, видаляйте розділи / цілі по одному. Видалення декількох розділів / цілей поки що неможливе.',
-        'pt-br': 'Favor excluir seus objetivos de aprendizado uma a um. Multi-exclusão não está implementada ainda.'
+        'pt-br': 'Favor excluir seus objetivos de ensino um a um. Multi-exclusão não está implementada ainda.'
     },
     allChangesAreSaved: {
         'en': 'All changes are saved',
@@ -144,6 +144,12 @@
         'zh-cn': '发布',
         'uk': 'Публікація',
         'pt-br': 'Publicar'
+    },
+    update: {
+        'en': 'Update',
+        'zh-cn': 'Update[zh-cn]',
+        'uk': 'Оновити',
+        'pt-br': 'Update[pt-br]'
     },
     upgradeNow: {
         'en': 'Upgrade now',
@@ -179,7 +185,7 @@
         'en': 'This file format is not supported. Please use jpg, jpeg, png, gif or bmp',
         'zh-cn': '不支持的文件格式，请使用jpg、jpeg、png、gif或者bmp格式的文件',
         'uk': 'Формат файла не підтримується. Використовуйте такі формати файлів: jpg, jpeg, png, gif чи bmp.',
-        'pt-br': 'Este formatode arquivo não é suportado. Favor usar jpg, jpeg, png, gif ou bmp'
+        'pt-br': 'Este formato de arquivo não é suportado. Favor usar jpg, jpeg, png, gif ou bmp'
     },
     youHaveTo: {
         'en': 'You have to ',
@@ -227,7 +233,7 @@
         'en': 'Uploading...',
         'zh-cn': 'Uploading...[zh-cn]',
         'uk': 'Завантаження...',
-        'pt-br': 'Carregando..'
+        'pt-br': 'Carregando...'
     },
     chooseBackgroundImage: {
         'en': 'Choose background image',
@@ -467,7 +473,7 @@
         'en': 'Terms of use',
         'zh-cn': '使用说明',
         'uk': 'Умови користування',
-        'pt-br': 'Termos de use'
+        'pt-br': 'Termos de uso'
     },
     privacyPolicy: {
         'en': 'Privacy policy',
@@ -485,19 +491,37 @@
         'en': 'Template',
         'zh-cn': 'Template[zh-cn]',
         'uk': 'Шаблон',
-        'pt-br': 'Template[pt-br]'
+        'pt-br': 'Modelo'
     },
     settings: {
         'en': 'Settings',
         'zh-cn': 'Settings[zh-cn]',
         'uk': 'Опції',
-        'pt-br': 'Settings[pt-br]'
+        'pt-br': 'Configurações'
     },
     PleaseWaitFewMinutes: {
         'en': 'Please wait, it may take few minutes',
         'zh-cn': 'Please wait, it may take few minutes[zh-cn]',
         'uk': 'Будь ласка зачекайте кілька хвилин',
-        'pt-br': 'Please wait, it may take few minutes[pt-br]'
+        'pt-br': 'Favor aguardar, isto pode demorar alguns minutos'
+    },
+    added: {
+        'en': 'Added',
+        'zh-cn': 'Added[zh-cn]',
+        'uk': 'Додано',
+        'pt-br': 'Added[pt-br]'
+    },
+    fixed: {
+        'en': 'Fixed',
+        'zh-cn': 'Fixed[zh-cn]',
+        'uk': 'Виправленно',
+        'pt-br': 'Fixed[pt-br]'
+    },
+    futureFeatures: {
+        'en': 'What we are working on',
+        'zh-cn': 'What we are working on[zh-cn]',
+        'uk': 'Над чим ми працюємо',
+        'pt-br': 'What we are working on[pt-br]'
     },
     /* End resource section for model General */
     
@@ -641,7 +665,7 @@
         'en': 'Drag objective here',
         'zh-cn': '拖动学习目标到这',
         'uk': 'Перемістіть розділи / цілі сюди',
-        'pt-br': 'Arraste o objetivo para aqui'
+        'pt-br': 'Arraste o objetivo para cá'
     },
     dropHere: {
         'en': 'Drop here',
@@ -659,7 +683,7 @@
         'en': 'Objectives list is empty...',
         'zh-cn': 'Objectives list is empty...[zh-cn]',
         'uk': 'Список розділей / цілей порожній...',
-        'pt-br': 'Objectives list is empty...'
+        'pt-br': 'Lista de objetivos vazia…'
     },
     /* End resource section for model Objectives */
     
@@ -782,43 +806,43 @@
         'en': 'Learning path URL',
         'zh-cn': 'Learning path URL[zh-cn]',
         'uk': 'URL навчального шляху',
-        'pt-br': 'Learning path URL[pt-br]'
+        'pt-br': 'URL do caminho de aprendizado'
     },
     learningPathCopyLinkDescription: {
         'en': 'Copy and paste the URL of your learning path to share or view.',
         'zh-cn': 'Copy and paste the URL of your learning path to share or view.[zh-cn]',
         'uk': 'Скопіюйте та вставте URL навчального шляху, щоб поділитись чи продивитись його.',
-        'pt-br': 'Copy and paste the URL of your learning path to share or view.[pt-br]'
+        'pt-br': 'Copie e cole a URL do seu caminho de aprendizado para compartilhar ou ver.'
     },
     getLearningPathLink: {
         'en': 'Get learning path link',
         'zh-cn': 'Get learning path link[zh-cn]',
         'uk': 'Отримати посилання на навчальний шлях',
-        'pt-br': 'Get learning path link[pt-br]'
+        'pt-br': 'Obter link do caminho de aprendizado'
     },
     learningPathCopyEmbedCodeDescription: {
         'en': 'Paste this code into your HTML page where you want the learning path to appear',
         'zh-cn': 'Paste this code into your HTML page where you want the learning path to appear[zh-cn]',
         'uk': 'Якщо ви хочете, щоб навчальний шлях з\'явився на вашому сайті, вставте цей код у Вашу HTML сторінку',
-        'pt-br': 'Paste this code into your HTML page where you want the learning path to appear[pt-br]'
+        'pt-br': 'Cole este código para sua página HTML onde você deseja onde deseja que o caminho de aprendizado apareça'
     },
     updateLearningPathDescription: {
         'en': 'The learning path might have been changed since it was last published. Click \"Update path\" to apply last changes.',
         'zh-cn': 'The learning path might have been changed since it was last published. Click \"Update path\" to apply last changes.[zh-cn]',
         'uk': 'Навчальний шлях може містити зміни з часу останньої публікації. Натисніть \"Оновити шлях\" щоб застосувати зміни',
-        'pt-br': 'The learning path might have been changed since it was last published. Click \"Update path\" to apply last changes.[pt-br]'
+        'pt-br': 'O caminho de aprendizado pode ter sido alterado desde que foi publicado a última vez. Clique \"Atualizar caminho\" para aplicar as últimas alterações.'
     },
     updateLearningPath: {
         'en': 'Update path',
         'zh-cn': 'Update path[zh-cn]',
         'uk': 'Оновити шлях',
-        'pt-br': 'Update path[pt-br]'
+        'pt-br': 'Atualizar caminho'
     },
     downloadAsHtml: {
         'en': 'Download as HTML',
         'zh-cn': '下载为HTML格式',
         'uk': 'Завантажити пакет HTML',
-        'pt-br': 'Download como HTML'
+        'pt-br': 'Baixar como HTML'
     },
     downloadAsHtmlDescription: {
         'en': 'Publish to your webserver or cloud storage',
@@ -830,13 +854,13 @@
         'en': 'Want to run your learning path offline on your desktop or on your own server?',
         'zh-cn': 'Want to run your learning path offline on your desktop or on your own server?[zh-cn]',
         'uk': 'Хочете запустити свій навчальний шлях в режимі офлайн чи на власному сервері?',
-        'pt-br': 'Want to run your learning path offline on your desktop or on your own server?[pt-br]'
+        'pt-br': 'Deseja executar seu caminho de aprendizado offline em seu desktop ou em seu próprio servidor?'
     },
     learningPathDownloadAsHtmlHint2: {
         'en': 'We package up all the HTML, CSS and JS of your learning path for you to download.',
         'zh-cn': 'We package up all the HTML, CSS and JS of your learning path for you to download.[zh-cn]',
         'uk': 'Ми створимо HTML, CSS,  JS пакет для Вас.',
-        'pt-br': 'We package up all the HTML, CSS and JS of your learning path for you to download.[pt-br]'
+        'pt-br': 'Empacotamos todos os HTML, CSS e JS do seu caminho de aprendizado para você baixar.'
     },
     shareLearningPathTitle: {
         'en': 'Get an easygenerator link and share',
@@ -859,23 +883,29 @@
         'uk': 'Курс',
         'pt-br': 'Curso'
     },
+    existingCourse: {
+        'en': 'Existing course',
+        'zh-cn': 'Existing course[zh-cn]',
+        'uk': 'Існуючий курс',
+        'pt-br': 'Existing course[pt-br]'
+    },
     courseIsDuplicating: {
         'en': 'Course is duplicating...',
         'zh-cn': 'Course is duplicating...[zh-cn]',
         'uk': 'Курс дублюється...',
-        'pt-br': 'Course is duplicating...[pt-br]'
+        'pt-br': 'Curso sendo duplicado...'
     },
     coursesUpgradeToHaveMore: {
         'en': 'To have more courses',
         'zh-cn': 'To have more courses[zh-cn]',
         'uk': 'Щоб мати більше курсів',
-        'pt-br': 'To have more courses[pt-br]'
+        'pt-br': 'Para ter mais cursos'
     },
     coursesUpgradeToHaveMoreHtml: {
         'en': '<ul><li>Unlimited number of courses</li><li>Unlimited storage space (fair use policy)</li><li>Unlimited number of duplicates</li></ul>',
         'zh-cn': '<ul><li>Unlimited number of courses</li><li>Unlimited storage space (fair use policy)</li><li>Unlimited number of duplicates</li></ul>[zh-cn]',
         'uk': '<ul><li>Необмежена кількість курсів</li><li>Необмежений обсяг інформації</li><li>Необмежена кількість дублікацій</li></ul>',
-        'pt-br': '<ul><li>Unlimited number of courses</li><li>Unlimited storage space (fair use policy)</li><li>Unlimited number of duplicates</li></ul>[pt-br]'
+        'pt-br': '<ul><li>Ilimitado número de cursos</li><li>Espaço ilimitado de armazenamento (política de uso justo)</li><li>Quantidade ilimitada de duplicaçoes</li></ul>'
     },
     courseDownloadAction: {
         'en': 'Download as HTML',
@@ -983,7 +1013,7 @@
         'en': 'Publish to LMS',
         'zh-cn': '发布到LMS',
         'uk': 'Публікація у LMS',
-        'pt-br': 'Publicar para um SGA'
+        'pt-br': 'Publicar para um LMS (SGA)'
     },
     assembling: {
         'en': 'Publishing...',
@@ -1163,7 +1193,7 @@
         'en': 'Date',
         'zh-cn': 'Date[zh-cn]',
         'uk': 'Дата',
-        'pt-br': 'Data Hora'
+        'pt-br': 'Data'
     },
     time: {
         'en': 'Time',
@@ -1291,6 +1321,18 @@
         'uk': 'Опублікувати в {companyName}',
         'pt-br': 'Publish to {companyName}[pt-br]'
     },
+    updateInCompany: {
+        'en': 'Update in {companyName}',
+        'zh-cn': 'Update in {companyName}[zh-cn]',
+        'uk': 'Оновити в {companyName}',
+        'pt-br': 'Update in {companyName}[pt-br]'
+    },
+    publishedCourseIsUpToDate: {
+        'en': 'Published course is up-to-date',
+        'zh-cn': 'Published course is up-to-date[zh-cn]',
+        'uk': 'Опублікований курс є актуальним',
+        'pt-br': 'Published course is up-to-date[pt-br]'
+    },
     sharePrivateLink: {
         'en': 'Share private link',
         'zh-cn': 'Share private link[zh-cn]',
@@ -1307,7 +1349,7 @@
         'en': 'To your LMS',
         'zh-cn': 'To your LMS[zh-cn]',
         'uk': 'До LMS',
-        'pt-br': 'Para o seu SGA'
+        'pt-br': 'Para o seu LMS (SGA)'
     },
     toYourHosting: {
         'en': 'To your hosting',
@@ -1325,7 +1367,7 @@
         'en': 'Want to run your course on LMS or on your SCORM cloud?',
         'zh-cn': 'Want to run your course on LMS or on your SCORM cloud?[zh-cn]',
         'uk': 'Хочете запустити свій курс в LMS або Вашому SCORM сховищі?',
-        'pt-br': 'Deseja executar o curso no seu SGA em sua nuvem SCORM?'
+        'pt-br': 'Deseja executar o curso no seu LMS (SGA) em sua nuvem SCORM?'
     },
     scormCaptionSecond: {
         'en': 'We package up all the SCORM 1.2 package.',
@@ -1592,10 +1634,10 @@
         'pt-br': 'Desculpe, mas o modelo selecionado não contém configurações'
     },
     powerPointImport: {
-        'en': 'Create from PowerPoint',
-        'zh-cn': '从PowerPoint导入',
-        'uk': 'Створити курс на базі PowerPoint',
-        'pt-br': 'Criar de PowerPoint'
+        'en': 'From PowerPoint',
+        'zh-cn': 'From PowerPoint[zh-cn]',
+        'uk': 'на базі PowerPoint',
+        'pt-br': 'From PowerPoint[pt-br]'
     },
     uploadingPresentation: {
         'en': 'uploading presentation...',
@@ -1631,43 +1673,43 @@
         'en': 'Create your course',
         'zh-cn': 'Create your course[zh-cn]',
         'uk': 'Створення курсу',
-        'pt-br': 'Create your course[pt-br]'
+        'pt-br': 'Crie seu curso'
     },
     createYourFirstCourse: {
         'en': 'Create your first course',
         'zh-cn': 'Create your first course[zh-cn]',
         'uk': 'Створення Вашого першого курсу',
-        'pt-br': 'Create your first course[pt-br]'
+        'pt-br': 'Crie seu primeiro curso'
     },
     giveNameToYourCourse: {
         'en': 'Give a name to your course...',
         'zh-cn': 'Give a name to your course...[zh-cn]',
         'uk': 'Дайте ім\'я курсу...',
-        'pt-br': 'Give a name to your course...[pt-br]'
+        'pt-br': 'Dê um nome para seu curso...'
     },
     whatDoYouWantToCreate: {
         'en': 'What do you want to create?',
         'zh-cn': 'What do you want to create?[zh-cn]',
         'uk': 'Який курс бажаєте створити?',
-        'pt-br': 'What do you want to create?[pt-br]'
+        'pt-br': 'O que você deseja criar?'
     },
     templateDescriptionCaption: {
         'en': 'Description:',
         'zh-cn': 'Description:[zh-cn]',
         'uk': 'Опис:',
-        'pt-br': 'Description:[pt-br]'
+        'pt-br': 'Descrição:'
     },
     templateDidacticalStructureCaption: {
         'en': 'Didactical structure:',
         'zh-cn': 'Didactical structure:[zh-cn]',
         'uk': 'Дидактична структура:',
-        'pt-br': 'Didactical structure:[pt-br]'
+        'pt-br': 'Estrutura didática:'
     },
     nextStep: {
         'en': 'Next',
         'zh-cn': 'Next[zh-cn]',
         'uk': 'Далі',
-        'pt-br': 'Next[pt-br]'
+        'pt-br': 'Próximo'
     },
     /* End resource section for model CreateCourse */
     
@@ -2075,37 +2117,37 @@
         'en': 'Untitled multiple choice question',
         'zh-cn': 'Untitled multiple choice question[zh-cn]',
         'uk': 'Питання \"Декілька з багатьох\" без назви',
-        'pt-br': 'Untitled multiple choice question[pt-br]'
+        'pt-br': 'Questão múltipla seleção sem título'
     },
     newSingleChoiceTextQuestionTitle: {
         'en': 'Untitled single choice question',
         'zh-cn': 'Untitled single choice question[zh-cn]',
         'uk': 'Питання \"Один з багатьох\" без назви',
-        'pt-br': 'Untitled single choice question[pt-br]'
+        'pt-br': 'Questão seleção simples sem título'
     },
     newFillInTheBlanksQuestionTitle: {
         'en': 'Untitled fill in the blanks question',
         'zh-cn': 'Untitled fill in the blanks question[zh-cn]',
         'uk': 'Питання \"Текст з пропусками\" без назви',
-        'pt-br': 'Untitled fill in the blanks question[pt-br]'
+        'pt-br': 'Questão preencha os espaços sem título'
     },
     newDragAndDropTextQuestionTitle: {
         'en': 'Untitled drag and drop text question',
         'zh-cn': 'Untitled drag and drop text question[zh-cn]',
         'uk': 'Питання \"Тексти на зображенні\" без назви',
-        'pt-br': 'Untitled drag and drop text question[pt-br]'
+        'pt-br': 'Questão arrastar e soltar sem título'
     },
     newSingleChoiceImageQuestionTitle: {
         'en': 'Untitled single choice image question',
         'zh-cn': 'Untitled single choice image question[zh-cn]',
         'uk': 'Питання \"Вибір зображення\" без назви',
-        'pt-br': 'Untitled single choice image question[pt-br]'
+        'pt-br': 'Questão seleção de imagem simples sem título'
     },
     newTextMatchingQuestionTitle: {
         'en': 'Untitled text matching question',
         'zh-cn': 'Untitled text matching question[zh-cn]',
         'uk': 'Питання \"Вибір відповідності\" без назви',
-        'pt-br': 'Untitled text matching question[pt-br]'
+        'pt-br': 'Questão casamento de textos sem título'
     },
     /* End resource section for model Questions */
     
@@ -2421,6 +2463,12 @@
         'zh-cn': '我们遇到了一个问题，请重试。如果问题依然存在，请联系support@easygenerator.com解决。',
         'uk': 'Виникла проблема. Натисніть \"Курси\", відкрийте курс та спробуйте ще раз. Якщо проблема не зникне, надішліть нам електронного листа на адресу support@easygenerator.com.',
         'pt-br': 'Encontramos um problema. Clique em Cursos. Abra o curso e tente novamente. Contate support@easygenerator.com se o problema persistir.'
+    },
+    userNotMemberOfAnyCompany: {
+        'en': 'You are not a member of any company.',
+        'zh-cn': 'You are not a member of any company.[zh-cn]',
+        'uk': 'Ви не є членом якої небудь компанії.',
+        'pt-br': 'You are not a member of any company.[pt-br]'
     },
     /* End resource section for model Server error notification */
     

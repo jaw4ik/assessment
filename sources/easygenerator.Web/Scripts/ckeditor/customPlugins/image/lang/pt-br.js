@@ -5,7 +5,7 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 CKEDITOR.plugins.setLang( 'image', 'pt-br', {
     alt: 'Texto alternativo',
     border: 'Borda',
-    button2Img: 'Imagem?',
+    button2Img: 'Você deseja transformar o botão imagem selecionado em uma imagem simples?',
     hSpace: 'HSpace',
     img2Button: 'Você deseja transformar a imagem selecionada em um botão de imagem?',
     infoTab: 'Informação da Imagem',

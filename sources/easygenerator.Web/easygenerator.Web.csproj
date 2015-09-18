@@ -271,6 +271,7 @@
     <Compile Include="Components\Mappers\AnswerMapper.cs" />
     <Compile Include="Components\Mappers\BlankAnswerMapper.cs" />
     <Compile Include="Components\Mappers\CollaborationInviteMapper.cs" />
+    <Compile Include="Components\Mappers\CompanyMapper.cs" />
     <Compile Include="Components\Mappers\DropspotMapper.cs" />
     <Compile Include="Components\Mappers\EntityMapper.cs" />
     <Compile Include="Components\Mappers\HotSpotPolygonMapper.cs" />
@@ -299,9 +300,16 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
+    <Compile Include="Publish\External\ExternalCoursePublisher.cs" />
+    <Compile Include="Publish\External\IExternalCoursePublisher.cs" />
     <Compile Include="Publish\ILearningPathPublisher.cs" />
     <Compile Include="Publish\LearningPathPublisher.cs" />
     <Compile Include="DomainEvents\Handlers\CreateUserInitialDataHandler.cs" />
+    <Compile Include="Resources\Views\Account\Resources.pt.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.pt.resx</DependentUpon>
+    </Compile>
     <Compile Include="Storage\CourseStateStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\AnswerChangedEvent.cs" />
@@ -625,22 +633,33 @@
       <DependentUpon>moveCopyQuestion.js</DependentUpon>
     </Content>
     <Content Include="App\dialogs\releaseNotes\commands\getReleaseNote.js" />
-    <Content Include="App\dialogs\releaseNotes\commands\getReleaseNote.spec.js" />
+    <Content Include="App\dialogs\releaseNotes\commands\getReleaseNote.spec.js">
+      <DependentUpon>getReleaseNote.js</DependentUpon>
+    </Content>
     <Content Include="App\dialogs\releaseNotes\commands\updateLastReadReleaseNote.js" />
-    <Content Include="App\dialogs\releaseNotes\commands\updateLastReadReleaseNote.spec.js" />
+    <Content Include="App\dialogs\releaseNotes\commands\updateLastReadReleaseNote.spec.js">
+      <DependentUpon>updateLastReadReleaseNote.js</DependentUpon>
+    </Content>
     <Content Include="App\dialogs\releaseNotes\releaseNotes.html" />
     <Content Include="App\dialogs\releaseNotes\releaseNotes.js" />
-    <Content Include="App\dialogs\releaseNotes\releaseNotes.spec.js" />
+    <Content Include="App\dialogs\releaseNotes\releaseNotes.spec.js">
+      <DependentUpon>releaseNotes.js</DependentUpon>
+    </Content>
     <Content Include="App\http\publishHttpWrapper.spec.js">
       <DependentUpon>publishHttpWrapper.js</DependentUpon>
     </Content>
     <Content Include="App\http\publishHttpWrapper.js" />
+    <Content Include="App\mappers\companyMapper.js" />
     <Content Include="App\models\learningPath.spec.js">
       <DependentUpon>learningPath.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\course\design\templateBrief.js" />
     <Content Include="App\viewmodels\courses\course\design\templateBrief.spec.js">
       <DependentUpon>templateBrief.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\publishingActions\publishToCustomLms.js" />
+    <Content Include="App\viewmodels\courses\publishingActions\publishToCustomLms.spec.js">
+      <DependentUpon>publishToCustomLms.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\actions\publish.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\actions\publish.spec.js">
@@ -657,6 +676,7 @@
     <Content Include="App\viewmodels\learningPaths\learningPath\publish.spec.js">
       <DependentUpon>publish.js</DependentUpon>
     </Content>
+    <Content Include="App\views\courses\publishActions\publishToCustomLms.html" />
     <Content Include="App\views\learningPaths\learningPath\details.html" />
     <Content Include="App\views\learningPaths\learningPath\publish.html" />
     <Content Include="App\views\learningPaths\learningPath\publish\publishAsHtml.html" />
@@ -1076,7 +1096,7 @@
     <Content Include="Content\images\chrome.png" />
     <Content Include="Content\images\closedhand.cur" />
     <Content Include="Content\images\comingsoon1024.png" />
-    <Content Include="Content\images\create-course.png" />
+    <Content Include="Content\images\companies\icemd.png" />
     <Content Include="Content\images\disabled-question1024.png" />
     <Content Include="Content\images\firefox.png" />
     <Content Include="Content\images\hotSpot-empty.png" />
@@ -1088,7 +1108,6 @@
     <Content Include="Content\images\noResultsHintSteps.png" />
     <Content Include="Content\images\objective-default-image.jpg" />
     <Content Include="Content\images\openhand.cur" />
-    <Content Include="Content\images\import-pptx.png" />
     <Content Include="Content\images\dialog-header-background.png" />
     <Content Include="Content\images\open-question.png" />
     <Content Include="Content\images\preview.png" />
@@ -1176,6 +1195,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\dialogs\eqneditor.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\eqneditor\lang\pt-br.js" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\dialogs\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\icons\eqneditor.png" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\lang\en.js" />
@@ -1315,6 +1335,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\icons\no-videos.png" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\icons\video-icon.png" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\en.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\pt-br.js" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\uk.js" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\plugin.js" />
@@ -1526,7 +1547,7 @@
     <Content Include="ReleaseNotes\1.0.0.html" />
     <Content Include="Content\releaseNotes.less" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
-    <Content Include="Scripts\iscroll.js" />
+    <Content Include="Scripts\iscroll-probe.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.js" />
@@ -1536,6 +1557,7 @@
     <Content Include="Scripts\knockout.validation.js" />
     <Content Include="Scripts\knockout.validation.min.js" />
     <Content Include="Scripts\knockoutBindings\fadeOutBinding.js" />
+    <Content Include="Scripts\knockoutBindings\grayscaleBinding.js" />
     <Content Include="Scripts\knockoutBindings\limitedLengthTextBinding.js" />
     <Content Include="Scripts\knockoutBindings\autosizeBinding.js" />
     <Content Include="Scripts\knockoutBindings\backgroundImageBinding.js" />

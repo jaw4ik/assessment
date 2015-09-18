@@ -14,10 +14,13 @@ using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Publish;
+using easygenerator.Web.Publish.External;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using easygenerator.Infrastructure.Http;
+using easygenerator.Web.Components.ActionResults;
 using WebGrease.Css.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
@@ -37,11 +40,14 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IEntityMapper _entityMapper;
         private readonly IDomainEventPublisher _eventPublisher;
         private readonly ITemplateRepository _templateRepository;
+        private readonly IExternalCoursePublisher _externalCoursePublisher;
+        private readonly IUserRepository _userRepository;
         private readonly ICloner _cloner;
 
-        public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository courseRepository, IEntityFactory entityFactory,
-            IUrlHelperWrapper urlHelper, ICoursePublisher coursePublisher, IEntityMapper entityMapper,
-            IDomainEventPublisher eventPublisher, ITemplateRepository templateRepository, ICloner cloner)
+        public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository courseRepository,
+            IEntityFactory entityFactory, IUrlHelperWrapper urlHelper, ICoursePublisher coursePublisher, IEntityMapper entityMapper,
+            IDomainEventPublisher eventPublisher, ITemplateRepository templateRepository, IExternalCoursePublisher externalCoursePublisher,
+            IUserRepository userRepository, ICloner cloner)
         {
             _builder = courseBuilder;
             _courseRepository = courseRepository;
@@ -52,6 +58,8 @@ namespace easygenerator.Web.Controllers.Api
             _entityMapper = entityMapper;
             _eventPublisher = eventPublisher;
             _templateRepository = templateRepository;
+            _externalCoursePublisher = externalCoursePublisher;
+            _userRepository = userRepository;
             _cloner = cloner;
         }
 
@@ -146,6 +154,25 @@ namespace easygenerator.Web.Controllers.Api
         public ActionResult PublishForReview(Course course)
         {
             return Deliver(course, () => _coursePublisher.Publish(course), () => JsonSuccess(new { ReviewUrl = GetCourseReviewUrl(course.Id.ToString()) }));
+        }
+            
+        [HttpPost]
+        [EntityCollaborator(typeof(Course))]
+        [Route("api/course/publishToCustomLms")]
+        public ActionResult PublishToCustomLms(Course course)
+        {
+            var user = _userRepository.GetUserByEmail(GetCurrentUsername());
+            if (user == null)
+            {
+                return JsonLocalizableError(Errors.UserDoesntExist, Errors.UserDoesntExistResourceKey);
+            }
+
+            if (user.Company == null)
+            {
+                return JsonLocalizableError(Errors.UserNotMemberOfAnyCompany, Errors.UserNotMemberOfAnyCompanyResourceKey);
+            }
+
+            return Deliver(course, () => _externalCoursePublisher.PublishCourseUrl(course, user.Company, user.Email), () => JsonSuccess());
         }
 
         [HttpPost]
