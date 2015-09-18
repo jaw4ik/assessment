@@ -92,6 +92,7 @@
     <Content Include="content\html\500.html" />
     <Content Include="content\html\maintenance.html" />
     <Content Include="courses\favicon.ico" />
+    <Content Include="courses\robots.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
