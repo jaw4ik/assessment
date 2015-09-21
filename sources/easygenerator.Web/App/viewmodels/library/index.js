@@ -3,6 +3,7 @@
 
     var events = {
         navigateToVideos: 'Navigate to videos',
+        navigateToAudios: 'Navigate to audios',
         navigateToObjectives: 'Navigate to objectives'
     }
 
@@ -18,6 +19,17 @@
                 hash: '#library/videos',
                 navigate: function () {
                     eventTracker.publish(events.navigateToVideos);
+                    childRouter.navigate(this.hash);
+                }
+            },
+            {
+                route: ['audios'],
+                moduleId: 'viewmodels/audios/audios',
+                title: localizationManager.localize('audioLibrary'),
+                nav: true,
+                hash: '#library/audios',
+                navigate: function () {
+                    eventTracker.publish(events.navigateToAudios);
                     childRouter.navigate(this.hash);
                 }
             },

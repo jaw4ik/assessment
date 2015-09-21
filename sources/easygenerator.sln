@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.Web", "easygenerator.Web\easygenerator.Web.csproj", "{3157004F-564B-4C11-95B5-799C6B2106C3}"
 EndProject
@@ -17,6 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.DataAccess", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FFBFF1F0-08AF-48A6-B6BD-7409FE8F062B}"
 	ProjectSection(SolutionItems) = preProject
+		..\gulpfile.js = ..\gulpfile.js
 		WE-browsers.xml = WE-browsers.xml
 		WebEssentials-Settings.json = WebEssentials-Settings.json
 	EndProjectSection
@@ -41,6 +42,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{065031
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "easygenerator.ConvertionServer", "easygenerator.ConvertionServer\easygenerator.ConvertionServer.njsproj", "{0F187409-200C-4A8B-9AF0-9326C941AD55}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.Auth.Tests", "easygenerator.Auth.Tests\easygenerator.Auth.Tests.csproj", "{8A0B7D4B-1B4A-4268-B428-DACF64A5C328}"
 EndProject
@@ -99,6 +102,10 @@ Global
 		{52F561C9-E7E1-4272-AB48-6767D6C64C65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52F561C9-E7E1-4272-AB48-6767D6C64C65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52F561C9-E7E1-4272-AB48-6767D6C64C65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F187409-200C-4A8B-9AF0-9326C941AD55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F187409-200C-4A8B-9AF0-9326C941AD55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F187409-200C-4A8B-9AF0-9326C941AD55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F187409-200C-4A8B-9AF0-9326C941AD55}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8A0B7D4B-1B4A-4268-B428-DACF64A5C328}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8A0B7D4B-1B4A-4268-B428-DACF64A5C328}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A0B7D4B-1B4A-4268-B428-DACF64A5C328}.Release|Any CPU.ActiveCfg = Release|Any CPU

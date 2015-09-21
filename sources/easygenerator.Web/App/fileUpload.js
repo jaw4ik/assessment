@@ -71,6 +71,61 @@
                 return result;
             }
 
+        },
+        xhr2: function (url, file, headers) {
+            var dfd = Q.defer();
+
+            var xhr = new XMLHttpRequest();
+            xhr.addEventListener('error', error);
+            xhr.addEventListener('progress', progress, false);
+
+            if (xhr.upload) {
+                xhr.upload.onprogress = progress;
+            }
+            xhr.onreadystatechange = function (e) {
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+                        try {
+                            success(JSON.parse(this.response));
+                        } catch (err) {
+                            error(err);
+                        }
+                    } else {
+                        error(e);
+                    }
+                }
+            };
+            xhr.open('POST', url, true);
+            xhr.responseType = 'text';
+
+            if (headers) {
+                for (var header in headers) {
+                    if (headers.hasOwnProperty(header)) {
+                        xhr.setRequestHeader(header, headers[header]);
+                    }
+                }
+            }
+
+
+            var formData = new FormData();
+            formData.append('file', file);
+            xhr.send(formData);
+
+            function error() {
+                dfd.reject();
+            }
+
+            function success(obj) {
+                dfd.resolve(obj);
+            }
+
+            function progress(e) {
+                if (e.total > 0) {
+                    dfd.notify(Math.floor((e.loaded / e.total) * 100));
+                }
+            }
+
+            return dfd.promise;
         }
     };
 });
