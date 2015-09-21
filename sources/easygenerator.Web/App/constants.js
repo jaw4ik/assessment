@@ -342,6 +342,7 @@
                 },
                 filterKeys: {
                     courseId: 'context.extensions.http://easygenerator/expapi/course/id',
+                    learningPathId: 'context.extensions.http://easygenerator/expapi/learningpath/id',
                     verb: 'verb',
                     limit: 'limit',
                     skip: 'skip',
@@ -365,7 +366,7 @@
 
             copyToClipboardWait: 5000,
 
-            courseResults: {
+            results: {
                 pageSize: 10
             },
 
