@@ -73,7 +73,7 @@ describe('server', function () {
                     .set('Accept', 'application/json')
                     .set('ticket', ticketId)
                     .attach('file', config.SAMPLE_MP3)
-                    .expect(200, done());
+                    .expect(200, done);
             });
 
             it('converts input mp3 to mp4', function(done) {
