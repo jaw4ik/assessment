@@ -92,6 +92,7 @@
             'repositories/collaboratorRepository.spec',
             'repositories/courseRepository.spec',
             'repositories/learningContentRepository.spec',
+            'repositories/learningPathRepository.spec',
             'repositories/objectiveRepository.spec',
             'repositories/templateRepository.spec',
             'repositories/questionRepository.spec',

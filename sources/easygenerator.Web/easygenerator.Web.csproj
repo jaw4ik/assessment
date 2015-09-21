@@ -695,6 +695,9 @@
     <Content Include="App\mappers\companyMapper.js" />
     <Content Include="App\mappers\audioModelMapper.js" />
     <Content Include="App\models\audio.js" />
+    <Content Include="App\repositories\learningPathRepository.spec.js">
+      <DependentUpon>learningPathRepository.js</DependentUpon>
+    </Content>
     <Content Include="App\videoUpload\handlers\durations.js" />
     <Content Include="App\videoUpload\handlers\durations.spec.js">
       <DependentUpon>durations.js</DependentUpon>
