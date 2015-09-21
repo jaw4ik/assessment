@@ -189,7 +189,8 @@
                     delivering: {
                         started: 'learningPath:delivering-started',
                         finished: 'learningPath:delivering-finished'
-                    }
+                    },
+                    deleted: 'learningPath:deleted'
                 },
                 objective: {
                     createdInCourse: 'objective:createdInCourse',
@@ -395,6 +396,21 @@
                     iframeHeight: 335,
                     updateUploadTimeout: 60000,
                     removeVideoAfterErrorTimeout: 5000
+                },
+                audio: {
+                    convertionUrl: window.convertionServiceUrl ? "//" + window.convertionServiceUrl : '//staging.easygenerator.com/convertion',
+                    pullUrl: '/api/media/audio/pull',
+                    ticketUrl: '/api/media/audio/ticket',
+                    trackerTimeout: 25000,
+                    statuses: {
+                        available: 'available',
+                        notAvailable: 'notAvailable',
+                        notStarted: 'notStarted',
+                        loaded: 'loaded',
+                        failed: 'failed',
+                        inProgress: 'inProgress'
+                    },
+                    changesInUpload: 'video:changesInUpload'
                 }
             },
 
@@ -466,6 +482,13 @@
                             eventCategory: 'Duplicate course',
                             subtitleKey: 'coursesUpgradeToHaveMore',
                             descriptionKey: 'coursesUpgradeToHaveMoreHtml'
+                        },
+
+                        audioUpload: {
+                            containerCss: 'upgrade-dialog-audio-upload',
+                            eventCategory: 'Audio library',
+                            subtitleKey: 'audioUploadUpgradeSubtitle',
+                            descriptionKey: 'audioUploadUpgradeText'
                         }
                     }
                 }

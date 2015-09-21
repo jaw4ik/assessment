@@ -1,5 +1,5 @@
 ﻿define(['durandal/app', 'plugins/router', 'routing/isViewReadyMixin', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'plugins/dialog',
-    'notify', 'constants', 'viewmodels/panels/leftSideBarManager', 'plugins/widget','dialogs/course/createCourse/createCourse', 'dialogs/releaseNotes/releaseNotes'],
+    'notify', 'constants', 'viewmodels/panels/leftSideBarManager', 'plugins/widget', 'dialogs/course/createCourse/createCourse', 'dialogs/releaseNotes/releaseNotes'],
     function (app, router, isViewReady, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, dialog, notify,
         constants, leftSideBarManager, widget, createCourseDialog, releaseNotesDialog) {
 
@@ -121,7 +121,7 @@
                             }
                         }
                     };
-
+                    
                     leftSideBarManager.initialize();
 
                     router.on('router:navigation:composition-complete').then(function () {
