@@ -35,24 +35,7 @@
                         </div>
                     </div>
                     <!-- ko if: !isLoading() && noResults() -->
-                    <div class="no-results" data-bind="localize: { text: 'noReportedResults' }">No reported results yet...</div>
-                    <div class="no-results-hint" data-bind="localize: { text: 'makeSureTrackingResultsIsEnabled' }">Make sure you tracking and tracing is enabled:</div>
-                    <div class="no-results-steps-container">
-                        <div class="no-results-steps-row">
-                            <div class="no-results-step desc"><div class="no-results-hint-step-img"></div></div>
-                            <div class="no-results-step arrow"><div class="no-results-step-arrow"></div></div>
-                            <div class="no-results-step desc"><div class="no-results-hint-step-img step2"></div></div>
-                            <div class="no-results-step arrow"><div class="no-results-step-arrow"></div></div>
-                            <div class="no-results-step desc"><div class="no-results-hint-step-img step3"></div></div>
-                        </div>
-                        <div class="no-results-steps-row">
-                            <div class="no-results-step"><div class="no-results-hint" data-bind="localize: { html: 'goToConfigureStep' }"></div></div>
-                            <div class="no-results-step">&nbsp;</div>
-                            <div class="no-results-step"><div class="no-results-hint" data-bind="localize: { html: 'resultTrackingShouldBeEnabled' }"></div></div>
-                            <div class="no-results-step">&nbsp;</div>
-                            <div class="no-results-step"><div class="no-results-hint" data-bind="localize: { html: 'confirmByApply' }"></div></div>
-                        </div>
-                    </div>
+                        <!-- ko compose: { view: noResultsViewLocation } --><!-- /ko -->
                     <!-- /ko -->
                     <!-- ko if: isLoading -->
                     <div class="loading-results">

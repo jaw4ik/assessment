@@ -243,7 +243,7 @@
                 viewModel.attached().fin(function () {
                     expect(xApiProvider.getCourseCompletedStatements).toHaveBeenCalledWith(
                         courseId,
-                        constants.courseResults.pageSize + 1,
+                        constants.results.pageSize + 1,
                         0
                     );
                     done();
@@ -264,7 +264,7 @@
 
             describe('when getCourseCompletedStatements returned statements', function () {
                 it('should fill results field with results', function (done) {
-                    constants.courseResults.pageSize = 1;
+                    constants.results.pageSize = 1;
                     viewModel.attached().fin(function () {
                         expect(viewModel.results()[0].lrsStatement).toBe(courseStatements[0]);
                         expect(viewModel.results()[0]).toBeInstanceOf(CourseStatement);
@@ -336,7 +336,7 @@
                 beforeEach(function () {
                     viewModel.pageNumber = 0;
                     viewModel.loadedResults = [1, 2, 3];
-                    constants.courseResults.pageSize = 1;
+                    constants.results.pageSize = 1;
                     viewModel.results([]);
                 });
 
@@ -398,7 +398,7 @@
 
                         it('should add loaded result for new page to results array', function (done) {
                             viewModel.showMoreResults().fin(function () {
-                                expect(viewModel.results().length).toEqual(viewModel.pageNumber * constants.courseResults.pageSize);
+                                expect(viewModel.results().length).toEqual(viewModel.pageNumber * constants.results.pageSize);
                                 done();
                             });
                         });
@@ -406,7 +406,7 @@
 
                     describe('when all results were loaded by download results functionality', function () {
                         beforeEach(function () {
-                            constants.courseResults.pageSize = 5;
+                            constants.results.pageSize = 5;
                             viewModel.allResultsLoaded = true;
                         });
 
@@ -430,7 +430,7 @@
                             viewModel.loadedResults = [];
                             viewModel.allResultsLoaded = false;
                             viewModel.pageNumber = 1;
-                            constants.courseResults.pageSize = 1;
+                            constants.results.pageSize = 1;
                         });
 
                         it('should call getCourseCompletedStatements with correct params', function (done) {
@@ -453,7 +453,7 @@
 
                         describe('when all results are loaded', function () {
                             it('should set allResultsLoaded to true', function (done) {
-                                constants.courseResults.pageSize = 10;
+                                constants.results.pageSize = 10;
                                 viewModel.showMoreResults().fin(function () {
                                     expect(viewModel.allResultsLoaded).toBeTruthy();
                                     done();

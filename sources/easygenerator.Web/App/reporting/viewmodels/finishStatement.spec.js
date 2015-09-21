@@ -1,6 +1,6 @@
-﻿define(['reporting/viewmodels/objectiveStatement', 'reporting/viewmodels/courseStatement', 'reporting/viewmodels/expandableStatement'], function (ObjectiveStatement, CourseStatement, ExpandableStatement) {
+﻿define(['reporting/viewmodels/objectiveStatement', 'reporting/viewmodels/finishStatement', 'reporting/viewmodels/expandableStatement'], function (ObjectiveStatement, FinishStatement, ExpandableStatement) {
     "use strict";
-    describe('viewmodel [CourseStatement]', function () {
+    describe('viewmodel [FinishStatement]', function () {
         var lrsStatement,
 	        statement,
 			masteredDefer,
@@ -19,11 +19,11 @@
             startedDefer = Q.defer();
             spyOn(xApiProvider, 'getMasteredStatements').and.returnValue(masteredDefer.promise);
             spyOn(xApiProvider, 'getStartedStatement').and.returnValue(startedDefer.promise);
-            statement = new CourseStatement(lrsStatement);
+            statement = new FinishStatement(lrsStatement);
         });
 
         it('should be constructor function', function () {
-            expect(CourseStatement).toBeFunction();
+            expect(FinishStatement).toBeFunction();
         });
 
         describe('[ctor]', function () {
@@ -37,13 +37,13 @@
 
             it('should set passed to true if statement verb is passed', function () {
                 lrsStatement.verb = constants.reporting.xApiVerbIds.passed;
-                statement = new CourseStatement(lrsStatement);
+                statement = new FinishStatement(lrsStatement);
                 expect(statement.passed).toBeTruthy();
             });
 
             it('should set passed to false if statement verb is not passed', function () {
                 lrsStatement.verb = constants.reporting.xApiVerbIds.failed;
-                statement = new CourseStatement(lrsStatement);
+                statement = new FinishStatement(lrsStatement);
                 expect(statement.passed).toBeFalsy();
             });
         });

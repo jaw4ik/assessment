@@ -653,10 +653,20 @@
     <Content Include="App\models\learningPath.spec.js">
       <DependentUpon>learningPath.js</DependentUpon>
     </Content>
+    <Content Include="App\reporting\viewmodels\finishStatement.js" />
+    <Content Include="App\reporting\viewmodels\finishStatement.spec.js">
+      <DependentUpon>finishStatement.js</DependentUpon>
+    </Content>
+    <Content Include="App\reporting\viewmodels\resultsBase.js" />
+    <Content Include="App\reporting\viewmodels\resultsBase.spec.js">
+      <DependentUpon>resultsBase.js</DependentUpon>
+    </Content>
+    <Content Include="App\repositories\learningPathRepository.js" />
     <Content Include="App\viewmodels\courses\course\design\templateBrief.js" />
     <Content Include="App\viewmodels\courses\course\design\templateBrief.spec.js">
       <DependentUpon>templateBrief.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\courses\course\results.js" />
     <Content Include="App\viewmodels\courses\publishingActions\publishToCustomLms.js" />
     <Content Include="App\viewmodels\courses\publishingActions\publishToCustomLms.spec.js">
       <DependentUpon>publishToCustomLms.js</DependentUpon>
@@ -676,6 +686,8 @@
     <Content Include="App\viewmodels\learningPaths\learningPath\publish.spec.js">
       <DependentUpon>publish.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\results.js" />
+    <Content Include="App\views\courses\course\results\noResults.html" />
     <Content Include="App\views\courses\publishActions\publishToCustomLms.html" />
     <Content Include="App\views\learningPaths\learningPath\details.html" />
     <Content Include="App\views\learningPaths\learningPath\publish.html" />
@@ -683,6 +695,7 @@
     <Content Include="App\views\learningPaths\learningPath\publish\publishToPublicationServerEmbed.html" />
     <Content Include="App\views\learningPaths\learningPath\publish\publishToPublicationServerLink.html" />
     <Content Include="App\views\learningPaths\learningPath\publish\updatePublication.html" />
+    <Content Include="App\views\learningPaths\learningPath\results\noResults.html" />
     <Content Include="App\widgets\dialog\bindingHandlers\dialogWizardBindingHandler.js" />
     <Content Include="App\widgets\dialog\view.html" />
     <Content Include="App\widgets\dialog\viewmodel.js" />
@@ -730,9 +743,6 @@
     </Content>
     <Content Include="App\models\video.spec.js">
       <DependentUpon>video.js</DependentUpon>
-    </Content>
-    <Content Include="App\reporting\viewmodels\courseStatement.spec.js">
-      <DependentUpon>courseStatement.js</DependentUpon>
     </Content>
     <Content Include="App\reporting\viewmodels\expandableStatement.spec.js">
       <DependentUpon>expandableStatement.js</DependentUpon>
@@ -899,10 +909,6 @@
     <Content Include="App\viewmodels\courses\course\publish.spec.js">
       <DependentUpon>publish.js</DependentUpon>
     </Content>
-    <Content Include="App\reporting\viewmodels\results.js" />
-    <Content Include="App\reporting\viewmodels\results.spec.js">
-      <DependentUpon>results.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\courses\index.js" />
     <Content Include="App\viewmodels\learningContents\bindingHandlers\hotspotOnImageBindingHandler.js" />
     <Content Include="App\viewmodels\learningContents\components\hotspotParser.js" />
@@ -1018,7 +1024,6 @@
     </Content>
     <Content Include="App\views\common\titleField.html" />
     <Content Include="App\views\courses\course\configure.html" />
-    <Content Include="App\reporting\viewmodels\courseStatement.js" />
     <Content Include="App\reporting\viewmodels\expandableStatement.js" />
     <Content Include="App\reporting\viewmodels\objectiveStatement.js" />
     <Content Include="App\reporting\viewmodels\questionStatement.js" />
