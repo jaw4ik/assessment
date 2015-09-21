@@ -295,9 +295,9 @@ gulp.task('clean-convertion-server', function(callback){
     del([outputConvertionServer], { force: true }, callback);
 });
 
-gulp.task('run-ut-convertion-server', ['clean-convertion-server'], function(){
+gulp.task('run-ut-convertion-server', ['install-npm-modules-convertion-server'], function(){
     return gulp.src('./sources/easygenerator.ConvertionServer/test/*.spec.js')
-            .pipe($.mocha({reporter: 'nyan'}));
+        .pipe($.mocha({reporter: 'nyan'}));
 });
 
 gulp.task('copy-convertion-server', ['run-ut-convertion-server'], function () {
@@ -319,7 +319,12 @@ gulp.task('copy-convertion-server', ['run-ut-convertion-server'], function () {
         .pipe(gulp.dest(outputConvertionServer));
 });
 
-gulp.task('deploy-convertion-server', ['copy-convertion-server'], function () {
+gulp.task('install-npm-modules-convertion-server', function(){
+    return gulp.src(['./sources/easygenerator.ConvertionServer/package.json'])
+        .pipe($.install());
+})
+
+gulp.task('deploy-convertion-server', ['clean-convertion-server', 'copy-convertion-server'], function () {
     return gulp.src([outputConvertionServer + '/package.json'])
         .pipe($.install());
 });
