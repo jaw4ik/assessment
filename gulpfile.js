@@ -295,7 +295,12 @@ gulp.task('clean-convertion-server', function(callback){
     del([outputConvertionServer], { force: true }, callback);
 });
 
-gulp.task('copy-convertion-server', ['clean-convertion-server'], function () {
+gulp.task('run-ut-convertion-server', ['clean-convertion-server'], function(){
+    return gulp.src('./sources/easygenerator.ConvertionServer/test/*.spec.js')
+            .pipe($.mocha({reporter: 'nyan'}));
+});
+
+gulp.task('copy-convertion-server', ['run-ut-convertion-server'], function () {
     var files = [
         './sources/easygenerator.ConvertionServer/package.json',
         './sources/easygenerator.ConvertionServer/www.js',
