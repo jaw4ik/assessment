@@ -1,5 +1,5 @@
 ﻿define(['durandal/app', 'plugins/router', 'routing/isViewReadyMixin', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'plugins/dialog',
-    'notify', 'constants', 'viewmodels/panels/leftSideBarManager', 'plugins/widget','dialogs/course/createCourse/createCourse', 'dialogs/releaseNotes/releaseNotes'],
+    'notify', 'constants', 'viewmodels/panels/leftSideBarManager', 'plugins/widget', 'dialogs/course/createCourse/createCourse', 'dialogs/releaseNotes/releaseNotes'],
     function (app, router, isViewReady, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, dialog, notify,
         constants, leftSideBarManager, widget, createCourseDialog, releaseNotesDialog) {
 
@@ -26,8 +26,8 @@
             questionsDeleted: questionsDeleted,
             courseCollaborationFinished: courseCollaborationFinished,
             openUpgradePlanUrl: openUpgradePlanUrl,
-            leftSideBarManager: leftSideBarManager
-
+            leftSideBarManager: leftSideBarManager,
+            createCourseCallback: createCourseCallback
         };
 
         viewModel.activeModuleName = ko.computed(function () {
@@ -86,6 +86,10 @@
         function openUpgradePlanUrl() {
             eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.header);
             router.openUrl(constants.upgradeUrl);
+        }
+
+        function createCourseCallback(course) {
+            router.navigate('courses/' + course.id);
         }
 
         function activate() {
@@ -187,10 +191,10 @@
                     viewModel.router.isViewReady.subscribe(function (value) {
                         if (userContext.identity.showReleaseNote) {
                             releaseNotesDialog.show(function () {
-                                if (value && !_.isNullOrUndefined(clientContext.get(constants.clientContextKeys.showCreateCoursePopup))) {
-                                    createCourseDialog.show();
-                                }
-                            });
+                        if (value && !_.isNullOrUndefined(clientContext.get(constants.clientContextKeys.showCreateCoursePopup))) {
+                            createCourseDialog.show(viewModel.createCourseCallback);
+                        }
+                    });
                         } else {
                             if (value && !_.isNullOrUndefined(clientContext.get(constants.clientContextKeys.showCreateCoursePopup))) {
                                 createCourseDialog.show();

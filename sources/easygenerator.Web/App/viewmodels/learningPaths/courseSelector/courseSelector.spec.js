@@ -206,6 +206,23 @@
             });
         });
 
+        describe('courseAddedToPath', function() {
+            var course = {
+                id: 'id'
+            };
+
+            it('should be function', function () {
+                expect(viewModel.courseAddedToPath).toBeFunction();
+            });
+
+            it('should add course to selector', function() {
+                viewModel.courseAddedToPath(course);
+                expect(viewModel.courses()[0].id).toBe(course.id);
+                expect(viewModel.courses()[0].isSelected()).toBeTruthy();
+            });
+
+        });
+
         describe('courseTitleUpdated:', function () {
             var courseBrief = {
                 id: 'id',

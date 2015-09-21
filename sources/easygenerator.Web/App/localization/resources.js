@@ -883,6 +883,12 @@
         'uk': 'Курс',
         'pt-br': 'Curso'
     },
+    existingCourse: {
+        'en': 'Existing course',
+        'zh-cn': 'Existing course[zh-cn]',
+        'uk': 'Існуючий курс',
+        'pt-br': 'Existing course[pt-br]'
+    },
     courseIsDuplicating: {
         'en': 'Course is duplicating...',
         'zh-cn': 'Course is duplicating...[zh-cn]',
@@ -1628,10 +1634,10 @@
         'pt-br': 'Desculpe, mas o modelo selecionado não contém configurações'
     },
     powerPointImport: {
-        'en': 'Create from PowerPoint',
-        'zh-cn': '从PowerPoint导入',
-        'uk': 'Створити курс на базі PowerPoint',
-        'pt-br': 'Criar de PowerPoint'
+        'en': 'From PowerPoint',
+        'zh-cn': 'From PowerPoint[zh-cn]',
+        'uk': 'на базі PowerPoint',
+        'pt-br': 'From PowerPoint[pt-br]'
     },
     uploadingPresentation: {
         'en': 'uploading presentation...',

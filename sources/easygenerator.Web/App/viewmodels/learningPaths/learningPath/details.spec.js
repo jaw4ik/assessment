@@ -12,7 +12,8 @@
         notify = require('notify'),
         addCourseCommand = require('viewmodels/learningPaths/learningPath/commands/addCourseCommand'),
         removeCourseCommand = require('viewmodels/learningPaths/learningPath/commands/removeCourseCommand'),
-        updateCoursesOrderCommand = require('viewmodels/learningPaths/learningPath/commands/updateCoursesOrderCommand')
+        updateCoursesOrderCommand = require('viewmodels/learningPaths/learningPath/commands/updateCoursesOrderCommand'),
+        createCourseDialog = require('dialogs/course/createCourse/createCourse')
     ;
 
     describe('viewModel [learningPath details]', function () {
@@ -30,6 +31,7 @@
             spyOn(courseSelector, 'expand');
             spyOn(courseSelector, 'collapse');
             spyOn(getLearningPathByIdQuery, 'execute').and.returnValue(getLearnigPathDefer.promise);
+            spyOn(createCourseDialog, 'show');
             learningPath = {
                 id: 'id',
                 title: 'title',
@@ -157,7 +159,7 @@
 
         describe('isSortingEnabled:', function () {
             describe('when courses count > 1', function () {
-                it('should be true', function() {
+                it('should be true', function () {
                     viewModel.courses([{}, {}]);
                     expect(viewModel.isSortingEnabled()).toBeTruthy();
                 });
@@ -176,6 +178,62 @@
                     expect(viewModel.isSortingEnabled()).toBeFalsy();
                 });
             });
+        });
+
+        describe('addCoursesPopoverVisibility', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.addCoursesPopoverVisibility).toBeObservable();
+            });
+
+        });
+
+        describe('toggleAddCoursesPopoverVisibility', function () {
+
+            it('should be function', function () {
+                expect(viewModel.toggleAddCoursesPopoverVisibility).toBeFunction();
+            });
+
+            it('should toggle addCoursePopoverVisibility', function () {
+                viewModel.addCoursesPopoverVisibility(false);
+                viewModel.toggleAddCoursesPopoverVisibility();
+                expect(viewModel.addCoursesPopoverVisibility()).toBeTruthy();
+                viewModel.toggleAddCoursesPopoverVisibility();
+                expect(viewModel.addCoursesPopoverVisibility()).toBeFalsy();
+            });
+
+        });
+
+        describe('hideAddCoursesPopover', function () {
+
+            it('should be function', function () {
+                expect(viewModel.hideAddCoursesPopover).toBeFunction();
+            });
+
+            it('should hide addCoursePopover', function () {
+                viewModel.addCoursesPopoverVisibility(true);
+                viewModel.hideAddCoursesPopover();
+                expect(viewModel.addCoursesPopoverVisibility()).toBeFalsy();
+            });
+
+        });
+
+        describe('navigateToDetails', function () {
+
+            it('should be function', function () {
+                expect(viewModel.navigateToDetails).toBeFunction();
+            });
+
+            it('should publish event', function () {
+                viewModel.navigateToDetails({ id: 'id' });
+                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to course details');
+            });
+
+            it('should navigate to course page', function () {
+                viewModel.navigateToDetails({ id: 'id' });
+                expect(router.navigate).toHaveBeenCalledWith('courses/id');
+            });
+
         });
 
         describe('addCourses:', function () {
@@ -301,6 +359,54 @@
             });
         });
 
+        describe('createCourseCallback', function () {
+
+            beforeEach(function () {
+                spyOn(viewModel, 'addCourse');
+                spyOn(courseSelector, 'courseAddedToPath');
+            });
+
+            it('should be function', function () {
+                expect(viewModel.createCourseCallback).toBeFunction();
+            });
+
+            it('should add course', function () {
+                viewModel.createCourseCallback({ id: 'id' });
+                expect(viewModel.addCourse).toHaveBeenCalledWith('id');
+            });
+
+            it('should add course to learning path selector', function () {
+                var course = { id: 'id' };
+                viewModel.createCourseCallback(course);
+                expect(courseSelector.courseAddedToPath).toHaveBeenCalledWith(course);
+            });
+
+            it('should trigger event "New course added"', function() {
+                var course = { id: 'id' };
+                viewModel.createCourseCallback(course);
+                expect(app.trigger).toHaveBeenCalledWith(constants.messages.learningPath.createCourse, course);
+            });
+
+        });
+
+        describe('createNewCourse', function () {
+
+            it('should be function', function () {
+                expect(viewModel.createNewCourse).toBeFunction();
+            });
+
+            it('should publish event', function () {
+                viewModel.createNewCourse();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Open \'Create course\' dialog');
+            });
+
+            it('should call show add course dialog with callback', function () {
+                viewModel.createNewCourse();
+                expect(createCourseDialog.show).toHaveBeenCalledWith(viewModel.createCourseCallback);
+            });
+
+        });
+
         describe('updateCoursesOrder:', function () {
             var updateCoursesOrderDefer;
 
@@ -355,7 +461,7 @@
                 expect(f).not.toThrow();
             });
         });
-        
+
     });
 
 });

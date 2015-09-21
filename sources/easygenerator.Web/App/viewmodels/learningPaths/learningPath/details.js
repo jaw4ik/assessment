@@ -1,10 +1,10 @@
 ﻿define(['viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery', 'plugins/router', 'constants', 'localization/localizationManager',
  'eventTracker', 'viewmodels/learningPaths/courseSelector/courseSelector',
  'durandal/app', 'viewmodels/learningPaths/learningPath/courseBrief', 'viewmodels/learningPaths/learningPath/commands/addCourseCommand',
-'viewmodels/learningPaths/learningPath/commands/removeCourseCommand', 'repositories/courseRepository', 'notify', 'viewmodels/learningPaths/learningPath/commands/updateCoursesOrderCommand',
+'viewmodels/learningPaths/learningPath/commands/removeCourseCommand', 'repositories/courseRepository', 'notify', 'viewmodels/learningPaths/learningPath/commands/updateCoursesOrderCommand', 'dialogs/course/createCourse/createCourse',
 'knockout'],
     function (getLearningPathByIdQuery, router, constants, localizationManager, eventTracker, courseSelector, app, CourseBrief,
-         addCourseCommand, removeCourseCommand, courseRepository, notify, updateCoursesOrderCommand, ko) {
+         addCourseCommand, removeCourseCommand, courseRepository, notify, updateCoursesOrderCommand, createCourseDialog, ko) {
         "use strict";
 
         var
@@ -13,23 +13,31 @@
                 addCourse: 'Add course to the learning path',
                 removeCourse: 'Remove course from the learning path',
                 showAvailableCourses: 'Show courses available for the learning path (Add courses)',
+                createNewCourse: 'Open \'Create course\' dialog',
                 hideAvailableCourses: 'Hide courses available for the learning path (Done)',
-                changeCoursesOrder: 'Change order of courses'
+                changeCoursesOrder: 'Change order of courses',
+                navigateToCourseDetails: 'Navigate to course details'
             },
             viewModel = {
                 id: null,
                 activate: activate,
                 deactivate: deactivate,
                 back: back,
+                createNewCourse: createNewCourse,
+                createCourseCallback: createCourseCallback,
                 addCourses: addCourses,
                 finishAddingCourses: finishAddingCourses,
                 courseSelector: courseSelector,
                 addCourse: addCourse,
                 removeCourse: removeCourse,
                 courses: ko.observableArray([]),
+                addCoursesPopoverVisibility: ko.observable(false),
                 currentLanguage: '',
                 updateCoursesOrder: updateCoursesOrder,
-                courseTitleUpdated: courseTitleUpdated
+                courseTitleUpdated: courseTitleUpdated,
+                navigateToDetails: navigateToDetails,
+                toggleAddCoursesPopoverVisibility: toggleAddCoursesPopoverVisibility,
+                hideAddCoursesPopover: hideAddCoursesPopover
             };
 
         viewModel.isSortingEnabled = ko.computed(function () {
@@ -54,7 +62,7 @@
 
             return getLearningPathByIdQuery.execute(viewModel.id).then(function (learningPath) {
                 viewModel.courseSelector.isExpanded(learningPath.courses.length === 0);
-                
+
                 var collection = _.chain(learningPath.courses)
                      .map(function (item) {
                          return new CourseBrief(item);
@@ -107,6 +115,17 @@
             });
         }
 
+        function createCourseCallback(course) {
+            viewModel.addCourse(course.id);
+            courseSelector.courseAddedToPath(course);
+            app.trigger(constants.messages.learningPath.createCourse, course);
+        }
+
+        function createNewCourse() {
+            eventTracker.publish(events.createNewCourse);
+            createCourseDialog.show(viewModel.createCourseCallback);
+        }
+
         function updateCoursesOrder() {
             eventTracker.publish(events.changeCoursesOrder);
             updateCoursesOrderCommand.execute(viewModel.id, viewModel.courses())
@@ -124,6 +143,19 @@
                 return;
 
             courseBrief.title(course.title);
+        }
+
+        function navigateToDetails(course) {
+            eventTracker.publish(events.navigateToCourseDetails);
+            router.navigate('courses/' + course.id);
+        }
+
+        function toggleAddCoursesPopoverVisibility() {
+            viewModel.addCoursesPopoverVisibility(!viewModel.addCoursesPopoverVisibility());
+        }
+
+        function hideAddCoursesPopover() {
+            viewModel.addCoursesPopoverVisibility(false);
         }
     }
 );

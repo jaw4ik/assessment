@@ -27,12 +27,21 @@
     font-size: 12px;
     text-shadow: none;
     text-transform: uppercase;
+    box-shadow: none;
+
+    &:focus {
+        background-color: transparent;
 }
 
-.question .btn.create-question:hover {
+    &:active {
+        background-color: transparent;
+    }
+
+    &:hover {
     border-color: #52adc8;
     color: #52adc8;
     text-shadow: none;
+}
 }
 
 .question .btn.create-question.expanded {

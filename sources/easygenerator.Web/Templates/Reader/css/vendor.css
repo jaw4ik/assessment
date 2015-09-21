@@ -1,12 +1,12 @@
-@font-face{font-family:RobotoCondensedRegular;src:url(./font/robotocondensed-regular.woff?v=1441639121606) format('woff');font-weight:400;font-style:normal}
+@font-face{font-family:RobotoCondensedRegular;src:url(./font/robotocondensed-regular.woff?v=1442415392622) format('woff');font-weight:400;font-style:normal}
 #not-supported-page{height:100%}
 #not-supported-page .not-supported-page-bg-table{position:absolute;width:100%;height:100%;min-height:665px}
-#not-supported-page .not-supported-page-bg-table .not-supported-page-top-bg{height:61%;background:url(img/easy-supported-browser-top-part-bg.png?v=1441639121606)}
-#not-supported-page .not-supported-page-bg-table .not-supported-page-toothed-bg{height:8px;background:url(img/easy-supported-browser-middle-part-bg.png?v=1441639121606) center center repeat-x}
+#not-supported-page .not-supported-page-bg-table .not-supported-page-top-bg{height:61%;background:url(img/easy-supported-browser-top-part-bg.png?v=1442415392622)}
+#not-supported-page .not-supported-page-bg-table .not-supported-page-toothed-bg{height:8px;background:url(img/easy-supported-browser-middle-part-bg.png?v=1442415392622) center center repeat-x}
 #not-supported-page .not-supported-page-bg-table .not-supported-page-bottom-bg{height:50%;background:#f9fafc}
 #not-supported-page .not-supported-page-markup-table{height:100%;width:100%;vertical-align:middle;position:relative}
 #not-supported-page .not-supported-page-markup-table .not-supported-page-logo-wrapper{vertical-align:top}
-#not-supported-page .not-supported-page-markup-table .not-supported-page-logo-wrapper .not-supported-page-logo{height:36px;width:200px;margin:30px;background:url(img/easy-supported-browser-logo.png?v=1441639121606) no-repeat}
+#not-supported-page .not-supported-page-markup-table .not-supported-page-logo-wrapper .not-supported-page-logo{height:36px;width:200px;margin:30px;background:url(img/easy-supported-browser-logo.png?v=1442415392622) no-repeat}
 #not-supported-page .not-supported-page-markup-table .not-supported-page-content-cell{padding:0 30px;text-align:center;vertical-align:middle}
 #not-supported-page .not-supported-page-markup-table .not-supported-page-content-cell .not-supported-page-content{color:#546677;font-family:OpenSans,sans-serif;font-size:13px}
 #not-supported-page .not-supported-page-markup-table .not-supported-page-content-cell .not-supported-page-content .not-supported-page-caption{margin:0 0 25px;text-align:center;color:#546677;font-family:RobotoCondensedRegular,sans-serif;font-size:30px;font-style:normal;font-weight:400}
@@ -15,7 +15,7 @@
 #not-supported-page .not-supported-page-markup-table .not-supported-page-content-cell .not-supported-page-content .not-supported-page-try-anyway-link:hover{border-bottom:2px solid #2f82b8;color:#2f82b8}
 #not-supported-page .not-supported-page-markup-table .supported-browsers-group{width:100%;margin-bottom:50px;border-collapse:separate;table-layout:fixed}
 #not-supported-page .not-supported-page-markup-table .supported-browsers-group .supported-browser-item{width:200px}
-#not-supported-page .not-supported-page-markup-table .supported-browser-container{display:block;height:208px;width:177px;margin:0 auto;background:url(img/easy-supported-browser-browser-bg.png?v=1441639121606) center bottom no-repeat;text-decoration:none}
+#not-supported-page .not-supported-page-markup-table .supported-browser-container{display:block;height:208px;width:177px;margin:0 auto;background:url(img/easy-supported-browser-browser-bg.png?v=1442415392622) center bottom no-repeat;text-decoration:none}
 #not-supported-page .not-supported-page-markup-table .supported-browser-container.with-link:hover .supported-browser-title{color:#469dd5}
 #not-supported-page .not-supported-page-markup-table .supported-browser-container.with-link:hover .supported-browser-title:after{width:100%;-webkit-transition:width .15s linear;-moz-transition:width .15s linear;-o-transition:width .15s linear;transition:width .15s linear}
 #not-supported-page .not-supported-page-markup-table .supported-browser-container .supported-browser-image{width:124px;height:128px;margin-top:20px;border:none;outline:0;vertical-align:top}
@@ -121,7 +121,7 @@
 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{background-color:#fff;background-color:rgba(255,255,255,.75);filter:"alpha(opacity=75)";-ms-filter:"alpha(opacity=75)"}
 .mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar{background-color:#fff;background-color:rgba(255,255,255,.85);filter:"alpha(opacity=85)";-ms-filter:"alpha(opacity=85)"}
 .mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar,.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar{background-color:#fff;background-color:rgba(255,255,255,.9);filter:"alpha(opacity=90)";-ms-filter:"alpha(opacity=90)"}
-.mCSB_scrollTools .mCSB_buttonDown,.mCSB_scrollTools .mCSB_buttonLeft,.mCSB_scrollTools .mCSB_buttonRight,.mCSB_scrollTools .mCSB_buttonUp{background-image:url(mCSB_buttons.png?v=1441639121606);background-repeat:no-repeat;opacity:.4;filter:"alpha(opacity=40)";-ms-filter:"alpha(opacity=40)"}
+.mCSB_scrollTools .mCSB_buttonDown,.mCSB_scrollTools .mCSB_buttonLeft,.mCSB_scrollTools .mCSB_buttonRight,.mCSB_scrollTools .mCSB_buttonUp{background-image:url(mCSB_buttons.png?v=1442415392622);background-repeat:no-repeat;opacity:.4;filter:"alpha(opacity=40)";-ms-filter:"alpha(opacity=40)"}
 .mCSB_scrollTools .mCSB_buttonUp{background-position:0 0}
 .mCSB_scrollTools .mCSB_buttonDown{background-position:0 -20px}
 .mCSB_scrollTools .mCSB_buttonLeft{background-position:0 -40px}

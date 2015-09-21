@@ -46,12 +46,12 @@
                             <span class="action-item-btn-caption" data-bind="localize: { text: 'createNewCourse' }">New course</span>
                         </button>
                         <div class="new-course-action-wrapper" data-bind="css: { visible: newCoursePopoverVisible() }">
-                            <div class="new-course-action-background"></div>
                             <ul class="new-course-action-items">
                                 <li class="new-course-action-item" data-bind="click: importCourseFromPresentation">
                                     <span class="new-course-action-import-pptx-icon"></span>
                                     <span class="new-course-action-item-title" data-bind="localize: { text: 'powerPointImport' }">Power Point import</span>
                                 </li>
+                                <li class="new-course-actions-separator"></li>
                                 <li class="new-course-action-item" data-bind="click: createNewCourse">
                                     <span class="new-course-action-create-course-icon"></span>
                                     <span class="new-course-action-item-title" data-bind="localize: { text: 'createCourse' }">Create course</span>

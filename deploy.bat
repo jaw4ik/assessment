@@ -7,6 +7,8 @@ SET Instance=%2
 SET Version=%3
 SET CreateTags=%4
 
+SET CurrentDirectory=%~dp0
+
 IF "%1"=="" SET DeploymentDirectory="D:\Applications\easygenerator"
 IF "%2"=="" SET Instance="Release"
 IF "%3"=="" SET Version="1.0.0"
