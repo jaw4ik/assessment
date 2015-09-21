@@ -1070,6 +1070,7 @@
     </Content>
     <Content Include="BuildCourse\Modules\js\branding.js" />
     <Content Include="BuildLearningPath\Template\app\main.js" />
+    <Content Include="BuildLearningPath\Template\css\easystyles\default.min.css" />
     <Content Include="BuildLearningPath\Template\css\font\roboto-lightItalic.svg" />
     <Content Include="BuildLearningPath\Template\css\font\roboto-regular.svg" />
     <Content Include="BuildLearningPath\Template\css\font\robotoslab-light.svg" />
