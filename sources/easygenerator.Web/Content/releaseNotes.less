@@ -1,4 +1,4 @@
-﻿.release-notes-header-container{
+﻿.release-notes-header-container {
     flex-shrink: 0;
     text-align: left;
     color: #42515f;
@@ -19,61 +19,83 @@
     }
 }
 
-.release-notes-content-container{
+.release-notes-content-container {
     position: relative;
     color: #42515f;
     border-top: 1px solid #ddd;
     overflow: hidden;
 
-    & *{
+    &.cs-scroll-started {
+
+        &:before {
+            content: '';
+            display: block;
+            box-shadow: 0px 0px 3px 1px #e5e6e6;
+        }
+    }
+
+    &.cs-scroll-enabled {
+
+        &:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            display: block;
+            width: 100%;
+            border-top: 1px solid #e5e6e6;
+            box-shadow: 0px 0px 3px 1px #e5e6e6;
+        }
+    }
+
+    & * {
         max-width: 100%;
     }
 
-    .release-notes-content-wrapper{
+    .release-notes-content-wrapper {
         font-family: 'OpenSans';
         margin-right: 10px;
         padding-top: 20px;
         overflow: hidden;
 
-        section{
+        section {
 
-            &.green{
-                h2.header{
+            &.green {
+                h2.header {
                     background-color: #65bd77;
                 }
 
-                ul.list{
+                ul.list {
                     color: #65bd77;
                 }
             }
 
-            &.orange{
-                h2.header{
+            &.orange {
+                h2.header {
                     background-color: #f59957;
                 }
 
-                ul.list{
+                ul.list {
                     color: #f59957;
                 }
             }
 
-            &.blue{
-                h2.header{
+            &.blue {
+                h2.header {
                     background-color: #459bd2;
                 }
 
-                ul.list{
+                ul.list {
                     color: #459bd2;
                 }
             }
 
-            &:last-child{
-                ul.list{
+            &:last-child {
+                ul.list {
                     margin-bottom: 0;
                 }
             }
 
-            h2.header{
+            h2.header {
                 display: inline-block;
                 margin-bottom: 12px;
                 padding: 0 6px;
@@ -84,12 +106,12 @@
                 color: #fff;
             }
 
-            ul.list{
+            ul.list {
                 margin-left: 20px;
                 margin-bottom: 40px;
                 list-style-position: outside;
 
-                li{
+                li {
                     position: relative;
                     font-size: 13px;
                     line-height: 23px;

@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System;
+using easygenerator.DomainModel.Entities;
 
 public class CourseTemplateSettings : Entity
 {
@@ -13,6 +14,8 @@ public class CourseTemplateSettings : Entity
 
     }
 
+    public Guid Course_Id { get; set; }
+    public Guid Template_Id { get; set; }
     public virtual Course Course { get; set; }
     public virtual Template Template { get; set; }
     public string Settings { get; set; }

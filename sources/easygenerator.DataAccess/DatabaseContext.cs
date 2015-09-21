@@ -6,8 +6,10 @@ using easygenerator.DomainModel.Events;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.DomainModel;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 
@@ -54,6 +56,7 @@ namespace easygenerator.DataAccess
         public DbSet<CourseCollaborator> CourseCollaborators { get; set; }
         public DbSet<Onboarding> Onboardings { get; set; }
         public DbSet<LearningPath> LearningPaths { get; set; }
+        public DbSet<Company> Companies { get; set; }
 
         public IDbSet<T> GetSet<T>() where T : Identifiable
         {
@@ -94,18 +97,29 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Course>().Property(e => e.PackageUrl).HasMaxLength(255);
             modelBuilder.Entity<Course>().Property(e => e.ScormPackageUrl).HasMaxLength(255);
             modelBuilder.Entity<Course>().Property(e => e.PublicationUrl).HasMaxLength(255);
+            modelBuilder.Entity<Course>().Property(e => e.IsPublishedToExternalLms);
 
             modelBuilder.Entity<CourseCollaborator>().HasRequired(e => e.Course);
             modelBuilder.Entity<CourseCollaborator>().Property(e => e.Email).IsRequired().HasMaxLength(254);
-            
+
             modelBuilder.Entity<Aim4YouIntegration>().HasKey(e => new { e.Id });
             modelBuilder.Entity<Aim4YouIntegration>().Property(e => e.Aim4YouCourseId).IsRequired();
             modelBuilder.Entity<Aim4YouIntegration>().HasRequired(e => e.Course).WithOptional(c => c.Aim4YouIntegration).WillCascadeOnDelete(true);
 
             modelBuilder.Entity<CourseTemplateSettings>().Property(e => e.Settings);
             modelBuilder.Entity<CourseTemplateSettings>().Property(e => e.ExtraData).IsOptional();
-            modelBuilder.Entity<CourseTemplateSettings>().HasRequired(e => e.Course);
-            modelBuilder.Entity<CourseTemplateSettings>().HasRequired(e => e.Template);
+            modelBuilder.Entity<CourseTemplateSettings>().HasRequired(e => e.Course).WithMany().HasForeignKey(p => p.Course_Id);
+            modelBuilder.Entity<CourseTemplateSettings>().HasRequired(e => e.Template).WithMany().HasForeignKey(p => p.Template_Id);
+            modelBuilder.Entity<CourseTemplateSettings>().Property(e => e.Course_Id)
+                .HasColumnAnnotation("Index", new IndexAnnotation(new[] {
+                    new IndexAttribute("IX_Course_Id"),
+                    new IndexAttribute("UI_CourseTemplateSettings_Course_Id_Template_Id", 1) { IsUnique = true }
+                }));
+            modelBuilder.Entity<CourseTemplateSettings>().Property(e => e.Template_Id)
+                .HasColumnAnnotation("Index", new IndexAnnotation(new[]{
+                    new IndexAttribute("IX_Template_Id"),
+                    new IndexAttribute("UI_CourseTemplateSettings_Course_Id_Template_Id", 2) { IsUnique = true }
+                }));
 
             modelBuilder.Entity<Comment>().HasRequired(e => e.Course);
             modelBuilder.Entity<Comment>().Property(e => e.Text).IsRequired();
@@ -169,6 +183,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<User>().Property(e => e.Organization).IsOptional();
             modelBuilder.Entity<User>().Property(e => e.LastReadReleaseNote).IsOptional().HasMaxLength(25);
             modelBuilder.Entity<User>().HasMany(e => e.PasswordRecoveryTicketCollection).WithRequired(e => e.User);
+            modelBuilder.Entity<User>().HasOptional(e => e.Company).WithMany(e => e.Users).WillCascadeOnDelete(false);
             modelBuilder.Entity<User>().Map(e => e.ToTable("Users"));
 
             modelBuilder.Entity<PasswordRecoveryTicket>().HasRequired(e => e.User);
@@ -221,6 +236,11 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<LtiUserInfo>().HasKey(e => new { e.Id });
             modelBuilder.Entity<LtiUserInfo>().Property(e => e.LtiUserId).IsRequired();
             modelBuilder.Entity<LtiUserInfo>().HasRequired(e => e.User).WithOptional(c => c.LtiUserInfo).WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Company>().Property(e => e.Name).IsRequired();
+            modelBuilder.Entity<Company>().Property(e => e.LogoUrl).IsRequired();
+            modelBuilder.Entity<Company>().Property(e => e.PublishCourseApiUrl).IsRequired();
+            modelBuilder.Entity<Company>().Property(e => e.SecretKey).IsRequired();
 
             base.OnModelCreating(modelBuilder);
         }

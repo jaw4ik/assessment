@@ -26,7 +26,8 @@
             questionsDeleted: questionsDeleted,
             courseCollaborationFinished: courseCollaborationFinished,
             openUpgradePlanUrl: openUpgradePlanUrl,
-            leftSideBarManager: leftSideBarManager
+            leftSideBarManager: leftSideBarManager,
+            createCourseCallback: createCourseCallback
         };
 
         viewModel.activeModuleName = ko.computed(function () {
@@ -85,6 +86,10 @@
         function openUpgradePlanUrl() {
             eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.header);
             router.openUrl(constants.upgradeUrl);
+        }
+
+        function createCourseCallback(course) {
+            router.navigate('courses/' + course.id);
         }
 
         function activate() {
@@ -185,7 +190,7 @@
 
                     viewModel.router.isViewReady.subscribe(function (value) {
                         if (value && !_.isNullOrUndefined(clientContext.get(constants.clientContextKeys.showCreateCoursePopup))) {
-                            createCourseDialog.show();
+                            createCourseDialog.show(viewModel.createCourseCallback);
                         }
                     });
 

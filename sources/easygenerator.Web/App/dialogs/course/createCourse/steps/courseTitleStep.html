@@ -1,12 +1,14 @@
 ﻿<div class="modal-dialog create-course-title-step">
     <div class="modal-dialog-title" data-bind="text: caption"></div>
     <div class="modal-dialog-body">
-        <div class="title-wrapper scrollable">
-            <div class="edit-field-wrapper" data-bind="css: { 'active': isEditing(), 'error': isChanged() && !isValid() }">
-                <div class="edit-field-paceholder" data-bind="localize: {text: 'giveNameToYourCourse'}, visible: title().length===0"></div>
-                <div class="edit-field selectable autofocus" data-bind=" editableText: { text: title, onEnterKeyPress: submit }, event: { focus: beginEdit, blur: endEdit }"></div>
-                <div class="validation-message">
-                    <span data-bind="text: !_.isNullOrUndefined(title()) && title().length"></span>/<span data-bind="text: maxLength"></span>
+        <div class="title-wrapper scrollable" data-bind="scrollbar: { checkDOMChanges: true, scrollToEndAfterDOMChanged: true }">
+            <div class="title-container">
+                <div class="edit-field-wrapper" data-bind="css: { 'active': isEditing(), 'error': isChanged() && !isValid() }">
+                    <div class="edit-field-paceholder" data-bind="localize: {text: 'giveNameToYourCourse'}, visible: title().length===0"></div>
+                    <div class="edit-field selectable autofocus" data-bind=" editableText: { text: title, onEnterKeyPress: submit }, event: { focus: beginEdit, blur: endEdit }"></div>
+                    <div class="validation-message">
+                        <span data-bind="text: !_.isNullOrUndefined(title()) && title().length"></span>/<span data-bind="text: maxLength"></span>
+                    </div>
                 </div>
             </div>
         </div>

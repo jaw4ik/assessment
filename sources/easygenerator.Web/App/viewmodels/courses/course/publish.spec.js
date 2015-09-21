@@ -21,6 +21,14 @@
             spyOn(eventTracker, 'publish');
         });
 
+        describe('companyInfo:', function () {
+
+            it('should be defined', function() {
+                expect(viewModel.companyInfo).toBeDefined();
+            });
+
+        });
+
         describe('navigateToCoursesEvent:', function () {
 
             it('should be function', function () {
@@ -58,6 +66,12 @@
                 expect(viewModel.publishToAim4YouAction).toBeDefined();
             });
 
+        });
+
+        describe('publishToCustomLms:', function () {
+            it('should be defined', function () {
+                expect(viewModel.publishToCustomLms).toBeDefined();
+            });
         });
 
         describe('sendOpenLinkTab:', function () {
@@ -125,6 +139,19 @@
 
         });
 
+        describe('sendOpenCustomPublishTab:', function () {
+            
+            it('should be function', function () {
+                expect(viewModel.sendOpenCustomPublishTab).toBeFunction();
+            });
+
+            it('should send event \'Open custom publish tab\'', function () {
+                viewModel.sendOpenCustomPublishTab();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Open custom publish tab');
+            });
+
+        });
+
         describe('activate:', function () {
 
             var getById;
@@ -136,6 +163,9 @@
                 spyOn(repository, 'getById').and.returnValue(getById.promise);
                 spyOn(userContext, 'identify').and.returnValue(identify.promise);
                 spyOn(localizationManager, 'localize').and.returnValue('text');
+                userContext.identity = {
+                    company: { name: 'companyName' }
+                };
             });
 
             it('should be a function', function () {
@@ -155,6 +185,16 @@
 
                 beforeEach(function () {
                     identify.resolve();
+                });
+
+                it('should set companyInfo', function (done) {
+                    viewModel.companyInfo = null;
+                    getById.resolve();
+
+                    viewModel.activate().fin(function () {
+                        expect(viewModel.companyInfo).toBe(userContext.identity.company);
+                        done();
+                    });
                 });
 
                 it('should get course from repository', function (done) {
