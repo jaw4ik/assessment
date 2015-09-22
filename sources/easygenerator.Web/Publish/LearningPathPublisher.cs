@@ -4,6 +4,7 @@ using easygenerator.Infrastructure.Http;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.Components.Configuration;
 using System;
+using System.Web;
 
 namespace easygenerator.Web.Publish
 {
@@ -55,7 +56,7 @@ namespace easygenerator.Web.Publish
 
         private string GetPostUrl(Guid learningPathId)
         {
-            return string.Format("{0}/api/publish?key={1}&courseid={2}", _configurationReader.PublicationConfiguration.ServiceUrl,
+            return string.Format("{0}:{1}/api/publish?key={2}&courseid={3}", HttpContext.Current.Request.Url.Scheme, _configurationReader.PublicationConfiguration.ServiceUrl,
                 _configurationReader.PublicationConfiguration.ApiKey, learningPathId);
         }
     }

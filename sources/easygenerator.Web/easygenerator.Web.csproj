@@ -380,7 +380,6 @@
     <Compile Include="Components\ActionFilters\Permissions\EntityOwnerAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\StarterAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\CustomRequireHttpsAttribute.cs" />
-    <Compile Include="Components\ActionFilters\ForceHttpAttribute.cs" />
     <Compile Include="Components\ActionFilters\HandleErrorAttribute.cs" />
     <Compile Include="Components\ActionFilters\NoCache.cs" />
     <Compile Include="Components\ActionFilters\ResourceUrlProcessorAttribute.cs" />
