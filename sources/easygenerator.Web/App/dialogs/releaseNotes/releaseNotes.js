@@ -1,6 +1,6 @@
 ﻿define(['widgets/dialog/viewmodel', 'constants', 'dialogs/releaseNotes/commands/getReleaseNote',
-        'dialogs/releaseNotes/commands/updateLastReadReleaseNote'],
-        function (dialog, constants, getReleaseNote, updateLastReadReleaseNote) {
+        'dialogs/releaseNotes/commands/updateLastReadReleaseNote', 'userContext'],
+        function (dialog, constants, getReleaseNote, updateLastReadReleaseNote, userContext) {
     'use strict';
 
     var viewmodel = {
@@ -34,7 +34,9 @@
         if (_.isFunction(viewmodel.callbackAfterClose)) {
             viewmodel.callbackAfterClose();
         }
-        updateLastReadReleaseNote.execute();
+        updateLastReadReleaseNote.execute().then(function() {
+            userContext.identity.showReleaseNote = false;
+        });
         dialog.off(constants.dialogs.dialogClosed, viewmodel.closed);
     }
 });

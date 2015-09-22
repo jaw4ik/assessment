@@ -44,12 +44,6 @@
                 expect(viewModel.trigger).toHaveBeenCalledWith(constants.dialogs.dialogClosed);
             });
 
-            it('should set activeStep to null', function () {
-                viewModel.activeStep({});
-                viewModel.closed();
-                expect(viewModel.activeStep()).toBeNull();
-            });
-
             it('should deactivate steps', function () {
                 var steps = [{ name: 'step1' }, { name: 'step2' }];
                 viewModel.steps(steps);
