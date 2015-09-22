@@ -62,7 +62,7 @@
                     }
 
                     var name = getResultsFileName();
-                    generateResultsCsvBlob().then(function(blob) {
+                    return generateResultsCsvBlob().then(function(blob) {
                         fileSaverWrapper.saveAs(blob, name);
                     });
                 });
