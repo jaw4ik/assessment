@@ -711,6 +711,12 @@
       <DependentUpon>AudioViewModel.js</DependentUpon>
     </Content>
     <Content Include="App\audio\convertion\commands\convert.js" />
+    <Content Include="App\viewmodels\courses\course\results.spec.js">
+      <DependentUpon>results.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\results.spec.js">
+      <DependentUpon>results.js</DependentUpon>
+    </Content>
     <Content Include="App\views\audios\audios.html" />
     <Content Include="App\models\learningPath.spec.js">
       <DependentUpon>learningPath.js</DependentUpon>
