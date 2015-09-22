@@ -22,6 +22,10 @@
             });
         };
 
+        function getLearningPathCompletedStatements(learningPathId, take, skip) {
+            return getStatements({ learningPathId: learningPathId, verbs: [constants.reporting.xApiVerbIds.passed, constants.reporting.xApiVerbIds.failed], limit: take, skip: skip });
+        }
+
         function getCourseCompletedStatements(courseId, take, skip) {
             return getStatements({ courseId: courseId, verbs: [constants.reporting.xApiVerbIds.passed, constants.reporting.xApiVerbIds.failed], limit: take, skip: skip });
         }
@@ -40,6 +44,7 @@
 
         return {
             getCourseCompletedStatements: getCourseCompletedStatements,
+            getLearningPathCompletedStatements: getLearningPathCompletedStatements,
             getMasteredStatements: getMasteredStatements,
             getAnsweredStatements: getAnsweredStatements,
             getStartedStatement: getStartedStatement

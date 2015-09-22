@@ -39,6 +39,14 @@
                 });
             });
 
+            describe('when spec contains learningPathId', function () {
+                it('should fill instance with learningPathId', function () {
+                    var spec = { learningPathId: "learningPathId" };
+                    var criteria = filterCriteriaFactory.create(spec);
+                    expect(criteria[constants.reporting.filterKeys.learningPathId]).toBe(spec.learningPathId);
+                });
+            });
+
             describe('when spec contains verbs', function () {
                 describe('and verbs is string', function () {
                     it('should fill instance with one verb', function () {

@@ -1,21 +1,27 @@
-﻿define(['reporting/viewmodels/results'], function (viewModel) {
+﻿define(['reporting/viewmodels/resultsBase', 'plugins/dialog'], function (ResultsBase, dialog) {
     "use strict";
 
-    var
-        eventTracker = require('eventTracker'),
-        courseRepository = require('repositories/courseRepository'),
-        xApiProvider = require('reporting/xApiProvider'),
+    var eventTracker = require('eventTracker'),
         constants = require('constants'),
-        dialog = require('plugins/dialog'),
         userContext = require('userContext'),
         router = require('plugins/router'),
-        CourseStatement = require('reporting/viewmodels/courseStatement'),
+        FinishStatement = require('reporting/viewmodels/finishStatement'),
         fileSaverWrapper = require('utils/fileSaverWrapper');
 
-    describe('viewModel [results]', function () {
+    describe('ResultsBase:', function () {
+        it ('should return function', function() {
+            expect(ResultsBase).toBeFunction();
+        });
+    });
 
-        var courseId,
-            getCourseDefer;
+    describe('ResultsBase instance', function () {
+
+        var entityId,
+            getEntityDefer;
+
+        var viewLocation = 'noResultsViewLocation';
+        var xApiProvider, repository, viewModel;
+
         var time = '2015-02-03_05-38';
 
         var fakeMoment = {
@@ -24,7 +30,7 @@
             }
         };
 
-        var courseStatements = [
+        var finishStatements = [
             {
                 id: 'id1',
                 score: 10,
@@ -53,33 +59,47 @@
         ];
 
         beforeEach(function () {
-            getCourseDefer = Q.defer();
-            courseId = 'courseId';
+            getEntityDefer = Q.defer();
+            entityId = 'entityId';
             spyOn(eventTracker, 'publish');
             spyOn(router, 'openUrl');
-            spyOn(courseRepository, 'getById').and.returnValue(getCourseDefer.promise);
+
+            repository = jasmine.createSpyObj('repository', ['getById']);
+            xApiProvider = jasmine.createSpyObj('xApiProvider', ['getStatements']);
+            repository.getById.and.returnValue(getEntityDefer.promise);
 
             spyOn(window, 'moment').and.returnValue(fakeMoment);
             spyOn(fakeMoment, 'format').and.returnValue(time);
+            viewModel = new ResultsBase(repository.getById, xApiProvider.getStatements, viewLocation);
         });
 
-        describe('courseId:', function () {
+        describe('entityId:', function () {
             it('should be defined', function () {
-                expect(viewModel.courseId).toBeDefined();
+                expect(viewModel.entityId).toBeDefined();
             });
 
             it('should be an empty string', function () {
-                expect(viewModel.courseId).toBe('');
+                expect(viewModel.entityId).toBe('');
             });
         });
 
-        describe('courseTitle:', function () {
+        describe('noResultsViewLocation:', function () {
             it('should be defined', function () {
-                expect(viewModel.courseTitle).toBeDefined();
+                expect(viewModel.noResultsViewLocation).toBeDefined();
+            });
+
+            it('should be equal to value that was passed to ctor', function () {
+                expect(viewModel.noResultsViewLocation).toBe(viewLocation);
+            });
+        });
+
+        describe('entityTitle:', function () {
+            it('should be defined', function () {
+                expect(viewModel.entityTitle).toBeDefined();
             });
 
             it('should be an empty string', function () {
-                expect(viewModel.courseTitle).toBe('');
+                expect(viewModel.entityTitle).toBe('');
             });
         });
 
@@ -134,70 +154,57 @@
             });
         });
 
-        describe('navigateToCoursesEvent:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.navigateToCoursesEvent).toBeFunction();
-            });
-
-            it('should send event \'Navigate to courses\'', function () {
-                viewModel.navigateToCoursesEvent();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to courses');
-            });
-
-        });
-
         describe('activate:', function () {
 
             it('should return promise', function () {
                 expect(viewModel.activate()).toBePromise();
             });
 
-            it('should get course from repository', function () {
-                viewModel.activate(courseId);
-                expect(courseRepository.getById).toHaveBeenCalledWith(courseId);
+            it('should get entity from repository', function () {
+                viewModel.activate(entityId);
+                expect(repository.getById).toHaveBeenCalledWith(entityId);
             });
 
-            it('should fill courseId for viewModel', function () {
-                viewModel.activate(courseId);
-                expect(viewModel.courseId).toBe(courseId);
+            it('should fill entityId for viewModel', function () {
+                viewModel.activate(entityId);
+                expect(viewModel.entityId).toBe(entityId);
             });
 
             it('should empty results array', function () {
                 viewModel.results(['element1', 'element2']);
-                viewModel.activate(courseId);
+                viewModel.activate(entityId);
                 expect(viewModel.results().length).toBe(0);
             });
 
             it('should empty loaded results', function () {
                 viewModel.loadedResults = ['element1', 'element2'];
-                viewModel.activate(courseId);
+                viewModel.activate(entityId);
                 expect(viewModel.loadedResults.length).toBe(0);
             });
 
             it('should reset page to first', function () {
-                viewModel.activate(courseId);
+                viewModel.activate(entityId);
                 expect(viewModel.pageNumber).toBe(1);
             });
 
             it('should set allResultsLoaded to false', function () {
                 viewModel.allResultsLoaded = true;
-                viewModel.activate(courseId);
+                viewModel.activate(entityId);
                 expect(viewModel.allResultsLoaded).toBeFalsy();
             });
 
-            describe('when course exists', function () {
+            describe('when entity exists', function () {
 
                 var
-                    course = { id: 'courseId', title: 'title' };
+                    entity = { id: 'entityId', title: 'title' };
 
                 beforeEach(function () {
-                    getCourseDefer.resolve(course);
+                    getEntityDefer.resolve(entity);
                 });
 
-                it('should set courseTitle', function (done) {
-                    viewModel.activate(course.id).fin(function () {
-                        expect(viewModel.courseTitle).toBe(course.title);
+                it('should set entityTitle', function (done) {
+                    viewModel.activate(entity.id).fin(function () {
+                        expect(viewModel.entityTitle).toBe(entity.title);
                         done();
                     });
                 });
@@ -229,9 +236,9 @@
 
             beforeEach(function () {
                 dfd = Q.defer();
-                viewModel.activate(courseId);
-                spyOn(xApiProvider, 'getCourseCompletedStatements').and.returnValue(dfd.promise);;
-                dfd.resolve(courseStatements);
+                viewModel.activate(entityId);
+                xApiProvider.getStatements.and.returnValue(dfd.promise);;
+                dfd.resolve(finishStatements);
             });
 
             it('should return a promise', function () {
@@ -239,18 +246,18 @@
                 expect(viewModel.attached()).toBePromise();
             });
 
-            it('should call getCourseCompletedStatements with correct params', function (done) {
+            it('should call getStatements with correct params', function (done) {
                 viewModel.attached().fin(function () {
-                    expect(xApiProvider.getCourseCompletedStatements).toHaveBeenCalledWith(
-                        courseId,
-                        constants.courseResults.pageSize + 1,
+                    expect(xApiProvider.getStatements).toHaveBeenCalledWith(
+                        entityId,
+                        constants.results.pageSize + 1,
                         0
                     );
                     done();
                 });
             });
 
-            describe('when getCourseCompletedStatements failed', function () {
+            describe('when getStatements failed', function () {
                 beforeEach(function () {
                     dfd.reject();
                 });
@@ -262,12 +269,12 @@
                 });
             });
 
-            describe('when getCourseCompletedStatements returned statements', function () {
+            describe('when getStatements returned statements', function () {
                 it('should fill results field with results', function (done) {
-                    constants.courseResults.pageSize = 1;
+                    constants.results.pageSize = 1;
                     viewModel.attached().fin(function () {
-                        expect(viewModel.results()[0].lrsStatement).toBe(courseStatements[0]);
-                        expect(viewModel.results()[0]).toBeInstanceOf(CourseStatement);
+                        expect(viewModel.results()[0].lrsStatement).toBe(finishStatements[0]);
+                        expect(viewModel.results()[0]).toBeInstanceOf(FinishStatement);
                         expect(viewModel.results().length).toBe(1);
                         done();
                     });
@@ -287,10 +294,10 @@
             var dfd;
             beforeEach(function () {
                 dfd = Q.defer();
-                viewModel.activate(courseId);
+                viewModel.activate(entityId);
                 spyOn(dialog, 'show');
-                spyOn(xApiProvider, 'getCourseCompletedStatements').and.returnValue(dfd.promise);;
-                dfd.resolve(courseStatements);
+                xApiProvider.getStatements.and.returnValue(dfd.promise);;
+                dfd.resolve(finishStatements);
             });
 
             it('should be function', function () {
@@ -314,9 +321,9 @@
                     viewModel.results([1, 2, 3]);
                 });
 
-                it('should not call getCourseCompletedStatements', function (done) {
+                it('should not call getStatements', function (done) {
                     viewModel.showMoreResults().fin(function () {
-                        expect(xApiProvider.getCourseCompletedStatements).not.toHaveBeenCalled();
+                        expect(xApiProvider.getStatements).not.toHaveBeenCalled();
                         done();
                     });
                 });
@@ -336,7 +343,7 @@
                 beforeEach(function () {
                     viewModel.pageNumber = 0;
                     viewModel.loadedResults = [1, 2, 3];
-                    constants.courseResults.pageSize = 1;
+                    constants.results.pageSize = 1;
                     viewModel.results([]);
                 });
 
@@ -389,16 +396,16 @@
                     });
 
                     describe('when requested results were already loaded', function () {
-                        it('should not call getCourseCompletedStatements to load results', function (done) {
+                        it('should not call getStatements to load results', function (done) {
                             viewModel.showMoreResults().fin(function () {
-                                expect(xApiProvider.getCourseCompletedStatements).not.toHaveBeenCalled();
+                                expect(xApiProvider.getStatements).not.toHaveBeenCalled();
                                 done();
                             });
                         });
 
                         it('should add loaded result for new page to results array', function (done) {
                             viewModel.showMoreResults().fin(function () {
-                                expect(viewModel.results().length).toEqual(viewModel.pageNumber * constants.courseResults.pageSize);
+                                expect(viewModel.results().length).toEqual(viewModel.pageNumber * constants.results.pageSize);
                                 done();
                             });
                         });
@@ -406,13 +413,13 @@
 
                     describe('when all results were loaded by download results functionality', function () {
                         beforeEach(function () {
-                            constants.courseResults.pageSize = 5;
+                            constants.results.pageSize = 5;
                             viewModel.allResultsLoaded = true;
                         });
 
-                        it('should not call getCourseCompletedStatements to load results', function (done) {
+                        it('should not call getStatements to load results', function (done) {
                             viewModel.showMoreResults().fin(function () {
-                                expect(xApiProvider.getCourseCompletedStatements).not.toHaveBeenCalled();
+                                expect(xApiProvider.getStatements).not.toHaveBeenCalled();
                                 done();
                             });
                         });
@@ -430,21 +437,21 @@
                             viewModel.loadedResults = [];
                             viewModel.allResultsLoaded = false;
                             viewModel.pageNumber = 1;
-                            constants.courseResults.pageSize = 1;
+                            constants.results.pageSize = 1;
                         });
 
-                        it('should call getCourseCompletedStatements with correct params', function (done) {
+                        it('should call getStatements with correct params', function (done) {
                             viewModel.showMoreResults().fin(function () {
-                                expect(xApiProvider.getCourseCompletedStatements).toHaveBeenCalled();
+                                expect(xApiProvider.getStatements).toHaveBeenCalled();
                                 done();
                             });
                         });
 
-                        describe('when getCourseCompletedStatements returned statements', function () {
+                        describe('when getStatements returned statements', function () {
                             it('should fill results field with results', function (done) {
                                 viewModel.showMoreResults().fin(function () {
-                                    expect(viewModel.results()[0].lrsStatement).toBe(courseStatements[0]);
-                                    expect(viewModel.results()[0]).toBeInstanceOf(CourseStatement);
+                                    expect(viewModel.results()[0].lrsStatement).toBe(finishStatements[0]);
+                                    expect(viewModel.results()[0]).toBeInstanceOf(FinishStatement);
                                     expect(viewModel.results().length).toBe(1);
                                     done();
                                 });
@@ -453,7 +460,7 @@
 
                         describe('when all results are loaded', function () {
                             it('should set allResultsLoaded to true', function (done) {
-                                constants.courseResults.pageSize = 10;
+                                constants.results.pageSize = 10;
                                 viewModel.showMoreResults().fin(function () {
                                     expect(viewModel.allResultsLoaded).toBeTruthy();
                                     done();
@@ -471,9 +478,9 @@
 
             beforeEach(function () {
                 dfd = Q.defer();
-                viewModel.activate(courseId);
-                spyOn(xApiProvider, 'getCourseCompletedStatements').and.returnValue(dfd.promise);;
-                dfd.resolve(courseStatements);
+                viewModel.activate(entityId);
+                xApiProvider.getStatements.and.returnValue(dfd.promise);;
+                dfd.resolve(finishStatements);
 
                 fileSaverWrapper.saveAs = function () { };
                 spyOn(fileSaverWrapper, 'saveAs');
@@ -512,9 +519,9 @@
                         viewModel.allResultsLoaded = true;
                     });
 
-                    it('should not call getCourseCompletedStatements', function (done) {
+                    it('should not call getStatements', function (done) {
                         viewModel.downloadResults().fin(function () {
-                            expect(xApiProvider.getCourseCompletedStatements).not.toHaveBeenCalled();
+                            expect(xApiProvider.getStatements).not.toHaveBeenCalled();
                             done();
                         });
                     });
@@ -526,9 +533,9 @@
                         viewModel.allResultsLoaded = false;
                     });
 
-                    it('should call getCourseCompletedStatements', function (done) {
+                    it('should call getStatements', function (done) {
                         viewModel.downloadResults().fin(function () {
-                            expect(xApiProvider.getCourseCompletedStatements).toHaveBeenCalledWith(viewModel.courseId);
+                            expect(xApiProvider.getStatements).toHaveBeenCalledWith(viewModel.entityId);
                             done();
                         });
                     });
@@ -542,7 +549,7 @@
                 });
 
                 it('should call saveAs method with proper args', function (done) {
-                    viewModel.courseTitle = 'Course-123.\\/ фывяй 续约我的服务';
+                    viewModel.entityTitle = 'Course-123.\\/ фывяй 续约我的服务';
                     viewModel.allResultsLoaded = true;
                     viewModel.loadedResults = [
                     {

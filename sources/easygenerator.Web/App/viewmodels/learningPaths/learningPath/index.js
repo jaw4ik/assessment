@@ -17,6 +17,7 @@ function (eventTracker, index, router, isViewReady, titleField, constants, local
         updateTitle: 'Update learning path title',
         navigateToDetails: 'Navigate to learning path details',
         navigateToPublish: 'Navigate to publish learning path',
+        navigateToResults: 'Navigate to learning path results',
         openShareDialog: 'Open \'share\' dialog'
     };
 
@@ -50,6 +51,20 @@ function (eventTracker, index, router, isViewReady, titleField, constants, local
                 },
                 navigate: function () {
                     eventTracker.publish(events.navigateToPublish);
+                    router.navigate(this.dynamicHash());
+                }
+            },
+            {
+                route: 'results',
+                moduleId: 'viewmodels/learningPaths/learningPath/results',
+                title: localizationManager.localize('courseResultsItem'),
+                nav: 3,
+                hash: '#learningPaths/:learningPathId/results',
+                settings: {
+                    localizationKey: 'course'
+                },
+                navigate: function () {
+                    eventTracker.publish(events.navigateToResults);
                     router.navigate(this.dynamicHash());
                 }
             }

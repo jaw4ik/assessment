@@ -1,16 +1,16 @@
 ﻿define(['constants', 'reporting/viewmodels/expandableStatement', 'reporting/viewmodels/objectiveStatement', 'reporting/xApiProvider'], function (constants, ExpandableStatement, ObjectiveStatement, xApiProvider) {
     "use strict";
 
-    var CourseStatement = function (finishedLrsStatement) {
+    var FinishStatement = function (finishedLrsStatement) {
         ExpandableStatement.call(this, finishedLrsStatement, this.expandLoadAction);
         this.startedLrsStatement = null;
         this.learnerDisplayName = this.lrsStatement.actor.name + ' (' + this.lrsStatement.actor.email + ')';
         this.passed = this.lrsStatement.verb === constants.reporting.xApiVerbIds.passed;
     }
 
-    CourseStatement.prototype = Object.create(ExpandableStatement.prototype);
+    FinishStatement.prototype = Object.create(ExpandableStatement.prototype);
 
-    CourseStatement.prototype.expandLoadAction = function () {
+    FinishStatement.prototype.expandLoadAction = function () {
         var that = this;
         return xApiProvider.getMasteredStatements(that.lrsStatement.attemptId).then(function (lrsStatements) {
             return xApiProvider.getStartedStatement(that.lrsStatement.attemptId).then(function (startedStatements) {
@@ -24,5 +24,5 @@
         });
     }
 
-    return CourseStatement;
+    return FinishStatement;
 });
