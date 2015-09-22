@@ -4,7 +4,8 @@
     var dialogWidget = require('widgets/dialog/viewmodel'),
         constants = require('constants'),
         getReleaseNoteCommand = require('dialogs/releaseNotes/commands/getReleaseNote'),
-        updateLastReadReleaseNote = require('dialogs/releaseNotes/commands/updateLastReadReleaseNote');
+        updateLastReadReleaseNote = require('dialogs/releaseNotes/commands/updateLastReadReleaseNote'),
+        userContext = require('userContext');
 
     describe('dialog [releaseNotes]', function () {
         var dfd;
@@ -123,6 +124,18 @@
                 dialog.closed();
                 expect(updateLastReadReleaseNote.execute).toHaveBeenCalled();
             });
+
+            it('should update showReleaseNote', function (done) {
+                userContext.identity.showReleaseNote = true;
+                dialog.closed();
+                dfd.resolve();
+                dfd.promise.fin(function () {
+                    expect(userContext.identity.showReleaseNote).toBe(false);
+                    done();
+                });
+                
+            });
+
 
             it('should unsubscribe event dialog close', function () {
                 dialog.closed();

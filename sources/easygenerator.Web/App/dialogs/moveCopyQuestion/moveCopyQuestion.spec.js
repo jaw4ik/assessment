@@ -8,7 +8,9 @@
         userContext = require('userContext'),
         localizationManager = require('localization/localizationManager'),
         questionRepository = require('repositories/questionRepository'),
-        notify = require('notify');
+        notify = require('notify'),
+        dialog = require('widgets/dialog/viewmodel'),
+        constants=require('constants');
 
     describe('moveCopyQuestionDialog', function () {
 
@@ -48,14 +50,8 @@
             spyOn(router, 'navigate');
             spyOn(localizationManager, 'localize').and.returnValue(allObjectivesTitle);
             spyOn(notify, 'error');
-        });
-
-        describe('isShown', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.isShown).toBeObservable();
-            });
-
+            spyOn(dialog, 'show');
+            spyOn(dialog, 'close');
         });
 
         describe('courseId', function () {
@@ -99,9 +95,8 @@
             });
 
             it('should show dialog', function () {
-                viewModel.isShown(false);
                 viewModel.show();
-                expect(viewModel.isShown()).toBeTruthy();
+                expect(dialog.show).toHaveBeenCalledWith(viewModel, constants.dialogs.moveCopyQuestion.settings);
             });
 
             it('should set copy mode', function () {
@@ -203,18 +198,11 @@
 
         });
 
-        describe('hide', function () {
-
-            it('should be function', function () {
-                expect(viewModel.hide).toBeFunction();
+        describe('close', function () {
+            it('should close dialog', function () {
+                viewModel.close();
+                expect(dialog.close).toHaveBeenCalled();
             });
-
-            it('should hide dialog', function () {
-                viewModel.isShown(true);
-                viewModel.hide();
-                expect(viewModel.isShown()).toBeFalsy();
-            });
-
         });
 
         describe('changeMoveCopyAction:', function () {
@@ -505,7 +493,7 @@
                         viewModel.objectiveId(1);
                         viewModel.selectedObjectiveId(1);
                         viewModel.moveQuestion();
-                        expect(viewModel.isShown()).toBeFalsy();
+                        expect(dialog.close).toHaveBeenCalled();
                     });
 
                 });
@@ -537,7 +525,7 @@
                             viewModel.moveQuestion();
 
                             moveQuestionDefer.promise.fin(function () {
-                                expect(viewModel.isShown()).toBeFalsy();
+                                expect(dialog.close).toHaveBeenCalled();
                                 done();
                             });
                         });
@@ -733,11 +721,11 @@
                         copyQuestionDefer.resolve({ id: newQuestionId });
                     });
 
-                    it('should hide popup', function (done) {
+                    it('should close popup', function (done) {
                         viewModel.copyQuestion();
 
                         copyQuestionDefer.promise.fin(function () {
-                            expect(viewModel.isShown()).toBeFalsy();
+                            expect(dialog.close).toHaveBeenCalled();
                             done();
                         });
                     });

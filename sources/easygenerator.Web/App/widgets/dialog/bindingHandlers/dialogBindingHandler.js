@@ -1,5 +1,4 @@
 ﻿ko.bindingHandlers.dialog = {
-    isShown: false,
     init: function () {
     },
     update: function (element, valueAccessor) {
@@ -21,10 +20,10 @@
         }
 
         function show() {
-            if (ko.bindingHandlers.dialog.isShown)
+            if ($element.data('isShown'))
                 return;
 
-            ko.bindingHandlers.dialog.isShown = true;
+            $element.data('isShown', true);
             var $blockout = $('<div class="modal-dialog-blockout" style="display:none;"></div>').appendTo($container);
 
             $.when($blockout).done(function () {
@@ -49,11 +48,11 @@
         }
 
         function hide() {
-            if (!ko.bindingHandlers.dialog.isShown)
+            if (!$element.data('isShown'))
                 return;
 
             isShown(false);
-            ko.bindingHandlers.dialog.isShown = false;
+            $element.data('isShown', false);
             $('.modal-dialog-blockout').fadeOut(speed, function () {
                 $(this).remove();
             });

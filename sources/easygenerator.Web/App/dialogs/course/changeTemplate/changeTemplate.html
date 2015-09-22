@@ -1,10 +1,10 @@
-﻿<div class="modal-dialog change-course-template-dialog">
-    <div class="modal-dialog-title" data-bind="localize: { text: 'changeYourCourseTemplate' }"></div>
-    <div class="modal-dialog-body">
+﻿<div class="dialog change-course-template-dialog">
+    <div class="dialog-title" data-bind="localize: { text: 'changeYourCourseTemplate' }"></div>
+    <div class="dialog-body">
         <!-- ko compose: { model: templateSelector, activationData: templateId } -->
         <!-- /ko -->
     </div>
-    <div class="modal-dialog-actions">
+    <div class="dialog-actions">
         <button class="btn green" data-bind="click: submit, css: { progress: isProcessing }, enable: !isProcessing()">
             <span class="btn-caption" data-bind="localize: { text: 'done' }"></span>
         </button>

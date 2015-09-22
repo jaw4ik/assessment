@@ -1,14 +1,14 @@
-﻿<div class="modal-dialog">
-    <div class="modal-dialog-title-wrapper">
-        <div class="modal-dialog-title-img"></div>
-        <div class="modal-dialog-title" data-bind="localize: { text: 'deleteLearningPath' }"></div>
-        <div class="modal-dialog-learning-path-title">
+﻿<div class="dialog">
+    <div class="dialog-title-wrapper">
+        <div class="dialog-title-img"></div>
+        <div class="dialog-title" data-bind="localize: { text: 'deleteLearningPath' }"></div>
+        <div class="dialog-learning-path-title">
             <span>„</span>
-            <span class="modal-dialog-learning-path-title-text" data-bind="text: learningPathTitle"></span>
+            <span class="dialog-learning-path-title-text" data-bind="text: learningPathTitle"></span>
             <span>“</span>
         </div>
     </div>
-    <div class="modal-dialog-actions">
+    <div class="dialog-actions">
         <button class="btn red delete-learning-path-btn" data-bind="click: deleteLearningPath, css:{ 'disabled': isDeleting(), 'progress': isDeleting() }, disable: isDeleting()">
             <!-- ko if: isDeleting() -->
             <!-- ko compose: { view: 'views/common/circularLoader', model: {css: 'x16 white align-center'} } -->

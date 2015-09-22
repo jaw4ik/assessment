@@ -1,61 +1,58 @@
-﻿<section class="modal-dialog-container" data-bind="css: { shown: isShown }">
-    <div class="modal-dialog-wrapper move-copy-question" data-bind="dialog: { autoclose: false, isShown: isShown, onHide: hide }">
-        <div class="modal-dialog-close-btn" data-bind="click: hide"></div>
-        <header class="modal-dialog-header">
-            <span class="modal-dialog-header-text" data-bind="localize: { text: 'moveCopyQuestion' }">Move/Copy current question</span>
-        </header>
-        <section class="modal-dialog-content">
-            <h2 class="move-copy-question-title" data-bind="localize: {text:'toCourse'}">To course:</h2>
-            <div class="move-copy-question-content dropdown" data-bind="dropDown: {}">
-                <div class="dropdown-selected-item">
-                    <span class="dropdown-selected-item-text" data-bind="text: selectedCourse().title"></span>
-                </div>
-                <ul class="dropdown-options-list scrollable unstyled">
-                    <!-- ko foreach: courses -->
-                    <li class="dropdown-options-item" data-bind="text: title, click: $parent.selectCourse, css: { selected: id === $parent.selectedCourse().id }"></li>
-                    <!-- /ko -->
-                    <li class="dropdown-options-item" data-bind="text: allObjectives().title, click: selectCourse.bind($data, allObjectives()), css: { selected: selectedCourse() == allObjectives() }"></li>
-                </ul>
+﻿<div class="dialog">
+    <header class="dialog-header">
+        <span class="dialog-header-text" data-bind="localize: { text: 'moveCopyQuestion' }">Move/Copy current question</span>
+    </header>
+    <section class="dialog-content">
+        <h2 class="move-copy-question-title" data-bind="localize: {text:'toCourse'}">To course:</h2>
+        <div class="move-copy-question-content dropdown" data-bind="dropDown: {}">
+            <div class="dropdown-selected-item">
+                <span class="dropdown-selected-item-text" data-bind="text: selectedCourse().title"></span>
             </div>
-            <h2 class="move-copy-question-title" data-bind="localize: { text: 'toObjective' }">To objective:</h2>
-            <div class="move-copy-question-content">
-                <ul class="destination-objectives-list scrollable unstyled">
-                    <!-- ko foreach: selectedCourse().objectives -->
-                    <li class="destination-objectives-list-item" data-bind="click: $parent.selectObjective, css: { selected: id == $parent.selectedObjectiveId() }">
-                        <span data-bind="text: title"></span>
-                        <!-- ko if: id === $parent.objectiveId() -->
-                        [<span class="destination-objectives-list-item-text" data-bind="localize: { text: 'current' }"></span>]
-                        <!-- /ko -->
-                    </li>
+            <ul class="dropdown-options-list scrollable unstyled">
+                <!-- ko foreach: courses -->
+                <li class="dropdown-options-item" data-bind="text: title, click: $parent.selectCourse, css: { selected: id === $parent.selectedCourse().id }"></li>
+                <!-- /ko -->
+                <li class="dropdown-options-item" data-bind="text: allObjectives().title, click: selectCourse.bind($data, allObjectives()), css: { selected: selectedCourse() == allObjectives() }"></li>
+            </ul>
+        </div>
+        <h2 class="move-copy-question-title" data-bind="localize: { text: 'toObjective' }">To objective:</h2>
+        <div class="move-copy-question-content">
+            <ul class="destination-objectives-list scrollable unstyled">
+                <!-- ko foreach: selectedCourse().objectives -->
+                <li class="destination-objectives-list-item" data-bind="click: $parent.selectObjective, css: { selected: id == $parent.selectedObjectiveId() }">
+                    <span data-bind="text: title"></span>
+                    <!-- ko if: id === $parent.objectiveId() -->
+                    [<span class="destination-objectives-list-item-text" data-bind="localize: { text: 'current' }"></span>]
                     <!-- /ko -->
-                    <!-- ko if: selectedCourse().objectvesListEmpty -->
-                    <li class="destination-objectives-list-item empty" data-bind="localize: { text: 'objectivesListEmpty' }">Objectives list is empty...</li>
-                    <!-- /ko -->
-                </ul>
-            </div>
-            <div class="move-copy-question-footer">
-                <div class="switcher">
-                    <div class="switcher-text" data-bind="localize: { text: 'move', 'data-text': 'move' }, css: { selected: !isCopy() }, click: setMoveAction">Move</div>
-                    <div class="switch-toggle-slider on" data-bind="switchToggle: { value: isCopy, onValueChanged: changeMoveCopyAction }">
-                        <div class="switch-toggle-wrapper">
-                            <div class="switch-toggle-on"></div>
-                            <div class="switch-toogle-blob"></div>
-                            <div class="switch-toggle-off"></div>
-                        </div>
+                </li>
+                <!-- /ko -->
+                <!-- ko if: selectedCourse().objectvesListEmpty -->
+                <li class="destination-objectives-list-item empty" data-bind="localize: { text: 'objectivesListEmpty' }">Objectives list is empty...</li>
+                <!-- /ko -->
+            </ul>
+        </div>
+        <div class="move-copy-question-footer">
+            <div class="switcher">
+                <div class="switcher-text" data-bind="localize: { text: 'move', 'data-text': 'move' }, css: { selected: !isCopy() }, click: setMoveAction">Move</div>
+                <div class="switch-toggle-slider on" data-bind="switchToggle: { value: isCopy, onValueChanged: changeMoveCopyAction }">
+                    <div class="switch-toggle-wrapper">
+                        <div class="switch-toggle-on"></div>
+                        <div class="switch-toogle-blob"></div>
+                        <div class="switch-toggle-off"></div>
                     </div>
-                    <div class="switcher-text selected" data-bind="localize: { text: 'copy', 'data-text': 'copy' }, css: { selected: isCopy() }, click: setCopyAction">Copy</div>
-                    <div class="overlay"></div>
                 </div>
-                <div class="buttons-container">
-                    <button class="accessory-button" data-bind="click: hide">Cancel</button>
-                    <!-- ko if: isCopy -->
-                    <button class="main-button btn green" data-bind="click: copyQuestion, localize: { text: 'copy' }">Copy</button>
-                    <!-- /ko -->
-                    <!-- ko ifnot: isCopy -->
-                    <button class="main-button btn green" data-bind="click: moveQuestion, localize: { text: 'move' }">Move</button>
-                    <!-- /ko -->
-                </div>
+                <div class="switcher-text selected" data-bind="localize: { text: 'copy', 'data-text': 'copy' }, css: { selected: isCopy() }, click: setCopyAction">Copy</div>
+                <div class="overlay"></div>
             </div>
-        </section>
-    </div>
-</section>
+            <div class="buttons-container">
+                <button class="accessory-button" data-bind="click: close, localize: { text: 'cancel' }">Cancel</button>
+                <!-- ko if: isCopy -->
+                <button class="main-button btn green" data-bind="click: copyQuestion, localize: { text: 'copy' }">Copy</button>
+                <!-- /ko -->
+                <!-- ko ifnot: isCopy -->
+                <button class="main-button btn green" data-bind="click: moveQuestion, localize: { text: 'move' }">Move</button>
+                <!-- /ko -->
+            </div>
+        </div>
+    </section>
+</div>
