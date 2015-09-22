@@ -4,6 +4,7 @@ using easygenerator.Web.Extensions;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using easygenerator.Infrastructure;
 
 namespace easygenerator.Web.BuildLearningPath
 {
@@ -25,6 +26,8 @@ namespace easygenerator.Web.BuildLearningPath
 
             return new LearningPathPackageModel()
             {
+                Id = learningPath.Id.ToNString(),
+                CreatedOn = DateTimeWrapper.Now(),
                 Title = learningPath.Title,
                 Courses = (learningPath.Courses ?? new Collection<Course>()).Select(MapCourse).ToList()
             };

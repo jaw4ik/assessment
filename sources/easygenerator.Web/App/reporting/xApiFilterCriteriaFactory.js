@@ -8,6 +8,10 @@
             criteria[constants.reporting.filterKeys.courseId] = spec.courseId;
         }
 
+        if (spec.learningPathId) {
+            criteria[constants.reporting.filterKeys.learningPathId] = spec.learningPathId;
+        }
+
         if (spec.verbs) {
             if (_.isString(spec.verbs)) {
                 criteria[constants.reporting.filterKeys.verb] = spec.verbs;

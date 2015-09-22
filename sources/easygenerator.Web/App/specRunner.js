@@ -24,7 +24,7 @@
         return Q;
     });
 
-    require(['bootstrapper'], function(bootstrapper) {
+    require(['bootstrapper'], function (bootstrapper) {
         bootstrapper.run();
 
         var specs = [
@@ -92,6 +92,7 @@
             'repositories/collaboratorRepository.spec',
             'repositories/courseRepository.spec',
             'repositories/learningContentRepository.spec',
+            'repositories/learningPathRepository.spec',
             'repositories/objectiveRepository.spec',
             'repositories/templateRepository.spec',
             'repositories/questionRepository.spec',
@@ -114,8 +115,8 @@
             'reporting/viewmodels/expandableStatement.spec',
             'reporting/viewmodels/questionStatement.spec',
             'reporting/viewmodels/objectiveStatement.spec',
-            'reporting/viewmodels/courseStatement.spec',
-            'reporting/viewmodels/results.spec',
+            'reporting/viewmodels/finishStatement.spec',
+            'reporting/viewmodels/resultsBase.spec',
 
             //#endregion
 
@@ -215,6 +216,7 @@
             'viewmodels/learningPaths/learningPath/details.spec',
             'viewmodels/learningPaths/learningPath/publish.spec',
             'viewmodels/learningPaths/learningPath/courseBrief.spec',
+            'viewmodels/learningPaths/learningPath/results.spec',
             'viewmodels/learningPaths/learningPath/actions/download.spec',
             'viewmodels/learningPaths/learningPath/actions/publish.spec',
 
@@ -238,6 +240,7 @@
             'viewmodels/courses/course/design/templateBrief.spec',
             'viewmodels/courses/course/configure.spec',
             'viewmodels/courses/course/publish.spec',
+            'viewmodels/courses/course/results.spec',
             'viewmodels/courses/publishingActions/publishingAction.spec',
             'viewmodels/courses/publishingActions/build.spec',
             'viewmodels/courses/publishingActions/publish.spec',
@@ -367,7 +370,7 @@
             '../Scripts/common/serviceUnavailableAjaxErrorHandler.spec'
         ];
 
-        require(specs, function() {
+        require(specs, function () {
             env.execute();
         });
     });
