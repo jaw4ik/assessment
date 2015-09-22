@@ -57,7 +57,6 @@
         function closed() {
             viewModel.trigger(constants.dialogs.dialogClosed);
 
-            viewModel.activeStep(null);
             var dialogActivator = activator.create();
             _.each(viewModel.steps(), function (step) {
                 dialogActivator.deactivateItem(step);

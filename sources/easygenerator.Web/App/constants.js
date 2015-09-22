@@ -438,6 +438,11 @@
                         containerCss: 'release-note'
                     }
                 },
+                moveCopyQuestion: {
+                    settings: {
+                        containerCss: 'move-copy-question'
+                    }
+                },
                 upgrade: {
                     settings: {
                         default: {

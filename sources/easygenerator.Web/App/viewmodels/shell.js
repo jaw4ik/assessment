@@ -121,7 +121,7 @@
                             }
                         }
                     };
-                    
+
                     leftSideBarManager.initialize();
 
                     router.on('router:navigation:composition-complete').then(function () {
@@ -189,10 +189,20 @@
                     isViewReady.assign(router);
 
                     viewModel.router.isViewReady.subscribe(function (value) {
-                        if (value && !_.isNullOrUndefined(clientContext.get(constants.clientContextKeys.showCreateCoursePopup))) {
-                            createCourseDialog.show(viewModel.createCourseCallback);
+                        if (value) {
+                            if (userContext.identity.showReleaseNote) {
+                                releaseNotesDialog.show(showCreateCoursePopup);
+                            } else {
+                                showCreateCoursePopup();
+                            }
                         }
                     });
+
+                    function showCreateCoursePopup() {
+                        if (!_.isNullOrUndefined(clientContext.get(constants.clientContextKeys.showCreateCoursePopup))) {
+                            createCourseDialog.show(viewModel.createCourseCallback);
+                        }
+                    }
 
                     return router.buildNavigationModel()
                         .mapUnknownRoutes('viewmodels/errors/404', '404')

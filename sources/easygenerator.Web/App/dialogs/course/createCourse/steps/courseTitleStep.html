@@ -1,6 +1,6 @@
-﻿<div class="modal-dialog create-course-title-step">
-    <div class="modal-dialog-title" data-bind="text: caption"></div>
-    <div class="modal-dialog-body">
+﻿<div class="dialog create-course-title-step">
+    <div class="dialog-title" data-bind="text: caption"></div>
+    <div class="dialog-body">
         <div class="title-wrapper scrollable" data-bind="scrollbar: { checkDOMChanges: true, scrollToEndAfterDOMChanged: true }">
             <div class="title-container">
                 <div class="edit-field-wrapper" data-bind="css: { 'active': isEditing(), 'error': isChanged() && !isValid() }">
@@ -13,7 +13,7 @@
             </div>
         </div>
     </div>
-    <div class="modal-dialog-actions">
+    <div class="dialog-actions">
         <button class="btn green" data-bind="click: submit, css: { disabled: !isValid(), progress: isProcessing }, enable: isValid() && !isProcessing()">
             <span class="btn-caption" data-bind="localize: { text: 'createCourse' }"></span>
         </button>

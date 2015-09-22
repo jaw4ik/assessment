@@ -1,7 +1,7 @@
 ﻿ko.bindingHandlers.dialogWizard = {
     init: function (element) {
         var $element = $(element),
-            stepClassSelector = '.modal-dialog-wizard-step';
+            stepClassSelector = '.dialog-wizard-step';
 
         $element.find(stepClassSelector).each(function () {
             $(this).hide();
@@ -10,9 +10,9 @@
     update: function (element, valueAccessor) {
         var $element = $(element),
             activeStepViewModel = ko.unwrap(valueAccessor().activeStep),
-            stepClassSelector = '.modal-dialog-wizard-step',
+            stepClassSelector = '.dialog-wizard-step',
             $currentStep = $element.find(stepClassSelector + '.active'),
-            $currentStepDialogBody = $currentStep.find('.modal-dialog-body').height('100%'),
+            $currentStepDialogBody = $currentStep.find('.dialog-body').height('100%'),
             $targetStep = getTargetStep();
 
         if (!$targetStep) {

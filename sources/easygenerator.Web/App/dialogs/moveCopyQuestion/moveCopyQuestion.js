@@ -1,5 +1,5 @@
-﻿define(['plugins/router', 'eventTracker', 'dataContext', 'userContext', 'repositories/questionRepository', 'localization/localizationManager', 'notify'],
-    function (router, eventTracker, dataContext, userContext, questionRepository, localizationManager, notify) {
+﻿define(['plugins/router', 'eventTracker', 'dataContext', 'userContext', 'repositories/questionRepository', 'localization/localizationManager', 'notify', 'widgets/dialog/viewmodel', 'constants'],
+    function (router, eventTracker, dataContext, userContext, questionRepository, localizationManager, notify, dialog, constants) {
     'use strict';
 
     var events = {
@@ -11,12 +11,11 @@
     };
 
     var viewModel = {
-        isShown: ko.observable(false),
         courseId: '',
         questionId: '',
         objectiveId: ko.observable(''),
         show: show,
-        hide: hide,
+        close:close,
         isCopy: ko.observable(true),
         changeMoveCopyAction: changeMoveCopyAction, 
         setCopyAction: setCopyAction,
@@ -37,12 +36,12 @@
 
     function show(courseId, objectiveId, questionId) {
         eventTracker.publish(events.showDialog);
-        viewModel.isShown(true);
+        dialog.show(viewModel, constants.dialogs.moveCopyQuestion.settings);
         reset(courseId, objectiveId, questionId);
     }
 
-    function hide() {
-        viewModel.isShown(false);
+    function close() {
+        dialog.close();
     }
 
     function changeMoveCopyAction() {
@@ -93,7 +92,7 @@
         if (viewModel.objectiveId() !== viewModel.selectedObjectiveId()) {
             eventTracker.publish(events.moveItem);
             questionRepository.moveQuestion(viewModel.questionId, viewModel.objectiveId(), viewModel.selectedObjectiveId()).then(function () {
-                viewModel.hide();
+                viewModel.close();
                 if (!_.isNullOrUndefined(viewModel.courseId)) {
                         router.navigate('courses/' + viewModel.courseId + '/objectives/' + viewModel.objectiveId());
                 } else {
@@ -101,7 +100,7 @@
                 }
             });
         } else {
-            viewModel.hide();
+            viewModel.close();
         }
     }
 
@@ -111,7 +110,7 @@
         }
         eventTracker.publish(events.copyItem);
         questionRepository.copyQuestion(viewModel.questionId, viewModel.selectedObjectiveId()).then(function (response) {
-            viewModel.hide();
+            viewModel.close();
             if (!_.isNullOrUndefined(viewModel.selectedCourse().id)) {
                     router.navigate('courses/' + viewModel.selectedCourse().id + '/objectives/' + viewModel.selectedObjectiveId() + '/questions/' + response.id);
             } else {
