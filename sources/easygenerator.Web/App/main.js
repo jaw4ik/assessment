@@ -52,7 +52,7 @@ define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synch
 
                 return Q.all([userContext.identify(), userContext.identifyStoragePermissions(), synchronization.start(), onboarding.initialize()])
                     .spread(function () {
-                        //audio.initialize();
+                        audio.initialize();
                         app.setRoot('viewmodels/shell', null, document.getElementById('app'));
                     });
 
