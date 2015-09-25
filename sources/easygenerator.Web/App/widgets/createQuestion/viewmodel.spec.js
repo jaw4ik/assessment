@@ -94,7 +94,7 @@
                     var promise = viewModel.activate(settings);
 
                     promise.fin(function () {
-                        expect(viewModel.questions().length).toBe(10);
+                        expect(viewModel.questions().length).toBe(11);
                         expect(viewModel.questions()[0].type).toBe(constants.questionType.informationContent.type);
                         expect(viewModel.questions()[1].type).toBe(constants.questionType.singleSelectText.type);
                         expect(viewModel.questions()[2].type).toBe(constants.questionType.multipleSelect.type);
