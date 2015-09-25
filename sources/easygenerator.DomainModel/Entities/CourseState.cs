@@ -1,9 +1,11 @@
-﻿using easygenerator.Infrastructure;
+﻿using System;
+using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities
 {
     public class CourseState : Identifiable
     {
+        public Guid Course_Id { get; set; }
         public virtual Course Course { get; private set; }
         public bool IsDirty { get; private set; }
 

@@ -111,12 +111,12 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<CourseTemplateSettings>().HasRequired(e => e.Course).WithMany().HasForeignKey(p => p.Course_Id);
             modelBuilder.Entity<CourseTemplateSettings>().HasRequired(e => e.Template).WithMany().HasForeignKey(p => p.Template_Id);
             modelBuilder.Entity<CourseTemplateSettings>().Property(e => e.Course_Id)
-                .HasColumnAnnotation("Index", new IndexAnnotation(new[] {
+                .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new[] {
                     new IndexAttribute("IX_Course_Id"),
                     new IndexAttribute("UI_CourseTemplateSettings_Course_Id_Template_Id", 1) { IsUnique = true }
                 }));
             modelBuilder.Entity<CourseTemplateSettings>().Property(e => e.Template_Id)
-                .HasColumnAnnotation("Index", new IndexAnnotation(new[]{
+                .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new[]{
                     new IndexAttribute("IX_Template_Id"),
                     new IndexAttribute("UI_CourseTemplateSettings_Course_Id_Template_Id", 2) { IsUnique = true }
                 }));
@@ -226,7 +226,12 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<DemoCourseInfo>().HasRequired(e => e.DemoCourse);
             modelBuilder.Entity<DemoCourseInfo>().HasOptional(e => e.SourceCourse);
 
-            modelBuilder.Entity<CourseState>().HasRequired(e => e.Course);
+
+            modelBuilder.Entity<CourseState>().HasRequired(e => e.Course).WithMany().HasForeignKey(e => e.Course_Id);
+
+            modelBuilder.Entity<CourseState>().Property(e => e.Course_Id).HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new[]{
+                    new IndexAttribute("IX_Course_Id") { IsUnique = true}
+              }));
 
             modelBuilder.Entity<ConsumerTool>().Property(e => e.Title).HasMaxLength(255);
             modelBuilder.Entity<ConsumerTool>().Property(e => e.Domain).HasMaxLength(255);
