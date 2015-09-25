@@ -1,2 +1,2 @@
-call easyresources generate -o "_app"
+call easyresources generate -o "..\..\sources\easygenerator.Web\Content\lang"
 pause

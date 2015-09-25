@@ -601,6 +601,7 @@
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
     <Content Include="App\browse.js" />
+    <Content Include="App\jsonReader.js" />
     <Content Include="App\Query.js" />
     <Content Include="App\Command.js" />
     <Content Include="App\commands\createCourseCommand.js" />
@@ -807,7 +808,6 @@
     <Content Include="App\http\storageHttpWrapper.spec.js">
       <DependentUpon>storageHttpWrapper.js</DependentUpon>
     </Content>
-    <Content Include="App\localization\resources.js" />
     <Content Include="App\mappers\videoModelMapper.js" />
     <Content Include="App\mappers\learningPathModelMapper.js" />
     <Content Include="App\models\learningPath.js" />
@@ -1632,6 +1632,13 @@
     </Content>
     <Content Include="ReleaseNotes\1.0.0.html" />
     <Content Include="Content\releaseNotes.less" />
+    <Content Include="Content\lang\de.json" />
+    <Content Include="Content\lang\en.json" />
+    <Content Include="Content\lang\nl.json" />
+    <Content Include="Content\lang\pt-br.json" />
+    <Content Include="Content\lang\uk.json" />
+    <Content Include="Content\lang\zh-cn.json" />
+    <Content Include="Content\lang\fr.json" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\iscroll-probe.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />

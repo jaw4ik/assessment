@@ -1,22 +1,26 @@
-﻿define(['localization/resources'], function (resources) {
+﻿define(['jsonReader'], function (jsonReader) {
     "use strict";
 
     var
         defaultCulture = "en",
         supportedCultures = [
-            "en", "en-US", 'uk', 'zh-cn', 'pt-br'
+            "en", 'uk', 'zh-cn', 'pt-br', 'fr'
         ],
         currentCulture = defaultCulture,
         currentLanguage = '',
+        resources = null,
 
-        localize = function (key, culture) {
+        localize = function (key) {
+            if (!resources) {
+                throw new Error('The resources are not initialized');
+            }
 
             var item = resources[key];
             if (_.isNullOrUndefined(item)) {
                 throw new Error('A resource with key "' + key + '" was not found');
             }
-            var cultureInfo = _.contains(supportedCultures, culture) ? culture : this.currentCulture;
-            return item[cultureInfo] || item[this.currentLanguage] || item[defaultCulture];
+
+            return item;
         },
 
         hasKey = function (key) {
@@ -41,7 +45,8 @@
                     break;
                 }
                 for (j = 0; j < sclength; j++) {
-                    if (userCultures[i].toLowerCase() == supportedCultures[j].toLowerCase()) {
+                    if (userCultures[i].toLowerCase() === supportedCultures[j].toLowerCase() ||
+                        userCultures[i].toLowerCase().substring(0, 2) === supportedCultures[j].toLowerCase()) {
                         match = supportedCultures[j];
                         break;
                     }
@@ -51,6 +56,9 @@
             this.currentCulture = _.isString(match) ? match : defaultCulture;
             this.currentLanguage = this.currentCulture.substring(0, 2);
 
+            jsonReader.read('content/lang/' + this.currentCulture + '.json').then(function (translations) {
+                resources = translations;
+            });
             addLangTagToHtml(this.currentCulture);
         };
 
