@@ -1183,6 +1183,7 @@
     <Content Include="Content\font\rabiohead.woff" />
     <Content Include="Content\font\robotoslab-bold.woff" />
     <Content Include="Content\font\robotoslab-regular.woff" />
+    <Content Include="Content\images\branchtrack.png" />
     <Content Include="Content\images\chrome.png" />
     <Content Include="Content\images\closedhand.cur" />
     <Content Include="Content\images\comingsoon1024.png" />
