@@ -2035,6 +2035,12 @@
         'uk': 'Редагування питання \"Вибір відповідності\"',
         'pt-br': 'Editor de questão \"Casar texto\"'
     },
+    branchtrackEditor: {
+        'en': '\"BranchTrack\" question editor',
+        'zh-cn': '\"BranchTrack\" question editor[zh-cn]',
+        'uk': '\"BranchTrack\" question editor[uk]',
+        'pt-br': '\"BranchTrack\" question editor[pt-br]'
+    },
     informationContentEditor: {
         'en': 'Content editor',
         'zh-cn': '内容编辑',
@@ -2315,6 +2321,21 @@
         'pt-br': 'Mensagem para pergunta vazia'
     },
     /* End resource section for model OpenQuestion */
+    
+    /* Resource section for model BranchTrack */
+    branchtrack: {
+        'en': 'BranchTrack',
+        'zh-cn': 'BranchTrack',
+        'uk': 'BranchTrack',
+        'pt-br': 'BranchTrack'
+    },
+    newBranchtrackQuestionTitle: {
+        'en': 'Untitled BranchTrack question',
+        'zh-cn': 'Untitled BranchTrack question[zh-cn]',
+        'uk': 'Питання \"BranchTrack\" без назви',
+        'pt-br': 'Untitled BranchTrack question[pt-br]'
+    },
+    /* End resource section for model BranchTrack */
     
     /* Resource section for model QuestionFeedback */
     putYourPositiveFeedback: {

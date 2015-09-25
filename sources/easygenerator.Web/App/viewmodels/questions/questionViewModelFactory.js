@@ -7,8 +7,10 @@
         'viewmodels/questions/informationContent/informationContent',
         'viewmodels/questions/statement/statement',
         'viewmodels/questions/hotSpot/hotSpot',
-        'viewmodels/questions/openQuestion/openQuestion'],
-    function (multipleSelect, fillInTheBlank, dragAndDropText, singleSelectText, textMatching, singleSelectImage, informationContent, statement, hotspot, openQuestion) {
+        'viewmodels/questions/openQuestion/openQuestion',
+        'viewmodels/questions/branchtrack/branchtrack'],
+    function (multipleSelect, fillInTheBlank, dragAndDropText, singleSelectText, textMatching, singleSelectImage, informationContent,
+        statement, hotspot, openQuestion, branchtrack) {
         "use strict";
 
         return {
@@ -21,7 +23,8 @@
             informationContent: informationContent,
             statement:statement,
             hotspot: hotspot,
-            openQuestion: openQuestion
+            openQuestion: openQuestion,
+            branchtrack: branchtrack
         };
 
     }

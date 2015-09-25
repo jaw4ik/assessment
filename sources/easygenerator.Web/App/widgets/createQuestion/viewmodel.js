@@ -61,6 +61,10 @@
                 {
                     type: constants.questionType.openQuestion.type,
                     hasAccess: userContext.hasPlusAccess()
+                },
+                {
+                    type: constants.questionType.branchtrack.type,
+                    hasAccess: userContext.hasPlusAccess()
                 }
             ]);
         });

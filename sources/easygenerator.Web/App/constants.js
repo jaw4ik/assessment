@@ -49,6 +49,10 @@
                 openQuestion: {
                     type: 'openQuestion',
                     image: '/Content/images/open-question.png'
+                },
+                branchtrack: {
+                    type: 'branchtrack',
+                    image: '/Content/images/branchtrack.png'
                 }
             },
 
@@ -281,6 +285,10 @@
                 },
                 notification: {
 
+                },
+                branchtrack: {
+                    projectSelected: 'branchtrack:projectSelected',
+                    dialogClosed: 'branchtrack:dialogClosed'
                 }
             },
 
@@ -352,6 +360,7 @@
                     parentId: 'parent'
                 }
             },
+
             frameSize: {
                 width: {
                     name: 'frameWidth',
@@ -441,6 +450,11 @@
                 moveCopyQuestion: {
                     settings: {
                         containerCss: 'move-copy-question'
+                    }
+                },
+                branchtrack: {
+                    settings: {
+                        containerCss: 'branchtrack-dialog'
                     }
                 },
                 upgrade: {

@@ -1,0 +1,6 @@
+﻿<div class="branchtrack-dialog-content-wrapper">
+    <!-- ko if: isLoading -->
+    <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center' } } --><!-- /ko -->
+    <!-- /ko -->
+    <iframe data-bind="style: { visibility: isLoading() ? 'hidden' : 'visible' }, attr: { src: frameSrc }, event: { load: branchtrackFrameLoaded }, windowMessageListener: onGetBranchTrackMessage" frameborder="0" width="100%" height="100%"></iframe>
+</div>

@@ -57,6 +57,7 @@
     <Compile Include="Entities\LearningPath.cs" />
     <Compile Include="Entities\Onboarding.cs" />
     <Compile Include="Entities\Questions\BlankAnswer.cs" />
+    <Compile Include="Entities\Questions\BranchTrack.cs" />
     <Compile Include="Entities\Questions\OpenQuestion.cs" />
     <Compile Include="Entities\Questions\QuestionWithBackground.cs" />
     <Compile Include="Entities\Questions\HotSpotPolygon.cs" />
