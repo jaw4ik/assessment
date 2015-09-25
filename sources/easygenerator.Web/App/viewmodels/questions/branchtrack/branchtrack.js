@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'constants', 'localization/localizationManager', 'userContext', 'repositories/questionRepository', 'dialogs/branchtrack/branchtrack'],
-    function (app, constants, localizationManager, userContext, questionRepository, branchtrackDialog) {
+﻿define(['durandal/app', 'constants', 'notify', 'localization/localizationManager', 'userContext', 'repositories/questionRepository', 'dialogs/branchtrack/branchtrack'],
+    function (app, constants, notify, localizationManager, userContext, questionRepository, branchtrackDialog) {
         "use strict";
 
         var viewModel = {
@@ -59,7 +59,11 @@
         }
 
         function editSimulation() {
-            branchtrackDialog.show(viewModel.branchTrackDashboardUrl + '/' + viewModel.simulation.permalink + '/edit');
+            var permalink = viewModel.simulation
+                ? viewModel.simulation.permalink
+                : /projects\/(.*?)\/embed/.exec(viewModel.content())[1];
+
+            branchtrackDialog.show(viewModel.branchTrackDashboardUrl + '/' + permalink + '/edit');
         }
 
         function changeSimulation() {
@@ -67,20 +71,21 @@
         }
 
         function branchtrackProjectSelected(projectId) {
-            getProjectInfo(projectId);
-        }
-
-        function getProjectInfo(projectId) {
-            var getProjectInfoUrl = '//apps.branchtrack.rocks/api/1/projects/' + projectId + '.json';
-
-            secureBranckTrackRequest(getProjectInfoUrl).done(function (projectInfo) {
+            getProjectInfo(projectId).done(function (projectInfo) {
                 var embedCode = '<iframe width="100%" height="650px" src="' + projectInfo.embed_url + '" frameborder="0" allowfullscreen></iframe>';
 
                 questionRepository.updateContent(viewModel.questionId, embedCode).then(function () {
                     viewModel.content(embedCode);
                     viewModel.simulation = projectInfo;
+                    notify.saved();
                 });
             });
+        }
+
+        function getProjectInfo(projectId) {
+            var getProjectInfoUrl = '//apps.branchtrack.rocks/api/1/projects/' + projectId + '.json';
+
+            return secureBranckTrackRequest(getProjectInfoUrl);
         }
 
         function branchtrackDialogClosed() {
