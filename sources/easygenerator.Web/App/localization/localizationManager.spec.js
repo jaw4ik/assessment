@@ -1,48 +1,62 @@
 ﻿define(['localization/localizationManager'], function (localizationManager) {
     "use strict";
 
-    var resources = require('localization/resources');
+    var jsonReader = require('jsonReader');
+    var translations = localizationManager.translations;
 
     describe('localizationManager', function () {
+
+        afterEach(function() {
+            localizationManager.translations = translations;
+        });
 
         it('should be object', function () {
             expect(localizationManager).toBeObject();
         });
 
         describe('initialize', function () {
+            var readJson;
+            beforeEach(function () {
+                readJson = Q.defer();
+                spyOn(jsonReader, 'read').and.returnValue(readJson.promise);
+            });
 
-            describe('should set \'en\' as the default language', function () {
+            describe('when userCultures are not specified', function () {
 
-                it('when userCultures are not specified', function () {
+                it('should set \'en\' as the default language', function () {
                     localizationManager.initialize();
                     expect(localizationManager.currentLanguage).toEqual("en");
                 });
 
-                it('when userCultures are not an array', function () {
-                    localizationManager.initialize('ru-RU');
-                    expect(localizationManager.currentLanguage).toEqual("en");
-                });
-
-                it('when userCultures are not supported', function () {
-                    localizationManager.initialize(['ru-RU']);
-                    expect(localizationManager.currentLanguage).toEqual("en");
+                it('should set \'en\' as the default culture', function () {
+                    localizationManager.initialize();
+                    expect(localizationManager.currentCulture).toEqual("en");
                 });
 
             });
 
-            describe('should set \'en\' as the default culture', function () {
+            describe('when userCultures are not an array', function () {
 
-                it('when userCultures are not specified', function () {
-                    localizationManager.initialize();
-                    expect(localizationManager.currentCulture).toEqual("en");
-                });
-
-                it('when userCultures are not an array', function () {
+                it('should set \'en\' as the default language', function () {
                     localizationManager.initialize('ru-RU');
-                    expect(localizationManager.currentCulture).toEqual("en");
+                    expect(localizationManager.currentLanguage).toEqual('en');
                 });
 
-                it('when userCultures are not supported', function () {
+                it('should set \'en\' as the default culture', function () {
+                    localizationManager.initialize('ru-RU');
+                    expect(localizationManager.currentCulture).toEqual('en');
+                });
+
+            });
+
+            describe('when userCultures are not supported', function () {
+
+                it('should set \'en\' as the default language', function () {
+                    localizationManager.initialize(['ru-RU']);
+                    expect(localizationManager.currentLanguage).toEqual("en");
+                });
+
+                it('should set \'en\' as the default culture', function () {
                     localizationManager.initialize(['ru-RU']);
                     expect(localizationManager.currentCulture).toEqual("en");
                 });
@@ -54,89 +68,80 @@
                 expect(localizationManager.currentCulture).toEqual("en");
             });
 
-            it('should set first supported language from userCultures as current', function () {
-                localizationManager.initialize(['ru-RU', 'nl-NL', 'en-US']);
-                expect(localizationManager.currentLanguage).toEqual("en");
-            });
-
             it('should igonore case of userCultures', function () {
-                localizationManager.initialize(['en-uS']);
-                expect(localizationManager.currentCulture).toEqual("en-US");
-                expect(localizationManager.currentLanguage).toEqual("en");
+                localizationManager.initialize(['PT-BR']);
+                expect(localizationManager.currentCulture).toEqual("pt-br");
             });
 
+            it('should set culture by subculture', function() {
+                localizationManager.initialize(['en-US', 'uk']);
+                expect(localizationManager.currentCulture).toEqual("en");
+            });
+
+            it('should read current culrure json file', function() {
+                localizationManager.initialize(['uk']);
+                expect(jsonReader.read).toHaveBeenCalledWith('/app/localization/lang/uk.json');
+            });
+
+            describe('when get translation json', function () {
+                var translations = { key1: 'value1', key2: 'value2' };
+
+                beforeEach(function() {
+                    readJson.resolve(translations);
+                });
+
+                it('should set translations', function (done) {
+                    localizationManager.initialize(['uk']);
+
+                    readJson.promise.fin(function () {
+                        console.log(localizationManager.translations);
+                        expect(localizationManager.translations).toBe(translations);
+                        done();
+                    });
+                });
+            });
         });
 
         describe('localize', function () {
 
             var key = "resourceKey";
             var defaultString = 'default string';
-            var currentLanguage = 'ar';
 
             beforeEach(function () {
-                resources[key] = {};
-                resources[key]["en"] = defaultString;
+                localizationManager.translations = {};
+                localizationManager.translations[key] = defaultString;
             });
 
             afterEach(function () {
-                delete resources[key];
+                delete localizationManager.translations;
             });
 
-            it('should throw exception when resource with specified key was not found', function () {
-                var action = function () {
-                    localizationManager.localize('omnomnom');
-                };
+            describe('when translations are not initialized', function () {
+                beforeEach(function () {
+                    localizationManager.translations = null;
+                });
 
-                expect(action).toThrowError('A resource with key "omnomnom" was not found');
+                it('should throw exception ', function () {
+                    var action = function () {
+                        localizationManager.localize(key);
+                    };
+
+                    expect(action).toThrowError('Translations are not initialized.');
+                });
             });
 
-            it('should return localized string for current language when it exists', function () {
-                var localizedString = 'localized string';
-                resources[key][currentLanguage] = localizedString;
-                localizationManager.currentLanguage = currentLanguage;
+            describe('when requested key is not specified', function () {
+                it('should throw exception that resource with specified key was not found', function () {
+                    var action = function () {
+                        localizationManager.localize('omnomnom');
+                    };
 
-                expect(localizationManager.localize(key)).toEqual(localizedString);
+                    expect(action).toThrowError('A resource with key "omnomnom" was not found');
+                });
             });
 
-            it('should return string for default language if it does not exist for current language', function () {
-                localizationManager.currentLanguage = undefined;
+            it('should return localized string', function () {
                 expect(localizationManager.localize(key)).toEqual(defaultString);
-            });
-
-            describe('when specify culture', function () {
-
-                describe('and this culture not supported', function () {
-
-                    it('should return string for current language when it exists', function () {
-                        var specifyLanguage = 'as';
-                        var localizedString = 'localized string';
-                        resources[key][currentLanguage] = localizedString;
-                        localizationManager.currentLanguage = currentLanguage;
-
-                        expect(localizationManager.localize(key, specifyLanguage)).toEqual(localizedString);
-                    });
-
-                    it('should return string for default language if it does not exist for current language', function () {
-                        var specifyLanguage = 'as';
-                        expect(localizationManager.localize(key, specifyLanguage)).toEqual(defaultString);
-                    });
-
-                });
-
-                describe('and this culture supported', function () {
-
-                    it('should return localized string for specify culture', function () {
-                        var specifyLanguage = 'ku';
-                        var localizedStringForSpecifyCulture = 'localized string for specify culture';
-                        resources[key][specifyLanguage] = localizedStringForSpecifyCulture;
-                        localizationManager.currentLanguage = currentLanguage;
-                        localizationManager.supportedCultures.push(specifyLanguage);
-
-                        expect(localizationManager.localize(key, specifyLanguage)).toEqual(localizedStringForSpecifyCulture);
-                    });
-
-                });
-
             });
 
         });
@@ -160,12 +165,26 @@
                 defaultString = 'default string';
 
             beforeEach(function () {
-                resources[allowedKey] = {};
-                resources[allowedKey]["en"] = defaultString;
+                localizationManager.translations = {};
+                localizationManager.translations[allowedKey] = defaultString;
             });
 
             it('should be function', function () {
                 expect(localizationManager.hasKey).toBeFunction();
+            });
+
+            describe('when translations are not initialized', function () {
+                beforeEach(function () {
+                    localizationManager.translations = null;
+                });
+
+                it('should throw exception ', function () {
+                    var action = function () {
+                        localizationManager.hasKey(allowedKey);;
+                    };
+
+                    expect(action).toThrowError('Translations are not initialized.');
+                });
             });
 
             describe('when localizationManager has key', function () {
@@ -173,7 +192,6 @@
                 it('should return true', function () {
                     var result = localizationManager.hasKey(allowedKey);
                     expect(result).toBeTruthy();
-
                 });
 
             });
@@ -181,13 +199,12 @@
             describe('when localizationManager does not has key', function () {
 
                 it('should return false', function () {
-
                     var result = localizationManager.hasKey(notAllowedKey);
                     expect(result).toBeFalsy();
                 });
 
             });
-            
+
         });
 
     });

@@ -602,6 +602,7 @@
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
     <Content Include="App\browse.js" />
     <Content Include="App\jsonReader.js" />
+    <Content Include="App\localization\bindingHandlers\localizeBindingHandler.js" />
     <Content Include="App\Query.js" />
     <Content Include="App\Command.js" />
     <Content Include="App\commands\createCourseCommand.js" />
@@ -1632,13 +1633,11 @@
     </Content>
     <Content Include="ReleaseNotes\1.0.0.html" />
     <Content Include="Content\releaseNotes.less" />
-    <Content Include="Content\lang\de.json" />
-    <Content Include="Content\lang\en.json" />
-    <Content Include="Content\lang\nl.json" />
-    <Content Include="Content\lang\pt-br.json" />
-    <Content Include="Content\lang\uk.json" />
-    <Content Include="Content\lang\zh-cn.json" />
-    <Content Include="Content\lang\fr.json" />
+    <Content Include="App\localization\lang\en.json" />
+    <Content Include="App\localization\lang\pt-br.json" />
+    <Content Include="App\localization\lang\uk.json" />
+    <Content Include="App\localization\lang\zh-cn.json" />
+    <Content Include="App\localization\lang\fr.json" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\iscroll-probe.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
@@ -2731,7 +2730,6 @@
     <Content Include="App\bootstrapping\compositionTask.js" />
     <Content Include="App\bootstrapping\errorHandlingTask.js" />
     <Content Include="App\bootstrapping\knockoutBindingsTask.js" />
-    <Content Include="App\bootstrapping\localizationTask.js" />
     <Content Include="App\bootstrapping\routingTask.js" />
     <Content Include="App\bootstrapping\viewLocatorTask.js" />
     <Content Include="App\clientContext.js" />

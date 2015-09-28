@@ -16,8 +16,8 @@ define('knockout', function () {
     return ko;
 });
 
-define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synchronization/listener', 'onboarding/initialization', 'audio/index'],
-    function (system, app, bootstrapper, userContext, synchronization, onboarding, audio) {
+define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synchronization/listener', 'onboarding/initialization', 'localization/localizationManager'],
+    function (system, app, bootstrapper, userContext, synchronization, onboarding, localizationManager) {
         if (!has('release')) {
             system.debug(true);
         }
@@ -50,9 +50,8 @@ define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synch
             app.start().then(function () {
                 bootstrapper.run();
 
-                return Q.all([userContext.identify(), userContext.identifyStoragePermissions(), synchronization.start(), onboarding.initialize()])
+                return Q.all([localizationManager.initialize(window.userCultures), userContext.identify(), userContext.identifyStoragePermissions(), synchronization.start(), onboarding.initialize()])
                     .spread(function () {
-                        //audio.initialize();
                         app.setRoot('viewmodels/shell', null, document.getElementById('app'));
                     });
 

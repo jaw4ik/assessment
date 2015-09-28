@@ -8,14 +8,14 @@
         ],
         currentCulture = defaultCulture,
         currentLanguage = '',
-        resources = null,
+        translations = null,
 
         localize = function (key) {
-            if (!resources) {
-                throw new Error('The resources are not initialized');
+            if (!this.translations) {
+                throw new Error('Translations are not initialized.');
             }
 
-            var item = resources[key];
+            var item = this.translations[key];
             if (_.isNullOrUndefined(item)) {
                 throw new Error('A resource with key "' + key + '" was not found');
             }
@@ -24,7 +24,11 @@
         },
 
         hasKey = function (key) {
-            return resources.hasOwnProperty(key);
+            if (!this.translations) {
+                throw new Error('Translations are not initialized.');
+            }
+
+            return this.translations.hasOwnProperty(key);
         },
 
         addLangTagToHtml = function(lang) {
@@ -34,7 +38,7 @@
         initialize = function (userCultures) {
             userCultures = userCultures || [];
 
-            var
+            var that = this,
                 match = null,
                 i = 0, j = 0,
                 uclength = userCultures.length,
@@ -53,67 +57,17 @@
                 }
             }
 
-            this.currentCulture = _.isString(match) ? match : defaultCulture;
-            this.currentLanguage = this.currentCulture.substring(0, 2);
+            that.currentCulture = _.isString(match) ? match : defaultCulture;
+            that.currentLanguage = that.currentCulture.substring(0, 2);
 
-            jsonReader.read('content/lang/' + this.currentCulture + '.json').then(function (translations) {
-                resources = translations;
-            });
-            addLangTagToHtml(this.currentCulture);
-        };
-
-
-    (function () {
-        ko.bindingHandlers.localize = {
-            update: function (element, valueAccessor) {
-                localizeValue(element, valueAccessor);
-            }
-        };
-
-        function localizeValue(element, valueAccessor) {
-            var value = valueAccessor();
-
-            if (_.isEmpty(value)) {
-                return;
-            }
-
-            var localizationManager = require("localization/localizationManager");
+            addLangTagToHtml(that.currentCulture);
             
-            if (_.isDefined(value['text'])) {
-                $(element).text(getLocalizedText(value['text']));
-            }
-            if (_.isDefined(value['placeholder'])) {
-                $(element).attr('placeholder', getLocalizedText(value['placeholder']));
-            }
-            if (_.isDefined(value['value'])) {
-                $(element).prop('value', getLocalizedText(value['value']));
-            }
-            if (_.isDefined(value['title'])) {
-                $(element).prop('title', getLocalizedText(value['title']));
-            }
-            if (_.isDefined(value['html'])) {
-                $(element).html(getLocalizedText(value['html']));
-            }
-            if (_.isDefined(value['data-text'])) {
-                $(element).attr('data-text', getLocalizedText(value['data-text']));
-            }
-
-            function getLocalizedText(value) {
-                if (_.isString(value)) {
-                    return localizationManager.localize(value);
-                } else if (_.isObject(value)) {
-                    var text = localizationManager.localize(value.key);
-
-                    for (var replacement in value.replace) {
-                        text = text.replace('{' + replacement + '}', value.replace[replacement]);
-                    }
-
-                    return text;
-                }
-            }
+            return jsonReader.read('/app/localization/lang/' + that.currentCulture + '.json').then(function (translations) {
+                console.log(translations);
+                that.translations = translations;
+            });
         };
-    })();
-
+    
     return {
         initialize: initialize,
         currentCulture: currentCulture,
@@ -121,6 +75,7 @@
         localize: localize,
         defaultCulture: defaultCulture,
         supportedCultures: supportedCultures,
-        hasKey: hasKey
+        hasKey: hasKey,
+        translations: translations
     };
 });
