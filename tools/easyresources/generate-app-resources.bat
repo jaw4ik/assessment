@@ -1,2 +1,2 @@
-call easyresources generate -o "_app"
+call easyresources generate -o "_app" -e "nl,de"
 pause
