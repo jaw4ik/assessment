@@ -221,7 +221,9 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Onboarding>().Property(e => e.CreatedQuestionsCount).IsRequired();
             modelBuilder.Entity<Onboarding>().Property(e => e.CoursePublished).IsRequired();
             modelBuilder.Entity<Onboarding>().Property(e => e.IsClosed).IsRequired();
-            modelBuilder.Entity<Onboarding>().Property(e => e.UserEmail).IsRequired().HasMaxLength(254);
+            modelBuilder.Entity<Onboarding>().Property(e => e.UserEmail).IsRequired().HasMaxLength(254).HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new[]{
+                    new IndexAttribute("Onboardings_UserEmail") { IsUnique = true}
+              }));
 
             modelBuilder.Entity<DemoCourseInfo>().HasRequired(e => e.DemoCourse);
             modelBuilder.Entity<DemoCourseInfo>().HasOptional(e => e.SourceCourse);
