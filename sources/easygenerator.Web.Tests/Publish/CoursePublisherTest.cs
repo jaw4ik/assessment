@@ -16,6 +16,8 @@ namespace easygenerator.Web.Tests.Publish
     public class CoursePublisherTest
     {
         private CoursePublisher _publisher;
+        private PublishUrlResolver _urlResolver;
+        private HttpContextWrapper _httpContext;
         private HttpRuntimeWrapper _httpRuntimeWrapper;
         private PhysicalFileManager _fileManager;
         private BuildPathProvider _pathProvider;
@@ -33,7 +35,9 @@ namespace easygenerator.Web.Tests.Publish
             _configurationReader = Substitute.For<ConfigurationReader>();
             _configurationReader.PublicationConfiguration.Returns(new PublicationConfigurationSection() { ApiKey = "apiKey", ServiceUrl = "serviceUrl" });
             _logger = Substitute.For<ILog>();
-            _publisher = new CoursePublisher(_fileManager, _pathProvider, _logger, _httpClient, _configurationReader);
+            _httpContext = Substitute.For<HttpContextWrapper>();
+            _urlResolver = new PublishUrlResolver(_httpContext);
+            _publisher = new CoursePublisher(_urlResolver, _fileManager, _pathProvider, _logger, _httpClient, _configurationReader);
         }
 
         #region Publish
@@ -71,12 +75,13 @@ namespace easygenerator.Web.Tests.Publish
             var course = CourseObjectMother.Create("CourseTitle");
             course.UpdatePackageUrl("url");
             var methodUrl = string.Format("serviceUrl/api/publish?key=apiKey&courseid={0}", course.Id);
+            _httpContext.GetCurrentScheme().Returns("http");
 
             // Act
             _publisher.Publish(course);
 
             // Assert
-            _httpClient.Received().PostFile<string>(methodUrl, course.Id.ToString(), Arg.Any<byte[]>());
+            _httpClient.Received().PostFile<string>("http://" + methodUrl, course.Id.ToString(), Arg.Any<byte[]>());
         }
 
         [TestMethod]
@@ -86,13 +91,14 @@ namespace easygenerator.Web.Tests.Publish
             var course = CourseObjectMother.Create("CourseTitle");
             course.UpdatePackageUrl("url");
 
-            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns("publication url");
-
+            _httpContext.GetCurrentScheme().Returns("http");
+            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns("http://publicationUrl");
+            
             // Act
             _publisher.Publish(course);
 
             // Assert
-            course.PublicationUrl.Should().Be("publication url");
+            course.PublicationUrl.Should().Be("//publicationUrl");
         }
 
         [TestMethod]
@@ -150,14 +156,14 @@ namespace easygenerator.Web.Tests.Publish
             // Arrange
             var course = CourseObjectMother.Create("CourseTitle");
             course.UpdatePackageUrl("url");
-
-            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns("publication url");
+            _httpContext.GetCurrentScheme().Returns("http");
+            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns("http://publicationUrl");
 
             // Act
             var result = _publisher.Publish(course);
 
             // Assert
-            course.PublicationUrl.Should().Be("publication url");
+            course.PublicationUrl.Should().Be("//publicationUrl");
         }
 
         [TestMethod]
@@ -167,7 +173,7 @@ namespace easygenerator.Web.Tests.Publish
             var course = CourseObjectMother.Create("CourseTitle");
             course.UpdatePackageUrl("url");
 
-            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns("publication url");
+            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns("http://publicationUrl");
 
             // Act
             var result = _publisher.Publish(course);

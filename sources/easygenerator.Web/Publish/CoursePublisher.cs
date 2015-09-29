@@ -3,6 +3,7 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
 using System;
 using System.Web;
+using easygenerator.Web.Components;
 using easygenerator.Web.Components.Configuration;
 using HttpClient = easygenerator.Infrastructure.Http.HttpClient;
 
@@ -10,14 +11,16 @@ namespace easygenerator.Web.Publish
 {
     public class CoursePublisher : ICoursePublisher
     {
+        private readonly PublishUrlResolver _urlResolver;
         private readonly BuildPathProvider _pathProvider;
         private readonly PhysicalFileManager _fileManager;
         private readonly ILog _logger;
         private readonly HttpClient _httpClient;
         private readonly ConfigurationReader _configurationReader;
 
-        public CoursePublisher(PhysicalFileManager fileManager, BuildPathProvider pathProvider, ILog logger, HttpClient httpClient, ConfigurationReader configurationReader)
+        public CoursePublisher(PublishUrlResolver urlResolver, PhysicalFileManager fileManager, BuildPathProvider pathProvider, ILog logger, HttpClient httpClient, ConfigurationReader configurationReader)
         {
+            _urlResolver = urlResolver;
             _pathProvider = pathProvider;
             _logger = logger;
             _httpClient = httpClient;
@@ -38,7 +41,7 @@ namespace easygenerator.Web.Publish
 
                 // start publish, now maintenance page will be shown instead of published content
                 var publishedCourseUrl = _httpClient.PostFile<string>(publishMethodPath, courseId, _fileManager.GetFileBytes(_pathProvider.GetBuildedPackagePath(course.PackageUrl)));
-                course.UpdatePublicationUrl(publishedCourseUrl);
+                course.UpdatePublicationUrl(_urlResolver.RemoveSchemeFromUrl(publishedCourseUrl));
                 return !String.IsNullOrEmpty(publishedCourseUrl);
             }
             catch (Exception exception)
@@ -51,7 +54,7 @@ namespace easygenerator.Web.Publish
 
         private string GetPublishMethodPath(string courseId)
         {
-            return string.Format("{0}/api/publish?key={1}&courseid={2}", _configurationReader.PublicationConfiguration.ServiceUrl,
+            return string.Format("{0}/api/publish?key={1}&courseid={2}", _urlResolver.AddCurrentSchemeToUrl(_configurationReader.PublicationConfiguration.ServiceUrl),
                 _configurationReader.PublicationConfiguration.ApiKey, courseId);
         }
     }

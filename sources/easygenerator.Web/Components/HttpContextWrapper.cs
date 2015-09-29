@@ -4,9 +4,9 @@ namespace easygenerator.Web.Components
 {
     public class HttpContextWrapper
     {
-        public virtual HttpContext Current
+        public virtual string GetCurrentScheme()
         {
-            get { return HttpContext.Current; }
+            return HttpContext.Current.Request.Url.Scheme;
         }
     }
 }
