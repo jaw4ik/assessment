@@ -26,13 +26,7 @@ namespace easygenerator.Web.Publish
 
         public string RemoveSchemeFromUrl(string url)
         {
-            if (!url.Contains("://"))
-            {
-                return url;
-            }
-            
             var index = url.IndexOf("://");
-
             return (index < 0) ? url : url.Substring(index + 1);
         }
     }
