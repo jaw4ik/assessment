@@ -10,7 +10,7 @@
 
 define(['module'], function (module) {
     'use strict';
-
+    debugger;
     var text, fs, Cc, Ci,
         progIds = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'],
         xmlRegExp = /^\s*<\?xml(\s)+version=[\'\"](\d)*.(\d)*[\'\"](\s)*\?>/im,

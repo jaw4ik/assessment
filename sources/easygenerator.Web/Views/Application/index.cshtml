@@ -77,21 +77,22 @@
         </script>
     }
 
-    <script type="text/javascript">
-        @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["StorageServiceUrl"]))
-        {
+<script type="text/javascript">
+    @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["StorageServiceUrl"]))
+    {
         <text>
         window.storageServiceUrl = '@ConfigurationManager.AppSettings["StorageServiceUrl"]';
         </text>
-        }
-        @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["ConvertionServiceUrl"]))
-        {
+    }
+    @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["ConvertionServiceUrl"]))
+    {
         <text>
         window.convertionServiceUrl = '@ConfigurationManager.AppSettings["ConvertionServiceUrl"]';
         </text>
-        }
-        //bootstraper
-        (function() {
+    }
+    //bootstraper
+
+    @*(function() {
             if (window.auth.isUserLoggedIn() || window.auth.isAuthTokenPresentInHash()) {
                 var js = document.createElement('script');
                 js.type = 'text/javascript';
@@ -113,8 +114,14 @@
             else {
                 window.location.replace('/signin');
             }
-        }());
-    </script>
+        }());*@
+    
+</script>
+@*<script src="/Scripts/require.js" type="text/javascript" data-main="/App/main"></script>*@
+<script src="/Scripts/systemjs/system.src.js" type="text/javascript"></script>
+<script type="text/javascript">
+    System.import('/App/main.js');
+</script>
 
 </body>
 

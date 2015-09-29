@@ -2189,6 +2189,15 @@
     <Content Include="Scripts\q.min.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\systemjs\plugins\text.js" />
+    <Content Include="Scripts\systemjs\system-csp-production.js" />
+    <Content Include="Scripts\systemjs\system-csp-production.src.js" />
+    <Content Include="Scripts\systemjs\system-polyfills.js" />
+    <Content Include="Scripts\systemjs\system-polyfills.src.js" />
+    <Content Include="Scripts\systemjs\system-register-only.js" />
+    <Content Include="Scripts\systemjs\system-register-only.src.js" />
+    <Content Include="Scripts\systemjs\system.js" />
+    <Content Include="Scripts\systemjs\system.src.js" />
     <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\zeroclipboard.js" />
@@ -2674,6 +2683,10 @@
     <Content Include="Templates\Assessment\settings\design\css\fonts\opensans-bold.woff" />
     <Content Include="Templates\Assessment\settings\design\css\fonts\opensans-italic-400.woff" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Scripts\systemjs\system-csp-production.js.map" />
+    <Content Include="Scripts\systemjs\system-polyfills.js.map" />
+    <Content Include="Scripts\systemjs\system-register-only.js.map" />
+    <Content Include="Scripts\systemjs\system.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

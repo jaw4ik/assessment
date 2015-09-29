@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'durandal/composition', 'constants', 'text!components/tooltip/view.html'], function (app, composition, constants, view) {
+﻿define(['durandal/app', 'durandal/composition', 'constants'], function (app, composition, constants) {
     "use strict";
 
     return {
@@ -40,7 +40,7 @@
                 var $tooltipContainer = $('<div/>', { 'class': tooltipHolderClass });
 
                 $(containerSelector).append($tooltipContainer);
-                ko.utils.setHtml($tooltipContainer, view);
+                ko.utils.setHtml($tooltipContainer, null);
 
                 $('.tooltip-content-holder', $tooltipContainer).html(elementContent);
 
