@@ -369,7 +369,7 @@ gulp.task('deploy-styles-player', ['styles-player'], function () {
         .pipe(gulp.dest(outputPlayer + '/public/styles'));
 });
 
-gulp.task('copy-player', ['clean', 'install-bower-modules-player'], function () {
+gulp.task('copy-player', ['clean-player', 'install-bower-modules-player'], function () {
     var files = [
         './sources/easygenerator.Player/package.json',
 		'./sources/easygenerator.Player/bower.json',
