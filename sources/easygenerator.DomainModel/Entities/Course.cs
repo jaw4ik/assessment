@@ -54,19 +54,13 @@ namespace easygenerator.DomainModel.Entities
 
         protected internal virtual ICollection<LearningPath> LearningPathCollection { get; set; }
 
-        public virtual IEnumerable<LearningPath> LearningPaths
-        {
-            get { return LearningPathCollection.AsEnumerable(); }
-        }
+        public virtual IEnumerable<LearningPath> LearningPaths => LearningPathCollection.AsEnumerable();
 
         #region Collaboration
 
         protected internal virtual ICollection<CourseCollaborator> CollaboratorsCollection { get; set; }
 
-        public virtual IEnumerable<CourseCollaborator> Collaborators
-        {
-            get { return CollaboratorsCollection.AsEnumerable(); }
-        }
+        public virtual IEnumerable<CourseCollaborator> Collaborators => CollaboratorsCollection.AsEnumerable();
 
         public virtual CourseCollaborator Collaborate(string userEmail, string createdBy)
         {
@@ -121,9 +115,9 @@ namespace easygenerator.DomainModel.Entities
             var clonedObjectives = new Dictionary<Guid, Objective>();
             var objectives = GetOrderedRelatedObjectives();
 
-            bool objectivesWereCloned = false;
+            var objectivesWereCloned = false;
 
-            for (int i = 0; i < objectives.Count; i++)
+            for (var i = 0; i < objectives.Count; i++)
             {
                 var currentObjective = objectives[i];
                 if (currentObjective.CreatedBy != collaboratorEmail)
@@ -155,10 +149,7 @@ namespace easygenerator.DomainModel.Entities
         #region Comments
 
         protected internal virtual ICollection<Comment> CommentsCollection { get; set; }
-        public virtual IEnumerable<Comment> Comments
-        {
-            get { return CommentsCollection.AsEnumerable(); }
-        }
+        public virtual IEnumerable<Comment> Comments => CommentsCollection.AsEnumerable();
 
         public virtual void AddComment(Comment comment)
         {
@@ -176,10 +167,7 @@ namespace easygenerator.DomainModel.Entities
 
         protected internal string ObjectivesOrder { get; set; }
 
-        public IEnumerable<Objective> RelatedObjectives
-        {
-            get { return GetOrderedRelatedObjectives().AsEnumerable(); }
-        }
+        public IEnumerable<Objective> RelatedObjectives => GetOrderedRelatedObjectives().AsEnumerable();
 
         public virtual void RelateObjective(Objective objective, int? index, string modifiedBy)
         {
@@ -251,7 +239,7 @@ namespace easygenerator.DomainModel.Entities
 
             if (originalObjectives.Count != clonedObjectives.Count)
             {
-                throw new ArgumentException("Cloned objectives collection has to be same length as original.", "clonedObjectives");
+                throw new ArgumentException("Cloned objectives collection has to be same length as original.", nameof(clonedObjectives));
             }
 
             var orderedClonedObjectives = new List<Objective>();
@@ -327,7 +315,7 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfTemplateIsInvaid(template);
 
             var templateSettings = TemplateSettings.SingleOrDefault(e => e.Template == template);
-            return templateSettings != null ? templateSettings.Settings : null;
+            return templateSettings?.Settings;
         }
 
         public virtual string GetExtraDataForTemplate(Template template)
@@ -335,7 +323,7 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfTemplateIsInvaid(template);
 
             var templateSettings = TemplateSettings.SingleOrDefault(e => e.Template == template);
-            return templateSettings != null ? templateSettings.ExtraData : null;
+            return templateSettings?.ExtraData;
         }
 
         public virtual void SaveTemplateSettings(Template template, string settings, string extraData)
@@ -398,38 +386,38 @@ namespace easygenerator.DomainModel.Entities
 
         #region Guard methods
 
-        private void ThrowIfCommentIsInvalid(Comment comment)
+        public void ThrowIfCommentIsInvalid(Comment comment)
         {
             ArgumentValidation.ThrowIfNull(comment, "comment");
         }
 
-        private void ThrowIfUserEmailIsInvalid(string userEmail)
+        public void ThrowIfUserEmailIsInvalid(string userEmail)
         {
             ArgumentValidation.ThrowIfNull(userEmail, "userEmail");
         }
 
-        private void ThrowIfTemplateIsInvaid(Template template)
+        public void ThrowIfTemplateIsInvaid(Template template)
         {
             ArgumentValidation.ThrowIfNull(template, "template");
         }
 
-        private void ThrowIfTitleIsInvalid(string title)
+        public void ThrowIfTitleIsInvalid(string title)
         {
             ArgumentValidation.ThrowIfNullOrEmpty(title, "title");
             ArgumentValidation.ThrowIfLongerThan255(title, "title");
         }
 
-        private void ThrowIfObjectiveIsInvalid(Objective objective)
+        public void ThrowIfObjectiveIsInvalid(Objective objective)
         {
             ArgumentValidation.ThrowIfNull(objective, "objective");
         }
 
-        private void ThrowIfPackageUrlIsInvalid(string packageUrl)
+        public void ThrowIfPackageUrlIsInvalid(string packageUrl)
         {
             ArgumentValidation.ThrowIfNullOrEmpty(packageUrl, "packageUrl");
         }
 
-        private void ThrowIfCollaboratorIsInvalid(CourseCollaborator courseCollaborator)
+        private static void ThrowIfCollaboratorIsInvalid(CourseCollaborator courseCollaborator)
         {
             ArgumentValidation.ThrowIfNull(courseCollaborator, "courseCollaborator");
         }
