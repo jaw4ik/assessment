@@ -325,7 +325,7 @@ gulp.task('copy-convertion-server', ['run-ut-convertion-server'], function () {
 gulp.task('install-npm-modules-convertion-server', function(){
     return gulp.src(['./sources/easygenerator.ConvertionServer/package.json'])
         .pipe($.install());
-})
+});
 
 gulp.task('deploy-convertion-server', ['clean-convertion-server', 'copy-convertion-server'], function () {
     return gulp.src([outputConvertionServer + '/package.json'])
@@ -364,7 +364,7 @@ gulp.task('styles-player', function () {
         .pipe(gulp.dest(config.less.destPlayer));
 });
 
-gulp.task('deploy-styles-player', ['styles-player'], function () {
+gulp.task('deploy-styles-player', ['clean-player', 'styles-player'], function () {
     return gulp.src('./sources/easygenerator.Player/public/styles/*.css')
         .pipe(gulp.dest(outputPlayer + '/public/styles'));
 });
@@ -380,7 +380,8 @@ gulp.task('copy-player', ['clean-player', 'install-bower-modules-player'], funct
 		'./sources/easygenerator.Player/routes/*.*',
 		'./sources/easygenerator.Player/models/*.*',
 		'./sources/easygenerator.Player/public/favicon.ico',
-        './sources/easygenerator.Player/Web.config'
+        './sources/easygenerator.Player/Web.config',
+		'./sources/easygenerator.Player/iisnode.yml'
     ];
     
     return gulp.src(files, { base: "./sources/easygenerator.Player/" })
@@ -407,7 +408,7 @@ gulp.task('deploy-player', ['assets-player', 'deploy-styles-player'], function (
         .pipe(gulp.dest(outputPlayer + '/views/'));
 		
     return gulp.src([outputPlayer + '/package.json'])
-        .pipe($.install());
+        .pipe($.install({ production: true }));
 });
 
 /*#endregion deploy player*/
