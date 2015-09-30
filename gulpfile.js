@@ -17,12 +17,15 @@ var $ = require('gulp-load-plugins')({
 var config = {
     less: {
         src: ['./sources/easygenerator.Web/Content/**/*.less'],
+		srcPlayer: ['./sources/easygenerator.Player/public/styles/*.less'],
+		destPlayer: './sources/easygenerator.Player/public/styles',
         dest: './sources/easygenerator.Web/Content',
         browsers: ['last 1 Chrome version', 'last 1 Firefox version', 'last 1 Explorer version', 'last 1 Safari version']
     }
 },
     outputDirectory = args.output || 'D:/Applications/easygenerator',
     outputConvertionServer = args.outputConvertion || 'D:/Applications/convertion',
+	outputPlayer = args.outputPlayer || 'D:/Applications/player',
     instance = args.instance || 'Release',
     version = typeof args.version === 'string' && args.version !== '' ? args.version : '1.0.0',
     createTags = Boolean(args.createTags);
@@ -330,3 +333,81 @@ gulp.task('deploy-convertion-server', ['clean-convertion-server', 'copy-converti
 });
 
 /*#endregion deploy convertion server*/
+
+/*#region deploy player*/
+
+gulp.task('clean-player', function(callback){
+	del([outputPlayer], { force: true }, callback);
+});
+
+gulp.task('install-bower-modules-player', function () {
+	return gulp.src(['./sources/easygenerator.Player/bower.json'])
+		.pipe($.install());
+});
+
+gulp.task('styles-player', function () {
+    return gulp.src(config.less.srcPlayer)
+        .pipe($.plumber({
+            errorHandler: function (error) {
+                console.log(error);
+                this.emit('end');
+            }
+        }))
+        .pipe($.less({
+            strictMath: true,
+            strictUnits: true
+        }))
+        .pipe($.autoprefixer({
+            browsers: config.less.browsers,
+            cascade: false
+        }))
+        .pipe(gulp.dest(config.less.destPlayer));
+});
+
+gulp.task('deploy-styles-player', ['styles-player'], function () {
+    return gulp.src('./sources/easygenerator.Player/public/styles/*.css')
+        .pipe(gulp.dest(outputPlayer + '/public/styles'));
+});
+
+gulp.task('copy-player', ['clean-player', 'install-bower-modules-player'], function () {
+    var files = [
+        './sources/easygenerator.Player/package.json',
+		'./sources/easygenerator.Player/bower.json',
+		'./sources/easygenerator.Player/.bowerrc',
+        './sources/easygenerator.Player/www.js',
+        './sources/easygenerator.Player/app.js',
+		'./sources/easygenerator.Player/views/*.*',
+		'./sources/easygenerator.Player/routes/*.*',
+		'./sources/easygenerator.Player/models/*.*',
+		'./sources/easygenerator.Player/public/favicon.ico',
+        './sources/easygenerator.Player/Web.config'
+    ];
+    
+    return gulp.src(files, { base: "./sources/easygenerator.Player/" })
+        .pipe(gulp.dest(outputPlayer));
+});
+
+gulp.task('assets-player', ['copy-player'], function () {
+    gulp.src('./sources/easygenerator.Player/public/video.js/dist/video-js/video-js.min.css')
+        .pipe(gulp.dest(outputPlayer + '/public/styles/'));
+    gulp.src('./sources/easygenerator.Player/public/video.js/dist/video-js/video.js')
+        .pipe(gulp.dest(outputPlayer + '/public/js/'));
+	gulp.src('./sources/easygenerator.Player/public/video.js/dist/video-js/font/*.*')
+		.pipe(gulp.dest(outputPlayer + '/public/styles/font'));
+	return gulp.src('./sources/easygenerator.Player/public/video.js/dist/video-js/lang/*.*')
+		.pipe(gulp.dest(outputPlayer + '/public/js/lang/'));
+});
+
+gulp.task('deploy-player', ['assets-player', 'deploy-styles-player'], function () {
+	var assets = $.useref.assets();
+    gulp.src('./sources/easygenerator.Player/views/layout.jade')
+        .pipe(assets)
+        .pipe(assets.restore())
+        .pipe($.useref())
+        .pipe(gulp.dest(outputPlayer + '/views/'));
+		
+    return gulp.src([outputPlayer + '/package.json'])
+        .pipe($.install());
+});
+
+/*#endregion deploy player*/

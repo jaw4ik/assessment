@@ -1,0 +1,28 @@
+﻿doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(name='description' content='easygenerator player')
+
+    title easygenerator player
+
+    <!-- build:css /styles/video-js.min.css -->
+    link(rel='stylesheet', href='/video.js/dist/video-js/video-js.min.css')
+    <!-- endbuild -->
+
+    link(rel='stylesheet', href='/styles/style.css')
+    if mode
+        link(rel='stylesheet', href='/styles/video.css')
+    else
+        link(rel='stylesheet', href='/styles/audio.css')
+    if css
+        link(rel='stylesheet', href=css)
+
+    <!-- build:js /js/video.js -->
+    script(src='/video.js/dist/video-js/video.js')
+    <!-- endbuild -->
+
+  body
+    block content

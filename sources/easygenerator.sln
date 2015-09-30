@@ -47,6 +47,8 @@ Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "easygenerator.ConvertionSer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.Auth.Tests", "easygenerator.Auth.Tests\easygenerator.Auth.Tests.csproj", "{8A0B7D4B-1B4A-4268-B428-DACF64A5C328}"
 EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "easygenerator.Player", "easygenerator.Player\easygenerator.Player.njsproj", "{07358240-FE77-4B71-B636-6F655F51040D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -110,6 +112,10 @@ Global
 		{8A0B7D4B-1B4A-4268-B428-DACF64A5C328}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A0B7D4B-1B4A-4268-B428-DACF64A5C328}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A0B7D4B-1B4A-4268-B428-DACF64A5C328}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07358240-FE77-4B71-B636-6F655F51040D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07358240-FE77-4B71-B636-6F655F51040D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07358240-FE77-4B71-B636-6F655F51040D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07358240-FE77-4B71-B636-6F655F51040D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
