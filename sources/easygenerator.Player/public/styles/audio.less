@@ -1,0 +1,42 @@
+﻿html {
+    body {
+        .vjs-default-skin {
+            &.vjs-has-started {
+                &.vjs-user-inactive {
+                    &.vjs-playing {
+                        .vjs-control-bar {
+                            visibility: visible;
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+
+            .vjs-big-play-button {
+                font-size: 1em;
+            }
+        }
+
+        .video-js {
+            .vjs-tech {
+                width: 0;
+                height: 0;
+                position: absolute;
+                top: -100px;
+                left: -100px;
+            }
+
+            .vjs-loading-spinner {
+                top: 100%;
+                margin-top: -1.24em;
+                font-size: 2em;
+                z-index: 2;
+            }
+
+            .vjs-big-play-button {
+                top: 100%;
+                margin-top: -3.2em;
+            }
+        }
+    }
+}

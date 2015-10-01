@@ -7,13 +7,13 @@ namespace easygenerator.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class RemoveSchemeFromPublicationUrl : IMigrationMetadata
+    public sealed partial class AddUniqueIndexForOnboarding : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(RemoveSchemeFromPublicationUrl));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddUniqueIndexForOnboarding));
         
         string IMigrationMetadata.Id
         {
-            get { return "201509290641153_RemoveSchemeFromPublicationUrl"; }
+            get { return "201509251400199_AddUniqueIndexForOnboarding"; }
         }
         
         string IMigrationMetadata.Source
