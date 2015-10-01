@@ -131,7 +131,7 @@
                     <div class="processing-block-container" data-bind="fadeOut: { predicate: isDuplicatingFinished, callback: finishDuplicating, duration: 500 }, scrollTo: {}">
                         <div class="processing-block">
                             <div class="circular-loader-container">
-                                <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 orange align-center', style: { top: '50%' } } } --><!-- /ko -->
+                                <div data-bind="preloader: { type: 'circular', settings: 'big orange align-center', styles: { top: '50%' } }"></div>
                             </div>
                             <div class="processing-message-block">
                                 <h4 class="processing-message-title" data-bind="localize: { text: 'courseIsDuplicating' }">Course is duplicating...</h4>

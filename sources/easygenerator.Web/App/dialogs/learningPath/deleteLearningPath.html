@@ -11,8 +11,7 @@
     <div class="dialog-actions">
         <button class="btn red delete-learning-path-btn" data-bind="click: deleteLearningPath, css:{ 'disabled': isDeleting(), 'progress': isDeleting() }, disable: isDeleting()">
             <!-- ko if: isDeleting() -->
-            <!-- ko compose: { view: 'views/common/circularLoader', model: {css: 'x16 white align-center'} } -->
-            <!-- /ko -->
+            <div data-bind="preloader: { type: 'circular', settings: 'small white align-center' }"></div>
             <!-- /ko -->
             <!-- ko ifnot: isDeleting() -->
             <span class="btn-caption" data-bind="localize: { text: 'delete' }"></span>
