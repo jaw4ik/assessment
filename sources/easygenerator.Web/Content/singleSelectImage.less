@@ -48,14 +48,26 @@
             }
         }
 
-        .single-select-image-loader-text {
-            display: inline-block;
-            vertical-align: top;
-            line-height: 1;
+        .single-select-image-loader-wrapper {
             position: relative;
-            padding-top: 20px;
-            color: #777;
-            font-size: 12px;
+            top: 50%;
+            height: 60px;
+            margin-top: -30px;
+
+            .single-select-image-loader-spinner {
+                position: relative;
+                height: 20px;
+            }
+
+            .single-select-image-loader-text {
+                display: inline-block;
+                vertical-align: top;
+                line-height: 1;
+                position: relative;
+                padding-top: 20px;
+                color: #777;
+                font-size: 12px;
+            }
         }
 
         .item-overlay {
@@ -128,12 +140,6 @@
                 background-color: black;
             }
         }
-    }
-
-    .circular-loader {
-        position: relative;
-        top: 0;
-        margin-top: 44px;
     }
 }
 
