@@ -1,14 +1,9 @@
-﻿define(['jsonReader'], function (jsonReader) {
+﻿define(['cultureInfo', 'jsonReader'], function (cultureInfo, jsonReader) {
     "use strict";
 
-    var
-        defaultCulture = "en",
-        supportedCultures = [
-            "en", 'uk', 'zh-cn', 'pt-br', 'fr'
-        ],
-        currentCulture = defaultCulture,
+    var translations = null,
+        currentCulture = '',
         currentLanguage = '',
-        translations = null,
 
         localize = function (key) {
             if (!this.translations) {
@@ -31,51 +26,25 @@
             return this.translations.hasOwnProperty(key);
         },
 
-        addLangTagToHtml = function(lang) {
-            $('html').attr('lang', lang);
-        },
+        initialize = function (settings) {
+            settings = settings || cultureInfo;
+            var that = this;
 
-        initialize = function (userCultures) {
-            userCultures = userCultures || [];
+            that.currentCulture = settings.culture;
+            that.currentLanguage = settings.language;
 
-            var that = this,
-                match = null,
-                i = 0, j = 0,
-                uclength = userCultures.length,
-                sclength = supportedCultures.length;
-
-            for (i = 0; i < uclength; i++) {
-                if (_.isString(match)) {
-                    break;
-                }
-                for (j = 0; j < sclength; j++) {
-                    if (userCultures[i].toLowerCase() === supportedCultures[j].toLowerCase() ||
-                        userCultures[i].toLowerCase().substring(0, 2) === supportedCultures[j].toLowerCase()) {
-                        match = supportedCultures[j];
-                        break;
-                    }
-                }
-            }
-
-            that.currentCulture = _.isString(match) ? match : defaultCulture;
-            that.currentLanguage = that.currentCulture.substring(0, 2);
-
-            addLangTagToHtml(that.currentCulture);
-            
-            return jsonReader.read('/app/localization/lang/' + that.currentCulture + '.json').then(function (translations) {
-                console.log(translations);
-                that.translations = translations;
+            return jsonReader.read(settings.translationsUrl).then(function (result) {
+                that.translations = result;
             });
         };
     
     return {
-        initialize: initialize,
+        translations: translations,
         currentCulture: currentCulture,
         currentLanguage: currentLanguage,
+
+        initialize: initialize,
         localize: localize,
-        defaultCulture: defaultCulture,
-        supportedCultures: supportedCultures,
-        hasKey: hasKey,
-        translations: translations
+        hasKey: hasKey
     };
 });

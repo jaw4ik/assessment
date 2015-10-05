@@ -370,7 +370,7 @@
             '../Scripts/common/serviceUnavailableAjaxErrorHandler.spec'
         ];
 
-        localizationManager.initialize(['en']).then(function () {
+        localizationManager.initialize({ culture:'en', language:'en', translationsUrl: 'localization/lang/en.json' }).then(function () {
             require(specs, function () {
                 env.execute();
             });

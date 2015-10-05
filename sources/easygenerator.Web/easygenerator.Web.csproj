@@ -600,9 +600,12 @@
     </Content>
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
+    <Content Include="App\bootstrapping\userCultureTask.js" />
     <Content Include="App\browse.js" />
     <Content Include="App\jsonReader.js" />
     <Content Include="App\localization\bindingHandlers\localizeBindingHandler.js" />
+    <Content Include="App\cultureInfo.js" />
+    <Content Include="App\cultureInfo.spec.js" />
     <Content Include="App\Query.js" />
     <Content Include="App\Command.js" />
     <Content Include="App\commands\createCourseCommand.js" />
@@ -1427,6 +1430,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\styles.css" />
     <Content Include="Scripts\ckeditor\lang\en.js" />
+    <Content Include="Scripts\ckeditor\lang\fr.js" />
     <Content Include="Scripts\ckeditor\lang\pt-br.js" />
     <Content Include="Scripts\ckeditor\lang\uk.js" />
     <Content Include="Scripts\ckeditor\lang\zh-cn.js" />

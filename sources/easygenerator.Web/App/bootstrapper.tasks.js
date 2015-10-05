@@ -2,6 +2,7 @@
     return {
         getCollection: function () {
             return [
+                require('bootstrapping/userCultureTask'),
                 require('bootstrapping/errorHandlingTask'),
                 require('bootstrapping/routingTask'),
                 require('bootstrapping/compositionTask'),
