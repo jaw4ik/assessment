@@ -59,7 +59,7 @@
 
             it('should igonore case of userCultures', function () {
                 cultureInfo.initialize(['PT-BR']);
-                expect(cultureInfo.language).toEqual('pt-br');
+                expect(cultureInfo.language).toEqual('pt');
             });
 
             it('should set language by subculture', function () {

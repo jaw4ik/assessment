@@ -2,7 +2,7 @@
     "use strict";
 
     var jsonReader = require('jsonReader');
-    var cultureProvider = require('localization/cultureProvider');
+    var cultureInfo = require('cultureInfo');
     var translations = localizationManager.translations;
 
     describe('localizationManager', function () {
@@ -19,16 +19,28 @@
             var readJson;
 
             beforeEach(function () {
+                cultureInfo.culture = 'culture';
+                cultureInfo.language = 'language';
+                cultureInfo.translationsUrl = 'cultureTranslationsUrl';
                 readJson = Q.defer();
                 spyOn(jsonReader, 'read').and.returnValue(readJson.promise);
-                spyOn(cultureProvider, 'getCultureInfo').and.returnValue({ translationsUrl: 'cultureTranslationsUrl' });
             });
 
-            describe('when cultureInfo is not specified', function () {
+            describe('when settings is not specified', function () {
 
-                it('should retrive cultureInfo from cultureProvider', function () {
+                it('should set culture from cultureInfo', function () {
                     localizationManager.initialize();
-                    expect(cultureProvider.getCultureInfo).toHaveBeenCalled();
+                    expect(localizationManager.currentCulture).toBe('culture');
+                });
+
+                it('should set language from cultureInfo', function () {
+                    localizationManager.initialize();
+                    expect(localizationManager.currentLanguage).toBe('language');
+                });
+
+                it('should read translations by url from cultureInfo', function () {
+                    localizationManager.initialize();
+                    expect(jsonReader.read).toHaveBeenCalledWith('cultureTranslationsUrl');
                 });
 
             });

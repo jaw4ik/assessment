@@ -362,6 +362,7 @@
             'notify.spec',
             'uiLocker.spec',
             'userContext.spec',
+            'cultureInfo.spec',
             '../Scripts/account/signup.spec',
             '../Scripts/account/signin.spec',
             '../Scripts/account/passwordrecovery.spec',
