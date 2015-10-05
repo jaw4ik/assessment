@@ -120,7 +120,7 @@
   <data name="AccountAlreadyExists" xml:space="preserve">
     <value>Ce compte existe déjà. Cliquez sur Se Connecter et réessayez.</value>
   </data>
-  <data name="BeAtLeast7CharatersLong" xml:space="preserve">
+  <data name="BeAtLeast7CharactersLong" xml:space="preserve">
     <value>être composé d'au moins 7 caractères ;</value>
   </data>
   <data name="Checking" xml:space="preserve">
@@ -156,7 +156,7 @@
   <data name="ELearningManager" xml:space="preserve">
     <value>Manageur en e-learning</value>
   </data>
-  <data name="email" xml:space="preserve">
+  <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
   <data name="EmailCaption" xml:space="preserve">
@@ -192,9 +192,6 @@
   <data name="ForgotPassword" xml:space="preserve">
     <value>Mot de passe oublié ?</value>
   </data>
-  <data name="forgotPassword1" xml:space="preserve">
-    <value>Mot de passe oublié ?</value>
-  </data>
   <data name="ForgotPasswordBody" xml:space="preserve">
     <value>&lt;div&gt;
 Bonjour,
@@ -226,7 +223,7 @@ Bonjour,
   <data name="ForgotPasswordSubject" xml:space="preserve">
     <value>Mot de passe pour easygenerator</value>
   </data>
-  <data name="help" xml:space="preserve">
+  <data name="Help" xml:space="preserve">
     <value>Aide</value>
   </data>
   <data name="HidePassword" xml:space="preserve">
@@ -297,7 +294,7 @@ L'équipe d'easygenerator &lt;/p&gt;
   <data name="ShowPassword" xml:space="preserve">
     <value>Afficher le mot de passe</value>
   </data>
-  <data name="signIn" xml:space="preserve">
+  <data name="SignIn" xml:space="preserve">
     <value>Se connecter</value>
   </data>
   <data name="signOutButton" xml:space="preserve">
@@ -344,5 +341,8 @@ L'équipe d'easygenerator &lt;/p&gt;
   </data>
   <data name="wouldYouLikeAnIntroductionDemo" xml:space="preserve">
     <value>J'aimerai avoir une démo de présentation !</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>S'inscrire</value>
   </data>
 </root>
