@@ -33,7 +33,7 @@ namespace easygenerator.Web
                 foreach (var userCulture in userCultures)
                 {
                     var item = userCulture.Split(';')[0];
-                    if (Constants.SupportedCultures.Any(s => String.Equals(s, item, StringComparison.CurrentCultureIgnoreCase)))
+                    if (Constants.SupportedCultures.Any(s => item.ToLower().StartsWith(s)))
                     {
                         culture = new CultureInfo(item);
                         break;
