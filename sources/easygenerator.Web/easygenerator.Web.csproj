@@ -786,6 +786,8 @@
     <Content Include="App\widgets\dialog\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
+    <Content Include="App\widgets\preloader\view.html" />
+    <Content Include="App\widgets\preloader\viewmodel.js" />
     <Content Include="App\widgets\upgradeDialog\viewmodel.js" />
     <Content Include="App\widgets\upgradeDialog\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
@@ -1117,7 +1119,6 @@
     <Content Include="App\views\courses\course\index.html" />
     <Content Include="App\reporting\views\results.html" />
     <Content Include="App\views\courses\index.html" />
-    <Content Include="App\views\common\circularLoader.html" />
     <Content Include="App\views\courses\publishActions\publishToAim4You.html" />
     <Content Include="App\views\courses\publishActions\publishToPublicationServerEmbed.html" />
     <Content Include="App\views\courses\publishActions\publishToPublicationServerLink.html" />

@@ -27,7 +27,9 @@ define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synch
             router: true,
             dialog: true,
             http: true,
-            widget: true
+            widget: {
+                kinds: ['preloader']
+            }
         });
 
         var ltiAuthDefer;
@@ -52,6 +54,7 @@ define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synch
 
                 return Q.all([localizationManager.initialize(), userContext.identify(), userContext.identifyStoragePermissions(), synchronization.start(), onboarding.initialize()])
                     .spread(function () {
+                        audio.initialize();
                         app.setRoot('viewmodels/shell', null, document.getElementById('app'));
                     });
 

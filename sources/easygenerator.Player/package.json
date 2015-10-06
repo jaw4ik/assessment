@@ -1,0 +1,23 @@
+{
+  "name": "easygenerator.Player",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "description": "easygenerator.Player",
+  "author": {
+    "name": "r.petriv",
+    "email": ""
+  },
+  "dependencies": {
+    "cors": "^2.7.1",
+    "express": "~4.9.0",
+    "jade": "~1.6.0",
+    "morgan": "~1.3.0",
+    "serve-favicon": "~2.1.3"
+  },
+  "devDependencies": {
+    "less-middleware": "^2.0.1"
+  }
+}

@@ -39,8 +39,7 @@
                     <!-- /ko -->
                     <!-- ko if: isLoading -->
                     <div class="loading-results">
-                        <!-- ko compose: { view: 'views/common/circularLoader', model: {css: 'x32 grey align-center'} } -->
-                        <!-- /ko -->
+                        <div data-bind="preloader: { settings: 'grey align-center' }"></div>
                         <div class="loading-results-text" data-bind="localize: { text: 'loadingReportedResults' }"></div>
                     </div>
                     <!-- /ko -->

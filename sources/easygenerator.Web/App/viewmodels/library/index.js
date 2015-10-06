@@ -22,17 +22,17 @@
                     childRouter.navigate(this.hash);
                 }
             },
-            //{
-            //    route: ['audios'],
-            //    moduleId: 'viewmodels/audios/audios',
-            //    title: localizationManager.localize('audioLibrary'),
-            //    nav: true,
-            //    hash: '#library/audios',
-            //    navigate: function () {
-            //        eventTracker.publish(events.navigateToAudios);
-            //        childRouter.navigate(this.hash);
-            //    }
-            //},
+            {
+                route: ['audios'],
+                moduleId: 'viewmodels/audios/audios',
+                title: localizationManager.localize('audioLibrary'),
+                nav: true,
+                hash: '#library/audios',
+                navigate: function () {
+                    eventTracker.publish(events.navigateToAudios);
+                    childRouter.navigate(this.hash);
+                }
+            },
             {
                 route: 'objectives*details',
                 moduleId: 'viewmodels/objectives/index',

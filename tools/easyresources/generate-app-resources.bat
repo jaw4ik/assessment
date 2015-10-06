@@ -1,2 +1,2 @@
-call easyresources generate -o "..\..\sources\easygenerator.Web\Content\lang"
+call easyresources generate -o "..\..\sources\easygenerator.Web\Content\lang" -e "nl,de"
 pause

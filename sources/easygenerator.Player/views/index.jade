@@ -1,0 +1,5 @@
+﻿extends layout
+
+block content
+    video(id="easy-player", class="video-js vjs-default-skin", controls="controls", preload="auto", src=source, poster=poster width="100%" height="100%"
+        data-setup='{ "autoplay": ' + autoplay +  ', "children": { "controlBar": { "children": ' + JSON.stringify(children) + ' } } }')

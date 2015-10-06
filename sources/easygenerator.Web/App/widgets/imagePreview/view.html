@@ -11,7 +11,7 @@
                         <a class="overlay-close-button" data-bind="click:closePreview">&nbsp;</a>
                     </div>
                     <!--ko ifnot: isLoaded-->
-                        <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center' } } --><!-- /ko -->
+                        <div data-bind="preloader: { settings: 'black align-center' }"></div>
                     <!--/ko-->
                 </div>
             </div>
