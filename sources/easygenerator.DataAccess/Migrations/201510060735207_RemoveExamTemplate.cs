@@ -33,14 +33,10 @@ namespace easygenerator.DataAccess.Migrations
                 connection.Open();
 
                 var examTemplateId = GetSingleField("SELECT [Id] FROM [dbo].[Templates] WHERE [Name] = 'Exam'", connection);
-                if (examTemplateId == null)
-                {
-                    throw new Exception("\"Exam\" template not found.");
-                }
                 var assessmentTemplateId = GetSingleField("SELECT [Id] FROM [dbo].[Templates] WHERE [Name] = 'Assessment'", connection);
-                if (assessmentTemplateId == null)
+                if (examTemplateId == null || assessmentTemplateId == null)
                 {
-                    throw new Exception("\"Assessment\" template not found.");
+                    return;
                 }
 
                 var courses = new List<CourseEntity>();
