@@ -40,7 +40,7 @@
                         <div class="drag-and-drop-designer-background-loader-wrapper">
                             <div class="drag-and-drop-designer-background-loader">
                                 <div class="drag-and-drop-designer-background-loader-spinner">
-                                    <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 grey align-center' } } --><!-- /ko -->
+                                    <div data-bind="preloader: { settings: 'grey align-center' }"></div>
                                 </div>
                                 <div class="drag-and-drop-designer-background-loader-text" data-bind="localize: { text: 'loadingImage' }"></div>
                             </div>

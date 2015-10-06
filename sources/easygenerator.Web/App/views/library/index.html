@@ -11,7 +11,7 @@
     <div class="loader-wrapper">
         
         <!-- ko ifnot: router.isViewReady -->
-        <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center' } } --><!-- /ko -->
+        <div data-bind="preloader: { settings: 'align-center' }"></div>
         <!-- /ko -->
 
     </div>
