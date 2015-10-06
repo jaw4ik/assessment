@@ -141,7 +141,6 @@ namespace easygenerator.Web.Configuration
 
             #region Publisher dependencies
 
-            builder.RegisterType<PublishUrlResolver>();
             builder.RegisterType<CoursePublisher>().As<ICoursePublisher>();
             builder.RegisterType<LearningPathPublisher>().As<ILearningPathPublisher>();
             builder.RegisterType<ExternalCoursePublisher>().As<IExternalCoursePublisher>();
@@ -223,7 +222,6 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<EntityCloner>().As<ICloner>().SingleInstance();
             builder.RegisterType<DemoCoursesInMemoryStorage>().As<IDemoCoursesStorage>().SingleInstance();
             builder.RegisterType<CourseInfoInMemoryStorage>().As<ICourseInfoInMemoryStorage>().SingleInstance();
-            builder.RegisterType<HttpContextWrapper>();
 
             #region Auth
 

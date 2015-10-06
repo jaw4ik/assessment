@@ -19,9 +19,11 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IEntityFactory _entityFactory;
         private readonly ILearningPathBuilder _builder;
         private readonly ILearningPathPublisher _publisher;
+        private readonly IUrlHelperWrapper _urlHelper;
 
-        public LearningPathController(ILearningPathRepository repository, IEntityModelMapper<LearningPath> mapper, IEntityFactory entityFactory, ILearningPathBuilder builder, ILearningPathPublisher publisher)
+        public LearningPathController(IUrlHelperWrapper urlHelper, ILearningPathRepository repository, IEntityModelMapper<LearningPath> mapper, IEntityFactory entityFactory, ILearningPathBuilder builder, ILearningPathPublisher publisher)
         {
+            _urlHelper = urlHelper;
             _repository = repository;
             _mapper = mapper;
             _entityFactory = entityFactory;
@@ -154,7 +156,7 @@ namespace easygenerator.Web.Controllers.Api
 
             var result = _publisher.Publish(learningPath);
 
-            return result ? JsonSuccess(new { PublicationUrl = learningPath.PublicationUrl })
+            return result ? JsonSuccess(new { PublicationUrl = _urlHelper.AddCurrentSchemeToUrl(learningPath.PublicationUrl) })
                 : JsonLocalizableError(Errors.LearningPathPublishActionFailedError, Errors.LearningPathPublishActionFailedResourceKey); ;
         }
     }
