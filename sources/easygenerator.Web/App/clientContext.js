@@ -1,8 +1,5 @@
-﻿define(function () {
-    "use strict";
-
-    var
-        set = function (key, value) {
+﻿    var
+        set = (key, value) => {
 
             if (_.isNullOrUndefined(key) ||
                 _.isEmpty(key) ||
@@ -14,7 +11,7 @@
             return value;
         },
 
-        get = function (key) {
+        get = (key) => {
 
             if (_.isNullOrUndefined(key) ||
                 _.isEmpty(key)) {
@@ -24,7 +21,7 @@
             return JSON.parse(localStorage.getItem(key));
         },
 
-        remove = function (key) {
+        remove = (key) => {
             if (_.isNullOrUndefined(key) || _.isEmpty(key)) {
                 throw 'Invalid arguments';
             }
@@ -32,9 +29,9 @@
             localStorage.removeItem(key);
         };
 
-    return {
+    export default {
         set: set,
         get: get,
         remove: remove
     };
-});
+    export var __useDefault = true;

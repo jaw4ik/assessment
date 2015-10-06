@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'durandal/composition', 'constants'], function (app, composition, constants) {
+﻿define(['durandal/app', 'durandal/composition', 'constants', 'components/tooltip/view.html!text'], function (app, composition, constants, view) {
     "use strict";
 
     return {
@@ -40,7 +40,7 @@
                 var $tooltipContainer = $('<div/>', { 'class': tooltipHolderClass });
 
                 $(containerSelector).append($tooltipContainer);
-                ko.utils.setHtml($tooltipContainer, null);
+                ko.utils.setHtml($tooltipContainer, view);
 
                 $('.tooltip-content-holder', $tooltipContainer).html(elementContent);
 
@@ -115,7 +115,7 @@
                 var vertical = {};
                 vertical.aligment = getVerticalAligment(preferredVerticalAligment, pointerTopOffset, tooltipHeight);
                 vertical.top = pointerTopOffset - containerTopOffset;
-                
+
                 if (vertical.aligment == 'top') {
                     vertical.top -= tooltipHeight + 20;
                 }

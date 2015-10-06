@@ -3082,8 +3082,10 @@ function createEntry() {
             // remove from the registry
             loader.defined[load.name] = undefined;
 
-            // return the defined module object
-            return loader.newModule(entry.declarative ? entry.module.exports : entry.esModule);
+              // return the defined module object
+              var m = loader.newModule(entry.declarative ? entry.module.exports : entry.esModule);
+              m.__mo__ = 'mo';
+              return m;
           }
         };
       });
@@ -4529,7 +4531,6 @@ if (typeof Promise === 'undefined' || !hasURL) {
     bootstrap();
   }
   else {
-  debugger;
     bootstrap();
   }
 }

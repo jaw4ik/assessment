@@ -77,14 +77,14 @@
         </script>
     }
 
-<script type="text/javascript">
+    <script type="text/javascript">
     @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["StorageServiceUrl"]))
     {
         <text>
         window.storageServiceUrl = '@ConfigurationManager.AppSettings["StorageServiceUrl"]';
         </text>
     }
-    @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["ConvertionServiceUrl"]))
+        @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["ConvertionServiceUrl"]))
     {
         <text>
         window.convertionServiceUrl = '@ConfigurationManager.AppSettings["ConvertionServiceUrl"]';
@@ -115,13 +115,13 @@
                 window.location.replace('/signin');
             }
         }());*@
+
+    </script>
     
-</script>
-@*<script src="/Scripts/require.js" type="text/javascript" data-main="/App/main"></script>*@
-<script src="/Scripts/systemjs/system.src.js" type="text/javascript"></script>
-<script type="text/javascript">
-    System.import('/App/main.js');
-</script>
+    <script src="/Scripts/systemjs/system.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        System.import('/App/index.js');
+    </script>
 
 </body>
 
