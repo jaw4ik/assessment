@@ -78,7 +78,7 @@ namespace easygenerator.DataAccess.Migrations
                     {
                         var processedJson = ProcessJson(settingsFieldSettings);
 
-                        SqlCommand updateSettingsCommand = new SqlCommand(String.Format("UPDATE [dbo].[CourseTemplateSettings] SET [Settings] = '{0}', [Template_Id] = '{1}' WHERE [Id] = '{2}'", processedJson, assessmentTemplateId, settingsFieldId), connection);
+                        SqlCommand updateSettingsCommand = new SqlCommand(String.Format("UPDATE [dbo].[CourseTemplateSettings] SET [Settings] = '{0}', [Template_Id] = '{1}' WHERE [Id] = '{2}'", EscapeString(processedJson), assessmentTemplateId, settingsFieldId), connection);
                         updateSettingsCommand.ExecuteNonQuery();
                     }
                     else
@@ -87,7 +87,7 @@ namespace easygenerator.DataAccess.Migrations
                         var createdOn = DateTime.Now;
 
                         SqlCommand insertSettingsCommand = new SqlCommand(String.Format("INSERT INTO [dbo].[CourseTemplateSettings]([Id],[Settings],[CreatedBy],[CreatedOn],[ModifiedBy],[ModifiedOn],[Template_Id],[Course_Id]) VALUES ('{0}', '{1}', '{2}', '{3}', '{2}', '{3}', '{4}', '{5}')",
-                            Guid.NewGuid(), defaultSettings, course.CreatedBy, createdOn, assessmentTemplateId, course.Id), connection);
+                            Guid.NewGuid(), EscapeString(defaultSettings), course.CreatedBy, createdOn, assessmentTemplateId, course.Id), connection);
                         insertSettingsCommand.ExecuteNonQuery();
                     }
 
@@ -95,6 +95,11 @@ namespace easygenerator.DataAccess.Migrations
                     updateCourseCommand.ExecuteNonQuery();
                 }
             }
+        }
+
+        private static string EscapeString(string input)
+        {
+            return input.Replace("'", "''");
         }
 
         private static string ProcessJson(string jsonData)
