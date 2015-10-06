@@ -16,8 +16,8 @@ define('knockout', function () {
     return ko;
 });
 
-define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synchronization/listener', 'onboarding/initialization', 'localization/localizationManager'],
-    function (system, app, bootstrapper, userContext, synchronization, onboarding, localizationManager) {
+define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synchronization/listener', 'onboarding/initialization', 'audio/index', 'localization/localizationManager'],
+    function (system, app, bootstrapper, userContext, synchronization, onboarding, audio, localizationManager) {
         if (!has('release')) {
             system.debug(true);
         }
