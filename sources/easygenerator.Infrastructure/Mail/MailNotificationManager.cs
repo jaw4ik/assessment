@@ -20,29 +20,23 @@ namespace easygenerator.Infrastructure.Mail
 
         public void AddMailNotificationToQueue(string templateName, dynamic templateModel)
         {
-            var mailNotification = GetMailNotification(templateName, templateModel, null, null);
-            _mailNotificationRepository.Add(mailNotification);
-            _dataContext.Save();
+            AddMailNotificationToQueue(templateName, templateModel, null, null);
         }
+
 
         public void AddMailNotificationToQueue(string templateName, dynamic templateModel, string subject, string fromAddress)
-        {
-            var mailNotification = GetMailNotification(templateName, templateModel, subject, fromAddress);
-            _mailNotificationRepository.Add(mailNotification);
-            _dataContext.Save();
-        }
-
-        private MailNotification GetMailNotification(string templateName, dynamic templateModel, string subject = null, string fromAddress = null)
         {
             var templateSettings = _senderSettings.MailTemplatesSettings[templateName];
             string emailBody = _mailTemplatesProvider.GetMailTemplateBody(templateSettings, templateModel);
 
-            return new MailNotification(emailBody,
+            _mailNotificationRepository.Add(new MailNotification(emailBody,
                 !IsNullOrWhiteSpace(subject) ? subject : templateSettings.Subject,
                 !IsNullOrWhiteSpace(fromAddress) ? fromAddress : templateSettings.From,
                 templateSettings.To,
                 templateSettings.Cc,
-                templateSettings.Bcc);
+                templateSettings.Bcc));
+
+            _dataContext.Save();
         }
 
     }
