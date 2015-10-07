@@ -11,9 +11,10 @@
     './CourseTreeNode',
     'userContext',
 
-    './CourseTreeNode.html!text',
-    './RelatedObjectiveTreeNode.html!text',
-    './QuestionTreeNode.html!text'],
+    //'./CourseTreeNode.html!text',
+    //'./RelatedObjectiveTreeNode.html!text',
+    //'./QuestionTreeNode.html!text'
+],
 
 function (app, eventTracker, router, constants, limitCoursesAmount, treeOfContentEventHandler, treeOfContentAutoExpandHandler, treeOfContentHighlightHandler, courseRepository, CourseTreeNode, userContext) {
 
