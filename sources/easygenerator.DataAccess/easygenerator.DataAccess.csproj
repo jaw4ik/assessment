@@ -334,10 +334,6 @@
     <Compile Include="Migrations\201509251400199_AddUniqueIndexForOnboarding.Designer.cs">
       <DependentUpon>201509251400199_AddUniqueIndexForOnboarding.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201510010640260_RemoveSchemeFromPublicationUrl.cs" />
-    <Compile Include="Migrations\201510010640260_RemoveSchemeFromPublicationUrl.Designer.cs">
-      <DependentUpon>201510010640260_RemoveSchemeFromPublicationUrl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ConsumerToolRepository.cs" />
@@ -578,9 +574,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509251400199_AddUniqueIndexForOnboarding.resx">
       <DependentUpon>201509251400199_AddUniqueIndexForOnboarding.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510010640260_RemoveSchemeFromPublicationUrl.resx">
-      <DependentUpon>201510010640260_RemoveSchemeFromPublicationUrl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
