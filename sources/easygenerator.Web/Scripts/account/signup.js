@@ -38,9 +38,8 @@ app.signupModel = function () {
     };
 
     viewModel.userName.isValid = ko.computed(function () {
-        var mailRegex = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/,
-            length = viewModel.userName().trim().length;
-        return length > 0 && length < 255 && mailRegex.test(viewModel.userName().trim()) && !viewModel.userExists();
+        var length = viewModel.userName().trim().length;
+        return length > 0 && length < 255 && app.constants.patterns.email.test(viewModel.userName().trim()) && !viewModel.userExists();
     });
 
     viewModel.password.isValid = ko.computed(function () {
@@ -148,13 +147,13 @@ app.signupModel = function () {
             .done(function () {
                 var href = app.getLocationHref();
 
-            if (href.indexOf('signup') != -1) {
-                app.assingLocation(href.replace(/signup/, 'signupsecondstep'));
-            } else if (href.indexOf('register') != -1) {
-                app.assingLocation(href.replace(/register/, 'signupsecondstep'));
-            }
+                if (href.indexOf('signup') != -1) {
+                    app.assingLocation(href.replace(/signup/, 'signupsecondstep'));
+                } else if (href.indexOf('register') != -1) {
+                    app.assingLocation(href.replace(/register/, 'signupsecondstep'));
+                }
 
-            viewModel.isSignupRequestPending(false);
+                viewModel.isSignupRequestPending(false);
             });
     }
 
