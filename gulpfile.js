@@ -66,7 +66,7 @@ gulp.task('build-main-project', function () {
             errorOnFail: true,
             targets: ['Clean', 'Build'],
             maxBuffer: 16 * 1024 * 1000,
-            toolsVersion: 12.0,
+            toolsVersion: 14.0,
             properties: {
                 OutDir: outputDirectory + '/bin',
                 WebProjectOutputDir: outputDirectory,
@@ -85,7 +85,7 @@ gulp.task('build-web-config', function () {
             targets: ['Transform'],
             errorOnFail: true,
             maxBuffer: 16 * 1024 * 1000,
-            toolsVersion: 12.0,
+            toolsVersion: 14.0,
             properties: {
                 Instance: instance,
                 Configuration: 'Release',
@@ -105,7 +105,7 @@ gulp.task('build-unit-tests', function () {
             stdout: true,
             errorOnFail: true,
             maxBuffer: 16 * 1024 * 1000,
-            toolsVersion: 12.0,
+            toolsVersion: 14.0,
             properties: {
                 PreBuildEvent: '',
                 PostBuildEvent: '',

@@ -1,7 +1,6 @@
 ﻿<div class="template-selector">
     <!-- ko if: isLoading -->
-    <!-- ko compose: { view: 'views/common/circularLoader', model: {css: 'x32 grey align-center'} } -->
-    <!-- /ko -->
+    <div data-bind="preloader: { settings: 'grey align-center' }"></div>
     <!-- /ko -->
     <!-- ko ifnot: isLoading -->
     <div class="templates-list-container">

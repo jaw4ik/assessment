@@ -27,7 +27,9 @@ define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synch
             router: true,
             dialog: true,
             http: true,
-            widget: true
+            widget: {
+                kinds: ['preloader']
+            }
         });
 
         var ltiAuthDefer;

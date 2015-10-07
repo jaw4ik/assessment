@@ -11,7 +11,7 @@
     </div>
     <div class="design-bar-content">
         <!-- ko if: template().settingsAvailable && !settingsVisibility() -->
-        <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center', style: { top: '300px' } } } --><!-- /ko -->
+        <div data-bind="preloader: { settings: 'grey align-center', styles: { top: '300px' } }"></div>
         <!-- /ko -->
         <!-- ko if: template().settingsAvailable -->
         <iframe id="template-settings" class="template-settings" data-bind="style: { visibility: settingsVisibility() ? 'visible' : 'hidden' }, attr: { src: template().designSettingsUrl + '?v=' + appVersion + '&courseId=' + courseId + '&templateId=' + template().id }, event: { load: settingsFrameLoaded }, windowMessageListener: onGetTemplateMessage" frameborder="0"></iframe>
