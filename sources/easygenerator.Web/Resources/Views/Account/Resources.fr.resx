@@ -229,7 +229,7 @@ Bonjour,
   <data name="HidePassword" xml:space="preserve">
     <value>Cacher le mot de passe</value>
   </data>
-  <data name="incorrectEmailOrPassword" xml:space="preserve">
+  <data name="IncorrectEmailOrPassword" xml:space="preserve">
     <value>La combinaison de l'email et du mot de passe n'existe pas. Veuillez réessayer ou réinitialiser le mot de passe.</value>
   </data>
   <data name="InstructionalDesigner" xml:space="preserve">
@@ -270,7 +270,7 @@ L'équipe d'easygenerator &lt;/p&gt;
   <data name="PasswordIsStrongEnough" xml:space="preserve">
     <value>Le mot de passe répond aux exigences</value>
   </data>
-  <data name="passwordRecovery" xml:space="preserve">
+  <data name="PasswordRecovery" xml:space="preserve">
     <value>Réinitialiser le mot de passe</value>
   </data>
   <data name="PasswordRequirementsTitle" xml:space="preserve">
@@ -297,10 +297,10 @@ L'équipe d'easygenerator &lt;/p&gt;
   <data name="SignIn" xml:space="preserve">
     <value>Se connecter</value>
   </data>
-  <data name="signOutButton" xml:space="preserve">
+  <data name="SignOutButton" xml:space="preserve">
     <value>Se déconnecter</value>
   </data>
-  <data name="signUpButton" xml:space="preserve">
+  <data name="SignUpButton" xml:space="preserve">
     <value>S'inscrire</value>
   </data>
   <data name="SignUpSecondStepTitle" xml:space="preserve">
@@ -318,28 +318,28 @@ L'équipe d'easygenerator &lt;/p&gt;
   <data name="Trainer" xml:space="preserve">
     <value>Formateur</value>
   </data>
-  <data name="tryImageDevelopOn" xml:space="preserve">
+  <data name="TryImageDevelopOn" xml:space="preserve">
     <value>Développer sur</value>
   </data>
-  <data name="tryImagePublishTo" xml:space="preserve">
+  <data name="TryImagePublishTo" xml:space="preserve">
     <value>Éditer sur</value>
   </data>
-  <data name="tryNow" xml:space="preserve">
+  <data name="TryNow" xml:space="preserve">
     <value>Essayer maintenant</value>
   </data>
-  <data name="trySubmitCaption" xml:space="preserve">
+  <data name="TrySubmitCaption" xml:space="preserve">
     <value>L'essayer maintenant</value>
   </data>
-  <data name="trySubtitle" xml:space="preserve">
+  <data name="TrySubtitle" xml:space="preserve">
     <value>Une plateforme d'e-learning révolutionnaire</value>
   </data>
-  <data name="tryTitle" xml:space="preserve">
+  <data name="TryTitle" xml:space="preserve">
     <value>Présentation d'easygenerator</value>
   </data>
-  <data name="tryWarningMessage" xml:space="preserve">
+  <data name="TryWarningMessage" xml:space="preserve">
     <value>Sous le mode "L'Essayer Maintenant", votre contenu n'est pas en sécurité !</value>
   </data>
-  <data name="wouldYouLikeAnIntroductionDemo" xml:space="preserve">
+  <data name="WouldYouLikeAnIntroductionDemo" xml:space="preserve">
     <value>J'aimerai avoir une démo de présentation !</value>
   </data>
   <data name="SignUp" xml:space="preserve">
