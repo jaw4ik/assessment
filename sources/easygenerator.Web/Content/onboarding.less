@@ -1,17 +1,21 @@
 ﻿.onboarding-wrapper {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    flex: 0 0 auto;
+    position: relative;
+    width: 100%;
     height: 360px;
     border-top: 1px solid #dedede;
     background-color: #fff;
     box-shadow: 0 -1px 5px #dedede;
+    transition: height linear 0.3s;
+
+    &.collapsed {
+        height: 60px;
+    }
 }
 
-    .onboarding-wrapper.minimized {
-        left: auto;
-    }
+.onboarding-wrapper.minimized {
+    left: auto;
+}
 
 .onboarding {
     width: 100%;
@@ -31,6 +35,28 @@
     line-height: 18px;
 }
 
+.onboarding-collapse-button {
+    position: absolute;
+    top: 6px;
+    right: 5px;
+    background: url('images/sprites_24.png') -120px -90px no-repeat;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+
+    &:hover {
+        background-position: -149px -90px;
+    }
+
+    .collapsed & {
+        background-position: -178px -90px;
+    }
+
+    .collapsed &:hover {
+        background-position: -207px -90px;
+    }
+}
+
 /*#region Wizard*/
 
 .onboarding-step-item {
@@ -42,10 +68,10 @@
     cursor: pointer;
 }
 
-    .onboarding-step-item:hover,
-    .onboarding-step-item.opened {
-        background-color: #e7f3ff;
-    }
+.onboarding-step-item:hover,
+.onboarding-step-item.opened {
+    background-color: #e7f3ff;
+}
 
 .onboarding-step-index {
     display: inline-block;
@@ -66,17 +92,17 @@
     color: #469dd5;
 }
 
-    .onboarding-step-item.completed .onboarding-step-index:before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 14px;
-        height: 12px;
-        margin-top: -6px;
-        margin-left: -7px;
-        background: url('images/sprites_16.png') -106px -44px no-repeat;
-    }
+.onboarding-step-item.completed .onboarding-step-index:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 14px;
+    height: 12px;
+    margin-top: -6px;
+    margin-left: -7px;
+    background: url('images/sprites_16.png') -106px -44px no-repeat;
+}
 
 .onboarding-step-title {
     font-family: 'OpenSans';
@@ -101,33 +127,42 @@
 
 /*#region Wizard Mini*/
 
-.onboarding-mini-map {
-    width: 38px;
-    height: 38px;
-    margin: 30px 6px 15px;
-    background: url('images/sprites_64.png') -220px -81px no-repeat;
-}
+.onboarding-mini {
+    position: absolute;
+    right: 0;
 
-.onboarding-mini .onboarding-step-item {
-    padding: 10px;
-    cursor: default;
-}
+    .onboarding-mini-map {
+        width: 38px;
+        height: 38px;
+        margin: 30px 6px 15px;
+        background: url('images/sprites_64.png') -220px -81px no-repeat;
 
-    .onboarding-mini .onboarding-step-item:hover {
-        background-color: #fff;
+        .onboarding-wrapper.collapsed & {
+            margin-top: 12px;
+        }
     }
 
-.onboarding-mini .onboarding-step-index:hover {
-    background-color: #469dd5;
-    color: #fff;
-    -webkit-transition: background-color 0.3s linear 0s;
-    -moz-transition: background-color 0.3s linear 0s;
-    -o-transition: background-color 0.3s linear 0s;
-    transition: background-color 0.3s linear 0s;
-}
+    .onboarding-step-item {
+        padding: 10px;
+        cursor: default;
 
-.onboarding-mini .onboarding-step-item.completed .onboarding-step-index:hover {
-    color: transparent;
+        &:hover {
+            background-color: #fff;
+        }
+    }
+
+    .onboarding-step-index:hover {
+        background-color: #469dd5;
+        color: #fff;
+        -webkit-transition: background-color 0.3s linear 0s;
+        -moz-transition: background-color 0.3s linear 0s;
+        -o-transition: background-color 0.3s linear 0s;
+        transition: background-color 0.3s linear 0s;
+    }
+
+    .onboarding-step-item.completed .onboarding-step-index:hover {
+        color: transparent;
+    }
 }
 
 /*#endregion Wizard Mini*/
@@ -140,7 +175,7 @@
 
 .onboarding-congratulations-close {
     position: absolute;
-    top: 21px;
+    top: 15px;
     right: 15px;
     background: url('images/sprites_16.png') -129px -44px no-repeat;
     width: 10px;
@@ -148,9 +183,9 @@
     cursor: pointer;
 }
 
-    .onboarding-congratulations-close:hover {
-        background: url('images/sprites_16.png') -150px -44px no-repeat;
-    }
+.onboarding-congratulations-close:hover {
+    background: url('images/sprites_16.png') -150px -44px no-repeat;
+}
 
 .onboarding-congratulations .onboarding-header {
     margin: 0 0 15px;
@@ -179,10 +214,10 @@
     color: #469dd5;
 }
 
-    .onboarding-congratulations-help-center:hover,
-    .onboarding-congratulations-help-center:active {
-        color: #2f6e97;
-    }
+.onboarding-congratulations-help-center:hover,
+.onboarding-congratulations-help-center:active {
+    color: #2f6e97;
+}
 
 /*#endregion Congratulations*/
 
@@ -195,10 +230,10 @@
     left: auto;
     cursor: default;
     opacity: 0;
-    visibility:hidden;
+    visibility: hidden;
     -webkit-transform: translateZ(0);
-    transition:  opacity 0.2s linear, right 0.2s linear;
-    -moz-transition:  opacity 0.2s linear, right 0.2s linear;
+    transition: opacity 0.2s linear, right 0.2s linear;
+    -moz-transition: opacity 0.2s linear, right 0.2s linear;
     -webkit-transition: opacity 0.2s linear, right 0.2s linear;
 }
 
@@ -224,9 +259,9 @@
 
 .onboarding-hint.tooltip-holder.visible {
     margin-top: 8px;
-    opacity:1;
-    visibility:visible;
-    transition-delay:0s;
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
     right: -432px;
 }
 
@@ -269,62 +304,62 @@
     line-height: 20px;
 }
 
-    .onboarding-hint section:first-of-type {
-        border-top: none;
-    }
+.onboarding-hint section:first-of-type {
+    border-top: none;
+}
 
-    .onboarding-hint section:last-of-type {
-        border-bottom: none;
-    }
+.onboarding-hint section:last-of-type {
+    border-bottom: none;
+}
 
-    .onboarding-hint section b {
-        font-family: 'OpenSans-Semibold';
-        font-weight: normal;
-    }
+.onboarding-hint section b {
+    font-family: 'OpenSans-Semibold';
+    font-weight: normal;
+}
 
-    .onboarding-hint section header {
-        font-family: 'IntroRegular';
-        margin-bottom: 12px;
-        color: #95afbc;
-        line-height: 18px;
-        font-size: 17px;
-        text-transform: uppercase;
-    }
+.onboarding-hint section header {
+    font-family: 'IntroRegular';
+    margin-bottom: 12px;
+    color: #95afbc;
+    line-height: 18px;
+    font-size: 17px;
+    text-transform: uppercase;
+}
 
-    .onboarding-hint section ul {
-        list-style-type: disc;
-        padding: 6px 0 0 6px;
-    }
+.onboarding-hint section ul {
+    list-style-type: disc;
+    padding: 6px 0 0 6px;
+}
 
-    .onboarding-hint section ol {
-        counter-reset: item;
-        list-style-type: none;
-    }
+.onboarding-hint section ol {
+    counter-reset: item;
+    list-style-type: none;
+}
 
-        .onboarding-hint section ol li {
-            margin-bottom: 10px;
-        }
+.onboarding-hint section ol li {
+    margin-bottom: 10px;
+}
 
-            .onboarding-hint section ol li:last-child {
-                margin-bottom: 0;
-            }
+.onboarding-hint section ol li:last-child {
+    margin-bottom: 0;
+}
 
-            .onboarding-hint section ol li:before {
-                content: counter(item) " ";
-                counter-increment: item;
-                display: inline-block;
-                width: 15px;
-                height: 15px;
-                margin-right: 10px;
-                border-radius: 50%;
-                background: #ffffff;
-                box-shadow: 0px 2px 0px 0.00px rgba(0, 0, 0, 0.1);
-                font-family: 'IntroRegular';
-                font-size: 12px;
-                line-height: 16px;
-                text-align: center;
-                color: #556270;
-            }
+.onboarding-hint section ol li:before {
+    content: counter(item) " ";
+    counter-increment: item;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0px 2px 0px 0.00px rgba(0, 0, 0, 0.1);
+    font-family: 'IntroRegular';
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    color: #556270;
+}
 
 .onboarding-hint .tooltip-buttons-holder {
     margin-top: 20px;

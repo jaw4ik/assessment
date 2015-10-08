@@ -1,34 +1,38 @@
 ﻿.navigation-bar {
-    background: #f1f1f1;
-    display: block;
-    height: 100%;
     position: absolute;
     right: 0;
+    display: flex;
+    flex-direction: column;
     width: 300px;
-}
+    height: 100%;
+    background: #f1f1f1;
+    box-shadow: 1px 0 5px 0 #dfe4e6;
 
-.navigation-bar.collapsed {
-    width: 50px;
-}
+    &.collapsed {
+        width: 50px;
+    }
 
-.navigation-bar.collapsed:hover {
-    width: 52px;
-    border-right: 1px solid #dedede;
-    margin-right: -2px;
-    cursor: default;
-}
+    &.collapsed:hover {
+        width: 54px;
+        margin-right: -4px;
+        border-right: 1px solid #dedede;
+        box-shadow: 1px 0 5px 0 #dfe4e6;
+        cursor: default;
+    }
 
-.navigation-bar.collapsed:after {
-    content: "";
-    position: absolute;
-    width: 32px;
-    height: 21px;
-    top: 14px;
-    right: 4px;
-    background: url('images/sprites_32.png') -74px -6px;
+    &.collapsed:after {
+        content: "";
+        position: absolute;
+        width: 32px;
+        height: 21px;
+        top: 14px;
+        right: 4px;
+        background: url('images/sprites_32.png') -74px -6px;
+    }
 }
 
 .navigation-bar-header {
+    flex: 0 0 auto;
     position: relative;
     width: 300px;
     height: 49px;
@@ -58,15 +62,9 @@
 }
 
 .navigation-bar-collapse-button {
-    position: absolute;
+    flex: 1 1 auto;
     width: 50px;
-    top: 0;
-    bottom: 0;
     z-index: 1;
-}
-
-.navigation-bar.onboarding-visible .navigation-bar-collapse-button {
-    bottom: 360px;
 }
 
 
@@ -74,20 +72,20 @@
     .navigation-bar-wrapper {
         &.left-side-bar {
 
-            & + * {
-                padding-left: 50px;
+            & + .shell {
+                section.course.index > * {
+                    padding-left: 50px;
+                }
             }
 
-            &.animating {
-                & + * {
-                    -moz-transition: padding .4s linear 0s;
-                    -webkit-transition: padding .4s linear 0s;
+            &.animating + .shell {
+                section.course.index > * {
                     transition: padding .4s linear 0s;
                 }
             }
 
-            &.expanded {
-                & + * {
+            &.expanded + .shell {
+                section.course.index > * {
                     padding-left: 300px;
                 }
             }

@@ -47,7 +47,6 @@
                     task.isCompleted.subscribe(function (newValue) {
                         if (newValue) {
                             this.dispose();
-                            openFirstUncompletedTaskHint();
                             markFirstUncompletedTaskAsNext();
                         }
                     });
@@ -56,16 +55,6 @@
                 });
 
                 markFirstUncompletedTaskAsNext();
-            });
-        }
-
-        function openFirstUncompletedTaskHint() {
-            _.every(tasksList, function (task) {
-                if (!task.isCompleted()) {
-                    task.showHint();
-                    return false;
-                }
-                return true;
             });
         }
 
