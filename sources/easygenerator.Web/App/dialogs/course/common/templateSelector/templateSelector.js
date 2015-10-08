@@ -19,9 +19,10 @@
                 .map(function (template) {
                     return new TemplateBrief(template);
                 })
-                .sortBy(function (template) { return template.order; })
+                .sortBy( function (template) { return template.order; })
+                .partition(function (template) { return template.isCustom })
+                .flatten()
                 .value());
-
             selectTemplateById(selectedTemplateId);
         }).fail(function (reason) {
             router.activeItem.settings.lifecycleData = { redirect: '404' };

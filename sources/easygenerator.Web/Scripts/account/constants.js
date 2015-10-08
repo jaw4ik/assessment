@@ -21,7 +21,7 @@ app.constants.pageviewUrls = {
 app.constants.userSignUpFirstStepData = "userSignUpFirstStepData";
 
 app.constants.patterns = {
-    email: /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/
+    email: /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,15})+)$/
 };
 
 app.constants.countries = [
