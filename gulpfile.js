@@ -402,14 +402,13 @@ gulp.task('assets-player', ['styles-player', 'copy-player-config-transform'], fu
     gulp.src(['./sources/easygenerator.Player/public/styles/video.css', './sources/easygenerator.Player/public/styles/audio.css'])
 		.pipe($.minifyCss())
         .pipe(gulp.dest(outputPlayer + '/public/styles/'));
-	gulp.src('./sources/easygenerator.Player/public/video.js/dist/font/*.*')
+	gulp.src('./sources/easygenerator.Player/public/vendor/video.js/dist/font/*.*')
 		.pipe(gulp.dest(outputPlayer + '/public/styles/font'));
-	return gulp.src('./sources/easygenerator.Player/public/video.js/dist/lang/*.*')
+	return gulp.src('./sources/easygenerator.Player/public/vendor/video.js/dist/lang/*.*')
 		.pipe(gulp.dest(outputPlayer + '/public/js/lang/'));
 });
 
 gulp.task('copy-player-config-transform', ['copy-player'], function(){
-    console.log(instance);
     return gulp.src('./tools/PlayerConfigTransform/' + instance + '.transform.js')
             .pipe($.rename('config.js'))
             .pipe(gulp.dest(outputPlayer))
