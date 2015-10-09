@@ -1,57 +1,59 @@
-﻿<section class="course">
+﻿<section class="course index">
 
-    <header class="content-section-wrapper">
-        <div class="content-section course-title-wrapper">
-            <div class="course-template" data-bind="click: changeTemplate, style: { backgroundImage: 'url(\'' + template.thumbnail() + '\')'}">
-                <div class="course-template-overlay" data-bind="localize: { text: 'change' }"></div>
-            </div>
-            <div class="course-title">
-                <!--  ko compose: { model: titleField, view: 'views/common/titleField.html' }  -->
-                <!-- /ko -->
-                <div class="course-template-hint">
-                    <div class="course-template-hint-title">
-                        <span data-bind="localize: { text: 'currentTemplate' }"></span>:&nbsp;
-                    </div>
-                    <div class="course-template-hint-template-name-wrapper">
-                        <span class="course-template-hint-template-name" data-bind="click: changeTemplate, text: template.name"></span>
+    <header>
+        <div class="content-section-wrapper">
+            <div class="content-section course-title-wrapper">
+                <div class="course-template" data-bind="click: changeTemplate, style: { backgroundImage: 'url(\'' + template.thumbnail() + '\')'}">
+                    <div class="course-template-overlay" data-bind="localize: { text: 'change' }"></div>
+                </div>
+                <div class="course-title">
+                    <!-- ko compose: { model: titleField, view: 'views/common/titleField.html' } -->
+                    <!-- /ko -->
+                    <div class="course-template-hint">
+                        <div class="course-template-hint-title">
+                            <span data-bind="localize: { text: 'currentTemplate' }"></span>:&nbsp;
+                        </div>
+                        <div class="course-template-hint-template-name-wrapper">
+                            <span class="course-template-hint-template-name" data-bind="click: changeTemplate, text: template.name"></span>
+                        </div>
                     </div>
                 </div>
+                <ul class="course-actions">
+                    <!-- ko if: collaborate.enabled -->
+                    <li class="">
+                        <!-- ko compose: 'dialogs/collaboration/collaboration' -->
+                        <!-- /ko -->
+                        <a href="" class="course-action course-action-collaboration" data-bind="click: collaborate">
+                            <span data-bind="localize: { text: 'addPeopleForCollaboration' }"></span>
+                            <!-- ko if: collaborators().length > 1 -->
+                            <span class="count" data-bind="text: collaborators().length"></span>
+                            <!-- /ko -->
+                            <!-- ko ifnot: collaborators().length > 1 -->
+                            <span class="count">+</span>
+                            <!-- /ko -->
+                        </a>
+                    </li>
+                    <li class="separator"></li>
+                    <!-- /ko -->
+                    <li><a href="" class="course-action course-action-preview" data-bind="click: preview, localize: { text: 'preview' }">Preview</a></li>
+                    <li>
+                        <!-- ko compose: 'dialogs/publishCourse/publishCourse' -->
+                        <!-- /ko -->
+                        <a href="" class="course-action action-share" data-bind="click: share">
+                            <span data-bind="localize: { text: 'share' }"></span>
+                            <span class="unpublished-changes-indicator" data-bind="css: { shown: isDirty }"></span>
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <ul class="course-actions">
-                <!-- ko if: collaborate.enabled -->
-                <li class="">
-                    <!--  ko compose: 'dialogs/collaboration/collaboration'  -->
-                    <!-- /ko -->
-                    <a href="" class="course-action course-action-collaboration" data-bind="click: collaborate">
-                        <span data-bind="localize: { text: 'addPeopleForCollaboration' }"></span>
-                        <!-- ko if: collaborators().length > 1 -->
-                        <span class="count" data-bind="text: collaborators().length"></span>
-                        <!-- /ko -->
-                        <!-- ko ifnot: collaborators().length > 1 -->
-                        <span class="count">+</span>
-                        <!-- /ko -->
-                    </a>
-                </li>
-                <li class="separator"></li>
-                <!-- /ko -->
-                <li><a href="" class="course-action course-action-preview" data-bind="click: preview, localize: { text: 'preview' }">Preview</a></li>
-                <li>
-                    <!--  ko compose: 'dialogs/publishCourse/publishCourse'  -->
-                    <!-- /ko -->
-                    <a href="" class="course-action action-share" data-bind="click: share">
-                        <span data-bind="localize: { text: 'share' }"></span>
-                        <span class="unpublished-changes-indicator" data-bind="css: { shown: isDirty }"></span>
-                    </a>
-                </li>
-            </ul>
+            <nav class="content-section">
+                <ul data-bind="foreach: router.navigationModel">
+                    <li>
+                        <a data-bind="attr: { href:  dynamicHash, 'data-text': ($index() + 1) + '. ' + title }, css: { active: isActive }, text: ($index() + 1) + '. ' + title, click: navigate"></a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-        <nav class="content-section">
-            <ul data-bind="foreach: router.navigationModel">
-                <li>
-                    <a data-bind="attr: { href:  dynamicHash, 'data-text': ($index() + 1) + '. ' + title }, css: { active: isActive }, text: ($index() + 1) + '. ' + title, click: navigate"></a>
-                </li>
-            </ul>
-        </nav>
     </header>
 
     <div class="loader-container">
