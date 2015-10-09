@@ -415,12 +415,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var course = CourseObjectMother.Create();
             _coursePublisher.Publish(course).Returns(true);
             course.UpdatePublicationUrl("url");
+            _urlHelper.AddCurrentSchemeToUrl(course.PublicationUrl).Returns("http:" + course.PublicationUrl);
 
             //Act
             var result = _controller.Publish(course);
 
             //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { PublishedPackageUrl = course.PublicationUrl });
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { PublishedPackageUrl = "http:" + course.PublicationUrl });
         }
 
         #endregion

@@ -18,6 +18,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using easygenerator.Web.Components;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -29,6 +30,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         private LearningPathController _controller;
 
+        private IUrlHelperWrapper _urlHelper;
         private ILearningPathRepository _repository;
         private IEntityModelMapper<LearningPath> _mapper;
         private IEntityFactory _entityFactory;
@@ -41,6 +43,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestInitialize]
         public void InitializeContext()
         {
+            _urlHelper = Substitute.For<IUrlHelperWrapper>();
             _entityFactory = Substitute.For<IEntityFactory>();
             _mapper = Substitute.For<IEntityModelMapper<LearningPath>>();
             _repository = Substitute.For<ILearningPathRepository>();
@@ -51,7 +54,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _context = Substitute.For<HttpContextBase>();
             _context.User.Returns(_user);
 
-            _controller = new LearningPathController(_repository, _mapper, _entityFactory, _builder, _publisher);
+            _controller = new LearningPathController(_urlHelper, _repository, _mapper, _entityFactory, _builder, _publisher);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -471,15 +474,17 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Publish_ShouldReturnPublicationUrl_WhenPublishSucced()
         {
             //Arrange
+            var publicationUrl = "PublicationUrl";
             var learningPath = LearningPathObjectMother.Create();
-            learningPath.UpdatePublicationUrl("PublicationUrl");
+            learningPath.UpdatePublicationUrl(publicationUrl);
             _publisher.Publish(learningPath).Returns(true);
+            _urlHelper.AddCurrentSchemeToUrl(publicationUrl).Returns("http:" + publicationUrl);
 
             //Act
             var result = _controller.Publish(learningPath);
 
             //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { PublicationUrl = "PublicationUrl" });
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { PublicationUrl = "http:" + publicationUrl });
         }
 
         #endregion

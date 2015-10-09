@@ -152,7 +152,6 @@
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttributeTest.cs" />
     <Compile Include="Components\ActionFilters\Authorization\StarterAccessAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\CustomRequireHttpsAttributeTest.cs" />
-    <Compile Include="Components\ActionFilters\ForceHttpAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\HandleErrorAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\NoCacheAttributeTests.cs" />
     <Compile Include="Components\ActionFilters\Permissions\EntityCollaboratorAttributeTests.cs" />
