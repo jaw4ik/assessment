@@ -4,7 +4,9 @@
         <div class="onboarding" data-bind="css: { 'onboarding-congratulations': isCompleted }">
             <!-- ko ifnot: isCompleted -->
             <span class="onboarding-collapse-button" data-bind="click: toggleCollapse, localize: { title: isCollapsed() ? 'expand': 'collapse' }"></span>
-            <header data-bind="localize: { text: 'whatNow' }" class="onboarding-header">What now?</header>
+            <header data-bind="click: function () { isCollapsed() ? toggleCollapse() : null; }">
+                <div class="onboarding-header" data-bind="localize: { text: 'whatNow' }">What now?</div>
+            </header>
             <ul class="onboarding-steps-list unstyled" data-bind="foreach: tasks, outsideClick: { action: closeAllHints }">
                 <li class="onboarding-step-item" data-bind="click: showHint, css: { completed: isCompleted, opened: isHintVisible }">
                     <span class="onboarding-step-index" data-bind="text: $index() + 1"></span>

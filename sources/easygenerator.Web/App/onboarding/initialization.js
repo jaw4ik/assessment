@@ -29,8 +29,9 @@
 
                     task.isHintVisible = ko.observable(false);
                     task.showHint = function () {
+                        var currentState = task.isHintVisible();
                         closeAllHints();
-                        task.isHintVisible(true);
+                        task.isHintVisible(!currentState);
                     };
                     task.closeHint = function () {
                         task.isHintVisible(false);
