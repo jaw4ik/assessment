@@ -388,7 +388,7 @@ gulp.task('copy-player', ['clean-player', 'install-bower-modules-player'], funct
         './sources/easygenerator.Player/app.js',
 		'./sources/easygenerator.Player/routes/*.*',
 		'./sources/easygenerator.Player/models/*.*',
-		'./sources/easygenerator.Player/images/*.*',
+		'./sources/easygenerator.Player/public/images/*.*',
 		'./sources/easygenerator.Player/public/favicon.ico',
         './sources/easygenerator.Player/Web.config',
 		'./sources/easygenerator.Player/iisnode.yml'
@@ -400,6 +400,7 @@ gulp.task('copy-player', ['clean-player', 'install-bower-modules-player'], funct
 
 gulp.task('assets-player', ['styles-player', 'copy-player-config-transform'], function () {
     gulp.src(['./sources/easygenerator.Player/public/styles/video.css', './sources/easygenerator.Player/public/styles/audio.css'])
+		.pipe($.minifyCss())
         .pipe(gulp.dest(outputPlayer + '/public/styles/'));
 	gulp.src('./sources/easygenerator.Player/public/video.js/dist/font/*.*')
 		.pipe(gulp.dest(outputPlayer + '/public/styles/font'));
