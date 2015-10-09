@@ -3,11 +3,9 @@
 block content
     div(data-bind="fadeOut: { predicate: !processing() }", class="processing")
         div(class="loader-container")
-            ul(class="loader")
-                - for (var i = 0; i < 5; i++)
-                    li
-                        div(class="circle")
-                        div(class="ball")
+            div(class="pulsar-loader")
+                - for (var i = 0; i < 3; i++)
+                    div(class="pulsar-loader-item")
     // ko ifnot: processing
     // ko ifnot: currentSource
     div(class="media-processing")

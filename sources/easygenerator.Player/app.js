@@ -13,7 +13,7 @@ app.use(favicon(__dirname + '/public/favicon.ico'));
 if (app.get('env') === 'development') {
     var logger = require('morgan');
     app.use(logger('dev'));
-    app.use(require('less-middleware')(path.join(__dirname, 'public')));
+    app.use('/public', require('less-middleware')(path.join(__dirname, 'public')));
 }
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
