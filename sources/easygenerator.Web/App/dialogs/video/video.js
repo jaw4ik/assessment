@@ -47,28 +47,28 @@
             viewModel.videoIframe(null);
         }
 
-        function buildVideoIframe(vimeoId) {
-            var iframe = '<iframe src="' + constants.player.host + '?source=' + vimeoId + '&video=1' + '&fullscreen_toggle=1"' +
-                ' width="' + videoConstants.video.iframeWidth +
-                '" height="' + videoConstants.video.iframeHeight +
-                '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen ></iframe>';
+        function buildIframe(vimeoId, options, width, height, allowFullscreen) {
+            var fullscreenCode = "";
+            if (allowFullscreen) {
+                fullscreenCode = "webkitallowfullscreen mozallowfullscreen allowfullscreen";
+            }
+            var iframe = '<iframe src="' + constants.player.host + '?source=' + vimeoId + options + '"' +
+               ' width="' + width +
+               '" height="' + height +
+               '" frameborder="0" ' + fullscreenCode + ' ></iframe>';
             return iframe;
+        }
+
+        function buildVideoIframe(vimeoId) {
+            return buildIframe(vimeoId, '&video=1&fullscreen_toggle=1', videoConstants.video.iframeWidth, videoConstants.video.iframeHeight, true);
         }
 
         function buildAudioIframe(vimeoId) {
-            var iframe = '<iframe src="' + constants.player.host + '?source=' + vimeoId + '&background=1"' +
-               ' width="' + videoConstants.audio.iframeWidth +
-               '" height="' + videoConstants.audio.iframeHeight +
-               '" frameborder="0"></iframe>';
-            return iframe;
+            return buildIframe(vimeoId, '&background=1', videoConstants.audio.iframeWidth, videoConstants.audio.iframeHeight, false);
         }
 
         function buildAudioEmbedCode(vimeoId) {
-            var iframe = '<iframe src="' + constants.player.host + '?source=' + vimeoId + '"' +
-               ' width="' + videoConstants.audio.embedIframeWidth +
-               '" height="' + videoConstants.audio.embedIframeHeight +
-               '" frameborder="0"></iframe>';
-            return iframe;
+            return buildIframe(vimeoId, '', videoConstants.audio.embedIframeWidth, videoConstants.audio.embedIframeHeight, false);
         }
 
         function copyEmbedCodeEvent() {
