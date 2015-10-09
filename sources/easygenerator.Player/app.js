@@ -1,7 +1,7 @@
 ﻿var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
-var routes = require('./routes/index');
+var index = require('./routes/index');
 var cors = require('cors');
 var app = express();
 
@@ -16,9 +16,9 @@ if (app.get('env') === 'development') {
     app.use(require('less-middleware')(path.join(__dirname, 'public')));
 }
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+app.use('/', index);
 
 app.use(function (req, res, next) {
     var err = new Error('Not Found');

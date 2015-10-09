@@ -1,5 +1,5 @@
 ﻿<section data-bind="if: isShown">
-    <div class="modal-dialog-wrapper video" data-bind="dialog: { autoclose: true, isShown: isShown, onHide: hide }, css: { visible: isShown}">
+    <div class="modal-dialog-wrapper media" data-bind="dialog: { autoclose: true, isShown: isShown, onHide: hide }, css: { visible: isShown, audio: !enableVideo(), video: enableVideo }">
         <div class="model-dialog-close-btn" data-bind="click: hide"></div>
         <div class="video-dialogue-container">
             <div data-bind="html: videoIframe"></div>

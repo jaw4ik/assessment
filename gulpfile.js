@@ -1,6 +1,7 @@
 /// <binding ProjectOpened='watch' />
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 var gulp = require('gulp'),
+	eventStream = require('event-stream'),
     del = require('del'),
     args = require('yargs').argv,
     MSTest = require('mstest'),
@@ -28,7 +29,21 @@ var config = {
 	outputPlayer = args.outputPlayer || 'D:/Applications/player',
     instance = args.instance || 'Release',
     version = typeof args.version === 'string' && args.version !== '' ? args.version : '1.0.0',
-    createTags = Boolean(args.createTags);
+    createTags = Boolean(args.createTags),
+	buildVersion = +new Date();
+	
+function addBuildVersion() {
+    return eventStream.map(function (file, callback) {
+        var fileContent = String(file.contents);
+        fileContent = fileContent
+            .replace(/(\?|\&)v=([0-9]+)/gi, '') // remove build version
+            .replace(/\.(jpeg|jpg|png|gif|css|js|html|eot|svg|ttf|woff)([?])/gi, '.$1?v=' + buildVersion + '&') // add build version to resource with existing query param
+            .replace(/\.(jpeg|jpg|png|gif|css|js|html|eot|svg|ttf|woff)([\s\"\'\)])/gi, '.$1?v=' + buildVersion + '$2') // add build version to resource without query param
+            .replace(/urlArgs: 'v=buildVersion'/gi, 'urlArgs: \'v=' + buildVersion + '\''); // replace build version for require config
+        file.contents = new Buffer(fileContent);
+        callback(null, file);
+    });
+};
 	
 gulp.task('styles', function () {
     return gulp.src(config.less.src)
@@ -364,11 +379,6 @@ gulp.task('styles-player', function () {
         .pipe(gulp.dest(config.less.destPlayer));
 });
 
-gulp.task('deploy-styles-player', ['clean-player', 'styles-player'], function () {
-    return gulp.src('./sources/easygenerator.Player/public/styles/*.css')
-        .pipe(gulp.dest(outputPlayer + '/public/styles'));
-});
-
 gulp.task('copy-player', ['clean-player', 'install-bower-modules-player'], function () {
     var files = [
         './sources/easygenerator.Player/package.json',
@@ -376,9 +386,10 @@ gulp.task('copy-player', ['clean-player', 'install-bower-modules-player'], funct
 		'./sources/easygenerator.Player/.bowerrc',
         './sources/easygenerator.Player/www.js',
         './sources/easygenerator.Player/app.js',
-		'./sources/easygenerator.Player/views/*.*',
+		'./sources/easygenerator.Player/config.js',
 		'./sources/easygenerator.Player/routes/*.*',
 		'./sources/easygenerator.Player/models/*.*',
+		'./sources/easygenerator.Player/images/*.*',
 		'./sources/easygenerator.Player/public/favicon.ico',
         './sources/easygenerator.Player/Web.config',
 		'./sources/easygenerator.Player/iisnode.yml'
@@ -388,25 +399,24 @@ gulp.task('copy-player', ['clean-player', 'install-bower-modules-player'], funct
         .pipe(gulp.dest(outputPlayer));
 });
 
-gulp.task('assets-player', ['copy-player'], function () {
-    gulp.src('./sources/easygenerator.Player/public/video.js/dist/video-js/video-js.min.css')
+gulp.task('assets-player', ['copy-player', 'styles-player'], function () {
+    gulp.src(['./sources/easygenerator.Player/public/styles/video.css', './sources/easygenerator.Player/public/styles/audio.css'])
         .pipe(gulp.dest(outputPlayer + '/public/styles/'));
-    gulp.src('./sources/easygenerator.Player/public/video.js/dist/video-js/video.js')
-        .pipe(gulp.dest(outputPlayer + '/public/js/'));
-	gulp.src('./sources/easygenerator.Player/public/video.js/dist/video-js/font/*.*')
+	gulp.src('./sources/easygenerator.Player/public/video.js/dist/font/*.*')
 		.pipe(gulp.dest(outputPlayer + '/public/styles/font'));
-	return gulp.src('./sources/easygenerator.Player/public/video.js/dist/video-js/lang/*.*')
+	return gulp.src('./sources/easygenerator.Player/public/video.js/dist/lang/*.*')
 		.pipe(gulp.dest(outputPlayer + '/public/js/lang/'));
 });
 
-gulp.task('deploy-player', ['assets-player', 'deploy-styles-player'], function () {
-	var assets = $.useref.assets();
-    gulp.src('./sources/easygenerator.Player/views/layout.jade')
-        .pipe(assets)
-        .pipe(assets.restore())
-        .pipe($.useref())
-        .pipe(gulp.dest(outputPlayer + '/views/'));
-		
+gulp.task('deploy-player', ['assets-player'], function () {
+ 
+  gulp.src('./sources/easygenerator.Player/views/*.jade')
+    .pipe($.jadeUsemin({
+      css: [$.minifyCss(), 'concat'],
+      js: [$.uglify()]
+    }))
+	.pipe(addBuildVersion())
+    .pipe(gulp.dest(outputPlayer + '/views/'));
     return gulp.src([outputPlayer + '/package.json'])
         .pipe($.install({ production: true }));
 });

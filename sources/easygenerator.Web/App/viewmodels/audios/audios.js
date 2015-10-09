@@ -96,12 +96,11 @@ function (app, constants, eventTracker, userContext, localizationManager, upgrad
         if (!audio.vimeoId()) {
             return;
         }
-        videoPopup.show(audio.vimeoId());
+
+        videoPopup.show({ vimeoId: audio.vimeoId() });
     }
 
     return viewModel;
-
-
 
     function ensureCanAddAudio() {
         if (!userContext.hasStarterAccess() || userContext.hasTrialAccess()) {
