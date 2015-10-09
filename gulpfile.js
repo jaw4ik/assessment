@@ -386,7 +386,6 @@ gulp.task('copy-player', ['clean-player', 'install-bower-modules-player'], funct
 		'./sources/easygenerator.Player/.bowerrc',
         './sources/easygenerator.Player/www.js',
         './sources/easygenerator.Player/app.js',
-		'./sources/easygenerator.Player/config.js',
 		'./sources/easygenerator.Player/routes/*.*',
 		'./sources/easygenerator.Player/models/*.*',
 		'./sources/easygenerator.Player/images/*.*',
@@ -399,7 +398,7 @@ gulp.task('copy-player', ['clean-player', 'install-bower-modules-player'], funct
         .pipe(gulp.dest(outputPlayer));
 });
 
-gulp.task('assets-player', ['copy-player', 'styles-player'], function () {
+gulp.task('assets-player', ['styles-player', 'copy-player-config-transform'], function () {
     gulp.src(['./sources/easygenerator.Player/public/styles/video.css', './sources/easygenerator.Player/public/styles/audio.css'])
         .pipe(gulp.dest(outputPlayer + '/public/styles/'));
 	gulp.src('./sources/easygenerator.Player/public/video.js/dist/font/*.*')
@@ -407,6 +406,13 @@ gulp.task('assets-player', ['copy-player', 'styles-player'], function () {
 	return gulp.src('./sources/easygenerator.Player/public/video.js/dist/lang/*.*')
 		.pipe(gulp.dest(outputPlayer + '/public/js/lang/'));
 });
+
+gulp.task('copy-player-config-transform', ['copy-player'], function(){
+    console.log(instance);
+    return gulp.src('./tools/PlayerConfigTransform/' + instance + '.transform.js')
+            .pipe($.rename('config.js'))
+            .pipe(gulp.dest(outputPlayer))
+})
 
 gulp.task('deploy-player', ['assets-player'], function () {
  
