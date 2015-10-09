@@ -73,19 +73,22 @@
         &.left-side-bar {
 
             & + .shell {
-                section.course.index > * {
+                section.course.index > *,
+                section.courses.view-module {
                     padding-left: 50px;
                 }
             }
 
             &.animating + .shell {
-                section.course.index > * {
+                section.course.index > *,
+                section.courses.view-module {
                     transition: padding .4s linear 0s;
                 }
             }
 
             &.expanded + .shell {
-                section.course.index > * {
+                section.course.index > *,
+                section.courses.view-module {
                     padding-left: 300px;
                 }
             }
