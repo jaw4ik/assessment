@@ -199,16 +199,13 @@
 
                         describe('when isCompleted value was changed to true', function () {
 
-                            it('should show the first uncompleted task hint and mark this task as next', function () {
+                            it('should mark this task as next', function () {
                                 task.isCompleted(false);
                                 var tasks = viewModel.getTasksList();
-
-                                tasks[1].isHintVisible(false);
                                 tasks[1].markedAsNext(false);
 
                                 task.isCompleted(true);
 
-                                expect(tasks[1].isHintVisible()).toBeTruthy();
                                 expect(tasks[1].markedAsNext()).toBeTruthy();
                             });
 

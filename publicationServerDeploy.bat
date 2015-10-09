@@ -12,10 +12,10 @@ ECHO "Cleaning ..."
 RMDIR  /S /Q "%DeploymentDirectory%"
 
 ECHO "Building main project ..."
-"%PROGRAMFILES(x86)%\MSBuild\12.0\Bin\msbuild" sources\easygenerator.PublicationServer.Web\easygenerator.PublicationServer.Web.csproj /p:outdir="%DeploymentDirectory%\bin";webprojectoutputdir="%DeploymentDirectory%";debugsymbols=false;debugtype=none;TreatWarningsAsErrors=true /t:Clean,Build /p:Configuration=Release
+"%PROGRAMFILES(x86)%\MSBuild\14.0\Bin\msbuild" sources\easygenerator.PublicationServer.Web\easygenerator.PublicationServer.Web.csproj /p:outdir="%DeploymentDirectory%\bin";webprojectoutputdir="%DeploymentDirectory%";debugsymbols=false;debugtype=none;TreatWarningsAsErrors=true /t:Clean,Build /p:Configuration=Release
 
 ECHO "Building .Net unit tests"
-"%PROGRAMFILES(x86)%\MSBuild\12.0\Bin\msbuild" sources\easygenerator.PublicationServer.Tests\easygenerator.PublicationServer.Tests.csproj /verbosity:n /nologo /property:TreatWarningsAsErrors=true /property:PreBuildEvent= /property:PostBuildEvent=
+"%PROGRAMFILES(x86)%\MSBuild\14.0\Bin\msbuild" sources\easygenerator.PublicationServer.Tests\easygenerator.PublicationServer.Tests.csproj /verbosity:n /nologo /property:TreatWarningsAsErrors=true /property:PreBuildEvent= /property:PostBuildEvent=
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 
 ECHO Running .Net unit tests...

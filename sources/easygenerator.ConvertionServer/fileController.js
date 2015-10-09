@@ -62,7 +62,7 @@ router.post('/', [useTicket], function(req, res) {
                         return {
                             id: file.id,
                             duration: file.duration,
-                            url: req.protocol + '://' + req.get('host') + req.originalUrl + '/' + file.id
+                            url: 'https://' + req.get('host') + req.originalUrl + '/' + file.id
                         };
                     }));
                 }

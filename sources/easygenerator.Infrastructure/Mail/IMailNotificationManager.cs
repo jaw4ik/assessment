@@ -8,6 +8,7 @@ namespace easygenerator.Infrastructure.Mail
 {
     public interface IMailNotificationManager
     {
-        void AddMailNotificationToQueue(string templateName, dynamic templateModel, string fromAddress = null);
+        void AddMailNotificationToQueue(string templateName, dynamic templateModel);
+        void AddMailNotificationToQueue(string templateName, dynamic templateModel, string subject, string fromAddress);
     }
 }

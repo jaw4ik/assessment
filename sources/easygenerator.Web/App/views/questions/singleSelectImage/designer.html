@@ -23,8 +23,12 @@
                     <li class="single-select-image-answer">
                         <div class="single-select-image-answer-image" data-bind="answerImage: { answer: $data, onload: $parent.finishAswerProcessing }, css: { 'empty' : !hasImage() && !isProcessing(), loading: isProcessing() }">
                             <!-- ko if: isProcessing -->
-                                <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 grey align-center' } } --><!-- /ko -->
+                            <div class="single-select-image-loader-wrapper">
+                                <div class="single-select-image-loader-spinner">
+                                    <div data-bind="preloader: { settings: 'grey align-center' }"></div>
+                                </div>
                                 <p class="single-select-image-loader-text" data-bind="localize: { text: 'processing' }"></p>
+                            </div>
                             <!-- /ko -->
                             <!-- ko ifnot: isProcessing -->
                                 <!-- ko if: hasImage -->

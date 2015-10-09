@@ -8,8 +8,7 @@
         <ul class="collaborators-list unstyled">
             <li class="collaborators-list-item empty">
                 <div class="collaborators-list-item-content">
-                    <!-- ko compose: { view: 'views/common/circularLoader', model: {css: 'x32 align-center'} } -->
-                    <!-- /ko -->
+                    <div data-bind="preloader: { type: 'circular', settings: 'big align-center' }"></div>
                     <div class="collaborators-list-item-content-text" data-bind="localize: { text: 'loadingCoauthors' }"></div>
                 </div>
             </li>

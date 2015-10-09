@@ -15,7 +15,7 @@
             <div class="question-learning-content-body">
                 <div class="question-learning-content-wrapper hotspot-on-image-container">
                     <!-- ko if: background.isLoading -->
-                    <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 grey align-center' } } --><!-- /ko -->
+                    <div data-bind="preloader: { settings: 'grey align-center' }"></div>
                     <!-- /ko -->
                     <div class="hotspot-on-image-wrapper">
                         <div class="question-learning-content selectable hotspot-on-image" data-bind="background: background, hotspotOnImage: { background: background, polygons: polygons, isEditing: hasFocus, save: updateHotspotOnAnImage, actions: { add: addPolygon, update: updatePolygon, delete: deletePolygon} }">

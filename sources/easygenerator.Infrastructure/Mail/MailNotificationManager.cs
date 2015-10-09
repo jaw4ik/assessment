@@ -1,5 +1,5 @@
-﻿using System;
-using easygenerator.Infrastructure.DomainModel;
+﻿using easygenerator.Infrastructure.DomainModel;
+using static System.String;
 
 namespace easygenerator.Infrastructure.Mail
 {
@@ -18,22 +18,26 @@ namespace easygenerator.Infrastructure.Mail
             _mailTemplatesProvider = mailTemplatesProvider;
         }
 
-        public void AddMailNotificationToQueue(string templateName, dynamic templateModel, string fromAddress = null)
+        public void AddMailNotificationToQueue(string templateName, dynamic templateModel)
         {
-            var mailNotification = GetMailNotification(templateName, templateModel, fromAddress);
-            _mailNotificationRepository.Add(mailNotification);
-            _dataContext.Save();
+            AddMailNotificationToQueue(templateName, templateModel, null, null);
         }
 
-        private MailNotification GetMailNotification(string templateName, dynamic templateModel, string fromAddress = null)
+
+        public void AddMailNotificationToQueue(string templateName, dynamic templateModel, string subject, string fromAddress)
         {
             var templateSettings = _senderSettings.MailTemplatesSettings[templateName];
             string emailBody = _mailTemplatesProvider.GetMailTemplateBody(templateSettings, templateModel);
 
-            // override from address from settings with address specified in method parameter
-            string fromEmail = !String.IsNullOrWhiteSpace(fromAddress) ? fromAddress : templateSettings.From;
-            return new MailNotification(emailBody, templateSettings.Subject, fromEmail,
-                templateSettings.To, templateSettings.Cc, templateSettings.Bcc);
+            _mailNotificationRepository.Add(new MailNotification(emailBody,
+                !IsNullOrWhiteSpace(subject) ? subject : templateSettings.Subject,
+                !IsNullOrWhiteSpace(fromAddress) ? fromAddress : templateSettings.From,
+                templateSettings.To,
+                templateSettings.Cc,
+                templateSettings.Bcc));
+
+            _dataContext.Save();
         }
+
     }
 }

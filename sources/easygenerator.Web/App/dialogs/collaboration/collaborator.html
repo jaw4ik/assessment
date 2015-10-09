@@ -43,8 +43,7 @@
             <div class="collaborator-remove-confirmation-actions">
                 <button class="collaborator-remove-btn" data-bind="click: removeCollaborator, disable: isRemoving, css: {progress: isRemoving}">
                     <!-- ko if: isRemoving -->
-                    <!-- ko compose: { view: 'views/common/circularLoader', model: {css: 'x16 white align-center'} } -->
-                    <!-- /ko -->
+                    <div data-bind="preloader: { type: 'circular', settings: 'small white align-center' }"></div>
                     <!-- /ko -->
                     <span class="collaborator-remove-btn-text" data-bind="localize: { text: 'remove' }"></span>
                 </button>
