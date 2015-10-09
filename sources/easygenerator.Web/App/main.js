@@ -3,6 +3,7 @@
         if (!has('release')) {
             system.debug(true);
         }
+
         app.title = "easygenerator";
 
         app.configurePlugins({
@@ -32,11 +33,15 @@
             app.start().then(function () {
                 bootstrapper.run();
 
-                return Q.all([userContext.identify(), userContext.identifyStoragePermissions(), synchronization.start(), onboarding.initialize()])
-                    .spread(function () {
-                        audio.initialize();
-                        app.setRoot('viewmodels/shell', null, document.getElementById('app'));
-                    });
+                return Q.all([
+                    userContext.identify(),
+                    userContext.identifyStoragePermissions(),
+                    synchronization.start(),
+                    onboarding.initialize(),
+                    audio.initialize()
+                ]).spread(function () {
+                    app.setRoot('viewmodels/shell', null, document.getElementById('app'));
+                });
 
             }).done();
         });

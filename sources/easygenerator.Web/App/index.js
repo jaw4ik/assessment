@@ -6,10 +6,10 @@
         baseURL: '/app',
         transpiler: 'babel',
         map: {
-            babel: '/Scripts/babel-core/browser.js',
+            babel: '/Scripts/systemjs/babel/browser',
+            text: '/Scripts/systemjs/plugins/text',
             durandal: '/Scripts/durandal',
-            plugins: '/Scripts/durandal/plugins',
-            text: '/Scripts/systemjs/plugins/text'
+            plugins: '/Scripts/durandal/plugins'
         },
         defaultJSExtensions: true
     });
