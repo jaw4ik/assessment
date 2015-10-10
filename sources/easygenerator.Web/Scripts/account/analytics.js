@@ -19,7 +19,7 @@
 
                         mixpanel.identify(username);
 
-                        if (eventName == application.constants.events.signupSecondStep) {
+                        if (eventName === application.constants.events.signupSecondStep) {
                             mixpanel.alias(username);
                             _.extend(peopleProperties, {
                                 "$email": username,
@@ -28,7 +28,7 @@
                             });
                         }
 
-                        if (eventName == application.constants.events.signin) {
+                        if (eventName === application.constants.events.signin) {
                             _.extend(peopleProperties, {
                                 "$last_login": new Date()
                             });
@@ -116,7 +116,7 @@
 
                 if (gaq) {
                     gaq.push(['_set', 'hitCallback', resolve]);
-                    gaq.push(['_trackEvent', 'Account', eventName]);
+                    gaq.push(['_trackEvent', 'register', 'easygenerator application', eventName]);
                     _.delay(resolve, application.constants.timeout.googleAnalytics);
                 } else {
                     resolve();
@@ -151,18 +151,19 @@
 
     var mixpanelProvider = mixpanelAnalyticsProvider();
     var nudgespotProvider = nudgespotAnalyticsProvider();
-    var googleAnalyticesProvider = googleAnalyticsProvider();
+    var googleProvider = googleAnalyticsProvider();
 
     application.trackEvent = function (eventName, eventProperties) {
         return jQuery.when(
             nudgespotProvider.trackEvent(eventName, eventProperties),
-            mixpanelProvider.trackEvent(eventName, eventProperties)
+            mixpanelProvider.trackEvent(eventName, eventProperties),
+			googleProvider.trackEvent(eventName, eventProperties)
         );
     };
 
     application.trackPageview = function (url) {
         return jQuery.when(
-            googleAnalyticesProvider.trackPageview(url)
+            googleProvider.trackPageview(url)
         );
     };
 
