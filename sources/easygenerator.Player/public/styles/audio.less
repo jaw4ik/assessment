@@ -32,6 +32,14 @@ html {
                 left: -100px;
             }
 
+            &.vjs-using-native-controls {
+                .vjs-tech {
+                    width: 100%;
+                    height: 100%;
+                    position: static;
+                }
+            }
+
             &.vjs-seeking, &.vjs-waiting {
                 .vjs-loading-spinner {
                     display: none;
@@ -51,6 +59,12 @@ html {
             .video-js {
                 background: url('../images/audio_player.jpg') center no-repeat;
                 background-size: 100% 100%;
+            }
+
+            .vjs-using-native-controls {
+                &.video-js {
+                    background: @background-color;
+                }
             }
         }
 
