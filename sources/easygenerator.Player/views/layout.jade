@@ -7,38 +7,10 @@ html
     meta(name='description' content='easygenerator player')
 
     title easygenerator player
-    //- build:css ../public/styles/app.css
-    link(rel='stylesheet', href='../public/vendor/video.js/dist/video-js.min.css')
-    link(rel='stylesheet', href='../public/styles/style.css')
-    //- endbuild
 
-    if video
-        link(rel='stylesheet', href='../public/styles/video.css')
-    else
-        link(rel='stylesheet', href='../public/styles/audio.css')
-    if css
-        link(rel='stylesheet', href=css)
-
-    if sourcesUrl
-        //- build:js ../public/js/vendor.js
-        script(src='../public/vendor/jquery/dist/jquery.min.js')
-        script(src='../public/vendor/knockout/dist/knockout.js')
-        script(src='../public/vendor/video.js/dist/video.min.js')
-        //- endbuild
-        script.
-            window.app = {};
-            window.app.mediaId = "#{source}";
-            window.app.sourcesUrl = "#{sourcesUrl}";
-            window.app.vimeoFileQualities = !{vimeoFileQualities};
-            window.app.playerUpdateInterval = "#{playerUpdateInterval}";
-        //- build:js ../public/js/app.js
-        script(src='../public/js/knockoutBindings/fadeOutBinding.js')
-        script(src='../public/js/viewmodels/player.js')
-        script(src='../public/js/app.js')
-        //- endbuild
+    block stylesheets
+    block headscripts
 
   body(class = background ? "background" : "no-background")
     block content
-    if sourcesUrl
-        script.
-            ko.applyBindings(window.app.playerViewModel);
+    block bodyscripts

@@ -1,6 +1,43 @@
 ﻿extends layout
 
+block stylesheets
+
+    //- <!-- build:css ../public/styles/vendor.css -->
+    link(rel='stylesheet', href='../public/vendor/video.js/dist/video-js.css')
+    //- <!-- endbuild -->
+
+    link(rel='stylesheet', href='../public/styles/style.css')
+
+    if video
+        link(rel='stylesheet', href='../public/styles/video.css')
+    else
+        link(rel='stylesheet', href='../public/styles/audio.css')
+    if css
+        link(rel='stylesheet', href=css)
+
+block headscripts
+
+    //- build:js ../public/js/vendor.js
+    script(src='../public/vendor/jquery/dist/jquery.min.js')
+    script(src='../public/vendor/knockout/dist/knockout.js')
+    script(src='../public/vendor/video.js/dist/video.min.js')
+    //- endbuild
+
+    script.
+        window.app = {};
+        window.app.mediaId = "#{source}";
+        window.app.sourcesUrl = "#{sourcesUrl}";
+        window.app.vimeoFileQualities = !{vimeoFileQualities};
+        window.app.playerUpdateInterval = "#{playerUpdateInterval}";
+
+    //- build:js ../public/js/app.js
+    script(src='../public/js/knockoutBindings/fadeOutBinding.js')
+    script(src='../public/js/viewmodels/player.js')
+    script(src='../public/js/app.js')
+    //- endbuild
+
 block content
+
     div(data-bind="fadeOut: { predicate: !processing() }", class="processing")
         div(class="loader-container")
             div(class="pulsar-loader")
@@ -16,3 +53,8 @@ block content
         source(data-bind="attr: { src: currentSource }", type='video/mp4')
     // /ko
     // /ko
+
+block bodyscripts
+
+    script.
+        ko.applyBindings(window.app.playerViewModel);

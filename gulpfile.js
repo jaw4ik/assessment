@@ -399,9 +399,13 @@ gulp.task('copy-player', ['clean-player', 'install-bower-modules-player'], funct
 });
 
 gulp.task('assets-player', ['styles-player', 'copy-player-config-transform'], function () {
-    gulp.src(['./sources/easygenerator.Player/public/styles/video.css', './sources/easygenerator.Player/public/styles/audio.css'])
-		.pipe($.minifyCss())
-        .pipe(gulp.dest(outputPlayer + '/public/styles/'));
+    gulp.src([
+		'./sources/easygenerator.Player/public/styles/style.css',
+		'./sources/easygenerator.Player/public/styles/video.css',
+		'./sources/easygenerator.Player/public/styles/audio.css'
+	])
+	.pipe($.minifyCss())
+	.pipe(gulp.dest(outputPlayer + '/public/styles/'));
 	gulp.src('./sources/easygenerator.Player/public/vendor/video.js/dist/font/*.*')
 		.pipe(gulp.dest(outputPlayer + '/public/styles/font'));
 	return gulp.src('./sources/easygenerator.Player/public/vendor/video.js/dist/lang/*.*')
@@ -415,14 +419,18 @@ gulp.task('copy-player-config-transform', ['copy-player'], function(){
 })
 
 gulp.task('deploy-player', ['assets-player'], function () {
- 
-  gulp.src('./sources/easygenerator.Player/views/*.jade')
-    .pipe($.jadeUsemin({
-      css: [$.minifyCss(), 'concat'],
-      js: [$.uglify()]
-    }))
-	.pipe(addBuildVersion())
-    .pipe(gulp.dest(outputPlayer + '/views/'));
+	var assets = $.useref.assets();
+    gulp.src('./sources/easygenerator.Player/views/*.jade')
+        .pipe(assets)
+        .pipe($.if('*.css', $.minifyCss()))
+        .pipe(assets.restore())
+        .pipe($.useref())
+		.pipe($.jadeUsemin({
+			js: [$.uglify()]
+		}))
+		.pipe(addBuildVersion())
+        .pipe(gulp.dest(outputPlayer + '/views/'));
+  
     return gulp.src([outputPlayer + '/package.json'])
         .pipe($.install({ production: true }));
 });
