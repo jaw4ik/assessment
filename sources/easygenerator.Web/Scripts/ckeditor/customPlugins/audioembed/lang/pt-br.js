@@ -3,13 +3,14 @@
     pasteEmbedCodeHere: 'Colar Código embutido aqui',
     embedCodeMissing: 'Código embutido está errado',
     dialogDescriptionContent: '<div>' +
-            '<p>Você pode embutir seus arquivos de som em seu curso. Nós usamos um serviço livre (SoundCloud) para isto.</p><br/>' +
-            '<p>Veja aquí como funciona:</p><br/>' +
+            '<p>You can embed your audio files in your course. Recently we launched an audio library inside easygenerator for this.</p><br> ' +
+            '<p>Here is how it works:</p><br>' +
             '<ol style="padding-left: 35px;">' +
-                '<li>Visite <a href="//soundcloud.com" target="_blank" style="color: #449eeb; text-decoration: underline;">Site SoundCloud</a> e cadastre-se</li>' +
-                '<li>carregue seu audio para SoundCloud</li>' +
-                '<li>Obtenha seu "código embutido" de Soundcloud</li>' +
-                '<li>Cole este códigono campo abaixo. É isso ai!</li>' +
-            '</ol>' +
+                '<li>Go to "My library" and open the "Audio library" tab</li>' +
+                '<li>Upload your audio file.</li>' +
+                '<li>Wait until it is processed. Then copy the embed code of the audio</li>' +
+                '<li>Paste this code into the field below. That is it!</li>' +
+            '</ol><br />' +
+            '<p>We are still working on improving the user experience, in order to  make it possible to choose your audio from here.</p>' +
         '</div>'
 });
