@@ -48,8 +48,8 @@
         if (!video.vimeoId()) {
             return;
         }
-
-        videoPopup.show(video.vimeoId());
+        
+        videoPopup.show({ vimeoId: video.vimeoId(), enableVideo: true });
     }
 
     function activate() {

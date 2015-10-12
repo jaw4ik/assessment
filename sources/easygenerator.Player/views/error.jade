@@ -1,6 +1,11 @@
 ﻿extends layout
 
+block stylesheets
+
+    link(rel='stylesheet', href='../public/styles/style.css')
+
 block content
+
   h1(class="error-message")=message
   h2(class="error-status")=error.status
   pre #{error.stack}

@@ -32,14 +32,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="config.js" />
     <Compile Include="models\player.js" />
+    <Compile Include="public\js\app.js" />
+    <Compile Include="public\js\knockoutBindings\fadeOutBinding.js" />
+    <Compile Include="public\js\viewmodels\player.js" />
     <Compile Include="www.js" />
     <Compile Include="routes\index.js" />
     <Content Include=".bowerrc" />
     <Content Include="bower.json" />
     <Content Include="package.json" />
     <Content Include="public\favicon.ico" />
+    <Content Include="public\images\audio_player.jpg" />
+    <Content Include="public\images\audio_processing.jpg" />
+    <Content Include="public\images\video_processing.jpg" />
     <Content Include="public\styles\audio.less" />
+    <Content Include="public\styles\loader.less" />
     <Content Include="public\styles\style.less" />
     <Content Include="public\styles\video.less" />
     <Content Include="README.md" />
@@ -50,6 +58,10 @@
   <ItemGroup>
     <Folder Include="models\" />
     <Folder Include="public\" />
+    <Folder Include="public\images\" />
+    <Folder Include="public\js\" />
+    <Folder Include="public\js\knockoutBindings\" />
+    <Folder Include="public\js\viewmodels\" />
     <Folder Include="public\styles\" />
     <Folder Include="routes\" />
     <Folder Include="views\" />

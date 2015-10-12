@@ -205,4 +205,4 @@ FakesAssemblies/
 /sources/easygenerator.ConversionServer/iisnode
 /sources/easygenerator.Web/Content/*.css
 /sources/easygenerator.Player/public/styles/*.css
-/sources/easygenerator.Player/public/video.js
+/sources/easygenerator.Player/public/vendor/*

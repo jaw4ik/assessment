@@ -2,6 +2,8 @@
     function () {
 
         return {
+            appVersion: window.egVersion,
+
             accessType: {
                 free: 0,
                 starter: 1,
@@ -371,6 +373,10 @@
                 pageSize: 10
             },
 
+            player: {
+                host: window.playerUrl ? "//" + window.playerUrl : '//localhost:555'
+            },
+
             storage: {
                 host: window.storageServiceUrl ? "//" + window.storageServiceUrl : '//localhost:888',
                 mediaUrl: '/media',
@@ -411,7 +417,11 @@
                         failed: 'failed',
                         inProgress: 'inProgress'
                     },
-                    changesInUpload: 'video:changesInUpload'
+                    changesInUpload: 'video:changesInUpload',
+                    iframeWidth: 600,
+                    iframeHeight: 180,
+                    embedIframeWidth: 300,
+                    embedIframeHeight: 46
                 }
             },
 

@@ -74,6 +74,12 @@
     }
 
     <script type="text/javascript">
+        @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["version"]))
+        {
+            <text>
+            window.egVersion = '@ConfigurationManager.AppSettings["version"]';
+            </text>
+        }
         @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["StorageServiceUrl"]))
         {
         <text>
@@ -84,6 +90,12 @@
         {
         <text>
         window.convertionServiceUrl = '@ConfigurationManager.AppSettings["ConvertionServiceUrl"]';
+        </text>
+        }
+        @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["PlayerUrl"]))
+        {
+        <text>      
+        window.playerUrl = '@ConfigurationManager.AppSettings["PlayerUrl"]';
         </text>
         }
         //bootstraper
