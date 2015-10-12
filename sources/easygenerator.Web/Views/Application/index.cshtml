@@ -73,6 +73,12 @@
     }
 
     <script type="text/javascript">
+        @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["version"]))
+        {
+            <text>
+            window.egVersion = '@ConfigurationManager.AppSettings["version"]';
+            </text>
+        }
         @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["StorageServiceUrl"]))
         {
         <text>

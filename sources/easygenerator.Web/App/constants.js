@@ -2,6 +2,8 @@
     function () {
 
         return {
+            appVersion: window.egVersion,
+
             accessType: {
                 free: 0,
                 starter: 1,

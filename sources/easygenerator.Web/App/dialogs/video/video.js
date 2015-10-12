@@ -52,7 +52,7 @@
             if (allowFullscreen) {
                 fullscreenCode = "webkitallowfullscreen mozallowfullscreen allowfullscreen";
             }
-            var iframe = '<iframe src="' + constants.player.host + '?source=' + vimeoId + options + '"' +
+            var iframe = '<iframe src="' + constants.player.host + '?source=' + vimeoId + options + '&v=' + constants.appVersion + '"' +
                ' width="' + width +
                '" height="' + height +
                '" frameborder="0" ' + fullscreenCode + ' ></iframe>';
