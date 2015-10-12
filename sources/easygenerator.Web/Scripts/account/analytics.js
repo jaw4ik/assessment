@@ -87,7 +87,7 @@
                         nudgespot.identify(username, { "first_name": firstname, "last_name": lastname });
                         properties.email = username;
 
-                        nudgespot.track(eventName, properties, function() {
+                        nudgespot.track(eventName, properties, function () {
                             resolve();
                         });
                         _.delay(resolve, application.constants.timeout.nudgespot);
@@ -116,7 +116,7 @@
 
                 if (gaq) {
                     gaq.push(['_set', 'hitCallback', resolve]);
-                    gaq.push(['_trackEvent', 'easygenerator application', 'register', eventName]);
+                    gaq.push(['_trackEvent', 'easygenerator application', 'Account', eventName]);
                     _.delay(resolve, application.constants.timeout.googleAnalytics);
                 } else {
                     resolve();
@@ -157,7 +157,7 @@
         return jQuery.when(
             nudgespotProvider.trackEvent(eventName, eventProperties),
             mixpanelProvider.trackEvent(eventName, eventProperties),
-			googleProvider.trackEvent(eventName, eventProperties)
+            googleProvider.trackEvent(eventName, eventProperties)
         );
     };
 
