@@ -20,6 +20,7 @@
     @Styles.Render("~/Content/css")
     @Html.Partial("_mixpanelAnalytics")
     @Html.Partial("_nudgespotAnalytics")
+    @Html.Partial("_intercomAnalytics")
 </head>
 <body>
     @if (BrowserSupport.IsSupportedDevice(HttpContext.Current.Request.UserAgent))
