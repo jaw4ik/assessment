@@ -1,10 +1,9 @@
-﻿define(['durandal/app', 'constants', 'eventTracker', 'userContext', 'onboarding/initialization'], function (app, constants, eventTracker, userContext, initialization) {
+﻿define(['durandal/app', 'constants', 'eventTracker'], function (app, constants, eventTracker) {
     "use strict";
 
     var viewModel = {
         isExpanded: ko.observable(true),
         isVisible: ko.observable(true),
-        onboardingClosed: ko.observable(false),
 
         expand: expand,
         collapse: collapse,
@@ -13,13 +12,7 @@
         activate: activate
     };
 
-    app.on(constants.messages.onboarding.closed, onOnboardingClosed);
-
     return viewModel;
-
-    function onOnboardingClosed() {
-        viewModel.onboardingClosed(true);
-    }
 
     function expand() {
         eventTracker.publish('Expand navigation bar');
@@ -38,8 +31,6 @@
         viewModel.isVisible(false);
     }
 
-    function activate() {
-        viewModel.onboardingClosed(initialization.isClosed());
-    }
+    function activate() { }
 
 });

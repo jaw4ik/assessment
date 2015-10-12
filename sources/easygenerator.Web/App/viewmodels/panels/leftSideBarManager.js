@@ -9,11 +9,11 @@
                 { id: 'viewmodels/courses/course/create/course' },
                 { id: 'viewmodels/courses/course/configure' },
                 { id: 'viewmodels/courses/course/publish' },
-                { id: 'reporting/viewmodels/results' },
+                { id: 'viewmodels/courses/course/results' },
                 { id: 'viewmodels/objectives/objective', pattern: /courses\/[\w]+\/objectives\/[\w]+/ },
                 { id: 'viewmodels/questions/question', pattern: /courses\/[\w]+\/objectives\/[\w]+\/questions\/[\w]+/ }
             ],
-            modelToCompose: null
+            modelToCompose: 'navigationBar/navigationBar'
         },
         {
             viewToCompose: 'views/courses/course/design/bar',
@@ -32,9 +32,7 @@
     var viewModel = {
         initialize: initialize,
         bar: ko.observable(null),
-        activate: function () {
-
-        }
+        activate: function () { }
     };
 
     return viewModel;
@@ -90,11 +88,24 @@
                 }
             }
         });
+
+        if ((_.isString(viewModel.bar()) && viewModel.bar() === view) || (_.isObject(viewModel.bar()) && viewModel.bar().view === view)) {
+            return;
+        }
+
         if (model) {
-            viewModel.bar({ view: view, model: model, activate: activate, activationData: activationData });
+            viewModel.bar({ view: view, model: model, activate: activate, activationData: activationData, binding: binding, compositionComplete: compositionComplete });
             return;
         }
         viewModel.bar(view);
+    }
+
+    function binding(element) {
+        element.style.visibility = 'hidden';
+    }
+
+    function compositionComplete(element) {
+        element.style.visibility = 'visible';
     }
 
 });

@@ -145,7 +145,7 @@ namespace easygenerator.Web.Controllers.Api
         [Route("api/course/publish")]
         public ActionResult Publish(Course course)
         {
-            return Deliver(course, () => _coursePublisher.Publish(course), () => JsonSuccess(new { PublishedPackageUrl = course.PublicationUrl }));
+            return Deliver(course, () => _coursePublisher.Publish(course), () => JsonSuccess(new { PublishedPackageUrl = _urlHelper.AddCurrentSchemeToUrl(course.PublicationUrl) }));
         }
 
         [HttpPost]
