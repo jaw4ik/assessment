@@ -1,7 +1,7 @@
-﻿define(['analytics/providers/consoleProvider', 'analytics/providers/mixpanelProvider', 'analytics/providers/nudgespotProvider'],
-    function (consoleProvider, mixpanelProvider, nudgespotProvider) {
+﻿define(['analytics/providers/consoleProvider', 'analytics/providers/mixpanelProvider', 'analytics/providers/nudgespotProvider', 'analytics/providers/intercomProvider'],
+    function (consoleProvider, mixpanelProvider, nudgespotProvider, intercomProvider) {
 
-       var providers = [];
+        var providers = [];
 
         providers.identify = function () {
             _.each(providers, function (provider) {
@@ -15,6 +15,7 @@
         }
         providers.push(mixpanelProvider());
         providers.push(nudgespotProvider());
+        providers.push(intercomProvider());
         providers.identify();
 
         function publish(eventName, category) {
