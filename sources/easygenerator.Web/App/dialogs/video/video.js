@@ -34,7 +34,7 @@
             eventTracker.publish(events.openVideoPopup, eventCategory);
 
             viewModel.videoIframe(viewModel.enableVideo() ? buildVideoIframe(video.vimeoId) : buildAudioIframe(video.vimeoId));
-            viewModel.embedCode(viewModel.enableVideo() ? buildVideoIframe(video.vimeoId) : buildAudioEmbedCode(video.vimeoId));
+            viewModel.embedCode(viewModel.enableVideo() ? buildVideoEmbedCode(video.vimeoId) : buildAudioEmbedCode(video.vimeoId));
 
             viewModel.copyBtnDisabled(false);
             viewModel.embedCodeCopied(false);
@@ -60,11 +60,15 @@
         }
 
         function buildVideoIframe(vimeoId) {
+            return buildIframe(vimeoId, '&video=1&fullscreen_toggle=1&autoplay=1', videoConstants.video.iframeWidth, videoConstants.video.iframeHeight, true);
+        }
+
+        function buildVideoEmbedCode(vimeoId) {
             return buildIframe(vimeoId, '&video=1&fullscreen_toggle=1', videoConstants.video.iframeWidth, videoConstants.video.iframeHeight, true);
         }
 
         function buildAudioIframe(vimeoId) {
-            return buildIframe(vimeoId, '&background=1', videoConstants.audio.iframeWidth, videoConstants.audio.iframeHeight, false);
+            return buildIframe(vimeoId, '&background=1&autoplay=1', videoConstants.audio.iframeWidth, videoConstants.audio.iframeHeight, false);
         }
 
         function buildAudioEmbedCode(vimeoId) {

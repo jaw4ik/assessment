@@ -126,7 +126,7 @@
                 });
 
                 it('should set specific videoIframe', function() {
-                    var iframe = '<iframe src="' + constants.player.host + '?source=' + video.vimeoId + '&background=1&v=' + version + '" width="' + videoConstants.audio.iframeWidth + '" height="' + videoConstants.audio.iframeHeight + '" frameborder="0" ' + ' ></iframe>';
+                    var iframe = '<iframe src="' + constants.player.host + '?source=' + video.vimeoId + '&background=1&autoplay=1&v=' + version + '" width="' + videoConstants.audio.iframeWidth + '" height="' + videoConstants.audio.iframeHeight + '" frameborder="0" ' + ' ></iframe>';
                     viewModel.videoIframe('');
                     viewModel.show(video);
                     expect(viewModel.videoIframe()).toBe(iframe);
@@ -151,7 +151,7 @@
                 });
 
                 it('should set specific videoIframe', function () {
-                    var iframe = '<iframe src="' + constants.player.host + '?source=' + video.vimeoId + '&video=1&fullscreen_toggle=1&v=' + version + '" width="' + videoConstants.video.iframeWidth + '" height="' + videoConstants.video.iframeHeight + '" frameborder="0" ' + 'webkitallowfullscreen mozallowfullscreen allowfullscreen' + ' ></iframe>';
+                    var iframe = '<iframe src="' + constants.player.host + '?source=' + video.vimeoId + '&video=1&fullscreen_toggle=1&autoplay=1&v=' + version + '" width="' + videoConstants.video.iframeWidth + '" height="' + videoConstants.video.iframeHeight + '" frameborder="0" ' + 'webkitallowfullscreen mozallowfullscreen allowfullscreen' + ' ></iframe>';
                     viewModel.videoIframe('');
                     viewModel.show(video);
                     expect(viewModel.videoIframe()).toBe(iframe);
