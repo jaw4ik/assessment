@@ -555,6 +555,7 @@
     <Compile Include="WooCommerce\WooCommerceAutologinUrlProvider.cs" />
     <Content Include="App\analytics\providers.js" />
     <Content Include="App\analytics\providers\consoleProvider.js" />
+    <Content Include="App\analytics\providers\intercomProvider.js" />
     <Content Include="App\analytics\providers\mixpanelProvider.js" />
     <Content Include="App\analytics\providers\nudgespotProvider.js" />
     <Content Include="App\audio\convertion\commands\convert.spec.js">
@@ -2586,6 +2587,7 @@
     <Content Include="Templates\Assessment\settings\design\css\fonts\opensans-bold.woff" />
     <Content Include="Templates\Assessment\settings\design\css\fonts\opensans-italic-400.woff" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_intercomAnalytics.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
