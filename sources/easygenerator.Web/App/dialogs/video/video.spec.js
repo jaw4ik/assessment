@@ -8,6 +8,7 @@
     ;
 
     describe('dialog [video]', function () {
+        var version = constants.appVersion;
 
         beforeEach(function () {
             spyOn(eventTracker, 'publish');
@@ -125,14 +126,14 @@
                 });
 
                 it('should set specific videoIframe', function() {
-                    var iframe = '<iframe src="' + constants.player.host + '?source=' + video.vimeoId + '&background=1' + '"' + ' width="' + videoConstants.audio.iframeWidth + '" height="' + videoConstants.audio.iframeHeight + '" frameborder="0" ' + ' ></iframe>';
+                    var iframe = '<iframe src="' + constants.player.host + '?source=' + video.vimeoId + '&background=1&v=' + version + '" width="' + videoConstants.audio.iframeWidth + '" height="' + videoConstants.audio.iframeHeight + '" frameborder="0" ' + ' ></iframe>';
                     viewModel.videoIframe('');
                     viewModel.show(video);
                     expect(viewModel.videoIframe()).toBe(iframe);
                 });
 
                 it('should set specific embed code', function () {
-                    var iframe = '<iframe src="' + constants.player.host + '?source=' + video.vimeoId + '"' + ' width="' + videoConstants.audio.embedIframeWidth + '" height="' + videoConstants.audio.embedIframeHeight + '" frameborder="0" ' + ' ></iframe>';
+                    var iframe = '<iframe src="' + constants.player.host + '?source=' + video.vimeoId + '&v=' + version + '" width="' + videoConstants.audio.embedIframeWidth + '" height="' + videoConstants.audio.embedIframeHeight + '" frameborder="0" ' + ' ></iframe>';
                     viewModel.embedCode('');
                     viewModel.show(video);
                     expect(viewModel.embedCode()).toBe(iframe);
@@ -150,14 +151,14 @@
                 });
 
                 it('should set specific videoIframe', function () {
-                    var iframe = '<iframe src="' + constants.player.host + '?source=' + video.vimeoId + '&video=1&fullscreen_toggle=1' + '"' + ' width="' + videoConstants.video.iframeWidth + '" height="' + videoConstants.video.iframeHeight + '" frameborder="0" ' + 'webkitallowfullscreen mozallowfullscreen allowfullscreen' + ' ></iframe>';
+                    var iframe = '<iframe src="' + constants.player.host + '?source=' + video.vimeoId + '&video=1&fullscreen_toggle=1&v=' + version + '" width="' + videoConstants.video.iframeWidth + '" height="' + videoConstants.video.iframeHeight + '" frameborder="0" ' + 'webkitallowfullscreen mozallowfullscreen allowfullscreen' + ' ></iframe>';
                     viewModel.videoIframe('');
                     viewModel.show(video);
                     expect(viewModel.videoIframe()).toBe(iframe);
                 });
 
                 it('should set specific embed code', function () {
-                    var iframe = '<iframe src="' + constants.player.host + '?source=' + video.vimeoId + '&video=1&fullscreen_toggle=1' + '"' + ' width="' + videoConstants.video.iframeWidth + '" height="' + videoConstants.video.iframeHeight + '" frameborder="0" ' + 'webkitallowfullscreen mozallowfullscreen allowfullscreen' + ' ></iframe>';
+                    var iframe = '<iframe src="' + constants.player.host + '?source=' + video.vimeoId + '&video=1&fullscreen_toggle=1&v=' + version + '" width="' + videoConstants.video.iframeWidth + '" height="' + videoConstants.video.iframeHeight + '" frameborder="0" ' + 'webkitallowfullscreen mozallowfullscreen allowfullscreen' + ' ></iframe>';
                     viewModel.embedCode('');
                     viewModel.show(video);
                     expect(viewModel.embedCode()).toBe(iframe);
