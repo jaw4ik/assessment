@@ -116,7 +116,7 @@
 
                 if (gaq) {
                     gaq.push(['_set', 'hitCallback', resolve]);
-                    gaq.push(['_trackEvent', 'register', 'easygenerator application', eventName]);
+                    gaq.push(['_trackEvent', 'easygenerator application', 'register', eventName]);
                     _.delay(resolve, application.constants.timeout.googleAnalytics);
                 } else {
                     resolve();
