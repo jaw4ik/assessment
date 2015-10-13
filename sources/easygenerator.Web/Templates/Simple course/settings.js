@@ -5,6 +5,9 @@
     "theme": {
         "key": ""
     },
+    "layout": {
+        "key": ""
+    },
     "background": {
 		"image": {
 			"src": null,

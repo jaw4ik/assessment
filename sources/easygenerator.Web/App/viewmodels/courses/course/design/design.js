@@ -28,6 +28,12 @@
             settingsVisibility: ko.observable(false),
             canUnloadSettings: ko.observable(true),
 
+
+            settingsTabs:ko.observableArray([]),
+            currentSettingsTabUrl: ko.observable(null),
+            
+            changeTab:changeTab,
+
             reloadPreview: reloadPreview,
 
             activate: activate,
@@ -78,11 +84,21 @@
                 }
             });
 
+
             return courseRepository.getById(courseId).then(function (course) {
                 viewModel.courseId = course.id;
                 viewModel.previewUrl('/preview/' + viewModel.courseId);
 
                 viewModel.template(new TemplateBrief(course.template));
+                viewModel.settingsTabs.removeAll();
+                _.each(course.template.settingsUrls.design, function (tab) {
+                    viewModel.settingsTabs.push(tab);
+                    tab.isSelected = ko.observable(false);
+                    if (tab.isDefault) {
+                        viewModel.currentSettingsTabUrl(tab.url);
+                        tab.isSelected(true);
+                    }
+                });
 
                 app.on(constants.messages.course.templateUpdated + viewModel.courseId, viewModel.templateUpdated);
                 app.on(constants.messages.course.templateUpdatedByCollaborator, viewModel.templateUpdatedByCollaborator);
@@ -93,11 +109,14 @@
         }
 
         function templateUpdated(template) {
+
             if (template.id === viewModel.template().id)
                 return;
 
             viewModel.template().isLoading(true);
             viewModel.loadingTemplate(true);
+
+            debugger
 
             return waiter.waitFor(viewModel.canUnloadSettings, delay, limit)
             .fail(function () {
@@ -157,5 +176,18 @@
         function showSettings() {
             viewModel.settingsVisibility(true);
         }
-    }
-);
+        
+        function changeTab() {
+            
+            if (this.isSelected()) { 
+                return
+            }
+
+            _.find(viewModel.settingsTabs(), function (tab) {
+                return tab.url === viewModel.currentSettingsTabUrl()
+            }).isSelected(false);
+
+            viewModel.currentSettingsTabUrl(this.url)
+            this.isSelected(true);
+        }
+    });
