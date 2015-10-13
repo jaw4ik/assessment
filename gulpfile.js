@@ -255,15 +255,18 @@ gulp.task('create-tags', function () {
         reposList = [
             'easygenerator',
             'simple',
-            'exam',
             'personalized-learning',
-            'quiz-v2',
+            'assessment',
             'reader',
             'lango-personalized-learning',
-            'quiz-marketing',
             'quiz-for-learni',
             'lango-simple',
-            'simple-ie10'
+            'simple-ie10',
+			'simple-pdf',
+			'ICEMD',
+			'PwC',
+			'SC-without-tryagain',
+			'ac-nielsen'
         ],
         github = new GitHubApi({
             // required
