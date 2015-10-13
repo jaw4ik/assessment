@@ -2,6 +2,7 @@
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Storage;
 using System.Linq;
+using easygenerator.Web.Publish;
 
 namespace easygenerator.Web.Components.Mappers
 {
@@ -28,7 +29,7 @@ namespace easygenerator.Web.Components.Mappers
                 ModifiedOn = course.ModifiedOn,
                 Template = new { Id = course.Template.Id.ToNString() },
                 PackageUrl = course.PackageUrl,
-                PublishedPackageUrl = course.PublicationUrl,
+                PublishedPackageUrl = _urlHelper.AddCurrentSchemeToUrl(course.PublicationUrl),
                 IsDirty = _courseStateStorage.IsDirty(course),
                 ReviewUrl = course.PublishedOn != null ? GetCourseReviewUrl(course.Id.ToString()) : null,
                 RelatedObjectives = course.RelatedObjectives.Select(obj => new

@@ -8,21 +8,9 @@ html
 
     title easygenerator player
 
-    <!-- build:css /styles/video-js.min.css -->
-    link(rel='stylesheet', href='/video.js/dist/video-js/video-js.min.css')
-    <!-- endbuild -->
+    block stylesheets
+    block headscripts
 
-    link(rel='stylesheet', href='/styles/style.css')
-    if mode
-        link(rel='stylesheet', href='/styles/video.css')
-    else
-        link(rel='stylesheet', href='/styles/audio.css')
-    if css
-        link(rel='stylesheet', href=css)
-
-    <!-- build:js /js/video.js -->
-    script(src='/video.js/dist/video-js/video.js')
-    <!-- endbuild -->
-
-  body
+  body(class = background ? "background" : "no-background")
     block content
+    block bodyscripts

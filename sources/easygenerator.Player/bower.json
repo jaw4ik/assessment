@@ -25,6 +25,8 @@
     "tests"
   ],
   "dependencies": {
-    "video.js": "~4.12.15"
+    "video.js": "~5.0.0",
+    "knockout": "knockoutjs#~3.3.0",
+    "jquery": "~2.1.4"
   }
 }

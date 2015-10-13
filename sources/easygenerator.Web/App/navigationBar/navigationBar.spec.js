@@ -3,7 +3,6 @@
 
     var
         app = require('durandal/app'),
-        onboarding = require('onboarding/initialization'),
         eventTracker = require('eventTracker'),
         constants = require('constants');
 
@@ -26,14 +25,6 @@
 
             it('should be observable', function () {
                 expect(viewModel.isVisible).toBeObservable();
-            });
-
-        });
-
-        describe('onboardingClosed:', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.onboardingClosed).toBeObservable();
             });
 
         });
@@ -104,13 +95,6 @@
 
             it('should be function', function () {
                 expect(viewModel.activate).toBeFunction();
-            });
-
-            it('should set onboardingClosed', function () {
-                viewModel.onboardingClosed(false);
-                onboarding.isClosed(true);
-                viewModel.activate();
-                expect(viewModel.onboardingClosed()).toBeTruthy();
             });
 
         });

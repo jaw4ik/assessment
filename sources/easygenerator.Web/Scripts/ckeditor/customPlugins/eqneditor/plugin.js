@@ -11,7 +11,7 @@
 
 (function () {
     var plugin = CKEDITOR.plugins.eqneditor = {
-        domain: '//latex.staging.easygenerator.com',
+        domain: '//latex-staging.easygenerator.com',
         dialogName: 'eqneditorDialog',
         commands: {
             openDialog: 'eqneditorOpenDialog',

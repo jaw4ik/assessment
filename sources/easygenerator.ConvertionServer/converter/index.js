@@ -30,8 +30,10 @@ function run(input, outputDirectory, options) {
         .format(options.format)
         .input(input)
         .input(options.image)
-        .videoCodec(options.videoCodec)
+        .addInputOption('-loop 1')
         .audioCodec(options.audioCodec)
+        .videoCodec(options.videoCodec)
+        .addOutputOption('-shortest')
         .addOption('-strict', '-1')
         .output(ouputFile)
         .on('end', function() {
