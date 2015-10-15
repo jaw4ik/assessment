@@ -4,7 +4,7 @@
        constants, leftSideBarManager, widget, createCourseDialog, releaseNotesDialog) {
 
        "use strict";
-
+       debugger;
        var events = {
            navigateToLearningPaths: 'Navigate to learning paths',
            navigateToCourses: "Navigate to courses",

@@ -602,6 +602,29 @@
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
     <Content Include="App\browse.js" />
     <Content Include="App\index.js" />
+    <Content Include="App\libs\babel\browser.js" />
+    <Content Include="App\libs\babel\browser\external-helpers.js" />
+    <Content Include="App\libs\durandal\activator.js" />
+    <Content Include="App\libs\durandal\app.js" />
+    <Content Include="App\libs\durandal\binder.js" />
+    <Content Include="App\libs\durandal\composition.js" />
+    <Content Include="App\libs\durandal\events.js" />
+    <Content Include="App\libs\durandal\plugins\dialog.js" />
+    <Content Include="App\libs\durandal\plugins\history.js" />
+    <Content Include="App\libs\durandal\plugins\http.js" />
+    <Content Include="App\libs\durandal\plugins\observable.js" />
+    <Content Include="App\libs\durandal\plugins\router.js" />
+    <Content Include="App\libs\durandal\plugins\serializer.js" />
+    <Content Include="App\libs\durandal\plugins\widget.js" />
+    <Content Include="App\libs\durandal\system.js" />
+    <Content Include="App\libs\durandal\transitions\defaultRouterTransition.js" />
+    <Content Include="App\libs\durandal\transitions\fadeTransition.js" />
+    <Content Include="App\libs\durandal\transitions\notificationTransition.js" />
+    <Content Include="App\libs\durandal\viewEngine.js" />
+    <Content Include="App\libs\durandal\viewLocator.js" />
+    <Content Include="App\libs\jquery.js" />
+    <Content Include="App\libs\knockout.js" />
+    <Content Include="App\libs\text.js" />
     <Content Include="App\models\entityClass.js" />
     <Content Include="App\Query.js" />
     <Content Include="App\Command.js" />
@@ -700,6 +723,7 @@
     <Content Include="App\repositories\learningPathRepository.spec.js">
       <DependentUpon>learningPathRepository.js</DependentUpon>
     </Content>
+    <Content Include="App\system-config.js" />
     <Content Include="App\videoUpload\handlers\durations.js" />
     <Content Include="App\videoUpload\handlers\durations.spec.js">
       <DependentUpon>durations.js</DependentUpon>

@@ -56,6 +56,49 @@ gulp.task('watch', ['styles'], function () {
 
 /*#region build*/
 
+gulp.task('build-system', function (cb) {
+	var path = require("path");
+	var Builder = require('systemjs-builder')
+	var builder = new Builder('sources/easygenerator.Web/App');
+	
+	builder.loadConfig('sources/easygenerator.Web/App/system-config.js').then(function() {
+        builder
+			.bundle('index.js', 'sources/easygenerator.Web/App/main-system-built.js')
+            .then(function() {
+                console.log('Build complete');
+                cb();
+            })
+            .catch(function(err) {
+                console.log('Build error');
+                console.log(err);
+                cb();
+            });
+    }).catch(function(e) {
+        console.error(e);
+    });
+	
+	// return builder
+		// .bundle('./**/*.js', 'main-system-built.js', { config: {
+			// map: {
+				// durandal: '../Scripts/durandal',
+				// plugins: '../Scripts/durandal/plugins'
+			// },
+			// meta: {
+				// 'gulpfile.js': {
+					// build: false
+				// }
+			// },
+			// defaultJSExtensions: true
+		// }})
+		// .then(function () {
+			// console.log('Build complete!');
+		// })
+		// .catch(function (err) {
+			// console.log('Build error');
+			// console.log(err);
+		// });
+});
+
 gulp.task('build-main-project', function () {
     return gulp.src('./sources/easygenerator.Web/easygenerator.Web.csproj')
         .pipe($.msbuild({

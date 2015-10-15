@@ -117,10 +117,15 @@
         }());*@
 
     </script>
-    
-    <script src="/Scripts/systemjs/system.js" type="text/javascript"></script>
+
+<script src="/Scripts/systemjs/system.js" type="text/javascript"></script>
+<script src="/App/main-system-built.js"></script>
     <script type="text/javascript">
-        System.import('/App/index.js');
+        System.baseURL = '/app';
+        System.import('system-config.js').then(function() {
+            debugger;
+            System.get('index.js');
+        });
     </script>
 
 </body>
