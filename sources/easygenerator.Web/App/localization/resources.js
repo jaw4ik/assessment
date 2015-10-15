@@ -1033,42 +1033,6 @@
         'uk': 'для того щоб завантажити пакет SCORM 1.2 ',
         'pt-br': 'para download de um pacote SCORM 1.2'
     },
-    publishToAim4You: {
-        'en': 'Publish to Aim4You',
-        'zh-cn': '发布到Aim 4 You',
-        'uk': 'Публікація в Aim4You',
-        'pt-br': 'Publicar para Aim4You'
-    },
-    publishToAim4YouPublishDescription: {
-        'en': 'with our partner Aim 4 You',
-        'zh-cn': '使用我们的合作伙伴Aim 4 You',
-        'uk': 'з нашим партнером Aim 4 You',
-        'pt-br': 'com nosso parceiro Aim 4 You'
-    },
-    publishToAim4YouSuccessMessage: {
-        'en': 'Your course is successfully uploaded. You will receive an email with more details after the publication is finished.',
-        'zh-cn': '您的课程已经上传成功，您会在发布完成后收到一封带有详细内容的邮件。',
-        'uk': 'Ваш курс успішно завантажено. Після того як публікація буде завершена, Ви отримаєте листа на свою електронну скриньку.',
-        'pt-br': 'Seu curso foi carregado com sucesso. Você receberá um e-mail com mais detalhes após a publicação terminar.'
-    },
-    register: {
-        'en': 'Register',
-        'zh-cn': '注册',
-        'uk': 'Реєстрація',
-        'pt-br': 'Registrar'
-    },
-    publishToStore: {
-        'en': 'Publish to Aim 4 You',
-        'zh-cn': '发布到Aim 4 You',
-        'uk': 'Публікація в Aim 4 You',
-        'pt-br': 'Publicar para Aim 4 You'
-    },
-    publishToCatalog: {
-        'en': 'Publish and Sell your online course',
-        'zh-cn': '发布并出售您的在线课程',
-        'uk': 'Публікуй і продавай свої курси онлайн',
-        'pt-br': 'Publicar e vender curso online'
-    },
     editIntroduction: {
         'en': 'Edit introduction',
         'zh-cn': 'Edit introduction[zh-cn]',
@@ -1356,12 +1320,6 @@
         'zh-cn': 'To your hosting[zh-cn]',
         'uk': 'До хоcтингу',
         'pt-br': 'Para sua hospedagem'
-    },
-    sellTheCourse: {
-        'en': 'Sell the course',
-        'zh-cn': 'Sell the course[zh-cn]',
-        'uk': 'Продайте курс',
-        'pt-br': 'Venda o curso'
     },
     scormCaptionFirst: {
         'en': 'Want to run your course on LMS or on your SCORM cloud?',

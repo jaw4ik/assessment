@@ -31,11 +31,6 @@
             return publishHttpWrapper.post('api/course/publishToCustomLms', { courseId: courseId });
         };
 
-      
-        function publishCourseToStore(courseId) {
-            return publishHttpWrapper.post('api/aim4you/publish', { courseId: courseId });
-        };
-
         function publishCourseForReview(courseId) {
             return publishHttpWrapper.post('api/course/publishForReview', { courseId: courseId }).then(function (data) {
                 return {
@@ -65,7 +60,6 @@
             publishCourse: publishCourse,
             scormBuildCourse: scormBuildCourse,
             publishCourseToCustomLms: publishCourseToCustomLms,
-            publishCourseToStore: publishCourseToStore,
             publishCourseForReview: publishCourseForReview,
             buildLearningPath: buildLearningPath,
             publishLearningPath: publishLearningPath

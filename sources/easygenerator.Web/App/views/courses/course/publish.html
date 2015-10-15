@@ -40,13 +40,6 @@
                         </div>
                         <span class="publish-tab-text" data-bind="localize: { text: 'toYourHosting' }">To your hosting</span>
                     </li>
-                    <li class="publish-tab" data-bind="click: sendOpenAim4YouTab" data-tab-link="aim">
-                        <div class="active-indicator"></div>
-                        <div class="publish-tab-image-container">
-                            <span class="publish-tab-image aim"></span>
-                        </div>
-                        <span class="publish-tab-text" data-bind="localize: { text: 'sellTheCourse' }">Sell the course</span>
-                    </li>
                 </ul>
                 <div class="publish-tabs-content">
                     <!-- ko if: companyInfo -->
@@ -60,8 +53,6 @@
                     <!-- ko compose: { view: 'views/courses/publishActions/publishAsScorm', model: scormBuildAction, activationData: courseId } -->
                     <!-- /ko -->
                     <!-- ko compose: { view: 'views/courses/publishActions/publishAsHtml', model: buildAction, activationData: courseId } -->
-                    <!-- /ko -->
-                    <!-- ko compose: { view: 'views/courses/publishActions/publishToAim4You', model: publishToAim4YouAction, activationData: courseId } -->
                     <!-- /ko -->
                 </div>
             </div>
