@@ -867,9 +867,9 @@
       <DependentUpon>notification.js</DependentUpon>
     </Content>
     <Content Include="App\reporting\xApiProvider.js" />
-    <Content Include="App\dialogs\publishCourse\publishCourse.html" />
-    <Content Include="App\dialogs\publishCourse\publishCourse.js" />
-    <Content Include="App\dialogs\publishCourse\publishCourse.spec.js">
+    <Content Include="App\dialogs\course\publishCourse\publishCourse.html" />
+    <Content Include="App\dialogs\course\publishCourse\publishCourse.js" />
+    <Content Include="App\dialogs\course\publishCourse\publishCourse.spec.js">
       <DependentUpon>publishCourse.js</DependentUpon>
     </Content>
     <Content Include="App\onboarding\initialization.spec.js">
@@ -3077,6 +3077,7 @@
     <EmbeddedResource Include="Resources\Views\Shared\Resources.zh.resx" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App\dialogs\audio\" />
     <Folder Include="Templates\Assessment\settings\design\img\" />
     <Folder Include="Views\CourseImport\" />
   </ItemGroup>

@@ -1,4 +1,4 @@
-﻿define(['dialogs/publishCourse/publishCourse'], function (viewModel) {
+﻿define(['dialogs/course/publishCourse/publishCourse'], function (viewModel) {
 
     "use strict";
 
