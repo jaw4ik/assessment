@@ -20,6 +20,7 @@
     @Styles.Render("~/Content/css")
     @Html.Partial("_mixpanelAnalytics")
     @Html.Partial("_nudgespotAnalytics")
+    @Html.Partial("_intercomAnalytics")
 </head>
 <body>
     @if (BrowserSupport.IsSupportedDevice(HttpContext.Current.Request.UserAgent))
@@ -27,15 +28,10 @@
         if (BrowserSupport.IsFullySupportedBrowser(HttpContext.Current.Request.UserAgent, HttpContext.Current.Request.Browser) || BrowserSupport.IsPartiallySupportedBrowser(HttpContext.Current.Request.UserAgent, HttpContext.Current.Request.Browser))
         {
             <div id="app" class="application">
-                <div class="circular-loader x32 black align-center">
-                    <div class="circular-loader-item"></div>
-                    <div class="circular-loader-item"></div>
-                    <div class="circular-loader-item"></div>
-                    <div class="circular-loader-item"></div>
-                    <div class="circular-loader-item"></div>
-                    <div class="circular-loader-item"></div>
-                    <div class="circular-loader-item"></div>
-                    <div class="circular-loader-item"></div>
+                <div class="pulsar-loader align-center">
+                    <div class="pulsar-loader-item"></div>
+                    <div class="pulsar-loader-item"></div>
+                    <div class="pulsar-loader-item"></div>
                 </div>
             </div>
         }
@@ -78,6 +74,12 @@
     }
 
     <script type="text/javascript">
+        @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["version"]))
+        {
+            <text>
+            window.egVersion = '@ConfigurationManager.AppSettings["version"]';
+            </text>
+        }
         @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["StorageServiceUrl"]))
         {
         <text>
@@ -88,6 +90,12 @@
         {
         <text>
         window.convertionServiceUrl = '@ConfigurationManager.AppSettings["ConvertionServiceUrl"]';
+        </text>
+        }
+        @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["PlayerUrl"]))
+        {
+        <text>      
+        window.playerUrl = '@ConfigurationManager.AppSettings["PlayerUrl"]';
         </text>
         }
         //bootstraper

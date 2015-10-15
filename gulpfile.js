@@ -1,6 +1,7 @@
 /// <binding ProjectOpened='watch' />
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 var gulp = require('gulp'),
+	eventStream = require('event-stream'),
     del = require('del'),
     args = require('yargs').argv,
     MSTest = require('mstest'),
@@ -17,15 +18,32 @@ var $ = require('gulp-load-plugins')({
 var config = {
     less: {
         src: ['./sources/easygenerator.Web/Content/**/*.less'],
+		srcPlayer: ['./sources/easygenerator.Player/public/styles/*.less'],
+		destPlayer: './sources/easygenerator.Player/public/styles',
         dest: './sources/easygenerator.Web/Content',
         browsers: ['last 1 Chrome version', 'last 1 Firefox version', 'last 1 Explorer version', 'last 1 Safari version']
     }
 },
     outputDirectory = args.output || 'D:/Applications/easygenerator',
     outputConvertionServer = args.outputConvertion || 'D:/Applications/convertion',
+	outputPlayer = args.outputPlayer || 'D:/Applications/player',
     instance = args.instance || 'Release',
     version = typeof args.version === 'string' && args.version !== '' ? args.version : '1.0.0',
-    createTags = Boolean(args.createTags);
+    createTags = Boolean(args.createTags),
+	buildVersion = +new Date();
+	
+function addBuildVersion() {
+    return eventStream.map(function (file, callback) {
+        var fileContent = String(file.contents);
+        fileContent = fileContent
+            .replace(/(\?|\&)v=([0-9]+)/gi, '') // remove build version
+            .replace(/\.(jpeg|jpg|png|gif|css|js|html|eot|svg|ttf|woff)([?])/gi, '.$1?v=' + buildVersion + '&') // add build version to resource with existing query param
+            .replace(/\.(jpeg|jpg|png|gif|css|js|html|eot|svg|ttf|woff)([\s\"\'\)])/gi, '.$1?v=' + buildVersion + '$2') // add build version to resource without query param
+            .replace(/urlArgs: 'v=buildVersion'/gi, 'urlArgs: \'v=' + buildVersion + '\''); // replace build version for require config
+        file.contents = new Buffer(fileContent);
+        callback(null, file);
+    });
+};
 	
 gulp.task('styles', function () {
     return gulp.src(config.less.src)
@@ -63,7 +81,7 @@ gulp.task('build-main-project', function () {
             errorOnFail: true,
             targets: ['Clean', 'Build'],
             maxBuffer: 16 * 1024 * 1000,
-            toolsVersion: 12.0,
+            toolsVersion: 14.0,
             properties: {
                 OutDir: outputDirectory + '/bin',
                 WebProjectOutputDir: outputDirectory,
@@ -82,7 +100,7 @@ gulp.task('build-web-config', function () {
             targets: ['Transform'],
             errorOnFail: true,
             maxBuffer: 16 * 1024 * 1000,
-            toolsVersion: 12.0,
+            toolsVersion: 14.0,
             properties: {
                 Instance: instance,
                 Configuration: 'Release',
@@ -102,7 +120,7 @@ gulp.task('build-unit-tests', function () {
             stdout: true,
             errorOnFail: true,
             maxBuffer: 16 * 1024 * 1000,
-            toolsVersion: 12.0,
+            toolsVersion: 14.0,
             properties: {
                 PreBuildEvent: '',
                 PostBuildEvent: '',
@@ -237,15 +255,18 @@ gulp.task('create-tags', function () {
         reposList = [
             'easygenerator',
             'simple',
-            'exam',
             'personalized-learning',
-            'quiz-v2',
+            'assessment',
             'reader',
             'lango-personalized-learning',
-            'quiz-marketing',
             'quiz-for-learni',
             'lango-simple',
-            'simple-ie10'
+            'simple-ie10',
+			'simple-pdf',
+			'ICEMD',
+			'PwC',
+			'SC-without-tryagain',
+			'ac-nielsen'
         ],
         github = new GitHubApi({
             // required
@@ -322,7 +343,7 @@ gulp.task('copy-convertion-server', ['run-ut-convertion-server'], function () {
 gulp.task('install-npm-modules-convertion-server', function(){
     return gulp.src(['./sources/easygenerator.ConvertionServer/package.json'])
         .pipe($.install());
-})
+});
 
 gulp.task('deploy-convertion-server', ['clean-convertion-server', 'copy-convertion-server'], function () {
     return gulp.src([outputConvertionServer + '/package.json'])
@@ -330,3 +351,91 @@ gulp.task('deploy-convertion-server', ['clean-convertion-server', 'copy-converti
 });
 
 /*#endregion deploy convertion server*/
+
+/*#region deploy player*/
+
+gulp.task('clean-player', function(callback){
+	del([outputPlayer], { force: true }, callback);
+});
+
+gulp.task('install-bower-modules-player', function () {
+	return gulp.src(['./sources/easygenerator.Player/bower.json'])
+		.pipe($.install());
+});
+
+gulp.task('styles-player', function () {
+    return gulp.src(config.less.srcPlayer)
+        .pipe($.plumber({
+            errorHandler: function (error) {
+                console.log(error);
+                this.emit('end');
+            }
+        }))
+        .pipe($.less({
+            strictMath: true,
+            strictUnits: true
+        }))
+        .pipe($.autoprefixer({
+            browsers: config.less.browsers,
+            cascade: false
+        }))
+        .pipe(gulp.dest(config.less.destPlayer));
+});
+
+gulp.task('copy-player', ['clean-player', 'install-bower-modules-player'], function () {
+    var files = [
+        './sources/easygenerator.Player/package.json',
+		'./sources/easygenerator.Player/bower.json',
+		'./sources/easygenerator.Player/.bowerrc',
+        './sources/easygenerator.Player/www.js',
+        './sources/easygenerator.Player/app.js',
+		'./sources/easygenerator.Player/routes/*.*',
+		'./sources/easygenerator.Player/models/*.*',
+		'./sources/easygenerator.Player/public/images/*.*',
+		'./sources/easygenerator.Player/public/favicon.ico',
+        './sources/easygenerator.Player/Web.config',
+		'./sources/easygenerator.Player/iisnode.yml'
+    ];
+    
+    return gulp.src(files, { base: "./sources/easygenerator.Player/" })
+        .pipe(gulp.dest(outputPlayer));
+});
+
+gulp.task('assets-player', ['styles-player', 'copy-player-config-transform'], function () {
+    gulp.src([
+		'./sources/easygenerator.Player/public/styles/style.css',
+		'./sources/easygenerator.Player/public/styles/video.css',
+		'./sources/easygenerator.Player/public/styles/audio.css'
+	])
+	.pipe($.minifyCss())
+	.pipe(gulp.dest(outputPlayer + '/public/styles/'));
+	gulp.src('./sources/easygenerator.Player/public/vendor/video.js/dist/font/*.*')
+		.pipe(gulp.dest(outputPlayer + '/public/styles/font'));
+	return gulp.src('./sources/easygenerator.Player/public/vendor/video.js/dist/lang/*.*')
+		.pipe(gulp.dest(outputPlayer + '/public/js/lang/'));
+});
+
+gulp.task('copy-player-config-transform', ['copy-player'], function(){
+    return gulp.src('./tools/PlayerConfigTransform/' + instance + '.transform.js')
+            .pipe($.rename('config.js'))
+            .pipe(gulp.dest(outputPlayer))
+})
+
+gulp.task('deploy-player', ['assets-player'], function () {
+	var assets = $.useref.assets();
+    gulp.src('./sources/easygenerator.Player/views/*.jade')
+        .pipe(assets)
+        .pipe($.if('*.css', $.minifyCss()))
+        .pipe(assets.restore())
+        .pipe($.useref())
+		.pipe($.jadeUsemin({
+			js: [$.uglify()]
+		}))
+		.pipe(addBuildVersion())
+        .pipe(gulp.dest(outputPlayer + '/views/'));
+  
+    return gulp.src([outputPlayer + '/package.json'])
+        .pipe($.install({ production: true }));
+});
+
+/*#endregion deploy player*/

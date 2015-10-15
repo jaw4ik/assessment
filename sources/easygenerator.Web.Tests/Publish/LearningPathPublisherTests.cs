@@ -19,6 +19,7 @@ namespace easygenerator.Web.Tests.Publish
     [TestClass]
     public class LearningPathPublisherTests
     {
+        private IUrlHelperWrapper _urlHelper;
         private ILog _logger;
         private PhysicalFileManager _fileManager;
         private BuildPathProvider _pathProvider;
@@ -35,7 +36,8 @@ namespace easygenerator.Web.Tests.Publish
             _httpClient = Substitute.For<HttpClient>();
             _configurationReader = Substitute.For<ConfigurationReader>();
             _configurationReader.PublicationConfiguration.Returns(new PublicationConfigurationSection() { ApiKey = "apiKey", ServiceUrl = "serviceUrl" });
-            _publisher = new LearningPathPublisher(_logger, _fileManager, _pathProvider, _httpClient, _configurationReader);
+            _urlHelper = Substitute.For<IUrlHelperWrapper>();
+            _publisher = new LearningPathPublisher(_urlHelper, _logger, _fileManager, _pathProvider, _httpClient, _configurationReader);
         }
 
         #region Publish
@@ -88,36 +90,41 @@ namespace easygenerator.Web.Tests.Publish
             var learningPath = LearningPathObjectMother.Create();
             learningPath.UpdatePackageUrl("packageUrl");
             var methodUrl = string.Format("serviceUrl/api/publish?key=apiKey&courseid={0}", learningPath.Id);
+            _urlHelper.AddCurrentSchemeToUrl(methodUrl).Returns("http://" + methodUrl);
 
             //Act
             _publisher.Publish(learningPath);
 
             //Assert
-            _httpClient.Received().PostFile<string>(methodUrl, learningPath.Id.ToString(), Arg.Any<byte[]>());
+            _httpClient.Received().PostFile<string>("http://" + methodUrl, learningPath.Id.ToString(), Arg.Any<byte[]>());
         }
 
         [TestMethod]
         public void Publish_ShouldUpdateLearningPathPublicationUrl_WhenPostSucced()
         {
             //Arrange
+            var publicationUrl = "//publicationUrl";
             var learningPath = LearningPathObjectMother.Create();
             learningPath.UpdatePackageUrl("packageUrl");
-            _httpClient.PostFile<string>(Arg.Any<string>(), learningPath.Id.ToString(), Arg.Any<byte[]>()).Returns("publicationUrl");
+            _httpClient.PostFile<string>(Arg.Any<string>(), learningPath.Id.ToString(), Arg.Any<byte[]>()).Returns("http:" + publicationUrl);
+            _urlHelper.RemoveSchemeFromUrl("http:" + publicationUrl).Returns(publicationUrl);
 
             //Act
             _publisher.Publish(learningPath);
 
             //Assert
-            learningPath.PublicationUrl.Should().Be("publicationUrl");
+            learningPath.PublicationUrl.Should().Be(publicationUrl);
         }
 
         [TestMethod]
         public void Publish_ShouldReturnTrue_WhenPostSucced()
         {
             //Arrange
+            var publicationUrl = "//publicationUrl";
             var learningPath = LearningPathObjectMother.Create();
             learningPath.UpdatePackageUrl("packageUrl");
-            _httpClient.PostFile<string>(Arg.Any<string>(), learningPath.Id.ToString(), Arg.Any<byte[]>()).Returns("publicationUrl");
+            _httpClient.PostFile<string>(Arg.Any<string>(), learningPath.Id.ToString(), Arg.Any<byte[]>()).Returns("http:" + publicationUrl);
+            _urlHelper.RemoveSchemeFromUrl("http:" + publicationUrl).Returns(publicationUrl);
 
             //Act
             var result = _publisher.Publish(learningPath);

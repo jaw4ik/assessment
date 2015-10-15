@@ -1,0 +1,61 @@
+﻿@background-color: #262644;
+@animation-time: 1s;
+
+@keyframes fadeIn {
+    to {
+        margin-top: 0;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    to {
+        margin-top: 0;
+        opacity: 1;
+    }
+}
+
+html, body, .video-js {
+    &.easy-player-dimensions {
+        width: 100%;
+        height: 100%;
+    }
+
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+@import "loader.less";
+
+.media-processing {
+    opacity: 0;
+    -webkit-animation: fadeIn @animation-time forwards;
+    animation: fadeIn @animation-time forwards;
+}
+
+.video-js {
+    transform: scale(1.00746);
+    opacity: 0;
+    -webkit-animation: fadeIn 0.8s forwards;
+    animation: fadeIn 0.8s forwards;
+
+    .vjs-control-bar {
+        padding-right: 10px;
+        background-color: @background-color;
+    }
+}
+
+.error-message {
+    font-size: 16px;
+    font-family: sans-serif;
+    padding: 0 10px;
+}
+
+.error-status {
+    font-size: 15px;
+    font-family: sans-serif;
+    padding: 0 10px;
+}

@@ -29,8 +29,9 @@
 
                     task.isHintVisible = ko.observable(false);
                     task.showHint = function () {
+                        var currentState = task.isHintVisible();
                         closeAllHints();
-                        task.isHintVisible(true);
+                        task.isHintVisible(!currentState);
                     };
                     task.closeHint = function () {
                         task.isHintVisible(false);
@@ -47,7 +48,6 @@
                     task.isCompleted.subscribe(function (newValue) {
                         if (newValue) {
                             this.dispose();
-                            openFirstUncompletedTaskHint();
                             markFirstUncompletedTaskAsNext();
                         }
                     });
@@ -56,16 +56,6 @@
                 });
 
                 markFirstUncompletedTaskAsNext();
-            });
-        }
-
-        function openFirstUncompletedTaskHint() {
-            _.every(tasksList, function (task) {
-                if (!task.isCompleted()) {
-                    task.showHint();
-                    return false;
-                }
-                return true;
             });
         }
 

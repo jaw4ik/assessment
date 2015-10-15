@@ -1,0 +1,32 @@
+{
+  "name": "easygenerator.Player",
+  "version": "0.0.1",
+  "homepage": "www.easygenerator.com",
+  "authors": [
+    "easygenerator"
+  ],
+  "description": "HTML5 video player",
+  "main": "www.js",
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "player",
+    "easygenerator",
+    "easy-player"
+  ],
+  "license": "No",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "video.js": "~5.0.0",
+    "knockout": "knockoutjs#~3.3.0",
+    "jquery": "~2.1.4"
+  }
+}

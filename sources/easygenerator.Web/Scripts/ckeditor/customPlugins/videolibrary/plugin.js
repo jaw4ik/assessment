@@ -12,6 +12,9 @@
         videoLibraryDialogName: 'videoLibraryDialog',
 
         constants: {
+            player: {
+                host: window.playerUrl ? "//" + window.playerUrl : '//localhost:555'
+            },
             storage: {
                 host: window.storageServiceUrl ? "//" + window.storageServiceUrl : '//localhost:888',
                 mediaUrl: '/media',
@@ -67,7 +70,7 @@
                     $listItem.append($text);
                     $listItem.addClass('video-library-item');
                     $listItem.hide();
-                  
+
                     if (!!onDblClick) {
                         $listItem.dblclick(onDblClick);
                     }
@@ -252,10 +255,10 @@
                         exec: function () {
                             var vimeoId = this.data;
                             if (vimeoId) {
-                                var embedCode = '<iframe src="' + plugin.constants.storage.host + plugin.constants.storage.video.videoUrl + '/' + vimeoId + '?color=ffffff&title=0&byline=0&portrait=0"' +
+                                var embedCode = '<iframe src="' + plugin.constants.player.host + '?source=' + vimeoId + '&video=1&fullscreen_toggle=1&v=' + window.egVersion + '"' +
                                     ' width="' + plugin.constants.storage.video.iframeWidth +
                                     '" height="' + plugin.constants.storage.video.iframeHeight +
-                                    '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+                                    '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen ></iframe>';
                                 dialog.setValueOf(elementDefinition.parentContainerId, elementDefinition.embedCodeAreaId, embedCode);
                             }
                         }

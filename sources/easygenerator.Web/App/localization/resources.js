@@ -749,10 +749,10 @@
         'pt-br': '<p>Um caminho de aprendizado é uma sequência de cursos, testes e exames. Ele permite que o aluno domine um tópico em pequenos passos, ao longo do tempo.</p>'
     },
     tooltipLearningPathLink: {
-        'en': '<a style=\"display:none;\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">read more</a>',
-        'zh-cn': '<a style=\"display:none;\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">read more</a>[zh-cn]',
-        'uk': '<a style=\"display:none;\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Більше тут</a>',
-        'pt-br': '<a style=\"display:none;\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">leia mais</a>'
+        'en': '<a style=\"display:none;\" href=\"https://www.easygenerator.com/help\">read more</a>',
+        'zh-cn': '<a style=\"display:none;\" href=\"https://www.easygenerator.com/help\">read more</a>[zh-cn]',
+        'uk': '<a style=\"display:none;\" href=\"https://www.easygenerator.com/help\">Більше тут</a>',
+        'pt-br': '<a style=\"display:none;\" href=\"https://www.easygenerator.com/help/\">leia mais</a>'
     },
     learningPathDefaultTitle: {
         'en': 'Untitled learning path',
@@ -1664,10 +1664,10 @@
         'pt-br': '<p>Exam will be a part of the Assessment after Aug 28th</p>[pt-br]'
     },
     examTemplateHintLink: {
-        'en': '<a style=\"display:none;\" target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>',
-        'zh-cn': '<a style=\"display:none;\" target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>[zh-cn]',
-        'uk': '<a style=\"display:none;\" target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>[uk]',
-        'pt-br': '<a style=\"display:none;\" target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Learn more >></a>[pt-br]'
+        'en': '<a style=\"display:none;\" target=\"_blank\" href=\"https://www.easygenerator.com/help/\">Learn more >></a>',
+        'zh-cn': '<a style=\"display:none;\" target=\"_blank\" href=\"https://www.easygenerator.com/help/\">Learn more >></a>[zh-cn]',
+        'uk': '<a style=\"display:none;\" target=\"_blank\" href=\"https://www.easygenerator.com/help/\">Learn more >></a>[uk]',
+        'pt-br': '<a style=\"display:none;\" target=\"_blank\" href=\"https://www.easygenerator.com/help/\">Learn more >></a>[pt-br]'
     },
     createYourCourse: {
         'en': 'Create your course',
@@ -2119,6 +2119,9 @@
         'uk': 'Змінити ',
         'pt-br': 'Trocar imagem'
     },
+    /* End resource section for model Questions */
+    
+    /* Resource section for model ChoiseQuestions */
     newMultipleChoiceQuestionTitle: {
         'en': 'Untitled multiple choice question',
         'zh-cn': 'Untitled multiple choice question[zh-cn]',
@@ -2155,7 +2158,7 @@
         'uk': 'Питання \"Вибір відповідності\" без назви',
         'pt-br': 'Questão casamento de textos sem título'
     },
-    /* End resource section for model Questions */
+    /* End resource section for model ChoiseQuestions */
     
     /* Resource section for model HotspotQuestion */
     newHotspotQuestionTitle: {
@@ -2867,10 +2870,10 @@
         'pt-br': 'Criar curso'
     },
     createCourseOnboardingTaskDescription: {
-        'en': '<section><header>What for?</header><article>Creating a new course  has never been easier. Do you have a topic? It can be anything - from accounting to business writing to time management. Or, here are some additional suggestions:</article><ul><li>Basic HTML</li><li>Statistics 101</li><li>Pythagorean theorem</li></ul></section><section><header>How to create course?</header><ol><li>Click on <b>\"New course\"</b> on the list of courses</li><li>Type in the title of your first course</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#How-to-Create-a-Course\">Read more</a></div></section>',
-        'zh-cn': '<section><header>用来做什么？</header><article>创建一个新课程从来没有这么简单过。你有一个主题吗？可以是任何事物 - 从会计到商务写作至时间管理，或者，下面有一些其它的建议：</article><ul><li>HTML基础</li><li>统计学 101</li><li>毕达哥拉斯定理</li></ul></section><section><header>如何创建课程？</header><ol><li>Click on <b>\"New course\"</b> 在课程列表中</li><li>输入你第一个课程的名字</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#How-to-Create-a-Course\">了解更多</a></div></section>',
-        'uk': '<section><header>Для чого?</header><article>Ніколи не було легко створити новий курс. Ви маєте тему? Це може бути що завгодно - від бухгалтерського обліку, ділового спілкування до тайм-менеджменту. Ось декілька прикладів:</article><ul><li>Основи HTML</li><li>Статистика 101</li><li>Теорема Піфагора</li></ul></section><section><header>Як створити курс?</header><ol><li>Натисніть на <b>\"Новий курс\"</b> на списку курсів.</li><li>Введіть назву курсу.</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#How-to-Create-a-Course\">Докладніше</a></div></section>',
-        'pt-br': '<section><header>Para que?</header><article>Criar um novo curso nunca foi tão fácil. Você tem um tópico? Pode ser qualquer coisa - de contabilidade a correspondência comercial a gerenciamento de tempo. Ou, aqui temos algumas sugestões adicionais:</article><ul><li>HTML básico</li><li>Estatística 101</li><li>Teorema de Pitágoras</li></ul></section><section><header>Como criar curso?</header><ol><li>Clique em <b>\"Novo curso\"</b> na lista de cursos</li><li>Digite o título de seu primeiro curso</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#How-to-Create-a-Course\">Leia mais</a></div></section>'
+        'en': '<section><header>What for?</header><article>Creating a new course  has never been easier. Do you have a topic? It can be anything - from accounting to business writing to time management. Or, here are some additional suggestions:</article><ul><li>Basic HTML</li><li>Statistics 101</li><li>Pythagorean theorem</li></ul></section><section><header>How to create course?</header><ol><li>Click on <b>\"New course\"</b> on the list of courses</li><li>Type in the title of your first course</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/create-course/\">Read more</a></div></section>',
+        'zh-cn': '<section><header>用来做什么？</header><article>创建一个新课程从来没有这么简单过。你有一个主题吗？可以是任何事物 - 从会计到商务写作至时间管理，或者，下面有一些其它的建议：</article><ul><li>HTML基础</li><li>统计学 101</li><li>毕达哥拉斯定理</li></ul></section><section><header>如何创建课程？</header><ol><li>Click on <b>\"New course\"</b> 在课程列表中</li><li>输入你第一个课程的名字</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/create-course/\">了解更多</a></div></section>',
+        'uk': '<section><header>Для чого?</header><article>Ніколи не було легко створити новий курс. Ви маєте тему? Це може бути що завгодно - від бухгалтерського обліку, ділового спілкування до тайм-менеджменту. Ось декілька прикладів:</article><ul><li>Основи HTML</li><li>Статистика 101</li><li>Теорема Піфагора</li></ul></section><section><header>Як створити курс?</header><ol><li>Натисніть на <b>\"Новий курс\"</b> на списку курсів.</li><li>Введіть назву курсу.</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/create-course/\">Докладніше</a></div></section>',
+        'pt-br': '<section><header>Para que?</header><article>Criar um novo curso nunca foi tão fácil. Você tem um tópico? Pode ser qualquer coisa - de contabilidade a correspondência comercial a gerenciamento de tempo. Ou, aqui temos algumas sugestões adicionais:</article><ul><li>HTML básico</li><li>Estatística 101</li><li>Teorema de Pitágoras</li></ul></section><section><header>Como criar curso?</header><ol><li>Clique em <b>\"Novo curso\"</b> na lista de cursos</li><li>Digite o título de seu primeiro curso</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/create-course/\">Leia mais</a></div></section>'
     },
     defineObjectiveOnboardingTaskTitle: {
         'en': 'Define objective',
@@ -2879,10 +2882,10 @@
         'pt-br': 'Definir objetivo'
     },
     defineObjectiveOnboardingTaskDescription: {
-        'en': '<section><header>What for?</header><article>Specify exactly what you want students to know or be able to do at the end of the course.</article></section><section><header>How to define objective?</header><ol><li>Click on <b>\"New objective/section\"</b> in the course editor</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#Course-Editor\">Read more</a></div></section>',
-        'zh-cn': '<section><header>用来做什么？</header><article>清晰地说明你想学生在课程结束后能够了解什么或能够做什么。</article></section><section><header>如何定义课程目标？</header><ol><li>Click on <b>“新目标/部分”</b>在课程编辑器中</li><li>输入你的学习目标或分段标题</li><li>点击<b>“创建并继续”</b></li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#Course-Editor\">了解更多</a></div></section>',
-        'uk': '<section><header>Для чого?</header><article>Вкажіть, що саме Ви хотіли б, щоб студент знав чи вмів робити після проходження даного курсу.</article></section><section><header>Як створити розділ / ціль?</header><ol><li>Натисніть на <b>\"Новий розділ / ціль\"</b> в редакторі курсів</li><li>Введіть назву свого розділу / цілі.</li><li>Натисніть на <b>\"Створити і продовжити\"</b></li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#Course-Editor\">Докладніше</a></div></section>',
-        'pt-br': '<section><header>Para que?</header><article>Especifíque exatamente o que deseja que os estudantes aprendam ou tenham aptidão no final do curso.</article></section><section><header>Como definir o objetivo?</header><ol><li>Clique em <b>\"Novo objetivo/seção\"</b> no editor de curso</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#Course-Editor\">Leia mais</a></div></section>'
+        'en': '<section><header>What for?</header><article>Specify exactly what you want students to know or be able to do at the end of the course.</article></section><section><header>How to define objective?</header><ol><li>Click on <b>\"New objective/section\"</b> in the course editor</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/learning-objectives/\">Read more</a></div></section>',
+        'zh-cn': '<section><header>用来做什么？</header><article>清晰地说明你想学生在课程结束后能够了解什么或能够做什么。</article></section><section><header>如何定义课程目标？</header><ol><li>Click on <b>“新目标/部分”</b>在课程编辑器中</li><li>输入你的学习目标或分段标题</li><li>点击<b>“创建并继续”</b></li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/learning-objectives/\">了解更多</a></div></section>',
+        'uk': '<section><header>Для чого?</header><article>Вкажіть, що саме Ви хотіли б, щоб студент знав чи вмів робити після проходження даного курсу.</article></section><section><header>Як створити розділ / ціль?</header><ol><li>Натисніть на <b>\"Новий розділ / ціль\"</b> в редакторі курсів</li><li>Введіть назву свого розділу / цілі.</li><li>Натисніть на <b>\"Створити і продовжити\"</b></li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/learning-objectives/\">Докладніше</a></div></section>',
+        'pt-br': '<section><header>Para que?</header><article>Especifíque exatamente o que deseja que os estudantes aprendam ou tenham aptidão no final do curso.</article></section><section><header>Como definir o objetivo?</header><ol><li>Clique em <b>\"Novo objetivo/seção\"</b> no editor de curso</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/learning-objectives/\">Leia mais</a></div></section>'
     },
     addContentOnboardingTaskTitle: {
         'en': 'Add content',
@@ -2891,10 +2894,10 @@
         'pt-br': 'Adicionar conteúdo'
     },
     addContentOnboardingTaskDescription: {
-        'en': '<section><header>What for?</header><article>Give  learners the information they need to be able to answer the question.  Create visually engaging courses by embedding videos and images.</article></section><section><header>How to add content?</header><ol><li>After you have added (or opened) a learning objective, a new page will be displayed.</li><li>Click on <b>\"New item\"</b> and click on <b>\"Content\"</b> after</li><li>Type in a title and add your content</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Read more</a></div></section>',
-        'zh-cn': '<section><header>用来做什么？</header><article>给学员提供信息以便他们能够回答问题。通过嵌入录像和图片来创建在视觉上更丰富的课程。</article></section><section><header>如何增加内容？</header><ol><li>在你增加（或打开）一个学习目标时，将会出现一个新的页面。</li><li>点击 <b>“新知识点”</b> 并且点击<b>“内容”</b> 在</li><li>输入一个题目并且增加内容之后</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">了解更多</a></div></section>',
-        'uk': '<section><header>Для чого?</header><article>Дайте учням інформацію, яка їм потрібна для того, щоб відповісти на питання курсу. Створюйте візуально привабливі курси додаючи відео та зображення.</article></section><section><header>Як додати матеріал?</header><ol><li>Після того як ви створили(або відкрили) розділ, Ви побачите нову сторінку.</li><li>Натисніть на <b>\"Додати\"</b>, а потім на <b>\"Матеріал\".</b></li><li>Введіть назву та додайте матеріал.</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Докладніше</a></div></section>',
-        'pt-br': '<section><header>Para que?</header><article>Dar aos alunos a informação que precisam para estar aptos a responder a questão. Criar cursos visualmente cativantes incluindo vídeos e imagens.</article></section><section><header>Como adicionar conteúdo?</header><ol><li>Após ter adicionado (ou aberto) um objetivo de aprendizado, uma nova página será mostrada.</li><li>Click on <b>\"Novo ítem\"</b> e clique em <b>\"Content\"</b> após</li><li>Digite um título e adicione seu conteúdo</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">Leia mais</a></div></section>'
+        'en': '<section><header>What for?</header><article>Give  learners the information they need to be able to answer the question.  Create visually engaging courses by embedding videos and images.</article></section><section><header>How to add content?</header><ol><li>After you have added (or opened) a learning objective, a new page will be displayed.</li><li>Click on <b>\"New item\"</b> and click on <b>\"Content\"</b> after</li><li>Type in a title and add your content</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/create-content-question-items/\">Read more</a></div></section>',
+        'zh-cn': '<section><header>用来做什么？</header><article>给学员提供信息以便他们能够回答问题。通过嵌入录像和图片来创建在视觉上更丰富的课程。</article></section><section><header>如何增加内容？</header><ol><li>在你增加（或打开）一个学习目标时，将会出现一个新的页面。</li><li>点击 <b>“新知识点”</b> 并且点击<b>“内容”</b> 在</li><li>输入一个题目并且增加内容之后</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/create-content-question-items/\">了解更多</a></div></section>',
+        'uk': '<section><header>Для чого?</header><article>Дайте учням інформацію, яка їм потрібна для того, щоб відповісти на питання курсу. Створюйте візуально привабливі курси додаючи відео та зображення.</article></section><section><header>Як додати матеріал?</header><ol><li>Після того як ви створили(або відкрили) розділ, Ви побачите нову сторінку.</li><li>Натисніть на <b>\"Додати\"</b>, а потім на <b>\"Матеріал\".</b></li><li>Введіть назву та додайте матеріал.</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/create-content-question-items/\">Докладніше</a></div></section>',
+        'pt-br': '<section><header>Para que?</header><article>Dar aos alunos a informação que precisam para estar aptos a responder a questão. Criar cursos visualmente cativantes incluindo vídeos e imagens.</article></section><section><header>Como adicionar conteúdo?</header><ol><li>Após ter adicionado (ou aberto) um objetivo de aprendizado, uma nova página será mostrada.</li><li>Click on <b>\"Novo ítem\"</b> e clique em <b>\"Content\"</b> após</li><li>Digite um título e adicione seu conteúdo</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/create-content-question-items/\">Leia mais</a></div></section>'
     },
     createQuestionsOnboardingTaskTitle: {
         'en': 'Add 3 questions ({0}/3)',
@@ -2903,10 +2906,10 @@
         'pt-br': 'Adicione 3 questões ({0}/3)'
     },
     createQuestionsOnboardingTaskDescription: {
-        'en': '<section><header>What for?</header><article>Engage users by using multiple question types like: Drag and Drop Text, Text Matching, Single Choice Image and many more.</article></section><section><header>How to add questions?</header><ol><li>Click on <b>\"New item\"</b> (On the Learning objective page, or on the page where you create questions or content)</li><li>Select the question type you want to create</li><li>Type in a question title and other properties</li><li>Create a minimum of 3 different questions</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions\">Read more</a></div></section>',
-        'zh-cn': '<section><header>用来做什么？</header><article>通过多种问题类型和用户更好的互动：拖拽文本，文本匹配，单选图片及其它很多形式。</article></section><section><header>如何增加问题？</header><ol><li>点击<b>“新知识点”</b> （在学习目标页面，或你创建问题或内容的页面）</li><li>选择你想创建的问题类型</li><li>输入问题题目和其它属性</li><li>创建至少3个不同的问题</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions\">了解更多</a></div></section>',
-        'uk': '<section><header>Для чого?</header><article>Приваблюйте користувачів різними типами питань, таких як: Перетягнення тексту, Вибір відповідності, Вибір з множини(одна відповідь).</article></section><section><header>Як створювати питання?</header><ol><li>Натисніть на <b>\"Додати\"</b> (На сторінці теми або на сторінці створенного питання чи нотатки)</li><li>Виберіть тип питання, що хочете створити</li><li>Введіть назву питання та інші властивості</li><li>Створіть міннімум три різних питання</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions\">Докладніше</a></div></section>',
-        'pt-br': '<section><header>Para que?</header><article>Cative os usuários usando multiplos tipos de questão como: Arrastar e soltar texto, Casamento de textos, Seleção de imagem símples e várias outras.</article></section><section><header>Como adicionar questões?</header><ol><li>Clique em <b>\"Novo item\"</b> (Na página de objetivo de aprendizado, ou na página onde você criou questões ou conteúdo)</li><li>Selecione o tipo de questão que deseja criar</li><li>Digite o título da questão e outras propriedades</li><li>Crie um mínimo de 3 questões diferentes</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions\">Leia mais</a></div></section>'
+        'en': '<section><header>What for?</header><article>Engage users by using multiple question types like: Drag and Drop Text, Text Matching, Single Choice Image and many more.</article></section><section><header>How to add questions?</header><ol><li>Click on <b>\"New item\"</b> (On the Learning objective page, or on the page where you create questions or content)</li><li>Select the question type you want to create</li><li>Type in a question title and other properties</li><li>Create a minimum of 3 different questions</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/create-content-question-items/\">Read more</a></div></section>',
+        'zh-cn': '<section><header>用来做什么？</header><article>通过多种问题类型和用户更好的互动：拖拽文本，文本匹配，单选图片及其它很多形式。</article></section><section><header>如何增加问题？</header><ol><li>点击<b>“新知识点”</b> （在学习目标页面，或你创建问题或内容的页面）</li><li>选择你想创建的问题类型</li><li>输入问题题目和其它属性</li><li>创建至少3个不同的问题</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/create-content-question-items/\">了解更多</a></div></section>',
+        'uk': '<section><header>Для чого?</header><article>Приваблюйте користувачів різними типами питань, таких як: Перетягнення тексту, Вибір відповідності, Вибір з множини(одна відповідь).</article></section><section><header>Як створювати питання?</header><ol><li>Натисніть на <b>\"Додати\"</b> (На сторінці теми або на сторінці створенного питання чи нотатки)</li><li>Виберіть тип питання, що хочете створити</li><li>Введіть назву питання та інші властивості</li><li>Створіть міннімум три різних питання</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/create-content-question-items/\">Докладніше</a></div></section>',
+        'pt-br': '<section><header>Para que?</header><article>Cative os usuários usando multiplos tipos de questão como: Arrastar e soltar texto, Casamento de textos, Seleção de imagem símples e várias outras.</article></section><section><header>Como adicionar questões?</header><ol><li>Clique em <b>\"Novo item\"</b> (Na página de objetivo de aprendizado, ou na página onde você criou questões ou conteúdo)</li><li>Selecione o tipo de questão que deseja criar</li><li>Digite o título da questão e outras propriedades</li><li>Crie um mínimo de 3 questões diferentes</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/create-content-question-items/\">Leia mais</a></div></section>'
     },
     publishOnboardingTaskTitle: {
         'en': 'Publish',
@@ -2915,10 +2918,10 @@
         'pt-br': 'Publicar'
     },
     publishOnboardingTaskDescription: {
-        'en': '<section><header>What for?</header><article>Publish with one click to the cloud.</article></section><section><header>How to publish?</header><ol><li>Click on <b>\"Publish now\"</b> on any course page</li><li>Click on <b>\"Get link\"</b></li><li>Copy the link and share it via mail, twitter or any other channel</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#Course-Editor\">Read more</a></div></section>',
-        'zh-cn': '<section><header>用来做什么？</header><article>一键发布至云服务器。</article></section><section><header>如何发布？</header><ol><li>点击 <b>“现在发布”</b> 在任何课程页面</li><li>点击 <b>“获取链接”</b></li><li>拷贝链接并通过邮件或其它渠道分享</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#Course-Editor\">了解更多</a></div></section>',
-        'uk': '<section><header>Для чого?</header><article>Публікація в один клік до хмарного середовища зберігання даних.</article></section><section><header>Як публікувати?</header><ol><li>Натисніть на  <b>\"Публікація\"</b> на будь якій сторінці курсу</li><li>Натисніть на <b>\"Отримати посилання\"</b></li><li> Скопіюйте посилання і поділіться ним через e-mail, twitter чи інакше.</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#Course-Editor\">Докладніше</a></div></section>',
-        'pt-br': '<section><header>Para que?</header><article>Publicar com um clique para a núvem.</article></section><section><header>Como publicar?</header><ol><li>Clique em <b>\"Publicar agora\"</b> em qualquer página de curso</li><li>Clique em <b>\"Obter link\"</b></li><li>Copiar o link e compartilhe-o via e-mail, twitter ou qualquer outro canal</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/courses#Course-Editor\">Leia mais</a></div></section>'
+        'en': '<section><header>What for?</header><article>Publish with one click to the cloud.</article></section><section><header>How to publish?</header><ol><li>Click on <b>\"Publish now\"</b> on any course page</li><li>Click on <b>\"Get link\"</b></li><li>Copy the link and share it via mail, twitter or any other channel</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/publish-course/\">Read more</a></div></section>',
+        'zh-cn': '<section><header>用来做什么？</header><article>一键发布至云服务器。</article></section><section><header>如何发布？</header><ol><li>点击 <b>“现在发布”</b> 在任何课程页面</li><li>点击 <b>“获取链接”</b></li><li>拷贝链接并通过邮件或其它渠道分享</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/publish-course/\">了解更多</a></div></section>',
+        'uk': '<section><header>Для чого?</header><article>Публікація в один клік до хмарного середовища зберігання даних.</article></section><section><header>Як публікувати?</header><ol><li>Натисніть на  <b>\"Публікація\"</b> на будь якій сторінці курсу</li><li>Натисніть на <b>\"Отримати посилання\"</b></li><li> Скопіюйте посилання і поділіться ним через e-mail, twitter чи інакше.</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/publish-course/\">Докладніше</a></div></section>',
+        'pt-br': '<section><header>Para que?</header><article>Publicar com um clique para a núvem.</article></section><section><header>Como publicar?</header><ol><li>Clique em <b>\"Publicar agora\"</b> em qualquer página de curso</li><li>Clique em <b>\"Obter link\"</b></li><li>Copiar o link e compartilhe-o via e-mail, twitter ou qualquer outro canal</li></ol><div class=\"tooltip-buttons-holder\"><a target=\"_blank\" href=\"https://www.easygenerator.com/resources/help/publish-course/\">Leia mais</a></div></section>'
     },
     /* End resource section for model Onboarding */
     
@@ -2936,10 +2939,10 @@
         'pt-br': '<p>Conteúdo de aprendizado é o conteúdo que o aluno necessita para estar apto a responder a questão.</p><p>No easygenerator este conteúdo pode ser adicionado diretamente à questão.</p><p>O modelo que você escolhe no passo de design determina como o conteúdo e a questão será organizada e apresentada ao aluno.</p>'
     },
     tooltipContentLink: {
-        'en': '<a style=\"display:none;\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">read more</a>',
-        'zh-cn': '<a style=\"display:none;\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">了解更多</a>',
-        'uk': '<a style=\"display:none;\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">докладніше</a>',
-        'pt-br': '<a style=\"display:none;\" href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Content\">leia mais</a>'
+        'en': '<a style=\"display:none;\" href=\"https://www.easygenerator.com/help/\">read more</a>',
+        'zh-cn': '<a style=\"display:none;\" href=\"https://www.easygenerator.com/help/\">了解更多</a>',
+        'uk': '<a style=\"display:none;\" href=\"https://www.easygenerator.com/help/\">докладніше</a>',
+        'pt-br': '<a style=\"display:none;\" href=\"https://www.easygenerator.com/help/\">leia mais</a>'
     },
     tooltipFibTitle: {
         'en': 'Fill in the blanks',
@@ -3008,10 +3011,10 @@
         'pt-br': '<p>Um modelo de curso determina como um curso é organizado e funciona.</p><p>Easygenerator é flexivel, permitindo que um conteúdo seja apresentado em diferentes formatos.</p><p>Clique em ‘prever modelo de curso’ para ver como cada modelo é. Selecione o modelo correto antes de publicar.</p>'
     },
     tooltipCourseTemplateLink: {
-        'en': '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/course-templates\" target=\"_blank\">read more</a>',
-        'zh-cn': '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/course-templates\" target=\"_blank\">了解更多</a>',
-        'uk': '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/course-templates\" target=\"_blank\">докладніше</a>',
-        'pt-br': '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/course-templates\" target=\"_blank\">leia mais</a>'
+        'en': '<a href=\"https://www.easygenerator.com/resources/help/course-template/\" target=\"_blank\">read more</a>',
+        'zh-cn': '<a href=\"https://www.easygenerator.com/resources/help/course-template/\" target=\"_blank\">了解更多</a>',
+        'uk': '<a href=\"https://www.easygenerator.com/resources/help/course-template/\" target=\"_blank\">докладніше</a>',
+        'pt-br': '<a href=\"https://www.easygenerator.com/resources/help/course-template/\" target=\"_blank\">leia mais</a>'
     },
     tooltipStatementTitle: {
         'en': 'Statement',
@@ -3026,10 +3029,10 @@
         'pt-br': '<p>Ao aluno é apresentada uma lista de afirmações e este deve indicar se elas são verdadeiras ou falsas.</p><p><b>Exemplos:</b></p><p>[Verdadeiro] Cinco é um número primo<br>[Falso] O Oceano Atlântico é o maior oceano da Terra.</p><p><b>Como</b>:<ul><ol>1. Defina o título (Questão)</ol><ol>2. Digite afirmações</ol><ol>3. Selecione verdadeiro ou falso para todas as afirmações</ol></ul><p>'
     },
     tooltipStatementLink: {
-        'en': '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Statement\" target=\"_blank\">read more</a>',
-        'zh-cn': '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Statement\" target=\"_blank\">了解更多</a>',
-        'uk': '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Statement\" target=\"_blank\">докладніше</a>',
-        'pt-br': '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Statement\" target=\"_blank\">leia mais</a>'
+        'en': '<a href=\"https://www.easygenerator.com/resources/help/questions-types/\" target=\"_blank\">read more</a>',
+        'zh-cn': '<a href=\"https://www.easygenerator.com/resources/help/questions-types/\" target=\"_blank\">了解更多</a>',
+        'uk': '<a href=\"https://www.easygenerator.com/resources/help/questions-types/\" target=\"_blank\">докладніше</a>',
+        'pt-br': '<a href=\"https://www.easygenerator.com/resources/help/questions-types/\" target=\"_blank\">leia mais</a>'
     },
     tooltipHotspotTitle: {
         'en': 'Hotspot',
@@ -3044,10 +3047,10 @@
         'pt-br': '<p>Ao aluno é apresentada uma imagem e este deve clicar em um ou mais lugares para dar uma resposta:</p><p><b>Exemplo:</b> \"Geografia: Localizar áreas em um mapa\".</p><p>Opções:<ul><li style=\"padding-bottom: 8px;\">Resposta simples – o aluno só pode selecionar uma área. Se existirem vários hotspots a escolher, a questão é respondida corretamente quando o aluno clica em QUALQUER dos hotspots.</li><li>Múltipla resposta – alunos podem selecionar múltiplas áreas. A questão é respondida corretamente quando quando o aluno clica TODOS os hotspots sem escolher nenhum lugar errado.</li></ul></p><p><strong>Como:</strong><ul><ol>1. Defina o título (Questão)</ol><ol>2. Carregue a imagem</ol><ol>3. Selecione entre resposta simples e múltipla</ol><ol>4. Crie seus hotspots</ol></ul></p>'
     },
     tooltipHotspotLink: {
-        'en': '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Hot-Spot\" target=\"_blank\">read more</a>',
-        'zh-cn': '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Hot-Spot\">了解更多</a>',
-        'uk': '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Hot-Spot\" target=\"_blank\">докладніше</a>',
-        'pt-br': '<a href=\"http://help.easygenerator.com/en-us/starter-and-plus-edition/easygenerator/user-guide/content-and-questions#Hot-Spot\" target=\"_blank\">leia mais</a>'
+        'en': '<a href=\"https://www.easygenerator.com/resources/help/questions-types/\" target=\"_blank\">read more</a>',
+        'zh-cn': '<a href=\"https://www.easygenerator.com/resources/help/questions-types/\">了解更多</a>',
+        'uk': '<a href=\"https://www.easygenerator.com/resources/help/questions-types/\" target=\"_blank\">докладніше</a>',
+        'pt-br': '<a href=\"https://www.easygenerator.com/resources/help/questions-types/\" target=\"_blank\">leia mais</a>'
     },
     /* End resource section for model ExplanationTooltips */
     

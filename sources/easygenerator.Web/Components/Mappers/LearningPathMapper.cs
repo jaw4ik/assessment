@@ -6,6 +6,13 @@ namespace easygenerator.Web.Components.Mappers
 {
     public class LearningPathMapper : IEntityModelMapper<LearningPath>
     {
+        private readonly IUrlHelperWrapper _urlHelper;
+
+        public LearningPathMapper(IUrlHelperWrapper urlHelper)
+        {
+            _urlHelper = urlHelper;
+        }
+
         public dynamic Map(LearningPath entity)
         {
             return new
@@ -13,7 +20,7 @@ namespace easygenerator.Web.Components.Mappers
                 Id = entity.Id.ToNString(),
                 Title = entity.Title,
                 PackageUrl = entity.PackageUrl,
-                PublicationUrl = entity.PublicationUrl,
+                PublicationUrl = _urlHelper.AddCurrentSchemeToUrl(entity.PublicationUrl),
                 CreatedOn = entity.CreatedOn,
                 CreatedBy = entity.CreatedBy,
                 ModifiedOn = entity.ModifiedOn,
