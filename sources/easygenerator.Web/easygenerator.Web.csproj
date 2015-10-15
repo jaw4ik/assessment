@@ -2987,7 +2987,6 @@
     <Content Include="Scripts\knockout-sortable.min.js" />
     <Content Include="Scripts\knockoutBindings\autofocusBinding.js" />
     <Content Include="Scripts\knockoutBindings\ckeditorBinding.js" />
-    <Content Include="Scripts\knockoutBindings\clickElementBinding.js" />
     <Content Include="Scripts\knockoutBindings\dateBinding.js" />
     <Content Include="App\widgets\dialog\bindingHandlers\dialogBindingHandler.js" />
     <Content Include="Scripts\knockoutBindings\dropDownBinding.js" />
@@ -2995,13 +2994,11 @@
     <Content Include="Scripts\knockoutBindings\expanderBinding.js" />
     <Content Include="Scripts\knockoutBindings\hoverBinding.js" />
     <Content Include="Scripts\knockoutBindings\keyPressBinding.js" />
-    <Content Include="Scripts\knockoutBindings\layoutBinding.js" />
     <Content Include="Scripts\knockoutBindings\outsideClickBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToElementBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToTopBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectBoxBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextBinding.js" />
-    <Content Include="Scripts\knockoutBindings\sliderBinding.js" />
     <Content Include="Scripts\knockoutBindings\slidingDialogBinding.js" />
     <Content Include="Scripts\knockoutBindings\sortableExtendedBinding.js" />
     <Content Include="Scripts\knockoutBindings\stopEventPropagationBinding.js" />
