@@ -9,13 +9,14 @@ namespace easygenerator.Web.BuildCourse.PackageModel
     {
         public string Id { get; set; }
         public string Title { get; set; }
+        public string VoiceOver { get; set; }
 
         [JsonIgnore]
         public string Content { get; set; }
         public bool HasContent { get; set; }
-        
+
         public abstract string Type { get; }
-        
+
         public List<LearningContentPackageModel> LearningContents { get; set; }
 
         [JsonIgnore]

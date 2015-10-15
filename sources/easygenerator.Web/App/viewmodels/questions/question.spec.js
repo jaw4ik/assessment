@@ -23,7 +23,8 @@ define(function (require) {
         createdOn: new Date(),
         modifiedOn: new Date(),
         answerOptions: [],
-        learningContents: []
+        learningContents: [],
+        voiceOver:'<iframe></iframe>'
     };
 
     var objective = {
@@ -351,6 +352,15 @@ define(function (require) {
 
                     viewModel.activate('objectiveId', 'questionId').then(function () {
                         expect(viewModel.questionId).toEqual('questionId');
+                        done();
+                    });
+                });
+
+                it('should set voiceOver', function (done) {
+                    viewModel.voiceOver = null;
+
+                    viewModel.activate('objectiveId', 'questionId').then(function () {
+                        expect(viewModel.voiceOver).toBeDefined();
                         done();
                     });
                 });

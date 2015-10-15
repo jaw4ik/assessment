@@ -108,6 +108,96 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
         #endregion
 
+        #region Update voice-over
+
+        [TestMethod]
+        public void UpdateVoiceOver_ShouldThrowArgumentNullException_WhenVoiceOverIsNull()
+        {
+            var question = SingleSelectImageObjectMother.Create();
+
+            Action action = () => question.UpdateVoiceOver(null, ModifiedBy);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("voiceOver");
+        }
+
+        [TestMethod]
+        public void UpdateVoiceOver_ShouldThrowArgumentException_WhenVoiceOverIsEmpty()
+        {
+            var question = SingleSelectImageObjectMother.Create();
+
+            Action action = () => question.UpdateVoiceOver(String.Empty, ModifiedBy);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("voiceOver");
+        }
+
+        [TestMethod]
+        public void UpdateVoiceOver_ShouldUpdateVoiceOver()
+        {
+            const string voiceOver = "voiceOver";
+            var question = SingleSelectImageObjectMother.Create();
+
+            question.UpdateVoiceOver(voiceOver, ModifiedBy);
+
+            question.VoiceOver.Should().Be(voiceOver);
+        }
+
+        [TestMethod]
+        public void UpdateVoiceOver_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            var question = SingleSelectImageObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            question.UpdateVoiceOver("voiceOver", ModifiedBy);
+
+            question.ModifiedOn.Should().Be(dateTime);
+        }
+
+        [TestMethod]
+        public void UpdateVoiceOver_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var question = SingleSelectImageObjectMother.Create();
+
+            Action action = () => question.UpdateVoiceOver("voice-over", null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateVoiceOver_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var question = SingleSelectImageObjectMother.Create();
+
+            Action action = () => question.UpdateVoiceOver("voice-over", string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateVoiceOver_ShouldUpdateMoidifiedBy()
+        {
+            var question = SingleSelectImageObjectMother.Create();
+            var user = "Some user";
+
+            question.UpdateVoiceOver("voice-over", user);
+
+            question.ModifiedBy.Should().Be(user);
+        }
+
+        [TestMethod]
+        public void UpdateVoiceOver_ShouldAddQuestionVoiceOverUpdatedEvent()
+        {
+            var question = SingleSelectImageObjectMother.Create();
+
+            question.UpdateVoiceOver("voice-over", "user");
+
+            question.Events.Should().ContainSingle(e => e.GetType() == typeof(QuestionVoiceOverUpdatedEvent));
+        }
+
+        #endregion
+
         #region SetCorrectAnswer
 
         [TestMethod]

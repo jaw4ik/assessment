@@ -257,6 +257,7 @@
 
             //#region questions
             'viewmodels/questions/question.spec',
+            'viewmodels/questions/voiceOver.spec',
             'viewmodels/questions/answers.spec',
             'viewmodels/questions/multipleSelect/multipleSelectAnswers.spec',
             'viewmodels/questions/multipleSelect/multipleSelect.spec',

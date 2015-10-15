@@ -105,6 +105,32 @@ define(['durandal/app', 'dataContext', 'constants', 'http/apiHttpWrapper', 'guar
                 });
             },
 
+            updateVoiceOver = function (questionId, voiceOver) {
+                return Q.fcall(function () {
+                    guard.throwIfNotString(questionId, 'Question id is not a string');
+                    guard.throwIfNotString(voiceOver, 'Question voice over not a string');
+
+                    return apiHttpWrapper.post('api/question/updateVoiceOver', { questionId: questionId, voiceOver: voiceOver })
+                        .then(function (response) {
+                            guard.throwIfNotAnObject(response, 'Response is not an object');
+                            guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
+
+                            var question = _.find(getQuestions(), function (item) {
+                                return item.id === questionId;
+                            });
+
+                            guard.throwIfNotAnObject(question, 'Question does not exist in dataContext');
+
+                            var modifiedOn = new Date(response.ModifiedOn);
+
+                            question.voiceOver = voiceOver;
+                            question.modifiedOn = modifiedOn;
+
+                            return modifiedOn;
+                        });
+                });
+            },
+
             updateContent = function (questionId, content) {
                 return Q.fcall(function () {
                     guard.throwIfNotString(questionId, 'Question id is not a string');
@@ -417,6 +443,7 @@ define(['durandal/app', 'dataContext', 'constants', 'http/apiHttpWrapper', 'guar
             updateCorrectFeedback: updateCorrectFeedback,
             updateIncorrectFeedback: updateIncorrectFeedback,
             updateLearningContentsOrder: updateLearningContentsOrder,
-            getById: getById
+            getById: getById,
+            updateVoiceOver: updateVoiceOver
         };
     });

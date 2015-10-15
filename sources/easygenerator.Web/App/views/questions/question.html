@@ -37,9 +37,13 @@
 
         </div>
     </div>
-    <!-- ko if: questionContent -->
     <div class="content-section-wrapper">
         <div class="content-section">
+            <div class="question-voice-over">
+                <input style="width:100%" type="text" data-bind="value: voiceOver.embed" />
+                <button data-bind="click: voiceOver.update">Update voice over</button>
+            </div>
+            <!-- ko if: questionContent -->
             <!-- ko if: questionTitle.isExpanded -->
             <div class="question-extra-content-block" data-bind="with: questionContent">
                 <div class="extra-content-action-wrapper">
@@ -73,9 +77,9 @@
                 <!-- /ko -->
             </div>
             <!-- /ko -->
+            <!-- /ko -->
         </div>
     </div>
-    <!-- /ko -->
     <!-- ko if: hasQuestionView -->
     <div class="answers">
         <!-- ko compose: activeQuestionViewModel -->

@@ -6,9 +6,10 @@ define(['durandal/app', 'eventTracker', 'constants',
         'viewmodels/common/contentField',
         'viewmodels/questions/questionViewModelFactory',
         'localization/localizationManager',
-        'dialogs/moveCopyQuestion/moveCopyQuestion'],
+        'dialogs/moveCopyQuestion/moveCopyQuestion',
+        'viewmodels/questions/voiceOver'],
     function (app, eventTracker, constants, questionRepository, objectiveRepository, courseRepository, router, vmQuestionTitle, vmContentField,
-        questionViewModelFactory, localizationManager, moveCopyQuestionDialog) {
+        questionViewModelFactory, localizationManager, moveCopyQuestionDialog, vmVoiceOver) {
         "use strict";
 
         var events = {
@@ -30,6 +31,7 @@ define(['durandal/app', 'eventTracker', 'constants',
 
             viewCaption: null,
             questionTitle: null,
+            voiceOver: null,
             questionContent: null,
             activeQuestionViewModel: null,
             isInformationContent: false,
@@ -94,7 +96,7 @@ define(['durandal/app', 'eventTracker', 'constants',
             } else {
                 throw 'Invalid arguments';
             }
-            
+
             return Q.all(promises).then(function () {
                 return true;
             }).catch(function () {
@@ -119,11 +121,11 @@ define(['durandal/app', 'eventTracker', 'constants',
                 .then(function (question) {
                     viewmodel.activeQuestionViewModel = setActiveViewModel(question);
                     viewmodel.questionType = question.type;
+                    viewmodel.voiceOver = vmVoiceOver(viewmodel.questionId, question.voiceOver);
 
                     return viewmodel.activeQuestionViewModel.initialize(viewmodel.objectiveId, question)
                         .then(function (viewModelData) {
                             viewmodel.viewCaption = viewModelData.viewCaption;
-
                             viewmodel.questionTitle = vmQuestionTitle(viewmodel.objectiveId, question);
                             viewmodel.hasQuestionView = viewModelData.hasQuestionView;
                             viewmodel.questionContent = viewModelData.hasQuestionContent ? vmContentField(question.content, eventsForQuestionContent, true, updateQuestionContent) : null;

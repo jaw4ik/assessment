@@ -144,6 +144,7 @@
     <Compile Include="Events\QuestionEvents\QuestionEvent.cs" />
     <Compile Include="Events\QuestionEvents\QuestionContentUpdatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\QuestionTitleUpdatedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\QuestionVoiceOverUpdatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\SingleSelectImageEvents\SingleSelectImageCorrectAnswerChangedEvent.cs" />
     <Compile Include="Events\QuestionEvents\SingleSelectImageEvents\SingleSelectImageAnswerCreatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\SingleSelectImageEvents\SingleSelectImageAnswerDeletedEvent.cs" />

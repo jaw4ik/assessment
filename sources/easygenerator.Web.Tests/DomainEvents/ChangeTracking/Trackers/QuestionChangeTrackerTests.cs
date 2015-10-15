@@ -113,6 +113,16 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
+        public void Handler_QuestionVoiceOverUpdatedEvent_Should_Publish_QuestionChangedEvent()
+        {
+            //Act
+            _tracker.Handle(new QuestionVoiceOverUpdatedEvent(DragAndDropTextObjectMother.Create()));
+
+            //Assert
+            _publisher.ShouldPublishEvent<QuestionChangedEvent>();
+        }
+
+        [TestMethod]
         public void Handler_AnswerDeletedEvent_Should_Publish_QuestionChangedEvent()
         {
             //Act
