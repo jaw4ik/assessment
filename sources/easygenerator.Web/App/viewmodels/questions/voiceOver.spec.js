@@ -4,7 +4,8 @@
 	var
         ctor = require('viewmodels/questions/voiceOver'),
         repository = require('repositories/questionRepository'),
-        notify = require('notify')
+        notify = require('notify'),
+		audioLibraryDialog = require('dialogs/audio/audioLibrary')
 	;
 
 	describe('viewModel [voiceOver]', function () {
@@ -17,6 +18,7 @@
 			viewModel = ctor(questionId, embed);
 
 			spyOn(notify, 'success');
+			spyOn(audioLibraryDialog, 'show');
 		});
 
 		describe('embed:', function () {
@@ -31,7 +33,7 @@
 
 		});
 
-		describe('update:', function () {
+		describe('save:', function () {
 			var updateDefer;
 			beforeEach(function () {
 				updateDefer = Q.defer();
@@ -42,13 +44,13 @@
 			it('should send response to server', function () {
 				var embed = 'embed';
 				viewModel.embed(embed);
-				viewModel.update();
+				viewModel.save();
 				expect(repository.updateVoiceOver).toHaveBeenCalledWith(questionId, embed);
 			});
 
 			describe('and when voice over is updated', function () {
 				it('should show notification', function (done) {
-					viewModel.update();
+					viewModel.save();
 					updateDefer.promise.fin(function () {
 						expect(notify.success).toHaveBeenCalled();
 						done();
@@ -56,5 +58,12 @@
 				});
 			});
 		});
+
+	    describe('update:', function() {
+	        it('should show audia library dialog', function() {
+	        	viewModel.update();
+	            expect(audioLibraryDialog.show).toHaveBeenCalled();
+	        });
+	    });
 	});
 })

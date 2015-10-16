@@ -23,6 +23,7 @@
     top: 16px;
     right: 16px;
     opacity: 0.5;
+    z-index: 1;
     cursor: pointer;
     background-position: center;
     background-repeat: no-repeat;
@@ -1030,6 +1031,118 @@
 
     &.expanded .dropdown-options-list {
         display: block;
+    }
+}
+
+/*#endregion */
+
+/*#region Audio library */
+
+.dialog-wrapper.audio-library {
+    width: 780px;
+
+    .dialog-close-btn {
+        top: 37px;
+        right: 37px;
+        z-index: 1;
+    }
+
+    .audio-library-dialog {
+        .dialog-title-container {
+            margin: 30px 32px 0px 32px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+
+            .dialog-title {
+                padding: 0px;
+                font: 26px 'RobotoSlab-Bold';
+                text-align: left;
+            }
+
+            .dialog-title-info {
+                margin-top: 7px;
+                font: 13px 'OpenSans';
+                color: #42515f;
+            }
+        }
+
+        .dialog-body {
+            position: relative;
+            height: 475px;
+            margin: 27px 15px 27px 30px;
+            padding: 3px;
+
+            .audio-list-container {
+                height: 100%;
+                padding-right: 15px;
+
+                &.cs-scroll-started {
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        bottom: -3px;
+                        display: block;
+                        width: 98%;
+                        border-top: 1px solid #e5e6e6;
+                        box-shadow: 0px 0px 3px 1px #e5e6e6;
+                    }
+                }
+
+                &.cs-scroll-enabled {
+
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        top: -3px;
+                        display: block;
+                        width: 98%;
+                        border-top: 1px solid #e5e6e6;
+                        box-shadow: 0px 0px 3px 1px #e5e6e6;
+                    }
+
+                    &.cs-scroll-finished {
+
+                        &:after {
+                            display: none;
+                        }
+                    }
+                }
+
+                .audio-list {
+                    li {
+                        box-shadow: 0px 1px 3px 1px #f1f1f1;
+
+                        &:hover {
+                            box-shadow: 0 0 0 2px #71c3ff;
+                        }
+
+                        .choose-audio-hint {
+                            opacity: 0;
+                            font: 13px 'OpenSansItalic';
+                            color: #63798e;
+                            text-decoration: underline;
+                        }
+
+                        .chosen-audio-icon {
+                            width: 24px;
+                            height: 24px;
+                            background: url("images/sprites_24.png") -233px -89px no-repeat;
+                        }
+                    }
+
+                    li:hover {
+                        .choose-audio-hint {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+
+            .empty-list-wrapper {
+                padding-top: 200px;
+            }
+        }
     }
 }
 

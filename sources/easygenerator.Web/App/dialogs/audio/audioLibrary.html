@@ -1,0 +1,41 @@
+﻿<div class="dialog audio-library-dialog">
+    <div class="dialog-title-container">
+        <div class="dialog-title" data-bind="localize: { text: 'audioLibrary' }"></div>
+        <div class="dialog-title-info" data-bind="localize: { text: 'chooseFileForVoiceOver'}"></div>
+    </div>
+    <div class="dialog-body ">
+        <!-- ko if: isLoading -->
+        <div data-bind="preloader: { settings: 'align-center' }"></div>
+        <!-- /ko -->
+        <!-- ko ifnot: isLoading -->
+        <!-- ko if: audios().length -->
+        <div class="audio-list-container " data-bind="scrollbar: {}">
+            <ul class="audio-list">
+                <!-- ko foreach: audios -->
+                <li data-bind="click: $parent.selectAudio">
+                    <div class="play-icon"></div>
+                    <div class="audio-title" data-bind="text: title"></div>
+                    <!-- ko if: $data===$parent.selectedAudio() -->
+                    <div class="chosen-audio-icon"></div>
+                    <!-- /ko -->
+                    <!-- ko ifnot: $data===$parent.selectedAudio() -->
+                    <div class="choose-audio-hint" data-bind="localize: { text: 'choose'}"></div>
+                    <!-- /ko -->
+                </li>
+                <!-- /ko -->
+            </ul>
+        </div>
+        <!-- /ko -->
+        <!-- ko ifnot: audios().length -->
+        <div class="empty-list-wrapper">
+            <span class="empty-list" data-bind="localize: { text: 'noAudioFilesYet'}"></span>
+        </div>
+        <!-- /ko -->
+        <!-- /ko -->
+    </div>
+    <div class="dialog-actions">
+        <button class="btn green" data-bind="click: submit">
+            <span class="btn-caption" data-bind="localize: { text: 'done' }"></span>
+        </button>
+    </div>
+</div>

@@ -453,6 +453,11 @@
                         containerCss: 'move-copy-question'
                     }
                 },
+                audioLibrary: {
+                    settings: {
+                        containerCss: 'audio-library'
+                    }
+                },
                 upgrade: {
                     settings: {
                         default: {

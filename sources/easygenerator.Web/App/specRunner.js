@@ -45,6 +45,8 @@
             'dialogs/collaboration/collaborator.spec',
             'dialogs/moveCopyQuestion/moveCopyQuestion.spec',
             'dialogs/video/video.spec',
+            'dialogs/audio/audioLibrary.spec',
+            'dialogs/audio/audioViewModel.spec',
             'dialogs/learningPath/commands/deleteLearningPathCommand.spec',
             'dialogs/learningPath/deleteLearningPath.spec',
             'dialogs/course/common/templateSelector/templateBrief.spec',

@@ -600,6 +600,15 @@
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
     <Content Include="App\browse.js" />
+    <Content Include="App\dialogs\audio\audioLibrary.html" />
+    <Content Include="App\dialogs\audio\audioLibrary.js" />
+    <Content Include="App\dialogs\audio\audioLibrary.spec.js">
+      <DependentUpon>audioLibrary.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\audio\audioViewModel.js" />
+    <Content Include="App\dialogs\audio\audioViewModel.spec.js">
+      <DependentUpon>audioViewModel.js</DependentUpon>
+    </Content>
     <Content Include="App\Query.js" />
     <Content Include="App\Command.js" />
     <Content Include="App\commands\createCourseCommand.js" />
@@ -3077,7 +3086,6 @@
     <EmbeddedResource Include="Resources\Views\Shared\Resources.zh.resx" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\dialogs\audio\" />
     <Folder Include="Templates\Assessment\settings\design\img\" />
     <Folder Include="Views\CourseImport\" />
   </ItemGroup>
