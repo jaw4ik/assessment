@@ -23,7 +23,7 @@
                 _.each(audios, function (audio) {
                     var vmAudio = new AudioViewModel(audio);
                     viewModel.audios.push(new AudioViewModel(audio));
-                    if (vmAudio.vimeoId === selectedAudioVimeoId) {
+                    if (selectedAudioVimeoId && vmAudio.vimeoId === selectedAudioVimeoId) {
                         viewModel.selectedAudio(vmAudio);
                     }
                 });

@@ -12,7 +12,7 @@
         <div class="audio-list-container " data-bind="scrollbar: {}">
             <ul class="audio-list">
                 <!-- ko foreach: audios -->
-                <li data-bind="click: $parent.selectAudio">
+                <li data-bind="click: $parent.selectAudio, css: { selected: $data===$parent.selectedAudio() }">
                     <div class="play-icon"></div>
                     <div class="audio-title" data-bind="text: title"></div>
                     <!-- ko if: $data===$parent.selectedAudio() -->
