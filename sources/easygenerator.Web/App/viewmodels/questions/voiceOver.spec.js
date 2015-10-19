@@ -65,5 +65,13 @@
 	            expect(audioLibraryDialog.show).toHaveBeenCalled();
 	        });
 	    });
+
+	    describe('onAudioSelected', function() {
+
+	        it('should set vimeo embed code', function() {
+
+	        });
+
+	    });
 	});
 })

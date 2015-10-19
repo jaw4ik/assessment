@@ -39,16 +39,30 @@
     </div>
     <div class="content-section-wrapper">
         <div class="content-section">
-            <div class="question-voice-over">
-                <input style="width:100%" type="text" data-bind="value: voiceOver.embed" />
-                <button data-bind="click: voiceOver.save">Save voice over</button>
-                <button data-bind="click: voiceOver.update">Change voice over</button>
+            <div class="voice-over-wrapper" data-bind="if: voiceOver.embed">
+                <label>Voice over</label>
+                <div class="voice-over">
+                    <div class="voice-over-icon" style="">
+                    </div>
+                    <div class="voice-over-title" style="">my mega title</div>
+                    <button class="voice-over-action edit info-tooltip-holder" data-bind="click: voiceOver.update">
+                        <div class="info-tooltip">
+                            <span data-bind="localize: { text: 'change' }">Change</span>
+                        </div>
+                    </button>
+                    <span class="voice-over-action-separator"></span>
+                    <button class="voice-over-action delete info-tooltip-holder">
+                        <div class="info-tooltip">
+                            <span data-bind="localize: { text: 'delete' }">Delete</span>
+                        </div>
+                    </button>
+                </div>
+                <input style="width: 100%; margin:20px 0; display: none;" type="text" data-bind="value: voiceOver.embed" />
             </div>
             <!-- ko if: questionContent -->
-            <!-- ko if: questionTitle.isExpanded -->
+            <!-- ko if: questionContent.isContentDefined -->
             <div class="question-extra-content-block" data-bind="with: questionContent">
                 <div class="extra-content-action-wrapper">
-                    <!-- ko if: isContentDefined -->
                     <!-- ko if: isExpanded -->
                     <div class="extra-content-action" data-bind="click: toggleExpand">
                         <span class="extra-content-action-text hide" data-bind="localize: { text: 'hideQuestionContent' }"></span>
@@ -59,14 +73,7 @@
                         <span class="extra-content-action-text show" data-bind="localize: { text: 'showQuestionConent' }"></span>
                     </div>
                     <!-- /ko -->
-                    <!-- /ko -->
-                    <!-- ko ifnot: isContentDefined -->
-                    <div class="extra-content-action" data-bind="click: addContent">
-                        <span class="extra-content-action-text add " data-bind="localize: { text: 'addExtraQuestionContent' }"></span>
-                    </div>
-                    <!-- /ko -->
                 </div>
-                <!-- ko if: isContentDefined -->
                 <div class="question-content-items-list" data-bind="visible: isExpanded">
                     <div class="question-content-item" data-bind="css: { active: hasFocus }">
                         <div class="question-content-wrapper">
@@ -75,10 +82,27 @@
                         </div>
                     </div>
                 </div>
-                <!-- /ko -->
             </div>
             <!-- /ko -->
+            <div class="question-extra-content-actions">
+                <!-- ko ifnot: voiceOver.embed -->
+                <div class="extra-content-action-wrapper">
+                    <div class="extra-content-action" data-bind="click: voiceOver.update">
+                        <span class="extra-content-action-text add" data-bind="localize: { text: 'addVoiceOver' }">Add voice over</span>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko ifnot: questionContent.isContentDefined -->
+                <div class="extra-content-action-wrapper">
+                    <div class="extra-content-action" data-bind="click: questionContent.addContent">
+                        <span class="extra-content-action-text add" data-bind="localize: { text: 'addExtraQuestionContent' }"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </div>
+
             <!-- /ko -->
+
         </div>
     </div>
     <!-- ko if: hasQuestionView -->

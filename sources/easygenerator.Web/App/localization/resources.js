@@ -1795,6 +1795,12 @@
         'uk': 'Показати пояснення',
         'pt-br': 'Exibir instrução de questão'
     },
+    addVoiceOver: {
+        'en': 'Add voice over',
+        'zh-cn': 'Add voice over[zh-cn]',
+        'uk': 'Додати фонове аудіо',
+        'pt-br': 'Add voice over[pt-br]'
+    },
     noAnswerOptionsYet: {
         'en': 'No answer options yet',
         'zh-cn': '还没有答案选项',

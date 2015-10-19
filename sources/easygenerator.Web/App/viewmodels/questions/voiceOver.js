@@ -21,7 +21,8 @@
             }
 
             function onAudioSelected(vimeoId) {
-
+                viewModel.embed('<iframe src="//player-staging.easygenerator.com?source=' + vimeoId + '&v=1.0.0&autoplay=1" width="300" height="30" frameborder="0" title="my mega title" ></iframe>');
+                viewModel.save();
             }
 
             return viewModel;
