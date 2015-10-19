@@ -108,8 +108,7 @@ define(['durandal/app', 'dataContext', 'constants', 'http/apiHttpWrapper', 'guar
             updateVoiceOver = function (questionId, voiceOver) {
                 return Q.fcall(function () {
                     guard.throwIfNotString(questionId, 'Question id is not a string');
-                    guard.throwIfNotString(voiceOver, 'Question voice over not a string');
-
+                    
                     return apiHttpWrapper.post('api/question/updateVoiceOver', { questionId: questionId, voiceOver: voiceOver })
                         .then(function (response) {
                             guard.throwIfNotAnObject(response, 'Response is not an object');

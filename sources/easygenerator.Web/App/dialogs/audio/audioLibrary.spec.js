@@ -56,9 +56,9 @@
                         viewModel.selectedAudio(audios[0]);
                     });
 
-                    it('should call callback with selected audio vimeoId', function () {
+                    it('should call callback with selected audio', function () {
                         viewModel.submit();
-                        expect(viewModel.callback).toHaveBeenCalledWith(audios[0].vimeoId);
+                        expect(viewModel.callback).toHaveBeenCalledWith(audios[0]);
                     });
                 });
 

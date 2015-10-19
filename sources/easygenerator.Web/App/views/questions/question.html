@@ -39,25 +39,23 @@
     </div>
     <div class="content-section-wrapper">
         <div class="content-section">
-            <div class="voice-over-wrapper" data-bind="if: voiceOver.embed">
+            <div class="voice-over-wrapper" data-bind="if: voiceOver.title">
                 <label>Voice over</label>
                 <div class="voice-over">
-                    <div class="voice-over-icon" style="">
-                    </div>
-                    <div class="voice-over-title" style="">my mega title</div>
+                    <div class="voice-over-icon"></div>
+                    <div class="voice-over-title" data-bind="text: voiceOver.title"></div>
                     <button class="voice-over-action edit info-tooltip-holder" data-bind="click: voiceOver.update">
                         <div class="info-tooltip">
                             <span data-bind="localize: { text: 'change' }">Change</span>
                         </div>
                     </button>
                     <span class="voice-over-action-separator"></span>
-                    <button class="voice-over-action delete info-tooltip-holder">
+                    <button class="voice-over-action delete info-tooltip-holder" data-bind="click: voiceOver.remove">
                         <div class="info-tooltip">
                             <span data-bind="localize: { text: 'delete' }">Delete</span>
                         </div>
                     </button>
                 </div>
-                <input style="width: 100%; margin:20px 0; display: none;" type="text" data-bind="value: voiceOver.embed" />
             </div>
             <!-- ko if: questionContent -->
             <!-- ko if: questionContent.isContentDefined -->
@@ -85,10 +83,10 @@
             </div>
             <!-- /ko -->
             <div class="question-extra-content-actions">
-                <!-- ko ifnot: voiceOver.embed -->
+                <!-- ko ifnot: voiceOver.title -->
                 <div class="extra-content-action-wrapper">
                     <div class="extra-content-action" data-bind="click: voiceOver.update">
-                        <span class="extra-content-action-text add" data-bind="localize: { text: 'addVoiceOver' }">Add voice over</span>
+                        <span class="extra-content-action-text add" data-bind="localize: { text: 'addVoiceOver' }"></span>
                     </div>
                 </div>
                 <!-- /ko -->

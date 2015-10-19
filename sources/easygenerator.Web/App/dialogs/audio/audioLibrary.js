@@ -38,7 +38,7 @@
             dialog.close();
 
             if (_.isFunction(viewModel.callback)) {
-                viewModel.callback(viewModel.selectedAudio() ? viewModel.selectedAudio().vimeoId : null);
+                viewModel.callback(viewModel.selectedAudio());
             }
         }
 
