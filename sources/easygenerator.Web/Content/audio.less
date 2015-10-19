@@ -122,6 +122,7 @@
 
 .audio-list {
     list-style: none;
+    padding: 1px;
 
     li {
         .display-flex();
@@ -129,7 +130,8 @@
         .justify-content(center);
         background-color: @audio-background-color;
         border-radius: 5px;
-        box-shadow: 0 3px 0 @shadow-color;
+        border: 1px solid transparent;
+        box-shadow: 0 2px 0 @shadow-color;
         color: @audio-loaded-text-color;
         font-family: 'OpenSans';
         font-size: 13px;
@@ -137,8 +139,13 @@
         margin-bottom: 13px;
         padding: 0 10px;
 
+        &:last-of-type {
+            margin-bottom: 0px;
+        }
+
         &:hover {
-            box-shadow: 0 0 0 2px @audio-action-hover-border-color;
+            border: 1px solid @audio-action-hover-border-color;
+            box-shadow: 0 0 0 1px @audio-action-hover-border-color;
             cursor: pointer;
         }
 

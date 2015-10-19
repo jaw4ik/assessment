@@ -455,7 +455,8 @@
                 },
                 audioLibrary: {
                     settings: {
-                        containerCss: 'audio-library'
+                        containerCss: 'audio-library',
+                        autoclose: true
                     }
                 },
                 upgrade: {

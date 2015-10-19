@@ -375,16 +375,6 @@
         max-height: 65vh;
         padding: 20px 30px;
     }
-
-    @media screen and ( max-height: 700px ) {
-        .dialog-title {
-            padding: 30px 0px;
-        }
-
-        .dialog-actions {
-            height: 80px;
-        }
-    }
 }
 
 .template-selector {
@@ -1070,21 +1060,22 @@
             position: relative;
             height: 475px;
             margin: 27px 15px 27px 30px;
-            padding: 3px;
 
             .audio-list-container {
+                position: relative;
                 height: 100%;
-                padding-right: 15px;
+                margin-right: 15px;
 
                 &.cs-scroll-started {
 
                     &:before {
                         content: '';
                         position: absolute;
-                        bottom: -3px;
                         display: block;
-                        width: 98%;
-                        border-top: 1px solid #e5e6e6;
+                        top: 0px;
+                        width: 100%;
+                        z-index: 1;
+                        border-bottom: 1px solid #e5e6e6;
                         box-shadow: 0px 0px 3px 1px #e5e6e6;
                     }
                 }
@@ -1094,9 +1085,9 @@
                     &:after {
                         content: '';
                         position: absolute;
-                        top: -3px;
+                        bottom: 0;
                         display: block;
-                        width: 98%;
+                        width: 100%;
                         border-top: 1px solid #e5e6e6;
                         box-shadow: 0px 0px 3px 1px #e5e6e6;
                     }
@@ -1109,12 +1100,21 @@
                     }
                 }
 
+                .iScrollVerticalScrollbar {
+                    right: -15px;
+                }
+
                 .audio-list {
                     li {
-                        box-shadow: 0px 1px 3px 1px #f1f1f1;
+                        border: 1px solid #f1f1f1;
 
                         &:hover {
-                            box-shadow: 0 0 0 2px #71c3ff;
+                            border: 1px solid #71c3ff;
+                            box-shadow: 0 0 0 1px #71c3ff;
+                        }
+
+                        &.selected:hover {
+                            cursor: default;
                         }
 
                         .choose-audio-hint {
@@ -1147,3 +1147,27 @@
 }
 
 /*#endregion */
+
+/*#region max-height 700 */
+
+@media screen and ( max-height: 700px ) {
+    .dialog-wrapper {
+        .dialog-title {
+            padding: 30px 0px;
+        }
+
+        .dialog-actions {
+            height: 80px;
+        }
+
+        &.audio-library {
+            .audio-library-dialog {
+                .dialog-body {
+                    height: 340px;
+                }
+            }
+        }
+    }
+}
+
+/*#endregion*/
