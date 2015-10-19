@@ -62,9 +62,8 @@ namespace easygenerator.DomainModel.Entities.Questions
 
         public Feedback Feedback { get; private set; }
 
-        public virtual  void UpdateVoiceOver(string voiceOver, string modifiedBy)
+        public virtual void UpdateVoiceOver(string voiceOver, string modifiedBy)
         {
-            ThrowIfVoiceOverIsInvalid(voiceOver);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
             VoiceOver = voiceOver;
@@ -180,10 +179,6 @@ namespace easygenerator.DomainModel.Entities.Questions
         {
             ArgumentValidation.ThrowIfNullOrEmpty(title, "title");
             ArgumentValidation.ThrowIfLongerThan255(title, "title");
-        }
-        private static void ThrowIfVoiceOverIsInvalid(string voiceOver)
-        {
-            ArgumentValidation.ThrowIfNullOrEmpty(voiceOver, nameof(voiceOver));
         }
         private static void ThrowIfLearningContentIsInvalid(LearningContent learningContent)
         {

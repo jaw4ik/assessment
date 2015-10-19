@@ -184,26 +184,6 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         #region Update voice-over
 
         [TestMethod]
-        public void UpdateVoiceOver_ShouldThrowArgumentNullException_WhenVoiceOverIsNull()
-        {
-            var question = StatementObjectMother.Create();
-
-            Action action = () => question.UpdateVoiceOver(null, ModifiedBy);
-
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("voiceOver");
-        }
-
-        [TestMethod]
-        public void UpdateVoiceOver_ShouldThrowArgumentException_WhenVoiceOverIsEmpty()
-        {
-            var question = StatementObjectMother.Create();
-
-            Action action = () => question.UpdateVoiceOver(String.Empty, ModifiedBy);
-
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("voiceOver");
-        }
-
-        [TestMethod]
         public void UpdateVoiceOver_ShouldUpdateVoiceOver()
         {
             const string voiceOver = "voiceOver";
@@ -799,7 +779,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             question.LearningContentsCollection = new Collection<LearningContent>()
             {
                 learningContent3,
-                learningContent, 
+                learningContent,
                 learningContent2
             };
             question.LearningContentsOrder = String.Format("{0},{1},{2}", learningContent.Id, learningContent3.Id, learningContent2);
