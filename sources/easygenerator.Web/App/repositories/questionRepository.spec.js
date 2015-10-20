@@ -860,43 +860,7 @@
                     });
 
                 });
-
-                describe('when voice over is null', function () {
-
-                    it('should reject promise', function (done) {
-                        var promise = questionRepository.updateVoiceOver('', null);
-                        promise.fin(function () {
-                            expect(promise).toBeRejectedWith('Question voice over not a string');
-                            done();
-                        });
-                    });
-
-                });
-
-                describe('when voice over is undefined', function () {
-
-                    it('should reject promise', function (done) {
-                        var promise = questionRepository.updateVoiceOver('', undefined);
-                        promise.fin(function () {
-                            expect(promise).toBeRejectedWith('Question voice over not a string');
-                            done();
-                        });
-                    });
-
-                });
-
-                describe('when voice over is not a string', function () {
-
-                    it('should reject promise', function (done) {
-                        var promise = questionRepository.updateVoiceOver('', {});
-                        promise.fin(function () {
-                            expect(promise).toBeRejectedWith('Question voice over not a string');
-                            done();
-                        });
-                    });
-
-                });
-
+             
                 describe('when all arguments are valid', function () {
 
                     it('should send request to server to api/question/updateVoiceOver', function (done) {
