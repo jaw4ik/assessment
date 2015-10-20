@@ -1,5 +1,5 @@
-﻿define(['guard', 'repositories/questionRepository', 'notify', 'dialogs/audio/audioLibrary', 'constants', 'eventTracker'],
-    function (guard, repository, notify, audioLibraryDialog, constants, eventTracker) {
+﻿define(['guard', 'repositories/questionRepository', 'notify', 'dialogs/audio/audioLibrary', 'constants', 'eventTracker', 'durandal/app'],
+    function (guard, repository, notify, audioLibraryDialog, constants, eventTracker, app) {
 
         var events = {
             chooseVoiceOverFromAudioLibrary: 'Open \'Choose voice over from audio library\' dialog',
@@ -30,8 +30,11 @@
                 remove: remove,
 
                 getEmbedCode: getEmbedCode,
-                getTitle: getTitle
+                getTitle: getTitle,
+                voiceOverUpdatedByCollaborator: voiceOverUpdatedByCollaborator
             };
+
+            app.on(constants.messages.question.voiceOverUpdatedByCollaborator + questionId, viewModel.voiceOverUpdatedByCollaborator);
 
             function update() {
                 eventTracker.publish(events.chooseVoiceOverFromAudioLibrary);
@@ -59,6 +62,10 @@
                 return repository.updateVoiceOver(questionId, viewModel.getEmbedCode(audio.vimeoId, audio.title)).then(function () {
                     notify.saved();
                 });
+            }
+
+            function voiceOverUpdatedByCollaborator(voiceOver) {
+                viewModel.title(getTitle(voiceOver));
             }
 
             return viewModel;

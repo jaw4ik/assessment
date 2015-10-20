@@ -84,6 +84,7 @@
             'notifications/collaborationInvite/notificationController.spec',
 
             //#endregion 
+
             'localization/localizationManager.spec',
             'models/course.spec',
             'models/learningPath.spec',
@@ -166,6 +167,7 @@
             'synchronization/handlers/questions/handler.spec',
             'synchronization/handlers/questions/question/handler.spec',
             'synchronization/handlers/questions/question/eventHandlers/titleUpdated.spec',
+             'synchronization/handlers/questions/question/eventHandlers/voiceOverUpdated.spec',
             'synchronization/handlers/questions/question/eventHandlers/backgroundChanged.spec',
             'synchronization/handlers/questions/question/eventHandlers/created.spec',
             'synchronization/handlers/questions/question/eventHandlers/deleted.spec',
@@ -223,6 +225,7 @@
             'viewmodels/learningPaths/learningPath/actions/publish.spec',
 
             //#endregion
+
             'navigationBar/navigationBar.spec',
             'treeOfContent/handlers/treeOfContentEventHandler.spec',
             'treeOfContent/handlers/treeOfContentAutoExpandHandler.spec',
@@ -352,6 +355,7 @@
             'widgets/upgradeDialog/viewmodel.spec',
             'widgets/dialog/viewmodel.spec',
             //#endregion
+
             'viewmodels/user/userMenu.spec',
             'viewmodels/shell.spec',
             'bootstrapper.spec',

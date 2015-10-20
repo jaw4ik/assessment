@@ -706,6 +706,10 @@
     <Content Include="App\repositories\learningPathRepository.spec.js">
       <DependentUpon>learningPathRepository.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\voiceOverUpdated.js" />
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\voiceOverUpdated.spec.js">
+      <DependentUpon>voiceOverUpdated.js</DependentUpon>
+    </Content>
     <Content Include="App\videoUpload\handlers\durations.js" />
     <Content Include="App\videoUpload\handlers\durations.spec.js">
       <DependentUpon>durations.js</DependentUpon>
