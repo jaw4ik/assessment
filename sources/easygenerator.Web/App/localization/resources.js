@@ -630,6 +630,27 @@
     },
     /* End resource section for model Audios */
     
+    /* Resource section for model Audio library dialog */
+    choose: {
+        'en': 'Сhoose',
+        'zh-cn': 'Сhoose[zh-cn]',
+        'uk': 'Обрати',
+        'pt-br': 'Сhoose[pt-br]'
+    },
+    chooseFileForVoiceOver: {
+        'en': 'Choose file to use it as voice over',
+        'zh-cn': 'Choose file to use it as voice over[zh-cn]',
+        'uk': 'Оберіть файл аудіо супровіду ',
+        'pt-br': 'Choose file to use it as voice over[pt-br]'
+    },
+    noAudioFilesYet: {
+        'en': 'No audio files yet',
+        'zh-cn': 'No audio files yet[zh-cn]',
+        'uk': 'Немає аудіо файлів',
+        'pt-br': 'No audio files yet[pt-br]'
+    },
+    /* End resource section for model Audio library dialog */
+    
     /* Resource section for model Objectives */
     learningObjectives: {
         'en': 'Learning objectives',
@@ -1393,6 +1414,18 @@
         'uk': 'Зміна шаблону курсу',
         'pt-br': 'Change your course template[pt-br]'
     },
+    branding: {
+        'en': 'branding',
+        'zh-cn': 'branding[zh-cn]',
+        'uk': 'branding[uk]',
+        'pt-br': 'branding[pt-br]'
+    },
+    layout: {
+        'en': 'layout',
+        'zh-cn': 'layout[zh-cn]',
+        'uk': 'layout[uk]',
+        'pt-br': 'layout[pt-br]'
+    },
     /* End resource section for model Courses */
     
     /* Resource section for model CreateObjective */
@@ -1774,6 +1807,12 @@
         'uk': 'Показати пояснення',
         'pt-br': 'Exibir instrução de questão'
     },
+    addVoiceOver: {
+        'en': 'Add voice over',
+        'zh-cn': 'Add voice over[zh-cn]',
+        'uk': 'Додати фонове аудіо',
+        'pt-br': 'Add voice over[pt-br]'
+    },
     noAnswerOptionsYet: {
         'en': 'No answer options yet',
         'zh-cn': '还没有答案选项',
@@ -1993,11 +2032,11 @@
         'uk': 'Редагування питання \"Вибір відповідності\"',
         'pt-br': 'Editor de questão \"Casar texto\"'
     },
-    branchtrackEditor: {
-        'en': '\"BranchTrack\" question editor',
-        'zh-cn': '\"BranchTrack\" question editor[zh-cn]',
-        'uk': '\"BranchTrack\" question editor[uk]',
-        'pt-br': '\"BranchTrack\" question editor[pt-br]'
+    scenarioEditor: {
+        'en': '\"Scenario\" question editor',
+        'zh-cn': '\"Scenario\" question editor[zh-cn]',
+        'uk': 'Редагування питання \"Сценарій\"',
+        'pt-br': '\"Scenario\" question editor[pt-br]'
     },
     informationContentEditor: {
         'en': 'Content editor',
@@ -2283,20 +2322,20 @@
     },
     /* End resource section for model OpenQuestion */
     
-    /* Resource section for model BranchTrack */
-    branchtrack: {
-        'en': 'BranchTrack',
-        'zh-cn': 'BranchTrack',
-        'uk': 'BranchTrack',
-        'pt-br': 'BranchTrack'
+    /* Resource section for model Scenario */
+    scenario: {
+        'en': 'Scenario',
+        'zh-cn': 'Scenario[zh-cn]',
+        'uk': 'Сценарій',
+        'pt-br': 'Scenario[pt-br]'
     },
-    newBranchtrackQuestionTitle: {
-        'en': 'Untitled BranchTrack question',
-        'zh-cn': 'Untitled BranchTrack question[zh-cn]',
-        'uk': 'Питання \"BranchTrack\" без назви',
-        'pt-br': 'Untitled BranchTrack question[pt-br]'
+    newScenarioQuestionTitle: {
+        'en': 'Untitled scenario question',
+        'zh-cn': 'Untitled scenario question[zh-cn]',
+        'uk': 'Питання \"Сценарій\" без назви',
+        'pt-br': 'Untitled scenario question[pt-br]'
     },
-    /* End resource section for model BranchTrack */
+    /* End resource section for model Scenario */
     
     /* Resource section for model QuestionFeedback */
     putYourPositiveFeedback: {

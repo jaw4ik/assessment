@@ -189,6 +189,7 @@
             _.each(template.settingsUrls.design, function (tab) {
                 viewModel.settingsTabs.push(tab);
                 tab.isSelected = ko.observable(false);
+                tab.title = localizationManager.localize(tab.name);
                 if (tab.isDefault) {
                     viewModel.currentSettingsTabUrl(tab.url);
                     tab.isSelected(true);
