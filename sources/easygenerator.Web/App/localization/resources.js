@@ -1415,16 +1415,16 @@
         'pt-br': 'Change your course template[pt-br]'
     },
     branding: {
-        'en': 'branding',
-        'zh-cn': 'branding[zh-cn]',
-        'uk': 'branding[uk]',
-        'pt-br': 'branding[pt-br]'
+        'en': 'Branding',
+        'zh-cn': 'Branding[zh-cn]',
+        'uk': 'Бренд',
+        'pt-br': 'Branding[pt-br]'
     },
     layout: {
-        'en': 'layout',
-        'zh-cn': 'layout[zh-cn]',
-        'uk': 'layout[uk]',
-        'pt-br': 'layout[pt-br]'
+        'en': 'Layout',
+        'zh-cn': 'Layout[zh-cn]',
+        'uk': 'Схема',
+        'pt-br': 'Layout[pt-br]'
     },
     /* End resource section for model Courses */
     
