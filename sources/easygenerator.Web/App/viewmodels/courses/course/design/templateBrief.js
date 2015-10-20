@@ -1,6 +1,5 @@
 ﻿define([], function () {
     var ctor = function (template) {
-        debugger
         var viewModel = {
             id: template.id,
             name: template.name,
