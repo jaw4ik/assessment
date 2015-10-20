@@ -5,8 +5,8 @@
     "theme": {
         "key": ""
     },
-    "layout": {
-        "key": ""
+    "objectivesLayout": {
+        "key": "List"
     },
     "background": {
 		"image": {

@@ -6,27 +6,26 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="css/design.css?v=1444750029894" rel="stylesheet" />
-    <script src="../api.js?v=1444750029894"></script>
+    <link href="css/design.css?v=1445324090299" rel="stylesheet" />
+    <script src="../api.js?v=1445324090299"></script>
 
-    <script src="js/vendor.min.js?v=1444750029894"></script>
-    <script src="js/design.min.js?v=1444750029894"></script>
+    <script src="js/vendor.min.js?v=1445324090299"></script>
+    <script src="js/design.min.js?v=1445324090299"></script>
 </head>
 <body>
     <main class="settings-container" data-bind="template: { afterRender: egApi.showSettings }">
         <!-- ko ifnot: isError -->
         <article class="flex direction-column settings-item-container">
-            <header class="settings-item-title" data-bind="localize: 'choose color scheme'">
-                Choose color scheme:
+            <header class="settings-item-title" data-bind="localize:'Choose objective style:'">
+                Choose objective style:
             </header>
             <section class="settings-item-content flex direction-row flex-wrap" data-bind="with: objectivesLayout">
                 <!-- ko foreach: list -->
-                <div class="flex direction-column choose-scheme-container" data-bind="click: $parent.select, css: { selected: isSelected }">
-                    <div class="flex direction-column choose-scheme-wrapper" data-bind="css: name">
-                        <div class="choose-scheme-title">
-                            <div class="choose-scheme-text" data-bind="text: name"></div>
-                            </div>
-                        <div class="choose-scheme-preview-color"></div>
+                <div class="flex direction-column choose-layout-container" data-bind="click: $parent.select, css: { selected: isSelected }">
+                    <div class="flex direction-column choose-layout-wrapper" data-bind="css: name">
+                        <div class="choose-layout-title" data-bind="text: name">
+                        </div>
+                        <div class="choose-layout-preview-image"></div>
                     </div>
                 </div>
                 <!-- /ko -->

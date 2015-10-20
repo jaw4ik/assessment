@@ -1,13 +1,15 @@
 ﻿<section class="design left-side-bar">
     <div class="design-bar-navigation">
+        <!-- ko if: !template().isLoading() -->
         <ul class="design-bar-navigation-list"  data-bind="foreach:settingsTabs">
             <li class="design-bar-navigation-item" data-bind="css:{selected:isSelected}, click:$root.changeTab">
                 <div class="border-radius-effect-top"></div>
-                <div class="navigation-item-thumbnail settings-thumbnail"></div>
+                <div class="navigation-item-thumbnail settings-thumbnail" data-bind="css:name"></div>
                 <div class="navigation-item-title" data-bind="text:name"></div>
                 <div class="border-radius-effect-bottom"></div>
             </li>
         </ul>
+        <!-- /ko -->
     </div>
     <div class="design-bar-content">
         <!-- ko if: template().settingsAvailable && !settingsVisibility() -->

@@ -29,10 +29,11 @@
             canUnloadSettings: ko.observable(true),
 
 
-            settingsTabs:ko.observableArray([]),
+            settingsTabs: ko.observableArray([]),
             currentSettingsTabUrl: ko.observable(null),
-            
-            changeTab:changeTab,
+
+            changeTab: changeTab,
+            updateSettingsUrls: updateSettingsUrls,
 
             reloadPreview: reloadPreview,
 
@@ -90,15 +91,7 @@
                 viewModel.previewUrl('/preview/' + viewModel.courseId);
 
                 viewModel.template(new TemplateBrief(course.template));
-                viewModel.settingsTabs.removeAll();
-                _.each(course.template.settingsUrls.design, function (tab) {
-                    viewModel.settingsTabs.push(tab);
-                    tab.isSelected = ko.observable(false);
-                    if (tab.isDefault) {
-                        viewModel.currentSettingsTabUrl(tab.url);
-                        tab.isSelected(true);
-                    }
-                });
+                updateSettingsUrls(course.template);
 
                 app.on(constants.messages.course.templateUpdated + viewModel.courseId, viewModel.templateUpdated);
                 app.on(constants.messages.course.templateUpdatedByCollaborator, viewModel.templateUpdatedByCollaborator);
@@ -116,7 +109,7 @@
             viewModel.template().isLoading(true);
             viewModel.loadingTemplate(true);
 
-            debugger
+            updateSettingsUrls(template);
 
             return waiter.waitFor(viewModel.canUnloadSettings, delay, limit)
             .fail(function () {
@@ -176,10 +169,10 @@
         function showSettings() {
             viewModel.settingsVisibility(true);
         }
-        
+
         function changeTab() {
-            
-            if (this.isSelected()) { 
+
+            if (this.isSelected()) {
                 return
             }
 
@@ -189,5 +182,17 @@
 
             viewModel.currentSettingsTabUrl(this.url)
             this.isSelected(true);
+        }
+
+        function updateSettingsUrls(template) {
+            viewModel.settingsTabs.removeAll();
+            _.each(template.settingsUrls.design, function (tab) {
+                viewModel.settingsTabs.push(tab);
+                tab.isSelected = ko.observable(false);
+                if (tab.isDefault) {
+                    viewModel.currentSettingsTabUrl(tab.url);
+                    tab.isSelected(true);
+                }
+            });
         }
     });
