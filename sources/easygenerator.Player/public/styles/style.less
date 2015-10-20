@@ -37,10 +37,14 @@ html, body, .video-js {
 }
 
 .video-js {
-    transform: scale(1.00746);
     opacity: 0;
     -webkit-animation: fadeIn 0.8s forwards;
     animation: fadeIn 0.8s forwards;
+	
+	video {
+		-webkit-transform: scale(1.00746);
+		transform: scale(1.00746);
+	}
 
     .vjs-control-bar {
         padding-right: 10px;
