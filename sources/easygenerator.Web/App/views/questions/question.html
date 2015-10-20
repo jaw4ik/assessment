@@ -82,6 +82,9 @@
                 </div>
             </div>
             <!-- /ko -->
+            <!-- /ko -->
+
+
             <div class="question-extra-content-actions">
                 <!-- ko ifnot: voiceOver.title -->
                 <div class="extra-content-action-wrapper">
@@ -90,6 +93,7 @@
                     </div>
                 </div>
                 <!-- /ko -->
+                <!-- ko if: questionContent -->
                 <!-- ko ifnot: questionContent.isContentDefined -->
                 <div class="extra-content-action-wrapper">
                     <div class="extra-content-action" data-bind="click: questionContent.addContent">
@@ -97,10 +101,8 @@
                     </div>
                 </div>
                 <!-- /ko -->
+                <!-- /ko -->
             </div>
-
-            <!-- /ko -->
-
         </div>
     </div>
     <!-- ko if: hasQuestionView -->
