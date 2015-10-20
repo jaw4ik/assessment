@@ -60,14 +60,6 @@
             });
         });
 
-        describe('publishToAim4YouAction:', function () {
-
-            it('should be defined', function () {
-                expect(viewModel.publishToAim4YouAction).toBeDefined();
-            });
-
-        });
-
         describe('publishToCustomLms:', function () {
             it('should be defined', function () {
                 expect(viewModel.publishToCustomLms).toBeDefined();
@@ -122,19 +114,6 @@
             it('should send event \'Open \'downoload HTML\'\'', function () {
                 viewModel.sendOpenHtmlTab();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Open \'downoload HTML\'');
-            });
-
-        });
-
-        describe('sendOpenAim4YouTab:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.sendOpenAim4YouTab).toBeFunction();
-            });
-
-            it('should send event \'Open \'Publish to Aim4You\'\'', function () {
-                viewModel.sendOpenAim4YouTab();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Open \'Publish to Aim4You\'');
             });
 
         });
