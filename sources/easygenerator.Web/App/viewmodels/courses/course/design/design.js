@@ -176,6 +176,8 @@
                 return
             }
 
+            viewModel.settingsVisibility(false);
+
             _.find(viewModel.settingsTabs(), function (tab) {
                 return tab.url === viewModel.currentSettingsTabUrl()
             }).isSelected(false);

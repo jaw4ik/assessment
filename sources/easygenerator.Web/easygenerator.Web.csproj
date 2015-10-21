@@ -2352,14 +2352,15 @@
     <Content Include="Templates\Personalized learning\settings\configure\img\sprites_16.png" />
     <Content Include="Templates\Personalized learning\settings\configure\js\configure.min.js" />
     <Content Include="Templates\Personalized learning\settings\configure\js\vendor.min.js" />
+    <Content Include="Templates\Personalized learning\settings\design\branding.html" />
     <Content Include="Templates\Personalized learning\settings\design\css\design.css" />
     <Content Include="Templates\Personalized learning\settings\design\css\fonts\opensans-400.woff" />
     <Content Include="Templates\Personalized learning\settings\design\css\fonts\opensans-600.woff" />
     <Content Include="Templates\Personalized learning\settings\design\css\fonts\opensans-bold.woff" />
     <Content Include="Templates\Personalized learning\settings\design\css\fonts\opensans-italic-400.woff" />
-    <Content Include="Templates\Personalized learning\settings\design\design.html" />
     <Content Include="Templates\Personalized learning\settings\design\js\design.min.js" />
     <Content Include="Templates\Personalized learning\settings\design\js\vendor.min.js" />
+    <Content Include="Templates\Personalized learning\settings\design\layout.html" />
     <Content Include="Templates\Reader\app\main.js" />
     <Content Include="Templates\Reader\app\main.js.map" />
     <Content Include="Templates\Reader\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\a15336e3207b40aa86ae93f15c2d3927.html" />
