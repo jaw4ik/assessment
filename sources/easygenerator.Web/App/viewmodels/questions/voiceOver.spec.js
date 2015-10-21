@@ -15,7 +15,8 @@
 
         var viewModel;
         var questionId = 'questionId',
-			embed = "embed";
+            vimeoId = 'vimeoId',
+			embed = '<iframe title="title" audioId="vimeoId"></iframe>';
 
         beforeEach(function () {
             viewModel = ctor(questionId, embed);
@@ -41,11 +42,20 @@
                     expect(vm.title()).toEqual(null);
                 });
 
+                it('should set vimeoId to null', function () {
+                    var vm = ctor(questionId, null);
+                    expect(vm.vimeoId).toEqual(null);
+                });
             });
 
             it('should set title from embed code', function () {
-                var vm = ctor(questionId, '<iframe title="title"></iframe>');
+                var vm = ctor(questionId, embed);
                 expect(vm.title()).toEqual('title');
+            });
+
+            it('should set vimeoId from embed code', function () {
+                var vm = ctor(questionId, embed);
+                expect(vm.vimeoId).toEqual('vimeoId');
             });
         });
 
@@ -82,12 +92,24 @@
                     expect(viewModel.title()).toEqual(null);
                 });
 
+                it('should set vimeoId to null', function () {
+                    viewModel.vimeoId = 'asd';
+                    viewModel.voiceOverUpdatedByCollaborator(null);
+                    expect(viewModel.vimeoId).toEqual(null);
+                });
+
             });
 
             it('should set title from embed code', function () {
                 viewModel.title('asd');
-                viewModel.voiceOverUpdatedByCollaborator('<iframe title="title"></iframe>');
+                viewModel.voiceOverUpdatedByCollaborator(embed);
                 expect(viewModel.title()).toEqual('title');
+            });
+
+            it('should set vimeoId from embed code', function () {
+                viewModel.vimeoId = 'asd';
+                viewModel.voiceOverUpdatedByCollaborator(embed);
+                expect(viewModel.vimeoId).toEqual(vimeoId);
             });
         });
 
@@ -97,16 +119,17 @@
                 expect(eventTracker.publish).toHaveBeenCalledWith('Open \'Choose voice over from audio library\' dialog');
             });
 
-            it('should show audia library dialog', function () {
+            it('should show audio library dialog', function () {
+                viewModel.vimeoId = vimeoId;
                 viewModel.update();
-                expect(audioLibraryDialog.show).toHaveBeenCalled();
+                expect(audioLibraryDialog.show).toHaveBeenCalledWith(vimeoId, viewModel.onAudioSelected);
             });
         });
 
         describe('onAudioSelected', function () {
-            describe('when voice over title is not defined', function () {
+            describe('when voice over vimeoId is not defined', function () {
                 beforeEach(function () {
-                    viewModel.title(null);
+                    viewModel.vimeoId = null;
                 });
 
                 it('should publish \'Add voice over\' event', function () {
@@ -118,9 +141,9 @@
                 });
             });
 
-            describe('when voice over title is defined', function () {
+            describe('when voice over vimeoId is defined', function () {
                 beforeEach(function () {
-                    viewModel.title('title');
+                    viewModel.vimeoId = 'vvv';
                 });
 
                 it('should publish \'Change voice over\' event', function () {
@@ -183,6 +206,15 @@
                     vimeoId: 'vimeoId'
                 });
                 expect(viewModel.title()).toEqual('title');
+            });
+
+            it('should set voice over vimeoId', function () {
+                viewModel.vimeoId = null;
+                viewModel.onAudioSelected({
+                    title: 'title',
+                    vimeoId: 'vimeoId'
+                });
+                expect(viewModel.vimeoId).toEqual('vimeoId');
             });
 
             it('should send request to server', function () {

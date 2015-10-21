@@ -20,6 +20,12 @@
             });
         });
 
+        describe('isValidationMessageShown:', function () {
+            it('should be observable', function () {
+                expect(viewModel.isValidationMessageShown).toBeObservable();
+            });
+        });
+
         describe('isLoading:', function () {
             it('should be observable', function () {
                 expect(viewModel.isLoading).toBeObservable();
@@ -41,35 +47,41 @@
         });
 
         describe('submit:', function () {
-            it('should close dialog', function () {
-                viewModel.submit();
-                expect(dialog.close).toHaveBeenCalled();
-            });
-
-            describe('when callback is defined', function () {
+            describe('when audio is not selected', function () {
                 beforeEach(function () {
-                    viewModel.callback = jasmine.createSpy();
+                    viewModel.selectedAudio(null);
                 });
 
-                describe('when selected audio is set', function () {
+                it('should set isValidationMessageShown to true', function () {
+                    viewModel.isValidationMessageShown(false);
+                    viewModel.submit();
+                    expect(viewModel.isValidationMessageShown()).toBeTruthy();
+                });
+
+                it('should not close dialog', function () {
+                    viewModel.submit();
+                    expect(dialog.close).not.toHaveBeenCalled();
+                });
+            });
+
+            describe('when audio is selected', function () {
+                beforeEach(function () {
+                    viewModel.selectedAudio(audios[0]);
+                });
+
+                it('should close dialog', function () {
+                    viewModel.submit();
+                    expect(dialog.close).toHaveBeenCalled();
+                });
+
+                describe('when callback is defined', function () {
                     beforeEach(function () {
-                        viewModel.selectedAudio(audios[0]);
+                        viewModel.callback = jasmine.createSpy();
                     });
 
                     it('should call callback with selected audio', function () {
                         viewModel.submit();
                         expect(viewModel.callback).toHaveBeenCalledWith(audios[0]);
-                    });
-                });
-
-                describe('when selected audio is not set', function () {
-                    beforeEach(function () {
-                        viewModel.selectedAudio(null);
-                    });
-
-                    it('should call callback with null', function () {
-                        viewModel.submit();
-                        expect(viewModel.callback).toHaveBeenCalledWith(null);
                     });
                 });
             });
@@ -85,6 +97,11 @@
             it('should set isLoading to true', function () {
                 viewModel.show(null, null);
                 expect(viewModel.isLoading()).toBeTruthy();
+            });
+
+            it('should set isValidationMessageShown to false', function () {
+                viewModel.show(null, null);
+                expect(viewModel.isValidationMessageShown()).toBeFalsy();
             });
 
             it('should clear all audios', function () {

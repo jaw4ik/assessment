@@ -9,13 +9,17 @@
             selectAudio: selectAudio,
             audios: ko.observableArray([]),
             submit: submit,
-            isLoading: ko.observable(false)
+            isLoading: ko.observable(false),
+            isValidationMessageShown: ko.observable(false),
+            hideValidationMessage: hideValidationMessage
         };
 
         return viewModel;
 
         function show(selectedAudioVimeoId, callback) {
+            viewModel.isValidationMessageShown(false);
             viewModel.callback = callback;
+            viewModel.selectedAudio(null);
             viewModel.isLoading(true);
             viewModel.audios.removeAll();
 
@@ -35,6 +39,11 @@
         }
 
         function submit() {
+            if (!viewModel.selectedAudio()) {
+                viewModel.isValidationMessageShown(true);
+                return;
+            }
+
             dialog.close();
 
             if (_.isFunction(viewModel.callback)) {
@@ -44,5 +53,13 @@
 
         function selectAudio(audio) {
             viewModel.selectedAudio(audio);
+            if (audio) {
+                viewModel.isValidationMessageShown(false);
+                return;
+            }
+        }
+
+        function hideValidationMessage() {
+            viewModel.isValidationMessageShown(false);
         }
     });

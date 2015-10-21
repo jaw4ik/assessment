@@ -2193,6 +2193,7 @@
     <Content Include="Scripts\knockoutBindings\numericFieldBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextInAnswerBinding.js" />
+    <Content Include="Scripts\knockoutBindings\fadeInBinding.js" />
     <Content Include="Scripts\knockoutBindings\switchToggleBinding.js" />
     <Content Include="Scripts\knockoutBindings\withAnimatedBinding.js" />
     <Content Include="Scripts\md5.js" />
