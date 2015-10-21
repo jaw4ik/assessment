@@ -9,6 +9,13 @@
                 </span>
             </span>
             <!-- /ko -->
+            <!-- ko if: !passed() && started() -->
+            <span class="progress">
+                <span class="info-tooltip">
+                    <span data-bind="localize: { text: 'failed' }">Failed</span>
+                </span>
+            </span>
+            <!-- /ko -->
             <!-- ko ifnot: passed -->
             <span class="incorrect">
                 <span class="info-tooltip">

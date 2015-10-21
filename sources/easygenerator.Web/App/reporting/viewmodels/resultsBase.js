@@ -1,5 +1,5 @@
-﻿define(['constants', 'userContext', 'localization/localizationManager', 'eventTracker', 'utils/fileSaverWrapper', 'widgets/upgradeDialog/viewmodel', 'reporting/viewmodels/finishStatement'],
-    function (constants, userContext, localizationManager, eventTracker, fileSaverWrapper, upgradeDialog, FinishStatement) {
+﻿define(['constants', 'userContext', 'localization/localizationManager', 'eventTracker', 'utils/fileSaverWrapper', 'widgets/upgradeDialog/viewmodel', 'reporting/viewModels/startedStatement', 'reporting/viewmodels/finishStatement'],
+    function (constants, userContext, localizationManager, eventTracker, fileSaverWrapper, upgradeDialog, StartedStatement, FinishStatement) {
         "use strict";
         
         var viewModel = function (getEntity, getStatements, noResultsViewLocation) {
@@ -89,6 +89,13 @@
 
             that.viewUrl = 'reporting/views/results';
 
+            function createStatement(spec) {
+                if (spec && spec.lrsStatement.verb === constants.reporting.xApiVerbIds.started) {
+                    return new StartedStatement(spec);
+                }
+                return new FinishStatement(spec);
+            }
+
             function loadStatements(entityId, take, skip) {
                 return Q.fcall(function () {
                     if (!that.allResultsLoaded && (that.loadedResults.length <= take + skip)) {
@@ -96,7 +103,7 @@
                             // load +1 record to determine should we show 'Show more' button or not.
                             .then(function (reportingStatements) {
                                 var statements = _.map(reportingStatements, function (statement) {
-                                    return new FinishStatement(statement);
+                                    return createStatement(statement);
                                 });
                                 if (statements && statements.length < take + 1) {
                                     that.allResultsLoaded = true;
@@ -115,7 +122,7 @@
                         return getStatements(entityId)
                             .then(function (reportingStatements) {
                                 that.loadedResults = _.map(reportingStatements, function (statement) {
-                                    return new FinishStatement(statement);
+                                    return createStatement(statement);
                                 });
                                 that.allResultsLoaded = true;
                                 return that.loadedResults;

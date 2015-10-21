@@ -22,12 +22,12 @@
             });
         };
 
-        function getLearningPathCompletedStatements(learningPathId, take, skip) {
-            return getStatements({ learningPathId: learningPathId, verbs: [constants.reporting.xApiVerbIds.passed, constants.reporting.xApiVerbIds.failed], limit: take, skip: skip });
+        function getLearningPathStatements(learningPathId, take, skip) {
+            return getStatements({ learningPathId: learningPathId, verbs: [constants.reporting.xApiVerbIds.passed, constants.reporting.xApiVerbIds.started, constants.reporting.xApiVerbIds.failed], limit: take, skip: skip });
         }
 
-        function getCourseCompletedStatements(courseId, take, skip) {
-            return getStatements({ courseId: courseId, verbs: [constants.reporting.xApiVerbIds.passed, constants.reporting.xApiVerbIds.failed], limit: take, skip: skip });
+        function getCourseStatements(courseId, take, skip) {
+            return getStatements({ courseId: courseId, verbs: [constants.reporting.xApiVerbIds.passed, constants.reporting.xApiVerbIds.started, constants.reporting.xApiVerbIds.failed], limit: take, skip: skip });
         }
 
         function getMasteredStatements(attemptId) {
@@ -43,8 +43,8 @@
         }
 
         return {
-            getCourseCompletedStatements: getCourseCompletedStatements,
-            getLearningPathCompletedStatements: getLearningPathCompletedStatements,
+            getCourseStatements: getCourseStatements,
+            getLearningPathStatements: getLearningPathStatements,
             getMasteredStatements: getMasteredStatements,
             getAnsweredStatements: getAnsweredStatements,
             getStartedStatement: getStartedStatement
