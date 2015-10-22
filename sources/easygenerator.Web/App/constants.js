@@ -79,13 +79,6 @@
             collaboratorStates: {
                 deleting: 'deleting'
             },
-
-            registerOnAim4YouStates: {
-                inProgress: 'registerInProgress',
-                success: 'registerSuccess',
-                fail: 'registerFail'
-            },
-
             autosaveTimersInterval: {
                 answerOption: 60000,
                 learningContent: 60000,
@@ -147,11 +140,6 @@
                         started: 'course:review-publish-started',
                         completed: 'course:review-publish-completed',
                         failed: 'course:review-publish-failed'
-                    },
-                    publishToAim4You: {
-                        started: 'course:publishToAim4You-started',
-                        completed: 'course:publishToAim4You-comleted',
-                        failed: 'course:publishToAim4You-failed'
                     },
                     publishToCustomLms: {
                         started: 'course:publishToCustomLms-started',

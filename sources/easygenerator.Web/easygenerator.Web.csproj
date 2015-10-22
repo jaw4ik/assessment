@@ -392,7 +392,6 @@
     <Compile Include="Components\ActionResults\SslRequiredResult.cs" />
     <Compile Include="Components\AuthenticationProvider.cs" />
     <Compile Include="Components\BundleTransforms\ImageNoCacheParamTransform.cs" />
-    <Compile Include="Components\Configuration\Aim4YouConfigurationSection.cs" />
     <Compile Include="Components\Configuration\ConfigurationReader.cs" />
     <Compile Include="Components\Configuration\ExternalApi\ApiKeyCollection.cs" />
     <Compile Include="Components\Configuration\ExternalApi\ApiKeyElement.cs" />
@@ -438,7 +437,6 @@
     <Compile Include="Configuration\RouteConfiguration.cs" />
     <Compile Include="Configuration\TaskConfiguration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\Api\Aim4YouController.cs" />
     <Compile Include="Controllers\Api\AnswerController.cs" />
     <Compile Include="Controllers\Api\CommentController.cs" />
     <Compile Include="Controllers\Api\CourseController.cs" />
@@ -473,13 +471,6 @@
     <Compile Include="Newsletter\MailChimp\Entities\MailChimpSubscription.cs" />
     <Compile Include="Newsletter\MailChimp\MailChimpSubscriptionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Publish\Aim4You\Aim4YouApiService.cs" />
-    <Compile Include="Publish\Aim4You\Aim4YouCoursePublisher.cs" />
-    <Compile Include="Publish\Aim4You\Aim4YouHttpClient.cs" />
-    <Compile Include="Publish\Aim4You\Entities\Aim4YouCourse.cs" />
-    <Compile Include="Publish\Aim4You\Entities\Aim4YouUser.cs" />
-    <Compile Include="Publish\Aim4You\IAim4YouApiService.cs" />
-    <Compile Include="Publish\Aim4You\IAim4YouCoursePublisher.cs" />
     <Compile Include="Publish\CoursePublisher.cs" />
     <Compile Include="Publish\ICoursePublisher.cs" />
     <Compile Include="Resources\Controllers\Resources.Designer.cs">
@@ -1128,7 +1119,6 @@
     <Content Include="App\views\courses\course\index.html" />
     <Content Include="App\reporting\views\results.html" />
     <Content Include="App\views\courses\index.html" />
-    <Content Include="App\views\courses\publishActions\publishToAim4You.html" />
     <Content Include="App\views\courses\publishActions\publishToPublicationServerEmbed.html" />
     <Content Include="App\views\courses\publishActions\publishToPublicationServerLink.html" />
     <Content Include="App\views\courses\publishActions\publishAsHtml.html" />
@@ -2839,10 +2829,6 @@
     <Content Include="App\viewmodels\courses\publishingActions\publishingAction.spec.js">
       <DependentUpon>publishingAction.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\courses\publishingActions\publishToAim4You.js" />
-    <Content Include="App\viewmodels\courses\publishingActions\publishToAim4You.spec.js">
-      <DependentUpon>publishToAim4You.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\courses\publishingActions\scormBuild.js" />
     <Content Include="App\viewmodels\courses\publishingActions\scormBuild.spec.js">
       <DependentUpon>scormBuild.js</DependentUpon>
@@ -2917,13 +2903,6 @@
     <Content Include="Content\images\account\signin-preloader.gif" />
     <Content Include="Content\images\account\signup-preloader.gif" />
     <Content Include="Content\images\addQuestion.png" />
-    <Content Include="Content\images\Aim4YouPublish\List01.png" />
-    <Content Include="Content\images\Aim4YouPublish\List02.png" />
-    <Content Include="Content\images\Aim4YouPublish\List03.png" />
-    <Content Include="Content\images\Aim4YouPublish\Slide01.png" />
-    <Content Include="Content\images\Aim4YouPublish\Slide02.png" />
-    <Content Include="Content\images\Aim4YouPublish\Slide03.png" />
-    <Content Include="Content\images\Aim4YouPublish\Slide04.png" />
     <Content Include="Content\images\bg-logo.png" />
     <Content Include="Content\images\blue-loader.GIF" />
     <Content Include="Content\images\build-loader.gif" />
@@ -3026,7 +3005,6 @@
     <Content Include="Scripts\knockout-sortable.min.js" />
     <Content Include="Scripts\knockoutBindings\autofocusBinding.js" />
     <Content Include="Scripts\knockoutBindings\ckeditorBinding.js" />
-    <Content Include="Scripts\knockoutBindings\clickElementBinding.js" />
     <Content Include="Scripts\knockoutBindings\dateBinding.js" />
     <Content Include="App\widgets\dialog\bindingHandlers\dialogBindingHandler.js" />
     <Content Include="Scripts\knockoutBindings\dropDownBinding.js" />
@@ -3034,13 +3012,11 @@
     <Content Include="Scripts\knockoutBindings\expanderBinding.js" />
     <Content Include="Scripts\knockoutBindings\hoverBinding.js" />
     <Content Include="Scripts\knockoutBindings\keyPressBinding.js" />
-    <Content Include="Scripts\knockoutBindings\layoutBinding.js" />
     <Content Include="Scripts\knockoutBindings\outsideClickBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToElementBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToTopBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectBoxBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextBinding.js" />
-    <Content Include="Scripts\knockoutBindings\sliderBinding.js" />
     <Content Include="Scripts\knockoutBindings\slidingDialogBinding.js" />
     <Content Include="Scripts\knockoutBindings\sortableExtendedBinding.js" />
     <Content Include="Scripts\knockoutBindings\stopEventPropagationBinding.js" />

@@ -58,19 +58,9 @@ $websiteBackupsPath = "'" + $websiteBackupsFolder + "live.easygenerator.com-webs
 $backupCommand = $7zAdd + $websiteBackupsPath + " " + $sourcePath + "*"
 Invoke-Expression -command "$backupCommand"
 
-echo "Creating filestorage backup:"
-
-$sourcePath = "D:\Applications\live.easygenerator.com``(FileStorage``)\*"
-$filestorageBackupsPath = "'" + $websiteBackupsFolder + "live.easygenerator.com-fileStorage-backup-" + $date + ".zip'"
-
-$backupCommand = $7zAdd + $filestorageBackupsPath + " " + $sourcePath
-
-Invoke-Expression -command "$backupCommand"
-
 write-host "Backups are done!" -foregroundcolor Green
 write-host "Database: $dbBackupPath" -foregroundcolor Yellow
 write-host "Website: $websiteBackupsPath" -foregroundcolor Yellow
-write-host "File Storage: $filestorageBackupsPath" -foregroundcolor Yellow
 write-host "Warning: Live website is still stopped!" -foregroundcolor Red
 
 

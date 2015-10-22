@@ -286,15 +286,5 @@ namespace easygenerator.DomainModel.Tests
             var clonedCourse = _cloner.Clone(course, "owner");
             clonedCourse.CreatedOn.Should().Be(DateTime.MaxValue);
         }
-
-
-        [TestMethod]
-        public void Cloner_ShouldCloneCourseWithoutAim4YouIntegation()
-        {
-            var course = CourseObjectMother.Create();
-            course.RegisterOnAim4YOu(Guid.NewGuid());
-            var clonedCourse = _cloner.Clone(course, "owner");
-            clonedCourse.Aim4YouIntegration.Should().BeNull();
-        }
     }
 }

@@ -343,9 +343,13 @@
     <Compile Include="Migrations\201510071149443_RemoveSchemeFromPublicationUrl.Designer.cs">
       <DependentUpon>201510071149443_RemoveSchemeFromPublicationUrl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201510150723564_AddQuestionVoiceOver.cs" />
-    <Compile Include="Migrations\201510150723564_AddQuestionVoiceOver.Designer.cs">
-      <DependentUpon>201510150723564_AddQuestionVoiceOver.cs</DependentUpon>
+    <Compile Include="Migrations\201510131230061_RemoveAim4YouIntegrationTable.cs" />
+    <Compile Include="Migrations\201510131230061_RemoveAim4YouIntegrationTable.Designer.cs">
+      <DependentUpon>201510131230061_RemoveAim4YouIntegrationTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510221221461_AddQuestionVoiceOver.cs" />
+    <Compile Include="Migrations\201510221221461_AddQuestionVoiceOver.Designer.cs">
+      <DependentUpon>201510221221461_AddQuestionVoiceOver.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -594,8 +598,11 @@
     <EmbeddedResource Include="Migrations\201510071149443_RemoveSchemeFromPublicationUrl.resx">
       <DependentUpon>201510071149443_RemoveSchemeFromPublicationUrl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510150723564_AddQuestionVoiceOver.resx">
-      <DependentUpon>201510150723564_AddQuestionVoiceOver.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201510131230061_RemoveAim4YouIntegrationTable.resx">
+      <DependentUpon>201510131230061_RemoveAim4YouIntegrationTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510221221461_AddQuestionVoiceOver.resx">
+      <DependentUpon>201510221221461_AddQuestionVoiceOver.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
