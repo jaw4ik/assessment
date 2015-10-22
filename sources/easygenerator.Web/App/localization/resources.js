@@ -523,6 +523,12 @@
         'uk': 'Над чим ми працюємо',
         'pt-br': 'What we are working on[pt-br]'
     },
+    inProgress: {
+        'en': 'In progress',
+        'zh-cn': 'In progress[zh-cn]',
+        'uk': 'В процесі',
+        'pt-br': 'In progress[pt-br]'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Storage */
@@ -638,16 +644,22 @@
         'pt-br': 'Сhoose[pt-br]'
     },
     chooseFileForVoiceOver: {
-        'en': 'Choose file to use it as voice over',
-        'zh-cn': 'Choose file to use it as voice over[zh-cn]',
+        'en': 'Choose an audio file to use it as the voice over',
+        'zh-cn': 'Choose an audio file to use it as the voice over[zh-cn]',
         'uk': 'Оберіть файл аудіо супровіду ',
-        'pt-br': 'Choose file to use it as voice over[pt-br]'
+        'pt-br': 'Choose an audio file to use it as the voice over[pt-br]'
     },
     noAudioFilesYet: {
         'en': 'No audio files yet',
         'zh-cn': 'No audio files yet[zh-cn]',
         'uk': 'Немає аудіо файлів',
         'pt-br': 'No audio files yet[pt-br]'
+    },
+    chooseFileAndClickDoneForVoiceOver: {
+        'en': 'Choose an audio file and click \'Done\' to use it as the voice over',
+        'zh-cn': 'Choose an audio file and click \'Done\' to use it as the voice over[zh-cn]',
+        'uk': 'Оберіть файл аудіо супровіду та натисність кнопку \'Готово\'',
+        'pt-br': 'Choose an audio file and click \'Done\' to use it as the voice over[pt-br]'
     },
     /* End resource section for model Audio library dialog */
     
@@ -1264,6 +1276,12 @@
         'uk': 'розділ / ціль:',
         'pt-br': 'objetivo:'
     },
+    reportingNotFinished: {
+        'en': 'Not finished yet',
+        'zh-cn': 'Not finished yet[zh-cn]',
+        'uk': 'Не завершено',
+        'pt-br': 'Not finished yet[pt-br]'
+    },
     repotingNoQuestions: {
         'en': 'No questions have been answered yet or results are not available for this objective',
         'zh-cn': 'No questions have been answered yet or results are not available for this objective[zh-cn]',
@@ -1413,6 +1431,18 @@
         'zh-cn': 'Change your course template[zh-cn]',
         'uk': 'Зміна шаблону курсу',
         'pt-br': 'Change your course template[pt-br]'
+    },
+    branding: {
+        'en': 'Branding',
+        'zh-cn': 'Branding[zh-cn]',
+        'uk': 'Бренд',
+        'pt-br': 'Branding[pt-br]'
+    },
+    layout: {
+        'en': 'Layout',
+        'zh-cn': 'Layout[zh-cn]',
+        'uk': 'Схема',
+        'pt-br': 'Layout[pt-br]'
     },
     /* End resource section for model Courses */
     
