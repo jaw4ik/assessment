@@ -1144,17 +1144,25 @@
         }
 
         .dialog-actions {
-            .info-tooltip {
-                visibility: visible;
-                opacity: 0;
-                bottom: 100%;
-                transform: translate(-50%, 0);
-                font: 13px 'OpenSans';
-                margin-bottom: 15px;
-                transition: margin-bottom 0.2s linear;
+            .dialog-action-wrapper {
+                position: relative;
 
-                &.shown {
-                    margin-bottom: 10px;
+                .info-tooltip {
+                    visibility: visible;
+                    opacity: 0;
+                    bottom: 100%;
+                    transform: translate(-50%, 0);
+                    font: 13px 'OpenSans';
+                    margin-bottom: 15px;
+                    transition: margin-bottom 0.2s linear;
+
+                    &.shown {
+                        margin-bottom: 10px;
+                    }
+
+                    span {
+                        white-space: nowrap;
+                    }
                 }
             }
         }

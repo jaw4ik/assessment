@@ -34,11 +34,13 @@
         <!-- /ko -->
     </div>
     <div class="dialog-actions">
-        <button class="btn green" data-bind="click: submit">
-            <span class="btn-caption" data-bind="localize: { text: 'done' }"></span>
+        <div class="dialog-action-wrapper">
+            <button class="btn green" data-bind="click: submit">
+                <span class="btn-caption" data-bind="localize: { text: 'done' }"></span>
+            </button>
             <div class="info-tooltip" data-bind="fadeIn: { predicate: isValidationMessageShown, hideCallback: hideValidationMessage, showDuration: 5000 }">
                 <span data-bind="localize: { text: 'chooseFileAndClickDoneForVoiceOver'}"></span>
             </div>
-        </button>
+        </div>
     </div>
 </div>
