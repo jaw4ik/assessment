@@ -26,7 +26,7 @@
             getAudiosQuery.execute().then(function (audios) {
                 _.each(audios, function (audio) {
                     var vmAudio = new AudioViewModel(audio);
-                    viewModel.audios.push(new AudioViewModel(audio));
+                    viewModel.audios.push(vmAudio);
                     if (selectedAudioVimeoId && vmAudio.vimeoId === selectedAudioVimeoId) {
                         viewModel.selectedAudio(vmAudio);
                     }

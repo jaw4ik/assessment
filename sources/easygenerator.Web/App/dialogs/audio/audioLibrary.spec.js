@@ -99,6 +99,12 @@
                 expect(viewModel.isLoading()).toBeTruthy();
             });
 
+            it('should set selectedAudio to null', function () {
+                viewModel.selectedAudio({});
+                viewModel.show(null, null);
+                expect(viewModel.selectedAudio()).toBe(null);
+            });
+
             it('should set isValidationMessageShown to false', function () {
                 viewModel.show(null, null);
                 expect(viewModel.isValidationMessageShown()).toBeFalsy();
@@ -148,7 +154,7 @@
                     viewModel.selectedAudio(null);
                     viewModel.show(audios[0].vimeoId, null);
                     getAudiosDefer.promise.fin(function () {
-                        expect(viewModel.selectedAudio().vimeoId).toBe(audios[0].vimeoId);
+                        expect(viewModel.selectedAudio()).toBe(viewModel.audios()[0]);
                         done();
                     });
                 });
