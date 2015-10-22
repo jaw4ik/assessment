@@ -4,17 +4,25 @@
             $element = $(element),
             predicate = ko.unwrap(value.predicate),
             hideCallback = value.hideCallback,
-            duration = value.duration,
-            fadeDuration = 200,
-            fadeOutDuration = 500;
+            showDuration = ko.unwrap(value.showDuration),
+            duration = ko.unwrap(value.duration) || 200,
+            cssShown = 'shown';
 
         if (predicate) {
-            $element.css({ display: 'block', visibility: 'visible' }).fadeTo(fadeDuration, 1);
-            if (duration) {
-                $element.delay(duration > fadeOutDuration ? duration - fadeOutDuration : duration).fadeOut(fadeOutDuration, hideCallback);
+            $element
+                .fadeTo(duration, 1)
+                .addClass(cssShown);
+            if (showDuration) {
+                _.delay(function () {
+                    $element
+                        .removeClass(cssShown)
+                        .fadeTo(duration, 0, hideCallback);
+                }, showDuration > duration ? showDuration - duration : showDuration);
             }
         } else {
-            $element.fadeOut(fadeDuration);
+            $element
+                .removeClass(cssShown)
+                .fadeOut(duration);
         }
     }
 };

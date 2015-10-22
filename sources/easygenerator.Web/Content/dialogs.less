@@ -1146,9 +1146,17 @@
 
         .dialog-actions {
             .info-tooltip {
-                bottom: 110%;
+                visibility: visible;
+                opacity: 0;
+                bottom: 100%;
                 transform: translate(-50%, 0);
                 font: 13px 'OpenSans';
+                margin-bottom: 15px;
+                transition: margin-bottom 0.2s linear;
+
+                &.shown {
+                    margin-bottom: 10px;
+                }
             }
         }
     }
