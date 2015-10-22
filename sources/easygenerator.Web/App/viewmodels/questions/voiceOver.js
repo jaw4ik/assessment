@@ -49,12 +49,10 @@
 
             function remove() {
                 eventTracker.publish(events.deleteVoiceOver);
-                return repository.updateVoiceOver(questionId, null).then(function () {
+                return repository.updateVoiceOver(questionId, null).then(function() {
                     viewModel.vimeoId = null;
                     viewModel.title(null);
                     notify.saved();
-                }).catch(function (s) {
-                    debugger;
                 });
             }
 
