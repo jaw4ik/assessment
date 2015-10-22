@@ -523,6 +523,12 @@
         'uk': 'Над чим ми працюємо',
         'pt-br': 'What we are working on[pt-br]'
     },
+    inProgress: {
+        'en': 'In progress',
+        'zh-cn': 'In progress[zh-cn]',
+        'uk': 'В процесі',
+        'pt-br': 'In progress[pt-br]'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Storage */
@@ -629,6 +635,33 @@
         'pt-br': '<ul><li>Espaço de armazenagem ilimitado (política de uso justo)</li><li>Bela reprodução</li><li>Ilimitadas reproduções</li></ul>'
     },
     /* End resource section for model Audios */
+    
+    /* Resource section for model Audio library dialog */
+    choose: {
+        'en': 'Сhoose',
+        'zh-cn': 'Сhoose[zh-cn]',
+        'uk': 'Обрати',
+        'pt-br': 'Сhoose[pt-br]'
+    },
+    chooseFileForVoiceOver: {
+        'en': 'Choose an audio file to use it as the voice over',
+        'zh-cn': 'Choose an audio file to use it as the voice over[zh-cn]',
+        'uk': 'Оберіть файл аудіо супровіду ',
+        'pt-br': 'Choose an audio file to use it as the voice over[pt-br]'
+    },
+    noAudioFilesYet: {
+        'en': 'No audio files yet',
+        'zh-cn': 'No audio files yet[zh-cn]',
+        'uk': 'Немає аудіо файлів',
+        'pt-br': 'No audio files yet[pt-br]'
+    },
+    chooseFileAndClickDoneForVoiceOver: {
+        'en': 'Choose an audio file and click \'Done\' to use it as the voice over',
+        'zh-cn': 'Choose an audio file and click \'Done\' to use it as the voice over[zh-cn]',
+        'uk': 'Оберіть файл аудіо супровіду та натисність кнопку \'Готово\'',
+        'pt-br': 'Choose an audio file and click \'Done\' to use it as the voice over[pt-br]'
+    },
+    /* End resource section for model Audio library dialog */
     
     /* Resource section for model Objectives */
     learningObjectives: {
@@ -1033,42 +1066,6 @@
         'uk': 'для того щоб завантажити пакет SCORM 1.2 ',
         'pt-br': 'para download de um pacote SCORM 1.2'
     },
-    publishToAim4You: {
-        'en': 'Publish to Aim4You',
-        'zh-cn': '发布到Aim 4 You',
-        'uk': 'Публікація в Aim4You',
-        'pt-br': 'Publicar para Aim4You'
-    },
-    publishToAim4YouPublishDescription: {
-        'en': 'with our partner Aim 4 You',
-        'zh-cn': '使用我们的合作伙伴Aim 4 You',
-        'uk': 'з нашим партнером Aim 4 You',
-        'pt-br': 'com nosso parceiro Aim 4 You'
-    },
-    publishToAim4YouSuccessMessage: {
-        'en': 'Your course is successfully uploaded. You will receive an email with more details after the publication is finished.',
-        'zh-cn': '您的课程已经上传成功，您会在发布完成后收到一封带有详细内容的邮件。',
-        'uk': 'Ваш курс успішно завантажено. Після того як публікація буде завершена, Ви отримаєте листа на свою електронну скриньку.',
-        'pt-br': 'Seu curso foi carregado com sucesso. Você receberá um e-mail com mais detalhes após a publicação terminar.'
-    },
-    register: {
-        'en': 'Register',
-        'zh-cn': '注册',
-        'uk': 'Реєстрація',
-        'pt-br': 'Registrar'
-    },
-    publishToStore: {
-        'en': 'Publish to Aim 4 You',
-        'zh-cn': '发布到Aim 4 You',
-        'uk': 'Публікація в Aim 4 You',
-        'pt-br': 'Publicar para Aim 4 You'
-    },
-    publishToCatalog: {
-        'en': 'Publish and Sell your online course',
-        'zh-cn': '发布并出售您的在线课程',
-        'uk': 'Публікуй і продавай свої курси онлайн',
-        'pt-br': 'Publicar e vender curso online'
-    },
     editIntroduction: {
         'en': 'Edit introduction',
         'zh-cn': 'Edit introduction[zh-cn]',
@@ -1099,13 +1096,7 @@
         'uk': 'Оновити план',
         'pt-br': 'Upgrade agora'
     },
-    limitCoursesInformerTextForStarter: {
-        'en': 'You have reached the limit of ',
-        'zh-cn': '受限',
-        'uk': 'Ви досягли дозволеної кількості у ',
-        'pt-br': 'Você atingiu o limite de'
-    },
-    limitCoursesInformerTextForFreeUser: {
+    limitCoursesInformerText: {
         'en': 'You have reached the limit of ',
         'zh-cn': '受限',
         'uk': 'Ви досягли дозволеної кількості у ',
@@ -1279,6 +1270,12 @@
         'uk': 'розділ / ціль:',
         'pt-br': 'objetivo:'
     },
+    reportingNotFinished: {
+        'en': 'Not finished yet',
+        'zh-cn': 'Not finished yet[zh-cn]',
+        'uk': 'Не завершено',
+        'pt-br': 'Not finished yet[pt-br]'
+    },
     repotingNoQuestions: {
         'en': 'No questions have been answered yet or results are not available for this objective',
         'zh-cn': 'No questions have been answered yet or results are not available for this objective[zh-cn]',
@@ -1357,12 +1354,6 @@
         'uk': 'До хоcтингу',
         'pt-br': 'Para sua hospedagem'
     },
-    sellTheCourse: {
-        'en': 'Sell the course',
-        'zh-cn': 'Sell the course[zh-cn]',
-        'uk': 'Продайте курс',
-        'pt-br': 'Venda o curso'
-    },
     scormCaptionFirst: {
         'en': 'Want to run your course on LMS or on your SCORM cloud?',
         'zh-cn': 'Want to run your course on LMS or on your SCORM cloud?[zh-cn]',
@@ -1434,6 +1425,18 @@
         'zh-cn': 'Change your course template[zh-cn]',
         'uk': 'Зміна шаблону курсу',
         'pt-br': 'Change your course template[pt-br]'
+    },
+    branding: {
+        'en': 'Branding',
+        'zh-cn': 'Branding[zh-cn]',
+        'uk': 'Бренд',
+        'pt-br': 'Branding[pt-br]'
+    },
+    layout: {
+        'en': 'Layout',
+        'zh-cn': 'Layout[zh-cn]',
+        'uk': 'Схема',
+        'pt-br': 'Layout[pt-br]'
     },
     /* End resource section for model Courses */
     
@@ -1816,6 +1819,12 @@
         'uk': 'Показати пояснення',
         'pt-br': 'Exibir instrução de questão'
     },
+    addVoiceOver: {
+        'en': 'Add voice over',
+        'zh-cn': 'Add voice over[zh-cn]',
+        'uk': 'Додати фонове аудіо',
+        'pt-br': 'Add voice over[pt-br]'
+    },
     noAnswerOptionsYet: {
         'en': 'No answer options yet',
         'zh-cn': '还没有答案选项',
@@ -2035,11 +2044,11 @@
         'uk': 'Редагування питання \"Вибір відповідності\"',
         'pt-br': 'Editor de questão \"Casar texto\"'
     },
-    branchtrackEditor: {
-        'en': '\"BranchTrack\" question editor',
-        'zh-cn': '\"BranchTrack\" question editor[zh-cn]',
-        'uk': '\"BranchTrack\" question editor[uk]',
-        'pt-br': '\"BranchTrack\" question editor[pt-br]'
+    scenarioEditor: {
+        'en': '\"Scenario\" question editor',
+        'zh-cn': '\"Scenario\" question editor[zh-cn]',
+        'uk': 'Редагування питання \"Сценарій\"',
+        'pt-br': '\"Scenario\" question editor[pt-br]'
     },
     informationContentEditor: {
         'en': 'Content editor',
@@ -2325,20 +2334,20 @@
     },
     /* End resource section for model OpenQuestion */
     
-    /* Resource section for model BranchTrack */
-    branchtrack: {
-        'en': 'BranchTrack',
-        'zh-cn': 'BranchTrack',
-        'uk': 'BranchTrack',
-        'pt-br': 'BranchTrack'
+    /* Resource section for model Scenario */
+    scenario: {
+        'en': 'Scenario',
+        'zh-cn': 'Scenario[zh-cn]',
+        'uk': 'Сценарій',
+        'pt-br': 'Scenario[pt-br]'
     },
-    newBranchtrackQuestionTitle: {
-        'en': 'Untitled BranchTrack question',
-        'zh-cn': 'Untitled BranchTrack question[zh-cn]',
-        'uk': 'Питання \"BranchTrack\" без назви',
-        'pt-br': 'Untitled BranchTrack question[pt-br]'
+    newScenarioQuestionTitle: {
+        'en': 'Untitled scenario question',
+        'zh-cn': 'Untitled scenario question[zh-cn]',
+        'uk': 'Питання \"Сценарій\" без назви',
+        'pt-br': 'Untitled scenario question[pt-br]'
     },
-    /* End resource section for model BranchTrack */
+    /* End resource section for model Scenario */
     
     /* Resource section for model QuestionFeedback */
     putYourPositiveFeedback: {
