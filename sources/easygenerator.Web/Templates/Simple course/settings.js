@@ -6,7 +6,7 @@
         "key": ""
     },
     "objectivesLayout": {
-        "key": ""
+        "key": "List"
     },
     "background": {
 		"image": {

@@ -33,11 +33,12 @@
                     design: [{
                         name: 'branding',
                         url: (manifest.settingsUrls && manifest.settingsUrls.design) ? templateUrl + manifest.settingsUrls.design.branding : null,
-                        isDefault: true
+                        isSelected: true
                     },
                    {
                        name: 'layout',
-                       url: (manifest.settingsUrls && manifest.settingsUrls.design) ? templateUrl + manifest.settingsUrls.design.layout : null
+                       url: (manifest.settingsUrls && manifest.settingsUrls.design) ? templateUrl + manifest.settingsUrls.design.layout : null,
+                       isSelected: false
                    }],
                     configure: (manifest.settingsUrls && manifest.settingsUrls.configure) ? templateUrl + manifest.settingsUrls.configure : null
                 },

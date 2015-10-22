@@ -28,9 +28,8 @@
             settingsVisibility: ko.observable(false),
             canUnloadSettings: ko.observable(true),
 
-
             settingsTabs: ko.observableArray([]),
-            currentSettingsTabUrl: ko.observable(null),
+            currentSettingsTabUrl: ko.observable(''),
 
             changeTab: changeTab,
             updateSettingsUrls: updateSettingsUrls,
@@ -84,7 +83,6 @@
                     viewModel.settingsLoadingTimeoutId = null;
                 }
             });
-
 
             return courseRepository.getById(courseId).then(function (course) {
                 viewModel.courseId = course.id;
@@ -170,10 +168,9 @@
             viewModel.settingsVisibility(true);
         }
 
-        function changeTab() {
-
-            if (this.isSelected()) {
-                return
+        function changeTab(tab) {
+            if (!tab || tab.isSelected()) {
+                return;
             }
 
             viewModel.settingsVisibility(false);
@@ -182,20 +179,22 @@
                 return tab.url === viewModel.currentSettingsTabUrl()
             }).isSelected(false);
 
-            viewModel.currentSettingsTabUrl(this.url)
-            this.isSelected(true);
+            viewModel.currentSettingsTabUrl(tab.url)
+            tab.isSelected(true);
         }
 
         function updateSettingsUrls(template) {
             viewModel.settingsTabs.removeAll();
-            _.each(template.settingsUrls.design, function (tab) {
-                viewModel.settingsTabs.push(tab);
-                tab.isSelected = ko.observable(false);
-                tab.title = localizationManager.localize(tab.name);
-                if (tab.isDefault) {
+            viewModel.settingsTabs(_.map(template.settingsUrls.design, function (tab) {
+                if (tab.isSelected) {
                     viewModel.currentSettingsTabUrl(tab.url);
-                    tab.isSelected(true);
                 }
-            });
+                return {
+                    name: tab.name,
+                    isSelected: ko.observable(tab.isSelected),
+                    title: localizationManager.localize(tab.name),
+                    url: tab.url
+                }
+            }));
         }
     });
