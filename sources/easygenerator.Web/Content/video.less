@@ -274,15 +274,23 @@
 
 /*#region video popup*/
 
-.modal-dialog-wrapper.video {
+.modal-dialog-wrapper.media {
     position: fixed;
     width: @video-popup-width;
     margin: 0 auto;
-    margin-top: -250px;
     top: 50%;
     left: 0;
     right: 0;
+    box-sizing: content-box;
     z-index: 1500;
+
+    &.video {
+        margin-top: -250px;
+    }
+
+    &.audio {
+        margin-top: -172px;
+    }
 
     &:after {
         content: '';

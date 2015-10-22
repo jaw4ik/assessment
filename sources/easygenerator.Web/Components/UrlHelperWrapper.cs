@@ -11,6 +11,9 @@ namespace easygenerator.Web.Components
         string RouteRestorePasswordUrl(string ticketId);
 
         string ToAbsoluteUrl(string relativeUrl);
+
+        string AddCurrentSchemeToUrl(string url);
+        string RemoveSchemeFromUrl(string url);
     }
 
     public class UrlHelperWrapper : IUrlHelperWrapper
@@ -43,6 +46,28 @@ namespace easygenerator.Web.Components
         private string RouteUrlWithUrlHelper(string routeName, object routeValues)
         {
             return new UrlHelper(HttpRequest.RequestContext).RouteUrl(routeName, routeValues, HttpRequest.Url.Scheme);
+        }
+
+        public string AddCurrentSchemeToUrl(string url)
+        {
+            if (string.IsNullOrEmpty(url) || url.Contains("://"))
+            {
+                return url;
+            }
+
+            var scheme = HttpRequest.Url.Scheme + ":";
+            return url.StartsWith("//") ? scheme + url : scheme + "//" + url;
+        }
+
+        public string RemoveSchemeFromUrl(string url)
+        {
+            if (string.IsNullOrEmpty(url))
+            {
+                return url;
+            }
+
+            var index = url.IndexOf("://");
+            return (index < 0) ? url : url.Substring(index + 1);
         }
     }
 }

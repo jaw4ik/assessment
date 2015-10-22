@@ -339,6 +339,14 @@
     <Compile Include="Migrations\201510060735207_RemoveExamTemplate.Designer.cs">
       <DependentUpon>201510060735207_RemoveExamTemplate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510071149443_RemoveSchemeFromPublicationUrl.cs" />
+    <Compile Include="Migrations\201510071149443_RemoveSchemeFromPublicationUrl.Designer.cs">
+      <DependentUpon>201510071149443_RemoveSchemeFromPublicationUrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510131230061_RemoveAim4YouIntegrationTable.cs" />
+    <Compile Include="Migrations\201510131230061_RemoveAim4YouIntegrationTable.Designer.cs">
+      <DependentUpon>201510131230061_RemoveAim4YouIntegrationTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ConsumerToolRepository.cs" />
@@ -582,6 +590,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510060735207_RemoveExamTemplate.resx">
       <DependentUpon>201510060735207_RemoveExamTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510071149443_RemoveSchemeFromPublicationUrl.resx">
+      <DependentUpon>201510071149443_RemoveSchemeFromPublicationUrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510131230061_RemoveAim4YouIntegrationTable.resx">
+      <DependentUpon>201510131230061_RemoveAim4YouIntegrationTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

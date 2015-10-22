@@ -454,7 +454,7 @@
             describe('when audio has vimeo identifier', function () {
                 it('should show audio popup', function () {
                     viewModel.showAudioPopup({ vimeoId: ko.observable("vimeoId") });
-                    expect(popup.show).toHaveBeenCalledWith("vimeoId");
+                    expect(popup.show).toHaveBeenCalledWith({ vimeoId: "vimeoId" });
                 });
             });
 

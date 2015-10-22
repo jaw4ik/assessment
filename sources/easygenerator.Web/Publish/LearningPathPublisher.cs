@@ -4,19 +4,23 @@ using easygenerator.Infrastructure.Http;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.Components.Configuration;
 using System;
+using System.Web;
+using easygenerator.Web.Components;
 
 namespace easygenerator.Web.Publish
 {
     public class LearningPathPublisher : ILearningPathPublisher
     {
-        private ILog _logger;
-        private PhysicalFileManager _fileManager;
-        private BuildPathProvider _pathProvider;
-        private HttpClient _httpClient;
+        private readonly ILog _logger;
+        private readonly IUrlHelperWrapper _urlHelper;
+        private readonly PhysicalFileManager _fileManager;
+        private readonly BuildPathProvider _pathProvider;
+        private readonly HttpClient _httpClient;
         private readonly ConfigurationReader _configurationReader;
 
-        public LearningPathPublisher(ILog logger, PhysicalFileManager fileManager, BuildPathProvider pathProvider, HttpClient httpClient, ConfigurationReader configurationReader)
+        public LearningPathPublisher(IUrlHelperWrapper urlHelper, ILog logger, PhysicalFileManager fileManager, BuildPathProvider pathProvider, HttpClient httpClient, ConfigurationReader configurationReader)
         {
+            _urlHelper = urlHelper;
             _logger = logger;
             _fileManager = fileManager;
             _pathProvider = pathProvider;
@@ -41,7 +45,7 @@ namespace easygenerator.Web.Publish
                     throw new InvalidOperationException(String.Format("Post learning path package failed. LearningPathId: {0}", learningPath.Id));
                 }
 
-                learningPath.UpdatePublicationUrl(publicationUrl);
+                learningPath.UpdatePublicationUrl(_urlHelper.RemoveSchemeFromUrl(publicationUrl));
             }
             catch (Exception exception)
             {
@@ -55,8 +59,8 @@ namespace easygenerator.Web.Publish
 
         private string GetPostUrl(Guid learningPathId)
         {
-            return string.Format("{0}/api/publish?key={1}&courseid={2}", _configurationReader.PublicationConfiguration.ServiceUrl,
-                _configurationReader.PublicationConfiguration.ApiKey, learningPathId);
+            return _urlHelper.AddCurrentSchemeToUrl(string.Format("{0}/api/publish?key={1}&courseid={2}", _configurationReader.PublicationConfiguration.ServiceUrl,
+                _configurationReader.PublicationConfiguration.ApiKey, learningPathId));
         }
     }
 }

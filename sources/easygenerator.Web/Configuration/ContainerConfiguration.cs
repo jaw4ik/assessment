@@ -31,7 +31,6 @@ using easygenerator.Web.Mail;
 using easygenerator.Web.Newsletter;
 using easygenerator.Web.Newsletter.MailChimp;
 using easygenerator.Web.Publish;
-using easygenerator.Web.Publish.Aim4You;
 using easygenerator.Web.Publish.External;
 using easygenerator.Web.Security.PermissionsCheckers;
 using easygenerator.Web.Storage;
@@ -147,14 +146,6 @@ namespace easygenerator.Web.Configuration
 
             #endregion
 
-            #region Aim4You dependencies
-
-            builder.RegisterType<Aim4YouApiService>().As<IAim4YouApiService>().SingleInstance();
-            builder.RegisterType<Aim4YouCoursePublisher>().As<IAim4YouCoursePublisher>().SingleInstance();
-            builder.RegisterType<Aim4YouHttpClient>().As<Aim4YouHttpClient>().SingleInstance();
-
-            #endregion
-
             #region WooCommerce dependencies
 
             builder.RegisterType<WooCommerceApiService>().As<IWooCommerceApiService>().SingleInstance();
@@ -222,7 +213,6 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<EntityCloner>().As<ICloner>().SingleInstance();
             builder.RegisterType<DemoCoursesInMemoryStorage>().As<IDemoCoursesStorage>().SingleInstance();
             builder.RegisterType<CourseInfoInMemoryStorage>().As<ICourseInfoInMemoryStorage>().SingleInstance();
-            builder.RegisterType<HttpContextWrapper>();
 
             #region Auth
 

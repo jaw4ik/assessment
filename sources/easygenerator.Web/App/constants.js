@@ -2,6 +2,8 @@
     function () {
 
         return {
+            appVersion: window.egVersion,
+
             accessType: {
                 free: 0,
                 starter: 1,
@@ -77,13 +79,6 @@
             collaboratorStates: {
                 deleting: 'deleting'
             },
-
-            registerOnAim4YouStates: {
-                inProgress: 'registerInProgress',
-                success: 'registerSuccess',
-                fail: 'registerFail'
-            },
-
             autosaveTimersInterval: {
                 answerOption: 60000,
                 learningContent: 60000,
@@ -145,11 +140,6 @@
                         started: 'course:review-publish-started',
                         completed: 'course:review-publish-completed',
                         failed: 'course:review-publish-failed'
-                    },
-                    publishToAim4You: {
-                        started: 'course:publishToAim4You-started',
-                        completed: 'course:publishToAim4You-comleted',
-                        failed: 'course:publishToAim4You-failed'
                     },
                     publishToCustomLms: {
                         started: 'course:publishToCustomLms-started',
@@ -371,6 +361,10 @@
                 pageSize: 10
             },
 
+            player: {
+                host: window.playerUrl ? "//" + window.playerUrl : '//localhost:555'
+            },
+
             storage: {
                 host: window.storageServiceUrl ? "//" + window.storageServiceUrl : '//localhost:888',
                 mediaUrl: '/media',
@@ -411,7 +405,11 @@
                         failed: 'failed',
                         inProgress: 'inProgress'
                     },
-                    changesInUpload: 'video:changesInUpload'
+                    changesInUpload: 'video:changesInUpload',
+                    iframeWidth: 600,
+                    iframeHeight: 180,
+                    embedIframeWidth: 300,
+                    embedIframeHeight: 46
                 }
             },
 
