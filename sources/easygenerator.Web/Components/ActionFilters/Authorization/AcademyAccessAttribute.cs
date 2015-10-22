@@ -14,5 +14,4 @@ namespace easygenerator.Web.Components.ActionFilters.Authorization
             return user != null && user.HasAcademyAccess();
         }
     }
-    }
 }
