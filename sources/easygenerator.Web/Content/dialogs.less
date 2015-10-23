@@ -1138,8 +1138,34 @@
                 }
             }
 
-            .empty-list-wrapper {
-                padding-top: 200px;
+            .empty-audios-list {
+                width: 340px;
+                margin: 0 auto;
+                margin-top: 100px;
+                font: 15px 'OpenSans';
+                color: #63798e;
+                line-height: 25px;
+
+                .empty-audios-list-title {
+                    font-family: 'OpenSans-Semibold';
+                    margin-bottom: 10px;
+                }
+
+                .empty-audios-list-steps {
+                    list-style: inside decimal;
+                    margin-bottom: 25px;
+
+                    a {
+                        color: #469dd5;
+                    }
+                }
+
+                .empty-audios-list-notification {
+                    font: 12px 'OpenSans';
+                    font-style: italic;
+                    border-top: 1px solid #eff1f2;
+                    padding-top: 7px;
+                }
             }
         }
 
@@ -1164,6 +1190,16 @@
                         white-space: nowrap;
                     }
                 }
+            }
+
+            .btn.green-white {
+                .btn-caption {
+                    text-transform: none;
+                }
+            }
+
+            .btn + .btn {
+                margin-left: 30px;
             }
         }
     }

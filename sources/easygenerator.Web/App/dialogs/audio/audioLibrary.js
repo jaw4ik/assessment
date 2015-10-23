@@ -1,5 +1,5 @@
-﻿define(['constants', 'widgets/dialog/viewmodel', 'audio/queries/getCollection', 'dialogs/audio/audioViewModel'],
-    function (constants, dialog, getAudiosQuery, AudioViewModel) {
+﻿define(['constants', 'widgets/dialog/viewmodel', 'audio/queries/getCollection', 'dialogs/audio/audioViewModel', 'plugins/router'],
+    function (constants, dialog, getAudiosQuery, AudioViewModel, router) {
         "use strict";
 
         var viewModel = {
@@ -11,7 +11,9 @@
             submit: submit,
             isLoading: ko.observable(false),
             isValidationMessageShown: ko.observable(false),
-            hideValidationMessage: hideValidationMessage
+            hideValidationMessage: hideValidationMessage,
+            navigateToAudioLibrary: navigateToAudioLibrary,
+            close: close
         };
 
         return viewModel;
@@ -61,5 +63,14 @@
 
         function hideValidationMessage() {
             viewModel.isValidationMessageShown(false);
+        }
+
+        function navigateToAudioLibrary() {
+            dialog.close();
+            router.navigate('library/audios');
+        }
+
+        function close() {
+            dialog.close();
         }
     });

@@ -646,20 +646,62 @@
     chooseFileForVoiceOver: {
         'en': 'Choose an audio file to use it as the voice over',
         'zh-cn': 'Choose an audio file to use it as the voice over[zh-cn]',
-        'uk': 'Оберіть файл аудіо супровіду ',
+        'uk': 'Оберіть файл фонового аудіо',
         'pt-br': 'Choose an audio file to use it as the voice over[pt-br]'
-    },
-    noAudioFilesYet: {
-        'en': 'No audio files yet',
-        'zh-cn': 'No audio files yet[zh-cn]',
-        'uk': 'Немає аудіо файлів',
-        'pt-br': 'No audio files yet[pt-br]'
     },
     chooseFileAndClickDoneForVoiceOver: {
         'en': 'Choose an audio file and click \'Done\' to use it as the voice over',
         'zh-cn': 'Choose an audio file and click \'Done\' to use it as the voice over[zh-cn]',
-        'uk': 'Оберіть файл аудіо супровіду та натисність кнопку \'Готово\'',
+        'uk': 'Оберіть файл фонового аудіо та натисність кнопку \'Готово\'',
         'pt-br': 'Choose an audio file and click \'Done\' to use it as the voice over[pt-br]'
+    },
+    iGotIt: {
+        'en': 'I got it',
+        'zh-cn': 'I got it[zh-cn]',
+        'uk': 'Зрозуміло',
+        'pt-br': 'I got it[pt-br]'
+    },
+    noAudioFilesYetHowToAdd: {
+        'en': 'No audio files yet. How to add:',
+        'zh-cn': 'No audio files yet. How to add:[zh-cn]',
+        'uk': 'Немає аудіо файлів. Як додати:',
+        'pt-br': 'No audio files yet. How to add:[pt-br]'
+    },
+    goToAudioLibrary: {
+        'en': 'Gо to Audio library',
+        'zh-cn': 'Gо to Audio library[zh-cn]',
+        'uk': 'Перейти до Аудіо бібліотеки',
+        'pt-br': 'Gо to Audio library[pt-br]'
+    },
+    goTo: {
+        'en': 'Go to',
+        'zh-cn': 'Go to[zh-cn]',
+        'uk': 'Перейти до',
+        'pt-br': 'Go to[pt-br]'
+    },
+    uploadYourAudioFile: {
+        'en': 'Upload your audio file',
+        'zh-cn': 'Upload your audio file[zh-cn]',
+        'uk': 'Завантажте Ваш аудіо файл',
+        'pt-br': 'Upload your audio file[pt-br]'
+    },
+    waitUntilItIsProcessed: {
+        'en': 'Wait until it is processed',
+        'zh-cn': 'Wait until it is processed[zh-cn]',
+        'uk': 'Зачекайте поки закінчиться обробка аудіо',
+        'pt-br': 'Wait until it is processed[pt-br]'
+    },
+    goBackToQuestionAndSelectAudioForVoiceOver: {
+        'en': 'Go back to the question and choose the audio as the voice over. That is it!',
+        'zh-cn': 'Go back to the question and choose the audio as the voice over. That is it![zh-cn]',
+        'uk': 'Поверніться на запитання та оберіть аудіо файл як фонове аудіо. Ось і все!',
+        'pt-br': 'Go back to the question and choose the audio as the voice over. That is it![pt-br]'
+    },
+    audioLibraryImprovingNotification: {
+        'en': '* - we are still working on improving the user experience, in order to make it possible to upload your audio from here.',
+        'zh-cn': '* - we are still working on improving the user experience, in order to make it possible to upload your audio from here.[zh-cn]',
+        'uk': '* - ми все ще працюємо над удосконаленням зручності користування і функціональністю завантаження аудіо просто з цього місця',
+        'pt-br': '* - we are still working on improving the user experience, in order to make it possible to upload your audio from here.[pt-br]'
     },
     /* End resource section for model Audio library dialog */
     
@@ -1096,13 +1138,7 @@
         'uk': 'Оновити план',
         'pt-br': 'Upgrade agora'
     },
-    limitCoursesInformerTextForStarter: {
-        'en': 'You have reached the limit of ',
-        'zh-cn': '受限',
-        'uk': 'Ви досягли дозволеної кількості у ',
-        'pt-br': 'Você atingiu o limite de'
-    },
-    limitCoursesInformerTextForFreeUser: {
+    limitCoursesInformerText: {
         'en': 'You have reached the limit of ',
         'zh-cn': '受限',
         'uk': 'Ви досягли дозволеної кількості у ',
@@ -1830,6 +1866,12 @@
         'zh-cn': 'Add voice over[zh-cn]',
         'uk': 'Додати фонове аудіо',
         'pt-br': 'Add voice over[pt-br]'
+    },
+    voiceOver: {
+        'en': 'Voice over',
+        'zh-cn': 'Voice over[zh-cn]',
+        'uk': 'Фонове аудіо',
+        'pt-br': 'Voice over[pt-br]'
     },
     noAnswerOptionsYet: {
         'en': 'No answer options yet',

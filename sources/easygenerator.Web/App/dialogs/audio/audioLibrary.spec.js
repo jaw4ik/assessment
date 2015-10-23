@@ -2,7 +2,8 @@
 
     var dialog = require('widgets/dialog/viewmodel'),
         constants = require('constants'),
-        getAudiosQuery = require('audio/queries/getCollection');
+        getAudiosQuery = require('audio/queries/getCollection'),
+        router = require('plugins/router');
 
     describe('dialog [audio library]', function () {
         var audios = [
@@ -12,6 +13,7 @@
         beforeEach(function () {
             spyOn(dialog, 'show');
             spyOn(dialog, 'close');
+            spyOn(router, 'navigate');
         });
 
         describe('selectedAudio:', function () {
@@ -158,6 +160,25 @@
                         done();
                     });
                 });
+            });
+        });
+
+        describe('navigateToAudioLibrary:', function () {
+            it('should close dialog', function() {
+                viewModel.navigateToAudioLibrary();
+                expect(dialog.close).toHaveBeenCalled();
+            });
+
+            it('should navigate to audio library', function () {
+                viewModel.navigateToAudioLibrary();
+                expect(router.navigate).toHaveBeenCalledWith('library/audios');
+            });
+        });
+
+        describe('close:', function() {
+            it('should close dialog', function () {
+                viewModel.navigateToAudioLibrary();
+                expect(dialog.close).toHaveBeenCalled();
             });
         });
     });

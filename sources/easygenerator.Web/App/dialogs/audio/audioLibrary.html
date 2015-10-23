@@ -9,10 +9,10 @@
         <!-- /ko -->
         <!-- ko ifnot: isLoading -->
         <!-- ko if: audios().length -->
-        <div class="audio-list-container " data-bind="scrollbar: {}">
+        <div class="audio-list-container" data-bind="scrollbar: {}">
             <ul class="audio-list">
                 <!-- ko foreach: audios -->
-                <li data-bind="click: $parent.selectAudio, css: { selected: $data===$parent.selectedAudio() }">
+                <li data-bind="click: $parent.selectAudio, event : { dblclick: $parent.submit }, css: { selected: $data===$parent.selectedAudio() }">
                     <div class="play-icon"></div>
                     <div class="audio-title" data-bind="text: title"></div>
                     <!-- ko if: $data===$parent.selectedAudio() -->
@@ -27,13 +27,21 @@
         </div>
         <!-- /ko -->
         <!-- ko ifnot: audios().length -->
-        <div class="empty-list-wrapper">
-            <span class="empty-list" data-bind="localize: { text: 'noAudioFilesYet'}"></span>
+        <div class="empty-audios-list">
+            <div class="empty-audios-list-title" data-bind="localize: {text: 'noAudioFilesYetHowToAdd'}"></div>
+            <ol class="empty-audios-list-steps">
+                <li><span data-bind="localize: { text: 'goTo' }"></span>&nbsp;<a href="" data-bind="localize: { text: 'audioLibrary' }, click: navigateToAudioLibrary"></a></li>
+                <li data-bind="localize: { text: 'uploadYourAudioFile' }"></li>
+                <li data-bind="localize: { text: 'waitUntilItIsProcessed' }"></li>
+                <li data-bind="localize: { text: 'goBackToQuestionAndSelectAudioForVoiceOver' }"></li>
+            </ol>
+            <div class="empty-audios-list-notification" data-bind="localize: {text: 'audioLibraryImprovingNotification'}"></div>
         </div>
         <!-- /ko -->
         <!-- /ko -->
     </div>
     <div class="dialog-actions">
+        <!-- ko if: audios().length -->
         <div class="dialog-action-wrapper">
             <button class="btn green" data-bind="click: submit">
                 <span class="btn-caption" data-bind="localize: { text: 'done' }"></span>
@@ -42,5 +50,14 @@
                 <span data-bind="localize: { text: 'chooseFileAndClickDoneForVoiceOver'}"></span>
             </div>
         </div>
+        <!-- /ko -->
+        <!-- ko ifnot: audios().length -->
+        <button class="btn green-white" data-bind="click: navigateToAudioLibrary">
+            <span class="btn-caption" data-bind="localize: { text: 'goToAudioLibrary' }"></span>
+        </button>
+        <button class="btn green" data-bind="click: close">
+            <span class="btn-caption" data-bind="localize: { text: 'iGotIt' }"></span>
+        </button>
+        <!-- /ko -->
     </div>
 </div>
