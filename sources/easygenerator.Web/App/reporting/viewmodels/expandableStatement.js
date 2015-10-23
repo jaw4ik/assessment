@@ -6,6 +6,7 @@
         this.isExpandable = !_.isNullOrUndefined(this.lrsStatement.attemptId);
         this.isExpanded = ko.observable(false);
         this.children = ko.observableArray([]);
+        this.hasScore = this.lrsStatement.score != null;
 
         this.expandLoadAction = expandLoadAction;
     };

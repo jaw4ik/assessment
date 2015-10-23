@@ -9,14 +9,14 @@
                 </span>
             </span>
             <!-- /ko -->
-            <!-- ko if: !passed() && started() -->
-            <span class="progress">
+            <!-- ko if: started -->
+            <span class="started">
                 <span class="info-tooltip">
-                    <span data-bind="localize: { text: 'failed' }">Failed</span>
+                    <span data-bind="localize: { text: 'inProgress' }">In progress</span>
                 </span>
             </span>
             <!-- /ko -->
-            <!-- ko ifnot: passed -->
+            <!-- ko ifnot: passed || started -->
             <span class="incorrect">
                 <span class="info-tooltip">
                     <span data-bind="localize: { text: 'failed' }">Failed</span>
@@ -24,8 +24,18 @@
             </span>
             <!-- /ko -->
         </div>
+        <!-- ko if: hasScore -->
         <div class="r-score" data-bind="text: lrsStatement.score">score</div>
+        <!-- /ko -->
+        <!-- ko ifnot: hasScore -->
+        <div class="r-score" data-bind="localize: { text: 'reportingScoreNotAvailable' }">N/A</div>
+        <!-- /ko -->
+        <!-- ko if: started -->
+        <div class="r-date semibold italic" data-bind="localize: { text: 'reportingNotFinished'}">Not finished yet</div>
+        <!-- /ko -->
+        <!-- ko ifnot: started -->
         <div class="r-date" data-bind="date: { value: lrsStatement.date, formatString: 'MMM D, YYYY h:mm A' }">date</div>
+        <!-- /ko -->
     </div>
     <!-- ko if: isExpanded -->
     <ul class="r-objective">

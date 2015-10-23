@@ -1,8 +1,8 @@
 ﻿define(['constants', 'userContext', 'localization/localizationManager', 'eventTracker', 'utils/fileSaverWrapper', 'widgets/upgradeDialog/viewmodel', 'reporting/viewModels/startedStatement', 'reporting/viewmodels/finishStatement'],
     function (constants, userContext, localizationManager, eventTracker, fileSaverWrapper, upgradeDialog, StartedStatement, FinishStatement) {
         "use strict";
-        
-        var viewModel = function (getEntity, getStatements, noResultsViewLocation) {
+
+        var viewModel = function (getEntity, getStartedStatements, getFinishedStatements, noResultsViewLocation) {
             var that = this;
 
             var events = {
@@ -33,7 +33,7 @@
                         that.isLoading(false);
                     });
             };
-            
+
             that.showMoreResults = function () {
                 eventTracker.publish(events.showMoreResults);
                 return Q.fcall(function () {
@@ -55,14 +55,14 @@
 
             that.downloadResults = function downloadResults() {
                 eventTracker.publish(events.downloadResults);
-                return Q.fcall(function() {
+                return Q.fcall(function () {
                     if (!userContext.hasStarterAccess()) {
                         upgradeDialog.show(constants.dialogs.upgrade.settings.downloadResults);
                         return;
                     }
 
                     var name = getResultsFileName();
-                    return generateResultsCsvBlob().then(function(blob) {
+                    return generateResultsCsvBlob().then(function (blob) {
                         fileSaverWrapper.saveAs(blob, name);
                     });
                 });
@@ -89,22 +89,28 @@
 
             that.viewUrl = 'reporting/views/results';
 
-            function createStatement(spec) {
-                if (spec && spec.lrsStatement.verb === constants.reporting.xApiVerbIds.started) {
-                    return new StartedStatement(spec);
-                }
-                return new FinishStatement(spec);
+            function loadLrsStatements(entityId, take, skip) {
+                return getStartedStatements ? getStartedStatements(entityId, take, skip).then(function (startedStatements) {
+                    return getFinishedStatements(_.map(startedStatements, function (statement) {
+                        return statement.attemptId;
+                    })).then(function (finishedStatements) {
+                        return _.sortBy(_.map(finishedStatements, function (statement) { return new FinishStatement(statement); }).concat(_.map(_.reject(startedStatements, function (statement) {
+                            return _.where(finishedStatements, { attemptId: statement.attemptId }).length;
+                        }), function (statement) { return new StartedStatement(statement); })), function (statement) {
+                            return statement.lrsStatement.date;
+                        }).reverse();
+                    });
+                }) : getFinishedStatements(entityId, take, skip).then(function(statements) {
+                    return _.map(statements, function(statement) { return new FinishStatement(statement); });
+                });
             }
 
             function loadStatements(entityId, take, skip) {
                 return Q.fcall(function () {
                     if (!that.allResultsLoaded && (that.loadedResults.length <= take + skip)) {
-                        return getStatements(entityId, take + 1, skip)
+                        return loadLrsStatements(entityId, take + 1, skip)
                             // load +1 record to determine should we show 'Show more' button or not.
-                            .then(function (reportingStatements) {
-                                var statements = _.map(reportingStatements, function (statement) {
-                                    return createStatement(statement);
-                                });
+                            .then(function (statements) {
                                 if (statements && statements.length < take + 1) {
                                     that.allResultsLoaded = true;
                                 }
@@ -119,11 +125,9 @@
             function loadAllStatements(entityId) {
                 return Q.fcall(function () {
                     if (!that.allResultsLoaded) {
-                        return getStatements(entityId)
-                            .then(function (reportingStatements) {
-                                that.loadedResults = _.map(reportingStatements, function (statement) {
-                                    return createStatement(statement);
-                                });
+                        return loadLrsStatements(entityId)
+                            .then(function (statements) {
+                                that.loadedResults = statements;
                                 that.allResultsLoaded = true;
                                 return that.loadedResults;
                             });
@@ -145,6 +149,9 @@
             function generateResultsCsvBlob() {
                 var passed = localizationManager.localize('passed');
                 var failed = localizationManager.localize('failed');
+                var inProgress = localizationManager.localize('inProgress');
+                var noScore = localizationManager.localize('reportingScoreNotAvailable');
+                var notFinished = localizationManager.localize('reportingNotFinished');
 
                 var nameHeader = localizationManager.localize('nameAndEmail');
                 var resultHeader = localizationManager.localize('result');
@@ -164,10 +171,10 @@
                     _.each(reportingStatements, function (result) {
                         var resultCsv = [
                             result.lrsStatement.actor.name + ' (' + result.lrsStatement.actor.email + ')',
-                            result.passed ? passed : failed,
-                            result.lrsStatement.score,
-                            moment(result.lrsStatement.date).format('YYYY-MM-D'),
-                            moment(result.lrsStatement.date).format('h:mm:ss a')
+                            result.started ? inProgress : result.passed ? passed : failed,
+                            result.hasScore ? result.lrsStatement.score : noScore,
+                            result.started ? notFinished : moment(result.lrsStatement.date).format('YYYY-MM-D'),
+                            result.started ? notFinished : moment(result.lrsStatement.date).format('h:mm:ss a')
                         ].join(',');
 
                         csvList.push(resultCsv);
