@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Template design settings</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="css/design.css" rel="stylesheet" />
+    <script src="../api.js"></script>
+
+    <!-- build:js js/vendor.min.js -->
+    <script src="js/vendor/jquery.min.js"></script>
+    <script src="js/vendor/knockout.min.js"></script>
+    <!-- endbuild -->
+    <!-- build:js js/design.min.js -->
+    <script src="js/localize.js"></script>
+    <script src="js/upload.js"></script>
+    <script src="js/knockoutBindings.js"></script>
+    <script src="js/models.js"></script>
+    <script src="js/design.js"></script>
+    <!-- endbuild -->
+</head>
+<body>
+    <main data-bind="template: { afterRender: egApi.showSettings }">
+        <div class="no-settings-message-container">
+            <div class="no-settings-message-text">
+                There is no layout settings yet.
+            </div>
+        </div>
+    </main>
+</body>
+</html>

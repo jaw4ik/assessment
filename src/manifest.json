@@ -1,44 +1,47 @@
 {
-    "name": "Assessment",
-    "shortDescription": "For an assessment in the form of a quiz or an exam\n\nDetails:\nThe learner will see all questions (or a selection) in a long list and can answer them. You have options in 'Configure step' to make the assessment behave the way you want.",
-    "thumbnail": "preview/thumbnail.png",
-    "previewImages": [
-        "preview/images/preview.jpg"
-    ],
-    "settingsUrls": {
-        "design": "settings/design/design.html",
-        "configure": "settings/configure/configure.html"
+  "name": "Assessment",
+  "shortDescription": "For an assessment in the form of a quiz or an exam\n\nDetails:\nThe learner will see all questions (or a selection) in a long list and can answer them. You have options in 'Configure step' to make the assessment behave the way you want.",
+  "thumbnail": "preview/thumbnail.png",
+  "previewImages": [
+    "preview/images/preview.jpg"
+  ],
+  "settingsUrls": {
+    "design": {
+      "branding": "settings/design/branding.html",
+      "layout": "settings/design/layout.html"
     },
-    "languages": [
-        {
-            "code": "en",
-            "name": "English",
-            "url": "lang/en.json"
-        },
-        {
-            "code": "nl",
-            "name": "Dutch",
-            "url": "lang/nl.json"
-        },
-        {
-            "code": "ua",
-            "name": "Ukrainian",
-            "url": "lang/ua.json"
-        },
-        {
-            "code": "de",
-            "name": "German",
-            "url": "lang/de.json"
-        },
-        {
-            "code": "fr",
-            "name": "French",
-            "url": "lang/fr.json"
-        },
-        {
-            "code": "pt-br",
-            "name": "Portuguese - Brazil",
-            "url": "lang/pt-br.json"
-        }
-    ]
+    "configure": "settings/configure/configure.html"
+  },
+  "languages": [
+    {
+      "code": "en",
+      "name": "English",
+      "url": "lang/en.json"
+    },
+    {
+      "code": "nl",
+      "name": "Dutch",
+      "url": "lang/nl.json"
+    },
+    {
+      "code": "ua",
+      "name": "Ukrainian",
+      "url": "lang/ua.json"
+    },
+    {
+      "code": "de",
+      "name": "German",
+      "url": "lang/de.json"
+    },
+    {
+      "code": "fr",
+      "name": "French",
+      "url": "lang/fr.json"
+    },
+    {
+      "code": "pt-br",
+      "name": "Portuguese - Brazil",
+      "url": "lang/pt-br.json"
+    }
+  ]
 }
