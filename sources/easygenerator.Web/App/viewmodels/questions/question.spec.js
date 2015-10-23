@@ -14,6 +14,7 @@ define(function (require) {
         vmContentField = require('viewmodels/common/contentField'),
         multipleSelect = require('viewmodels/questions/multipleSelect/multipleSelect'),
         learningContents = require('viewmodels/learningContents/learningContents'),
+        feedback = require('viewmodels/questions/feedback'),
         moveCopyDialog = require('dialogs/moveCopyQuestion/moveCopyQuestion');
 
     var question = {
@@ -127,6 +128,13 @@ define(function (require) {
 
         });
         
+        describe('feedbackViewModel:', function () {
+
+            it('should be defined', function () {
+                expect(viewModel.feedbackViewModel).toBeDefined();
+            });
+
+        });
 
         describe('questionTitle:', function () {
 
@@ -315,6 +323,7 @@ define(function (require) {
             var getQuestionById,
                 activeQuestionViewModelInitDeferred,
                 learningContentsViewModelInitDeferred,
+                feedbackViewModelInitDeferred,
 
                 viewModelData = {
                     viewCaption: 'caption',
@@ -329,6 +338,8 @@ define(function (require) {
                 spyOn(multipleSelect, 'initialize').and.returnValue(activeQuestionViewModelInitDeferred.promise);
                 learningContentsViewModelInitDeferred = Q.defer();
                 spyOn(learningContents, 'initialize').and.returnValue(learningContentsViewModelInitDeferred.promise);
+                feedbackViewModelInitDeferred = Q.defer();
+                spyOn(feedback, 'initialize').and.returnValue(feedbackViewModelInitDeferred.promise);
 
                 spyOn(http, 'post');
             });
@@ -348,7 +359,7 @@ define(function (require) {
 
                     activeQuestionViewModelInitDeferred.resolve(viewModelData);
                     learningContentsViewModelInitDeferred.resolve();
-
+                    feedbackViewModelInitDeferred.resolve();
                 });
 
                 it('should set objectiveId', function (done) {
@@ -386,7 +397,7 @@ define(function (require) {
 
                     activeQuestionViewModelInitDeferred.resolve(viewModelData);
                     learningContentsViewModelInitDeferred.resolve();
-
+                    feedbackViewModelInitDeferred.resolve();
                 });
 
                 it('should set courseId', function (done) {
@@ -450,6 +461,7 @@ define(function (require) {
 
                     activeQuestionViewModelInitDeferred.resolve(viewModelData);
                     learningContentsViewModelInitDeferred.resolve();
+                    feedbackViewModelInitDeferred.resolve();
                 });
 
                 it('should set activeQuestionViewModel', function (done) {
@@ -486,9 +498,16 @@ define(function (require) {
                         });
                     });
 
-                    it('should initialize learningContents', function() {
-                        viewModel.activate(objective.id, question.id).fin(function () {
+                    it('should initialize learningContents', function (done) {
+                    viewModel.activate(objective.id, question.id).fin(function () {
                             expect(learningContents.initialize).toHaveBeenCalledWith(question);
+                            done();
+                        });
+                    });
+
+                    it('should initialize feedback', function (done) {
+                        viewModel.activate(objective.id, question.id).fin(function () {
+                            expect(feedback.initialize).toHaveBeenCalled();
                             done();
                         });
                     });

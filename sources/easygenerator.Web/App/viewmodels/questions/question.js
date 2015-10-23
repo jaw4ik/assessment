@@ -6,10 +6,11 @@ define(['durandal/app', 'eventTracker', 'constants',
         'viewmodels/common/contentField',
         'viewmodels/questions/questionViewModelFactory',
         'viewmodels/learningContents/learningContents',
+        'viewmodels/questions/feedback',
         'localization/localizationManager',
         'dialogs/moveCopyQuestion/moveCopyQuestion'],
     function (app, eventTracker, constants, questionRepository, objectiveRepository, courseRepository, router, vmQuestionTitle, vmContentField,
-        questionViewModelFactory, learningContentsViewModel, localizationManager, moveCopyQuestionDialog) {
+        questionViewModelFactory, learningContentsViewModel, feedbackViewModel, localizationManager, moveCopyQuestionDialog) {
         "use strict";
 
         var events = {
@@ -32,8 +33,11 @@ define(['durandal/app', 'eventTracker', 'constants',
             viewCaption: null,
             questionTitle: null,
             questionContent: null,
+
             activeQuestionViewModel: null,
             learningContentsViewModel: learningContentsViewModel,
+            feedbackViewModel: feedbackViewModel,
+
             isInformationContent: false,
             
             eventTracker: eventTracker,
@@ -132,7 +136,11 @@ define(['durandal/app', 'eventTracker', 'constants',
                             viewmodel.hasFeedback = viewModelData.hasFeedback;
                             viewmodel.feedbackCaptions = viewModelData.feedbackCaptions;
 
-                            return viewmodel.learningContentsViewModel.initialize(question);
+                            var promises = [];
+                            promises.push(viewmodel.learningContentsViewModel.initialize(question));
+                            promises.push(viewmodel.feedbackViewModel.initialize({ questionId: question.id, captions: viewmodel.feedbackCaptions }));
+
+                            return Q.all(promises);
                         });
                 });
         }
