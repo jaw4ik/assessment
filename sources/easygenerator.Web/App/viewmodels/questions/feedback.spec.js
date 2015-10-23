@@ -479,14 +479,14 @@
 
         });
 
-        describe('activate:', function () {
+        describe('initialize:', function () {
 
             it('should be function', function () {
-                expect(viewModel.activate).toBeFunction();
+                expect(viewModel.initialize).toBeFunction();
             });
 
             it('should return promise', function () {
-                expect(viewModel.activate()).toBePromise();
+                expect(viewModel.initialize()).toBePromise();
             });
 
             var questionId = '1',
@@ -511,7 +511,7 @@
                         correctFeedbackText: 'correct',
                         incorrectFeedbackText: 'incorrect'
                     });
-                    viewModel.activate(activationData).fin(function () {
+                    viewModel.initialize(activationData).fin(function () {
                         expect(viewModel.isExpanded()).toBeTruthy();
                         done();
                     });
@@ -523,7 +523,7 @@
                         correctFeedbackText: 'correct',
                         incorrectFeedbackText: 'incorrect'
                     });
-                    viewModel.activate(activationData).fin(function () {
+                    viewModel.initialize(activationData).fin(function () {
                         expect(viewModel.questionId).toBe(questionId);
                         done();
                     });
@@ -534,7 +534,7 @@
                         correctFeedbackText: 'correct',
                         incorrectFeedbackText: 'incorrect'
                     });
-                    viewModel.activate(activationData).fin(function () {
+                    viewModel.initialize(activationData).fin(function () {
                         expect(repository.getQuestionFeedback).toHaveBeenCalledWith(questionId);
                         done();
                     });
@@ -565,7 +565,7 @@
 
                         it('should init correct feedback', function (done) {
                             spyOn(viewModel.correctFeedback, 'init');
-                            viewModel.activate(activationData).fin(function () {
+                            viewModel.initialize(activationData).fin(function () {
                                 expect(viewModel.correctFeedback.init).toHaveBeenCalledWith('correct', captions.correctFeedback);
                                 done();
                             });
@@ -573,7 +573,7 @@
 
                         it('should init incorrect feedback', function (done) {
                             spyOn(viewModel.incorrectFeedback, 'init');
-                            viewModel.activate(activationData).fin(function () {
+                            viewModel.initialize(activationData).fin(function () {
                                 expect(viewModel.incorrectFeedback.init).toHaveBeenCalledWith('incorrect', captions.incorrectFeedback);
                                 done();
                             });
@@ -587,7 +587,7 @@
 
                         it('should init correct feedback', function (done) {
                             spyOn(viewModel.correctFeedback, 'init');
-                            viewModel.activate(activationData).fin(function () {
+                            viewModel.initialize(activationData).fin(function () {
                                 expect(viewModel.correctFeedback.init).toHaveBeenCalledWith('correct', {
                                     hint: 'correctFeedback',
                                     instruction: 'putYourPositiveFeedback'
@@ -598,7 +598,7 @@
 
                         it('should init incorrect feedback', function (done) {
                             spyOn(viewModel.incorrectFeedback, 'init');
-                            viewModel.activate(activationData).fin(function () {
+                            viewModel.initialize(activationData).fin(function () {
                                 expect(viewModel.incorrectFeedback.init).toHaveBeenCalledWith('incorrect', {
                                     hint: 'incorrectFeedback',
                                     instruction: 'putYourNegativeFeedback'
@@ -622,7 +622,7 @@
 
                         it('should init correct feedback', function (done) {
                             spyOn(viewModel.correctFeedback, 'init');
-                            viewModel.activate(activationData).fin(function () {
+                            viewModel.initialize(activationData).fin(function () {
                                 expect(viewModel.correctFeedback.init).toHaveBeenCalledWith('correct', captions.correctFeedback);
                                 done();
                             });
@@ -630,7 +630,7 @@
 
                         it('should init incorrect feedback', function (done) {
                             spyOn(viewModel.incorrectFeedback, 'init');
-                            viewModel.activate(activationData).fin(function () {
+                            viewModel.initialize(activationData).fin(function () {
                                 expect(viewModel.incorrectFeedback.init).toHaveBeenCalledWith('incorrect', {
                                     hint: 'incorrectFeedback',
                                     instruction: 'putYourNegativeFeedback'
@@ -648,7 +648,7 @@
                     });
 
                     it('should show error notification', function (done) {
-                        viewModel.activate(activationData).fin(function () {
+                        viewModel.initialize(activationData).fin(function () {
                             expect(notify.error).toHaveBeenCalledWith('error');
                             done();
                         });
@@ -663,7 +663,7 @@
 
                 it('should not set isExpanded', function (done) {
                     viewModel.isExpanded(false);
-                    viewModel.activate(activationData).fin(function () {
+                    viewModel.initialize(activationData).fin(function () {
                         expect(viewModel.isExpanded()).toBeFalsy();
                         done();
                     });
@@ -671,14 +671,14 @@
 
                 it('should not set questionId', function (done) {
                     viewModel.questionId = null;
-                    viewModel.activate(activationData).fin(function () {
+                    viewModel.initialize(activationData).fin(function () {
                         expect(viewModel.questionId).toBeNull();
                         done();
                     });
                 });
 
                 it('should not get question feedback', function (done) {
-                    viewModel.activate(activationData).fin(function () {
+                    viewModel.initialize(activationData).fin(function () {
                         expect(repository.getQuestionFeedback).not.toHaveBeenCalledWith(questionId);
                         done();
                     });
