@@ -50,14 +50,17 @@ define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synch
 
         ltiAuthDefer.then(function () {
             app.start().then(function () {
-                bootstrapper.run();
+                localizationManager.initialize(window.userCultures).then(function () {
+                    $('html').attr('lang', localizationManager.language);
 
-                return Q.all([localizationManager.initialize(), userContext.identify(), userContext.identifyStoragePermissions(), synchronization.start(), onboarding.initialize()])
-                    .spread(function () {
-                        audio.initialize();
-                        app.setRoot('viewmodels/shell', null, document.getElementById('app'));
-                    });
+                    bootstrapper.run();
 
+                    return Q.all([userContext.identify(), userContext.identifyStoragePermissions(), synchronization.start(), onboarding.initialize()])
+                        .spread(function () {
+                            audio.initialize();
+                            app.setRoot('viewmodels/shell', null, document.getElementById('app'));
+                        });
+                });
             }).done();
         });
     }

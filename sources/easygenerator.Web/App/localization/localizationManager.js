@@ -1,7 +1,12 @@
-﻿define(['cultureInfo', 'jsonReader'], function (cultureInfo, jsonReader) {
+﻿define(['jsonReader'], function (jsonReader) {
     "use strict";
 
-    var translations = null,
+    var 
+        defaultCulture = 'en',
+        supportedCultures = [
+            'en', 'uk', 'zh-cn', 'pt-br', 'fr'
+        ],
+        translations = null,
         currentCulture = '',
         currentLanguage = '',
 
@@ -26,14 +31,34 @@
             return this.translations.hasOwnProperty(key);
         },
 
-        initialize = function (settings) {
-            settings = settings || cultureInfo;
-            var that = this;
+        initialize = function (userCultures, localizationPath) {
+            userCultures = userCultures || [];
+            localizationPath = localizationPath || '/app/localization/lang/';
 
-            that.currentCulture = settings.culture;
-            that.currentLanguage = settings.language;
+            var that = this,
+                match = null,
+                i = 0,
+                j = 0,
+                uclength = userCultures.length,
+                sclength = supportedCultures.length;
 
-            return jsonReader.read(settings.translationsUrl).then(function (result) {
+            for (i = 0; i < uclength; i++) {
+                if (_.isString(match)) {
+                    break;
+                }
+                for (j = 0; j < sclength; j++) {
+                    if (userCultures[i].toLowerCase() === supportedCultures[j].toLowerCase() ||
+                        userCultures[i].toLowerCase().substring(0, 2) === supportedCultures[j].toLowerCase()) {
+                        match = supportedCultures[j];
+                        break;
+                    }
+                }
+            }
+
+            that.currentCulture = _.isString(match) ? match : defaultCulture;
+            that.currentLanguage = that.currentCulture.substring(0, 2);
+
+            return jsonReader.read(localizationPath + that.currentCulture + '.json').then(function (result) {
                 that.translations = result;
             });
         };

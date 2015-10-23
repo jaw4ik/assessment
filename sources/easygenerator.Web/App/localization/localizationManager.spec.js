@@ -2,7 +2,6 @@
     "use strict";
 
     var jsonReader = require('jsonReader');
-    var cultureInfo = require('cultureInfo');
     var translations = localizationManager.translations;
 
     describe('localizationManager', function () {
@@ -15,39 +14,97 @@
             expect(localizationManager).toBeObject();
         });
 
+        describe('currentCulture:', function () {
+            it('should be defined', function () {
+                expect(localizationManager.currentCulture).toBeDefined();
+            });
+        });
+
+        describe('language:', function () {
+            it('should be defined', function () {
+                expect(localizationManager.currentLanguage).toBeDefined();
+            });
+        });
+
         describe('initialize', function () {
             var readJson;
 
             beforeEach(function () {
-                cultureInfo.culture = 'culture';
-                cultureInfo.language = 'language';
-                cultureInfo.translationsUrl = 'cultureTranslationsUrl';
                 readJson = Q.defer();
                 spyOn(jsonReader, 'read').and.returnValue(readJson.promise);
             });
 
-            describe('when settings is not specified', function () {
+            it('should be function', function () {
+                expect(localizationManager.initialize).toBeFunction();
+            });
 
-                it('should set culture from cultureInfo', function () {
-                    localizationManager.initialize();
-                    expect(localizationManager.currentCulture).toBe('culture');
-                });
+            describe('when userCultures is not specified', function () {
 
-                it('should set language from cultureInfo', function () {
+                it('should set \'en\' as the default language', function () {
                     localizationManager.initialize();
-                    expect(localizationManager.currentLanguage).toBe('language');
-                });
-
-                it('should read translations by url from cultureInfo', function () {
-                    localizationManager.initialize();
-                    expect(jsonReader.read).toHaveBeenCalledWith('cultureTranslationsUrl');
+                    expect(localizationManager.currentLanguage).toBe('en');
                 });
 
             });
 
-            it('should read translations by url', function () {
-                localizationManager.initialize({ translationsUrl: 'translationsUrl' });
-                expect(jsonReader.read).toHaveBeenCalledWith('translationsUrl');
+            describe('when userCultures is not an array', function () {
+
+                it('should set \'en\' as the default language', function () {
+                    localizationManager.initialize('');
+                    expect(localizationManager.currentLanguage).toBe('en');
+                });
+
+            });
+
+            describe('when user has not supported cultures', function () {
+
+                it('should set \'en\' as the default language', function () {
+                    localizationManager.initialize(['not supported']);
+                    expect(localizationManager.currentLanguage).toEqual("en");
+                });
+
+                describe('but culture language is supported', function () {
+                    it('should set culture by language', function() {
+                        localizationManager.initialize(['uk-not_supported']);
+                        expect(localizationManager.currentCulture).toEqual("uk");
+                    });
+                });
+            });
+
+            describe('when user has several cultures', function() {
+                it('should set first supported culture', function () {
+                    localizationManager.initialize(['ru-RU', 'uk', 'en']);
+                    expect(localizationManager.currentLanguage).toEqual('uk');
+                });
+            });
+
+            describe('when user culture in different case', function() {
+                it('should igonore case', function () {
+                    localizationManager.initialize(['PT-BR']);
+                    expect(localizationManager.currentLanguage).toEqual('pt');
+                });
+            });
+
+            it('should set culture', function () {
+                localizationManager.initialize(['pt-br']);
+                expect(localizationManager.currentCulture).toBe('pt-br');
+            });
+
+            it('should set language', function () {
+                localizationManager.initialize(['pt-br']);
+                expect(localizationManager.currentLanguage).toBe('pt');
+            });
+
+            describe('when language location is not specified', function() {
+                it('should read translations from default path', function () {
+                    localizationManager.initialize();
+                    expect(jsonReader.read).toHaveBeenCalledWith('/app/localization/lang/en.json');
+                });
+            });
+
+            it('should read translations according to culture', function () {
+                localizationManager.initialize(['pt-br'], 'languageLocation/');
+                expect(jsonReader.read).toHaveBeenCalledWith('languageLocation/pt-br.json');
             });
 
             describe('when json is read', function () {
@@ -58,7 +115,7 @@
                 });
 
                 it('should set translations', function (done) {
-                    localizationManager.initialize({ translationsUrl: 'translationsUrl' });
+                    localizationManager.initialize();
 
                     readJson.promise.fin(function () {
                         console.log(localizationManager.translations);

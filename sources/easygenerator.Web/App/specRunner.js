@@ -361,7 +361,6 @@
             'notify.spec',
             'uiLocker.spec',
             'userContext.spec',
-            'cultureInfo.spec',
             '../Scripts/account/signup.spec',
             '../Scripts/account/signin.spec',
             '../Scripts/account/passwordrecovery.spec',
@@ -370,7 +369,7 @@
             '../Scripts/common/serviceUnavailableAjaxErrorHandler.spec'
         ];
 
-        localizationManager.initialize({ culture:'en', language:'en', translationsUrl: 'localization/lang/en.json' }).then(function () {
+        localizationManager.initialize(['en'], 'localization/lang/').then(function () {
             require(specs, function () {
                 env.execute();
             });
