@@ -31,6 +31,7 @@
     "gulp-useref": "^1.0.2",
     "gulp-bower": "0.0.10",
     "jshint-stylish": "^1.0.0",
-    "merge-stream": "^0.1.6"
+    "merge-stream": "^0.1.6",
+    "gulp-webserver": "^0.9.1"
   }
 }

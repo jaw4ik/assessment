@@ -14,7 +14,8 @@
             dragAndDropText: 'dragAndDropText',
             statement: 'statement',
             hotspot: 'hotspot',
-            openQuestion: 'openQuestion'
+            openQuestion: 'openQuestion',
+            scenario: 'scenario'
         };
 
         function checkIfQuestionSupported(type) {

@@ -13,7 +13,8 @@
 		'SingleSelectImage',
 		'FillInTheBlanks',
 		'Hotspot',
-		'OpenQuestion'
+		'OpenQuestion',
+        'ScenarioQuestion'
 	];
 
 	function questionsFactory (
@@ -25,7 +26,8 @@
 		SingleSelectImage,
 		FillInTheBlanks,
 		Hotspot,
-		OpenQuestion
+		OpenQuestion,
+        ScenarioQuestion
 	) {
 			
 		var models = {
@@ -37,7 +39,8 @@
 			fillInTheBlank:		function (data) { return new FillInTheBlanks(data.objectiveId, data.id, data.title, data.hasContent, data.learningContents, data.type, data.answerGroups); },
 			hotspot: 			function (data) { return new Hotspot(data.objectiveId, data.id, data.title, data.hasContent, data.learningContents, data.type, data.background, data.spots, data.isMultiple); },
 			multipleSelect: 	function (data) { return new MultipleSelectText(data.objectiveId, data.id, data.title, data.hasContent, data.learningContents, data.type, data.answers); },
-			openQuestion: 		function (data) { return new OpenQuestion(data.objectiveId, data.id, data.title, data.hasContent, data.learningContents, data.type); }
+			openQuestion: 		function (data) { return new OpenQuestion(data.objectiveId, data.id, data.title, data.hasContent, data.learningContents, data.type); },
+			scenario:           function (data) { return new ScenarioQuestion(data.objectiveId, data.id, data.title, data.hasContent, data.learningContents, data.type, data.projectId, data.embedCode, data.embedUrl, data.masteryScore) }
 		};
 		
 		return {

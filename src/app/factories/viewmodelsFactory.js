@@ -13,7 +13,8 @@
 		'FillInTheBlanksViewModel', 
 		'HotspotViewModel', 
 		'MultipleSelectTextViewModel', 
-		'OpenQuestionViewModel'
+		'OpenQuestionViewModel',
+        'ScenarioQuestionViewModel'
 	];
 		
 	function viewmodelsFactory (
@@ -25,7 +26,8 @@
 		FillInTheBlanksViewModel, 
 		HotspotViewModel, 
 		MultipleSelectTextViewModel, 
-		OpenQuestionViewModel
+		OpenQuestionViewModel,
+        ScenarioQuestionViewModel
 	) {
 	
 		var viewmodels = {
@@ -37,11 +39,12 @@
 			fillInTheBlank:		FillInTheBlanksViewModel,
 			hotspot: 			HotspotViewModel,
 			multipleSelect: 	MultipleSelectTextViewModel,
-			openQuestion: 		OpenQuestionViewModel
+			openQuestion:       OpenQuestionViewModel,
+			scenario:   ScenarioQuestionViewModel
 		};
 		
 		return {
-			createQuestionViewmodel: function (question) {
+		    createQuestionViewmodel: function (question) {
 				if (!_.isFunction(viewmodels[question.type])) {
 					throw 'Unknown question type';
 				}

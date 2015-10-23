@@ -6,12 +6,12 @@
     factory.$inject = ['xApiVerbs', 'xApiSupportedQuestionTypes', 'objectivesQueries',
                       'dragAndDropTextDataBuilder', 'fillInTheBlanksDataBuilder', 'hotspotDataBuilder', 'multipleChoiceDataBuilder',
                       'singleChoiceDataBuilder', 'singleChoiceImageDataBuilder', 'statementDataBuilder', 'textMatchingDataBuilder',
-                      'openQuestionDataBuilder'];
+                      'openQuestionDataBuilder', 'scenarioQuestionDataBuilder'];
 
     function factory(verbs, supportedQuestionTypes, objectivesQueries,
         dragAndDropTextDataBuilder, fillInTheBlanksDataBuilder, hotspotDataBuilder, multipleChoiceDataBuilder,
         singleChoiceDataBuilder, singleChoiceImageDataBuilder, statementDataBuilder, textMatchingDataBuilder,
-        openQuestionDataBuilder) {
+        openQuestionDataBuilder, scenarioQuestionDataBuilder) {
         return {
             questionAnswered: questionAnswered
         };
@@ -56,6 +56,9 @@
                     break;
                 case types.openQuestion:
                     data = openQuestionDataBuilder(question, answers, questionUrl);
+                    break;
+                case types.scenario:
+                    data = scenarioQuestionDataBuilder(question, questionUrl);
                     break;
             }
             

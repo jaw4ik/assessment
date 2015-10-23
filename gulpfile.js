@@ -11,6 +11,7 @@ var
     less = require('gulp-less'),
     css = require("gulp-minify-css"),
     csso = require('gulp-csso'),
+    webserver = require('gulp-webserver'),
 
     uglify = require('gulp-uglify'),
 
@@ -210,4 +211,18 @@ gulp.task('build-configure-settings', ['pre-build'], function () {
         .pipe(css())
         .pipe(gulp.dest(output + '/settings/configure/css'));
 
+});
+
+gulp.task('webserver', function () {
+    gulp.src('.')
+        .pipe(webserver({
+            livereload: {
+                enable: true,
+                filter: function (fileName) {
+                    return !fileName.match(/.css/);
+                }
+            },
+            directoryListing: true,
+            open: "src/index.html"
+        }));
 });
