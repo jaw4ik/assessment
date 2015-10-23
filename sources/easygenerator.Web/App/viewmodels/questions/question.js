@@ -5,10 +5,12 @@ define(['durandal/app', 'eventTracker', 'constants',
         'viewmodels/questions/questionTitle',
         'viewmodels/common/contentField',
         'viewmodels/questions/questionViewModelFactory',
+        'viewmodels/learningContents/learningContents',
+        'viewmodels/questions/feedback',
         'localization/localizationManager',
         'dialogs/moveCopyQuestion/moveCopyQuestion'],
     function (app, eventTracker, constants, questionRepository, objectiveRepository, courseRepository, router, vmQuestionTitle, vmContentField,
-        questionViewModelFactory, localizationManager, moveCopyQuestionDialog) {
+        questionViewModelFactory, learningContentsViewModel, feedbackViewModel, localizationManager, moveCopyQuestionDialog) {
         "use strict";
 
         var events = {
@@ -31,9 +33,13 @@ define(['durandal/app', 'eventTracker', 'constants',
             viewCaption: null,
             questionTitle: null,
             questionContent: null,
-            activeQuestionViewModel: null,
-            isInformationContent: false,
 
+            activeQuestionViewModel: null,
+            learningContentsViewModel: learningContentsViewModel,
+            feedbackViewModel: feedbackViewModel,
+
+            isInformationContent: false,
+            
             eventTracker: eventTracker,
             localizationManager: localizationManager,
 
@@ -129,6 +135,12 @@ define(['durandal/app', 'eventTracker', 'constants',
                             viewmodel.questionContent = viewModelData.hasQuestionContent ? vmContentField(question.content, eventsForQuestionContent, true, updateQuestionContent) : null;
                             viewmodel.hasFeedback = viewModelData.hasFeedback;
                             viewmodel.feedbackCaptions = viewModelData.feedbackCaptions;
+
+                            var promises = [];
+                            promises.push(viewmodel.learningContentsViewModel.initialize(question));
+                            promises.push(viewmodel.feedbackViewModel.initialize({ questionId: question.id, captions: viewmodel.feedbackCaptions }));
+
+                            return Q.all(promises);
                         });
                 });
         }
