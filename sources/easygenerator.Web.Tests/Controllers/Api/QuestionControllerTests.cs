@@ -139,6 +139,44 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
+        #region Update voice-over
+
+        [TestMethod]
+        public void UpdateVoiceOver_ShouldReturnJsonErrorResult_WhenQuestionIsNull()
+        {
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
+
+            var result = _controller.UpdateVoiceOver(null, String.Empty);
+
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Question is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("questionNotFoundError");
+        }
+
+        [TestMethod]
+        public void UpdateVoiceOver_ShouldUpdateQuestionVoiceOver()
+        {
+            const string voiceOver = "updated voice-over";
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var question = Substitute.For<Question>();
+
+            _controller.UpdateVoiceOver(question, voiceOver);
+
+            question.Received().UpdateVoiceOver(voiceOver, user);
+        }
+
+        [TestMethod]
+        public void UpdateVoiceOver_ShouldReturnJsonSuccessResult()
+        {
+            var question = Substitute.For<Question>();
+
+            var result = _controller.UpdateVoiceOver(question, String.Empty);
+
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = question.ModifiedOn });
+        }
+
+        #endregion
+
         #region Update content
 
         [TestMethod]

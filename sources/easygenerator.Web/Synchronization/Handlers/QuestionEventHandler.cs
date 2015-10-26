@@ -16,7 +16,8 @@ namespace easygenerator.Web.Synchronization.Handlers
         IDomainEventHandler<QuestionCorrectFeedbackUpdatedEvent>,
         IDomainEventHandler<QuestionIncorrectFeedbackUpdatedEvent>,
         IDomainEventHandler<LearningContentsReorderedEvent>,
-        IDomainEventHandler<FillInTheBlankUpdatedEvent>
+        IDomainEventHandler<FillInTheBlankUpdatedEvent>,
+        IDomainEventHandler<QuestionVoiceOverUpdatedEvent>
     {
         private readonly ICollaborationBroadcaster<Question> _broadcaster;
         private readonly IEntityMapper _entityMapper;
@@ -73,6 +74,12 @@ namespace easygenerator.Web.Synchronization.Handlers
         {
             _broadcaster.OtherCollaborators(args.Question)
                 .fillInTheBlankUpdated(args.Question.Id.ToNString(), args.Question.Content, args.Answers.Select(e => _entityMapper.Map(e)), args.Question.ModifiedOn);
+        }
+
+        public void Handle(QuestionVoiceOverUpdatedEvent args)
+        {
+            _broadcaster.OtherCollaborators(args.Question)
+                .questionVoiceOverUpdated(args.Question.Id.ToNString(), args.Question.VoiceOver, args.Question.ModifiedOn);
         }
     }
 }
