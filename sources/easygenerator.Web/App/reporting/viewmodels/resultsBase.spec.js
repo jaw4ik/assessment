@@ -5,11 +5,12 @@
         constants = require('constants'),
         userContext = require('userContext'),
         router = require('plugins/router'),
+        StartedStatement = require('reporting/viewmodels/startedStatement'),
         FinishStatement = require('reporting/viewmodels/finishStatement'),
         fileSaverWrapper = require('utils/fileSaverWrapper');
 
     describe('ResultsBase:', function () {
-        it ('should return function', function() {
+        it('should return function', function () {
             expect(ResultsBase).toBeFunction();
         });
     });
@@ -20,7 +21,7 @@
             getEntityDefer;
 
         var viewLocation = 'noResultsViewLocation';
-        var xApiProvider, repository, viewModel;
+        var xApiProvider, repository, viewModel, viewModelWithoutStarted;
 
         var time = '2015-02-03_05-38';
 
@@ -30,33 +31,76 @@
             }
         };
 
-        var finishStatements = [
-            {
-                id: 'id1',
-                score: 10,
-                actor: { name: 'name1', email: 'email1' }
-            },
-            {
-                id: 'id2',
-                score: 20,
-                actor: { name: 'name2', email: 'email2' }
-            },
-            {
-                id: 'id3',
-                score: 30,
-                actor: { name: 'name3', email: 'email3' }
-            },
-            {
-                id: 'id4',
-                score: 40,
-                actor: { name: 'name4', email: 'email4' }
-            },
-            {
-                id: 'id5',
-                score: 50,
-                actor: { name: 'name5', email: 'email5' }
-            }
-        ];
+        var startedStatements = [
+                {
+                    id: 'id1',
+                    attemptId: '123',
+                    score: null,
+                    actor: { name: 'name1', email: 'email1' }
+                },
+                {
+                    id: 'id2',
+                    attemptId: '1234',
+                    score: null,
+                    actor: { name: 'name2', email: 'email2' }
+                },
+                {
+                    id: 'id3',
+                    attemptId: '12345',
+                    score: null,
+                    actor: { name: 'name3', email: 'email3' }
+                },
+                {
+                    id: 'id4',
+                    attemptId: '123456',
+                    score: null,
+                    actor: { name: 'name4', email: 'email4' }
+                },
+                {
+                    id: 'id5',
+                    attemptId: '1234567',
+                    score: null,
+                    actor: { name: 'name5', email: 'email5' }
+                },
+                {
+                    id: 'id6',
+                    attemptId: '12345678',
+                    score: null,
+                    actor: { name: 'name6', email: 'email6' }
+                }
+            ],
+            finishStatements = [
+                {
+                    id: 'id1',
+                    attemptId: '123',
+                    score: 10,
+                    actor: { name: 'name1', email: 'email1' }
+                },
+                {
+                    id: 'id2',
+                    attemptId: '1234',
+                    score: 20,
+                    actor: { name: 'name2', email: 'email2' }
+                },
+                {
+                    id: 'id3',
+                    attemptId: '12345',
+                    score: 30,
+                    actor: { name: 'name3', email: 'email3' }
+                },
+                {
+                    id: 'id4',
+                    attemptId: '123456',
+                    score: 40,
+                    actor: { name: 'name4', email: 'email4' }
+                },
+                {
+                    id: 'id5',
+                    attemptId: '1234567',
+                    score: 50,
+                    actor: { name: 'name5', email: 'email5' }
+                }
+            ];
 
         beforeEach(function () {
             getEntityDefer = Q.defer();
@@ -65,12 +109,13 @@
             spyOn(router, 'openUrl');
 
             repository = jasmine.createSpyObj('repository', ['getById']);
-            xApiProvider = jasmine.createSpyObj('xApiProvider', ['getStatements']);
+            xApiProvider = jasmine.createSpyObj('xApiProvider', ['getStartedStatements', 'getFinishedStatements']);
             repository.getById.and.returnValue(getEntityDefer.promise);
 
             spyOn(window, 'moment').and.returnValue(fakeMoment);
             spyOn(fakeMoment, 'format').and.returnValue(time);
-            viewModel = new ResultsBase(repository.getById, xApiProvider.getStatements, viewLocation);
+            viewModel = new ResultsBase(repository.getById, xApiProvider.getStartedStatements, xApiProvider.getFinishedStatements, viewLocation);
+            viewModelWithoutStarted = new ResultsBase(repository.getById, null, xApiProvider.getFinishedStatements, viewLocation);
         });
 
         describe('entityId:', function () {
@@ -232,61 +277,201 @@
 
         describe('attached:', function () {
 
-            var dfd;
+            var startedDfd,
+                finishDfd;
 
             beforeEach(function () {
-                dfd = Q.defer();
-                viewModel.activate(entityId);
-                xApiProvider.getStatements.and.returnValue(dfd.promise);;
-                dfd.resolve(finishStatements);
+                startedDfd = Q.defer();
+                finishDfd = Q.defer();
+                xApiProvider.getStartedStatements.and.returnValue(startedDfd.promise);
+                xApiProvider.getFinishedStatements.and.returnValue(finishDfd.promise);
+                startedDfd.resolve(startedStatements);
+                finishDfd.resolve(finishStatements);
             });
 
             it('should return a promise', function () {
-                dfd.resolve(null);
+                startedDfd.resolve(null);
+                finishDfd.resolve(null);
                 expect(viewModel.attached()).toBePromise();
             });
 
-            it('should call getStatements with correct params', function (done) {
-                viewModel.attached().fin(function () {
-                    expect(xApiProvider.getStatements).toHaveBeenCalledWith(
-                        entityId,
-                        constants.results.pageSize + 1,
-                        0
-                    );
-                    done();
-                });
-            });
-
-            describe('when getStatements failed', function () {
+            describe('when getStartedStatements is not defined', function () {
                 beforeEach(function () {
-                    dfd.reject();
+                    viewModelWithoutStarted.activate(entityId);
                 });
-                it('should set isLoading to false', function (done) {
-                    viewModel.attached().fin(function () {
-                        expect(viewModel.isLoading()).toBeFalsy();
-                        done();
-                    });
-                });
-            });
 
-            describe('when getStatements returned statements', function () {
-                it('should fill results field with results', function (done) {
-                    constants.results.pageSize = 1;
-                    viewModel.attached().fin(function () {
-                        expect(viewModel.results()[0].lrsStatement).toBe(finishStatements[0]);
-                        expect(viewModel.results()[0]).toBeInstanceOf(FinishStatement);
-                        expect(viewModel.results().length).toBe(1);
+                it('should call getFinishedStatements with correct params', function (done) {
+                    viewModelWithoutStarted.attached().fin(function () {
+                        expect(xApiProvider.getFinishedStatements).toHaveBeenCalledWith(
+                            entityId,
+                            constants.results.pageSize + 1,
+                            0
+                        );
                         done();
                     });
                 });
 
-                it('should set isLoading to false', function (done) {
-                    viewModel.attached().fin(function () {
-                        expect(viewModel.isLoading()).toBeFalsy();
+                describe('and getFinishedStatements failed', function () {
+
+                    beforeEach(function () {
+                        viewModelWithoutStarted.isLoading(true);
+                        finishDfd.reject();
+                    });
+
+                    it('should set isLoading to false', function (done) {
+                        viewModelWithoutStarted.attached().fin(function () {
+                            expect(viewModelWithoutStarted.isLoading()).toBeFalsy();
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('and getFinishedStatements returned statements', function () {
+
+                    it('should set isLoading to false', function (done) {
+                        viewModelWithoutStarted.isLoading(true);
+                        viewModelWithoutStarted.attached().fin(function () {
+                            expect(viewModelWithoutStarted.isLoading()).toBeFalsy();
+                            done();
+                        });
+                    });
+
+                    it('should fill results field with results', function (done) {
+                        constants.results.pageSize = 1;
+                        viewModelWithoutStarted.attached().fin(function () {
+                            expect(viewModelWithoutStarted.results()[0].lrsStatement).toBe(finishStatements[0]);
+                            expect(viewModelWithoutStarted.results()[0]).toBeInstanceOf(FinishStatement);
+                            expect(viewModelWithoutStarted.results().length).toBe(1);
+                            done();
+                        });
+                    });
+
+                    describe('and number of statemets less than page size + 1', function () {
+
+                        beforeEach(function () {
+                            viewModelWithoutStarted.allResultsLoaded = false;
+                            constants.results.pageSize = 10;
+                        });
+
+                        it('should set allResultsLoaded to true', function(done) {
+                            viewModelWithoutStarted.attached().fin(function () {
+                                expect(viewModelWithoutStarted.allResultsLoaded).toBeTruthy();
+                                done();
+                            });
+                        });
+
+                    });
+
+                    describe('and number of statemets less equals page size + 1', function () {
+
+                        beforeEach(function () {
+                            viewModelWithoutStarted.allResultsLoaded = false;
+                            constants.results.pageSize = 1;
+                        });
+
+                        it('should not set allResultsLoaded to true', function (done) {
+                            viewModelWithoutStarted.attached().fin(function () {
+                                expect(viewModelWithoutStarted.allResultsLoaded).toBeFalsy();
+                                done();
+                            });
+                        });
+
+                    });
+
+                });
+
+            });
+
+            describe('when getStartedStatements is defined', function () {
+
+                beforeEach(function () {
+                    viewModel.activate(entityId);
+                });
+
+                it('should call getFinishedStatements with correct params', function (done) {
+                    viewModelWithoutStarted.attached().fin(function () {
+                        expect(xApiProvider.getFinishedStatements).toHaveBeenCalledWith(
+                            entityId,
+                            constants.results.pageSize + 1,
+                            0
+                        );
                         done();
                     });
                 });
+
+                describe('and getFinishedStatements failed', function () {
+
+                    beforeEach(function () {
+                        viewModelWithoutStarted.isLoading(true);
+                        finishDfd.reject();
+                    });
+
+                    it('should set isLoading to false', function (done) {
+                        viewModelWithoutStarted.attached().fin(function () {
+                            expect(viewModelWithoutStarted.isLoading()).toBeFalsy();
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('and getFinishedStatements returned statements', function () {
+
+                    it('should set isLoading to false', function (done) {
+                        viewModelWithoutStarted.isLoading(true);
+                        viewModelWithoutStarted.attached().fin(function () {
+                            expect(viewModelWithoutStarted.isLoading()).toBeFalsy();
+                            done();
+                        });
+                    });
+
+                    it('should fill results field with results', function (done) {
+                        constants.results.pageSize = 1;
+                        viewModelWithoutStarted.attached().fin(function () {
+                            expect(viewModelWithoutStarted.results()[0].lrsStatement).toBe(finishStatements[0]);
+                            expect(viewModelWithoutStarted.results()[0]).toBeInstanceOf(FinishStatement);
+                            expect(viewModelWithoutStarted.results().length).toBe(1);
+                            done();
+                        });
+                    });
+
+                    describe('and number of statemets less than page size + 1', function () {
+
+                        beforeEach(function () {
+                            viewModelWithoutStarted.allResultsLoaded = false;
+                            constants.results.pageSize = 10;
+                        });
+
+                        it('should set allResultsLoaded to true', function (done) {
+                            viewModelWithoutStarted.attached().fin(function () {
+                                expect(viewModelWithoutStarted.allResultsLoaded).toBeTruthy();
+                                done();
+                            });
+                        });
+
+                    });
+
+                    describe('and number of statemets less equals page size + 1', function () {
+
+                        beforeEach(function () {
+                            viewModelWithoutStarted.allResultsLoaded = false;
+                            constants.results.pageSize = 1;
+                        });
+
+                        it('should not set allResultsLoaded to true', function (done) {
+                            viewModelWithoutStarted.attached().fin(function () {
+                                expect(viewModelWithoutStarted.allResultsLoaded).toBeFalsy();
+                                done();
+                            });
+                        });
+
+                    });
+
+                });
+
             });
+
         });
 
         describe('showMoreResults:', function () {
@@ -471,7 +656,7 @@
                 });
             });
         });
-        
+
         describe('downloadResults:', function () {
 
             var dfd;

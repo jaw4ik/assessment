@@ -115,6 +115,7 @@
             'reporting/viewmodels/expandableStatement.spec',
             'reporting/viewmodels/questionStatement.spec',
             'reporting/viewmodels/objectiveStatement.spec',
+            'reporting/viewmodels/startedStatement.spec',
             'reporting/viewmodels/finishStatement.spec',
             'reporting/viewmodels/resultsBase.spec',
 
