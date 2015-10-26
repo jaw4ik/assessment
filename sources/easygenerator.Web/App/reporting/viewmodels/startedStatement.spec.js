@@ -23,21 +23,11 @@
 
         describe('[ctor]', function () {
             it('should call ctor of ExpandableStatement with proper args', function () {
-                expect(ExpandableStatement.call).toHaveBeenCalledWith(statement, lrsStatement, statement.expandLoadAction);
+                expect(ExpandableStatement.call).toHaveBeenCalledWith(statement, lrsStatement, null);
             });
 
             it('should evaluate learnerDisplayName', function () {
                 expect(statement.learnerDisplayName).toBe(statement.lrsStatement.actor.name + ' (' + statement.lrsStatement.actor.email + ')');
-            });
-
-            it('should set started to true', function () {
-                statement = new StartedStatement(lrsStatement);
-                expect(statement.started).toBeTruthy();
-            });
-
-            it('should set passed to false', function () {
-                statement = new StartedStatement(lrsStatement);
-                expect(statement.passed).toBeFalsy();
             });
 
             it('should set isExpandable to false', function () {

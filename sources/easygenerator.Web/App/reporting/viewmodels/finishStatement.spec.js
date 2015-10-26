@@ -35,11 +35,6 @@
                 expect(statement.learnerDisplayName).toBe(statement.lrsStatement.actor.name + ' (' + statement.lrsStatement.actor.email + ')');
             });
 
-            it('should set started to false', function() {
-                statement = new FinishStatement(lrsStatement);
-                expect(statement.started).toBeFalsy();
-            });
-
             it('should set passed to true if statement verb is passed', function () {
                 lrsStatement.verb = constants.reporting.xApiVerbIds.passed;
                 statement = new FinishStatement(lrsStatement);

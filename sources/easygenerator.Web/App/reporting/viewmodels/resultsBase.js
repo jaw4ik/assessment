@@ -1,4 +1,4 @@
-﻿define(['constants', 'userContext', 'localization/localizationManager', 'eventTracker', 'utils/fileSaverWrapper', 'widgets/upgradeDialog/viewmodel', 'reporting/viewModels/startedStatement', 'reporting/viewmodels/finishStatement'],
+﻿define(['constants', 'userContext', 'localization/localizationManager', 'eventTracker', 'utils/fileSaverWrapper', 'widgets/upgradeDialog/viewmodel', 'reporting/viewmodels/startedStatement', 'reporting/viewmodels/finishStatement'],
     function (constants, userContext, localizationManager, eventTracker, fileSaverWrapper, upgradeDialog, StartedStatement, FinishStatement) {
         "use strict";
 
@@ -89,6 +89,10 @@
 
             that.viewUrl = 'reporting/views/results';
 
+            that.isFinished = function(statement) {
+                return statement instanceof FinishStatement;
+            }
+
             function loadLrsStatements(entityId, take, skip) {
                 return getStartedStatements ? getStartedStatements(entityId, take, skip).then(function (startedStatements) {
                     return getFinishedStatements(_.map(startedStatements, function (statement) {
@@ -171,10 +175,10 @@
                     _.each(reportingStatements, function (result) {
                         var resultCsv = [
                             result.lrsStatement.actor.name + ' (' + result.lrsStatement.actor.email + ')',
-                            result.started ? inProgress : result.passed ? passed : failed,
+                            result instanceof StartedStatement ? inProgress : result.passed ? passed : failed,
                             result.hasScore ? result.lrsStatement.score : noScore,
-                            result.started ? notFinished : moment(result.lrsStatement.date).format('YYYY-MM-D'),
-                            result.started ? notFinished : moment(result.lrsStatement.date).format('h:mm:ss a')
+                            result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('YYYY-MM-D'),
+                            result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('h:mm:ss a')
                         ].join(',');
 
                         csvList.push(resultCsv);
