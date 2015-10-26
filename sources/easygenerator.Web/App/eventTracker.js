@@ -1,8 +1,12 @@
 ﻿define(['plugins/router', 'analytics/providers'],
     function (router, analyticsProviders) {
 
+        return {
+            publish: publish
+        };
+
         function publish(eventName, eventCategory) {
-            var activeInstruction = router.activeInstruction();
+            var activeInstruction = getActiveInstruction();
 
             var category = '';
 
@@ -15,7 +19,13 @@
             analyticsProviders.publish(eventName, category);
         }
 
-        return {
-            publish: publish
-        };
-    });
+        function getActiveInstruction() {
+            return (function getInstruction(router) {
+                return router.activeItem && router.activeItem() && router.activeItem().router
+                    ? getInstruction(router.activeItem().router)
+                    : router.activeInstruction();
+            })(router);
+        }
+
+    }
+);

@@ -57,7 +57,7 @@
     <Compile Include="Entities\LearningPath.cs" />
     <Compile Include="Entities\Onboarding.cs" />
     <Compile Include="Entities\Questions\BlankAnswer.cs" />
-    <Compile Include="Entities\Questions\BranchTrack.cs" />
+    <Compile Include="Entities\Questions\Scenario.cs" />
     <Compile Include="Entities\Questions\OpenQuestion.cs" />
     <Compile Include="Entities\Questions\QuestionWithBackground.cs" />
     <Compile Include="Entities\Questions\HotSpotPolygon.cs" />
@@ -145,6 +145,8 @@
     <Compile Include="Events\QuestionEvents\QuestionEvent.cs" />
     <Compile Include="Events\QuestionEvents\QuestionContentUpdatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\QuestionTitleUpdatedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\ScenarioEvents\ScenarioDataUpdatedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\ScenarioEvents\ScenarioMasteryScoreUpdatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\SingleSelectImageEvents\SingleSelectImageCorrectAnswerChangedEvent.cs" />
     <Compile Include="Events\QuestionEvents\SingleSelectImageEvents\SingleSelectImageAnswerCreatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\SingleSelectImageEvents\SingleSelectImageAnswerDeletedEvent.cs" />

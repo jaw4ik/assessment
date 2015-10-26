@@ -1,0 +1,153 @@
+﻿@main-font-family: 'RobotoSlab';
+
+.scenario {
+    .border() {
+        border: 3px solid #b4bfc5;
+        border-radius: 4px;
+    }
+
+    .scenario-designer {
+        position: relative;
+
+        .scenario-wrapper {
+            .border;
+            height: 500px;
+            margin-right: 43px;
+        }
+
+        .controls {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 32px;
+
+            .control-btn-wrapper {
+                position: relative;
+            }
+
+            .control-btn {
+                width: 28px;
+                height: 28px;
+                margin-bottom: 10px;
+                border: 1px solid transparent;
+                border-radius: 50%;
+                background-color: #ffffff;
+                box-shadow: 0px 1px 4px -1px rgba(0, 0, 0, 0.4);
+                box-sizing: content-box;
+                cursor: pointer;
+
+                &:hover {
+                    border-color: #469dd5;
+                }
+
+                &:after {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    display: inline-block;
+                    background: url(images/sprites_16.png) no-repeat;
+                }
+
+                &.new:after {
+                    width: 11px;
+                    height: 14px;
+                    margin: -7px -6px;
+                    background-position: -44px -127px;
+                }
+
+                &.edit:after {
+                    width: 14px;
+                    height: 14px;
+                    margin: -7px -7px;
+                    background-position: -64px -127px;
+                }
+
+                &.mastery {
+                    text-align: center;
+
+                    .percent-value {
+                        margin-left: 1px;
+                        line-height: 28px;
+                        font-family: @main-font-family;
+                        font-size: 12px;
+                        color: #546677;
+
+                        &:after {
+                            content: "%";
+                            font-size: 8px;
+                        }
+                    }
+                }
+            }
+
+            @mastery-score-popover-border-color: #d1dce0;
+
+            .mastery-score-popover {
+                position: absolute;
+                top: -50px;
+                right: 100%;
+                width: 330px;
+                margin-right: 10px;
+                border: 1px solid @mastery-score-popover-border-color;
+                border-radius: 4px;
+                background-color: #ffffff;
+                text-align: left;
+                box-shadow: 1px 1px 6px -2px rgba(0,0,0,0.5);
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    top: 58px;
+                    left: 100%;
+                    display: block;
+                    width: 10px;
+                    height: 10px;
+                    margin: 0 -5px;
+                    border: 1px solid @mastery-score-popover-border-color;
+                    border-left: none;
+                    border-bottom: none;
+                    background-color: #ffffff;
+                    transform: rotate(45deg);
+                    box-shadow: 2px -1px 5px -3px rgba(0,0,0,0.8);
+                }
+
+                .title {
+                    margin: 16px 20px 5px;
+                    font: 15px 'OpenSans-Semibold';
+                    color: #42515f;
+                }
+
+                .description {
+                    margin: 5px 20px;
+                    font: 13px 'OpenSansItalic';
+                    color: #546677;
+                }
+
+                .slider-control-wrapper {
+                    margin: 7px 7px 53px;
+                }
+            }
+        }
+    }
+
+    .scenario-designer-empty {
+        .border;
+        padding: 100px 0;
+        text-align: center;
+        background-color: #ffffff;
+
+        .title {
+            margin-bottom: 20px;
+            font: 28px @main-font-family;
+        }
+
+        .create-scenario-btn-wrapper {
+            .btn {
+                height: 40px;
+                padding: 0 25px;
+                text-transform: uppercase;
+            }
+        }
+    }
+}

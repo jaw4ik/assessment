@@ -43,7 +43,7 @@ namespace easygenerator.DomainModel
         DemoCourseInfo DemoCourseInfo(Course sourceCourse, Course demoCourse, string createdBy);
         CourseState CourseState(Course course, bool isDirty);
         LearningPath LearningPath(string title, string createdBy);
-        BranchTrack BranchTrack(string title, string createdBy);
+        Scenario Scenario(string title, int masteryScore, string createdBy);
     }
 
     public class EntityFactory : IEntityFactory
@@ -220,9 +220,9 @@ namespace easygenerator.DomainModel
             return new LearningPath(title, createdBy);
         }
 
-        public BranchTrack BranchTrack(string title, string createdBy)
+        public Scenario Scenario(string title, int masteryScore, string createdBy)
         {
-            return new BranchTrack(title, createdBy);
+            return new Scenario(title, masteryScore, createdBy);
         }
     }
 }

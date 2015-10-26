@@ -4,14 +4,16 @@
     'synchronization/handlers/questions/question/handler',
     'synchronization/handlers/questions/textMatching/handler',
     'synchronization/handlers/questions/singleSelectImage/handler',
-    'synchronization/handlers/questions/hotSpot/handler'],
+    'synchronization/handlers/questions/hotSpot/handler',
+    'synchronization/handlers/questions/scenario/handler'],
     function (
         dragAndDropText,
         fillInTheBlank,
         question,
         textMatching,
         singleSelectImage,
-        hotSpot) {
+        hotSpot,
+        scenario) {
         "use strict";
 
         return {
@@ -20,7 +22,8 @@
             question: question,
             textMatching: textMatching,
             singleSelectImage: singleSelectImage,
-            hotSpot: hotSpot
+            hotSpot: hotSpot,
+            scenario: scenario
         };
 
     });

@@ -8,9 +8,9 @@
         'viewmodels/questions/statement/statement',
         'viewmodels/questions/hotSpot/hotSpot',
         'viewmodels/questions/openQuestion/openQuestion',
-        'viewmodels/questions/branchtrack/branchtrack'],
+        'viewmodels/questions/scenario/scenario'],
     function (multipleSelect, fillInTheBlank, dragAndDropText, singleSelectText, textMatching, singleSelectImage, informationContent,
-        statement, hotspot, openQuestion, branchtrack) {
+        statement, hotspot, openQuestion, scenario) {
         "use strict";
 
         return {
@@ -24,7 +24,7 @@
             statement:statement,
             hotspot: hotspot,
             openQuestion: openQuestion,
-            branchtrack: branchtrack
+            scenario: scenario
         };
 
     }

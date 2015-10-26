@@ -6,8 +6,8 @@
         isLoading: ko.observable(true),
 
         show: show,
-        branchtrackFrameLoaded: branchtrackFrameLoaded,
-        onGetBranchTrackMessage: onGetBranchTrackMessage
+        frameLoaded: frameLoaded,
+        onGetWindowMessage: onGetWindowMessage
     };
 
     dialog.on(constants.dialogs.dialogClosed, function () {
@@ -22,11 +22,11 @@
         dialog.show(viewModel, constants.dialogs.branchtrack.settings);
     }
 
-    function branchtrackFrameLoaded() {
+    function frameLoaded() {
         viewModel.isLoading(false);
     }
 
-    function onGetBranchTrackMessage(message) {
+    function onGetWindowMessage(message) {
         var event = JSON.parse(message);
         if (!event || event.provider !== 'branchtrack') {
             return;

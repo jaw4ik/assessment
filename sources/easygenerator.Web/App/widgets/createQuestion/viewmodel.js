@@ -63,7 +63,7 @@
                     hasAccess: userContext.hasPlusAccess()
                 },
                 {
-                    type: constants.questionType.branchtrack.type,
+                    type: constants.questionType.scenario.type,
                     hasAccess: userContext.hasPlusAccess()
                 }
             ]);

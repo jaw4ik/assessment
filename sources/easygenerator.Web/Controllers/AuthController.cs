@@ -60,7 +60,6 @@ namespace easygenerator.Web.Controllers
 
             return JsonSuccess(new
             {
-                id = user.Id.ToNString(),
                 email = user.Email,
                 firstname = user.FirstName,
                 lastname = user.LastName,

@@ -52,9 +52,9 @@
                     type: 'openQuestion',
                     image: '/Content/images/open-question.png'
                 },
-                branchtrack: {
-                    type: 'branchtrack',
-                    image: '/Content/images/branchtrack.png'
+                scenario: {
+                    type: 'scenario',
+                    image: '/Content/images/scenario-question.png'
                 }
             },
 
@@ -267,6 +267,11 @@
                         answerDeletedByCollaborator: 'question:singleSelectImage:answerDeletedByCollaborator',
                         answerImageUpdatedByCollaborator: 'question:singleSelectImage:answerImageUpdatedByCollaborator',
                         correctAnswerChangedByCollaborator: 'question:singleSelectImage:correctAnswerChangedByCollaborator'
+                    },
+
+                    scenario: {
+                        dataUpdated: 'question:scenario:dataUpdated',
+                        masteryScoreUpdated: 'question:scenario:masteryScoreUpdated'
                     }
 
                 },

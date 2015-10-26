@@ -79,7 +79,6 @@ define(['durandal/app', 'eventTracker', 'constants',
         function setActiveViewModel(question) {
             var activeViewModel = questionViewModelFactory[question.type];
             if (!activeViewModel) {
-                debugger;
                 throw "Question with type " + question.type.toString() + " is not found in questionViewModelFactory";
             }
             return activeViewModel;
