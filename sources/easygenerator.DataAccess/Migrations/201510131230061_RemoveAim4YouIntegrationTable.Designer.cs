@@ -7,13 +7,13 @@ namespace easygenerator.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class CreateScenarioQuestionTable : IMigrationMetadata
+    public sealed partial class RemoveAim4YouIntegrationTable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateScenarioQuestionTable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RemoveAim4YouIntegrationTable));
         
         string IMigrationMetadata.Id
         {
-            get { return "201510151459015_CreateScenarioQuestionTable"; }
+            get { return "201510131230061_RemoveAim4YouIntegrationTable"; }
         }
         
         string IMigrationMetadata.Source
