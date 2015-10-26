@@ -8,6 +8,7 @@
                 free: 0,
                 starter: 1,
                 plus: 2,
+                academy: 3,
                 trial: 100
             },
 
@@ -112,7 +113,8 @@
                     identified: 'user:identified',
                     downgraded: 'user:downgraded',
                     upgradedToStarter: 'user:upgradedToStarter',
-                    upgradedToPlus: 'user:upgradedToPlus'
+                    upgradedToPlus: 'user:upgradedToPlus',
+                    upgradedToAcademy: 'user:upgradedToAcademy'
                 },
                 course: {
                     created: 'course:created',

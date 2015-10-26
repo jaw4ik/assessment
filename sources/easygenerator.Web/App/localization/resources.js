@@ -1150,6 +1150,18 @@
         'uk': 'курсів.',
         'pt-br': 'cursos.'
     },
+    limitCoursesInformerTextForStarter: {
+        'en': 'You have reached the limit of ',
+        'zh-cn': '受限',
+        'uk': 'Ви досягли дозволеної кількості у ',
+        'pt-br': 'Você atingiu o limite de'
+    },
+    limitCoursesInformerTextForFreeUser: {
+        'en': 'You have reached the limit of ',
+        'zh-cn': '受限',
+        'uk': 'Ви досягли дозволеної кількості у ',
+        'pt-br': 'Você atingiu o limite de'
+    },
     upgradeToNextPlanToCreateMoreCoursesErrorMessage: {
         'en': 'Please upgrade your account to the next plan to be able to create more courses.',
         'zh-cn': '请将您的账户升级到更高级别来创建更多课程',

@@ -1630,6 +1630,65 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
+        #region UpgradePlanToAcademy
+
+        [TestMethod]
+        public void UpgradePlanToAcademy_ShouldThrowArgumentException_WhenExpirationTimeLessThanSqlMinDate()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            var minDate = new DateTime(2000, 1, 1);
+            DateTimeWrapper.MinValue = () => minDate;
+
+            //Act
+            Action action = () => user.UpgradePlanToAcademy(new DateTime(1999, 12, 30));
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("expirationDate");
+        }
+
+        [TestMethod]
+        public void UpgradePlanToAcademy_ShouldSetAccessTypeToPlus()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+
+            //Act
+            user.UpgradePlanToAcademy(DateTime.Now);
+
+            //Assert
+            user.AccessType.Should().Be(AccessType.Academy);
+        }
+
+        [TestMethod]
+        public void UpgradePlanToAcademy_ShouldSetExpirationDate()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            var expirationDate = DateTime.MaxValue;
+
+            //Act
+            user.UpgradePlanToAcademy(expirationDate);
+
+            //Assert
+            user.ExpirationDate.Should().Be(expirationDate);
+        }
+
+        [TestMethod]
+        public void UpgradePlanToAcademy_ShouldAddUserUpgradedToPlus()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+
+            //Act
+            user.UpgradePlanToAcademy(DateTime.Now);
+
+            //Assert
+            user.Events.Should().ContainSingle(e => e.GetType() == typeof(UserUpgradedToAcademy));
+        }
+
+        #endregion
+
         #region DowngradePlanToFree
 
         [TestMethod]

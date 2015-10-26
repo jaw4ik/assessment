@@ -92,18 +92,26 @@
 
         });
 
-        describe('hasStarterAccess:', function () {
-
-            it('should be boolean', function () {
-                expect(viewModel.hasStarterAccess).toBeTruthy();
-            });
-
-        });
-
         describe('currentLanguage', function () {
 
             it('should be defined', function () {
                 expect(viewModel.currentLanguage).toBeDefined();
+            });
+
+        });
+
+        describe('currentCoursesLimit', function () {
+
+            beforeEach(function() {
+                spyOn(limitCoursesAmount, 'getCurrentLimit').and.returnValue(10);
+            });
+
+            it('should be defined', function() {
+                expect(viewModel.currentCoursesLimit).toBeDefined();
+            });
+
+            it('should be equal current courses limit', function () {
+                expect(viewModel.currentCoursesLimit).toBe(10);
             });
 
         });
@@ -185,16 +193,6 @@
 
                     viewModel.activate().fin(function () {
                         expect(viewModel.isCreateCourseAvailable()).toBe(limitCoursesAmount.checkAccess());
-                        done();
-                    });
-                });
-
-                it('should set hasStarterAccess', function (done) {
-                    identifyUserDeferred.resolve();
-                    spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
-
-                    viewModel.activate().fin(function () {
-                        expect(viewModel.hasStarterAccess).toBe(userContext.hasStarterAccess());
                         done();
                     });
                 });
@@ -813,5 +811,4 @@
         });
 
     });
-}
-);
+});

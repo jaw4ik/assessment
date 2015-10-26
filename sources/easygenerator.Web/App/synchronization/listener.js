@@ -32,6 +32,7 @@
                     userDowngraded: userEventHandler.downgraded,
                     userUpgradedToStarter: userEventHandler.upgradedToStarter,
                     userUpgradedToPlus: userEventHandler.upgradedToPlus,
+                    userUpgradedToAcademy: userEventHandler.upgradedToAcademy,
 
                     courseCollaboratorAdded: collaborationEventHandler.collaboratorAdded,
                     courseCollaborationStarted: collaborationEventHandler.started,

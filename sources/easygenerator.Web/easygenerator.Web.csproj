@@ -256,6 +256,7 @@
     <Compile Include="BuildLearningPath\PackageModel\LearningPathCoursePackageModel.cs" />
     <Compile Include="BuildLearningPath\PackageModel\LearningPathPackageModel.cs" />
     <Compile Include="Components\ActionFilters\ApplicationAuthorize.cs" />
+    <Compile Include="Components\ActionFilters\Authorization\AcademyAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AllowedUsersAttribute.cs" />
     <Compile Include="Components\ActionFilters\Permissions\PreviewAccessAttribute.cs" />
@@ -712,6 +713,7 @@
       <DependentUpon>masteryScoreUpdated.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\questions\scenario\handler.js" />
+    <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToAcademy.js" />
     <Content Include="App\videoUpload\handlers\durations.js" />
     <Content Include="App\videoUpload\handlers\durations.spec.js">
       <DependentUpon>durations.js</DependentUpon>

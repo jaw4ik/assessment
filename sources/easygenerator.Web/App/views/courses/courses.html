@@ -22,14 +22,8 @@
                         </div>
                         <div class="limit-courses-informer">
                             <div class="limit-courses-informer-text">
-                                <!-- ko if: hasStarterAccess -->
-                                <span data-bind="localize: { html : 'limitCoursesInformerTextForStarter' }"></span>
-                                <span class="bold" data-bind="html: coursesStarterLimit">50</span>
-                                <!-- /ko -->
-                                <!-- ko ifnot: hasStarterAccess -->
-                                <span data-bind="localize: { html : 'limitCoursesInformerTextForFreeUser' }"></span>
-                                <span class="bold" data-bind="html: coursesFreeLimit">50</span>
-                                <!-- /ko -->
+                                <span data-bind="localize: { html : 'limitCoursesInformerText' }"></span>
+                                <span class="bold" data-bind="html: currentCoursesLimit"></span>
                                 <span data-bind="localize: { html : 'limitCoursesInformerTextEnd' }"></span>
                             </div>
                             <div class="limit-courses-infomer-btn-holder">
