@@ -56,6 +56,7 @@
   "[progress is saved]": "Progress is saved",
   "[progress is not saved]": "Progress is not saved",
   "[not enough memory to save progress]": "Not enough browser memory to save your progress",
-  "[progress cannot be saved]": "Course progress cannot be saved. Please try again or contact your teacher if the problem persists." 
-
+  "[progress cannot be saved]": "Course progress cannot be saved. Please try again or contact your teacher if the problem persists.",
+  "[scenario has been submitted]": "Scenario has been submitted",
+  "[scenario has not been finished yet]": "Scenario has not been finished yet. You have to finish it before submitting."
 }
