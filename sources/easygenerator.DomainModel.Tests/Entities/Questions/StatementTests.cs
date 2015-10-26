@@ -181,6 +181,76 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
         #endregion
 
+        #region Update voice-over
+
+        [TestMethod]
+        public void UpdateVoiceOver_ShouldUpdateVoiceOver()
+        {
+            const string voiceOver = "voiceOver";
+            var question = StatementObjectMother.Create();
+
+            question.UpdateVoiceOver(voiceOver, ModifiedBy);
+
+            question.VoiceOver.Should().Be(voiceOver);
+        }
+
+        [TestMethod]
+        public void UpdateVoiceOver_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            var question = StatementObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            question.UpdateVoiceOver("voiceOver", ModifiedBy);
+
+            question.ModifiedOn.Should().Be(dateTime);
+        }
+
+        [TestMethod]
+        public void UpdateVoiceOver_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var question = StatementObjectMother.Create();
+
+            Action action = () => question.UpdateVoiceOver("voice-over", null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateVoiceOver_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var question = StatementObjectMother.Create();
+
+            Action action = () => question.UpdateVoiceOver("voice-over", string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateVoiceOver_ShouldUpdateMoidifiedBy()
+        {
+            var question = StatementObjectMother.Create();
+            var user = "Some user";
+
+            question.UpdateVoiceOver("voice-over", user);
+
+            question.ModifiedBy.Should().Be(user);
+        }
+
+        [TestMethod]
+        public void UpdateVoiceOver_ShouldAddQuestionVoiceOverUpdatedEvent()
+        {
+            var question = StatementObjectMother.Create();
+
+            question.UpdateVoiceOver("voice-over", "user");
+
+            question.Events.Should().ContainSingle(e => e.GetType() == typeof(QuestionVoiceOverUpdatedEvent));
+        }
+
+        #endregion
+
         #region Update content
 
         [TestMethod]
@@ -709,7 +779,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             question.LearningContentsCollection = new Collection<LearningContent>()
             {
                 learningContent3,
-                learningContent, 
+                learningContent,
                 learningContent2
             };
             question.LearningContentsOrder = String.Format("{0},{1},{2}", learningContent.Id, learningContent3.Id, learningContent2);

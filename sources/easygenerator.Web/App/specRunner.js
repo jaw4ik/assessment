@@ -43,9 +43,10 @@
             'dialogs/collaboration/addCollaborator.spec',
             'dialogs/collaboration/collaboration.spec',
             'dialogs/collaboration/collaborator.spec',
-            'dialogs/publishCourse/publishCourse.spec',
             'dialogs/moveCopyQuestion/moveCopyQuestion.spec',
             'dialogs/video/video.spec',
+            'dialogs/audio/audioLibrary.spec',
+            'dialogs/audio/audioViewModel.spec',
             'dialogs/learningPath/commands/deleteLearningPathCommand.spec',
             'dialogs/learningPath/deleteLearningPath.spec',
             'dialogs/course/common/templateSelector/templateBrief.spec',
@@ -54,6 +55,7 @@
             'dialogs/course/createCourse/createCourse.spec',
             'dialogs/course/createCourse/steps/courseTemplateStep.spec',
             'dialogs/course/createCourse/steps/courseTitleStep.spec',
+            'dialogs/course/publishCourse/publishCourse.spec',
             'dialogs/releaseNotes/commands/updateLastReadReleaseNote.spec',
             'dialogs/releaseNotes/commands/getReleaseNote.spec',
             'dialogs/releaseNotes/releaseNotes.spec',
@@ -82,6 +84,7 @@
             'notifications/collaborationInvite/notificationController.spec',
 
             //#endregion 
+
             'localization/localizationManager.spec',
             'models/course.spec',
             'models/learningPath.spec',
@@ -164,6 +167,7 @@
             'synchronization/handlers/questions/handler.spec',
             'synchronization/handlers/questions/question/handler.spec',
             'synchronization/handlers/questions/question/eventHandlers/titleUpdated.spec',
+             'synchronization/handlers/questions/question/eventHandlers/voiceOverUpdated.spec',
             'synchronization/handlers/questions/question/eventHandlers/backgroundChanged.spec',
             'synchronization/handlers/questions/question/eventHandlers/created.spec',
             'synchronization/handlers/questions/question/eventHandlers/deleted.spec',
@@ -221,6 +225,7 @@
             'viewmodels/learningPaths/learningPath/actions/publish.spec',
 
             //#endregion
+
             'navigationBar/navigationBar.spec',
             'treeOfContent/handlers/treeOfContentEventHandler.spec',
             'treeOfContent/handlers/treeOfContentAutoExpandHandler.spec',
@@ -256,6 +261,7 @@
 
             //#region questions
             'viewmodels/questions/question.spec',
+            'viewmodels/questions/voiceOver.spec',
             'viewmodels/questions/answers.spec',
             'viewmodels/questions/multipleSelect/multipleSelectAnswers.spec',
             'viewmodels/questions/multipleSelect/multipleSelect.spec',
@@ -348,6 +354,7 @@
             'widgets/upgradeDialog/viewmodel.spec',
             'widgets/dialog/viewmodel.spec',
             //#endregion
+
             'viewmodels/user/userMenu.spec',
             'viewmodels/shell.spec',
             'bootstrapper.spec',

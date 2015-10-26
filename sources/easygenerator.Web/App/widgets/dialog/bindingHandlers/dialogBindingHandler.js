@@ -36,9 +36,14 @@
             });
 
             if (autoclose) {
-                $blockout.click(function () {
-                    hide();
-                });
+                $blockout.click(hide);
+                var $parent = $element.parent();
+                if ($parent.hasClass('dialog-container')) {
+                    $parent.click(hide);
+                    $element.click(function(e) {
+                        e.stopPropagation();
+                    });
+                }
             }
 
             $html.on('keyup', closeOnEscape);

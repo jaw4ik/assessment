@@ -6,7 +6,8 @@
     'synchronization/handlers/questions/question/eventHandlers/incorrectFeedbackUpdated',
     'synchronization/handlers/questions/question/eventHandlers/created',
     'synchronization/handlers/questions/question/eventHandlers/deleted',
-    'synchronization/handlers/questions/question/eventHandlers/learningContentsReordered'],
+    'synchronization/handlers/questions/question/eventHandlers/learningContentsReordered',
+    'synchronization/handlers/questions/question/eventHandlers/voiceOverUpdated'],
     function (
         titleUpdated,
         contentUpdated,
@@ -14,12 +15,14 @@
         correctFeedbackUpdated,
         incorrectFeedbackUpdated,
         created,
-        deleted, 
-        learningContentsReordered) {
+        deleted,
+        learningContentsReordered,
+        voiceOverUpdated) {
         "use strict";
 
         return {
             titleUpdated: titleUpdated,
+            voiceOverUpdated: voiceOverUpdated,
             contentUpdated: contentUpdated,
             backgroundChanged: backgroundChanged,
             correctFeedbackUpdated: correctFeedbackUpdated,
