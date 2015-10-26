@@ -3,7 +3,9 @@
     var dialog = require('widgets/dialog/viewmodel'),
         constants = require('constants'),
         getAudiosQuery = require('audio/queries/getCollection'),
-        router = require('plugins/router');
+        router = require('plugins/router'),
+        eventTracker = require('eventTracker')
+    ;
 
     describe('dialog [audio library]', function () {
         var audios = [
@@ -14,6 +16,7 @@
             spyOn(dialog, 'show');
             spyOn(dialog, 'close');
             spyOn(router, 'navigate');
+            spyOn(eventTracker, 'publish');
         });
 
         describe('selectedAudio:', function () {
@@ -164,6 +167,11 @@
         });
 
         describe('navigateToAudioLibrary:', function () {
+            it('should publish \'Navigate to audio library\' event', function () {
+                viewModel.navigateToAudioLibrary();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to audio library');
+            });
+
             it('should close dialog', function() {
                 viewModel.navigateToAudioLibrary();
                 expect(dialog.close).toHaveBeenCalled();

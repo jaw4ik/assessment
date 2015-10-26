@@ -1,6 +1,10 @@
-﻿define(['constants', 'widgets/dialog/viewmodel', 'audio/queries/getCollection', 'dialogs/audio/audioViewModel', 'plugins/router'],
-    function (constants, dialog, getAudiosQuery, AudioViewModel, router) {
+﻿define(['constants', 'widgets/dialog/viewmodel', 'audio/queries/getCollection', 'dialogs/audio/audioViewModel', 'plugins/router', 'eventTracker'],
+    function (constants, dialog, getAudiosQuery, AudioViewModel, router, eventTracker) {
         "use strict";
+
+        var events = {
+            navigateToAudioLibrary: 'Navigate to audio library'
+        };
 
         var viewModel = {
             show: show,
@@ -66,6 +70,7 @@
         }
 
         function navigateToAudioLibrary() {
+            eventTracker.publish(events.navigateToAudioLibrary);
             dialog.close();
             router.navigate('library/audios');
         }
