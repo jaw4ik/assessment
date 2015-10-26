@@ -347,9 +347,9 @@
     <Compile Include="Migrations\201510131230061_RemoveAim4YouIntegrationTable.Designer.cs">
       <DependentUpon>201510131230061_RemoveAim4YouIntegrationTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201510151459015_CreateScenarioQuestionTable.cs" />
-    <Compile Include="Migrations\201510151459015_CreateScenarioQuestionTable.Designer.cs">
-      <DependentUpon>201510151459015_CreateScenarioQuestionTable.cs</DependentUpon>
+    <Compile Include="Migrations\201510261122359_CreateScenarioQuestionTable.cs" />
+    <Compile Include="Migrations\201510261122359_CreateScenarioQuestionTable.Designer.cs">
+      <DependentUpon>201510261122359_CreateScenarioQuestionTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -601,8 +601,8 @@
     <EmbeddedResource Include="Migrations\201510131230061_RemoveAim4YouIntegrationTable.resx">
       <DependentUpon>201510131230061_RemoveAim4YouIntegrationTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510151459015_CreateScenarioQuestionTable.resx">
-      <DependentUpon>201510151459015_CreateScenarioQuestionTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201510261122359_CreateScenarioQuestionTable.resx">
+      <DependentUpon>201510261122359_CreateScenarioQuestionTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
