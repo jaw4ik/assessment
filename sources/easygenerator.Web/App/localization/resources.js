@@ -1150,6 +1150,18 @@
         'uk': 'курсів.',
         'pt-br': 'cursos.'
     },
+    limitCoursesInformerTextForStarter: {
+        'en': 'You have reached the limit of ',
+        'zh-cn': '受限',
+        'uk': 'Ви досягли дозволеної кількості у ',
+        'pt-br': 'Você atingiu o limite de'
+    },
+    limitCoursesInformerTextForFreeUser: {
+        'en': 'You have reached the limit of ',
+        'zh-cn': '受限',
+        'uk': 'Ви досягли дозволеної кількості у ',
+        'pt-br': 'Você atingiu o limite de'
+    },
     upgradeToNextPlanToCreateMoreCoursesErrorMessage: {
         'en': 'Please upgrade your account to the next plan to be able to create more courses.',
         'zh-cn': '请将您的账户升级到更高级别来创建更多课程',
@@ -2176,6 +2188,12 @@
         'uk': 'Змінити ',
         'pt-br': 'Trocar imagem'
     },
+    rankText: {
+        'en': 'Rank text',
+        'zh-cn': 'Rank text[zh-cn]',
+        'uk': 'Rank text[uk]',
+        'pt-br': 'Rank text[pt-br]'
+    },
     /* End resource section for model Questions */
     
     /* Resource section for model ChoiseQuestions */
@@ -2394,6 +2412,48 @@
         'zh-cn': 'Untitled scenario question[zh-cn]',
         'uk': 'Питання \"Сценарій\" без назви',
         'pt-br': 'Untitled scenario question[pt-br]'
+    },
+    scenarioDesigner: {
+        'en': 'Scenario designer',
+        'zh-cn': 'Scenario designer[zh-cn]',
+        'uk': 'Конструктор сценарію',
+        'pt-br': 'Scenario designer[pt-br]'
+    },
+    createScenarioDescription: {
+        'en': 'Create scenario for learners',
+        'zh-cn': 'Create scenario for learners[zh-cn]',
+        'uk': 'Створіть сценарій для учнів',
+        'pt-br': 'Create scenario for learners[pt-br]'
+    },
+    createScenario: {
+        'en': 'Create scenario',
+        'zh-cn': 'Create scenario[zh-cn]',
+        'uk': 'Створити сценарій',
+        'pt-br': 'Create scenario[pt-br]'
+    },
+    newScenario: {
+        'en': 'New scenario',
+        'zh-cn': 'New scenario[zh-cn]',
+        'uk': 'Новий сценарій',
+        'pt-br': 'New scenario[pt-br]'
+    },
+    editScenario: {
+        'en': 'Edit scenario',
+        'zh-cn': 'Edit scenario[zh-cn]',
+        'uk': 'Редагувати сценарій',
+        'pt-br': 'Edit scenario[pt-br]'
+    },
+    masteryScore: {
+        'en': 'Mastery score',
+        'zh-cn': 'Mastery score[zh-cn]',
+        'uk': 'Поріг успішності',
+        'pt-br': 'Mastery score[pt-br]'
+    },
+    masteryScoreDescription: {
+        'en': 'Question will be correct if learner reach this score',
+        'zh-cn': 'Question will be correct if learner reach this score[zh-cn]',
+        'uk': 'Питання буде успішним якщо учень досягне цього порогу',
+        'pt-br': 'Question will be correct if learner reach this score[pt-br]'
     },
     /* End resource section for model Scenario */
     
