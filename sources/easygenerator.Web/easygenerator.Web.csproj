@@ -597,6 +597,15 @@
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
     <Content Include="App\browse.js" />
+    <Content Include="App\dialogs\audio\audioLibrary.html" />
+    <Content Include="App\dialogs\audio\audioLibrary.js" />
+    <Content Include="App\dialogs\audio\audioLibrary.spec.js">
+      <DependentUpon>audioLibrary.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\audio\audioViewModel.js" />
+    <Content Include="App\dialogs\audio\audioViewModel.spec.js">
+      <DependentUpon>audioViewModel.js</DependentUpon>
+    </Content>
     <Content Include="App\dialogs\branchtrack\branchtrack.html" />
     <Content Include="App\dialogs\branchtrack\branchtrack.js" />
     <Content Include="App\Query.js" />
@@ -696,6 +705,10 @@
     <Content Include="App\repositories\learningPathRepository.spec.js">
       <DependentUpon>learningPathRepository.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\voiceOverUpdated.js" />
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\voiceOverUpdated.spec.js">
+      <DependentUpon>voiceOverUpdated.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\scenario\eventHandlers\dataUpdated.js" />
     <Content Include="App\synchronization\handlers\questions\scenario\eventHandlers\dataUpdated.spec.js">
       <DependentUpon>dataUpdated.js</DependentUpon>
@@ -725,6 +738,7 @@
     <Content Include="App\viewmodels\learningPaths\learningPath\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\questions\voiceOver.js" />
     <Content Include="App\viewmodels\questions\scenario\commands\updateData.js" />
     <Content Include="App\viewmodels\questions\scenario\commands\updateData.spec.js">
       <DependentUpon>updateData.js</DependentUpon>
@@ -901,9 +915,9 @@
       <DependentUpon>notification.js</DependentUpon>
     </Content>
     <Content Include="App\reporting\xApiProvider.js" />
-    <Content Include="App\dialogs\publishCourse\publishCourse.html" />
-    <Content Include="App\dialogs\publishCourse\publishCourse.js" />
-    <Content Include="App\dialogs\publishCourse\publishCourse.spec.js">
+    <Content Include="App\dialogs\course\publishCourse\publishCourse.html" />
+    <Content Include="App\dialogs\course\publishCourse\publishCourse.js" />
+    <Content Include="App\dialogs\course\publishCourse\publishCourse.spec.js">
       <DependentUpon>publishCourse.js</DependentUpon>
     </Content>
     <Content Include="App\onboarding\initialization.spec.js">
@@ -1668,6 +1682,9 @@
     </Content>
     <Content Include="ReleaseNotes\1.0.0.html" />
     <Content Include="Content\releaseNotes.less" />
+    <Content Include="App\viewmodels\questions\voiceOver.spec.js">
+      <DependentUpon>voiceOver.js</DependentUpon>
+    </Content>
     <Content Include="Content\scenario.less" />
     <Content Include="Content\slider.less" />
     <Content Include="App\synchronization\handlers\questions\scenario\handler.spec.js">
@@ -2223,6 +2240,7 @@
     <Content Include="Scripts\knockoutBindings\numericFieldBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextInAnswerBinding.js" />
+    <Content Include="Scripts\knockoutBindings\fadeInBinding.js" />
     <Content Include="Scripts\knockoutBindings\sliderControlBinding.js" />
     <Content Include="Scripts\knockoutBindings\switchToggleBinding.js" />
     <Content Include="Scripts\knockoutBindings\withAnimatedBinding.js" />

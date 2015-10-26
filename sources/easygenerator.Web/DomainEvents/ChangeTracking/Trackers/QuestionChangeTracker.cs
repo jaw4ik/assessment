@@ -20,6 +20,7 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         IDomainEventHandler<QuestionCreatedEvent>,
         IDomainEventHandler<QuestionIncorrectFeedbackUpdatedEvent>,
         IDomainEventHandler<QuestionTitleUpdatedEvent>,
+        IDomainEventHandler<QuestionVoiceOverUpdatedEvent>,
         IDomainEventHandler<AnswerDeletedEvent>,
         IDomainEventHandler<LearningContentDeletedEvent>,
         IDomainEventHandler<HotSpotPolygonDeletedEvent>,
@@ -73,6 +74,11 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         }
 
         public void Handle(QuestionTitleUpdatedEvent args)
+        {
+            RaiseQuestionChangedEvent(args.Question);
+        }
+        
+        public void Handle(QuestionVoiceOverUpdatedEvent args)
         {
             RaiseQuestionChangedEvent(args.Question);
         }

@@ -347,6 +347,10 @@
     <Compile Include="Migrations\201510131230061_RemoveAim4YouIntegrationTable.Designer.cs">
       <DependentUpon>201510131230061_RemoveAim4YouIntegrationTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510221221461_AddQuestionVoiceOver.cs" />
+    <Compile Include="Migrations\201510221221461_AddQuestionVoiceOver.Designer.cs">
+      <DependentUpon>201510221221461_AddQuestionVoiceOver.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201510261122359_CreateScenarioQuestionTable.cs" />
     <Compile Include="Migrations\201510261122359_CreateScenarioQuestionTable.Designer.cs">
       <DependentUpon>201510261122359_CreateScenarioQuestionTable.cs</DependentUpon>
@@ -600,6 +604,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510131230061_RemoveAim4YouIntegrationTable.resx">
       <DependentUpon>201510131230061_RemoveAim4YouIntegrationTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510221221461_AddQuestionVoiceOver.resx">
+      <DependentUpon>201510221221461_AddQuestionVoiceOver.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510261122359_CreateScenarioQuestionTable.resx">
       <DependentUpon>201510261122359_CreateScenarioQuestionTable.cs</DependentUpon>

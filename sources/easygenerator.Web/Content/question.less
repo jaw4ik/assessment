@@ -1,4 +1,4 @@
-﻿@import "helpers.less";
+@import "helpers.less";
 
 @learning-content-delete-section-width: 25px;
 @learning-content-drag-section-width: 28px;
@@ -120,9 +120,18 @@
 
 /*#region extra-content*/
 
+.question-extra-content-section{
+	text-align: right;
+	padding-bottom: 20px;
+}
+
 .question-extra-content-block {
-    padding: 5px 0 30px;
+    padding-bottom: 10px;
     text-align: right;
+	
+	.extra-content-action-wrapper {
+		margin-bottom: 0;
+	}
 }
 
 .extra-content-action-wrapper {
@@ -133,6 +142,7 @@
     color: #bfbfbf;
     font-size: 12px;
     cursor: pointer;
+	margin-bottom: 10px;
 }
 
 .extra-content-action-wrapper:hover {
@@ -1797,3 +1807,120 @@
     border-top: 1px solid rgba(198, 209, 216, 0.7);
     border-bottom: 1px solid rgba(198, 209, 216, 0.7);
 }
+
+/*#region voice over*/
+.voice-over-wrapper {
+    padding-bottom: 13px;
+	text-align: left;
+
+    label {
+        color: #abbbc6;
+        display: inline-block;
+        font-family: "Open Sans";
+        font-size: 12px;
+        font-style: italic;
+        margin-bottom: 7px;
+    }
+}
+
+.voice-over {
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    border-radius: 3px;
+    box-shadow: 0px 3px #e8e8e8;
+    display: flex;
+    height: 50px;
+    width: 100%;
+}
+
+.voice-over-icon {
+    height: 24px;
+    margin: 0 15px;
+    position: relative;
+    width: 24px;
+
+    &:before {
+        background: url(images/sprites_24.png) -262px -87px;
+        content: "";
+        display: inline-block;
+        height: 24px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 24px;
+    }
+}
+
+.voice-over-title {
+    color: #546677;
+    flex: 1;
+    font-family: OpenSans;
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.voice-over-action-separator {
+    background-color: #e8e8e8;
+    display: inline-block;
+    height: 20px;
+    width: 1px;
+}
+
+.voice-over-action {
+    background: transparent;
+    cursor: pointer;
+    border: 0 none;
+    height: 16px;
+    margin: 0 13px;
+    position: relative;
+    width: 16px;
+
+    &:before {
+        background-repeat: no-repeat;
+        background-image: url(images/sprites_16.png);
+        content: "";
+        height: 16px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 16px;
+    }
+
+    &.edit {
+
+        &:hover {
+            &:before {
+                background-position: -21px -126px;
+            }
+        }
+
+        &:before {
+            background-position: 0 -126px;
+        }
+
+        .info-tooltip {
+            margin-left: -27px;
+        }
+    }
+
+
+    &.delete {
+
+        &:hover {
+            &:before {
+                background-position: -147px -105px;
+            }
+        }
+
+        &:before {
+            background-position: -126px -105px;
+        }
+
+        .info-tooltip {
+            margin-left: -23px;
+        }
+    }
+}
+
+/*#endregion*/

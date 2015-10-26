@@ -18,6 +18,7 @@ namespace easygenerator.Web.Components.Mappers
                 CreatedOn = entity.CreatedOn,
                 CreatedBy = entity.CreatedBy,
                 ModifiedOn = entity.ModifiedOn,
+                VoiceOver = entity.VoiceOver,
                 Type = GetQuestionType(entity)
             };
         }
@@ -54,7 +55,7 @@ namespace easygenerator.Web.Components.Mappers
             {
                 return Question.QuestionTypes.TextMatching;
             }
-            if (questionType == typeof (InformationContent))
+            if (questionType == typeof(InformationContent))
             {
                 return Question.QuestionTypes.InformationContent;
             }

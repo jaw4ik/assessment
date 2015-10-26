@@ -62,6 +62,7 @@
                     questionCreated: questionEventHandler.question.created,
                     questionsDeleted: questionEventHandler.question.deleted,
                     questionTitleUpdated: questionEventHandler.question.titleUpdated,
+                    questionVoiceOverUpdated: questionEventHandler.question.voiceOverUpdated,
                     questionContentUpdated: questionEventHandler.question.contentUpdated,
                     questionCorrectFeedbackUpdated: questionEventHandler.question.correctFeedbackUpdated,
                     questionIncorrectFeedbackUpdated: questionEventHandler.question.incorrectFeedbackUpdated,

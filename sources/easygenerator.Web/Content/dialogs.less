@@ -1,4 +1,4 @@
-﻿@import "helpers.less";
+@import "helpers.less";
 
 /*#region Modal dialog */
 @header-font-family: 'OpenSans-Semibold';
@@ -23,6 +23,7 @@
     top: 16px;
     right: 16px;
     opacity: 0.5;
+    z-index: 1;
     cursor: pointer;
     background-position: center;
     background-repeat: no-repeat;
@@ -373,16 +374,6 @@
         flex-direction: column;
         max-height: 65vh;
         padding: 20px 30px;
-    }
-
-    @media screen and ( max-height: 700px ) {
-        .dialog-title {
-            padding: 30px 0px;
-        }
-
-        .dialog-actions {
-            height: 80px;
-        }
     }
 }
 
@@ -1033,6 +1024,212 @@
 }
 
 /*#endregion */
+
+/*#region Audio library */
+
+.dialog-wrapper.audio-library {
+    width: 780px;
+
+    .dialog-close-btn {
+        top: 37px;
+        right: 37px;
+        z-index: 1;
+    }
+
+    .audio-library-dialog {
+        .dialog-title-container {
+            margin: 30px 32px 0px 32px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+
+            .dialog-title {
+                padding: 0px;
+                font: 26px 'RobotoSlab-Bold';
+                text-align: left;
+            }
+
+            .dialog-title-info {
+                margin-top: 7px;
+                font: 13px 'OpenSans';
+                color: #42515f;
+            }
+        }
+
+        .dialog-body {
+            position: relative;
+            height: 475px;
+            margin: 27px 15px 27px 30px;
+
+            .audio-list-container {
+                position: relative;
+                height: 100%;
+                margin-right: 15px;
+
+                &.cs-scroll-started {
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        display: block;
+                        top: 0px;
+                        width: 100%;
+                        z-index: 1;
+                        border-bottom: 1px solid #e5e6e6;
+                        box-shadow: 0px 0px 3px 1px #e5e6e6;
+                    }
+                }
+
+                &.cs-scroll-enabled {
+
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        bottom: 0;
+                        display: block;
+                        width: 100%;
+                        border-top: 1px solid #e5e6e6;
+                        box-shadow: 0px 0px 3px 1px #e5e6e6;
+                    }
+
+                    &.cs-scroll-finished {
+
+                        &:after {
+                            display: none;
+                        }
+                    }
+                }
+
+                .iScrollVerticalScrollbar {
+                    right: -15px;
+                }
+
+                .audio-list {
+                    li {
+                        border: 1px solid #f1f1f1;
+
+                        &:hover {
+                            border: 1px solid #71c3ff;
+                            box-shadow: 0 0 0 1px #71c3ff;
+                        }
+
+                        &.selected:hover {
+                            cursor: default;
+                        }
+
+                        .choose-audio-hint {
+                            opacity: 0;
+                            font: 13px 'OpenSansItalic';
+                            color: #63798e;
+                            text-decoration: underline;
+                        }
+
+                        .chosen-audio-icon {
+                            width: 24px;
+                            height: 24px;
+                            background: url("images/sprites_24.png") -233px -89px no-repeat;
+                        }
+                    }
+
+                    li:hover {
+                        .choose-audio-hint {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+
+            .empty-audios-list {
+                width: 340px;
+                margin: 0 auto;
+                margin-top: 100px;
+                font: 15px 'OpenSans';
+                color: #63798e;
+                line-height: 25px;
+
+                .empty-audios-list-title {
+                    font-family: 'OpenSans-Semibold';
+                    margin-bottom: 10px;
+                }
+
+                .empty-audios-list-steps {
+                    list-style: inside decimal;
+                    margin-bottom: 25px;
+
+                    a {
+                        color: #469dd5;
+                    }
+                }
+
+                .empty-audios-list-notification {
+                    font: 12px 'OpenSans';
+                    font-style: italic;
+                    border-top: 1px solid #eff1f2;
+                    padding-top: 7px;
+                }
+            }
+        }
+
+        .dialog-actions {
+            .dialog-action-wrapper {
+                position: relative;
+
+                .info-tooltip {
+                    visibility: visible;
+                    opacity: 0;
+                    bottom: 100%;
+                    transform: translate(-50%, 0);
+                    font: 13px 'OpenSans';
+                    margin-bottom: 15px;
+                    transition: margin-bottom 0.2s linear;
+
+                    &.shown {
+                        margin-bottom: 10px;
+                    }
+
+                    span {
+                        white-space: nowrap;
+                    }
+                }
+            }
+
+            .btn.green-white {
+                .btn-caption {
+                    text-transform: none;
+                }
+            }
+
+            .btn + .btn {
+                margin-left: 30px;
+            }
+        }
+    }
+}
+
+/*#endregion */
+
+/*#region max-height 700 */
+
+@media screen and ( max-height: 700px ) {
+    .dialog-wrapper {
+        .dialog-title {
+            padding: 30px 0px;
+        }
+
+        .dialog-actions {
+            height: 80px;
+        }
+
+        &.audio-library {
+            .audio-library-dialog {
+                .dialog-body {
+                    height: 340px;
+                }
+            }
+        }
+    }
+}
+
+/*#endregion*/
 
 /*#region Scenario question dialog */
 

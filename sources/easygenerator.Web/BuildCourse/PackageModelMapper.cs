@@ -180,10 +180,10 @@ namespace easygenerator.Web.BuildCourse
                 model.AnswerGroups = question.Answers
                     .GroupBy(item => item.GroupId)
                     .Select(group => new BlankAnswerGroupPackageModel()
-                                   {
-                                       Id = group.Key.ToNString(),
-                                       Answers = group.Select(MapBlankAnswer).ToList()
-                                   }).ToList();
+                    {
+                        Id = group.Key.ToNString(),
+                        Answers = group.Select(MapBlankAnswer).ToList()
+                    }).ToList();
             });
         }
 
@@ -211,10 +211,7 @@ namespace easygenerator.Web.BuildCourse
         {
             var model = new T();
             MapQuestionProperties(model, question);
-            if (updateQuestionModel != null)
-            {
-                updateQuestionModel(model);
-            }
+            updateQuestionModel?.Invoke(model);
 
             return model;
         }
@@ -230,6 +227,7 @@ namespace easygenerator.Web.BuildCourse
             packageModel.Feedback = question.Feedback ?? new Feedback();
             packageModel.HasCorrectFeedback = !String.IsNullOrWhiteSpace(question.Feedback.CorrectText);
             packageModel.HasIncorrectFeedback = !String.IsNullOrWhiteSpace(question.Feedback.IncorrectText);
+            packageModel.VoiceOver = question.VoiceOver;
         }
 
         private AnswerOptionPackageModel MapAnswer(Answer answer)
