@@ -64,7 +64,7 @@
                 },
                 {
                     type: constants.questionType.scenario.type,
-                    hasAccess: userContext.hasPlusAccess()
+                    hasAccess: userContext.hasAcademyAccess()
                 }
             ]);
         });

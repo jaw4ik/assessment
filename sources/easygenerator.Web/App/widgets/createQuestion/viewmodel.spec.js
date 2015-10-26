@@ -105,6 +105,7 @@
                         expect(viewModel.questions()[7].type).toBe(constants.questionType.statement.type);
                         expect(viewModel.questions()[8].type).toBe(constants.questionType.hotspot.type);
                         expect(viewModel.questions()[9].type).toBe(constants.questionType.openQuestion.type);
+                        expect(viewModel.questions()[10].type).toBe(constants.questionType.scenario.type);
 
                         done();
                     });
