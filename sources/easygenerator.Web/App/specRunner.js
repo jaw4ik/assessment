@@ -57,6 +57,7 @@
             'dialogs/releaseNotes/commands/updateLastReadReleaseNote.spec',
             'dialogs/releaseNotes/commands/getReleaseNote.spec',
             'dialogs/releaseNotes/releaseNotes.spec',
+            'dialogs/branchtrack/branchtrack.spec',
 
             //#endregion dialogs
 
