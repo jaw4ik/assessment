@@ -24,14 +24,6 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             return new Course(title, template, createdBy);
         }
 
-        public static Course CreateWithAim4YouIntegration(Guid? aim4YouCourseId = null)
-        {
-            Guid aim4YouIntegrationId = aim4YouCourseId.HasValue ? aim4YouCourseId.Value : Guid.NewGuid();
-            var course = new Course(Title, TemplateObjectMother.Create(), CreatedBy);
-            course.RegisterOnAim4YOu(aim4YouIntegrationId);
-            return course;
-        }
-
         public static Course CreateWithComments(IEnumerable<Comment> comments)
         {
             var course = Create();

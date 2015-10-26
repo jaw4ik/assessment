@@ -1161,43 +1161,6 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion RelatedObjectives
 
-        #region Aim4YouIntegration
-
-        [TestMethod]
-        public void IsRegisteredOnAimForYou_ShouldReturnFalseIfAim4YouIntegrationIsNull()
-        {
-            var course = CourseObjectMother.Create();
-
-            course.IsRegisteredOnAimForYou().Should().Be(false);
-        }
-
-        [TestMethod]
-        public void IsRegisteredOnAimForYou_ShouldReturnFalseIfAim4YouIntegrationIsNotNullButAim4YouCourseIsEmptyGuid()
-        {
-            var course = CourseObjectMother.CreateWithAim4YouIntegration(Guid.Empty);
-
-            course.IsRegisteredOnAimForYou().Should().Be(false);
-        }
-
-        [TestMethod]
-        public void IsRegisteredOnAimForYou_ShouldReturnTrueIfAim4YouIntegrationIsNotNullAndAim4YouCourseIsNonEmptyGuid()
-        {
-            var course = CourseObjectMother.CreateWithAim4YouIntegration();
-
-            course.IsRegisteredOnAimForYou().Should().Be(true);
-        }
-
-        [TestMethod]
-        public void Aim4YouCourseId_ShouldBeSameAsWasRegistered()
-        {
-            Guid aim4YouCourseId = Guid.NewGuid();
-            var course = CourseObjectMother.CreateWithAim4YouIntegration(aim4YouCourseId);
-
-            course.Aim4YouIntegration.Aim4YouCourseId.Should().Be(aim4YouCourseId);
-        }
-
-        #endregion    }
-
         #region RemoveCollaborator
 
         [TestMethod]

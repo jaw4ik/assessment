@@ -248,7 +248,6 @@
             'viewmodels/courses/publishingActions/build.spec',
             'viewmodels/courses/publishingActions/publish.spec',
             'viewmodels/courses/publishingActions/scormBuild.spec',
-            'viewmodels/courses/publishingActions/publishToAim4You.spec',
             'viewmodels/courses/publishingActions/publishToCustomLms.spec',
             'viewmodels/courses/courseComments.spec',
             'viewmodels/objectives/objectives.spec',
