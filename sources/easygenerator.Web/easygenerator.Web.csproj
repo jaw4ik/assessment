@@ -2253,6 +2253,7 @@
     <Content Include="Templates\Assessment\app\views\multipleSelectText.html" />
     <Content Include="Templates\Assessment\app\views\notFoundError.html" />
     <Content Include="Templates\Assessment\app\views\openQuestion.html" />
+    <Content Include="Templates\Assessment\app\views\scenarioQuestion.html" />
     <Content Include="Templates\Assessment\app\views\singleSelectImage.html" />
     <Content Include="Templates\Assessment\app\views\singleSelectText.html" />
     <Content Include="Templates\Assessment\app\views\statement.html" />
