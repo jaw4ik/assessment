@@ -28,6 +28,12 @@
             settingsVisibility: ko.observable(false),
             canUnloadSettings: ko.observable(true),
 
+            settingsTabs: ko.observableArray([]),
+            currentSettingsTabUrl: ko.observable(''),
+
+            changeTab: changeTab,
+            updateSettingsUrls: updateSettingsUrls,
+
             reloadPreview: reloadPreview,
 
             activate: activate,
@@ -83,6 +89,7 @@
                 viewModel.previewUrl('/preview/' + viewModel.courseId);
 
                 viewModel.template(new TemplateBrief(course.template));
+                updateSettingsUrls(course.template);
 
                 app.on(constants.messages.course.templateUpdated + viewModel.courseId, viewModel.templateUpdated);
                 app.on(constants.messages.course.templateUpdatedByCollaborator, viewModel.templateUpdatedByCollaborator);
@@ -93,11 +100,14 @@
         }
 
         function templateUpdated(template) {
+
             if (template.id === viewModel.template().id)
                 return;
 
             viewModel.template().isLoading(true);
             viewModel.loadingTemplate(true);
+
+            updateSettingsUrls(template);
 
             return waiter.waitFor(viewModel.canUnloadSettings, delay, limit)
             .fail(function () {
@@ -157,5 +167,34 @@
         function showSettings() {
             viewModel.settingsVisibility(true);
         }
-    }
-);
+
+        function changeTab(tab) {
+            if (!tab || tab.isSelected()) {
+                return;
+            }
+
+            viewModel.settingsVisibility(false);
+
+            _.find(viewModel.settingsTabs(), function (tab) {
+                return tab.url === viewModel.currentSettingsTabUrl()
+            }).isSelected(false);
+
+            viewModel.currentSettingsTabUrl(tab.url)
+            tab.isSelected(true);
+        }
+
+        function updateSettingsUrls(template) {
+            viewModel.settingsTabs.removeAll();
+            viewModel.settingsTabs(_.map(template.settingsUrls.design, function (tab) {
+                if (tab.isSelected) {
+                    viewModel.currentSettingsTabUrl(tab.url);
+                }
+                return {
+                    name: tab.name,
+                    isSelected: ko.observable(tab.isSelected),
+                    title: localizationManager.localize(tab.name),
+                    url: tab.url
+                }
+            }));
+        }
+    });
