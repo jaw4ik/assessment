@@ -22,13 +22,7 @@
 
         function getManifestData(manifest, templateUrl) {
             //TODO: Should be deleted when all templates will be reworked to new settings scheme
-            if (_.isNullOrUndefined(manifest.settingsUrls)) {
-                manifest.settingsUrls = {
-                    design: manifest.settingsUrl
-                };
-            }
             //End TODO
-
             return {
                 name: manifest.name,
                 thumbnail: templateUrl + manifest.thumbnail + '?v=' + window.appVersion,
@@ -36,7 +30,16 @@
                     return templateUrl + img + '?v=' + window.appVersion;
                 }),
                 settingsUrls: {
-                    design: (manifest.settingsUrls && manifest.settingsUrls.design) ? templateUrl + manifest.settingsUrls.design : null,
+                    design: [{
+                        name: 'branding',
+                        url: (manifest.settingsUrls && manifest.settingsUrls.design) ? templateUrl + manifest.settingsUrls.design.branding : null,
+                        isSelected: true
+                    },
+                   {
+                       name: 'layout',
+                       url: (manifest.settingsUrls && manifest.settingsUrls.design) ? templateUrl + manifest.settingsUrls.design.layout : null,
+                       isSelected: false
+                   }],
                     configure: (manifest.settingsUrls && manifest.settingsUrls.configure) ? templateUrl + manifest.settingsUrls.configure : null
                 },
                 shortDescription: manifest.shortDescription
