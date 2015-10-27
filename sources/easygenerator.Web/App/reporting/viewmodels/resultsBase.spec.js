@@ -199,15 +199,30 @@
             });
         });
 
-        describe('isFinished:', function () {
+        describe('extendStatement:', function () {
             it('should be function', function () {
-                expect(viewModel.isFinished).toBeFunction();
+                expect(viewModel.extendStatement).toBeFunction();
             });
 
-            it('should return true is statement is finished and false if not', function () {
-                expect(viewModel.isFinished(new FinishStatement(finishStatements[0]))).toBeTruthy();
-                expect(viewModel.isFinished(new StartedStatement(startedStatements[0]))).toBeFalsy();
+            it('should extend statement', function () {
+                var finishStatement = new FinishStatement(finishStatements[0]);
+                var startedStatement = new StartedStatement(startedStatements[0]);
+                viewModel.extendStatement(finishStatement);
+                viewModel.extendStatement(startedStatement);
+
+                expect(finishStatement).toBeInstanceOf(FinishStatement);
+                expect(finishStatement.isFinished).toBeTruthy();
+                
+                expect(startedStatement).toBeInstanceOf(StartedStatement);
+                expect(startedStatement.isFinished).toBeFalsy();
             });
+
+            it('should return extended statement', function() {
+                var finishStatement = new FinishStatement(finishStatements[0]);
+                var extended = viewModel.extendStatement(finishStatement);
+                expect(finishStatement).toBe(extended);
+            });
+
         });
 
         describe('activate:', function () {

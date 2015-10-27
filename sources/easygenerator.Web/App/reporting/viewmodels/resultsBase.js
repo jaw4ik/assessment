@@ -89,8 +89,9 @@
 
             that.viewUrl = 'reporting/views/results';
 
-            that.isFinished = function(statement) {
-                return statement instanceof FinishStatement;
+            that.extendStatement = function (statement) {
+                statement.isFinished = statement instanceof FinishStatement;
+                return statement;
             }
 
             function loadLrsStatements(entityId, take, skip) {

@@ -22,7 +22,7 @@
                                 </div>
                             </li>
                             <!-- ko foreach: results -->
-                            <!-- ko compose: { view: 'reporting/views/courseStatement', model: { that: $data, isFinished: $parent.isFinished($data) } } -->
+                            <!-- ko compose: { view: 'reporting/views/courseStatement', model: $parent.extendStatement($data) } -->
                             <!-- /ko -->
                             <!-- /ko -->
                         </ul>
