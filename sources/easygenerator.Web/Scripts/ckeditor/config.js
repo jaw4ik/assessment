@@ -36,7 +36,7 @@ CKEDITOR.editorConfig = function (config) {
 
     config.magicline_color = '#aeb3b9';
 
-    config.baseFloatZIndex = 200;
+    config.baseFloatZIndex = 2100;
     config.dialog_noConfirmCancel = true;
     
     config.commandsToTrack = {
