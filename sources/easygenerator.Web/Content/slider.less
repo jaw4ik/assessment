@@ -72,14 +72,14 @@
             border: 1px solid #d1d6da;
             border-radius: 50%;
             background-color: #ffffff;
-            cursor: @grab-cursor-image, -webkit-grab;
+            cursor: @grab-cursor-image, pointer;
 
             &:hover {
                 border-color: #6faed6;
             }
 
-            &:active {
-                cursor: @grabbing-cursor-image, -webkit-grabbing;
+            &.ui-state-active {
+                cursor: @grabbing-cursor-image, pointer;
             }
 
             .ui-slider-value-indicator {
