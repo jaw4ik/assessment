@@ -3,7 +3,7 @@
 
     return function (expirationDate) {
         guard.throwIfNotAnObject(userContext.identity, "User identity is not an object");
-        userContext.identity.upgradeToPlus(expirationDate);
+        userContext.identity.upgradeToAcademy(expirationDate);
         app.trigger(constants.messages.user.upgradedToAcademy);
     }
 
