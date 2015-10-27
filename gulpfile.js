@@ -439,3 +439,7 @@ gulp.task('deploy-player', ['assets-player'], function () {
 });
 
 /*#endregion deploy player*/
+
+gulp.task('storage-iis-express', $.shell.task([
+    '"%ProgramFiles%\\IIS Express\\iisexpress" /path:"D:\\Development\\storage\\sources\\easygenerator.StorageServer" /port:888 /systray:true'
+]));
