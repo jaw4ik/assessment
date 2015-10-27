@@ -40,6 +40,20 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
         }
 
+        [HttpPost]
+        [EntityCollaborator(typeof(Question))]
+        [Route("api/question/updateVoiceOver")]
+        public ActionResult UpdateVoiceOver(Question question, string voiceOver)
+        {
+            if (question == null)
+            {
+                return JsonLocalizableError(Errors.QuestionNotFoundError, Errors.QuestionNotFoundResourceKey);
+            }
+
+            question.UpdateVoiceOver(voiceOver, GetCurrentUsername());
+
+            return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
+        }
 
         [HttpPost]
         [EntityCollaborator(typeof(Question))]

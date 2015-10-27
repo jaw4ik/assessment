@@ -196,6 +196,7 @@
                     createdByCollaborator: 'question:createdByCollaborator',
                     deleted: 'questions:deleted',
                     titleUpdated: 'question:titleUpdated',
+                    voiceOverUpdatedByCollaborator: 'question:voiceOverUpdatedByCollaborator',
                     titleUpdatedByCollaborator: 'question:titleUpdatedByCollaborator',
                     contentUpdatedByCollaborator: 'question:contentUpdatedByCollaborator',
                     backgroundChangedByCollaborator: 'question:backgroundChangedByCollaborator',
@@ -439,6 +440,12 @@
                 moveCopyQuestion: {
                     settings: {
                         containerCss: 'move-copy-question'
+                    }
+                },
+                audioLibrary: {
+                    settings: {
+                        containerCss: 'audio-library',
+                        autoclose: true
                     }
                 },
                 upgrade: {

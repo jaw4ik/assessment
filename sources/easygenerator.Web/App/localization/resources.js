@@ -523,6 +523,12 @@
         'uk': 'Над чим ми працюємо',
         'pt-br': 'What we are working on[pt-br]'
     },
+    inProgress: {
+        'en': 'In progress',
+        'zh-cn': 'In progress[zh-cn]',
+        'uk': 'В процесі',
+        'pt-br': 'In progress[pt-br]'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Storage */
@@ -638,16 +644,64 @@
         'pt-br': 'Сhoose[pt-br]'
     },
     chooseFileForVoiceOver: {
-        'en': 'Choose file to use it as voice over',
-        'zh-cn': 'Choose file to use it as voice over[zh-cn]',
-        'uk': 'Оберіть файл аудіо супровіду ',
-        'pt-br': 'Choose file to use it as voice over[pt-br]'
+        'en': 'Choose an audio file to use it as the voice over',
+        'zh-cn': 'Choose an audio file to use it as the voice over[zh-cn]',
+        'uk': 'Оберіть файл фонового аудіо',
+        'pt-br': 'Choose an audio file to use it as the voice over[pt-br]'
     },
-    noAudioFilesYet: {
-        'en': 'No audio files yet',
-        'zh-cn': 'No audio files yet[zh-cn]',
-        'uk': 'Немає аудіо файлів',
-        'pt-br': 'No audio files yet[pt-br]'
+    chooseFileAndClickDoneForVoiceOver: {
+        'en': 'Choose an audio file and click \'Done\' to use it as the voice over',
+        'zh-cn': 'Choose an audio file and click \'Done\' to use it as the voice over[zh-cn]',
+        'uk': 'Оберіть файл фонового аудіо та натисність кнопку \'Готово\'',
+        'pt-br': 'Choose an audio file and click \'Done\' to use it as the voice over[pt-br]'
+    },
+    iGotIt: {
+        'en': 'I got it',
+        'zh-cn': 'I got it[zh-cn]',
+        'uk': 'Зрозуміло',
+        'pt-br': 'I got it[pt-br]'
+    },
+    noAudioFilesYetHowToAdd: {
+        'en': 'No audio files yet. How to add:',
+        'zh-cn': 'No audio files yet. How to add:[zh-cn]',
+        'uk': 'Немає аудіо файлів. Як додати:',
+        'pt-br': 'No audio files yet. How to add:[pt-br]'
+    },
+    goToAudioLibrary: {
+        'en': 'Gо to Audio library',
+        'zh-cn': 'Gо to Audio library[zh-cn]',
+        'uk': 'Перейти до Аудіо бібліотеки',
+        'pt-br': 'Gо to Audio library[pt-br]'
+    },
+    goTo: {
+        'en': 'Go to',
+        'zh-cn': 'Go to[zh-cn]',
+        'uk': 'Перейти до',
+        'pt-br': 'Go to[pt-br]'
+    },
+    uploadYourAudioFile: {
+        'en': 'Upload your audio file',
+        'zh-cn': 'Upload your audio file[zh-cn]',
+        'uk': 'Завантажте Ваш аудіо файл',
+        'pt-br': 'Upload your audio file[pt-br]'
+    },
+    waitUntilItIsProcessed: {
+        'en': 'Wait until it is processed',
+        'zh-cn': 'Wait until it is processed[zh-cn]',
+        'uk': 'Зачекайте поки закінчиться обробка аудіо',
+        'pt-br': 'Wait until it is processed[pt-br]'
+    },
+    goBackToQuestionAndSelectAudioForVoiceOver: {
+        'en': 'Go back to the question and choose the audio as the voice over. That is it!',
+        'zh-cn': 'Go back to the question and choose the audio as the voice over. That is it![zh-cn]',
+        'uk': 'Поверніться на запитання та оберіть аудіо файл як фонове аудіо. Ось і все!',
+        'pt-br': 'Go back to the question and choose the audio as the voice over. That is it![pt-br]'
+    },
+    audioLibraryImprovingNotification: {
+        'en': '* - we are still working on improving the user experience, in order to make it possible to upload your audio from here.',
+        'zh-cn': '* - we are still working on improving the user experience, in order to make it possible to upload your audio from here.[zh-cn]',
+        'uk': '* - ми все ще працюємо над удосконаленням зручності користування і функціональністю завантаження аудіо просто з цього місця',
+        'pt-br': '* - we are still working on improving the user experience, in order to make it possible to upload your audio from here.[pt-br]'
     },
     /* End resource section for model Audio library dialog */
     
@@ -1084,6 +1138,18 @@
         'uk': 'Оновити план',
         'pt-br': 'Upgrade agora'
     },
+    limitCoursesInformerText: {
+        'en': 'You have reached the limit of ',
+        'zh-cn': '受限',
+        'uk': 'Ви досягли дозволеної кількості у ',
+        'pt-br': 'Você atingiu o limite de'
+    },
+    limitCoursesInformerTextEnd: {
+        'en': 'courses.',
+        'zh-cn': '课程',
+        'uk': 'курсів.',
+        'pt-br': 'cursos.'
+    },
     limitCoursesInformerTextForStarter: {
         'en': 'You have reached the limit of ',
         'zh-cn': '受限',
@@ -1095,12 +1161,6 @@
         'zh-cn': '受限',
         'uk': 'Ви досягли дозволеної кількості у ',
         'pt-br': 'Você atingiu o limite de'
-    },
-    limitCoursesInformerTextEnd: {
-        'en': 'courses.',
-        'zh-cn': '课程',
-        'uk': 'курсів.',
-        'pt-br': 'cursos.'
     },
     upgradeToNextPlanToCreateMoreCoursesErrorMessage: {
         'en': 'Please upgrade your account to the next plan to be able to create more courses.',
@@ -1263,6 +1323,12 @@
         'zh-cn': 'objective:[zh-cn]',
         'uk': 'розділ / ціль:',
         'pt-br': 'objetivo:'
+    },
+    reportingNotFinished: {
+        'en': 'Not finished yet',
+        'zh-cn': 'Not finished yet[zh-cn]',
+        'uk': 'Не завершено',
+        'pt-br': 'Not finished yet[pt-br]'
     },
     repotingNoQuestions: {
         'en': 'No questions have been answered yet or results are not available for this objective',
@@ -1813,6 +1879,12 @@
         'uk': 'Додати фонове аудіо',
         'pt-br': 'Add voice over[pt-br]'
     },
+    voiceOver: {
+        'en': 'Voice over',
+        'zh-cn': 'Voice over[zh-cn]',
+        'uk': 'Фонове аудіо',
+        'pt-br': 'Voice over[pt-br]'
+    },
     noAnswerOptionsYet: {
         'en': 'No answer options yet',
         'zh-cn': '还没有答案选项',
@@ -2116,6 +2188,12 @@
         'uk': 'Змінити ',
         'pt-br': 'Trocar imagem'
     },
+    rankText: {
+        'en': 'Rank text',
+        'zh-cn': 'Rank text[zh-cn]',
+        'uk': 'Rank text[uk]',
+        'pt-br': 'Rank text[pt-br]'
+    },
     /* End resource section for model Questions */
     
     /* Resource section for model ChoiseQuestions */
@@ -2334,6 +2412,48 @@
         'zh-cn': 'Untitled scenario question[zh-cn]',
         'uk': 'Питання \"Сценарій\" без назви',
         'pt-br': 'Untitled scenario question[pt-br]'
+    },
+    scenarioDesigner: {
+        'en': 'Scenario designer',
+        'zh-cn': 'Scenario designer[zh-cn]',
+        'uk': 'Конструктор сценарію',
+        'pt-br': 'Scenario designer[pt-br]'
+    },
+    createScenarioDescription: {
+        'en': 'Create scenario for learners',
+        'zh-cn': 'Create scenario for learners[zh-cn]',
+        'uk': 'Створіть сценарій для учнів',
+        'pt-br': 'Create scenario for learners[pt-br]'
+    },
+    createScenario: {
+        'en': 'Create scenario',
+        'zh-cn': 'Create scenario[zh-cn]',
+        'uk': 'Створити сценарій',
+        'pt-br': 'Create scenario[pt-br]'
+    },
+    newScenario: {
+        'en': 'New scenario',
+        'zh-cn': 'New scenario[zh-cn]',
+        'uk': 'Новий сценарій',
+        'pt-br': 'New scenario[pt-br]'
+    },
+    editScenario: {
+        'en': 'Edit scenario',
+        'zh-cn': 'Edit scenario[zh-cn]',
+        'uk': 'Редагувати сценарій',
+        'pt-br': 'Edit scenario[pt-br]'
+    },
+    masteryScore: {
+        'en': 'Mastery score',
+        'zh-cn': 'Mastery score[zh-cn]',
+        'uk': 'Поріг успішності',
+        'pt-br': 'Mastery score[pt-br]'
+    },
+    masteryScoreDescription: {
+        'en': 'Question will be correct if learner reach this score',
+        'zh-cn': 'Question will be correct if learner reach this score[zh-cn]',
+        'uk': 'Питання буде успішним якщо учень досягне цього порогу',
+        'pt-br': 'Question will be correct if learner reach this score[pt-br]'
     },
     /* End resource section for model Scenario */
     

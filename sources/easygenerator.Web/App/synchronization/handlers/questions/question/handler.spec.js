@@ -9,6 +9,12 @@
             });
         });
 
+        describe('voiceOverUpdated:', function () {
+            it('should be defined', function () {
+                expect(handler.voiceOverUpdated).toBeDefined();
+            });
+        });
+
         describe('contentUpdated:', function () {
             it('should be defined', function () {
                 expect(handler.contentUpdated).toBeDefined();
