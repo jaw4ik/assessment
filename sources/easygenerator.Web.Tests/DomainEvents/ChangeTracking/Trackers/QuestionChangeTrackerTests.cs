@@ -14,6 +14,7 @@ using easygenerator.Web.Tests.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System.Collections.ObjectModel;
+using easygenerator.DomainModel.Events.QuestionEvents.ScenarioEvents;
 
 namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
 {
@@ -187,6 +188,26 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
         {
             //Act
             _tracker.Handle(new SingleSelectImageAnswerDeletedEvent(SingleSelectImageAnswerObjectMother.Create(), SingleSelectImageObjectMother.Create()));
+
+            //Assert
+            _publisher.ShouldPublishEvent<QuestionChangedEvent>();
+        }
+
+        [TestMethod]
+        public void Handler_ScenarioDataUpdatedEvent_Should_Publish_QuestionChangedEvent()
+        {
+            //Act
+            _tracker.Handle(new ScenarioDataUpdatedEvent(ScenarioObjectMother.Create(), null, null, null, null));
+
+            //Assert
+            _publisher.ShouldPublishEvent<QuestionChangedEvent>();
+        }
+
+        [TestMethod]
+        public void Handler_ScenarioMasteryScoreUpdatedEvent_Should_Publish_QuestionChangedEvent()
+        {
+            //Act
+            _tracker.Handle(new ScenarioMasteryScoreUpdatedEvent(ScenarioObjectMother.Create(), 100));
 
             //Assert
             _publisher.ShouldPublishEvent<QuestionChangedEvent>();
