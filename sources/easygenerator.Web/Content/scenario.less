@@ -35,9 +35,24 @@
                 box-shadow: 0px 1px 4px -1px rgba(0, 0, 0, 0.4);
                 box-sizing: content-box;
                 cursor: pointer;
+                transition: box-shadow 0.2s linear;
+
+                &.info-tooltip-holder{
+
+                    .info-tooltip{
+                        margin-right: 20px;
+                    }
+
+                    &:hover{
+                        .info-tooltip{
+                            margin-right: 9px;
+                            transition: all 0.2s linear;
+                        }
+                    }
+                }
 
                 &:hover {
-                    border-color: #469dd5;
+                    box-shadow: 0px 0px 1px 1px #469dd5;
                 }
 
                 &:after {

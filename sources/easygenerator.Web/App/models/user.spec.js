@@ -92,7 +92,7 @@
 
         describe('when plus subscription is specified', function () {
 
-            it('should create user with starter subscription', function () {
+            it('should create user with plus subscription', function () {
                 var spec = {
                     firstname: 'firstname',
                     lastname: 'lastname',
@@ -107,6 +107,30 @@
 
                 expect(user.subscription).toEqual({
                     accessType: constants.accessType.plus,
+                    expirationDate: new Date("2014-03-19T12:49:34.7396182Z")
+                });
+
+            });
+
+        });
+
+        describe('when academy subscription is specified', function () {
+
+            it('should create user with academy subscription', function () {
+                var spec = {
+                    firstname: 'firstname',
+                    lastname: 'lastname',
+                    email: 'a.drebot@gmail.com',
+                    subscription: {
+                        accessType: constants.accessType.academy,
+                        expirationDate: "2014-03-19T12:49:34.7396182Z"
+                    }
+                };
+
+                var user = new User(spec);
+
+                expect(user.subscription).toEqual({
+                    accessType: constants.accessType.academy,
                     expirationDate: new Date("2014-03-19T12:49:34.7396182Z")
                 });
 
@@ -168,7 +192,7 @@
                     lastname: 'lastname',
                     email: 'a.drebot@gmail.com',
                     subscription: {
-                        accessType: 3,
+                        accessType: 543,
                     }
                 };
 
@@ -280,6 +304,45 @@
                 it('should throw exception', function () {
                     var f = function () {
                         user.upgradeToPlus();
+                    };
+
+                    expect(f).toThrow();
+                });
+
+            });
+        });
+
+        describe('upgradeToPlus:', function () {
+            var user;
+
+            beforeEach(function () {
+                user = new User({
+                    firstname: 'firstname',
+                    lastname: 'lastname',
+                    email: 'a.drebot@gmail.com',
+                    subscription: {
+                        accessType: constants.accessType.free
+                    }
+                });
+            });
+
+            it('should be function', function () {
+                expect(user.upgradeToAcademy).toBeFunction();
+            });
+
+            it('should upgrade user to plus', function () {
+                user.upgradeToAcademy("2014-03-19T12:49:34.7396182Z");
+
+                expect(user.subscription.accessType).toEqual(constants.accessType.academy);
+                expect(user.subscription.expirationDate).toEqual(new Date("2014-03-19T12:49:34.7396182Z"));
+            });
+
+
+            describe('when expiration date is not specified', function () {
+
+                it('should throw exception', function () {
+                    var f = function () {
+                        user.upgradeToAcademy();
                     };
 
                     expect(f).toThrow();

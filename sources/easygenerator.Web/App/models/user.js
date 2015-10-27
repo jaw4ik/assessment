@@ -72,6 +72,14 @@
         };
     };
 
+    User.prototype.upgradeToAcademy = function (expirationDate) {
+        guard.throwIfNotString(expirationDate, 'Expiration date is not specified');
+        this.subscription = {
+            accessType: constants.accessType.academy,
+            expirationDate: new Date(expirationDate)
+        };
+    };
+
     return User;
 
 })
