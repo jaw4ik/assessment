@@ -694,6 +694,10 @@
     <Content Include="App\mappers\companyMapper.js" />
     <Content Include="App\mappers\audioModelMapper.js" />
     <Content Include="App\models\audio.js" />
+    <Content Include="App\reporting\viewmodels\startedStatement.js" />
+    <Content Include="App\reporting\viewmodels\startedStatement.spec.js">
+      <DependentUpon>startedStatement.js</DependentUpon>
+    </Content>
     <Content Include="App\repositories\learningPathRepository.spec.js">
       <DependentUpon>learningPathRepository.js</DependentUpon>
     </Content>
