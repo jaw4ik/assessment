@@ -186,7 +186,7 @@
 
         describe('share:', function () {
 
-            var share = require('dialogs/publishCourse/publishCourse');
+            var share = require('dialogs/course/publishCourse/publishCourse');
 
             beforeEach(function () {
                 spyOn(share, 'show');

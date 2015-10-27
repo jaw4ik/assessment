@@ -1,44 +1,47 @@
 {
-    "name": "Personalized learning",
-    "shortDescription": "A smart eLearning course with a study advice for the learner\n\nDetails:\nThe learner will see all questions in an assessment first. Based on the results of that assessment the course will present a study advice with the weak points of the learner. In order to use this successful, don't use the content items, but add the content directly to the question!",
-    "thumbnail": "preview/thumbnail.png",
-    "previewImages": [
-        "preview/images/preview.jpg"
-    ],
-    "settingsUrls": {
-        "design": "settings/design/design.html",
-        "configure": "settings/configure/configure.html"
+  "name": "Personalized learning",
+  "shortDescription": "A smart eLearning course with a study advice for the learner\n\nDetails:\nThe learner will see all questions in an assessment first. Based on the results of that assessment the course will present a study advice with the weak points of the learner. In order to use this successful, don't use the content items, but add the content directly to the question!",
+  "thumbnail": "preview/thumbnail.png",
+  "previewImages": [
+    "preview/images/preview.jpg"
+  ],
+  "settingsUrls": {
+    "design": {
+      "branding": "settings/design/branding.html",
+      "layout": "settings/design/layout.html"
     },
-    "languages": [
-        {
-            "code": "nl",
-            "name": "Dutch",
-            "url": "lang/nl.json"
-        },
-        {
-            "code": "en",
-            "name": "English",
-            "url": "lang/en.json"
-        },
-        {
-            "code": "ua",
-            "name": "Ukrainian",
-            "url": "lang/ua.json"
-        },
-        {
-            "code": "de",
-            "name": "German",
-            "url": "lang/de.json"
-        },
-        {
-            "code": "fr",
-            "name": "French",
-            "url": "lang/fr.json"
-        },
-        {
-            "code": "pt-br",
-            "name": "Portuguese - Brazil",
-            "url": "lang/pt-br.json"
-        }
-    ]
+    "configure": "settings/configure/configure.html"
+  },
+  "languages": [
+    {
+      "code": "nl",
+      "name": "Dutch",
+      "url": "lang/nl.json"
+    },
+    {
+      "code": "en",
+      "name": "English",
+      "url": "lang/en.json"
+    },
+    {
+      "code": "ua",
+      "name": "Ukrainian",
+      "url": "lang/ua.json"
+    },
+    {
+      "code": "de",
+      "name": "German",
+      "url": "lang/de.json"
+    },
+    {
+      "code": "fr",
+      "name": "French",
+      "url": "lang/fr.json"
+    },
+    {
+      "code": "pt-br",
+      "name": "Portuguese - Brazil",
+      "url": "lang/pt-br.json"
+    }
+  ]
 }

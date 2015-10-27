@@ -590,6 +590,104 @@
             });
         });
 
+        describe('currentSettingsTabUrl:', function () {
+            it('should be observable', function () {
+                expect(viewModel.currentSettingsTabUrl).toBeObservable();
+            });
+        });
+
+        describe('settingsTabs:', function () {
+            it('should be observable array', function () {
+                expect(viewModel.settingsTabs).toBeObservableArray();
+            });
+        });
+
+        describe('changeTab:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.changeTab).toBeFunction();
+            });
+
+            describe('when tab has incorrect format', function () {
+                var tab;
+                beforeEach(function () {
+                    viewModel.settingsVisibility(true);
+                });
+
+                it('should not change settingsVisibility property', function () {
+                    tab = null;
+                    viewModel.changeTab(tab);
+                    expect(viewModel.settingsVisibility()).toBeTruthy();
+
+                    tab = undefined;
+                    viewModel.changeTab(tab);
+                    expect(viewModel.settingsVisibility()).toBeTruthy();
+                });
+
+            });
+
+            describe('when tab has correct format', function () {
+                var tab1,
+                    tab2;
+                beforeEach(function () {
+                    tab1 = {
+                        name: 'name',
+                        isSelected: ko.observable(true),
+                        title: 'title',
+                        url: 'url'
+                    }
+                    tab2 = {
+                        name: 'name2',
+                        isSelected: ko.observable(false),
+                        title: 'titl2',
+                        url: 'url2'
+                    },
+                    viewModel.settingsVisibility(true);
+                    viewModel.settingsTabs([tab1, tab2]);
+                    viewModel.currentSettingsTabUrl(tab1.url);
+                });
+
+                describe('and tab is already selected', function () {
+                    beforeEach(function () {
+                        viewModel.settingsVisibility(true);
+                        tab1.isSelected(true);
+                    });
+
+                    it('should not change settings visibility', function () {
+                        viewModel.changeTab(tab1);
+                        expect(viewModel.settingsVisibility()).toBeTruthy();
+                    });
+
+                });
+
+                describe('and tab was not selected', function () {
+                    it('should set settingsVisibility property to false', function () {
+                        viewModel.settingsVisibility(true);
+
+                        viewModel.changeTab(tab2);
+
+                        expect(viewModel.settingsVisibility()).toBeFalsy();
+                    });
+
+                    it('should unselect previous selected tab', function () {
+                        viewModel.settingsTabs()[0].isSelected(true);
+                        viewModel.changeTab(tab2);
+                        expect(viewModel.settingsTabs()[0].isSelected()).toBeFalsy();
+                    });
+
+                    it('should select current tab', function () {
+                        viewModel.currentSettingsTabUrl(tab1.url);
+                        viewModel.settingsTabs()[1].isSelected(false);
+
+                        viewModel.changeTab(tab2);
+
+                        expect(viewModel.settingsTabs()[1].isSelected()).toBeTruthy();
+                        expect(viewModel.currentSettingsTabUrl()).toBe(tab2.url);
+                    });
+                });
+            });
+        });
+
         describe('loadingTemplate:', function () {
             it('should be observable', function () {
                 expect(viewModel.loadingTemplate).toBeObservable();
@@ -809,6 +907,14 @@
 
                 });
 
+            });
+
+        });
+
+        describe('updateSettingsUrls:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.updateSettingsUrls).toBeFunction();
             });
 
         });

@@ -7,15 +7,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="css/design.css?v=1442415392622" rel="stylesheet" />
-    <script src="../api.js?v=1442415392622"></script>
+    <link href="css/design.css?v=1445925764643" rel="stylesheet" />
+    <script src="../api.js?v=1445925764643"></script>
 
-    <script src="js/vendor.min.js?v=1442415392622"></script>
-    <script src="js/design.min.js?v=1442415392622"></script>
+    <script src="js/vendor.min.js?v=1445925764643"></script>
+    <script src="js/design.min.js?v=1445925764643"></script>
 </head>
 
     <body>
-        <main data-bind="template: { afterRender: egApi.showSettings }">
+        <main class="settings-container" data-bind="template: { afterRender: egApi.showSettings }">
             <!-- ko ifnot: isError -->
             <article class="flex direction-column settings-item-container">
                 <header class="settings-item-title" data-bind="localize: 'custom course logo'">Custom course logo:</header>
@@ -54,8 +54,8 @@
                             </div>
                         </div>
                         <!-- /ko -->
-                        <!-- ko if: (!logo.isError() && !logo.isLoading()) || logo.hasLogo() -->
-                        <div class="logo-message-container" data-bind="localize: 'logo hint'">
+                        <!-- ko if: (!logo.isError() && !logo.isLoading()) || logo.hasLogo -->
+                        <div class="logo-message-container" data-bind="localize: 'recomend size'">
                             - recommended size 300x50 px, allowed formats: jpeg, jpg, png, bmp, gif
                         </div>
                         <!-- /ko -->

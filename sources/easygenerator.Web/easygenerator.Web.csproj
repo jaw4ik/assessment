@@ -591,6 +591,15 @@
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
     <Content Include="App\browse.js" />
+    <Content Include="App\dialogs\audio\audioLibrary.html" />
+    <Content Include="App\dialogs\audio\audioLibrary.js" />
+    <Content Include="App\dialogs\audio\audioLibrary.spec.js">
+      <DependentUpon>audioLibrary.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\audio\audioViewModel.js" />
+    <Content Include="App\dialogs\audio\audioViewModel.spec.js">
+      <DependentUpon>audioViewModel.js</DependentUpon>
+    </Content>
     <Content Include="App\jsonReader.js" />
     <Content Include="App\localization\bindingHandlers\localizeBindingHandler.js" />
     <Content Include="App\Query.js" />
@@ -690,6 +699,10 @@
     <Content Include="App\repositories\learningPathRepository.spec.js">
       <DependentUpon>learningPathRepository.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\voiceOverUpdated.js" />
+    <Content Include="App\synchronization\handlers\questions\question\eventHandlers\voiceOverUpdated.spec.js">
+      <DependentUpon>voiceOverUpdated.js</DependentUpon>
+    </Content>
     <Content Include="App\videoUpload\handlers\durations.js" />
     <Content Include="App\videoUpload\handlers\durations.spec.js">
       <DependentUpon>durations.js</DependentUpon>
@@ -709,6 +722,7 @@
     <Content Include="App\viewmodels\learningPaths\learningPath\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\questions\voiceOver.js" />
     <Content Include="App\views\audios\audios.html" />
     <Content Include="App\models\learningPath.spec.js">
       <DependentUpon>learningPath.js</DependentUpon>
@@ -858,9 +872,9 @@
       <DependentUpon>notification.js</DependentUpon>
     </Content>
     <Content Include="App\reporting\xApiProvider.js" />
-    <Content Include="App\dialogs\publishCourse\publishCourse.html" />
-    <Content Include="App\dialogs\publishCourse\publishCourse.js" />
-    <Content Include="App\dialogs\publishCourse\publishCourse.spec.js">
+    <Content Include="App\dialogs\course\publishCourse\publishCourse.html" />
+    <Content Include="App\dialogs\course\publishCourse\publishCourse.js" />
+    <Content Include="App\dialogs\course\publishCourse\publishCourse.spec.js">
       <DependentUpon>publishCourse.js</DependentUpon>
     </Content>
     <Content Include="App\onboarding\initialization.spec.js">
@@ -1637,6 +1651,9 @@
     </Content>
     <Content Include="ReleaseNotes\1.0.0.html" />
     <Content Include="Content\releaseNotes.less" />
+    <Content Include="App\viewmodels\questions\voiceOver.spec.js">
+      <DependentUpon>voiceOver.js</DependentUpon>
+    </Content>
     <Content Include="App\localization\lang\en.json" />
     <Content Include="App\localization\lang\pt-br.json" />
     <Content Include="App\localization\lang\uk.json" />
@@ -2186,6 +2203,7 @@
     <Content Include="Scripts\knockoutBindings\numericFieldBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextInAnswerBinding.js" />
+    <Content Include="Scripts\knockoutBindings\fadeInBinding.js" />
     <Content Include="Scripts\knockoutBindings\switchToggleBinding.js" />
     <Content Include="Scripts\knockoutBindings\withAnimatedBinding.js" />
     <Content Include="Scripts\md5.js" />
@@ -2283,10 +2301,11 @@
     <Content Include="Templates\Assessment\settings\configure\img\sprites_16.png" />
     <Content Include="Templates\Assessment\settings\configure\js\configure.min.js" />
     <Content Include="Templates\Assessment\settings\configure\js\vendor.min.js" />
+    <Content Include="Templates\Assessment\settings\design\branding.html" />
     <Content Include="Templates\Assessment\settings\design\css\design.css" />
-    <Content Include="Templates\Assessment\settings\design\design.html" />
     <Content Include="Templates\Assessment\settings\design\js\design.min.js" />
     <Content Include="Templates\Assessment\settings\design\js\vendor.min.js" />
+    <Content Include="Templates\Assessment\settings\design\layout.html" />
     <Content Include="Templates\Personalized learning\app\main.js" />
     <Content Include="Templates\Personalized learning\app\main.js.map" />
     <Content Include="Templates\Personalized learning\content\1b4769525d54430295cc1f0971833894\b33d6ef71e504337a74443b0fad006ee\d0aabb7b5a9d447bbe16d4c585d659bf.html" />
@@ -2372,14 +2391,15 @@
     <Content Include="Templates\Personalized learning\settings\configure\img\sprites_16.png" />
     <Content Include="Templates\Personalized learning\settings\configure\js\configure.min.js" />
     <Content Include="Templates\Personalized learning\settings\configure\js\vendor.min.js" />
+    <Content Include="Templates\Personalized learning\settings\design\branding.html" />
     <Content Include="Templates\Personalized learning\settings\design\css\design.css" />
     <Content Include="Templates\Personalized learning\settings\design\css\fonts\opensans-400.woff" />
     <Content Include="Templates\Personalized learning\settings\design\css\fonts\opensans-600.woff" />
     <Content Include="Templates\Personalized learning\settings\design\css\fonts\opensans-bold.woff" />
     <Content Include="Templates\Personalized learning\settings\design\css\fonts\opensans-italic-400.woff" />
-    <Content Include="Templates\Personalized learning\settings\design\design.html" />
     <Content Include="Templates\Personalized learning\settings\design\js\design.min.js" />
     <Content Include="Templates\Personalized learning\settings\design\js\vendor.min.js" />
+    <Content Include="Templates\Personalized learning\settings\design\layout.html" />
     <Content Include="Templates\Reader\app\main.js" />
     <Content Include="Templates\Reader\app\main.js.map" />
     <Content Include="Templates\Reader\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\a15336e3207b40aa86ae93f15c2d3927.html" />
@@ -2441,14 +2461,15 @@
     <Content Include="Templates\Reader\settings\configure\img\sprites_16.png" />
     <Content Include="Templates\Reader\settings\configure\js\configure.min.js" />
     <Content Include="Templates\Reader\settings\configure\js\vendor.min.js" />
+    <Content Include="Templates\Reader\settings\design\branding.html" />
     <Content Include="Templates\Reader\settings\design\css\design.css" />
     <Content Include="Templates\Reader\settings\design\css\fonts\opensans-400.woff" />
     <Content Include="Templates\Reader\settings\design\css\fonts\opensans-600.woff" />
     <Content Include="Templates\Reader\settings\design\css\fonts\opensans-bold.woff" />
     <Content Include="Templates\Reader\settings\design\css\fonts\opensans-italic-400.woff" />
-    <Content Include="Templates\Reader\settings\design\design.html" />
     <Content Include="Templates\Reader\settings\design\js\design.min.js" />
     <Content Include="Templates\Reader\settings\design\js\vendor.min.js" />
+    <Content Include="Templates\Reader\settings\design\layout.html" />
     <Content Include="Templates\Simple course\app\main.js" />
     <Content Include="Templates\Simple course\app\main.js.map" />
     <Content Include="Templates\Simple course\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\a15336e3207b40aa86ae93f15c2d3927.html" />
@@ -2519,14 +2540,15 @@
     <Content Include="Templates\Simple course\settings\configure\img\language.png" />
     <Content Include="Templates\Simple course\settings\configure\js\configure.min.js" />
     <Content Include="Templates\Simple course\settings\configure\js\vendor.min.js" />
+    <Content Include="Templates\Simple course\settings\design\branding.html" />
     <Content Include="Templates\Simple course\settings\design\css\design.css" />
     <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-400.woff" />
     <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-600.woff" />
     <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-bold.woff" />
     <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-italic-400.woff" />
-    <Content Include="Templates\Simple course\settings\design\design.html" />
     <Content Include="Templates\Simple course\settings\design\js\design.min.js" />
     <Content Include="Templates\Simple course\settings\design\js\vendor.min.js" />
+    <Content Include="Templates\Simple course\settings\design\layout.html" />
     <Content Include="Views\Account\InvalidPasswordRecovery.cshtml" />
     <Content Include="Views\Account\PasswordRecovery.cshtml" />
     <Content Include="Views\Account\PrivacyPolicy.cshtml" />

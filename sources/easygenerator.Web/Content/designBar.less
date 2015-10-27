@@ -1,4 +1,4 @@
-﻿@import "mixin.less";
+@import "mixin.less";
 
 @bar-width: 300px;
 @bar-background: #e4eaed;
@@ -63,7 +63,13 @@
                         }
 
                         &.settings-thumbnail {
-                            background-position: -222px -352px;
+                            &.branding {
+                                background-position: -218px -416px;
+                            }
+
+                            &.layout {
+                                background-position:-84px -352px;
+                            }
                         }
                     }
 
@@ -77,7 +83,13 @@
                             }
 
                             &.settings-thumbnail {
-                                background-position: -291px -352px;
+                                &.branding {
+                                    background-position: -287px -416px;
+                                }
+
+                                &.layout {
+                                    background-position: -153px -352px;
+                                }
                             }
                         }
                     }

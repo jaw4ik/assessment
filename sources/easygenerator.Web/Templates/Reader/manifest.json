@@ -1,45 +1,48 @@
 {
-    "name": "Reader",
-    "shortDescription": "Just a course with content, no questions\n\nDetails:\nIf you want to present knowledge to the learner and no questions, the reader is the right form. It will present the content in sections with simple navigation. You cannot rack and trace results from a reader.",
-    "thumbnail": "preview/thumbnail.png",
-    "previewImages": [
-        "preview/images/preview.png"
-    ],
-    "settingsUrls": {
-        "design": "settings/design/design.html",
-        "configure": "settings/configure/configure.html"
+  "name": "Reader",
+  "shortDescription": "Just a course with content, no questions\n\nDetails:\nIf you want to present knowledge to the learner and no questions, the reader is the right form. It will present the content in sections with simple navigation. You cannot rack and trace results from a reader.",
+  "thumbnail": "preview/thumbnail.png",
+  "previewImages": [
+    "preview/images/preview.png"
+  ],
+  "settingsUrls": {
+    "design": {
+      "branding": "settings/design/branding.html",
+      "layout": "settings/design/layout.html"
     },
-    "progressTrackable":  false,
-    "languages": [
-        {
-            "code": "nl",
-            "name": "Dutch",
-            "url": "lang/nl.json"
-        },
-        {
-            "code": "en",
-            "name": "English",
-            "url": "lang/en.json"
-        },
-        {
-            "code": "ua",
-            "name": "Ukrainian",
-            "url": "lang/ua.json"
-        },
-        {
-            "code": "de",
-            "name": "German",
-            "url": "lang/de.json"
-        },
-        {
-            "code": "fr",
-            "name": "French",
-            "url": "lang/fr.json"
-        },
-        {
-            "code": "pt-br",
-            "name": "Portuguese - Brazil",
-            "url": "lang/pt-br.json"
-        }
-    ]
+    "configure": "settings/configure/configure.html"
+  },
+  "progressTrackable": false,
+  "languages": [
+    {
+      "code": "nl",
+      "name": "Dutch",
+      "url": "lang/nl.json"
+    },
+    {
+      "code": "en",
+      "name": "English",
+      "url": "lang/en.json"
+    },
+    {
+      "code": "ua",
+      "name": "Ukrainian",
+      "url": "lang/ua.json"
+    },
+    {
+      "code": "de",
+      "name": "German",
+      "url": "lang/de.json"
+    },
+    {
+      "code": "fr",
+      "name": "French",
+      "url": "lang/fr.json"
+    },
+    {
+      "code": "pt-br",
+      "name": "Portuguese - Brazil",
+      "url": "lang/pt-br.json"
+    }
+  ]
 }

@@ -7,6 +7,7 @@
                 return new QuestionModel({
                     id: question.Id,
                     title: question.Title,
+                    voiceOver: question.VoiceOver,
                     content: question.Content,
                     createdOn: new Date(question.CreatedOn),
                     modifiedOn: new Date(question.ModifiedOn),
