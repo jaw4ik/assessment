@@ -22,29 +22,34 @@
             });
         };
 
-        function getLearningPathCompletedStatements(learningPathId, take, skip) {
+        function getLearningPathFinishedStatements(learningPathId, take, skip) {
             return getStatements({ learningPathId: learningPathId, verbs: [constants.reporting.xApiVerbIds.passed, constants.reporting.xApiVerbIds.failed], limit: take, skip: skip });
         }
 
-        function getCourseCompletedStatements(courseId, take, skip) {
-            return getStatements({ courseId: courseId, verbs: [constants.reporting.xApiVerbIds.passed, constants.reporting.xApiVerbIds.failed], limit: take, skip: skip });
+        function getCourseStartedStatements(courseId, take, skip) {
+            return getStatements({ courseId: courseId, verbs: constants.reporting.xApiVerbIds.started, limit: take, skip: skip });
+        }
+
+        function getCourseFinishedStatements(attemptIds) {
+            return getStatements({ attemptIds: attemptIds, verbs: [constants.reporting.xApiVerbIds.passed, constants.reporting.xApiVerbIds.failed] });
         }
 
         function getMasteredStatements(attemptId) {
-            return getStatements({ verbs: constants.reporting.xApiVerbIds.mastered, attemptId: attemptId });
+            return getStatements({ verbs: constants.reporting.xApiVerbIds.mastered, attemptIds: attemptId });
         }
 
         function getStartedStatement(attemptId) {
-            return getStatements({ verbs: constants.reporting.xApiVerbIds.started, attemptId: attemptId });
+            return getStatements({ verbs: constants.reporting.xApiVerbIds.started, attemptIds: attemptId });
         }
 
         function getAnsweredStatements(attemptId, parentActivityId) {
-            return getStatements({ verbs: constants.reporting.xApiVerbIds.answered, attemptId: attemptId, parentId: parentActivityId });
+            return getStatements({ verbs: constants.reporting.xApiVerbIds.answered, attemptIds: attemptId, parentId: parentActivityId });
         }
 
         return {
-            getCourseCompletedStatements: getCourseCompletedStatements,
-            getLearningPathCompletedStatements: getLearningPathCompletedStatements,
+            getCourseStartedStatements: getCourseStartedStatements,
+            getCourseFinishedStatements: getCourseFinishedStatements,
+            getLearningPathFinishedStatements: getLearningPathFinishedStatements,
             getMasteredStatements: getMasteredStatements,
             getAnsweredStatements: getAnsweredStatements,
             getStartedStatement: getStartedStatement

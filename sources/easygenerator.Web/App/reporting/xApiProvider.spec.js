@@ -17,6 +17,7 @@
         var courseId = 'courseId',
             learningPathId = 'learningPathId',
             attemptId = 'attemptId',
+            attemptIds = ['attemptId1, attemptId2'],
             parentActivityId = 'parentActivityId',
                 dfd,
                 filterCriteria;
@@ -87,18 +88,18 @@
             dfd.resolve({ statements: statements });
         });
 
-        describe('getLearningPathCompletedStatements:', function () {
+        describe('getLearningPathFinishedStatements:', function () {
 
             it('should be function', function () {
-                expect(xApiProvider.getLearningPathCompletedStatements).toBeFunction();
+                expect(xApiProvider.getLearningPathFinishedStatements).toBeFunction();
             });
 
             it('should return promise', function () {
-                expect(xApiProvider.getLearningPathCompletedStatements(learningPathId)).toBePromise();
+                expect(xApiProvider.getLearningPathFinishedStatements(learningPathId)).toBePromise();
             });
 
             it('should pass correct params to filterCriteriaFactory create function', function () {
-                xApiProvider.getLearningPathCompletedStatements(learningPathId, 10, 20);
+                xApiProvider.getLearningPathFinishedStatements(learningPathId, 10, 20);
                 expect(filterCriteriaFactory.create).toHaveBeenCalledWith({
                     learningPathId: learningPathId,
                     verbs: [constants.reporting.xApiVerbIds.passed, constants.reporting.xApiVerbIds.failed],
@@ -112,20 +113,20 @@
                 filterCriteria.limit = 10;
                 filterCriteria.skip = 20;
 
-                xApiProvider.getLearningPathCompletedStatements(learningPathId, 10, 20);
+                xApiProvider.getLearningPathFinishedStatements(learningPathId, 10, 20);
                 var args = httpRequestSender.get.calls.mostRecent().args;
                 expect(args[1]).toBe(filterCriteria);
             });
 
             it('should do request to proper lrs uri', function () {
-                xApiProvider.getLearningPathCompletedStatements(learningPathId, 10, 20);
+                xApiProvider.getLearningPathFinishedStatements(learningPathId, 10, 20);
                 var args = httpRequestSender.get.calls.mostRecent().args;
                 expect(args[0]).toBe(config.lrs.uri);
             });
 
             describe('when lrs doesnt require authentication', function () {
                 it('should pass proper httpHeaders to httpRequestSender', function () {
-                    xApiProvider.getLearningPathCompletedStatements(learningPathId, 10, 20);
+                    xApiProvider.getLearningPathFinishedStatements(learningPathId, 10, 20);
                     var args = httpRequestSender.get.calls.mostRecent().args;
                     expect(args[2]["X-Experience-API-Version"]).toBe(config.lrs.version);
                     expect(args[2]["Content-Type"]).toBe("application/json");
@@ -137,7 +138,7 @@
                 it('should pass proper httpHeaders to httpRequestSender', function () {
                     config.lrs.authenticationRequired = true;
                     config.lrs.credentials = { username: 'username', password: 'password' };
-                    xApiProvider.getLearningPathCompletedStatements(learningPathId, 10, 20);
+                    xApiProvider.getLearningPathFinishedStatements(learningPathId, 10, 20);
                     var args = httpRequestSender.get.calls.mostRecent().args;
                     expect(args[2]["X-Experience-API-Version"]).toBe(config.lrs.version);
                     expect(args[2]["Content-Type"]).toBe("application/json");
@@ -149,7 +150,7 @@
             describe('if statements were returned', function () {
                 it('should return reporting/statements instances', function (done) {
 
-                    var promise = xApiProvider.getLearningPathCompletedStatements(learningPathId);
+                    var promise = xApiProvider.getLearningPathFinishedStatements(learningPathId);
                     promise.then(function (result) {
                         expect(result.length).toBe(3);
                         expect(result[0]).toBeInstanceOf(ReportingStatement);
@@ -162,22 +163,21 @@
             });
         });
 
-        describe('getCourseCompletedStatements:', function () {
-
+        describe('getCourseStartedStatements:', function () {
 
             it('should be function', function () {
-                expect(xApiProvider.getCourseCompletedStatements).toBeFunction();
+                expect(xApiProvider.getCourseStartedStatements).toBeFunction();
             });
 
             it('should return promise', function () {
-                expect(xApiProvider.getCourseCompletedStatements(courseId)).toBePromise();
+                expect(xApiProvider.getCourseStartedStatements(courseId)).toBePromise();
             });
 
             it('should pass correct params to filterCriteriaFactory create function', function () {
-                xApiProvider.getCourseCompletedStatements(courseId, 10, 20);
+                xApiProvider.getCourseStartedStatements(courseId, 10, 20);
                 expect(filterCriteriaFactory.create).toHaveBeenCalledWith({
                     courseId: courseId,
-                    verbs: [constants.reporting.xApiVerbIds.passed, constants.reporting.xApiVerbIds.failed],
+                    verbs: constants.reporting.xApiVerbIds.started,
                     limit: 10,
                     skip: 20
                 });
@@ -188,20 +188,20 @@
                 filterCriteria.limit = 10;
                 filterCriteria.skip = 20;
 
-                xApiProvider.getCourseCompletedStatements(courseId, 10, 20);
+                xApiProvider.getCourseStartedStatements(courseId, 10, 20);
                 var args = httpRequestSender.get.calls.mostRecent().args;
                 expect(args[1]).toBe(filterCriteria);
             });
 
             it('should do request to proper lrs uri', function () {
-                xApiProvider.getCourseCompletedStatements(courseId, 10, 20);
+                xApiProvider.getCourseStartedStatements(courseId, 10, 20);
                 var args = httpRequestSender.get.calls.mostRecent().args;
                 expect(args[0]).toBe(config.lrs.uri);
             });
 
             describe('when lrs doesnt require authentication', function () {
                 it('should pass proper httpHeaders to httpRequestSender', function () {
-                    xApiProvider.getCourseCompletedStatements(courseId, 10, 20);
+                    xApiProvider.getCourseStartedStatements(courseId, 10, 20);
                     var args = httpRequestSender.get.calls.mostRecent().args;
                     expect(args[2]["X-Experience-API-Version"]).toBe(config.lrs.version);
                     expect(args[2]["Content-Type"]).toBe("application/json");
@@ -213,7 +213,7 @@
                 it('should pass proper httpHeaders to httpRequestSender', function () {
                     config.lrs.authenticationRequired = true;
                     config.lrs.credentials = { username: 'username', password: 'password' };
-                    xApiProvider.getCourseCompletedStatements(courseId, 10, 20);
+                    xApiProvider.getCourseStartedStatements(courseId, 10, 20);
                     var args = httpRequestSender.get.calls.mostRecent().args;
                     expect(args[2]["X-Experience-API-Version"]).toBe(config.lrs.version);
                     expect(args[2]["Content-Type"]).toBe("application/json");
@@ -225,7 +225,78 @@
             describe('if statements were returned', function () {
                 it('should return reporting/statements instances', function (done) {
 
-                    var promise = xApiProvider.getCourseCompletedStatements(courseId);
+                    var promise = xApiProvider.getCourseStartedStatements(courseId);
+                    promise.then(function (result) {
+                        expect(result.length).toBe(3);
+                        expect(result[0]).toBeInstanceOf(ReportingStatement);
+                        expect(result[1]).toBeInstanceOf(ReportingStatement);
+                        expect(result[2]).toBeInstanceOf(ReportingStatement);
+
+                        done();
+                    });
+                });
+            });
+        });
+
+        describe('getCourseFinishedStatements:', function () {
+
+            it('should be function', function () {
+                expect(xApiProvider.getCourseFinishedStatements).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(xApiProvider.getCourseFinishedStatements(attemptIds)).toBePromise();
+            });
+
+            it('should pass correct params to filterCriteriaFactory create function', function () {
+                xApiProvider.getCourseFinishedStatements(attemptIds);
+                expect(filterCriteriaFactory.create).toHaveBeenCalledWith({
+                    attemptIds: attemptIds,
+                    verbs: [constants.reporting.xApiVerbIds.passed, constants.reporting.xApiVerbIds.failed]
+                });
+            });
+
+            it('should pass filterCriteria to httpRequestSender', function () {
+                filterCriteria.attemptIds = attemptIds;
+
+                xApiProvider.getCourseFinishedStatements(attemptIds);
+                var args = httpRequestSender.get.calls.mostRecent().args;
+                expect(args[1]).toBe(filterCriteria);
+            });
+
+            it('should do request to proper lrs uri', function () {
+                xApiProvider.getCourseFinishedStatements(attemptIds);
+                var args = httpRequestSender.get.calls.mostRecent().args;
+                expect(args[0]).toBe(config.lrs.uri);
+            });
+
+            describe('when lrs doesnt require authentication', function () {
+                it('should pass proper httpHeaders to httpRequestSender', function () {
+                    xApiProvider.getCourseFinishedStatements(attemptIds);
+                    var args = httpRequestSender.get.calls.mostRecent().args;
+                    expect(args[2]["X-Experience-API-Version"]).toBe(config.lrs.version);
+                    expect(args[2]["Content-Type"]).toBe("application/json");
+                    expect(args[2]["Authorization"]).toBeUndefined();
+                });
+            });
+
+            describe('when lrs requires authentication', function () {
+                it('should pass proper httpHeaders to httpRequestSender', function () {
+                    config.lrs.authenticationRequired = true;
+                    config.lrs.credentials = { username: 'username', password: 'password' };
+                    xApiProvider.getCourseFinishedStatements(attemptIds);
+                    var args = httpRequestSender.get.calls.mostRecent().args;
+                    expect(args[2]["X-Experience-API-Version"]).toBe(config.lrs.version);
+                    expect(args[2]["Content-Type"]).toBe("application/json");
+                    expect(args[2]["Authorization"]).toBe("Basic " + base64.encode(config.lrs.credentials.username + ':' + config.lrs.credentials.password));
+                });
+            });
+
+
+            describe('if statements were returned', function () {
+                it('should return reporting/statements instances', function (done) {
+
+                    var promise = xApiProvider.getCourseFinishedStatements(attemptIds);
                     promise.then(function (result) {
                         expect(result.length).toBe(3);
                         expect(result[0]).toBeInstanceOf(ReportingStatement);
@@ -251,13 +322,13 @@
             it('should pass correct params to filterCriteriaFactory create function', function () {
                 xApiProvider.getMasteredStatements(attemptId);
                 expect(filterCriteriaFactory.create).toHaveBeenCalledWith({
-                    attemptId: attemptId,
+                    attemptIds: attemptId,
                     verbs: constants.reporting.xApiVerbIds.mastered
                 });
             });
 
             it('should pass filterCriteria to httpRequestSender', function () {
-                filterCriteria.attemptId = attemptId;
+                filterCriteria.attemptIds = attemptId;
                 xApiProvider.getMasteredStatements(attemptId);
                 var args = httpRequestSender.get.calls.mostRecent().args;
                 expect(args[1]).toBe(filterCriteria);
@@ -321,13 +392,13 @@
             it('should pass correct params to filterCriteriaFactory create function', function () {
                 xApiProvider.getStartedStatement(attemptId);
                 expect(filterCriteriaFactory.create).toHaveBeenCalledWith({
-                    attemptId: attemptId,
+                    attemptIds: attemptId,
                     verbs: constants.reporting.xApiVerbIds.started
                 });
             });
 
             it('should pass filterCriteria to httpRequestSender', function () {
-                filterCriteria.attemptId = attemptId;
+                filterCriteria.attemptIds = attemptId;
                 xApiProvider.getStartedStatement(attemptId);
                 var args = httpRequestSender.get.calls.mostRecent().args;
                 expect(args[1]).toBe(filterCriteria);
@@ -391,14 +462,14 @@
             it('should pass correct params to filterCriteriaFactory create function', function () {
                 xApiProvider.getAnsweredStatements(attemptId, parentActivityId);
                 expect(filterCriteriaFactory.create).toHaveBeenCalledWith({
-                    attemptId: attemptId,
+                    attemptIds: attemptId,
                     parentId: parentActivityId,
                     verbs: constants.reporting.xApiVerbIds.answered
                 });
             });
 
             it('should pass filterCriteria to httpRequestSender', function () {
-                filterCriteria.attemptId = attemptId;
+                filterCriteria.attemptIds = attemptId;
                 xApiProvider.getAnsweredStatements(attemptId, parentActivityId);
                 var args = httpRequestSender.get.calls.mostRecent().args;
                 expect(args[1]).toBe(filterCriteria);
