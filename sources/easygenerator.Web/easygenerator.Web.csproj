@@ -1232,11 +1232,12 @@
     <Content Include="Content\font\robotoslab-regular.woff" />
     <Content Include="Content\images\branchtrack.png" />
     <Content Include="Content\images\chrome.png" />
-    <Content Include="Content\images\closedhand.cur" />
+    <Content Include="Content\images\grabbing.cur" />
     <Content Include="Content\images\comingsoon1024.png" />
     <Content Include="Content\images\companies\icemd.png" />
     <Content Include="Content\images\disabled-question1024.png" />
     <Content Include="Content\images\firefox.png" />
+    <Content Include="Content\images\grab.cur" />
     <Content Include="Content\images\hotSpot-empty.png" />
     <Content Include="Content\images\ie.png" />
     <Content Include="Content\images\learningPath\learning-path-item-background.png" />
@@ -1246,7 +1247,6 @@
     <Content Include="Content\images\no-spots.png" />
     <Content Include="Content\images\noResultsHintSteps.png" />
     <Content Include="Content\images\objective-default-image.jpg" />
-    <Content Include="Content\images\openhand.cur" />
     <Content Include="Content\images\dialog-header-background.png" />
     <Content Include="Content\images\open-question.png" />
     <Content Include="Content\images\preview.png" />
