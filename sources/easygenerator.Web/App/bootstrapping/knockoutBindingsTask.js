@@ -1,6 +1,7 @@
 ﻿define(function (require) {
     "use strict";
 
+    require('localization/bindingHandlers/localizeBindingHandler');
     require('components/bindingHandlers/tooltipBindingHandler').install();
     require('components/bindingHandlers/backgroundBindingHandler');
     require('components/bindingHandlers/fileBrowserBindingHandler');

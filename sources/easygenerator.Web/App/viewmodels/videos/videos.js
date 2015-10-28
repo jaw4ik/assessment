@@ -19,7 +19,7 @@
             uploadErrorMessage: localizationManager.localize('videoUploadError'),
             notAnoughSpaceMessage: localizationManager.localize('videoUploadNotAnoughSpace'),
             startUpload: videoUpload.upload
-        }
+        };
 
     var viewModel = {
         videos: ko.observableArray([]),

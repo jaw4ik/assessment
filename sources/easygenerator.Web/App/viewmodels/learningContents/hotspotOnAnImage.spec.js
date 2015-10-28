@@ -12,7 +12,14 @@
 
         var _questionId = 'questionId',
             _questionType = 'questionType',
-            canBeAddedImmediately = false;
+            canBeAddedImmediately = false,
+            imageUploadFake;
+
+
+        beforeEach(function () {
+            imageUploadFake = function(spec){};
+            spyOn(imageUpload, 'upload').and.callFake(function(spec) { imageUploadFake(spec); });
+        });
 
         describe('when learningContent is defined in database', function () {
             var learningContent = {
@@ -102,10 +109,6 @@
                         type: constants.learningContentsTypes.hotspot
                     },
                     learningContentInstanceAdded = null;
-
-                beforeEach(function() {
-                    spyOn(imageUpload, 'upload');
-                });
 
                 it('should send event \'Add hotspot content block\'', function () {
                     learningContentInstanceAdded = new HotspotOnAnImage(learningContentAdded, _questionId, _questionType, canBeAddedImmediately);
@@ -352,7 +355,6 @@
                 });
 
                 it('should upload image', function () {
-                    spyOn(imageUpload, 'upload');
                     learningContentInstance.uploadBackground();
                     expect(imageUpload.upload).toHaveBeenCalled();
                 });
@@ -360,9 +362,9 @@
                 describe('when image upload started', function () {
 
                     beforeEach(function () {
-                        spyOn(imageUpload, 'upload').and.callFake(function (spec) {
+                        imageUploadFake = function (spec) {
                             spec.startLoading();
-                        });
+                        };
                     });
 
                     it('should lock ui', function () {
@@ -376,9 +378,9 @@
                     var url = 'http://xxx.com';
 
                     beforeEach(function () {
-                        spyOn(imageUpload, 'upload').and.callFake(function (spec) {
+                        imageUploadFake = function (spec) {
                             spec.success(url);
-                        });
+                        };
                     });
 
                     it('should update background url', function () {
@@ -412,9 +414,9 @@
                 describe('when image upload finished', function () {
 
                     beforeEach(function () {
-                        spyOn(imageUpload, 'upload').and.callFake(function (spec) {
+                        imageUploadFake = function (spec) {
                             spec.complete();
-                        });
+                        };
                     });
 
                     it('should unlock ui', function () {
