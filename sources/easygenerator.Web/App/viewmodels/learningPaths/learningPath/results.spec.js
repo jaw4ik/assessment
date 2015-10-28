@@ -16,7 +16,7 @@
 
                 it('should call ctor of ResultsBase with proper args', function () {
                     var instance = new Results();
-                    expect(ResultsBase.call).toHaveBeenCalledWith(instance, learningPathRepository.getById, xApiProvider.getLearningPathCompletedStatements, 'learningPaths/learningPath/results/noResults');
+                    expect(ResultsBase.call).toHaveBeenCalledWith(instance, learningPathRepository.getById, null, xApiProvider.getLearningPathFinishedStatements, 'learningPaths/learningPath/results/noResults');
                 });
 
             });

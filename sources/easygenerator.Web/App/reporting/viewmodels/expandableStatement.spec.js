@@ -39,6 +39,23 @@
                     expect(statement.isExpandable).toBeFalsy();
                 });
             });
+
+            describe('when lrsStatement has score', function() {
+                it('should set hasScore to true', function() {
+                    lrsStatement.score = 100;
+                    statement = new ExpandableStatement(lrsStatement, expandAction);
+                    expect(statement.hasScore).toBeTruthy();
+                });
+            });
+
+            describe('when lrsStatement hasn\'t score', function () {
+                it('should set hasScore to false', function () {
+                    lrsStatement.score = null;
+                    statement = new ExpandableStatement(lrsStatement, expandAction);
+                    expect(statement.hasScore).toBeFalsy();
+                });
+            });
+
         });
 
         describe('[collapse]', function () {
