@@ -539,6 +539,8 @@
     <Compile Include="Synchronization\Tracking\UserConnectionTracker.cs" />
     <Compile Include="ViewModels\Account\UserSignUpViewModel.cs" />
     <Compile Include="ViewModels\Api\BlankAnswerViewModel.cs" />
+    <Compile Include="ViewModels\Dashboard\CourseViewModel.cs" />
+    <Compile Include="ViewModels\Dashboard\UserInfoViewModel.cs" />
     <Compile Include="ViewModels\DemoCourses\DemoCoursesViewModel.cs" />
     <Compile Include="ViewModels\Dashboard\DashboardViewModel.cs" />
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
@@ -1669,6 +1671,7 @@
     <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\knockout-3.3.0.debug.js" />
     <Content Include="Scripts\knockout-3.3.0.js" />
     <Content Include="Scripts\knockout.validation.js" />
@@ -2624,6 +2627,9 @@
     <Content Include="Templates\Assessment\settings\design\css\fonts\opensans-italic-400.woff" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_intercomAnalytics.cshtml" />
+    <Content Include="Views\Dashboard\UserInfo.cshtml" />
+    <Content Include="Views\Dashboard\_UserInfoResult.cshtml" />
+    <Content Include="Views\Dashboard\_UserNotFoundResult.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
