@@ -52,9 +52,9 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
         }
 
         public static User Create(string email = Email, string password = Password, string firstname = FirstName, string lastname = LastName, string phone = Phone, string country = Country, 
-            string role = Role, string createdBy = CreatedBy, AccessType accessType = AccessType.Trial, string lastReadReleaseNote = LastReadReleaseNote, DateTime? expirationDate = null, Company company = null)
+            string role = Role, string createdBy = CreatedBy, AccessType accessType = AccessType.Trial, string lastReadReleaseNote = LastReadReleaseNote, DateTime? expirationDate = null, bool? newEditor = null, Company company = null)
         {
-            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessType, lastReadReleaseNote, expirationDate, company);
+            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessType, lastReadReleaseNote, expirationDate, newEditor, company);
         }
     }
 }

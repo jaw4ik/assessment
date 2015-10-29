@@ -551,5 +551,33 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         #endregion
+
+        #region UpdateLastReadReleaseNoteVersion
+
+        [TestMethod]
+        public void SwitchEditor_ShouldSwitchEditor()
+        {
+            var email = "easygenerator@easygenerator.com";
+            var user = UserObjectMother.CreateWithEmail(email);
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
+            
+            _controller.SwitchEditor();
+
+            user.NewEditor.Should().Be(true);
+        }
+
+        [TestMethod]
+        public void SwitchEditor_ShouldReturnJsonSuccessResult()
+        {
+            var email = "easygenerator@easygenerator.com";
+            var user = UserObjectMother.CreateWithEmail(email);
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
+            
+            var result = _controller.SwitchEditor();
+
+            result.Should().BeJsonSuccessResult();
+        }
+
+        #endregion
     }
 }

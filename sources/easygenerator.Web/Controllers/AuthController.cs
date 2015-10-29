@@ -69,7 +69,8 @@ namespace easygenerator.Web.Controllers
                     accessType = user.AccessType,
                     expirationDate = user.ExpirationDate
                 },
-                showReleaseNote = releaseVersion != user.LastReadReleaseNote
+                showReleaseNote = releaseVersion != user.LastReadReleaseNote,
+                newEditor = user.NewEditor
             });
 
         }
