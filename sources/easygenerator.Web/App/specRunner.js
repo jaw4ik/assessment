@@ -24,9 +24,9 @@
         return Q;
     });
 
-    require(['bootstrapper'], function (bootstrapper) {
+    require(['bootstrapper', 'localization/localizationManager'], function (bootstrapper, localizationManager) {
         bootstrapper.run();
-
+        
         var specs = [
             'authorization/limitCoursesAmount.spec',
 
@@ -388,9 +388,12 @@
             '../Scripts/common/serviceUnavailableAjaxErrorHandler.spec'
         ];
 
-        require(specs, function () {
-            env.execute();
+        localizationManager.initialize(['en'], 'localization/lang/').then(function () {
+            require(specs, function () {
+                env.execute();
+            });
         });
+        
     });
 
 }

@@ -1,0 +1,106 @@
+﻿@using System.Web.Optimization
+
+@{
+    ViewBag.Title = "Dashboard - User info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .user-info {
+        width: 560px;
+        margin: 0 auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0;
+    }
+
+    th {
+        width: 200px;
+    }
+
+    th,
+    td {
+        border: 1px solid #cecfd5;
+        padding: 3px 10px;
+        text-align: left;
+        -moz-word-break: break-word;
+        -o-word-break: break-word;
+        word-break: break-word;
+    }
+
+    .course-title {
+        background-color: #fffddd;
+    }
+
+    .user-info-result {
+        margin: 10px 0;
+        -moz-user-select: initial;
+        -webkit-user-select: initial;
+        -ms-user-select: initial;
+    }
+
+    .user-info.error {
+        color: #e80000;
+    }
+
+
+    h1, h2, h3 {
+        margin: 10px 0;
+    }
+
+    .truthy {
+        color: #339900;
+    }
+
+    .falsy {
+        color: #e80000;
+    }
+
+    a {
+        color: #469dd5;
+    }
+
+    .user-search {
+        display: -webkit-flex;
+        display: flex;
+        -ms-flex-direction: row;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+    }
+
+    input[type="search"] {
+        width: 100%;
+        margin-right: 5px;
+    }
+</style>
+
+<section class="user-info">
+    <h1>User Info</h1>
+
+    @using (Ajax.BeginForm((new AjaxOptions
+    {
+        HttpMethod = "post",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "userInfo"
+    })))
+    {
+        <div class="user-search">
+            <input type="search" placeholder="User email" name="userEmail" autofocus />
+            <input type="submit" value="Get user info" />
+        </div>
+    }
+
+    <div id="userInfo">
+    </div>
+</section>
+
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/scripts/dashboard")
+}
+
+

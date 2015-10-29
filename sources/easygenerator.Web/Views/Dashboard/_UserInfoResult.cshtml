@@ -1,0 +1,73 @@
+﻿@model easygenerator.Web.ViewModels.Dashboard.UserInfoViewModel
+
+<div class="user-info-result">
+    <h3>User details</h3>
+    <table>
+        <tr><th>First name:</th><td>@Model.FirstName</td></tr>
+        <tr><th>Last name:</th><td>@Model.LastName</td></tr>
+        <tr><th>Role:</th><td>@DisplayStringValue(Model.Role)</td></tr>
+        <tr><th>Country:</th><td>@Model.Country</td></tr>
+        <tr><th>Plan:</th><td>@Model.AccessType</td></tr>
+        <tr><th>Expiration date:</th><td>@DisplayNullableDateTimeValue(Model.ExpirationDate)</td></tr>
+        <tr><th>Phone:</th><td>@Model.Phone</td></tr>
+        <tr><th>Created on:</th><td>@Model.CreatedOn</td></tr>
+    </table>
+    <h3>Owned courses (@Model.Courses.Count())</h3>
+    @foreach (var course in Model.Courses)
+    {
+        <table>
+            <tr class="course-title"><th>Title:</th><td>@course.Title</td></tr>
+            <tr><th>Template:</th><td>@DisplayStringValue(course.Template)</td></tr>
+            <tr><th>Created on:</th><td>@course.CreatedOn</td></tr>
+            <tr><th>Modified on:</th><td>@course.ModifiedOn</td></tr>
+            <tr><th>Published on:</th><td>@DisplayNullableDateTimeValue(course.PublishedOn)</td></tr>
+            <tr><th>Published to eg hosting:</th><td>@DisplayBooleanValue(course.HasBeenPublishedToEgHosting)</td></tr>
+            <tr><th>Course link:</th><td>@DisplayLinkValue(course.CourseLink, "Course link")</td></tr>
+            <tr><th>Published to SCORM:</th><td>@DisplayBooleanValue(course.HasBeenPublishedToScorm)</td></tr>
+            <tr><th>Published to exteranl LMS:</th><td>@DisplayBooleanValue(course.HasBeenPublishedToExternalLms)</td></tr>
+            <tr><th>Preview link:</th><td>@DisplayLinkValue(course.PreviewLink, "Preview link")</td></tr>
+        </table>
+    }
+</div>
+
+@helper DisplayStringValue(object value)
+{
+if (value != null)
+{
+        @value
+}
+else
+{
+        <text>-</text>
+}
+}
+
+
+@helper DisplayNullableDateTimeValue(DateTime? value)
+{
+if (value.HasValue)
+{
+        @value.Value
+}
+else
+{
+        <text>-</text>
+}
+}
+
+@helper DisplayBooleanValue(Boolean value)
+{
+    <div class="@(value? "truthy": "falsy")">@value</div>
+}
+
+@helper DisplayLinkValue(string url, string title)
+{
+    if (string.IsNullOrEmpty(url))
+    {
+        <text>-</text>
+    }
+    else
+    {
+        <a href="@url" target="_blank" title="@title">@url</a>
+    }
+}

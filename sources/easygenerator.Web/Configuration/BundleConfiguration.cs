@@ -107,6 +107,12 @@ namespace easygenerator.Web.Configuration
                     .Include("~/Content/styles.css")
                     .Include("~/Content/review.css")
                 );
+
+            bundles.Add(new ScriptBundle("~/bundles/scripts/dashboard")
+                  .Include("~/scripts/jquery-{version}.js")
+                  .Include("~/scripts/jquery.unobtrusive-ajax.js")
+              );
+
         }
     }
 }

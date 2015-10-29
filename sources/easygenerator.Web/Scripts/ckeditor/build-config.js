@@ -100,6 +100,7 @@ var CKBUILDER_CONFIG = {
 	},
 	languages : {
 		'en' : 1,
+		'fr' : 1,
 		'pt-br' : 1,
 		'uk' : 1,
 		'zh-cn' : 1

@@ -110,7 +110,7 @@
         }
 
         function removeLearningContent(learningContent) {
-            if (_.isEmptyOrWhitespace(learningContent.id()) || learningContent.isDeleted) {
+            if (_.isEmptyOrWhitespace(learningContent.id()) || learningContent.isDeleted || !learningContent.text()) {
                 viewModel.learningContents.remove(learningContent);
             } else {
                 learningContent.isRemoved(true);

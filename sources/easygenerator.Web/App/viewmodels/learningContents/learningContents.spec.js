@@ -774,10 +774,10 @@
 
         describe('removeLearningContent', function () {
             var learningContents = [
-                           { id: ko.observable(''), isRemoved: ko.observable(false) },
-                           { id: ko.observable('id2'), isRemoved: ko.observable(false) },
-                           { id: ko.observable('id3'), isRemoved: ko.observable(false) },
-                           { id: ko.observable('id4'), isRemoved: ko.observable(false) }
+                           { id: ko.observable(''), isRemoved: ko.observable(false), text: ko.observable("123") },
+                           { id: ko.observable('id2'), isRemoved: ko.observable(false), text: ko.observable("123") },
+                           { id: ko.observable('id3'), isRemoved: ko.observable(false), text: ko.observable("123") },
+                           { id: ko.observable('id4'), isRemoved: ko.observable(false), text: ko.observable("123") }
             ];
 
             beforeEach(function () {
@@ -803,6 +803,17 @@
                     viewModel.learningContents()[1].isDeleted = true;
                     viewModel.removeLearningContent(learningContents[1]);
                     expect(viewModel.learningContents().length).toBe(3);
+                });
+
+            });
+
+            describe('when learning content is empty', function () {
+
+                it('should remove learning content from the list', function () {
+                    learningContents[1].text("");
+                    viewModel.learningContents([learningContents[1]]);
+                    viewModel.removeLearningContent(learningContents[1]);
+                    expect(viewModel.learningContents().length).toBe(0);
                 });
 
             });

@@ -1394,11 +1394,14 @@
 .upgrade-user-link {
     display: inline-block;
     height: 35px;
+    max-width: 130px;
+    overflow: hidden;
     margin: 15px 0 30px;
     padding: 9px 10px;
     background-color: #fff;
     border: 1px solid #56c0de;
     border-radius: 4px;
+    text-overflow: ellipsis;
     color: #56c0de;
     font-family: 'OpenSans-Semibold';
     font-size: 12px;
@@ -1419,6 +1422,7 @@
     padding-left: 17px;
     position: relative;
     text-transform: uppercase;
+    white-space: nowrap;
 
     [lang~=pt-br] & {
         padding-left: 14px;
@@ -1449,6 +1453,7 @@
 
     .upgrade-user-link {
         height: 25px;
+        max-width: 120px;
         margin: 13px 0 30px;
         padding: 4px 5px;
         border-radius: 3px;
