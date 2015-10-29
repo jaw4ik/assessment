@@ -94,7 +94,7 @@
                     var promise = viewModel.activate(settings);
 
                     promise.fin(function () {
-                        expect(viewModel.questions().length).toBe(11);
+                        expect(viewModel.questions().length).toBe(10);
                         expect(viewModel.questions()[0].type).toBe(constants.questionType.informationContent.type);
                         expect(viewModel.questions()[1].type).toBe(constants.questionType.singleSelectText.type);
                         expect(viewModel.questions()[2].type).toBe(constants.questionType.multipleSelect.type);
@@ -105,7 +105,7 @@
                         expect(viewModel.questions()[7].type).toBe(constants.questionType.statement.type);
                         expect(viewModel.questions()[8].type).toBe(constants.questionType.hotspot.type);
                         expect(viewModel.questions()[9].type).toBe(constants.questionType.openQuestion.type);
-                        expect(viewModel.questions()[10].type).toBe(constants.questionType.scenario.type);
+                        //expect(viewModel.questions()[10].type).toBe(constants.questionType.scenario.type);
 
                         done();
                     });
