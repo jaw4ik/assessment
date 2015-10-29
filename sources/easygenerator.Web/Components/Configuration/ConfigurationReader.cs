@@ -87,6 +87,14 @@ namespace easygenerator.Web.Components.Configuration
             }
         }
 
+        public virtual BranchTrackConfigurationSection BranchTrackConfiguration
+        {
+            get
+            {
+                return ConfigurationManager.GetSection("branchtrack") as BranchTrackConfigurationSection;
+            }
+        }
+
         public virtual string ConnectionString
         {
             get { return ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString; }

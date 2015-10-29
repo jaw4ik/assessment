@@ -67,7 +67,10 @@ namespace easygenerator.DataAccess
                 .As<IQuerableRepository<HotSpotPolygon>>();
 
             builder.RegisterType<QuerableRepository<TextMatching>>()
-               .As<IQuerableRepository<TextMatching>>();
+                .As<IQuerableRepository<TextMatching>>();
+
+            builder.RegisterType<QuerableRepository<Scenario>>()
+                .As<IQuerableRepository<Scenario>>();
 
             builder.RegisterType<QuerableRepository<TextMatchingAnswer>>()
                .As<IQuerableRepository<TextMatchingAnswer>>();

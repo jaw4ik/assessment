@@ -6,6 +6,7 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.Mappers;
 using System.Web.Mvc;
+using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers
 {

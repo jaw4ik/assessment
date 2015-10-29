@@ -8,6 +8,7 @@
                 free: 0,
                 starter: 1,
                 plus: 2,
+                academy: 3,
                 trial: 100
             },
 
@@ -51,6 +52,10 @@
                 openQuestion: {
                     type: 'openQuestion',
                     image: '/Content/images/open-question.png'
+                },
+                scenario: {
+                    type: 'scenario',
+                    image: '/Content/images/scenario-question.png'
                 }
             },
 
@@ -101,7 +106,8 @@
                     identified: 'user:identified',
                     downgraded: 'user:downgraded',
                     upgradedToStarter: 'user:upgradedToStarter',
-                    upgradedToPlus: 'user:upgradedToPlus'
+                    upgradedToPlus: 'user:upgradedToPlus',
+                    upgradedToAcademy: 'user:upgradedToAcademy'
                 },
                 course: {
                     created: 'course:created',
@@ -252,6 +258,11 @@
                         answerDeletedByCollaborator: 'question:singleSelectImage:answerDeletedByCollaborator',
                         answerImageUpdatedByCollaborator: 'question:singleSelectImage:answerImageUpdatedByCollaborator',
                         correctAnswerChangedByCollaborator: 'question:singleSelectImage:correctAnswerChangedByCollaborator'
+                    },
+
+                    scenario: {
+                        dataUpdated: 'question:scenario:dataUpdated',
+                        masteryScoreUpdated: 'question:scenario:masteryScoreUpdated'
                     }
 
                 },
@@ -272,6 +283,10 @@
                 },
                 notification: {
 
+                },
+                branchtrack: {
+                    projectSelected: 'branchtrack:projectSelected',
+                    dialogClosed: 'branchtrack:dialogClosed'
                 }
             },
 
@@ -343,6 +358,7 @@
                     parentId: 'parent'
                 }
             },
+
             frameSize: {
                 width: {
                     name: 'frameWidth',
@@ -446,6 +462,11 @@
                     settings: {
                         containerCss: 'audio-library',
                         autoclose: true
+                    }
+                },
+                branchtrack: {
+                    settings: {
+                        containerCss: 'branchtrack-dialog'
                     }
                 },
                 upgrade: {

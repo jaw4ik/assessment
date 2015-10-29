@@ -87,6 +87,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<PackageModulesProvider>();
             builder.RegisterType<ScormPackageModulesProvider>();
             builder.RegisterType<PublishSettingsProvider>();
+            builder.RegisterType<BranchTrackProvider>();
             
             builder.RegisterModule(new DataAccessModule());
 

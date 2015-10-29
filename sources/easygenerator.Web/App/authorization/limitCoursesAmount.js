@@ -1,34 +1,45 @@
 ﻿define(['durandal/app', 'dataContext', 'userContext'], function (app, dataContext, userContext) {
     "use strict";
 
-    var freeLimit = 10;
-    var starterLimit = 50;
+    var freeLimit = 10,
+        starterLimit = 50,
+        plusLimit = 100;
 
     var limitCoursesAmount = {
         checkAccess: checkAccess,
-        getFreeLimit: getFreeLimit,
-        getStarterLimit: getStarterLimit
+        getCurrentLimit: getCurrentLimit
     };
 
     return limitCoursesAmount;
 
-    function getFreeLimit() {
+    function getCurrentLimit() {
+        if (userContext.hasPlusAccess()) {
+            return plusLimit;
+        }
+        if (userContext.hasStarterAccess()) {
+            return starterLimit;
+        }
         return freeLimit;
     }
 
-    function getStarterLimit() {
-        return starterLimit;
-    }
-
     function checkAccess() {
-        if (userContext.hasPlusAccess())
+        if (userContext.hasAcademyAccess()) {
             return true;
+        }
 
-        var ownedCourses = _.filter(dataContext.courses, function (item) {
+        var ownedCoursesLength = _.filter(dataContext.courses, function (item) {
             return item.createdBy === userContext.identity.email;
-        });
+        }).length;
 
-        var limit = userContext.hasStarterAccess() ? starterLimit : freeLimit;
-        return ownedCourses.length < limit;
+        var limit = 0;
+
+        if (userContext.hasPlusAccess()) {
+            limit = plusLimit;
+            return ownedCoursesLength < limit;
+        }
+
+
+        limit = userContext.hasStarterAccess() ? starterLimit : freeLimit;
+        return ownedCoursesLength < limit;
     }
 });

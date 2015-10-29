@@ -59,6 +59,7 @@
             'dialogs/releaseNotes/commands/updateLastReadReleaseNote.spec',
             'dialogs/releaseNotes/commands/getReleaseNote.spec',
             'dialogs/releaseNotes/releaseNotes.spec',
+            'dialogs/branchtrack/branchtrack.spec',
 
             //#endregion dialogs
 
@@ -198,6 +199,9 @@
             'synchronization/handlers/questions/hotSpot/eventHandlers/polygonDeleted.spec',
             'synchronization/handlers/questions/hotSpot/eventHandlers/polygonChanged.spec',
             'synchronization/handlers/questions/hotSpot/eventHandlers/isMultipleChanged.spec',
+            'synchronization/handlers/questions/scenario/handler.spec',
+            'synchronization/handlers/questions/scenario/eventHandlers/dataUpdated.spec',
+            'synchronization/handlers/questions/scenario/eventHandlers/masteryScoreUpdated.spec',
 
             //#endregion
 
@@ -308,6 +312,13 @@
             'viewmodels/questions/hotspot/commands/changeType.spec',
             'viewmodels/questions/hotspot/queries/getQuestionContentById.spec',
             'viewmodels/questions/openQuestion/openQuestion.spec',
+            'viewmodels/questions/scenario/scenario.spec',
+            'viewmodels/questions/scenario/commands/updateData.spec',
+            'viewmodels/questions/scenario/commands/updateMasteryScore.spec',
+            'viewmodels/questions/scenario/queries/getDashboardInfo.spec',
+            'viewmodels/questions/scenario/queries/getProjectEditingInfoById.spec',
+            'viewmodels/questions/scenario/queries/getProjectInfoById.spec',
+            'viewmodels/questions/scenario/queries/getQuestionDataById.spec',
             'viewmodels/questions/questionTitle.spec',
             'viewmodels/questions/feedback.spec',
             'viewmodels/learningContents/learningContents.spec',

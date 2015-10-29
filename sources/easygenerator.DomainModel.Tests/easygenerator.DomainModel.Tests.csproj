@@ -79,6 +79,7 @@
     <Compile Include="Entities\LearningContentTests.cs" />
     <Compile Include="Entities\ObjectiveTests.cs" />
     <Compile Include="Entities\CourseTests.cs" />
+    <Compile Include="Entities\Questions\ScenarioTests.cs" />
     <Compile Include="Entities\Questions\StatementTests.cs" />
     <Compile Include="Entities\Questions\MultipleselectTests.cs" />
     <Compile Include="Entities\Questions\BlankAnswerTests.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="ObjectMothers\CourseObjectMother.cs" />
     <Compile Include="ObjectMothers\LearningContentObjectMother.cs" />
     <Compile Include="ObjectMothers\LearningPathObjectMother.cs" />
+    <Compile Include="ObjectMothers\ScenarioObjectMother.cs" />
     <Compile Include="ObjectMothers\StatementObjectMother.cs" />
     <Compile Include="ObjectMothers\ObjectiveObjectMother.cs" />
     <Compile Include="ObjectMothers\OnboardingObjectMother.cs" />

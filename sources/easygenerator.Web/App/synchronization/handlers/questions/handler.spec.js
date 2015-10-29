@@ -38,6 +38,13 @@
                 expect(handler.hotSpot).toBeDefined();
             });
         });
+
+        describe('scenario:', function () {
+            it('should be defined', function () {
+                expect(handler.scenario).toBeDefined();
+            });
+        });
+
     });
 
 })

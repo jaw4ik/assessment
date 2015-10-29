@@ -10,7 +10,8 @@ using easygenerator.DomainModel.Entities;
 namespace easygenerator.Web.DomainEvents.Handlers
 {
     public class MailChimpSubscriptionHandler : IDomainEventHandler<UserSignedUpEvent>,
-        IDomainEventHandler<UserUpgradedToStarter>, IDomainEventHandler<UserUpgradedToPlus>, IDomainEventHandler<UserDowngraded>
+        IDomainEventHandler<UserUpgradedToStarter>, IDomainEventHandler<UserUpgradedToPlus>, IDomainEventHandler<UserDowngraded>,
+        IDomainEventHandler<UserUpgradedToAcademy>
     {
         private readonly INewsletterSubscriptionManager _subscriptionManager;
         private readonly IMailNotificationManager _mailNotificationManager;
@@ -33,6 +34,11 @@ namespace easygenerator.Web.DomainEvents.Handlers
         }
 
         public void Handle(UserUpgradedToPlus args)
+        {
+            HandleSubscriptionEvent(_subscriptionManager.UpdateSubscription, args, UpdateSubscriptionFailedMessage);
+        }
+
+        public void Handle(UserUpgradedToAcademy args)
         {
             HandleSubscriptionEvent(_subscriptionManager.UpdateSubscription, args, UpdateSubscriptionFailedMessage);
         }

@@ -216,6 +216,7 @@
     <Compile Include="BuildCourse\Modules\IPackageModulesProvider.cs" />
     <Compile Include="BuildCourse\Modules\Models\PackageModule.cs" />
     <Compile Include="BuildCourse\PackageModel\OpenQuestionPackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\ScenarioQuestionPackageModel.cs" />
     <Compile Include="BuildCourse\PublishSettings\Models\PublishSettings.cs" />
     <Compile Include="BuildCourse\Modules\PackageModulesProvider.cs" />
     <Compile Include="BuildCourse\PackageModelMapper.cs" />
@@ -256,12 +257,15 @@
     <Compile Include="BuildLearningPath\PackageModel\LearningPathCoursePackageModel.cs" />
     <Compile Include="BuildLearningPath\PackageModel\LearningPathPackageModel.cs" />
     <Compile Include="Components\ActionFilters\ApplicationAuthorize.cs" />
+    <Compile Include="Components\ActionFilters\Authorization\AcademyAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AllowedUsersAttribute.cs" />
     <Compile Include="Components\ActionFilters\Permissions\PreviewAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\QuestionAccessAttribute.cs" />
+    <Compile Include="Components\BranchTrackProvider.cs" />
     <Compile Include="Components\BrowserSupport.cs" />
+    <Compile Include="Components\Configuration\BranchTrackConfigurationSection.cs" />
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
     <Compile Include="Components\DefaultApiController.cs" />
@@ -282,6 +286,7 @@
     <Compile Include="Components\ReleaseNoteFileReader.cs" />
     <Compile Include="Components\TypeMethodInvoker.cs" />
     <Compile Include="Configuration\MagickImageResizerConfiguration.cs" />
+    <Compile Include="Controllers\Api\ScenarioController.cs" />
     <Compile Include="Controllers\Api\CourseImportController.cs" />
     <Compile Include="Controllers\Api\HotSpotQuestionController.cs" />
     <Compile Include="Controllers\Api\DragAndDropTextQuestionController.cs" />
@@ -531,6 +536,7 @@
     <Compile Include="Synchronization\Handlers\LearningContentEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\ObjectiveEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\QuestionEventHandler.cs" />
+    <Compile Include="Synchronization\Handlers\ScenarioEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\SingleSelectImageEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\TextMatchingEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\UserEventHandler.cs" />
@@ -604,6 +610,8 @@
     </Content>
     <Content Include="App\jsonReader.js" />
     <Content Include="App\localization\bindingHandlers\localizeBindingHandler.js" />
+    <Content Include="App\dialogs\branchtrack\branchtrack.html" />
+    <Content Include="App\dialogs\branchtrack\branchtrack.js" />
     <Content Include="App\Query.js" />
     <Content Include="App\Command.js" />
     <Content Include="App\commands\createCourseCommand.js" />
@@ -709,6 +717,16 @@
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\voiceOverUpdated.spec.js">
       <DependentUpon>voiceOverUpdated.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\questions\scenario\eventHandlers\dataUpdated.js" />
+    <Content Include="App\synchronization\handlers\questions\scenario\eventHandlers\dataUpdated.spec.js">
+      <DependentUpon>dataUpdated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\scenario\eventHandlers\masteryScoreUpdated.js" />
+    <Content Include="App\synchronization\handlers\questions\scenario\eventHandlers\masteryScoreUpdated.spec.js">
+      <DependentUpon>masteryScoreUpdated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\scenario\handler.js" />
+    <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToAcademy.js" />
     <Content Include="App\videoUpload\handlers\durations.js" />
     <Content Include="App\videoUpload\handlers\durations.spec.js">
       <DependentUpon>durations.js</DependentUpon>
@@ -729,6 +747,31 @@
       <DependentUpon>results.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\questions\voiceOver.js" />
+    <Content Include="App\viewmodels\questions\scenario\commands\updateData.js" />
+    <Content Include="App\viewmodels\questions\scenario\commands\updateData.spec.js">
+      <DependentUpon>updateData.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\scenario\commands\updateMasteryScore.js" />
+    <Content Include="App\viewmodels\questions\scenario\commands\updateMasteryScore.spec.js">
+      <DependentUpon>updateMasteryScore.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\scenario\queries\getDashboardInfo.js" />
+    <Content Include="App\viewmodels\questions\scenario\queries\getDashboardInfo.spec.js">
+      <DependentUpon>getDashboardInfo.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\scenario\queries\getProjectEditingInfoById.js" />
+    <Content Include="App\viewmodels\questions\scenario\queries\getProjectInfoById.js" />
+    <Content Include="App\viewmodels\questions\scenario\queries\getProjectInfoById.spec.js">
+      <DependentUpon>getProjectInfoById.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\scenario\queries\getQuestionDataById.spec.js">
+      <DependentUpon>getQuestionDataById.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\scenario\queries\getQuestionDataById.js" />
+    <Content Include="App\viewmodels\questions\scenario\scenario.js" />
+    <Content Include="App\viewmodels\questions\scenario\scenario.spec.js">
+      <DependentUpon>scenario.js</DependentUpon>
+    </Content>
     <Content Include="App\views\audios\audios.html" />
     <Content Include="App\models\learningPath.spec.js">
       <DependentUpon>learningPath.js</DependentUpon>
@@ -779,6 +822,7 @@
     <Content Include="App\audio\convertion\commands\finalize.spec.js">
       <DependentUpon>finalize.js</DependentUpon>
     </Content>
+    <Content Include="App\views\questions\scenario\scenario.html" />
     <Content Include="App\vimeo\queries\checkAvailability.spec.js">
       <DependentUpon>checkAvailability.js</DependentUpon>
     </Content>
@@ -1189,21 +1233,23 @@
     <Content Include="Content\font\rabiohead.woff" />
     <Content Include="Content\font\robotoslab-bold.woff" />
     <Content Include="Content\font\robotoslab-regular.woff" />
+    <Content Include="Content\images\branchtrack.png" />
     <Content Include="Content\images\chrome.png" />
-    <Content Include="Content\images\closedhand.cur" />
+    <Content Include="Content\images\grabbing.cur" />
     <Content Include="Content\images\comingsoon1024.png" />
     <Content Include="Content\images\companies\icemd.png" />
     <Content Include="Content\images\disabled-question1024.png" />
     <Content Include="Content\images\firefox.png" />
+    <Content Include="Content\images\grab.cur" />
     <Content Include="Content\images\hotSpot-empty.png" />
     <Content Include="Content\images\ie.png" />
     <Content Include="Content\images\learningPath\learning-path-item-background.png" />
+    <Content Include="Content\images\scenario-question.png" />
     <Content Include="Content\images\templates\deprecated-template.png" />
     <Content Include="Content\images\templates\new-template.png" />
     <Content Include="Content\images\no-spots.png" />
     <Content Include="Content\images\noResultsHintSteps.png" />
     <Content Include="Content\images\objective-default-image.jpg" />
-    <Content Include="Content\images\openhand.cur" />
     <Content Include="Content\images\dialog-header-background.png" />
     <Content Include="Content\images\open-question.png" />
     <Content Include="Content\images\preview.png" />
@@ -1665,6 +1711,17 @@
     <Content Include="App\localization\lang\uk.json" />
     <Content Include="App\localization\lang\zh-cn.json" />
     <Content Include="App\localization\lang\fr.json" />
+    <Content Include="Content\scenario.less" />
+    <Content Include="Content\slider.less" />
+    <Content Include="App\synchronization\handlers\questions\scenario\handler.spec.js">
+      <DependentUpon>handler.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\scenario\queries\getProjectEditingInfoById.spec.js">
+      <DependentUpon>getProjectEditingInfoById.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\branchtrack\branchtrack.spec.js">
+      <DependentUpon>branchtrack.js</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\iscroll-probe.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
@@ -2211,6 +2268,7 @@
     <Content Include="Scripts\knockoutBindings\scrollToBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextInAnswerBinding.js" />
     <Content Include="Scripts\knockoutBindings\fadeInBinding.js" />
+    <Content Include="Scripts\knockoutBindings\sliderControlBinding.js" />
     <Content Include="Scripts\knockoutBindings\switchToggleBinding.js" />
     <Content Include="Scripts\knockoutBindings\withAnimatedBinding.js" />
     <Content Include="Scripts\md5.js" />
@@ -2240,6 +2298,7 @@
     <Content Include="Templates\Assessment\app\views\multipleSelectText.html" />
     <Content Include="Templates\Assessment\app\views\notFoundError.html" />
     <Content Include="Templates\Assessment\app\views\openQuestion.html" />
+    <Content Include="Templates\Assessment\app\views\scenarioQuestion.html" />
     <Content Include="Templates\Assessment\app\views\singleSelectImage.html" />
     <Content Include="Templates\Assessment\app\views\singleSelectText.html" />
     <Content Include="Templates\Assessment\app\views\statement.html" />

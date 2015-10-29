@@ -351,6 +351,10 @@
     <Compile Include="Migrations\201510221221461_AddQuestionVoiceOver.Designer.cs">
       <DependentUpon>201510221221461_AddQuestionVoiceOver.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510261434355_CreateScenarioQuestionTable.cs" />
+    <Compile Include="Migrations\201510261434355_CreateScenarioQuestionTable.Designer.cs">
+      <DependentUpon>201510261434355_CreateScenarioQuestionTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ConsumerToolRepository.cs" />
@@ -603,6 +607,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510221221461_AddQuestionVoiceOver.resx">
       <DependentUpon>201510221221461_AddQuestionVoiceOver.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510261434355_CreateScenarioQuestionTable.resx">
+      <DependentUpon>201510261434355_CreateScenarioQuestionTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -246,6 +246,13 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Company>().Property(e => e.PublishCourseApiUrl).IsRequired();
             modelBuilder.Entity<Company>().Property(e => e.SecretKey).IsRequired();
 
+            modelBuilder.Entity<Scenario>().Property(e => e.ProjectId);
+            modelBuilder.Entity<Scenario>().Property(e => e.EmbedCode);
+            modelBuilder.Entity<Scenario>().Property(e => e.EmbedUrl);
+            modelBuilder.Entity<Scenario>().Property(e => e.ProjectArchiveUrl);
+            modelBuilder.Entity<Scenario>().Property(e => e.MasteryScore);
+            modelBuilder.Entity<Scenario>().Map(m => m.ToTable("ScenarioQuestions"));
+
             base.OnModelCreating(modelBuilder);
         }
 
