@@ -885,7 +885,7 @@
 
 .question-type-action-wrapper {
     display: none;
-    width: 726px;
+    width: 870px;
     background-color: #fff;
     position: absolute;
     top: 49px;
@@ -969,44 +969,48 @@
 }
 
 .question-type-text.multipleSelect:before {
-    background-position: -1px 0;
+    background-position: 0 0;
 }
 
 .question-type-text.singleSelectText:before {
-    background-position: -55px 0;
+    background-position: -54px 0;
 }
 
 .question-type-text.fillInTheBlank:before {
-    background-position: -109px 0;
+    background-position: -108px 0;
 }
 
 .question-type-text.dragAndDropText:before {
     width: 58px;
-    background-position: -163px 0;
+    background-position: -162px 0;
 }
 
 .question-type-text.informationContent:before {
-    background-position: -1px -79px;
+    background-position: 0 -79px;
 }
 
 .question-type-text.singleSelectImage:before {
-    background-position: -55px -79px;
+    background-position: -54px -79px;
 }
 
 .question-type-text.textMatching:before {
-    background-position: -109px -79px;
+    background-position: -108px -79px;
 }
 
 .question-type-text.hotspot:before {
-    background-position: -1px -159px;
+    background-position: 0 -158px;
 }
 
 .question-type-text.statement:before {
-    background-position: -163px -78px;
+    background-position: -162px -79px;
 }
 
 .question-type-text.openQuestion:before {
-    background-position: -55px -159px;
+    background-position: -54px -158px;
+}
+
+.question-type-text.scenario:before {
+    background-position: -108px -158px;
 }
 
 .question-type-text.empty:before {
@@ -1024,7 +1028,7 @@
 @media(max-width: 1100px) {
 
     .question-type-action-wrapper {
-        width: 656px;
+        width: 786px;
     }
 
     .question-type-action-item {
@@ -1081,6 +1085,10 @@
 
     .question-type-text.openQuestion:before {
         background: url(images/open-question.png) 0 0;
+    }
+
+    .question-type-text.scenario:before {
+        background: url(images/scenario-question.png) 0 0;
     }
 
     .question-type-text.empty:before {
@@ -1386,11 +1394,14 @@
 .upgrade-user-link {
     display: inline-block;
     height: 35px;
+    max-width: 130px;
+    overflow: hidden;
     margin: 15px 0 30px;
     padding: 9px 10px;
     background-color: #fff;
     border: 1px solid #56c0de;
     border-radius: 4px;
+    text-overflow: ellipsis;
     color: #56c0de;
     font-family: 'OpenSans-Semibold';
     font-size: 12px;
@@ -1411,6 +1422,7 @@
     padding-left: 17px;
     position: relative;
     text-transform: uppercase;
+    white-space: nowrap;
 
     [lang~=pt-br] & {
         padding-left: 14px;
@@ -1441,6 +1453,7 @@
 
     .upgrade-user-link {
         height: 25px;
+        max-width: 120px;
         margin: 13px 0 30px;
         padding: 4px 5px;
         border-radius: 3px;

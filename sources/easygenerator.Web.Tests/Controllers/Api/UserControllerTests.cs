@@ -344,6 +344,57 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
+        #region UpgradeToAcademy
+
+        [TestMethod]
+        public void UpgradeToAcademy_ShouldThrowArgumentException_WhenUserDoesNotExists()
+        {
+            const string email = "test@test.test";
+            _userRepository.GetUserByEmail(email).Returns((User)null);
+
+            Action action = () => _controller.UpgradeToAcademy(email, DateTime.MaxValue);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("email");
+        }
+
+        [TestMethod]
+        public void UpgradeToAcademy_ShouldThrowArgumentException_WhenExpirationDateIsNull()
+        {
+            const string email = "test@test.test";
+            _userRepository.GetUserByEmail(email).Returns((User)null);
+
+            Action action = () => _controller.UpgradeToAcademy(email, null);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("expirationDate");
+        }
+
+        [TestMethod]
+        public void UpgradeToAcademy_ShouldReturnSuccessResult_WhenUserExists()
+        {
+            const string email = "test@test.test";
+            var user = UserObjectMother.CreateWithEmail(email);
+            _userRepository.GetUserByEmail(email).Returns(user);
+
+            var result = _controller.UpgradeToAcademy(email, DateTime.MaxValue);
+
+            result.Should().BeSuccessResult();
+        }
+
+        [TestMethod]
+        public void UpgradeToAcademy_ShouldSetSubscriptionPlusPlan()
+        {
+            const string email = "test@test.test";
+            DateTime expDate = DateTime.MaxValue;
+            var user = Substitute.For<User>();
+            _userRepository.GetUserByEmail(email).Returns(user);
+
+            _controller.UpgradeToAcademy(email, expDate);
+
+            user.Received().UpgradePlanToPlus(expDate);
+        }
+
+        #endregion
+
         #region Signup
 
         [TestMethod]

@@ -216,6 +216,7 @@
     <Compile Include="BuildCourse\Modules\IPackageModulesProvider.cs" />
     <Compile Include="BuildCourse\Modules\Models\PackageModule.cs" />
     <Compile Include="BuildCourse\PackageModel\OpenQuestionPackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\ScenarioQuestionPackageModel.cs" />
     <Compile Include="BuildCourse\PublishSettings\Models\PublishSettings.cs" />
     <Compile Include="BuildCourse\Modules\PackageModulesProvider.cs" />
     <Compile Include="BuildCourse\PackageModelMapper.cs" />
@@ -256,12 +257,15 @@
     <Compile Include="BuildLearningPath\PackageModel\LearningPathCoursePackageModel.cs" />
     <Compile Include="BuildLearningPath\PackageModel\LearningPathPackageModel.cs" />
     <Compile Include="Components\ActionFilters\ApplicationAuthorize.cs" />
+    <Compile Include="Components\ActionFilters\Authorization\AcademyAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AllowedUsersAttribute.cs" />
     <Compile Include="Components\ActionFilters\Permissions\PreviewAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\PlusAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\Authorization\QuestionAccessAttribute.cs" />
+    <Compile Include="Components\BranchTrackProvider.cs" />
     <Compile Include="Components\BrowserSupport.cs" />
+    <Compile Include="Components\Configuration\BranchTrackConfigurationSection.cs" />
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
     <Compile Include="Components\DefaultApiController.cs" />
@@ -282,6 +286,7 @@
     <Compile Include="Components\ReleaseNoteFileReader.cs" />
     <Compile Include="Components\TypeMethodInvoker.cs" />
     <Compile Include="Configuration\MagickImageResizerConfiguration.cs" />
+    <Compile Include="Controllers\Api\ScenarioController.cs" />
     <Compile Include="Controllers\Api\CourseImportController.cs" />
     <Compile Include="Controllers\Api\HotSpotQuestionController.cs" />
     <Compile Include="Controllers\Api\DragAndDropTextQuestionController.cs" />
@@ -531,6 +536,7 @@
     <Compile Include="Synchronization\Handlers\LearningContentEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\ObjectiveEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\QuestionEventHandler.cs" />
+    <Compile Include="Synchronization\Handlers\ScenarioEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\SingleSelectImageEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\TextMatchingEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\UserEventHandler.cs" />
@@ -539,6 +545,8 @@
     <Compile Include="Synchronization\Tracking\UserConnectionTracker.cs" />
     <Compile Include="ViewModels\Account\UserSignUpViewModel.cs" />
     <Compile Include="ViewModels\Api\BlankAnswerViewModel.cs" />
+    <Compile Include="ViewModels\Dashboard\CourseViewModel.cs" />
+    <Compile Include="ViewModels\Dashboard\UserInfoViewModel.cs" />
     <Compile Include="ViewModels\DemoCourses\DemoCoursesViewModel.cs" />
     <Compile Include="ViewModels\Dashboard\DashboardViewModel.cs" />
     <Compile Include="WooCommerce\IWooCommerceApiService.cs" />
@@ -600,6 +608,10 @@
     <Content Include="App\dialogs\audio\audioViewModel.spec.js">
       <DependentUpon>audioViewModel.js</DependentUpon>
     </Content>
+    <Content Include="App\jsonReader.js" />
+    <Content Include="App\localization\bindingHandlers\localizeBindingHandler.js" />
+    <Content Include="App\dialogs\branchtrack\branchtrack.html" />
+    <Content Include="App\dialogs\branchtrack\branchtrack.js" />
     <Content Include="App\Query.js" />
     <Content Include="App\Command.js" />
     <Content Include="App\commands\createCourseCommand.js" />
@@ -705,6 +717,16 @@
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\voiceOverUpdated.spec.js">
       <DependentUpon>voiceOverUpdated.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\questions\scenario\eventHandlers\dataUpdated.js" />
+    <Content Include="App\synchronization\handlers\questions\scenario\eventHandlers\dataUpdated.spec.js">
+      <DependentUpon>dataUpdated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\scenario\eventHandlers\masteryScoreUpdated.js" />
+    <Content Include="App\synchronization\handlers\questions\scenario\eventHandlers\masteryScoreUpdated.spec.js">
+      <DependentUpon>masteryScoreUpdated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\scenario\handler.js" />
+    <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToAcademy.js" />
     <Content Include="App\videoUpload\handlers\durations.js" />
     <Content Include="App\videoUpload\handlers\durations.spec.js">
       <DependentUpon>durations.js</DependentUpon>
@@ -725,6 +747,31 @@
       <DependentUpon>results.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\questions\voiceOver.js" />
+    <Content Include="App\viewmodels\questions\scenario\commands\updateData.js" />
+    <Content Include="App\viewmodels\questions\scenario\commands\updateData.spec.js">
+      <DependentUpon>updateData.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\scenario\commands\updateMasteryScore.js" />
+    <Content Include="App\viewmodels\questions\scenario\commands\updateMasteryScore.spec.js">
+      <DependentUpon>updateMasteryScore.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\scenario\queries\getDashboardInfo.js" />
+    <Content Include="App\viewmodels\questions\scenario\queries\getDashboardInfo.spec.js">
+      <DependentUpon>getDashboardInfo.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\scenario\queries\getProjectEditingInfoById.js" />
+    <Content Include="App\viewmodels\questions\scenario\queries\getProjectInfoById.js" />
+    <Content Include="App\viewmodels\questions\scenario\queries\getProjectInfoById.spec.js">
+      <DependentUpon>getProjectInfoById.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\scenario\queries\getQuestionDataById.spec.js">
+      <DependentUpon>getQuestionDataById.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\scenario\queries\getQuestionDataById.js" />
+    <Content Include="App\viewmodels\questions\scenario\scenario.js" />
+    <Content Include="App\viewmodels\questions\scenario\scenario.spec.js">
+      <DependentUpon>scenario.js</DependentUpon>
+    </Content>
     <Content Include="App\views\audios\audios.html" />
     <Content Include="App\models\learningPath.spec.js">
       <DependentUpon>learningPath.js</DependentUpon>
@@ -775,6 +822,7 @@
     <Content Include="App\audio\convertion\commands\finalize.spec.js">
       <DependentUpon>finalize.js</DependentUpon>
     </Content>
+    <Content Include="App\views\questions\scenario\scenario.html" />
     <Content Include="App\vimeo\queries\checkAvailability.spec.js">
       <DependentUpon>checkAvailability.js</DependentUpon>
     </Content>
@@ -817,7 +865,6 @@
     <Content Include="App\http\storageHttpWrapper.spec.js">
       <DependentUpon>storageHttpWrapper.js</DependentUpon>
     </Content>
-    <Content Include="App\localization\resources.js" />
     <Content Include="App\mappers\videoModelMapper.js" />
     <Content Include="App\mappers\learningPathModelMapper.js" />
     <Content Include="App\models\learningPath.js" />
@@ -1186,21 +1233,23 @@
     <Content Include="Content\font\rabiohead.woff" />
     <Content Include="Content\font\robotoslab-bold.woff" />
     <Content Include="Content\font\robotoslab-regular.woff" />
+    <Content Include="Content\images\branchtrack.png" />
     <Content Include="Content\images\chrome.png" />
-    <Content Include="Content\images\closedhand.cur" />
+    <Content Include="Content\images\grabbing.cur" />
     <Content Include="Content\images\comingsoon1024.png" />
     <Content Include="Content\images\companies\icemd.png" />
     <Content Include="Content\images\disabled-question1024.png" />
     <Content Include="Content\images\firefox.png" />
+    <Content Include="Content\images\grab.cur" />
     <Content Include="Content\images\hotSpot-empty.png" />
     <Content Include="Content\images\ie.png" />
     <Content Include="Content\images\learningPath\learning-path-item-background.png" />
+    <Content Include="Content\images\scenario-question.png" />
     <Content Include="Content\images\templates\deprecated-template.png" />
     <Content Include="Content\images\templates\new-template.png" />
     <Content Include="Content\images\no-spots.png" />
     <Content Include="Content\images\noResultsHintSteps.png" />
     <Content Include="Content\images\objective-default-image.jpg" />
-    <Content Include="Content\images\openhand.cur" />
     <Content Include="Content\images\dialog-header-background.png" />
     <Content Include="Content\images\open-question.png" />
     <Content Include="Content\images\preview.png" />
@@ -1282,6 +1331,7 @@
     <Content Include="Scripts\ckeditor\contents.css" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\dialogs\audioembed.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\icons\audioembed.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\pt-br.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\uk.js" />
@@ -1292,11 +1342,13 @@
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\dialogs\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\icons\eqneditor.png" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\lang\en.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\eqneditor\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\lang\uk.js" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\failed.png" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\info.png" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\pt-br.js" />
@@ -1307,6 +1359,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\styles.css" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\dialogs\fillInTheBlank.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\dialogs\fillInTheBlankDropDown.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\pt-br.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\uk.js" />
@@ -1317,6 +1370,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\dialogs\imageLibrary.js" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\icons\error.png" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\icons\no-images.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\pt-br.js" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\uk.js" />
@@ -1327,6 +1381,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\image\icons\hidpi\image.png" />
     <Content Include="Scripts\ckeditor\customPlugins\image\icons\image.png" />
     <Content Include="Scripts\ckeditor\customPlugins\image\images\noimage.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\image\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\lang\pt-br.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\lang\uk.js" />
@@ -1411,12 +1466,14 @@
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\dialogs\mediaembed.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\icons\hidpi\mediaembed.png" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\icons\mediaembed.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\pt-br.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\uk.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\styles.css" />
+    <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\pt-br.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\uk.js" />
@@ -1427,6 +1484,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\icons\error.png" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\icons\no-videos.png" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\icons\video-icon.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\pt-br.js" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\uk.js" />
@@ -1434,6 +1492,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\styles.css" />
     <Content Include="Scripts\ckeditor\lang\en.js" />
+    <Content Include="Scripts\ckeditor\lang\fr.js" />
     <Content Include="Scripts\ckeditor\lang\pt-br.js" />
     <Content Include="Scripts\ckeditor\lang\uk.js" />
     <Content Include="Scripts\ckeditor\lang\zh-cn.js" />
@@ -1617,6 +1676,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.pt.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Controllers\Resources.fr.resx" />
+    <EmbeddedResource Include="Resources\Views\Account\Resources.fr.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Account\Resources.pt.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.pt.Designer.cs</LastGenOutput>
@@ -1643,12 +1706,29 @@
     <Content Include="App\viewmodels\questions\voiceOver.spec.js">
       <DependentUpon>voiceOver.js</DependentUpon>
     </Content>
+    <Content Include="App\localization\lang\en.json" />
+    <Content Include="App\localization\lang\pt-br.json" />
+    <Content Include="App\localization\lang\uk.json" />
+    <Content Include="App\localization\lang\zh-cn.json" />
+    <Content Include="App\localization\lang\fr.json" />
+    <Content Include="Content\scenario.less" />
+    <Content Include="Content\slider.less" />
+    <Content Include="App\synchronization\handlers\questions\scenario\handler.spec.js">
+      <DependentUpon>handler.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\scenario\queries\getProjectEditingInfoById.spec.js">
+      <DependentUpon>getProjectEditingInfoById.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\branchtrack\branchtrack.spec.js">
+      <DependentUpon>branchtrack.js</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\iscroll-probe.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\knockout-3.3.0.debug.js" />
     <Content Include="Scripts\knockout-3.3.0.js" />
     <Content Include="Scripts\knockout.validation.js" />
@@ -2188,6 +2268,7 @@
     <Content Include="Scripts\knockoutBindings\scrollToBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextInAnswerBinding.js" />
     <Content Include="Scripts\knockoutBindings\fadeInBinding.js" />
+    <Content Include="Scripts\knockoutBindings\sliderControlBinding.js" />
     <Content Include="Scripts\knockoutBindings\switchToggleBinding.js" />
     <Content Include="Scripts\knockoutBindings\withAnimatedBinding.js" />
     <Content Include="Scripts\md5.js" />
@@ -2217,6 +2298,7 @@
     <Content Include="Templates\Assessment\app\views\multipleSelectText.html" />
     <Content Include="Templates\Assessment\app\views\notFoundError.html" />
     <Content Include="Templates\Assessment\app\views\openQuestion.html" />
+    <Content Include="Templates\Assessment\app\views\scenarioQuestion.html" />
     <Content Include="Templates\Assessment\app\views\singleSelectImage.html" />
     <Content Include="Templates\Assessment\app\views\singleSelectText.html" />
     <Content Include="Templates\Assessment\app\views\statement.html" />
@@ -2604,6 +2686,9 @@
     <Content Include="Templates\Assessment\settings\design\css\fonts\opensans-italic-400.woff" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_intercomAnalytics.cshtml" />
+    <Content Include="Views\Dashboard\UserInfo.cshtml" />
+    <Content Include="Views\Dashboard\_UserInfoResult.cshtml" />
+    <Content Include="Views\Dashboard\_UserNotFoundResult.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2654,7 +2739,6 @@
     <Content Include="App\bootstrapping\compositionTask.js" />
     <Content Include="App\bootstrapping\errorHandlingTask.js" />
     <Content Include="App\bootstrapping\knockoutBindingsTask.js" />
-    <Content Include="App\bootstrapping\localizationTask.js" />
     <Content Include="App\bootstrapping\routingTask.js" />
     <Content Include="App\bootstrapping\viewLocatorTask.js" />
     <Content Include="App\clientContext.js" />
@@ -3049,6 +3133,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Account\Resources.uk.resx" />
     <EmbeddedResource Include="Resources\Views\Account\Resources.zh.resx" />
+    <EmbeddedResource Include="Resources\Views\Error\Resources.fr.resx" />
     <EmbeddedResource Include="Resources\Views\Error\Resources.pt.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.pt.Designer.cs</LastGenOutput>
@@ -3057,6 +3142,7 @@
     <EmbeddedResource Include="Resources\Views\Error\Resources.resx" />
     <EmbeddedResource Include="Resources\Views\Error\Resources.uk.resx" />
     <EmbeddedResource Include="Resources\Views\Error\Resources.zh.resx" />
+    <EmbeddedResource Include="Resources\Views\Review\Resources.fr.resx" />
     <EmbeddedResource Include="Resources\Views\Review\Resources.pt.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.pt.Designer.cs</LastGenOutput>
@@ -3065,6 +3151,7 @@
     <EmbeddedResource Include="Resources\Views\Review\Resources.resx" />
     <EmbeddedResource Include="Resources\Views\Review\Resources.uk.resx" />
     <EmbeddedResource Include="Resources\Views\Review\Resources.zh.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\Resources.fr.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\Resources.pt.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.pt.Designer.cs</LastGenOutput>

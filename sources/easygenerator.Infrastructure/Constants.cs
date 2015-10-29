@@ -7,7 +7,7 @@ namespace easygenerator.Infrastructure
     {
         public const string EmailValidationRegexp = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,15})+)$";
         public const string DefaultCulture = "en-US";
-        public static readonly string[] SupportedCultures = {"en", "en-US", "uk", "zh-cn", "pt-br"};
+        public static readonly string[] SupportedCultures = {"en", "uk", "zh-cn", "pt-br"};
 
 
         public class Objective

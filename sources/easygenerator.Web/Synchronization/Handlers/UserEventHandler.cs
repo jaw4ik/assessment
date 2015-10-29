@@ -7,7 +7,8 @@ namespace easygenerator.Web.Synchronization.Handlers
     public class UserEventHandler :
         IDomainEventHandler<UserDowngraded>, 
         IDomainEventHandler<UserUpgradedToStarter>,
-        IDomainEventHandler<UserUpgradedToPlus>
+        IDomainEventHandler<UserUpgradedToPlus>,
+        IDomainEventHandler<UserUpgradedToAcademy>
     {
         private readonly IBroadcaster _broadcaster;
 
@@ -29,6 +30,11 @@ namespace easygenerator.Web.Synchronization.Handlers
         public void Handle(UserUpgradedToPlus args)
         {
             _broadcaster.User(args.User.Email).userUpgradedToPlus(args.User.ExpirationDate);
+        }
+
+        public void Handle(UserUpgradedToAcademy args)
+        {
+            _broadcaster.User(args.User.Email).userUpgradedToAcademy(args.User.ExpirationDate);
         }
     }
 }

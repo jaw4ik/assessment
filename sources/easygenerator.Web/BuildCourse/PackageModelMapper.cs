@@ -101,6 +101,10 @@ namespace easygenerator.Web.BuildCourse
             {
                 return MapOpenQuestion(question as OpenQuestion);
             }
+            if (questionType == typeof(Scenario))
+            {
+                return MapScenarioQuestion(question as Scenario);
+            }
 
             throw new NotSupportedException();
         }
@@ -117,6 +121,18 @@ namespace easygenerator.Web.BuildCourse
         private InformationContentPackageModel MapInformationContent(InformationContent question)
         {
             return MapQuestion<InformationContentPackageModel>(question);
+        }
+
+        private ScenarioQuestionPackageModel MapScenarioQuestion(Scenario question)
+        {
+            return MapQuestion<ScenarioQuestionPackageModel>(question, (model) =>
+            {
+                model.ProjectId = question.ProjectId;
+                model.EmbedCode = question.EmbedCode;
+                model.EmbedUrl = question.EmbedUrl;
+                model.ProjectArchiveUrl = question.ProjectArchiveUrl;
+                model.MasteryScore = question.MasteryScore;
+            });
         }
 
         private OpenQuestionPackageModel MapOpenQuestion(OpenQuestion question)

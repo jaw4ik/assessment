@@ -4,7 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <style>
     .document-title {
         margin-bottom: 0;
@@ -43,8 +42,19 @@
         -webkit-user-select: text;
         -ms-user-select: text;
     }
+
+    .user-info-link {
+        margin-top: 20px;
+    }
+
+        .user-info-link a {
+            color: #469dd5;
+        }
 </style>
 <section class="online-users-tracking-page">
+    <div class="user-info-link">
+        @Html.ActionLink("User info page", "UserInfo")
+    </div>
     <h1 class="document-title">Online users stats</h1>
     <ul class="online-users-count-info">
         <li class="online-users-count-info-item">

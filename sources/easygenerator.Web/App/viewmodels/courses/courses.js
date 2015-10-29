@@ -29,9 +29,7 @@
 
             currentLanguage: '',
 
-            hasStarterAccess: true,
-            coursesFreeLimit: limitCoursesAmount.getFreeLimit(),
-            coursesStarterLimit: limitCoursesAmount.getStarterLimit(),
+            currentCoursesLimit: limitCoursesAmount.getCurrentLimit(),
 
             toggleSelection: toggleSelection,
             duplicateCourse: duplicateCourse,
@@ -235,7 +233,6 @@
                     viewModel.isCreateCourseAvailable(limitCoursesAmount.checkAccess());
                 });
                 viewModel.isCreateCourseAvailable(limitCoursesAmount.checkAccess());
-                viewModel.hasStarterAccess = userContext.hasStarterAccess();
             });
         }
 

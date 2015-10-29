@@ -70,10 +70,7 @@ namespace easygenerator.DomainModel.Entities
             return Cryptography.VerifyHash(password, PasswordHash);
         }
 
-        public string FullName
-        {
-            get { return (FirstName + " " + LastName).Trim(); }
-        }
+        public string FullName => (FirstName + " " + LastName).Trim();
 
         protected internal virtual ICollection<PasswordRecoveryTicket> PasswordRecoveryTicketCollection { get; set; }
 
@@ -115,6 +112,11 @@ namespace easygenerator.DomainModel.Entities
         public virtual bool HasPlusAccess()
         {
             return AccessType >= AccessType.Plus && !IsAccessExpired();
+        }
+
+        public virtual bool HasAcademyAccess()
+        {
+            return AccessType >= AccessType.Academy && !IsAccessExpired();
         }
 
         public virtual bool HasTrialAccess()
@@ -226,6 +228,15 @@ namespace easygenerator.DomainModel.Entities
             RaiseEvent(new UserUpgradedToPlus(this));
        }
 
+        public void UpgradePlanToAcademy(DateTime expirationDate)
+        {
+            ThrowIfExpirationDateIsInvalid(expirationDate);
+
+            AccessType = AccessType.Academy;
+            ExpirationDate = expirationDate;
+            RaiseEvent(new UserUpgradedToAcademy(this));
+        }
+
         public virtual void DowngradePlanToFree()
         {
             AccessType = AccessType.Free;
@@ -244,17 +255,17 @@ namespace easygenerator.DomainModel.Entities
             ArgumentValidation.ThrowIfNullOrEmpty(password, "password");
 
             if (password.Length < 7)
-                throw new ArgumentException("Password should not be less than 7 symbols", "password");
+                throw new ArgumentException("Password should not be less than 7 symbols", nameof(password));
 
             if (password.Contains(" "))
-                throw new ArgumentException("Password should not contain whitespace symbols", "password");
+                throw new ArgumentException("Password should not contain whitespace symbols", nameof(password));
         }
 
         private static void ThrowIfExpirationDateIsInvalid(DateTime? expirationDate)
         {
             if (expirationDate < DateTimeWrapper.MinValue())
             {
-                throw new ArgumentException("Expiration date is invalid", "expirationDate");
+                throw new ArgumentException("Expiration date is invalid", nameof(expirationDate));
             }
         }
 

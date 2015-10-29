@@ -1,0 +1,70 @@
+﻿<section class="scenario">
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <!-- ko if: isExpanded -->
+            <div class="expand-collapse-panel expanded">
+                <span class="expand-collapse-panel-label" data-bind="localize: { text: 'scenarioDesigner' }">Scenario designer</span>
+                <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: 'collapse' }"></div>
+            </div>
+            <!-- /ko -->
+            <!-- ko ifnot: isExpanded -->
+            <div class="expand-collapse-panel collapsed">
+                <span class="expand-collapse-panel-label" data-bind="localize: { text: 'scenarioDesigner' }">Scenario designer</span>
+                <div class="expand-collapse-panel-btn" title="Expand" data-bind="click: toggleExpand, localize: { title: 'expand' }"></div>
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+
+    <div class="content-section-wrapper answer-options" data-bind="visible: isExpanded">
+        <div class="question-answer-options-area">
+            <div class="content-section">
+                <!-- ko if: embedUrl -->
+                <div class="scenario-designer">
+                    <div class="scenario-wrapper">
+                        <iframe data-bind="attr: { src: embedUrl }" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="controls">
+                        <div class="control-btn new info-tooltip-holder" data-bind="click: chooseScenario">
+                            <div class="info-tooltip left-side single-line">
+                                <span data-bind="localize: { text: 'newScenario' }">New scenario</span>
+                            </div>
+                        </div>
+                        <!-- ko if: editProjectUrl -->
+                        <div class="control-btn edit info-tooltip-holder" data-bind="click: editScenario">
+                            <div class="info-tooltip left-side single-line">
+                                <span data-bind="localize: { text: 'editScenario' }">Edit scenario</span>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                        <div class="control-btn-wrapper" data-bind="outsideClick: { action: closeMasteryScore }">
+                            <div class="control-btn mastery info-tooltip-holder" data-bind="click: toggleMasteryScoreVisibility">
+                                <span class="percent-value" data-bind="text: masteryScore"></span>
+                                <div class="info-tooltip left-side single-line" data-bind="visible: !masteryScoreVisibility()">
+                                    <span data-bind="localize: { text: 'masteryScore' }">Mastery score</span>
+                                </div>
+                            </div>
+                            <div class="mastery-score-popover" data-bind="visible: masteryScoreVisibility">
+                                <div class="title" data-bind="localize: { text: 'masteryScore' }">Mastery score</div>
+                                <div class="description" data-bind="localize: { text: 'masteryScoreDescription' }">Question will be correct if learner reach this score</div>
+                                <div class="slider-control-wrapper">
+                                    <div data-bind="sliderControl: { value: masteryScore(), events: { change: function (value) { masteryScore(value); } } }"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko ifnot: embedUrl -->
+                <div class="scenario-designer-empty">
+                    <div class="title" data-bind="localize: { text: 'createScenarioDescription' }">Create scenario for learners</div>
+                    <div class="create-scenario-btn-wrapper">
+                        <button class="btn green" data-bind="click: chooseScenario, localize: { text: 'createScenario' }">Create scenario</button>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+
+</section>

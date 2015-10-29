@@ -34,11 +34,11 @@
         position: fixed;
         left: 0;
         top: 0;
-        z-index: 1200;
+        z-index: 2000;
         width: 100%;
 
         .content-section-wrapper .content-section {
-            min-width: 810px;
+            min-width: 820px;
         }
 
         .header-logo-holder {
@@ -92,7 +92,12 @@
         }
 
         .header-upgrade-link {
-            padding: 0px 10px;
+            display: inline-block;
+            max-width: 100px;
+            padding: 0 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
             color: #559f64;
             font-family: 'OpenSans-Semibold', sans-serif;
         }

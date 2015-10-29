@@ -47,7 +47,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             var user = _repository.GetUserByEmail(email);
             if (user == null)
-                throw new ArgumentException("User with specified email does not exist", "email");
+                throw new ArgumentException("User with specified email does not exist", nameof(email));
 
             if (!string.IsNullOrEmpty(password))
                 user.UpdatePassword(password, email);
@@ -68,7 +68,7 @@ namespace easygenerator.Web.Controllers.Api
             {
                 var countryName = CountriesInfo.GetCountryName(country);
                 if (countryName == null)
-                    throw new ArgumentException("Not valid country code", "country");
+                    throw new ArgumentException("Not valid country code", nameof(country));
 
                 user.UpdateCountry(countryName, email);
             }
@@ -85,7 +85,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             var user = _repository.GetUserByEmail(email);
             if (user == null)
-                throw new ArgumentException("User with specified email does not exist", "email");
+                throw new ArgumentException("User with specified email does not exist", nameof(email));
 
             user.DowngradePlanToFree();
 
@@ -100,11 +100,11 @@ namespace easygenerator.Web.Controllers.Api
         public ActionResult UpgradeToStarter(string email, DateTime? expirationDate)
         {
             if (!expirationDate.HasValue)
-                throw new ArgumentException("Expiration date is not specified or specified in wrong format", "expirationDate");
+                throw new ArgumentException("Expiration date is not specified or specified in wrong format", nameof(expirationDate));
 
             var user = _repository.GetUserByEmail(email);
             if (user == null)
-                throw new ArgumentException("User with specified email does not exist", "email");
+                throw new ArgumentException("User with specified email does not exist", nameof(email));
 
             user.UpgradePlanToStarter(expirationDate.Value);
 
@@ -119,13 +119,32 @@ namespace easygenerator.Web.Controllers.Api
         public ActionResult UpgradeToPlus(string email, DateTime? expirationDate)
         {
             if (!expirationDate.HasValue)
-                throw new ArgumentException("Expiration date is not specified or specified in wrong format", "expirationDate");
+                throw new ArgumentException("Expiration date is not specified or specified in wrong format", nameof(expirationDate));
 
             var user = _repository.GetUserByEmail(email);
             if (user == null)
-                throw new ArgumentException("User with specified email does not exist", "email");
+                throw new ArgumentException("User with specified email does not exist", nameof(email));
 
             user.UpgradePlanToPlus(expirationDate.Value);
+
+            return Success();
+        }
+
+        [HttpPost]
+        [CustomRequireHttps]
+        [AllowAnonymous]
+        [ExternalApiAuthorize("wooCommerce")]
+        [Route("api/user/subscription/academy")]
+        public ActionResult UpgradeToAcademy(string email, DateTime? expirationDate)
+        {
+            if (!expirationDate.HasValue)
+                throw new ArgumentException("Expiration date is not specified or specified in wrong format", nameof(expirationDate));
+
+            var user = _repository.GetUserByEmail(email);
+            if (user == null)
+                throw new ArgumentException("User with specified email does not exist", nameof(email));
+
+            user.UpgradePlanToAcademy(expirationDate.Value);
 
             return Success();
         }

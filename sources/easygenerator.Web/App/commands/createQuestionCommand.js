@@ -55,6 +55,9 @@
                 case constants.questionType.openQuestion.type:
                     eventTracker.publish('Create new question (open question)', eventCategory);
                     break;
+                case constants.questionType.scenario.type:
+                    eventTracker.publish('Create new question (scenario)', eventCategory);
+                    break;
             }
         }
 
@@ -80,6 +83,8 @@
                     return localizationManager.localize('newStatementQuestionTitle');
                 case constants.questionType.openQuestion.type:
                     return localizationManager.localize('newOpenQuestionTitle');
+                case constants.questionType.scenario.type:
+                    return localizationManager.localize('newScenarioQuestionTitle');
                 default:
                     return localizationManager.localize('newQuestionTitle');
             }
