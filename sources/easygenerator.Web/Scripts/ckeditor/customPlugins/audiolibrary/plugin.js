@@ -137,7 +137,7 @@
 
 
                                     audio.forEach(function(item) {
-                                        item.ThumbnailUrl = plugin.path + plugin.constants.storage.defaultThumbnailUrl;
+                                        item.ThumbnailUrl = plugin.path + plugin.constants.storage.audio.defaultThumbnailUrl;
 
                                         audioLibrary.addAudio(item,
                                             function() {
