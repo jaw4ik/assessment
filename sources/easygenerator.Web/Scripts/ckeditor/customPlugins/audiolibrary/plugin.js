@@ -21,7 +21,7 @@
                 audio: {
                     vimeoToken: 'bearer a6b8a8d804e9044f9aa091b6687e70c1',
                     vimeoApiAudioUrl: 'https://api.vimeo.com/videos/',
-                    defaultThumbnailUrl: plugin.path + 'icons/audio-thumbnail.jpg',
+                    defaultThumbnailUrl: 'icons/audio-thumbnail.jpg',
                     iframeWidth: 300,
                     iframeHeight: 46
                 }
@@ -137,7 +137,7 @@
 
 
                                     audio.forEach(function(item) {
-                                        item.ThumbnailUrl = plugin.constants.storage.defaultThumbnailUrl;
+                                        item.ThumbnailUrl = plugin.path + plugin.constants.storage.defaultThumbnailUrl;
 
                                         audioLibrary.addAudio(item,
                                             function() {
