@@ -195,7 +195,7 @@
                         dialog.move(x, y);
                     }
 
-                    return new CKEDITOR.ui.dialog.uiElement(dialog, elementDefinition, htmlList, "div", null, { 'class': 'audio-library' });
+                    return new CKEDITOR.ui.dialog.uiElement(dialog, elementDefinition, htmlList, "div", null, { 'class': 'cke-audio-library' });
                 }
             });
 

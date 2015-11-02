@@ -22,16 +22,7 @@
 
 /*#region LIBRARY LIST*/
 
-.audio-list-wrapper {
-    bottom: 50px;
-    display: inline-block;
-    position: absolute;
-    top: 30px;
-    left: 10px;
-    right: 1px;
-}
-
-.audio-library {
+.cke-audio-library {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -39,6 +30,15 @@
     overflow-y: auto;
     white-space: normal;
     text-align: justify;
+}
+
+.audio-list-wrapper {
+    bottom: 50px;
+    display: inline-block;
+    position: absolute;
+    top: 30px;
+    left: 10px;
+    right: 1px;
 }
 
 .audio-library-item {
