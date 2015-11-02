@@ -24,6 +24,8 @@ switch ($result)
 
 echo "Stop Live website"
 C:\Windows\System32\inetsrv\appcmd.exe stop site /site.name:"live.easygenerator.com/"
+echo "Stop Beta website"
+C:\Windows\System32\inetsrv\appcmd.exe stop site /site.name:"beta.easygenerator.com/"
 echo "Start Maintenance website"
 C:\Windows\System32\inetsrv\appcmd.exe start site /site.name:"live.easygenerator.com(maintenance)/"
 
@@ -61,6 +63,7 @@ Invoke-Expression -command "$backupCommand"
 write-host "Backups are done!" -foregroundcolor Green
 write-host "Database: $dbBackupPath" -foregroundcolor Yellow
 write-host "Website: $websiteBackupsPath" -foregroundcolor Yellow
+write-host "Warning: Beta website is still stopped!" -foregroundcolor Yellow
 write-host "Warning: Live website is still stopped!" -foregroundcolor Red
 
 
