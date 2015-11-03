@@ -126,7 +126,10 @@
 
                     router.on('router:navigation:processing').then(function () {
                         _.each(CKEDITOR.instances, function (instance) {
-                            instance.destroy(true);
+                            try {
+                                instance.destroy(true);
+                            } catch (e) {
+                            }
                         });
                     });
 
