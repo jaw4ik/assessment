@@ -2590,6 +2590,9 @@
     <Content Include="Templates\Simple course\lang\tr.json" />
     <Content Include="Templates\Simple course\lang\ua.json" />
     <Content Include="Templates\Simple course\manifest.json" />
+    <Content Include="Templates\Simple course\pdf\index.html" />
+    <Content Include="Templates\Simple course\pdf\scripts.js" />
+    <Content Include="Templates\Simple course\pdf\styles.css" />
     <Content Include="Templates\Simple course\preview\images\preview.jpg" />
     <Content Include="Templates\Simple course\preview\thumbnail.png" />
     <Content Include="Templates\Simple course\publishSettings.js" />
