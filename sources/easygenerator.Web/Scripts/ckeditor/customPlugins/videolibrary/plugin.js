@@ -13,10 +13,10 @@
 
         constants: {
             player: {
-                host: window.playerUrl ? "//" + window.playerUrl : '//localhost:555'
+                host: "//" + window.playerUrl
             },
             storage: {
-                host: window.storageServiceUrl ? "//" + window.storageServiceUrl : '//localhost:888',
+                host: "//" + window.storageServiceUrl,
                 mediaUrl: '/media',
                 video: {
                     vimeoToken: 'bearer a6b8a8d804e9044f9aa091b6687e70c1',
