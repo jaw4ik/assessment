@@ -1337,6 +1337,17 @@
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\uk.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\plugin.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\dialogs\audioLibrary.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\icons\audio-thumbnail.jpg" />
+    <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\icons\error.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\icons\no-audio.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\lang\en.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\lang\fr.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\lang\pt-br.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\lang\zh-cn.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\plugin.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\styles.css" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\dialogs\eqneditor.js" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\lang\pt-br.js" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\dialogs\lang\en.js" />

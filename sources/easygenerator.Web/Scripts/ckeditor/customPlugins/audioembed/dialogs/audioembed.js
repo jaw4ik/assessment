@@ -14,13 +14,28 @@
                 expand: true,
                 elements: [
                 {
-                    type: 'html',
-                    html: lang.dialogDescriptionContent
+                    type: 'hbox',
+                    padding: 0,
+                    widths: ['auto', '100%'],
+                    children: [
+                        {
+                            type: 'addAudioFromLibraryButton',
+                            id: 'addAudioFromLibrary',
+                            embedCodeAreaId: 'embedArea',
+                            parentContainerId: 'iframe'
+                        },
+                        {
+                            type: 'html',
+                            className: 'embed-code-label-container',
+                            html: '<div><span>' + lang.pasteEmbedCodeHere + '</span></div>'
+                        }
+                    ]
                 },
                 {
                     id: 'embedArea',
                     type: 'textarea',
-                    label: lang.pasteEmbedCodeHere,
+                    className: 'embed-code-textarea',
+                    rows: 8,
                     onChange: function () {
                         editor.execCommand(plugin.commands.editCode);
                     },
