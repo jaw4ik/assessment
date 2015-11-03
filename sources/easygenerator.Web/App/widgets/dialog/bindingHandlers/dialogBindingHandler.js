@@ -3,6 +3,7 @@
     },
     update: function (element, valueAccessor) {
         var $element = $(element),
+            $parent = $element.parent(),
             $html = $('html'),
             $container = $('body'),
             scrollableClassName = '.scrollable',
@@ -37,12 +38,8 @@
 
             if (autoclose) {
                 $blockout.click(hide);
-                var $parent = $element.parent();
                 if ($parent.hasClass('dialog-container')) {
-                    $parent.click(hide);
-                    $element.click(function(e) {
-                        e.stopPropagation();
-                    });
+                    $parent.on('click', blockoutClickHandler);
                 }
             }
 
@@ -73,6 +70,7 @@
                     onHide();
                 }
             });
+            $parent.off('click', blockoutClickHandler);
         }
 
         function closeOnEscape(evt) {
@@ -143,6 +141,12 @@
                 return false;
             }
         };
+
+        function blockoutClickHandler(evt) {
+            if ($(evt.target).closest($element).length === 0) {
+                hide();
+            }
+        }
 
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
             hide();
