@@ -1,53 +1,58 @@
-﻿<section class="onboarding-wrapper" data-bind="if: isVisible, outsideClick: { action: closeAllHints }, css: { minimized: isMinimized }">
-    <!-- ko ifnot: isMinimized -->
-    <div class="onboarding" data-bind="css: { 'onboarding-congratulations': isCompleted }">
-        <!-- ko ifnot: isCompleted -->
-        <header data-bind="localize: { text: 'whatNow' }" class="onboarding-header">What now?</header>
-        <ul class="onboarding-steps-list unstyled" data-bind="foreach: tasks">
-            <li class="onboarding-step-item" data-bind="click: showHint, css: { completed: isCompleted, opened: isHintVisible }">
-                <span class="onboarding-step-index" data-bind="text: $index() + 1"></span>
-                <span class="onboarding-step-title" data-bind="text: title"></span>
-                <span class="onboarding-lamp" data-bind="visible: markedAsNext"></span>
-                <div class="onboarding-hint tooltip-holder right" data-bind="css: { visible: isHintVisible }">
-                    <div class="tooltip-content-holder" data-bind="html: description, stopEventPropagation: { event: 'click' }"></div>
-                    <div class="tooltip-background"></div>
-                    <a class="tooltip-close-button" data-bind="click: closeHint, stopEventPropagation: { event: 'click' }, localize: { title: 'hideHint' }"></a>
-                    <span class="tooltip-pointer"></span>
-                </div>
-            </li>
-        </ul>
-        <!-- /ko -->
-        <!-- ko if: isCompleted -->
-        <header data-bind="localize: { text: 'congratulations' }" class="onboarding-header">Congratulations</header>
-        <span class="onboarding-congratulations-close" data-bind="click: closeOnboarding"></span>
-        <article class="onboarding-congratulations-content">
-            <figure>
-                <img class="onboarding-congratulations-image" src="/Content/images/onboarding-congratulations-icon.png" alt="Congratulation" />
-                <figcaption>
-                    <div class="onboarding-congratulations-caption" data-bind="localize: { text: 'congratulationsCaption' }">
-                        Look at you. You are now an expert. If you want to know more checkout our
+﻿<section class="inline-flex-wrapper" data-bind="if: isVisible">
+    <div class="onboarding-wrapper" data-bind="css: { minimized: isMinimized, collapsed: isCollapsed() && !isCompleted() }">
+        <!-- ko ifnot: isMinimized -->
+        <div class="onboarding" data-bind="css: { 'onboarding-congratulations': isCompleted }">
+            <!-- ko ifnot: isCompleted -->
+            <span class="onboarding-collapse-button" data-bind="click: toggleCollapse, localize: { title: isCollapsed() ? 'expand': 'collapse' }"></span>
+            <header data-bind="click: function () { isCollapsed() ? toggleCollapse() : null; }">
+                <div class="onboarding-header" data-bind="localize: { text: 'whatNow' }">What now?</div>
+            </header>
+            <ul class="onboarding-steps-list unstyled" data-bind="foreach: tasks, outsideClick: { action: closeAllHints }">
+                <li class="onboarding-step-item" data-bind="click: showHint, css: { completed: isCompleted, opened: isHintVisible }">
+                    <span class="onboarding-step-index" data-bind="text: $index() + 1"></span>
+                    <span class="onboarding-step-title" data-bind="text: title"></span>
+                    <span class="onboarding-lamp" data-bind="visible: markedAsNext"></span>
+                    <div class="onboarding-hint tooltip-holder right" data-bind="css: { visible: isHintVisible }">
+                        <div class="tooltip-content-holder" data-bind="html: description, stopEventPropagation: { event: 'click' }"></div>
+                        <div class="tooltip-background"></div>
+                        <a class="tooltip-close-button" data-bind="click: closeHint, stopEventPropagation: { event: 'click' }, localize: { title: 'hideHint' }"></a>
+                        <span class="tooltip-pointer"></span>
                     </div>
-                    <a href="http://help.easygenerator.com/" target="_blank" class="onboarding-congratulations-help-center" data-bind="localize: { text: 'helpCenter' }"></a>
-                </figcaption>
-            </figure>
-        </article>
+                </li>
+            </ul>
+            <!-- /ko -->
+            <!-- ko if: isCompleted -->
+            <span class="onboarding-congratulations-close" data-bind="click: closeOnboarding"></span>
+            <header data-bind="localize: { text: 'congratulations' }" class="onboarding-header">Congratulations</header>
+            <article class="onboarding-congratulations-content">
+                <figure>
+                    <img class="onboarding-congratulations-image" src="/Content/images/onboarding-congratulations-icon.png" alt="Congratulation" />
+                    <figcaption>
+                        <div class="onboarding-congratulations-caption" data-bind="localize: { text: 'congratulationsCaption' }">
+                            Look at you. You are now an expert. If you want to know more checkout our
+                        </div>
+                        <a href="https://www.easygenerator.com/help/" target="_blank" class="onboarding-congratulations-help-center" data-bind="localize: { text: 'helpCenter' }"></a>
+                    </figcaption>
+                </figure>
+            </article>
+            <!-- /ko -->
+        </div>
+        <!-- /ko -->
+        <!-- ko if: isMinimized -->
+        <div class="onboarding-mini">
+            <div class="onboarding-mini-map"></div>
+            <ul class="onboarding-steps-list unstyled" data-bind="foreach: tasks, outsideClick: { action: closeAllHints }">
+                <li class="onboarding-step-item" data-bind="css: { completed: isCompleted }">
+                    <span class="onboarding-step-index" data-bind="click: showHint, text: $index() + 1"></span>
+                    <div class="onboarding-hint tooltip-holder right" data-bind="css: { visible: isHintVisible }">
+                        <div class="tooltip-content-holder" data-bind="html: description"></div>
+                        <div class="tooltip-background"></div>
+                        <a class="tooltip-close-button" data-bind="click: closeHint, stopEventPropagation: { event: 'click' }, localize: { title: 'hideHint' }"></a>
+                        <span class="tooltip-pointer"></span>
+                    </div>
+                </li>
+            </ul>
+        </div>
         <!-- /ko -->
     </div>
-    <!-- /ko -->
-    <!-- ko if: isMinimized -->
-    <div class="onboarding-mini">
-        <div class="onboarding-mini-map"></div>
-        <ul class="onboarding-steps-list unstyled" data-bind="foreach: tasks">
-            <li class="onboarding-step-item" data-bind="css: { completed: isCompleted }">
-                <span class="onboarding-step-index" data-bind="click: showHint, text: $index() + 1"></span>
-                <div class="onboarding-hint tooltip-holder right" data-bind="css: { visible: isHintVisible }">
-                    <div class="tooltip-content-holder" data-bind="html: description"></div>
-                    <div class="tooltip-background"></div>
-                    <a class="tooltip-close-button" data-bind="click: closeHint, stopEventPropagation: { event: 'click' }, localize: { title: 'hideHint' }"></a>
-                    <span class="tooltip-pointer"></span>
-                </div>
-            </li>
-        </ul>
-    </div>
-    <!-- /ko -->
-</section> 
+</section>

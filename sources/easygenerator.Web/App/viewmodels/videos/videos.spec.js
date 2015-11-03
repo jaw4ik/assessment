@@ -383,6 +383,31 @@
 
         });
 
+        describe('showVideoPopup:', function() {
+
+            beforeEach(function () {
+                spyOn(videoDialog, 'show');
+            });
+
+            it('should be function', function () {
+                expect(viewModel.showVideoPopup).toBeFunction();
+            });
+
+            describe('when video has vimeo identifier', function () {
+                it('should show video popup', function () {
+                    viewModel.showVideoPopup({ vimeoId: ko.observable("vimeoId") });
+                    expect(videoDialog.show).toHaveBeenCalledWith({ vimeoId: "vimeoId", enableVideo: true });
+                });
+            });
+
+            describe('when video does not have vimeo identifier', function () {
+                it('should not show video popup', function () {
+                    viewModel.showVideoPopup({ vimeoId: ko.observable(null) });
+                    expect(videoDialog.show).not.toHaveBeenCalled();
+                });
+            });
+        });
+
     });
 
 });

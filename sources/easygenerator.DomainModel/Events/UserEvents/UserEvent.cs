@@ -16,7 +16,7 @@ namespace easygenerator.DomainModel.Events.UserEvents
 
         private void ThrowIfUserIsInvalid(User user)
         {
-            ArgumentValidation.ThrowIfNull(user, "user");
+            ArgumentValidation.ThrowIfNull(user, nameof(user));
         }
     }
 }

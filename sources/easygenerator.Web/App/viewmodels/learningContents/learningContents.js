@@ -33,7 +33,7 @@
             isExpanded: ko.observable(true),
             toggleExpand: toggleExpand,
 
-            activate: activate,
+            initialize: initialize,
             localizationManager: localizationManager,
 
             removeLearningContent: removeLearningContent,
@@ -56,13 +56,14 @@
 
         return viewModel;
 
-        function activate(activationData) {
+        function initialize(question) {
+
             if (_.isNullOrUndefined(router.routeData().questionId)) {
                 return Q.fcall(function () { });
             }
 
-            var questionId = activationData.questionId;
-            var questionType = activationData.questionType;
+            var questionId = question.id;
+            var questionType = question.type;
 
             return learningContentRepository.getCollection(questionId).then(function (learningContentsList) {
                 viewModel.questionId = questionId;
@@ -109,7 +110,7 @@
         }
 
         function removeLearningContent(learningContent) {
-            if (_.isEmptyOrWhitespace(learningContent.id()) || learningContent.isDeleted) {
+            if (_.isEmptyOrWhitespace(learningContent.id()) || learningContent.isDeleted || !learningContent.text()) {
                 viewModel.learningContents.remove(learningContent);
             } else {
                 learningContent.isRemoved(true);

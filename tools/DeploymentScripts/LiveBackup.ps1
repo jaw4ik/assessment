@@ -24,6 +24,8 @@ switch ($result)
 
 echo "Stop Live website"
 C:\Windows\System32\inetsrv\appcmd.exe stop site /site.name:"live.easygenerator.com/"
+echo "Stop Beta website"
+C:\Windows\System32\inetsrv\appcmd.exe stop site /site.name:"beta.easygenerator.com/"
 echo "Start Maintenance website"
 C:\Windows\System32\inetsrv\appcmd.exe start site /site.name:"live.easygenerator.com(maintenance)/"
 
@@ -58,19 +60,10 @@ $websiteBackupsPath = "'" + $websiteBackupsFolder + "live.easygenerator.com-webs
 $backupCommand = $7zAdd + $websiteBackupsPath + " " + $sourcePath + "*"
 Invoke-Expression -command "$backupCommand"
 
-echo "Creating filestorage backup:"
-
-$sourcePath = "D:\Applications\live.easygenerator.com``(FileStorage``)\*"
-$filestorageBackupsPath = "'" + $websiteBackupsFolder + "live.easygenerator.com-fileStorage-backup-" + $date + ".zip'"
-
-$backupCommand = $7zAdd + $filestorageBackupsPath + " " + $sourcePath
-
-Invoke-Expression -command "$backupCommand"
-
 write-host "Backups are done!" -foregroundcolor Green
 write-host "Database: $dbBackupPath" -foregroundcolor Yellow
 write-host "Website: $websiteBackupsPath" -foregroundcolor Yellow
-write-host "File Storage: $filestorageBackupsPath" -foregroundcolor Yellow
+write-host "Warning: Beta website is still stopped!" -foregroundcolor Yellow
 write-host "Warning: Live website is still stopped!" -foregroundcolor Red
 
 

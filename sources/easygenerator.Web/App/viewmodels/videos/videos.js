@@ -19,7 +19,7 @@
             uploadErrorMessage: localizationManager.localize('videoUploadError'),
             notAnoughSpaceMessage: localizationManager.localize('videoUploadNotAnoughSpace'),
             startUpload: videoUpload.upload
-        }
+        };
 
     var viewModel = {
         videos: ko.observableArray([]),
@@ -48,8 +48,8 @@
         if (!video.vimeoId()) {
             return;
         }
-
-        videoPopup.show(video.vimeoId());
+        
+        videoPopup.show({ vimeoId: video.vimeoId(), enableVideo: true });
     }
 
     function activate() {

@@ -97,7 +97,9 @@ namespace easygenerator.Web.Configuration
                 .Include("~/Content/dialogs.css")
                 .Include("~/Content/audio.css")
                 .Include("~/Content/notSupportedPage.css")
-                .Include("~/Content/releaseNotes.css");
+                .Include("~/Content/releaseNotes.css")
+                .Include("~/Content/scenario.css")
+                .Include("~/Content/slider.css");
                                 
             stylesBundle.Transforms.Add(new ImageNoCacheParamTransform());
             bundles.Add(stylesBundle);
@@ -107,6 +109,12 @@ namespace easygenerator.Web.Configuration
                     .Include("~/Content/styles.css")
                     .Include("~/Content/review.css")
                 );
+
+            bundles.Add(new ScriptBundle("~/bundles/scripts/dashboard")
+                  .Include("~/scripts/jquery-{version}.js")
+                  .Include("~/scripts/jquery.unobtrusive-ajax.js")
+              );
+
         }
     }
 }

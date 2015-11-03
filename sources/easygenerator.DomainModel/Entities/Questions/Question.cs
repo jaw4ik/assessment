@@ -24,6 +24,7 @@ namespace easygenerator.DomainModel.Entities.Questions
             public const string HotSpot = "hotspot";
             public const string Statement = "statement";
             public const string OpenQuestion = "openQuestion";
+            public const string Scenario = "scenario";
         }
 
         #endregion
@@ -49,6 +50,8 @@ namespace easygenerator.DomainModel.Entities.Questions
 
         public virtual Objective Objective { get; internal set; }
 
+        public string VoiceOver { get; internal set; }
+
         protected internal virtual ICollection<LearningContent> LearningContentsCollection { get; set; }
 
         public IEnumerable<LearningContent> LearningContents
@@ -59,6 +62,16 @@ namespace easygenerator.DomainModel.Entities.Questions
         protected internal string LearningContentsOrder { get; set; }
 
         public Feedback Feedback { get; private set; }
+
+        public virtual void UpdateVoiceOver(string voiceOver, string modifiedBy)
+        {
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            VoiceOver = voiceOver;
+            MarkAsModified(modifiedBy);
+
+            RaiseEvent(new QuestionVoiceOverUpdatedEvent(this));
+        }
 
         public virtual void UpdateCorrectFeedbackText(string feedbackText)
         {
@@ -168,7 +181,6 @@ namespace easygenerator.DomainModel.Entities.Questions
             ArgumentValidation.ThrowIfNullOrEmpty(title, "title");
             ArgumentValidation.ThrowIfLongerThan255(title, "title");
         }
-
         private static void ThrowIfLearningContentIsInvalid(LearningContent learningContent)
         {
             ArgumentValidation.ThrowIfNull(learningContent, "explanation");

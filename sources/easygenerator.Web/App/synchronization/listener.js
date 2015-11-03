@@ -1,8 +1,21 @@
 ﻿define([
-        'durandal/system', 'synchronization/handlers/user/handler', 'synchronization/handlers/course/handler', 'synchronization/handlers/objective/handler',
-        'synchronization/handlers/questions/handler', 'synchronization/handlers/answer/handler', 'synchronization/handlers/learningContent/handler', 'synchronization/handlers/collaboration/handler'
+        'durandal/system',
+        'synchronization/handlers/user/handler',
+        'synchronization/handlers/course/handler',
+        'synchronization/handlers/objective/handler',
+        'synchronization/handlers/questions/handler',
+        'synchronization/handlers/answer/handler',
+        'synchronization/handlers/learningContent/handler',
+        'synchronization/handlers/collaboration/handler'
 ],
-    function (system, userEventHandler, courseEventHandler, objectiveEventHandler, questionEventHandler, answerEventHandler, learningContentEventHandler, collaborationEventHandler) {
+    function (system,
+        userEventHandler,
+        courseEventHandler,
+        objectiveEventHandler,
+        questionEventHandler,
+        answerEventHandler,
+        learningContentEventHandler,
+        collaborationEventHandler) {
         "use strict";
 
         return {
@@ -19,6 +32,7 @@
                     userDowngraded: userEventHandler.downgraded,
                     userUpgradedToStarter: userEventHandler.upgradedToStarter,
                     userUpgradedToPlus: userEventHandler.upgradedToPlus,
+                    userUpgradedToAcademy: userEventHandler.upgradedToAcademy,
 
                     courseCollaboratorAdded: collaborationEventHandler.collaboratorAdded,
                     courseCollaborationStarted: collaborationEventHandler.started,
@@ -48,6 +62,7 @@
                     questionCreated: questionEventHandler.question.created,
                     questionsDeleted: questionEventHandler.question.deleted,
                     questionTitleUpdated: questionEventHandler.question.titleUpdated,
+                    questionVoiceOverUpdated: questionEventHandler.question.voiceOverUpdated,
                     questionContentUpdated: questionEventHandler.question.contentUpdated,
                     questionCorrectFeedbackUpdated: questionEventHandler.question.correctFeedbackUpdated,
                     questionIncorrectFeedbackUpdated: questionEventHandler.question.incorrectFeedbackUpdated,
@@ -83,7 +98,10 @@
                     hotSpotPolygonCreated: questionEventHandler.hotSpot.polygonCreated,
                     hotSpotPolygonDeleted: questionEventHandler.hotSpot.polygonDeleted,
                     hotSpotPolygonChanged: questionEventHandler.hotSpot.polygonChanged,
-                    hotSpotIsMultipleChanged: questionEventHandler.hotSpot.isMultipleChanged
+                    hotSpotIsMultipleChanged: questionEventHandler.hotSpot.isMultipleChanged,
+
+                    scenarioDataUpdated: questionEventHandler.scenario.dataUpdated,
+                    scenarioMasteryScoreUpdated: questionEventHandler.scenario.masteryScoreUpdated
                 };
 
                 $.connection.hub.disconnected(function () {

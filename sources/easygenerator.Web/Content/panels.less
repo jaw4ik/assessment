@@ -5,7 +5,7 @@
     top: 60px;
     bottom: 0;
     width: 330px;
-    z-index: 200;
+    z-index: 2000;
     right: -300px;
     font-family: 'OpenSans';
     font-size: 13px;
@@ -174,7 +174,6 @@
 }
 
     .tab-btn .btn-text {
-        display: inline-block;
         line-height: 1;
     }
 
@@ -315,6 +314,9 @@
 
 .tab-btn.review-btn {
     width: 130px;
+    padding: 9px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .tab-btn.review-btn .circular-loader {
@@ -400,6 +402,7 @@
     text-align: center;
     color: #999999;
     margin-top: -18px;
+    padding: 0 15px;
 }
 
 .review-not-paid-message-wrapper {

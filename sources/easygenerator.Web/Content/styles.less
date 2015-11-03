@@ -1,4 +1,4 @@
-﻿@import "helpers.less";
+@import "helpers.less";
 
 /*#region PAGE-LOADER ICON*/
 .icon-spinner-wrapper {
@@ -1410,7 +1410,7 @@
 .action-item-btn-wrapper {
     position: relative;
     height: 100%;
-    z-index: 2;
+    z-index: 1600;
 }
 
 .action-item-btn {
@@ -1657,14 +1657,16 @@
 }
 
 .info-tooltip {
+    @info-tooltip-bkg-color: #55626f;
+
     visibility: hidden;
     position: absolute;
     left: 50%;
     bottom: 100%;
     margin-top: -38px;
     margin-bottom: 7px;
-    padding: 5px;
-    background-color: #55626f;
+    padding: 5px 7px;
+    background-color: @info-tooltip-bkg-color;
     border-radius: 3px;
     color: white;
     font-size: 12px;
@@ -1672,25 +1674,40 @@
     opacity: 0;
     z-index: 200;
     transition: opacity 0.2s ease;
-    -moz-transition: opacity 0.2s ease;
-    -webkit-transition: opacity 0.2s ease;
-}
 
-.info-tooltip:after {
-    content: '';
-    display: block;
-    height: 10px;
-    width: 10px;
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-top: -6px;
-    margin-left: -5px;
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-    background: #55616f;
+    &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin: 0 0 0 -5px;
+        border-color: @info-tooltip-bkg-color transparent transparent transparent;
+        border-width: 5px;
+        border-style: solid;
+    }
+
+    &.single-line {
+        white-space: nowrap;
+        height: 27px;
+        margin-top: -14px;
+    }
+
+    &.left-side {
+        top: 50%;
+        right: 100%;
+        left: auto;
+        bottom: auto;
+        margin-right: 9px;
+
+        &:after {
+            top: 50%;
+            right: 0;
+            left: auto;
+            margin: -5px -9px 0 0;
+            border-color: transparent transparent transparent @info-tooltip-bkg-color;
+        }
+    }
 }
 
 .info-tooltip.open-item,
@@ -2099,8 +2116,8 @@
     }
 
     .info-tooltip {
-        width: 100px;
-        margin-left: -50px;
+        width: 106px;
+        margin-left: -53px;
         /* fix for Safari to hide tooltip correctly */
         visibility: initial;
         transition: none;

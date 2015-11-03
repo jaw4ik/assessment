@@ -31,12 +31,6 @@
 
         });
 
-        describe('reviewTabActivationData:', function () {
-            it('should be computed', function () {
-                expect(viewModel.reviewTabActivationData).toBeComputed();
-            });
-        });
-
         describe('lastReviewTabActivationData:', function () {
             it('should be observable', function () {
                 expect(viewModel.lastReviewTabActivationData).toBeObservable();
@@ -313,7 +307,7 @@
 
                     describe('and when lastReviewTabActivationData courseId equals to current courseId', function () {
                         beforeEach(function () {
-                            spyOn(viewModel, 'lastReviewTabActivationData').and.returnValue({ courseId: courseId });
+                            viewModel.lastReviewTabActivationData({ courseId: courseId });
                         });
 
                         it('should not get course from repository', function (done) {
@@ -337,7 +331,7 @@
 
                     describe('and when lastReviewTabActivationData courseId is not equal to current courseId', function () {
                         beforeEach(function () {
-                            spyOn(viewModel, 'lastReviewTabActivationData').and.returnValue({ courseId: '100500' });
+                            viewModel.lastReviewTabActivationData({ courseId: '100500' });
                         });
 
                         it('should get course from repository', function (done) {

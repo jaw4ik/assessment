@@ -1,8 +1,8 @@
 ﻿define(['repositories/courseRepository', 'plugins/router', 'constants', 'userContext', 'clientContext', 'localization/localizationManager', 'eventTracker',
         'viewmodels/courses/publishingActions/build', 'viewmodels/courses/publishingActions/scormBuild', 'viewmodels/courses/publishingActions/publish', 
-        'viewmodels/courses/publishingActions/publishToAim4You', 'viewmodels/courses/publishingActions/publishToCustomLMS'],
+        'viewmodels/courses/publishingActions/publishToCustomLMS'],
     function (repository, router, constants, userContext, clientContext, localizationManager, eventTracker, 
-        buildPublishingAction, scormBuildPublishingAction, publishPublishingAction, publishToAim4You, publishToCustomLmsAction) {
+        buildPublishingAction, scormBuildPublishingAction, publishPublishingAction, publishToCustomLmsAction) {
 
         var events = {
             navigateToCourses: 'Navigate to courses',
@@ -10,7 +10,6 @@
             openLinkTab: 'Open link tab',
             openScormTab: 'Open \'download SCORM\'',
             openHtmlTab: 'Open \'downoload HTML\'',
-            openAim4YouTab: 'Open \'Publish to Aim4You\'',
             openCustomPublishTab: 'Open custom publish tab'
         };
 
@@ -21,7 +20,6 @@
             buildAction: buildPublishingAction(),
             scormBuildAction: scormBuildPublishingAction(),
             publishAction: publishPublishingAction(),
-            publishToAim4YouAction: publishToAim4You(),
             publishToCustomLms: publishToCustomLmsAction(),
 
             navigateToCoursesEvent: navigateToCoursesEvent,
@@ -33,8 +31,7 @@
             sendOpenLinkTab: sendOpenLinkTab,
             sendOpenEmbedTab: sendOpenEmbedTab,
             sendOpenScormTab: sendOpenScormTab,
-            sendOpenHtmlTab: sendOpenHtmlTab,
-            sendOpenAim4YouTab: sendOpenAim4YouTab
+            sendOpenHtmlTab: sendOpenHtmlTab
         };
 
         return viewModel;
@@ -63,10 +60,6 @@
             eventTracker.publish(events.openHtmlTab);
         }
 
-        function sendOpenAim4YouTab() {
-            eventTracker.publish(events.openAim4YouTab);
-        }
-
         function activate(courseId) {
             return userContext.identify().then(function () {
                 viewModel.companyInfo = userContext.identity.company;
@@ -84,7 +77,6 @@
             viewModel.buildAction.deactivate();
             viewModel.scormBuildAction.deactivate();
             viewModel.publishAction.deactivate();
-            viewModel.publishToAim4YouAction.deactivate();
         }
     }
 );

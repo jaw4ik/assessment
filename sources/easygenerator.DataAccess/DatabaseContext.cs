@@ -102,21 +102,17 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<CourseCollaborator>().HasRequired(e => e.Course);
             modelBuilder.Entity<CourseCollaborator>().Property(e => e.Email).IsRequired().HasMaxLength(254);
 
-            modelBuilder.Entity<Aim4YouIntegration>().HasKey(e => new { e.Id });
-            modelBuilder.Entity<Aim4YouIntegration>().Property(e => e.Aim4YouCourseId).IsRequired();
-            modelBuilder.Entity<Aim4YouIntegration>().HasRequired(e => e.Course).WithOptional(c => c.Aim4YouIntegration).WillCascadeOnDelete(true);
-
             modelBuilder.Entity<CourseTemplateSettings>().Property(e => e.Settings);
             modelBuilder.Entity<CourseTemplateSettings>().Property(e => e.ExtraData).IsOptional();
             modelBuilder.Entity<CourseTemplateSettings>().HasRequired(e => e.Course).WithMany().HasForeignKey(p => p.Course_Id);
             modelBuilder.Entity<CourseTemplateSettings>().HasRequired(e => e.Template).WithMany().HasForeignKey(p => p.Template_Id);
             modelBuilder.Entity<CourseTemplateSettings>().Property(e => e.Course_Id)
-                .HasColumnAnnotation("Index", new IndexAnnotation(new[] {
+                .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new[] {
                     new IndexAttribute("IX_Course_Id"),
                     new IndexAttribute("UI_CourseTemplateSettings_Course_Id_Template_Id", 1) { IsUnique = true }
                 }));
             modelBuilder.Entity<CourseTemplateSettings>().Property(e => e.Template_Id)
-                .HasColumnAnnotation("Index", new IndexAnnotation(new[]{
+                .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new[]{
                     new IndexAttribute("IX_Template_Id"),
                     new IndexAttribute("UI_CourseTemplateSettings_Course_Id_Template_Id", 2) { IsUnique = true }
                 }));
@@ -130,6 +126,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Question>().Property(e => e.Feedback.CorrectText).IsMaxLength().IsOptional();
             modelBuilder.Entity<Question>().Property(e => e.Feedback.IncorrectText).IsMaxLength().IsOptional();
             modelBuilder.Entity<Question>().Property(e => e.LearningContentsOrder).IsOptional();
+            modelBuilder.Entity<Question>().Property(e => e.VoiceOver).IsOptional();
 
             modelBuilder.Entity<Multipleselect>().HasMany(e => e.AnswersCollection).WithRequired(e => e.Question);
 
@@ -221,12 +218,19 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Onboarding>().Property(e => e.CreatedQuestionsCount).IsRequired();
             modelBuilder.Entity<Onboarding>().Property(e => e.CoursePublished).IsRequired();
             modelBuilder.Entity<Onboarding>().Property(e => e.IsClosed).IsRequired();
-            modelBuilder.Entity<Onboarding>().Property(e => e.UserEmail).IsRequired().HasMaxLength(254);
+            modelBuilder.Entity<Onboarding>().Property(e => e.UserEmail).IsRequired().HasMaxLength(254).HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new[]{
+                    new IndexAttribute("Onboardings_UserEmail") { IsUnique = true}
+              }));
 
             modelBuilder.Entity<DemoCourseInfo>().HasRequired(e => e.DemoCourse);
             modelBuilder.Entity<DemoCourseInfo>().HasOptional(e => e.SourceCourse);
 
-            modelBuilder.Entity<CourseState>().HasRequired(e => e.Course);
+
+            modelBuilder.Entity<CourseState>().HasRequired(e => e.Course).WithMany().HasForeignKey(e => e.Course_Id);
+
+            modelBuilder.Entity<CourseState>().Property(e => e.Course_Id).HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new[]{
+                    new IndexAttribute("IX_Course_Id") { IsUnique = true}
+              }));
 
             modelBuilder.Entity<ConsumerTool>().Property(e => e.Title).HasMaxLength(255);
             modelBuilder.Entity<ConsumerTool>().Property(e => e.Domain).HasMaxLength(255);
@@ -241,6 +245,13 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Company>().Property(e => e.LogoUrl).IsRequired();
             modelBuilder.Entity<Company>().Property(e => e.PublishCourseApiUrl).IsRequired();
             modelBuilder.Entity<Company>().Property(e => e.SecretKey).IsRequired();
+
+            modelBuilder.Entity<Scenario>().Property(e => e.ProjectId);
+            modelBuilder.Entity<Scenario>().Property(e => e.EmbedCode);
+            modelBuilder.Entity<Scenario>().Property(e => e.EmbedUrl);
+            modelBuilder.Entity<Scenario>().Property(e => e.ProjectArchiveUrl);
+            modelBuilder.Entity<Scenario>().Property(e => e.MasteryScore);
+            modelBuilder.Entity<Scenario>().Map(m => m.ToTable("ScenarioQuestions"));
 
             base.OnModelCreating(modelBuilder);
         }

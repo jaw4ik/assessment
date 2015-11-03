@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Template design settings</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="css/design.css?v=1446205901186" rel="stylesheet" />
+    <script src="../api.js?v=1446205901186"></script>
+
+    <script src="js/vendor.min.js?v=1446205901186"></script>
+    <script src="js/design.min.js?v=1446205901186"></script>
+</head>
+<body>
+    <main class="settings-container" data-bind="template: { afterRender: egApi.showSettings }">
+        <!-- ko ifnot: isError -->
+        <article class="flex direction-column settings-item-container">
+            <header class="settings-item-title" data-bind="localize:'Choose objective style:'">
+                Choose objective style:
+            </header>
+            <section class="settings-item-content flex direction-row flex-wrap" data-bind="with: objectivesLayout">
+                <!-- ko foreach: list -->
+                <div class="flex direction-column choose-layout-container" data-bind="click: $parent.select, css: { selected: isSelected }">
+                    <div class="flex direction-column choose-layout-wrapper" data-bind="css: name">
+                        <div class="choose-layout-title" data-bind="text: name">
+                        </div>
+                        <div class="choose-layout-preview-image"></div>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </section>
+        </article>
+        <!-- /ko -->
+        <!-- ko if: isError -->
+        <div class="settings-tab-wrapper" data-bind="localize: 'settings are not initialize'"></div>
+        <!-- /ko -->
+    </main>
+</body>
+</html>

@@ -20,15 +20,18 @@
     }
 
     function getPlanName(accessType) {
-        if (accessType === constants.accessType.starter) {
-            return localizationManager.localize("upgradeStarterPlan");
-        } else if (accessType === constants.accessType.plus) {
-            return localizationManager.localize("upgradePlusPlan");
-        } else if (accessType === constants.accessType.trial) {
-            return localizationManager.localize("upgradeTrialPlan");
+        switch (accessType) {
+            case constants.accessType.trial:
+                return localizationManager.localize("upgradeTrialPlan");
+            case constants.accessType.starter:
+                return localizationManager.localize("upgradeStarterPlan");
+            case constants.accessType.plus:
+                return localizationManager.localize("upgradePlusPlan");
+            case constants.accessType.academy:
+                return localizationManager.localize("upgradeAcademyPlan");
+            default:
+                throw "Undefined access type";
         }
-
-        throw "Undefined access type";
     }
 
     function getRemainingTime(expirationDate, amountOfDays) {

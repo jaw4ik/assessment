@@ -44,6 +44,14 @@ namespace easygenerator.Web.Tests.Utils
             Assert.IsInstanceOfType(result, typeof(PartialViewResult));
         }
 
+        internal static void IsPartialViewResult(object result, string viewName)
+        {
+            Assert.IsInstanceOfType(result, typeof(PartialViewResult));
+            var viewResult = result as PartialViewResult;
+            Assert.IsNotNull(viewResult);
+            Assert.AreEqual(viewResult.ViewName, viewName);
+        }
+
         internal static void IsRedirectResult(object result, string url)
         {
             Assert.IsInstanceOfType(result, typeof(RedirectResult));

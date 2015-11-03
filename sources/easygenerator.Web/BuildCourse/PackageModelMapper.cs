@@ -101,6 +101,10 @@ namespace easygenerator.Web.BuildCourse
             {
                 return MapOpenQuestion(question as OpenQuestion);
             }
+            if (questionType == typeof(Scenario))
+            {
+                return MapScenarioQuestion(question as Scenario);
+            }
 
             throw new NotSupportedException();
         }
@@ -117,6 +121,18 @@ namespace easygenerator.Web.BuildCourse
         private InformationContentPackageModel MapInformationContent(InformationContent question)
         {
             return MapQuestion<InformationContentPackageModel>(question);
+        }
+
+        private ScenarioQuestionPackageModel MapScenarioQuestion(Scenario question)
+        {
+            return MapQuestion<ScenarioQuestionPackageModel>(question, (model) =>
+            {
+                model.ProjectId = question.ProjectId;
+                model.EmbedCode = question.EmbedCode;
+                model.EmbedUrl = question.EmbedUrl;
+                model.ProjectArchiveUrl = question.ProjectArchiveUrl;
+                model.MasteryScore = question.MasteryScore;
+            });
         }
 
         private OpenQuestionPackageModel MapOpenQuestion(OpenQuestion question)
@@ -164,10 +180,10 @@ namespace easygenerator.Web.BuildCourse
                 model.AnswerGroups = question.Answers
                     .GroupBy(item => item.GroupId)
                     .Select(group => new BlankAnswerGroupPackageModel()
-                                   {
-                                       Id = group.Key.ToNString(),
-                                       Answers = group.Select(MapBlankAnswer).ToList()
-                                   }).ToList();
+                    {
+                        Id = group.Key.ToNString(),
+                        Answers = group.Select(MapBlankAnswer).ToList()
+                    }).ToList();
             });
         }
 
@@ -195,10 +211,7 @@ namespace easygenerator.Web.BuildCourse
         {
             var model = new T();
             MapQuestionProperties(model, question);
-            if (updateQuestionModel != null)
-            {
-                updateQuestionModel(model);
-            }
+            updateQuestionModel?.Invoke(model);
 
             return model;
         }
@@ -214,6 +227,7 @@ namespace easygenerator.Web.BuildCourse
             packageModel.Feedback = question.Feedback ?? new Feedback();
             packageModel.HasCorrectFeedback = !String.IsNullOrWhiteSpace(question.Feedback.CorrectText);
             packageModel.HasIncorrectFeedback = !String.IsNullOrWhiteSpace(question.Feedback.IncorrectText);
+            packageModel.VoiceOver = question.VoiceOver;
         }
 
         private AnswerOptionPackageModel MapAnswer(Answer answer)

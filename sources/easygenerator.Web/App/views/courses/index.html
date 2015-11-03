@@ -3,7 +3,7 @@
         <div data-bind="router: {}, style: { opacity: router.isViewReady() ? '1' : '0' }"></div>
 
         <!-- ko ifnot: router.isViewReady -->
-            <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 black align-center', style: { top: '450px' } } } --><!-- /ko -->
+        <div data-bind="preloader: { settings: 'align-center', styles: { top: '420px' } }"></div>
         <!-- /ko -->
     </div>
 </section>

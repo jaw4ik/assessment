@@ -1,0 +1,94 @@
+﻿@background-color: #262644;
+
+html {
+    body {
+        .video-js {
+            .vjs-control-bar {
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: flex;
+            }
+
+            &.vjs-has-started {
+                &.vjs-user-inactive {
+                    &.vjs-playing {
+                        .vjs-control-bar {
+                            visibility: visible;
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+
+            .vjs-big-play-button {
+                display: none;
+            }
+
+            .vjs-tech {
+                width: 0;
+                height: 0;
+                position: absolute;
+                top: -100px;
+                left: -100px;
+            }
+
+            &.vjs-using-native-controls {
+                .vjs-tech {
+                    width: 100%;
+                    height: 100%;
+                    position: static;
+                    background: @background-color;
+                }
+            }
+
+            &.vjs-seeking, &.vjs-waiting {
+                .vjs-loading-spinner {
+                    display: none;
+                }
+            }
+        }
+
+        &.background {
+
+            .media-processing {
+                width: 100%;
+                height: 100%;
+                background: url('../images/audio_processing.jpg') center no-repeat;
+                background-size: 100% 100%;
+            }
+
+            .video-js {
+                background: url('../images/audio_player.jpg') center no-repeat;
+                background-size: 100% 100%;
+            }
+
+            .vjs-using-native-controls {
+                &.video-js {
+                    background: @background-color;
+                }
+            }
+        }
+
+        &.no-background {
+
+            .media-processing {
+                width: 100%;
+                height: 100%;
+                background-color: @background-color;
+                color: white;
+                font: 14px sans-serif;
+                text-align: center;
+
+                &:before {
+                    content: "Audio is being processed...";
+                    display: inline-block;
+                    padding: 16px;
+                }
+            }
+
+            .video-js {
+                background: rgba(0, 0, 0, 0);
+            }
+        }
+    }
+}

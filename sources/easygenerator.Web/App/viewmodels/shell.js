@@ -4,7 +4,7 @@
        constants, leftSideBarManager, widget, createCourseDialog, releaseNotesDialog) {
 
        "use strict";
-       
+
        var events = {
            navigateToLearningPaths: 'Navigate to learning paths',
            navigateToCourses: "Navigate to courses",
@@ -128,6 +128,15 @@
                        clientContext.set(hex_md5(userContext.identity.email), { hash: window.location.hash });
                    });
 
+                   router.on('router:navigation:processing').then(function () {
+                       _.each(CKEDITOR.instances, function (instance) {
+                           instance.destroy(true);
+                       });
+                   });
+
+                   router.on('router:navigation:composition-complete').then(function () {
+                       clientContext.set(hex_md5(userContext.identity.email), { hash: window.location.hash });
+                   });
 
                    clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
                    clientContext.set(constants.clientContextKeys.lastVistedCourse, null);

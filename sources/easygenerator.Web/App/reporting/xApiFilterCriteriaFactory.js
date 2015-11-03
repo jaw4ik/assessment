@@ -38,8 +38,12 @@
             criteria[constants.reporting.filterKeys.skip] = spec.skip;
         }
 
-        if (spec.attemptId) {
-            criteria[constants.reporting.filterKeys.attemptId] = spec.attemptId;
+        if (spec.attemptIds) {
+            if (_.isString(spec.attemptIds)) {
+                criteria[constants.reporting.filterKeys.attemptId] = spec.attemptIds;
+            } else if (_.isArray(spec.attemptIds)) {
+                criteria[constants.reporting.filterKeys.attemptId] = spec.attemptIds.join(",");
+            }
         }
 
         if (spec.parentId) {

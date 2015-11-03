@@ -1,4 +1,4 @@
-﻿@import "mixin.less";
+@import "mixin.less";
 
 /*#region videos*/
 @video-list-item-border-color: #e8e8e8;
@@ -274,15 +274,23 @@
 
 /*#region video popup*/
 
-.modal-dialog-wrapper.video {
+.modal-dialog-wrapper.media {
     position: fixed;
     width: @video-popup-width;
     margin: 0 auto;
-    margin-top: -250px;
     top: 50%;
     left: 0;
     right: 0;
-    z-index: 1500;
+    box-sizing: content-box;
+    z-index: 2200;
+
+    &.video {
+        margin-top: -250px;
+    }
+
+    &.audio {
+        margin-top: -172px;
+    }
 
     &:after {
         content: '';

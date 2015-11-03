@@ -5,10 +5,13 @@ define(['durandal/app', 'eventTracker', 'constants',
         'viewmodels/questions/questionTitle',
         'viewmodels/common/contentField',
         'viewmodels/questions/questionViewModelFactory',
+        'viewmodels/learningContents/learningContents',
+        'viewmodels/questions/feedback',
         'localization/localizationManager',
-        'dialogs/moveCopyQuestion/moveCopyQuestion'],
+        'dialogs/moveCopyQuestion/moveCopyQuestion',
+        'viewmodels/questions/voiceOver'],
     function (app, eventTracker, constants, questionRepository, objectiveRepository, courseRepository, router, vmQuestionTitle, vmContentField,
-        questionViewModelFactory, localizationManager, moveCopyQuestionDialog) {
+        questionViewModelFactory, learningContentsViewModel, feedbackViewModel, localizationManager, moveCopyQuestionDialog, vmVoiceOver) {
         "use strict";
 
         var events = {
@@ -30,8 +33,13 @@ define(['durandal/app', 'eventTracker', 'constants',
 
             viewCaption: null,
             questionTitle: null,
+            voiceOver: null,
             questionContent: null,
+
             activeQuestionViewModel: null,
+            learningContentsViewModel: learningContentsViewModel,
+            feedbackViewModel: feedbackViewModel,
+
             isInformationContent: false,
 
             eventTracker: eventTracker,
@@ -78,7 +86,9 @@ define(['durandal/app', 'eventTracker', 'constants',
 
         function setActiveViewModel(question) {
             var activeViewModel = questionViewModelFactory[question.type];
-            if (!activeViewModel) throw "Question with type " + question.type.toString() + " is not found in questionViewModelFactory";
+            if (!activeViewModel) {
+                throw "Question with type " + question.type.toString() + " is not found in questionViewModelFactory";
+            }
             return activeViewModel;
         }
 
@@ -119,16 +129,22 @@ define(['durandal/app', 'eventTracker', 'constants',
                 .then(function (question) {
                     viewmodel.activeQuestionViewModel = setActiveViewModel(question);
                     viewmodel.questionType = question.type;
+                    viewmodel.voiceOver = vmVoiceOver(viewmodel.questionId, question.voiceOver);
 
                     return viewmodel.activeQuestionViewModel.initialize(viewmodel.objectiveId, question)
                         .then(function (viewModelData) {
                             viewmodel.viewCaption = viewModelData.viewCaption;
-
                             viewmodel.questionTitle = vmQuestionTitle(viewmodel.objectiveId, question);
                             viewmodel.hasQuestionView = viewModelData.hasQuestionView;
                             viewmodel.questionContent = viewModelData.hasQuestionContent ? vmContentField(question.content, eventsForQuestionContent, true, updateQuestionContent) : null;
                             viewmodel.hasFeedback = viewModelData.hasFeedback;
                             viewmodel.feedbackCaptions = viewModelData.feedbackCaptions;
+
+                            var promises = [];
+                            promises.push(viewmodel.learningContentsViewModel.initialize(question));
+                            promises.push(viewmodel.feedbackViewModel.initialize({ questionId: question.id, captions: viewmodel.feedbackCaptions }));
+
+                            return Q.all(promises);
                         });
                 });
         }

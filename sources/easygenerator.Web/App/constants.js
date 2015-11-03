@@ -2,10 +2,13 @@
     function () {
 
         return {
+            appVersion: window.egVersion,
+
             accessType: {
                 free: 0,
                 starter: 1,
                 plus: 2,
+                academy: 3,
                 trial: 100
             },
 
@@ -49,6 +52,10 @@
                 openQuestion: {
                     type: 'openQuestion',
                     image: '/Content/images/open-question.png'
+                },
+                scenario: {
+                    type: 'scenario',
+                    image: '/Content/images/scenario-question.png'
                 }
             },
 
@@ -77,13 +84,6 @@
             collaboratorStates: {
                 deleting: 'deleting'
             },
-
-            registerOnAim4YouStates: {
-                inProgress: 'registerInProgress',
-                success: 'registerSuccess',
-                fail: 'registerFail'
-            },
-
             autosaveTimersInterval: {
                 answerOption: 60000,
                 learningContent: 60000,
@@ -106,7 +106,8 @@
                     identified: 'user:identified',
                     downgraded: 'user:downgraded',
                     upgradedToStarter: 'user:upgradedToStarter',
-                    upgradedToPlus: 'user:upgradedToPlus'
+                    upgradedToPlus: 'user:upgradedToPlus',
+                    upgradedToAcademy: 'user:upgradedToAcademy'
                 },
                 course: {
                     created: 'course:created',
@@ -145,11 +146,6 @@
                         started: 'course:review-publish-started',
                         completed: 'course:review-publish-completed',
                         failed: 'course:review-publish-failed'
-                    },
-                    publishToAim4You: {
-                        started: 'course:publishToAim4You-started',
-                        completed: 'course:publishToAim4You-comleted',
-                        failed: 'course:publishToAim4You-failed'
                     },
                     publishToCustomLms: {
                         started: 'course:publishToCustomLms-started',
@@ -206,6 +202,7 @@
                     createdByCollaborator: 'question:createdByCollaborator',
                     deleted: 'questions:deleted',
                     titleUpdated: 'question:titleUpdated',
+                    voiceOverUpdatedByCollaborator: 'question:voiceOverUpdatedByCollaborator',
                     titleUpdatedByCollaborator: 'question:titleUpdatedByCollaborator',
                     contentUpdatedByCollaborator: 'question:contentUpdatedByCollaborator',
                     backgroundChangedByCollaborator: 'question:backgroundChangedByCollaborator',
@@ -261,6 +258,11 @@
                         answerDeletedByCollaborator: 'question:singleSelectImage:answerDeletedByCollaborator',
                         answerImageUpdatedByCollaborator: 'question:singleSelectImage:answerImageUpdatedByCollaborator',
                         correctAnswerChangedByCollaborator: 'question:singleSelectImage:correctAnswerChangedByCollaborator'
+                    },
+
+                    scenario: {
+                        dataUpdated: 'question:scenario:dataUpdated',
+                        masteryScoreUpdated: 'question:scenario:masteryScoreUpdated'
                     }
 
                 },
@@ -281,11 +283,15 @@
                 },
                 notification: {
 
+                },
+                branchtrack: {
+                    projectSelected: 'branchtrack:projectSelected',
+                    dialogClosed: 'branchtrack:dialogClosed'
                 }
             },
 
             patterns: {
-                email: /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/
+                email: /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,15})+)$/
             },
 
             notification: {
@@ -352,6 +358,7 @@
                     parentId: 'parent'
                 }
             },
+
             frameSize: {
                 width: {
                     name: 'frameWidth',
@@ -371,6 +378,10 @@
                 pageSize: 10
             },
 
+            player: {
+                host: window.playerUrl ? "//" + window.playerUrl : '//localhost:555'
+            },
+
             storage: {
                 host: window.storageServiceUrl ? "//" + window.storageServiceUrl : '//localhost:888',
                 mediaUrl: '/media',
@@ -379,7 +390,6 @@
                 video: {
                     vimeoToken: 'bearer a6b8a8d804e9044f9aa091b6687e70c1',
                     vimeoApiVideosUrl: 'https://api.vimeo.com/videos/',
-                    videoUrl: '/video',
                     ticketUrl: '/api/media/video/upload',
                     finishUrl: '/api/media/video/upload/finish',
                     progressUrl: '/api/media/video/upload/progress',
@@ -411,7 +421,11 @@
                         failed: 'failed',
                         inProgress: 'inProgress'
                     },
-                    changesInUpload: 'video:changesInUpload'
+                    changesInUpload: 'video:changesInUpload',
+                    iframeWidth: 600,
+                    iframeHeight: 180,
+                    embedIframeWidth: 300,
+                    embedIframeHeight: 46
                 }
             },
 
@@ -441,6 +455,17 @@
                 moveCopyQuestion: {
                     settings: {
                         containerCss: 'move-copy-question'
+                    }
+                },
+                audioLibrary: {
+                    settings: {
+                        containerCss: 'audio-library',
+                        autoclose: true
+                    }
+                },
+                branchtrack: {
+                    settings: {
+                        containerCss: 'branchtrack-dialog'
                     }
                 },
                 upgrade: {

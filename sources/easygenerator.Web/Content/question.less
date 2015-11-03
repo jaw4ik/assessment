@@ -1,4 +1,4 @@
-﻿@import "helpers.less";
+@import "helpers.less";
 
 @learning-content-delete-section-width: 25px;
 @learning-content-drag-section-width: 28px;
@@ -31,17 +31,17 @@
 
     &:focus {
         background-color: transparent;
-}
+    }
 
     &:active {
         background-color: transparent;
     }
 
     &:hover {
-    border-color: #52adc8;
-    color: #52adc8;
-    text-shadow: none;
-}
+        border-color: #52adc8;
+        color: #52adc8;
+        text-shadow: none;
+    }
 }
 
 .question .btn.create-question.expanded {
@@ -120,9 +120,18 @@
 
 /*#region extra-content*/
 
+.question-extra-content-section{
+	text-align: right;
+	padding-bottom: 20px;
+}
+
 .question-extra-content-block {
-    padding: 5px 0 30px;
+    padding-bottom: 10px;
     text-align: right;
+	
+	.extra-content-action-wrapper {
+		margin-bottom: 0;
+	}
 }
 
 .extra-content-action-wrapper {
@@ -133,6 +142,7 @@
     color: #bfbfbf;
     font-size: 12px;
     cursor: pointer;
+	margin-bottom: 10px;
 }
 
 .extra-content-action-wrapper:hover {
@@ -875,7 +885,7 @@
 
 .question-type-action-wrapper {
     display: none;
-    width: 726px;
+    width: 870px;
     background-color: #fff;
     position: absolute;
     top: 49px;
@@ -959,44 +969,48 @@
 }
 
 .question-type-text.multipleSelect:before {
-    background-position: -1px 0;
+    background-position: 0 0;
 }
 
 .question-type-text.singleSelectText:before {
-    background-position: -55px 0;
+    background-position: -54px 0;
 }
 
 .question-type-text.fillInTheBlank:before {
-    background-position: -109px 0;
+    background-position: -108px 0;
 }
 
 .question-type-text.dragAndDropText:before {
     width: 58px;
-    background-position: -163px 0;
+    background-position: -162px 0;
 }
 
 .question-type-text.informationContent:before {
-    background-position: -1px -79px;
+    background-position: 0 -79px;
 }
 
 .question-type-text.singleSelectImage:before {
-    background-position: -55px -79px;
+    background-position: -54px -79px;
 }
 
 .question-type-text.textMatching:before {
-    background-position: -109px -79px;
+    background-position: -108px -79px;
 }
 
 .question-type-text.hotspot:before {
-    background-position: -1px -159px;
+    background-position: 0 -158px;
 }
 
 .question-type-text.statement:before {
-    background-position: -163px -78px;
+    background-position: -162px -79px;
 }
 
 .question-type-text.openQuestion:before {
-    background-position: -55px -159px;
+    background-position: -54px -158px;
+}
+
+.question-type-text.scenario:before {
+    background-position: -108px -158px;
 }
 
 .question-type-text.empty:before {
@@ -1014,7 +1028,7 @@
 @media(max-width: 1100px) {
 
     .question-type-action-wrapper {
-        width: 656px;
+        width: 786px;
     }
 
     .question-type-action-item {
@@ -1071,6 +1085,10 @@
 
     .question-type-text.openQuestion:before {
         background: url(images/open-question.png) 0 0;
+    }
+
+    .question-type-text.scenario:before {
+        background: url(images/scenario-question.png) 0 0;
     }
 
     .question-type-text.empty:before {
@@ -1376,11 +1394,14 @@
 .upgrade-user-link {
     display: inline-block;
     height: 35px;
+    max-width: 130px;
+    overflow: hidden;
     margin: 15px 0 30px;
     padding: 9px 10px;
     background-color: #fff;
     border: 1px solid #56c0de;
     border-radius: 4px;
+    text-overflow: ellipsis;
     color: #56c0de;
     font-family: 'OpenSans-Semibold';
     font-size: 12px;
@@ -1401,6 +1422,7 @@
     padding-left: 17px;
     position: relative;
     text-transform: uppercase;
+    white-space: nowrap;
 
     [lang~=pt-br] & {
         padding-left: 14px;
@@ -1431,6 +1453,7 @@
 
     .upgrade-user-link {
         height: 25px;
+        max-width: 120px;
         margin: 13px 0 30px;
         padding: 4px 5px;
         border-radius: 3px;
@@ -1789,3 +1812,120 @@
     border-top: 1px solid rgba(198, 209, 216, 0.7);
     border-bottom: 1px solid rgba(198, 209, 216, 0.7);
 }
+
+/*#region voice over*/
+.voice-over-wrapper {
+    padding-bottom: 13px;
+	text-align: left;
+
+    label {
+        color: #abbbc6;
+        display: inline-block;
+        font-family: "Open Sans";
+        font-size: 12px;
+        font-style: italic;
+        margin-bottom: 7px;
+    }
+}
+
+.voice-over {
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    border-radius: 3px;
+    box-shadow: 0px 3px #e8e8e8;
+    display: flex;
+    height: 50px;
+    width: 100%;
+}
+
+.voice-over-icon {
+    height: 24px;
+    margin: 0 15px;
+    position: relative;
+    width: 24px;
+
+    &:before {
+        background: url(images/sprites_24.png) -262px -87px;
+        content: "";
+        display: inline-block;
+        height: 24px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 24px;
+    }
+}
+
+.voice-over-title {
+    color: #546677;
+    flex: 1;
+    font-family: OpenSans;
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.voice-over-action-separator {
+    background-color: #e8e8e8;
+    display: inline-block;
+    height: 20px;
+    width: 1px;
+}
+
+.voice-over-action {
+    background: transparent;
+    cursor: pointer;
+    border: 0 none;
+    height: 16px;
+    margin: 0 13px;
+    position: relative;
+    width: 16px;
+
+    &:before {
+        background-repeat: no-repeat;
+        background-image: url(images/sprites_16.png);
+        content: "";
+        height: 16px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 16px;
+    }
+
+    &.edit {
+
+        &:hover {
+            &:before {
+                background-position: -21px -126px;
+            }
+        }
+
+        &:before {
+            background-position: 0 -126px;
+        }
+
+        .info-tooltip {
+            margin-left: -27px;
+        }
+    }
+
+
+    &.delete {
+
+        &:hover {
+            &:before {
+                background-position: -147px -105px;
+            }
+        }
+
+        &:before {
+            background-position: -126px -105px;
+        }
+
+        .info-tooltip {
+            margin-left: -23px;
+        }
+    }
+}
+
+/*#endregion*/

@@ -22,14 +22,8 @@
                         </div>
                         <div class="limit-courses-informer">
                             <div class="limit-courses-informer-text">
-                                <!-- ko if: hasStarterAccess -->
-                                <span data-bind="localize: { html : 'limitCoursesInformerTextForStarter' }"></span>
-                                <span class="bold" data-bind="html: coursesStarterLimit">50</span>
-                                <!-- /ko -->
-                                <!-- ko ifnot: hasStarterAccess -->
-                                <span data-bind="localize: { html : 'limitCoursesInformerTextForFreeUser' }"></span>
-                                <span class="bold" data-bind="html: coursesFreeLimit">50</span>
-                                <!-- /ko -->
+                                <span data-bind="localize: { html : 'limitCoursesInformerText' }"></span>
+                                <span class="bold" data-bind="html: currentCoursesLimit"></span>
                                 <span data-bind="localize: { html : 'limitCoursesInformerTextEnd' }"></span>
                             </div>
                             <div class="limit-courses-infomer-btn-holder">
@@ -131,7 +125,7 @@
                     <div class="processing-block-container" data-bind="fadeOut: { predicate: isDuplicatingFinished, callback: finishDuplicating, duration: 500 }, scrollTo: {}">
                         <div class="processing-block">
                             <div class="circular-loader-container">
-                                <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 orange align-center', style: { top: '50%' } } } --><!-- /ko -->
+                                <div data-bind="preloader: { type: 'circular', settings: 'big orange align-center', styles: { top: '50%' } }"></div>
                             </div>
                             <div class="processing-message-block">
                                 <h4 class="processing-message-title" data-bind="localize: { text: 'courseIsDuplicating' }">Course is duplicating...</h4>

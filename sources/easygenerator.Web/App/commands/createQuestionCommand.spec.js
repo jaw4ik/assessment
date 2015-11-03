@@ -7,8 +7,7 @@
         uiLocker = require('uiLocker'),
         clientContext = require('clientContext'),
         eventTracker = require('eventTracker'),
-        constants = require('constants')
-    ;
+        constants = require('constants');
 
     describe('command [createQuestionCommand]', function () {
 
@@ -221,6 +220,16 @@
 
             });
 
+            describe('when question type is scenario', function () {
+
+                it('should add question to repository', function () {
+                    spyOn(localizationManager, 'localize').and.returnValue('title');
+                    command.execute('objectiveId', 'title', constants.questionType.scenario.type);
+                    expect(questionRepository.addQuestion).toHaveBeenCalledWith('objectiveId', { title: 'title' }, constants.questionType.scenario.type);
+                });
+
+            });
+
             describe('when question type is informationContent', function () {
 
                 it('should add question to repository', function () {
@@ -287,4 +296,4 @@
 
     });
 
-})
+});

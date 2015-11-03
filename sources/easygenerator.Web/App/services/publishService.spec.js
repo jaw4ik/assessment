@@ -204,60 +204,6 @@
 
         });
 
-        describe('publishCourseToStore:', function () {
-            var course;
-            var post;
-
-            beforeEach(function () {
-                course = { id: 'someId' };
-
-                post = Q.defer();
-                spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
-            });
-
-            it('should be function', function () {
-                expect(service.publishCourseToStore).toBeFunction();
-            });
-
-            it('should return promise', function () {
-                var promise = service.publishCourseToStore();
-
-                expect(promise).toBePromise();
-            });
-
-            it('should send request to \'\'', function (done) {
-                post.resolve({});
-
-                var promise = service.publishCourseToStore(course.id);
-
-                promise.fin(function () {
-                    expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/aim4you/publish', { courseId: course.id });
-                    done();
-                });
-
-            });
-
-            describe('and send request to server', function () {
-
-                describe('and request success', function () {
-
-                    it('should resolve promise with true', function (done) {
-                        post.resolve();
-
-                        var promise = service.publishCourseToStore();
-
-                        promise.fin(function () {
-                            expect(promise).toBeResolvedWith();
-                            done();
-                        });
-
-                    });
-
-                });
-
-            });
-        });
-
         describe('buildLearningPath:', function() {
             var post,
                 learningPathId;

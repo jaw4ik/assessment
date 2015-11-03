@@ -37,13 +37,39 @@
 
         </div>
     </div>
-    <!-- ko if: questionContent -->
     <div class="content-section-wrapper">
-        <div class="content-section">
-            <!-- ko if: questionTitle.isExpanded -->
+        <div class="question-extra-content-section content-section">
+            <!-- ko if: voiceOver.title -->
+            <div class="voice-over-wrapper">
+                <label data-bind="localize: {text: 'voiceOver'}"></label>
+                <div class="voice-over">
+                    <div class="voice-over-icon"></div>
+                    <div class="voice-over-title" data-bind="text: voiceOver.title"></div>
+                    <button class="voice-over-action edit info-tooltip-holder" data-bind="click: voiceOver.update">
+                        <div class="info-tooltip">
+                            <span data-bind="localize: { text: 'change' }"></span>
+                        </div>
+                    </button>
+                    <span class="voice-over-action-separator"></span>
+                    <button class="voice-over-action delete info-tooltip-holder" data-bind="click: voiceOver.remove">
+                        <div class="info-tooltip">
+                            <span data-bind="localize: { text: 'delete' }"></span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko ifnot: voiceOver.title -->
+            <div class="extra-content-action-wrapper">
+                <div class="extra-content-action" data-bind="click: voiceOver.update">
+                    <span class="extra-content-action-text add" data-bind="localize: { text: 'addVoiceOver' }"></span>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: questionContent -->
+            <!-- ko if: questionContent.isContentDefined -->
             <div class="question-extra-content-block" data-bind="with: questionContent">
                 <div class="extra-content-action-wrapper">
-                    <!-- ko if: isContentDefined -->
                     <!-- ko if: isExpanded -->
                     <div class="extra-content-action" data-bind="click: toggleExpand">
                         <span class="extra-content-action-text hide" data-bind="localize: { text: 'hideQuestionContent' }"></span>
@@ -54,14 +80,7 @@
                         <span class="extra-content-action-text show" data-bind="localize: { text: 'showQuestionConent' }"></span>
                     </div>
                     <!-- /ko -->
-                    <!-- /ko -->
-                    <!-- ko ifnot: isContentDefined -->
-                    <div class="extra-content-action" data-bind="click: addContent">
-                        <span class="extra-content-action-text add " data-bind="localize: { text: 'addExtraQuestionContent' }"></span>
-                    </div>
-                    <!-- /ko -->
                 </div>
-                <!-- ko if: isContentDefined -->
                 <div class="question-content-items-list" data-bind="visible: isExpanded">
                     <div class="question-content-item" data-bind="css: { active: hasFocus }">
                         <div class="question-content-wrapper">
@@ -70,12 +89,20 @@
                         </div>
                     </div>
                 </div>
-                <!-- /ko -->
             </div>
+            <!-- /ko -->
+            <!-- /ko -->
+            <!-- ko if: questionContent -->
+            <!-- ko ifnot: questionContent.isContentDefined -->
+            <div class="extra-content-action-wrapper">
+                <div class="extra-content-action" data-bind="click: questionContent.addContent">
+                    <span class="extra-content-action-text add" data-bind="localize: { text: 'addExtraQuestionContent' }"></span>
+                </div>
+            </div>
+            <!-- /ko -->
             <!-- /ko -->
         </div>
     </div>
-    <!-- /ko -->
     <!-- ko if: hasQuestionView -->
     <div class="answers">
         <!-- ko compose: activeQuestionViewModel -->
@@ -83,9 +110,8 @@
     </div>
     <!-- /ko -->
     <!-- ko if: hasFeedback -->
-    <!-- ko compose: { model: 'viewmodels/questions/feedback', activationData: { questionId: questionId, captions: feedbackCaptions } } -->
+    <!-- ko compose: feedbackViewModel --><!-- /ko -->
     <!-- /ko -->
-    <!-- /ko -->
-    <!-- ko compose: { model: 'viewmodels/learningContents/learningContents', activationData: { questionId: questionId, questionType: questionType } } --><!-- /ko -->
+    <!-- ko compose: learningContentsViewModel --><!-- /ko -->
 
 </section>

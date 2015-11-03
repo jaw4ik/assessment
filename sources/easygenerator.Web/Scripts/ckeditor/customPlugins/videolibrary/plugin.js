@@ -12,13 +12,15 @@
         videoLibraryDialogName: 'videoLibraryDialog',
 
         constants: {
+            player: {
+                host: "//" + window.playerUrl
+            },
             storage: {
-                host: window.storageServiceUrl ? "//" + window.storageServiceUrl : '//localhost:888',
+                host: "//" + window.storageServiceUrl,
                 mediaUrl: '/media',
                 video: {
                     vimeoToken: 'bearer a6b8a8d804e9044f9aa091b6687e70c1',
                     vimeoApiVideosUrl: 'https://api.vimeo.com/videos/',
-                    videoUrl: '/video',
                     thumbnailUrl: '/pictures',
                     defaultThumbnailUrl: '//i.vimeocdn.com/video/default_200x150.jpg',
                     iframeWidth: 600,
@@ -67,7 +69,7 @@
                     $listItem.append($text);
                     $listItem.addClass('video-library-item');
                     $listItem.hide();
-                  
+
                     if (!!onDblClick) {
                         $listItem.dblclick(onDblClick);
                     }
@@ -252,10 +254,10 @@
                         exec: function () {
                             var vimeoId = this.data;
                             if (vimeoId) {
-                                var embedCode = '<iframe src="' + plugin.constants.storage.host + plugin.constants.storage.video.videoUrl + '/' + vimeoId + '?color=ffffff&title=0&byline=0&portrait=0"' +
+                                var embedCode = '<iframe src="' + plugin.constants.player.host + '?source=' + vimeoId + '&video=1&fullscreen_toggle=1&v=' + window.egVersion + '"' +
                                     ' width="' + plugin.constants.storage.video.iframeWidth +
                                     '" height="' + plugin.constants.storage.video.iframeHeight +
-                                    '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+                                    '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen ></iframe>';
                                 dialog.setValueOf(elementDefinition.parentContainerId, elementDefinition.embedCodeAreaId, embedCode);
                             }
                         }

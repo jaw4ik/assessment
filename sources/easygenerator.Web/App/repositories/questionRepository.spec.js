@@ -815,6 +815,202 @@
 
             });
 
+            describe('updateVoiceOver:', function () {
+
+                it('should be function', function () {
+                    expect(questionRepository.updateVoiceOver).toBeFunction();
+                });
+
+                it('should return promise', function () {
+                    expect(questionRepository.updateVoiceOver()).toBePromise();
+                });
+
+                describe('when question id is null', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.updateVoiceOver(null, '');
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Question id is not a string');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when question id is undefined', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.updateVoiceOver(undefined, '');
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Question id is not a string');
+                            done();
+                        });
+                    });
+
+                });
+
+                describe('when question id is not a string', function () {
+
+                    it('should reject promise', function (done) {
+                        var promise = questionRepository.updateVoiceOver({}, '');
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Question id is not a string');
+                            done();
+                        });
+                    });
+
+                });
+             
+                describe('when all arguments are valid', function () {
+
+                    it('should send request to server to api/question/updateVoiceOver', function (done) {
+                        var questionVoiceOver = 'questionVoiceOver';
+
+                        post.reject();
+
+                        var promise = questionRepository.updateVoiceOver(questionId, questionVoiceOver);
+                        promise.fin(function () {
+                            expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/question/updateVoiceOver', {
+                                questionId: questionId,
+                                voiceOver: questionVoiceOver
+                            });
+                            done();
+                        });
+                    });
+
+                    describe('and request to server was not successful', function () {
+
+                        it('should reject promise', function (done) {
+                            var reason = 'reason';
+                            var promise = questionRepository.updateVoiceOver('', '');
+
+                            post.reject(reason);
+                            promise.fin(function () {
+                                expect(promise).toBeRejectedWith(reason);
+                                done();
+                            });
+                        });
+
+                    });
+
+                    describe('and request to server was successful', function () {
+
+                        describe('and response is undefined', function () {
+
+                            it('should reject promise', function (done) {
+                                var promise = questionRepository.updateVoiceOver('', '');
+
+                                post.resolve(undefined);
+                                promise.fin(function () {
+                                    expect(promise).toBeRejectedWith('Response is not an object');
+                                    done();
+                                });
+                            });
+
+                        });
+
+                        describe('and response is null', function () {
+
+                            it('should reject promise', function (done) {
+                                var promise = questionRepository.updateVoiceOver('', '');
+
+                                post.resolve(null);
+                                promise.fin(function () {
+                                    expect(promise).toBeRejectedWith('Response is not an object');
+                                    done();
+                                });
+                            });
+
+                        });
+
+                        describe('and response is not an object', function () {
+
+                            it('should reject promise', function (done) {
+                                var promise = questionRepository.updateVoiceOver('', '');
+
+                                post.resolve('');
+                                promise.fin(function () {
+                                    expect(promise).toBeRejectedWith('Response is not an object');
+                                    done();
+                                });
+                            });
+
+                        });
+
+                        describe('and response does not have question modification date', function () {
+
+                            it('should reject promise', function (done) {
+                                var promise = questionRepository.updateVoiceOver('', '');
+
+                                post.resolve({});
+                                promise.fin(function () {
+                                    expect(promise).toBeRejectedWith('Response does not have modification date');
+                                    done();
+                                });
+                            });
+
+                        });
+
+                        describe('and response has modification date', function () {
+
+                            var createdOnDate = new Date();
+                            var response = { ModifiedOn: createdOnDate.toISOString() };
+
+                            beforeEach(function () {
+                                post.resolve(response);
+                            });
+
+                            describe('and question does not exist in dataContext', function () {
+
+                                beforeEach(function () {
+                                    dataContext.objectives = [];
+                                });
+
+                                it('should reject promise', function (done) {
+                                    var promise = questionRepository.updateVoiceOver('', '');
+                                    promise.fin(function () {
+                                        expect(promise).toBeRejectedWith('Question does not exist in dataContext');
+                                        done();
+                                    });
+                                });
+
+                            });
+
+                            describe('and question exists in dataContext', function () {
+
+                                var questionVoiceOver = 'questionVoiceOver';
+
+                                beforeEach(function () {
+                                    dataContext.objectives = [{ id: '', questions: [{ id: questionId }] }];
+                                });
+
+                                it('should update title and modification date', function (done) {
+                                    var promise = questionRepository.updateVoiceOver(questionId, questionVoiceOver);
+                                    promise.fin(function () {
+                                        expect(dataContext.objectives[0].questions[0].voiceOver).toEqual(questionVoiceOver);
+                                        expect(dataContext.objectives[0].questions[0].modifiedOn).toEqual(new Date(response.ModifiedOn));
+                                        done();
+                                    });
+                                });
+
+                                it('should resolve promise with modification date', function (done) {
+                                    var promise = questionRepository.updateVoiceOver(questionId, questionVoiceOver);
+                                    promise.fin(function () {
+                                        expect(promise).toBeResolvedWith(new Date(response.ModifiedOn));
+                                        done();
+                                    });
+                                });
+
+                            });
+
+                        });
+
+                    });
+
+                });
+
+            });
+
             describe('updateContent:', function () {
 
                 it('should be function', function () {

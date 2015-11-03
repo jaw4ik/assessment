@@ -5,6 +5,7 @@ export default class Question extends Entity {
         super(spec);
 
         this.title = spec.title;
+        this.voiceOver = spec.voiceOver;
         this.content = spec.content;
         this.type = spec.type;
     }

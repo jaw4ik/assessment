@@ -26,6 +26,12 @@ namespace easygenerator.Infrastructure.Http
             return DoHttpAction<TResponse>(url, null, client => client.GetAsync(BuildUrl(url, queryStringParameters)).Result, userName, password);
         }
 
+        public virtual TResponse Get<TResponse>(string url, Dictionary<string, string> queryStringParameters, Dictionary<string, string> headers, string userName = null, string password = null)
+        {
+            var requestMessage = BuildRequestMessage(HttpMethod.Get, BuildUrl(url, queryStringParameters), headers);
+            return DoHttpAction<TResponse>(url, null, client => client.SendAsync(requestMessage).Result, userName, password);
+        }
+
         public virtual TResponse PostFile<TResponse>(string url, string fileName, byte[] fileData)
         {
             using (var client = InitializeHttpClient())
@@ -141,6 +147,16 @@ namespace easygenerator.Infrastructure.Http
             }
 
             return uriBuilder.ToString();
+        }
+
+        protected virtual HttpRequestMessage BuildRequestMessage(HttpMethod method, string requestUrl, Dictionary<string, string> headers)
+        {
+            var requestMessage = new HttpRequestMessage(method, requestUrl);
+            foreach (var header in headers)
+            {
+                requestMessage.Headers.Add(header.Key, header.Value);
+            }
+            return requestMessage;
         }
 
         protected virtual AuthenticationHeaderValue GetBasicAuthenticationHeader(string userName, string password)

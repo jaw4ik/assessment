@@ -657,10 +657,10 @@
 
         });
 
-        describe('activate:', function () {
+        describe('initialize:', function () {
 
             var activationData = {
-                questionId: questionId
+                id: questionId
             },
                 getLearningContentFeedbackDeferred;
 
@@ -670,12 +670,12 @@
             });
 
             it('should be function', function () {
-                expect(viewModel.activate).toBeFunction();
+                expect(viewModel.initialize).toBeFunction();
             });
 
             it('should return promise', function () {
                 getLearningContentFeedbackDeferred.resolve([]);
-                expect(viewModel.activate(activationData)).toBePromise();
+                expect(viewModel.initialize(activationData)).toBePromise();
             });
 
             describe('when route data has questionId', function () {
@@ -685,7 +685,7 @@
 
                 it('should call repository method to get learning contents', function (done) {
                     getLearningContentFeedbackDeferred.resolve([]);
-                    viewModel.activate(activationData).fin(function () {
+                    viewModel.initialize(activationData).fin(function () {
                         expect(repository.getCollection).toHaveBeenCalledWith(questionId);
                         done();
                     });
@@ -699,7 +699,7 @@
                 });
 
                 it('should not call repository method to get learning contents', function (done) {
-                    viewModel.activate(activationData).fin(function () {
+                    viewModel.initialize(activationData).fin(function () {
                         expect(repository.getCollection).not.toHaveBeenCalled();
                         done();
                     });
@@ -774,10 +774,10 @@
 
         describe('removeLearningContent', function () {
             var learningContents = [
-                           { id: ko.observable(''), isRemoved: ko.observable(false) },
-                           { id: ko.observable('id2'), isRemoved: ko.observable(false) },
-                           { id: ko.observable('id3'), isRemoved: ko.observable(false) },
-                           { id: ko.observable('id4'), isRemoved: ko.observable(false) }
+                           { id: ko.observable(''), isRemoved: ko.observable(false), text: ko.observable("123") },
+                           { id: ko.observable('id2'), isRemoved: ko.observable(false), text: ko.observable("123") },
+                           { id: ko.observable('id3'), isRemoved: ko.observable(false), text: ko.observable("123") },
+                           { id: ko.observable('id4'), isRemoved: ko.observable(false), text: ko.observable("123") }
             ];
 
             beforeEach(function () {
@@ -803,6 +803,17 @@
                     viewModel.learningContents()[1].isDeleted = true;
                     viewModel.removeLearningContent(learningContents[1]);
                     expect(viewModel.learningContents().length).toBe(3);
+                });
+
+            });
+
+            describe('when learning content is empty', function () {
+
+                it('should remove learning content from the list', function () {
+                    learningContents[1].text("");
+                    viewModel.learningContents([learningContents[1]]);
+                    viewModel.removeLearningContent(learningContents[1]);
+                    expect(viewModel.learningContents().length).toBe(0);
                 });
 
             });

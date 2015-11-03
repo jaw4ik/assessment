@@ -1,5 +1,5 @@
-﻿define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synchronization/listener', 'onboarding/initialization', 'audio/index'],
-    function (system, app, bootstrapper, userContext, synchronization, onboarding, audio) {
+﻿define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synchronization/listener', 'onboarding/initialization', 'audio/index', 'localization/localizationManager'],
+    function (system, app, bootstrapper, userContext, synchronization, onboarding, audio, localizationManager) {
         if (!has('release')) {
             system.debug(true);
         }
@@ -10,7 +10,9 @@
             router: true,
             dialog: true,
             http: true,
-            widget: true
+            widget: {
+                kinds: ['preloader']
+            }
         });
 
         var ltiAuthDefer;
@@ -30,20 +32,23 @@
         }
 
         ltiAuthDefer.then(function () {
-            
+
             app.start().then(function () {
-                bootstrapper.run();
+                localizationManager.initialize(window.userCultures).then(function () {
+                    $('html').attr('lang', localizationManager.language);
 
-                return Q.all([
-                    userContext.identify(),
-                    userContext.identifyStoragePermissions(),
-                    synchronization.start(),
-                    onboarding.initialize(),
-                    audio.initialize()
-                ]).spread(function () {
-                    app.setRoot('viewmodels/shell', null, document.getElementById('app'));
+                    bootstrapper.run();
+                    
+                    return Q.all([
+                        userContext.identify(),
+                        userContext.identifyStoragePermissions(),
+                        synchronization.start(),
+                        onboarding.initialize(),
+                        audio.initialize()
+                    ]).spread(function () {
+                        app.setRoot('viewmodels/shell', null, document.getElementById('app'));
+                    });
                 });
-
             }).done();
         });
     }

@@ -49,7 +49,7 @@
                     <div class="hotspot-designer-background-loader-wrapper">
                         <div class="hotspot-designer-background-loader">
                             <div class="hotspot-designer-background-loader-spinner">
-                                <!-- ko compose: { view: 'views/common/circularLoader', model: { css: 'x32 grey align-center' } } --><!-- /ko -->
+                                <div data-bind="preloader: { settings: 'grey align-center' }"></div>
                             </div>
                             <div class="hotspot-designer-background-loader-text" data-bind="localize: { text: 'loadingImage' }"></div>
                         </div>

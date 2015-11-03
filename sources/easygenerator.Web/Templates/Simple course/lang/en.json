@@ -59,5 +59,7 @@
     "[your answer is empty and was not stored]": "Your answer is empty and was not stored",
     "[tracking and tracing hint without skip]": "Please enter your credentials and click \"Start and report my results\" to start the course.",
     "[tracking and tracing error hint without continue]": "Restart the course. Contact your course provider if the problem persists.",
-    "[question]": "Question"
+    "[question]": "Question",
+    "[scenario has been submitted]": "Scenario has been submitted",
+    "[scenario has not been finished yet]": "Scenario has not been finished yet. You have to finish it before submitting."
 }

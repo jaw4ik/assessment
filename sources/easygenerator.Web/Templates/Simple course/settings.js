@@ -5,6 +5,9 @@
     "theme": {
         "key": ""
     },
+    "objectivesLayout": {
+        "key": "List"
+    },
     "background": {
 		"image": {
 			"src": null,

@@ -21,7 +21,6 @@
             this.scormBuild = buildingAction.call(this, scormBuildActionHandler, spec.scormPackageUrl);
             this.publish = deliveringAction.call(this, publishActionHandler, spec.publishedPackageUrl);
             this.publishForReview = deliveringAction.call(this, publishForReviewActionHandler, spec.reviewUrl);
-            this.publishToStore = deliveringAction.call(this, publishToStoreActionHandler);
             this.publishToCustomLms = publishToCustomLms;
 
             this.getState = getState;
@@ -190,31 +189,7 @@
                 });
             });
         }
-
-        function publishToStoreActionHandler(action) {
-            var that = this;
-            return Q.fcall(function () {
-                if (action.state === constants.publishingStates.publishing) {
-                    throw 'Course is already publishing to Aim4You.';
-                }
-
-                action.setState(constants.publishingStates.publishing);
-                app.trigger(constants.messages.course.publishToAim4You.started, that);
-
-                return publishService.publishCourseToStore(that.id).then(function () {
-                    action.setState(constants.publishingStates.succeed);
-                    app.trigger(constants.messages.course.publishToAim4You.completed, that);
-
-                    return that;
-                }).fail(function (message) {
-                    action.setState(constants.publishingStates.failed);
-                    app.trigger(constants.messages.course.publishToAim4You.failed, that, message);
-
-                    throw message;
-                });
-            });
-        }
-
+      
         function publishToCustomLms() {
             var that = this;
             return Q.fcall(function () {

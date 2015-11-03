@@ -1,10 +1,12 @@
-﻿using easygenerator.DomainModel.Entities.Questions;
+﻿using System;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.AnswerEvents;
 using easygenerator.DomainModel.Events.LearningContentEvents;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.DomainModel.Events.QuestionEvents.DragAndDropEvents;
 using easygenerator.DomainModel.Events.QuestionEvents.HotSpotEvents;
+using easygenerator.DomainModel.Events.QuestionEvents.ScenarioEvents;
 using easygenerator.DomainModel.Events.QuestionEvents.SingleSelectImageEvents;
 using easygenerator.DomainModel.Events.QuestionEvents.TextMatchingEvents;
 using easygenerator.Web.DomainEvents.ChangeTracking.Events;
@@ -20,13 +22,16 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         IDomainEventHandler<QuestionCreatedEvent>,
         IDomainEventHandler<QuestionIncorrectFeedbackUpdatedEvent>,
         IDomainEventHandler<QuestionTitleUpdatedEvent>,
+        IDomainEventHandler<QuestionVoiceOverUpdatedEvent>,
         IDomainEventHandler<AnswerDeletedEvent>,
         IDomainEventHandler<LearningContentDeletedEvent>,
         IDomainEventHandler<HotSpotPolygonDeletedEvent>,
         IDomainEventHandler<DropspotDeletedEvent>,
         IDomainEventHandler<HotSpotIsMultipleChangedEvent>,
         IDomainEventHandler<SingleSelectImageAnswerDeletedEvent>,
-        IDomainEventHandler<TextMatchingAnswerDeletedEvent>
+        IDomainEventHandler<TextMatchingAnswerDeletedEvent>,
+        IDomainEventHandler<ScenarioDataUpdatedEvent>,
+        IDomainEventHandler<ScenarioMasteryScoreUpdatedEvent>
     {
         private readonly IDomainEventPublisher _eventPublisher;
 
@@ -76,6 +81,11 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         {
             RaiseQuestionChangedEvent(args.Question);
         }
+        
+        public void Handle(QuestionVoiceOverUpdatedEvent args)
+        {
+            RaiseQuestionChangedEvent(args.Question);
+        }
 
         public void Handle(AnswerDeletedEvent args)
         {
@@ -108,6 +118,16 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         }
 
         public void Handle(TextMatchingAnswerDeletedEvent args)
+        {
+            RaiseQuestionChangedEvent(args.Question);
+        }
+
+        public void Handle(ScenarioMasteryScoreUpdatedEvent args)
+        {
+            RaiseQuestionChangedEvent(args.Question);
+        }
+
+        public void Handle(ScenarioDataUpdatedEvent args)
         {
             RaiseQuestionChangedEvent(args.Question);
         }

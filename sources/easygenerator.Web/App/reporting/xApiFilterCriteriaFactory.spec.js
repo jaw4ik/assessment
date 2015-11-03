@@ -111,12 +111,23 @@
                 });
             });
 
-            describe('when spec contains attemptId', function () {
-                it('should fill instance with attemptId', function () {
-                    var spec = { attemptId: "attemptId" };
-                    var criteria = filterCriteriaFactory.create(spec);
-                    expect(criteria[constants.reporting.filterKeys.attemptId]).toBe(spec.attemptId);
+            describe('when spec contains attemptIds', function () {
+                describe('and attemptIds is string', function () {
+                    it('should fill instance with one attemptId', function () {
+                        var spec = { attemptIds: "attemptId" };
+                        var criteria = filterCriteriaFactory.create(spec);
+                        expect(criteria[constants.reporting.filterKeys.attemptId]).toBe(spec.attemptIds);
+                    });
                 });
+
+                describe('and attemptIds is array', function () {
+                    it('should fill instance with comma separated attemptIds', function () {
+                        var spec = { attemptIds: ["attemptId1", "attemptId2"] };
+                        var criteria = filterCriteriaFactory.create(spec);
+                        expect(criteria[constants.reporting.filterKeys.attemptId]).toBe(spec.attemptIds.join(","));
+                    });
+                });
+
             });
 
             describe('when spec contains parentId', function () {
