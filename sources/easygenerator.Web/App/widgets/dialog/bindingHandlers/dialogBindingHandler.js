@@ -39,7 +39,7 @@
             if (autoclose) {
                 $blockout.click(hide);
                 if ($parent.hasClass('dialog-container')) {
-                    $parent.on('click', parentClickHandler);
+                    $parent.on('click', blockoutClickHandler);
                 }
             }
 
@@ -70,7 +70,7 @@
                     onHide();
                 }
             });
-            $parent.off('click', parentClickHandler);
+            $parent.off('click', blockoutClickHandler);
         }
 
         function closeOnEscape(evt) {
@@ -142,7 +142,7 @@
             }
         };
 
-        function parentClickHandler(evt) {
+        function blockoutClickHandler(evt) {
             if ($(evt.target).closest($element).length === 0) {
                 hide();
             }
