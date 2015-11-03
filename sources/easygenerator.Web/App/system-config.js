@@ -1,12 +1,13 @@
 ﻿System.config({
-    transpiler: 'traceur',
+    transpiler: 'babel',
     map: {
-        traceur: 'libs/traceur/traceur',
-        text: 'libs/text',
-        durandal: 'libs/durandal',
-        plugins: 'libs/durandal/plugins',
-        jquery: 'libs/jquery',
-        knockout: 'libs/knockout'
+        babel: '/Scripts/systemjs/babel/browser',
+        text: 'core/plugins/text',
+        durandal: 'core/durandal',
+        plugins: 'core/durandal/plugins',
+        transitions: 'core/durandal/transitions',
+        jquery: 'core/jquery',
+        knockout: 'core/knockout'
     },
     defaultJSExtensions: true
 });

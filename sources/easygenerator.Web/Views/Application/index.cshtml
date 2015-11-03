@@ -71,61 +71,51 @@
             window.BOMSymbol = '\ufeff';
 
             @for (var i = 0; i < userCultures.Count(); i++)
-        {
-            <text>window.userCultures.push('@userCultures[i]');</text>;
-        }
+            {
+                <text>window.userCultures.push('@userCultures[i]');</text>;
+            }
         </script>
     }
 
     <script type="text/javascript">
-    @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["StorageServiceUrl"]))
-    {
-        <text>
-        window.storageServiceUrl = '@ConfigurationManager.AppSettings["StorageServiceUrl"]';
-        </text>
-    }
+        @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["StorageServiceUrl"]))
+        {
+            <text>
+            window.storageServiceUrl = '@ConfigurationManager.AppSettings["StorageServiceUrl"]';
+            </text>
+        }
         @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["ConvertionServiceUrl"]))
-    {
-        <text>
-        window.convertionServiceUrl = '@ConfigurationManager.AppSettings["ConvertionServiceUrl"]';
-        </text>
-    }
-    //bootstraper
+        {
+            <text>
+            window.convertionServiceUrl = '@ConfigurationManager.AppSettings["ConvertionServiceUrl"]';
+            </text>
+        }
 
-    @*(function() {
+        //bootstraper
+        (function() {
             if (window.auth.isUserLoggedIn() || window.auth.isAuthTokenPresentInHash()) {
-                var js = document.createElement('script');
-                js.type = 'text/javascript';
-                js.async = true;
-                @if (HttpContext.Current.IsDebuggingEnabled)
+                System.baseURL = '/app';
+
+                var systemLoadPromise = System.import('system-config.js');
+
+                @if (!HttpContext.Current.IsDebuggingEnabled)
                 {
-                <text>
-                js.src = "/Scripts/require.js";
-                js.dataset.main = "/App/main";
-                </text>
+                    <text>
+                    systemLoadPromise = systemLoadPromise.then(function () {
+                        return System.import('main-built.js');
+                    });
+                    </text>
                 }
-                else {
-                <text>
-                js.src = '@("/App/main-built.js?v=" + DateTimeWrapper.InstanceStartTime.Ticks)';
-                </text>
-                }
-                document.body.appendChild(js);
+
+                systemLoadPromise.then(function () {
+                    return System.import('index.js');
+                });
             }
             else {
                 window.location.replace('/signin');
             }
-        }());*@
+        }());
 
-    </script>
-
-<script src="/Scripts/systemjs/system.js" type="text/javascript"></script>
-<script src="/App/main-system-built.js"></script>
-    <script type="text/javascript">
-        System.baseURL = '/app';
-        System.import('system-config.js').then(function() {
-            debugger;
-            System.get('index.js');
-        });
     </script>
 
 </body>

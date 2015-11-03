@@ -601,30 +601,28 @@
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
     <Content Include="App\browse.js" />
+    <Content Include="App\core\durandal\activator.js" />
+    <Content Include="App\core\durandal\app.js" />
+    <Content Include="App\core\durandal\binder.js" />
+    <Content Include="App\core\durandal\composition.js" />
+    <Content Include="App\core\durandal\events.js" />
+    <Content Include="App\core\durandal\plugins\dialog.js" />
+    <Content Include="App\core\durandal\plugins\history.js" />
+    <Content Include="App\core\durandal\plugins\http.js" />
+    <Content Include="App\core\durandal\plugins\observable.js" />
+    <Content Include="App\core\durandal\plugins\router.js" />
+    <Content Include="App\core\durandal\plugins\serializer.js" />
+    <Content Include="App\core\durandal\plugins\widget.js" />
+    <Content Include="App\core\durandal\system.js" />
+    <Content Include="App\core\durandal\transitions\defaultRouterTransition.js" />
+    <Content Include="App\core\durandal\transitions\fadeTransition.js" />
+    <Content Include="App\core\durandal\transitions\notificationTransition.js" />
+    <Content Include="App\core\durandal\viewEngine.js" />
+    <Content Include="App\core\durandal\viewLocator.js" />
+    <Content Include="App\core\jquery.js" />
+    <Content Include="App\core\knockout.js" />
+    <Content Include="App\core\plugins\text.js" />
     <Content Include="App\index.js" />
-    <Content Include="App\libs\babel\browser.js" />
-    <Content Include="App\libs\babel\browser\external-helpers.js" />
-    <Content Include="App\libs\durandal\activator.js" />
-    <Content Include="App\libs\durandal\app.js" />
-    <Content Include="App\libs\durandal\binder.js" />
-    <Content Include="App\libs\durandal\composition.js" />
-    <Content Include="App\libs\durandal\events.js" />
-    <Content Include="App\libs\durandal\plugins\dialog.js" />
-    <Content Include="App\libs\durandal\plugins\history.js" />
-    <Content Include="App\libs\durandal\plugins\http.js" />
-    <Content Include="App\libs\durandal\plugins\observable.js" />
-    <Content Include="App\libs\durandal\plugins\router.js" />
-    <Content Include="App\libs\durandal\plugins\serializer.js" />
-    <Content Include="App\libs\durandal\plugins\widget.js" />
-    <Content Include="App\libs\durandal\system.js" />
-    <Content Include="App\libs\durandal\transitions\defaultRouterTransition.js" />
-    <Content Include="App\libs\durandal\transitions\fadeTransition.js" />
-    <Content Include="App\libs\durandal\transitions\notificationTransition.js" />
-    <Content Include="App\libs\durandal\viewEngine.js" />
-    <Content Include="App\libs\durandal\viewLocator.js" />
-    <Content Include="App\libs\jquery.js" />
-    <Content Include="App\libs\knockout.js" />
-    <Content Include="App\libs\text.js" />
     <Content Include="App\models\entityClass.js" />
     <Content Include="App\Query.js" />
     <Content Include="App\Command.js" />
@@ -1623,7 +1621,6 @@
     <Content Include="Scripts\ckeditor\skins\moono\images\refresh.png" />
     <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
     <Content Include="Scripts\ckeditor\styles.js" />
-    <Content Include="Scripts\durandal\transitions\notificationTransition.js" />
     <Content Include="Scripts\FileSaver.js" />
     <Content Include="App\onboarding\tasks.js" />
     <Content Include="App\onboarding\tasks.spec.js">
@@ -2175,23 +2172,6 @@
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />
-    <Content Include="Scripts\almond-custom.js" />
-    <Content Include="Scripts\durandal\activator.js" />
-    <Content Include="Scripts\durandal\app.js" />
-    <Content Include="Scripts\durandal\binder.js" />
-    <Content Include="Scripts\durandal\composition.js" />
-    <Content Include="Scripts\durandal\events.js" />
-    <Content Include="Scripts\durandal\plugins\dialog.js" />
-    <Content Include="Scripts\durandal\plugins\history.js" />
-    <Content Include="Scripts\durandal\plugins\http.js" />
-    <Content Include="Scripts\durandal\plugins\observable.js" />
-    <Content Include="Scripts\durandal\plugins\router.js" />
-    <Content Include="Scripts\durandal\plugins\serializer.js" />
-    <Content Include="Scripts\durandal\plugins\widget.js" />
-    <Content Include="Scripts\durandal\system.js" />
-    <Content Include="Scripts\durandal\transitions\fadeTransition.js" />
-    <Content Include="Scripts\durandal\viewEngine.js" />
-    <Content Include="Scripts\durandal\viewLocator.js" />
     <Content Include="Scripts\jquery.autosize.js" />
     <Content Include="Scripts\jquery.autosize.min.js" />
     <Content Include="Scripts\jquery.extensions.js" />
@@ -2214,16 +2194,9 @@
     <Content Include="Scripts\q.js" />
     <Content Include="Scripts\q.min.js" />
     <Content Include="Scripts\r.js" />
-    <Content Include="Scripts\require.js" />
-    <Content Include="Scripts\systemjs\plugins\text.js" />
-    <Content Include="Scripts\systemjs\system-csp-production.js" />
-    <Content Include="Scripts\systemjs\system-csp-production.src.js" />
-    <Content Include="Scripts\systemjs\system-polyfills.js" />
-    <Content Include="Scripts\systemjs\system-polyfills.src.js" />
-    <Content Include="Scripts\systemjs\system-register-only.js" />
-    <Content Include="Scripts\systemjs\system-register-only.src.js" />
+    <Content Include="Scripts\systemjs\babel\browser.js" />
+    <Content Include="Scripts\systemjs\babel\browser\external-helpers.js" />
     <Content Include="Scripts\systemjs\system.js" />
-    <Content Include="Scripts\systemjs\system.src.js" />
     <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\zeroclipboard.js" />
@@ -2709,10 +2682,6 @@
     <Content Include="Templates\Assessment\settings\design\css\fonts\opensans-bold.woff" />
     <Content Include="Templates\Assessment\settings\design\css\fonts\opensans-italic-400.woff" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Scripts\systemjs\system-csp-production.js.map" />
-    <Content Include="Scripts\systemjs\system-polyfills.js.map" />
-    <Content Include="Scripts\systemjs\system-register-only.js.map" />
-    <Content Include="Scripts\systemjs\system.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3117,7 +3086,6 @@
     <Content Include="Scripts\common\serviceUnavailableAjaxErrorHandler.spec.js">
       <DependentUpon>serviceUnavailableAjaxErrorHandler.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\durandal\transitions\defaultRouterTransition.js" />
     <Content Include="Scripts\has.js" />
     <Content Include="Scripts\jasmine\boot.js" />
     <Content Include="Scripts\jasmine\jasmine-html.js" />
@@ -3156,7 +3124,6 @@
     <Content Include="Scripts\review\review.spec.js">
       <DependentUpon>review.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\text.js" />
     <Content Include="Scripts\underscore.extensions.js" />
     <Content Include="weyland-config.js" />
   </ItemGroup>
@@ -3230,13 +3197,11 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>cd /d "$(ProjectDir)"
-"$(ProjectDir)../../tools/weyland/weyland" build
-IF NOT EXIST "$(ProjectDir)App\main-built.js" EXIT /B 1</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
-      del "$(ProjectDir)App\main-built.js"
     </PreBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

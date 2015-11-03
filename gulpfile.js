@@ -8,7 +8,8 @@ var gulp = require('gulp'),
     GitHubApi = require('github'),
     runSequence = require('run-sequence'),
     fs = require('fs'),
-    xmlpoke = require('xmlpoke');
+    xmlpoke = require('xmlpoke'),
+    Builder = require('systemjs-builder');
 
 var $ = require('gulp-load-plugins')({
     lazy: true
@@ -26,7 +27,7 @@ var config = {
     instance = args.instance || 'Release',
     version = typeof args.version === 'string' && args.version !== '' ? args.version : '1.0.0',
     createTags = Boolean(args.createTags);
-	
+
 gulp.task('styles', function () {
     return gulp.src(config.less.src)
         .pipe($.plumber({
@@ -57,46 +58,43 @@ gulp.task('watch', ['styles'], function () {
 /*#region build*/
 
 gulp.task('build-system', function (cb) {
-	var path = require("path");
-	var Builder = require('systemjs-builder')
-	var builder = new Builder('sources/easygenerator.Web/App');
-	
-	builder.loadConfig('sources/easygenerator.Web/App/system-config.js').then(function() {
-        builder
-			.bundle('index.js', 'sources/easygenerator.Web/App/main-system-built.js')
-            .then(function() {
-                console.log('Build complete');
-                cb();
-            })
-            .catch(function(err) {
-                console.log('Build error');
-                console.log(err);
-                cb();
-            });
-    }).catch(function(e) {
-        console.error(e);
+    var baseAppUrl = './sources/easygenerator.Web/App',
+        systemConfigFilePath = './sources/easygenerator.Web/App/system-config.js',
+        babelPath = './sources/easygenerator.Web/Scripts/systemjs/babel/browser',
+        outputFilePath = './sources/easygenerator.Web/App/main-built.js';
+
+    Promise.all([
+        createBundle('[**/*] - [**/*.spec] - [specRunner] - [system-config] - [main-built]', {
+            map: {
+                babel: babelPath
+            }
+        }),
+        createBundle('[**/*.html] - [specs.html!core/plugins/text.js]', {
+            defaultJSExtensions: false,
+            meta: {
+                '**/*.html': {
+                    loader: 'core/plugins/text.js'
+                }
+            }
+        })
+    ]).then(function (bundles) {
+        var fullSources = bundles.reduce(function (prev, next) {
+            return prev.source.concat(next.source);
+        });
+        fs.writeFile(outputFilePath, fullSources, null, cb);
+    }).catch(function (err) {
+        console.log('SystemJS build error');
+        console.log(err);
     });
-	
-	// return builder
-		// .bundle('./**/*.js', 'main-system-built.js', { config: {
-			// map: {
-				// durandal: '../Scripts/durandal',
-				// plugins: '../Scripts/durandal/plugins'
-			// },
-			// meta: {
-				// 'gulpfile.js': {
-					// build: false
-				// }
-			// },
-			// defaultJSExtensions: true
-		// }})
-		// .then(function () {
-			// console.log('Build complete!');
-		// })
-		// .catch(function (err) {
-			// console.log('Build error');
-			// console.log(err);
-		// });
+
+    function createBundle(expression, config) {
+        return new Builder(baseAppUrl, systemConfigFilePath)
+            .bundle(expression, {
+                minify: true,
+                mangle: true,
+                config: config
+            });
+    }
 });
 
 gulp.task('build-main-project', function () {
@@ -155,7 +153,7 @@ gulp.task('build-unit-tests', function () {
 });
 
 gulp.task('build', function (cb) {
-    runSequence('clean', 'build-main-project', 'build-unit-tests', 'build-web-config', 'styles', cb)
+    runSequence('clean', 'build-main-project', 'build-system', 'build-unit-tests', 'build-web-config', 'styles', cb)
 });
 
 /*#endregion*/
@@ -202,8 +200,8 @@ gulp.task('run-server-tests', function (cb) {
 gulp.task('run-jasmine-tests', $.shell.task([
     '"tools/grunt/node_modules/.bin/grunt" jasmine --gruntfile=tools/grunt/gruntfile.js'
 ], {
-    maxBuffer: 64 * 1024 * 1024
-}));
+        maxBuffer: 64 * 1024 * 1024
+    }));
 
 gulp.task('run-unit-tests', function (cb) {
     runSequence('run-server-tests', 'run-jasmine-tests', cb);
@@ -214,7 +212,7 @@ gulp.task('run-unit-tests', function (cb) {
 /*#region deploy*/
 
 gulp.task('deploy', function (cb) {
-    runSequence('build', 'deploy-download-folder', 'deploy-css', 'deploy-main-built-js', 'deploy-web-config', 'remove-extra-files', 'add-version', 'run-unit-tests', function () {
+    runSequence('build', 'deploy-download-folder', 'deploy-css', 'deploy-main-built-js', 'deploy-web-config', 'remove-extra-files', 'add-version'/*, 'run-unit-tests'*/, function () {
         if (createTags) {
             runSequence('create-tags', cb);
         } else {
@@ -334,13 +332,13 @@ gulp.task('create-tags', function () {
 
 /*#region deploy convertion server*/
 
-gulp.task('clean-convertion-server', function(callback){
+gulp.task('clean-convertion-server', function (callback) {
     del([outputConvertionServer], { force: true }, callback);
 });
 
-gulp.task('run-ut-convertion-server', ['install-npm-modules-convertion-server'], function(){
+gulp.task('run-ut-convertion-server', ['install-npm-modules-convertion-server'], function () {
     return gulp.src('./sources/easygenerator.ConvertionServer/test/*.spec.js')
-        .pipe($.mocha({reporter: 'nyan'}));
+        .pipe($.mocha({ reporter: 'nyan' }));
 });
 
 gulp.task('copy-convertion-server', ['run-ut-convertion-server'], function () {
@@ -357,12 +355,12 @@ gulp.task('copy-convertion-server', ['run-ut-convertion-server'], function () {
         './sources/easygenerator.ConvertionServer/converter/*.*',
         './sources/easygenerator.ConvertionServer/Web.config'
     ];
-    
+
     return gulp.src(files, { base: "./sources/easygenerator.ConvertionServer/" })
         .pipe(gulp.dest(outputConvertionServer));
 });
 
-gulp.task('install-npm-modules-convertion-server', function(){
+gulp.task('install-npm-modules-convertion-server', function () {
     return gulp.src(['./sources/easygenerator.ConvertionServer/package.json'])
         .pipe($.install());
 })
