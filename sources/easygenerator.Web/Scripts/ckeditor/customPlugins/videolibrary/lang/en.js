@@ -2,6 +2,6 @@
     addFromLibrary: 'Add video from library',
     videoLibrary: 'Video library',
     noVideos: 'No videos yet',
-    somethingWentWrong: 'Something went wrong. ',
+    somethingWentWrong: 'An error occurred. ',
     tryAgain: 'Try again'
 });

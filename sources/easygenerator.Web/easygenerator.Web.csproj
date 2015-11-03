@@ -1332,6 +1332,8 @@
     <Content Include="Scripts\ckeditor\contents.css" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\dialogs\audioembed.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\icons\audioembed.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\pt-br.js" />
@@ -1342,6 +1344,8 @@
     <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\icons\audio-thumbnail.jpg" />
     <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\icons\error.png" />
     <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\icons\no-audio.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\lang\pt-br.js" />
@@ -1350,6 +1354,8 @@
     <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\styles.css" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\dialogs\eqneditor.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\eqneditor\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\eqneditor\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\lang\pt-br.js" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\dialogs\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\icons\eqneditor.png" />
@@ -1371,6 +1377,8 @@
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\styles.css" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\dialogs\fillInTheBlank.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\dialogs\fillInTheBlankDropDown.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\pt-br.js" />
@@ -1382,6 +1390,8 @@
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\dialogs\imageLibrary.js" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\icons\error.png" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\icons\no-images.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\pt-br.js" />
@@ -1393,6 +1403,8 @@
     <Content Include="Scripts\ckeditor\customPlugins\image\icons\hidpi\image.png" />
     <Content Include="Scripts\ckeditor\customPlugins\image\icons\image.png" />
     <Content Include="Scripts\ckeditor\customPlugins\image\images\noimage.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\image\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\image\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\lang\pt-br.js" />
@@ -1478,6 +1490,8 @@
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\dialogs\mediaembed.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\icons\hidpi\mediaembed.png" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\icons\mediaembed.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\de.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\pt-br.js" />
@@ -1485,6 +1499,8 @@
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\styles.css" />
+    <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\pt-br.js" />
@@ -1496,6 +1512,8 @@
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\icons\error.png" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\icons\no-videos.png" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\icons\video-icon.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\pt-br.js" />
@@ -1503,8 +1521,10 @@
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\styles.css" />
+    <Content Include="Scripts\ckeditor\lang\de.js" />
     <Content Include="Scripts\ckeditor\lang\en.js" />
     <Content Include="Scripts\ckeditor\lang\fr.js" />
+    <Content Include="Scripts\ckeditor\lang\nl.js" />
     <Content Include="Scripts\ckeditor\lang\pt-br.js" />
     <Content Include="Scripts\ckeditor\lang\uk.js" />
     <Content Include="Scripts\ckeditor\lang\zh-cn.js" />
