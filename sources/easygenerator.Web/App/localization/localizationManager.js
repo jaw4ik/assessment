@@ -3,7 +3,7 @@
 
     var 
         defaultCulture = 'en',
-        supportedCultures = ['en', 'uk', 'zh-cn', 'pt-br'],
+        supportedCultures = ['en', 'uk', 'zh-cn', 'pt-br', 'nl', 'de'],
         translations = null,
         currentCulture = '',
         currentLanguage = '',

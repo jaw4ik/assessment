@@ -612,6 +612,7 @@
     <Content Include="App\localization\bindingHandlers\localizeBindingHandler.js" />
     <Content Include="App\dialogs\branchtrack\branchtrack.html" />
     <Content Include="App\dialogs\branchtrack\branchtrack.js" />
+    <Content Include="App\localization\lang\en.json" />
     <Content Include="App\Query.js" />
     <Content Include="App\Command.js" />
     <Content Include="App\commands\createCourseCommand.js" />
@@ -1717,7 +1718,6 @@
     <Content Include="App\viewmodels\questions\voiceOver.spec.js">
       <DependentUpon>voiceOver.js</DependentUpon>
     </Content>
-    <Content Include="App\localization\lang\en.json" />
     <Content Include="App\localization\lang\pt-br.json" />
     <Content Include="App\localization\lang\uk.json" />
     <Content Include="App\localization\lang\zh-cn.json" />
@@ -1733,6 +1733,8 @@
     <Content Include="App\dialogs\branchtrack\branchtrack.spec.js">
       <DependentUpon>branchtrack.js</DependentUpon>
     </Content>
+    <Content Include="App\localization\lang\de.json" />
+    <Content Include="App\localization\lang\nl.json" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\iscroll-probe.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
