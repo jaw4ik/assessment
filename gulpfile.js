@@ -10,7 +10,8 @@ var gulp = require('gulp'),
     runSequence = require('run-sequence'),
     fs = require('fs'),
     xmlpoke = require('xmlpoke'),
-    Builder = require('systemjs-builder');
+    Builder = require('systemjs-builder'),
+    has = require('gulp-has');
 
 var $ = require('gulp-load-plugins')({
     lazy: true
@@ -254,6 +255,9 @@ gulp.task('deploy-css', function () {
 
 gulp.task('deploy-main-built-js', function () {
     return gulp.src('./sources/easygenerator.Web/App/main-built.js')
+        .pipe(has({
+            'release': true
+        }))
         .pipe(gulp.dest(outputDirectory + '/App'));
 });
 

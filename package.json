@@ -27,6 +27,7 @@
     "github": "^0.2.4",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^2.3.1",
+    "gulp-has": "^1.0.0",
     "gulp-if": "^2.0.0",
     "gulp-install": "^0.5.0",
     "gulp-jade-usemin": "^1.0.5",
