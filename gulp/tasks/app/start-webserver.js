@@ -1,5 +1,10 @@
 var gulp = require('gulp'),
+	args = require('yargs').argv
     buildUtils = require('../build-utils')();
+	
+var $ = require('gulp-load-plugins')({
+    lazy: true
+});
 
 gulp.task('web-build', ['styles'], function () {
     return buildProjects.buildProjects(['./sources/easygenerator.Web/easygenerator.Web.csproj']);
