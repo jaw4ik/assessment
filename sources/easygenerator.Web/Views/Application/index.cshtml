@@ -72,7 +72,7 @@
             }
         </script>
     }
-
+    
     <script type="text/javascript">
         @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["version"]))
         {
@@ -89,7 +89,7 @@
         @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["ConvertionServiceUrl"]))
         {
             <text>
-            window.convertionServiceUrl = '@ConfigurationManager.AppSettings["ConvertionServiceUrl"]';
+            window.convertionServiceUrl = '@ConfigurationManager.AppSettings["ConvertionServiceUrl"]';  
             </text>
         }
         @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["PlayerUrl"]))
@@ -98,7 +98,7 @@
             window.playerUrl = '@ConfigurationManager.AppSettings["PlayerUrl"]';
             </text>
         }
-
+    
         //bootstraper
         (function() {
             if (window.auth.isUserLoggedIn() || window.auth.isAuthTokenPresentInHash()) {
@@ -116,14 +116,13 @@
                 }
 
                 systemLoadPromise.then(function () {
-                    return System.import('index.js');
+                    return System.import('main.js');
                 });
             }
             else {
                 window.location.replace('/signin');
             }
         }());
-
     </script>
 
 </body>

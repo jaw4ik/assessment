@@ -620,8 +620,6 @@
     <Content Include="App\core\jquery.js" />
     <Content Include="App\core\knockout.js" />
     <Content Include="App\core\plugins\text.js" />
-    <Content Include="App\index.js" />
-    <Content Include="App\models\entityClass.js" />
     <Content Include="App\dialogs\audio\audioLibrary.html" />
     <Content Include="App\dialogs\audio\audioLibrary.js" />
     <Content Include="App\dialogs\audio\audioLibrary.spec.js">
@@ -3136,7 +3134,6 @@
       <DependentUpon>review.js</DependentUpon>
     </Content>
     <Content Include="Scripts\underscore.extensions.js" />
-    <Content Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Controllers\Resources.resx">

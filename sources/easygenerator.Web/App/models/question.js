@@ -1,14 +1,19 @@
-﻿import { Entity } from 'models/entityClass';
+﻿define(['models/entity'],
+   function (EntityModel) {
+       "use strict";
 
-export default class Question extends Entity {
-    constructor (spec) {
-        super(spec);
+       var Question = function (spec) {
 
-        this.title = spec.title;
-        this.voiceOver = spec.voiceOver;
-        this.content = spec.content;
-        this.type = spec.type;
-    }
-}
+           var obj = new EntityModel(spec);
 
-export var __useDefault = true;
+           obj.title = spec.title;
+           obj.voiceOver = spec.voiceOver;
+           obj.content = spec.content;
+           obj.type = spec.type;
+
+           return obj;
+       };
+
+       return Question;
+   }
+);

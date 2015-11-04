@@ -1,5 +1,11 @@
-﻿define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synchronization/listener', 'onboarding/initialization', 'audio/index', 'localization/localizationManager'],
-    function (system, app, bootstrapper, userContext, synchronization, onboarding, audio, localizationManager) {
+﻿define(['durandal/viewEngine', 'durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synchronization/listener', 'onboarding/initialization', 'audio/index', 'localization/localizationManager'],
+    function (viewEngine, system, app, bootstrapper, userContext, synchronization, onboarding, audio, localizationManager) {
+        // hook for system.js support
+        viewEngine.convertViewIdToRequirePath = function (viewId) {
+            var plugin = this.viewPlugin ? '!' + this.viewPlugin : '';
+            return viewId + this.viewExtension + plugin;
+        };
+
         if (!has('release')) {
             system.debug(true);
         }

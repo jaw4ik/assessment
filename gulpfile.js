@@ -86,6 +86,9 @@ gulp.task('build-system', function (cb) {
         createBundle('[**/*] - [**/*.spec] - [specRunner] - [system-config] - [main-built]', {
             map: {
                 babel: babelPath
+            },
+            paths: {
+                '*': '*.js'
             }
         }),
         createBundle('[**/*.html] - [specs.html!core/plugins/text.js]', {
