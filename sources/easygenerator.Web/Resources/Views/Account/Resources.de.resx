@@ -118,168 +118,159 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccountAlreadyExists" xml:space="preserve">
-    <value>此账号已存在。点击登录重试。</value>
+    <value>Dieses Konto besteht bereits. Klicken Sie auf Anmelden und versuchen Sie es erneut.</value>
   </data>
   <data name="Checking" xml:space="preserve">
-    <value>正在检查…</value>
+    <value>Überprüfung...</value>
   </data>
   <data name="ChooseYourCountry" xml:space="preserve">
-    <value>选择国家</value>
+    <value>Wählen Sie Ihr Land aus...</value>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>继续</value>
+    <value>Weiter</value>
   </data>
   <data name="CouldNotVerifyPasswordRecovery" xml:space="preserve">
-    <value>出错了。请重试。如果问题仍然存在请联系support@easygenerator.com</value>
+    <value>Wir konnten leider nicht herausfinden, ob dieser Benutzer eine Kennwortrücksetzung angefordert hat. Bitte starten Sie die Rücksetzungsprozedur erneut.</value>
   </data>
   <data name="CreateAccountTitle" xml:space="preserve">
-    <value>现在开始创建课程</value>
+    <value>Erstellen Sie jetzt Ihre ersten Kurse!</value>
   </data>
   <data name="ElearningExpert" xml:space="preserve">
-    <value>eLearning专家</value>
+    <value>E-Learning Experte</value>
   </data>
   <data name="ELearningManager" xml:space="preserve">
-    <value>eLearning管理人员</value>
+    <value>E-Learning Manager</value>
   </data>
   <data name="EmailCaption" xml:space="preserve">
-    <value>E-mail</value>
+    <value>E-Mail</value>
   </data>
   <data name="EnterValidCountry" xml:space="preserve">
-    <value>输入国家</value>
+    <value>Geben Sie Ihr Land ein</value>
   </data>
   <data name="EnterValidEmailMessage" xml:space="preserve">
-    <value>输入一个有效的e-mail</value>
+    <value>Geben Sie eine gültige E-Mail-Adresse ein</value>
   </data>
   <data name="EnterValidFirstName" xml:space="preserve">
-    <value>输入姓</value>
+    <value>Geben Sie Ihren Vornamen ein</value>
   </data>
   <data name="EnterValidLastName" xml:space="preserve">
-    <value>输入名</value>
+    <value>Geben Sie Ihren Nachnamen ein</value>
   </data>
   <data name="EnterValidPhoneNumber" xml:space="preserve">
-    <value>输入电话号码</value>
+    <value>Geben Sie Ihre Telefonnummer ein</value>
   </data>
   <data name="Finish" xml:space="preserve">
-    <value>开始编写！</value>
+    <value>Los geh'ts!</value>
   </data>
   <data name="FirstNameCaption" xml:space="preserve">
-    <value>姓</value>
+    <value>Vorname</value>
   </data>
   <data name="ForgotPassword" xml:space="preserve">
-    <value>忘记密码？</value>
+    <value>Kennwort vergessen?</value>
   </data>
   <data name="ForgotPasswordBody" xml:space="preserve">
-    <value>&lt;div&gt;
-Hi,
-&lt;p&gt;
-        你的账号在&lt;a href="{0}"&gt;{0}&lt;/a&gt;被申请了密码重置。
-&lt;/p&gt;
-&lt;p&gt;
-        请点击如下链接以重置密码：&lt;br /&gt;
-        &lt;a href="{1}"&gt;{1}&lt;/a&gt;
-&lt;/p&gt;
-&lt;p&gt;
-        如果你没有申请密码重置，请忽略此信息。你的密码不会被改变。
-&lt;/p&gt;
-&lt;p&gt;
-        感谢你使用easygenerator.com，快乐生活每一天！
-&lt;/p&gt;
+    <value>Betreff: Kennwortrücksetztung auf %siteURL%
+Guten Tag, 
+Jemand hat vor Kurzem eine Kenntwortrücksetzung auf %siteURL% beantragt.
+Um das Kennwort zurückzusetzen, klicken Sie bitte auf den folgenden Link:
+%link%
+Sollte es sich hierbei um einen Fehler handeln, ignorieren Sie einfach diese E-Mail, Ihr Kennwort wird nicht geändert. 
+Vielen Dank, dass Sie easygenerator.com verwenden, und einen schönen Tag!
 --
-&lt;p&gt;
-        &lt;strong&gt;easygenerator团队&lt;/strong&gt;
-&lt;/p&gt;
-&lt;/div&gt;</value>
+Viele Grüße,  
+Ihr easygenerator-Team</value>
   </data>
   <data name="ForgotPasswordSent" xml:space="preserve">
-    <value>我们已经给你发送一封邮件说明如何重设密码</value>
+    <value>Wir haben Ihnen eine E-Mail mit Anleitungen zur Kennwortrücksetzung gesendet.</value>
   </data>
   <data name="ForgotPasswordSubject" xml:space="preserve">
-    <value>Easygenerator密码</value>
+    <value>Password for easygenerator</value>
   </data>
   <data name="HidePassword" xml:space="preserve">
-    <value>隐藏密码</value>
+    <value>Kennwort verbergen</value>
   </data>
   <data name="IncorrectEmailOrPassword" xml:space="preserve">
-    <value>所输密码和邮箱不匹配。请重试或重置密码。</value>
+    <value>Diese Kombination von E-Mail-Adresse und Kennwort wurde nicht gefunden</value>
   </data>
   <data name="InstructionalDesigner" xml:space="preserve">
-    <value>课程设计人员</value>
+    <value>Didaktischer Entwickler</value>
   </data>
   <data name="InviteCollaboratorBody" xml:space="preserve">
     <value>&lt;div&gt;
- &lt;p&gt;{0} 希望在easygenerator的一个eLearning课程中和你合作。&lt;/p&gt;
- &lt;p&gt;你可以免费创建一个easygenerator的账号。请使用此email地址前往: &lt;a href="{1}"&gt;{1}&lt;/a&gt;注册，登录后即可发现课程。&lt;/p&gt;
- &lt;p&gt;好运！&lt;br/&gt;
- easygenerator团队&lt;/p&gt;
- &lt;/div&gt;</value>
+&lt;p&gt;{0} möchte mit Ihnen gemeinsam an einem E-Learning-Kurs in easygenerator arbeiten.&lt;/p&gt;
+&lt;p&gt;Sie können sich kostenfrei ein Konto bei easygenerator erstellen. Gehen Sie auf: &lt;a href="{1}"&gt;{1}&lt;/a&gt; und melden Sie sich mit dieser E-Mail-Adresse an. Nach Ihrem Login können Sie auf den Kurs zugreifen. &lt;/p&gt;
+&lt;p&gt;Viele Grüße,&lt;br/&gt;
+Ihr easygenerator-Team&lt;/p&gt;
+&lt;/div&gt;</value>
   </data>
   <data name="InviteCollaboratorFromDisplayName" xml:space="preserve">
     <value>{0} (easygenerator)</value>
   </data>
   <data name="InviteCollaboratorSubject" xml:space="preserve">
-    <value>你收到 {0}的邀请来共同编写关于 {1}的elearning课程。</value>
+    <value>Sie wurden von {0} als Co-Autor zu einem E-Learning-Kurs über {1} eingeladen.</value>
   </data>
   <data name="LastNameCaption" xml:space="preserve">
-    <value>名</value>
+    <value>Nachname</value>
   </data>
   <data name="LicenseAgreeCaption" xml:space="preserve">
-    <value>点击“注册”表示我同意easygenerator的 &lt;a href="{0}" target=”_blank”&gt;Terms&lt;/a&gt; 和 &lt;a href="{1}" target=”_blank”&gt;隐私条例&lt;/a&gt;</value>
+    <value>Wenn Sie auf "Anmelden" klicken, stimmen Sie den 
+     &lt;a href="{0}"  target=”_blank”&gt;Terms&lt;/a&gt; and &lt;a href="{1}"  target=”_blank”&gt;Datenschutzbestimmungen&lt;/a&gt; von easygenerator zu.</value>
   </data>
   <data name="NoSpaces" xml:space="preserve">
-    <value>No spaces</value>
+    <value>Keine Leerzeichen</value>
   </data>
   <data name="NotLessThanSevenSymbols" xml:space="preserve">
-    <value>At least 7 characters</value>
+    <value>Nicht weniger als 7 Symbole</value>
   </data>
   <data name="OtherRole" xml:space="preserve">
-    <value>其它</value>
+    <value>Andere</value>
   </data>
   <data name="PasswordCaption" xml:space="preserve">
-    <value>密码</value>
+    <value>Kennwort</value>
   </data>
   <data name="PasswordRecovery" xml:space="preserve">
-    <value>重置密码</value>
+    <value>Kennwortrücksetzung</value>
   </data>
   <data name="PhoneNumberCaption" xml:space="preserve">
-    <value>电话号码</value>
+    <value>Telefonnummer</value>
   </data>
   <data name="PleaseUse" xml:space="preserve">
-    <value>Please use:</value>
+    <value>Bitte benutzen Sie:</value>
   </data>
   <data name="RequestError" xml:space="preserve">
-    <value>出错了。请重试。如果问题仍然存在请联系support@easygenerator.com</value>
+    <value>Bei der Bearbeitung Ihrer Anfrage ist ein Fehler aufgetreten:</value>
   </data>
   <data name="RoleQuestion" xml:space="preserve">
-    <value>你的角色？</value>
+    <value>Welche Funktion haben Sie?</value>
   </data>
   <data name="Show" xml:space="preserve">
-    <value>Show</value>
+    <value>Anzeigen</value>
   </data>
   <data name="ShowPassword" xml:space="preserve">
-    <value>显示密码</value>
+    <value>Kennwort anzeigen</value>
   </data>
   <data name="SignIn" xml:space="preserve">
-    <value>登录</value>
+    <value>Anmelden</value>
   </data>
   <data name="SignUp" xml:space="preserve">
-    <value>注册</value>
+    <value>Anmelden</value>
   </data>
   <data name="SignUpButton" xml:space="preserve">
-    <value>注册</value>
+    <value>Registrieren</value>
   </data>
   <data name="SignUpSecondStepTitle" xml:space="preserve">
-    <value>将要完成</value>
+    <value>Fast geschafft…</value>
   </data>
   <data name="Student" xml:space="preserve">
-    <value>Student</value>
+    <value>Schüler/Student</value>
   </data>
   <data name="SubjectMatterExpert" xml:space="preserve">
-    <value>业务专家</value>
+    <value>Fachexperte</value>
   </data>
   <data name="Teacher" xml:space="preserve">
-    <value>教师</value>
+    <value>Lehrer</value>
   </data>
   <data name="Trainer" xml:space="preserve">
-    <value>培训师</value>
+    <value>Trainer</value>
   </data>
 </root>

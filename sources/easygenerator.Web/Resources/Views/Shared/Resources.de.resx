@@ -117,22 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CommentWasNotSent" xml:space="preserve">
-    <value>Comment was not sent.</value>
+  <data name="Chrome" xml:space="preserve">
+    <value>google chrome</value>
   </data>
-  <data name="CommentWasSent" xml:space="preserve">
-    <value>Comment was sent</value>
+  <data name="CopyrightText" xml:space="preserve">
+    <value>Copyright © 2014 easygenerator. All rights reserved.</value>
   </data>
-  <data name="LeaveYourComment" xml:space="preserve">
-    <value>Leave your comment</value>
+  <data name="IE" xml:space="preserve">
+    <value>internet explorer</value>
   </data>
-  <data name="Send" xml:space="preserve">
-    <value>Send</value>
+  <data name="Mozilla" xml:space="preserve">
+    <value>mozilla firefox</value>
   </data>
-  <data name="TryAgain" xml:space="preserve">
-    <value>Try again</value>
+  <data name="NotSupportedBrowserDescription" xml:space="preserve">
+    <value>Don't worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions.</value>
   </data>
-  <data name="YourMessage" xml:space="preserve">
-    <value>Enter your comment...</value>
+  <data name="NotSupportedBrowserSkip" xml:space="preserve">
+    <value>let me try it anyway...</value>
+  </data>
+  <data name="NotSupportedBrowserTitle" xml:space="preserve">
+    <value>Your browser is currently not supported</value>
+  </data>
+  <data name="NotSupportedDeviceDescription" xml:space="preserve">
+    <value>The operational system of your device is not supported. Please find the list of supported operational systems</value>
+  </data>
+  <data name="NotSupportedDeviceTitle" xml:space="preserve">
+    <value>Your device is not supported</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Datenschutzbestimmungen</value>
+  </data>
+  <data name="Safari" xml:space="preserve">
+    <value>apple safari</value>
+  </data>
+  <data name="TermsOfUse" xml:space="preserve">
+    <value>Nutzungsbedingungen</value>
   </data>
 </root>

@@ -118,21 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CommentWasNotSent" xml:space="preserve">
-    <value>Comment was not sent.</value>
+    <value>Opmerking niet verzonden.</value>
   </data>
   <data name="CommentWasSent" xml:space="preserve">
-    <value>Comment was sent</value>
+    <value>Opmerking verzonden</value>
   </data>
   <data name="LeaveYourComment" xml:space="preserve">
-    <value>Leave your comment</value>
+    <value>Geef uw mening</value>
   </data>
   <data name="Send" xml:space="preserve">
-    <value>Send</value>
+    <value>Stuur</value>
   </data>
   <data name="TryAgain" xml:space="preserve">
-    <value>Try again</value>
+    <value>Probeer opnieuw</value>
   </data>
   <data name="YourMessage" xml:space="preserve">
-    <value>Enter your comment...</value>
+    <value>Typ uw mening hier...</value>
   </data>
 </root>

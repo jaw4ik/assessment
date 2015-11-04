@@ -120,32 +120,11 @@
   <data name="AccountAlreadyExists" xml:space="preserve">
     <value>Такий акаунт вже існує. Клікніть Авторизуватись і спробуйте знову</value>
   </data>
-  <data name="AnotherTool" xml:space="preserve">
-    <value>Another authoring tool</value>
-  </data>
-  <data name="BeAtLeast7CharactersLong" xml:space="preserve">
-    <value>щонайменше 7 символів;</value>
-  </data>
   <data name="Checking" xml:space="preserve">
     <value>Перевірка...</value>
   </data>
-  <data name="ChooseAnswer" xml:space="preserve">
-    <value>Choose answer...</value>
-  </data>
   <data name="ChooseYourCountry" xml:space="preserve">
     <value>Виберіть свою країну...</value>
-  </data>
-  <data name="ContainAtLeastOneDigit" xml:space="preserve">
-    <value>містить хоча б одну цифру;</value>
-  </data>
-  <data name="ContainAtLeastOneLowerCaseLetter" xml:space="preserve">
-    <value>містить хоча б одну літеру нижнього регістру;</value>
-  </data>
-  <data name="ContainAtLeastOneSpecialCharacter" xml:space="preserve">
-    <value>містить хоча б одну літеру верхнього регістру;</value>
-  </data>
-  <data name="ContainAtLeastOneUpperCaseLetter" xml:space="preserve">
-    <value>contain at least one upper case letter;</value>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Продовжити</value>
@@ -153,14 +132,14 @@
   <data name="CouldNotVerifyPasswordRecovery" xml:space="preserve">
     <value>Щось пішло не так. Спробуте знову. Якщо проблема не зникне надішліть нам електронного листа на адресу support@easygenerator.com</value>
   </data>
-  <data name="CountryCaption" xml:space="preserve">
-    <value>Країна</value>
-  </data>
   <data name="CreateAccountTitle" xml:space="preserve">
-    <value>Почни створювати курси!</value>
+    <value>Почни створювати курси зараз!</value>
   </data>
-  <data name="InstructionalDesigner" xml:space="preserve">
-    <value>Педадогічний дизайнер</value>
+  <data name="ElearningExpert" xml:space="preserve">
+    <value>Експерт з електронного навчання</value>
+  </data>
+  <data name="ELearningManager" xml:space="preserve">
+    <value>Менеджер з електронного навчання</value>
   </data>
   <data name="EmailCaption" xml:space="preserve">
     <value>E-mail</value>
@@ -180,9 +159,6 @@
   <data name="EnterValidPhoneNumber" xml:space="preserve">
     <value>Введіть свій номер телефону</value>
   </data>
-  <data name="ElearningExpert" xml:space="preserve">
-    <value>Експерт з електронного навчання</value>
-  </data>
   <data name="Finish" xml:space="preserve">
     <value>Почніть створювати!</value>
   </data>
@@ -196,11 +172,11 @@
     <value>&lt;div&gt;
 Привіт,
 &lt;p&gt;
-       Хтось просив скинути пароль для вашого облікового запису на &lt;a href="{0}"&gt;{0}&lt;/a&gt;.
+       Хтось просив скинути пароль для вашого облікового запису на&lt;a href=""{0}""&gt;{0}&lt;/a&gt;.
 &lt;/p&gt;
 &lt;p&gt;
         Щоб скинути пароль натисніть на посилання нижче:&lt;br /&gt;
-        &lt;a href="{1}"&gt;{1}&lt;/a&gt;
+        &lt;a href=""{1}""&gt;{1}&lt;/a&gt;
 &lt;/p&gt;
 &lt;p&gt;
         Якщо це не Ви робили запит на зміну пароля, проігноруйте даний лист, пароль не буде змінено.
@@ -223,20 +199,21 @@
   <data name="ForgotPasswordSubject" xml:space="preserve">
     <value>Пароль для easygenerator</value>
   </data>
-  <data name="FullNameCaption" xml:space="preserve">
-    <value>Full name</value>
-  </data>
   <data name="HidePassword" xml:space="preserve">
     <value>Сховати пароль</value>
   </data>
   <data name="IncorrectEmailOrPassword" xml:space="preserve">
-    <value>Такої комбінації e-mail і пароля не існує. Спробуйте знову або відновіть пароль.</value>
+    <value>Такої комбінації e-mail та пароля не існує. Спробуйте знову або скиньте свій пароль.</value>
+  </data>
+  <data name="InstructionalDesigner" xml:space="preserve">
+    <value>Instructional designer</value>
   </data>
   <data name="InviteCollaboratorBody" xml:space="preserve">
     <value>&lt;div&gt;
-&lt;p&gt;{0} wants to work with you on an eLearning course in easygenerator.&lt;/p&gt;
-&lt;p&gt;You can create an easygenerator account for free. Go to: &lt;a href="{1}"&gt;{1}&lt;/a&gt; and register with this email address and the course will be available after login.&lt;/p&gt;
-&lt;p&gt;Kind regards,&lt;br/&gt;easygenerator Team&lt;/p&gt;
+&lt;p&gt;{0} хоче працювати з тобою для створення онлайн курсів в easygenerator.&lt;/p&gt;
+&lt;p&gt;Ви можете безкоштовно створити акаунт. Перейдіть за посиланням: &lt;a href="{1}"&gt;{1}&lt;/a&gt; і зареєструйтесь з цією електронною поштою і курс буде доступний вам після авторизації.&lt;/p&gt;
+&lt;p&gt;З найкращими побажаннями,&lt;br/&gt;
+команда easygenerator&lt;/p&gt;
 &lt;/div&gt;</value>
   </data>
   <data name="InviteCollaboratorFromDisplayName" xml:space="preserve">
@@ -245,41 +222,17 @@
   <data name="InviteCollaboratorSubject" xml:space="preserve">
     <value>{0} запрошує Вас до співавторства курса {1}</value>
   </data>
-  <data name="JustLooking" xml:space="preserve">
-    <value>Just looking</value>
-  </data>
   <data name="LastNameCaption" xml:space="preserve">
     <value>Прізвище</value>
   </data>
   <data name="LicenseAgreeCaption" xml:space="preserve">
     <value>Натискаючи на "Зареєструватись", я погоджуюсь з  &lt;a href="{0}"  target=”_blank”&gt;умовами&lt;/a&gt; та &lt;a href="{1}"  target=”_blank”&gt;політикою конфіденційності&lt;/a&gt;</value>
   </data>
-  <data name="ELearningManager" xml:space="preserve">
-    <value>Менеджер з електронного навчання</value>
-  </data>
   <data name="NoSpaces" xml:space="preserve">
     <value>Немає пробілів</value>
   </data>
-  <data name="NotContainWhitespaceCharacters" xml:space="preserve">
-    <value>Пароль не може містити пробіли</value>
-  </data>
-  <data name="Nothing" xml:space="preserve">
-    <value>Нічого</value>
-  </data>
   <data name="NotLessThanSevenSymbols" xml:space="preserve">
     <value>Не менше 7 символів</value>
-  </data>
-  <data name="Now" xml:space="preserve">
-    <value>Зараз</value>
-  </data>
-  <data name="Numbers" xml:space="preserve">
-    <value>Числа</value>
-  </data>
-  <data name="OptionalInformation" xml:space="preserve">
-    <value>Необов'язкова інформація</value>
-  </data>
-  <data name="Other" xml:space="preserve">
-    <value>Інше</value>
   </data>
   <data name="OtherRole" xml:space="preserve">
     <value>Інше</value>
@@ -287,29 +240,17 @@
   <data name="PasswordCaption" xml:space="preserve">
     <value>Пароль</value>
   </data>
-  <data name="PasswordDoesNotMeetRequirements" xml:space="preserve">
-    <value>Пароль не відповідає вимогам</value>
-  </data>
-  <data name="PasswordIsStrongEnough" xml:space="preserve">
-    <value>Пароль відповідає вимогам</value>
-  </data>
   <data name="PasswordRecovery" xml:space="preserve">
     <value>Скинути пароль</value>
-  </data>
-  <data name="PasswordRequirementsTitle" xml:space="preserve">
-    <value>Вимоги до пароля:</value>
   </data>
   <data name="PhoneNumberCaption" xml:space="preserve">
     <value>Номер телефону</value>
   </data>
-  <data name="PowerPoint" xml:space="preserve">
-    <value>PowerPoint</value>
+  <data name="PleaseUse" xml:space="preserve">
+    <value>Правила:</value>
   </data>
   <data name="RequestError" xml:space="preserve">
     <value>Щось пішло не так. Спробуте знову. Якщо проблема не зникне надішліть нам електронного листа на адресу support@easygenerator.com</value>
-  </data>
-  <data name="RestorePasswordCaption" xml:space="preserve">
-    <value>Введіть новий пароль</value>
   </data>
   <data name="RoleQuestion" xml:space="preserve">
     <value>Яка ваша роль?</value>
@@ -321,10 +262,7 @@
     <value>Показати пароль</value>
   </data>
   <data name="SignIn" xml:space="preserve">
-    <value>Авторизація</value>
-  </data>
-  <data name="SignOutButton" xml:space="preserve">
-    <value>Вихід</value>
+    <value>Авторизуватись</value>
   </data>
   <data name="SignUp" xml:space="preserve">
     <value>Реєстрація</value>
@@ -335,8 +273,8 @@
   <data name="SignUpSecondStepTitle" xml:space="preserve">
     <value>Майже все...</value>
   </data>
-  <data name="Skip" xml:space="preserve">
-    <value>Пропустити</value>
+  <data name="Student" xml:space="preserve">
+    <value>Студент</value>
   </data>
   <data name="SubjectMatterExpert" xml:space="preserve">
     <value>Експерт предметної області</value>
@@ -346,23 +284,5 @@
   </data>
   <data name="Trainer" xml:space="preserve">
     <value>Тренер</value>
-  </data>
-  <data name="UpperAndLowercaseLetters" xml:space="preserve">
-    <value>Upper and lowercase letters</value>
-  </data>
-  <data name="Variant1Month" xml:space="preserve">
-    <value>1-3 months</value>
-  </data>
-  <data name="VariantMore3Months" xml:space="preserve">
-    <value>&gt;3 months</value>
-  </data>
-  <data name="WouldYouLikeAnIntroductionDemo" xml:space="preserve">
-    <value>I would like an introduction demo!</value>
-  </data>
-  <data name="PleaseUse" xml:space="preserve">
-    <value>Правила:</value>
-  </data>
-  <data name="Student" xml:space="preserve">
-    <value>Студент</value>
   </data>
 </root>

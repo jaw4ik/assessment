@@ -1704,11 +1704,19 @@
     </Content>
     <Content Include="Content\upgradePopup.less" />
     <Content Include="Content\designBar.less" />
+    <EmbeddedResource Include="Resources\Controllers\Resources.de.resx" />
+    <EmbeddedResource Include="Resources\Controllers\Resources.nl.resx" />
     <EmbeddedResource Include="Resources\Controllers\Resources.pt.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.pt.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Controllers\Resources.fr.resx" />
+    <EmbeddedResource Include="Resources\Views\Account\Resources.nl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Account\Resources.de.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Account\Resources.fr.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -3166,6 +3174,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Account\Resources.uk.resx" />
     <EmbeddedResource Include="Resources\Views\Account\Resources.zh.resx" />
+    <EmbeddedResource Include="Resources\Views\Error\Resources.nl.resx" />
+    <EmbeddedResource Include="Resources\Views\Error\Resources.de.resx" />
     <EmbeddedResource Include="Resources\Views\Error\Resources.fr.resx" />
     <EmbeddedResource Include="Resources\Views\Error\Resources.pt.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -3175,6 +3185,8 @@
     <EmbeddedResource Include="Resources\Views\Error\Resources.resx" />
     <EmbeddedResource Include="Resources\Views\Error\Resources.uk.resx" />
     <EmbeddedResource Include="Resources\Views\Error\Resources.zh.resx" />
+    <EmbeddedResource Include="Resources\Views\Review\Resources.nl.resx" />
+    <EmbeddedResource Include="Resources\Views\Review\Resources.de.resx" />
     <EmbeddedResource Include="Resources\Views\Review\Resources.fr.resx" />
     <EmbeddedResource Include="Resources\Views\Review\Resources.pt.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -3184,6 +3196,8 @@
     <EmbeddedResource Include="Resources\Views\Review\Resources.resx" />
     <EmbeddedResource Include="Resources\Views\Review\Resources.uk.resx" />
     <EmbeddedResource Include="Resources\Views\Review\Resources.zh.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\Resources.de.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\Resources.nl.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\Resources.fr.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\Resources.pt.resx">
       <Generator>ResXFileCodeGenerator</Generator>

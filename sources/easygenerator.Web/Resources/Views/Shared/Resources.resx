@@ -145,12 +145,12 @@
     <value>Your device is not supported</value>
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
-    <value>Privacy policy</value>
+    <value>Privacy Policy</value>
   </data>
   <data name="Safari" xml:space="preserve">
     <value>apple safari</value>
   </data>
   <data name="TermsOfUse" xml:space="preserve">
-    <value>Terms of use</value>
+    <value>Terms and conditions</value>
   </data>
 </root>

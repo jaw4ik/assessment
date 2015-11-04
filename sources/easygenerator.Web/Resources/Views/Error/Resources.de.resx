@@ -117,22 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CommentWasNotSent" xml:space="preserve">
-    <value>Comment was not sent.</value>
+  <data name="HomePage" xml:space="preserve">
+    <value>Startseite</value>
   </data>
-  <data name="CommentWasSent" xml:space="preserve">
-    <value>Comment was sent</value>
+  <data name="PageNotFound" xml:space="preserve">
+    <value>Ihre gewünschte Seite konnte nicht gefunden werden.</value>
   </data>
-  <data name="LeaveYourComment" xml:space="preserve">
-    <value>Leave your comment</value>
+  <data name="PageNotFoundDescription" xml:space="preserve">
+    <value>"Klicken Sie auf Startseite. Öffnen Sie Ihren Kurs und versuchen Sie es erneut. Konatktieren Sie support@easygenerator.com falls das Problem weiterhin besteht.
+
+"</value>
   </data>
-  <data name="Send" xml:space="preserve">
-    <value>Send</value>
+  <data name="ServerError" xml:space="preserve">
+    <value>Etwas ist schief gegangen.</value>
   </data>
-  <data name="TryAgain" xml:space="preserve">
-    <value>Try again</value>
-  </data>
-  <data name="YourMessage" xml:space="preserve">
-    <value>Enter your comment...</value>
+  <data name="ServerErrorDescription" xml:space="preserve">
+    <value>Klicken Sie auf Kurse. Öffnen Sie Ihren Kurs und versuchen Sie es erneut. Konatktieren Sie support@easygenerator.com falls das Problem weiterhin besteht.</value>
   </data>
 </root>
