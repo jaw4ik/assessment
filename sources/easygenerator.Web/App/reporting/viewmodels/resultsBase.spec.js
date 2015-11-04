@@ -938,37 +938,6 @@
                     });
 
                 });
-
-                it('should call saveAs method with proper args', function (done) {
-                    viewModel.entityTitle = 'Course-123.\\/ фывяй 续约我的服务';
-                    viewModel.allResultsLoaded = true;
-                    viewModel.loadedResults = [
-                    {
-                        lrsStatement: {
-                            actor: {
-                                name: 'name',
-                                email: 'email'
-                            },
-                            score: 100,
-                            date: new Date()
-                        },
-                        passed: true,
-                        hasScore: true
-
-                    }];
-
-                    viewModel.downloadResults().fin(function (result) {
-                        viewModel.downloadResults().fin(function () {
-                            var reader = new window.FileReader();
-                            reader.readAsDataURL(fileSaverWrapper.saveAs.calls.mostRecent().args[0]);
-                            reader.onloadend = function () {
-                                expect(fileSaverWrapper.saveAs).toHaveBeenCalledWith(jasmine.any(Object), 'results_Course-123_2015-02-03_05-38.csv');
-                                expect(reader.result).toBe("data:text/csv;base64,77u/TmFtZSAoRS1tYWlsKSxSZXN1bHQsU2NvcmUsRGF0ZSxUaW1lDQpuYW1lIChlbWFpbCksUGFzc2VkLDEwMCwyMDE1LTAyLTAzXzA1LTM4LDIwMTUtMDItMDNfMDUtMzg=");
-                                done();
-                            }
-                        });
-                    });
-                });
             });
 
             describe('when user access type forbids to downloadResults', function () {
