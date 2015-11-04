@@ -440,7 +440,7 @@ gulp.task('deploy-player', ['assets-player'], function () {
 
 /*#endregion deploy player*/
 
-gulp.task('sources-build', function () {
+gulp.task('web-build', ['styles'], function () {
     return gulp.src('./sources/easygenerator.Web/easygenerator.Web.csproj')
         .pipe($.msbuild({
             stdout: true,
@@ -451,8 +451,8 @@ gulp.task('sources-build', function () {
         }));
 });
 
-gulp.task('web-iis-express', ['sources-build'], $.shell.task([
-    '"%ProgramFiles%\\IIS Express\\iisexpress" /path:"' + (args.path || './sources/easygenerator.Web/') + '" /port:666 /systray:true'
+gulp.task('web-iis-express', ['web-build'], $.shell.task([
+    '"%ProgramFiles%\\IIS Express\\iisexpress" /path:"' + (args.path || 'D:\\Development\\easygenerator\\sources\\easygenerator.Web') + '" /port:666 /systray:true'
 ]));
 
 gulp.task('storage-iis-express', $.shell.task([
