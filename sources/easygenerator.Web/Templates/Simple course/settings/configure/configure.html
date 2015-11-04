@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="css/configure.css?v=1446205901186" rel="stylesheet" />
-    <script src="../api.js?v=1446205901186"></script>
+    <link href="css/configure.css?v=1446543733663" rel="stylesheet" />
+    <script src="../api.js?v=1446543733663"></script>
 
-    <script src="js/vendor.min.js?v=1446205901186"></script>
-    <script src="js/configure.min.js?v=1446205901186"></script>
+    <script src="js/vendor.min.js?v=1446543733663"></script>
+    <script src="js/configure.min.js?v=1446543733663"></script>
 </head>
 
 <body>
@@ -21,6 +21,7 @@
             <ul class="settings-tabs-wrapper unstyled">
                 <li class="settings-tabs-item track-and-trace" data-tab-link="track-and-trace" data-bind="localize: 'results tracking'"></li>
                 <li class="settings-tabs-item languages" data-tab-link="languages" data-bind="localize: 'template language'"></li>
+                <li class="settings-tabs-item general" data-tab-link="general" data-bind="localize: 'general settings'"></li>
             </ul>
             <div class="settings-tab-container track-and-trace" data-tab="track-and-trace">
                 <div class="settings-section" data-bind="with: trackingData">
@@ -217,7 +218,7 @@
             <div class="settings-tab-container languages" data-tab="languages" data-bind="with: languages">
                 <div class="settings-tab-wrapper">
                     <div class="tab-header-container">
-                        <img src="img/language.png?v=1446205901186">
+                        <img src="img/language.png?v=1446543733663">
                         <div class="tab-header-wrapper">
                             <h1 class="tab-header-title" data-bind="localize: 'choose language for your course'"></h1>
                             <div class="tab-header-content">
@@ -256,6 +257,25 @@
                                 <!-- /ko -->
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+            <div class="settings-tab-container general" data-tab="general">
+                <div class="settings-section">
+                    <h1 class="section-header" data-bind="localize: 'general settings'"></h1>
+                    <div class="section-content">
+                        <div class="settings-row">
+                            <div class="settings-caption" data-bind="localize: 'pdf export'"></div>
+                            <div class="settings-content">
+                                <label class="checkbox checked" data-bind="css: {checked: pdfExport.enabled}">
+                                    <span class="checkbox-control">
+                                        <input class="checkbox-control-input" type="checkbox" data-bind="checked: pdfExport.enabled">
+                                        <span class="checkbox-control-input-checked"></span>
+                                    </span>
+                                    <span class="checkbox-label" data-bind="localize: 'show download as pdf button'"></span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
