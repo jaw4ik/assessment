@@ -6,7 +6,7 @@ import knockoutBindingsTask from 'bootstrapping/knockoutBindingsTask';
 import addWindowEventsTask from 'bootstrapping/addWindowEventsTask';
 import trackVideoUploadTask from 'bootstrapping/trackVideoUploadTask';
 
-function getCollection () {
+export function getCollection () {
     return [
         errorHandlingTask,
         routingTask,
@@ -17,5 +17,5 @@ function getCollection () {
         trackVideoUploadTask
     ];
 }
-
 export default { getCollection };
+export var __useDefault = true;
