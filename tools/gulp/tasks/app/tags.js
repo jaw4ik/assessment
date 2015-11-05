@@ -1,6 +1,9 @@
 var gulp = require('gulp'),
     Q = require('q'),
+    args = require('yargs').argv,
     GitHubApi = require('github');
+
+var version = typeof args.version === 'string' && args.version !== '' ? args.version : '1.0.0';
 
 gulp.task('create-tags', function () {
     // token for easygenerator-ci (replace with one if you want to crete realeses from your name)
