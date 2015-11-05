@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Helpers;
+using easygenerator.Auth.Models;
 using easygenerator.Auth.Providers;
 using easygenerator.Auth.Repositories;
 using Microsoft.Owin;
@@ -19,15 +21,13 @@ namespace easygenerator.Auth.Configuration
             var endpoints = new EndpointsRepository().GetCollection();
             var issuer = AuthorizationConfigurationProvider.Issuer;
             var allowedAudiences = endpoints.Select(t => t.Audience).Distinct();
-            var issuerSecurityTokenProviders =
-                endpoints.Select(t => new SymmetricKeyIssuerSecurityTokenProvider(issuer, t.Secret));
 
             app.UseJwtBearerAuthentication(
                 new JwtBearerAuthenticationOptions
                 {
                     AuthenticationMode = AuthenticationMode.Active,
                     AllowedAudiences = allowedAudiences,
-                    IssuerSecurityTokenProviders = issuerSecurityTokenProviders,
+                    IssuerSecurityTokenProviders = GetIssuerSecurityTokenProviders(issuer, endpoints),
                     Provider = new OAuthBearerAuthenticationProvider()
                     {
                         OnRequestToken = OnRequestToken
@@ -77,6 +77,23 @@ namespace easygenerator.Auth.Configuration
             }
 
             return Task.FromResult<object>(null);
+        }
+
+        private static List<IIssuerSecurityTokenProvider> GetIssuerSecurityTokenProviders(string issuer, ICollection<EndpointModel> endpoints)
+        {
+            var issuerSecurityTokenProviders = new List<IIssuerSecurityTokenProvider>();
+            if (!string.IsNullOrEmpty(issuer))
+            {
+                var issuers = issuer.Split(',').ToList();
+                issuers.ForEach(
+                            i =>
+                                issuerSecurityTokenProviders.AddRange(
+                                    endpoints.Select(t => new SymmetricKeyIssuerSecurityTokenProvider(i.Trim(), t.Secret)))
+                            );
+
+            }
+
+            return issuerSecurityTokenProviders;
         }
     }
 }
