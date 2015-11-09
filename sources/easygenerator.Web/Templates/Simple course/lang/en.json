@@ -61,5 +61,6 @@
     "[tracking and tracing error hint without continue]": "Restart the course. Contact your course provider if the problem persists.",
     "[question]": "Question",
     "[scenario has been submitted]": "Scenario has been submitted",
-    "[scenario has not been finished yet]": "Scenario has not been finished yet. You have to finish it before submitting."
+    "[scenario has not been finished yet]": "Scenario has not been finished yet. You have to finish it before submitting.",
+    "[download course in pdf format]": "Download course in PDF format"
 }

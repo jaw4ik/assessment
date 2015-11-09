@@ -1,7 +1,7 @@
 /// <binding ProjectOpened='watch' />
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 var gulp = require('gulp'),
-	eventStream = require('event-stream'),
+    eventStream = require('event-stream'),
     del = require('del'),
     args = require('yargs').argv,
     MSTest = require('mstest'),
@@ -18,20 +18,20 @@ var $ = require('gulp-load-plugins')({
 var config = {
     less: {
         src: ['./sources/easygenerator.Web/Content/**/*.less'],
-		srcPlayer: ['./sources/easygenerator.Player/public/styles/*.less'],
-		destPlayer: './sources/easygenerator.Player/public/styles',
+        srcPlayer: ['./sources/easygenerator.Player/public/styles/*.less'],
+        destPlayer: './sources/easygenerator.Player/public/styles',
         dest: './sources/easygenerator.Web/Content',
         browsers: ['last 1 Chrome version', 'last 1 Firefox version', 'last 1 Explorer version', 'last 1 Safari version']
     }
 },
     outputDirectory = args.output || 'D:/Applications/easygenerator',
     outputConvertionServer = args.outputConvertion || 'D:/Applications/convertion',
-	outputPlayer = args.outputPlayer || 'D:/Applications/player',
+    outputPlayer = args.outputPlayer || 'D:/Applications/player',
     instance = args.instance || 'Release',
     version = typeof args.version === 'string' && args.version !== '' ? args.version : '1.0.0',
     createTags = Boolean(args.createTags),
-	buildVersion = +new Date();
-	
+    buildVersion = +new Date();
+
 function addBuildVersion() {
     return eventStream.map(function (file, callback) {
         var fileContent = String(file.contents);
@@ -44,7 +44,7 @@ function addBuildVersion() {
         callback(null, file);
     });
 };
-	
+
 gulp.task('styles', function () {
     return gulp.src(config.less.src)
         .pipe($.plumber({
@@ -177,8 +177,8 @@ gulp.task('run-server-tests', function (cb) {
 gulp.task('run-jasmine-tests', $.shell.task([
     '"tools/grunt/node_modules/.bin/grunt" jasmine --gruntfile=tools/grunt/gruntfile.js'
 ], {
-    maxBuffer: 64 * 1024 * 1024
-}));
+        maxBuffer: 64 * 1024 * 1024
+    }));
 
 gulp.task('run-unit-tests', function (cb) {
     runSequence('run-server-tests', 'run-jasmine-tests', cb);
@@ -262,11 +262,11 @@ gulp.task('create-tags', function () {
             'quiz-for-learni',
             'lango-simple',
             'simple-ie10',
-			'simple-pdf',
-			'ICEMD',
-			'PwC',
-			'SC-without-tryagain',
-			'ac-nielsen'
+            'simple-pdf',
+            'ICEMD',
+            'PwC',
+            'SC-without-tryagain',
+            'ac-nielsen'
         ],
         github = new GitHubApi({
             // required
@@ -312,13 +312,13 @@ gulp.task('create-tags', function () {
 
 /*#region deploy convertion server*/
 
-gulp.task('clean-convertion-server', function(callback){
+gulp.task('clean-convertion-server', function (callback) {
     del([outputConvertionServer], { force: true }, callback);
 });
 
-gulp.task('run-ut-convertion-server', ['install-npm-modules-convertion-server'], function(){
+gulp.task('run-ut-convertion-server', ['install-npm-modules-convertion-server'], function () {
     return gulp.src('./sources/easygenerator.ConvertionServer/test/*.spec.js')
-        .pipe($.mocha({reporter: 'nyan'}));
+        .pipe($.mocha({ reporter: 'nyan' }));
 });
 
 gulp.task('copy-convertion-server', ['run-ut-convertion-server'], function () {
@@ -335,12 +335,12 @@ gulp.task('copy-convertion-server', ['run-ut-convertion-server'], function () {
         './sources/easygenerator.ConvertionServer/converter/*.*',
         './sources/easygenerator.ConvertionServer/Web.config'
     ];
-    
+
     return gulp.src(files, { base: "./sources/easygenerator.ConvertionServer/" })
         .pipe(gulp.dest(outputConvertionServer));
 });
 
-gulp.task('install-npm-modules-convertion-server', function(){
+gulp.task('install-npm-modules-convertion-server', function () {
     return gulp.src(['./sources/easygenerator.ConvertionServer/package.json'])
         .pipe($.install());
 });
@@ -354,13 +354,13 @@ gulp.task('deploy-convertion-server', ['clean-convertion-server', 'copy-converti
 
 /*#region deploy player*/
 
-gulp.task('clean-player', function(callback){
-	del([outputPlayer], { force: true }, callback);
+gulp.task('clean-player', function (callback) {
+    del([outputPlayer], { force: true }, callback);
 });
 
 gulp.task('install-bower-modules-player', function () {
-	return gulp.src(['./sources/easygenerator.Player/bower.json'])
-		.pipe($.install());
+    return gulp.src(['./sources/easygenerator.Player/bower.json'])
+        .pipe($.install());
 });
 
 gulp.task('styles-player', function () {
@@ -385,60 +385,75 @@ gulp.task('styles-player', function () {
 gulp.task('copy-player', ['clean-player', 'install-bower-modules-player'], function () {
     var files = [
         './sources/easygenerator.Player/package.json',
-		'./sources/easygenerator.Player/bower.json',
-		'./sources/easygenerator.Player/.bowerrc',
+        './sources/easygenerator.Player/bower.json',
+        './sources/easygenerator.Player/.bowerrc',
         './sources/easygenerator.Player/www.js',
         './sources/easygenerator.Player/app.js',
-		'./sources/easygenerator.Player/routes/*.*',
-		'./sources/easygenerator.Player/models/*.*',
-		'./sources/easygenerator.Player/public/images/*.*',
-		'./sources/easygenerator.Player/public/favicon.ico',
+        './sources/easygenerator.Player/routes/*.*',
+        './sources/easygenerator.Player/models/*.*',
+        './sources/easygenerator.Player/public/images/*.*',
+        './sources/easygenerator.Player/public/favicon.ico',
         './sources/easygenerator.Player/Web.config',
-		'./sources/easygenerator.Player/iisnode.yml'
+        './sources/easygenerator.Player/iisnode.yml'
     ];
-    
+
     return gulp.src(files, { base: "./sources/easygenerator.Player/" })
         .pipe(gulp.dest(outputPlayer));
 });
 
 gulp.task('assets-player', ['styles-player', 'copy-player-config-transform'], function () {
     gulp.src([
-		'./sources/easygenerator.Player/public/styles/style.css',
-		'./sources/easygenerator.Player/public/styles/video.css',
-		'./sources/easygenerator.Player/public/styles/audio.css'
-	])
-	.pipe($.minifyCss())
-	.pipe(gulp.dest(outputPlayer + '/public/styles/'));
-	gulp.src('./sources/easygenerator.Player/public/vendor/video.js/dist/font/*.*')
-		.pipe(gulp.dest(outputPlayer + '/public/styles/font'));
-	return gulp.src('./sources/easygenerator.Player/public/vendor/video.js/dist/lang/*.*')
-		.pipe(gulp.dest(outputPlayer + '/public/js/lang/'));
+        './sources/easygenerator.Player/public/styles/style.css',
+        './sources/easygenerator.Player/public/styles/video.css',
+        './sources/easygenerator.Player/public/styles/audio.css'
+    ])
+        .pipe($.minifyCss())
+        .pipe(gulp.dest(outputPlayer + '/public/styles/'));
+    gulp.src('./sources/easygenerator.Player/public/vendor/video.js/dist/font/*.*')
+        .pipe(gulp.dest(outputPlayer + '/public/styles/font'));
+    return gulp.src('./sources/easygenerator.Player/public/vendor/video.js/dist/lang/*.*')
+        .pipe(gulp.dest(outputPlayer + '/public/js/lang/'));
 });
 
-gulp.task('copy-player-config-transform', ['copy-player'], function(){
+gulp.task('copy-player-config-transform', ['copy-player'], function () {
     return gulp.src('./tools/PlayerConfigTransform/' + instance + '.transform.js')
-            .pipe($.rename('config.js'))
-            .pipe(gulp.dest(outputPlayer))
+        .pipe($.rename('config.js'))
+        .pipe(gulp.dest(outputPlayer))
 })
 
 gulp.task('deploy-player', ['assets-player'], function () {
-	var assets = $.useref.assets();
+    var assets = $.useref.assets();
     gulp.src('./sources/easygenerator.Player/views/*.jade')
         .pipe(assets)
         .pipe($.if('*.css', $.minifyCss()))
         .pipe(assets.restore())
         .pipe($.useref())
-		.pipe($.jadeUsemin({
-			js: [$.uglify()]
-		}))
-		.pipe(addBuildVersion())
+        .pipe($.jadeUsemin({
+            js: [$.uglify()]
+        }))
+        .pipe(addBuildVersion())
         .pipe(gulp.dest(outputPlayer + '/views/'));
-  
+
     return gulp.src([outputPlayer + '/package.json'])
         .pipe($.install({ production: true }));
 });
 
 /*#endregion deploy player*/
+
+gulp.task('web-build', ['styles'], function () {
+    return gulp.src('./sources/easygenerator.Web/easygenerator.Web.csproj')
+        .pipe($.msbuild({
+            stdout: true,
+            errorOnFail: true,
+            targets: ['Clean', 'Build'],
+            maxBuffer: 16 * 1024 * 1000,
+            toolsVersion: 14.0
+        }));
+});
+
+gulp.task('web-iis-express', ['web-build'], $.shell.task([
+    '"%ProgramFiles%\\IIS Express\\iisexpress" /path:"' + (args.path || 'D:\\Development\\easygenerator\\sources\\easygenerator.Web') + '" /port:666 /systray:true'
+]));
 
 gulp.task('storage-iis-express', $.shell.task([
     '"%ProgramFiles%\\IIS Express\\iisexpress" /path:"' + (args.path || 'D:\\Development\\storage\\sources\\easygenerator.StorageServer') + '" /port:888 /systray:true'

@@ -13,6 +13,8 @@
   border-bottom: 1px solid #e4e4e4;
   border-radius: 0;
 }
+/*#region objective list item List style*/
+/*#endregion*/
 /*#region finish course popup*/
 /*#endregion*/
 /*checkbox question type styles*/
@@ -782,6 +784,9 @@ ul {
 }
 .styled-content .image-wrapper img {
   border-radius: 5px;
+  max-width: 100%;
+}
+.styled-content iframe {
   max-width: 100%;
 }
 .text-404 .title-404 {
