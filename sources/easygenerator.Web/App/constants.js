@@ -291,7 +291,8 @@
             },
 
             patterns: {
-                email: /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,15})+)$/
+                email: /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,15})+)$/,
+                coursePage: /courses\/[\d\w]+/
             },
 
             notification: {
@@ -524,6 +525,11 @@
                         }
                     }
                 }
+            },
+
+            newCourseEditor: {
+                switchToNewEditorMessageClosed: ':switchToNewEditorMessageClosed',
+                switchToOldEditorMessageClosed: ':switchToOldEditorMessageClosed'
             }
         }
     }

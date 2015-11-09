@@ -7,14 +7,36 @@
             <div class="user-avatar" data-bind="text: avatarLetter">
             </div>
         </div>
-        <span class="header-username-text" data-bind="text: username"></span>
     </div>
-    <ul class="dropdown-list header-submenu-list">
-        <li class="header-submenu-item buy-btn">
-            <a class="header-submenu-link" href="" data-bind="click: openUpgradePlanUrl, localize: { text: hasStarterAccess() ? 'renewMyPlan' : 'upgradeNow' }">Upgrade account</a>
-        </li>
-        <li class="header-submenu-item sign-out">
-            <a class="header-submenu-link" href="" data-bind="click: signOut, localize: { text: 'signOutButton' }">Sign out</a>
-        </li>
-    </ul>
+    <div class="dropdown-section">
+        <header>
+            <div class="dropdown-header">
+                <div class="username-avatar">
+                    <div class="username-avatar-circle">
+                        <span class="username-avatar-letter" data-bind="text: avatarLetter"></span>
+                    </div>
+                </div>
+                <div class="dropdown-header-info">
+                    <h3 class="dropdown-header-title" data-bind="text: username"></h3>
+                    <h4 class="dropdown-header-subtitle" data-bind="text: useremail"></h4>
+                </div>
+            </div>
+        </header>
+        <ul class="dropdown-list header-submenu-list">
+            <li class="header-submenu-item buy-btn">
+                <a class="header-submenu-link" href="" data-bind="click: openUpgradePlanUrl, localize: { text: hasPlusAccess() ? 'renewMyPlan' : 'upgradeNow' }">Upgrade account</a>
+            </li>
+            <li class="header-submenu-item switch-editor">
+                <!-- ko if: newEditor -->
+                <a class="header-submenu-link" href="" data-bind="click: switchEditor, localize: { text: 'switchToOld' }">Switch to old version</a>
+                <!-- /ko -->
+                <!-- ko ifnot: newEditor -->
+                <a class="header-submenu-link new" href="" data-bind="click: switchEditor, localize: { text: 'switchToNew' }">Switch to new version</a>
+                <!-- /ko -->
+            </li>
+            <li class="header-submenu-item sign-out">
+                <a class="header-submenu-link" href="" data-bind="click: signOut, localize: { text: 'signOutButton' }">Sign out</a>
+            </li>
+        </ul>
+    </div>
 </div>

@@ -16,6 +16,11 @@
             modelToCompose: 'navigationBar/navigationBar'
         },
         {
+            viewToCompose: 'editor/course/bar',
+            subscribedPages: [{ id: 'editor/course/index' }],
+            modelToCompose: 'editor/course/index'
+        },
+        {
             viewToCompose: 'views/courses/course/design/bar',
             subscribedPages: [{ id: 'viewmodels/courses/course/design/design' }],
             modelToCompose: 'viewmodels/courses/course/design/design'

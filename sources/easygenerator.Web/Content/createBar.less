@@ -1,0 +1,28 @@
+﻿@create-bar-width: 300px;
+@create-bar-background: #fff;
+
+.create {
+    &.left-side-bar {
+        width: @create-bar-width;
+        overflow: auto;
+        background: @create-bar-background;
+        display: -webkit-flex;
+        display: flex;
+
+        @media screen and (max-width : 1630px) {
+            & + * {
+                padding-left: @create-bar-width;
+
+                header .header .content-section-wrapper {
+                    margin-left: 300px;
+                }
+
+                & > header {
+                    .content-section-wrapper .content-section {
+                        min-width: 660px;
+                    }
+                }
+            }
+        }
+    }
+}

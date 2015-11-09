@@ -11,6 +11,7 @@
         this.lastname = spec.lastname;
         this.fullname = spec.firstname + ' ' + spec.lastname;
         this.showReleaseNote = spec.showReleaseNote;
+        this.newEditor = spec.newEditor;
 
         this.company = spec.company ? companyMapper.map(spec.company) : null;
 

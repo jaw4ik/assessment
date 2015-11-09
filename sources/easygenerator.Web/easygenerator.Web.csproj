@@ -608,6 +608,13 @@
     <Content Include="App\dialogs\audio\audioViewModel.spec.js">
       <DependentUpon>audioViewModel.js</DependentUpon>
     </Content>
+    <Content Include="App\editor\course\bar.html" />
+    <Content Include="App\editor\course\index.html" />
+    <Content Include="App\editor\course\index.js" />
+    <Content Include="App\editor\course\index.spec.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
+    <Content Include="App\editor\index.js" />
     <Content Include="App\jsonReader.js" />
     <Content Include="App\localization\bindingHandlers\localizeBindingHandler.js" />
     <Content Include="App\dialogs\branchtrack\branchtrack.html" />
@@ -740,6 +747,7 @@
       <DependentUpon>AudioViewModel.js</DependentUpon>
     </Content>
     <Content Include="App\audio\convertion\commands\convert.js" />
+    <Content Include="App\viewmodels\courses\course\create\editor.js" />
     <Content Include="App\viewmodels\courses\course\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>
@@ -1722,6 +1730,8 @@
     <Content Include="App\dialogs\branchtrack\branchtrack.spec.js">
       <DependentUpon>branchtrack.js</DependentUpon>
     </Content>
+    <Content Include="Content\createBar.less" />
+    <Content Include="Content\editor.less" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\iscroll-probe.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
