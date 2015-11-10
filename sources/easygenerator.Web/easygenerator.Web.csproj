@@ -2582,6 +2582,11 @@
     <Content Include="Templates\Simple course\css\img\loader.gif" />
     <Content Include="Templates\Simple course\css\img\singleSelectImageAnwer.png" />
     <Content Include="Templates\Simple course\css\img\xapi\xapierror.png" />
+    <Content Include="Templates\Simple course\css\player\black.css" />
+    <Content Include="Templates\Simple course\css\player\cartoon.css" />
+    <Content Include="Templates\Simple course\css\player\default.css" />
+    <Content Include="Templates\Simple course\css\player\flat.css" />
+    <Content Include="Templates\Simple course\css\player\grey.css" />
     <Content Include="Templates\Simple course\css\themes\black.css" />
     <Content Include="Templates\Simple course\css\themes\cartoon.css" />
     <Content Include="Templates\Simple course\css\themes\default.css" />
