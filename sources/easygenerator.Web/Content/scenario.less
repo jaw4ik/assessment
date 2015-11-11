@@ -1,9 +1,43 @@
 ﻿@main-font-family: 'RobotoSlab';
+@upgrade-block-border-color: #c7d9e4;
+@background-color: #e9f0f4;
 
 .scenario {
     .border() {
         border: 3px solid #b4bfc5;
         border-radius: 4px;
+    }
+
+    .upgrade-block {
+        position: absolute;
+        top: 50%;
+        right: 43px;
+        height: 45px;
+        margin-top: -22px;
+        padding: 4px 7px;
+        border: 1px solid @upgrade-block-border-color;
+        border-radius: 2px;
+        font-size: 11px;
+        line-height: 18px;
+        color: #63798e;
+
+        a {
+            color: #469dd5;
+            text-decoration: none;
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            background-color: @background-color;
+            border-bottom: 1px solid @upgrade-block-border-color;
+            transform: rotate(45deg);
+        }
     }
 
     .scenario-designer {
@@ -37,14 +71,14 @@
                 cursor: pointer;
                 transition: box-shadow 0.2s linear;
 
-                &.info-tooltip-holder{
+                &.info-tooltip-holder {
 
-                    .info-tooltip{
+                    .info-tooltip {
                         margin-right: 20px;
                     }
 
-                    &:hover{
-                        .info-tooltip{
+                    &:hover {
+                        .info-tooltip {
                             margin-right: 9px;
                             transition: all 0.2s linear;
                         }

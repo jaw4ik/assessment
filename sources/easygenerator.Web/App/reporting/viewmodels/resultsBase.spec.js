@@ -760,6 +760,7 @@
                         });
 
                 });
+
             });
 
             describe('when user access type forbids to downloadResults', function () {
