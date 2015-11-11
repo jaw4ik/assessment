@@ -30,7 +30,11 @@
             return getStatements({ courseId: courseId, verbs: constants.reporting.xApiVerbIds.started, limit: take, skip: skip });
         }
 
-        function getCourseFinishedStatements(attemptIds) {
+        function getCourseFinishedStatements(courseId) {
+            return getStatements({ courseId: courseId, verbs: [constants.reporting.xApiVerbIds.passed, constants.reporting.xApiVerbIds.failed] });
+        }
+
+        function getCourseFinishedStatementsByAttempts(attemptIds) {
             return getStatements({ attemptIds: attemptIds, verbs: [constants.reporting.xApiVerbIds.passed, constants.reporting.xApiVerbIds.failed] });
         }
 
@@ -49,6 +53,7 @@
         return {
             getCourseStartedStatements: getCourseStartedStatements,
             getCourseFinishedStatements: getCourseFinishedStatements,
+            getCourseFinishedStatementsByAttempts: getCourseFinishedStatementsByAttempts,
             getLearningPathFinishedStatements: getLearningPathFinishedStatements,
             getMasteredStatements: getMasteredStatements,
             getAnsweredStatements: getAnsweredStatements,

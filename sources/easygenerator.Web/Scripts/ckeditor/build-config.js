@@ -98,9 +98,11 @@ var CKBUILDER_CONFIG = {
 		'widget' : 1,
 		'wsc' : 1
 	},
-	languages : {
+	languages: {
+        'de' : 1,
 		'en' : 1,
 		'fr' : 1,
+        'nl' : 1,
 		'pt-br' : 1,
 		'uk' : 1,
 		'zh-cn' : 1

@@ -2,7 +2,7 @@
 
     CKEDITOR.plugins.audiolibrary = {
         requires: 'dialogui',
-        lang: 'en,uk,zh-cn',
+        lang: 'en,uk,zh-cn,pt-br,de,nl',
         audioLibraryDialogName: 'audioLibraryDialog',
 
         commands: {

@@ -124,12 +124,12 @@
     <value>The page you requested cannot be found</value>
   </data>
   <data name="PageNotFoundDescription" xml:space="preserve">
-    <value>Click on Home and try again. Contact support@easygenerator.com if the problem persists.</value>
+    <value>Click on Home. Open the course and try again. Contact support@easygenerator.com if the problem persists.</value>
   </data>
   <data name="ServerError" xml:space="preserve">
-    <value>Something went wrong</value>
+    <value>An error occurred</value>
   </data>
   <data name="ServerErrorDescription" xml:space="preserve">
-    <value>Click on Home and try again. Contact support@easygenerator.com if the problem persists.</value>
+    <value>Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.</value>
   </data>
 </root>

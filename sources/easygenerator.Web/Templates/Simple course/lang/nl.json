@@ -19,7 +19,8 @@
     "[previous question]": "Vorige",
     "[next question]": "Volgende",
     "[of]": "van",
-    "[to complete]": "completeer",
+    "[to complete]": "Maak af",
+    "[completed]": "Klaar",
     "[text matching question hint]": "Sleep items van de rechterkolom naar links om kloppende paren te maken",
     "[text matching question drop here]": "Plaats hier",
     "[statement question true text]": "Waar",
@@ -60,5 +61,9 @@
     "[tracking and tracing hint without skip]": "Vul uw gegevens in en klik op ‘Start en rapporteer mijn resultaten’ om de cursus te beginnen",
     "[tracking and tracing error hint without continue]": "Herstart de cursus. Neem contact op met uw cursusleider als het probleem niet is opgelost.",
     "[question]": "Vraag",
-    "[download course in pdf format]": "Download de cursus in PDF formaat"
+    "[scenario has been submitted]": "Het scenario is ingediend",
+    "[scenario has not been finished yet]": "Het scenario is nog niet klaar. Maak het af en dien het in.",
+    "[download course in pdf format]": "Download de cursus in PDF formaat",
+    "[scenario has been passed successfully]": "Het scenario is succesvol voltooid",
+    "[scenario has not been passed successfully]": "U heeft het scenario niet succesvol voltooid"
 }

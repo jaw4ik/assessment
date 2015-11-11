@@ -2,7 +2,7 @@
     fileSizeNotMoreThan: 'Bestandsgrootte maximaal',
     extensions: 'Extensies',
     uploadFile: 'Upload file',
-    somethingWentWrong: 'Something went wrong',
-    extensionNotSupported: 'Extension is not supported: ',
-    fileCannotBeLargerThan: 'File cannot be larger than '
+    somethingWentWrong: 'Er ging iets mis',
+    extensionNotSupported: 'Extensie wordt niet ondersteund: ',
+    fileCannotBeLargerThan: 'File mag niet groter zijn dan '
 });
