@@ -120,32 +120,17 @@
   <data name="AccountAlreadyExists" xml:space="preserve">
     <value>Ce compte existe déjà. Cliquez sur Se Connecter et réessayez.</value>
   </data>
-  <data name="BeAtLeast7CharactersLong" xml:space="preserve">
-    <value>être composé d'au moins 7 caractères ;</value>
-  </data>
   <data name="Checking" xml:space="preserve">
     <value>Vérification…</value>
   </data>
   <data name="ChooseYourCountry" xml:space="preserve">
     <value>Sélectionnez votre pays…</value>
   </data>
-  <data name="ContainAtLeastOneDigit" xml:space="preserve">
-    <value>contenir au moins un chiffre ;</value>
-  </data>
-  <data name="ContainAtLeastOneLowerCaseLetter" xml:space="preserve">
-    <value>contenir au moins une minuscule ;</value>
-  </data>
-  <data name="ContainAtLeastOneUpperCaseLetter" xml:space="preserve">
-    <value>contenir au moins une majuscule ;</value>
-  </data>
   <data name="Continue" xml:space="preserve">
     <value>Continuer</value>
   </data>
   <data name="CouldNotVerifyPasswordRecovery" xml:space="preserve">
     <value>Une erreur s'est produite. Veuillez réessayer. Contactez support@easygenerator.com si le problème persiste. </value>
-  </data>
-  <data name="CountryCaption" xml:space="preserve">
-    <value>Pays</value>
   </data>
   <data name="CreateAccountTitle" xml:space="preserve">
     <value>Commencez à créer des cours maintenant !</value>
@@ -155,9 +140,6 @@
   </data>
   <data name="ELearningManager" xml:space="preserve">
     <value>Manageur en e-learning</value>
-  </data>
-  <data name="Email" xml:space="preserve">
-    <value>Email</value>
   </data>
   <data name="EmailCaption" xml:space="preserve">
     <value>Email</value>
@@ -171,14 +153,8 @@
   <data name="EnterValidFirstName" xml:space="preserve">
     <value>Saisissez votre prénom</value>
   </data>
-  <data name="EnterValidFullName" xml:space="preserve">
-    <value>Saisissez votre prénom et votre nom</value>
-  </data>
   <data name="EnterValidLastName" xml:space="preserve">
     <value>Saisissez votre nom</value>
-  </data>
-  <data name="EnterValidOrganization" xml:space="preserve">
-    <value>Saisissez le nom de votre organisation</value>
   </data>
   <data name="EnterValidPhoneNumber" xml:space="preserve">
     <value>Saisissez votre numéro de téléphone</value>
@@ -223,9 +199,6 @@ Bonjour,
   <data name="ForgotPasswordSubject" xml:space="preserve">
     <value>Mot de passe pour easygenerator</value>
   </data>
-  <data name="Help" xml:space="preserve">
-    <value>Aide</value>
-  </data>
   <data name="HidePassword" xml:space="preserve">
     <value>Cacher le mot de passe</value>
   </data>
@@ -243,6 +216,9 @@ Bonjour,
 L'équipe d'easygenerator &lt;/p&gt;
 &lt;/div&gt;</value>
   </data>
+  <data name="InviteCollaboratorFromDisplayName" xml:space="preserve">
+    <value>{0} (easygenerator)</value>
+  </data>
   <data name="InviteCollaboratorSubject" xml:space="preserve">
     <value>Vous êtes invité par {0} pour coréaliser un cours e-learning sur {1}</value>
   </data>
@@ -252,29 +228,20 @@ L'équipe d'easygenerator &lt;/p&gt;
   <data name="LicenseAgreeCaption" xml:space="preserve">
     <value>En cliquant sur "S’inscrire" j’accepte les &lt;a href="{0}"  target=”_blank”&gt;Termes et Conditions &lt;/a&gt; ainsi que la &lt;a href="{1}"  target=”_blank”&gt;Politique de confidentialité&lt;/a&gt; d’easygenerator.</value>
   </data>
-  <data name="NotContainWhitespaceCharacters" xml:space="preserve">
-    <value>Le mot de passe ne peut pas contenir d'espaces</value>
+  <data name="NoSpaces" xml:space="preserve">
+    <value>No spaces</value>
+  </data>
+  <data name="NotLessThanSevenSymbols" xml:space="preserve">
+    <value>At least 7 characters</value>
   </data>
   <data name="OtherRole" xml:space="preserve">
     <value>Autre</value>
   </data>
-  <data name="password" xml:space="preserve">
-    <value>Mot de passe</value>
-  </data>
   <data name="PasswordCaption" xml:space="preserve">
     <value>Mot de passe</value>
   </data>
-  <data name="PasswordDoesNotMeetRequirements" xml:space="preserve">
-    <value>Le mot de passe ne répond pas aux exigences</value>
-  </data>
-  <data name="PasswordIsStrongEnough" xml:space="preserve">
-    <value>Le mot de passe répond aux exigences</value>
-  </data>
   <data name="PasswordRecovery" xml:space="preserve">
     <value>Réinitialiser le mot de passe</value>
-  </data>
-  <data name="PasswordRequirementsTitle" xml:space="preserve">
-    <value>Le mot de passe doit :</value>
   </data>
   <data name="PhoneNumberCaption" xml:space="preserve">
     <value>Numéro de Téléphone</value>
@@ -285,11 +252,11 @@ L'équipe d'easygenerator &lt;/p&gt;
   <data name="RequestError" xml:space="preserve">
     <value>Une erreur s'est produite. Veuillez réessayer. Contactez support@easygenerator.com si le problème persiste. </value>
   </data>
-  <data name="RestorePasswordCaption" xml:space="preserve">
-    <value>Saisissez votre nouveau mot de passe</value>
-  </data>
   <data name="RoleQuestion" xml:space="preserve">
     <value>Quelle est votre profession ?</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Show</value>
   </data>
   <data name="ShowPassword" xml:space="preserve">
     <value>Afficher le mot de passe</value>
@@ -297,8 +264,8 @@ L'équipe d'easygenerator &lt;/p&gt;
   <data name="SignIn" xml:space="preserve">
     <value>Se connecter</value>
   </data>
-  <data name="SignOutButton" xml:space="preserve">
-    <value>Se déconnecter</value>
+  <data name="SignUp" xml:space="preserve">
+    <value>S'inscrire</value>
   </data>
   <data name="SignUpButton" xml:space="preserve">
     <value>S'inscrire</value>
@@ -317,32 +284,5 @@ L'équipe d'easygenerator &lt;/p&gt;
   </data>
   <data name="Trainer" xml:space="preserve">
     <value>Formateur</value>
-  </data>
-  <data name="TryImageDevelopOn" xml:space="preserve">
-    <value>Développer sur</value>
-  </data>
-  <data name="TryImagePublishTo" xml:space="preserve">
-    <value>Éditer sur</value>
-  </data>
-  <data name="TryNow" xml:space="preserve">
-    <value>Essayer maintenant</value>
-  </data>
-  <data name="TrySubmitCaption" xml:space="preserve">
-    <value>L'essayer maintenant</value>
-  </data>
-  <data name="TrySubtitle" xml:space="preserve">
-    <value>Une plateforme d'e-learning révolutionnaire</value>
-  </data>
-  <data name="TryTitle" xml:space="preserve">
-    <value>Présentation d'easygenerator</value>
-  </data>
-  <data name="TryWarningMessage" xml:space="preserve">
-    <value>Sous le mode "L'Essayer Maintenant", votre contenu n'est pas en sécurité !</value>
-  </data>
-  <data name="WouldYouLikeAnIntroductionDemo" xml:space="preserve">
-    <value>J'aimerai avoir une démo de présentation !</value>
-  </data>
-  <data name="SignUp" xml:space="preserve">
-    <value>S'inscrire</value>
   </data>
 </root>

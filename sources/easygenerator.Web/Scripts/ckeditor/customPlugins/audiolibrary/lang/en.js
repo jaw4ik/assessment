@@ -2,6 +2,6 @@
     addFromLibrary: 'Add audio from library',
     audioLibrary: 'Audio library',
     noAudio: 'No audio yet',
-    somethingWentWrong: 'Something went wrong. ',
+    somethingWentWrong: 'An error occurred. ',
     tryAgain: 'Try again'
 });

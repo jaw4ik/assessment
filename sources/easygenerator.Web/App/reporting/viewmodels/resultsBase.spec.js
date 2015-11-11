@@ -21,7 +21,7 @@
             getEntityDefer;
 
         var viewLocation = 'noResultsViewLocation';
-        var xApiProvider, repository, viewModel, viewModelWithoutStarted;
+        var statementsProvider, repository, viewModel;
 
         var time = '2015-02-03_05-38';
 
@@ -36,37 +36,43 @@
                     id: 'id1',
                     attemptId: '123',
                     score: null,
-                    actor: { name: 'name1', email: 'email1' }
+                    actor: { name: 'name1', email: 'email1' },
+                    date: new Date(2015, 11, 10)
                 },
                 {
                     id: 'id2',
                     attemptId: '1234',
                     score: null,
-                    actor: { name: 'name2', email: 'email2' }
+                    actor: { name: 'name2', email: 'email2' },
+                    date: new Date(2015, 11, 9)
                 },
                 {
                     id: 'id3',
                     attemptId: '12345',
                     score: null,
-                    actor: { name: 'name3', email: 'email3' }
+                    actor: { name: 'name3', email: 'email3' },
+                    date: new Date(2015, 11, 8)
                 },
                 {
                     id: 'id4',
                     attemptId: '123456',
                     score: null,
-                    actor: { name: 'name4', email: 'email4' }
+                    actor: { name: 'name4', email: 'email4' },
+                    date: new Date(2015, 11, 7)
                 },
                 {
                     id: 'id5',
                     attemptId: '1234567',
                     score: null,
-                    actor: { name: 'name5', email: 'email5' }
+                    actor: { name: 'name5', email: 'email5' },
+                    date: new Date(2015, 11, 6)
                 },
                 {
                     id: 'id6',
                     attemptId: '12345678',
                     score: null,
-                    actor: { name: 'name6', email: 'email6' }
+                    actor: { name: 'name6', email: 'email6' },
+                    date: new Date(2015, 11, 11)
                 }
         ],
             finishStatements = [
@@ -74,31 +80,36 @@
                     id: 'id1',
                     attemptId: '123',
                     score: 10,
-                    actor: { name: 'name1', email: 'email1' }
+                    actor: { name: 'name1', email: 'email1' },
+                    date: new Date(2015, 11, 10)
                 },
                 {
                     id: 'id2',
                     attemptId: '1234',
                     score: 20,
-                    actor: { name: 'name2', email: 'email2' }
+                    actor: { name: 'name2', email: 'email2' },
+                    date: new Date(2015, 11, 9)
                 },
                 {
                     id: 'id3',
                     attemptId: '12345',
                     score: 30,
-                    actor: { name: 'name3', email: 'email3' }
+                    actor: { name: 'name3', email: 'email3' },
+                    date: new Date(2015, 11, 8)
                 },
                 {
                     id: 'id4',
                     attemptId: '123456',
                     score: 40,
-                    actor: { name: 'name4', email: 'email4' }
+                    actor: { name: 'name4', email: 'email4' },
+                    date: new Date(2015, 11, 7)
                 },
                 {
                     id: 'id5',
                     attemptId: '1234567',
                     score: 50,
-                    actor: { name: 'name5', email: 'email5' }
+                    actor: { name: 'name5', email: 'email5' },
+                    date: new Date(2015, 11, 6)
                 }
             ];
 
@@ -109,13 +120,12 @@
             spyOn(router, 'openUrl');
 
             repository = jasmine.createSpyObj('repository', ['getById']);
-            xApiProvider = jasmine.createSpyObj('xApiProvider', ['getStartedStatements', 'getFinishedStatements']);
+            statementsProvider = jasmine.createSpyObj('statementsProvider', ['getLrsStatements']);
             repository.getById.and.returnValue(getEntityDefer.promise);
 
             spyOn(window, 'moment').and.returnValue(fakeMoment);
             spyOn(fakeMoment, 'format').and.returnValue(time);
-            viewModel = new ResultsBase(repository.getById, xApiProvider.getStartedStatements, xApiProvider.getFinishedStatements, viewLocation);
-            viewModelWithoutStarted = new ResultsBase(repository.getById, null, xApiProvider.getFinishedStatements, viewLocation);
+            viewModel = new ResultsBase(repository.getById, statementsProvider.getLrsStatements, viewLocation);
         });
 
         describe('entityId:', function () {
@@ -212,12 +222,12 @@
 
                 expect(finishStatement).toBeInstanceOf(FinishStatement);
                 expect(finishStatement.isFinished).toBeTruthy();
-                
+
                 expect(startedStatement).toBeInstanceOf(StartedStatement);
                 expect(startedStatement.isFinished).toBeFalsy();
             });
 
-            it('should return extended statement', function() {
+            it('should return extended statement', function () {
                 var finishStatement = new FinishStatement(finishStatements[0]);
                 var extended = viewModel.extendStatement(finishStatement);
                 expect(finishStatement).toBe(extended);
@@ -303,236 +313,159 @@
 
         describe('attached:', function () {
 
-            var startedDfd,
-                finishDfd;
+            var getLrsStatementsDfd;
 
             beforeEach(function () {
-                startedDfd = Q.defer();
-                finishDfd = Q.defer();
-                xApiProvider.getStartedStatements.and.returnValue(startedDfd.promise);
-                xApiProvider.getFinishedStatements.and.returnValue(finishDfd.promise);
-                startedDfd.resolve(startedStatements);
-                finishDfd.resolve(finishStatements);
+                getLrsStatementsDfd = Q.defer();
+                statementsProvider.getLrsStatements.and.returnValue(getLrsStatementsDfd.promise);
+                viewModel.activate(entityId);
             });
 
             it('should return a promise', function () {
-                startedDfd.resolve(null);
-                finishDfd.resolve(null);
+                getLrsStatementsDfd.resolve({});
                 expect(viewModel.attached()).toBePromise();
             });
 
-            describe('when getStartedStatements is not defined', function () {
+            it('should call getLrsStatements with correct params', function (done) {
+                getLrsStatementsDfd.resolve({});
+                viewModel.attached().fin(function () {
+                    expect(statementsProvider.getLrsStatements).toHaveBeenCalledWith(
+                        entityId,
+                        constants.results.pageSize + 1,
+                        0
+                    );
+                    done();
+                });
+            });
+
+            describe('when getLrsStatements failed', function () {
+
                 beforeEach(function () {
-                    viewModelWithoutStarted.activate(entityId);
+                    viewModel.isLoading(true);
+                    getLrsStatementsDfd.reject();
                 });
 
-                it('should call getFinishedStatements with correct params', function (done) {
-                    viewModelWithoutStarted.attached().fin(function () {
-                        expect(xApiProvider.getFinishedStatements).toHaveBeenCalledWith(
-                            entityId,
-                            constants.results.pageSize + 1,
-                            0
-                        );
+                it('should set isLoading to false', function (done) {
+                    viewModel.attached().fin(function () {
+                        expect(viewModel.isLoading()).toBeFalsy();
                         done();
                     });
                 });
 
-                describe('and getFinishedStatements failed', function () {
+            });
+
+            describe('when getLrsStatements returned only finished statements', function () {
+
+                beforeEach(function () {
+                    getLrsStatementsDfd.resolve({ finished: finishStatements });
+                });
+
+                it('should set isLoading to false', function (done) {
+                    viewModel.isLoading(true);
+                    viewModel.attached().fin(function () {
+                        expect(viewModel.isLoading()).toBeFalsy();
+                        done();
+                    });
+                });
+
+                it('should fill results field with finished statements', function (done) {
+                    constants.results.pageSize = 1;
+                    viewModel.attached().fin(function () {
+                        expect(viewModel.results()[0].lrsStatement).toBe(finishStatements[0]);
+                        expect(viewModel.results()[0]).toBeInstanceOf(FinishStatement);
+                        expect(viewModel.results().length).toBe(1);
+                        done();
+                    });
+                });
+
+                describe('and number of result statemets less than page size + 1', function () {
 
                     beforeEach(function () {
-                        viewModelWithoutStarted.isLoading(true);
-                        finishDfd.reject();
+                        viewModel.allResultsLoaded = false;
+                        constants.results.pageSize = 10;
                     });
 
-                    it('should set isLoading to false', function (done) {
-                        viewModelWithoutStarted.attached().fin(function () {
-                            expect(viewModelWithoutStarted.isLoading()).toBeFalsy();
+                    it('should set allResultsLoaded to true', function (done) {
+                        viewModel.attached().fin(function () {
+                            expect(viewModel.allResultsLoaded).toBeTruthy();
                             done();
                         });
                     });
 
                 });
 
-                describe('and getFinishedStatements returned statements', function () {
+                describe('and number of result statemets equals page size + 1', function () {
 
-                    it('should set isLoading to false', function (done) {
-                        viewModelWithoutStarted.isLoading(true);
-                        viewModelWithoutStarted.attached().fin(function () {
-                            expect(viewModelWithoutStarted.isLoading()).toBeFalsy();
-                            done();
-                        });
-                    });
-
-                    it('should fill results field with results', function (done) {
+                    beforeEach(function () {
+                        viewModel.allResultsLoaded = false;
                         constants.results.pageSize = 1;
-                        viewModelWithoutStarted.attached().fin(function () {
-                            expect(viewModelWithoutStarted.results()[0].lrsStatement).toBe(finishStatements[0]);
-                            expect(viewModelWithoutStarted.results()[0]).toBeInstanceOf(FinishStatement);
-                            expect(viewModelWithoutStarted.results().length).toBe(1);
+                    });
+
+                    it('should not set allResultsLoaded to false', function (done) {
+                        viewModel.attached().fin(function () {
+                            expect(viewModel.allResultsLoaded).toBeFalsy();
                             done();
                         });
-                    });
-
-                    describe('and number of statemets less than page size + 1', function () {
-
-                        beforeEach(function () {
-                            viewModelWithoutStarted.allResultsLoaded = false;
-                            constants.results.pageSize = 10;
-                        });
-
-                        it('should set allResultsLoaded to true', function (done) {
-                            viewModelWithoutStarted.attached().fin(function () {
-                                expect(viewModelWithoutStarted.allResultsLoaded).toBeTruthy();
-                                done();
-                            });
-                        });
-
-                    });
-
-                    describe('and number of statemets equals page size + 1', function () {
-
-                        beforeEach(function () {
-                            viewModelWithoutStarted.allResultsLoaded = false;
-                            constants.results.pageSize = 1;
-                        });
-
-                        it('should not set allResultsLoaded to false', function (done) {
-                            viewModelWithoutStarted.attached().fin(function () {
-                                expect(viewModelWithoutStarted.allResultsLoaded).toBeFalsy();
-                                done();
-                            });
-                        });
-
                     });
 
                 });
 
             });
 
-            describe('when getStartedStatements is defined', function () {
+            describe('when getLrsStatements returned started and finished statements', function () {
 
                 beforeEach(function () {
-                    viewModel.activate(entityId);
+                    getLrsStatementsDfd.resolve({ started: startedStatements, finished: finishStatements });
                 });
 
-                it('should call getStartedStatements with correct params', function (done) {
+                it('should set isLoading to false', function (done) {
+                    viewModel.isLoading(true);
                     viewModel.attached().fin(function () {
-                        expect(xApiProvider.getStartedStatements).toHaveBeenCalledWith(
-                            entityId,
-                            constants.results.pageSize + 1,
-                            0
-                        );
+                        expect(viewModel.isLoading()).toBeFalsy();
                         done();
                     });
                 });
 
-                describe('and getStartedStatements failed', function () {
+                it('should fill results field with distinct results sorted by date', function (done) {
+                    constants.results.pageSize = 10;
+                    viewModel.attached().fin(function () {
+                        expect(viewModel.results()[0].lrsStatement).toBe(startedStatements[startedStatements.length - 1]);
+                        expect(viewModel.results()[0]).toBeInstanceOf(StartedStatement);
+                        expect(viewModel.results()[1].lrsStatement).toBe(finishStatements[0]);
+                        expect(viewModel.results()[1]).toBeInstanceOf(FinishStatement);
+                        expect(viewModel.results().length).toBe(startedStatements.length);
+                        done();
+                    });
+                });
+
+                describe('and number of result statemets less than page size + 1', function () {
 
                     beforeEach(function () {
-                        viewModel.isLoading(true);
-                        startedDfd.reject();
+                        viewModel.allResultsLoaded = false;
+                        constants.results.pageSize = 10;
                     });
 
-                    it('should set isLoading to false', function (done) {
+                    it('should set allResultsLoaded to true', function (done) {
                         viewModel.attached().fin(function () {
-                            expect(viewModel.isLoading()).toBeFalsy();
+                            expect(viewModel.allResultsLoaded).toBeTruthy();
                             done();
                         });
                     });
 
                 });
 
-                describe('and getStartedStatements returned statements', function () {
+                describe('and number of resul statemets equals page size + 1', function () {
 
-                    it('should set isLoading to false', function (done) {
-                        viewModel.isLoading(true);
+                    beforeEach(function () {
+                        viewModel.allResultsLoaded = false;
+                        constants.results.pageSize = 1;
+                    });
+
+                    it('should not set allResultsLoaded to false', function (done) {
                         viewModel.attached().fin(function () {
-                            expect(viewModel.isLoading()).toBeFalsy();
+                            expect(viewModel.allResultsLoaded).toBeFalsy();
                             done();
                         });
-                    });
-
-                    it('should call getFinishedStatements with correct params', function (done) {
-                        viewModel.attached().fin(function () {
-                            expect(xApiProvider.getFinishedStatements).toHaveBeenCalledWith(
-                                _.map(startedStatements, function (statement) {
-                                    return statement.attemptId;
-                                })
-                            );
-                            done();
-                        });
-                    });
-
-                    describe('and getFinishedStatements failed', function () {
-
-                        beforeEach(function () {
-                            viewModel.isLoading(true);
-                            finishDfd.reject();
-                        });
-
-                        it('should set isLoading to false', function (done) {
-                            viewModel.attached().fin(function () {
-                                expect(viewModel.isLoading()).toBeFalsy();
-                                done();
-                            });
-                        });
-
-                    });
-
-                    describe('and getFinishedStatements returned statements', function () {
-
-                        it('should set isLoading to false', function (done) {
-                            viewModel.isLoading(true);
-                            viewModel.attached().fin(function () {
-                                expect(viewModel.isLoading()).toBeFalsy();
-                                done();
-                            });
-                        });
-
-                        it('should fill results field with distinct results sorted by date', function (done) {
-                            constants.results.pageSize = 10;
-                            viewModel.attached().fin(function () {
-                                expect(viewModel.results()[0].lrsStatement).toBe(startedStatements[startedStatements.length - 1]);
-                                expect(viewModel.results()[0]).toBeInstanceOf(StartedStatement);
-                                expect(viewModel.results()[1].lrsStatement).toBe(finishStatements[finishStatements.length - 1]);
-                                expect(viewModel.results()[1]).toBeInstanceOf(FinishStatement);
-                                expect(viewModel.results().length).toBe(startedStatements.length);
-                                done();
-                            });
-                        });
-
-                        describe('and number of statemets less than page size + 1', function () {
-
-                            beforeEach(function () {
-                                viewModel.allResultsLoaded = false;
-                                constants.results.pageSize = 10;
-                            });
-
-                            it('should set allResultsLoaded to true', function (done) {
-                                viewModel.attached().fin(function () {
-                                    expect(viewModel.allResultsLoaded).toBeTruthy();
-                                    done();
-                                });
-                            });
-
-                        });
-
-                        describe('and number of statemets equals page size + 1', function () {
-
-                            beforeEach(function () {
-                                viewModel.allResultsLoaded = false;
-                                constants.results.pageSize = 1;
-                            });
-
-                            it('should not set allResultsLoaded to false', function (done) {
-                                viewModel.attached().fin(function () {
-                                    expect(viewModel.allResultsLoaded).toBeFalsy();
-                                    done();
-                                });
-                            });
-
-                        });
-
                     });
 
                 });
@@ -543,19 +476,14 @@
 
         describe('showMoreResults:', function () {
 
-            var startedDfd,
-                finishDfd;
+            var getLrsStatementsDfd;
 
             beforeEach(function () {
-                startedDfd = Q.defer();
-                finishDfd = Q.defer();
+                getLrsStatementsDfd = Q.defer();
                 viewModel.activate(entityId);
-                viewModelWithoutStarted.activate(entityId);
+
                 spyOn(dialog, 'show');
-                xApiProvider.getStartedStatements.and.returnValue(startedDfd.promise);
-                xApiProvider.getFinishedStatements.and.returnValue(finishDfd.promise);
-                startedDfd.resolve(startedStatements);
-                finishDfd.resolve(finishStatements);
+                statementsProvider.getLrsStatements.and.returnValue(getLrsStatementsDfd.promise);
             });
 
             it('should be function', function () {
@@ -579,16 +507,9 @@
                     viewModel.results([1, 2, 3]);
                 });
 
-                it('should not call getStartedStatements', function (done) {
+                it('should not call getLrsStatements', function (done) {
                     viewModel.showMoreResults().fin(function () {
-                        expect(xApiProvider.getStartedStatements).not.toHaveBeenCalled();
-                        done();
-                    });
-                });
-
-                it('should not call getFinishStatements', function (done) {
-                    viewModel.showMoreResults().fin(function () {
-                        expect(xApiProvider.getFinishedStatements).not.toHaveBeenCalled();
+                        expect(statementsProvider.getLrsStatements).not.toHaveBeenCalled();
                         done();
                     });
                 });
@@ -612,7 +533,7 @@
                     viewModel.results([]);
                 });
 
-                describe('when user access type forbids to view more results', function () {
+                describe('and user access type forbids to view more results', function () {
                     beforeEach(function () {
                         userContext.identity = {
                             email: 'test@test.com',
@@ -640,7 +561,7 @@
 
                 });
 
-                describe('when user access type allows to view more results', function () {
+                describe('and user access type allows to view more results', function () {
 
                     beforeEach(function () {
                         userContext.identity = {
@@ -662,16 +583,9 @@
 
                     describe('when requested results were already loaded', function () {
 
-                        it('should not call getStartedStatements to load results', function (done) {
+                        it('should not get LRS statements', function (done) {
                             viewModel.showMoreResults().fin(function () {
-                                expect(xApiProvider.getStartedStatements).not.toHaveBeenCalled();
-                                done();
-                            });
-                        });
-
-                        it('should not call getFinishedStatements to load results', function (done) {
-                            viewModel.showMoreResults().fin(function () {
-                                expect(xApiProvider.getFinishedStatements).not.toHaveBeenCalled();
+                                expect(statementsProvider.getLrsStatements).not.toHaveBeenCalled();
                                 done();
                             });
                         });
@@ -690,16 +604,9 @@
                             viewModel.allResultsLoaded = true;
                         });
 
-                        it('should not call getStartedStatements to load results', function (done) {
+                        it('should not get LRS statements', function (done) {
                             viewModel.showMoreResults().fin(function () {
-                                expect(xApiProvider.getStartedStatements).not.toHaveBeenCalled();
-                                done();
-                            });
-                        });
-
-                        it('should not call getFinishedStatements to load results', function (done) {
-                            viewModel.showMoreResults().fin(function () {
-                                expect(xApiProvider.getFinishedStatements).not.toHaveBeenCalled();
+                                expect(statementsProvider.getLrsStatements).not.toHaveBeenCalled();
                                 done();
                             });
                         });
@@ -714,99 +621,60 @@
 
                     describe('when requested results were not loaded yet', function () {
 
-                        describe('and getStartedStatements is not defined', function () {
+                        beforeEach(function () {
+                            viewModel.loadedResults = [1, 2, 3];
+                            viewModel.results([]);
+                            viewModel.allResultsLoaded = false;
+                            viewModel.pageNumber = 1;
+                            constants.results.pageSize = 5;
+                        });
+
+                        it('should get next part of statements', function (done) {
+                            getLrsStatementsDfd.resolve({ });
+                            viewModel.showMoreResults().fin(function () {
+                                expect(statementsProvider.getLrsStatements).toHaveBeenCalledWith(
+                                    entityId,
+                                    constants.results.pageSize + 1,
+                                    5
+                                );
+                                done();
+                            });
+                        });
+
+                        describe('when getLrsStatements returned only finished statements', function () {
 
                             beforeEach(function () {
-                                viewModelWithoutStarted.loadedResults = [1, 2, 3];
-                                viewModelWithoutStarted.results([]);
-                                viewModelWithoutStarted.allResultsLoaded = false;
-                                viewModelWithoutStarted.pageNumber = 1;
-                                constants.results.pageSize = 5;
+                                getLrsStatementsDfd.resolve({ finished: finishStatements });
                             });
 
-                            it('should call getFinishedStatements with correct params', function (done) {
-                                viewModelWithoutStarted.showMoreResults().fin(function () {
-                                    expect(xApiProvider.getFinishedStatements).toHaveBeenCalledWith(
-                                        entityId,
-                                        constants.results.pageSize + 1,
-                                        5
-                                    );
+                            it('should fill results field with results', function (done) {
+                                viewModel.showMoreResults().fin(function () {
+                                    expect(viewModel.results()[0].lrsStatement).toBe(finishStatements[0]);
+                                    expect(viewModel.results()[0]).toBeInstanceOf(FinishStatement);
+                                    expect(viewModel.results().length).toBe(5);
                                     done();
-                                });
-                            });
-
-                            describe('when getFinishedStatements returned statements', function () {
-                                it('should fill results field with results', function (done) {
-                                    viewModelWithoutStarted.showMoreResults().fin(function () {
-                                        expect(viewModelWithoutStarted.results()[0].lrsStatement).toBe(finishStatements[0]);
-                                        expect(viewModelWithoutStarted.results()[0]).toBeInstanceOf(FinishStatement);
-                                        expect(viewModelWithoutStarted.results().length).toBe(5);
-                                        done();
-                                    });
                                 });
                             });
 
                         });
 
-                        describe('and getStartedStatements is defined', function () {
+                        describe('when getLrsStatements returned started and finished statements', function () {
 
                             beforeEach(function () {
-                                viewModel.loadedResults = [1, 2, 3];
-                                viewModel.results([]);
-                                viewModel.allResultsLoaded = false;
-                                viewModel.pageNumber = 1;
-                                constants.results.pageSize = 5;
+                                getLrsStatementsDfd.resolve({ started: startedStatements, finished: finishStatements });
                             });
 
-                            it('should call getStartedStatements with correct params', function (done) {
+                            it('should fill results field with distinct results ordered by date', function (done) {
                                 viewModel.showMoreResults().fin(function () {
-                                    expect(xApiProvider.getStartedStatements).toHaveBeenCalledWith(
-                                        entityId,
-                                        constants.results.pageSize + 1,
-                                        5
-                                    );
+                                    expect(viewModel.results()[0].lrsStatement).toBe(startedStatements[startedStatements.length - 1]);
+                                    expect(viewModel.results()[0]).toBeInstanceOf(StartedStatement);
+                                    expect(viewModel.results()[1].lrsStatement).toBe(finishStatements[0]);
+                                    expect(viewModel.results()[1]).toBeInstanceOf(FinishStatement);
+                                    expect(viewModel.results().length).toBe(5);
                                     done();
                                 });
                             });
 
-                            describe('when getStartedStatements returned statements', function () {
-
-                                it('should call getFinishedStatements with correct params', function (done) {
-                                    viewModel.showMoreResults().fin(function () {
-                                        expect(xApiProvider.getFinishedStatements).toHaveBeenCalledWith(
-                                            _.map(startedStatements.slice(0, 6), function(statement) { return statement.attemptId; })
-                                        );
-                                        done();
-                                    });
-                                });
-
-                                describe('and getFinishedStatements returned statements', function() {
-
-                                    it('should fill results field with distinct results ordered by date', function (done) {
-                                        viewModel.showMoreResults().fin(function () {
-                                            expect(viewModel.results()[0].lrsStatement).toBe(startedStatements[startedStatements.length - 1]);
-                                            expect(viewModel.results()[0]).toBeInstanceOf(StartedStatement);
-                                            expect(viewModel.results()[1].lrsStatement).toBe(finishStatements[finishStatements.length - 1]);
-                                            expect(viewModel.results()[1]).toBeInstanceOf(FinishStatement);
-                                            expect(viewModel.results().length).toBe(5);
-                                            done();
-                                        });
-                                    });
-
-                                });
-
-                            });
-
-                        });
-
-                        describe('when all results are loaded', function () {
-                            it('should set allResultsLoaded to true', function (done) {
-                                constants.results.pageSize = 10;
-                                viewModel.showMoreResults().fin(function () {
-                                    expect(viewModel.allResultsLoaded).toBeTruthy();
-                                    done();
-                                });
-                            });
                         });
                     });
                 });
@@ -815,18 +683,14 @@
 
         describe('downloadResults:', function () {
 
-            var startedDfd,
-                 finishDfd;
+            var getLrsStatementsDfd;
 
             beforeEach(function () {
-                startedDfd = Q.defer();
-                finishDfd = Q.defer();
+                getLrsStatementsDfd = Q.defer();
                 viewModel.activate(entityId);
-                viewModelWithoutStarted.activate(entityId);
-                xApiProvider.getStartedStatements.and.returnValue(startedDfd.promise);
-                xApiProvider.getFinishedStatements.and.returnValue(finishDfd.promise);
-                startedDfd.resolve(startedStatements);
-                finishDfd.resolve(finishStatements);
+                
+                statementsProvider.getLrsStatements.and.returnValue(getLrsStatementsDfd.promise);
+                getLrsStatementsDfd.resolve({ started: startedStatements, finished: finishStatements });
 
                 fileSaverWrapper.saveAs = function () { };
                 spyOn(fileSaverWrapper, 'saveAs');
@@ -865,16 +729,9 @@
                         viewModel.allResultsLoaded = true;
                     });
 
-                    it('should not call getStartedStatements', function (done) {
+                    it('should not get Lrs statements', function (done) {
                         viewModel.downloadResults().fin(function () {
-                            expect(xApiProvider.getStartedStatements).not.toHaveBeenCalled();
-                            done();
-                        });
-                    });
-
-                    it('should not call getFinishedStatements', function (done) {
-                        viewModel.downloadResults().fin(function () {
-                            expect(xApiProvider.getFinishedStatements).not.toHaveBeenCalled();
+                            expect(statementsProvider.getLrsStatements).not.toHaveBeenCalled();
                             done();
                         });
                     });
@@ -886,88 +743,22 @@
                     beforeEach(function () {
                         viewModel.loadedResults = [];
                         viewModel.allResultsLoaded = false;
-                        viewModelWithoutStarted.loadedResults = [];
-                        viewModelWithoutStarted.allResultsLoaded = false;
                     });
 
-                    describe('and getStartedStatements is not defined', function() {
-
-                        it('should call getFinishedStatements', function(done) {
-                            viewModelWithoutStarted.downloadResults().fin(function () {
-                                expect(xApiProvider.getFinishedStatements).toHaveBeenCalledWith(viewModelWithoutStarted.entityId, undefined, undefined);
-                                done();
-                            });
+                    it('should get LRS statements', function (done) {
+                        viewModel.downloadResults().fin(function () {
+                            expect(statementsProvider.getLrsStatements).toHaveBeenCalledWith(viewModel.entityId, undefined, undefined);
+                            done();
                         });
-
-                        it('should set allResultsLoaded to true', function (done) {
-                            viewModelWithoutStarted.downloadResults().fin(function () {
-                                expect(viewModelWithoutStarted.allResultsLoaded).toBeTruthy();
-                                done();
-                            });
-                        });
-
                     });
 
-                    describe('and getStartedStatements is defined', function () {
-
-                        it('should call getStartedStatements', function (done) {
-                            viewModel.downloadResults().fin(function () {
-                                expect(xApiProvider.getStartedStatements).toHaveBeenCalledWith(viewModel.entityId, undefined, undefined);
-                                done();
-                            });
-                        });
-
-                        describe('and getStartedStatements returned statements', function() {
-
-                            it('should call getFinishedStatements with correct args', function (done) {
-                                viewModel.downloadResults().fin(function () {
-                                    expect(xApiProvider.getFinishedStatements).toHaveBeenCalledWith(_.map(startedStatements, function (statement) { return statement.attemptId; }));
-                                    done();
-                                });
-                            });
-
-                        });
-
-                        it('should set allResultsLoaded to true', function (done) {
+                   it('should set allResultsLoaded to true', function (done) {
                             viewModel.downloadResults().fin(function () {
                                 expect(viewModel.allResultsLoaded).toBeTruthy();
                                 done();
                             });
                         });
 
-                    });
-
-                });
-
-                it('should call saveAs method with proper args', function (done) {
-                    viewModel.entityTitle = 'Course-123.\\/ фывяй 续约我的服务';
-                    viewModel.allResultsLoaded = true;
-                    viewModel.loadedResults = [
-                    {
-                        lrsStatement: {
-                            actor: {
-                                name: 'name',
-                                email: 'email'
-                            },
-                            score: 100,
-                            date: new Date()
-                        },
-                        passed: true,
-                        hasScore: true
-
-                    }];
-
-                    viewModel.downloadResults().fin(function (result) {
-                        viewModel.downloadResults().fin(function () {
-                            var reader = new window.FileReader();
-                            reader.readAsDataURL(fileSaverWrapper.saveAs.calls.mostRecent().args[0]);
-                            reader.onloadend = function () {
-                                expect(fileSaverWrapper.saveAs).toHaveBeenCalledWith(jasmine.any(Object), 'results_Course-123_2015-02-03_05-38.csv');
-                                expect(reader.result).toBe("data:text/csv;base64,77u/TmFtZSAoRS1tYWlsKSxSZXN1bHQsU2NvcmUsRGF0ZSxUaW1lDQpuYW1lIChlbWFpbCksUGFzc2VkLDEwMCwyMDE1LTAyLTAzXzA1LTM4LDIwMTUtMDItMDNfMDUtMzg=");
-                                done();
-                            }
-                        });
-                    });
                 });
             });
 

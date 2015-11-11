@@ -1,5 +1,5 @@
-﻿define(['reporting/viewmodels/resultsBase', 'repositories/courseRepository', 'reporting/xApiProvider', 'viewmodels/courses/course/results'],
-    function (ResultsBase, courseRepository, xApiProvider, Results) {
+﻿define(['reporting/viewmodels/resultsBase', 'repositories/courseRepository', 'reporting/courseStatementsProvider', 'viewmodels/courses/course/results'],
+    function (ResultsBase, courseRepository, courseStatementsProvider, Results) {
         "use strict";
 
         describe('[Results]', function () {
@@ -16,7 +16,7 @@
 
                 it('should call ctor of ResultsBase with proper args', function () {
                     var instance = new Results();
-                    expect(ResultsBase.call).toHaveBeenCalledWith(instance, courseRepository.getById, xApiProvider.getCourseStartedStatements, xApiProvider.getCourseFinishedStatements, 'courses/course/results/noResults');
+                    expect(ResultsBase.call).toHaveBeenCalledWith(instance, courseRepository.getById, courseStatementsProvider.getLrsStatements, 'courses/course/results/noResults');
                 });
 
             });
