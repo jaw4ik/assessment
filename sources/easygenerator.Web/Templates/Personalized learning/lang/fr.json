@@ -42,5 +42,7 @@
     "[tracking and tracing error]": "Il y a un problème :-(",
     "[tracking and tracing error hint]": "Si vous continuez sans redémarrage, vos progrès ne seront pas enregistrés.",
     "[tracking and tracing restart course]": "Redémarrer le cours",
-    "[tracking and tracing continue anyway]": "Continuer malgré tout"
+    "[tracking and tracing continue anyway]": "Continuer malgré tout",
+    "[progress has been saved]": "Mes progrès ont été enregistrés",
+    "[progress cannot be saved]": "Les progrès ne peuvent pas être enregistrés. Veuillez réessayer ou contactez votre prestataire de cours si le problème persiste."
 }

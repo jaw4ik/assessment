@@ -18,7 +18,7 @@
             pasteFormula: 'pasteFormula'
         },
         availableLangs: { en: 1, uk: 1 },
-        lang: 'en,uk',
+        lang: 'en,uk,pt-br,zh-cn,de,nl',
         requires: ['dialog'],
         icons: "eqneditor",
 

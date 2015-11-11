@@ -1,10 +1,10 @@
-﻿define(['reporting/viewmodels/resultsBase', 'repositories/courseRepository', 'reporting/xApiProvider'],
-    function (ResultsBase, courseRepository, xApiProvider) {
+﻿define(['reporting/viewmodels/resultsBase', 'repositories/courseRepository', 'reporting/courseStatementsProvider'],
+    function (ResultsBase, courseRepository, courseStatementsProvider) {
         "use strict";
 
         var viewModel = function () {
             var noResultsViewLocation = 'courses/course/results/noResults';
-            ResultsBase.call(this, courseRepository.getById, xApiProvider.getCourseStartedStatements, xApiProvider.getCourseFinishedStatements, noResultsViewLocation);
+            ResultsBase.call(this, courseRepository.getById, courseStatementsProvider.getLrsStatements, noResultsViewLocation);
         };
 
         return viewModel;

@@ -1,8 +1,8 @@
 ﻿CKEDITOR.plugins.setLang('fileuploader', 'de', {
-    fileSizeNotMoreThan: 'Dateigröße maximal',
-    extensions: 'Erweiterungen',
-    uploadFile: 'Upload file',
-    somethingWentWrong: 'Something went wrong',
-    extensionNotSupported: 'Extension is not supported: ',
-    fileCannotBeLargerThan: 'File cannot be larger than '
+    fileSizeNotMoreThan: 'Ihre Datei ist zu groß. Die Maximale Dateigröße beträgt',
+    extensions: 'Dateierweiterungen',
+    uploadFile: 'Datei hochladen',
+    somethingWentWrong: 'Etwas ist schief gegangen',
+    extensionNotSupported: 'Dateierweiterung wird nicht unterstützt: ',
+    fileCannotBeLargerThan: 'Die Datei darf nicht größer sein als '
 });

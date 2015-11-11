@@ -70,38 +70,11 @@ namespace AccountRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Another authoring tool.
-        /// </summary>
-        public static string AnotherTool {
-            get {
-                return ResourceManager.GetString("AnotherTool", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to be at least 7 characters long;.
-        /// </summary>
-        public static string BeAtLeast7CharactersLong {
-            get {
-                return ResourceManager.GetString("BeAtLeast7CharactersLong", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Checking....
         /// </summary>
         public static string Checking {
             get {
                 return ResourceManager.GetString("Checking", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Choose answer....
-        /// </summary>
-        public static string ChooseAnswer {
-            get {
-                return ResourceManager.GetString("ChooseAnswer", resourceCulture);
             }
         }
         
@@ -113,43 +86,7 @@ namespace AccountRes {
                 return ResourceManager.GetString("ChooseYourCountry", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to contain at least one digit;.
-        /// </summary>
-        public static string ContainAtLeastOneDigit {
-            get {
-                return ResourceManager.GetString("ContainAtLeastOneDigit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to contain at least one lower case letter;.
-        /// </summary>
-        public static string ContainAtLeastOneLowerCaseLetter {
-            get {
-                return ResourceManager.GetString("ContainAtLeastOneLowerCaseLetter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to contain at least one special character;.
-        /// </summary>
-        public static string ContainAtLeastOneSpecialCharacter {
-            get {
-                return ResourceManager.GetString("ContainAtLeastOneSpecialCharacter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to contain at least one upper case letter;.
-        /// </summary>
-        public static string ContainAtLeastOneUpperCaseLetter {
-            get {
-                return ResourceManager.GetString("ContainAtLeastOneUpperCaseLetter", resourceCulture);
-            }
-        }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Continue.
         /// </summary>
@@ -169,15 +106,6 @@ namespace AccountRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Country.
-        /// </summary>
-        public static string CountryCaption {
-            get {
-                return ResourceManager.GetString("CountryCaption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Create account.
         /// </summary>
         public static string CreateAccountTitle {
@@ -185,7 +113,29 @@ namespace AccountRes {
                 return ResourceManager.GetString("CreateAccountTitle", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string.
+        /// </summary>
+        public static string ElearningExpert
+        {
+            get
+            {
+                return ResourceManager.GetString("ElearningExpert", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string.
+        /// </summary>
+        public static string ELearningManager
+        {
+            get
+            {
+                return ResourceManager.GetString("ELearningManager", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to E-mail.
         /// </summary>
@@ -313,15 +263,6 @@ namespace AccountRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Full name.
-        /// </summary>
-        public static string FullNameCaption {
-            get {
-                return ResourceManager.GetString("FullNameCaption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hide password.
         /// </summary>
         public static string HidePassword {
@@ -336,6 +277,17 @@ namespace AccountRes {
         public static string IncorrectEmailOrPassword {
             get {
                 return ResourceManager.GetString("IncorrectEmailOrPassword", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string.
+        /// </summary>
+        public static string InstructionalDesigner
+        {
+            get
+            {
+                return ResourceManager.GetString("InstructionalDesigner", resourceCulture);
             }
         }
 
@@ -371,15 +323,6 @@ namespace AccountRes {
                 return ResourceManager.GetString("InviteCollaboratorSubject", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Just looking.
-        /// </summary>
-        public static string JustLooking {
-            get {
-                return ResourceManager.GetString("JustLooking", resourceCulture);
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized string similar to Last name.
@@ -409,24 +352,6 @@ namespace AccountRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NOT contain whitespace character(s)..
-        /// </summary>
-        public static string NotContainWhitespaceCharacters {
-            get {
-                return ResourceManager.GetString("NotContainWhitespaceCharacters", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nothing.
-        /// </summary>
-        public static string Nothing {
-            get {
-                return ResourceManager.GetString("Nothing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Not less than 7 symbols.
         /// </summary>
         public static string NotLessThanSevenSymbols {
@@ -434,67 +359,24 @@ namespace AccountRes {
                 return ResourceManager.GetString("NotLessThanSevenSymbols", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Now.
+        ///   Looks up a localized string.
         /// </summary>
-        public static string Now {
-            get {
-                return ResourceManager.GetString("Now", resourceCulture);
+        public static string OtherRole
+        {
+            get
+            {
+                return ResourceManager.GetString("OtherRole", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Numbers.
-        /// </summary>
-        public static string Numbers {
-            get {
-                return ResourceManager.GetString("Numbers", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Optional information.
-        /// </summary>
-        public static string OptionalInformation {
-            get {
-                return ResourceManager.GetString("OptionalInformation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Other.
-        /// </summary>
-        public static string Other {
-            get {
-                return ResourceManager.GetString("Other", resourceCulture);
-            }
-        }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string PasswordCaption {
             get {
                 return ResourceManager.GetString("PasswordCaption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Password does not meet requirements.
-        /// </summary>
-        public static string PasswordDoesNotMeetRequirements {
-            get {
-                return ResourceManager.GetString("PasswordDoesNotMeetRequirements", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Password is strong enough.
-        /// </summary>
-        public static string PasswordIsStrongEnough {
-            get {
-                return ResourceManager.GetString("PasswordIsStrongEnough", resourceCulture);
             }
         }
         
@@ -508,15 +390,6 @@ namespace AccountRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password is required to:.
-        /// </summary>
-        public static string PasswordRequirementsTitle {
-            get {
-                return ResourceManager.GetString("PasswordRequirementsTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Phone number.
         /// </summary>
         public static string PhoneNumberCaption {
@@ -524,16 +397,18 @@ namespace AccountRes {
                 return ResourceManager.GetString("PhoneNumberCaption", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to PowerPoint.
+        ///   Looks up a localized string.
         /// </summary>
-        public static string PowerPoint {
-            get {
-                return ResourceManager.GetString("PowerPoint", resourceCulture);
+        public static string PleaseUse
+        {
+            get
+            {
+                return ResourceManager.GetString("PleaseUse", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to An error was encountered while processing your request:.
         /// </summary>
@@ -542,16 +417,18 @@ namespace AccountRes {
                 return ResourceManager.GetString("RequestError", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Enter your new password.
+        ///   Looks up a localized string.
         /// </summary>
-        public static string RestorePasswordCaption {
-            get {
-                return ResourceManager.GetString("RestorePasswordCaption", resourceCulture);
+        public static string RoleQuestion
+        {
+            get
+            {
+                return ResourceManager.GetString("RoleQuestion", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to show.
         /// </summary>
@@ -580,15 +457,6 @@ namespace AccountRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign out.
-        /// </summary>
-        public static string SignOutButton {
-            get {
-                return ResourceManager.GetString("SignOutButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Sign up.
         /// </summary>
         public static string SignUp {
@@ -607,42 +475,6 @@ namespace AccountRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Skip.
-        /// </summary>
-        public static string Skip {
-            get {
-                return ResourceManager.GetString("Skip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Upper and lowercase letters.
-        /// </summary>
-        public static string UpperAndLowercaseLetters {
-            get {
-                return ResourceManager.GetString("UpperAndLowercaseLetters", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 1-3 months.
-        /// </summary>
-        public static string Variant1Month {
-            get {
-                return ResourceManager.GetString("Variant1Month", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &gt;3 months.
-        /// </summary>
-        public static string VariantMore3Months {
-            get {
-                return ResourceManager.GetString("VariantMore3Months", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Almost there... .
         /// </summary>
         public static string SignUpSecondStepTitle
@@ -656,11 +488,22 @@ namespace AccountRes {
         /// <summary>
         ///   Looks up a localized string.
         /// </summary>
-        public static string RoleQuestion
+        public static string Student
         {
             get
             {
-                return ResourceManager.GetString("RoleQuestion", resourceCulture);
+                return ResourceManager.GetString("Student", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string.
+        /// </summary>
+        public static string SubjectMatterExpert
+        {
+            get
+            {
+                return ResourceManager.GetString("SubjectMatterExpert", resourceCulture);
             }
         }
 
@@ -683,83 +526,6 @@ namespace AccountRes {
             get
             {
                 return ResourceManager.GetString("Trainer", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string.
-        /// </summary>
-        public static string SubjectMatterExpert
-        {
-            get
-            {
-                return ResourceManager.GetString("SubjectMatterExpert", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string.
-        /// </summary>
-        public static string ElearningExpert
-        {
-            get
-            {
-                return ResourceManager.GetString("ElearningExpert", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string.
-        /// </summary>
-        public static string InstructionalDesigner
-        {
-            get
-            {
-                return ResourceManager.GetString("InstructionalDesigner", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string.
-        /// </summary>
-        public static string ELearningManager
-        {
-            get
-            {
-                return ResourceManager.GetString("ELearningManager", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string.
-        /// </summary>
-        public static string OtherRole
-        {
-            get
-            {
-                return ResourceManager.GetString("OtherRole", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string.
-        /// </summary>
-        public static string Student
-        {
-            get
-            {
-                return ResourceManager.GetString("Student", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string.
-        /// </summary>
-        public static string PleaseUse
-        {
-            get
-            {
-                return ResourceManager.GetString("PleaseUse", resourceCulture);
             }
         }
     }

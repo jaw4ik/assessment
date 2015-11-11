@@ -245,34 +245,34 @@
             });
 
             it('should return promise', function () {
-                expect(xApiProvider.getCourseFinishedStatements(attemptIds)).toBePromise();
+                expect(xApiProvider.getCourseFinishedStatements(courseId)).toBePromise();
             });
 
             it('should pass correct params to filterCriteriaFactory create function', function () {
-                xApiProvider.getCourseFinishedStatements(attemptIds);
+                xApiProvider.getCourseFinishedStatements(courseId);
                 expect(filterCriteriaFactory.create).toHaveBeenCalledWith({
-                    attemptIds: attemptIds,
+                    courseId: courseId,
                     verbs: [constants.reporting.xApiVerbIds.passed, constants.reporting.xApiVerbIds.failed]
                 });
             });
 
             it('should pass filterCriteria to httpRequestSender', function () {
-                filterCriteria.attemptIds = attemptIds;
+                filterCriteria.courseId = courseId;
 
-                xApiProvider.getCourseFinishedStatements(attemptIds);
+                xApiProvider.getCourseFinishedStatements(courseId);
                 var args = httpRequestSender.get.calls.mostRecent().args;
                 expect(args[1]).toBe(filterCriteria);
             });
 
             it('should do request to proper lrs uri', function () {
-                xApiProvider.getCourseFinishedStatements(attemptIds);
+                xApiProvider.getCourseFinishedStatements(courseId);
                 var args = httpRequestSender.get.calls.mostRecent().args;
                 expect(args[0]).toBe(config.lrs.uri);
             });
 
             describe('when lrs doesnt require authentication', function () {
                 it('should pass proper httpHeaders to httpRequestSender', function () {
-                    xApiProvider.getCourseFinishedStatements(attemptIds);
+                    xApiProvider.getCourseFinishedStatements(courseId);
                     var args = httpRequestSender.get.calls.mostRecent().args;
                     expect(args[2]["X-Experience-API-Version"]).toBe(config.lrs.version);
                     expect(args[2]["Content-Type"]).toBe("application/json");
@@ -284,7 +284,7 @@
                 it('should pass proper httpHeaders to httpRequestSender', function () {
                     config.lrs.authenticationRequired = true;
                     config.lrs.credentials = { username: 'username', password: 'password' };
-                    xApiProvider.getCourseFinishedStatements(attemptIds);
+                    xApiProvider.getCourseFinishedStatements(courseId);
                     var args = httpRequestSender.get.calls.mostRecent().args;
                     expect(args[2]["X-Experience-API-Version"]).toBe(config.lrs.version);
                     expect(args[2]["Content-Type"]).toBe("application/json");
@@ -296,7 +296,78 @@
             describe('if statements were returned', function () {
                 it('should return reporting/statements instances', function (done) {
 
-                    var promise = xApiProvider.getCourseFinishedStatements(attemptIds);
+                    var promise = xApiProvider.getCourseFinishedStatements(courseId);
+                    promise.then(function (result) {
+                        expect(result.length).toBe(3);
+                        expect(result[0]).toBeInstanceOf(ReportingStatement);
+                        expect(result[1]).toBeInstanceOf(ReportingStatement);
+                        expect(result[2]).toBeInstanceOf(ReportingStatement);
+
+                        done();
+                    });
+                });
+            });
+        });
+
+        describe('getCourseFinishedStatementsByAttempts:', function () {
+
+            it('should be function', function () {
+                expect(xApiProvider.getCourseFinishedStatementsByAttempts).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(xApiProvider.getCourseFinishedStatementsByAttempts(attemptIds)).toBePromise();
+            });
+
+            it('should pass correct params to filterCriteriaFactory create function', function () {
+                xApiProvider.getCourseFinishedStatementsByAttempts(attemptIds);
+                expect(filterCriteriaFactory.create).toHaveBeenCalledWith({
+                    attemptIds: attemptIds,
+                    verbs: [constants.reporting.xApiVerbIds.passed, constants.reporting.xApiVerbIds.failed]
+                });
+            });
+
+            it('should pass filterCriteria to httpRequestSender', function () {
+                filterCriteria.attemptIds = attemptIds;
+
+                xApiProvider.getCourseFinishedStatementsByAttempts(attemptIds);
+                var args = httpRequestSender.get.calls.mostRecent().args;
+                expect(args[1]).toBe(filterCriteria);
+            });
+
+            it('should do request to proper lrs uri', function () {
+                xApiProvider.getCourseFinishedStatementsByAttempts(attemptIds);
+                var args = httpRequestSender.get.calls.mostRecent().args;
+                expect(args[0]).toBe(config.lrs.uri);
+            });
+
+            describe('when lrs doesnt require authentication', function () {
+                it('should pass proper httpHeaders to httpRequestSender', function () {
+                    xApiProvider.getCourseFinishedStatementsByAttempts(attemptIds);
+                    var args = httpRequestSender.get.calls.mostRecent().args;
+                    expect(args[2]["X-Experience-API-Version"]).toBe(config.lrs.version);
+                    expect(args[2]["Content-Type"]).toBe("application/json");
+                    expect(args[2]["Authorization"]).toBeUndefined();
+                });
+            });
+
+            describe('when lrs requires authentication', function () {
+                it('should pass proper httpHeaders to httpRequestSender', function () {
+                    config.lrs.authenticationRequired = true;
+                    config.lrs.credentials = { username: 'username', password: 'password' };
+                    xApiProvider.getCourseFinishedStatementsByAttempts(attemptIds);
+                    var args = httpRequestSender.get.calls.mostRecent().args;
+                    expect(args[2]["X-Experience-API-Version"]).toBe(config.lrs.version);
+                    expect(args[2]["Content-Type"]).toBe("application/json");
+                    expect(args[2]["Authorization"]).toBe("Basic " + base64.encode(config.lrs.credentials.username + ':' + config.lrs.credentials.password));
+                });
+            });
+
+
+            describe('if statements were returned', function () {
+                it('should return reporting/statements instances', function (done) {
+
+                    var promise = xApiProvider.getCourseFinishedStatementsByAttempts(attemptIds);
                     promise.then(function (result) {
                         expect(result.length).toBe(3);
                         expect(result[0]).toBeInstanceOf(ReportingStatement);

@@ -51,8 +51,7 @@ define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synch
         ltiAuthDefer.then(function () {
             app.start().then(function () {
                 localizationManager.initialize(window.userCultures).then(function () {
-                    $('html').attr('lang', localizationManager.language);
-
+                    $('html').attr('lang', localizationManager.currentLanguage);
                     bootstrapper.run();
 
                     return Q.all([userContext.identify(), userContext.identifyStoragePermissions(), synchronization.start(), onboarding.initialize()])

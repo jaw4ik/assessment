@@ -122,6 +122,8 @@
             'reporting/viewmodels/startedStatement.spec',
             'reporting/viewmodels/finishStatement.spec',
             'reporting/viewmodels/resultsBase.spec',
+            'reporting/learningPathStatementsProvider.spec',
+            'reporting/courseStatementsProvider.spec',
 
             //#endregion
 
