@@ -774,6 +774,9 @@ ul {
   border-bottom: 1px solid #222222;
   line-height: 30px;
 }
+.styled-content .image-wrapper {
+  max-width: 100%;
+}
 .styled-content .image-wrapper[style*="float:left"],
 .styled-content .image-wrapper[style*="float: left"] {
   margin: 20px 25px 20px 0;
