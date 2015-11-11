@@ -5,7 +5,7 @@ namespace easygenerator.DomainModel.Entities
 {
     public class LtiUserInfo
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; private set; }
         public string LtiUserId { get; private set; }
 
         public virtual void UpdateLtiUserId(string ltiUserId)
@@ -14,6 +14,6 @@ namespace easygenerator.DomainModel.Entities
             LtiUserId = ltiUserId;
         }
 
-        public User User { get; set; }
+        public User User { get; private set; }
     }
 }

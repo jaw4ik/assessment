@@ -237,6 +237,10 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<ConsumerTool>().Property(e => e.Key).IsRequired();
             modelBuilder.Entity<ConsumerTool>().Property(e => e.Secret).IsRequired();
 
+            modelBuilder.Entity<ConsumerToolSettings>().HasKey(e => new { e.Id });
+            modelBuilder.Entity<ConsumerToolSettings>().HasRequired(e => e.ConsumerTool).WithOptional(c => c.Settings).WillCascadeOnDelete(true);
+            modelBuilder.Entity<ConsumerToolSettings>().HasOptional(e => e.Company);
+
             modelBuilder.Entity<LtiUserInfo>().HasKey(e => new { e.Id });
             modelBuilder.Entity<LtiUserInfo>().Property(e => e.LtiUserId).IsRequired();
             modelBuilder.Entity<LtiUserInfo>().HasRequired(e => e.User).WithOptional(c => c.LtiUserInfo).WillCascadeOnDelete(true);
