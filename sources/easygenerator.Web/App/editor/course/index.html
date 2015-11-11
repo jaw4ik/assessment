@@ -1,6 +1,7 @@
 ﻿<section class="editor view-module">
     <div class="content-section-wrapper">
         <div class="content-section">
+            <h2 class="course-editor-introduction-header" data-bind="localize: { text: 'courseIntroduction' }">Course introduction:</h2>
             <div class="course-editor-introduction-container" data-bind="with: courseIntroductionContent">
                 <div class="course-editor-introduction-wrapper" data-bind="css: { active: hasFocus, 'content-defined': isContentDefined }, introAnimate: { isEditing: isEditing }">
                     <div class="course-editor-introduction-holder">
@@ -27,6 +28,7 @@
                     <!-- /ko -->
                 </div>
             </div>
+            <h2 class="course-editor-sections-header" data-bind="localize: { text: 'sections' }">Sections:</h2>
         </div>
     </div>
 </section>
