@@ -734,7 +734,6 @@
     <Content Include="App\repositories\learningPathRepository.spec.js">
       <DependentUpon>learningPathRepository.js</DependentUpon>
     </Content>
-    <Content Include="App\system-config.js" />
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\voiceOverUpdated.js" />
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\voiceOverUpdated.spec.js">
       <DependentUpon>voiceOverUpdated.js</DependentUpon>
@@ -1239,6 +1238,7 @@
     <Content Include="BuildLearningPath\Template\js\components.min.js" />
     <Content Include="BuildLearningPath\Template\js\vendor.min.js" />
     <Content Include="BuildLearningPath\Template\readme.txt" />
+    <Content Include="config.js" />
     <Content Include="Content\font\buxtonsketch.woff" />
     <Content Include="Content\font\heuristica-bold.woff" />
     <Content Include="Content\font\heuristica-bolditalic.woff" />
@@ -2296,11 +2296,10 @@
     <Content Include="Scripts\q.js" />
     <Content Include="Scripts\q.min.js" />
     <Content Include="Scripts\r.js" />
-    <Content Include="Scripts\systemjs\babel\browser.js" />
-    <Content Include="Scripts\systemjs\babel\browser\external-helpers.js" />
-    <Content Include="Scripts\systemjs\system.js" />
+    <Content Include="Scripts\system-hooks.js" />
     <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\underscore.js" />
+    <Content Include="Scripts\vendor\system.js" />
     <Content Include="Scripts\zeroclipboard.js" />
     <Content Include="Scripts\zeroclipboard.swf" />
     <Content Include="Templates\Assessment\app\app.js" />
@@ -2866,8 +2865,8 @@
     <Content Include="App\services\publishService.spec.js">
       <DependentUpon>publishService.js</DependentUpon>
     </Content>
-    <Content Include="App\specRunner.js" />
-    <Content Include="App\specs.html" />
+    <Content Include="specRunner.js" />
+    <Content Include="specs.html" />
     <Content Include="App\synchronization\listener.js" />
     <Content Include="App\treeOfContent\CourseTreeNode.html" />
     <Content Include="App\treeOfContent\CourseTreeNode.js" />

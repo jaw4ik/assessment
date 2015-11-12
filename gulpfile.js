@@ -1,7 +1,7 @@
 /// <binding ProjectOpened='watch' />
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 var gulp = require('gulp'),
-	eventStream = require('event-stream'),
+    eventStream = require('event-stream'),
     del = require('del'),
     args = require('yargs').argv,
     MSTest = require('mstest'),
@@ -10,7 +10,7 @@ var gulp = require('gulp'),
     runSequence = require('run-sequence'),
     fs = require('fs'),
     xmlpoke = require('xmlpoke'),
-    Builder = require('systemjs-builder'),
+    SystemJSBuilder = require('jspm').Builder,
     has = require('gulp-has');
 
 var $ = require('gulp-load-plugins')({
@@ -20,19 +20,19 @@ var $ = require('gulp-load-plugins')({
 var config = {
     less: {
         src: ['./sources/easygenerator.Web/Content/**/*.less'],
-		srcPlayer: ['./sources/easygenerator.Player/public/styles/*.less'],
-		destPlayer: './sources/easygenerator.Player/public/styles',
+        srcPlayer: ['./sources/easygenerator.Player/public/styles/*.less'],
+        destPlayer: './sources/easygenerator.Player/public/styles',
         dest: './sources/easygenerator.Web/Content',
         browsers: ['last 1 Chrome version', 'last 1 Firefox version', 'last 1 Explorer version', 'last 1 Safari version']
     }
 },
     outputDirectory = args.output || 'D:/Applications/easygenerator',
     outputConvertionServer = args.outputConvertion || 'D:/Applications/convertion',
-	outputPlayer = args.outputPlayer || 'D:/Applications/player',
+    outputPlayer = args.outputPlayer || 'D:/Applications/player',
     instance = args.instance || 'Release',
     version = typeof args.version === 'string' && args.version !== '' ? args.version : '1.0.0',
     createTags = Boolean(args.createTags),
-	buildVersion = +new Date();
+    buildVersion = +new Date();
 
 function addBuildVersion() {
     return eventStream.map(function (file, callback) {
@@ -46,7 +46,7 @@ function addBuildVersion() {
         callback(null, file);
     });
 };
-	
+
 gulp.task('styles', function () {
     return gulp.src(config.less.src)
         .pipe($.plumber({
@@ -77,40 +77,65 @@ gulp.task('watch', ['styles'], function () {
 /*#region build*/
 
 gulp.task('build-system', function (cb) {
-    var baseAppUrl = './sources/easygenerator.Web/App',
-        systemConfigFilePath = './sources/easygenerator.Web/App/system-config.js',
-        babelPath = './sources/easygenerator.Web/Scripts/systemjs/babel/browser',
+    var baseAppUrl = './sources/easygenerator.Web',
+        systemConfigFilePath = './sources/easygenerator.Web/config.js',
         outputFilePath = './sources/easygenerator.Web/App/main-built.js';
 
-    Promise.all([
-        createBundle('[**/*] - [**/*.spec] - [specRunner] - [system-config] - [main-built]', {
-            map: {
-                babel: babelPath
-            },
+    buildInSequence([buildScripts, buildViews, buildVendor]);
+
+    function buildInSequence(buildFunctions) {
+        var fullSource = '',
+            promise = Q();
+
+        buildFunctions.forEach(function (currentFunction) {
+            promise = promise.then(function () {
+                return currentFunction().then(function (bundle) {
+                    fullSource += bundle.source;
+                });
+            });
+        });
+
+        promise.then(function () {
+            fs.writeFile(outputFilePath, fullSource, null, cb);
+        }).catch(function (err) {
+            console.log('SystemJS build error');
+            console.log(err);
+        });
+    }
+
+    function buildScripts() {
+        return createBundle('[**/*] - [**/*.spec] - [specRunner] - [main-built]', {
             paths: {
-                '*': '*.js'
+                '*': 'app/*.js',
+                '*.html': 'app/*.html'
             }
-        }),
-        createBundle('[**/*.html] - [specs.html!core/plugins/text.js]', {
+        });
+    }
+
+    function buildViews() {
+        return createBundle('[**/*.html] - [specs.html!text]', {
             defaultJSExtensions: false,
             meta: {
                 '**/*.html': {
-                    loader: 'core/plugins/text.js'
+                    loader: 'text'
                 }
+            },
+            map: {
+                'text': 'github:systemjs/plugin-text@0.0.3/text.js'
             }
-        })
-    ]).then(function (bundles) {
-        var fullSources = bundles.reduce(function (prev, next) {
-            return prev.source.concat(next.source);
         });
-        fs.writeFile(outputFilePath, fullSources, null, cb);
-    }).catch(function (err) {
-        console.log('SystemJS build error');
-        console.log(err);
-    });
+    }
+
+    function buildVendor() {
+        return createBundle('Scripts/vendor - [Scripts/vendor]', {
+            paths: {
+                '*': '*'
+            }
+        });
+    }
 
     function createBundle(expression, config) {
-        return new Builder(baseAppUrl, systemConfigFilePath)
+        return new SystemJSBuilder(baseAppUrl, systemConfigFilePath)
             .bundle(expression, {
                 minify: true,
                 mangle: true,
@@ -234,7 +259,7 @@ gulp.task('run-unit-tests', function (cb) {
 /*#region deploy*/
 
 gulp.task('deploy', function (cb) {
-    runSequence('build', 'deploy-download-folder', 'deploy-css', 'deploy-main-built-js', 'deploy-web-config', 'remove-extra-files', 'add-version'/*, 'run-unit-tests'*/, function () {
+    runSequence('build', 'deploy-download-folder', 'deploy-css', 'deploy-main-built-js', 'deploy-web-config', 'remove-extra-files', 'add-version', 'run-unit-tests', function () {
         if (createTags) {
             runSequence('create-tags', cb);
         } else {
@@ -310,11 +335,11 @@ gulp.task('create-tags', function () {
             'quiz-for-learni',
             'lango-simple',
             'simple-ie10',
-			'simple-pdf',
-			'ICEMD',
-			'PwC',
-			'SC-without-tryagain',
-			'ac-nielsen'
+            'simple-pdf',
+            'ICEMD',
+            'PwC',
+            'SC-without-tryagain',
+            'ac-nielsen'
         ],
         github = new GitHubApi({
             // required
@@ -402,13 +427,13 @@ gulp.task('deploy-convertion-server', ['clean-convertion-server', 'copy-converti
 
 /*#region deploy player*/
 
-gulp.task('clean-player', function(callback){
-	del([outputPlayer], { force: true }, callback);
+gulp.task('clean-player', function (callback) {
+    del([outputPlayer], { force: true }, callback);
 });
 
 gulp.task('install-bower-modules-player', function () {
-	return gulp.src(['./sources/easygenerator.Player/bower.json'])
-		.pipe($.install());
+    return gulp.src(['./sources/easygenerator.Player/bower.json'])
+        .pipe($.install());
 });
 
 gulp.task('styles-player', function () {
@@ -433,55 +458,55 @@ gulp.task('styles-player', function () {
 gulp.task('copy-player', ['clean-player', 'install-bower-modules-player'], function () {
     var files = [
         './sources/easygenerator.Player/package.json',
-		'./sources/easygenerator.Player/bower.json',
-		'./sources/easygenerator.Player/.bowerrc',
+        './sources/easygenerator.Player/bower.json',
+        './sources/easygenerator.Player/.bowerrc',
         './sources/easygenerator.Player/www.js',
         './sources/easygenerator.Player/app.js',
-		'./sources/easygenerator.Player/routes/*.*',
-		'./sources/easygenerator.Player/models/*.*',
-		'./sources/easygenerator.Player/public/images/*.*',
-		'./sources/easygenerator.Player/public/favicon.ico',
+        './sources/easygenerator.Player/routes/*.*',
+        './sources/easygenerator.Player/models/*.*',
+        './sources/easygenerator.Player/public/images/*.*',
+        './sources/easygenerator.Player/public/favicon.ico',
         './sources/easygenerator.Player/Web.config',
-		'./sources/easygenerator.Player/iisnode.yml'
+        './sources/easygenerator.Player/iisnode.yml'
     ];
-    
+
     return gulp.src(files, { base: "./sources/easygenerator.Player/" })
         .pipe(gulp.dest(outputPlayer));
 });
 
 gulp.task('assets-player', ['styles-player', 'copy-player-config-transform'], function () {
     gulp.src([
-		'./sources/easygenerator.Player/public/styles/style.css',
-		'./sources/easygenerator.Player/public/styles/video.css',
-		'./sources/easygenerator.Player/public/styles/audio.css'
-	])
-	.pipe($.minifyCss())
-	.pipe(gulp.dest(outputPlayer + '/public/styles/'));
-	gulp.src('./sources/easygenerator.Player/public/vendor/video.js/dist/font/*.*')
-		.pipe(gulp.dest(outputPlayer + '/public/styles/font'));
-	return gulp.src('./sources/easygenerator.Player/public/vendor/video.js/dist/lang/*.*')
-		.pipe(gulp.dest(outputPlayer + '/public/js/lang/'));
+        './sources/easygenerator.Player/public/styles/style.css',
+        './sources/easygenerator.Player/public/styles/video.css',
+        './sources/easygenerator.Player/public/styles/audio.css'
+    ])
+        .pipe($.minifyCss())
+        .pipe(gulp.dest(outputPlayer + '/public/styles/'));
+    gulp.src('./sources/easygenerator.Player/public/vendor/video.js/dist/font/*.*')
+        .pipe(gulp.dest(outputPlayer + '/public/styles/font'));
+    return gulp.src('./sources/easygenerator.Player/public/vendor/video.js/dist/lang/*.*')
+        .pipe(gulp.dest(outputPlayer + '/public/js/lang/'));
 });
 
-gulp.task('copy-player-config-transform', ['copy-player'], function(){
+gulp.task('copy-player-config-transform', ['copy-player'], function () {
     return gulp.src('./tools/PlayerConfigTransform/' + instance + '.transform.js')
-            .pipe($.rename('config.js'))
-            .pipe(gulp.dest(outputPlayer))
+        .pipe($.rename('config.js'))
+        .pipe(gulp.dest(outputPlayer))
 })
 
 gulp.task('deploy-player', ['assets-player'], function () {
-	var assets = $.useref.assets();
+    var assets = $.useref.assets();
     gulp.src('./sources/easygenerator.Player/views/*.jade')
         .pipe(assets)
         .pipe($.if('*.css', $.minifyCss()))
         .pipe(assets.restore())
         .pipe($.useref())
-		.pipe($.jadeUsemin({
-			js: [$.uglify()]
-		}))
-		.pipe(addBuildVersion())
+        .pipe($.jadeUsemin({
+            js: [$.uglify()]
+        }))
+        .pipe(addBuildVersion())
         .pipe(gulp.dest(outputPlayer + '/views/'));
-  
+
     return gulp.src([outputPlayer + '/package.json'])
         .pipe($.install({ production: true }));
 });

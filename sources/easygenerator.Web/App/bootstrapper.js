@@ -1,7 +1,7 @@
 ﻿import system from 'durandal/system';
 import tasks from 'bootstrapper.tasks';
 
-export function run() {
+function run() {
     _.each(tasks.getCollection(), function(task) {
         if (_.isFunction(task.execute)) {
             task.execute();
@@ -11,3 +11,6 @@ export function run() {
 
     });
 }
+
+export default { run };
+export var __useDefault = true;

@@ -89,35 +89,38 @@
         @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["ConvertionServiceUrl"]))
         {
             <text>
-            window.convertionServiceUrl = '@ConfigurationManager.AppSettings["ConvertionServiceUrl"]';  
+            window.convertionServiceUrl = '@ConfigurationManager.AppSettings["ConvertionServiceUrl"]';
             </text>
         }
         @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["PlayerUrl"]))
         {
-            <text>      
+            <text>
             window.playerUrl = '@ConfigurationManager.AppSettings["PlayerUrl"]';
             </text>
         }
-    
+    </script>
+
+    @Scripts.Render("~/scripts/system")
+
+    <script type="text/javascript">
         //bootstraper
         (function() {
             if (window.auth.isUserLoggedIn() || window.auth.isAuthTokenPresentInHash()) {
-                System.baseURL = '/app';
-
-                var systemLoadPromise = System.import('system-config.js');
-
-                @if (!HttpContext.Current.IsDebuggingEnabled)
+                @if (HttpContext.Current.IsDebuggingEnabled)
                 {
                     <text>
-                    systemLoadPromise = systemLoadPromise.then(function () {
-                        return System.import('main-built.js');
+                    System.import('main');
+                    </text>
+
+                }
+                else
+                {
+                    <text>
+                    System.import('main-built').then(function() {
+                        System.import('main');
                     });
                     </text>
                 }
-
-                systemLoadPromise.then(function () {
-                    return System.import('main.js');
-                });
             }
             else {
                 window.location.replace('/signin');

@@ -21,7 +21,6 @@ namespace easygenerator.Web.Configuration
                     .Include("~/scripts/q.js")
                     .Include("~/scripts/underscore.js")
                     .Include("~/scripts/underscore.extensions.js")
-                    .Include("~/scripts/has.js")
                     .Include("~/scripts/moment.js")
                     .Include("~/scripts/paper-full-{version}.js")
                     .Include("~/scripts/jquery.form.js")
@@ -33,8 +32,12 @@ namespace easygenerator.Web.Configuration
                     .Include("~/scripts/FileSaver.js")
                     .Include("~/scripts/iscroll-probe.js")
                     .IncludeDirectory("~/scripts/knockoutBindings", "*Binding.js")
-                    .Include("~/scripts/systemjs/system.js")
-                    .Include("~/Scripts/systemjs/babel/browser/external-helpers.js")
+                );
+
+            bundles.Add(new Bundle("~/scripts/system")
+                    .Include("~/scripts/vendor/system.js")
+                    .Include("~/scripts/system-hooks.js")
+                    .Include("~/config.js")
                 );
 
             //CKEditor.js doesn't pass javascript validation, because of that it can't be minified in vendor bundle
@@ -100,7 +103,7 @@ namespace easygenerator.Web.Configuration
                 .Include("~/Content/releaseNotes.css")
                 .Include("~/Content/scenario.css")
                 .Include("~/Content/slider.css");
-                                
+
             stylesBundle.Transforms.Add(new ImageNoCacheParamTransform());
             bundles.Add(stylesBundle);
 
