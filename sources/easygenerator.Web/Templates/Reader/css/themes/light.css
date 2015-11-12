@@ -392,10 +392,8 @@ ul {
 }
 .table-wrapper .image-wrapper {
   margin: 0;
-  overflow: visible;
 }
 .image-wrapper {
-  overflow: auto;
   text-align: center;
   margin-bottom: 20px;
   display: block;
