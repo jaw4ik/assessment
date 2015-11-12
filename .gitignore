@@ -203,12 +203,13 @@ FakesAssemblies/
 
 # Custom easygenerator files
 /sources/easygenerator.Web/App/main-built.js
+/sources/easygenerator.Web/.grunt/*
 /sources/easygenerator.Web/FileStorage/
 /sources/easygenerator.PublicationServer.Web/courses/*
 *.ncrunchproject
 *.ncrunchsolution
 /sources/easygenerator.ConversionServer/iisnode
 /sources/easygenerator.Web/Content/*.css
-/sources/easygenerator.Web/Scripts/vendor/*
 /sources/easygenerator.Player/public/styles/*.css
-/sources/easygenerator.Player/public/vendor/*
+/sources/easygenerator.Player/public/vendor/* 
+# /sources/easygenerator.Web/Scripts/vendor/*
