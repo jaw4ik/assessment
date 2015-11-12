@@ -2,7 +2,7 @@
     function (constants, userContext, localizationManager, eventTracker, fileSaverWrapper, upgradeDialog, StartedStatement, FinishStatement) {
         "use strict";
 
-        var viewModel = function (getEntity, getStartedStatements, getFinishedStatements, noResultsViewLocation) {
+        var viewModel = function (getEntity, getLrsStatements, noResultsViewLocation) {
             var that = this;
 
             var events = {
@@ -61,8 +61,8 @@
                         return;
                     }
 
-                    var name = getResultsFileName();
                     return generateResultsCsvBlob().then(function (blob) {
+                        var name = getResultsFileName();
                         fileSaverWrapper.saveAs(blob, name);
                     });
                 });
@@ -95,19 +95,23 @@
             }
 
             function loadLrsStatements(entityId, take, skip) {
-                return getStartedStatements ? getStartedStatements(entityId, take, skip).then(function (startedStatements) {
-                    return getFinishedStatements(_.map(startedStatements, function (statement) {
-                        return statement.attemptId;
-                    })).then(function (finishedStatements) {
-                        return _.sortBy(_.map(finishedStatements, function (statement) { return new FinishStatement(statement); }).concat(_.map(_.reject(startedStatements, function (statement) {
-                            return _.where(finishedStatements, { attemptId: statement.attemptId }).length;
-                        }), function (statement) { return new StartedStatement(statement); })), function (statement) {
-                            return statement.lrsStatement.date;
-                        }).reverse();
-                    });
-                }) : getFinishedStatements(entityId, take, skip).then(function(statements) {
-                    return _.map(statements, function(statement) { return new FinishStatement(statement); });
+                return getLrsStatements(entityId, take, skip).then(function (statements) {
+                    return mapLrsStatements(statements.started, statements.finished);
                 });
+            }
+
+            function mapLrsStatements(startedStatements, finishedStatements) {
+                if (!startedStatements) {
+                    return _.map(finishedStatements, function(statement) { return new FinishStatement(statement) });
+                }
+
+                return _.chain(startedStatements)
+                    .map(function (started) {
+                        var finished = _.find(finishedStatements, function (item) { return item.attemptId === started.attemptId });
+                        return finished ? new FinishStatement(finished) : new StartedStatement(started);
+                    })
+                    .sortBy(function (statement) { return -statement.lrsStatement.date; })
+                    .value();
             }
 
             function loadStatements(entityId, take, skip) {
@@ -129,15 +133,16 @@
 
             function loadAllStatements(entityId) {
                 return Q.fcall(function () {
-                    if (!that.allResultsLoaded) {
-                        return loadLrsStatements(entityId)
-                            .then(function (statements) {
-                                that.loadedResults = statements;
-                                that.allResultsLoaded = true;
-                                return that.loadedResults;
-                            });
+                    if (that.allResultsLoaded) {
+                        return that.loadedResults;
                     }
-                    return that.loadedResults;
+
+                    return loadLrsStatements(entityId)
+                        .then(function (statements) {
+                            that.loadedResults = statements;
+                            that.allResultsLoaded = true;
+                            return that.loadedResults;
+                        });
                 });
             }
 

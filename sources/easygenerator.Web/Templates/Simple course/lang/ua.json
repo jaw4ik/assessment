@@ -20,6 +20,7 @@
     "[next question]": "Вперед",
     "[of]": "з",
     "[to complete]": "для досягнення цілі",
+    "[completed]": "ціль досягнуто",
     "[text matching question hint]": "Перетягніть відповіді з правої колонки до лівої таким чином, щоб вони відповідали визначенням з першої колонки",
     "[text matching question drop here]": "Сюди",
     "[statement question true text]": "Вірно",
@@ -62,5 +63,7 @@
     "[question]": "Запитання",
     "[scenario has been submitted]": "Дана відповідь на питання 'Сценарій'",
     "[scenario has not been finished yet]": "Питання 'Сценарій' не може бути закінчений зараз. Пройдіть питання до кінця, потім настисніть 'Відповісти'.",
-    "[download course in pdf format]": "Завантажити курс у форматі PDF"
+    "[download course in pdf format]": "Завантажити курс у форматі PDF",
+    "[scenario has been passed successfully]": "Сценарій був пройдений успішно",
+    "[scenario has not been passed successfully]": "Сценарій був пройдений не успішно"
 }

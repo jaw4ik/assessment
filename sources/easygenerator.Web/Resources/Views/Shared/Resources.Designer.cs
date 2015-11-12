@@ -79,24 +79,6 @@ namespace SharedResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please, try again after few minutes..
-        /// </summary>
-        public static string PublishIsInProgressText {
-            get {
-                return ResourceManager.GetString("PublishIsInProgressText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This course is being updated..
-        /// </summary>
-        public static string PublishIsInProgressTitle {
-            get {
-                return ResourceManager.GetString("PublishIsInProgressTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Terms of use.
         /// </summary>
         public static string TermsOfUse {

@@ -1,5 +1,5 @@
-﻿define(['reporting/viewmodels/resultsBase', 'repositories/learningPathRepository', 'reporting/xApiProvider', 'viewmodels/learningPaths/learningPath/results'],
-    function (ResultsBase, learningPathRepository, xApiProvider, Results) {
+﻿define(['reporting/viewmodels/resultsBase', 'repositories/learningPathRepository', 'reporting/learningPathStatementsProvider', 'viewmodels/learningPaths/learningPath/results'],
+    function (ResultsBase, learningPathRepository, learningPathStatementsProvider, Results) {
         "use strict";
 
         describe('[Results]', function () {
@@ -16,7 +16,7 @@
 
                 it('should call ctor of ResultsBase with proper args', function () {
                     var instance = new Results();
-                    expect(ResultsBase.call).toHaveBeenCalledWith(instance, learningPathRepository.getById, null, xApiProvider.getLearningPathFinishedStatements, 'learningPaths/learningPath/results/noResults');
+                    expect(ResultsBase.call).toHaveBeenCalledWith(instance, learningPathRepository.getById, learningPathStatementsProvider.getLrsStatements, 'learningPaths/learningPath/results/noResults');
                 });
 
             });

@@ -2,6 +2,6 @@
     addFromLibrary: 'Image library',
     imageLibrary: 'Image library',
     noImages: 'No images yet',
-    somethingWentWrong: 'Something went wrong. ',
+    somethingWentWrong: 'An error occurred. ',
     tryAgain: 'Try again'
 });

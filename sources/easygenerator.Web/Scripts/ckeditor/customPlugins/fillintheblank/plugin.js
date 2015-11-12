@@ -2,7 +2,7 @@
 
     CKEDITOR.plugins.fillintheblank = {
         requires: 'widget',
-        lang: 'en,uk,zh-cn,pt-br',
+        lang: 'en,uk,zh-cn,pt-br,de,nl',
         commands: {
             addBlank: 'addBlank',
             addDropDownBlank: 'addDropDownBlank'
