@@ -2744,8 +2744,6 @@
     <Content Include="Scripts\vendor\npm\babel-runtime%405.8.34\regenerator\runtime.js" />
     <Content Include="Scripts\vendor\npm\core-js%401.2.6.js" />
     <Content Include="Scripts\vendor\npm\core-js%401.2.6\build.js" />
-    <Content Include="Scripts\vendor\npm\core-js%401.2.6\build\config.js" />
-    <Content Include="Scripts\vendor\npm\core-js%401.2.6\build\index.js" />
     <Content Include="Scripts\vendor\npm\core-js%401.2.6\client\core.js" />
     <Content Include="Scripts\vendor\npm\core-js%401.2.6\client\core.min.js" />
     <Content Include="Scripts\vendor\npm\core-js%401.2.6\client\library.js" />
@@ -4138,8 +4136,6 @@
     <Content Include="Scripts\vendor\npm\babel-runtime%405.8.34\README.md" />
     <Content Include="Scripts\vendor\npm\core-js%401.2.6\.jspm-hash" />
     <Content Include="Scripts\vendor\npm\core-js%401.2.6\bower.json" />
-    <Content Include="Scripts\vendor\npm\core-js%401.2.6\build\build.ls" />
-    <Content Include="Scripts\vendor\npm\core-js%401.2.6\build\Gruntfile.ls" />
     <Content Include="Scripts\vendor\npm\core-js%401.2.6\CHANGELOG.md" />
     <Content Include="Scripts\vendor\npm\core-js%401.2.6\client\core.min.js.map" />
     <Content Include="Scripts\vendor\npm\core-js%401.2.6\client\library.min.js.map" />
@@ -4575,7 +4571,6 @@
     <Content Include="Scripts\common\serviceUnavailableAjaxErrorHandler.spec.js">
       <DependentUpon>serviceUnavailableAjaxErrorHandler.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\has.js" />
     <Content Include="Scripts\jasmine\boot.js" />
     <Content Include="Scripts\jasmine\jasmine-html.js" />
     <Content Include="Scripts\jasmine\jasmine.css" />
