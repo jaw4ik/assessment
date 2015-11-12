@@ -15,7 +15,6 @@
 
 .wrapper() {
     text-align: center;
-    overflow-x: auto;
 }
 
 .default-table() {
@@ -181,11 +180,13 @@
     }
 
     .image-wrapper {
+        max-width: 100%;
         .wrapper;
         margin: 30px 0;
         max-width: 100%;
         
         img {
+            max-width: 100%;
             border-radius: @wrapper-border-radius;
         }
 
@@ -216,6 +217,7 @@
         display: inline-block;
         margin: 40px 0;
         width: 100%;
+        overflow-x: auto;
 
         table {
             text-align: left;
