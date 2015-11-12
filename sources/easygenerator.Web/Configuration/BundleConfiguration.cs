@@ -36,6 +36,7 @@ namespace easygenerator.Web.Configuration
 
             bundles.Add(new Bundle("~/scripts/system")
                     .Include("~/scripts/vendor/system.js")
+                    .Include("~/scripts/vendor/external-helpers.js")
                     .Include("~/scripts/system-hooks.js")
                     .Include("~/config.js")
                 );
