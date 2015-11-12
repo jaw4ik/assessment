@@ -3,24 +3,29 @@
 
 .user-notification-viewer-wrapper {
     position: absolute;
-    max-height: 0px;
-    overflow: hidden;
-    top: 56px;
-    left: -220px;
-    width: 485px;
+    top: 100%;
+    right: 0;
+    margin-top: 6px;
+    overflow: visible;
+    width: 472px;
     z-index: 200;
-    transition: max-height ease-out 0.3s;
+    opacity: 0;
+    transform: scale(0, 0);
+    transform-origin: top right;
+    transition: 0.3s;
 
     &.shown {
-        max-height: 1000px;
+        opacity: 1;
+        transform: scale(1, 1);
     }
 }
 
 .user-notification-viewer {
     display: table;
     table-layout: fixed;
+    position: relative;
+    right: -28px;
     width: 100%;
-    overflow: hidden;
     font-size: 12px;
     font-family: 'OpenSans';
     color: #303133;
@@ -34,11 +39,9 @@
 
 .user-notification-block {
     position: relative;
-    width: 415px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-top: none;
-    box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 1px 2px 0px #bbbbbb;
     overflow: hidden;
 }
 
@@ -46,7 +49,7 @@
 
 .user-notification-navigation {
     position: relative;
-    width: 35px;
+    width: 28px;
 
     .user-notification-navigation-btn {
         position: relative;
@@ -55,10 +58,11 @@
         transition: background-color ease-out 0.1s;
         border: 0px;
         background-color: transparent;
+        opacity: 0.8;
         cursor: pointer;
 
         &:hover {
-            background-color: #fafbfd;
+            opacity: 1;
         }
 
         &:after {
@@ -100,21 +104,23 @@
     right: 10px;
     width: 17px;
     height: 17px;
-    border: 1px solid #ddd;
+    border: 1px solid #d1dae0;
+    border-radius: 3px;
     background: url(../Content/images/sprites_16.png) -86px -1px;
+    opacity: 0.8;
     cursor: pointer;
 }
 
 .user-notification-close-btn:hover {
-    background-color: #f7f7f7;
+    opacity: 1;
 }
 
 .user-notification-wrapper {
     .display-flex();
     .flex-direction(column);
     .flex-shrink(0);
-    width: 413px;
-    height: 280px;
+    width: 416px;
+    height: 290px;
     color: #42515f;
 }
 
@@ -126,9 +132,12 @@
 
     .user-notification-header-image {
         .align-self(center);
-        width: 53px;
-        height: 53px;
-        background: url(../Content/images/sprites_64.png) -76px -6px;
+        width: 50px;
+        height: 50px;
+        background: url(../Content/images/sprites_64.png) -75px -5px;
+        box-shadow: 0 1px 3px 0 #dedede;
+        border-radius: 25px;
+        text-transform: uppercase;
     }
 
     .user-notification-header-content {
@@ -142,7 +151,7 @@
 
         .user-notification-sender {
             display: block;
-            font-size: 11px;
+            font-size: 12px;
             color: #63798e;
         }
     }
@@ -167,24 +176,30 @@
         }
     }
 
-    .user-notification-content-text .top-indent {
-        margin-top: 5px;
+    .user-notification-content-text {
+        .subtitle {
+            font-family: 'OpenSans-Semibold';
+        }
+        .top-indent {
+            margin-top: 5px;
+        }
     }
 }
 
 .user-notification-link {
-    color: #50a6e9;
+    color: #469dd5;
     cursor: pointer;
+    text-decoration: underline;
 }
 
 .user-notification-link:hover {
-    text-decoration: underline;
+    color: #238dd2;
 }
 
 .user-notification-footer {
     .display-flex();
     position: relative;
-    min-height: 64px;
+    min-height: 52px;
     padding: 15px 25px 15px 45px;
     color: #63798e;
     font: 12px 'OpenSans';
@@ -213,7 +228,7 @@
 
     .user-notification-actions {
         .btn {
-            min-width: 145px;
+            min-width: 134px;
             padding: 11px;
             text-align: center;
         }
@@ -233,12 +248,13 @@
     }
 
     .user-notification-header-image {
-        @avatar-size: 45px;
+        @avatar-size: 46px;
         .user-avatar();
         width: @avatar-size;
         height: @avatar-size;
         line-height: @avatar-size;
         border-radius: 25px;
+        text-transform: uppercase;
     }
 
     .user-notification-actions {

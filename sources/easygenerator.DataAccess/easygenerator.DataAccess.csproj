@@ -355,6 +355,10 @@
     <Compile Include="Migrations\201510261434355_CreateScenarioQuestionTable.Designer.cs">
       <DependentUpon>201510261434355_CreateScenarioQuestionTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510291641078_AddNewEditor.cs" />
+    <Compile Include="Migrations\201510291641078_AddNewEditor.Designer.cs">
+      <DependentUpon>201510291641078_AddNewEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ConsumerToolRepository.cs" />
@@ -610,6 +614,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510261434355_CreateScenarioQuestionTable.resx">
       <DependentUpon>201510261434355_CreateScenarioQuestionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510291641078_AddNewEditor.resx">
+      <DependentUpon>201510291641078_AddNewEditor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

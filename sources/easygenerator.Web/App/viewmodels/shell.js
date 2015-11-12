@@ -1,7 +1,7 @@
 ﻿define(['durandal/app', 'plugins/router', 'routing/isViewReadyMixin', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'plugins/dialog',
-    'notify', 'constants', 'viewmodels/panels/leftSideBarManager', 'plugins/widget', 'dialogs/course/createCourse/createCourse', 'dialogs/releaseNotes/releaseNotes'],
+    'notify', 'constants', 'viewmodels/panels/leftSideBarManager', 'plugins/widget', 'dialogs/course/createCourse/createCourse', 'dialogs/releaseNotes/releaseNotes', 'http/apiHttpWrapper'],
     function (app, router, isViewReady, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, dialog, notify,
-        constants, leftSideBarManager, widget, createCourseDialog, releaseNotesDialog) {
+        constants, leftSideBarManager, widget, createCourseDialog, releaseNotesDialog, httpWrapper) {
 
         "use strict";
 
@@ -21,6 +21,12 @@
             showNavigation: showNavigation,
 
             navigation: ko.observableArray([]),
+
+            switchEditorMessageVisible: ko.observable(true),
+            newEditor: ko.observable(false),
+            switchEditor: switchEditor,
+            closeSwitchEditorMessage: closeSwitchEditorMessage,
+
             courseDeleted: courseDeleted,
             objectivesUnrelated: objectivesUnrelated,
             questionsDeleted: questionsDeleted,
@@ -133,10 +139,14 @@
                         });
                     });
 
+                    router.on('router:route:activating').then(function (instance, instruction) {
+                        var editorStateKey = userContext.identity.email + (userContext.identity.newEditor ? constants.newCourseEditor.switchToOldEditorMessageClosed : constants.newCourseEditor.switchToNewEditorMessageClosed);
+                        viewModel.switchEditorMessageVisible(!clientContext.get(editorStateKey) && constants.patterns.coursePage.test(instruction.fragment));
+                    });
+
                     router.on('router:navigation:composition-complete').then(function () {
                         clientContext.set(hex_md5(userContext.identity.email), { hash: window.location.hash });
                     });
-
 
                     clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
                     clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
@@ -145,8 +155,11 @@
                         isFirstVisitPage = false;
                         compositionComplete.off();
                     });
-
-                    router.setDefaultLocationHash(clientContext.get(hex_md5(userContext.identity.email)));
+                    
+                    if (_.isObject(userContext.identity)) {
+                        router.setDefaultLocationHash(clientContext.get(hex_md5(userContext.identity.email)));
+                        viewModel.newEditor(userContext.identity.newEditor);
+                    }
 
                     router.map([
                         {
@@ -245,6 +258,26 @@
                 return;
 
             notify.error(localizationManager.localize('courseIsNotAvailableAnyMore'));
+        }
+
+        function switchEditor() {
+            return httpWrapper.post('api/user/switcheditor').then(function () {
+                var locationHash = router.getLocationHash();
+                if (constants.patterns.coursePage.test(locationHash)) {
+                    var hash = 'courses/',
+                        pageHash = constants.patterns.coursePage.exec(locationHash)[0];
+                    if (pageHash) {
+                        hash += pageHash.substring(hash.length);
+                    }
+                    router.setLocationHash(hash);
+                }
+                router.reloadLocation();
+            });
+        }
+
+        function closeSwitchEditorMessage() {
+            clientContext.set(userContext.identity.email + (viewModel.newEditor() ? constants.newCourseEditor.switchToOldEditorMessageClosed : constants.newCourseEditor.switchToNewEditorMessageClosed), true);
+            viewModel.switchEditorMessageVisible(false);
         }
     }
 );

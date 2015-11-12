@@ -14,7 +14,7 @@ namespace easygenerator.DomainModel.Entities
         protected internal User() { }
 
         protected internal User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy,
-            AccessType accessPlan, string lastReadReleaseNote, DateTime? expirationDate = null, Company company = null)
+            AccessType accessPlan, string lastReadReleaseNote, DateTime? expirationDate = null, bool? newEditor = null, Company company = null)
             : base(createdBy)
         {
             ThrowIfEmailIsNotValid(email);
@@ -36,6 +36,7 @@ namespace easygenerator.DomainModel.Entities
 
             AccessType = accessPlan;
             LastReadReleaseNote = lastReadReleaseNote;
+            NewEditor = newEditor;
 
             if (expirationDate.HasValue)
             {
@@ -62,6 +63,7 @@ namespace easygenerator.DomainModel.Entities
         public virtual Company Company { get; private set; }
 
         public string LastReadReleaseNote { get; private set; }
+        public bool? NewEditor { get; private set; }
 
         public virtual bool VerifyPassword(string password)
         {
@@ -190,6 +192,20 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
             LastReadReleaseNote = lastReadReleaseNote;
+            MarkAsModified(modifiedBy);
+        }
+
+        public virtual void SwitchEditor(string modifiedBy)
+        {
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+            if (NewEditor.HasValue && (bool) NewEditor)
+            {
+                NewEditor = false;
+            }
+            else
+            {
+                NewEditor = true;
+            }
             MarkAsModified(modifiedBy);
         }
 

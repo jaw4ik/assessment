@@ -1,0 +1,85 @@
+﻿@create-bar-width: 300px;
+@create-bar-background: #fff;
+
+.left-side-bar-header-title {
+    font: 16px 'OpenSans-Semibold';
+    font-weight: normal;
+    color: #42515f;
+}
+
+.create {
+    &.left-side-bar {
+        width: @create-bar-width;
+        overflow: auto;
+        background: @create-bar-background;
+        padding: 20px;
+
+        .left-side-bar-section-header {
+            .left-side-bar-header-title;
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #d1dae0;
+
+            &.questions {
+                margin-top: 50px;
+            }
+        }
+
+        .draggable-list {
+            list-style: none;
+            margin-top: 18px;
+
+            .draggable-list-item {
+                display: inline-block;
+                vertical-align: middle;
+
+                .draggable-list-item-content {
+                    .draggable-list-item-icon {
+                        position: relative;
+                        width: 102px;
+                        height: 92px;
+                        border-radius: 5px;
+                        box-shadow: 0px 1px 3px 0px #aaaaaa;
+
+                        &:before {
+                            content: '';
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            margin-top: -32px;
+                            margin-left: -28px;
+                            display: block;
+                            width: 64px;
+                            height: 64px;
+                            background: url('images/sprites_64.png') 0 -468px no-repeat;
+                        }
+                    }
+
+                    .draggable-list-item-title {
+                        margin-top: 4px;
+                        text-align: center;
+                        font-weight: normal;
+                        font: 12px 'OpenSans';
+                        color: #42515f;
+                    }
+                }
+            }
+        }
+
+        @media screen and (max-width : 1630px) {
+            & + * {
+                padding-left: @create-bar-width;
+
+                header .header .content-section-wrapper {
+                    margin-left: 300px;
+                }
+
+                & > header {
+                    .content-section-wrapper .content-section {
+                        min-width: 660px;
+                    }
+                }
+            }
+        }
+    }
+}

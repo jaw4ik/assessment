@@ -1,0 +1,34 @@
+﻿<section class="editor view-module">
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <h2 class="course-editor-introduction-header" data-bind="localize: { text: 'courseIntroduction' }">Course introduction:</h2>
+            <div class="course-editor-introduction-container" data-bind="with: courseIntroductionContent">
+                <div class="course-editor-introduction-wrapper" data-bind="css: { active: hasFocus, 'content-defined': isContentDefined }, introAnimate: { isEditing: isEditing }">
+                    <div class="course-editor-introduction-holder">
+                        <!-- ko ifnot: isContentDefined -->
+                        <div class="course-editor-introduction-title-container" data-bind="click: addContent">
+                            <span class="course-editor-introduction-title" data-bind="localize: { text: 'emptyCourseIntroductionTitle' }">Tell your learners what the course will be about ...</span>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: isContentDefined -->
+                        <div class="course-editor-introduction selectable" data-content="" data-bind="ckeditor: { data: text, eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: autosaveInterval, localizationManager: $root.localizationManager, forcedFocus: true }"></div>
+                        <div class="course-editor-introduction-overlay" data-bind="click: beginEditText"></div>
+                        <!-- /ko -->
+                    </div>
+                    <!-- ko ifnot: isContentDefined -->
+                    <div class="course-editor-introduction-control-button add" data-bind="click: addContent"></div>
+                    <!-- /ko -->
+                    <!-- ko if: isContentDefined -->
+                    <div class="course-editor-introduction-control-button collapse" data-bind="visible: isEditing()"></div>
+                    <div class="course-editor-introduction-control-button edit" data-bind="click: beginEditText, visible: !isEditing()">
+                        <div class="info-tooltip left-side">
+                            <span data-bind="localize: {text: 'editIntroduction'}">Edit introduction</span>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                </div>
+            </div>
+            <h2 class="course-editor-sections-header" data-bind="localize: { text: 'sections' }">Sections:</h2>
+        </div>
+    </div>
+</section>

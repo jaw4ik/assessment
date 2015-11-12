@@ -4,18 +4,21 @@
 
         var viewModel = {
             username: null,
-            hasStarterAccess: ko.observable(false),
+            useremail: null,
+            hasPlusAccess: ko.observable(false),
+            newEditor: ko.observable(false),
             userPlanChanged: userPlanChanged,
             activate: activate,
             avatarLetter: null,
             openUpgradePlanUrl: openUpgradePlanUrl,
-            signOut: signOut
+            signOut: signOut,
+            switchEditor: function() {}
         };
 
         return viewModel;
 
-        function activate() {
-            viewModel.hasStarterAccess(userContext.hasStarterAccess());
+        function activate(data) {
+            viewModel.hasPlusAccess(userContext.hasPlusAccess());
             app.on(constants.messages.user.downgraded, userPlanChanged);
             app.on(constants.messages.user.upgradedToStarter, userPlanChanged);
             app.on(constants.messages.user.upgradedToPlus, userPlanChanged);
@@ -26,11 +29,19 @@
                     : userContext.identity.fullname;
 
                 viewModel.avatarLetter = viewModel.username.charAt(0);
+                viewModel.useremail = userContext.identity.email;
+            }
+
+            if (data) {
+                viewModel.newEditor(data.newEditor);
+                if (_.isFunction(data.switchEditor)) {
+                    viewModel.switchEditor = data.switchEditor;
+                }
             }
         }
 
         function userPlanChanged() {
-            viewModel.hasStarterAccess(userContext.hasStarterAccess());
+            viewModel.hasPlusAccess(userContext.hasPlusAccess());
         }
 
         function openUpgradePlanUrl() {

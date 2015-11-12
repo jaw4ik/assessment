@@ -51,6 +51,7 @@
                 lastname: 'lastname',
                 email: 'a.drebot@gmail.com',
                 role: 'Teacher',
+                newEditor: null,
                 subscription: {
                     accessType: constants.accessType.starter
                 }
@@ -63,6 +64,7 @@
             expect(user.fullname).toEqual(spec.firstname + ' ' + spec.lastname);
             expect(user.email).toEqual(spec.email);
             expect(user.role).toEqual(spec.role);
+            expect(user.newEditor).toEqual(spec.newEditor);
 
         });
 
