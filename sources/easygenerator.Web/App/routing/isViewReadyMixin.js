@@ -20,7 +20,5 @@
 
 }
 
-export default {
-    assign: assign
-};
+export default { assign };
 export var __useDefault = true;

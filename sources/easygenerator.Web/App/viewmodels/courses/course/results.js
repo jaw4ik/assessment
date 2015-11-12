@@ -2,10 +2,10 @@
     function (ResultsBase, courseRepository, courseStatementsProvider) {
         "use strict";
 
-        var viewModel = function () {
-            var noResultsViewLocation = 'courses/course/results/noResults';
-            ResultsBase.call(this, courseRepository.getById, courseStatementsProvider.getLrsStatements, noResultsViewLocation);
-        };
+        var viewModel = {};
+
+        var noResultsViewLocation = 'courses/course/results/noResults';
+        ResultsBase.call(viewModel, courseRepository.getById, courseStatementsProvider.getLrsStatements, noResultsViewLocation);
 
         return viewModel;
     }
