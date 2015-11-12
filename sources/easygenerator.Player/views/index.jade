@@ -27,12 +27,14 @@ block headscripts
         window.app = {};
         window.app.mediaId = "#{source}";
         window.app.sourcesUrl = "#{sourcesUrl}";
+        window.app.volumeKey = "#{volumeKey}";
         window.app.vimeoFileQualities = !{vimeoFileQualities};
         window.app.playerUpdateInterval = "#{playerUpdateInterval}";
 
     //- build:js ../public/js/app.js
     script(src='../public/js/knockoutBindings/fadeOutBinding.js')
     script(src='../public/js/viewmodels/player.js')
+    script(src='../public/js/providers/localStorage.js')
     script(src='../public/js/app.js')
     //- endbuild
 

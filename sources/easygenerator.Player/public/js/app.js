@@ -2,11 +2,30 @@
     var playerViewModel = app.playerViewModel,
         qualities = app.vimeoFileQualities,
         interval = app.playerUpdateInterval,
+        volumeKey = app.volumeKey,
+        storageProvider = app.storageProvider,
         getSources = function () {
             return $.ajax({ url: app.sourcesUrl + app.mediaId, cache: false }).done(onSuccess).fail(onFail);
         }
 
     getSources();
+
+    function volumeHandler(e) {
+        var player = e.target.player;
+        var volume = player.volume();
+        storageProvider.set(volumeKey, volume);
+    }
+
+    function handleVolumeChanges(player) {
+        if (!storageProvider || !player) {
+            return;
+        }
+        var latestValue = storageProvider.get(volumeKey);
+        if (latestValue) {
+            player.volume(latestValue);
+        }
+        player.on('volumechange', volumeHandler);
+    }
     
     function onFail() {
         playerViewModel.processing(false);
@@ -36,7 +55,10 @@
         playerViewModel.currentSource(source.link);
         playerViewModel.currentQuality(source.quality);
         playerViewModel.processing(false);
-        return videojs('easy-player');
+
+        var player = videojs('easy-player');
+        handleVolumeChanges(player);
+        return player;
     }
 
 })(window.app);
