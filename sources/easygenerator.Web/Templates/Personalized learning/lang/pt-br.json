@@ -47,7 +47,8 @@
     "[tracking and tracing error hint without continue]": "Reinicie o curso. Contate seu provedor de cursos se o problema persistir.",
     "[answered]": "respondida",
     "[overall progress]": "progresso geral",
-    "[save and continue later]": "salvar e continuar mais tarde",
+    "[save and continue later]": "Salvar e continuar mais tarde",
+    "[cancel]": "Cancelar",
     "[progress has been saved]": "Progresso foi salvo",
     "[progress cannot be saved]": "Progresso do curso não pode ser salvo. Tente novamente ou contate seu professor se o problema persistir."
 }

@@ -4,6 +4,13 @@
             <!-- ko if: isExpanded -->
             <div class="expand-collapse-panel expanded">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'scenarioDesigner' }">Scenario designer</span>
+                <div class="upgrade-block">
+                    <div data-bind="localize: { text: 'wantMoreScenarios' }">Want more scenarios?</div>
+                    <div>
+                        <span data-bind="localize: { text: 'pleaseContact' }">Please contact:</span>
+                        <a href="mailto:support@easygenerator.com">support@easygenerator.com</a>
+                    </div>
+                </div>
                 <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: 'collapse' }"></div>
             </div>
             <!-- /ko -->

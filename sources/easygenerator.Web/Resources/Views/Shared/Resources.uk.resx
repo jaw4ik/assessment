@@ -117,11 +117,38 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Chrome" xml:space="preserve">
+    <value>google chrome</value>
+  </data>
   <data name="CopyrightText" xml:space="preserve">
     <value>© 2015 easygenerator. Всі права захищені.</value>
   </data>
+  <data name="IE" xml:space="preserve">
+    <value>internet explorer</value>
+  </data>
+  <data name="Mozilla" xml:space="preserve">
+    <value>mozilla firefox</value>
+  </data>
+  <data name="NotSupportedBrowserDescription" xml:space="preserve">
+    <value>Don't worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions.</value>
+  </data>
+  <data name="NotSupportedBrowserSkip" xml:space="preserve">
+    <value>let me try it anyway...</value>
+  </data>
+  <data name="NotSupportedBrowserTitle" xml:space="preserve">
+    <value>Your browser is currently not supported</value>
+  </data>
+  <data name="NotSupportedDeviceDescription" xml:space="preserve">
+    <value>The operational system of your device is not supported. Please find the list of supported operational systems</value>
+  </data>
+  <data name="NotSupportedDeviceTitle" xml:space="preserve">
+    <value>Your device is not supported</value>
+  </data>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Політика конфіденційності</value>
+  </data>
+  <data name="Safari" xml:space="preserve">
+    <value>apple safari</value>
   </data>
   <data name="TermsOfUse" xml:space="preserve">
     <value>Умови користування</value>

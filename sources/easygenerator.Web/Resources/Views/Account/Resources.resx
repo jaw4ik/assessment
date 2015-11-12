@@ -120,62 +120,44 @@
   <data name="AccountAlreadyExists" xml:space="preserve">
     <value>This account already exists. Click on Sign in and try again.</value>
   </data>
-  <data name="AnotherTool" xml:space="preserve">
-    <value>Another authoring tool</value>
-  </data>
-  <data name="BeAtLeast7CharactersLong" xml:space="preserve">
-    <value>be at least 7 characters long;</value>
-  </data>
   <data name="Checking" xml:space="preserve">
     <value>Checking...</value>
   </data>
-  <data name="ChooseAnswer" xml:space="preserve">
-    <value>Choose answer...</value>
-  </data>
   <data name="ChooseYourCountry" xml:space="preserve">
     <value>Select your country...</value>
-  </data>
-  <data name="ContainAtLeastOneDigit" xml:space="preserve">
-    <value>contain at least one digit;</value>
-  </data>
-  <data name="ContainAtLeastOneLowerCaseLetter" xml:space="preserve">
-    <value>contain at least one lower case letter;</value>
-  </data>
-  <data name="ContainAtLeastOneSpecialCharacter" xml:space="preserve">
-    <value>contain at least one special character;</value>
-  </data>
-  <data name="ContainAtLeastOneUpperCaseLetter" xml:space="preserve">
-    <value>contain at least one upper case letter;</value>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Continue</value>
   </data>
   <data name="CouldNotVerifyPasswordRecovery" xml:space="preserve">
-    <value>Something went wrong. Try again. Contact support@easygenerator.com if the problem persists.</value>
-  </data>
-  <data name="CountryCaption" xml:space="preserve">
-    <value>Country</value>
+    <value>An error occurred. Try again Contact support@easygenerator.com if the problem persists. </value>
   </data>
   <data name="CreateAccountTitle" xml:space="preserve">
     <value>Start creating courses now!</value>
+  </data>
+  <data name="ElearningExpert" xml:space="preserve">
+    <value>eLearning expert</value>
+  </data>
+  <data name="ELearningManager" xml:space="preserve">
+    <value>eLearning manager</value>
   </data>
   <data name="EmailCaption" xml:space="preserve">
     <value>E-mail</value>
   </data>
   <data name="EnterValidCountry" xml:space="preserve">
-    <value>Fill in your country</value>
+    <value>Enter your country</value>
   </data>
   <data name="EnterValidEmailMessage" xml:space="preserve">
-    <value>Enter a valid e-mail</value>
+    <value>Enter a valid e-mail address</value>
   </data>
   <data name="EnterValidFirstName" xml:space="preserve">
-    <value>Fill in your first name</value>
+    <value>Enter your first name</value>
   </data>
   <data name="EnterValidLastName" xml:space="preserve">
-    <value>Fill in your last name</value>
+    <value>Enter your last name</value>
   </data>
   <data name="EnterValidPhoneNumber" xml:space="preserve">
-    <value>Fill in your phone number</value>
+    <value>Enter your phone number</value>
   </data>
   <data name="Finish" xml:space="preserve">
     <value>Start authoring!</value>
@@ -188,16 +170,27 @@
   </data>
   <data name="ForgotPasswordBody" xml:space="preserve">
     <value>&lt;div&gt;
-	Hi,
-	&lt;p&gt;Someone requested a password reset for your account at &lt;a href="{0}"&gt;{0}&lt;/a&gt;.&lt;/p&gt;
-	&lt;p&gt;
-		To reset the password please click on the link below:&lt;br /&gt;
-		&lt;a href="{1}"&gt;{1}&lt;/a&gt;
-	&lt;/p&gt;
-	&lt;p&gt;
-		If you haven't made this request, ignore this message. Your password will not be changed. 
-	&lt;/p&gt;
-	&lt;strong&gt;The easygenerator team&lt;/strong&gt;
+Hi,
+&lt;p&gt;
+        A password reset was requested for your account at &lt;a href=""{0}""&gt;{0}&lt;/a&gt;.
+&lt;/p&gt;
+&lt;p&gt;
+        To reset the password please click on the below link:&lt;br /&gt;
+        &lt;a href=""{1}""&gt;{1}&lt;/a&gt;
+&lt;/p&gt;
+&lt;p&gt;
+        If you have not submitted this request, please ignore this message. Your password will not be changed. 
+&lt;/p&gt;
+&lt;p&gt;
+        Thank you for using easygenerator.com and have a nice day!
+&lt;/p&gt;
+--
+&lt;p&gt;
+        &lt;strong&gt;
+                Best regards,&lt;br /&gt;
+                easygenerator team
+        &lt;/strong&gt;
+&lt;/p&gt;
 &lt;/div&gt;</value>
   </data>
   <data name="ForgotPasswordSent" xml:space="preserve">
@@ -206,77 +199,64 @@
   <data name="ForgotPasswordSubject" xml:space="preserve">
     <value>Password for easygenerator</value>
   </data>
-  <data name="FullNameCaption" xml:space="preserve">
-    <value>Full name</value>
-  </data>
   <data name="HidePassword" xml:space="preserve">
     <value>Hide password</value>
   </data>
   <data name="IncorrectEmailOrPassword" xml:space="preserve">
-    <value>E-mail and password combination do not exist. Try again or reset password.</value>
+    <value>E-mail and password combination does not exist. Try again or reset your password.</value>
   </data>
-  <data name="JustLooking" xml:space="preserve">
-    <value>Just looking</value>
+  <data name="InstructionalDesigner" xml:space="preserve">
+    <value>Instructional designer</value>
+  </data>
+  <data name="InviteCollaboratorBody" xml:space="preserve">
+    <value>&lt;div&gt;
+&lt;p&gt;{0} wants to work with you on an eLearning course in easygenerator.&lt;/p&gt;
+&lt;p&gt;You can create an easygenerator account for free. Go to: &lt;a href="{1}"&gt;{1}&lt;/a&gt; and register with this e-mail address and the course will be available after logging in.&lt;/p&gt;
+&lt;p&gt;Kind regards,&lt;br/&gt;
+easygenerator Team&lt;/p&gt;
+&lt;/div&gt;</value>
+  </data>
+  <data name="InviteCollaboratorFromDisplayName" xml:space="preserve">
+    <value>{0} (easygenerator)</value>
+  </data>
+  <data name="InviteCollaboratorSubject" xml:space="preserve">
+    <value>You have been invited by {0} to co-author an eLearning course about {1}</value>
   </data>
   <data name="LastNameCaption" xml:space="preserve">
     <value>Last name</value>
   </data>
   <data name="LicenseAgreeCaption" xml:space="preserve">
-    <value>By clicking "Sign up" I agree to the easygenerator's  &lt;a href="{0}"  target='_blank'&gt;Terms&lt;/a&gt; and &lt;a href="{1}"  target='_blank'&gt;Privacy policy&lt;/a&gt;</value>
+    <value>By clicking "Sign up" I agree to easygenerator's &lt;a href="{0}"  target=”_blank”&gt;Terms and Conditions&lt;/a&gt; and &lt;a href="{1}"  target=”_blank”&gt;Privacy policy&lt;/a&gt;</value>
   </data>
   <data name="NoSpaces" xml:space="preserve">
     <value>No spaces</value>
   </data>
-  <data name="NotContainWhitespaceCharacters" xml:space="preserve">
-    <value>The password cannot contain spaces</value>
-  </data>
-  <data name="Nothing" xml:space="preserve">
-    <value>Nothing</value>
-  </data>
   <data name="NotLessThanSevenSymbols" xml:space="preserve">
-    <value>Not less than 7 symbols</value>
+    <value>At least 7 characters</value>
   </data>
-  <data name="Now" xml:space="preserve">
-    <value>Now</value>
-  </data>
-  <data name="Numbers" xml:space="preserve">
-    <value>Numbers</value>
-  </data>
-  <data name="OptionalInformation" xml:space="preserve">
-    <value>Optional information</value>
-  </data>
-  <data name="Other" xml:space="preserve">
+  <data name="OtherRole" xml:space="preserve">
     <value>Other</value>
   </data>
   <data name="PasswordCaption" xml:space="preserve">
     <value>Password</value>
   </data>
-  <data name="PasswordDoesNotMeetRequirements" xml:space="preserve">
-    <value>Password does not meet requirements</value>
-  </data>
-  <data name="PasswordIsStrongEnough" xml:space="preserve">
-    <value>Password meets requirements</value>
-  </data>
   <data name="PasswordRecovery" xml:space="preserve">
     <value>Reset password</value>
-  </data>
-  <data name="PasswordRequirementsTitle" xml:space="preserve">
-    <value>Password is required to:</value>
   </data>
   <data name="PhoneNumberCaption" xml:space="preserve">
     <value>Phone number</value>
   </data>
-  <data name="PowerPoint" xml:space="preserve">
-    <value>PowerPoint</value>
+  <data name="PleaseUse" xml:space="preserve">
+    <value>Please use:</value>
   </data>
   <data name="RequestError" xml:space="preserve">
-    <value>Something went wrong. Try again. Contact support@easygenerator.com if the problem persists.</value>
+    <value>An error occurred. Try again Contact support@easygenerator.com if the problem persists. </value>
   </data>
-  <data name="RestorePasswordCaption" xml:space="preserve">
-    <value>Enter your new password</value>
+  <data name="RoleQuestion" xml:space="preserve">
+    <value>What is your role?</value>
   </data>
   <data name="Show" xml:space="preserve">
-    <value>show</value>
+    <value>Show</value>
   </data>
   <data name="ShowPassword" xml:space="preserve">
     <value>Show password</value>
@@ -284,57 +264,17 @@
   <data name="SignIn" xml:space="preserve">
     <value>Sign in</value>
   </data>
-  <data name="SignOutButton" xml:space="preserve">
-    <value>Sign out</value>
-  </data>
   <data name="SignUp" xml:space="preserve">
     <value>Sign up</value>
   </data>
   <data name="SignUpButton" xml:space="preserve">
     <value>Sign up</value>
   </data>
-  <data name="Skip" xml:space="preserve">
-    <value>Skip</value>
-  </data>  
-  <data name="UpperAndLowercaseLetters" xml:space="preserve">
-    <value>Upper and lowercase letters</value>
-  </data>
-  <data name="Variant1Month" xml:space="preserve">
-    <value>1-3 months</value>
-  </data>
-  <data name="VariantMore3Months" xml:space="preserve">
-    <value>&gt;3 months</value>
-  </data>
-  <data name="InviteCollaboratorBody" xml:space="preserve">
-    <value>&lt;div&gt;
-&lt;p&gt;{0} wants to work with you on an eLearning course in easygenerator.&lt;/p&gt;
-&lt;p&gt;You can create an easygenerator account for free. Go to: &lt;a href="{1}"&gt;{1}&lt;/a&gt; and register with this email address and the course will be available after login.&lt;/p&gt;
-&lt;p&gt;Kind regards,&lt;br/&gt;easygenerator Team&lt;/p&gt;
-&lt;/div&gt;</value>
-  </data>
-  <data name="InviteCollaboratorSubject" xml:space="preserve">
-    <value>You are invited by {0} to co-author an elearning course about {1}</value>
-  </data>
-  <data name="InviteCollaboratorFromDisplayName" xml:space="preserve">
-    <value>{0} (easygenerator)</value>
-  </data>
   <data name="SignUpSecondStepTitle" xml:space="preserve">
     <value>Almost there...</value>
   </data>
-  <data name="InstructionalDesigner" xml:space="preserve">
-    <value>Instructional designer</value>
-  </data>
-  <data name="ElearningExpert" xml:space="preserve">
-    <value>eLearning expert</value>
-  </data>
-  <data name="ELearningManager" xml:space="preserve">
-    <value>eLearning manager</value>
-  </data>
-  <data name="OtherRole" xml:space="preserve">
-    <value>Other</value>
-  </data>
-  <data name="RoleQuestion" xml:space="preserve">
-    <value>What is your role?</value>
+  <data name="Student" xml:space="preserve">
+    <value>Student</value>
   </data>
   <data name="SubjectMatterExpert" xml:space="preserve">
     <value>Subject matter expert</value>
@@ -344,11 +284,5 @@
   </data>
   <data name="Trainer" xml:space="preserve">
     <value>Trainer</value>
-  </data>
-  <data name="Student" xml:space="preserve">
-    <value>Student</value>
-  </data>
-  <data name="PleaseUse" xml:space="preserve">
-    <value>Please use:</value>
   </data>
 </root>
