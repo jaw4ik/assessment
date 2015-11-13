@@ -19,7 +19,7 @@ IF "%4"=="true" SET CreateTags="1"
 call npm install
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 
-call jspm install
+call node node_modules/jspm/jspm install
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 
 call node node_modules/gulp/bin/gulp deploy --output=%DeploymentDirectory% --instance=%Instance% --version=%Version% --createTags=%CreateTags%
