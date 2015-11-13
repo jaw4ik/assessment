@@ -2333,13 +2333,8 @@
     <Content Include="Scripts\system-hooks.js" />
     <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\underscore.js" />
-    <Content Include="Scripts\vendor\external-helpers.js" />
-    <Content Include="Scripts\vendor\system-csp-production.js" />
-    <Content Include="Scripts\vendor\system-csp-production.src.js" />
-    <Content Include="Scripts\vendor\system-polyfills.js" />
-    <Content Include="Scripts\vendor\system-polyfills.src.js" />
-    <Content Include="Scripts\vendor\system.js" />
-    <Content Include="Scripts\vendor\system.src.js" />
+    <Content Include="Scripts\external-helpers.js" />
+    <Content Include="Scripts\vendor.js" />
     <Content Include="Scripts\zeroclipboard.js" />
     <Content Include="Scripts\zeroclipboard.swf" />
     <Content Include="Templates\Assessment\app\app.js" />
@@ -2753,11 +2748,6 @@
     <Content Include="Views\Dashboard\UserInfo.cshtml" />
     <Content Include="Views\Dashboard\_UserInfoResult.cshtml" />
     <Content Include="Views\Dashboard\_UserNotFoundResult.cshtml" />
-    <Content Include="Scripts\vendor\.dependencies.json" />
-    <Content Include="Scripts\vendor\.loaderversions" />
-    <Content Include="Scripts\vendor\system-csp-production.js.map" />
-    <Content Include="Scripts\vendor\system-polyfills.js.map" />
-    <Content Include="Scripts\vendor\system.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
