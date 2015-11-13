@@ -1,5 +1,5 @@
-﻿define(['viewmodels/courses/publishingActions/publish', 'constants', 'eventTracker'],
-    function (publishAction, constants, eventTracker) {
+﻿define(['viewmodels/courses/publishingActions/publish', 'viewmodels/courses/publishingActions/publishToCustomLms', 'constants', 'eventTracker', 'userContext'],
+    function (publishAction, publishToCustomLms, constants, eventTracker, userContext) {
 
         "use strict";
 
@@ -10,6 +10,7 @@
 
         var viewModel = {
             isShown: ko.observable(false),
+            hideDefaultPublish: ko.observable(false),
             publishAction: publishAction(constants.eventCategories.header),
             show: show,
             hide: hide,
@@ -22,8 +23,12 @@
         return viewModel;
 
         function show(courseId) {
-            viewModel.publishAction.activate(courseId);
-            viewModel.isShown(true);
+            
+                viewModel.hideDefaultPublish(userContext.identity.company.hideDefaultPublishOptions);
+                viewModel.publishAction = viewModel.hideDefaultPublish() ? publishToCustomLms(constants.eventCategories.header) : publishAction(constants.eventCategories.header);
+                viewModel.publishAction.activate(courseId);
+                viewModel.isShown(true);
+            
         }
 
         function hide() {

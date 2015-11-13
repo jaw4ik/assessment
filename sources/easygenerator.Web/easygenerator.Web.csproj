@@ -608,6 +608,8 @@
     <Content Include="App\dialogs\audio\audioViewModel.spec.js">
       <DependentUpon>audioViewModel.js</DependentUpon>
     </Content>
+    <Content Include="App\dialogs\course\publishCourse\publishOptions\customPublish.html" />
+    <Content Include="App\dialogs\course\publishCourse\publishOptions\defaultPublish.html" />
     <Content Include="App\jsonReader.js" />
     <Content Include="App\localization\bindingHandlers\localizeBindingHandler.js" />
     <Content Include="App\dialogs\branchtrack\branchtrack.html" />

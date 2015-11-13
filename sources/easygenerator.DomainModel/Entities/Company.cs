@@ -18,6 +18,8 @@ namespace easygenerator.DomainModel.Entities
 
         public string SecretKey { get; private set; }
 
+        public bool HideDefaultPublishOptions { get; private set; }
+
         public virtual ICollection<User> Users { get; set; }
     }
 }

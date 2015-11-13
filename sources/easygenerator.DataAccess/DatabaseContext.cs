@@ -245,6 +245,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Company>().Property(e => e.LogoUrl).IsRequired();
             modelBuilder.Entity<Company>().Property(e => e.PublishCourseApiUrl).IsRequired();
             modelBuilder.Entity<Company>().Property(e => e.SecretKey).IsRequired();
+            modelBuilder.Entity<Company>().Property(e => e.HideDefaultPublishOptions).IsRequired();
 
             modelBuilder.Entity<Scenario>().Property(e => e.ProjectId);
             modelBuilder.Entity<Scenario>().Property(e => e.EmbedCode);
