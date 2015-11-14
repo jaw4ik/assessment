@@ -217,10 +217,11 @@ namespace easygenerator.DomainModel.Tests.Entities
             var creationDate = CurrentDate;
             var accessPlan = AccessType.Starter;
             var lastReadReleaseNote = "1.0.0";
+            var company = new Company();
 
             //Act
             var expirationDate = DateTimeWrapper.Now().AddDays(20);
-            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, lastReadReleaseNote, expirationDate);
+            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, lastReadReleaseNote, expirationDate, company);
 
             //Assert
             user.Id.Should().NotBeEmpty();
@@ -237,6 +238,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.AccessType.Should().Be(accessPlan);
             user.ExpirationDate.Should().Be(expirationDate);
             user.LastReadReleaseNote.Should().Be(lastReadReleaseNote);
+            user.Company.Should().Be(company);
         }
 
         [TestMethod]
