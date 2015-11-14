@@ -34,6 +34,8 @@ namespace easygenerator.Auth.Lti
             _dependencyResolver = dependencyResolver;
             _releaseNoteFileReader = releaseNoteFileReader;
 
+            const string consumerToolKey = "consumerToolKey";
+
             OnAuthenticate = context =>
             {
                 var timeout = TimeSpan.FromMinutes(5);
@@ -49,6 +51,8 @@ namespace easygenerator.Auth.Lti
                     throw new LtiException("Invalid " + OAuthConstants.ConsumerKeyParameter);
                 }
 
+                context.Request.Set(consumerToolKey, consumerTool);
+
                 var consumerSignature = context.LtiRequest.GenerateSignature(consumerTool.Secret);
                 if (!consumerSignature.Equals(context.LtiRequest.Signature))
                 {
@@ -60,6 +64,12 @@ namespace easygenerator.Auth.Lti
 
             OnAuthenticated = context =>
             {
+                var consumerTool = context.Request.Get<ConsumerTool>(consumerToolKey);
+                if (consumerTool == null)
+                {
+                    throw new LtiException("Cannot get consumer tool from the context.");
+                }
+
                 var userEmail = context.LtiRequest.LisPersonEmailPrimary;
                 if (string.IsNullOrWhiteSpace(context.LtiRequest.LisPersonEmailPrimary))
                 {
@@ -73,13 +83,17 @@ namespace easygenerator.Auth.Lti
                 if (user == null)
                 {
                     CreateNewUser(userEmail, context.LtiRequest.LisPersonNameGiven,
-                        context.LtiRequest.LisPersonNameFamily, context.LtiRequest.UserId);
+                        context.LtiRequest.LisPersonNameFamily, context.LtiRequest.UserId, consumerTool);
 
                 }
-                else if (!user.IsLtiUser() || user.LtiUserInfo.LtiUserId != context.LtiRequest.UserId)
+                else
                 {
-                    context.RedirectUrl = string.Format("{0}#logout", ltiProviderUrl);
-                    return Task.FromResult<object>(null);
+                    var userInfo = user.GetLtiUserInfo(consumerTool);
+                    if (userInfo == null || userInfo.LtiUserId != context.LtiRequest.UserId)
+                    {
+                        context.RedirectUrl = string.Format("{0}#logout", ltiProviderUrl);
+                        return Task.FromResult<object>(null);
+                    }
                 }
 
                 var authToken = _tokenProvider.GenerateTokens(userEmail, context.Request.Uri.Host, new[] { "auth" });
@@ -89,7 +103,7 @@ namespace easygenerator.Auth.Lti
             };
         }
 
-        private void CreateNewUser(string email, string firstName, string lastName, string ltiUserId)
+        private void CreateNewUser(string email, string firstName, string lastName, string ltiUserId, ConsumerTool consumerTool)
         {
             const string ltiMockData = "LTI";
             var dataContext = _dependencyResolver.GetService<IUnitOfWork>();
@@ -97,7 +111,7 @@ namespace easygenerator.Auth.Lti
 
             var user = _entityFactory.User(email, Guid.NewGuid().ToString("N"), firstName, lastName, ltiMockData, ltiMockData, ltiMockData, email, AccessType.Plus, _releaseNoteFileReader.GetReleaseVersion(), DateTimeWrapper.Now().AddYears(50));
 
-            user.UpdateLtiUserInfo(ltiUserId);
+            user.AddLtiUserInfo(ltiUserId, consumerTool);
 
             userRepository.Add(user);
 

@@ -2,7 +2,7 @@
 {
     public class ConsumerTool : Identifiable
     {
-        protected ConsumerTool() { }
+        protected internal ConsumerTool() { }
 
         public string Title { get; private set; }
         public string Domain { get; private set; }

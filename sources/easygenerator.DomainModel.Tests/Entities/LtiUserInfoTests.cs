@@ -9,32 +9,38 @@ namespace easygenerator.DomainModel.Tests.Entities
     public class LtiUserInfoTests
     {
         [TestMethod]
-        public void UpdateLtiUserId_ShouldThrowArgumentNullException_WhenLtiUserIdIsNull()
+        public void Ctor_ShouldThrowArgumentNullException_WhenLtiUserIdIsNull()
         {
-            var info = new LtiUserInfo();
-
-            Action action = () => info.UpdateLtiUserId(null);
+            Action action = () => new LtiUserInfo(null, new ConsumerTool());
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("ltiUserId");
         }
 
         [TestMethod]
-        public void UpdateLtiUserId_ShouldThrowArgumentNullException_WhenLtiUserIdIsEmptyString()
+        public void Ctor_ShouldThrowArgumentException_WhenLtiUserIdIsEmptyString()
         {
-            var info = new LtiUserInfo();
-
-            Action action = () => info.UpdateLtiUserId(" ");
+            Action action = () => new LtiUserInfo(" ", new ConsumerTool());
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("ltiUserId");
         }
 
         [TestMethod]
-        public void UpdateLtiUserId_ShouldUpdateLtiUserId()
+        public void Ctor_ShouldThrowArgumentNullException_WhenConsumerToolIsNull()
         {
-            var info = new LtiUserInfo();
-            info.UpdateLtiUserId("2");
+            Action action = () => new LtiUserInfo("id", null);
 
-            info.LtiUserId.Should().Be("2");
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("consumerTool");
+        }
+
+        [TestMethod]
+        public void Ctor_ShouldUpdateLtiUserIdAndConsumerTool()
+        {
+            var id = "id";
+            var consumerTool = new ConsumerTool();
+            var ltiUserInfo = new LtiUserInfo(id, consumerTool);
+
+            ltiUserInfo.LtiUserId.Should().Be(id);
+            ltiUserInfo.ConsumerTool.Should().Be(consumerTool);
         }
     }
 }

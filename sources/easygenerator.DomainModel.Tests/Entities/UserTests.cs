@@ -5,6 +5,7 @@ using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {
@@ -1458,7 +1459,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             Action action = () => user.UpdateLastReadReleaseNote(null, "aaa");
 
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("last read release note");
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("lastReadReleaseNote");
         }
 
         [TestMethod]
@@ -1468,7 +1469,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             Action action = () => user.UpdateLastReadReleaseNote(string.Empty, "aaa");
 
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("last read release note");
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("lastReadReleaseNote");
         }
 
         [TestMethod]
@@ -1733,5 +1734,57 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
+        #region GetLtiUserInfo
+
+        public void GetLtiUserInfo_ShouldThrowArgumentNullExceptionIfConsumerToolIsNull()
+        {
+            var user = new User();
+            Action action = () => user.GetLtiUserInfo(null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("consumerTool");
+        }
+
+        public void GetLtiUserInfo_ShouldReturnProperLtiInfoForSpecifiedConsumerTool()
+        {
+            var user = new User();
+            var consumerTool = new ConsumerTool();
+            var ltiUserInfo = new LtiUserInfo("id", consumerTool);
+
+            user.LtiUserInfoes.Add(ltiUserInfo);
+            user.LtiUserInfoes.Add(new LtiUserInfo("id2", new ConsumerTool()));
+
+            user.GetLtiUserInfo(consumerTool).Should().Be(ltiUserInfo);
+            user.GetLtiUserInfo(new ConsumerTool()).Should().BeNull();
+        }
+
+        #endregion
+
+        #region UpdateLtiUserInfo
+
+        public void AddLtiUserInfo_ShouldAddLtiUserInfo()
+        {
+            var user = new User();
+            var consumerTool = new ConsumerTool();
+            var id = "id";
+
+            user.AddLtiUserInfo(id, consumerTool);
+            user.LtiUserInfoes.Count.Should().Be(1);
+
+            user.LtiUserInfoes.ElementAt(0).ConsumerTool.Should().Be(consumerTool);
+            user.LtiUserInfoes.ElementAt(0).LtiUserId.Should().Be(id);
+        }
+
+        public void AddLtiUserInfo_ShouldNotAddLtiUserInfoIfAlreadyExists()
+        {
+            var user = new User();
+            var consumerTool = new ConsumerTool();
+
+            user.AddLtiUserInfo("id", consumerTool);
+            user.AddLtiUserInfo("id", consumerTool);
+
+            user.LtiUserInfoes.Count.Should().Be(1);
+        }
+
+        #endregion
     }
 }

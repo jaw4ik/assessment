@@ -368,38 +368,38 @@ namespace easygenerator.DomainModel.Entities
 
         public void ThrowIfCommentIsInvalid(Comment comment)
         {
-            ArgumentValidation.ThrowIfNull(comment, "comment");
+            ArgumentValidation.ThrowIfNull(comment, nameof(comment));
         }
 
         public void ThrowIfUserEmailIsInvalid(string userEmail)
         {
-            ArgumentValidation.ThrowIfNull(userEmail, "userEmail");
+            ArgumentValidation.ThrowIfNull(userEmail, nameof(userEmail));
         }
 
         public void ThrowIfTemplateIsInvaid(Template template)
         {
-            ArgumentValidation.ThrowIfNull(template, "template");
+            ArgumentValidation.ThrowIfNull(template, nameof(template));
         }
 
         public void ThrowIfTitleIsInvalid(string title)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(title, "title");
-            ArgumentValidation.ThrowIfLongerThan255(title, "title");
+            ArgumentValidation.ThrowIfNullOrEmpty(title, nameof(title));
+            ArgumentValidation.ThrowIfLongerThan255(title, nameof(title));
         }
 
         public void ThrowIfObjectiveIsInvalid(Objective objective)
         {
-            ArgumentValidation.ThrowIfNull(objective, "objective");
+            ArgumentValidation.ThrowIfNull(objective, nameof(objective));
         }
 
         public void ThrowIfPackageUrlIsInvalid(string packageUrl)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(packageUrl, "packageUrl");
+            ArgumentValidation.ThrowIfNullOrEmpty(packageUrl, nameof(packageUrl));
         }
 
         private static void ThrowIfCollaboratorIsInvalid(CourseCollaborator courseCollaborator)
         {
-            ArgumentValidation.ThrowIfNull(courseCollaborator, "courseCollaborator");
+            ArgumentValidation.ThrowIfNull(courseCollaborator, nameof(courseCollaborator));
         }
 
         #endregion
