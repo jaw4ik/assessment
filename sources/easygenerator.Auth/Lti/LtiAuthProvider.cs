@@ -108,8 +108,8 @@ namespace easygenerator.Auth.Lti
             const string ltiMockData = "LTI";
             var dataContext = _dependencyResolver.GetService<IUnitOfWork>();
             var userRepository = _dependencyResolver.GetService<IUserRepository>();
-
-            var user = _entityFactory.User(email, Guid.NewGuid().ToString("N"), firstName, lastName, ltiMockData, ltiMockData, ltiMockData, email, AccessType.Plus, _releaseNoteFileReader.GetReleaseVersion(), DateTimeWrapper.Now().AddYears(50));
+            
+            var user = _entityFactory.User(email, Guid.NewGuid().ToString("N"), firstName, lastName, ltiMockData, ltiMockData, ltiMockData, email, AccessType.Plus, _releaseNoteFileReader.GetReleaseVersion(), DateTimeWrapper.Now().AddYears(50), consumerTool.Settings?.Company);
 
             user.AddLtiUserInfo(ltiUserId, consumerTool);
 

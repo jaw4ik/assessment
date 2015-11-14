@@ -10,7 +10,7 @@ namespace easygenerator.DomainModel.Entities
 
         public int? ExpirationPeriod { get; private set; }
 
-        public Company Company { get; private set; }
+        public virtual Company Company { get; private set; }
 
         public ConsumerTool ConsumerTool { get; private set; }
     }
