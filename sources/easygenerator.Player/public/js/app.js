@@ -13,16 +13,26 @@
     function volumeHandler(e) {
         var player = e.target.player;
         var volume = player.volume();
-        storageProvider.set(volumeKey, volume);
+        var muted = player.muted();
+        if (volume === 0) {
+            volume = 1;
+            muted = true;
+            var volumeSettings = storageProvider.get(volumeKey);
+            if (volumeSettings && volumeSettings.volume) {
+                volume = volumeSettings.volume;
+            }
+        }
+        storageProvider.set(volumeKey, { volume: volume, muted: muted });
     }
 
     function handleVolumeChanges(player) {
         if (!storageProvider || !player) {
             return;
         }
-        var latestValue = storageProvider.get(volumeKey);
-        if (latestValue) {
-            player.volume(latestValue);
+        var volumeSettings = storageProvider.get(volumeKey);
+        if (volumeSettings) {
+            player.volume(volumeSettings.volume);
+            player.muted(volumeSettings.muted);
         }
         player.on('volumechange', volumeHandler);
     }
