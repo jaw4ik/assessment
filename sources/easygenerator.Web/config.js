@@ -17,12 +17,12 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.8.34",
     "core-js": "npm:core-js@1.2.6",
     "durandal": "core/durandal",
-    "transitions": "core/durandal/transitions",
     "has": "npm:has@1.0.1",
     "jquery": "core/jquery",
     "knockout": "core/knockout",
     "plugins": "core/durandal/plugins",
     "text": "github:systemjs/plugin-text@0.0.3",
+    "transitions": "core/durandal/transitions",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
     },
