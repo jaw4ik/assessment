@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
     has = require('gulp-has'),
+	uglify = require('gulp-uglify'),
     del = require('del'),
     args = require('yargs').argv,
     runSequence = require('run-sequence'),
@@ -43,9 +44,10 @@ gulp.task('deploy-css', function () {
 
 gulp.task('deploy-main-built-js', function () {
     return gulp.src('./sources/easygenerator.Web/App/main-built.js')
-        .pipe(has({
-            'release': true
+		.pipe(has({
+			'release': true
         }))
+		.pipe(uglify())
         .pipe(gulp.dest(outputDirectory + '/App'));
 });
 

@@ -61,8 +61,6 @@ gulp.task('build-system', function (cb) {
     function createBundle(expression, bundleConfig) {
         return new SystemJSBuilder(config.app.baseAppPath, config.app.systemConfigFilePath)
             .bundle(expression, {
-                minify: true,
-                mangle: true,
                 config: bundleConfig
             });
     }
