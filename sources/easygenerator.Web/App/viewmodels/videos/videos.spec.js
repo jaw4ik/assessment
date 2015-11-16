@@ -12,7 +12,8 @@
         userContext = require('userContext'),
         localizationManager = require('localization/localizationManager'),
         storageFileUploader = require('storageFileUploader'),
-        deleteVideoCommand = require('viewmodels/videos/commands/deleteVideo');
+        deleteVideoCommand = require('viewmodels/videos/commands/deleteVideo'),
+        notify = require('notify');
 
     describe('viewModel [videos]', function () {
 
@@ -449,6 +450,7 @@
 
             beforeEach(function () {
                 viewModel.videos([video]);
+                spyOn(notify, 'saved');
                 spyOn(eventTracker, 'publish');
                 spyOn(deleteVideoCommand, 'execute').and.returnValue(deleteVideoDefer.promise);
             });
@@ -470,13 +472,20 @@
             });
 
             describe('and when video deleted successfully', function () {
-                beforeEach(function() {
+                beforeEach(function () {
                     deleteVideoDefer.resolve();
                 });
 
-                it('should delete video from video library list:', function (done) {
+                it('should delete video from video library list', function (done) {
                     viewModel.deleteVideo(video).fin(function () {
                         expect(viewModel.videos().length).toBe(0);
+                        done();
+                    });
+                });
+
+                it('should show saved notification', function (done) {
+                    viewModel.deleteVideo(video).fin(function () {
+                        expect(notify.saved).toHaveBeenCalled();
                         done();
                     });
                 });

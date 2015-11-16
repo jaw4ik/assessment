@@ -1,8 +1,8 @@
 ﻿define(['durandal/app', 'plugins/router', 'constants', 'eventTracker', 'repositories/videoRepository', 'dialogs/video/video',
     'videoUpload/upload', 'videoUpload/handlers/thumbnails', 'userContext', 'localization/localizationManager',
-    'storageFileUploader', 'widgets/upgradeDialog/viewmodel', 'viewmodels/videos/commands/deleteVideo'
+    'storageFileUploader', 'widgets/upgradeDialog/viewmodel', 'viewmodels/videos/commands/deleteVideo', 'notify'
 ],
-    function (app, router, constants, eventTracker, repository, videoPopup, videoUpload, thumbnailLoader, userContext, localizationManager, storageFileUploader, upgradeDialog, deleteVideoCommand) {
+    function (app, router, constants, eventTracker, repository, videoPopup, videoUpload, thumbnailLoader, userContext, localizationManager, storageFileUploader, upgradeDialog, deleteVideoCommand, notify) {
         "use strict";
 
         app.on(constants.storage.video.changesInUpload, updateVideos);
@@ -102,6 +102,7 @@
             return deleteVideoCommand.execute(video.id)
                 .then(function () {
                     viewModel.videos.remove(video);
+                    notify.saved();
                 }).fin(function () {
                     video.isDeleteConfirmationShown(false);
                     video.isDeleting(false);
