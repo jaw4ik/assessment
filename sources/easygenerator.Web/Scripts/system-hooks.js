@@ -25,7 +25,7 @@
     var systemReduceRegister = System.reduceRegister_;
     System.reduceRegister_ = function (metadata, module) {
         if (module.entry.execute) {
-            var moduleName = module.entry.name ? module.entry.name : metadata.address;
+            var moduleName = module.entry.name ? module.entry.name : metadata.name;
             var defaultExecute = module.entry.execute;
             module.entry.execute = function () {
                 var module = defaultExecute.apply(this, arguments);
@@ -37,5 +37,13 @@
         }
         return systemReduceRegister.apply(this, arguments);
     };
+
+    // for disable caching
+    var systemLocate = System.locate;
+    System.locate = function () {
+        return systemLocate.apply(this, arguments).then(function(address) {
+            return address + System.cacheBust;
+        });
+    }
 
 })();
