@@ -32,7 +32,6 @@ namespace easygenerator.Auth.Tests.Lti
         private IUserRepository _userRepository;
         private IEntityFactory _entityFactory;
         private IDomainEventPublisher _eventPublisher;
-        private IDependencyResolverWrapper _dependencyResolver;
         private IUnitOfWork _unitOfWork;
         private IReleaseNoteFileReader _releaseNoteFileReader;
 
@@ -62,12 +61,8 @@ namespace easygenerator.Auth.Tests.Lti
             _userRepository = Substitute.For<IUserRepository>();
             _entityFactory = Substitute.For<IEntityFactory>();
             _eventPublisher = Substitute.For<IDomainEventPublisher>();
-            _dependencyResolver = Substitute.For<IDependencyResolverWrapper>();
             _unitOfWork = Substitute.For<IUnitOfWork>();
             _releaseNoteFileReader = Substitute.For<IReleaseNoteFileReader>();
-
-            _dependencyResolver.GetService<IUnitOfWork>().Returns(_unitOfWork);
-            _dependencyResolver.GetService<IUserRepository>().Returns(_userRepository);
 
             _ltiRequest = Substitute.For<ILtiRequest>();
             _ltiAuthenticatedContext = Substitute.For<LtiAuthenticatedContext>(Substitute.For<IOwinContext>(), Substitute.For<LtiAuthOptions>(), _ltiRequest);
@@ -83,7 +78,7 @@ namespace easygenerator.Auth.Tests.Lti
             _ltiAuthenticatedContext.Response.Returns(_owinResponse);
             _ltiAuthenticatedContext.Request.Returns(_owinRequest);
 
-            _ltiAuthProvider = new LtiAuthProvider(_consumerToolRepository, _tokenProvider, _userRepository, _entityFactory, _eventPublisher, _dependencyResolver, _releaseNoteFileReader);
+            _ltiAuthProvider = new LtiAuthProvider(_consumerToolRepository, _tokenProvider, _userRepository, _entityFactory, _eventPublisher, _releaseNoteFileReader, _unitOfWork);
         }
 
         #region OnAuthenticate

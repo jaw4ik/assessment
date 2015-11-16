@@ -20,19 +20,19 @@ namespace easygenerator.Auth.Lti
         private readonly IUserRepository _userRepository;
         private readonly IEntityFactory _entityFactory;
         private readonly IDomainEventPublisher _eventPublisher;
-        private readonly IDependencyResolverWrapper _dependencyResolver;
         private readonly IReleaseNoteFileReader _releaseNoteFileReader;
+        private readonly IUnitOfWork _unitOfWork;
 
         public LtiAuthProvider(IConsumerToolRepository consumerToolRepository, ITokenProvider tokenProvider, IUserRepository userRepository,
-            IEntityFactory entityFactory, IDomainEventPublisher eventPublisher, IDependencyResolverWrapper dependencyResolver, IReleaseNoteFileReader releaseNoteFileReader)
+            IEntityFactory entityFactory, IDomainEventPublisher eventPublisher, IReleaseNoteFileReader releaseNoteFileReader, IUnitOfWork unitOfWork)
         {
             _consumerToolRepository = consumerToolRepository;
             _tokenProvider = tokenProvider;
             _userRepository = userRepository;
             _entityFactory = entityFactory;
             _eventPublisher = eventPublisher;
-            _dependencyResolver = dependencyResolver;
             _releaseNoteFileReader = releaseNoteFileReader;
+            _unitOfWork = unitOfWork;
 
             const string consumerToolKey = "consumerToolKey";
 
@@ -106,18 +106,16 @@ namespace easygenerator.Auth.Lti
         private void CreateNewUser(string email, string firstName, string lastName, string ltiUserId, ConsumerTool consumerTool)
         {
             const string ltiMockData = "LTI";
-            var dataContext = _dependencyResolver.GetService<IUnitOfWork>();
-            var userRepository = _dependencyResolver.GetService<IUserRepository>();
-            
+
             var user = _entityFactory.User(email, Guid.NewGuid().ToString("N"), firstName, lastName, ltiMockData, ltiMockData, ltiMockData, email, AccessType.Plus, _releaseNoteFileReader.GetReleaseVersion(), DateTimeWrapper.Now().AddYears(50), consumerTool.Settings?.Company);
 
             user.AddLtiUserInfo(ltiUserId, consumerTool);
 
-            userRepository.Add(user);
+            _userRepository.Add(user);
 
             _eventPublisher.Publish(new CreateUserInitialDataEvent(user));
 
-            dataContext.Save();
+            _unitOfWork.Save();
         }
     }
 }
