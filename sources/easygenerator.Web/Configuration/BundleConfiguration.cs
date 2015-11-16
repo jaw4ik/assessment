@@ -10,63 +10,63 @@ namespace easygenerator.Web.Configuration
             var bundles = BundleTable.Bundles;
             bundles.IgnoreList.Clear();
             bundles.IgnoreList.Ignore("*.spec.js");
-            bundles.Add(new ScriptBundle("~/scripts/vendor")
-                    .Include("~/scripts/auth.js")
-                    .Include("~/scripts/jquery-{version}.js")
-                    .Include("~/scripts/jquery-ui-{version}.custom.js")
-                    .Include("~/scripts/jquery.signalR-{version}.js")
-                    .Include("~/scripts/knockout-{version}.js")
-                    .Include("~/scripts/knockout.validation.js")
-                    .Include("~/scripts/knockout-sortable.js")
-                    .Include("~/scripts/q.js")
-                    .Include("~/scripts/underscore.js")
-                    .Include("~/scripts/underscore.extensions.js")
-                    .Include("~/scripts/moment.js")
-                    .Include("~/scripts/paper-full-{version}.js")
-                    .Include("~/scripts/jquery.form.js")
-                    .Include("~/scripts/jquery.extensions.js")
-                    .Include("~/scripts/jquery.autosize.js")
-                    .Include("~/scripts/md5.js")
-                    .Include("~/scripts/zeroclipboard.js")
-                    .Include("~/scripts/Blob.js")
-                    .Include("~/scripts/FileSaver.js")
-                    .Include("~/scripts/iscroll-probe.js")
-                    .IncludeDirectory("~/scripts/knockoutBindings", "*Binding.js")
-                );
+            bundles.Add(new ScriptBundle("~/bundles/scripts/vendor")
+                .Include("~/scripts/auth.js")
+                .Include("~/scripts/jquery-{version}.js")
+                .Include("~/scripts/jquery-ui-{version}.custom.js")
+                .Include("~/scripts/jquery.signalR-{version}.js")
+                .Include("~/scripts/knockout-{version}.js")
+                .Include("~/scripts/knockout.validation.js")
+                .Include("~/scripts/knockout-sortable.js")
+                .Include("~/scripts/q.js")
+                .Include("~/scripts/underscore.js")
+                .Include("~/scripts/underscore.extensions.js")
+                .Include("~/scripts/moment.js")
+                .Include("~/scripts/paper-full-{version}.js")
+                .Include("~/scripts/jquery.form.js")
+                .Include("~/scripts/jquery.extensions.js")
+                .Include("~/scripts/jquery.autosize.js")
+                .Include("~/scripts/md5.js")
+                .Include("~/scripts/zeroclipboard.js")
+                .Include("~/scripts/Blob.js")
+                .Include("~/scripts/FileSaver.js")
+                .Include("~/scripts/iscroll-probe.js")
+                .IncludeDirectory("~/scripts/knockoutBindings", "*Binding.js")
+            );
 
-            bundles.Add(new Bundle("~/scripts/system")
-                    .Include("~/scripts/vendor/system.js")
-                    .Include("~/scripts/external-helpers.js")
-                    .Include("~/scripts/system-hooks.js")
-                    .Include("~/config.js")
-                );
+            bundles.Add(new ScriptBundle("~/bundles/scripts/system")
+                .Include("~/scripts/vendor/system.js")
+                .Include("~/scripts/external-helpers.js")
+                .Include("~/scripts/system-hooks.js")
+                .Include("~/config.js")
+            );
 
             //CKEditor.js doesn't pass javascript validation, because of that it can't be minified in vendor bundle
             //so we used already minified version in separate bundle
-            bundles.Add(new Bundle("~/scripts/ckeditor.min").Include("~/scripts/ckeditor/ckeditor.js"));
+            bundles.Add(new Bundle("~/bundles/scripts/ckeditor").Include("~/scripts/ckeditor/ckeditor.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/scripts/account")
-                    .Include("~/scripts/auth.js")
-                    .Include("~/scripts/jquery-{version}.js")
-                    .Include("~/scripts/knockout-{version}.js")
-                    .IncludeDirectory("~/scripts/account", "*.js")
-                    .IncludeDirectory("~/scripts/common", "*.js")
-                    .Include("~/scripts/underscore.js")
-                    .Include("~/scripts/underscore.extensions.js")
-                    .Include("~/scripts/knockoutBindings/selectBoxBinding.js")
-                    .Include("~/scripts/knockoutBindings/placeholderBinding.js")
-                );
+                .Include("~/scripts/auth.js")
+                .Include("~/scripts/jquery-{version}.js")
+                .Include("~/scripts/knockout-{version}.js")
+                .IncludeDirectory("~/scripts/account", "*.js")
+                .IncludeDirectory("~/scripts/common", "*.js")
+                .Include("~/scripts/underscore.js")
+                .Include("~/scripts/underscore.extensions.js")
+                .Include("~/scripts/knockoutBindings/selectBoxBinding.js")
+                .Include("~/scripts/knockoutBindings/placeholderBinding.js")
+            );
 
             bundles.Add(new ScriptBundle("~/bundles/scripts/review")
-                   .Include("~/scripts/jquery-{version}.js")
-                   .Include("~/scripts/knockout-{version}.js")
-                   .IncludeDirectory("~/scripts/review", "*.js")
-                   .IncludeDirectory("~/scripts/common", "*.js")
-                   .Include("~/scripts/underscore.js")
-                   .Include("~/scripts/underscore.extensions.js")
-                   .Include("~/scripts/knockoutBindings/slidingDialogBinding.js")
-                   .Include("~/scripts/knockoutBindings/placeholderBinding.js")
-               );
+                .Include("~/scripts/jquery-{version}.js")
+                .Include("~/scripts/knockout-{version}.js")
+                .IncludeDirectory("~/scripts/review", "*.js")
+                .IncludeDirectory("~/scripts/common", "*.js")
+                .Include("~/scripts/underscore.js")
+                .Include("~/scripts/underscore.extensions.js")
+                .Include("~/scripts/knockoutBindings/slidingDialogBinding.js")
+                .Include("~/scripts/knockoutBindings/placeholderBinding.js")
+            );
 
             var stylesBundle = new StyleBundle("~/Content/css")
                 .Include("~/Content/durandal.css")
@@ -109,15 +109,15 @@ namespace easygenerator.Web.Configuration
             bundles.Add(stylesBundle);
 
             bundles.Add(new StyleBundle("~/Content/reviewcss")
-                    .Include("~/Content/common.css")
-                    .Include("~/Content/styles.css")
-                    .Include("~/Content/review.css")
-                );
+                .Include("~/Content/common.css")
+                .Include("~/Content/styles.css")
+                .Include("~/Content/review.css")
+            );
 
             bundles.Add(new ScriptBundle("~/bundles/scripts/dashboard")
-                  .Include("~/scripts/jquery-{version}.js")
-                  .Include("~/scripts/jquery.unobtrusive-ajax.js")
-              );
+                .Include("~/scripts/jquery-{version}.js")
+                .Include("~/scripts/jquery.unobtrusive-ajax.js")
+            );
 
         }
     }

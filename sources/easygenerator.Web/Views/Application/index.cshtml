@@ -46,13 +46,13 @@
         @Html.Partial("notSupportedDevicePage")
     }
 
-    @Scripts.Render("~/scripts/vendor")
+    @Scripts.Render("~/bundles/scripts/vendor")
     <script src="signalr/hubs"></script>
 
     <script type="text/javascript">
         var CKEDITOR_BASEPATH = '/Scripts/ckeditor/';
     </script>
-    @Scripts.Render("~/scripts/ckeditor.min")
+    @Scripts.Render("~/bundles/scripts/ckeditor")
     <script type="text/javascript">
         CKEDITOR.timestamp = @DateTimeWrapper.InstanceStartTime.Ticks;
     </script>
@@ -100,7 +100,7 @@
         }
     </script>
 
-    @Scripts.Render("~/scripts/system")
+    @Scripts.Render("~/bundles/scripts/system")
 
     <script type="text/javascript">
         //bootstraper
@@ -111,7 +111,6 @@
                     <text>
                     System.import('main');
                     </text>
-
                 }
                 else
                 {

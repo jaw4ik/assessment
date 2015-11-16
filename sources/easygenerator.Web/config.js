@@ -17,6 +17,7 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.8.34",
     "core-js": "npm:core-js@1.2.6",
     "durandal": "core/durandal",
+    "transitions": "core/durandal/transitions",
     "has": "npm:has@1.0.1",
     "jquery": "core/jquery",
     "knockout": "core/knockout",
