@@ -18,7 +18,7 @@ namespace easygenerator.DataAccess.Migrations
 
             Sql(@"
                   DECLARE @consumerToolId AS UNIQUEIDENTIFIER
-                  SELECT @consumerToolId = Id FROM [dbo].[ConsumerTools] WHERE Title <> 'ICEMD'
+                  SELECT @consumerToolId = Id FROM [dbo].[ConsumerTools] WHERE Title <> 'ICEMD' OR Title IS NULL
                   UPDATE [dbo].[LtiUserInfoes] SET User_Id = Id, ConsumerTool_Id = @consumerToolId
                   UPDATE [dbo].[LtiUserInfoes] SET Id = NEWID()
             ");
