@@ -42,5 +42,15 @@ namespace easygenerator.DomainModel.Tests.Entities
             ltiUserInfo.LtiUserId.Should().Be(id);
             ltiUserInfo.ConsumerTool.Should().Be(consumerTool);
         }
+
+        [TestMethod]
+        public void Ctor_ShouldGenerateNotEmptyGuid()
+        {
+            var id = "id";
+            var consumerTool = new ConsumerTool();
+            var ltiUserInfo = new LtiUserInfo(id, consumerTool);
+
+            ltiUserInfo.Id.Equals(Guid.Empty).Should().BeFalse();
+        }
     }
 }

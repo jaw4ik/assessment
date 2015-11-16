@@ -3,7 +3,7 @@ using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities
 {
-    public class LtiUserInfo
+    public class LtiUserInfo : Identifiable
     {
         protected internal LtiUserInfo() { }
 
@@ -16,7 +16,6 @@ namespace easygenerator.DomainModel.Entities
             ConsumerTool = consumerTool;
         }
 
-        public Guid Id { get; private set; }
         public string LtiUserId { get; private set; }
         public User User { get; private set; }
         public ConsumerTool ConsumerTool { get; private set; }
