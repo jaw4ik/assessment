@@ -272,6 +272,11 @@ namespace easygenerator.DomainModel.Entities
             }
         }
 
+        public virtual bool IsLtiUser()
+        {
+            return LtiUserInfoes.Count > 0;
+        }
+
         #endregion
     }
 }

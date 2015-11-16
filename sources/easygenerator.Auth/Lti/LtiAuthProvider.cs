@@ -88,19 +88,36 @@ namespace easygenerator.Auth.Lti
                 }
                 else
                 {
-                    var userInfo = user.GetLtiUserInfo(consumerTool);
-                    if (userInfo == null || userInfo.LtiUserId != context.LtiRequest.UserId)
+                    if (user.IsLtiUser())
                     {
-                        context.RedirectUrl = string.Format("{0}#logout", ltiProviderUrl);
-                        return Task.FromResult<object>(null);
+                        var userInfo = user.GetLtiUserInfo(consumerTool);
+                        if (userInfo == null)
+                        {
+                            user.AddLtiUserInfo(context.LtiRequest.UserId, consumerTool);
+                            _unitOfWork.Save();
+                        }
+                        else if (userInfo.LtiUserId != context.LtiRequest.UserId)
+                        {
+                            return RedirectToLogoutActionTask(context, ltiProviderUrl);
+                        }
+                    }
+                    else
+                    {
+                        return RedirectToLogoutActionTask(context, ltiProviderUrl);
                     }
                 }
 
                 var authToken = _tokenProvider.GenerateTokens(userEmail, context.Request.Uri.Host, new[] { "auth" });
-                context.RedirectUrl = string.Format("{0}#token.auth={1}", ltiProviderUrl, authToken[0].Token);
+                context.RedirectUrl = $"{ltiProviderUrl}#token.auth={authToken[0].Token}";
 
                 return Task.FromResult<object>(null);
             };
+        }
+
+        private Task RedirectToLogoutActionTask(LtiAuthenticatedContext context, string ltiProviderUrl)
+        {
+            context.RedirectUrl = $"{ltiProviderUrl}#logout";
+            return Task.FromResult<object>(null);
         }
 
         private void CreateNewUser(string email, string firstName, string lastName, string ltiUserId, ConsumerTool consumerTool)

@@ -1788,5 +1788,22 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
+
+        #region IsLtiUser
+
+        public void IsLtiUser_ShouldReturnFalseIfLtiUserInfoesIsEmpty()
+        {
+            var user = new User();
+            user.IsLtiUser().Should().BeFalse();
+        }
+
+        public void IsLtiUser_ShouldReturnTrueIfLtiUserInfoesIsNotEmpty()
+        {
+            var user = new User();
+            user.AddLtiUserInfo("id", new ConsumerTool());
+            user.IsLtiUser().Should().BeTrue();
+        }
+
+        #endregion 
     }
 }
