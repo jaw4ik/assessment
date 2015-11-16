@@ -11,9 +11,14 @@
         thumbnailsHandler = require('videoUpload/handlers/thumbnails'),
         userContext = require('userContext'),
         localizationManager = require('localization/localizationManager'),
-        storageFileUploader = require('storageFileUploader');
+        storageFileUploader = require('storageFileUploader'),
+        deleteVideoCommand = require('viewmodels/videos/commands/deleteVideo');
 
     describe('viewModel [videos]', function () {
+
+        beforeEach(function () {
+            spyOn(localizationManager, 'localize');
+        });
 
         it('should be object', function () {
             expect(viewModel).toBeObject();
@@ -188,6 +193,8 @@
                     expect(viewModel.videos()[0].thumbnailUrl()).toBe(video.thumbnailUrl);
                     expect(viewModel.videos()[0].progress()).toBe(video.progress);
                     expect(viewModel.videos()[0].status()).toBe(video.status);
+                    expect(viewModel.videos()[0].isDeleteConfirmationShown()).toBeFalsy();
+                    expect(viewModel.videos()[0].isDeleting()).toBeFalsy();
                     done();
                 });
 
@@ -383,7 +390,7 @@
 
         });
 
-        describe('showVideoPopup:', function() {
+        describe('showVideoPopup:', function () {
 
             beforeEach(function () {
                 spyOn(videoDialog, 'show');
@@ -404,6 +411,112 @@
                 it('should not show video popup', function () {
                     viewModel.showVideoPopup({ vimeoId: ko.observable(null) });
                     expect(videoDialog.show).not.toHaveBeenCalled();
+                });
+            });
+        });
+
+        describe('showDeleteVideoConfirmation:', function () {
+            var video = {
+                isDeleteConfirmationShown: ko.observable()
+            };
+
+            it('should set delete video confirmation to true', function () {
+                video.isDeleteConfirmationShown(false);
+                viewModel.showDeleteVideoConfirmation(video);
+                expect(video.isDeleteConfirmationShown()).toBeTruthy();
+            });
+        });
+
+        describe('hideDeleteVideoConfirmation:', function () {
+            var video = {
+                isDeleteConfirmationShown: ko.observable()
+            };
+
+            it('should set delete video confirmation to false', function () {
+                video.isDeleteConfirmationShown(true);
+                viewModel.hideDeleteVideoConfirmation(video);
+                expect(video.isDeleteConfirmationShown()).toBeFalsy();
+            });
+        });
+
+        describe('deleteVideo:', function () {
+            var video = {
+                id: 'id',
+                isDeleting: ko.observable(),
+                isDeleteConfirmationShown: ko.observable()
+            },
+                deleteVideoDefer = Q.defer();
+
+            beforeEach(function () {
+                viewModel.videos([video]);
+                spyOn(eventTracker, 'publish');
+                spyOn(deleteVideoCommand, 'execute').and.returnValue(deleteVideoDefer.promise);
+            });
+
+            it('should publish \'Delete video from library\' event', function () {
+                viewModel.deleteVideo(video);
+                expect(eventTracker.publish).toHaveBeenCalledWith('Delete video from library');
+            });
+
+            it('should set video isDeleting to true', function () {
+                video.isDeleting(false);
+                viewModel.deleteVideo(video);
+                expect(video.isDeleting()).toBeTruthy();
+            });
+
+            it('should delete video', function () {
+                viewModel.deleteVideo(video);
+                expect(deleteVideoCommand.execute).toHaveBeenCalledWith(video.id);
+            });
+
+            describe('and when video deleted successfully', function () {
+                beforeEach(function() {
+                    deleteVideoDefer.resolve();
+                });
+
+                it('should delete video from video library list:', function (done) {
+                    viewModel.deleteVideo(video).fin(function () {
+                        expect(viewModel.videos().length).toBe(0);
+                        done();
+                    });
+                });
+
+                it('should set video isDeleting to false', function (done) {
+                    video.isDeleting(true);
+                    viewModel.deleteVideo(video).fin(function () {
+                        expect(video.isDeleting()).toBeFalsy();
+                        done();
+                    });
+                });
+
+                it('should set video isDeleteConfirmationShown to false', function (done) {
+                    video.isDeleteConfirmationShown(true);
+                    viewModel.deleteVideo(video).fin(function () {
+                        expect(video.isDeleteConfirmationShown()).toBeFalsy();
+                        done();
+                    });
+                });
+            });
+
+            describe('and when failed to delete video', function () {
+                beforeEach(function () {
+                    deleteVideoDefer.reject();
+                });
+
+                it('should set video isDeleting to false', function (done) {
+                    video.isDeleting(true);
+                    viewModel.deleteVideo(video).fin(function () {
+                        expect(video.isDeleting()).toBeFalsy();
+                        done();
+                    });
+                });
+
+                it('should set video isDeleteConfirmationShown to false', function (done) {
+                    video.isDeleteConfirmationShown(true);
+                    viewModel.deleteVideo(video).fin(function () {
+                        expect(video.isDeleteConfirmationShown()).toBeFalsy();
+                        done();
+                    });
                 });
             });
         });
