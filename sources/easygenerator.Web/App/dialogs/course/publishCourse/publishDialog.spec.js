@@ -1,6 +1,8 @@
 ﻿define(['dialogs/course/publishCourse/publishDialog'], function (viewModel) {
 
-    var userContext = require('userContext');
+    var userContext = require('userContext'),
+        defaultPublishModel = require('dialogs/course/publishCourse/defaultPublish'),
+        customPublishModel = require('dialogs/course/publishCourse/customPublish');
 
     describe('dialog [publishDialog]', function () {
         
@@ -74,7 +76,7 @@
                 it('should set defult publish model', function() {
                     viewModel.publishModel = null;
                     viewModel.activate();
-                    expect(viewModel.publishModel).toBe('dialogs/course/publishCourse/defaultPublish');
+                    expect(viewModel.publishModel).toBe(defaultPublishModel);
                 });
             });
 
@@ -88,7 +90,7 @@
                 it('should set defult publish model', function () {
                     viewModel.publishModel = null;
                     viewModel.activate();
-                    expect(viewModel.publishModel).toBe('dialogs/course/publishCourse/defaultPublish');
+                    expect(viewModel.publishModel).toBe(defaultPublishModel);
                 });
             });
 
@@ -102,7 +104,7 @@
                 it('should set defult publish model', function () {
                     viewModel.publishModel = null;
                     viewModel.activate();
-                    expect(viewModel.publishModel).toBe('dialogs/course/publishCourse/customPublish');
+                    expect(viewModel.publishModel).toBe(customPublishModel);
                 });
             });
         });

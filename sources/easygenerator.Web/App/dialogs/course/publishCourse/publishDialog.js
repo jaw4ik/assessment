@@ -1,4 +1,4 @@
-﻿define(['userContext'], function (userContext) {
+﻿define(['userContext', 'dialogs/course/publishCourse/defaultPublish', 'dialogs/course/publishCourse/customPublish'], function (userContext, defaultPublishModel, customPublishModel) {
     "use strict";
 
     var viewModel = {
@@ -23,6 +23,6 @@
     function activate(courseId) {
         viewModel.courseId = courseId;
         var hideDefaultPublishOptions = userContext.identity.company && userContext.identity.company.hideDefaultPublishOptions;
-        viewModel.publishModel = hideDefaultPublishOptions ? 'dialogs/course/publishCourse/customPublish' : 'dialogs/course/publishCourse/defaultPublish';
+        viewModel.publishModel = hideDefaultPublishOptions ? customPublishModel : defaultPublishModel;
     }
 });
