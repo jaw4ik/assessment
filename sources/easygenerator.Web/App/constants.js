@@ -181,7 +181,6 @@
                     },
                     removeCourse: 'learningPath:removeCourse',
                     createCourse: 'learningPath:createCourse',
-                    deleted: 'learningPath:deleted',
                     delivering: {
                         started: 'learningPath:delivering-started',
                         finished: 'learningPath:delivering-finished'
@@ -433,6 +432,11 @@
                 stepSubmitted: 'dialog:step-submitted',
                 dialogClosed: 'dialog:dialogClosed',
                 deleteLearningPath: {
+                    settings: {
+                        containerCss: 'delete-learning-path'
+                    }
+                },
+                deleteCourse: {
                     settings: {
                         containerCss: 'delete-learning-path'
                     }

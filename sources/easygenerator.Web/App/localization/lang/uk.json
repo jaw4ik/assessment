@@ -163,6 +163,7 @@
     "coursesUpgradeToHaveMoreHtml": "<ul><li>Необмежена кількість курсів</li><li>Необмежений обсяг інформації</li><li>Необмежена кількість дублікацій</li></ul>",
     "courseDownloadAction": "Завантажити пакет HTML",
     "courseDownloadScormAction": "Завантажити пакет SCORM 1.2",
+    "deleteCourse": "Ви впевнені, що хочете видалити цей курс?",
     "courseCannotBeDeleted": "Неможливо видалити курс, так як в ньому є розділ(и) / цілі",
     "courseCannotBeDeletedErrorMessage": "Course cannot be deleted if it has learning objective(s) or is linked to learning path(s)",
     "courseCreateItem": "Створення",

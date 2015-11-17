@@ -37,6 +37,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IScormCourseBuilder _scormCourseBuilder;
         private IEntityFactory _entityFactory;
         private ICourseRepository _courseRepository;
+        private IObjectiveRepository _objectiveRepository;
         private IPrincipal _user;
         private HttpContextBase _context;
         private IUrlHelperWrapper _urlHelper;
@@ -53,6 +54,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             _entityFactory = Substitute.For<IEntityFactory>();
             _courseRepository = Substitute.For<ICourseRepository>();
+            _objectiveRepository = Substitute.For<IObjectiveRepository>();
             _builder = Substitute.For<ICourseBuilder>();
             _scormCourseBuilder = Substitute.For<IScormCourseBuilder>();
             _coursePublisher = Substitute.For<ICoursePublisher>();
@@ -68,7 +70,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _context.User.Returns(_user);
 
-            _controller = new CourseController(_builder, _scormCourseBuilder, _courseRepository, _entityFactory, _urlHelper, _coursePublisher,
+            _controller = new CourseController(_builder, _scormCourseBuilder, _courseRepository, _objectiveRepository, _entityFactory, _urlHelper, _coursePublisher,
                 _entityMapper, _eventPublisher, _templateRepository, _externalCoursePublisher, _userRepository, _cloner);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }

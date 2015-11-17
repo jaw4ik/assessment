@@ -1,8 +1,8 @@
 ﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/courseRepository', 'notify', 'localization/localizationManager',
     'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'uiLocker', 'commands/presentationCourseImportCommand', 'commands/duplicateCourseCommand',
-    'widgets/upgradeDialog/viewmodel', 'utils/waiter','dialogs/course/createCourse/createCourse'],
+    'widgets/upgradeDialog/viewmodel', 'utils/waiter', 'dialogs/course/createCourse/createCourse', 'dialogs/course/delete/deleteCourse'],
     function (app, dataContext, userContext, constants, eventTracker, router, courseRepository, notify, localizationManager, clientContext, fileHelper, limitCoursesAmount,
-        uiLocker, presentationCourseImportCommand, duplicateCourseCommand, upgradeDialog, waiter, createCourseDialog) {
+        uiLocker, presentationCourseImportCommand, duplicateCourseCommand, upgradeDialog, waiter, createCourseDialog, deleteCourseDialog) {
         "use strict";
 
         var
@@ -41,6 +41,7 @@
             hideNewCoursePopover: hideNewCoursePopover,
 
             deleteSelectedCourses: deleteSelectedCourses,
+            courseDeleted: courseDeleted,
             createNewCourse: createNewCourse,
             createCourseCallback: createCourseCallback,
             importCourseFromPresentation: importCourseFromPresentation,
@@ -71,6 +72,7 @@
         app.on(constants.messages.course.objectivesUnrelatedByCollaborator, viewModel.courseUpdated);
         app.on(constants.messages.course.collaboration.finished, viewModel.collaborationFinished);
         app.on(constants.messages.learningPath.createCourse, viewModel.newCourseCreated);
+        app.on(constants.messages.course.deleted, viewModel.courseDeleted);
 
         return viewModel;
 
@@ -146,21 +148,13 @@
             }
 
             var selectedCourse = selectedCourses[0];
-            var isConnectedToLearningPath = _.some(dataContext.learningPaths, function (learningPath) {
-                return _.some(learningPath.courses, function (learningPathCourse) {
-                    return learningPathCourse.id === selectedCourse.id;
-                });
-            });
+            deleteCourseDialog.show(selectedCourse.id, selectedCourse.title());
+        }
 
-            if (selectedCourse.objectives.length > 0 || isConnectedToLearningPath) {
-                notify.error(localizationManager.localize('courseCannotBeDeletedErrorMessage'));
-                return;
-            }
-
-            courseRepository.removeCourse(selectedCourse.id).then(function () {
-                viewModel.courses(_.without(viewModel.courses(), selectedCourse));
-                notify.saved();
-            });
+        function courseDeleted(courseId) {
+            viewModel.courses(_.reject(viewModel.courses(), function (item) {
+                return item.id === courseId;
+            }));
         }
 
         function courseCollaborationStarted(course) {
