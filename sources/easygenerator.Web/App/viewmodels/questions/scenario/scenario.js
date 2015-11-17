@@ -25,9 +25,9 @@
             showMasteryScore: showMasteryScore,
             closeMasteryScore: closeMasteryScore,
 
+            projectId: null,
             embedUrl: ko.observable(null),
-            editProjectUrl: ko.observable(null),
-            dashboardUrl: null,
+            isEditAvailable: ko.observable(true),
 
             chooseScenario: chooseScenario,
             editScenario: editScenario,
@@ -52,23 +52,20 @@
 
             return questionRepository.getById(objectiveId, question.id).then(function (question) {
                 return getQuestionDataByIdQuerie.execute(question.id).then(function (questionData) {
+                    viewModel.projectId = questionData.projectId;
                     viewModel.embedUrl(questionData.embedUrl);
                     viewModel.masteryScore(questionData.masteryScore);
                     viewModel.lastSavedMasteryScore = questionData.masteryScore;
 
-                    return getEditProjectUrl(questionData.projectId).then(function(editProjectUrl) {
-                        viewModel.editProjectUrl(editProjectUrl);
+                    return getEditProjectUrl(questionData.projectId).then(function (editProjectUrl) {
+                        viewModel.isEditAvailable(!_.isNullOrUndefined(editProjectUrl));
 
-                        return getDashboardInfoQuerie.execute().then(function (dashboard) {
-                            viewModel.dashboardUrl = dashboard.url;
-
-                            return {
-                                viewCaption: localizationManager.localize('scenarioEditor'),
-                                hasQuestionView: true,
-                                hasQuestionContent: true,
-                                hasFeedback: true
-                            };
-                        });
+                        return {
+                            viewCaption: localizationManager.localize('scenarioEditor'),
+                            hasQuestionView: true,
+                            hasQuestionContent: true,
+                            hasFeedback: true
+                        };
                     });
                 });
             });
@@ -102,27 +99,32 @@
         }
 
         function getEditProjectUrl(projectId) {
-            return Q.fcall(function() {
-                if (!projectId) {
-                    return null;
-                }
+            return getProjectEditingInfoByIdQuerie.execute(projectId).then(function (projectEditingInfo) {
+                return projectEditingInfo ? projectEditingInfo.url : null;
+            });
+        }
 
-                return getProjectEditingInfoByIdQuerie.execute(projectId).then(function (projectEditingInfo) {
-                    return projectEditingInfo ? projectEditingInfo.url : null;
-                });
+        function getDashboardUrl() {
+            return getDashboardInfoQuerie.execute().then(function (dashboardInfo) {
+                return dashboardInfo ? dashboardInfo.url : null;
             });
         }
 
         function chooseScenario() {
             eventTracker.publish(events.openDialog);
-            branchtrackDialog.show(viewModel.dashboardUrl);
+
+            getDashboardUrl().then(function (dashboardUrl) {
+                branchtrackDialog.show(dashboardUrl);
+            });
         }
 
         function editScenario() {
             eventTracker.publish(events.editScenario);
 
-            if (viewModel.editProjectUrl()) {
-                branchtrackDialog.show(viewModel.editProjectUrl());
+            if (viewModel.isEditAvailable()) {
+                getEditProjectUrl(viewModel.projectId).then(function (editProjectUrl) {
+                    branchtrackDialog.show(editProjectUrl);
+                });
             }
         }
 
@@ -134,7 +136,7 @@
                     viewModel.embedUrl(questionData.embedUrl);
 
                     getEditProjectUrl(questionData.projectId).then(function (editProjectUrl) {
-                        viewModel.editProjectUrl(editProjectUrl);
+                        viewModel.isEditAvailable(!_.isNullOrUndefined(editProjectUrl));
 
                         notify.saved();
                     });
@@ -156,7 +158,7 @@
             viewModel.embedUrl(embedUrl);
             viewModel.embedUrl.valueHasMutated();
             getEditProjectUrl(projectId).then(function (editProjectUrl) {
-                viewModel.editProjectUrl(editProjectUrl);
+                viewModel.isEditAvailable(!_.isNullOrUndefined(editProjectUrl));
             });
         }
 
