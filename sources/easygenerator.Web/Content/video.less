@@ -252,6 +252,7 @@
             .video-list-item-delete-confirmation {
                 height: 0px;
                 display: flex;
+                flex-direction: column;
                 align-items: center;
                 position: absolute;
                 top: 0px;
@@ -265,32 +266,50 @@
                     height: 100%;
                 }
                 
-                .video-list-item-delete-confirmation-content{
+                .video-list-item-delete-confirmation-content-wrapper{
                     width: 100%;
+                    flex: 1 0 0;
+                    display: flex;
+                    align-items: center;
                     
-                    .video-list-item-delete-confirmation-text{
-                        font: 15px 'OpenSans';
-                        color: @video-confirmation-text-color;
-                        text-align: center;
-                        margin-bottom: 10px;
-                    }
-                
-                    .video-list-item-delete-confirmation-actions{
-                        display: flex;
-                        flex-direction: row;
-                        flex-wrap: wrap;
-                        justify-content: space-around;
-                        
-                        .video-list-item-delete-confirmation-action{
-                            margin-top: 10px;
-                            min-width: 65px;
-                            max-width: 80%;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
+                     .video-list-item-delete-confirmation-content{
+                        width: 100%;
+                        margin-top: 20px;
+
+                        .video-list-item-delete-confirmation-text{
+                            font: 15px 'OpenSans';
+                            color: @video-confirmation-text-color;
+                            text-align: center;
+                            margin-bottom: 10px;
                         }
-                        
+
+                        .video-list-item-delete-confirmation-actions{
+                            display: flex;
+                            flex-direction: row;
+                            flex-wrap: wrap;
+                            justify-content: space-around;
+
+                            .video-list-item-delete-confirmation-action{
+                                margin-top: 10px;
+                                min-width: 65px;
+                                max-width: 80%;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+
+                        }
+                    }    
+                }
+               
+                
+                .video-list-item-delete-confirmation-hint{
+                    font: 11px 'OpenSansItalic';
+                    margin: 12px;
+                    
+                    .video-list-item-delete-confirmation-hint-warning{
+                        font-weight: bold;
                     }
-                }              
+                }
             }
         }
 

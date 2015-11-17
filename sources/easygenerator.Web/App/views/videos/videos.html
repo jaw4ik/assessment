@@ -53,16 +53,22 @@
                     </div>
                     <div class="video-list-item-delete-confirmation" data-bind="css: {shown: isDeleteConfirmationShown}">
                         <!-- ko ifnot: isDeleting() -->
-                        <div class="video-list-item-delete-confirmation-content">
-                            <div class="video-list-item-delete-confirmation-text" data-bind="localize: { text: 'videoDeleteConfirmation'}"></div>
-                            <div class="video-list-item-delete-confirmation-actions">
-                                <button class="video-list-item-delete-confirmation-action delete btn red small" data-bind="stopEventPropagation: { event: 'click'}, click: $parent.deleteVideo">
-                                    <span class="btn-caption" data-bind="localize: { text: 'delete' }"></span>
-                                </button>
-                                <button class="video-list-item-delete-confirmation-action cancel btn white small" data-bind="stopEventPropagation: { event: 'click'}, click: $parent.hideDeleteVideoConfirmation">
-                                    <span class="btn-caption" data-bind="localize: { text: 'cancel' }"></span>
-                                </button>
+                        <div class="video-list-item-delete-confirmation-content-wrapper">
+                            <div class="video-list-item-delete-confirmation-content">
+                                <div class="video-list-item-delete-confirmation-text" data-bind="localize: { text: 'videoDeleteConfirmation'}"></div>
+                                <div class="video-list-item-delete-confirmation-actions">
+                                    <button class="video-list-item-delete-confirmation-action delete btn red small" data-bind="stopEventPropagation: { event: 'click'}, click: $parent.deleteVideo">
+                                        <span class="btn-caption" data-bind="localize: { text: 'delete' }"></span>
+                                    </button>
+                                    <button class="video-list-item-delete-confirmation-action cancel btn white small" data-bind="stopEventPropagation: { event: 'click'}, click: $parent.hideDeleteVideoConfirmation">
+                                        <span class="btn-caption" data-bind="localize: { text: 'cancel' }"></span>
+                                    </button>
+                                </div>
                             </div>
+                        </div>
+                        <div class="video-list-item-delete-confirmation-hint">
+                            <span class="video-list-item-delete-confirmation-hint-warning" data-bind="localize: { text: 'warning'}"></span>:&nbsp;
+                            <span data-bind="localize: { text: 'videoDeleteWarning'}"></span>
                         </div>
                         <!-- /ko -->
                         <!-- ko if: isDeleting() -->
