@@ -37,7 +37,7 @@
                     <!-- /ko -->
                     <li><a href="" class="course-action course-action-preview" data-bind="click: preview, localize: { text: 'preview' }">Preview</a></li>
                     <li>
-                        <!-- ko compose: 'dialogs/course/publishCourse/publishCourse' -->
+                        <!-- ko compose: { model: 'dialogs/course/publishCourse/publishDialog', activationData: id } -->
                         <!-- /ko -->
                         <a href="" class="course-action action-share" data-bind="click: share">
                             <span data-bind="localize: { text: 'share' }"></span>

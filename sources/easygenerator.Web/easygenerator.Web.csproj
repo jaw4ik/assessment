@@ -608,8 +608,21 @@
     <Content Include="App\dialogs\audio\audioViewModel.spec.js">
       <DependentUpon>audioViewModel.js</DependentUpon>
     </Content>
-    <Content Include="App\dialogs\course\publishCourse\publishOptions\customPublish.html" />
-    <Content Include="App\dialogs\course\publishCourse\publishOptions\defaultPublish.html" />
+    <Content Include="App\dialogs\course\publishCourse\customPublish.js" />
+    <Content Include="App\dialogs\course\publishCourse\customPublish.spec.js">
+      <DependentUpon>customPublish.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\course\publishCourse\defaultPublish.js" />
+    <Content Include="App\dialogs\course\publishCourse\defaultPublish.spec.js">
+      <DependentUpon>defaultPublish.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\course\publishCourse\publishDialog.html" />
+    <Content Include="App\dialogs\course\publishCourse\publishDialog.js" />
+    <Content Include="App\dialogs\course\publishCourse\customPublish.html" />
+    <Content Include="App\dialogs\course\publishCourse\defaultPublish.html" />
+    <Content Include="App\dialogs\course\publishCourse\publishDialog.spec.js">
+      <DependentUpon>publishDialog.js</DependentUpon>
+    </Content>
     <Content Include="App\jsonReader.js" />
     <Content Include="App\localization\bindingHandlers\localizeBindingHandler.js" />
     <Content Include="App\dialogs\branchtrack\branchtrack.html" />
@@ -929,11 +942,6 @@
       <DependentUpon>notification.js</DependentUpon>
     </Content>
     <Content Include="App\reporting\xApiProvider.js" />
-    <Content Include="App\dialogs\course\publishCourse\publishCourse.html" />
-    <Content Include="App\dialogs\course\publishCourse\publishCourse.js" />
-    <Content Include="App\dialogs\course\publishCourse\publishCourse.spec.js">
-      <DependentUpon>publishCourse.js</DependentUpon>
-    </Content>
     <Content Include="App\onboarding\initialization.spec.js">
       <DependentUpon>initialization.js</DependentUpon>
     </Content>
