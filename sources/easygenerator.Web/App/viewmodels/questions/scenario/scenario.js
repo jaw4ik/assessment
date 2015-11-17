@@ -99,6 +99,10 @@
         }
 
         function getEditProjectUrl(projectId) {
+            if (_.isNullOrUndefined(projectId)) {
+                return Q(null);
+            }
+
             return getProjectEditingInfoByIdQuerie.execute(projectId).then(function (projectEditingInfo) {
                 return projectEditingInfo ? projectEditingInfo.url : null;
             });

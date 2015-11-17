@@ -488,12 +488,32 @@
 
                 beforeEach(function () {
                     viewModel.isEditAvailable(true);
-                    viewModel.projectId = 'some_project_id';
                 });
 
-                it('should execute getProjectEditingInfoById query', function () {
-                    viewModel.editScenario();
-                    expect(getProjectEditingInfoByIdQuerie.execute).toHaveBeenCalledWith(viewModel.projectId);
+                describe('and when projectId is null', function () {
+
+                    beforeEach(function () {
+                        viewModel.projectId = null;
+                    });
+
+                    it('should not execute getProjectEditingInfoById query', function () {
+                        viewModel.editScenario();
+                        expect(getProjectEditingInfoByIdQuerie.execute).not.toHaveBeenCalled();
+                    });
+
+                });
+
+                describe('and when projectId is available', function () {
+
+                    beforeEach(function () {
+                        viewModel.projectId = 'some_id';
+                    });
+
+                    it('should execute getProjectEditingInfoById query', function () {
+                        viewModel.editScenario();
+                        expect(getProjectEditingInfoByIdQuerie.execute).toHaveBeenCalledWith(viewModel.projectId);
+                    });
+
                 });
 
                 describe('and when getProjectEditingInfoById query resolved', function () {
