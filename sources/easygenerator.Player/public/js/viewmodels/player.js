@@ -4,7 +4,7 @@
         sources: ko.observableArray([]),
         currentSource: ko.observable(null),
         currentQuality: ko.observable(null),
-        isIos: /iPad|iPhone|iPod/.test(navigator.platform)
+        ios: /iPad|iPhone|iPod/.test(navigator.platform)
     }
 
     app.playerViewModel = viewModel;
