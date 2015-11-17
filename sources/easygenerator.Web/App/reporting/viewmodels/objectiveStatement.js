@@ -8,7 +8,7 @@
 
     ObjectiveStatement.prototype = Object.create(ExpandableStatement.prototype);
 
-    ObjectiveStatement.prototype.expandLoadAction = function () {
+    ObjectiveStatement.prototype.expandLoadAction = function (preventExpand) {
         var that = this;
         return xApiProvider.getAnsweredStatements(that.lrsStatement.attemptId, that.lrsStatement.id).then(function (statements) {
             if (statements && statements.length) {
@@ -19,7 +19,9 @@
             } else {
                 that.children = null;
             }
-            that.isExpanded(true);
+            if (preventExpand !== true) {
+                that.isExpanded(true);
+            }
         });
     }
 

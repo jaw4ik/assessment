@@ -4,7 +4,7 @@
 
         var viewModel = function () {
             var noResultsViewLocation = 'courses/course/results/noResults';
-            ResultsBase.call(this, courseRepository.getById, courseStatementsProvider.getLrsStatements, noResultsViewLocation);
+            ResultsBase.call(this, courseRepository.getById, courseStatementsProvider.getLrsStatements, noResultsViewLocation, true);
         };
 
         return viewModel;

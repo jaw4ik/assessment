@@ -10,7 +10,7 @@
 
     FinishStatement.prototype = Object.create(ExpandableStatement.prototype);
 
-    FinishStatement.prototype.expandLoadAction = function () {
+    FinishStatement.prototype.expandLoadAction = function (preventExpand) {
         var that = this;
         return xApiProvider.getMasteredStatements(that.lrsStatement.attemptId).then(function (lrsStatements) {
             return xApiProvider.getStartedStatement(that.lrsStatement.attemptId).then(function (startedStatements) {
@@ -19,7 +19,9 @@
                 });
                 that.startedLrsStatement = startedStatements[0];
                 that.children(objectiveStatements);
-                that.isExpanded(true);
+                if (preventExpand !== true) {
+                    that.isExpanded(true);
+                }
             });
         });
     }

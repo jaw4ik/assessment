@@ -2,7 +2,7 @@
     function (constants, userContext, localizationManager, eventTracker, fileSaverWrapper, upgradeDialog, StartedStatement, FinishStatement) {
         "use strict";
 
-        var viewModel = function (getEntity, getLrsStatements, noResultsViewLocation) {
+        var viewModel = function (getEntity, getLrsStatements, noResultsViewLocation, generateDetailedResults) {
             var that = this;
 
             var events = {
@@ -16,6 +16,7 @@
             that.pageNumber = 1;
             that.results = ko.observableArray([]);
             that.allResultsLoaded = false;
+            that.allEmbededResultsLoaded = false;
             that.isLoading = ko.observable(true);
             that.noResultsViewLocation = noResultsViewLocation;
 
@@ -61,9 +62,9 @@
                         return;
                     }
 
-                    return generateResultsCsvBlob().then(function (blob) {
-                        var name = getResultsFileName();
-                        fileSaverWrapper.saveAs(blob, name);
+                    var generateCsvListPromise = generateDetailedResults ? generateDetailedCsvList() : generateCsvList();
+                    return generateCsvListPromise.then(function (csvList) {
+                        return fileSaverWrapper.saveAs(generateResultsCsvBlob(csvList), getResultsFileName());
                     });
                 });
             };
@@ -82,6 +83,7 @@
                 that.pageNumber = 1;
                 that.entityId = entityId;
                 that.allResultsLoaded = false;
+                that.allEmbededResultsLoaded = false;
                 return getEntity(entityId).then(function (entity) {
                     that.entityTitle = entity.title;
                 });
@@ -102,7 +104,7 @@
 
             function mapLrsStatements(startedStatements, finishedStatements) {
                 if (!startedStatements) {
-                    return _.map(finishedStatements, function(statement) { return new FinishStatement(statement) });
+                    return _.map(finishedStatements, function (statement) { return new FinishStatement(statement) });
                 }
 
                 return _.chain(startedStatements)
@@ -146,17 +148,36 @@
                 });
             }
 
-            function getResultsFileName() {
-                var filename = ['results_',
-                    that.entityTitle.replace(/[^\w\s_-]/gi, '').trim(),
-                    '_',
-                    moment().format('YYYY-MM-DD_hh-mm'),
-                    '.csv'].join('');
+            function loadAllEmbededStatements(statements) {
+                return Q.fcall(function () {
+                    if (that.allEmbededResultsLoaded) {
+                        return statements;
+                    }
 
-                return filename;
+                    var loadMasteredStatementsPromises = [];
+                    _.forEach(statements, function (statement) {
+                        if (statement instanceof FinishStatement) {
+                            loadMasteredStatementsPromises.push(statement.expand(true));
+                        }
+                    });
+                    return Q.all(loadMasteredStatementsPromises).then(function () {
+                        var loadAnsweredStatementsPromises = [];
+                        _.forEach(statements, function (statement) {
+                            if (statement instanceof FinishStatement) {
+                                _.forEach(statement.children(), function (objectiveStatement) {
+                                    loadAnsweredStatementsPromises.push(objectiveStatement.expand(true));
+                                });
+                            }
+                        });
+                        return Q.all(loadAnsweredStatementsPromises).then(function () {
+                            that.allEmbededResultsLoaded = true;
+                            return statements;
+                        });
+                    });
+                });
             }
 
-            function generateResultsCsvBlob() {
+            function generateCsvList() {
                 var passed = localizationManager.localize('passed');
                 var failed = localizationManager.localize('failed');
                 var inProgress = localizationManager.localize('inProgress');
@@ -168,14 +189,16 @@
                 var scoreHeader = localizationManager.localize('score');
                 var dateHeader = localizationManager.localize('date');
                 var timeHeader = localizationManager.localize('time');
+
                 var csvHeader = [
                     nameHeader,
                     resultHeader,
                     scoreHeader,
                     dateHeader,
                     timeHeader
-                ].join(',');
-                var csvList = [csvHeader];
+                ];
+
+                var csvList = [csvHeader.join(',')];
 
                 return loadAllStatements(that.entityId).then(function (reportingStatements) {
                     _.each(reportingStatements, function (result) {
@@ -190,11 +213,140 @@
                         csvList.push(resultCsv);
                     });
 
-                    var contentType = 'text/csv';
-
-                    return new Blob([window.BOMSymbol || '\ufeff', csvList.join('\r\n')], { encoding: 'UTF-8', type: contentType });
+                    return csvList;
                 });
             }
+
+            function generateDetailedCsvList() {
+                var passed = localizationManager.localize('passed');
+                var failed = localizationManager.localize('failed');
+                var inProgress = localizationManager.localize('inProgress');
+                var noScore = localizationManager.localize('reportingScoreNotAvailable');
+                var notFinished = localizationManager.localize('reportingNotFinished');
+
+                var nameHeader = localizationManager.localize('nameAndEmail');
+                var courseResultHeader = localizationManager.localize('courseResult');
+                var courseScoreHeader = localizationManager.localize('courseScore');
+                var startedDateHeader = localizationManager.localize('startedDate');
+                var finishedDateHeader = localizationManager.localize('finishedDate');
+                var startedTimeHeader = localizationManager.localize('startedTime');
+                var finishedTimeHeader = localizationManager.localize('finishedTime');
+
+                var objectiveTitleHeader = localizationManager.localize('objectiveTitle');
+                var objectiveScoreHeader = localizationManager.localize('objectiveScore');
+
+                var questionTitleHeader = localizationManager.localize('questionTitle');
+                var questionResultHeader = localizationManager.localize('questionResult');
+                var questionScoreHeader = localizationManager.localize('questionScore');
+                var givenAnswerHeader = localizationManager.localize('givenAnswer');
+
+                var emptyCellSymbol = '-';
+
+                var courseCsvHeader = [
+                    nameHeader,
+                    courseResultHeader,
+                    courseScoreHeader,
+                    startedDateHeader,
+                    startedTimeHeader,
+                    finishedDateHeader,
+                    finishedTimeHeader
+                ];
+
+                var objectiveCsvHeader = [
+                    objectiveTitleHeader,
+                    objectiveScoreHeader
+                ];
+
+                var questionCsvHeader = [
+                    questionTitleHeader,
+                    questionResultHeader,
+                    questionScoreHeader,
+                    givenAnswerHeader
+                ];
+
+                var courseResultRightPart = [];
+                _(objectiveCsvHeader.length + questionCsvHeader.length).times(function () { courseResultRightPart.push(emptyCellSymbol); });
+
+                var csvList = [courseCsvHeader.concat(objectiveCsvHeader).concat(questionCsvHeader).join(',')];
+
+                return loadAllStatements(that.entityId).then(function (statements) {
+                    return loadAllEmbededStatements(statements).then(function (reportingStatements) {
+                        _.each(reportingStatements, function (result) {
+                            var courseResultCsv = [
+                                result.lrsStatement.actor.name + ' (' + result.lrsStatement.actor.email + ')',
+                                result instanceof StartedStatement ? inProgress : result.passed ? passed : failed,
+                                result.hasScore ? result.lrsStatement.score : noScore,
+                                moment(result instanceof StartedStatement ? result.lrsStatement.date : result.startedLrsStatement.date).format('YYYY-MM-D'),
+                                moment(result instanceof StartedStatement ? result.lrsStatement.date : result.startedLrsStatement.date).format('h:mm:ss a'),
+                                result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('YYYY-MM-D'),
+                                result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('h:mm:ss a')
+                            ].concat(courseResultRightPart).join(',');
+
+                            csvList.push(courseResultCsv);
+
+                            pushEmbededResults(result, csvList, courseCsvHeader.length, objectiveCsvHeader.length, questionCsvHeader.length, emptyCellSymbol, noScore);
+                        });
+
+                        return csvList;
+                    });
+                });
+            }
+
+            function pushEmbededResults(result, csvList, courseColumnsNumber, objectiveColumnsNumber, questionColumnsNumber, emptyCellSymbol, noScoreMessage) {
+                if (!result.children || !result.children().length) {
+                    return;
+                }
+
+                var correct = localizationManager.localize('correctAnswer');
+                var incorrect = localizationManager.localize('incorrectAnswer');
+
+                var objectiveResultLeftPart = [];
+                var objectiveResultRightPart = [];
+                var questionResultLeftPart = [];
+
+                _(courseColumnsNumber).times(function () { objectiveResultLeftPart.push(emptyCellSymbol); });
+                _(questionColumnsNumber).times(function () { objectiveResultRightPart.push(emptyCellSymbol); });
+                _(courseColumnsNumber + objectiveColumnsNumber).times(function () { questionResultLeftPart.push(emptyCellSymbol); });
+
+                _.forEach(result.children(), function (objectiveResult) {
+
+                    var objectiveResultCsv = objectiveResultLeftPart.concat([
+                        objectiveResult.lrsStatement.name,
+                        objectiveResult.hasScore ? objectiveResult.lrsStatement.score : noScoreMessage
+                    ]).concat(objectiveResultRightPart);
+
+                    csvList.push(objectiveResultCsv.join(','));
+
+                    if (!objectiveResult.children || !objectiveResult.children().length) {
+                        return;
+                    }
+                    _.forEach(objectiveResult.children(), function (questionResult) {
+                        var questionResultCsv = questionResultLeftPart.concat([
+                            questionResult.lrsStatement.name,
+                            questionResult.hasAnswer && !questionResult.hasScore ? noScoreMessage : questionResult.correct ? correct : incorrect,
+                            questionResult.hasScore ? questionResult.lrsStatement.score : noScoreMessage,
+                            questionResult.hasAnswer && !questionResult.hasScore ? questionResult.lrsStatement.response : emptyCellSymbol
+                        ]);
+                        csvList.push(questionResultCsv.join(','));
+                    });
+                });
+            }
+
+            function generateResultsCsvBlob(csvList) {
+                var contentType = 'text/csv';
+                return new Blob([window.BOMSymbol || '\ufeff', csvList.join('\r\n')], { encoding: 'UTF-8', type: contentType });
+            }
+
+            function getResultsFileName() {
+                var filename = ['results_',
+                    that.entityTitle.replace(/[^\w\s_-]/gi, '').trim(),
+                    '_',
+                    moment().format('YYYY-MM-DD_hh-mm'),
+                    '.csv'].join('');
+
+                return filename;
+            }
+
         }
 
         return viewModel;
