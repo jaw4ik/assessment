@@ -22,7 +22,7 @@
 
     function activate(courseId) {
         viewModel.courseId = courseId;
-        var hideDefaultPublishOptions = userContext.identity.company && userContext.identity.company.hideDefaultPublishOptions;
-        viewModel.publishModel = hideDefaultPublishOptions ? customPublishModel : defaultPublishModel;
+        var showCustomPublish = !!userContext.identity.company;
+        viewModel.publishModel = showCustomPublish ? customPublishModel : defaultPublishModel;
     }
 });

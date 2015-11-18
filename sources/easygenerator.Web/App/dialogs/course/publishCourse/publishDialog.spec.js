@@ -80,25 +80,9 @@
                 });
             });
 
-            describe('when company doesn\'t hide default publish options', function() {
+            describe('when user has company', function() {
                 beforeEach(function () {
-                    userContext.identity.company = {
-                        hideDefaultPublishOptions: false
-                    };
-                });
-
-                it('should set defult publish model', function () {
-                    viewModel.publishModel = null;
-                    viewModel.activate();
-                    expect(viewModel.publishModel).toBe(defaultPublishModel);
-                });
-            });
-
-            describe('when company hide default publish options', function () {
-                beforeEach(function () {
-                    userContext.identity.company = {
-                        hideDefaultPublishOptions: true
-                    };
+                    userContext.identity.company = {};
                 });
 
                 it('should set defult publish model', function () {
@@ -107,6 +91,7 @@
                     expect(viewModel.publishModel).toBe(customPublishModel);
                 });
             });
+            
         });
     });
 });
