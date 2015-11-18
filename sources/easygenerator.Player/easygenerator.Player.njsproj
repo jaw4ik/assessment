@@ -36,6 +36,7 @@
     <Compile Include="models\player.js" />
     <Compile Include="public\js\app.js" />
     <Compile Include="public\js\knockoutBindings\fadeOutBinding.js" />
+    <Compile Include="public\js\providers\localStorage.js" />
     <Compile Include="public\js\viewmodels\player.js" />
     <Compile Include="www.js" />
     <Compile Include="routes\index.js" />
@@ -61,6 +62,7 @@
     <Folder Include="public\images\" />
     <Folder Include="public\js\" />
     <Folder Include="public\js\knockoutBindings\" />
+    <Folder Include="public\js\providers\" />
     <Folder Include="public\js\viewmodels\" />
     <Folder Include="public\styles\" />
     <Folder Include="routes\" />

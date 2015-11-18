@@ -107,6 +107,17 @@
                         getQuestionDataByIdQuerieDefer.resolve(questionData);
                     });
 
+                    it('should update projectId', function () {
+                        viewModel.initialize(objectiveId, question);
+
+                        questionRepositoryGetByIdDefer.promise.fin(function () {
+                            getQuestionDataByIdQuerieDefer.promise.fin(function () {
+                                expect(viewModel.projectId).toBe(questionData.projectId);
+                                done();
+                            });
+                        });
+                    });
+
                     it('should update embedUrl', function (done) {
                         viewModel.initialize(objectiveId, question);
 
@@ -158,96 +169,59 @@
                             getProjectEditingInfoByIdQuerieDefer.resolve(editProjectInfo);
                         });
 
-                        it('should set editProjectUrl', function (done) {
+                        it('should set isEditAvailable', function (done) {
                             viewModel.initialize(objectiveId, question);
 
                             questionRepositoryGetByIdDefer.promise.fin(function () {
                                 getQuestionDataByIdQuerieDefer.promise.fin(function () {
                                     getProjectEditingInfoByIdQuerieDefer.promise.fin(function () {
-                                        expect(viewModel.editProjectUrl()).toBe(editProjectInfo.url);
+                                        expect(viewModel.isEditAvailable()).toBeTruthy();
                                         done();
                                     });
                                 });
                             });
                         });
 
-                        it('should execute getDashboardInfo query', function (done) {
-                            viewModel.initialize(objectiveId, question);
-
-                            questionRepositoryGetByIdDefer.promise.fin(function () {
-                                getQuestionDataByIdQuerieDefer.promise.fin(function () {
-                                    getProjectEditingInfoByIdQuerieDefer.promise.fin(function () {
-                                        expect(getDashboardInfoQuerie.execute).toHaveBeenCalled();
-                                        done();
-                                    });
-                                });
+                        it('should return object', function (done) {
+                            var promise = viewModel.initialize(objectiveId, question);
+                            promise.then(function (result) {
+                                expect(result).toBeObject();
+                                done();
                             });
                         });
 
-                        describe('and when getDashboardInfo query executed', function () {
+                        describe('and result object', function () {
 
-                            var dashboardInfo = { url: 'some_url' };
-                            beforeEach(function() {
-                                getDashboardInfoQuerieDefer.resolve(dashboardInfo);
-                            });
-
-                            it('should update dashboardUrl', function (done) {
-                                viewModel.initialize(objectiveId, question);
-
-                                questionRepositoryGetByIdDefer.promise.fin(function () {
-                                    getQuestionDataByIdQuerieDefer.promise.fin(function () {
-                                        getProjectEditingInfoByIdQuerieDefer.promise.fin(function () {
-                                            getDashboardInfoQuerieDefer.promise.fin(function() {
-                                                expect(viewModel.dashboardUrl).toBe(dashboardInfo.url);
-                                                done();
-                                            });
-                                        });
-                                    });
-                                });
-                            });
-
-                            it('should return object', function (done) {
+                            it('should contain \'scenarioEditor\' viewCaption', function (done) {
                                 var promise = viewModel.initialize(objectiveId, question);
                                 promise.then(function (result) {
-                                    expect(result).toBeObject();
+                                    expect(result.viewCaption).toBe('scenarioEditor');
                                     done();
                                 });
                             });
 
-                            describe('and result object', function () {
-
-                                it('should contain \'scenarioEditor\' viewCaption', function (done) {
-                                    var promise = viewModel.initialize(objectiveId, question);
-                                    promise.then(function (result) {
-                                        expect(result.viewCaption).toBe('scenarioEditor');
-                                        done();
-                                    });
+                            it('should have hasQuestionView property with true value', function (done) {
+                                var promise = viewModel.initialize(objectiveId, question);
+                                promise.then(function (result) {
+                                    expect(result.hasQuestionView).toBeTruthy();
+                                    done();
                                 });
+                            });
 
-                                it('should have hasQuestionView property with true value', function (done) {
-                                    var promise = viewModel.initialize(objectiveId, question);
-                                    promise.then(function (result) {
-                                        expect(result.hasQuestionView).toBeTruthy();
-                                        done();
-                                    });
+                            it('should have hasQuestionContent property with true value', function (done) {
+                                var promise = viewModel.initialize(objectiveId, question);
+                                promise.then(function (result) {
+                                    expect(result.hasQuestionContent).toBeTruthy();
+                                    done();
                                 });
+                            });
 
-                                it('should have hasQuestionContent property with true value', function (done) {
-                                    var promise = viewModel.initialize(objectiveId, question);
-                                    promise.then(function (result) {
-                                        expect(result.hasQuestionContent).toBeTruthy();
-                                        done();
-                                    });
+                            it('should have hasFeedback property with true value', function (done) {
+                                var promise = viewModel.initialize(objectiveId, question);
+                                promise.then(function (result) {
+                                    expect(result.hasFeedback).toBeTruthy();
+                                    done();
                                 });
-
-                                it('should have hasFeedback property with true value', function (done) {
-                                    var promise = viewModel.initialize(objectiveId, question);
-                                    promise.then(function (result) {
-                                        expect(result.hasFeedback).toBeTruthy();
-                                        done();
-                                    });
-                                });
-
                             });
 
                         });
@@ -418,6 +392,14 @@
 
         });
 
+        describe('projectId:', function () {
+
+            it('should be defined', function () {
+                expect(viewModel.projectId).toBeDefined();
+            });
+
+        });
+
         describe('embedUrl:', function () {
 
             it('should be observable', function () {
@@ -426,18 +408,10 @@
 
         });
 
-        describe('editProjectUrl:', function () {
+        describe('isEditAvailable:', function () {
 
             it('should be observable', function () {
-                expect(viewModel.editProjectUrl).toBeObservable();
-            });
-
-        });
-
-        describe('dashboardUrl:', function () {
-
-            it('should be defined', function () {
-                expect(viewModel.dashboardUrl).toBeDefined();
+                expect(viewModel.isEditAvailable).toBeObservable();
             });
 
         });
@@ -457,11 +431,27 @@
                 expect(eventTracker.publish).toHaveBeenCalledWith('Open \'Choose scenario\' dialog');
             });
 
-            it('should show branchtrack dialog', function () {
-                viewModel.dashboardUrl = 'some/url';
-
+            it('should execute getDashboardInfo query', function () {
                 viewModel.chooseScenario();
-                expect(branchtrackDialog.show).toHaveBeenCalledWith(viewModel.dashboardUrl);
+                expect(getDashboardInfoQuerie.execute).toHaveBeenCalled();
+            });
+
+            describe('and when getDashboardInfo query resolved', function () {
+
+                var dashboardInfo = { url: 'some/url' };
+                beforeEach(function() {
+                    getDashboardInfoQuerieDefer.resolve(dashboardInfo);
+                });
+
+                it('should show branchtrack dialog', function (done) {
+                    viewModel.chooseScenario();
+
+                    getDashboardInfoQuerieDefer.promise.fin(function() {
+                        expect(branchtrackDialog.show).toHaveBeenCalledWith(dashboardInfo.url);
+                        done();
+                    });
+                });
+
             });
 
         });
@@ -481,15 +471,67 @@
                 expect(eventTracker.publish).toHaveBeenCalledWith('Edit scenario');
             });
 
-            describe('when editProjectUrl exists', function () {
-
+            describe('when edit not available', function() {
+                
                 beforeEach(function () {
-                    viewModel.editProjectUrl('url');
+                    viewModel.isEditAvailable(false);
                 });
 
-                it('should show branchtrack dialog', function () {
+                it('should not execute getProjectEditingInfoById query', function () {
                     viewModel.editScenario();
-                    expect(branchtrackDialog.show).toHaveBeenCalledWith(viewModel.editProjectUrl());
+                    expect(getProjectEditingInfoByIdQuerie.execute).not.toHaveBeenCalled();
+                });
+
+            });
+
+            describe('when edit available', function () {
+
+                beforeEach(function () {
+                    viewModel.isEditAvailable(true);
+                });
+
+                describe('and when projectId is null', function () {
+
+                    beforeEach(function () {
+                        viewModel.projectId = null;
+                    });
+
+                    it('should not execute getProjectEditingInfoById query', function () {
+                        viewModel.editScenario();
+                        expect(getProjectEditingInfoByIdQuerie.execute).not.toHaveBeenCalled();
+                    });
+
+                });
+
+                describe('and when projectId is available', function () {
+
+                    beforeEach(function () {
+                        viewModel.projectId = 'some_id';
+                    });
+
+                    it('should execute getProjectEditingInfoById query', function () {
+                        viewModel.editScenario();
+                        expect(getProjectEditingInfoByIdQuerie.execute).toHaveBeenCalledWith(viewModel.projectId);
+                    });
+
+                });
+
+                describe('and when getProjectEditingInfoById query resolved', function () {
+
+                    var projectEditingInfo = { url: 'some_editing_url' };
+                    beforeEach(function() {
+                        getProjectEditingInfoByIdQuerieDefer.resolve(projectEditingInfo);
+                    });
+
+                    it('should show branchtrack dialog', function (done) {
+                        viewModel.editScenario();
+
+                        getProjectEditingInfoByIdQuerieDefer.promise.fin(function() {
+                            expect(branchtrackDialog.show).toHaveBeenCalledWith(projectEditingInfo.url);
+                            done();
+                        });
+                    });
+
                 });
 
             });
@@ -569,13 +611,14 @@
                             getProjectEditingInfoByIdQuerieDefer.resolve(editProjectInfo);
                         });
 
-                        it('should set editProjectUrl', function (done) {
+                        it('should update isEditAvailable', function (done) {
+                            viewModel.isEditAvailable(false);
                             viewModel.projectSelected(projectId);
 
                             getProjectInfoByIdQuerieDefer.promise.fin(function () {
                                 updateDataCommandDefer.promise.fin(function () {
                                     getProjectEditingInfoByIdQuerieDefer.promise.fin(function () {
-                                        expect(viewModel.editProjectUrl()).toBe(editProjectInfo.url);
+                                        expect(viewModel.isEditAvailable()).toBeTruthy();
                                         done();
                                     });
                                 });
@@ -657,11 +700,12 @@
                         getProjectEditingInfoByIdQuerieDefer.resolve(editProjectInfo);
                     });
 
-                    it('should set editProjectUrl', function (done) {
+                    it('should update isEditAvailable', function (done) {
+                        viewModel.isEditAvailable(false);
                         viewModel.dataUpdated(questionId, projectId, embedUrl);
 
                         getProjectEditingInfoByIdQuerieDefer.promise.fin(function () {
-                            expect(viewModel.editProjectUrl()).toBe(editProjectInfo.url);
+                            expect(viewModel.isEditAvailable()).toBeTruthy();
                             done();
                         });
                     });

@@ -777,6 +777,10 @@
     <Content Include="App\viewmodels\questions\scenario\scenario.spec.js">
       <DependentUpon>scenario.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\videos\commands\deleteVideo.js" />
+    <Content Include="App\viewmodels\videos\commands\deleteVideo.spec.js">
+      <DependentUpon>deleteVideo.js</DependentUpon>
+    </Content>
     <Content Include="App\views\audios\audios.html" />
     <Content Include="App\models\learningPath.spec.js">
       <DependentUpon>learningPath.js</DependentUpon>

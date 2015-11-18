@@ -11,7 +11,6 @@
 @learning-path-item-action-bg-color: rgba(115, 195, 132, 0.8);
 @learning-path-item-action-border-color: #6bb67b;
 @learning-path-item-action-title-font: 14px 'OpenSans';
-@learning-path-item-context-action-bg-color: #4b5d6c;
 
 @course-selector-bg-color: #e4eaed;
 @course-selector-regular-font: 13px 'OpenSans';
@@ -124,48 +123,6 @@
             .learning-path-list-item-open-action-image,
             &:hover .learning-path-list-item-open-action-title {
                 opacity: 1;
-            }
-
-            .list-item-context-actions-wrapper {
-                height: 31px;
-
-                .list-item-context-action {
-                    height: 27px;
-                    width: 27px;
-                    position: relative;
-                    top: -28px;
-                    background-color: @learning-path-item-context-action-bg-color;
-                    background-image: none;
-
-                    &.delete-learning-path {
-
-                        &:after {
-                            position: absolute;
-                            .align-absolute-element();
-                            content: '';
-                            width: 16px;
-                            height: 16px;
-                            background: url(images/sprites_16.png);
-                            background-position: -146px -84px;
-                            background-repeat: no-repeat;
-                        }
-
-                        &:hover:after {
-                            background-position: -167px -84px;
-                        }
-                    }
-
-                    .info-tooltip {
-                        width: 80px;
-                        margin-left: -40px;
-                    }
-                }
-            }
-
-            &:hover {
-                .list-item-context-actions-wrapper .list-item-context-action {
-                    top: 4px;
-                }
             }
 
             .learning-path-list-item-image-container {
