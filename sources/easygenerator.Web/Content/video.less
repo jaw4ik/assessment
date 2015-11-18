@@ -246,7 +246,7 @@
                     word-wrap: break-word;
                 }
             }
-            
+
             .video-list-item-delete-confirmation {
                 height: 0px;
                 display: flex;
@@ -255,57 +255,57 @@
                 position: absolute;
                 top: 0px;
                 background-color: @video-delete-confirmation-background-color;
-                width: 100%;                
+                width: 100%;
                 cursor: default;
-                transition: height 0.2s ease-in;  
+                transition: height 0.2s ease-in;
                 overflow: hidden;
-                
+
                 &.shown {
                     height: 100%;
                 }
-                
-                .video-list-item-delete-confirmation-content-wrapper{
+
+                .video-list-item-delete-confirmation-content-wrapper {
                     width: 100%;
                     flex: 1 0;
                     display: flex;
                     align-items: center;
-                    
-                     .video-list-item-delete-confirmation-content{
+
+                    .video-list-item-delete-confirmation-content {
                         width: 100%;
                         margin-top: 20px;
 
-                        .video-list-item-delete-confirmation-text{
+                        .video-list-item-delete-confirmation-text {
                             font: 15px 'OpenSans';
                             color: @video-confirmation-text-color;
                             text-align: center;
                             margin-bottom: 10px;
                         }
 
-                        .video-list-item-delete-confirmation-actions{
+                        .video-list-item-delete-confirmation-actions {
                             display: flex;
                             flex-direction: row;
                             flex-wrap: wrap;
                             justify-content: space-around;
 
-                            .video-list-item-delete-confirmation-action{
+                            .video-list-item-delete-confirmation-action {
                                 margin-top: 10px;
                                 min-width: 65px;
                                 max-width: 80%;
                                 overflow: hidden;
                                 text-overflow: ellipsis;
                             }
-
                         }
-                    }    
+                    }
                 }
-               
-                
-                .video-list-item-delete-confirmation-hint{
+
+
+                .video-list-item-delete-confirmation-hint {
                     font: 11px 'OpenSansItalic';
                     padding: 12px;
                     width: 100%;
-                    
-                    .video-list-item-delete-confirmation-hint-warning{
+                    color: #546677;
+
+                    .video-list-item-delete-confirmation-hint-warning {
                         font-weight: bold;
                     }
                 }
