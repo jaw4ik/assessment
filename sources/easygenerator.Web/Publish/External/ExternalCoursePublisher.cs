@@ -30,7 +30,7 @@ namespace easygenerator.Web.Publish.External
 
                 _httpClient.Post<string>(company.PublishCourseApiUrl, new
                 {
-                    id = course.Id,
+                    id = course.Id.ToString("N"),
                     userEmail = userEmail,
                     publishedCourseUrl = course.PublicationUrl,
                     apiKey = company.SecretKey
