@@ -1,5 +1,3 @@
-@import "mixin.less";
-
 @bar-width: 300px;
 @bar-background: #e4eaed;
 @icons-backround: url(../Content/images/sprites_64.png);
@@ -24,7 +22,6 @@
         width: @bar-width;
         overflow: auto;
         background: @bar-background;
-        display: -webkit-flex;
         display: flex;
 
         @media screen and (max-width : 1630px) {
@@ -34,7 +31,6 @@
         }
 
         .design-bar-navigation {
-            -webkit-flex: 0 0 auto;
             flex: 0 0 auto;
             width: 70px;
             background: #fff;
@@ -42,9 +38,9 @@
             .design-bar-navigation-list {
 
                 .design-bar-navigation-item {
-                    .display-flex();
-                    .flex-direction(column);
-                    .justify-content(center);
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
                     width: 100%;
                     height: 85px;
                     position: relative;
@@ -109,7 +105,6 @@
                                 width: 100%;
                                 height: 100%;
                                 display: block;
-                                -webkit-border-bottom-right-radius: 5px;
                                 border-bottom-right-radius: 5px;
                                 background-color: #fff;
                             }
@@ -127,7 +122,6 @@
                                 width: 100%;
                                 height: 100%;
                                 display: block;
-                                -webkit-border-top-right-radius: 5px;
                                 border-top-right-radius: 5px;
                                 background-color: #fff;
                             }
@@ -146,9 +140,7 @@
 
         .design-bar-content {
             position: relative;
-            display: -webkit-flex;
             display: flex;
-            -webkit-flex: 1;
             flex: 1;
             height: 100%;
             overflow: hidden;

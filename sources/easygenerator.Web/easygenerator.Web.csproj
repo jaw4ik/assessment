@@ -777,6 +777,10 @@
     <Content Include="App\viewmodels\questions\scenario\scenario.spec.js">
       <DependentUpon>scenario.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\videos\commands\deleteVideo.js" />
+    <Content Include="App\viewmodels\videos\commands\deleteVideo.spec.js">
+      <DependentUpon>deleteVideo.js</DependentUpon>
+    </Content>
     <Content Include="App\views\audios\audios.html" />
     <Content Include="App\models\learningPath.spec.js">
       <DependentUpon>learningPath.js</DependentUpon>
@@ -2280,7 +2284,6 @@
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteRemoved.spec.js">
       <DependentUpon>inviteRemoved.js</DependentUpon>
     </Content>
-    <Content Include="Content\mixin.less" />
     <Content Include="Content\learningPaths.less" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
