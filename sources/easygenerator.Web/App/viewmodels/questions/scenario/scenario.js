@@ -137,6 +137,7 @@
 
             getProjectInfoByIdQuerie.execute(projectId).then(function (projectInfo) {
                 updateDataCommand.execute(viewModel.questionId, projectInfo).then(function (questionData) {
+                    viewModel.projectId = questionData.projectId;
                     viewModel.embedUrl(questionData.embedUrl);
 
                     getEditProjectUrl(questionData.projectId).then(function (editProjectUrl) {
@@ -159,6 +160,7 @@
                 return;
             }
 
+            viewModel.projectId = projectId;
             viewModel.embedUrl(embedUrl);
             viewModel.embedUrl.valueHasMutated();
             getEditProjectUrl(projectId).then(function (editProjectUrl) {
