@@ -17,21 +17,21 @@
 
     function isAuthTokenPresentInHash() {
         var hashParams = getHashParams(window.location.hash);
-        return hashParams && !_.isNullOrUndefined(hashParams['token.auth']);
+        return hashParams && !_.isNullOrUndefined(hashParams['token.lti']);
     }
 
     function loginByAuthToken() {
         var hashParams = getHashParams(window.location.hash);
-        var authToken = hashParams['token.auth'];
+        var authToken = hashParams['token.lti'];
         
-        token('auth', authToken);
-
-        var endpoints = _.filter(requiredEndpoints, function (endpoint) { return endpoint !== 'auth'; });
-
-        var headers = window.auth.getHeader('auth');
-        _.extend(headers, { "cache-control": "no-cache" });
-        
-        return $.ajax({ url: '/auth/tokens', type: 'POST', data: { endpoints: endpoints }, headers: headers }).done(function (response) {
+        return $.ajax({
+            url: '/auth/tokens',
+            type: 'POST',
+            data: { endpoints: requiredEndpoints },
+            headers: {
+                'Authorization': 'Bearer ' + authToken, 'cache-control': 'no-cache'
+            }
+        }).done(function (response) {
             if (response && response.success) {
                 setTokens(response.data);
             }
@@ -121,7 +121,7 @@
         }
         return localStorage[tokenNamespace + name];
     }
-    
+
     function getCookieToken(cname) {
         var name = tokenNamespace + cname + "=";
         var ca = document.cookie.split(';');

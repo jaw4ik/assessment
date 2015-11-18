@@ -292,7 +292,7 @@ namespace easygenerator.Auth.Tests.Lti
             _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
 
             _ltiAuthenticatedContext.RedirectUrl.Should()
-                .Be($"{_uri.GetLeftPart(UriPartial.Authority)}#token.auth={authToken}");
+                .Be($"{_uri.GetLeftPart(UriPartial.Authority)}#token.lti={authToken}");
         }
 
         [TestMethod]
@@ -315,7 +315,7 @@ namespace easygenerator.Auth.Tests.Lti
             _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
 
             _ltiAuthenticatedContext.RedirectUrl.Should()
-                .Be($"{customUrl}#token.auth={authToken}");
+                .Be($"{customUrl}#token.lti={authToken}");
         }
 
         [TestMethod]
@@ -334,7 +334,7 @@ namespace easygenerator.Auth.Tests.Lti
             _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
 
             _ltiAuthenticatedContext.RedirectUrl.Should()
-                .Be($"{_uri.GetLeftPart(UriPartial.Authority)}#token.auth={authToken}");
+                .Be($"{_uri.GetLeftPart(UriPartial.Authority)}#token.lti={authToken}");
         }
 
         [TestMethod]
@@ -357,7 +357,7 @@ namespace easygenerator.Auth.Tests.Lti
             _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
 
             _ltiAuthenticatedContext.RedirectUrl.Should()
-                .Be($"{customUrl}#token.auth={authToken}");
+                .Be($"{customUrl}#token.lti={authToken}");
         }
 
         #endregion

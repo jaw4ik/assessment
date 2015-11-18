@@ -41,8 +41,10 @@ define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext', 'synch
 
         if (window.auth.isAuthTokenPresentInHash()) {
             window.auth.logout();
-            ltiAuthDefer = window.auth.loginByAuthToken().then(function () {
+            ltiAuthDefer = window.auth.loginByAuthToken().always(function () {
                 window.location.replace('/#');
+            }).fail(function () {
+                window.location.reload();
             });
         } else {
             ltiAuthDefer = Q.fcall(function () { });
