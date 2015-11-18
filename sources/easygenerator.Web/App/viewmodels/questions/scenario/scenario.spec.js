@@ -580,7 +580,20 @@
                         updateDataCommandDefer.resolve(questionData);
                     });
 
-                    it('should set embedUrl', function (done) {
+                    it('should update projectId', function (done) {
+                        viewModel.projectId = null;
+
+                        viewModel.projectSelected(projectId);
+
+                        getProjectInfoByIdQuerieDefer.promise.fin(function () {
+                            updateDataCommandDefer.promise.fin(function () {
+                                expect(viewModel.projectId).toBe(questionData.projectId);
+                                done();
+                            });
+                        });
+                    });
+
+                    it('should update embedUrl', function (done) {
                         viewModel.embedUrl(null);
 
                         viewModel.projectSelected(projectId);
@@ -678,6 +691,14 @@
                 var questionId = 'some_question_id', projectId = 'some_project_id', embedUrl = 'some_url';
                 beforeEach(function () {
                     viewModel.questionId = questionId;
+                });
+
+                it('should update projectId', function () {
+                    viewModel.projectId = null;
+
+                    viewModel.dataUpdated(questionId, projectId, embedUrl);
+
+                    expect(viewModel.projectId).toBe(projectId);
                 });
 
                 it('should update embedUrl', function () {
