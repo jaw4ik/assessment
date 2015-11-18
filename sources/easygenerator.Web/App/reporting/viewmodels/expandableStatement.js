@@ -11,7 +11,7 @@
         this.expandLoadAction = expandLoadAction;
     };
 
-    ExpandableStatement.prototype.expand = function (preventExpand) {
+    ExpandableStatement.prototype.expand = function (allowExpand) {
         var that = this;
         return Q.fcall(function () {
             if (!userContext.hasPlusAccess()) {
@@ -21,11 +21,11 @@
 
             if (that.isExpandable) {
                 if (that.children === null || that.children().length) {
-                    if (preventExpand !== true) {
+                    if (allowExpand !== false) {
                         that.isExpanded(true);
                     }
                 } else {
-                    return that.expandLoadAction(preventExpand);
+                    return that.expandLoadAction(allowExpand);
                 }
             }
             return undefined;

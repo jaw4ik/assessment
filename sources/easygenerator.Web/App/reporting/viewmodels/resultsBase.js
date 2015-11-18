@@ -17,6 +17,7 @@
             that.results = ko.observableArray([]);
             that.allResultsLoaded = false;
             that.allEmbededResultsLoaded = false;
+            that.resultsForDownload = null,
             that.isLoading = ko.observable(true);
             that.noResultsViewLocation = noResultsViewLocation;
 
@@ -59,11 +60,15 @@
                 return Q.fcall(function () {
                     if (!userContext.hasStarterAccess()) {
                         upgradeDialog.show(constants.dialogs.upgrade.settings.downloadResults);
-                        return;
+                        return undefined;
+                    }
+                    if (that.resultsForDownload) {
+                        return fileSaverWrapper.saveAs(generateResultsCsvBlob(that.resultsForDownload), getResultsFileName());
                     }
 
                     var generateCsvListPromise = generateDetailedResults ? generateDetailedCsvList() : generateCsvList();
                     return generateCsvListPromise.then(function (csvList) {
+                        that.resultsForDownload = csvList;
                         return fileSaverWrapper.saveAs(generateResultsCsvBlob(csvList), getResultsFileName());
                     });
                 });
@@ -84,6 +89,7 @@
                 that.entityId = entityId;
                 that.allResultsLoaded = false;
                 that.allEmbededResultsLoaded = false;
+                that.resultsForDownload = null;
                 return getEntity(entityId).then(function (entity) {
                     that.entityTitle = entity.title;
                 });
@@ -157,7 +163,7 @@
                     var loadMasteredStatementsPromises = [];
                     _.forEach(statements, function (statement) {
                         if (statement instanceof FinishStatement) {
-                            loadMasteredStatementsPromises.push(statement.expand(true));
+                            loadMasteredStatementsPromises.push(statement.expand(false));
                         }
                     });
                     return Q.all(loadMasteredStatementsPromises).then(function () {
@@ -165,7 +171,7 @@
                         _.forEach(statements, function (statement) {
                             if (statement instanceof FinishStatement) {
                                 _.forEach(statement.children(), function (objectiveStatement) {
-                                    loadAnsweredStatementsPromises.push(objectiveStatement.expand(true));
+                                    loadAnsweredStatementsPromises.push(objectiveStatement.expand(false));
                                 });
                             }
                         });
