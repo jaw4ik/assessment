@@ -77,6 +77,7 @@
             viewModel.buildAction.deactivate();
             viewModel.scormBuildAction.deactivate();
             viewModel.publishAction.deactivate();
+            viewModel.publishToCustomLms.deactivate();
         }
     }
 );
