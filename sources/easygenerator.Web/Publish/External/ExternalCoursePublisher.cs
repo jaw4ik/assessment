@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Http;
@@ -39,7 +36,7 @@ namespace easygenerator.Web.Publish.External
                 course.SetPublishedToExternalLms(true);
                 return true;
             }
-            catch (HttpRequestExceptionExtended e)
+            catch (Exception e)
             {
                 _logger.LogException(e);
                 return false;
