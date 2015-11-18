@@ -107,7 +107,7 @@ namespace easygenerator.Auth.Lti
                     }
                 }
 
-                var authToken = _tokenProvider.GenerateTokens(userEmail, context.Request.Uri.Host, new[] { "lti" }, DateTime.UtcNow.AddMinutes(5));
+                var authToken = _tokenProvider.GenerateTokens(userEmail, context.Request.Uri.Host, new[] { "lti" }, DateTimeWrapper.Now().ToUniversalTime().AddMinutes(5));
                 context.RedirectUrl = $"{ltiProviderUrl}#token.lti={authToken[0].Token}";
 
                 return Task.FromResult<object>(null);

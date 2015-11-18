@@ -73,7 +73,7 @@ namespace easygenerator.Auth.Tests.Lti
             _owinRequest.Uri.Returns(_uri);
             _ltiRequestParams = new NameValueCollection();
             _ltiRequest.Parameters.Returns(_ltiRequestParams);
-            _tokenProvider.GenerateTokens(email, _uri.Host, Arg.Any<string[]>()).Returns(new List<TokenModel> { new TokenModel { Token = "auth_token" } });
+            _tokenProvider.GenerateTokens(email, _uri.Host, Arg.Any<string[]>(), DateTimeWrapper.Now().ToUniversalTime().AddMinutes(5)).Returns(new List<TokenModel> { new TokenModel { Token = "auth_token" } });
 
             _ltiAuthenticatedContext.Response.Returns(_owinResponse);
             _ltiAuthenticatedContext.Request.Returns(_owinRequest);
