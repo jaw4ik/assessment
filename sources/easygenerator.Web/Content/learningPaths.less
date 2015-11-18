@@ -1,4 +1,3 @@
-@import "mixin.less";
 @import "helpers.less";
 
 @view-caption-font: 20px 'OpenSans-Semibold';
@@ -40,8 +39,8 @@
 
     .main-content-header {
         & {
-            .display-flex();
-            .justify-content(space-between);
+            display: flex;
+            justify-content: space-between;
             position: relative;
             margin-top: 20px;
         }
@@ -203,24 +202,24 @@
             max-width: 340px;
 
             &:before {
-                .transform(rotate(30deg) scaleY(-1));
+                transform: rotate(30deg) scaleY(-1);
                 top: -10px;
             }
         }
     }
 
     .learning-path-header-content-section {
-        .display-flex();
+        display: flex;
         padding: 20px 0 0;
 
         .edit-field-wrapper {
-            .flex(1 1);
+            flex: 1 1;
             min-width: 0;
             padding-right: 30px;
         }
 
         .content-section-actions-wrapper {
-            .flex-shrink(0);
+            flex-shrink: 0;
             text-align: right;
 
             .learning-path-action-wrapper {
@@ -264,8 +263,8 @@
     }
 
     .page-view-caption-wrapper {
-        .display-flex();
-        .justify-content(space-between);
+        display: flex;
+        justify-content: space-between;
         padding: 20px 0;
 
         .page-view-caption {
@@ -321,7 +320,7 @@
                         width: 130px;
                         margin-left: -65px;
                         white-space: nowrap;
-                        font-family: 'OpenSans'
+                        font-family: 'OpenSans';
                     }
                 }
             }
@@ -353,8 +352,8 @@
     overflow: hidden;
 
     .course-selector-content {
-        .display-flex();
-        .flex-direction(column);
+        display: flex;
+        flex-direction: column;
         height: 100%;
         width: 300px;
         position: absolute;
@@ -377,8 +376,8 @@
         }
 
         .course-filter-input-wrapper {
-            .display-flex();
-            .align-items(center);
+            display: flex;
+            align-items: center;
             position: relative;
             padding-left: 30px;
             height: 30px;
@@ -408,7 +407,7 @@
             }
 
             .course-filter-input {
-                .flex(1 0);
+                flex: 1 0;
                 position: relative;
                 height: 100%;
                 width: 100%;
@@ -427,8 +426,8 @@
             }
 
             .course-filter-clear-btn {
-                .flex(0 0 10px);
-                .align-self(flex-end);
+                flex: 0 0 10px;
+                align-self: flex-end;
                 visibility: hidden;
                 width: 10px;
                 height: 10px;
@@ -452,8 +451,8 @@
         padding: 0px 15px;
 
         .course-selector-course {
-            .display-flex();
-            .align-items(center);
+            display: flex;
+            align-items: center;
             min-height: 55px;
             margin-bottom: 10px;
             padding: 10px;
@@ -485,13 +484,13 @@
             }
 
             .course-selector-course-title {
-                .flex(1 0);
+                flex: 1 0;
                 min-width: 0; // to force flexbox to break a very long word
                 word-wrap: break-word;
             }
 
             .course-selector-checkbox-wrapper {
-                .flex(0 0 30px);
+                flex: 0 0 30px;
                 position: relative;
                 height: 30px;
                 width: 30px;
