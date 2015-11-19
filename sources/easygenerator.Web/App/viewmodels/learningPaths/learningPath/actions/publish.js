@@ -1,4 +1,4 @@
-﻿define(['knockout', 'notify', 'eventTracker', 'clientContext', 'constants', 'plugins/router', 'durandal/app', 'constants'], function (ko, notify, eventTracker, clientContext, constants, router, app, constants) {
+﻿define(['knockout', 'notify', 'eventTracker', 'clientContext', 'constants', 'plugins/router', 'durandal/app'], function (ko, notify, eventTracker, clientContext, constants, router, app) {
 
     var
        events = {

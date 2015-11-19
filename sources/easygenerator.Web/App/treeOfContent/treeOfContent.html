@@ -15,7 +15,7 @@
         </li>
         <!-- /ko -->
         <!-- ko foreach: children -->
-        <!-- ko compose: { model: $data, preserveContext: true }-->
+        <!-- ko compose: { model: $data, view: 'treeOfContent/CourseTreeNode', preserveContext: true }-->
         <!-- /ko -->
         <!-- /ko -->
     </ul>
@@ -25,7 +25,7 @@
     </div>
     <ul>
         <!-- ko foreach: sharedChildren -->
-        <!-- ko compose: { model: $data, preserveContext: true }-->
+        <!-- ko compose: { model: $data, view: 'treeOfContent/CourseTreeNode', preserveContext: true }-->
         <!-- /ko -->
         <!-- /ko -->
     </ul>

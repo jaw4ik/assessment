@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'durandal/composition', 'constants', 'text!components/tooltip/view.html'], function (app, composition, constants, view) {
+﻿define(['durandal/app', 'durandal/composition', 'constants', 'components/tooltip/view.html!text'], function (app, composition, constants, view) {
     "use strict";
 
     return {
@@ -115,7 +115,7 @@
                 var vertical = {};
                 vertical.aligment = getVerticalAligment(preferredVerticalAligment, pointerTopOffset, tooltipHeight);
                 vertical.top = pointerTopOffset - containerTopOffset;
-                
+
                 if (vertical.aligment == 'top') {
                     vertical.top -= tooltipHeight + 20;
                 }

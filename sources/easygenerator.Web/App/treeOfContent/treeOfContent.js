@@ -9,11 +9,8 @@
     './handlers/treeOfContentHighlightHandler',
     'repositories/courseRepository',
     './CourseTreeNode',
-    'userContext',
-
-    'text!./CourseTreeNode.html',
-    'text!./RelatedObjectiveTreeNode.html',
-    'text!./QuestionTreeNode.html'],
+    'userContext'
+],
 
 function (app, eventTracker, router, constants, limitCoursesAmount, treeOfContentEventHandler, treeOfContentAutoExpandHandler, treeOfContentHighlightHandler, courseRepository, CourseTreeNode, userContext) {
 
@@ -72,7 +69,7 @@ function (app, eventTracker, router, constants, limitCoursesAmount, treeOfConten
             viewModel.children(mapCourses(_.filter(courses, function (course) {
                 return course.createdBy == userEmail;
             })));
-
+            
             viewModel.sharedChildren(mapCourses(_.filter(courses, function (course) {
                 return course.createdBy != userEmail;
             })));

@@ -12,6 +12,7 @@
         beforeEach(function () {
             spyOn(app, 'trigger');
             spyOn(Q, 'allSettled').and.returnValue(defer.promise);
+            uploadDataContext.queueUploads = [];
         });
 
         it('should be object', function () {
@@ -22,7 +23,6 @@
 
             beforeEach(function () {
                 jasmine.clock().install();
-                uploadDataContext.queueUploads = [];
             });
 
             afterEach(function () {

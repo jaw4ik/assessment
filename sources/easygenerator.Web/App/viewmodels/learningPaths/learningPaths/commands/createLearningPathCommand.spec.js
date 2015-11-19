@@ -5,7 +5,7 @@
         localizationManager = require('localization/localizationManager'),
         uiLocker = require('uiLocker'),
         router = require('plugins/router'),
-        mapper = require('mappers/learningpathModelMapper'),
+        mapper = require('mappers/learningPathModelMapper'),
         dataContext = require('dataContext'),
         clientContext = require('clientContext'),
         constants = require('constants')

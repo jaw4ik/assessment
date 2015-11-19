@@ -118,7 +118,6 @@
                     localizationManager.initialize();
 
                     readJson.promise.fin(function () {
-                        console.log(localizationManager.translations);
                         expect(localizationManager.translations).toBe(translations);
                         done();
                     });
