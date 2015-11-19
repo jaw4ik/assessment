@@ -1,19 +1,19 @@
 ﻿define(['models/entity'],
-    function (EntityModel) {
-        "use strict";
+   function (EntityModel) {
+       "use strict";
 
-        var Question = function (spec) {
+       var Question = function (spec) {
 
-            var obj = new EntityModel(spec);
+           var obj = new EntityModel(spec);
 
-            obj.title = spec.title;
-            obj.voiceOver = spec.voiceOver;
-            obj.content = spec.content;
-            obj.type = spec.type;
+           obj.title = spec.title;
+           obj.voiceOver = spec.voiceOver;
+           obj.content = spec.content;
+           obj.type = spec.type;
 
-            return obj;
-        };
+           return obj;
+       };
 
-        return Question;
-    }
+       return Question;
+   }
 );

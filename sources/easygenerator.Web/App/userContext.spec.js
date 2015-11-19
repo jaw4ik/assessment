@@ -3,7 +3,8 @@
     var authHttpWrapper = require('http/authHttpWrapper'),
         storageHttpWrapper = require('http/storageHttpWrapper'),
         notify = require('notify'),
-        localizationManager = require('localization/localizationManager');
+        localizationManager = require('localization/localizationManager'),
+        User = require('models/user');
 
     describe('[userContext]', function () {
 
@@ -78,7 +79,7 @@
                     ajax.resolve({ email: 'user@easygenerator.com', subscription: { accessType: constants.accessType.free } });
 
                     userContext.identify().fin(function () {
-                        expect(userContext.identity.__moduleId__).toEqual("models/user");
+                        expect(userContext.identity).toBeInstanceOf(User);
                         done();
                     }).done();
                 });

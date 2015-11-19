@@ -1,5 +1,5 @@
-﻿define(['analytics/providers/consoleProvider', 'analytics/providers/mixpanelProvider', 'analytics/providers/nudgespotProvider', 'analytics/providers/intercomProvider'],
-    function (consoleProvider, mixpanelProvider, nudgespotProvider, intercomProvider) {
+﻿define(['has', 'analytics/providers/consoleProvider', 'analytics/providers/mixpanelProvider', 'analytics/providers/nudgespotProvider', 'analytics/providers/intercomProvider'],
+    function (has, consoleProvider, mixpanelProvider, nudgespotProvider, intercomProvider) {
 
         var providers = [];
 
