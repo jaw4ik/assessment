@@ -1062,8 +1062,11 @@
         .dialog-body {
             position: relative;
             height: 475px;
-            margin: 22px 10px 22px 25px;
-            padding: 5px;
+            margin: 27px 15px 27px 30px;
+
+            &.empty {
+                padding: 5px;
+            }
 
             .audio-list-container {
                 position: relative;
@@ -1109,7 +1112,7 @@
                 }
 
                 .audio-list {
-                    li {
+                    .list-item.audio {
                         border: 1px solid #f1f1f1;
 
                         &:hover {

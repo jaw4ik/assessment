@@ -121,138 +121,164 @@
     list-style: none;
     padding: 1px;
 
-    li {
+
+
+    .list-item {
         display: flex;
         align-items: center;
         justify-content: center;
         background-color: @audio-background-color;
         border-radius: 5px;
-        border: 1px solid transparent;
-        box-shadow: 0 2px 0 @shadow-color;
-        color: @audio-loaded-text-color;
-        font-family: 'OpenSans';
-        font-size: 13px;
         height: 50px;
         margin-bottom: 13px;
         padding: 0 10px;
 
-        &:last-of-type {
-            margin-bottom: 0px;
-        }
+        &.audio {
+            border: 1px solid transparent;
+            box-shadow: 0 2px 0 @shadow-color;
+            color: @audio-loaded-text-color;
+            font-family: 'OpenSans';
+            font-size: 13px;
 
-        &:hover {
-            border: 1px solid @audio-action-hover-border-color;
-            box-shadow: 0 0 0 1px @audio-action-hover-border-color;
-            cursor: pointer;
-        }
-
-        &.inactive:hover {
-            box-shadow: 0 3px 0 @shadow-color;
-            cursor: default;
-        }
-
-        .play-icon {
-            position: relative;
-            width: 30px;
-            height: 30px;
-            background-color: @audio-play-icon-color;
-            border-radius: 15px;
-
-            &:after {
-                content: "";
-                border-bottom: 5px solid transparent;
-                border-left: 8px solid @audio-background-color;
-                border-top: 5px solid transparent;
-                height: 0;
-                left: 12px;
-                position: absolute;
-                top: 10px;
-                width: 0;
+            &:last-of-type {
+                margin-bottom: 0px;
             }
-        }
 
-        .audio-title {
-            flex: 1;
-            margin: 0 10px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+            &:hover {
+                border: 1px solid @audio-action-hover-border-color;
+                box-shadow: 0 0 0 1px @audio-action-hover-border-color;
+                cursor: pointer;
+            }
 
-        .audio-duration {
-            flex: 0 0 auto;
-            font-style: italic;
-            max-width: 30%;
-            margin: 0 10px;
-            overflow: hidden;
-            padding-right: 2px;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+            &.inactive:hover {
+                box-shadow: 0 3px 0 @shadow-color;
+                cursor: default;
+            }
 
-        &.error {
-            position: relative;
-            font-family: 'RobotoSlab';
-            color: @audio-upload-failed-text-color;
-            text-transform: uppercase;
-            text-align: center;
+            .play-icon {
+                position: relative;
+                width: 30px;
+                height: 30px;
+                background-color: @audio-play-icon-color;
+                border-radius: 15px;
 
-            .upload-failed {
-                overflow: hidden;
-                padding-left: 35px;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-
-                &:before {
+                &:after {
                     content: "";
+                    border-bottom: 5px solid transparent;
+                    border-left: 8px solid @audio-background-color;
+                    border-top: 5px solid transparent;
+                    height: 0;
+                    left: 12px;
                     position: absolute;
-                    display: inline-block;
-                    width: 25px;
-                    height: 25px;
-                    top: 50%;
-                    margin-top: -13px;
-                    margin-left: -35px;
-                    background: @upload-error-background -297px -40px;
+                    top: 10px;
+                    width: 0;
                 }
             }
-        }
 
-        &.uploading {
-            color: @audio-uploading-text-color;
-
-            .circle-progress {
-                border-color: @audio-uploading-progress-color;
-                color: @audio-uploading-progress-background-color;
+            .audio-title {
+                flex: 1;
+                margin: 0 10px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
 
-            .circle-progress-text {
-                font-family: 'RobotoSlab';
-                margin-left: -34px;
-                margin-right: 3px;
+            .audio-duration {
+                flex: 0 0 auto;
+                font-style: italic;
+                max-width: 30%;
+                margin: 0 10px;
                 overflow: hidden;
+                padding-right: 2px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            &.error {
+                position: relative;
+                font-family: 'RobotoSlab';
+                color: @audio-upload-failed-text-color;
+                text-transform: uppercase;
                 text-align: center;
-                width: 30px;
+
+                .upload-failed {
+                    overflow: hidden;
+                    padding-left: 35px;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+
+                    &:before {
+                        content: "";
+                        position: absolute;
+                        display: inline-block;
+                        width: 25px;
+                        height: 25px;
+                        top: 50%;
+                        margin-top: -13px;
+                        margin-left: -35px;
+                        background: @upload-error-background -297px -40px;
+                    }
+                }
+            }
+
+            &.uploading {
+                color: @audio-uploading-text-color;
+
+                .circle-progress {
+                    border-color: @audio-uploading-progress-color;
+                    color: @audio-uploading-progress-background-color;
+                }
+
+                .circle-progress-text {
+                    font-family: 'RobotoSlab';
+                    margin-left: -34px;
+                    margin-right: 3px;
+                    overflow: hidden;
+                    text-align: center;
+                    width: 30px;
+                }
             }
         }
     }
 }
 
 .audio-library-dialog, .audio-library {
+    .audio-upload-hint {
+        color: #63798e;
+        font: 16px 'RobotoSlab-Light';
+
+        a {
+            color: #63798e;
+            text-decoration: underline;
+        }
+    }
+
     .drop-zone {
         border-width: 2px;
-        border-color: rgba(76, 175, 80, 0.3);
         border-style: dashed;
         border-radius: 5px;
         transition: all 0.2s;
 
-        &.active {
-            border-color: rgba(76, 175, 80, 1);
+        &.audio-list-container.empty {
+            border-color: rgba(76, 175, 80, 0.3);
+
+            &.active {
+                border-color: rgba(76, 175, 80, 1);
+            }
+
+            &:hover {
+                border-color: rgba(76, 175, 80, 1);
+                border-style: solid;
+                box-shadow: 0px 0px 3px 2px rgba(76, 175, 80, 0.6);
+            }
         }
 
-        &:hover {
-            border-color: rgba(76, 175, 80, 1);
-            border-style: solid;
-            box-shadow: 0px 0px 3px 2px rgba(76, 175, 80, 0.6);
+        &.list-item {
+            border-color: rgb(209, 218, 224);
+
+            &:hover {
+                border-color: rgba(76, 175, 80, 1);
+            }
         }
     }
 }

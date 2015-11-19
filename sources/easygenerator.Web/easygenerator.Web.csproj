@@ -557,6 +557,7 @@
     <Content Include="App\analytics\providers\intercomProvider.js" />
     <Content Include="App\analytics\providers\mixpanelProvider.js" />
     <Content Include="App\analytics\providers\nudgespotProvider.js" />
+    <Content Include="App\audio\audioCollection.js" />
     <Content Include="App\audio\convertion\commands\convert.spec.js">
       <DependentUpon>convert.js</DependentUpon>
     </Content>

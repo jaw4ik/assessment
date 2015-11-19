@@ -3,7 +3,7 @@
         <div class="dialog-title" data-bind="localize: { text: 'audioLibrary' }"></div>
         <div class="dialog-title-info" data-bind="localize: { text: 'chooseFileForVoiceOver'}"></div>
     </div>
-    <div class="dialog-body ">
+    <div class="dialog-body" data-bind="css: {empty: !audios().length}">
         <!-- ko if: isLoading -->
         <div data-bind="preloader: { settings: 'align-center' }"></div>
         <!-- /ko -->
@@ -11,8 +11,11 @@
         <!-- ko if: audios().length -->
         <div class="audio-list-container" data-bind="scrollbar: {}">
             <ul class="audio-list">
+                <li class="list-item audio-upload-hint drop-zone">
+                    <span>Drop adio files here, or</span>&nbsp;<a href="">browse</a>
+                </li>
                 <!-- ko foreach: audios -->
-                <li data-bind="click: $parent.selectAudio, event : { dblclick: $parent.submit }, css: { selected: $data===$parent.selectedAudio() }">
+                <li class="list-item audio" data-bind="click: $parent.selectAudio, event : { dblclick: $parent.submit }, css: { selected: $data===$parent.selectedAudio() }">
                     <div class="play-icon"></div>
                     <div class="audio-title" data-bind="text: title"></div>
                     <!-- ko if: $data===$parent.selectedAudio() -->
