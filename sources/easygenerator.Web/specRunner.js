@@ -222,6 +222,7 @@
                 'viewmodels/common/contentField.spec',
                 'viewmodels/library/index.spec',
                 'viewmodels/videos/videos.spec',
+                'viewmodels/videos/commands/deleteVideo.spec',
                 'viewmodels/common/titleField.spec',
                 'viewmodels/courses/courses.spec',
                 'viewmodels/courses/course/index.spec',

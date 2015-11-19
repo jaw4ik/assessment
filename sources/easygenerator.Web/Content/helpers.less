@@ -1,24 +1,21 @@
-
-@import "mixin.less";
-
 @maxWidth: 960px;
 @minWidth: 635px;
 
 .unselectable() {
-    .user-select(none);
+    user-select: none;
     cursor: default;
 }
 
 .vertical-align() {
-    .display-flex();
-    .align-items(center);
-    .justify-content(center);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .align-absolute-element() {
     top: 50%;
     left: 50%;
-    .transform(translate(-50%, -50%));
+    transform: translate(-50%, -50%);
 }
 
 .container() {
@@ -65,5 +62,23 @@
         height: 0;
         font-family: @font;
         visibility: hidden;
+    }
+}
+
+.placeholder-color(@color) {
+    &::-webkit-input-placeholder {
+        color: @color;
+    }
+
+    &:-moz-placeholder { /* Firefox 18- */
+        color: @color;
+    }
+
+    &::-moz-placeholder { /* Firefox 19+ */
+        color: @color;
+    }
+
+    &:-ms-input-placeholder {
+        color: @color;
     }
 }

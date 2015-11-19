@@ -392,10 +392,8 @@ ul {
 }
 .table-wrapper .image-wrapper {
   margin: 0;
-  overflow: visible;
 }
 .image-wrapper {
-  overflow: auto;
   text-align: center;
   margin-bottom: 20px;
   display: block;
@@ -773,6 +771,9 @@ ul {
   text-decoration: none;
   border-bottom: 1px solid #222222;
   line-height: 30px;
+}
+.styled-content .image-wrapper {
+  max-width: 100%;
 }
 .styled-content .image-wrapper[style*="float:left"],
 .styled-content .image-wrapper[style*="float: left"] {

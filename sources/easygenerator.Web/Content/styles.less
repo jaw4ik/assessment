@@ -1190,6 +1190,17 @@
             cursor: default;
             opacity: 0.3;
         }
+        
+        &.small{
+            height: 25px;
+            font: 13px 'OpenSans';
+            text-transform: none;
+            box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.4);
+            
+            &:hover{
+                 box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.4);
+            }
+        }
     }
 }
 
@@ -1206,18 +1217,21 @@
     }
 }
 
-/*red button*/
-.btn.white.grey-border {
+/*white button*/
+.btn.white {
     .btn();
-    background: #fff;
-    border: 1px solid #c6d1d8;
-    border-bottom: 2px solid #c6d1d8;
+    background: #fff;   
     color: #64798d;
-
-    &:hover {
-        border: 1px solid #7c95ae;
-        border-bottom: 2px solid #7c95ae;
-    }
+    
+    &.grey-border{
+        border: 1px solid #c6d1d8;
+        border-bottom: 2px solid #c6d1d8;
+        
+        &:hover {
+            border: 1px solid #7c95ae;
+            border-bottom: 2px solid #7c95ae;
+        }
+    }  
 }
 
 /*green button*/
@@ -2143,6 +2157,52 @@
         transition: none;
         -webkit-transition: none;
     }
+}
+
+.video-list-item,
+.learning-path-list-item 
+{
+      &:hover {
+                .list-item-context-actions-wrapper .list-item-context-action {
+                    top: 4px;
+                }
+            }
+    
+       .list-item-context-actions-wrapper {
+                height: 31px;
+
+                .list-item-context-action {
+                    height: 27px;
+                    width: 27px;
+                    position: relative;
+                    top: -28px;
+                    background-color: rgb(67, 81, 96, 0.9);
+                    background-image: none;
+
+                    &.delete {
+
+                        &:after {
+                            position: absolute;
+                            .align-absolute-element();
+                            content: '';
+                            width: 16px;
+                            height: 16px;
+                            background: url(images/sprites_16.png);
+                            background-position: -84px -42px;
+                            background-repeat: no-repeat;
+                        }
+
+                        &:hover {
+                            background-color: #f44c40;
+                        }
+                    }
+
+                    .info-tooltip {
+                        width: 80px;
+                        margin-left: -40px;
+                    }
+                }
+            }
 }
 
 /*#endregion */
