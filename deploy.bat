@@ -19,9 +19,15 @@ IF "%4"=="true" SET CreateTags="1"
 call npm install
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 
+:: First attempt to install jspm modules
+call jspm install
+IF %ERRORLEVEL% == 0 GOTO DEPLOY
+
+:: If jspm not installed -> install through proxy
 call SET HTTPS_PROXY=http://10.0.100.2:3128&node node_modules/jspm/jspm install
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 
+:DEPLOY
 call node node_modules/gulp/bin/gulp deploy --output=%DeploymentDirectory% --instance=%Instance% --version=%Version% --createTags=%CreateTags%
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 
