@@ -154,7 +154,7 @@
                         });
                     });
 
-                    it('should set isProcessing to false', function () {
+                    it('should set isProcessing to false', function (done) {
                         viewModel.isProcessing(true);
                         var promise = viewModel.submit();
 
@@ -171,7 +171,7 @@
                     updateTemplateDefer.reject();
                 });
 
-                it('should set isProcessing to false', function () {
+                it('should set isProcessing to false', function (done) {
                     viewModel.isProcessing(true);
                     var promise = viewModel.submit();
 

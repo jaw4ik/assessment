@@ -10,7 +10,7 @@
     });
 
     grunt.loadNpmTasks('grunt-contrib-jasmine');
-	grunt.file.setBase('../../sources/easygenerator.Web/App')
+	grunt.file.setBase('../../sources/easygenerator.Web/')
 
     grunt.registerTask('default', 'jasmine');
 }

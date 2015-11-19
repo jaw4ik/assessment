@@ -1,40 +1,37 @@
-﻿define(function () {
-    "use strict";
+﻿function set (key, value) {
 
-    var
-        set = function (key, value) {
+    if (_.isNullOrUndefined(key) ||
+        _.isEmpty(key) ||
+        _.isUndefined(value)) {
+        throw 'Invalid arguments';
+    }
 
-            if (_.isNullOrUndefined(key) ||
-                _.isEmpty(key) ||
-                _.isUndefined(value)) {
-                throw 'Invalid arguments';
-            }
+    localStorage.setItem(key, JSON.stringify(value));
+    return value;
+}
 
-            localStorage.setItem(key, JSON.stringify(value));
-            return value;
-        },
+function get (key) {
 
-        get = function (key) {
+    if (_.isNullOrUndefined(key) ||
+        _.isEmpty(key)) {
+        throw 'Invalid arguments';
+    }
 
-            if (_.isNullOrUndefined(key) ||
-                _.isEmpty(key)) {
-                throw 'Invalid arguments';
-            }
+    return JSON.parse(localStorage.getItem(key));
+}
 
-            return JSON.parse(localStorage.getItem(key));
-        },
+function remove (key) {
 
-        remove = function (key) {
-            if (_.isNullOrUndefined(key) || _.isEmpty(key)) {
-                throw 'Invalid arguments';
-            }
+    if (_.isNullOrUndefined(key) || _.isEmpty(key)) {
+        throw 'Invalid arguments';
+    }
 
-            localStorage.removeItem(key);
-        };
+    localStorage.removeItem(key);
+}
 
-    return {
-        set: set,
-        get: get,
-        remove: remove
-    };
-});
+export default {
+    set,
+    get,
+    remove
+};
+export var __useDefault = true;
