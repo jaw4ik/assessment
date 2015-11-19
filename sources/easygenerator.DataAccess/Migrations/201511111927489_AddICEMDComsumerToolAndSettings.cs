@@ -10,7 +10,7 @@ namespace easygenerator.DataAccess.Migrations
             Sql(@"                    
                   DECLARE @ICEMDId AS UNIQUEIDENTIFIER
                   SET @ICEMDId = NEWID()
-                  INSERT INTO ConsumerTools SELECT @ICEMDId, 'ICEMD', null, 'C839026F1EC74A5AA931B8926F4124A8', 'FC9E5A113CD5492E988A23C35900FCEA'
+                  INSERT INTO ConsumerTools SELECT @ICEMDId, 'ICEMD', null, '05FE3039AEC24255AE76CE023D34F845', 'B7696E74FCFC41408EE8BE1505604F66'
                   INSERT INTO ConsumerToolSettings SELECT @ICEMDId, NULL, NULL, Id FROM Companies WHERE Name = 'ICEMD'
                 ");
         }
