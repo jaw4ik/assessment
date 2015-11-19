@@ -27,21 +27,18 @@
         </div>
         <!-- /ko -->
         <!-- ko ifnot: audios().length -->
-        <div class="empty-audios-list">
-            <div class="empty-audios-list-title" data-bind="localize: {text: 'noAudioFilesYetHowToAdd'}"></div>
-            <ol class="empty-audios-list-steps">
-                <li><span data-bind="localize: { text: 'goTo' }"></span>&nbsp;<a href="" data-bind="localize: { text: 'audioLibrary' }, click: navigateToAudioLibrary"></a></li>
-                <li data-bind="localize: { text: 'uploadYourAudioFile' }"></li>
-                <li data-bind="localize: { text: 'waitUntilItIsProcessed' }"></li>
-                <li data-bind="localize: { text: 'goBackToQuestionAndSelectAudioForVoiceOver' }"></li>
-            </ol>
-            <div class="empty-audios-list-notification" data-bind="localize: {text: 'audioLibraryImprovingNotification'}"></div>
+        <div class="audio-list-container empty drop-zone">
+            <div class="audio-list-content">
+                <div class="audio-list-empty-image"></div>
+                <h3>Drag & Drop</h3>
+                <div><span>any adio files formats, or</span>&nbsp;<a href="">browse</a>
+                </div>
+            </div>
         </div>
         <!-- /ko -->
         <!-- /ko -->
     </div>
     <div class="dialog-actions">
-        <!-- ko if: audios().length -->
         <div class="dialog-action-wrapper">
             <button class="btn green" data-bind="click: submit">
                 <span class="btn-caption" data-bind="localize: { text: 'done' }"></span>
@@ -50,14 +47,5 @@
                 <span data-bind="localize: { text: 'chooseFileAndClickDoneForVoiceOver'}"></span>
             </div>
         </div>
-        <!-- /ko -->
-        <!-- ko ifnot: audios().length -->
-        <button class="btn green-white" data-bind="click: navigateToAudioLibrary">
-            <span class="btn-caption" data-bind="localize: { text: 'goToAudioLibrary' }"></span>
-        </button>
-        <button class="btn green" data-bind="click: close">
-            <span class="btn-caption" data-bind="localize: { text: 'iGotIt' }"></span>
-        </button>
-        <!-- /ko -->
     </div>
 </div>

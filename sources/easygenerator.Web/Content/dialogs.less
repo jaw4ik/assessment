@@ -1062,7 +1062,8 @@
         .dialog-body {
             position: relative;
             height: 475px;
-            margin: 27px 15px 27px 30px;
+            margin: 22px 10px 22px 25px;
+            padding: 5px;
 
             .audio-list-container {
                 position: relative;
@@ -1142,33 +1143,33 @@
                 }
             }
 
-            .empty-audios-list {
-                width: 340px;
-                margin: 0 auto;
-                margin-top: 100px;
-                font: 15px 'OpenSans';
-                color: #63798e;
-                line-height: 25px;
+            .audio-list-container.empty {
+                color: #546677;
+                display: flex;
+                align-items: center;
+                justify-content: center;
 
-                .empty-audios-list-title {
-                    font-family: 'OpenSans-Semibold';
-                    margin-bottom: 10px;
-                }
+                .audio-list-content {
+                    font-size: 16px;
+                    font-family: 'RobotoSlab-Light';
+                    text-align: center;
 
-                .empty-audios-list-steps {
-                    list-style: inside decimal;
-                    margin-bottom: 25px;
+                    .audio-list-empty-image {
+                        width: 327px;
+                        height: 150px;
+                        background: url("images/media/media-upload.png") no-repeat;
+                    }
+
+                    h3 {
+                        font-size: 22px;
+                        font-family: 'RobotoSlab-Bold';
+                        line-height: 1.5em;
+                    }
 
                     a {
-                        color: #469dd5;
+                        color: #546677;
+                        text-decoration: underline;
                     }
-                }
-
-                .empty-audios-list-notification {
-                    font: 12px 'OpenSans';
-                    font-style: italic;
-                    border-top: 1px solid #eff1f2;
-                    padding-top: 7px;
                 }
             }
         }

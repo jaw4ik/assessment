@@ -1,10 +1,6 @@
-﻿define(['constants', 'widgets/dialog/viewmodel', 'audio/queries/getCollection', 'dialogs/audio/audioViewModel', 'plugins/router', 'eventTracker'],
-    function (constants, dialog, getAudiosQuery, AudioViewModel, router, eventTracker) {
+﻿define(['constants', 'widgets/dialog/viewmodel', 'audio/queries/getCollection', 'dialogs/audio/audioViewModel'],
+    function (constants, dialog, getAudiosQuery, AudioViewModel) {
         "use strict";
-
-        var events = {
-            navigateToAudioLibrary: 'Navigate to audio library'
-        };
 
         var viewModel = {
             show: show,
@@ -16,7 +12,6 @@
             isLoading: ko.observable(false),
             isValidationMessageShown: ko.observable(false),
             hideValidationMessage: hideValidationMessage,
-            navigateToAudioLibrary: navigateToAudioLibrary,
             close: close
         };
 
@@ -31,11 +26,11 @@
 
             getAudiosQuery.execute().then(function (audios) {
                 _.each(audios, function (audio) {
-                    var vmAudio = new AudioViewModel(audio);
-                    viewModel.audios.push(vmAudio);
-                    if (selectedAudioVimeoId && vmAudio.vimeoId === selectedAudioVimeoId) {
-                        viewModel.selectedAudio(vmAudio);
-                    }
+                    //var vmAudio = new AudioViewModel(audio);
+                    //viewModel.audios.push(vmAudio);
+                    //if (selectedAudioVimeoId && vmAudio.vimeoId === selectedAudioVimeoId) {
+                    //    viewModel.selectedAudio(vmAudio);
+                    //}
                 });
 
                 viewModel.isLoading(false);
@@ -67,12 +62,6 @@
 
         function hideValidationMessage() {
             viewModel.isValidationMessageShown(false);
-        }
-
-        function navigateToAudioLibrary() {
-            eventTracker.publish(events.navigateToAudioLibrary);
-            dialog.close();
-            router.navigate('library/audios');
         }
 
         function close() {
