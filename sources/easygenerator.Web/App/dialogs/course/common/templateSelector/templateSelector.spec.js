@@ -105,43 +105,15 @@
                     getTemplateCollectionDefer.resolve(templates);
                 });
 
-                describe('should map templates:', function () {
-
-                    beforeEach(function (done) {
-                        viewModel.activate().fin(function () {
-                            template = viewModel.templates()[0];
-                            done();
-                        });
-                    });
-
-                    describe('id:', function () {
-                        it('should be defined', function () {
-                            expect(template.id).toBeDefined();
-                        });
-                    });
-
-                    describe('name:', function () {
-                        it('should be defined', function () {
-                            expect(template.name).toBeDefined();
-                        });
-                    });
-
-                    describe('description:', function () {
-                        it('should be defined', function () {
-                            expect(template.description).toBeDefined();
-                        });
-                    });
-
-                    describe('thumbnail:', function () {
-                        it('should be defined', function () {
-                            expect(template.thumbnail).toBeDefined();
-                        });
-                    });
-
-                    describe('previewImages:', function () {
-                        it('should be array', function () {
-                            expect(template.previewImages.length).toBeDefined();
-                        });
+                it('should map templates:', function(done) {
+                    viewModel.activate().fin(function () {
+                        var template = viewModel.templates()[0];
+                        expect(template.id).toBeDefined();
+                        expect(template.name).toBeDefined();
+                        expect(template.description).toBeDefined();
+                        expect(template.thumbnail).toBeDefined();
+                        expect(template.previewImages).toBeArray();
+                        done();
                     });
                 });
 

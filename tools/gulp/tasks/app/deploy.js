@@ -1,4 +1,6 @@
 var gulp = require('gulp'),
+    has = require('gulp-has'),
+	uglify = require('gulp-uglify'),
     del = require('del'),
     args = require('yargs').argv,
     runSequence = require('run-sequence'),
@@ -28,7 +30,7 @@ gulp.task('build-unit-tests', function () {
 });
 
 gulp.task('build', function (cb) {
-    runSequence('clean', 'build-main-project', 'build-unit-tests', 'build-web-config', 'styles', cb)
+    runSequence('clean', 'build-main-project', 'build-system', 'build-unit-tests', 'build-web-config', 'styles', cb)
 });
 
 gulp.task('deploy-download-folder', function (cb) {
@@ -42,6 +44,10 @@ gulp.task('deploy-css', function () {
 
 gulp.task('deploy-main-built-js', function () {
     return gulp.src('./sources/easygenerator.Web/App/main-built.js')
+		.pipe(has({
+			'release': true
+        }))
+		.pipe(uglify())
         .pipe(gulp.dest(outputDirectory + '/App'));
 });
 
