@@ -28,7 +28,7 @@ gulp.task('build-system', function (cb) {
     }
 
     function buildScripts() {
-        return createBundle('[**/*] - [**/*.spec] - [specRunner] - [main-built]', {
+        return createBundle('[**/*] - [**/*.spec] - [main-built]', {
             paths: {
                 '*': 'app/*.js',
                 '*.html': 'app/*.html'
@@ -37,7 +37,7 @@ gulp.task('build-system', function (cb) {
     }
 
     function buildViews() {
-        return createBundle('[**/*.html] - [specs.html!text]', {
+        return createBundle('[**/*.html]', {
             defaultJSExtensions: false,
             meta: {
                 '**/*.html': {
