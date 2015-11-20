@@ -575,7 +575,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void PublishToCustomLms_ShouldReturnSuccess_WhenPublishSucced()
         {
             //Arrange
-            var publicationUrl = "PublicationUrl";
             var learningPath = LearningPathObjectMother.Create();
             var user = UserObjectMother.CreateWithCompany(new Company());
             _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
