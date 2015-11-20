@@ -167,7 +167,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [Route("api/learningpath/publishToCustomLrs")]
+        [Route("api/learningpath/PublishToCustomLms")]
         public ActionResult PublishToCustomLms(LearningPath learningPath)
         {
             if (learningPath == null)
