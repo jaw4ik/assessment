@@ -438,7 +438,7 @@
                 },
                 deleteCourse: {
                     settings: {
-                        containerCss: 'delete-learning-path'
+                        containerCss: 'delete-course'
                     }
                 },
                 createCourse: {

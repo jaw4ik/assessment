@@ -236,34 +236,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Build_ShouldReturnJsonErrorResult_WhenCourseHasConnectedObjectives()
-        {
-            //Arrange
-            var course = CourseObjectMother.Create();
-            course.RelateObjective(ObjectiveObjectMother.Create(), 0, CreatedBy);
-
-            //Act
-            var result = _controller.Delete(course);
-
-            //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseCannotBeDeleted);
-        }
-
-        [TestMethod]
-        public void Build_ShouldReturnJsonErrorResult_WhenCourseIsConnectedToLearningPath()
-        {
-            //Arrange
-            var course = Substitute.For<Course>();
-            course.LearningPaths.Returns(new List<LearningPath>() { LearningPathObjectMother.Create() });
-
-            //Act
-            var result = _controller.Delete(course);
-
-            //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseCannotBeDeleted);
-        }
-
-        [TestMethod]
         public void Delete_ShouldRemoveCourse_WhenItNotNull()
         {
             var course = CourseObjectMother.Create();
@@ -288,7 +260,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             var result = _controller.Delete(null);
 
-            result.Should().BeJsonSuccessResult();
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseNotFoundError);
         }
 
         #endregion

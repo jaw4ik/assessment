@@ -5,11 +5,23 @@
         <div class="dialog-learning-path-title">
             <span>„</span>
             <span class="dialog-learning-path-title-text" data-bind="text: courseTitle"></span>
-            <span>“</span>
+            <span>“ ?</span>
         </div>
-        <!-- ko foreach: learningPaths -->
-        <div><span data-bind="text: title"></span></div>
-        <!-- /ko -->
+        <div class="dialog-info-wrapper">
+            <div class="dialog-info" data-bind="scrollbar: {}">
+                <div class="dialog-info-scrollable-container">
+                    <div data-bind="localize: { html: 'deleteCoursePopupMessage'}"></div>
+                    <div data-bind="visible: isCourseInLearningPaths">
+                        <p data-bind="localize: { text: 'deleteCourseWithLearningPathsPopupMessage'}"></p>
+                        <ul class="dialog-info-list">
+                            <!-- ko foreach: learningPaths -->
+                            <li data-bind="text: title"></li>
+                            <!-- /ko -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="dialog-actions">
         <button class="btn red delete-learning-path-btn" data-bind="click: deleteCourse, css:{ 'disabled': isDeleting(), 'progress': isDeleting() }, disable: isDeleting()">

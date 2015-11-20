@@ -15,7 +15,12 @@
             cancel: cancel
         };
 
+        viewModel.isCourseInLearningPaths = ko.computed(function () {
+            return viewModel.learningPaths().length > 0;
+        });
+
         return viewModel;
+        
 
         function show(courseId, courseTitle) {
             viewModel.courseId = courseId;

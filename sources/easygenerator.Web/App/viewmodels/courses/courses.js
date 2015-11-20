@@ -31,7 +31,6 @@
 
             currentCoursesLimit: limitCoursesAmount.getCurrentLimit(),
 
-            toggleSelection: toggleSelection,
             duplicateCourse: duplicateCourse,
             navigateToDetails: navigateToDetails,
             navigateToPublish: navigateToPublish,
@@ -40,7 +39,7 @@
             showNewCoursePopover: showNewCoursePopover,
             hideNewCoursePopover: hideNewCoursePopover,
 
-            deleteSelectedCourses: deleteSelectedCourses,
+            deleteCourse: deleteCourse,
             courseDeleted: courseDeleted,
             createNewCourse: createNewCourse,
             createCourseCallback: createCourseCallback,
@@ -57,10 +56,6 @@
 
             activate: activate
         };
-
-        viewModel.enableDeleteCourses = ko.computed(function () {
-            return getSelectedCourses().length > 0;
-        });
 
         app.on(constants.messages.course.collaboration.started, viewModel.courseCollaborationStarted);
         app.on(constants.messages.course.deletedByCollaborator, viewModel.deletedByCollaborator);
@@ -87,15 +82,6 @@
         function openUpgradePlanUrl() {
             eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.courseLimitNotification);
             router.openUrl(constants.upgradeUrl);
-        }
-
-        function toggleSelection(course) {
-            if (!course.isSelected())
-                eventTracker.publish(events.courseSelected);
-            else
-                eventTracker.publish(events.courseUnselected);
-
-            course.isSelected(!course.isSelected());
         }
 
         function duplicateCourse(course) {
@@ -129,32 +115,16 @@
             router.navigate('courses/' + course.id + '/publish');
         }
 
-        function getSelectedCourses() {
-            return _.filter(viewModel.courses(), function (course) {
-                return course.isSelected && course.isSelected();
-            });
-        }
-
-        function deleteSelectedCourses() {
+        function deleteCourse(course) {
             eventTracker.publish(events.deleteCourse);
-
-            var selectedCourses = getSelectedCourses();
-            if (selectedCourses.length == 0) {
-                throw 'There are no courses selected';
-            }
-            if (selectedCourses.length > 1) {
-                notify.error(localizationManager.localize('deleteSeveralCoursesError'));
-                return;
-            }
-
-            var selectedCourse = selectedCourses[0];
-            deleteCourseDialog.show(selectedCourse.id, selectedCourse.title());
+            deleteCourseDialog.show(course.id, course.title());
         }
 
         function courseDeleted(courseId) {
             viewModel.courses(_.reject(viewModel.courses(), function (item) {
                 return item.id === courseId;
             }));
+            notify.success(localizationManager.localize('courseWasDeletedMessage'));
         }
 
         function courseCollaborationStarted(course) {
