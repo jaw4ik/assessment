@@ -1,83 +1,193 @@
-﻿@create-bar-width: 300px;
-@create-bar-background: #fff;
+﻿@animation-duration: 0.3s;
+@font-OS: 'OpenSans';
+@font-OSSB: 'OpenSans-Semibold';
 
-.left-side-bar-header-title {
-    font: 16px 'OpenSans-Semibold';
-    font-weight: normal;
+.editor-create-bar-container {
+    width: 300px;
+    background-color: #fff;
     color: #42515f;
+
+    .editor-create-bar-wrapper{
+        padding: 25px;
+
+        .editor-create-bar-header {
+            position: relative;
+            font: 15px @font-OSSB;
+            line-height: 27px;
+            border-bottom: 1px solid #d1dae0;
+
+            &:after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                right: 0;
+                width: 12px;
+                height: 7px;
+                margin-top: -3.5px;
+                background: url('images/sprites_16.png') -44px -172px no-repeat;
+            }
+        }
+
+        .editor-create-bar-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            font: 12px @font-OS;
+            list-style-type: none;
+            text-align: center;
+
+            .editor-create-bar-list-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                flex: 0 0 110px;
+                padding: 15px 0 0;
+
+                &.section {
+
+                    .editor-create-bar-list-icon:before {
+                        width: 64px;
+                        height: 64px;
+                        margin-top: -32px;
+                        margin-left: -28px;
+                        background: url('images/sprites_64.png') 0 -468px no-repeat;
+                    }
+                }
+
+                &.informationContent {
+
+                    .editor-create-bar-list-icon:before {
+                        width: 54px;
+                        margin-left: -27px;
+                        background: url('images/question-types-large-icons.png') -10px 0px no-repeat;
+                    }
+                }
+
+                &.multipleSelect {
+
+                    .editor-create-bar-list-icon:before {
+                        background: url('images/question-types-large-icons.png') -86px 0px no-repeat;
+                    }
+                }
+
+                &.singleSelectImage {
+
+                    .editor-create-bar-list-icon:before {
+                        width: 74px;
+                        margin-left: -37px;
+                        background: url('images/question-types-large-icons.png') -158px 0px no-repeat;
+                    }
+                }
+
+                &.singleSelectText {
+
+                    .editor-create-bar-list-icon:before {
+                        background: url('images/question-types-large-icons.png') -244px 0px no-repeat;
+                    }
+                }
+
+                &.fillInTheBlank {
+
+                    .editor-create-bar-list-icon:before {
+                        background: url('images/question-types-large-icons.png') -323px 0px no-repeat;
+                    }
+                }
+
+                &.dragAndDropText {
+
+                    .editor-create-bar-list-icon:before {
+                        background: url('images/question-types-large-icons.png') -7px -55px no-repeat;
+                    }
+                }
+
+                &.statement {
+
+                    .editor-create-bar-list-icon:before {
+                        width: 74px;
+                        margin-left: -37px;
+                        background: url('images/question-types-large-icons.png') -79px -55px no-repeat;
+                    }
+                }
+
+                &.textMatching {
+
+                    .editor-create-bar-list-icon:before {
+                        width: 65px;
+                        margin-left: -32.5px;
+                        background: url('images/question-types-large-icons.png') -163px -55px no-repeat;
+                    }
+                }
+
+                &.openQuestion {
+
+                    .editor-create-bar-list-icon:before {
+                        background: url('images/question-types-large-icons.png') -244px -55px no-repeat;
+                    }
+                }
+
+                &.hotspot {
+
+                    .editor-create-bar-list-icon:before {
+                        background: url('images/question-types-large-icons.png') -323px -55px no-repeat;
+                    }
+                }
+
+                &.scenario {
+
+                    .editor-create-bar-list-icon:before {
+                        width: 64px;
+                        height: 64px;
+                        margin-top: -32px;
+                        margin-left: -28px;
+                        background: red;
+                    }
+                }
+
+                .editor-create-bar-list-icon {
+                    position: relative;
+                    width: 100px;
+                    height: 90px;
+                    border-radius: 3px;
+                    background-color: #fff;
+                    box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, .5);
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        width: 60px;
+                        height: 50px;
+                        margin-top: -25px;
+                        margin-left: -30px;
+                    }
+                }
+
+                .editor-create-bar-list-title {
+                    margin-top: 5px;
+                    line-height: 18px;
+                }
+            }
+        }
+
+        .editor-create-bar-list + .editor-create-bar-header{
+            margin-top: 50px;
+        }
+    }
 }
 
 .create {
-    &.left-side-bar {
-        width: @create-bar-width;
-        overflow: auto;
-        background: @create-bar-background;
-        padding: 20px;
+    @media screen and (max-width : 1630px) {
+        & + * {
+            padding-left: 300px;
 
-        .left-side-bar-section-header {
-            .left-side-bar-header-title;
-            margin-top: 0;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #d1dae0;
-
-            &.questions {
-                margin-top: 50px;
+            header .header .content-section-wrapper {
+                margin-left: 300px;
             }
-        }
 
-        .draggable-list {
-            list-style: none;
-            margin-top: 18px;
-
-            .draggable-list-item {
-                display: inline-block;
-                vertical-align: middle;
-
-                .draggable-list-item-content {
-                    .draggable-list-item-icon {
-                        position: relative;
-                        width: 102px;
-                        height: 92px;
-                        border-radius: 5px;
-                        box-shadow: 0px 1px 3px 0px #aaaaaa;
-
-                        &:before {
-                            content: '';
-                            position: absolute;
-                            top: 50%;
-                            left: 50%;
-                            margin-top: -32px;
-                            margin-left: -28px;
-                            display: block;
-                            width: 64px;
-                            height: 64px;
-                            background: url('images/sprites_64.png') 0 -468px no-repeat;
-                        }
-                    }
-
-                    .draggable-list-item-title {
-                        margin-top: 4px;
-                        text-align: center;
-                        font-weight: normal;
-                        font: 12px 'OpenSans';
-                        color: #42515f;
-                    }
-                }
-            }
-        }
-
-        @media screen and (max-width : 1630px) {
-            & + * {
-                padding-left: @create-bar-width;
-
-                header .header .content-section-wrapper {
-                    margin-left: 300px;
-                }
-
-                & > header {
-                    .content-section-wrapper .content-section {
-                        min-width: 660px;
-                    }
+            & > header {
+                .content-section-wrapper .content-section {
+                    min-width: 660px;
                 }
             }
         }
