@@ -169,12 +169,17 @@
     <value>Wachtwoord vergeten?</value>
   </data>
   <data name="ForgotPasswordBody" xml:space="preserve">
-    <value>Onderwerp: Uw poging uw wachtwoord opnieuw in te stellen op %siteURL%
+    <value>Onderwerp: Uw poging uw wachtwoord opnieuw in te stellen op &lt;a href=""{0}""&gt;{0}&lt;/a&gt;
+
 Hallo,
-Iemand heeft recentelijk geprobeerd het wachtwoord voor uw account bij %siteURL% opnieuw in te stellen.
+
+Iemand heeft recentelijk geprobeerd het wachtwoord voor uw account bij  &lt;a href=""{0}""&gt;{0}&lt;/a&gt; opnieuw in te stellen.
+
 Als u het wachtwoord opnieuw wilt instellen, klikt u op de onderstaande koppeling:
-%link%
+ &lt;a href=""{1}""&gt;{1}&lt;/a&gt;
+
 Als dit een vergissing is, kunt u deze e-mail negeren. Uw wachtwoord wordt dan niet gewijzigd.
+
 Dank u voor het gebruik van easygenerator.com en een prettige dag!
 --
 Vriendelijke groet,
