@@ -4,7 +4,7 @@
   "description": "easygenerator web edition http://easygenerator.com",
   "main": "",
   "scripts": {
-    "postinstall": "jspm install"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
