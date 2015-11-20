@@ -109,14 +109,14 @@ namespace easygenerator.Web.Controllers.Api
         [Route("api/course/delete")]
         public ActionResult Delete(Course course)
         {
+            if (course == null)
+            {
+                return JsonSuccess();
+            }
+
             var deletedObjectiveIds = new List<string>();
             var deletedFromLearningPathIds = new List<string>();
 
-            if (course == null)
-            {
-                return JsonSuccess(new { deletedObjectiveIds = deletedObjectiveIds, deletedFromLearningPathIds = deletedFromLearningPathIds });
-            }
-            
             if (course.LearningPaths.Any())
             {
                 foreach (var learningPath in course.LearningPaths)
@@ -128,11 +128,7 @@ namespace easygenerator.Web.Controllers.Api
 
             foreach (var objective in course.RelatedObjectives)
             {
-                if (objective.Courses.Count() > 1)
-                {
-                    course.UnrelateObjective(objective, GetCurrentUsername());
-                }
-                else
+                if (objective.Courses.Count() == 1)
                 {
                     deletedObjectiveIds.Add(objective.Id.ToNString());
                     foreach (Question question in objective.Questions)

@@ -247,7 +247,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Delete_ShouldDeleteCourseFromLEarningPath_WhenCourseIsInLearningPath()
+        public void Delete_ShouldDeleteCourseFromLearningPath_WhenCourseIsInLearningPath()
         {
             var course = Substitute.For<Course>();
             var courses = new Collection<Course>();
@@ -285,7 +285,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Delete_ShouldUnrelateObjective_WhenItIsRelatedToOtherCourse()
+        public void Delete_ShouldNotDeleteObjective_WhenItIsRelatedToOtherCourse()
         {
             var course1 = Substitute.For<Course>("Some title1", TemplateObjectMother.Create(), CreatedBy);
             var course2 = Substitute.For<Course>("Some title2", TemplateObjectMother.Create(), CreatedBy);
@@ -302,7 +302,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _controller.Delete(course1);
 
-            course1.Received().UnrelateObjective(objective, Arg.Any<string>());
+            _objectiveRepository.DidNotReceive().Remove(objective);
         }
 
         [TestMethod]
