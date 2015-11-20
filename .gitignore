@@ -163,6 +163,7 @@ ClientBin/
 node_modules/
 bower_components/
 tools/easyresources/_templates/
+tools/easyresources/_app/
 
 # RIA/Silverlight projects
 Generated_Code/
@@ -196,9 +197,13 @@ FakesAssemblies/
 # Visual Studio 6 workspace options file
 *.opt
 
+# Visual Studio Code files
+.vscode/launch.json
+
 
 # Custom easygenerator files
 /sources/easygenerator.Web/App/main-built.js
+/sources/easygenerator.Web/.grunt/*
 /sources/easygenerator.Web/FileStorage/
 /sources/easygenerator.PublicationServer.Web/courses/*
 *.ncrunchproject
@@ -206,4 +211,5 @@ FakesAssemblies/
 /sources/easygenerator.ConversionServer/iisnode
 /sources/easygenerator.Web/Content/*.css
 /sources/easygenerator.Player/public/styles/*.css
-/sources/easygenerator.Player/public/vendor/*
+/sources/easygenerator.Player/public/vendor/* 
+/sources/easygenerator.Web/Scripts/vendor/*
