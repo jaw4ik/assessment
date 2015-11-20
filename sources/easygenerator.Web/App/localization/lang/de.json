@@ -102,7 +102,7 @@
     "videoUploadError": "Etwas ist beim Video-Upload schief gegangen. Versuche es später erneut.",
     "videoUploadNotAnoughSpace": "Die Dateigröße übesteigt den verfügbaren Speicherplatz Ihres Planes.",
     "videoDeleteConfirmation": "Delete this video?",
-    "videoDeleteWarning": "it will NOT be available in courses any more",
+    "videoDeleteWarning": "it will not be available in courses any more",
     "audioLibrary": "Audiothek",
     "uploadAudioDescription": "Klicken Sie hier, um ein eigenes Audio hochzuladen",
     "audioUploadError": "Upload fehlgeschlagen",

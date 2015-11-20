@@ -599,6 +599,27 @@
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
     <Content Include="App\browse.js" />
+    <Content Include="App\core\durandal\activator.js" />
+    <Content Include="App\core\durandal\app.js" />
+    <Content Include="App\core\durandal\binder.js" />
+    <Content Include="App\core\durandal\composition.js" />
+    <Content Include="App\core\durandal\events.js" />
+    <Content Include="App\core\durandal\plugins\dialog.js" />
+    <Content Include="App\core\durandal\plugins\history.js" />
+    <Content Include="App\core\durandal\plugins\http.js" />
+    <Content Include="App\core\durandal\plugins\observable.js" />
+    <Content Include="App\core\durandal\plugins\router.js" />
+    <Content Include="App\core\durandal\plugins\serializer.js" />
+    <Content Include="App\core\durandal\plugins\widget.js" />
+    <Content Include="App\core\durandal\system.js" />
+    <Content Include="App\core\durandal\transitions\defaultRouterTransition.js" />
+    <Content Include="App\core\durandal\transitions\fadeTransition.js" />
+    <Content Include="App\core\durandal\transitions\notificationTransition.js" />
+    <Content Include="App\core\durandal\viewEngine.js" />
+    <Content Include="App\core\durandal\viewLocator.js" />
+    <Content Include="App\core\jquery.js" />
+    <Content Include="App\core\knockout.js" />
+    <Content Include="App\core\plugins\text.js" />
     <Content Include="App\dialogs\audio\audioLibrary.html" />
     <Content Include="App\dialogs\audio\audioLibrary.js" />
     <Content Include="App\dialogs\audio\audioLibrary.spec.js">
@@ -778,6 +799,10 @@
     <Content Include="App\viewmodels\questions\scenario\scenario.js" />
     <Content Include="App\viewmodels\questions\scenario\scenario.spec.js">
       <DependentUpon>scenario.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\videos\commands\deleteVideo.js" />
+    <Content Include="App\viewmodels\videos\commands\deleteVideo.spec.js">
+      <DependentUpon>deleteVideo.js</DependentUpon>
     </Content>
     <Content Include="App\views\audios\audios.html" />
     <Content Include="App\models\learningPath.spec.js">
@@ -1224,6 +1249,7 @@
     <Content Include="BuildLearningPath\Template\js\components.min.js" />
     <Content Include="BuildLearningPath\Template\js\vendor.min.js" />
     <Content Include="BuildLearningPath\Template\readme.txt" />
+    <Content Include="config.js" />
     <Content Include="Content\font\buxtonsketch.woff" />
     <Content Include="Content\font\heuristica-bold.woff" />
     <Content Include="Content\font\heuristica-bolditalic.woff" />
@@ -1702,7 +1728,6 @@
     <Content Include="Scripts\ckeditor\skins\moono\images\refresh.png" />
     <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
     <Content Include="Scripts\ckeditor\styles.js" />
-    <Content Include="Scripts\durandal\transitions\notificationTransition.js" />
     <Content Include="Scripts\FileSaver.js" />
     <Content Include="App\onboarding\tasks.js" />
     <Content Include="App\onboarding\tasks.spec.js">
@@ -2282,28 +2307,10 @@
     <Content Include="App\synchronization\handlers\collaboration\eventHandlers\inviteRemoved.spec.js">
       <DependentUpon>inviteRemoved.js</DependentUpon>
     </Content>
-    <Content Include="Content\mixin.less" />
     <Content Include="Content\learningPaths.less" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Sample Course\content\content.html" />
     <Content Include="Sample Course\content\data.js" />
-    <Content Include="Scripts\almond-custom.js" />
-    <Content Include="Scripts\durandal\activator.js" />
-    <Content Include="Scripts\durandal\app.js" />
-    <Content Include="Scripts\durandal\binder.js" />
-    <Content Include="Scripts\durandal\composition.js" />
-    <Content Include="Scripts\durandal\events.js" />
-    <Content Include="Scripts\durandal\plugins\dialog.js" />
-    <Content Include="Scripts\durandal\plugins\history.js" />
-    <Content Include="Scripts\durandal\plugins\http.js" />
-    <Content Include="Scripts\durandal\plugins\observable.js" />
-    <Content Include="Scripts\durandal\plugins\router.js" />
-    <Content Include="Scripts\durandal\plugins\serializer.js" />
-    <Content Include="Scripts\durandal\plugins\widget.js" />
-    <Content Include="Scripts\durandal\system.js" />
-    <Content Include="Scripts\durandal\transitions\fadeTransition.js" />
-    <Content Include="Scripts\durandal\viewEngine.js" />
-    <Content Include="Scripts\durandal\viewLocator.js" />
     <Content Include="Scripts\jquery.autosize.js" />
     <Content Include="Scripts\jquery.autosize.min.js" />
     <Content Include="Scripts\jquery.extensions.js" />
@@ -2328,9 +2335,12 @@
     <Content Include="Scripts\q.js" />
     <Content Include="Scripts\q.min.js" />
     <Content Include="Scripts\r.js" />
-    <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\system-hooks.js" />
     <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\underscore.js" />
+    <Content Include="Scripts\external-helpers.js" />
+    <Content Include="Scripts\vendor.js" />
+    <Content Include="Scripts\vendor\system.js" />
     <Content Include="Scripts\zeroclipboard.js" />
     <Content Include="Scripts\zeroclipboard.swf" />
     <Content Include="Templates\Assessment\app\app.js" />
@@ -2904,8 +2914,8 @@
     <Content Include="App\services\publishService.spec.js">
       <DependentUpon>publishService.js</DependentUpon>
     </Content>
-    <Content Include="App\specRunner.js" />
-    <Content Include="App\specs.html" />
+    <Content Include="specRunner.js" />
+    <Content Include="specs.html" />
     <Content Include="App\synchronization\listener.js" />
     <Content Include="App\treeOfContent\CourseTreeNode.html" />
     <Content Include="App\treeOfContent\CourseTreeNode.js" />
@@ -3136,8 +3146,6 @@
     <Content Include="Scripts\common\serviceUnavailableAjaxErrorHandler.spec.js">
       <DependentUpon>serviceUnavailableAjaxErrorHandler.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\durandal\transitions\defaultRouterTransition.js" />
-    <Content Include="Scripts\has.js" />
     <Content Include="Scripts\jasmine\boot.js" />
     <Content Include="Scripts\jasmine\jasmine-html.js" />
     <Content Include="Scripts\jasmine\jasmine.css" />
@@ -3172,9 +3180,7 @@
     <Content Include="Scripts\review\review.spec.js">
       <DependentUpon>review.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\text.js" />
     <Content Include="Scripts\underscore.extensions.js" />
-    <Content Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Controllers\Resources.resx">
@@ -3255,13 +3261,11 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>cd /d "$(ProjectDir)"
-"$(ProjectDir)../../tools/weyland/weyland" build
-IF NOT EXIST "$(ProjectDir)App\main-built.js" EXIT /B 1</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
-      del "$(ProjectDir)App\main-built.js"
     </PreBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

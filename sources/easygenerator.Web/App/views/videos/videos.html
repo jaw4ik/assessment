@@ -21,10 +21,19 @@
                 </li>
                 <!-- /ko -->
                 <!-- ko foreach: videos -->
-                <li class="video-list-item" data-bind="click: $parent.showVideoPopup, css: { hovered: status() == $parent.statuses.loaded }">
+                <li class="video-list-item" data-bind="click: isDeleteConfirmationShown() ? function(){} : $parent.showVideoPopup, css: { hovered: status() == $parent.statuses.loaded }">
                     <!-- ko if: status() == $parent.statuses.loaded -->
                     <div class="video-list-item-thumbnail" data-bind="style: { backgroundImage: 'url(' + thumbnailUrl() + ')' }">
                         <span class="play-icon"></span>
+                        <!-- ko ifnot: isDeleteConfirmationShown -->
+                        <div class="list-item-context-actions-wrapper">
+                            <div class="list-item-context-action info-tooltip-holder delete" data-bind="stopEventPropagation: { event: 'click'}, click: $parent.showDeleteVideoConfirmation">
+                                <div class="info-tooltip">
+                                    <span data-bind="localize: { text: 'delete' }"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
                     </div>
                     <!-- /ko-->
                     <!-- ko if: status() == $parent.statuses.failed -->
@@ -41,6 +50,30 @@
                     <!-- /ko -->
                     <div class="video-list-item-title-container">
                         <span class="video-list-item-title" data-bind="limitedLengthText: { text: title, maxLength: 40 }, attr: { title: title }"></span>
+                    </div>
+                    <div class="video-list-item-delete-confirmation" data-bind="css: {shown: isDeleteConfirmationShown}">
+                        <!-- ko ifnot: isDeleting() -->
+                        <div class="video-list-item-delete-confirmation-content-wrapper">
+                            <div class="video-list-item-delete-confirmation-content">
+                                <div class="video-list-item-delete-confirmation-text" data-bind="localize: { text: 'videoDeleteConfirmation'}"></div>
+                                <div class="video-list-item-delete-confirmation-actions">
+                                    <button class="video-list-item-delete-confirmation-action delete btn red small" data-bind="stopEventPropagation: { event: 'click'}, click: $parent.deleteVideo">
+                                        <span class="btn-caption" data-bind="localize: { text: 'delete' }"></span>
+                                    </button>
+                                    <button class="video-list-item-delete-confirmation-action cancel btn white small" data-bind="stopEventPropagation: { event: 'click'}, click: $parent.hideDeleteVideoConfirmation">
+                                        <span class="btn-caption" data-bind="localize: { text: 'cancel' }"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="video-list-item-delete-confirmation-hint">
+                            <span class="video-list-item-delete-confirmation-hint-warning" data-bind="localize: { text: 'warning'}"></span>:&nbsp;
+                            <span data-bind="localize: { text: 'videoDeleteWarning'}"></span>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: isDeleting() -->
+                        <div data-bind="preloader: { type: 'circular', settings: 'big orange align-center' }"></div>
+                        <!-- /ko -->
                     </div>
                 </li>
                 <!-- /ko -->

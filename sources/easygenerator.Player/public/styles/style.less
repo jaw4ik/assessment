@@ -40,15 +40,32 @@ html, body, .video-js {
     opacity: 0;
     -webkit-animation: fadeIn 0.8s forwards;
     animation: fadeIn 0.8s forwards;
-	
-	video {
-		-webkit-transform: scale(1.00746);
-		transform: scale(1.00746);
-	}
+
+    video {
+        -webkit-transform: scale(1.00746);
+        transform: scale(1.00746);
+    }
 
     .vjs-control-bar {
         padding-right: 10px;
         background-color: @background-color;
+
+        .vjs-volume-menu-button {
+            &:hover {
+                .vjs-volume-bar.vjs-slider-horizontal {
+                    height: 0.5em;
+                    margin: 1.25em 1.35em;
+
+                    .vjs-volume-level {
+                        height: 0.5em;
+
+                        &:before {
+                            font-size: 1.5em;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

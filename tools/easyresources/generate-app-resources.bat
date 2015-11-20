@@ -1,2 +1,1 @@
-call easyresources generate -o "..\..\sources\easygenerator.Web\App\localization\lang"
-pause
+easyresources generate -o "../../sources/easygenerator.Web/App/localization/lang"

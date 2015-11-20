@@ -46,13 +46,13 @@
         @Html.Partial("notSupportedDevicePage")
     }
 
-    @Scripts.Render("~/scripts/vendor")
+    @Scripts.Render("~/bundles/scripts/vendor")
     <script src="signalr/hubs"></script>
 
     <script type="text/javascript">
         var CKEDITOR_BASEPATH = '/Scripts/ckeditor/';
     </script>
-    @Scripts.Render("~/scripts/ckeditor.min")
+    @Scripts.Render("~/bundles/scripts/ckeditor")
     <script type="text/javascript">
         CKEDITOR.timestamp = @DateTimeWrapper.InstanceStartTime.Ticks;
     </script>
@@ -67,12 +67,12 @@
             window.BOMSymbol = '\ufeff';
 
             @for (var i = 0; i < userCultures.Count(); i++)
-        {
-            <text>window.userCultures.push('@userCultures[i]');</text>;
-        }
+            {
+                <text>window.userCultures.push('@userCultures[i]');</text>;
+            }
         </script>
     }
-
+    
     <script type="text/javascript">
         @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["version"]))
         {
@@ -94,29 +94,37 @@
         }
         @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["PlayerUrl"]))
         {
-            <text>      
+            <text>
             window.playerUrl = '@ConfigurationManager.AppSettings["PlayerUrl"]';
             </text>
         }
+    </script>
+
+    @Scripts.Render("~/bundles/scripts/system")
+
+    <script type="text/javascript">
         //bootstraper
         (function() {
             if (window.auth.isUserLoggedIn() || window.auth.isAuthTokenPresentInHash()) {
-                var js = document.createElement('script');
-                js.type = 'text/javascript';
-                js.async = true;
                 @if (HttpContext.Current.IsDebuggingEnabled)
                 {
-                <text>
-                js.src = "/Scripts/require.js";
-                js.dataset.main = "/App/main";
-                </text>
+                    <text>
+                    System.cacheBust = '?v=' + Date.now();
+                    </text>
                 }
-                else {
-                <text>
-                js.src = '@("/App/main-built.js?v=" + DateTimeWrapper.InstanceStartTime.Ticks)';
-                </text>
+                else
+                {
+                    <text>
+                    System.config({
+                        bundles: {
+                            'main-built': ['main']
+                        },
+                        cacheBust: '?v=' + @DateTimeWrapper.InstanceStartTime.Ticks
+                    });
+                    </text>
                 }
-                document.body.appendChild(js);
+
+                System.import('main');
             }
             else {
                 window.location.replace('/signin');
