@@ -2354,8 +2354,6 @@
     <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\external-helpers.js" />
-    <Content Include="Scripts\vendor.js" />
-    <Content Include="Scripts\vendor\system.js" />
     <Content Include="Scripts\zeroclipboard.js" />
     <Content Include="Scripts\zeroclipboard.swf" />
     <Content Include="Templates\Assessment\app\app.js" />
