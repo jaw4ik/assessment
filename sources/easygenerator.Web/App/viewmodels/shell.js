@@ -294,7 +294,4 @@
             viewModel.switchEditorMessageVisible(false);
         }
     }
-           notify.error(localizationManager.localize('courseIsNotAvailableAnyMore'));
-       }
-   }
 );
