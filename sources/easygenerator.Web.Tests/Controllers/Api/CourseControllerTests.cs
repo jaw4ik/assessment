@@ -23,6 +23,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.Web.Publish.External;
 
 namespace easygenerator.Web.Tests.Controllers.Api
@@ -246,6 +247,89 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void Delete_ShouldDeleteCourseFromLEarningPath_WhenCourseIsInLearningPath()
+        {
+            var course = Substitute.For<Course>();
+            var courses = new Collection<Course>();
+            courses.Add(course);
+
+            var learningPath = Substitute.For<LearningPath>(); ;
+            var learningPaths = new Collection<LearningPath>();
+            learningPaths.Add(learningPath);
+
+            learningPath.Courses.Returns(courses);
+            course.LearningPaths.Returns(learningPaths);
+
+            _controller.Delete(course);
+
+            learningPath.Received().RemoveCourse(course, Arg.Any<string>());
+        }
+
+        [TestMethod]
+        public void Delete_ShouldDeleteObjective_WhenItIsNotRelatedToOtherCourse()
+        {
+            var course = Substitute.For<Course>();
+            var courses = new Collection<Course>();
+            courses.Add(course);
+
+            var objective = Substitute.For<Objective>(); ;
+            var objectives = new Collection<Objective>();
+            objectives.Add(objective);
+
+            course.RelatedObjectives.Returns(objectives);
+            objective.Courses.Returns(courses);
+
+            _controller.Delete(course);
+
+            _objectiveRepository.Received().Remove(objective);
+        }
+
+        [TestMethod]
+        public void Delete_ShouldUnrelateObjective_WhenItIsRelatedToOtherCourse()
+        {
+            var course1 = Substitute.For<Course>("Some title1", TemplateObjectMother.Create(), CreatedBy);
+            var course2 = Substitute.For<Course>("Some title2", TemplateObjectMother.Create(), CreatedBy);
+            var courses = new Collection<Course>();
+            courses.Add(course1);
+            courses.Add(course2);
+
+            var objective = Substitute.For<Objective>(); ;
+            var objectives = new Collection<Objective>();
+            objectives.Add(objective);
+
+            course1.RelatedObjectives.Returns(objectives);
+            objective.Courses.Returns(courses);
+
+            _controller.Delete(course1);
+
+            course1.Received().UnrelateObjective(objective, Arg.Any<string>());
+        }
+
+        [TestMethod]
+        public void Delete_ShouldDeleteAllQuestions_WhenCourseObjectiveIsDeleted()
+        {
+            var course = Substitute.For<Course>();
+            var courses = new Collection<Course>();
+            courses.Add(course);
+
+            var objective = Substitute.For<Objective>(); ;
+            var objectives = new Collection<Objective>();
+            objectives.Add(objective);
+
+            var question = Substitute.For<Question>();
+            var questions = new Collection<Question>();
+            questions.Add(question);
+
+            course.RelatedObjectives.Returns(objectives);
+            objective.Courses.Returns(courses);
+            objective.Questions.Returns(questions);
+
+            _controller.Delete(course);
+
+            objective.Received().RemoveQuestion(question, Arg.Any<string>());
+        }
+
+        [TestMethod]
         public void Delete_ShouldPublishDomainEvent_WhenCourseIsNotNull()
         {
             var course = CourseObjectMother.Create();
@@ -260,7 +344,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             var result = _controller.Delete(null);
 
-            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseNotFoundError);
+            result.Should().BeJsonSuccessResult();
         }
 
         #endregion
