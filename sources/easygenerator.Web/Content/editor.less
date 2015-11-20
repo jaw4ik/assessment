@@ -545,6 +545,7 @@
                     }
 
                     .questions-list-item {
+                        position: relative;
                         display: flex;
                         flex-direction: row;
                         align-items: center;
@@ -625,6 +626,7 @@
                                 background: url('images/question-types-small-icon.png') -156px -44px no-repeat;
                             }
                         }
+
                         &.scenario{
                             /*ADD IMAGE*/
                             .questions-list-item-image{
@@ -654,6 +656,49 @@
                             color: #42515f;
 
                             .questions-list-item-title {
+                            }
+                        }
+
+                        .questions-list-item-delete-container{
+                            position: absolute;
+                            top:0;
+                            right: 0;
+                            display: flex;
+                            justify-content: space-between;
+                            height: 100%;
+                            padding: 12px;
+                            background-color: #fff;
+                            font: 13px @font-OS;
+
+                            .questions-list-item-delete-text{
+                                margin-right: 13px;
+                                line-height: 22px;
+                                color: @main-color;
+                            }
+
+                            .questions-list-item-delete-buttons-container{
+
+                                .questions-list-item-delete-button{
+                                    min-width: 64px;
+                                    height: 24px;
+                                    border-radius: 3px;
+                                    box-shadow: 1px 1px 3px 0px rgba(0,0,0,.4);
+                                    .unstyled-button;
+
+                                    &.delete{
+                                        color: #fff;
+                                        background-color: #f44336;
+                                    }
+
+                                    &.cancel{
+                                        color: #63798e;
+                                        background-color: #fff;
+                                    }
+                                }
+
+                                .questions-list-item-delete-button + .questions-list-item-delete-button{
+                                    margin-left: 10px;
+                                }
                             }
                         }
 
