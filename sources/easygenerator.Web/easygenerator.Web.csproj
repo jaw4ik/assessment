@@ -546,6 +546,7 @@
     <Compile Include="ViewModels\Account\UserSignUpViewModel.cs" />
     <Compile Include="ViewModels\Api\BlankAnswerViewModel.cs" />
     <Compile Include="ViewModels\Dashboard\CourseViewModel.cs" />
+    <Compile Include="ViewModels\Dashboard\UserInfoSearchViewModel.cs" />
     <Compile Include="ViewModels\Dashboard\UserInfoViewModel.cs" />
     <Compile Include="ViewModels\DemoCourses\DemoCoursesViewModel.cs" />
     <Compile Include="ViewModels\Dashboard\DashboardViewModel.cs" />
@@ -2749,7 +2750,7 @@
     <Content Include="Templates\Assessment\settings\design\css\fonts\opensans-italic-400.woff" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_intercomAnalytics.cshtml" />
-    <Content Include="Views\Dashboard\UserInfo.cshtml" />
+    <Content Include="Views\Dashboard\UserSearch.cshtml" />
     <Content Include="Views\Dashboard\_UserInfoResult.cshtml" />
     <Content Include="Views\Dashboard\_UserNotFoundResult.cshtml" />
     <None Include="Web.Debug.config">
