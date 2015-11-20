@@ -8,6 +8,7 @@
 
             obj.title = spec.title;
             obj.publicationUrl = spec.publicationUrl;
+            obj.isPublishedToExternalLms = spec.isPublishedToExternalLms;
             obj.courses = spec.courses;
 
             obj.isBuilding = false;
@@ -15,6 +16,7 @@
             obj.isDelivering = isDelivering;
             obj.build = build;
             obj.publish = publish;
+            obj.publishToCustomLms = publishToCustomLms;
 
             return obj;
 
@@ -61,6 +63,40 @@
                                 .then(function (buildInfo) {
                                     obj.publicationUrl = buildInfo.publicationUrl;
                                     return buildInfo.publicationUrl;
+                                })
+                                .fail(function (message) {
+                                    obj.publicationUrl = null;
+                                    throw message;
+                                });
+                        })
+                        .fail(function (message) {
+                            throw message;
+                        })
+                        .fin(function () {
+                            obj.isPublishing = false;
+                            app.trigger(constants.messages.learningPath.delivering.finished + obj.id, obj);
+                        });
+                });
+            }
+
+            function publishToCustomLms() {
+                return Q.fcall(function () {
+                    if (obj.isDelivering()) {
+                        return;
+                    }
+
+                    obj.isPublishing = true;
+                    app.trigger(constants.messages.learningPath.delivering.started + obj.id, obj);
+
+                    return publishService.buildLearningPath(obj.id)
+                        .then(function () {
+                            return publishService.publishLearningPath(obj.id)
+                                .then(function (buildInfo) {
+                                    obj.publicationUrl = buildInfo.publicationUrl;
+                                    return publishService.publishLearningPathToCustomLms(obj.id)
+                                        .fail(function (message) {
+                                            throw message;
+                                        });
                                 })
                                 .fail(function (message) {
                                     obj.publicationUrl = null;

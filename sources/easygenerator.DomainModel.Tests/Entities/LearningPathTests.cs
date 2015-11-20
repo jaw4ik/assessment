@@ -81,6 +81,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             learningPath.ModifiedOn.Should().Be(DateTime.MaxValue);
             learningPath.CreatedBy.Should().Be(CreatedBy);
             learningPath.ModifiedBy.Should().Be(CreatedBy);
+            learningPath.IsPublishedToExternalLms.Should().Be(false);
         }
 
         #endregion
@@ -277,6 +278,24 @@ namespace easygenerator.DomainModel.Tests.Entities
             learningPath.PublicationUrl.Should().Be(null);
         }
 
+        #endregion
+
+        #region SetPublishedToExternalLms
+
+        [TestMethod]
+        public void SetPublihedToExternalLms_ShouldSetTrueToIsPublishedToExternalLms()
+        {
+            //Arrange
+            //Arrange
+            var learningPath = LearningPathObjectMother.Create();
+
+            //Act
+            learningPath.SetPublishedToExternalLms();
+
+            //Assert
+            learningPath.IsPublishedToExternalLms.Should().Be(true);
+        }
+        
         #endregion
 
         #region AddCourse

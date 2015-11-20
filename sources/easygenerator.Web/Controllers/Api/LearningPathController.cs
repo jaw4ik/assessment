@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using easygenerator.Web.Publish;
+using easygenerator.Web.Publish.External;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -19,9 +20,12 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IEntityFactory _entityFactory;
         private readonly ILearningPathBuilder _builder;
         private readonly ILearningPathPublisher _publisher;
+        private readonly IUserRepository _userRepository;
+        private readonly IExternalLearningPathPublisher _externalPublisher;
+                         
         private readonly IUrlHelperWrapper _urlHelper;
 
-        public LearningPathController(IUrlHelperWrapper urlHelper, ILearningPathRepository repository, IEntityModelMapper<LearningPath> mapper, IEntityFactory entityFactory, ILearningPathBuilder builder, ILearningPathPublisher publisher)
+        public LearningPathController(IUrlHelperWrapper urlHelper, ILearningPathRepository repository, IEntityModelMapper<LearningPath> mapper, IEntityFactory entityFactory, ILearningPathBuilder builder, ILearningPathPublisher publisher, IUserRepository userRepository, IExternalLearningPathPublisher externalPublisher)
         {
             _urlHelper = urlHelper;
             _repository = repository;
@@ -29,6 +33,8 @@ namespace easygenerator.Web.Controllers.Api
             _entityFactory = entityFactory;
             _builder = builder;
             _publisher = publisher;
+            _userRepository = userRepository;
+            _externalPublisher = externalPublisher;
         }
 
         [HttpPost]
@@ -157,7 +163,32 @@ namespace easygenerator.Web.Controllers.Api
             var result = _publisher.Publish(learningPath);
 
             return result ? JsonSuccess(new { PublicationUrl = _urlHelper.AddCurrentSchemeToUrl(learningPath.PublicationUrl) })
-                : JsonLocalizableError(Errors.LearningPathPublishActionFailedError, Errors.LearningPathPublishActionFailedResourceKey); ;
+                : JsonLocalizableError(Errors.LearningPathPublishActionFailedError, Errors.LearningPathPublishActionFailedResourceKey);
+        }
+
+        [HttpPost]
+        [Route("api/learningpath/publishToCustomLrs")]
+        public ActionResult PublishToCustomLms(LearningPath learningPath)
+        {
+            if (learningPath == null)
+            {
+                return JsonLocalizableError(Errors.LearningPathNotFoundError, Errors.LearningPathNotFoundResourceKey);
+            }
+
+            var user = _userRepository.GetUserByEmail(GetCurrentUsername());
+            if (user == null)
+            {
+                return JsonLocalizableError(Errors.UserDoesntExist, Errors.UserDoesntExistResourceKey);
+            }
+
+            if (user.Company == null)
+            {
+                return JsonLocalizableError(Errors.UserNotMemberOfAnyCompany, Errors.UserNotMemberOfAnyCompanyResourceKey);
+            }
+
+            var result = _externalPublisher.Publish(learningPath, user.Company, user.Email);
+
+            return result ? JsonSuccess() : JsonLocalizableError(Errors.LearningPathPublishActionFailedError, Errors.LearningPathPublishActionFailedResourceKey);
         }
     }
 }

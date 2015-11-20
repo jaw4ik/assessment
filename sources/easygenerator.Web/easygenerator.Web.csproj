@@ -305,7 +305,9 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
     <Compile Include="Publish\External\ExternalCoursePublisher.cs" />
+    <Compile Include="Publish\External\ExternalLearningPathPublisher.cs" />
     <Compile Include="Publish\External\IExternalCoursePublisher.cs" />
+    <Compile Include="Publish\External\IExternalLearningPathPublisher.cs" />
     <Compile Include="Publish\ILearningPathPublisher.cs" />
     <Compile Include="Publish\LearningPathPublisher.cs" />
     <Compile Include="DomainEvents\Handlers\CreateUserInitialDataHandler.cs" />
@@ -763,6 +765,8 @@
     <Content Include="App\viewmodels\courses\course\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\actions\publishToCustomLms.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\actions\publishToCustomLms.spec.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>
@@ -835,6 +839,7 @@
     <Content Include="App\views\learningPaths\learningPath\details.html" />
     <Content Include="App\views\learningPaths\learningPath\publish.html" />
     <Content Include="App\views\learningPaths\learningPath\publish\publishAsHtml.html" />
+    <Content Include="App\views\learningPaths\learningPath\publish\publishToCustomLms.html" />
     <Content Include="App\views\learningPaths\learningPath\publish\publishToPublicationServerEmbed.html" />
     <Content Include="App\views\learningPaths\learningPath\publish\publishToPublicationServerLink.html" />
     <Content Include="App\views\learningPaths\learningPath\publish\updatePublication.html" />
@@ -1250,6 +1255,7 @@
     <Content Include="Content\font\robotoslab-regular.woff" />
     <Content Include="Content\images\branchtrack.png" />
     <Content Include="Content\images\chrome.png" />
+    <Content Include="Content\images\companies\Nuvola.jpg" />
     <Content Include="Content\images\grabbing.cur" />
     <Content Include="Content\images\comingsoon1024.png" />
     <Content Include="Content\images\companies\icemd.png" />

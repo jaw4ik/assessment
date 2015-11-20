@@ -1,4 +1,4 @@
-﻿define(['knockout', 'notify', 'eventTracker', 'clientContext', 'constants', 'plugins/router', 'durandal/app', 'constants'], function (ko, notify, eventTracker, clientContext, constants, router, app, constants) {
+﻿define(['knockout', 'notify', 'eventTracker', 'clientContext', 'constants', 'plugins/router', 'durandal/app', 'userContext'], function (ko, notify, eventTracker, clientContext, constants, router, app, userContext) {
 
     var
        events = {
@@ -10,6 +10,7 @@
     var ctor = function () {
         var viewModel = {
             learningPath: null,
+            companyInfo: null,
 
             publicationUrl: ko.observable(''),
             isPublishing: ko.observable(false),
@@ -103,6 +104,8 @@
         }
 
         function activate(learningPath) {
+            viewModel.companyInfo = userContext.identity ? userContext.identity.company : null;
+
             viewModel.learningPath = learningPath;
             viewModel.publicationUrl(learningPath.publicationUrl);
             viewModel.isPublishing(learningPath.isPublishing);

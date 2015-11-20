@@ -8,35 +8,35 @@ using easygenerator.Infrastructure.Http;
 
 namespace easygenerator.Web.Publish.External
 {
-    public class ExternalCoursePublisher : IExternalCoursePublisher
+    public class ExternalLearningPathPublisher : IExternalLearningPathPublisher
     {
         private readonly HttpClient _httpClient;
         private readonly ILog _logger;
 
-        public ExternalCoursePublisher(HttpClient httpClient, ILog logger)
+        public ExternalLearningPathPublisher(HttpClient httpClient, ILog logger)
         {
             _httpClient = httpClient;
             _logger = logger;
         }
 
-        public bool PublishCourseUrl(Course course, Company company, string userEmail)
+        public bool Publish(LearningPath learningPath, Company company, string userEmail)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(course.PublicationUrl))
+                if (string.IsNullOrWhiteSpace(learningPath.PublicationUrl))
                 {
-                    throw new Exception("Course is already not published.");
+                    throw new NotSupportedException(String.Format("Learning path with Id: {0} doesn't have PublicationUrl.", learningPath.Id));
                 }
 
                 _httpClient.Post<string>(company.PublishCourseApiUrl, new
                 {
-                    id = course.Id,
+                    id = learningPath.Id,
                     userEmail = userEmail,
-                    publishedCourseUrl = course.PublicationUrl,
+                    publishedCourseUrl = learningPath.PublicationUrl,
                     apiKey = company.SecretKey
                 });
 
-                course.SetPublishedToExternalLms(true);
+                learningPath.SetPublishedToExternalLms();
                 return true;
             }
             catch (Exception e)

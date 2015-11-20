@@ -19,6 +19,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using easygenerator.Web.Components;
+using easygenerator.Web.Publish.External;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -36,6 +37,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IEntityFactory _entityFactory;
         private ILearningPathBuilder _builder;
         private ILearningPathPublisher _publisher;
+        private IUserRepository _userRepository;
+        private IExternalLearningPathPublisher _externalPublisher;
 
         private IPrincipal _user;
         private HttpContextBase _context;
@@ -49,12 +52,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _repository = Substitute.For<ILearningPathRepository>();
             _builder = Substitute.For<ILearningPathBuilder>();
             _publisher = Substitute.For<ILearningPathPublisher>();
+            _userRepository = Substitute.For<IUserRepository>();
+            _externalPublisher = Substitute.For<IExternalLearningPathPublisher>();
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
             _context.User.Returns(_user);
 
-            _controller = new LearningPathController(_urlHelper, _repository, _mapper, _entityFactory, _builder, _publisher);
+            _controller = new LearningPathController(_urlHelper, _repository, _mapper, _entityFactory, _builder, _publisher, _userRepository, _externalPublisher);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -485,6 +490,103 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { PublicationUrl = "http:" + publicationUrl });
+        }
+
+        #endregion
+
+        #region PublishToCustomLms
+
+        [TestMethod]
+        public void PublishToCustomLms_ShouldReturnJsonErrorResult_WhenLearningPathIsNull()
+        {
+            //Arrange
+
+            //Act
+            var result = _controller.PublishToCustomLms(null);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.LearningPathNotFoundError);
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be(Errors.LearningPathNotFoundResourceKey);
+        }
+
+        [TestMethod]
+        public void PublishToCustomLms_ShouldReturnJsonErrorResult_WhenUserDoesNotExist()
+        {
+            //Arrange
+            var learningPath = LearningPathObjectMother.Create();
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns((User)null);
+
+            //Act
+            var result = _controller.PublishToCustomLms(learningPath);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.UserDoesntExist);
+        }
+
+        [TestMethod]
+        public void PublishToCustomLms_ShouldReturnJsonErrorResult_WhenUserNotMemberOfAnyCompany()
+        {
+            //Arrange
+            var learningPath = LearningPathObjectMother.Create();
+            var user = UserObjectMother.Create();
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
+
+            //Act
+            var result = _controller.PublishToCustomLms(learningPath);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.UserNotMemberOfAnyCompany);
+        }
+
+        [TestMethod]
+        public void PublishToCustomLms_ShouldPublishLearningPath()
+        {
+            //Arrange
+            var learningPath = LearningPathObjectMother.Create();
+            var company = new Company();
+            var user = UserObjectMother.CreateWithCompany(company);
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
+
+            //Act
+            _controller.PublishToCustomLms(learningPath);
+
+            //Assert
+            _externalPublisher.Received().Publish(learningPath, company, user.Email);
+        }
+
+        [TestMethod]
+        public void PublishToCustomLms_ShouldReturnJsonErrorResult_WhenPublishFailed()
+        {
+            //Arrange
+            var learningPath = LearningPathObjectMother.Create();
+            var user = UserObjectMother.CreateWithCompany(new Company());
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
+            _externalPublisher.Publish(learningPath, Arg.Any<Company>(), user.Email).Returns(false);
+
+            //Act
+            var result = _controller.PublishToCustomLms(learningPath);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.LearningPathPublishActionFailedError);
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be(Errors.LearningPathPublishActionFailedResourceKey);
+        }
+
+        [TestMethod]
+        public void PublishToCustomLms_ShouldReturnSuccess_WhenPublishSucced()
+        {
+            //Arrange
+            var publicationUrl = "PublicationUrl";
+            var learningPath = LearningPathObjectMother.Create();
+            var user = UserObjectMother.CreateWithCompany(new Company());
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
+            _externalPublisher.Publish(learningPath, Arg.Any<Company>(), user.Email).Returns(true);
+            
+
+            //Act
+            var result = _controller.PublishToCustomLms(learningPath);
+
+            //Assert
+            result.Should().BeJsonSuccessResult();
         }
 
         #endregion

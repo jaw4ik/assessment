@@ -1,11 +1,10 @@
-﻿define(['viewmodels/learningPaths/learningPath/actions/publish'], function (publishAction) {
+﻿define(['viewmodels/learningPaths/learningPath/actions/publishToCustomLms'], function (publishAction) {
     'use strict';
     var
         viewModel,
         notify = require('notify'),
         eventTracker = require('eventTracker'),
         constants = require('constants'),
-        router = require('plugins/router'),
         app = require('durandal/app');
 
     describe('viewModel [learningPath publish action]', function () {
@@ -14,7 +13,6 @@
             viewModel = publishAction();
             spyOn(eventTracker, 'publish');
             spyOn(notify, 'error');
-            spyOn(router, 'openUrl');
             spyOn(app, 'on');
             spyOn(app, 'off');
         });
@@ -22,12 +20,6 @@
         describe('learningPath:', function () {
             it('should be defined', function () {
                 expect(viewModel.learningPath).toBeDefined();
-            });
-        });
-
-        describe('publicationUrl:', function () {
-            it('should be observable', function () {
-                expect(viewModel.publicationUrl).toBeObservable();
             });
         });
 
@@ -43,167 +35,10 @@
             });
         });
 
-        describe('linkCopied:', function () {
-            it('should be observable', function () {
-                expect(viewModel.linkCopied).toBeObservable();
-            });
-        });
-
-        describe('embedCodeCopied:', function () {
-            it('should be observable', function () {
-                expect(viewModel.embedCodeCopied).toBeObservable();
-            });
-        });
-
-        describe('copyDisabled:', function () {
-            it('should be observable', function () {
-                expect(viewModel.copyDisabled).toBeObservable();
-            });
-        });
-
         describe('publishAvailable:', function () {
             it('should be observable', function () {
                 expect(viewModel.publishAvailable).toBeObservable();
             });
-        });
-
-        describe('frameWidth:', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.frameWidth).toBeObservable();
-            });
-
-        });
-
-        describe('frameHeight:', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.frameHeight).toBeObservable();
-            });
-
-        });
-
-        describe('embedCode:', function () {
-
-            it('should be computed', function () {
-                expect(viewModel.embedCode).toBeComputed();
-            });
-
-            it('should be equal embedCode', function () {
-                viewModel.frameWidth(640);
-                viewModel.frameHeight(480);
-                viewModel.publicationUrl('publicationUrl');
-                var embedCode = '<iframe width="640" height="480" src="publicationUrl" frameborder="0" allowfullscreen></iframe>';
-
-                expect(viewModel.embedCode()).toBe(embedCode);
-            });
-
-        });
-
-        describe('onCopyLink:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.onCopyLink).toBeFunction();
-            });
-
-            it('should send event \'Copy publish link\'', function () {
-                viewModel.eventCategory = 'category';
-                viewModel.onCopyLink();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Copy publish link', 'category');
-            });
-
-        });
-
-        describe('onCopyEmbedCode:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.onCopyEmbedCode).toBeFunction();
-            });
-
-            it('should send event \'Copy embed code\'', function () {
-                viewModel.eventCategory = 'category';
-                viewModel.onCopyEmbedCode();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Copy embed code', 'category');
-            });
-
-        });
-
-        describe('openPublicationUrl:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.openPublicationUrl).toBeFunction();
-            });
-
-            describe('when publish link is empty', function () {
-                it('should not open link', function () {
-                    viewModel.publicationUrl('');
-                    viewModel.openPublicationUrl();
-                    expect(router.openUrl).not.toHaveBeenCalled();
-                });
-            });
-
-            it('should open link', function () {
-                viewModel.publicationUrl('publicationUrl');
-                viewModel.openPublicationUrl();
-                expect(router.openUrl).toHaveBeenCalledWith('publicationUrl');
-            });
-
-        });
-
-        describe('validateFrameHeight:', function () {
-
-            describe('when frame height is undefined', function () {
-                it('should set default value', function () {
-                    viewModel.frameHeight('');
-                    viewModel.validateFrameHeight();
-                    expect(viewModel.frameHeight()).toBe(constants.frameSize.height.value);
-                });
-            });
-
-            describe('when frame height is 0', function () {
-                it('should set default value', function () {
-                    viewModel.frameHeight(0);
-                    viewModel.validateFrameHeight();
-                    expect(viewModel.frameHeight()).toBe(constants.frameSize.height.value);
-                });
-            });
-
-            describe('when frame height is correct', function () {
-                it('should not change value', function () {
-                    viewModel.frameHeight(10);
-                    viewModel.validateFrameHeight();
-                    expect(viewModel.frameHeight()).toBe(10);
-                });
-            });
-
-        });
-
-        describe('validateFrameWidth:', function () {
-
-            describe('when frame width is undefined', function () {
-                it('should set default value', function () {
-                    viewModel.frameWidth('');
-                    viewModel.validateFrameWidth();
-                    expect(viewModel.frameWidth()).toBe(constants.frameSize.width.value);
-                });
-            });
-
-            describe('when frame width is 0', function () {
-                it('should set default value', function () {
-                    viewModel.frameWidth(0);
-                    viewModel.validateFrameWidth();
-                    expect(viewModel.frameWidth()).toBe(constants.frameSize.width.value);
-                });
-            });
-
-            describe('when frame width is correct', function () {
-                it('should not change value', function () {
-                    viewModel.frameWidth(10);
-                    viewModel.validateFrameWidth();
-                    expect(viewModel.frameWidth()).toBe(10);
-                });
-            });
-
         });
 
         describe('publish:', function () {
@@ -214,7 +49,7 @@
                 viewModel.isPublishing(false);
                 viewModel.isDelivering(false);
                 viewModel.learningPath = { publish: function () { } };
-                spyOn(viewModel.learningPath, 'publish').and.returnValue(publishDefer.promise);
+                spyOn(viewModel.learningPath, 'publishToCustomLms').and.returnValue(publishDefer.promise);
             });
 
             it('should be function', function () {
@@ -291,15 +126,6 @@
 
                 beforeEach(function () {
                     publishDefer.resolve('publicationUrl');
-                });
-
-                it('should update publication url', function (done) {
-                    viewModel.publicationUrl('');
-
-                    viewModel.publish().fin(function () {
-                        expect(viewModel.publicationUrl()).toBe('publicationUrl');
-                        done();
-                    });
                 });
 
                 it('should set isPublishing false', function (done) {
@@ -387,12 +213,6 @@
                 viewModel.isPublishing(null);
                 viewModel.activate(learningPath);
                 expect(viewModel.isPublishing()).toBe(learningPath.isPublishing);
-            });
-
-            it('should set publicationUrl', function () {
-                viewModel.publicationUrl(null);
-                viewModel.activate(learningPath);
-                expect(viewModel.publicationUrl()).toBe(learningPath.publicationUrl);
             });
 
             it('should set isDelivering', function () {

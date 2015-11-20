@@ -21,6 +21,7 @@ namespace easygenerator.Web.Components.Mappers
                 Title = entity.Title,
                 PackageUrl = entity.PackageUrl,
                 PublicationUrl = _urlHelper.AddCurrentSchemeToUrl(entity.PublicationUrl),
+                IsPublishedToExternalLms = entity.IsPublishedToExternalLms,
                 CreatedOn = entity.CreatedOn,
                 CreatedBy = entity.CreatedBy,
                 ModifiedOn = entity.ModifiedOn,

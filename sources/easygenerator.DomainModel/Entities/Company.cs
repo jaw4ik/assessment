@@ -10,6 +10,16 @@ namespace easygenerator.DomainModel.Entities
     {
         public Company() { }
 
+        public Company(string name, string logoUrl, string publishApiUrl, string secretKey,
+            bool hideDefaultPublishOptions)
+        {
+            Name = name;
+            LogoUrl = logoUrl;
+            PublishCourseApiUrl = publishApiUrl;
+            SecretKey = secretKey;
+            HideDefaultPublishOptions = hideDefaultPublishOptions;
+        }
+
         public string Name { get; private set; }
 
         public string LogoUrl { get; private set; }

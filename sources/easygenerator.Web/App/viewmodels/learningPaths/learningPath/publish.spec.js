@@ -1,7 +1,8 @@
 ﻿define(['viewmodels/learningPaths/learningPath/publish'], function(viewModel) {
 
     var eventTracker = require('eventTracker'),
-        getLearningPathByIdQuery = require('viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery');
+        getLearningPathByIdQuery = require('viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery'),
+        userContext = require('userContext');
 
     describe('viewModel [learningPath publish]', function () {
 
@@ -62,11 +63,14 @@
 
         describe('activate:', function () {
             var getLearningPathDefer,
+                identifyDefer,
                 learningPath = { id: 'learningPathId' };
 
             beforeEach(function () {
                 getLearningPathDefer = Q.defer();
+                identifyDefer = Q.defer();
                 spyOn(getLearningPathByIdQuery, 'execute').and.returnValue(getLearningPathDefer.promise);
+                spyOn(userContext, 'identify').and.returnValue(identifyDefer.promise);
             });
 
             it('should be function', function() {
@@ -78,28 +82,55 @@
                 expect(result).toBePromise();
             });
 
-            it('should get learningPath by id', function() {
+            it('should identify user', function() {
                 viewModel.activate('learningPathId');
-                expect(getLearningPathByIdQuery.execute).toHaveBeenCalledWith('learningPathId');
+                expect(userContext.identify).toHaveBeenCalled();
             });
 
-            describe('when received learning path', function () {
-
+            describe('when user is identified', function() {
+                var company = {name: 'Company'};
                 beforeEach(function() {
-                    getLearningPathDefer.resolve(learningPath);
+                    identifyDefer.resolve();
+                    userContext.identity = { company: company };
                 });
 
-                it('should set learningPath', function (done) {
-                    viewModel.laerningPath = null;
+                it('should set companyInfo', function(done) {
+                    viewModel.companyInfo = null;
+                    viewModel.activate('learningPathId');
 
-                    var promise = viewModel.activate('learningPathId');
-
-                    promise.fin(function () {
-                        expect(viewModel.learningPath).toBe(learningPath);
+                    identifyDefer.promise.fin(function () {
+                        expect(viewModel.companyInfo).toBe(company);
                         done();
                     });
                 });
-                
+
+                it('should get learningPath by id', function (done) {
+                    viewModel.activate('learningPathId');
+
+                    identifyDefer.promise.fin(function () {
+                        expect(getLearningPathByIdQuery.execute).toHaveBeenCalledWith('learningPathId');
+                        done();
+                    });
+                });
+
+                describe('when received learning path', function () {
+
+                    beforeEach(function () {
+                        getLearningPathDefer.resolve(learningPath);
+                    });
+
+                    it('should set learningPath', function (done) {
+                        viewModel.laerningPath = null;
+
+                        var promise = viewModel.activate('learningPathId');
+
+                        promise.fin(function () {
+                            expect(viewModel.learningPath).toBe(learningPath);
+                            done();
+                        });
+                    });
+
+                });
             });
 
         });
@@ -108,7 +139,9 @@
             beforeEach(function() {
                 viewModel.publishAction = { deactivate: function () { } };
                 viewModel.downloadAction = { deactivate: function () { } };
+                viewModel.publishToCustomLmsAction = { deactivate: function () { } };
                 spyOn(viewModel.publishAction, 'deactivate');
+                spyOn(viewModel.publishToCustomLmsAction, 'deactivate');
                 spyOn(viewModel.downloadAction, 'deactivate');
             });
 
@@ -119,6 +152,11 @@
             it('should deactivate publish action', function() {
                 viewModel.deactivate();
                 expect(viewModel.publishAction.deactivate).toHaveBeenCalled();
+            });
+
+            it('should deactivate publish to custom LMS action', function () {
+                viewModel.deactivate();
+                expect(viewModel.publishToCustomLmsAction.deactivate).toHaveBeenCalled();
             });
 
             it('should deactivate download action', function() {
