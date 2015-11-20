@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'eventTracker', 'durandal/app', 'constants', 'repositories/courseRepository', 'widgets/dialog/viewmodel'],
-    function (dataContext, eventTracker, app, constants, courseRepository, dialog) {
+﻿define(['dataContext', 'eventTracker', 'constants', 'repositories/courseRepository', 'widgets/dialog/viewmodel'],
+    function (dataContext, eventTracker, constants, courseRepository, dialog) {
         var events = {
             confirmDelete: 'Confirm delete course',
             cancelDelete: 'Cancel delete course'

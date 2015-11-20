@@ -16,7 +16,7 @@
                 courseBuildFailed: 'Course build is failed',
                 coursePublishFailed: 'Course publish is failed',
                 publishCourse: 'Publish course',
-                deleteCourse: 'Delete selected courses',
+                deleteCourse: 'Delete course',
                 createNewCourse: 'Open \'Create course\' dialog'
             };
 
