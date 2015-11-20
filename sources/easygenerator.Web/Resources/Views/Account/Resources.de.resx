@@ -169,15 +169,18 @@
     <value>Kennwort vergessen?</value>
   </data>
   <data name="ForgotPasswordBody" xml:space="preserve">
-    <value>Betreff: Kennwortrücksetztung auf %siteURL%
+    <value>Betreff: Kennwortrücksetztung auf  &lt;a href=""{0}""&gt;{0}&lt;/a&gt;
 Guten Tag, 
-Jemand hat vor Kurzem eine Kenntwortrücksetzung auf %siteURL% beantragt.
+
+Jemand hat vor Kurzem eine Kenntwortrücksetzung auf  &lt;a href=""{0}""&gt;{0}&lt;/a&gt; beantragt.
+
 Um das Kennwort zurückzusetzen, klicken Sie bitte auf den folgenden Link:
-%link%
+ &lt;a href=""{1}""&gt;{1}&lt;/a&gt;
 Sollte es sich hierbei um einen Fehler handeln, ignorieren Sie einfach diese E-Mail, Ihr Kennwort wird nicht geändert. 
+
 Vielen Dank, dass Sie easygenerator.com verwenden, und einen schönen Tag!
 --
-Viele Grüße,  
+Viele Grüße,  
 Ihr easygenerator-Team</value>
   </data>
   <data name="ForgotPasswordSent" xml:space="preserve">
