@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Repositories;
-using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Extensions;
-using easygenerator.Web.Mail;
 using easygenerator.Web.Synchronization.Tracking;
 using easygenerator.Web.ViewModels.Dashboard;
 
@@ -33,53 +29,53 @@ namespace easygenerator.Web.Controllers
         [Route("dashboard")]
         public ActionResult Index()
         {
-            return View(new DashboardViewModel(UserConnectionTracker.Instance.GetConnectionsCount(), UserConnectionTracker.Instance.GetOnlineUsersCollection()));
+            return
+                View(new DashboardViewModel(UserConnectionTracker.Instance.GetConnectionsCount(),
+                    UserConnectionTracker.Instance.GetOnlineUsersCollection()));
         }
-
 
         [HttpGet]
-        [Route("dashboard/userInfo")]
-        public ActionResult UserInfo()
+        [Route("dashboard/users")]
+        public ActionResult UserSearch(string email)
         {
-            return View();
-        }
-
-        [HttpPost]
-        [Route("dashboard/userInfo")]
-        public PartialViewResult UserInfo(string userEmail)
-        {
-            if (string.IsNullOrEmpty(userEmail))
-                return PartialView("_UserNotFoundResult");
-
-            var user = _repository.GetUserByEmail(userEmail);
-            if (user == null)
-                return PartialView("_UserNotFoundResult");
-
-            return PartialView("_UserInfoResult", new UserInfoViewModel()
+            if (string.IsNullOrWhiteSpace(email))
             {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Role = user.Role,
-                Country = user.Country,
-                AccessType = Enum.GetName(typeof(AccessType), user.AccessType),
-                ExpirationDate = user.ExpirationDate,
-                Phone = user.Phone,
-                CreatedOn = user.CreatedOn,
-                Courses = _courseRepository.GetOwnedCourses(userEmail).OrderBy(e => e.CreatedOn).Select(e => new
-                     CourseViewModel()
+                return View(new UserSearchViewModel());
+            }
+
+            var user = _repository.GetUserByEmail(email);
+            var viewModel = new UserSearchViewModel
+            {
+                Email = email,
+                User = user != null ? new UserInfoViewModel()
                 {
-                    Title = e.Title,
-                    Template = e.Template?.Name,
-                    CreatedOn = e.CreatedOn,
-                    ModifiedOn = e.ModifiedOn,
-                    PublishedOn = e.PublishedOn,
-                    HasBeenPublishedToEgHosting = !string.IsNullOrEmpty(e.PublicationUrl),
-                    HasBeenPublishedToScorm = !string.IsNullOrEmpty(e.ScormPackageUrl),
-                    HasBeenPublishedToExternalLms = e.IsPublishedToExternalLms,
-                    CourseLink = e.PublicationUrl,
-                    PreviewLink = $"//{HttpContext.Request.Url?.Authority}/preview/{e.Id.ToNString()}"
-                })
-            });
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Role = user.Role,
+                    Country = user.Country,
+                    AccessType = Enum.GetName(typeof(AccessType), user.AccessType),
+                    ExpirationDate = user.ExpirationDate,
+                    Phone = user.Phone,
+                    CreatedOn = user.CreatedOn,
+                    Courses = _courseRepository.GetOwnedCourses(email)
+                            .OrderBy(e => e.CreatedOn)
+                            .Select(e => new CourseViewModel()
+                            {
+                                Title = e.Title,
+                                Template = e.Template?.Name,
+                                CreatedOn = e.CreatedOn,
+                                ModifiedOn = e.ModifiedOn,
+                                PublishedOn = e.PublishedOn,
+                                HasBeenPublishedToEgHosting = !string.IsNullOrEmpty(e.PublicationUrl),
+                                HasBeenPublishedToScorm = !string.IsNullOrEmpty(e.ScormPackageUrl),
+                                HasBeenPublishedToExternalLms = e.IsPublishedToExternalLms,
+                                CourseLink = e.PublicationUrl,
+                                PreviewLink = $"//{HttpContext.Request.Url?.Authority}/preview/{e.Id.ToNString()}"
+                            })
+                } : null
+            };
+
+            return View(viewModel);
         }
 
     }

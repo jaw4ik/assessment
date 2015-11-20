@@ -30,9 +30,11 @@
                 var arrayPromises = [];
 
                 _.each(uploadDataContext.queueUploads, function (item) {
-                    arrayPromises.push(item.handler().then(function () {
-                        uploadDataContext.uploadChanged(true);
-                    }));
+                    if (item.handler) {
+                        arrayPromises.push(item.handler().then(function () {
+                            uploadDataContext.uploadChanged(true);
+                        }));
+                    }
                 });
 
                 Q.allSettled(arrayPromises).then(function () {

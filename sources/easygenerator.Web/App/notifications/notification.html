@@ -15,7 +15,7 @@
                 <div class="user-notification-block">
                     <button class="user-notification-close-btn" data-bind="click: collapse"></button>
                     <div class="user-notification-container">
-                        <!-- ko compose: { model: activeNotification, transition: 'notificationTransition' } -->
+                        <!-- ko compose: { model: activeNotification, view: activeNotification().constructor.__moduleId__, transition: 'notificationTransition' } -->
                         <!-- /ko -->
                     </div>
                 </div>

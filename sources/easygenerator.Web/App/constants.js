@@ -396,6 +396,7 @@
                     progressUrl: '/api/media/video/upload/progress',
                     defaultThumbnailUrl: '//i.vimeocdn.com/video/default_200x150.jpg',
                     cancelUrl: '/api/media/video/upload/cancel',
+                    deleteUrl: '/api/media/video/delete',
                     statuses: {
                         loaded: 'loaded',
                         failed: 'failed',

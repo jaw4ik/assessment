@@ -4,21 +4,9 @@
 
         describe('[Results]', function () {
 
-            it('should be constructor function', function () {
-                expect(Results).toBeFunction();
+            it('should be defined', function () {
+                expect(Results).toBeDefined();
             });
 
-            describe('[ctor]', function () {
-
-                beforeEach(function () {
-                    spyOn(ResultsBase, 'call').and.callThrough();
-                });
-
-                it('should call ctor of ResultsBase with proper args', function () {
-                    var instance = new Results();
-                    expect(ResultsBase.call).toHaveBeenCalledWith(instance, learningPathRepository.getById, learningPathStatementsProvider.getLrsStatements, 'learningPaths/learningPath/results/noResults');
-                });
-
-            });
         });
     });
