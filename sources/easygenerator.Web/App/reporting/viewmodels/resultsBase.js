@@ -163,7 +163,7 @@
                     var loadMasteredStatementsPromises = [];
                     _.forEach(statements, function (statement) {
                         if (statement instanceof FinishStatement) {
-                            loadMasteredStatementsPromises.push(statement.expand(false));
+                            loadMasteredStatementsPromises.push(statement.load());
                         }
                     });
                     return Q.all(loadMasteredStatementsPromises).then(function () {
@@ -171,7 +171,7 @@
                         _.forEach(statements, function (statement) {
                             if (statement instanceof FinishStatement) {
                                 _.forEach(statement.children(), function (objectiveStatement) {
-                                    loadAnsweredStatementsPromises.push(objectiveStatement.expand(false));
+                                    loadAnsweredStatementsPromises.push(objectiveStatement.load());
                                 });
                             }
                         });
@@ -209,11 +209,11 @@
                 return loadAllStatements(that.entityId).then(function (reportingStatements) {
                     _.each(reportingStatements, function (result) {
                         var resultCsv = [
-                            result.lrsStatement.actor.name + ' (' + result.lrsStatement.actor.email + ')',
-                            result instanceof StartedStatement ? inProgress : result.passed ? passed : failed,
-                            result.hasScore ? result.lrsStatement.score : noScore,
-                            result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('YYYY-MM-D'),
-                            result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('h:mm:ss a')
+                            '"' + result.lrsStatement.actor.name + ' (' + result.lrsStatement.actor.email + ')' + '"',
+                            '"' + (result instanceof StartedStatement ? inProgress : result.passed ? passed : failed) + '"',
+                            '"' + (result.hasScore ? result.lrsStatement.score : noScore) + '"',
+                            '"' + (result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('YYYY-MM-D')) + '"',
+                            '"' + (result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('h:mm:ss a')) + '"'
                         ].join(',');
 
                         csvList.push(resultCsv);
@@ -279,13 +279,13 @@
                     return loadAllEmbededStatements(statements).then(function (reportingStatements) {
                         _.each(reportingStatements, function (result) {
                             var courseResultCsv = [
-                                result.lrsStatement.actor.name + ' (' + result.lrsStatement.actor.email + ')',
-                                result instanceof StartedStatement ? inProgress : result.passed ? passed : failed,
-                                result.hasScore ? result.lrsStatement.score : noScore,
-                                moment(result instanceof StartedStatement ? result.lrsStatement.date : result.startedLrsStatement.date).format('YYYY-MM-D'),
-                                moment(result instanceof StartedStatement ? result.lrsStatement.date : result.startedLrsStatement.date).format('h:mm:ss a'),
-                                result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('YYYY-MM-D'),
-                                result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('h:mm:ss a')
+                                '"' + result.lrsStatement.actor.name + ' (' + result.lrsStatement.actor.email + ')' + '"',
+                                '"' + (result instanceof StartedStatement ? inProgress : result.passed ? passed : failed) + '"',
+                                '"' + (result.hasScore ? result.lrsStatement.score : noScore) + '"',
+                                '"' + (moment(result instanceof StartedStatement ? result.lrsStatement.date : result.startedLrsStatement.date).format('YYYY-MM-D')) + '"',
+                                '"' + (moment(result instanceof StartedStatement ? result.lrsStatement.date : result.startedLrsStatement.date).format('h:mm:ss a')) + '"',
+                                '"' + (result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('YYYY-MM-D')) + '"',
+                                '"' + (result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('h:mm:ss a')) + '"'
                             ].concat(courseResultRightPart).join(',');
 
                             csvList.push(courseResultCsv);
@@ -317,8 +317,8 @@
                 _.forEach(result.children(), function (objectiveResult) {
 
                     var objectiveResultCsv = objectiveResultLeftPart.concat([
-                        objectiveResult.lrsStatement.name,
-                        objectiveResult.hasScore ? objectiveResult.lrsStatement.score : noScoreMessage
+                        '"' + objectiveResult.lrsStatement.name + '"',
+                        '"' + (objectiveResult.hasScore ? objectiveResult.lrsStatement.score : noScoreMessage) + '"'
                     ]).concat(objectiveResultRightPart);
 
                     csvList.push(objectiveResultCsv.join(','));
@@ -328,10 +328,10 @@
                     }
                     _.forEach(objectiveResult.children(), function (questionResult) {
                         var questionResultCsv = questionResultLeftPart.concat([
-                            questionResult.lrsStatement.name,
-                            questionResult.hasAnswer && !questionResult.hasScore ? noScoreMessage : questionResult.correct ? correct : incorrect,
-                            questionResult.hasScore ? questionResult.lrsStatement.score : noScoreMessage,
-                            questionResult.hasAnswer && !questionResult.hasScore ? questionResult.lrsStatement.response : emptyCellSymbol
+                            '"' + questionResult.lrsStatement.name + '"',
+                            '"' + (questionResult.hasAnswer && !questionResult.hasScore ? noScoreMessage : questionResult.correct ? correct : incorrect) + '"',
+                            '"' + (questionResult.hasScore ? questionResult.lrsStatement.score : noScoreMessage) + '"',
+                            '"' + (questionResult.hasAnswer && !questionResult.hasScore ? questionResult.lrsStatement.response : emptyCellSymbol) + '"'
                         ]);
                         csvList.push(questionResultCsv.join(','));
                     });
