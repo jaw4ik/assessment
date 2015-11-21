@@ -5,7 +5,7 @@ var gulp = require('gulp'),
     config = require('../../config');
 
 gulp.task('build-system', function (cb) {
-    buildInSequence([buildScripts, buildViews, buildVendor]);
+    buildInSequence([buildScripts, buildViews]);
 
     function buildInSequence(buildFunctions) {
         var fullSource = '',
@@ -46,14 +46,6 @@ gulp.task('build-system', function (cb) {
             },
             map: {
                 'text': 'github:systemjs/plugin-text@0.0.3/text.js'
-            }
-        });
-    }
-
-    function buildVendor() {
-        return createBundle('Scripts/vendor - [Scripts/vendor]', {
-            paths: {
-                '*': '*'
             }
         });
     }

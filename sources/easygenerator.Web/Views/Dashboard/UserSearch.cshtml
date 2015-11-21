@@ -1,9 +1,13 @@
 ﻿@using System.Web.Optimization
+@using easygenerator.Web.Controllers
+@using easygenerator.Web.ViewModels.Dashboard
 
 @{
     ViewBag.Title = "Dashboard - User info";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@model UserSearchViewModel
 
 <style>
     .user-info {
@@ -80,20 +84,28 @@
 <section class="user-info">
     <h1>User Info</h1>
 
-    @using (Ajax.BeginForm((new AjaxOptions
-    {
-        HttpMethod = "post",
-        InsertionMode = InsertionMode.Replace,
-        UpdateTargetId = "userInfo"
-    })))
+
+
+    @using (Html.BeginForm("UserSearch", "Dashboard", FormMethod.Get))
     {
         <div class="user-search">
-            <input type="search" placeholder="User email" name="userEmail" autofocus />
-            <input type="submit" value="Get user info" />
+            <input type="search" placeholder="User email" name="email" autofocus value="@Model.Email"/>            
+            <input type="submit" value="Get user info"/>            
         </div>
     }
 
     <div id="userInfo">
+        @{
+            if (Model.User != null)
+            {
+                @Html.Partial("_UserInfoResult", Model.User);
+            }
+
+            if (Model.Email != null && Model.User == null)
+            {
+                @Html.Partial("_UserNotFoundResult");
+            }
+        }
     </div>
 </section>
 
