@@ -94,8 +94,8 @@
                                 .then(function (buildInfo) {
                                     obj.publicationUrl = buildInfo.publicationUrl;
                                     return publishService.publishLearningPathToCustomLms(obj.id)
-                                        .fail(function (message) {
-                                            throw message;
+                                        .then(function() {
+                                            obj.isPublishedToExternalLms = true;
                                         });
                                 })
                                 .fail(function (message) {

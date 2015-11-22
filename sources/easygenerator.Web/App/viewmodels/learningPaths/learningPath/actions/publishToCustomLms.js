@@ -37,6 +37,9 @@
                 eventTracker.publish(events.publishLearningPath);
 
                 return viewModel.learningPath.publishToCustomLms()
+                    .then(function() {
+                        viewModel.isPublished(true);
+                    })
                     .fail(function (message) {
                         notify.error(message);
                     })

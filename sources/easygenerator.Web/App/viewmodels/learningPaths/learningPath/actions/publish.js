@@ -1,4 +1,4 @@
-﻿define(['knockout', 'notify', 'eventTracker', 'clientContext', 'constants', 'plugins/router', 'durandal/app', 'userContext'], function (ko, notify, eventTracker, clientContext, constants, router, app, userContext) {
+﻿define(['knockout', 'notify', 'eventTracker', 'clientContext', 'constants', 'plugins/router', 'durandal/app'], function (ko, notify, eventTracker, clientContext, constants, router, app) {
 
     var
        events = {
@@ -104,8 +104,6 @@
         }
 
         function activate(learningPath) {
-            viewModel.companyInfo = userContext.identity ? userContext.identity.company : null;
-
             viewModel.learningPath = learningPath;
             viewModel.publicationUrl(learningPath.publicationUrl);
             viewModel.isPublishing(learningPath.isPublishing);

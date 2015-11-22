@@ -324,6 +324,34 @@
 
         });
 
+        describe('publishLearningPathToCustomLms:', function () {
+            var learningPathId = 'learningPathId',
+                postDfr;
+
+            beforeEach(function () {
+                postDfr = Q.defer();
+                spyOn(publishHttpWrapper, 'post').and.returnValue(postDfr.promise);
+            });
+
+            it('should be a function', function () {
+                expect(service.publishLearningPathToCustomLms).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(service.publishLearningPathToCustomLms()).toBePromise();
+            });
+
+            it('should send request', function (done) {
+                postDfr.resolve();
+                var promise = service.publishLearningPathToCustomLms(learningPathId);
+                promise.fin(function () {
+                    expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/learningpath/publishToCustomLms', { learningPathId: learningPathId });
+                    done();
+                });
+            });
+
+        });
+
     });
 
 });

@@ -373,7 +373,7 @@
             ];
 
             localizationManager.initialize(['en'], 'app/localization/lang/').then(function () {
-
+                specs = ['models/learningPath.spec'];
                 var modulesDependencies = {};
                 specs.forEach(function (spec) {
                     modulesDependencies[spec] = [spec.replace('.spec', '')];

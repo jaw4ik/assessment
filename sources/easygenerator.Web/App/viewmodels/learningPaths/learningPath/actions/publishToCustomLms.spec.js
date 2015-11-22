@@ -7,7 +7,7 @@
         constants = require('constants'),
         app = require('durandal/app');
 
-    describe('viewModel [learningPath publish action]', function () {
+    describe('viewModel [learningPath publish to custom LMS action]', function () {
 
         beforeEach(function () {
             viewModel = publishAction();
@@ -48,7 +48,7 @@
                 publishDefer = Q.defer();
                 viewModel.isPublishing(false);
                 viewModel.isDelivering(false);
-                viewModel.learningPath = { publish: function () { } };
+                viewModel.learningPath = { publishToCustomLms: function () { } };
                 spyOn(viewModel.learningPath, 'publishToCustomLms').and.returnValue(publishDefer.promise);
             });
 
@@ -66,9 +66,9 @@
                     viewModel.isPublishing(true);
                 });
 
-                it('should not build learningPath again', function () {
+                it('should not publish learningPath again', function () {
                     viewModel.publish();
-                    expect(viewModel.learningPath.publish).not.toHaveBeenCalled();
+                    expect(viewModel.learningPath.publishToCustomLms).not.toHaveBeenCalled();
                 });
 
             });
@@ -79,9 +79,9 @@
                     viewModel.isDelivering(true);
                 });
 
-                it('should not build learningPath again', function () {
+                it('should not publish learningPath again', function () {
                     viewModel.publish();
-                    expect(viewModel.learningPath.publish).not.toHaveBeenCalled();
+                    expect(viewModel.learningPath.publishToCustomLms).not.toHaveBeenCalled();
                 });
 
             });
@@ -91,14 +91,14 @@
                 expect(viewModel.isPublishing()).toBeTruthy();
             });
 
-            it('should publish \'Publish learning path\' event', function () {
+            it('should publish \'Publish learning path to custom hosting\' event', function () {
                 viewModel.publish();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Publish learning path');
+                expect(eventTracker.publish).toHaveBeenCalledWith('Publish learning path to custom hosting');
             });
 
-            it('should publish learningPath', function () {
+            it('should publish learningPath to custom LMS', function () {
                 viewModel.publish();
-                expect(viewModel.learningPath.publish).toHaveBeenCalled();
+                expect(viewModel.learningPath.publishToCustomLms).toHaveBeenCalled();
             });
 
             describe('when publish failed', function () {
@@ -125,7 +125,16 @@
             describe('when publish success', function () {
 
                 beforeEach(function () {
-                    publishDefer.resolve('publicationUrl');
+                    publishDefer.resolve();
+                });
+
+                it('should update isPublished', function(done) {
+                    viewModel.isPublished(false);
+
+                    viewModel.publish().fin(function () {
+                        expect(viewModel.isPublished()).toBeTruthy();
+                        done();
+                    });
                 });
 
                 it('should set isPublishing false', function (done) {
@@ -200,7 +209,7 @@
                 learningPath = {
                     id: 'learningPathId',
                     isPublishing: false,
-                    publicationUrl: 'publicationUrl',
+                    isPublishedToExternalLms: true,
                     isDelivering: function () { return false; }
                 };
             });
@@ -220,6 +229,13 @@
                 viewModel.activate(learningPath);
                 expect(viewModel.isDelivering()).toBe(learningPath.isDelivering());
             });
+
+            it('should set isPublished', function () {
+                viewModel.isPublished(null);
+                viewModel.activate(learningPath);
+                expect(viewModel.isPublished()).toBe(learningPath.isPublishedToExternalLms);
+            });
+
 
             it('should on learning path delivering started event', function () {
                 viewModel.activate(learningPath);

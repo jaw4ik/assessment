@@ -454,7 +454,7 @@
 
         });
 
-        xdescribe('publishToCustomLms:', function () {
+        describe('publishToCustomLms:', function () {
 
             var buildDefer,
                 publishDefer,
@@ -484,6 +484,7 @@
                     learningPath.isBuilding = true;
                     buildDefer.reject();
                     publishDefer.reject();
+                    publishToCustomLmsDefer.reject();
                 });
 
                 it('should not build learning path', function (done) {
@@ -510,6 +511,7 @@
                     learningPath.isPublishing = true;
                     buildDefer.reject();
                     publishDefer.reject();
+                    publishToCustomLmsDefer.reject();
                 });
 
                 it('should not build learning path', function (done) {
@@ -686,7 +688,9 @@
 
                     it('should set publicationUrl', function (done) {
                         learningPath.publicationUrl = "";
+                        publishToCustomLmsDefer.resolve();
                         var promise = learningPath.publishToCustomLms();
+                        
 
                         promise.fin(function () {
                             expect(learningPath.publicationUrl).toBe('publicationUrl');
@@ -696,10 +700,90 @@
 
                     it('should publish learning path to custom LMS', function(done) {
                         var promise = learningPath.publishToCustomLms();
+                        publishToCustomLmsDefer.reject();
 
                         promise.fin(function () {
                             expect(publishService.publishLearningPathToCustomLms).toHaveBeenCalledWith(learningPathId);
                             done();
+                        });
+                    });
+
+                    describe('and publish to custom LMS is failed', function() {
+                        beforeEach(function() {
+                            publishToCustomLmsDefer.reject('publish to custom LMS error message');
+                        });
+
+                        it('should not reset publicationUrl', function (done) {
+                            learningPath.publicationUrl = 'publicationUrl';
+
+                            var promise = learningPath.publishToCustomLms();
+
+                            promise.fin(function () {
+                                expect(learningPath.publicationUrl).toBe('publicationUrl');
+                                done();
+                            });
+                        });
+
+                        it('should reject promise with publish error message', function (done) {
+                            var promise = learningPath.publishToCustomLms();
+
+                            promise.fin(function () {
+                                expect(promise).toBeRejectedWith('publish to custom LMS error message');
+                                done();
+                            });
+                        });
+
+                        it('should set isPublishing false', function (done) {
+                            var promise = learningPath.publishToCustomLms();
+
+                            promise.fin(function () {
+                                expect(learningPath.isPublishing).toBeFalsy();
+                                done();
+                            });
+                        });
+
+                        it('should rise delivering finished event', function (done) {
+                            var promise = learningPath.publishToCustomLms();
+
+                            promise.fin(function () {
+                                expect(app.trigger).toHaveBeenCalledWith(constants.messages.learningPath.delivering.finished + learningPathId, learningPath);
+                                done();
+                            });
+                        });
+                    });
+
+                    describe('and publish to custom LMS is succed', function() {
+                        beforeEach(function() {
+                            publishToCustomLmsDefer.resolve();
+                        });
+
+                        it('should set isPublishedToExternalLms', function (done) {
+                            learningPath.isPublishedToExternalLms = false;
+
+                            var promise = learningPath.publishToCustomLms();
+
+                            promise.fin(function () {
+                                expect(learningPath.isPublishedToExternalLms).toBeTruthy();
+                                done();
+                            });
+                        });
+
+                        it('should set isPublishing false', function (done) {
+                            var promise = learningPath.publishToCustomLms();
+
+                            promise.fin(function () {
+                                expect(learningPath.isPublishing).toBeFalsy();
+                                done();
+                            });
+                        });
+
+                        it('should rise delivering finished event', function (done) {
+                            var promise = learningPath.publishToCustomLms();
+
+                            promise.fin(function () {
+                                expect(app.trigger).toHaveBeenCalledWith(constants.messages.learningPath.delivering.finished + learningPathId, learningPath);
+                                done();
+                            });
                         });
                     });
 
