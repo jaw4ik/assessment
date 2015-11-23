@@ -66,10 +66,10 @@
                         return fileSaverWrapper.saveAs(generateResultsCsvBlob(that.resultsForDownload), getResultsFileName());
                     }
 
-                    var generateCsvListPromise = generateDetailedResults ? generateDetailedCsvList() : generateCsvList();
-                    return generateCsvListPromise.then(function (csvList) {
-                        that.resultsForDownload = csvList;
-                        return fileSaverWrapper.saveAs(generateResultsCsvBlob(csvList), getResultsFileName());
+                    var generateCsvTablePromise = generateDetailedResults ? generateDetailedCsv() : generateCsv();
+                    return generateCsvTablePromise.then(function (csvTable) {
+                        that.resultsForDownload = csvTable;
+                        return fileSaverWrapper.saveAs(generateResultsCsvBlob(csvTable), getResultsFileName());
                     });
                 });
             };
@@ -183,7 +183,7 @@
                 });
             }
 
-            function generateCsvList() {
+            function generateCsv() {
                 var passed = localizationManager.localize('passed');
                 var failed = localizationManager.localize('failed');
                 var inProgress = localizationManager.localize('inProgress');
@@ -219,11 +219,11 @@
                         csvList.push(resultCsv);
                     });
 
-                    return generateCsvFileString(csvList);
+                    return generateCsvTable(csvList);
                 });
             }
 
-            function generateDetailedCsvList() {
+            function generateDetailedCsv() {
                 var passed = localizationManager.localize('passed');
                 var failed = localizationManager.localize('failed');
                 var inProgress = localizationManager.localize('inProgress');
@@ -293,7 +293,7 @@
                             pushEmbededResults(result, csvList, courseCsvHeader.length, objectiveCsvHeader.length, questionCsvHeader.length, emptyCellSymbol, noScore);
                         });
 
-                        return generateCsvFileString(csvList);
+                        return generateCsvTable(csvList);
                     });
                 });
             }
@@ -344,13 +344,13 @@
                 }).join(String.fromCharCode(11));
             }
 
-            function generateCsvFileString(csvList) {
+            function generateCsvTable(csvList) {
                 return csvList.join(String.fromCharCode(0)).split(String.fromCharCode(0)).join('"\r\n"').split(String.fromCharCode(11)).join('","');
             }
 
-            function generateResultsCsvBlob(csvList) {
+            function generateResultsCsvBlob(csvTable) {
                 var contentType = 'text/csv';
-                return new Blob([window.BOMSymbol || '\ufeff', csvList], { encoding: 'UTF-8', type: contentType });
+                return new Blob([window.BOMSymbol || '\ufeff', csvTable], { encoding: 'UTF-8', type: contentType });
             }
 
             function getResultsFileName() {

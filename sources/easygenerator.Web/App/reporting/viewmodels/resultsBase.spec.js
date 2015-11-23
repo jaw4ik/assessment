@@ -775,7 +775,7 @@
                     it('should set resultsForDownload', function (done) {
                         viewModel.resultsForDownload = null;
                         viewModel.downloadResults().fin(function () {
-                            expect(viewModel.resultsForDownload).toBeArray();
+                            expect(viewModel.resultsForDownload).toBeString();
                             done();
                         });
                     });
