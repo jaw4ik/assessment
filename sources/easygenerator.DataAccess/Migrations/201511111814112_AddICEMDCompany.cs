@@ -7,7 +7,12 @@ namespace easygenerator.DataAccess.Migrations
     {
         public override void Up()
         {
-            Sql("INSERT INTO [dbo].[Companies] SELECT NEWID(), 'ICEMD', '/content/images/companies/icemd.png', 'http://apiweb.icemd.com/PublishCourse', 'jkJLIJH98gt67HH7', 'v.ivanchuk@easygenerator.com', GETDATE(), 'v.ivanchuk@easygenerator.com', GETDATE()");
+            Sql(@"
+                      IF NOT EXISTS (SELECT * FROM Companies WHERE Name = 'ICEMD')
+	                    INSERT INTO [dbo].[Companies] SELECT NEWID(), 'ICEMD', '/content/images/companies/icemd.png', 'http://apiweb.icemd.com/PublishCourse', 'jkJLIJH98gt67HH7', 'v.ivanchuk@easygenerator.com', GETDATE(), 'v.ivanchuk@easygenerator.com', GETDATE()
+                      ELSE
+	                    UPDATE [dbo].[Companies] SET PublishCourseApiUrl = 'http://apiweb.icemd.com/PublishCourse', SecretKey = 'jkJLIJH98gt67HH7' WHERE Name = 'ICEMD'
+                ");
         }
 
         public override void Down()
