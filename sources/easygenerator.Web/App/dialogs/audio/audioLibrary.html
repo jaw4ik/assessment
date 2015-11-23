@@ -11,11 +11,11 @@
         <!-- ko if: audios().length -->
         <div class="audio-list-container" data-bind="scrollbar: {}">
             <ul class="audio-list">
-                <li class="list-item audio-upload-hint drop-zone">
+                <li class="audio-upload-hint drop-zone">
                     <span>Drop adio files here, or</span>&nbsp;<a href="">browse</a>
                 </li>
                 <!-- ko foreach: audios -->
-                <li class="list-item audio" data-bind="click: $parent.selectAudio, event : { dblclick: $parent.submit }, css: { selected: $data===$parent.selectedAudio() }">
+                <li class="audio" data-bind="click: $parent.selectAudio, event : { dblclick: $parent.submit }, css: { selected: $data===$parent.selectedAudio() }">
                     <div class="play-icon"></div>
                     <div class="audio-title" data-bind="text: title"></div>
                     <!-- ko if: $data===$parent.selectedAudio() -->

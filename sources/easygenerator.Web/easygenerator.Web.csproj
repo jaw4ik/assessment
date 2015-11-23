@@ -557,7 +557,14 @@
     <Content Include="App\analytics\providers\intercomProvider.js" />
     <Content Include="App\analytics\providers\mixpanelProvider.js" />
     <Content Include="App\analytics\providers\nudgespotProvider.js" />
-    <Content Include="App\audio\audioCollection.js" />
+    <Content Include="App\audio\audioLibrary\audioLibrary.js" />
+    <Content Include="App\audio\audioLibrary\audioLibrary.spec.js">
+      <DependentUpon>audioLibrary.js</DependentUpon>
+    </Content>
+    <Content Include="App\audio\audioUploadDispatcher.js" />
+    <Content Include="App\audio\audioUploadDispatcher.spec.js">
+      <DependentUpon>audioUploadDispatcher.js</DependentUpon>
+    </Content>
     <Content Include="App\audio\convertion\commands\convert.spec.js">
       <DependentUpon>convert.js</DependentUpon>
     </Content>
@@ -762,8 +769,8 @@
     <Content Include="App\viewmodels\audios\audios.spec.js">
       <DependentUpon>audios.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\audios\AudioViewModel.js" />
-    <Content Include="App\viewmodels\audios\AudioViewModel.spec.js">
+    <Content Include="App\audio\audioLibrary\AudioViewModel.js" />
+    <Content Include="App\audio\audioLibrary\AudioViewModel.spec.js">
       <DependentUpon>AudioViewModel.js</DependentUpon>
     </Content>
     <Content Include="App\audio\convertion\commands\convert.js" />

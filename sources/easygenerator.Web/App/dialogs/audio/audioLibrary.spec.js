@@ -2,10 +2,10 @@
 
     var dialog = require('widgets/dialog/viewmodel'),
         constants = require('constants'),
-        getAudiosQuery = require('audio/queries/getCollection'),
+        getAudiosQuery = require('audio/queries/getCollection')
     ;
 
-    describe('dialog [audio library]', function () {
+    xdescribe('dialog [audio library]', function () {
         var audios = [
         { title: 'Its Friday!', vimeoId: 'qwe' },
         { title: 'Hello!', vimeoId: 'asd' }];

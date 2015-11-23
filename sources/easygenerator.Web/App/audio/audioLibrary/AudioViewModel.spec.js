@@ -1,4 +1,4 @@
-﻿define(['viewmodels/audios/AudioViewModel', 'audio/UploadAudioModel'], function (ViewModel, UploadAudioModel) {
+﻿define(['audio/audioLibrary/AudioViewModel', 'audio/UploadAudioModel'], function (ViewModel, UploadAudioModel) {
 
     describe('[AudioViewModel]', function () {
 
