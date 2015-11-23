@@ -19,8 +19,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.Infrastructure.Http;
 using easygenerator.Web.Components.ActionResults;
+using easygenerator.Web.Extensions;
 using WebGrease.Css.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
@@ -34,6 +36,7 @@ namespace easygenerator.Web.Controllers.Api
         private readonly ICourseBuilder _builder;
         private readonly IEntityFactory _entityFactory;
         private readonly ICourseRepository _courseRepository;
+        private readonly IObjectiveRepository _objectiveRepository;
         private readonly IUrlHelperWrapper _urlHelper;
         private readonly IScormCourseBuilder _scormCourseBuilder;
         private readonly ICoursePublisher _coursePublisher;
@@ -45,12 +48,13 @@ namespace easygenerator.Web.Controllers.Api
         private readonly ICloner _cloner;
 
         public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository courseRepository,
-            IEntityFactory entityFactory, IUrlHelperWrapper urlHelper, ICoursePublisher coursePublisher, IEntityMapper entityMapper,
-            IDomainEventPublisher eventPublisher, ITemplateRepository templateRepository, IExternalCoursePublisher externalCoursePublisher,
+            IObjectiveRepository objectiveRepository, IEntityFactory entityFactory, IUrlHelperWrapper urlHelper, ICoursePublisher coursePublisher,
+            IEntityMapper entityMapper, IDomainEventPublisher eventPublisher, ITemplateRepository templateRepository, IExternalCoursePublisher externalCoursePublisher,
             IUserRepository userRepository, ICloner cloner)
         {
             _builder = courseBuilder;
             _courseRepository = courseRepository;
+            _objectiveRepository = objectiveRepository;
             _entityFactory = entityFactory;
             _urlHelper = urlHelper;
             _scormCourseBuilder = scormCourseBuilder;
@@ -105,23 +109,43 @@ namespace easygenerator.Web.Controllers.Api
         [Route("api/course/delete")]
         public ActionResult Delete(Course course)
         {
-            if (course != null)
+            if (course == null)
             {
-                if (course.RelatedObjectives.Any() || course.LearningPaths.Any())
-                {
-                    return JsonLocalizableError(Errors.CourseCannotBeDeleted, Errors.CourseCannotBeDeletedResourceKey);
-                }
-
-                var collaborators = course.Collaborators.Select(e => e.Email).ToList();
-                var invitedCollaborators = new Dictionary<Guid, string>();
-                course.Collaborators.Where(e => !e.IsAccepted).ForEach(i => invitedCollaborators.Add(i.Id, i.Email));
-
-                _courseRepository.Remove(course);
-
-                _eventPublisher.Publish(new CourseDeletedEvent(course, collaborators, invitedCollaborators, GetCurrentUsername()));
+                return JsonSuccess();
             }
 
-            return JsonSuccess();
+            var deletedObjectiveIds = new List<string>();
+            var deletedFromLearningPathIds = new List<string>();
+
+            if (course.LearningPaths.Any())
+            {
+                foreach (var learningPath in course.LearningPaths)
+                {
+                    deletedFromLearningPathIds.Add(learningPath.Id.ToNString());
+                    learningPath.RemoveCourse(course, GetCurrentUsername());
+                }
+            }
+
+            foreach (var objective in course.RelatedObjectives)
+            {
+                if (objective.Courses.Count() == 1)
+                {
+                    deletedObjectiveIds.Add(objective.Id.ToNString());
+                    foreach (Question question in objective.Questions)
+                    {
+                        objective.RemoveQuestion(question, GetCurrentUsername());
+                    }
+                    _objectiveRepository.Remove(objective);
+                }
+            }
+            var collaborators = course.Collaborators.Select(e => e.Email).ToList();
+            var invitedCollaborators = new Dictionary<Guid, string>();
+            course.Collaborators.Where(e => !e.IsAccepted).ForEach(i => invitedCollaborators.Add(i.Id, i.Email));
+
+            _courseRepository.Remove(course);
+            _eventPublisher.Publish(new CourseDeletedEvent(course, collaborators, invitedCollaborators, GetCurrentUsername()));
+            
+            return JsonSuccess(new { deletedObjectiveIds = deletedObjectiveIds, deletedFromLearningPathIds = deletedFromLearningPathIds });
         }
 
         [HttpPost]
@@ -155,7 +179,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             return Deliver(course, () => _coursePublisher.Publish(course), () => JsonSuccess(new { ReviewUrl = GetCourseReviewUrl(course.Id.ToString()) }));
         }
-            
+
         [HttpPost]
         [EntityCollaborator(typeof(Course))]
         [Route("api/course/publishToCustomLms")]

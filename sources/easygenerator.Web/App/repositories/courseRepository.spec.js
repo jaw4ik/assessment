@@ -374,11 +374,18 @@
             });
 
             describe('when course deleted from server', function () {
+                var courseId = 'asdadsasd',
+                    objectiveId = 'objectiveId',
+                    learningPathId = 'learningPathId';
+
+                beforeEach(function() {
+                    dataContext.courses = [{ id: courseId }];
+                    dataContext.objectives = [{ id: objectiveId }];
+                    dataContext.learningPaths = [{ id: learningPathId, courses: [{ id: courseId }] }];
+                });
+                
 
                 it('should remove course from data context', function (done) {
-                    var courseId = 'asdadsasd';
-                    dataContext.courses = [{ id: courseId }];
-
                     var promise = repository.removeCourse(courseId);
 
                     promise.fin(function () {
@@ -386,7 +393,29 @@
                         done();
                     });
 
-                    post.resolve();
+                    post.resolve({ deletedObjectiveIds: [], deletedFromLearningPathIds: [] });
+                });
+
+                it('should remove course from learning paths', function (done) {
+                    var promise = repository.removeCourse(courseId);
+
+                    promise.fin(function () {
+                        expect(dataContext.learningPaths[0].courses.length).toEqual(0);
+                        done();
+                    });
+
+                    post.resolve({ deletedObjectiveIds: [], deletedFromLearningPathIds: [ learningPathId ] });
+                });
+
+                it('should remove course objectives', function (done) {
+                    var promise = repository.removeCourse(courseId);
+
+                    promise.fin(function () {
+                        expect(dataContext.objectives.length).toEqual(0);
+                        done();
+                    });
+
+                    post.resolve({ deletedObjectiveIds: [ objectiveId ], deletedFromLearningPathIds: [] });
                 });
 
                 it('should trigger course:deleted event', function (done) {
@@ -400,7 +429,7 @@
                         done();
                     });
 
-                    post.resolve();
+                    post.resolve({ deletedObjectiveIds: [], deletedFromLearningPathIds: [] });
                 });
 
             });

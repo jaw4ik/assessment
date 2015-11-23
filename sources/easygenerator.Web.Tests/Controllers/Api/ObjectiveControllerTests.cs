@@ -209,6 +209,20 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void Delete_ShouldRemoveQuestionsInObjective_WhenItNotNull()
+        {
+            var objective = Substitute.For<Objective>("Some title", CreatedBy);
+            var question = Substitute.For<Question>();
+            var questions = new Collection<Question>();
+            questions.Add(question);
+            objective.Questions.Returns(questions);
+
+            _controller.Delete(objective);
+
+            objective.Received().RemoveQuestion(question, Arg.Any<string>());
+        }
+
+        [TestMethod]
         public void Delete_ReturnJsonSuccessResult_WhenObjectiveIsNull()
         {
             var result = _controller.Delete(null);

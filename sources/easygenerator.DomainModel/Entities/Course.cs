@@ -167,7 +167,7 @@ namespace easygenerator.DomainModel.Entities
 
         protected internal string ObjectivesOrder { get; set; }
 
-        public IEnumerable<Objective> RelatedObjectives => GetOrderedRelatedObjectives().AsEnumerable();
+        public virtual IEnumerable<Objective> RelatedObjectives => GetOrderedRelatedObjectives().AsEnumerable();
 
         public virtual void RelateObjective(Objective objective, int? index, string modifiedBy)
         {

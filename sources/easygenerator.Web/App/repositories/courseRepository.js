@@ -65,9 +65,24 @@
             return Q.fcall(function () {
                 guard.throwIfNotString(courseId, 'Course id (string) was expected');
 
-                return apiHttpWrapper.post('api/course/delete', { courseId: courseId }).then(function () {
+                return apiHttpWrapper.post('api/course/delete', { courseId: courseId }).then(function (response) {
                     dataContext.courses = _.reject(dataContext.courses, function (course) {
                         return course.id === courseId;
+                    });
+
+                    var deletedObjectivesData = response.deletedObjectiveIds;
+                    dataContext.objectives = _.reject(dataContext.objectives, function (objective) {
+                        return _.contains(deletedObjectivesData, objective.id);
+                    });
+
+                    var learningPathsWithDeletedCourse = _.filter(dataContext.learningPaths, function (learningPath) {
+                        return _.contains(response.deletedFromLearningPathIds, learningPath.id);
+                    });
+
+                    _.each(learningPathsWithDeletedCourse, function(learningPathWithDeletedCourse) {
+                        learningPathWithDeletedCourse.courses = _.reject(learningPathWithDeletedCourse.courses, function (item) {
+                            return item.id === courseId;
+                        });
                     });
 
                     app.trigger(constants.messages.course.deleted, courseId);

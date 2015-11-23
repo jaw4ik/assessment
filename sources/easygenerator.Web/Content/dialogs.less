@@ -562,17 +562,15 @@
 
 /*#endregion */
 
-/*#region Delete learning path */
+/*#region Delete course or learning path */
 
-.dialog-wrapper.delete-learning-path {
+.dialog-wrapper.delete-item {
     @dialog-title-font: 20px 'OpenSans-Semibold';
     @dialog-learning-path-title-font: 16px 'OpenSans';
 
     width: 520px;
-    height: 280px;
 
     .dialog {
-        padding: 40px;
         padding-top: 30px;
     }
 
@@ -581,6 +579,8 @@
         flex-direction: column;
         align-items: center;
         color: @dialog-title-color;
+        padding-left: 30px;
+        padding-right: 30px;
 
         .dialog-title-img {
             width: 40px;
@@ -595,12 +595,13 @@
             font: @dialog-title-font;
         }
 
-        .dialog-learning-path-title {
+        .dialog-item-title {
             display: flex;
             margin-top: 15px;
+            margin-bottom: 35px;
             font: @dialog-learning-path-title-font;
 
-            .dialog-learning-path-title-text {
+            .dialog-item-title-text {
                 display: inline-block;
                 max-width: 415px;
                 white-space: nowrap;
@@ -608,14 +609,78 @@
                 text-overflow: ellipsis;
             }
         }
+
+        .dialog-info-wrapper {
+            width: 100%;
+            position: relative;
+
+            &:after {
+                content: '';
+                width: 15px;
+                height: 15px;
+                border-bottom: 1px solid #b8cfdd;
+                display: inline-block;
+                position: absolute;
+                top: -8px;
+                right: -7px;
+                transform: rotate(45deg);
+                background-color: #fff;
+            }
+
+            .dialog-info {
+                border: 1px solid #b8cfdd;
+                width: 100%;
+                max-height: 28vh;
+                margin-bottom: 35px;
+                position: relative;
+                font-size: 13px;
+                line-height: 1.5;
+                overflow: hidden;
+
+                .iScrollVerticalScrollbar {
+                    top: 14px;
+                    right: 7px;
+                    bottom: 7px;
+                }
+
+                .dialog-info-scrollable-container {
+                    padding: 17px;
+                    
+                    h3 {
+                        font-size: 13px;
+                        padding-bottom: 7px;
+                    }
+
+                    p {
+                        padding: 5px 0 5px 25px;
+                        position: relative;
+
+                        &:before {
+                            content: '';
+                            display: block;
+                            height: 16px;
+                            width: 16px;
+                            position: absolute;
+                            margin-top: 2px;
+                            margin-left: -25px;
+                            background: url('images/sprites_16.png') -21px -147px no-repeat;
+                        }
+                    }
+
+                    .dialog-info-list {
+                        font-style: italic;
+                        margin-left: 42px;
+                        line-height: 2;
+                    }
+                }
+            }
+        }
     }
 
     .dialog-actions {
         display: flex;
         justify-content: space-around;
-        margin-top: 35px;
-        background-color: inherit;
-        height: auto;
+        padding: 0 35px;
 
         .btn {
             font-size: 13px;
