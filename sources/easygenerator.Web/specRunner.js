@@ -41,6 +41,7 @@
                 'dialogs/course/publishCourse/publishDialog.spec',
                 'dialogs/course/publishCourse/defaultPublish.spec',
                 'dialogs/course/publishCourse/customPublish.spec',
+                'dialogs/course/delete/deleteCourse.spec',
                 'dialogs/releaseNotes/commands/updateLastReadReleaseNote.spec',
                 'dialogs/releaseNotes/commands/getReleaseNote.spec',
                 'dialogs/releaseNotes/releaseNotes.spec',

@@ -30,6 +30,7 @@
                 courseSelector: courseSelector,
                 addCourse: addCourse,
                 removeCourse: removeCourse,
+                courseDeleted: courseDeleted,
                 courses: ko.observableArray([]),
                 addCoursesPopoverVisibility: ko.observable(false),
                 currentLanguage: '',
@@ -58,6 +59,7 @@
             app.on(constants.messages.learningPath.courseSelector.courseSelected, viewModel.addCourse);
             app.on(constants.messages.learningPath.courseSelector.courseDeselected, viewModel.removeCourse);
             app.on(constants.messages.learningPath.removeCourse, viewModel.removeCourse);
+            app.on(constants.messages.course.deleted, viewModel.courseDeleted);
             app.on(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
 
             return getLearningPathByIdQuery.execute(viewModel.id).then(function (learningPath) {
@@ -76,6 +78,7 @@
             app.off(constants.messages.learningPath.courseSelector.courseSelected, viewModel.addCourse);
             app.off(constants.messages.learningPath.courseSelector.courseDeselected, viewModel.removeCourse);
             app.off(constants.messages.learningPath.removeCourse, viewModel.removeCourse);
+            app.off(constants.messages.course.deleted, viewModel.courseDeleted);
             app.off(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
         }
 
@@ -102,6 +105,14 @@
 
         function removeCourse(courseId) {
             eventTracker.publish(events.removeCourse);
+            
+            return removeCourseCommand.execute(viewModel.id, courseId).then(function () {
+                viewModel.courseDeleted(courseId);
+                notify.saved();
+            });
+        }
+
+        function courseDeleted(courseId) {
             viewModel.courses(_.reject(viewModel.courses(), function (item) {
                 return item.id === courseId;
             }));
@@ -109,10 +120,6 @@
             if (!viewModel.courseSelector.isExpanded() && viewModel.courses().length === 0) {
                 viewModel.courseSelector.expand();
             }
-
-            removeCourseCommand.execute(viewModel.id, courseId).then(function () {
-                notify.saved();
-            });
         }
 
         function createCourseCallback(course) {

@@ -1,8 +1,8 @@
 ﻿define(['durandal/app', 'dataContext', 'userContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/courseRepository', 'notify', 'localization/localizationManager',
     'clientContext', 'fileHelper', 'authorization/limitCoursesAmount', 'uiLocker', 'commands/presentationCourseImportCommand', 'commands/duplicateCourseCommand',
-    'widgets/upgradeDialog/viewmodel', 'utils/waiter','dialogs/course/createCourse/createCourse'],
+    'widgets/upgradeDialog/viewmodel', 'utils/waiter', 'dialogs/course/createCourse/createCourse', 'dialogs/course/delete/deleteCourse'],
     function (app, dataContext, userContext, constants, eventTracker, router, courseRepository, notify, localizationManager, clientContext, fileHelper, limitCoursesAmount,
-        uiLocker, presentationCourseImportCommand, duplicateCourseCommand, upgradeDialog, waiter, createCourseDialog) {
+        uiLocker, presentationCourseImportCommand, duplicateCourseCommand, upgradeDialog, waiter, createCourseDialog, deleteCourseDialog) {
         "use strict";
 
         var
@@ -16,7 +16,7 @@
                 courseBuildFailed: 'Course build is failed',
                 coursePublishFailed: 'Course publish is failed',
                 publishCourse: 'Publish course',
-                deleteCourse: 'Delete selected courses',
+                deleteCourse: 'Delete course',
                 createNewCourse: 'Open \'Create course\' dialog'
             };
 
@@ -31,7 +31,6 @@
 
             currentCoursesLimit: limitCoursesAmount.getCurrentLimit(),
 
-            toggleSelection: toggleSelection,
             duplicateCourse: duplicateCourse,
             navigateToDetails: navigateToDetails,
             navigateToPublish: navigateToPublish,
@@ -40,7 +39,8 @@
             showNewCoursePopover: showNewCoursePopover,
             hideNewCoursePopover: hideNewCoursePopover,
 
-            deleteSelectedCourses: deleteSelectedCourses,
+            deleteCourse: deleteCourse,
+            courseDeleted: courseDeleted,
             createNewCourse: createNewCourse,
             createCourseCallback: createCourseCallback,
             importCourseFromPresentation: importCourseFromPresentation,
@@ -57,10 +57,6 @@
             activate: activate
         };
 
-        viewModel.enableDeleteCourses = ko.computed(function () {
-            return getSelectedCourses().length > 0;
-        });
-
         app.on(constants.messages.course.collaboration.started, viewModel.courseCollaborationStarted);
         app.on(constants.messages.course.deletedByCollaborator, viewModel.deletedByCollaborator);
         app.on(constants.messages.course.titleUpdatedByCollaborator, viewModel.titleUpdated);
@@ -71,6 +67,7 @@
         app.on(constants.messages.course.objectivesUnrelatedByCollaborator, viewModel.courseUpdated);
         app.on(constants.messages.course.collaboration.finished, viewModel.collaborationFinished);
         app.on(constants.messages.learningPath.createCourse, viewModel.newCourseCreated);
+        app.on(constants.messages.course.deleted, viewModel.courseDeleted);
 
         return viewModel;
 
@@ -85,15 +82,6 @@
         function openUpgradePlanUrl() {
             eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.courseLimitNotification);
             router.openUrl(constants.upgradeUrl);
-        }
-
-        function toggleSelection(course) {
-            if (!course.isSelected())
-                eventTracker.publish(events.courseSelected);
-            else
-                eventTracker.publish(events.courseUnselected);
-
-            course.isSelected(!course.isSelected());
         }
 
         function duplicateCourse(course) {
@@ -127,40 +115,16 @@
             router.navigate('courses/' + course.id + '/publish');
         }
 
-        function getSelectedCourses() {
-            return _.filter(viewModel.courses(), function (course) {
-                return course.isSelected && course.isSelected();
-            });
+        function deleteCourse(course) {
+            eventTracker.publish(events.deleteCourse);
+            deleteCourseDialog.show(course.id, course.title());
         }
 
-        function deleteSelectedCourses() {
-            eventTracker.publish(events.deleteCourse);
-
-            var selectedCourses = getSelectedCourses();
-            if (selectedCourses.length == 0) {
-                throw 'There are no courses selected';
-            }
-            if (selectedCourses.length > 1) {
-                notify.error(localizationManager.localize('deleteSeveralCoursesError'));
-                return;
-            }
-
-            var selectedCourse = selectedCourses[0];
-            var isConnectedToLearningPath = _.some(dataContext.learningPaths, function (learningPath) {
-                return _.some(learningPath.courses, function (learningPathCourse) {
-                    return learningPathCourse.id === selectedCourse.id;
-                });
-            });
-
-            if (selectedCourse.objectives.length > 0 || isConnectedToLearningPath) {
-                notify.error(localizationManager.localize('courseCannotBeDeletedErrorMessage'));
-                return;
-            }
-
-            courseRepository.removeCourse(selectedCourse.id).then(function () {
-                viewModel.courses(_.without(viewModel.courses(), selectedCourse));
-                notify.saved();
-            });
+        function courseDeleted(courseId) {
+            viewModel.courses(_.reject(viewModel.courses(), function (item) {
+                return item.id === courseId;
+            }));
+            notify.success(localizationManager.localize('courseWasDeletedMessage'));
         }
 
         function courseCollaborationStarted(course) {

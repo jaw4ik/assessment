@@ -23,6 +23,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.Web.Publish.External;
 
 namespace easygenerator.Web.Tests.Controllers.Api
@@ -37,6 +38,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IScormCourseBuilder _scormCourseBuilder;
         private IEntityFactory _entityFactory;
         private ICourseRepository _courseRepository;
+        private IObjectiveRepository _objectiveRepository;
         private IPrincipal _user;
         private HttpContextBase _context;
         private IUrlHelperWrapper _urlHelper;
@@ -53,6 +55,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             _entityFactory = Substitute.For<IEntityFactory>();
             _courseRepository = Substitute.For<ICourseRepository>();
+            _objectiveRepository = Substitute.For<IObjectiveRepository>();
             _builder = Substitute.For<ICourseBuilder>();
             _scormCourseBuilder = Substitute.For<IScormCourseBuilder>();
             _coursePublisher = Substitute.For<ICoursePublisher>();
@@ -68,7 +71,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _context.User.Returns(_user);
 
-            _controller = new CourseController(_builder, _scormCourseBuilder, _courseRepository, _entityFactory, _urlHelper, _coursePublisher,
+            _controller = new CourseController(_builder, _scormCourseBuilder, _courseRepository, _objectiveRepository, _entityFactory, _urlHelper, _coursePublisher,
                 _entityMapper, _eventPublisher, _templateRepository, _externalCoursePublisher, _userRepository, _cloner);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
@@ -234,34 +237,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Build_ShouldReturnJsonErrorResult_WhenCourseHasConnectedObjectives()
-        {
-            //Arrange
-            var course = CourseObjectMother.Create();
-            course.RelateObjective(ObjectiveObjectMother.Create(), 0, CreatedBy);
-
-            //Act
-            var result = _controller.Delete(course);
-
-            //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseCannotBeDeleted);
-        }
-
-        [TestMethod]
-        public void Build_ShouldReturnJsonErrorResult_WhenCourseIsConnectedToLearningPath()
-        {
-            //Arrange
-            var course = Substitute.For<Course>();
-            course.LearningPaths.Returns(new List<LearningPath>() { LearningPathObjectMother.Create() });
-
-            //Act
-            var result = _controller.Delete(course);
-
-            //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseCannotBeDeleted);
-        }
-
-        [TestMethod]
         public void Delete_ShouldRemoveCourse_WhenItNotNull()
         {
             var course = CourseObjectMother.Create();
@@ -269,6 +244,89 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.Delete(course);
 
             _courseRepository.Received().Remove(course);
+        }
+
+        [TestMethod]
+        public void Delete_ShouldDeleteCourseFromLearningPath_WhenCourseIsInLearningPath()
+        {
+            var course = Substitute.For<Course>();
+            var courses = new Collection<Course>();
+            courses.Add(course);
+
+            var learningPath = Substitute.For<LearningPath>(); ;
+            var learningPaths = new Collection<LearningPath>();
+            learningPaths.Add(learningPath);
+
+            learningPath.Courses.Returns(courses);
+            course.LearningPaths.Returns(learningPaths);
+
+            _controller.Delete(course);
+
+            learningPath.Received().RemoveCourse(course, Arg.Any<string>());
+        }
+
+        [TestMethod]
+        public void Delete_ShouldDeleteObjective_WhenItIsNotRelatedToOtherCourse()
+        {
+            var course = Substitute.For<Course>();
+            var courses = new Collection<Course>();
+            courses.Add(course);
+
+            var objective = Substitute.For<Objective>(); ;
+            var objectives = new Collection<Objective>();
+            objectives.Add(objective);
+
+            course.RelatedObjectives.Returns(objectives);
+            objective.Courses.Returns(courses);
+
+            _controller.Delete(course);
+
+            _objectiveRepository.Received().Remove(objective);
+        }
+
+        [TestMethod]
+        public void Delete_ShouldNotDeleteObjective_WhenItIsRelatedToOtherCourse()
+        {
+            var course1 = Substitute.For<Course>("Some title1", TemplateObjectMother.Create(), CreatedBy);
+            var course2 = Substitute.For<Course>("Some title2", TemplateObjectMother.Create(), CreatedBy);
+            var courses = new Collection<Course>();
+            courses.Add(course1);
+            courses.Add(course2);
+
+            var objective = Substitute.For<Objective>(); ;
+            var objectives = new Collection<Objective>();
+            objectives.Add(objective);
+
+            course1.RelatedObjectives.Returns(objectives);
+            objective.Courses.Returns(courses);
+
+            _controller.Delete(course1);
+
+            _objectiveRepository.DidNotReceive().Remove(objective);
+        }
+
+        [TestMethod]
+        public void Delete_ShouldDeleteAllQuestions_WhenCourseObjectiveIsDeleted()
+        {
+            var course = Substitute.For<Course>();
+            var courses = new Collection<Course>();
+            courses.Add(course);
+
+            var objective = Substitute.For<Objective>(); ;
+            var objectives = new Collection<Objective>();
+            objectives.Add(objective);
+
+            var question = Substitute.For<Question>();
+            var questions = new Collection<Question>();
+            questions.Add(question);
+
+            course.RelatedObjectives.Returns(objectives);
+            objective.Courses.Returns(courses);
+            objective.Questions.Returns(questions);
+
+            _controller.Delete(course);
+
+            objective.Received().RemoveQuestion(question, Arg.Any<string>());
         }
 
         [TestMethod]

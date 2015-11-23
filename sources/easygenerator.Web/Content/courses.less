@@ -60,6 +60,27 @@
             background: url('images/sprites_16.png') -41px -105px no-repeat;
         }
     }
+
+    &.delete-course-btn {
+        &:before {
+            content: '';
+            display: block;
+            height: 16px;
+            width: 16px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -8px;
+            margin-left: -8px;
+            background: url('images/sprites_16.png') -168px -126px no-repeat;
+        }
+
+        &:hover {
+            &:before{
+                background: url('images/sprites_16.png') 0 -147px no-repeat;
+            }
+        }
+    }
 }
 
 .course-action-btn.publish-btn:before {
