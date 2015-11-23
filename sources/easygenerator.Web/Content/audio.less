@@ -120,8 +120,8 @@
 .audio-list {
     list-style: none;
     padding: 1px;
-    
-    li { 
+
+    .audio-list-item, .audio-upload-hint {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -139,7 +139,9 @@
         &:last-of-type {
             margin-bottom: 0px;
         }
+    }
 
+    .audio-list-item {
         &:hover {
             border: 1px solid @audio-action-hover-border-color;
             box-shadow: 0 0 0 1px @audio-action-hover-border-color;
@@ -237,10 +239,11 @@
     }
 }
 
-.audio-library-dialog, .audio-library {
+.choose-voice-over-dialog, .audio-library {
     .audio-upload-hint {
         color: #63798e;
         font: 16px 'RobotoSlab-Light';
+        box-shadow: none;
 
         a {
             color: #63798e;
@@ -268,7 +271,7 @@
             }
         }
 
-        &.list-item {
+        &.audio-upload-hint {
             border-color: rgb(209, 218, 224);
 
             &:hover {

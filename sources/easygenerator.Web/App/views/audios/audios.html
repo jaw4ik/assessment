@@ -22,19 +22,19 @@
                 <ul class="audio-list">
                     <!-- ko foreach: library.audios -->
                     <!-- ko if: status() == $parent.library.statuses.loaded -->
-                    <li class="audio" data-bind="click: $parent.library.showAudioDetails, css: { inactive: status() !== $parent.library.statuses.loaded }">
+                    <li class="audio-list-item audio" data-bind="click: $parent.library.showAudioDetails, css: { inactive: status() !== $parent.library.statuses.loaded }">
                         <div class="play-icon"></div>
                         <div class="audio-title" data-bind="text: title"></div>
                         <div class="audio-duration" data-bind="text: duration"></div>
                     </li>
                     <!-- /ko-->
                     <!-- ko if: status() == $parent.library.statuses.failed -->
-                    <li class="error">
+                    <li class="audio-list-item error">
                         <span class="upload-failed" data-bind="localize: { text : 'audioUploadError' }"></span>
                     </li>
                     <!-- /ko-->
                     <!-- ko if: status() == $parent.library.statuses.inProgress -->
-                    <li class="uploading">
+                    <li class="audio-list-item uploading">
                         <canvas width="40" height="40" class="circle-progress" data-bind="circleProgress: { progress: progress, lineWidth: 1 }"></canvas>
                         <div class="circle-progress-text" data-bind="text: progress() + '%'"></div>
                         <div class="audio-title" data-bind="text: title"></div>

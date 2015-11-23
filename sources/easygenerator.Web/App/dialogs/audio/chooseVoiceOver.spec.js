@@ -1,4 +1,4 @@
-﻿define(['dialogs/audio/audioLibrary'], function (viewModel) {
+﻿define(['dialogs/audio/chooseVoiceOver'], function (viewModel) {
 
     var dialog = require('widgets/dialog/viewmodel'),
         constants = require('constants'),

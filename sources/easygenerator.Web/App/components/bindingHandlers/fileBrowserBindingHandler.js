@@ -16,6 +16,7 @@
                     browse.open();
                 }
 
+                return false;
             });
 
             ko.utils.domNodeDisposal.addDisposeCallback(element, function () {

@@ -1029,9 +1029,9 @@
 
 /*#endregion */
 
-/*#region Audio library */
+/*#region Choose voice over */
 
-.dialog-wrapper.audio-library {
+.dialog-wrapper.choose-voice-over {
     width: 780px;
 
     .dialog-close-btn {
@@ -1040,7 +1040,7 @@
         z-index: 1;
     }
 
-    .audio-library-dialog {
+    .choose-voice-over-dialog {
         .dialog-title-container {
             margin: 30px 32px 0px 32px;
             padding-bottom: 20px;
@@ -1112,33 +1112,45 @@
                 }
 
                 .audio-list {
-                    .list-item.audio {
-                        border: 1px solid #f1f1f1;
+                    .audio-list-item {
+                        //border: 1px solid #f1f1f1;
+                        color: #63798e;
+                        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.4);
 
                         &:hover {
                             border: 1px solid #71c3ff;
                             box-shadow: 0 0 0 1px #71c3ff;
                         }
 
-                        &.selected:hover {
+                        &.audio {
+                            &.selected:hover {
+                                cursor: default;
+                            }
+
+                            &.inactive {
+                                cursor: default;
+                            }
+
+                            .choose-audio-hint {
+                                opacity: 0;
+                                font: 13px 'OpenSansItalic';
+                                color: #63798e;
+                                text-decoration: underline;
+                            }
+
+                            .chosen-audio-icon {
+                                width: 24px;
+                                height: 24px;
+                                background: url("images/sprites_24.png") -233px -89px no-repeat;
+                            }
+                        }
+
+                        &.inactive {
                             cursor: default;
-                        }
-
-                        .choose-audio-hint {
-                            opacity: 0;
-                            font: 13px 'OpenSansItalic';
-                            color: #63798e;
-                            text-decoration: underline;
-                        }
-
-                        .chosen-audio-icon {
-                            width: 24px;
-                            height: 24px;
-                            background: url("images/sprites_24.png") -233px -89px no-repeat;
                         }
                     }
 
-                    li:hover {
+                    .audio-list-item.audio:hover {
                         .choose-audio-hint {
                             opacity: 1;
                         }

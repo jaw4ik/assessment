@@ -458,9 +458,9 @@
                         containerCss: 'move-copy-question'
                     }
                 },
-                audioLibrary: {
+                chooseVoiceOver: {
                     settings: {
-                        containerCss: 'audio-library',
+                        containerCss: 'choose-voice-over',
                         autoclose: true
                     }
                 },

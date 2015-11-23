@@ -630,14 +630,10 @@
     <Content Include="App\core\jquery.js" />
     <Content Include="App\core\knockout.js" />
     <Content Include="App\core\plugins\text.js" />
-    <Content Include="App\dialogs\audio\audioLibrary.html" />
-    <Content Include="App\dialogs\audio\audioLibrary.js" />
-    <Content Include="App\dialogs\audio\audioLibrary.spec.js">
-      <DependentUpon>audioLibrary.js</DependentUpon>
-    </Content>
-    <Content Include="App\dialogs\audio\audioViewModel.js" />
-    <Content Include="App\dialogs\audio\audioViewModel.spec.js">
-      <DependentUpon>audioViewModel.js</DependentUpon>
+    <Content Include="App\dialogs\audio\chooseVoiceOver.html" />
+    <Content Include="App\dialogs\audio\chooseVoiceOver.js" />
+    <Content Include="App\dialogs\audio\chooseVoiceOver.spec.js">
+      <DependentUpon>chooseVoiceOver.js</DependentUpon>
     </Content>
     <Content Include="App\jsonReader.js" />
     <Content Include="App\localization\bindingHandlers\localizeBindingHandler.js" />
