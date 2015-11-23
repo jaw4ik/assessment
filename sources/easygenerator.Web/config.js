@@ -3,7 +3,8 @@ System.config({
   transpiler: "babel",
   babelOptions: {
     "optional": [
-      "optimisation.modules.system"
+      "optimisation.modules.system",
+	  "runtime"
     ]
   },
   paths: {
@@ -15,6 +16,7 @@ System.config({
   map: {
     "babel": "npm:babel-core@5.8.34",
     "babel-runtime": "npm:babel-runtime@5.8.34",
+    "co": "npm:co@4.6.0",
     "core-js": "npm:core-js@1.2.6",
     "durandal": "core/durandal",
     "has": "npm:has@1.0.1",
