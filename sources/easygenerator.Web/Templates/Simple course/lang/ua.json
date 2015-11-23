@@ -62,7 +62,7 @@
   "[download course in pdf format]": "Завантажити курс у форматі PDF",
   "[scenario has been passed successfully]": "Сценарій був пройдений успішно",
   "[scenario has not been passed successfully]": "Сценарій був пройдений не успішно",
-  "[save and finish]": "Зберегти і вийти",
+  "[save and exit]": "Зберегти і вийти",
   "[Save, I will continue later]": "Я продовжу пізніше...",
   "[I'm done, report my progress]": "Я хочу надіслати прогрес..."
 }
