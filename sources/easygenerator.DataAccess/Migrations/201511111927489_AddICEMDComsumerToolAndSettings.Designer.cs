@@ -7,13 +7,13 @@ namespace easygenerator.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddHideDefaultPublishOptionsToCompany : IMigrationMetadata
+    public sealed partial class AddICEMDComsumerToolAndSettings : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddHideDefaultPublishOptionsToCompany));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddICEMDComsumerToolAndSettings));
         
         string IMigrationMetadata.Id
         {
-            get { return "201511130951414_AddHideDefaultPublishOptionsToCompany"; }
+            get { return "201511111927489_AddICEMDComsumerToolAndSettings"; }
         }
         
         string IMigrationMetadata.Source

@@ -3,7 +3,7 @@ namespace easygenerator.DataAccess.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddIsPublishedToExternalLmsToLearningPath : DbMigration
+    public partial class AddIsPublishedToExternalLmsToLearningPaths : DbMigration
     {
         public override void Up()
         {

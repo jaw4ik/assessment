@@ -10,6 +10,7 @@ namespace easygenerator.DomainModel.Entities
     {
         public Company() { }
 
+        public string Name { get; protected internal set; }
         public Company(string name, string logoUrl, string publishApiUrl, string secretKey,
             bool hideDefaultPublishOptions)
         {
@@ -20,16 +21,14 @@ namespace easygenerator.DomainModel.Entities
             HideDefaultPublishOptions = hideDefaultPublishOptions;
         }
 
-        public string Name { get; private set; }
+        public string LogoUrl { get; protected internal set; }
 
-        public string LogoUrl { get; private set; }
+        public string PublishCourseApiUrl { get; protected internal set; }
 
-        public string PublishCourseApiUrl { get; private set; }
-
-        public string SecretKey { get; private set; }
+        public string SecretKey { get; protected internal set; }
 
         public bool HideDefaultPublishOptions { get; private set; }
 
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<User> Users { get; protected internal set; }
     }
 }

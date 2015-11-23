@@ -7,13 +7,13 @@ namespace easygenerator.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddIsPublishedToExternalLmsToLearningPath : IMigrationMetadata
+    public sealed partial class AddConsumerToolSettingsTable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddIsPublishedToExternalLmsToLearningPath));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddConsumerToolSettingsTable));
         
         string IMigrationMetadata.Id
         {
-            get { return "201511200804272_AddIsPublishedToExternalLmsToLearningPath"; }
+            get { return "201511111916272_AddConsumerToolSettingsTable"; }
         }
         
         string IMigrationMetadata.Source

@@ -17,6 +17,7 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using easygenerator.DomainModel.Entities;
+using easygenerator.Web.Tests.Utils;
 
 namespace easygenerator.Web.Tests.Publish.External
 {
@@ -80,7 +81,13 @@ namespace easygenerator.Web.Tests.Publish.External
             _publisher.Publish(learningPath, company, userEmail);
 
             //Assert
-            _httpClient.Received().Post<string>(company.PublishCourseApiUrl, Arg.Any<object>());
+            _httpClient.Received().Post<string>(company.PublishCourseApiUrl, Arg.Is<object>((_) => _.IsObjectSimilarTo(new
+            {
+                id = learningPath.Id.ToString("N"),
+                userEmail = userEmail,
+                publishedCourseUrl = learningPath.PublicationUrl,
+                apiKey = company.SecretKey
+            })));
         }
 
         [TestMethod]

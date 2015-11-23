@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Http;
+using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Publish.External
 {
@@ -30,7 +28,7 @@ namespace easygenerator.Web.Publish.External
 
                 _httpClient.Post<string>(company.PublishCourseApiUrl, new
                 {
-                    id = course.Id,
+                    id = course.Id.ToNString(),
                     userEmail = userEmail,
                     publishedCourseUrl = course.PublicationUrl,
                     apiKey = company.SecretKey
