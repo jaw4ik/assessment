@@ -123,7 +123,7 @@
     "learningObjective": "Learning objective",
     "learningObjectiveListIsEmpty": "Objectives list is empty",
     "letsCreateLearningObjective": "What are the objectives of your course?",
-    "objectiveCannnotBeDeleted": "Learning objective cannot be deleted if it contains questions or is linked to a course",
+    "objectiveCannnotBeDeleted": "Learning objective cannot be deleted if it is linked to a course",
     "dragLOHere": "Drag objective here",
     "dropHere": "Drop here",
     "allObjectives": "All objectives",
