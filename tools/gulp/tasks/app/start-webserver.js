@@ -7,7 +7,7 @@ var $ = require('gulp-load-plugins')({
 });
 
 gulp.task('web-build', ['styles'], function () {
-    return buildProjects.buildProjects(['./sources/easygenerator.Web/easygenerator.Web.csproj']);
+    return buildUtils.buildProjects(['./sources/easygenerator.Web/easygenerator.Web.csproj']);
 });
 
 gulp.task('web-iis-express', ['web-build'], $.shell.task([

@@ -51,6 +51,11 @@ gulp.task('deploy-main-built-js', function () {
         .pipe(gulp.dest(outputDirectory + '/App'));
 });
 
+gulp.task('deploy-vendor', function () {
+    return gulp.src('./sources/easygenerator.Web/Scripts/vendor/**/*')
+        .pipe(gulp.dest(outputDirectory + '/Scripts/vendor'));
+});
+
 gulp.task('deploy-web-config', function () {
     return buildUtils.moveWebConfig('./tools/WebConfigTransform/' + instance + '.config', outputDirectory);
 });
@@ -84,7 +89,7 @@ gulp.task('clean', function (callback) {
 });
 
 gulp.task('deploy', function (cb) {
-    runSequence('build', 'deploy-download-folder', 'deploy-css', 'deploy-main-built-js', 'deploy-web-config', 'remove-extra-files', 'add-version', 'run-unit-tests', function () {
+    runSequence('build', 'deploy-download-folder', 'deploy-css', 'deploy-vendor', 'deploy-main-built-js', 'deploy-web-config', 'remove-extra-files', 'add-version', 'run-unit-tests', function () {
         if (createTags) {
             runSequence('create-tags', cb);
         } else {

@@ -1,10 +1,13 @@
-﻿using easygenerator.DataAccess.Migrations;
+﻿using System.Web.Mvc;
+using easygenerator.DataAccess.Migrations;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using easygenerator.Web.Controllers;
 using easygenerator.Web.Tests.Utils;
+using easygenerator.Web.ViewModels.Dashboard;
+using FluentAssertions;
 using NSubstitute;
 
 namespace easygenerator.Web.Tests.Controllers
@@ -40,60 +43,57 @@ namespace easygenerator.Web.Tests.Controllers
 
         #endregion
 
-        #region GetUserInfo
+        #region UserSearch
 
         [TestMethod]
-        public void GetUserInfo_ShouldReturnView()
+        public void UserSearch_ShouldReturnView()
         {
             //Act
-            var result = _controller.UserInfo();
+            var result = _controller.UserSearch(null);
 
             //Assert
             ActionResultAssert.IsViewResult(result);
         }
 
-        #endregion
-
-
-        #region PostUserInfo
-
         [TestMethod]
-        public void PostUserInfo_ShouldReturn_UserNotFoundView_WhenUserEmailIsNull()
+        public void UserSearch_ShouldSetUserEmailToViewModel_WhenItIsNotNull()
         {
             //Act
-            var result = _controller.UserInfo(null);
+            var result = _controller.UserSearch(UserEmail) as ViewResult;
 
             //Assert
-            ActionResultAssert.IsPartialViewResult(result, "_UserNotFoundResult");
+            (result.Model as UserSearchViewModel).Email.Should().Be(UserEmail);
         }
 
         [TestMethod]
-        public void PostUserInfo_ShouldReturn_UserNotFoundView_WhenUserIsNotFound()
+        public void UserSearch_ShouldSetUserToNull_WhenItDoesNotExist()
         {
             //Arrange
             _userRepository.GetUserByEmail(UserEmail).Returns(null as User);
 
             //Act
-            var result = _controller.UserInfo(UserEmail);
+            var result = _controller.UserSearch(UserEmail) as ViewResult;
 
             //Assert
-            ActionResultAssert.IsPartialViewResult(result, "_UserNotFoundResult");
+
+            (result.Model as UserSearchViewModel).User.Should().BeNull();
         }
 
         [TestMethod]
-        public void PostUserInfo_ShouldReturn_UserInfoResultViewd()
+        public void UserSearch_ShouldSetUser_WhenItExists()
         {
             //Arrange
             _userRepository.GetUserByEmail(UserEmail).Returns(UserObjectMother.Create());
 
             //Act
-            var result = _controller.UserInfo(UserEmail);
+            var result = _controller.UserSearch(UserEmail) as ViewResult;
 
             //Assert
-            ActionResultAssert.IsPartialViewResult(result, "_UserInfoResult");
+            (result.Model as UserSearchViewModel).User.Should().NotBeNull();
         }
 
         #endregion
+
     }
 }
 
