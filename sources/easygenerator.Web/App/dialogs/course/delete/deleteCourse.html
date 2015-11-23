@@ -10,7 +10,9 @@
         <div class="dialog-info-wrapper">
             <div class="dialog-info" data-bind="scrollbar: {}">
                 <div class="dialog-info-scrollable-container">
-                    <div data-bind="localize: { html: 'deleteCoursePopupMessage'}"></div>
+                    <h3 data-bind="localize: { text: 'deleteCoursePopupMessageTitle'}"></h3>
+                    <p data-bind="localize: { text: 'deleteCoursePopupMessageObjectivesNotDeleted'}"></p>
+                    <p data-bind="localize: { text: 'deleteCoursePopupMessageObjectivesDeleted'}"></p>
                     <div data-bind="visible: isCourseInLearningPaths">
                         <p data-bind="localize: { text: 'deleteCourseWithLearningPathsPopupMessage'}"></p>
                         <ul class="dialog-info-list">
