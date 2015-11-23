@@ -432,14 +432,9 @@
             dialogs: {
                 stepSubmitted: 'dialog:step-submitted',
                 dialogClosed: 'dialog:dialogClosed',
-                deleteLearningPath: {
+                deleteItem: {
                     settings: {
-                        containerCss: 'delete-learning-path'
-                    }
-                },
-                deleteCourse: {
-                    settings: {
-                        containerCss: 'delete-course'
+                        containerCss: 'delete-item'
                     }
                 },
                 createCourse: {

@@ -564,8 +564,7 @@
 
 /*#region Delete course or learning path */
 
-.dialog-wrapper.delete-learning-path,
-.dialog-wrapper.delete-course {
+.dialog-wrapper.delete-item {
     @dialog-title-font: 20px 'OpenSans-Semibold';
     @dialog-learning-path-title-font: 16px 'OpenSans';
 
@@ -596,13 +595,13 @@
             font: @dialog-title-font;
         }
 
-        .dialog-learning-path-title {
+        .dialog-item-title {
             display: flex;
             margin-top: 15px;
             margin-bottom: 35px;
             font: @dialog-learning-path-title-font;
 
-            .dialog-learning-path-title-text {
+            .dialog-item-title-text {
                 display: inline-block;
                 max-width: 415px;
                 white-space: nowrap;

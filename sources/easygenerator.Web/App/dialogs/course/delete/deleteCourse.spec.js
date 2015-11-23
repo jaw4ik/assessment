@@ -52,7 +52,7 @@
 
             it('should show dialog', function () {
                 viewModel.show(course.id, course.title);
-                expect(dialog.show).toHaveBeenCalledWith(viewModel, constants.dialogs.deleteCourse.settings);
+                expect(dialog.show).toHaveBeenCalledWith(viewModel, constants.dialogs.deleteItem.settings);
             });
         });
 

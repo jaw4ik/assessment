@@ -32,7 +32,7 @@
                 });
             });
             viewModel.learningPaths(learningPaths);
-            dialog.show(viewModel, constants.dialogs.deleteCourse.settings);
+            dialog.show(viewModel, constants.dialogs.deleteItem.settings);
         }
 
         function cancel() {
