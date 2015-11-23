@@ -1,4 +1,4 @@
-﻿define(['eventTracker', 'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery', 'viewmodels/learningPaths/learningPath/actions/download', 'viewmodels/learningPaths/learningPath/actions/publish', 'viewmodels/learningPaths/learningPath/actions/publishToCustomLms', 'userContext'], function (eventTracker, getLearningPathByIdQuery, downloadAction, publishAction, publishToCustomLmsAction, userContext) {
+﻿define(['eventTracker', 'viewmodels/learningPaths/learningPath/actions/download', 'viewmodels/learningPaths/learningPath/actions/publish', 'viewmodels/learningPaths/learningPath/actions/publishToCustomLms', 'userContext'], function (eventTracker, downloadAction, publishAction, publishToCustomLmsAction, userContext) {
     'use strict';
 
     var events = {
@@ -9,7 +9,7 @@
     };
 
     var viewModel = {
-        learningPath: null,
+        learningPathId: '',
         companyInfo: null,
         downloadAction: downloadAction(),
         publishAction: publishAction(),
@@ -27,11 +27,10 @@
     return viewModel;
 
     function activate(learningPathId) {
+        viewModel.learningPathId = learningPathId;
+
         return userContext.identify().then(function () {
             viewModel.companyInfo = userContext.identity ? userContext.identity.company : null;
-            return getLearningPathByIdQuery.execute(learningPathId).then(function (learningPath) {
-                viewModel.learningPath = learningPath;
-            });
         });
     }
 

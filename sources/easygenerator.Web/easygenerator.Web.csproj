@@ -311,11 +311,6 @@
     <Compile Include="Publish\ILearningPathPublisher.cs" />
     <Compile Include="Publish\LearningPathPublisher.cs" />
     <Compile Include="DomainEvents\Handlers\CreateUserInitialDataHandler.cs" />
-    <Compile Include="Resources\Views\Account\Resources.pt.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.pt.resx</DependentUpon>
-    </Compile>
     <Compile Include="Storage\CourseStateStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\AnswerChangedEvent.cs" />
@@ -647,6 +642,20 @@
     <Content Include="App\dialogs\course\publishCourse\publishDialog.spec.js">
       <DependentUpon>publishDialog.js</DependentUpon>
     </Content>
+    <Content Include="App\dialogs\learningPath\customPublish.html" />
+    <Content Include="App\dialogs\learningPath\customPublish.js" />
+    <Content Include="App\dialogs\learningPath\customPublish.spec.js">
+      <DependentUpon>customPublish.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\learningPath\defaultPublish.html" />
+    <Content Include="App\dialogs\learningPath\defaultPublish.js" />
+    <Content Include="App\dialogs\learningPath\defaultPublish.spec.js">
+      <DependentUpon>defaultPublish.js</DependentUpon>
+    </Content>
+    <Content Include="App\dialogs\learningPath\shareLearningPath.js" />
+    <Content Include="App\dialogs\learningPath\shareLearningPath.spec.js">
+      <DependentUpon>shareLearningPath.js</DependentUpon>
+    </Content>
     <Content Include="App\jsonReader.js" />
     <Content Include="App\localization\bindingHandlers\localizeBindingHandler.js" />
     <Content Include="App\dialogs\branchtrack\branchtrack.html" />
@@ -717,10 +726,6 @@
       <DependentUpon>deleteLearningPath.js</DependentUpon>
     </Content>
     <Content Include="App\dialogs\learningPath\shareLearningPath.html" />
-    <Content Include="App\dialogs\learningPath\shareLearningPath.js" />
-    <Content Include="App\dialogs\learningPath\shareLearningPath.spec.js">
-      <DependentUpon>shareLearningPath.js</DependentUpon>
-    </Content>
     <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.html" />
     <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.js" />
     <Content Include="App\dialogs\moveCopyQuestion\moveCopyQuestion.spec.js">
@@ -788,7 +793,9 @@
       <DependentUpon>results.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\actions\publishToCustomLms.js" />
-    <Content Include="App\viewmodels\learningPaths\learningPath\actions\publishToCustomLms.spec.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\actions\publishToCustomLms.spec.js">
+      <DependentUpon>publishToCustomLms.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>
@@ -1753,7 +1760,6 @@
     <EmbeddedResource Include="Resources\Controllers\Resources.de.resx" />
     <EmbeddedResource Include="Resources\Controllers\Resources.nl.resx" />
     <EmbeddedResource Include="Resources\Controllers\Resources.pt.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.pt.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Controllers\Resources.fr.resx" />
@@ -1767,7 +1773,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Account\Resources.pt.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.pt.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -3211,7 +3216,6 @@
     <EmbeddedResource Include="Resources\Views\Error\Resources.de.resx" />
     <EmbeddedResource Include="Resources\Views\Error\Resources.fr.resx" />
     <EmbeddedResource Include="Resources\Views\Error\Resources.pt.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.pt.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -3222,7 +3226,6 @@
     <EmbeddedResource Include="Resources\Views\Review\Resources.de.resx" />
     <EmbeddedResource Include="Resources\Views\Review\Resources.fr.resx" />
     <EmbeddedResource Include="Resources\Views\Review\Resources.pt.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.pt.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -3233,7 +3236,6 @@
     <EmbeddedResource Include="Resources\Views\Shared\Resources.nl.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\Resources.fr.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\Resources.pt.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.pt.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>

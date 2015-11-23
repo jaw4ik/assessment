@@ -6,7 +6,8 @@
         eventTracker = require('eventTracker'),
         constants = require('constants'),
         router = require('plugins/router'),
-        app = require('durandal/app');
+        app = require('durandal/app'),
+        getLearningPathByIdQuery = require('viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery');
 
     describe('viewModel [learningPath publish action]', function () {
 
@@ -368,11 +369,16 @@
         });
 
         describe('activate:', function () {
-            var learningPath;
+            var learningPathId = 'learningPathId',
+                learningPath,
+                getLearningPathDfr;
 
             beforeEach(function () {
+                getLearningPathDfr = Q.defer();
+                spyOn(getLearningPathByIdQuery, 'execute').and.returnValue(getLearningPathDfr.promise);
+
                 learningPath = {
-                    id: 'learningPathId',
+                    id: learningPathId,
                     isPublishing: false,
                     publicationUrl: 'publicationUrl',
                     isDelivering: function () { return false; }
@@ -383,32 +389,63 @@
                 expect(viewModel.activate).toBeFunction();
             });
 
-            it('should set isPublishing', function () {
-                viewModel.isPublishing(null);
-                viewModel.activate(learningPath);
-                expect(viewModel.isPublishing()).toBe(learningPath.isPublishing);
+            it('should return promise', function() {
+                expect(viewModel.activate()).toBePromise();
             });
 
-            it('should set publicationUrl', function () {
-                viewModel.publicationUrl(null);
-                viewModel.activate(learningPath);
-                expect(viewModel.publicationUrl()).toBe(learningPath.publicationUrl);
+            it('should get learning path by id', function () {
+                viewModel.activate(learningPathId);
+                expect(getLearningPathByIdQuery.execute).toHaveBeenCalledWith(learningPathId);
             });
 
-            it('should set isDelivering', function () {
-                viewModel.isDelivering(null);
-                viewModel.activate(learningPath);
-                expect(viewModel.isDelivering()).toBe(learningPath.isDelivering());
-            });
+            describe('when learning path is returned', function() {
+                beforeEach(function() {
+                    getLearningPathDfr.resolve(learningPath);
+                });
 
-            it('should on learning path delivering started event', function () {
-                viewModel.activate(learningPath);
-                expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.delivering.started + learningPath.id, viewModel.onDeliveringStarted);
-            });
+                it('should set isPublishing', function (done) {
+                    viewModel.isPublishing(null);
+                    var promise = viewModel.activate(learningPathId);
+                    promise.fin(function() {
+                        expect(viewModel.isPublishing()).toBe(learningPath.isPublishing);
+                        done();
+                    });
+                });
 
-            it('should on learning path delivering finished event', function () {
-                viewModel.activate(learningPath);
-                expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.delivering.finished + learningPath.id, viewModel.onDeliveringFinished);
+                it('should set publicationUrl', function (done) {
+                    viewModel.publicationUrl(null);
+                    var promise = viewModel.activate(learningPathId);
+                    promise.fin(function () {
+                        expect(viewModel.publicationUrl()).toBe(learningPath.publicationUrl);
+                        done();
+                    });
+                });
+
+                it('should set isDelivering', function (done) {
+                    viewModel.isDelivering(null);
+                    var promise = viewModel.activate(learningPathId);
+                    promise.fin(function () {
+                        expect(viewModel.isDelivering()).toBe(learningPath.isDelivering());
+                        done();
+                    });
+                });
+
+                it('should on learning path delivering started event', function (done) {
+                    var promise = viewModel.activate(learningPathId);
+                    promise.fin(function () {
+                        expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.delivering.started + learningPath.id, viewModel.onDeliveringStarted);
+                        done();
+                    });
+                });
+
+                it('should on learning path delivering finished event', function (done) {
+                    var promise = viewModel.activate(learningPathId);
+                    promise.fin(function () {
+                        expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.delivering.finished + learningPath.id, viewModel.onDeliveringFinished);
+                        done();
+                    });
+                });
+
             });
 
         });

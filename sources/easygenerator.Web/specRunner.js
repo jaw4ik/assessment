@@ -28,6 +28,9 @@
                 'dialogs/audio/audioViewModel.spec',
                 'dialogs/learningPath/commands/deleteLearningPathCommand.spec',
                 'dialogs/learningPath/deleteLearningPath.spec',
+                'dialogs/learningPath/customPublish.spec',
+                'dialogs/learningPath/defaultPublish.spec',
+                'dialogs/learningPath/shareLearningPath.spec',
                 'dialogs/course/common/templateSelector/templateBrief.spec',
                 'dialogs/course/common/templateSelector/templateSelector.spec',
                 'dialogs/course/changeTemplate/changeTemplate.spec',
@@ -373,7 +376,6 @@
             ];
 
             localizationManager.initialize(['en'], 'app/localization/lang/').then(function () {
-                specs = ['models/learningPath.spec'];
                 var modulesDependencies = {};
                 specs.forEach(function (spec) {
                     modulesDependencies[spec] = [spec.replace('.spec', '')];

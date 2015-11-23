@@ -1,5 +1,5 @@
-﻿define(['knockout', 'notify', 'eventTracker', 'clientContext', 'constants', 'plugins/router', 'durandal/app', 'userContext'],
-    function (ko, notify, eventTracker, clientContext, constants, router, app, userContext) {
+﻿define(['knockout', 'notify', 'eventTracker', 'clientContext', 'constants', 'plugins/router', 'durandal/app', 'userContext', 'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery'],
+    function (ko, notify, eventTracker, clientContext, constants, router, app, userContext, getLearningPathByIdQuery) {
 
         var
            events = {
@@ -11,7 +11,6 @@
                 learningPath: null,
                 companyInfo: null,
 
-                publicationUrl: ko.observable(''),
                 isPublishing: ko.observable(false),
                 isDelivering: ko.observable(false),
                 isPublished: ko.observable(false),
@@ -48,16 +47,19 @@
                     });
             }
 
-            function activate(learningPath) {
-                viewModel.learningPath = learningPath;
-                viewModel.companyInfo = userContext.identity ? userContext.identity.company : null;
+            function activate(learningPathId) {
+                return getLearningPathByIdQuery.execute(learningPathId)
+                    .then(function (learningPath) {
+                        viewModel.learningPath = learningPath;
+                        viewModel.companyInfo = userContext.identity ? userContext.identity.company : null;
 
-                viewModel.isPublishing(learningPath.isPublishing);
-                viewModel.isDelivering(learningPath.isDelivering());
-                viewModel.isPublished(learningPath.isPublishedToExternalLms);
+                        viewModel.isPublishing(learningPath.isPublishing);
+                        viewModel.isDelivering(learningPath.isDelivering());
+                        viewModel.isPublished(learningPath.isPublishedToExternalLms);
 
-                app.on(constants.messages.learningPath.delivering.started + viewModel.learningPath.id, viewModel.onDeliveringStarted);
-                app.on(constants.messages.learningPath.delivering.finished + viewModel.learningPath.id, viewModel.onDeliveringFinished);
+                        app.on(constants.messages.learningPath.delivering.started + viewModel.learningPath.id, viewModel.onDeliveringStarted);
+                        app.on(constants.messages.learningPath.delivering.finished + viewModel.learningPath.id, viewModel.onDeliveringFinished);
+                    });
             }
 
             function deactivate() {
@@ -73,7 +75,6 @@
             function onDeliveringFinished(learningPath) {
                 viewModel.isDelivering(false);
                 viewModel.isPublishing(learningPath.isPublishing);
-                viewModel.publicationUrl(learningPath.publicationUrl);
             }
         };
 

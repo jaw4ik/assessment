@@ -13,7 +13,7 @@
                     </li>
                     <!-- /ko -->
                     <!-- ko ifnot: companyInfo && companyInfo.hideDefaultPublishOptions -->
-                    <li class="publish-tab active" data-bind="click: onOpenLinkTab" data-tab-link="private-link">
+                    <li class="publish-tab" data-bind="click: onOpenLinkTab" data-tab-link="private-link">
                         <div class="active-indicator"></div>
                         <div class="publish-tab-image-container">
                             <span class="publish-tab-image private-link"></span>
@@ -38,12 +38,12 @@
                 </ul>
                 <div class="publish-tabs-content">
                     <!-- ko if: companyInfo -->
-                    <!-- ko compose: { view: 'views/learningPaths/learningPath/publish/publishToCustomLms', model: publishToCustomLmsAction, activationData: learningPath } --><!-- /ko -->
+                    <!-- ko compose: { view: 'views/learningPaths/learningPath/publish/publishToCustomLms', model: publishToCustomLmsAction, activationData: learningPathId } --><!-- /ko -->
                     <!-- /ko -->
                     <!-- ko ifnot: companyInfo && companyInfo.hideDefaultPublishOptions -->
-                    <!-- ko compose: { view: 'views/learningPaths/learningPath/publish/publishToPublicationServerLink', model: publishAction, activationData: learningPath } --><!-- /ko -->
-                    <!-- ko compose: { view: 'views/learningPaths/learningPath/publish/publishToPublicationServerEmbed', model: publishAction, activationData: learningPath } --><!-- /ko -->
-                    <!-- ko compose: { view: 'views/learningPaths/learningPath/publish/publishAsHtml', model: downloadAction, activationData: learningPath } --><!-- /ko -->
+                    <!-- ko compose: { view: 'views/learningPaths/learningPath/publish/publishToPublicationServerLink', model: publishAction, activationData: learningPathId } --><!-- /ko -->
+                    <!-- ko compose: { view: 'views/learningPaths/learningPath/publish/publishToPublicationServerEmbed', model: publishAction, activationData: learningPathId } --><!-- /ko -->
+                    <!-- ko compose: { view: 'views/learningPaths/learningPath/publish/publishAsHtml', model: downloadAction, activationData: learningPathId } --><!-- /ko -->
                     <!-- /ko -->
                 </div>
             </div>
