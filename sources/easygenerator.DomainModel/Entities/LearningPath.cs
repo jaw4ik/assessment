@@ -59,7 +59,7 @@ namespace easygenerator.DomainModel.Entities
 
         protected internal string CoursesOrder { get; set; }
 
-        public IEnumerable<Course> Courses
+        public virtual IEnumerable<Course> Courses
         {
             get { return GetOrderedCourses().AsEnumerable(); }
         }

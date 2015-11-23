@@ -17,7 +17,7 @@
     var systemImport = System.import;
     System.import = function (moduleName) {
         return systemImport.apply(this, arguments).then(function (module) {
-            module.__moduleId__ = moduleName;
+            setModuleId(module, moduleName);
             return module;
         });
     };
@@ -30,13 +30,28 @@
             module.entry.execute = function () {
                 var module = defaultExecute.apply(this, arguments);
                 if (module && moduleIds[moduleName]) {
-                    module.__moduleId__ = moduleIds[moduleName];
+                    setModuleId(module, moduleIds[moduleName]);
                 }
                 return module;
             };
         }
         return systemReduceRegister.apply(this, arguments);
     };
+
+    // durandal's system function
+    function setModuleId(obj, id) {
+        if (!obj) {
+            return;
+        }
+        if (typeof obj == 'function' && obj.prototype) {
+            obj.prototype.__moduleId__ = id;
+            return;
+        }
+        if (typeof obj == 'string') {
+            return;
+        }
+        obj.__moduleId__ = id;
+    }
 
     // for disable caching
     var systemLocate = System.locate;

@@ -355,6 +355,26 @@
     <Compile Include="Migrations\201510261434355_CreateScenarioQuestionTable.Designer.cs">
       <DependentUpon>201510261434355_CreateScenarioQuestionTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511111814112_AddICEMDCompany.cs" />
+    <Compile Include="Migrations\201511111814112_AddICEMDCompany.Designer.cs">
+      <DependentUpon>201511111814112_AddICEMDCompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511111916272_AddConsumerToolSettingsTable.cs" />
+    <Compile Include="Migrations\201511111916272_AddConsumerToolSettingsTable.Designer.cs">
+      <DependentUpon>201511111916272_AddConsumerToolSettingsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511111927489_AddICEMDComsumerToolAndSettings.cs" />
+    <Compile Include="Migrations\201511111927489_AddICEMDComsumerToolAndSettings.Designer.cs">
+      <DependentUpon>201511111927489_AddICEMDComsumerToolAndSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511132144204_AddConsumerToolToLtiUserInfo.cs" />
+    <Compile Include="Migrations\201511132144204_AddConsumerToolToLtiUserInfo.Designer.cs">
+      <DependentUpon>201511132144204_AddConsumerToolToLtiUserInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511140818107_EditLtiUserInfoMakeUserAndConsumerToolRequired.cs" />
+    <Compile Include="Migrations\201511140818107_EditLtiUserInfoMakeUserAndConsumerToolRequired.Designer.cs">
+      <DependentUpon>201511140818107_EditLtiUserInfoMakeUserAndConsumerToolRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ConsumerToolRepository.cs" />
@@ -610,6 +630,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510261434355_CreateScenarioQuestionTable.resx">
       <DependentUpon>201510261434355_CreateScenarioQuestionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511111814112_AddICEMDCompany.resx">
+      <DependentUpon>201511111814112_AddICEMDCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511111916272_AddConsumerToolSettingsTable.resx">
+      <DependentUpon>201511111916272_AddConsumerToolSettingsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511111927489_AddICEMDComsumerToolAndSettings.resx">
+      <DependentUpon>201511111927489_AddICEMDComsumerToolAndSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511132144204_AddConsumerToolToLtiUserInfo.resx">
+      <DependentUpon>201511132144204_AddConsumerToolToLtiUserInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511140818107_EditLtiUserInfoMakeUserAndConsumerToolRequired.resx">
+      <DependentUpon>201511140818107_EditLtiUserInfoMakeUserAndConsumerToolRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

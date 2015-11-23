@@ -1,6 +1,7 @@
 ﻿function runSpecs(env) {
 
     Q.stopUnhandledRejectionTracking();
+    System.cacheBust = '?v=' + Date.now();
 
     System.import('bootstrapper').then(function (bootstrapper) {
         System.import('localization/localizationManager').then(function (localizationManager) {
@@ -35,6 +36,7 @@
                 'dialogs/course/createCourse/steps/courseTemplateStep.spec',
                 'dialogs/course/createCourse/steps/courseTitleStep.spec',
                 'dialogs/course/publishCourse/publishCourse.spec',
+                'dialogs/course/delete/deleteCourse.spec',
                 'dialogs/releaseNotes/commands/updateLastReadReleaseNote.spec',
                 'dialogs/releaseNotes/commands/getReleaseNote.spec',
                 'dialogs/releaseNotes/releaseNotes.spec',
