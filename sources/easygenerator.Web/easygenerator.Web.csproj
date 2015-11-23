@@ -110,8 +110,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Owin">
@@ -546,6 +547,7 @@
     <Compile Include="ViewModels\Account\UserSignUpViewModel.cs" />
     <Compile Include="ViewModels\Api\BlankAnswerViewModel.cs" />
     <Compile Include="ViewModels\Dashboard\CourseViewModel.cs" />
+    <Compile Include="ViewModels\Dashboard\UserInfoSearchViewModel.cs" />
     <Compile Include="ViewModels\Dashboard\UserInfoViewModel.cs" />
     <Compile Include="ViewModels\DemoCourses\DemoCoursesViewModel.cs" />
     <Compile Include="ViewModels\Dashboard\DashboardViewModel.cs" />
@@ -2747,7 +2749,7 @@
     <Content Include="Templates\Assessment\settings\design\css\fonts\opensans-italic-400.woff" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_intercomAnalytics.cshtml" />
-    <Content Include="Views\Dashboard\UserInfo.cshtml" />
+    <Content Include="Views\Dashboard\UserSearch.cshtml" />
     <Content Include="Views\Dashboard\_UserInfoResult.cshtml" />
     <Content Include="Views\Dashboard\_UserNotFoundResult.cshtml" />
     <None Include="Web.Debug.config">

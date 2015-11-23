@@ -19,10 +19,10 @@ namespace easygenerator.DomainModel.Entities
         {
             ThrowIfEmailIsNotValid(email);
             ThrowIfPasswordIsNotValid(password);
-            ArgumentValidation.ThrowIfNullOrEmpty(firstname, "firstname");
-            ArgumentValidation.ThrowIfNullOrEmpty(lastname, "lastname");
-            ArgumentValidation.ThrowIfNullOrEmpty(phone, "phone");
-            ArgumentValidation.ThrowIfNullOrEmpty(country, "country");
+            ArgumentValidation.ThrowIfNullOrEmpty(firstname, nameof(firstname));
+            ArgumentValidation.ThrowIfNullOrEmpty(lastname, nameof(lastname));
+            ArgumentValidation.ThrowIfNullOrEmpty(phone, nameof(phone));
+            ArgumentValidation.ThrowIfNullOrEmpty(country, nameof(country));
 
             Email = email;
             PasswordHash = Cryptography.GetHash(password);
@@ -33,6 +33,7 @@ namespace easygenerator.DomainModel.Entities
             Role = role;
             PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket>();
             Company = company;
+            LtiUserInfoes = new Collection<LtiUserInfo>();
 
             AccessType = accessPlan;
             LastReadReleaseNote = lastReadReleaseNote;
@@ -84,7 +85,7 @@ namespace easygenerator.DomainModel.Entities
 
         public virtual void RecoverPasswordUsingTicket(PasswordRecoveryTicket ticket, string password)
         {
-            ArgumentValidation.ThrowIfNull(ticket, "ticket");
+            ArgumentValidation.ThrowIfNull(ticket, nameof(ticket));
             ThrowIfPasswordIsNotValid(password);
 
             var item = PasswordRecoveryTicketCollection.SingleOrDefault(t => t == ticket);
@@ -141,7 +142,7 @@ namespace easygenerator.DomainModel.Entities
 
         public virtual void UpdateFirstName(string firstName, string modifiedBy)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(firstName, "firstName");
+            ArgumentValidation.ThrowIfNullOrEmpty(firstName, nameof(firstName));
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
             FirstName = firstName;
@@ -150,7 +151,7 @@ namespace easygenerator.DomainModel.Entities
 
         public virtual void UpdateLastName(string lastName, string modifiedBy)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(lastName, "lastName");
+            ArgumentValidation.ThrowIfNullOrEmpty(lastName, nameof(lastName));
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
             LastName = lastName;
@@ -159,7 +160,7 @@ namespace easygenerator.DomainModel.Entities
 
         public virtual void UpdatePhone(string phone, string modifiedBy)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(phone, "phone");
+            ArgumentValidation.ThrowIfNullOrEmpty(phone, nameof(phone));
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
             Phone = phone;
@@ -168,7 +169,7 @@ namespace easygenerator.DomainModel.Entities
 
         public virtual void UpdateOrganization(string organization, string modifiedBy)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(organization, "organization");
+            ArgumentValidation.ThrowIfNullOrEmpty(organization, nameof(organization));
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
             Organization = organization;
@@ -177,7 +178,7 @@ namespace easygenerator.DomainModel.Entities
 
         public virtual void UpdateCountry(string country, string modifiedBy)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(country, "country");
+            ArgumentValidation.ThrowIfNullOrEmpty(country, nameof(country));
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
             Country = country;
@@ -186,7 +187,7 @@ namespace easygenerator.DomainModel.Entities
 
         public virtual void UpdateLastReadReleaseNote(string lastReadReleaseNote, string modifiedBy)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(lastReadReleaseNote, "last read release note");
+            ArgumentValidation.ThrowIfNullOrEmpty(lastReadReleaseNote, nameof(lastReadReleaseNote));
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
             LastReadReleaseNote = lastReadReleaseNote;
@@ -210,7 +211,7 @@ namespace easygenerator.DomainModel.Entities
             AccessType = AccessType.Plus;
             ExpirationDate = expirationDate;
             RaiseEvent(new UserUpgradedToPlus(this));
-       }
+        }
 
         public void UpgradePlanToAcademy(DateTime expirationDate)
         {
@@ -231,12 +232,12 @@ namespace easygenerator.DomainModel.Entities
 
         private void ThrowIfEmailIsNotValid(string email)
         {
-            ArgumentValidation.ThrowIfNotValidEmail(email, "email");
+            ArgumentValidation.ThrowIfNotValidEmail(email, nameof(email));
         }
 
         private void ThrowIfPasswordIsNotValid(string password)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(password, "password");
+            ArgumentValidation.ThrowIfNullOrEmpty(password, nameof(password));
 
             if (password.Length < 7)
                 throw new ArgumentException("Password should not be less than 7 symbols", nameof(password));
@@ -255,20 +256,25 @@ namespace easygenerator.DomainModel.Entities
 
         #region LtiUserInfo
 
-        public virtual LtiUserInfo LtiUserInfo { get; private set; }
+        protected internal virtual ICollection<LtiUserInfo> LtiUserInfoes { get; set; }
 
-        public virtual void UpdateLtiUserInfo(string ltiUserId)
+        public virtual LtiUserInfo GetLtiUserInfo(ConsumerTool consumerTool)
         {
-            if (LtiUserInfo == null)
-            {
-                LtiUserInfo = new LtiUserInfo();
-            }
-            LtiUserInfo.UpdateLtiUserId(ltiUserId);
+            ArgumentValidation.ThrowIfNull(consumerTool, nameof(consumerTool));
+            return LtiUserInfoes.SingleOrDefault(e => e.ConsumerTool == consumerTool);
         }
 
-        public bool IsLtiUser()
+        public virtual void AddLtiUserInfo(string ltiUserId, ConsumerTool consumerTool)
         {
-            return LtiUserInfo != null;
+            if (GetLtiUserInfo(consumerTool) == null)
+            {
+                LtiUserInfoes.Add(new LtiUserInfo(ltiUserId, consumerTool));
+            }
+        }
+
+        public virtual bool IsLtiUser()
+        {
+            return LtiUserInfoes.Count > 0;
         }
 
         #endregion
