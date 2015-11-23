@@ -1,6 +1,7 @@
 ﻿function runSpecs(env) {
 
     Q.stopUnhandledRejectionTracking();
+    System.cacheBust = '?v=' + Date.now();
 
     System.import('bootstrapper').then(function (bootstrapper) {
         System.import('localization/localizationManager').then(function (localizationManager) {

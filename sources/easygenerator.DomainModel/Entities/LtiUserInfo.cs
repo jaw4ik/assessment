@@ -3,17 +3,21 @@ using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities
 {
-    public class LtiUserInfo
+    public class LtiUserInfo : Identifiable
     {
-        public Guid Id { get; set; }
-        public string LtiUserId { get; private set; }
+        protected internal LtiUserInfo() { }
 
-        public virtual void UpdateLtiUserId(string ltiUserId)
+        protected internal LtiUserInfo(string ltiUserId, ConsumerTool consumerTool)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(ltiUserId, "ltiUserId");
+            ArgumentValidation.ThrowIfNullOrEmpty(ltiUserId, nameof(ltiUserId));
+            ArgumentValidation.ThrowIfNull(consumerTool, nameof(consumerTool));
+
             LtiUserId = ltiUserId;
+            ConsumerTool = consumerTool;
         }
 
-        public User User { get; set; }
+        public string LtiUserId { get; private set; }
+        public User User { get; private set; }
+        public ConsumerTool ConsumerTool { get; private set; }
     }
 }

@@ -18,7 +18,7 @@ namespace easygenerator.Auth.Providers
             _endpointsRepository = clientsRepository;
         }
 
-        public List<TokenModel> GenerateTokens(string username, string issuer, IEnumerable<string> endpoints)
+        public List<TokenModel> GenerateTokens(string username, string issuer, IEnumerable<string> endpoints, DateTime? expirationDate = null)
         {
             var tokens = new List<TokenModel>();
             var existingEndpoints = _endpointsRepository.GetCollection();
@@ -39,7 +39,8 @@ namespace easygenerator.Auth.Providers
                             claims: new List<Claim> {
                                         new Claim(ClaimTypes.Name, username),
                                         new Claim(AuthorizationConfigurationProvider.ScopeClaimType, endpoint.Scopes)
-                                    }
+                                    },
+                            expirationDate: expirationDate
                         )
                     });
                 }
@@ -48,14 +49,19 @@ namespace easygenerator.Auth.Providers
             return tokens;
         }
 
-        private string CreateToken(string issuer, string audience, byte[] secret, IEnumerable<Claim> claims)
+        private string CreateToken(string issuer, string audience, byte[] secret, IEnumerable<Claim> claims, DateTime? expirationDate = null)
         {
+            if (!expirationDate.HasValue)
+            {
+                expirationDate = DateTime.UtcNow.AddDays(30);
+            }
+
             var jwtToken = new JwtSecurityToken(
                 issuer: issuer,
                 audience: audience,
                 claims: claims,
                 notBefore: DateTime.UtcNow,
-                expires: DateTime.UtcNow.AddDays(30),
+                expires: expirationDate,
                 signingCredentials: new SigningCredentials(
                     signingKey: new InMemorySymmetricSecurityKey(secret),
                     signatureAlgorithm: SecurityAlgorithms.HmacSha256Signature,
