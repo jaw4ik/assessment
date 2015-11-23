@@ -203,23 +203,23 @@
                     dateHeader,
                     timeHeader
                 ];
-
-                var csvList = [csvHeader.join(',')];
+                
+                var csvList = [generateCsvRow(csvHeader)];
 
                 return loadAllStatements(that.entityId).then(function (reportingStatements) {
                     _.each(reportingStatements, function (result) {
-                        var resultCsv = [
-                            '"' + result.lrsStatement.actor.name + ' (' + result.lrsStatement.actor.email + ')' + '"',
-                            '"' + (result instanceof StartedStatement ? inProgress : result.passed ? passed : failed) + '"',
-                            '"' + (result.hasScore ? result.lrsStatement.score : noScore) + '"',
-                            '"' + (result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('YYYY-MM-D')) + '"',
-                            '"' + (result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('h:mm:ss a')) + '"'
-                        ].join(',');
+                        var resultCsv = generateCsvRow([
+                            result.lrsStatement.actor.name + ' (' + result.lrsStatement.actor.email + ')',
+                            result instanceof StartedStatement ? inProgress : result.passed ? passed : failed,
+                            result.hasScore ? result.lrsStatement.score : noScore,
+                            result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('YYYY-MM-D'),
+                            result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('h:mm:ss a')
+                        ]);
 
                         csvList.push(resultCsv);
                     });
 
-                    return csvList;
+                    return generateCsvFileString(csvList);
                 });
             }
 
@@ -273,27 +273,27 @@
                 var courseResultRightPart = [];
                 _(objectiveCsvHeader.length + questionCsvHeader.length).times(function () { courseResultRightPart.push(emptyCellSymbol); });
 
-                var csvList = [courseCsvHeader.concat(objectiveCsvHeader).concat(questionCsvHeader).join(',')];
+                var csvList = [generateCsvRow(courseCsvHeader.concat(objectiveCsvHeader).concat(questionCsvHeader))];
 
                 return loadAllStatements(that.entityId).then(function (statements) {
                     return loadAllEmbededStatements(statements).then(function (reportingStatements) {
                         _.each(reportingStatements, function (result) {
-                            var courseResultCsv = [
-                                '"' + result.lrsStatement.actor.name + ' (' + result.lrsStatement.actor.email + ')' + '"',
-                                '"' + (result instanceof StartedStatement ? inProgress : result.passed ? passed : failed) + '"',
-                                '"' + (result.hasScore ? result.lrsStatement.score : noScore) + '"',
-                                '"' + (moment(result instanceof StartedStatement ? result.lrsStatement.date : result.startedLrsStatement.date).format('YYYY-MM-D')) + '"',
-                                '"' + (moment(result instanceof StartedStatement ? result.lrsStatement.date : result.startedLrsStatement.date).format('h:mm:ss a')) + '"',
-                                '"' + (result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('YYYY-MM-D')) + '"',
-                                '"' + (result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('h:mm:ss a')) + '"'
-                            ].concat(courseResultRightPart).join(',');
+                            var courseResultCsv = generateCsvRow([
+                                result.lrsStatement.actor.name + ' (' + result.lrsStatement.actor.email + ')',
+                                result instanceof StartedStatement ? inProgress : result.passed ? passed : failed,
+                                result.hasScore ? result.lrsStatement.score : noScore,
+                                moment(result instanceof StartedStatement ? result.lrsStatement.date : result.startedLrsStatement.date).format('YYYY-MM-D'),
+                                moment(result instanceof StartedStatement ? result.lrsStatement.date : result.startedLrsStatement.date).format('h:mm:ss a'),
+                                result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('YYYY-MM-D'),
+                                result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('h:mm:ss a')
+                            ].concat(courseResultRightPart));
 
                             csvList.push(courseResultCsv);
 
                             pushEmbededResults(result, csvList, courseCsvHeader.length, objectiveCsvHeader.length, questionCsvHeader.length, emptyCellSymbol, noScore);
                         });
 
-                        return csvList;
+                        return generateCsvFileString(csvList);
                     });
                 });
             }
@@ -316,31 +316,41 @@
 
                 _.forEach(result.children(), function (objectiveResult) {
 
-                    var objectiveResultCsv = objectiveResultLeftPart.concat([
-                        '"' + objectiveResult.lrsStatement.name + '"',
-                        '"' + (objectiveResult.hasScore ? objectiveResult.lrsStatement.score : noScoreMessage) + '"'
-                    ]).concat(objectiveResultRightPart);
+                    var objectiveResultCsv = generateCsvRow(objectiveResultLeftPart.concat([
+                        objectiveResult.lrsStatement.name,
+                        objectiveResult.hasScore ? objectiveResult.lrsStatement.score : noScoreMessage
+                    ]).concat(objectiveResultRightPart));
 
-                    csvList.push(objectiveResultCsv.join(','));
+                    csvList.push(objectiveResultCsv);
 
                     if (!objectiveResult.children || !objectiveResult.children().length) {
                         return;
                     }
                     _.forEach(objectiveResult.children(), function (questionResult) {
-                        var questionResultCsv = questionResultLeftPart.concat([
-                            '"' + questionResult.lrsStatement.name + '"',
-                            '"' + (questionResult.hasAnswer && !questionResult.hasScore ? noScoreMessage : questionResult.correct ? correct : incorrect) + '"',
-                            '"' + (questionResult.hasScore ? questionResult.lrsStatement.score : noScoreMessage) + '"',
-                            '"' + (questionResult.hasAnswer && !questionResult.hasScore ? questionResult.lrsStatement.response : emptyCellSymbol) + '"'
-                        ]);
-                        csvList.push(questionResultCsv.join(','));
+                        var questionResultCsv = generateCsvRow(questionResultLeftPart.concat([
+                            questionResult.lrsStatement.name,
+                            questionResult.hasAnswer && !questionResult.hasScore ? noScoreMessage : questionResult.correct ? correct : incorrect,
+                            questionResult.hasScore ? questionResult.lrsStatement.score : noScoreMessage,
+                            questionResult.hasAnswer && !questionResult.hasScore ? questionResult.lrsStatement.response : emptyCellSymbol
+                        ]));
+                        csvList.push(questionResultCsv);
                     });
                 });
             }
 
+            function generateCsvRow(columns) {
+                return _.map(columns, function(column) {
+                    return column.toString().replace(/"/g, '""');
+                }).join(String.fromCharCode(11));
+            }
+
+            function generateCsvFileString(csvList) {
+                return csvList.join(String.fromCharCode(0)).split(String.fromCharCode(0)).join('"\r\n"').split(String.fromCharCode(11)).join('","');
+            }
+
             function generateResultsCsvBlob(csvList) {
                 var contentType = 'text/csv';
-                return new Blob([window.BOMSymbol || '\ufeff', csvList.join('\r\n')], { encoding: 'UTF-8', type: contentType });
+                return new Blob([window.BOMSymbol || '\ufeff', csvList], { encoding: 'UTF-8', type: contentType });
             }
 
             function getResultsFileName() {
