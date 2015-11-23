@@ -183,6 +183,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<User>().HasMany(e => e.PasswordRecoveryTicketCollection).WithRequired(e => e.User);
             modelBuilder.Entity<User>().HasOptional(e => e.Company).WithMany(e => e.Users).WillCascadeOnDelete(false);
             modelBuilder.Entity<User>().Map(e => e.ToTable("Users"));
+            modelBuilder.Entity<User>().HasMany(e => e.LtiUserInfoes).WithRequired(e => e.User).WillCascadeOnDelete(true);
 
             modelBuilder.Entity<PasswordRecoveryTicket>().HasRequired(e => e.User);
             modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.CreatedBy);
@@ -238,9 +239,13 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<ConsumerTool>().Property(e => e.Key).IsRequired();
             modelBuilder.Entity<ConsumerTool>().Property(e => e.Secret).IsRequired();
 
+            modelBuilder.Entity<ConsumerToolSettings>().HasKey(e => new { e.Id });
+            modelBuilder.Entity<ConsumerToolSettings>().HasRequired(e => e.ConsumerTool).WithOptional(c => c.Settings).WillCascadeOnDelete(true);
+            modelBuilder.Entity<ConsumerToolSettings>().HasOptional(e => e.Company);
+
             modelBuilder.Entity<LtiUserInfo>().HasKey(e => new { e.Id });
             modelBuilder.Entity<LtiUserInfo>().Property(e => e.LtiUserId).IsRequired();
-            modelBuilder.Entity<LtiUserInfo>().HasRequired(e => e.User).WithOptional(c => c.LtiUserInfo).WillCascadeOnDelete(true);
+            modelBuilder.Entity<LtiUserInfo>().HasRequired(e => e.ConsumerTool).WithMany();
 
             modelBuilder.Entity<Company>().Property(e => e.Name).IsRequired();
             modelBuilder.Entity<Company>().Property(e => e.LogoUrl).IsRequired();

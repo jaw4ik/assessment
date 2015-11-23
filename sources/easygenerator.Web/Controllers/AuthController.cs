@@ -40,7 +40,7 @@ namespace easygenerator.Web.Controllers
             return JsonError(AccountRes.Resources.IncorrectEmailOrPassword);
         }
 
-        [HttpPost, Scope("auth")]
+        [HttpPost, Scope("lti")]
         public ActionResult Tokens(string[] endpoints)
         {
             var tokens = _tokenProvider.GenerateTokens(GetCurrentUsername(), Request.Url.Host, endpoints);

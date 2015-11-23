@@ -48,6 +48,7 @@
     <Compile Include="Entities\ACL\TemplateAccessControlListEntry.cs" />
     <Compile Include="Entities\Company.cs" />
     <Compile Include="Entities\ConsumerTool.cs" />
+    <Compile Include="Entities\ConsumerToolSettings.cs" />
     <Compile Include="Entities\CourseState.cs" />
     <Compile Include="Entities\CourseTemplateSettings.cs" />
     <Compile Include="Entities\DemoCourseInfo.cs" />
