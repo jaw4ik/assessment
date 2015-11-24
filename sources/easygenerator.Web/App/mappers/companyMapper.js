@@ -10,7 +10,8 @@
             id: item.Id,
             name: item.Name,
             logoUrl: item.LogoUrl,
-            publishCourseApiUrl: item.PublishCourseApiUrl
+            publishCourseApiUrl: item.PublishCourseApiUrl,
+            hideDefaultPublishOptions: item.HideDefaultPublishOptions
         };
     };
 

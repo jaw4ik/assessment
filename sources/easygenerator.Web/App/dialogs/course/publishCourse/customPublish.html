@@ -1,0 +1,32 @@
+﻿<div class="modal-dialog" data-bind="with: publishAction">
+    <div class="modal-dialog-body">
+        <div class="publish-tab-content-wrapper">
+            <div class="publish-tab-container">
+                <!-- ko ifnot: isPublished() -->
+                <h2 class="publish-tab-header" data-bind="localize: { text: { key: 'publishToCompany', replace: { companyName: companyInfo.name } } }"></h2>
+                <!-- /ko -->
+                <!-- ko if: isPublished() -->
+                <!-- ko if: isDirty() -->
+                <h2 class="publish-tab-header" data-bind="localize: { text: { key: 'updateInCompany', replace: { companyName: companyInfo.name } } }"></h2>
+                <!-- /ko -->
+                <!-- ko ifnot: isDirty() -->
+                <h2 class="publish-tab-header" data-bind="localize: { text: 'publishedCourseIsUpToDate' }"></h2>
+                <!-- /ko -->
+                <!-- /ko -->
+                <button class="btn green publish-tab-btn" data-bind="click: publishToCustomLms, css: { 'disabled': isPublished() && !isDirty(), 'progress': isPublishing() }, disable: isPublishing() || (isPublished() && !isDirty())">
+                    <!-- ko ifnot: isPublished() || isPublishing() -->
+                    <span data-bind="localize: { text: 'publish' }" class="publish-tab-btn-caption"></span>
+                    <!-- /ko -->
+                    <!-- ko if: isPublished() || isPublishing() -->
+                    <!-- ko if: isPublishing() -->
+                    <span data-bind="localize: { text: 'assembling' }" class="publish-tab-btn-caption"></span>
+                    <!-- /ko -->
+                    <!-- ko ifnot: isPublishing() -->
+                    <span data-bind="localize: { text: 'update' }" class="publish-tab-btn-caption"></span>
+                    <!-- /ko -->
+                    <!-- /ko -->
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

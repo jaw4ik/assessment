@@ -90,7 +90,7 @@ function (eventTracker, index, router, isViewReady, titleField, constants, local
 
     function share() {
         eventTracker.publish(events.openShareDialog);
-        publishLearningPathDialog.show(viewModel.learningPath);
+        publishLearningPathDialog.show(viewModel.id);
     }
 
     function canActivate(learningPathId) {

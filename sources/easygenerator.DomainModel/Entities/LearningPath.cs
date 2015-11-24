@@ -53,6 +53,13 @@ namespace easygenerator.DomainModel.Entities
             PublicationUrl = null;
         }
 
+        public bool IsPublishedToExternalLms { get; private set; }
+
+        public void SetPublishedToExternalLms()
+        {
+            IsPublishedToExternalLms = true;
+        }
+
         #region Courses
 
         protected internal virtual ICollection<Course> CoursesCollection { get; set; }

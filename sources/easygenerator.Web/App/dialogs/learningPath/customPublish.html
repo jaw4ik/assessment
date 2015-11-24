@@ -1,0 +1,27 @@
+﻿<div class="modal-dialog" data-bind="with: publishAction">
+    <div class="modal-dialog-body">
+        <div class="publish-tab-content-wrapper">
+            <div class="publish-tab-container">
+                <!-- ko ifnot: isPublished() -->
+                <h2 class="publish-tab-header" data-bind="localize: { text: { key: 'publishToCompany', replace: { companyName: companyInfo.name } } }"></h2>
+                <!-- /ko -->
+                <!-- ko if: isPublished() -->
+                <h2 class="publish-tab-header" data-bind="localize: { text: { key: 'updateInCompany', replace: { companyName: companyInfo.name } } }"></h2>
+                <!-- /ko -->
+                <button class="btn green publish-tab-btn" data-bind="click: publish, css: { 'disabled': isDelivering(), 'progress': isPublishing() }, disable: isDelivering()">
+                    <!-- ko if: isPublishing() -->
+                    <span data-bind="localize: { text: 'assembling' }" class="publish-tab-btn-caption"></span>
+                    <!-- /ko -->
+                    <!-- ko ifnot: isPublishing() -->
+                    <!-- ko if: isPublished() -->
+                    <span data-bind="localize: { text: 'update' }" class="publish-tab-btn-caption"></span>
+                    <!-- /ko -->
+                    <!-- ko ifnot: isPublished() -->
+                    <span data-bind="localize: { text: 'publish' }" class="publish-tab-btn-caption"></span>
+                    <!-- /ko -->
+                    <!-- /ko -->
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,12 +2,13 @@
     function (EntityModel, publishService, app, constants) {
         "use strict";
 
-        var LearningPath = function(spec) {
+        var LearningPath = function (spec) {
 
             var obj = new EntityModel(spec);
 
             obj.title = spec.title;
             obj.publicationUrl = spec.publicationUrl;
+            obj.IsPublishedToExternalLms = spec.IsPublishedToExternalLms;
             obj.courses = spec.courses;
 
             obj.isBuilding = false;
@@ -15,6 +16,7 @@
             obj.isDelivering = isDelivering;
             obj.build = build;
             obj.publish = publish;
+            obj.publishToCustomLms = publishToCustomLms;
 
             return obj;
 
@@ -23,7 +25,7 @@
             }
 
             function build() {
-                return Q.fcall(function() {
+                return Q.fcall(function () {
                     if (obj.isDelivering()) {
                         return;
                     }
@@ -32,22 +34,22 @@
                     app.trigger(constants.messages.learningPath.delivering.started + obj.id, obj);
 
                     return publishService.buildLearningPath(obj.id)
-                        .then(function(buildInfo) {
+                        .then(function (buildInfo) {
                             return buildInfo.packageUrl;
                         })
-                        .fail(function(message) {
+                        .fail(function (message) {
                             throw message;
                         })
-                        .fin(function() {
-                                obj.isBuilding = false;
-                                app.trigger(constants.messages.learningPath.delivering.finished + obj.id, obj);
-                            }
+                        .fin(function () {
+                            obj.isBuilding = false;
+                            app.trigger(constants.messages.learningPath.delivering.finished + obj.id, obj);
+                        }
                         );
                 });
             }
 
             function publish() {
-                return Q.fcall(function() {
+                return Q.fcall(function () {
                     if (obj.isDelivering()) {
                         return;
                     }
@@ -55,26 +57,55 @@
                     obj.isPublishing = true;
                     app.trigger(constants.messages.learningPath.delivering.started + obj.id, obj);
 
-                    return publishService.buildLearningPath(obj.id)
+                    return doPublish(obj)
                         .then(function () {
-                            return publishService.publishLearningPath(obj.id)
-                                .then(function (buildInfo) {
-                                    obj.publicationUrl = buildInfo.publicationUrl;
-                                    return buildInfo.publicationUrl;
-                                })
-                                .fail(function (message) {
-                                    obj.publicationUrl = null;
-                                    throw message;
-                                });
-                        })
-                        .fail(function (message) {
-                            throw message;
+                            return obj.publicationUrl;
                         })
                         .fin(function () {
                             obj.isPublishing = false;
                             app.trigger(constants.messages.learningPath.delivering.finished + obj.id, obj);
                         });
                 });
+            }
+
+            function publishToCustomLms() {
+                return Q.fcall(function () {
+                    if (obj.isDelivering()) {
+                        return;
+                    }
+
+                    obj.isPublishing = true;
+                    app.trigger(constants.messages.learningPath.delivering.started + obj.id, obj);
+
+                    return doPublish(obj)
+                        .then(function () {
+                            return publishService.publishLearningPathToCustomLms(obj.id)
+                                .then(function() {
+                                    obj.isPublishedToExternalLms = true;
+                                });
+                        })
+                        .fin(function () {
+                            obj.isPublishing = false;
+                            app.trigger(constants.messages.learningPath.delivering.finished + obj.id, obj);
+                        });
+                });
+            }
+
+            function doPublish(obj) {
+                return publishService.buildLearningPath(obj.id)
+                    .then(function () {
+                        return publishService.publishLearningPath(obj.id)
+                            .then(function (buildInfo) {
+                                obj.publicationUrl = buildInfo.publicationUrl;
+                            })
+                            .fail(function (message) {
+                                obj.publicationUrl = null;
+                                throw message;
+                            });
+                    })
+                    .fail(function (message) {
+                        throw message;
+                    });
             }
         }
 
