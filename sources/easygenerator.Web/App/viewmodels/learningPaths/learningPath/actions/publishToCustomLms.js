@@ -9,7 +9,7 @@
         var ctor = function () {
             var viewModel = {
                 learningPath: null,
-                companyInfo: null,
+                companyInfo: userContext.identity ? userContext.identity.company : null,
 
                 isPublishing: ko.observable(false),
                 isDelivering: ko.observable(false),
@@ -51,7 +51,6 @@
                 return getLearningPathByIdQuery.execute(learningPathId)
                     .then(function (learningPath) {
                         viewModel.learningPath = learningPath;
-                        viewModel.companyInfo = userContext.identity ? userContext.identity.company : null;
 
                         viewModel.isPublishing(learningPath.isPublishing);
                         viewModel.isDelivering(learningPath.isDelivering());
