@@ -18,4 +18,3 @@ export function getCollection () {
     ];
 }
 export default { getCollection };
-export var __useDefault = true;

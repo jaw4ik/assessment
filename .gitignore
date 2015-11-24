@@ -211,5 +211,5 @@ FakesAssemblies/
 /sources/easygenerator.ConversionServer/iisnode
 /sources/easygenerator.Web/Content/*.css
 /sources/easygenerator.Player/public/styles/*.css
-/sources/easygenerator.Player/public/vendor/* 
+/sources/easygenerator.Player/public/vendor/*
 /sources/easygenerator.Web/Scripts/vendor/*

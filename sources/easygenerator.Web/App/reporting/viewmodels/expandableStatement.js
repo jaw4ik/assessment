@@ -1,38 +1,42 @@
-﻿define(['userContext', 'widgets/upgradeDialog/viewmodel', 'constants'], function (userContext, upgradeDialog, constants) {
-    "use strict";
+﻿import co from 'co';
+import userContext from 'userContext';
+import upgradeDialog from 'widgets/upgradeDialog/viewmodel';
+import constants from 'constants';
 
-    var ExpandableStatement = function (lrsStatement, expandLoadAction) {
+export default class {
+    constructor(lrsStatement) {
         this.lrsStatement = lrsStatement;
         this.isExpandable = !_.isNullOrUndefined(this.lrsStatement.attemptId);
         this.isExpanded = ko.observable(false);
         this.children = ko.observableArray([]);
         this.hasScore = this.lrsStatement.score != null;
+    }
 
-        this.expandLoadAction = expandLoadAction;
-    };
-
-    ExpandableStatement.prototype.expand = function () {
-        var that = this;
-        return Q.fcall(function () {
-            if (!userContext.hasPlusAccess()) {
-                upgradeDialog.show(constants.dialogs.upgrade.settings.extendedResults);
-                return undefined;
-            }
-
-            if (that.isExpandable) {
-                if (that.children === null || that.children().length) {
-                    that.isExpanded(true);
-                } else {
-                    return that.expandLoadAction();
-                }
-            }
-            return undefined;
+    expand() {
+        return co.call(this, function*() {
+            const data = yield this.load();
+            return data && this.isExpanded(true);
         });
     }
 
-    ExpandableStatement.prototype.collapse = function () {
-        this.isExpanded(false);
+    load() {
+        return co.call(this, function*() {
+            if (!userContext.hasPlusAccess()) {
+                upgradeDialog.show(constants.dialogs.upgrade.settings.extendedResults);
+                return false;
+            }
+            if (!this.isExpandable) {
+                return false;
+            }
+            if (this.children === null || this.children().length) {
+                return true;
+            }
+            yield this.expandLoadAction();
+            return true;
+        });
     }
 
-    return ExpandableStatement;
-});
+    collapse() {
+        this.isExpanded(false);
+    }
+}

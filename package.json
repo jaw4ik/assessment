@@ -55,8 +55,10 @@
       "packages": "sources/easygenerator.Web/Scripts/vendor"
     },
     "dependencies": {
+      "co": "npm:co@^4.6.0",
       "has": "npm:has@^1.0.1",
-      "text": "github:systemjs/plugin-text@^0.0.3"
+      "text": "github:systemjs/plugin-text@^0.0.3",
+      "underscore": "npm:underscore@^1.8.3"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.24",
