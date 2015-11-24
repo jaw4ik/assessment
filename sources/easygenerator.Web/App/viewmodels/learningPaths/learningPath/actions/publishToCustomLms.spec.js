@@ -184,6 +184,12 @@
                 expect(viewModel.onDeliveringFinished).toBeFunction();
             });
 
+            it('should set isPublished', function () {
+                viewModel.isPublished(null);
+                viewModel.onDeliveringFinished({ id: 'learningPathId', isPublishedToexternalLms: true });
+                expect(viewModel.isPublished()).toBeTruthy();
+            });
+
             it('should set isDelivering false', function () {
                 viewModel.isDelivering(true);
                 viewModel.onDeliveringFinished({ id: 'learningPathId' });

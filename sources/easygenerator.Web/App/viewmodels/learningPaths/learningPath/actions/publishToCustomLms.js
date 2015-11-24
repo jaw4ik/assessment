@@ -74,6 +74,7 @@
 
             function onDeliveringFinished(learningPath) {
                 viewModel.isDelivering(false);
+                viewModel.isPublished(learningPath.isPublishedToExternalLms);
                 viewModel.isPublishing(learningPath.isPublishing);
             }
         };
