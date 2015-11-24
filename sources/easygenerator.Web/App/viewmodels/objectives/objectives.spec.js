@@ -455,7 +455,7 @@
 
                             describe('when objective questions count > 0', function () {
 
-                                it('should set canBeDeleted to false for each objective', function (done) {
+                                it('should set canBeDeleted to true for each objective', function (done) {
                                     getCoursesDeferred.resolve([]);
                                     getObjectivesDeferred.resolve([{ id: '1', title: 'z', image: '', questions: [{ id: 0 }, { id: 1 }], createdBy: createdBy }]);
 
@@ -463,7 +463,7 @@
 
                                     promise.fin(function () {
                                         expect(promise).toBeResolved();
-                                        expect(viewModel.objectives()[0].canBeDeleted).toBeFalsy();
+                                        expect(viewModel.objectives()[0].canBeDeleted).toBeTruthy();
                                         done();
                                     });
                                 });

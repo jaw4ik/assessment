@@ -14,18 +14,12 @@
         });
     };
 
-    var systemImport = System.import;
-    System.import = function (moduleName) {
-        return systemImport.apply(this, arguments).then(function (module) {
-            setModuleId(module, moduleName);
-            return module;
-        });
-    };
-
     var systemReduceRegister = System.reduceRegister_;
     System.reduceRegister_ = function (metadata, module) {
-        if (module.entry.execute) {
-            var moduleName = module.entry.name ? module.entry.name : metadata.name;
+        var moduleName = module.entry.name ? module.entry.name : metadata.name;
+
+        // __moduleId__ declaration for AMD modules
+        if (module.amd && module.entry.execute) {
             var defaultExecute = module.entry.execute;
             module.entry.execute = function () {
                 var module = defaultExecute.apply(this, arguments);
@@ -35,6 +29,32 @@
                 return module;
             };
         }
+        // __moduleId__ declaration for EMS modules
+        else if (module.entry.declarative && module.entry.declare) {
+            var defaultDeclare = module.entry.declare;
+            module.entry.declare = function () {
+                var declaration = defaultDeclare.apply(this, arguments);
+
+                var exports = getModuleExports(module);
+                if (exports && moduleIds[moduleName]) {
+                    var defaultExecute = declaration.execute;
+                    declaration.execute = function () {
+                        defaultExecute.apply(this, arguments);
+
+                        exports.__useDefault = true;
+                        setModuleId(exports.default ? exports.default : exports, moduleIds[moduleName]);
+                    };
+                }
+
+                return declaration;
+
+                function getModuleExports(module) {
+                    return (module.entry.module && module.entry.module.exports) 
+                        ? module.entry.module.exports : null;
+                }
+            };
+        }
+
         return systemReduceRegister.apply(this, arguments);
     };
 
@@ -56,7 +76,7 @@
     // for disable caching
     var systemLocate = System.locate;
     System.locate = function () {
-        return systemLocate.apply(this, arguments).then(function(address) {
+        return systemLocate.apply(this, arguments).then(function (address) {
             return address + System.cacheBust;
         });
     }

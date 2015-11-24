@@ -36,6 +36,7 @@
                 'dialogs/course/createCourse/steps/courseTemplateStep.spec',
                 'dialogs/course/createCourse/steps/courseTitleStep.spec',
                 'dialogs/course/publishCourse/publishCourse.spec',
+                'dialogs/course/delete/deleteCourse.spec',
                 'dialogs/releaseNotes/commands/updateLastReadReleaseNote.spec',
                 'dialogs/releaseNotes/commands/getReleaseNote.spec',
                 'dialogs/releaseNotes/releaseNotes.spec',

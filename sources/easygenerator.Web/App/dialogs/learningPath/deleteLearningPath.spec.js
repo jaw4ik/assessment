@@ -54,7 +54,7 @@
 
             it('should show dialog', function () {
                 viewModel.show(learningPath.id, learningPath.title);
-                expect(dialog.show).toHaveBeenCalledWith(viewModel, constants.dialogs.deleteLearningPath.settings);
+                expect(dialog.show).toHaveBeenCalledWith(viewModel, constants.dialogs.deleteItem.settings);
             });
         });
 

@@ -631,6 +631,11 @@
     <Content Include="App\dialogs\audio\audioViewModel.spec.js">
       <DependentUpon>audioViewModel.js</DependentUpon>
     </Content>
+    <Content Include="App\dialogs\course\delete\deleteCourse.html" />
+    <Content Include="App\dialogs\course\delete\deleteCourse.js" />
+    <Content Include="App\dialogs\course\delete\deleteCourse.spec.js">
+      <DependentUpon>deleteCourse.js</DependentUpon>
+    </Content>
     <Content Include="App\editor\course\createItemsBar\index.html" />
     <Content Include="App\editor\course\createItemsBar\index.js" />
     <Content Include="App\editor\course\createItemsBar\index.spec.js">
