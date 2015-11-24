@@ -8,5 +8,3 @@ export default index.router.createChildRouter()
     }).map([
         { route: '', moduleId: 'editor/course/index', title: localizationManager.localize('courseCreateItem') }
     ]).mapUnknownRoutes('viewmodels/errors/404', '404').buildNavigationModel();
-
-export var __useDefault = true;

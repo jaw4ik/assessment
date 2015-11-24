@@ -21,5 +21,3 @@ export default class {
         }
     }
 }
-
-export var __useDefault = true;
