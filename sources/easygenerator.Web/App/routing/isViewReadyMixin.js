@@ -21,4 +21,3 @@
 }
 
 export default { assign };
-export var __useDefault = true;
