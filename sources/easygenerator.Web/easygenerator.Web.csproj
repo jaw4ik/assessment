@@ -1765,9 +1765,7 @@
     <Content Include="Content\designBar.less" />
     <EmbeddedResource Include="Resources\Controllers\Resources.de.resx" />
     <EmbeddedResource Include="Resources\Controllers\Resources.nl.resx" />
-    <EmbeddedResource Include="Resources\Controllers\Resources.pt.resx">
-      <LastGenOutput>Resources.pt.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Controllers\Resources.pt.resx" />
     <EmbeddedResource Include="Resources\Controllers\Resources.fr.resx" />
     <EmbeddedResource Include="Resources\Views\Account\Resources.nl.resx">
       <SubType>Designer</SubType>
@@ -1778,10 +1776,7 @@
     <EmbeddedResource Include="Resources\Views\Account\Resources.fr.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Views\Account\Resources.pt.resx">
-      <LastGenOutput>Resources.pt.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Account\Resources.pt.resx" />
     <Content Include="Content\font\badscript-regular.woff" />
     <Content Include="BuildLearningPath\Template\css\font\roboto-regular.ttf" />
     <Content Include="BuildLearningPath\Template\css\font\roboto-regular.woff" />
@@ -3221,30 +3216,21 @@
     <EmbeddedResource Include="Resources\Views\Error\Resources.nl.resx" />
     <EmbeddedResource Include="Resources\Views\Error\Resources.de.resx" />
     <EmbeddedResource Include="Resources\Views\Error\Resources.fr.resx" />
-    <EmbeddedResource Include="Resources\Views\Error\Resources.pt.resx">
-      <LastGenOutput>Resources.pt.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Error\Resources.pt.resx" />
     <EmbeddedResource Include="Resources\Views\Error\Resources.resx" />
     <EmbeddedResource Include="Resources\Views\Error\Resources.uk.resx" />
     <EmbeddedResource Include="Resources\Views\Error\Resources.zh.resx" />
     <EmbeddedResource Include="Resources\Views\Review\Resources.nl.resx" />
     <EmbeddedResource Include="Resources\Views\Review\Resources.de.resx" />
     <EmbeddedResource Include="Resources\Views\Review\Resources.fr.resx" />
-    <EmbeddedResource Include="Resources\Views\Review\Resources.pt.resx">
-      <LastGenOutput>Resources.pt.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Review\Resources.pt.resx" />
     <EmbeddedResource Include="Resources\Views\Review\Resources.resx" />
     <EmbeddedResource Include="Resources\Views\Review\Resources.uk.resx" />
     <EmbeddedResource Include="Resources\Views\Review\Resources.zh.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\Resources.de.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\Resources.nl.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\Resources.fr.resx" />
-    <EmbeddedResource Include="Resources\Views\Shared\Resources.pt.resx">
-      <LastGenOutput>Resources.pt.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Shared\Resources.pt.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\Resources.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\Resources.uk.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\Resources.zh.resx" />
