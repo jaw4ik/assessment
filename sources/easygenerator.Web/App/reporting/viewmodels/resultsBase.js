@@ -187,7 +187,7 @@
                 var passed = localizationManager.localize('passed');
                 var failed = localizationManager.localize('failed');
                 var inProgress = localizationManager.localize('inProgress');
-                var noScore = localizationManager.localize('reportingScoreNotAvailable');
+                var noScore = localizationManager.localize('reportingInfoNotAvailable');
                 var notFinished = localizationManager.localize('reportingNotFinished');
 
                 var nameHeader = localizationManager.localize('nameAndEmail');
@@ -203,13 +203,13 @@
                     dateHeader,
                     timeHeader
                 ];
-                
+
                 var csvList = [generateCsvRow(csvHeader)];
 
                 return loadAllStatements(that.entityId).then(function (reportingStatements) {
                     _.each(reportingStatements, function (result) {
                         var resultCsv = generateCsvRow([
-                            result.lrsStatement.actor.name + ' (' + result.lrsStatement.actor.email + ')',
+                            result.learnerDisplayName,
                             result instanceof StartedStatement ? inProgress : result.passed ? passed : failed,
                             result.hasScore ? result.lrsStatement.score : noScore,
                             result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('YYYY-MM-D'),
@@ -227,7 +227,7 @@
                 var passed = localizationManager.localize('passed');
                 var failed = localizationManager.localize('failed');
                 var inProgress = localizationManager.localize('inProgress');
-                var noScore = localizationManager.localize('reportingScoreNotAvailable');
+                var noScore = localizationManager.localize('reportingInfoNotAvailable');
                 var notFinished = localizationManager.localize('reportingNotFinished');
 
                 var nameHeader = localizationManager.localize('nameAndEmail');
@@ -279,7 +279,7 @@
                     return loadAllEmbededStatements(statements).then(function (reportingStatements) {
                         _.each(reportingStatements, function (result) {
                             var courseResultCsv = generateCsvRow([
-                                result.lrsStatement.actor.name + ' (' + result.lrsStatement.actor.email + ')',
+                                result.learnerDisplayName,
                                 result instanceof StartedStatement ? inProgress : result.passed ? passed : failed,
                                 result.hasScore ? result.lrsStatement.score : noScore,
                                 moment(result instanceof StartedStatement ? result.lrsStatement.date : result.startedLrsStatement.date).format('YYYY-MM-D'),
@@ -339,7 +339,7 @@
             }
 
             function generateCsvRow(columns) {
-                return _.map(columns, function(column) {
+                return _.map(columns, function (column) {
                     return column.toString().replace(/"/g, '""');
                 }).join(String.fromCharCode(11));
             }
