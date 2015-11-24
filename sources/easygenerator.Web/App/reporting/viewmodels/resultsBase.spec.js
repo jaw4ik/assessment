@@ -630,7 +630,7 @@
                         });
 
                         it('should get next part of statements', function (done) {
-                            getLrsStatementsDfd.resolve({ });
+                            getLrsStatementsDfd.resolve({});
                             viewModel.showMoreResults().fin(function () {
                                 expect(statementsProvider.getLrsStatements).toHaveBeenCalledWith(
                                     entityId,
@@ -688,7 +688,7 @@
             beforeEach(function () {
                 getLrsStatementsDfd = Q.defer();
                 viewModel.activate(entityId);
-                
+
                 statementsProvider.getLrsStatements.and.returnValue(getLrsStatementsDfd.promise);
                 getLrsStatementsDfd.resolve({ started: startedStatements, finished: finishStatements });
 
@@ -723,6 +723,19 @@
                     };
                 });
 
+                describe('and all results for download were already generated', function () {
+                    beforeEach(function () {
+                        viewModel.cachedResultsForDownload = ['name,score'];
+                    });
+
+                    it('should not get Lrs statements', function (done) {
+                        viewModel.downloadResults().fin(function () {
+                            expect(statementsProvider.getLrsStatements).not.toHaveBeenCalled();
+                            done();
+                        });
+                    });
+                });
+
                 describe('and all results were already loaded', function () {
                     beforeEach(function () {
                         viewModel.loadedResults = [];
@@ -752,12 +765,20 @@
                         });
                     });
 
-                   it('should set allResultsLoaded to true', function (done) {
-                            viewModel.downloadResults().fin(function () {
-                                expect(viewModel.allResultsLoaded).toBeTruthy();
-                                done();
-                            });
+                    it('should set allResultsLoaded to true', function (done) {
+                        viewModel.downloadResults().fin(function () {
+                            expect(viewModel.allResultsLoaded).toBeTruthy();
+                            done();
                         });
+                    });
+
+                    it('should set resultsForDownload', function (done) {
+                        viewModel.cachedResultsForDownload = null;
+                        viewModel.downloadResults().fin(function () {
+                            expect(viewModel.cachedResultsForDownload).toBeString();
+                            done();
+                        });
+                    });
 
                 });
 
