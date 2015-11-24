@@ -19,7 +19,7 @@
         function show(learningPathId, learningPathTitle) {
             viewModel.learningPathId = learningPathId;
             viewModel.learningPathTitle(learningPathTitle);
-            dialog.show(viewModel, constants.dialogs.deleteLearningPath.settings);
+            dialog.show(viewModel, constants.dialogs.deleteItem.settings);
         }
 
         function cancel() {

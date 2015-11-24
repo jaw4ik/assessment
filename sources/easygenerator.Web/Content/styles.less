@@ -1209,11 +1209,13 @@
     .btn();
     background: #ee6556;
     border: 1px solid #e85e5d;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     color: #fff;
 
     &:hover {
         background: #ec5444;
         border: 1px solid #e54d4c;
+        box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
     }
 }
 
@@ -1221,15 +1223,14 @@
 .btn.white {
     .btn();
     background: #fff;   
-    color: #64798d;
+    color: rgb(120, 137, 155);
     
     &.grey-border{
-        border: 1px solid #c6d1d8;
-        border-bottom: 2px solid #c6d1d8;
+        border: 1px solid #b7cddc;
         
         &:hover {
-            border: 1px solid #7c95ae;
-            border-bottom: 2px solid #7c95ae;
+            border: 1px solid #8498ac;
+            color: rgb(100, 121, 142);
         }
     }  
 }
@@ -1746,7 +1747,8 @@
 
 .info-tooltip.open-item,
 .info-tooltip.publish-item,
-.info-tooltip.duplicate-item {
+.info-tooltip.duplicate-item,
+.info-tooltip.delete-course-item,{
     width: 100px;
     margin-left: -50px;
 }
