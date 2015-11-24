@@ -123,6 +123,9 @@ DocProject/Help/*.hhp
 DocProject/Help/Html2
 DocProject/Help/html
 
+# Click-Once directory
+# publish/
+
 # Publish Web Output
 *.[Pp]ublish.xml
 *.azurePubxml
@@ -209,5 +212,5 @@ FakesAssemblies/
 /sources/easygenerator.ConversionServer/iisnode
 /sources/easygenerator.Web/Content/*.css
 /sources/easygenerator.Player/public/styles/*.css
-/sources/easygenerator.Player/public/vendor/* 
+/sources/easygenerator.Player/public/vendor/*
 /sources/easygenerator.Web/Scripts/vendor/*

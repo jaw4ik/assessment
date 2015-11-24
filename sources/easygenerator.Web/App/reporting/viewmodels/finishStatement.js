@@ -1,28 +1,25 @@
-﻿define(['constants', 'reporting/viewmodels/expandableStatement', 'reporting/viewmodels/objectiveStatement', 'reporting/xApiProvider'], function (constants, ExpandableStatement, ObjectiveStatement, xApiProvider) {
-    "use strict";
+﻿import co from 'co';
+import _ from 'underscore';
+import constants from 'constants';
+import ExpandableStatement from 'reporting/viewmodels/expandableStatement';
+import ObjectiveStatement from 'reporting/viewmodels/objectiveStatement';
+import xApiProvider from 'reporting/xApiProvider';
 
-    var FinishStatement = function (finishedLrsStatement) {
-        ExpandableStatement.call(this, finishedLrsStatement, this.expandLoadAction);
+export default class extends ExpandableStatement {
+    constructor(finishedLrsStatement) {
+        super(finishedLrsStatement);
         this.startedLrsStatement = null;
-        this.learnerDisplayName = this.lrsStatement.actor.name + ' (' + this.lrsStatement.actor.email + ')';
+        this.learnerDisplayName = `${this.lrsStatement.actor.name} (${this.lrsStatement.actor.email})`;
         this.passed = this.lrsStatement.verb === constants.reporting.xApiVerbIds.passed;
     }
 
-    FinishStatement.prototype = Object.create(ExpandableStatement.prototype);
-
-    FinishStatement.prototype.expandLoadAction = function () {
-        var that = this;
-        return xApiProvider.getMasteredStatements(that.lrsStatement.attemptId).then(function (lrsStatements) {
-            return xApiProvider.getStartedStatement(that.lrsStatement.attemptId).then(function (startedStatements) {
-                var objectiveStatements = _.map(lrsStatements, function (statement) {
-                    return new ObjectiveStatement(statement);
-                });
-                that.startedLrsStatement = startedStatements[0];
-                that.children(objectiveStatements);
-                that.isExpanded(true);
-            });
+    expandLoadAction() {
+        return co.call(this, function*() {
+            var mastered = yield xApiProvider.getMasteredStatements(this.lrsStatement.attemptId),
+                started = yield xApiProvider.getStartedStatement(this.lrsStatement.attemptId),
+                objectiveStatements = _.map(mastered, statement => new ObjectiveStatement(statement));
+            this.startedLrsStatement = started[0];
+            this.children(objectiveStatements);
         });
     }
-
-    return FinishStatement;
-});
+}

@@ -1,167 +1,206 @@
-﻿define(['reporting/viewmodels/expandableStatement'], function (ExpandableStatement) {
-    "use strict";
+﻿import co from 'co';
+import ExpandableStatement from 'reporting/viewmodels/expandableStatement';
+import userContext from 'userContext';
+import upgradeDialog from 'widgets/upgradeDialog/viewmodel';
+import constants from 'constants';
 
-    describe('viewmodel [ExpandableStatement]', function () {
-        var lrsStatement,
-            expandAction,
-            statement;
+describe('viewmodel [ExpandableStatement]', () => {
+    var lrsStatement,
+        statement;
 
-        beforeEach(function () {
-            lrsStatement = { attemptId: 'attemptId' };
-            expandAction = function () { };
-            statement = new ExpandableStatement(lrsStatement, expandAction);
+    beforeEach(() => {
+        lrsStatement = { attemptId: 'attemptId' };
+        statement = new ExpandableStatement(lrsStatement);
+    });
+
+    it('should be class', () => {
+        expect(ExpandableStatement).toBeFunction();
+    });
+
+    describe('[ctor]', () => {
+        it('should initialize fields with proper values', () => {
+            expect(statement.lrsStatement).toBe(lrsStatement);
+            expect(statement.isExpanded).toBeObservable();
+            expect(statement.isExpanded()).toBeFalsy();
+            expect(statement.children).toBeObservableArray();
+            expect(statement.children().length).toBe(0);
         });
 
-        it('should be constructor function', function () {
-            expect(ExpandableStatement).toBeFunction();
-        });
-
-        describe('[ctor]', function () {
-            it('should initialize fields with proper values', function () {
-                expect(statement.lrsStatement).toBe(lrsStatement);
-                expect(statement.isExpanded).toBeObservable();
-                expect(statement.isExpanded()).toBeFalsy();
-                expect(statement.children).toBeObservableArray();
-                expect(statement.children().length).toBe(0);
-                expect(statement.expandLoadAction).toBe(expandAction);
-            });
-
-            describe('when lrsStatement contains attemptId', function () {
-                it('it should set isExpandable to true', function () {
-                    expect(statement.isExpandable).toBeTruthy();
-                });
-            });
-
-            describe('when lrsStatement doesnt contain attemptId', function () {
-                it('it should set isExpandable to false', function () {
-                    lrsStatement.attemptId = null;
-                    statement = new ExpandableStatement(lrsStatement, expandAction);
-                    expect(statement.isExpandable).toBeFalsy();
-                });
-            });
-
-            describe('when lrsStatement has score', function() {
-                it('should set hasScore to true', function() {
-                    lrsStatement.score = 100;
-                    statement = new ExpandableStatement(lrsStatement, expandAction);
-                    expect(statement.hasScore).toBeTruthy();
-                });
-            });
-
-            describe('when lrsStatement hasn\'t score', function () {
-                it('should set hasScore to false', function () {
-                    lrsStatement.score = null;
-                    statement = new ExpandableStatement(lrsStatement, expandAction);
-                    expect(statement.hasScore).toBeFalsy();
-                });
-            });
-
-        });
-
-        describe('[collapse]', function () {
-            it('should be function', function () {
-                expect(statement.collapse).toBeFunction();
-            });
-
-            it('should set isExpanded to false', function () {
-                statement.isExpanded(true);
-                statement.collapse();
-                expect(statement.isExpanded()).toBeFalsy();
+        describe('when lrsStatement contains attemptId', () => {
+            it('it should set isExpandable to true', () => {
+                expect(statement.isExpandable).toBeTruthy();
             });
         });
 
-        describe('[expand]', function () {
-
-            var userContext = require('userContext');
-
-            it('should be function', function () {
-                expect(statement.expand).toBeFunction();
+        describe('when lrsStatement doesnt contain attemptId', () => {
+            it('it should set isExpandable to false', () => {
+                lrsStatement.attemptId = null;
+                statement = new ExpandableStatement(lrsStatement);
+                expect(statement.isExpandable).toBeFalsy();
             });
+        });
 
-            it('should return promise', function () {
-                expect(statement.expand()).toBePromise();
+        describe('when lrsStatement has score', () => {
+            it('should set hasScore to true', () => {
+                lrsStatement.score = 100;
+                statement = new ExpandableStatement(lrsStatement);
+                expect(statement.hasScore).toBeTruthy();
             });
+        });
 
-            describe('when user has plus access', function() {
-                beforeEach(function () {
-                    spyOn(userContext, 'hasPlusAccess').and.returnValue(true);
-                });
-
-                describe('and when isExpandable is false', function () {
-                    it('promise should return undefined', function (done) {
-                        lrsStatement.attemptId = null;
-                        statement = new ExpandableStatement(lrsStatement, expandAction);
-                        statement.expand().fin(function (result) {
-                            expect(result).toBeUndefined();
-                            done();
-                        });
-                    });
-                });
-
-                describe('and when isExpandable is true', function () {
-                    describe('when children is null', function () {
-                        it('should set isExpanded to true and return undefined', function (done) {
-                            statement.children = null;
-                            statement.expand().fin(function (result) {
-                                expect(statement.isExpanded()).toBeTruthy();
-                                expect(result).toBeUndefined();
-                                done();
-                            });
-                        });
-                    });
-
-                    describe('when children array is not empty', function () {
-                        it('should set isExpanded to true and return undefined', function (done) {
-                            statement.children = ko.observableArray([{}]);
-                            statement.expand().fin(function (result) {
-                                expect(statement.isExpanded()).toBeTruthy();
-                                expect(result).toBeUndefined();
-                                done();
-                            });
-                        });
-                    });
-
-                    describe('when children array length is 0', function () {
-                        it('should return expandLoadAction', function (done) {
-                            statement.children = ko.observableArray([]);
-                            statement.expand().fin(function (result) {
-                                expect(result).toBe(expandAction());
-                                done();
-                            });
-                        });
-                    });
-                });
+        describe('when lrsStatement hasn\'t score', () => {
+            it('should set hasScore to false', () => {
+                lrsStatement.score = null;
+                statement = new ExpandableStatement(lrsStatement);
+                expect(statement.hasScore).toBeFalsy();
             });
+        });
 
-            describe('when user does not have plus access', function() {
-                var constants = require('constants'),
-                    upgradeDialog = require('widgets/upgradeDialog/viewmodel');
+    });
 
-                beforeEach(function () {
-                    spyOn(userContext, 'hasPlusAccess').and.returnValue(false);
-                    spyOn(upgradeDialog, 'show');
-                });
+    describe('[collapse]', () => {
 
-                it('should show upgrade dialog', function (done) {
-                    lrsStatement.attemptId = null;
-                    statement = new ExpandableStatement(lrsStatement, expandAction);
-                    statement.expand().fin(function () {
-                        expect(upgradeDialog.show).toHaveBeenCalledWith(constants.dialogs.upgrade.settings.extendedResults);
-                        done();
-                    });
-                });
+        it('should be function', () => {
+            expect(statement.collapse).toBeFunction();
+        });
 
-                it('promise should return undefined', function (done) {
-                    lrsStatement.attemptId = null;
-                    statement = new ExpandableStatement(lrsStatement, expandAction);
-                    statement.expand().fin(function (result) {
-                        expect(result).toBeUndefined();
-                        done();
-                    });
-                });
-            });
-
-            
+        it('should set isExpanded to false', () => {
+            statement.isExpanded(true);
+            statement.collapse();
+            expect(statement.isExpanded()).toBeFalsy();
         });
     });
+
+    describe('[load]', () => {
+
+        it('should be function', () => {
+            expect(statement.load).toBeFunction();
+        });
+
+        it('should return promise',  () => {
+            expect(statement.load()).toBePromise();
+        });
+
+        describe('when user does not have access', () => {
+
+            beforeEach(() => {
+                spyOn(userContext, 'hasPlusAccess').and.returnValue(false);
+                spyOn(upgradeDialog, 'show');
+                lrsStatement.attemptId = null;
+            });
+
+            it('should show upgrade dialog', done => co(function*() {
+                statement = new ExpandableStatement(lrsStatement);
+                yield statement.load();
+                expect(upgradeDialog.show).toHaveBeenCalledWith(constants.dialogs.upgrade.settings.extendedResults);
+            }).then(done));
+
+            it('promise should return false', done => co(function*() {
+                statement = new ExpandableStatement(lrsStatement);
+                const result = yield statement.load();
+                expect(result).toBeFalsy();
+            }).then(done));
+
+        });
+
+        describe('when statement is not expandable', () => {
+
+            beforeEach(() => {
+                spyOn(userContext, 'hasPlusAccess').and.returnValue(true);
+                lrsStatement.attemptId = null;
+            });
+
+            it('promise should return false', done => co(function*() {
+                statement = new ExpandableStatement(lrsStatement);
+                const result = yield statement.load();
+                expect(result).toBeFalsy();
+            }).then(done));
+
+        });
+
+        describe('when statement is already loaded', () => {
+
+            beforeEach(() => {
+                spyOn(userContext, 'hasPlusAccess').and.returnValue(true);
+                lrsStatement.attemptId = 'id';
+            });
+
+            it('promise should return true', done => co(function*() {
+                statement = new ExpandableStatement(lrsStatement);
+                statement.children([{ id: 'id1' }]);
+                const result = yield statement.load();
+                statement.children = null;
+                const result2 = yield statement.load();
+                expect(result).toBeTruthy();
+                expect(result2).toBeTruthy();
+            }).then(done));
+
+        });
+
+        describe('when statement is not loaded yet', () => {
+
+            beforeEach(() => {
+                spyOn(userContext, 'hasPlusAccess').and.returnValue(true);
+                lrsStatement.attemptId = 'id';
+            });
+
+            it('promise should return true and call expandLoadAction', done => co(function*() {
+                statement = new ExpandableStatement(lrsStatement);
+                statement.children([]);
+                statement.expandLoadAction = () => true;
+                
+                spyOn(statement, 'expandLoadAction').and.returnValue(Promise.resolve(true));
+                const result = yield statement.load();
+                expect(statement.expandLoadAction).toHaveBeenCalled();
+                expect(result).toBeTruthy();
+            }).then(done));
+
+        });
+
+    });
+
+    describe('[expand]', function () {
+
+        beforeEach(() => {
+            statement = new ExpandableStatement(lrsStatement);
+        });
+
+        it('should be function', function () {
+            expect(statement.expand).toBeFunction();
+        });
+
+        it('should return promise', function () {
+            expect(statement.expand()).toBePromise();
+        });
+
+        describe('when load return false', () => {
+
+            beforeEach(() => {
+                statement.isExpanded(false);
+                spyOn(statement, 'load').and.returnValue(Promise.resolve(false));
+            });
+
+            it('should not set isExpanded to true', done => co(function*() {
+                yield statement.expand();
+                expect(statement.isExpanded()).toBeFalsy();
+            }).then(done));
+
+        });
+
+        describe('when load return true', () => {
+
+            beforeEach(() => {
+                statement.isExpanded(false);
+                spyOn(statement, 'load').and.returnValue(Promise.resolve(true));
+             });
+
+            it('should not set isExpanded to true', done => co(function*() {
+                yield statement.expand();
+                expect(statement.isExpanded()).toBeTruthy();
+            }).then(done));
+
+        });
+
+    });
+            
 });

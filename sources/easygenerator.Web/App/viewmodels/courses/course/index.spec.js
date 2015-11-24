@@ -186,23 +186,19 @@
 
         describe('share:', function () {
 
-            var share = require('dialogs/course/publishCourse/publishCourse');
+            var publishDialog = require('dialogs/course/publishCourse/publishDialog');
 
             beforeEach(function () {
-                spyOn(share, 'show');
+                spyOn(publishDialog, 'show');
             });
 
             it('should be function', function () {
                 expect(viewModel.share).toBeFunction();
             });
 
-            it('should show collaboration dialog', function () {
-                var id = 'id';
-                viewModel.id = id;
-
+            it('should show publish dialog', function () {
                 viewModel.share();
-
-                expect(share.show).toHaveBeenCalledWith(id);
+                expect(publishDialog.show).toHaveBeenCalledWith(viewModel.id);
             });
 
         });

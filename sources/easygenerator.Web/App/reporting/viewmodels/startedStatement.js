@@ -1,13 +1,11 @@
-﻿define(['reporting/viewmodels/expandableStatement'], function (ExpandableStatement) {
-    "use strict";
+﻿import ExpandableStatement from 'reporting/viewmodels/expandableStatement';
 
-    var StartedStatement = function (startedLrsStatement) {
-        ExpandableStatement.call(this, startedLrsStatement, null);
-        this.learnerDisplayName = this.lrsStatement.actor.name + ' (' + this.lrsStatement.actor.email + ')';
+export default class extends ExpandableStatement {
+    constructor(startedLrsStatement) {
+        super(startedLrsStatement);
+        this.learnerDisplayName = `${this.lrsStatement.actor.name} (${this.lrsStatement.actor.email})`;
         this.isExpandable = false;
         this.isExpanded = null;
         this.children = null;
     }
-
-    return StartedStatement;
-});
+}
