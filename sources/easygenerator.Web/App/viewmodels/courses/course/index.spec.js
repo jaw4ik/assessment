@@ -198,7 +198,7 @@
 
             it('should show publish dialog', function () {
                 viewModel.share();
-                expect(publishDialog.show).toHaveBeenCalled();
+                expect(publishDialog.show).toHaveBeenCalledWith(viewModel.id);
             });
 
         });

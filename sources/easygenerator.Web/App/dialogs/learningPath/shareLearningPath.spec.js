@@ -11,12 +11,6 @@
             expect(viewModel).toBeObject();
         });
 
-        describe('learningPathId', function () {
-            it('should be defined', function () {
-                expect(viewModel.learningPathId).toBeDefined();
-            });
-        });
-
         describe('publishModel', function () {
             it('should be defined', function () {
                 expect(viewModel.publishModel).toBeDefined();
@@ -30,8 +24,18 @@
         });
 
         describe('show:', function () {
+            beforeEach(function () {
+                viewModel.publishModel = { activate: function () { } };
+                spyOn(viewModel.publishModel, 'activate');
+            });
+
             it('should be function', function () {
                 expect(viewModel.show).toBeFunction();
+            });
+
+            it('should activate publish model', function () {
+                viewModel.show('learningPathId');
+                expect(viewModel.publishModel.activate).toHaveBeenCalledWith('learningPathId');
             });
 
             it('should show dialog', function () {
@@ -42,8 +46,18 @@
         });
 
         describe('hide:', function () {
+            beforeEach(function () {
+                viewModel.publishModel = { deactivate: function () { } };
+                spyOn(viewModel.publishModel, 'deactivate');
+            });
+
             it('should be function', function () {
                 expect(viewModel.hide).toBeFunction();
+            });
+
+            it('should deactivate publish model', function () {
+                viewModel.hide();
+                expect(viewModel.publishModel.deactivate).toHaveBeenCalled();
             });
 
             it('should hide dialog', function () {
@@ -62,12 +76,6 @@
 
             it('should be function', function () {
                 expect(viewModel.activate).toBeFunction();
-            });
-
-            it('should set learningPathId', function () {
-                viewModel.learningPathId = '';
-                viewModel.activate(learningPathId);
-                expect(viewModel.learningPathId).toBe(learningPathId);
             });
 
             describe('when user has company', function () {

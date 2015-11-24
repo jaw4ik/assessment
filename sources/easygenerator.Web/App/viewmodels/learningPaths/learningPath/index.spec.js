@@ -202,7 +202,7 @@
 
             it('should show publish learning path dialog', function () {
                 viewModel.share();
-                expect(shareLearningPathDialog.show).toHaveBeenCalled();
+                expect(shareLearningPathDialog.show).toHaveBeenCalledWith(viewModel.id);
             });
         });
     });

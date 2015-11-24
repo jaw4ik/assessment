@@ -150,7 +150,7 @@
 
         function share() {
             eventTracker.publish(events.openShareDialog);
-            sharePopup.show();
+            sharePopup.show(viewModel.id);
         }
 
         function changeTemplate() {

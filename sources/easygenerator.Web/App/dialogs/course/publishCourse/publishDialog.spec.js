@@ -10,12 +10,6 @@
             expect(viewModel).toBeObject();
         });
 
-        describe('courseId:', function() {
-            it('should be defined', function() {
-                expect(viewModel.courseId).toBeDefined();
-            });
-        });
-
         describe('publishModel:', function() {
             it('should be defined', function() {
                 expect(viewModel.publishModel).toBeDefined();
@@ -29,8 +23,18 @@
         });
 
         describe('show:', function() {
-            it('should be function', function() {
+            beforeEach(function () {
+                viewModel.publishModel = { activate: function () { } };
+                spyOn(viewModel.publishModel, 'activate');
+            });
+
+            it('should be function', function () {
                 expect(viewModel.show).toBeFunction();
+            });
+
+            it('should activate publish model', function() {
+                viewModel.show('courseId');
+                expect(viewModel.publishModel.activate).toHaveBeenCalledWith('courseId');
             });
 
             it('should show dilog', function() {
@@ -40,9 +44,19 @@
             });
         });
 
-        describe('hide:', function() {
+        describe('hide:', function () {
+            beforeEach(function () {
+                viewModel.publishModel = { deactivate: function () { } };
+                spyOn(viewModel.publishModel, 'deactivate');
+            });
+
             it('should be function', function() {
                 expect(viewModel.hide).toBeFunction();
+            });
+
+            it('should activate publish model', function () {
+                viewModel.hide();
+                expect(viewModel.publishModel.deactivate).toHaveBeenCalled();
             });
 
             it('should hide dilog', function () {
@@ -59,13 +73,6 @@
 
             it('should be function', function() {
                 expect(viewModel.activate).toBeFunction();
-            });
-
-            it('should set courseId', function() {
-                var courseId = 'courseId';
-                viewModel.courseId = null;
-                viewModel.activate(courseId);
-                expect(viewModel.courseId).toBe(courseId);
             });
 
             describe('when user doesn\' have company', function() {

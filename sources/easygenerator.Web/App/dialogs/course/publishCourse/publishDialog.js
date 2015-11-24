@@ -2,7 +2,6 @@
     "use strict";
 
     var viewModel = {
-        courseId: '',
         publishModel: null,
         isShown: ko.observable(false),
         show: show,
@@ -12,16 +11,17 @@
 
     return viewModel;
 
-    function show() {
+    function show(courseId) {
+        viewModel.publishModel.activate(courseId);
         viewModel.isShown(true);
     }
 
     function hide() {
+        viewModel.publishModel.deactivate();
         viewModel.isShown(false);
     }
 
-    function activate(courseId) {
-        viewModel.courseId = courseId;
+    function activate() {
         var showCustomPublish = !!userContext.identity.company;
         viewModel.publishModel = showCustomPublish ? customPublishModel : defaultPublishModel;
     }

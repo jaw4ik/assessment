@@ -2,7 +2,6 @@
     'use strict';
 
     var viewModel = {
-        learningPathId: '',
         publishModel: null,
         isShown: ko.observable(false),
 
@@ -14,16 +13,17 @@
 
     return viewModel;
 
-    function show() {
+    function show(learningPathId) {
+        viewModel.publishModel.activate(learningPathId);
         viewModel.isShown(true);
     }
 
     function hide() {
+        viewModel.publishModel.deactivate();
         viewModel.isShown(false);
     }
 
-    function activate(learningPathId) {
-        viewModel.learningPathId = learningPathId;
+    function activate() {
         var showCustomPublish = !!userContext.identity.company;
         viewModel.publishModel = showCustomPublish ? customPublishModel : defaultPublishModel;
     }
