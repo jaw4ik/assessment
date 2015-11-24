@@ -1,7 +1,6 @@
 ﻿import app from 'durandal/app';
 import constants from 'constants';
 import ko from 'knockout';
-import co from 'co';
 import userContext from 'userContext';
 import audioLibrary from 'audio/audioLibrary/audioLibrary';
 import localizationManager from 'localization/localizationManager';

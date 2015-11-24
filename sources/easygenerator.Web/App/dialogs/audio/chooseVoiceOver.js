@@ -43,6 +43,7 @@ function submit() {
         return;
     }
 
+    viewModel.library.off();
     dialog.close();
 
     if (_.isFunction(viewModel.callback)) {
@@ -66,6 +67,7 @@ function hideValidationMessage() {
 }
 
 function close() {
+    viewModel.library.off();
     dialog.close();
 }
 

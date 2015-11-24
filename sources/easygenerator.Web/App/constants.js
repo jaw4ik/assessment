@@ -460,8 +460,7 @@
                 },
                 chooseVoiceOver: {
                     settings: {
-                        containerCss: 'choose-voice-over',
-                        autoclose: true
+                        containerCss: 'choose-voice-over'
                     }
                 },
                 branchtrack: {

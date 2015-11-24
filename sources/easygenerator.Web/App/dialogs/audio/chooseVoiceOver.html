@@ -34,7 +34,7 @@
                 <!-- /ko-->
                 <!-- ko if: status() == $parent.library.statuses.inProgress -->
                 <li class="audio-list-item uploading" data-bind="css: { inactive: status() !== $parent.library.statuses.loaded }">
-                    <canvas width="40" height="40" class="circle-progress" data-bind="circleProgress: { progress: progress, lineWidth: 1 }"></canvas>
+                    <canvas width="40" height="40" class="circle-progress" data-bind="circleProgress: { progress: progress, lineWidth: 2 }"></canvas>
                     <div class="circle-progress-text" data-bind="text: progress() + '%'"></div>
                     <div class="audio-title" data-bind="text: title"></div>
                 </li>
@@ -47,8 +47,9 @@
         <div class="audio-list-container empty drop-zone">
             <div class="audio-list-content">
                 <div class="audio-list-empty-image"></div>
-                <h3 data-bind="localize: { text : 'dragAndDrop' }"></h3>
-                <div data-bind="localize: { text : 'anyAudioFormatsOr' }"><span></span>&nbsp;<a href="" data-bind="localize: { text: 'browseCallToAction'}, browse: { before: library.ensureCanAddAudio"></a>
+                <div class="audio-list-empty-text">
+                    <h3 data-bind="localize: { text : 'dragAndDrop' }"></h3>
+                    <span data-bind="localize: { text : 'anyAudioFormatsOr' }"></span>&nbsp;<a href="" data-bind="localize: { text: 'browseCallToAction'}, , browse: { before: library.ensureCanAddAudio, callback: library.addAudio }"></a>
                 </div>
             </div>
         </div>

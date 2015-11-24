@@ -26,18 +26,18 @@ let viewModel = {
 function initialize(){
     viewModel.audios([]);
     return getAudiosCommand.execute().then(function (audios) {
-        audioUploadDispatcher.uploads.forEach((upload) => {
+        audios.forEach((upload) => {
             viewModel.audios.push(new AudioViewModel(upload));
         });
-
-        audios.forEach((upload) => {
+        
+        audioUploadDispatcher.uploads.forEach((upload) => {
             viewModel.audios.push(new AudioViewModel(upload));
         });
     });
 }
 
 function off() {
-    viewModel.audios().forEach((audio) => audio.off());
+    viewModel.audios().forEach(audio => audio.off());
 }
 
 function ensureCanAddAudio() {
