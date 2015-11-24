@@ -1,27 +1,24 @@
-﻿define(['reporting/viewmodels/expandableStatement', 'reporting/viewmodels/questionStatement', 'reporting/xApiProvider'], function (ExpandableStatement, QuestionStatement, xApiProvider) {
-    "use strict";
+﻿import co from 'co';
+import _ from 'underscore';
+import ExpandableStatement from 'reporting/viewmodels/expandableStatement';
+import QuestionStatement from 'reporting/viewmodels/questionStatement';
+import xApiProvider from 'reporting/xApiProvider';
 
-    var ObjectiveStatement = function (masteredLrsStatement) {
-        ExpandableStatement.call(this, masteredLrsStatement, this.expandLoadAction);
+export default class extends ExpandableStatement  {
+    constructor(masteredLrsStatement) {
+        super(masteredLrsStatement);
         this.hasScore = this.lrsStatement.score != null;
     }
 
-    ObjectiveStatement.prototype = Object.create(ExpandableStatement.prototype);
-
-    ObjectiveStatement.prototype.expandLoadAction = function () {
-        var that = this;
-        return xApiProvider.getAnsweredStatements(that.lrsStatement.attemptId, that.lrsStatement.id).then(function (statements) {
-            if (statements && statements.length) {
-                var questionStatements = _.map(statements, function (statement) {
-                    return new QuestionStatement(statement);
-                });
-                that.children(questionStatements);
-            } else {
-                that.children = null;
+    expandLoadAction() {
+        return co.call(this, function*() {
+            const answered = yield xApiProvider.getAnsweredStatements(this.lrsStatement.attemptId, this.lrsStatement.id);
+            if (answered && answered.length) {
+                const questionStatements = _.map(answered, statement => new QuestionStatement(statement));
+                this.children(questionStatements);
+                return;
             }
-            that.isExpanded(true);
+            this.children = null;
         });
     }
-
-    return ObjectiveStatement;
-});
+}
