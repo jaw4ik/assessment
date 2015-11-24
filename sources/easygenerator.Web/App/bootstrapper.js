@@ -13,4 +13,3 @@ function run() {
 }
 
 export default { run };
-export var __useDefault = true;

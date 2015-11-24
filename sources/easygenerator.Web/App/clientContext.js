@@ -34,4 +34,3 @@ export default {
     get,
     remove
 };
-export var __useDefault = true;
