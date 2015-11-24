@@ -6,14 +6,6 @@
                 <div class="page-view-caption-text" data-bind="localize: { text: 'courses' }">Courses</div>
             </div>
             <div class="view-list-actions-holder">
-                <div class="list-item-action delete">
-                    <!-- ko if: enableDeleteCourses -->
-                    <span class="selected-item-action delete enabled" data-bind="click: deleteSelectedCourses, localize: { text: 'deleteSelected' }">Delete selected</span>
-                    <!-- /ko -->
-                    <!-- ko ifnot: enableDeleteCourses -->
-                    <span class="selected-item-action delete disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
-                    <!-- /ko -->
-                </div>
                 <div class="list-item-action informer">
                     <!-- ko ifnot: isCreateCourseAvailable -->
                     <div class="limit-courses-informer-wrapper">
@@ -75,11 +67,6 @@
                 <!-- ko foreach: courses -->
                 <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected, processing: !isProcessed }">
                     <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
-                        <div class="checkbox-holder" data-bind="click: $parent.toggleSelection, stopEventPropagation: { event: 'click' }">
-                            <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }">
-                                <input class="custom-checkbox" type="checkbox" />
-                            </span>
-                        </div>
                         <div class="list-item-info-holder">
                             <div class="info-holder-table">
                                 <div class="list-item-logo">
@@ -107,6 +94,11 @@
                             </div>
                             <div class="course-actions-panel">
                                 <!-- ko if: isProcessed -->
+                                <button class="course-action-btn delete-course-btn info-tooltip-holder" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.deleteCourse">
+                                    <div class="info-tooltip delete-course-item">
+                                        <span data-bind="localize: { text: 'deleteCourse' }">Delete course</span>
+                                    </div>
+                                </button>
                                 <button class="course-action-btn duplicate-btn info-tooltip-holder" data-bind="stopEventPropagation: { event: 'click' }, click: $parent.duplicateCourse">
                                     <div class="info-tooltip duplicate-item">
                                         <span data-bind="localize: { text: 'duplicate' }">Duplicate</span>
@@ -146,8 +138,7 @@
                 <!-- ko foreach: sharedCourses -->
                 <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected }">
                     <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
-                        <div class="empty-list-item shared"></div>
-                        <div class="list-item-info-holder">
+                            <div class="list-item-info-holder">
                             <div class="info-holder-table">
                                 <div class="list-item-logo">
                                     <span class="list-item-logo-image-wrapper">

@@ -69,6 +69,11 @@
                 expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.removeCourse, viewModel.removeCourse);
             });
 
+            it('should subscribe on course.deleted event', function () {
+                viewModel.activate(learningPath.id);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.course.deleted, viewModel.courseDeleted);
+            });
+
             it('should subscribe on course.titleUpdatedByCollaborator event', function () {
                 viewModel.activate(learningPath.id);
                 expect(app.on).toHaveBeenCalledWith(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
@@ -125,6 +130,11 @@
             it('should unsubscribe on learningPath.removeCourse event', function () {
                 viewModel.deactivate();
                 expect(app.off).toHaveBeenCalledWith(constants.messages.learningPath.removeCourse, viewModel.removeCourse);
+            });
+
+            it('should unsubscribe on course.deleted event', function () {
+                viewModel.deactivate();
+                expect(app.off).toHaveBeenCalledWith(constants.messages.course.deleted, viewModel.courseDeleted);
             });
 
             it('should unsubscribe from course.titleUpdatedByCollaborator event', function () {
@@ -321,9 +331,36 @@
                 expect(eventTracker.publish).toHaveBeenCalledWith('Remove course from the learning path');
             });
 
+            describe('and when course removed', function () {
+                beforeEach(function () {
+                    removeCourseDefer.resolve();
+                    spyOn(viewModel, 'courseDeleted');
+                });
+
+                it('should call courseDeleted', function (done) {
+                    viewModel.courses([course]);
+                    viewModel.removeCourse(course.id).fin(function () {
+                        expect(viewModel.courseDeleted).toHaveBeenCalled();
+                        done();
+                    });;
+                });
+
+                it('should show saved notification', function (done) {
+                    viewModel.removeCourse(course.id);
+                    removeCourseCommand.execute(viewModel.id, course.id).fin(function () {
+                        expect(notify.saved).toHaveBeenCalled();
+                        done();
+                    });
+                });
+            });
+        });
+
+        describe('courseDeleted:', function() {
+            var course = { id: 'id', template: {} };
+
             it('should remove course from courses collection', function () {
                 viewModel.courses([course]);
-                viewModel.removeCourse(course.id);
+                viewModel.courseDeleted(course.id);
                 expect(viewModel.courses().length).toBe(0);
             });
 
@@ -338,22 +375,8 @@
                     });
 
                     it('should expand course selector', function () {
-                        viewModel.removeCourse(course.id);
+                        viewModel.courseDeleted(course.id);
                         expect(viewModel.courseSelector.expand).toHaveBeenCalled();
-                    });
-                });
-            });
-
-            describe('and when course removed', function () {
-                beforeEach(function () {
-                    removeCourseDefer.resolve();
-                });
-
-                it('should show saved notification', function (done) {
-                    viewModel.removeCourse(course.id);
-                    removeCourseCommand.execute(viewModel.id, course.id).fin(function () {
-                        expect(notify.saved).toHaveBeenCalled();
-                        done();
                     });
                 });
             });

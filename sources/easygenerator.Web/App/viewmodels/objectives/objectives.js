@@ -168,9 +168,7 @@
                         .map(function (item) {
                             var mappedObjective = objectiveBrief(item);
                             mappedObjective.canBeDeleted = (function (currentItem) {
-                                if (item.questions.length > 0)
-                                    return false;
-
+ 
                                 return (!_.find(includedObjectives, function (objective) {
                                     return objective.id === currentItem.id;
                                 }));

@@ -22,4 +22,3 @@ export default {
 
     }
 };
-export var __useDefault = true;
