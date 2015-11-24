@@ -20,7 +20,8 @@ namespace easygenerator.Web.Components.Mappers
                 Id = entity.Id,
                 Name = entity.Name,
                 LogoUrl = entity.LogoUrl,
-                PublishCourseApiUrl = entity.PublishCourseApiUrl
+                PublishCourseApiUrl = entity.PublishCourseApiUrl,
+                HideDefaultPublishOptions = entity.HideDefaultPublishOptions
             };
         }
     }

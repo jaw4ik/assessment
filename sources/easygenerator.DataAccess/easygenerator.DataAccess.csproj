@@ -379,6 +379,22 @@
     <Compile Include="Migrations\201511230950372_AddNewEditor.Designer.cs">
       <DependentUpon>201511230950372_AddNewEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511231257265_AddHideDefaultPublishOptionsToCompany.cs" />
+    <Compile Include="Migrations\201511231257265_AddHideDefaultPublishOptionsToCompany.Designer.cs">
+      <DependentUpon>201511231257265_AddHideDefaultPublishOptionsToCompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511231300115_AddIsPublishedToExternalLmsToLearningPaths.cs" />
+    <Compile Include="Migrations\201511231300115_AddIsPublishedToExternalLmsToLearningPaths.Designer.cs">
+      <DependentUpon>201511231300115_AddIsPublishedToExternalLmsToLearningPaths.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511240804296_AddNuvolaCompany.cs" />
+    <Compile Include="Migrations\201511240804296_AddNuvolaCompany.Designer.cs">
+      <DependentUpon>201511240804296_AddNuvolaCompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511240842447_AddNuvolaConsumerToolAndSettings.cs" />
+    <Compile Include="Migrations\201511240842447_AddNuvolaConsumerToolAndSettings.Designer.cs">
+      <DependentUpon>201511240842447_AddNuvolaConsumerToolAndSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ConsumerToolRepository.cs" />
@@ -652,6 +668,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511230950372_AddNewEditor.resx">
       <DependentUpon>201511230950372_AddNewEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511231257265_AddHideDefaultPublishOptionsToCompany.resx">
+      <DependentUpon>201511231257265_AddHideDefaultPublishOptionsToCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511231300115_AddIsPublishedToExternalLmsToLearningPaths.resx">
+      <DependentUpon>201511231300115_AddIsPublishedToExternalLmsToLearningPaths.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511240804296_AddNuvolaCompany.resx">
+      <DependentUpon>201511240804296_AddNuvolaCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511240842447_AddNuvolaConsumerToolAndSettings.resx">
+      <DependentUpon>201511240842447_AddNuvolaConsumerToolAndSettings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -144,6 +144,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<CoursePublisher>().As<ICoursePublisher>();
             builder.RegisterType<LearningPathPublisher>().As<ILearningPathPublisher>();
             builder.RegisterType<ExternalCoursePublisher>().As<IExternalCoursePublisher>();
+            builder.RegisterType<ExternalLearningPathPublisher>().As<IExternalLearningPathPublisher>();
 
             #endregion
 
