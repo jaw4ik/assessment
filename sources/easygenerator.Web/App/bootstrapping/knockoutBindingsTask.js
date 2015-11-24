@@ -19,6 +19,7 @@
     require('viewmodels/learningContents/bindingHandlers/hotspotOnImageBindingHandler');
     require('widgets/dialog/bindingHandlers/dialogBindingHandler');
     require('widgets/dialog/bindingHandlers/dialogWizardBindingHandler');
+    require('editor/course/bindingHandlers/expandBlock');
 
     var task = {
         execute: execute
