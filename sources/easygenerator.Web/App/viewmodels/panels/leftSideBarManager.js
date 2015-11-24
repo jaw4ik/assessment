@@ -18,7 +18,8 @@
         {
             viewToCompose: 'editor/course/createItemsBar/index',
             subscribedPages: [{ id: 'editor/course/index' }],
-            modelToCompose: 'editor/course/createItemsBar/index'
+            modelToCompose: 'editor/course/createItemsBar/index',
+            activate: true
         },
         {
             viewToCompose: 'views/courses/course/design/bar',

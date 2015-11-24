@@ -1,6 +1,6 @@
 ﻿import ko from 'knockout';
+import _ from 'underscore';
 import constants from 'constants';
-
 
 export default class {
     constructor() {
@@ -14,12 +14,8 @@ export default class {
         this.questionsExpanded(!this.questionsExpanded());
     }
     activate() {
+        debugger;
         this.sectionExpanded(true);
         this.questionsExpanded(true);
-        for (let question of constants.questionTypes) {
-            debugger;
-        }
     }
 }
-
-export var __useDefault = true;

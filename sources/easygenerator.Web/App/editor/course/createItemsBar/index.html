@@ -1,12 +1,14 @@
-﻿<section class="editor-create-bar-container create left-side-bar" data-bind="scrollbar: {}">
+﻿<section class="editor-create-bar-container create left-side-bar" data-bind="scrollbar: { checkDOMChanges: true }">
     <div class="editor-create-bar-wrapper">
         <h2 class="editor-create-bar-header" data-bind="localize: { text: 'sections' }">Sections:</h2>
-        <ul class="editor-create-bar-list">
-            <li class="editor-create-bar-list-item section">
-                <div class="editor-create-bar-list-icon"></div>
-                <h4 class="editor-create-bar-list-title" data-bind="localize: { text: 'section' }">Section</h4>
-            </li>
-        </ul>
+        <div class="editor-create-bar-list-container">
+            <ul class="editor-create-bar-list">
+                <li class="editor-create-bar-list-item section">
+                    <div class="editor-create-bar-list-icon"></div>
+                    <h4 class="editor-create-bar-list-title" data-bind="localize: { text: 'section' }">Section</h4>
+                </li>
+            </ul>
+        </div>
         <h2 class="editor-create-bar-header" data-bind="localize: { text: 'contentAndQuestions' }">Content and questions:</h2>
         <ul class="editor-create-bar-list">
             <li class="editor-create-bar-list-item informationContent">
