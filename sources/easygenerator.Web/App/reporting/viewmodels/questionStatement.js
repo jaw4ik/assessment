@@ -20,5 +20,3 @@ export default class extends ExpandableStatement {
         this.answerShown(false);
     }
 }
-
-export var __useDefault = true;

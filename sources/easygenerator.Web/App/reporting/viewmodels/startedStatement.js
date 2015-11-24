@@ -9,5 +9,3 @@ export default class extends ExpandableStatement {
         this.children = null;
     }
 }
-
-export var __useDefault = true;

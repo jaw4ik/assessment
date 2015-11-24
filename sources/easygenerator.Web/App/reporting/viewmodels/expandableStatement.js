@@ -40,5 +40,3 @@ export default class {
         this.isExpanded(false);
     }
 }
-
-export var __useDefault = true;

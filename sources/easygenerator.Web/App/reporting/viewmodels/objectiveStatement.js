@@ -22,5 +22,3 @@ export default class extends ExpandableStatement  {
         });
     }
 }
-
-export var __useDefault = true;
