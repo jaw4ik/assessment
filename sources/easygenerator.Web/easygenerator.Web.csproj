@@ -631,7 +631,11 @@
     <Content Include="App\dialogs\audio\audioViewModel.spec.js">
       <DependentUpon>audioViewModel.js</DependentUpon>
     </Content>
-    <Content Include="App\editor\course\bar.html" />
+    <Content Include="App\editor\course\createItemsBar\index.html" />
+    <Content Include="App\editor\course\createItemsBar\index.js" />
+    <Content Include="App\editor\course\createItemsBar\index.spec.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
     <Content Include="App\editor\course\index.html" />
     <Content Include="App\editor\course\index.js" />
     <Content Include="App\editor\course\index.spec.js">
@@ -1807,6 +1811,7 @@
     <Content Include="App\localization\lang\de.json" />
     <Content Include="App\localization\lang\nl.json" />
     <Content Include="Content\font\robotoslab-light.woff" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\iscroll-probe.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />

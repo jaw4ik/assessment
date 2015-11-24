@@ -1,1 +1,1 @@
-﻿
+﻿import viewmodel from 'editor/course/index';
