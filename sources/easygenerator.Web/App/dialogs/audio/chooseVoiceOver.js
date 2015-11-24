@@ -30,8 +30,6 @@ function show(selectedAudioVimeoId, callback) {
         viewModel.isLoading(false);
     });
 
-    //todo: temporary solution
-    viewModel.__moduleId__ = 'dialogs/audio/chooseVoiceOver';
     dialog.show(viewModel, constants.dialogs.chooseVoiceOver.settings);
 }
 
