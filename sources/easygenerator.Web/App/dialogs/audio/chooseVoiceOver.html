@@ -9,7 +9,7 @@
         <!-- /ko -->
         <!-- ko ifnot: isLoading -->
         <!-- ko if: library.audios().length -->
-        <div class="audio-list-container" data-bind="scrollbar: {}">
+        <div class="audio-list-container" data-bind="scrollbar: { checkDOMChanges: true }">
             <ul class="audio-list">
                 <li class="audio-upload-hint drop-zone">
                     <span data-bind="localize: { text: 'dropAudioFilesHereOr'}"></span>&nbsp;<a href="" data-bind="localize: { text: 'browseCallToAction'}, browse: { before: library.ensureCanAddAudio, callback: library.addAudio }"></a>

@@ -23,11 +23,9 @@ function show(selectedAudioVimeoId, callback) {
     viewModel.isLoading(true);
 
     viewModel.library.initialize().then(() => {
-        viewModel.library.audios().forEach(audio => {
-            if (selectedAudioVimeoId && audio.vimeoId() === selectedAudioVimeoId) {
-                viewModel.selectedAudio(audio);
-            }
-        });
+        if (selectedAudioVimeoId) {
+            viewModel.selectedAudio(viewModel.library.audios().find(e => e.vimeoId() === selectedAudioVimeoId));
+        }
 
         viewModel.isLoading(false);
     });
@@ -72,4 +70,3 @@ function close() {
 }
 
 export default viewModel;
-export var __useDefault = true;
