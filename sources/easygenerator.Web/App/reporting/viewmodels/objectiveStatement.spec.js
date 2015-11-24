@@ -50,7 +50,7 @@ describe('viewmodel [ObjectiveStatement]', () => {
             answeredDefer.resolve([]);
             yield statement.expandLoadAction();
             expect(xApiProvider.getAnsweredStatements).toHaveBeenCalledWith(attemptId, statementId);
-        }).then(() => done()));
+        }).then(done));
 
         describe('if there are no answered statements', () => {
 
@@ -61,7 +61,7 @@ describe('viewmodel [ObjectiveStatement]', () => {
             it('should set children to null', done => co(function*() {
                 yield statement.expandLoadAction();
                 expect(statement.children).toBeNull();
-            }).then(() => done()));
+            }).then(done));
 
         });
 
@@ -85,7 +85,7 @@ describe('viewmodel [ObjectiveStatement]', () => {
                 expect(statement.children()[1]).toBeInstanceOf(QuestionStatement);
                 expect(statement.children()[0].lrsStatement).toBe(answeredStatements[0]);
                 expect(statement.children()[1].lrsStatement).toBe(answeredStatements[1]);
-            }).then(() => done()));
+            }).then(done));
 
         });
     });

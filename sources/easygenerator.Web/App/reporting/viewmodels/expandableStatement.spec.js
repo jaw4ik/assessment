@@ -93,13 +93,13 @@ describe('viewmodel [ExpandableStatement]', () => {
                 statement = new ExpandableStatement(lrsStatement);
                 yield statement.load();
                 expect(upgradeDialog.show).toHaveBeenCalledWith(constants.dialogs.upgrade.settings.extendedResults);
-            }).then(() => done()));
+            }).then(done));
 
             it('promise should return false', done => co(function*() {
                 statement = new ExpandableStatement(lrsStatement);
                 const result = yield statement.load();
                 expect(result).toBeFalsy();
-            }).then(() => done()));
+            }).then(done));
 
         });
 
@@ -114,7 +114,7 @@ describe('viewmodel [ExpandableStatement]', () => {
                 statement = new ExpandableStatement(lrsStatement);
                 const result = yield statement.load();
                 expect(result).toBeFalsy();
-            }).then(() => done()));
+            }).then(done));
 
         });
 
@@ -133,7 +133,7 @@ describe('viewmodel [ExpandableStatement]', () => {
                 const result2 = yield statement.load();
                 expect(result).toBeTruthy();
                 expect(result2).toBeTruthy();
-            }).then(() => done()));
+            }).then(done));
 
         });
 
@@ -153,7 +153,7 @@ describe('viewmodel [ExpandableStatement]', () => {
                 const result = yield statement.load();
                 expect(statement.expandLoadAction).toHaveBeenCalled();
                 expect(result).toBeTruthy();
-            }).then(() => done()));
+            }).then(done));
 
         });
 
@@ -183,7 +183,7 @@ describe('viewmodel [ExpandableStatement]', () => {
             it('should not set isExpanded to true', done => co(function*() {
                 yield statement.expand();
                 expect(statement.isExpanded()).toBeFalsy();
-            }).then(() => done()));
+            }).then(done));
 
         });
 
@@ -197,7 +197,7 @@ describe('viewmodel [ExpandableStatement]', () => {
             it('should not set isExpanded to true', done => co(function*() {
                 yield statement.expand();
                 expect(statement.isExpanded()).toBeTruthy();
-            }).then(() => done()));
+            }).then(done));
 
         });
 

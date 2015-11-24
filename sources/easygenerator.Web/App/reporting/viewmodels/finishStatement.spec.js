@@ -70,7 +70,7 @@ describe('viewmodel [FinishStatement]', () => {
             it('should call xApiProvider.getStartedStatement with correct args', done => co(function*() {
                 yield statement.expandLoadAction();
                 expect(xApiProvider.getStartedStatement).toHaveBeenCalledWith(attemptId);
-            }).then(() => done()));
+            }).then(done));
 
 
             describe('and xApiProvider.getStartedStatement call was sucess', () => {
@@ -82,12 +82,12 @@ describe('viewmodel [FinishStatement]', () => {
                     expect(statement.children()[1]).toBeInstanceOf(ObjectiveStatement);
                     expect(statement.children()[0].lrsStatement).toBe(masteredStatements[0]);
                     expect(statement.children()[1].lrsStatement).toBe(masteredStatements[1]);
-                }).then(() => done()));
+                }).then(done));
 
                 it('should set startedLrsStatement to started statement', done => co(function*() {
                     yield statement.expandLoadAction();
                     expect(statement.startedLrsStatement).toBe(startedStatement[0]);
-                }).then(() => done()));
+                }).then(done));
 
             });
         });

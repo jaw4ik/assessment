@@ -17,7 +17,7 @@
             that.results = ko.observableArray([]);
             that.allResultsLoaded = false;
             that.allEmbededResultsLoaded = false;
-            that.resultsForDownload = null,
+            that.cachedResultsForDownload = null,
             that.isLoading = ko.observable(true);
             that.noResultsViewLocation = noResultsViewLocation;
 
@@ -62,13 +62,13 @@
                         upgradeDialog.show(constants.dialogs.upgrade.settings.downloadResults);
                         return undefined;
                     }
-                    if (that.resultsForDownload) {
-                        return fileSaverWrapper.saveAs(generateResultsCsvBlob(that.resultsForDownload), getResultsFileName());
+                    if (that.cachedResultsForDownload) {
+                        return fileSaverWrapper.saveAs(generateResultsCsvBlob(that.cachedResultsForDownload), getResultsFileName());
                     }
 
                     var generateCsvTablePromise = generateDetailedResults ? generateDetailedCsv() : generateCsv();
                     return generateCsvTablePromise.then(function (csvTable) {
-                        that.resultsForDownload = csvTable;
+                        that.cachedResultsForDownload = csvTable;
                         return fileSaverWrapper.saveAs(generateResultsCsvBlob(csvTable), getResultsFileName());
                     });
                 });
@@ -89,7 +89,7 @@
                 that.entityId = entityId;
                 that.allResultsLoaded = false;
                 that.allEmbededResultsLoaded = false;
-                that.resultsForDownload = null;
+                that.cachedResultsForDownload = null;
                 return getEntity(entityId).then(function (entity) {
                     that.entityTitle = entity.title;
                 });

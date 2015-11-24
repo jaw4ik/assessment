@@ -725,7 +725,7 @@
 
                 describe('and all results for download were already generated', function () {
                     beforeEach(function () {
-                        viewModel.resultsForDownload = ['name,score'];
+                        viewModel.cachedResultsForDownload = ['name,score'];
                     });
 
                     it('should not get Lrs statements', function (done) {
@@ -773,9 +773,9 @@
                     });
 
                     it('should set resultsForDownload', function (done) {
-                        viewModel.resultsForDownload = null;
+                        viewModel.cachedResultsForDownload = null;
                         viewModel.downloadResults().fin(function () {
-                            expect(viewModel.resultsForDownload).toBeString();
+                            expect(viewModel.cachedResultsForDownload).toBeString();
                             done();
                         });
                     });
