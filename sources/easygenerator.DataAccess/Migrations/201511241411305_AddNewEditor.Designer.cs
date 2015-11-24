@@ -13,7 +13,7 @@ namespace easygenerator.DataAccess.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201511230950372_AddNewEditor"; }
+            get { return "201511241411305_AddNewEditor"; }
         }
         
         string IMigrationMetadata.Source

@@ -375,10 +375,6 @@
     <Compile Include="Migrations\201511140818107_EditLtiUserInfoMakeUserAndConsumerToolRequired.Designer.cs">
       <DependentUpon>201511140818107_EditLtiUserInfoMakeUserAndConsumerToolRequired.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201511230950372_AddNewEditor.cs" />
-    <Compile Include="Migrations\201511230950372_AddNewEditor.Designer.cs">
-      <DependentUpon>201511230950372_AddNewEditor.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201511231257265_AddHideDefaultPublishOptionsToCompany.cs" />
     <Compile Include="Migrations\201511231257265_AddHideDefaultPublishOptionsToCompany.Designer.cs">
       <DependentUpon>201511231257265_AddHideDefaultPublishOptionsToCompany.cs</DependentUpon>
@@ -394,6 +390,10 @@
     <Compile Include="Migrations\201511240842447_AddNuvolaConsumerToolAndSettings.cs" />
     <Compile Include="Migrations\201511240842447_AddNuvolaConsumerToolAndSettings.Designer.cs">
       <DependentUpon>201511240842447_AddNuvolaConsumerToolAndSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511241411305_AddNewEditor.cs" />
+    <Compile Include="Migrations\201511241411305_AddNewEditor.Designer.cs">
+      <DependentUpon>201511241411305_AddNewEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -666,9 +666,6 @@
     <EmbeddedResource Include="Migrations\201511140818107_EditLtiUserInfoMakeUserAndConsumerToolRequired.resx">
       <DependentUpon>201511140818107_EditLtiUserInfoMakeUserAndConsumerToolRequired.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511230950372_AddNewEditor.resx">
-      <DependentUpon>201511230950372_AddNewEditor.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511231257265_AddHideDefaultPublishOptionsToCompany.resx">
       <DependentUpon>201511231257265_AddHideDefaultPublishOptionsToCompany.cs</DependentUpon>
     </EmbeddedResource>
@@ -680,6 +677,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511240842447_AddNuvolaConsumerToolAndSettings.resx">
       <DependentUpon>201511240842447_AddNuvolaConsumerToolAndSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511241411305_AddNewEditor.resx">
+      <DependentUpon>201511241411305_AddNewEditor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
