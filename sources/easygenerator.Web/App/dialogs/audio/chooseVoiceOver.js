@@ -3,7 +3,7 @@ import constants from 'constants';
 import dialog from 'widgets/dialog/viewmodel';
 import audioLibrary from 'audio/audioLibrary/audioLibrary';
 
-const viewModel = {
+let viewModel = {
     library: audioLibrary,
     show: show,
     callback: null,

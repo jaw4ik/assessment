@@ -52,4 +52,3 @@ function setAvailableStorageSpace() {
 }
 
 export default viewModel;
-export var __useDefault = true;

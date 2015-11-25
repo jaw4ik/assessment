@@ -26,12 +26,12 @@ let viewModel = {
 function initialize(){
     viewModel.audios([]);
     return getAudiosCommand.execute().then(function (audios) {
-        audios.forEach((audio) => {
-            viewModel.audios.push(new AudioViewModel(audio));
-        });
-        
         audioUploadDispatcher.uploads.forEach((upload) => {
             viewModel.audios.push(new AudioViewModel(upload));
+        });
+
+        audios.forEach((audio) => {
+            viewModel.audios.push(new AudioViewModel(audio));
         });
     });
 }

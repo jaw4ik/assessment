@@ -24,4 +24,3 @@ function startUploading(file) {
 }
 
 export default dispatcher;
-export var __useDefault = true;
