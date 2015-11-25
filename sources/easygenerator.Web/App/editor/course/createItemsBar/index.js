@@ -70,4 +70,4 @@ export default class {
         this.sectionExpanded(true);
         this.questionsExpanded(true);
     }
-}
+};

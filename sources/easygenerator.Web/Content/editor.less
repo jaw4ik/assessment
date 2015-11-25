@@ -1,10 +1,11 @@
 ﻿@main-color: #42515f;
-@animation-duration: 0.3s;
+@animation-duration: 0.2s;
 @font-RS: 'RobotoSlab';
 @font-RSB: 'RobotoSlab-Bold';
 @font-RSL: 'RobotoSlab-Light';
 @font-OS: 'OpenSans';
 @font-OSSB: 'OpenSans-Semibold';
+@font-OSI: 'OpenSansItalic';
 @font-RH: 'Rabiohead';
 
 .course-editor-title {
@@ -253,7 +254,7 @@
                     &:hover {
 
                         .sections-list-item-image-change {
-                            bottom: 0;
+                            opacity: 1;
                         }
                     }
 
@@ -266,38 +267,52 @@
 
                     .sections-list-item-image-change {
                         position: absolute;
-                        bottom: 100%;
+                        top: 0;
+                        left:0;
                         display: flex;
                         flex-direction: column;
                         align-items: center;
                         justify-content: center;
                         width: 100%;
                         height: 100%;
-                        background-color: rgba(255, 255, 255, 0.95);
+                        background-color: rgba(255, 255, 255, .9);
                         .transition-all;
                         cursor: pointer;
+                        opacity: 0;
 
                         .sections-list-item-image-change-icon {
                             display: inline-block;
-                            width: 40px;
-                            height: 40px;
-                            margin-bottom: 2px;
-                            background: url(images/upload-image.png) 0 0 no-repeat;
+                            width: 29px;
+                            height: 25px;
+                            margin-bottom: 10px;
+                            background: red;
                             background-size: 100%;
                         }
 
                         .sections-list-item-image-change-text {
-                            font: 11px @font-OS;
-                            color: #a1a1a8;
+                            font: 10px @font-OSSB;
+                            text-transform: uppercase;
+                            color: #63798e;
+                            line-height: 16px;
                         }
                     }
                 }
 
                 .sections-list-item-title-container {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
                     flex: 1 1 100%;
                     min-height: 80px;
                     margin-right: 35px;
                     cursor: text;
+                    
+                    .sections-list-item-modified{
+                        margin-top: 10px;
+                        font: 12px @font-OSI;
+                        line-height: 22px;
+                        color: #abbbc6;
+                    }
 
                     .sections-list-item-title {
                         position: relative;
@@ -328,18 +343,65 @@
 
                 .sections-list-item-actions-container {
                     display: flex;
-                    flex: 0 0 80px;
+                    flex: 0 0 90px;
                     align-items: center;
                     justify-content: center;
                     height: 40px;
                     border-left: 1px solid #a8aaba;
 
                     .sections-list-item-actions-toggle-questions {
-                        flex: 0 0 16px;
-                        height: 9px;
+                        position: relative;
+                        flex: 0 0 30px;
+                        height: 30px;
                         margin-right: 9px;
                         .unstyled-button;
-                        background: url('images/sprites_16.png') -21px -172px no-repeat;
+                        background-color: #fff;
+                        
+                        &.collapsed{
+                            &:after{
+                                transform: rotate(180deg);
+                            }
+                        }
+                        
+                        &:hover,
+                        &.active {
+                            
+                            &:before{
+                                width: 30px;
+                                height: 30px;
+                                margin-top: -15px;
+                                margin-left: -15px;
+                                background-color: #e4eaed;
+                                .transition-all;
+                            }
+                        }
+                        
+                        &:after{
+                            content: '';
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            width: 16px;
+                            height: 9px;
+                            margin-top: -4.5px;
+                            margin-left: -8px;
+                            background: url('images/sprites_16.png') -21px -172px no-repeat;
+                            transform: rotate(0);
+                            .transition-all;
+                        }
+                        
+                        &:before{
+                            content: '';
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            width: 0;
+                            height: 0;
+                            margin-top: 0;
+                            margin-left: 0;
+                            border-radius: 50%;
+                            .transition-all;
+                        }
                     }
 
                     .sections-list-item-actions-menu-container {
@@ -365,7 +427,7 @@
                             }
 
                             .sections-list-item-actions-menu {
-                                display: flex;
+                                transform: scale(1,1);
                             }
                         }
 
@@ -420,7 +482,7 @@
                             top: 33px;
                             right: 0;
                             z-index: 10;
-                            display: none;
+                            display: flex;
                             flex-direction: column;
                             min-width: 233px;
                             padding: 8px 0;
@@ -428,6 +490,10 @@
                             font: 13px @font-OS;
                             .unstyled;
                             box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, .4);
+                            transform: scale(0,0);
+                            transform-origin: top right;
+                            .transition-all;
+                            
 
                             .sections-list-item-actions-menu-item {
                                 position: relative;
@@ -517,12 +583,20 @@
                 padding: 10px 20px;
                 box-shadow: 0 1px 3px 0px #b3bcc2;
                 background-color: #fff;
+                
+                /*&.collapsed{
+                    padding: 0;
+                }*/
 
                 &.empty {
                     height: 150px;
 
                     .drop-zone-container {
                         display: flex;
+                    }
+                    
+                    .questions-list-wrapper{
+                        display: none;
                     }
                 }
 
@@ -572,7 +646,9 @@
                             cursor: pointer;
 
                             .questions-list-item-delete-btn{
-                                display: block;
+                                background-image: url('images/sprites_16.png');
+                                background-repeat: no-repeat;
+                                background-position: -149px -147px;
                             }
                         }
 
@@ -673,7 +749,6 @@
 
                         .questions-list-item-title-container {
                             flex: 1 1 100%;
-                            margin-right: 25px;
                             font: 13px @font-OS;
                             line-height: 22px;
                             color: #42515f;
@@ -683,11 +758,10 @@
                         }
 
                         .questions-list-item-delete-btn{
-                            display: none;
                             width: 13px;
                             height: 16px;
                             margin-right: 10px;
-                            background: url('images/sprites_16.png') -149px -147px no-repeat;
+                            background-color: transparent;
                             .unstyled-button;
                             cursor: pointer;
                         }

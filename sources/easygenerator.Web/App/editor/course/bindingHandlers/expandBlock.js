@@ -4,6 +4,7 @@ import composition from 'durandal/composition';
 
 var findChildrenHeight = element => {
         let children = element.childNodes,
+            style = window.getComputedStyle(element),
             height = 0;
 
         _.each(children, child => {
