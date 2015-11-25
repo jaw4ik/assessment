@@ -111,7 +111,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (course == null)
             {
-                return JsonLocalizableError(Errors.CourseNotFoundError, Errors.CourseNotFoundResourceKey);
+                return JsonSuccess();
             }
 
             var deletedObjectiveIds = new List<string>();

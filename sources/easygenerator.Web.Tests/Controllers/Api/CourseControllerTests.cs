@@ -340,11 +340,11 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Delete_ReturnJsonErrorResult_WhenCourseIsNull()
+        public void Delete_ReturnJsonSuccessResult_WhenCourseIsNull()
         {
             var result = _controller.Delete(null);
 
-            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseNotFoundError);
+            result.Should().BeJsonSuccessResult();
         }
 
         #endregion

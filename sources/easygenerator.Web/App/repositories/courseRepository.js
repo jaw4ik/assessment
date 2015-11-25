@@ -70,7 +70,14 @@
                         return course.id === courseId;
                     });
 
+                    app.trigger(constants.messages.course.deleted, courseId);
+
+                    if (_.isNullOrUndefined(response) ) {
+                        return;
+                    }
+
                     var deletedObjectivesData = response.deletedObjectiveIds;
+
                     dataContext.objectives = _.reject(dataContext.objectives, function (objective) {
                         return _.contains(deletedObjectivesData, objective.id);
                     });
@@ -79,13 +86,11 @@
                         return _.contains(response.deletedFromLearningPathIds, learningPath.id);
                     });
 
-                    _.each(learningPathsWithDeletedCourse, function(learningPathWithDeletedCourse) {
+                    _.each(learningPathsWithDeletedCourse, function (learningPathWithDeletedCourse) {
                         learningPathWithDeletedCourse.courses = _.reject(learningPathWithDeletedCourse.courses, function (item) {
                             return item.id === courseId;
                         });
                     });
-
-                    app.trigger(constants.messages.course.deleted, courseId);
                 });
             });
         }
@@ -100,7 +105,7 @@
                 return apiHttpWrapper.post('api/course/duplicate', { courseId: courseId }).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotAnObject(response.course, 'Course is not an object');
-                    
+
                     var objectivesData = response.objectives;
                     if (objectivesData && _.isArray(objectivesData)) {
                         _.each(objectivesData, function (objectiveData) {
@@ -108,7 +113,7 @@
                             dataContext.objectives.push(objective);
                         });
                     }
-                    
+
                     var duplicatedCourse = courseModelMapper.map(response.course, dataContext.objectives, dataContext.templates);
                     dataContext.courses.push(duplicatedCourse);
 
