@@ -5,7 +5,9 @@
         guard.throwIfNotAnObject(spec, 'You should provide specification for the actor');
 
         this.name = spec.name;
-        this.email = spec.mbox.replace('mailto:', '');
+        if (spec.mbox) {
+            this.email = spec.mbox.replace('mailto:', '');
+        }
     };
 
     return Actor;
