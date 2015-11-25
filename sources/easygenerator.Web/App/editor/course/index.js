@@ -2,7 +2,7 @@
 import _ from 'underscore';
 import eventTracker from 'eventTracker';
 import localizationManager from 'localization/localizationManager';
-import repository from 'repositories/courseRepository';
+import courseRepository from 'repositories/courseRepository';
 import vmContentField from 'viewmodels/common/contentField';
 
 const eventsForCourseContent = {
@@ -21,10 +21,30 @@ export default class {
         this.courseIntroductionContent = null;
     }
     async activate(courseId) {
-        const course = await repository.getById(courseId);
+        const course = await courseRepository.getById(courseId);
         this.id = course.id;
         this.createdBy = course.createdBy;
-        this.objectives(_.map(course.objectives, objective => objective));
+        this.objectives(_.map(course.objectives, objective => {
+            return {
+                id: objective.id,
+                title: objective.title,
+                modifiedOn: objective.modifiedOn,
+                image: objective.image,
+                menuExpanded: ko.observable(false),
+                toggleMenu: self => self.menuExpanded(!self.menuExpanded()),
+                questions: _.map(objective.questions, question => {
+                    return {
+                        title: question.title,
+                        type: question.type,
+                        canBeDeleted: ko.observable(false),
+                        markToDelete: self => self.canBeDeleted(true),
+                        cancel: self => self.canBeDeleted(false)
+                    }
+                }),
+                questionsExpanded: ko.observable(true),
+                toggleQuestions: self => self.questionsExpanded(!self.questionsExpanded())
+            }
+        }));
         this.courseIntroductionContent = vmContentField(course.introductionContent, eventsForCourseContent, false, content => repository.updateIntroductionContent(course.id, content));
     }
 };
