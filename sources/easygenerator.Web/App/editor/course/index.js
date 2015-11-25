@@ -34,7 +34,15 @@ export default class{
                     image: objective.image,
                     menuExpanded: ko.observable(false),
                     toggleMenu: self => self.menuExpanded(!self.menuExpanded()),
-                    questions: _.map(objective.questions, question => question),
+                    questions: _.map(objective.questions, question => {
+                        return {
+                            title: question.title,
+                            type: question.type,
+                            canBeDeleted: ko.observable(false),
+                            markToDelete: self => self.canBeDeleted(true),
+                            cancel: self => self.canBeDeleted(false)
+                        }
+                    }),
                     questionsExpanded: ko.observable(true),
                     toggleQuestions: self => self.questionsExpanded(!self.questionsExpanded())
                 }

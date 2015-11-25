@@ -282,10 +282,10 @@
 
                         .sections-list-item-image-change-icon {
                             display: inline-block;
-                            width: 29px;
-                            height: 25px;
-                            margin-bottom: 10px;
-                            background: red;
+                            width: 28px;
+                            height: 24px;
+                            margin-bottom: 5px;
+                            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAYCAYAAADpnJ2CAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDE0IDc5LjE1Njc5NywgMjAxNC8wOC8yMC0wOTo1MzowMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjk1MTU3NkE0OTJDMTExRTVBRkE3OTI5NzEzRDVEMDZEIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjk1MTU3NkE1OTJDMTExRTVBRkE3OTI5NzEzRDVEMDZEIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6OTUxNTc2QTI5MkMxMTFFNUFGQTc5Mjk3MTNENUQwNkQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6OTUxNTc2QTM5MkMxMTFFNUFGQTc5Mjk3MTNENUQwNkQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7nLgYBAAABuElEQVR42rzWzSsEYRwH8Nk1UiQSB6EcHPaycsGFA3LbsjjYLQeU5CD5Mxwo5MC2dkV5aaPkohAu0uZlKQkXoSgcvCVW+T71VXoas7t2Hk99dmr22fnO73meeXZsrkW3Q9O0AJRDiqamfUIY2nWGnUEvv1DRRCE9MCkCK6AbDjS1bQD27PiwK6xMHlab3aKLZYITUmN1tCLQA9dwyLXgVBmYAxPQB9mwBj6zH+hJBjp49PM4DlsqKzzhsYPz2An7KgMfGDYEj1APXVYElsAxK5DbLBRAKftFkg0shnW4gRFoM+gjqjuCj2Qfi0KuvG0OVyuMgddg65qHFUj/6yrNZ2URBomdIsSHO8hqQgybgkp45jk3vCcSmAerfJA90lDNQBpM83wDVEMNvMAmzEGLUahRYC6H8Qqaf7nTICtdgDsGnvO7WtjgDXnlfVqewyzOwz00wpvJkPu4w2RA0Y/z4kbrOMT9sSpsgidwwWscK3iY11iCMk6BaBdQxUVnGhigRNognMKtdP6SLN1Lv9tyvB2t+j/UEgmMKnx5kjeHqM63KbHaRv/hJSqsc7cXz8yO4gp3xY71JcAA5DZg5cMnaDQAAAAASUVORK5CYII=') no-repeat;
                             background-size: 100%;
                         }
 
@@ -583,10 +583,11 @@
                 padding: 10px 20px;
                 box-shadow: 0 1px 3px 0px #b3bcc2;
                 background-color: #fff;
+                .transition-all;
                 
-                /*&.collapsed{
+                &.collapsed{
                     padding: 0;
-                }*/
+                }
 
                 &.empty {
                     height: 150px;
@@ -640,6 +641,7 @@
                         border-radius: 3px;
                         background-color: #eff3f5;
                         .transition-all;
+                        overflow: hidden;
 
                          &:hover{
                             background-color: #e6eff4;
@@ -649,12 +651,6 @@
                                 background-image: url('images/sprites_16.png');
                                 background-repeat: no-repeat;
                                 background-position: -149px -147px;
-                            }
-                        }
-
-                        &.delete{
-                            .questions-list-item-delete-container{
-                                display: flex;
                             }
                         }
 
@@ -769,8 +765,8 @@
                         .questions-list-item-delete-container {
                             position: absolute;
                             top: 0;
-                            right: 0;
-                            display: none;
+                            right: -50%;
+                            display: flex;
                             justify-content: space-between;
                             align-items: center;
                             height: 100%;
@@ -778,6 +774,11 @@
                             background-color: #fff;
                             font: 13px @font-OS;
                             box-shadow: -2px 0px 3px rgba(0,0,0,0.1);
+                            transition: right 0.3s linear;
+
+                            &.delete{
+                                right: 0;
+                            }
 
                            .questions-list-item-delete-text {
                                 margin-right: 13px;
@@ -879,6 +880,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    font-weight: 400;
     width: 100%;
     height: 100%;
     border: 2px dashed #4caf50;
@@ -908,11 +910,13 @@
 
     .drop-zone-title {
         font-family: @font-RSB;
+        font-weight: 400;
         color: #546677;
     }
 
     .drop-zone-subtitle {
         font-family: @font-RSL;
+        font-weight: 400;
         color: #63798e;
     }
 }
