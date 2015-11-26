@@ -597,7 +597,9 @@
     </Content>
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
+    <Content Include="App\bootstrapping\underscoreExtensionsTask.js" />
     <Content Include="App\browse.js" />
+    <Content Include="App\components\bindingHandlers\dateBindingHadler.js" />
     <Content Include="App\core\durandal\activator.js" />
     <Content Include="App\core\durandal\app.js" />
     <Content Include="App\core\durandal\binder.js" />
@@ -642,6 +644,16 @@
     <Content Include="App\editor\course\index.html" />
     <Content Include="App\editor\course\index.js" />
     <Content Include="App\editor\course\index.spec.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
+    <Content Include="App\editor\course\questions\index.html" />
+    <Content Include="App\editor\course\questions\index.js" />
+    <Content Include="App\editor\course\questions\index.spec.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
+    <Content Include="App\editor\course\sections\index.html" />
+    <Content Include="App\editor\course\sections\index.js" />
+    <Content Include="App\editor\course\sections\index.spec.js">
       <DependentUpon>index.js</DependentUpon>
     </Content>
     <Content Include="App\editor\index.js" />
@@ -2365,10 +2377,6 @@
     <Content Include="Scripts\knockoutBindings\switchToggleBinding.js" />
     <Content Include="Scripts\knockoutBindings\withAnimatedBinding.js" />
     <Content Include="Scripts\md5.js" />
-    <Content Include="Scripts\moment-with-locales.js" />
-    <Content Include="Scripts\moment-with-locales.min.js" />
-    <Content Include="Scripts\moment.js" />
-    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\paper-full-0.9.22.js" />
     <Content Include="Scripts\paper-full-0.9.22.min.js" />
     <Content Include="Scripts\q.js" />
@@ -3197,7 +3205,6 @@
     <Content Include="Scripts\knockout-sortable.min.js" />
     <Content Include="Scripts\knockoutBindings\autofocusBinding.js" />
     <Content Include="Scripts\knockoutBindings\ckeditorBinding.js" />
-    <Content Include="Scripts\knockoutBindings\dateBinding.js" />
     <Content Include="App\widgets\dialog\bindingHandlers\dialogBindingHandler.js" />
     <Content Include="Scripts\knockoutBindings\dropDownBinding.js" />
     <Content Include="Scripts\knockoutBindings\editableTextBinding.js" />

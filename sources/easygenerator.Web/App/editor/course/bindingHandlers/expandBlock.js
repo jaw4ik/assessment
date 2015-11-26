@@ -6,7 +6,7 @@ var findChildrenHeight = element => {
         let children = element.childNodes,
             style = window.getComputedStyle(element),
             height = parseInt(style.getPropertyValue('padding-top')) + parseInt(style.getPropertyValue('padding-bottom'));
-        
+
         _.each(children, child => {
             (child.nodeType === 1) && (height += child.offsetHeight);
         });

@@ -1,0 +1,28 @@
+﻿<ul class="questions-list-wrapper">
+    <!-- ko foreach: questions -->
+    <li class="questions-list-item" data-bind="css: type">
+        <button class="questions-list-item-sort-button"></button>
+        <div class="questions-list-item-image"></div>
+        <div class="questions-list-item-title-container">
+            <div class="questions-list-item-title" data-bind="text:title"></div>
+        </div>
+        <button class="questions-list-item-delete-btn" data-bind="click: markToDelete"></button>
+        <div class="questions-list-item-delete-container" data-bind="css: { delete: canBeDeleted }">
+            <div class="questions-list-item-delete-text">Delete this question?</div>
+            <div class="questions-list-item-delete-buttons-container">
+                <button class="questions-list-item-delete-button delete">Delete</button>
+                <button class="questions-list-item-delete-button cancel" data-bind="click: cancel">Cancel</button>
+            </div>
+        </div>
+    </li>
+    <!-- /ko -->
+    <li class="questions-list-item drop-zone">
+        <!--DROP ZONE(Can be moved to separate file)-->
+        <div class="drop-zone-container">
+            <div class="drop-zone-image"></div>
+            <h2 class="drop-zone-title">+ Drop here more questions and content</h2>
+            <h3 class="drop-zone-subtitle"></h3>
+        </div>
+        <!--DROP ZONE-->
+    </li>
+</ul>

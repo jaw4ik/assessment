@@ -58,6 +58,7 @@
       "co": "npm:co@^4.6.0",
       "dragula": "npm:dragula@^3.5.4",
       "has": "npm:has@^1.0.1",
+      "moment": "npm:moment@^2.10.6",
       "text": "github:systemjs/plugin-text@^0.0.3",
       "underscore": "npm:underscore@^1.8.3"
     },

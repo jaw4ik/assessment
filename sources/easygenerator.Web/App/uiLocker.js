@@ -1,19 +1,10 @@
-﻿define(['widgets/uiLockViewer/viewmodel'], function (uiLockViewer) {
+﻿import uiLockViewer from 'widgets/uiLockViewer/viewmodel';
 
-    "use strict";
-
-    var 
-        lock = function () {
-            uiLockViewer.lock();
-        },
-        
-        unlock = function() {
-            uiLockViewer.unlock();
-        };
-
-    return {
-        lock: lock,
-        unlock: unlock
-    };
-
-});
+export default class {
+    lock() {
+        uiLockViewer.lock();
+    }
+    unlock() {
+        uiLockViewer.unlock();
+    }
+};

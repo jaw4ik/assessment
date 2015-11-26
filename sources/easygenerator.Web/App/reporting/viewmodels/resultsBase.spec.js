@@ -7,7 +7,8 @@
         router = require('plugins/router'),
         StartedStatement = require('reporting/viewmodels/startedStatement'),
         FinishStatement = require('reporting/viewmodels/finishStatement'),
-        fileSaverWrapper = require('utils/fileSaverWrapper');
+        fileSaverWrapper = require('utils/fileSaverWrapper'),
+        moment = require('moment');
 
     describe('ResultsBase:', function () {
         it('should return function', function () {

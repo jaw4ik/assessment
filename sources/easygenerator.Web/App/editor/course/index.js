@@ -4,6 +4,7 @@ import eventTracker from 'eventTracker';
 import localizationManager from 'localization/localizationManager';
 import courseRepository from 'repositories/courseRepository';
 import vmContentField from 'viewmodels/common/contentField';
+import SectionsViewModel from 'editor/course/sections/SectionsViewModel';
 
 const eventsForCourseContent = {
     addContent: 'Define introduction',
@@ -15,36 +16,16 @@ export default class {
     constructor () {
         this.id = '';
         this.createdBy = '';
-        this.objectives = ko.observableArray([]);
+        this.sectionsViewModel = null;
         this.eventTracker = eventTracker;
         this.localizationManager = localizationManager;
         this.courseIntroductionContent = null;
     }
     async activate(courseId) {
-        const course = await courseRepository.getById(courseId);
+        let course = await courseRepository.getById(courseId);
         this.id = course.id;
         this.createdBy = course.createdBy;
-        this.objectives(_.map(course.objectives, objective => {
-            return {
-                id: objective.id,
-                title: objective.title,
-                modifiedOn: objective.modifiedOn,
-                image: objective.image,
-                menuExpanded: ko.observable(false),
-                toggleMenu: self => self.menuExpanded(!self.menuExpanded()),
-                questions: _.map(objective.questions, question => {
-                    return {
-                        title: question.title,
-                        type: question.type,
-                        canBeDeleted: ko.observable(false),
-                        markToDelete: self => self.canBeDeleted(true),
-                        cancel: self => self.canBeDeleted(false)
-                    }
-                }),
-                questionsExpanded: ko.observable(true),
-                toggleQuestions: self => self.questionsExpanded(!self.questionsExpanded())
-            }
-        }));
-        this.courseIntroductionContent = vmContentField(course.introductionContent, eventsForCourseContent, false, content => repository.updateIntroductionContent(course.id, content));
+        this.sectionsViewModel = new SectionsViewModel(course.id, course.objectives);
+        this.courseIntroductionContent = new vmContentField(course.introductionContent, eventsForCourseContent, false, content => courseRepository.updateIntroductionContent(course.id, content));
     }
 };
