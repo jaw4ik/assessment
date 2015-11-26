@@ -27,10 +27,12 @@ System.config({
     "moment": "npm:moment@2.10.6",
     "perfect-scrollbar": "npm:perfect-scrollbar@0.6.8",
     "plugins": "core/durandal/plugins",
+    "spectrum-colorpicker": "npm:spectrum-colorpicker@1.7.1",
     "text": "github:systemjs/plugin-text@0.0.3",
     "transitions": "core/durandal/transitions",
     "underscore": "npm:underscore@1.8.3",
     "velocity-animate": "npm:velocity-animate@1.2.3",
+    "webfont": "github:components/webfontloader@1.6.3",
     "github:jaw4ik/dragula@3.5.5": {
       "contra": "npm:contra@1.9.1",
       "crossvent": "npm:crossvent@1.5.4"
@@ -88,6 +90,9 @@ System.config({
     },
     "npm:process@0.11.2": {
       "assert": "github:jspm/nodelibs-assert@0.1.0"
+    },
+    "npm:spectrum-colorpicker@1.7.1": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:ticky@1.0.0": {
       "process": "github:jspm/nodelibs-process@0.1.2"

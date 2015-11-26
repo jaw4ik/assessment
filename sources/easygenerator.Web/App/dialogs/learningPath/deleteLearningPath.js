@@ -31,11 +31,11 @@
             viewModel.isDeleting(true);
             eventTracker.publish(events.confirmDelete);
             deleteLearningPathCommand.execute(viewModel.learningPathId)
-                .then(function () {
+                .then(function() {
                     app.trigger(constants.messages.learningPath.deleted, viewModel.learningPathId);
                     dialog.close();
                 })
-                .fin(function () {
+                .then(function() {
                     viewModel.isDeleting(false);
                 });
         }
