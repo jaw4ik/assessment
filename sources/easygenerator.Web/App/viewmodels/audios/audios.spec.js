@@ -60,14 +60,14 @@ describe('viewModel [audios]', () => {
             expect(viewModel.activate()).toBePromise();
         });
 
-        it('should identify storage permissions', (done) => {
+        it('should identify storage permissions', done => {
             viewModel.activate().fin(() => {
                 expect(userContext.identifyStoragePermissions).toHaveBeenCalled();
                 done();
             });
         });
 
-        it('should initialize audio library', (done) => {
+        it('should initialize audio library', done => {
             viewModel.activate().fin(() => {
                 expect(audioLibrary.initialize).toHaveBeenCalled();
                 done();
@@ -97,7 +97,7 @@ describe('viewModel [audios]', () => {
                 spyOn(userContext, 'hasPlusAccess').and.returnValue(true);
             });
 
-            it('should show storage space progress bar', (done) => {
+            it('should show storage space progress bar', done => {
                 viewModel.storageSpaceProgressBarVisibility(false);
                 viewModel.activate().fin(() => {
                     expect(viewModel.storageSpaceProgressBarVisibility(true));
@@ -112,14 +112,14 @@ describe('viewModel [audios]', () => {
                     userContext.storageIdentity.totalStorageSpace = 1073741825 * 2;
                 });
 
-                it('should set available storage space in Gb', (done) => {
+                it('should set available storage space in Gb', done => {
                     viewModel.activate().fin(() => {
                         expect(viewModel.availableStorageSpace()).toBe('1.0' + localizationManager.localize('gb'));
                         done();
                     });
                 });
 
-                it('should set available storage space in perseteges on progress bar', (done) => {
+                it('should set available storage space in perseteges on progress bar', done => {
                     viewModel.activate().fin(() => {
                         expect(viewModel.availableStorageSpacePersentages()).toBe(50);
                         done();
@@ -134,14 +134,14 @@ describe('viewModel [audios]', () => {
                     userContext.storageIdentity.totalStorageSpace = 1073741823 * 2;
                 });
 
-                it('should set available storage space in Mb', (done) => {
+                it('should set available storage space in Mb', done => {
                     viewModel.activate().fin(() => {
                         expect(viewModel.availableStorageSpace()).toBe('1024.0' + localizationManager.localize('mb'));
                         done();
                     });
                 });
 
-                it('should set available storage space in perseteges on progress bar', (done) => {
+                it('should set available storage space in perseteges on progress bar', done => {
                     viewModel.activate().fin(() => {
                         expect(viewModel.availableStorageSpacePersentages()).toBe(50);
                         done();
