@@ -8,7 +8,7 @@ namespace easygenerator.DomainModel.Entities
 
         public AccessType? AccessType { get; private set; }
 
-        public int? ExpirationPeriod { get; private set; }
+        public int? ExpirationPeriodDays { get; private set; }
 
         public virtual Company Company { get; private set; }
 

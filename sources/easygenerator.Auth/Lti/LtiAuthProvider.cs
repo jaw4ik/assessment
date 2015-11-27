@@ -124,8 +124,8 @@ namespace easygenerator.Auth.Lti
         {
             const string ltiMockData = "LTI";
             var accessType = consumerTool.Settings.AccessType ?? AccessType.Plus;
-            var expirationDate = consumerTool.Settings.ExpirationPeriod.HasValue
-                ? DateTimeWrapper.Now().AddDays(consumerTool.Settings.ExpirationPeriod.Value)
+            var expirationDate = consumerTool.Settings.ExpirationPeriodDays.HasValue
+                ? DateTimeWrapper.Now().AddDays(consumerTool.Settings.ExpirationPeriodDays.Value)
                 : DateTimeWrapper.Now().AddYears(50);
 
             var user = _entityFactory.User(email, Guid.NewGuid().ToString("N"), firstName, lastName, ltiMockData, ltiMockData, ltiMockData, email, accessType, _releaseNoteFileReader.GetReleaseVersion(), expirationDate, consumerTool.Settings?.Company);
