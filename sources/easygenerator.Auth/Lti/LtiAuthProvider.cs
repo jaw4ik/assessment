@@ -123,8 +123,12 @@ namespace easygenerator.Auth.Lti
         private void CreateNewUser(string email, string firstName, string lastName, string ltiUserId, ConsumerTool consumerTool)
         {
             const string ltiMockData = "LTI";
+            var accessType = consumerTool.Settings.AccessType ?? AccessType.Plus;
+            var expirationDate = consumerTool.Settings.ExpirationPeriod.HasValue
+                ? DateTimeWrapper.Now().AddDays(consumerTool.Settings.ExpirationPeriod.Value)
+                : DateTimeWrapper.Now().AddYears(50);
 
-            var user = _entityFactory.User(email, Guid.NewGuid().ToString("N"), firstName, lastName, ltiMockData, ltiMockData, ltiMockData, email, AccessType.Plus, _releaseNoteFileReader.GetReleaseVersion(), DateTimeWrapper.Now().AddYears(50), consumerTool.Settings?.Company);
+            var user = _entityFactory.User(email, Guid.NewGuid().ToString("N"), firstName, lastName, ltiMockData, ltiMockData, ltiMockData, email, accessType, _releaseNoteFileReader.GetReleaseVersion(), expirationDate, consumerTool.Settings?.Company);
 
             user.AddLtiUserInfo(ltiUserId, consumerTool);
 
