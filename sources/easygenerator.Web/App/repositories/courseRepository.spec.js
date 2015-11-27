@@ -396,28 +396,6 @@
                     post.resolve({ deletedObjectiveIds: [], deletedFromLearningPathIds: [] });
                 });
 
-                it('should remove course from learning paths', function (done) {
-                    var promise = repository.removeCourse(courseId);
-
-                    promise.fin(function () {
-                        expect(dataContext.learningPaths[0].courses.length).toEqual(0);
-                        done();
-                    });
-
-                    post.resolve({ deletedObjectiveIds: [], deletedFromLearningPathIds: [ learningPathId ] });
-                });
-
-                it('should remove course objectives', function (done) {
-                    var promise = repository.removeCourse(courseId);
-
-                    promise.fin(function () {
-                        expect(dataContext.objectives.length).toEqual(0);
-                        done();
-                    });
-
-                    post.resolve({ deletedObjectiveIds: [ objectiveId ], deletedFromLearningPathIds: [] });
-                });
-
                 it('should trigger course:deleted event', function (done) {
                     var courseId = 'asdadsasd';
                     dataContext.courses = [{ id: courseId }];
@@ -432,8 +410,54 @@
                     post.resolve({ deletedObjectiveIds: [], deletedFromLearningPathIds: [] });
                 });
 
-            });
+                describe('when response is null', function() {
+                    it('should not remove course from learning paths', function (done) {
+                        var promise = repository.removeCourse(courseId);
 
+                        promise.fin(function () {
+                            expect(dataContext.learningPaths[0].courses.length).toEqual(1);
+                            done();
+                        });
+
+                        post.resolve(null);
+                    });
+
+                    it('should not remove course objectives', function (done) {
+                        var promise = repository.removeCourse(courseId);
+
+                        promise.fin(function () {
+                            expect(dataContext.objectives.length).toEqual(1);
+                            done();
+                        });
+
+                        post.resolve(null);
+                    });
+                });
+
+                describe('when response is not null', function () {
+                    it('should remove course from learning paths', function (done) {
+                        var promise = repository.removeCourse(courseId);
+
+                        promise.fin(function () {
+                            expect(dataContext.learningPaths[0].courses.length).toEqual(0);
+                            done();
+                        });
+
+                        post.resolve({ deletedObjectiveIds: [], deletedFromLearningPathIds: [learningPathId] });
+                    });
+
+                    it('should remove course objectives', function (done) {
+                        var promise = repository.removeCourse(courseId);
+
+                        promise.fin(function () {
+                            expect(dataContext.objectives.length).toEqual(0);
+                            done();
+                        });
+
+                        post.resolve({ deletedObjectiveIds: [objectiveId], deletedFromLearningPathIds: [] });
+                    });
+                });
+            });
         });
 
         describe('duplicateCourse:', function () {

@@ -143,7 +143,7 @@ namespace easygenerator.Web.Controllers.Api
             course.Collaborators.Where(e => !e.IsAccepted).ForEach(i => invitedCollaborators.Add(i.Id, i.Email));
 
             _courseRepository.Remove(course);
-            _eventPublisher.Publish(new CourseDeletedEvent(course, collaborators, invitedCollaborators, GetCurrentUsername()));
+            _eventPublisher.Publish(new CourseDeletedEvent(course, deletedObjectiveIds, collaborators, invitedCollaborators, GetCurrentUsername()));
             
             return JsonSuccess(new { deletedObjectiveIds = deletedObjectiveIds, deletedFromLearningPathIds = deletedFromLearningPathIds });
         }
