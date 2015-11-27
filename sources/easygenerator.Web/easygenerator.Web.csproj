@@ -641,20 +641,21 @@
     <Content Include="App\editor\course\createItemsBar\index.spec.js">
       <DependentUpon>index.js</DependentUpon>
     </Content>
+    <Content Include="App\editor\course\dialogs\deleteSection\index.html" />
     <Content Include="App\editor\course\index.html" />
     <Content Include="App\editor\course\index.js" />
     <Content Include="App\editor\course\index.spec.js">
       <DependentUpon>index.js</DependentUpon>
     </Content>
-    <Content Include="App\editor\course\questions\index.html" />
-    <Content Include="App\editor\course\questions\index.js" />
-    <Content Include="App\editor\course\questions\index.spec.js">
-      <DependentUpon>index.js</DependentUpon>
+    <Content Include="App\editor\course\questions\QuestionsViewModel.html" />
+    <Content Include="App\editor\course\questions\QuestionsViewModel.js" />
+    <Content Include="App\editor\course\questions\QuestionsViewModel.spec.js">
+      <DependentUpon>QuestionsViewModel.js</DependentUpon>
     </Content>
-    <Content Include="App\editor\course\sections\index.html" />
-    <Content Include="App\editor\course\sections\index.js" />
-    <Content Include="App\editor\course\sections\index.spec.js">
-      <DependentUpon>index.js</DependentUpon>
+    <Content Include="App\editor\course\sections\SectionsViewModel.html" />
+    <Content Include="App\editor\course\sections\SectionsViewModel.js" />
+    <Content Include="App\editor\course\sections\SectionsViewModel.spec.js">
+      <DependentUpon>SectionsViewModel.js</DependentUpon>
     </Content>
     <Content Include="App\editor\index.js" />
     <Content Include="App\dialogs\course\publishCourse\customPublish.js" />

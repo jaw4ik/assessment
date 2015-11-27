@@ -1,17 +1,47 @@
 ﻿import ko from 'knockout';
 import _ from 'underscore';
 import composition from 'durandal/composition';
+import $ from 'jquery';
+
+var findElementHeight = element => {
+    let $element = $(element);
+    let height = 0;
+    let elementPadding;
+}
+
+
+
 
 var findChildrenHeight = element => {
-        let children = element.childNodes,
-            style = window.getComputedStyle(element),
-            height = parseInt(style.getPropertyValue('padding-top')) + parseInt(style.getPropertyValue('padding-bottom'));
+        
 
-        _.each(children, child => {
-            (child.nodeType === 1) && (height += child.offsetHeight);
+
+
+
+
+        let height = 0;
+        debugger;
+        $(element).children().each((index, item) => {
+            height = height + $(item).outerHeight(true);
         });
 
-        return height;
+        let paddingHeight = $(element).outerHeight() - height;
+
+        //let children = element.childNodes,
+        //    elementStyles = window.getComputedStyle(element),
+        //    height = parseInt(elementStyles.getPropertyValue('padding-top')) + parseInt(elementStyles.getPropertyValue('padding-bottom'));
+
+        //_.each(children, child => {
+        //    if (child.nodeType !== 1) {
+        //        return;
+        //    }
+        //    let childStyles = window.getComputedStyle(child);
+        //    let childHeight = parseInt(childStyles.getPropertyValue('height'));
+        //    let childMargins = parseInt(childStyles.getPropertyValue('margin-top')) + parseInt(childStyles.getPropertyValue('margin-bottom'));
+        //    height += childHeight + childMargins;
+        //});
+
+        return height + paddingHeight;
     },
     getHeight = (element, expanded) => expanded ? findChildrenHeight(element) : 0;
 
@@ -23,7 +53,7 @@ ko.bindingHandlers.expandBlock = {
 
         element.style.height = `${getHeight(element, expanded)}px`;
         element.style.overflow = 'hidden';
-        element.style.transition = `height ${duration} linear`;
+        element.style.transition = `all ${duration} linear`;
     },
     update: (element, valueAccessors) => {
         const expanded = ko.utils.unwrapObservable(valueAccessors().expanded);
