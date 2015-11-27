@@ -1,4 +1,4 @@
-﻿define(['knockout', 'notify', 'eventTracker', 'clientContext', 'constants', 'plugins/router', 'durandal/app'], function (ko, notify, eventTracker, clientContext, constants, router, app) {
+﻿define(['knockout', 'notify', 'eventTracker', 'clientContext', 'constants', 'plugins/router', 'durandal/app', 'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery'], function (ko, notify, eventTracker, clientContext, constants, router, app, getLearningPathByIdQuery) {
 
     var
        events = {
@@ -10,6 +10,7 @@
     var ctor = function () {
         var viewModel = {
             learningPath: null,
+            companyInfo: null,
 
             publicationUrl: ko.observable(''),
             isPublishing: ko.observable(false),
@@ -102,14 +103,17 @@
                 });
         }
 
-        function activate(learningPath) {
-            viewModel.learningPath = learningPath;
-            viewModel.publicationUrl(learningPath.publicationUrl);
-            viewModel.isPublishing(learningPath.isPublishing);
-            viewModel.isDelivering(learningPath.isDelivering());
+        function activate(learningPathId) {
+            return getLearningPathByIdQuery.execute(learningPathId)
+                .then(function(learningPath) {
+                    viewModel.learningPath = learningPath;
+                    viewModel.publicationUrl(learningPath.publicationUrl);
+                    viewModel.isPublishing(learningPath.isPublishing);
+                    viewModel.isDelivering(learningPath.isDelivering());
 
-            app.on(constants.messages.learningPath.delivering.started + viewModel.learningPath.id, viewModel.onDeliveringStarted);
-            app.on(constants.messages.learningPath.delivering.finished + viewModel.learningPath.id, viewModel.onDeliveringFinished);
+                    app.on(constants.messages.learningPath.delivering.started + viewModel.learningPath.id, viewModel.onDeliveringStarted);
+                    app.on(constants.messages.learningPath.delivering.finished + viewModel.learningPath.id, viewModel.onDeliveringFinished);
+                });
         }
 
         function deactivate() {

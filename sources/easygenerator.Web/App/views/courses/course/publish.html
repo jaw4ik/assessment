@@ -12,6 +12,7 @@
                         <span class="publish-tab-text" data-bind="localize: { text: { key: 'publishToCompany', replace: { companyName: companyInfo.name } } }"></span>
                     </li>
                     <!-- /ko -->
+                    <!-- ko if: !companyInfo || !companyInfo.hideDefaultPublishOptions -->
                     <li class="publish-tab" data-bind="click: sendOpenLinkTab" data-tab-link="private-link">
                         <div class="active-indicator"></div>
                         <div class="publish-tab-image-container">
@@ -40,19 +41,17 @@
                         </div>
                         <span class="publish-tab-text" data-bind="localize: { text: 'toYourHosting' }">To your hosting</span>
                     </li>
+                    <!-- /ko -->
                 </ul>
                 <div class="publish-tabs-content">
                     <!-- ko if: companyInfo -->
-                    <!-- ko compose: { view: 'views/courses/publishActions/publishToCustomLms', model: publishToCustomLms, activationData: courseId } -->
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishToCustomLms', model: publishToCustomLms, activationData: courseId } --><!-- /ko -->
                     <!-- /ko -->
-                    <!-- /ko -->
-                    <!-- ko compose: { view: 'views/courses/publishActions/publishToPublicationServerLink', model: publishAction, activationData: courseId } -->
-                    <!-- /ko -->
-                    <!-- ko compose: { view: 'views/courses/publishActions/publishToPublicationServerEmbed', model: publishAction, activationData: courseId } -->
-                    <!-- /ko -->
-                    <!-- ko compose: { view: 'views/courses/publishActions/publishAsScorm', model: scormBuildAction, activationData: courseId } -->
-                    <!-- /ko -->
-                    <!-- ko compose: { view: 'views/courses/publishActions/publishAsHtml', model: buildAction, activationData: courseId } -->
+                    <!-- ko if: !companyInfo || !companyInfo.hideDefaultPublishOptions -->
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishToPublicationServerLink', model: publishAction, activationData: courseId } --><!-- /ko -->
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishToPublicationServerEmbed', model: publishAction, activationData: courseId } --><!-- /ko -->
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishAsScorm', model: scormBuildAction, activationData: courseId } --><!-- /ko -->
+                    <!-- ko compose: { view: 'views/courses/publishActions/publishAsHtml', model: buildAction, activationData: courseId } --><!-- /ko -->
                     <!-- /ko -->
                 </div>
             </div>

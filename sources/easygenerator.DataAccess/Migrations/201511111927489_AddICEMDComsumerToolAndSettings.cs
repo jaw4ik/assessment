@@ -17,7 +17,10 @@ namespace easygenerator.DataAccess.Migrations
         
         public override void Down()
         {
-            Sql("DELETE FROM ConsumerTools WHERE Title = 'ICEMD'");
+            Sql(@"
+                  DELETE FROM ConsumerToolSettings WHERE Id IN (SELECT Id FROM ConsumerTools WHERE Title = 'ICEMD')
+                  DELETE FROM ConsumerTools WHERE Title = 'ICEMD'
+                ");
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿define(['knockout', 'notify', 'eventTracker', 'fileHelper', 'durandal/app', 'constants'], function (ko, notify, eventTracker, fileHelper, app, constants) {
+﻿define(['knockout', 'notify', 'eventTracker', 'fileHelper', 'durandal/app', 'constants', 'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery'], function (ko, notify, eventTracker, fileHelper, app, constants, getLearningPathByIdQuery) {
 
     var
        events = {
@@ -37,13 +37,16 @@
             });
         }
 
-        function activate(learningPath) {
-            viewModel.learningPath = learningPath;
-            viewModel.isBuilding(learningPath.isBuilding);
-            viewModel.isDelivering(learningPath.isDelivering());
+        function activate(learningPathId) {
+            return getLearningPathByIdQuery.execute(learningPathId)
+                .then(function(learningPath) {
+                    viewModel.learningPath = learningPath;
+                    viewModel.isBuilding(learningPath.isBuilding);
+                    viewModel.isDelivering(learningPath.isDelivering());
 
-            app.on(constants.messages.learningPath.delivering.started + viewModel.learningPath.id, viewModel.onDeliveringStarted);
-            app.on(constants.messages.learningPath.delivering.finished + viewModel.learningPath.id, viewModel.onDeliveringFinished);
+                    app.on(constants.messages.learningPath.delivering.started + viewModel.learningPath.id, viewModel.onDeliveringStarted);
+                    app.on(constants.messages.learningPath.delivering.finished + viewModel.learningPath.id, viewModel.onDeliveringFinished);
+                });
         }
 
         function deactivate() {

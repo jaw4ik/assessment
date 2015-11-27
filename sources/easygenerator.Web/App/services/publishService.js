@@ -55,6 +55,10 @@
             });
         };
 
+        function publishLearningPathToCustomLms(learningPathId) {
+            return publishHttpWrapper.post('api/learningpath/publishToCustomLms', { learningPathId: learningPathId });
+        };
+
         return {
             buildCourse: buildCourse,
             publishCourse: publishCourse,
@@ -62,6 +66,7 @@
             publishCourseToCustomLms: publishCourseToCustomLms,
             publishCourseForReview: publishCourseForReview,
             buildLearningPath: buildLearningPath,
-            publishLearningPath: publishLearningPath
+            publishLearningPath: publishLearningPath,
+            publishLearningPathToCustomLms: publishLearningPathToCustomLms
         };
     });

@@ -207,6 +207,7 @@
     <Compile Include="Controllers\PreviewControllerTests.cs" />
     <Compile Include="Controllers\RedirectToNewStorageControllerTests.cs" />
     <Compile Include="Publish\External\ExternalCoursePublisherTests.cs" />
+    <Compile Include="Publish\External\ExternalLearningPathPublisherTests.cs" />
     <Compile Include="Publish\LearningPathPublisherTests.cs" />
     <Compile Include="Storage\CourseStateStorageTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTrackerTests.cs" />

@@ -52,7 +52,7 @@ namespace easygenerator.Web.Tests.Publish.External
             var course = CourseObjectMother.Create();
             course.UpdatePublicationUrl("url");
 
-            var company = CompanyObjectMother.Company("publishUrl", "key");
+            var company = CompanyObjectMother.Create();
 
             _publisher.PublishCourseUrl(course, company, userEmail);
 
@@ -75,7 +75,7 @@ namespace easygenerator.Web.Tests.Publish.External
             var course = CourseObjectMother.Create();
             course.UpdatePublicationUrl("url");
 
-            var company = CompanyObjectMother.Company("publishUrl", "key");
+            var company = CompanyObjectMother.Create();
 
             _publisher.PublishCourseUrl(course, company, userEmail);
 
@@ -88,7 +88,7 @@ namespace easygenerator.Web.Tests.Publish.External
             var course = CourseObjectMother.Create();
             course.UpdatePublicationUrl("url");
 
-            var company = CompanyObjectMother.Company("publishUrl", "key");
+            var company = CompanyObjectMother.Create();
 
             var result = _publisher.PublishCourseUrl(course, company, userEmail);
 
@@ -101,7 +101,7 @@ namespace easygenerator.Web.Tests.Publish.External
             var course = CourseObjectMother.Create();
             course.UpdatePublicationUrl("url");
             var exception = new Exception();
-            var company = CompanyObjectMother.Company("publishUrl", "key");
+            var company = CompanyObjectMother.Create();
 
             _httpClient.Post<string>(company.PublishCourseApiUrl, Arg.Any<object>()).Returns(_ => { throw exception; });
 
@@ -116,7 +116,7 @@ namespace easygenerator.Web.Tests.Publish.External
             var course = CourseObjectMother.Create();
             course.UpdatePublicationUrl("url");
             var exception = new Exception();
-            var company = CompanyObjectMother.Company("publishUrl", "key");
+            var company = CompanyObjectMother.Create();
 
             _httpClient.Post<string>(company.PublishCourseApiUrl, Arg.Any<object>()).Returns(_ => { throw exception; });
 
