@@ -56,7 +56,7 @@ namespace easygenerator.StorageServer.Components.Dispatchers
                 case AccessType.Plus:
                     return 10737418240; //10GB
                 case AccessType.Academy:
-                    return 10737418240; //10GB
+                    return 107374182400; //100GB
                 default:
                     return 0;
             }
