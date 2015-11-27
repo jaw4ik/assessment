@@ -6,9 +6,9 @@ namespace easygenerator.DomainModel.Entities
     {
         public Guid Id { get; private set; }
 
-        public AccessType? AccessType { get; private set; }
+        public virtual AccessType? AccessType { get; private set; }
 
-        public int? ExpirationPeriodDays { get; private set; }
+        public virtual int? ExpirationPeriodDays { get; private set; }
 
         public virtual Company Company { get; private set; }
 

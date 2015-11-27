@@ -165,9 +165,38 @@ namespace easygenerator.Auth.Tests.Lti
         public void OnAuthenticated_ShouldCreateUserIfItDoesNotExist()
         {
             var consumerTool = Substitute.For<ConsumerTool>();
+
+            _ltiRequest.LisPersonEmailPrimary.Returns(email);
+            _ltiRequest.LisPersonNameGiven.Returns(firstName);
+            _ltiRequest.LisPersonNameFamily.Returns(lastName);
+            _ltiRequest.UserId.Returns(userId);
+            _ltiAuthenticatedContext.Request.Get<ConsumerTool>("consumerToolKey").Returns(consumerTool);
+
+            var user = UserObjectMother.CreateWithEmail(email);
+
+            _entityFactory.User(email, Arg.Any<string>(), firstName, lastName, ltiMockData, ltiMockData, ltiMockData,
+                email, AccessType.Plus, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50), null).Returns(user);
+
+            _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
+
+            _userRepository.Received().Add(Arg.Is<User>(
+                             _ => _ == user &&
+                             _.GetLtiUserInfo(consumerTool) != null &&
+                             _.GetLtiUserInfo(consumerTool).LtiUserId == userId &&
+                             _.GetLtiUserInfo(consumerTool).ConsumerTool == consumerTool
+                        ));
+            _unitOfWork.Received().Save();
+        }
+
+        [TestMethod]
+        public void OnAuthenticated_ShouldCreateUserIfItDoesNotExist_WithSettingsFromConsumerTool()
+        {
+            var consumerTool = Substitute.For<ConsumerTool>();
             var company = Substitute.For<Company>();
             var consumerToolSettings = Substitute.For<ConsumerToolSettings>();
             consumerToolSettings.Company.Returns(company);
+            consumerToolSettings.AccessType.Returns(AccessType.Starter);
+            consumerToolSettings.ExpirationPeriodDays.Returns(10);
             consumerTool.Settings.Returns(consumerToolSettings);
 
             _ltiRequest.LisPersonEmailPrimary.Returns(email);
@@ -179,7 +208,7 @@ namespace easygenerator.Auth.Tests.Lti
             var user = UserObjectMother.CreateWithEmail(email);
 
             _entityFactory.User(email, Arg.Any<string>(), firstName, lastName, ltiMockData, ltiMockData, ltiMockData,
-                email, AccessType.Plus, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50), company).Returns(user);
+                email, AccessType.Starter, user.LastReadReleaseNote, DateTimeWrapper.Now().AddDays(10), company).Returns(user);
 
             _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
 
