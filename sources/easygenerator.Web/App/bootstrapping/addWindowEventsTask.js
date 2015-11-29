@@ -1,5 +1,5 @@
 ﻿define(['jquery'], function ($) {
-    debugger;
+    
     var task = {
         execute: execute
     };

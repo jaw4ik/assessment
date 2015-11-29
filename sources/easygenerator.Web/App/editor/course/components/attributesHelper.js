@@ -1,4 +1,5 @@
 export default class {
+	constructor(){}
 	getDataAttribute(element){
 		if (!element) {
 			return null;

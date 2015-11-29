@@ -2,7 +2,6 @@
 import ko from 'knockout';
 import _ from 'underscore';
 import moment from 'moment';
-debugger;
 
 ko.bindingHandlers.date = {
     update: (element, valueAccessors) => {

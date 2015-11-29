@@ -1,5 +1,5 @@
 import ko from 'knockout';
-import dragula from 'editor/course/bindingHandlers/dragulaContainer';
+import dragula from 'editor/course/components/dragulaContainer';
 
 ko.bindingHandlers.draggableContainer = {
 	init: (element, valueAccessors) => {
