@@ -636,6 +636,10 @@
       <DependentUpon>deleteCourse.js</DependentUpon>
     </Content>
     <Content Include="App\editor\course\bindingHandlers\expandBlock.js" />
+    <Content Include="App\editor\course\bindingHandlers\draggableContainer.js" />
+    <Content Include="App\editor\course\bindingHandlers\draggableData.js" />
+    <Content Include="App\editor\course\components\attributesHelper.js" />
+    <Content Include="App\editor\course\components\dragulaContainer.js" />
     <Content Include="App\editor\course\createItemsBar\index.html" />
     <Content Include="App\editor\course\createItemsBar\index.js" />
     <Content Include="App\editor\course\createItemsBar\index.spec.js">

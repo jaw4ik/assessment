@@ -20,6 +20,8 @@
     require('widgets/dialog/bindingHandlers/dialogBindingHandler');
     require('widgets/dialog/bindingHandlers/dialogWizardBindingHandler');
     require('editor/course/bindingHandlers/expandBlock');
+    require('editor/course/bindingHandlers/draggableContainer');
+    require('editor/course/bindingHandlers/draggableData');
     require('components/bindingHandlers/dateBindingHadler');
 
     var task = {
