@@ -16,7 +16,7 @@ namespace easygenerator.Web.DomainEvents.Handlers
 
         public void Handle(UserUpdateEvent args)
         {
-            Task.Run(() => _wooCommerceApiService.UpdateUser(args.User, args.UserPassword));
+            Task.Run(() => _wooCommerceApiService.UpdateUser(args.User.Email, args.User.FirstName, args.User.LastName, args.User.Country, args.User.Phone, args.UserPassword));
         }
     }
 }

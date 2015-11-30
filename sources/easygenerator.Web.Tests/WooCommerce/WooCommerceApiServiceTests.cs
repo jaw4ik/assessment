@@ -31,7 +31,7 @@ namespace easygenerator.Web.Tests.WooCommerce
 
         [TestMethod]
         public void RegisterUser_ShouldCallHttpClientPostOrAddToQueueMethodWithCorrectData()
-        { 
+        {
             // Arrange
             var user = UserObjectMother.CreateWithCountry("Ukraine");
             var serviceUrl = "serviceUrl";
@@ -44,7 +44,7 @@ namespace easygenerator.Web.Tests.WooCommerce
             _configurationReader.WooCommerceConfiguration.Returns(condigurationSection);
 
             // Act
-            _wooCommerceApiService.RegisterUser(user, "abcABC123");
+            _wooCommerceApiService.RegisterUser(user.Email, user.FirstName, user.LastName, user.Country, user.Phone, "abcABC123");
 
             // Assert
             _httpRequestsManager.Received().PostOrAddToQueueIfUnexpectedError(
@@ -59,9 +59,10 @@ namespace easygenerator.Web.Tests.WooCommerce
             // Arrange
             var condigurationSection = new WooCommerceConfigurationSection { ServiceUrl = "serviceUrl", ApiKey = "apiKey", Enabled = false };
             _configurationReader.WooCommerceConfiguration.Returns(condigurationSection);
+            var user = UserObjectMother.CreateWithCountry("Ukraine");
 
             // Act
-            _wooCommerceApiService.RegisterUser(UserObjectMother.CreateWithCountry("Ukraine"), "abcABC123");
+            _wooCommerceApiService.RegisterUser(user.Email, user.FirstName, user.LastName, user.Country, user.Phone, "abcABC123");
 
             // Assert
             _httpRequestsManager.DidNotReceive().PostOrAddToQueueIfUnexpectedError(Arg.Any<string>(), Arg.Any<object>(), Arg.Any<string>());
@@ -82,7 +83,7 @@ namespace easygenerator.Web.Tests.WooCommerce
             _configurationReader.WooCommerceConfiguration.Returns(condigurationSection);
 
             // Act
-            _wooCommerceApiService.UpdateUser(user, "abcABC123");
+            _wooCommerceApiService.UpdateUser(user.Email, user.FirstName, user.LastName, user.Country, user.Phone, "abcABC123");
 
             // Assert
             _httpRequestsManager.Received().PostOrAddToQueueIfUnexpectedError(
@@ -97,9 +98,10 @@ namespace easygenerator.Web.Tests.WooCommerce
             // Arrange
             var condigurationSection = new WooCommerceConfigurationSection { ServiceUrl = "serviceUrl", ApiKey = "apiKey", Enabled = false };
             _configurationReader.WooCommerceConfiguration.Returns(condigurationSection);
+            var user = UserObjectMother.CreateWithCountry("Ukraine");
 
             // Act
-            _wooCommerceApiService.UpdateUser(UserObjectMother.CreateWithCountry("Ukraine"), "abcABC123");
+            _wooCommerceApiService.UpdateUser(user.Email, user.FirstName, user.LastName, user.Country, user.Phone, "abcABC123");
 
             // Assert
             _httpRequestsManager.DidNotReceive().PostOrAddToQueueIfUnexpectedError(Arg.Any<string>(), Arg.Any<object>(), Arg.Any<string>());

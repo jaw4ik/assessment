@@ -1,5 +1,4 @@
-﻿using easygenerator.DomainModel.Entities;
-using easygenerator.Infrastructure.Http;
+﻿using easygenerator.Infrastructure.Http;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.Configuration;
 
@@ -20,29 +19,29 @@ namespace easygenerator.Web.WooCommerce
             _httpRequestsManager = httpRequestsManager;
         }
 
-        public void RegisterUser(User user, string userPassword)
+        public void RegisterUser(string userEmail, string firstname, string lastname, string country, string phone, string userPassword)
         {
-            Post(user, userPassword, RegisterUserMethodPath);
+            Post(userEmail, firstname, lastname, country, phone, userPassword, RegisterUserMethodPath);
         }
 
-        public void UpdateUser(User user, string userPassword)
+        public void UpdateUser(string userEmail, string firstname, string lastname, string country, string phone, string userPassword)
         {
-            Post(user, userPassword, UpdateUserMethodPath);
+            Post(userEmail, firstname, lastname, country, phone, userPassword, UpdateUserMethodPath);
         }
 
-        private void Post(User user, string userPassword, string serviceMethodUrl)
+        private void Post(string userEmail, string firstname, string lastname, string country, string phone, string userPassword, string serviceMethodUrl)
         {
             if (_configurationReader.WooCommerceConfiguration.Enabled)
             {
                 var methodUrl = GetServiceMethodUrl(serviceMethodUrl);
                 var methodData = new
                 {
-                    email = user.Email,
-                    firstname = user.FirstName,
-                    lastname = user.LastName,
+                    email = userEmail,
+                    firstname = firstname,
+                    lastname = lastname,
                     password = userPassword,
-                    country = CountriesInfo.GetCountryCode(user.Country),
-                    phone = user.Phone
+                    country = CountriesInfo.GetCountryCode(country),
+                    phone = phone
                 };
 
                 _httpRequestsManager.PostOrAddToQueueIfUnexpectedError(methodUrl, methodData, ServiceName);
