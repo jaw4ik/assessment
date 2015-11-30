@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
 using NSubstitute;
 using System.Net;
 using System.Reflection;
@@ -11,11 +9,6 @@ namespace easygenerator.Web.Tests.Utils
 {
     public static class Extensions
     {
-        public static bool ContainsProperty(this ExpandoObject obj, string propName)
-        {
-            return ((IDictionary<string, object>) obj).ContainsKey(propName);
-        }
-
         public static bool IsObjectSimilarTo(this object actual, object expected)
         {
             foreach (PropertyInfo prop in expected.GetType().GetProperties())
@@ -26,23 +19,11 @@ namespace easygenerator.Web.Tests.Utils
                     throw new InvalidOperationException("Only value types or strings are supported");
                 }
 
-                if (actual is ExpandoObject)
+                var actualProperty = actual.GetType().GetProperty(prop.Name);
+                if (actualProperty != null)
                 {
-                    var dynamicProperties = (IDictionary<string, object>)actual;
-                    if (dynamicProperties.ContainsKey(prop.Name))
-                    {
-                        var actualValue = dynamicProperties[prop.Name];
-                        return expectedValue.GetType() == actualValue.GetType() && expectedValue.Equals(actualValue);
-                    }
-                }
-                else
-                {
-                    var actualProperty = actual.GetType().GetProperty(prop.Name);
-                    if (actualProperty != null)
-                    {
-                        var actualValue = actual.GetType().GetProperty(prop.Name).GetValue(actual);
-                        return expectedValue.GetType() == actualValue.GetType() && expectedValue.Equals(actualValue);
-                    }
+                    var actualValue = actual.GetType().GetProperty(prop.Name).GetValue(actual);
+                    return expectedValue.GetType() == actualValue.GetType() && expectedValue.Equals(actualValue);
                 }
             }
 

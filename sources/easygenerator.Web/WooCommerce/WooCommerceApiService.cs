@@ -1,5 +1,4 @@
-﻿using System.Dynamic;
-using easygenerator.Infrastructure.Http;
+﻿using easygenerator.Infrastructure.Http;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.Configuration;
 
@@ -37,20 +36,15 @@ namespace easygenerator.Web.WooCommerce
                 var methodUrl = GetServiceMethodUrl(serviceMethodUrl);
                 var countryCode = country != null ? CountriesInfo.GetCountryCode(country) : null;
 
-                dynamic methodData = new ExpandoObject();
-                methodData.email = userEmail;
-                methodData.firstname = firstname;
-                methodData.lastname = lastname;
-                methodData.password = userPassword;
-
-                if (countryCode != null)
+                var methodData = new
                 {
-                    methodData.country = countryCode;
-                }
-                if (phone != null)
-                {
-                    methodData.phone = phone;
-                }
+                    email = userEmail,
+                    firstname = firstname,
+                    lastname = lastname,
+                    password = userPassword,
+                    country = countryCode,
+                    phone = phone
+                };
 
                 _httpRequestsManager.PostOrAddToQueueIfUnexpectedError(methodUrl, methodData, ServiceName);
             }

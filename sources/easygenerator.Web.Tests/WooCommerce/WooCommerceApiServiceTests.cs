@@ -6,7 +6,6 @@ using easygenerator.Web.WooCommerce;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
-using System.Dynamic;
 using easygenerator.Web.Components;
 using easygenerator.Web.Tests.Utils;
 
@@ -86,13 +85,15 @@ namespace easygenerator.Web.Tests.WooCommerce
             // Assert
             _httpRequestsManager.Received().PostOrAddToQueueIfUnexpectedError(
                 serviceUrl + "/" + methodPath + "?key=" + apiKey,
-                Arg.Is<ExpandoObject>((_) => _.IsObjectSimilarTo(new
+                Arg.Is<object>((_) => _.IsObjectSimilarTo(new
                 {
                     email = user.Email,
                     firstname = user.FirstName,
                     lastname = user.LastName,
-                    password = password
-                }) && !_.ContainsProperty("countryCode") && !_.ContainsProperty("phone")),
+                    password = password,
+                    countryCode = (string)null,
+                    phone = (string)null
+                })),
                 serviceName);
         }
 
@@ -166,13 +167,15 @@ namespace easygenerator.Web.Tests.WooCommerce
             // Assert
             _httpRequestsManager.Received().PostOrAddToQueueIfUnexpectedError(
                 serviceUrl + "/" + methodPath + "?key=" + apiKey,
-                Arg.Is<ExpandoObject>((_) => _.IsObjectSimilarTo(new
+                Arg.Is<object>((_) => _.IsObjectSimilarTo(new
                 {
                     email = user.Email,
                     firstname = user.FirstName,
                     lastname = user.LastName,
-                    password = password
-                }) && !_.ContainsProperty("countryCode") && !_.ContainsProperty("phone")),
+                    password = password,
+                    countryCode = (string)null,
+                    phone = (string)null
+                })),
                 serviceName);
         }
 
