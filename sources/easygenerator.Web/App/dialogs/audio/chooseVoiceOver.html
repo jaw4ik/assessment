@@ -9,7 +9,7 @@
             <div data-bind="preloader: { settings: 'align-center' }"></div>
             <!-- /ko -->
             <!-- ko ifnot: isLoading -->
-            <div class="drop-audio-hint drop-zone" data-bind="dropUpload: { before: library.ensureCanAddAudio, callback: uploadAudio }, css: { overlay: library.audios().length }">
+            <div class="drop-audio-hint drop-zone" data-bind="dropUpload: { before: library.ensureCanAddAudio, callback: uploadAudioByDragging }, css: { overlay: library.audios().length }">
                 <div class="drop-audio-hint-content">
                     <!-- ko if: library.audios().length -->
                     <h3 data-bind="localize: { text : 'dropHere' }"></h3>
@@ -19,7 +19,7 @@
                     <div class="drop-audio-hint-upload-image"></div>
                     <div class="drop-audio-hint-upload-text">
                         <h3 data-bind="localize: { text : 'dragAndDrop' }"></h3>
-                        <span data-bind="localize: { text : 'anyAudioFormatsOr' }"></span>&nbsp;<a href="" data-bind="localize: { text: 'browseCallToAction'}, browse: { before: library.ensureCanAddAudio, callback: uploadAudio }"></a>
+                        <span data-bind="localize: { text : 'anyAudioFormatsOr' }"></span>&nbsp;<a href="" data-bind="localize: { text: 'browseCallToAction'}, browse: { click: onOpenFileBrowseDialog, before: library.ensureCanAddAudio, callback: uploadAudio }"></a>
                     </div>
                     <!-- /ko -->
                 </div>
@@ -28,7 +28,7 @@
             <div class="audio-list-container" data-bind="scrollbar: { checkDOMChanges: true }">
                 <ul class="audio-list">
                     <li class="audio-upload-hint">
-                        <span data-bind="localize: { text: 'dropAudioFilesHereOr'}"></span>&nbsp;<a href="" data-bind="localize: { text: 'browseCallToAction'}, browse: { before: library.ensureCanAddAudio, callback: uploadAudio }"></a>
+                        <span data-bind="localize: { text: 'dropAudioFilesHereOr'}"></span>&nbsp;<a href="" data-bind="localize: { text: 'browseCallToAction'}, browse: { click: onOpenFileBrowseDialog, before: library.ensureCanAddAudio, callback: uploadAudio }"></a>
                     </li>
                     <!-- ko foreach: library.audios -->
                     <!-- ko if: status() == $parent.library.statuses.loaded -->

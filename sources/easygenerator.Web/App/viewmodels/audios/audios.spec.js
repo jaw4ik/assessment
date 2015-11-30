@@ -1,10 +1,16 @@
 ﻿import viewModel from 'viewmodels/audios/audios';
 
 import userContext from 'userContext';
+import eventTracker from 'eventTracker';
 import audioLibrary from 'audio/audioLibrary/audioLibrary';
 import localizationManager from 'localization/localizationManager';
 
 describe('viewModel [audios]', () => {
+    beforeEach(() => {
+        spyOn(audioLibrary, 'addAudio');
+        spyOn(eventTracker, 'publish');
+    });
+
     describe('storageSpaceProgressBarVisibility:', () => {
         it('should be observable', () => {
             expect(viewModel.storageSpaceProgressBarVisibility).toBeObservable();
@@ -46,14 +52,23 @@ describe('viewModel [audios]', () => {
     });
 
     describe('uploadAudio:', () => {
-        beforeEach(() => {
-            spyOn(audioLibrary, 'addAudio');
+        it('should publish \'Upload audio file\' event', () => {
+            var file = {};
+            viewModel.uploadAudio(file);
+            expect(eventTracker.publish).toHaveBeenCalledWith('Upload audio file', 'Audio library');
         });
 
         it('should add audio to audio library', () => {
             var file = {};
             viewModel.uploadAudio(file);
             expect(audioLibrary.addAudio).toHaveBeenCalledWith(file);
+        });
+    });
+
+    describe('onOpenFileBrowseDialog:', () => {
+        it('should publish \'Open "choose audio file" dialog\' event', () => {
+            viewModel.onOpenFileBrowseDialog();
+            expect(eventTracker.publish).toHaveBeenCalledWith('Open "choose audio file" dialog', 'Audio library');
         });
     });
 

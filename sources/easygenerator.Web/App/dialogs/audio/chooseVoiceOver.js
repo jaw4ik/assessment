@@ -1,8 +1,15 @@
 ﻿import ko from 'knockout';
 import _ from 'underscore';
 import constants from 'constants';
+import eventTracker from 'eventTracker';
 import dialog from 'widgets/dialog/viewmodel';
 import audioLibrary from 'audio/audioLibrary/audioLibrary';
+
+const events = {
+    dragAndDropAduioFile: 'Drag and Drop audio file and upload',
+    uploadAudioFile: 'Upload audio file',
+    openChooseAudioFileDialog:'Open "choose audio file" dialog'
+};
 
 class ChooseVoiceOverDialog{
     constructor() {
@@ -48,7 +55,17 @@ class ChooseVoiceOverDialog{
     }
 
     uploadAudio(file) {
+        eventTracker.publish(events.uploadAudioFile);
         audioLibrary.addAudio(file);
+    }
+
+    uploadAudioByDragging(file) {
+        eventTracker.publish(events.dragAndDropAduioFile);
+        audioLibrary.addAudio(file);
+    }
+
+    onOpenFileBrowseDialog(){
+        eventTracker.publish(events.openChooseAudioFileDialog);
     }
 
     selectAudio(audio) {

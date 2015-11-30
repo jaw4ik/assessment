@@ -2,8 +2,15 @@
 import constants from 'constants';
 import ko from 'knockout';
 import userContext from 'userContext';
+import eventTracker from 'eventTracker';
 import audioLibrary from 'audio/audioLibrary/audioLibrary';
 import localizationManager from 'localization/localizationManager';
+
+const eventCategory = 'Audio library',
+      events = {
+          openChooseAudioFileDialog: 'Open \"choose audio file\" dialog',
+          uploadAudioFile: 'Upload audio file'
+      };
 
 class Audios{
     constructor() {
@@ -50,7 +57,12 @@ class Audios{
     }
 
     uploadAudio(file) {
+        eventTracker.publish(events.uploadAudioFile, eventCategory);
         audioLibrary.addAudio(file);
+    }
+
+    onOpenFileBrowseDialog(){
+        eventTracker.publish(events.openChooseAudioFileDialog, eventCategory);
     }
 }
 

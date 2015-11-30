@@ -1,12 +1,11 @@
 ﻿import viewModel from 'audio/audioLibrary/audioLibrary';
 
 import constants from 'constants';
-import getAudiosCommand from 'audio/queries/getCollection';
-import audioUploadDispatcher from 'audio/audioUploadDispatcher';
 import userContext from 'userContext';
-import upgradeDialog from 'widgets/upgradeDialog/viewmodel';
-import eventTracker from 'eventTracker';
 import audioDialog from 'dialogs/video/video';
+import getAudiosCommand from 'audio/queries/getCollection';
+import upgradeDialog from 'widgets/upgradeDialog/viewmodel';
+import audioUploadDispatcher from 'audio/audioUploadDispatcher';
 
 describe('viewModel [audio/audioLibrary]', () => {
 
@@ -31,7 +30,7 @@ describe('viewModel [audio/audioLibrary]', () => {
         });
 
         describe('when audios loaded', () => {
-            it('should execute command to delete source', (done) => {
+            it('should execute command to delete source', done => {
                 var audios = [{}];
                 getAudiosDefer.resolve(audios);
                 viewModel.initialize().fin(() => {
@@ -40,7 +39,7 @@ describe('viewModel [audio/audioLibrary]', () => {
                 });
             });
 
-            it('should add pending uploads to audio collection', (done) => {
+            it('should add pending uploads to audio collection', done => {
                 let uploads = [{}];
                 viewModel.audios([]);
                 audioUploadDispatcher.uploads = uploads;
@@ -52,7 +51,7 @@ describe('viewModel [audio/audioLibrary]', () => {
                 });
             });
 
-            it('should add loaded audios to audio collection', (done) => {
+            it('should add loaded audios to audio collection', done => {
                 var audios = [{}];
                 viewModel.audios([]);
                 audioUploadDispatcher.uploads = [];
@@ -130,13 +129,7 @@ describe('viewModel [audio/audioLibrary]', () => {
             upload = {};
 
         beforeEach(() => {
-            spyOn(eventTracker, 'publish');
             spyOn(audioUploadDispatcher, 'startUploading').and.returnValue(upload);
-        });
-
-        it('should publish \'Open \"choose audio file\" dialog\' event', () => {
-            viewModel.addAudio(file);
-            expect(eventTracker.publish).toHaveBeenCalledWith('Open \"choose audio file\" dialog', 'Audio library');
         });
 
         it('should start uploading audio', () => {

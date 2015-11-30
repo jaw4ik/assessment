@@ -2,6 +2,7 @@
 
 import ko from 'knockout';
 import constants from 'constants';
+import eventTracker from 'eventTracker';
 import dialog from 'widgets/dialog/viewmodel';
 import audioLibrary from 'audio/audioLibrary/audioLibrary';
 
@@ -16,6 +17,7 @@ describe('dialog [chooseVoiceOver]', () => {
         spyOn(dialog, 'close');
         spyOn(audioLibrary, 'off');
         spyOn(audioLibrary, 'addAudio');
+        spyOn(eventTracker, 'publish');
     });
 
     describe('selectedAudio:', () => {
@@ -55,6 +57,33 @@ describe('dialog [chooseVoiceOver]', () => {
             var file = {};
             viewModel.uploadAudio(file);
             expect(audioLibrary.addAudio).toHaveBeenCalledWith(file);
+        });
+
+        it('should publish \'Upload audio file\' event', () => {
+            var file = {};
+            viewModel.uploadAudio(file);
+            expect(eventTracker.publish).toHaveBeenCalledWith('Upload audio file');
+        });
+    });
+
+    describe('uploadAudioByDragging:', () => {
+        it('should add audio to audio library', () => {
+            var file = {};
+            viewModel.uploadAudioByDragging(file);
+            expect(audioLibrary.addAudio).toHaveBeenCalledWith(file);
+        });
+
+        it('should publish \'Drag and Drop audio file and upload\' event', () => {
+            var file = {};
+            viewModel.uploadAudioByDragging(file);
+            expect(eventTracker.publish).toHaveBeenCalledWith('Drag and Drop audio file and upload');
+        });
+    });
+
+    describe('onOpenFileBrowseDialog:', () => {
+        it('should publish \'Open "choose audio file" dialog\' event', () => {
+            viewModel.onOpenFileBrowseDialog();
+            expect(eventTracker.publish).toHaveBeenCalledWith('Open "choose audio file" dialog');
         });
     });
 

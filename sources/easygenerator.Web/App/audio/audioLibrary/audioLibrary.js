@@ -1,17 +1,11 @@
 ﻿import ko from 'knockout';
 import constants from 'constants';
 import userContext from 'userContext';
-import eventTracker from 'eventTracker';
 import audioUploadDispatcher from 'audio/audioUploadDispatcher';
 import AudioViewModel from 'audio/audioLibrary/AudioViewModel';
 import upgradeDialog from 'widgets/upgradeDialog/viewmodel';
 import getAudiosCommand from 'audio/queries/getCollection';
 import audioDialog from 'dialogs/video/video';
-
-const eventCategory = 'Audio library',
-  events = {
-      openUploadAudioDialog: 'Open \"choose audio file\" dialog'
-  };
 
 class AudioLibrary{
     constructor() {
@@ -46,8 +40,6 @@ class AudioLibrary{
     }
 
     addAudio(file) {
-        eventTracker.publish(events.openUploadAudioDialog, eventCategory);
-
         let upload = audioUploadDispatcher.startUploading(file);
         this.audios.unshift(new AudioViewModel(upload));
     }
