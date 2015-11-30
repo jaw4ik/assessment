@@ -1,6 +1,6 @@
 ﻿define(['durandal/app', 'plugins/router', 'routing/isViewReadyMixin', 'viewmodels/courses/index', 'repositories/courseRepository', 'repositories/collaboratorRepository',
     'userContext', 'clientContext', 'eventTracker', 'notify', 'constants', 'localization/localizationManager', 'dialogs/collaboration/collaboration',
-    'dialogs/course/publishCourse/publishCourse', 'viewmodels/common/titleField', 'dialogs/course/changeTemplate/changeTemplate'],
+    'dialogs/course/publishCourse/publishDialog', 'viewmodels/common/titleField', 'dialogs/course/changeTemplate/changeTemplate'],
     function (app, router, isViewReady, index, repository, collaboratorRepository, userContext, clientContext, eventTracker, notify, constants, localizationManager,
         collaborationPopup, sharePopup, titleField, changeTemplateDialog) {
 

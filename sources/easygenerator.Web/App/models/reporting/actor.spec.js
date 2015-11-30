@@ -31,6 +31,15 @@
                 expect(actor.name).toEqual(spec.name);
                 expect(actor.email).toEqual(spec.mbox.replace('mailto:', ''));
             });
+
+            it('should correctly process empty spec', function () {
+                var spec = {};
+
+                var actor = new Actor(spec);
+
+                expect(actor.name).toBeUndefined();
+                expect(actor.email).toBeUndefined();
+            });
         });
     });
 });

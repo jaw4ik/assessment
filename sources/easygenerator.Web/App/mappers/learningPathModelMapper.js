@@ -9,6 +9,7 @@
                     id: learningPath.Id,
                     title: learningPath.Title,
                     publicationUrl: learningPath.PublicationUrl,
+                    isPublishedToExternalLms: learningPath.IsPublishedToExternalLms,
                     createdBy: learningPath.CreatedBy,
                     createdOn: new Date(learningPath.CreatedOn),
                     modifiedOn: new Date(learningPath.ModifiedOn),

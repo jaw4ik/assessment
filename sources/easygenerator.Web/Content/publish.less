@@ -379,6 +379,15 @@
                 }
             }
         }
+
+        .publish-tab-content-wrapper {
+            min-height: 160px;
+        }
+
+        .publish-tab-header {
+            color: #464d5d;
+            margin-bottom: 15px;
+        }
     }
 
     &.visible + .action-share {
@@ -480,7 +489,7 @@
 }
 
 .custom-publish-tab-image {
-    
+
     img {
         max-width: 130px;
         max-height: 130px;
@@ -539,6 +548,7 @@
 .publish-tab-content {
     display: none;
     flex: 1;
+    min-height: 410px;
 }
 
 .publish-tab-content.active {
@@ -548,6 +558,7 @@
 .publish-tab-content-wrapper {
     display: flex;
     flex: 1;
+    min-height: 110px;
 }
 
 .publish-tab-container {
@@ -560,7 +571,8 @@
 
 .publish-tab-header {
     margin-bottom: 10px;
-    font-size: 22px;
+    font-size: 20px;
+    font-weight: normal;
     color: #546677;
 }
 

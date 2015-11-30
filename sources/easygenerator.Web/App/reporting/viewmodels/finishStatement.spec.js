@@ -4,6 +4,7 @@ import ExpandableStatement from 'reporting/viewmodels/expandableStatement';
 import ObjectiveStatement from 'reporting/viewmodels/objectiveStatement';
 import xApiProvider from 'reporting/xApiProvider';
 import constants from 'constants';
+import localizationManager from 'localization/localizationManager';
 
 describe('viewmodel [FinishStatement]', () => {
     var lrsStatement,
@@ -25,6 +26,11 @@ describe('viewmodel [FinishStatement]', () => {
         lrsStatement = { attemptId: attemptId, id: statementId, score: 50, actor: { name: 'name', email: 'email' } };
         spyOn(xApiProvider, 'getMasteredStatements').and.returnValue(Promise.resolve(masteredStatements));
         spyOn(xApiProvider, 'getStartedStatement').and.returnValue(Promise.resolve(startedStatement));
+        spyOn(localizationManager, 'localize').and.callFake(function(localizationKey) {
+            if (localizationKey === 'reportingInfoNotAvailable') {
+                return "N/A";
+            }
+        });
         statement = new FinishStatement(lrsStatement);
     });
 
@@ -37,8 +43,15 @@ describe('viewmodel [FinishStatement]', () => {
             expect(statement).toBeInstanceOf(ExpandableStatement);
         });
 
-        it('should evaluate learnerDisplayName', () => {
-            expect(statement.learnerDisplayName).toBe(`${statement.lrsStatement.actor.name} (${statement.lrsStatement.actor.email})`);
+        describe('learnerDisplayName:', () => {
+            it('should use actors name and email if exist', () => {
+                expect(statement.learnerDisplayName).toBe(`${statement.lrsStatement.actor.name} (${statement.lrsStatement.actor.email})`);
+            });
+
+            it('should return Not Available texts for name and email if they are not exist', () => {
+                var statementWithEmptyActor = new FinishStatement({ attemptId: attemptId, id: statementId, score: 50, actor: {} });
+                expect(statementWithEmptyActor.learnerDisplayName).toBe('N/A (N/A)');
+            });
         });
 
         it('should set passed to true if statement verb is passed', () => {
@@ -73,23 +86,23 @@ describe('viewmodel [FinishStatement]', () => {
             }).then(done));
 
 
-            describe('and xApiProvider.getStartedStatement call was sucess', () => {
+                describe('and xApiProvider.getStartedStatement call was sucess', () => {
 
-                it('should fill children collection with ObjectiveStatement instances', done => co(function*() {
-                    yield statement.expandLoadAction();
-                    expect(statement.children().length).toBe(2);
-                    expect(statement.children()[0]).toBeInstanceOf(ObjectiveStatement);
-                    expect(statement.children()[1]).toBeInstanceOf(ObjectiveStatement);
-                    expect(statement.children()[0].lrsStatement).toBe(masteredStatements[0]);
-                    expect(statement.children()[1].lrsStatement).toBe(masteredStatements[1]);
-                }).then(done));
+                    it('should fill children collection with ObjectiveStatement instances', done => co(function*() {
+                        yield statement.expandLoadAction();
+                        expect(statement.children().length).toBe(2);
+                        expect(statement.children()[0]).toBeInstanceOf(ObjectiveStatement);
+                        expect(statement.children()[1]).toBeInstanceOf(ObjectiveStatement);
+                        expect(statement.children()[0].lrsStatement).toBe(masteredStatements[0]);
+                        expect(statement.children()[1].lrsStatement).toBe(masteredStatements[1]);
+                    }).then(done));
 
-                it('should set startedLrsStatement to started statement', done => co(function*() {
-                    yield statement.expandLoadAction();
-                    expect(statement.startedLrsStatement).toBe(startedStatement[0]);
-                }).then(done));
+                        it('should set startedLrsStatement to started statement', done => co(function*() {
+                            yield statement.expandLoadAction();
+                            expect(statement.startedLrsStatement).toBe(startedStatement[0]);
+                        }).then(done));
 
+                        });
+                    });
+                });
             });
-        });
-    });
-});

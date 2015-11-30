@@ -4,12 +4,19 @@ import constants from 'constants';
 import ExpandableStatement from 'reporting/viewmodels/expandableStatement';
 import ObjectiveStatement from 'reporting/viewmodels/objectiveStatement';
 import xApiProvider from 'reporting/xApiProvider';
+import localizationManager from 'localization/localizationManager';
+
+function getLearnerDisplayName(name, email) {
+    name = name || localizationManager.localize('reportingInfoNotAvailable');
+    email = email || localizationManager.localize('reportingInfoNotAvailable');
+    return `${name} (${email})`;
+}
 
 export default class extends ExpandableStatement {
     constructor(finishedLrsStatement) {
         super(finishedLrsStatement);
-        this.startedLrsStatement = null;
-        this.learnerDisplayName = `${this.lrsStatement.actor.name} (${this.lrsStatement.actor.email})`;
+        this.startedLrsStatement = null;        
+        this.learnerDisplayName = getLearnerDisplayName(this.lrsStatement.actor.name, this.lrsStatement.actor.email);
         this.passed = this.lrsStatement.verb === constants.reporting.xApiVerbIds.passed;
     }
 
