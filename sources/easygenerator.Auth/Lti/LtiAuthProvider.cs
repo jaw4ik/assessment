@@ -51,8 +51,6 @@ namespace easygenerator.Auth.Lti
                     throw new LtiException("Invalid " + OAuthConstants.ConsumerKeyParameter);
                 }
 
-                context.Request.Set(consumerToolKey, consumerTool);
-
                 var consumerSignature = context.LtiRequest.GenerateSignature(consumerTool.Secret);
                 if (!consumerSignature.Equals(context.LtiRequest.Signature))
                 {
@@ -64,10 +62,10 @@ namespace easygenerator.Auth.Lti
 
             OnAuthenticated = context =>
             {
-                var consumerTool = context.Request.Get<ConsumerTool>(consumerToolKey);
+                var consumerTool = _consumerToolRepository.GetByKey(context.LtiRequest.ConsumerKey);
                 if (consumerTool == null)
                 {
-                    throw new LtiException("Cannot get consumer tool from the context.");
+                    throw new LtiException("Invalid " + OAuthConstants.ConsumerKeyParameter);
                 }
 
                 var userEmail = context.LtiRequest.LisPersonEmailPrimary;
