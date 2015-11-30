@@ -4,7 +4,9 @@ System.config({
   babelOptions: {
     "optional": [
       "optimisation.modules.system",
-      "runtime"
+      "runtime",
+      "es7.asyncFunctions",
+      "asyncToGenerator"
     ]
   },
   paths: {
