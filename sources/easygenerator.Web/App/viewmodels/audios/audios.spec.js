@@ -45,6 +45,18 @@ describe('viewModel [audios]', () => {
         });
     });
 
+    describe('uploadAudio:', () => {
+        beforeEach(() => {
+            spyOn(audioLibrary, 'addAudio');
+        });
+
+        it('should add audio to audio library', () => {
+            var file = {};
+            viewModel.uploadAudio(file);
+            expect(audioLibrary.addAudio).toHaveBeenCalledWith(file);
+        });
+    });
+
     describe('activate:', () => {
         let identifyStoragePermissionsDeferred = Q.defer(),
             initializeAudioLibraryDefer = Q.defer();

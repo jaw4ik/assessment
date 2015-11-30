@@ -2,25 +2,28 @@
 import constants from 'constants';
 import _ from 'underscore';
 
-let dispatcher = {
-        uploads: [],
-        startUploading: startUploading
-    };
+class Dispatcher{
+    constructor() {
+        this.uploads = [];
+    }
 
-function startUploading(file) {
-    const model = factory.create(file);
-    dispatcher.uploads.unshift(model);
+    startUploading(file) {
+        let model = factory.create(file);
+        this.uploads.unshift(model);
+        let that = this;
 
-    model.on(constants.storage.audio.statuses.failed).then(() => {
-        dispatcher.uploads = _.without(dispatcher.uploads, model);
-    });
+        model.on(constants.storage.audio.statuses.failed).then(() => {
+            that.uploads = _.without(that.uploads, model);
+        });
 
-    model.on(constants.storage.audio.statuses.loaded).then(() => {
-        dispatcher.uploads = _.without(dispatcher.uploads, model);
-    });
+        model.on(constants.storage.audio.statuses.loaded).then(() => {
+            that.uploads = _.without(that.uploads, model);
+        });
 
-    model.upload();
-    return model;
+        model.upload();
+        return model;
+    }
 }
 
+let dispatcher = new Dispatcher();
 export default dispatcher;

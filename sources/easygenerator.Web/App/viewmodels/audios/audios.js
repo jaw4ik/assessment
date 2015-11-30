@@ -5,50 +5,56 @@ import userContext from 'userContext';
 import audioLibrary from 'audio/audioLibrary/audioLibrary';
 import localizationManager from 'localization/localizationManager';
 
-app.on(constants.storage.changesInQuota, setAvailableStorageSpace);
+class Audios{
+    constructor() {
+        this.library = audioLibrary;
+        this.storageSpaceProgressBarVisibility = ko.observable(false);
+        this.availableStorageSpace = ko.observable(0);
+        this.availableStorageSpacePersentages = ko.observable(0);
+    }
 
-let viewModel = {
-    storageSpaceProgressBarVisibility: ko.observable(false),
-    availableStorageSpace: ko.observable(0),
-    availableStorageSpacePersentages: ko.observable(0),
-    activate: activate,
-    deactivate: deactivate,
-    library: audioLibrary
-};
-
-function activate() {
-    return viewModel.library.initialize().then(function() {
-        return userContext.identifyStoragePermissions().then(function () {
-            setAvailableStorageSpace();
+    activate() {
+        let that = this;
+        return audioLibrary.initialize().then(() => {
+            return userContext.identifyStoragePermissions().then(() => {
+                that.setAvailableStorageSpace();
+            });
         });
-    });
-}
-
-function deactivate() {
-    return Q.fcall(function () {
-        viewModel.library.off();
-    });
-}
-
-function setAvailableStorageSpace() {
-    if (!userContext.hasStarterAccess() || userContext.hasTrialAccess()) {
-        viewModel.storageSpaceProgressBarVisibility(false);
-        return;
     }
-    viewModel.storageSpaceProgressBarVisibility(true);
 
-    var free = userContext.storageIdentity.availableStorageSpace,
-        max = userContext.storageIdentity.totalStorageSpace,
-        value = free / 1073741824;
-
-    viewModel.availableStorageSpacePersentages(Math.round((max - free) / max * 100));
-
-    if (value >= 1) {
-        viewModel.availableStorageSpace(value.toFixed(1) + localizationManager.localize('gb'));
-        return;
+    deactivate() {
+        return Q.fcall(() => {
+            audioLibrary.off();
+        });
     }
-    value = value * 1024;
-    viewModel.availableStorageSpace(value.toFixed(1) + localizationManager.localize('mb'));
+
+    setAvailableStorageSpace() {
+        if (!userContext.hasStarterAccess() || userContext.hasTrialAccess()) {
+            this.storageSpaceProgressBarVisibility(false);
+            return;
+        }
+        this.storageSpaceProgressBarVisibility(true);
+
+        var free = userContext.storageIdentity.availableStorageSpace,
+            max = userContext.storageIdentity.totalStorageSpace,
+            value = free / 1073741824;
+
+        this.availableStorageSpacePersentages(Math.round((max - free) / max * 100));
+
+        if (value >= 1) {
+            this.availableStorageSpace(value.toFixed(1) + localizationManager.localize('gb'));
+            return;
+        }
+        value = value * 1024;
+        this.availableStorageSpace(value.toFixed(1) + localizationManager.localize('mb'));
+    }
+
+    uploadAudio(file) {
+        audioLibrary.addAudio(file);
+    }
 }
+
+let viewModel = new Audios();
+app.on(constants.storage.changesInQuota, viewModel.setAvailableStorageSpace);
 
 export default viewModel;

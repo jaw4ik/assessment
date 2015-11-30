@@ -8,59 +8,58 @@ import upgradeDialog from 'widgets/upgradeDialog/viewmodel';
 import getAudiosCommand from 'audio/queries/getCollection';
 import audioDialog from 'dialogs/video/video';
 
-let eventCategory = 'Audio library',
+const eventCategory = 'Audio library',
   events = {
       openUploadAudioDialog: 'Open \"choose audio file\" dialog'
   };
 
-let viewModel = {
-    audios: ko.observableArray([]),
-    initialize: initialize,
-    off: off,
-    ensureCanAddAudio: ensureCanAddAudio,
-    addAudio: addAudio,
-    showAudioDetails: showAudioDetails,
-    statuses: constants.storage.audio.statuses
-};
-
-function initialize(){
-    viewModel.audios([]);
-    return getAudiosCommand.execute().then(function (audios) {
-        audioUploadDispatcher.uploads.forEach((upload) => {
-            viewModel.audios.push(new AudioViewModel(upload));
-        });
-
-        audios.forEach((audio) => {
-            viewModel.audios.push(new AudioViewModel(audio));
-        });
-    });
-}
-
-function off() {
-    viewModel.audios().forEach(audio => audio.off());
-}
-
-function ensureCanAddAudio() {
-    if (!userContext.hasStarterAccess() || userContext.hasTrialAccess()) {
-        upgradeDialog.show(constants.dialogs.upgrade.settings.audioUpload);
-        return false;
-    }
-    return true;
-}
-
-function addAudio(file) {
-    eventTracker.publish(events.openUploadAudioDialog, eventCategory);
-
-    let upload = audioUploadDispatcher.startUploading(file);
-    viewModel.audios.unshift(new AudioViewModel(upload));
-}
-
-function showAudioDetails(audio) {
-    if (!audio.vimeoId()) {
-        return;
+class AudioLibrary{
+    constructor() {
+        this.audios = ko.observableArray([]);
+        this.statuses = constants.storage.audio.statuses;
     }
 
-    audioDialog.show({ vimeoId: audio.vimeoId() });
+    initialize() {
+        this.audios([]);
+        let that = this;
+        return getAudiosCommand.execute().then(function (audios) {
+            audioUploadDispatcher.uploads.forEach((upload) => {
+                that.audios.push(new AudioViewModel(upload));
+            });
+
+            audios.forEach((audio) => {
+                that.audios.push(new AudioViewModel(audio));
+            });
+        });
+    }
+
+    off() {
+        this.audios().forEach(audio => audio.off());
+    }
+
+    ensureCanAddAudio() {
+        if (!userContext.hasStarterAccess() || userContext.hasTrialAccess()) {
+            upgradeDialog.show(constants.dialogs.upgrade.settings.audioUpload);
+            return false;
+        }
+        return true;
+    }
+
+    addAudio(file) {
+        eventTracker.publish(events.openUploadAudioDialog, eventCategory);
+
+        let upload = audioUploadDispatcher.startUploading(file);
+        this.audios.unshift(new AudioViewModel(upload));
+    }
+
+    showAudioDetails(audio) {
+        if (!audio.vimeoId()) {
+            return;
+        }
+
+        audioDialog.show({ vimeoId: audio.vimeoId() });
+    }
 }
 
+let viewModel = new AudioLibrary();
 export default viewModel;

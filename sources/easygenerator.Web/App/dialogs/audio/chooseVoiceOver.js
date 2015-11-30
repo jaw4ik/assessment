@@ -1,70 +1,72 @@
 ﻿import ko from 'knockout';
+import _ from 'underscore';
 import constants from 'constants';
 import dialog from 'widgets/dialog/viewmodel';
 import audioLibrary from 'audio/audioLibrary/audioLibrary';
 
-let viewModel = {
-    library: audioLibrary,
-    show: show,
-    callback: null,
-    selectedAudio: ko.observable(null),
-    selectAudio: selectAudio,
-    submit: submit,
-    isLoading: ko.observable(false),
-    isValidationMessageShown: ko.observable(false),
-    hideValidationMessage: hideValidationMessage,
-    close: close
-};
+class ChooseVoiceOverDialog{
+    constructor() {
+        this.library = audioLibrary;
+        this.callback = null;
+        this.selectedAudio = ko.observable(null);
+        this.isLoading = ko.observable(false);
+        this.isValidationMessageShown = ko.observable(false);
+    }
 
-function show(selectedAudioVimeoId, callback) {
-    viewModel.isValidationMessageShown(false);
-    viewModel.callback = callback;
-    viewModel.selectedAudio(null);
-    viewModel.isLoading(true);
+    show(selectedAudioVimeoId, callback) {
+        this.isValidationMessageShown(false);
+        this.callback = callback;
+        this.selectedAudio(null);
+        this.isLoading(true);
+        let that = this;
+        this.library.initialize().then(() => {
+            if (selectedAudioVimeoId) {
+                that.selectedAudio(_.find(that.library.audios(), e => e.vimeoId() === selectedAudioVimeoId));
+            }
 
-    viewModel.library.initialize().then(() => {
-        if (selectedAudioVimeoId) {
-            viewModel.selectedAudio(viewModel.library.audios().find(e => e.vimeoId() === selectedAudioVimeoId));
+            that.isLoading(false);
+        });
+
+        dialog.show(this, constants.dialogs.chooseVoiceOver.settings);
+    }
+
+    submit() {
+        if (!this.selectedAudio()) {
+            this.isValidationMessageShown(true);
+            return;
         }
 
-        viewModel.isLoading(false);
-    });
+        this.library.off();
+        dialog.close();
 
-    dialog.show(viewModel, constants.dialogs.chooseVoiceOver.settings);
-}
-
-function submit() {
-    if (!viewModel.selectedAudio()) {
-        viewModel.isValidationMessageShown(true);
-        return;
+        if (_.isFunction(this.callback)) {
+            this.callback({
+                title: this.selectedAudio().title,
+                vimeoId: this.selectedAudio().vimeoId()
+            });
+        }
     }
 
-    viewModel.library.off();
-    dialog.close();
+    uploadAudio(file) {
+        audioLibrary.addAudio(file);
+    }
 
-    if (_.isFunction(viewModel.callback)) {
-        viewModel.callback({
-            title: viewModel.selectedAudio().title,
-            vimeoId: viewModel.selectedAudio().vimeoId()
-        });
+    selectAudio(audio) {
+        this.selectedAudio(audio);
+        if (audio) {
+            this.isValidationMessageShown(false);
+        }
+    }
+
+    hideValidationMessage() {
+        this.isValidationMessageShown(false);
+    }
+
+    close() {
+        this.library.off();
+        dialog.close();
     }
 }
 
-function selectAudio(audio) {
-    viewModel.selectedAudio(audio);
-    if (audio) {
-        viewModel.isValidationMessageShown(false);
-        return;
-    }
-}
-
-function hideValidationMessage() {
-    viewModel.isValidationMessageShown(false);
-}
-
-function close() {
-    viewModel.library.off();
-    dialog.close();
-}
-
+let viewModel = new ChooseVoiceOverDialog();
 export default viewModel;

@@ -15,6 +15,7 @@ describe('dialog [chooseVoiceOver]', () => {
         spyOn(dialog, 'show');
         spyOn(dialog, 'close');
         spyOn(audioLibrary, 'off');
+        spyOn(audioLibrary, 'addAudio');
     });
 
     describe('selectedAudio:', () => {
@@ -46,6 +47,14 @@ describe('dialog [chooseVoiceOver]', () => {
             viewModel.selectedAudio(null);
             viewModel.selectAudio(audios[0]);
             expect(viewModel.selectedAudio()).toBe(audios[0]);
+        });
+    });
+
+    describe('uploadAudio:', () => {
+        it('should add audio to audio library', () => {
+            var file = {};
+            viewModel.uploadAudio(file);
+            expect(audioLibrary.addAudio).toHaveBeenCalledWith(file);
         });
     });
 
@@ -99,13 +108,10 @@ describe('dialog [chooseVoiceOver]', () => {
     });
 
     describe('show:', () => {
-
-        let initializeAudioLibraryDefer = Q.defer();
-
+        var initializeLibraryDefer;
         beforeEach(() => {
-            spyOn(audioLibrary, 'initialize').and.returnValue(initializeAudioLibraryDefer.promise);
-            initializeAudioLibraryDefer.resolve();
-            audioLibrary.audios(audios);
+            initializeLibraryDefer = Q.defer();
+            spyOn(viewModel.library, 'initialize').and.returnValue(initializeLibraryDefer.promise);
         });
 
         it('should set callback', () => {
@@ -140,10 +146,15 @@ describe('dialog [chooseVoiceOver]', () => {
             expect(viewModel.library.initialize).toHaveBeenCalled();
         });
 
-       describe('and when audio library initialized', () => {
+        describe('and when audio library initialized', () => {
+            beforeEach(() => {
+                audioLibrary.audios(audios);
+                initializeLibraryDefer.resolve();
+            });
+
             it('should set isLoading to false', done => {
                 viewModel.show(null, null);
-                initializeAudioLibraryDefer.promise.fin(() => {
+                initializeLibraryDefer.promise.fin(() => {
                     expect(viewModel.isLoading()).toBeFalsy();
                     done();
                 });
@@ -152,8 +163,8 @@ describe('dialog [chooseVoiceOver]', () => {
             it('should set selectedAudio if vomeoId matches', done => {
                 viewModel.selectedAudio(null);
                 viewModel.show(audios[0].vimeoId(), null);
-                initializeAudioLibraryDefer.promise.fin(() => {
-                    expect(viewModel.selectedAudio()).toBeDefined();
+                initializeLibraryDefer.promise.fin(() => {
+                    expect(viewModel.selectedAudio()).toBe(audios[0]);
                     done();
                 });
             });

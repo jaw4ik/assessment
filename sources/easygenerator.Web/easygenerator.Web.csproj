@@ -606,6 +606,7 @@
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
     <Content Include="App\browse.js" />
+    <Content Include="App\components\bindingHandlers\fileDropUploadBindingHandler.js" />
     <Content Include="App\core\durandal\activator.js" />
     <Content Include="App\core\durandal\app.js" />
     <Content Include="App\core\durandal\binder.js" />

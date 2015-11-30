@@ -9,6 +9,7 @@ import eventTracker from 'eventTracker';
 import audioDialog from 'dialogs/video/video';
 
 describe('viewModel [audio/audioLibrary]', () => {
+
     describe('audios:', () => {
         it('should be observable array', () => {
             expect(viewModel.audios).toBeObservableArray();
