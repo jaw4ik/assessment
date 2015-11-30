@@ -222,6 +222,25 @@ namespace easygenerator.Auth.Tests.Lti
         }
 
         [TestMethod]
+        public void OnAuthenticated_ShouldRaiseUserSignedUpEvent_IfUserDoesNotExist()
+        {
+            _ltiAuthenticatedContext.Request.Get<ConsumerTool>("consumerToolKey").Returns(Substitute.For<ConsumerTool>());
+            _ltiRequest.LisPersonEmailPrimary.Returns(email);
+            _ltiRequest.LisPersonNameGiven.Returns(firstName);
+            _ltiRequest.LisPersonNameFamily.Returns(lastName);
+            _ltiRequest.UserId.Returns(userId);
+
+            var user = UserObjectMother.CreateWithEmail(email);
+
+            _entityFactory.User(email, Arg.Any<string>(), firstName, lastName, ltiMockData, ltiMockData, ltiMockData,
+                email, AccessType.Plus, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50), null).Returns(user);
+
+            _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
+
+            _eventPublisher.Received().Publish(Arg.Is<UserSignedUpEvent>(_ => _.User == user));
+        }
+
+        [TestMethod]
         public void OnAuthenticated_ShouldRaiseEventAboutCreationInitialData_IfUserDoesNotExist()
         {
             _ltiAuthenticatedContext.Request.Get<ConsumerTool>("consumerToolKey").Returns(Substitute.For<ConsumerTool>());

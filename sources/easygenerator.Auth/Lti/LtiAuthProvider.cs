@@ -139,13 +139,15 @@ namespace easygenerator.Auth.Lti
                 }
                 company = consumerTool.Settings.Company;
             }
-            
-            var user = _entityFactory.User(email, Guid.NewGuid().ToString("N"), firstName, lastName, ltiMockData, ltiMockData, ltiMockData, email, accessType, _releaseNoteFileReader.GetReleaseVersion(), expirationDate, company);
+
+            var userPassword = Guid.NewGuid().ToString("N");
+            var user = _entityFactory.User(email, userPassword, firstName, lastName, ltiMockData, ltiMockData, ltiMockData, email, accessType, _releaseNoteFileReader.GetReleaseVersion(), expirationDate, company);
 
             user.AddLtiUserInfo(ltiUserId, consumerTool);
 
             _userRepository.Add(user);
 
+            _eventPublisher.Publish(new UserSignedUpEvent(user, userPassword));
             _eventPublisher.Publish(new CreateUserInitialDataEvent(user));
 
             _unitOfWork.Save();
