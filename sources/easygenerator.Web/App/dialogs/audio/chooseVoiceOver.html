@@ -32,7 +32,7 @@
                     </li>
                     <!-- ko foreach: library.audios -->
                     <!-- ko if: status() == $parent.library.statuses.loaded -->
-                    <li class="audio-list-item audio" data-bind="click: $parent.selectAudio, event : { dblclick: $parent.submit }, css: { inactive: status() !== $parent.library.statuses.loaded, selected: $data===$parent.selectedAudio() }">
+                    <li class="audio-list-item audio" data-bind="click: $parent.selectAudio.bind($parent), event : { dblclick: $parent.submit.bind($parent) }, css: { inactive: status() !== $parent.library.statuses.loaded, selected: $data===$parent.selectedAudio() }">
                         <div class="play-icon"></div>
                         <div class="audio-title" data-bind="text: title"></div>
                         <!-- ko if: $data===$parent.selectedAudio() -->
