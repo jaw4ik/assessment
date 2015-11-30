@@ -34,8 +34,6 @@ namespace easygenerator.Auth.Lti
             _releaseNoteFileReader = releaseNoteFileReader;
             _unitOfWork = unitOfWork;
 
-            const string consumerToolKey = "consumerToolKey";
-
             OnAuthenticate = context =>
             {
                 var timeout = TimeSpan.FromMinutes(5);
