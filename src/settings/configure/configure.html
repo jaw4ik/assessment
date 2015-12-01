@@ -89,6 +89,29 @@
                                     </div>
                                 </div>
                                 <div class="settings-column-row">
+                                    <div class="settings-caption">Show given answers for learners:</div>
+                                    <div class="settings-content">
+                                        <ul class="radio-selector small unstyled">
+                                            <li class="selector-item-container" ng-class="{ selected: showGivenAnswers.value == true }">
+                                                <div class="selector-item-wrapper" ng-click="showGivenAnswers.value = true">
+                                                    <div class="selector-item-btn"></div>
+                                                    <div class="selector-item-text">
+                                                        <span class="settings-option">Show</span>&nbsp;<span class="settings-option-hint">(learner will see how he answered in previous attempt)</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="selector-item-container" ng-class="{ selected: showGivenAnswers.value == false }">
+                                                <div class="selector-item-wrapper" ng-click="showGivenAnswers.value = false">
+                                                    <div class="selector-item-btn"></div>
+                                                    <div class="selector-item-text">
+                                                        <span class="settings-option">Refresh</span>&nbsp;<span class="settings-option-hint">(learner will see empty answer options)</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="settings-column-row">
                                     <span class="settings-caption">Question order:</span>
                                     <div class="settings-content question-order">
                                         <div ng-show="questionPool.mode == questionPool.modes.all">

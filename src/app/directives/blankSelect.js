@@ -34,6 +34,9 @@
                         //e.preventDefault();
                         //e.stopImmediatePropagation();
                     });
+                if ($scope.group.answer) {
+                    $element.find('.current').text($scope.group.answer).removeClass('default');
+                }
             },
             template: '<div class="select-wrapper">' +
                         '<div class="current default">{{ "[fill in the blank choose answer]" | translate }}</div>' +

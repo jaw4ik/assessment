@@ -326,7 +326,7 @@
 
                 resultData.mode = self.mode;
                 resultData.subsetSize = self.subsetSize;
-                
+
                 if (self.mode === self.modes.all) {
                     resultData.randomizeOrder = self.randomizeOrder;
                     resultData.randomizePerAttempt = self.randomizeOrder && self.randomizePerAttempt;
@@ -401,11 +401,11 @@
             self.attemptsSettings = {
                 quiz: {
                     hasLimit: true,
-                    limit: 3,
+                    limit: 3
                 },
                 exam: {
                     hasLimit: true,
-                    limit: 1,
+                    limit: 1
                 }
             };
 
@@ -422,6 +422,29 @@
             function getData() {
                 return self.mode;
             }
+        })();
+
+        that.showGivenAnswers = (function () {
+            var self = {
+                value: true,
+                init: init,
+                getData: getData
+            };
+
+            return self;
+
+            function init(showLearnersGivenAnswers) {
+                if (!showLearnersGivenAnswers) {
+                    return;
+                }
+
+                self.value = showLearnersGivenAnswers;
+            }
+
+            function getData() {
+                return self.value;
+            }
+
         })();
 
         $scope.$watch('assessmentMode.mode', function (mode, prevMode) {
