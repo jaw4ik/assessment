@@ -42,6 +42,10 @@ namespace easygenerator.Web.Controllers.Api
             {
                 return HttpNotFound(Errors.CourseNotFoundError);
             }
+            if (comment == null)
+            {
+                return JsonSuccess(true);
+            }
 
             course.DeleteComment(comment);
 

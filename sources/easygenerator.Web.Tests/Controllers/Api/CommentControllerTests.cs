@@ -141,6 +141,19 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void Delete_ShouldReturnJsonSuccessResult_WnenCommentIsNull()
+        {
+            //Arrange
+            var course = Substitute.For<Course>("Course", TemplateObjectMother.Create(), CreatedBy);
+
+            //Act
+            var result = _controller.Delete(course, null);
+
+            //Assert
+            result.Should().BeJsonSuccessResult();
+        }
+
+        [TestMethod]
         public void Delete_ShouldDeleteCommentFromCourse()
         {
             //Arrange
