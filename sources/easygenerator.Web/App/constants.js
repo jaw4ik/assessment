@@ -457,10 +457,9 @@
                         containerCss: 'move-copy-question'
                     }
                 },
-                audioLibrary: {
+                chooseVoiceOver: {
                     settings: {
-                        containerCss: 'audio-library',
-                        autoclose: true
+                        containerCss: 'choose-voice-over'
                     }
                 },
                 branchtrack: {

@@ -29,6 +29,12 @@
             }
         });
 
+        that.off = function () {
+            if (entity.off) {
+                entity.off();
+            }
+        };
+
         if (entity.on) {
             entity.on(constants.storage.audio.statuses.inProgress).then(function (progress) {
                 that.status(constants.storage.audio.statuses.inProgress);

@@ -11,7 +11,7 @@ define(['durandal/app', 'eventTracker', 'constants',
         'dialogs/moveCopyQuestion/moveCopyQuestion',
         'viewmodels/questions/voiceOver'],
     function (app, eventTracker, constants, questionRepository, objectiveRepository, courseRepository, router, vmQuestionTitle, vmContentField,
-        questionViewModelFactory, learningContentsViewModel, feedbackViewModel, localizationManager, moveCopyQuestionDialog, vmVoiceOver) {
+        questionViewModelFactory, learningContentsViewModel, feedbackViewModel, localizationManager, moveCopyQuestionDialog, VoiceOver) {
         "use strict";
 
         var events = {
@@ -129,7 +129,7 @@ define(['durandal/app', 'eventTracker', 'constants',
                 .then(function (question) {
                     viewmodel.activeQuestionViewModel = setActiveViewModel(question);
                     viewmodel.questionType = question.type;
-                    viewmodel.voiceOver = vmVoiceOver(viewmodel.questionId, question.voiceOver);
+                    viewmodel.voiceOver = new VoiceOver(viewmodel.questionId, question.voiceOver);
 
                     return viewmodel.activeQuestionViewModel.initialize(viewmodel.objectiveId, question)
                         .then(function (viewModelData) {

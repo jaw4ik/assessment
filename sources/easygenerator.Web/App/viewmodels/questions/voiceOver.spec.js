@@ -5,7 +5,7 @@
         ctor = require('viewmodels/questions/voiceOver'),
         repository = require('repositories/questionRepository'),
         notify = require('notify'),
-		audioLibraryDialog = require('dialogs/audio/audioLibrary'),
+		chooseVoiceOverDialog = require('dialogs/audio/chooseVoiceOver'),
 		eventTracker = require('eventTracker'),
         app = require('durandal/app'),
         constants = require('constants')
@@ -26,7 +26,7 @@
             spyOn(eventTracker, 'publish');
             spyOn(app, 'on');
 
-            spyOn(audioLibraryDialog, 'show');
+            spyOn(chooseVoiceOverDialog, 'show');
         });
 
         describe('ctor:', function () {
@@ -122,7 +122,7 @@
             it('should show audio library dialog', function () {
                 viewModel.vimeoId = vimeoId;
                 viewModel.update();
-                expect(audioLibraryDialog.show).toHaveBeenCalledWith(vimeoId, viewModel.onAudioSelected);
+                expect(chooseVoiceOverDialog.show).toHaveBeenCalledWith(vimeoId, viewModel.onAudioSelected);
             });
         });
 
