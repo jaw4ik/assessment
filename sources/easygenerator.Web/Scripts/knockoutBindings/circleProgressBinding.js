@@ -16,6 +16,7 @@
 
             cnxt = element.getContext('2d');
 
+        cnxt.clearRect(centerX - radius - lineWidth, centerY - radius - lineWidth, radius * 2 + (lineWidth * 2), radius * 2 + (lineWidth * 2));
         cnxt.beginPath();
         cnxt.arc(centerX, centerY, radius, 0, 2 * Math.PI);
         cnxt.strokeStyle = basicColor;
@@ -29,7 +30,7 @@
             cnxt.strokeStyle = progressColor;
             cnxt.lineWidth = lineWidth;
 
-            if (progress == 1) {
+            if (progress === 1) {
                 cnxt.arc(centerX, centerY, radius, 0, 2 * Math.PI);
             } else {
                 cnxt.arc(centerX, centerY, radius, 1.5 * Math.PI, (progress * 2 - 0.5) * Math.PI);

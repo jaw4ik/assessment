@@ -1,4 +1,4 @@
-﻿define(['viewmodels/audios/AudioViewModel', 'audio/UploadAudioModel'], function (ViewModel, UploadAudioModel) {
+﻿define(['audio/audioLibrary/AudioViewModel', 'audio/UploadAudioModel'], function (ViewModel, UploadAudioModel) {
 
     describe('[AudioViewModel]', function () {
 
@@ -51,6 +51,24 @@
                     duration: 0
                 });
                 expect(viewModel.duration).toBeComputed();
+            });
+
+            it('off should be function', function () {
+                var viewModel = new ViewModel({});
+                expect(viewModel.off).toBeFunction();
+            });
+
+            describe('off:', function () {
+                describe('when entity off() is a function', function () {
+                    it('should call off() for entity ', function () {
+                        var entity = {
+                            off: jasmine.createSpy()
+                        };
+                        var viewModel = new ViewModel(entity);
+                        viewModel.off();
+                        expect(entity.off).toHaveBeenCalled();
+                    });
+                });
             });
 
             describe('when duration is not defined', function () {
