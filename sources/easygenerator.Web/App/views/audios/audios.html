@@ -19,29 +19,37 @@
                 </div>
                 <!-- /ko -->
                 <!-- ko if: library.audios().length -->
-                <ul class="audio-list">
-                    <!-- ko foreach: library.audios -->
-                    <!-- ko if: status() == $parent.library.statuses.loaded -->
-                    <li class="audio-list-item audio" data-bind="click: $parent.library.showAudioDetails, css: { inactive: status() !== $parent.library.statuses.loaded }">
-                        <div class="play-icon"></div>
-                        <div class="audio-title" data-bind="text: title"></div>
-                        <div class="audio-duration" data-bind="text: duration"></div>
-                    </li>
-                    <!-- /ko-->
-                    <!-- ko if: status() == $parent.library.statuses.failed -->
-                    <li class="audio-list-item error">
-                        <span class="upload-failed" data-bind="localize: { text : 'audioUploadError' }"></span>
-                    </li>
-                    <!-- /ko-->
-                    <!-- ko if: status() == $parent.library.statuses.inProgress -->
-                    <li class="audio-list-item uploading">
-                        <canvas width="40" height="40" class="circle-progress" data-bind="circleProgress: { progress: progress, lineWidth: 1 }"></canvas>
-                        <div class="circle-progress-text" data-bind="text: progress() + '%'"></div>
-                        <div class="audio-title" data-bind="text: title"></div>
-                    </li>
-                    <!-- /ko-->
-                    <!-- /ko -->
-                </ul>
+                <div class="audio-list-container">
+                    <div class="drop-audio-hint drop-zone overlay" data-bind="dropUpload: { before: library.ensureCanAddAudio, callback: uploadAudioByDragging }">
+                        <div class="drop-audio-hint-content">
+                            <h3 data-bind="localize: { text : 'dropHere' }"></h3>
+                            <span data-bind="localize: { text : 'anyAudioFormats' }"></span>
+                        </div>
+                    </div>
+                    <ul class="audio-list">
+                        <!-- ko foreach: library.audios -->
+                        <!-- ko if: status() == $parent.library.statuses.loaded -->
+                        <li class="audio-list-item audio" data-bind="click: $parent.library.showAudioDetails, css: { inactive: status() !== $parent.library.statuses.loaded }">
+                            <div class="play-icon"></div>
+                            <div class="audio-title" data-bind="text: title"></div>
+                            <div class="audio-duration" data-bind="text: duration"></div>
+                        </li>
+                        <!-- /ko-->
+                        <!-- ko if: status() == $parent.library.statuses.failed -->
+                        <li class="audio-list-item error">
+                            <span class="upload-failed" data-bind="localize: { text : 'audioUploadError' }"></span>
+                        </li>
+                        <!-- /ko-->
+                        <!-- ko if: status() == $parent.library.statuses.inProgress -->
+                        <li class="audio-list-item uploading">
+                            <canvas width="40" height="40" class="circle-progress" data-bind="circleProgress: { progress: progress, lineWidth: 1 }"></canvas>
+                            <div class="circle-progress-text" data-bind="text: progress() + '%'"></div>
+                            <div class="audio-title" data-bind="text: title"></div>
+                        </li>
+                        <!-- /ko-->
+                        <!-- /ko -->
+                    </ul>
+                </div>
                 <!-- /ko -->
             </div>
             <!-- ko compose: 'dialogs/video/video' --><!-- /ko -->

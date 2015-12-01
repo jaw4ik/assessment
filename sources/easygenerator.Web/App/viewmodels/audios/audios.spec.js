@@ -65,6 +65,20 @@ describe('viewModel [audios]', () => {
         });
     });
 
+    describe('uploadAudioByDragging:', () => {
+        it('should publish \'Drag and Drop audio file and upload\' event', () => {
+            var file = {};
+            viewModel.uploadAudioByDragging(file);
+            expect(eventTracker.publish).toHaveBeenCalledWith('Drag and Drop audio file and upload', 'Audio library');
+        });
+
+        it('should add audio to audio library', () => {
+            var file = {};
+            viewModel.uploadAudioByDragging(file);
+            expect(audioLibrary.addAudio).toHaveBeenCalledWith(file);
+        });
+    });
+
     describe('onOpenFileBrowseDialog:', () => {
         it('should publish \'Open "choose audio file" dialog\' event', () => {
             viewModel.onOpenFileBrowseDialog();

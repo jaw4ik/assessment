@@ -8,6 +8,7 @@ import localizationManager from 'localization/localizationManager';
 
 const eventCategory = 'Audio library',
       events = {
+          dragAndDropAduioFile: 'Drag and Drop audio file and upload',
           openChooseAudioFileDialog: 'Open \"choose audio file\" dialog',
           uploadAudioFile: 'Upload audio file'
       };
@@ -58,6 +59,11 @@ class Audios{
 
     uploadAudio(file) {
         eventTracker.publish(events.uploadAudioFile, eventCategory);
+        audioLibrary.addAudio(file);
+    }
+
+    uploadAudioByDragging(file) {
+        eventTracker.publish(events.dragAndDropAduioFile, eventCategory);
         audioLibrary.addAudio(file);
     }
 
