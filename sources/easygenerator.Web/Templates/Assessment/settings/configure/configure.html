@@ -5,10 +5,10 @@
     <title>Template configure settings</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/configure.css?v=1447336995912" rel="stylesheet" />
-    <script src="../api.js?v=1447336995912"></script>
-    <script src="js/vendor.min.js?v=1447336995912"></script>
-    <script src="js/configure.min.js?v=1447336995912"></script>
+    <link href="css/configure.css?v=1448975452470" rel="stylesheet" />
+    <script src="../api.js?v=1448975452470"></script>
+    <script src="js/vendor.min.js?v=1448975452470"></script>
+    <script src="js/configure.min.js?v=1448975452470"></script>
 </head>
 
 <body>
@@ -75,6 +75,29 @@
                                                             <div class="spiner-seperator"></div>
                                                         </div>
                                                         <span>random questions</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="settings-column-row">
+                                    <div class="settings-caption">Show given answers for learners:</div>
+                                    <div class="settings-content">
+                                        <ul class="radio-selector small unstyled">
+                                            <li class="selector-item-container" ng-class="{ selected: showGivenAnswers.value == true }">
+                                                <div class="selector-item-wrapper" ng-click="showGivenAnswers.value = true">
+                                                    <div class="selector-item-btn"></div>
+                                                    <div class="selector-item-text">
+                                                        <span class="settings-option">Show</span>&nbsp;<span class="settings-option-hint">(learner will see how he answered in previous attempt)</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="selector-item-container" ng-class="{ selected: showGivenAnswers.value == false }">
+                                                <div class="selector-item-wrapper" ng-click="showGivenAnswers.value = false">
+                                                    <div class="selector-item-btn"></div>
+                                                    <div class="selector-item-text">
+                                                        <span class="settings-option">Refresh</span>&nbsp;<span class="settings-option-hint">(learner will see empty answer options)</span>
                                                     </div>
                                                 </div>
                                             </li>
@@ -407,7 +430,7 @@
             <div class="settings-tab-container languages" data-tab="languages">
                 <div class="settings-tab-wrapper">
                     <div class="tab-header-container">
-                        <img src="img/language.png?v=1447336995912">
+                        <img src="img/language.png?v=1448975452470">
                         <div class="tab-header-wrapper">
                             <h1 class="tab-header-title">Choose language for your course</h1>
                             <div class="tab-header-content">
