@@ -159,6 +159,14 @@ namespace easygenerator.DomainModel.Entities
             comment.Course = this;
         }
 
+        public virtual void DeleteComment(Comment comment)
+        {
+            ThrowIfCommentIsInvalid(comment);
+
+            CommentsCollection.Remove(comment);
+            comment.Course = null;
+        }
+
         #endregion
 
         #region Objectives

@@ -149,5 +149,83 @@
 
         });
 
+        describe('removeComment', function () {
+            it('should be function', function () {
+                expect(repository.removeComment).toBeFunction();
+            });
+
+            it('should return promise', function () {
+                expect(repository.removeComment()).toBePromise();
+            });
+
+            describe('when course id is null', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.removeComment(null, null);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Course id is not a string');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when comment id is null', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.removeComment('courseId', null);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Comment id is not a string');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when courseId and commentId are strings', function() {
+                var courseId = 'SomeId',
+                    commentId = 'commentId';
+                
+                it('should send request to \'api/comment/delete\'', function (done) {
+                    var promise = repository.removeComment(courseId, commentId);
+
+                    promise.fin(function () {
+                        expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/comment/delete', { courseId: courseId, commentId: commentId });
+                        done();
+                    });
+
+                    post.reject('error');
+                });
+
+                describe('and response is not a boolean', function () {
+                    it('should reject promise', function (done) {
+                        var promise = repository.removeComment(courseId, commentId);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response is not a boolean');
+                            done();
+                        });
+
+                        post.resolve("");
+                    });
+                    
+                });
+
+                describe('and response is boolean', function() {
+                    it('should return response', function () {
+                        var promise = repository.removeComment(courseId, commentId);
+
+                        promise.fin(function () {
+                            expect(promise.inspect()).toBeTruthy();
+                            done();
+                        });
+
+                        post.resolve(true);
+                    });
+                });
+            });
+        });
     });
 });

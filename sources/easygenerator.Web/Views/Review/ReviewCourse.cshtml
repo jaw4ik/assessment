@@ -27,6 +27,8 @@
             </div>
             <form class="add-comment-form">
                 <textarea class="comment-text-block message" placeholder="@Resources.YourMessage" data-bind="value: text, valueUpdate: 'afterkeydown', css: { error: hasValidationError() }, event: { focus: onTextFocused }, placeholder: {}"></textarea>
+                <input type="text" data-bind="value: name" />
+                <input type="text" data-bind="value: email" />
                 <div class="comment-action-wrapper">
                     <div class="comment-status-message success" data-bind="visible: isSaved">
                         @Resources.CommentWasSent

@@ -275,6 +275,7 @@
     <Compile Include="Components\Mappers\AnswerMapper.cs" />
     <Compile Include="Components\Mappers\BlankAnswerMapper.cs" />
     <Compile Include="Components\Mappers\CollaborationInviteMapper.cs" />
+    <Compile Include="Components\Mappers\CommentMapper.cs" />
     <Compile Include="Components\Mappers\CompanyMapper.cs" />
     <Compile Include="Components\Mappers\DropspotMapper.cs" />
     <Compile Include="Components\Mappers\EntityMapper.cs" />

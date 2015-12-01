@@ -181,9 +181,14 @@
                 });
 
                 describe('when text is string', function () {
-                    var text = 'comment';
+                    var text = 'comment',
+                        name = 'name',
+                        email = 'user@user.user';
+
                     beforeEach(function () {
                         viewModel.text(text);
+                        viewModel.name(name);
+                        viewModel.email(email);
                     });
 
                     it('should set isSaved to false', function () {
@@ -205,7 +210,7 @@
 
                         expect($.ajax).toHaveBeenCalledWith({
                             url: '/api/comment/create',
-                            data: { courseId: courseId, text: text },
+                            data: { courseId: courseId, text: text, createdByName: name, createdBy: email },
                             type: 'POST'
                         });
                     });
@@ -215,7 +220,7 @@
 
                         expect($.ajax).toHaveBeenCalledWith({
                             url: '/api/comment/create',
-                            data: { courseId: courseId, text: text },
+                            data: { courseId: courseId, text: text, createdByName: name, createdBy: email },
                             type: 'POST'
                         });
                     });

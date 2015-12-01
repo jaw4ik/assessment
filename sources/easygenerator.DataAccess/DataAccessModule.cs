@@ -33,6 +33,9 @@ namespace easygenerator.DataAccess
             builder.RegisterType<QuerableRepository<Question>>()
                 .As<IQuerableRepository<Question>>();
 
+            builder.RegisterType<QuerableRepository<Comment>>()
+                .As<IQuerableRepository<Comment>>();
+
             builder.RegisterType<QuerableRepository<SingleSelectText>>()
                 .As<IQuerableRepository<SingleSelectText>>();
 

@@ -1,24 +1,32 @@
 ﻿<div>
     <!-- ko if: hasAccessToComments() -->
-        <!-- ko if: isCommentsLoading -->
-        <div class="review-comments-block-loader"></div>
-        <!-- /ko -->
-        <!-- ko ifnot: isCommentsLoading -->
-            <!-- ko foreach: comments -->
-            <div class="review-comment">
-                <div class="review-comment-text">
-                    "<span data-bind="text: text"></span>"
-                </div>
-                <div class="review-comment-date">
-                    <span data-bind="date: { value: createdOn, formatString: 'h:mm A' }"></span>
-                    <span data-bind="date: { value: createdOn, formatString: 'M/D/YYYY' }"></span>
-                </div>
-            </div>
-            <!-- /ko -->
-            <!-- ko ifnot: comments().length -->
-            <div class="no-comments" data-bind="localize: { text: 'reviewNoComments' }"></div>
-            <!-- /ko -->
-        <!-- /ko -->
+    <!-- ko if: isCommentsLoading -->
+    <div class="review-comments-block-loader"></div>
+    <!-- /ko -->
+    <!-- ko ifnot: isCommentsLoading -->
+    <!-- ko foreach: comments -->
+    <div class="review-comment">
+        <div class="review-comment-text">
+            Name: <span data-bind="text: name"></span>
+        </div>
+        <div class="review-comment-text">
+            E-mail: <span data-bind="text: email"></span>
+        </div>
+        <div class="review-comment-text">
+            "<span data-bind="text: text"></span>"
+        </div>
+        <div class="review-comment-date">
+            <span data-bind="date: { value: createdOn, formatString: 'h:mm A' }"></span>
+            <span data-bind="date: { value: createdOn, formatString: 'M/D/YYYY' }"></span>
+        </div>
+        <button data-bind="click: $parent.removeComment">Delete</button>
+    </div>
+    <
+    <!-- /ko -->
+    <!-- ko ifnot: comments().length -->
+    <div class="no-comments" data-bind="localize: { text: 'reviewNoComments' }"></div>
+    <!-- /ko -->
+    <!-- /ko -->
     <!-- /ko -->
     <!-- ko ifnot: hasAccessToComments() -->
     <div class="review-not-paid-message-wrapper">

@@ -4,6 +4,8 @@ app.reviewViewModel = function () {
 
     var isExpanded = ko.observable(false),
         text = ko.observable(),
+        name = ko.observable(''),
+        email = ko.observable(''),
         hasValidationError = ko.observable(false),
         isSaved = ko.observable(false),
         isFailed = ko.observable(false),
@@ -29,7 +31,9 @@ app.reviewViewModel = function () {
             isSaved(false);
             isFailed(false);
 
-            if (!text() || _.isEmptyOrWhitespace(text())) {
+            if (!text() || _.isEmptyOrWhitespace(text()) ||
+                !name() || _.isEmptyOrWhitespace(name()) ||
+                !email() || _.isEmptyOrWhitespace(email())) {
                 hasValidationError(true);
                 return;
             }
@@ -38,7 +42,7 @@ app.reviewViewModel = function () {
 
             $.ajax({
                 url: '/api/comment/create',
-                data: { courseId: courseId, text: text().trim() },
+                data: { courseId: courseId, text: text().trim(), createdByName: name().trim(), createdBy: email().trim() },
                 type: 'POST'
             }).done(function (response) {
                 if (response) {
@@ -59,6 +63,8 @@ app.reviewViewModel = function () {
     return {
         isExpanded: isExpanded,
         text: text,
+        name: name,
+        email: email,
         onTextFocused: onTextFocused,
         onCollapsed: onCollapsed,
         toggleVisiblity: toggleVisiblity,
