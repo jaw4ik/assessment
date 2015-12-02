@@ -434,7 +434,7 @@
             return self;
 
             function init(showLearnersGivenAnswers) {
-                if (!showLearnersGivenAnswers) {
+                if (_.isUndefined(showLearnersGivenAnswers)) {
                     return;
                 }
 
@@ -475,7 +475,8 @@
                 questionPool: that.questionPool.getData(),
                 attempt: that.attempt.getData(),
                 assessmentMode: that.assessmentMode.getData(),
-                answers: that.answers.getData()
+                answers: that.answers.getData(),
+                showGivenAnswers: that.showGivenAnswers.getData()
             });
         }
 

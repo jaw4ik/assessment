@@ -36,7 +36,7 @@
 		}
 
 		function refresh() {
-			if (settings.questionPool.randomizePerAttempt) {
+			if (settings.questionPool.randomizePerAttempt && !settings.showGivenAnswers) {
 				self.isRefreshed = true;
 			}
 		}
