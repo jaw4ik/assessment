@@ -55,26 +55,31 @@ namespace easygenerator.Web.DomainEvents.Handlers
 
         private void HandleSubscriptionEvent(Func<string, string, string, string, AccessType, string, bool> subscriptionAction, UserEvent args, string failureMessage)
         {
-            Task.Run
-               (() =>
-               {
-                   if (!subscriptionAction(args.User.Email, args.User.FirstName, args.User.LastName, args.User.Role, args.User.AccessType, args.User.Country))
-                   {
-                       _mailNotificationManager.AddMailNotificationToQueue(
-                           Constants.MailTemplates.NewsletterSubscriptionFailedTemplate,
-                           new
-                           {
-                               FailureMessage = failureMessage,
-                               Email = args.User.Email,
-                               FirstName = args.User.FirstName,
-                               LastName = args.User.LastName,
-                               Role = args.User.Role,
-                               AccessType = args.User.AccessType,
-                               Country = args.User.Country
-                           });
-                   }
-               }
-               );
+            if (!args.User.IsLtiUser())
+            {
+                Task.Run
+                    (() =>
+                    {
+                        if (
+                            !subscriptionAction(args.User.Email, args.User.FirstName, args.User.LastName, args.User.Role,
+                                args.User.AccessType, args.User.Country))
+                        {
+                            _mailNotificationManager.AddMailNotificationToQueue(
+                                Constants.MailTemplates.NewsletterSubscriptionFailedTemplate,
+                                new
+                                {
+                                    FailureMessage = failureMessage,
+                                    Email = args.User.Email,
+                                    FirstName = args.User.FirstName,
+                                    LastName = args.User.LastName,
+                                    Role = args.User.Role,
+                                    AccessType = args.User.AccessType,
+                                    Country = args.User.Country
+                                });
+                        }
+                    }
+                    );
+            }
         }
     }
 }

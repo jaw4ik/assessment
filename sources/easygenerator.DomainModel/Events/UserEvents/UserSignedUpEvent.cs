@@ -8,7 +8,7 @@ namespace easygenerator.DomainModel.Events.UserEvents
         public string UserPassword { get; private set; }
         public string UserRole { get; private set; }
 
-        public UserSignedUpEvent(User user, string userPassword, string userRole)
+        public UserSignedUpEvent(User user, string userPassword, string userRole = null)
             : base(user)
         {
             ArgumentValidation.ThrowIfNullOrEmpty(userPassword, "userPassword");
