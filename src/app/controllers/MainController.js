@@ -6,6 +6,8 @@
 
     MainController.$inject = ['$scope', '$rootScope', '$location', 'assessment', 'settings', 'timer', 'viewmodelsFactory'];
 
+    var cachedQuestions = [];
+
     function MainController($scope, $rootScope, $location, assessment, settings, timer, viewmodelsFactory) {
         var submitted = false;
         var that = this;
@@ -14,10 +16,24 @@
         that.hasIntroductionContent = assessment.hasIntroductionContent;
         that.logoUrl = settings.logo.url;
         that.mode = settings.assessmentMode;
+        that.showGivenAnswers = settings.showGivenAnswers;
 
-        that.questions = assessment.questions.map(function (question) {
-            return viewmodelsFactory.createQuestionViewmodel(question);
-        });
+        if (that.showGivenAnswers && cachedQuestions.length) {
+            _.each(cachedQuestions, function(item, index) {
+                if (item.getType() === 'scenarioQuestion') {
+                    var questionModel = _.find(assessment.questions, function (quest) { return quest.id === item.id });
+                    if (questionModel) {
+                        cachedQuestions[index] = viewmodelsFactory.createQuestionViewmodel(questionModel);
+                    }
+                }
+            });
+            that.questions = cachedQuestions;
+        } else {
+            that.questions = assessment.questions.map(function (question) {
+                return viewmodelsFactory.createQuestionViewmodel(question);
+            });
+            cachedQuestions = that.questions;
+        }
 
         that.submit = function () {
             if (submitted) {

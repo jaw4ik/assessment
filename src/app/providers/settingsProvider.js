@@ -47,7 +47,8 @@
                     hasLimit: false,
                     limit: 3
                 },
-                assessmentMode: 'quiz'
+                assessmentMode: 'quiz',
+                showGivenAnswers: true
             };
 
         return {
@@ -96,6 +97,10 @@
 
                 if (_.isUndefined(settings.assessmentMode)) {
                     _.extend(settings, { assessmentMode: defaultSettings.assessmentMode });
+                }
+
+                if (_.isUndefined(settings.showGivenAnswers)) {
+                    _.extend(settings, { showGivenAnswers: defaultSettings.showGivenAnswers });
                 }
 
                 cachedSettings = settings;

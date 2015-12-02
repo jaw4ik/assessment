@@ -482,6 +482,10 @@ input[type="text"] {
         margin: 15px 0 0 25px;
     }
 
+    .question-order .randomize-setting {
+        position: relative;
+    }
+
 /*#endregion */
 
 /*#region attempts */

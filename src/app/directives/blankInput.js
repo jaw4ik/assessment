@@ -30,6 +30,10 @@
                         $scope.group.answer = $(this).val();
                         $scope.$apply();
                     });
+                if ($scope.group.answer) {
+                    $element.find('input').val($scope.group.answer);
+                }
+
                 $('.highlight', $element).on('click', function () {
                     $('input', $element).focus();
                 });
