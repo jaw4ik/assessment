@@ -1,5 +1,5 @@
-﻿define(['guard', 'repositories/questionRepository', 'notify', 'dialogs/audio/audioLibrary', 'constants', 'eventTracker', 'durandal/app'],
-    function (guard, repository, notify, audioLibraryDialog, constants, eventTracker, app) {
+﻿define(['guard', 'repositories/questionRepository', 'notify', 'dialogs/audio/chooseVoiceOver', 'constants', 'eventTracker', 'durandal/app'],
+    function (guard, repository, notify, chooseVoiceOverDialog, constants, eventTracker, app) {
 
         var events = {
             chooseVoiceOverFromAudioLibrary: 'Open \'Choose voice over from audio library\' dialog',
@@ -44,12 +44,12 @@
 
             function update() {
                 eventTracker.publish(events.chooseVoiceOverFromAudioLibrary);
-                audioLibraryDialog.show(viewModel.vimeoId, viewModel.onAudioSelected);
+                chooseVoiceOverDialog.show(viewModel.vimeoId, viewModel.onAudioSelected);
             }
 
             function remove() {
                 eventTracker.publish(events.deleteVoiceOver);
-                return repository.updateVoiceOver(questionId, null).then(function() {
+                return repository.updateVoiceOver(questionId, null).then(function () {
                     viewModel.vimeoId = null;
                     viewModel.title(null);
                     notify.saved();
@@ -68,16 +68,16 @@
                 return repository.updateVoiceOver(questionId, viewModel.getEmbedCode(audio.vimeoId, audio.title)).then(function () {
                     notify.saved();
                 });
-            }
+        }
 
             function voiceOverUpdatedByCollaborator(voiceOver) {
                 viewModel.title(getTitle(voiceOver));
                 viewModel.vimeoId = getVimeoId(voiceOver);
-            }
+        }
 
             return viewModel;
-        };
+    };
 
         return voiceOverViewModel;
 
-    });
+});

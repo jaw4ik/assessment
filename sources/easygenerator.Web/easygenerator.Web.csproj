@@ -555,6 +555,14 @@
     <Content Include="App\analytics\providers\intercomProvider.js" />
     <Content Include="App\analytics\providers\mixpanelProvider.js" />
     <Content Include="App\analytics\providers\nudgespotProvider.js" />
+    <Content Include="App\audio\audioLibrary\audioLibrary.js" />
+    <Content Include="App\audio\audioLibrary\audioLibrary.spec.js">
+      <DependentUpon>audioLibrary.js</DependentUpon>
+    </Content>
+    <Content Include="App\audio\audioUploadDispatcher.js" />
+    <Content Include="App\audio\audioUploadDispatcher.spec.js">
+      <DependentUpon>audioUploadDispatcher.js</DependentUpon>
+    </Content>
     <Content Include="App\audio\convertion\commands\convert.spec.js">
       <DependentUpon>convert.js</DependentUpon>
     </Content>
@@ -597,6 +605,7 @@
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
     <Content Include="App\browse.js" />
+    <Content Include="App\components\bindingHandlers\fileDropUploadBindingHandler.js" />
     <Content Include="App\core\durandal\activator.js" />
     <Content Include="App\core\durandal\app.js" />
     <Content Include="App\core\durandal\binder.js" />
@@ -618,14 +627,10 @@
     <Content Include="App\core\jquery.js" />
     <Content Include="App\core\knockout.js" />
     <Content Include="App\core\plugins\text.js" />
-    <Content Include="App\dialogs\audio\audioLibrary.html" />
-    <Content Include="App\dialogs\audio\audioLibrary.js" />
-    <Content Include="App\dialogs\audio\audioLibrary.spec.js">
-      <DependentUpon>audioLibrary.js</DependentUpon>
-    </Content>
-    <Content Include="App\dialogs\audio\audioViewModel.js" />
-    <Content Include="App\dialogs\audio\audioViewModel.spec.js">
-      <DependentUpon>audioViewModel.js</DependentUpon>
+    <Content Include="App\dialogs\audio\chooseVoiceOver.html" />
+    <Content Include="App\dialogs\audio\chooseVoiceOver.js" />
+    <Content Include="App\dialogs\audio\chooseVoiceOver.spec.js">
+      <DependentUpon>chooseVoiceOver.js</DependentUpon>
     </Content>
     <Content Include="App\dialogs\course\delete\deleteCourse.html" />
     <Content Include="App\dialogs\course\delete\deleteCourse.js" />
@@ -789,8 +794,8 @@
     <Content Include="App\viewmodels\audios\audios.spec.js">
       <DependentUpon>audios.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\audios\AudioViewModel.js" />
-    <Content Include="App\viewmodels\audios\AudioViewModel.spec.js">
+    <Content Include="App\audio\audioLibrary\AudioViewModel.js" />
+    <Content Include="App\audio\audioLibrary\AudioViewModel.spec.js">
       <DependentUpon>AudioViewModel.js</DependentUpon>
     </Content>
     <Content Include="App\audio\convertion\commands\convert.js" />
@@ -1304,6 +1309,7 @@
     <Content Include="Content\images\hotSpot-empty.png" />
     <Content Include="Content\images\ie.png" />
     <Content Include="Content\images\learningPath\learning-path-item-background.png" />
+    <Content Include="Content\images\media\media-upload.png" />
     <Content Include="Content\images\scenario-question.png" />
     <Content Include="Content\images\templates\deprecated-template.png" />
     <Content Include="Content\images\templates\new-template.png" />
@@ -1814,6 +1820,7 @@
     </Content>
     <Content Include="App\localization\lang\de.json" />
     <Content Include="App\localization\lang\nl.json" />
+    <Content Include="Content\font\robotoSlab-light.woff" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\iscroll-probe.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />

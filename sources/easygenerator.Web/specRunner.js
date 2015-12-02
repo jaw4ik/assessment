@@ -25,8 +25,7 @@
                 'dialogs/collaboration/collaborator.spec',
                 'dialogs/moveCopyQuestion/moveCopyQuestion.spec',
                 'dialogs/video/video.spec',
-                'dialogs/audio/audioLibrary.spec',
-                'dialogs/audio/audioViewModel.spec',
+                'dialogs/audio/chooseVoiceOver.spec',
                 'dialogs/learningPath/commands/deleteLearningPathCommand.spec',
                 'dialogs/learningPath/deleteLearningPath.spec',
                 'dialogs/learningPath/customPublish.spec',
@@ -329,7 +328,8 @@
 
                 //#region audio upload
                 'viewmodels/audios/audios.spec',
-                'viewmodels/audios/AudioViewModel.spec',
+                'audio/audioLibrary/AudioViewModel.spec',
+                'audio/audioLibrary/audioLibrary.spec',
                 'audio/commands/markAvailable.spec',
                 'audio/convertion/commands/convert.spec',
                 'audio/convertion/commands/finalize.spec',
@@ -343,6 +343,7 @@
                 'audio/UploadAudioModel.spec',
                 'vimeo/queries/checkAvailability.spec',
                 'vimeo/queries/getVideo.spec',
+                'audio/audioUploadDispatcher.spec',
                 //#endregion
 
                 //#region widgets

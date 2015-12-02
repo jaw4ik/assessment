@@ -6,5 +6,5 @@ var $ = require('gulp-load-plugins')({
 });
 
 gulp.task('storage-iis-express', $.shell.task([
-    '"%ProgramFiles%\\IIS Express\\iisexpress" /path:"' + (args.path || 'D:\\Development\\storage\\sources\\easygenerator.StorageServer') + '" /port:888 /systray:true'
+    '"%ProgramFiles%\\IIS Express\\iisexpress" /path:"' + (args.path || 'D:\\Development\\easygenerator\\sources\\easygenerator.StorageServer') + '" /port:888 /systray:true'
 ]));
