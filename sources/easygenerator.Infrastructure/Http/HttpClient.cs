@@ -13,7 +13,7 @@ namespace easygenerator.Infrastructure.Http
     {
         public virtual TResponse Post<TResponse>(string url, object postData, string userName = null, string password = null)
         {
-            return Post<TResponse>(url, JsonConvert.SerializeObject(postData, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }), userName, password);
+            return Post<TResponse>(url, JsonConvert.SerializeObject(postData), userName, password);
         }
 
         public virtual TResponse Post<TResponse>(string url, string postJsonData, string userName = null, string password = null)
