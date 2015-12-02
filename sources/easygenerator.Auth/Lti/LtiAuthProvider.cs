@@ -119,7 +119,7 @@ namespace easygenerator.Auth.Lti
         private void CreateNewUser(string email, string firstName, string lastName, string ltiUserId, ConsumerTool consumerTool)
         {
             const string ltiMockData = "LTI";
-            var accessType = AccessType.Plus;
+            var accessType = AccessType.Academy;
             var expirationDate = DateTimeWrapper.Now().AddYears(50);
             Company company = null;
 

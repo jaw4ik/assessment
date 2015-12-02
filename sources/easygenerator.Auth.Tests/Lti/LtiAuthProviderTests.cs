@@ -168,7 +168,7 @@ namespace easygenerator.Auth.Tests.Lti
             var user = UserObjectMother.CreateWithEmail(email);
 
             _entityFactory.User(email, Arg.Any<string>(), firstName, lastName, ltiMockData, ltiMockData, ltiMockData,
-                email, AccessType.Plus, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50), null).Returns(user);
+                email, AccessType.Academy, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50), null).Returns(user);
 
             _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
 
@@ -230,7 +230,7 @@ namespace easygenerator.Auth.Tests.Lti
             var user = UserObjectMother.CreateWithEmail(email);
 
             _entityFactory.User(email, Arg.Any<string>(), firstName, lastName, ltiMockData, ltiMockData, ltiMockData,
-                email, AccessType.Plus, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50), null).Returns(user);
+                email, AccessType.Academy, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50), null).Returns(user);
 
             _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
 
@@ -251,7 +251,7 @@ namespace easygenerator.Auth.Tests.Lti
             var user = UserObjectMother.CreateWithEmail(email);
 
             _entityFactory.User(email, Arg.Any<string>(), firstName, lastName, ltiMockData, ltiMockData, ltiMockData,
-                email, AccessType.Plus, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50), null).Returns(user);
+                email, AccessType.Academy, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50), null).Returns(user);
 
             _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
 
@@ -343,7 +343,7 @@ namespace easygenerator.Auth.Tests.Lti
             var user = UserObjectMother.CreateWithEmail(email);
 
             _entityFactory.User(email, Arg.Any<string>(), firstName, lastName, ltiMockData, ltiMockData, ltiMockData,
-                email, AccessType.Plus, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50), null).Returns(user);
+                email, AccessType.Academy, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50), null).Returns(user);
 
             _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
 
@@ -369,7 +369,7 @@ namespace easygenerator.Auth.Tests.Lti
             var user = UserObjectMother.CreateWithEmail(email);
 
             _entityFactory.User(email, Arg.Any<string>(), firstName, lastName, ltiMockData, ltiMockData, ltiMockData,
-                email, AccessType.Plus, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50), null).Returns(user);
+                email, AccessType.Academy, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50), null).Returns(user);
 
             _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
 
