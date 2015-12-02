@@ -16,22 +16,24 @@ ko.bindingHandlers.dropUpload = {
                 dragover: 'dragover',
                 drop:'drop'
             },
-            bodyEventCounter = 0,
             elementEventCounter = 0;
 
         let handlers = {
             body: {
                 onDragEnter: e => {
                     return fileUploadEventHandler(e, () => {
-                        bodyEventCounter++;
                         $element.addClass(css.active);
                         e.dataTransfer.dropEffect = 'none';
                     });
                 },
                 onDragLeave: e => {
                     return fileUploadEventHandler(e, () => {
-                        bodyEventCounter--;
-                        if (bodyEventCounter === 0) {
+                        let top = e.pageY;
+                        let right = document.body.clientWidth - e.pageX;
+                        let bottom = document.body.clientHeight - e.pageY;
+                        let left = e.pageX;
+
+                        if(top < 0 || right < 0 || bottom < 0 || left < 0){
                             $element.removeClass(css.active);
                         }
                     });
