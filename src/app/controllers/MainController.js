@@ -19,6 +19,14 @@
         that.showGivenAnswers = settings.showGivenAnswers;
 
         if (that.showGivenAnswers && cachedQuestions.length) {
+            _.each(cachedQuestions, function(item, index) {
+                if (item.getType() === 'scenarioQuestion') {
+                    var questionModel = _.find(assessment.questions, function (quest) { return quest.id === item.id });
+                    if (questionModel) {
+                        cachedQuestions[index] = viewmodelsFactory.createQuestionViewmodel(questionModel);
+                    }
+                }
+            });
             that.questions = cachedQuestions;
         } else {
             that.questions = assessment.questions.map(function (question) {
