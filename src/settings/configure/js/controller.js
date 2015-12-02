@@ -434,7 +434,7 @@
             return self;
 
             function init(showLearnersGivenAnswers) {
-                if (_.isUndefined(showLearnersGivenAnswers)) {
+                if (showLearnersGivenAnswers === undefined) {
                     return;
                 }
 
@@ -494,6 +494,7 @@
             that.answers.init(settings.answers);
             that.attempt.init(settings.attempt);
             that.assessmentMode.init(settings.assessmentMode);
+            that.showGivenAnswers.init(settings.showGivenAnswers);
 
             currentSettings = getCurrentSettings(settings);
 
