@@ -1,6 +1,5 @@
 export default class {
-	constructor(){}
-	getDataAttribute(element){
+	static getDataAttribute(element){
 		if (!element) {
 			return null;
 		}
@@ -12,7 +11,7 @@ export default class {
 		
 		return JSON.parse(dataAttribute.value);
 	}
-	setDataAttribute(element, data){
+	static setDataAttribute(element, data){
 		let dataAttribute = document.createAttribute('data-item');
 		dataAttribute.value = JSON.stringify(data);
 		element.attributes.setNamedItem(dataAttribute);

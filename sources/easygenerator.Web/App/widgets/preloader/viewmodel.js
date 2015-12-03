@@ -36,6 +36,10 @@
             {white} - white color
             {grey} - grey color
 
+        size:
+            {small}
+            {medium}
+
     ----------------------------------------------------------------
 
     [circular]

@@ -37,10 +37,7 @@ define(['durandal/app', 'dataContext', 'constants', 'http/apiHttpWrapper', 'guar
 
                             app.trigger(constants.messages.question.created, objectiveId, createdQuestion);
 
-                            return {
-                                id: createdQuestion.id,
-                                createdOn: createdQuestion.createdOn
-                            };
+                            return createdQuestion;
                         });
                 });
             },

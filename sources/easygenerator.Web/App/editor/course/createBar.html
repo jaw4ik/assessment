@@ -1,9 +1,9 @@
-﻿<section class="editor-create-bar-container create left-side-bar" data-bind="scrollbar: { checkDOMChanges: true }">
+﻿<section class="editor-create-bar-container create left-side-bar" data-bind="with: createBar, scrollbar: { checkDOMChanges: true }">
     <div class="editor-create-bar-wrapper">
         <h2 class="editor-create-bar-header" data-bind="click: toggleSection, css: { 'collapsed': !sectionExpanded() }, localize: { text: 'sections' }">Sections:</h2>
         <div class="editor-create-bar-list-container" data-bind="expandBlock: { expanded: sectionExpanded }">
-            <ul class="editor-create-bar-list">
-                <li class="editor-create-bar-list-item section">
+            <ul class="editor-create-bar-list" data-bind="draggableContainer: { copy: true, moveTo: { '.sections-list-container': $parent.createSectionWithOrder, '.sections-placehodler': $parent.createSection } }">
+                <li class="editor-create-bar-list-item section" data-bind="draggableData: {type: 'section'}">
                     <div class="editor-create-bar-list-icon"></div>
                     <h4 class="editor-create-bar-list-title" data-bind="localize: { text: 'section' }">Section</h4>
                 </li>
@@ -11,9 +11,9 @@
         </div>
         <h2 class="editor-create-bar-header" data-bind="click: toggleQuestions, css: { 'collapsed': !questionsExpanded() }, localize: { text: 'contentAndQuestions' }">Content and questions:</h2>
         <div class="editor-create-bar-list-container" data-bind="expandBlock: { expanded: questionsExpanded }">
-            <ul class="editor-create-bar-list">
+            <ul class="editor-create-bar-list" data-bind="draggableContainer: { copy: true, moveTo: { '.questions-list-wrapper': $parent.createQuestionWithOrder, '.question-placehodler': $parent.createQuestion } }">
                 <!-- ko foreach: questions -->
-                <li class="editor-create-bar-list-item" data-bind="css: type">
+                <li class="editor-create-bar-list-item" data-bind="css: type, draggableData: { type: type }">
                     <div class="editor-create-bar-list-icon">
                         <!-- ko ifnot: hasAccess -->
                         <div class="editor-create-bar-list-no-access">

@@ -20,6 +20,7 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.8.34",
     "co": "npm:co@4.6.0",
     "core-js": "npm:core-js@1.2.6",
+    "css": "github:systemjs/plugin-css@0.1.20",
     "dragula": "npm:dragula@3.5.4",
     "durandal": "core/durandal",
     "has": "npm:has@1.0.1",

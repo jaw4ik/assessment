@@ -29,21 +29,91 @@
                 </div>
             </div>
             <h2 class="course-editor-sections-header" data-bind="localize: { text: 'sections' }">Sections:</h2>
-            <div class="course-editor-sections-container" data-bind="css: { empty: sectionsViewModel.notContainSections }">
-                <!-- ko compose: sectionsViewModel --><!-- /ko -->
-                <!-- ko if: sectionsViewModel.notContainSections -->
+            <div class="course-editor-sections-container" data-bind="css: { empty: notContainSections }">
+                <ul class="sections-list-container" data-bind="draggableContainer: { moveTo: { '.sections-list-container': reorderSection }, draggableArea: '.sections-list-item-sort-button' }">
+                    <!-- ko foreach: sections -->
+                    <li class="sections-list-item-container" data-bind="draggableData: { sectionId: id }">
+                        <div class="sections-list-item">
+                            <button class="sections-list-item-sort-button"></button>
+                            <div class="sections-list-item-image-container">
+                                <div class="sections-list-item-image" data-bind="attr: { style: `background-image: url('${image()}')` }"></div>
+                                <div class="sections-list-item-image-change" data-bind="click: $parent.updateSectionImage">
+                                    <span class="sections-list-item-image-change-icon"></span>
+                                    <span class="sections-list-item-image-change-text">Change</span>
+                                </div>
+                                <div class="sections-list-item-image-preloader-container" data-bind="visible: isImageLoading">
+                                    <div data-bind="preloader: { settings: 'align-center small' }"></div>
+                                </div>
+                            </div>
+                            <div class="sections-list-item-title-container">
+                                <div class="sections-list-item-title" contenteditable="true" data-bind="text: title"></div>
+                                <div class="sections-list-item-modified" data-bind="text: 'Last edited ' + modifiedOn()"></div>
+                            </div>
+                            <div class="sections-list-item-actions-container">
+                                <button class="sections-list-item-actions-toggle-questions" data-bind="click: toggleQuestions, css: { collapsed: !questionsExpanded() }"></button>
+                                <div class="sections-list-item-actions-menu-container" data-bind="css: { active: menuExpanded }">
+                                    <button class="sections-list-item-actions-menu-toggle" data-bind="click: toggleMenu, outsideClick: { action: () => menuExpanded(false) }"></button>
+                                    <ul class="sections-list-item-actions-menu">
+                                        <li class="sections-list-item-actions-menu-item edit-title">Edit title</li>
+                                        <li class="sections-list-item-actions-menu-item change-image" data-bind="click: $parent.updateSectionImage">Change image</li>
+                                        <li class="sections-list-item-actions-menu-item disconnect" data-bind="click: $parent.unrelateSection.bind($parent)">Disconnect from the course</li>
+                                        <li class="sections-list-item-actions-menu-item delete">Delete permanently</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="questions-list-container" data-bind="expandBlock: { expanded: questionsExpanded }, css: { empty: notContainQuestions, collapsed: !questionsExpanded() }">
+                            <ul class="questions-list-wrapper" data-bind="draggableContainer: { moveTo: { '.questions-list-wrapper': $root.reorderQuestion, '.question-placehodler': $root.reorderQuestion }, draggableArea: '.questions-list-item-sort-button' }, draggableData: { sectionId: id }">
+                                <!-- ko foreach: questions -->
+                                <li class="questions-list-item" data-bind="css: type, draggableData: { id: id }">
+                                    <button class="questions-list-item-sort-button"></button>
+                                    <div class="questions-list-item-image"></div>
+                                    <div class="questions-list-item-title-container">
+                                        <div class="questions-list-item-title" data-bind="text:title"></div>
+                                    </div>
+                                    <button class="questions-list-item-delete-btn" data-bind="click: markToDelete"></button>
+                                    <div class="questions-list-item-delete-container" data-bind="css: { delete: canBeDeleted }">
+                                        <div class="questions-list-item-delete-text">Delete this question?</div>
+                                        <div class="questions-list-item-delete-buttons-container">
+                                            <button class="questions-list-item-delete-button delete" data-bind="click: $root.deleteQuestion.bind($root)">Delete</button>
+                                            <button class="questions-list-item-delete-button cancel" data-bind="click: cancel">Cancel</button>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!-- /ko -->
+                            </ul>
+                            <!-- ko if: notContainQuestions -->
+                            <div class="drop-zone-container">
+                                <h2 class="drop-zone-title">Fill section with contents and questions</h2>
+                                <h3 class="drop-zone-subtitle">by droping it here form the left panel</h3>
+                                <div class="placeholder question-placehodler" data-bind="draggableContainer: {},  draggableData: { sectionId: id }"></div>
+                            </div>
+                            <!-- /ko -->
+                            <!-- ko ifnot: notContainQuestions -->
+                            <div class="drop-zone-container questions">
+                                <h2 class="drop-zone-title">+ Drop here more questions and content</h2>
+                                <div class="placeholder question-placehodler" data-bind="draggableContainer: {},  draggableData: { sectionId: id }"></div>
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                    </li>
+                    <!-- /ko -->
+                </ul>
+                <!-- ko if: notContainSections -->
                 <div class="drop-zone-container" data-possible-classes="active droppable disable">
                     <div class="drop-zone-image"></div>
                     <h2 class="drop-zone-title">Set the structure of your course by adding sections</h2>
                     <h3 class="drop-zone-subtitle">Then fill them with content and questions</h3>
+                    <div class="placeholder sections-placehodler" data-bind="draggableContainer: {}" ></div>
                 </div>
                 <div class="course-editor-sections-tooltip-container">
                     <span class="course-editor-sections-tooltip-text">Drop section here</span>
                 </div>
                 <!-- /ko -->
-                <!-- ko ifnot: sectionsViewModel.notContainSections -->
-                <div class="drop-zone-container disable">
+                <!-- ko ifnot: notContainSections -->
+                <div class="drop-zone-container disable sections-placehodler">
                     <h2 class="drop-zone-title">+ Drop here more sections</h2>
+                    <div class="placeholder sections-placehodler" data-bind="draggableContainer: {}"></div>
                 </div>
                 <!-- /ko -->
             </div>

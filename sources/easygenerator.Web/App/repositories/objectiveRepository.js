@@ -59,10 +59,7 @@
 
                     dataContext.objectives.push(createdObjective);
 
-                    return {
-                        id: createdObjective.id,
-                        createdOn: createdObjective.createdOn
-                    };
+                    return createdObjective;
                 });
             });
         }

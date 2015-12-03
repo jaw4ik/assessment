@@ -1,7 +1,7 @@
 ﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager', 'utils/waiter',
     'viewmodels/courses/course/design/templateBrief', 'constants', 'durandal/app'],
     function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager, waiter, TemplateBrief, constants, app) {
-
+        debugger;
         var
             templateMessageTypes = {
                 showSettings: 'show-settings',

@@ -16,10 +16,9 @@
             modelToCompose: 'navigationBar/navigationBar'
         },
         {
-            viewToCompose: 'editor/course/createItemsBar/index',
+            viewToCompose: 'editor/course/createBar',
             subscribedPages: [{ id: 'editor/course/index' }],
-            modelToCompose: 'editor/course/createItemsBar/index',
-            activate: true
+            modelToCompose: 'editor/course/index'
         },
         {
             viewToCompose: 'views/courses/course/design/bar',

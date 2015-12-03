@@ -600,6 +600,7 @@
     <Content Include="App\bootstrapping\underscoreExtensionsTask.js" />
     <Content Include="App\browse.js" />
     <Content Include="App\components\bindingHandlers\dateBindingHadler.js" />
+    <Content Include="App\components\bindingHandlers\editableTextBindingHandler.js" />
     <Content Include="App\core\durandal\activator.js" />
     <Content Include="App\core\durandal\app.js" />
     <Content Include="App\core\durandal\binder.js" />
@@ -638,28 +639,23 @@
     <Content Include="App\editor\course\bindingHandlers\expandBlock.js" />
     <Content Include="App\editor\course\bindingHandlers\draggableContainer.js" />
     <Content Include="App\editor\course\bindingHandlers\draggableData.js" />
+    <Content Include="App\editor\course\commands\createQuestionCommand.js" />
+    <Content Include="App\editor\course\commands\createSectionCommand.js" />
+    <Content Include="App\editor\course\commands\deleteQuestionCommand.js" />
+    <Content Include="App\editor\course\commands\deleteSectionCommand.js" />
+    <Content Include="App\editor\course\commands\moveQuestionCommand.js" />
+    <Content Include="App\editor\course\commands\reorderQuestionCommand.js" />
+    <Content Include="App\editor\course\commands\reorderSectionCommand.js" />
+    <Content Include="App\editor\course\commands\unrelateSectionCommand.js" />
     <Content Include="App\editor\course\components\attributesHelper.js" />
     <Content Include="App\editor\course\components\dragulaContainer.js" />
-    <Content Include="App\editor\course\createItemsBar\index.html" />
-    <Content Include="App\editor\course\createItemsBar\index.js" />
-    <Content Include="App\editor\course\createItemsBar\index.spec.js">
-      <DependentUpon>index.js</DependentUpon>
-    </Content>
-    <Content Include="App\editor\course\dialogs\deleteSection\index.html" />
+    <Content Include="App\editor\course\createBar.html" />
+    <Content Include="App\editor\course\dialogs\deleteSection\deleteSection.js" />
+    <Content Include="App\editor\course\dialogs\deleteSection\deleteSection.html" />
     <Content Include="App\editor\course\index.html" />
     <Content Include="App\editor\course\index.js" />
     <Content Include="App\editor\course\index.spec.js">
       <DependentUpon>index.js</DependentUpon>
-    </Content>
-    <Content Include="App\editor\course\questions\QuestionsViewModel.html" />
-    <Content Include="App\editor\course\questions\QuestionsViewModel.js" />
-    <Content Include="App\editor\course\questions\QuestionsViewModel.spec.js">
-      <DependentUpon>QuestionsViewModel.js</DependentUpon>
-    </Content>
-    <Content Include="App\editor\course\sections\SectionsViewModel.html" />
-    <Content Include="App\editor\course\sections\SectionsViewModel.js" />
-    <Content Include="App\editor\course\sections\SectionsViewModel.spec.js">
-      <DependentUpon>SectionsViewModel.js</DependentUpon>
     </Content>
     <Content Include="App\editor\index.js" />
     <Content Include="App\dialogs\course\publishCourse\customPublish.js" />
@@ -3212,7 +3208,6 @@
     <Content Include="Scripts\knockoutBindings\ckeditorBinding.js" />
     <Content Include="App\widgets\dialog\bindingHandlers\dialogBindingHandler.js" />
     <Content Include="Scripts\knockoutBindings\dropDownBinding.js" />
-    <Content Include="Scripts\knockoutBindings\editableTextBinding.js" />
     <Content Include="Scripts\knockoutBindings\expanderBinding.js" />
     <Content Include="Scripts\knockoutBindings\hoverBinding.js" />
     <Content Include="Scripts\knockoutBindings\keyPressBinding.js" />

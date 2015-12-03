@@ -435,6 +435,11 @@
                 containerCss: 'delete-item'
             }
         },
+        deleteSection: {
+            settings: {
+                containerCss: 'delete-section'
+            }
+        },
         createCourse: {
             settings: {
                 containerCss: 'create-course'

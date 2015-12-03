@@ -23,6 +23,7 @@
     require('editor/course/bindingHandlers/draggableContainer');
     require('editor/course/bindingHandlers/draggableData');
     require('components/bindingHandlers/dateBindingHadler');
+    require('components/bindingHandlers/editableTextBindingHandler');
 
     var task = {
         execute: execute
