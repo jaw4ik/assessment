@@ -1,70 +1,69 @@
 ﻿var app = app || {};
 
-app.reviewViewModel = function () {
+app.reviewViewModel = () => {
+    'use strict';
 
-    var patternEmail = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/,
-        userNameKey = 'username-for-review',
-        userMailKey = 'usermail-for-review';
+    const patternEmail = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/,
+        userNameKey = 'usernameForReview',
+        userMailKey = 'usermailForReview';
 
-    var isExpanded = ko.observable(false),
-        text = ko.observable(),
-        hasValidationError = ko.observable(false),
-        hasNameValidationError = ko.observable(false),
-        hasEmailValidationError = ko.observable(false),
+    var text = ko.observable(),
         name = ko.observable(''),
         email = ko.observable(''),
+
+        showTextValidationError = ko.observable(false),
+        showNameValidationError = ko.observable(false),
+        showEmailValidationError = ko.observable(false),
         showIdentifyUserForm = ko.observable(false),
+
+        isExpanded = ko.observable(false),
         isSaved = ko.observable(false),
         isFailed = ko.observable(false),
 
-        toggleVisiblity = function () {
+        toggleVisiblity = () => {
             isExpanded(!isExpanded());
         },
 
-        onTextFocused = function () {
-            hasValidationError(false);
+        onTextFocused = () => {
+            showTextValidationError(false);
         },
 
-        onCollapsed = function () {
+        onCollapsed = () => {
             isSaved(false);
             isFailed(false);
         },
 
-        addComment = function (courseId) {
+        addComment = (courseId) => {
             if (_.isNullOrUndefined(courseId)) {
                 throw 'Course id is not specified';
             }
 
-            if (!showIdentifyUserForm()) {
+            if (!text() || _.isEmptyOrWhitespace(text())) {
+                showTextValidationError(true);
+                return;
+            }
 
-                if (!text() || _.isEmptyOrWhitespace(text())) {
-                    hasValidationError(true);
-                    return;
-                }
+            if (showIdentifyUserForm()) {
+                showNameValidationError(!name() || !name().trim());
+                showEmailValidationError(!email() || !patternEmail.test(email().trim()));
 
-                var username = localStorage.getItem(userNameKey),
-                    usermail = localStorage.getItem(userMailKey);
-
-                if (!username || !username.trim() || !usermail || !usermail.trim()) {
-                    showIdentifyUserForm(true);
-                    return;
-                }
-
-                postUserComment(username, usermail, text(), courseId);
-
-            } else {
-                hasNameValidationError(!name() || !name().trim());
-                hasEmailValidationError(!email() || !patternEmail.test(email().trim()));
-
-                if (hasNameValidationError() || hasEmailValidationError()) {
+                if (showNameValidationError() || showEmailValidationError()) {
                     return;
                 }
 
                 localStorage.setItem(userNameKey, name());
                 localStorage.setItem(userMailKey, email());
-
-                postUserComment(name(), email(), text(), courseId);
             }
+
+            let username = localStorage.getItem(userNameKey),
+                usermail = localStorage.getItem(userMailKey);
+
+            if (!username || !username.trim() || !usermail || !usermail.trim()) {
+                showIdentifyUserForm(true);
+                return;
+            }
+
+            postUserComment(username, usermail, text(), courseId);
         };
 
     function postUserComment(username, usermail, comment, courseId) {
@@ -93,19 +92,23 @@ app.reviewViewModel = function () {
     };
 
     return {
-        isExpanded: isExpanded,
         text: text,
         name: name,
         email: email,
+
+        showIdentifyUserForm: showIdentifyUserForm,
+        showTextValidationError: showTextValidationError,
+        showNameValidationError: showNameValidationError,
+        showEmailValidationError: showEmailValidationError,
+
         onTextFocused: onTextFocused,
         onCollapsed: onCollapsed,
-        toggleVisiblity: toggleVisiblity,
-        hasValidationError: hasValidationError,
-        hasNameValidationError: hasNameValidationError,
-        hasEmailValidationError: hasEmailValidationError,
+
+        isExpanded: isExpanded,
         isSaved: isSaved,
         isFailed: isFailed,
-        addComment: addComment,
-        showIdentifyUserForm: showIdentifyUserForm
+        toggleVisiblity: toggleVisiblity,
+        
+        addComment: addComment
     };
 };
