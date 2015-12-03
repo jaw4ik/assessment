@@ -3,8 +3,8 @@
 app.reviewViewModel = function () {
 
     var patternEmail = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/,
-        userNameKey = 'userNameForReview1T',
-        userMailKey = 'userEmailForReview1T';
+        userNameKey = 'username-for-review',
+        userMailKey = 'usermail-for-review';
 
     var isExpanded = ko.observable(false),
         text = ko.observable(),
