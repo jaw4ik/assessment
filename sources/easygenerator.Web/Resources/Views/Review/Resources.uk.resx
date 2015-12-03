@@ -123,16 +123,31 @@
   <data name="CommentWasSent" xml:space="preserve">
     <value>Коментар було відправлено</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="EnterValidEmailError" xml:space="preserve">
+    <value>Введіть валідний e-mail</value>
+  </data>
+  <data name="EnterYourNameError" xml:space="preserve">
+    <value>Введіть своє ім'я</value>
+  </data>
+  <data name="IdentifyMessage" xml:space="preserve">
+    <value>Будь-ласка, ідентифікуйте себе</value>
+  </data>
   <data name="LeaveYourComment" xml:space="preserve">
     <value>Залиште свій коментар</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>Ім'я</value>
+  </data>
   <data name="Send" xml:space="preserve">
-    <value>Відправити</value>
+    <value>Відправити коментар</value>
   </data>
   <data name="TryAgain" xml:space="preserve">
     <value>Спробувати знову</value>
   </data>
   <data name="YourMessage" xml:space="preserve">
-    <value>Введіть свій коментар...</value>
+    <value>Напишіть Ваше повідомлення...</value>
   </data>
 </root>

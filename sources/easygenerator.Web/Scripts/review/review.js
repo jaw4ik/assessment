@@ -2,11 +2,18 @@
 
 app.reviewViewModel = function () {
 
+    var patternEmail = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/,
+        userNameKey = 'userNameForReview1T',
+        userMailKey = 'userEmailForReview1T';
+
     var isExpanded = ko.observable(false),
         text = ko.observable(),
+        hasValidationError = ko.observable(false),
+        hasNameValidationError = ko.observable(false),
+        hasEmailValidationError = ko.observable(false),
         name = ko.observable(''),
         email = ko.observable(''),
-        hasValidationError = ko.observable(false),
+        showIdentifyUserForm = ko.observable(false),
         isSaved = ko.observable(false),
         isFailed = ko.observable(false),
 
@@ -28,37 +35,62 @@ app.reviewViewModel = function () {
                 throw 'Course id is not specified';
             }
 
-            isSaved(false);
-            isFailed(false);
+            if (!showIdentifyUserForm()) {
 
-            if (!text() || _.isEmptyOrWhitespace(text()) ||
-                !name() || _.isEmptyOrWhitespace(name()) ||
-                !email() || _.isEmptyOrWhitespace(email())) {
-                hasValidationError(true);
-                return;
-            }
-
-            var that = this;
-
-            $.ajax({
-                url: '/api/comment/create',
-                data: { courseId: courseId, text: text().trim(), createdByName: name().trim(), createdBy: email().trim() },
-                type: 'POST'
-            }).done(function (response) {
-                if (response) {
-                    if (response.success) {
-                        that.isSaved(true);
-                        that.text('');
-                    } else {
-                        that.isFailed(true);
-                    }
-                } else {
-                    throw 'Response is not an object';
+                if (!text() || _.isEmptyOrWhitespace(text())) {
+                    hasValidationError(true);
+                    return;
                 }
-            }).fail(function () {
-                that.isFailed(true);
-            });
+
+                var username = localStorage.getItem(userNameKey),
+                    usermail = localStorage.getItem(userMailKey);
+
+                if (!username || !username.trim() || !usermail || !usermail.trim()) {
+                    showIdentifyUserForm(true);
+                    return;
+                }
+
+                postUserComment(username, usermail, text(), courseId);
+
+            } else {
+                hasNameValidationError(!name() || !name().trim());
+                hasEmailValidationError(!email() || !patternEmail.test(email().trim()));
+
+                if (hasNameValidationError() || hasEmailValidationError()) {
+                    return;
+                }
+
+                localStorage.setItem(userNameKey, name());
+                localStorage.setItem(userMailKey, email());
+
+                postUserComment(name(), email(), text(), courseId);
+            }
         };
+
+    function postUserComment(username, usermail, comment, courseId) {
+        isSaved(false);
+        isFailed(false);
+
+        $.ajax({
+            url: '/api/comment/create',
+            data: { courseId: courseId, text: comment.trim(), createdByName: username.trim(), createdBy: usermail.trim() },
+            type: 'POST'
+        }).done(function (response) {
+            if (response) {
+                if (response.success) {
+                    showIdentifyUserForm(false);
+                    isSaved(true);
+                    text('');
+                } else {
+                    isFailed(true);
+                }
+            } else {
+                throw 'Response is not an object';
+            }
+        }).fail(function () {
+            isFailed(true);
+        });
+    };
 
     return {
         isExpanded: isExpanded,
@@ -69,8 +101,11 @@ app.reviewViewModel = function () {
         onCollapsed: onCollapsed,
         toggleVisiblity: toggleVisiblity,
         hasValidationError: hasValidationError,
+        hasNameValidationError: hasNameValidationError,
+        hasEmailValidationError: hasEmailValidationError,
         isSaved: isSaved,
         isFailed: isFailed,
-        addComment: addComment
+        addComment: addComment,
+        showIdentifyUserForm: showIdentifyUserForm
     };
 };

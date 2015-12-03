@@ -123,16 +123,31 @@
   <data name="CommentWasSent" xml:space="preserve">
     <value>Comment was sent</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="EnterValidEmailError" xml:space="preserve">
+    <value>Enter a valid e-mail</value>
+  </data>
+  <data name="EnterYourNameError" xml:space="preserve">
+    <value>Enter your name</value>
+  </data>
+  <data name="IdentifyMessage" xml:space="preserve">
+    <value>Please identify yourself</value>
+  </data>
   <data name="LeaveYourComment" xml:space="preserve">
     <value>Leave your comment</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
   <data name="Send" xml:space="preserve">
-    <value>Send</value>
+    <value>Post comment</value>
   </data>
   <data name="TryAgain" xml:space="preserve">
     <value>Try again</value>
   </data>
   <data name="YourMessage" xml:space="preserve">
-    <value>Enter your comment...</value>
+    <value>Type your message...</value>
   </data>
 </root>

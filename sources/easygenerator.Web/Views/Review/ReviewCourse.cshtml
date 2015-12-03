@@ -27,8 +27,19 @@
             </div>
             <form class="add-comment-form">
                 <textarea class="comment-text-block message" placeholder="@Resources.YourMessage" data-bind="value: text, valueUpdate: 'afterkeydown', css: { error: hasValidationError() }, event: { focus: onTextFocused }, placeholder: {}"></textarea>
-                <input type="text" data-bind="value: name" />
-                <input type="text" data-bind="value: email" />
+                <div class="identify-user-form" data-bind="css: { shown: showIdentifyUserForm()}">
+                    <div class="identify-user-title">@Resources.IdentifyMessage</div>
+                    <div class="identify-user-row">
+                        <input type="text" data-bind="value: name, valueUpdate: 'afterkeydown', css: {empty: !name().length}" />
+                        <label>@Resources.Name</label>
+                        <span class="error-message" data-bind="visible: hasNameValidationError">@Resources.EnterYourNameError</span>
+                    </div>
+                    <div class="identify-user-row">
+                        <input type="email" data-bind="value: email, valueUpdate: 'afterkeydown',css:{empty: !email().length}" />
+                        <label>@Resources.Email</label>
+                        <span class="error-message" data-bind="visible: hasEmailValidationError">@Resources.EnterValidEmailError</span>
+                    </div>
+                </div>
                 <div class="comment-action-wrapper">
                     <div class="comment-status-message success" data-bind="visible: isSaved">
                         @Resources.CommentWasSent
