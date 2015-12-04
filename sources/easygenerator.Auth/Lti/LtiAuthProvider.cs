@@ -34,8 +34,6 @@ namespace easygenerator.Auth.Lti
             _releaseNoteFileReader = releaseNoteFileReader;
             _unitOfWork = unitOfWork;
 
-            const string consumerToolKey = "consumerToolKey";
-
             OnAuthenticate = context =>
             {
                 var timeout = TimeSpan.FromMinutes(5);
@@ -51,8 +49,6 @@ namespace easygenerator.Auth.Lti
                     throw new LtiException("Invalid " + OAuthConstants.ConsumerKeyParameter);
                 }
 
-                context.Request.Set(consumerToolKey, consumerTool);
-
                 var consumerSignature = context.LtiRequest.GenerateSignature(consumerTool.Secret);
                 if (!consumerSignature.Equals(context.LtiRequest.Signature))
                 {
@@ -64,10 +60,10 @@ namespace easygenerator.Auth.Lti
 
             OnAuthenticated = context =>
             {
-                var consumerTool = context.Request.Get<ConsumerTool>(consumerToolKey);
+                var consumerTool = _consumerToolRepository.GetByKey(context.LtiRequest.ConsumerKey);
                 if (consumerTool == null)
                 {
-                    throw new LtiException("Cannot get consumer tool from the context.");
+                    throw new LtiException("Invalid " + OAuthConstants.ConsumerKeyParameter);
                 }
 
                 var userEmail = context.LtiRequest.LisPersonEmailPrimary;
@@ -123,13 +119,31 @@ namespace easygenerator.Auth.Lti
         private void CreateNewUser(string email, string firstName, string lastName, string ltiUserId, ConsumerTool consumerTool)
         {
             const string ltiMockData = "LTI";
+            var accessType = AccessType.Academy;
+            var expirationDate = DateTimeWrapper.Now().AddYears(50);
+            Company company = null;
 
-            var user = _entityFactory.User(email, Guid.NewGuid().ToString("N"), firstName, lastName, ltiMockData, ltiMockData, ltiMockData, email, AccessType.Plus, _releaseNoteFileReader.GetReleaseVersion(), DateTimeWrapper.Now().AddYears(50), consumerTool.Settings?.Company);
+            if (consumerTool.Settings != null)
+            {
+                if (consumerTool.Settings.AccessType.HasValue)
+                {
+                    accessType = consumerTool.Settings.AccessType.Value;
+                }
+                if (consumerTool.Settings.ExpirationPeriodDays.HasValue)
+                {
+                    expirationDate = DateTimeWrapper.Now().AddDays(consumerTool.Settings.ExpirationPeriodDays.Value);
+                }
+                company = consumerTool.Settings.Company;
+            }
+
+            var userPassword = Guid.NewGuid().ToString("N");
+            var user = _entityFactory.User(email, userPassword, firstName, lastName, ltiMockData, ltiMockData, ltiMockData, email, accessType, _releaseNoteFileReader.GetReleaseVersion(), expirationDate, company);
 
             user.AddLtiUserInfo(ltiUserId, consumerTool);
 
             _userRepository.Add(user);
 
+            _eventPublisher.Publish(new UserSignedUpEvent(user, userPassword));
             _eventPublisher.Publish(new CreateUserInitialDataEvent(user));
 
             _unitOfWork.Save();

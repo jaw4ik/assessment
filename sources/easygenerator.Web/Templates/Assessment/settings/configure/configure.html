@@ -5,10 +5,10 @@
     <title>Template configure settings</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/configure.css?v=1447336995912" rel="stylesheet" />
-    <script src="../api.js?v=1447336995912"></script>
-    <script src="js/vendor.min.js?v=1447336995912"></script>
-    <script src="js/configure.min.js?v=1447336995912"></script>
+    <link href="css/configure.css?v=1449059319645" rel="stylesheet" />
+    <script src="../api.js?v=1449059319645"></script>
+    <script src="js/vendor.min.js?v=1449059319645"></script>
+    <script src="js/configure.min.js?v=1449059319645"></script>
 </head>
 
 <body>
@@ -82,6 +82,29 @@
                                     </div>
                                 </div>
                                 <div class="settings-column-row">
+                                    <div class="settings-caption">Show answers from the previous attempt:</div>
+                                    <div class="settings-content">
+                                        <ul class="radio-selector small unstyled">
+                                            <li class="selector-item-container" ng-class="{ selected: showGivenAnswers.value == true }">
+                                                <div class="selector-item-wrapper" ng-click="showGivenAnswers.value = true">
+                                                    <div class="selector-item-btn"></div>
+                                                    <div class="selector-item-text">
+                                                        <span class="settings-option">Show</span>&nbsp;<span class="settings-option-hint">(learner will see how he answered in previous attempt)</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="selector-item-container" ng-class="{ selected: showGivenAnswers.value == false }">
+                                                <div class="selector-item-wrapper" ng-click="showGivenAnswers.value = false">
+                                                    <div class="selector-item-btn"></div>
+                                                    <div class="selector-item-text">
+                                                        <span class="settings-option">Reset</span>&nbsp;<span class="settings-option-hint">(learner will see empty answer options)</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="settings-column-row">
                                     <span class="settings-caption">Question order:</span>
                                     <div class="settings-content question-order">
                                         <div ng-show="questionPool.mode == questionPool.modes.all">
@@ -100,10 +123,10 @@
                                                     </span>
                                                     <span class="checkbox-label">On every attempt</span>
                                                 </label>
-                                                <div class="disabled-feature-overlay" ng-hide="questionPool.randomizeOrder"></div>
+                                                <div class="disabled-feature-overlay" ng-hide="questionPool.randomizeOrder && !showGivenAnswers.value"></div>
                                             </div>
                                         </div>
-                                        <div ng-show="questionPool.mode == questionPool.modes.subset">
+                                        <div class="randomize-setting" ng-show="questionPool.mode == questionPool.modes.subset">
                                             <label class="checkbox" ng-class="{ checked: questionPool.randomizePerAttempt }">
                                                 <span class="checkbox-control">
                                                     <input class="checkbox-control-input" type="checkbox" ng-model="questionPool.randomizePerAttempt">
@@ -111,6 +134,7 @@
                                                 </span>
                                                 <span class="checkbox-label">Randomize and show new subset after every attempt</span>
                                             </label>
+                                            <div class="disabled-feature-overlay" ng-hide="!showGivenAnswers.value"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -407,7 +431,7 @@
             <div class="settings-tab-container languages" data-tab="languages">
                 <div class="settings-tab-wrapper">
                     <div class="tab-header-container">
-                        <img src="img/language.png?v=1447336995912">
+                        <img src="img/language.png?v=1449059319645">
                         <div class="tab-header-wrapper">
                             <h1 class="tab-header-title">Choose language for your course</h1>
                             <div class="tab-header-content">
