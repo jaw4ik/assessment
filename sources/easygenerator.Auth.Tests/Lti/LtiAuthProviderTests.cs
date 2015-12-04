@@ -101,21 +101,6 @@ namespace easygenerator.Auth.Tests.Lti
         }
 
         [TestMethod]
-        public void OnAuthenticate_ShouldSetCurrentConsumerToolIntoRequest()
-        {
-            _ltiRequest.ConsumerKey.Returns("key");
-            _ltiRequest.Signature.Returns("signature1");
-            _ltiRequest.GenerateSignature(Arg.Any<string>()).Returns("signature1");
-
-            var consumerTool = Substitute.For<ConsumerTool>();
-            _consumerToolRepository.GetByKey(Arg.Any<string>()).Returns(consumerTool);
-            DateTimeWrapper.Now = () => OAuthConstants.Epoch.ToUniversalTime();
-
-            _ltiAuthProvider.OnAuthenticate(_ltiAuthenticateContext);
-            _ltiAuthenticateContext.Request.Received().Set("consumerToolKey", consumerTool);
-        }
-
-        [TestMethod]
         public void OnAuthenticate_ShouldThrowExceptionIfSignatureIsNotCorrect()
         {
             _ltiRequest.ConsumerKey.Returns("key");
@@ -135,16 +120,20 @@ namespace easygenerator.Auth.Tests.Lti
         [TestMethod]
         public void OnAuthenticated_ShouldThrowExceptionIfConsumerToolIsNullInRequest()
         {
-            _ltiAuthenticatedContext.Request.Get<ConsumerTool>("consumerToolKey").Returns((ConsumerTool)null);
+            var consumerKey = "key";
+            _ltiRequest.ConsumerKey.Returns(consumerKey);
+            _consumerToolRepository.GetByKey(consumerKey).Returns((ConsumerTool)null);
             Action action = () => _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
 
-            action.ShouldThrow<LtiException>().And.Message.Should().Be("Cannot get consumer tool from the context.");
+            action.ShouldThrow<LtiException>().And.Message.Should().Be("Invalid " + OAuthConstants.ConsumerKeyParameter);
         }
 
         [TestMethod]
         public void OnAuthenticated_ShouldThrowExceptionIfEmailIsNull()
         {
-            _ltiAuthenticatedContext.Request.Get<ConsumerTool>("consumerToolKey").Returns(Substitute.For<ConsumerTool>());
+            var consumerKey = "key";
+            _ltiRequest.ConsumerKey.Returns(consumerKey);
+            _consumerToolRepository.GetByKey(consumerKey).Returns(Substitute.For<ConsumerTool>());
             _ltiRequest.LisPersonEmailPrimary.Returns((string)null);
             Action action = () => _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
 
@@ -154,7 +143,9 @@ namespace easygenerator.Auth.Tests.Lti
         [TestMethod]
         public void OnAuthenticated_ShouldThrowExceptionIfEmailIsWhiteSpace()
         {
-            _ltiAuthenticatedContext.Request.Get<ConsumerTool>("consumerToolKey").Returns(Substitute.For<ConsumerTool>());
+            var consumerKey = "key";
+            _ltiRequest.ConsumerKey.Returns(consumerKey);
+            _consumerToolRepository.GetByKey(consumerKey).Returns(Substitute.For<ConsumerTool>());
             _ltiRequest.LisPersonEmailPrimary.Returns("   ");
             Action action = () => _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
 
@@ -165,21 +156,19 @@ namespace easygenerator.Auth.Tests.Lti
         public void OnAuthenticated_ShouldCreateUserIfItDoesNotExist()
         {
             var consumerTool = Substitute.For<ConsumerTool>();
-            var company = Substitute.For<Company>();
-            var consumerToolSettings = Substitute.For<ConsumerToolSettings>();
-            consumerToolSettings.Company.Returns(company);
-            consumerTool.Settings.Returns(consumerToolSettings);
 
             _ltiRequest.LisPersonEmailPrimary.Returns(email);
             _ltiRequest.LisPersonNameGiven.Returns(firstName);
             _ltiRequest.LisPersonNameFamily.Returns(lastName);
             _ltiRequest.UserId.Returns(userId);
-            _ltiAuthenticatedContext.Request.Get<ConsumerTool>("consumerToolKey").Returns(consumerTool);
+            var consumerKey = "key";
+            _ltiRequest.ConsumerKey.Returns(consumerKey);
+            _consumerToolRepository.GetByKey(consumerKey).Returns(consumerTool);
 
             var user = UserObjectMother.CreateWithEmail(email);
 
             _entityFactory.User(email, Arg.Any<string>(), firstName, lastName, ltiMockData, ltiMockData, ltiMockData,
-                email, AccessType.Plus, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50), company).Returns(user);
+                email, AccessType.Academy, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50), null).Returns(user);
 
             _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
 
@@ -193,9 +182,46 @@ namespace easygenerator.Auth.Tests.Lti
         }
 
         [TestMethod]
-        public void OnAuthenticated_ShouldRaiseEventAboutCreationInitialData_IfUserDoesNotExist()
+        public void OnAuthenticated_ShouldCreateUserIfItDoesNotExist_WithSettingsFromConsumerTool()
         {
-            _ltiAuthenticatedContext.Request.Get<ConsumerTool>("consumerToolKey").Returns(Substitute.For<ConsumerTool>());
+            var consumerTool = Substitute.For<ConsumerTool>();
+            var company = Substitute.For<Company>();
+            var consumerToolSettings = Substitute.For<ConsumerToolSettings>();
+            consumerToolSettings.Company.Returns(company);
+            consumerToolSettings.AccessType.Returns(AccessType.Starter);
+            consumerToolSettings.ExpirationPeriodDays.Returns(10);
+            consumerTool.Settings.Returns(consumerToolSettings);
+
+            _ltiRequest.LisPersonEmailPrimary.Returns(email);
+            _ltiRequest.LisPersonNameGiven.Returns(firstName);
+            _ltiRequest.LisPersonNameFamily.Returns(lastName);
+            _ltiRequest.UserId.Returns(userId);
+            var consumerKey = "key";
+            _ltiRequest.ConsumerKey.Returns(consumerKey);
+            _consumerToolRepository.GetByKey(consumerKey).Returns(consumerTool);
+
+            var user = UserObjectMother.CreateWithEmail(email);
+
+            _entityFactory.User(email, Arg.Any<string>(), firstName, lastName, ltiMockData, ltiMockData, ltiMockData,
+                email, AccessType.Starter, user.LastReadReleaseNote, DateTimeWrapper.Now().AddDays(10), company).Returns(user);
+
+            _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
+
+            _userRepository.Received().Add(Arg.Is<User>(
+                             _ => _ == user &&
+                             _.GetLtiUserInfo(consumerTool) != null &&
+                             _.GetLtiUserInfo(consumerTool).LtiUserId == userId &&
+                             _.GetLtiUserInfo(consumerTool).ConsumerTool == consumerTool
+                        ));
+            _unitOfWork.Received().Save();
+        }
+
+        [TestMethod]
+        public void OnAuthenticated_ShouldRaiseUserSignedUpEvent_IfUserDoesNotExist()
+        {
+            var consumerKey = "key";
+            _ltiRequest.ConsumerKey.Returns(consumerKey);
+            _consumerToolRepository.GetByKey(consumerKey).Returns(Substitute.For<ConsumerTool>());
             _ltiRequest.LisPersonEmailPrimary.Returns(email);
             _ltiRequest.LisPersonNameGiven.Returns(firstName);
             _ltiRequest.LisPersonNameFamily.Returns(lastName);
@@ -204,7 +230,28 @@ namespace easygenerator.Auth.Tests.Lti
             var user = UserObjectMother.CreateWithEmail(email);
 
             _entityFactory.User(email, Arg.Any<string>(), firstName, lastName, ltiMockData, ltiMockData, ltiMockData,
-                email, AccessType.Plus, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50), null).Returns(user);
+                email, AccessType.Academy, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50), null).Returns(user);
+
+            _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
+
+            _eventPublisher.Received().Publish(Arg.Is<UserSignedUpEvent>(_ => _.User == user));
+        }
+
+        [TestMethod]
+        public void OnAuthenticated_ShouldRaiseEventAboutCreationInitialData_IfUserDoesNotExist()
+        {
+            var consumerKey = "key";
+            _ltiRequest.ConsumerKey.Returns(consumerKey);
+            _consumerToolRepository.GetByKey(consumerKey).Returns(Substitute.For<ConsumerTool>());
+            _ltiRequest.LisPersonEmailPrimary.Returns(email);
+            _ltiRequest.LisPersonNameGiven.Returns(firstName);
+            _ltiRequest.LisPersonNameFamily.Returns(lastName);
+            _ltiRequest.UserId.Returns(userId);
+
+            var user = UserObjectMother.CreateWithEmail(email);
+
+            _entityFactory.User(email, Arg.Any<string>(), firstName, lastName, ltiMockData, ltiMockData, ltiMockData,
+                email, AccessType.Academy, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50), null).Returns(user);
 
             _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
 
@@ -214,7 +261,9 @@ namespace easygenerator.Auth.Tests.Lti
         [TestMethod]
         public void OnAuthenticated_ShouldReturnLogOuReturntUrl_IfUserExistsAndHeIsNotLtiUser()
         {
-            _ltiAuthenticatedContext.Request.Get<ConsumerTool>("consumerToolKey").Returns(Substitute.For<ConsumerTool>());
+            var consumerKey = "key";
+            _ltiRequest.ConsumerKey.Returns(consumerKey);
+            _consumerToolRepository.GetByKey(consumerKey).Returns(Substitute.For<ConsumerTool>());
             _ltiRequest.LisPersonEmailPrimary.Returns(email);
             _ltiRequest.LisPersonNameGiven.Returns(firstName);
             _ltiRequest.LisPersonNameFamily.Returns(lastName);
@@ -238,7 +287,9 @@ namespace easygenerator.Auth.Tests.Lti
             _ltiRequest.LisPersonNameGiven.Returns(firstName);
             _ltiRequest.LisPersonNameFamily.Returns(lastName);
             _ltiRequest.UserId.Returns(userId);
-            _ltiAuthenticatedContext.Request.Get<ConsumerTool>("consumerToolKey").Returns(consumerTool);
+            var consumerKey = "key";
+            _ltiRequest.ConsumerKey.Returns(consumerKey);
+            _consumerToolRepository.GetByKey(consumerKey).Returns(consumerTool);
 
             var user = UserObjectMother.CreateWithEmail(email);
             user.AddLtiUserInfo("3", consumerTool);
@@ -258,7 +309,10 @@ namespace easygenerator.Auth.Tests.Lti
             _ltiRequest.LisPersonNameGiven.Returns(firstName);
             _ltiRequest.LisPersonNameFamily.Returns(lastName);
             _ltiRequest.UserId.Returns(userId);
-            _ltiAuthenticatedContext.Request.Get<ConsumerTool>("consumerToolKey").Returns(consumerTool);
+            
+            var consumerKey = "key";
+            _ltiRequest.ConsumerKey.Returns(consumerKey);
+            _consumerToolRepository.GetByKey(consumerKey).Returns(consumerTool);
 
             var user = UserObjectMother.CreateWithEmail(email);
             user.AddLtiUserInfo("3", Substitute.For<ConsumerTool>());
@@ -278,7 +332,9 @@ namespace easygenerator.Auth.Tests.Lti
         [TestMethod]
         public void OnAuthenticated_ShouldSetReturnUrlToProperValue_WhenToolUrlIsNotSpecifiedInParam_ForJustCreatedUser()
         {
-            _ltiAuthenticatedContext.Request.Get<ConsumerTool>("consumerToolKey").Returns(Substitute.For<ConsumerTool>());
+            var consumerKey = "key";
+            _ltiRequest.ConsumerKey.Returns(consumerKey);
+            _consumerToolRepository.GetByKey(consumerKey).Returns(Substitute.For<ConsumerTool>());
             _ltiRequest.LisPersonEmailPrimary.Returns(email);
             _ltiRequest.LisPersonNameGiven.Returns(firstName);
             _ltiRequest.LisPersonNameFamily.Returns(lastName);
@@ -287,7 +343,7 @@ namespace easygenerator.Auth.Tests.Lti
             var user = UserObjectMother.CreateWithEmail(email);
 
             _entityFactory.User(email, Arg.Any<string>(), firstName, lastName, ltiMockData, ltiMockData, ltiMockData,
-                email, AccessType.Plus, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50), null).Returns(user);
+                email, AccessType.Academy, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50), null).Returns(user);
 
             _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
 
@@ -298,7 +354,10 @@ namespace easygenerator.Auth.Tests.Lti
         [TestMethod]
         public void OnAuthenticated_ShouldSetReturnUrlToProperValue_WhenToolUrlSpecifiedInParam_ForJustCreatedUser()
         {
-            _ltiAuthenticatedContext.Request.Get<ConsumerTool>("consumerToolKey").Returns(Substitute.For<ConsumerTool>());
+            var consumerKey = "key";
+            _ltiRequest.ConsumerKey.Returns(consumerKey);
+            _consumerToolRepository.GetByKey(consumerKey).Returns(Substitute.For<ConsumerTool>());
+            
             _ltiRequest.LisPersonEmailPrimary.Returns(email);
             _ltiRequest.LisPersonNameGiven.Returns(firstName);
             _ltiRequest.LisPersonNameFamily.Returns(lastName);
@@ -310,7 +369,7 @@ namespace easygenerator.Auth.Tests.Lti
             var user = UserObjectMother.CreateWithEmail(email);
 
             _entityFactory.User(email, Arg.Any<string>(), firstName, lastName, ltiMockData, ltiMockData, ltiMockData,
-                email, AccessType.Plus, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50), null).Returns(user);
+                email, AccessType.Academy, user.LastReadReleaseNote, DateTimeWrapper.Now().AddYears(50), null).Returns(user);
 
             _ltiAuthProvider.OnAuthenticated(_ltiAuthenticatedContext);
 
@@ -325,7 +384,9 @@ namespace easygenerator.Auth.Tests.Lti
             _ltiRequest.LisPersonNameGiven.Returns(firstName);
             _ltiRequest.LisPersonNameFamily.Returns(lastName);
             _ltiRequest.UserId.Returns(userId);
-            _ltiAuthenticatedContext.Request.Get<ConsumerTool>("consumerToolKey").Returns(Substitute.For<ConsumerTool>());
+            var consumerKey = "key";
+            _ltiRequest.ConsumerKey.Returns(consumerKey);
+            _consumerToolRepository.GetByKey(consumerKey).Returns(Substitute.For<ConsumerTool>());
 
             var user = UserObjectMother.CreateWithEmail(email);
             user.AddLtiUserInfo("3", Substitute.For<ConsumerTool>());
@@ -344,7 +405,9 @@ namespace easygenerator.Auth.Tests.Lti
             _ltiRequest.LisPersonNameGiven.Returns(firstName);
             _ltiRequest.LisPersonNameFamily.Returns(lastName);
             _ltiRequest.UserId.Returns(userId);
-            _ltiAuthenticatedContext.Request.Get<ConsumerTool>("consumerToolKey").Returns(Substitute.For<ConsumerTool>());
+            var consumerKey = "key";
+            _ltiRequest.ConsumerKey.Returns(consumerKey);
+            _consumerToolRepository.GetByKey(consumerKey).Returns(Substitute.For<ConsumerTool>());
 
             var user = UserObjectMother.CreateWithEmail(email);
             user.AddLtiUserInfo("3", Substitute.For<ConsumerTool>());
