@@ -1,42 +1,42 @@
-﻿define(['durandal/system'], function (system) {
+﻿import system from 'durandal/system';
 
-    "use strict";
-
-    var cssSelectors = {
-        blankInput: '.blankInput',
-        blankDropDown: '.blankSelect'
-    };
-
-    var attributes = {
+const cssSelectors = {
+    blankInput: '.blankInput',
+    blankDropDown: '.blankSelect'
+},
+    attributes = {
         id: 'id',
         groupId: 'data-group-id',
         answerValues:'data-answer-values',
         value: 'value',
         checked: 'checked'
-    };
-    var accessoryTag = '<output>';
+    },
+    accessoryTag = '<output>';
 
-    return {
-        getTemplateAndAnswers: getTemplateAndAnswers,
-        getData: getData
-    };
+function generateGuid() {
+    return system.guid().replace(/[-]/g, '');
+}
 
-    function getTemplateAndAnswers(text) {
+function encodeString(str) {
+    return $('<div/>').text(str).html();
+}
+
+class Parser{
+    getTemplateAndAnswers(text) {
         if (_.isNullOrUndefined(text)) {
             return {
                 template: null,
                 answers: []
             };
         }
-        var
-            $text = $(accessoryTag).append($.parseHTML(text)),
-            blankInputs = $(cssSelectors.blankInput, $text),
-            blankDropDowns = $(cssSelectors.blankDropDown, $text);
 
-        var answers = [];
+        let $text = $(accessoryTag).append($.parseHTML(text)),
+            blankInputs = $(cssSelectors.blankInput, $text),
+            blankDropDowns = $(cssSelectors.blankDropDown, $text),
+            answers = [];
 
         _.each(blankInputs, function (item) {
-            var $input = $(item),
+            let $input = $(item),
                 groupId = $input.attr(attributes.groupId);
 
             if (_.isEmptyOrWhitespace(groupId)) {
@@ -61,7 +61,7 @@
             });
         });
         _.each(blankDropDowns, function (item) {
-            var $select = $(item),
+            let $select = $(item),
                 groupId = $select.attr(attributes.groupId);
 
             if (_.isEmptyOrWhitespace(groupId)) {
@@ -70,7 +70,7 @@
             }
 
             $('option', $select).each(function (index, option) {
-                var $option = $(option);
+                let $option = $(option);
 
                 answers.push({
                     groupId: groupId,
@@ -86,17 +86,16 @@
         };
     }
 
-    function getData(template, answers) {
-        var
-            $text = $(accessoryTag).append($.parseHTML(template)),
-            blankInputs = $(cssSelectors.blankInput, $text),
-            blankDropDowns = $(cssSelectors.blankDropDown, $text);
+    getData(template, answers) {
+        let $text = $(accessoryTag).append($.parseHTML(template)),
+             blankInputs = $(cssSelectors.blankInput, $text),
+             blankDropDowns = $(cssSelectors.blankDropDown, $text);
 
         _.each(blankInputs, function (input) {
-            var $input = $(input),
+            let $input = $(input),
                 groupId = $input.attr(attributes.groupId);
 
-            var answerValues = _.filter(answers, function (item) {
+            let answerValues = _.filter(answers, function (item) {
                 return item.groupId === groupId;
             });
 
@@ -107,16 +106,16 @@
         });
 
         _.each(blankDropDowns, function (select) {
-            var $select = $(select),
+            let $select = $(select),
                 groupId = $select.attr(attributes.groupId);
 
-            var correctAnswer = _.find(answers, function (item) {
+            let correctAnswer = _.find(answers, function (item) {
                 return item.groupId === groupId && item.isCorrect;
             });
 
             if (!_.isNullOrUndefined(correctAnswer)) {
                 $('option', $select).each(function (index, element) {
-                    var $element = $(element);
+                    let $element = $(element);
                     if ($element.val() === correctAnswer.text) {
                         $element.attr(attributes.checked, 'checked');
                     }
@@ -127,13 +126,7 @@
 
         return $text.html();
     }
+}
 
-    function generateGuid() {
-        return system.guid().replace(/[-]/g, '');
-    }
-
-    function encodeString(str) {
-        return $('<div/>').text(str).html();
-    }
-
-});
+let parser = new Parser();
+export default parser;
