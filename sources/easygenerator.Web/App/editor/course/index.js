@@ -5,87 +5,15 @@ import notify from 'notify';
 import localizationManager from 'localization/localizationManager';
 import courseRepository from 'repositories/courseRepository';
 import vmContentField from 'viewmodels/common/contentField';
-import moment from 'moment';
-import constants from 'constants';
-import router from 'plugins/router';
-import userContext from 'userContext';
-import imageUpload from 'imageUpload';
-import createSectionCommand from 'editor/course/commands/createSectionCommand';
-import createQuestionCommand from 'editor/course/commands/createQuestionCommand';
-import deleteQuestionCommand from 'editor/course/commands/deleteQuestionCommand';
-import reorderQuestionCommand from 'editor/course/commands/reorderQuestionCommand';
-import moveQuestionCommand from 'editor/course/commands/moveQuestionCommand';
-import reorderSectionCommand from 'editor/course/commands/reorderSectionCommand';
-import unrelateSectionCommand from 'editor/course/commands/unrelateSectionCommand';
-import sectionRepository from 'repositories/objectiveRepository';
-
-
-class CreateBar{
-    constructor() {
-        this.sectionExpanded = ko.observable(true);
-        this.questionsExpanded = ko.observable(true);
-        this.questions = [
-            {
-                type: constants.questionType.informationContent.type,
-                hasAccess: true
-            },
-            {
-                type: constants.questionType.singleSelectText.type,
-                hasAccess: true
-            },
-            {
-                type: constants.questionType.multipleSelect.type,
-                hasAccess: true
-            },
-            {
-                type: constants.questionType.singleSelectImage.type,
-                hasAccess: userContext.hasStarterAccess()
-            },
-            {
-                type: constants.questionType.fillInTheBlank.type,
-                hasAccess: userContext.hasStarterAccess()
-            },
-            {
-                type: constants.questionType.textMatching.type,
-                hasAccess: userContext.hasStarterAccess()
-            },
-            {
-                type: constants.questionType.dragAndDropText.type,
-                hasAccess: userContext.hasPlusAccess()
-            },
-            {
-                type: constants.questionType.statement.type,
-                hasAccess: userContext.hasPlusAccess()
-            },
-            {
-                type: constants.questionType.hotspot.type,
-                hasAccess: userContext.hasPlusAccess()
-            },
-            {
-                type: constants.questionType.openQuestion.type,
-                hasAccess: userContext.hasPlusAccess()
-            },
-            {
-                type: constants.questionType.scenario.type,
-                hasAccess: userContext.hasAcademyAccess()
-            }
-        ];
-    }
-    toggleSection() {
-        this.sectionExpanded(!this.sectionExpanded());
-    }
-    toggleQuestions() {
-        this.questionsExpanded(!this.questionsExpanded());
-    }
-    openUpgradePlanUrl() {
-        eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.questions);
-        router.openUrl(constants.upgradeUrl);
-    }
-    activate() {
-        this.sectionExpanded(true);
-        this.questionsExpanded(true);
-    }
-}
+import createSectionCommand from './commands/createSectionCommand';
+import createQuestionCommand from './commands/createQuestionCommand';
+import deleteQuestionCommand from './commands/deleteQuestionCommand';
+import reorderQuestionCommand from './commands/reorderQuestionCommand';
+import moveQuestionCommand from './commands/moveQuestionCommand';
+import reorderSectionCommand from './commands/reorderSectionCommand';
+import unrelateSectionCommand from './commands/unrelateSectionCommand';
+import CreateBar from './viewmodels/CreateBarViewModel';
+import SectionViewModel from './viewmodels/SectionViewModel';
 
 const eventsForCourseContent = {
     addContent: 'Define introduction',
@@ -93,38 +21,7 @@ const eventsForCourseContent = {
     endEditText: 'End editing introduction'
 };
 
-var mapQuestions = (sectionId, questions) => _.map(questions, question => questionViewModelmapper(sectionId, question));
-
-var mapSections = sections => _.map(sections, section => sectionViewModelMapper(section));
-
-var sectionViewModelMapper = section => {
-    let mappedSection = {
-        id: section.id,
-        title: section.title,
-        modifiedOn: ko.observable(moment(section.modifiedOn).format('DD/MM/YY')),
-        image: ko.observable(section.image),
-        isImageLoading: ko.observable(false),
-        menuExpanded: ko.observable(false),
-        toggleMenu: self => self.menuExpanded(!self.menuExpanded()),
-        questionsExpanded: ko.observable(true),
-        toggleQuestions: self => self.questionsExpanded(!self.questionsExpanded()),
-        questions: ko.observableArray(mapQuestions(section.id, section.questions))
-    };
-    mappedSection.notContainQuestions = ko.computed(() => mappedSection.questions().length === 0);
-    return mappedSection;
-};
-
-var questionViewModelmapper = (sectionId, question) => {
-    return {
-        sectionId: sectionId,
-        id: question.id,
-        title: question.title,
-        type: question.type,
-        canBeDeleted: ko.observable(false),
-        markToDelete: self => self.canBeDeleted(true),
-        cancel: self => self.canBeDeleted(false)
-    };
-};
+var mapSections = (courseId, sections) => _.map(sections, section => new SectionViewModel(courseId, section, false));
 
 var createSection = async courseId => await createSectionCommand.execute(courseId);
 
@@ -151,7 +48,7 @@ export default class {
         this.id = course.id;
         this.createBar.activate();
         this.createdBy = course.createdBy;
-        this.sections(mapSections(course.objectives));
+        this.sections(mapSections(this.id, course.objectives));
         this.notContainSections = ko.computed(() => this.sections().length === 0, this);
         this.courseIntroductionContent = new vmContentField(course.introductionContent, eventsForCourseContent, false, content => courseRepository.updateIntroductionContent(course.id, content));
     }
@@ -159,7 +56,7 @@ export default class {
         let type = section && section.type;
         if (type === 'section') {
             let createdSection = await createSection(this.id);
-            this.sections.push(sectionViewModelMapper(createdSection));
+            this.sections.push(new SectionViewModel(this.id, createdSection));
         }
     }
     async reorderSection(section, nextSection) {
@@ -191,25 +88,12 @@ export default class {
         if (nextSectionId) {
             let nextSectionInCourse = _.find(this.sections(), section => section.id === nextSectionId);
             let nextSectionInCourseIndex = this.sections.indexOf(nextSectionInCourse);
-            this.sections.splice(nextSectionInCourseIndex, 0, sectionViewModelMapper(createdSection));
+            this.sections.splice(nextSectionInCourseIndex, 0, new SectionViewModel(this.id, createdSection));
         } else {
-            this.sections.push(sectionViewModelMapper(createdSection));
+            this.sections.push(new SectionViewModel(this.id, createdSection));
         }
         await reorderSectionCommand.execute(this.id, this.sections());
         notify.saved();
-    }
-    updateSectionImage(section) {
-        imageUpload.upload({
-            startLoading: () => section.isImageLoading(true),
-            success: async url => {
-                let result = await sectionRepository.updateImage(section.id, url);
-                section.image(result.imageUrl);
-                section.modifiedOn(moment(result.modifiedOn).format('DD/MM/YY'));
-                section.isImageLoading(false);
-                notify.saved();
-            },
-            error: () => section.isImageLoading(false)
-        });
     }
     async unrelateSection(section) {
         await unrelateSectionCommand.execute(this.id, section);
@@ -230,13 +114,13 @@ export default class {
         if (!sectionInViewModel) {
             return;
         }
-        sectionInViewModel.questions.push(questionViewModelmapper(sectionInViewModel.id, createdQuestion));
+        sectionInViewModel.addQuestion(createdQuestion);
     }
     deleteQuestion(question) {
         deleteQuestionCommand.execute(question.sectionId, question.id);
         let section = _.find(this.sections(), section => section.id === question.sectionId);
         if (section) {
-            section.questions.remove(question);
+            section.deleteQuestion(question);
         }
         notify.saved();
     }
@@ -251,7 +135,7 @@ export default class {
             return;
         }
         let questionInSection = _.find(sectionInCourse.questions(), question => question.id === questionId);
-        sectionInCourse.questions.remove(questionInSection);
+        sectionInCourse.deleteQuestion(questionInSection);
 
         if (targetSectionId !== sourceSectionId) {
             sectionInCourse = _.find(this.sections(), section => section.id === targetSectionId);
@@ -259,12 +143,11 @@ export default class {
         }
 
         if (nextQuestionId) {
-            //TODO: check next question
             let nextQuestionInSection = _.find(sectionInCourse.questions(), question => question.id === nextQuestionId);
             let nextQuestionIndex = sectionInCourse.questions.indexOf(nextQuestionInSection);
-            sectionInCourse.questions.splice(nextQuestionIndex, 0, questionViewModelmapper(sectionInCourse.id, questionInSection));
+            sectionInCourse.addQuestion(questionInSection, nextQuestionIndex);
         } else {
-            sectionInCourse.questions.push(questionViewModelmapper(sectionInCourse.id, questionInSection));
+            sectionInCourse.addQuestion(questionInSection);
         }
         await reorderQuestionCommand.execute(sectionInCourse.id, sectionInCourse.questions());
         notify.saved();
@@ -290,9 +173,9 @@ export default class {
             //TODO: check next question
             let nextQuestionInSection = _.find(section.questions(), question => question.id === nextQuestionId);
             let nextQuestionIndex = section.questions.indexOf(nextQuestionInSection);
-            section.questions.splice(nextQuestionIndex, 0, questionViewModelmapper(section.id, createdQuestion));
+            section.addQuestion(createdQuestion, nextQuestionIndex);
         } else {
-            section.questions.push(questionViewModelmapper(section.id, createdQuestion));
+            section.addQuestion(createdQuestion);
         }
         await reorderQuestionCommand.execute(section.id, section.questions());
         notify.saved();

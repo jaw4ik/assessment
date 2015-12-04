@@ -8,11 +8,12 @@ var instance = null;
  
 var cssClasses = {
     activeTarget: 'active',
-    itemOverTarget: 'droppable'
+    itemOverTarget: 'droppable',
+    activeElement: 'dragging'
 };
 
 export default class DragulaContainer{
-    constructor (enforcer) {
+    constructor () {
         if (instance) {
             return instance;
         }
@@ -65,11 +66,13 @@ export default class DragulaContainer{
         });
 
         this.dragula.on('drag', (element, source) => {
+            $(element).addClass(cssClasses.activeElement);
             that.activeTargetsList = _.filter(that.targetsToMove, target => target.source === source);
             _.each(that.activeTargetsList, target => $(target.selector).addClass(cssClasses.activeTarget));
         });
 
-        this.dragula.on('dragend', () => {
+        this.dragula.on('dragend', (element) => {
+            $(element).removeClass(cssClasses.activeElement);
             _.each(that.targetsToMove, target => $(target.selector).removeClass(cssClasses.activeTarget));
             that.activeTargetsList = [];
         });

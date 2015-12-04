@@ -657,6 +657,9 @@
     <Content Include="App\editor\course\index.spec.js">
       <DependentUpon>index.js</DependentUpon>
     </Content>
+    <Content Include="App\editor\course\viewmodels\CreateBarViewModel.js" />
+    <Content Include="App\editor\course\viewmodels\QuestionViewModel.js" />
+    <Content Include="App\editor\course\viewmodels\SectionViewModel.js" />
     <Content Include="App\editor\index.js" />
     <Content Include="App\dialogs\course\publishCourse\customPublish.js" />
     <Content Include="App\dialogs\course\publishCourse\customPublish.spec.js">

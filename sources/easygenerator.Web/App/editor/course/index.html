@@ -37,11 +37,11 @@
                             <button class="sections-list-item-sort-button"></button>
                             <div class="sections-list-item-image-container">
                                 <div class="sections-list-item-image" data-bind="attr: { style: `background-image: url('${image()}')` }"></div>
-                                <div class="sections-list-item-image-change" data-bind="click: $parent.updateSectionImage">
+                                <div class="sections-list-item-image-change" data-bind="click: updateImage">
                                     <span class="sections-list-item-image-change-icon"></span>
                                     <span class="sections-list-item-image-change-text">Change</span>
                                 </div>
-                                <div class="sections-list-item-image-preloader-container" data-bind="visible: isImageLoading">
+                                <div class="sections-list-item-image-preloader-container" data-bind="visible: imageLoading">
                                     <div data-bind="preloader: { settings: 'align-center small' }"></div>
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
                                     <button class="sections-list-item-actions-menu-toggle" data-bind="click: toggleMenu, outsideClick: { action: () => menuExpanded(false) }"></button>
                                     <ul class="sections-list-item-actions-menu">
                                         <li class="sections-list-item-actions-menu-item edit-title">Edit title</li>
-                                        <li class="sections-list-item-actions-menu-item change-image" data-bind="click: $parent.updateSectionImage">Change image</li>
+                                        <li class="sections-list-item-actions-menu-item change-image" data-bind="click: updateImage">Change image</li>
                                         <li class="sections-list-item-actions-menu-item disconnect" data-bind="click: $parent.unrelateSection.bind($parent)">Disconnect from the course</li>
                                         <li class="sections-list-item-actions-menu-item delete">Delete permanently</li>
                                     </ul>
