@@ -58,7 +58,6 @@
             $textBox.click(selectText);
             $blankInputValueControl.focus = selectText;
             $valuesContainer.append($blankInputValueControl);
-            ensureCanDeleteInputValueControls();
 
             return $blankInputValueControl;
 
@@ -76,15 +75,15 @@
                     $(this).closest(selectors.blankInputValue).remove();
                 }
             }
+        }
 
-            function ensureCanDeleteInputValueControls() {
-                if ($(selectors.blankInputValue, $valuesContainer).length > 1) {
-                    hideValidationMessage();
-                    return true;
-                } else {
-                    showValidationMessage();
-                    return false;
-                }
+        function ensureCanDeleteInputValueControls() {
+            if ($(selectors.blankInputValue, $valuesContainer).length > 1) {
+                hideValidationMessage();
+                return true;
+            } else {
+                showValidationMessage();
+                return false;
             }
         }
 
@@ -123,15 +122,19 @@
                          className: classNames.blankValuesList,
                          children: [],
                          setup: function (widget) {
+                             hideValidationMessage();
                              if (widget.data.selectedText) {
                                  createBlankInputControl(widget.data.selectedText.trim(plugin.spaceSymbol), true);
                              } else {
+                                 if (!widget.data.blankValuesList || widget.data.blankValuesList.length === 0) {
+                                     createBlankInputControl('', true);
+                                     return;
+                                 }
+
                                  widget.data.blankValuesList.forEach(function (value, index) {
                                      createBlankInputControl(value, index === 0);
                                  });
                              }
-
-                             hideValidationMessage();
                          },
                          commit: function (widget) {
                              if (widget.data.selectedText) {
@@ -152,6 +155,7 @@
                                  className: classNames.addValueButton,
                                  onClick: function () {
                                      createBlankInputControl().focus();
+                                     ensureCanDeleteInputValueControls();
                                  }
                              },
                              {
