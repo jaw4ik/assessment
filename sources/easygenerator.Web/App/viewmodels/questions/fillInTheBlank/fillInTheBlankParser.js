@@ -10,6 +10,7 @@
     var attributes = {
         id: 'id',
         groupId: 'data-group-id',
+        answerValues:'data-answer-values',
         value: 'value',
         checked: 'checked'
     };
@@ -36,19 +37,27 @@
 
         _.each(blankInputs, function (item) {
             var $input = $(item),
-                value = $input.val().trim(),
                 groupId = $input.attr(attributes.groupId);
-            
+
             if (_.isEmptyOrWhitespace(groupId)) {
                 groupId = generateGuid();
                 $input.attr(attributes.groupId, groupId);
             }
-            $input.attr(attributes.value, '');
 
-            answers.push({
-                groupId: groupId,
-                text: value,
-                isCorrect: true
+            let answerValues = JSON.parse($input.attr(attributes.answerValues));
+            if (!_.isArray(answerValues)) {
+                answerValues = [];
+            }
+
+            $input.attr(attributes.value, '');
+            $input.removeAttr(attributes.answerValues);
+
+            answerValues.forEach(answer => {
+                answers.push({
+                    groupId: groupId,
+                    text: answer.trim(),
+                    isCorrect: true
+                });
             });
         });
         _.each(blankDropDowns, function (item) {
@@ -59,7 +68,7 @@
                 groupId = generateGuid();
                 $select.attr(attributes.groupId, groupId);
             }
-            
+
             $('option', $select).each(function (index, option) {
                 var $option = $(option);
 
@@ -87,12 +96,13 @@
             var $input = $(input),
                 groupId = $input.attr(attributes.groupId);
 
-            var answer = _.find(answers, function (item) {
+            var answerValues = _.filter(answers, function (item) {
                 return item.groupId === groupId;
             });
 
-            if (!_.isNullOrUndefined(answer)) {
-                $input.attr(attributes.value, encodeString(answer.text));
+            if (answerValues.length > 0) {
+                let answerTexts = _.map(answerValues, a => encodeString(a.text));
+                $input.attr(attributes.answerValues, JSON.stringify(answerTexts));
             }
         });
 
@@ -103,11 +113,11 @@
             var correctAnswer = _.find(answers, function (item) {
                 return item.groupId === groupId && item.isCorrect;
             });
-            
+
             if (!_.isNullOrUndefined(correctAnswer)) {
                 $('option', $select).each(function (index, element) {
                     var $element = $(element);
-                    if ($element.val() == correctAnswer.text) {
+                    if ($element.val() === correctAnswer.text) {
                         $element.attr(attributes.checked, 'checked');
                     }
                     $element.val(encodeString($element.val()));

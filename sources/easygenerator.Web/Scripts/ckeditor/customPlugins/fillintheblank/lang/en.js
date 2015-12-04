@@ -7,5 +7,6 @@
     secondDefaultValue: 'Answer option 2',
     deleteButtonTitle: 'Delete',
     correctRadioOptionTitle: 'Correct value',
-    incorrectRadioOptionTitle: 'Incorrect value'
+    incorrectRadioOptionTitle: 'Incorrect value',
+    blankPopupValidationMessage: 'Blank should have at least 1 correct option.'
 });

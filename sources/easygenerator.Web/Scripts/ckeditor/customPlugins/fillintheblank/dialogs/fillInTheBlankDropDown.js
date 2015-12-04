@@ -13,6 +13,7 @@
                 textBox: 'text_box',
                 deleteButton: 'delete_button',
                 controlsContainer: 'controls_container',
+                fibDropDown: 'fill_in_the_blanks_drop_down',
                 addValueButton: 'add_value_button',
                 validationMessage: 'validation_message'
             },
@@ -188,7 +189,7 @@
                     },
                     {
                         type: 'hbox',
-                        className: classNames.controlsContainer,
+                        className: classNames.controlsContainer + ' ' + classNames.fibDropDown,
                         children: [
                             {
                                 type: 'button',
