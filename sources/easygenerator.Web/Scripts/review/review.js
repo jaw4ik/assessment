@@ -41,12 +41,13 @@ app.reviewViewModel = () => {
                 throw 'Course id is not specified';
             }
 
-            if (!this.text() || _.isEmptyOrWhitespace(this.text())) {
-                this.showTextValidationError(true);
-                return;
+            if (!this.showIdentifyUserForm()) {
+                if (!this.text() || _.isEmptyOrWhitespace(this.text())) {
+                    this.showTextValidationError(true);
+                    return;
+                }
             }
-            
-            if (this.showIdentifyUserForm()) {
+            else {
                 this.showNameValidationError(!this.name() || !this.name().trim());
                 this.showEmailValidationError(!this.email() || !patternEmail.test(this.email().trim()));
 
@@ -66,7 +67,7 @@ app.reviewViewModel = () => {
                 return;
             }
 
-            this.postUserComment(username, usermail, this.text(), courseId);
+            return this.postUserComment(username, usermail, this.text(), courseId);
         }
 
         postUserComment(username, usermail, comment, courseId) {
@@ -75,7 +76,7 @@ app.reviewViewModel = () => {
 
             let that = this;
 
-            $.ajax({
+            return $.ajax({
                 url: '/api/comment/create',
                 data: { courseId: courseId, text: comment.trim(), createdByName: username.trim(), createdBy: usermail.trim() },
                 type: 'POST'

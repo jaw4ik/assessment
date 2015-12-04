@@ -46,8 +46,10 @@
                     viewModel.comments.remove(comment);
                     notify.saved();
                 } else {
-                    notify.error(localizationManager.localize('commentWasNotDeletedError'));
+                    throw "Comment is not deleted";
                 }
+            }).fail(function() {
+                notify.error(localizationManager.localize('commentWasNotDeletedError'));
             });
         }
     }

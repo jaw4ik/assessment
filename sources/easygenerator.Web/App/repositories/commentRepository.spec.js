@@ -214,7 +214,7 @@
                 });
 
                 describe('and response is boolean', function() {
-                    it('should return response', function () {
+                    it('should return response', function (done) {
                         var promise = repository.removeComment(courseId, commentId);
 
                         promise.fin(function () {
