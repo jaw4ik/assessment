@@ -3,112 +3,99 @@
 app.reviewViewModel = () => {
     'use strict';
 
-    const patternEmail = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/,
-        userNameKey = 'usernameForReview',
-        userMailKey = 'usermailForReview';
+    const patternEmail = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,15})+)$/,
+            userNameKey = 'usernameForReview',
+            userMailKey = 'usermailForReview';
 
-    var text = ko.observable(),
-        name = ko.observable(''),
-        email = ko.observable(''),
+    class Review {
+        constructor() {
+            this.text = ko.observable();
+            this.name = ko.observable('');
+            this.email = ko.observable('');
 
-        showTextValidationError = ko.observable(false),
-        showNameValidationError = ko.observable(false),
-        showEmailValidationError = ko.observable(false),
-        showIdentifyUserForm = ko.observable(false),
+            this.showTextValidationError = ko.observable(false);
+            this.showNameValidationError = ko.observable(false);
+            this.showEmailValidationError = ko.observable(false);
+            this.showIdentifyUserForm = ko.observable(false);
 
-        isExpanded = ko.observable(false),
-        isSaved = ko.observable(false),
-        isFailed = ko.observable(false),
+            this.isExpanded = ko.observable(false);
+            this.isSaved = ko.observable(false);
+            this.isFailed = ko.observable(false);
+        }
 
-        toggleVisiblity = () => {
-            isExpanded(!isExpanded());
-        },
+        toggleVisiblity() {
+            this.isExpanded(!this.isExpanded());
+        }
 
-        onTextFocused = () => {
-            showTextValidationError(false);
-        },
+        onTextFocused() {
+            this.showTextValidationError(false);
+        }
 
-        onCollapsed = () => {
-            isSaved(false);
-            isFailed(false);
-        },
+        onCollapsed() {
+            this.isSaved(false);
+            this.isFailed(false);
+        }
 
-        addComment = (courseId) => {
+        addComment(courseId) {
             if (_.isNullOrUndefined(courseId)) {
                 throw 'Course id is not specified';
             }
 
-            if (!text() || _.isEmptyOrWhitespace(text())) {
-                showTextValidationError(true);
+            if (!this.text() || _.isEmptyOrWhitespace(this.text())) {
+                this.showTextValidationError(true);
                 return;
             }
+            
+            if (this.showIdentifyUserForm()) {
+                this.showNameValidationError(!this.name() || !this.name().trim());
+                this.showEmailValidationError(!this.email() || !patternEmail.test(this.email().trim()));
 
-            if (showIdentifyUserForm()) {
-                showNameValidationError(!name() || !name().trim());
-                showEmailValidationError(!email() || !patternEmail.test(email().trim()));
-
-                if (showNameValidationError() || showEmailValidationError()) {
+                if (this.showNameValidationError() || this.showEmailValidationError()) {
                     return;
                 }
 
-                localStorage.setItem(userNameKey, name());
-                localStorage.setItem(userMailKey, email());
+                localStorage.setItem(userNameKey, this.name());
+                localStorage.setItem(userMailKey, this.email());
             }
 
             let username = localStorage.getItem(userNameKey),
                 usermail = localStorage.getItem(userMailKey);
 
             if (!username || !username.trim() || !usermail || !usermail.trim()) {
-                showIdentifyUserForm(true);
+                this.showIdentifyUserForm(true);
                 return;
             }
 
-            postUserComment(username, usermail, text(), courseId);
-        };
+            this.postUserComment(username, usermail, this.text(), courseId);
+        }
 
-    function postUserComment(username, usermail, comment, courseId) {
-        isSaved(false);
-        isFailed(false);
+        postUserComment(username, usermail, comment, courseId) {
+            this.isSaved(false);
+            this.isFailed(false);
 
-        $.ajax({
-            url: '/api/comment/create',
-            data: { courseId: courseId, text: comment.trim(), createdByName: username.trim(), createdBy: usermail.trim() },
-            type: 'POST'
-        }).done(function (response) {
-            if (response) {
-                if (response.success) {
-                    showIdentifyUserForm(false);
-                    isSaved(true);
-                    text('');
+            let that = this;
+
+            $.ajax({
+                url: '/api/comment/create',
+                data: { courseId: courseId, text: comment.trim(), createdByName: username.trim(), createdBy: usermail.trim() },
+                type: 'POST'
+            }).done(function (response) {
+                if (response) {
+                    if (response.success) {
+                        that.showIdentifyUserForm(false);
+                        that.isSaved(true);
+                        that.text('');
+                    } else {
+                        that.isFailed(true);
+                    }
                 } else {
-                    isFailed(true);
+                    throw 'Response is not an object';
                 }
-            } else {
-                throw 'Response is not an object';
-            }
-        }).fail(function () {
-            isFailed(true);
-        });
-    };
+            }).fail(function () {
+                that.isFailed(true);
+            });
+        }
+    }
 
-    return {
-        text: text,
-        name: name,
-        email: email,
-
-        showIdentifyUserForm: showIdentifyUserForm,
-        showTextValidationError: showTextValidationError,
-        showNameValidationError: showNameValidationError,
-        showEmailValidationError: showEmailValidationError,
-
-        onTextFocused: onTextFocused,
-        onCollapsed: onCollapsed,
-
-        isExpanded: isExpanded,
-        isSaved: isSaved,
-        isFailed: isFailed,
-        toggleVisiblity: toggleVisiblity,
-        
-        addComment: addComment
-    };
+    return new Review();
 };
