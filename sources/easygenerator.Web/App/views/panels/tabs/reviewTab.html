@@ -1,8 +1,5 @@
 ﻿<section class="review-comments-section" data-bind="css: { empty: !reviewUrlExists() }">
-    <div class="tab-title">
-        <div class="tab-title-text" data-bind="localize: { text: 'reviewTabTitle' }">Comments</div>
-        <div class="tab-title-remain-space"></div>
-    </div>
+    <div class="tab-title-text" data-bind="localize: { text: 'reviewTabTitle' }">Comments</div>
 
     <div class="review-comments-block">
         <!-- ko compose: { model: 'viewmodels/courses/courseComments', activationData: courseId }-->
@@ -20,17 +17,17 @@
 
         <div class="tab-action-wrapper">
             <!-- ko if: !reviewUrlExists() && !isPublishing() -->
-            <button class="btn blue tab-btn review-btn" data-bind="click: updateCourseForReview">
+            <button class="btn green tab-btn review-btn" data-bind="click: updateCourseForReview">
                 <span class="btn-text" data-bind="localize: { text: 'reviewGetLink' }">Get link</span>
             </button>
             <!-- /ko -->
             <!-- ko if: reviewUrlExists() && !isPublishing() -->
-            <button class="btn blue tab-btn review-btn" data-bind="click: updateCourseForReview">
+            <button class="btn green tab-btn review-btn" data-bind="click: updateCourseForReview">
                 <span class="btn-text" data-bind="localize: { text: 'reviewUpdateCourse' }">Update course</span>
             </button>
             <!-- /ko -->
             <!-- ko if: isPublishing() -->
-            <button class="btn blue tab-btn review-btn">
+            <button class="btn green tab-btn review-btn">
                 <span class="loader-container">
                     <span data-bind="preloader: { type: 'circular', settings: 'small white' }"></span>
                     <span class="btn-text" data-bind="localize: { text: 'reviewPublishingCourse' }">Publishing...</span>
@@ -41,10 +38,10 @@
 
         <!-- ko if: reviewUrlExists() -->
         <div class="review-link" data-bind="css: { disabled: isPublishing() }">
-            <div class="open-review-link" data-bind="click: openCourseReviewUrl, localize: { title: 'reviewOpenLinkTitle' }" title="Open link"></div>
             <div class="review-link-input-wrapper">
-                <input class="review-link-input" type="text" readonly="readonly" data-bind="value: reviewUrl(), css: { selectable: !isPublishing() }, selectText: reviewUrlExists(), enable: !isPublishing()" />
+                <input class="review-link-input" type="text" readonly="readonly" data-bind="value: reviewUrl(), css: { selectable: !isPublishing() }, selectText: reviewUrlExists(), enable: !isPublishing()"/>
             </div>
+            <a href="#" class="open-review-link" data-bind="attr: {href: reviewUrl()}, click: openCourseReviewUrl">Open in new window</a>
         </div>
         <!-- /ko -->
     </div>

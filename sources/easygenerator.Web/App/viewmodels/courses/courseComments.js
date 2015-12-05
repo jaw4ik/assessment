@@ -9,7 +9,7 @@
             hasAccessToComments: ko.observable(userContext.hasStarterAccess()),
             activate: activate,
             openUpgradePlanUrl: openUpgradePlanUrl,
-            removeComment: removeComment,
+            removeComment: removeComment
         };
 
         return viewModel;
