@@ -1,7 +1,7 @@
 ﻿<section class="review-comments-section" data-bind="css: { empty: !reviewUrlExists() }">
     <div class="tab-title-text" data-bind="localize: { text: 'reviewTabTitle' }">Comments</div>
 
-    <div class="review-comments-block">
+    <div class="review-comments-block" data-bind="scrollbar: {}">
         <!-- ko compose: { model: 'viewmodels/courses/courseComments', activationData: courseId }-->
         <!-- /ko -->
     </div>
