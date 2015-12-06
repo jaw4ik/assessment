@@ -10,7 +10,7 @@ ko.bindingHandlers.expandBlock = {
         let duration = ko.utils.unwrapObservable(valueAccessors().duration) || '0.3s';
 
         if (expanded) {
-            $element.stop().animate({ height: 'show' }, duration);
+            $element.stop().animate({ height: 'show' }, duration, () => $element.css('height', 'auto'));
         } else {
             $element.stop().animate({ height: 'hide' }, duration);
         }

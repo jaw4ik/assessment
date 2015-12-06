@@ -48,6 +48,23 @@
         }
 
         .editor-create-bar-list-container {
+            position: relative;
+
+            &.no-section{
+                .not-contain-section-overlay{
+                    display: block;
+                }
+            }
+
+            .not-contain-section-overlay{
+                position: absolute;
+                top:0;
+                left: 0;
+                display: none;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(255,255,255,.5);
+            }
 
             .editor-create-bar-list {
                 display: flex;
@@ -56,8 +73,6 @@
                 font: 12px @font-OS;
                 list-style-type: none;
                 text-align: center;
-
-                
             }
         }
 

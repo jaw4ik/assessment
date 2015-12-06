@@ -33,50 +33,63 @@
                 <ul class="sections-list-container" data-bind="draggableContainer: { moveTo: { '.sections-list-container': reorderSection }, draggableArea: '.sections-list-item-sort-button' }">
                     <!-- ko foreach: sections -->
                     <li class="sections-list-item-container" data-bind="draggableData: { sectionId: id }">
-                        <div class="sections-list-item">
-                            <button class="sections-list-item-sort-button"></button>
-                            <div class="sections-list-item-image-container">
-                                <div class="sections-list-item-image" data-bind="attr: { style: `background-image: url('${image()}')` }"></div>
-                                <div class="sections-list-item-image-change" data-bind="click: updateImage">
-                                    <span class="sections-list-item-image-change-icon"></span>
-                                    <span class="sections-list-item-image-change-text">Change</span>
+                        <div class="sections-list-item-wrapper" data-bind="css: { processed: isProcessed }">
+                            <div class="preloader-container" data-bind="preloader: { settings: 'align-center medium' }"></div>
+                            <div class="sections-list-item">
+                                <button class="sections-list-item-sort-button"></button>
+                                <div class="sections-list-item-image-container">
+                                    <div class="sections-list-item-image" data-bind="attr: { style: `background-image: url('${image()}')` }"></div>
+                                    <div class="sections-list-item-image-change" data-bind="click: updateImage">
+                                        <span class="sections-list-item-image-change-icon"></span>
+                                        <span class="sections-list-item-image-change-text">Change</span>
+                                    </div>
+                                    <div class="sections-list-item-image-preloader-container" data-bind="visible: imageLoading">
+                                        <div data-bind="preloader: { settings: 'align-center small' }"></div>
+                                    </div>
                                 </div>
-                                <div class="sections-list-item-image-preloader-container" data-bind="visible: imageLoading">
-                                    <div data-bind="preloader: { settings: 'align-center small' }"></div>
+                                <div class="sections-list-item-title-container">
+                                    <div class="sections-list-item-title-wrapper" data-bind="css: {active:title.isEditing, error: !title.isValid()}">
+                                        <div class="sections-list-item-title" contenteditable="true" data-bind="editableText: { text: title }, event: { focus: startEditingTitle, blur: stopEditingTitle }"></div>
+                                        <div class="sections-list-item-title-counter">
+                                            <span data-bind="text: title() && title().length"></span>
+                                            /
+                                            <span>255</span>
+                                        </div>
+                                    </div>
+                                    <div class="sections-list-item-modified" data-bind="text: 'Last edited ' + modifiedOn()"></div>
                                 </div>
-                            </div>
-                            <div class="sections-list-item-title-container">
-                                <div class="sections-list-item-title" contenteditable="true" data-bind="text: title"></div>
-                                <div class="sections-list-item-modified" data-bind="text: 'Last edited ' + modifiedOn()"></div>
-                            </div>
-                            <div class="sections-list-item-actions-container">
-                                <button class="sections-list-item-actions-toggle-questions" data-bind="click: toggleQuestions, css: { collapsed: !questionsExpanded() }"></button>
-                                <div class="sections-list-item-actions-menu-container" data-bind="css: { active: menuExpanded }">
-                                    <button class="sections-list-item-actions-menu-toggle" data-bind="click: toggleMenu, outsideClick: { action: () => menuExpanded(false) }"></button>
-                                    <ul class="sections-list-item-actions-menu">
-                                        <li class="sections-list-item-actions-menu-item edit-title">Edit title</li>
-                                        <li class="sections-list-item-actions-menu-item change-image" data-bind="click: updateImage">Change image</li>
-                                        <li class="sections-list-item-actions-menu-item disconnect" data-bind="click: $parent.unrelateSection.bind($parent)">Disconnect from the course</li>
-                                        <li class="sections-list-item-actions-menu-item delete">Delete permanently</li>
-                                    </ul>
+                                <div class="sections-list-item-actions-container">
+                                    <button class="sections-list-item-actions-toggle-questions" data-bind="click: toggleQuestions, css: { collapsed: !questionsExpanded() }"></button>
+                                    <div class="sections-list-item-actions-menu-container" data-bind="css: { active: menuExpanded }">
+                                        <button class="sections-list-item-actions-menu-toggle" data-bind="click: toggleMenu, outsideClick: { action: () => menuExpanded(false) }"></button>
+                                        <ul class="sections-list-item-actions-menu">
+                                            <li class="sections-list-item-actions-menu-item edit-title">Edit title</li>
+                                            <li class="sections-list-item-actions-menu-item change-image" data-bind="click: updateImage">Change image</li>
+                                            <li class="sections-list-item-actions-menu-item disconnect" data-bind="click: $parent.unrelateSection.bind($parent)">Disconnect from the course</li>
+                                            <li class="sections-list-item-actions-menu-item delete">Delete permanently</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="questions-list-container" data-bind="expandBlock: { expanded: questionsExpanded }, css: { empty: notContainQuestions, collapsed: !questionsExpanded() }">
                             <ul class="questions-list-wrapper" data-bind="draggableContainer: { moveTo: { '.questions-list-wrapper': $root.reorderQuestion, '.question-placehodler': $root.reorderQuestion }, draggableArea: '.questions-list-item-sort-button' }, draggableData: { sectionId: id }">
                                 <!-- ko foreach: questions -->
-                                <li class="questions-list-item" data-bind="css: type, draggableData: { id: id }">
-                                    <button class="questions-list-item-sort-button"></button>
-                                    <div class="questions-list-item-image"></div>
-                                    <div class="questions-list-item-title-container">
-                                        <div class="questions-list-item-title" data-bind="text:title"></div>
-                                    </div>
-                                    <button class="questions-list-item-delete-btn" data-bind="click: markToDelete"></button>
-                                    <div class="questions-list-item-delete-container" data-bind="css: { delete: canBeDeleted }">
-                                        <div class="questions-list-item-delete-text">Delete this question?</div>
-                                        <div class="questions-list-item-delete-buttons-container">
-                                            <button class="questions-list-item-delete-button delete" data-bind="click: $root.deleteQuestion.bind($root)">Delete</button>
-                                            <button class="questions-list-item-delete-button cancel" data-bind="click: cancel">Cancel</button>
+                                <li class="questions-list-item-holder" data-bind="css: { processed: isProcessed }, draggableData: { id: id }">
+                                    <div class="preloader-container" data-bind="preloader: { settings: 'align-center small' }"></div>
+                                    <div class="questions-list-item" data-bind="css: type">
+                                        <button class="questions-list-item-sort-button"></button>
+                                        <div class="questions-list-item-image"></div>
+                                        <div class="questions-list-item-title-container">
+                                            <div class="questions-list-item-title" data-bind="text:title"></div>
+                                        </div>
+                                        <button class="questions-list-item-delete-btn" data-bind="click: markToDelete"></button>
+                                        <div class="questions-list-item-delete-container" data-bind="css: { delete: canBeDeleted }">
+                                            <div class="questions-list-item-delete-text">Delete this question?</div>
+                                            <div class="questions-list-item-delete-buttons-container">
+                                                <button class="questions-list-item-delete-button delete" data-bind="click: $root.deleteQuestion.bind($root)">Delete</button>
+                                                <button class="questions-list-item-delete-button cancel" data-bind="click: cancel">Cancel</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </li>

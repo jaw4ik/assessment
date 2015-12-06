@@ -10,6 +10,12 @@ export default class QuestionViewmodel{
         this.canBeDeleted = ko.observable(false);
         this.isProcessed = ko.observable(isProcessed || false);
     }
+    updateFields(question) {
+        this.id(question.id);
+        this.title(question.title);
+        this.type(question.type);
+        this.isProcessed(false);
+    }
     markToDelete() {
         this.canBeDeleted(true);
     }
