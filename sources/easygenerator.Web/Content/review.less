@@ -30,6 +30,8 @@ iframe {
 /*#region Header*/
 
 .comments-header {
+    display: flex;
+    align-items: center;
     color: white;
     font-family: 'OpenSans-Semibold';
     white-space: nowrap;
@@ -46,7 +48,7 @@ iframe {
 }
 
 .comment-header-text {
-    display: inline-block;
+    flex: 1 0;
     padding-left: 10px;
     margin-left: 24px;
 }
@@ -64,11 +66,8 @@ iframe {
 }
 
 .comments-expander {
-    display: inline-block;
-    margin: 18px 12px 0 0;
+    margin-right: 12px;
     content: '';
-    display: block;
-    float: right;
     width: 16px;
     height: 9px;
     background: url('images/review-sprites.png');
@@ -127,7 +126,7 @@ iframe {
 
     .identify-user-row {
         position: relative;
-        margin-bottom: 38px; 
+        margin-bottom: 38px;
 
         input {
             position: relative;
@@ -206,6 +205,7 @@ iframe {
     height: 190px;
     padding: 10px 10px 5px 10px;
     resize: none;
+    overflow: auto;
 }
 
 .comment-text-block.message.error {
@@ -232,19 +232,21 @@ iframe {
 .comment-btn {
     display: inline-block;
     height: 33px;
-    width: 115px;
+    min-width: 115px;
+    max-width: 200px;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     color: white;
     font-size: 13px;
     text-shadow: none;
-}
 
-.comment-btn .btn-title {
-    display: inline-block;
-    position: relative;
-    vertical-align: top;
+    .btn-title {
+        display: inline-block;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }
 
 /*#endregion Buttons*/
