@@ -3,144 +3,144 @@
 
     var viewModel = app.reviewViewModel();
 
-    describe('viewModel [review]', () => {
+    describe('viewModel [review]', function(){
 
-        describe('isExpanded:', () => {
-            it('should be observable', () => {
+        describe('isExpanded:', function(){
+            it('should be observable', function(){
                 expect(viewModel.isExpanded).toBeObservable();
             });
         });
 
-        describe('isSaved:', () => {
-            it('should be observeble', () => {
+        describe('isSaved:', function(){
+            it('should be observeble', function(){
                 expect(viewModel.isSaved).toBeObservable();
             });
         });
 
-        describe('isFailed:', () => {
-            it('should be observeble', () => {
+        describe('isFailed:', function(){
+            it('should be observeble', function(){
                 expect(viewModel.isFailed).toBeObservable();
             });
         });
 
-        describe('text:', () => {
-            it('should be observable', () => {
+        describe('text:', function(){
+            it('should be observable', function(){
                 expect(viewModel.text).toBeObservable();
             });
         });
 
-        describe('name:', () => {
-            it('should be observable', () => {
+        describe('name:', function(){
+            it('should be observable', function(){
                 expect(viewModel.name).toBeObservable();
             });
         });
 
-        describe('email:', () => {
-            it('should be observable', () => {
+        describe('email:', function(){
+            it('should be observable', function(){
                 expect(viewModel.email).toBeObservable();
             });
         });
 
-        describe('showIdentifyUserForm:', () => {
-            it('should be observable', () => {
+        describe('showIdentifyUserForm:', function(){
+            it('should be observable', function(){
                 expect(viewModel.showIdentifyUserForm).toBeObservable();
             });
         });
 
-        describe('showTextValidationError:', () => {
-            it('should be observable', () => {
+        describe('showTextValidationError:', function(){
+            it('should be observable', function(){
                 expect(viewModel.showTextValidationError).toBeObservable();
             });
         });
 
-        describe('showNameValidationError:', () => {
-            it('should be observable', () => {
+        describe('showNameValidationError:', function(){
+            it('should be observable', function(){
                 expect(viewModel.showNameValidationError).toBeObservable();
             });
         });
 
-        describe('showEmailValidationError:', () => {
-            it('should be observable', () => {
+        describe('showEmailValidationError:', function(){
+            it('should be observable', function(){
                 expect(viewModel.showEmailValidationError).toBeObservable();
             });
         });
         
-        describe('onTextFocused:', () => {
-            it('should be function', () => {
+        describe('onTextFocused:', function(){
+            it('should be function', function(){
                 expect(viewModel.onTextFocused).toBeFunction();
             });
 
-            it('should set showTextValidationError to false', () => {
+            it('should set showTextValidationError to false', function(){
                 viewModel.showTextValidationError(true);
                 viewModel.onTextFocused();
                 expect(viewModel.showTextValidationError()).toBeFalsy();
             });
         });
 
-        describe('onCollapsed:', () => {
-            it('should be function', () => {
+        describe('onCollapsed:', function(){
+            it('should be function', function(){
                 expect(viewModel.onCollapsed).toBeFunction();
             });
 
-            it('should set isSaved to false', () => {
+            it('should set isSaved to false', function(){
                 viewModel.isSaved(true);
                 viewModel.onCollapsed();
                 expect(viewModel.isSaved()).toBeFalsy();
             });
 
 
-            it('should set isFailed to false', () => {
+            it('should set isFailed to false', function(){
                 viewModel.isFailed(true);
                 viewModel.onCollapsed();
                 expect(viewModel.isFailed()).toBeFalsy();
             });
         });
 
-        describe('toggleVisiblity:', () => {
-            it('should be function', () => {
+        describe('toggleVisiblity:', function(){
+            it('should be function', function(){
                 expect(viewModel.toggleVisiblity).toBeFunction();
             });
 
-            describe('when isExpanded true', () => {
-                beforeEach(() => {
+            describe('when isExpanded true', function(){
+                beforeEach(function(){
                     viewModel.isExpanded(true);
                 });
 
-                it('should set isExpanded to false', () => {
+                it('should set isExpanded to false', function(){
                     viewModel.toggleVisiblity();
                     expect(viewModel.isExpanded()).toBeFalsy();
                 });
             });
 
-            describe('when isExpanded false', () => {
-                beforeEach(() => {
+            describe('when isExpanded false', function(){
+                beforeEach(function(){
                     viewModel.isExpanded(false);
                 });
 
-                it('should set isExpanded to true', () => {
+                it('should set isExpanded to true', function(){
                     viewModel.toggleVisiblity();
                     expect(viewModel.isExpanded()).toBeTruthy();
                 });
             });
         });
 
-        describe('addComment:', () => {
+        describe('addComment:', function(){
 
             var addCommentDeferred, courseId = 'courseId';
 
-            beforeEach(() => {
+            beforeEach(function(){
                 addCommentDeferred = $.Deferred();
                 spyOn($, "ajax").and.returnValue(addCommentDeferred.promise());
             });
 
-            it('should be function', () => {
+            it('should be function', function(){
                 expect(viewModel.addComment).toBeFunction();
             });
 
-            describe('when course id is not specified', () => {
+            describe('when course id is not specified', function(){
 
-                it('should throw exception', () => {
-                    var f = () => {
+                it('should throw exception', function(){
+                    var f = function(){
                         viewModel.addComment(undefined);
                     };
 
@@ -148,14 +148,14 @@
                 });
             });
 
-            describe('when course id is specified', () => {
+            describe('when course id is specified', function(){
 
-                describe('when text is empty', () => {
-                    beforeEach(() => {
+                describe('when text is empty', function(){
+                    beforeEach(function(){
                         viewModel.text('');
                     });
 
-                    it('should set showTextValidationError to true', () => {
+                    it('should set showTextValidationError to true', function(){
                         viewModel.showTextValidationError(false);
                         viewModel.addComment(courseId);
                         expect(viewModel.showTextValidationError()).toBeTruthy();
@@ -163,19 +163,19 @@
 
                 });
 
-                describe('when text is whitespace', () => {
-                    beforeEach(() => {
+                describe('when text is whitespace', function(){
+                    beforeEach(function(){
                         viewModel.text('   ');
                     });
 
-                    it('should set showTextValidationError to true', () => {
+                    it('should set showTextValidationError to true', function(){
                         viewModel.showTextValidationError(false);
                         viewModel.addComment(courseId);
                         expect(viewModel.showTextValidationError()).toBeTruthy();
                     });
                 });
 
-                describe('when text is string', () => {
+                describe('when text is string', function(){
                     var text = 'comment',
                         name = 'name',
                         email = 'user@user.user';
@@ -188,7 +188,7 @@
                         spyOn(localStorage, 'setItem');
                     });
 
-                    it('should set isSaved to false', () => {
+                    it('should set isSaved to false', function(){
                         spyOn(localStorage, 'getItem').and.returnValue(name);
                         viewModel.isSaved(true);
 
@@ -196,7 +196,7 @@
                         expect(viewModel.isSaved()).toBeFalsy();
                     });
 
-                    it('should set isFailed to false', () => {
+                    it('should set isFailed to false', function(){
                         spyOn(localStorage, 'getItem').and.returnValue(name);
                         viewModel.isFailed(true);
 
@@ -204,15 +204,15 @@
                         expect(viewModel.isFailed()).toBeFalsy();
                     });
 
-                    it('should get username and usermail from local storage', () => {
+                    it('should get username and usermail from local storage', function(){
                         spyOn(localStorage, 'getItem').and.returnValue(name);
 
                         viewModel.addComment(courseId);
                         expect(localStorage.getItem).toHaveBeenCalled();
                     });
 
-                    describe('when username is null', () => {
-                        it('should show identify form', () => {
+                    describe('when username is null', function(){
+                        it('should show identify form', function(){
                             viewModel.showIdentifyUserForm(false);
                             spyOn(localStorage, 'getItem').and.returnValue(null);
 
@@ -221,8 +221,8 @@
                         });
                     });
 
-                    describe('when username is empty', () => {
-                        it('should show identify form', () => {
+                    describe('when username is empty', function(){
+                        it('should show identify form', function(){
                             viewModel.showIdentifyUserForm(false);
                             spyOn(localStorage, 'getItem').and.returnValue('');
 
@@ -231,8 +231,8 @@
                         });
                     });
 
-                    describe('when username is whitespace', () => {
-                        it('should show identify form', () => {
+                    describe('when username is whitespace', function(){
+                        it('should show identify form', function(){
                             viewModel.showIdentifyUserForm(false);
                             spyOn(localStorage, 'getItem').and.returnValue('    ');
 
@@ -241,15 +241,15 @@
                         });
                     });
 
-                    describe('when identify user form is shown', () => {
+                    describe('when identify user form is shown', function(){
 
-                        beforeEach(() => {
+                        beforeEach(function(){
                             viewModel.showIdentifyUserForm(true);
                             viewModel.showNameValidationError(false);
                             viewModel.showEmailValidationError(false);
                         });
 
-                        describe('when name is null', () => {
+                        describe('when name is null', function(){
                             it('should show NameValidationError', function () {
                                 viewModel.name(null);
                                 viewModel.addComment(courseId);
@@ -258,7 +258,7 @@
                             });
                         });
 
-                        describe('when name is whitespace', () => {
+                        describe('when name is whitespace', function(){
                             it('should show NameValidationError', function () {
                                 viewModel.name('   ');
                                 viewModel.addComment(courseId);
@@ -267,7 +267,7 @@
                             });
                         });
 
-                        describe('when email is null', () => {
+                        describe('when email is null', function(){
                             it('should show EmailValidationError', function () {
                                 viewModel.email(null);
                                 viewModel.addComment(courseId);
@@ -276,7 +276,7 @@
                             });
                         });
 
-                        describe('when email is whitespace', () => {
+                        describe('when email is whitespace', function(){
                             it('should show EmailValidationError', function () {
                                 viewModel.email('   ');
                                 viewModel.addComment(courseId);
@@ -285,8 +285,8 @@
                             });
                         });
 
-                        describe('when name and email are strings', () => {
-                            beforeEach(() => {
+                        describe('when name and email are strings', function(){
+                            beforeEach(function(){
                                 viewModel.name(name);
                                 viewModel.email(email);
                             });
@@ -303,9 +303,9 @@
                         });
                     });
 
-                    describe('when username and usermail are strings', () => {
+                    describe('when username and usermail are strings', function(){
 
-                        it('should send request to /api/comment/create and trim values before sending request', () => {
+                        it('should send request to /api/comment/create and trim values before sending request', function(){
                             spyOn(localStorage, 'getItem').and.returnValue(`   ${email}    `);
                             viewModel.text(`   ${text}    `);
 
@@ -318,14 +318,14 @@
                             });
                         });
 
-                        describe('when request failed', () => {
+                        describe('when request failed', function(){
 
-                            beforeEach(() => {
+                            beforeEach(function(){
                                 spyOn(localStorage, 'getItem').and.returnValue(email);
                             });
 
-                            it('should set isFailed to true', (done) => {
-                                viewModel.addComment(courseId).always(() => {
+                            it('should set isFailed to true', function(done){
+                                viewModel.addComment(courseId).always(function(){
                                     expect(viewModel.isFailed()).toBeTruthy();
                                     done();
                                 });
@@ -335,16 +335,16 @@
 
                         });
 
-                        describe('when request succeed', () => {
+                        describe('when request succeed', function(){
 
-                            describe('and response is not an object', () => {
+                            describe('and response is not an object', function(){
 
-                                beforeEach(() => {
+                                beforeEach(function(){
                                     spyOn(localStorage, 'getItem').and.returnValue(email);
                                 });
 
-                                it('should throw exception', () => {
-                                    var f = () => {
+                                it('should throw exception', function(){
+                                    var f = function(){
                                         viewModel.addComment(courseId);
                                     };
                                     addCommentDeferred.resolve();
@@ -354,16 +354,16 @@
 
                             });
 
-                            describe('and response is not successful', () => {
+                            describe('and response is not successful', function(){
 
-                                beforeEach(() => {
+                                beforeEach(function(){
                                     spyOn(localStorage, 'getItem').and.returnValue(email);
                                 });
 
-                                it('should set isFailed to true', (done) => {
+                                it('should set isFailed to true', function(done){
                                     viewModel.isFailed(false);
 
-                                    viewModel.addComment(courseId).always(() => {
+                                    viewModel.addComment(courseId).always(function(){
                                         expect(viewModel.isFailed()).toBeTruthy();
                                         done();
                                     });
@@ -372,33 +372,33 @@
                                 });
                             });
 
-                            xdescribe('and response is successful', () => {
+                            xdescribe('and response is successful', function(){
 
-                                beforeEach(() => {
+                                beforeEach(function(){
                                     spyOn(localStorage, 'getItem').and.returnValue(email);
                                 });
 
-                                it('should clear text', (done) => {
+                                it('should clear text', function(done){
                                     viewModel.text('test');
-                                    viewModel.addComment(courseId).always(() => {
+                                    viewModel.addComment(courseId).always(function(){
                                         expect(viewModel.text()).toBe('');
                                         done();
                                     });
                                     addCommentDeferred.resolve({ success: true });
                                 });
 
-                                it('should set isSaved to true', (done) => {
+                                it('should set isSaved to true', function(done){
                                     viewModel.isSaved(false);
-                                    viewModel.addComment(courseId).always(() => {
+                                    viewModel.addComment(courseId).always(function(){
                                         expect(viewModel.isSaved()).toBeTruthy();
                                         done();
                                     });
                                     addCommentDeferred.resolve({ success: true });
                                 });
 
-                                it('should hide identify user form', (done) => {
+                                it('should hide identify user form', function(done){
                                     viewModel.showIdentifyUserForm(true);
-                                    viewModel.addComment(courseId).always(() => {
+                                    viewModel.addComment(courseId).always(function(){
                                         expect(viewModel.showIdentifyUserForm()).toBeFalsy();
                                         done();
                                     });
