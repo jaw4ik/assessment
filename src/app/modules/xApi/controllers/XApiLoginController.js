@@ -2,7 +2,7 @@
     'use strict';
 
     var constants = {
-        email: /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/
+        email: /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,63})+)$/
     };
 
     angular
