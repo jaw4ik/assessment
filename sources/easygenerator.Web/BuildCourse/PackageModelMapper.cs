@@ -246,7 +246,8 @@ namespace easygenerator.Web.BuildCourse
             {
                 Id = answer.Id.ToNString(),
                 Text = answer.Text,
-                IsCorrect = answer.IsCorrect
+                IsCorrect = answer.IsCorrect,
+                MatchCase = answer.MatchCase
             };
         }
 

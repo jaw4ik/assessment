@@ -125,6 +125,14 @@
         background-repeat: no-repeat;
     }
 
+.check_box {
+    margin-left: 5px;
+}
+
+    .check_box input:focus {
+        outline: none;
+    }
+
 .controls_container {
     margin-top: -10px !important;
 }

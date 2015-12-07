@@ -7,7 +7,7 @@ namespace easygenerator.DomainModel.Entities.Questions
     {
         protected internal BlankAnswer() { }
 
-        protected internal BlankAnswer(string text, bool isCorrect, Guid groupId, string createdBy)
+        protected internal BlankAnswer(string text, bool isCorrect, bool matchCase, Guid groupId, string createdBy)
             : base(createdBy)
         {
             ThrowIfTextIsInvalid(text);
@@ -15,11 +15,14 @@ namespace easygenerator.DomainModel.Entities.Questions
             Text = text;
             IsCorrect = isCorrect;
             GroupId = groupId;
+            MatchCase = matchCase;
         }
 
         public string Text { get; private set; }
 
         public bool IsCorrect { get; private set; }
+
+        public bool MatchCase { get; private set; }
 
         public Guid GroupId { get; private set; }
 

@@ -171,6 +171,8 @@
                         values = _.map(values, function (value) { return plugin.decodeString(value); });
                         data.blankValue = values.join('; ');
                         data.blankValuesList = values;
+                        data.matchCase = false;
+                        data.matchCase = element.attributes['data-match-case'];
 
                         var groupId = element.attributes[plugin.groupIdAttribute];
 
@@ -205,6 +207,7 @@
                         return new CKEDITOR.htmlParser.element(plugin.dataTags.fillInTheBlank, {
                             'data-group-id': groupId,
                             'data-answer-values': JSON.stringify(values),
+                            'data-match-case': this.data.matchCase,
                             'class': plugin.classNames.blankInput
                         });
                     }

@@ -399,6 +399,10 @@
     <Compile Include="Migrations\201512021102248_SetDefaultAccessPlanForNuvola.Designer.cs">
       <DependentUpon>201512021102248_SetDefaultAccessPlanForNuvola.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201512070823506_AddAnswerBlankMatchCase.cs" />
+    <Compile Include="Migrations\201512070823506_AddAnswerBlankMatchCase.Designer.cs">
+      <DependentUpon>201512070823506_AddAnswerBlankMatchCase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ConsumerToolRepository.cs" />
@@ -687,6 +691,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512021102248_SetDefaultAccessPlanForNuvola.resx">
       <DependentUpon>201512021102248_SetDefaultAccessPlanForNuvola.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512070823506_AddAnswerBlankMatchCase.resx">
+      <DependentUpon>201512070823506_AddAnswerBlankMatchCase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

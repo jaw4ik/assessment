@@ -18,7 +18,7 @@ namespace easygenerator.DomainModel
         Statement StatementQuestion(string title, string defaultStatementText, string createdBy);
 
         FillInTheBlanks FillInTheBlanksQuestion(string title, string createdBy);
-        BlankAnswer BlankAnswer(string text, bool isCorrect, Guid groupId, string createdBy);
+        BlankAnswer BlankAnswer(string text, bool isCorrect, bool matchCase, Guid groupId, string createdBy);
         DragAndDropText DragAndDropTextQuestion(string title, string createdBy);
         Dropspot Dropspot(string text, int x, int y, string createdBy);
         TextMatching TextMatchingQuestion(string title, string createdBy, TextMatchingAnswer questionAnswer1, TextMatchingAnswer questionAnswer2);
@@ -98,9 +98,9 @@ namespace easygenerator.DomainModel
             return new FillInTheBlanks(title, createdBy);
         }
 
-        public BlankAnswer BlankAnswer(string text, bool isCorrect, Guid groupId, string createdBy)
+        public BlankAnswer BlankAnswer(string text, bool isCorrect, bool matchCase, Guid groupId, string createdBy)
         {
-            return new BlankAnswer(text, isCorrect, groupId, createdBy);
+            return new BlankAnswer(text, isCorrect, matchCase, groupId, createdBy);
         }
 
         public DragAndDropText DragAndDropTextQuestion(string title, string createdBy)

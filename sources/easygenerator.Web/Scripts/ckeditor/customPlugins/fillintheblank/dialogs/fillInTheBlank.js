@@ -13,7 +13,8 @@
                 controlsContainer: 'controls_container',
                 fib: 'fill_in_the_blanks',
                 addValueButton: 'add_value_button',
-                validationMessage: 'validation_message'
+                validationMessage: 'validation_message',
+                checkBox: 'check_box'
             },
             selectors = {
                 textBox: '.' + classNames.textBox,
@@ -116,6 +117,18 @@
                 {
                     id: 'info',
                     elements: [
+                    {
+                        type: 'checkbox',
+                        id: 'matchCase',
+                        label: lang.matchCase,
+                        className: classNames.checkBox,
+                        setup: function (widget) {
+                            this.setValue(widget.data.matchCase);
+                        },
+                        commit: function (widget) {
+                            widget.setData('matchCase', this.getValue());
+                        }
+                    },
                      {
                          type: 'vbox',
                          id: 'valuesList',

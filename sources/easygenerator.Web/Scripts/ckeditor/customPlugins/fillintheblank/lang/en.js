@@ -8,5 +8,6 @@
     deleteButtonTitle: 'Delete',
     correctRadioOptionTitle: 'Correct value',
     incorrectRadioOptionTitle: 'Incorrect value',
-    blankPopupValidationMessage: 'Blank should have at least 1 correct option.'
+    blankPopupValidationMessage: 'Blank should have at least 1 correct option.',
+    matchCase: 'Match case'
 });

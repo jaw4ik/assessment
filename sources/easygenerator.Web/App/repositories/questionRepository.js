@@ -165,7 +165,8 @@ define(['durandal/app', 'dataContext', 'constants', 'http/apiHttpWrapper', 'guar
                             return {
                                 GroupId: item.groupId,
                                 Text: item.text,
-                                IsCorrect: item.isCorrect
+                                IsCorrect: item.isCorrect,
+                                MatchCase: item.matchCase
                             };
                         })
                     };

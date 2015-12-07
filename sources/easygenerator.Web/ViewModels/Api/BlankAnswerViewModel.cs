@@ -11,5 +11,6 @@ namespace easygenerator.Web.ViewModels.Api
         public string Text { get; set; }
 
         public bool IsCorrect { get; set; }
+        public bool MatchCase { get; set; }
     }
 }

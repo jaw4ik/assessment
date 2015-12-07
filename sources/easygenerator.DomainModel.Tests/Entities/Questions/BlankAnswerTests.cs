@@ -28,11 +28,12 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             Guid group = default(Guid);
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            var answer = BlankAnswerObjectMother.Create(text, true, group, CreatedBy);
+            var answer = BlankAnswerObjectMother.Create(text, true, false, group, CreatedBy);
 
             answer.Id.Should().NotBeEmpty();
             answer.Text.Should().Be(text);
             answer.IsCorrect.Should().BeTrue();
+            answer.MatchCase.Should().BeFalse();
             answer.GroupId.Should().Be(group);
             answer.Question.Should().BeNull();
             answer.CreatedOn.Should().Be(DateTime.MaxValue);

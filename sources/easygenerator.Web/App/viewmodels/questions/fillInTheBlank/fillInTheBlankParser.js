@@ -8,6 +8,7 @@ const cssSelectors = {
         id: 'id',
         groupId: 'data-group-id',
         answerValues:'data-answer-values',
+        matchCase:'data-match-case',
         value: 'value',
         checked: 'checked'
     },
@@ -37,7 +38,8 @@ class Parser{
 
         _.each(blankInputs, function (item) {
             let $input = $(item),
-                groupId = $input.attr(attributes.groupId);
+                groupId = $input.attr(attributes.groupId),
+                matchCase = $input.attr(attributes.matchCase);
 
             if (_.isEmptyOrWhitespace(groupId)) {
                 groupId = generateGuid();
@@ -56,7 +58,8 @@ class Parser{
                 answers.push({
                     groupId: groupId,
                     text: answer.trim(),
-                    isCorrect: true
+                    isCorrect: true,
+                    matchCase: matchCase
                 });
             });
         });
@@ -102,6 +105,7 @@ class Parser{
             if (answerValues.length > 0) {
                 let answerTexts = _.map(answerValues, a => encodeString(a.text));
                 $input.attr(attributes.answerValues, JSON.stringify(answerTexts));
+                $input.attr(attributes.matchCase, answerValues[0].matchCase);
             }
         });
 
