@@ -9,103 +9,103 @@
     right: -300px;
     font-family: 'OpenSans';
     font-size: 13px;
-}
 
-.tab-headers-wrapper {
-    -moz-transform: rotate(270.0deg);
-    -webkit-transform: rotate(270.0deg);
-    -ms-transform: rotate(270.0deg);
-    transform: rotate(270.0deg);
-    -webkit-transform-origin: 200px 200px;
-    -ms-transform-origin: 200px 200px;
-    -moz-transform-origin: 200px 200px;
-    transform-origin: 200px 200px;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    font-size: 14px;
-    font-family: 'OpenSans-Semibold';
-    cursor: default;
-    color: #ffffff;
-    height: 30px;
-    margin-right: 50px;
-}
+    .tab-headers-wrapper {
+        -moz-transform: rotate(270.0deg);
+        -webkit-transform: rotate(270.0deg);
+        -ms-transform: rotate(270.0deg);
+        transform: rotate(270.0deg);
+        -webkit-transform-origin: 200px 200px;
+        -ms-transform-origin: 200px 200px;
+        -moz-transform-origin: 200px 200px;
+        transform-origin: 200px 200px;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        font-size: 14px;
+        font-family: 'OpenSans-Semibold';
+        cursor: default;
+        color: #ffffff;
+        height: 30px;
+        margin-right: 50px;
 
-.tab-header {
-    display: table-cell;
-    vertical-align: middle;
-    line-height: 32px;
-    width: 130px;
-    position: relative;
-    float: right;
-    text-align: center;
-    cursor: pointer;
-    z-index: 1;
+        .tab-header {
+            display: table-cell;
+            vertical-align: middle;
+            line-height: 32px;
+            width: 130px;
+            position: relative;
+            float: right;
+            text-align: center;
+            cursor: pointer;
+            z-index: 1;
 
-    &:before,
-    &:after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        bottom: 0;
-        z-index: -1;
-        background-color: #738ca5;
-    }
+            &:before,
+            &:after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                bottom: 0;
+                z-index: -1;
+                background-color: #738ca5;
+            }
 
-    &:before {
-        border-radius: 5px;
-        transform: skew(10deg);
-        left: 10px;
-    }
+            &:before {
+                border-radius: 5px;
+                transform: skew(10deg);
+                left: 10px;
+            }
 
-    &:after {
-        border-radius: 5px;
-        transform: skew(-10deg);
-        right: 10px;
-        left: auto;
-    }
+            &:after {
+                border-radius: 5px;
+                transform: skew(-10deg);
+                right: 10px;
+                left: auto;
+            }
 
-    &.active, &:hover {
-        top: -2px;
-        z-index: 999;
+            &.active, &:hover {
+                top: -2px;
+                z-index: 999;
 
-        &:before,
-        &:after {
-            background-color: #63798e;
+                &:before,
+                &:after {
+                    background-color: #63798e;
+                }
+            }
+
+            & + & {
+                margin-right: -7px;
+            }
+
+            .tab-header-text {
+                display: inline-block;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 100%;
+            }
         }
     }
 
-    & + & {
-        margin-right: -7px;
-    }
-
-    .tab-header-text {
-        display: inline-block;
-        text-overflow: ellipsis;
+    .tab {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 30px;
+        background-color: #f4f4f4;
+        border-left: 1px solid #CECECE;
+        border-top: 1px solid #CECECE;
         overflow: hidden;
-        width: 100%;
+
+        &:after {
+            clear: both;
+        }
     }
-}
 
-.tab {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 30px;
-    background-color: #f4f4f4;
-    border-left: 1px solid #CECECE;
-    border-top: 1px solid #CECECE;
-    overflow: hidden;
-}
-
-.panel-right.expanded .tab {
-    box-shadow: 0 0 5px #CECECE;
-}
-
-.tab:after {
-    clear: both;
+    &.expanded .tab {
+        box-shadow: 0 0 5px #CECECE;
+    }
 }
 
 /*#endregion Panel*/
@@ -126,13 +126,6 @@
         left: 15px;
         top: 50%;
     }
-}
-
-.review-comments-section .tab-title-text:before {
-    height: 14px;
-    width: 18px;
-    margin-top: -8px;
-    background: url(../Content/images/sprites_24.png) no-repeat -177px -3px;
 }
 
 .tab-help-info {
@@ -164,14 +157,14 @@
     padding: 9px 0;
     color: white;
     text-shadow: none;
-}
 
-.tab-btn .loader-container {
-    padding-left: 20px;
-}
+    .loader-container {
+        padding-left: 20px;
+    }
 
-.tab-btn .btn-text {
-    line-height: 1;
+    .btn-text {
+        line-height: 1;
+    }
 }
 
 /*#endregion Tabs*/
@@ -180,11 +173,12 @@
 
 .review-link {
     margin-top: 10px;
+
+    &.disabled {
+        opacity: 0.6;
+    }
 }
 
-.review-link.disabled {
-    opacity: 0.6;
-}
 
 .review-link-input-wrapper {
     width: 100%;
@@ -230,46 +224,55 @@
 .review-comments-section {
     height: 100%;
     position: relative;
-}
 
-.review-comments-section .tab-title,
-.review-comments-section .review-comments-block,
-.review-comments-section .tab-content {
-    position: absolute;
-}
+    .tab-title-text:before {
+        height: 14px;
+        width: 18px;
+        margin-top: -8px;
+        background: url(../Content/images/sprites_24.png) no-repeat -177px -3px;
+    }
 
-.review-comments-section .review-comments-block {
-    position: absolute;
-    width: 100%;
-    top: 55px;
-    bottom: 190px;
-    background-color: #FFF;
-    overflow: hidden;
+    .tab-title,
+    .review-comments-block,
+    .tab-content {
+        position: absolute;
+    }
 
-    .iScrollVerticalScrollbar {
-        top: 10px;
-        right: 5px;
-        bottom: 10px;
+    .review-comments-block {
+        position: absolute;
+        width: 100%;
+        top: 55px;
+        bottom: 190px;
+        background-color: #FFF;
+        overflow: hidden;
 
-        .iScrollIndicator {
-            background-color: #b1bcc6;
+        .iScrollVerticalScrollbar {
+            top: 10px;
+            right: 5px;
+            bottom: 10px;
+
+            .iScrollIndicator {
+                background-color: #b1bcc6;
+            }
         }
     }
-}
 
-.review-comments-section.empty .review-comments-block {
-    bottom: 103px;
-}
+    &.empty {
+        .review-comments-block {
+            bottom: 103px;
+        }
 
-.review-comments-section .tab-content {
-    bottom: 0;
-    height: 190px;
-    box-shadow: 0 0 5px 1px #CECECE;
-    border-top: 1px solid #CECECE;
-}
+        .tab-content {
+            height: 103px;
+        }
+    }
 
-.review-comments-section.empty .tab-content {
-    height: 103px;
+    .tab-content {
+        bottom: 0;
+        height: 190px;
+        box-shadow: 0 0 5px 1px #CECECE;
+        border-top: 1px solid #CECECE;
+    }
 }
 
 .review-comment {
@@ -368,24 +371,24 @@
     padding-right: 12px;
     padding-top: 44px;
     cursor: default;
-}
 
-.review-not-paid-message:before {
-    background: url("images/sprites_64.png") repeat scroll -16px -80px rgba(0,0,0,0);
-    content: "";
-    display: block;
-    height: 36px;
-    left: 50%;
-    margin-left: -5px;
-    position: absolute;
-    top: 50%;
-    margin-top: -38px;
-    width: 30px;
-}
+    &:before {
+        background: url("images/sprites_64.png") repeat scroll -16px -80px rgba(0,0,0,0);
+        content: "";
+        display: block;
+        height: 36px;
+        left: 50%;
+        margin-left: -5px;
+        position: absolute;
+        top: 50%;
+        margin-top: -38px;
+        width: 30px;
+    }
 
-.review-not-paid-message a {
-    text-decoration: underline;
-    color: #2CB7FF;
+    a {
+        text-decoration: underline;
+        color: #2CB7FF;
+    }
 }
 
 .review-comment-foter {

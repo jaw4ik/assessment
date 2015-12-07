@@ -1,4 +1,6 @@
-﻿html, body, iframe, div {
+﻿@focus-border-color: rgba(0, 168, 255, 0.75);
+
+html, body, iframe, div {
     margin: 0;
     padding: 0;
     border: none;
@@ -27,8 +29,6 @@ iframe {
     width: 100%;
 }
 
-/*#region Header*/
-
 .comments-header {
     display: flex;
     align-items: center;
@@ -41,49 +41,45 @@ iframe {
     background-color: #546677;
     line-height: 40px;
     overflow: hidden;
+
+    &:hover {
+        background-color: #42515f;
+    }
+
+    .comment-header-text {
+        flex: 1 0;
+        padding-left: 10px;
+        margin-left: 24px;
+
+        &:before {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 8px;
+            top: 14px;
+            width: 20px;
+            height: 12px;
+            background: url('images/review-sprites.png');
+            background-position: 0 0;
+        }
+    }
+
+    .comments-expander {
+        margin-right: 12px;
+        content: '';
+        width: 16px;
+        height: 9px;
+        background: url('images/review-sprites.png');
+
+        &.expanded {
+            background-position: 0 -49px;
+        }
+
+        &.collapsed {
+            background-position: 0 -41px;
+        }
+    }
 }
-
-.comments-header:hover {
-    background-color: #42515f;
-}
-
-.comment-header-text {
-    flex: 1 0;
-    padding-left: 10px;
-    margin-left: 24px;
-}
-
-.comment-header-text:before {
-    content: '';
-    display: block;
-    position: absolute;
-    left: 8px;
-    top: 14px;
-    width: 20px;
-    height: 12px;
-    background: url('images/review-sprites.png');
-    background-position: 0 0;
-}
-
-.comments-expander {
-    margin-right: 12px;
-    content: '';
-    width: 16px;
-    height: 9px;
-    background: url('images/review-sprites.png');
-}
-
-.comments-expander.expanded {
-    background-position: 0 -49px;
-}
-
-.comments-expander.collapsed {
-    background-position: 0 -41px;
-}
-
-/*#endregion Header*/
-
-/*#region Add comment form*/
 
 .add-comment-form {
     position: relative;
@@ -96,8 +92,6 @@ iframe {
     padding-top: 10px;
     padding-bottom: 10px;
 }
-
-@focus-border-color: rgba(0, 168, 255, 0.75);
 
 .identify-user-form {
     position: absolute;
@@ -175,9 +169,6 @@ iframe {
         }
     }
 }
-/*#endregion Add comment form*/
-
-/*#region Text block*/
 
 .comment-text-block {
     font-family: 'OpenSans';
@@ -187,35 +178,31 @@ iframe {
     border-radius: 5px;
     font-size: 13px;
     border: 1px solid #e5e5e5;
+
+    &.placeholder {
+        color: #c4c4c4;
+    }
+
+    &:-ms-input-placeholder {
+        color: #c4c4c4;
+    }
+
+    &:focus {
+        border: 1px solid @focus-border-color;
+    }
+
+    &.message {
+        height: 190px;
+        padding: 10px 10px 5px 10px;
+        resize: none;
+        overflow: auto;
+
+        &.error {
+            border: 1px solid rgba(149, 59, 57, 0.8);
+            box-shadow: inset 0 0 7px rgba(149, 59, 57, 1);
+        }
+    }
 }
-
-.comment-text-block.placeholder {
-    color: #c4c4c4;
-}
-
-.comment-text-block:-ms-input-placeholder {
-    color: #c4c4c4;
-}
-
-.comment-text-block:focus {
-    border: 1px solid @focus-border-color;
-}
-
-.comment-text-block.message {
-    height: 190px;
-    padding: 10px 10px 5px 10px;
-    resize: none;
-    overflow: auto;
-}
-
-.comment-text-block.message.error {
-    border: 1px solid rgba(149, 59, 57, 0.8);
-    box-shadow: inset 0 0 7px rgba(149, 59, 57, 1);
-}
-
-/*#endregion Text block*/
-
-/*#region Action wrapper*/
 
 .comment-action-wrapper {
     position: relative;
@@ -224,10 +211,6 @@ iframe {
     font-size: 13px;
     min-height: 39px;
 }
-
-/*#endregion Action wrapper*/
-
-/*#region Buttons*/
 
 .comment-btn {
     display: inline-block;
@@ -249,44 +232,35 @@ iframe {
     }
 }
 
-/*#endregion Buttons*/
-
-/*#region Status message*/
-
 .comment-status-message {
     display: inline-block;
     color: #999999;
     margin-left: 32px;
     font-size: 12px;
+
+    &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 8px;
+        width: 20px;
+        background: url('images/review-sprites.png');
+    }
+
+    &.success {
+        padding-top: 8px;
+        padding-bottom: 10px;
+
+        &:before {
+            height: 14px;
+            background: url('images/review-sprites.png');
+            background-position: 0 -10px;
+        }
+    }
+
+    &.fail:before {
+        top: 8px;
+        height: 16px;
+        background-position: 0 -25px;
+    }
 }
-
-.comment-status-message:before {
-    content: '';
-    display: block;
-    position: absolute;
-    left: 8px;
-    width: 20px;
-    background: url('images/review-sprites.png');
-}
-
-.comment-status-message.success {
-    padding-top: 8px;
-    padding-bottom: 10px;
-}
-
-.comment-status-message.success:before {
-    height: 14px;
-    background: url('images/review-sprites.png');
-    background-position: 0 -10px;
-}
-
-.comment-status-message.fail:before {
-    top: 8px;
-    height: 16px;
-    background-position: 0 -25px;
-}
-
-/*#endregion Status message*/
-
-
-
