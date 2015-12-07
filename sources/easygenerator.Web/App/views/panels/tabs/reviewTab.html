@@ -41,7 +41,7 @@
             <div class="review-link-input-wrapper">
                 <input class="review-link-input" type="text" readonly="readonly" data-bind="value: reviewUrl(), css: { selectable: !isPublishing() }, selectText: reviewUrlExists(), enable: !isPublishing()"/>
             </div>
-            <a href="#" class="open-review-link" data-bind="attr: {href: reviewUrl()}, click: openCourseReviewUrl">Open in new window</a>
+            <a href="#" class="open-review-link" data-bind="localize: { text: 'openInNewWindow' }, attr: {href: reviewUrl()}, click: openCourseReviewUrl">Open in new window</a>
         </div>
         <!-- /ko -->
     </div>

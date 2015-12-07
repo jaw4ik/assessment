@@ -130,7 +130,7 @@
     <value>Введіть валідний e-mail</value>
   </data>
   <data name="EnterYourNameError" xml:space="preserve">
-    <value>Введіть своє ім'я</value>
+    <value>Введіть валідне ім'я</value>
   </data>
   <data name="IdentifyMessage" xml:space="preserve">
     <value>Будь-ласка, ідентифікуйте себе</value>

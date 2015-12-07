@@ -41,7 +41,7 @@
         }
 
         function removeComment(comment) {
-            commentRepository.removeComment(viewModel.courseId, comment.id).then(function (success) {
+            return commentRepository.removeComment(viewModel.courseId, comment.id).then(function (success) {
                 if (success) {
                     viewModel.comments.remove(comment);
                     notify.saved();

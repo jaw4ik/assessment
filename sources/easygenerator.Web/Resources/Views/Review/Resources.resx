@@ -130,7 +130,7 @@
     <value>Enter a valid e-mail</value>
   </data>
   <data name="EnterYourNameError" xml:space="preserve">
-    <value>Enter your name</value>
+    <value>Enter a valid name</value>
   </data>
   <data name="IdentifyMessage" xml:space="preserve">
     <value>Please identify yourself</value>
