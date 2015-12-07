@@ -372,7 +372,7 @@
                                 });
                             });
 
-                            xdescribe('and response is successful', function(){
+                            describe('and response is successful', function(){
 
                                 beforeEach(function(){
                                     spyOn(localStorage, 'getItem').and.returnValue(email);
