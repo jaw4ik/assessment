@@ -5,6 +5,7 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters.Authorization;
+using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
@@ -35,6 +36,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [EntityCollaborator(typeof(Course))]
         [Route("api/comment/delete")]
         public ActionResult Delete(Course course, Comment comment)
         {
