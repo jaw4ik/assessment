@@ -306,8 +306,8 @@
                     describe('when username and usermail are strings', function(){
 
                         it('should send request to /api/comment/create and trim values before sending request', function(){
-                            spyOn(localStorage, 'getItem').and.returnValue(`   ${email}    `);
-                            viewModel.text(`   ${text}    `);
+                            spyOn(localStorage, 'getItem').and.returnValue('   ' + email + '   ');
+                            viewModel.text('   ' + text + '   ');
 
                             viewModel.addComment(courseId);
 
@@ -408,11 +408,7 @@
                         });
                     });    
                 });
-
             });
-
         });
-
     });
-
 });
