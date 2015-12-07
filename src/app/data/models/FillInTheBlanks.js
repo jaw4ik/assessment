@@ -22,7 +22,8 @@
                 var correct = 0;
                 _.each(that.groups, function (group) {
                     if (_.find(group.answers, function (answer) {
-                        return answer.isCorrect && answers[group.id] === answer.text;
+                        return answer.isCorrect &&
+                            answer.matchCase ? answers[group.id] === answer.text : answers[group.id].toLowerCase() === answer.text.toLowerCase();
                     })) {
                         correct++;
                     }
