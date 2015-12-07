@@ -275,60 +275,64 @@
     }
 }
 
-.review-comment {
-    padding: 13px 15px 5px;
-    border-bottom: 1px solid #E2E2E2;
+.review-comments-container {
+    height: 100%;
 
-    .review-comment-text {
-        padding: 10px 5px 10px 0;
-        font-size: 12px;
-        font-family: 'OpenSans';
-        color: #42515f;
-        -ms-word-wrap: break-word;
-        word-wrap: break-word;
-    }
+    .review-comment {
+        padding: 13px 15px 5px;
+        border-bottom: 1px solid #E2E2E2;
 
-    .comment-user {
-        margin-top: 5px;
-        display: flex;
-        align-items: center;
-
-        .comment-avatar-letter-holder {
-            background-color: #469dd5;
-            float: left;
-            margin-right: 10px;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            text-align: center;
-
-            .comment-avatar-letter {
-                display: inline-block;
-                color: #fff;
-                text-transform: uppercase;
-                font-size: 18px;
-                font-family: 'OpenSans-Semibold';
-                margin-top: 5px;
-            }
+        .review-comment-text {
+            padding: 10px 5px 10px 0;
+            font-size: 12px;
+            font-family: 'OpenSans';
+            color: #42515f;
+            -ms-word-wrap: break-word;
+            word-wrap: break-word;
         }
 
-        .comment-user-wrapper {
-            flex: 1 0;
+        .comment-user {
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
 
-            .review-comment-name {
-                font-size: 12px;
-                font-family: 'OpenSans-Semibold';
-                color: #42515f;
-                -ms-word-wrap: break-word;
-                word-wrap: break-word;
+            .comment-avatar-letter-holder {
+                background-color: #469dd5;
+                float: left;
+                margin-right: 10px;
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                text-align: center;
+
+                .comment-avatar-letter {
+                    display: inline-block;
+                    color: #fff;
+                    text-transform: uppercase;
+                    font-size: 18px;
+                    font-family: 'OpenSans-Semibold';
+                    margin-top: 5px;
+                }
             }
 
-            .review-comment-email {
-                font-size: 12px;
-                font-family: 'OpenSans';
-                color: #63798e;
-                -ms-word-wrap: break-word;
-                word-wrap: break-word;
+            .comment-user-wrapper {
+                flex: 1 0;
+
+                .review-comment-name {
+                    font-size: 12px;
+                    font-family: 'OpenSans-Semibold';
+                    color: #42515f;
+                    -ms-word-wrap: break-word;
+                    word-wrap: break-word;
+                }
+
+                .review-comment-email {
+                    font-size: 12px;
+                    font-family: 'OpenSans';
+                    color: #63798e;
+                    -ms-word-wrap: break-word;
+                    word-wrap: break-word;
+                }
             }
         }
     }
