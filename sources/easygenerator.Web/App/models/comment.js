@@ -7,6 +7,8 @@
             var obj = new EntityModel(spec);
 
             obj.text = spec.text;
+            obj.name = spec.name;
+            obj.email = spec.email;
 
             return obj;
         };

@@ -3,7 +3,8 @@
         "use strict";
 
         var repository = {
-            getCollection: getCollection
+            getCollection: getCollection,
+            removeComment: removeComment
         };
 
         return repository;
@@ -20,6 +21,8 @@
                         return new Comment({
                             id: comment.Id,
                             text: comment.Text,
+                            email: comment.CreatedBy,
+                            name: comment.CreatedByName,
                             createdOn: comment.CreatedOn
                         });
                     });
@@ -27,5 +30,22 @@
             });
         }
 
+        function removeComment(courseId, commentId) {
+            return Q.fcall(function () {
+                guard.throwIfNotString(courseId, 'Course id is not a string');
+                guard.throwIfNotString(commentId, 'Comment id is not a string');
+
+                var data = {
+                    courseId: courseId,
+                    commentId: commentId
+                };
+
+                return apiHttpWrapper.post('api/comment/delete', data).then(function (response) {
+                    guard.throwIfNotBoolean(response, 'Response is not a boolean');
+
+                    return response;
+                });
+            });
+        }
     }
 );

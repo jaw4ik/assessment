@@ -113,5 +113,44 @@ namespace easygenerator.Web.Resources.Views.Review {
                 return ResourceManager.GetString("YourMessage", resourceCulture);
             }
         }
+
+        public static string IdentifyMessage
+        {
+            get
+            {
+                return ResourceManager.GetString("IdentifyMessage", resourceCulture);
+            }
+        }
+
+        public static string Name
+        {
+            get
+            {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+
+        public static string Email
+        {
+            get
+            {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+
+        public static string EnterYourNameError
+        {
+            get
+            {
+                return ResourceManager.GetString("EnterYourNameError", resourceCulture);
+            }
+        }
+        public static string EnterValidEmailError
+        {
+            get
+            {
+                return ResourceManager.GetString("EnterValidEmailError", resourceCulture);
+            }
+        }
     }
 }

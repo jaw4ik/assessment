@@ -10,11 +10,12 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
     public static class CommentObjectMother
     {
         private const string DefaultText = "comment text";
-        private const string DefaultCreatedBy = "user";
+        private const string DefaultName = "user";
+        private const string DefaultCreatedBy = "user@user.user";
 
-        public static Comment Create(string createdBy = DefaultCreatedBy, string text = DefaultText)
+        public static Comment Create(string createdByName = DefaultName, string createdBy = DefaultCreatedBy, string text = DefaultText)
         {
-            return new Comment(createdBy, text);
+            return new Comment(createdByName, createdBy, text);
         }
 
         public static Comment CreateWithText(string text)
