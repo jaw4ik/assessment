@@ -15,15 +15,17 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void Comment_ShouldCreateInstance()
         {
             const string text = "text";
-            const string createdBy = "user";
+            const string createdByName = "user";
+            const string createdBy = "user@user.user";
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            var comment = CommentObjectMother.Create(createdBy, text);
+            var comment = CommentObjectMother.Create(createdByName, createdBy, text);
 
             comment.Id.Should().NotBeEmpty();
             comment.Text.Should().Be(text);
             comment.CreatedOn.Should().Be(DateTime.MaxValue);
             comment.ModifiedOn.Should().Be(DateTime.MaxValue);
+            comment.CreatedByName.Should().Be(createdByName);
             comment.CreatedBy.Should().Be(createdBy);
             comment.ModifiedBy.Should().Be(createdBy);
         }

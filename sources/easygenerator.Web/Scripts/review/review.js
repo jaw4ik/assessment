@@ -1,70 +1,92 @@
 ﻿var app = app || {};
 
-app.reviewViewModel = function () {
+app.reviewViewModel = function() {
+    var patternEmail = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,15})+)$/,
+           userNameKey = 'usernameForReview',
+           userMailKey = 'usermailForReview';
 
-    var isExpanded = ko.observable(false),
-        text = ko.observable(),
-        hasValidationError = ko.observable(false),
-        isSaved = ko.observable(false),
-        isFailed = ko.observable(false),
 
-        toggleVisiblity = function () {
-            isExpanded(!isExpanded());
+    var viewModel = {
+        text: ko.observable(''),
+        name: ko.observable(''),
+        email: ko.observable(''),
+        showTextValidationError: ko.observable(false),
+        showNameValidationError: ko.observable(false),
+        showEmailValidationError: ko.observable(false),
+        showIdentifyUserForm: ko.observable(false),
+        isExpanded: ko.observable(false),
+        isSaved: ko.observable(false),
+        isFailed: ko.observable(false),
+
+        toggleVisiblity: function () {
+            viewModel.isExpanded(!viewModel.isExpanded());
         },
-
-        onTextFocused = function () {
-            hasValidationError(false);
+        onTextFocused: function () {
+            viewModel.showTextValidationError(false);
         },
-
-        onCollapsed = function () {
-            isSaved(false);
-            isFailed(false);
+        onCollapsed: function () {
+            viewModel.isSaved(false);
+            viewModel.isFailed(false);
         },
-
-        addComment = function (courseId) {
+        addComment: function(courseId) {
             if (_.isNullOrUndefined(courseId)) {
                 throw 'Course id is not specified';
             }
 
-            isSaved(false);
-            isFailed(false);
+            if (!viewModel.showIdentifyUserForm()) {
+                if (!viewModel.text() || _.isEmptyOrWhitespace(viewModel.text())) {
+                    viewModel.showTextValidationError(true);
+                    return;
+                }
+            } else {
+                viewModel.showNameValidationError(!viewModel.name() || !viewModel.name().trim() || viewModel.name().trim().length > 255);
+                viewModel.showEmailValidationError(!viewModel.email() || !patternEmail.test(viewModel.email().trim()) || viewModel.email().trim().length > 254);
 
-            if (!text() || _.isEmptyOrWhitespace(text())) {
-                hasValidationError(true);
+                if (viewModel.showNameValidationError() || viewModel.showEmailValidationError()) {
+                    return;
+                }
+
+                localStorage.setItem(userNameKey, viewModel.name());
+                localStorage.setItem(userMailKey, viewModel.email());
+            }
+
+            var username = localStorage.getItem(userNameKey),
+                usermail = localStorage.getItem(userMailKey);
+
+            if (!username || !username.trim() || !usermail || !usermail.trim()) {
+                viewModel.showIdentifyUserForm(true);
                 return;
             }
 
-            var that = this;
-
-            $.ajax({
-                url: '/api/comment/create',
-                data: { courseId: courseId, text: text().trim() },
-                type: 'POST'
-            }).done(function (response) {
-                if (response) {
-                    if (response.success) {
-                        that.isSaved(true);
-                        that.text('');
-                    } else {
-                        that.isFailed(true);
-                    }
-                } else {
-                    throw 'Response is not an object';
-                }
-            }).fail(function () {
-                that.isFailed(true);
-            });
-        };
-
-    return {
-        isExpanded: isExpanded,
-        text: text,
-        onTextFocused: onTextFocused,
-        onCollapsed: onCollapsed,
-        toggleVisiblity: toggleVisiblity,
-        hasValidationError: hasValidationError,
-        isSaved: isSaved,
-        isFailed: isFailed,
-        addComment: addComment
+            return postUserComment(username, usermail, viewModel.text(), courseId);
+        }
     };
+    
+    function postUserComment(username, usermail, comment, courseId) {
+        viewModel.isSaved(false);
+        viewModel.isFailed(false);
+
+        return $.ajax({
+            url: '/api/comment/create',
+            data: { courseId: courseId, text: comment.trim(), createdByName: username.trim(), createdBy: usermail.trim() },
+            type: 'POST'
+        }).done(function (response) {
+            if (response) {
+                if (response.success) {
+                    viewModel.showIdentifyUserForm(false);
+                    viewModel.isSaved(true);
+                    viewModel.text('');
+                } else {
+                    viewModel.isFailed(true);
+                }
+            } else {
+                throw 'Response is not an object';
+            }
+        }).fail(function () {
+            viewModel.isFailed(true);
+        });
+    };
+
+    return viewModel;
 };
+

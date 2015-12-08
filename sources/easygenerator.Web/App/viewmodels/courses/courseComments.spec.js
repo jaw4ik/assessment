@@ -4,7 +4,8 @@
         var userContext = require('userContext'),
             commentRepository = require('repositories/commentRepository'),
             eventTracker = require('eventTracker'),
-            constants = require('constants');
+            constants = require('constants'),
+            notify = require('notify');
 
         describe('viewModel [courseComments]', function () {
 
@@ -227,6 +228,97 @@
 
             });
 
+            describe('removeComment:', function () {
+                var removeDefer,
+                    courseId = 'courseId',
+                    comment = { id: '1' };
+
+                beforeEach(function() {
+                    spyOn(notify, 'saved');
+                    spyOn(notify, 'error');
+                });
+
+                it('should be function', function () {
+                    expect(viewModel.removeComment).toBeFunction();
+                });
+
+                beforeEach(function () {
+                    viewModel.courseId = courseId;
+                    viewModel.comments([comment]);
+
+                    removeDefer = Q.defer();
+                    spyOn(commentRepository, 'removeComment').and.returnValue(removeDefer.promise);
+                });
+
+                it('should remove comment from repository', function (done) {
+                    viewModel.removeComment(comment).fin(function () {
+                        expect(commentRepository.removeComment).toHaveBeenCalledWith(courseId, comment.id);
+                        done();
+                    });
+
+                    removeDefer.reject();
+                });
+
+                describe('when comment is removed:', function () {
+                    it('should remove it from viewModel', function (done) {
+                        viewModel.removeComment(comment).fin(function () {
+                            expect(viewModel.comments().length).toBe(0);
+                            done();
+                        });
+
+                        removeDefer.resolve(true);
+                    });
+
+                    it('should show saved notification', function (done) {
+                        viewModel.removeComment(comment).fin(function () {
+                            expect(notify.saved).toHaveBeenCalled();
+                            done();
+                        });
+
+                        removeDefer.resolve(true);
+                    });
+                });
+
+                describe('when comment is not removed:', function () {
+                    it('should not remove it from viewModel', function (done) {
+                        viewModel.removeComment(comment).fin(function () {
+                            expect(viewModel.comments().length).toBe(1);
+                            done();
+                        });
+
+                        removeDefer.resolve(false);
+                    });
+
+                    it('should show error notification', function (done) {
+                        viewModel.removeComment(comment).fin(function () {
+                            expect(notify.error).toHaveBeenCalled();
+                            done();
+                        });
+
+                        removeDefer.resolve(false);
+                    });
+                });
+
+                describe('when error during deleting comment:', function () {
+                    it('should not remove it from viewModel', function (done) {
+                        viewModel.removeComment(comment).fin(function () {
+                            expect(viewModel.comments().length).toBe(1);
+                            done();
+                        });
+
+                        removeDefer.reject();
+                    });
+
+                    it('should show error notification', function () {
+                        viewModel.removeComment(comment).fin(function (done) {
+                            expect(notify.error).toHaveBeenCalled();
+                            done();
+                        });
+
+                        removeDefer.reject();
+                    });
+                });
+            });
         });
 
     }
