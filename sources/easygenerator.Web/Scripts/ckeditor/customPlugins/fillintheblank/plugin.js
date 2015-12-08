@@ -172,7 +172,7 @@
                         data.blankValue = values.join('; ');
                         data.blankValuesList = values;
                         data.matchCase = false;
-                        data.matchCase = element.attributes['data-match-case'];
+                        data.matchCase = JSON.parse(element.attributes['data-match-case']);
 
                         var groupId = element.attributes[plugin.groupIdAttribute];
 
