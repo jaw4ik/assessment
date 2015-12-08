@@ -1,5 +1,8 @@
 ﻿/*#region Panel*/
 
+@main-text-color: #42515f;
+@support-text-color: #63798e;
+
 .panel-right {
     position: fixed;
     top: 0;
@@ -70,7 +73,7 @@
 
                 &:before,
                 &:after {
-                    background-color: #63798e;
+                    background-color: @support-text-color;
                 }
             }
 
@@ -115,9 +118,13 @@
 .tab-title-text {
     position: relative;
     background-color: #FFF;
+    border-bottom: 1px solid #DFDFDF;
+    color: @main-text-color;
+    font-family: 'OpenSans-Semibold';
+    font-size: 12px;
+    text-transform: uppercase;
     line-height: 54px;
     padding: 0 15px 0 40px;
-    border-bottom: 1px solid #DFDFDF;
 
     &:before {
         content: '';
@@ -129,7 +136,7 @@
 }
 
 .tab-help-info {
-    color: #42515f;
+    color: @main-text-color;
     cursor: default;
     font-size: 12px;
     padding: 10px 0;
@@ -179,7 +186,6 @@
     }
 }
 
-
 .review-link-input-wrapper {
     width: 100%;
 
@@ -189,7 +195,7 @@
         background: white;
         border: 1px solid #CAC3BD;
         border-radius: 3px;
-        color: #63798e;
+        color: @support-text-color;
         font-family: 'OpenSans';
         font-size: 12px;
         padding: 0 5px;
@@ -276,7 +282,10 @@
 }
 
 .review-comments-container {
-    height: 100%;
+
+    &.empty {
+        height: 100%;
+    }
 
     .review-comment {
         padding: 13px 15px 5px;
@@ -286,7 +295,7 @@
             padding: 10px 5px 10px 0;
             font-size: 12px;
             font-family: 'OpenSans';
-            color: #42515f;
+            color: @main-text-color;
             -ms-word-wrap: break-word;
             word-wrap: break-word;
         }
@@ -321,7 +330,7 @@
                 .review-comment-name {
                     font-size: 12px;
                     font-family: 'OpenSans-Semibold';
-                    color: #42515f;
+                    color: @main-text-color;
                     -ms-word-wrap: break-word;
                     word-wrap: break-word;
                 }
@@ -329,7 +338,7 @@
                 .review-comment-email {
                     font-size: 12px;
                     font-family: 'OpenSans';
-                    color: #63798e;
+                    color: @support-text-color;
                     -ms-word-wrap: break-word;
                     word-wrap: break-word;
                 }
@@ -404,7 +413,7 @@
         flex: 1 0;
         font-size: 11px;
         font-family: 'OpenSansItalic';
-        color: #63798e;
+        color: @support-text-color;
     }
 
     .delete-comment-btn {

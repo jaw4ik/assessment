@@ -1,4 +1,4 @@
-﻿<div class="review-comments-container">
+﻿<div class="review-comments-container" data-bind="css: { empty: !comments().length || !hasAccessToComments()}">
     <!-- ko if: hasAccessToComments() -->
     <!-- ko if: isCommentsLoading -->
     <div class="review-comments-block-loader"></div>
