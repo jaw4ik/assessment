@@ -120,6 +120,7 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<Comment>().HasRequired(e => e.Course);
             modelBuilder.Entity<Comment>().Property(e => e.Text).IsRequired();
+            modelBuilder.Entity<Comment>().Property(e => e.CreatedByName).HasMaxLength(255).IsRequired();
 
             modelBuilder.Entity<Question>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Question>().HasRequired(e => e.Objective);
@@ -328,6 +329,10 @@ namespace easygenerator.DataAccess
                         entry.State = EntityState.Deleted;
                     }
                     if ((entry.Entity is CourseCollaborator) && (entry.Entity as CourseCollaborator).Course == null)
+                    {
+                        entry.State = EntityState.Deleted;
+                    }
+                    if ((entry.Entity is Comment) && (entry.Entity as Comment).Course == null)
                     {
                         entry.State = EntityState.Deleted;
                     }

@@ -51,7 +51,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Create_ShouldReturnJsonErrorResult_WnenCourseIsNull()
         {
             //Act
-            var result = _controller.Create(null, null);
+            var result = _controller.Create(null, null, null, null);
 
             //Assert
             result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.CourseNotFoundError);
@@ -63,14 +63,15 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             const string text = "text";
             const string user = "Test user";
+            const string email = "test@test.test";
             _user.Identity.Name.Returns("Test user");
             var course = Substitute.For<Course>("Course", TemplateObjectMother.Create(), CreatedBy);
-            var comment = Substitute.For<Comment>("Comment", CreatedBy);
+            var comment = Substitute.For<Comment>("Comment", user, email);
 
-            _entityFactory.Comment(text, user).Returns(comment);
+            _entityFactory.Comment(text, user, email).Returns(comment);
 
             //Act
-            _controller.Create(course, text);
+            _controller.Create(course, text, user, email);
 
             //Assert
             course.Received().AddComment(comment);
@@ -82,14 +83,15 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             const string text = "text";
             const string user = "Test user";
+            const string email = "test@test.test";
             _user.Identity.Name.Returns("Test user");
             var course = Substitute.For<Course>("Course", TemplateObjectMother.Create(), CreatedBy);
-            var comment = Substitute.For<Comment>("Comment", CreatedBy);
+            var comment = Substitute.For<Comment>("Comment", user, email);
 
-            _entityFactory.Comment(text, user).Returns(comment);
+            _entityFactory.Comment(text, user, email).Returns(comment);
 
             //Act
-            var result = _controller.Create(course, text);
+            var result = _controller.Create(course, text, user, email);
 
             //Assert
             result.Should()
@@ -126,5 +128,61 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
+        #region Delete comment
+
+        [TestMethod]
+        public void Delete_ShouldReturnJsonErrorResult_WnenCourseIsNull()
+        {
+            //Act
+            var result = _controller.Delete(null, null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.CourseNotFoundError);
+        }
+
+        [TestMethod]
+        public void Delete_ShouldReturnJsonSuccessResult_WnenCommentIsNull()
+        {
+            //Arrange
+            var course = Substitute.For<Course>("Course", TemplateObjectMother.Create(), CreatedBy);
+
+            //Act
+            var result = _controller.Delete(course, null);
+
+            //Assert
+            result.Should().BeJsonSuccessResult();
+        }
+
+        [TestMethod]
+        public void Delete_ShouldDeleteCommentFromCourse()
+        {
+            //Arrange
+            var course = Substitute.For<Course>("Course", TemplateObjectMother.Create(), CreatedBy);
+            var comment = Substitute.For<Comment>();
+
+            //Act
+            _controller.Delete(course, comment);
+
+            //Assert
+            course.Received().DeleteComment(comment);
+        }
+
+        [TestMethod]
+        public void Delete_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            var course = Substitute.For<Course>("Course", TemplateObjectMother.Create(), CreatedBy);
+            var comment = Substitute.For<Comment>();
+
+            //Act
+            var result = _controller.Delete(course, comment);
+
+            //Assert
+            result.Should()
+                .BeJsonSuccessResult()
+                .And.Data.ShouldBeSimilar(true);
+        }
+
+        #endregion
     }
 }
