@@ -30,7 +30,7 @@
             </div>
             <h2 class="course-editor-sections-header" data-bind="localize: { text: 'sections' }">Sections:</h2>
             <div class="course-editor-sections-container" data-bind="css: { empty: notContainSections }">
-                <ul class="sections-list-container" data-bind="draggableContainer: { moveTo: { '.sections-list-container': reorderSection }, draggableArea: '.sections-list-item-sort-button' }">
+                <ul class="sections-list-container" data-bind="draggableContainer: { moveTo: { '.sections-list-container': reorderSection }, draggableArea: '.sections-list-item-sort-button', events: { drag: hideQuestions, dragend: restoreQuestionsExpandingState } }">
                     <!-- ko foreach: sections -->
                     <li class="sections-list-item-container" data-bind="draggableData: { sectionId: id }">
                         <div class="sections-list-item-wrapper" data-bind="css: { processed: isProcessed }">
@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="sections-list-item-title-container">
                                     <div class="sections-list-item-title-wrapper" data-bind="css: {active:title.isEditing, error: !title.isValid()}">
-                                        <div class="sections-list-item-title" contenteditable="true" data-bind="editableText: { text: title }, event: { focus: startEditingTitle, blur: stopEditingTitle }"></div>
+                                        <div class="sections-list-item-title" contenteditable="true" data-bind="editableText: { text: title }, hasFocus: title.isEditing, event: { focus: startEditingTitle, blur: stopEditingTitle }"></div>
                                         <div class="sections-list-item-title-counter">
                                             <span data-bind="text: title() && title().length"></span>
                                             /
@@ -63,10 +63,10 @@
                                     <div class="sections-list-item-actions-menu-container" data-bind="css: { active: menuExpanded }">
                                         <button class="sections-list-item-actions-menu-toggle" data-bind="click: toggleMenu, outsideClick: { action: () => menuExpanded(false) }"></button>
                                         <ul class="sections-list-item-actions-menu">
-                                            <li class="sections-list-item-actions-menu-item edit-title">Edit title</li>
+                                            <li class="sections-list-item-actions-menu-item edit-title" data-bind="click: startEditingTitle">Edit title</li>
                                             <li class="sections-list-item-actions-menu-item change-image" data-bind="click: updateImage">Change image</li>
-                                            <li class="sections-list-item-actions-menu-item disconnect" data-bind="click: $parent.unrelateSection.bind($parent)">Disconnect from the course</li>
-                                            <li class="sections-list-item-actions-menu-item delete">Delete permanently</li>
+                                            <li class="sections-list-item-actions-menu-item disconnect" data-bind="click: $parent.unrelateSection">Disconnect from the course</li>
+                                            <li class="sections-list-item-actions-menu-item delete" data-bind="click: $parent.deleteSection">Delete permanently</li>
                                         </ul>
                                     </div>
                                 </div>

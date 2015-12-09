@@ -648,6 +648,7 @@
     <Content Include="App\editor\course\commands\reorderSectionCommand.js" />
     <Content Include="App\editor\course\commands\unrelateSectionCommand.js" />
     <Content Include="App\editor\course\components\attributesHelper.js" />
+    <Content Include="App\editor\course\components\dragulaAnimation.js" />
     <Content Include="App\editor\course\components\dragulaContainer.js" />
     <Content Include="App\editor\course\createBar.html" />
     <Content Include="App\editor\course\dialogs\deleteSection\deleteSection.js" />

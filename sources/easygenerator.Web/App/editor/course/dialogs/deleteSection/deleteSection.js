@@ -5,10 +5,12 @@ import eventTracker from 'eventTracker';
 
 class DeleteSectionDialog {
     constructor () {
-        this.sectionId = sectionId;
-        this.sectionTitle = sectionTitle;
+        //this.sectionId = sectionId;
+        this.sectionTitle = 'Section title';
     }
-    show() {
+    confirm (sectionId) {
         dialog.show(this, constants.dialogs.deleteSection.settings);
     }
 }
+
+export default new DeleteSectionDialog();

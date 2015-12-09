@@ -7,7 +7,7 @@ import QuestionViewModel from './QuestionViewModel';
 import sectionRepository from 'repositories/objectiveRepository';
 import updateSectionTitleCommand from '../commands/updateSectionTitleCommand';
 
-var mapQuestions = (sectionId, questions) => _.map(questions, question => new QuestionViewModel(sectionId, question, false));
+var mapQuestions = (courseId, sectionId, questions) => _.map(questions, question => new QuestionViewModel(courseId, sectionId, question, false));
 
 var updateModifiedOn = modifiedOn => moment(modifiedOn).format('DD/MM/YY');
 
@@ -26,7 +26,7 @@ export default class SectionViewModel{
         this.imageLoading = ko.observable(false);
         this.menuExpanded = ko.observable(false);
         this.questionsExpanded = ko.observable(!isProcessed);
-        this.questions = ko.observableArray(mapQuestions(this.id(), section.questions));
+        this.questions = ko.observableArray(mapQuestions(this.courseId, this.id(), section.questions));
         this.notContainQuestions = ko.computed(() => this.questions().length === 0, this);
         this.isProcessed = ko.observable(isProcessed);
     }
@@ -89,12 +89,12 @@ export default class SectionViewModel{
         let questionViewModel = null;
 
         if (_.isEmpty(question)) {
-            questionViewModel = new QuestionViewModel(this.id(), question, true);
+            questionViewModel = new QuestionViewModel(this.courseId, this.id(), question, true);
         } else if (question instanceof QuestionViewModel) {
             question.sectionId = this.id();
             questionViewModel = question;
         } else {
-            questionViewModel = new QuestionViewModel(this.id(), question);
+            questionViewModel = new QuestionViewModel(this.courseId, this.id(), question);
         }
 
         if (_.isNumber(index)) {

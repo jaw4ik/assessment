@@ -1,7 +1,8 @@
 import dragula from 'dragula';
 import _ from 'underscore';
 import $ from 'jquery';
-import attributesHelper from 'editor/course/components/attributesHelper';
+import attributesHelper from './attributesHelper';
+import dragulaAnimation from './dragulaAnimation';
 import 'dragula/dist/dragula.css!';
 
 var instance = null;
@@ -37,17 +38,29 @@ export default class DragulaContainer{
             direction: 'vertical'
         });
 
+        dragulaAnimation.initialize(this);
+
         this.dragula.on('drop', (element, target, source, sibling) => {
             if (_.isNull(target)) {
                 return;
             }
-            that.dragula.remove();
+
+            sibling = getOriginalElement(sibling);
             _.each(that.targetsToMove, moveTarget => {
                 if (moveTarget.source === source && $(target).is(moveTarget.selector) && _.isFunction(moveTarget.handler)) {
                     moveTarget.handler(attributesHelper.getDataAttribute(element), attributesHelper.getDataAttribute(sibling), attributesHelper.getDataAttribute(target), attributesHelper.getDataAttribute(source));
                 }
             });
+
+            that.dragula.remove();
         });
+
+        function getOriginalElement(element) {
+            if (element && element.classList.contains('gu-transit')) {
+                return getOriginalElement(element.nextElementSibling);
+            }
+            return element;
+        }
 
         this.dragula.on('cloned', (clone, original, type) => {
             if (type === 'mirror') {
