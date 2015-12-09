@@ -34,6 +34,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             answer.Text.Should().Be(text);
             answer.IsCorrect.Should().BeTrue();
             answer.MatchCase.Should().BeFalse();
+            answer.Order.Should().Be(0);
             answer.GroupId.Should().Be(group);
             answer.Question.Should().BeNull();
             answer.CreatedOn.Should().Be(DateTime.MaxValue);

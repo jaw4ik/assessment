@@ -16,6 +16,7 @@ namespace easygenerator.DomainModel.Entities.Questions
             IsCorrect = isCorrect;
             GroupId = groupId;
             MatchCase = matchCase;
+            Order = 0;
         }
 
         public string Text { get; private set; }

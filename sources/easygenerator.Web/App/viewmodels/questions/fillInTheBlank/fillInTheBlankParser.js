@@ -14,16 +14,8 @@ const cssSelectors = {
     },
     accessoryTag = '<output>';
 
-function generateGuid() {
-    return system.guid().replace(/[-]/g, '');
-}
-
-function encodeString(str) {
-    return $('<div/>').text(str).html();
-}
-
-class Parser{
-    getTemplateAndAnswers(text) {
+export default class Parser{
+    static getTemplateAndAnswers(text) {
         if (_.isNullOrUndefined(text)) {
             return {
                 template: null,
@@ -89,7 +81,7 @@ class Parser{
         };
     }
 
-    getData(template, answers) {
+    static getData(template, answers) {
         let $text = $(accessoryTag).append($.parseHTML(template)),
              blankInputs = $(cssSelectors.blankInput, $text),
              blankDropDowns = $(cssSelectors.blankDropDown, $text);
@@ -132,5 +124,10 @@ class Parser{
     }
 }
 
-let parser = new Parser();
-export default parser;
+function generateGuid() {
+    return system.guid().replace(/[-]/g, '');
+}
+
+function encodeString(str) {
+    return $('<div/>').text(str).html();
+}
