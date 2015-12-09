@@ -170,6 +170,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<BlankAnswer>().Property(e => e.Text).IsRequired();
             modelBuilder.Entity<BlankAnswer>().Property(e => e.IsCorrect).IsRequired();
             modelBuilder.Entity<BlankAnswer>().Property(e => e.MatchCase).IsRequired();
+            modelBuilder.Entity<BlankAnswer>().Property(e => e.Order).IsRequired();
             modelBuilder.Entity<BlankAnswer>().Property(e => e.GroupId).IsRequired();
             modelBuilder.Entity<BlankAnswer>().HasRequired(e => e.Question);
 

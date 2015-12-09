@@ -24,6 +24,8 @@ namespace easygenerator.DomainModel.Entities.Questions
 
         public bool MatchCase { get; private set; }
 
+        public int Order { get; internal set; }
+
         public Guid GroupId { get; private set; }
 
         public virtual FillInTheBlanks Question { get; internal set; }

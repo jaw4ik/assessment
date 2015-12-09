@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events.QuestionEvents;
@@ -12,7 +10,7 @@ using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace easygenerator.DomainModel.Tests.Entities
+namespace easygenerator.DomainModel.Tests.Entities.Questions
 {
     [TestClass]
     public class FillInTheBlanksTests
@@ -41,6 +39,21 @@ namespace easygenerator.DomainModel.Tests.Entities
             question.UpdateAnswers(answers, ModifiedBy);
 
             question.Answers.ToList().Count.Should().Be(2);
+        }
+
+        [TestMethod]
+        public void UpdateAnswers_ShouldUpdateAnswersOrder()
+        {
+            var question = FillInTheBlanksObjectMother.Create();
+            var a1 = BlankAnswerObjectMother.Create();
+            var a2 = BlankAnswerObjectMother.Create();
+            a1.Order = 4;
+            a2.Order = 2;
+
+            question.UpdateAnswers(new Collection<BlankAnswer>() { a1, a2 }, ModifiedBy);
+
+            question.Answers.ToList()[0].Order.Should().Be(0);
+            question.Answers.ToList()[0].Order.Should().Be(1);
         }
 
         [TestMethod]
@@ -88,6 +101,34 @@ namespace easygenerator.DomainModel.Tests.Entities
             question.AddAnswer(answer, ModifiedBy);
 
             answer.Question.Should().Be(question);
+        }
+
+        [TestMethod]
+        public void AddAnswer_ShouldSetAnswerOrder_WhenAnswerIsFirst()
+        {
+            var question = FillInTheBlanksObjectMother.Create();
+            var answer = BlankAnswerObjectMother.Create();
+            answer.Order = 5;
+
+            question.AddAnswer(answer, ModifiedBy);
+
+            answer.Order.Should().Be(0);
+        }
+
+        [TestMethod]
+        public void AddAnswer_ShouldUpdateAnswerOrder()
+        {
+            var question = FillInTheBlanksObjectMother.Create();
+            var answer = BlankAnswerObjectMother.Create();
+            answer.Order = 5;
+
+            var a = BlankAnswerObjectMother.Create();
+            answer.Order = 2;
+
+            question.AddAnswer(a, ModifiedBy);
+            question.AddAnswer(answer, ModifiedBy);
+
+            answer.Order.Should().Be(1);
         }
 
         [TestMethod]
@@ -139,7 +180,6 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
-
 
         #region UpdateContent
 
@@ -248,7 +288,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             question.LearningContentsCollection = new Collection<LearningContent>()
             {
                 learningContent3,
-                learningContent, 
+                learningContent,
                 learningContent2
             };
             question.LearningContentsOrder = String.Format("{0},{1},{2}", learningContent.Id, learningContent3.Id, learningContent2);
