@@ -12,8 +12,10 @@ import reorderQuestionCommand from './commands/reorderQuestionCommand';
 import moveQuestionCommand from './commands/moveQuestionCommand';
 import reorderSectionCommand from './commands/reorderSectionCommand';
 import unrelateSectionCommand from './commands/unrelateSectionCommand';
+import deleteSectionCommand from './commands/deleteSectionCommand';
 import CreateBar from './viewmodels/CreateBarViewModel';
 import SectionViewModel from './viewmodels/SectionViewModel';
+import deleteSectionDialog from 'editor/course/dialogs/deleteSection/deleteSection';
 
 const eventsForCourseContent = {
     addContent: 'Define introduction',
@@ -34,6 +36,7 @@ export default class {
         this.id = '';
         this.createdBy = '';
         this.sections = ko.observableArray([]);
+        this.lastDraggingSectionState = null;
         this.eventTracker = eventTracker;
         this.localizationManager = localizationManager;
         this.courseIntroductionContent = null;
@@ -105,6 +108,15 @@ export default class {
         }
         notify.saved();
     }
+    async deleteSection(section) {
+        //await deleteSectionCommand.execute(section.id());
+        //let sectionInCourse = _.find(this.sections(), item => item.id() === section.id());
+        //if (sectionInCourse) {
+        //    this.sections.remove(sectionInCourse);
+        //}
+        //notify.saved();
+        //deleteSectionDialog.show();
+    }
     async createQuestion(question, nexQuestion, targetSection) {
         let questionType = question && question.type;
         let sectionId = targetSection && targetSection.sectionId;
@@ -116,8 +128,8 @@ export default class {
         let createdQuestion = await createQuestionCommand.execute(sectionId, questionType);
         createdQuestionViewModel.updateFields(createdQuestion);
     }
-    deleteQuestion(question) {
-        deleteQuestionCommand.execute(question.sectionId, question.id());
+    async deleteQuestion(question) {
+        await deleteQuestionCommand.execute(question.sectionId, question.id());
         let section = _.find(this.sections(), section => section.id() === question.sectionId);
         if (section) {
             section.deleteQuestion(question);
@@ -179,5 +191,30 @@ export default class {
         }
         await reorderQuestionCommand.execute(section.id(), section.questions());
         notify.saved();
+    }
+    hideQuestions(section) {
+        let sectionId = section && section.sectionId;
+        if (_.isNullOrUndefined(sectionId)) {
+            return;
+        }
+        let sectionInCourse = _.find(this.sections(), section => section.id() === sectionId);
+        if (_.isNullOrUndefined(sectionInCourse)) {
+            return;
+        }
+        this.lastDraggingSectionState = sectionInCourse.questionsExpanded();
+        console.log('this.lastDraggingSectionState', this.lastDraggingSectionState);
+        sectionInCourse.questionsExpanded(false);
+    }
+    restoreQuestionsExpandingState(section) {
+        let sectionId = section && section.sectionId;
+        if (_.isNullOrUndefined(sectionId)) {
+            return;
+        }
+        let sectionInCourse = _.find(this.sections(), section => section.id() === sectionId);
+        if (_.isNullOrUndefined(sectionInCourse)) {
+            return;
+        }
+        console.log('this.lastDraggingSectionState', this.lastDraggingSectionState);
+        sectionInCourse.questionsExpanded(this.lastDraggingSectionState);
     }
 };
