@@ -5,8 +5,6 @@ import attributesHelper from './attributesHelper';
 import dragulaAnimation from './dragulaAnimation';
 import 'dragula/dist/dragula.css!';
 
-var instance = null;
- 
 var cssClasses = {
     activeTarget: 'active',
     itemOverTarget: 'droppable',
@@ -15,10 +13,6 @@ var cssClasses = {
 
 export default class DragulaContainer{
     constructor () {
-        if (instance) {
-            return instance;
-        }
-        instance = this;
         let that = this;
         this.draggableAreas = [];
         this.sourcesToCopy = [];
@@ -89,7 +83,5 @@ export default class DragulaContainer{
             _.each(that.targetsToMove, target => $(target.selector).removeClass(cssClasses.activeTarget));
             that.activeTargetsList = [];
         });
-
-        return instance;
     }
 };

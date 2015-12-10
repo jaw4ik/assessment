@@ -1,27 +1,36 @@
+import composition from 'durandal/composition';
 import ko from 'knockout';
 import _ from 'underscore';
 import attributesHelper from 'editor/course/components/attributesHelper';
 import DragulaContainer from 'editor/course/components/dragulaContainer';
-import composition from 'durandal/composition';
+
+let dragulaContainer = new DragulaContainer();
+dragulaContainer.dragula.mirrorContainer = document.getElementsByTagName('main')[0];
 
 ko.bindingHandlers.draggableContainer = {
     init: (element, valueAccessor, allBindings, viewModel, bindingContext) => {
-        let dragulaContainer = new DragulaContainer();
 
         let copy = ko.utils.unwrapObservable(valueAccessor().copy) || false,
             moveTo = ko.utils.unwrapObservable(valueAccessor().moveTo) || null,
             draggableArea = ko.utils.unwrapObservable(valueAccessor().draggableArea) || null,
             events = ko.utils.unwrapObservable(valueAccessor().events) || null;
-		
+
+
         dragulaContainer.dragula.containers.push(element);
-        dragulaContainer.dragula.mirrorContainer = document.getElementsByTagName('main')[0];
+        ko.utils.domNodeDisposal.addDisposeCallback(element, () => 
+            dragulaContainer.dragula.containers = _.without(dragulaContainer.dragula.containers, element));
 
         if (copy) {
             dragulaContainer.sourcesToCopy.push(element);
+            ko.utils.domNodeDisposal.addDisposeCallback(element, () => 
+                dragulaContainer.sourcesToCopy = _.without(dragulaContainer.sourcesToCopy, element));
         }
 
         if (moveTo) {
-            registerTargets(moveTo);
+            var targetsList = mapTargets(moveTo);
+
+            registerTargets(targetsList);
+            ko.utils.domNodeDisposal.addDisposeCallback(element, () => unregisterTargets(targetsList));
         }
 
         if (events) {
@@ -31,45 +40,50 @@ ko.bindingHandlers.draggableContainer = {
             ko.utils.domNodeDisposal.addDisposeCallback(element, () => unregisterEvents(eventsList));
         }
 
-        draggableArea && dragulaContainer.draggableAreas.push({
-            source: element,
-            selector: draggableArea
-        });
+        if (draggableArea) {
+            var area = { source: element, selector: draggableArea };
+            
+            dragulaContainer.draggableAreas.push(area);
+            ko.utils.domNodeDisposal.addDisposeCallback(element, () => 
+                dragulaContainer.draggableAreas = _.without(dragulaContainer.draggableAreas, area));
+        }
 
         function registerTargets(targets) {
-            for (let selector in targets) {
-                if (targets.hasOwnProperty(selector)) {
-                    dragulaContainer.targetsToMove.push({ source: element, selector: selector, handler: targets[selector].bind(bindingContext.$root) });
-                }
-            }
+            dragulaContainer.targetsToMove = dragulaContainer.targetsToMove.concat(targets);
+        }
+
+        function unregisterTargets(targets) {
+            dragulaContainer.targetsToMove = _.difference(dragulaContainer.targetsToMove, targets);
+        }
+
+        function mapTargets(targets) {
+            return _.map(targets, (handler, selector) => {
+                return {
+                    source: element,
+                    selector: selector,
+                    handler: handler.bind(bindingContext.$root)
+                };
+            });
         }
 
         function registerEvents(events) {
-            events.forEach(function(event) {
-                dragulaContainer.dragula.on(event.name, event.handler);
-            });
+            _.each(events, (event) => dragulaContainer.dragula.on(event.name, event.handler));
         }
 
         function unregisterEvents(events) {
-            events.forEach(function(event) {
-                dragulaContainer.dragula.off(event.name, event.handler);
-            });
+            _.each(events, (event) => dragulaContainer.dragula.off(event.name, event.handler));
         }
 
         function wrapEvents(events) {
-            var wrappedEvents = [];
-            for (let event in events) {
-                if (events.hasOwnProperty(event) && _.isFunction(events[event])) {
-                    wrappedEvents.push({
-                        name: event,
-                        handler: function () {
-                            var args = _.map(arguments, arg => attributesHelper.getDataAttribute(arg));
-                            events[event].apply(bindingContext.$root, args);
-                        }
-                    });
-                }
-            }
-            return wrappedEvents;
+            return _.map(events, (handler, name) => {
+                return {
+                    name: name,
+                    handler: function () {
+                        var args = _.map(arguments, arg => attributesHelper.getDataAttribute(arg));
+                        handler.apply(bindingContext.$root, args);
+                    }
+                };
+            });
         }
     }
 };
