@@ -403,6 +403,14 @@
     <Compile Include="Migrations\201512040840497_AddCreatedByNameToComments.Designer.cs">
       <DependentUpon>201512040840497_AddCreatedByNameToComments.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201512070823506_AddAnswerBlankMatchCase.cs" />
+    <Compile Include="Migrations\201512070823506_AddAnswerBlankMatchCase.Designer.cs">
+      <DependentUpon>201512070823506_AddAnswerBlankMatchCase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512090851360_AddBlankAnswerOrder.cs" />
+    <Compile Include="Migrations\201512090851360_AddBlankAnswerOrder.Designer.cs">
+      <DependentUpon>201512090851360_AddBlankAnswerOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ConsumerToolRepository.cs" />
@@ -694,6 +702,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512040840497_AddCreatedByNameToComments.resx">
       <DependentUpon>201512040840497_AddCreatedByNameToComments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512070823506_AddAnswerBlankMatchCase.resx">
+      <DependentUpon>201512070823506_AddAnswerBlankMatchCase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512090851360_AddBlankAnswerOrder.resx">
+      <DependentUpon>201512090851360_AddBlankAnswerOrder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
