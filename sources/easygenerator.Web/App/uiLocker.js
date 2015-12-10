@@ -1,10 +1,10 @@
 ﻿import uiLockViewer from 'widgets/uiLockViewer/viewmodel';
 
 export default class {
-    lock() {
+    static lock() {
         uiLockViewer.lock();
     }
-    unlock() {
+    static unlock() {
         uiLockViewer.unlock();
     }
 };

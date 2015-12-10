@@ -2,6 +2,7 @@
 import _ from 'underscore';
 import app from 'durandal/app';
 import moment from 'moment';
+import eventTracker from 'eventTracker';
 import imageUpload from 'imageUpload';
 import notify from 'notify';
 import constants from 'constants';
@@ -21,6 +22,13 @@ var _questionTitleUpdated = new WeakMap();
 var _questionDeleted = new WeakMap();
 var _questionCreated = new WeakMap();
 var _questionsReordered = new WeakMap();
+
+var eventCategory = 'Course editor (drag and drop)';
+
+var events = {
+    updateTitle: 'Update objective title',
+    openChangeObjectiveImageDialog: 'Open "change objective image" dialog'
+}
 
 export default class SectionViewModel{
     constructor (courseId, section, isProcessed) {
@@ -103,6 +111,7 @@ export default class SectionViewModel{
         this.title.isEditing(true);
     }
     async stopEditingTitle() {
+        eventTracker.publish(events.updateTitle, eventCategory);
         this.title.isEditing(false);
         if (this.title.isValid() && this.title() !== this.originalTitle) {
             await updateSectionTitleCommand.execute(this.id(), this.title());
@@ -130,6 +139,7 @@ export default class SectionViewModel{
     }
     updateImage() {
         let that = this;
+        eventTracker.publish(events.openChangeObjectiveImageDialog, eventCategory);
         imageUpload.upload({
             startLoading: () => that.imageLoading(true),
             success: async url => {
@@ -145,13 +155,10 @@ export default class SectionViewModel{
     deleteQuestion(question) {
         if (_.contains(this.questions(), question)) {
             this.questions.remove(question);
-        } else {
-            notify.error();
         }
     }
     addQuestion(question, index) {
         if (!_.isObject(question)) {
-            notify.error();
             return undefined;
         }
 
@@ -173,8 +180,5 @@ export default class SectionViewModel{
         }
 
         return questionViewModel;
-    }
-    updateQuestion () {
-        
     }
 }
