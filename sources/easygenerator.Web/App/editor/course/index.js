@@ -1,5 +1,7 @@
 ﻿import ko from 'knockout';
 import _ from 'underscore';
+import app from 'durandal/app';
+import constants from 'constants';
 import eventTracker from 'eventTracker';
 import notify from 'notify';
 import localizationManager from 'localization/localizationManager';
@@ -23,7 +25,14 @@ const eventsForCourseContent = {
     endEditText: 'End editing introduction'
 };
 
-var mapSections = (courseId, sections) => _.map(sections, section => new SectionViewModel(courseId, section, false));
+var mapSections = (courseId, sections) => _.map(sections, section => mapSection(courseId, section));
+var mapSection = (courseId, section) => new SectionViewModel(courseId, section, false);
+
+var _introductionContentUpdated = new WeakMap();
+var _sectionConnected = new WeakMap();
+var _sectionsDisconnected = new WeakMap();
+var _sectionsReordered = new WeakMap();
+
 
 var instance = null;
 
@@ -42,6 +51,57 @@ export default class {
         this.courseIntroductionContent = null;
         this.notContainSections = ko.observable(false);
         this.createBar = new CreateBar();
+
+        _introductionContentUpdated.set(this, course => {
+            if (this.id !== course.id) {
+                return;
+            }
+            this.courseIntroductionContent.originalText(course.introductionContent);
+            if (!this.courseIntroductionContent.isEditing()) {
+                this.courseIntroductionContent.text(course.introductionContent);
+                this.courseIntroductionContent.isEditing.valueHasMutated();
+            }
+        });
+
+        _sectionConnected.set(this, (courseId, section, targetIndex) => {
+            if (this.id !== courseId) {
+                return;
+            }
+
+            let isConnected = _.some(this.sections(), item => item.id() === section.id);
+
+
+            if (isConnected) {
+                this.sections(_.reject(this.sections(), item => item.id() === section.id));
+            }
+
+            if (_.isNullOrUndefined(targetIndex)) {
+                this.sections.push(mapSection(this.id, section));
+            } else {
+                this.sections.splice(targetIndex, 0, mapSection(this.id, section));
+            }
+        });
+
+        _sectionsDisconnected.set(this, (courseId, sectionIds) => {
+            if (this.id !== courseId) {
+                return;
+            }
+
+            this.sections(_.reject(this.sections(), section => _.some(sectionIds, id => id === section.id())));
+        });
+
+        _sectionsReordered.set(this, course => {
+            if (course.id !== this.id) {
+                return;
+            }
+            this.sections(mapSections(course.id, course.objectives));
+        });
+
+        app.on(constants.messages.course.introductionContentUpdatedByCollaborator, _introductionContentUpdated.get(this).bind(this));
+        app.on(constants.messages.course.objectiveRelatedByCollaborator, _sectionConnected.get(this).bind(this));
+        app.on(constants.messages.course.objectivesUnrelatedByCollaborator, _sectionsDisconnected.get(this).bind(this));
+        app.on(constants.messages.course.objectivesReorderedByCollaborator, _sectionsReordered.get(this).bind(this));
+
         return instance;
     }
     async activate(courseId) {

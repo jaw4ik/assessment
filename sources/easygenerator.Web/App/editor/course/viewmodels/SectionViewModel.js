@@ -1,17 +1,26 @@
 ﻿import ko from 'knockout';
+import _ from 'underscore';
+import app from 'durandal/app';
 import moment from 'moment';
 import imageUpload from 'imageUpload';
 import notify from 'notify';
-import _ from 'underscore';
+import constants from 'constants';
 import QuestionViewModel from './QuestionViewModel';
 import sectionRepository from 'repositories/objectiveRepository';
 import updateSectionTitleCommand from '../commands/updateSectionTitleCommand';
 
-var mapQuestions = (courseId, sectionId, questions) => _.map(questions, question => new QuestionViewModel(courseId, sectionId, question, false));
+var mapQuestions = (courseId, sectionId, questions) => _.map(questions, question => mapQuestion(courseId, sectionId, question));
+
+var mapQuestion = (courseId, sectionId, question) => new QuestionViewModel(courseId, sectionId, question, false);
 
 var updateModifiedOn = modifiedOn => moment(modifiedOn).format('DD/MM/YY');
 
-var maxLength = 255;
+var _sectionTitleUpdated = new WeakMap();
+var _sectionImageUrlUpdated = new WeakMap();
+var _questionTitleUpdated = new WeakMap();
+var _questionDeleted = new WeakMap();
+var _questionCreated = new WeakMap();
+var _questionsReordered = new WeakMap();
 
 export default class SectionViewModel{
     constructor (courseId, section, isProcessed) {
@@ -19,7 +28,8 @@ export default class SectionViewModel{
         this.id = ko.observable(section.id || '');
         this.title = ko.observable(section.title || '');
         this.title.isEditing = ko.observable(false);
-        this.title.isValid = ko.computed(() => this.title().length <= maxLength, this);
+        this.title.maxLength = constants.validation.objectiveTitleMaxLength;
+        this.title.isValid = ko.computed(() => this.title().length <= this.title.maxLength, this);
         this.originalTitle = this.title();
         this.modifiedOn = ko.observable(section.modifiedOn ? updateModifiedOn(section.modifiedOn) : '');
         this.image = ko.observable(section.image || '');
@@ -29,6 +39,65 @@ export default class SectionViewModel{
         this.questions = ko.observableArray(mapQuestions(this.courseId, this.id(), section.questions));
         this.notContainQuestions = ko.computed(() => this.questions().length === 0, this);
         this.isProcessed = ko.observable(isProcessed);
+
+        _sectionTitleUpdated.set(this, section => {
+            if (section.id !== this.id() || this.title.isEditing()) {
+                return;
+            }
+            this.title(section.title);
+            this.modifiedOn(updateModifiedOn(section.modifiedOn));
+        });
+
+        _sectionImageUrlUpdated.set(this, section => {
+            if (section.id !== this.id()) {
+                return;
+            }
+            this.image(section.image);
+            this.modifiedOn(updateModifiedOn(section.modifiedOn));
+        });
+
+        _questionTitleUpdated.set(this, question => {
+            let questionViewModel = _.find(this.questions(), questionItem => questionItem.id() === question.id);
+            if (_.isNullOrUndefined(questionViewModel)) {
+                return;
+            }
+            questionViewModel.title(question.title);
+            this.modifiedOn(updateModifiedOn(section.modifiedOn));
+        });
+
+        _questionDeleted.set(this, (sectionId, questionIds) => {
+            if (this.id() !== sectionId) {
+                return;
+            }
+            let questions = _.reject(this.questions(), question => _.indexOf(questionIds, question.id()) !== -1);
+            this.questions(questions);
+            this.modifiedOn(updateModifiedOn(section.modifiedOn));
+        });
+
+        _questionCreated.set(this, (sectionId, question) => {
+            if (this.id() !== sectionId) {
+                return;
+            }
+            this.questions.push(mapQuestion(this.courseId, this.id(), question));
+            this.modifiedOn(updateModifiedOn(section.modifiedOn));
+        });
+
+        _questionsReordered.set(this, section => {
+            if (section.id !== this.id()) {
+                return;
+            }
+
+            this.questions(mapQuestions(this.courseId, this.id(), section.questions));
+
+            this.modifiedOn(updateModifiedOn(section.modifiedOn));
+        });
+
+        app.on(constants.messages.objective.titleUpdatedByCollaborator, _sectionTitleUpdated.get(this).bind(this));
+        app.on(constants.messages.objective.imageUrlUpdatedByCollaborator, _sectionImageUrlUpdated.get(this).bind(this));
+        app.on(constants.messages.question.titleUpdatedByCollaborator, _questionTitleUpdated.get(this).bind(this));
+        app.on(constants.messages.question.deletedByCollaborator, _questionDeleted.get(this).bind(this));
+        app.on(constants.messages.question.createdByCollaborator, _questionCreated.get(this).bind(this));
+        app.on(constants.messages.objective.questionsReorderedByCollaborator, _questionsReordered.get(this).bind(this));
     }
     startEditingTitle() {
         this.title.isEditing(true);

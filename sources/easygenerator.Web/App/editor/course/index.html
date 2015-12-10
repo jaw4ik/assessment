@@ -53,7 +53,7 @@
                                         <div class="sections-list-item-title-counter">
                                             <span data-bind="text: title() && title().length"></span>
                                             /
-                                            <span>255</span>
+                                            <span data-bind="text: title.maxLength">255</span>
                                         </div>
                                     </div>
                                     <div class="sections-list-item-modified" data-bind="text: 'Last edited ' + modifiedOn()"></div>
@@ -66,7 +66,7 @@
                                         <ul class="sections-list-item-actions-menu">
                                             <li class="sections-list-item-actions-menu-item edit-title" data-bind="click: startEditingTitle">Edit title</li>
                                             <li class="sections-list-item-actions-menu-item change-image" data-bind="click: updateImage">Change image</li>
-                                            <li class="sections-list-item-actions-menu-item disconnect" data-bind="click: $parent.unrelateSection">Disconnect from the course</li>
+                                            <li class="sections-list-item-actions-menu-item disconnect" data-bind="click: $parent.unrelateSection.bind($parent)">Disconnect from the course</li>
                                             <li class="sections-list-item-actions-menu-item delete" data-bind="click: $parent.deleteSection">Delete permanently</li>
                                         </ul>
                                     </div>
