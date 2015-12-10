@@ -647,8 +647,8 @@
     <Content Include="App\editor\course\commands\reorderQuestionCommand.js" />
     <Content Include="App\editor\course\commands\reorderSectionCommand.js" />
     <Content Include="App\editor\course\commands\unrelateSectionCommand.js" />
+    <Content Include="App\editor\course\commands\updateSectionTitleCommand.js" />
     <Content Include="App\editor\course\components\attributesHelper.js" />
-    <Content Include="App\editor\course\components\dragulaAnimation.js" />
     <Content Include="App\editor\course\components\dragulaContainer.js" />
     <Content Include="App\editor\course\createBar.html" />
     <Content Include="App\editor\course\dialogs\deleteSection\deleteSection.js" />
@@ -659,8 +659,17 @@
       <DependentUpon>index.js</DependentUpon>
     </Content>
     <Content Include="App\editor\course\viewmodels\CreateBarViewModel.js" />
+    <Content Include="App\editor\course\viewmodels\CreateBarViewModel.spec.js">
+      <DependentUpon>CreateBarViewModel.js</DependentUpon>
+    </Content>
     <Content Include="App\editor\course\viewmodels\QuestionViewModel.js" />
+    <Content Include="App\editor\course\viewmodels\QuestionViewModel.spec.js">
+      <DependentUpon>QuestionViewModel.js</DependentUpon>
+    </Content>
     <Content Include="App\editor\course\viewmodels\SectionViewModel.js" />
+    <Content Include="App\editor\course\viewmodels\SectionViewModel.spec.js">
+      <DependentUpon>SectionViewModel.js</DependentUpon>
+    </Content>
     <Content Include="App\editor\index.js" />
     <Content Include="App\dialogs\course\publishCourse\customPublish.js" />
     <Content Include="App\dialogs\course\publishCourse\customPublish.spec.js">
