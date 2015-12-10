@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Principal;
 using System.Text;
@@ -92,6 +93,66 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Act
             var result = _controller.Create(course, text, user, email);
+
+            //Assert
+            result.Should()
+                .BeJsonSuccessResult()
+                .And.Data.ShouldBeSimilar(true);
+        }
+
+        #endregion
+
+        #region Restore comment
+
+        [TestMethod]
+        public void Restore_ShouldReturnJsonErrorResult_WnenCourseIsNull()
+        {
+            //Act
+            var result = _controller.Restore(null, null, null, null, DateTimeWrapper.Now());
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.CourseNotFoundError);
+        }
+
+        [TestMethod]
+        public void Restore_ShouldAddCommentToCourse()
+        {
+            //Arrange
+            const string text = "text";
+            const string user = "Test user";
+            const string email = "test@test.test";
+            var createdOn = new DateTime(2015, 12, 10, 9, 54, 10);
+             
+            _user.Identity.Name.Returns("Test user");
+            var course = Substitute.For<Course>("Course", TemplateObjectMother.Create(), CreatedBy);
+            var comment = Substitute.For<Comment>("Comment", user, email);
+
+            _entityFactory.Comment(text, user, email, createdOn.ToUniversalTime()).Returns(comment);
+
+            //Act
+            _controller.Restore(course, text, user, email, createdOn);
+
+            //Assert
+            course.Received().AddComment(comment);
+        }
+
+        [TestMethod]
+        public void Restore_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            const string text = "text";
+            const string user = "Test user";
+            const string email = "test@test.test";
+            var createdOn = DateTimeWrapper.Now();
+
+            _user.Identity.Name.Returns("Test user");
+            var course = Substitute.For<Course>("Course", TemplateObjectMother.Create(), CreatedBy);
+            var comment = Substitute.For<Comment>("Comment", user, email);
+
+            _entityFactory.Comment(text, user, email, createdOn).Returns(comment);
+
+            //Act
+            var result = _controller.Restore(course, text, user, email, createdOn);
 
             //Assert
             result.Should()

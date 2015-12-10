@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
@@ -30,6 +31,22 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             var comment = _entityFactory.Comment(text, createdByName, createdBy);
+            course.AddComment(comment);
+
+            return JsonSuccess(true);
+        }
+
+        [HttpPost]
+        [EntityCollaborator(typeof(Course))]
+        [Route("api/comment/restore")]
+        public ActionResult Restore(Course course, string text, string createdByName, string createdBy, DateTime createdOn)
+        {
+            if (course == null)
+            {
+                return HttpNotFound(Errors.CourseNotFoundError);
+            }
+
+            var comment = _entityFactory.Comment(text, createdByName, createdBy, createdOn.ToUniversalTime());
             course.AddComment(comment);
 
             return JsonSuccess(true);

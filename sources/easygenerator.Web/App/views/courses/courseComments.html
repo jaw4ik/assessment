@@ -5,6 +5,7 @@
     <!-- /ko -->
     <!-- ko ifnot: isCommentsLoading -->
     <!-- ko foreach: comments -->
+    
     <div class="review-comment">
         <div class="comment-user">
             <div class="comment-avatar-letter-holder">
@@ -16,7 +17,7 @@
                 </div>
                 <div class="review-comment-email">
                     <span data-bind="text: email"></span>
-                </div>   
+                </div>
             </div>
         </div>
         <div class="review-comment-text">
@@ -33,7 +34,13 @@
                 </div>
             </div>
         </div>
+        <!-- ko if: isDeleted -->
+        <div class="comment-deleted">
+            <button data-bind="click: $parent.restoreComment">Restore</button>
+        </div>
+        <!-- /ko -->
     </div>
+    
     <!-- /ko -->
     <!-- ko ifnot: comments().length -->
     <div class="no-comments" data-bind="localize: { text: 'reviewNoComments' }"></div>

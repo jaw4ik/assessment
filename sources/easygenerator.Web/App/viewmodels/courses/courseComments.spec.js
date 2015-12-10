@@ -53,10 +53,6 @@
 
                 describe('when courseId is a string', function () {
 
-                    it('should be function', function () {
-                        expect(viewModel.activate).toBeFunction();
-                    });
-
                     it('should return promise', function () {
                         var result = viewModel.activate('123');
                         expect(result).toBePromise();
@@ -156,11 +152,16 @@
                             });
 
                             describe('and comments received', function () {
-
-                                var comments = [{ id: '1' }];
+                                var comment = {
+                                    id: '1',
+                                    text: 'text',
+                                    name: 'name',
+                                    email: 'email',
+                                    createdOn: '2015-12-10'
+                                };
 
                                 beforeEach(function () {
-                                    getCommentsDefer.resolve(comments);
+                                    getCommentsDefer.resolve([comment]);
                                 });
 
                                 it('should update comments in viewModel', function (done) {
@@ -168,7 +169,12 @@
                                     viewModel.activate('123');
 
                                     viewModel.activate('123').fin(function () {
-                                        expect(viewModel.comments()).toEqual(comments);
+                                        expect(viewModel.comments()[0].id).toBe(comment.id);
+                                        expect(viewModel.comments()[0].text).toBe(comment.text);
+                                        expect(viewModel.comments()[0].email).toBe(comment.email);
+                                        expect(viewModel.comments()[0].name).toBe(comment.name);
+                                        expect(viewModel.comments()[0].createdOn).toBe(comment.createdOn);
+                                        expect(viewModel.comments()[0].isDeleted()).toBeFalsy();
                                         done();
                                     });
                                 });
@@ -212,10 +218,6 @@
                     spyOn(window, 'open');
                 });
 
-                it('should be function', function () {
-                    expect(viewModel.openUpgradePlanUrl).toBeFunction();
-                });
-
                 it('should send event \'Upgrade now\'', function () {
                     viewModel.openUpgradePlanUrl();
                     expect(eventTracker.publish).toHaveBeenCalledWith(constants.upgradeEvent, constants.upgradeCategory.externalReview);
@@ -231,19 +233,24 @@
             describe('removeComment:', function () {
                 var removeDefer,
                     courseId = 'courseId',
-                    comment = { id: '1' };
+                    comment = {
+                        id: '1',
+                        text: 'text',
+                        name: 'name',
+                        email: 'email',
+                        createdOn: '2015-12-10',
+                        isDeleted: ko.observable(false)
+                    };;
 
-                beforeEach(function() {
+                beforeEach(function () {
                     spyOn(notify, 'saved');
                     spyOn(notify, 'error');
                 });
 
-                it('should be function', function () {
-                    expect(viewModel.removeComment).toBeFunction();
-                });
-
                 beforeEach(function () {
                     viewModel.courseId = courseId;
+
+                    comment.isDeleted(false);
                     viewModel.comments([comment]);
 
                     removeDefer = Q.defer();
@@ -260,9 +267,9 @@
                 });
 
                 describe('when comment is removed:', function () {
-                    it('should remove it from viewModel', function (done) {
+                    it('should set isDeleted to true', function (done) {
                         viewModel.removeComment(comment).fin(function () {
-                            expect(viewModel.comments().length).toBe(0);
+                            expect(viewModel.comments()[0].isDeleted()).toBeTruthy();
                             done();
                         });
 
@@ -282,7 +289,7 @@
                 describe('when comment is not removed:', function () {
                     it('should not remove it from viewModel', function (done) {
                         viewModel.removeComment(comment).fin(function () {
-                            expect(viewModel.comments().length).toBe(1);
+                            expect(viewModel.comments()[0].isDeleted()).toBeFalsy();
                             done();
                         });
 
@@ -302,7 +309,7 @@
                 describe('when error during deleting comment:', function () {
                     it('should not remove it from viewModel', function (done) {
                         viewModel.removeComment(comment).fin(function () {
-                            expect(viewModel.comments().length).toBe(1);
+                            expect(viewModel.comments()[0].isDeleted()).toBeFalsy();
                             done();
                         });
 
@@ -316,6 +323,103 @@
                         });
 
                         removeDefer.reject();
+                    });
+                });
+            });
+
+            describe('restoreComment:', function () {
+                var restoreDefer,
+                    courseId = 'courseId',
+                    comment = {
+                        id: '1',
+                        text: 'text',
+                        name: 'name',
+                        email: 'email',
+                        createdOn: '2015-12-10',
+                        isDeleted: ko.observable(false)
+                    };;
+
+                beforeEach(function () {
+                    spyOn(notify, 'saved');
+                    spyOn(notify, 'error');
+                });
+
+                beforeEach(function () {
+                    viewModel.courseId = courseId;
+
+                    comment.isDeleted(true);
+                    viewModel.comments([comment]);
+
+                    restoreDefer = Q.defer();
+                    spyOn(commentRepository, 'restoreComment').and.returnValue(restoreDefer.promise);
+                });
+
+                it('should call restoreComment of repository', function (done) {
+                    viewModel.restoreComment(comment).fin(function () {
+                        expect(commentRepository.restoreComment).toHaveBeenCalledWith(courseId, comment);
+                        done();
+                    });
+
+                    restoreDefer.reject();
+                });
+
+                describe('when comment is restored:', function () {
+                    it('should set isDeleted to false', function (done) {
+                        viewModel.restoreComment(comment).fin(function () {
+                            expect(viewModel.comments()[0].isDeleted()).toBeFalsy();
+                            done();
+                        });
+
+                        restoreDefer.resolve(true);
+                    });
+
+                    it('should show saved notification', function (done) {
+                        viewModel.restoreComment(comment).fin(function () {
+                            expect(notify.saved).toHaveBeenCalled();
+                            done();
+                        });
+
+                        restoreDefer.resolve(true);
+                    });
+                });
+
+                describe('when comment is not restored:', function () {
+                    it('should not restore it in viewModel', function (done) {
+                        viewModel.restoreComment(comment).fin(function () {
+                            expect(viewModel.comments()[0].isDeleted()).toBeTruthy();
+                            done();
+                        });
+
+                        restoreDefer.resolve(false);
+                    });
+
+                    it('should show error notification', function (done) {
+                        viewModel.restoreComment(comment).fin(function () {
+                            expect(notify.error).toHaveBeenCalled();
+                            done();
+                        });
+
+                        restoreDefer.resolve(false);
+                    });
+                });
+
+                describe('when error during restoring comment:', function () {
+                    it('should not restore it in viewModel', function (done) {
+                        viewModel.restoreComment(comment).fin(function () {
+                            expect(viewModel.comments()[0].isDeleted()).toBeTruthy();
+                            done();
+                        });
+
+                        restoreDefer.reject();
+                    });
+
+                    it('should show error notification', function () {
+                        viewModel.restoreComment(comment).fin(function (done) {
+                            expect(notify.error).toHaveBeenCalled();
+                            done();
+                        });
+
+                        restoreDefer.reject();
                     });
                 });
             });

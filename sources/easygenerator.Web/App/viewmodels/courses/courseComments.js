@@ -9,7 +9,8 @@
             hasAccessToComments: ko.observable(userContext.hasStarterAccess()),
             activate: activate,
             openUpgradePlanUrl: openUpgradePlanUrl,
-            removeComment: removeComment
+            removeComment: removeComment,
+            restoreComment: restoreComment
         };
 
         return viewModel;
@@ -26,7 +27,16 @@
 
                     if (userContext.hasStarterAccess()) {
                         return commentRepository.getCollection(courseId).then(function (comments) {
-                            viewModel.comments(comments);
+                            viewModel.comments(_.map(comments, function(item) {
+                                return {
+                                    id: item.id,
+                                    text: item.text,
+                                    email: item.email,
+                                    name: item.name,
+                                    createdOn: item.createdOn,
+                                    isDeleted: ko.observable(false)
+                                };
+                            }));
                         });
                     }
                 }).fin(function () {
@@ -43,13 +53,26 @@
         function removeComment(comment) {
             return commentRepository.removeComment(viewModel.courseId, comment.id).then(function (success) {
                 if (success) {
-                    viewModel.comments.remove(comment);
+                    comment.isDeleted(true);
                     notify.saved();
                 } else {
                     throw "Comment is not deleted";
                 }
             }).fail(function() {
                 notify.error(localizationManager.localize('commentWasNotDeletedError'));
+            });
+        }
+
+        function restoreComment(comment) {
+            return commentRepository.restoreComment(viewModel.courseId, comment).then(function (success) {
+                if (success) {
+                    comment.isDeleted(false);
+                    notify.saved();
+                } else {
+                    throw "Comment is not restored";
+                }
+            }).fail(function() {
+                notify.error(localizationManager.localize('commentWasNotRestoredError'));
             });
         }
     }

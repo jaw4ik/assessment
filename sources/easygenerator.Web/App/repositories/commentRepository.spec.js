@@ -18,10 +18,6 @@
 
         describe('getCollection:', function () {
 
-            it('should be function', function () {
-                expect(repository.getCollection).toBeFunction();
-            });
-
             it('should return promise', function () {
                 expect(repository.getCollection()).toBePromise();
             });
@@ -150,11 +146,8 @@
         });
 
         describe('removeComment', function () {
-            it('should be function', function () {
-                expect(repository.removeComment).toBeFunction();
-            });
 
-            it('should return promise', function () {
+            xit('should return promise', function () {
                 expect(repository.removeComment()).toBePromise();
             });
 
@@ -184,10 +177,10 @@
 
             });
 
-            describe('when courseId and commentId are strings', function() {
+            describe('when courseId and commentId are strings', function () {
                 var courseId = 'SomeId',
                     commentId = 'commentId';
-                
+
                 it('should send request to \'api/comment/delete\'', function (done) {
                     var promise = repository.removeComment(courseId, commentId);
 
@@ -210,12 +203,180 @@
 
                         post.resolve("");
                     });
-                    
+
                 });
 
-                describe('and response is boolean', function() {
+                describe('and response is boolean', function () {
                     it('should return response', function (done) {
                         var promise = repository.removeComment(courseId, commentId);
+
+                        promise.fin(function () {
+                            expect(promise.inspect()).toBeTruthy();
+                            done();
+                        });
+
+                        post.resolve(true);
+                    });
+                });
+            });
+        });
+
+        describe('restoreComment', function () {
+            
+            it('should return promise', function () {
+                expect(repository.restoreComment()).toBePromise();
+            });
+
+            describe('when course id is null', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.restoreComment(null, null);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Course id is not a string');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when comment data is null', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.restoreComment('courseId', null);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Comment data is not an object');
+                        done();
+                    });
+                });
+
+            });
+
+            describe('when comment text is undefined', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.restoreComment('courseId', {
+                        name: 'name',
+                        email: 'email',
+                        createdOn: '2015-12-10'
+                    });
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Comment text is not a string');
+                        done();
+                    });
+                });
+            });
+
+            describe('when comment name is undefined', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.restoreComment('courseId', {
+                        text: 'text',
+                        email: 'email',
+                        createdOn: '2015-12-10'
+                    });
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Comment name is not a string');
+                        done();
+                    });
+                });
+            });
+
+            describe('when comment email is undefined', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.restoreComment('courseId', {
+                        text: 'text',
+                        name: 'name',
+                        createdOn: '2015-12-10'
+                    });
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Comment email is not a string');
+                        done();
+                    });
+                });
+            });
+
+            describe('when comment createdOn is undefined', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.restoreComment('courseId', {
+                        text: 'text',
+                        name: 'name',
+                        email: 'email'
+                    });
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Comment createdOn is not a date');
+                        done();
+                    });
+                });
+            });
+
+            describe('when comment createdOn is not a date', function () {
+
+                it('should reject promise', function (done) {
+                    var promise = repository.restoreComment('courseId', {
+                        text: 'text',
+                        name: 'name',
+                        email: 'email',
+                        createdOn: ''
+                    });
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Comment createdOn is not a date');
+                        done();
+                    });
+                });
+            });
+
+            describe('when courseId and comment are defined', function () {
+                var courseId = 'SomeId',
+                    comment = {
+                    text: 'text',
+                    name: 'name',
+                    email: 'email',
+                    createdOn: '2015-12-10'
+                };;
+
+                it('should send request to \'api/comment/restore\'', function (done) {
+                    var promise = repository.restoreComment(courseId, comment);
+
+                    promise.fin(function () {
+                        expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/comment/restore', {
+                            courseId: courseId,
+                            text: comment.text,
+                            createdByName: comment.name,
+                            createdBy: comment.email,
+                            createdOn: comment.createdOn
+                        });
+                        done();
+                    });
+
+                    post.reject('error');
+                });
+
+                describe('and response is not a boolean', function () {
+                    it('should reject promise', function (done) {
+                        var promise = repository.restoreComment(courseId, comment);
+
+                        promise.fin(function () {
+                            expect(promise).toBeRejectedWith('Response is not a boolean');
+                            done();
+                        });
+
+                        post.resolve("");
+                    });
+
+                });
+
+                describe('and response is boolean', function () {
+                    it('should return response', function (done) {
+                        var promise = repository.restoreComment(courseId, comment);
 
                         promise.fin(function () {
                             expect(promise.inspect()).toBeTruthy();

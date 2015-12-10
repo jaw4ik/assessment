@@ -4,7 +4,8 @@
 
         var repository = {
             getCollection: getCollection,
-            removeComment: removeComment
+            removeComment: removeComment,
+            restoreComment: restoreComment
         };
 
         return repository;
@@ -41,6 +42,30 @@
                 };
 
                 return apiHttpWrapper.post('api/comment/delete', data).then(function (response) {
+                    guard.throwIfNotBoolean(response, 'Response is not a boolean');
+
+                    return response;
+                });
+            });
+        }
+
+        function restoreComment(courseId, comment) {
+            return Q.fcall(function () {
+                guard.throwIfNotString(courseId, 'Course id is not a string');
+                guard.throwIfNotAnObject(comment, 'Comment data is not an object');
+                guard.throwIfNotString(comment.text, 'Comment text is not a string');
+                guard.throwIfNotString(comment.name, 'Comment name is not a string');
+                guard.throwIfNotString(comment.email, 'Comment email is not a string');
+                guard.throwIfNotDate(new Date(comment.createdOn), 'Comment createdOn is not a date');
+
+                var data = {
+                    courseId: courseId,
+                    text: comment.text,
+                    createdByName: comment.name,
+                    createdBy: comment.email,
+                    createdOn: comment.createdOn
+                };
+                return apiHttpWrapper.post('api/comment/restore', data).then(function (response) {
                     guard.throwIfNotBoolean(response, 'Response is not a boolean');
 
                     return response;
