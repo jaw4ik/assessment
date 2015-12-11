@@ -704,11 +704,14 @@
 
 /*#region QUESTIONS LIST*/
 .questions-list-container {
-    min-height: 145px;
     margin: 0 20px;
     padding: 10px 20px;
     box-shadow: 0 1px 3px 0px #b3bcc2;
     background-color: #fff;
+
+    .questions-list-wrapper {
+        min-height: 125px;
+    }
 
     &.empty {
 
@@ -726,7 +729,7 @@
             }
         }
 
-        .questions-list-wrapper {
+        .questions-list {
             display: none;
         }
 
@@ -765,7 +768,7 @@
         }
     }
 
-    .questions-list-wrapper {
+    .questions-list {
         .unstyled;
 
         .editor-create-bar-list-item {
