@@ -2,7 +2,7 @@
     <div class="editor-create-bar-wrapper">
         <h2 class="editor-create-bar-header" data-bind="click: toggleSection, css: { 'collapsed': !sectionExpanded() }, localize: { text: 'sections' }">Sections:</h2>
         <div class="editor-create-bar-list-container" data-bind="expandBlock: { expanded: sectionExpanded }">
-            <ul class="editor-create-bar-list" data-bind="draggableContainer: { copy: true, moveTo: { '.sections-list-container': $parent.createSectionWithOrder, '.sections-placehodler': $parent.createSection } }">
+            <ul class="editor-create-bar-list" data-bind="draggableContainer: { copy: true, moveTo: { '.sections-list-container': $parent.createSectionWithOrder, '.sections-placeholder': $parent.createSection } }">
                 <li class="editor-create-bar-list-item section" data-bind="draggableData: {type: 'section'}">
                     <div class="editor-create-bar-list-icon"></div>
                     <h4 class="editor-create-bar-list-title" data-bind="localize: { text: 'section' }">Section</h4>

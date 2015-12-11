@@ -16,7 +16,11 @@
 
             viewModel.isValid = ko.computed(function () {
                 var length = viewModel.title() ? viewModel.title().trim().length : 0;
-                return length > 0 && length <= viewModel.maxLength;
+                return length <= viewModel.maxLength;
+            });
+
+            viewModel.isEmpty = ko.computed(function () {
+                return !viewModel.title() || viewModel.title().trim().length === 0;
             });
 
             return viewModel;
@@ -34,7 +38,7 @@
                         return;
                     }
 
-                    if (viewModel.isValid()) {
+                    if (viewModel.isValid() && !viewModel.isEmpty()) {
                         updateTitleHandler(viewModel.title()).then(notify.saved);
                     } else {
                         viewModel.title(currentTitle);
