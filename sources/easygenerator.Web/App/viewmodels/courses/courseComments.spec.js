@@ -446,7 +446,7 @@
                         isDeleted: ko.observable(false)
                     };
 
-                describe('when courseId is correct', function() {
+                describe('when courseId is correct', function () {
                     it('should remove comment from viewModel', function () {
                         viewModel.courseId = courseId;
                         viewModel.comments([comment]);
@@ -465,9 +465,26 @@
                         expect(viewModel.comments().length).toBe(1);
                     });
                 });
-                
+
+            });
+
+            describe('hide:', function () {
+                var comment = {
+                        id: ko.observable('1'),
+                        text: 'text',
+                        name: 'name',
+                        email: 'email',
+                        createdOn: '2015-12-10',
+                        isDeleted: ko.observable(false)
+                    };
+
+                it('should remove comment from viewModel', function () {
+                    viewModel.comments([comment]);
+
+                    viewModel.hide(comment);
+                    expect(viewModel.comments().length).toBe(0);
+                });
             });
         });
-
     }
 );

@@ -465,6 +465,7 @@
     "deleteComment": "Delete comment",
     "commentWasNotDeletedError": "Comment was not deleted",
     "commentWasNotRestoredError": "Comment was not restored",
+    "commentWasDeleted": "Comment was deleted...",
     "feedback": "Feedback",
     "sendFeedback": "Verzend feedback",
     "send": "Verzenden",

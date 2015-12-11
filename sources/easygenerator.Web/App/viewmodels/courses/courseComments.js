@@ -5,12 +5,13 @@
         var viewModel = {
             courseId: null,
             isCommentsLoading: ko.observable(),
-            comments: ko.observableArray(),
+            comments: ko.observableArray([]),
             hasAccessToComments: ko.observable(userContext.hasStarterAccess()),
             activate: activate,
             openUpgradePlanUrl: openUpgradePlanUrl,
             removeComment: removeComment,
             restoreComment: restoreComment,
+            hide: hide,
             deletedByCollaborator: deletedByCollaborator
         };
 
@@ -85,6 +86,14 @@
                 return;
             }
 
+            deleteFromViewModel(commentId);
+        }
+
+        function hide(comment) {
+            deleteFromViewModel(comment.id());
+        }
+
+        function deleteFromViewModel(commentId) {
             viewModel.comments(_.reject(viewModel.comments(), function (item) {
                 return item.id() === commentId;
             }));

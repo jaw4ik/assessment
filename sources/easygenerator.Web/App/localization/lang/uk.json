@@ -465,6 +465,7 @@
     "deleteComment": "Видалити коментар",
     "commentWasNotDeletedError": "Коментар не був видалений",
     "commentWasNotRestoredError": "Коментар не був відновлений",
+    "commentWasDeleted": "Comment was deleted...",
     "feedback": "Відгуки",
     "sendFeedback": "Надіслати відгук",
     "send": "Надіслати",
