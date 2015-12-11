@@ -32,7 +32,7 @@ export default class DragulaContainer{
             direction: 'vertical'
         });
 
-        dragulaAnimation.initialize(this);
+        //dragulaAnimation.initialize(this);
 
         this.dragula.on('drop', (element, target, source, sibling) => {
             if (_.isNull(target)) {

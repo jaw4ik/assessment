@@ -114,7 +114,7 @@ export default class {
         this.courseIntroductionContent = new vmContentField(course.introductionContent, eventsForCourseContent, false, content => courseRepository.updateIntroductionContent(course.id, content));
     }
     async createSection(section) {
-        let emptySectionViewModel = new SectionViewModel(this.id, {}, true);
+        let emptySectionViewModel = new SectionViewModel(this.id, {}, true, true);
         this.sections.push(emptySectionViewModel);
         let type = section && section.type;
         if (type === 'section') {
@@ -147,8 +147,7 @@ export default class {
         if (!type) {
             return;
         }
-
-        let emptySectionViewModel = new SectionViewModel(this.id, {}, true);
+        let emptySectionViewModel = new SectionViewModel(this.id, {}, true, true);
         if (nextSectionId) {
             let nextSectionInCourse = _.find(this.sections(), section => section.id() === nextSectionId);
             let nextSectionInCourseIndex = this.sections.indexOf(nextSectionInCourse);

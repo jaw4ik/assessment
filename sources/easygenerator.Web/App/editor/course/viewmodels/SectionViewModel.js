@@ -31,13 +31,14 @@ var events = {
 }
 
 export default class SectionViewModel{
-    constructor (courseId, section, isProcessed) {
+    constructor (courseId, section, isProcessed, justCreated) {
         this.courseId = courseId;
         this.id = ko.observable(section.id || '');
         this.title = ko.observable(section.title || '');
         this.title.isEditing = ko.observable(false);
         this.title.maxLength = constants.validation.objectiveTitleMaxLength;
-        this.title.isValid = ko.computed(() => this.title().length <= this.title.maxLength, this);
+        this.title.isValid = ko.computed(() => this.title().trim().length <= this.title.maxLength, this);
+        this.title.isEmpty = ko.computed(() => this.title().trim().length === 0, this);
         this.originalTitle = this.title();
         this.modifiedOn = ko.observable(section.modifiedOn ? updateModifiedOn(section.modifiedOn) : '');
         this.image = ko.observable(section.image || '');
@@ -47,6 +48,7 @@ export default class SectionViewModel{
         this.questions = ko.observableArray(mapQuestions(this.courseId, this.id(), section.questions));
         this.notContainQuestions = ko.computed(() => this.questions().length === 0, this);
         this.isProcessed = ko.observable(isProcessed);
+        this.justCreated = ko.observable(justCreated);
 
         _sectionTitleUpdated.set(this, section => {
             if (section.id !== this.id() || this.title.isEditing()) {
@@ -113,13 +115,15 @@ export default class SectionViewModel{
     async stopEditingTitle() {
         eventTracker.publish(events.updateTitle, eventCategory);
         this.title.isEditing(false);
-        if (this.title.isValid() && this.title() !== this.originalTitle) {
+        this.title(this.title().trim());
+        if (this.title.isValid() && !this.title.isEmpty() && this.title() !== this.originalTitle) {
             await updateSectionTitleCommand.execute(this.id(), this.title());
             this.originalTitle = this.title();
             notify.saved();
         } else {
             this.title(this.originalTitle);
         }
+        this.justCreated(false);
     }
     updateFields(section) {
         this.id(section.id);
@@ -130,6 +134,11 @@ export default class SectionViewModel{
         this.questions(mapQuestions(this.id(), section.questions));
         this.questionsExpanded(true);
         this.isProcessed(false);
+
+        if (this.justCreated()) {
+            this.title('');
+            this.title.isEditing(true);
+        }
     }
     toggleMenu() {
         this.menuExpanded(!this.menuExpanded());
