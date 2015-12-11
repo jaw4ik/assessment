@@ -80,45 +80,47 @@
                             </div>
                         </div>
                         <div class="questions-list-container" data-bind="expandBlock: { expanded: questionsExpanded }, css: { empty: notContainQuestions, collapsed: !questionsExpanded() }">
-                            <ul class="questions-list-wrapper" data-bind="draggableContainer: { moveTo: { '.questions-list-wrapper': $root.reorderQuestion, '.question-placehodler': $root.reorderQuestion }, draggableArea: '.questions-list-item-sort-button' }, draggableData: { sectionId: id }">
-                                <!-- ko foreach: questions -->
-                                <li class="questions-list-item-holder" data-bind="css: { processed: isProcessed }, draggableData: { id: id }">
-                                    <div class="preloader-container" data-bind="preloader: { settings: 'align-center small' }"></div>
-                                    <div class="questions-list-item" data-bind="css: type">
-                                        <div class="questions-list-item-sort-button"></div>
-                                        <div class="questions-list-item-body-wrapper">
-                                            <div class="questions-list-item-image"></div>
-                                            <div class="questions-list-item-title-container">
-                                                <div class="questions-list-item-title" data-bind="text:title"></div>
+                            <div class="questions-list-wrapper">
+                                <ul class="questions-list" data-bind="draggableContainer: { moveTo: { '.questions-list': $root.reorderQuestion, '.question-placeholder': $root.reorderQuestion }, draggableArea: '.questions-list-item-sort-button' }, draggableData: { sectionId: id }">
+                                    <!-- ko foreach: questions -->
+                                    <li class="questions-list-item-holder" data-bind="css: { processed: isProcessed }, draggableData: { id: id }">
+                                        <div class="preloader-container" data-bind="preloader: { settings: 'align-center small' }"></div>
+                                        <div class="questions-list-item" data-bind="css: type">
+                                            <div class="questions-list-item-sort-button"></div>
+                                            <div class="questions-list-item-body-wrapper">
+                                                <div class="questions-list-item-image"></div>
+                                                <div class="questions-list-item-title-container">
+                                                    <div class="questions-list-item-title" data-bind="text:title"></div>
+                                                </div>
+                                            </div>
+                                            <div class="questions-list-item-delete-wrapper" data-bind="click: markToDelete">
+                                                <button class="questions-list-item-delete-btn"></button>
+                                            </div>
+                                            <div class="questions-list-item-delete-container" data-bind="css: { delete: canBeDeleted }">
+                                                <div class="questions-list-item-delete-text">Delete this question?</div>
+                                                <div class="questions-list-item-delete-buttons-container">
+                                                    <button class="questions-list-item-delete-button delete" data-bind="click: $root.deleteQuestion.bind($root)">Delete</button>
+                                                    <button class="questions-list-item-delete-button cancel" data-bind="click: cancel">Cancel</button>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="questions-list-item-delete-wrapper" data-bind="click: markToDelete">
-                                            <button class="questions-list-item-delete-btn"></button>
-                                        </div>
-                                        <div class="questions-list-item-delete-container" data-bind="css: { delete: canBeDeleted }">
-                                            <div class="questions-list-item-delete-text">Delete this question?</div>
-                                            <div class="questions-list-item-delete-buttons-container">
-                                                <button class="questions-list-item-delete-button delete" data-bind="click: $root.deleteQuestion.bind($root)">Delete</button>
-                                                <button class="questions-list-item-delete-button cancel" data-bind="click: cancel">Cancel</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                    <!-- /ko -->
+                                </ul>
+                                <!-- ko if: notContainQuestions -->
+                                <div class="drop-zone-container" data-bind="css: { disabled: justCreated }">
+                                    <h2 class="drop-zone-title">Fill section with contents and questions</h2>
+                                    <h3 class="drop-zone-subtitle">by droping it here form the left panel</h3>
+                                    <div class="placeholder question-placeholder" data-bind="draggableContainer: {},  draggableData: { sectionId: id }"></div>
+                                </div>
                                 <!-- /ko -->
-                            </ul>
-                            <!-- ko if: notContainQuestions -->
-                            <div class="drop-zone-container" data-bind="css: { disabled: justCreated }">
-                                <h2 class="drop-zone-title">Fill section with contents and questions</h2>
-                                <h3 class="drop-zone-subtitle">by droping it here form the left panel</h3>
-                                <div class="placeholder question-placehodler" data-bind="draggableContainer: {},  draggableData: { sectionId: id }"></div>
+                                <!-- ko ifnot: notContainQuestions -->
+                                <div class="drop-zone-container questions">
+                                    <h2 class="drop-zone-title">+ Drop here more questions and content</h2>
+                                    <div class="placeholder question-placeholder" data-bind="draggableContainer: {},  draggableData: { sectionId: id }"></div>
+                                </div>
+                                <!-- /ko -->
                             </div>
-                            <!-- /ko -->
-                            <!-- ko ifnot: notContainQuestions -->
-                            <div class="drop-zone-container questions">
-                                <h2 class="drop-zone-title">+ Drop here more questions and content</h2>
-                                <div class="placeholder question-placehodler" data-bind="draggableContainer: {},  draggableData: { sectionId: id }"></div>
-                            </div>
-                            <!-- /ko -->
                         </div>
                     </li>
                     <!-- /ko -->
