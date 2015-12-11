@@ -1290,7 +1290,6 @@
     <Content Include="App\reporting\views\courseStatement.html" />
     <Content Include="App\reporting\views\objectiveStatement.html" />
     <Content Include="App\reporting\views\questionStatement.html" />
-    <Content Include="App\widgets\cursorTooltip\bindingHadlers\cursorTooltipBindingHandler.js" />
     <Content Include="App\widgets\cursorTooltip\view.html" />
     <Content Include="App\widgets\cursorTooltip\viewmodel.js" />
     <Content Include="App\widgets\cursorTooltip\viewmodel.spec.js">
