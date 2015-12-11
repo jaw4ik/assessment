@@ -1,17 +1,12 @@
-﻿define([], function () {
-    var ctor = function (template) {
-        var viewModel = {
-            id: template.id,
-            name: template.name,
-            thumbnail: template.thumbnail,
-            previewImages: template.previewImages,
-            description: template.shortDescription,
-            order: template.order,
-            isCustom: template.isCustom
-        };
-
-        return viewModel;
-    };
-
-    return ctor;
-});
+﻿export default class TemplateBrief{
+    constructor(template) {
+        this.id = template.id;
+        this.name=template.name;
+        this.thumbnail = template.thumbnail;
+        this.previewImages = template.previewImages;
+        this.description = template.shortDescription;
+        this.order = template.order;
+        this.isCustom = template.isCustom;
+        this.isAdvanced = false;
+    }
+}

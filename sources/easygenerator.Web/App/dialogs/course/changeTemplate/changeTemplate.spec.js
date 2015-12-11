@@ -6,7 +6,6 @@
         eventTracker = require('eventTracker'),
         dialog = require('widgets/dialog/viewmodel'),
         courseRepository = require('repositories/courseRepository'),
-        templateSelector = require('dialogs/course/common/templateSelector/templateSelector'),
         app = require('durandal/app');
 
     describe('dialog course [changeTemplate]', function () {
@@ -31,7 +30,7 @@
 
         describe('templateSelector:', function () {
             it('should be defined', function () {
-                expect(viewModel.templateSelector).toBe(templateSelector);
+                expect(viewModel.templateSelector).toBeDefined();
             });
         });
 
@@ -75,7 +74,7 @@
                 updateTemplateDefer = Q.defer();
                 spyOn(courseRepository, 'updateCourseTemplate').and.returnValue(updateTemplateDefer.promise);
                 spyOn(dialog, 'close');
-                spyOn(templateSelector, 'selectedTemplate').and.returnValue(template);
+                spyOn(viewModel.templateSelector, 'selectedTemplate').and.returnValue(template);
                 viewModel.courseId = courseId;
             });
 

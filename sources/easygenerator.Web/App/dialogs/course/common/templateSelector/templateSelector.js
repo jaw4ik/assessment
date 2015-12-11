@@ -1,53 +1,57 @@
-﻿define(['plugins/router', 'dialogs/course/common/templateSelector/templateBrief', 'repositories/templateRepository'], function (router, TemplateBrief, templateRepository) {
-    var viewModel = {
-        isLoading: ko.observable(false),
-        templates: ko.observableArray([]),
-        selectedTemplate: ko.observable(),
-        activate: activate,
-        getSelectedTemplateId: getSelectedTemplateId,
-        selectTemplate: selectTemplate
-    };
+﻿import ko from 'knockout';
+import _ from 'underscore';
+import router from 'plugins/router';
+import templateRepository from 'repositories/templateRepository';
+import TemplateBrief from 'dialogs/course/common/templateSelector/templateBrief';
 
-    return viewModel;
-
-    function activate(selectedTemplateId) {
-        viewModel.templates.removeAll();
-
-        viewModel.isLoading(true);
-        return templateRepository.getCollection().then(function (templates) {
-            viewModel.templates(_.chain(templates)
-                .map(function (template) {
-                    return new TemplateBrief(template);
-                })
-                .sortBy( function (template) { return template.order; })
-                .partition(function (template) { return template.isCustom })
-                .flatten()
-                .value());
-            selectTemplateById(selectedTemplateId);
-        }).fail(function (reason) {
-            router.activeItem.settings.lifecycleData = { redirect: '404' };
-            throw reason;
-        }).fin(function () {
-            viewModel.isLoading(false);
-        });
+export default class TemplateSelector{
+    constructor() {
+        this.isLoading = ko.observable(false);
+        this.templates = ko.observableArray([]);
+        this.selectedTemplate = ko.observable();
     }
 
-    function selectTemplate(template) {
-        if (template.id === getSelectedTemplateId())
+    async activate(selectedTemplateId) {
+        this.templates.removeAll();
+
+        this.isLoading(true);
+        let templates = await templateRepository.getCollection();
+
+        this.isLoading(false);
+        this.templates(_.chain(templates)
+               .map(template => {
+                   return new TemplateBrief(template);
+               })
+               .sortBy(template => { return template.order; })
+               .partition(template => { return template.isCustom; })
+               .flatten()
+               .value());
+
+        let systemTemplatesStartingIndex = _.findIndex(this.templates(), template => { return !template.isCustom; });
+        let advancedTemplates = _.rest(this.templates(), systemTemplatesStartingIndex + 2);
+        if(_.isArray(advancedTemplates)) {
+            advancedTemplates.forEach(template => template.isAdvanced = true);
+        }
+
+        this.selectTemplateById(selectedTemplateId);
+    }
+
+    selectTemplate(template) {
+        if (template.id === this.getSelectedTemplateId())
             return;
 
-        viewModel.selectedTemplate(template);
+        this.selectedTemplate(template);
     }
 
-    function getSelectedTemplateId() {
-        return viewModel.selectedTemplate() ? viewModel.selectedTemplate().id : null;
+    getSelectedTemplateId() {
+        return this.selectedTemplate() ? this.selectedTemplate().id : null;
     }
 
-    function selectTemplateById(id) {
+    selectTemplateById(id) {
         if (id) {
-            viewModel.selectedTemplate(_.find(viewModel.templates(), function (item) { return item.id === id; }));
+            this.selectedTemplate(_.find(this.templates(), function (item) { return item.id === id; }));
         } else {
-            viewModel.selectedTemplate(viewModel.templates()[0]);
+            this.selectedTemplate(this.templates()[0]);
         }
     }
-});
+}
