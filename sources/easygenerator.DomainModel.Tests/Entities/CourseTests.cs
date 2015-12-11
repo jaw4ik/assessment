@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using easygenerator.DomainModel.Events.CommentEvents;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {
@@ -978,6 +979,68 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.AddComment(comment);
 
             comment.Course.Should().Be(course);
+        }
+
+        #endregion
+
+        #region DeleteComment
+
+        [TestMethod]
+        public void DeleteComment_ShouldThrowArgumentNullException_WhenCommentIsNull()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create();
+
+            // Act
+            Action action = () => course.DeleteComment(null);
+
+            // Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("comment");
+        }
+
+        [TestMethod]
+        public void DeleteComment_ShouldDeleteComment()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create();
+            var comment = CommentObjectMother.Create();
+            course.AddComment(comment);
+
+            // Act
+            course.DeleteComment(comment);
+
+            // Assert
+            course.Comments.Should().BeEmpty();
+        }
+
+        [TestMethod]
+        public void DeleteComment_ShouldSetCourseToNullInComment()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create();
+            var comment = CommentObjectMother.Create();
+            course.AddComment(comment);
+
+            // Act
+            course.DeleteComment(comment);
+
+            // Assert
+            comment.Course.Should().Be(null);
+        }
+
+        [TestMethod]
+        public void DeleteComment_ShouldAddCommentDeletedEvent()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create();
+            var comment = CommentObjectMother.Create();
+            course.AddComment(comment);
+
+            // Act
+            course.DeleteComment(comment);
+
+            // Assert
+            course.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(CommentDeletedEvent));
         }
 
         #endregion

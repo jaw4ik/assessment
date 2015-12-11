@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using easygenerator.DomainModel.Events.CommentEvents;
 
 namespace easygenerator.DomainModel.Entities
 {
@@ -165,6 +166,8 @@ namespace easygenerator.DomainModel.Entities
 
             CommentsCollection.Remove(comment);
             comment.Course = null;
+
+            RaiseEvent(new CommentDeletedEvent(this, comment));
         }
 
         #endregion

@@ -66,7 +66,7 @@
                     createdOn: comment.createdOn
                 };
                 return apiHttpWrapper.post('api/comment/restore', data).then(function (response) {
-                    guard.throwIfNotBoolean(response, 'Response is not a boolean');
+                    guard.throwIfNotString(response, 'Response is not a string');
 
                     return response;
                 });

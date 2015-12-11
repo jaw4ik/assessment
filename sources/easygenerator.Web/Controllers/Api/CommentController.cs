@@ -7,6 +7,7 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Components.ActionFilters.Permissions;
+using easygenerator.Web.Components.Mappers;
 using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
@@ -49,7 +50,7 @@ namespace easygenerator.Web.Controllers.Api
             var comment = _entityFactory.Comment(text, createdByName, createdBy, createdOn.ToUniversalTime());
             course.AddComment(comment);
 
-            return JsonSuccess(true);
+            return JsonSuccess(comment.Id.ToNString());
         }
 
         [HttpPost]

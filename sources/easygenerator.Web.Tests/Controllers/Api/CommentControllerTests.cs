@@ -17,6 +17,7 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Controllers.Api;
+using easygenerator.Web.Extensions;
 using easygenerator.Web.Tests.Utils;
 
 namespace easygenerator.Web.Tests.Controllers.Api
@@ -143,21 +144,19 @@ namespace easygenerator.Web.Tests.Controllers.Api
             const string text = "text";
             const string user = "Test user";
             const string email = "test@test.test";
-            var createdOn = DateTimeWrapper.Now();
+            var createdOn = new DateTime(2015, 12, 10, 9, 54, 10);
 
             _user.Identity.Name.Returns("Test user");
             var course = Substitute.For<Course>("Course", TemplateObjectMother.Create(), CreatedBy);
             var comment = Substitute.For<Comment>("Comment", user, email);
 
-            _entityFactory.Comment(text, user, email, createdOn).Returns(comment);
+            _entityFactory.Comment(text, user, email, createdOn.ToUniversalTime()).Returns(comment);
 
             //Act
             var result = _controller.Restore(course, text, user, email, createdOn);
 
             //Assert
-            result.Should()
-                .BeJsonSuccessResult()
-                .And.Data.ShouldBeSimilar(true);
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(comment.Id); ;
         }
 
         #endregion

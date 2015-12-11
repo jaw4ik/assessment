@@ -1,6 +1,6 @@
-﻿define(['guard', 'userContext', 'repositories/commentRepository', 'eventTracker', 'constants',
+﻿define(['durandal/app','guard', 'userContext', 'repositories/commentRepository', 'eventTracker', 'constants',
     'plugins/router', 'notify', 'localization/localizationManager'],
-    function (guard, userContext, commentRepository, eventTracker, constants, router, notify, localizationManager) {
+    function (app, guard, userContext, commentRepository, eventTracker, constants, router, notify, localizationManager) {
 
         var viewModel = {
             courseId: null,
@@ -10,8 +10,11 @@
             activate: activate,
             openUpgradePlanUrl: openUpgradePlanUrl,
             removeComment: removeComment,
-            restoreComment: restoreComment
+            restoreComment: restoreComment,
+            deletedByCollaborator: deletedByCollaborator
         };
+
+        app.on(constants.messages.course.comment.deletedByCollaborator, viewModel.deletedByCollaborator);
 
         return viewModel;
 
@@ -29,7 +32,7 @@
                         return commentRepository.getCollection(courseId).then(function (comments) {
                             viewModel.comments(_.map(comments, function(item) {
                                 return {
-                                    id: item.id,
+                                    id: ko.observable(item.id),
                                     text: item.text,
                                     email: item.email,
                                     name: item.name,
@@ -51,7 +54,7 @@
         }
 
         function removeComment(comment) {
-            return commentRepository.removeComment(viewModel.courseId, comment.id).then(function (success) {
+            return commentRepository.removeComment(viewModel.courseId, comment.id()).then(function (success) {
                 if (success) {
                     comment.isDeleted(true);
                     notify.saved();
@@ -64,9 +67,10 @@
         }
 
         function restoreComment(comment) {
-            return commentRepository.restoreComment(viewModel.courseId, comment).then(function (success) {
-                if (success) {
+            return commentRepository.restoreComment(viewModel.courseId, comment).then(function (restoredId) {
+                if (!_.isNullOrUndefined(restoredId)) {
                     comment.isDeleted(false);
+                    comment.id(restoredId);
                     notify.saved();
                 } else {
                     throw "Comment is not restored";
@@ -74,6 +78,16 @@
             }).fail(function() {
                 notify.error(localizationManager.localize('commentWasNotRestoredError'));
             });
+        }
+
+        function deletedByCollaborator(courseId, commentId) {
+            if (viewModel.courseId !== courseId) {
+                return;
+            }
+
+            viewModel.comments(_.reject(viewModel.comments(), function (item) {
+                return item.id() === commentId;
+            }));
         }
     }
 );

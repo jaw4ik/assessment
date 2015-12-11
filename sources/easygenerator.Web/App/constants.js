@@ -172,6 +172,9 @@
                             completed: 'collaborator:deleting-completed:',
                             failed: 'collaborator:deleting-failed:'
                         }
+                    },
+                    comment: {
+                        deletedByCollaborator: 'course:comment:deletedByCollaborator',
                     }
                 },
                 learningPath: {

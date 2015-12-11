@@ -531,6 +531,7 @@
     <Compile Include="Synchronization\Handlers\CourseEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\DragAndDropEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\HotSpotEventHandler.cs" />
+    <Compile Include="Synchronization\Handlers\CommentEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\LearningContentEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\ObjectiveEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\QuestionEventHandler.cs" />
@@ -773,6 +774,11 @@
     <Content Include="App\repositories\learningPathRepository.spec.js">
       <DependentUpon>learningPathRepository.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\comment\eventHandlers\deleted.js" />
+    <Content Include="App\synchronization\handlers\comment\eventHandlers\deleted.spec.js">
+      <DependentUpon>deleted.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\comment\handler.js" />
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\voiceOverUpdated.js" />
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\voiceOverUpdated.spec.js">
       <DependentUpon>voiceOverUpdated.js</DependentUpon>

@@ -360,30 +360,30 @@
                     post.reject('error');
                 });
 
-                describe('and response is not a boolean', function () {
+                describe('and response is not a string', function () {
                     it('should reject promise', function (done) {
                         var promise = repository.restoreComment(courseId, comment);
 
                         promise.fin(function () {
-                            expect(promise).toBeRejectedWith('Response is not a boolean');
+                            expect(promise).toBeRejectedWith('Response is not a string');
                             done();
                         });
 
-                        post.resolve("");
+                        post.resolve();
                     });
 
                 });
 
-                describe('and response is boolean', function () {
+                describe('and response is string', function () {
                     it('should return response', function (done) {
                         var promise = repository.restoreComment(courseId, comment);
 
                         promise.fin(function () {
-                            expect(promise.inspect()).toBeTruthy();
+                            expect(promise.inspect().value).toBe('id');
                             done();
                         });
 
-                        post.resolve(true);
+                        post.resolve('id');
                     });
                 });
             });

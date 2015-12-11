@@ -169,7 +169,7 @@
                                     viewModel.activate('123');
 
                                     viewModel.activate('123').fin(function () {
-                                        expect(viewModel.comments()[0].id).toBe(comment.id);
+                                        expect(viewModel.comments()[0].id()).toBe(comment.id);
                                         expect(viewModel.comments()[0].text).toBe(comment.text);
                                         expect(viewModel.comments()[0].email).toBe(comment.email);
                                         expect(viewModel.comments()[0].name).toBe(comment.name);
@@ -234,13 +234,13 @@
                 var removeDefer,
                     courseId = 'courseId',
                     comment = {
-                        id: '1',
+                        id: ko.observable('1'),
                         text: 'text',
                         name: 'name',
                         email: 'email',
                         createdOn: '2015-12-10',
                         isDeleted: ko.observable(false)
-                    };;
+                    };
 
                 beforeEach(function () {
                     spyOn(notify, 'saved');
@@ -259,7 +259,7 @@
 
                 it('should remove comment from repository', function (done) {
                     viewModel.removeComment(comment).fin(function () {
-                        expect(commentRepository.removeComment).toHaveBeenCalledWith(courseId, comment.id);
+                        expect(commentRepository.removeComment).toHaveBeenCalledWith(courseId, comment.id());
                         done();
                     });
 
@@ -331,7 +331,7 @@
                 var restoreDefer,
                     courseId = 'courseId',
                     comment = {
-                        id: '1',
+                        id: ko.observable('1'),
                         text: 'text',
                         name: 'name',
                         email: 'email',
@@ -370,8 +370,18 @@
                             done();
                         });
 
-                        restoreDefer.resolve(true);
+                        restoreDefer.resolve('2');
                     });
+
+                    it('should set new restored id', function (done) {
+                        viewModel.restoreComment(comment).fin(function () {
+                            expect(viewModel.comments()[0].id()).toBe('2');
+                            done();
+                        });
+
+                        restoreDefer.resolve('2');
+                    });
+
 
                     it('should show saved notification', function (done) {
                         viewModel.restoreComment(comment).fin(function () {
@@ -379,7 +389,7 @@
                             done();
                         });
 
-                        restoreDefer.resolve(true);
+                        restoreDefer.resolve('2');
                     });
                 });
 
@@ -390,7 +400,7 @@
                             done();
                         });
 
-                        restoreDefer.resolve(false);
+                        restoreDefer.resolve();
                     });
 
                     it('should show error notification', function (done) {
@@ -399,7 +409,7 @@
                             done();
                         });
 
-                        restoreDefer.resolve(false);
+                        restoreDefer.resolve();
                     });
                 });
 
@@ -422,6 +432,40 @@
                         restoreDefer.reject();
                     });
                 });
+            });
+
+            describe('deletedByCollaborator:', function () {
+                var commentId = '1',
+                    courseId = 'courseId',
+                    comment = {
+                        id: ko.observable(commentId),
+                        text: 'text',
+                        name: 'name',
+                        email: 'email',
+                        createdOn: '2015-12-10',
+                        isDeleted: ko.observable(false)
+                    };
+
+                describe('when courseId is correct', function() {
+                    it('should remove comment from viewModel', function () {
+                        viewModel.courseId = courseId;
+                        viewModel.comments([comment]);
+
+                        viewModel.deletedByCollaborator(courseId, commentId);
+                        expect(viewModel.comments().length).toBe(0);
+                    });
+                });
+
+                describe('when courseId is not correct', function () {
+                    it('should not remove comment from viewModel', function () {
+                        viewModel.courseId = courseId;
+                        viewModel.comments([comment]);
+
+                        viewModel.deletedByCollaborator('someId', commentId);
+                        expect(viewModel.comments().length).toBe(1);
+                    });
+                });
+                
             });
         });
 
