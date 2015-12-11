@@ -24,7 +24,7 @@ export default class QuestionViewmodel{
         this.canBeDeleted(false);
     }
     openQuestion() {
-        let questionPath = '#courses/' + this.courseId + '/objectives/' + this.sectionId + '/questions/' + this.id();
+        let questionPath = `#courses/${this.courseId}/objectives/${this.sectionId}/questions/${this.id()}`;
         router.navigate(questionPath);
     }
 }

@@ -784,19 +784,20 @@
             }
 
             .count {
-                background-color: #469dd5;
-                border-radius: 50%;
-                color: #fff;
-                display: inline-block;
-                font-size: 12px;
-                height: 17px;
-                left: 50%;
-                line-height: 17px;
-                margin-left: 15px;
                 position: absolute;
-                text-align: center;
                 top: -8px;
+                left: 50%;
+                display: inline-block;
                 width: 17px;
+                height: 17px;
+                margin-left: 15px;
+                font-size: 10px;
+                line-height: 14px;
+                text-align: center;
+                color: #abbbc6;
+                background-color: transparent;
+                border-radius: 50%;
+                border: 1px solid #b3c2cc;
             }
         }
     }
@@ -831,24 +832,25 @@
                     font-size: 15px;
                     font-weight: normal;
                     line-height: 1;
-                    padding: 10px 15px;
+                    padding: 10px 25px;
                     text-align: center;
                     text-transform: uppercase;
                     vertical-align: middle;
                     .fix-bold-text-expanding;
+                    transition: all 0.2s linear;
 
                     &:hover {
-                        box-shadow: 0 -3px #88d498 inset, 0 1px #88d498;
+                        box-shadow: 0 -1px #a5d7a7 inset, 0 1px #a5d7a7;
                     }
 
                     &.active {
-                        box-shadow: 0 -3px #65bd77 inset, 0 1px #65bd77;
-                        color: #42515f;
+                        box-shadow: 0 -1px #4caf50 inset, 0 1px #4caf50;
+                        color: #2a333c;
                         font-family: 'OpenSans-Semibold';
                         position: relative;
 
                         &:hover {
-                            box-shadow: 0 -3px #65bd77 inset, 0 1px #65bd77;
+                            box-shadow: 0 -1px #4caf50 inset, 0 1px #4caf50;
                         }
                     }
                 }
@@ -885,19 +887,19 @@
 /*#endregion navigation*/
 
 .course nav ul li a {
+    @media (max-width: 1150px) {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
     [lang~=uk] & {
         @media (max-width: 1200px) {
             font-size: 14px;
-            padding-left: 10px;
-            padding-right: 10px;
         }
     }
 
     [lang~=pt-br] & {
         @media (max-width: 1150px) {
             font-size: 14px;
-            padding-left: 10px;
-            padding-right: 10px;
         }
     }
 }

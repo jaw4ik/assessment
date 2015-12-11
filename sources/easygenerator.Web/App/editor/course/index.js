@@ -118,7 +118,7 @@ export default class {
         this.sections.push(emptySectionViewModel);
         let type = section && section.type;
         if (type === 'section') {
-            let createdSection = await await createSectionCommand.execute(this.id);
+            let createdSection = await createSectionCommand.execute(this.id);
             emptySectionViewModel.updateFields(createdSection);
         }
     }
@@ -262,7 +262,6 @@ export default class {
             return;
         }
         this.lastDraggingSectionState = sectionInCourse.questionsExpanded();
-        console.log('this.lastDraggingSectionState', this.lastDraggingSectionState);
         sectionInCourse.questionsExpanded(false);
     }
     restoreQuestionsExpandingState(section) {
@@ -274,7 +273,6 @@ export default class {
         if (_.isNullOrUndefined(sectionInCourse)) {
             return;
         }
-        console.log('this.lastDraggingSectionState', this.lastDraggingSectionState);
         sectionInCourse.questionsExpanded(this.lastDraggingSectionState);
     }
 };

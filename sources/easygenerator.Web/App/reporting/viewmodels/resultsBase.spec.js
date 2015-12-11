@@ -1,4 +1,4 @@
-﻿define(['reporting/viewmodels/resultsBase', 'plugins/dialog'], function (ResultsBase, dialog) {
+﻿define(['reporting/viewmodels/resultsBase', 'plugins/dialog', 'moment'], function (ResultsBase, dialog, moment) {
     "use strict";
 
     var eventTracker = require('eventTracker'),
@@ -7,8 +7,7 @@
         router = require('plugins/router'),
         StartedStatement = require('reporting/viewmodels/startedStatement'),
         FinishStatement = require('reporting/viewmodels/finishStatement'),
-        fileSaverWrapper = require('utils/fileSaverWrapper'),
-        moment = require('moment');
+        fileSaverWrapper = require('utils/fileSaverWrapper');
 
     describe('ResultsBase:', function () {
         it('should return function', function () {
@@ -124,9 +123,14 @@
             statementsProvider = jasmine.createSpyObj('statementsProvider', ['getLrsStatements']);
             repository.getById.and.returnValue(getEntityDefer.promise);
 
+            window.moment = moment;
             spyOn(window, 'moment').and.returnValue(fakeMoment);
             spyOn(fakeMoment, 'format').and.returnValue(time);
             viewModel = new ResultsBase(repository.getById, statementsProvider.getLrsStatements, viewLocation);
+        });
+
+        afterEach(function() {
+            window.moment = null;
         });
 
         describe('entityId:', function () {
