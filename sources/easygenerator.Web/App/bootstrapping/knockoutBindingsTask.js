@@ -24,6 +24,7 @@
     require('editor/course/bindingHandlers/draggableData');
     require('components/bindingHandlers/dateBindingHadler');
     require('components/bindingHandlers/editableTextBindingHandler');
+    require('components/bindingHandlers/cursorTooltipBindingHandler');
 
     var task = {
         execute: execute

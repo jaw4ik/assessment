@@ -599,6 +599,7 @@
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
     <Content Include="App\bootstrapping\underscoreExtensionsTask.js" />
     <Content Include="App\browse.js" />
+    <Content Include="App\components\bindingHandlers\cursorTooltipBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\dateBindingHadler.js" />
     <Content Include="App\components\bindingHandlers\editableTextBindingHandler.js" />
     <Content Include="App\core\durandal\activator.js" />

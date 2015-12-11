@@ -3,6 +3,7 @@ import constants from 'constants';
 import router from 'plugins/router';
 import userContext from 'userContext';
 import eventTracker from 'eventTracker';
+import cursorTooltip from 'widgets/cursorTooltip/viewmodel';
 
 export default class CreateBar {
     constructor() {
@@ -54,6 +55,13 @@ export default class CreateBar {
                 hasAccess: userContext.hasAcademyAccess()
             }
         ];
+    }
+    showQuestionTootip() {
+        cursorTooltip.changeText('emptySectionQuestionTooltip');
+        cursorTooltip.show();
+    }
+    hideQuestionTootip() {
+        cursorTooltip.hide();
     }
     toggleSection() {
         this.sectionExpanded(!this.sectionExpanded());

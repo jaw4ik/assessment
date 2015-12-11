@@ -2,6 +2,7 @@
 import eventTracker from 'eventTracker';
 import constants from 'constants';
 import router from 'plugins/router';
+import cursorTooltip from 'widgets/cursorTooltip/viewmodel';
 
 
 describe('[CreateBarViewModel]', () => {
@@ -104,6 +105,32 @@ describe('[CreateBarViewModel]', () => {
             createBar.questionsExpanded(false);
             createBar.toggleQuestions();
             expect(createBar.questionsExpanded()).toBeTruthy();
+        });
+
+    });
+
+    describe('showQuestionTootip:', () => {
+
+        it('should change tooltip text', () => {
+            spyOn(cursorTooltip, 'changeText');
+            createBar.showQuestionTootip();
+            expect(cursorTooltip.changeText).toHaveBeenCalledWith('emptySectionQuestionTooltip');
+        });
+
+        it('should show tooltip', () => {
+            spyOn(cursorTooltip, 'show');
+            createBar.showQuestionTootip();
+            expect(cursorTooltip.show).toHaveBeenCalled();
+        });
+
+    });
+
+    describe('hideQuestionTootip:', () => {
+        
+        it('should hide tooltip', () => {
+            spyOn(cursorTooltip, 'hide');
+            createBar.hideQuestionTootip();
+            expect(cursorTooltip.hide).toHaveBeenCalled();
         });
 
     });

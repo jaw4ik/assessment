@@ -17,7 +17,7 @@
                     <div class="editor-create-bar-list-icon">
                         <!-- ko ifnot: hasAccess -->
                         <div class="editor-create-bar-list-no-access">
-                            <button class="editor-create-bar-list-no-access-button" data-bind="click: $parent.openUpgradePlanUrl">Upgrade</button>
+                            <button class="editor-create-bar-list-no-access-button" data-bind="click: $parent.openUpgradePlanUrl, localize: { text: 'upgrade'}">Upgrade</button>
                         </div>
                         <!-- /ko -->
                     </div>
@@ -25,7 +25,7 @@
                 </li>
                 <!-- /ko -->
             </ul>
-            <div class="not-contain-section-overlay"></div>
+            <div class="not-contain-section-overlay" data-bind="event: { mouseover: showQuestionTootip, mouseout: hideQuestionTootip }"></div>
         </div>
     </div>
 </section>
