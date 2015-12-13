@@ -27,7 +27,7 @@
                     <span data-bind="date: { value: createdOn, formatString: 'h:mm A' }"></span>
                     <span data-bind="date: { value: createdOn, formatString: 'M/D/YYYY' }"></span>
                 </div>
-                <div class="delete-comment-btn info-tooltip-holder" data-bind="click: $parent.removeComment">
+                <div class="delete-comment-btn info-tooltip-holder" data-bind="click: $parent.removeComment.bind($parent)">
                     <div class="info-tooltip">
                         <span data-bind="localize: { text: 'deleteComment' }">Delete comment</span>
                     </div>
@@ -35,8 +35,8 @@
             </div>
             <div class="comment-deleted" data-bind="css: { shown: isDeleted }">
                 <span class="comment-deleted-text" data-bind="localize: { text: 'commentWasDeleted' }">Comment was deleted...</span>
-                <a class="undo-link" href="#" data-bind="localize: { text: 'undo' }, click: $parent.restoreComment">Restore</a>
-                <div class="modal-dialog-close-btn" data-bind="click: $parent.hide"></div>
+                <a class="undo-link" href="#" data-bind="localize: { text: 'undo' }, click: $parent.restoreComment.bind($parent)">Restore</a>
+                <div class="modal-dialog-close-btn" data-bind="click: $parent.hide.bind($parent)"></div>
             </div>
         </li>
     </ul>
