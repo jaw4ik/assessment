@@ -11,8 +11,6 @@ app.reviewViewModel = function() {
         name: ko.observable(''),
         email: ko.observable(''),
         showTextValidationError: ko.observable(false),
-        showNameValidationError: ko.observable(false),
-        showEmailValidationError: ko.observable(false),
         showIdentifyUserForm: ko.observable(false),
         isExpanded: ko.observable(false),
         isSaved: ko.observable(false),
@@ -39,10 +37,10 @@ app.reviewViewModel = function() {
                     return;
                 }
             } else {
-                viewModel.showNameValidationError(!viewModel.name() || !viewModel.name().trim() || viewModel.name().trim().length > 255);
-                viewModel.showEmailValidationError(!viewModel.email() || !patternEmail.test(viewModel.email().trim()) || viewModel.email().trim().length > 254);
+                viewModel.name.isModified(true);
+                viewModel.email.isModified(true);
 
-                if (viewModel.showNameValidationError() || viewModel.showEmailValidationError()) {
+                if (!viewModel.name.isValid() || !viewModel.email.isValid()) {
                     return;
                 }
 
@@ -61,7 +59,17 @@ app.reviewViewModel = function() {
             return postUserComment(username, usermail, viewModel.text(), courseId);
         }
     };
-    
+
+    viewModel.name.isModified = ko.observable(false);
+    viewModel.name.isValid = ko.computed(function() {
+        return viewModel.name() && viewModel.name().trim() && viewModel.name().trim().length <= 255;
+    });
+
+    viewModel.email.isModified = ko.observable(false);
+    viewModel.email.isValid = ko.computed(function() {
+        return viewModel.email() && patternEmail.test(viewModel.email().trim()) && viewModel.email().trim().length <= 254;
+    });
+
     function postUserComment(username, usermail, comment, courseId) {
         viewModel.isSaved(false);
         viewModel.isFailed(false);
