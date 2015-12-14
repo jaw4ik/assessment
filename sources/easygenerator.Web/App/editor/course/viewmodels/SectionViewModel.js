@@ -36,6 +36,7 @@ export default class SectionViewModel{
         this.id = ko.observable(section.id || '');
         this.title = ko.observable(section.title || '');
         this.title.isEditing = ko.observable(false);
+        this.title.isSelected = ko.observable(false);
         this.title.maxLength = constants.validation.objectiveTitleMaxLength;
         this.title.isValid = ko.computed(() => this.title().trim().length <= this.title.maxLength, this);
         this.title.isEmpty = ko.computed(() => this.title().trim().length === 0, this);
@@ -109,12 +110,16 @@ export default class SectionViewModel{
         app.on(constants.messages.question.createdByCollaborator, _questionCreated.get(this).bind(this));
         app.on(constants.messages.objective.questionsReorderedByCollaborator, _questionsReordered.get(this).bind(this));
     }
+    selectTitle() {
+        this.title.isSelected(true);
+    }
     startEditingTitle() {
         this.title.isEditing(true);
     }
     async stopEditingTitle() {
         eventTracker.publish(events.updateTitle, eventCategory);
         this.title.isEditing(false);
+        this.title.isSelected(false);
         this.title(this.title().trim());
         if (this.title.isValid() && !this.title.isEmpty() && this.title() !== this.originalTitle) {
             await updateSectionTitleCommand.execute(this.id(), this.title());
@@ -136,8 +141,8 @@ export default class SectionViewModel{
         this.isProcessed(false);
 
         if (this.justCreated()) {
-            this.title('');
             this.title.isEditing(true);
+            this.title('');
         }
     }
     toggleMenu() {

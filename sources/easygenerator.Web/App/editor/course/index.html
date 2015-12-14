@@ -21,7 +21,7 @@
                     <!-- ko if: isContentDefined -->
                     <div class="course-editor-introduction-control-button collapse" data-bind="visible: isEditing()"></div>
                     <div class="course-editor-introduction-control-button edit" data-bind="click: beginEditText, visible: !isEditing()">
-                        <div class="info-tooltip left-side">
+                        <div class="info-tooltip">
                             <span data-bind="localize: {text: 'editIntroduction'}">Edit introduction</span>
                         </div>
                     </div>
@@ -50,7 +50,8 @@
                                     </div>
                                     <div class="sections-list-item-title-container">
                                         <div class="sections-list-item-title-wrapper" data-bind="css: { active: title.isEditing, error: !title.isValid() }">
-                                            <div class="sections-list-item-title selectable" data-bind="editableText: { text: title }, event: { focus: startEditingTitle, blur: stopEditingTitle }, autofocus: { focus: justCreated() || title.isEditing() }"></div>
+                                            <div class="sections-list-item-title-icon"></div>
+                                            <div class="sections-list-item-title selectable" data-bind="editableText: { text: title }, event: { focus: startEditingTitle, blur: stopEditingTitle }, autofocus: { focus: justCreated() || title.isSelected() }, localize: { placeholder: 'whatIsThisSectionAbout' }"></div>
                                             <div class="sections-list-item-title-counter">
                                                 <span data-bind="text: title().length"></span>/<span data-bind="text: title.maxLength">255</span>
                                             </div>
@@ -65,10 +66,9 @@
                                         <div class="sections-list-item-actions-menu-container" data-bind="css: { active: menuExpanded }">
                                             <button class="sections-list-item-actions-menu-toggle" data-bind="click: toggleMenu, outsideClick: { action: () => menuExpanded(false) }"></button>
                                             <ul class="sections-list-item-actions-menu">
-                                                <li class="sections-list-item-actions-menu-item edit-title" data-bind="click: startEditingTitle">Edit title</li>
+                                                <li class="sections-list-item-actions-menu-item edit-title" data-bind="click: selectTitle">Edit title</li>
                                                 <li class="sections-list-item-actions-menu-item change-image" data-bind="click: updateImage">Change image</li>
-                                                <li class="sections-list-item-actions-menu-item disconnect" data-bind="click: $parent.unrelateSection.bind($parent)">Disconnect from the course</li>
-                                                <li class="sections-list-item-actions-menu-item delete" data-bind="click: $parent.deleteSection">Delete permanently</li>
+                                                <!--<li class="sections-list-item-actions-menu-item delete" data-bind="click: $parent.deleteSection">Delete permanently</li>-->
                                             </ul>
                                         </div>
                                         <!-- /ko -->
@@ -96,11 +96,13 @@
                                             <div class="questions-list-item-delete-wrapper" data-bind="click: markToDelete">
                                                 <button class="questions-list-item-delete-btn"></button>
                                             </div>
-                                            <div class="questions-list-item-delete-container" data-bind="css: { delete: canBeDeleted }">
-                                                <div class="questions-list-item-delete-text">Delete this question?</div>
-                                                <div class="questions-list-item-delete-buttons-container">
-                                                    <button class="questions-list-item-delete-button delete" data-bind="click: $root.deleteQuestion.bind($root)">Delete</button>
-                                                    <button class="questions-list-item-delete-button cancel" data-bind="click: cancel">Cancel</button>
+                                            <div class="questions-list-item-delete-holder">
+                                                <div class="questions-list-item-delete-container" data-bind="css: { delete: canBeDeleted }">
+                                                    <div class="questions-list-item-delete-text">Delete this question?</div>
+                                                    <div class="questions-list-item-delete-buttons-container">
+                                                        <button class="questions-list-item-delete-button delete" data-bind="click: $root.deleteQuestion.bind($root)">Delete</button>
+                                                        <button class="questions-list-item-delete-button cancel" data-bind="click: cancel">Cancel</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
