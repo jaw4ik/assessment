@@ -83,9 +83,13 @@ ko.bindingHandlers.editableText = {
     update: (element, valueAccessor) => {
         let text = ko.utils.unwrapObservable(valueAccessor().text);
         let $element = $(element);
-
+        
         if (text !== $element.text()) {
             $element.text(text);
+        }
+
+        if ($element.text().length === 0) {
+            $element.text('');
         }
     }
 };
