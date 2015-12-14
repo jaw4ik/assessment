@@ -7,7 +7,7 @@ import constants from 'constants';
 
 export default class {
     static async execute(courseId) {
-        let title = localizationManager.localize('objectiveDefaultTitle');
+        let title = localizationManager.localize('sectionDefaultTitle');
         let createdObjective = await sectionRepository.addObjective({ title: title });
         if (_.isString(courseId)) {
             await courseRepository.relateObjective(courseId, createdObjective.id);

@@ -282,6 +282,7 @@
     "switchEditorToOldTitle": "切换回去",
     "createNewObjective": "加入新的课程目标",
     "objectiveDefaultTitle": "未命名的目标",
+    "sectionDefaultTitle": "Untitled section",
     "editTitle": "Edit title",
     "filter": "筛选",
     "createAndConnectLearningObjective": "新的目标/章节",

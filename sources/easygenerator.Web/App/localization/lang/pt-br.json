@@ -282,6 +282,7 @@
     "switchEditorToOldTitle": "Voltar",
     "createNewObjective": "Adicionar novo objetivo de curso",
     "objectiveDefaultTitle": "Objetivo sem título",
+    "sectionDefaultTitle": "Untitled section",
     "editTitle": "Edit title",
     "filter": "Filtro",
     "createAndConnectLearningObjective": "Novo objetivo / seção",
