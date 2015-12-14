@@ -4,7 +4,7 @@
     <!-- /ko -->
     <!-- ko ifnot: isLoading -->
     <div class="templates-list-container">
-        <div class="template-list-custom-scrollbar-container" data-bind="scrollbar: {}">
+        <div class="template-list-custom-scrollbar-container" data-bind="scrollbar: { checkDOMChanges: true}">
             <div class="templates-list-wrapper scrollable">
                 <ul class="templates-list" data-bind="foreach: templates">
                     <!-- ko ifnot: isAdvanced -->
