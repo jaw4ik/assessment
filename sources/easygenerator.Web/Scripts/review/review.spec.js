@@ -3,144 +3,156 @@
 
     var viewModel = app.reviewViewModel();
 
-    describe('viewModel [review]', function(){
+    describe('viewModel [review]', function () {
 
-        describe('isExpanded:', function(){
-            it('should be observable', function(){
+        describe('isExpanded:', function () {
+            it('should be observable', function () {
                 expect(viewModel.isExpanded).toBeObservable();
             });
         });
 
-        describe('isSaved:', function(){
-            it('should be observeble', function(){
+        describe('isSaved:', function () {
+            it('should be observeble', function () {
                 expect(viewModel.isSaved).toBeObservable();
             });
         });
 
-        describe('isFailed:', function(){
-            it('should be observeble', function(){
+        describe('isFailed:', function () {
+            it('should be observeble', function () {
                 expect(viewModel.isFailed).toBeObservable();
             });
         });
 
-        describe('text:', function(){
-            it('should be observable', function(){
+        describe('text:', function () {
+            it('should be observable', function () {
                 expect(viewModel.text).toBeObservable();
             });
         });
 
-        describe('name:', function(){
-            it('should be observable', function(){
+        describe('name:', function () {
+            it('should be observable', function () {
                 expect(viewModel.name).toBeObservable();
             });
-        });
 
-        describe('email:', function(){
-            it('should be observable', function(){
-                expect(viewModel.email).toBeObservable();
+            describe('when name is null', function () {
+                it('should set isValid to false', function () {
+                    viewModel.name(null);
+                    expect(viewModel.name.isValid()).toBeFalsy();
+
+                });
+            });
+
+            describe('when name is whitespace', function () {
+                it('should set isValid to false', function () {
+                    viewModel.name('   ');
+                    expect(viewModel.name.isValid()).toBeFalsy();
+
+                });
             });
         });
 
-        describe('showIdentifyUserForm:', function(){
-            it('should be observable', function(){
+        describe('email:', function () {
+            it('should be observable', function () {
+                expect(viewModel.email).toBeObservable();
+            });
+
+            describe('when email is null', function () {
+                it('should set isValid to false', function () {
+                    viewModel.email(null);
+                    expect(viewModel.email.isValid()).toBeFalsy();
+
+                });
+            });
+
+            describe('when email is whitespace', function () {
+                it('should set isValid to false', function () {
+                    viewModel.email('   ');
+                    expect(viewModel.email.isValid()).toBeFalsy();
+
+                });
+            });
+
+            describe('when email is not valid email', function () {
+                it('should set isValid to false', function () {
+                    viewModel.email('test');
+                    expect(viewModel.email.isValid()).toBeFalsy();
+
+                });
+            });
+        });
+
+        describe('showIdentifyUserForm:', function () {
+            it('should be observable', function () {
                 expect(viewModel.showIdentifyUserForm).toBeObservable();
             });
         });
 
-        describe('showTextValidationError:', function(){
-            it('should be observable', function(){
+        describe('showTextValidationError:', function () {
+            it('should be observable', function () {
                 expect(viewModel.showTextValidationError).toBeObservable();
             });
         });
 
-        describe('showNameValidationError:', function(){
-            it('should be observable', function(){
-                expect(viewModel.showNameValidationError).toBeObservable();
-            });
-        });
-
-        describe('showEmailValidationError:', function(){
-            it('should be observable', function(){
-                expect(viewModel.showEmailValidationError).toBeObservable();
-            });
-        });
-        
-        describe('onTextFocused:', function(){
-            it('should be function', function(){
-                expect(viewModel.onTextFocused).toBeFunction();
-            });
-
-            it('should set showTextValidationError to false', function(){
+        describe('onTextFocused:', function () {
+            it('should set showTextValidationError to false', function () {
                 viewModel.showTextValidationError(true);
                 viewModel.onTextFocused();
                 expect(viewModel.showTextValidationError()).toBeFalsy();
             });
         });
 
-        describe('onCollapsed:', function(){
-            it('should be function', function(){
-                expect(viewModel.onCollapsed).toBeFunction();
-            });
-
-            it('should set isSaved to false', function(){
+        describe('onCollapsed:', function () {
+            it('should set isSaved to false', function () {
                 viewModel.isSaved(true);
                 viewModel.onCollapsed();
                 expect(viewModel.isSaved()).toBeFalsy();
             });
 
 
-            it('should set isFailed to false', function(){
+            it('should set isFailed to false', function () {
                 viewModel.isFailed(true);
                 viewModel.onCollapsed();
                 expect(viewModel.isFailed()).toBeFalsy();
             });
         });
 
-        describe('toggleVisiblity:', function(){
-            it('should be function', function(){
-                expect(viewModel.toggleVisiblity).toBeFunction();
-            });
-
-            describe('when isExpanded true', function(){
-                beforeEach(function(){
+        describe('toggleVisiblity:', function () {
+            describe('when isExpanded true', function () {
+                beforeEach(function () {
                     viewModel.isExpanded(true);
                 });
 
-                it('should set isExpanded to false', function(){
+                it('should set isExpanded to false', function () {
                     viewModel.toggleVisiblity();
                     expect(viewModel.isExpanded()).toBeFalsy();
                 });
             });
 
-            describe('when isExpanded false', function(){
-                beforeEach(function(){
+            describe('when isExpanded false', function () {
+                beforeEach(function () {
                     viewModel.isExpanded(false);
                 });
 
-                it('should set isExpanded to true', function(){
+                it('should set isExpanded to true', function () {
                     viewModel.toggleVisiblity();
                     expect(viewModel.isExpanded()).toBeTruthy();
                 });
             });
         });
 
-        describe('addComment:', function(){
+        describe('addComment:', function () {
 
             var addCommentDeferred, courseId = 'courseId';
 
-            beforeEach(function(){
+            beforeEach(function () {
                 addCommentDeferred = $.Deferred();
                 spyOn($, "ajax").and.returnValue(addCommentDeferred.promise());
             });
 
-            it('should be function', function(){
-                expect(viewModel.addComment).toBeFunction();
-            });
+            describe('when course id is not specified', function () {
 
-            describe('when course id is not specified', function(){
-
-                it('should throw exception', function(){
-                    var f = function(){
+                it('should throw exception', function () {
+                    var f = function () {
                         viewModel.addComment(undefined);
                     };
 
@@ -148,14 +160,14 @@
                 });
             });
 
-            describe('when course id is specified', function(){
+            describe('when course id is specified', function () {
 
-                describe('when text is empty', function(){
-                    beforeEach(function(){
+                describe('when text is empty', function () {
+                    beforeEach(function () {
                         viewModel.text('');
                     });
 
-                    it('should set showTextValidationError to true', function(){
+                    it('should set showTextValidationError to true', function () {
                         viewModel.showTextValidationError(false);
                         viewModel.addComment(courseId);
                         expect(viewModel.showTextValidationError()).toBeTruthy();
@@ -163,19 +175,19 @@
 
                 });
 
-                describe('when text is whitespace', function(){
-                    beforeEach(function(){
+                describe('when text is whitespace', function () {
+                    beforeEach(function () {
                         viewModel.text('   ');
                     });
 
-                    it('should set showTextValidationError to true', function(){
+                    it('should set showTextValidationError to true', function () {
                         viewModel.showTextValidationError(false);
                         viewModel.addComment(courseId);
                         expect(viewModel.showTextValidationError()).toBeTruthy();
                     });
                 });
 
-                describe('when text is string', function(){
+                describe('when text is string', function () {
                     var text = 'comment',
                         name = 'name',
                         email = 'user@user.user';
@@ -188,7 +200,7 @@
                         spyOn(localStorage, 'setItem');
                     });
 
-                    it('should set isSaved to false', function(){
+                    it('should set isSaved to false', function () {
                         spyOn(localStorage, 'getItem').and.returnValue(name);
                         viewModel.isSaved(true);
 
@@ -196,7 +208,7 @@
                         expect(viewModel.isSaved()).toBeFalsy();
                     });
 
-                    it('should set isFailed to false', function(){
+                    it('should set isFailed to false', function () {
                         spyOn(localStorage, 'getItem').and.returnValue(name);
                         viewModel.isFailed(true);
 
@@ -204,15 +216,15 @@
                         expect(viewModel.isFailed()).toBeFalsy();
                     });
 
-                    it('should get username and usermail from local storage', function(){
+                    it('should get username and usermail from local storage', function () {
                         spyOn(localStorage, 'getItem').and.returnValue(name);
 
                         viewModel.addComment(courseId);
                         expect(localStorage.getItem).toHaveBeenCalled();
                     });
 
-                    describe('when username is null', function(){
-                        it('should show identify form', function(){
+                    describe('when username is null', function () {
+                        it('should show identify form', function () {
                             viewModel.showIdentifyUserForm(false);
                             spyOn(localStorage, 'getItem').and.returnValue(null);
 
@@ -221,8 +233,8 @@
                         });
                     });
 
-                    describe('when username is empty', function(){
-                        it('should show identify form', function(){
+                    describe('when username is empty', function () {
+                        it('should show identify form', function () {
                             viewModel.showIdentifyUserForm(false);
                             spyOn(localStorage, 'getItem').and.returnValue('');
 
@@ -231,8 +243,8 @@
                         });
                     });
 
-                    describe('when username is whitespace', function(){
-                        it('should show identify form', function(){
+                    describe('when username is whitespace', function () {
+                        it('should show identify form', function () {
                             viewModel.showIdentifyUserForm(false);
                             spyOn(localStorage, 'getItem').and.returnValue('    ');
 
@@ -241,57 +253,68 @@
                         });
                     });
 
-                    describe('when identify user form is shown', function(){
+                    describe('when identify user form is shown', function () {
 
-                        beforeEach(function(){
+                        beforeEach(function () {
                             viewModel.showIdentifyUserForm(true);
-                            viewModel.showNameValidationError(false);
-                            viewModel.showEmailValidationError(false);
                         });
 
-                        describe('when name is null', function(){
-                            it('should show NameValidationError', function () {
+                        describe('when name is null', function() {
+                            it('should not save name to localStorage', function() {
                                 viewModel.name(null);
-                                viewModel.addComment(courseId);
-                                expect(viewModel.showNameValidationError()).toBeTruthy();
-
+                                expect(localStorage.setItem).not.toHaveBeenCalled();
                             });
                         });
 
-                        describe('when name is whitespace', function(){
-                            it('should show NameValidationError', function () {
-                                viewModel.name('   ');
-                                viewModel.addComment(courseId);
-                                expect(viewModel.showNameValidationError()).toBeTruthy();
-
+                        describe('when name is empty', function () {
+                            it('should not save name to localStorage', function () {
+                                viewModel.name('');
+                                expect(localStorage.setItem).not.toHaveBeenCalled();
                             });
                         });
 
-                        describe('when email is null', function(){
-                            it('should show EmailValidationError', function () {
+                        describe('when name is whitespace', function () {
+                            it('should not save name to localStorage', function () {
+                                viewModel.name('    ');
+                                expect(localStorage.setItem).not.toHaveBeenCalled();
+                            });
+                        });
+
+                        describe('when email is null', function () {
+                            it('should not save email to localStorage', function () {
                                 viewModel.email(null);
-                                viewModel.addComment(courseId);
-                                expect(viewModel.showEmailValidationError()).toBeTruthy();
-
+                                expect(localStorage.setItem).not.toHaveBeenCalled();
                             });
                         });
 
-                        describe('when email is whitespace', function(){
-                            it('should show EmailValidationError', function () {
-                                viewModel.email('   ');
-                                viewModel.addComment(courseId);
-                                expect(viewModel.showEmailValidationError()).toBeTruthy();
-
+                        describe('when email is empty', function () {
+                            it('should not save email to localStorage', function () {
+                                viewModel.email('');
+                                expect(localStorage.setItem).not.toHaveBeenCalled();
                             });
                         });
 
-                        describe('when name and email are strings', function(){
-                            beforeEach(function(){
+                        describe('when email is whitespace', function () {
+                            it('should not save email to localStorage', function () {
+                                viewModel.email('     ');
+                                expect(localStorage.setItem).not.toHaveBeenCalled();
+                            });
+                        });
+
+                        describe('when email is not valid', function () {
+                            it('should not save email to localStorage', function () {
+                                viewModel.email('test');
+                                expect(localStorage.setItem).not.toHaveBeenCalled();
+                            });
+                        });
+
+                        describe('when name and email are valid', function () {
+                            beforeEach(function () {
                                 viewModel.name(name);
                                 viewModel.email(email);
                             });
 
-                            it('should save name to local storage', function() {
+                            it('should save name to local storage', function () {
                                 viewModel.addComment(courseId);
                                 expect(localStorage.setItem).toHaveBeenCalledWith('usernameForReview', name);
                             });
@@ -303,9 +326,9 @@
                         });
                     });
 
-                    describe('when username and usermail are strings', function(){
+                    describe('when username and usermail are strings', function () {
 
-                        it('should send request to /api/comment/create and trim values before sending request', function(){
+                        it('should send request to /api/comment/create and trim values before sending request', function () {
                             spyOn(localStorage, 'getItem').and.returnValue('   ' + email + '   ');
                             viewModel.text('   ' + text + '   ');
 
@@ -318,14 +341,14 @@
                             });
                         });
 
-                        describe('when request failed', function(){
+                        describe('when request failed', function () {
 
-                            beforeEach(function(){
+                            beforeEach(function () {
                                 spyOn(localStorage, 'getItem').and.returnValue(email);
                             });
 
-                            it('should set isFailed to true', function(done){
-                                viewModel.addComment(courseId).always(function(){
+                            it('should set isFailed to true', function (done) {
+                                viewModel.addComment(courseId).always(function () {
                                     expect(viewModel.isFailed()).toBeTruthy();
                                     done();
                                 });
@@ -335,16 +358,16 @@
 
                         });
 
-                        describe('when request succeed', function(){
+                        describe('when request succeed', function () {
 
-                            describe('and response is not an object', function(){
+                            describe('and response is not an object', function () {
 
-                                beforeEach(function(){
+                                beforeEach(function () {
                                     spyOn(localStorage, 'getItem').and.returnValue(email);
                                 });
 
-                                it('should throw exception', function(){
-                                    var f = function(){
+                                it('should throw exception', function () {
+                                    var f = function () {
                                         viewModel.addComment(courseId);
                                     };
                                     addCommentDeferred.resolve();
@@ -354,16 +377,16 @@
 
                             });
 
-                            describe('and response is not successful', function(){
+                            describe('and response is not successful', function () {
 
-                                beforeEach(function(){
+                                beforeEach(function () {
                                     spyOn(localStorage, 'getItem').and.returnValue(email);
                                 });
 
-                                it('should set isFailed to true', function(done){
+                                it('should set isFailed to true', function (done) {
                                     viewModel.isFailed(false);
 
-                                    viewModel.addComment(courseId).always(function(){
+                                    viewModel.addComment(courseId).always(function () {
                                         expect(viewModel.isFailed()).toBeTruthy();
                                         done();
                                     });
@@ -372,33 +395,33 @@
                                 });
                             });
 
-                            describe('and response is successful', function(){
+                            describe('and response is successful', function () {
 
-                                beforeEach(function(){
+                                beforeEach(function () {
                                     spyOn(localStorage, 'getItem').and.returnValue(email);
                                 });
 
-                                it('should clear text', function(done){
+                                it('should clear text', function (done) {
                                     viewModel.text('test');
-                                    viewModel.addComment(courseId).always(function(){
+                                    viewModel.addComment(courseId).always(function () {
                                         expect(viewModel.text()).toBe('');
                                         done();
                                     });
                                     addCommentDeferred.resolve({ success: true });
                                 });
 
-                                it('should set isSaved to true', function(done){
+                                it('should set isSaved to true', function (done) {
                                     viewModel.isSaved(false);
-                                    viewModel.addComment(courseId).always(function(){
+                                    viewModel.addComment(courseId).always(function () {
                                         expect(viewModel.isSaved()).toBeTruthy();
                                         done();
                                     });
                                     addCommentDeferred.resolve({ success: true });
                                 });
 
-                                it('should hide identify user form', function(done){
+                                it('should hide identify user form', function (done) {
                                     viewModel.showIdentifyUserForm(true);
-                                    viewModel.addComment(courseId).always(function(){
+                                    viewModel.addComment(courseId).always(function () {
                                         expect(viewModel.showIdentifyUserForm()).toBeFalsy();
                                         done();
                                     });
@@ -406,7 +429,7 @@
                                 });
                             });
                         });
-                    });    
+                    });
                 });
             });
         });
