@@ -121,7 +121,7 @@
     <value>Коментар не був відправлений.</value>
   </data>
   <data name="CommentWasSent" xml:space="preserve">
-    <value>Коментар було відправлено</value>
+    <value>Відправлено</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>E-mail</value>

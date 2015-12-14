@@ -118,21 +118,36 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CommentWasNotSent" xml:space="preserve">
-    <value>Comentário não foi enviado.</value>
+    <value>Le commentaire n'a pas été envoyé.</value>
   </data>
   <data name="CommentWasSent" xml:space="preserve">
-    <value>Comentário foi enviado</value>
+    <value>Le commentaire a été envoyé</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Adresse email</value>
+  </data>
+  <data name="EnterValidEmailError" xml:space="preserve">
+    <value>Veuillez saisir une adresse email valide</value>
+  </data>
+  <data name="EnterYourNameError" xml:space="preserve">
+    <value>Veuillez saisir votre nom</value>
+  </data>
+  <data name="IdentifyMessage" xml:space="preserve">
+    <value>Veuillez vous identifier</value>
   </data>
   <data name="LeaveYourComment" xml:space="preserve">
-    <value>Deixe seu comentário</value>
+    <value>Laissez votre commentaire</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nom</value>
   </data>
   <data name="Send" xml:space="preserve">
-    <value>Enviar</value>
+    <value>Publiez le commentaire</value>
   </data>
   <data name="TryAgain" xml:space="preserve">
-    <value>Tente novamente</value>
+    <value>Réessayer</value>
   </data>
   <data name="YourMessage" xml:space="preserve">
-    <value>Digite seu comentário...</value>
+    <value>Saisissez votre message...</value>
   </data>
 </root>

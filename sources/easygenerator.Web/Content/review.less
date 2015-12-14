@@ -220,7 +220,7 @@ iframe {
     display: inline-block;
     height: 33px;
     min-width: 115px;
-    max-width: 200px;
+    max-width: 140px;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -241,6 +241,10 @@ iframe {
     color: #999999;
     margin-left: 32px;
     font-size: 12px;
+    max-width: 115px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     &:before {
         content: '';

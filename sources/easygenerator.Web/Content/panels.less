@@ -371,26 +371,30 @@
                 &.shown {
                     opacity: 1;
                     visibility: visible;
-                    display: flex;
                     align-items: center;
                     transition: all 0.2s ease-in;
 
+
+                    &:before {
+                        content: '';
+                        display: inline-block;
+                        height: 100%;
+                        vertical-align: middle;
+                    }
+
                     .comment-deleted-text {
-                        flex: 3 0;
-                        text-align: right;
                         padding: 0 10px;
                     }
 
                     .undo-link {
-                        flex: 1 0;
                         color: #469dd5;
+                        font-family: 'OpenSans-Semibold';
                         text-decoration: underline;
                         text-align: left;
                         padding: 0 20px 0 5px;
 
                         &:hover {
                             color: #3088c1;
-                            font-family: 'OpenSans-Semibold';
                         }
                     }
 

@@ -123,16 +123,31 @@
   <data name="CommentWasSent" xml:space="preserve">
     <value>评论已发送</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>电子邮件</value>
+  </data>
+  <data name="EnterValidEmailError" xml:space="preserve">
+    <value>输入有效电子邮件</value>
+  </data>
+  <data name="EnterYourNameError" xml:space="preserve">
+    <value>输入您的姓名</value>
+  </data>
+  <data name="IdentifyMessage" xml:space="preserve">
+    <value>请填写您自己的相关信息</value>
+  </data>
   <data name="LeaveYourComment" xml:space="preserve">
     <value>发表评论</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>姓名</value>
+  </data>
   <data name="Send" xml:space="preserve">
-    <value>发送</value>
+    <value>发布评论</value>
   </data>
   <data name="TryAgain" xml:space="preserve">
     <value>重试</value>
   </data>
   <data name="YourMessage" xml:space="preserve">
-    <value>输入你的评论</value>
+    <value>输入您的消息...</value>
   </data>
 </root>

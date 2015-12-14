@@ -41,15 +41,15 @@
                     </div>
                 </div>
                 <div class="comment-action-wrapper">
-                    <div class="comment-status-message success" data-bind="visible: isSaved">
+                    <div class="comment-status-message success" data-bind="visible: isSaved" title="@Resources.CommentWasSent">
                         @Resources.CommentWasSent
                     </div>
-                    <div class="comment-status-message fail" data-bind="visible: isFailed">
+                    <div class="comment-status-message fail" title="@Resources.CommentWasNotSent" data-bind="visible: isFailed">
                         @Resources.CommentWasNotSent
                         <br />
                         @Resources.TryAgain
                     </div>
-                    <button class="btn comment-btn blue round pull-right" data-bind="click: addComment.bind($data, '@ViewBag.CourseId')">
+                    <button title="@Resources.Send" class="btn comment-btn blue round pull-right" data-bind="click: addComment.bind($data, '@ViewBag.CourseId')">
                         <span class="btn-title">@Resources.Send</span>
                     </button>
                 </div>
