@@ -33,8 +33,7 @@ export default class TemplateSelector{
                .flatten()
                .value();
 
-        let systemTemplatesStartingIndex = _.findIndex(templates, template => { return !template.isCustom; });
-        let advancedTemplates = _.rest(templates, systemTemplatesStartingIndex + 2);
+        let advancedTemplates = _.rest(templates, _.findIndex(templates, template => { return !template.isCustom; }) + 2);
         if(_.isArray(advancedTemplates)) {
             advancedTemplates.forEach(template => template.isAdvanced = true);
         }
