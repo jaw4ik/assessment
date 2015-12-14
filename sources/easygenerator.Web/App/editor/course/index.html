@@ -111,8 +111,8 @@
                                 </ul>
                                 <!-- ko if: notContainQuestions -->
                                 <div class="drop-zone-container" data-bind="css: { disabled: justCreated }">
-                                    <h2 class="drop-zone-title" data-bind="localize: { text: 'fillSectionTooltipFirst' }">Fill section with contents and questions</h2>
-                                    <h3 class="drop-zone-subtitle" data-bind="localize: { text: 'fillSectionTooltipSecond' }">by droping it here form the left panel</h3>
+                                    <h2 class="drop-zone-title" data-bind="localize: { text: 'fillSectionTooltipTitle' }">Fill section with contents and questions</h2>
+                                    <h3 class="drop-zone-subtitle" data-bind="localize: { text: 'fillSectionTooltipSubtitle' }">by droping it here form the left panel</h3>
                                     <div class="placeholder question-placeholder" data-bind="draggableContainer: {},  draggableData: { sectionId: id }"></div>
                                 </div>
                                 <!-- /ko -->
@@ -130,8 +130,8 @@
                 <!-- ko if: notContainSections -->
                 <div class="drop-zone-container" data-possible-classes="active droppable disable">
                     <div class="drop-zone-image"></div>
-                    <h2 class="drop-zone-title" data-bind="localize: { text: 'emptyCourseSectionToltipFirst' }">Set the structure of your course by adding sections</h2>
-                    <h3 class="drop-zone-subtitle" data-bind="localize: { text: 'emptyCourseSectionToltipSecond' }">Then fill them with content and questions</h3>
+                    <h2 class="drop-zone-title" data-bind="localize: { text: 'emptySectionsListTitle' }">Set the structure of your course by adding sections</h2>
+                    <h3 class="drop-zone-subtitle" data-bind="localize: { text: 'emptySectionsListSubtitle' }">Then fill them with content and questions</h3>
                     <div class="placeholder sections-placeholder" data-bind="draggableContainer: {}"></div>
                 </div>
                 <div class="course-editor-sections-tooltip-container">
