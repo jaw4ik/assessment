@@ -478,7 +478,11 @@
                             font: 13px @font-OS;
                             line-height: 26px;
                             padding-left: 18px;
-                            
+
+                            &:before {
+                                content: "\feff ";
+                            }
+
                             &:focus {
                                 background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAaCAYAAACD+r1hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuNWWFMmUAAABRSURBVDhPlcuxCcAwEARBVecu3ZFS1SPjfFj4YC5YuHXvHWEsjIWxMBbGwlgYC2NhLIyFsTAWxsJYGAtjYSyMhbEwFsaynveMMJZ/9sTwcPYHTEh6tim+T+MAAAAASUVORK5CYII=') repeat;
                                 background-size: 13px 26px;

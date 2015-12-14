@@ -1839,7 +1839,9 @@
     &[placeholder] {
         &:empty:after {
             content: attr(placeholder);
-            display: block; /* For Firefox */
+            display: inline-block;
+            position: absolute;
+            top: 0;
             padding-left: 2px;
             color: #9da3a9;
         }
