@@ -39,7 +39,7 @@
                                 <div class="sections-list-item-sort-button"></div>
                                 <div class="sections-list-item-body">
                                     <div class="sections-list-item-image-container">
-                                        <div class="sections-list-item-image" data-bind="attr: { style: `background-image: url('${image()}')` }"></div>
+                                        <div class="sections-list-item-image" data-bind="attr: { style: 'background-image: url(\'' + image() + '\')' }"></div>
                                         <div class="sections-list-item-image-change" data-bind="click: updateImage">
                                             <span class="sections-list-item-image-change-icon"></span>
                                             <span class="sections-list-item-image-change-text" data-bind="localize: {text: 'change'}">Change</span>
@@ -65,7 +65,7 @@
                                         <!-- ko ifnot: title.isEditing -->
                                         <button class="sections-list-item-actions-toggle-questions" data-bind="click: toggleQuestions, css: { collapsed: !questionsExpanded() }"></button>
                                         <div class="sections-list-item-actions-menu-container" data-bind="css: { active: menuExpanded }">
-                                            <button class="sections-list-item-actions-menu-toggle" data-bind="click: toggleMenu, outsideClick: { action: () => menuExpanded(false) }"></button>
+                                            <button class="sections-list-item-actions-menu-toggle" data-bind="click: toggleMenu, outsideClick: { action: function() { menuExpanded(false); } }"></button>
                                             <ul class="sections-list-item-actions-menu">
                                                 <li class="sections-list-item-actions-menu-item edit-title" data-bind="click: startEditingTitle, localize: {text:'editTitle'}">Edit title</li>
                                                 <li class="sections-list-item-actions-menu-item change-image" data-bind="click: updateImage, localize: {text: 'changeImage'}">Change image</li>
