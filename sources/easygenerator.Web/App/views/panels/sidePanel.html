@@ -8,21 +8,12 @@
             </div>
             <!-- /ko -->
             <!-- /ko -->
-            <!-- ko  with: feedbackTab-->
-            <div class="tab-header" data-bind="click: $parent.toggleTabVisibility, css: { 'active': $parent.isExpanded() && $parent.activeTab() == $data }">
-                <div class="tab-header-text" data-bind="localize: { text: 'feedback' }">Feedback</div>
-            </div>
-            <!-- /ko -->
         </div>
     </div>
     <div class="tab">
         <!-- ko if: _.isObject(activeTab()) -->
         <!-- ko if: activeTab() === reviewTab && isReviewTabVisible() -->
         <!-- ko compose: { model: reviewTab, cacheViews: false, activationData: reviewTabActivationData } -->
-        <!-- /ko -->
-        <!-- /ko -->
-        <!-- ko if: activeTab() === feedbackTab -->
-        <!-- ko compose: { model: feedbackTab, cacheViews: false } -->
         <!-- /ko -->
         <!-- /ko -->
         <!-- /ko -->

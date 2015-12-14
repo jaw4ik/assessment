@@ -391,9 +391,29 @@
     <Compile Include="Migrations\201511240842447_AddNuvolaConsumerToolAndSettings.Designer.cs">
       <DependentUpon>201511240842447_AddNuvolaConsumerToolAndSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201511241411305_AddNewEditor.cs" />
-    <Compile Include="Migrations\201511241411305_AddNewEditor.Designer.cs">
-      <DependentUpon>201511241411305_AddNewEditor.cs</DependentUpon>
+    <Compile Include="Migrations\201511271323293_RenameExpirationPeriodColumn.cs" />
+    <Compile Include="Migrations\201511271323293_RenameExpirationPeriodColumn.Designer.cs">
+      <DependentUpon>201511271323293_RenameExpirationPeriodColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512021102248_SetDefaultAccessPlanForNuvola.cs" />
+    <Compile Include="Migrations\201512021102248_SetDefaultAccessPlanForNuvola.Designer.cs">
+      <DependentUpon>201512021102248_SetDefaultAccessPlanForNuvola.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512040840497_AddCreatedByNameToComments.cs" />
+    <Compile Include="Migrations\201512040840497_AddCreatedByNameToComments.Designer.cs">
+      <DependentUpon>201512040840497_AddCreatedByNameToComments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512070823506_AddAnswerBlankMatchCase.cs" />
+    <Compile Include="Migrations\201512070823506_AddAnswerBlankMatchCase.Designer.cs">
+      <DependentUpon>201512070823506_AddAnswerBlankMatchCase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512090851360_AddBlankAnswerOrder.cs" />
+    <Compile Include="Migrations\201512090851360_AddBlankAnswerOrder.Designer.cs">
+      <DependentUpon>201512090851360_AddBlankAnswerOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512140803030_AddNewEditor.cs" />
+    <Compile Include="Migrations\201512140803030_AddNewEditor.Designer.cs">
+      <DependentUpon>201512140803030_AddNewEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -678,8 +698,23 @@
     <EmbeddedResource Include="Migrations\201511240842447_AddNuvolaConsumerToolAndSettings.resx">
       <DependentUpon>201511240842447_AddNuvolaConsumerToolAndSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511241411305_AddNewEditor.resx">
-      <DependentUpon>201511241411305_AddNewEditor.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201511271323293_RenameExpirationPeriodColumn.resx">
+      <DependentUpon>201511271323293_RenameExpirationPeriodColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512021102248_SetDefaultAccessPlanForNuvola.resx">
+      <DependentUpon>201512021102248_SetDefaultAccessPlanForNuvola.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512040840497_AddCreatedByNameToComments.resx">
+      <DependentUpon>201512040840497_AddCreatedByNameToComments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512070823506_AddAnswerBlankMatchCase.resx">
+      <DependentUpon>201512070823506_AddAnswerBlankMatchCase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512090851360_AddBlankAnswerOrder.resx">
+      <DependentUpon>201512090851360_AddBlankAnswerOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512140803030_AddNewEditor.resx">
+      <DependentUpon>201512140803030_AddNewEditor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

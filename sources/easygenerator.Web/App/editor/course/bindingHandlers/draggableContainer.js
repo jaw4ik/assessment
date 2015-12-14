@@ -13,7 +13,8 @@ ko.bindingHandlers.draggableContainer = {
         let copy = ko.utils.unwrapObservable(valueAccessor().copy) || false,
             moveTo = ko.utils.unwrapObservable(valueAccessor().moveTo) || null,
             draggableArea = ko.utils.unwrapObservable(valueAccessor().draggableArea) || null,
-            events = ko.utils.unwrapObservable(valueAccessor().events) || null;
+            events = ko.utils.unwrapObservable(valueAccessor().events) || null,
+            useTargetWidth = ko.utils.unwrapObservable(valueAccessor().useTargetWidth);
 
 
         dragulaContainer.dragula.containers.push(element);
@@ -39,6 +40,16 @@ ko.bindingHandlers.draggableContainer = {
             registerEvents(eventsList);
             ko.utils.domNodeDisposal.addDisposeCallback(element, () => unregisterEvents(eventsList));
         }
+
+        dragulaContainer.dragula.on('shadow', (element, container) => {
+            if (useTargetWidth) {
+                let $mirrorElement = $(dragulaContainer.mirrorElement);
+                $mirrorElement.addClass('used-target-width');
+                $mirrorElement.stop().animate({
+                    width: container.offsetWidth
+                }, 200);
+            }
+        });
 
         if (draggableArea) {
             var area = { source: element, selector: draggableArea };

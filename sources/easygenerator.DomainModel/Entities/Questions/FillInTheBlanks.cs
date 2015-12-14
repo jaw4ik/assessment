@@ -20,7 +20,7 @@ namespace easygenerator.DomainModel.Entities.Questions
 
         public IEnumerable<BlankAnswer> Answers
         {
-            get { return AnswersCollection.AsEnumerable(); }
+            get { return AnswersCollection.AsEnumerable().OrderBy(a => a.Order); }
         }
 
         public virtual void UpdateAnswers(ICollection<BlankAnswer> answers, string modifiedBy)
@@ -31,7 +31,13 @@ namespace easygenerator.DomainModel.Entities.Questions
             {
                 answer.Question = null;
             }
+
             AnswersCollection = answers;
+            for (var i = 0; i < AnswersCollection.Count(); i++)
+            {
+                var answer = AnswersCollection.ElementAt(i);
+                answer.Order = i;
+            }
 
             MarkAsModified(modifiedBy);
         }
@@ -42,6 +48,8 @@ namespace easygenerator.DomainModel.Entities.Questions
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
             AnswersCollection.Add(answer);
+            var lastAnswerInCollection = AnswersCollection.OrderBy(a => a.Order).LastOrDefault();
+            answer.Order = lastAnswerInCollection?.Order + 1 ?? 0;
             answer.Question = this;
             MarkAsModified(modifiedBy);
         }

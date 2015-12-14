@@ -50,5 +50,6 @@
         "hasLimit": true,
         "limit": 3
     },
-    "assessmentMode": "quiz"
+    "assessmentMode": "quiz",
+    "showGivenAnswers": true
 }

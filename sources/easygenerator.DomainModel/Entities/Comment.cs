@@ -11,16 +11,18 @@ namespace easygenerator.DomainModel.Entities
     {
         protected internal Comment() { }
 
-        protected internal Comment(string createdBy, string text)
+        protected internal Comment(string createdByName, string createdBy, string text)
             : base(createdBy)
         {
             ThrowIfTextIsInvalid(text);
+            CreatedByName = createdByName;
             Text = text;
         }
 
         public Course Course { get; protected internal set; }
+        public string CreatedByName { get; protected internal set; }
         public string Text { get; protected internal set; }
-
+        
         private void ThrowIfTextIsInvalid(string text)
         {
             ArgumentValidation.ThrowIfNullOrEmpty(text, "text");

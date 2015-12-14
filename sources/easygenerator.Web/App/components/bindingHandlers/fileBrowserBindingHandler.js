@@ -8,6 +8,10 @@
             browse.on('selected', value.callback).accept('audio/*');
 
             $(element).on('click', function () {
+                if (_.isFunction(value.click)) {
+                    value.click();
+                }
+
                 if (_.isFunction(value.before)) {
                     if (value.before()) {
                         browse.open();
@@ -16,6 +20,7 @@
                     browse.open();
                 }
 
+                return false;
             });
 
             ko.utils.domNodeDisposal.addDisposeCallback(element, function () {

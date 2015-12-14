@@ -17,7 +17,14 @@ namespace easygenerator.Web.DomainEvents.Handlers
 
         public void Handle(UserSignedUpEvent args)
         {
-            Task.Run(() => _mailNotificationManager.AddMailNotificationToQueue(Constants.MailTemplates.SignedUpUserTemplate, args, "new user was registered " + args.User.Email, args.User.Email));
+            if (!args.User.IsLtiUser())
+            {
+                Task.Run(
+                    () =>
+                        _mailNotificationManager.AddMailNotificationToQueue(
+                            Constants.MailTemplates.SignedUpUserTemplate, args,
+                            "new user was registered " + args.User.Email, args.User.Email));
+            }
         }
     }
 }

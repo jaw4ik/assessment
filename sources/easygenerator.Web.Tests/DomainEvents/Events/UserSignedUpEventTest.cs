@@ -34,5 +34,12 @@ namespace easygenerator.Web.Tests.DomainEvents.Events
             signedUpEvent.User.Should().Be(user);
             signedUpEvent.UserRole.Should().Be(userRole);
         }
+
+        [TestMethod]
+        public void UserSignedUpEvent_ShouldLeaveEmptyRole_IfNotSpecified()
+        {
+            var signedUpEvent = new UserSignedUpEvent(Substitute.For<User>(), "abcABC123");
+            signedUpEvent.UserRole.Should().BeNull();
+        }
     }
 }

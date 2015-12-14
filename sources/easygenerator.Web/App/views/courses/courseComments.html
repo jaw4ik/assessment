@@ -1,24 +1,44 @@
-﻿<div>
+﻿<div class="review-comments-container" data-bind="css: { empty: !comments().length || !hasAccessToComments()}">
     <!-- ko if: hasAccessToComments() -->
-        <!-- ko if: isCommentsLoading -->
-        <div class="review-comments-block-loader"></div>
-        <!-- /ko -->
-        <!-- ko ifnot: isCommentsLoading -->
-            <!-- ko foreach: comments -->
-            <div class="review-comment">
-                <div class="review-comment-text">
-                    "<span data-bind="text: text"></span>"
+    <!-- ko if: isCommentsLoading -->
+    <div class="review-comments-block-loader"></div>
+    <!-- /ko -->
+    <!-- ko ifnot: isCommentsLoading -->
+    <!-- ko foreach: comments -->
+    <div class="review-comment">
+        <div class="comment-user">
+            <div class="comment-avatar-letter-holder">
+                <span class="comment-avatar-letter" data-bind="text: $data.name[0]"></span>
+            </div>
+            <div class="comment-user-wrapper">
+                <div class="review-comment-name">
+                    <span data-bind="text: name"></span>
                 </div>
-                <div class="review-comment-date">
-                    <span data-bind="date: { value: createdOn, formatString: 'h:mm A' }"></span>
-                    <span data-bind="date: { value: createdOn, formatString: 'M/D/YYYY' }"></span>
+                <div class="review-comment-email">
+                    <span data-bind="text: email"></span>
+                </div>   
+            </div>
+        </div>
+        <div class="review-comment-text">
+            "<span data-bind="text: text"></span>"
+        </div>
+        <div class="review-comment-foter">
+            <div class="review-comment-date">
+                <span data-bind="date: { value: createdOn, formatString: 'h:mm A' }"></span>
+                <span data-bind="date: { value: createdOn, formatString: 'M/D/YYYY' }"></span>
+            </div>
+            <div class="delete-comment-btn info-tooltip-holder" data-bind="click: $parent.removeComment">
+                <div class="info-tooltip">
+                    <span data-bind="localize: { text: 'deleteComment' }">Delete comment</span>
                 </div>
             </div>
-            <!-- /ko -->
-            <!-- ko ifnot: comments().length -->
-            <div class="no-comments" data-bind="localize: { text: 'reviewNoComments' }"></div>
-            <!-- /ko -->
-        <!-- /ko -->
+        </div>
+    </div>
+    <!-- /ko -->
+    <!-- ko ifnot: comments().length -->
+    <div class="no-comments" data-bind="localize: { text: 'reviewNoComments' }"></div>
+    <!-- /ko -->
+    <!-- /ko -->
     <!-- /ko -->
     <!-- ko ifnot: hasAccessToComments() -->
     <div class="review-not-paid-message-wrapper">

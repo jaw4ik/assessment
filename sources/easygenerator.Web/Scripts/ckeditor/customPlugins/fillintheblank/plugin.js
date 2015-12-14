@@ -167,7 +167,13 @@
                 },
                 upcast: function (element, data) {
                     if (element.name === plugin.dataTags.fillInTheBlank && _.contains(element.classes, classNames.blankInput)) {
-                        data.blankValue = plugin.decodeString(element.attributes.value);
+                        var values = JSON.parse(element.attributes['data-answer-values']);
+                        values = _.map(values, function (value) { return plugin.decodeString(value); });
+                        data.blankValue = values.join('; ');
+                        data.blankValuesList = values;
+                        data.matchCase = false;
+                        data.matchCase = JSON.parse(element.attributes['data-match-case']);
+
                         var groupId = element.attributes[plugin.groupIdAttribute];
 
                         var blankFieldElement = new CKEDITOR.htmlParser.element(widgetTag, {
@@ -195,12 +201,13 @@
                 downcast: function (element) {
                     if (element.hasClass(plugin.classNames.blankInput)) {
                         var
-                            value = plugin.encodeString(this.data.blankValue),
+                            values = _.map(this.data.blankValuesList, function (answer) { return plugin.encodeString(answer); }),
                             groupId = element.attributes[plugin.groupIdAttribute] || '';
 
                         return new CKEDITOR.htmlParser.element(plugin.dataTags.fillInTheBlank, {
                             'data-group-id': groupId,
-                            'value': value,
+                            'data-answer-values': JSON.stringify(values),
+                            'data-match-case': this.data.matchCase,
                             'class': plugin.classNames.blankInput
                         });
                     }

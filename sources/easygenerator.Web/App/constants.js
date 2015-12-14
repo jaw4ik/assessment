@@ -440,6 +440,11 @@
                 containerCss: 'delete-section'
             }
         },
+        deleteCourse: {
+            settings: {
+                containerCss: 'delete-course'
+            }
+        },
         createCourse: {
             settings: {
                 containerCss: 'create-course'
@@ -460,11 +465,10 @@
                 containerCss: 'move-copy-question'
             }
         },
-        audioLibrary: {
-            settings: {
-                containerCss: 'audio-library',
-                autoclose: true
-            }
+        chooseVoiceOver: {
+                settings: {
+                    containerCss: 'choose-voice-over'
+                }
         },
         branchtrack: {
             settings: {

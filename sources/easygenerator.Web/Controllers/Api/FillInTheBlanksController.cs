@@ -56,7 +56,7 @@ namespace easygenerator.Web.Controllers.Api
             {
                 foreach (var answerViewModel in answersCollection)
                 {
-                    var answer = _entityFactory.BlankAnswer(answerViewModel.Text, answerViewModel.IsCorrect,
+                    var answer = _entityFactory.BlankAnswer(answerViewModel.Text, answerViewModel.IsCorrect, answerViewModel.MatchCase,
                                 answerViewModel.GroupId, GetCurrentUsername());
                     answers.Add(answer);
                 }
@@ -87,6 +87,7 @@ namespace easygenerator.Web.Controllers.Api
                     id = answer.Id.ToNString(),
                     text = answer.Text,
                     isCorrect = answer.IsCorrect,
+                    matchCase = answer.MatchCase,
                     groupId = answer.GroupId.ToNString()
                 })
             });
