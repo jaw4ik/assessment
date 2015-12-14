@@ -25,6 +25,15 @@ const eventsForCourseContent = {
     endEditText: 'End editing introduction'
 };
 
+var events = {
+    createSection: 'Create learning objective and open it properties',
+    changeOrderOfSections: 'Change order of learning objectives',
+    changeOrderOfQuestions: 'Change order of questions',
+    moveQuestion: 'Move item'
+};
+
+var eventCategory = 'Course editor (drag and drop)';
+
 var mapSections = (courseId, sections) => _.map(sections, section => mapSection(courseId, section));
 var mapSection = (courseId, section) => new SectionViewModel(courseId, section, false);
 
@@ -114,6 +123,7 @@ export default class {
         this.courseIntroductionContent = new vmContentField(course.introductionContent, eventsForCourseContent, false, content => courseRepository.updateIntroductionContent(course.id, content));
     }
     async createSection(section) {
+        eventTracker.publish(events.createSection, eventCategory);
         let emptySectionViewModel = new SectionViewModel(this.id, {}, true, true);
         this.sections.push(emptySectionViewModel);
         let type = section && section.type;
@@ -123,6 +133,7 @@ export default class {
         }
     }
     async reorderSection(section, nextSection) {
+        eventTracker.publish(events.changeOrderOfSections, eventCategory);
         let sectionId = section && section.sectionId;
         let nextSectionId = nextSection && nextSection.sectionId;
 
@@ -147,8 +158,10 @@ export default class {
         if (!type) {
             return;
         }
+        eventTracker.publish(events.createSection, eventCategory);
         let emptySectionViewModel = new SectionViewModel(this.id, {}, true, true);
         if (nextSectionId) {
+            eventTracker.publish(events.changeOrderOfSections, eventCategory);
             let nextSectionInCourse = _.find(this.sections(), section => section.id() === nextSectionId);
             let nextSectionInCourseIndex = this.sections.indexOf(nextSectionInCourse);
             this.sections.splice(nextSectionInCourseIndex, 0, emptySectionViewModel);
@@ -206,6 +219,7 @@ export default class {
         if (!sectionInCourse) {
             return;
         }
+        eventTracker.publish(events.changeOrderOfQuestions, eventCategory);
         let questionInSection = _.find(sectionInCourse.questions(), question => question.id() === questionId);
         sectionInCourse.deleteQuestion(questionInSection);
 
@@ -242,7 +256,7 @@ export default class {
         let createdQuestion = await createQuestionCommand.execute(sectionId, questionType);
 
         if (nextQuestionId) {
-            //TODO: check next question
+            eventTracker.publish(events.changeOrderOfQuestions, eventCategory);
             let nextQuestionInSection = _.find(section.questions(), question => question.id() === nextQuestionId);
             let nextQuestionIndex = section.questions.indexOf(nextQuestionInSection);
             section.addQuestion(createdQuestion, nextQuestionIndex);
