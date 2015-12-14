@@ -9,31 +9,39 @@ export default class TemplateSelector{
         this.isLoading = ko.observable(false);
         this.templates = ko.observableArray([]);
         this.selectedTemplate = ko.observable();
+        this.showAdvancedTemplates = ko.observable(false);
+        this.advancedTemplates = ko.computed(() => {
+            return _.filter(this.templates(), template => {
+                return template.isAdvanced;
+            });
+        }, this);
     }
 
     async activate(selectedTemplateId) {
         this.templates.removeAll();
 
         this.isLoading(true);
-        let templates = await templateRepository.getCollection();
+        let templatesCollection = await templateRepository.getCollection();
 
         this.isLoading(false);
-        this.templates(_.chain(templates)
+        let templates=_.chain(templatesCollection)
                .map(template => {
                    return new TemplateBrief(template);
                })
                .sortBy(template => { return template.order; })
                .partition(template => { return template.isCustom; })
                .flatten()
-               .value());
+               .value();
 
-        let systemTemplatesStartingIndex = _.findIndex(this.templates(), template => { return !template.isCustom; });
-        let advancedTemplates = _.rest(this.templates(), systemTemplatesStartingIndex + 2);
+        let systemTemplatesStartingIndex = _.findIndex(templates, template => { return !template.isCustom; });
+        let advancedTemplates = _.rest(templates, systemTemplatesStartingIndex + 2);
         if(_.isArray(advancedTemplates)) {
             advancedTemplates.forEach(template => template.isAdvanced = true);
         }
 
+        this.templates(templates);
         this.selectTemplateById(selectedTemplateId);
+        this.showAdvancedTemplates(_.some(advancedTemplates, template => { return this.selectedTemplate() && template.id === this.selectedTemplate().id }));
     }
 
     selectTemplate(template) {
@@ -53,5 +61,9 @@ export default class TemplateSelector{
         } else {
             this.selectedTemplate(this.templates()[0]);
         }
+    }
+
+    toggleAdvancedTemplatesVisibility() {
+        this.showAdvancedTemplates(!this.showAdvancedTemplates());
     }
 }

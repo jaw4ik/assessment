@@ -29,6 +29,17 @@ describe('dialog course common templateSelector [templateSelector]', () => {
         });
     });
 
+    describe('advancedTemplates:', () => {
+        it('should be computed observable', () => {
+            expect(viewModel.advancedTemplates).toBeComputed();
+        });
+
+        it('should return templates array with isAdvanced set to true', () => {
+            viewModel.templates([{ isAdvanced: true }, { isAdvanced: false }]);
+            expect(viewModel.advancedTemplates().length).toBe(1);
+        });
+    });
+
     describe('selectedTemplate:', () => {
         it('should be observable', () => {
             expect(viewModel.selectedTemplate).toBeObservable();
@@ -115,6 +126,24 @@ describe('dialog course common templateSelector [templateSelector]', () => {
                 await promise;
                 expect(viewModel.isLoading()).toBeFalsy();
             })().then(done));
+
+            describe('when selected template is advanced', () => {
+                it('should set showAdvancedTemplates to true', done => (async () => {
+                    viewModel.showAdvancedTemplates(false);
+                    viewModel.activate(templates[2].id);
+                    await promise;
+                    expect(viewModel.showAdvancedTemplates()).toBeTruthy();
+                })().then(done));
+            });
+
+            describe('when selected template is not advanced', () => {
+                it('should set showAdvancedTemplates to false', done => (async () => {
+                    viewModel.showAdvancedTemplates(true);
+                    viewModel.activate();
+                    await promise;
+                    expect(viewModel.showAdvancedTemplates()).toBeFalsy();
+                })().then(done));
+            });
         });
     });
 
