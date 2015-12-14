@@ -142,7 +142,7 @@
     <value>Ім'я</value>
   </data>
   <data name="Send" xml:space="preserve">
-    <value>Відправити коментар</value>
+    <value>Відправити</value>
   </data>
   <data name="TryAgain" xml:space="preserve">
     <value>Спробувати знову</value>
