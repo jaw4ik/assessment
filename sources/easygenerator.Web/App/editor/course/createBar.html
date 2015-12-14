@@ -24,7 +24,7 @@
             <ul class="editor-create-bar-list" data-bind="draggableContainer: { copy: true, moveTo: { '.questions-list': $parent.createQuestionWithOrder, '.question-placeholder': $parent.createQuestion }, useTargetWidth: true }">
                 <!-- ko foreach: questions -->
                 <li class="editor-create-bar-list-item" data-bind="css: type, draggableData: { type: type }">
-                    <div class="editor-create-bar-list-icon">
+                    <div class="editor-create-bar-list-icon" data-bind="css: { disabled: !hasAccess }">
                         <!-- ko ifnot: hasAccess -->
                         <div class="editor-create-bar-list-no-access">
                             <button class="editor-create-bar-list-no-access-button" data-bind="click: $parent.openUpgradePlanUrl, localize: { text: 'upgrade'}">Upgrade</button>

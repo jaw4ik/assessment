@@ -28,6 +28,7 @@ export default class DragulaContainer{
                 }
                 return true;
             },
+            invalid: element => $(element).hasClass('disabled'),
             accepts: (element, target, source) => _.any(that.targetsToMove, moveTarget => moveTarget.source === source && $(target).is(moveTarget.selector)),
             direction: 'vertical'
         });
