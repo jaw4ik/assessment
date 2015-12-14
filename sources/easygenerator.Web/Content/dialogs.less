@@ -645,7 +645,7 @@
 
                 .dialog-info-scrollable-container {
                     padding: 17px;
-                    
+
                     h3 {
                         font-size: 13px;
                         padding-bottom: 7px;
@@ -1094,9 +1094,9 @@
 
 /*#endregion */
 
-/*#region Audio library */
+/*#region Choose voice over */
 
-.dialog-wrapper.audio-library {
+.dialog-wrapper.choose-voice-over {
     width: 780px;
 
     .dialog-close-btn {
@@ -1105,7 +1105,7 @@
         z-index: 1;
     }
 
-    .audio-library-dialog {
+    .choose-voice-over-dialog {
         .dialog-title-container {
             margin: 30px 32px 0px 32px;
             padding-bottom: 20px;
@@ -1128,113 +1128,101 @@
             position: relative;
             height: 475px;
             margin: 27px 15px 27px 30px;
+            overflow: visible;
 
-            .audio-list-container {
-                position: relative;
+            .dialog-body-wrapper {
+                overflow: hidden;
                 height: 100%;
-                margin-right: 15px;
 
-                &.cs-scroll-started {
+                .audio-list-container {
+                    height: 100%;
+                    margin-right: 15px;
 
-                    &:before {
-                        content: '';
-                        position: absolute;
-                        display: block;
-                        top: 0px;
-                        width: 100%;
-                        z-index: 1;
-                        border-bottom: 1px solid #e5e6e6;
-                        box-shadow: 0px 0px 3px 1px #e5e6e6;
-                    }
-                }
+                    &.cs-scroll-started {
 
-                &.cs-scroll-enabled {
-
-                    &:after {
-                        content: '';
-                        position: absolute;
-                        bottom: 0;
-                        display: block;
-                        width: 100%;
-                        border-top: 1px solid #e5e6e6;
-                        box-shadow: 0px 0px 3px 1px #e5e6e6;
+                        &:before {
+                            content: '';
+                            position: absolute;
+                            display: block;
+                            top: 0px;
+                            width: 100%;
+                            z-index: 1;
+                            border-bottom: 1px solid #e5e6e6;
+                            box-shadow: 0px 0px 3px 1px #e5e6e6;
+                        }
                     }
 
-                    &.cs-scroll-finished {
+                    &.cs-scroll-enabled {
 
                         &:after {
-                            display: none;
+                            content: '';
+                            position: absolute;
+                            bottom: 0;
+                            display: block;
+                            width: 100%;
+                            border-top: 1px solid #e5e6e6;
+                            box-shadow: 0px 0px 3px 1px #e5e6e6;
+                        }
+
+                        &.cs-scroll-finished {
+
+                            &:after {
+                                display: none;
+                            }
                         }
                     }
-                }
 
-                .iScrollVerticalScrollbar {
-                    right: -15px;
-                }
+                    .iScrollVerticalScrollbar {
+                        right: -15px;
+                    }
 
-                .audio-list {
-                    li {
-                        border: 1px solid #f1f1f1;
-
-                        &:hover {
-                            border: 1px solid #71c3ff;
-                            box-shadow: 0 0 0 1px #71c3ff;
-                        }
-
-                        &.selected:hover {
-                            cursor: default;
-                        }
-
-                        .choose-audio-hint {
-                            opacity: 0;
-                            font: 13px 'OpenSansItalic';
+                    .audio-list {
+                        .audio-list-item {
                             color: #63798e;
-                            text-decoration: underline;
+                            box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.4);
+
+                            &:hover {
+                                border: 1px solid #71c3ff;
+                                box-shadow: 0 0 0 1px #71c3ff;
+                            }
+
+                            &.audio {
+                                &.selected:hover {
+                                    cursor: default;
+                                }
+
+                                &.inactive {
+                                    cursor: default;
+                                }
+
+                                .choose-audio-hint {
+                                    opacity: 0;
+                                    font: 13px 'OpenSansItalic';
+                                    color: #63798e;
+                                    text-decoration: underline;
+                                }
+
+                                .chosen-audio-icon {
+                                    width: 24px;
+                                    height: 24px;
+                                    background: url("images/sprites_24.png") -233px -89px no-repeat;
+                                }
+                            }
+
+                            &.inactive {
+                                cursor: default;
+                            }
                         }
 
-                        .chosen-audio-icon {
-                            width: 24px;
-                            height: 24px;
-                            background: url("images/sprites_24.png") -233px -89px no-repeat;
-                        }
-                    }
-
-                    li:hover {
-                        .choose-audio-hint {
-                            opacity: 1;
+                        .audio-list-item.audio:hover {
+                            .choose-audio-hint {
+                                opacity: 1;
+                            }
                         }
                     }
                 }
-            }
 
-            .empty-audios-list {
-                width: 340px;
-                margin: 0 auto;
-                margin-top: 100px;
-                font: 15px 'OpenSans';
-                color: #63798e;
-                line-height: 25px;
-
-                .empty-audios-list-title {
-                    font-family: 'OpenSans-Semibold';
-                    margin-bottom: 10px;
-                }
-
-                .empty-audios-list-steps {
-                    list-style: inside decimal;
-                    margin-bottom: 25px;
-
-                    a {
-                        color: #469dd5;
-                    }
-                }
-
-                .empty-audios-list-notification {
-                    font: 12px 'OpenSans';
-                    font-style: italic;
-                    border-top: 1px solid #eff1f2;
-                    padding-top: 7px;
-                }
+                
             }
         }
 

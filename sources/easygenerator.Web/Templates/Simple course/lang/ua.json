@@ -3,7 +3,7 @@
   "[start course]": "Почати курс",
   "[cancel]": "Скасувати",
   "[finish course popup title]": "Ви в одному кроці від закінчення курсу",
-  "[finish course popup explanation title]": "Будь ласка зверніть увагу:",
+  "[finish course popup explanation title]": "Якщо надіслати прогрес:",
   "[finish course popup first remark]": "- ваш результат буде відправлений",
   "[finish course popup second remark]": "- ваш поточний прогрес не буде відновлено коли ви відкриєте курс знову",
   "[learning objectives]": "Мета навчання:",
@@ -63,5 +63,5 @@
   "[scenario has not been passed successfully]": "Сценарій був пройдений не успішно",
   "[save and exit]": "Зберегти і вийти",
   "[Save, I will continue later]": "Я продовжу пізніше...",
-  "[I'm done, report my progress]": "Я хочу надіслати прогрес..."
+  "[I'm done, report my progress]": "Надіслати прогрес"
 }

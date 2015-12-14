@@ -16,6 +16,7 @@ namespace easygenerator.Web.Components.Mappers
                 Id = answer.Id.ToNString(),
                 Text = answer.Text,
                 IsCorrect = answer.IsCorrect,
+                MatchCase = answer.MatchCase,
                 CreatedOn = answer.CreatedOn,
                 GroupId = answer.GroupId.ToNString()
             };

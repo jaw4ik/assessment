@@ -27,9 +27,9 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             return Create(createdBy: createdBy);
         }
 
-        public static BlankAnswer Create(string text = Text, bool isCorrect = true, Guid groupId = default(Guid), string createdBy = CreatedBy)
+        public static BlankAnswer Create(string text = Text, bool isCorrect = true, bool matchCase = false, Guid groupId = default(Guid), string createdBy = CreatedBy)
         {
-            return new BlankAnswer(text, isCorrect, groupId, createdBy);
+            return new BlankAnswer(text, isCorrect, matchCase, groupId, createdBy);
         }
     }
 }

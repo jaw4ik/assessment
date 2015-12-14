@@ -1,113 +1,78 @@
-﻿define(['durandal/app', 'constants', 'eventTracker', 'userContext', 'localization/localizationManager', 'widgets/upgradeDialog/viewmodel', 'dialogs/video/video', 'audio/queries/getCollection', 'audio/factory', 'viewmodels/audios/AudioViewModel'],
-function (app, constants, eventTracker, userContext, localizationManager, upgradeDialog, videoPopup, getCollection, factory, AudioViewModel) {
-    "use strict";
+﻿import app from 'durandal/app';
+import constants from 'constants';
+import ko from 'knockout';
+import userContext from 'userContext';
+import eventTracker from 'eventTracker';
+import audioLibrary from 'audio/audioLibrary/audioLibrary';
+import localizationManager from 'localization/localizationManager';
 
-    app.on(constants.storage.changesInQuota, setAvailableStorageSpace);
+const eventCategory = 'Audio library',
+      events = {
+          dragAndDropAduioFile: 'Drag and Drop audio file and upload',
+          openChooseAudioFileDialog: 'Open \"choose audio file\" dialog',
+          uploadAudioFile: 'Upload audio file'
+      };
 
-    var eventCategory = 'Audio library',
-        events = {
-            openUploadAudioDialog: 'Open \"choose audio file\" dialog'
-        };
-    var viewModel = {
-        uploads: [],
-        audios: ko.observableArray([]),
-        storageSpaceProgressBarVisibility: ko.observable(false),
-        availableStorageSpace: ko.observable(0),
-        availableStorageSpacePersentages: ko.observable(0),
-        statuses: constants.storage.audio.statuses,
-        addAudio: addAudio,
-        activate: activate,
-        deactivate: deactivate,
-        showAudioPopup: showAudioPopup,
-        ensureCanAddAudio: ensureCanAddAudio
-    };
+class Audios{
+    constructor() {
+        this.library = audioLibrary;
+        this.storageSpaceProgressBarVisibility = ko.observable(false);
+        this.availableStorageSpace = ko.observable(0);
+        this.availableStorageSpacePersentages = ko.observable(0);
+    }
 
-    function activate() {
-        return getCollection.execute().then(function (audios) {
-            return userContext.identifyStoragePermissions().then(function () {
-                viewModel.audios([]);
-
-                _.each(viewModel.uploads, function (model) {
-                    if (model.status !== constants.storage.audio.statuses.loaded) {
-                        viewModel.audios.push(new AudioViewModel(model));
-                    }
-                });
-
-                _.each(audios, function (audio) {
-                    viewModel.audios.push(new AudioViewModel(audio));
-                });
-
-                viewModel.uploads = _.reject(viewModel.uploads, function (model) {
-                    return model.status === constants.storage.audio.statuses.failed || model.status === constants.storage.audio.statuses.loaded;
-                });
-
-                setAvailableStorageSpace();
+    activate() {
+        let that = this;
+        return audioLibrary.initialize().then(() => {
+            return userContext.identifyStoragePermissions().then(() => {
+                that.setAvailableStorageSpace();
             });
         });
     }
 
-
-    function deactivate() {
-        return Q.fcall(function () {
-            _.each(viewModel.uploads, function (model) {
-                model.off();
-            });
+    deactivate() {
+        return Q.fcall(() => {
+            audioLibrary.off();
         });
     }
 
-
-
-    function setAvailableStorageSpace() {
+    setAvailableStorageSpace() {
         if (!userContext.hasStarterAccess() || userContext.hasTrialAccess()) {
-            viewModel.storageSpaceProgressBarVisibility(false);
+            this.storageSpaceProgressBarVisibility(false);
             return;
         }
-        viewModel.storageSpaceProgressBarVisibility(true);
+        this.storageSpaceProgressBarVisibility(true);
 
         var free = userContext.storageIdentity.availableStorageSpace,
             max = userContext.storageIdentity.totalStorageSpace,
             value = free / 1073741824;
 
-        viewModel.availableStorageSpacePersentages(Math.round((max - free) / max * 100));
+        this.availableStorageSpacePersentages(Math.round((max - free) / max * 100));
 
         if (value >= 1) {
-            viewModel.availableStorageSpace(value.toFixed(1) + localizationManager.localize('gb'));
+            this.availableStorageSpace(value.toFixed(1) + localizationManager.localize('gb'));
             return;
         }
         value = value * 1024;
-        viewModel.availableStorageSpace(value.toFixed(1) + localizationManager.localize('mb'));
+        this.availableStorageSpace(value.toFixed(1) + localizationManager.localize('mb'));
     }
 
-    function addAudio(file) {
-        eventTracker.publish(events.openUploadAudioDialog, eventCategory);
-
-        var model = factory.create(file);
-        viewModel.uploads.unshift(model);
-        viewModel.audios.unshift(new AudioViewModel(model));
-
-        model.on(constants.storage.audio.statuses.failed).then(function () {
-            viewModel.uploads = _.without(viewModel.uploads, model);
-        });
-
-        model.upload();
+    uploadAudio(file) {
+        eventTracker.publish(events.uploadAudioFile, eventCategory);
+        audioLibrary.addAudio(file);
     }
 
-    function showAudioPopup(audio) {
-        if (!audio.vimeoId()) {
-            return;
-        }
-
-        videoPopup.show({ vimeoId: audio.vimeoId() });
+    uploadAudioByDragging(file) {
+        eventTracker.publish(events.dragAndDropAduioFile, eventCategory);
+        audioLibrary.addAudio(file);
     }
 
-    return viewModel;
-
-    function ensureCanAddAudio() {
-        if (!userContext.hasStarterAccess() || userContext.hasTrialAccess()) {
-            upgradeDialog.show(constants.dialogs.upgrade.settings.audioUpload);
-            return false;
-        }
-        return true;
+    onOpenFileBrowseDialog(){
+        eventTracker.publish(events.openChooseAudioFileDialog, eventCategory);
     }
+}
 
-});
+let viewModel = new Audios();
+app.on(constants.storage.changesInQuota, viewModel.setAvailableStorageSpace);
+
+export default viewModel;

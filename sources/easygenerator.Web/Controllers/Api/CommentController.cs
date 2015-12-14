@@ -5,6 +5,7 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters.Authorization;
+using easygenerator.Web.Components.ActionFilters.Permissions;
 using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
@@ -21,15 +22,34 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [Route("api/comment/create")]
-        public ActionResult Create(Course course, string text)
+        public ActionResult Create(Course course, string text, string createdByName, string createdBy)
         {
             if (course == null)
             {
                 return HttpNotFound(Errors.CourseNotFoundError);
             }
 
-            var comment = _entityFactory.Comment(text, GetCurrentUsername());
+            var comment = _entityFactory.Comment(text, createdByName, createdBy);
             course.AddComment(comment);
+
+            return JsonSuccess(true);
+        }
+
+        [HttpPost]
+        [EntityCollaborator(typeof(Course))]
+        [Route("api/comment/delete")]
+        public ActionResult Delete(Course course, Comment comment)
+        {
+            if (course == null)
+            {
+                return HttpNotFound(Errors.CourseNotFoundError);
+            }
+            if (comment == null)
+            {
+                return JsonSuccess(true);
+            }
+
+            course.DeleteComment(comment);
 
             return JsonSuccess(true);
         }
@@ -47,6 +67,8 @@ namespace easygenerator.Web.Controllers.Api
             {
                 Id = i.Id.ToNString(),
                 Text = i.Text,
+                CreatedBy = i.CreatedBy,
+                CreatedByName = i.CreatedByName,
                 CreatedOn = i.CreatedOn
             });
 

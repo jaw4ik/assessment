@@ -7,8 +7,8 @@ $ErrorActionPreference = "Stop"
 $title = "EG Start Live Script:"
 
 echo "Stop Maintenance website"
-C:\Windows\System32\inetsrv\appcmd.exe stop site /site.name:"live.easygenerator.com_maintenance_/"
-C:\Windows\System32\inetsrv\appcmd.exe stop apppool live.easygenerator.com_maintenance_
+C:\Windows\System32\inetsrv\appcmd.exe stop site /site.name:"live.easygenerator.com(maintenance)/"
+C:\Windows\System32\inetsrv\appcmd.exe stop apppool 'live.easygenerator.com(maintenance)'
 echo "Stop Beta website"
 C:\Windows\System32\inetsrv\appcmd.exe stop site /site.name:"beta.easygenerator.com/"
 C:\Windows\System32\inetsrv\appcmd.exe stop apppool beta.easygenerator.com
