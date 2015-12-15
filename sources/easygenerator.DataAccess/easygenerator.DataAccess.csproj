@@ -411,6 +411,10 @@
     <Compile Include="Migrations\201512090851360_AddBlankAnswerOrder.Designer.cs">
       <DependentUpon>201512090851360_AddBlankAnswerOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201512141122524_UpdateSystemTemplatesOrder.cs" />
+    <Compile Include="Migrations\201512141122524_UpdateSystemTemplatesOrder.Designer.cs">
+      <DependentUpon>201512141122524_UpdateSystemTemplatesOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ConsumerToolRepository.cs" />
@@ -708,6 +712,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512090851360_AddBlankAnswerOrder.resx">
       <DependentUpon>201512090851360_AddBlankAnswerOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512141122524_UpdateSystemTemplatesOrder.resx">
+      <DependentUpon>201512141122524_UpdateSystemTemplatesOrder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

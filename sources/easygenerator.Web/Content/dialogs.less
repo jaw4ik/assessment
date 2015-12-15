@@ -378,7 +378,7 @@
 }
 
 .template-selector {
-    @template-selector-selected-border-color: #469dd5;
+    @template-selector-main-color: #469dd5;
     @template-selector-selected-text-color: #42515f;
     @template-selector-regular-text-color: #63798e;
     @template-selector-regular-border-color: #f3f7f9;
@@ -437,8 +437,10 @@
         .templates-list-wrapper {
             position: relative;
             display: flex;
-            flex: 0 0 190px;
-            max-width: 190px;
+            flex: 0 0 200px;
+            min-width: 200px;
+            max-width: 200px;
+            flex-direction: column;
 
             .templates-list {
                 display: flex;
@@ -455,10 +457,42 @@
                     font: 15px 'OpenSans-Semibold';
                     color: @template-selector-regular-text-color;
                     border-top: 1px solid transparent;
-                    border-bottom: 1px solid transparent;
+                    border-bottom: 1px solid @template-selector-regular-border-color;
 
-                    & + .template-item {
-                        border-top: 1px solid @template-selector-regular-border-color;
+                    .template-item-image-wrapper {
+                        width: 30px;
+                        height: 30px;
+                        min-width: 30px;
+                        min-height: 30px;
+                        border-radius: 50px;
+                        margin-right: 12px;
+                        overflow: hidden;
+                        position: relative;
+
+                        &:before {
+                            content: "";
+                            width: 30px;
+                            height: 30px;
+                            border-radius: 50px;
+                            position: absolute;
+                            top: 0;
+                            opacity: 0;
+                            background-color: @template-selector-main-color;
+                            transition: opacity 0.2s ease-in;
+                        }
+
+                        .template-item-image {
+                            width: 100%;
+                            height: 100%;
+                            min-width: 100%;
+                            min-height: 100%;
+                        }
+                    }
+
+                    .template-item-text {
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
                     }
 
                     &.selected, &:hover {
@@ -466,6 +500,20 @@
                     }
 
                     &.selected {
+                        cursor: default;
+
+                        .template-item-image-wrapper:before {
+                            opacity: 0.7;
+                        }
+
+                        .template-item-image-wrapper:after {
+                            .align-absolute-element();
+                            content: "";
+                            width: 24px;
+                            height: 24px;
+                            position: absolute;
+                            background: url(images/sprites_24.png) -116px -28px no-repeat;
+                        }
 
                         &:before {
                             content: "";
@@ -479,6 +527,11 @@
                             border-left: 8px solid @template-selector-regular-border-color;
                             border-bottom: 10px solid transparent;
                         }
+
+                        &:after {
+                            width: 100%;
+                            height: 1px;
+                        }
                     }
 
                     &:after {
@@ -488,7 +541,7 @@
                         bottom: -1px;
                         width: 0;
                         height: 1px;
-                        background-color: @template-selector-selected-border-color;
+                        background-color: @template-selector-main-color;
                         content: "";
                         transition: width 0.2s ease-out;
                     }
@@ -500,36 +553,52 @@
                             width: 100%;
                         }
                     }
+                }
+            }
 
-                    &.selected {
-                        cursor: default;
+            .advanced-templates-list-wrapper {
+                .advanced-templates-list-toggler {
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    flex: 0 0;
+                    min-height: 50px;
+                    font: 13px 'OpenSans';
+                    color: @template-selector-main-color;
+                    opacity: 0.7;
+                    justify-content: center;
+
+                    &:hover {
+                        opacity: 1;
+                    }
+
+                    .advanced-templates-list-toggler-text {
+                        position: relative;
+                        margin-right: 20px;
 
                         &:after {
-                            width: 100%;
-                            height: 2px;
+                            content: "";
+                            position: absolute;
+                            height: 6px;
+                            width: 12px;
+                            background: url('images/sprites_16.png') -86px -174px no-repeat;
+                            margin-left: 10px;
+                            margin-top: 7px;
+                            transition: all .2s linear;
+                            transform: rotate(180deg);
+                            transform-origin: 50% 50%;
                         }
                     }
 
-                    .template-item-image {
-                        width: 30px;
-                        height: 30px;
-                        min-width: 30px;
-                        min-height: 30px;
-                        border-radius: 50px;
-                        margin-right: 12px;
-                    }
-
-                    .template-item-text {
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
+                    &.collapsed {
+                        .advanced-templates-list-toggler-text:after {
+                            transform: rotate(0deg);
+                        }
                     }
                 }
             }
         }
     }
-
-
 
     .template-details {
         flex: 1 0;
@@ -1221,8 +1290,6 @@
                         }
                     }
                 }
-
-                
             }
         }
 
