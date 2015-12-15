@@ -84,7 +84,7 @@
                         <div class="questions-list-container" data-bind="expandBlock: { expanded: questionsExpanded }, css: { empty: notContainQuestions, collapsed: !questionsExpanded() }">
                             <ul class="questions-list" data-bind="draggableContainer: { moveTo: { '.questions-list': $root.reorderQuestion, '.question-placeholder-empty': $root.reorderQuestion }, draggableArea: '.questions-list-item-sort-button' }, draggableData: { sectionId: id }">
                                 <!-- ko foreach: questions -->
-                                <li class="questions-list-item-holder" data-bind="css: { processed: isProcessed }, draggableData: { id: id }">
+                                <li class="questions-list-item-holder" data-bind="outsideClick: { action: cancel.bind($data) }, css: { processed: isProcessed }, draggableData: { id: id }">
                                     <div class="preloader-container" data-bind="preloader: { settings: 'align-center small' }"></div>
                                     <div class="questions-list-item" data-bind="css: type">
                                         <div class="questions-list-item-sort-button"></div>
