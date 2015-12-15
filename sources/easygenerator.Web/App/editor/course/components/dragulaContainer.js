@@ -29,7 +29,10 @@ export default class DragulaContainer{
                 return true;
             },
             invalid: element => $(element).hasClass('disabled'),
-            accepts: (element, target, source) => _.any(that.targetsToMove, moveTarget => moveTarget.source === source && $(target).is(moveTarget.selector)),
+            accepts: (element, target, source, sibling) => {
+                return _.any(that.targetsToMove, moveTarget => moveTarget.source === source && $(target).is(moveTarget.selector)
+                    && (!moveTarget.forbidDropToEnd || sibling !== null));
+            },
             direction: 'vertical'
         });
 
@@ -42,8 +45,8 @@ export default class DragulaContainer{
 
             sibling = getOriginalElement(sibling);
             _.each(that.targetsToMove, moveTarget => {
-                if (moveTarget.source === source && $(target).is(moveTarget.selector) && _.isFunction(moveTarget.handler)) {
-                    moveTarget.handler(attributesHelper.getDataAttribute(element), attributesHelper.getDataAttribute(sibling), attributesHelper.getDataAttribute(target), attributesHelper.getDataAttribute(source));
+                if (moveTarget.source === source && $(target).is(moveTarget.selector) && _.isFunction(moveTarget.callback)) {
+                    moveTarget.callback(attributesHelper.getDataAttribute(element), attributesHelper.getDataAttribute(sibling), attributesHelper.getDataAttribute(target), attributesHelper.getDataAttribute(source));
                 }
             });
 

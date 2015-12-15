@@ -69,11 +69,19 @@ ko.bindingHandlers.draggableContainer = {
 
         function mapTargets(targets) {
             return _.map(targets, (handler, selector) => {
-                return {
+                let mappedTarget = {
                     source: element,
-                    selector: selector,
-                    handler: handler.bind(bindingContext.$root)
+                    selector: selector
                 };
+
+                if (_.isFunction(handler)) {
+                    mappedTarget.callback = handler.bind(bindingContext.$root);
+                } else if (_.isObject(handler)) {
+                    mappedTarget.callback = handler.callback.bind(bindingContext.$root);
+                    mappedTarget.forbidDropToEnd = handler.forbidDropToEnd;
+                }
+
+                return mappedTarget;
             });
         }
 
