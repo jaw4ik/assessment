@@ -1023,6 +1023,7 @@
         .questions-list-item-delete-holder {
             position: absolute;
             right: 0;
+            height: 100%;
         }
 
         .questions-list-item-delete-container {
@@ -1052,26 +1053,20 @@
 
             .questions-list-item-delete-buttons-container {
 
-                .questions-list-item-delete-button {
+                .btn {
                     min-width: 64px;
-                    height: 24px;
-                    border-radius: 3px;
-                    box-shadow: 1px 1px 3px 0px rgba(0,0,0,.4);
-                    cursor: pointer;
-                    .unstyled-button;
 
                     &.delete {
-                        color: #fff;
-                        background-color: #f44336;
+                        .transition('border-color, box-shadow');
                     }
 
                     &.cancel {
-                        color: #63798e;
-                        background-color: #fff;
+                        box-shadow: none;
+                        .transition('border-color, color');
                     }
                 }
 
-                    .questions-list-item-delete-button + .questions-list-item-delete-button {
+                    .btn + .btn {
                         margin-left: 10px;
                     }
             }
