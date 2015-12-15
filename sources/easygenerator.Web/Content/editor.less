@@ -352,6 +352,7 @@
                 .sections-list-item-image-container {
                     position: relative;
                     flex: 0 0 80px;
+                    align-self: center;
                     height: 80px;
                     margin-right: 15px;
                     border-radius: 5px;
@@ -478,6 +479,7 @@
                             font: 13px @font-OS;
                             line-height: 26px;
                             padding-left: 18px;
+                            word-break: break-word;
 
                             &:before {
                                 content: "\feff ";
@@ -1088,6 +1090,10 @@
             font: 13px @font-OS;
             line-height: 22px;
             color: #42515f;
+
+            .questions-list-item-title{
+                word-break: break-word;
+            }
         }
     }
 }
