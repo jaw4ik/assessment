@@ -355,6 +355,7 @@
                     align-self: center;
                     height: 80px;
                     margin-right: 15px;
+                    border: 1px solid #eff3f5;
                     border-radius: 5px;
                     overflow: hidden;
 
@@ -383,6 +384,7 @@
                         width: 100%;
                         height: 100%;
                         background-color: rgba(255, 255, 255, .9);
+                        border-radius: inherit;
                         .transition(opacity);
                         cursor: pointer;
                         opacity: 0;
@@ -411,6 +413,7 @@
                         width: 100%;
                         height: 100%;
                         background-color: #fff;
+                        border-radius: inherit;
                     }
                 }
 
@@ -732,14 +735,10 @@
     box-shadow: 0 1px 3px 0px #b3bcc2;
     background-color: #fff;
 
-    .questions-list-wrapper {
-        min-height: 125px;
-    }
-
     &.empty {
 
         .drop-zone-container {
-            height: 125px;
+            height: 108px;
             line-height: 26px;
             background-color: transparent;
 
@@ -792,6 +791,7 @@
     }
 
     .questions-list {
+        min-height: 10px;
         .unstyled;
 
         .editor-create-bar-list-item {

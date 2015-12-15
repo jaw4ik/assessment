@@ -117,7 +117,7 @@ ko.bindingHandlers.draggableContainer = {
                     name: name,
                     handler: function () {
                         var args = _.map(arguments, arg => attributesHelper.getDataAttribute(arg));
-                        handler.apply(bindingContext.$root, args);
+                        handler.apply(bindingContext.$data, args);
                     }
                 };
             });
