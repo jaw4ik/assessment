@@ -5,8 +5,6 @@ System.config({
     "optional": [
       "optimisation.modules.system",
       "runtime"
-      //"es7.asyncFunctions",
-      //"asyncToGenerator"
     ]
   },
   paths: {
