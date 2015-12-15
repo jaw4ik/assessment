@@ -45,11 +45,20 @@ ko.bindingHandlers.draggableContainer = {
             if (useTargetWidth) {
                 let $mirrorElement = $(dragulaContainer.mirrorElement);
                 $mirrorElement.addClass('used-target-width');
-                $mirrorElement.stop().animate({
-                    width: container.offsetWidth
-                }, 200);
+                $mirrorElement.width(container.offsetWidth);
+                if (dragulaContainer.mirrorElement) {
+                    let top = parseInt(dragulaContainer.mirrorElement.style.top);
+                    let height = dragulaContainer.mirrorElement.offsetHeight;
+                    let margin = window.mouseYPos - top;
+                    if (margin > height) {
+                        let indent = 10;
+                        dragulaContainer.mirrorElement.style.setProperty('margin-top', `${(margin - indent)}px`, 'important');
+                    }
+                }
             }
         });
+
+        $(document).on('mousemove', mouseMoveHandler);
 
         if (draggableArea) {
             var area = { source: element, selector: draggableArea };
@@ -57,6 +66,15 @@ ko.bindingHandlers.draggableContainer = {
             dragulaContainer.draggableAreas.push(area);
             ko.utils.domNodeDisposal.addDisposeCallback(element, () => 
                 dragulaContainer.draggableAreas = _.without(dragulaContainer.draggableAreas, area));
+        }
+
+        ko.utils.domNodeDisposal.addDisposeCallback(element, () => {
+            $(document).off('mousemove', mouseMoveHandler);
+        });
+
+        function mouseMoveHandler(e) {
+            window.mouseXPos = e.clientX;
+            window.mouseYPos = e.clientY;
         }
 
         function registerTargets(targets) {

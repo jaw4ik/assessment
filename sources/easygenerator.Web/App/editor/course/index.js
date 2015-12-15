@@ -242,7 +242,7 @@ export default class {
         let questionType = question && question.type;
         let nextQuestionId = nextQuestion && nextQuestion.id;
         let sectionId = targetSection && targetSection.sectionId;
-        
+
         if (!questionType || !sectionId) {
             return;
         }
@@ -252,18 +252,22 @@ export default class {
         if (!section) {
             return;
         }
-
-        let createdQuestion = await createQuestionCommand.execute(sectionId, questionType);
+        
+        let createdQuestionViewModel = null;
 
         if (nextQuestionId) {
             eventTracker.publish(events.changeOrderOfQuestions, eventCategory);
             let nextQuestionInSection = _.find(section.questions(), question => question.id() === nextQuestionId);
             let nextQuestionIndex = section.questions.indexOf(nextQuestionInSection);
-            section.addQuestion(createdQuestion, nextQuestionIndex);
+            createdQuestionViewModel = section.addQuestion({}, nextQuestionIndex);
         } else {
-            section.addQuestion(createdQuestion);
+            createdQuestionViewModel = section.addQuestion({});
         }
+
+        let createdQuestion = await createQuestionCommand.execute(sectionId, questionType);
+        createdQuestionViewModel.updateFields(createdQuestion, true);
         await reorderQuestionCommand.execute(section.id(), section.questions());
+        createdQuestionViewModel.isProcessed(false);
         notify.saved();
     }
     hideQuestions(section) {

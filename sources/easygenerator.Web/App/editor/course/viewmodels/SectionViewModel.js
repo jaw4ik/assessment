@@ -184,7 +184,7 @@ export default class SectionViewModel{
             question.sectionId = this.id();
             questionViewModel = question;
         } else {
-            questionViewModel = new QuestionViewModel(this.courseId, this.id(), question);
+            questionViewModel = new QuestionViewModel(this.courseId, this.id(), question, true);
         }
 
         if (_.isNumber(index)) {
