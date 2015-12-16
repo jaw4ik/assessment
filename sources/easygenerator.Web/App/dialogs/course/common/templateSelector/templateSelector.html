@@ -12,7 +12,7 @@
                         <div class="template-item-image-wrapper">
                             <img class="template-item-image" alt="" data-bind="attr: { src: thumbnail }">
                         </div>
-                        <div class="template-item-text" data-bind="text: name"></div>
+                        <div class="template-item-text" data-bind="text: goal ? goal + ' (' + name + ')' : name"></div>
                     </li>
                     <!-- /ko -->
                 </ul>
@@ -22,7 +22,7 @@
                             <div class="template-item-image-wrapper">
                                 <img class="template-item-image" alt="" data-bind="attr: { src: thumbnail }">
                             </div>
-                            <div class="template-item-text" data-bind="text: name"></div>
+                            <div class="template-item-text" data-bind="text: goal ? goal + ' (' + name + ')' : name"></div>
                         </li>
                     </ul>
                     <div class="advanced-templates-list-toggler" data-bind="click: toggleAdvancedTemplatesVisibility, css: { expanded: showAdvancedTemplates(), collapsed: !showAdvancedTemplates()}">
