@@ -5,15 +5,16 @@
         'synchronization/handlers/objective/handler',
         'synchronization/handlers/questions/handler',
         'synchronization/handlers/answer/handler',
+        'synchronization/handlers/comment/handler',
         'synchronization/handlers/learningContent/handler',
-        'synchronization/handlers/collaboration/handler'
-],
+        'synchronization/handlers/collaboration/handler'],
     function (system,
         userEventHandler,
         courseEventHandler,
         objectiveEventHandler,
         questionEventHandler,
         answerEventHandler,
+        commentEventHandler,
         learningContentEventHandler,
         collaborationEventHandler) {
         "use strict";
@@ -101,7 +102,9 @@
                     hotSpotIsMultipleChanged: questionEventHandler.hotSpot.isMultipleChanged,
 
                     scenarioDataUpdated: questionEventHandler.scenario.dataUpdated,
-                    scenarioMasteryScoreUpdated: questionEventHandler.scenario.masteryScoreUpdated
+                    scenarioMasteryScoreUpdated: questionEventHandler.scenario.masteryScoreUpdated,
+
+                    commentDeleted: commentEventHandler.deleted
                 };
 
                 $.connection.hub.disconnected(function () {

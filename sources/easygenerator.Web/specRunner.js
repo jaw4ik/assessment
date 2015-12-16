@@ -150,6 +150,7 @@
                 'synchronization/handlers/user/eventHandlers/upgradedToStarter.spec',
                 'synchronization/handlers/user/eventHandlers/upgradedToPlus.spec',
                 'synchronization/handlers/user/eventHandlers/downgraded.spec',
+                'synchronization/handlers/comment/eventHandlers/deleted.spec',
 
                 //#region synchronization questions
                 'synchronization/handlers/questions/handler.spec',

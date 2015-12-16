@@ -7,5 +7,7 @@
     secondDefaultValue: 'Option de réponse 2',
     deleteButtonTitle: 'Effacer',
     correctRadioOptionTitle: 'Valeur correcte',
-    incorrectRadioOptionTitle: 'Valeur incorrecte'
+    incorrectRadioOptionTitle: 'Valeur incorrecte',
+    blankPopupValidationMessage: 'Le champ vide doit contenir au moins une option correcte.',
+    matchCase: 'Respectez la casse'
 });

@@ -27,7 +27,7 @@
         describe('getSelectedTemplateId:', function () {
             var templateId = 'templateId';
             beforeEach(function () {
-                spyOn(templateSelector, 'getSelectedTemplateId').and.returnValue(templateId);
+                spyOn(viewModel.templateSelector, 'getSelectedTemplateId').and.returnValue(templateId);
             });
 
             it('should return templateSelector selected template id', function () {
