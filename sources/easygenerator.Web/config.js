@@ -19,7 +19,7 @@ System.config({
     "co": "npm:co@4.6.0",
     "core-js": "npm:core-js@1.2.6",
     "css": "github:systemjs/plugin-css@0.1.20",
-    "dragula": "npm:dragula@3.5.4",
+    "dragula": "github:jaw4ik/dragula@3.5.5",
     "durandal": "core/durandal",
     "has": "npm:has@1.0.1",
     "jquery": "core/jquery",
@@ -29,6 +29,10 @@ System.config({
     "text": "github:systemjs/plugin-text@0.0.3",
     "transitions": "core/durandal/transitions",
     "underscore": "npm:underscore@1.8.3",
+    "github:jaw4ik/dragula@3.5.5": {
+      "contra": "npm:contra@1.9.1",
+      "crossvent": "npm:crossvent@1.5.4"
+    },
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
     },
@@ -64,10 +68,6 @@ System.config({
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2",
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"
-    },
-    "npm:dragula@3.5.4": {
-      "contra": "npm:contra@1.9.1",
-      "crossvent": "npm:crossvent@1.5.4"
     },
     "npm:has@1.0.1": {
       "function-bind": "npm:function-bind@1.0.2"
