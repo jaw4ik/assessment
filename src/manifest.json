@@ -1,5 +1,6 @@
 {
   "name": "Assessment",
+  "goal": "Test",
   "shortDescription": "For an assessment in the form of a quiz or an exam\n\nDetails:\nThe learner will see all questions (or a selection) in a long list and can answer them. You have options in 'Configure step' to make the assessment behave the way you want.",
   "thumbnail": "preview/thumbnail.png",
   "previewImages": [
