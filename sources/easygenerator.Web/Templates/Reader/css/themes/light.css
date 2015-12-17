@@ -711,17 +711,25 @@ ul {
   text-align: left;
   background: #f3f3f3;
 }
+.styled-content .table-wrapper ul,
+.styled-content .table-wrapper ol {
+  padding-left: 0;
+}
+.styled-content .table-wrapper ul li,
+.styled-content .table-wrapper ol li {
+  word-break: break-all;
+}
 .styled-content ul {
   list-style: none;
   margin: 0 0 20px;
   line-height: 30px;
   padding-left: 60px;
 }
-.styled-content ul li {
+.styled-content ul > li {
   position: relative;
   list-style-position: outside;
 }
-.styled-content ul li:before {
+.styled-content ul > li:before {
   position: relative;
   font-size: 25px;
   content: '\2022';
@@ -732,13 +740,16 @@ ul {
   padding-left: 10px;
   top: 2px;
 }
-.styled-content ul li h1 {
+.styled-content ul > li h1 {
   display: inline;
 }
-.styled-content ul li h2 {
+.styled-content ul > li h2 {
   display: inline;
 }
-.styled-content ul li h3 {
+.styled-content ul > li h3 {
+  display: inline;
+}
+.styled-content ul > li p {
   display: inline;
 }
 .styled-content ol {
@@ -748,23 +759,26 @@ ul {
   list-style-type: none;
   counter-reset: ol-counter;
 }
-.styled-content ol li {
+.styled-content ol > li {
   list-style-position: inside;
 }
-.styled-content ol li:before {
+.styled-content ol > li:before {
   content: counter(ol-counter) '.';
   counter-increment: ol-counter;
   font-size: 22px;
   line-height: 1;
   margin-right: 10px;
 }
-.styled-content ol li h1 {
+.styled-content ol > li h1 {
   display: inline;
 }
-.styled-content ol li h2 {
+.styled-content ol > li h2 {
   display: inline;
 }
-.styled-content ol li h3 {
+.styled-content ol > li h3 {
+  display: inline;
+}
+.styled-content ol > li p {
   display: inline;
 }
 .styled-content u {
