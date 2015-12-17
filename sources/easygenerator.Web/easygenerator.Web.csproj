@@ -660,6 +660,9 @@
     <Content Include="App\editor\course\createBar.html" />
     <Content Include="App\editor\course\dialogs\deleteSection\deleteSection.js" />
     <Content Include="App\editor\course\dialogs\deleteSection\deleteSection.html" />
+    <Content Include="App\editor\course\dialogs\deleteSection\deleteSection.spec.js">
+      <DependentUpon>deleteSection.js</DependentUpon>
+    </Content>
     <Content Include="App\editor\course\index.html" />
     <Content Include="App\editor\course\index.js" />
     <Content Include="App\editor\course\index.spec.js">
@@ -707,6 +710,7 @@
     <Content Include="App\dialogs\learningPath\shareLearningPath.spec.js">
       <DependentUpon>shareLearningPath.js</DependentUpon>
     </Content>
+    <Content Include="App\editor\question.js" />
     <Content Include="App\jsonReader.js" />
     <Content Include="App\localization\bindingHandlers\localizeBindingHandler.js" />
     <Content Include="App\dialogs\branchtrack\branchtrack.html" />
