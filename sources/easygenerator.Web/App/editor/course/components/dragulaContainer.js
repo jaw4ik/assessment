@@ -22,6 +22,8 @@ export default class DragulaContainer{
         this.dragula = dragula({
             copy: (element, source) => that.sourcesToCopy.indexOf(source) !== -1,
             moves: (element, source, handle) => {
+                triggerDefaultEvent(event);
+
                 let area = _.find(that.draggableAreas, area => area.source === source);
                 if (area) {
                     return $(handle).is(area.selector);
@@ -35,6 +37,15 @@ export default class DragulaContainer{
             },
             direction: 'vertical'
         });
+
+        function triggerDefaultEvent(_event) {
+            _.defer(() => {
+                if (_event.defaultPrevented) {
+                    $('[contenteditable=true]:focus').blur();
+                    $('html').trigger('click');
+                }
+            });
+        }
 
         //dragulaAnimation.initialize(this);
 
