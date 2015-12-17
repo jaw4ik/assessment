@@ -169,6 +169,9 @@
                     completed: 'collaborator:deleting-completed:',
                     failed: 'collaborator:deleting-failed:'
                 }
+            },
+            comment: {
+                deletedByCollaborator: 'course:comment:deletedByCollaborator'
             }
         },
         learningPath: {
@@ -186,6 +189,7 @@
         },
         objective: {
             createdInCourse: 'objective:createdInCourse',
+            deleted: 'objective:deleted',
             titleUpdated: 'objective:titleUpdated',
             titleUpdatedByCollaborator: 'objective:titleUpdatedByCollaborator',
             imageUrlUpdated: 'objective:imageUrlUpdated',

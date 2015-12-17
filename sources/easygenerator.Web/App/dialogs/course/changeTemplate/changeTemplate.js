@@ -1,5 +1,5 @@
 ﻿define(['constants', 'widgets/dialog/viewmodel', 'eventTracker', 'dialogs/course/common/templateSelector/templateSelector', 'durandal/app', 'repositories/courseRepository'],
-    function (constants, dialog, eventTracker, templateSelector, app, courseRepository) {
+    function (constants, dialog, eventTracker, TemplateSelector, app, courseRepository) {
         "use strict";
 
         var events = {
@@ -13,7 +13,7 @@
              courseId: undefined,
              show: show,
              submit: submit,
-             templateSelector: templateSelector
+             templateSelector: new TemplateSelector()
          };
 
         return viewModel;
@@ -26,7 +26,7 @@
         }
 
         function submit() {
-            var template = templateSelector.selectedTemplate();
+            var template = viewModel.templateSelector.selectedTemplate();
             eventTracker.publish(events.updateCourseTemplate + ' \'' + (template.isCustom ? 'custom' : template.name) + '\'');
             if (template.id === viewModel.templateId()) {
                 return Q.fcall(function () {

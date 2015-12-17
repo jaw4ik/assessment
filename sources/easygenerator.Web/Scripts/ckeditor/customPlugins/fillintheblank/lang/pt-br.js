@@ -7,5 +7,7 @@
     secondDefaultValue: 'Opção de resposta 2',
     deleteButtonTitle: 'Excluir',
     correctRadioOptionTitle: 'Valor correto',
-    incorrectRadioOptionTitle: 'Valor incorreto'
+    incorrectRadioOptionTitle: 'Valor incorreto',
+    blankPopupValidationMessage: 'Em branco, deve ter pelo menos uma opção correta.',
+    matchCase: 'Diferenciar maiúsculas de minúsculas'
 });

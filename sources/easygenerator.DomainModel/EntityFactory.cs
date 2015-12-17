@@ -25,6 +25,7 @@ namespace easygenerator.DomainModel
         TextMatchingAnswer TextMatchingAnswer(string key, string value, string createdBy);
         TextMatchingAnswer TextMatchingAnswer(string key, string value, string createdBy, DateTime createdOn);
         Comment Comment(string text, string createdByName, string createdBy);
+        Comment Comment(string text, string createdByName, string createdBy, DateTime createdOn);
         SingleSelectImageAnswer SingleSelectImageAnswer(string image, string createdBy);
         SingleSelectImageAnswer SingleSelectImageAnswer(string createdBy, DateTime createdOn);
         HotSpot HotSpot(string title, string createdBy);
@@ -116,6 +117,11 @@ namespace easygenerator.DomainModel
         public Comment Comment(string text, string createdByName, string createdBy)
         {
             return new Comment(createdByName, createdBy, text);
+        }
+
+        public Comment Comment(string text, string createdByName, string createdBy, DateTime createdOn)
+        {
+            return new Comment(createdByName, createdBy, text, createdOn);
         }
 
         public Answer Answer(string text, bool isCorrect, string createdBy)

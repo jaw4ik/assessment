@@ -71,8 +71,6 @@ describe('[drag and drop course editor]', () => {
         expect(courseViewModel.createSection).toBeFunction();
         expect(courseViewModel.reorderSection).toBeFunction();
         expect(courseViewModel.createSectionWithOrder).toBeFunction();
-        expect(courseViewModel.unrelateSection).toBeFunction();
-        expect(courseViewModel.deleteSection).toBeFunction();
         expect(courseViewModel.createQuestion).toBeFunction();
         expect(courseViewModel.deleteQuestion).toBeFunction();
         expect(courseViewModel.reorderQuestion).toBeFunction();
@@ -270,34 +268,6 @@ describe('[drag and drop course editor]', () => {
 
         });
 
-    });
-
-    describe('unrelateSection:', () => {
-
-        let promise;
-
-        beforeEach(() => {
-            promise = Promise.resolve();
-            spyOn(unrelateSectionCommand, 'execute').and.returnValue(promise);
-        });
-
-        it('should unrelate section', done => (async () => {
-            let id = courseViewModel.sections()[0].id();
-            courseViewModel.unrelateSection(courseViewModel.sections()[0]);
-            await promise;
-            expect(courseViewModel.sections()[0].id()).not.toBe(id);
-        })().then(done));
-
-        it('should show saved message', done => (async () => {
-            courseViewModel.unrelateSection(courseViewModel.sections()[0]);
-            await promise;
-            expect(notify.saved).toHaveBeenCalled();
-        })().then(done));
-
-    });
-
-    describe('deleteSection:', () => {
-        
     });
 
     describe('createQuestion:', () => {

@@ -1,10 +1,13 @@
-﻿define(['dialogs/course/common/templateSelector/templateSelector'], function (viewModel) {
-    "use strict";
+﻿import TemplateSelector from 'dialogs/course/common/templateSelector/templateSelector'; 
 
-    var templateRepository = require('repositories/templateRepository'),
-        router = require('plugins/router');
+import ko from 'knockout';
+import _ from 'underscore';
+import router from 'plugins/router';
+import templateRepository from 'repositories/templateRepository';
+import TemplateBrief from 'dialogs/course/common/templateSelector/templateBrief';
 
-    var template = {
+let viewModel = new TemplateSelector(),
+    template = {
         id: 'id',
         name: 'name',
         thumbnail: 'thumb',
@@ -13,205 +16,192 @@
         order: 0
     };
 
-    describe('dialog course common templateSelector [templateSelector]', function () {
-        describe('isLoading:', function () {
-            it('should be observable', function () {
-                expect(viewModel.isLoading).toBeObservable();
-            });
+describe('dialog course common templateSelector [templateSelector]', () => {
+    describe('isLoading:', () => {
+        it('should be observable', () => {
+            expect(viewModel.isLoading).toBeObservable();
+        });
+    });
+
+    describe('templates:', () => {
+        it('should be observable array', () => {
+            expect(viewModel.templates).toBeObservableArray();
+        });
+    });
+
+    describe('advancedTemplates:', () => {
+        it('should be computed observable', () => {
+            expect(viewModel.advancedTemplates).toBeComputed();
         });
 
-        describe('templates:', function () {
-            it('should be observable array', function () {
-                expect(viewModel.templates).toBeObservableArray();
-            });
+        it('should return templates array with isAdvanced set to true', () => {
+            viewModel.templates([{ isAdvanced: true }, { isAdvanced: false }]);
+            expect(viewModel.advancedTemplates().length).toBe(1);
+        });
+    });
+
+    describe('selectedTemplate:', () => {
+        it('should be observable', () => {
+            expect(viewModel.selectedTemplate).toBeObservable();
+        });
+    });
+
+    describe('activate:', () => {
+        var templates = [
+                { id: "0", name: "Default", thumbnail: "path/to/image1.png", previewImages: ["path/to/previewImg.png"], shortDescription: "Default template", order: 1, isCustom: false },
+                { id: "1", name: "Quiz", thumbnail: "path/to/image2.png", previewImages: ["path/to/previewImg.png"], shortDescription: "Quiz template", order: 0 , isCustom: false},
+                { id: "2", name: "Persona", thumbnail: "path/to/image2.png", previewImages: ["path/to/previewImg.png"], shortDescription: "Persona template", order: 2 , isCustom: false}
+        ],
+            promise;
+
+        beforeEach(() => {
+            promise = Promise.resolve(templates);
+            spyOn(templateRepository, 'getCollection').and.returnValue(promise);
         });
 
-        describe('selectedTemplate:', function () {
-            it('should be observable', function () {
-                expect(viewModel.selectedTemplate).toBeObservable();
-            });
+        it('should set isLoading to true', () => {
+            viewModel.activate();
+            expect(viewModel.isLoading()).toBeTruthy();
         });
 
-        describe('activate:', function () {
-            var templates = [
-                    { id: "0", name: "Default", thumbnail: "path/to/image1.png", previewImages: ["path/to/previewImg.png"], shortDescription: "Default template", order: 1 },
-                    { id: "1", name: "Quiz", thumbnail: "path/to/image2.png", previewImages: ["path/to/previewImg.png"], shortDescription: "Quiz template", order: 0 }
-            ],
-                getTemplateCollectionDefer;
+        it('should clear templates array', () => {
+            viewModel.templates([{}]);
+            viewModel.activate();
+            expect(viewModel.templates().length).toBe(0);
+        });
 
-            beforeEach(function () {
-                getTemplateCollectionDefer = Q.defer();
-                spyOn(templateRepository, 'getCollection').and.returnValue(getTemplateCollectionDefer.promise);
-            });
+        it('should get templates from repository', () => {
+            viewModel.activate();
+            expect(templateRepository.getCollection).toHaveBeenCalled();
+        });
 
-            it('should set isLoading to true', function () {
+        describe('and when templates are received', () => {
+
+            it('should map templates', done => (async () => {
                 viewModel.activate();
-                expect(viewModel.isLoading()).toBeTruthy();
-            });
+                await promise;
+                var template = viewModel.templates()[0];
+                expect(template.id).toBeDefined();
+                expect(template.name).toBeDefined();
+                expect(template.description).toBeDefined();
+                expect(template.thumbnail).toBeDefined();
+                expect(template.previewImages).toBeArray();
 
-            it('should clear templates array', function () {
-                viewModel.templates([{}]);
+            })().then(done));
+
+            it('should map templates', done => (async () => {
                 viewModel.activate();
-                expect(viewModel.templates().length).toBe(0);
+                await promise;
+                expect(viewModel.templates()[0].id).toBe(templates[1].id);
+                expect(viewModel.templates()[1].id).toBe(templates[0].id);
+
+            })().then(done));
+
+            describe('when selected template id is defined', () => {
+                it('when selected specified template', done => (async () => {
+                    viewModel.activate();
+                    await promise;
+                    expect(viewModel.selectedTemplate().id).toBe(viewModel.templates()[0].id);
+
+                })().then(done));
             });
 
-            it('should get templates from repository', function (done) {
-                getTemplateCollectionDefer.reject();
-
-                viewModel.activate().fin(function () {
-                    expect(templateRepository.getCollection).toHaveBeenCalled();
-                    done();
-                });
+            describe('when selected template id is not defined', () => {
+                it('should select first template in the ordered list', done => (async () => {
+                    viewModel.activate();
+                    await promise;
+                    expect(viewModel.selectedTemplate().id).toBe(viewModel.templates()[0].id);
+                })().then(done));
             });
 
-            describe('and when failed to get templates', function () {
+            it('should mark all system templates as advanced exept first two', done => (async () => {
+                viewModel.activate();
+                await promise;
+                expect(viewModel.templates()[2].isAdvanced).toBeTruthy();
+            })().then(done));
 
-                beforeEach(function () {
-                    getTemplateCollectionDefer.reject('reason');
-                });
+            it('should set is loading to false', done => (async () => {
+                viewModel.isLoading(true);
+                viewModel.activate();
+                await promise;
+                expect(viewModel.isLoading()).toBeFalsy();
+            })().then(done));
 
-                it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function (done) {
-                    router.activeItem.settings.lifecycleData = null;
-
-                    viewModel.activate().fin(function () {
-                        expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
-                        done();
-                    });
-                });
-
-                it('should reject promise', function (done) {
-                    var promise = viewModel.activate();
-
-                    promise.fin(function () {
-                        expect(promise).toBeRejectedWith('reason');
-                        done();
-                    });
-                });
-
-                it('should set is loading to false', function (done) {
-                    viewModel.isLoading(true);
-                    var promise = viewModel.activate();
-
-                    promise.fin(function () {
-                        expect(viewModel.isLoading()).toBeFalsy();
-                        done();
-                    });
-                });
+            describe('when selected template is advanced', () => {
+                it('should set showAdvancedTemplates to true', done => (async () => {
+                    viewModel.showAdvancedTemplates(false);
+                    viewModel.activate(templates[2].id);
+                    await promise;
+                    expect(viewModel.showAdvancedTemplates()).toBeTruthy();
+                })().then(done));
             });
 
-            describe('and when templates are received', function () {
+            describe('when selected template is not advanced', () => {
+                it('should set showAdvancedTemplates to false', done => (async () => {
+                    viewModel.showAdvancedTemplates(true);
+                    viewModel.activate();
+                    await promise;
+                    expect(viewModel.showAdvancedTemplates()).toBeFalsy();
+                })().then(done));
+            });
+        });
+    });
 
-                beforeEach(function () {
-                    getTemplateCollectionDefer.resolve(templates);
-                });
+    describe('getSelectedTemplateId:', () => {
+        describe('when selected template is not set', () => {
+            beforeEach(() => {
+                viewModel.selectedTemplate(undefined);
+            });
 
-                it('should map templates:', function(done) {
-                    viewModel.activate().fin(function () {
-                        var template = viewModel.templates()[0];
-                        expect(template.id).toBeDefined();
-                        expect(template.name).toBeDefined();
-                        expect(template.description).toBeDefined();
-                        expect(template.thumbnail).toBeDefined();
-                        expect(template.previewImages).toBeArray();
-                        done();
-                    });
-                });
-
-                it('should set a list of available templates by order', function (done) {
-                    viewModel.activate().fin(function () {
-                        expect(viewModel.templates()[0].id).toBe(templates[1].id);
-                        expect(viewModel.templates()[1].id).toBe(templates[0].id);
-                        done();
-                    });
-                });
-
-                describe('when selected template id is defined', function () {
-                    it('should select specified template', function (done) {
-                        var templateId = templates[0].id;
-                        viewModel.activate(templateId).fin(function () {
-                            expect(viewModel.selectedTemplate().id).toBe(templateId);
-                            done();
-                        });
-                    });
-                });
-
-                describe('when selected template id is not defined', function () {
-                    it('should select first template in the ordered list', function (done) {
-                        viewModel.activate().fin(function () {
-                            expect(viewModel.selectedTemplate().id).toBe(viewModel.templates()[0].id);
-                            done();
-                        });
-                    });
-                });
-
-                it('should set is loading to false', function (done) {
-                    viewModel.isLoading(true);
-                    var promise = viewModel.activate();
-
-                    promise.fin(function () {
-                        expect(viewModel.isLoading()).toBeFalsy();
-                        done();
-                    });
-                });
+            it('should return null', () => {
+                expect(viewModel.getSelectedTemplateId()).toBeNull();
             });
         });
 
-        describe('getSelectedTemplateId:', function () {
-            describe('when selected template is not set', function () {
-                beforeEach(function () {
-                    viewModel.selectedTemplate(undefined);
-                });
-
-                it('should return null', function () {
-                    expect(viewModel.getSelectedTemplateId()).toBeNull();
-                });
+        describe('when selected template is set', () => {
+            beforeEach(() => {
+                viewModel.selectedTemplate(template);
             });
 
-            describe('when selected template is set', function () {
-                beforeEach(function () {
-                    viewModel.selectedTemplate(template);
-                });
-
-                it('should return selected template id', function () {
-                    expect(viewModel.getSelectedTemplateId()).toBe(template.id);
-                });
+            it('should return selected template id', () => {
+                expect(viewModel.getSelectedTemplateId()).toBe(template.id);
             });
         });
+    });
 
-        describe('selectTemplate:', function () {
-            describe('when there is selected template set', function () {
-                describe('and selected template id equals template to select id', function () {
-                    it('should not change selected template', function () {
-                        var selectedTemplate = { id: template.id };
-                        viewModel.selectedTemplate(selectedTemplate);
-                        viewModel.selectTemplate(template);
-                        expect(viewModel.selectedTemplate()).toBe(selectedTemplate);
-                    });
-                });
-
-                describe('and selected template id is not equal template to select id', function () {
-                    beforeEach(function () {
-                        viewModel.selectedTemplate({ id: 'idd' });
-                    });
-
-                    it('should set selected template', function () {
-                        viewModel.selectTemplate(template);
-                        expect(viewModel.selectedTemplate()).toBe(template);
-                    });
+    describe('selectTemplate:', () => {
+        describe('when there is selected template set', () => {
+            describe('and selected template id equals template to select id', () => {
+                it('should not change selected template', () => {
+                    var selectedTemplate = { id: template.id };
+                    viewModel.selectedTemplate(selectedTemplate);
+                    viewModel.selectTemplate(template);
+                    expect(viewModel.selectedTemplate()).toBe(selectedTemplate);
                 });
             });
 
-            describe('when there is no selected template', function () {
-                beforeEach(function () {
-                    viewModel.selectedTemplate(null);
+            describe('and selected template id is not equal template to select id', () => {
+                beforeEach(() => {
+                    viewModel.selectedTemplate({ id: 'idd' });
                 });
 
-                it('should set selected template', function () {
+                it('should set selected template', () => {
                     viewModel.selectTemplate(template);
                     expect(viewModel.selectedTemplate()).toBe(template);
                 });
             });
         });
-    });
 
+        describe('when there is no selected template', () => {
+            beforeEach(() => {
+                viewModel.selectedTemplate(null);
+            });
+
+            it('should set selected template', () => {
+                viewModel.selectTemplate(template);
+                expect(viewModel.selectedTemplate()).toBe(template);
+            });
+        });
+    });
 });
+

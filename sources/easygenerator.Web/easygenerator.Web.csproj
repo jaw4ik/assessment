@@ -531,6 +531,7 @@
     <Compile Include="Synchronization\Handlers\CourseEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\DragAndDropEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\HotSpotEventHandler.cs" />
+    <Compile Include="Synchronization\Handlers\CommentEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\LearningContentEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\ObjectiveEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\QuestionEventHandler.cs" />
@@ -607,6 +608,7 @@
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
     <Content Include="App\bootstrapping\underscoreExtensionsTask.js" />
     <Content Include="App\browse.js" />
+    <Content Include="App\components\bindingHandlers\expandableBlockBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\fileDropUploadBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\cursorTooltipBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\dateBindingHadler.js" />
@@ -648,7 +650,7 @@
     <Content Include="App\editor\course\commands\createQuestionCommand.js" />
     <Content Include="App\editor\course\commands\createSectionCommand.js" />
     <Content Include="App\editor\course\commands\deleteQuestionCommand.js" />
-    <Content Include="App\editor\course\commands\deleteSectionCommand.js" />
+    <Content Include="App\editor\course\commands\permanentlyDeleteSectionCommand.js" />
     <Content Include="App\editor\course\commands\moveQuestionCommand.js" />
     <Content Include="App\editor\course\commands\reorderQuestionCommand.js" />
     <Content Include="App\editor\course\commands\reorderSectionCommand.js" />
@@ -660,6 +662,9 @@
     <Content Include="App\editor\course\createBar.html" />
     <Content Include="App\editor\course\dialogs\deleteSection\deleteSection.js" />
     <Content Include="App\editor\course\dialogs\deleteSection\deleteSection.html" />
+    <Content Include="App\editor\course\dialogs\deleteSection\deleteSection.spec.js">
+      <DependentUpon>deleteSection.js</DependentUpon>
+    </Content>
     <Content Include="App\editor\course\index.html" />
     <Content Include="App\editor\course\index.js" />
     <Content Include="App\editor\course\index.spec.js">
@@ -707,6 +712,7 @@
     <Content Include="App\dialogs\learningPath\shareLearningPath.spec.js">
       <DependentUpon>shareLearningPath.js</DependentUpon>
     </Content>
+    <Content Include="App\editor\question.js" />
     <Content Include="App\jsonReader.js" />
     <Content Include="App\localization\bindingHandlers\localizeBindingHandler.js" />
     <Content Include="App\dialogs\branchtrack\branchtrack.html" />
@@ -813,6 +819,11 @@
     <Content Include="App\repositories\learningPathRepository.spec.js">
       <DependentUpon>learningPathRepository.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\comment\eventHandlers\deleted.js" />
+    <Content Include="App\synchronization\handlers\comment\eventHandlers\deleted.spec.js">
+      <DependentUpon>deleted.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\comment\handler.js" />
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\voiceOverUpdated.js" />
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\voiceOverUpdated.spec.js">
       <DependentUpon>voiceOverUpdated.js</DependentUpon>
@@ -1865,8 +1876,8 @@
     <Content Include="Content\editor.less" />
     <Content Include="App\localization\lang\de.json" />
     <Content Include="App\localization\lang\nl.json" />
-
     <Content Include="Content\font\robotoslab-light.woff" />
+    <Content Include="App\localization\lang\es.json" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\iscroll-probe.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
@@ -2497,7 +2508,6 @@
     <Content Include="Templates\Assessment\settings\design\js\vendor.min.js" />
     <Content Include="Templates\Assessment\settings\design\layout.html" />
     <Content Include="Templates\Personalized learning\app\main.js" />
-    <Content Include="Templates\Personalized learning\app\main.js.map" />
     <Content Include="Templates\Personalized learning\content\1b4769525d54430295cc1f0971833894\b33d6ef71e504337a74443b0fad006ee\d0aabb7b5a9d447bbe16d4c585d659bf.html" />
     <Content Include="Templates\Personalized learning\content\1b4769525d54430295cc1f0971833894\e830a771bb504b0897fa6a84d63b9e74\320d7b8700cb40808541cd9c190ba852.html" />
     <Content Include="Templates\Personalized learning\content\1bf90b8ae7004f19afaca406756b2285\b2e3d50ff73f4d919d1b15d509f7ab94\2009f765ea234c58be76c1860d5dd52d.html" />

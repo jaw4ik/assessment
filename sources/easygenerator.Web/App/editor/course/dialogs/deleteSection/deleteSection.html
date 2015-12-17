@@ -1,16 +1,53 @@
 ﻿<div class="dialog">
     <div class="dialog-title-wrapper">
         <div class="dialog-title-img"></div>
-        <div class="dialog-title">Delete section</div>
+        <div class="dialog-title" data-bind="localize: { text: 'deleteSection' }"></div>
         <div class="dialog-item-title">
             <span>„</span>
             <span class="dialog-item-title-text" data-bind="text: sectionTitle"></span>
             <span>“ ?</span>
         </div>
-        <div class="dialog-subtitle">and all questions inside?</div>
-        
+        <div class="dialog-info-wrapper">
+            <div class="dialog-info" data-bind="scrollbar: {}, css: { 'has-actions': sectionContainedInFewCourses }">
+                <div class="dialog-info-scrollable-container">
+                    <h3 data-bind="localize: { text: 'deleteCoursePopupMessageTitle'}"></h3>
+                    <p data-bind="localize: { text: 'deleteSectionPopupMessageQuestionDeleted'}"></p>
+                    <div data-bind="visible: sectionContainedInFewCourses">
+                        <p data-bind="localize: { text: 'deleteSectionPopupMessageDeleteFromCourses'}"></p>
+                        <ul class="dialog-info-list">
+                            <!-- ko foreach: courses -->
+                            <li data-bind="text: title"></li>
+                            <!-- /ko -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- ko if: sectionContainedInFewCourses -->
+            <div class="dialog-info-actions red">
+                <div class="checkbox" data-bind="click: toggleDeleteEverywhere, css: { checked: deleteEverywhere }">
+                    <span class="checkbox-image"></span>
+                    <span data-bind="localize: { text: 'deleteFromAllCourses' }"></span>
+                </div>
+            </div>
+            <!-- /ko -->
+        </div>
     </div>
     <div class="dialog-actions">
-        
+        <button class="btn white grey-border cancel-delete-item-btn" data-bind="click: cancel, css:{ 'disabled': isDeleting() }, disable: isDeleting()">
+            <span class="btn-caption" data-bind="localize: { text: 'cancel' }"></span>
+        </button>
+        <button class="btn red delete-item-btn" data-bind="click: deleteSection, css:{ 'disabled': isDeleting(), 'progress': isDeleting() }, disable: isDeleting()">
+            <!-- ko if: isDeleting() -->
+            <div data-bind="preloader: { type: 'circular', settings: 'small white align-center' }"></div>
+            <!-- /ko -->
+            <!-- ko ifnot: isDeleting() -->
+            <!-- ko ifnot: sectionContainedInFewCourses -->
+            <span class="btn-caption" data-bind="localize: { text: 'deleteSection' }"></span>
+            <!-- /ko -->
+            <!-- ko if: sectionContainedInFewCourses -->
+            <span class="btn-caption" data-bind="localize: { text: deleteEverywhere() ? 'deleteFromAllCourses' : 'deleteFromCurrentCourse' }"></span>
+            <!-- /ko -->
+            <!-- /ko -->
+        </button>
     </div>
 </div>

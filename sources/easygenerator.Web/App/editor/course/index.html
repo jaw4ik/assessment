@@ -70,7 +70,7 @@
                                             <ul class="sections-list-item-actions-menu">
                                                 <li class="sections-list-item-actions-menu-item edit-title" data-bind="click: selectTitle, localize: {text:'editTitle'}">Edit title</li>
                                                 <li class="sections-list-item-actions-menu-item change-image" data-bind="click: updateImage, localize: {text: 'changeImage'}">Change image</li>
-                                                <!--<li class="sections-list-item-actions-menu-item delete" data-bind="click: $parent.deleteSection">Delete permanently</li>-->
+                                                <li class="sections-list-item-actions-menu-item delete" data-bind="click: $parent.deleteSection.bind($parent), localize: { text: 'deleteSection' }">Delete permanently</li>
                                             </ul>
                                         </div>
                                         <!-- /ko -->

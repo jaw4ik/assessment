@@ -121,6 +121,17 @@
 
             });
 
+            describe('when argument is an invalid date', function () {
+
+                it('should throw exception', function () {
+                    var f = function () {
+                        guard.throwIfNotDate(new Date(''));
+                    };
+
+                    expect(f).toThrow();
+                });
+
+            });
         });
 
         describe('throwIfNotNumber:', function () {
