@@ -13,8 +13,6 @@ import deleteQuestionCommand from './commands/deleteQuestionCommand';
 import reorderQuestionCommand from './commands/reorderQuestionCommand';
 import moveQuestionCommand from './commands/moveQuestionCommand';
 import reorderSectionCommand from './commands/reorderSectionCommand';
-import unrelateSectionCommand from './commands/unrelateSectionCommand';
-import deleteSectionCommand from './commands/deleteSectionCommand';
 import CreateBar from './viewmodels/CreateBarViewModel';
 import SectionViewModel from './viewmodels/SectionViewModel';
 import deleteSectionDialog from 'editor/course/dialogs/deleteSection/deleteSection';
@@ -41,7 +39,7 @@ var _introductionContentUpdated = new WeakMap();
 var _sectionConnected = new WeakMap();
 var _sectionsDisconnected = new WeakMap();
 var _sectionsReordered = new WeakMap();
-
+var _sectionDeleted = new WeakMap();
 
 var instance = null;
 
@@ -106,10 +104,19 @@ export default class {
             this.sections(mapSections(course.id, course.objectives));
         });
 
+        _sectionDeleted.set(this, sectionId => {
+            let sectionToRemove = _.find(this.sections(), section => section.id() === sectionId);
+            if (!_.isNullOrUndefined(sectionToRemove)) {
+                this.sections.remove(sectionToRemove);
+            }
+        });
+
         app.on(constants.messages.course.introductionContentUpdatedByCollaborator, _introductionContentUpdated.get(this).bind(this));
         app.on(constants.messages.course.objectiveRelatedByCollaborator, _sectionConnected.get(this).bind(this));
         app.on(constants.messages.course.objectivesUnrelatedByCollaborator, _sectionsDisconnected.get(this).bind(this));
+        app.on(constants.messages.course.objectivesUnrelated, _sectionsDisconnected.get(this).bind(this));
         app.on(constants.messages.course.objectivesReorderedByCollaborator, _sectionsReordered.get(this).bind(this));
+        app.on(constants.messages.objective.deleted, _sectionDeleted.get(this).bind(this));
 
         return instance;
     }
@@ -173,22 +180,8 @@ export default class {
         await reorderSectionCommand.execute(this.id, this.sections());
         notify.saved();
     }
-    async unrelateSection(section) {
-        await unrelateSectionCommand.execute(this.id, section);
-        let sectionInCourse = _.find(this.sections(), item => item.id() === section.id());
-        if (sectionInCourse) {
-            this.sections.remove(sectionInCourse);
-        }
-        notify.saved();
-    }
     async deleteSection(section) {
-        //await deleteSectionCommand.execute(section.id());
-        //let sectionInCourse = _.find(this.sections(), item => item.id() === section.id());
-        //if (sectionInCourse) {
-        //    this.sections.remove(sectionInCourse);
-        //}
-        //notify.saved();
-        //deleteSectionDialog.show();
+        deleteSectionDialog.show(this.id, section.id(), section.title());
     }
     async createQuestion(question, nexQuestion, targetSection) {
         let questionType = question && question.type;

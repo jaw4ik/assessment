@@ -637,6 +637,10 @@
                 line-height: 1.5;
                 overflow: hidden;
 
+                &.has-actions{
+                    margin-bottom: 8px;
+                }
+
                 .iScrollVerticalScrollbar {
                     top: 14px;
                     right: 7px;
@@ -671,6 +675,58 @@
                         font-style: italic;
                         margin-left: 42px;
                         line-height: 2;
+                    }
+                }
+            }
+
+            .dialog-info-actions {
+                margin-bottom: 16px;
+                font: 12px 'OpenSans';
+                line-height: 18px;
+                cursor: pointer;
+
+                &.red {
+                    color: #f44336;
+                }
+
+                .checkbox {
+
+                    &.checked {
+
+                        .checkbox-image {
+                            background-color: #f44336;
+
+                            &:before {
+                                display: block;
+                            }
+                        }
+                    }
+
+                    & > span{
+                        vertical-align: middle;
+                    }
+
+                    .checkbox-image {
+                        position: relative;
+                        display: inline-block;
+                        width: 19px;
+                        height: 19px;
+                        margin-right: 4px;
+                        border: 1px solid #f5554a;
+                        border-radius: 2px;
+
+                        &:before {
+                            content: '';
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            display: none;
+                            width: 12px;
+                            height: 9px;
+                            margin-top: -4.5px;
+                            margin-left: -6px;
+                            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAJCAYAAAAGuM1UAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTExIDc5LjE1ODMyNSwgMjAxNS8wOS8xMC0wMToxMDoyMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjhFNjBFQzY2QTQ4RTExRTVBQjQyQkMxMjFCNDFDMzdCIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjhFNjBFQzY3QTQ4RTExRTVBQjQyQkMxMjFCNDFDMzdCIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6OEU2MEVDNjRBNDhFMTFFNUFCNDJCQzEyMUI0MUMzN0IiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6OEU2MEVDNjVBNDhFMTFFNUFCNDJCQzEyMUI0MUMzN0IiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6AWzubAAAAgElEQVR42mL4//8/AxFYCYiPArEBMYqVgfjRfwhYT4riTUDMgU+xKhA/hipeAcSsIHGQBCMQu0NpmGI1IH4CVTwPiJlhciBiDlRiOchKIFYH4qdQsSloBoE1WALxc6iCE0D8DMpux+ZUGEMGiM/+R4BqXH5D5nBBPVeAL+QAAgwA2n1dvDwHMm0AAAAASUVORK5CYII=') no-repeat;
+                        }
                     }
                 }
             }

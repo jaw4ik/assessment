@@ -186,6 +186,7 @@
         },
         objective: {
             createdInCourse: 'objective:createdInCourse',
+            deleted: 'objective:deleted',
             titleUpdated: 'objective:titleUpdated',
             titleUpdatedByCollaborator: 'objective:titleUpdatedByCollaborator',
             imageUrlUpdated: 'objective:imageUrlUpdated',

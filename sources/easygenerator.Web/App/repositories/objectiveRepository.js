@@ -7,6 +7,7 @@
             getCollection: getCollection,
             addObjective: addObjective,
             removeObjective: removeObjective,
+            permanentlyDelete: permanentlyDelete,
             updateTitle: updateTitle,
             updateImage: updateImage,
             updateQuestionsOrder: updateQuestionsOrder
@@ -127,6 +128,28 @@
                     dataContext.objectives = _.reject(dataContext.objectives, function (objective) {
                         return objective.id == objectiveId;
                     });
+                });
+            });
+        }
+
+        function permanentlyDelete(objectiveId) {
+            return Q.fcall(function () {
+                guard.throwIfNotString(objectiveId, 'Objective id was expected');
+
+                return apiHttpWrapper.post('api/objective/permanentlydelete', { objectiveId: objectiveId }).then(function () {
+
+                    _.each(dataContext.courses, function(course) {
+                        course.objectives = _.reject(course.objectives, function(objective) {
+                            return objective.id === objectiveId;
+                        });
+                    });
+
+
+                    dataContext.objectives = _.reject(dataContext.objectives, function (objective) {
+                        return objective.id === objectiveId;
+                    });
+
+                    app.trigger(constants.messages.objective.deleted, objectiveId);
                 });
             });
         }

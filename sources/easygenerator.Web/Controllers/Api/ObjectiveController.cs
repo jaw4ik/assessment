@@ -127,5 +127,30 @@ namespace easygenerator.Web.Controllers.Api
 
             return JsonSuccess(new { ModifiedOn = objective.ModifiedOn });
         }
+
+        [HttpPost]
+        [EntityOwner(typeof (Objective))]
+        [Route("api/objective/permanentlydelete")]
+        public ActionResult PermanentlyDeleteObjective(Objective objective)
+        {
+            if (objective == null)
+            {
+                return HttpNotFound(Errors.ObjectiveNotFoundError);
+            }
+
+            foreach (var course in objective.Courses)
+            {
+                course.UnrelateObjective(objective, GetCurrentUsername());
+            }
+
+            foreach (var question in objective.Questions)
+            {
+                objective.RemoveQuestion(question, GetCurrentUsername());
+            }
+
+            _repository.Remove(objective);
+
+            return JsonSuccess();
+        }
     }
 }
