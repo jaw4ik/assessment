@@ -202,6 +202,7 @@
     "deleteSectionPopupMessageQuestionDeleted": "Всі питання в секції будуть видалені",
     "deleteSectionPopupMessageDeleteFromCourses": "Секція використовується в таких курсах:",
     "emptySectionQuestionTooltip": "Спочатку створіть секцію",
+    "sectionWasDeletedMessage": "Секцію успішно видалено",
     "contentAndQuestions": "Матеріал та питання:",
     "emptySectionsListTitle": "Створіть структуру свого курсу додаючи секції",
     "emptySectionsListSubtitle": "Потім заповніть їх матеріалом та питаннями",

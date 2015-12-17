@@ -202,6 +202,7 @@
     "deleteSectionPopupMessageQuestionDeleted": "All questions inside the section will be deleted",
     "deleteSectionPopupMessageDeleteFromCourses": "The section is used in the following course(s):",
     "emptySectionQuestionTooltip": "You need to create section at first",
+    "sectionWasDeletedMessage": "Section was successfully deleted",
     "contentAndQuestions": "Contenido y preguntas:",
     "emptySectionsListTitle": "Establezca la estructura del curso agregando secciones",
     "emptySectionsListSubtitle": "A continuación, incluya el contenido y las preguntas",

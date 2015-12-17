@@ -202,6 +202,7 @@
     "deleteSectionPopupMessageQuestionDeleted": "All questions inside the section will be deleted",
     "deleteSectionPopupMessageDeleteFromCourses": "The section is used in the following course(s):",
     "emptySectionQuestionTooltip": "You need to create section at first",
+    "sectionWasDeletedMessage": "Section was successfully deleted",
     "contentAndQuestions": "内容和问题：",
     "emptySectionsListTitle": "通过添加章节来设定课程结构",
     "emptySectionsListSubtitle": "然后在章节中填入内容和问题",

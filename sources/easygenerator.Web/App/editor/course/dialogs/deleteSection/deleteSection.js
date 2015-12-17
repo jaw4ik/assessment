@@ -45,7 +45,7 @@ class DeleteSection {
             await unrelateSectionCommand.execute(this.courseId, { id: this.sectionId });
         }
         this.isDeleting(false);
-        notify.success(localizationManager.localize('courseWasDeletedMessage'));
+        notify.success(localizationManager.localize('sectionWasDeletedMessage'));
         dialog.close();
     }
     cancel() {
