@@ -26,23 +26,26 @@
             return {
                 name: manifest.name,
                 thumbnail: templateUrl + manifest.thumbnail + '?v=' + window.appVersion,
-                previewImages: _.map(manifest.previewImages, function (img) {
+                previewImages: _.map(manifest.previewImages, function(img) {
                     return templateUrl + img + '?v=' + window.appVersion;
                 }),
                 settingsUrls: {
-                    design: [{
-                        name: 'branding',
-                        url: (manifest.settingsUrls && manifest.settingsUrls.design) ? templateUrl + manifest.settingsUrls.design.branding : null,
-                        isSelected: true
-                    },
-                   {
-                       name: 'layout',
-                       url: (manifest.settingsUrls && manifest.settingsUrls.design) ? templateUrl + manifest.settingsUrls.design.layout : null,
-                       isSelected: false
-                   }],
+                    design: [
+                        {
+                            name: 'branding',
+                            url: (manifest.settingsUrls && manifest.settingsUrls.design) ? templateUrl + manifest.settingsUrls.design.branding : null,
+                            isSelected: true
+                        },
+                        {
+                            name: 'layout',
+                            url: (manifest.settingsUrls && manifest.settingsUrls.design) ? templateUrl + manifest.settingsUrls.design.layout : null,
+                            isSelected: false
+                        }
+                    ],
                     configure: (manifest.settingsUrls && manifest.settingsUrls.configure) ? templateUrl + manifest.settingsUrls.configure : null
                 },
-                shortDescription: manifest.shortDescription
-            };
+                shortDescription: manifest.shortDescription,
+                goal: manifest.goal
+        };
         }
     });

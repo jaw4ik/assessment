@@ -4,37 +4,42 @@
     <div class="review-comments-block-loader"></div>
     <!-- /ko -->
     <!-- ko ifnot: isCommentsLoading -->
-    <!-- ko foreach: comments -->
-    <div class="review-comment">
-        <div class="comment-user">
-            <div class="comment-avatar-letter-holder">
-                <span class="comment-avatar-letter" data-bind="text: $data.name[0]"></span>
-            </div>
-            <div class="comment-user-wrapper">
-                <div class="review-comment-name">
-                    <span data-bind="text: name"></span>
+    <ul class="review-comments-list" data-bind="foreachAnimated: { data: comments, removeDelay: 0, speed: 0.4 }">
+        <li class="review-comment">
+            <div class="comment-user">
+                <div class="comment-avatar-letter-holder">
+                    <span class="comment-avatar-letter" data-bind="text: name.charAt(0)"></span>
                 </div>
-                <div class="review-comment-email">
-                    <span data-bind="text: email"></span>
-                </div>   
-            </div>
-        </div>
-        <div class="review-comment-text">
-            "<span data-bind="text: text"></span>"
-        </div>
-        <div class="review-comment-foter">
-            <div class="review-comment-date">
-                <span data-bind="date: { value: createdOn, formatString: 'h:mm A' }"></span>
-                <span data-bind="date: { value: createdOn, formatString: 'M/D/YYYY' }"></span>
-            </div>
-            <div class="delete-comment-btn info-tooltip-holder" data-bind="click: $parent.removeComment">
-                <div class="info-tooltip">
-                    <span data-bind="localize: { text: 'deleteComment' }">Delete comment</span>
+                <div class="comment-user-wrapper">
+                    <div class="review-comment-name">
+                        <span data-bind="text: name"></span>
+                    </div>
+                    <div class="review-comment-email">
+                        <span data-bind="text: email"></span>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- /ko -->
+            <div class="review-comment-text">
+                "<span data-bind="text: text"></span>"
+            </div>
+            <div class="review-comment-foter">
+                <div class="review-comment-date">
+                    <span data-bind="date: { value: createdOn, formatString: 'h:mm A' }"></span>
+                    <span data-bind="date: { value: createdOn, formatString: 'M/D/YYYY' }"></span>
+                </div>
+                <div class="delete-comment-btn info-tooltip-holder" data-bind="click: $parent.removeComment.bind($parent)">
+                    <div class="info-tooltip">
+                        <span data-bind="localize: { text: 'deleteComment' }">Delete comment</span>
+                    </div>
+                </div>
+            </div>
+            <div class="comment-deleted" data-bind="css: { shown: isDeleted }">
+                <span class="comment-deleted-text" data-bind="localize: { text: 'commentWasDeleted' }">Comment was deleted...</span>
+                <a class="undo-link" href="#" data-bind="localize: { text: 'undo' }, click: $parent.restoreComment.bind($parent)">Restore</a>
+                <div class="modal-dialog-close-btn" data-bind="click: $parent.hide.bind($parent)"></div>
+            </div>
+        </li>
+    </ul>
     <!-- ko ifnot: comments().length -->
     <div class="no-comments" data-bind="localize: { text: 'reviewNoComments' }"></div>
     <!-- /ko -->

@@ -7,5 +7,7 @@
     secondDefaultValue: ' 答案选项2',
     deleteButtonTitle: ' 删除',
     correctRadioOptionTitle: ' 正确值',
-    incorrectRadioOptionTitle: ' 错误值'
+    incorrectRadioOptionTitle: ' 错误值',
+    blankPopupValidationMessage: '空白处应至少有一个正确选项。',
+    matchCase: '匹配大小写'
 });

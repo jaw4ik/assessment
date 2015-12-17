@@ -1,325 +1,487 @@
-﻿define(['viewmodels/courses/courseComments'],
-    function (viewModel) {
+﻿import viewModel from 'viewmodels/courses/courseComments';
 
-        var userContext = require('userContext'),
-            commentRepository = require('repositories/commentRepository'),
-            eventTracker = require('eventTracker'),
-            constants = require('constants'),
-            notify = require('notify');
+import userContext from 'userContext';
+import eventTracker from 'eventTracker';
+import commentRepository from 'repositories/commentRepository';
+import constants from 'constants';
+import notify from 'notify';
 
-        describe('viewModel [courseComments]', function () {
+describe('viewModel [courseComments]', () => {
 
-            it('should be object', function () {
-                expect(viewModel).toBeObject();
+    it('should be object', () => {
+        expect(viewModel).toBeObject();
+    });
+
+    describe('isCommentsLoading:', () => {
+
+        it('should be observable', () => {
+            expect(viewModel.isCommentsLoading).toBeObservable();
+        });
+
+    });
+
+    describe('comments:', () => {
+
+        it('should be observable', () => {
+            expect(viewModel.comments).toBeObservableArray();
+        });
+
+    });
+
+    describe('activate:', () => {
+
+        let userContextIdentityDefer;
+
+        beforeEach(() => {
+            userContextIdentityDefer = Q.defer();
+            spyOn(userContext, 'identify').and.returnValue(userContextIdentityDefer.promise);
+        });
+
+        describe('when courseId is not a string', () => {
+
+            it('should reject promise', (done) => {
+                let promise = viewModel.activate({});
+
+                promise.fin(() => {
+                    expect(promise).toBeRejectedWith('Course id is not a string');
+                    done();
+                });
             });
 
-            describe('isCommentsLoading:', function () {
+        });
 
-                it('should be observable', function () {
-                    expect(viewModel.isCommentsLoading).toBeObservable();
-                });
+        describe('when courseId is a string', () => {
 
+            it('should return promise', () => {
+                let result = viewModel.activate('123');
+                expect(result).toBePromise();
             });
 
-            describe('comments:', function () {
+            it('should set comment loading flag', (done) => {
+                viewModel.isCommentsLoading(false);
+                userContextIdentityDefer.reject();
 
-                it('should be observable', function () {
-                    expect(viewModel.comments).toBeObservableArray();
+                viewModel.activate('123');
+
+                userContextIdentityDefer.promise.fin(() => {
+                    expect(viewModel.isCommentsLoading()).toBeTruthy();
+                    done();
                 });
-
             });
 
-            describe('activate:', function () {
+            it('should update user identity', (done) => {
+                userContextIdentityDefer.reject();
 
-                var userContextIdentityDefer;
+                viewModel.activate('123');
 
-                beforeEach(function () {
-                    userContextIdentityDefer = Q.defer();
-                    spyOn(userContext, 'identify').and.returnValue(userContextIdentityDefer.promise);
+                userContextIdentityDefer.promise.fin(() => {
+                    expect(userContext.identify).toHaveBeenCalled();
+                    done();
+                });
+            });
+
+            describe('and user identity not updated', () => {
+
+                beforeEach(() => {
+                    userContextIdentityDefer.reject();
                 });
 
-                describe('when courseId is not a string', function () {
-
-                    it('should reject promise', function (done) {
-                        var promise = viewModel.activate({});
-
-                        promise.fin(function () {
-                            expect(promise).toBeRejectedWith('Course id is not a string');
-                            done();
-                        });
+                it('should set comments loading flag to false', (done) => {
+                    viewModel.activate('123').fin(() => {
+                        expect(viewModel.isCommentsLoading()).toBeFalsy();
+                        done();
                     });
+                });
+            });
 
+            describe('and user identity updated', () => {
+
+                let getCommentsDefer;
+
+                beforeEach(() => {
+                    userContextIdentityDefer.resolve();
+
+                    getCommentsDefer = Q.defer();
+                    spyOn(commentRepository, 'getCollection').and.returnValue(getCommentsDefer.promise);
                 });
 
-                describe('when courseId is a string', function () {
+                it('should update hasAccessToComments', (done) => {
+                    spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
 
-                    it('should be function', function () {
-                        expect(viewModel.activate).toBeFunction();
+                    viewModel.hasAccessToComments(true);
+
+                    viewModel.activate('123');
+
+                    userContextIdentityDefer.promise.fin(() => {
+                        expect(viewModel.hasAccessToComments()).toBeFalsy();
+                        done();
+                    });
+                });
+
+                describe('and user has no starter access', () => {
+
+                    beforeEach(() => {
+                        spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
                     });
 
-                    it('should return promise', function () {
-                        var result = viewModel.activate('123');
-                        expect(result).toBePromise();
-                    });
-
-                    it('should set comment loading flag', function (done) {
-                        viewModel.isCommentsLoading(false);
-                        userContextIdentityDefer.reject();
-
+                    it('should not receive comments from repository', (done) => {
                         viewModel.activate('123');
 
-                        userContextIdentityDefer.promise.fin(function () {
-                            expect(viewModel.isCommentsLoading()).toBeTruthy();
+                        userContextIdentityDefer.promise.fin(() => {
+                            expect(commentRepository.getCollection).not.toHaveBeenCalled();
                             done();
                         });
                     });
 
-                    it('should update user identity', function (done) {
-                        userContextIdentityDefer.reject();
+                });
 
+                describe('and user has starter access', () => {
+
+                    beforeEach(() => {
+                        spyOn(userContext, 'hasStarterAccess').and.returnValue(true);
+                    });
+
+                    it('should receive comments from repository', (done) => {
                         viewModel.activate('123');
 
-                        userContextIdentityDefer.promise.fin(function () {
-                            expect(userContext.identify).toHaveBeenCalled();
+                        userContextIdentityDefer.promise.fin(() => {
+                            expect(commentRepository.getCollection).toHaveBeenCalledWith('123');
                             done();
                         });
                     });
 
-                    describe('and user identity not updated', function () {
+                    describe('and comments received', () => {
+                        let comment = {
+                            id: '1',
+                            text: 'text',
+                            name: 'name',
+                            email: 'email',
+                            createdOn: '2015-12-10'
+                        };
 
-                        beforeEach(function () {
-                            userContextIdentityDefer.reject();
+                        beforeEach(() => {
+                            getCommentsDefer.resolve([comment]);
                         });
 
-                        it('should set comments loading flag to false', function (done) {
-                            viewModel.activate('123').fin(function () {
+                        it('should update comments in viewModel', (done) => {
+                            viewModel.comments([]);
+                            viewModel.activate('123');
+
+                            viewModel.activate('123').fin(() => {
+                                expect(viewModel.comments()[0].id()).toBe(comment.id);
+                                expect(viewModel.comments()[0].text).toBe(comment.text);
+                                expect(viewModel.comments()[0].email).toBe(comment.email);
+                                expect(viewModel.comments()[0].name).toBe(comment.name);
+                                expect(viewModel.comments()[0].createdOn).toBe(comment.createdOn);
+                                expect(viewModel.comments()[0].isDeleted()).toBeFalsy();
+                                done();
+                            });
+                        });
+
+                    });
+
+                    describe('and comments not received', () => {
+
+                        beforeEach(() => {
+                            getCommentsDefer.reject();
+                        });
+
+                        it('should update comments in viewModel', (done) => {
+                            viewModel.isCommentsLoading(true);
+                            viewModel.activate('123').fin(() => {
                                 expect(viewModel.isCommentsLoading()).toBeFalsy();
                                 done();
                             });
                         });
-                    });
-
-                    describe('and user identity updated', function () {
-
-                        var getCommentsDefer;
-
-                        beforeEach(function () {
-                            userContextIdentityDefer.resolve();
-
-                            getCommentsDefer = Q.defer();
-                            spyOn(commentRepository, 'getCollection').and.returnValue(getCommentsDefer.promise);
-                        });
-
-                        it('should update hasAccessToComments', function (done) {
-                            spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
-
-                            viewModel.hasAccessToComments(true);
-
-                            viewModel.activate('123');
-
-                            userContextIdentityDefer.promise.fin(function () {
-                                expect(viewModel.hasAccessToComments()).toBeFalsy();
-                                done();
-                            });
-                        });
-
-                        describe('and user has no starter access', function () {
-
-                            beforeEach(function () {
-                                spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
-                            });
-
-                            it('should not receive comments from repository', function (done) {
-                                viewModel.activate('123');
-
-                                userContextIdentityDefer.promise.fin(function () {
-                                    expect(commentRepository.getCollection).not.toHaveBeenCalled();
-                                    done();
-                                });
-                            });
-
-                        });
-
-                        describe('and user has starter access', function () {
-
-                            beforeEach(function () {
-                                spyOn(userContext, 'hasStarterAccess').and.returnValue(true);
-                            });
-
-                            it('should receive comments from repository', function (done) {
-                                viewModel.activate('123');
-
-                                userContextIdentityDefer.promise.fin(function () {
-                                    expect(commentRepository.getCollection).toHaveBeenCalledWith('123');
-                                    done();
-                                });
-                            });
-
-                            describe('and comments received', function () {
-
-                                var comments = [{ id: '1' }];
-
-                                beforeEach(function () {
-                                    getCommentsDefer.resolve(comments);
-                                });
-
-                                it('should update comments in viewModel', function (done) {
-                                    viewModel.comments([]);
-                                    viewModel.activate('123');
-
-                                    viewModel.activate('123').fin(function () {
-                                        expect(viewModel.comments()).toEqual(comments);
-                                        done();
-                                    });
-                                });
-
-                            });
-
-                            describe('and comments not received', function () {
-
-                                beforeEach(function () {
-                                    getCommentsDefer.reject();
-                                });
-
-                                it('should update comments in viewModel', function (done) {
-                                    viewModel.isCommentsLoading(true);
-                                    viewModel.activate('123').fin(function () {
-                                        expect(viewModel.isCommentsLoading()).toBeFalsy();
-                                        done();
-                                    });
-                                });
-
-                            });
-                        });
 
                     });
                 });
 
-            });
-
-            describe('hasAccessToComments:', function () {
-
-                it('should be observable', function () {
-                    expect(viewModel.hasAccessToComments).toBeObservable();
-                });
-
-            });
-
-            describe('openUpgradePlanUrl:', function () {
-
-                beforeEach(function () {
-                    spyOn(eventTracker, 'publish');
-                    spyOn(window, 'open');
-                });
-
-                it('should be function', function () {
-                    expect(viewModel.openUpgradePlanUrl).toBeFunction();
-                });
-
-                it('should send event \'Upgrade now\'', function () {
-                    viewModel.openUpgradePlanUrl();
-                    expect(eventTracker.publish).toHaveBeenCalledWith(constants.upgradeEvent, constants.upgradeCategory.externalReview);
-                });
-
-                it('should open upgrade link in new window', function () {
-                    viewModel.openUpgradePlanUrl();
-                    expect(window.open).toHaveBeenCalledWith(constants.upgradeUrl, '_blank');
-                });
-
-            });
-
-            describe('removeComment:', function () {
-                var removeDefer,
-                    courseId = 'courseId',
-                    comment = { id: '1' };
-
-                beforeEach(function() {
-                    spyOn(notify, 'saved');
-                    spyOn(notify, 'error');
-                });
-
-                it('should be function', function () {
-                    expect(viewModel.removeComment).toBeFunction();
-                });
-
-                beforeEach(function () {
-                    viewModel.courseId = courseId;
-                    viewModel.comments([comment]);
-
-                    removeDefer = Q.defer();
-                    spyOn(commentRepository, 'removeComment').and.returnValue(removeDefer.promise);
-                });
-
-                it('should remove comment from repository', function (done) {
-                    viewModel.removeComment(comment).fin(function () {
-                        expect(commentRepository.removeComment).toHaveBeenCalledWith(courseId, comment.id);
-                        done();
-                    });
-
-                    removeDefer.reject();
-                });
-
-                describe('when comment is removed:', function () {
-                    it('should remove it from viewModel', function (done) {
-                        viewModel.removeComment(comment).fin(function () {
-                            expect(viewModel.comments().length).toBe(0);
-                            done();
-                        });
-
-                        removeDefer.resolve(true);
-                    });
-
-                    it('should show saved notification', function (done) {
-                        viewModel.removeComment(comment).fin(function () {
-                            expect(notify.saved).toHaveBeenCalled();
-                            done();
-                        });
-
-                        removeDefer.resolve(true);
-                    });
-                });
-
-                describe('when comment is not removed:', function () {
-                    it('should not remove it from viewModel', function (done) {
-                        viewModel.removeComment(comment).fin(function () {
-                            expect(viewModel.comments().length).toBe(1);
-                            done();
-                        });
-
-                        removeDefer.resolve(false);
-                    });
-
-                    it('should show error notification', function (done) {
-                        viewModel.removeComment(comment).fin(function () {
-                            expect(notify.error).toHaveBeenCalled();
-                            done();
-                        });
-
-                        removeDefer.resolve(false);
-                    });
-                });
-
-                describe('when error during deleting comment:', function () {
-                    it('should not remove it from viewModel', function (done) {
-                        viewModel.removeComment(comment).fin(function () {
-                            expect(viewModel.comments().length).toBe(1);
-                            done();
-                        });
-
-                        removeDefer.reject();
-                    });
-
-                    it('should show error notification', function () {
-                        viewModel.removeComment(comment).fin(function (done) {
-                            expect(notify.error).toHaveBeenCalled();
-                            done();
-                        });
-
-                        removeDefer.reject();
-                    });
-                });
             });
         });
 
-    }
-);
+    });
+
+    describe('hasAccessToComments:', () => {
+
+        it('should be observable', () => {
+            expect(viewModel.hasAccessToComments).toBeObservable();
+        });
+
+    });
+
+    describe('openUpgradePlanUrl:', () => {
+
+        beforeEach(() => {
+            spyOn(eventTracker, 'publish');
+            spyOn(window, 'open');
+        });
+
+        it('should send event \'Upgrade now\'', () => {
+            viewModel.openUpgradePlanUrl();
+            expect(eventTracker.publish).toHaveBeenCalledWith(constants.upgradeEvent, constants.upgradeCategory.externalReview);
+        });
+
+        it('should open upgrade link in new window', () => {
+            viewModel.openUpgradePlanUrl();
+            expect(window.open).toHaveBeenCalledWith(constants.upgradeUrl, '_blank');
+        });
+
+    });
+
+    describe('removeComment:', () => {
+        let removeDefer,
+            courseId = 'courseId',
+            comment = {
+                id: ko.observable('1'),
+                text: 'text',
+                name: 'name',
+                email: 'email',
+                createdOn: '2015-12-10',
+                isDeleted: ko.observable(false)
+            };
+
+        beforeEach(() => {
+            spyOn(notify, 'saved');
+            spyOn(notify, 'error');
+        });
+
+        beforeEach(() => {
+            viewModel.courseId = courseId;
+
+            comment.isDeleted(false);
+            viewModel.comments([comment]);
+
+            removeDefer = Q.defer();
+            spyOn(commentRepository, 'removeComment').and.returnValue(removeDefer.promise);
+        });
+
+        it('should remove comment from repository', (done) => {
+            viewModel.removeComment(comment).fin(() => {
+                expect(commentRepository.removeComment).toHaveBeenCalledWith(courseId, comment.id());
+                done();
+            });
+
+            removeDefer.reject();
+        });
+
+        describe('when comment is removed:', () => {
+            it('should set isDeleted to true', (done) => {
+                viewModel.removeComment(comment).fin(() => {
+                    expect(viewModel.comments()[0].isDeleted()).toBeTruthy();
+                    done();
+                });
+
+                removeDefer.resolve(true);
+            });
+
+            it('should show saved notification', (done) => {
+                viewModel.removeComment(comment).fin(() => {
+                    expect(notify.saved).toHaveBeenCalled();
+                    done();
+                });
+
+                removeDefer.resolve(true);
+            });
+        });
+
+        describe('when comment is not removed:', () => {
+            it('should not remove it from viewModel', (done) => {
+                viewModel.removeComment(comment).fin(() => {
+                    expect(viewModel.comments()[0].isDeleted()).toBeFalsy();
+                    done();
+                });
+
+                removeDefer.resolve(false);
+            });
+
+            it('should show error notification', (done) => {
+                viewModel.removeComment(comment).fin(() => {
+                    expect(notify.error).toHaveBeenCalled();
+                    done();
+                });
+
+                removeDefer.resolve(false);
+            });
+        });
+
+        describe('when error during deleting comment:', () => {
+            it('should not remove it from viewModel', (done) => {
+                viewModel.removeComment(comment).fin(() => {
+                    expect(viewModel.comments()[0].isDeleted()).toBeFalsy();
+                    done();
+                });
+
+                removeDefer.reject();
+            });
+
+            it('should show error notification', () => {
+                viewModel.removeComment(comment).fin((done) => {
+                    expect(notify.error).toHaveBeenCalled();
+                    done();
+                });
+
+                removeDefer.reject();
+            });
+        });
+    });
+
+    describe('restoreComment:', () => {
+        let restoreDefer,
+            courseId = 'courseId',
+            comment = {
+                id: ko.observable('1'),
+                text: 'text',
+                name: 'name',
+                email: 'email',
+                createdOn: '2015-12-10',
+                isDeleted: ko.observable(false)
+            };;
+
+        beforeEach(() => {
+            spyOn(notify, 'saved');
+            spyOn(notify, 'error');
+        });
+
+        beforeEach(() => {
+            viewModel.courseId = courseId;
+
+            comment.isDeleted(true);
+            viewModel.comments([comment]);
+
+            restoreDefer = Q.defer();
+            spyOn(commentRepository, 'restoreComment').and.returnValue(restoreDefer.promise);
+        });
+
+        it('should call restoreComment of repository', (done) => {
+            viewModel.restoreComment(comment).fin(() => {
+                expect(commentRepository.restoreComment).toHaveBeenCalledWith(courseId, comment);
+                done();
+            });
+
+            restoreDefer.reject();
+        });
+
+        describe('when comment is restored:', () => {
+            it('should set isDeleted to false', (done) => {
+                viewModel.restoreComment(comment).fin(() => {
+                    expect(viewModel.comments()[0].isDeleted()).toBeFalsy();
+                    done();
+                });
+
+                restoreDefer.resolve('2');
+            });
+
+            it('should set new restored id', (done) => {
+                viewModel.restoreComment(comment).fin(() => {
+                    expect(viewModel.comments()[0].id()).toBe('2');
+                    done();
+                });
+
+                restoreDefer.resolve('2');
+            });
+
+
+            it('should show saved notification', (done) => {
+                viewModel.restoreComment(comment).fin(() => {
+                    expect(notify.saved).toHaveBeenCalled();
+                    done();
+                });
+
+                restoreDefer.resolve('2');
+            });
+        });
+
+        describe('when comment is not restored:', () => {
+            it('should not restore it in viewModel', (done) => {
+                viewModel.restoreComment(comment).fin(() => {
+                    expect(viewModel.comments()[0].isDeleted()).toBeTruthy();
+                    done();
+                });
+
+                restoreDefer.resolve();
+            });
+
+            it('should show error notification', (done) => {
+                viewModel.restoreComment(comment).fin(() => {
+                    expect(notify.error).toHaveBeenCalled();
+                    done();
+                });
+
+                restoreDefer.resolve();
+            });
+        });
+
+        describe('when error during restoring comment:', () => {
+            it('should not restore it in viewModel', (done) => {
+                viewModel.restoreComment(comment).fin(() => {
+                    expect(viewModel.comments()[0].isDeleted()).toBeTruthy();
+                    done();
+                });
+
+                restoreDefer.reject();
+            });
+
+            it('should show error notification', () => {
+                viewModel.restoreComment(comment).fin((done) => {
+                    expect(notify.error).toHaveBeenCalled();
+                    done();
+                });
+
+                restoreDefer.reject();
+            });
+        });
+    });
+
+    describe('deletedByCollaborator:', () => {
+        let commentId = '1',
+            courseId = 'courseId',
+            comment = {
+                id: ko.observable(commentId),
+                text: 'text',
+                name: 'name',
+                email: 'email',
+                createdOn: '2015-12-10',
+                isDeleted: ko.observable(false)
+            };
+
+        describe('when courseId is correct', () => {
+            it('should remove comment from viewModel', () => {
+                viewModel.courseId = courseId;
+                viewModel.comments([comment]);
+
+                viewModel.deletedByCollaborator(courseId, commentId);
+                expect(viewModel.comments().length).toBe(0);
+            });
+        });
+
+        describe('when courseId is not correct', () => {
+            it('should not remove comment from viewModel', () => {
+                viewModel.courseId = courseId;
+                viewModel.comments([comment]);
+
+                viewModel.deletedByCollaborator('someId', commentId);
+                expect(viewModel.comments().length).toBe(1);
+            });
+        });
+
+    });
+
+    describe('hide:', () => {
+        let comment = {
+            id: ko.observable('1'),
+            text: 'text',
+            name: 'name',
+            email: 'email',
+            createdOn: '2015-12-10',
+            isDeleted: ko.observable(false)
+        };
+
+        it('should remove comment from viewModel', () => {
+            viewModel.comments([comment]);
+
+            viewModel.hide(comment);
+            expect(viewModel.comments().length).toBe(0);
+        });
+    });
+});
