@@ -40,6 +40,7 @@ export default class SectionViewModel{
         this.title.maxLength = constants.validation.objectiveTitleMaxLength;
         this.title.isValid = ko.computed(() => this.title().trim().length <= this.title.maxLength, this);
         this.title.isEmpty = ko.computed(() => this.title().trim().length === 0, this);
+        this.createdBy = section.createdBy;
         this.originalTitle = this.title();
         this.modifiedOn = ko.observable(section.modifiedOn ? updateModifiedOn(section.modifiedOn) : '');
         this.image = ko.observable(section.image || '');
