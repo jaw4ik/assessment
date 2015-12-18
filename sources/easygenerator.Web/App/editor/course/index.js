@@ -181,7 +181,7 @@ export default class {
         notify.saved();
     }
     async deleteSection(section) {
-        deleteSectionDialog.show(this.id, section.id(), section.title());
+        deleteSectionDialog.show(this.id, section.id(), section.title(), section.createdBy);
     }
     async createQuestion(question, nexQuestion, targetSection) {
         let questionType = question && question.type;

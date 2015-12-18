@@ -3,6 +3,7 @@ import _ from 'underscore';
 import notify from 'notify';
 import dataContext from 'dataContext';
 import eventTracker from 'eventTracker';
+import userContext from 'userContext';
 import localizationManager from 'localization/localizationManager';
 import constants from 'constants';
 import dialog from 'widgets/dialog/viewmodel';
@@ -15,6 +16,8 @@ var events = {
 
 var eventCategory = 'Course editor (drag and drop)';
 
+var _createdBy = new WeakMap();
+
 class DeleteSection {
     constructor() {
         this.courseId = '';
@@ -25,10 +28,11 @@ class DeleteSection {
         this.deleteEverywhere = ko.observable(false);
         this.isDeleting = ko.observable(false);
     }
-    show(courseId, sectionId, sectionTitle) {
+    show(courseId, sectionId, sectionTitle, createdBy) {
         this.courseId = courseId;
         this.sectionId = sectionId;
         this.sectionTitle = sectionTitle;
+        _createdBy.set(this, createdBy);
 
         this.courses(_.filter(dataContext.courses, course => {
             return _.some(course.objectives, objective => objective.id === sectionId);
@@ -39,7 +43,7 @@ class DeleteSection {
     async deleteSection() {
         eventTracker.publish(events.deleteObjective, eventCategory);
         this.isDeleting(true);
-        if (this.deleteEverywhere() || !this.sectionContainedInFewCourses()) {
+        if ((this.deleteEverywhere() || !this.sectionContainedInFewCourses()) && userContext.identity.email === _createdBy.get(this)) {
             await permanentlyDeleteSectionCommand.execute(this.sectionId);
         } else {
             await unrelateSectionCommand.execute(this.courseId, { id: this.sectionId });
