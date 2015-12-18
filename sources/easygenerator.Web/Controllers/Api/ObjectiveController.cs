@@ -129,7 +129,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [EntityOwner(typeof (Objective))]
+        [EntityCollaborator(typeof(Objective))]
         [Route("api/objective/permanentlydelete")]
         public ActionResult PermanentlyDeleteObjective(Objective objective)
         {
