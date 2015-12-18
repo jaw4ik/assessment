@@ -32,10 +32,10 @@ namespace easygenerator.Web
             {
                 foreach (var userCulture in userCultures)
                 {
-                    var item = userCulture.Split(';')[0];
-                    if (Constants.SupportedCultures.Any(s => item.ToLower().StartsWith(s)))
+                    var supportedCulture = Constants.SupportedCultures.FirstOrDefault(s => userCulture.ToLower().StartsWith(s));
+                    if (supportedCulture != null)
                     {
-                        culture = new CultureInfo(item);
+                        culture = new CultureInfo(supportedCulture);
                         break;
                     }
                 }
