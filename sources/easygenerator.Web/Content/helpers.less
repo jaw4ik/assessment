@@ -1,5 +1,6 @@
 @maxWidth: 960px;
 @minWidth: 635px;
+@animation-duration-default-value: 0.2s;
 
 .unselectable() {
     user-select: none;
@@ -81,3 +82,13 @@
         color: @color;
     }
 }
+
+/*#region Transitions */
+
+.transition(@transition-property, @transition-duration: @animation-duration-default-value, @transition-function: linear) {
+    transition-property: @transition-property;
+    transition-timing-function: @transition-function;
+    transition-duration: @transition-duration;
+}
+
+/*#endregion */

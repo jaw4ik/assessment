@@ -1,5 +1,6 @@
-﻿@main-color: #42515f;
-@animation-duration: 0.2s;
+﻿@import "helpers";
+
+@main-color: #42515f;
 @font-RS: 'RobotoSlab';
 @font-RSB: 'RobotoSlab-Bold';
 @font-RSL: 'RobotoSlab-Light';
@@ -544,7 +545,7 @@
                             margin-left: -8px;
                             background: url('images/sprites_16.png') -21px -172px no-repeat;
                             transform: rotate(0);
-                            .transition(transform);
+                            .transition(transform, 0.3s);
                         }
 
                         &:before {
@@ -1200,12 +1201,6 @@
 
 .cursor-grabbing {
     cursor: url('/Content/images/grabbing.cur'), move;
-}
-
-.transition(@transition-property, @transition-duration: @animation-duration) {
-    transition-property: @transition-property;
-    transition-timing-function: linear;
-    transition-duration: @transition-duration;
 }
 
 .unstyled {

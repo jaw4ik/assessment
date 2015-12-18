@@ -1,4 +1,5 @@
-﻿@animation-duration: 0.3s;
+﻿@import "helpers";
+
 @font-OS: 'OpenSans';
 @font-OSSB: 'OpenSans-Semibold';
 
@@ -36,7 +37,7 @@
                 margin-top: -3.5px;
                 background: url('images/sprites_16.png') -44px -172px no-repeat;
                 transform: rotate(0);
-                transition: all 0.3s linear;
+                .transition(transform, 0.3s);
             }
 
             &.collapsed {
@@ -405,7 +406,7 @@
         border-radius: 3px;
         background-color: #fff;
         box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, .5);
-        transition: box-shadow 0.2s linear;
+        .transition(box-shadow);
 
         &:not(.disabled):hover {
             box-shadow: 0px 2px 5px 0px rgba(0,0,0,.4);
@@ -447,9 +448,9 @@
                 border: 1px solid #4caf50;
                 border-radius: 3px;
                 background-color: #fff;
-                transition: all 0.2s linear;
                 outline: none;
                 cursor: pointer;
+                .transition('background-color, color');
 
                 &:hover {
                     color: #fff;
