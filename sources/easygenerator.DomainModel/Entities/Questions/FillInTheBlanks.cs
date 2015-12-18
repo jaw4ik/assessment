@@ -46,11 +46,12 @@ namespace easygenerator.DomainModel.Entities.Questions
         {
             ThrowIfAnswerIsInvalid(answer);
             ThrowIfModifiedByIsInvalid(modifiedBy);
-
-            AnswersCollection.Add(answer);
+            
             var lastAnswerInCollection = AnswersCollection.OrderBy(a => a.Order).LastOrDefault();
             answer.Order = lastAnswerInCollection?.Order + 1 ?? 0;
             answer.Question = this;
+            AnswersCollection.Add(answer);
+
             MarkAsModified(modifiedBy);
         }
 
