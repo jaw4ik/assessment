@@ -14,6 +14,9 @@
                 'editor/course/viewmodels/QuestionViewModel.spec',
                 'editor/course/viewmodels/SectionViewModel.spec',
                 'editor/course/index.spec',
+                'editor/dialogs/editorFeedback/commands/sendFeedback.spec',
+                'editor/dialogs/editorFeedback/editorFeedback.spec',
+
                 //#endregion
 
                 'authorization/limitCoursesAmount.spec',
