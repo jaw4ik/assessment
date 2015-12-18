@@ -1,9 +1,9 @@
 ﻿define(['durandal/events', 'dialogs/course/common/templateSelector/templateSelector', 'constants'],
-    function (events, templateSelector, constants) {
+    function (events, TemplateSelector, constants) {
         "use strict";
         var viewModel = {
             submit: submit,
-            templateSelector: templateSelector,
+            templateSelector: new TemplateSelector(),
             getSelectedTemplateId: getSelectedTemplateId
         };
 

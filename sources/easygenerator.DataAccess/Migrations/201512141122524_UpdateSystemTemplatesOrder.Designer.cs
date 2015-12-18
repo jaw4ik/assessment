@@ -7,13 +7,13 @@ namespace easygenerator.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddNewEditor : IMigrationMetadata
+    public sealed partial class UpdateSystemTemplatesOrder : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddNewEditor));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateSystemTemplatesOrder));
         
         string IMigrationMetadata.Id
         {
-            get { return "201512140803030_AddNewEditor"; }
+            get { return "201512141122524_UpdateSystemTemplatesOrder"; }
         }
         
         string IMigrationMetadata.Source

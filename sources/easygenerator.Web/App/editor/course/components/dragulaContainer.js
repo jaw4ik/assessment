@@ -23,10 +23,12 @@ export default class DragulaContainer{
             copy: (element, source) => that.sourcesToCopy.indexOf(source) !== -1,
             moves: (element, source, handle) => {
                 let area = _.find(that.draggableAreas, area => area.source === source);
-                if (area) {
-                    return $(handle).is(area.selector);
+                let canMove = area ? $(handle).is(area.selector) : true;
+
+                if (canMove) {
+                    unfocusOtherElements();
                 }
-                return true;
+                return canMove;
             },
             invalid: element => $(element).hasClass('disabled'),
             accepts: (element, target, source, sibling) => {
@@ -35,6 +37,11 @@ export default class DragulaContainer{
             },
             direction: 'vertical'
         });
+
+        function unfocusOtherElements() {
+            $('[contenteditable=true]:focus').blur();
+            $('html').trigger('click');
+        }
 
         //dragulaAnimation.initialize(this);
 

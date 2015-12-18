@@ -48,9 +48,6 @@
             }
 
             $html.on('keyup', closeOnEscape);
-            $container.css({
-                overflowY: 'hidden'
-            });
         }
 
         function hide() {
@@ -66,9 +63,6 @@
             $element.fadeOut(speed, function () {
                 scrollLocker.releaseScroll();
                 $html.off('keyup', closeOnEscape);
-                $container.css({
-                    overflowY: 'visible'
-                });
 
                 if (_.isFunction(onHide)) {
                     onHide();

@@ -1,4 +1,5 @@
-﻿@animation-duration: 0.3s;
+﻿@import "helpers";
+
 @font-OS: 'OpenSans';
 @font-OSSB: 'OpenSans-Semibold';
 
@@ -36,7 +37,7 @@
                 margin-top: -3.5px;
                 background: url('images/sprites_16.png') -44px -172px no-repeat;
                 transform: rotate(0);
-                transition: all 0.3s linear;
+                .transition(transform, 0.3s);
             }
 
             &.collapsed {
@@ -50,15 +51,15 @@
         .editor-create-bar-list-container {
             position: relative;
 
-            &.no-section{
-                .not-contain-section-overlay{
+            &.no-section {
+                .not-contain-section-overlay {
                     display: block;
                 }
             }
 
-            .not-contain-section-overlay{
+            .not-contain-section-overlay {
                 position: absolute;
-                top:0;
+                top: 0;
                 left: 0;
                 display: none;
                 width: 100%;
@@ -76,9 +77,9 @@
             }
         }
 
-        .editor-create-bar-list-container + .editor-create-bar-header {
-            margin-top: 50px;
-        }
+            .editor-create-bar-list-container + .editor-create-bar-header {
+                margin-top: 50px;
+            }
     }
 }
 
@@ -405,7 +406,7 @@
         border-radius: 3px;
         background-color: #fff;
         box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, .5);
-        transition: box-shadow 0.2s linear;
+        .transition(box-shadow);
 
         &:not(.disabled):hover {
             box-shadow: 0px 2px 5px 0px rgba(0,0,0,.4);
@@ -436,17 +437,20 @@
             cursor: default;
 
             .editor-create-bar-list-no-access-button {
-                width: 60px;
+                min-width: 60px;
+                max-width: 90px;
                 font: 10px @font-OS;
                 line-height: 18px;
                 text-transform: uppercase;
+                overflow: hidden;
+                text-overflow: ellipsis;
                 color: #4caf50;
                 border: 1px solid #4caf50;
                 border-radius: 3px;
                 background-color: #fff;
-                transition: all 0.2s linear;
                 outline: none;
                 cursor: pointer;
+                .transition('background-color, color');
 
                 &:hover {
                     color: #fff;

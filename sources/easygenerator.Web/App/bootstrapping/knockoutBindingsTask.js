@@ -6,6 +6,7 @@
     require('components/bindingHandlers/backgroundBindingHandler');
     require('components/bindingHandlers/fileBrowserBindingHandler');
     require('components/bindingHandlers/fileDropUploadBindingHandler');
+    require('components/bindingHandlers/expandableBlockBindingHandler');
     require('components/bindingHandlers/customScrollbarBindingHandler');
     require('viewmodels/questions/dragAndDropText/bindingHandlers/draggableTextBindingHandler');
     require('viewmodels/questions/hotSpot/bindingHandlers/polygonsEditorBindingHandler').install();

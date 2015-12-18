@@ -27,7 +27,7 @@
         },
 
         throwIfNotDate: function (date, message) {
-            if (!_.isDate(date)) {
+            if (!_.isDate(date) || _.isNaN(date.getTime())) {
                 throw message;
             }
         },

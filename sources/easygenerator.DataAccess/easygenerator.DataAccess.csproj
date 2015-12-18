@@ -411,9 +411,13 @@
     <Compile Include="Migrations\201512090851360_AddBlankAnswerOrder.Designer.cs">
       <DependentUpon>201512090851360_AddBlankAnswerOrder.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201512140803030_AddNewEditor.cs" />
-    <Compile Include="Migrations\201512140803030_AddNewEditor.Designer.cs">
-      <DependentUpon>201512140803030_AddNewEditor.cs</DependentUpon>
+    <Compile Include="Migrations\201512141122524_UpdateSystemTemplatesOrder.cs" />
+    <Compile Include="Migrations\201512141122524_UpdateSystemTemplatesOrder.Designer.cs">
+      <DependentUpon>201512141122524_UpdateSystemTemplatesOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512171009197_AddNewEditor.cs" />
+    <Compile Include="Migrations\201512171009197_AddNewEditor.Designer.cs">
+      <DependentUpon>201512171009197_AddNewEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -713,8 +717,11 @@
     <EmbeddedResource Include="Migrations\201512090851360_AddBlankAnswerOrder.resx">
       <DependentUpon>201512090851360_AddBlankAnswerOrder.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201512140803030_AddNewEditor.resx">
-      <DependentUpon>201512140803030_AddNewEditor.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201512141122524_UpdateSystemTemplatesOrder.resx">
+      <DependentUpon>201512141122524_UpdateSystemTemplatesOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512171009197_AddNewEditor.resx">
+      <DependentUpon>201512171009197_AddNewEditor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -4,6 +4,7 @@ using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.DomainEvents.ChangeTracking.Events;
 using System.Collections.Generic;
+using easygenerator.DomainModel.Events.CommentEvents;
 
 namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
 {
@@ -23,7 +24,8 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         IDomainEventHandler<DropspotChangedEvent>,
         IDomainEventHandler<HotSpotPolygonChangedEvent>,
         IDomainEventHandler<TextMatchingAnswerChangedEvent>,
-        IDomainEventHandler<SingleSelectImageAnswerChangedEvent>
+        IDomainEventHandler<SingleSelectImageAnswerChangedEvent>,
+        IDomainEventHandler<CommentDeletedEvent>
     {
         private readonly ICourseRepository _repository;
         private readonly IDomainEventPublisher _eventPublisher;
@@ -111,6 +113,10 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         public void Handle(SingleSelectImageAnswerChangedEvent args)
         {
             RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToSingleSelectImageAnswer(args.Answer.Id));
+        }
+        public void Handle(CommentDeletedEvent args)
+        {
+            RaiseCourseChangedEvent(args.Course);
         }
 
         private void RaiseCoursesChangedEvent(IEnumerable<Course> courses)
