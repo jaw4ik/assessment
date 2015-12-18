@@ -2220,6 +2220,73 @@
 
 /*#endregion */
 
+
+/*#region rating-control */
+
+.rating-control {
+    text-align: center;
+
+    .rating-container {
+        display: inline-block;
+
+        .rating-item {
+            display: inline-block;
+            cursor: pointer;
+            width: 36px;
+            height: 34px;
+            background: url('images/sprites_64.png') -219px -487px no-repeat;
+
+            &.highlighted {
+                background: url('images/sprites_64.png') -288px -487px no-repeat;
+            }
+
+            &.checked {
+                background: url('images/sprites_64.png') -14px -555px no-repeat;
+            }
+
+            & + .rating-item {
+                margin-left: 5px;
+            }
+        }
+    }
+}
+
+/*#endregion */
+
+/*#region circles-list */
+
+ol.circles-list {
+    list-style-type: none;
+    counter-reset: li-counter;
+    margin-left: 20px;
+}
+
+ol.circles-list > li {
+    position: relative;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    padding-top: 7px;
+}
+
+ol.circles-list > li:before {
+    position: absolute;
+    top: 0px;
+    left: -20px;
+    width: 30px;
+    height: 30px;
+    font: 18px 'RobotoSlab';
+    line-height: 30px;
+    text-align: center;
+    color: #546677;
+    border: 1px solid rgb(99, 121, 142);
+    border-radius: 50%;
+    content: counter(li-counter);
+    counter-increment: li-counter;
+}
+
+
+/*#endregion */
+
 @import "shell.less";
 @import "editField.less";
 @import "upgradePopup.less";

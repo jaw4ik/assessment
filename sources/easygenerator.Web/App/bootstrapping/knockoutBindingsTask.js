@@ -27,6 +27,7 @@
     require('components/bindingHandlers/dateBindingHadler');
     require('components/bindingHandlers/editableTextBindingHandler');
     require('components/bindingHandlers/cursorTooltipBindingHandler');
+    require('components/bindingHandlers/ratingBindingHandler');
 
     var task = {
         execute: execute

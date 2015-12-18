@@ -613,6 +613,7 @@
     <Content Include="App\components\bindingHandlers\cursorTooltipBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\dateBindingHadler.js" />
     <Content Include="App\components\bindingHandlers\editableTextBindingHandler.js" />
+    <Content Include="App\components\bindingHandlers\ratingBindingHandler.js" />
     <Content Include="App\core\durandal\activator.js" />
     <Content Include="App\core\durandal\app.js" />
     <Content Include="App\core\durandal\binder.js" />
@@ -664,6 +665,15 @@
     <Content Include="App\editor\course\dialogs\deleteSection\deleteSection.html" />
     <Content Include="App\editor\course\dialogs\deleteSection\deleteSection.spec.js">
       <DependentUpon>deleteSection.js</DependentUpon>
+    </Content>
+    <Content Include="App\editor\dialogs\editorFeedback\commands\sendFeedback.js" />
+    <Content Include="App\editor\dialogs\editorFeedback\commands\sendFeedback.spec.js">
+      <DependentUpon>sendFeedback.js</DependentUpon>
+    </Content>
+    <Content Include="App\editor\dialogs\editorFeedback\editorFeedback.html" />
+    <Content Include="App\editor\dialogs\editorFeedback\editorFeedback.js" />
+    <Content Include="App\editor\dialogs\editorFeedback\editorFeedback.spec.js">
+      <DependentUpon>editorFeedback.js</DependentUpon>
     </Content>
     <Content Include="App\editor\course\index.html" />
     <Content Include="App\editor\course\index.js" />
@@ -1878,6 +1888,7 @@
     <Content Include="App\localization\lang\nl.json" />
     <Content Include="Content\font\robotoslab-light.woff" />
     <Content Include="App\localization\lang\es.json" />
+    <Content Include="Mail\MailTemplates\NewEditorFeedbackTemplate.cshtml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\iscroll-probe.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />

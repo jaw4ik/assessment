@@ -10,6 +10,7 @@
             $scrollable = $(scrollableClassName, $element),
             speed = 200,
             isShown = valueAccessor().isShown,
+            isBoundless = valueAccessor().isBoundless,
             autoclose = ko.unwrap(valueAccessor().autoclose) || false,
             onHide = valueAccessor().onHide,
             scrollLocker = createScrollLocker();
@@ -26,6 +27,9 @@
 
             $element.data('isShown', true);
             var $blockout = $('<div class="modal-dialog-blockout" style="display:none;"></div>').appendTo($container);
+            if (isBoundless) {
+                $blockout.addClass('boundless');
+            }
 
             $.when($blockout).done(function () {
                 $blockout.fadeIn(speed);
