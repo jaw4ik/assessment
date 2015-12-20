@@ -126,8 +126,20 @@
   <data name="ChooseYourCountry" xml:space="preserve">
     <value>Kies uw land...</value>
   </data>
+  <data name="Chrome" xml:space="preserve">
+    <value>Google Chrome</value>
+  </data>
+  <data name="CommentWasNotSent" xml:space="preserve">
+    <value>Opmerking niet verzonden</value>
+  </data>
+  <data name="CommentWasSent" xml:space="preserve">
+    <value>Opmerking verzonden</value>
+  </data>
   <data name="Continue" xml:space="preserve">
     <value>Doorgaan</value>
+  </data>
+  <data name="CopyrightText" xml:space="preserve">
+    <value>Copyright © 2015 easygenerator. All rights reserved.</value>
   </data>
   <data name="CouldNotVerifyPasswordRecovery" xml:space="preserve">
     <value>Helaas. We kunnen niet verifiëren dat deze gebruiker heeft verzocht om het wachtwoord opnieuw in te stellen. Start de herstelprocedure opnieuw.</value>
@@ -170,16 +182,11 @@
   </data>
   <data name="ForgotPasswordBody" xml:space="preserve">
     <value>Onderwerp: Uw poging uw wachtwoord opnieuw in te stellen op &lt;a href=""{0}""&gt;{0}&lt;/a&gt;
-
 Hallo,
-
 Iemand heeft recentelijk geprobeerd het wachtwoord voor uw account bij  &lt;a href=""{0}""&gt;{0}&lt;/a&gt; opnieuw in te stellen.
-
 Als u het wachtwoord opnieuw wilt instellen, klikt u op de onderstaande koppeling:
  &lt;a href=""{1}""&gt;{1}&lt;/a&gt;
-
 Als dit een vergissing is, kunt u deze e-mail negeren. Uw wachtwoord wordt dan niet gewijzigd.
-
 Dank u voor het gebruik van easygenerator.com en een prettige dag!
 --
 Vriendelijke groet,
@@ -189,10 +196,16 @@ team van easygenerator</value>
     <value>We hebben een e-mail verzonden met instructies voor het opnieuw instellen van uw wachtwoord.</value>
   </data>
   <data name="ForgotPasswordSubject" xml:space="preserve">
-    <value>Password for easygenerator</value>
+    <value>Wachtwoord voor Easygenerator</value>
   </data>
   <data name="HidePassword" xml:space="preserve">
     <value>Wachtwoord verbergen</value>
+  </data>
+  <data name="HomePage" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="IE" xml:space="preserve">
+    <value>Internet Exploere</value>
   </data>
   <data name="IncorrectEmailOrPassword" xml:space="preserve">
     <value>Deze combinatie van e-mailadres en wachtwoord is niet gevonden. Probeer het opnieuw of reset uw wachtwoord</value>
@@ -217,8 +230,14 @@ easygenerator Team&lt;/p&gt;
   <data name="LastNameCaption" xml:space="preserve">
     <value>Achternaam</value>
   </data>
+  <data name="LeaveYourComment" xml:space="preserve">
+    <value>Geef uw mening</value>
+  </data>
   <data name="LicenseAgreeCaption" xml:space="preserve">
     <value>Door op "Inschrijven" te klikken ga ik akkoord met easygenerator's  &lt;a href="{0}"  target=”_blank”&gt;Voorwaarden&lt;/a&gt; en &lt;a href="{1}"  target=”_blank”&gt;Privacybeleid&lt;/a&gt;</value>
+  </data>
+  <data name="Mozilla" xml:space="preserve">
+    <value>Mozilla Firefox</value>
   </data>
   <data name="NoSpaces" xml:space="preserve">
     <value>Geen spaties</value>
@@ -226,8 +245,26 @@ easygenerator Team&lt;/p&gt;
   <data name="NotLessThanSevenSymbols" xml:space="preserve">
     <value>Niet minder dan 7 tekens</value>
   </data>
+  <data name="NotSupportedBrowserDescription" xml:space="preserve">
+    <value>Geen zorgen er is een simpele oplossing. Klik op een van de iconen hieronder om een ondersteunde browser te downlaoden</value>
+  </data>
+  <data name="NotSupportedBrowserSkip" xml:space="preserve">
+    <value>Ik wil het toch proberen....</value>
+  </data>
+  <data name="NotSupportedBrowserTitle" xml:space="preserve">
+    <value>Uw browser wordt niet ondersteund, gebruik een andere browser</value>
+  </data>
+  <data name="NotSupportedDeviceDescription" xml:space="preserve">
+    <value>Het besturingssysteem van uw apparaat wordt niet ondersteund. </value>
+  </data>
   <data name="OtherRole" xml:space="preserve">
     <value>Anders</value>
+  </data>
+  <data name="PageNotFound" xml:space="preserve">
+    <value>De opgevraagde pagina is niet gevonden</value>
+  </data>
+  <data name="PageNotFoundDescription" xml:space="preserve">
+    <value>Klik op Home. Open de cursus en probeer het opnieuw. Neem contact op met support@easygenerator.com als dit probleem zich blijft voordoen</value>
   </data>
   <data name="PasswordCaption" xml:space="preserve">
     <value>Wachtwoord</value>
@@ -241,11 +278,23 @@ easygenerator Team&lt;/p&gt;
   <data name="PleaseUse" xml:space="preserve">
     <value>Gebruik</value>
   </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Privacybeleid</value>
+  </data>
   <data name="RequestError" xml:space="preserve">
     <value>Er is een fout opgetreden bij de verwerking van uw verzoek:</value>
   </data>
   <data name="RoleQuestion" xml:space="preserve">
     <value>Wat is uw functie?</value>
+  </data>
+  <data name="Safari" xml:space="preserve">
+    <value>Safari</value>
+  </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>Er ging iets mis</value>
+  </data>
+  <data name="ServerErrorDescription" xml:space="preserve">
+    <value>Klik op Cursussen. Open de cursus en probeer het opnieuw. Neem contact op met support@easygenerator.com als dit probleem zich blijft voordoen</value>
   </data>
   <data name="Show" xml:space="preserve">
     <value>Laat zie</value>
@@ -274,7 +323,34 @@ easygenerator Team&lt;/p&gt;
   <data name="Teacher" xml:space="preserve">
     <value>Docent</value>
   </data>
+  <data name="TermsOfUse" xml:space="preserve">
+    <value>Gebruiksvoorwaarden</value>
+  </data>
   <data name="Trainer" xml:space="preserve">
     <value>Trainer</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EnterValidEmailError" xml:space="preserve">
+    <value>Vul een correct emailadres in</value>
+  </data>
+  <data name="EnterYourNameError" xml:space="preserve">
+    <value>Vul een geldige naam in</value>
+  </data>
+  <data name="IdentifyMessage" xml:space="preserve">
+    <value>Vul uw gegevens in</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Plaats opmerking</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Probeer opnieuw</value>
+  </data>
+  <data name="YourMessage" xml:space="preserve">
+    <value>Typ uw bericht</value>
   </data>
 </root>

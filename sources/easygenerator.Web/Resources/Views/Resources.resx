@@ -126,8 +126,20 @@
   <data name="ChooseYourCountry" xml:space="preserve">
     <value>Select your country...</value>
   </data>
+  <data name="Chrome" xml:space="preserve">
+    <value>google chrome</value>
+  </data>
+  <data name="CommentWasNotSent" xml:space="preserve">
+    <value>Comment was not sent.</value>
+  </data>
+  <data name="CommentWasSent" xml:space="preserve">
+    <value>Comment was sent</value>
+  </data>
   <data name="Continue" xml:space="preserve">
     <value>Continue</value>
+  </data>
+  <data name="CopyrightText" xml:space="preserve">
+    <value>Copyright © 2015 easygenerator. All rights reserved.</value>
   </data>
   <data name="CouldNotVerifyPasswordRecovery" xml:space="preserve">
     <value>An error occurred. Try again Contact support@easygenerator.com if the problem persists. </value>
@@ -141,11 +153,17 @@
   <data name="ELearningManager" xml:space="preserve">
     <value>eLearning manager</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
   <data name="EmailCaption" xml:space="preserve">
     <value>E-mail</value>
   </data>
   <data name="EnterValidCountry" xml:space="preserve">
     <value>Enter your country</value>
+  </data>
+  <data name="EnterValidEmailError" xml:space="preserve">
+    <value>Enter a valid e-mail</value>
   </data>
   <data name="EnterValidEmailMessage" xml:space="preserve">
     <value>Enter a valid e-mail address</value>
@@ -158,6 +176,9 @@
   </data>
   <data name="EnterValidPhoneNumber" xml:space="preserve">
     <value>Enter your phone number</value>
+  </data>
+  <data name="EnterYourNameError" xml:space="preserve">
+    <value>Enter a valid name</value>
   </data>
   <data name="Finish" xml:space="preserve">
     <value>Start authoring!</value>
@@ -202,6 +223,15 @@ Hi,
   <data name="HidePassword" xml:space="preserve">
     <value>Hide password</value>
   </data>
+  <data name="HomePage" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="IdentifyMessage" xml:space="preserve">
+    <value>Please identify yourself</value>
+  </data>
+  <data name="IE" xml:space="preserve">
+    <value>internet explorer</value>
+  </data>
   <data name="IncorrectEmailOrPassword" xml:space="preserve">
     <value>E-mail and password combination does not exist. Try again or reset your password.</value>
   </data>
@@ -225,8 +255,17 @@ easygenerator Team&lt;/p&gt;
   <data name="LastNameCaption" xml:space="preserve">
     <value>Last name</value>
   </data>
+  <data name="LeaveYourComment" xml:space="preserve">
+    <value>Leave your comment</value>
+  </data>
   <data name="LicenseAgreeCaption" xml:space="preserve">
     <value>By clicking "Sign up" I agree to easygenerator's &lt;a href="{0}"  target=”_blank”&gt;Terms and Conditions&lt;/a&gt; and &lt;a href="{1}"  target=”_blank”&gt;Privacy policy&lt;/a&gt;</value>
+  </data>
+  <data name="Mozilla" xml:space="preserve">
+    <value>mozilla firefox</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="NoSpaces" xml:space="preserve">
     <value>No spaces</value>
@@ -234,8 +273,26 @@ easygenerator Team&lt;/p&gt;
   <data name="NotLessThanSevenSymbols" xml:space="preserve">
     <value>At least 7 characters</value>
   </data>
+  <data name="NotSupportedBrowserDescription" xml:space="preserve">
+    <value>Don't worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions.</value>
+  </data>
+  <data name="NotSupportedBrowserSkip" xml:space="preserve">
+    <value>let me try it anyway...</value>
+  </data>
+  <data name="NotSupportedBrowserTitle" xml:space="preserve">
+    <value>Your browser is currently not supported</value>
+  </data>
+  <data name="NotSupportedDeviceDescription" xml:space="preserve">
+    <value>The operating system of your device is not supported. Please find the list of supported operational systems</value>
+  </data>
   <data name="OtherRole" xml:space="preserve">
     <value>Other</value>
+  </data>
+  <data name="PageNotFound" xml:space="preserve">
+    <value>The page you requested cannot be found</value>
+  </data>
+  <data name="PageNotFoundDescription" xml:space="preserve">
+    <value>Click on Home. Open the course and try again. Contact support@easygenerator.com if the problem persists.</value>
   </data>
   <data name="PasswordCaption" xml:space="preserve">
     <value>Password</value>
@@ -249,11 +306,26 @@ easygenerator Team&lt;/p&gt;
   <data name="PleaseUse" xml:space="preserve">
     <value>Please use:</value>
   </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
   <data name="RequestError" xml:space="preserve">
     <value>An error occurred. Try again Contact support@easygenerator.com if the problem persists. </value>
   </data>
   <data name="RoleQuestion" xml:space="preserve">
     <value>What is your role?</value>
+  </data>
+  <data name="Safari" xml:space="preserve">
+    <value>apple safari</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Post comment</value>
+  </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>An error occurred</value>
+  </data>
+  <data name="ServerErrorDescription" xml:space="preserve">
+    <value>Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.</value>
   </data>
   <data name="Show" xml:space="preserve">
     <value>Show</value>
@@ -282,7 +354,19 @@ easygenerator Team&lt;/p&gt;
   <data name="Teacher" xml:space="preserve">
     <value>Teacher</value>
   </data>
+  <data name="TermsOfUse" xml:space="preserve">
+    <value>Terms and conditions</value>
+  </data>
   <data name="Trainer" xml:space="preserve">
     <value>Trainer</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Try again</value>
+  </data>
+  <data name="YourMessage" xml:space="preserve">
+    <value>Type your message...</value>
+  </data>
+  <data name="NotSupportedDeviceTitle" xml:space="preserve">
+    <value>Your device is not supported</value>
   </data>
 </root>
