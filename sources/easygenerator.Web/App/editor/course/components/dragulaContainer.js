@@ -90,7 +90,7 @@ export default class DragulaContainer{
         });
 
         this.dragula.on('dragend', (element) => {
-            $(element).removeClass(cssClasses.activeElement);
+            $(`.${cssClasses.activeElement}`).removeClass(cssClasses.activeElement);
             _.each(that.targetsToMove, target => $(target.selector).removeClass(cssClasses.activeTarget));
             that.activeTargetsList = [];
         });
