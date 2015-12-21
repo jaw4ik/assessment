@@ -29,6 +29,7 @@ System.config({
     "text": "github:systemjs/plugin-text@0.0.3",
     "transitions": "core/durandal/transitions",
     "underscore": "npm:underscore@1.8.3",
+    "velocity-animate": "npm:velocity-animate@1.2.3",
     "github:jaw4ik/dragula@3.5.5": {
       "contra": "npm:contra@1.9.1",
       "crossvent": "npm:crossvent@1.5.4"
@@ -75,6 +76,9 @@ System.config({
     "npm:inherits@2.0.1": {
       "util": "github:jspm/nodelibs-util@0.1.0"
     },
+    "npm:jquery@2.1.4": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
     "npm:moment@2.10.6": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
@@ -89,6 +93,10 @@ System.config({
     },
     "npm:util@0.10.3": {
       "inherits": "npm:inherits@2.0.1",
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:velocity-animate@1.2.3": {
+      "jquery": "npm:jquery@2.1.4",
       "process": "github:jspm/nodelibs-process@0.1.2"
     }
   }

@@ -290,6 +290,26 @@
         min-height: 100px;
         background-color: #fff;
 
+        .questions-fake-placeholder {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+
+            &.active {
+                display: block;
+            }
+
+            .editor-create-bar-list-item {
+                border-color: #4caf50;
+                border-style: solid;
+                opacity: .8;
+            }
+        }
+
         &.processed {
             .preloader-container {
                 opacity: 1;
@@ -316,7 +336,9 @@
             align-items: stretch;
             min-height: 100px;
             padding: 10px 11px 10px 0;
+            border-radius: 3px;
             box-shadow: 0 1px 3px 0px #b3bcc2;
+            z-index: 1;
 
             .sections-list-item-sort-button {
                 position: relative;
