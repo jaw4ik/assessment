@@ -29,8 +29,8 @@
                     <div class="editor-create-bar-list-icon">
                         <h4 class="editor-create-bar-list-title" data-bind="localize: { text: type }"></h4>
                         <!-- ko ifnot: hasAccess -->
-                        <div class="editor-create-bar-list-no-access">
-                            <button class="editor-create-bar-list-no-access-button" data-bind="click: $parent.openUpgradePlanUrl, localize: { text: 'upgrade'}">Upgrade</button>
+                        <div class="editor-create-bar-list-no-access" data-bind="click: $parent.openUpgradePlanUrl">
+                            <button class="editor-create-bar-list-no-access-button" data-bind="localize: { text: 'upgrade'}">Upgrade</button>
                         </div>
                         <!-- /ko -->
                     </div>

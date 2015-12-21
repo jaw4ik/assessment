@@ -175,8 +175,6 @@
     "deleteCoursePopupMessageObjectivesNotDeleted": "Lernziele, die in anderen Kursen wiederverwendet werden, werden NICHT gelöscht",
     "deleteCoursePopupMessageObjectivesDeleted": "Alle anderen Lernziele im Kurs werden gelöscht",
     "deleteCourseWithLearningPathsPopupMessage": "Der Kurs wird aus den folgenden Lernpfaden gelöscht:",
-    "courseCannotBeDeleted": "Der Kurs kann nicht gelöscht werden, solange er mit Lernzielen verbunden ist.",
-    "courseCannotBeDeletedErrorMessage": "Der Kurs kann nicht gelöscht werden, solange er mit Lernzielen oder Lernpfaden verbunden ist.",
     "courseCreateItem": "Erstellen",
     "courseDesignItem": "Entwurf",
     "courseConfigureItem": "Konfigurieren",

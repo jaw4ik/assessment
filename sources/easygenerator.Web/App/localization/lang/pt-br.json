@@ -175,8 +175,6 @@
     "deleteCoursePopupMessageObjectivesNotDeleted": "Os objetivos de aprendizado que são reutilizados em outros cursos NÃO serão excluídos",
     "deleteCoursePopupMessageObjectivesDeleted": "Todos os outros objetivos no curso serão excluídos",
     "deleteCourseWithLearningPathsPopupMessage": "O curso será removido dos seguintes caminhos de aprendizado:",
-    "courseCannotBeDeleted": "Curso não pode ser excluído quando ele tem objetivo(s) de aprendizado",
-    "courseCannotBeDeletedErrorMessage": "Curso não pode ser excluido se tiver objetivo(s) de aprendizado ou estiver conectado a caminho(s) de aprendizado",
     "courseCreateItem": "Criar",
     "courseDesignItem": "Desenvolver",
     "courseConfigureItem": "Configurar",

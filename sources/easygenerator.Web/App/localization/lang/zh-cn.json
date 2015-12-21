@@ -175,8 +175,6 @@
     "deleteCoursePopupMessageObjectivesNotDeleted": "在其他课程中重复使用的学习目标将不会删除",
     "deleteCoursePopupMessageObjectivesDeleted": "该课程中的所有其他目标将会删除",
     "deleteCourseWithLearningPathsPopupMessage": "该课程将从以下学习路径中删除：",
-    "courseCannotBeDeleted": "不能删除有学习目标的课程",
-    "courseCannotBeDeletedErrorMessage": "如果课程有学习目标或已链接到学习路径，则无法删除该课程",
     "courseCreateItem": "创建",
     "courseDesignItem": "设计",
     "courseConfigureItem": "配置",
