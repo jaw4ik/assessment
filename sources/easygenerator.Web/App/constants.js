@@ -479,6 +479,12 @@
                 containerCss: 'branchtrack-dialog'
             }
         },
+    editorFeedback:{
+            settings: {
+                containerCss: 'editor-feedback',
+                boundless: true
+            }
+    },
         upgrade: {
             settings: {
                 default: {

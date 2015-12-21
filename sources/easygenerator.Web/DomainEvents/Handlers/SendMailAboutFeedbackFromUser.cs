@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace easygenerator.Web.DomainEvents.Handlers
 {
-    public class SendMailAboutFeedbackFromUser : IDomainEventHandler<UserFeedbackEvent>
+    public class SendMailAboutFeedbackFromUser : 
+        IDomainEventHandler<UserFeedbackEvent>,
+        IDomainEventHandler<NewEditorUserFeedbackEvent>
     {
         private readonly IMailNotificationManager _mailNotificationManager;
 
@@ -18,6 +20,11 @@ namespace easygenerator.Web.DomainEvents.Handlers
         public void Handle(UserFeedbackEvent args)
         {
             Task.Run(() => _mailNotificationManager.AddMailNotificationToQueue(Constants.MailTemplates.FeedbackTemplate, args));
+        }
+
+        public void Handle(NewEditorUserFeedbackEvent args)
+        {
+            Task.Run(() => _mailNotificationManager.AddMailNotificationToQueue(Constants.MailTemplates.NewEditorFeedbackTemplate, args));
         }
     }
 }
