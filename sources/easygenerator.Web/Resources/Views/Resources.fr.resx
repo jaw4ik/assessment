@@ -126,8 +126,20 @@
   <data name="ChooseYourCountry" xml:space="preserve">
     <value>Sélectionnez votre pays…</value>
   </data>
+  <data name="Chrome" xml:space="preserve">
+    <value>google chrome</value>
+  </data>
+  <data name="CommentWasNotSent" xml:space="preserve">
+    <value>Le commentaire n'a pas été envoyé.</value>
+  </data>
+  <data name="CommentWasSent" xml:space="preserve">
+    <value>Le commentaire a été envoyé</value>
+  </data>
   <data name="Continue" xml:space="preserve">
     <value>Continuer</value>
+  </data>
+  <data name="CopyrightText" xml:space="preserve">
+    <value>Copyright © 2015 easygenerator. Tous droits réservés.</value>
   </data>
   <data name="CouldNotVerifyPasswordRecovery" xml:space="preserve">
     <value>Une erreur s'est produite. Veuillez réessayer. Contactez support@easygenerator.com si le problème persiste. </value>
@@ -141,11 +153,17 @@
   <data name="ELearningManager" xml:space="preserve">
     <value>Manageur en e-learning</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>Adresse email</value>
+  </data>
   <data name="EmailCaption" xml:space="preserve">
     <value>Email</value>
   </data>
   <data name="EnterValidCountry" xml:space="preserve">
     <value>Saisissez le nom de votre pays</value>
+  </data>
+  <data name="EnterValidEmailError" xml:space="preserve">
+    <value>Veuillez saisir une adresse email valide</value>
   </data>
   <data name="EnterValidEmailMessage" xml:space="preserve">
     <value>Saisissez un email valide</value>
@@ -158,6 +176,9 @@
   </data>
   <data name="EnterValidPhoneNumber" xml:space="preserve">
     <value>Saisissez votre numéro de téléphone</value>
+  </data>
+  <data name="EnterYourNameError" xml:space="preserve">
+    <value>Veuillez saisir votre nom</value>
   </data>
   <data name="Finish" xml:space="preserve">
     <value>Commencez la réalisation !</value>
@@ -202,6 +223,15 @@ Bonjour,
   <data name="HidePassword" xml:space="preserve">
     <value>Cacher le mot de passe</value>
   </data>
+  <data name="HomePage" xml:space="preserve">
+    <value>Accueil</value>
+  </data>
+  <data name="IdentifyMessage" xml:space="preserve">
+    <value>Veuillez vous identifier</value>
+  </data>
+  <data name="IE" xml:space="preserve">
+    <value>internet explorer</value>
+  </data>
   <data name="IncorrectEmailOrPassword" xml:space="preserve">
     <value>La combinaison de l'email et du mot de passe n'existe pas. Veuillez réessayer ou réinitialiser le mot de passe.</value>
   </data>
@@ -225,17 +255,44 @@ L'équipe d'easygenerator &lt;/p&gt;
   <data name="LastNameCaption" xml:space="preserve">
     <value>Nom</value>
   </data>
+  <data name="LeaveYourComment" xml:space="preserve">
+    <value>Laissez votre commentaire</value>
+  </data>
   <data name="LicenseAgreeCaption" xml:space="preserve">
     <value>En cliquant sur "S’inscrire" j’accepte les &lt;a href="{0}"  target=”_blank”&gt;Termes et Conditions &lt;/a&gt; ainsi que la &lt;a href="{1}"  target=”_blank”&gt;Politique de confidentialité&lt;/a&gt; d’easygenerator.</value>
   </data>
+  <data name="Mozilla" xml:space="preserve">
+    <value>mozilla firefox</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
   <data name="NoSpaces" xml:space="preserve">
-    <value>No spaces</value>
+    <value>Aucun espace</value>
   </data>
   <data name="NotLessThanSevenSymbols" xml:space="preserve">
-    <value>At least 7 characters</value>
+    <value>7 caractères minimum</value>
+  </data>
+  <data name="NotSupportedBrowserDescription" xml:space="preserve">
+    <value>Pas d'inquiétude, une solution simple existe. Il vous suffit de cliquer sur l'une des icônes ci-dessous et de suivre les instructions.</value>
+  </data>
+  <data name="NotSupportedBrowserSkip" xml:space="preserve">
+    <value>laissez-moi tout de même essayer...</value>
+  </data>
+  <data name="NotSupportedBrowserTitle" xml:space="preserve">
+    <value>Votre navigateur n'est pas pris en charge</value>
+  </data>
+  <data name="NotSupportedDeviceDescription" xml:space="preserve">
+    <value>Le système d'exploitation de votre périphérique n'est pas pris en charge. Veuillez vous reporter à la liste des systèmes d'exploitation pris en charge</value>
   </data>
   <data name="OtherRole" xml:space="preserve">
     <value>Autre</value>
+  </data>
+  <data name="PageNotFound" xml:space="preserve">
+    <value>La page demandée n'existe pas</value>
+  </data>
+  <data name="PageNotFoundDescription" xml:space="preserve">
+    <value>Cliquez sur Accueil. Ouvrez le cours et réessayez. Contactez support@easygenerator.com si le problème persiste.</value>
   </data>
   <data name="PasswordCaption" xml:space="preserve">
     <value>Mot de passe</value>
@@ -249,14 +306,29 @@ L'équipe d'easygenerator &lt;/p&gt;
   <data name="PleaseUse" xml:space="preserve">
     <value>Veuillez utiliser :</value>
   </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Politique de Confidentialité</value>
+  </data>
   <data name="RequestError" xml:space="preserve">
     <value>Une erreur s'est produite. Veuillez réessayer. Contactez support@easygenerator.com si le problème persiste. </value>
   </data>
   <data name="RoleQuestion" xml:space="preserve">
     <value>Quelle est votre profession ?</value>
   </data>
+  <data name="Safari" xml:space="preserve">
+    <value>apple safari</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Publiez le commentaire</value>
+  </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>Une erreur s'est produite</value>
+  </data>
+  <data name="ServerErrorDescription" xml:space="preserve">
+    <value>Cliquez sur Cours. Ouvrez le cours et réessayez. Contactez support@easygenerator.com si le problème persiste.</value>
+  </data>
   <data name="Show" xml:space="preserve">
-    <value>Show</value>
+    <value>Afficher</value>
   </data>
   <data name="ShowPassword" xml:space="preserve">
     <value>Afficher le mot de passe</value>
@@ -282,7 +354,16 @@ L'équipe d'easygenerator &lt;/p&gt;
   <data name="Teacher" xml:space="preserve">
     <value>Enseignant</value>
   </data>
+  <data name="TermsOfUse" xml:space="preserve">
+    <value>Conditions d'Utilisation</value>
+  </data>
   <data name="Trainer" xml:space="preserve">
     <value>Formateur</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Réessayer</value>
+  </data>
+  <data name="YourMessage" xml:space="preserve">
+    <value>Saisissez votre message...</value>
   </data>
 </root>

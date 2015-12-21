@@ -118,171 +118,240 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccountAlreadyExists" xml:space="preserve">
-    <value>Esta conta já existe. Clique em Entrar e tente novamente</value>
+    <value>Dieses Konto besteht bereits. Klicken Sie auf Anmelden und versuchen Sie es erneut.</value>
   </data>
   <data name="Checking" xml:space="preserve">
-    <value>Verificando...</value>
+    <value>Überprüfung...</value>
   </data>
   <data name="ChooseYourCountry" xml:space="preserve">
-    <value>Selecione seu pais...</value>
+    <value>Wählen Sie Ihr Land aus...</value>
+  </data>
+  <data name="Chrome" xml:space="preserve">
+    <value>Google Chrome</value>
+  </data>
+  <data name="CommentWasNotSent" xml:space="preserve">
+    <value>Der Kommentar wurde nicht gesendet.</value>
+  </data>
+  <data name="CommentWasSent" xml:space="preserve">
+    <value>Der Kommentar wurde gesendet.</value>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Continue</value>
+    <value>Weiter</value>
+  </data>
+  <data name="CopyrightText" xml:space="preserve">
+    <value>Copyright © 2014 easygenerator. All rights reserved.</value>
   </data>
   <data name="CouldNotVerifyPasswordRecovery" xml:space="preserve">
-    <value>Algo não funcionou corretamente. Tente novamente. Contate support@easygenerator.com caso o problema persista. </value>
+    <value>Wir konnten leider nicht herausfinden, ob dieser Benutzer eine Kennwortrücksetzung angefordert hat. Bitte starten Sie die Rücksetzungsprozedur erneut.</value>
   </data>
   <data name="CreateAccountTitle" xml:space="preserve">
-    <value>Inicie criando cursos agora!</value>
+    <value>Erstellen Sie jetzt Ihre ersten Kurse!</value>
   </data>
   <data name="ElearningExpert" xml:space="preserve">
-    <value>Especialista em EAD</value>
+    <value>E-Learning Experte</value>
   </data>
   <data name="ELearningManager" xml:space="preserve">
-    <value>Gerente de EAD</value>
+    <value>E-Learning Manager</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-Mail</value>
   </data>
   <data name="EmailCaption" xml:space="preserve">
-    <value>e-mail</value>
+    <value>E-Mail</value>
   </data>
   <data name="EnterValidCountry" xml:space="preserve">
-    <value>Informe seu pais</value>
+    <value>Geben Sie Ihr Land ein</value>
+  </data>
+  <data name="EnterValidEmailError" xml:space="preserve">
+    <value>Geben Sie eine gültige E-Mail ein</value>
   </data>
   <data name="EnterValidEmailMessage" xml:space="preserve">
-    <value>Entre um e-mail válido</value>
+    <value>Geben Sie eine gültige E-Mail-Adresse ein</value>
   </data>
   <data name="EnterValidFirstName" xml:space="preserve">
-    <value>Informe seu primeiro nome</value>
+    <value>Geben Sie Ihren Vornamen ein</value>
   </data>
   <data name="EnterValidLastName" xml:space="preserve">
-    <value>Informe seu sobrenome</value>
+    <value>Geben Sie Ihren Nachnamen ein</value>
   </data>
   <data name="EnterValidPhoneNumber" xml:space="preserve">
-    <value>Informe seu telefone</value>
+    <value>Geben Sie Ihre Telefonnummer ein</value>
+  </data>
+  <data name="EnterYourNameError" xml:space="preserve">
+    <value>Geben Sie Ihren Namen ein</value>
   </data>
   <data name="Finish" xml:space="preserve">
-    <value>Iniciar autoria!</value>
+    <value>Los geh'ts!</value>
   </data>
   <data name="FirstNameCaption" xml:space="preserve">
-    <value>Primeiro nome</value>
+    <value>Vorname</value>
   </data>
   <data name="ForgotPassword" xml:space="preserve">
-    <value>Esqueceu a senha?</value>
+    <value>Kennwort vergessen?</value>
   </data>
   <data name="ForgotPasswordBody" xml:space="preserve">
-    <value>&lt;div&gt;
-Olá,
-&lt;p&gt;
-        Alguém solicitou um reset da senha da sua conta em &lt;a href=""{0}""&gt;{0}&lt;/a&gt;.
-&lt;/p&gt;
-&lt;p&gt;
-        Para resetar a senha, favor clicar no link abaixo:&lt;br /&gt;
-        &lt;a href=""{1}""&gt;{1}&lt;/a&gt;
-&lt;/p&gt;
-&lt;p&gt;
-        Se você não fez a solicitação, ignore esta mensagem. Sua senha não será alterada. 
-&lt;/p&gt;
-&lt;p&gt;
-        Obrigado por usar easygenerator.com e tenha um bom dia!
-&lt;/p&gt;
+    <value>Betreff: Kennwortrücksetztung auf  &lt;a href=""{0}""&gt;{0}&lt;/a&gt;
+Guten Tag, 
+Jemand hat vor Kurzem eine Kenntwortrücksetzung auf  &lt;a href=""{0}""&gt;{0}&lt;/a&gt; beantragt.
+Um das Kennwort zurückzusetzen, klicken Sie bitte auf den folgenden Link:
+ &lt;a href=""{1}""&gt;{1}&lt;/a&gt;
+Sollte es sich hierbei um einen Fehler handeln, ignorieren Sie einfach diese E-Mail, Ihr Kennwort wird nicht geändert. 
+Vielen Dank, dass Sie easygenerator.com verwenden, und einen schönen Tag!
 --
-&lt;p&gt;
-        &lt;strong&gt;
-                Atenciosamente,&lt;br /&gt;
-                time do easygenerator
-        &lt;/strong&gt;
-&lt;/p&gt;
-&lt;/div&gt;</value>
+Viele Grüße,  
+Ihr easygenerator-Team</value>
   </data>
   <data name="ForgotPasswordSent" xml:space="preserve">
-    <value>Nós lhe enviamos um e-mail com instruções de como ressetar sua senha.</value>
+    <value>Wir haben Ihnen eine E-Mail mit Anleitungen zur Kennwortrücksetzung gesendet.</value>
   </data>
   <data name="ForgotPasswordSubject" xml:space="preserve">
-    <value>Senha para o Easygenerator</value>
+    <value>Kennwort für Easygenerator</value>
   </data>
   <data name="HidePassword" xml:space="preserve">
-    <value>Ocultar senha</value>
+    <value>Kennwort verbergen</value>
+  </data>
+  <data name="HomePage" xml:space="preserve">
+    <value>Startseite</value>
+  </data>
+  <data name="IdentifyMessage" xml:space="preserve">
+    <value>Bitte identifizieren Sie sich</value>
+  </data>
+  <data name="IE" xml:space="preserve">
+    <value>Internet Explorer</value>
   </data>
   <data name="IncorrectEmailOrPassword" xml:space="preserve">
-    <value>Combinação e-mail e senha não existe. Tente novamente ou resete a senha.</value>
+    <value>Diese Kombination von E-Mail-Adresse und Kennwort wurde nicht gefunden</value>
   </data>
   <data name="InstructionalDesigner" xml:space="preserve">
-    <value>Instructional designer</value>
+    <value>Didaktischer Entwickler</value>
   </data>
   <data name="InviteCollaboratorBody" xml:space="preserve">
     <value>&lt;div&gt;
-&lt;p&gt;{0} deseja trabalhar com você em um curso EAD no Easygenerator.&lt;/p&gt;
-&lt;p&gt;Você pode criar uma conta Easygenerator gratis. Vá para: &lt;a href="{1}"&gt;{1}&lt;/a&gt; e registre com este endereço de e-mail e o curso estará disponível após o login.&lt;/p&gt;
-&lt;p&gt;Atenciosamente,&lt;br/&gt;
-Time Easygenerator&lt;/p&gt;
+&lt;p&gt;{0} möchte mit Ihnen gemeinsam an einem E-Learning-Kurs in easygenerator arbeiten.&lt;/p&gt;
+&lt;p&gt;Sie können sich kostenfrei ein Konto bei easygenerator erstellen. Gehen Sie auf: &lt;a href="{1}"&gt;{1}&lt;/a&gt; und melden Sie sich mit dieser E-Mail-Adresse an. Nach Ihrem Login können Sie auf den Kurs zugreifen. &lt;/p&gt;
+&lt;p&gt;Viele Grüße,&lt;br/&gt;
+Ihr easygenerator-Team&lt;/p&gt;
 &lt;/div&gt;</value>
   </data>
   <data name="InviteCollaboratorFromDisplayName" xml:space="preserve">
     <value>{0} (easygenerator)</value>
   </data>
   <data name="InviteCollaboratorSubject" xml:space="preserve">
-    <value>Você foi convidado por {0} para co-autoria de um curso EAD sobre {1}</value>
+    <value>Sie wurden von {0} als Co-Autor zu einem E-Learning-Kurs über {1} eingeladen.</value>
   </data>
   <data name="LastNameCaption" xml:space="preserve">
-    <value>Sobrenome</value>
+    <value>Nachname</value>
+  </data>
+  <data name="LeaveYourComment" xml:space="preserve">
+    <value>Kommentieren Sie diesen Beitrag</value>
   </data>
   <data name="LicenseAgreeCaption" xml:space="preserve">
-    <value>Clicando em  "Cadastrar" eu concordo com os  &lt;a href="{0}"  target=”_blank”&gt;Termos&lt;/a&gt; e a &lt;a href="{1}"  target=”_blank”&gt;Política de privacidade&lt;/a&gt; da Easygenerator</value>
+    <value>Wenn Sie auf "Anmelden" klicken, stimmen Sie den 
+     &lt;a href="{0}"  target=”_blank”&gt;Terms&lt;/a&gt; and &lt;a href="{1}"  target=”_blank”&gt;Datenschutzbestimmungen&lt;/a&gt; von easygenerator zu.</value>
+  </data>
+  <data name="Mozilla" xml:space="preserve">
+    <value>Mozilla Firefox</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="NoSpaces" xml:space="preserve">
-    <value>A senha não pode conter espaços</value>
+    <value>Keine Leerzeichen</value>
   </data>
   <data name="NotLessThanSevenSymbols" xml:space="preserve">
-    <value>tenha ao menos 7 caracteres;</value>
+    <value>Nicht weniger als 7 Symbole</value>
+  </data>
+  <data name="NotSupportedBrowserDescription" xml:space="preserve">
+    <value>Keine Sorge, es gibt eine einfache Lösung. Alles was Sie tun müssen, ist auf eines der nachstehenden Symbole zu klicken und die Anweisungen zu befolgen.</value>
+  </data>
+  <data name="NotSupportedBrowserSkip" xml:space="preserve">
+    <value>ich möchte es trotzdem versuchen ...</value>
+  </data>
+  <data name="NotSupportedBrowserTitle" xml:space="preserve">
+    <value>Ihr Browser wird zurzeit nicht unterstützt</value>
+  </data>
+  <data name="NotSupportedDeviceDescription" xml:space="preserve">
+    <value>Das Betriebssystem Ihres Geräts wird nicht unterstützt. In der folgenden Liste finden Sie die unterstützten Betriebssysteme</value>
   </data>
   <data name="OtherRole" xml:space="preserve">
-    <value>Outro</value>
+    <value>Andere</value>
+  </data>
+  <data name="PageNotFound" xml:space="preserve">
+    <value>Ihre gewünschte Seite konnte nicht gefunden werden. </value>
+  </data>
+  <data name="PageNotFoundDescription" xml:space="preserve">
+    <value>Klicken Sie auf Startseite. Öffnen Sie Ihren Kurs und versuchen Sie es erneut. Konatktieren Sie support@easygenerator.com falls das Problem weiterhin besteht.</value>
   </data>
   <data name="PasswordCaption" xml:space="preserve">
-    <value>Senha</value>
+    <value>Kennwort</value>
   </data>
   <data name="PasswordRecovery" xml:space="preserve">
-    <value>Ressetar senha</value>
+    <value>Kennwortrücksetzung</value>
   </data>
   <data name="PhoneNumberCaption" xml:space="preserve">
-    <value>Telefone</value>
+    <value>Telefonnummer</value>
   </data>
   <data name="PleaseUse" xml:space="preserve">
-    <value>Favor usar:</value>
+    <value>Bitte benutzen Sie:</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Datenschutzbestimmungen</value>
   </data>
   <data name="RequestError" xml:space="preserve">
-    <value>Algo não funcionou corretamente. Tente novamente. Contate support@easygenerator.com caso o problema persista. </value>
+    <value>Bei der Bearbeitung Ihrer Anfrage ist ein Fehler aufgetreten:</value>
   </data>
   <data name="RoleQuestion" xml:space="preserve">
-    <value>Qual sua função</value>
+    <value>Welche Funktion haben Sie?</value>
+  </data>
+  <data name="Safari" xml:space="preserve">
+    <value>Apple Safari</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Kommentar posten</value>
+  </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>Etwas ist schief gegangen.</value>
+  </data>
+  <data name="ServerErrorDescription" xml:space="preserve">
+    <value>Klicken Sie auf Kurse. Öffnen Sie Ihren Kurs und versuchen Sie es erneut. Konatktieren Sie support@easygenerator.com falls das Problem weiterhin besteht.</value>
   </data>
   <data name="Show" xml:space="preserve">
-    <value>Exibir</value>
+    <value>Anzeigen</value>
   </data>
   <data name="ShowPassword" xml:space="preserve">
-    <value>Exibir senha</value>
+    <value>Kennwort anzeigen</value>
   </data>
   <data name="SignIn" xml:space="preserve">
-    <value>Entrar</value>
+    <value>Anmelden</value>
   </data>
   <data name="SignUp" xml:space="preserve">
-    <value>Cadastrar</value>
+    <value>Anmelden</value>
   </data>
   <data name="SignUpButton" xml:space="preserve">
-    <value>Cadastrar</value>
+    <value>Registrieren</value>
   </data>
   <data name="SignUpSecondStepTitle" xml:space="preserve">
-    <value>Quase lá</value>
+    <value>Fast geschafft…</value>
   </data>
   <data name="Student" xml:space="preserve">
-    <value>Estudante</value>
+    <value>Schüler/Student</value>
   </data>
   <data name="SubjectMatterExpert" xml:space="preserve">
-    <value>Especialista</value>
+    <value>Fachexperte</value>
   </data>
   <data name="Teacher" xml:space="preserve">
-    <value>Professor</value>
+    <value>Lehrer</value>
+  </data>
+  <data name="TermsOfUse" xml:space="preserve">
+    <value>Nutzungsbedingungen</value>
   </data>
   <data name="Trainer" xml:space="preserve">
-    <value>Educador</value>
+    <value>Trainer</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Versuchen Sie es erneut.</value>
+  </data>
+  <data name="YourMessage" xml:space="preserve">
+    <value>Ihre Nachricht tippen ...</value>
   </data>
 </root>

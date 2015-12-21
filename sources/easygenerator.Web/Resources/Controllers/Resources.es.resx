@@ -117,37 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CommentWasNotSent" xml:space="preserve">
-    <value>Der Kommentar wurde nicht gesendet.</value>
+  <data name="DefaultAnswerOptionText" xml:space="preserve">
+    <value>Ponga su opción de respuesta aquí</value>
   </data>
-  <data name="CommentWasSent" xml:space="preserve">
-    <value>Der Kommentar wurde gesendet.</value>
+  <data name="DefaultStatementText" xml:space="preserve">
+    <value>Escriba su enunciado aquí...</value>
   </data>
-  <data name="Email" xml:space="preserve">
-    <value>E-mail</value>
+  <data name="DefaultTextMatchingAnswerKeyText" xml:space="preserve">
+    <value>Defina su clave...</value>
   </data>
-  <data name="EnterValidEmailError" xml:space="preserve">
-    <value>Geben Sie eine gültige E-Mail ein</value>
-  </data>
-  <data name="EnterYourNameError" xml:space="preserve">
-    <value>Geben Sie Ihren Namen ein</value>
-  </data>
-  <data name="IdentifyMessage" xml:space="preserve">
-    <value>Bitte identifizieren Sie sich</value>
-  </data>
-  <data name="LeaveYourComment" xml:space="preserve">
-    <value>Kommentieren Sie diesen Beitrag</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="Send" xml:space="preserve">
-    <value>Kommentar posten</value>
-  </data>
-  <data name="TryAgain" xml:space="preserve">
-    <value>Versuchen Sie es erneut.</value>
-  </data>
-  <data name="YourMessage" xml:space="preserve">
-    <value>Ihre Nachricht tippen ...</value>
+  <data name="DefaultTextMatchingAnswerValueText" xml:space="preserve">
+    <value>Defina su respuesta...</value>
   </data>
 </root>
