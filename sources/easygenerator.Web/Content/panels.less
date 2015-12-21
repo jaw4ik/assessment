@@ -1,4 +1,6 @@
-﻿/*#region Panel*/
+﻿@import 'helpers';
+
+/*#region Panel*/
 
 @main-text-color: #42515f;
 @support-text-color: #63798e;
@@ -8,7 +10,7 @@
     top: 0;
     bottom: 0;
     width: 330px;
-    z-index: 2200;
+    z-index: @zindex-panel-right;
     right: -300px;
     font-family: 'OpenSans';
     font-size: 13px;

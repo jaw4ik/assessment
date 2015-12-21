@@ -11,7 +11,7 @@
     border: 1px solid #d8d8d8;
     border-radius: 4px;
     position: absolute;
-    z-index: 2200;
+    z-index: @zindex-modal-dialog;
 }
 
 .modal-dialog-close-btn {
@@ -186,6 +186,8 @@
     z-index: 2100;
     background-color: #fff;
     opacity: .8;
+    width: 100%;
+    height: 100%;
 
     &.boundless {
         opacity: 1;
@@ -208,7 +210,7 @@
     display: none;
     align-items: center;
     justify-content: center;
-    z-index: 2200;
+    z-index: @zindex-modal-dialog;
 
     &.shown {
         display: flex;
@@ -238,7 +240,6 @@
         box-shadow: 0px 0px 5px 0px #d8d8d8;
         border: 1px solid #d8d8d8;
         border-radius: 4px;
-        z-index: 2300;
 
         .modal-dialog {
             display: flex;
@@ -1539,7 +1540,7 @@
                 }
             }
 
-            .dialog-actions{
+            .dialog-actions {
                 height: 40px;
             }
         }
