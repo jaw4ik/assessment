@@ -21,8 +21,8 @@ export default class EditorFeedbackDialog {
 
     submit() {
         sendFeedbackCommand.execute({
-            rate:this.rating(),
-            message:this.message.text()
+            rate: this.rating(),
+            message: this.message.text()
         });
 
         dialog.close();

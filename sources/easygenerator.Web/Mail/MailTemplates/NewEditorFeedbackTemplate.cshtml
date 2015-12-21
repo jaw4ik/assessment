@@ -4,19 +4,19 @@
           "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-    <title>Feedback from user (easygenerator web)</title>
+    <title>New course editor feedback</title>
 </head>
 <body>
     <div>
-        <label>Rate: @Model.Rate</label>
+        <label>Rate: @Model.Rate/5</label>
         <br />
         @if (String.IsNullOrEmpty(Model.Message))
         {
-            <label>Message: -</label>
+            <label>Feedback: -</label>
         }
         else
         {
-            <label>Message: @Model.Message</label>
+            <label>Feedback: @Model.Message</label>
         }
     </div>
 </body>
