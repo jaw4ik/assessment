@@ -1,4 +1,5 @@
 ﻿import $ from 'jquery';
+import 'velocity-animate';
 
 const shadowClass = 'gu-transit';
 
@@ -27,23 +28,29 @@ let dragulaAnimation = {
         return null;
     },
 
-    animate: (element, effect, callback) => {
+    animateShow: (element, callback) => {
         $(element)
-            .stop(true)
-            .animate({
-                'height': effect,
-                'padding-top': effect,
-                'padding-bottom': effect,
-                'margin-top': effect,
-                'margin-bottom': effect
-            }, 200, callback);
+            .velocity('stop', true)
+            .velocity('slideDown', { duration: 200, complete: () => {
+                $(element).removeAttr('style');
+
+                if (callback) {
+                    callback();
+                }
+            }});
+    },
+
+    animateHide: (element, callback) => {
+        $(element)
+            .velocity('stop', true)
+            .velocity('slideUp', { duration: 200, complete: callback });
     },
 
     hideLastShadow: () => {
         if (dragulaAnimation.lastShadowElement) {
 
             var ref = dragulaAnimation.lastShadowElement;
-            dragulaAnimation.animate(ref, 'hide', function () {
+            dragulaAnimation.animateHide(ref, function () {
                 ref.remove();
             });
 
@@ -103,7 +110,7 @@ let dragulaAnimation = {
                 container.insertBefore(siblingShadow, element);
             }
 
-            dragulaAnimation.animate(siblingShadow, 'show');
+            dragulaAnimation.animateShow(siblingShadow);
 
             dragulaAnimation.shadowReference = dragulaAnimation.findReference(element);
             dragulaAnimation.lastShadowElement = siblingShadow;

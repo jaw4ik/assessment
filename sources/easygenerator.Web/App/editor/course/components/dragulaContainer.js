@@ -43,7 +43,7 @@ export default class DragulaContainer{
             $('html').trigger('click');
         }
 
-        //dragulaAnimation.initialize(this);
+        dragulaAnimation.initialize(this);
 
         this.dragula.on('drop', (element, target, source, sibling) => {
             if (_.isNull(target)) {
