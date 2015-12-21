@@ -80,6 +80,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- ko ifnot: questionsExpanded -->
+                            <div class="questions-fake-placeholder" data-bind="draggableContainer: { events: { over: expandQuestionsStartTimer, out: expandQuestionsClearTimer } }, draggableData: { sectionId: id, expandQuestions: true }"></div>
+                            <!-- /ko -->
                         </div>
                         <div class="questions-list-container" data-bind="expandBlock: { expanded: questionsExpanded }, css: { empty: notContainQuestions, collapsed: !questionsExpanded() }">
                             <ul class="questions-list" data-bind="draggableContainer: { moveTo: { '.questions-list': $root.reorderQuestion, '.question-placeholder-empty': $root.reorderQuestion }, draggableArea: '.questions-list-item-sort-button' }, draggableData: { sectionId: id }">

@@ -73,12 +73,12 @@ export default class DragulaContainer{
             }
         });
 
-        this.dragula.on('shadow', (element, container, source) => {
+        this.dragula.on('shadow', (element, container) => {
             $(container).addClass(cssClasses.itemOverTarget);
             $(that.mirrorElement).addClass(cssClasses.itemOverTarget);
         });
 
-        this.dragula.on('out', (element, container, source) => {
+        this.dragula.on('out', (element, container) => {
             $(container).removeClass(cssClasses.itemOverTarget);
             $(that.mirrorElement).removeClass(cssClasses.itemOverTarget);
         });

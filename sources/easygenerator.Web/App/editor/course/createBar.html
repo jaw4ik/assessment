@@ -21,7 +21,7 @@
         </div>
         <h2 class="editor-create-bar-header" data-bind="click: toggleQuestions, css: { 'collapsed': !questionsExpanded() }, localize: { text: 'contentAndQuestions' }">Content and questions:</h2>
         <div class="editor-create-bar-list-container" data-bind="expandBlock: { expanded: questionsExpanded }, css: {'no-section': $root.notContainSections}">
-            <ul class="editor-create-bar-list" data-bind="draggableContainer: { copy: true, moveTo: { '.questions-list': { callback: $parent.createQuestionWithOrder, forbidDropToEnd: true }, '.question-placeholder': $parent.createQuestion }, useTargetWidth: true }">
+            <ul class="editor-create-bar-list" data-bind="draggableContainer: { copy: true, moveTo: { '.questions-list': { callback: $parent.createQuestionWithOrder, forbidDropToEnd: true }, '.question-placeholder': $parent.createQuestion, '.questions-fake-placeholder': function () {} }, useTargetWidth: true }">
                 <!-- ko foreach: questions -->
                 <li data-bind="attr: { class: 'editor-create-bar-list-item ' + type }, css: { disabled: !hasAccess }, draggableData: { type: type }">
                     <div class="editor-create-bar-list-icon">

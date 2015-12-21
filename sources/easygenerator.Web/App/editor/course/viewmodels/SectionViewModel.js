@@ -10,25 +10,26 @@ import QuestionViewModel from './QuestionViewModel';
 import sectionRepository from 'repositories/objectiveRepository';
 import updateSectionTitleCommand from '../commands/updateSectionTitleCommand';
 
-var mapQuestions = (courseId, sectionId, questions) => _.map(questions, question => mapQuestion(courseId, sectionId, question));
+let mapQuestions = (courseId, sectionId, questions) => _.map(questions, question => mapQuestion(courseId, sectionId, question));
 
-var mapQuestion = (courseId, sectionId, question) => new QuestionViewModel(courseId, sectionId, question, false);
+let mapQuestion = (courseId, sectionId, question) => new QuestionViewModel(courseId, sectionId, question, false);
 
-var updateModifiedOn = modifiedOn => moment(modifiedOn).format('DD/MM/YY');
+let updateModifiedOn = modifiedOn => moment(modifiedOn).format('DD/MM/YY');
 
-var _sectionTitleUpdated = new WeakMap();
-var _sectionImageUrlUpdated = new WeakMap();
-var _questionTitleUpdated = new WeakMap();
-var _questionDeleted = new WeakMap();
-var _questionCreated = new WeakMap();
-var _questionsReordered = new WeakMap();
+let _sectionTitleUpdated = new WeakMap();
+let _sectionImageUrlUpdated = new WeakMap();
+let _questionTitleUpdated = new WeakMap();
+let _questionDeleted = new WeakMap();
+let _questionCreated = new WeakMap();
+let _questionsReordered = new WeakMap();
 
-var eventCategory = 'Course editor (drag and drop)';
-
-var events = {
+const eventCategory = 'Course editor (drag and drop)';
+const events = {
     updateTitle: 'Update objective title',
     openChangeObjectiveImageDialog: 'Open "change objective image" dialog'
 }
+
+const questionsExpandDelay = 500;
 
 export default class SectionViewModel{
     constructor (courseId, section, isProcessed, justCreated) {
@@ -194,5 +195,15 @@ export default class SectionViewModel{
         }
 
         return questionViewModel;
+    }
+    expandQuestionsStartTimer(question, section) {
+        if (section && section.sectionId === this.id() && section.expandQuestions) {
+            this.timeoutId = setTimeout(() => this.questionsExpanded(true), questionsExpandDelay);
+        }
+    }
+    expandQuestionsClearTimer(question, section) {
+        if (section && section.sectionId === this.id() && section.expandQuestions && this.timeoutId) {
+            clearTimeout(this.timeoutId);
+        }
     }
 }
