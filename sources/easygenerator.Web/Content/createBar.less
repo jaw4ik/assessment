@@ -544,11 +544,7 @@
         width: 250px;
         flex-direction: row;
         flex: 0 0 100%;
-        padding-top: 6px;
-
-        &:first-child {
-            padding-top: 10px;
-        }
+        padding-top: 12px;
 
         &.section {
 
@@ -677,6 +673,16 @@
 
         .editor-create-bar-list-title {
             display: none;
+        }
+    }
+}
+
+@media screen and (max-height: 730px) {
+    .editor-create-bar-list-item {
+        padding-top: 6px;
+
+        &:first-child {
+            padding-top: 10px;
         }
     }
 }
