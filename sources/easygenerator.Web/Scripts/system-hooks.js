@@ -16,7 +16,8 @@
 
     var systemReduceRegister = System.reduceRegister_;
     System.reduceRegister_ = function (metadata, module) {
-        var moduleName = module.entry.name ? module.entry.name : metadata.name;
+        var moduleName = (module && module.entry && module.entry.name) ? module.entry.name
+            : (metadata && metadata.name) ? metadata.name : null;
 
         // __moduleId__ declaration for AMD modules
         if (module.amd && module.entry.execute) {
