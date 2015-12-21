@@ -175,8 +175,6 @@
     "deleteCoursePopupMessageObjectivesNotDeleted": "les objectifs d'apprentissage qui sont réutilisés dans d'autres cours ne seront PAS supprimés",
     "deleteCoursePopupMessageObjectivesDeleted": "Tous les autres objectifs du cours le sont",
     "deleteCourseWithLearningPathsPopupMessage": "Le cours sera supprimé des parcours d'apprentissage suivants :",
-    "courseCannotBeDeleted": "Le cours ne peut pas être effacé lorsqu'il dispose d'un ou plusieurs objectifs d'apprentissage",
-    "courseCannotBeDeletedErrorMessage": "Le cours ne peut pas être effacé s'il dispose d'un ou plusieurs objectifs d'apprentissage ou s'il est lié à un ou plusieurs parcours d'apprentissage",
     "courseCreateItem": "Créer",
     "courseDesignItem": "Concevoir",
     "courseConfigureItem": "Configurer",
