@@ -259,7 +259,7 @@ Equipo de easygenerator&lt;/p&gt;
     <value>Deje su comentario</value>
   </data>
   <data name="LicenseAgreeCaption" xml:space="preserve">
-    <value>Al hacer clic en "Registrarse" acepto &lt;a href="{0}"  target="_blank"&gt; los términos de easygenerator &lt;/a&gt; y &lt;a href="{1}" target="_blank"&gt; su política de privacidad &lt; / a&gt;</value>
+    <value>Al hacer clic en "Registrarse" acepto &lt;a href="{0}"  target="_blank"&gt;los términos de easygenerator&lt;/a&gt; y &lt;a href="{1}" target="_blank"&gt;su política de privacidad&lt;/a&gt;</value>
   </data>
   <data name="Mozilla" xml:space="preserve">
     <value>Mozilla Firefox</value>
