@@ -1,7 +1,7 @@
 /*logo style*/
 /*content wrappers style*/
 .button-link-hover {
-  color: #fff;
+  color: #ffffff;
   border-color: #656565;
 }
 .button-link-hover:before {
@@ -12,8 +12,6 @@
   margin-top: -1px;
   border-bottom: 1px solid #cdcdcd;
 }
-/*#region objective list item List style*/
-/*#endregion*/
 /*#region finish course popup*/
 /*#endregion*/
 /*checkbox question type styles*/
@@ -231,7 +229,7 @@ input:invalid {
 .button.primary {
   background-color: #2c6073;
   border-color: #208eb3;
-  color: #fff;
+  color: #ffffff;
   border-width: 2px;
   font-size: 18px;
   height: 60px;
@@ -256,7 +254,7 @@ input:invalid {
   font-weight: 400;
 }
 .button.link:not(.disabled):hover {
-  color: #fff;
+  color: #ffffff;
   border-color: #656565;
 }
 .button.link:not(.disabled):hover:before {
@@ -288,12 +286,12 @@ input:invalid {
 }
 .button.success {
   border-color: #2891be;
-  color: #fff;
+  color: #ffffff;
   background-color: rgba(44, 96, 115, 0.75);
   font-weight: 400;
 }
 .button.success:not(.disabled):hover {
-  color: #fff;
+  color: #ffffff;
   background-color: #3296ba;
 }
 .button.block {
@@ -329,8 +327,10 @@ ul {
 }
 .table-wrapper .image-wrapper {
   margin: 0;
+  overflow: visible;
 }
 .image-wrapper {
+  overflow: auto;
   text-align: center;
   margin-bottom: 20px;
   display: block;
@@ -468,7 +468,7 @@ ul {
   margin: 40px auto;
   border-style: solid;
   border-width: 1px 0;
-  border-top-color: #000;
+  border-top-color: #000000;
   border-bottom-color: #4b4b4b;
 }
 .styled-content:after {
@@ -588,25 +588,17 @@ ul {
 .styled-content .table-wrapper table tr:last-child > td {
   border-bottom: none;
 }
-.styled-content .table-wrapper ul,
-.styled-content .table-wrapper ol {
-  padding-left: 0;
-}
-.styled-content .table-wrapper ul li,
-.styled-content .table-wrapper ol li {
-  word-break: break-all;
-}
 .styled-content ul {
   list-style: none;
   margin: 0 0 20px;
   line-height: 30px;
   padding-left: 60px;
 }
-.styled-content ul > li {
+.styled-content ul li {
   position: relative;
   list-style-position: outside;
 }
-.styled-content ul > li:before {
+.styled-content ul li:before {
   content: '';
   display: inline-block;
   width: 25px;
@@ -616,16 +608,13 @@ ul {
   background-repeat: no-repeat;
   vertical-align: middle;
 }
-.styled-content ul > li h1 {
+.styled-content ul li h1 {
   display: inline;
 }
-.styled-content ul > li h2 {
+.styled-content ul li h2 {
   display: inline;
 }
-.styled-content ul > li h3 {
-  display: inline;
-}
-.styled-content ul > li p {
+.styled-content ul li h3 {
   display: inline;
 }
 .styled-content ol {
@@ -635,35 +624,29 @@ ul {
   list-style-type: none;
   counter-reset: ol-counter;
 }
-.styled-content ol > li {
+.styled-content ol li {
   list-style-position: inside;
 }
-.styled-content ol > li:before {
+.styled-content ol li:before {
   content: counter(ol-counter) '.';
   counter-increment: ol-counter;
   font-size: 22px;
   line-height: 1;
   margin-right: 10px;
 }
-.styled-content ol > li h1 {
+.styled-content ol li h1 {
   display: inline;
 }
-.styled-content ol > li h2 {
+.styled-content ol li h2 {
   display: inline;
 }
-.styled-content ol > li h3 {
-  display: inline;
-}
-.styled-content ol > li p {
+.styled-content ol li h3 {
   display: inline;
 }
 .styled-content u {
   text-decoration: none;
   border-bottom: 1px solid #d7d7d7;
   line-height: 30px;
-}
-.styled-content .image-wrapper {
-  max-width: 100%;
 }
 .styled-content .image-wrapper[style*="float:left"],
 .styled-content .image-wrapper[style*="float: left"] {
@@ -675,9 +658,6 @@ ul {
 }
 .styled-content .image-wrapper img {
   border-radius: 5px;
-  max-width: 100%;
-}
-.styled-content iframe {
   max-width: 100%;
 }
 .text-404 .title-404 {
@@ -729,11 +709,11 @@ body {
 }
 .header-container .course-title-container .course-title {
   font-family: Roboto Slab;
-  color: #fff;
+  color: #ffffff;
 }
 .header-container .course-title-container .course-author {
   font-family: Roboto;
-  color: #777;
+  color: #777777;
 }
 .show-introduction-button-wrapper .show-introduction-button {
   font-family: Roboto Slab;
@@ -749,7 +729,7 @@ body {
   background-color: rgba(0, 0, 0, 0.95);
 }
 .introduction-overlay .introduction-content-container-wrapper {
-  background-color: #000;
+  background-color: #000000;
 }
 .introduction-overlay .introduction-content-container-wrapper .introduction-content-container {
   background-color: rgba(43, 39, 53, 0.8);
@@ -758,7 +738,7 @@ body {
   background-color: rgba(43, 39, 53, 0.8);
 }
 .course-wrapper .course .objectives .objective-container .objective-wrapper .objective-title-container {
-  color: #fff;
+  color: #ffffff;
 }
 .objective .content-tree-container {
   background-color: rgba(43, 39, 53, 0.8);
