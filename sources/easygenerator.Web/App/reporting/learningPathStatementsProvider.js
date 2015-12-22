@@ -1,11 +1,13 @@
-﻿define(['reporting/xApiProvider'], function (xApiProvider) {
+﻿define(['reporting/xApiProvider', 'reporting/viewmodels/finishStatement'], function (xApiProvider, FinishStatement) {
     'use strict';
 
     return { getLrsStatements: getLrsStatements };
 
-    function getLrsStatements(entityId, take, skip) {
-        return xApiProvider.getLearningPathFinishedStatements(entityId, take, skip).then(function (statements) {
-            return { finished: statements };
+    function getLrsStatements(spec) {
+        return xApiProvider.getLearningPathFinishedStatements(spec.entityId, spec.take, spec.skip).then(function(statements) {
+            return _.map(statements, function(statement) {
+                return new FinishStatement(statement);
+            });
         });
     }
 });

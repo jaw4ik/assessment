@@ -5,9 +5,12 @@ import QuestionStatement from 'reporting/viewmodels/questionStatement';
 import xApiProvider from 'reporting/xApiProvider';
 
 export default class extends ExpandableStatement  {
-    constructor(masteredLrsStatement) {
+    constructor(masteredLrsStatement, answeredStatements) {
         super(masteredLrsStatement);
         this.hasScore = this.lrsStatement.score != null;
+        if (answeredStatements === null || answeredStatements) {
+            answeredStatements ? this.children(answeredStatements) : this.children = null;
+        }
     }
 
     expandLoadAction() {

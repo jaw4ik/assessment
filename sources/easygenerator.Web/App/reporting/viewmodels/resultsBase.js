@@ -16,7 +16,7 @@
             that.pageNumber = 1;
             that.results = ko.observableArray([]);
             that.allResultsLoaded = false;
-            that.allEmbededResultsLoaded = false;
+            that.allDetailedResultsLoaded = false;
             that.cachedResultsForDownload = null,
             that.isLoading = ko.observable(true);
             that.noResultsViewLocation = noResultsViewLocation;
@@ -86,9 +86,9 @@
                 that.results([]);
                 that.loadedResults = [];
                 that.pageNumber = 1;
-                that.entityId = entityId;
+                that.entityId = "c3de13d92ea249a784d5e2742158fdad";
                 that.allResultsLoaded = false;
-                that.allEmbededResultsLoaded = false;
+                that.allDetailedResultsLoaded = false;
                 that.cachedResultsForDownload = null;
                 return getEntity(entityId).then(function (entity) {
                     that.entityTitle = entity.title;
@@ -102,30 +102,14 @@
                 return statement;
             }
 
-            function loadLrsStatements(entityId, take, skip) {
-                return getLrsStatements(entityId, take, skip).then(function (statements) {
-                    return mapLrsStatements(statements.started, statements.finished);
-                });
-            }
-
-            function mapLrsStatements(startedStatements, finishedStatements) {
-                if (!startedStatements) {
-                    return _.map(finishedStatements, function (statement) { return new FinishStatement(statement) });
-                }
-
-                return _.chain(startedStatements)
-                    .map(function (started) {
-                        var finished = _.find(finishedStatements, function (item) { return item.attemptId === started.attemptId });
-                        return finished ? new FinishStatement(finished) : new StartedStatement(started);
-                    })
-                    .sortBy(function (statement) { return -statement.lrsStatement.date; })
-                    .value();
+            function loadLrsStatements(entityId, embeded, take, skip) {
+                return getLrsStatements({ entityId: entityId, embeded: embeded, take: take, skip: skip });
             }
 
             function loadStatements(entityId, take, skip) {
                 return Q.fcall(function () {
                     if (!that.allResultsLoaded && (that.loadedResults.length <= take + skip)) {
-                        return loadLrsStatements(entityId, take + 1, skip)
+                        return loadLrsStatements(entityId, false, take + 1, skip)
                             // load +1 record to determine should we show 'Show more' button or not.
                             .then(function (statements) {
                                 if (statements && statements.length < take + 1) {
@@ -154,32 +138,35 @@
                 });
             }
 
-            function loadAllEmbededStatements(statements) {
+            function loadAllDetailedStatements(entityId) {
                 return Q.fcall(function () {
-                    if (that.allEmbededResultsLoaded) {
-                        return statements;
+                    if (that.allDetailedResultsLoaded) {
+                        return that.loadedResults;
                     }
 
-                    var loadMasteredStatementsPromises = [];
-                    _.forEach(statements, function (statement) {
-                        if (statement instanceof FinishStatement) {
-                            loadMasteredStatementsPromises.push(statement.load());
-                        }
+                    return loadLrsStatements(entityId, true).then(function(statements) {
+                        that.loadedResults = statements;
+                        that.allResultsLoaded = true;
+                        that.allDetailedResultsLoaded = true;
+                        applyLoadedChanges(that.results(), that.loadedResults);
+
+                        return that.loadedResults;
                     });
-                    return Q.all(loadMasteredStatementsPromises).then(function () {
-                        var loadAnsweredStatementsPromises = [];
-                        _.forEach(statements, function (statement) {
-                            if (statement instanceof FinishStatement) {
-                                _.forEach(statement.children(), function (objectiveStatement) {
-                                    loadAnsweredStatementsPromises.push(objectiveStatement.load());
-                                });
-                            }
-                        });
-                        return Q.all(loadAnsweredStatementsPromises).then(function () {
-                            that.allEmbededResultsLoaded = true;
-                            return statements;
-                        });
+                });
+            }
+
+            function applyLoadedChanges(viewResults, loadedResults) {
+                _.each(viewResults, function(viewResult) {
+                    if (!(viewResult instanceof FinishStatement) || !viewResult.isExpandable || viewResult.children === null || viewResult.children().length) {
+                        return;
+                    }
+                    var loadedResult = _.find(loadedResults, function(result) {
+                        return viewResult.lrsStatement.attemptId === result.lrsStatement.attemptId && viewResult.lrsStatement.verb === result.lrsStatement.verb;
                     });
+                    if (!loadedResult) {
+                        return;
+                    }
+                    loadedResult.children ? viewResult.children(loadedResult.children()) : viewResult.children = null;
                 });
             }
 
@@ -275,26 +262,24 @@
 
                 var csvList = [generateCsvRow(courseCsvHeader.concat(objectiveCsvHeader).concat(questionCsvHeader))];
 
-                return loadAllStatements(that.entityId).then(function (statements) {
-                    return loadAllEmbededStatements(statements).then(function (reportingStatements) {
-                        _.each(reportingStatements, function (result) {
-                            var courseResultCsv = generateCsvRow([
-                                result.learnerDisplayName,
-                                result instanceof StartedStatement ? inProgress : result.passed ? passed : failed,
-                                result.hasScore ? result.lrsStatement.score : noScore,
-                                moment(result instanceof StartedStatement ? result.lrsStatement.date : result.startedLrsStatement.date).format('YYYY-MM-D'),
-                                moment(result instanceof StartedStatement ? result.lrsStatement.date : result.startedLrsStatement.date).format('h:mm:ss a'),
-                                result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('YYYY-MM-D'),
-                                result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('h:mm:ss a')
-                            ].concat(courseResultRightPart));
+                return loadAllDetailedStatements(that.entityId).then(function (statements) {
+                    _.each(statements, function (result) {
+                        var courseResultCsv = generateCsvRow([
+                            result.learnerDisplayName,
+                            result instanceof StartedStatement ? inProgress : result.passed ? passed : failed,
+                            result.hasScore ? result.lrsStatement.score : noScore,
+                            result instanceof StartedStatement ? moment(result.lrsStatement.date).format('YYYY-MM-D') : result.startedLrsStatement ? moment(result.startedLrsStatement.date).format('YYYY-MM-D') : noScore,
+                            result instanceof StartedStatement ? moment(result.lrsStatement.date).format('h:mm:ss a') : result.startedLrsStatement ? moment(result.startedLrsStatement.date).format('h:mm:ss a') : noScore,
+                            result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('YYYY-MM-D'),
+                            result instanceof StartedStatement ? notFinished : moment(result.lrsStatement.date).format('h:mm:ss a')
+                        ].concat(courseResultRightPart));
 
-                            csvList.push(courseResultCsv);
+                        csvList.push(courseResultCsv);
 
-                            pushEmbededResults(result, csvList, courseCsvHeader.length, objectiveCsvHeader.length, questionCsvHeader.length, emptyCellSymbol, noScore);
-                        });
-
-                        return generateCsvTable(csvList);
+                        pushEmbededResults(result, csvList, courseCsvHeader.length, objectiveCsvHeader.length, questionCsvHeader.length, emptyCellSymbol, noScore);
                     });
+
+                    return generateCsvTable(csvList);
                 });
             }
 

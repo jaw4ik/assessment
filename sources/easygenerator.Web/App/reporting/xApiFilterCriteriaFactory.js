@@ -50,6 +50,14 @@
             criteria[constants.reporting.filterKeys.parentId] = spec.parentId;
         }
 
+        if (spec.group) {
+            criteria.group = true;
+        }
+
+        if (spec.embeded) {
+            criteria.embeded = true;
+        }
+
         criteria['v'] = +new Date();
         return criteria;
     }

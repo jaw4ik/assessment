@@ -1,6 +1,12 @@
 ﻿define(['config', 'models/reporting/statement', 'http/httpRequestSender', 'utils/base64', 'constants', 'reporting/xApiFilterCriteriaFactory'],
     function (config, Statement, httpRequestSender, base64, constants, filterCriteriaFactory) {
 
+        function mapStatements(statements) {
+            return _.map(statements, function (statement) {
+                return new Statement(statement);
+            });
+        }
+
         function getStatements(filterCriteriaSpec) {
             var headers = [];
             headers["X-Experience-API-Version"] = config.lrs.version;
@@ -14,13 +20,39 @@
             var filterCriteria = filterCriteriaFactory.create(filterCriteriaSpec);
 
             return httpRequestSender.get(config.lrs.uri, filterCriteria, headers).then(function (response) {
-                if (response && response.statements) {
-                    return _.map(response.statements, function (statement) {
-                        return new Statement(statement);
+                if (!response || !response.statements) {
+                    return null;
+                }
+
+                if (filterCriteriaSpec.group) {
+                    if (filterCriteriaSpec.embeded) {
+                        return _.map(response.statements, function (statementGroup) {
+                            return {
+                                root: mapStatements(statementGroup.root),
+                                embeded: _.map(statementGroup.embeded, function (embededStatementsGroup) {
+                                    return embededStatementsGroup.mastered ? {
+                                        mastered: new Statement(embededStatementsGroup.mastered),
+                                        answered: mapStatements(embededStatementsGroup.answered)
+                                    } : null;
+                                })
+                            }
+                        });
+                    }
+
+                    return _.map(response.statements, function (statementGroup) {
+                        return {
+                            root: mapStatements(statementGroup.root)
+                        }
                     });
                 }
+
+                return mapStatements(response.statements);
             });
         };
+
+        function getCourseStatements(courseId, embeded, take, skip) {
+            return getStatements({ courseId: courseId, group: true, embeded: embeded, limit: take, skip: skip });
+        }
 
         function getLearningPathFinishedStatements(learningPathId, take, skip) {
             return getStatements({ learningPathId: learningPathId, verbs: [constants.reporting.xApiVerbIds.passed, constants.reporting.xApiVerbIds.failed], limit: take, skip: skip });
@@ -51,6 +83,7 @@
         }
 
         return {
+            getCourseStatements: getCourseStatements,
             getCourseStartedStatements: getCourseStartedStatements,
             getCourseFinishedStatements: getCourseFinishedStatements,
             getCourseFinishedStatementsByAttempts: getCourseFinishedStatementsByAttempts,

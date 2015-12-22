@@ -13,9 +13,12 @@ function getLearnerDisplayName(name, email) {
 }
 
 export default class extends ExpandableStatement {
-    constructor(finishedLrsStatement) {
+    constructor(finishedLrsStatement, startedLrsStatement, masteredStatements) {
         super(finishedLrsStatement);
-        this.startedLrsStatement = null;        
+        this.startedLrsStatement = startedLrsStatement;
+        if (masteredStatements === null || masteredStatements) {
+            masteredStatements ? this.children(masteredStatements) : this.children = null;
+        }
         this.learnerDisplayName = getLearnerDisplayName(this.lrsStatement.actor.name, this.lrsStatement.actor.email);
         this.passed = this.lrsStatement.verb === constants.reporting.xApiVerbIds.passed;
     }
@@ -23,10 +26,14 @@ export default class extends ExpandableStatement {
     expandLoadAction() {
         return co.call(this, function*() {
             var mastered = yield xApiProvider.getMasteredStatements(this.lrsStatement.attemptId),
-                started = yield xApiProvider.getStartedStatement(this.lrsStatement.attemptId),
                 objectiveStatements = _.map(mastered, statement => new ObjectiveStatement(statement));
+
+            objectiveStatements.length ? this.children(objectiveStatements) : this.children = null;
+            if (this.startedLrsStatement === null || this.startedLrsStatement) {
+                return;
+            }
+            var started = yield xApiProvider.getStartedStatement(this.lrsStatement.attemptId);
             this.startedLrsStatement = started[0];
-            this.children(objectiveStatements);
         });
     }
 }
