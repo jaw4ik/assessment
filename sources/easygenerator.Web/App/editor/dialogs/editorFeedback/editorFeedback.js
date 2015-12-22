@@ -4,7 +4,7 @@ import constants from 'constants';
 import dialog from 'widgets/dialog/viewmodel';
 import sendFeedbackCommand from 'editor/dialogs/editorFeedback/commands/sendFeedback';
 
-export default class EditorFeedbackDialog {
+class EditorFeedbackDialog {
     constructor() {
         this.callback = null;
         this.rating = ko.observable(0);
@@ -48,3 +48,6 @@ export default class EditorFeedbackDialog {
         this.message.isEditing(false);
     }
 }
+
+let editorFeedbackDialog = new EditorFeedbackDialog();
+export default editorFeedbackDialog;

@@ -89,7 +89,7 @@ gulp.task('clean', function (callback) {
 });
 
 gulp.task('deploy', function (cb) {
-    runSequence('build', 'deploy-download-folder', 'deploy-css', 'deploy-vendor', 'deploy-main-built-js', 'deploy-web-config', 'remove-extra-files', 'add-version'/*, 'run-unit-tests'*/, function () {
+    runSequence('build', 'deploy-download-folder', 'deploy-css', 'deploy-vendor', 'deploy-main-built-js', 'deploy-web-config', 'remove-extra-files', 'add-version', 'run-unit-tests', function () {
         if (createTags) {
             runSequence('create-tags', cb);
         } else {
