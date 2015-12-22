@@ -12,6 +12,8 @@
   margin-top: -1px;
   border-bottom: 1px solid #cdcdcd;
 }
+/*#region objective list item List style*/
+/*#endregion*/
 /*#region finish course popup*/
 /*#endregion*/
 /*checkbox question type styles*/
@@ -327,10 +329,8 @@ ul {
 }
 .table-wrapper .image-wrapper {
   margin: 0;
-  overflow: visible;
 }
 .image-wrapper {
-  overflow: auto;
   text-align: center;
   margin-bottom: 20px;
   display: block;
@@ -588,17 +588,25 @@ ul {
 .styled-content .table-wrapper table tr:last-child > td {
   border-bottom: none;
 }
+.styled-content .table-wrapper ul,
+.styled-content .table-wrapper ol {
+  padding-left: 0;
+}
+.styled-content .table-wrapper ul li,
+.styled-content .table-wrapper ol li {
+  word-break: break-all;
+}
 .styled-content ul {
   list-style: none;
   margin: 0 0 20px;
   line-height: 30px;
   padding-left: 60px;
 }
-.styled-content ul li {
+.styled-content ul > li {
   position: relative;
   list-style-position: outside;
 }
-.styled-content ul li:before {
+.styled-content ul > li:before {
   content: '';
   display: inline-block;
   width: 25px;
@@ -608,13 +616,16 @@ ul {
   background-repeat: no-repeat;
   vertical-align: middle;
 }
-.styled-content ul li h1 {
+.styled-content ul > li h1 {
   display: inline;
 }
-.styled-content ul li h2 {
+.styled-content ul > li h2 {
   display: inline;
 }
-.styled-content ul li h3 {
+.styled-content ul > li h3 {
+  display: inline;
+}
+.styled-content ul > li p {
   display: inline;
 }
 .styled-content ol {
@@ -624,29 +635,35 @@ ul {
   list-style-type: none;
   counter-reset: ol-counter;
 }
-.styled-content ol li {
+.styled-content ol > li {
   list-style-position: inside;
 }
-.styled-content ol li:before {
+.styled-content ol > li:before {
   content: counter(ol-counter) '.';
   counter-increment: ol-counter;
   font-size: 22px;
   line-height: 1;
   margin-right: 10px;
 }
-.styled-content ol li h1 {
+.styled-content ol > li h1 {
   display: inline;
 }
-.styled-content ol li h2 {
+.styled-content ol > li h2 {
   display: inline;
 }
-.styled-content ol li h3 {
+.styled-content ol > li h3 {
+  display: inline;
+}
+.styled-content ol > li p {
   display: inline;
 }
 .styled-content u {
   text-decoration: none;
   border-bottom: 1px solid #d7d7d7;
   line-height: 30px;
+}
+.styled-content .image-wrapper {
+  max-width: 100%;
 }
 .styled-content .image-wrapper[style*="float:left"],
 .styled-content .image-wrapper[style*="float: left"] {
@@ -658,6 +675,9 @@ ul {
 }
 .styled-content .image-wrapper img {
   border-radius: 5px;
+  max-width: 100%;
+}
+.styled-content iframe {
   max-width: 100%;
 }
 .text-404 .title-404 {
