@@ -54,5 +54,9 @@
     "[finish course popup first remark]": "Ihr Endergebnis wird übermittelt",
     "[finish course popup second remark]": "Ihr derzeitiger Lernfortschritt wird nicht wiederhergestellt, wenn Sie den Kurs das nächste Mal öffnen.",
     "[progress has been saved]": "Lernfortschritt wurde gespeichert",
-    "[progress cannot be saved]": "Lernfortschritt kann nicht gespeichert werden. Bitte versuchen Sie es noch einmal oder kontaktieren Sie Ihren Kursanbieter falls das Problem bestehen bleibt."
+    "[progress cannot be saved]": "Lernfortschritt kann nicht gespeichert werden. Bitte versuchen Sie es noch einmal oder kontaktieren Sie Ihren Kursanbieter falls das Problem bestehen bleibt.",
+    "[scenario has been submitted]": "Szenario wurde gesendet",
+    "[scenario has not been finished yet]": "Das Szenario wurde noch nicht abgeschlossen. Sie müssen es abschließen, bevor Sie es senden können.",
+    "[scenario has been passed successfully]": "Szenario wurde bestanden",
+    "[scenario has not been passed successfully]": "Szenario wurde NICHT bestanden"
 }

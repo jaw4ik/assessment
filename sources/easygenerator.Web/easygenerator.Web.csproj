@@ -313,6 +313,7 @@
     <Compile Include="Publish\ILearningPathPublisher.cs" />
     <Compile Include="Publish\LearningPathPublisher.cs" />
     <Compile Include="DomainEvents\Handlers\CreateUserInitialDataHandler.cs" />
+    <Compile Include="Resources\Views\Resources.Designer.cs" />
     <Compile Include="Storage\CourseStateStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\AnswerChangedEvent.cs" />
@@ -481,10 +482,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Views\Account\Resources.Designer.cs" />
-    <Compile Include="Resources\Views\Error\Resources.Designer.cs" />
-    <Compile Include="Resources\Views\Review\Resources.Designer.cs" />
-    <Compile Include="Resources\Views\Shared\Resources.Designer.cs" />
     <Compile Include="Security\PermissionsCheckers\AnswerPermissionsChecker.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -1466,6 +1463,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\pt-br.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\es.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\uk.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audioembed\plugin.js" />
@@ -1474,6 +1472,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\icons\error.png" />
     <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\icons\no-audio.png" />
     <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\lang\es.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\lang\fr.js" />
@@ -1484,6 +1483,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\audiolibrary\styles.css" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\dialogs\eqneditor.js" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\eqneditor\lang\es.js" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\lang\pt-br.js" />
     <Content Include="Scripts\ckeditor\customPlugins\eqneditor\dialogs\lang\en.js" />
@@ -1495,6 +1495,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\failed.png" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\info.png" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\es.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileuploader\lang\nl.js" />
@@ -1507,6 +1508,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\dialogs\fillInTheBlank.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\dialogs\fillInTheBlankDropDown.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\es.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fillintheblank\lang\en.js" />
@@ -1520,6 +1522,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\icons\error.png" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\icons\no-images.png" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\es.js" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\imagelibrary\lang\en.js" />
@@ -1533,6 +1536,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\image\icons\image.png" />
     <Content Include="Scripts\ckeditor\customPlugins\image\images\noimage.png" />
     <Content Include="Scripts\ckeditor\customPlugins\image\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\image\lang\es.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\lang\en.js" />
@@ -1619,6 +1623,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\dialogs\mediaembed.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\icons\hidpi\mediaembed.png" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\icons\mediaembed.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\es.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\de.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\fr.js" />
@@ -1629,6 +1634,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\styles.css" />
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\es.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semantictags\lang\en.js" />
@@ -1642,6 +1648,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\icons\no-videos.png" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\icons\video-icon.png" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\es.js" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\fr.js" />
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\lang\en.js" />
@@ -1652,6 +1659,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\videolibrary\styles.css" />
     <Content Include="Scripts\ckeditor\lang\de.js" />
     <Content Include="Scripts\ckeditor\lang\en.js" />
+    <Content Include="Scripts\ckeditor\lang\es.js" />
     <Content Include="Scripts\ckeditor\lang\fr.js" />
     <Content Include="Scripts\ckeditor\lang\nl.js" />
     <Content Include="Scripts\ckeditor\lang\pt-br.js" />
@@ -1836,16 +1844,6 @@
     <EmbeddedResource Include="Resources\Controllers\Resources.nl.resx" />
     <EmbeddedResource Include="Resources\Controllers\Resources.pt.resx" />
     <EmbeddedResource Include="Resources\Controllers\Resources.fr.resx" />
-    <EmbeddedResource Include="Resources\Views\Account\Resources.nl.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Views\Account\Resources.de.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Views\Account\Resources.fr.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Views\Account\Resources.pt.resx" />
     <Content Include="Content\font\badscript-regular.woff" />
     <Content Include="BuildLearningPath\Template\css\font\roboto-regular.ttf" />
     <Content Include="BuildLearningPath\Template\css\font\roboto-regular.woff" />
@@ -1890,7 +1888,6 @@
     <Content Include="App\localization\lang\es.json" />
     <Content Include="Mail\MailTemplates\NewEditorFeedbackTemplate.cshtml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
-    <Content Include="Scripts\iscroll-probe.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.js" />
@@ -2454,24 +2451,6 @@
     <Content Include="Templates\Assessment\app\views\timer.html" />
     <Content Include="Templates\Assessment\app\views\widgets\imageLoader.html" />
     <Content Include="Templates\Assessment\app\views\widgets\tooltip.html" />
-    <Content Include="Templates\Assessment\content\1b4769525d54430295cc1f0971833894\b33d6ef71e504337a74443b0fad006ee\d0aabb7b5a9d447bbe16d4c585d659bf.html" />
-    <Content Include="Templates\Assessment\content\1b4769525d54430295cc1f0971833894\e830a771bb504b0897fa6a84d63b9e74\320d7b8700cb40808541cd9c190ba852.html" />
-    <Content Include="Templates\Assessment\content\1bf90b8ae7004f19afaca406756b2285\b2e3d50ff73f4d919d1b15d509f7ab94\2009f765ea234c58be76c1860d5dd52d.html" />
-    <Content Include="Templates\Assessment\content\1bf90b8ae7004f19afaca406756b2285\f1e2713b353249e1af7f30f55d5d009c\6c13c8a406224eb48b49b8af9af81eb1.html" />
-    <Content Include="Templates\Assessment\content\47bcd990a3e14555b30c901f5c4cd4db\131290ee438946938d5afaebde79f204\251cd60243324001a70e35259a909828.html" />
-    <Content Include="Templates\Assessment\content\47bcd990a3e14555b30c901f5c4cd4db\3d28438eaa884942906aea505c1c23e9\ab4f67be0b044bb7bb1af66d352fcbc5.html" />
-    <Content Include="Templates\Assessment\content\47bcd990a3e14555b30c901f5c4cd4db\3d28438eaa884942906aea505c1c23e9\content.html" />
-    <Content Include="Templates\Assessment\content\47bcd990a3e14555b30c901f5c4cd4db\45f96efa172b46198373f2bf99b6d8fa\65549fcfa0e04f5d8b7b23c2c4144c3c.html" />
-    <Content Include="Templates\Assessment\content\47bcd990a3e14555b30c901f5c4cd4db\58e75a8cab58416d98e9c7815735eb38\5d9da5c41b3b4dcdbf5c4b6e2993ad0f.html" />
-    <Content Include="Templates\Assessment\content\47bcd990a3e14555b30c901f5c4cd4db\58e75a8cab58416d98e9c7815735eb38\content.html" />
-    <Content Include="Templates\Assessment\content\47bcd990a3e14555b30c901f5c4cd4db\865927b4ecfc4360b8d8663692153754\1d7a8c812df7491b86ba3e661d2f4bd1.html" />
-    <Content Include="Templates\Assessment\content\47bcd990a3e14555b30c901f5c4cd4db\865927b4ecfc4360b8d8663692153754\content.html" />
-    <Content Include="Templates\Assessment\content\601aa6bb572943e1b343d21174890d01\36f6ded9efcc46659c1c41f5e2ee81d1\04043e4217014d03875f493bfa7cf1d2.html" />
-    <Content Include="Templates\Assessment\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\1bd3a43ad55d41d48cfd12e9ef18340c.html" />
-    <Content Include="Templates\Assessment\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\c79b6956a1624817ac63a1f8729c6d76.html" />
-    <Content Include="Templates\Assessment\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\content.html" />
-    <Content Include="Templates\Assessment\content\content.html" />
-    <Content Include="Templates\Assessment\content\data.js" />
     <Content Include="Templates\Assessment\css\fonts.css" />
     <Content Include="Templates\Assessment\css\font\badscript-regular.svg" />
     <Content Include="Templates\Assessment\css\font\OCRAExtended.svg" />
@@ -2519,24 +2498,6 @@
     <Content Include="Templates\Assessment\settings\design\js\vendor.min.js" />
     <Content Include="Templates\Assessment\settings\design\layout.html" />
     <Content Include="Templates\Personalized learning\app\main.js" />
-    <Content Include="Templates\Personalized learning\content\1b4769525d54430295cc1f0971833894\b33d6ef71e504337a74443b0fad006ee\d0aabb7b5a9d447bbe16d4c585d659bf.html" />
-    <Content Include="Templates\Personalized learning\content\1b4769525d54430295cc1f0971833894\e830a771bb504b0897fa6a84d63b9e74\320d7b8700cb40808541cd9c190ba852.html" />
-    <Content Include="Templates\Personalized learning\content\1bf90b8ae7004f19afaca406756b2285\b2e3d50ff73f4d919d1b15d509f7ab94\2009f765ea234c58be76c1860d5dd52d.html" />
-    <Content Include="Templates\Personalized learning\content\1bf90b8ae7004f19afaca406756b2285\f1e2713b353249e1af7f30f55d5d009c\6c13c8a406224eb48b49b8af9af81eb1.html" />
-    <Content Include="Templates\Personalized learning\content\47bcd990a3e14555b30c901f5c4cd4db\131290ee438946938d5afaebde79f204\251cd60243324001a70e35259a909828.html" />
-    <Content Include="Templates\Personalized learning\content\47bcd990a3e14555b30c901f5c4cd4db\3d28438eaa884942906aea505c1c23e9\ab4f67be0b044bb7bb1af66d352fcbc5.html" />
-    <Content Include="Templates\Personalized learning\content\47bcd990a3e14555b30c901f5c4cd4db\3d28438eaa884942906aea505c1c23e9\content.html" />
-    <Content Include="Templates\Personalized learning\content\47bcd990a3e14555b30c901f5c4cd4db\45f96efa172b46198373f2bf99b6d8fa\65549fcfa0e04f5d8b7b23c2c4144c3c.html" />
-    <Content Include="Templates\Personalized learning\content\47bcd990a3e14555b30c901f5c4cd4db\58e75a8cab58416d98e9c7815735eb38\5d9da5c41b3b4dcdbf5c4b6e2993ad0f.html" />
-    <Content Include="Templates\Personalized learning\content\47bcd990a3e14555b30c901f5c4cd4db\58e75a8cab58416d98e9c7815735eb38\content.html" />
-    <Content Include="Templates\Personalized learning\content\47bcd990a3e14555b30c901f5c4cd4db\865927b4ecfc4360b8d8663692153754\1d7a8c812df7491b86ba3e661d2f4bd1.html" />
-    <Content Include="Templates\Personalized learning\content\47bcd990a3e14555b30c901f5c4cd4db\865927b4ecfc4360b8d8663692153754\content.html" />
-    <Content Include="Templates\Personalized learning\content\601aa6bb572943e1b343d21174890d01\36f6ded9efcc46659c1c41f5e2ee81d1\04043e4217014d03875f493bfa7cf1d2.html" />
-    <Content Include="Templates\Personalized learning\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\1bd3a43ad55d41d48cfd12e9ef18340c.html" />
-    <Content Include="Templates\Personalized learning\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\c79b6956a1624817ac63a1f8729c6d76.html" />
-    <Content Include="Templates\Personalized learning\content\7734a48e60d74da5ba9062df797aac8c\d91c6dbd93914a7cae53f1f0533a0dfc\content.html" />
-    <Content Include="Templates\Personalized learning\content\content.html" />
-    <Content Include="Templates\Personalized learning\content\data.js" />
     <Content Include="Templates\Personalized learning\css\font\myriad-web-pro.eot" />
     <Content Include="Templates\Personalized learning\css\font\myriad-web-pro.svg" />
     <Content Include="Templates\Personalized learning\css\font\myriad-web-pro.ttf" />
@@ -2612,27 +2573,6 @@
     <Content Include="Templates\Personalized learning\settings\design\js\vendor.min.js" />
     <Content Include="Templates\Personalized learning\settings\design\layout.html" />
     <Content Include="Templates\Reader\app\main.js" />
-    <Content Include="Templates\Reader\app\main.js.map" />
-    <Content Include="Templates\Reader\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\a15336e3207b40aa86ae93f15c2d3927.html" />
-    <Content Include="Templates\Reader\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\content.html" />
-    <Content Include="Templates\Reader\content\14529955b7c14ba5bcd30029295a1fa1\8555e814ebef4f6a9f82cabfe8502894\a542a9cad6b64881844eed6e65d37044.html" />
-    <Content Include="Templates\Reader\content\14529955b7c14ba5bcd30029295a1fa1\a870685028fd423da95fe913080d2696\be6dce0d945944daa8dc468b52408913.html" />
-    <Content Include="Templates\Reader\content\14529955b7c14ba5bcd30029295a1fa1\d34c22a00223475483b1a571296f6f5e\content.html" />
-    <Content Include="Templates\Reader\content\14529955b7c14ba5bcd30029295a1fa1\d34c22a00223475483b1a571296f6f5e\ec9e0ec3cd334e02b765a8511ad1a898.html" />
-    <Content Include="Templates\Reader\content\14529955b7c14ba5bcd30029295a1fa1\e67e2b52153b4f609100456bbac68278\fbd4f4b9d75045c19a4cbe820dc8a828.html" />
-    <Content Include="Templates\Reader\content\17dee0e236c24ffebb16b91f42c6f46c\435ed07d804a48419bd21d52ba911bc1\855b1427a7d5409b850a0496e8fd9645.html" />
-    <Content Include="Templates\Reader\content\17dee0e236c24ffebb16b91f42c6f46c\9d9bee0514274c75a1dadcc2ceba26b4\881cd254eba14acaaa3edcad917da1ac.html" />
-    <Content Include="Templates\Reader\content\17dee0e236c24ffebb16b91f42c6f46c\f4e8324cd6b349658da9d1f944d38f4b\6ce1541384a445ef95cc626414ba3649.html" />
-    <Content Include="Templates\Reader\content\32fa52cf544a46bb98303b098e80552f\4618f642dee84430ac605e63a4421dab\65ba70283f9d4fb390fd6a34356523ca.html" />
-    <Content Include="Templates\Reader\content\32fa52cf544a46bb98303b098e80552f\939e89228cc44f4790cf352b45e9e94c\89e72a71bf1841959334e4cacde0967b.html" />
-    <Content Include="Templates\Reader\content\32fa52cf544a46bb98303b098e80552f\939e89228cc44f4790cf352b45e9e94c\content.html" />
-    <Content Include="Templates\Reader\content\34642713e62b4d129e1818aa383c66bc\6dcbd7a5188e4714a0461c3c4cd5ee49\fa4817cf08564888bd2b69c48a345dd4.html" />
-    <Content Include="Templates\Reader\content\34642713e62b4d129e1818aa383c66bc\a2051745fdc64d41bce3e2886763a438\6e1007c0b4ae414f88c036ca1f448d11.html" />
-    <Content Include="Templates\Reader\content\a3d951f91e8a4a61a55c173a27c904ca\127e66bc9063479caf0426ef270ffe3b\5b4be25686f943609de151884c5bf9f8.html" />
-    <Content Include="Templates\Reader\content\a3d951f91e8a4a61a55c173a27c904ca\127e66bc9063479caf0426ef270ffe3b\9e26fe55dfd543329e53856468083572.html" />
-    <Content Include="Templates\Reader\content\a3d951f91e8a4a61a55c173a27c904ca\77dcdee6255f44e588cdae7a0320ffa6\61cdd730fbe54fe9bf2a6ec95cb14535.html" />
-    <Content Include="Templates\Reader\content\content.html" />
-    <Content Include="Templates\Reader\content\data.js" />
     <Content Include="Templates\Reader\css\general.css" />
     <Content Include="Templates\Reader\css\img\browsers\android.png" />
     <Content Include="Templates\Reader\css\img\browsers\chrome.png" />
@@ -2682,27 +2622,6 @@
     <Content Include="Templates\Reader\settings\design\js\vendor.min.js" />
     <Content Include="Templates\Reader\settings\design\layout.html" />
     <Content Include="Templates\Simple course\app\main.js" />
-    <Content Include="Templates\Simple course\app\main.js.map" />
-    <Content Include="Templates\Simple course\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\a15336e3207b40aa86ae93f15c2d3927.html" />
-    <Content Include="Templates\Simple course\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\content.html" />
-    <Content Include="Templates\Simple course\content\14529955b7c14ba5bcd30029295a1fa1\8555e814ebef4f6a9f82cabfe8502894\a542a9cad6b64881844eed6e65d37044.html" />
-    <Content Include="Templates\Simple course\content\14529955b7c14ba5bcd30029295a1fa1\a870685028fd423da95fe913080d2696\be6dce0d945944daa8dc468b52408913.html" />
-    <Content Include="Templates\Simple course\content\14529955b7c14ba5bcd30029295a1fa1\d34c22a00223475483b1a571296f6f5e\content.html" />
-    <Content Include="Templates\Simple course\content\14529955b7c14ba5bcd30029295a1fa1\d34c22a00223475483b1a571296f6f5e\ec9e0ec3cd334e02b765a8511ad1a898.html" />
-    <Content Include="Templates\Simple course\content\14529955b7c14ba5bcd30029295a1fa1\e67e2b52153b4f609100456bbac68278\fbd4f4b9d75045c19a4cbe820dc8a828.html" />
-    <Content Include="Templates\Simple course\content\17dee0e236c24ffebb16b91f42c6f46c\435ed07d804a48419bd21d52ba911bc1\855b1427a7d5409b850a0496e8fd9645.html" />
-    <Content Include="Templates\Simple course\content\17dee0e236c24ffebb16b91f42c6f46c\9d9bee0514274c75a1dadcc2ceba26b4\881cd254eba14acaaa3edcad917da1ac.html" />
-    <Content Include="Templates\Simple course\content\17dee0e236c24ffebb16b91f42c6f46c\f4e8324cd6b349658da9d1f944d38f4b\6ce1541384a445ef95cc626414ba3649.html" />
-    <Content Include="Templates\Simple course\content\32fa52cf544a46bb98303b098e80552f\4618f642dee84430ac605e63a4421dab\65ba70283f9d4fb390fd6a34356523ca.html" />
-    <Content Include="Templates\Simple course\content\32fa52cf544a46bb98303b098e80552f\939e89228cc44f4790cf352b45e9e94c\89e72a71bf1841959334e4cacde0967b.html" />
-    <Content Include="Templates\Simple course\content\32fa52cf544a46bb98303b098e80552f\939e89228cc44f4790cf352b45e9e94c\content.html" />
-    <Content Include="Templates\Simple course\content\34642713e62b4d129e1818aa383c66bc\6dcbd7a5188e4714a0461c3c4cd5ee49\fa4817cf08564888bd2b69c48a345dd4.html" />
-    <Content Include="Templates\Simple course\content\34642713e62b4d129e1818aa383c66bc\a2051745fdc64d41bce3e2886763a438\6e1007c0b4ae414f88c036ca1f448d11.html" />
-    <Content Include="Templates\Simple course\content\a3d951f91e8a4a61a55c173a27c904ca\127e66bc9063479caf0426ef270ffe3b\5b4be25686f943609de151884c5bf9f8.html" />
-    <Content Include="Templates\Simple course\content\a3d951f91e8a4a61a55c173a27c904ca\127e66bc9063479caf0426ef270ffe3b\9e26fe55dfd543329e53856468083572.html" />
-    <Content Include="Templates\Simple course\content\a3d951f91e8a4a61a55c173a27c904ca\77dcdee6255f44e588cdae7a0320ffa6\61cdd730fbe54fe9bf2a6ec95cb14535.html" />
-    <Content Include="Templates\Simple course\content\content.html" />
-    <Content Include="Templates\Simple course\content\data.js" />
     <Content Include="Templates\Simple course\css\general.css" />
     <Content Include="Templates\Simple course\css\img\browsers\android.png" />
     <Content Include="Templates\Simple course\css\img\browsers\chrome.png" />
@@ -2842,6 +2761,10 @@
     <Content Include="Views\Dashboard\UserSearch.cshtml" />
     <Content Include="Views\Dashboard\_UserInfoResult.cshtml" />
     <Content Include="Views\Dashboard\_UserNotFoundResult.cshtml" />
+    <Content Include="Templates\Assessment\lang\es.json" />
+    <Content Include="Templates\Personalized learning\lang\es.json" />
+    <Content Include="Templates\Reader\lang\es.json" />
+    <Content Include="Templates\Simple course\lang\es.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3273,34 +3196,20 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Controllers\Resources.es.resx" />
     <EmbeddedResource Include="Resources\Controllers\Resources.uk.resx" />
     <EmbeddedResource Include="Resources\Controllers\Resources.zh.resx" />
-    <EmbeddedResource Include="Resources\Views\Account\Resources.resx">
-      <SubType>Designer</SubType>
+    <EmbeddedResource Include="Resources\Views\Resources.de.resx" />
+    <EmbeddedResource Include="Resources\Views\Resources.fr.resx" />
+    <EmbeddedResource Include="Resources\Views\Resources.nl.resx" />
+    <EmbeddedResource Include="Resources\Views\Resources.pt.resx" />
+    <EmbeddedResource Include="Resources\Views\Resources.es.resx" />
+    <EmbeddedResource Include="Resources\Views\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Views\Account\Resources.uk.resx" />
-    <EmbeddedResource Include="Resources\Views\Account\Resources.zh.resx" />
-    <EmbeddedResource Include="Resources\Views\Error\Resources.nl.resx" />
-    <EmbeddedResource Include="Resources\Views\Error\Resources.de.resx" />
-    <EmbeddedResource Include="Resources\Views\Error\Resources.fr.resx" />
-    <EmbeddedResource Include="Resources\Views\Error\Resources.pt.resx" />
-    <EmbeddedResource Include="Resources\Views\Error\Resources.resx" />
-    <EmbeddedResource Include="Resources\Views\Error\Resources.uk.resx" />
-    <EmbeddedResource Include="Resources\Views\Error\Resources.zh.resx" />
-    <EmbeddedResource Include="Resources\Views\Review\Resources.nl.resx" />
-    <EmbeddedResource Include="Resources\Views\Review\Resources.de.resx" />
-    <EmbeddedResource Include="Resources\Views\Review\Resources.fr.resx" />
-    <EmbeddedResource Include="Resources\Views\Review\Resources.pt.resx" />
-    <EmbeddedResource Include="Resources\Views\Review\Resources.resx" />
-    <EmbeddedResource Include="Resources\Views\Review\Resources.uk.resx" />
-    <EmbeddedResource Include="Resources\Views\Review\Resources.zh.resx" />
-    <EmbeddedResource Include="Resources\Views\Shared\Resources.de.resx" />
-    <EmbeddedResource Include="Resources\Views\Shared\Resources.nl.resx" />
-    <EmbeddedResource Include="Resources\Views\Shared\Resources.fr.resx" />
-    <EmbeddedResource Include="Resources\Views\Shared\Resources.pt.resx" />
-    <EmbeddedResource Include="Resources\Views\Shared\Resources.resx" />
-    <EmbeddedResource Include="Resources\Views\Shared\Resources.uk.resx" />
-    <EmbeddedResource Include="Resources\Views\Shared\Resources.zh.resx" />
+    <EmbeddedResource Include="Resources\Views\Resources.uk.resx" />
+    <EmbeddedResource Include="Resources\Views\Resources.zh.resx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Templates\Assessment\settings\design\img\" />

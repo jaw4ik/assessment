@@ -1,14 +1,14 @@
 {
-    "[home]": "Home",
+    "[home]": "Startseite",
     "[articles]": "Beiträge",
     "[start course]": "Starten",
-    "[close course]": "Schliessen",
+    "[close course]": "Schließen",
     "[start reading]": "Mit Lesen beginnen",
     "[intro]": "Intro",
     "[back to objectives]": "Zurück zu den Lernzielen",
     "[created by]": "Erstellt durch:",
     "[page not found code]": "404",
     "[page not found title]": "Seite nicht gefunden",
-    "[page not found message]": "Klicken Sie auf Home. Nehmen Sie mit  support@easygenerator.com Kontakt auf , falls das Problem weiterhin besteht.",
-    "[thank you message]": "Danke. Es ist nun sicher, diese Seite zu schliessen."
+    "[page not found message]": "Klicken Sie auf Startseite. Kontaktieren Sie support@easygenerator.com falls das Problem weiterhin besteht.",
+    "[thank you message]": "Danke. Sie können diese Seite nun schließen."
 }

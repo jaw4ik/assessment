@@ -56,5 +56,7 @@
     "[progress has been saved]": "Voortgang is opgeslagen",
     "[progress cannot be saved]": "De cursus voortgang kan niet worden opgeslagen. Probeer het opnieuw of neem contact op met de docent als het probleem blijft bestaan.",
     "[scenario has been submitted]": "Het scenario is ingediend",
-    "[scenario has not been finished yet]": "Het scenario is nog niet klaar. Maak het af en dien het in."
+    "[scenario has not been finished yet]": "Het scenario is nog niet klaar. Maak het af en dien het in.",
+    "[scenario has been passed successfully]": "U hebt het scenario succesvol gedaan",
+    "[scenario has not been passed successfully]": "Het scenario was niet succesvol"
 }

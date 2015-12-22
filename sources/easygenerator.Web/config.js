@@ -25,6 +25,7 @@ System.config({
     "jquery": "core/jquery",
     "knockout": "core/knockout",
     "moment": "npm:moment@2.10.6",
+    "perfect-scrollbar": "npm:perfect-scrollbar@0.6.8",
     "plugins": "core/durandal/plugins",
     "text": "github:systemjs/plugin-text@0.0.3",
     "transitions": "core/durandal/transitions",

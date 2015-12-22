@@ -28,7 +28,7 @@ namespace easygenerator.Web.Mail
             var restorePasswordUrl = _urlHelperWrapper.RouteRestorePasswordUrl(ticketId);
             var websiteUrl = _urlHelperWrapper.RouteWebsiteUrl();
 
-            var title = AccountRes.Resources.ForgotPasswordSubject;
+            var title = ViewsResources.Resources.ForgotPasswordSubject;
             var templateSettings = _senderSettings.MailTemplatesSettings[ForgotPasswordTemplateName];
             var body = _mailTemplatesProvider.GetMailTemplateBody(templateSettings, new { WebsiteUrl = websiteUrl, RestorePasswordUrl = restorePasswordUrl });
 
@@ -39,10 +39,10 @@ namespace easygenerator.Web.Mail
         {
             var websiteUrl = _urlHelperWrapper.RouteWebsiteUrl();
             var templateSettings = _senderSettings.MailTemplatesSettings[InviteCollaboratorTemplateName];
-            var fromDisplayName = String.Format(AccountRes.Resources.InviteCollaboratorFromDisplayName, userName);
+            var fromDisplayName = String.Format(ViewsResources.Resources.InviteCollaboratorFromDisplayName, userName);
             var mailMessage = new MailMessage(new MailAddress(templateSettings.From, fromDisplayName), new MailAddress(email))
                 {
-                    Subject = String.Format(AccountRes.Resources.InviteCollaboratorSubject, userName, courseTitle),
+                    Subject = String.Format(ViewsResources.Resources.InviteCollaboratorSubject, userName, courseTitle),
                     Body = _mailTemplatesProvider.GetMailTemplateBody(templateSettings, new { UserName = userName, WebsiteUrl = websiteUrl, Email = email }),
                     IsBodyHtml = true
                 };

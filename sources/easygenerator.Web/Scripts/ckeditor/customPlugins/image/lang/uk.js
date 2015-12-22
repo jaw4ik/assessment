@@ -5,9 +5,9 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 CKEDITOR.plugins.setLang('image', 'uk', {
     alt: 'Альтернативний текст',
     border: 'Границя',
-    button2Img: 'Do you want to transform the selected image button on a simple image?',
+    button2Img: 'Чи бажаєте перетворити вибрану кнопку в звичайне зображення?',
     hSpace: 'HSpace',
-    img2Button: 'Do you want to transform the selected image on a image button?',
+    img2Button: 'Чи бажаєте перетворити вибране зображення в кнопку?',
     infoTab: 'Інформація про зображення',
     lockRatio: 'Збереження пропорцій',
     menu: 'Властивості зображення',

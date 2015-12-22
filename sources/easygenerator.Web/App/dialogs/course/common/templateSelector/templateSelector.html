@@ -4,7 +4,7 @@
     <!-- /ko -->
     <!-- ko ifnot: isLoading -->
     <div class="templates-list-container">
-        <div class="template-list-custom-scrollbar-container" data-bind="scrollbar: { checkDOMChanges: true}">
+        <div class="template-list-custom-scrollbar-container" data-bind="scrollbar: { checkDOMChanges: true }">
             <div class="templates-list-wrapper scrollable">
                 <ul class="templates-list" data-bind="foreach: templates">
                     <!-- ko ifnot: isAdvanced -->
@@ -31,6 +31,8 @@
                 </div>
             </div>
         </div>
+        <div class="templates-list-container-top-shadow"></div>
+        <div class="templates-list-container-bottom-shadow"></div>
     </div>
     <!-- ko if: selectedTemplate -->
     <div class="template-details scrollable" data-bind="scrollbar: {}">

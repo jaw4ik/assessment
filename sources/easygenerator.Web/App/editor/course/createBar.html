@@ -1,9 +1,9 @@
 ﻿<section class="editor-create-bar-container create left-side-bar" data-bind="with: createBar">
-    <div class="editor-create-bar-wrapper">
+    <div class="editor-create-bar-wrapper" data-bind="scrollbar: { checkDOMChanges: true }">
         <h2 class="editor-create-bar-header" data-bind="click: toggleSection, css: { 'collapsed': !sectionExpanded() }, localize: { text: 'sections' }">Sections:</h2>
         <div class="editor-create-bar-list-container" data-bind="expandBlock: { expanded: sectionExpanded }">
             <ul class="editor-create-bar-list" data-bind="draggableContainer: { copy: true, moveTo: { '.sections-list-container': { callback: $parent.createSectionWithOrder, forbidDropToEnd: true }, '.sections-placeholder': $parent.createSection }, useTargetWidth: true }">
-                <li class="editor-create-bar-list-item section" data-bind="draggableData: {type: 'section'}">
+                <li class="editor-create-bar-list-item section" data-bind="draggableData: {type: 'section'}, css: { 'no-sections': $root.notContainSections }">
                     <div class="editor-create-bar-list-icon">
                         <h4 class="editor-create-bar-list-title" data-bind="localize: { text: 'section' }">Section</h4>
                     </div>
@@ -21,11 +21,11 @@
                 </li>
             </ul>
         </div>
-        <h2 class="editor-create-bar-header" data-bind="click: toggleQuestions, css: { 'collapsed': !questionsExpanded() }, localize: { text: 'contentAndQuestions' }">Content and questions:</h2>
+        <h2 class="editor-create-bar-header" data-bind="click: function() { !$root.notContainSections() && toggleQuestions();}, css: { 'collapsed': !questionsExpanded(), disabled: $root.notContainSections }, localize: { text: 'contentAndQuestions' }">Content and questions:</h2>
         <div class="editor-create-bar-list-container" data-bind="expandBlock: { expanded: questionsExpanded }, css: {'no-section': $root.notContainSections}">
             <ul class="editor-create-bar-list" data-bind="draggableContainer: { copy: true, moveTo: { '.questions-list': { callback: $parent.createQuestionWithOrder, forbidDropToEnd: true }, '.question-placeholder': $parent.createQuestion, '.questions-fake-placeholder': function () {} }, useTargetWidth: true }">
                 <!-- ko foreach: questions -->
-                <li data-bind="attr: { class: 'editor-create-bar-list-item ' + type }, css: { disabled: !hasAccess }, draggableData: { type: type }">
+                <li data-bind="attr: { class: 'editor-create-bar-list-item ' + type }, css: { disabled: !hasAccess, disabled: $root.notContainSections }, draggableData: { type: type }">
                     <div class="editor-create-bar-list-icon">
                         <h4 class="editor-create-bar-list-title" data-bind="localize: { text: type }"></h4>
                         <!-- ko ifnot: hasAccess -->
