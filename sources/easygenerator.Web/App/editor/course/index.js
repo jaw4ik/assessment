@@ -217,7 +217,7 @@ export default class {
         sectionInCourse.deleteQuestion(questionInSection);
 
         if (targetSectionId !== sourceSectionId) {
-            eventTracker.publish(events.changeOrderOfQuestions, eventCategory);
+            eventTracker.publish(events.moveQuestion, eventCategory);
             sectionInCourse = _.find(this.sections(), section => section.id() === targetSectionId);
             await moveQuestionCommand.execute(questionId, sourceSectionId, targetSectionId);
         } else {
