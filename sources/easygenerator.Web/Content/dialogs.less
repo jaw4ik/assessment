@@ -413,60 +413,54 @@
     .templates-list-container {
         position: relative;
         display: flex;
-        padding: 0 24px 0 21px;
-        border-right: 1px solid @template-selector-regular-border-color;
+        padding: 0 0 0 21px;
+
+        .cs-scroll-started ~ .templates-list-container-top-shadow {
+            position: absolute;
+            top: 0;
+            left: 21px;
+            width: 214px;
+            border-bottom: 1px solid #e5e6e6;
+            box-shadow: 0px 0px 3px 1px #e5e6e6;
+        }
+
+        .cs-scroll-enabled ~ .templates-list-container-bottom-shadow  {
+            position: absolute;
+            bottom: 0;
+            left: 21px;
+            display: block;
+            width: 215px;
+            border-top: 1px solid #e5e6e6;
+            box-shadow: 0px 0px 3px 1px #e5e6e6;
+        }
+
+        .cs-scroll-finished ~ .templates-list-container-bottom-shadow {
+            display: none;
+        }
 
         .template-list-custom-scrollbar-container {
             position: relative;
+            width: 225px;
 
-            &.cs-scroll-started {
-
-                &:before {
-                    content: '';
-                    display: block;
-                    border-bottom: 1px solid #e5e6e6;
-                    box-shadow: 0px 0px 3px 1px #e5e6e6;
-                }
-            }
-
-            &.cs-scroll-enabled {
-
-                &:after {
-                    content: '';
-                    position: absolute;
-                    bottom: 0;
-                    display: block;
-                    width: 100%;
-                    border-top: 1px solid #e5e6e6;
-                    box-shadow: 0px 0px 3px 1px #e5e6e6;
-                }
-
-                &.cs-scroll-finished {
-
-                    &:after {
-                        display: none;
-                    }
-                }
-            }
-
-            .iScrollVerticalScrollbar {
-                right: -20px;
+            & > .ps-scrollbar-y-rail{
+                right: 13px !important;
             }
         }
 
         .templates-list-wrapper {
             position: relative;
             display: flex;
-            flex: 0 0 200px;
-            min-width: 200px;
-            max-width: 200px;
+            flex: 0 0 215px;
+            min-width: 215px;
+            max-width: 215px;
             flex-direction: column;
+            border-right: 1px solid @template-selector-regular-border-color;
 
             .templates-list {
                 display: flex;
                 flex-direction: column;
                 list-style: none;
-                width: 100%;
+                width: 200px;
 
                 .template-item {
                     position: relative;
@@ -539,7 +533,7 @@
                             content: "";
                             position: absolute;
                             top: 16px;
-                            right: -33px;
+                            right: -23px;
                             display: block;
                             width: 0;
                             height: 0;
@@ -1452,11 +1446,9 @@
                 }
 
                 .editor-feedback-message-step {
-                    .iScrollVerticalScrollbar {
-                        right: -7px;
-                    }
 
                     .title-wrapper {
+                        position: relative;
                         max-height: 40vh;
                         overflow: hidden;
 
