@@ -6,6 +6,8 @@ import eventTracker from 'eventTracker';
 import permanentlyDeleteSectionCommand from 'editor/course/commands/permanentlyDeleteSectionCommand';
 import unrelateSectionCommand from 'editor/course/commands/unrelateSectionCommand';
 import userContext from 'userContext';
+import localizationManager from 'localization/localizationManager';
+import notify from 'notify';
 
 describe('dialog [deleteSection]', () => {
 
@@ -19,12 +21,19 @@ describe('dialog [deleteSection]', () => {
         sectionId = 'sectionId';
         sectionTitle = 'section title';
         createBy = 'createdBy';
+
+        spyOn(notify, 'success');
+        spyOn(dialog, 'close');
+        spyOn(localizationManager, 'localize').and.callFake(function (arg) {
+            return arg;
+        });
     });
 
     it('should initialize fields', () => {
         expect(deleteSectionDialog.courseId).toBe('');
         expect(deleteSectionDialog.courses()).toBeArray();
         expect(deleteSectionDialog.sectionId).toBe('');
+        expect(deleteSectionDialog.sectionCreatedBy).toBe('');
         expect(deleteSectionDialog.sectionTitle()).toBe('');
         expect(deleteSectionDialog.sectionContainedInFewCourses()).toBeFalsy();
         expect(deleteSectionDialog.deleteEverywhere()).toBeFalsy();
@@ -45,6 +54,11 @@ describe('dialog [deleteSection]', () => {
         it('should set section id', () => {
             deleteSectionDialog.show(courseId, sectionId);
             expect(deleteSectionDialog.sectionId).toBe(sectionId);
+        });
+
+        it('should set section createdBy', () => {
+            deleteSectionDialog.show(courseId, sectionId,sectionTitle, createBy);
+            expect(deleteSectionDialog.sectionCreatedBy).toBe(createBy);
         });
 
         it('should set section title', () => {
@@ -85,6 +99,8 @@ describe('dialog [deleteSection]', () => {
             spyOn(permanentlyDeleteSectionCommand, 'execute');
             spyOn(unrelateSectionCommand, 'execute');
             spyOn(eventTracker, 'publish');
+            deleteSectionDialog.sectionId = sectionId;
+            deleteSectionDialog.courseId = courseId;
         });
 
         it('should send event \'Delete selected objectives\'', done => (async () => {
@@ -94,12 +110,144 @@ describe('dialog [deleteSection]', () => {
         })().then(done));
 
         describe('when section created by current user', () => {
-            
+            beforeEach(() => {
+                deleteSectionDialog.sectionCreatedBy = createBy;
+                userContext.identity = {
+                    email: createBy
+                };
+            });
+
+            describe('and section is deleting from everywhere', () => {
+                beforeEach(() => {
+                    deleteSectionDialog.deleteEverywhere(true);
+                });
+
+                it('should delete section permanently', () => {
+                    deleteSectionDialog.deleteSection();
+                    expect(permanentlyDeleteSectionCommand.execute).toHaveBeenCalledWith(sectionId);
+                });
+
+                describe('and when section deleted', () => {
+                    it('should set isDeleting to false', done => (async () => {
+                        deleteSectionDialog.isDeleting(true);
+                        deleteSectionDialog.deleteSection();
+                        await permanentlyDeleteSectionCommand;
+                        expect(deleteSectionDialog.isDeleting()).toBeFalsy();
+                    })().then(done));
+
+                    it('should show notification', done => (async () => {
+                        deleteSectionDialog.deleteSection();
+                        await permanentlyDeleteSectionCommand;
+                        expect(notify.success).toHaveBeenCalledWith('sectionWasDeletedMessage');
+                    })().then(done));
+
+                    it('should close dialog', done => (async () => {
+                        deleteSectionDialog.deleteSection();
+                        await permanentlyDeleteSectionCommand;
+                        expect(dialog.close).toHaveBeenCalled();
+                    })().then(done));
+                });
+            });
+
+            describe('and when section related to a single course', () => {
+                beforeEach(() => {
+                    deleteSectionDialog.courses([{}]);
+                });
+
+                it('should delete section permanently', () => {
+                    deleteSectionDialog.deleteSection();
+                    expect(permanentlyDeleteSectionCommand.execute).toHaveBeenCalledWith(sectionId);
+                });
+
+                describe('and when section deleted', () => {
+                    it('should set isDeleting to false', done => (async () => {
+                        deleteSectionDialog.isDeleting(true);
+                        deleteSectionDialog.deleteSection();
+                        await permanentlyDeleteSectionCommand;
+                        expect(deleteSectionDialog.isDeleting()).toBeFalsy();
+                    })().then(done));
+
+                    it('should show notification', done => (async () => {
+                        deleteSectionDialog.deleteSection();
+                        await permanentlyDeleteSectionCommand;
+                        expect(notify.success).toHaveBeenCalledWith('sectionWasDeletedMessage');
+                    })().then(done));
+
+                    it('should close dialog', done => (async () => {
+                        deleteSectionDialog.deleteSection();
+                        await permanentlyDeleteSectionCommand;
+                        expect(dialog.close).toHaveBeenCalled();
+                    })().then(done));
+                });
+            });
+
+            describe('and when section is not deleted from everywhere and related to few courses', () => {
+                beforeEach(() => {
+                    deleteSectionDialog.deleteEverywhere(false);
+                    deleteSectionDialog.courses([{}, {}]);
+                });
+
+                it('should unrelate section from course', () => {
+                    deleteSectionDialog.deleteSection();
+                    expect(unrelateSectionCommand.execute).toHaveBeenCalledWith(courseId, { id: sectionId });
+                });
+
+                describe('and when section deleted', () => {
+                    it('should set isDeleting to false', done => (async () => {
+                        deleteSectionDialog.isDeleting(true);
+                        deleteSectionDialog.deleteSection();
+                        await unrelateSectionCommand;
+                        expect(deleteSectionDialog.isDeleting()).toBeFalsy();
+                    })().then(done));
+
+                    it('should show notification', done => (async () => {
+                        deleteSectionDialog.deleteSection();
+                        await unrelateSectionCommand;
+                        expect(notify.success).toHaveBeenCalledWith('sectionWasDeletedMessage');
+                    })().then(done));
+
+                    it('should close dialog', done => (async () => {
+                        deleteSectionDialog.deleteSection();
+                        await unrelateSectionCommand;
+                        expect(dialog.close).toHaveBeenCalled();
+                    })().then(done));
+                });
+            });
         });
 
         describe('when section created not by current user', () => {
+            beforeEach(() => {
+                deleteSectionDialog.sectionCreatedBy = 'some@user.com';
+                userContext.identity = {
+                    email: createBy
+                };
+            });
 
-            
+            it('should unrelate section from course', () => {
+                deleteSectionDialog.deleteSection();
+                expect(unrelateSectionCommand.execute).toHaveBeenCalledWith(courseId, { id: sectionId });
+            });
+
+            describe('and when section deleted', () => {
+                it('should set isDeleting to false', done => (async () => {
+                    deleteSectionDialog.isDeleting(true);
+                    deleteSectionDialog.deleteSection();
+                    await unrelateSectionCommand;
+                    expect(deleteSectionDialog.isDeleting()).toBeFalsy();
+                })().then(done));
+
+                it('should show notification', done => (async () => {
+                    deleteSectionDialog.deleteSection();
+                    await unrelateSectionCommand;
+                    expect(notify.success).toHaveBeenCalledWith('sectionWasDeletedMessage');
+                })().then(done));
+
+                it('should close dialog', done => (async () => {
+                    deleteSectionDialog.deleteSection();
+                    await unrelateSectionCommand;
+                    expect(dialog.close).toHaveBeenCalled();
+                })().then(done));
+            });
 
         });
 
@@ -108,7 +256,6 @@ describe('dialog [deleteSection]', () => {
     describe('cancel:', () => {
 
         it('should close dialog', () => {
-            spyOn(dialog, 'close');
             deleteSectionDialog.cancel();
             expect(dialog.close).toHaveBeenCalled();
         });
@@ -140,27 +287,3 @@ describe('dialog [deleteSection]', () => {
     });
 
 });
-
-//describe('unrelateSection:', () => {
-
-//    let promise;
-
-//    beforeEach(() => {
-//        promise = Promise.resolve();
-//        spyOn(unrelateSectionCommand, 'execute').and.returnValue(promise);
-//    });
-
-//    it('should unrelate section', done => (async () => {
-//        let id = courseViewModel.sections()[0].id();
-//        courseViewModel.unrelateSection(courseViewModel.sections()[0]);
-//        await promise;
-//        expect(courseViewModel.sections()[0].id()).not.toBe(id);
-//    })().then(done));
-
-//    it('should show saved message', done => (async () => {
-//        courseViewModel.unrelateSection(courseViewModel.sections()[0]);
-//        await promise;
-//        expect(notify.saved).toHaveBeenCalled();
-//    })().then(done));
-
-//});
