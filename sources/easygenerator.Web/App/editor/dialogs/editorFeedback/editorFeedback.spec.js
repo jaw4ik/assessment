@@ -1,43 +1,38 @@
-﻿import EditorFeedbackDialog from 'editor/dialogs/editorFeedback/editorFeedback';
+﻿import viewModel from 'editor/dialogs/editorFeedback/editorFeedback';
 
 import constants from 'constants';
 import dialog from 'widgets/dialog/viewmodel';
 import sendFeedbackCommand from 'editor/dialogs/editorFeedback/commands/sendFeedback';
 
 describe('editor dialogs [editorFeedback]', () => {
-    let viewModel,
-        callback = function() {},
+    let callback = function() {},
         rate = 5,
         message = 'awesome!';
 
     beforeEach(() => {
-        viewModel = new EditorFeedbackDialog();
-
         spyOn(dialog, 'show');
         spyOn(dialog, 'close');
         spyOn(sendFeedbackCommand, 'execute');
     });
 
-    describe('ctor:', () => {
-        describe('rating:', () => {
-            it('should be observable', () => {
-                expect(viewModel.rating).toBeObservable();
-            });
-
-            it('should be 0', () => {
-                expect(viewModel.rating()).toBe(0);
-            });
+    describe('rating:', () => {
+        it('should be observable', () => {
+            expect(viewModel.rating).toBeObservable();
         });
 
-        describe('message:', () => {
-            describe('isEditing:', () => {
-                it('should be observable', () => {
-                    expect(viewModel.message.isEditing).toBeObservable();
-                });
+        it('should be 0', () => {
+            expect(viewModel.rating()).toBe(0);
+        });
+    });
 
-                it('should be false', () => {
-                    expect(viewModel.message.isEditing()).toBeFalsy();
-                });
+    describe('message:', () => {
+        describe('isEditing:', () => {
+            it('should be observable', () => {
+                expect(viewModel.message.isEditing).toBeObservable();
+            });
+
+            it('should be false', () => {
+                expect(viewModel.message.isEditing()).toBeFalsy();
             });
         });
     });

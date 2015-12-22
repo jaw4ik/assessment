@@ -2,7 +2,7 @@
     'notify', 'constants', 'viewmodels/panels/leftSideBarManager', 'plugins/widget', 'dialogs/course/createCourse/createCourse', 'dialogs/releaseNotes/releaseNotes', 'http/apiHttpWrapper',
 'editor/dialogs/editorFeedback/editorFeedback'],
     function (app, router, isViewReady, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, dialog, notify,
-        constants, leftSideBarManager, widget, createCourseDialog, releaseNotesDialog, httpWrapper, EditorFeedbackDialog) {
+        constants, leftSideBarManager, widget, createCourseDialog, releaseNotesDialog, httpWrapper, editorFeedbackDialog) {
 
         "use strict";
 
@@ -279,10 +279,8 @@
 
         function switchEditor() {
             if (viewModel.newEditor()) {
-                new EditorFeedbackDialog().show(function () {
-                    eventTracker.publish(events.switchToTheOldCourseEditor);
-                    doSwitchEditor();
-                });
+                eventTracker.publish(events.switchToTheOldCourseEditor);
+                editorFeedbackDialog.show(doSwitchEditor);
             } else {
                 eventTracker.publish(events.switchToTheNewCourseEditor);
                 doSwitchEditor();
