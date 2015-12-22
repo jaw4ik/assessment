@@ -16,6 +16,7 @@
                 'editor/course/index.spec',
                 'editor/dialogs/editorFeedback/commands/sendFeedback.spec',
                 'editor/dialogs/editorFeedback/editorFeedback.spec',
+                'editor/course/dialogs/deleteSection/deleteSection.spec',
 
                 //#endregion
 
