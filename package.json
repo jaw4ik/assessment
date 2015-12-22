@@ -60,6 +60,7 @@
       "dragula": "github:jaw4ik/dragula@^3.5.5",
       "has": "npm:has@^1.0.1",
       "moment": "npm:moment@^2.10.6",
+      "perfect-scrollbar": "npm:perfect-scrollbar@^0.6.8",
       "text": "github:systemjs/plugin-text@^0.0.3",
       "underscore": "npm:underscore@^1.8.3",
       "velocity-animate": "npm:velocity-animate@^1.2.3"

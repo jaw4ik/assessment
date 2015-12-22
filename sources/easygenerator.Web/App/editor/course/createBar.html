@@ -1,5 +1,5 @@
 ﻿<section class="editor-create-bar-container create left-side-bar" data-bind="with: createBar">
-    <div class="editor-create-bar-wrapper">
+    <div class="editor-create-bar-wrapper" data-bind="scrollbar: { checkDOMChanges: true }">
         <h2 class="editor-create-bar-header" data-bind="click: toggleSection, css: { 'collapsed': !sectionExpanded() }, localize: { text: 'sections' }">Sections:</h2>
         <div class="editor-create-bar-list-container" data-bind="expandBlock: { expanded: sectionExpanded }">
             <ul class="editor-create-bar-list" data-bind="draggableContainer: { copy: true, moveTo: { '.sections-list-container': { callback: $parent.createSectionWithOrder, forbidDropToEnd: true }, '.sections-placeholder': $parent.createSection }, useTargetWidth: true }">
