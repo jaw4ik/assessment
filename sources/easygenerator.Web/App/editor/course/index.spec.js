@@ -14,6 +14,7 @@ import moveQuestionCommand from './commands/moveQuestionCommand';
 import reorderSectionCommand from './commands/reorderSectionCommand';
 import unrelateSectionCommand from './commands/unrelateSectionCommand';
 import vmContentField from 'viewmodels/common/contentField';
+import deleteSectionDialog from 'editor/course/dialogs/deleteSection/deleteSection';
 
 describe('[drag and drop course editor]', () => {
 
@@ -21,6 +22,7 @@ describe('[drag and drop course editor]', () => {
     let courseId;
     let course;
     let modifiedOn;
+    const eventCategory = 'Course editor (drag and drop)';
 
     beforeEach(() => {
         courseViewModel = new CourseViewModel();
@@ -45,6 +47,7 @@ describe('[drag and drop course editor]', () => {
             ]
         };
         spyOn(notify, 'saved');
+        spyOn(eventTracker, 'publish');
     });
 
     it('should be a class', () => {
@@ -270,16 +273,134 @@ describe('[drag and drop course editor]', () => {
 
     });
 
+    describe('deleteSection:', () => {
+
+        it('should show dialog', () => {
+            spyOn(deleteSectionDialog, 'show');
+            var section = {
+                id: ko.observable('some_id'),
+                title: ko.observable('some title'),
+                createdBy: 'username'
+            };
+            courseViewModel.deleteSection(section);
+            expect(deleteSectionDialog.show).toHaveBeenCalledWith(courseViewModel.id, section.id(), section.title(), section.createdBy);
+        });
+
+    });
+
     describe('createQuestion:', () => {
-        
+
+        let sectionId = 'some_id';
+        let questionType = 'question_type';
+        let createdQuestion = { id: 'new_question' };
+        let createdQuestionViewModel = { updateFields: jasmine.createSpy() };
+        let createQuestionCommandPromise;
+
+        beforeEach(() => {
+            courseViewModel.sections = ko.observableArray([new SectionViewModel(null, { id: sectionId })]);
+            createQuestionCommandPromise = Promise.resolve(createdQuestion);
+            spyOn(createQuestionCommand, 'execute').and.returnValue(createQuestionCommandPromise);
+            spyOn(courseViewModel.sections()[0], 'addQuestion').and.returnValue(createdQuestionViewModel);
+        });
+
+        describe('when section viewmodel is defined', () => {
+
+            it('should add question', () => {
+                courseViewModel.createQuestion({}, null, { sectionId: sectionId });
+                expect(courseViewModel.sections()[0].addQuestion).toHaveBeenCalled();
+            });
+
+            it('should execute createQuestion command', () => {
+                courseViewModel.createQuestion({ type: questionType }, null, { sectionId: sectionId });
+                expect(createQuestionCommand.execute).toHaveBeenCalledWith(sectionId, questionType);
+            });
+
+            it('should update created question fields', done => (async () => {
+                courseViewModel.createQuestion({ type: questionType }, null, { sectionId: sectionId });
+                await createQuestionCommandPromise;
+                expect(createdQuestionViewModel.updateFields).toHaveBeenCalledWith(createdQuestion);
+            })().then(done));
+
+        });
+
     });
 
     describe('deleteQuestion:', () => {
-        
+
+        let sectionId = 'some_section_id';
+        let question = { id: ko.observable('some_question_id'), sectionId: sectionId };
+        let deleteQuestionCommandPromise;
+
+        beforeEach(() => {
+            courseViewModel.sections = ko.observableArray([new SectionViewModel(null, { id: sectionId })]);
+            deleteQuestionCommandPromise = Promise.resolve();
+            spyOn(deleteQuestionCommand, 'execute').and.returnValue(deleteQuestionCommandPromise);
+        });
+
+        it('should execute deleteQuestion command', () => {
+            courseViewModel.deleteQuestion(question);
+            expect(deleteQuestionCommand.execute).toHaveBeenCalledWith(question.sectionId, question.id());
+        });
+
+        it('should call deleteQuestion', done => (async () => {
+            spyOn(courseViewModel.sections()[0], 'deleteQuestion');
+            courseViewModel.deleteQuestion(question);
+            await deleteQuestionCommandPromise;
+            expect(courseViewModel.sections()[0].deleteQuestion).toHaveBeenCalledWith(question);
+        })().then(done));
+
+        it('should notify', done => (async () => {
+            courseViewModel.deleteQuestion(question);
+            await deleteQuestionCommandPromise;
+            expect(notify.saved).toHaveBeenCalled();
+        })().then(done));
+
     });
 
     describe('reorderQuestion:', () => {
-        
+
+        let question = { id: 'question_id' };
+        let nextQuestion = { id: 'next_question_id' };
+        let targetSection = { sectionId: 'target_section_id' };
+        let sourceSection = { sectionId: 'source_section_id' };
+
+        let moveQuestionCommandPromise;
+        let reorderQuestionCommandPromise;
+
+        beforeEach(() => {
+            courseViewModel.sections = ko.observableArray([
+                new SectionViewModel(null, { id: sourceSection.sectionId, questions: [{ id: question.id }]}),
+                new SectionViewModel(null, { id: targetSection.sectionId, questions: [{ id: nextQuestion.id }]})
+            ]);
+
+            moveQuestionCommandPromise = Promise.resolve();
+            spyOn(moveQuestionCommand, 'execute').and.returnValue(moveQuestionCommandPromise);
+            reorderQuestionCommandPromise = Promise.resolve();
+            spyOn(reorderQuestionCommand, 'execute').and.returnValue(reorderQuestionCommandPromise);
+        });
+
+        it('should send event \'Change order of questions\'', () => {
+            courseViewModel.reorderQuestion(question, nextQuestion, targetSection, sourceSection);
+            expect(eventTracker.publish).toHaveBeenCalledWith('Change order of questions', eventCategory);
+        });
+
+        it('should delet question from section viewmodel', () => {
+            spyOn(courseViewModel.sections()[0], 'deleteQuestion');
+            courseViewModel.reorderQuestion(question, nextQuestion, targetSection, sourceSection);
+            expect(courseViewModel.sections()[0].deleteQuestion).toHaveBeenCalledWith(courseViewModel.sections()[0].questions()[0]);
+        });
+
+        describe('when target section not equal source section', () => {
+
+            it('should execute moveQuestion command', () => {
+                courseViewModel.reorderQuestion(question, nextQuestion, targetSection, sourceSection);
+                expect(moveQuestionCommand.execute).toHaveBeenCalledWith(question.id, sourceSection.sectionId, targetSection.sectionId);
+            });
+
+        });
+
+        // Please continue from HERE
+
     });
 
     describe('createQuestionWithOrder:', () => {
@@ -297,7 +418,7 @@ describe('[drag and drop course editor]', () => {
 
         });
 
-        describe('whne section with id is not found', () => {
+        describe('when section with id is not found', () => {
 
             it('should do nothing', () => {
                 let result = courseViewModel.hideQuestions({ sectionId: 'blablalbla' });

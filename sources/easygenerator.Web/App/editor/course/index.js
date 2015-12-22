@@ -23,14 +23,14 @@ const eventsForCourseContent = {
     endEditText: 'End editing introduction'
 };
 
-var events = {
+const events = {
     createSection: 'Create learning objective and open it properties',
     changeOrderOfSections: 'Change order of learning objectives',
     changeOrderOfQuestions: 'Change order of questions',
     moveQuestion: 'Move item'
 };
 
-var eventCategory = 'Course editor (drag and drop)';
+const eventCategory = 'Course editor (drag and drop)';
 
 var mapSections = (courseId, sections) => _.map(sections, section => mapSection(courseId, section));
 var mapSection = (courseId, section) => new SectionViewModel(courseId, section, false);
@@ -49,6 +49,7 @@ export default class {
             return instance;
         }
         instance = this;
+
         this.id = '';
         this.createdBy = '';
         this.sections = ko.observableArray([]);
@@ -186,11 +187,11 @@ export default class {
     async createQuestion(question, nexQuestion, targetSection) {
         let questionType = question && question.type;
         let sectionId = targetSection && targetSection.sectionId;
-        let sectionInViewModel = _.find(this.sections(), section => section.id() === sectionId);
-        if (!sectionInViewModel) {
+        let sectionViewModel = _.find(this.sections(), section => section.id() === sectionId);
+        if (!sectionViewModel) {
             return;
         }
-        let createdQuestionViewModel = sectionInViewModel.addQuestion({});
+        let createdQuestionViewModel = sectionViewModel.addQuestion({});
         let createdQuestion = await createQuestionCommand.execute(sectionId, questionType);
         createdQuestionViewModel.updateFields(createdQuestion);
     }
@@ -202,9 +203,9 @@ export default class {
         }
         notify.saved();
     }
-    async reorderQuestion(question, nexQuestion, targetSection, sourceSection) {
+    async reorderQuestion(question, nextQuestion, targetSection, sourceSection) {
         let questionId = question && question.id;
-        let nextQuestionId = nexQuestion && nexQuestion.id;
+        let nextQuestionId = nextQuestion && nextQuestion.id;
         let targetSectionId = targetSection && targetSection.sectionId;
         let sourceSectionId = sourceSection && sourceSection.sectionId;
 

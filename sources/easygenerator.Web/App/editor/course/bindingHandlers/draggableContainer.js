@@ -14,7 +14,7 @@ ko.bindingHandlers.draggableContainer = {
             moveTo = ko.utils.unwrapObservable(valueAccessor().moveTo) || null,
             draggableArea = ko.utils.unwrapObservable(valueAccessor().draggableArea) || null,
             events = ko.utils.unwrapObservable(valueAccessor().events) || null,
-            useTargetWidth = ko.utils.unwrapObservable(valueAccessor().useTargetWidth);
+            useTargetWidth = ko.utils.unwrapObservable(valueAccessor().useTargetWidth) || false;
 
 
         dragulaContainer.dragula.containers.push(element);
