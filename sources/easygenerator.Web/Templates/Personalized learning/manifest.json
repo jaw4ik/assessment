@@ -42,6 +42,11 @@
       "code": "pt-br",
       "name": "Portuguese - Brazil",
       "url": "lang/pt-br.json"
+    },
+    {
+      "code": "es",
+      "name": "Spanish",
+      "url": "lang/es.json"
     }
   ]
 }

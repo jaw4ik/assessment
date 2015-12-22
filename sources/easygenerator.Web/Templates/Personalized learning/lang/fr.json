@@ -43,6 +43,20 @@
     "[tracking and tracing error hint]": "Si vous continuez sans redémarrage, vos progrès ne seront pas enregistrés.",
     "[tracking and tracing restart course]": "Redémarrer le cours",
     "[tracking and tracing continue anyway]": "Continuer malgré tout",
+    "[tracking and tracing hint without skip]": "Veuillez saisir vos informations d’identification puis cliquer sur \"Démarrer et enregistrer mes résultats\" afin de démarrer le cours.",
+    "[tracking and tracing error hint without continue]": "Redémarrez le cours. Contactez votre prestataire de cours si le problème persiste.",
+    "[answered]": "répondue(s)",
+    "[overall progress]": "progrès globaux",
+    "[save and continue later]": "enregistrer et continuer plus tard",
+    "[cancel]": "Annuler",
+    "[finish course popup title]": "Vous n'êtes plus qu'à une étape de la fin du cours.",
+    "[finish course popup explanation title]": "Veuillez noter les points suivants :",
+    "[finish course popup first remark]": "- votre score final sera enregistré",
+    "[finish course popup second remark]": "- vos progrès ne seront PAS\nrétablis lorsque vous ouvrirez de nouveau le cours",
     "[progress has been saved]": "Mes progrès ont été enregistrés",
-    "[progress cannot be saved]": "Les progrès ne peuvent pas être enregistrés. Veuillez réessayer ou contactez votre prestataire de cours si le problème persiste."
+    "[progress cannot be saved]": "Les progrès ne peuvent pas être enregistrés. Veuillez réessayer ou contactez votre prestataire de cours si le problème persiste.",
+    "[scenario has been submitted]": "Le scénario a été transmis",
+    "[scenario has not been finished yet]": "Le scénario n'est pas encore terminé. Vous devez le terminer avant de le transmettre.",
+    "[scenario has been passed successfully]": "Le scénario a débouché sur un succès",
+    "[scenario has not been passed successfully]": "Le scénario n'a PAS débouché sur un succès"
 }

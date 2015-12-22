@@ -37,7 +37,7 @@ namespace easygenerator.Web.Controllers
                     return JsonSuccess(tokens);
                 }
             }
-            return JsonError(AccountRes.Resources.IncorrectEmailOrPassword);
+            return JsonError(ViewsResources.Resources.IncorrectEmailOrPassword);
         }
 
         [HttpPost, Scope("lti")]

@@ -1,6 +1,6 @@
 {
   "name": "Simple course",
-  "goal":  "Teach",
+  "goal": "Teach",
   "shortDescription": "A basic eLearning course\n\nDetails:\nThe simple course will allow you to create a course that is divided into several parts (sections or learning objectives). Each section can contain both content items and questions. This way you can create a basic 'simple' eLearning course.",
   "thumbnail": "preview/thumbnail.png",
   "previewImages": [
@@ -45,6 +45,10 @@
     {
       "code": "tr",
       "url": "lang/tr.json"
+    },
+    {
+      "code": "es",
+      "url": "lang/es.json"
     },
     {
       "code": "ua",

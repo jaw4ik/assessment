@@ -8,6 +8,6 @@
     deleteButtonTitle: 'Verwijder',
     correctRadioOptionTitle: 'Correcte waarde',
     incorrectRadioOptionTitle: 'Incorrecte waarde',
-    blankPopupValidationMessage: 'Le champ vide doit contenir au moins une option correcte.',
-    matchCase: 'Respectez la casse'
+    blankPopupValidationMessage: 'Het lege veld moet ten minste 1 correcte optie  hebben.',
+    matchCase: 'Hoofletter gevoeligheid'
 });
