@@ -9,7 +9,8 @@
         localizationManager = require('localization/localizationManager'),
         constants = require('constants'),
         httpWrapper = require('http/apiHttpWrapper'),
-        clientContext = require('clientContext')
+        clientContext = require('clientContext'),
+        editorFeedbackDialog = require('editor/dialogs/editorFeedback/editorFeedback')
     ;
 
     describe('viewModel [shell]', function () {
@@ -19,6 +20,7 @@
 
         beforeEach(function () {
             spyOn(eventTracker, 'publish');
+            spyOn(router, 'reloadLocation');
             spyOn(router, 'navigate');
             spyOn(router, 'setLocation');
             spyOn(notify, 'error');
@@ -329,47 +331,116 @@
 
         describe('switchEditor:', function () {
 
-            it('should be function', function () {
-                expect(viewModel.switchEditor).toBeFunction();
+            beforeEach(function () {
+                spyOn(editorFeedbackDialog, 'show');
             });
 
-            it('should return promise', function () {
-                expect(viewModel.switchEditor()).toBePromise();
-            });
-
-            describe('when editor switched on server successfully', function () {
-
+            describe('when in new editor', function () {
                 beforeEach(function () {
-                    spyOn(router, 'reloadLocation');
+                    viewModel.newEditor(true);
                 });
 
-                it('should reload the page', function (done) {
-                    var promise = viewModel.switchEditor();
-                    promise.fin(function () {
-                        expect(router.reloadLocation).toHaveBeenCalled();
-                        done();
-                    });
+                it('should publish \'Switch to the old course editor\' event', function () {
+                    viewModel.switchEditor();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Switch to the old course editor');
                 });
 
-                describe('and current page is editor page', function () {
+                it('should show editor feedback dialog', function () {
+                    viewModel.switchEditor();
+                    expect(editorFeedbackDialog.show).toHaveBeenCalled();
+                });
 
-                    beforeEach(function () {
-                        spyOn(router, 'getLocationHash').and.returnValue('easygenerator/courses/id');
-                        spyOn(router, 'setLocationHash');
+                describe('and when dialog is closed', function () {
+                    it('should send request to server to change user editor settings', function () {
+                        viewModel.switchEditor();
+                        editorFeedbackDialog.show.calls.mostRecent().args[0].call();
+
+                        expect(httpWrapper.post).toHaveBeenCalledWith('api/user/switcheditor');
                     });
 
-                    it('should set location hash to root of course editor', function(done) {
-                        var promise = viewModel.switchEditor();
-                        promise.fin(function () {
-                            expect(router.setLocationHash).toHaveBeenCalledWith('courses/id');
+                    describe('when editor switched on server successfully', function () {
+
+                        it('should reload the page', function (done) {
+                            viewModel.switchEditor();
+                            editorFeedbackDialog.show.calls.mostRecent().args[0].call();
+
+                            httpDfd.promise.fin(function () {
+                                expect(router.reloadLocation).toHaveBeenCalled();
+                                done();
+                            });
+                        });
+
+                        describe('and current page is editor page', function () {
+                            beforeEach(function () {
+                                spyOn(router, 'getLocationHash').and.returnValue('easygenerator/courses/id');
+                                spyOn(router, 'setLocationHash');
+                            });
+
+                            it('should set location hash to root of course editor', function (done) {
+                                viewModel.switchEditor();
+                                editorFeedbackDialog.show.calls.mostRecent().args[0].call();
+
+                                httpDfd.promise.fin(function () {
+                                    expect(router.setLocationHash).toHaveBeenCalledWith('courses/id');
+                                    done();
+                                });
+                            });
+
+                        });
+
+                    });
+                });
+            });
+
+            describe('when in old editor', function () {
+                beforeEach(function () {
+                    viewModel.newEditor(false);
+                });
+
+                it('should publish \'Switch to the new course editor\' event', function () {
+                    viewModel.switchEditor();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Switch to the new course editor');
+                });
+
+                it('should not show editor feedback dialog', function () {
+                    viewModel.switchEditor();
+                    expect(editorFeedbackDialog.show).not.toHaveBeenCalled();
+                });
+
+                it('should send request to server to change user editor settings', function () {
+                    viewModel.switchEditor();
+                    expect(httpWrapper.post).toHaveBeenCalledWith('api/user/switcheditor');
+                });
+
+                describe('when editor switched on server successfully', function () {
+
+                    it('should reload the page', function (done) {
+                        viewModel.switchEditor();
+                        httpDfd.promise.fin(function () {
+                            expect(router.reloadLocation).toHaveBeenCalled();
                             done();
                         });
                     });
 
+                    describe('and current page is editor page', function () {
+
+                        beforeEach(function () {
+                            spyOn(router, 'getLocationHash').and.returnValue('easygenerator/courses/id');
+                            spyOn(router, 'setLocationHash');
+                        });
+
+                        it('should set location hash to root of course editor', function (done) {
+                            viewModel.switchEditor();
+                            httpDfd.promise.fin(function () {
+                                expect(router.setLocationHash).toHaveBeenCalledWith('courses/id');
+                                done();
+                            });
+                        });
+
+                    });
+
                 });
-
             });
-
         });
 
         describe('closeSwitchEditorMessage:', function () {
