@@ -20,6 +20,15 @@
             border-bottom: 1px solid #d1dae0;
             cursor: pointer;
 
+            &.disabled{
+                opacity: 0.2;
+                cursor: default;
+
+                &:hover{
+                    border-color: #d1dae0;
+                }
+            }
+
             &:hover {
                 border-color: #7dbae2;
             }
@@ -61,7 +70,6 @@
                 display: none;
                 width: 100%;
                 height: 100%;
-                background-color: rgba(255,255,255,.5);
             }
 
             .editor-create-bar-list {
@@ -80,6 +88,18 @@
     }
 }
 
+@keyframes pulsateShadow {
+    0% {
+        box-shadow: 0px 0px 1px 0 #4caf50;
+    }
+    50% {
+        box-shadow: 0px 0px 12px 0 #4caf50;
+    }
+    100% {
+        box-shadow: 0px 0px 1px 0 #4caf50;
+    }
+}
+
 .editor-create-bar-list-item {
     display: flex;
     flex-direction: column;
@@ -87,6 +107,10 @@
     flex: 0 0 110px;
     padding: 15px 0 0;
     opacity: 1;
+
+    &.disabled{
+        opacity: 0.2;
+    }
 
     &.gu-mirror {
 
@@ -180,6 +204,25 @@
             }
         }
 
+        &.no-sections {
+            .editor-create-bar-list-icon {
+                border: 1px solid #4caf50;
+                box-shadow: 0px 0px 10px 0 #4caf50;
+                animation: pulsateShadow 1.2s infinite;
+
+                &:hover {
+                    border: none;
+                    animation: 0;
+                }
+            }
+
+            &.dragging{
+                .editor-create-bar-list-icon {
+                    border: none;
+                    box-shadow: none;
+                }
+            }
+        }
 
         .editor-create-bar-list-icon:before {
             width: 42px;
@@ -682,8 +725,8 @@
                         left: -44px;
                         width: 30px;
                         height: 17px;
-                        background: -webkit-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
-                        background: linear-gradient(to right,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+                        background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+                        background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
                     }
                 }
             }

@@ -212,13 +212,16 @@ export default class {
         if (!sectionInCourse) {
             return;
         }
-        eventTracker.publish(events.changeOrderOfQuestions, eventCategory);
+       
         let questionInSection = _.find(sectionInCourse.questions(), question => question.id() === questionId);
         sectionInCourse.deleteQuestion(questionInSection);
 
         if (targetSectionId !== sourceSectionId) {
+            eventTracker.publish(events.changeOrderOfQuestions, eventCategory);
             sectionInCourse = _.find(this.sections(), section => section.id() === targetSectionId);
             await moveQuestionCommand.execute(questionId, sourceSectionId, targetSectionId);
+        } else {
+            eventTracker.publish(events.changeOrderOfQuestions, eventCategory);
         }
 
         if (nextQuestionId) {

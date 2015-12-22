@@ -17,7 +17,7 @@ ko.bindingHandlers.scrollbar = {
         let customScrollbarContainer = byClass ? element.getElementsByClassName(byClass)[0] : element;
 
         perfectScrollbar.initialize(customScrollbarContainer, {
-            scrollYMarginOffset: 10,
+           // scrollYMarginOffset: 10,
             suppressScrollX: true
         });
 
