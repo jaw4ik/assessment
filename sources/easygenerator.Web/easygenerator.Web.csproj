@@ -2707,6 +2707,10 @@
     <Content Include="Views\Dashboard\UserSearch.cshtml" />
     <Content Include="Views\Dashboard\_UserInfoResult.cshtml" />
     <Content Include="Views\Dashboard\_UserNotFoundResult.cshtml" />
+    <Content Include="Templates\Assessment\lang\es.json" />
+    <Content Include="Templates\Personalized learning\lang\es.json" />
+    <Content Include="Templates\Reader\lang\es.json" />
+    <Content Include="Templates\Simple course\lang\es.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
