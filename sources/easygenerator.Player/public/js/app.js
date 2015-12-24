@@ -5,6 +5,7 @@
         interval = app.playerUpdateInterval,
         volumeKey = app.volumeKey,
         storageProvider = app.storageProvider,
+        cssInjector = app.cssInjector,
         getSources = function () {
             return $.ajax({ url: app.sourcesUrl + app.mediaId, cache: false }).done(onSuccess).fail(onFail);
         },
@@ -16,6 +17,10 @@
     
     getSources();
     
+    if (app.stylevariables && typeof app.stylevariables === "object") {
+        app.cssInjector.applyStyles(app.stylevariables);
+    }
+
     function volumeHandler(e) {
         var player = e.target.player;
         var volume = player.volume();
