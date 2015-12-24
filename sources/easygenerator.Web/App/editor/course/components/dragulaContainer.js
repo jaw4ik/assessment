@@ -30,7 +30,7 @@ export default class DragulaContainer{
                 }
                 return canMove;
             },
-            invalid: element => $(element).hasClass('disabled'),
+            invalid: element => $(element).hasClass('not-accessible'),
             accepts: (element, target, source, sibling) => {
                 return _.any(that.targetsToMove, moveTarget => moveTarget.source === source && $(target).is(moveTarget.selector)
                     && (!moveTarget.forbidDropToEnd || sibling !== null));

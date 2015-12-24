@@ -7,7 +7,7 @@
                     <div class="editor-create-bar-list-icon">
                         <h4 class="editor-create-bar-list-title" data-bind="localize: { text: 'section' }">Section</h4>
                     </div>
-                    <h4 class="editor-create-bar-list-title disabled" data-bind="localize: { text: 'section' }">Section</h4>
+                    <h4 class="editor-create-bar-list-title not-accessible" data-bind="localize: { text: 'section' }">Section</h4>
                     <div class="editor-create-bar-list-mirror">
                         <div class="editor-create-bar-list-mirror-image"></div>
                         <div class="editor-create-bar-list-mirror-title-container">
@@ -25,7 +25,7 @@
         <div class="editor-create-bar-list-container" data-bind="expandBlock: { expanded: questionsExpanded }, css: {'no-section': $root.notContainSections}">
             <ul class="editor-create-bar-list" data-bind="draggableContainer: { copy: true, moveTo: { '.questions-list': { callback: $parent.createQuestionWithOrder, forbidDropToEnd: true }, '.question-placeholder': $parent.createQuestion, '.questions-fake-placeholder': function () {} }, useTargetWidth: true }">
                 <!-- ko foreach: questions -->
-                <li data-bind="attr: { class: 'editor-create-bar-list-item ' + type }, css: { disabled: !hasAccess, disabled: $root.notContainSections }, draggableData: { type: type }">
+                <li data-bind="attr: { class: 'editor-create-bar-list-item ' + type }, css: { 'not-accessible': $root.notContainSections() || !hasAccess, disabled: $root.notContainSections() }, draggableData: { type: type }">
                     <div class="editor-create-bar-list-icon">
                         <h4 class="editor-create-bar-list-title" data-bind="localize: { text: type }"></h4>
                         <!-- ko ifnot: hasAccess -->
@@ -34,7 +34,7 @@
                         </div>
                         <!-- /ko -->
                     </div>
-                    <h4 class="editor-create-bar-list-title disabled" data-bind="localize: { text: type }"></h4>
+                    <h4 class="editor-create-bar-list-title not-accessible" data-bind="localize: { text: type }"></h4>
                     <div class="editor-create-bar-list-mirror">
                         <div class="editor-create-bar-list-mirror-image"></div>
                         <div class="editor-create-bar-list-mirror-title-container">
