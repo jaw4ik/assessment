@@ -2,7 +2,7 @@
    'notify', 'constants', 'viewmodels/panels/leftSideBarManager', 'plugins/widget', 'dialogs/course/createCourse/createCourse', 'dialogs/releaseNotes/releaseNotes'],
    function (app, router, isViewReady, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, dialog, notify,
        constants, leftSideBarManager, widget, createCourseDialog, releaseNotesDialog) {
-
+       
        "use strict";
 
        var events = {
@@ -19,6 +19,7 @@
            router: router,
            homeModuleName: 'courses',
            showNavigation: showNavigation,
+           showUpgradeNowLink: userContext.hasFreeAccess() || userContext.hasTrialAccess(),
 
            navigation: ko.observableArray([]),
            courseDeleted: courseDeleted,

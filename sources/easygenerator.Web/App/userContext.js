@@ -1,56 +1,67 @@
-﻿define(['durandal/app', 'constants', 'notify', 'localization/localizationManager', 'models/user', 'http/authHttpWrapper', 'http/storageHttpWrapper'], function (app, constants, notify, localizationManager, User, authHttpWrapper, storageHttpWrapper) {
+﻿import app from 'durandal/app';
+import _ from 'underscore';
+import constants from 'constants';
+import notify from 'notify';
+import localizationManager from 'localization/localizationManager';
+import User from 'models/user';
+import authHttpWrapper from 'http/authHttpWrapper';
+import storageHttpWrapper from 'http/storageHttpWrapper';
 
-    var userContext = {
-        identity: null,
-        hasStarterAccess: hasStarterAccess,
-        hasPlusAccess: hasPlusAccess,
-        hasAcademyAccess: hasAcademyAccess,
-        hasTrialAccess: hasTrialAccess,
-        identify: identify,
-        storageIdentity: null,
-        identifyStoragePermissions: identifyStoragePermissions
-    };
-
-    return userContext;
-
-    function identify() {
-        return Q(authHttpWrapper.post('auth/identity').then(function (user) {
-            userContext.identity = _.isString(user.email) ? new User(user) : null;
-            app.trigger(constants.messages.user.identified, userContext.identity);
-        }));
+class UserContext {
+    constructor () {
+        this.identity = null;
+        this.storageIdentity = null;
     }
 
-    function identifyStoragePermissions() {
-        return Q(storageHttpWrapper.get(constants.storage.host + constants.storage.userUrl).then(function (data) {
-            userContext.storageIdentity = { availableStorageSpace: data.AvailableStorageSpace, totalStorageSpace: data.TotalStorageSpace }
-        }).fail(function () {
-            userContext.storageIdentity = { availableStorageSpace: 0, totalStorageSpace: 0 }
+    async identify() {
+        let user = await authHttpWrapper.post('auth/identity');
+
+        this.identity = _.isString(user.email) ? new User(user) : null;
+        app.trigger(constants.messages.user.identified, this.identity);
+    }
+
+    async identifyStoragePermissions() {
+        try {
+            let data = await storageHttpWrapper.get(constants.storage.host + constants.storage.userUrl);
+            this.storageIdentity = { availableStorageSpace: data.AvailableStorageSpace, totalStorageSpace: data.TotalStorageSpace };
+        } catch (e) {
+            this.storageIdentity = { availableStorageSpace: 0, totalStorageSpace: 0 };
             notify.error(localizationManager.localize('storageFailed'));
-        }));
+        }
     }
 
-    function hasStarterAccess() {
-        return hasAccess(constants.accessType.starter);
+    hasStarterAccess() {
+        return this.hasAccess(constants.accessType.starter);
     }
 
-    function hasPlusAccess() {
-        return hasAccess(constants.accessType.plus);
+    hasPlusAccess() {
+        return this.hasAccess(constants.accessType.plus);
     }
 
-    function hasAcademyAccess() {
-        return hasAccess(constants.accessType.academy);
+    hasAcademyAccess() {
+        return this.hasAccess(constants.accessType.academy);
     }
 
-    function hasTrialAccess() {
-        return hasAccess(constants.accessType.trial);
+    hasTrialAccess() {
+        return this.hasAccess(constants.accessType.trial);
     }
 
-    function hasAccess(accessType) {
+    hasFreeAccess() {
+        var identity = this.identity;
+        if (_.isNullOrUndefined(identity) || _.isNullOrUndefined(identity.subscription)) {
+            return true;
+        }
+
+        var subscription = identity.subscription;
+        return subscription.accessType === constants.accessType.free || subscription.expirationDate < new Date();
+    }
+
+    hasAccess(accessType) {
         if (accessType === constants.accessType.free) {
             return true;
         }
 
-        var identity = userContext.identity;
+        var identity = this.identity;
         if (_.isNullOrUndefined(identity) || _.isNullOrUndefined(identity.subscription)) {
             return false;
         }
@@ -58,4 +69,6 @@
         var subscription = identity.subscription;
         return subscription.accessType >= accessType && subscription.expirationDate >= new Date();
     }
-})
+}
+
+export default new UserContext();
