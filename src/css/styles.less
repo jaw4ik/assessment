@@ -122,6 +122,30 @@ button {
     color: #fff;
 }
 
+@keyframes bounce {
+    0%,100% {
+        -moz-transform: translate(0, -7px);
+        transform: translate(0, -7px);
+    }
+
+    50% {
+        -moz-transform: translate(0, 0);
+        transform: translate(0, 0);
+    }
+}
+
+@-webkit-keyframes bounce {
+    0%,100% {
+        -webkit-transform: translate(0, -7px);
+        transform: translate(0, -7px);
+    }
+
+    50% {
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+    }
+}
+
 @media (max-width:800px) {
     @import "800";
 }
