@@ -18,7 +18,7 @@
                         '<li>Paste this code into the field below. [de]</li>' +
                         '</ol>',
     slideshareExplanation: '<ol>' +
-                        '<li>Visit <a href="http://www.slideshare.net/">SlideShare website</a> and Sign up. [de]</li>' +
+                        '<li>Visit <a href="http://www.slideshare.net/" target="_blank">SlideShare website</a> and Sign up. [de]</li>' +
                         '<li>Upload your presentation to SlideShare. [de]</li>' +
                         '<li>Open your presentation and click the "Share" button below the player. [de]</li>' +
                         '<li>Copy the Embed code that\'s provided and paste this code into the field below. [de]</li>' +

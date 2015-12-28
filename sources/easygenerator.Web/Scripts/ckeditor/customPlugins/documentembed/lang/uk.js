@@ -18,7 +18,7 @@
         '<li>Вставте цей коди в текстове поле нижче.</li>' +
         '</ol>',
     slideshareExplanation: '<ol>' +
-        '<li>Відвідайте сайт <a href="http://www.slideshare.net/">SlideShare</a> та зареєструйтесь.</li>' +
+        '<li>Відвідайте сайт <a href="http://www.slideshare.net/" target="_blank">SlideShare</a> та зареєструйтесь.</li>' +
         '<li>Заватажте свою презентацію в  SlideShare.</li>' +
         '<li>Відкрийте свою презентацію та натисніть кнопку "Поділитись" внизу плеєра.</li>' +
         '<li>Скопіюйте готовий HTML код в текстове поле нижче.</li>' +

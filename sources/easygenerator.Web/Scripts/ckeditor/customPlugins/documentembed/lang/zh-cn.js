@@ -18,7 +18,7 @@
                         '<li>Paste this code into the field below.</li> [zh-cn]' +
                         '</ol>',
     slideshareExplanation: '<ol>' +
-                        '<li>Visit <a href="http://www.slideshare.net/">SlideShare website</a> and Sign up.</li> [zh-cn]' +
+                        '<li>Visit <a href="http://www.slideshare.net/" target="_blank">SlideShare website</a> and Sign up.</li> [zh-cn]' +
                         '<li>Upload your presentation to SlideShare. [zh-cn]</li>' +
                         '<li>Open your presentation and click the "Share" button below the player.</li> [zh-cn]' +
                         '<li>Copy the Embed code that\'s provided and paste this code into the field below. [zh-cn]</li>' +
