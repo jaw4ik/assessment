@@ -1,17 +1,17 @@
 ﻿CKEDITOR.plugins.setLang('documentembed', 'pt-br', {
-    ebmedDocument: 'Embed documents [pt-br]',
+    ebmedDocument: 'Embed document [pt-br]',
     embedCodeMissing: 'Embed code is missing [pt-br]',
     pasteEmbedCode: 'Paste embed code here... [pt-br]',
     howItWork: 'Here is how it works: [pt-br]',
     thatIt: 'That\'s it! [pt-br]',
     googleDocuments: 'Google documents [pt-br]',
-    googleDocumentsTitle: 'You can embed your documents using Google Docs service. It\'s free! [pt-br]',
+    googleDocumentsTitle: 'You can embed your documents using Google Drive service. It\'s free! [pt-br]',
     slideshare: 'Slideshare [pt-br]',
     slideshareTitle: 'You can embed your presentations using SlideShare service. It\'s free! [pt-br]',
     other: 'Other [pt-br]',
     otherTitle: 'You can embed your documents from any other services that support "embedding". [pt-br]',
     googleDocumentsExplanation: '<ol>' +
-                        '<li>Go to your <a href="https://www.google.com/intl/pt-br/drive/" target="_blank">Google drive</a>. [pt-br]</li>' +
+                        '<li>Go to your <a href="https://www.google.com/intl/pt-br/drive/" target="_blank">Google Drive</a>. [pt-br]</li>' +
                         '<li>Open the document and select the "Publish to the Web" under the "File" menu. [pt-br]</li>' +
                         '<li>If the document has not been published yet - click the "Publish" button. [pt-br]</li>' +
                         '<li>Open the "Embed" tab and copy the provided embed code. [pt-br]</li>' +
