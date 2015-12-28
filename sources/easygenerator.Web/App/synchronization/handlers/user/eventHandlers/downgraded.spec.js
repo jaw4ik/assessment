@@ -42,6 +42,12 @@
             expect(app.trigger).toHaveBeenCalledWith(constants.messages.user.downgraded);
         });
 
+        it('should trigger \'user:planChanged\' event', function () {
+            userContext.identity = jasmine.createSpyObj('identity', ['downgrade']);
+            handler();
+            expect(app.trigger).toHaveBeenCalledWith(constants.messages.user.planChanged);
+        });
+
     });
 
 });

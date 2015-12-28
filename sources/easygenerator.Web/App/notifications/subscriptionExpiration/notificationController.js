@@ -17,10 +17,7 @@
 
                 controller.updateNotification();
 
-                app.on(constants.messages.user.downgraded, controller.updateNotification);
-                app.on(constants.messages.user.upgradedToAcademy, controller.updateNotification);
-                app.on(constants.messages.user.upgradedToPlus, controller.updateNotification);
-                app.on(constants.messages.user.upgradedToStarter, controller.updateNotification);
+                app.on(constants.messages.user.planChanged, controller.updateNotification);
             });
         }
 
