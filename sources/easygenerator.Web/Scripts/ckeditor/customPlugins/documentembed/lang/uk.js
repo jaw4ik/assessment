@@ -6,7 +6,7 @@
     thatIt: 'Це все!',
     googleDocuments: 'Google документи',
     googleDocumentsTitle: 'Вставляйте свої документи використовуючи сервіс Google Диск. Це безкоштовно!',
-    slideshare: 'Slideshare',
+    slideshare: 'SlideShare',
     slideshareTitle: 'Вставляйте свої презентації використовуючи сервіс Slideshare. Це безкоштовно!',
     other: 'Інше',
     otherTitle: 'Вставляйте свої документи використовуючи будь який інший сервіс, що підтримує "публікацію в інтеренет". ',

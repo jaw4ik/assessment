@@ -6,7 +6,7 @@
     thatIt: 'That\'s it! [zh-cn]',
     googleDocuments: 'Google documents [zh-cn]',
     googleDocumentsTitle: 'Embed your documents using Google Drive service. It\'s free! [zh-cn]',
-    slideshare: 'Slideshare [zh-cn]',
+    slideshare: 'SlideShare [zh-cn]',
     slideshareTitle: 'Embed your presentations using SlideShare service. It\'s free! [zh-cn]',
     other: 'Other [zh-cn]',
     otherTitle: 'Embed your documents from any other services that support "embedding". [zh-cn]',
