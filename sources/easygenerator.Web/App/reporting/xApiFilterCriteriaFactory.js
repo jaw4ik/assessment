@@ -1,5 +1,9 @@
-﻿define(['constants', 'guard'], function (constants, guard) {
-    var create = function (spec) {
+﻿import constants from 'constants';
+import guard from 'guard';
+import _ from 'underscore';
+
+export default class {
+    static create(spec) {
         var criteria = {};
 
         guard.throwIfNotAnObject(spec, 'You should provide specification for filter criteria');
@@ -24,7 +28,7 @@
             var mailto = spec.learnerEmail;
 
             if (mailto.indexOf('mailto:') !== 0) {
-                mailto = 'mailto:' + mailto;
+                mailto = `mailto:${mailto}`;
             }
 
             criteria[constants.reporting.filterKeys.agent] = { objectType: "Agent", mbox: mailto };
@@ -50,19 +54,11 @@
             criteria[constants.reporting.filterKeys.parentId] = spec.parentId;
         }
 
-        if (spec.group) {
-            criteria.group = true;
-        }
-
         if (spec.embeded) {
-            criteria.embeded = true;
+            criteria[constants.reporting.filterKeys.embeded] = true;
         }
 
         criteria['v'] = +new Date();
         return criteria;
     }
-
-    return {
-        create: create
-    };
-});
+}

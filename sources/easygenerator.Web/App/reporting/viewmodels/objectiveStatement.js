@@ -2,7 +2,7 @@
 import _ from 'underscore';
 import ExpandableStatement from 'reporting/viewmodels/expandableStatement';
 import QuestionStatement from 'reporting/viewmodels/questionStatement';
-import xApiProvider from 'reporting/xApiProvider';
+import XApiProvider from 'reporting/xApiProvider';
 
 export default class extends ExpandableStatement  {
     constructor(masteredLrsStatement, answeredStatements) {
@@ -15,7 +15,7 @@ export default class extends ExpandableStatement  {
 
     expandLoadAction() {
         return co.call(this, function*() {
-            const answered = yield xApiProvider.getAnsweredStatements(this.lrsStatement.attemptId, this.lrsStatement.id);
+            var answered = yield XApiProvider.getAnsweredStatements(this.lrsStatement.attemptId, this.lrsStatement.id);
             if (answered && answered.length) {
                 const questionStatements = _.map(answered, statement => new QuestionStatement(statement));
                 this.children(questionStatements);

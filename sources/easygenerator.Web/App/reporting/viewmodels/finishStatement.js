@@ -3,7 +3,7 @@ import _ from 'underscore';
 import constants from 'constants';
 import ExpandableStatement from 'reporting/viewmodels/expandableStatement';
 import ObjectiveStatement from 'reporting/viewmodels/objectiveStatement';
-import xApiProvider from 'reporting/xApiProvider';
+import XApiProvider from 'reporting/xApiProvider';
 import localizationManager from 'localization/localizationManager';
 
 function getLearnerDisplayName(name, email) {
@@ -25,15 +25,10 @@ export default class extends ExpandableStatement {
 
     expandLoadAction() {
         return co.call(this, function*() {
-            var mastered = yield xApiProvider.getMasteredStatements(this.lrsStatement.attemptId),
+            var mastered = yield XApiProvider.getMasteredStatements(this.lrsStatement.attemptId),
                 objectiveStatements = _.map(mastered, statement => new ObjectiveStatement(statement));
 
             objectiveStatements.length ? this.children(objectiveStatements) : this.children = null;
-            if (this.startedLrsStatement === null || this.startedLrsStatement) {
-                return;
-            }
-            var started = yield xApiProvider.getStartedStatement(this.lrsStatement.attemptId);
-            this.startedLrsStatement = started[0];
         });
     }
 }

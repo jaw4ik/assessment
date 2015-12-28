@@ -17,7 +17,7 @@
             that.results = ko.observableArray([]);
             that.allResultsLoaded = false;
             that.allDetailedResultsLoaded = false;
-            that.cachedResultsForDownload = null,
+            that.cachedResultsForDownload = null;
             that.isLoading = ko.observable(true);
             that.noResultsViewLocation = noResultsViewLocation;
 
@@ -86,7 +86,7 @@
                 that.results([]);
                 that.loadedResults = [];
                 that.pageNumber = 1;
-                that.entityId = "c3de13d92ea249a784d5e2742158fdad";
+                that.entityId = entityId;
                 that.allResultsLoaded = false;
                 that.allDetailedResultsLoaded = false;
                 that.cachedResultsForDownload = null;
@@ -157,13 +157,17 @@
 
             function applyLoadedChanges(viewResults, loadedResults) {
                 _.each(viewResults, function(viewResult) {
-                    if (!(viewResult instanceof FinishStatement) || !viewResult.isExpandable || viewResult.children === null || viewResult.children().length) {
+                    if (!viewResult.isExpandable || viewResult.children === null) {
                         return;
                     }
                     var loadedResult = _.find(loadedResults, function(result) {
-                        return viewResult.lrsStatement.attemptId === result.lrsStatement.attemptId && viewResult.lrsStatement.verb === result.lrsStatement.verb;
+                        return viewResult.lrsStatement.id === result.lrsStatement.id;
                     });
                     if (!loadedResult) {
+                        return;
+                    }
+                    if (viewResult.children().length && loadedResult.children().length) {
+                        applyLoadedChanges(viewResult.children(), loadedResult.children());
                         return;
                     }
                     loadedResult.children ? viewResult.children(loadedResult.children()) : viewResult.children = null;

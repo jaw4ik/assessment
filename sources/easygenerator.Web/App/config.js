@@ -3,6 +3,7 @@
 
     var lrs = {
         uri: '//reports.staging.easygenerator.com/xApi/statements',
+        groupedPath: '/grouped',
         authenticationRequired: false,
         credentials: {
             username: '',
