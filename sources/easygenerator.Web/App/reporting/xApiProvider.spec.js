@@ -117,7 +117,8 @@ describe('XApiProvider', () => {
     beforeEach(() => {
         config.lrs = {
             uri: 'lrsurl',
-            groupedPath: '/grouped',
+            statementsPath: '/statements',
+            resultsPath: '/results',
             authenticationRequired: false,
             credentials: {
                 username: '',
@@ -161,7 +162,7 @@ describe('XApiProvider', () => {
         it('should do request to proper lrs uri', () => {
             XApiProvider.getCourseStatements(courseId, false, 10, 20);
             var args = httpRequestSender.get.calls.mostRecent().args;
-            expect(args[0]).toBe(config.lrs.uri + config.lrs.groupedPath);
+            expect(args[0]).toBe(config.lrs.uri + config.lrs.resultsPath);
         });
 
         describe('when lrs does not require authentication', () => {
@@ -317,7 +318,7 @@ describe('XApiProvider', () => {
         it('should do request to proper lrs uri', () => {
             XApiProvider.getLearningPathFinishedStatements(learningPathId, 10, 20);
             var args = httpRequestSender.get.calls.mostRecent().args;
-            expect(args[0]).toBe(config.lrs.uri);
+            expect(args[0]).toBe(config.lrs.uri + config.lrs.statementsPath);
         });
 
         describe('when lrs does not require authentication', () => {
@@ -416,7 +417,7 @@ describe('XApiProvider', () => {
         it('should do request to proper lrs uri', () => {
             XApiProvider.getMasteredStatements(attemptId);
             var args = httpRequestSender.get.calls.mostRecent().args;
-            expect(args[0]).toBe(config.lrs.uri);
+            expect(args[0]).toBe(config.lrs.uri + config.lrs.statementsPath);
         });
 
         describe('when lrs does not require authentication', () => {
@@ -515,7 +516,7 @@ describe('XApiProvider', () => {
         it('should do request to proper lrs uri', () => {
             XApiProvider.getAnsweredStatements(attemptId, parentActivityId);
             var args = httpRequestSender.get.calls.mostRecent().args;
-            expect(args[0]).toBe(config.lrs.uri);
+            expect(args[0]).toBe(config.lrs.uri + config.lrs.statementsPath);
         });
 
         describe('when lrs does not require authentication', () => {

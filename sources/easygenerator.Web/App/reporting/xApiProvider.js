@@ -41,7 +41,7 @@ async function getStatementsBase(filterCriteriaSpec, uri, handler) {
 }
 
 function getStatements(filterCriteriaSpec) {
-    return getStatementsBase(filterCriteriaSpec, config.lrs.uri, response => {
+    return getStatementsBase(filterCriteriaSpec, config.lrs.uri + config.lrs.statementsPath, response => {
         if (!response || !response.statements) {
             return null;
         }
@@ -50,7 +50,7 @@ function getStatements(filterCriteriaSpec) {
 }
 
 function getGroupedStatements(filterCriteriaSpec) {
-    return getStatementsBase(filterCriteriaSpec, config.lrs.uri + config.lrs.groupedPath, response => {
+    return getStatementsBase(filterCriteriaSpec, config.lrs.uri + config.lrs.resultsPath, response => {
         if (!response || !response.statements) {
             return null;
         }
