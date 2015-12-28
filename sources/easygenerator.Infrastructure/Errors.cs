@@ -4,7 +4,6 @@ namespace easygenerator.Infrastructure
     public class Errors
     {
         public const string CourseNotFoundError = "Course is not found";
-        public const string CourseCannotBeDeleted = "Course cannot be deleted";
         public const string ObjectiveNotFoundError = "Objective is not found";
         public const string ObjectivesNotFoundError = "Objectives are not found";
         public const string QuestionNotFoundError = "Question is not found";
@@ -27,7 +26,6 @@ namespace easygenerator.Infrastructure
         public const string LearningContentNotFoundResourceKey = "learningContentNotFoundError";
         public const string ObjectiveCannotBeDeletedResourceKey = "objectiveCannnotBeDeleted";
         public const string CoursePublishActionFailedResourceKey = "publishFailed";
-        public const string CourseCannotBeDeletedResourceKey = "courseCannotBeDeletedErrorMessage";
         public const string LearningPathBuildActionFailedResourceKey = "learningPathBuildFailed";
         public const string LearningPathPublishActionFailedResourceKey = "publishFailed";
 

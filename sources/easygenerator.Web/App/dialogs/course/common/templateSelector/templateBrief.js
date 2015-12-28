@@ -2,6 +2,7 @@
     constructor(template) {
         this.id = template.id;
         this.name=template.name;
+        this.goal = template.goal;
         this.thumbnail = template.thumbnail;
         this.previewImages = template.previewImages;
         this.description = template.shortDescription;

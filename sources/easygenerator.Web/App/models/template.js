@@ -15,6 +15,7 @@
             obj.isCustom = spec.isCustom;
             obj.isNew = spec.isNew;
             obj.isDeprecated = spec.isDeprecated;
+            obj.goal = spec.goal;
 
             return obj;
         };

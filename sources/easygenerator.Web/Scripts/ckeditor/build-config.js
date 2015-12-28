@@ -105,6 +105,7 @@ var CKBUILDER_CONFIG = {
         'nl' : 1,
 		'pt-br' : 1,
 		'uk' : 1,
-		'zh-cn' : 1
+		'zh-cn': 1,
+        'es': 1
 	}
 };

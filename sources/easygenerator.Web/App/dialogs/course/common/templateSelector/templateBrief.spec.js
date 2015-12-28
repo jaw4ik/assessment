@@ -6,7 +6,8 @@ let template = {
     thumbnail: 'thumb',
     previewImages: [{}],
     shortDescription: 'description',
-    order: 0
+    order: 0,
+    goal: 'Make you happy'
 },
     viewModel;
 
@@ -25,6 +26,12 @@ describe('dialog course common templateSelector [templateBrief]', () => {
     describe('name:', () => {
         it('should be set', () => {
             expect(viewModel.name).toBe(template.name);
+        });
+    });
+
+    describe('goal:', () => {
+        it('should be set', () => {
+            expect(viewModel.goal).toBe(template.goal);
         });
     });
 

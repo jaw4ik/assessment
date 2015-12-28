@@ -44,15 +44,16 @@
     }
 
     function saveProgress(progress) {
-        var result = self.apiWrapper.doLMSSetValue("cmi.suspend_data", JSON.stringify(progress)) == "true";
+        var progressResult = self.apiWrapper.doLMSSetValue("cmi.suspend_data", JSON.stringify(progress)) == "true";
+		var statusResult = self.apiWrapper.doLMSSetValue("cmi.core.lesson_status", "incomplete") == "true";
+		var result = progressResult && statusResult;
         if (result) {
             console.log('Progress was saved');
             //console.dir(progress);
-
-            self.apiWrapper.doLMSSetValue("cmi.core.exit", "suspend");
-            self.apiWrapper.doLMSCommit();
+			
+			self.apiWrapper.doLMSSetValue("cmi.core.exit", "suspend");
+			self.apiWrapper.doLMSCommit();
         }
-
         return result;
     }
 
