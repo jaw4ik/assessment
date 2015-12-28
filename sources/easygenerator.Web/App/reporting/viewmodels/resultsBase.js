@@ -161,7 +161,7 @@
                         return;
                     }
                     var loadedResult = _.find(loadedResults, function(result) {
-                        return viewResult.lrsStatement.id === result.lrsStatement.id;
+                        return viewResult.lrsStatement.attemptId === result.lrsStatement.attemptId && viewResult.lrsStatement.verb === result.lrsStatement.verb && viewResult.lrsStatement.date.valueOf() === result.lrsStatement.date.valueOf();
                     });
                     if (!loadedResult) {
                         return;
