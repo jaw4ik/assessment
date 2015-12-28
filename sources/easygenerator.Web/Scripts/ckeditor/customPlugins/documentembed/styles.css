@@ -1,0 +1,31 @@
+﻿.embed-document-list {
+    list-style-position: inside;
+}
+
+.embed-document-list li,
+.embed-document-text {
+    font: 13px 'OpenSans';
+    line-height: 22px;
+    color: #63798e;
+}
+
+.embed-document-list li a {
+    font: 13px 'OpenSans';
+    color: #469dd5;
+}
+
+.embed-document-title-wrapper td {
+    vertical-align: middle;
+}
+
+.embed-document-title {
+    padding-left: 10px;
+    color: #546677;
+    font: 13px 'OpenSans-Semibold';
+}
+
+.embed-code-textarea textarea {
+    padding: 10px !important;
+    font: 13px 'OpenSans';
+    color: #63798e;
+}
