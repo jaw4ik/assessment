@@ -603,6 +603,7 @@
     </Content>
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
+    <Content Include="App\bootstrapping\underscoreExtensionsTask.js" />
     <Content Include="App\browse.js" />
     <Content Include="App\components\bindingHandlers\expandableBlockBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\fileDropUploadBindingHandler.js" />
@@ -791,6 +792,9 @@
     </Content>
     <Content Include="App\synchronization\handlers\questions\scenario\handler.js" />
     <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToAcademy.js" />
+    <Content Include="App\synchronization\handlers\user\eventHandlers\upgradedToAcademy.spec.js">
+      <DependentUpon>upgradedToAcademy.js</DependentUpon>
+    </Content>
     <Content Include="App\videoUpload\handlers\durations.js" />
     <Content Include="App\videoUpload\handlers\durations.spec.js">
       <DependentUpon>durations.js</DependentUpon>
@@ -1841,7 +1845,7 @@
     </Content>
     <Content Include="App\localization\lang\de.json" />
     <Content Include="App\localization\lang\nl.json" />
-    <Content Include="Content\font\robotoSlab-light.woff" />
+    <Content Include="Content\font\robotoslab-light.woff" />
     <Content Include="App\localization\lang\es.json" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\iscroll-probe.js" />
