@@ -141,20 +141,33 @@
                 }]
             }],
             onOk: function () {
-                var div = editor.document.createElement('div');
-                var currentTabId = this._.currentTabId;
-                var $currentTabInputValue = $(this.getContentElement(currentTabId, 'embedArea' + currentTabId).getValue());
-                var width = $currentTabInputValue.attr('width');
-                var height = $currentTabInputValue.attr('height');
-                if (typeof width === 'undefined') {
-                    $currentTabInputValue.attr('width', '100%');
+                var div = editor.document.createElement('div'),
+                    currentTabId = this._.currentTabId,
+                    value = this.getContentElement(currentTabId, 'embedArea' + currentTabId).getValue(),
+                    pasteValue = '';
+
+                try {
+                    var $currentTabInputValue = $(value);
+                    if (!$currentTabInputValue.is('iframe')) {
+                        throw 'User input is not an iframe';
+                    }
+                    var width = $currentTabInputValue.attr('width'),
+                        height = $currentTabInputValue.attr('height');
+
+                    if (typeof width === 'undefined') {
+                        $currentTabInputValue.attr('width', '100%');
+                    }
+                    if (typeof height === 'undefined') {
+                        $currentTabInputValue.attr('height', '600px');
+                    }
+                    pasteValue = $('<div>').append($currentTabInputValue).html();
+                } catch (e) {
+                    pasteValue = value;
+                } finally {
+                    div.setHtml(pasteValue);
+                    editor.insertElement(div);
+                    editor.execCommand(plugin.commands.pasteCode);
                 }
-                if (typeof height === 'undefined') {
-                    $currentTabInputValue.attr('height', '600px');
-                }
-                div.setHtml($('<div>').append($currentTabInputValue).html());
-                editor.insertElement(div);
-                editor.execCommand(plugin.commands.pasteCode);
             }
         };
     });

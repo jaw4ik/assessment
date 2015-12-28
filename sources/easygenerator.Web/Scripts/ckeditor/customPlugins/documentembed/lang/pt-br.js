@@ -5,11 +5,11 @@
     howItWork: 'Here is how it works: [pt-br]',
     thatIt: 'That\'s it! [pt-br]',
     googleDocuments: 'Google documents [pt-br]',
-    googleDocumentsTitle: 'You can embed your documents using Google Drive service. It\'s free! [pt-br]',
+    googleDocumentsTitle: 'Embed your documents using Google Drive service. It\'s free! [pt-br]',
     slideshare: 'Slideshare [pt-br]',
-    slideshareTitle: 'You can embed your presentations using SlideShare service. It\'s free! [pt-br]',
+    slideshareTitle: 'Embed your presentations using SlideShare service. It\'s free! [pt-br]',
     other: 'Other [pt-br]',
-    otherTitle: 'You can embed your documents from any other services that support "embedding". [pt-br]',
+    otherTitle: 'Embed your documents from any other services that support "embedding". [pt-br]',
     googleDocumentsExplanation: '<ol>' +
                         '<li>Go to your <a href="https://www.google.com/intl/pt-br/drive/" target="_blank">Google Drive</a>. [pt-br]</li>' +
                         '<li>Open the document and select the "Publish to the Web" under the "File" menu. [pt-br]</li>' +
