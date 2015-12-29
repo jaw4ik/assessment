@@ -2,7 +2,7 @@
     "use strict";
 
     var lrs = {
-        uri: '//reports.staging.easygenerator.com/xApi',
+        uri: '//reports.easygenerator.com/xApi',
         statementsPath: '/statements',
         resultsPath: '/results',
         authenticationRequired: false,
