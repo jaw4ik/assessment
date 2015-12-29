@@ -12,6 +12,7 @@
 .embed-document-list li a {
     font: 13px 'OpenSans';
     color: #469dd5;
+    cursor: pointer;
 }
 
 .embed-document-title-wrapper td {
