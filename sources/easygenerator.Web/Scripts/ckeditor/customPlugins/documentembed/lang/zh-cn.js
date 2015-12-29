@@ -12,7 +12,7 @@
     otherTitle: 'Embed your documents from any other services that support "embedding". [zh-cn]',
     googleDocumentsExplanation: '<ol>' +
                         '<li>Go to your <a href="https://www.google.com/intl/zh-ch/drive/" target="_blank">Google Drive</a>. [zh-cn]</li>' +
-                        '<li>Open the document and select the "Publish to the Web" under the "File" menu. [zh-cn]</li>' +
+                        '<li>Open the document and select "Publish to the Web" under the "File" menu. [zh-cn]</li>' +
                         '<li>If the document has not been published yet - click the "Publish" button. [zh-cn]</li>' +
                         '<li>Open the "Embed" tab and copy the provided embed code.</li> [zh-cn]' +
                         '<li>Paste this code into the field below.</li> [zh-cn]' +
@@ -24,8 +24,8 @@
                         '<li>Copy the Embed code that\'s provided and paste this code into the field below. [zh-cn]</li>' +
                         '</ol>',
     otherDocumentsExplanation: '<ol>' +
-                        '<li>Go you your service [zh-cn]</li>' +
-                        '<li>Copy the embed code of the appropriate document [zh-cn]</li>' +
+                        '<li>Go to your service. [zh-cn]</li>' +
+                        '<li>Copy the embed code of the appropriate document. [zh-cn]</li>' +
                         '<li>Paste this code into the field below. [zh-cn]</li>' +
                         '</ol>'
 });

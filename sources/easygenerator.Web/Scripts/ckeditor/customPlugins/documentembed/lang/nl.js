@@ -12,7 +12,7 @@
     otherTitle: 'Embed your documents from any other services that support "embedding". [nl]',
     googleDocumentsExplanation: '<ol>' +
                         '<li>Go to your <a href="https://www.google.com/intl/nl/drive/" target="_blank">Google Drive</a>. [nl]</li>' +
-                        '<li>Open the document and select the "Publish to the Web" under the "File" menu. [nl]</li>' +
+                        '<li>Open the document and select "Publish to the Web" under the "File" menu. [nl]</li>' +
                         '<li>If the document has not been published yet - click the "Publish" button. [nl]</li>' +
                         '<li>Open the "Embed" tab and copy the provided embed code. [nl]</li>' +
                         '<li>Paste this code into the field below. [nl]</li>' +
@@ -24,8 +24,8 @@
                         '<li>Copy the Embed code that\'s provided and paste this code into the field below. [nl]</li>' +
                         '</ol>',
     otherDocumentsExplanation: '<ol>' +
-                        '<li>Go you your service [nl]</li>' +
-                        '<li>Copy the embed code of the appropriate document [nl]</li>' +
+                        '<li>Go to your service. [nl]</li>' +
+                        '<li>Copy the embed code of the appropriate document. [nl]</li>' +
                         '<li>Paste this code into the field below. [nl]</li>' +
                         '</ol>'
 });
