@@ -43,6 +43,8 @@ var _sectionDeleted = new WeakMap();
 
 var instance = null;
 
+var sectionCreating = false
+
 export default class {
     constructor () {
         if (instance) {
@@ -141,12 +143,17 @@ export default class {
         }
     }
     async createSectionAtFirstPosition() {
+        if (sectionCreating) {
+            return;
+        }
+        sectionCreating = true;
         eventTracker.publish(events.createSection, eventCategory);
         let emptySectionViewModel = new SectionViewModel(this.id, {}, true, true);
         this.sections.unshift(emptySectionViewModel);
         let createdSection = await createSectionCommand.execute(this.id);
         emptySectionViewModel.updateFields(createdSection);
         await reorderSectionCommand.execute(this.id, this.sections());
+        sectionCreating = false;
         notify.saved();
     }
     async reorderSection(section, nextSection) {
