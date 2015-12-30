@@ -1,4 +1,5 @@
 ﻿import CourseViewModel from './index';
+import ko from 'knockout';
 import _ from 'underscore';
 import eventTracker from 'eventTracker';
 import localizationManager from 'localization/localizationManager';
@@ -285,6 +286,46 @@ describe('[drag and drop course editor]', () => {
             courseViewModel.deleteSection(section);
             expect(deleteSectionDialog.show).toHaveBeenCalledWith(courseViewModel.id, section.id(), section.title(), section.createdBy);
         });
+
+    });
+
+    describe('createSectionAtFirstPosition:', () => {
+        
+        let createSectionPromise;
+        let reorderSectionPromise;
+
+        beforeEach(() => {
+            createSectionPromise = Promise.resolve({
+                id: 'sectionId3',
+                title: 'sectionTitle3',
+                modifiedOn: modifiedOn,
+                image: 'sectionImage3'
+            });
+            reorderSectionPromise = Promise.resolve({});
+            spyOn(createSectionCommand, 'execute').and.returnValue(createSectionPromise);
+            spyOn(reorderSectionCommand, 'execute').and.returnValue(reorderSectionPromise);
+        });
+
+        it('should create section', done => (async () => {
+            courseViewModel.createSectionAtFirstPosition();
+            let result = await createSectionPromise;
+            await reorderSectionPromise;
+            expect(result.id).toBe('sectionId3');
+        })().then(done));
+
+        it('should add created section to view model at first position', done => (async () => {
+            courseViewModel.createSectionAtFirstPosition();
+            await createSectionPromise;
+            await reorderSectionPromise;
+            expect(courseViewModel.sections()[0].id()).toBe('sectionId3');
+        })().then(done));
+
+        it('should should reorder sections', done => (async () => {
+            courseViewModel.createSectionAtFirstPosition();
+            await createSectionPromise;
+            await reorderSectionPromise;
+            expect(reorderSectionCommand.execute).toHaveBeenCalled();
+        })().then(done));
 
     });
 

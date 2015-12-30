@@ -4,7 +4,7 @@
         <div class="editor-create-bar-list-container" data-bind="expandBlock: { expanded: sectionExpanded }">
             <ul class="editor-create-bar-list" data-bind="draggableContainer: { copy: true, moveTo: { '.sections-list-container': { callback: $parent.createSectionWithOrder, forbidDropToEnd: true }, '.sections-placeholder': $parent.createSection }, useTargetWidth: true }">
                 <li class="editor-create-bar-list-item section" data-bind="draggableData: {type: 'section'}, css: { 'no-sections': $root.notContainSections }">
-                    <div class="editor-create-bar-list-icon">
+                    <div class="editor-create-bar-list-icon" data-bind="click: $root.createSectionAtFirstPosition.bind($root)">
                         <h4 class="editor-create-bar-list-title" data-bind="localize: { text: 'section' }">Section</h4>
                     </div>
                     <h4 class="editor-create-bar-list-title not-accessible" data-bind="localize: { text: 'section' }">Section</h4>
