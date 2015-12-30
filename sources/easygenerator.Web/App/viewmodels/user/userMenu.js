@@ -19,9 +19,7 @@
 
         function activate(data) {
             viewModel.hasPlusAccess(userContext.hasPlusAccess());
-            app.on(constants.messages.user.downgraded, userPlanChanged);
-            app.on(constants.messages.user.upgradedToStarter, userPlanChanged);
-            app.on(constants.messages.user.upgradedToPlus, userPlanChanged);
+            app.on(constants.messages.user.planChanged, userPlanChanged);
 
             if (_.isObject(userContext.identity)) {
                 viewModel.username = _.isEmptyOrWhitespace(userContext.identity.fullname)

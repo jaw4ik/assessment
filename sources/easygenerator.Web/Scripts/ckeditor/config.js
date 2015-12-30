@@ -8,7 +8,7 @@ CKEDITOR.editorConfig = function (config) {
         ['Bold', 'Italic', 'Underline', '-', 'RemoveFormat'],
         ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
         ['NumberedList', 'BulletedList'],
-        ['Link', 'Unlink', 'Table', 'Image', 'Iframe', 'AudioEmbed', 'MediaEmbed','EqnEditor'],
+        ['Link', 'Unlink', 'Table', 'Image', 'Iframe', 'AudioEmbed', 'MediaEmbed', 'DocumentEmbed', 'EqnEditor'],
         ['semanticTags']
     ];
 
@@ -22,11 +22,12 @@ CKEDITOR.editorConfig = function (config) {
     CKEDITOR.plugins.addExternal('imagelibrary', 'customPlugins/imagelibrary/');
     CKEDITOR.plugins.addExternal('videolibrary', 'customPlugins/videolibrary/');
     CKEDITOR.plugins.addExternal('audiolibrary', 'customPlugins/audiolibrary/');
+    CKEDITOR.plugins.addExternal('documentembed', 'customPlugins/documentembed/');
 
 	CKEDITOR.plugins.addExternal('fillintheblank', 'customPlugins/fillintheblank/');
     CKEDITOR.plugins.addExternal('eqneditor', 'customPlugins/eqneditor/');
 
-	config.extraPlugins = 'justify,semantictags,fileuploader,image,floatingspace,mediaembed,audioembed,imagelibrary,videolibrary,fillintheblank,eqneditor,audiolibrary';
+    config.extraPlugins = 'justify,semantictags,fileuploader,image,floatingspace,mediaembed,audioembed,imagelibrary,videolibrary,fillintheblank,eqneditor,audiolibrary,documentembed';
     config.extraAllowedContent = 'iframe;td{*};th{*};';
 
     config.removeFormatTags = 'big,del,font,ins,kbd,s,small,strike,tt,var,figcaption,em,strong,u,abbr,acronym,blockquote,q,cite,dfn,code,samp,sub,sup,mark,time';

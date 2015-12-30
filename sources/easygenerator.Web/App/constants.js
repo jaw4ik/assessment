@@ -104,7 +104,8 @@
             downgraded: 'user:downgraded',
             upgradedToStarter: 'user:upgradedToStarter',
             upgradedToPlus: 'user:upgradedToPlus',
-            upgradedToAcademy: 'user:upgradedToAcademy'
+            upgradedToAcademy: 'user:upgradedToAcademy',
+            planChanged: 'user:planChanged'
         },
         course: {
             created: 'course:created',

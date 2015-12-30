@@ -22,6 +22,7 @@
             router: router,
             homeModuleName: 'courses',
             showNavigation: showNavigation,
+            showUpgradeNowLink: ko.observable(true),
 
             navigation: ko.observableArray([]),
 
@@ -85,8 +86,13 @@
         app.on(constants.messages.course.collaboration.finished, viewModel.courseCollaborationFinished);
         app.on(constants.messages.course.objectivesUnrelatedByCollaborator, viewModel.objectivesUnrelated);
         app.on(constants.messages.question.deletedByCollaborator, viewModel.questionsDeleted);
+        app.on(constants.messages.user.planChanged, checkUpgradeNowVisibility);
 
         return viewModel;
+
+        function checkUpgradeNowVisibility() {
+            viewModel.showUpgradeNowLink(userContext.hasFreeAccess() || userContext.hasTrialAccess());
+        }
 
         function showNavigation() {
             return _.contains(['404'], this.activeModuleName());
@@ -102,6 +108,8 @@
         }
 
         function activate() {
+            checkUpgradeNowVisibility();
+
             return dataContext.initialize()
                 .then(function () {
                     router.guardRoute = function (routeInfo) {

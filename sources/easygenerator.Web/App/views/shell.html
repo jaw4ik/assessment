@@ -38,9 +38,11 @@
                             </ul>
                         </nav>
                         <ul class="header-menu-list clearfix">
+                            <!-- ko if: showUpgradeNowLink -->
                             <li class="header-menu-list-item ">
                                 <a href="" class="header-upgrade-link" data-bind="click: openUpgradePlanUrl, localize: { text: 'upgradeNow' }">Upgrade now</a>
                             </li>
+                            <!-- /ko -->
                             <li class="header-menu-list-item dropdown-list-wrapper">
                                 <!-- ko compose: 'notifications/notification' -->
                                 <!-- /ko -->

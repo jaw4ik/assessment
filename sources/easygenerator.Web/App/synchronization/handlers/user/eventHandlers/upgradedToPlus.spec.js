@@ -44,6 +44,12 @@
             expect(app.trigger).toHaveBeenCalledWith(constants.messages.user.upgradedToPlus);
         });
 
+        it('should trigger \'user:planChanged\' event', function () {
+            userContext.identity = jasmine.createSpyObj('identity', ['upgradeToPlus']);
+            handler();
+            expect(app.trigger).toHaveBeenCalledWith(constants.messages.user.planChanged);
+        });
+
     });
 
 })

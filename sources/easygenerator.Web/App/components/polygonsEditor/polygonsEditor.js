@@ -95,8 +95,13 @@
                         if (hitResult.type === 'segment') {
                             that._editor.selectedSegment = hitResult.segment;
                             that.domActions.setResizingState();
-                        } else if (hitResult.type === 'fill' && hitResult.item != that._editor.selectedPath) {
-                            var path = that._editor.selectedPath = hitResult.item;
+                        } else if ((hitResult.type === 'fill' || hitResult.type === 'pixel') && hitResult.item != that._editor.selectedPath) {
+                            var path;
+                            if (hitResult.type === 'pixel') {
+                                path = that._editor.selectedPath = hitResult.item.parent.getItem({ class: paper.Path });
+                            } else {
+                                path = that._editor.selectedPath = hitResult.item;
+                            }
                             path.selected = true;
                             path.bringToFront();
                             if (!(path.parent instanceof paper.Layer)) {
@@ -356,7 +361,7 @@
             var that = this;
             that.polygons = polygons;
             paper = that._paper.view._scope;
-            
+
             _.each(polygons(), function (polygon) {
                 var polygonInEditor = _.find(that._editor.polygons, function (polygonShape) { return polygon.id === polygonShape.id; });
                 if (polygonInEditor) {
