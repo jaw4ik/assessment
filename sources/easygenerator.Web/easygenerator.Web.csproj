@@ -2983,10 +2983,6 @@
     <Content Include="App\viewmodels\panels\sidePanel.spec.js">
       <DependentUpon>sidePanel.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\panels\tabs\feedbackTab.js" />
-    <Content Include="App\viewmodels\panels\tabs\feedbackTab.spec.js">
-      <DependentUpon>feedbackTab.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\panels\tabs\reviewTab.js" />
     <Content Include="App\viewmodels\panels\tabs\reviewTab.spec.js">
       <DependentUpon>reviewTab.js</DependentUpon>
@@ -3011,7 +3007,6 @@
     <Content Include="App\views\objectives\objective.html" />
     <Content Include="App\views\objectives\objectives.html" />
     <Content Include="App\views\panels\sidePanel.html" />
-    <Content Include="App\views\panels\tabs\feedbackTab.html" />
     <Content Include="App\views\panels\tabs\reviewTab.html" />
     <Content Include="App\views\questions\question.html" />
     <Content Include="App\views\shell.html" />

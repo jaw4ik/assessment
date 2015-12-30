@@ -13,7 +13,7 @@
     <div class="tab">
         <!-- ko if: _.isObject(activeTab()) -->
         <!-- ko if: activeTab() === reviewTab && isReviewTabVisible() -->
-        <!-- ko compose: { model: reviewTab, cacheViews: false, activationData: reviewTabActivationData } -->
+        <!-- ko compose: { model: reviewTab, cacheViews: false, activationData: reviewTabActivationData() } -->
         <!-- /ko -->
         <!-- /ko -->
         <!-- /ko -->
