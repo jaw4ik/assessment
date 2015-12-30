@@ -118,12 +118,6 @@
 
         });
 
-        describe('feedbackTab:', function () {
-            it('should be an object', function () {
-                expect(viewModel.feedbackTab).toBeObject();
-            });
-        });
-
         describe('activate:', function () {
 
             it('should be function', function () {
@@ -219,10 +213,6 @@
 
             beforeEach(function () {
                 spyOn(notify, 'error');
-            });
-
-            it('should be computed', function () {
-                expect(viewModel.reviewTabActivationData).toBeComputed();
             });
 
             it('should return promise', function () {
