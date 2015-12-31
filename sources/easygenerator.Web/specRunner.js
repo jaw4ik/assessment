@@ -263,8 +263,7 @@
                 'viewmodels/objectives/objectiveBrief.spec',
                 'viewmodels/panels/sidePanel.spec',
                 'viewmodels/panels/tabs/reviewTab.spec',
-                'viewmodels/panels/tabs/feedbackTab.spec',
-
+                
                 //#region questions
                 'viewmodels/questions/question.spec',
                 'viewmodels/questions/voiceOver.spec',

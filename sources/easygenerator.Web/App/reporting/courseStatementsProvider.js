@@ -1,21 +1,48 @@
-﻿define(['reporting/xApiProvider'], function (xApiProvider) {
-    'use strict';
+﻿import constants from 'constants';
+import _ from 'underscore';
+import XApiProvider from 'reporting/xApiProvider';
+import StartedStatement from 'reporting/viewmodels/startedStatement';
+import FinishStatement from 'reporting/viewmodels/finishStatement';
+import ObjectiveStatement from 'reporting/viewmodels/objectiveStatement';
+import QuestionStatement from 'reporting/viewmodels/questionStatement';
 
-    return { getLrsStatements: getLrsStatements };
+export default class {
+    static async getLrsStatements(spec) {
+        var statements = await XApiProvider.getCourseStatements(spec.entityId, spec.embeded, spec.take, spec.skip);
+        
+        return _.map(statements, statementGroup => {
+            var startedStatement = _.find(statementGroup.root, statement => statement.verb === constants.reporting.xApiVerbIds.started);
 
-    function getLrsStatements(entityId, take, skip) {
-        if (!take && !skip) {
-            return Q.all([xApiProvider.getCourseStartedStatements(entityId), xApiProvider.getCourseFinishedStatements(entityId)])
-                .spread(function (startedStatements, finishedStatements) {
-                    return { started: startedStatements, finished: finishedStatements };
-                });
-        }
+            var finishedStatement = _.find(statementGroup.root, statement => {
+                return _.find([constants.reporting.xApiVerbIds.failed, constants.reporting.xApiVerbIds.passed], verb => verb === statement.verb);
+            });
 
-        return xApiProvider.getCourseStartedStatements(entityId, take, skip).then(function (startedStatements) {
-            return xApiProvider.getCourseFinishedStatementsByAttempts(_.map(startedStatements, function (item) { return item.attemptId; }))
-                .then(function (finishedStatements) {
-                    return { started: startedStatements, finished: finishedStatements };
-                });
+            if (finishedStatement) {
+
+                if (spec.embeded) {
+                    var mastered = _.map(statementGroup.embeded, embededStatementGroup => {
+                        if (!embededStatementGroup || !embededStatementGroup.mastered) {
+                            return null;
+                        }
+                        if (!embededStatementGroup.answered || !embededStatementGroup.answered.length) {
+                            return new ObjectiveStatement(embededStatementGroup.mastered);
+                        }
+                        var answered = _.map(embededStatementGroup.answered, statement => new QuestionStatement(statement));
+
+                        return new ObjectiveStatement(embededStatementGroup.mastered, answered.length ? answered : null);
+                    });
+
+                    return new FinishStatement(finishedStatement, startedStatement || null, mastered.length ? mastered : null);
+                }
+
+                return new FinishStatement(finishedStatement, startedStatement || null);
+            }
+
+            if (startedStatement) {
+                return new StartedStatement(startedStatement);
+            }
+
+            return null;
         });
     }
-});
+}
