@@ -2,7 +2,7 @@
 import ObjectiveStatement from 'reporting/viewmodels/objectiveStatement';
 import QuestionStatement from 'reporting/viewmodels/questionStatement';
 import ExpandableStatement from 'reporting/viewmodels/expandableStatement';
-import xApiProvider from 'reporting/xApiProvider';
+import XApiProvider from 'reporting/xApiProvider';
 
 describe('viewmodel [ObjectiveStatement]', () => {
     var lrsStatement,
@@ -16,7 +16,7 @@ describe('viewmodel [ObjectiveStatement]', () => {
         answeredDefer = Q.defer();
         statementId = 'statementId';
         lrsStatement = { attemptId: attemptId, id: statementId, score: 50 };
-        spyOn(xApiProvider, 'getAnsweredStatements').and.returnValue(answeredDefer.promise);
+        spyOn(XApiProvider, 'getAnsweredStatements').and.returnValue(answeredDefer.promise);
         statement = new ObjectiveStatement(lrsStatement);
     });
 
@@ -38,6 +38,30 @@ describe('viewmodel [ObjectiveStatement]', () => {
             statement = new ObjectiveStatement(lrsStatement);
             expect(statement.hasScore).toBeFalsy();
         });
+
+        describe('when answeredStatements is defined', () => {
+
+            describe('and equals null', () => {
+
+                it('should set children to null', () => {
+                    statement = new ObjectiveStatement(lrsStatement, null);
+                    expect(statement.children).toBeNull();
+                });
+
+            });
+
+            describe('and not equals null', () => {
+
+                it('should set children to masteredStatements', () => {
+                    var answered = [{ id: 1 }, { id: 2 }];
+                    statement = new ObjectiveStatement(lrsStatement, answered);
+                    expect(statement.children()).toBe(answered);
+                });
+
+            });
+
+        });
+
     });
 
     describe('[expandLoadAction]', () => {
@@ -49,7 +73,7 @@ describe('viewmodel [ObjectiveStatement]', () => {
         it('should call xApiProvider.getAnsweredStatements with correct args', done => co(function*() {
             answeredDefer.resolve([]);
             yield statement.expandLoadAction();
-            expect(xApiProvider.getAnsweredStatements).toHaveBeenCalledWith(attemptId, statementId);
+            expect(XApiProvider.getAnsweredStatements).toHaveBeenCalledWith(attemptId, statementId);
         }).then(done));
 
         describe('if there are no answered statements', () => {
