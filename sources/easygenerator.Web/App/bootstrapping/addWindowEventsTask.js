@@ -1,4 +1,5 @@
-﻿define(['jquery'], function($) {
+﻿define(['jquery'], function ($) {
+    
     var task = {
         execute: execute
     };

@@ -415,6 +415,10 @@
     <Compile Include="Migrations\201512141122524_UpdateSystemTemplatesOrder.Designer.cs">
       <DependentUpon>201512141122524_UpdateSystemTemplatesOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201512171009197_AddNewEditor.cs" />
+    <Compile Include="Migrations\201512171009197_AddNewEditor.Designer.cs">
+      <DependentUpon>201512171009197_AddNewEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ConsumerToolRepository.cs" />
@@ -715,6 +719,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512141122524_UpdateSystemTemplatesOrder.resx">
       <DependentUpon>201512141122524_UpdateSystemTemplatesOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512171009197_AddNewEditor.resx">
+      <DependentUpon>201512171009197_AddNewEditor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,0 +1,33 @@
+﻿<div class="dialog editor-feedback-dialog">
+    <div class="dialog-title" data-bind="localize: { text: 'giveYourFeedback' }"></div>
+    <div class="dialog-body">
+        <div class="dialog-body-wrapper">
+            <ol class="circles-list editor-feedback-steps-list">
+                <li class="editor-feedback-rating-step">
+                    <div data-bind="localize: { text: 'rateYourExperienceWithNewCourseEditor' }"></div>
+                    <div class="rating-control" data-bind="rating: { value: rating, max: 5 }"></div>
+                </li>
+                <li class="editor-feedback-message-step">
+                    <div class="title-wrapper scrollable" data-bind="scrollbar: { checkDOMChanges: true, scrollToEndAfterDOMChanged: true }">
+                        <div class="title-container">
+                            <div class="edit-field-wrapper" data-bind="css: { 'active': message.isEditing() }">
+                                <div class="edit-field-paceholder" data-bind="localize: {text: 'tellWhyDoYouSwitchBackToOldEditor'}, visible: message.text().length===0"></div>
+                                <div class="edit-field selectable" data-bind="editableText: { text: message.text, onEnterKeyPress: submit }, event: { focus: beginEditMessage, blur: endEditMessage }"></div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="dialog-actions">
+        <div class="dialog-action-wrapper">
+            <button class="btn white grey-border" data-bind="click: skip">
+                <span class="btn-caption" data-bind="localize: { text: 'skip' }"></span>
+            </button>
+            <button class="btn green" data-bind="click: submit">
+                <span class="btn-caption" data-bind="localize: { text: 'submit' }"></span>
+            </button>
+        </div>
+    </div>
+</div>

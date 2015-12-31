@@ -21,7 +21,6 @@ namespace easygenerator.Web.Configuration
                 .Include("~/scripts/q.js")
                 .Include("~/scripts/underscore.js")
                 .Include("~/scripts/underscore.extensions.js")
-                .Include("~/scripts/moment.js")
                 .Include("~/scripts/paper-full-{version}.js")
                 .Include("~/scripts/jquery.form.js")
                 .Include("~/scripts/jquery.extensions.js")
@@ -30,7 +29,6 @@ namespace easygenerator.Web.Configuration
                 .Include("~/scripts/zeroclipboard.js")
                 .Include("~/scripts/Blob.js")
                 .Include("~/scripts/FileSaver.js")
-                .Include("~/scripts/iscroll-probe.js")
                 .IncludeDirectory("~/scripts/knockoutBindings", "*Binding.js")
             );
 

@@ -2,8 +2,8 @@
     <!-- ko if: caption -->
     <label data-bind="text: caption"></label>
     <!-- /ko -->
-    <div class="edit-field selectable" data-bind="editableText: { text: title }, event: { focus: beginEdit, blur: endEdit }, autofocus: { focus: isSelected(), autoselect: isSelected() }"></div>
+    <div class="edit-field selectable" data-bind="editableText: { text: title }, event: { focus: beginEdit, blur: endEdit }"></div>
     <div class="validation-message">
-        <span data-bind="text: title() && title().length"></span>/<span data-bind="text: maxLength"></span>
+        <span data-bind="text: title().length"></span>/<span data-bind="text: maxLength"></span>
     </div>
 </div>

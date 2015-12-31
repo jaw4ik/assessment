@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-	args = require('yargs').argv
+	args = require('yargs').argv,
     buildUtils = require('../build-utils')();
 	
 var $ = require('gulp-load-plugins')({

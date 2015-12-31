@@ -51,15 +51,6 @@
                 expect(viewModel.isValid).toBeComputed();
             });
 
-            describe('when title is empty', function () {
-
-                it('should be false', function () {
-                    viewModel.title('');
-                    expect(viewModel.isValid()).toBeFalsy();
-                });
-
-            });
-
             describe('when title is longer than 255', function () {
 
                 it('should be false', function () {

@@ -8,6 +8,18 @@
             bootstrapper.run();
 
             var specs = [
+
+                //#region drag and drop editor
+                'editor/course/viewmodels/CreateBarViewModel.spec',
+                'editor/course/viewmodels/QuestionViewModel.spec',
+                'editor/course/viewmodels/SectionViewModel.spec',
+                'editor/course/index.spec',
+                'editor/dialogs/editorFeedback/commands/sendFeedback.spec',
+                'editor/dialogs/editorFeedback/editorFeedback.spec',
+                'editor/course/dialogs/deleteSection/deleteSection.spec',
+
+                //#endregion
+
                 'authorization/limitCoursesAmount.spec',
 
                 //#region commands

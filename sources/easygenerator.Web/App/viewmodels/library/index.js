@@ -32,17 +32,6 @@
                     eventTracker.publish(events.navigateToAudios);
                     childRouter.navigate(this.hash);
                 }
-            },
-            {
-                route: 'objectives*details',
-                moduleId: 'viewmodels/objectives/index',
-                title: localizationManager.localize('learningObjectives'),
-                nav: true,
-                hash: '#library/objectives',
-                navigate: function () {
-                    eventTracker.publish(events.navigateToObjectives);
-                    childRouter.navigate(this.hash);
-                }
             }
         ]).mapUnknownRoutes('viewmodels/errors/404', '404').buildNavigationModel();
 

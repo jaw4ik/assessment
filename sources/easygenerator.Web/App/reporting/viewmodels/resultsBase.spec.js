@@ -1,4 +1,4 @@
-﻿define(['reporting/viewmodels/resultsBase', 'plugins/dialog'], function (ResultsBase, dialog) {
+﻿define(['reporting/viewmodels/resultsBase', 'plugins/dialog', 'moment'], function (ResultsBase, dialog, moment) {
     "use strict";
 
     var eventTracker = require('eventTracker'),
@@ -79,9 +79,14 @@
             statementsProvider = jasmine.createSpyObj('statementsProvider', ['getLrsStatements']);
             repository.getById.and.returnValue(getEntityDefer.promise);
 
+            window.moment = moment;
             spyOn(window, 'moment').and.returnValue(fakeMoment);
             spyOn(fakeMoment, 'format').and.returnValue(time);
             viewModel = new ResultsBase(repository.getById, statementsProvider.getLrsStatements, viewLocation);
+        });
+
+        afterEach(function() {
+            window.moment = null;
         });
 
         describe('entityId:', function () {

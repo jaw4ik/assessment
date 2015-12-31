@@ -10,10 +10,15 @@
                 { id: 'viewmodels/courses/course/configure' },
                 { id: 'viewmodels/courses/course/publish' },
                 { id: 'viewmodels/courses/course/results' },
-                { id: 'viewmodels/objectives/objective', pattern: /courses\/[\w]+\/objectives\/[\w]+/ },
-                { id: 'viewmodels/questions/question', pattern: /courses\/[\w]+\/objectives\/[\w]+\/questions\/[\w]+/ }
+                { id: 'viewmodels/objectives/objective' },
+                { id: 'viewmodels/questions/question' }
             ],
             modelToCompose: 'navigationBar/navigationBar'
+        },
+        {
+            viewToCompose: 'editor/course/createBar',
+            subscribedPages: [{ id: 'editor/course/index' }],
+            modelToCompose: 'editor/course/index'
         },
         {
             viewToCompose: 'views/courses/course/design/bar',

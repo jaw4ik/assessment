@@ -1,11 +1,11 @@
-﻿<section class="shell-wrapper">
+﻿<section class="shell-wrapper" data-bind="css: { 'pull-bottom': switchEditorMessageVisible }">
 
     <!-- ko compose: leftSideBarManager.bar -->
     <!-- /ko -->
 
     <section class="shell">
         <header>
-            <div>
+            <div class="header">
                 <div class="pull-left header-logo-holder">
                     <!-- ko if: activeModuleName() == homeModuleName || router.isNavigating() -->
                     <span class="header-logo"></span>
@@ -48,12 +48,23 @@
                                 <!-- /ko -->
                             </li>
                             <li class="header-menu-list-item mode profile">
-                                <!-- ko compose: 'viewmodels/user/userMenu' -->
+                                <!-- ko compose: { view: 'views/user/userMenu', model: 'viewmodels/user/userMenu', activationData: { newEditor: newEditor(), switchEditor: switchEditor } } -->
                                 <!-- /ko -->
                             </li>
                         </ul>
                     </div>
                 </div>
+            </div>
+            <div class="editor-switcher" data-bind="css: { old: newEditor }">
+                <!-- ko if: newEditor -->
+                <span class="editor-switcher-message" data-bind="localize: { text: 'switchEditorToOldMessage' }">Switch back to the old course editor.</span>
+                <a href="" class="switch-editor-btn" data-bind="click: switchEditor, localize: { text: 'switchEditorToOldTitle' }">Switch back</a>
+                <!-- /ko -->
+                <!-- ko ifnot: newEditor -->
+                <span class="editor-switcher-message" data-bind="localize: { text: 'switchEditorToNewMessage' }">We are happy to introduce our NEW course editor - go ahead and try it out!</span>
+                <a href="" class="switch-editor-btn" data-bind="click: switchEditor, localize: { text: 'switchEditorToNewTitle' }">Try the new editor now</a>
+                <!-- /ko -->
+                <a href="" class="close-switch-editor-message" data-bind="click: closeSwitchEditorMessage"></a>
             </div>
         </header>
 

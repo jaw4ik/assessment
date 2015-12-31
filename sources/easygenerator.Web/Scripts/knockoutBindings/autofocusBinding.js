@@ -1,14 +1,11 @@
 ﻿ko.bindingHandlers.autofocus = {
-    init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-        // This will be called when the binding is first applied to an element
-        // Set up any initial state, event handlers, etc. here
-
+    update: function (element, valueAccessor) {
         var focus = ko.unwrap(valueAccessor().focus),
             autoselect = ko.unwrap(valueAccessor().autoselect) || false;
 
         setTimeout(function () {
             if (focus) {
-                $(element).focus();
+                setFocusToEndOfText(element);
             }
 
             if (autoselect) {
@@ -16,6 +13,24 @@
                 $(element).blur(onBlur);
             }
         }, 0);
+
+        function setFocusToEndOfText(elementNode) {
+            elementNode.focus();
+            if (typeof window.getSelection != "undefined"
+                    && typeof document.createRange != "undefined") {
+                var range = document.createRange();
+                range.selectNodeContents(elementNode);
+                range.collapse(false);
+                var sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(range);
+            } else if (typeof document.body.createTextRange != "undefined") {
+                var textRange = document.body.createTextRange();
+                textRange.moveToElementText(elementNode);
+                textRange.collapse(false);
+                textRange.select();
+            }
+        }
 
         function onBlur() {
             clearSelection();
@@ -48,10 +63,5 @@
                 range.select();
             }
         }
-    },
-    update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-        // This will be called once when the binding is first applied to an element,
-        // and again whenever the associated observable changes value.
-        // Update the DOM element based on the supplied values here.
     }
 };

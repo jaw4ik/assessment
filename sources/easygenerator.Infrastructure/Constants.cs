@@ -19,6 +19,7 @@ namespace easygenerator.Infrastructure
         {
             public const string SignedUpUserTemplate = "SignedUpUserTemplate";
             public const string FeedbackTemplate = "FeedbackTemplate";
+            public const string NewEditorFeedbackTemplate = "NewEditorFeedbackTemplate";
             public const string NewsletterSubscriptionFailedTemplate = "NewsletterSubscriptionFailedTemplate";
             public const string HttpRequestFailedTemplate = "HttpRequestFailedTemplate";
         }

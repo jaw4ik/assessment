@@ -307,7 +307,15 @@
                     var promise = repository.addObjective(objective);
 
                     promise.fin(function () {
-                        expect(promise).toBeResolvedWith({ id: objectiveId, createdOn: createdOn.toISOString() });
+                        expect(promise).toBeResolvedWith({
+                            id: objectiveId,
+                            createdOn: createdOn.toISOString(),
+                            modifiedOn: createdOn.toISOString(),
+                            title: objective.title,
+                            image: objective.imageUrl,
+                            questions: [],
+                            createdBy: 'asdasd@ukr.net'
+                        });
                         done();
                     });
 
