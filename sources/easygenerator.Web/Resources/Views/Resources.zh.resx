@@ -363,4 +363,7 @@ Hi,
   <data name="YourMessage" xml:space="preserve">
     <value>输入您的消息...</value>
   </data>
+  <data name="NotSupportedDeviceTitle" xml:space="preserve">
+    <value>您的设备不受支持</value>
+  </data>
 </root>

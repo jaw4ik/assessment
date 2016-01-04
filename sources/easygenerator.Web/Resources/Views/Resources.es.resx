@@ -366,4 +366,7 @@ Equipo de easygenerator&lt;/p&gt;
   <data name="YourMessage" xml:space="preserve">
     <value>Escriba el mensaje...</value>
   </data>
+  <data name="NotSupportedDeviceTitle" xml:space="preserve">
+    <value>Su dispositivo no es compatible</value>
+  </data>
 </root>
