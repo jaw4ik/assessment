@@ -1,5 +1,5 @@
 ﻿define(['reporting/viewmodels/resultsBase', 'repositories/learningPathRepository', 'reporting/learningPathStatementsProvider', 'viewmodels/learningPaths/learningPath/results'],
-    function (ResultsBase, learningPathRepository, learningPathStatementsProvider, Results) {
+    function (ResultsBase, learningPathRepository, LearningPathStatementsProvider, Results) {
         "use strict";
 
         describe('[Results]', function () {

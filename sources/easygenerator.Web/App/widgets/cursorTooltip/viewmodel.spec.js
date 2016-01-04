@@ -1,8 +1,6 @@
 ﻿define(['widgets/cursorTooltip/viewmodel'], function (widget) {
     'use strict';
 
-    var cursorTooltipBindingHandler = require('widgets/cursorTooltip/bindingHadlers/cursorTooltipBindingHandler');
-
     describe('widget cursorTooltip:', function () {
 
         describe('isVisible', function () {
@@ -17,23 +15,6 @@
 
             it('should be observable', function() {
                 expect(widget.text).toBeObservable();
-            });
-
-        });
-
-        describe('activate:', function() {
-
-            beforeEach(function() {
-                spyOn(cursorTooltipBindingHandler, 'install');
-            });
-
-            it('should be function', function() {
-                expect(widget.activate).toBeFunction();
-            });
-
-            it('should initialize tooltip binding', function() {
-                widget.activate();
-                expect(cursorTooltipBindingHandler.install).toHaveBeenCalled();
             });
 
         });

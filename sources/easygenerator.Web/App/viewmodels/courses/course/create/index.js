@@ -1,22 +1,13 @@
-﻿define(['viewmodels/courses/course/index', 'routing/isViewReadyMixin', 'repositories/courseRepository', 'localization/localizationManager'], function (index, isViewReady, courseRepository, localizationManager) {
+﻿define(['viewmodels/courses/course/create/editor', 'editor/index', 'routing/isViewReadyMixin', 'repositories/courseRepository', 'userContext'], function (oldEditor, newEditor, isViewReady, courseRepository, userContext) {
 
-
-    var childRouter = index.router.createChildRouter()
-      .makeRelative({
-          fromParent: true,
-          dynamicHash: ':courseId'
-      }).map([
-          { route: '', moduleId: 'viewmodels/courses/course/create/course', title: localizationManager.localize('courseCreateItem') },
-          { route: 'objectives/:objectiveId', moduleId: 'viewmodels/objectives/objective', title: localizationManager.localize('objectiveProperties') },
-          { route: 'objectives/:objectiveId/questions/:questionId', moduleId: 'viewmodels/questions/question', title: localizationManager.localize('questionProperties') }
-      ]).mapUnknownRoutes('viewmodels/errors/404', '404').buildNavigationModel();
-
-
+    var childRouter = userContext.identity.newEditor ? newEditor : oldEditor;
     isViewReady.assign(childRouter, true);
 
     return {
         router: childRouter,
-        activate: function () {},
+        activate: function () {
+
+        },
         canActivate: canActivate
     };
 

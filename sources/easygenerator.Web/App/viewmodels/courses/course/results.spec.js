@@ -1,5 +1,5 @@
 ﻿define(['reporting/viewmodels/resultsBase', 'repositories/courseRepository', 'reporting/courseStatementsProvider', 'viewmodels/courses/course/results'],
-    function (ResultsBase, courseRepository, courseStatementsProvider, results) {
+    function (ResultsBase, courseRepository, CourseStatementsProvider, results) {
         "use strict";
 
         describe('[Results]', function () {

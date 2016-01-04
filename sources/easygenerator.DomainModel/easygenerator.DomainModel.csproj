@@ -162,6 +162,7 @@
     <Compile Include="Events\QuestionEvents\TextMatchingEvents\TextMatchingAnswerKeyChangedEvent.cs" />
     <Compile Include="Events\QuestionEvents\TextMatchingEvents\TextMatchingAnswerValueChangedEvent.cs" />
     <Compile Include="Events\UserEvents\CreateUserInitialDataEvent.cs" />
+    <Compile Include="Events\UserEvents\NewEditorUserFeedbackEvent.cs" />
     <Compile Include="Events\UserEvents\UserEvent.cs" />
     <Compile Include="Events\UserEvents\UserFeedbackEvent.cs" />
     <Compile Include="Events\UserEvents\UserSignedUpEvent.cs" />

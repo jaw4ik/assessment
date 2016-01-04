@@ -3,6 +3,7 @@
     createValueAccessor: function (valueAccessor) {
         var data = valueAccessor().data,
             speed = valueAccessor().speed ? valueAccessor().speed * 1000 : 200,
+            animateOnAdd = _.isUndefined(valueAccessor().animateOnAdd) ? true : valueAccessor().animateOnAdd,
             removeDelay = valueAccessor().removeDelay ? valueAccessor().removeDelay * 1000 : 0;
 
         return function () {
@@ -13,7 +14,7 @@
             };
 
             function afterAdd(element) {
-                if (element.nodeType != 1) {
+                if (!animateOnAdd || element.nodeType != 1) {
                     return;
                 }
 

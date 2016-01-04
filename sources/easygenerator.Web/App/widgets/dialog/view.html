@@ -1,5 +1,5 @@
-﻿<section class="dialog-container" data-bind="css: { shown: isShown }">
-    <div class="dialog-wrapper" data-bind="dialog: { isShown: isShown, autoclose: settings().autoclose, onHide: closed }, css: settings().containerCss">
+﻿<section class="dialog-container" data-bind="css: { shown: isShown, boundless: settings().boundless }">
+    <div class="dialog-wrapper" data-bind="dialog: { isShown: isShown, autoclose: settings().autoclose, onHide: closed, isBoundless: settings().boundless }, css:settings().containerCss">
         <button class="dialog-close-btn" data-bind="click: close"></button>
         <!-- ko if: steps().length === 1 -->
         <!-- ko compose: { model: activeStep } --><!-- /ko -->
