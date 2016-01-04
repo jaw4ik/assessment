@@ -471,7 +471,6 @@
     "answerNotFoundError": "A problem occurred while opening the answer option.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.",
     "questionNotFoundError": "A problem occurred while opening this question.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.",
     "learningContentNotFoundError": "A problem occurred while opening this content.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.",
-    "helpHintNotFoundError": "A problem occurred while opening the Help.  Try again Contact support@easygenerator.com if the problem persists.",
     "responseFailed": "We have encountered a problem.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.",
     "userNotMemberOfAnyCompany": "You are not a member of any company.",
     "review": "Review",

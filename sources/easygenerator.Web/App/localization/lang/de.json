@@ -471,7 +471,6 @@
     "answerNotFoundError": "Die Antwortoption wurde nicht gefunden. Bitte aktualisieren Sie Ihre Daten.",
     "questionNotFoundError": "Die Frage wurde nicht gefunden. Bitte aktualisieren Sie Ihre Daten.",
     "learningContentNotFoundError": "Der Lerngegenstand wurde nicht gefunden. Bitte aktualisieren Sie Ihre Daten.",
-    "helpHintNotFoundError": "Der Hilfehinweis wurde nicht gefunden. Bitte aktualisieren Sie Ihre Daten.",
     "responseFailed": "Antwort fehlgeschlagen",
     "userNotMemberOfAnyCompany": "Sie sind kein Mitglied eines Unternehmens.",
     "review": "Prüfung",

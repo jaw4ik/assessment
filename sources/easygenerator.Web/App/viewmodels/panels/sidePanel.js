@@ -52,13 +52,6 @@
             }
         });
 
-        app.on(constants.messages.helpHint.shown, function () {
-            viewModel.layoutChangingIndicator(!viewModel.layoutChangingIndicator());
-        });
-        app.on(constants.messages.helpHint.hidden, function () {
-            viewModel.layoutChangingIndicator(!viewModel.layoutChangingIndicator());
-        });
-
         router.on('router:route:activating').then(function () {            
             viewModel.layoutChangingIndicator(!viewModel.layoutChangingIndicator());
         });
