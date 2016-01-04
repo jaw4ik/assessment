@@ -3,20 +3,36 @@
         var viewModel = {
             activeTab: ko.observable(),
             reviewTab: reviewTab,
+
             activate: activate,
+
             toggleTabVisibility: toggleTabVisibility,
             onCollapsed: onCollapsed,
             isExpanded: ko.observable(false),
-            reviewTabActivationData: ko.observable({}),
+
+            getReviewTabActivationData: getReviewTabActivationData,
             lastReviewTabActivationData: ko.observable(null),
-            layoutChangingIndicator: ko.observable(false)
+
+            coursePublishForReviewCompleted: coursePublishForReviewCompleted,
+            routerCompositionComplete: routerCompositionComplete
         };
 
         viewModel.isReviewTabVisible = ko.computed(function () {
             return router.routeData().courseId != null;
         });
 
-        viewModel.reviewTabActivationData = function () {
+        app.on(constants.messages.course.publishForReview.completed, viewModel.coursePublishForReviewCompleted);
+        router.on('router:navigation:composition-complete').then(viewModel.routerCompositionComplete);
+
+        return viewModel;
+
+        function activate() {
+            return Q.fcall(function () {
+                viewModel.activeTab(null);
+            });
+        }
+
+        function getReviewTabActivationData() {
             var courseId = router.routeData().courseId;
             return Q.fcall(function () {
                 if (courseId == null) {
@@ -38,41 +54,6 @@
 
                 return viewModel.lastReviewTabActivationData();
             });
-        };
-
-        app.on(constants.messages.course.publishForReview.completed, function (course) {
-            if (course.id !== router.routeData().courseId)
-                return;
-
-            if (viewModel.lastReviewTabActivationData() != null) {
-                viewModel.lastReviewTabActivationData({
-                    courseId: course.id,
-                    reviewUrl: course.publishForReview.packageUrl
-                });
-            }
-        });
-
-        app.on(constants.messages.helpHint.shown, function () {
-            viewModel.layoutChangingIndicator(!viewModel.layoutChangingIndicator());
-        });
-        app.on(constants.messages.helpHint.hidden, function () {
-            viewModel.layoutChangingIndicator(!viewModel.layoutChangingIndicator());
-        });
-
-        router.on('router:route:activating').then(function () {            
-            viewModel.layoutChangingIndicator(!viewModel.layoutChangingIndicator());
-        });
-
-        router.on('router:navigation:composition-complete').then(function () {
-            viewModel.layoutChangingIndicator(!viewModel.layoutChangingIndicator());
-        });
-
-        return viewModel;
-
-        function activate() {
-            return Q.fcall(function () {
-                viewModel.activeTab(null);
-            });
         }
 
         function toggleTabVisibility(tab) {
@@ -91,6 +72,22 @@
             viewModel.activeTab(null);
 
             app.trigger(constants.messages.sidePanel.collapsed);
+        }
+
+        function coursePublishForReviewCompleted(course) {
+            if (course.id !== router.routeData().courseId)
+                return;
+
+            if (viewModel.lastReviewTabActivationData() != null) {
+                viewModel.lastReviewTabActivationData({
+                    courseId: course.id,
+                    reviewUrl: course.publishForReview.packageUrl
+                });
+            }
+        }
+
+        function routerCompositionComplete() {
+            viewModel.isExpanded(false);
         }
     }
 );
