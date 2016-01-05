@@ -1,6 +1,7 @@
 {
     "[course]": "Curso",
     "[start course]": "Iniciar curso",
+    "[finish course]": "Finalizar curso",
     "[cancel]": "Cancelar",
     "[finish course popup title]": "Você está a um passo de terminar o curso",
     "[finish course popup explanation title]": "Favor notar que:",
@@ -63,6 +64,8 @@
     "[scenario has been submitted]": "O cenário foi submetido",
     "[scenario has not been finished yet]": "O cenário ainda não foi concluído. Você deve concluí-lo antes de submeter.",
     "[download course in pdf format]": "Fazer o download do curso em formato PDF",
+    "[scenario has been passed successfully]": "O cenário foi aprovado com êxito",
+    "[scenario has not been passed successfully]": "O cenário NÃO foi aprovado com êxito",
     "[Save, I will continue later]": "Salvar, continuarei mais tarde",
     "[save and exit]": "Salvar e sair",
     "[I'm done, report my progress]": "Concluído, reportar meu progresso"
