@@ -1,31 +1,33 @@
 ﻿CKEDITOR.plugins.setLang('documentembed', 'pt-br', {
-    ebmedDocument: 'Embed document [pt-br]',
-    embedCodeMissing: 'Embed code is missing [pt-br]',
-    pasteEmbedCode: 'Paste embed code here... [pt-br]',
-    howItWork: 'Here is how it works: [pt-br]',
-    thatIt: 'That\'s it! [pt-br]',
-    googleDocuments: 'Google documents [pt-br]',
-    googleDocumentsTitle: 'Embed your documents using Google Drive service. It\'s free! [pt-br]',
-    slideshare: 'SlideShare [pt-br]',
-    slideshareTitle: 'Embed your presentations using SlideShare service. It\'s free! [pt-br]',
-    other: 'Other [pt-br]',
-    otherTitle: 'Embed your documents from any other services that support "embedding". [pt-br]',
+    ebmedDocument: 'Incorpore documento',
+    embedCodeMissing: 'Está faltando o código de incorporação',
+    pasteEmbedCode: 'Cole o código de incorporação aqui...',
+    howItWork: 'Veja como funciona:',
+    thatIt: 'É isso aí!',
+    googleDocuments: 'Documentos do Google',
+    googleDocumentsTitle: 'Incorpore seus documentos usando o serviço do Google Drive. É gratuito!',
+    slideshare: 'SlideShare',
+    slideshareTitle: 'Incorpore suas apresentações usando o serviço do SlideShare. É gratuito!',
+    other: 'Outro',
+    otherTitle: 'Incorpore seus documentos de qualquer outro serviço que suporte "incorporações".',
     googleDocumentsExplanation: '<ol>' +
-                        '<li>Go to your <a href="https://www.google.com/intl/pt-br/drive/" target="_blank">Google Drive</a>. [pt-br]</li>' +
-                        '<li>Open the document and select "Publish to the Web" under the "File" menu. [pt-br]</li>' +
-                        '<li>If the document has not been published yet - click the "Publish" button. [pt-br]</li>' +
-                        '<li>Open the "Embed" tab and copy the provided embed code. [pt-br]</li>' +
-                        '<li>Paste this code into the field below. [pt-br]</li>' +
+                        '<li>Vá para o seu <a href=""https://www.google.com/intl/en/drive/"" target=""_blank"">Google Drive</a>.</li>' +
+                        '<li>Abra o documento e selecione ""Publicar na web..."" no menu ""Arquivo"".</li>' +
+                        '<li>Se o documento ainda não tiver sido publicado – clique no botão ""Publicar"".</li>' +
+                        '<li>Abra a guia ""Incorporar"" e copie o código de incorporação fornecido.</li>' +
+                        '<li>Cole este código no campo abaixo.</li>' +
                         '</ol>',
     slideshareExplanation: '<ol>' +
-                        '<li>Visit <a href="http://www.slideshare.net/" target="_blank">SlideShare website</a> and Sign up. [pt-br]</li>' +
-                        '<li>Upload your presentation to SlideShare. [pt-br]</li>' +
-                        '<li>Open your presentation and click the "Share" button below the player. [pt-br]</li>' +
-                        '<li>Copy the Embed code that\'s provided and paste this code into the field below. [pt-br]</li>' +
+                        '<li>Visite o <a href=""http://www.slideshare.net/"" target=""_blank"">site do SlideShare</a> e se inscreva.</li>' +
+                        '<li>Faça o upload de sua apresentação para o SlideShare.</li>' +
+                        '<li>Abra sua apresentação e clique no botão ""Compartilhar"" abaixo do player.</li>' +
+                        '<li>Copie o Código de incorporação fornecido e cole-o no campo abaixo.</li>' +
                         '</ol>',
     otherDocumentsExplanation: '<ol>' +
-                        '<li>Go to your service. [pt-br]</li>' +
-                        '<li>Copy the embed code of the appropriate document. [pt-br]</li>' +
-                        '<li>Paste this code into the field below. [pt-br]</li>' +
+                        '<li>Vá para o seu serviço.</li>' +
+                        '<li>Copie o código de incorporação do documento apropriado.</li>' +
+                        '<li>Cole este código no campo abaixo.</li>' +
                         '</ol>'
 });
+
+

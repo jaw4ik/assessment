@@ -1,31 +1,33 @@
 ﻿CKEDITOR.plugins.setLang('documentembed', 'fr', {
-    ebmedDocument: 'Embed document [fr]',
-    embedCodeMissing: 'Embed code is missing [fr]',
-    pasteEmbedCode: 'Paste embed code here... [fr]',
-    howItWork: 'Here is how it works: [fr]',
-    thatIt: 'That\'s it! [fr]',
-    googleDocuments: 'Google documents [fr]',
-    googleDocumentsTitle: 'Embed your documents using Google Drive service. It\'s free! [fr]',
-    slideshare: 'SlideShare [fr]',
-    slideshareTitle: 'Embed your presentations using SlideShare service. It\'s free! [fr]',
-    other: 'Other [fr]',
-    otherTitle: 'Embed your documents from any other services that support "embedding". [fr]',
+    ebmedDocument: 'Intégrer un document',
+    embedCodeMissing: 'Le code d\'intégration est manquant',
+    pasteEmbedCode: 'Collez le code d\'intégration ici...',
+    howItWork: 'La marche à suivre est la suivante :',
+    thatIt: 'C\'est cela !',
+    googleDocuments: 'Documents Google',
+    googleDocumentsTitle: 'Intégrez vos documents à l\'aide du service Google Drive. C\'est gratuit !',
+    slideshare: 'SlideShare',
+    slideshareTitle: 'Intégrez vos présentations à l\'aide du service SlideShare. C\'est gratuit !',
+    other: 'Autre',
+    otherTitle: 'Intégrez vos documents depuis tout autre service prenant en charge l\'"intégration".',
     googleDocumentsExplanation: '<ol>' +
-                        '<li>Go to your <a href="https://www.google.com/intl/fr/drive/" target="_blank">Google Drive</a>. [fr]</li>' +
-                        '<li>Open the document and select "Publish to the Web" under the "File" menu. [fr]</li>' +
-                        '<li>If the document has not been published yet - click the "Publish" button. [fr]</li>' +
-                        '<li>Open the "Embed" tab and copy the provided embed code. [fr]</li>' +
-                        '<li>Paste this code into the field below. [fr]</li>' +
+                        '<li>Accédez à votre dossier <a href=""https://www.google.com/intl/en/drive/"" target=""_blank"">Google Drive</a>.</li>' +
+                        '<li>Ouvrez le document et sélectionnez ""Publier sur le web"" sous le menu ""Fichier"".</li>' +
+                        '<li>Si le document n\'a pas encore été publié, cliquez sur le bouton ""Publier"".</li>' +
+                        '<li>Ouvrez l\'onglet ""Intégrer"" puis copiez le code d\'intégration fourni.</li>' +
+                        '<li>Collez ce code dans le champ situé au-dessous.</li>' +
                         '</ol>',
     slideshareExplanation: '<ol>' +
-                        '<li>Visit <a href="http://www.slideshare.net/" target="_blank">SlideShare website</a> and Sign up. [fr]</li>' +
-                        '<li>Upload your presentation to SlideShare. [fr]</li>' +
-                        '<li>Open your presentation and click the "Share" button below the player. [fr]</li>' +
-                        '<li>Copy the Embed code that\'s provided and paste this code into the field below. [fr]</li>' +
+                        '<li>Rendez-vous sur le <a href=""http://www.slideshare.net/"" target=""_blank"">site SlideShare</a> et inscrivez-vous.</li>' +
+                        '<li>Téléchargez votre présentation dans SlideShare.</li>' +
+                        '<li>Ouvrez cette présentation et cliquez sur le bouton ""Partager"" situé sous le lecteur.</li>' +
+                        '<li>Copiez le code d\'intégration fourni et collez-le dans le champ situé au-dessous.</li>' +
                         '</ol>',
     otherDocumentsExplanation: '<ol>' +
-                        '<li>Go to your service. [fr]</li>' +
-                        '<li>Copy the embed code of the appropriate document. [fr]</li>' +
-                        '<li>Paste this code into the field below. [fr]</li>' +
+                        '<li>Accédez à votre service.</li>' +
+                        '<li>Copiez le code d\'intégration du document approprié.</li>' +
+                        '<li>Collez ce code dans le champ situé au-dessous.</li>' +
                         '</ol>'
 });
+
+
