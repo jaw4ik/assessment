@@ -1433,6 +1433,7 @@
     <Content Include="App\views\questions\hotSpot\designer.html" />
     <Content Include="App\views\questions\hotSpot\hotSpot.html" />
     <Content Include="Content\images\hotspot-question.png" />
+    <Content Include="googlea3ba679b82d103a3.html" />
     <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\a15336e3207b40aa86ae93f15c2d3927.html" />
     <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\content.html" />
     <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\8555e814ebef4f6a9f82cabfe8502894\a542a9cad6b64881844eed6e65d37044.html" />
