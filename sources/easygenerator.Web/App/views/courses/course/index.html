@@ -10,9 +10,6 @@
                     <!-- ko compose: { model: titleField, view: 'views/common/titleField.html' } -->
                     <!-- /ko -->
                     <div class="course-template-hint">
-                        <div class="course-template-hint-title">
-                            <span data-bind="localize: { text: 'currentTemplate' }"></span>:&nbsp;
-                        </div>
                         <div class="course-template-hint-template-name-wrapper">
                             <span class="course-template-hint-template-name" data-bind="click: changeTemplate, text: template.name"></span>
                         </div>
@@ -27,9 +24,6 @@
                             <span data-bind="localize: { text: 'addPeopleForCollaboration' }"></span>
                             <!-- ko if: collaborators().length > 1 -->
                             <span class="count" data-bind="text: collaborators().length"></span>
-                            <!-- /ko -->
-                            <!-- ko ifnot: collaborators().length > 1 -->
-                            <span class="count">+</span>
                             <!-- /ko -->
                         </a>
                     </li>

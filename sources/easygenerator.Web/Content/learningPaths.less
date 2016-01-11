@@ -758,12 +758,26 @@
                     -moz-transition: padding .4s linear 0s;
                     -webkit-transition: padding .4s linear 0s;
                     transition: padding .4s linear 0s;
+
+                    header .header .content-section-wrapper {
+                        transition: margin .4s linear 0s;
+                    }
                 }
             }
 
             &.expanded {
                 & + * {
                     padding-left: 300px;
+
+                    header .header .content-section-wrapper {
+                        margin-left: 300px;
+                    }
+
+                    & > header {
+                        .content-section-wrapper .content-section {
+                            min-width: 660px;
+                        }
+                    }
                 }
             }
         }

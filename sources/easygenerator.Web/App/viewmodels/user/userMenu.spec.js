@@ -10,12 +10,24 @@
     describe('viewModel [userMenu]', function () {
 
         beforeEach(function () {
-            spyOn(userContext, 'hasStarterAccess').and.returnValue(true);
+            spyOn(userContext, 'hasPlusAccess').and.returnValue(true);
         });
 
         describe('username:', function () {
             it('should be defined', function () {
                 expect(userMenu.username).toBeDefined();
+            });
+        });
+
+        describe('useremail:', function () {
+            it('should be defined', function () {
+                expect(userMenu.useremail).toBeDefined();
+            });
+        });
+
+        describe('newEditor:', function () {
+            it('should be defined', function () {
+                expect(userMenu.newEditor).toBeDefined();
             });
         });
 
@@ -25,9 +37,9 @@
             });
         });
 
-        describe('hasStarterAccess:', function () {
+        describe('hasPlusAccess:', function () {
             it('should be observable', function () {
-                expect(userMenu.hasStarterAccess).toBeObservable();
+                expect(userMenu.hasPlusAccess).toBeObservable();
             });
         });
 
@@ -36,15 +48,15 @@
                 expect(userMenu.userPlanChanged).toBeFunction();
             });
 
-            it('should call userContext hasStartedAccess', function () {
+            it('should call userContext hasPlusAccess', function () {
                 userMenu.userPlanChanged();
-                expect(userContext.hasStarterAccess).toHaveBeenCalled();
+                expect(userContext.hasPlusAccess).toHaveBeenCalled();
             });
 
-            it('should set hasStarterAccess', function () {
-                userMenu.hasStarterAccess(false);
+            it('should set hasPlusAccess', function () {
+                userMenu.hasPlusAccess(false);
                 userMenu.userPlanChanged();
-                expect(userMenu.hasStarterAccess()).toBeTruthy();
+                expect(userMenu.hasPlusAccess()).toBeTruthy();
             });
         });
 
@@ -62,6 +74,11 @@
                 it('should set username to null', function () {
                     userMenu.activate();
                     expect(userMenu.username).toBeNull();
+                });
+
+                it('should set useremail to null', function () {
+                    userMenu.activate();
+                    expect(userMenu.useremail).toBeNull();
                 });
 
                 it('should set avatarLetter to null', function () {
@@ -115,10 +132,22 @@
 
             });
 
-            it('should set hasStarterAccess', function () {
-                userMenu.hasStarterAccess(false);
+            it('should set newEditor', function() {
+                userMenu.newEditor(null);
+                userMenu.activate({ newEditor: true });
+                expect(userMenu.newEditor()).toBeTruthy();
+            });
+
+            it('should set switchEditor function', function () {
+                var switchEditor = function() {};
+                userMenu.activate({ switchEditor: switchEditor });
+                expect(userMenu.switchEditor).toBe(switchEditor);
+            });
+
+            it('should set hasPlusAccess', function () {
+                userMenu.hasPlusAccess(false);
                 userMenu.activate();
-                expect(userMenu.hasStarterAccess()).toBeTruthy();
+                expect(userMenu.hasPlusAccess()).toBeTruthy();
             });
         });
 

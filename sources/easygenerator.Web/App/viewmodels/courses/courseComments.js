@@ -20,36 +20,35 @@ class CourseComments {
     }
 
         
-    activate(courseId) {
+    async activate(courseId) {
         let that = this;
-
-        return Q.fcall(() => {
+        that.isCommentsLoading(true);
+        try {
             guard.throwIfNotString(courseId, 'Course id is not a string');
-
             that.courseId = courseId;
-            that.isCommentsLoading(true);
 
-            return userContext.identify().then(() => {
-                this.hasAccessToComments(userContext.hasStarterAccess());
+            await userContext.identify();
+            
+            this.hasAccessToComments(userContext.hasStarterAccess());
+            if (userContext.hasStarterAccess()) {
 
-                if (userContext.hasStarterAccess()) {
-                    return commentRepository.getCollection(courseId).then((comments) => {
-                        that.comments(_.map(comments, (item) => {
-                            return {
-                                id: ko.observable(item.id),
-                                text: item.text,
-                                email: item.email,
-                                name: item.name,
-                                createdOn: item.createdOn,
-                                isDeleted: ko.observable(false)
-                            };
-                        }));
-                    });
-                }
-            }).fin(() => {
-                that.isCommentsLoading(false);
-            });
-        });        
+                let comments = await commentRepository.getCollection(courseId);
+                that.comments(_.map(comments, (item) => {
+                    return {
+                        id: ko.observable(item.id),
+                        text: item.text,
+                        email: item.email,
+                        name: item.name,
+                        createdOn: item.createdOn,
+                        isDeleted: ko.observable(false)
+                    };
+                }));
+            }
+        } catch (error) {
+            notify.error(error);
+        }
+
+        that.isCommentsLoading(false);
     }
 
     openUpgradePlanUrl() {

@@ -1,31 +1,31 @@
 ﻿CKEDITOR.plugins.setLang('documentembed', 'de', {
-    ebmedDocument: 'Embed documents [de]',
-    embedCodeMissing: 'Embed code is missing [de]',
-    pasteEmbedCode: 'Paste embed code here... [de]',
-    howItWork: 'Here is how it works: [de]',
-    thatIt: 'That\'s it! [de]',
-    googleDocuments: 'Google documents [de]',
-    googleDocumentsTitle: 'Embed your documents using Google Docs service. It\'s free! [de]',
-    slideshare: 'SlideShare [de]',
-    slideshareTitle: 'Embed your presentations using SlideShare service. It\'s free! [de]',
-    other: 'Other [de]',
-    otherTitle: 'Embed your documents from any other services that support "embedding". [de]',
+    ebmedDocument: 'Dokument einbetten',
+    embedCodeMissing: 'Einbettungscode fehlt',
+    pasteEmbedCode: 'Einbettungscode hier einfügen...',
+    howItWork: 'So funktioniert es:',
+    thatIt: 'Das ist alles!',
+    googleDocuments: 'Google-Dokumente',
+    googleDocumentsTitle: 'Betten Sie Ihre Dokumente mit dem Google Drive-Service ein. Kostenlos!',
+    slideshare: 'SlideShare',
+    slideshareTitle: 'Betten Sie Ihre Präsentationen mit dem SlideShare-Service ein. Kostenlos!',
+    other: 'Sonstiges',
+    otherTitle: 'Betten Sie Ihre Dokumente von allen anderen Services ein, die das „Einbetten“ unterstützen.',
     googleDocumentsExplanation: '<ol>' +
-                        '<li>Go to your <a href="https://www.google.com/intl/de/drive/" target="_blank">Google drive</a>. [de]</li>' +
-                        '<li>Open the document and select "Publish to the Web" under the "File" menu. [de]</li>' +
-                        '<li>If the document has not been published yet - click the "Publish" button. [de]</li>' +
-                        '<li>Open the "Embed" tab and copy the provided embed code. [de]</li>' +
-                        '<li>Paste this code into the field below. [de]</li>' +
+                        '<li>Gehen Sie zu Ihrem <a href=""https://www.google.com/intl/en/drive/"" target=""_blank"">Google Drive</a>.</li>' +
+                        '<li>Öffnen Sie das Dokument und wählen Sie „Im Internet veröffentlichen"" im Menü „Datei“.</li>' +
+                        '<li>Wenn das Dokument noch nicht veröffentlicht wurde, klicken Sie auf die Schaltfläche „Veröffentlichen“.' +
+                        '<li>Öffnen Sie die Registerkarte „Einbetten“ und kopieren Sie den bereitgestellten Einbettungscode.</li>' +
+                        '<li>Fügen Sie diesen Code in das Feld unten ein.</li>' +
                         '</ol>',
     slideshareExplanation: '<ol>' +
-                        '<li>Visit <a href="http://www.slideshare.net/" target="_blank">SlideShare website</a> and Sign up. [de]</li>' +
-                        '<li>Upload your presentation to SlideShare. [de]</li>' +
-                        '<li>Open your presentation and click the "Share" button below the player. [de]</li>' +
-                        '<li>Copy the Embed code that\'s provided and paste this code into the field below. [de]</li>' +
+                        '<li>Wechseln Sie zur<a href=""http://www.slideshare.net/"" target=""_blank"">SlideShare-Website</a> und melden Sie sich an.</li>' +
+                        '<li>Laden Sie Ihre Präsentation auf SlideShare hoch.</li>' +
+                        '<li>Öffnen Sie Ihre Präsentation und klicken Sie auf die Schaltfläche „Teilen“ unterhalb des Players.</li>' +
+                        '<li>Kopieren Sie den bereitgestellten Einbettungscode und fügen Sie ihn in das Feld unten ein.</li>' +
                         '</ol>',
     otherDocumentsExplanation: '<ol>' +
-                        '<li>Go to your service. [de]</li>' +
-                        '<li>Copy the embed code of the appropriate document. [de]</li>' +
-                        '<li>Paste this code into the field below. [de]</li>' +
+                        '<li>Wechseln Sie zu Ihrem Service.</li>' +
+                        '<li>Kopieren Sie den Einbettungscode des gewünschten Dokuments.</li>' +
+                        '<li>Fügen Sie diesen Code in das Feld unten ein.</li>' +
                         '</ol>'
 });

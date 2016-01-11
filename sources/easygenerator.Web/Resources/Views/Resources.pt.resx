@@ -366,4 +366,7 @@ Time Easygenerator&lt;/p&gt;
   <data name="YourMessage" xml:space="preserve">
     <value>Digite sua mensagem...</value>
   </data>
+  <data name="NotSupportedDeviceTitle" xml:space="preserve">
+    <value>Seu dispositivo não é suportado</value>
+  </data>
 </root>

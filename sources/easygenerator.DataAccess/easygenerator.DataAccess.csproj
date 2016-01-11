@@ -415,6 +415,10 @@
     <Compile Include="Migrations\201512141122524_UpdateSystemTemplatesOrder.Designer.cs">
       <DependentUpon>201512141122524_UpdateSystemTemplatesOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201512171009197_AddNewEditor.cs" />
+    <Compile Include="Migrations\201512171009197_AddNewEditor.Designer.cs">
+      <DependentUpon>201512171009197_AddNewEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201601041444111_AddLPDocuments.cs" />
     <Compile Include="Migrations\201601041444111_AddLPDocuments.Designer.cs">
       <DependentUpon>201601041444111_AddLPDocuments.cs</DependentUpon>
@@ -720,6 +724,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512141122524_UpdateSystemTemplatesOrder.resx">
       <DependentUpon>201512141122524_UpdateSystemTemplatesOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512171009197_AddNewEditor.resx">
+      <DependentUpon>201512171009197_AddNewEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601041444111_AddLPDocuments.resx">
       <DependentUpon>201601041444111_AddLPDocuments.cs</DependentUpon>

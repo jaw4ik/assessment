@@ -203,5 +203,14 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess();
         }
 
+        [HttpPost]
+        [Route("api/user/switcheditor")]
+        public ActionResult SwitchEditor()
+        {
+            var user = _repository.GetUserByEmail(GetCurrentUsername());
+            user.SwitchEditor(GetCurrentUsername());
+            return JsonSuccess();
+        }
+
     }
 }

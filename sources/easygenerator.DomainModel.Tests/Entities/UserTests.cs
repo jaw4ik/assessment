@@ -238,6 +238,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.AccessType.Should().Be(accessPlan);
             user.ExpirationDate.Should().Be(expirationDate);
             user.LastReadReleaseNote.Should().Be(lastReadReleaseNote);
+            user.NewEditor.Should().Be(null);
             user.Company.Should().Be(company);
         }
 
@@ -1511,6 +1512,90 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.UpdateLastReadReleaseNote("aaa", modifiedBy);
 
             user.ModifiedOn.Should().Be(dateTime);
+        }
+
+        #endregion
+
+        #region SwitchEditor
+
+        [TestMethod]
+        public void SwitchEditor_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.SwitchEditor(null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void SwitchEditor_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var user = UserObjectMother.Create();
+
+            Action action = () => user.SwitchEditor(string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void SwitchEditor_ShouldUpdateMoidifiedBy()
+        {
+            const string modifiedBy = "admin";
+            var user = UserObjectMother.Create();
+            user.SwitchEditor(modifiedBy);
+
+            user.ModifiedBy.Should().Be(modifiedBy);
+        }
+
+        [TestMethod]
+        public void SwitchEditor_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            const string modifiedBy = "admin";
+            var user = UserObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            user.SwitchEditor(modifiedBy);
+
+            user.ModifiedOn.Should().Be(dateTime);
+        }
+
+        [TestMethod]
+        public void SwitchEditor_WhenNewEditorIsNull_ShouldSetNewEditorToTrue()
+        {
+            var user = UserObjectMother.Create();
+            const string modifiedBy = "admin";
+
+            user.SwitchEditor(modifiedBy);
+
+            user.NewEditor.Should().Be(true);
+        }
+
+        [TestMethod]
+        public void SwitchEditor_WhenNewEditorIsFalse_ShouldSetNewEditorToTrue()
+        {
+            var user = UserObjectMother.Create(newEditor: false);
+            
+            const string modifiedBy = "admin";
+
+            user.SwitchEditor(modifiedBy);
+
+            user.NewEditor.Should().Be(true);
+        }
+
+        [TestMethod]
+        public void SwitchEditor_WhenNewEditorIsTrue_ShouldSetNewEditorToFalse()
+        {
+            var user = UserObjectMother.Create(newEditor: true);
+
+            const string modifiedBy = "admin";
+
+            user.SwitchEditor(modifiedBy);
+
+            user.NewEditor.Should().Be(false);
         }
 
         #endregion

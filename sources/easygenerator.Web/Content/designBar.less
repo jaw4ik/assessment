@@ -27,6 +27,16 @@
         @media screen and (max-width : 1630px) {
             & + * {
                 padding-left: @bar-width;
+
+                header .header .content-section-wrapper {
+                    margin-left: 300px;
+                }
+
+                & > header {
+                    .content-section-wrapper .content-section {
+                        min-width: 660px;
+                    }
+                }
             }
         }
 
@@ -64,7 +74,7 @@
                             }
 
                             &.layout {
-                                background-position:-84px -352px;
+                                background-position: -84px -352px;
                             }
                         }
                     }

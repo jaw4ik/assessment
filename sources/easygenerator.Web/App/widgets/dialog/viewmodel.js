@@ -3,6 +3,7 @@
         "use strict";
 
         var defaultSettings = {
+            boundless: false,
             autoclose: false,
             containerCss: ''
         };

@@ -366,4 +366,7 @@ L'équipe d'easygenerator &lt;/p&gt;
   <data name="YourMessage" xml:space="preserve">
     <value>Saisissez votre message...</value>
   </data>
+  <data name="NotSupportedDeviceTitle" xml:space="preserve">
+    <value>Votre appareil n'est pas pris en charge</value>
+  </data>
 </root>

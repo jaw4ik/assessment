@@ -1,11 +1,10 @@
-﻿define(['reporting/xApiProvider'], function (xApiProvider) {
-    'use strict';
+﻿import _ from 'underscore';
+import XApiProvider from 'reporting/xApiProvider';
+import FinishStatement from 'reporting/viewmodels/finishStatement';
 
-    return { getLrsStatements: getLrsStatements };
-
-    function getLrsStatements(entityId, take, skip) {
-        return xApiProvider.getLearningPathFinishedStatements(entityId, take, skip).then(function (statements) {
-            return { finished: statements };
-        });
+export default class {
+    static async getLrsStatements(spec) {
+        var statements = await XApiProvider.getLearningPathFinishedStatements(spec.entityId, spec.take, spec.skip);
+        return _.map(statements, statement => new FinishStatement(statement));
     }
-});
+}

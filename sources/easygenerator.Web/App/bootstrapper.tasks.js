@@ -7,7 +7,7 @@ import addWindowEventsTask from 'bootstrapping/addWindowEventsTask';
 import trackVideoUploadTask from 'bootstrapping/trackVideoUploadTask';
 import underscoreExtensionsTask from 'bootstrapping/underscoreExtensionsTask';
 
-export function getCollection () {
+function getCollection () {
     return [
         errorHandlingTask,
         routingTask,

@@ -1,71 +1,72 @@
-﻿define(['knockout', 'durandal/composition'], function (ko, composition) {
+﻿import ko from 'knockout';
+import perfectScrollbar from 'perfect-scrollbar';
+import 'perfect-scrollbar/dist/css/perfect-scrollbar.css!';
+import composition from 'durandal/composition';
 
-    ko.bindingHandlers.scrollbar = {
-        init: function (element, valueAccessor) {
-            var byClass = valueAccessor().byClass,
-                checkDOMChanges = valueAccessor().checkDOMChanges,
-                scrollToEndAfterDOMChanged = valueAccessor().scrollToEndAfterDOMChanged,
-                customScroll = null,
-                scrollOptions = {
-                    mouseWheel: true,
-                    disableMouse: true,
-                    scrollbars: 'custom',
-                    interactiveScrollbars: true,
-                    probeType: 2
-                },
-                cssClasses = {
-                    scrollStarted: 'cs-scroll-started',
-                    scrollFinished: 'cs-scroll-finished',
-                    scrollEnabled: 'cs-scroll-enabled'
-                };
+ko.bindingHandlers.scrollbar = {
+    init: (element, valueAccessors) => {
+        let byClass = valueAccessors().byClass;
+        let checkDOMChanges = valueAccessors().checkDOMChanges;
+        let scrollToEndAfterDOMChanged = valueAccessors().scrollToEndAfterDOMChanged;
+        let cssClasses = {
+            scrollStarted: 'cs-scroll-started',
+            scrollFinished: 'cs-scroll-finished',
+            scrollEnabled: 'cs-scroll-enabled'
+        };
 
-            var customScrollbarContainer = byClass ? element.getElementsByClassName(byClass)[0] : element;
+        let customScrollbarContainer = byClass ? element.getElementsByClassName(byClass)[0] : element;
 
-            customScroll = new IScroll(customScrollbarContainer, scrollOptions);
+        perfectScrollbar.initialize(customScrollbarContainer, {
+            suppressScrollX: true
+        });
 
-            if (checkDOMChanges) {
-                refreshScrollAfterDomChanged();
-            }
-
-            customScroll.on('scroll', function () {
-                customScrollbarContainer.classList.toggle(cssClasses.scrollStarted, this.y < 0);
-                customScrollbarContainer.classList.toggle(cssClasses.scrollFinished, this.y === customScroll.maxScrollY);
-            });
-
-            scrollEnabled();
-
-            ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-                customScroll.destroy();
-                customScroll = null;
-            });
-
-            document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
-
-            function refreshScrollAfterDomChanged() {
-                var scrollHeight = customScroll.scroller.clientHeight;
-                var interval = setInterval(function () {
-                    if (scrollHeight === customScroll.scroller.clientHeight) {
-                        return;
-                    }
-                    scrollHeight = customScroll.scroller.clientHeight;
-                    customScroll.refresh();
-                    if (scrollToEndAfterDOMChanged) {
-                        customScroll.scrollTo(0, customScroll.maxScrollY);
-                    }
-                    scrollEnabled();
-                }, 500);
-
-                ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-                    clearInterval(interval);
-                });
-            }
-
-            function scrollEnabled() {
-                customScrollbarContainer.classList.toggle(cssClasses.scrollEnabled, customScroll.hasVerticalScroll);
-            }
+        if (checkDOMChanges) {
+            refreshScrollAfterDomChanged();
         }
-    };
 
-    composition.addBindingHandler('scrollbar');
+        document.addEventListener('ps-y-reach-start', () => {
+            customScrollbarContainer.classList.remove(cssClasses.scrollStarted);
+        });
 
-});
+        document.addEventListener('ps-y-reach-end', () => {
+            customScrollbarContainer.classList.add(cssClasses.scrollFinished);
+        });
+
+        document.addEventListener('ps-scroll-up', () => {
+            customScrollbarContainer.classList.remove(cssClasses.scrollFinished);
+        });
+
+        document.addEventListener('ps-scroll-down', () => {
+            customScrollbarContainer.classList.add(cssClasses.scrollStarted);
+        });
+
+        scrollEnabled();
+
+        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+            perfectScrollbar.destroy(customScrollbarContainer);
+        });
+
+        function refreshScrollAfterDomChanged() {
+            let scrollHeight = customScrollbarContainer.clientHeight;
+            let interval = setInterval(() => {
+                if (scrollHeight === customScrollbarContainer.clientHeight) {
+                    return;
+                }
+                scrollHeight = customScrollbarContainer.clientHeight;
+                perfectScrollbar.update(customScrollbarContainer);
+                if (scrollToEndAfterDOMChanged) {
+                    customScrollbarContainer.scrollTop = customScrollbarContainer.scrollHeight;
+                }
+                scrollEnabled();
+            }, 500);
+
+            ko.utils.domNodeDisposal.addDisposeCallback(element, () => clearInterval(interval));
+        }
+
+        function scrollEnabled() {
+            customScrollbarContainer.classList.toggle(cssClasses.scrollEnabled, customScrollbarContainer.scrollHeight > customScrollbarContainer.clientHeight);
+        }
+    }
+};
+
+composition.addBindingHandler('scrollbar');

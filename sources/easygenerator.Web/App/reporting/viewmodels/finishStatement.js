@@ -3,7 +3,7 @@ import _ from 'underscore';
 import constants from 'constants';
 import ExpandableStatement from 'reporting/viewmodels/expandableStatement';
 import ObjectiveStatement from 'reporting/viewmodels/objectiveStatement';
-import xApiProvider from 'reporting/xApiProvider';
+import XApiProvider from 'reporting/xApiProvider';
 import localizationManager from 'localization/localizationManager';
 
 function getLearnerDisplayName(name, email) {
@@ -13,20 +13,22 @@ function getLearnerDisplayName(name, email) {
 }
 
 export default class extends ExpandableStatement {
-    constructor(finishedLrsStatement) {
+    constructor(finishedLrsStatement, startedLrsStatement, masteredStatements) {
         super(finishedLrsStatement);
-        this.startedLrsStatement = null;        
+        this.startedLrsStatement = startedLrsStatement;
+        if (masteredStatements === null || masteredStatements) {
+            masteredStatements ? this.children(masteredStatements) : this.children = null;
+        }
         this.learnerDisplayName = getLearnerDisplayName(this.lrsStatement.actor.name, this.lrsStatement.actor.email);
         this.passed = this.lrsStatement.verb === constants.reporting.xApiVerbIds.passed;
     }
 
     expandLoadAction() {
         return co.call(this, function*() {
-            var mastered = yield xApiProvider.getMasteredStatements(this.lrsStatement.attemptId),
-                started = yield xApiProvider.getStartedStatement(this.lrsStatement.attemptId),
+            var mastered = yield XApiProvider.getMasteredStatements(this.lrsStatement.attemptId),
                 objectiveStatements = _.map(mastered, statement => new ObjectiveStatement(statement));
-            this.startedLrsStatement = started[0];
-            this.children(objectiveStatements);
+
+            objectiveStatements.length ? this.children(objectiveStatements) : this.children = null;
         });
     }
 }

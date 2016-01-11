@@ -1,5 +1,11 @@
 @maxWidth: 960px;
 @minWidth: 635px;
+@animation-duration-default-value: 0.2s;
+
+@zindex-panel-right: 2100;
+@zindex-modal-blockout: 2200;
+@zindex-modal-dialog: 2300;
+@zindex-shell-header: 2100;
 
 .unselectable() {
     user-select: none;
@@ -35,22 +41,21 @@
     height: 36px;
     width: 36px;
     line-height: 35px;
-    background: linear-gradient(145deg, #73cece 0%,#65caca 0%,#73cece 40%,#4dc1c1 41%,#4dc1c1 100%);
+    background: linear-gradient(145deg,#71b4df 0%,#57a6d9 0%,#71b4df 40%,#469dd5 41%,#469dd5 100%);
     border: 2px solid #fff;
     border-radius: 3px;
     box-sizing: content-box;
     color: #fff;
-    font: 22px 'OpenSans-Semibold';
+    font: 24px 'OpenSans';
     text-align: center;
     vertical-align: top;
 }
 
 .user-avatar-wrapper() {
     position: relative;
-    border: 1px solid #EFEFEF;
     border-radius: 3px;
     display: inline-block;
-    box-shadow: 1px 1px 2px 0px rgba(219, 219, 219, 1);
+    box-shadow: 0 1px 3px 0 #dedede;
 }
 
 /*#endregion */
@@ -82,3 +87,13 @@
         color: @color;
     }
 }
+
+/*#region Transitions */
+
+.transition(@transition-property, @transition-duration: @animation-duration-default-value, @transition-function: linear) {
+    transition-property: @transition-property;
+    transition-timing-function: @transition-function;
+    transition-duration: @transition-duration;
+}
+
+/*#endregion */
