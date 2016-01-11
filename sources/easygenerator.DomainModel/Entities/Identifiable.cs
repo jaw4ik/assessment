@@ -2,7 +2,7 @@
 
 namespace easygenerator.DomainModel.Entities
 {
-    public abstract class Identifiable
+    public abstract class Identifiable: IIdentifieble
     {
         protected Identifiable()
         {

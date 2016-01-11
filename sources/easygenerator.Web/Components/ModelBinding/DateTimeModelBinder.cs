@@ -8,7 +8,7 @@ namespace easygenerator.Web.Components.ModelBinding
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
             var value = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
-            var submittedValue = value == null ? null : value.AttemptedValue;
+            var submittedValue = value?.AttemptedValue;
 
             if (string.IsNullOrEmpty(submittedValue))
             {

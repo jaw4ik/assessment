@@ -2,9 +2,10 @@
  'eventTracker', 'viewmodels/learningPaths/courseSelector/courseSelector',
  'durandal/app', 'viewmodels/learningPaths/learningPath/courseBrief', 'viewmodels/learningPaths/learningPath/commands/addCourseCommand',
 'viewmodels/learningPaths/learningPath/commands/removeCourseCommand', 'repositories/courseRepository', 'notify', 'viewmodels/learningPaths/learningPath/commands/updateCoursesOrderCommand', 'dialogs/course/createCourse/createCourse',
+'dialogs/document/create', 'commands/createDocumentCommand',
 'knockout'],
     function (getLearningPathByIdQuery, router, constants, localizationManager, eventTracker, courseSelector, app, CourseBrief,
-         addCourseCommand, removeCourseCommand, courseRepository, notify, updateCoursesOrderCommand, createCourseDialog, ko) {
+         addCourseCommand, removeCourseCommand, courseRepository, notify, updateCoursesOrderCommand, createCourseDialog, createDocumentDialog, createDocumentCommand, ko) {
         "use strict";
 
         var
@@ -16,7 +17,16 @@
                 createNewCourse: 'Open \'Create course\' dialog',
                 hideAvailableCourses: 'Hide courses available for the learning path (Done)',
                 changeCoursesOrder: 'Change order of courses',
-                navigateToCourseDetails: 'Navigate to course details'
+                navigateToCourseDetails: 'Navigate to course details',
+                addPowerPointDocument: 'Open \'Add PowerPoint document\' popup',
+                addPdfDocument: 'Open \'Add PDF document\' popup',
+                addOfficeDocument: 'Open \'Add Office documents\' popup',
+                powerPointDocumentAdded: 'PowerPoint document added',
+                pdfDocumentAdded: 'PDF document added',
+                OfficeDocumentAdded: 'Office document added',
+                cancelAddPowerPointDocument: 'Close \'Add PowerPoint document\' popup',
+                cancelAddPdfDocument: 'Close \'Add PDF document\' popup',
+                cancelAddOfficeDocument: 'Close \'Add Office document\' popup'
             },
             viewModel = {
                 id: null,
@@ -27,11 +37,14 @@
                 createCourseCallback: createCourseCallback,
                 addCourses: addCourses,
                 finishAddingCourses: finishAddingCourses,
+                addPowerPointDocument: addPowerPointDocument,
+                addPdfDocument: addPdfDocument,
+                addOfficeDocument: addOfficeDocument,
                 courseSelector: courseSelector,
                 addCourse: addCourse,
                 removeCourse: removeCourse,
                 courseDeleted: courseDeleted,
-                courses: ko.observableArray([]),
+                entities: ko.observableArray([]),
                 addCoursesPopoverVisibility: ko.observable(false),
                 currentLanguage: '',
                 updateCoursesOrder: updateCoursesOrder,
@@ -42,7 +55,7 @@
             };
 
         viewModel.isSortingEnabled = ko.computed(function () {
-            return viewModel.courses().length > 1;
+            return viewModel.entities().length > 1;
         });
 
         return viewModel;
@@ -63,14 +76,14 @@
             app.on(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
 
             return getLearningPathByIdQuery.execute(viewModel.id).then(function (learningPath) {
-                viewModel.courseSelector.isExpanded(learningPath.courses.length === 0);
+                viewModel.courseSelector.isExpanded(learningPath.entities.length === 0);
 
-                var collection = _.chain(learningPath.courses)
+                var collection = _.chain(learningPath.entities)
                      .map(function (item) {
                          return new CourseBrief(item);
                      }).value();
 
-                viewModel.courses(collection);
+                viewModel.entities(collection);
             });
         }
 
@@ -92,10 +105,34 @@
             courseSelector.collapse();
         }
 
+        function addDocument(type, openDialogEvent, finishEvent, cancelEvent) {
+            eventTracker.publish(openDialogEvent);
+            createDocumentDialog.show(cancelEvent, function(title, embedCode) {
+                if (title && embedCode) {
+                    createDocumentCommand.execute(type, title, embedCode).then(function (document) {
+                        eventTracker.publish(finishEvent);
+                        viewModel.entities.push(document);
+                    });
+                }
+            });
+        }
+
+        function addPowerPointDocument() {
+            addDocument(constants.documentType.powerPoint, events.addPowerPointDocument, events.powerPointDocumentAdded, events.cancelAddPowerPointDocument);
+        }
+
+        function addPdfDocument() {
+            addDocument(constants.documentType.pdf, events.addPdfDocument, events.pdfDocumentAdded, events.cancelAddPdfDocument);
+        }
+
+        function addOfficeDocument() {
+            addDocument(constants.documentType.office, events.addOfficeDocument, events.OfficeDocumentAdded, events.cancelAddOfficeDocument);
+        }
+
         function addCourse(courseId) {
             eventTracker.publish(events.addCourse);
             courseRepository.getById(courseId).then(function (course) {
-                viewModel.courses.push(new CourseBrief(course));
+                viewModel.entities.push(new CourseBrief(course));
             });
 
             addCourseCommand.execute(viewModel.id, courseId).then(function () {
@@ -113,11 +150,11 @@
         }
 
         function courseDeleted(courseId) {
-            viewModel.courses(_.reject(viewModel.courses(), function (item) {
+            viewModel.entities(_.reject(viewModel.entities(), function (item) {
                 return item.id === courseId;
             }));
 
-            if (!viewModel.courseSelector.isExpanded() && viewModel.courses().length === 0) {
+            if (!viewModel.courseSelector.isExpanded() && viewModel.entities().length === 0) {
                 viewModel.courseSelector.expand();
             }
         }
@@ -135,14 +172,14 @@
 
         function updateCoursesOrder() {
             eventTracker.publish(events.changeCoursesOrder);
-            updateCoursesOrderCommand.execute(viewModel.id, viewModel.courses())
+            updateCoursesOrderCommand.execute(viewModel.id, viewModel.entities())
                 .then(function () {
                     notify.saved();
                 });
         }
 
         function courseTitleUpdated(course) {
-            var courseBrief = _.find(viewModel.courses(), function (item) {
+            var courseBrief = _.find(viewModel.entities(), function (item) {
                 return item.id === course.id;
             });
 

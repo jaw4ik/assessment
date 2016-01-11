@@ -21,8 +21,8 @@ namespace easygenerator.Web.Components.ModelBinding
         {
             var result = new Collection<T>();
 
-            int enumerator = 0;
-            ValueProviderResult id = bindingContext.ValueProvider.GetValue(bindingContext.ModelName + "[" + enumerator + "]");
+            var enumerator = 0;
+            var id = bindingContext.ValueProvider.GetValue(bindingContext.ModelName + "[" + enumerator + "]");
 
             for (; id != null; enumerator++, id = bindingContext.ValueProvider.GetValue(bindingContext.ModelName + "[" + enumerator + "]"))
             {

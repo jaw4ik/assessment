@@ -275,6 +275,97 @@
             .btn.add-courses {
                 padding: 8px 35px;
             }
+
+            .add-entities-action-wrapper {
+                visibility: hidden;
+                position: absolute;
+                top: 46px;
+                right: 0;
+                border-bottom: 1px solid #d1dbe0;
+                border-radius: 3px;
+                box-shadow: 0 0 4px 0 #b2b2b2;
+                background: white;
+                transform: scale(0, 0);
+                transform-origin: top right;
+                opacity: 0;
+                transition: all 0.3s;
+
+                &.visible {
+                    visibility: visible;
+                    transform: scale(1, 1);
+                    opacity: 1;
+                }
+
+                .add-entities-action-items {
+                    list-style-type: none;
+                    position: relative;
+                    width: 260px;
+                    padding: 14px 0;
+
+                    .add-entities-actions-separator {
+                        margin: 6px 20px;
+                        background: #e8edef;
+                        height: 1px;
+                    }
+
+                    .add-entities-action-item {
+                        width: 100%;
+                        overflow: hidden;
+                        padding: 0 16px;
+                        cursor: pointer;
+
+                        &:hover {
+                            background: #ebf0f2;
+                        }
+
+                        .add-entities-action-item-title {
+                            display: inline-block;
+                            vertical-align: middle;
+                            max-width: 200px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            font: 15px 'OpenSans';
+                            color: #546677;
+                            line-height: 40px;
+                        }
+
+                        .action-item-icon {
+                            display: inline-block;
+                            vertical-align: middle;
+                            width: 24px;
+                            height: 24px;
+                            margin-right: 10px;
+                            background-image: url('images/sprites_24.png');
+                            background-repeat: no-repeat;
+
+                            &.new-course {
+                                background-position: -30px -116px;
+                            }
+
+                            &.existing-course {
+                                background-position: -59px -116px;
+                            }
+
+                            &.power-point {
+                                background-position: -88px -116px;
+                            }
+
+                            &.video {
+                                background-position: -117px -116px;
+                            }
+
+                            &.pdf {
+                                background-position: -147px -116px;
+                            }
+
+                            &.office-documents {
+                                background-position: -175px -116px;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -529,6 +620,124 @@
         }
     }
 }
+/*#endregion*/
+
+/*#region create document popup*/
+
+.modal-dialog-wrapper {
+    &.document {
+        position: fixed;
+        width: 600px;
+        margin: 0 auto;
+        margin-top: -320px;
+        top: 50%;
+        left: 0;
+        right: 0;
+        box-sizing: content-box;
+        z-index: 2200;
+
+        .document-dialog-close-btn {
+            position: absolute;
+            top: -22px;
+            right: -22px;
+            width: 16px;
+            height: 16px;
+            background: url('images/sprites_16.png') -42px 0;
+            opacity: 0.7;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+        .document-dialogue-container {
+            .document-dialog-header {
+                margin-top: 44px;
+                margin-bottom: 30px;
+                text-align: center;
+
+                .document-dialog-header-icon {
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 64px;
+                    height: 64px;
+                    margin-bottom: 16px;
+                    background: url('images/sprites_64.png') -69px -540px no-repeat;
+                }
+
+                .document-dialog-title {
+                    font: 28px 'RobotoSlab';
+                    color: #546677;
+                }
+            }
+
+            .document-dialog-content-container {
+                padding: 0 90px;
+
+                .document-dialog-description {
+                    ol {
+                        list-style-position: inside;
+
+                        li {
+                            font: 13px 'OpenSans';
+                            color: #63798e;
+                            line-height: 26px;
+
+                            a {
+                                color: #469dd5;
+
+                                &:hover {
+                                    color: #2177ae;
+                                    text-decoration: underline;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .document-embed-code-section, .document-title-section {
+                    .field-container, .scrollable-field-container {
+                        position: relative;
+                    }
+                }
+
+                .document-embed-code-section {
+                    .edit-field-wrapper {
+                        margin: 30px 0 0 0;
+                        position: relative;
+                        height: 150px;
+                        overflow: hidden;
+
+                        .edit-field {
+                            min-height: 148px;
+                        }
+                    }
+                }
+
+                .document-title-section {
+                    margin-top: 30px;
+                }
+            }
+
+            .document-dialog-footer {
+                background: #f3f7f9;
+                margin-top: 34px;
+                text-align: center;
+                padding: 24px;
+                border-bottom-left-radius: 4px;
+                border-bottom-right-radius: 4px;
+
+                .add-document-btn {
+                    text-transform: uppercase;
+                    padding: 10px;
+                    min-width: 174px;
+                }
+            }
+        }
+    }
+}
+
 /*#endregion*/
 
 /*#region Media queries */

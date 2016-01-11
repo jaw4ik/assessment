@@ -9,7 +9,7 @@ using easygenerator.DomainModel.Events.CommentEvents;
 
 namespace easygenerator.DomainModel.Entities
 {
-    public class Course : Entity
+    public class Course : Entity, ILearningPathEntity
     {
         protected internal Course()
         {

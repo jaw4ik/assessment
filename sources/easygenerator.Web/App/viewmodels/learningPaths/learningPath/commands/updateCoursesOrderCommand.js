@@ -3,21 +3,21 @@
         "use strict";
 
         return {
-            execute: function (learningPathId, courses) {
-                return apiHttpWrapper.post('/api/learningpath/courses/order/update', {
+            execute: function (learningPathId, entities) {
+                return apiHttpWrapper.post('/api/learningpath/entities/order/update', {
                     learningPathId: learningPathId,
-                    courses: _.map(courses, function (course) {
-                        return course.id;
+                    entities: _.map(entities, function (entity) {
+                        return entity.id;
                     })
                 })
                 .then(function () {
                     var learningPath = _.find(dataContext.learningPaths, function (item) {
-                        return item.id == learningPathId;
+                        return item.id === learningPathId;
                     });
 
-                    learningPath.courses = _.map(courses, function (course) {
-                        return _.find(learningPath.courses, function (item) {
-                            return item.id == course.id;
+                    learningPath.entities = _.map(entities, function (entity) {
+                        return _.find(learningPath.entities, function (item) {
+                            return item.id === entity.id;
                         });
                     });
                 });

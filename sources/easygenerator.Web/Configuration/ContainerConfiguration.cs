@@ -71,6 +71,9 @@ namespace easygenerator.Web.Configuration
             builder.RegisterGeneric(typeof(EntityModelBinder<>)).As(typeof(IEntityModelBinder<>));
             builder.RegisterGeneric(typeof(EntityCollectionModelBinder<>)).As(typeof(IEntityCollectionModelBinder<>));
 
+            builder.RegisterType<LearningPathEntityModelBinder>().As<ILearningPathEntityModelBinder>();
+            builder.RegisterType<LearningPathEntityCollectionModelBinder>().As<ILearningPathEntityCollectionModelBinder>();
+
             builder.RegisterType<BuildPathProvider>();
             builder.RegisterType<PhysicalFileManager>();
             builder.RegisterType<MagickImageResizer>().As<IImageResizer>();

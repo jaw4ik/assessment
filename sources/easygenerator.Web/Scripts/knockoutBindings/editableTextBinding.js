@@ -32,7 +32,8 @@
             event.stopPropagation();
         }).on('focus', function() {
             $element.on('DOMSubtreeModified', updateValue);
-        }).on('blur', function() {
+        }).on('blur', function () {
+            $element.scrollLeft(0);
             $element.off('DOMSubtreeModified', updateValue);
         });
 

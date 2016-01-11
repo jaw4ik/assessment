@@ -52,6 +52,10 @@
     <Compile Include="Entities\CourseState.cs" />
     <Compile Include="Entities\CourseTemplateSettings.cs" />
     <Compile Include="Entities\DemoCourseInfo.cs" />
+    <Compile Include="Entities\Document.cs" />
+    <Compile Include="Entities\DocumentType.cs" />
+    <Compile Include="Entities\IIdentifieble.cs" />
+    <Compile Include="Entities\ILearningPathEntity.cs" />
     <Compile Include="Entities\LtiUserInfo.cs" />
     <Compile Include="Entities\OrderingUtils.cs" />
     <Compile Include="Entities\Identifiable.cs" />
@@ -176,6 +180,7 @@
     <Compile Include="Repositories\ICourseStateRepository.cs" />
     <Compile Include="Repositories\IDemoCourseRepository.cs" />
     <Compile Include="Repositories\IImageFileRepository.cs" />
+    <Compile Include="Repositories\IDocumentRepository.cs" />
     <Compile Include="Repositories\ILearningPathRepository.cs" />
     <Compile Include="Repositories\IOnboardingRepository.cs" />
     <Compile Include="Repositories\IPasswordRecoveryTicketRepository.cs" />

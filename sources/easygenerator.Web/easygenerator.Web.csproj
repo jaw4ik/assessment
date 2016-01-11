@@ -281,13 +281,19 @@
     <Compile Include="Components\Mappers\EntityMapper.cs" />
     <Compile Include="Components\Mappers\HotSpotPolygonMapper.cs" />
     <Compile Include="Components\Mappers\IEntityMapper.cs" />
+    <Compile Include="Components\Mappers\DocumentMapper.cs" />
     <Compile Include="Components\Mappers\LearningPathMapper.cs" />
     <Compile Include="Components\Mappers\SingleSelectImageAnswerMapper.cs" />
     <Compile Include="Components\Mappers\TemplateMapper.cs" />
     <Compile Include="Components\Mappers\TextMatchingAnswerMapper.cs" />
+    <Compile Include="Components\ModelBinding\LearningPathEntityCollectionModelBinderProvider.cs" />
+    <Compile Include="Components\ModelBinding\LearningPathEntityCollectionModelBinder.cs" />
+    <Compile Include="Components\ModelBinding\LearningPathEntityModelBinderProvider.cs" />
+    <Compile Include="Components\ModelBinding\LearningPathEntityModelBinder.cs" />
     <Compile Include="Components\ReleaseNoteFileReader.cs" />
     <Compile Include="Components\TypeMethodInvoker.cs" />
     <Compile Include="Configuration\MagickImageResizerConfiguration.cs" />
+    <Compile Include="Controllers\Api\DocumentController.cs" />
     <Compile Include="Controllers\Api\ScenarioController.cs" />
     <Compile Include="Controllers\Api\CourseImportController.cs" />
     <Compile Include="Controllers\Api\HotSpotQuestionController.cs" />
@@ -605,6 +611,7 @@
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
     <Content Include="App\bootstrapping\underscoreExtensionsTask.js" />
     <Content Include="App\browse.js" />
+    <Content Include="App\commands\createDocumentCommand.js" />
     <Content Include="App\components\bindingHandlers\expandableBlockBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\fileDropUploadBindingHandler.js" />
     <Content Include="App\core\durandal\activator.js" />
@@ -653,6 +660,8 @@
     <Content Include="App\dialogs\course\publishCourse\publishDialog.spec.js">
       <DependentUpon>publishDialog.js</DependentUpon>
     </Content>
+    <Content Include="App\dialogs\document\create.html" />
+    <Content Include="App\dialogs\document\create.js" />
     <Content Include="App\dialogs\learningPath\customPublish.html" />
     <Content Include="App\dialogs\learningPath\customPublish.js" />
     <Content Include="App\dialogs\learningPath\customPublish.spec.js">
@@ -672,6 +681,8 @@
     <Content Include="App\dialogs\branchtrack\branchtrack.html" />
     <Content Include="App\dialogs\branchtrack\branchtrack.js" />
     <Content Include="App\localization\lang\en.json" />
+    <Content Include="App\mappers\documentModelMapper.js" />
+    <Content Include="App\models\document.js" />
     <Content Include="App\Query.js" />
     <Content Include="App\Command.js" />
     <Content Include="App\commands\createCourseCommand.js" />

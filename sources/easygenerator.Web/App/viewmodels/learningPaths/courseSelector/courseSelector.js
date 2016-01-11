@@ -49,7 +49,7 @@
                             var collection = _.chain(courses)
                                 .sortBy(function (item) { return -item.createdOn; })
                                 .map(function (item) {
-                                    return mapCourseBrief(item, learningPath.courses);
+                                    return mapCourseBrief(item, learningPath.entities);
                                 }).value();
 
                             viewModel.courses(collection);

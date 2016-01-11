@@ -1,0 +1,36 @@
+﻿<section data-bind="if: isShown">
+    <div class="modal-dialog-wrapper document" data-bind="dialog: { autoclose: false, isShown: isShown }, css: { visible: isShown }">
+        <div class="document-dialog-close-btn" data-bind="click: hide"></div>
+        <div class="document-dialogue-container">
+            <header class="document-dialog-header">
+                <div class="document-dialog-header-icon"></div>
+                <h2 class="document-dialog-title" data-bind="localize: { text: 'documentPopupTitle' }"></h2>
+            </header>
+            <section class="document-dialog-content-container">
+                <div class="document-dialog-description" data-bind="html: description"></div>
+                <div class="document-title-section">
+                    <div class="edit-field-wrapper solid single-inline" data-bind="css: { 'active': isTitleEditing(), 'error': isTitleChanged() && !isTitleValid() }">
+                        <div class="field-container">
+                            <div class="edit-field-paceholder" data-bind="localize: { text: 'documentTitle' }, css: { focused: isTitleEditing() || title().length !== 0 }"></div>
+                            <div class="edit-field selectable" data-bind=" editableText: { text: title }, event: { focus: beginEditTitle, blur: endEditTitle }"></div>
+                            <div class="validation-message">
+                                <span data-bind="text: !_.isNullOrUndefined(title()) && title().length"></span>/<span data-bind="text: titleMaxLength"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="document-embed-code-section">
+                    <div class="edit-field-wrapper solid scrollable" data-bind="css: { 'active': isEmbedCodeEditing(), 'error': isEmbedCodeChanged() && !isEmbedCodeValid() }, scrollbar: { checkDOMChanges: true, scrollToEndAfterDOMChanged: true }">
+                        <div class="scrollable-field-container">
+                            <div class="edit-field-paceholder" data-bind="localize: { text: 'embedCode' }, css: { focused: isEmbedCodeEditing() || embedCode().length !== 0 }"></div>
+                            <div class="edit-field selectable" data-bind=" editableText: { text: embedCode }, event: { focus: beginEditEmbedCode, blur: endEditEmbedCode }"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <footer class="document-dialog-footer">
+                <button class="btn green add-document-btn" data-bind="localize: { text: 'done' }, click: submit, css: { disabled: !isTitleValid() || !isEmbedCodeValid() }, enable: isTitleValid() && isEmbedCodeValid()">Done</button>
+            </footer>
+        </div>
+    </div>
+</section>

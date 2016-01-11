@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
@@ -33,7 +34,7 @@ namespace easygenerator.Web.BuildLearningPath
             _fileManager.DeleteDirectory(contentDirectoryName);
             _fileManager.CreateDirectory(contentDirectoryName);
 
-            AddCoursesToPackageDirectory(buildDirectory, learningPath.Courses);
+            AddCoursesToPackageDirectory(buildDirectory, learningPath.Entities.OfType<Course>());
 
             var packageModel = _packageModelMapper.MapLearningPath(learningPath);
             AddModelToPackageDirectory(buildDirectory, packageModel);

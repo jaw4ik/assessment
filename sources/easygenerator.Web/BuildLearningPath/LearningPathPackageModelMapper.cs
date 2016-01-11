@@ -29,7 +29,7 @@ namespace easygenerator.Web.BuildLearningPath
                 Id = learningPath.Id.ToNString(),
                 CreatedOn = DateTimeWrapper.Now(),
                 Title = learningPath.Title,
-                Courses = (learningPath.Courses ?? new Collection<Course>()).Select(MapCourse).ToList()
+                Courses = (learningPath.Entities ?? new Collection<Course>()).OfType<Course>().Select(MapCourse).ToList()
             };
         }
 

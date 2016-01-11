@@ -17,6 +17,7 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfTitleIsInvalid(title);
 
             CoursesCollection = new Collection<Course>();
+            DocumentsCollection = new Collection<Document>();
 
             Title = title;
         }
@@ -64,66 +65,82 @@ namespace easygenerator.DomainModel.Entities
 
         protected internal virtual ICollection<Course> CoursesCollection { get; set; }
 
-        protected internal string CoursesOrder { get; set; }
+        protected internal virtual ICollection<Document> DocumentsCollection { get; set; }
 
-        public virtual IEnumerable<Course> Courses
+        protected internal string EntitiesOrder { get; set; }
+
+        public virtual IEnumerable<ILearningPathEntity> Entities
         {
-            get { return GetOrderedCourses().AsEnumerable(); }
+            get { return GetOrderedEntities().AsEnumerable(); }
         }
 
-        public virtual void AddCourse(Course course, int? index, string modifiedBy)
+        public virtual void AddEntity(ILearningPathEntity entity, int? index, string modifiedBy)
         {
-            ThrowIfCourseIsInvalid(course);
+            ThrowIfEntityIsInvalid(entity);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
-            if (!CoursesCollection.Contains(course))
+            if (!CoursesCollection.Contains(entity) && !DocumentsCollection.Contains(entity))
             {
-                var courses = GetOrderedCourses();
+                var entities = GetOrderedEntities();
                 if (index.HasValue)
                 {
-                    courses.Insert(index.Value, course);
+                    entities.Insert(index.Value, entity);
                 }
                 else
                 {
-                    courses.Add(course);
+                    entities.Add(entity);
                 }
 
-                DoUpdateCoursesOrder(courses, modifiedBy);
+                DoUpdateEntitiesOrder(entities, modifiedBy);
 
-                CoursesCollection.Add(course);
+                if (entity is Course)
+                {
+                    CoursesCollection.Add((Course) entity);
+                }
+                else if (entity is Document)
+                {
+                    DocumentsCollection.Add((Document) entity);
+                }
             }
 
             MarkAsModified(modifiedBy);
         }
 
-        public virtual void RemoveCourse(Course course, string modifiedBy)
+        public virtual void RemoveEntity(ILearningPathEntity entity, string modifiedBy)
         {
-            ThrowIfCourseIsInvalid(course);
+            ThrowIfEntityIsInvalid(entity);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
-            var courses = GetOrderedCourses();
-            courses.Remove(course);
-            DoUpdateCoursesOrder(courses, modifiedBy);
+            var entities = GetOrderedEntities();
+            entities.Remove(entity);
+            DoUpdateEntitiesOrder(entities, modifiedBy);
 
-            CoursesCollection.Remove(course);
+            if (entity is Course)
+            {
+                CoursesCollection.Remove((Course) entity);
+            }
+            else if (entity is Document)
+            {
+                DocumentsCollection.Remove((Document) entity);
+            }
 
             MarkAsModified(modifiedBy);
         }
 
-        public void UpdateCoursesOrder(ICollection<Course> courses, string modifiedBy)
+        public void UpdateEntitiesOrder(ICollection<ILearningPathEntity> entities, string modifiedBy)
         {
-            DoUpdateCoursesOrder(courses, modifiedBy);
+            DoUpdateEntitiesOrder(entities, modifiedBy);
         }
 
-        private void DoUpdateCoursesOrder(ICollection<Course> courses, string modifiedBy)
+        private void DoUpdateEntitiesOrder(ICollection<ILearningPathEntity> entities, string modifiedBy)
         {
-            CoursesOrder = OrderingUtils.GetOrder(courses);
+            EntitiesOrder = OrderingUtils.GetOrder(entities);
             MarkAsModified(modifiedBy);
         }
 
-        private IList<Course> GetOrderedCourses()
+        private IList<ILearningPathEntity> GetOrderedEntities()
         {
-            return OrderingUtils.OrderCollection(CoursesCollection, CoursesOrder);
+            return OrderingUtils.OrderCollection(CoursesCollection.Concat(DocumentsCollection.Cast<ILearningPathEntity>()), EntitiesOrder);
         }
 
         #endregion
@@ -132,23 +149,23 @@ namespace easygenerator.DomainModel.Entities
 
         private void ThrowIfTitleIsInvalid(string title)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(title, "title");
-            ArgumentValidation.ThrowIfLongerThan255(title, "title");
+            ArgumentValidation.ThrowIfNullOrEmpty(title, nameof(title));
+            ArgumentValidation.ThrowIfLongerThan255(title, nameof(title));
         }
 
-        private void ThrowIfCourseIsInvalid(Course course)
+        private void ThrowIfEntityIsInvalid(ILearningPathEntity entity)
         {
-            ArgumentValidation.ThrowIfNull(course, "course");
+            ArgumentValidation.ThrowIfNull(entity, nameof(entity));
         }
 
         private void ThrowIfPackageUrlIsInvalid(string packageUrl)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(packageUrl, "packageUrl");
+            ArgumentValidation.ThrowIfNullOrEmpty(packageUrl, nameof(packageUrl));
         }
 
         private void ThrowIfPublicationUrlIsInvalid(string publicationUrl)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(publicationUrl, "publicationUrl");
+            ArgumentValidation.ThrowIfNullOrEmpty(publicationUrl, nameof(publicationUrl));
         }
 
         #endregion

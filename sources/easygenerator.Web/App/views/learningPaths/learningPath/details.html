@@ -11,32 +11,48 @@
                     <div class="page-view-caption-text" data-bind="localize: { text: 'coursesInThePath' }"></div>
                 </div>
                 <div class="page-view-caption-actions action-item-btn-wrapper">
-                    <button class="action-item-btn btn confirm" data-bind="click: finishAddingCourses, css: { disabled: courses().length === 0 }, enable: courses().length > 0, visible: courseSelector.isExpanded">
+                    <button class="action-item-btn btn confirm" data-bind="click: finishAddingCourses, css: { disabled: entities().length === 0 }, enable: entities().length > 0, visible: courseSelector.isExpanded">
                         <span class="action-item-btn-caption" data-bind="localize: { text: 'done' }"></span>
                     </button>
                     <div data-bind="visible: !courseSelector.isExpanded()">
                         <button class="action-item-btn btn create-item dropdown add-courses green" data-bind="click: toggleAddCoursesPopoverVisibility, outsideClick: { action: hideAddCoursesPopover }, css: { expanded: addCoursesPopoverVisibility() }">
                             <span class="action-item-btn-caption" data-bind="localize: { text: 'addCourses' }">Add courses</span>
                         </button>
-                        <div class="new-course-action-wrapper" data-bind="css: { visible: addCoursesPopoverVisibility }">
-                            <ul class="new-course-action-items">
-                                <li class="new-course-action-item" data-bind="click: addCourses">
-                                    <span class="new-course-action-add-existing-icon"></span>
-                                    <span class="new-course-action-item-title" data-bind="localize: { text: 'existingCourse' }">Existing course</span>
+                        <div class="add-entities-action-wrapper" data-bind="css: { visible: addCoursesPopoverVisibility }">
+                            <ul class="add-entities-action-items">
+                                <li class="add-entities-action-item" data-bind="click: createNewCourse">
+                                    <span class="action-item-icon new-course"></span>
+                                    <span class="add-entities-action-item-title" data-bind="localize: { text: 'createNewCourse' }">New course</span>
                                 </li>
-                                <li class="new-course-actions-separator"></li>
-                                <li class="new-course-action-item" data-bind="click: createNewCourse">
-                                    <span class="new-course-action-create-course-icon"></span>
-                                    <span class="new-course-action-item-title" data-bind="localize: { text: 'createNewCourse' }">New course</span>
+                                <li class="add-entities-action-item" data-bind="click: addCourses">
+                                    <span class="action-item-icon existing-course"></span>
+                                    <span class="add-entities-action-item-title" data-bind="localize: { text: 'existingCourse' }">Existing course</span>
+                                </li>
+                                <li class="add-entities-actions-separator"></li>
+                                <li class="add-entities-action-item" data-bind="click: addPowerPointDocument">
+                                    <span class="action-item-icon power-point"></span>
+                                    <span class="add-entities-action-item-title" data-bind="localize: { text: 'powerPoint' }">PowerPoint</span>
+                                </li>
+                                <li class="add-entities-action-item">
+                                    <span class="action-item-icon video"></span>
+                                    <span class="add-entities-action-item-title" data-bind="localize: { text: 'video' }">Video</span>
+                                </li>
+                                <li class="add-entities-action-item" data-bind="click: addPdfDocument">
+                                    <span class="action-item-icon pdf"></span>
+                                    <span class="add-entities-action-item-title" data-bind="localize: { text: 'pdf' }">PDF</span>
+                                </li>
+                                <li class="add-entities-action-item" data-bind="click: addOfficeDocument">
+                                    <span class="action-item-icon office-documents"></span>
+                                    <span class="add-entities-action-item-title" data-bind="localize: { text: 'officeDocuments' }">Office documents</span>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- ko ifnot: courses().length === 0  -->
-            <ul class="unstyled main-content-list" data-bind="sortable: { data: courses, afterMove: updateCoursesOrder, isEnabled: isSortingEnabled, options: {handle: '.list-item-drag-icon' }}">
-                <!-- ko foreach: courses -->
+            <!-- ko ifnot: entities().length === 0  -->
+            <ul class="unstyled main-content-list" data-bind="sortable: { data: entities, afterMove: updateCoursesOrder, isEnabled: isSortingEnabled, options: {handle: '.list-item-drag-icon' }}">
+                <!-- ko foreach: entities -->
                 <li class="main-content-list-item draggable">
                     <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
                         <!-- ko if: $parent.isSortingEnabled() -->
@@ -87,9 +103,11 @@
             <!-- /ko -->
         </div>
     </div>
-    <!-- ko if: courses().length === 0 -->
+    <!-- ko if: entities().length === 0 -->
     <div class="tip-arrow-holder">
         <div class="tip-arrow-text" data-bind="localize: { text : 'selectCoursesHint' }"></div>
     </div>
     <!-- /ko -->
+
+    <!-- ko compose: 'dialogs/document/create' --><!-- /ko -->
 </section>

@@ -74,7 +74,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [Route("api/learningpath/course/add")]
-        public ActionResult AddCourse(LearningPath learningPath, Course course, int? index)
+        public ActionResult AddCourse(LearningPath learningPath, ILearningPathEntity course, int? index)
         {
             if (learningPath == null)
             {
@@ -86,14 +86,33 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Errors.CourseNotFoundError, Errors.CourseNotFoundResourceKey);
             }
 
-            learningPath.AddCourse(course, index, GetCurrentUsername());
+            learningPath.AddEntity(course, index, GetCurrentUsername());
+
+            return JsonSuccess();
+        }
+
+        [HttpPost]
+        [Route("api/learningpath/document/add")]
+        public ActionResult AddDocument(LearningPath learningPath, ILearningPathEntity document, int? index)
+        {
+            if (learningPath == null)
+            {
+                return JsonLocalizableError(Errors.LearningPathNotFoundError, Errors.LearningPathNotFoundResourceKey);
+            }
+
+            if (document == null)
+            {
+                return JsonLocalizableError(Errors.DocumentNotFoundError, Errors.DocumentNotFoundResourceKey);
+            }
+
+            learningPath.AddEntity(document, index, GetCurrentUsername());
 
             return JsonSuccess();
         }
 
         [HttpPost]
         [Route("api/learningpath/course/remove")]
-        public ActionResult RemoveCourse(LearningPath learningPath, Course course)
+        public ActionResult RemoveCourse(LearningPath learningPath, ILearningPathEntity course)
         {
             if (learningPath == null)
             {
@@ -105,21 +124,40 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Errors.CourseNotFoundError, Errors.CourseNotFoundResourceKey);
             }
 
-            learningPath.RemoveCourse(course, GetCurrentUsername());
+            learningPath.RemoveEntity(course, GetCurrentUsername());
 
             return JsonSuccess();
         }
 
         [HttpPost]
-        [Route("api/learningpath/courses/order/update")]
-        public ActionResult UpdateCourseOrder(LearningPath learningPath, ICollection<Course> courses)
+        [Route("api/learningpath/document/remove")]
+        public ActionResult RemoveDocument(LearningPath learningPath, ILearningPathEntity document)
+        {
+            if (learningPath == null)
+            {
+                return JsonLocalizableError(Errors.LearningPathNotFoundError, Errors.LearningPathNotFoundResourceKey);
+            }
+
+            if (document == null)
+            {
+                return JsonLocalizableError(Errors.DocumentNotFoundError, Errors.DocumentNotFoundResourceKey);
+            }
+
+            learningPath.RemoveEntity(document, GetCurrentUsername());
+
+            return JsonSuccess();
+        }
+
+        [HttpPost]
+        [Route("api/learningpath/entities/order/update")]
+        public ActionResult UpdateEntitiesOrder(LearningPath learningPath, ICollection<ILearningPathEntity> entities)
         {
             if (learningPath == null)
             {
                 return HttpNotFound(Errors.LearningPathNotFoundError);
             }
 
-            learningPath.UpdateCoursesOrder(courses, GetCurrentUsername());
+            learningPath.UpdateEntitiesOrder(entities, GetCurrentUsername());
 
             return JsonSuccess();
         }
