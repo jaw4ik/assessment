@@ -645,6 +645,7 @@
     <Content Include="App\editor\course\bindingHandlers\expandBlock.js" />
     <Content Include="App\editor\course\bindingHandlers\draggableContainer.js" />
     <Content Include="App\editor\course\bindingHandlers\draggableData.js" />
+    <Content Include="App\editor\course\bindingHandlers\tooltipPopover.js" />
     <Content Include="App\editor\course\commands\createQuestionCommand.js" />
     <Content Include="App\editor\course\commands\createSectionCommand.js" />
     <Content Include="App\editor\course\commands\deleteQuestionCommand.js" />
@@ -1358,6 +1359,7 @@
     <Content Include="Content\font\opensans-semibolditalic.woff" />
     <Content Include="Content\font\rabiohead.woff" />
     <Content Include="Content\font\robotoslab-bold.woff" />
+    <Content Include="Content\font\robotoslab-light.woff" />
     <Content Include="Content\font\robotoslab-regular.woff" />
     <Content Include="Content\images\branchtrack.png" />
     <Content Include="Content\images\chrome.png" />
@@ -1902,7 +1904,6 @@
     <Content Include="Content\editor.less" />
     <Content Include="App\localization\lang\de.json" />
     <Content Include="App\localization\lang\nl.json" />
-    <Content Include="Content\font\robotoslab-light.woff" />
     <Content Include="App\localization\lang\es.json" />
     <Content Include="Mail\MailTemplates\NewEditorFeedbackTemplate.cshtml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
