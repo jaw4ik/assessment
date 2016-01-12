@@ -1,6 +1,7 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.Web.Components;
 using System;
+using System.Web;
 using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers
@@ -15,7 +16,8 @@ namespace easygenerator.Web.Controllers
                 return new HttpNotFoundResult();
             }
 
-            ViewBag.PublishedCourseUrl = course.PublicationUrl;
+            var reviewApiUrl = $"{Request.Url.Scheme}://{Request.Url.Authority}";
+            ViewBag.PublishedCourseUrl = $"{course.PublicationUrl}?reviewApiUrl={Server.UrlEncode(reviewApiUrl)}";
             ViewBag.CourseId = course.Id.ToString();
 
             return View();
