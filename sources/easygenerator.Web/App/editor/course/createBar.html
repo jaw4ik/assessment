@@ -51,9 +51,9 @@
             <div class="not-contain-section-overlay" data-bind="event: { mouseover: showQuestionTootip, mouseout: hideQuestionTootip }"></div>
         </div>
     </div>
-    <!-- ko if: createSectionTooltip.visible -->
+    <!-- ko if: createSectionTooltip.visible() -->
     <div class="editor-tooltip" data-bind="visible: sectionExpanded()">
-        <div class="editor-tooltip-close-btn" data-bind="click: createSectionTooltip.hide"></div>
+        <div class="editor-tooltip-close-btn" data-bind="click: createSectionTooltip.hide.bind(createSectionTooltip)"></div>
         <div class="editor-tooltip-body">
             <div class="editor-tooltip-image"></div>
             <div class="editor-tooltip-text" data-bind="localize: { text: 'createSectionInfoTooltip' }"></div>
