@@ -664,6 +664,10 @@
     <Content Include="App\editor\course\dialogs\deleteSection\deleteSection.spec.js">
       <DependentUpon>deleteSection.js</DependentUpon>
     </Content>
+    <Content Include="App\editor\course\viewmodels\CreateSectionTooltipViewModel.js" />
+    <Content Include="App\editor\course\viewmodels\CreateSectionTooltipViewModel.spec.js">
+      <DependentUpon>CreateSectionTooltipViewModel.js</DependentUpon>
+    </Content>
     <Content Include="App\editor\dialogs\editorFeedback\commands\sendFeedback.js" />
     <Content Include="App\editor\dialogs\editorFeedback\commands\sendFeedback.spec.js">
       <DependentUpon>sendFeedback.js</DependentUpon>

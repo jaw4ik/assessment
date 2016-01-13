@@ -4,7 +4,7 @@ import router from 'plugins/router';
 import userContext from 'userContext';
 import eventTracker from 'eventTracker';
 import cursorTooltip from 'widgets/cursorTooltip/viewmodel';
-import clientContext from 'clientContext';
+import CreateSectionTooltip from './CreateSectionTooltipViewModel';
 
 export default class CreateBar {
     constructor() {
@@ -56,17 +56,7 @@ export default class CreateBar {
                 hasAccess: userContext.hasAcademyAccess()
             }
         ];
-        this.createSectionTooltip = {
-            visible: ko.observable(true),
-            hide: () => {
-                if (!this.createSectionTooltip.visible()) {
-                    return;
-                }
-
-                this.createSectionTooltip.visible(false);
-                clientContext.set(userContext.identity.email + ':createSectionTooltipClosed', true);
-            }
-        };
+        this.createSectionTooltip = new CreateSectionTooltip();
     }
 
     showQuestionTootip() {
@@ -94,11 +84,6 @@ export default class CreateBar {
     activate() {
         this.sectionExpanded(true);
         this.questionsExpanded(true);
-        
-        let createSectionTooltipClosed = clientContext.get(userContext.identity.email + ':createSectionTooltipClosed');
-        
-        if (createSectionTooltipClosed) {
-            this.createSectionTooltip.visible(false);    
-        }
+        this.createSectionTooltip.activate();
     }
 }

@@ -13,6 +13,7 @@
                 'editor/course/viewmodels/CreateBarViewModel.spec',
                 'editor/course/viewmodels/QuestionViewModel.spec',
                 'editor/course/viewmodels/SectionViewModel.spec',
+                'editor/course/viewmodels/CreateSectionTooltipViewModel.spec',
                 'editor/course/index.spec',
                 'editor/dialogs/editorFeedback/commands/sendFeedback.spec',
                 'editor/dialogs/editorFeedback/editorFeedback.spec',
