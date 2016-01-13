@@ -96,8 +96,8 @@
                                                 <div class="questions-list-item-title" data-bind="text:title"></div>
                                             </div>
                                         </div>
-                                        <div class="questions-list-item-delete-wrapper" data-bind="click: markToDelete">
-                                            <button class="questions-list-item-delete-btn"></button>
+                                        <div class="questions-list-item-btn-wrapper" data-bind="click: markToDelete">
+                                            <button class="questions-list-item-btn delete"></button>
                                         </div>
                                         <div class="questions-list-item-delete-holder">
                                             <div class="questions-list-item-delete-container" data-bind="css: { delete: canBeDeleted }">
@@ -107,6 +107,9 @@
                                                     <button class="btn white grey-border small cancel" data-bind="click: cancel, localize: {text: 'cancel'}">Cancel</button>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="questions-list-item-btn-wrapper" data-bind="click: openQuestion">
+                                            <button class="questions-list-item-btn open"></button>
                                         </div>
                                     </div>
                                 </li>

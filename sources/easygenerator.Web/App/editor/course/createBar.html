@@ -3,8 +3,8 @@
         <h2 class="editor-create-bar-header" data-bind="click: toggleSection, css: { 'collapsed': !sectionExpanded() }, localize: { text: 'sections' }">Sections:</h2>
         <div class="editor-create-bar-list-container" data-bind="expandBlock: { expanded: sectionExpanded }">
             <ul class="editor-create-bar-list" data-bind="draggableContainer: { copy: true, moveTo: { '.sections-list-container': { callback: $parent.createSectionWithOrder, forbidDropToEnd: true }, '.sections-placeholder': $parent.createSection }, useTargetWidth: true }">
-                <li class="editor-create-bar-list-item section" data-bind="draggableData: {type: 'section'}, css: { 'no-sections': $root.notContainSections }">
-                    <div class="editor-create-bar-list-icon" data-bind="click: $root.createSectionAtFirstPosition.bind($root)">
+                <li class="editor-create-bar-list-item section" data-bind="draggableData: {type: 'section'}">
+                    <div class="editor-create-bar-list-icon" data-bind="click: $root.createSectionAtFirstPosition.bind($root), tooltipPopover: {}">
                         <h4 class="editor-create-bar-list-title" data-bind="localize: { text: 'section' }">Section</h4>
                     </div>
                     <h4 class="editor-create-bar-list-title not-accessible" data-bind="localize: { text: 'section' }">Section</h4>
@@ -51,4 +51,13 @@
             <div class="not-contain-section-overlay" data-bind="event: { mouseover: showQuestionTootip, mouseout: hideQuestionTootip }"></div>
         </div>
     </div>
+    <!-- ko if: createSectionTooltip.visible -->
+    <div class="editor-tooltip" data-bind="visible: sectionExpanded()">
+        <div class="editor-tooltip-close-btn" data-bind="click: createSectionTooltip.hide"></div>
+        <div class="editor-tooltip-body">
+            <div class="editor-tooltip-image"></div>
+            <div class="editor-tooltip-text" data-bind="localize: { text: 'createSectionInfoTooltip' }"></div>
+        </div>
+    </div>
+    <!-- /ko -->
 </section>

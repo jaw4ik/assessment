@@ -43,7 +43,7 @@ var _sectionDeleted = new WeakMap();
 
 var instance = null;
 
-var sectionCreating = false
+var sectionCreating = false;
 
 export default class {
     constructor () {
@@ -140,6 +140,8 @@ export default class {
         if (type === 'section') {
             let createdSection = await createSectionCommand.execute(this.id);
             emptySectionViewModel.updateFields(createdSection);
+            this.createBar.createSectionTooltip.hide();
+            notify.saved();
         }
     }
     async createSectionAtFirstPosition() {
@@ -194,6 +196,7 @@ export default class {
         }
         let createdSection = await createSectionCommand.execute(this.id);
         emptySectionViewModel.updateFields(createdSection);
+        this.createBar.createSectionTooltip.hide();
         await reorderSectionCommand.execute(this.id, this.sections());
         notify.saved();
     }
