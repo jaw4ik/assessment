@@ -313,7 +313,11 @@
     <Compile Include="Publish\ILearningPathPublisher.cs" />
     <Compile Include="Publish\LearningPathPublisher.cs" />
     <Compile Include="DomainEvents\Handlers\CreateUserInitialDataHandler.cs" />
-    <Compile Include="Resources\Views\Resources.Designer.cs" />
+    <Compile Include="Resources\Views\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Storage\CourseStateStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\AnswerChangedEvent.cs" />
@@ -3224,8 +3228,9 @@
     <EmbeddedResource Include="Resources\Views\Resources.pt.resx" />
     <EmbeddedResource Include="Resources\Views\Resources.es.resx" />
     <EmbeddedResource Include="Resources\Views\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewsResources</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Resources.uk.resx" />
     <EmbeddedResource Include="Resources\Views\Resources.zh.resx" />
