@@ -59,6 +59,10 @@ export default class CreateBar {
         this.createSectionTooltip = {
             visible: ko.observable(true),
             hide: () => {
+                if (!this.createSectionTooltip.visible()) {
+                    return;
+                }
+
                 this.createSectionTooltip.visible(false);
                 clientContext.set(userContext.identity.email + ':createSectionTooltipClosed', true);
             }

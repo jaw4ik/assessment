@@ -8,8 +8,11 @@ ko.bindingHandlers.tooltipPopover = {
         let popover = $('.editor-tooltip');
         let parent = target.closest('[data-bind*="scrollbar"]');
 
+        if (!popover.length) {
+            return;
+        }
+
         let handler = () => {
-            let target = $(element);
             let offset = target.offset();
             let popoverOffset = popover.parent().offset();
 
