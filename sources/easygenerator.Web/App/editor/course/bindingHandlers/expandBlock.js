@@ -1,6 +1,6 @@
 ﻿import ko from 'knockout';
 import $ from 'jquery';
-import 'velocity-animate';
+import animate from 'velocity-animate';
 
 
 ko.bindingHandlers.expandBlock = {
@@ -17,7 +17,6 @@ ko.bindingHandlers.expandBlock = {
         element.expanded = expanded;
     },
     update: (element, valueAccessors) => {
-        let $element = $(element);
         let expanded = ko.utils.unwrapObservable(valueAccessors().expanded);
         let duration = ko.utils.unwrapObservable(valueAccessors().duration) || 300;
         
@@ -26,9 +25,9 @@ ko.bindingHandlers.expandBlock = {
         }
         
         if (expanded) {
-            $element.velocity("slideDown", { duration: duration });
+            animate(element, "slideDown", { duration: duration });
         } else {
-            $element.velocity("slideUp", { duration: duration });
+            animate(element, "slideUp", { duration: duration });
         }
 
         element.expanded = expanded;
