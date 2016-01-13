@@ -10,7 +10,8 @@
     describe('viewModel [userMenu]', function () {
 
         beforeEach(function () {
-            spyOn(userContext, 'hasPlusAccess').and.returnValue(true);
+            spyOn(userContext, 'hasFreeAccess').and.returnValue(true);
+            spyOn(userContext, 'hasTrialAccess').and.returnValue(true);
         });
 
         describe('username:', function () {
@@ -37,9 +38,9 @@
             });
         });
 
-        describe('hasPlusAccess:', function () {
+        describe('isFreeUser:', function () {
             it('should be observable', function () {
-                expect(userMenu.hasPlusAccess).toBeObservable();
+                expect(userMenu.isFreeUser).toBeObservable();
             });
         });
 
@@ -48,15 +49,15 @@
                 expect(userMenu.userPlanChanged).toBeFunction();
             });
 
-            it('should call userContext hasPlusAccess', function () {
+            it('should call userContext hasFreeAccess', function () {
                 userMenu.userPlanChanged();
-                expect(userContext.hasPlusAccess).toHaveBeenCalled();
+                expect(userContext.hasFreeAccess).toHaveBeenCalled();
             });
 
-            it('should set hasPlusAccess', function () {
-                userMenu.hasPlusAccess(false);
+            it('should set isFreeUser', function () {
+                userMenu.isFreeUser(false);
                 userMenu.userPlanChanged();
-                expect(userMenu.hasPlusAccess()).toBeTruthy();
+                expect(userMenu.isFreeUser()).toBeTruthy();
             });
         });
 
@@ -144,10 +145,10 @@
                 expect(userMenu.switchEditor).toBe(switchEditor);
             });
 
-            it('should set hasPlusAccess', function () {
-                userMenu.hasPlusAccess(false);
+            it('should set isFreeUser', function () {
+                userMenu.isFreeUser(false);
                 userMenu.activate();
-                expect(userMenu.hasPlusAccess()).toBeTruthy();
+                expect(userMenu.isFreeUser()).toBeTruthy();
             });
         });
 
