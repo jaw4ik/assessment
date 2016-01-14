@@ -153,6 +153,12 @@ describe('[drag and drop course editor]', () => {
             expect(foundSection.id()).toBe('sectionId3');
         })().then(done));
 
+        it('should show notify saved message', done => (async () => {
+            courseViewModel.createSection({ type: 'section' });
+            await promise;
+            expect(notify.saved).toHaveBeenCalled();
+        })().then(done));
+
     });
 
     describe('reorderSection:', () => {

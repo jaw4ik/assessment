@@ -1,5 +1,5 @@
 ﻿import $ from 'jquery';
-import 'velocity-animate';
+import animate from 'velocity-animate';
 
 const shadowClass = 'gu-transit';
 
@@ -29,21 +29,19 @@ let dragulaAnimation = {
     },
 
     animateShow: (element, callback) => {
-        $(element)
-            .velocity('stop', true)
-            .velocity('slideDown', { duration: 200, complete: () => {
-                $(element).removeAttr('style');
+        animate(element, 'stop', true);
+        animate(element, 'slideDown', { duration: 200, complete: () => {
+            $(element).removeAttr('style');
 
-                if (callback) {
-                    callback();
-                }
-            }});
+            if (callback) {
+                callback();
+            }
+        }});
     },
 
     animateHide: (element, callback) => {
-        $(element)
-            .velocity('stop', true)
-            .velocity('slideUp', { duration: 200, complete: callback });
+        animate(element, 'stop', true);
+        animate(element, 'slideUp', { duration: 200, complete: callback });
     },
 
     hideLastShadow: () => {

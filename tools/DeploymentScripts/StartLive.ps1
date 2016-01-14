@@ -14,7 +14,8 @@ C:\Windows\System32\inetsrv\appcmd.exe stop site /site.name:"beta.easygenerator.
 C:\Windows\System32\inetsrv\appcmd.exe stop apppool beta.easygenerator.com
 echo "Start Live website"
 C:\Windows\System32\inetsrv\appcmd.exe start site /site.name:"live.easygenerator.com/"
-C:\Windows\System32\inetsrv\appcmd.exe start apppool live.easygenerator.com
+C:\Windows\System32\inetsrv\appcmd.exe start apppool "live.easygenerator.com"
+c:\windows\system32\inetsrv\appcmd.exe recycle apppool "live.easygenerator.com"
 
 write-host "Live website is started!" -foregroundcolor Green
 
