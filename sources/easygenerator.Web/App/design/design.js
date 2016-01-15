@@ -218,7 +218,7 @@ class Design{
     }
 
     presetSelected(preset) {
-        this.settings = preset.settings ? JSON.parse(JSON.stringify(preset.settings)) : {};
+        this.settings = _.extend({}, this.settings, preset.settings ? JSON.parse(JSON.stringify(preset.settings)) : {});
         this.currentPreset = preset;
 
         return this.saveSettings();
