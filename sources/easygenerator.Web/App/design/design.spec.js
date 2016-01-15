@@ -896,12 +896,12 @@ describe('viewModel [design]', () => {
         });
 
 
-        it('should update current settings', () => {
-            viewModel.settings = {};
+        it('should extend current settings', () => {
+            viewModel.settings = { xApi: {}};
 
             viewModel.presetSelected({ settings: { branding: { logo: { url: 'url' } } } });
 
-            expect(viewModel.settings.branding).toEqual({ logo: { url: 'url' } });
+            expect(viewModel.settings).toEqual({ xApi: {}, branding: { logo: { url: 'url' } } });
         });
 
         describe('when preset does not have settings', () => {
