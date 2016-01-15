@@ -17,8 +17,8 @@
     
     getSources();
     
-    if (app.stylevariables && typeof app.stylevariables === "object") {
-        app.cssInjector.applyStyles(app.stylevariables);
+    if (app.styleVariables && typeof app.styleVariables === "object") {
+        app.cssInjector.applyStyles(app.styleVariables);
     }
 
     function volumeHandler(e) {

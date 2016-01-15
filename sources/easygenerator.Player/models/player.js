@@ -6,7 +6,7 @@
     this.loop = parseInt(spec.loop) === 1;
     this.css = spec.css && typeof spec.css === "string" ? spec.css : null;
     this.background = parseInt(spec.background) === 1;
-    this.style_variables = spec.style_variables && typeof spec.style_variables === "string" ?  spec.style_variables : 0;
+    this.styleVariables = spec.stylevariables && typeof spec.stylevariables === "string" ?  spec.stylevariables : 0;
     this.controlBar = {
         playToggle: !(parseInt(spec.play_toggle) === 0),
         volumeMenuButton: !(parseInt(spec.volume_menu_button) === 0),
