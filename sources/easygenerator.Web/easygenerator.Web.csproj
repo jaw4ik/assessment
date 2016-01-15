@@ -2745,6 +2745,7 @@
     <Content Include="Templates\Reader\settings\design\js\vendor.min.js" />
     <Content Include="Templates\Reader\settings\design\layout.html" />
     <Content Include="Templates\Simple course\app\main.js" />
+    <Content Include="Templates\Simple course\css\colors.css" />
     <Content Include="Templates\Simple course\css\general.css" />
     <Content Include="Templates\Simple course\css\img\browsers\android.png" />
     <Content Include="Templates\Simple course\css\img\browsers\chrome.png" />
@@ -2758,18 +2759,9 @@
     <Content Include="Templates\Simple course\css\img\loader.gif" />
     <Content Include="Templates\Simple course\css\img\singleSelectImageAnwer.png" />
     <Content Include="Templates\Simple course\css\img\xapi\xapierror.png" />
-    <Content Include="Templates\Simple course\css\player\black.css" />
-    <Content Include="Templates\Simple course\css\player\cartoon.css" />
-    <Content Include="Templates\Simple course\css\player\default.css" />
-    <Content Include="Templates\Simple course\css\player\flat.css" />
-    <Content Include="Templates\Simple course\css\player\grey.css" />
-    <Content Include="Templates\Simple course\css\themes\black.css" />
-    <Content Include="Templates\Simple course\css\themes\cartoon.css" />
-    <Content Include="Templates\Simple course\css\themes\default.css" />
-    <Content Include="Templates\Simple course\css\themes\flat.css" />
-    <Content Include="Templates\Simple course\css\themes\grey.css" />
     <Content Include="Templates\Simple course\css\vendor.css" />
     <Content Include="Templates\Simple course\index.html" />
+    <Content Include="Templates\Simple course\js\less.min.js" />
     <Content Include="Templates\Simple course\js\require.js" />
     <Content Include="Templates\Simple course\js\vendor.min.js" />
     <Content Include="Templates\Simple course\lang\cn.json" />
@@ -2801,7 +2793,6 @@
     <Content Include="Templates\Simple course\settings\configure\img\language.png" />
     <Content Include="Templates\Simple course\settings\configure\js\configure.min.js" />
     <Content Include="Templates\Simple course\settings\configure\js\vendor.min.js" />
-    <Content Include="Templates\Simple course\settings\design\branding.html" />
     <Content Include="Templates\Simple course\settings\design\css\design.css" />
     <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-400.woff" />
     <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-600.woff" />

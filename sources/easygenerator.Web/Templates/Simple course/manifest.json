@@ -8,7 +8,6 @@
   ],
   "settingsUrls": {
     "design": {
-      "branding": "settings/design/branding.html",
       "layout": "settings/design/layout.html"
     },
     "configure": "settings/configure/configure.html"
