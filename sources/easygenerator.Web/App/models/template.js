@@ -17,6 +17,9 @@
             obj.isDeprecated = spec.isDeprecated;
             obj.goal = spec.goal;
 
+            obj.supports = spec.supports;
+            obj.presets = spec.presets;
+
             return obj;
         };
 

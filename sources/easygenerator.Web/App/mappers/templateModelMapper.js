@@ -26,9 +26,11 @@
             return {
                 name: manifest.name,
                 thumbnail: templateUrl + manifest.thumbnail + '?v=' + window.appVersion,
-                previewImages: _.map(manifest.previewImages, function(img) {
+                previewImages: _.map(manifest.previewImages, function (img) {
                     return templateUrl + img + '?v=' + window.appVersion;
                 }),
+                supports: manifest.supports,
+                presets: manifest.presets,
                 settingsUrls: {
                     design: [
                         {
@@ -46,6 +48,6 @@
                 },
                 shortDescription: manifest.shortDescription,
                 goal: manifest.goal
-        };
+            };
         }
     });

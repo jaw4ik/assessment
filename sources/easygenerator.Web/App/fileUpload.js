@@ -111,8 +111,8 @@
             formData.append('file', file);
             xhr.send(formData);
 
-            function error() {
-                dfd.reject();
+            function error(e) {
+                dfd.reject(e);
             }
 
             function success(obj) {

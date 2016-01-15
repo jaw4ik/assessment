@@ -47,7 +47,7 @@
                 .then(function () {
                     dialog.close();
                 })
-                .fin(function () {
+                .then(function () {
                     viewModel.isDeleting(false);
                 });
         }

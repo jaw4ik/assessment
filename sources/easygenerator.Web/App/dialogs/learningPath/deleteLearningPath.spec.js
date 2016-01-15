@@ -109,12 +109,12 @@
                     });
                 });
 
-                it('should set isDeleting to false', function (done) {
+                it('should set isDeleting to false', function(done) {
                     viewModel.isDeleting(true);
                     viewModel.deleteLearningPath();
-                    command.execute().fin(function () {
-                        done();
+                    command.execute().fin(function() {
                         expect(viewModel.isDeleting()).toBeFalsy();
+                        done();
                     });
                 });
             });
