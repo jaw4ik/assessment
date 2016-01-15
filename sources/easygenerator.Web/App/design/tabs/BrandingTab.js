@@ -10,7 +10,7 @@ class BrandingTab{
 
     constructor() {
         this.name = 'branding';
-        this.isSelected = ko.observable(true);
+        this.isSelected = ko.observable(false);
         this.title = localizationManager.localize('branding');
         this.type = 'default';
         this.viewUrl = 'design/tabs/BrandingTab.html';

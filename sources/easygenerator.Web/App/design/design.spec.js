@@ -325,11 +325,20 @@ describe('viewModel [design]', () => {
                 it('should show branding tab', done => {
                     viewModel.template(null);
                     viewModel.activate(course.id).then(() => {
-                        expect(viewModel.settingsTabs()[0]).not.toBeInstanceOf(BrandingTab),
+                        expect(viewModel.settingsTabs()[0]).not.toBeInstanceOf(BrandingTab);
                         done();
                     }); 
                 });
 
+            });
+
+            it('should set first tab as selected', done => {
+                resolve({ id: 'courseId', template: { id: "0", name: "Simple", supports: [], settingsUrls: { design: [{ name: 'branding', url: 'branding.html' }], configure: null } } });
+                getCourseTemplateSettings.resolve();
+                viewModel.activate(course.id).then(() => {
+                    expect(viewModel.settingsTabs()[0].isSelected()).toBeTruthy();
+                    done();
+                }); 
             });
 
             it('should load settings', done => {

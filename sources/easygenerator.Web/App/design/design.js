@@ -187,6 +187,9 @@ class Design{
             collection.unshift(this.brandingTab);
         }
 
+        if (collection.length &&  ko.isWriteableObservable(collection[0].isSelected)) {
+            collection[0].isSelected(true);
+        }
     
         this.tab(collection[0]);
         this.settingsTabs(collection);
