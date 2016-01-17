@@ -24,7 +24,7 @@
         </header>
         <ul class="dropdown-list header-submenu-list">
             <li class="header-submenu-item buy-btn">
-                <a class="header-submenu-link" href="" data-bind="click: openUpgradePlanUrl, localize: { text: hasPlusAccess() ? 'renewMyPlan' : 'upgradeNow' }">Upgrade account</a>
+                <a class="header-submenu-link" href="" data-bind="click: openUpgradePlanUrl, localize: { text: isFreeUser() ?  'upgradeNow' : 'renewMyPlan' }">Upgrade account</a>
             </li>
             <li class="header-submenu-item switch-editor">
                 <!-- ko if: newEditor -->

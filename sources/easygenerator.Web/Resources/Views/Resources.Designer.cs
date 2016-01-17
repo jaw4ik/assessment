@@ -124,7 +124,7 @@ namespace ViewsResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copyright © 2015 easygenerator. All rights reserved..
+        ///   Looks up a localized string similar to Copyright © 2016 easygenerator. All rights reserved..
         /// </summary>
         public static string CopyrightText {
             get {
@@ -296,8 +296,7 @@ namespace ViewsResources {
         ///&lt;p&gt;
         ///        &lt;strong&gt;
         ///                Best regards,&lt;br /&gt;
-        ///                easygenerator team
-        ///         [rest of string was truncated]&quot;;.
+        ///                easygene [rest of string was truncated]&quot;;.
         /// </summary>
         public static string ForgotPasswordBody {
             get {

@@ -8,11 +8,256 @@
   ],
   "settingsUrls": {
     "design": {
-      "branding": "settings/design/branding.html",
       "layout": "settings/design/layout.html"
     },
     "configure": "settings/configure/configure.html"
   },
+  "supports": [
+    "branding"
+  ],
+  "presets": [
+    {
+      "title": "default",
+      "settings": {
+        "branding": {
+          "logo": {
+            "url": "//cdn.easygenerator.com/logo.png"
+          },
+          "colors": [
+            {
+              "key": "@text-color",
+              "value": "#252728"
+            },
+            {
+              "key": "@main-color",
+              "value": "#43aaa3"
+            },
+            {
+              "key": "@secondary-color",
+              "value": "#2d9ec6"
+            },
+            {
+              "key": "@button-text-color",
+              "value": "#fff"
+            },
+            {
+              "key": "@content-body-color",
+              "value": "#fff"
+            }
+          ],
+          "background": {
+            "header": {
+              "expanded": false,
+              "brightness": 0,
+              "color": null,
+              "image": {
+                "url": "//cdn.easygenerator.com/images/2.jpg",
+                "option": "repeat"
+              }
+            },
+            "body": {
+              "brightness": 0,
+              "color": "#ececed",
+              "texture": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "black",
+      "settings": {
+        "branding": {
+          "logo": {
+            "url": "//cdn.easygenerator.com/logo.png"
+          },
+          "colors": [
+            {
+              "key": "@text-color",
+              "value": "#d7d7d7"
+            },
+            {
+              "key": "@main-color",
+              "value": "#336577"
+            },
+            {
+              "key": "@secondary-color",
+              "value": "#33b3e2"
+            },
+            {
+              "key": "@button-text-color",
+              "value": "#fff"
+            },
+            {
+              "key": "@content-body-color",
+              "value": "#232323"
+            }
+          ],
+          "background": {
+            "header": {
+              "expanded": false,
+              "brightness": 0,
+              "color": null,
+              "image": {
+                "url": "//cdn.easygenerator.com/images/11.jpg",
+                "option": "repeat"
+              }
+            },
+            "body": {
+              "brightness": 0,
+              "color": null,
+              "texture": "//cdn.easygenerator.com/textures/5.png"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "cartoon",
+      "settings": {
+        "branding": {
+          "logo": {
+            "url": "//cdn.easygenerator.com/logo.png"
+          },
+          "colors": [
+            {
+              "key": "@text-color",
+              "value": "#252728"
+            },
+            {
+              "key": "@main-color",
+              "value": "#2fa6d1"
+            },
+            {
+              "key": "@secondary-color",
+              "value": "#e9d20b"
+            },
+            {
+              "key": "@button-text-color",
+              "value": "#fff"
+            },
+            {
+              "key": "@content-body-color",
+              "value": "#fff"
+            }
+          ],
+          "background": {
+            "header": {
+              "expanded": false,
+              "brightness": 0,
+              "color": null,
+              "image": {
+                "url": "//cdn.easygenerator.com/images/13.jpg",
+                "option": "repeat"
+              }
+            },
+            "body": {
+              "brightness": 0,
+              "color": null,
+              "texture": "//cdn.easygenerator.com/textures/3.png"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "grey",
+      "settings": {
+        "branding": {
+          "logo": {
+            "url": "//cdn.easygenerator.com/logo.png"
+          },
+          "colors": [
+            {
+              "key": "@text-color",
+              "value": "#252728"
+            },
+            {
+              "key": "@main-color",
+              "value": "#3b6998"
+            },
+            {
+              "key": "@secondary-color",
+              "value": "#7596b7"
+            },
+            {
+              "key": "@button-text-color",
+              "value": "#fff"
+            },
+            {
+              "key": "@content-body-color",
+              "value": "#fff"
+            }
+          ],
+          "background": {
+            "header": {
+              "expanded": false,
+              "brightness": 0,
+              "color": null,
+              "image": {
+                "url": "//cdn.easygenerator.com/images/4.jpg",
+                "option": "repeat"
+              }
+            },
+            "body": {
+              "brightness": 0,
+              "color": null,
+              "texture": "//cdn.easygenerator.com/textures/16.png"
+            }
+
+          }
+        }
+      }
+    },
+    {
+      "title": "flat",
+      "settings": {
+        "branding": {
+          "logo": {
+            "url": "//cdn.easygenerator.com/logo.png"
+          },
+          "colors": [
+            {
+              "key": "@text-color",
+              "value": "#252728"
+            },
+            {
+              "key": "@main-color",
+              "value": "#46a24a"
+            },
+            {
+              "key": "@secondary-color",
+              "value": "#aed580"
+            },
+            {
+              "key": "@button-text-color",
+              "value": "#fff"
+            },
+            {
+              "key": "@content-body-color",
+              "value": "#fff"
+            }
+          ],
+          "background": {
+            "header": {
+              "expanded": false,
+              "brightness": 0,
+              "color": null,
+              "image": {
+                "url": "//cdn.easygenerator.com/images/12.jpg",
+                "option": "repeat"
+              }
+            },
+            "body": {
+              "brightness": 0,
+              "color": null,
+              "texture": "//cdn.easygenerator.com/textures/2.png"
+            }
+          }
+        }
+      }
+    }
+  ],
   "languages": [
     {
       "code": "cn",

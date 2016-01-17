@@ -7,7 +7,7 @@
 
     function initialize() {
         (function schedule() {
-            system.log('Tracking audios..');
+            //system.log('Tracking audios..');
             availabilityTracker.track().finally(function () {
                 _.delay(schedule, constants.storage.audio.trackerTimeout);
             });

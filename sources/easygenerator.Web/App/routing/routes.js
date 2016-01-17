@@ -48,14 +48,6 @@
                 }
             },
             {
-                route: 'design/:courseId',
-                moduleId: 'viewmodels/courses/design',
-                title: 'Design Course',
-                settings: {
-                    localizationKey: 'course'
-                }
-            },
-            {
                 route: 'publish/:courseId',
                 moduleId: 'viewmodels/courses/publish',
                 title: 'Publish Course',

@@ -13,11 +13,31 @@
                 'editor/course/viewmodels/CreateBarViewModel.spec',
                 'editor/course/viewmodels/QuestionViewModel.spec',
                 'editor/course/viewmodels/SectionViewModel.spec',
+                'editor/course/viewmodels/CreateSectionTooltipViewModel.spec',
                 'editor/course/index.spec',
                 'editor/dialogs/editorFeedback/commands/sendFeedback.spec',
                 'editor/dialogs/editorFeedback/editorFeedback.spec',
                 'editor/course/dialogs/deleteSection/deleteSection.spec',
 
+                //#endregion
+
+                //#region design
+                'design/design.spec',
+                'design/commands/saveCourseTemplateSettings.spec',
+                'design/commands/getCourseTemplateSettings.spec',
+                'design/tabs/PresetTab.spec',
+                'design/tabs/BrandingTab.spec',
+                'design/tabs/sections/Logo.spec',
+                'design/tabs/sections/HeaderBackground.spec',
+                'design/tabs/sections/BodyBackground.spec',
+                'design/tabs/sections/Backgrounds.spec',
+                'design/tabs/sections/Interface.spec',
+                'design/tabs/sections/BodyBackgroundPopover.spec',
+                'design/tabs/sections/HeaderBackgroundPopover.spec',
+                'design/tabs/sections/ColorpickerPopover.spec',
+                'design/bus.spec',
+                'design/components/colorpicker/viewModel.spec',
+                'design/templateBrief.spec',
                 //#endregion
 
                 'authorization/limitCoursesAmount.spec',
@@ -247,8 +267,7 @@
                 'viewmodels/courses/courses.spec',
                 'viewmodels/courses/course/index.spec',
                 'viewmodels/courses/course/create/course.spec',
-                'viewmodels/courses/course/design/design.spec',
-                'viewmodels/courses/course/design/templateBrief.spec',
+
                 'viewmodels/courses/course/configure.spec',
                 'viewmodels/courses/course/publish.spec',
                 'viewmodels/courses/course/results.spec',
@@ -263,7 +282,7 @@
                 'viewmodels/objectives/objectiveBrief.spec',
                 'viewmodels/panels/sidePanel.spec',
                 'viewmodels/panels/tabs/reviewTab.spec',
-                
+
                 //#region questions
                 'viewmodels/questions/question.spec',
                 'viewmodels/questions/voiceOver.spec',
@@ -393,6 +412,7 @@
 
             localizationManager.initialize(['en'], 'app/localization/lang/').then(function () {
                 var modulesDependencies = {};
+
                 specs.forEach(function (spec) {
                     modulesDependencies[spec] = [spec.replace('.spec', '')];
                 });

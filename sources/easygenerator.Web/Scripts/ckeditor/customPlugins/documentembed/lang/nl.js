@@ -1,21 +1,21 @@
 ﻿CKEDITOR.plugins.setLang('documentembed', 'nl', {
-    ebmedDocument: 'Embed document [nl]',
-    embedCodeMissing: 'Embed code is missing [nl]',
-    pasteEmbedCode: 'Paste embed code here... [nl]',
-    howItWork: 'Here is how it works: [nl]',
-    thatIt: 'That\'s it! [nl]',
-    googleDocuments: 'Google documents [nl]',
-    googleDocumentsTitle: 'Embed your documents using Google Drive service. It\'s free! [nl]',
-    slideshare: 'SlideShare [nl]',
-    slideshareTitle: 'Embed your presentations using SlideShare service. It\'s free! [nl]',
-    other: 'Other [nl]',
-    otherTitle: 'Embed your documents from any other services that support "embedding". [nl]',
+    ebmedDocument: 'Embed document',
+    embedCodeMissing: 'De embed code ontbreekt',
+    pasteEmbedCode: 'Plak de embed code hier',
+    howItWork: 'Zo werkt het:',
+    thatIt: 'Dat is het!',
+    googleDocuments: 'Google documents',
+    googleDocumentsTitle: 'Embed uw document vanaf de Google drive service. het is gratis.',
+    slideshare: 'Slideshare',
+    slideshareTitle: 'Emed uw presentaties vanaf Slideshare. Het is gratis!',
+    other: 'Anderen',
+    otherTitle: 'Embed uw documenten via elke andere service die \'embedding\' ondersteunen',
     googleDocumentsExplanation: '<ol>' +
-                        '<li>Go to your <a href="https://www.google.com/intl/nl/drive/" target="_blank">Google Drive</a>. [nl]</li>' +
-                        '<li>Open the document and select "Publish to the Web" under the "File" menu. [nl]</li>' +
-                        '<li>If the document has not been published yet - click the "Publish" button. [nl]</li>' +
-                        '<li>Open the "Embed" tab and copy the provided embed code. [nl]</li>' +
-                        '<li>Paste this code into the field below. [nl]</li>' +
+                        '<li>Ga naar uw <a href="https://www.google.com/intl/en/drive/" target=""_blank"">Google drive</a>.</li>' +
+                        '<li>Open het document en selecteer  ""Publiceer naar internet"" in het  ""Bestands"" menu.</li>' +
+                        '<li>If the document has not been published yet - click the ""Publish"" button.</li>' +
+                        '<li>Open de ""Embed"" tab and kopier de embed code</li>' +
+                        '<li>Plak de code in het veld hieronder</li>' +
                         '</ol>',
     slideshareExplanation: '<ol>' +
                         '<li>Visit <a href="http://www.slideshare.net/" target="_blank">SlideShare website</a> and Sign up. [nl]</li>' +
@@ -24,8 +24,8 @@
                         '<li>Copy the Embed code that\'s provided and paste this code into the field below. [nl]</li>' +
                         '</ol>',
     otherDocumentsExplanation: '<ol>' +
-                        '<li>Go to your service. [nl]</li>' +
-                        '<li>Copy the embed code of the appropriate document. [nl]</li>' +
-                        '<li>Paste this code into the field below. [nl]</li>' +
+                        '<li>Ga naar uw service.</li>' +
+                        '<li>Kopier de embed code van het document.</li>' +
+                        '<li>Plak de code in het veld hieronder.</li>' +
                         '</ol>'
 });

@@ -47,8 +47,14 @@ html, body, .video-js {
     }
 
     .vjs-control-bar {
+        opacity: 0.8;
+        border-radius: 5px;
         padding-right: 10px;
         background-color: @background-color;
+
+        &:hover {
+            opacity: 1;
+        }
 
         .vjs-volume-menu-button {
             &:hover {

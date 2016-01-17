@@ -5,20 +5,23 @@
         var viewModel = {
             username: null,
             useremail: null,
-            hasPlusAccess: ko.observable(false),
-            newEditor: ko.observable(false),
-            userPlanChanged: userPlanChanged,
-            activate: activate,
             avatarLetter: null,
+
+            isFreeUser: ko.observable(false),
+            userPlanChanged: userPlanChanged,
             openUpgradePlanUrl: openUpgradePlanUrl,
+
             signOut: signOut,
-            switchEditor: function() {}
+            newEditor: ko.observable(false),
+            switchEditor: function () { },
+
+            activate: activate
         };
 
         return viewModel;
 
         function activate(data) {
-            viewModel.hasPlusAccess(userContext.hasPlusAccess());
+            viewModel.isFreeUser(userContext.hasFreeAccess() || userContext.hasTrialAccess());
             app.on(constants.messages.user.planChanged, userPlanChanged);
 
             if (_.isObject(userContext.identity)) {
@@ -39,7 +42,7 @@
         }
 
         function userPlanChanged() {
-            viewModel.hasPlusAccess(userContext.hasPlusAccess());
+            viewModel.isFreeUser(userContext.hasFreeAccess() || userContext.hasTrialAccess());
         }
 
         function openUpgradePlanUrl() {

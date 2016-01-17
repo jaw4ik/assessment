@@ -1,0 +1,48 @@
+﻿<section class="branding-background-popover">
+    <ul class="unstyled branding-background-popover-menu">
+        <li>
+            <a href="" class="branding-background-popover-menu-item" data-bind="click: toColorMode, css: { active: isColorMode }, localize: { text: 'backgroundColor' }"></a>
+        </li>
+        <li>
+            <a href="" class="branding-background-popover-menu-item" data-bind="click: toTextureMode, css: { active: isTextureMode }, localize: { text: 'backgroundTexture' }"></a>
+        </li>
+    </ul>
+
+    <div class="branding-background-popover-section-container-wrapper">
+        <section class="branding-background-popover-section-container" data-bind="css: { 'offset-left-1': isTextureMode() }">
+            <section class="branding-background-popover-section-wrapper">
+                <!-- ko ifnot: isColorPickerVisible -->
+                <div class="branding-background-popover-section" data-bind="scrollbar:{ checkDOMChanges: true }">
+                    <ul class="unstyled branding-background-popover-colors">
+                        <li class="branding-background-popover-color custom" data-bind="click: showColorPicker"></li>
+                        <!-- ko foreach: colors -->
+                        <li class="branding-background-popover-color" data-bind="style: { backgroundColor:  $data }, css: { 'selected': $parent.color() === $data }, click: $parent.selectColor.bind($parent, $data)">
+                        </li>
+                        <!-- /ko -->
+                    </ul>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: isColorPickerVisible -->
+                <section>
+                    <colorpicker params="hex: attemptedColor"></colorpicker>
+                    <footer>
+                        <button class="btn white grey-border" data-bind="click: hideColorPicker, localize: { text: 'cancel' }"></button>
+                        <button class="btn green" data-bind="click: pickColor, localize: { text: 'ok' }"></button>
+                    </footer>
+                </section>
+                <!-- /ko -->
+            </section>
+            <section class="branding-background-popover-section-wrapper">
+                <div class="branding-background-popover-section" data-bind="scrollbar:{ checkDOMChanges: true }">
+                    <ul class="unstyled branding-background-popover-textures">
+                        <li class="branding-background-popover-texture custom" data-bind="browse: { callback: upload.bind($data), accept: '.png, .jpg, .jpeg, .gif, .bmp'}"></li>
+                        <!-- ko foreach: textures -->
+                        <li class="branding-background-popover-texture" data-bind="backgroundImage: $data, css: { 'selected': $parent.texture() === $data }, click: $parent.selectTexture.bind($parent, $data)">
+                        </li>
+                        <!-- /ko -->
+                    </ul>
+                </div>
+            </section>
+        </section>
+    </div>
+</section>
