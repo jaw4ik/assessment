@@ -150,7 +150,7 @@ describe('BodyBackground section', () => {
                 expect(background.color()).toEqual('#aabbcc');
             });
 
-            it('should reset image', () => {
+            it('should reset texture', () => {
                 let background = new BodyBackground();
                 background.texture('texture');
 
@@ -167,14 +167,12 @@ describe('BodyBackground section', () => {
         });
 
         describe('activate:', () => {
+            
+            describe('and color is defined', () => {
 
-            describe('when body color is defined', () => {
-                
                 it('should set corresponding color', () => {
                     let background = new BodyBackground();
-                    background.activate({
-                        color:'#aabbcc'
-                    });
+                    background.activate({ color: '#aabbcc' });
 
                     expect(background.color()).toEqual('#aabbcc');
                 });
@@ -182,56 +180,84 @@ describe('BodyBackground section', () => {
                 it('should set corresponding color to popover', () => {
                     let background = new BodyBackground();
                     background.popover.color(null);
-                    background.activate({
-                        color:'#aabbcc'
-                    });
+
+                    background.activate({ color: '#aabbcc' });
 
                     expect(background.popover.color()).toEqual('#aabbcc');
                 });
 
-                it('should set null to texture', () => {
-                    let background = new BodyBackground();
-                    background.texture('url');
-                    background.activate();
+            });
 
-                    expect(background.texture()).toEqual(null);
+            describe('and color is not defined', () => {
+
+                describe('and color is specified in defaults', () => {
+
+                    it('should set corresponding color', () => {
+                        let background = new BodyBackground();
+                        background.activate(null, { color: '#aabbcc' });
+
+                        expect(background.color()).toEqual('#aabbcc');
+                    });
+
+                    it('should set corresponding color to popover', () => {
+                        let background = new BodyBackground();
+                        background.popover.color(null);
+
+                        background.activate(null, { color: '#aabbcc' });
+
+                        expect(background.popover.color()).toEqual('#aabbcc');
+                    });
+
                 });
 
-                it('should set null to popover texture', () => {
-                    let background = new BodyBackground();
-                    background.popover.texture('url');
-                    background.activate();
+                describe('and color is not specified in defaults', () => {
 
-                    expect(background.popover.texture()).toEqual(null);
+                    it('should set null to color', () => {
+                        let background = new BodyBackground();
+                        background.color('#aabbcc');
+                        background.activate();
+
+                        expect(background.color()).toEqual(null);
+                    });
+
+                    it('should set null to popover  color', () => {
+                        let background = new BodyBackground();
+                        background.popover.color('#aabbcc');
+                        background.activate();
+
+                        expect(background.popover.color()).toEqual(null);
+                    });
+
                 });
 
             });
 
-            describe('when body color is not defined', () => {
-                
-                it('should set null to color', () => {
-                    let background = new BodyBackground();
-                    background.color('#aabbcc');
-                    background.activate();
+            describe('when texture is defined', () => {
 
-                    expect(background.color()).toEqual(null);
+                it('should set corresponding texture', () => {
+                    let background = new BodyBackground();
+                    background.activate({ texture: 'url' });
+
+                    expect(background.texture()).toEqual('url');
                 });
 
-                it('should set null to popover color', () => {
+                it('should set corresponding texture to popover', () => {
                     let background = new BodyBackground();
-                    background.popover.color('#aabbcc');
-                    background.activate();
+                    background.popover.texture(null);
+                    background.activate({ texture: 'url' });
 
-                    expect(background.popover.color()).toEqual(null);
+                    expect(background.popover.texture()).toEqual('url');
                 });
 
-                describe('and body texture is defined', () => {
+            });
+
+            describe('when texture is not defined', () => {
+
+                describe('and texture is specified in defaults', () => {
 
                     it('should set corresponding texture', () => {
                         let background = new BodyBackground();
-                        background.activate({
-                            texture: 'url'
-                        });
+                        background.activate(null, { texture: 'url' });
 
                         expect(background.texture()).toEqual('url');
                     });
@@ -239,18 +265,15 @@ describe('BodyBackground section', () => {
                     it('should set corresponding texture to popover', () => {
                         let background = new BodyBackground();
                         background.popover.texture(null);
-                        background.activate({
-                            texture: 'url'
-                        });
+                        background.activate(null, { texture: 'url' });
 
                         expect(background.popover.texture()).toEqual('url');
                     });
 
                 });
 
+                describe('and texture is not specified in defaults', () => {
 
-                describe('and body texture is not defined', () => {
-                    
                     it('should set null to texture', () => {
                         let background = new BodyBackground();
                         background.texture('url');
@@ -271,27 +294,64 @@ describe('BodyBackground section', () => {
 
             });
 
-            describe('when body brightness is defined', () => {
+            describe('when brightness is defined', () => {
 
                 it('should set corresponding brightness', () => {
                     let background = new BodyBackground();
-                    background.activate({
-                        brightness: 0.5
-                    });
+                    background.activate({ brightness: 0.5 });
 
                     expect(background.brightness()).toEqual(0.5);
                 });
 
             });
 
-            describe('when body brightness is not defined', () => {
-                
-                it('should set 0 to brightness', () => {
+            describe('when brightness is not defined', () => {
+
+                describe('and brightness is specified in defaults', () => {
+
+                    it('should set corresponding brightness', () => {
+                        let background = new BodyBackground();
+                        background.activate(null, { brightness: 0.5 });
+
+                        expect(background.brightness()).toEqual(0.5);
+                    });
+
+                });
+
+                describe('and brightness is not specified in defaults', () => {
+
+                    it('should set 0 to brightness', () => {
+                        let background = new BodyBackground();
+                        background.brightness(1);
+                        background.activate();
+
+                        expect(background.brightness()).toEqual(0);
+                    });
+
+                });
+
+            });
+
+            describe('when defaults are defined', () => {
+
+                it('should set defaults', () => {
                     let background = new BodyBackground();
-                    background.brightness(1);
+                    let defaults = {};
+                    background.activate({}, defaults);
+
+                    expect(background.defaults).toEqual(defaults);
+                });
+
+            });
+
+            describe('when defaults are not defined', () => {
+
+                it('should set defaults to null', () => {
+                    let background = new BodyBackground();
+                    background.defaults = {};
                     background.activate();
 
-                    expect(background.brightness()).toEqual(0);
+                    expect(background.defaults).toEqual(null);
                 });
 
             });

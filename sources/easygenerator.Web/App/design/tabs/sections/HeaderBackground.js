@@ -86,34 +86,13 @@ export default class HeaderBackground {
 
     activate(settings, defaults) {
         this.defaults = defaults || null;
-        if (settings) {
-            this.expanded(settings.expanded || false);
-            this.brightness(settings.brightness || 0);
 
-            if (settings.image) {
-                this.expanded(settings.expanded);
-                this.image(settings.image.url);
-                this.popover.image(settings.image.url);
-                this.option(settings.image.option);
-
-                this.color(null);
-                this.popover.color(null);
-            } else {
-                this.color(settings.color);
-                this.popover.color(settings.color);
-                this.brightness(settings.brightness || 0);
-                this.image(null);
-                this.popover.image(null);
-            } 
-        } else {
-            this.expanded(false);
-            this.image(null);
-            this.popover.image(null);
-            this.option(null);
-            this.color(null);
-            this.popover.color(null);
-            this.brightness(0);
-        }
-
+        this.expanded(settings && settings.expanded || defaults && defaults.expanded || false);
+        this.image(settings && settings.image && settings.image.url || defaults && defaults.image && defaults.image.url || null);
+        this.popover.image(settings && settings.image && settings.image.url || defaults && defaults.image && defaults.image.url || null);
+        this.option(settings && settings.image && settings.image.option || defaults && defaults.image && defaults.image.option || null);
+        this.color(settings && settings.color || defaults && defaults.color || null);
+        this.popover.color(settings && settings.color || defaults && defaults.color || null);
+        this.brightness(settings && settings.brightness || defaults && defaults.brightness || 0);
     }
 }

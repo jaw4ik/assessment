@@ -960,29 +960,17 @@ describe('viewModel [design]', () => {
                     }));
                 });
 
+                it('should set an empty object to settings', done => {
+                    viewModel.settings = null;
+                    viewModel.template({ id: 'templateId' });
+
+                    viewModel.loadSettings().then(() => {
+                        expect(viewModel.settings).toEqual({});
+                        done();
+                    });
+                });
+
                 describe('and current course template has presets', () => {
-                
-                    it('should use default preset', done => {
-                        viewModel.settings = null;
-                        viewModel.template({ id: 'templateId', presets: [{ title: 'default', settings: { branding: {}, xApi: {} } }] });
-
-                        viewModel.loadSettings().then(() => {
-                            expect(viewModel.settings).toEqual(viewModel.template().presets[0].settings);
-                            done();
-                        });
-                    });
-
-                    it('should use a copy of preset', done => {
-                        let settings = { branding: {}, xApi: {} };
-                        viewModel.settings = null;
-                        viewModel.template({ id: 'templateId', presets: [{ settings: settings }] });
-
-                        viewModel.loadSettings().then(() => {
-                            viewModel.settings.branding.logo = {};
-                            expect(viewModel.settings).not.toEqual(settings);
-                            done();
-                        });
-                    });
 
                     it('should set currentPreset', done => {
                         let preset = { title: 'default', settings: { branding: {}, xApi: {} } };
@@ -998,16 +986,6 @@ describe('viewModel [design]', () => {
                 });
 
                 describe('and current course template does not have presets', () => {
-                        
-                    it('should set an empty object to settings', done => {
-                        viewModel.settings = null;
-                        viewModel.template({ id: 'templateId' });
-
-                        viewModel.loadSettings().then(() => {
-                            expect(viewModel.settings).toEqual({});
-                            done();
-                        });
-                    });
 
                     it('should set currentPreset to null', done => {
                         viewModel.currentPreset = {};
@@ -1085,15 +1063,33 @@ describe('viewModel [design]', () => {
                         spyOn(getCommand, 'getCourseTemplateSettings').and.returnValue(Promise.resolve({ settings }));
                     });
 
-                    it('should set null to current preset', done => {
-                        let settings = { branding: {}, xApi: {} };
-                        viewModel.currentPreset = {};
-                        viewModel.template({ id: 'templateId', presets: [{ title: 'default', settings: settings }] });
+                    describe('and current course template has presets', () => {
 
-                        viewModel.loadSettings().then(() => {
-                            expect(viewModel.currentPreset).toEqual(null);
-                            done();
+                        it('should set a default preset to current preset', done => {
+                            let preset = { title: 'default', settings: { branding: {}, xApi: {} } };
+                            viewModel.currentPreset = {};
+                            viewModel.template({ id: 'templateId', presets: [preset] });
+
+                            viewModel.loadSettings().then(() => {
+                                expect(viewModel.currentPreset).toEqual(preset);
+                                done();
+                            });
                         });
+
+                    });
+
+                    describe('and current course template does not have presets', () => {
+
+                        it('should set null to current preset', done => {
+                            viewModel.currentPreset = {};
+                            viewModel.template({ id: 'templateId' });
+
+                            viewModel.loadSettings().then(() => {
+                                expect(viewModel.currentPreset).toEqual(null);
+                                done();
+                            });
+                        });
+
                     });
 
                 });
