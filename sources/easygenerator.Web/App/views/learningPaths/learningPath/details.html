@@ -33,10 +33,10 @@
                                     <span class="action-item-icon power-point"></span>
                                     <span class="add-entities-action-item-title" data-bind="localize: { text: 'powerPoint' }">PowerPoint</span>
                                 </li>
-                                <li class="add-entities-action-item">
+                                <!--<li class="add-entities-action-item">
                                     <span class="action-item-icon video"></span>
                                     <span class="add-entities-action-item-title" data-bind="localize: { text: 'video' }">Video</span>
-                                </li>
+                                </li> -->
                                 <li class="add-entities-action-item" data-bind="click: addPdfDocument">
                                     <span class="action-item-icon pdf"></span>
                                     <span class="add-entities-action-item-title" data-bind="localize: { text: 'pdf' }">PDF</span>
@@ -51,41 +51,61 @@
                 </div>
             </div>
             <!-- ko ifnot: entities().length === 0  -->
-            <ul class="unstyled main-content-list" data-bind="sortable: { data: entities, afterMove: updateCoursesOrder, isEnabled: isSortingEnabled, options: {handle: '.list-item-drag-icon' }}">
+            <ul class="unstyled main-content-list" data-bind="sortable: { data: entities, afterMove: updateEntitiesOrder, isEnabled: isSortingEnabled, options: {handle: '.list-item-drag-icon' }}">
                 <!-- ko foreach: entities -->
                 <li class="main-content-list-item draggable">
-                    <div class="list-item-content-holder" data-bind="click: $parent.navigateToDetails">
+                    <div class="list-item-content-holder">
                         <!-- ko if: $parent.isSortingEnabled() -->
-                        <div class="list-item-drag-icon" data-bind="localize: { title: 'changeOrderTooltip' }, stopEventPropagation: { event: 'click' }"></div>
+                        <div class="list-item-drag-icon" data-bind="localize: { title: 'changeOrderTooltip' }"></div>
                         <!-- /ko -->
                         <!-- ko ifnot: $parent.isSortingEnabled() -->
-                        <div class="list-item-drag-icon disabled" data-bind="stopEventPropagation: { event: 'click' }"></div>
+                        <div class="list-item-drag-icon disabled"></div>
                         <!-- /ko -->
                         <div class="empty-list-item"></div>
-                        <div class="list-item-info-holder">
+                        <div class="list-item-info-holder" data-bind="click: $parent.navigateToDetails">
                             <div class="info-holder-table">
                                 <div class="list-item-logo">
+                                    <!-- ko if: $parent.isCourse($data) -->
                                     <span class="list-item-logo-image-wrapper">
                                         <img class="list-item-logo-image" alt="" data-bind="attr: { src: thumbnail }">
                                     </span>
+                                    <!-- /ko -->
+                                    <!-- ko ifnot: $parent.isCourse($data) -->
+                                    <span class="list-item-logo-image-wrapper document" data-bind="css: { video: type === 0, powerpoint: type === 1, pdf: type === 2, office: type === 3 }">
+                                        <span class="list-item-logo-image"></span>
+                                    </span>
+                                    <!-- /ko -->
                                 </div>
                                 <div class="list-item-info">
                                     <div class="list-item-title">
                                         <span class="selectable" data-bind="text: title"></span>
                                     </div>
                                     <div class="list-item-saved">
-                                        <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: currentLanguage }"></span>
+                                        <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
                                     </div>
                                 </div>
                                 <div class="list-item-separator">
-                                    
                                 </div>
                                 <div class="list-item-actions">
-                                    <button class="list-item-remove-btn info-tooltip-holder" data-bind="stopEventPropagation: { event: 'click' }, click: remove">
-                                        <div class="info-tooltip">
-                                            <span data-bind="localize: { text: 'removeFromPath' }"></span>
+                                    <div class="learning-path-item-dropdown-container" data-bind="stopEventPropagation: { event: 'click' }">
+                                        <div class="learning-path-item-dropdown" data-bind="dropDown: { hideOnDirectClick: true }">
+                                            <div class="dropdown-header">
+                                                <span class="dropdown-header-icon-holder"></span>
+                                            </div>
+                                            <ul class="dropdown-list">
+                                                <li class="dropdown-list-item">
+                                                    <button class="dropdown-list-item-action preview" data-bind="click: preview">
+                                                        <span class="dropdown-list-item-action-text" data-bind="localize: { text: 'preview' }">Preview</span>
+                                                    </button>
+                                                </li>
+                                                <li class="dropdown-list-item">
+                                                    <button class="dropdown-list-item-action remove" data-bind="click: remove">
+                                                        <span class="dropdown-list-item-action-text" data-bind="localize: { text: 'removeFromPath' }">Remove from the path</span>
+                                                    </button>
+                                                </li>
+                                            </ul>
                                         </div>
-                                    </button>
+                                    </div>
                                     <div class="list-item-open-btn-wrapper">
                                         <div class="list-item-open-btn course-action-btn info-tooltip-holder">
                                             <div class="info-tooltip open-item">
@@ -108,6 +128,6 @@
         <div class="tip-arrow-text" data-bind="localize: { text : 'selectCoursesHint' }"></div>
     </div>
     <!-- /ko -->
-
-    <!-- ko compose: 'dialogs/document/create' --><!-- /ko -->
+    <!-- ko compose: 'dialogs/document/create/index' --><!-- /ko -->
+    <!-- ko compose: 'dialogs/document/preview/index' --><!-- /ko -->
 </section>

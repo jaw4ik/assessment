@@ -219,7 +219,7 @@
                 'viewmodels/learningPaths/learningPath/commands/updateTitleCommand.spec',
                 'viewmodels/learningPaths/learningPath/commands/addCourseCommand.spec',
                 'viewmodels/learningPaths/learningPath/commands/removeCourseCommand.spec',
-                'viewmodels/learningPaths/learningPath/commands/updateCoursesOrderCommand.spec',
+                'viewmodels/learningPaths/learningPath/commands/updateEntitiesOrderCommand.spec',
                 'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery.spec',
                 'viewmodels/learningPaths/learningPath/index.spec',
                 'viewmodels/learningPaths/learningPath/details.spec',

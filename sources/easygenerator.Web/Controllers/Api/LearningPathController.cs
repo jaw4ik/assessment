@@ -8,6 +8,7 @@ using easygenerator.Web.Components.Mappers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using easygenerator.Web.Extensions;
 using easygenerator.Web.Publish;
 using easygenerator.Web.Publish.External;
 
@@ -21,11 +22,12 @@ namespace easygenerator.Web.Controllers.Api
         private readonly ILearningPathBuilder _builder;
         private readonly ILearningPathPublisher _publisher;
         private readonly IUserRepository _userRepository;
+        private readonly IDocumentRepository _documentRepository;
         private readonly IExternalLearningPathPublisher _externalPublisher;
                          
         private readonly IUrlHelperWrapper _urlHelper;
 
-        public LearningPathController(IUrlHelperWrapper urlHelper, ILearningPathRepository repository, IEntityModelMapper<LearningPath> mapper, IEntityFactory entityFactory, ILearningPathBuilder builder, ILearningPathPublisher publisher, IUserRepository userRepository, IExternalLearningPathPublisher externalPublisher)
+        public LearningPathController(IUrlHelperWrapper urlHelper, ILearningPathRepository repository, IEntityModelMapper<LearningPath> mapper, IEntityFactory entityFactory, ILearningPathBuilder builder, ILearningPathPublisher publisher, IUserRepository userRepository, IDocumentRepository documentRepository, IExternalLearningPathPublisher externalPublisher)
         {
             _urlHelper = urlHelper;
             _repository = repository;
@@ -34,6 +36,7 @@ namespace easygenerator.Web.Controllers.Api
             _builder = builder;
             _publisher = publisher;
             _userRepository = userRepository;
+            _documentRepository = documentRepository;
             _externalPublisher = externalPublisher;
         }
 
@@ -74,7 +77,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [Route("api/learningpath/course/add")]
-        public ActionResult AddCourse(LearningPath learningPath, ILearningPathEntity course, int? index)
+        public ActionResult AddCourse(LearningPath learningPath, Course course, int? index)
         {
             if (learningPath == null)
             {
@@ -93,7 +96,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [Route("api/learningpath/document/add")]
-        public ActionResult AddDocument(LearningPath learningPath, ILearningPathEntity document, int? index)
+        public ActionResult AddDocument(LearningPath learningPath, Document document, int? index)
         {
             if (learningPath == null)
             {
@@ -112,7 +115,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [Route("api/learningpath/course/remove")]
-        public ActionResult RemoveCourse(LearningPath learningPath, ILearningPathEntity course)
+        public ActionResult RemoveCourse(LearningPath learningPath, Course course)
         {
             if (learningPath == null)
             {
@@ -131,7 +134,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [Route("api/learningpath/document/remove")]
-        public ActionResult RemoveDocument(LearningPath learningPath, ILearningPathEntity document)
+        public ActionResult RemoveDocument(LearningPath learningPath, Document document)
         {
             if (learningPath == null)
             {
@@ -166,12 +169,25 @@ namespace easygenerator.Web.Controllers.Api
         [Route("api/learningpath/delete")]
         public ActionResult Delete(LearningPath learningPath)
         {
-            if (learningPath != null)
+            if (learningPath == null)
             {
-                _repository.Remove(learningPath);
+                return JsonSuccess();
             }
 
-            return JsonSuccess();
+            var deletedDocumentIds = new List<string>();
+
+            if (learningPath.Entities.OfType<Document>().Any())
+            {
+                foreach (var document in learningPath.Entities.OfType<Document>())
+                {
+                    deletedDocumentIds.Add(document.Id.ToNString());
+                    _documentRepository.Remove(document);
+                }
+            }
+
+            _repository.Remove(learningPath);
+
+            return JsonSuccess(new { deletedDocumentIds} );
         }
 
         [HttpPost]

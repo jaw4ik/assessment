@@ -43,7 +43,7 @@ var _sectionDeleted = new WeakMap();
 
 var instance = null;
 
-var sectionCreating = false
+var sectionCreating = false;
 
 export default class {
     constructor () {

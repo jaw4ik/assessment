@@ -87,14 +87,14 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [Route("api/document/updateEmbedCode")]
-        public ActionResult UpdateEmbedCode(Document document, string embedCode)
+        public ActionResult UpdateEmbedCode(Document document, string documentEmbedCode)
         {
             if (document == null)
             {
                 return JsonLocalizableError(Errors.DocumentNotFoundError, Errors.DocumentNotFoundResourceKey);
             }
 
-            document.UpdateEmbedCode(embedCode, GetCurrentUsername());
+            document.UpdateEmbedCode(documentEmbedCode, GetCurrentUsername());
 
             return JsonSuccess(new { document.ModifiedOn });
         }

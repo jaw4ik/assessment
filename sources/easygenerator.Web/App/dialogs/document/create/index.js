@@ -53,16 +53,16 @@ class CreateDocumentDialog {
         this.title.subscribe(this.titleChanged);
         this.embedCode.subscribe(this.embedCodeChanged);
     }
-    show(cancelEvent, callback) {
-        this.isShown(true);
+    show(cancelEvent, callback, title = '', embedCode = '') {
         this.cancelEvent = cancelEvent;
         this.callback = callback;
-        this.title('');
+        this.title(title);
         this.isTitleEditing(false);
         this.isTitleChanged(false);
-        this.embedCode('');
+        this.embedCode(embedCode);
         this.isEmbedCodeEditing(false);
         this.isEmbedCodeChanged(false);
+        this.isShown(true);
     }
     hide() {
         eventTracker.publish(this.cancelEvent);

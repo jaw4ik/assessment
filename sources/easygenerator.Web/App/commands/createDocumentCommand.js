@@ -1,13 +1,8 @@
-﻿define(['repositories/courseRepository', 'plugins/router', 'clientContext', 'constants'],
-    function (repository, router, clientContext, constants) {
+﻿import Repository from 'repositories/documentRepository';
+var repository = new Repository();
 
-        return {
-            execute: function (type, title, embedCode) {
-                return repository.addCourse(title, templateId).then(function (course) {
-                    clientContext.set(constants.clientContextKeys.lastCreatedCourseId, course.id);
-                    return course;
-                });
-            }
-        };
+export default {
+    execute: (type, title, embedCode) => {
+        return repository.addDocument(type, title, embedCode);
     }
-);
+}

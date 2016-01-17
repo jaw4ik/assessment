@@ -73,6 +73,7 @@ ko.bindingHandlers.editableText = {
         }).on('focus', () => {
             $element.on('DOMSubtreeModified', updateValue);
         }).on('blur', () => {
+            $element.scrollLeft(0);
             $element.off('DOMSubtreeModified', updateValue);
         });
 

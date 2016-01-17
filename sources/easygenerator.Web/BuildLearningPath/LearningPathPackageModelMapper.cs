@@ -29,16 +29,36 @@ namespace easygenerator.Web.BuildLearningPath
                 Id = learningPath.Id.ToNString(),
                 CreatedOn = DateTimeWrapper.Now(),
                 Title = learningPath.Title,
-                Courses = (learningPath.Entities ?? new Collection<Course>()).OfType<Course>().Select(MapCourse).ToList()
+                Entities = (learningPath.Entities ?? new Collection<ILearningPathEntity>()).Select(MapEntity).ToList()
             };
+        }
+
+        private ILearningPathEntityPackageModel MapEntity(ILearningPathEntity entity)
+        {
+            if (entity is Course)
+            {
+                return MapCourse((Course) entity);
+            }
+            return MapDocument((Document) entity);
         }
 
         private LearningPathCoursePackageModel MapCourse(Course course)
         {
             return new LearningPathCoursePackageModel()
             {
+                Type = LearningPathEntityType.Course,
                 Title = course.Title,
-                Link = _contentProvider.GetCourseLink(course.Id.ToNString())
+                Link = _contentProvider.GetEntityLink(course.Id.ToNString())
+            };
+        }
+
+        private LearningPathDocumentPackageModel MapDocument(Document document)
+        {
+            return new LearningPathDocumentPackageModel()
+            {
+                Type = LearningPathEntityType.Document,
+                Title = document.Title,
+                Link = _contentProvider.GetEntityLink(document.Id.ToNString())
             };
         }
     }

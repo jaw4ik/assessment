@@ -47,20 +47,19 @@ ko.bindingHandlers.scrollbar = {
         });
 
         function refreshScrollAfterDomChanged() {
-            let scrollHeight = customScrollbarContainer.clientHeight;
-            let interval = setInterval(() => {
-                if (scrollHeight === customScrollbarContainer.clientHeight) {
-                    return;
-                }
-                scrollHeight = customScrollbarContainer.clientHeight;
+            var scrollHeight = customScrollbarContainer.clientHeight;
+            var timeout = setTimeout(() => {
                 perfectScrollbar.update(customScrollbarContainer);
-                if (scrollToEndAfterDOMChanged) {
+                if (scrollToEndAfterDOMChanged && scrollHeight !== customScrollbarContainer.clientHeight) {
+                    scrollHeight = customScrollbarContainer.clientHeight;
                     customScrollbarContainer.scrollTop = customScrollbarContainer.scrollHeight;
                 }
                 scrollEnabled();
+
+                refreshScrollAfterDomChanged();
             }, 500);
 
-            ko.utils.domNodeDisposal.addDisposeCallback(element, () => clearInterval(interval));
+            ko.utils.domNodeDisposal.addDisposeCallback(element, () => clearTimeout(timeout));
         }
 
         function scrollEnabled() {

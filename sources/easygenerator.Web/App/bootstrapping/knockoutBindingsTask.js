@@ -56,6 +56,9 @@
                         'top': top + 'px'
                     });
                 }
+            },
+            stop: function (event, ui) {
+                ui.item.css('z-index', '');
             }
         };
 

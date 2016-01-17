@@ -13,7 +13,7 @@ namespace easygenerator.DataAccess.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201601041444111_AddLPDocuments"; }
+            get { return "201601111121220_AddLPDocuments"; }
         }
         
         string IMigrationMetadata.Source

@@ -247,15 +247,26 @@
     <Compile Include="BuildCourse\Scorm\Models\MetadataModel.cs" />
     <Compile Include="BuildCourse\Scorm\Modules\ScormPackageModulesProvider.cs" />
     <Compile Include="BuildCourse\Scorm\ScormCourseBuilder.cs" />
+    <Compile Include="BuildDocument\DocumentContentPathProvider.cs" />
+    <Compile Include="BuildDocument\DocumentContentProvider.cs" />
+    <Compile Include="BuildDocument\IDocumentContentProvider.cs" />
+    <Compile Include="BuildDocument\PackageModelMapper.cs" />
+    <Compile Include="BuildDocument\PackageModelSerializer.cs" />
+    <Compile Include="BuildDocument\PackageModel\DocumentPackageModel.cs" />
     <Compile Include="BuildLearningPath\ILearningPathBuilder.cs" />
     <Compile Include="BuildLearningPath\ILearningPathContentProvider.cs" />
+    <Compile Include="BuildLearningPath\ILearningPathDocumentBuilder.cs" />
     <Compile Include="BuildLearningPath\ILearningPathCourseBuilder.cs" />
     <Compile Include="BuildLearningPath\LearningPathBuilder.cs" />
     <Compile Include="BuildLearningPath\LearningPathContentPathProvider.cs" />
     <Compile Include="BuildLearningPath\LearningPathContentProvider.cs" />
+    <Compile Include="BuildLearningPath\LearningPathDocumentBuilder.cs" />
     <Compile Include="BuildLearningPath\LearningPathCourseBuilder.cs" />
     <Compile Include="BuildLearningPath\LearningPathPackageModelMapper.cs" />
+    <Compile Include="BuildLearningPath\PackageModel\ILearningPathEntityPackageModel.cs" />
+    <Compile Include="BuildLearningPath\PackageModel\LearningPathDocumentPackageModel.cs" />
     <Compile Include="BuildLearningPath\PackageModel\LearningPathCoursePackageModel.cs" />
+    <Compile Include="BuildLearningPath\PackageModel\LearningPathEntityType.cs" />
     <Compile Include="BuildLearningPath\PackageModel\LearningPathPackageModel.cs" />
     <Compile Include="Components\ActionFilters\ApplicationAuthorize.cs" />
     <Compile Include="Components\ActionFilters\Authorization\AcademyAccessAttribute.cs" />
@@ -612,6 +623,7 @@
     <Content Include="App\bootstrapping\underscoreExtensionsTask.js" />
     <Content Include="App\browse.js" />
     <Content Include="App\commands\createDocumentCommand.js" />
+    <Content Include="App\commands\updateDocumentCommand.js" />
     <Content Include="App\components\bindingHandlers\expandableBlockBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\fileDropUploadBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\cursorTooltipBindingHandler.js" />
@@ -649,6 +661,8 @@
     <Content Include="App\dialogs\course\delete\deleteCourse.spec.js">
       <DependentUpon>deleteCourse.js</DependentUpon>
     </Content>
+    <Content Include="App\dialogs\document\preview\index.html" />
+    <Content Include="App\dialogs\document\preview\index.js" />
     <Content Include="App\editor\course\bindingHandlers\expandBlock.js" />
     <Content Include="App\editor\course\bindingHandlers\draggableContainer.js" />
     <Content Include="App\editor\course\bindingHandlers\draggableData.js" />
@@ -712,8 +726,8 @@
     <Content Include="App\dialogs\course\publishCourse\publishDialog.spec.js">
       <DependentUpon>publishDialog.js</DependentUpon>
     </Content>
-    <Content Include="App\dialogs\document\create.html" />
-    <Content Include="App\dialogs\document\create.js" />
+    <Content Include="App\dialogs\document\create\index.html" />
+    <Content Include="App\dialogs\document\create\index.js" />
     <Content Include="App\dialogs\learningPath\customPublish.html" />
     <Content Include="App\dialogs\learningPath\customPublish.js" />
     <Content Include="App\dialogs\learningPath\customPublish.spec.js">
@@ -736,6 +750,7 @@
     <Content Include="App\localization\lang\en.json" />
     <Content Include="App\mappers\documentModelMapper.js" />
     <Content Include="App\models\document.js" />
+    <Content Include="App\models\iterable.js" />
     <Content Include="App\Query.js" />
     <Content Include="App\Command.js" />
     <Content Include="App\commands\createCourseCommand.js" />
@@ -834,6 +849,7 @@
     <Content Include="App\reporting\viewmodels\startedStatement.spec.js">
       <DependentUpon>startedStatement.js</DependentUpon>
     </Content>
+    <Content Include="App\repositories\documentRepository.js" />
     <Content Include="App\repositories\learningPathRepository.spec.js">
       <DependentUpon>learningPathRepository.js</DependentUpon>
     </Content>
@@ -880,6 +896,17 @@
     <Content Include="App\viewmodels\learningPaths\learningPath\actions\publishToCustomLms.spec.js">
       <DependentUpon>publishToCustomLms.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\commands\addCourseCommand.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\commands\addCourseCommand.spec.js">
+      <DependentUpon>addCourseCommand.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\commands\addDocumentCommand.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\commands\removeDocumentCommand.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\commands\updateEntitiesOrderCommand.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\commands\updateEntitiesOrderCommand.spec.js">
+      <DependentUpon>updateEntitiesOrderCommand.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\documentBrief.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>
@@ -1215,17 +1242,9 @@
     <Content Include="App\viewmodels\learningPaths\learningPath\actions\download.spec.js">
       <DependentUpon>download.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\learningPaths\learningPath\commands\addCourseCommand.js" />
-    <Content Include="App\viewmodels\learningPaths\learningPath\commands\addCourseCommand.spec.js">
-      <DependentUpon>addCourseCommand.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\commands\removeCourseCommand.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\commands\removeCourseCommand.spec.js">
       <DependentUpon>removeCourseCommand.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\learningPaths\learningPath\commands\updateCoursesOrderCommand.js" />
-    <Content Include="App\viewmodels\learningPaths\learningPath\commands\updateCoursesOrderCommand.spec.js">
-      <DependentUpon>updateCoursesOrderCommand.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\commands\updateTitleCommand.spec.js">
       <DependentUpon>updateTitleCommand.js</DependentUpon>

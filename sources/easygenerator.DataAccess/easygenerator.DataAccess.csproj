@@ -419,9 +419,9 @@
     <Compile Include="Migrations\201512171009197_AddNewEditor.Designer.cs">
       <DependentUpon>201512171009197_AddNewEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201601041444111_AddLPDocuments.cs" />
-    <Compile Include="Migrations\201601041444111_AddLPDocuments.Designer.cs">
-      <DependentUpon>201601041444111_AddLPDocuments.cs</DependentUpon>
+    <Compile Include="Migrations\201601111121220_AddLPDocuments.cs" />
+    <Compile Include="Migrations\201601111121220_AddLPDocuments.Designer.cs">
+      <DependentUpon>201601111121220_AddLPDocuments.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -728,8 +728,8 @@
     <EmbeddedResource Include="Migrations\201512171009197_AddNewEditor.resx">
       <DependentUpon>201512171009197_AddNewEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601041444111_AddLPDocuments.resx">
-      <DependentUpon>201601041444111_AddLPDocuments.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201601111121220_AddLPDocuments.resx">
+      <DependentUpon>201601111121220_AddLPDocuments.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
