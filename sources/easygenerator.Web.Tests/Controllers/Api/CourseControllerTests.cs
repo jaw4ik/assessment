@@ -257,12 +257,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var learningPaths = new Collection<LearningPath>();
             learningPaths.Add(learningPath);
 
-            learningPath.Courses.Returns(courses);
+            learningPath.Entities.Returns(courses);
             course.LearningPaths.Returns(learningPaths);
 
             _controller.Delete(course);
 
-            learningPath.Received().RemoveCourse(course, Arg.Any<string>());
+            learningPath.Received().RemoveEntity(course, Arg.Any<string>());
         }
 
         [TestMethod]

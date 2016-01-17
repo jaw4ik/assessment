@@ -201,7 +201,7 @@ namespace easygenerator.Web.Controllers.Api
 
             var result = _builder.Build(learningPath);
 
-            return result ? JsonSuccess(new { PackageUrl = learningPath.PackageUrl }) :
+            return result ? JsonSuccess(new { learningPath.PackageUrl }) :
                 JsonLocalizableError(Errors.LearningPathBuildActionFailedError, Errors.LearningPathBuildActionFailedResourceKey);
         }
 

@@ -298,23 +298,23 @@ namespace easygenerator.DomainModel.Tests.Entities
         
         #endregion
 
-        #region AddCourse
+        #region AddEntity
 
         [TestMethod]
-        public void AddCourse_ShouldThrowNullArgumentException_WhenCourseIsNull()
+        public void AddEntity_ShouldThrowNullArgumentException_WhenEntityIsNull()
         {
             //Arrange
             var learningPath = LearningPathObjectMother.Create();
 
             //Act
-            Action action = () => learningPath.AddCourse(null, null, ModifiedBy);
+            Action action = () => learningPath.AddEntity(null, null, ModifiedBy);
 
             //Assert
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("course");
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("entity");
         }
 
         [TestMethod]
-        public void AddCourse_ShouldUpdateModifiedOnDate()
+        public void AddEntity_ShouldUpdateModifiedOnDate()
         {
             //Arrange
             var learningPath = LearningPathObjectMother.Create();
@@ -322,126 +322,130 @@ namespace easygenerator.DomainModel.Tests.Entities
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             //Act
-            learningPath.AddCourse(course, null, ModifiedBy);
+            learningPath.AddEntity(course, null, ModifiedBy);
 
             //Assert
             learningPath.ModifiedOn.Should().Be(DateTime.MaxValue);
         }
 
         [TestMethod]
-        public void AddCourse_ShouldAddCourseToLearningPath()
+        public void AddEntity_ShouldAddEntityToLearningPath()
         {
             //Arrange
             var learningPath = LearningPathObjectMother.Create();
             var course = CourseObjectMother.Create();
+            var document = DocumentObjectMother.Create();
 
             //Act
-            learningPath.AddCourse(course, null, ModifiedBy);
+            learningPath.AddEntity(course, null, ModifiedBy);
+            learningPath.AddEntity(document, null, ModifiedBy);
 
             //Assert
-            learningPath.Courses.Should().Contain(course);
+            learningPath.Entities.Should().Contain(course);
+            learningPath.Entities.Should().Contain(document);
         }
 
 
         [TestMethod]
-        public void AddCourse_ShouldUpdateObjectivesOrderedListAndInsertToEnd_WhenIndexIsNotDefined()
+        public void AddEntity_ShouldUpdateEntitiesOrderedListAndInsertToEnd_WhenIndexIsNotDefined()
         {
             //Arrange
             var learningPath = LearningPathObjectMother.Create();
             var course = CourseObjectMother.Create();
-            var course1 = CourseObjectMother.Create();
+            var document = DocumentObjectMother.Create();
             learningPath.CoursesCollection = new Collection<Course>() { course };
-            var coursesCollection = new List<Course>() { course };
-            learningPath.UpdateCoursesOrder(coursesCollection, ModifiedBy);
-            coursesCollection.Add(course1);
-            var order = String.Join(",", coursesCollection.ConvertAll(o => o.Id.ToString()).ToArray());
+            var entitiesCollection = new List<ILearningPathEntity>() { course };
+            learningPath.UpdateEntitiesOrder(entitiesCollection, ModifiedBy);
+            entitiesCollection.Add(document);
+            var order = String.Join(",", entitiesCollection.ConvertAll(o => o.Id.ToString()).ToArray());
             //Act
-            learningPath.AddCourse(course1, null, ModifiedBy);
+            learningPath.AddEntity(document, null, ModifiedBy);
 
             //Assert
-            learningPath.CoursesOrder.Should().Be(order);
+            learningPath.EntitiesOrder.Should().Be(order);
         }
 
         [TestMethod]
-        public void AddCourse_ShouldUpdateObjectivesOrderedListAndInsertToPosition_WhenIndexIsDefined()
+        public void AddEntity_ShouldUpdateEntitiesOrderedListAndInsertToPosition_WhenIndexIsDefined()
         {
             //Arrange
             var learningPath = LearningPathObjectMother.Create();
             var course = CourseObjectMother.Create();
-            var course1 = CourseObjectMother.Create();
+            var document = DocumentObjectMother.Create();
             var course2 = CourseObjectMother.Create();
             const int position = 1;
-            learningPath.CoursesCollection = new Collection<Course>() { course, course1 };
-            var coursesCollection = new List<Course>() { course, course1 };
-            learningPath.UpdateCoursesOrder(coursesCollection, ModifiedBy);
-            coursesCollection.Insert(position, course2);
-            var order = String.Join(",", coursesCollection.ConvertAll(o => o.Id.ToString()).ToArray());
+            learningPath.CoursesCollection = new Collection<Course>() { course };
+            learningPath.DocumentsCollection = new Collection<Document>() { document };
+            var entitiesCollection = new List<ILearningPathEntity>() { course, document };
+            learningPath.UpdateEntitiesOrder(entitiesCollection, ModifiedBy);
+            entitiesCollection.Insert(position, course2);
+            var order = String.Join(",", entitiesCollection.ConvertAll(o => o.Id.ToString()).ToArray());
             //Act
-            learningPath.AddCourse(course2, 1, ModifiedBy);
+            learningPath.AddEntity(course2, 1, ModifiedBy);
 
             //Assert
-            learningPath.CoursesOrder.Should().Be(order);
+            learningPath.EntitiesOrder.Should().Be(order);
         }
 
         [TestMethod]
-        public void AddCourse_ShouldThrowNullArgumentException_WhenModifiedByIsNull()
+        public void AddEntity_ShouldThrowNullArgumentException_WhenModifiedByIsNull()
         {
             //Arrange
             var learningPath = LearningPathObjectMother.Create();
             var course = CourseObjectMother.Create();
 
             //Act
-            Action action = () => learningPath.AddCourse(course, null, null);
+            Action action = () => learningPath.AddEntity(course, null, null);
 
             //Assert
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
         }
 
         [TestMethod]
-        public void AddCourse_ShouldThrowNullArgumentException_WhenModifiedByIsEmpty()
+        public void AddEntity_ShouldThrowNullArgumentException_WhenModifiedByIsEmpty()
         {
             //Arrange
             var learningPath = LearningPathObjectMother.Create();
             var course = CourseObjectMother.Create();
 
             //Act
-            Action action = () => learningPath.AddCourse(course, null, null);
+            Action action = () => learningPath.AddEntity(course, null, null);
 
             //Assert
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
         }
 
         [TestMethod]
-        public void AddCourse_ShouldUpdateMoidifiedBy()
+        public void AddEntity_ShouldUpdateMoidifiedBy()
         {
             var learningPath = LearningPathObjectMother.Create();
             var course = CourseObjectMother.Create();
             var user = "Some user";
 
-            learningPath.AddCourse(course, null, user);
+            learningPath.AddEntity(course, null, user);
 
             learningPath.ModifiedBy.Should().Be(user);
         }
 
         #endregion
 
-        #region RemoveCourse
+        #region RemoveEntity
 
         [TestMethod]
-        public void RemoveCourse_ShouldThrowNullArgumentException_WhenCourseIsNull()
+        public void RemoveEntity_ShouldThrowNullArgumentException_WhenEntityIsNull()
         {
             //Arrange
             var learningPath = LearningPathObjectMother.Create();
 
             //Act
-            Action action = () => learningPath.RemoveCourse(null, ModifiedBy);
+            Action action = () => learningPath.RemoveEntity(null, ModifiedBy);
 
             //Assert
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("course");
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("entity");
         }
 
         [TestMethod]
-        public void RemoveCourse_ShouldUpdateModifiedOnDate()
+        public void RemoveEntity_ShouldUpdateModifiedOnDate()
         {
             //Arrange
             var learningPath = LearningPathObjectMother.Create();
@@ -454,14 +458,14 @@ namespace easygenerator.DomainModel.Tests.Entities
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             //Act
-            learningPath.RemoveCourse(course, ModifiedBy);
+            learningPath.RemoveEntity(course, ModifiedBy);
 
             //Assert
             learningPath.ModifiedOn.Should().Be(DateTime.MaxValue);
         }
 
         [TestMethod]
-        public void RemoveCourse_ShouldRemoveCourseFromLearningPath()
+        public void RemoveEntity_ShouldRemoveEntityFromLearningPath()
         {
             //Arrange
             var learningPath = LearningPathObjectMother.Create();
@@ -472,14 +476,14 @@ namespace easygenerator.DomainModel.Tests.Entities
             };
 
             //Act
-            learningPath.RemoveCourse(course, ModifiedBy);
+            learningPath.RemoveEntity(course, ModifiedBy);
 
             //Assert
-            learningPath.Courses.Should().NotContain(course);
+            learningPath.Entities.Should().NotContain(course);
         }
 
         [TestMethod]
-        public void RemoveCourse_ShouldUpdateCoursesOrderedList()
+        public void RemoveEntity_ShouldUpdateEntitiesOrderedList()
         {
             //Arrange
             var learningPath = LearningPathObjectMother.Create();
@@ -489,43 +493,43 @@ namespace easygenerator.DomainModel.Tests.Entities
                 course
             };
 
-            var coursesCollection = new List<Course>() { course };
-            learningPath.UpdateCoursesOrder(coursesCollection, ModifiedBy);
+            var entitiesCollection = new List<ILearningPathEntity>() { course };
+            learningPath.UpdateEntitiesOrder(entitiesCollection, ModifiedBy);
             //Act
-            learningPath.RemoveCourse(course, ModifiedBy);
+            learningPath.RemoveEntity(course, ModifiedBy);
 
             //Assert
-            learningPath.CoursesOrder.Should().BeNull();
+            learningPath.EntitiesOrder.Should().BeNull();
         }
 
         [TestMethod]
-        public void RemoveCourse_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        public void RemoveEntity_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
         {
             //Arrange
             var learningPath = LearningPathObjectMother.Create();
             var course = CourseObjectMother.Create();
             //Act
-            Action action = () => learningPath.RemoveCourse(course, null);
+            Action action = () => learningPath.RemoveEntity(course, null);
 
             //Assert
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
         }
 
         [TestMethod]
-        public void RemoveCourse_ShouldThrowArgumentNullException_WhenModifiedByIsEmpty()
+        public void RemoveEntity_ShouldThrowArgumentNullException_WhenModifiedByIsEmpty()
         {
             //Arrange
             var learningPath = LearningPathObjectMother.Create();
             var course = CourseObjectMother.Create();
             //Act
-            Action action = () => learningPath.RemoveCourse(course, "");
+            Action action = () => learningPath.RemoveEntity(course, "");
 
             //Assert
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
         }
 
         [TestMethod]
-        public void RemoveCourse_ShouldUpdateMoidifiedBy()
+        public void RemoveEntity_ShouldUpdateMoidifiedBy()
         {
             //Arrange
             var learningPath = LearningPathObjectMother.Create();
@@ -536,7 +540,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             };
 
             //Act
-            learningPath.RemoveCourse(course, ModifiedBy);
+            learningPath.RemoveEntity(course, ModifiedBy);
 
             //Assert
             learningPath.ModifiedBy.Should().Be(ModifiedBy);
@@ -544,31 +548,33 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
-        #region UpdateCoursesOrder
+        #region UpdateEntitiesOrder
 
         [TestMethod]
-        public void UpdateCoursesOrder_ShouldUpdateCoursesOrderedList()
+        public void UpdateEntitiesOrder_ShouldUpdateEntitiesOrderedList()
         {
             //Arrange
             var user = "some user";
             var learningPath = LearningPathObjectMother.Create();
             var course1 = CourseObjectMother.Create();
             var course2 = CourseObjectMother.Create();
-            var coursesCollection = new List<Course>()
+            var document1 = DocumentObjectMother.Create();
+            var entitiesCollection = new List<ILearningPathEntity>()
             {
                 course2,
-                course1
+                course1,
+                document1
             };
-            var result = String.Join(",", coursesCollection.ConvertAll(o => o.Id.ToString()).ToArray());
+            var result = String.Join(",", entitiesCollection.ConvertAll(o => o.Id.ToString()).ToArray());
             //Act
-            learningPath.UpdateCoursesOrder(coursesCollection, user);
+            learningPath.UpdateEntitiesOrder(entitiesCollection, user);
 
             //Assert
-            learningPath.CoursesOrder.Should().Be(result);
+            learningPath.EntitiesOrder.Should().Be(result);
         }
 
         [TestMethod]
-        public void UpdateCoursesOrder_ShouldUpdateModifiedOn()
+        public void UpdateEntitiesOrder_ShouldUpdateModifiedOn()
         {
             //Arrange
             var user = "some user";
@@ -578,138 +584,155 @@ namespace easygenerator.DomainModel.Tests.Entities
             var dateTime = DateTime.Now.AddDays(1);
             DateTimeWrapper.Now = () => dateTime;
 
-            var coursesCollection = new List<Course>()
+            var entitiesCollection = new List<ILearningPathEntity>()
             {
                 CourseObjectMother.Create()
             };
 
             //Act
-            learningPath.UpdateCoursesOrder(coursesCollection, user);
+            learningPath.UpdateEntitiesOrder(entitiesCollection, user);
 
             //Assert
             learningPath.ModifiedOn.Should().Be(dateTime);
         }
 
         [TestMethod]
-        public void UpdateCoursesOrder_ShouldUpdateModifiedBy()
+        public void UpdateEntitiesOrder_ShouldUpdateModifiedBy()
         {
             //Arrange
             var user = "some user";
             var learningPath = LearningPathObjectMother.Create();
-            var coursesCollection = new List<Course>()
+            var entitiesCollection = new List<ILearningPathEntity>()
             {
                 CourseObjectMother.Create()
             };
 
             //Act
-            learningPath.UpdateCoursesOrder(coursesCollection, user);
+            learningPath.UpdateEntitiesOrder(entitiesCollection, user);
 
             //Assert
             learningPath.ModifiedBy.Should().Be(user);
         }
 
         [TestMethod]
-        public void UpdateCoursesOrder_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        public void UpdateEntitiesOrder_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
         {
             //Arrange
             var learningPath = LearningPathObjectMother.Create();
-            var coursesCollection = new List<Course>()
+            var entitiesCollection = new List<ILearningPathEntity>()
             {
                 CourseObjectMother.Create()
             };
 
             //Act
-            Action action = () => learningPath.UpdateCoursesOrder(coursesCollection, null);
+            Action action = () => learningPath.UpdateEntitiesOrder(entitiesCollection, null);
 
             //Assert
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
         }
 
         [TestMethod]
-        public void UpdateCoursesOrder_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        public void UpdateEntitiesOrder_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
         {
             //Arrange
             var learningPath = LearningPathObjectMother.Create();
-            var coursesCollection = new List<Course>()
+            var entitiesCollection = new List<ILearningPathEntity>()
             {
                 CourseObjectMother.Create()
             };
 
             //Act
-            Action action = () => learningPath.UpdateCoursesOrder(coursesCollection, "");
+            Action action = () => learningPath.UpdateEntitiesOrder(entitiesCollection, "");
 
             //Assert
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
         }
 
-        #endregion UpdateObjectivesOrder
+        #endregion
 
-        #region Courses
+        #region Entities
 
         [TestMethod]
-        public void Courses_ShouldReturnOrderedCoursesCollection_WhenCoursesOrderedListNotNull()
+        public void Entities_ShouldReturnOrderedEntitiesCollection_WhenEntitiesOrderedListNotNull()
         {
             //Arrange
             var learningPath = LearningPathObjectMother.Create();
             var course1 = CourseObjectMother.Create();
+            var document1 = DocumentObjectMother.Create();
+            var document2 = DocumentObjectMother.Create();
             var course2 = CourseObjectMother.Create();
             learningPath.CoursesCollection = new Collection<Course>()
             {
                 course2,
                 course1
             };
-            learningPath.CoursesOrder = String.Format("{0},{1}", course1.Id, course2.Id);
+            learningPath.DocumentsCollection = new Collection<Document>()
+            {
+                document2,
+                document1
+            };
+            learningPath.EntitiesOrder = String.Format("{0},{1},{2},{3}", course1.Id, document2.Id, course2.Id, document1.Id);
 
             //Act
-            var result = learningPath.Courses;
+            var result = learningPath.Entities;
 
             //Assert
             result.First().Id.Should().Be(course1.Id);
+            result.ToList()[1].Id.Should().Be(document2.Id);
+            result.ToList()[2].Id.Should().Be(course2.Id);
         }
 
         [TestMethod]
-        public void Courses_ShouldReturnAllObjectivesInCorrectOrder_WhenObjectivesOrderedListIsNotFull()
+        public void Entities_ShouldReturnAllEntitiesInCorrectOrder_WhenEntitiesOrderedListIsNotFull()
         {
             //Arrange
             var learningPath = LearningPathObjectMother.Create();
             var course1 = CourseObjectMother.Create();
             var course2 = CourseObjectMother.Create();
+            var document1 = DocumentObjectMother.Create();
+            var document2 = DocumentObjectMother.Create();
             learningPath.CoursesCollection = new Collection<Course>()
             {
                 course2,
                 course1
             };
-            learningPath.CoursesOrder = course1.Id.ToString();
+            learningPath.DocumentsCollection = new Collection<Document>()
+            {
+                document2,
+                document1
+            };
+            learningPath.EntitiesOrder = String.Format("{0},{1}", course1.Id, document2.Id);
 
             //Act
-            var result = learningPath.Courses;
+            var result = learningPath.Entities;
 
             //Assert
-            result.Count().Should().Be(2);
+            result.Count().Should().Be(4);
             result.First().Should().Be(course1);
+            result.ToList()[1].Should().Be(document2);
         }
 
         [TestMethod]
-        public void Courses_ShouldReturnAllCoursesInCorrectOrder_WhenCoursesOrderedListIsOverfull()
+        public void Entities_ShouldReturnAllEntitiesInCorrectOrder_WhenEntitiesOrderedListIsOverfull()
         {
             //Arrange
             var learningPath = LearningPathObjectMother.Create();
             var course1 = CourseObjectMother.Create();
-            var course2 = CourseObjectMother.Create();
-            learningPath.CoursesCollection = new Collection<Course>()
+            var document1 = DocumentObjectMother.Create();
+            learningPath.DocumentsCollection = new Collection<Document>()
             {
-                course2
+                document1
             };
-            learningPath.CoursesOrder = String.Format("{0},{1}", course1.Id, course2.Id);
+            learningPath.EntitiesOrder = String.Format("{0},{1}", document1.Id, course1.Id);
 
             //Act
-            var result = learningPath.Courses;
+            var result = learningPath.Entities;
 
             //Assert
             result.Count().Should().Be(1);
-            result.First().Should().Be(course2);
+            result.First().Should().Be(document1);
         }
 
-        #endregion RelatedObjectives
+        #endregion
     }
 }

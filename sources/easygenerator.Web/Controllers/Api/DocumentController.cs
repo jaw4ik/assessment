@@ -19,7 +19,7 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IDocumentRepository _documentRepository;
         private readonly IEntityMapper _entityMapper;
 
-        public DocumentController(IDocumentRepository documentRepository, IEntityFactory entityFactory, IEntityMapper entityMapper, IUserRepository userRepository)
+        public DocumentController(IDocumentRepository documentRepository, IEntityFactory entityFactory, IEntityMapper entityMapper)
         {
             _documentRepository = documentRepository;
             _entityFactory = entityFactory;

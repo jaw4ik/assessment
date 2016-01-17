@@ -19,6 +19,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using easygenerator.Web.Components;
+using easygenerator.Web.Extensions;
 using easygenerator.Web.Publish.External;
 
 namespace easygenerator.Web.Tests.Controllers.Api
@@ -38,6 +39,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private ILearningPathBuilder _builder;
         private ILearningPathPublisher _publisher;
         private IUserRepository _userRepository;
+        private IDocumentRepository _documentRepository;
         private IExternalLearningPathPublisher _externalPublisher;
 
         private IPrincipal _user;
@@ -53,13 +55,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _builder = Substitute.For<ILearningPathBuilder>();
             _publisher = Substitute.For<ILearningPathPublisher>();
             _userRepository = Substitute.For<IUserRepository>();
+            _documentRepository = Substitute.For<IDocumentRepository>();
             _externalPublisher = Substitute.For<IExternalLearningPathPublisher>();
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
             _context.User.Returns(_user);
 
-            _controller = new LearningPathController(_urlHelper, _repository, _mapper, _entityFactory, _builder, _publisher, _userRepository, _externalPublisher);
+            _controller = new LearningPathController(_urlHelper, _repository, _mapper, _entityFactory, _builder, _publisher, _userRepository, _documentRepository, _externalPublisher);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -187,7 +190,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.AddCourse(learningPath, course, null);
 
             //Assert
-            learningPath.Received().AddCourse(course, null, Username);
+            learningPath.Received().AddEntity(course, null, Username);
         }
 
         [TestMethod]
@@ -251,7 +254,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.RemoveCourse(learningPath, course);
 
             //Assert
-            learningPath.Received().RemoveCourse(course, Username);
+            learningPath.Received().RemoveEntity(course, Username);
         }
 
         [TestMethod]
@@ -286,7 +289,135 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
-        #region UpdateCourseOrder
+        #region AddDocument
+
+        [TestMethod]
+        public void AddDocument_ShouldReturnJson()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(Username);
+            var learningPath = LearningPathObjectMother.Create();
+            var document = DocumentObjectMother.Create();
+
+            //Act
+            var result = _controller.AddDocument(learningPath, document, null);
+
+            //Assert
+            ActionResultAssert.IsJsonSuccessResult(result);
+        }
+
+        [TestMethod]
+        public void AddDocument_ShouldAddDocumentToLearningPath()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(Username);
+            var learningPath = Substitute.For<LearningPath>();
+            var document = DocumentObjectMother.Create();
+
+            //Act
+            _controller.AddDocument(learningPath, document, null);
+
+            //Assert
+            learningPath.Received().AddEntity(document, null, Username);
+        }
+
+        [TestMethod]
+        public void AddDocument_ShouldReturnJsonErrorResult_WhenLearningPathIsNull()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(Username);
+            var document = DocumentObjectMother.Create();
+
+            //Act
+            var result = _controller.AddDocument(null, document, null);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.LearningPathNotFoundError);
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be(Errors.LearningPathNotFoundResourceKey);
+        }
+
+        [TestMethod]
+        public void AddDocument_ShouldReturnJsonErrorResult_WhenDocumentIsNull()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(Username);
+            var learningPath = Substitute.For<LearningPath>();
+
+            //Act
+            var result = _controller.AddDocument(learningPath, null, null);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.DocumentNotFoundError);
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be(Errors.DocumentNotFoundResourceKey);
+        }
+
+        #endregion
+
+        #region RemoveDocument
+
+        [TestMethod]
+        public void RemoveDocument_ShouldReturnJson()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(Username);
+            var learningPath = LearningPathObjectMother.Create();
+            var document = DocumentObjectMother.Create();
+
+            //Act
+            var result = _controller.RemoveDocument(learningPath, document);
+
+            //Assert
+            ActionResultAssert.IsJsonSuccessResult(result);
+        }
+
+        [TestMethod]
+        public void RemoveDocument_ShouldRemoveDocumentFromLearningPath()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(Username);
+            var learningPath = Substitute.For<LearningPath>();
+            var document = DocumentObjectMother.Create();
+
+            //Act
+            _controller.RemoveDocument(learningPath, document);
+
+            //Assert
+            learningPath.Received().RemoveEntity(document, Username);
+        }
+
+        [TestMethod]
+        public void RemoveDocument_ShouldReturnJsonErrorResult_WhenLearningPathIsNull()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(Username);
+            var document = DocumentObjectMother.Create();
+
+            //Act
+            var result = _controller.RemoveDocument(null, document);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.LearningPathNotFoundError);
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be(Errors.LearningPathNotFoundResourceKey);
+        }
+
+        [TestMethod]
+        public void RemoveDocument_ShouldReturnJsonErrorResult_WhenDocumentIsNull()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(Username);
+            var learningPath = Substitute.For<LearningPath>();
+
+            //Act
+            var result = _controller.RemoveDocument(learningPath, null);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.DocumentNotFoundError);
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be(Errors.DocumentNotFoundResourceKey);
+        }
+
+        #endregion
+
+        #region UpdateEntitiesOrder
 
         [TestMethod]
         public void UpdateCourseOrder_ShouldReturnHttpNotFound_WhenLearningPathIsNull()
@@ -294,41 +425,41 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
 
             //Act
-            var result = _controller.UpdateCourseOrder(null, new List<Course>());
+            var result = _controller.UpdateEntitiesOrder(null, new List<ILearningPathEntity>());
 
             //Assert
             result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.LearningPathNotFoundError);
         }
 
         [TestMethod]
-        public void UpdateCourseOrder_ShouldCallMethodReorderCourses()
+        public void UpdateEntitiesOrder_ShouldCallMethodReorderEntities()
         {
             //Arrange
             var learningPath = Substitute.For<LearningPath>();
-            var courses = new Collection<Course>();
+            var entities = new Collection<ILearningPathEntity>();
             _user.Identity.Name.Returns(Username);
 
             //Act
-            _controller.UpdateCourseOrder(learningPath, courses);
+            _controller.UpdateEntitiesOrder(learningPath, entities);
 
             //Assert
-            learningPath.Received().UpdateCoursesOrder(courses, Username);
+            learningPath.Received().UpdateEntitiesOrder(entities, Username);
         }
 
         [TestMethod]
-        public void UpdateCourseOrder_ShouldReturnJsonSuccessResult()
+        public void UpdateEntitiesOrder_ShouldReturnJsonSuccessResult()
         {
             //Arrange
             var learnignPath = LearningPathObjectMother.Create();
 
             //Act
-            var result = _controller.UpdateCourseOrder(learnignPath, new List<Course>());
+            var result = _controller.UpdateEntitiesOrder(learnignPath, new List<ILearningPathEntity>());
 
             //Assert
             result.Should().BeJsonSuccessResult();
         }
 
-        #endregion UpdateObjectivesOrder
+        #endregion
 
         #region DeleteLearningPath
 
@@ -339,6 +470,46 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Act
             var result = _controller.Delete(null);
+
+            //Assert
+            result.Should().BeJsonSuccessResult();
+        }
+
+        [TestMethod]
+        public void DeleteLearningPath_ShouldDeleteAllIncludedDocuments()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(Username);
+
+            var learningPath = LearningPathObjectMother.Create();
+            var document1 = DocumentObjectMother.Create();
+            var document2 = DocumentObjectMother.Create();
+            learningPath.AddEntity(document1, null, Username);
+            learningPath.AddEntity(document2, null, Username);
+
+            //Act
+            _controller.Delete(learningPath);
+
+            //Assert
+            _documentRepository.Received().Remove(document1);
+            _documentRepository.Received().Remove(document2);
+            _repository.Received().Remove(learningPath);
+        }
+
+        [TestMethod]
+        public void DeleteLearningPath_WhenLearningPathContainsDocuments_ShouldReturnJsonSuccessResultWithDeletedDocumentIds()
+        {
+            //Arrange
+            _user.Identity.Name.Returns(Username);
+
+            var learningPath = LearningPathObjectMother.Create();
+            var document1 = DocumentObjectMother.Create();
+            var document2 = DocumentObjectMother.Create();
+            learningPath.AddEntity(document1, null, Username);
+            learningPath.AddEntity(document2, null, Username);
+
+            //Act
+            var result = _controller.Delete(learningPath);
 
             //Assert
             result.Should().BeJsonSuccessResult();
@@ -370,7 +541,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             result.Should().BeJsonSuccessResult();
         }
 
-        #endregion DeleteCourse
+        #endregion
 
         #region Build
 

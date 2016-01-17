@@ -15,6 +15,7 @@ namespace easygenerator.DomainModel.Entities
         protected internal Document(string title, string embedCode, DocumentType documentType, string createdBy) : base(createdBy)
         {
             ThrowIfTitleIsInvalid(title);
+            ThrowIfEmbedCodeIsInvalid(embedCode);
 
             Title = title;
             EmbedCode = embedCode;

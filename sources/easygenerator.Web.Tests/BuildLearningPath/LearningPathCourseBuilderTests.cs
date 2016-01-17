@@ -40,7 +40,7 @@ namespace easygenerator.Web.Tests.BuildLearningPath
             var buildDirectoryPath = "buildDirectoryPath";
             var course = CourseObjectMother.Create();
             var courseDirectory = "courseDirectory";
-            _contentPathProvider.GetCourseDirectoryName(buildDirectoryPath, course.Id.ToNString()).Returns(courseDirectory);
+            _contentPathProvider.GetEntityDirectoryName(buildDirectoryPath, course.Id.ToNString()).Returns(courseDirectory);
 
             //Act
             _builder.Build(buildDirectoryPath, course);
@@ -56,7 +56,7 @@ namespace easygenerator.Web.Tests.BuildLearningPath
             var buildDirectoryPath = "buildDirectoryPath";
             var course = CourseObjectMother.Create();
             var courseDirectory = "courseDirectory";
-            _contentPathProvider.GetCourseDirectoryName(buildDirectoryPath, course.Id.ToNString()).Returns(courseDirectory);
+            _contentPathProvider.GetEntityDirectoryName(buildDirectoryPath, course.Id.ToNString()).Returns(courseDirectory);
             List<PackageModule> modules = new List<PackageModule>();
             _packageModulesProvider.GetModulesList(course).Returns(modules);
 
