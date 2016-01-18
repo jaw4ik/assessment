@@ -131,6 +131,7 @@
   <ItemGroup>
     <Compile Include="Components\ActionResults\FileResult.cs" />
     <Compile Include="Components\Attributes\FileNameAttribute.cs" />
+    <Compile Include="Converter\CacheManager.cs" />
     <Compile Include="Configuration\OwinConfiguration.cs" />
     <Compile Include="Configuration\WebApiConfiguration.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
