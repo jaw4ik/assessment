@@ -49,7 +49,7 @@ class Logo {
 
     activate(logo, defaults) {
         this.defaults = defaults || null;
-        this.imageUrl(logo && logo.url ? logo.url : null);
+        this.imageUrl(logo && logo.url || defaults && defaults.url || null);
         this.available = userContext.hasStarterAccess();
     }
 

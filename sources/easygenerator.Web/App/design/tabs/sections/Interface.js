@@ -21,8 +21,8 @@ class Interface {
         this.available = null;
     }
 
-    activate(colors) {
-        colors = Array.isArray(colors) ? colors : [];
+    activate(colors, defaults) {
+        colors = Array.isArray(colors) ? colors : Array.isArray(defaults) ? defaults : [];
         this.colors(colors.map(c => new Color(c)));
         this.available = userContext.hasPlusAccess();
     }

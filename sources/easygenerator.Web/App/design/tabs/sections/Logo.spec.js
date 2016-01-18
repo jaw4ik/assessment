@@ -350,13 +350,29 @@ describe('Logo design section', () => {
         });
 
         describe('when logo is not an object', () => {
-        
-            it('should set null to imageUrl', () => {
-                let logo = new Logo();
 
-                logo.activate();
+            describe('and defaults have image url', () => {
 
-                expect(logo.imageUrl()).toEqual(null);
+                it('should set a default value to imageUrl', () => {
+                    let logo = new Logo();
+
+                    logo.activate(null, { url: 'imageUrl' });
+
+                    expect(logo.imageUrl()).toEqual('imageUrl');
+                });
+
+            });
+
+            describe('and defaults do not have image url', () => {
+
+                it('should set null to imageUrl', () => {
+                    let logo = new Logo();
+
+                    logo.activate();
+
+                    expect(logo.imageUrl()).toEqual(null);
+                });
+
             });
 
         });

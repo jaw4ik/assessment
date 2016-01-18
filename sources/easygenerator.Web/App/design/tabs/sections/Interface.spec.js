@@ -140,10 +140,28 @@ describe('Interface design section', () => {
 
         describe('when colors is not an array', () => {
 
-            it('should set an empty colors array', () => {
-                let int = new Interface();
-                int.activate();
-                expect(int.colors().length).toEqual(0);
+            describe('and defaults are an array', () => {
+                
+                it('should set defaults to colors array', () => {
+                    let int = new Interface();
+                    int.activate(null, [{ key: '@main-color', value: '#000000' }, { key: '@secondary-color', value: '#aabbcc' }]);
+                    expect(int.colors().length).toEqual(2);
+                    expect(int.colors()[0].key).toEqual('@main-color');
+                    expect(int.colors()[0].value()).toEqual('#000000');
+                    expect(int.colors()[1].key).toEqual('@secondary-color');
+                    expect(int.colors()[1].value()).toEqual('#aabbcc');
+                });
+
+            });
+
+            describe('and defaults are not an array', () => {
+                
+                it('should set an empty colors array', () => {
+                    let int = new Interface();
+                    int.activate();
+                    expect(int.colors().length).toEqual(0);
+                });
+
             });
 
         });

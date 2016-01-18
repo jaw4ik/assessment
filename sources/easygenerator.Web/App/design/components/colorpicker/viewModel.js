@@ -1,5 +1,4 @@
-﻿import $ from 'jquery';
-import ko from 'knockout';
+﻿import ko from 'knockout';
 import _ from 'underscore';
 
 export default class Colorpicker{

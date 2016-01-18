@@ -226,21 +226,13 @@ class Design{
 
     loadSettings() {
         return getCommand.getCourseTemplateSettings(this.courseId, this.template().id).then(response => {
-            if (!_.isObject(response.settings)) {
-                let preset = _.first(this.template().presets);
-                if (preset) {
-                    response.settings = JSON.parse(JSON.stringify(preset.settings));
-                    response.extraData = { preset: preset.title };
-                } else {
-                    response.settings = {};
-                    response.extraData = null;
-                }
-            }
+            this.settings = response.settings || {};
 
-            return response;
-        }).then(response => {
-            let preset = _.find(this.template().presets, p => p.title && p.title === (response.extraData && response.extraData.preset));
-            this.settings = response.settings;
+            let preset;
+            if (Array.isArray(this.template().presets)) {
+                preset = _.find(this.template().presets, p => p.title && p.title === (response.extraData && response.extraData.preset));
+                preset = preset || _.first(this.template().presets);
+            }
             this.currentPreset = preset || null;
         });
     }
