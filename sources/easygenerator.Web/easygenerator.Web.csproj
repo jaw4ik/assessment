@@ -620,6 +620,7 @@
     <Content Include="App\core\durandal\activator.js" />
     <Content Include="App\core\durandal\app.js" />
     <Content Include="App\core\durandal\binder.js" />
+    <Content Include="App\core\bootstrap\tooltip.js" />
     <Content Include="App\core\durandal\composition.js" />
     <Content Include="App\core\durandal\events.js" />
     <Content Include="App\core\durandal\plugins\dialog.js" />
@@ -638,7 +639,6 @@
     <Content Include="App\core\jquery.js" />
     <Content Include="App\core\knockout.js" />
     <Content Include="App\core\plugins\text.js" />
-    <Content Include="App\core\bootstrap\tooltip.js" />
     <Content Include="App\design\bar.html">
       <DependentUpon>design.html</DependentUpon>
     </Content>
