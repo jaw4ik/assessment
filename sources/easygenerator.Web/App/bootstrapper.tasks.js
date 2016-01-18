@@ -6,6 +6,7 @@ import knockoutBindingsTask from 'bootstrapping/knockoutBindingsTask';
 import addWindowEventsTask from 'bootstrapping/addWindowEventsTask';
 import trackVideoUploadTask from 'bootstrapping/trackVideoUploadTask';
 import underscoreExtensionsTask from 'bootstrapping/underscoreExtensionsTask';
+import stringExtensionsTask from 'bootstrapping/stringExtensionsTask';
 
 function getCollection () {
     return [
@@ -16,7 +17,8 @@ function getCollection () {
         knockoutBindingsTask,
         addWindowEventsTask,
         trackVideoUploadTask,
-        underscoreExtensionsTask
+        underscoreExtensionsTask,
+        stringExtensionsTask
     ];
 }
 export default { getCollection };

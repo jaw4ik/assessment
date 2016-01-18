@@ -313,7 +313,11 @@
     <Compile Include="Publish\ILearningPathPublisher.cs" />
     <Compile Include="Publish\LearningPathPublisher.cs" />
     <Compile Include="DomainEvents\Handlers\CreateUserInitialDataHandler.cs" />
-    <Compile Include="Resources\Views\Resources.Designer.cs" />
+    <Compile Include="Resources\Views\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Storage\CourseStateStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\AnswerChangedEvent.cs" />
@@ -602,6 +606,7 @@
       <DependentUpon>pull.js</DependentUpon>
     </Content>
     <Content Include="App\bootstrapping\addWindowEventsTask.js" />
+    <Content Include="App\bootstrapping\stringExtensionsTask.js" />
     <Content Include="App\bootstrapping\trackVideoUploadTask.js" />
     <Content Include="App\bootstrapping\underscoreExtensionsTask.js" />
     <Content Include="App\browse.js" />
@@ -611,6 +616,7 @@
     <Content Include="App\components\bindingHandlers\dateBindingHadler.js" />
     <Content Include="App\components\bindingHandlers\editableTextBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\ratingBindingHandler.js" />
+    <Content Include="App\components\bindingHandlers\tipBindingHandler.js" />
     <Content Include="App\core\durandal\activator.js" />
     <Content Include="App\core\durandal\app.js" />
     <Content Include="App\core\durandal\binder.js" />
@@ -632,6 +638,79 @@
     <Content Include="App\core\jquery.js" />
     <Content Include="App\core\knockout.js" />
     <Content Include="App\core\plugins\text.js" />
+    <Content Include="App\core\bootstrap\tooltip.js" />
+    <Content Include="App\design\bar.html">
+      <DependentUpon>design.html</DependentUpon>
+    </Content>
+    <Content Include="App\design\bus.spec.js">
+      <DependentUpon>bus.js</DependentUpon>
+    </Content>
+    <Content Include="App\design\commands\getCourseTemplateSettings.spec.js">
+      <DependentUpon>getCourseTemplateSettings.js</DependentUpon>
+    </Content>
+    <Content Include="App\design\commands\saveCourseTemplateSettings.spec.js">
+      <DependentUpon>saveCourseTemplateSettings.js</DependentUpon>
+    </Content>
+    <Content Include="App\design\design.js">
+      <DependentUpon>design.html</DependentUpon>
+    </Content>
+    <Content Include="App\design\design.spec.js">
+      <DependentUpon>design.js</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\BrandingTab.js">
+      <DependentUpon>BrandingTab.html</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\BrandingTab.spec.js">
+      <DependentUpon>BrandingTab.js</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\PresetTab.js">
+      <DependentUpon>PresetTab.html</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\PresetTab.spec.js">
+      <DependentUpon>PresetTab.js</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\sections\Backgrounds.js">
+      <DependentUpon>Backgrounds.html</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\sections\Backgrounds.spec.js">
+      <DependentUpon>Backgrounds.js</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\sections\BodyBackground.spec.js">
+      <DependentUpon>BodyBackground.js</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\sections\BodyBackgroundPopover.js">
+      <DependentUpon>BodyBackgroundPopover.html</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\sections\BodyBackgroundPopover.spec.js">
+      <DependentUpon>BodyBackgroundPopover.js</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\sections\ColorpickerPopover.js">
+      <DependentUpon>ColorpickerPopover.html</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\sections\ColorpickerPopover.spec.js">
+      <DependentUpon>ColorpickerPopover.js</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\sections\HeaderBackground.spec.js">
+      <DependentUpon>HeaderBackground.js</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\sections\HeaderBackgroundPopover.js">
+      <DependentUpon>HeaderBackgroundPopover.html</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\sections\HeaderBackgroundPopover.spec.js">
+      <DependentUpon>HeaderBackgroundPopover.js</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\sections\Interface.js">
+      <DependentUpon>Interface.html</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\sections\Interface.spec.js">
+      <DependentUpon>Interface.js</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\sections\Logo.js">
+      <DependentUpon>Logo.html</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\sections\Logo.spec.js">
+      <DependentUpon>Logo.js</DependentUpon>
+    </Content>
     <Content Include="App\dialogs\audio\chooseVoiceOver.html" />
     <Content Include="App\dialogs\audio\chooseVoiceOver.js" />
     <Content Include="App\dialogs\audio\chooseVoiceOver.spec.js">
@@ -645,6 +724,7 @@
     <Content Include="App\editor\course\bindingHandlers\expandBlock.js" />
     <Content Include="App\editor\course\bindingHandlers\draggableContainer.js" />
     <Content Include="App\editor\course\bindingHandlers\draggableData.js" />
+    <Content Include="App\editor\course\bindingHandlers\tooltipPopover.js" />
     <Content Include="App\editor\course\commands\createQuestionCommand.js" />
     <Content Include="App\editor\course\commands\createSectionCommand.js" />
     <Content Include="App\editor\course\commands\deleteQuestionCommand.js" />
@@ -662,6 +742,10 @@
     <Content Include="App\editor\course\dialogs\deleteSection\deleteSection.html" />
     <Content Include="App\editor\course\dialogs\deleteSection\deleteSection.spec.js">
       <DependentUpon>deleteSection.js</DependentUpon>
+    </Content>
+    <Content Include="App\editor\course\viewmodels\CreateSectionTooltipViewModel.js" />
+    <Content Include="App\editor\course\viewmodels\CreateSectionTooltipViewModel.spec.js">
+      <DependentUpon>CreateSectionTooltipViewModel.js</DependentUpon>
     </Content>
     <Content Include="App\editor\dialogs\editorFeedback\commands\sendFeedback.js" />
     <Content Include="App\editor\dialogs\editorFeedback\commands\sendFeedback.spec.js">
@@ -720,6 +804,7 @@
       <DependentUpon>shareLearningPath.js</DependentUpon>
     </Content>
     <Content Include="App\editor\question.js" />
+    <Content Include="App\fonts.js" />
     <Content Include="App\jsonReader.js" />
     <Content Include="App\localization\bindingHandlers\localizeBindingHandler.js" />
     <Content Include="App\dialogs\branchtrack\branchtrack.html" />
@@ -861,7 +946,29 @@
       <DependentUpon>AudioViewModel.js</DependentUpon>
     </Content>
     <Content Include="App\audio\convertion\commands\convert.js" />
+    <Content Include="App\design\bus.js" />
     <Content Include="App\viewmodels\courses\course\create\editor.js" />
+    <Content Include="App\design\popoverService.js" />
+    <Content Include="App\design\bindingHandlers\brightnessBindingHandler.js" />
+    <Content Include="App\design\bindingHandlers\popoverBindingHandler.js" />
+    <Content Include="App\design\tabs\sections\ColorpickerPopover.html" />
+    <Content Include="App\design\tabs\sections\HeaderBackgroundPopover.html" />
+    <Content Include="App\design\bindingHandlers\spectrumBindingHandler.js" />
+    <Content Include="App\design\bindingHandlers\slideToggleBindingHandler.js" />
+    <Content Include="App\design\tabs\BrandingTab.html" />
+    <Content Include="App\design\tabs\PresetTab.html" />
+    <Content Include="App\design\commands\getCourseTemplateSettings.js" />
+    <Content Include="App\design\commands\saveCourseTemplateSettings.js" />
+    <Content Include="App\design\tabs\sections\BodyBackgroundPopover.html" />
+    <Content Include="App\design\components\colorpicker\index.js" />
+    <Content Include="App\design\components\colorpicker\view.html" />
+    <Content Include="App\design\components\colorpicker\viewModel.spec.js" />
+    <Content Include="App\design\components\colorpicker\viewModel.js" />
+    <Content Include="App\design\tabs\sections\BodyBackground.js" />
+    <Content Include="App\design\tabs\sections\HeaderBackground.js" />
+    <Content Include="App\design\tabs\sections\Interface.html" />
+    <Content Include="App\design\tabs\sections\Logo.html" />
+    <Content Include="App\design\tabs\sections\Backgrounds.html" />
     <Content Include="App\viewmodels\courses\course\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>
@@ -915,8 +1022,8 @@
       <DependentUpon>resultsBase.js</DependentUpon>
     </Content>
     <Content Include="App\repositories\learningPathRepository.js" />
-    <Content Include="App\viewmodels\courses\course\design\templateBrief.js" />
-    <Content Include="App\viewmodels\courses\course\design\templateBrief.spec.js">
+    <Content Include="App\design\templateBrief.js" />
+    <Content Include="App\design\templateBrief.spec.js">
       <DependentUpon>templateBrief.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\course\results.js" />
@@ -1159,10 +1266,6 @@
       <DependentUpon>course.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\course\create\index.js" />
-    <Content Include="App\viewmodels\courses\course\design\design.js" />
-    <Content Include="App\viewmodels\courses\course\design\design.spec.js">
-      <DependentUpon>design.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\courses\course\index.js" />
     <Content Include="App\viewmodels\courses\course\index.spec.js">
       <DependentUpon>index.js</DependentUpon>
@@ -1290,9 +1393,8 @@
     <Content Include="App\reporting\viewmodels\objectiveStatement.js" />
     <Content Include="App\reporting\viewmodels\questionStatement.js" />
     <Content Include="App\views\courses\course\create\index.html" />
-    <Content Include="App\views\courses\course\design\bar.html" />
     <Content Include="App\views\courses\course\publish.html" />
-    <Content Include="App\views\courses\course\design\design.html" />
+    <Content Include="App\design\design.html" />
     <Content Include="App\views\courses\course\index.html" />
     <Content Include="App\reporting\views\results.html" />
     <Content Include="App\views\courses\index.html" />
@@ -1358,6 +1460,7 @@
     <Content Include="Content\font\opensans-semibolditalic.woff" />
     <Content Include="Content\font\rabiohead.woff" />
     <Content Include="Content\font\robotoslab-bold.woff" />
+    <Content Include="Content\font\robotoslab-light.woff" />
     <Content Include="Content\font\robotoslab-regular.woff" />
     <Content Include="Content\images\branchtrack.png" />
     <Content Include="Content\images\chrome.png" />
@@ -1433,6 +1536,7 @@
     <Content Include="App\views\questions\hotSpot\designer.html" />
     <Content Include="App\views\questions\hotSpot\hotSpot.html" />
     <Content Include="Content\images\hotspot-question.png" />
+    <Content Include="googlea3ba679b82d103a3.html" />
     <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\a15336e3207b40aa86ae93f15c2d3927.html" />
     <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\62c56216d91c4dcab77a613bbf302d3f\content.html" />
     <Content Include="Sample Course\content\14529955b7c14ba5bcd30029295a1fa1\8555e814ebef4f6a9f82cabfe8502894\a542a9cad6b64881844eed6e65d37044.html" />
@@ -1902,9 +2006,10 @@
     <Content Include="Content\editor.less" />
     <Content Include="App\localization\lang\de.json" />
     <Content Include="App\localization\lang\nl.json" />
-    <Content Include="Content\font\robotoslab-light.woff" />
     <Content Include="App\localization\lang\es.json" />
+    <Content Include="Content\design.less" />
     <Content Include="Mail\MailTemplates\NewEditorFeedbackTemplate.cshtml" />
+    <Content Include="Content\tooltip.less" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
@@ -2640,6 +2745,7 @@
     <Content Include="Templates\Reader\settings\design\js\vendor.min.js" />
     <Content Include="Templates\Reader\settings\design\layout.html" />
     <Content Include="Templates\Simple course\app\main.js" />
+    <Content Include="Templates\Simple course\css\colors.css" />
     <Content Include="Templates\Simple course\css\general.css" />
     <Content Include="Templates\Simple course\css\img\browsers\android.png" />
     <Content Include="Templates\Simple course\css\img\browsers\chrome.png" />
@@ -2653,18 +2759,9 @@
     <Content Include="Templates\Simple course\css\img\loader.gif" />
     <Content Include="Templates\Simple course\css\img\singleSelectImageAnwer.png" />
     <Content Include="Templates\Simple course\css\img\xapi\xapierror.png" />
-    <Content Include="Templates\Simple course\css\player\black.css" />
-    <Content Include="Templates\Simple course\css\player\cartoon.css" />
-    <Content Include="Templates\Simple course\css\player\default.css" />
-    <Content Include="Templates\Simple course\css\player\flat.css" />
-    <Content Include="Templates\Simple course\css\player\grey.css" />
-    <Content Include="Templates\Simple course\css\themes\black.css" />
-    <Content Include="Templates\Simple course\css\themes\cartoon.css" />
-    <Content Include="Templates\Simple course\css\themes\default.css" />
-    <Content Include="Templates\Simple course\css\themes\flat.css" />
-    <Content Include="Templates\Simple course\css\themes\grey.css" />
     <Content Include="Templates\Simple course\css\vendor.css" />
     <Content Include="Templates\Simple course\index.html" />
+    <Content Include="Templates\Simple course\js\less.min.js" />
     <Content Include="Templates\Simple course\js\require.js" />
     <Content Include="Templates\Simple course\js\vendor.min.js" />
     <Content Include="Templates\Simple course\lang\cn.json" />
@@ -2696,7 +2793,6 @@
     <Content Include="Templates\Simple course\settings\configure\img\language.png" />
     <Content Include="Templates\Simple course\settings\configure\js\configure.min.js" />
     <Content Include="Templates\Simple course\settings\configure\js\vendor.min.js" />
-    <Content Include="Templates\Simple course\settings\design\branding.html" />
     <Content Include="Templates\Simple course\settings\design\css\design.css" />
     <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-400.woff" />
     <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-600.woff" />
@@ -3218,13 +3314,15 @@
     <EmbeddedResource Include="Resources\Views\Resources.pt.resx" />
     <EmbeddedResource Include="Resources\Views\Resources.es.resx" />
     <EmbeddedResource Include="Resources\Views\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewsResources</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Resources.uk.resx" />
     <EmbeddedResource Include="Resources\Views\Resources.zh.resx" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App\views\courses\course\design\" />
     <Folder Include="Templates\Assessment\settings\design\img\" />
     <Folder Include="Views\CourseImport\" />
   </ItemGroup>

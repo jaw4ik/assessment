@@ -1,7 +1,20 @@
 ﻿define([], function () {
     "use strict";
 
-    var viewModel = app.reviewViewModel();
+    var storage = {};
+    var mockStorage = {
+        setItem: function(key, value) {
+            storage[key] = value;
+        },
+        getItem: function(key) {
+            return storage[key];
+        },
+        clear: function() {
+            storage = {};
+        }
+    };
+
+    var viewModel = app.reviewViewModel(mockStorage);
 
     describe('viewModel [review]', function () {
 
@@ -197,37 +210,13 @@
                         viewModel.name(name);
                         viewModel.email(email);
 
-                        spyOn(localStorage, 'setItem');
+                        mockStorage.clear();
                     });
 
-                    it('should set isSaved to false', function () {
-                        spyOn(localStorage, 'getItem').and.returnValue(name);
-                        viewModel.isSaved(true);
-
-                        viewModel.addComment(courseId);
-                        expect(viewModel.isSaved()).toBeFalsy();
-                    });
-
-                    it('should set isFailed to false', function () {
-                        spyOn(localStorage, 'getItem').and.returnValue(name);
-                        viewModel.isFailed(true);
-
-                        viewModel.addComment(courseId);
-                        expect(viewModel.isFailed()).toBeFalsy();
-                    });
-
-                    it('should get username and usermail from local storage', function () {
-                        spyOn(localStorage, 'getItem').and.returnValue(name);
-
-                        viewModel.addComment(courseId);
-                        expect(localStorage.getItem).toHaveBeenCalled();
-                    });
-
-                    describe('when username is null', function () {
+                    describe('when username and usermail are not saved in storage', function () {
                         it('should show identify form', function () {
                             viewModel.showIdentifyUserForm(false);
-                            spyOn(localStorage, 'getItem').and.returnValue(null);
-
+                            
                             viewModel.addComment(courseId);
                             expect(viewModel.showIdentifyUserForm()).toBeTruthy();
                         });
@@ -236,7 +225,7 @@
                     describe('when username is empty', function () {
                         it('should show identify form', function () {
                             viewModel.showIdentifyUserForm(false);
-                            spyOn(localStorage, 'getItem').and.returnValue('');
+                            mockStorage.setItem('usernameForReview', '');
 
                             viewModel.addComment(courseId);
                             expect(viewModel.showIdentifyUserForm()).toBeTruthy();
@@ -246,7 +235,7 @@
                     describe('when username is whitespace', function () {
                         it('should show identify form', function () {
                             viewModel.showIdentifyUserForm(false);
-                            spyOn(localStorage, 'getItem').and.returnValue('    ');
+                            mockStorage.setItem('usernameForReview','         ');
 
                             viewModel.addComment(courseId);
                             expect(viewModel.showIdentifyUserForm()).toBeTruthy();
@@ -262,49 +251,56 @@
                         describe('when name is null', function() {
                             it('should not save name to localStorage', function() {
                                 viewModel.name(null);
-                                expect(localStorage.setItem).not.toHaveBeenCalled();
+                                viewModel.addComment(courseId);
+                                expect(mockStorage.getItem('usernameForReview')).not.toBeDefined();
                             });
                         });
 
                         describe('when name is empty', function () {
                             it('should not save name to localStorage', function () {
                                 viewModel.name('');
-                                expect(localStorage.setItem).not.toHaveBeenCalled();
+                                viewModel.addComment(courseId);
+                                expect(mockStorage.getItem('usernameForReview')).not.toBeDefined();
                             });
                         });
 
                         describe('when name is whitespace', function () {
                             it('should not save name to localStorage', function () {
                                 viewModel.name('    ');
-                                expect(localStorage.setItem).not.toHaveBeenCalled();
+                                viewModel.addComment(courseId);
+                                expect(mockStorage.getItem('usernameForReview')).not.toBeDefined();
                             });
                         });
 
                         describe('when email is null', function () {
                             it('should not save email to localStorage', function () {
                                 viewModel.email(null);
-                                expect(localStorage.setItem).not.toHaveBeenCalled();
+                                viewModel.addComment(courseId);
+                                expect(mockStorage.getItem('usermailForReview')).not.toBeDefined();
                             });
                         });
 
                         describe('when email is empty', function () {
                             it('should not save email to localStorage', function () {
                                 viewModel.email('');
-                                expect(localStorage.setItem).not.toHaveBeenCalled();
+                                viewModel.addComment(courseId);
+                                expect(mockStorage.getItem('usermailForReview')).not.toBeDefined();
                             });
                         });
 
                         describe('when email is whitespace', function () {
                             it('should not save email to localStorage', function () {
                                 viewModel.email('     ');
-                                expect(localStorage.setItem).not.toHaveBeenCalled();
+                                viewModel.addComment(courseId);
+                                expect(mockStorage.getItem('usermailForReview')).not.toBeDefined();
                             });
                         });
 
                         describe('when email is not valid', function () {
                             it('should not save email to localStorage', function () {
                                 viewModel.email('test');
-                                expect(localStorage.setItem).not.toHaveBeenCalled();
+                                viewModel.addComment(courseId);
+                                expect(mockStorage.getItem('usermailForReview')).not.toBeDefined();
                             });
                         });
 
@@ -316,36 +312,49 @@
 
                             it('should save name to local storage', function () {
                                 viewModel.addComment(courseId);
-                                expect(localStorage.setItem).toHaveBeenCalledWith('usernameForReview', name);
+                                expect(mockStorage.getItem('usernameForReview')).toBe(name);
                             });
 
                             it('should save email to local storage', function () {
                                 viewModel.addComment(courseId);
-                                expect(localStorage.setItem).toHaveBeenCalledWith('usermailForReview', email);
+                                expect(mockStorage.getItem('usermailForReview')).toBe(email);
                             });
                         });
                     });
 
                     describe('when username and usermail are strings', function () {
+                        beforeEach(function () {
+                            mockStorage.setItem('usernameForReview', name);
+                            mockStorage.setItem('usermailForReview', email);
+                        });
+                        
+                        it('should set isSaved to false', function () {
+                            viewModel.isSaved(true);
+
+                            viewModel.addComment(courseId);
+                            expect(viewModel.isSaved()).toBeFalsy();
+                        });
+
+                        it('should set isFailed to false', function () {
+                            viewModel.isFailed(true);
+
+                            viewModel.addComment(courseId);
+                            expect(viewModel.isFailed()).toBeFalsy();
+                        });
 
                         it('should send request to /api/comment/create and trim values before sending request', function () {
-                            spyOn(localStorage, 'getItem').and.returnValue('   ' + email + '   ');
                             viewModel.text('   ' + text + '   ');
 
                             viewModel.addComment(courseId);
 
                             expect($.ajax).toHaveBeenCalledWith({
                                 url: '/api/comment/create',
-                                data: { courseId: courseId, text: text, createdByName: email, createdBy: email },
+                                data: { courseId: courseId, text: text, createdByName: name, createdBy: email },
                                 type: 'POST'
                             });
                         });
 
                         describe('when request failed', function () {
-
-                            beforeEach(function () {
-                                spyOn(localStorage, 'getItem').and.returnValue(email);
-                            });
 
                             it('should set isFailed to true', function (done) {
                                 viewModel.addComment(courseId).always(function () {
@@ -362,10 +371,6 @@
 
                             describe('and response is not an object', function () {
 
-                                beforeEach(function () {
-                                    spyOn(localStorage, 'getItem').and.returnValue(email);
-                                });
-
                                 it('should throw exception', function () {
                                     var f = function () {
                                         viewModel.addComment(courseId);
@@ -378,10 +383,6 @@
                             });
 
                             describe('and response is not successful', function () {
-
-                                beforeEach(function () {
-                                    spyOn(localStorage, 'getItem').and.returnValue(email);
-                                });
 
                                 it('should set isFailed to true', function (done) {
                                     viewModel.isFailed(false);
@@ -396,10 +397,6 @@
                             });
 
                             describe('and response is successful', function () {
-
-                                beforeEach(function () {
-                                    spyOn(localStorage, 'getItem').and.returnValue(email);
-                                });
 
                                 it('should clear text', function (done) {
                                     viewModel.text('test');

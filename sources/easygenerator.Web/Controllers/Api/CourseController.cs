@@ -287,7 +287,7 @@ namespace easygenerator.Web.Controllers.Api
             });
         }
 
-        [Scope("settings")]
+        [Scope("settings", "api")]
         [EntityCollaborator(typeof(Course))]
         [ActionName("TemplateSettings"), HttpGet]
         [Route("api/course/{courseId}/template/{templateId}")]
@@ -311,7 +311,7 @@ namespace easygenerator.Web.Controllers.Api
                 JsonRequestBehavior.AllowGet);
         }
 
-        [Scope("settings")]
+        [Scope("settings", "api")]
         [EntityCollaborator(typeof(Course))]
         [ActionName("TemplateSettings"), HttpPost]
         [Route("api/course/{courseId}/template/{templateId}")]

@@ -48,6 +48,28 @@
                     settings.complete();
                 }
             });
+        },
+        v2: function (file) {
+            return fileUpload.xhr2('/storage/image/upload', file, window.auth.getHeader('api'))
+                .then(function (response) {
+                    if (response && response.success) {
+                        return response.data;
+                    }
+                    throw new Error();
+                }).catch(function (e) {
+                    var resourceKey = "responseFailed";
+                    if (e && e.srcElement) {
+                        switch (e.srcElement.status) {
+                            case 400:
+                                resourceKey = "imageUploadError";
+                                break;
+                            case 413:
+                                resourceKey = "imageSizeIsTooLarge";
+                                break;
+                        }
+                    }
+                    throw localizationManager.localize(resourceKey);
+                });
         }
     };
 })

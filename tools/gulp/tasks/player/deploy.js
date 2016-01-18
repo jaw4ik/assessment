@@ -1,9 +1,9 @@
 var gulp = require('gulp'),
-del = require('del'),
-args = require('yargs').argv,
-buildUtils = require('../build-utils')(),
-config = require('../../config')
-;
+    del = require('del'),
+    args = require('yargs').argv,
+    buildUtils = require('../build-utils')(),
+    config = require('../../config')
+    ;
 
 var $ = require('gulp-load-plugins')({
     lazy: true
@@ -82,10 +82,12 @@ gulp.task('assets-player', ['styles-player', 'copy-player-config-transform'], fu
         './sources/easygenerator.Player/public/styles/video.css',
         './sources/easygenerator.Player/public/styles/audio.css'
     ])
-    .pipe($.minifyCss())
-    .pipe(gulp.dest(outputPlayer + '/public/styles/'));
+        .pipe($.minifyCss())
+        .pipe(gulp.dest(outputPlayer + '/public/styles/'));
     gulp.src('./sources/easygenerator.Player/public/vendor/video.js/dist/font/*.*')
         .pipe(gulp.dest(outputPlayer + '/public/styles/font'));
+    gulp.src('./sources/easygenerator.Player/public/styles/template/*.*')
+        .pipe(gulp.dest(outputPlayer + '/public/styles/template'));
     return gulp.src('./sources/easygenerator.Player/public/vendor/video.js/dist/lang/*.*')
         .pipe(gulp.dest(outputPlayer + '/public/js/lang/'));
 });

@@ -21,9 +21,9 @@
             modelToCompose: 'editor/course/index'
         },
         {
-            viewToCompose: 'views/courses/course/design/bar',
-            subscribedPages: [{ id: 'viewmodels/courses/course/design/design' }],
-            modelToCompose: 'viewmodels/courses/course/design/design'
+            viewToCompose: 'design/bar',
+            subscribedPages: [{ id: 'design/design' }],
+            modelToCompose: 'design/design'
         },
         {
             viewToCompose: 'views/learningPaths/courseSelector/courseSelector',

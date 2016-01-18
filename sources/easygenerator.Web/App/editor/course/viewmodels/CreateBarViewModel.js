@@ -4,6 +4,7 @@ import router from 'plugins/router';
 import userContext from 'userContext';
 import eventTracker from 'eventTracker';
 import cursorTooltip from 'widgets/cursorTooltip/viewmodel';
+import CreateSectionTooltip from './CreateSectionTooltipViewModel';
 
 export default class CreateBar {
     constructor() {
@@ -55,26 +56,34 @@ export default class CreateBar {
                 hasAccess: userContext.hasAcademyAccess()
             }
         ];
+        this.createSectionTooltip = new CreateSectionTooltip();
     }
+
     showQuestionTootip() {
         cursorTooltip.changeText('emptySectionQuestionTooltip');
         cursorTooltip.show();
     }
+
     hideQuestionTootip() {
         cursorTooltip.hide();
     }
+
     toggleSection() {
         this.sectionExpanded(!this.sectionExpanded());
     }
+
     toggleQuestions() {
         this.questionsExpanded(!this.questionsExpanded());
     }
+
     openUpgradePlanUrl() {
         eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.questions);
         router.openUrl(constants.upgradeUrl);
     }
+    
     activate() {
         this.sectionExpanded(true);
         this.questionsExpanded(true);
+        this.createSectionTooltip.activate();
     }
 }

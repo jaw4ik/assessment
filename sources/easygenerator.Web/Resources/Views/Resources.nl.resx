@@ -139,7 +139,7 @@
     <value>Doorgaan</value>
   </data>
   <data name="CopyrightText" xml:space="preserve">
-    <value>Copyright © 2015 easygenerator. All rights reserved.</value>
+    <value>Copyright © 2016 easygenerator. All rights reserved.</value>
   </data>
   <data name="CouldNotVerifyPasswordRecovery" xml:space="preserve">
     <value>Helaas. We kunnen niet verifiëren dat deze gebruiker heeft verzocht om het wachtwoord opnieuw in te stellen. Start de herstelprocedure opnieuw.</value>
@@ -352,5 +352,8 @@ easygenerator Team&lt;/p&gt;
   </data>
   <data name="YourMessage" xml:space="preserve">
     <value>Typ uw bericht</value>
+  </data>
+  <data name="NotSupportedDeviceTitle" xml:space="preserve">
+    <value>Uw apparaat wordt niet ondersteund</value>
   </data>
 </root>

@@ -1,9 +1,10 @@
 ﻿var app = app || {};
 
-app.reviewViewModel = function() {
+app.reviewViewModel = function (dataStorage) {
     var patternEmail = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,15})+)$/,
            userNameKey = 'usernameForReview',
-           userMailKey = 'usermailForReview';
+           userMailKey = 'usermailForReview',
+           storage = dataStorage || localStorage;
 
 
     var viewModel = {
@@ -45,12 +46,12 @@ app.reviewViewModel = function() {
                     return;
                 }
 
-                localStorage.setItem(userNameKey, viewModel.name());
-                localStorage.setItem(userMailKey, viewModel.email());
+                storage.setItem(userNameKey, viewModel.name());
+                storage.setItem(userMailKey, viewModel.email());
             }
 
-            var username = localStorage.getItem(userNameKey),
-                usermail = localStorage.getItem(userMailKey);
+            var username = storage.getItem(userNameKey),
+                usermail = storage.getItem(userMailKey);
 
             if (!username || !username.trim() || !usermail || !usermail.trim()) {
                 viewModel.showIdentifyUserForm(true);
