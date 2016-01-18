@@ -1,0 +1,11 @@
+﻿<section class="branding-tab">
+    <ul class="unstyled" data-bind="foreach: [ logo, background, colors ]">
+        <li>
+            <h4 class="branding-section-title" data-bind="text: title, click: $parent.expand.bind($parent), css: { 'expanded': expanded }"></h4>
+            <div data-bind="slideToggle: expanded">
+                <!-- ko compose: { model: $data, activate: false } -->
+                <!-- /ko -->
+            </div>
+        </li>
+    </ul>
+</section>

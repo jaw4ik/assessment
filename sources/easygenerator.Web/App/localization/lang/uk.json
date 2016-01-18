@@ -78,7 +78,6 @@
     "continue": "Продовжити",
     "gb": "Гб",
     "mb": "Мб",
-    "copyrightText": "© 2015 easygenerator. Всі права захищені.",
     "termsOfUse": "Умови користування",
     "privacyPolicy": "Політика конфіденційності",
     "undo": "Відновити",
@@ -682,8 +681,11 @@
     "secondaryColor": "Додатковий колір",
     "buttonTextColor": "Колір тексту кнопок",
     "contentBodyColor": "Колір блоків матеріалу",
-    "colorSchemes": "Шаблони",
     "scheme": "Шаблон",
     "backToSettings": "Назад",
-    "templateDoesNotHavePresets": "Цей темплейт не має шаблонів"
+    "templateDoesNotHavePresets": "Цей темплейт не має шаблонів",
+    "upgradeAccountHintBackgroundSection": "<a target=\"_blank\" href=\"/account/upgrade\">Оновіть план</a> щоб встановити власний фон",
+    "upgradeAccountHintLogoSection": "<a target=\"_blank\" href=\"/account/upgrade\">Оновіть план</a> щоб встановити власний логотип",
+    "upgradeAccountHintColorsSection": "<a target=\"_blank\" href=\"/account/upgrade\">Оновіть план</a> щоб змінити кольори інтерфейсу",
+    "colorThemes": "Теми"
 }

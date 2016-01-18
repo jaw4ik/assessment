@@ -103,8 +103,8 @@
                     viewModel.isDeleting(true);
                     viewModel.deleteCourse();
                     courseRepository.removeCourse().fin(function () {
-                        done();
                         expect(viewModel.isDeleting()).toBeFalsy();
+                        done();
                     });
                 });
             });

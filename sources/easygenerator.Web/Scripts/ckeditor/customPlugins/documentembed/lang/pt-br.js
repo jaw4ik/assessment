@@ -11,14 +11,14 @@
     other: 'Outro',
     otherTitle: 'Incorpore seus documentos de qualquer outro serviço que suporte "incorporações".',
     googleDocumentsExplanation: '<ol>' +
-                        '<li>Vá para o seu <a href=""https://www.google.com/intl/en/drive/"" target=""_blank"">Google Drive</a>.</li>' +
+                        '<li>Vá para o seu <a href="https://www.google.com/intl/en/drive/" target=""_blank"">Google Drive</a>.</li>' +
                         '<li>Abra o documento e selecione ""Publicar na web..."" no menu ""Arquivo"".</li>' +
                         '<li>Se o documento ainda não tiver sido publicado – clique no botão ""Publicar"".</li>' +
                         '<li>Abra a guia ""Incorporar"" e copie o código de incorporação fornecido.</li>' +
                         '<li>Cole este código no campo abaixo.</li>' +
                         '</ol>',
     slideshareExplanation: '<ol>' +
-                        '<li>Visite o <a href=""http://www.slideshare.net/"" target=""_blank"">site do SlideShare</a> e se inscreva.</li>' +
+                        '<li>Visite o <a href="http://www.slideshare.net/" target=""_blank"">site do SlideShare</a> e se inscreva.</li>' +
                         '<li>Faça o upload de sua apresentação para o SlideShare.</li>' +
                         '<li>Abra sua apresentação e clique no botão ""Compartilhar"" abaixo do player.</li>' +
                         '<li>Copie o Código de incorporação fornecido e cole-o no campo abaixo.</li>' +

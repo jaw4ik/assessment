@@ -78,7 +78,6 @@
     "continue": "Continue",
     "gb": "GB",
     "mb": "MB",
-    "copyrightText": "Copyright © 2015 easygenerator. All rights reserved.",
     "termsOfUse": "Terms and conditions",
     "privacyPolicy": "Privacy Policy",
     "undo": "Undo",
@@ -682,8 +681,11 @@
     "secondaryColor": "Secondary color",
     "buttonTextColor": "Button text color",
     "contentBodyColor": "Content body color",
-    "colorSchemes": "Color schemes",
     "scheme": "Scheme",
     "backToSettings": "Back to settings",
-    "templateDoesNotHavePresets": "Selected template does not have presets"
+    "templateDoesNotHavePresets": "Selected template does not have presets",
+    "upgradeAccountHintBackgroundSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to set a custom background",
+    "upgradeAccountHintLogoSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to set custom course logo",
+    "upgradeAccountHintColorsSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to change interface colors",
+    "colorThemes": "Color themes"
 }
