@@ -1,5 +1,4 @@
-﻿import $ from 'jquery';
-import ko from 'knockout';
+﻿import ko from 'knockout';
 
 import service from './../popoverService.js';
 import { Popover } from './../popoverService.js';
