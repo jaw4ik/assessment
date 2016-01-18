@@ -2745,7 +2745,6 @@
     <Content Include="Templates\Reader\settings\design\js\vendor.min.js" />
     <Content Include="Templates\Reader\settings\design\layout.html" />
     <Content Include="Templates\Simple course\app\main.js" />
-    <Content Include="Templates\Simple course\css\colors.css" />
     <Content Include="Templates\Simple course\css\general.css" />
     <Content Include="Templates\Simple course\css\img\browsers\android.png" />
     <Content Include="Templates\Simple course\css\img\browsers\chrome.png" />
@@ -2879,6 +2878,7 @@
     <Content Include="Templates\Personalized learning\lang\es.json" />
     <Content Include="Templates\Reader\lang\es.json" />
     <Content Include="Templates\Simple course\lang\es.json" />
+    <Content Include="Templates\Simple course\css\colors.less" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
