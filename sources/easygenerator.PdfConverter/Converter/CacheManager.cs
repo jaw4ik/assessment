@@ -49,9 +49,9 @@ namespace easygenerator.PdfConverter.Converter
             }
         }
 
-        private static string CombineKey(string url, string version, bool high_quality)
+        private static string CombineKey(string url, string version, bool quality)
         {
-            return $"{url}_{version}_{high_quality}";
+            return $"{url}_{version}_{quality}";
         }
     }
 }

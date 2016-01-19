@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Web.Http.Filters;
 using Microsoft.Owin;
 
@@ -6,6 +7,8 @@ namespace easygenerator.PdfConverter.Components.Attributes
 {
     public class FileDownloadAttribute : ActionFilterAttribute
     {
+        private const string DomainName = "easygenerator.com";
+
         public FileDownloadAttribute(string cookieName = "fileDownload", string cookiePath = "/")
         {
             CookieName = cookieName;
@@ -29,7 +32,12 @@ namespace easygenerator.PdfConverter.Components.Attributes
 
             if (response.Content is StreamContent)
             {
-                cookies.Append(CookieName, "true", new CookieOptions() { Path = CookiePath });
+                var cookieOptions = new CookieOptions() { Path = CookiePath };
+                if (actionExecutedContext.Request.RequestUri.Host.Contains(DomainName))
+                {
+                    cookieOptions.Domain = DomainName;
+                }
+                cookies.Append(CookieName, "true", cookieOptions);
             }
             else
             {
