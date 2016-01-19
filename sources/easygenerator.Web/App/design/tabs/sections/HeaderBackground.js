@@ -1,5 +1,7 @@
 ﻿import ko from 'knockout';
 
+import eventTracker from 'eventTracker';
+
 import { HeaderPopover } from './HeaderBackgroundPopover.js';
 import bus from './../../bus';
 
@@ -23,7 +25,7 @@ export default class HeaderBackground {
         this.image.isDefault = ko.computed(() => {
             return this.image() && this.image() === (this.defaults && this.defaults.image && this.defaults.image.url);
         }, this);
-        this.color = ko.observable('#aabbcc');
+        this.color = ko.observable(null);
 
         this.option = ko.observable(BACKGROUND_IMAGE_FULLSCREEN);
 
@@ -35,6 +37,7 @@ export default class HeaderBackground {
                 if (this.option() !== option) {
                     this.option(option);
                     bus.trigger(EVENT_HEADER_BACKGROUND_IMAGE_OPTION_CHANGED);
+                    eventTracker.publish('Change primary background');
                 }
             }
         });
@@ -49,12 +52,19 @@ export default class HeaderBackground {
     toggleExpanded() {
         this.expanded(!this.expanded());
         bus.trigger(EVENT_HEADER_BACKGROUND_EXPANDED_CHANGED);
+
+        if (ko.unwrap(this.expanded)) {
+            eventTracker.publish('Switch to one background');
+        } else {
+            eventTracker.publish('Switch to multiple backgrounds');
+        }
     }
 
     updateColor(color) {
         this.color(color);
         this.image(null);
         bus.trigger(EVENT_HEADER_BACKGROUND_COLOR_CHANGED);
+        eventTracker.publish('Change primary background');
     }
 
     updateImage(image) {
@@ -62,11 +72,13 @@ export default class HeaderBackground {
         this.option(BACKGROUND_IMAGE_FULLSCREEN);
         this.color(null);
         bus.trigger(EVENT_HEADER_BACKGROUND_IMAGE_CHANGED);
+        eventTracker.publish('Change primary background');
     }
 
     removeImage() {
         this.image(this.defaults && this.defaults.image && this.defaults.image.url || null);
         bus.trigger(EVENT_HEADER_BACKGROUND_IMAGE_REMOVED);
+        eventTracker.publish('Change primary background');
     }
 
     changeBackground() {
@@ -81,6 +93,7 @@ export default class HeaderBackground {
         if (this.brightness() !== value) {
             this.brightness(value);
             bus.trigger(EVENT_HEADER_BACKGROUND_BRIGHTNESS_CHANGED);
+            eventTracker.publish('Change primary background');
         }
     }
 

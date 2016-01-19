@@ -3,10 +3,6 @@
 import notify from 'notify';
 import imageUpload from 'imageUpload';
 
-let describe = window.describe;
-let it = window.it;
-let expect = window.expect;
-
 describe('Background header popover', () => {
 
     it('should include publish/subscribe', () => {

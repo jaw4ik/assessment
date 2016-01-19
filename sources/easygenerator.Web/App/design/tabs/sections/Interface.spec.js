@@ -3,18 +3,16 @@ import { Color } from './Interface';
 import ColorpickerPopover from './ColorpickerPopover';
 import { EVENT_COLOR_SELECTED } from './Interface';
 
-import userContext from 'userContext';
-
 import bus from './../../bus';
 
-let describe = window.describe;
-let it = window.it;
-let expect = window.expect;
+import eventTracker from 'eventTracker';
+import userContext from 'userContext';
 
 describe('Interface Color', () => {
-    
+
     beforeEach(() => {
         spyOn(bus, 'trigger');
+        spyOn(eventTracker, 'publish');
     });
 
     describe('key:', () => {
@@ -61,7 +59,7 @@ describe('Interface Color', () => {
     });
 
     describe('showPopover:', () => {
-        
+
         it('should show popover with colorpicker', () => {
             let color = new Color();
             color.showPopover();
@@ -70,7 +68,7 @@ describe('Interface Color', () => {
 
     });
 
-    describe('valueChanged:', () => {
+    describe('updateValue:', () => {
 
         it('should update value', () => {
             let color = new Color();
@@ -84,6 +82,14 @@ describe('Interface Color', () => {
             color.updateValue('#ebb');
 
             expect(bus.trigger).toHaveBeenCalledWith(EVENT_COLOR_SELECTED);
+        });
+
+        it(`should trigger event 'Change interface color'`, () => {
+            let color = new Color();
+
+            color.updateValue('#ebb');
+
+            expect(eventTracker.publish).toHaveBeenCalledWith('Change interface color');
         });
 
     });

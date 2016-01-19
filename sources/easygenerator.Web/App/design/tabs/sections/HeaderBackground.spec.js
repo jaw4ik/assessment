@@ -14,16 +14,13 @@ import {
 
 import bus from './../../bus';
 
-let describe = window.describe;
-let it = window.it;
-let expect = window.expect;
-let beforeEach = window.beforeEach;
-let spyOn = window.spyOn;
+import eventTracker from 'eventTracker';
 
 describe('Header background design section', () => {
 
     beforeEach(() => {
         spyOn(bus, 'trigger');
+        spyOn(eventTracker, 'publish');
     });
 
     describe('expanded:', () => {
@@ -49,6 +46,28 @@ describe('Header background design section', () => {
             let background = new HeaderBackground();
             background.toggleExpanded();
             expect(bus.trigger).toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_EXPANDED_CHANGED);
+        });
+
+        describe('when expanded state became true', () => {
+
+            it(`should trigger event 'Switch to one background'`, () => {
+                let background = new HeaderBackground();
+                background.expanded(false);
+                background.toggleExpanded();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Switch to one background');
+            });
+
+        });
+
+        describe('when expanded state became false', () => {
+
+            it(`should trigger event 'Switch to multiple backgrounds'`, () => {
+                let background = new HeaderBackground();
+                background.expanded(true);
+                background.toggleExpanded();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Switch to multiple backgrounds');
+            });
+
         });
 
     });
@@ -156,6 +175,12 @@ describe('Header background design section', () => {
             expect(bus.trigger).toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_IMAGE_CHANGED);
         });
 
+        it(`should trigger event 'Change primary background'`, () => {
+            let background = new HeaderBackground();
+            background.updateImage('image');
+            expect(eventTracker.publish).toHaveBeenCalledWith('Change primary background');
+        });
+
     });
 
     describe('removeImage:', () => {
@@ -189,6 +214,12 @@ describe('Header background design section', () => {
             let background = new HeaderBackground();
             background.removeImage();
             expect(bus.trigger).toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_IMAGE_REMOVED);
+        });
+
+        it(`should trigger event 'Change primary background'`, () => {
+            let background = new HeaderBackground();
+            background.removeImage();
+            expect(eventTracker.publish).toHaveBeenCalledWith('Change primary background');
         });
 
     });
@@ -227,6 +258,12 @@ describe('Header background design section', () => {
             expect(bus.trigger).toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_COLOR_CHANGED);
         });
 
+        it(`should trigger event 'Change primary background'`, () => {
+            let background = new HeaderBackground();
+            background.updateColor('#aabbcc');
+            expect(eventTracker.publish).toHaveBeenCalledWith('Change primary background');
+        });
+
     });
 
     describe('option:', () => {
@@ -257,6 +294,14 @@ describe('Header background design section', () => {
                 expect(bus.trigger).not.toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_IMAGE_OPTION_CHANGED);
             });
 
+            it(`should not trigger event 'Change primary background'`, () => {
+                let background = new HeaderBackground();
+                background.option(BACKGROUND_IMAGE_FULLSCREEN);
+
+                background.switchToFullscreen();
+                expect(eventTracker.publish).not.toHaveBeenCalledWith('Change primary background');
+            });
+
         });
 
         it(`should set option to ${BACKGROUND_IMAGE_FULLSCREEN} by default`, () => {
@@ -275,6 +320,15 @@ describe('Header background design section', () => {
             background.switchToFullscreen();
             expect(bus.trigger).toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_IMAGE_OPTION_CHANGED);
         });
+
+        it(`should trigger event 'Change primary background'`, () => {
+            let background = new HeaderBackground();
+            background.option(null);
+
+            background.switchToFullscreen();
+            expect(eventTracker.publish).toHaveBeenCalledWith('Change primary background');
+        });
+
     });
 
     describe('switchToRepeat:', () => {
@@ -287,6 +341,14 @@ describe('Header background design section', () => {
 
                 background.switchToRepeat();
                 expect(bus.trigger).not.toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_IMAGE_OPTION_CHANGED);
+            });
+
+            it(`should not trigger event 'Change primary background'`, () => {
+                let background = new HeaderBackground();
+                background.option(BACKGROUND_IMAGE_REPEAT);
+
+                background.switchToRepeat();
+                expect(eventTracker.publish).not.toHaveBeenCalledWith('Change primary background');
             });
 
         });
@@ -308,6 +370,14 @@ describe('Header background design section', () => {
             expect(bus.trigger).toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_IMAGE_OPTION_CHANGED);
         });
 
+        it(`should trigger event 'Change primary background'`, () => {
+            let background = new HeaderBackground();
+            background.option(null);
+
+            background.switchToRepeat();
+            expect(eventTracker.publish).toHaveBeenCalledWith('Change primary background');
+        });
+
     });
 
     describe('switchToOriginal:', () => {
@@ -320,6 +390,14 @@ describe('Header background design section', () => {
 
                 background.switchToOriginal();
                 expect(bus.trigger).not.toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_IMAGE_OPTION_CHANGED);
+            });
+
+            it(`should not trigger event 'Change primary background'`, () => {
+                let background = new HeaderBackground();
+                background.option(BACKGROUND_IMAGE_ORIGINAL);
+
+                background.switchToOriginal();
+                expect(eventTracker.publish).not.toHaveBeenCalledWith('Change primary background');
             });
 
         });
@@ -339,6 +417,14 @@ describe('Header background design section', () => {
 
             background.switchToOriginal();
             expect(bus.trigger).toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_IMAGE_OPTION_CHANGED);
+        });
+
+        it(`should trigger event 'Change primary background'`, () => {
+            let background = new HeaderBackground();
+            background.option(null);
+
+            background.switchToOriginal();
+            expect(eventTracker.publish).toHaveBeenCalledWith('Change primary background');
         });
 
     });
@@ -434,6 +520,12 @@ describe('Header background design section', () => {
                 expect(bus.trigger).toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_BRIGHTNESS_CHANGED);
             });
 
+            it(`should trigger event 'Change primary background'`, () => {
+                let background = new HeaderBackground();
+                background.changeBrightness(0.4);
+                expect(eventTracker.publish).toHaveBeenCalledWith('Change primary background');
+            });
+
         });
 
         describe('when brightness is NaN', () => {
@@ -452,6 +544,12 @@ describe('Header background design section', () => {
                 expect(bus.trigger).not.toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_BRIGHTNESS_CHANGED);
             });
 
+            it(`should trigger event 'Change primary background'`, () => {
+                let background = new HeaderBackground();
+                background.changeBrightness(NaN);
+                expect(eventTracker.publish).not.toHaveBeenCalledWith('Change primary background');
+            });
+
         });
 
         describe('when brightness has not changed', () => {
@@ -461,6 +559,13 @@ describe('Header background design section', () => {
                 background.brightness(0.2);
                 background.changeBrightness(0.2);
                 expect(bus.trigger).not.toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_BRIGHTNESS_CHANGED);
+            });
+
+            it(`should trigger event 'Change primary background'`, () => {
+                let background = new HeaderBackground();
+                background.brightness(0.2);
+                background.changeBrightness(0.2);
+                expect(eventTracker.publish).not.toHaveBeenCalledWith('Change primary background');
             });
 
         });

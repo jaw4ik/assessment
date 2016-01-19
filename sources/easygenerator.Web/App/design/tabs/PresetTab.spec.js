@@ -6,14 +6,7 @@ import { Preset } from './PresetTab.js';
 
 import templateRepository from 'repositories/templateRepository.js';
 
-
 import { EVENT_PRESET_SELECTED } from './PresetTab.js';
-
-let describe = window.describe;
-let it = window.it;
-let expect = window.expect;
-let beforeEach = window.beforeEach;
-let spyOn = window.spyOn;
 
 describe('Preset tab', () => {
 
