@@ -2744,9 +2744,44 @@
     <Content Include="Templates\Reader\settings\design\js\design.min.js" />
     <Content Include="Templates\Reader\settings\design\js\vendor.min.js" />
     <Content Include="Templates\Reader\settings\design\layout.html" />
+    <Content Include="Templates\Simple course\app\main.js" />
+    <Content Include="Templates\Simple course\css\general.css" />
+    <Content Include="Templates\Simple course\css\img\browsers\android.png" />
+    <Content Include="Templates\Simple course\css\img\browsers\chrome.png" />
+    <Content Include="Templates\Simple course\css\img\browsers\edge.png" />
+    <Content Include="Templates\Simple course\css\img\browsers\firefox.png" />
+    <Content Include="Templates\Simple course\css\img\browsers\ie.png" />
+    <Content Include="Templates\Simple course\css\img\browsers\safari.png" />
+    <Content Include="Templates\Simple course\css\img\easy-supported-browser-browser-bg.png" />
+    <Content Include="Templates\Simple course\css\img\easy-supported-browser-logo.png" />
+    <Content Include="Templates\Simple course\css\img\easy-supported-browser-top-part-bg.png" />
+    <Content Include="Templates\Simple course\css\img\loader.gif" />
+    <Content Include="Templates\Simple course\css\img\singleSelectImageAnwer.png" />
+    <Content Include="Templates\Simple course\css\img\xapi\xapierror.png" />
+    <Content Include="Templates\Simple course\css\vendor.css" />
     <Content Include="Templates\Simple course\index.html" />
+    <Content Include="Templates\Simple course\js\less.min.js" />
+    <Content Include="Templates\Simple course\js\require.js" />
+    <Content Include="Templates\Simple course\js\vendor.min.js" />
+    <Content Include="Templates\Simple course\pdf\index.html" />
+    <Content Include="Templates\Simple course\pdf\scripts.js" />
+    <Content Include="Templates\Simple course\pdf\styles.css" />
+    <Content Include="Templates\Simple course\preview\images\preview.jpg" />
+    <Content Include="Templates\Simple course\preview\thumbnail.png" />
     <Content Include="Templates\Simple course\publishSettings.js" />
     <Content Include="Templates\Simple course\settings.js" />
+    <Content Include="Templates\Simple course\settings\api.js" />
+    <Content Include="Templates\Simple course\settings\configure\configure.html" />
+    <Content Include="Templates\Simple course\settings\configure\css\configure.css" />
+    <Content Include="Templates\Simple course\settings\configure\css\img\preview-templates-sprite.png" />
+    <Content Include="Templates\Simple course\settings\configure\css\img\sprites_16.png" />
+    <Content Include="Templates\Simple course\settings\configure\img\language.png" />
+    <Content Include="Templates\Simple course\settings\configure\js\configure.min.js" />
+    <Content Include="Templates\Simple course\settings\configure\js\vendor.min.js" />
+    <Content Include="Templates\Simple course\settings\design\css\design.css" />
+    <Content Include="Templates\Simple course\settings\design\js\design.min.js" />
+    <Content Include="Templates\Simple course\settings\design\js\vendor.min.js" />
+    <Content Include="Templates\Simple course\settings\design\layout.html" />
     <Content Include="Views\Account\InvalidPasswordRecovery.cshtml" />
     <Content Include="Views\Account\PasswordRecovery.cshtml" />
     <Content Include="Views\Account\PrivacyPolicy.cshtml" />
@@ -2824,6 +2859,27 @@
     <Content Include="Templates\Personalized learning\lang\es.json" />
     <Content Include="Templates\Reader\lang\es.json" />
     <Content Include="Templates\Simple course\manifest.json" />
+    <Content Include="Templates\Simple course\app\main.js.map" />
+    <Content Include="Templates\Simple course\css\colors.less" />
+    <Content Include="Templates\Simple course\css\font\robotocondensed-regular.woff" />
+    <Content Include="Templates\Simple course\lang\cn.json" />
+    <Content Include="Templates\Simple course\lang\de.json" />
+    <Content Include="Templates\Simple course\lang\en.json" />
+    <Content Include="Templates\Simple course\lang\es.json" />
+    <Content Include="Templates\Simple course\lang\fr.json" />
+    <Content Include="Templates\Simple course\lang\it.json" />
+    <Content Include="Templates\Simple course\lang\nl.json" />
+    <Content Include="Templates\Simple course\lang\pt-br.json" />
+    <Content Include="Templates\Simple course\lang\tr.json" />
+    <Content Include="Templates\Simple course\lang\ua.json" />
+    <Content Include="Templates\Simple course\settings\configure\css\fonts\opensans-400.woff" />
+    <Content Include="Templates\Simple course\settings\configure\css\fonts\opensans-600.woff" />
+    <Content Include="Templates\Simple course\settings\configure\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Simple course\settings\configure\css\fonts\opensans-italic-400.woff" />
+    <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-400.woff" />
+    <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-600.woff" />
+    <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-bold.woff" />
+    <Content Include="Templates\Simple course\settings\design\css\fonts\opensans-italic-400.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3269,13 +3325,6 @@
   <ItemGroup>
     <Folder Include="App\views\courses\course\design\" />
     <Folder Include="Templates\Assessment\settings\design\img\" />
-    <Folder Include="Templates\Simple course\app\" />
-    <Folder Include="Templates\Simple course\css\" />
-    <Folder Include="Templates\Simple course\js\" />
-    <Folder Include="Templates\Simple course\lang\" />
-    <Folder Include="Templates\Simple course\pdf\" />
-    <Folder Include="Templates\Simple course\preview\" />
-    <Folder Include="Templates\Simple course\settings\" />
     <Folder Include="Views\CourseImport\" />
   </ItemGroup>
   <PropertyGroup>
