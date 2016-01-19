@@ -16,6 +16,7 @@ app.reviewViewModel = function (dataStorage) {
         isExpanded: ko.observable(false),
         isSaved: ko.observable(false),
         isFailed: ko.observable(false),
+        isReviewPanelVisible: ko.observable(true),
 
         toggleVisiblity: function () {
             viewModel.isExpanded(!viewModel.isExpanded());
@@ -95,6 +96,14 @@ app.reviewViewModel = function (dataStorage) {
             viewModel.isFailed(true);
         });
     };
+
+    window.addEventListener("message", onMessageReceived, false);
+
+    function onMessageReceived(event) {
+        if (event && event.data && event.data.supportsNativeReview) {
+            viewModel.isReviewPanelVisible(false);
+        }
+    }
 
     return viewModel;
 };
