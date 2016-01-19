@@ -8,16 +8,13 @@ import {
 
 import bus from './../../bus';
 
-let describe = window.describe;
-let it = window.it;
-let expect = window.expect;
-let beforeEach = window.beforeEach;
-let spyOn = window.spyOn;
+import eventTracker from 'eventTracker';
 
 describe('BodyBackground section', () => {
 
     beforeEach(() => {
         spyOn(bus, 'trigger');
+        spyOn(eventTracker, 'publish');
     });
 
     describe('body:', () => {
@@ -29,7 +26,7 @@ describe('BodyBackground section', () => {
         });
 
         describe('changeBackground:', () => {
-            
+
             it('should show header background popover', () => {
                 let background = new BodyBackground();
                 background.changeBackground(null);
@@ -49,9 +46,9 @@ describe('BodyBackground section', () => {
         });
 
         describe('changeBrightness:', () => {
-            
+
             describe('when brightness is NaN', () => {
-            
+
                 it('should not change body brightness', () => {
                     let background = new BodyBackground();
                     background.brightness(0.4);
@@ -59,23 +56,36 @@ describe('BodyBackground section', () => {
                     background.changeBrightness(NaN);
                     expect(background.brightness()).toEqual(0.4);
                 });
-                
-                it(`should not trigger event ${EVENT_BODY_BACKGROUND_BRIGHTNESS_CHANGED }`, () => {
+
+                it(`should not trigger event ${EVENT_BODY_BACKGROUND_BRIGHTNESS_CHANGED}`, () => {
                     let background = new BodyBackground();
                     background.changeBrightness(NaN);
-                    expect(bus.trigger).not.toHaveBeenCalledWith(EVENT_BODY_BACKGROUND_BRIGHTNESS_CHANGED );
-                }); 
+                    expect(bus.trigger).not.toHaveBeenCalledWith(EVENT_BODY_BACKGROUND_BRIGHTNESS_CHANGED);
+                });
+
+                it(`should not trigger event 'Change secondary background'`, () => {
+                    let background = new BodyBackground();
+                    background.changeBrightness(NaN);
+                    expect(eventTracker.publish).not.toHaveBeenCalledWith('Change secondary background');
+                });
 
             });
 
             describe('when brightness has not changed', () => {
-                
-                it(`should not trigger event ${EVENT_BODY_BACKGROUND_BRIGHTNESS_CHANGED }`, () => {
+
+                it(`should not trigger event ${EVENT_BODY_BACKGROUND_BRIGHTNESS_CHANGED}`, () => {
                     let background = new BodyBackground();
                     background.brightness(0.2);
                     background.changeBrightness(0.2);
-                    expect(bus.trigger).not.toHaveBeenCalledWith(EVENT_BODY_BACKGROUND_BRIGHTNESS_CHANGED );
-                }); 
+                    expect(bus.trigger).not.toHaveBeenCalledWith(EVENT_BODY_BACKGROUND_BRIGHTNESS_CHANGED);
+                });
+
+                it(`should not trigger event 'Change secondary background'`, () => {
+                    let background = new BodyBackground();
+                    background.brightness(0.2);
+                    background.changeBrightness(0.2);
+                    expect(eventTracker.publish).not.toHaveBeenCalledWith('Change secondary background');
+                });
 
             });
 
@@ -87,10 +97,16 @@ describe('BodyBackground section', () => {
                 expect(background.brightness()).toEqual(0.4);
             });
 
-            it(`should trigger event ${EVENT_BODY_BACKGROUND_BRIGHTNESS_CHANGED }`, () => {
+            it(`should trigger event ${EVENT_BODY_BACKGROUND_BRIGHTNESS_CHANGED}`, () => {
                 let background = new BodyBackground();
                 background.changeBrightness(0.4);
-                expect(bus.trigger).toHaveBeenCalledWith(EVENT_BODY_BACKGROUND_BRIGHTNESS_CHANGED );
+                expect(bus.trigger).toHaveBeenCalledWith(EVENT_BODY_BACKGROUND_BRIGHTNESS_CHANGED);
+            });
+
+            it(`should trigger event 'Change secondary background'`, () => {
+                let background = new BodyBackground();
+                background.changeBrightness(0.4);
+                expect(eventTracker.publish).toHaveBeenCalledWith('Change secondary background');
             });
 
         });
@@ -126,6 +142,12 @@ describe('BodyBackground section', () => {
                 let background = new BodyBackground();
                 background.updateTexture('image');
                 expect(bus.trigger).toHaveBeenCalledWith(EVENT_BODY_BACKGROUND_TEXTURE_CHANGED);
+            });
+
+            it(`should trigger event 'Change secondary background'`, () => {
+                let background = new BodyBackground();
+                background.updateTexture('image');
+                expect(eventTracker.publish).toHaveBeenCalledWith('Change secondary background');
             });
 
         });
@@ -164,10 +186,16 @@ describe('BodyBackground section', () => {
                 expect(bus.trigger).toHaveBeenCalledWith(EVENT_BODY_BACKGROUND_COLOR_CHANGED);
             });
 
+            it(`should trigger event 'Change secondary background'`, () => {
+                let background = new BodyBackground();
+                background.updateColor('#aabbcc');
+                expect(eventTracker.publish).toHaveBeenCalledWith('Change secondary background');
+            });
+
         });
 
         describe('activate:', () => {
-            
+
             describe('and color is defined', () => {
 
                 it('should set corresponding color', () => {

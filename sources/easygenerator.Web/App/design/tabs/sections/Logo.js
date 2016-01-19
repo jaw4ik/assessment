@@ -1,11 +1,12 @@
 ﻿import ko from 'knockout';
 
-import bus from './../../bus.js';
 import imageUpload from 'imageUpload';
 import notify from 'notify';
-
+import eventTracker from 'eventTracker';
 import localizationManager from 'localization/localizationManager';
 import userContext from 'userContext';
+
+import bus from './../../bus.js';
 
 export const URL_MODE = 'URL';
 export const UPLOAD_MODE = 'upload';
@@ -26,7 +27,7 @@ class Logo {
         [URL_MODE, UPLOAD_MODE].forEach(mode => {
             this[`is${mode.capitalize()}Mode`] = ko.computed(() => {
                 return this.mode() === mode;
-        });
+            });
             this[`to${mode.capitalize()}Mode`] = () => {
                 this.mode(mode);
             }
@@ -36,7 +37,10 @@ class Logo {
         this.imageUrl.isDefault = ko.computed(() => {
             return this.imageUrl() && this.imageUrl() === (this.defaults && this.defaults.url);
         }, this);
-        this.imageUrl.endEdit = () => bus.trigger(EVENT_LOGO_CHANGED);
+        this.imageUrl.endEdit = () => {
+            bus.trigger(EVENT_LOGO_CHANGED);
+            eventTracker.publish('Change logo (link)');
+        };
 
         this.defaults = null;
         this.available = null;
@@ -65,6 +69,7 @@ class Logo {
         return imageUpload.v2(file)
             .then(response => that.imageUrl(response.url))
             .then(() => bus.trigger(EVENT_LOGO_UPLOADED))
+            .then(() => eventTracker.publish('Change logo (upload)'))
             .catch(reason => {
                 notify.error(reason);
             });
