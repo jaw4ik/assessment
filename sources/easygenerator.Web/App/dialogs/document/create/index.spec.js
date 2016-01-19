@@ -1,5 +1,6 @@
 ﻿import createDocumentDialog from 'dialogs/document/create/index';
 import eventTracker from 'eventTracker';
+import _ from 'underscore';
 
 describe('createDocumentDialog:', () => {
 
@@ -108,7 +109,9 @@ describe('createDocumentDialog:', () => {
         describe('when title is larger that max title length', () => {
 
             beforeEach(() => {
-                createDocumentDialog.title('1'.repeat(256));
+                var title = '';
+                _.times(256, () => { title += '1'; });
+                createDocumentDialog.title(title);
             });
 
             it('should return false', () => {
