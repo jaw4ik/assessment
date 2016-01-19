@@ -287,7 +287,7 @@
 
                 it('should navigate to course page', function () {
                     viewModel.navigateToDetails(courseBrief);
-                    expect(router.navigate).toHaveBeenCalledWith(`courses/${courseBrief.id}`);
+                    expect(router.navigate).toHaveBeenCalledWith('courses/' + courseBrief.id);
                 });
 
             });
