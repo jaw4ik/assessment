@@ -20,6 +20,18 @@ describe('createDocumentDialog:', () => {
 
     });
 
+    describe('isOpenedForUpdate:', () => {
+
+        it('should be observable', () => {
+            expect(createDocumentDialog.isOpenedForUpdate).toBeObservable();
+        });
+
+        it('should be false by default', () => {
+            expect(createDocumentDialog.isOpenedForUpdate()).toBeFalsy();
+        });
+
+    });
+
     describe('cancelEvent', () => {
 
         it('should be defined', () => {
@@ -295,7 +307,7 @@ describe('createDocumentDialog:', () => {
 
         it('should prepare popup to be opened', () => {
             var cancelEvent = 'event';
-            var callback = function() {};
+            var callback = () => {};
             var title = '123';
             var embedCode = '456';
 
@@ -309,6 +321,7 @@ describe('createDocumentDialog:', () => {
             expect(createDocumentDialog.isTitleChanged()).toBeFalsy();
             expect(createDocumentDialog.isEmbedCodeEditing()).toBeFalsy();
             expect(createDocumentDialog.isEmbedCodeChanged()).toBeFalsy();
+            expect(createDocumentDialog.isOpenedForUpdate()).toBeTruthy();
             expect(createDocumentDialog.isShown()).toBeTruthy();
         });
 

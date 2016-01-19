@@ -10,6 +10,7 @@ const titleMaxLength = constants.validation.documentTitleMaxLength;
 class CreateDocumentDialog {
     constructor() {
         this.isShown = ko.observable(false);
+        this.isOpenedForUpdate = ko.observable(false);
         this.cancelEvent = null;
         this.callback = null;
         this.description = description;
@@ -65,6 +66,7 @@ class CreateDocumentDialog {
         this.embedCode(embedCode);
         this.isEmbedCodeEditing(false);
         this.isEmbedCodeChanged(false);
+        title && embedCode ? this.isOpenedForUpdate(true) : this.isOpenedForUpdate(false);
         this.isShown(true);
     }
     hide() {

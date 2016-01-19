@@ -126,6 +126,8 @@
     "dragAndDrop": "Glissez/déposez",
     "anyAudioFormatsOr": "tout format de fichier audio ou",
     "anyAudioFormats": "tout format de fichier audio",
+    "imageLibrary": "Bibliothèque d'images",
+    "uploadImageDescription": "Upload your own image by click on this button",
     "learningObjectives": "Objectifs d'apprentissage",
     "learningObjective": "Objectif d'apprentissage",
     "learningObjectiveListIsEmpty": "La liste d'objectif est vide",
@@ -166,6 +168,7 @@
     "learningPathDownloadAsHtmlHint2": "Nous rassemblons pour vous tous les fichiers HTML, CSS et JS de votre parcours d'apprentissage pour qu'ils soient disponibles en téléchargement.",
     "shareLearningPathTitle": "Obtenir un lien easygenerator et partager",
     "documentPopupTitle": "Comment ajouter un document ?",
+    "documentUpdatePopupTitle": "How to change?",
     "documentPopupDescription": "<ol><li>Accédez à votre dossier <a href=\"https://www.google.com/drive/\" target=\"_blank\">Google Drive</a>.</li><li>Ouvrez un document, choisissez \"Fichier\", puis cliquez sur \"Publier sur le Web\".</li><li>Choisissez \"Intégrer\" et copiez le code d'intégration ci-dessous.</li></ol>",
     "documentTitle": "Titre du document",
     "embedCode": "Code d'intégration",
@@ -662,7 +665,7 @@
     "logoUrlMode": "Lien",
     "logoUploadMode": "Image",
     "backgrounds": "Arrière-plans",
-    "topBackground": "Arrière-plan supérieur",
+    "topBackground": "Arrière-plan principal",
     "useForTheWholePage": "Utiliser pour toute la page",
     "changeBackground": "Arrière-plan supérieur",
     "secondaryBackground": "Arrière-plan secondaire",
@@ -684,8 +687,8 @@
     "scheme": "Modèle",
     "backToSettings": "Retour aux paramètres",
     "templateDoesNotHavePresets": "Le modèle sélectionné ne comporte pas de paramètres prédéfinis",
-    "upgradeAccountHintBackgroundSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to set a custom background",
-    "upgradeAccountHintLogoSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to set custom course logo",
-    "upgradeAccountHintColorsSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to change interface colors",
-    "colorThemes": "Color themes"
+    "upgradeAccountHintBackgroundSection": "Pour définir un arrière-plan personnalisé, vous devez <a target=\"_blank\" href=\"/account/upgrade\">mettre votre compte à niveau</a>",
+    "upgradeAccountHintLogoSection": "Pour définir un logo de cours personnalisé, vous devez <a target=\"_blank\" href=\"/account/upgrade\">mettre votre compte à niveau</a>",
+    "upgradeAccountHintColorsSection": "Pour changer les couleurs de l'interface, vous devez <a target=\"_blank\" href=\"/account/upgrade\">mettre votre compte à niveau</a>",
+    "colorThemes": "Thèmes de couleurs"
 }
