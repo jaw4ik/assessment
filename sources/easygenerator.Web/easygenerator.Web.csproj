@@ -2756,6 +2756,7 @@
     <Content Include="Templates\Simple course\css\img\easy-supported-browser-logo.png" />
     <Content Include="Templates\Simple course\css\img\easy-supported-browser-top-part-bg.png" />
     <Content Include="Templates\Simple course\css\img\loader.gif" />
+    <Content Include="Templates\Simple course\css\img\review-sprites.png" />
     <Content Include="Templates\Simple course\css\img\singleSelectImageAnwer.png" />
     <Content Include="Templates\Simple course\css\img\xapi\xapierror.png" />
     <Content Include="Templates\Simple course\css\vendor.css" />
