@@ -28,7 +28,7 @@ namespace easygenerator.Web.Controllers.Api
         [Route("api/feedback/neweditor/send")]
         public ActionResult SendNewEditorFeedback(int rate, string message)
         {
-            _publisher.Publish(new NewEditorUserFeedbackEvent(rate, message));
+            _publisher.Publish(new NewEditorUserFeedbackEvent(GetCurrentUsername(), rate, message));
             return new JsonSuccessResult();
         }
     }
