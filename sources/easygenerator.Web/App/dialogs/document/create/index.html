@@ -4,7 +4,12 @@
         <div class="document-dialogue-container">
             <header class="document-dialog-header">
                 <div class="document-dialog-header-icon"></div>
+                <!-- ko if: isOpenedForUpdate -->
+                <h2 class="document-dialog-title" data-bind="localize: { text: 'documentUpdatePopupTitle' }"></h2>
+                <!-- /ko -->
+                <!-- ko ifnot: isOpenedForUpdate -->
                 <h2 class="document-dialog-title" data-bind="localize: { text: 'documentPopupTitle' }"></h2>
+                <!-- /ko -->
             </header>
             <section class="document-dialog-content-container">
                 <div class="document-dialog-description" data-bind="html: description"></div>
