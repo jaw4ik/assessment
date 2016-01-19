@@ -690,7 +690,6 @@
     "buttonTextColor": "Button text color",
     "contentBodyColor": "Content body color",
     "scheme": "Scheme",
-    "backToSettings": "Back to settings",
     "templateDoesNotHavePresets": "Selected template does not have presets",
     "upgradeAccountHintBackgroundSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to set a custom background",
     "upgradeAccountHintLogoSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to change the logo",
@@ -699,5 +698,6 @@
     "uploadFileFromDisc": "Upload from your hard disc",
     "attachByLink": "Attach a link to the logo",
     "pasteImageLink": "Paste image link here",
-    "attach": "Attach"
+    "attach": "Attach",
+    "themes": "Themes"
 }

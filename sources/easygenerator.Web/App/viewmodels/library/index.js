@@ -4,6 +4,7 @@
     var events = {
         navigateToVideos: 'Navigate to videos',
         navigateToAudios: 'Navigate to audios',
+        navigateToImages: 'Navigate to images',
         navigateToObjectives: 'Navigate to objectives'
     }
 
@@ -30,6 +31,17 @@
                 hash: '#library/audios',
                 navigate: function () {
                     eventTracker.publish(events.navigateToAudios);
+                    childRouter.navigate(this.hash);
+                }
+            },
+            {
+                route: ['images'],
+                moduleId: 'images/index',
+                title: localizationManager.localize('imageLibrary'),
+                nav: true,
+                hash: '#library/images',
+                navigate: function () {
+                    eventTracker.publish(events.navigateToImages);
                     childRouter.navigate(this.hash);
                 }
             }

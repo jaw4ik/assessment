@@ -46,7 +46,11 @@ $removeCommand = "Remove-Item " + $dbBackupFolder + "*"
 Invoke-Expression -command "$removeCommand"
 
 echo "Creating database backup:"
-SqlCmd -E -S ".\sql2014_web" -Q $query
+SqlCmd -E -S ".\sql2014_web" -Q $query -b -o database-backup.log
+
+If ($LASTEXITCODE -ne 0){
+	throw "Error when creating database backup! See database-backup.log for details."
+}
 
 $sourcePath = "D:\Applications\live.easygenerator.com\"
 

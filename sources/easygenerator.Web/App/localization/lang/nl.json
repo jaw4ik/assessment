@@ -690,7 +690,6 @@
     "buttonTextColor": "Kleur voor tekstt op knoppen",
     "contentBodyColor": "Kleur voor standaard tekst",
     "scheme": "Schema",
-    "backToSettings": "Terug naar instellingen",
     "templateDoesNotHavePresets": "Het geselecteerde template heeft geen instellingen",
     "upgradeAccountHintBackgroundSection": "U moet  <a target=\"_blank\" href=\"/account/upgrade\">uw account upgraden</a> om de achtergrond aan te passen",
     "upgradeAccountHintLogoSection": "U moet  <a target=\"_blank\" href=\"/account/upgrade\">uw account upgraden</a> om de het logo aan te passen",
@@ -699,5 +698,6 @@
     "uploadFileFromDisc": "Upload van uw harde schijf",
     "attachByLink": "Gebruik een weblink naar uw logo",
     "pasteImageLink": "Plak de link naar de afbeelding hier",
-    "attach": "Bevestig"
+    "attach": "Bevestig",
+    "themes": "Themes"
 }

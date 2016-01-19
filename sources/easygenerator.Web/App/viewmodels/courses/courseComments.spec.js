@@ -35,7 +35,10 @@ describe('viewModel [courseComments]', () => {
         });
 
         it('should set isCommentsLoading flag to true', () => {
+            spyOn(userContext, 'identify').and.returnValue(Promise.resolve());
+            spyOn(userContext, 'hasStarterAccess').and.returnValue(false);
             viewModel.isCommentsLoading(false);
+
             viewModel.activate('123');
             expect(viewModel.isCommentsLoading()).toBeTruthy();
         });
