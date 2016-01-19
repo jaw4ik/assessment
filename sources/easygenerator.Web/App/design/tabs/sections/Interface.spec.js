@@ -3,18 +3,16 @@ import { Color } from './Interface';
 import ColorpickerPopover from './ColorpickerPopover';
 import { EVENT_COLOR_SELECTED } from './Interface';
 
-import userContext from 'userContext';
-
 import bus from './../../bus';
 
-let describe = window.describe;
-let it = window.it;
-let expect = window.expect;
+import eventTracker from 'eventTracker';
+import userContext from 'userContext';
 
 describe('Interface Color', () => {
-    
+
     beforeEach(() => {
         spyOn(bus, 'trigger');
+        spyOn(eventTracker, 'publish');
     });
 
     describe('key:', () => {
@@ -61,7 +59,7 @@ describe('Interface Color', () => {
     });
 
     describe('showPopover:', () => {
-        
+
         it('should show popover with colorpicker', () => {
             let color = new Color();
             color.showPopover();
@@ -70,7 +68,7 @@ describe('Interface Color', () => {
 
     });
 
-    describe('valueChanged:', () => {
+    describe('updateValue:', () => {
 
         it('should update value', () => {
             let color = new Color();
@@ -84,6 +82,14 @@ describe('Interface Color', () => {
             color.updateValue('#ebb');
 
             expect(bus.trigger).toHaveBeenCalledWith(EVENT_COLOR_SELECTED);
+        });
+
+        it(`should trigger event 'Change interface color'`, () => {
+            let color = new Color();
+
+            color.updateValue('#ebb');
+
+            expect(eventTracker.publish).toHaveBeenCalledWith('Change interface color');
         });
 
     });
@@ -140,10 +146,28 @@ describe('Interface design section', () => {
 
         describe('when colors is not an array', () => {
 
-            it('should set an empty colors array', () => {
-                let int = new Interface();
-                int.activate();
-                expect(int.colors().length).toEqual(0);
+            describe('and defaults are an array', () => {
+                
+                it('should set defaults to colors array', () => {
+                    let int = new Interface();
+                    int.activate(null, [{ key: '@main-color', value: '#000000' }, { key: '@secondary-color', value: '#aabbcc' }]);
+                    expect(int.colors().length).toEqual(2);
+                    expect(int.colors()[0].key).toEqual('@main-color');
+                    expect(int.colors()[0].value()).toEqual('#000000');
+                    expect(int.colors()[1].key).toEqual('@secondary-color');
+                    expect(int.colors()[1].value()).toEqual('#aabbcc');
+                });
+
+            });
+
+            describe('and defaults are not an array', () => {
+                
+                it('should set an empty colors array', () => {
+                    let int = new Interface();
+                    int.activate();
+                    expect(int.colors().length).toEqual(0);
+                });
+
             });
 
         });

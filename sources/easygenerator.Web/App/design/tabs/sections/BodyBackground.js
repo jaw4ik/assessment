@@ -1,5 +1,7 @@
 ﻿import ko from 'knockout';
 
+import eventTracker from 'eventTracker';
+
 import { BackgroundPopover } from './BodyBackgroundPopover.js';
 import bus from './../../bus';
 
@@ -27,6 +29,7 @@ export default class BodyBackground{
         if (this.brightness() !== value) {
             this.brightness(value);
             bus.trigger(EVENT_BODY_BACKGROUND_BRIGHTNESS_CHANGED);
+            eventTracker.publish('Change secondary background');
         }
     }
 
@@ -38,34 +41,23 @@ export default class BodyBackground{
         this.color(color);
         this.texture(null);
         bus.trigger(EVENT_BODY_BACKGROUND_COLOR_CHANGED);
+        eventTracker.publish('Change secondary background');
     }
     
     updateTexture(texture) {
         this.texture(texture);
         this.color(null);
         bus.trigger(EVENT_BODY_BACKGROUND_TEXTURE_CHANGED);
+        eventTracker.publish('Change secondary background');
     }
 
-    activate(settings) {
-        if (settings) {
-            this.brightness(settings.brightness || 0);
-            if (settings.color) {
-                this.color(settings.color);
-                this.popover.color(settings.color);
-                this.texture(null);
-                this.popover.texture(null);
-            } else {
-                this.texture(settings.texture);
-                this.popover.texture(settings.texture);
-                this.color(null);
-                this.popover.color(null);
-            }
-        } else {
-            this.color(null);
-            this.popover.color(null);
-            this.texture(null);
-            this.popover.texture(null);
-            this.brightness(0);
-        }
+    activate(settings, defaults) {
+        this.defaults = defaults || null;
+
+        this.texture(settings && settings.texture || defaults && defaults.texture || null);
+        this.popover.texture(settings && settings.texture || defaults && defaults.texture || null);
+        this.color(settings && settings.color || defaults && defaults.color || null);
+        this.popover.color(settings && settings.color || defaults && defaults.color || null);
+        this.brightness(settings && settings.brightness || defaults && defaults.brightness || 0);
     }
 }

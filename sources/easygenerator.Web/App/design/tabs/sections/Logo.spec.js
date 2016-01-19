@@ -4,19 +4,14 @@ import { URL_MODE, UPLOAD_MODE, EVENT_LOGO_UPLOADED, EVENT_LOGO_CHANGED, EVENT_L
 import bus from './../../bus.js';
 import imageUpload from 'imageUpload';
 import notify from 'notify';
-
+import eventTracker from 'eventTracker';
 import userContext from 'userContext';
-
-let describe = window.describe;
-let it = window.it;
-let expect = window.expect;
-let spyOn = window.spyOn;
-let beforeEach = window.beforeEach;
 
 describe('Logo design section', () => {
 
     beforeEach(() => {
         spyOn(bus, 'trigger');
+        spyOn(eventTracker, 'publish');
     });
 
     it('should create logo object', () => {
@@ -58,6 +53,13 @@ describe('Logo design section', () => {
                 logo.imageUrl('url');
                 logo.imageUrl.endEdit();
                 expect(bus.trigger).toHaveBeenCalledWith(EVENT_LOGO_CHANGED);
+            });
+
+            it(`should trigger event 'Change logo (link)'`, () => {
+                let logo = new Logo();
+                logo.imageUrl('url');
+                logo.imageUrl.endEdit();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Change logo (link)');
             });
 
         });
@@ -262,12 +264,23 @@ describe('Logo design section', () => {
                     });
                 });
 
+                it(`should trigger event 'Change logo (upload)'`, done => {
+                    let logo = new Logo();
+                    logo.imageUrl('');
+                    logo.upload({}).then(() => {
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Change logo (upload)');
+                        done();
+                    });
+                });
+
             });
 
             describe('and failed to upload file', () => {
 
-                beforeEach(() => spyOn(imageUpload, 'v2').and.returnValue(Promise.reject('reason')));
-                beforeEach(() => spyOn(notify, 'error'));
+                beforeEach(() => {
+                    spyOn(imageUpload, 'v2').and.returnValue(Promise.reject('reason'));
+                    spyOn(notify, 'error');
+                });
 
                 it('should resolve promise', done => {
                     let logo = new Logo();
@@ -350,13 +363,29 @@ describe('Logo design section', () => {
         });
 
         describe('when logo is not an object', () => {
-        
-            it('should set null to imageUrl', () => {
-                let logo = new Logo();
 
-                logo.activate();
+            describe('and defaults have image url', () => {
 
-                expect(logo.imageUrl()).toEqual(null);
+                it('should set a default value to imageUrl', () => {
+                    let logo = new Logo();
+
+                    logo.activate(null, { url: 'imageUrl' });
+
+                    expect(logo.imageUrl()).toEqual('imageUrl');
+                });
+
+            });
+
+            describe('and defaults do not have image url', () => {
+
+                it('should set null to imageUrl', () => {
+                    let logo = new Logo();
+
+                    logo.activate();
+
+                    expect(logo.imageUrl()).toEqual(null);
+                });
+
             });
 
         });

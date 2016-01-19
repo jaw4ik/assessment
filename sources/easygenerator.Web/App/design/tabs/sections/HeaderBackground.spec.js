@@ -14,16 +14,13 @@ import {
 
 import bus from './../../bus';
 
-let describe = window.describe;
-let it = window.it;
-let expect = window.expect;
-let beforeEach = window.beforeEach;
-let spyOn = window.spyOn;
+import eventTracker from 'eventTracker';
 
 describe('Header background design section', () => {
 
     beforeEach(() => {
         spyOn(bus, 'trigger');
+        spyOn(eventTracker, 'publish');
     });
 
     describe('expanded:', () => {
@@ -51,10 +48,32 @@ describe('Header background design section', () => {
             expect(bus.trigger).toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_EXPANDED_CHANGED);
         });
 
+        describe('when expanded state became true', () => {
+
+            it(`should trigger event 'Switch to one background'`, () => {
+                let background = new HeaderBackground();
+                background.expanded(false);
+                background.toggleExpanded();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Switch to one background');
+            });
+
+        });
+
+        describe('when expanded state became false', () => {
+
+            it(`should trigger event 'Switch to multiple backgrounds'`, () => {
+                let background = new HeaderBackground();
+                background.expanded(true);
+                background.toggleExpanded();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Switch to multiple backgrounds');
+            });
+
+        });
+
     });
 
     describe('changeBackground:', () => {
-        
+
         it('should show popover', () => {
             let background = new HeaderBackground();
             background.changeBackground();
@@ -89,7 +108,7 @@ describe('Header background design section', () => {
             describe('when defaults have a default image url', () => {
 
                 describe('and current image has the same url', () => {
-                    
+
                     it('should return true', () => {
                         let background = new HeaderBackground();
                         background.defaults = {
@@ -104,7 +123,7 @@ describe('Header background design section', () => {
                 });
 
                 describe('and current image has another url', () => {
-                    
+
                     it('should return false', () => {
                         let background = new HeaderBackground();
                         background.defaults = {
@@ -156,21 +175,27 @@ describe('Header background design section', () => {
             expect(bus.trigger).toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_IMAGE_CHANGED);
         });
 
+        it(`should trigger event 'Change primary background'`, () => {
+            let background = new HeaderBackground();
+            background.updateImage('image');
+            expect(eventTracker.publish).toHaveBeenCalledWith('Change primary background');
+        });
+
     });
 
     describe('removeImage:', () => {
 
         describe('when defaults have a default image url', () => {
-            
+
             it('should set image', () => {
                 let background = new HeaderBackground();
                 background.image('url');
-                background.defaults  = { image: { url: 'URL'}};
+                background.defaults = { image: { url: 'URL' } };
 
                 background.removeImage();
                 expect(background.image()).toEqual('URL');
             });
-            
+
         });
 
         describe('when defaults do not have a default image url', () => {
@@ -182,13 +207,19 @@ describe('Header background design section', () => {
                 background.removeImage();
                 expect(background.image()).toEqual(null);
             });
-            
+
         });
 
         it(`should trigger event ${EVENT_HEADER_BACKGROUND_IMAGE_REMOVED}`, () => {
             let background = new HeaderBackground();
             background.removeImage();
             expect(bus.trigger).toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_IMAGE_REMOVED);
+        });
+
+        it(`should trigger event 'Change primary background'`, () => {
+            let background = new HeaderBackground();
+            background.removeImage();
+            expect(eventTracker.publish).toHaveBeenCalledWith('Change primary background');
         });
 
     });
@@ -204,7 +235,7 @@ describe('Header background design section', () => {
     });
 
     describe('updateColor:', () => {
-        
+
         it('should update color', () => {
             let background = new HeaderBackground();
             background.color('#000');
@@ -212,7 +243,7 @@ describe('Header background design section', () => {
             background.updateColor('#aabbcc');
             expect(background.color()).toEqual('#aabbcc');
         });
-        
+
         it('should reset image', () => {
             let background = new HeaderBackground();
             background.image('image');
@@ -225,6 +256,12 @@ describe('Header background design section', () => {
             let background = new HeaderBackground();
             background.updateColor('#aabbcc');
             expect(bus.trigger).toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_COLOR_CHANGED);
+        });
+
+        it(`should trigger event 'Change primary background'`, () => {
+            let background = new HeaderBackground();
+            background.updateColor('#aabbcc');
+            expect(eventTracker.publish).toHaveBeenCalledWith('Change primary background');
         });
 
     });
@@ -257,6 +294,14 @@ describe('Header background design section', () => {
                 expect(bus.trigger).not.toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_IMAGE_OPTION_CHANGED);
             });
 
+            it(`should not trigger event 'Change primary background'`, () => {
+                let background = new HeaderBackground();
+                background.option(BACKGROUND_IMAGE_FULLSCREEN);
+
+                background.switchToFullscreen();
+                expect(eventTracker.publish).not.toHaveBeenCalledWith('Change primary background');
+            });
+
         });
 
         it(`should set option to ${BACKGROUND_IMAGE_FULLSCREEN} by default`, () => {
@@ -275,6 +320,15 @@ describe('Header background design section', () => {
             background.switchToFullscreen();
             expect(bus.trigger).toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_IMAGE_OPTION_CHANGED);
         });
+
+        it(`should trigger event 'Change primary background'`, () => {
+            let background = new HeaderBackground();
+            background.option(null);
+
+            background.switchToFullscreen();
+            expect(eventTracker.publish).toHaveBeenCalledWith('Change primary background');
+        });
+
     });
 
     describe('switchToRepeat:', () => {
@@ -287,6 +341,14 @@ describe('Header background design section', () => {
 
                 background.switchToRepeat();
                 expect(bus.trigger).not.toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_IMAGE_OPTION_CHANGED);
+            });
+
+            it(`should not trigger event 'Change primary background'`, () => {
+                let background = new HeaderBackground();
+                background.option(BACKGROUND_IMAGE_REPEAT);
+
+                background.switchToRepeat();
+                expect(eventTracker.publish).not.toHaveBeenCalledWith('Change primary background');
             });
 
         });
@@ -308,6 +370,14 @@ describe('Header background design section', () => {
             expect(bus.trigger).toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_IMAGE_OPTION_CHANGED);
         });
 
+        it(`should trigger event 'Change primary background'`, () => {
+            let background = new HeaderBackground();
+            background.option(null);
+
+            background.switchToRepeat();
+            expect(eventTracker.publish).toHaveBeenCalledWith('Change primary background');
+        });
+
     });
 
     describe('switchToOriginal:', () => {
@@ -320,6 +390,14 @@ describe('Header background design section', () => {
 
                 background.switchToOriginal();
                 expect(bus.trigger).not.toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_IMAGE_OPTION_CHANGED);
+            });
+
+            it(`should not trigger event 'Change primary background'`, () => {
+                let background = new HeaderBackground();
+                background.option(BACKGROUND_IMAGE_ORIGINAL);
+
+                background.switchToOriginal();
+                expect(eventTracker.publish).not.toHaveBeenCalledWith('Change primary background');
             });
 
         });
@@ -339,6 +417,14 @@ describe('Header background design section', () => {
 
             background.switchToOriginal();
             expect(bus.trigger).toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_IMAGE_OPTION_CHANGED);
+        });
+
+        it(`should trigger event 'Change primary background'`, () => {
+            let background = new HeaderBackground();
+            background.option(null);
+
+            background.switchToOriginal();
+            expect(eventTracker.publish).toHaveBeenCalledWith('Change primary background');
         });
 
     });
@@ -369,7 +455,7 @@ describe('Header background design section', () => {
             expect(background.isRepeat).toBeComputed();
         });
 
-        describe('when option is ' +BACKGROUND_IMAGE_REPEAT, () => {
+        describe('when option is ' + BACKGROUND_IMAGE_REPEAT, () => {
 
             it('should return true', () => {
                 let background = new HeaderBackground();
@@ -434,10 +520,16 @@ describe('Header background design section', () => {
                 expect(bus.trigger).toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_BRIGHTNESS_CHANGED);
             });
 
+            it(`should trigger event 'Change primary background'`, () => {
+                let background = new HeaderBackground();
+                background.changeBrightness(0.4);
+                expect(eventTracker.publish).toHaveBeenCalledWith('Change primary background');
+            });
+
         });
 
         describe('when brightness is NaN', () => {
-            
+
             it('should not change body brightness', () => {
                 let background = new HeaderBackground();
                 background.brightness(0.2);
@@ -452,15 +544,28 @@ describe('Header background design section', () => {
                 expect(bus.trigger).not.toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_BRIGHTNESS_CHANGED);
             });
 
+            it(`should trigger event 'Change primary background'`, () => {
+                let background = new HeaderBackground();
+                background.changeBrightness(NaN);
+                expect(eventTracker.publish).not.toHaveBeenCalledWith('Change primary background');
+            });
+
         });
 
         describe('when brightness has not changed', () => {
-            
+
             it(`should not trigger event ${EVENT_HEADER_BACKGROUND_BRIGHTNESS_CHANGED}`, () => {
                 let background = new HeaderBackground();
                 background.brightness(0.2);
                 background.changeBrightness(0.2);
                 expect(bus.trigger).not.toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_BRIGHTNESS_CHANGED);
+            });
+
+            it(`should trigger event 'Change primary background'`, () => {
+                let background = new HeaderBackground();
+                background.brightness(0.2);
+                background.changeBrightness(0.2);
+                expect(eventTracker.publish).not.toHaveBeenCalledWith('Change primary background');
             });
 
         });
@@ -469,26 +574,55 @@ describe('Header background design section', () => {
 
     describe('activate:', () => {
 
-        describe('when body image is defined', () => {
-                
+        describe('when expanded is defined', () => {
+
+            it('should set corresponding expanded value', () => {
+                let background = new HeaderBackground();
+                background.activate({ expanded: true });
+
+                expect(background.expanded()).toBeTruthy();
+            });
+
+        });
+
+        describe('when expanded is not defined', () => {
+
+            describe('and expanded is specified in defaults', () => {
+
+                it('should set corresponding expanded value', () => {
+                    let background = new HeaderBackground();
+                    background.activate(null, { expanded: true });;
+
+                    expect(background.expanded()).toBeTruthy();
+                });
+
+            });
+
+            describe('and expanded is not specified in defaults', () => {
+
+                it('should set false to expanded', () => {
+                    let background = new HeaderBackground();
+                    background.activate();
+
+                    expect(background.expanded()).toBeFalsy();
+                });
+
+            });
+
+        });
+
+        describe('when image is defined', () => {
+
             it('should set corresponding image', () => {
                 let background = new HeaderBackground();
-                background.activate({
-                    image: {
-                        url:'url'
-                    }
-                });
+                background.activate({ image: { url: 'url' } });
 
                 expect(background.image()).toEqual('url');
             });
-            
+
             it('should set corresponding image option', () => {
                 let background = new HeaderBackground();
-                background.activate({
-                    image: {
-                        option:'fullscreen'
-                    }
-                });
+                background.activate({ image: { option: 'fullscreen' } });
 
                 expect(background.option()).toEqual('fullscreen');
             });
@@ -496,94 +630,115 @@ describe('Header background design section', () => {
             it('should set corresponding image to popover', () => {
                 let background = new HeaderBackground();
                 background.popover.image(null);
-                background.activate({
-                    image: {
-                        url:'url'
-                    }
-                });
+                background.activate({ image: { url: 'url' } });
 
                 expect(background.popover.image()).toEqual('url');
-            });
-
-
-            it('should set null to color', () => {
-                let background = new HeaderBackground();
-                background.color('#aabbcc');
-                background.activate({
-                    image: {
-                        url:'url'
-                    }
-                });
-
-                expect(background.color()).toEqual(null);
-            });
-
-            it('should set null to popover color', () => {
-                let background = new HeaderBackground();
-                background.popover.color('#aabbcc');
-                background.activate({
-                    image: {
-                        url:'url'
-                    }
-                });
-
-                expect(background.popover.color()).toEqual(null);
             });
 
         });
 
         describe('when image is not defined', () => {
-                
-            it('should set null to image', () => {
-                let background = new HeaderBackground();
-                background.image('url');
-                background.activate();
 
-                expect(background.image()).toEqual(null);
+            describe('and image is specified in defaults', () => {
+
+                it('should set corresponding image', () => {
+                    let background = new HeaderBackground();
+                    background.activate(null, { image: { url: 'url' } });
+
+                    expect(background.image()).toEqual('url');
+                });
+
+                it('should set corresponding image option', () => {
+                    let background = new HeaderBackground();
+                    background.activate(null, { image: { option: 'fullscreen' } });
+
+                    expect(background.option()).toEqual('fullscreen');
+                });
+
+                it('should set corresponding image to popover', () => {
+                    let background = new HeaderBackground();
+                    background.popover.image(null);
+                    background.activate(null, { image: { url: 'url' } });
+
+                    expect(background.popover.image()).toEqual('url');
+                });
+
             });
 
-            it('should set null to option', () => {
-                let background = new HeaderBackground();
-                background.option('fullscreen');
-                background.activate();
+            describe('and image is not specified in defaults', () => {
 
-                expect(background.option()).toEqual(null);
+                it('should set null to image', () => {
+                    let background = new HeaderBackground();
+                    background.image('url');
+                    background.activate();
+
+                    expect(background.image()).toEqual(null);
+                });
+
+                it('should set null to option', () => {
+                    let background = new HeaderBackground();
+                    background.option('fullscreen');
+                    background.activate();
+
+                    expect(background.option()).toEqual(null);
+                });
+
+                it('should set null to popover image', () => {
+                    let background = new HeaderBackground();
+                    background.popover.image('url');
+                    background.activate();
+
+                    expect(background.popover.image()).toEqual(null);
+                });
+
             });
 
-            it('should set null to popover image', () => {
-                let background = new HeaderBackground();
-                background.popover.image('url');
-                background.activate();
+        });
 
-                expect(background.popover.image()).toEqual(null);
+        describe('and color is defined', () => {
+
+            it('should set corresponding color', () => {
+                let background = new HeaderBackground();
+                background.activate({ color: '#aabbcc' });
+
+                expect(background.color()).toEqual('#aabbcc');
             });
 
-            describe('and color is defined', () => {
+            it('should set corresponding color to popover', () => {
+                let background = new HeaderBackground();
+                background.popover.color(null);
+
+                background.activate({ color: '#aabbcc' });
+
+                expect(background.popover.color()).toEqual('#aabbcc');
+            });
+
+        });
+
+        describe('and color is not defined', () => {
+
+            describe('and color is specified in defaults', () => {
 
                 it('should set corresponding color', () => {
                     let background = new HeaderBackground();
-                    background.activate({
-                        color: '#aabbcc'
-                    });
+                    background.activate(null, { color: '#aabbcc' });
 
                     expect(background.color()).toEqual('#aabbcc');
-                }); 
+                });
 
                 it('should set corresponding color to popover', () => {
                     let background = new HeaderBackground();
                     background.popover.color(null);
 
-                    background.activate({
-                        color: '#aabbcc'
-                    });
+                    background.activate(null, { color: '#aabbcc' });
 
                     expect(background.popover.color()).toEqual('#aabbcc');
-                }); 
+                });
 
             });
 
-            describe('and color is not defined', () => {
-                    
+            describe('and color is not specified in defaults', () => {
+
                 it('should set null to color', () => {
                     let background = new HeaderBackground();
                     background.color('#aabbcc');
@@ -608,9 +763,7 @@ describe('Header background design section', () => {
 
             it('should set corresponding brightness', () => {
                 let background = new HeaderBackground();
-                background.activate({
-                    brightness: 0.5
-                });
+                background.activate({ brightness: 0.5 });
 
                 expect(background.brightness()).toEqual(0.5);
             });
@@ -618,46 +771,37 @@ describe('Header background design section', () => {
         });
 
         describe('when brightness is not defined', () => {
-                
-            it('should set 0 to brightness', () => {
-                let background = new HeaderBackground();
-                background.brightness(1);
-                background.activate();
 
-                expect(background.brightness()).toEqual(0);
-            });
+            describe('and brightness is specified in defaults', () => {
 
-        });
+                it('should set corresponding brightness', () => {
+                    let background = new HeaderBackground();
+                    background.activate(null, { brightness: 0.5 });
 
-        describe('when expanded is defined', () => {
-
-            it('should set corresponding expanded value', () => {
-                let background = new HeaderBackground();
-                background.activate({
-                    expanded: true
+                    expect(background.brightness()).toEqual(0.5);
                 });
 
-                expect(background.expanded()).toBeTruthy();
             });
 
-        });
+            describe('and brightness is not specified in defaults', () => {
 
-        describe('when expanded is not defined', () => {
-                
-            it('should set false to expanded', () => {
-                let background = new HeaderBackground();
-                background.activate();
+                it('should set 0 to brightness', () => {
+                    let background = new HeaderBackground();
+                    background.brightness(1);
+                    background.activate();
 
-                expect(background.expanded()).toBeFalsy();
+                    expect(background.brightness()).toEqual(0);
+                });
+
             });
 
         });
 
         describe('when defaults are defined', () => {
-            
+
             it('should set defaults', () => {
                 let background = new HeaderBackground();
-                let defaults = { image: { url: ''} };
+                let defaults = { image: { url: '' } };
                 background.activate({}, defaults);
 
                 expect(background.defaults).toEqual(defaults);
@@ -666,7 +810,7 @@ describe('Header background design section', () => {
         });
 
         describe('when defaults are not defined', () => {
-            
+
             it('should set defaults to null', () => {
                 let background = new HeaderBackground();
                 background.defaults = {};
@@ -678,4 +822,5 @@ describe('Header background design section', () => {
         });
 
     });
+
 });

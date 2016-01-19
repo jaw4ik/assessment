@@ -20,6 +20,7 @@
         <div class="review-content">
             <iframe src="@ViewBag.PublishedCourseUrl" frameborder="0" width="100%" height="100%"></iframe>
         </div>
+        <!-- ko if: isReviewPanelVisible -->
         <div class="review-comments" data-bind="slidingDialog: { isExpanded: isExpanded, position: '-269px', side: 'bottom', onCollapsed: onCollapsed }">
             <div class="comments-header" data-bind="click: toggleVisiblity">
                 <div class="comment-header-text">@Resources.LeaveYourComment</div>
@@ -30,12 +31,12 @@
                 <div class="identify-user-form" data-bind="css: { shown: showIdentifyUserForm()}">
                     <div class="identify-user-title">@Resources.IdentifyMessage</div>
                     <div class="identify-user-row">
-                        <input type="text" data-bind="value: name, valueUpdate: 'afterkeydown', css: {empty: !name().length}" />
+                        <input type="text" data-bind="value: name, valueUpdate: 'afterkeydown', css: {empty: !name().length}"/>
                         <label>@Resources.Name</label>
                         <span class="error-message" data-bind="visible: !name.isValid() && name.isModified()">@Resources.EnterYourNameError</span>
                     </div>
                     <div class="identify-user-row">
-                        <input type="email" data-bind="value: email, valueUpdate: 'afterkeydown',css:{empty: !email().length}" />
+                        <input type="email" data-bind="value: email, valueUpdate: 'afterkeydown',css:{empty: !email().length}"/>
                         <label>@Resources.Email</label>
                         <span class="error-message" data-bind="visible: !email.isValid() && email.isModified()">@Resources.EnterValidEmailError</span>
                     </div>
@@ -46,7 +47,7 @@
                     </div>
                     <div class="comment-status-message fail" title="@Resources.CommentWasNotSent" data-bind="visible: isFailed">
                         @Resources.CommentWasNotSent
-                        <br />
+                        <br/>
                         @Resources.TryAgain
                     </div>
                     <button title="@Resources.Send" class="btn comment-btn blue round pull-right" data-bind="click: addComment.bind($data, '@ViewBag.CourseId')">
@@ -55,6 +56,7 @@
                 </div>
             </form>
         </div>
+        <!-- /ko -->
     </div>
 
     @Scripts.Render("~/bundles/scripts/review")

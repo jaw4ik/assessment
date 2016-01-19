@@ -1,6 +1,4 @@
-﻿import $ from 'jquery';
-import ko from 'knockout';
-import _ from 'underscore';
+﻿import ko from 'knockout';
 
 ko.bindingHandlers.brightness = {
     init:(element, valueAccessor, all, viewModel) => {

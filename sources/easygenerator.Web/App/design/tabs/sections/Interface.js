@@ -1,16 +1,15 @@
 ﻿import ko from 'knockout';
 
-import localizationManager from 'localization/localizationManager';
-import bus from './../../bus';
-
+import eventTracker from 'eventTracker';
 import userContext from 'userContext';
+import localizationManager from 'localization/localizationManager';
 
+import bus from './../../bus';
 import ColorpickerPopover from './ColorpickerPopover.js';
 import { EVENT_COLORPICKER_COLOR_SELECTED } from './ColorpickerPopover.js';
 import './../../components/colorpicker/index.js';
 
 export const EVENT_COLOR_SELECTED = 'branding:interface-color:selected';
-
 
 class Interface {
     constructor() {
@@ -21,8 +20,8 @@ class Interface {
         this.available = null;
     }
 
-    activate(colors) {
-        colors = Array.isArray(colors) ? colors : [];
+    activate(colors, defaults) {
+        colors = Array.isArray(colors) ? colors : Array.isArray(defaults) ? defaults : [];
         this.colors(colors.map(c => new Color(c)));
         this.available = userContext.hasPlusAccess();
     }
@@ -53,6 +52,7 @@ export class Color{
     updateValue(value) {
         this.value(value);
         bus.trigger(EVENT_COLOR_SELECTED);
+        eventTracker.publish('Change interface color');
     }
 
 }
