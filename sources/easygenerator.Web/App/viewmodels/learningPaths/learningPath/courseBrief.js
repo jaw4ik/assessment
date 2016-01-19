@@ -1,28 +1,21 @@
-﻿define(['durandal/app', 'constants'],
-    function (app, constants) {
-        "use strict";
+﻿import ko from 'knockout';
+import app from 'durandal/app';
+import constants from 'constants';
+import router from 'plugins/router';
+import eventTracker from 'eventTracker';
 
-        return function (course) {
-
-            var viewModel = {
-                id: course.id,
-                title: ko.observable(course.title),
-                modifiedOn: ko.observable(course.modifiedOn),
-                thumbnail: ko.observable(course.template.thumbnail),
-                currentLanguage: '',
-                activate: activate,
-                remove: remove
-            };
-
-            return viewModel;
-
-            function activate(currentLanguage) {
-                viewModel.currentLanguage = currentLanguage;
-            }
-
-            function remove() {
-                app.trigger(constants.messages.learningPath.removeCourse, viewModel.id);
-            }
-        };
+export default class {
+    constructor(course) {
+        this.id = course.id;
+        this.title = ko.observable(course.title);
+        this.modifiedOn = ko.observable(course.modifiedOn);
+        this.thumbnail = ko.observable(course.template.thumbnail);
+        this.preview = () => {
+            eventTracker.publish('Preview course');
+            router.openUrl(`/preview/${this.id}`);
+        }
+        this.remove = () => {
+            app.trigger(constants.messages.learningPath.removeCourse, this.id);
+        }
     }
-);
+}

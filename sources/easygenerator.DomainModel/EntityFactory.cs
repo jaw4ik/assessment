@@ -7,6 +7,7 @@ namespace easygenerator.DomainModel
     public interface IEntityFactory
     {
         Objective Objective(string title, string createdBy);
+        Document Document(string title, string embedCode, DocumentType documentType, string createdBy);
         Course Course(string title, Template template, string createdBy);
         SingleSelectText SingleSelectTextQuestion(string title, string createdBy);
         SingleSelectText SingleSelectTextQuestion(string title, string createdBy, Answer correctAnswer, Answer incorrectAnswer);
@@ -52,6 +53,11 @@ namespace easygenerator.DomainModel
         public Objective Objective(string title, string createdBy)
         {
             return new Objective(title, createdBy);
+        }
+
+        public Document Document(string title, string embedCode, DocumentType documentType, string createdBy)
+        {
+            return new Document(title, embedCode, documentType, createdBy);
         }
 
         public Course Course(string title, Template template, string createdBy)

@@ -8,6 +8,6 @@ namespace easygenerator.Web.BuildLearningPath.PackageModel
         public string Id { get; set; }
         public string Title { get; set; }
         public DateTime CreatedOn { get; set; }
-        public List<LearningPathCoursePackageModel> Courses { get; set; }
+        public List<ILearningPathEntityPackageModel> Entities { get; set; }
     }
 }

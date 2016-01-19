@@ -46,6 +46,7 @@ namespace easygenerator.DataAccess
         }
 
         public DbSet<Objective> Objectives { get; set; }
+        public DbSet<Document> Documents { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
@@ -71,9 +72,10 @@ namespace easygenerator.DataAccess
             modelBuilder.Properties<string>().Where(p => p.Name == "CreatedBy").Configure(p => p.IsRequired().HasMaxLength(254));
             modelBuilder.Properties<string>().Where(p => p.Name == "ModifiedBy").Configure(p => p.IsRequired().HasMaxLength(254));
 
-            modelBuilder.Entity<LearningPath>().Property(e => e.CoursesOrder).IsOptional();
+            modelBuilder.Entity<LearningPath>().Property(e => e.EntitiesOrder).IsOptional();
             modelBuilder.Entity<LearningPath>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<LearningPath>().HasMany(e => e.CoursesCollection).WithMany(e => e.LearningPathCollection).Map(m => m.ToTable("LearningPathCourses"));
+            modelBuilder.Entity<LearningPath>().HasMany(e => e.DocumentsCollection).WithMany(e => e.LearningPathCollection).Map(m => m.ToTable("LearningPathDocuments"));
             modelBuilder.Entity<LearningPath>().Property(e => e.PackageUrl).HasMaxLength(255);
             modelBuilder.Entity<LearningPath>().Property(e => e.PublicationUrl).HasMaxLength(255);
             modelBuilder.Entity<LearningPath>().Property(e => e.IsPublishedToExternalLms);
@@ -85,6 +87,11 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Objective>().HasMany(e => e.RelatedCoursesCollection)
                 .WithMany(e => e.RelatedObjectivesCollection)
                 .Map(m => m.ToTable("CourseObjectives"));
+
+            modelBuilder.Entity<Document>().Property(e => e.Title).HasMaxLength(255).IsRequired();
+            modelBuilder.Entity<Document>().Property(e => e.EmbedCode).IsRequired();
+            modelBuilder.Entity<Document>().Property(e => e.DocumentType).IsRequired();
+            modelBuilder.Entity<Document>().HasMany(e => e.LearningPathCollection).WithMany(e => e.DocumentsCollection).Map(m => m.ToTable("LearningPathDocuments"));
 
             modelBuilder.Entity<Course>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Course>().HasRequired(e => e.Template).WithMany(e => e.Courses).WillCascadeOnDelete(false);

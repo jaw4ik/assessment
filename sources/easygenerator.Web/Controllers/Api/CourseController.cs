@@ -122,7 +122,7 @@ namespace easygenerator.Web.Controllers.Api
                 foreach (var learningPath in course.LearningPaths)
                 {
                     deletedFromLearningPathIds.Add(learningPath.Id.ToNString());
-                    learningPath.RemoveCourse(course, GetCurrentUsername());
+                    learningPath.RemoveEntity(course, GetCurrentUsername());
                 }
             }
 
@@ -131,7 +131,7 @@ namespace easygenerator.Web.Controllers.Api
                 if (objective.Courses.Count() == 1)
                 {
                     deletedObjectiveIds.Add(objective.Id.ToNString());
-                    foreach (Question question in objective.Questions)
+                    foreach (var question in objective.Questions)
                     {
                         objective.RemoveQuestion(question, GetCurrentUsername());
                     }
@@ -145,7 +145,7 @@ namespace easygenerator.Web.Controllers.Api
             _courseRepository.Remove(course);
             _eventPublisher.Publish(new CourseDeletedEvent(course, deletedObjectiveIds, collaborators, invitedCollaborators, GetCurrentUsername()));
             
-            return JsonSuccess(new { deletedObjectiveIds = deletedObjectiveIds, deletedFromLearningPathIds = deletedFromLearningPathIds });
+            return JsonSuccess(new { deletedObjectiveIds, deletedFromLearningPathIds });
         }
 
         [HttpPost]
@@ -153,7 +153,7 @@ namespace easygenerator.Web.Controllers.Api
         [Route("api/course/build")]
         public ActionResult Build(Course course)
         {
-            return Deliver(course, () => _builder.Build(course), () => JsonSuccess(new { PackageUrl = course.PackageUrl, BuildOn = course.BuildOn }));
+            return Deliver(course, () => _builder.Build(course), () => JsonSuccess(new { course.PackageUrl, course.BuildOn }));
         }
 
         [EntityCollaborator(typeof(Course))]
@@ -161,7 +161,7 @@ namespace easygenerator.Web.Controllers.Api
         [Route("api/course/scormbuild")]
         public ActionResult ScormBuild(Course course)
         {
-            return Deliver(course, () => _scormCourseBuilder.Build(course), () => JsonSuccess(new { ScormPackageUrl = course.ScormPackageUrl }));
+            return Deliver(course, () => _scormCourseBuilder.Build(course), () => JsonSuccess(new { course.ScormPackageUrl }));
         }
 
         [HttpPost]
@@ -196,7 +196,7 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Errors.UserNotMemberOfAnyCompany, Errors.UserNotMemberOfAnyCompanyResourceKey);
             }
 
-            return Deliver(course, () => _externalCoursePublisher.PublishCourseUrl(course, user.Company, user.Email), () => JsonSuccess());
+            return Deliver(course, () => _externalCoursePublisher.PublishCourseUrl(course, user.Company, user.Email), JsonSuccess);
         }
 
         [HttpPost]
@@ -220,7 +220,7 @@ namespace easygenerator.Web.Controllers.Api
 
             course.UpdateTitle(courseTitle, GetCurrentUsername());
 
-            return JsonSuccess(new { ModifiedOn = course.ModifiedOn });
+            return JsonSuccess(new { course.ModifiedOn });
         }
 
         [HttpPost]
@@ -235,7 +235,7 @@ namespace easygenerator.Web.Controllers.Api
 
             course.UpdateTemplate(template, GetCurrentUsername());
 
-            return JsonSuccess(new { ModifiedOn = course.ModifiedOn });
+            return JsonSuccess(new { course.ModifiedOn });
         }
 
         [HttpPost]
@@ -257,7 +257,7 @@ namespace easygenerator.Web.Controllers.Api
 
             return JsonSuccess(new
             {
-                ModifiedOn = course.ModifiedOn
+                course.ModifiedOn
             });
         }
 
@@ -283,7 +283,7 @@ namespace easygenerator.Web.Controllers.Api
 
             return JsonSuccess(new
             {
-                ModifiedOn = course.ModifiedOn
+                course.ModifiedOn
             });
         }
 
@@ -344,7 +344,7 @@ namespace easygenerator.Web.Controllers.Api
 
             course.UpdateIntroductionContent(introductionContent, GetCurrentUsername());
 
-            return JsonSuccess(new { ModifiedOn = course.ModifiedOn });
+            return JsonSuccess(new { course.ModifiedOn });
         }
 
         [HttpPost]
@@ -359,7 +359,7 @@ namespace easygenerator.Web.Controllers.Api
 
             course.UpdateObjectivesOrder(objectives, GetCurrentUsername());
 
-            return JsonSuccess(new { ModifiedOn = course.ModifiedOn });
+            return JsonSuccess(new { course.ModifiedOn });
         }
 
         private string GetCourseReviewUrl(string courseId)

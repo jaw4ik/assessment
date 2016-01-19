@@ -8,20 +8,48 @@
         courseSelector = require('viewmodels/learningPaths/courseSelector/courseSelector'),
         localizationManager = require('localization/localizationManager'),
         app = require('durandal/app'),
+        CourseBrief = require('viewmodels/learningPaths/learningPath/courseBrief'),
+        DocumentBrief = require('viewmodels/learningPaths/learningPath/documentBrief'),
         courseRepository = require('repositories/courseRepository'),
         notify = require('notify'),
         addCourseCommand = require('viewmodels/learningPaths/learningPath/commands/addCourseCommand'),
         removeCourseCommand = require('viewmodels/learningPaths/learningPath/commands/removeCourseCommand'),
-        updateCoursesOrderCommand = require('viewmodels/learningPaths/learningPath/commands/updateCoursesOrderCommand'),
-        createCourseDialog = require('dialogs/course/createCourse/createCourse')
+        removeDocumentCommand = require('viewmodels/learningPaths/learningPath/commands/removeDocumentCommand'),
+        updateEntitiesOrderCommand = require('viewmodels/learningPaths/learningPath/commands/updateEntitiesOrderCommand'),
+        createCourseDialog = require('dialogs/course/createCourse/createCourse'),
+        createDocumentDialog = require('dialogs/document/create/index'),
+        createDocumentCommand = require('commands/createDocumentCommand'),
+        updateDocumentCommand = require('commands/updateDocumentCommand'),
+        addDocumentCommand = require('viewmodels/learningPaths/learningPath/commands/addDocumentCommand')
     ;
+
+    var courseModel = {
+        id: '123',
+        title: 'title',
+        modifiedOn: new Date(),
+        template: {
+            thumbnail: 'thumbnail'
+        }
+    };
+    var courseBrief = new CourseBrief(courseModel);
+
+    var documentModel = {
+        id: '123',
+        documentType: 1,
+        title: 'title',
+        embedCode: 'embedCode',
+        modifiedOn: new Date()
+    };
+    var documentBrief = new DocumentBrief(documentModel);
 
     describe('viewModel [learningPath details]', function () {
         var learningPath,
-            getLearnigPathDefer;
+            getLearnigPathDefer,
+            removeDocumentDeref;
 
         beforeEach(function () {
             getLearnigPathDefer = Q.defer();
+            removeDocumentDeref = Q.defer();
             spyOn(app, 'on');
             spyOn(app, 'off');
             spyOn(app, 'trigger');
@@ -32,10 +60,15 @@
             spyOn(courseSelector, 'collapse');
             spyOn(getLearningPathByIdQuery, 'execute').and.returnValue(getLearnigPathDefer.promise);
             spyOn(createCourseDialog, 'show');
+            spyOn(createDocumentDialog, 'show');
+            spyOn(updateDocumentCommand, 'execute');
+            spyOn(addDocumentCommand, 'execute');
+            spyOn(createDocumentCommand, 'execute');
+            spyOn(removeDocumentCommand, 'execute').and.returnValue(removeDocumentDeref.promise);
             learningPath = {
                 id: 'id',
                 title: 'title',
-                courses: [{ id: '0', template: {} }, { id: '1', template: {} }]
+                entities: [{ id: '0', template: {} }, { id: '1', template: {} }]
             };
         });
 
@@ -79,15 +112,20 @@
                 expect(app.on).toHaveBeenCalledWith(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
             });
 
+            it('should subscribe on learningPath.removeDocument event', function () {
+                viewModel.activate(learningPath.id);
+                expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.removeDocument, viewModel.removeDocument);
+            });
+
             describe('when received learning path', function () {
                 beforeEach(function () {
                     getLearnigPathDefer.resolve(learningPath);
                 });
 
-                it('should set courses', function (done) {
-                    viewModel.courses([]);
+                it('should set entities', function (done) {
+                    viewModel.entities([]);
                     viewModel.activate(learningPath.id).fin(function () {
-                        expect(viewModel.courses().length).toBe(learningPath.courses.length);
+                        expect(viewModel.entities().length).toBe(learningPath.entities.length);
                         done();
                     });
                 });
@@ -100,9 +138,9 @@
                     });
                 });
 
-                describe('when there are no courses in the learning path', function () {
+                describe('when there are no entities in the learning path', function () {
                     beforeEach(function () {
-                        learningPath.courses = [];
+                        learningPath.entities = [];
                     });
 
                     it('should set course selector isExpaneded to true', function (done) {
@@ -141,6 +179,12 @@
                 viewModel.deactivate();
                 expect(app.off).toHaveBeenCalledWith(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
             });
+
+            it('should unsubscribe on learningPath.removeDocument event', function () {
+                viewModel.deactivate();
+                expect(app.off).toHaveBeenCalledWith(constants.messages.learningPath.removeDocument, viewModel.removeDocument);
+            });
+
         });
 
         describe('back:', function () {
@@ -168,23 +212,23 @@
         });
 
         describe('isSortingEnabled:', function () {
-            describe('when courses count > 1', function () {
+            describe('when entities count > 1', function () {
                 it('should be true', function () {
-                    viewModel.courses([{}, {}]);
+                    viewModel.entities([{}, {}]);
                     expect(viewModel.isSortingEnabled()).toBeTruthy();
                 });
             });
 
-            describe('when courses count == 1', function () {
-                it('should be true', function () {
-                    viewModel.courses([{}]);
+            describe('when entities count == 1', function () {
+                it('should be false', function () {
+                    viewModel.entities([{}]);
                     expect(viewModel.isSortingEnabled()).toBeFalsy();
                 });
             });
 
-            describe('when courses count == 0', function () {
-                it('should be true', function () {
-                    viewModel.courses([]);
+            describe('when entities count == 0', function () {
+                it('should be false', function () {
+                    viewModel.entities([]);
                     expect(viewModel.isSortingEnabled()).toBeFalsy();
                 });
             });
@@ -234,14 +278,32 @@
                 expect(viewModel.navigateToDetails).toBeFunction();
             });
 
-            it('should publish event', function () {
-                viewModel.navigateToDetails({ id: 'id' });
-                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to course details');
+            describe('when entity is course', function () {
+
+                it('should publish event', function () {
+                    viewModel.navigateToDetails(courseBrief);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to course details');
+                });
+
+                it('should navigate to course page', function () {
+                    viewModel.navigateToDetails(courseBrief);
+                    expect(router.navigate).toHaveBeenCalledWith(`courses/${courseBrief.id}`);
+                });
+
             });
 
-            it('should navigate to course page', function () {
-                viewModel.navigateToDetails({ id: 'id' });
-                expect(router.navigate).toHaveBeenCalledWith('courses/id');
+            describe('when entity is document', function() {
+
+                it('should publish open update document dialog event', function() {
+                    viewModel.navigateToDetails(documentBrief);
+                    expect(eventTracker.publish).toHaveBeenCalled();
+                });
+
+                it('should open createDocumentDialog', function () {
+                    viewModel.navigateToDetails(documentBrief);
+                    expect(createDocumentDialog.show).toHaveBeenCalled();
+                });
+
             });
 
         });
@@ -293,10 +355,10 @@
                 });
 
                 it('should push course to courses collection', function (done) {
-                    viewModel.courses([]);
+                    viewModel.entities([]);
                     viewModel.addCourse(course);
                     courseRepository.getById(course.id).fin(function () {
-                        expect(viewModel.courses().length).toBe(1);
+                        expect(viewModel.entities().length).toBe(1);
                         done();
                     });
                 });
@@ -338,7 +400,7 @@
                 });
 
                 it('should call courseDeleted', function (done) {
-                    viewModel.courses([course]);
+                    viewModel.entities([course]);
                     viewModel.removeCourse(course.id).fin(function () {
                         expect(viewModel.courseDeleted).toHaveBeenCalled();
                         done();
@@ -359,9 +421,9 @@
             var course = { id: 'id', template: {} };
 
             it('should remove course from courses collection', function () {
-                viewModel.courses([course]);
+                viewModel.entities([course]);
                 viewModel.courseDeleted(course.id);
-                expect(viewModel.courses().length).toBe(0);
+                expect(viewModel.entities().length).toBe(0);
             });
 
             describe('when courseSelector is collapsed', function () {
@@ -371,7 +433,7 @@
 
                 describe('and when course was the last in collection', function () {
                     beforeEach(function () {
-                        viewModel.courses([course]);
+                        viewModel.entities([course]);
                     });
 
                     it('should expand course selector', function () {
@@ -430,27 +492,27 @@
 
         });
 
-        describe('updateCoursesOrder:', function () {
-            var updateCoursesOrderDefer;
+        describe('updateEntitiesOrder:', function () {
+            var updateEntitiesOrderDefer;
 
             beforeEach(function () {
-                updateCoursesOrderDefer = Q.defer();
-                spyOn(updateCoursesOrderCommand, 'execute').and.returnValue(updateCoursesOrderDefer.promise);
+                updateEntitiesOrderDefer = Q.defer();
+                spyOn(updateEntitiesOrderCommand, 'execute').and.returnValue(updateEntitiesOrderDefer.promise);
             });
 
             it('should publish \'Change order of courses\' event', function () {
-                viewModel.updateCoursesOrder();
+                viewModel.updateEntitiesOrder();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Change order of courses');
             });
 
             describe('when courses order updated successfully', function () {
                 beforeEach(function () {
-                    updateCoursesOrderDefer.resolve();
+                    updateEntitiesOrderDefer.resolve();
                 });
 
                 it('should show saved notification', function (done) {
-                    viewModel.updateCoursesOrder();
-                    updateCoursesOrderCommand.execute(viewModel.id, viewModel.courses()).fin(function () {
+                    viewModel.updateEntitiesOrder();
+                    updateEntitiesOrderCommand.execute(viewModel.id, viewModel.entities()).fin(function () {
                         expect(notify.saved).toHaveBeenCalled();
                         done();
                     });
@@ -470,19 +532,120 @@
 
             it('should update course title', function () {
                 courseBrief.title('');
-                viewModel.courses([courseBrief]);
+                viewModel.entities([courseBrief]);
                 viewModel.courseTitleUpdated(course);
                 expect(courseBrief.title()).toBe(course.title);
             });
 
             it('should not throw when course not found in collection', function () {
-                viewModel.courses([]);
+                viewModel.entities([]);
                 var f = function () {
                     viewModel.courseTitleUpdated(course);
                 };
 
                 expect(f).not.toThrow();
             });
+        });
+
+        describe('isCourse:', function() {
+
+            it('should be function', function() {
+                expect(viewModel.isCourse).toBeFunction();
+            });
+
+            it('should return true if entity is course', function() {
+                expect(viewModel.isCourse(courseBrief)).toBeTruthy();
+            });
+
+            it('should return false if entity is not course', function () {
+                expect(viewModel.isCourse(documentBrief)).toBeFalsy();
+            });
+
+        });
+
+        describe('addPowerPointDocument:', function () {
+
+            it('should be function', function() {
+                expect(viewModel.addPowerPointDocument).toBeFunction();
+            });
+
+            it('should publish event', function () {
+                viewModel.addPowerPointDocument();
+                expect(eventTracker.publish).toHaveBeenCalled();
+            });
+
+            it('should open add document popup', function () {
+                viewModel.addPowerPointDocument();
+                expect(createDocumentDialog.show).toHaveBeenCalled();
+            });
+
+        });
+
+        describe('addPdfDocument:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.addPdfDocument).toBeFunction();
+            });
+
+            it('should publish event', function () {
+                viewModel.addPdfDocument();
+                expect(eventTracker.publish).toHaveBeenCalled();
+            });
+
+            it('should open add document popup', function () {
+                viewModel.addPdfDocument();
+                expect(createDocumentDialog.show).toHaveBeenCalled();
+            });
+
+        });
+
+        describe('addOfficeDocument:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.addOfficeDocument).toBeFunction();
+            });
+
+            it('should publish event', function () {
+                viewModel.addOfficeDocument();
+                expect(eventTracker.publish).toHaveBeenCalled();
+            });
+
+            it('should open add document popup', function () {
+                viewModel.addOfficeDocument();
+                expect(createDocumentDialog.show).toHaveBeenCalled();
+            });
+
+        });
+
+        describe('removeDocument', function() {
+
+            it('should be function', function() {
+                expect(viewModel.removeDocument).toBeFunction();
+            });
+
+            describe('when document exists in dataContext', function () {
+
+                beforeEach(function() {
+                    viewModel.entities([documentBrief]);
+                });
+
+                it('should publish event', function () {
+                    viewModel.removeDocument(documentBrief.id);
+                    expect(eventTracker.publish).toHaveBeenCalled();
+                });
+
+                it('should remove document from viewModel', function () {
+                    viewModel.removeDocument(documentBrief.id);
+                    expect(viewModel.entities.length).toBe(0);
+                });
+
+                it('should call remove document command with correct args', function () {
+                    viewModel.removeDocument(documentBrief.id);
+                    expect(removeDocumentCommand.execute).toHaveBeenCalledWith(documentBrief.id);
+                });
+
+            });
+
         });
 
     });

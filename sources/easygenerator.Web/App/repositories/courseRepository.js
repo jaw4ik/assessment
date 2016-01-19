@@ -87,7 +87,7 @@
                     });
 
                     _.each(learningPathsWithDeletedCourse, function (learningPathWithDeletedCourse) {
-                        learningPathWithDeletedCourse.courses = _.reject(learningPathWithDeletedCourse.courses, function (item) {
+                        learningPathWithDeletedCourse.entities = _.reject(learningPathWithDeletedCourse.entities, function (item) {
                             return item.id === courseId;
                         });
                     });

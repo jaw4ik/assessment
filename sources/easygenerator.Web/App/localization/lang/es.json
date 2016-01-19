@@ -681,11 +681,11 @@
     "secondaryColor": "Color secundario",
     "buttonTextColor": "Color del texto de botón",
     "contentBodyColor": "Color del cuerpo de contenido",
-    "colorSchemes": "Esquemas de color",
     "scheme": "Esquema",
     "backToSettings": "Volver a configuración",
     "templateDoesNotHavePresets": "La plantilla seleccionada no tiene valores preestablecidos",
     "upgradeAccountHintBackgroundSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to set a custom background",
     "upgradeAccountHintLogoSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to set custom course logo",
-    "upgradeAccountHintColorsSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to change interface colors"
+    "upgradeAccountHintColorsSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to change interface colors",
+    "colorThemes": "Color themes"
 }

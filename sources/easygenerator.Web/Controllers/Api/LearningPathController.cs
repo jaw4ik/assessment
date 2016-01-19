@@ -8,6 +8,7 @@ using easygenerator.Web.Components.Mappers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using easygenerator.Web.Extensions;
 using easygenerator.Web.Publish;
 using easygenerator.Web.Publish.External;
 
@@ -21,11 +22,12 @@ namespace easygenerator.Web.Controllers.Api
         private readonly ILearningPathBuilder _builder;
         private readonly ILearningPathPublisher _publisher;
         private readonly IUserRepository _userRepository;
+        private readonly IDocumentRepository _documentRepository;
         private readonly IExternalLearningPathPublisher _externalPublisher;
                          
         private readonly IUrlHelperWrapper _urlHelper;
 
-        public LearningPathController(IUrlHelperWrapper urlHelper, ILearningPathRepository repository, IEntityModelMapper<LearningPath> mapper, IEntityFactory entityFactory, ILearningPathBuilder builder, ILearningPathPublisher publisher, IUserRepository userRepository, IExternalLearningPathPublisher externalPublisher)
+        public LearningPathController(IUrlHelperWrapper urlHelper, ILearningPathRepository repository, IEntityModelMapper<LearningPath> mapper, IEntityFactory entityFactory, ILearningPathBuilder builder, ILearningPathPublisher publisher, IUserRepository userRepository, IDocumentRepository documentRepository, IExternalLearningPathPublisher externalPublisher)
         {
             _urlHelper = urlHelper;
             _repository = repository;
@@ -34,6 +36,7 @@ namespace easygenerator.Web.Controllers.Api
             _builder = builder;
             _publisher = publisher;
             _userRepository = userRepository;
+            _documentRepository = documentRepository;
             _externalPublisher = externalPublisher;
         }
 
@@ -86,7 +89,26 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Errors.CourseNotFoundError, Errors.CourseNotFoundResourceKey);
             }
 
-            learningPath.AddCourse(course, index, GetCurrentUsername());
+            learningPath.AddEntity(course, index, GetCurrentUsername());
+
+            return JsonSuccess();
+        }
+
+        [HttpPost]
+        [Route("api/learningpath/document/add")]
+        public ActionResult AddDocument(LearningPath learningPath, Document document, int? index)
+        {
+            if (learningPath == null)
+            {
+                return JsonLocalizableError(Errors.LearningPathNotFoundError, Errors.LearningPathNotFoundResourceKey);
+            }
+
+            if (document == null)
+            {
+                return JsonLocalizableError(Errors.DocumentNotFoundError, Errors.DocumentNotFoundResourceKey);
+            }
+
+            learningPath.AddEntity(document, index, GetCurrentUsername());
 
             return JsonSuccess();
         }
@@ -105,21 +127,40 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Errors.CourseNotFoundError, Errors.CourseNotFoundResourceKey);
             }
 
-            learningPath.RemoveCourse(course, GetCurrentUsername());
+            learningPath.RemoveEntity(course, GetCurrentUsername());
 
             return JsonSuccess();
         }
 
         [HttpPost]
-        [Route("api/learningpath/courses/order/update")]
-        public ActionResult UpdateCourseOrder(LearningPath learningPath, ICollection<Course> courses)
+        [Route("api/learningpath/document/remove")]
+        public ActionResult RemoveDocument(LearningPath learningPath, Document document)
+        {
+            if (learningPath == null)
+            {
+                return JsonLocalizableError(Errors.LearningPathNotFoundError, Errors.LearningPathNotFoundResourceKey);
+            }
+
+            if (document == null)
+            {
+                return JsonLocalizableError(Errors.DocumentNotFoundError, Errors.DocumentNotFoundResourceKey);
+            }
+
+            learningPath.RemoveEntity(document, GetCurrentUsername());
+
+            return JsonSuccess();
+        }
+
+        [HttpPost]
+        [Route("api/learningpath/entities/order/update")]
+        public ActionResult UpdateEntitiesOrder(LearningPath learningPath, ICollection<ILearningPathEntity> entities)
         {
             if (learningPath == null)
             {
                 return HttpNotFound(Errors.LearningPathNotFoundError);
             }
 
-            learningPath.UpdateCoursesOrder(courses, GetCurrentUsername());
+            learningPath.UpdateEntitiesOrder(entities, GetCurrentUsername());
 
             return JsonSuccess();
         }
@@ -128,12 +169,25 @@ namespace easygenerator.Web.Controllers.Api
         [Route("api/learningpath/delete")]
         public ActionResult Delete(LearningPath learningPath)
         {
-            if (learningPath != null)
+            if (learningPath == null)
             {
-                _repository.Remove(learningPath);
+                return JsonSuccess();
             }
 
-            return JsonSuccess();
+            var deletedDocumentIds = new List<string>();
+
+            if (learningPath.Entities.OfType<Document>().Any())
+            {
+                foreach (var document in learningPath.Entities.OfType<Document>())
+                {
+                    deletedDocumentIds.Add(document.Id.ToNString());
+                    _documentRepository.Remove(document);
+                }
+            }
+
+            _repository.Remove(learningPath);
+
+            return JsonSuccess(new { deletedDocumentIds} );
         }
 
         [HttpPost]
@@ -147,7 +201,7 @@ namespace easygenerator.Web.Controllers.Api
 
             var result = _builder.Build(learningPath);
 
-            return result ? JsonSuccess(new { PackageUrl = learningPath.PackageUrl }) :
+            return result ? JsonSuccess(new { learningPath.PackageUrl }) :
                 JsonLocalizableError(Errors.LearningPathBuildActionFailedError, Errors.LearningPathBuildActionFailedResourceKey);
         }
 

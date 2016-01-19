@@ -125,7 +125,7 @@
                 }
                 ],
                 learningPath = {
-                    courses: [courses[0]]
+                    entities: [courses[0]]
                 };
 
             beforeEach(function () {

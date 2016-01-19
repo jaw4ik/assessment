@@ -3,7 +3,6 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildLearningPath.PackageModel;
-using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.BuildLearningPath
 {
@@ -14,15 +13,17 @@ namespace easygenerator.Web.BuildLearningPath
         private readonly PackageModelSerializer _packageModelSerializer;
         private readonly LearningPathPackageModelMapper _packageModelMapper;
         private readonly ILearningPathCourseBuilder _courseBuilder;
+        private readonly ILearningPathDocumentBuilder _documentBuilder;
 
         public LearningPathContentProvider(PhysicalFileManager fileManager, LearningPathContentPathProvider contentPathProvider,
-            LearningPathPackageModelMapper packageModelMapper, PackageModelSerializer packageModelSerializer, ILearningPathCourseBuilder courseBuilder)
+            LearningPathPackageModelMapper packageModelMapper, PackageModelSerializer packageModelSerializer, ILearningPathCourseBuilder courseBuilder, ILearningPathDocumentBuilder documentBuilder)
         {
             _fileManager = fileManager;
             _contentPathProvider = contentPathProvider;
             _packageModelMapper = packageModelMapper;
             _packageModelSerializer = packageModelSerializer;
             _courseBuilder = courseBuilder;
+            _documentBuilder = documentBuilder;
         }
 
         public void AddContentToPackageDirectory(string buildDirectory, LearningPath learningPath)
@@ -33,17 +34,24 @@ namespace easygenerator.Web.BuildLearningPath
             _fileManager.DeleteDirectory(contentDirectoryName);
             _fileManager.CreateDirectory(contentDirectoryName);
 
-            AddCoursesToPackageDirectory(buildDirectory, learningPath.Courses);
+            AddEntitiesToPackageDirectory(buildDirectory, learningPath.Entities);
 
             var packageModel = _packageModelMapper.MapLearningPath(learningPath);
             AddModelToPackageDirectory(buildDirectory, packageModel);
         }
 
-        private void AddCoursesToPackageDirectory(string buildDirectory, IEnumerable<Course> courses)
+        private void AddEntitiesToPackageDirectory(string buildDirectory, IEnumerable<ILearningPathEntity> entities)
         {
-            foreach (var course in courses)
+            foreach (var entity in entities)
             {
-                _courseBuilder.Build(buildDirectory, course);
+                if (entity is Course)
+                {
+                    _courseBuilder.Build(buildDirectory, (Course) entity);
+                }
+                else if (entity is Document)
+                {
+                    _documentBuilder.Build(buildDirectory, (Document) entity);
+                }
             }
         }
 

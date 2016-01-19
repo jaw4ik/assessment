@@ -19,7 +19,7 @@ namespace easygenerator.Web.Components.ModelBinding
 
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
-            Guid? entityId = bindingContext.ValueProvider.GetGuidValue(bindingContext.ModelName + "Id");
+            var entityId = bindingContext.ValueProvider.GetGuidValue(bindingContext.ModelName + "Id");
             return entityId.HasValue ? _repository.Get(entityId.Value) : null;
         }
     }

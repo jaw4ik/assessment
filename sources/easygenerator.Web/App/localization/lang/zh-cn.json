@@ -681,11 +681,11 @@
     "secondaryColor": "次生色",
     "buttonTextColor": "按钮文本颜色",
     "contentBodyColor": "内容正文颜色",
-    "colorSchemes": "配色",
     "scheme": "模式",
     "backToSettings": "返回至设置",
     "templateDoesNotHavePresets": "所选模板不包含预置值",
     "upgradeAccountHintBackgroundSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to set a custom background",
     "upgradeAccountHintLogoSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to set custom course logo",
-    "upgradeAccountHintColorsSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to change interface colors"
+    "upgradeAccountHintColorsSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to change interface colors",
+    "colorThemes": "Color themes"
 }

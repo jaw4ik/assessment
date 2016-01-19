@@ -29,14 +29,14 @@ namespace easygenerator.Web.BuildLearningPath
             return Path.Combine(WebsitePath, "BuildLearningPath", "Template");
         }
 
-        public virtual string GetCourseDirectoryName(string buildDirectory, string courseId)
+        public virtual string GetEntityDirectoryName(string buildDirectory, string entityId)
         {
-            return Path.Combine(GetContentDirectoryName(buildDirectory), courseId);
+            return Path.Combine(GetContentDirectoryName(buildDirectory), entityId);
         }
 
-        public virtual string GetCourseLink(string courseId)
+        public virtual string GetEntityLink(string entityId)
         {
-            return ContentDirectoryName + "/" + courseId;
+            return ContentDirectoryName + "/" + entityId;
         }
     }
 }
