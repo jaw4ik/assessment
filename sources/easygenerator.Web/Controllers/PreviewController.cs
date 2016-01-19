@@ -48,7 +48,7 @@ namespace easygenerator.Web.Controllers
                 return HttpNotFound();
             }
 
-            return Content(course.GetTemplateSettings(course.Template) ?? "{}", "application/json");
+            return Content(course.GetTemplateSettings(course.Template), "application/json");
         }
 
         [Route("preview/{courseId}/publishSettings.js")]
@@ -171,11 +171,7 @@ namespace easygenerator.Web.Controllers
 
             if (!_templateStorage.FileExists(course.Template, resourcePath))
             {
-                resourcePath = Path.Combine(resourcePath, "index.html");
-                if (!_templateStorage.FileExists(course.Template, resourcePath))
-                {
-                    return HttpNotFound();
-                }
+                return HttpNotFound();
             }
 
             var filePath = _templateStorage.GetAbsoluteFilePath(course.Template, resourcePath);
