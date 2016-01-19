@@ -4,15 +4,18 @@ import constants from 'constants';
 import eventTracker from 'eventTracker';
 import localizationManager from 'localization/localizationManager';
 
+const description = localizationManager.localize('documentPopupDescription');
+const titleMaxLength = constants.validation.documentTitleMaxLength;
+
 class CreateDocumentDialog {
     constructor() {
         this.isShown = ko.observable(false);
         this.cancelEvent = null;
         this.callback = null;
-        this.description = localizationManager.localize('documentPopupDescription');
+        this.description = description;
 
         this.title = ko.observable('');
-        this.titleMaxLength = constants.validation.documentTitleMaxLength;
+        this.titleMaxLength = titleMaxLength;
         this.isTitleEditing = ko.observable();
         this.isTitleChanged = ko.observable();
         this.isTitleValid = ko.computed(() => {

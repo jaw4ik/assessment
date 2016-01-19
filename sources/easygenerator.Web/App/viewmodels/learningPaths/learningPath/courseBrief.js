@@ -12,7 +12,7 @@ export default class {
         this.thumbnail = ko.observable(course.template.thumbnail);
         this.preview = () => {
             eventTracker.publish('Preview course');
-            router.openUrl('/preview/' + this.id);
+            router.openUrl(`/preview/${this.id}`);
         }
         this.remove = () => {
             app.trigger(constants.messages.learningPath.removeCourse, this.id);

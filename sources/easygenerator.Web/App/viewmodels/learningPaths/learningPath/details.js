@@ -19,15 +19,15 @@
                 addPowerPointDocument: 'Open \'Add PowerPoint document\' popup',
                 addPdfDocument: 'Open \'Add PDF document\' popup',
                 addOfficeDocument: 'Open \'Add Office documents\' popup',
-                powerPointDocumentAdded: 'PowerPoint document added',
-                pdfDocumentAdded: 'PDF document added',
-                OfficeDocumentAdded: 'Office document added',
+                powerPointDocumentAdded: 'Add PowerPoint document',
+                pdfDocumentAdded: 'Add PDF document',
+                OfficeDocumentAdded: 'Add Office document',
                 cancelAddPowerPointDocument: 'Close \'Add PowerPoint document\' popup',
                 cancelAddPdfDocument: 'Close \'Add PDF document\' popup',
                 cancelAddOfficeDocument: 'Close \'Add Office document\' popup',
-                updatePowerPointDocument: 'PowerPoint document updated',
-                updatePdfDocument: 'PDF document updated',
-                updateOfficeDocument: 'Office document updated',
+                updatePowerPointDocument: 'Update PowerPoint document',
+                updatePdfDocument: 'Update PDF document',
+                updateOfficeDocument: 'Update Office document',
                 removePowerPointDocument: 'Remove PowerPoint document',
                 removePdfDocument: 'Remove Pdf document',
                 removeOfficeDocument: 'Remove Office document'
@@ -103,7 +103,7 @@
             app.off(constants.messages.learningPath.removeCourse, viewModel.removeCourse);
             app.off(constants.messages.course.deleted, viewModel.courseDeleted);
             app.off(constants.messages.course.titleUpdatedByCollaborator, viewModel.courseTitleUpdated);
-            app.on(constants.messages.learningPath.removeDocument, viewModel.removeDocument);
+            app.off(constants.messages.learningPath.removeDocument, viewModel.removeDocument);
         }
 
         function isCourse(entity) {

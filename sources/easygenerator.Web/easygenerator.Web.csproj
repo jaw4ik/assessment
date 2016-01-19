@@ -628,7 +628,13 @@
     <Content Include="App\bootstrapping\underscoreExtensionsTask.js" />
     <Content Include="App\browse.js" />
     <Content Include="App\commands\createDocumentCommand.js" />
+    <Content Include="App\commands\createDocumentCommand.spec.js">
+      <DependentUpon>createDocumentCommand.js</DependentUpon>
+    </Content>
     <Content Include="App\commands\updateDocumentCommand.js" />
+    <Content Include="App\commands\updateDocumentCommand.spec.js">
+      <DependentUpon>updateDocumentCommand.js</DependentUpon>
+    </Content>
     <Content Include="App\components\bindingHandlers\expandableBlockBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\fileDropUploadBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\cursorTooltipBindingHandler.js" />
@@ -740,8 +746,14 @@
     <Content Include="App\dialogs\course\delete\deleteCourse.spec.js">
       <DependentUpon>deleteCourse.js</DependentUpon>
     </Content>
+    <Content Include="App\dialogs\document\create\index.spec.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
     <Content Include="App\dialogs\document\preview\index.html" />
     <Content Include="App\dialogs\document\preview\index.js" />
+    <Content Include="App\dialogs\document\preview\index.spec.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
     <Content Include="App\editor\course\bindingHandlers\expandBlock.js" />
     <Content Include="App\editor\course\bindingHandlers\draggableContainer.js" />
     <Content Include="App\editor\course\bindingHandlers\draggableData.js" />
@@ -835,7 +847,7 @@
     <Content Include="App\localization\lang\en.json" />
     <Content Include="App\mappers\documentModelMapper.js" />
     <Content Include="App\models\document.js" />
-    <Content Include="App\models\iterable.js" />
+    <Content Include="App\models\helpers.js" />
     <Content Include="App\Query.js" />
     <Content Include="App\Command.js" />
     <Content Include="App\commands\createCourseCommand.js" />
@@ -935,6 +947,9 @@
       <DependentUpon>startedStatement.js</DependentUpon>
     </Content>
     <Content Include="App\repositories\documentRepository.js" />
+    <Content Include="App\repositories\documentRepository.spec.js">
+      <DependentUpon>documentRepository.js</DependentUpon>
+    </Content>
     <Content Include="App\repositories\learningPathRepository.spec.js">
       <DependentUpon>learningPathRepository.js</DependentUpon>
     </Content>
@@ -1008,12 +1023,21 @@
       <DependentUpon>addCourseCommand.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\commands\addDocumentCommand.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\commands\addDocumentCommand.spec.js">
+      <DependentUpon>addDocumentCommand.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\commands\removeDocumentCommand.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\commands\removeDocumentCommand.spec.js">
+      <DependentUpon>removeDocumentCommand.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\commands\updateEntitiesOrderCommand.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\commands\updateEntitiesOrderCommand.spec.js">
       <DependentUpon>updateEntitiesOrderCommand.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\documentBrief.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\documentBrief.spec.js">
+      <DependentUpon>documentBrief.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>

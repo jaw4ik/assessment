@@ -13,7 +13,7 @@
                 learningPath = {
                     id: 'id',
                     title: 'title',
-                    courses: []
+                    entities: []
                 },
                 course = {
                     id: 'courseId'
@@ -37,13 +37,13 @@
             describe('when course removed successfully', function () {
                 beforeEach(function () {
                     dataContext.learningPaths = [learningPath];
-                    learningPath.courses = [course];
+                    learningPath.entities = [course];
                     dfd.resolve();
                 });
 
                 it('should remove course from learning path in data context', function (done) {
                     command.execute(learningPath.id, course.id).fin(function () {
-                        expect(learningPath.courses.length).toBe(0);
+                        expect(learningPath.entities.length).toBe(0);
                         done();
                     });
 

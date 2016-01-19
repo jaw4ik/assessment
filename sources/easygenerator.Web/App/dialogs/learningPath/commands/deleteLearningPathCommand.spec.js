@@ -9,12 +9,13 @@
 
         describe('execute:', function () {
 
-            var dfd = Q.defer(),
+            var dfd,
                 learningPath = {
                     id: 'id',
                     title: 'title'
                 };
             beforeEach(function () {
+                dfd = Q.defer();
                 spyOn(httpWrapper, 'post').and.returnValue(dfd.promise);
             });
 
@@ -31,12 +32,29 @@
             });
 
             describe('when learning path deleted successfully', function () {
+
                 beforeEach(function () {
                     dataContext.learningPaths = [learningPath];
-                    dfd.resolve();
+                });
+
+                describe('and learning path has related documents', function () {
+
+                    beforeEach(function () {
+                        dataContext.documents = [{ id: '123' }, { id: '124' }];
+                        dfd.resolve({ deletedDocumentIds: ['123', '124'] });
+                    });
+
+                    it('should delete documents from dataContext', function (done) {
+                        command.execute(learningPath.id).fin(function () {
+                            expect(dataContext.documents.length).toBe(0);
+                            done();
+                        });
+                    });
+
                 });
 
                 it('should delete learning path from data context', function (done) {
+                    dfd.resolve();
                     command.execute(learningPath.id).fin(function () {
                         expect(dataContext.learningPaths.length).toBe(0);
                         done();

@@ -1,4 +1,4 @@
-﻿import iterable from 'models/iterable';
+﻿import { iterable } from 'models/helpers';
 
 export default {
     appVersion: window.egVersion,

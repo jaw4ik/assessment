@@ -26,7 +26,7 @@ export default class {
         return dataContext.documents;
     }
     async addDocument(type, title, embedCode) {
-        if (!_.find(constants.documentType, type)) {
+        if (_.isNullOrUndefined(_.find(Array.from(constants.documentType), documentType => documentType === type))) {
             throw `${type} is not valid document type`;
         }
         guard.throwIfNotString(title, 'Document title (string) was expected');
@@ -85,10 +85,10 @@ export default class {
     async removeDocument(id) {
         guard.throwIfNotString(id, 'Document id (string) was expected');
 
-        var response = apiHttpWrapper.post('api/document/delete', { documentId: id });
+        var response = await apiHttpWrapper.post('api/document/delete', { documentId: id });
 
         dataContext.documents = _.reject(dataContext.documents, document => document.id === id);
-
+        
         if (_.isNullOrUndefined(response)) {
             return;
         }
@@ -96,7 +96,7 @@ export default class {
         var learningPathsWithDeletedDocument = _.filter(dataContext.learningPaths, learningPath => _.contains(response.deletedFromLearningPathIds, learningPath.id));
 
         _.each(learningPathsWithDeletedDocument, learningPathWithDeletedDocument => {
-            learningPathsWithDeletedDocument.entities = _.reject(learningPathWithDeletedDocument.entities, item => item.id === id);
+            learningPathWithDeletedDocument.entities = _.reject(learningPathWithDeletedDocument.entities, item => item.id === id);
         });
     }
 }

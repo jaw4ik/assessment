@@ -381,7 +381,7 @@
                 beforeEach(function() {
                     dataContext.courses = [{ id: courseId }];
                     dataContext.objectives = [{ id: objectiveId }];
-                    dataContext.learningPaths = [{ id: learningPathId, courses: [{ id: courseId }] }];
+                    dataContext.learningPaths = [{ id: learningPathId, entities: [{ id: courseId }] }];
                 });
                 
 
@@ -415,7 +415,7 @@
                         var promise = repository.removeCourse(courseId);
 
                         promise.fin(function () {
-                            expect(dataContext.learningPaths[0].courses.length).toEqual(1);
+                            expect(dataContext.learningPaths[0].entities.length).toEqual(1);
                             done();
                         });
 
@@ -439,7 +439,7 @@
                         var promise = repository.removeCourse(courseId);
 
                         promise.fin(function () {
-                            expect(dataContext.learningPaths[0].courses.length).toEqual(0);
+                            expect(dataContext.learningPaths[0].entities.length).toEqual(0);
                             done();
                         });
 

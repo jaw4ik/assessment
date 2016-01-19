@@ -15,9 +15,6 @@ class PreviewDocumentDialog {
     }
     hide() {
         this.isShown(false);
-        this.type = null;
-        this.title = '';
-        this.embedCode = '';
     }
 }
 

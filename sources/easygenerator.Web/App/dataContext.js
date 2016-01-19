@@ -118,7 +118,8 @@ async function getDocuments() {
 }
 async function getCourses(templates, objectives) {
     var courses = [];
-    for (let course of await apiHttpWrapper.post('api/courses')) {
+    var data = await apiHttpWrapper.post('api/courses');
+    for (let course of data) {
         // Temporary - do not display courses if user does not have template
         if (_.find(templates, template => course.Template.Id === template.id)) {
             courses.push(courseModelMapper.map(course, objectives, templates));
