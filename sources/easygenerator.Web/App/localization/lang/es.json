@@ -126,6 +126,8 @@
     "dragAndDrop": "Arrastrar y soltar",
     "anyAudioFormatsOr": "los formatos de archivo de audio, o",
     "anyAudioFormats": "los formatos de archivo de audio",
+    "imageLibrary": "Biblioteca de imágenes",
+    "uploadImageDescription": "Upload your own image by click on this button",
     "learningObjectives": "Objetivos de aprendizaje",
     "learningObjective": "Objetivo de aprendizaje",
     "learningObjectiveListIsEmpty": "La lista de objetivos está vacía",
@@ -662,7 +664,7 @@
     "logoUrlMode": "Vínculo",
     "logoUploadMode": "Imagen",
     "backgrounds": "Fondos",
-    "topBackground": "Fondo de la parte superior",
+    "topBackground": "Fondo principal",
     "useForTheWholePage": "Usar para toda la página",
     "changeBackground": "Cambiar fondo",
     "secondaryBackground": "Fondo secundario",
@@ -681,11 +683,11 @@
     "secondaryColor": "Color secundario",
     "buttonTextColor": "Color del texto de botón",
     "contentBodyColor": "Color del cuerpo de contenido",
-    "colorSchemes": "Esquemas de color",
     "scheme": "Esquema",
     "backToSettings": "Volver a configuración",
     "templateDoesNotHavePresets": "La plantilla seleccionada no tiene valores preestablecidos",
-    "upgradeAccountHintBackgroundSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to set a custom background",
-    "upgradeAccountHintLogoSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to set custom course logo",
-    "upgradeAccountHintColorsSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to change interface colors"
+    "upgradeAccountHintBackgroundSection": "Para poder definir un fondo personalizado, debe <a target=\"_blank\" href=\"/account/upgrade\">actualizar su cuenta</a>",
+    "upgradeAccountHintLogoSection": "Para poder definir un logotipo de curso personalizado, debe <a target=\"_blank\" href=\"/account/upgrade\">actualizar su cuenta</a>",
+    "upgradeAccountHintColorsSection": "Para poder cambiar los colores de la interfaz, debe <a target=\"_blank\" href=\"/account/upgrade\">actualizar su cuenta</a>",
+    "colorThemes": "Temas de color"
 }

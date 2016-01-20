@@ -66,6 +66,9 @@
     "[download course in pdf format]": "Download de cursus in PDF formaat",
     "[scenario has been passed successfully]": "Het scenario is succesvol voltooid",
     "[scenario has not been passed successfully]": "U heeft het scenario niet succesvol voltooid",
+    "[download as pdf]": "Downlaod als PDF",
+    "[download as pdf preparing]": "Voorbereiden...",
+    "[download as pdf error]": "Er is iets misgegaan",
     "[Save, I will continue later]": "Bewaar en ga later verder",
     "[save and exit]": "Bewaar en sluit af",
     "[I'm done, report my progress]": "Ik ben klaar rapporteer mijn resultaat"

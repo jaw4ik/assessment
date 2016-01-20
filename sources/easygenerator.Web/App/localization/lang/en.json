@@ -126,6 +126,8 @@
     "dragAndDrop": "Drag & Drop",
     "anyAudioFormatsOr": "any audio files formats, or",
     "anyAudioFormats": "any audio files formats",
+    "imageLibrary": "Image library",
+    "uploadImageDescription": "Upload your own image by click on this button",
     "learningObjectives": "Learning objectives",
     "learningObjective": "Learning objective",
     "learningObjectiveListIsEmpty": "Objectives list is empty",
@@ -662,7 +664,7 @@
     "logoUrlMode": "Link",
     "logoUploadMode": "Image",
     "backgrounds": "Backgrounds",
-    "topBackground": "Top background",
+    "topBackground": "Primary background",
     "useForTheWholePage": "Use for the whole page",
     "changeBackground": "Change background",
     "secondaryBackground": "Secondary background",
@@ -685,7 +687,7 @@
     "backToSettings": "Back to settings",
     "templateDoesNotHavePresets": "Selected template does not have presets",
     "upgradeAccountHintBackgroundSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to set a custom background",
-    "upgradeAccountHintLogoSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to set custom course logo",
+    "upgradeAccountHintLogoSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to change the logo",
     "upgradeAccountHintColorsSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to change interface colors",
     "colorThemes": "Color themes"
 }

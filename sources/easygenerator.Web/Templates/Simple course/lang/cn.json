@@ -66,6 +66,9 @@
     "[download course in pdf format]": "下载PDF格式的课程",
     "[scenario has been passed successfully]": "方案已成功通过",
     "[scenario has not been passed successfully]": "方案未成功通过",
+    "[download as pdf]": "下载为PDF格式",
+    "[download as pdf preparing]": "正在准备...",
+    "[download as pdf error]": "出错",
     "[Save, I will continue later]": "保存，我将稍后继续",
     "[save and exit]": "保存并退出",
     "[I'm done, report my progress]": "我完成了，报告我的进度"

@@ -66,6 +66,9 @@
     "[download course in pdf format]": "Descargar curso en formato PDF",
     "[scenario has been passed successfully]": "El escenario se ha superado correctamente",
     "[scenario has not been passed successfully]": "El escenario no se ha superado correctamente",
+    "[download as pdf]": "Descargar como PDF",
+    "[download as pdf preparing]": "preparando...",
+    "[download as pdf error]": "Se ha producido algún error",
     "[Save, I will continue later]": "Guardar, seguiré más tarde",
     "[save and exit]": "Guardar y salir",
     "[I'm done, report my progress]": "He acabado, informar de mi progreso"
