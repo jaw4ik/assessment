@@ -2810,6 +2810,10 @@
     <Content Include="Templates\Simple course\css\img\easy-supported-browser-logo.png" />
     <Content Include="Templates\Simple course\css\img\easy-supported-browser-top-part-bg.png" />
     <Content Include="Templates\Simple course\css\img\loader.gif" />
+    <Content Include="Templates\Simple course\css\img\pdf\pdf-button-bkg.png" />
+    <Content Include="Templates\Simple course\css\img\pdf\pdf-button-default.png" />
+    <Content Include="Templates\Simple course\css\img\pdf\pdf-button-error.png" />
+    <Content Include="Templates\Simple course\css\img\pdf\pdf-button-proggress.gif" />
     <Content Include="Templates\Simple course\css\img\review-sprites.png" />
     <Content Include="Templates\Simple course\css\img\singleSelectImageAnwer.png" />
     <Content Include="Templates\Simple course\css\img\xapi\xapierror.png" />
