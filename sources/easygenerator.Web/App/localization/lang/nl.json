@@ -168,6 +168,7 @@
     "learningPathDownloadAsHtmlHint2": "Wij pakken alle HTML, CSS en JS van uw leerpad in, zodat u die kan downloaden",
     "shareLearningPathTitle": "Krijg een easygenerator link en deel",
     "documentPopupTitle": "Hoe toe te voegen?",
+    "documentUpdatePopupTitle": "How to change?",
     "documentPopupDescription": "<ol><li>Ga naar uw <a href=\"https://www.google.com/drive/\" target=\"_blank\">Google Drive</a>.</li><li>Open document, kies\"Bestand\" and klik\"Publiceer naar het internet\".</li><li>Kies\"Embed\", kopieer en plak  de embed code in het veld hieronder.</li></ol>",
     "documentTitle": "Document titel",
     "embedCode": "Embed code",

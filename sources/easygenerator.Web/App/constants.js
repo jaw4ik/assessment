@@ -1,4 +1,6 @@
-﻿export default {
+﻿import { iterable } from 'models/helpers';
+
+export default {
     appVersion: window.egVersion,
 
     accessType: {
@@ -8,6 +10,13 @@
         academy: 3,
         trial: 100
     },
+
+    documentType: Object.assign({
+        video: 0,
+        powerPoint: 1,
+        pdf: 2,
+        office: 3
+    }, iterable),
 
     questionType: {
         multipleSelect: {
@@ -95,7 +104,8 @@
         questionTitleMaxLength: 255,
         textMatchingKeyMaxLength: 255,
         textMatchingValueMaxLength: 255,
-        learningPathTitleMaxLength: 255
+        learningPathTitleMaxLength: 255,
+        documentTitleMaxLength: 255
     },
 
     messages: {
@@ -182,6 +192,7 @@
             },
             removeCourse: 'learningPath:removeCourse',
             createCourse: 'learningPath:createCourse',
+            removeDocument: 'learningPath:removeDocument',
             delivering: {
                 started: 'learningPath:delivering-started',
                 finished: 'learningPath:delivering-finished'

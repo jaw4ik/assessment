@@ -25,7 +25,7 @@ namespace easygenerator.Web.Components.Mappers
                 CreatedOn = entity.CreatedOn,
                 CreatedBy = entity.CreatedBy,
                 ModifiedOn = entity.ModifiedOn,
-                Courses = entity.Courses.Select(e => new
+                Entities = entity.Entities.Select(e => new
                 {
                     Id = e.Id.ToNString()
                 })

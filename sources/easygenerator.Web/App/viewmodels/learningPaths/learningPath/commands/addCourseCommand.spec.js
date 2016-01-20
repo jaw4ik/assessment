@@ -13,7 +13,7 @@
                 learningPath = {
                     id: 'id',
                     title: 'title',
-                    courses: []
+                    entities: []
                 },
                 course = {
                     id: 'courseId'
@@ -43,8 +43,8 @@
 
                 it('should add course to learning path in data context', function (done) {
                     command.execute(learningPath.id, course.id).fin(function () {
-                        expect(learningPath.courses.length).toBe(1);
-                        expect(learningPath.courses[0]).toBe(course);
+                        expect(learningPath.entities.length).toBe(1);
+                        expect(learningPath.entities[0]).toBe(course);
                         done();
                     });
 

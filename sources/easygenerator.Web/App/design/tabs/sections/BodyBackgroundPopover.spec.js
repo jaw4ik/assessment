@@ -3,11 +3,6 @@
 import notify from 'notify';
 import imageUpload from 'imageUpload';
 
-let describe = window.describe;
-let it = window.it;
-let expect = window.expect;
-let spyOn = window.spyOn;
-
 describe('Background popover class', () => {
 
     it('should create an empty object', () => {

@@ -168,6 +168,7 @@
     "learningPathDownloadAsHtmlHint2": "我们创建了一个包供您下载，其中包含您学习路径中的所有HTML、CSS和JS 文件。",
     "shareLearningPathTitle": "获取easygenerator链接并分享",
     "documentPopupTitle": "如何添加文件？",
+    "documentUpdatePopupTitle": "How to change?",
     "documentPopupDescription": "<ol><li>转至您的<a href=\"https://www.google.com/drive/\" target=\"_blank\">Google Drive</a>。</li><li>打开文档，选择“文件”，然后点击“发布至因特网”。</li><li>选择“嵌入”，将嵌入代码复制并粘贴到以下输入处。</li></ol>",
     "documentTitle": "文档标题",
     "embedCode": "嵌入代码",

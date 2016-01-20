@@ -3,7 +3,7 @@
         "use strict";
 
         var
-            map = function (learningPath, courses) {
+            map = function (learningPath, courses, documents) {
 
                 return new LearningPath({
                     id: learningPath.Id,
@@ -13,11 +13,11 @@
                     createdBy: learningPath.CreatedBy,
                     createdOn: new Date(learningPath.CreatedOn),
                     modifiedOn: new Date(learningPath.ModifiedOn),
-                    courses: _.map(learningPath.Courses, function (item) {
-                        return _.find(courses, function (course) {
-                            return course.id == item.Id;
+                    entities: _.map(learningPath.Entities, function (item) {
+                        return _.find(courses.concat(documents), function (entity) {
+                            return entity.id === item.Id;
                         });
-                    }),
+                    })
                 });
             };
 

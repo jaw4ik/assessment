@@ -26,6 +26,10 @@ namespace easygenerator.DataAccess
                 .As<ICourseRepository>()
                 .As<IQuerableRepository<Course>>();
 
+            builder.RegisterType<DocumentRepository>()
+                .As<IDocumentRepository>()
+                .As<IQuerableRepository<Document>>();
+
             builder.RegisterType<TemplateRepository>()
                 .As<ITemplateRepository>()
                 .As<IQuerableRepository<Template>>();

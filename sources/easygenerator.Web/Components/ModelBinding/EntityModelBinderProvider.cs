@@ -11,7 +11,7 @@ namespace easygenerator.Web.Components.ModelBinding
             if (!typeof(Entity).IsAssignableFrom(modelType))
                 return null;
 
-            Type modelBinderType = typeof(IEntityModelBinder<>).MakeGenericType(modelType);
+            var modelBinderType = typeof(IEntityModelBinder<>).MakeGenericType(modelType);
             return (IModelBinder)DependencyResolver.Current.GetService(modelBinderType);
         }
     }

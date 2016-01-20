@@ -81,6 +81,11 @@ namespace easygenerator.Infrastructure
             ThrowIfLongerThan(toValidate, 255, argumentName);
         }
 
+        public static void ThrowIfLongerThan65535(string toValidate, string argumentName)
+        {
+            ThrowIfLongerThan(toValidate, 65535, argumentName);
+        }
+
         private static void ThrowIfLongerThan(string toValidate, int length, string argumentName)
         {
             if (toValidate.Length > length)

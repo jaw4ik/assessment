@@ -10,6 +10,8 @@ namespace easygenerator.Web.Configuration
         {
             ModelBinderProviders.BinderProviders.Add(new EntityModelBinderProvider());
             ModelBinderProviders.BinderProviders.Add(new EntityCollectionModelBinderProvider());
+            ModelBinderProviders.BinderProviders.Add(new LearningPathEntityModelBinderProvider());
+            ModelBinderProviders.BinderProviders.Add(new LearningPathEntityCollectionModelBinderProvider());
             ModelBinders.Binders.Add(typeof(DateTime?), new DateTimeModelBinder());
         }
     }

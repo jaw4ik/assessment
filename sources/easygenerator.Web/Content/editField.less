@@ -2,6 +2,71 @@
     position: relative;
     padding-bottom: 18px;
 
+    &.solid {
+        box-shadow: 0 0 0 1px #d8dde5;
+        border-top: 1px solid #ececec;
+        border-radius: 3px;
+        margin-bottom: 18px;
+        padding: 0 10px;
+
+        .edit-field {
+            background: none;
+            padding: 8px 0;
+            font: 13px 'OpenSans';
+            color: #42515f;
+
+            &:after {
+                display: none;
+            }
+
+            &:hover {
+                background: none;
+            }
+        }
+
+        .validation-message {
+            font: 11px 'OpenSans';
+            margin-top: 1px;
+        }
+
+        &.active {
+            box-shadow: 0 0 0 1px #469dd5;
+            border-color: #d1e6f4;
+
+            .edit-field {
+                background: none;
+            }
+
+            .validation-message {
+                color: #469dd5;
+            }
+        }
+
+        &.error {
+            box-shadow: 0 0 0 1px #f44336;
+            border-color: #fcd0cd;
+
+            .edit-field {
+                background: none;
+            }
+
+            .validation-message {
+                color: #f44336;
+            }
+        }
+    }
+
+    &.single-inline {
+        .edit-field {
+            white-space: nowrap;
+            overflow: hidden;
+
+            * {
+                display: inline;
+            }
+        }
+    }
+
     label {
         color: #abbbc6;
         font-family: 'OpenSansItalic';

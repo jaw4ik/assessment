@@ -168,6 +168,7 @@
     "learningPathDownloadAsHtmlHint2": "Ми створимо HTML, CSS,  JS пакет для Вас.",
     "shareLearningPathTitle": "Опублікувати навчальний шлях та поділитися ним",
     "documentPopupTitle": "Як додати?",
+    "documentUpdatePopupTitle": "Як змінити?",
     "documentPopupDescription": "<ol><li>Перейдіть на свій <a href=\"https://www.google.com/drive/\" target=\"_blank\">Google Drive</a>.</li><li>Відкрийте документ, виберіть \"File\" і натисніть \"Publicate to the internet\".</li><li>Виберіть \"Embed\", скопіюйте та вставте код в поле знизу.</li></ol>",
     "documentTitle": "Назва документу",
     "embedCode": "Embed-code",

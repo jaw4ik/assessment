@@ -43,6 +43,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
+using easygenerator.Web.BuildDocument;
+using CoursePackageModelMapper = easygenerator.Web.BuildCourse.PackageModelMapper;
+using CoursePackageModelSerializer = easygenerator.Web.BuildCourse.PackageModelSerializer;
+using DocumentPackageModelMapper = easygenerator.Web.BuildDocument.PackageModelMapper;
+using DocumentPackageModelSerializer = easygenerator.Web.BuildDocument.PackageModelSerializer;
+
 
 namespace easygenerator.Web.Configuration
 {
@@ -62,7 +68,11 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<CourseContentPathProvider>();
             builder.RegisterType<CourseContentProvider>().As<ICourseContentProvider>();
 
+            builder.RegisterType<DocumentContentPathProvider>();
+            builder.RegisterType<DocumentContentProvider>().As<IDocumentContentProvider>();
+
             builder.RegisterType<LearningPathCourseBuilder>().As<ILearningPathCourseBuilder>();
+            builder.RegisterType<LearningPathDocumentBuilder>().As<ILearningPathDocumentBuilder>();
             builder.RegisterType<LearningPathContentPathProvider>();
             builder.RegisterType<LearningPathContentProvider>().As<ILearningPathContentProvider>();
             builder.RegisterType<LearningPathPackageModelMapper>();
@@ -70,6 +80,9 @@ namespace easygenerator.Web.Configuration
             
             builder.RegisterGeneric(typeof(EntityModelBinder<>)).As(typeof(IEntityModelBinder<>));
             builder.RegisterGeneric(typeof(EntityCollectionModelBinder<>)).As(typeof(IEntityCollectionModelBinder<>));
+
+            builder.RegisterType<LearningPathEntityModelBinder>().As<ILearningPathEntityModelBinder>();
+            builder.RegisterType<LearningPathEntityCollectionModelBinder>().As<ILearningPathEntityCollectionModelBinder>();
 
             builder.RegisterType<BuildPathProvider>();
             builder.RegisterType<PhysicalFileManager>();
@@ -79,8 +92,10 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<ManifestFileManager>().SingleInstance();
             builder.RegisterType<HttpRuntimeWrapper>();
             builder.RegisterType<BuildPackageCreator>();
-            builder.RegisterType<PackageModelMapper>();
-            builder.RegisterType<PackageModelSerializer>();
+            builder.RegisterType<CoursePackageModelMapper>();
+            builder.RegisterType<CoursePackageModelSerializer>();
+            builder.RegisterType<DocumentPackageModelMapper>();
+            builder.RegisterType<DocumentPackageModelSerializer>();
             builder.RegisterType<BuildPackageCreator>();
             builder.RegisterType<ConfigurationReader>();
             builder.RegisterType<RazorTemplateProvider>().SingleInstance();

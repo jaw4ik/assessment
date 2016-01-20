@@ -168,6 +168,7 @@
     "learningPathDownloadAsHtmlHint2": "We create a package of all HTML, CSS and JS files of your learning path for you to download.",
     "shareLearningPathTitle": "Get an easygenerator link and share",
     "documentPopupTitle": "How to add?",
+    "documentUpdatePopupTitle": "How to change?",
     "documentPopupDescription": "<ol><li>Go to your <a href=\"https://www.google.com/drive/\" target=\"_blank\">Google Drive</a>.</li><li>Open document, choose \"File\" and click \"Publicate to the internet\".</li><li>Choose \"Embed\", copy and paste embed code to the input below.</li></ol>",
     "documentTitle": "Document title",
     "embedCode": "Embed-code",

@@ -5,7 +5,7 @@
             execute: function (learningPathId) {
                 return Q.fcall(function () {
                     return _.find(dataContext.learningPaths, function (item) {
-                        return item.id == learningPathId;
+                        return item.id === learningPathId;
                     });
                 });
 

@@ -1,0 +1,12 @@
+﻿<section data-bind="if: isShown">
+    <div class="modal-dialog-wrapper document preview" data-bind="dialog: { autoclose: false, isShown: isShown }, css: { visible: isShown }">
+        <header class="document-dialog-header">
+            <div class="document-header-title-container">
+                <span class="document-header-title-icon" data-bind="css: { powerpoint: type === 1, pdf: type === 2, office: type === 3 }"></span>
+                <span class="document-header-title-text" data-bind="text: title"></span>
+            </div>
+            <div class="document-dialog-close-btn" data-bind="click: hide"></div>
+        </header>
+        <div class="document-dialogue-container" data-bind="html: embedCode"></div>
+    </div>
+</section>

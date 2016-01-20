@@ -25,7 +25,7 @@ namespace easygenerator.Web.BuildLearningPath
         public virtual void Build(string buildDirectory, Course course)
         {
             var courseId = course.Id.ToNString();
-            var courseDirectoryPath = _contentPathProvider.GetCourseDirectoryName(buildDirectory, courseId);
+            var courseDirectoryPath = _contentPathProvider.GetEntityDirectoryName(buildDirectory, courseId);
             CreateCourseDirectory(courseDirectoryPath);
 
             var modulesList = _packageModulesProvider.GetModulesList(course);

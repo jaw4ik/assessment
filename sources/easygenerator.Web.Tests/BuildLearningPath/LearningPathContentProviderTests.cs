@@ -19,6 +19,7 @@ namespace easygenerator.Web.Tests.BuildLearningPath
         private LearningPathPackageModelMapper _packageModelMapper;
         private PackageModelSerializer _packageModelSerializer;
         private ILearningPathCourseBuilder _courseBuilder;
+        private ILearningPathDocumentBuilder _documentBuilder;
 
         [TestInitialize]
         public void InitializeContext()
@@ -28,8 +29,9 @@ namespace easygenerator.Web.Tests.BuildLearningPath
             _packageModelMapper = Substitute.For<LearningPathPackageModelMapper>(_contentPathProvider);
             _packageModelSerializer = Substitute.For<PackageModelSerializer>();
             _courseBuilder = Substitute.For<ILearningPathCourseBuilder>();
+            _documentBuilder = Substitute.For<ILearningPathDocumentBuilder>();
 
-            _contentProvider = new LearningPathContentProvider(_fileManager, _contentPathProvider, _packageModelMapper, _packageModelSerializer, _courseBuilder);
+            _contentProvider = new LearningPathContentProvider(_fileManager, _contentPathProvider, _packageModelMapper, _packageModelSerializer, _courseBuilder, _documentBuilder);
         }
 
         #region MyRegion
@@ -83,15 +85,19 @@ namespace easygenerator.Web.Tests.BuildLearningPath
         }
 
         [TestMethod]
-        public void AddContentToPackageDirectory_ShouldAddCourses()
+        public void AddContentToPackageDirectory_ShouldAddEntities()
         {
             //Arrange
             var buildDirectoryPath = "buildDirectoryPath";
             var learningPath = LearningPathObjectMother.Create();
             var course1 = CourseObjectMother.Create();
             var course2 = CourseObjectMother.Create();
-            learningPath.AddCourse(course1, null, "author");
-            learningPath.AddCourse(course2, null, "author");
+            var document1 = DocumentObjectMother.Create();
+            var document2 = DocumentObjectMother.Create();
+            learningPath.AddEntity(course1, null, "author");
+            learningPath.AddEntity(course2, null, "author");
+            learningPath.AddEntity(document1, null, "author");
+            learningPath.AddEntity(document2, null, "author");
 
             //Act
             _contentProvider.AddContentToPackageDirectory(buildDirectoryPath, learningPath);
@@ -99,6 +105,8 @@ namespace easygenerator.Web.Tests.BuildLearningPath
             //Assert
             _courseBuilder.Received().Build(buildDirectoryPath, course1);
             _courseBuilder.Received().Build(buildDirectoryPath, course2);
+            _documentBuilder.Received().Build(buildDirectoryPath, document1);
+            _documentBuilder.Received().Build(buildDirectoryPath, document2);
         }
 
         [TestMethod]

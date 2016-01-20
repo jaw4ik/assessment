@@ -4,6 +4,7 @@ namespace easygenerator.Infrastructure
     public class Errors
     {
         public const string CourseNotFoundError = "Course is not found";
+        public const string DocumentNotFoundError = "Document is not found";
         public const string ObjectiveNotFoundError = "Objective is not found";
         public const string ObjectivesNotFoundError = "Objectives are not found";
         public const string QuestionNotFoundError = "Question is not found";
@@ -18,6 +19,7 @@ namespace easygenerator.Infrastructure
         public const string LearningPathPublishActionFailedError = "Failed. Try again.";
 
         public const string CourseNotFoundResourceKey = "courseNotFoundError";
+        public const string DocumentNotFoundResourceKey = "documentNotFoundError";
         public const string LearningPathNotFoundResourceKey = "learningPathNotFoundError";
         public const string ObjectiveNotFoundResourceKey = "objectiveNotFoundError";
         public const string ObjectivesNotFoundResourceKey = "objectivesNotFoundError";

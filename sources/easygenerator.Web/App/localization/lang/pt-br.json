@@ -168,6 +168,7 @@
     "learningPathDownloadAsHtmlHint2": "Empacotamos todos os HTML, CSS e JS do seu caminho de aprendizado para você baixar.",
     "shareLearningPathTitle": "Obter um link easygenerator e compartilhar",
     "documentPopupTitle": "Como adicionar?",
+    "documentUpdatePopupTitle": "How to change?",
     "documentPopupDescription": "<ol><li>Vá para seu <a href=\"https://www.google.com/drive/\" target=\"_blank\">Google Drive</a>.</li><li>Abra o documento, escolha \"Arquivo\" e clique em \"Publicar na Internet\".</li><li>Escolha \"Incorporar\", copie e cole o código de incorporação na entrada abaixo.</li></ol>",
     "documentTitle": "Título do documento",
     "embedCode": "Código de incorporação",

@@ -1,5 +1,7 @@
 ﻿import ko from 'knockout';
 
+import eventTracker from 'eventTracker';
+
 import { BackgroundPopover } from './BodyBackgroundPopover.js';
 import bus from './../../bus';
 
@@ -27,6 +29,7 @@ export default class BodyBackground{
         if (this.brightness() !== value) {
             this.brightness(value);
             bus.trigger(EVENT_BODY_BACKGROUND_BRIGHTNESS_CHANGED);
+            eventTracker.publish('Change secondary background');
         }
     }
 
@@ -38,12 +41,14 @@ export default class BodyBackground{
         this.color(color);
         this.texture(null);
         bus.trigger(EVENT_BODY_BACKGROUND_COLOR_CHANGED);
+        eventTracker.publish('Change secondary background');
     }
     
     updateTexture(texture) {
         this.texture(texture);
         this.color(null);
         bus.trigger(EVENT_BODY_BACKGROUND_TEXTURE_CHANGED);
+        eventTracker.publish('Change secondary background');
     }
 
     activate(settings, defaults) {
