@@ -72,7 +72,7 @@ namespace easygenerator.Web.Tests.Publish
             // Arrange
             var course = CourseObjectMother.Create("CourseTitle");
             course.UpdatePackageUrl("url");
-            var methodUrl = string.Format("serviceUrl/api/publish?key=apiKey&courseid={0}", course.Id);
+            var methodUrl = $"serviceUrl/api/publish?key=apiKey&courseid={course.Id}&ownerEmail={course.CreatedBy}";
             _urlHelper.AddCurrentSchemeToUrl(methodUrl).Returns("http://" + methodUrl);
 
             // Act
