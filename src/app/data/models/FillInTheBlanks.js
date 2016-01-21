@@ -23,7 +23,7 @@
                 _.each(that.groups, function (group) {
                     if (_.find(group.answers, function (answer) {
                         return answer.isCorrect &&
-                            answer.matchCase ? answers[group.id] === answer.text : answers[group.id].toLowerCase() === answer.text.toLowerCase();
+                            (answer.matchCase ? answers[group.id] === answer.text : answers[group.id].toLowerCase() === answer.text.toLowerCase());
                     })) {
                         correct++;
                     }
