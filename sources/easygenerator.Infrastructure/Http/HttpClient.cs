@@ -16,6 +16,11 @@ namespace easygenerator.Infrastructure.Http
             return Post<TResponse>(url, JsonConvert.SerializeObject(postData), userName, password);
         }
 
+        public virtual TResponse PostForm<TResponse>(string url, IEnumerable<KeyValuePair<string, string>> formValues, string userName = null, string password = null)
+        {
+            return DoHttpAction<TResponse>(url, String.Join("; ", formValues.Select(_ => $"{_.Key}: {_.Value}")), client => client.PostAsync(url, new FormUrlEncodedContent(formValues)).Result, userName, password);
+        }
+
         public virtual TResponse Post<TResponse>(string url, string postJsonData, string userName = null, string password = null)
         {
             return DoHttpAction<TResponse>(url, postJsonData, client => client.PostAsync(url, new StringContent(postJsonData, Encoding.UTF8, "application/json")).Result, userName, password);
@@ -41,13 +46,15 @@ namespace easygenerator.Infrastructure.Http
 
                 using (var content = new MultipartFormDataContent())
                 {
+
                     content.Add(fileContent);
 
                     HttpResponseMessage response = client.PostAsync(url, content).Result;
                     string responseBody = response.Content.ReadAsStringAsync().Result;
                     if (!response.IsSuccessStatusCode)
                     {
-                        throw new HttpRequestException(string.Format("Reason: {0}. Response body: {1}.", response.ReasonPhrase, responseBody));
+                        throw new HttpRequestException(
+                            $"Reason: {response.ReasonPhrase}. Response body: {responseBody}.");
                     }
                     return JsonConvert.DeserializeObject<TResponse>(responseBody);
                 }
@@ -161,7 +168,7 @@ namespace easygenerator.Infrastructure.Http
 
         protected virtual AuthenticationHeaderValue GetBasicAuthenticationHeader(string userName, string password)
         {
-            string credentials = string.Format("{0}:{1}", userName, password);
+            string credentials = $"{userName}:{password}";
             string base64Credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(credentials));
             return new AuthenticationHeaderValue("Basic", base64Credentials);
         }
