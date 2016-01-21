@@ -1,8 +1,7 @@
-﻿using easygenerator.Infrastructure;
-using System;
+﻿using System;
 using Elmah;
 
-namespace easygenerator.PublicationServer
+namespace easygenerator.PublicationServer.Logging
 {
     public class ElmahLog : ILog
     {

@@ -8,7 +8,7 @@ namespace easygenerator.PublicationServer
         private const string UploadedPackagesFolderName = "UploadedPackages";
         private const string StorageFolderName = "courses";
 
-        public virtual string GetFilePathForUploadedPackage(string courseId)
+        public virtual string GetFilePathForUploadedPackage(Guid courseId)
         {
             return Path.Combine(CurrentDirectory, UploadedPackagesFolderName, string.Format("{0}.zip", courseId));
         }
@@ -18,9 +18,10 @@ namespace easygenerator.PublicationServer
             return Path.Combine(CurrentDirectory, UploadedPackagesFolderName);
         }
 
-        public virtual string GetPublishedPackageFolderPath(string courseId)
+        public virtual string GetPublishedPackageFolderPath(Guid courseId)
         {
-            return Path.Combine(CurrentDirectory, StorageFolderName, courseId[0].ToString(), courseId);
+            var courseIdStr = courseId.ToString();
+            return Path.Combine(CurrentDirectory, StorageFolderName, courseIdStr[0].ToString(), courseIdStr);
         }
 
         public virtual string GetStaticViewLocation(string viewName)

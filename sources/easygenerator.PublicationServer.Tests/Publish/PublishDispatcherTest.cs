@@ -9,7 +9,7 @@ namespace easygenerator.PublicationServer.Tests.Publish
     public class PublishDispatcherTest
     {
         private PublishDispatcher _publishDispatcher;
-        private const string _courseId = "courseId";
+        private Guid _courseId = Guid.NewGuid();
 
         [TestInitialize]
         public void InitializeDispatcher()
@@ -20,35 +20,14 @@ namespace easygenerator.PublicationServer.Tests.Publish
         #region Validation
 
         [TestMethod]
-        public void StartPublish_ShouldThrowArgumentNullException_WhenCourseIdIsNull()
-        {
-            //Arrange
-            //Act
-            Action action = () => _publishDispatcher.StartPublish(null);
-
-            //Assert
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("courseId");
-        }
-
-        [TestMethod]
         public void StartPublish_ShouldThrowArgumentException_WhenCourseIdIsEmpty()
         {
             //Arrange
             //Act
-            Action action = () => _publishDispatcher.StartPublish(String.Empty);
-
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("courseId");
-        }
-
-        [TestMethod]
-        public void EndPublish_ShouldThrowArgumentNullException_WhenCourseIdIsNull()
-        {
-            //Arrange
-            //Act
-            Action action = () => _publishDispatcher.EndPublish(null);
+            Action action = () => _publishDispatcher.StartPublish(Guid.Empty);
 
             //Assert
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("courseId");
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("courseId");
         }
 
         [TestMethod]
@@ -56,28 +35,17 @@ namespace easygenerator.PublicationServer.Tests.Publish
         {
             //Arrange
             //Act
-            Action action = () => _publishDispatcher.EndPublish(String.Empty);
+            Action action = () => _publishDispatcher.EndPublish(Guid.Empty);
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("courseId");
         }
-
-        [TestMethod]
-        public void IsPublishing_ShouldThrowArgumentNullException_WhenCourseIdIsNull()
-        {
-            //Arrange
-            //Act
-            Action action = () => _publishDispatcher.IsPublishing(null);
-
-            //Assert
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("courseId");
-        }
-
+     
         [TestMethod]
         public void IsPublishing_ShouldThrowArgumentException_WhenCourseIdIsEmpty()
         {
             //Arrange
             //Act
-            Action action = () => _publishDispatcher.IsPublishing(String.Empty);
+            Action action = () => _publishDispatcher.IsPublishing(Guid.Empty);
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("courseId");
         }

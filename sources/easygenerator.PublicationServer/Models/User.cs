@@ -4,15 +4,21 @@ namespace easygenerator.PublicationServer.Models
 {
     public class User
     {
-        public string Email { get; set; }
-        public DateTime ModifiedOn { get; set; }
-        public enum AccessType
+        protected User() { }
+        public User(string email, AccessType accessType)
         {
-            Free = 0,
-            Starter = 1,
-            Plus = 2,
-            Academy = 3,
-            Trial = 100
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                throw new ArgumentException("Email cannot be empty or white space", nameof(email));
+            }
+
+            Email = email;
+            AccessType = accessType;
+            ModifiedOn = DateTimeWrapper.Now();
         }
+
+        public string Email { get; private set; }
+        public DateTime ModifiedOn { get; private set; }
+        public AccessType AccessType { get; private set; }
     }
 }

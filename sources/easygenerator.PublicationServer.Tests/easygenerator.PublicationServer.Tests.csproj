@@ -78,10 +78,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\easygenerator.Infrastructure\easygenerator.Infrastructure.csproj">
-      <Project>{e186a113-426b-4ab1-a4b1-5ecc54fa4e80}</Project>
-      <Name>easygenerator.Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\easygenerator.PublicationServer\easygenerator.PublicationServer.csproj">
       <Project>{e42847f3-5824-44ba-aa11-16adf3ee8951}</Project>
       <Name>easygenerator.PublicationServer</Name>

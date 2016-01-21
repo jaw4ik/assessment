@@ -1,9 +1,10 @@
-﻿using easygenerator.Infrastructure;
-using easygenerator.PublicationServer.Publish;
+﻿using easygenerator.PublicationServer.Publish;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
+using easygenerator.PublicationServer.FileSystem;
+using easygenerator.PublicationServer.Logging;
 
 namespace easygenerator.PublicationServer.Tests.Publish
 {
@@ -15,7 +16,7 @@ namespace easygenerator.PublicationServer.Tests.Publish
         private IPublishDispatcher _publishDispatcher;
         private PublicationPathProvider _publicationPathProvider;
         private ILog _logger;
-        private string courseId = "courseId";
+        private Guid courseId = Guid.NewGuid();
         private string publishedPackagePath = "published package path";
         private string uploadedPackagePath = "uploaded package path";
 

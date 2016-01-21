@@ -6,6 +6,8 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using easygenerator.PublicationServer.DataAccess;
+using easygenerator.PublicationServer.Models;
 
 namespace easygenerator.PublicationServer.Controllers
 {
@@ -15,43 +17,56 @@ namespace easygenerator.PublicationServer.Controllers
         private readonly ICoursePublisher _coursePublisher;
         private readonly IPublishDispatcher _courseDispatcher;
         private readonly CourseMultipartFormDataManager _courseDataManager;
+        private readonly IPublicationRepository _publicationRepository;
 
-        public string PublicationServerUri
-        {
-            get
-            {
-                return Request.RequestUri.GetLeftPart(UriPartial.Authority);
-            }
-        }
+        public string PublicationServerUri => Request.RequestUri.GetLeftPart(UriPartial.Authority);
 
-        public PublishController(ICoursePublisher coursePublisher, CourseMultipartFormDataManager courseDataManager, IPublishDispatcher publishDispatcher)
+        public PublishController(ICoursePublisher coursePublisher, CourseMultipartFormDataManager courseDataManager, IPublishDispatcher publishDispatcher, IPublicationRepository publicationRepository)
         {
             _coursePublisher = coursePublisher;
             _courseDataManager = courseDataManager;
             _courseDispatcher = publishDispatcher;
+            _publicationRepository = publicationRepository;
         }
 
         [HttpPost]
-        public async Task<HttpResponseMessage> PublishCourse(string courseId)
+        public async Task<HttpResponseMessage> PublishCourse(Guid courseId, string ownerEmail)
         {
-            if (string.IsNullOrEmpty(courseId))
+            if (courseId.Equals(Guid.Empty))
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Course id cannot be empty.");
             }
+            if (string.IsNullOrWhiteSpace(ownerEmail))
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Owner email cannot be null or whitespace.");
+            }
             if (_courseDispatcher.IsPublishing(courseId))
             {
-                return Request.CreateResponse(HttpStatusCode.ServiceUnavailable, string.Format("Course '{0}' is already publishing.", courseId));
+                return Request.CreateResponse(HttpStatusCode.ServiceUnavailable, $"Course '{courseId}' is already publishing.");
             }
 
             await _courseDataManager.SaveCourseDataAsync(Request, courseId);
-            return _coursePublisher.PublishCourse(courseId) ?
-                Request.CreateResponse(HttpStatusCode.OK, GetPublishedCourseUri(courseId)) :
-                Request.CreateResponse(HttpStatusCode.InternalServerError, string.Format("Publication failed for course '{0}'. Please try again.", courseId));
+            if (_coursePublisher.PublishCourse(courseId))
+            {
+                var currentPublication = _publicationRepository.Get(courseId);
+                if (currentPublication == null)
+                {
+                    _publicationRepository.Add(new Publication(courseId, ownerEmail));
+                }
+                else
+                {
+                    currentPublication.MarkAsModified();
+                    _publicationRepository.Update(currentPublication);
+                }
+                return Request.CreateResponse(HttpStatusCode.OK, GetPublishedCourseUri(courseId));
+            }
+
+            return Request.CreateResponse(HttpStatusCode.InternalServerError, $"Publication failed for course '{courseId}'. Please try again.");
         }
 
-        private string GetPublishedCourseUri(string courseId)
+        private string GetPublishedCourseUri(Guid courseId)
         {
-            return string.Format("{0}/{1}", PublicationServerUri, courseId);
+            return $"{PublicationServerUri}/{courseId}";
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -13,7 +14,7 @@ namespace easygenerator.PublicationServer.MultipartFormData
             _publishPathProvider = publishPathProvider;
         }
 
-        public virtual Task<CourseMultipartFormDataStreamProvider> SaveCourseDataAsync(HttpRequestMessage request, string courseId)
+        public virtual Task<CourseMultipartFormDataStreamProvider> SaveCourseDataAsync(HttpRequestMessage request, Guid courseId)
         {
             if (!request.Content.IsMimeMultipartContent())
             {

@@ -1,5 +1,4 @@
-﻿using easygenerator.Infrastructure;
-using easygenerator.PublicationServer.Extensions;
+﻿using easygenerator.PublicationServer.Extensions;
 using Microsoft.Owin;
 using Microsoft.Owin.Extensions;
 using Microsoft.Owin.StaticFiles;

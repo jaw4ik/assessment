@@ -1,5 +1,6 @@
-﻿using easygenerator.Infrastructure;
-using System;
+﻿using System;
+using easygenerator.PublicationServer.FileSystem;
+using easygenerator.PublicationServer.Logging;
 
 namespace easygenerator.PublicationServer.Publish
 {
@@ -18,7 +19,7 @@ namespace easygenerator.PublicationServer.Publish
             _publishPathProvider = publishPathProvider;
         }
 
-        public bool PublishCourse(string courseId)
+        public bool PublishCourse(Guid courseId)
         {
             try
             {

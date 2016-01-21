@@ -60,6 +60,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Autofac.WebApi2.3.4.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
     </Reference>
+    <Reference Include="Dapper">
+      <HintPath>..\..\packages\Dapper.1.42\lib\net45\Dapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Elmah">
       <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
@@ -94,12 +98,14 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Management" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -123,15 +129,30 @@
     <Compile Include="Configuration\GlobalFiltersConfiguration.cs" />
     <Compile Include="Configuration\RouteConfiguration.cs" />
     <Compile Include="Configuration\StaticFilesConfiguration.cs" />
+    <Compile Include="Constraints\CourseIdRouteConstraint.cs" />
     <Compile Include="Constraints\MaintenanceRouteConstraint.cs" />
+    <Compile Include="Constraints\SeoFragmentRouteConstraint.cs" />
+    <Compile Include="Controllers\SeoController.cs" />
     <Compile Include="Controllers\SystemPagesController.cs" />
     <Compile Include="Controllers\PublishController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DataAccess\BaseRepository.cs" />
+    <Compile Include="DataAccess\IPublicationRepository.cs" />
+    <Compile Include="DataAccess\IUserRepository.cs" />
+    <Compile Include="DataAccess\PublicationRepository.cs" />
+    <Compile Include="DataAccess\UserRepository.cs" />
+    <Compile Include="DateTimeWrapper.cs" />
     <Compile Include="Extensions\DependencyResolverExtensions.cs" />
     <Compile Include="Extensions\StaticFileOptionsExtensions.cs" />
+    <Compile Include="FileSystem\PhysicalFileManager.cs" />
+    <Compile Include="Logging\ILog.cs" />
+    <Compile Include="Models\AccessType.cs" />
+    <Compile Include="Models\Publication.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="PublicationFileServer.cs" />
     <Compile Include="PublicationServerStartup.cs" />
     <Compile Include="Publish\CoursePublisher.cs" />
-    <Compile Include="ElmahLog.cs" />
+    <Compile Include="Logging\ElmahLog.cs" />
     <Compile Include="ActionFilters\GeneralExceptionFilterAttribute.cs" />
     <Compile Include="HtmlPageResponseMessage.cs" />
     <Compile Include="MultipartFormData\CourseMultipartFormDataManager.cs" />
@@ -193,12 +214,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\easygenerator.Infrastructure\easygenerator.Infrastructure.csproj">
-      <Project>{e186a113-426b-4ab1-a4b1-5ecc54fa4e80}</Project>
-      <Name>easygenerator.Infrastructure</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

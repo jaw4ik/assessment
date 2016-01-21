@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Web.Http.Routing;
+﻿using System;
+using System.Net.Http;
 using easygenerator.PublicationServer.Publish;
 
 namespace easygenerator.PublicationServer.Constraints
 {
-    public class MaintenanceRouteConstraint : IHttpRouteConstraint
+    public class MaintenanceRouteConstraint : CourseIdRouteConstraint
     {
         private readonly IPublishDispatcher _publishDispatcher;
 
@@ -13,19 +13,9 @@ namespace easygenerator.PublicationServer.Constraints
             _publishDispatcher = publishDispatcher;
         }
 
-        public bool Match(System.Net.Http.HttpRequestMessage request, IHttpRoute route, string parameterName, IDictionary<string, object> values, HttpRouteDirection routeDirection)
+        protected override bool IsMatch(HttpRequestMessage request, Guid courseId)
         {
-            if (values.ContainsKey(parameterName))
-            {
-                object courseIdObj;
-                if (values.TryGetValue(parameterName, out courseIdObj))
-                {
-                    if (courseIdObj != null)
-                        return _publishDispatcher.IsPublishing(courseIdObj.ToString());
-                }
-            };
-
-            return false;
+            return _publishDispatcher.IsPublishing(courseId);
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using easygenerator.Infrastructure;
-using System.Net;
+﻿using System.Net;
 using System.Web.Http.Filters;
+using easygenerator.PublicationServer.Logging;
 
 namespace easygenerator.PublicationServer.ActionFilters
 {

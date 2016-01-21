@@ -1,9 +1,11 @@
-﻿namespace easygenerator.PublicationServer.Publish
+﻿using System;
+
+namespace easygenerator.PublicationServer.Publish
 {
     public interface IPublishDispatcher
     {
-        void StartPublish(string courseId);
-        void EndPublish(string courseId);
-        bool IsPublishing(string courseId);
+        void StartPublish(Guid courseId);
+        void EndPublish(Guid courseId);
+        bool IsPublishing(Guid courseId);
     }
 }

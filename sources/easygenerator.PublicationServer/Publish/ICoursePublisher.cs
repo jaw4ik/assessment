@@ -1,8 +1,10 @@
 ﻿
+using System;
+
 namespace easygenerator.PublicationServer.Publish
 {
     public interface ICoursePublisher
     {
-        bool PublishCourse(string courseId);
+        bool PublishCourse(Guid courseId);
     }
 }

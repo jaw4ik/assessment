@@ -5,8 +5,8 @@ namespace easygenerator.PublicationServer.MultipartFormData
 {
     public class CourseMultipartFormDataStreamProvider : MultipartFormDataStreamProvider
     {
-        private readonly string _courseId;
-        public CourseMultipartFormDataStreamProvider(string rootPath, string courseId)
+        private readonly Guid _courseId;
+        public CourseMultipartFormDataStreamProvider(string rootPath, Guid courseId)
             : base(rootPath)
         {
             _courseId = courseId;
@@ -14,7 +14,7 @@ namespace easygenerator.PublicationServer.MultipartFormData
 
         public override string GetLocalFileName(System.Net.Http.Headers.HttpContentHeaders headers)
         {
-            return string.Format("{0}.zip", _courseId);
+            return $"{_courseId}.zip";
         }
     }
 }
