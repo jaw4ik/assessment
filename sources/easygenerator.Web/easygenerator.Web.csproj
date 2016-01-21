@@ -306,6 +306,7 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
+    <Compile Include="DomainEvents\Handlers\PublicationServerUserHandler.cs" />
     <Compile Include="Publish\External\ExternalCoursePublisher.cs" />
     <Compile Include="Publish\External\ExternalLearningPathPublisher.cs" />
     <Compile Include="Publish\External\IExternalCoursePublisher.cs" />
@@ -1830,6 +1831,7 @@
     <Content Include="App\localization\lang\nl.json" />
     <Content Include="Content\font\robotoSlab-light.woff" />
     <Content Include="App\localization\lang\es.json" />
+    <Content Include="Mail\MailTemplates\PublicationServerUserRequestFailedTemplate.cshtml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\iscroll-probe.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
