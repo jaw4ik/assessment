@@ -28,10 +28,9 @@ gulp.task('build-system', function (cb) {
     }
 
     function buildScripts() {
-        return createBundle('[**/*] - [**/*.spec] - [main-built]', {
+        return createBundle('[**/*.js] - [**/*.spec] - [main-built]', {
             paths: {
-                '*': 'app/*.js',
-                '*.html': 'app/*.html'
+                '*': 'app/*'
             }
         });
     }
@@ -39,13 +38,13 @@ gulp.task('build-system', function (cb) {
     function buildViews() {
         return createBundle('[**/*.html]', {
             defaultJSExtensions: false,
-            meta: {
-                '**/*.html': {
-                    loader: 'text'
-                }
-            },
             map: {
                 'text': 'github:systemjs/plugin-text@0.0.3/text.js'
+            },
+            meta: {
+                '*.html': {
+                    loader: 'text'
+                }
             }
         });
     }
