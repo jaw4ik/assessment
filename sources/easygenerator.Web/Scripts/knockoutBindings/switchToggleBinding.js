@@ -1,30 +1,37 @@
 ﻿ko.bindingHandlers.switchToggle = {
     init: function (element, valueAccessor) {
         var switchToggle = ko.bindingHandlers.switchToggle,
-            viewModel = switchToggle.viewModel(element, valueAccessor),
+            speed = valueAccessor().speed || 250,
+            viewModel = switchToggle.viewModel(element, speed),
             valueChangedHandler = valueAccessor().onValueChanged,
+            onClickHandler = valueAccessor().onClick,
             value = ko.unwrap(valueAccessor().value());
 
         viewModel.setInitialValue(value);
 
         switchToggle.onClick(element, function () {
-            viewModel.toggle();
+            if (onClickHandler) {
+                onClickHandler();
+            } else {
+                viewModel.toggle();
 
-            var currentValue = ko.unwrap(valueAccessor().value());
-            valueAccessor().value(!currentValue);
+                var currentValue = ko.unwrap(valueAccessor().value());
+                valueAccessor().value(!currentValue);
 
-            valueChangedHandler();
+                valueChangedHandler();
+            }
         });
     },
 
     update: function (element, valueAccessor) {
-        var viewModel = ko.bindingHandlers.switchToggle.viewModel(element, valueAccessor),
+        var speed = valueAccessor().speed || 250,
+            viewModel = ko.bindingHandlers.switchToggle.viewModel(element, speed),
             value = ko.unwrap(valueAccessor().value());
 
         viewModel.updateValue(value);
     },
 
-    viewModel: function (element) {
+    viewModel: function (element, speed) {
         var $element = $(element),
             $wrapper = $('.switch-toggle-wrapper', $element);
 
@@ -39,9 +46,9 @@
 
             $wrapper.stop().animate({
                 marginLeft: calculateElementLeftMargin(!value)
-            }, 250);
+            }, speed);
         }
-        
+
         function getValue() {
             return $element.hasClass('on');
         }

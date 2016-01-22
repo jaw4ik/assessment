@@ -1202,13 +1202,11 @@ describe('viewModel [design]', () => {
 
             it('should update top background color', done => {
                 viewModel.brandingTab = new BrandingTab();
-                viewModel.brandingTab.background.header.expanded(true);
                 viewModel.brandingTab.background.header.brightness(0.3);
                 viewModel.brandingTab.background.header.color('#aabbcc');
                 viewModel.brandingTab.background.header.image(null);
 
                 viewModel.settingsChanged().then(() => {
-                    expect(viewModel.settings.branding.background.header.expanded).toBeTruthy();
                     expect(viewModel.settings.branding.background.header.brightness).toEqual(0.3);
                     expect(viewModel.settings.branding.background.header.color).toEqual('#aabbcc');
                     expect(viewModel.settings.branding.background.header.image).toEqual(null);
@@ -1226,14 +1224,12 @@ describe('viewModel [design]', () => {
 
             it('should update header background image', done => {
                 viewModel.brandingTab = new BrandingTab();
-                viewModel.brandingTab.background.header.expanded(true);
                 viewModel.brandingTab.background.header.brightness(0.3);
                 viewModel.brandingTab.background.header.color(null);
                 viewModel.brandingTab.background.header.image('imageUrl');
                 viewModel.brandingTab.background.header.option('original');
 
                 viewModel.settingsChanged().then(() => {
-                    expect(viewModel.settings.branding.background.header.expanded).toBeTruthy();
                     expect(viewModel.settings.branding.background.header.brightness).toEqual(0.3);
                     expect(viewModel.settings.branding.background.header.color).toEqual(null);
                     expect(viewModel.settings.branding.background.header.image.url).toEqual('imageUrl');
@@ -1252,11 +1248,13 @@ describe('viewModel [design]', () => {
 
             it('should update secondary background color', done => {
                 viewModel.brandingTab = new BrandingTab();
+                viewModel.brandingTab.background.body.enabled(true);
                 viewModel.brandingTab.background.body.brightness(0.3);
                 viewModel.brandingTab.background.body.color('#aabbcc');
                 viewModel.brandingTab.background.body.texture(null);
 
                 viewModel.settingsChanged().then(() => {
+                    expect(viewModel.settings.branding.background.body.enabled).toBeTruthy();
                     expect(viewModel.settings.branding.background.body.brightness).toEqual(0.3);
                     expect(viewModel.settings.branding.background.body.color).toEqual('#aabbcc');
                     expect(viewModel.settings.branding.background.body.texture).toEqual(null);
@@ -1274,11 +1272,13 @@ describe('viewModel [design]', () => {
 
             it('should update secondary background texture', done => {
                 viewModel.brandingTab = new BrandingTab();
+                viewModel.brandingTab.background.body.enabled(true);
                 viewModel.brandingTab.background.body.brightness(0.3);
                 viewModel.brandingTab.background.body.color(null);
                 viewModel.brandingTab.background.body.texture('texture');
 
                 viewModel.settingsChanged().then(() => {
+                    expect(viewModel.settings.branding.background.body.enabled).toBeTruthy();
                     expect(viewModel.settings.branding.background.body.brightness).toEqual(0.3);
                     expect(viewModel.settings.branding.background.body.color).toEqual(null);
                     expect(viewModel.settings.branding.background.body.texture).toEqual('texture');

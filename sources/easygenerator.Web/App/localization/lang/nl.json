@@ -99,6 +99,8 @@
     "powerPoint": "PowerPoint",
     "pdf": "PDF",
     "officeDocuments": "Office documenten",
+    "enable": "Enable",
+    "disable": "Disable",
     "storageFailed": "Er ging iets mis, opslaan is tijdelijk niet mogelijk",
     "freeSpace": "Vrije ruimte",
     "videoLibrary": "Videobibliotheek",
@@ -128,6 +130,9 @@
     "anyAudioFormats": "elk type audio bestand",
     "imageLibrary": "Afbeeldingenbibliotheek",
     "uploadImageDescription": "Upload uw eigen afbeelding door op deze knop te drukken",
+    "imageDeleteConfirmation": "Delete this image?",
+    "imageDeleteWarning": "it will NOT be available in courses any more",
+    "anyImageFormats": "Any image formats",
     "learningObjectives": "Leerdoelen",
     "learningObjective": "Leerdoel",
     "learningObjectiveListIsEmpty": "Leerdoelenlijst is leeg",
@@ -298,7 +303,7 @@
     "changeYourCourseTemplate": "Wijzig uw cursus template",
     "branding": "Huisstijl",
     "layout": "Layout",
-    "switchEditorToNewMessage": "We zijn onze nieuwe cursus editor aan u te tonen. ga verder en probeer hem uit",
+    "switchEditorToNewMessage": "We zijn trots dat we onze nieuwe cursus editor aan u kunnen tonen. Ga verder en probeer hem uit!",
     "switchEditorToOldMessage": "Schakel om naar de oude editor",
     "switchEditorToNewTitle": "Probeer de neiuwe editor nu",
     "switchEditorToOldTitle": "Schakel terug",
@@ -690,5 +695,9 @@
     "upgradeAccountHintBackgroundSection": "U moet  <a target=\"_blank\" href=\"/account/upgrade\">uw account upgraden</a> om de achtergrond aan te passen",
     "upgradeAccountHintLogoSection": "U moet  <a target=\"_blank\" href=\"/account/upgrade\">uw account upgraden</a> om de het logo aan te passen",
     "upgradeAccountHintColorsSection": "U moet  <a target=\"_blank\" href=\"/account/upgrade\">uw account upgraden</a> om de interface kleuren aan te passen",
-    "colorThemes": "Kleurenthema's"
+    "colorThemes": "Kleurenthema's",
+    "uploadFileFromDisc": "Upload from your hard disc",
+    "attachByLink": "Attach a link to the logo",
+    "pasteImageLink": "Paste image link here",
+    "attach": "Attach"
 }

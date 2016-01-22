@@ -1,6 +1,7 @@
 ﻿import BodyBackground from './BodyBackground';
 
 import {
+    EVENT_BODY_BACKGROUND_ENABLED_CHANGED,
     EVENT_BODY_BACKGROUND_TEXTURE_CHANGED,
     EVENT_BODY_BACKGROUND_COLOR_CHANGED,
     EVENT_BODY_BACKGROUND_BRIGHTNESS_CHANGED
@@ -23,6 +24,51 @@ describe('BodyBackground section', () => {
             let background = new BodyBackground();
 
             expect(background).toBeObject();
+        });
+
+        describe('enabled:', () => {
+            it('should be observable', () => {
+                let background = new BodyBackground();
+
+                expect(background.enabled).toBeObservable();
+            });
+        });
+
+        describe('toggleEnabled:', () => {
+
+            it('should change expanded state', () => {
+                let background = new BodyBackground();
+                background.enabled(false);
+
+                background.toggleEnabled();
+
+                expect(background.enabled()).toBeTruthy();
+            });
+
+            it(`should trigger event ${EVENT_BODY_BACKGROUND_ENABLED_CHANGED}`, () => {
+                let background = new BodyBackground();
+                background.toggleEnabled();
+                expect(bus.trigger).toHaveBeenCalledWith(EVENT_BODY_BACKGROUND_ENABLED_CHANGED);
+            });
+
+            describe('when enabled state became true', () => {
+                it(`should trigger event 'Switch to multiple backgrounds'`, () => {
+                    let background = new BodyBackground();
+                    background.enabled(false);
+                    background.toggleEnabled();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Switch to multiple backgrounds');
+                });
+            });
+
+            describe('when expanded state became false', () => {
+                it(`should trigger event 'Switch to one background'`, () => {
+                    let background = new BodyBackground();
+                    background.enabled(true);
+                    background.toggleEnabled();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Switch to one background');
+                });
+            });
+
         });
 
         describe('changeBackground:', () => {
@@ -195,6 +241,43 @@ describe('BodyBackground section', () => {
         });
 
         describe('activate:', () => {
+
+            describe('when enabled is defined', () => {
+
+                it('should set corresponding enabled value', () => {
+                    let background = new BodyBackground();
+                    background.activate({ enabled: true });
+
+                    expect(background.enabled()).toBeTruthy();
+                });
+
+            });
+
+            describe('when enabled is not defined', () => {
+
+                describe('and enabled is specified in defaults', () => {
+
+                    it('should set corresponding enabled value', () => {
+                        let background = new BodyBackground();
+                        background.activate(null, { enabled: true });;
+
+                        expect(background.enabled()).toBeTruthy();
+                    });
+
+                });
+
+                describe('and enabled is not specified in defaults', () => {
+
+                    it('should set false to enabled', () => {
+                        let background = new BodyBackground();
+                        background.activate();
+
+                        expect(background.enabled()).toBeFalsy();
+                    });
+
+                });
+
+            });
 
             describe('and color is defined', () => {
 

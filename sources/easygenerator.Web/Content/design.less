@@ -406,27 +406,30 @@
         color: rgb(66, 81, 95);
         font-size: 15px;
     }
-
-
+    
     .branding-background-section {
         position: relative;
 
-        &.disabled {
-            opacity: .6;
+        .branding-background-detailed-settings {
+            position: relative;
 
-            &:before {
-                position: absolute;
-                top: 0;
-                right: -10px;
-                bottom: 0;
-                left: -10px;
-                z-index: 10000;
-                background: rgba(0,0,0,0);
-                content: '';
+            &.disabled {
+                opacity: .6;
+
+                &:before {
+                    position: absolute;
+                    top: 0;
+                    right: -10px;
+                    bottom: 0;
+                    left: -10px;
+                    z-index: 10000;
+                    background: rgba(0,0,0,0);
+                    content: '';
+                }
             }
         }
 
-        > div {
+        > div, .branding-background-detailed-settings > div {
             margin-bottom: 7px;
 
             &:last-child {
@@ -435,6 +438,47 @@
         }
     }
 
+    .branding-background-enabled-wrapper {
+        @on-color: #65bd77;
+        @off-color: #9db2c0;
+
+        .switcher {
+            .switcher-text {
+                font: 12px 'Open Sans';
+                color: #63798e;
+
+                &.selected {
+                    color: #42515f;
+                }
+            }
+
+            .switch-toggle-slider.on {
+                background-color: @on-color;
+                box-shadow: 0 0 0 1px @on-color;
+
+                .switch-toogle-blob {
+                    box-shadow: 0 0 0 1px @on-color;
+                }
+            }
+
+            .switch-toggle-slider.off {
+                background-color: @off-color;
+                box-shadow: 0 0 0 1px @off-color;
+
+                .switch-toogle-blob {
+                    box-shadow: 0 0 0 1px @off-color;
+                }
+            }
+
+            .switch-toggle-on {
+                background: @on-color;
+            }
+
+            .switch-toggle-off {
+                background: @off-color;
+            }
+        }
+    }
 
     .branding-change-background-wrapper {
         display: flex;

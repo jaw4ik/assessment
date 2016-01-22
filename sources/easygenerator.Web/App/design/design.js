@@ -263,7 +263,6 @@ class Design{
 
         this.settings.branding.background = {
             header: {
-                expanded: this.brandingTab.background.header.expanded(),
                 brightness: this.brandingTab.background.header.brightness(),
                 color: this.brandingTab.background.header.color() ? this.brandingTab.background.header.color() : null,
                 image: this.brandingTab.background.header.image() ? {
@@ -272,6 +271,7 @@ class Design{
                 } : null
             },
             body: {
+                enabled: this.brandingTab.background.body.enabled(),
                 brightness: this.brandingTab.background.body.brightness(),
                 color: this.brandingTab.background.body.color() ? this.brandingTab.background.body.color() : null,
                 texture: this.brandingTab.background.body.texture() ? this.brandingTab.background.body.texture() : null

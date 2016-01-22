@@ -99,6 +99,8 @@
     "powerPoint": "PowerPoint",
     "pdf": "PDF",
     "officeDocuments": "Office 文档",
+    "enable": "Enable",
+    "disable": "Disable",
     "storageFailed": "出错；存储当前不可用。",
     "freeSpace": "空闲空间",
     "videoLibrary": "视频库",
@@ -128,6 +130,9 @@
     "anyAudioFormats": "任何音频文件格式",
     "imageLibrary": "图库",
     "uploadImageDescription": "Upload your own image by click on this button",
+    "imageDeleteConfirmation": "Delete this image?",
+    "imageDeleteWarning": "it will NOT be available in courses any more",
+    "anyImageFormats": "Any image formats",
     "learningObjectives": "学习目标",
     "learningObjective": "学习目标",
     "learningObjectiveListIsEmpty": "空的目标清单",
@@ -690,5 +695,9 @@
     "upgradeAccountHintBackgroundSection": "您必须<a target=\"_blank\" href=\"/account/upgrade\">升级账户</a>以便设置自定义背景",
     "upgradeAccountHintLogoSection": "您必须<a target=\"_blank\" href=\"/account/upgrade\">升级账户</a>以便设置自定义课程徽标",
     "upgradeAccountHintColorsSection": "您必须<a target=\"_blank\" href=\"/account/upgrade\">升级账户</a>以便更改界面颜色",
-    "colorThemes": "颜色主题"
+    "colorThemes": "颜色主题",
+    "uploadFileFromDisc": "Upload from your hard disc",
+    "attachByLink": "Attach a link to the logo",
+    "pasteImageLink": "Paste image link here",
+    "attach": "Attach"
 }

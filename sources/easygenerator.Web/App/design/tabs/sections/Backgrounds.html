@@ -8,17 +8,6 @@
     <!-- /ko-->
     <section class="branding-background-section" data-bind="with: header">
         <h5><span data-bind="localize: { text: 'topBackground' }"></span>:</h5>
-        <div>
-            <label class="checkbox-wrapper" data-bind="click: toggleExpanded, css: { checked: expanded }">
-                <!-- ko if: expanded -->
-                <input class="checkbox" type="checkbox" checked="checked">
-                <!-- /ko -->
-                <!-- ko ifnot: expanded -->
-                <input class="checkbox" type="checkbox">
-                <!-- /ko -->
-                <span data-bind="localize: { text: 'useForTheWholePage' }"></span>
-            </label>
-        </div>
         <div class="branding-header-background-wrapper">
             <!-- ko if: image -->
             <div class="branding-header-background" data-bind="backgroundImage: image">
@@ -69,24 +58,39 @@
         </div>
     </section>
     <hr />
-    <section class="branding-background-section" data-bind="with: body, css: { disabled: header.expanded }">
+    <section class="branding-background-section" data-bind="with: body">
         <h5><span data-bind="localize: { text: 'secondaryBackground' }"></span>:</h5>
-        <div class="branding-background-brightness-wrapper">
-            <label><span data-bind="localize: { text: 'brightness' }"></span>:</label>
-            <div data-bind="brightness: { value: brightness, change: changeBrightness.bind($data) }"></div>
+        <div class="branding-background-enabled-wrapper">
+            <div class="switcher">
+                <div class="switcher-text" data-bind="localize: { text: 'enable', 'data-text': 'enable' }, css: { selected: enabled() }, click: enabled() ? function(){} : toggleEnabled"></div>
+                <div class="switch-toggle-slider small" data-bind="switchToggle: { value: enabled, onClick: toggleEnabled.bind($data), speed: 100 }">
+                    <div class="switch-toggle-wrapper">
+                        <div class="switch-toggle-on"></div>
+                        <div class="switch-toogle-blob"></div>
+                        <div class="switch-toggle-off"></div>
+                    </div>
+                </div>
+                <div class="switcher-text" data-bind="localize: { text: 'disable', 'data-text': 'disable' }, css: { selected: !enabled() }, click: enabled() ? toggleEnabled : function(){}"></div>
+            </div>
         </div>
-        <div class="branding-change-background-wrapper">
-            <button class="branding-change-background-button" data-bind="click: changeBackground, css: { active: popover.isVisible }, popover: popover">
-                <span>
-                    <!-- ko if: texture -->
-                    <i class="branding-background-body-preview" data-bind="backgroundImage: texture"></i>
-                    <!-- /ko -->
-                    <!-- ko ifnot: texture -->
-                    <i class="branding-background-body-preview" data-bind="style: { backgroundColor: color }"></i>
-                    <!-- /ko -->
-                    <span data-bind="localize: { text: 'changeBackground' }"></span>
-                </span>
-            </button>
+        <div class="branding-background-detailed-settings" data-bind="css: { disabled: !enabled() }">
+            <div class="branding-background-brightness-wrapper">
+                <label><span data-bind="localize: { text: 'brightness' }"></span>:</label>
+                <div data-bind="brightness: { value: brightness, change: changeBrightness.bind($data) }"></div>
+            </div>
+            <div class="branding-change-background-wrapper">
+                <button class="branding-change-background-button" data-bind="click: changeBackground, css: { active: popover.isVisible }, popover: popover">
+                    <span>
+                        <!-- ko if: texture -->
+                        <i class="branding-background-body-preview" data-bind="backgroundImage: texture"></i>
+                        <!-- /ko -->
+                        <!-- ko ifnot: texture -->
+                        <i class="branding-background-body-preview" data-bind="style: { backgroundColor: color }"></i>
+                        <!-- /ko -->
+                        <span data-bind="localize: { text: 'changeBackground' }"></span>
+                    </span>
+                </button>
+            </div>
         </div>
     </section>
 </section>

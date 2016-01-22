@@ -5,12 +5,14 @@ import eventTracker from 'eventTracker';
 import { BackgroundPopover } from './BodyBackgroundPopover.js';
 import bus from './../../bus';
 
+export const EVENT_BODY_BACKGROUND_ENABLED_CHANGED = 'branding:body-background-enabled:changed';
 export const EVENT_BODY_BACKGROUND_TEXTURE_CHANGED = 'branding:body-background-texture:changed';
 export const EVENT_BODY_BACKGROUND_COLOR_CHANGED = 'branding:body-background-color:changed';
 export const EVENT_BODY_BACKGROUND_BRIGHTNESS_CHANGED = 'branding:body-background-brightness:changed';
 
 export default class BodyBackground{
     constructor() {
+        this.enabled = ko.observable(true);
         this.brightness = ko.observable(0);
 
         this.texture = ko.observable(null);
@@ -19,6 +21,17 @@ export default class BodyBackground{
         this.popover = new BackgroundPopover();
         this.popover.on('color:selected').then(color => this.updateColor(color));
         this.popover.on('texture:selected').then(color => this.updateTexture(color));
+    }
+
+    toggleEnabled() {
+        this.enabled(!this.enabled());
+        bus.trigger(EVENT_BODY_BACKGROUND_ENABLED_CHANGED);
+
+        if (ko.unwrap(this.enabled)) {
+            eventTracker.publish('Switch to multiple backgrounds');
+        } else {
+            eventTracker.publish('Switch to one background');
+        }
     }
 
     changeBrightness(value) {
@@ -54,6 +67,7 @@ export default class BodyBackground{
     activate(settings, defaults) {
         this.defaults = defaults || null;
 
+        this.enabled(settings && settings.enabled || defaults && defaults.enabled || false);
         this.texture(settings && settings.texture || defaults && defaults.texture || null);
         this.popover.texture(settings && settings.texture || defaults && defaults.texture || null);
         this.color(settings && settings.color || defaults && defaults.color || null);
