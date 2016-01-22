@@ -18,7 +18,6 @@
                     <span class="tip-arrow-text" data-bind="localize: { text : 'uploadAudioDescription' }">Upload your own audio by click on this button</span>
                 </div>
                 <!-- /ko -->
-                <!-- ko if: library.audios().length -->
                 <div class="audio-list-container">
                     <div class="drop-audio-hint drop-zone overlay" data-bind="dropUpload: { before: library.ensureCanAddAudio, callback: uploadAudioByDragging }">
                         <div class="drop-audio-hint-content">
@@ -50,7 +49,6 @@
                         <!-- /ko -->
                     </ul>
                 </div>
-                <!-- /ko -->
             </div>
             <!-- ko compose: 'dialogs/video/video' --><!-- /ko -->
         </div>
