@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http.Routing;
 using easygenerator.PublicationServer.Constraints;
 using FluentAssertions;
@@ -79,6 +76,15 @@ namespace easygenerator.PublicationServer.Tests.Constraints
         public void Match_ShouldReturnTrueIfQueryParamsContainsSeoFragment()
         {
             var message = new HttpRequestMessage(HttpMethod.Get, "http://example.com?_escaped_fragment_=");
+            var result = _constraint.Match(message, null, parameterName, new Dictionary<string, object> { { parameterName, Guid.NewGuid() } }, HttpRouteDirection.UriGeneration);
+            result.Should().Be(true);
+        }
+
+        [TestMethod]
+        public void Match_ShouldReturnTrueIfRefererContainsSeoFragment()
+        {
+            var message = new HttpRequestMessage(HttpMethod.Get, "http://example.com/script.js");
+            message.Headers.Referrer = new Uri("http://example.com?_escaped_fragment_=");
             var result = _constraint.Match(message, null, parameterName, new Dictionary<string, object> { { parameterName, Guid.NewGuid() } }, HttpRouteDirection.UriGeneration);
             result.Should().Be(true);
         }
