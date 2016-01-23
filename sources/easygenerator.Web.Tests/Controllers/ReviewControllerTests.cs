@@ -23,11 +23,25 @@ namespace easygenerator.Web.Tests
     {
         private ReviewController _controller;
         private HttpContextBase _context;
+        private HttpRequestBase _request;
+        private Uri _requestUri;
+        private const string urlScheme="http";
+        private const string urlAuthority = "app.easygenerator.com";
+        private HttpServerUtilityBase _server;
 
         [TestInitialize]
         public void InitializeController()
         {
             _context = Substitute.For<HttpContextBase>();
+            _request = Substitute.For<HttpRequestBase>();
+            _requestUri = new Uri("http://app.easygenerator.com");
+
+            _server = Substitute.For<HttpServerUtilityBase>();
+            _context.Server.ReturnsForAnyArgs(_server);
+
+            _context.Request.ReturnsForAnyArgs(_request);
+            _request.Url.ReturnsForAnyArgs(_requestUri);
+
             _controller = new ReviewController();
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
@@ -75,12 +89,15 @@ namespace easygenerator.Web.Tests
             const string publishedPackageUrl = "url";
             var course = CourseObjectMother.Create();
             course.UpdatePublicationUrl(publishedPackageUrl);
+            var reviewApiUrl = $"{urlScheme}://{urlAuthority}";
+            var encodedUrl = "encUrl";
+            _server.UrlEncode(reviewApiUrl).Returns(encodedUrl);
 
             //Act
             _controller.ReviewCourse(course);
 
             //Assert
-            Assert.AreEqual(_controller.ViewBag.PublishedCourseUrl, publishedPackageUrl);
+            Assert.AreEqual(_controller.ViewBag.PublishedCourseUrl, $"{publishedPackageUrl}?reviewApiUrl={encodedUrl}");
         }
 
         [TestMethod]

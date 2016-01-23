@@ -145,7 +145,7 @@ describe('repository [commentRepository]', () => {
 
     describe('removeComment', () => {
 
-        xit('should return promise', () => {
+        it('should return promise', () => {
             expect(repository.removeComment()).toBePromise();
         });
 
@@ -159,7 +159,6 @@ describe('repository [commentRepository]', () => {
                     done();
                 });
             });
-
         });
 
         describe('when comment id is null', () => {

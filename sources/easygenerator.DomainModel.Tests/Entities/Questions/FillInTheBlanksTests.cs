@@ -53,7 +53,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             question.UpdateAnswers(new Collection<BlankAnswer>() { a1, a2 }, ModifiedBy);
 
             question.Answers.ToList()[0].Order.Should().Be(0);
-            question.Answers.ToList()[0].Order.Should().Be(1);
+            question.Answers.ToList()[1].Order.Should().Be(1);
         }
 
         [TestMethod]

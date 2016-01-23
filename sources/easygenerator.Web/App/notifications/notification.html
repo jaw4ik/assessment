@@ -2,9 +2,8 @@
     <!-- ko if: isVisible -->
     <div class="header-menu-list-item user-notification" data-bind="css:{ expanded: isExpanded}">
         <div class="user-notification-icon-wrapper" data-bind="click: toggleIsExpanded">
-            <div class="user-notification-icon">
-                <span class="user-notification-count" data-bind="text: collection().length"></span>
-            </div>
+            <div class="user-notification-icon"></div>
+            <span class="user-notification-count" data-bind="text: collection().length"></span>
         </div>
         <div class="user-notification-viewer-wrapper" data-bind="css:{ shown: isExpanded }">
             <div class="user-notification-viewer">

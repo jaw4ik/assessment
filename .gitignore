@@ -164,6 +164,7 @@ node_modules/
 bower_components/
 tools/easyresources/_templates/
 tools/easyresources/_app/
+typings/
 
 # RIA/Silverlight projects
 Generated_Code/
@@ -213,3 +214,6 @@ FakesAssemblies/
 /sources/easygenerator.Player/public/styles/*.css
 /sources/easygenerator.Player/public/vendor/*
 /sources/easygenerator.Web/Scripts/vendor/*
+
+# PdfConverter ignore files
+/sources/easygenerator.PdfConverter/Pdf_Download

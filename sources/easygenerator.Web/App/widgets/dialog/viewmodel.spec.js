@@ -166,6 +166,7 @@
                     viewModel.settings(null);
                     viewModel.show(steps);
                     expect(viewModel.settings()).toBeDefined();
+                    expect(viewModel.settings().isBoundless).toBeFalsy();
                     expect(viewModel.settings().autoclose).toBeFalsy();
                     expect(viewModel.settings().containerCss).toBe('');
                 });

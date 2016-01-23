@@ -5,8 +5,10 @@ import viewLocatorTask from 'bootstrapping/viewLocatorTask';
 import knockoutBindingsTask from 'bootstrapping/knockoutBindingsTask';
 import addWindowEventsTask from 'bootstrapping/addWindowEventsTask';
 import trackVideoUploadTask from 'bootstrapping/trackVideoUploadTask';
+import underscoreExtensionsTask from 'bootstrapping/underscoreExtensionsTask';
+import stringExtensionsTask from 'bootstrapping/stringExtensionsTask';
 
-export function getCollection () {
+function getCollection () {
     return [
         errorHandlingTask,
         routingTask,
@@ -14,7 +16,9 @@ export function getCollection () {
         viewLocatorTask,
         knockoutBindingsTask,
         addWindowEventsTask,
-        trackVideoUploadTask
+        trackVideoUploadTask,
+        underscoreExtensionsTask,
+        stringExtensionsTask
     ];
 }
 export default { getCollection };

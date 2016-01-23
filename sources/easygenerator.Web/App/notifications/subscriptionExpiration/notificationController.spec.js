@@ -34,26 +34,10 @@
                         expect(controller.execute()).toBePromise();
                     });
 
-                    it('should not subscribe on user.downgraded event', function (done) {
+                    it('should not subscribe on user.planChanged event', function (done) {
                         var promise = controller.execute();
                         promise.fin(function () {
-                            expect(app.on).not.toHaveBeenCalledWith(constants.messages.user.downgraded, controller.updateNotification);
-                            done();
-                        });
-                    });
-
-                    it('should not subscribe on user.upgradedToPlus event', function (done) {
-                        var promise = controller.execute();
-                        promise.fin(function () {
-                            expect(app.on).not.toHaveBeenCalledWith(constants.messages.user.upgradedToPlus, controller.updateNotification);
-                            done();
-                        });
-                    });
-
-                    it('should not subscribe on user.upgradedToStarter event', function (done) {
-                        var promise = controller.execute();
-                        promise.fin(function () {
-                            expect(app.on).not.toHaveBeenCalledWith(constants.messages.user.upgradedToStarter, controller.updateNotification);
+                            expect(app.on).not.toHaveBeenCalledWith(constants.messages.user.planChanged, controller.updateNotification);
                             done();
                         });
                     });
@@ -71,26 +55,10 @@
 
                 describe('when userContext.identity is not null', function () {
 
-                    it('should subscribe on user.downgraded event', function (done) {
+                    it('should subscribe on user.planChanged event', function (done) {
                         var promise = controller.execute();
                         promise.fin(function () {
-                            expect(app.on).toHaveBeenCalledWith(constants.messages.user.downgraded, controller.updateNotification);
-                            done();
-                        });
-                    });
-
-                    it('should subscribe on user.upgradedToPlus event', function (done) {
-                        var promise = controller.execute();
-                        promise.fin(function () {
-                            expect(app.on).toHaveBeenCalledWith(constants.messages.user.upgradedToPlus, controller.updateNotification);
-                            done();
-                        });
-                    });
-
-                    it('should subscribe on user.upgradedToStarter event', function (done) {
-                        var promise = controller.execute();
-                        promise.fin(function () {
-                            expect(app.on).toHaveBeenCalledWith(constants.messages.user.upgradedToStarter, controller.updateNotification);
+                            expect(app.on).toHaveBeenCalledWith(constants.messages.user.planChanged, controller.updateNotification);
                             done();
                         });
                     });

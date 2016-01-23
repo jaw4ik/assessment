@@ -1,70 +1,102 @@
-﻿define(['viewmodels/learningPaths/learningPath/courseBrief'], function (ctor) {
-    "use strict";
+﻿import CourseBrief from 'viewmodels/learningPaths/learningPath/courseBrief';
+import app from 'durandal/app';
+import constants from 'constants';
+import router from 'plugins/router';
+import eventTracker from 'eventTracker';
 
-    var app = require('durandal/app'),
-        constants = require('constants')
-    ;
+var courseModel = {
+    id: '123',
+    title: 'title',
+    modifiedOn: new Date(),
+    template: {
+        thumbnail: 'thumbnail'
+    }
+};
+var course = new CourseBrief(courseModel);
 
-    describe('viewModel learning path [courseBrief]', function () {
-        var course = {
-            id: 'id',
-            title: 'title',
-            modifiedOn: new Date(),
-            template: {
-                thumbnail: 'img'
-            }
-        },
-            lang = 'en',
-            viewModel;
+describe('courseBrief:', () => {
 
-        beforeEach(function () {
-            spyOn(app, 'trigger');
-            viewModel = ctor(course);
+    beforeEach(() => {
+        spyOn(app, 'trigger');
+        spyOn(eventTracker, 'publish');
+        spyOn(router, 'openUrl');
+    });
+
+    it('should be class', () => {
+        expect(CourseBrief).toBeFunction();
+    });
+
+    describe('id', () => {
+
+        it('should be defined', () => {
+            expect(course.id).toBeDefined();
         });
 
-        describe('title:', function () {
-            it('should be defined', function () {
-                expect(viewModel.title()).toBe(course.title);
-            });
+    });
+
+    describe('title', () => {
+
+        it('should be observable', () => {
+            expect(course.title).toBeObservable();
         });
 
-        describe('currentLanguage:', function () {
-            it('should be defined', function () {
-                expect(viewModel.currentLanguage).toBeDefined();
-            });
+    });
+
+    describe('modifiedOn', () => {
+
+        it('should be defined', () => {
+            expect(course.modifiedOn).toBeDefined();
         });
 
-        describe('id:', function () {
-            it('should be defined', function () {
-                expect(viewModel.id).toBe(course.id);
-            });
+    });
+
+    describe('thumbnail', () => {
+
+        it('should be observable', () => {
+            expect(course.thumbnail).toBeObservable();
         });
 
-        describe('modifiedOn:', function () {
-            it('should be defined', function () {
-                expect(viewModel.modifiedOn()).toBe(course.modifiedOn);
-            });
+    });
+
+    describe('constructor', () => {
+
+        it('should set all passed data', () => {
+            var courseBrief = new CourseBrief(courseModel);
+            expect(courseBrief.id).toBe(courseModel.id);
+            expect(courseBrief.title()).toBe(courseModel.title);
+            expect(courseBrief.modifiedOn()).toBe(courseModel.modifiedOn);
+            expect(courseBrief.thumbnail()).toBe(courseModel.template.thumbnail);
         });
 
-        describe('thumbnail:', function () {
-            it('should be defined', function () {
-                expect(viewModel.thumbnail()).toBe(course.template.thumbnail);
-            });
+    });
+
+    describe('preview', () => {
+
+        it('should be function', () => {
+            expect(course.preview).toBeFunction();
         });
 
-        describe('activate:', function () {
-            it('should set currentLanguage', function () {
-                viewModel.currentLanguage = null;
-                viewModel.activate(lang);
-                expect(viewModel.currentLanguage).toBe(lang);
-            });
+        it('should publish event', () => {
+            course.preview();
+            expect(eventTracker.publish).toHaveBeenCalledWith('Preview course');
         });
 
-        describe('remove:', function() {
-            it('should trigger learningPath.removeCourse app event', function () {
-                viewModel.remove();
-                expect(app.trigger).toHaveBeenCalledWith(constants.messages.learningPath.removeCourse, course.id);
-            });
+        it('should open course in preview mode', () => {
+            course.preview();
+            expect(router.openUrl).toHaveBeenCalledWith(`/preview/${course.id}`);
+        });
+
+    });
+
+    describe('remove', () => {
+
+        it('should be function', () => {
+            expect(course.remove).toBeFunction();
+        });
+
+        it('should trigger up event', () => {
+            course.remove();
+            expect(app.trigger).toHaveBeenCalledWith(constants.messages.learningPath.removeCourse, course.id);
         });
 
     });

@@ -1,0 +1,25 @@
+﻿@model easygenerator.DomainModel.Events.UserEvents.NewEditorUserFeedbackEvent
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+          "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>New course editor feedback</title>
+</head>
+<body>
+    <div>
+        <label>User email: @Model.UserEmail</label>
+        <br />
+        <label>Rate: @Model.Rate/5</label>
+        <br />
+        @if (String.IsNullOrEmpty(Model.Message))
+        {
+            <label>Feedback: -</label>
+        }
+        else
+        {
+            <label>Feedback: @Model.Message</label>
+        }
+    </div>
+</body>
+</html>

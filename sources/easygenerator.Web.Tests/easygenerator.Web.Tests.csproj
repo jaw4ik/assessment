@@ -144,9 +144,12 @@
     <Compile Include="BuildCourse\CourseBuilderTests.cs" />
     <Compile Include="BuildCourse\BuildPathProviderTests.cs" />
     <Compile Include="BuildCourse\BuildPackageCreatorTests.cs" />
+    <Compile Include="BuildDocument\DocumentContentProviderTests.cs" />
+    <Compile Include="BuildDocument\DocumentContentPathProviderTests.cs" />
     <Compile Include="BuildLearningPath\LearningPathBuilderTests.cs" />
     <Compile Include="BuildLearningPath\LearningPathContentPathProviderTests.cs" />
     <Compile Include="BuildLearningPath\LearningPathContentProviderTests.cs" />
+    <Compile Include="BuildLearningPath\LearningPathDocumentBuilderTests.cs" />
     <Compile Include="BuildLearningPath\LearningPathCourseBuilderTests.cs" />
     <Compile Include="BuildLearningPath\LearningPathPackageModelMapperTests.cs" />
     <Compile Include="Components\ActionFilters\ApplicationAuthorizeAttributeTests.cs" />
@@ -167,6 +170,7 @@
     <Compile Include="Components\ManifestFileManagerTests.cs" />
     <Compile Include="Components\ModelBinding\DateTimeModelBinderTests.cs" />
     <Compile Include="Components\ReleaseNoteFileReaderTests.cs" />
+    <Compile Include="Controllers\Api\DocumentControllerTests.cs" />
     <Compile Include="Controllers\Api\LearningPathControllerTests.cs" />
     <Compile Include="Controllers\Api\ReleaseNoteControllerTests.cs" />
     <Compile Include="Controllers\Api\ScenarioControllerTests.cs" />

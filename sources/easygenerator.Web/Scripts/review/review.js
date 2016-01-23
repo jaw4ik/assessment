@@ -1,9 +1,10 @@
 ﻿var app = app || {};
 
-app.reviewViewModel = function() {
+app.reviewViewModel = function (dataStorage) {
     var patternEmail = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,15})+)$/,
            userNameKey = 'usernameForReview',
-           userMailKey = 'usermailForReview';
+           userMailKey = 'usermailForReview',
+           storage = dataStorage || localStorage;
 
 
     var viewModel = {
@@ -15,6 +16,7 @@ app.reviewViewModel = function() {
         isExpanded: ko.observable(false),
         isSaved: ko.observable(false),
         isFailed: ko.observable(false),
+        isReviewPanelVisible: ko.observable(true),
 
         toggleVisiblity: function () {
             viewModel.isExpanded(!viewModel.isExpanded());
@@ -44,12 +46,12 @@ app.reviewViewModel = function() {
                     return;
                 }
 
-                localStorage.setItem(userNameKey, viewModel.name());
-                localStorage.setItem(userMailKey, viewModel.email());
+                storage.setItem(userNameKey, viewModel.name());
+                storage.setItem(userMailKey, viewModel.email());
             }
 
-            var username = localStorage.getItem(userNameKey),
-                usermail = localStorage.getItem(userMailKey);
+            var username = storage.getItem(userNameKey),
+                usermail = storage.getItem(userMailKey);
 
             if (!username || !username.trim() || !usermail || !usermail.trim()) {
                 viewModel.showIdentifyUserForm(true);
@@ -94,6 +96,14 @@ app.reviewViewModel = function() {
             viewModel.isFailed(true);
         });
     };
+
+    window.addEventListener("message", onMessageReceived, false);
+
+    function onMessageReceived(event) {
+        if (event && event.data && event.data.supportsNativeReview) {
+            viewModel.isReviewPanelVisible(false);
+        }
+    }
 
     return viewModel;
 };

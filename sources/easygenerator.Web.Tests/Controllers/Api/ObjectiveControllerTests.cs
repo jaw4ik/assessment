@@ -292,5 +292,90 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         #endregion
+
+        #region PermanentlyDeleteObjective
+
+        [TestMethod]
+        public void PermanentlyDeleteObjective_ShouldReturnHttpNotFoundResult_WhenObjectiveIsNull()
+        {
+            var result = _controller.PermanentlyDeleteObjective(null);
+
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.ObjectiveNotFoundError);
+
+        }
+
+        [TestMethod]
+        public void PermanentlyDeleteObjective_ShouldUnrelateThisObjectiveFromAllCourses()
+        {
+            var course = Substitute.For<Course>();
+            var course1 = Substitute.For<Course>();
+            var objective = Substitute.For<Objective>("Some title", CreatedBy);
+            var courses = new Collection<Course>();
+            course.RelateObjective(objective, 0, CreatedBy);
+            course1.RelateObjective(objective, 0, CreatedBy);
+            courses.Add(course);
+            courses.Add(course1);
+
+            objective.Courses.Returns(courses);
+
+            _controller.PermanentlyDeleteObjective(objective);
+
+            course.Received().UnrelateObjective(objective, Arg.Any<string>());
+            course1.Received().UnrelateObjective(objective, Arg.Any<string>());
+        }
+
+        [TestMethod]
+        public void PermanentlyDeleteObjective_ShouldRemoveQuestionsInObjective_WhenItNotNull()
+        {
+            var objective = Substitute.For<Objective>("Some title", CreatedBy);
+            var question = Substitute.For<Question>();
+            var questions = new Collection<Question>();
+            questions.Add(question);
+            objective.Questions.Returns(questions);
+
+            _controller.PermanentlyDeleteObjective(objective);
+
+            objective.Received().RemoveQuestion(question, Arg.Any<string>());
+        }
+
+        [TestMethod]
+        public void PermanentlyDeleteObjective_ShouldRemoveObjective_WhenItNotNull()
+        {
+            var course = Substitute.For<Course>();
+            var course1 = Substitute.For<Course>();
+            var objective = Substitute.For<Objective>("Some title", CreatedBy);
+            var courses = new Collection<Course>();
+            course.RelateObjective(objective, 0, CreatedBy);
+            course1.RelateObjective(objective, 0, CreatedBy);
+            courses.Add(course);
+            courses.Add(course1);
+
+            objective.Courses.Returns(courses);
+
+            _controller.PermanentlyDeleteObjective(objective);
+
+            _repository.Received().Remove(objective);
+        }
+
+        [TestMethod]
+        public void PermanentlyDeleteObjective_ReturnJsonSuccessResult_WhenObjectiveIsNull()
+        {
+            var course = Substitute.For<Course>();
+            var course1 = Substitute.For<Course>();
+            var objective = Substitute.For<Objective>("Some title", CreatedBy);
+            var courses = new Collection<Course>();
+            course.RelateObjective(objective, 0, CreatedBy);
+            course1.RelateObjective(objective, 0, CreatedBy);
+            courses.Add(course);
+            courses.Add(course1);
+
+            objective.Courses.Returns(courses);
+
+            var result = _controller.PermanentlyDeleteObjective(objective);
+
+            result.Should().BeJsonSuccessResult();
+        }
+
+        #endregion PermanentlyDeleteObjective
     }
 }

@@ -37,7 +37,7 @@ namespace easygenerator.Web.Controllers
                     return JsonSuccess(tokens);
                 }
             }
-            return JsonError(AccountRes.Resources.IncorrectEmailOrPassword);
+            return JsonError(ViewsResources.Resources.IncorrectEmailOrPassword);
         }
 
         [HttpPost, Scope("lti")]
@@ -70,7 +70,8 @@ namespace easygenerator.Web.Controllers
                     accessType = user.AccessType,
                     expirationDate = user.ExpirationDate
                 },
-                showReleaseNote = releaseVersion != user.LastReadReleaseNote
+                showReleaseNote = releaseVersion != user.LastReadReleaseNote,
+                newEditor = user.NewEditor
             });
 
         }

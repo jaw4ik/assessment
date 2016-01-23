@@ -9,7 +9,7 @@
             obj.title = spec.title;
             obj.publicationUrl = spec.publicationUrl;
             obj.IsPublishedToExternalLms = spec.IsPublishedToExternalLms;
-            obj.courses = spec.courses;
+            obj.entities = spec.entities;
 
             obj.isBuilding = false;
             obj.isPublishing = false;

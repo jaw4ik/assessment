@@ -81,6 +81,13 @@
 }
 
 @font-face {
+    font-family: 'RobotoSlab-Light';
+    src: url('font/robotoslab-light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'MyriadProRegular';
     src: url('font/myriadpro-regular.woff') format('woff');
     font-weight: normal;
@@ -128,6 +135,7 @@
     font-weight: normal;
     font-style: normal;
 }
+
 /*#endregion FONTS CONNECTIONS*/
 
 /*#region RESET CSS-STYLES IN FOREIGN BROWSERS */
@@ -184,7 +192,7 @@ html {
 }
 
 body {
-    font-family: 'OpenSans', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     background-color: rgb(243, 247, 249);
     height: 100%;
     width: 100%;
@@ -488,31 +496,16 @@ img:hover {
 
 /*#region CUSTOM SROLLBAR*/
 
-.iScrollHorizontalScrollbar{
-    /*this is applied to the horizontal container*/
-}
+.ps-container {
+    & > .ps-scrollbar-y-rail {
+        width: 5px !important;
 
-.iScrollVerticalScrollbar{
-    /*this is applied to the vertical container*/
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    bottom: 2px;
-    z-index: 9999;
-    width: 5px;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.iScrollIndicator{
-    /*the actual scrollbar indicator*/
-    border-radius: 10px;
-    background-color: rgba(188, 188, 196, .5);
-
-}
-
-.iScrollBothScrollbars{
-    /*this is added to the container elements when both scrollbars are shown. */
+        &> .ps-scrollbar-y{
+            width: 5px !important;
+            border-radius: 10px !important;
+            background-color: rgba(188, 188, 196, .5) !important;
+        }
+    }
 }
 
 /*#endregion CUSTOM SROLLBAR*/

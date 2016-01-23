@@ -1,0 +1,63 @@
+﻿<section class="editor-create-bar-container create left-side-bar" data-bind="with: createBar">
+    <div class="editor-create-bar-wrapper" data-bind="scrollbar: { checkDOMChanges: true }">
+        <h2 class="editor-create-bar-header" data-bind="click: toggleSection, css: { 'collapsed': !sectionExpanded() }, localize: { text: 'sections' }">Sections:</h2>
+        <div class="editor-create-bar-list-container" data-bind="expandBlock: { expanded: sectionExpanded }">
+            <ul class="editor-create-bar-list" data-bind="draggableContainer: { copy: true, moveTo: { '.sections-list-container': { callback: $parent.createSectionWithOrder, forbidDropToEnd: true }, '.sections-placeholder': $parent.createSection }, useTargetWidth: true }">
+                <li class="editor-create-bar-list-item section" data-bind="draggableData: {type: 'section'}">
+                    <div class="editor-create-bar-list-icon" data-bind="click: $root.createSectionAtFirstPosition.bind($root), tooltipPopover: {}">
+                        <h4 class="editor-create-bar-list-title" data-bind="localize: { text: 'section' }">Section</h4>
+                    </div>
+                    <h4 class="editor-create-bar-list-title not-accessible" data-bind="localize: { text: 'section' }">Section</h4>
+                    <div class="editor-create-bar-list-mirror">
+                        <div class="editor-create-bar-list-mirror-image"></div>
+                        <div class="editor-create-bar-list-mirror-title-container">
+                            <div class="editor-create-bar-list-mirror-title">
+                                <div class="editor-create-bar-list-mirror-title-large"></div>
+                                <div class="editor-create-bar-list-mirror-title-small"></div>
+                            </div>
+                            <div class="editor-create-bar-list-mirror-modified"></div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <h2 class="editor-create-bar-header" data-bind="click: function() { !$root.notContainSections() && toggleQuestions();}, css: { 'collapsed': !questionsExpanded(), disabled: $root.notContainSections }, localize: { text: 'contentAndQuestions' }">Content and questions:</h2>
+        <div class="editor-create-bar-list-container" data-bind="expandBlock: { expanded: questionsExpanded }, css: {'no-section': $root.notContainSections}">
+            <ul class="editor-create-bar-list" data-bind="draggableContainer: { copy: true, moveTo: { '.questions-list': { callback: $parent.createQuestionWithOrder, forbidDropToEnd: true }, '.question-placeholder': $parent.createQuestion, '.questions-fake-placeholder': function () {} }, useTargetWidth: true }">
+                <!-- ko foreach: questions -->
+                <li data-bind="attr: { class: 'editor-create-bar-list-item ' + type }, css: { 'not-accessible': $root.notContainSections() || !hasAccess, disabled: $root.notContainSections() }, draggableData: { type: type }">
+                    <div class="editor-create-bar-list-icon">
+                        <h4 class="editor-create-bar-list-title" data-bind="localize: { text: type }"></h4>
+                        <!-- ko ifnot: hasAccess -->
+                        <div class="editor-create-bar-list-no-access" data-bind="click: $parent.openUpgradePlanUrl">
+                            <button class="editor-create-bar-list-no-access-button" data-bind="localize: { text: 'upgrade'}">Upgrade</button>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                    <h4 class="editor-create-bar-list-title not-accessible" data-bind="localize: { text: type }"></h4>
+                    <div class="editor-create-bar-list-mirror">
+                        <div class="editor-create-bar-list-mirror-image"></div>
+                        <div class="editor-create-bar-list-mirror-title-container">
+                            <div class="editor-create-bar-list-mirror-title">
+                                <div class="editor-create-bar-list-mirror-title-large"></div>
+                                <div class="editor-create-bar-list-mirror-title-small"></div>
+                            </div>
+                            <div class="editor-create-bar-list-mirror-modified"></div>
+                        </div>
+                    </div>
+                </li>
+                <!-- /ko -->
+            </ul>
+            <div class="not-contain-section-overlay" data-bind="event: { mouseover: showQuestionTootip, mouseout: hideQuestionTootip }"></div>
+        </div>
+    </div>
+    <!-- ko if: createSectionTooltip.visible() -->
+    <div class="editor-tooltip" data-bind="visible: sectionExpanded()">
+        <div class="editor-tooltip-close-btn" data-bind="click: createSectionTooltip.hide.bind(createSectionTooltip)"></div>
+        <div class="editor-tooltip-body">
+            <div class="editor-tooltip-image"></div>
+            <div class="editor-tooltip-text" data-bind="localize: { text: 'createSectionInfoTooltip' }"></div>
+        </div>
+    </div>
+    <!-- /ko -->
+</section>

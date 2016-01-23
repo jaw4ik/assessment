@@ -36,5 +36,9 @@
     "[tracking and tracing result success]": "Réussi avec succès",
     "[tracking and tracing result failed]": "Pas réussi",
     "[tracking and tracing mastery score hint]": "Minimum de points pour réussir",
-    "[tracking and tracing reporting progress]": "Enregistrer les progrès…"
+    "[tracking and tracing reporting progress]": "Enregistrer les progrès…",
+    "[type your answer here]": "Saisissez votre réponse ici...",
+    "[tracking and tracing error hint without continue]": "Redémarrez le cours. Contactez votre prestataire de cours si le problème persiste.",
+    "[attempts note limit acceeded]": "Vous avez dépassé le nombre de tentatives autorisé",
+    "[attempts remaining]": "Tentatives restantes :"
 }

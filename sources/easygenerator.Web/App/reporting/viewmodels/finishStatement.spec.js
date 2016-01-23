@@ -2,30 +2,28 @@
 import FinishStatement from 'reporting/viewmodels/finishStatement';
 import ExpandableStatement from 'reporting/viewmodels/expandableStatement';
 import ObjectiveStatement from 'reporting/viewmodels/objectiveStatement';
-import xApiProvider from 'reporting/xApiProvider';
+import XApiProvider from 'reporting/xApiProvider';
 import constants from 'constants';
 import localizationManager from 'localization/localizationManager';
 
 describe('viewmodel [FinishStatement]', () => {
     var lrsStatement,
-	    statement,
-	    attemptId,
-		statementId,
+        statement,
+        attemptId,
+        statementId,
         masteredStatements = [
             {
                 score: 50
             }, {
                 score: 100
             }
-        ],
-        startedStatement = [{}];
+        ];
 
     beforeEach(() => {
         attemptId = 'attemptId';
         statementId = 'statementId';
         lrsStatement = { attemptId: attemptId, id: statementId, score: 50, actor: { name: 'name', email: 'email' } };
-        spyOn(xApiProvider, 'getMasteredStatements').and.returnValue(Promise.resolve(masteredStatements));
-        spyOn(xApiProvider, 'getStartedStatement').and.returnValue(Promise.resolve(startedStatement));
+        spyOn(XApiProvider, 'getMasteredStatements').and.returnValue(Promise.resolve(masteredStatements));
         spyOn(localizationManager, 'localize').and.callFake(function(localizationKey) {
             if (localizationKey === 'reportingInfoNotAvailable') {
                 return "N/A";
@@ -65,6 +63,37 @@ describe('viewmodel [FinishStatement]', () => {
             statement = new FinishStatement(lrsStatement);
             expect(statement.passed).toBeFalsy();
         });
+
+        it('should set startedLrsStatement', () => {
+            var started = { id: 1 };
+            statement = new FinishStatement(lrsStatement, started);
+            expect(statement.startedLrsStatement).toBe(started);
+        });
+
+        describe('when masteredStatements is defined', () => {
+
+            describe('and equals null', () => {
+
+                it('should set children to null', () => {
+                    var started = { id: 1 };
+                    statement = new FinishStatement(lrsStatement, started, null);
+                    expect(statement.children).toBeNull();
+                });
+                
+            });
+
+            describe('and not equals null', () => {
+
+                it('should set children to masteredStatements', () => {
+                    var started = { id: 1 };
+                    var mastered = [{ id: 1 }, { id: 2 }];
+                    statement = new FinishStatement(lrsStatement, started, mastered);
+                    expect(statement.children()).toBe(mastered);
+                });
+                
+            });
+
+        });
     });
 
     describe('[expandLoadAction]', () => {
@@ -73,36 +102,22 @@ describe('viewmodel [FinishStatement]', () => {
             expect(statement.expandLoadAction()).toBePromise();
         });
 
-        it('should call xApiProvider.getMasteredStatements with correct args', () => {
+        it('should call XApiProvider.getMasteredStatements with correct args', () => {
             statement.expandLoadAction();
-            expect(xApiProvider.getMasteredStatements).toHaveBeenCalledWith(attemptId);
+            expect(XApiProvider.getMasteredStatements).toHaveBeenCalledWith(attemptId);
         });
 
-        describe('when xApiProvider.getMasteredStatements call was success', () => {
+        describe('when XApiProvider.getMasteredStatements call was success', () => {
 
-            it('should call xApiProvider.getStartedStatement with correct args', done => co(function*() {
+            it('should fill children collection with ObjectiveStatement instances', done => co(function*() {
                 yield statement.expandLoadAction();
-                expect(xApiProvider.getStartedStatement).toHaveBeenCalledWith(attemptId);
+                expect(statement.children().length).toBe(2);
+                expect(statement.children()[0]).toBeInstanceOf(ObjectiveStatement);
+                expect(statement.children()[1]).toBeInstanceOf(ObjectiveStatement);
+                expect(statement.children()[0].lrsStatement).toBe(masteredStatements[0]);
+                expect(statement.children()[1].lrsStatement).toBe(masteredStatements[1]);
             }).then(done));
 
-
-                describe('and xApiProvider.getStartedStatement call was sucess', () => {
-
-                    it('should fill children collection with ObjectiveStatement instances', done => co(function*() {
-                        yield statement.expandLoadAction();
-                        expect(statement.children().length).toBe(2);
-                        expect(statement.children()[0]).toBeInstanceOf(ObjectiveStatement);
-                        expect(statement.children()[1]).toBeInstanceOf(ObjectiveStatement);
-                        expect(statement.children()[0].lrsStatement).toBe(masteredStatements[0]);
-                        expect(statement.children()[1].lrsStatement).toBe(masteredStatements[1]);
-                    }).then(done));
-
-                        it('should set startedLrsStatement to started statement', done => co(function*() {
-                            yield statement.expandLoadAction();
-                            expect(statement.startedLrsStatement).toBe(startedStatement[0]);
-                        }).then(done));
-
-                        });
-                    });
-                });
-            });
+        });
+    });
+});

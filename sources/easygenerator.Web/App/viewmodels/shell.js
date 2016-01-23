@@ -1,128 +1,145 @@
 ﻿define(['durandal/app', 'plugins/router', 'routing/isViewReadyMixin', 'dataContext', 'userContext', 'eventTracker', 'clientContext', 'localization/localizationManager', 'uiLocker', 'plugins/dialog',
-   'notify', 'constants', 'viewmodels/panels/leftSideBarManager', 'plugins/widget', 'dialogs/course/createCourse/createCourse', 'dialogs/releaseNotes/releaseNotes'],
-   function (app, router, isViewReady, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, dialog, notify,
-       constants, leftSideBarManager, widget, createCourseDialog, releaseNotesDialog) {
+    'notify', 'constants', 'viewmodels/panels/leftSideBarManager', 'plugins/widget', 'dialogs/course/createCourse/createCourse', 'dialogs/releaseNotes/releaseNotes', 'http/apiHttpWrapper',
+'editor/dialogs/editorFeedback/editorFeedback'],
+    function (app, router, isViewReady, dataContext, userContext, eventTracker, clientContext, localizationManager, uiLocker, dialog, notify,
+        constants, leftSideBarManager, widget, createCourseDialog, releaseNotesDialog, httpWrapper, editorFeedbackDialog) {
 
-       "use strict";
+        "use strict";
 
-       var events = {
-           navigateToLearningPaths: 'Navigate to learning paths',
-           navigateToCourses: "Navigate to courses",
-           navigateToMyMaterials: "Navigate to my materials"
-       };
+        var events = {
+            navigateToLearningPaths: 'Navigate to learning paths',
+            navigateToCourses: "Navigate to courses",
+            navigateToMyMaterials: "Navigate to my materials",
+            switchToTheNewCourseEditor: "Switch to the new course editor",
+            switchToTheOldCourseEditor: "Switch to the old course editor"
+        };
 
-       var requestsCounter = ko.observable(0);
-       var isFirstVisitPage = true;
+        var requestsCounter = ko.observable(0);
+        var isFirstVisitPage = true;
 
-       var viewModel = {
-           activate: activate,
-           router: router,
-           homeModuleName: 'courses',
-           showNavigation: showNavigation,
+        var viewModel = {
+            activate: activate,
+            router: router,
+            homeModuleName: 'courses',
+            showNavigation: showNavigation,
+            showUpgradeNowLink: ko.observable(true),
 
-           navigation: ko.observableArray([]),
-           courseDeleted: courseDeleted,
-           objectivesUnrelated: objectivesUnrelated,
-           questionsDeleted: questionsDeleted,
-           courseCollaborationFinished: courseCollaborationFinished,
-           openUpgradePlanUrl: openUpgradePlanUrl,
-           leftSideBarManager: leftSideBarManager,
-           createCourseCallback: createCourseCallback
-       };
+            navigation: ko.observableArray([]),
 
-       viewModel.activeModuleName = ko.computed(function () {
-           var activeItem = router.activeItem();
-           if (_.isObject(activeItem)) {
-               var moduleId = activeItem.__moduleId__;
-               moduleId = moduleId.slice(moduleId.lastIndexOf('/') + 1);
-               return moduleId;
-           }
-           return '';
-       });
+            switchEditorMessageVisible: ko.observable(true),
+            newEditor: ko.observable(false),
+            switchEditor: switchEditor,
+            closeSwitchEditorMessage: closeSwitchEditorMessage,
 
-       app.on('apiHttpWrapper:post-begin').then(function () {
-           requestsCounter(requestsCounter() + 1);
-       });
+            courseDeleted: courseDeleted,
+            objectivesUnrelated: objectivesUnrelated,
+            questionsDeleted: questionsDeleted,
+            courseCollaborationFinished: courseCollaborationFinished,
+            openUpgradePlanUrl: openUpgradePlanUrl,
+            leftSideBarManager: leftSideBarManager,
+            createCourseCallback: createCourseCallback
+        };
 
-       app.on('authHttpWrapper:post-begin').then(function () {
-           requestsCounter(requestsCounter() + 1);
-       });
+        viewModel.activeModuleName = ko.computed(function () {
+            var activeItem = router.activeItem();
+            if (_.isObject(activeItem)) {
+                var moduleId = activeItem.__moduleId__;
+                moduleId = moduleId.slice(moduleId.lastIndexOf('/') + 1);
+                return moduleId;
+            }
+            return '';
+        });
 
-       app.on('storageHttpWrapper:post-begin').then(function () {
-           requestsCounter(requestsCounter() + 1);
-       });
+        app.on('apiHttpWrapper:post-begin').then(function () {
+            requestsCounter(requestsCounter() + 1);
+        });
 
-       app.on('storageHttpWrapper:get-begin').then(function () {
-           requestsCounter(requestsCounter() + 1);
-       });
+        app.on('authHttpWrapper:post-begin').then(function () {
+            requestsCounter(requestsCounter() + 1);
+        });
 
-       app.on('apiHttpWrapper:post-end').then(function () {
-           requestsCounter(requestsCounter() - 1);
-       });
+        app.on('storageHttpWrapper:post-begin').then(function () {
+            requestsCounter(requestsCounter() + 1);
+        });
 
-       app.on('authHttpWrapper:post-end').then(function () {
-           requestsCounter(requestsCounter() - 1);
-       });
+        app.on('storageHttpWrapper:get-begin').then(function () {
+            requestsCounter(requestsCounter() + 1);
+        });
 
-       app.on('storageHttpWrapper:post-end').then(function () {
-           requestsCounter(requestsCounter() - 1);
-       });
+        app.on('apiHttpWrapper:post-end').then(function () {
+            requestsCounter(requestsCounter() - 1);
+        });
 
-       app.on('storageHttpWrapper:get-end').then(function () {
-           requestsCounter(requestsCounter() - 1);
-       });
+        app.on('authHttpWrapper:post-end').then(function () {
+            requestsCounter(requestsCounter() - 1);
+        });
 
-       app.on(constants.messages.course.deletedByCollaborator, viewModel.courseDeleted);
-       app.on(constants.messages.course.collaboration.finished, viewModel.courseCollaborationFinished);
-       app.on(constants.messages.course.objectivesUnrelatedByCollaborator, viewModel.objectivesUnrelated);
-       app.on(constants.messages.question.deletedByCollaborator, viewModel.questionsDeleted);
+        app.on('storageHttpWrapper:post-end').then(function () {
+            requestsCounter(requestsCounter() - 1);
+        });
 
-       return viewModel;
+        app.on('storageHttpWrapper:get-end').then(function () {
+            requestsCounter(requestsCounter() - 1);
+        });
 
-       function showNavigation() {
-           return _.contains(['404'], this.activeModuleName());
-       }
+        app.on(constants.messages.course.deletedByCollaborator, viewModel.courseDeleted);
+        app.on(constants.messages.course.collaboration.finished, viewModel.courseCollaborationFinished);
+        app.on(constants.messages.course.objectivesUnrelatedByCollaborator, viewModel.objectivesUnrelated);
+        app.on(constants.messages.question.deletedByCollaborator, viewModel.questionsDeleted);
+        app.on(constants.messages.user.planChanged, checkUpgradeNowVisibility);
 
-       function openUpgradePlanUrl() {
-           eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.header);
-           router.openUrl(constants.upgradeUrl);
-       }
+        return viewModel;
 
-       function createCourseCallback(course) {
-           router.navigate('courses/' + course.id);
-       }
+        function checkUpgradeNowVisibility() {
+            viewModel.showUpgradeNowLink(userContext.hasFreeAccess() || userContext.hasTrialAccess());
+        }
 
-       function activate() {
-           return dataContext.initialize()
-               .then(function () {
-                   router.guardRoute = function (routeInfo) {
-                       if (isFirstVisitPage && routeInfo.__moduleId__ == "viewmodels/errors/404") {
-                           return 'courses';
-                       }
+        function showNavigation() {
+            return _.contains(['404'], this.activeModuleName());
+        }
 
-                       if (requestsCounter() == 0) {
-                           return true;
-                       }
+        function openUpgradePlanUrl() {
+            eventTracker.publish(constants.upgradeEvent, constants.upgradeCategory.header);
+            router.openUrl(constants.upgradeUrl);
+        }
 
-                       var defer = Q.defer();
-                       uiLocker.lock();
-                       checkRequestCounter(defer);
+        function createCourseCallback(course) {
+            router.navigate('courses/' + course.id);
+        }
 
-                       return defer.promise;
+        function activate() {
+            checkUpgradeNowVisibility();
 
-                       function checkRequestCounter(defer) {
-                           if (requestsCounter() > 0) {
-                               setTimeout(function () {
-                                   checkRequestCounter(defer);
-                               }, 100);
-                           } else {
-                               defer.resolve(true);
-                               uiLocker.unlock();
-                           }
-                       }
-                   };
+            return dataContext.initialize()
+                .then(function () {
+                    router.guardRoute = function (routeInfo) {
+                        if (isFirstVisitPage && routeInfo.__moduleId__ == "viewmodels/errors/404") {
+                            return 'courses';
+                        }
 
-                   leftSideBarManager.initialize();
+                        if (requestsCounter() == 0) {
+                            return true;
+                        }
+
+                        var defer = Q.defer();
+                        uiLocker.lock();
+                        checkRequestCounter(defer);
+
+                        return defer.promise;
+
+                        function checkRequestCounter(defer) {
+                            if (requestsCounter() > 0) {
+                                setTimeout(function () {
+                                    checkRequestCounter(defer);
+                                }, 100);
+                            } else {
+                                defer.resolve(true);
+                                uiLocker.unlock();
+                            }
+                        }
+                    };
+
+                    leftSideBarManager.initialize();
 
                     router.on('router:navigation:processing').then(function () {
                         _.each(CKEDITOR.instances, function (instance) {
@@ -132,127 +149,170 @@
                             }
                         });
                     });
-                   router.on('router:navigation:composition-complete').then(function () {
-                       clientContext.set(hex_md5(userContext.identity.email), { hash: window.location.hash });
-                   });
+                    router.on('router:navigation:composition-complete').then(function () {
+                        clientContext.set(hex_md5(userContext.identity.email), { hash: window.location.hash });
+                    });
 
-                   router.on('router:navigation:processing').then(function () {
-                       _.each(CKEDITOR.instances, function (instance) {
-                           instance.destroy(true);
-                       });
-                   });
+                    router.on('router:route:activating').then(function (instance, instruction) {
+                        var editorStateKey = userContext.identity.email + (userContext.identity.newEditor ? constants.newCourseEditor.switchToOldEditorMessageClosed : constants.newCourseEditor.switchToNewEditorMessageClosed);
+                        viewModel.switchEditorMessageVisible(!clientContext.get(editorStateKey) && constants.patterns.coursePage.test(instruction.fragment));
+                    });
 
-                   router.on('router:navigation:composition-complete').then(function () {
-                       clientContext.set(hex_md5(userContext.identity.email), { hash: window.location.hash });
-                   });
+                    router.on('router:navigation:composition-complete').then(function () {
+                        clientContext.set(hex_md5(userContext.identity.email), { hash: window.location.hash });
+                    });
+                    router.on('router:navigation:processing').then(function () {
+                        _.each(CKEDITOR.instances, function (instance) {
+                            instance.destroy(true);
+                        });
+                    });
 
-                   clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
-                   clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
+                    router.on('router:navigation:composition-complete').then(function () {
+                        clientContext.set(hex_md5(userContext.identity.email), { hash: window.location.hash });
+                    });
 
-                   var compositionComplete = router.on('router:navigation:composition-complete').then(function () {
-                       isFirstVisitPage = false;
-                       compositionComplete.off();
-                   });
+                    clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
+                    clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
 
-                   router.setDefaultLocationHash(clientContext.get(hex_md5(userContext.identity.email)));
+                    var compositionComplete = router.on('router:navigation:composition-complete').then(function () {
+                        isFirstVisitPage = false;
+                        compositionComplete.off();
+                    });
 
-                   router.map([
-                       {
-                           route: ['', 'courses*details'],
-                           moduleId: 'viewmodels/courses/index',
-                           title: localizationManager.localize('courses'),
-                           hash: '#courses',
-                           nav: true,
-                           navigate: function () {
-                               eventTracker.publish(events.navigateToCourses);
-                               clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
-                               router.navigate(this.hash);
-                           }
-                       },
-                       {
+                    if (_.isObject(userContext.identity)) {
+                        router.setDefaultLocationHash(clientContext.get(hex_md5(userContext.identity.email)));
+                        viewModel.newEditor(userContext.identity.newEditor);
+                    }
 
-                           route: 'learningpaths*details',
-                           moduleId: 'viewmodels/learningPaths/index',
-                           title: localizationManager.localize('learningPaths'),
-                           hash: '#learningpaths',
-                           nav: true,
-                           isInBetaPhase: true,
-                           navigate: function () {
-                               eventTracker.publish(events.navigateToLearningPaths);
-                               clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
-                               clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
-                               router.navigate(this.hash);
-                           }
-                       },
-                       {
-                           route: 'library*details',
-                           moduleId: 'viewmodels/library/index',
-                           title: localizationManager.localize('materials'),
-                           hash: '#library',
-                           nav: true,
-                           navigate: function () {
-                               eventTracker.publish(events.navigateToMyMaterials);
-                               clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
-                               router.navigate(this.hash);
-                           }
-                       },
-                       {
-                           route: '404',
-                           moduleId: 'viewmodels/errors/404',
-                           title: '404 Not Found'
-                       }
-                   ]);
+                    router.setDefaultLocationHash(clientContext.get(hex_md5(userContext.identity.email)));
 
-                   isViewReady.assign(router);
+                    router.map([
+                        {
+                            route: ['', 'courses*details'],
+                            moduleId: 'viewmodels/courses/index',
+                            title: localizationManager.localize('courses'),
+                            hash: '#courses',
+                            nav: true,
+                            navigate: function () {
+                                eventTracker.publish(events.navigateToCourses);
+                                clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
+                                router.navigate(this.hash);
+                            }
+                        },
+                        {
 
-                   viewModel.router.isViewReady.subscribe(function (value) {
-                       if (value) {
-                           if (userContext.identity.showReleaseNote) {
-                               releaseNotesDialog.show(showCreateCoursePopup);
-                           } else {
-                               showCreateCoursePopup();
-                           }
-                       }
-                   });
+                            route: 'learningpaths*details',
+                            moduleId: 'viewmodels/learningPaths/index',
+                            title: localizationManager.localize('learningPaths'),
+                            hash: '#learningpaths',
+                            nav: true,
+                            isInBetaPhase: true,
+                            navigate: function () {
+                                eventTracker.publish(events.navigateToLearningPaths);
+                                clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
+                                clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
+                                router.navigate(this.hash);
+                            }
+                        },
+                        {
+                            route: 'library*details',
+                            moduleId: 'viewmodels/library/index',
+                            title: localizationManager.localize('materials'),
+                            hash: '#library',
+                            nav: true,
+                            navigate: function () {
+                                eventTracker.publish(events.navigateToMyMaterials);
+                                clientContext.set(constants.clientContextKeys.lastVistedCourse, null);
+                                router.navigate(this.hash);
+                            }
+                        },
+                        {
+                            route: '404',
+                            moduleId: 'viewmodels/errors/404',
+                            title: '404 Not Found'
+                        }
+                    ]);
 
-                   function showCreateCoursePopup() {
-                       if (!_.isNullOrUndefined(clientContext.get(constants.clientContextKeys.showCreateCoursePopup))) {
-                           createCourseDialog.show(viewModel.createCourseCallback);
-                       }
-                   }
+                    isViewReady.assign(router);
 
-                   return router.buildNavigationModel()
-                       .mapUnknownRoutes('viewmodels/errors/404', '404')
-                       .activate(viewModel.homeModuleName);
-               });
-       }
+                    viewModel.router.isViewReady.subscribe(function (value) {
+                        if (value) {
+                            if (userContext.identity.showReleaseNote) {
+                                releaseNotesDialog.show(showCreateCoursePopup);
+                            } else {
+                                showCreateCoursePopup();
+                            }
+                        }
+                    });
 
-       function courseDeleted(courseId) {
-           if (router.routeData().courseId != courseId)
-               return;
+                    function showCreateCoursePopup() {
+                        if (!_.isNullOrUndefined(clientContext.get(constants.clientContextKeys.showCreateCoursePopup))) {
+                            createCourseDialog.show(viewModel.createCourseCallback);
+                        }
+                    }
 
-           notify.error(localizationManager.localize('courseHasBeenDeletedByTheOwner'));
-       }
+                    return router.buildNavigationModel()
+                        .mapUnknownRoutes('viewmodels/errors/404', '404')
+                        .activate(viewModel.homeModuleName);
+                });
+        }
 
-       function objectivesUnrelated(courseId, deletedObjectiveIds) {
-           if (_.isNullOrUndefined(router.routeData().courseId) || _.isNullOrUndefined(router.routeData().objectiveId) || !_.contains(deletedObjectiveIds, router.routeData().objectiveId))
-               return;
+        function courseDeleted(courseId) {
+            if (router.routeData().courseId != courseId)
+                return;
 
-           notify.error(localizationManager.localize('learningObjectiveHasBeenDisconnectedByCollaborator'));
-       }
+            notify.error(localizationManager.localize('courseHasBeenDeletedByTheOwner'));
+        }
 
-       function questionsDeleted(objId, deletedQuestionIds) {
-           if (_.isNullOrUndefined(router.routeData().courseId) || _.isNullOrUndefined(router.routeData().questionId) || !_.contains(deletedQuestionIds, router.routeData().questionId))
-               return;
+        function objectivesUnrelated(courseId, deletedObjectiveIds) {
+            if (_.isNullOrUndefined(router.routeData().courseId) || _.isNullOrUndefined(router.routeData().objectiveId) || !_.contains(deletedObjectiveIds, router.routeData().objectiveId))
+                return;
 
-           notify.error(localizationManager.localize('questionHasBeenDeletedByCollaborator'));
-       }
+            notify.error(localizationManager.localize('learningObjectiveHasBeenDisconnectedByCollaborator'));
+        }
 
-       function courseCollaborationFinished(courseId) {
-           if (router.routeData().courseId != courseId)
-               return;
+        function questionsDeleted(objId, deletedQuestionIds) {
+            if (_.isNullOrUndefined(router.routeData().courseId) || _.isNullOrUndefined(router.routeData().questionId) || !_.contains(deletedQuestionIds, router.routeData().questionId))
+                return;
 
-           notify.error(localizationManager.localize('courseIsNotAvailableAnyMore'));
-       }
-   }
+            notify.error(localizationManager.localize('questionHasBeenDeletedByCollaborator'));
+        }
+
+        function courseCollaborationFinished(courseId) {
+            if (router.routeData().courseId != courseId)
+                return;
+
+            notify.error(localizationManager.localize('courseIsNotAvailableAnyMore'));
+        }
+
+        function switchEditor() {
+            if (viewModel.newEditor()) {
+                eventTracker.publish(events.switchToTheOldCourseEditor);
+                editorFeedbackDialog.show(doSwitchEditor);
+            } else {
+                eventTracker.publish(events.switchToTheNewCourseEditor);
+                doSwitchEditor();
+            }
+        }
+
+        function doSwitchEditor() {
+            return httpWrapper.post('api/user/switcheditor').then(function () {
+                var locationHash = router.getLocationHash();
+                if (constants.patterns.coursePage.test(locationHash)) {
+                    var hash = 'courses/',
+                        pageHash = constants.patterns.coursePage.exec(locationHash)[0];
+                    if (pageHash) {
+                        hash += pageHash.substring(hash.length);
+                    }
+                    router.setLocationHash(hash);
+                }
+                router.reloadLocation();
+            });
+        }
+
+        function closeSwitchEditorMessage() {
+            clientContext.set(userContext.identity.email + (viewModel.newEditor() ? constants.newCourseEditor.switchToOldEditorMessageClosed : constants.newCourseEditor.switchToNewEditorMessageClosed), true);
+            viewModel.switchEditorMessageVisible(false);
+        }
+    }
 );

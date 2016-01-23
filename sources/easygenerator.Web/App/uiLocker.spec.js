@@ -1,41 +1,36 @@
-﻿define(['uiLocker', 'widgets/uiLockViewer/viewmodel'], function (uiLocker, uiLockViewer) {
+﻿import uiLocker from 'uiLocker';
+import uiLockViewer from 'widgets/uiLockViewer/viewmodel';
 
-    "use strict";
+describe('[uiLocker]', () => {
 
-    describe('[uiLocker]', function() {
+    it('should be class', () => {
+        expect(uiLocker).toBeFunction();
+    });
 
-        it('should be defined', function() {
-            expect(uiLocker).toBeDefined();
+    describe('lock:', () => {
+
+        it('should be function', function() {
+            expect(uiLocker.lock).toBeFunction();
         });
 
-        describe('lock:', function() {
-
-            it('should be function', function() {
-                expect(uiLocker.lock).toBeFunction();
-            });
-
-            it('should lock ui', function() {
-                spyOn(uiLockViewer, 'lock');
-                uiLocker.lock();
-                expect(uiLockViewer.lock).toHaveBeenCalled();
-            });
-
+        it('should lock UI', () => {
+            spyOn(uiLockViewer, 'lock');
+            uiLocker.lock();
+            expect(uiLockViewer.lock).toHaveBeenCalled();
         });
-        
-        describe('unlock:', function () {
+    });
 
-            it('should be function', function () {
-                expect(uiLocker.unlock).toBeFunction();
-            });
+    describe('unlock:', () => {
 
-            it('should unlock ui', function () {
-                spyOn(uiLockViewer, 'unlock');
-                uiLocker.unlock();
-                expect(uiLockViewer.unlock).toHaveBeenCalled();
-            });
+        it('should be function', () => {
+            expect(uiLocker.unlock).toBeFunction();
+        });
 
+        it('should unlock ui', () => {
+            spyOn(uiLockViewer, 'unlock');
+            uiLocker.unlock();
+            expect(uiLockViewer.unlock).toHaveBeenCalled();
         });
 
     });
-
 });

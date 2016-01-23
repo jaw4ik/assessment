@@ -73,17 +73,17 @@ namespace easygenerator.Web.Tests.BuildLearningPath
 
         #endregion
 
-        #region GetCourseDirectoryName
+        #region GetEntityDirectoryName
 
         [TestMethod]
-        public void GetCourseDirectoryName_ShouldReturnCourseDirectory()
+        public void GetEntityDirectoryName_ShouldReturnEntityDirectory()
         {
             //Arrange
             var buildDirectoryPath = "buildDirectory";
             var courseId = "courseId";
 
             //Act
-            var result = _contentPathProvider.GetCourseDirectoryName(buildDirectoryPath, courseId);
+            var result = _contentPathProvider.GetEntityDirectoryName(buildDirectoryPath, courseId);
 
             //Assert
             result.Should().Be("buildDirectory\\data\\courseId");
@@ -91,16 +91,16 @@ namespace easygenerator.Web.Tests.BuildLearningPath
 
         #endregion
 
-        #region GetCourseLink
+        #region GetEntityLink
 
         [TestMethod]
-        public void GetCourseLink_ShouldReturnLinkToCourse()
+        public void GetEntityLink_ShouldReturnLinkToEntity()
         {
             //Arrange
             var courseId = "courseId";
 
             //Act
-            var result = _contentPathProvider.GetCourseLink(courseId);
+            var result = _contentPathProvider.GetEntityLink(courseId);
 
             //Assert
             result.Should().Be("data/courseId");

@@ -7,6 +7,7 @@ namespace easygenerator.DomainModel
     public interface IEntityFactory
     {
         Objective Objective(string title, string createdBy);
+        Document Document(string title, string embedCode, DocumentType documentType, string createdBy);
         Course Course(string title, Template template, string createdBy);
         SingleSelectText SingleSelectTextQuestion(string title, string createdBy);
         SingleSelectText SingleSelectTextQuestion(string title, string createdBy, Answer correctAnswer, Answer incorrectAnswer);
@@ -35,7 +36,7 @@ namespace easygenerator.DomainModel
         LearningContent LearningContent(string text, string createdBy);
         User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, string lastReadReleaseNote);
         User User(string email, string password, string firstname, string lastname, string phone, string country,
-            string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, DateTime expirationDate, Company company);
+            string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, DateTime expirationDate, Company company, bool? newEditor = false);
         PasswordRecoveryTicket PasswordRecoveryTicket(User user);
         ImageFile ImageFile(string title, string createdBy);
         InformationContent InformationContent(string title, string createdBy);
@@ -52,6 +53,11 @@ namespace easygenerator.DomainModel
         public Objective Objective(string title, string createdBy)
         {
             return new Objective(title, createdBy);
+        }
+
+        public Document Document(string title, string embedCode, DocumentType documentType, string createdBy)
+        {
+            return new Document(title, embedCode, documentType, createdBy);
         }
 
         public Course Course(string title, Template template, string createdBy)
@@ -144,9 +150,9 @@ namespace easygenerator.DomainModel
             return new User(email, password, firstname, lastname, phone, country, role, createdBy, AccessType.Trial, lastReadReleaseNote);
         }
 
-        public User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, DateTime expirationDate, Company company)
+        public User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, DateTime expirationDate, Company company, bool? newEditor)
         {
-            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessPlan, lastReadReleaseNote, expirationDate, company);
+            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessPlan, lastReadReleaseNote, expirationDate, company, newEditor);
         }
 
         public PasswordRecoveryTicket PasswordRecoveryTicket(User user)

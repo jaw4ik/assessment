@@ -4,21 +4,25 @@
 
         var viewModel = {
             username: null,
-            hasStarterAccess: ko.observable(false),
-            userPlanChanged: userPlanChanged,
-            activate: activate,
+            useremail: null,
             avatarLetter: null,
+
+            isFreeUser: ko.observable(false),
+            userPlanChanged: userPlanChanged,
             openUpgradePlanUrl: openUpgradePlanUrl,
-            signOut: signOut
+
+            signOut: signOut,
+            newEditor: ko.observable(false),
+            switchEditor: function () { },
+
+            activate: activate
         };
 
         return viewModel;
 
-        function activate() {
-            viewModel.hasStarterAccess(userContext.hasStarterAccess());
-            app.on(constants.messages.user.downgraded, userPlanChanged);
-            app.on(constants.messages.user.upgradedToStarter, userPlanChanged);
-            app.on(constants.messages.user.upgradedToPlus, userPlanChanged);
+        function activate(data) {
+            viewModel.isFreeUser(userContext.hasFreeAccess() || userContext.hasTrialAccess());
+            app.on(constants.messages.user.planChanged, userPlanChanged);
 
             if (_.isObject(userContext.identity)) {
                 viewModel.username = _.isEmptyOrWhitespace(userContext.identity.fullname)
@@ -26,11 +30,19 @@
                     : userContext.identity.fullname;
 
                 viewModel.avatarLetter = viewModel.username.charAt(0);
+                viewModel.useremail = userContext.identity.email;
+            }
+
+            if (data) {
+                viewModel.newEditor(data.newEditor);
+                if (_.isFunction(data.switchEditor)) {
+                    viewModel.switchEditor = data.switchEditor;
+                }
             }
         }
 
         function userPlanChanged() {
-            viewModel.hasStarterAccess(userContext.hasStarterAccess());
+            viewModel.isFreeUser(userContext.hasFreeAccess() || userContext.hasTrialAccess());
         }
 
         function openUpgradePlanUrl() {

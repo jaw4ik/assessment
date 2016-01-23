@@ -5,6 +5,7 @@
         guard.throwIfNotAnObject(userContext.identity, "User identity is not an object");
         userContext.identity.upgradeToAcademy(expirationDate);
         app.trigger(constants.messages.user.upgradedToAcademy);
+        app.trigger(constants.messages.user.planChanged);
     }
 
 });

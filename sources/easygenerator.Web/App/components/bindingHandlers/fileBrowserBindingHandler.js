@@ -5,7 +5,8 @@
             var value = valueAccessor();
 
             var browse = new Browse();
-            browse.on('selected', value.callback).accept('audio/*');
+            browse.on('selected', value.callback)
+                .accept(value.accept || 'audio/*');                
 
             $(element).on('click', function () {
                 if (_.isFunction(value.click)) {

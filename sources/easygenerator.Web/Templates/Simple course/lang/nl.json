@@ -1,6 +1,7 @@
 {
     "[course]": "Cursus:",
     "[start course]": "Start cursus",
+    "[finish course]": "Stop cursus",
     "[cancel]": "Annuleer",
     "[finish course popup title]": "Nog 1 stap en u heeft de cursus beëindigd",
     "[finish course popup explanation title]": "Merk op dat:",
@@ -64,5 +65,11 @@
     "[scenario has not been finished yet]": "Het scenario is nog niet klaar. Maak het af en dien het in.",
     "[download course in pdf format]": "Download de cursus in PDF formaat",
     "[scenario has been passed successfully]": "Het scenario is succesvol voltooid",
-    "[scenario has not been passed successfully]": "U heeft het scenario niet succesvol voltooid"
+    "[scenario has not been passed successfully]": "U heeft het scenario niet succesvol voltooid",
+    "[download as pdf]": "Downlaod als PDF",
+    "[download as pdf preparing]": "Voorbereiden...",
+    "[download as pdf error]": "Er is iets misgegaan",
+    "[Save, I will continue later]": "Bewaar en ga later verder",
+    "[save and exit]": "Bewaar en sluit af",
+    "[I'm done, report my progress]": "Ik ben klaar rapporteer mijn resultaat"
 }

@@ -5,5 +5,6 @@
         guard.throwIfNotAnObject(userContext.identity, "User identity is not an object");
         userContext.identity.downgrade();
         app.trigger(constants.messages.user.downgraded);
+        app.trigger(constants.messages.user.planChanged);
     };
 });

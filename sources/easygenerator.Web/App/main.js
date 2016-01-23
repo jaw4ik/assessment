@@ -8,6 +8,7 @@ import synchronization from 'synchronization/listener';
 import onboarding from 'onboarding/initialization';
 import audio from 'audio/index';
 import localizationManager from 'localization/localizationManager';
+import fonts from './fonts';
 
 // hook for system.js support
 viewEngine.convertViewIdToRequirePath = function (viewId) {
@@ -54,8 +55,9 @@ ltiAuthDefer.then(function () {
             $('html').attr('lang', localizationManager.language);
 
             bootstrapper.run();
-                    
+
             return Q.all([
+                fonts.load(['Open Sans', 'Droid Sans Mono']),
                 userContext.identify(),
                 userContext.identifyStoragePermissions(),
                 synchronization.start(),

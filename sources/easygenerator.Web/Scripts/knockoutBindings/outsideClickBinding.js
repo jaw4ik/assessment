@@ -1,12 +1,20 @@
 ﻿ko.bindingHandlers.outsideClick = {
     init: function (element, valueAccessor) {
         var $element = $(element),
-            action = valueAccessor().action;
+            action = valueAccessor().action,
+            debounce = valueAccessor().debounce;
 
-        var clickHandler = function() {
+        var clickHandler = function () {
             action();
         };
-        $('html').bind('click', clickHandler);
+
+        if (debounce) {
+            $('html').one('click', function () {
+                $('html').bind('click', clickHandler);
+            });
+        } else {
+            $('html').bind('click', clickHandler);
+        }
 
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
             $('html').unbind('click', clickHandler);

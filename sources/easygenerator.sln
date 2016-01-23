@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.Web", "easygenerator.Web\easygenerator.Web.csproj", "{3157004F-564B-4C11-95B5-799C6B2106C3}"
 EndProject
@@ -44,6 +44,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.StorageServer", "easygenerator.StorageServer\easygenerator.StorageServer.csproj", "{45AF38E6-43F5-4A4E-8F6D-16428A64926C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.StorageServer.Tests", "easygenerator.StorageServer.Tests\easygenerator.StorageServer.Tests.csproj", "{7B1FA47F-9B67-41EC-92D0-29E19B68A844}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.PdfConverter", "easygenerator.PdfConverter\easygenerator.PdfConverter.csproj", "{18B7BAC7-5F56-4855-9F40-6E2D821A7FBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -108,6 +110,10 @@ Global
 		{7B1FA47F-9B67-41EC-92D0-29E19B68A844}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B1FA47F-9B67-41EC-92D0-29E19B68A844}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B1FA47F-9B67-41EC-92D0-29E19B68A844}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18B7BAC7-5F56-4855-9F40-6E2D821A7FBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18B7BAC7-5F56-4855-9F40-6E2D821A7FBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18B7BAC7-5F56-4855-9F40-6E2D821A7FBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18B7BAC7-5F56-4855-9F40-6E2D821A7FBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

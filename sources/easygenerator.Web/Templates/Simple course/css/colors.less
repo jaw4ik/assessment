@@ -1,0 +1,542 @@
+@text-color: #252728;
+@main-color: #43aaa3;
+@secondary-color: #2d9ec6;
+@button-text-color: #fff;
+@content-body-color: #fff;
+
+@main-font: Roboto Slab;
+
+body {
+    color: @text-color;
+    font-family: @main-font;
+}
+
+.header:before {
+    background-color: tint(@main-color,20%);
+}
+
+.button {
+    font-family: @main-font;
+
+    &.primary {
+        color: @button-text-color;
+        border-color: shade(@main-color,10%);
+        background-color: @main-color;
+
+        &:not(.disabled):hover {
+            background-color: shade(@main-color,10%);
+        }
+    }
+
+    &.default {
+        border-color: @main-color;
+        color: @main-color;
+
+        &:not(.disabled):hover {
+            color: @button-text-color;
+            background-color: @main-color;
+        }
+    }
+
+    &.link {
+        color: fade(@text-color, 60%);
+
+        &:not(.disabled):hover {
+            color: fade(@text-color, 90%);
+            border-bottom-color: @text-color;
+        }
+    }
+}
+
+.login {
+    h2 {
+        color: fade(@text-color,90%);
+    }
+
+    footer {
+        color: fade(@text-color,50%);
+    }
+
+    form {
+        .form-row {
+            input {
+                color: @text-color;
+
+                + label {
+                    color: fade(@text-color,50%);
+                }
+            }
+        }
+    }
+}
+
+.navigation-home-link {
+    background-color: tint(@main-color,20%);
+    color: @button-text-color;
+
+    &:not(.disabled):hover {
+        background-color: @main-color;
+    }
+}
+
+.question-navigation-bar {
+    a {
+        &:not(.disabled):hover {
+            &:before, &:after {
+                border-color: @main-color;
+            }
+        }
+    }
+}
+
+.learning-content {
+    .learning-content-title {
+        background-color: tint(@main-color,20%);
+        color: @button-text-color;
+    }
+}
+
+.result-block-wrapper {
+    .question-result-block {
+        &:before {
+            background-color: @main-color;
+        }
+    }
+}
+
+.content {
+    background-color: @content-body-color;
+}
+
+.mastered-score-tooltip {
+    background-color: @secondary-color;
+    color: @button-text-color;
+
+    &.mastered {
+        background-color: @main-color;
+    }
+}
+
+.styled-content {
+    color: @text-color;
+
+    a {
+        color: @secondary-color;
+    }
+
+    cite {
+        &:before, &:after {
+            color: @secondary-color;
+        }
+    }
+
+    mark {
+        background-color: @secondary-color;
+    }
+
+    u {
+        border-bottom: 1px solid @text-color;
+    }
+
+    .table-wrapper {
+        table {
+            color: @text-color;
+
+            thead {
+                th {
+                    background-color: fade(@secondary-color, 50%);
+                }
+
+                + caption {
+                    + tbody {
+                        tr {
+                            &:first-child {
+                                td, th {
+                                    background: linear-gradient(rgba(255, 255, 255, 0) 0px, rgba(255, 255, 255, 0) 2px, fade(@secondary-color, 10%) 2px, fade(@secondary-color, 10%) 100%);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                + tbody {
+                    tr {
+                        &:first-child {
+                            td, th {
+                                background: linear-gradient(rgba(255, 255, 255, 0) 0px, rgba(255, 255, 255, 0) 2px, fade(@secondary-color, 10%) 2px,fade(@secondary-color, 10%) 100%);
+                            }
+                        }
+                    }
+                }
+            }
+
+            tbody {
+                td {
+                    background-color: fade(@secondary-color, 10%);
+                }
+            }
+
+            tr {
+                + tr {
+                    td, th {
+                        background: linear-gradient(rgba(255, 255, 255, 0) 0px, rgba(255, 255, 255, 0) 2px, fade(@secondary-color, 10%) 2px, fade(@secondary-color, 10%) 100%);
+                    }
+                }
+            }
+        }
+    }
+
+    ul {
+        li {
+            &:before {
+                color: @secondary-color;
+            }
+        }
+    }
+}
+
+.radio {
+    background-color: fade(@main-color,10%);
+    color: @text-color;
+
+    &:hover {
+        background: fade(@main-color,20%);
+    }
+
+    &.checked {
+        background-color: fade(@main-color,30%);
+
+        .radio-icon {
+            background-color: @main-color;
+        }
+    }
+}
+
+.checkbox {
+    background-color: fade(@main-color,10%);
+    color: @text-color;
+
+    &:hover {
+        background: fade(@main-color,20%);
+    }
+
+    &.checked {
+        background-color: fade(@main-color,30%);
+
+        .checkbox-icon {
+            background-color: @main-color;
+        }
+    }
+}
+
+.fill-in-the-blank {
+    color: @text-color;
+
+    .blankInput {
+        color: @text-color;
+        font-family: @main-font;
+    }
+}
+
+.select-container {
+    ul {
+        background-color: @main-color;
+
+        li {
+            &:first-child {
+                &:after {
+                    background-color: @main-color;
+                }
+            }
+
+            &:hover {
+                background-color: shade(@main-color,10%);
+
+                &:first-child {
+                    &:after {
+                        background-color: shade(@main-color,10%);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.single-select-image {
+    .select-image {
+
+        .select-image-wrapper {
+            border: 3px solid tint(@main-color,20%);
+
+            &:hover {
+                border: 3px solid @main-color;
+                box-shadow: 0 0 10px 2px fade(@main-color, 75%);
+            }
+
+            button {
+                &:hover {
+                    background-color: @main-color;
+                    border-color: @main-color;
+                    color: @button-text-color;
+                }
+            }
+        }
+
+        &.checked {
+            .select-image-wrapper {
+                border: 3px solid @main-color;
+            }
+        }
+    }
+}
+
+.overlay-holder {
+    .overlay {
+        background-color: fade(@content-body-color,90%);
+    }
+}
+
+.statement {
+    .statement-item {
+        .statement-label, .statement-option, .statement-option-separator-wrapper {
+            background-color: fade(@main-color, 10%);
+        }
+
+        &:hover {
+            .statement-label, .statement-option, .statement-option-separator-wrapper {
+                background-color: fade(@main-color, 20%);
+            }
+        }
+
+        &.checked {
+            .statement-label, .statement-option, .statement-option-separator-wrapper {
+                background-color: fade(@main-color, 30%);
+
+                &:hover {
+                    background-color: fade(@main-color, 30%);
+                }
+            }
+        }
+    }
+
+    .radio-icon-wrapper {
+        .radio-icon {
+            &:hover {
+                box-shadow: 0 0 0 2px @main-color inset;
+            }
+
+            &.checked {
+                background-color: @main-color;
+            }
+        }
+    }
+}
+
+.drag-and-drop-text-draggable-container {
+    &.empty, &.active {
+        border-color: @main-color;
+        color: fade(@text-color, 70%);
+    }
+}
+
+.drag-and-drop-text-draggable-container-message {
+    color: @text-color;
+}
+
+.drag-and-drop-text-draggable {
+    background-color: @main-color;
+
+    &.ui-draggable-dragging, &:hover {
+        background-color: shade(@main-color,10%);
+    }
+}
+
+.text-matching-caption {
+    background-color: fade(@main-color,20%);
+    color: fade(@text-color,50%);
+
+    &:after {
+        background-color: fade(@main-color,20%);
+    }
+
+    &:before {
+        border-right: 5px solid fade(@main-color,20%);
+    }
+}
+
+.text-matching-source {
+    background-color: fade(@main-color,10%);
+    border: 1px solid @main-color;
+    color: @text-color;
+
+    &:after {
+        background: @content-body-color;
+        border: 2px solid @main-color;
+    }
+
+    &:before {
+        background: @content-body-color;
+    }
+}
+
+.text-matching-source-text-wrapper {
+    color: @text-color;
+}
+
+.text-matching-target {
+    background-color: @main-color;
+    color: @button-text-color;
+
+    &:before, &:after {
+        background-color: @main-color;
+    }
+
+    &.handle {
+        background-color: shade(@main-color,10%);
+
+        &:before {
+            background: shade(@main-color,10%);
+        }
+
+        &:after {
+            background: shade(@main-color,10%);
+        }
+    }
+}
+
+.text-matching-target-placeholder-text-wrapper {
+    border: 2px dashed @main-color;
+}
+
+.text-matching-target-placeholder-wrapper {
+    .text-matching-target-placeholder-text {
+        color: fade(@text-color, 70%);
+    }
+
+    &.hover {
+        .text-matching-target-placeholder-text-wrapper {
+            border: 1px solid @main-color;
+            box-shadow: 0 0 3px 2px fade(@main-color,30%);
+        }
+
+        .text-matching-target-placeholder-text {
+            color: @text-color;
+        }
+    }
+}
+
+.edit-field-wrapper {
+    .edit-field {
+        color: @text-color;
+
+        &:focus::-moz-placeholder {
+            color: fade(@text-color,50%);
+            opacity: 1;
+        }
+
+        &:focus::-webkit-input-placeholder {
+            color: fade(@text-color,50%);
+            opacity: 1;
+        }
+    }
+}
+
+.exit-course-button-wrapper {
+    .exit-course-button {
+        color: @button-text-color;
+        background-color: @main-color;
+        font-family: @main-font;
+
+        &:not(.disabled):hover {
+            background-color: shade(@main-color, 10%);
+        }
+    }
+}
+
+.popup-layout {
+    background-color: fade(@content-body-color,90%);
+
+    .popup {
+        article {
+            background-color: @content-body-color;
+        }
+
+        footer {
+            background-color: fade(@main-color, 10%);
+        }
+    }
+}
+
+.toggle-expand-container {
+    .expand-button {
+        border: 1px solid @main-color;
+
+        &:after {
+            border-color: @main-color;
+        }
+    }
+
+    &:hover {
+        .expand-button {
+            background-color: @main-color;
+
+            &:after {
+                border-color: #fff;
+            }
+        }
+    }
+}
+
+.text-404 {
+    .title-404 {
+        color: @main-color;
+    }
+}
+
+.canvas-styles {
+    border-color: @secondary-color;
+
+    &.mastered {
+        border-color: @main-color;
+    }
+}
+
+.objectives-list-item {
+
+    &:not(.disabled):hover {
+        border-color: @main-color;
+    }
+
+    .objective-info {
+        background: @content-body-color;
+    }
+
+    &.List {
+
+        &:not(.disabled):hover {
+            box-shadow: 0 0px 0px 2px @main-color;
+        }
+
+        .objective-info {
+            background-color: @content-body-color;
+        }
+
+        .progressbar {
+            background-color: #f0f0f0;
+
+            .progressbar-value {
+                background-color: @secondary-color;
+
+                &.mastered {
+                    background-color: @main-color;
+                }
+            }
+        }
+    }
+
+    &.Tiles {
+        &:hover {
+            box-shadow: 0px 0px 0px 3px @main-color;
+        }
+    }
+}

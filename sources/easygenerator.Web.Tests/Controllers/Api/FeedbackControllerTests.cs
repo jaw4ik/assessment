@@ -22,6 +22,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller = new FeedbackController(_publisher);
         }
 
+        #region SendFeedback
+
         [TestMethod]
         public void SendFeedback_ShouldReturnJsonSuccessResult()
         {
@@ -66,5 +68,41 @@ namespace easygenerator.Web.Tests.Controllers.Api
             action.ShouldThrow<ArgumentException>();
 
         }
+
+        #endregion
+
+        #region SendNewEditorFeedback
+
+        [TestMethod]
+        public void SendNewEditorFeedback_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            var rate = 5;
+            var message = "some message from user";
+
+            //Act
+            var result = _controller.SendNewEditorFeedback(rate, message);
+
+            //Assert
+            result.Should().BeJsonSuccessResult();
+        }
+
+        [TestMethod]
+        public void SendNewEditorFeedback_ShoulSendUserFeedback()
+        {
+            //Arrange
+            var rate = 5;
+            var message = "some message from user";
+
+            //Act
+            _controller.SendNewEditorFeedback(rate, message);
+
+            //Assert
+            _publisher.Received().Publish(
+                Arg.Is<NewEditorUserFeedbackEvent>(_ => _.Rate == rate && _.Message == message)
+                );
+        }
+
+        #endregion
     }
 }

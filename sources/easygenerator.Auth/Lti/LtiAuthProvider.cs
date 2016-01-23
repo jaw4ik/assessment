@@ -137,7 +137,7 @@ namespace easygenerator.Auth.Lti
             }
 
             var userPassword = Guid.NewGuid().ToString("N");
-            var user = _entityFactory.User(email, userPassword, firstName, lastName, ltiMockData, ltiMockData, ltiMockData, email, accessType, _releaseNoteFileReader.GetReleaseVersion(), expirationDate, company);
+            var user = _entityFactory.User(email, userPassword, firstName, lastName, ltiMockData, ltiMockData, ltiMockData, email, accessType, _releaseNoteFileReader.GetReleaseVersion(), expirationDate, company, null);
 
             user.AddLtiUserInfo(ltiUserId, consumerTool);
 

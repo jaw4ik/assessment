@@ -1,5 +1,5 @@
 ﻿define(function (require) {
-    "use strict";
+    'use strict';
 
     require('localization/bindingHandlers/localizeBindingHandler');
     require('components/bindingHandlers/tooltipBindingHandler').install();
@@ -8,6 +8,7 @@
     require('components/bindingHandlers/fileDropUploadBindingHandler');
     require('components/bindingHandlers/expandableBlockBindingHandler');
     require('components/bindingHandlers/customScrollbarBindingHandler');
+    require('components/bindingHandlers/tipBindingHandler');
     require('viewmodels/questions/dragAndDropText/bindingHandlers/draggableTextBindingHandler');
     require('viewmodels/questions/hotSpot/bindingHandlers/polygonsEditorBindingHandler').install();
     require('viewmodels/questions/fillInTheBlank/bindingHandlers/fillInTheBlankBindingHandler');
@@ -21,6 +22,19 @@
     require('viewmodels/learningContents/bindingHandlers/hotspotOnImageBindingHandler');
     require('widgets/dialog/bindingHandlers/dialogBindingHandler');
     require('widgets/dialog/bindingHandlers/dialogWizardBindingHandler');
+    require('editor/course/bindingHandlers/expandBlock');
+    require('editor/course/bindingHandlers/draggableContainer');
+    require('editor/course/bindingHandlers/draggableData');
+    require('editor/course/bindingHandlers/tooltipPopover');
+    require('components/bindingHandlers/dateBindingHadler');
+    require('components/bindingHandlers/editableTextBindingHandler');
+    require('components/bindingHandlers/cursorTooltipBindingHandler');
+    require('components/bindingHandlers/ratingBindingHandler');
+    require('widgets/dialog/bindingHandlers/dialogWizardBindingHandler');
+    require('design/bindingHandlers/spectrumBindingHandler');
+    require('design/bindingHandlers/slideToggleBindingHandler');
+    require('design/bindingHandlers/brightnessBindingHandler');
+    require('design/bindingHandlers/popoverBindingHandler');
 
     var task = {
         execute: execute
@@ -35,7 +49,7 @@
             forcePlaceholderSize: true,
             containment: 'body',
             tolerance: 'pointer',
-            cursor: 'move',            
+            cursor: 'move',
             start: function (e, ui) {
                 if (/MSIE/i.test(navigator.userAgent)) {
                     ui.placeholder.height(ui.item.height());
@@ -49,6 +63,9 @@
                         'top': top + 'px'
                     });
                 }
+            },
+            stop: function (event, ui) {
+                ui.item.css('z-index', '');
             }
         };
 

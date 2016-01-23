@@ -7,14 +7,14 @@
                 return apiHttpWrapper.post('/api/learningpath/course/add', { learningPathId: learningPathId, courseId: courseId })
                 .then(function () {
                     var learningPath = _.find(dataContext.learningPaths, function (item) {
-                        return item.id == learningPathId;
+                        return item.id === learningPathId;
                     });
 
                     var course = _.find(dataContext.courses, function (item) {
-                        return item.id == courseId;
+                        return item.id === courseId;
                     });
 
-                    learningPath.courses.push(course);
+                    learningPath.entities.push(course);
                 });
             }
         }

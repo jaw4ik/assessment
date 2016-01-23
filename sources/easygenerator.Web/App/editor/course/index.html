@@ -1,0 +1,154 @@
+﻿<section class="editor view-module">
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <h2 class="course-editor-introduction-header" data-bind="localize: { text: 'courseIntroduction' }">Course introduction:</h2>
+            <div class="course-editor-introduction-container" data-bind="with: courseIntroductionContent">
+                <div class="course-editor-introduction-wrapper" data-bind="css: { active: hasFocus, 'content-defined': isContentDefined }, introAnimate: { isEditing: isEditing }">
+                    <div class="course-editor-introduction-holder">
+                        <!-- ko ifnot: isContentDefined -->
+                        <div class="course-editor-introduction-title-container" data-bind="click: addContent">
+                            <span class="course-editor-introduction-title" data-bind="localize: { text: 'emptyCourseIntroductionTitle' }">Tell your learners what the course will be about ...</span>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: isContentDefined -->
+                        <div class="course-editor-introduction selectable" data-content="" data-bind="ckeditor: { data: text, eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: autosaveInterval, localizationManager: $root.localizationManager, forcedFocus: true }"></div>
+                        <div class="course-editor-introduction-overlay" data-bind="click: beginEditText"></div>
+                        <!-- /ko -->
+                    </div>
+                    <!-- ko ifnot: isContentDefined -->
+                    <div class="course-editor-introduction-control-button add" data-bind="click: addContent"></div>
+                    <!-- /ko -->
+                    <!-- ko if: isContentDefined -->
+                    <div class="course-editor-introduction-control-button collapse" data-bind="visible: isEditing()"></div>
+                    <div class="course-editor-introduction-control-button edit" data-bind="click: beginEditText, visible: !isEditing()">
+                        <div class="info-tooltip">
+                            <span data-bind="localize: {text: 'editIntroduction'}">Edit introduction</span>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                </div>
+            </div>
+            <h2 class="course-editor-sections-header" data-bind="localize: { text: 'sections' }">Sections:</h2>
+            <div class="course-editor-sections-container" data-bind="css: { empty: notContainSections }">
+                <ul class="sections-list-container" data-bind="draggableContainer: { moveTo: { '.sections-list-container': reorderSection }, draggableArea: '.sections-list-item-sort-button', events: { drag: hideQuestions, dragend: restoreQuestionsExpandingState } }">
+                    <!-- ko foreach: sections -->
+                    <li class="sections-list-item-container" data-bind="draggableData: { sectionId: id }">
+                        <div class="sections-list-item-wrapper" data-bind="css: { processed: isProcessed }">
+                            <div class="preloader-container" data-bind="preloader: { settings: 'align-center medium' }"></div>
+                            <div class="sections-list-item">
+                                <div class="sections-list-item-sort-button"></div>
+                                <div class="sections-list-item-body">
+                                    <div class="sections-list-item-image-container">
+                                        <div class="sections-list-item-image" data-bind="attr: { style: 'background-image: url(\'' + image() + '\')' }"></div>
+                                        <div class="sections-list-item-image-change" data-bind="click: updateImage">
+                                            <span class="sections-list-item-image-change-icon"></span>
+                                            <span class="sections-list-item-image-change-text" data-bind="localize: {text: 'change'}">Change</span>
+                                        </div>
+                                        <div class="sections-list-item-image-preloader-container" data-bind="visible: imageLoading">
+                                            <div data-bind="preloader: { settings: 'align-center small' }"></div>
+                                        </div>
+                                    </div>
+                                    <div class="sections-list-item-title-container">
+                                        <div class="sections-list-item-title-wrapper" data-bind="css: { active: title.isEditing, error: !title.isValid() }">
+                                            <div class="sections-list-item-title-icon"></div>
+                                            <div class="sections-list-item-title selectable" data-bind="editableText: { text: title }, event: { focus: startEditingTitle, blur: stopEditingTitle }, autofocus: { focus: justCreated() || title.isSelected() }, localize: { placeholder: 'whatIsThisSectionAbout' }"></div>
+                                            <div class="sections-list-item-title-counter">
+                                                <span data-bind="text: title().length"></span>/<span data-bind="text: title.maxLength">255</span>
+                                            </div>
+                                        </div>
+                                        <!-- ko ifnot: justCreated -->
+                                        <div class="sections-list-item-modified">
+                                            <span data-bind="localize: {text: 'lastEdited'}"></span>&nbsp;<span data-bind="text: modifiedOn"></span>
+                                        </div>
+                                        <!-- /ko -->
+                                    </div>
+                                    <div class="sections-list-item-actions-container">
+                                        <!-- ko ifnot: title.isEditing -->
+                                        <button class="sections-list-item-actions-toggle-questions" data-bind="click: toggleQuestions, css: { collapsed: !questionsExpanded() }"></button>
+                                        <div class="sections-list-item-actions-menu-container" data-bind="css: { active: menuExpanded }">
+                                            <button class="sections-list-item-actions-menu-toggle" data-bind="click: toggleMenu, outsideClick: { action: function() { menuExpanded(false); } }"></button>
+                                            <ul class="sections-list-item-actions-menu">
+                                                <li class="sections-list-item-actions-menu-item edit-title" data-bind="click: selectTitle, localize: {text:'editTitle'}">Edit title</li>
+                                                <li class="sections-list-item-actions-menu-item change-image" data-bind="click: updateImage, localize: {text: 'changeImage'}">Change image</li>
+                                                <li class="sections-list-item-actions-menu-item delete" data-bind="click: $parent.deleteSection.bind($parent), localize: { text: 'deleteSection' }">Delete permanently</li>
+                                            </ul>
+                                        </div>
+                                        <!-- /ko -->
+                                        <!-- ko if: title.isEditing -->
+                                        <button class="btn green sections-list-item-actions-update-title" data-bind="css: { disabled: title.isEmpty() || !title.isValid() }, localize: {text:'ok'}">Ok</button>
+                                        <!-- /ko -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ko ifnot: questionsExpanded -->
+                            <div class="questions-fake-placeholder" data-bind="draggableContainer: { events: { over: expandQuestionsStartTimer, out: expandQuestionsClearTimer } }, draggableData: { sectionId: id, expandQuestions: true }"></div>
+                            <!-- /ko -->
+                        </div>
+                        <div class="questions-list-container" data-bind="expandBlock: { expanded: questionsExpanded }, css: { empty: notContainQuestions, collapsed: !questionsExpanded() }">
+                            <ul class="questions-list" data-bind="foreachAnimated: { data: questions, removeDelay: 0.1, speed: 0.3, animateOnAdd: false }, draggableContainer: { moveTo: { '.questions-list': $root.reorderQuestion, '.question-placeholder-empty': $root.reorderQuestion }, draggableArea: '.questions-list-item-sort-button' }, draggableData: { sectionId: id }">
+                                <li class="questions-list-item-holder" data-bind="outsideClick: { action: cancel.bind($data) }, css: { processed: isProcessed }, draggableData: { id: id }">
+                                    <div class="preloader-container" data-bind="preloader: { settings: 'align-center small' }"></div>
+                                    <div class="questions-list-item" data-bind="css: type">
+                                        <div class="questions-list-item-sort-button"></div>
+                                        <div class="questions-list-item-body-wrapper" data-bind="click: openQuestion">
+                                            <div class="questions-list-item-image"></div>
+                                            <div class="questions-list-item-title-container">
+                                                <div class="questions-list-item-title" data-bind="text:title"></div>
+                                            </div>
+                                        </div>
+                                        <div class="questions-list-item-btn-wrapper" data-bind="click: markToDelete">
+                                            <button class="questions-list-item-btn delete"></button>
+                                        </div>
+                                        <div class="questions-list-item-delete-holder">
+                                            <div class="questions-list-item-delete-container" data-bind="css: { delete: canBeDeleted }">
+                                                <div class="questions-list-item-delete-text" data-bind="localize: {text: 'deleteThisQuestion'}">Delete this question?</div>
+                                                <div class="questions-list-item-delete-buttons-container">
+                                                    <button class="btn red small delete" data-bind="click: $root.deleteQuestion.bind($root), localize: {text:'remove'}">Delete</button>
+                                                    <button class="btn white grey-border small cancel" data-bind="click: cancel, localize: {text: 'cancel'}">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="questions-list-item-btn-wrapper" data-bind="click: openQuestion">
+                                            <button class="questions-list-item-btn open"></button>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- ko if: notContainQuestions -->
+                            <div class="drop-zone-container" data-bind="css: { disabled: justCreated }">
+                                <h2 class="drop-zone-title" data-bind="localize: { text: 'fillSectionTooltipTitle' }">Fill section with contents and questions</h2>
+                                <h3 class="drop-zone-subtitle" data-bind="localize: { text: 'fillSectionTooltipSubtitle' }">by droping it here form the left panel</h3>
+                                <div class="placeholder question-placeholder question-placeholder-empty" data-bind="draggableContainer: {}, draggableData: { sectionId: id }"></div>
+                            </div>
+                            <!-- /ko -->
+                            <!-- ko ifnot: notContainQuestions -->
+                            <div class="drop-zone-container questions">
+                                <h2 class="drop-zone-title" data-bind="localize: { html: 'dropQuestionTooltip' }">+ Drop here more questions and content</h2>
+                                <div class="placeholder question-placeholder" data-bind="draggableContainer: {}, draggableData: { sectionId: id }"></div>
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                    </li>
+                    <!-- /ko -->
+                </ul>
+                <!-- ko if: notContainSections -->
+                <div class="drop-zone-container" data-possible-classes="active droppable disable">
+                    <div class="drop-zone-image"></div>
+                    <h2 class="drop-zone-title" data-bind="localize: { text: 'emptySectionsListTitle' }">Set the structure of your course by adding sections</h2>
+                    <h3 class="drop-zone-subtitle" data-bind="localize: { text: 'emptySectionsListSubtitle' }">Then fill them with content and questions</h3>
+                    <div class="placeholder sections-placeholder" data-bind="draggableContainer: {}"></div>
+                </div>
+                <div class="course-editor-sections-tooltip-container">
+                    <span class="course-editor-sections-tooltip-text" data-bind="localize: { text: 'dropSectionTooltip' }">Drop section here</span>
+                </div>
+                <!-- /ko -->
+                <!-- ko ifnot: notContainSections -->
+                <div class="drop-zone-container minor sections-placeholder">
+                    <h2 class="drop-zone-title" data-bind="localize: { html: 'dropMoreSectionsTooltip' }">+ Drop here more sections</h2>
+                    <div class="placeholder sections-placeholder" data-bind="draggableContainer: {}"></div>
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+</section>

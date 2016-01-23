@@ -8,12 +8,46 @@
             bootstrapper.run();
 
             var specs = [
+
+                //#region drag and drop editor
+                'editor/course/viewmodels/CreateBarViewModel.spec',
+                'editor/course/viewmodels/QuestionViewModel.spec',
+                'editor/course/viewmodels/SectionViewModel.spec',
+                'editor/course/viewmodels/CreateSectionTooltipViewModel.spec',
+                'editor/course/index.spec',
+                'editor/dialogs/editorFeedback/commands/sendFeedback.spec',
+                'editor/dialogs/editorFeedback/editorFeedback.spec',
+                'editor/course/dialogs/deleteSection/deleteSection.spec',
+
+                //#endregion
+
+                //#region design
+                'design/design.spec',
+                'design/commands/saveCourseTemplateSettings.spec',
+                'design/commands/getCourseTemplateSettings.spec',
+                'design/tabs/PresetTab.spec',
+                'design/tabs/BrandingTab.spec',
+                'design/tabs/sections/Logo.spec',
+                'design/tabs/sections/HeaderBackground.spec',
+                'design/tabs/sections/BodyBackground.spec',
+                'design/tabs/sections/Backgrounds.spec',
+                'design/tabs/sections/Interface.spec',
+                'design/tabs/sections/BodyBackgroundPopover.spec',
+                'design/tabs/sections/HeaderBackgroundPopover.spec',
+                'design/tabs/sections/ColorpickerPopover.spec',
+                'design/bus.spec',
+                'design/components/colorpicker/viewModel.spec',
+                'design/templateBrief.spec',
+                //#endregion
+
                 'authorization/limitCoursesAmount.spec',
 
                 //#region commands
                 'commands/createQuestionCommand.spec',
                 'commands/createObjectiveCommand.spec',
                 'commands/createCourseCommand.spec',
+                'commands/createDocumentCommand.spec',
+                'commands/updateDocumentCommand.spec',
                 'commands/duplicateCourseCommand.spec',
                 'commands/presentationCourseImportCommand.spec',
 
@@ -45,6 +79,8 @@
                 'dialogs/releaseNotes/commands/getReleaseNote.spec',
                 'dialogs/releaseNotes/releaseNotes.spec',
                 'dialogs/branchtrack/branchtrack.spec',
+                'dialogs/document/create/index.spec',
+                'dialogs/document/preview/index.spec',
 
                 //#endregion dialogs
 
@@ -80,6 +116,7 @@
                 'repositories/commentRepository.spec',
                 'repositories/collaboratorRepository.spec',
                 'repositories/courseRepository.spec',
+                'repositories/documentRepository.spec',
                 'repositories/learningContentRepository.spec',
                 'repositories/learningPathRepository.spec',
                 'repositories/objectiveRepository.spec',
@@ -149,6 +186,7 @@
                 'synchronization/handlers/user/handler.spec',
                 'synchronization/handlers/user/eventHandlers/upgradedToStarter.spec',
                 'synchronization/handlers/user/eventHandlers/upgradedToPlus.spec',
+                'synchronization/handlers/user/eventHandlers/upgradedToAcademy.spec',
                 'synchronization/handlers/user/eventHandlers/downgraded.spec',
                 'synchronization/handlers/comment/eventHandlers/deleted.spec',
 
@@ -156,7 +194,7 @@
                 'synchronization/handlers/questions/handler.spec',
                 'synchronization/handlers/questions/question/handler.spec',
                 'synchronization/handlers/questions/question/eventHandlers/titleUpdated.spec',
-                 'synchronization/handlers/questions/question/eventHandlers/voiceOverUpdated.spec',
+                'synchronization/handlers/questions/question/eventHandlers/voiceOverUpdated.spec',
                 'synchronization/handlers/questions/question/eventHandlers/backgroundChanged.spec',
                 'synchronization/handlers/questions/question/eventHandlers/created.spec',
                 'synchronization/handlers/questions/question/eventHandlers/deleted.spec',
@@ -205,13 +243,16 @@
                 'viewmodels/learningPaths/courseSelector/courseFilter.spec',
                 'viewmodels/learningPaths/learningPath/commands/updateTitleCommand.spec',
                 'viewmodels/learningPaths/learningPath/commands/addCourseCommand.spec',
+                'viewmodels/learningPaths/learningPath/commands/addDocumentCommand.spec',
                 'viewmodels/learningPaths/learningPath/commands/removeCourseCommand.spec',
-                'viewmodels/learningPaths/learningPath/commands/updateCoursesOrderCommand.spec',
+                'viewmodels/learningPaths/learningPath/commands/removeDocumentCommand.spec',
+                'viewmodels/learningPaths/learningPath/commands/updateEntitiesOrderCommand.spec',
                 'viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery.spec',
                 'viewmodels/learningPaths/learningPath/index.spec',
                 'viewmodels/learningPaths/learningPath/details.spec',
                 'viewmodels/learningPaths/learningPath/publish.spec',
                 'viewmodels/learningPaths/learningPath/courseBrief.spec',
+                'viewmodels/learningPaths/learningPath/documentBrief.spec',
                 'viewmodels/learningPaths/learningPath/results.spec',
                 'viewmodels/learningPaths/learningPath/actions/download.spec',
                 'viewmodels/learningPaths/learningPath/actions/publish.spec',
@@ -234,8 +275,7 @@
                 'viewmodels/courses/courses.spec',
                 'viewmodels/courses/course/index.spec',
                 'viewmodels/courses/course/create/course.spec',
-                'viewmodels/courses/course/design/design.spec',
-                'viewmodels/courses/course/design/templateBrief.spec',
+
                 'viewmodels/courses/course/configure.spec',
                 'viewmodels/courses/course/publish.spec',
                 'viewmodels/courses/course/results.spec',
@@ -250,7 +290,6 @@
                 'viewmodels/objectives/objectiveBrief.spec',
                 'viewmodels/panels/sidePanel.spec',
                 'viewmodels/panels/tabs/reviewTab.spec',
-                'viewmodels/panels/tabs/feedbackTab.spec',
 
                 //#region questions
                 'viewmodels/questions/question.spec',
@@ -381,6 +420,7 @@
 
             localizationManager.initialize(['en'], 'app/localization/lang/').then(function () {
                 var modulesDependencies = {};
+
                 specs.forEach(function (spec) {
                     modulesDependencies[spec] = [spec.replace('.spec', '')];
                 });

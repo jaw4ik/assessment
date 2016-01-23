@@ -33,7 +33,7 @@ ko.bindingHandlers.dropUpload = {
                         let bottom = document.body.clientHeight - e.pageY;
                         let left = e.pageX;
 
-                        if(top < 0 || right < 0 || bottom < 0 || left < 0){
+                        if(top <= 0 || right <= 0 || bottom <= 0 || left <= 0){
                             $element.removeClass(css.active);
                         }
                     });
@@ -58,6 +58,7 @@ ko.bindingHandlers.dropUpload = {
                 onDragOver: fileUploadEventHandler,
                 onDrop: e => {
                     return fileUploadEventHandler(e, () => {
+                        elementEventCounter = 0;
                         let files = e.dataTransfer.files;
                         if (files.length > 0) {
                             $element.removeClass(css.active);

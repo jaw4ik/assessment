@@ -24,6 +24,7 @@ namespace easygenerator.PublicationServer.Configuration
 
             var contentTypes = (FileExtensionContentTypeProvider)fileServerOptions.StaticFileOptions.ContentTypeProvider;
             contentTypes.Mappings[".json"] = "application/json";
+            contentTypes.Mappings[".less"] = "text/css";
 
             appBuilder.UseFileServer(fileServerOptions);
 
