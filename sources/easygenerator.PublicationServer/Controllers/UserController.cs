@@ -8,7 +8,7 @@ using easygenerator.PublicationServer.ActionFilters;
 namespace easygenerator.PublicationServer.Controllers
 {
     [ExternalApiAuthorize]
-    public class UserController : ApiController
+    public class UserController : BaseApiController
     {
         private readonly IUserRepository _userRepository;
 
@@ -19,22 +19,22 @@ namespace easygenerator.PublicationServer.Controllers
 
         [Route("api/user/create")]
         [HttpPost]
-        public void Create(string email, AccessType accessType)
+        public HttpResponseMessage Create(string email, AccessType accessType)
         {
             if (_userRepository.Get(email) == null)
             {
                 _userRepository.Add(new User(email, accessType));
             }
 
-            Request.CreateResponse(HttpStatusCode.OK);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         [Route("api/user/update")]
         [HttpPost]
-        public void Update(string email, AccessType accessType)
+        public HttpResponseMessage Update(string email, AccessType accessType)
         {
             _userRepository.Update(new User(email, accessType));
-            Request.CreateResponse(HttpStatusCode.OK);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

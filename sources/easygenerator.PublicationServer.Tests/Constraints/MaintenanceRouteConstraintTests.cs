@@ -51,6 +51,18 @@ namespace easygenerator.PublicationServer.Tests.Constraints
         }
 
         [TestMethod]
+        public void Match_ShouldReturnFalseIfValueOfParameterIsNotAGuid()
+        {
+            //Arrange
+
+            //Act
+            var result = _constraint.Match(null, null, parameterName, new Dictionary<string, object> { { parameterName, "value" } }, HttpRouteDirection.UriGeneration);
+
+            //Assert
+            result.Should().Be(false);
+        }
+
+        [TestMethod]
         public void Match_ShouldCallIsPublishingDispatcherMethodWithValueFromRouteDictionary_IfValueExistsAndNotNull()
         {
             //Arrange

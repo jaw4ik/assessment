@@ -12,14 +12,12 @@ using easygenerator.PublicationServer.Models;
 namespace easygenerator.PublicationServer.Controllers
 {
     [ExternalApiAuthorize]
-    public class PublishController : ApiController
+    public class PublishController : BaseApiController
     {
         private readonly ICoursePublisher _coursePublisher;
         private readonly IPublishDispatcher _courseDispatcher;
         private readonly CourseMultipartFormDataManager _courseDataManager;
         private readonly IPublicationRepository _publicationRepository;
-
-        public string PublicationServerUri => Request.RequestUri.GetLeftPart(UriPartial.Authority);
 
         public PublishController(ICoursePublisher coursePublisher, CourseMultipartFormDataManager courseDataManager, IPublishDispatcher publishDispatcher, IPublicationRepository publicationRepository)
         {

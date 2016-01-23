@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System.Net.Http;
 using easygenerator.PublicationServer.DataAccess;
+using easygenerator.PublicationServer.Models;
 
 namespace easygenerator.PublicationServer.Tests.Controllers
 {
@@ -26,6 +27,7 @@ namespace easygenerator.PublicationServer.Tests.Controllers
         [TestInitialize]
         public void Initialize()
         {
+            DateTimeWrapper.Now = () => DateTime.MinValue;
             _coursePublisher = Substitute.For<ICoursePublisher>();
             _publicationPathProvider = Substitute.For<PublicationPathProvider>();
             _formDataManager = Substitute.For<CourseMultipartFormDataManager>(_publicationPathProvider);
@@ -40,7 +42,7 @@ namespace easygenerator.PublicationServer.Tests.Controllers
         }
 
         [TestMethod]
-        public void PublishCourse_ShouldReturnBadRequestIfCourseIdIsNull()
+        public void PublishCourse_ShouldReturnBadRequestIfCourseIdIsEmpty()
         {
             // Arrange
             // Act
@@ -141,6 +143,58 @@ namespace easygenerator.PublicationServer.Tests.Controllers
             result.Content.ReadAsStringAsync().Result.Should().Be(
                 $"\"{_publishController.PublicationServerUri}/{courseId}\"");
         }
+
+        [TestMethod]
+        public void PublishCourse_IfPublishWasSuccessfulShould_AddInfoAboutPublicationIfNotExists()
+        {
+            // Arrange
+            var courseId = Guid.NewGuid();
+            _coursePublisher.PublishCourse(courseId).Returns(true);
+            _publicationRepository.Get(courseId).Returns((Publication)null);
+
+            // Act
+            var result = _publishController.PublishCourse(courseId, ownerEmail).Result;
+
+            // Assert
+            _publicationRepository.Received().Add(
+                Arg.Is<Publication>(_ => 
+                    _.Id == courseId && 
+                    _.OwnerEmail == ownerEmail && 
+                    _.CreatedOn == DateTimeWrapper.Now() && 
+                    _.ModifiedOn == DateTimeWrapper.Now() && 
+                    _.SearchId != Guid.Empty
+                )
+            );
+        }
+
+
+        [TestMethod]
+        public void PublishCourse_IfPublishWasSuccessfulShould_AddUpdatePublicationIfExists()
+        {
+            // Arrange
+            var courseId = Guid.NewGuid();
+            _coursePublisher.PublishCourse(courseId).Returns(true);
+            var creationTime = DateTimeWrapper.Now();
+            var publication = new Publication(courseId, ownerEmail);
+            _publicationRepository.Get(courseId).Returns(publication);
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
+            var modifiedTime = DateTimeWrapper.Now();
+
+            // Act
+            var result = _publishController.PublishCourse(courseId, ownerEmail).Result;
+
+            // Assert
+            _publicationRepository.Received().Update(
+                Arg.Is<Publication>(_ =>
+                    publication.CreatedOn == creationTime &&
+                    publication.Id == courseId &&
+                    publication.ModifiedOn == modifiedTime &&
+                    publication.OwnerEmail == ownerEmail &&
+                    publication.SearchId != Guid.Empty
+                )
+            );
+        }
+
 
         [TestMethod]
         public void PublishCourse_IfPublishWasFailedShouldReturnInternalServerErrorResponse()

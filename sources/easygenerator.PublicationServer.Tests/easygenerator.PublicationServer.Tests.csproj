@@ -67,7 +67,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constraints\MaintenanceRouteConstraintTests.cs" />
+    <Compile Include="Constraints\SeoFragmentRouteConstraintTests.cs" />
     <Compile Include="Controllers\PublishControllerTests.cs" />
+    <Compile Include="Controllers\UserControllerTests.cs" />
+    <Compile Include="Models\PublicationTests.cs" />
+    <Compile Include="Models\UserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicationPathProviderTests.cs" />
     <Compile Include="Publish\CoursePublisherTests.cs" />

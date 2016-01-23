@@ -132,7 +132,9 @@
     <Compile Include="Constraints\CourseIdRouteConstraint.cs" />
     <Compile Include="Constraints\MaintenanceRouteConstraint.cs" />
     <Compile Include="Constraints\SeoFragmentRouteConstraint.cs" />
+    <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\SeoController.cs" />
+    <Compile Include="Controllers\SitemapController.cs" />
     <Compile Include="Controllers\SystemPagesController.cs" />
     <Compile Include="Controllers\PublishController.cs" />
     <Compile Include="Controllers\UserController.cs" />

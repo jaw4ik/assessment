@@ -4,7 +4,7 @@ using System.Web.Http;
 
 namespace easygenerator.PublicationServer.Controllers
 {
-    public class SystemPagesController : ApiController
+    public class SystemPagesController : BaseApiController
     {
         private readonly StaticViewContentProvider _contentProvider;
         public SystemPagesController(StaticViewContentProvider contentProvider)

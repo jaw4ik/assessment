@@ -11,12 +11,7 @@ namespace easygenerator.PublicationServer.Constraints
         protected override bool IsMatch(HttpRequestMessage request, Guid courseId)
         {
             var queryParams = request.GetQueryNameValuePairs();
-            return (queryParams != null && queryParams.Any(_ => String.Equals(_.Key, SearchCrawlerEscapedFragment, StringComparison.CurrentCultureIgnoreCase))) || ExistsInReferrer(request);
-        }
-
-        private bool ExistsInReferrer(HttpRequestMessage request)
-        {
-            return request.Headers?.Referrer != null && request.Headers.Referrer.ToString().Contains(SearchCrawlerEscapedFragment);
+            return (queryParams != null && queryParams.Any(_ => String.Equals(_.Key, SearchCrawlerEscapedFragment, StringComparison.CurrentCultureIgnoreCase)));
         }
     }
 }
