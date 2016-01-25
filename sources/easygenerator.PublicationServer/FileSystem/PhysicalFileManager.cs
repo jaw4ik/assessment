@@ -40,5 +40,10 @@ namespace easygenerator.PublicationServer.FileSystem
 
             throw new ArgumentException($"File {fileName} not found");
         }
+
+        public virtual bool FileExists(string filePath)
+        {
+            return File.Exists(filePath);
+        }
     }
 }

@@ -46,10 +46,7 @@ namespace easygenerator.PublicationServer.Controllers
                 };
             }
 
-            return new HttpResponseMessage(HttpStatusCode.TemporaryRedirect)
-            {
-                Headers = { Location = PageNotFoundUri }
-            };
+            return new HttpResponseMessage(HttpStatusCode.NotFound);
         }
 
         [Route("sitemap_{index}.xml")]
@@ -88,10 +85,7 @@ namespace easygenerator.PublicationServer.Controllers
                 };
             }
 
-            return new HttpResponseMessage(HttpStatusCode.TemporaryRedirect)
-            {
-                Headers = { Location = PageNotFoundUri }
-            };
+            return new HttpResponseMessage(HttpStatusCode.NotFound);
         }
     }
 }

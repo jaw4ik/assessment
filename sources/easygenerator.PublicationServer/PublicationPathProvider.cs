@@ -7,6 +7,8 @@ namespace easygenerator.PublicationServer
     {
         private const string UploadedPackagesFolderName = "UploadedPackages";
         private const string StorageFolderName = "courses";
+        private const string SearchContentFolder = "searchcontent";
+        private const string ContentFolder = "content";
 
         public virtual string GetFilePathForUploadedPackage(Guid courseId)
         {
@@ -22,6 +24,16 @@ namespace easygenerator.PublicationServer
         {
             var courseIdStr = courseId.ToString();
             return Path.Combine(CurrentDirectory, StorageFolderName, courseIdStr[0].ToString(), courseIdStr);
+        }
+
+        public virtual string GetPublishedPackagePath(Guid courseId, string resourceName)
+        {
+            return Path.Combine(GetPublishedPackageFolderPath(courseId), resourceName);
+        }
+
+        public virtual string GetSearchContentResourcePath(Guid courseId, string resourceName)
+        {
+            return Path.Combine(GetPublishedPackageFolderPath(courseId), SearchContentFolder, resourceName);
         }
 
         public virtual string GetStaticViewLocation(string viewName)

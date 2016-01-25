@@ -23,7 +23,7 @@ namespace easygenerator.PublicationServer.Configuration
                 builder.RegisterType<PublishDispatcher>().As<IPublishDispatcher>().SingleInstance();
                 builder.RegisterType<PhysicalFileManager>().As<PhysicalFileManager>().SingleInstance();
                 builder.RegisterType<MaintenanceRouteConstraint>().As<MaintenanceRouteConstraint>().SingleInstance();
-                builder.RegisterType<SeoFragmentRouteConstraint>().As<SeoFragmentRouteConstraint>().SingleInstance();
+                builder.RegisterType<EscapedFragmentRouteConstraint>().As<EscapedFragmentRouteConstraint>().SingleInstance();
                 builder.RegisterType<ElmahLog>().As<ILog>().SingleInstance();
                 builder.RegisterType<PublicationPathProvider>().As<PublicationPathProvider>().SingleInstance();
                 builder.RegisterType<CoursePublisher>().As<ICoursePublisher>().SingleInstance();

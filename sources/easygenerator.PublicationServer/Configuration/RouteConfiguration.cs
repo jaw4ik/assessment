@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using System.Web.Http.Routing;
 using easygenerator.PublicationServer.Constraints;
 
 namespace easygenerator.PublicationServer.Configuration
@@ -7,8 +8,6 @@ namespace easygenerator.PublicationServer.Configuration
     {
         public static void ConfigurePublicationApi(HttpConfiguration config)
         {
-            config.MapHttpAttributeRoutes();
-
             config.Routes.MapHttpRoute(name: "PublishApi",
                routeTemplate: "api/publish",
                defaults: new { controller = "Publish", action = "PublishCourse" }
@@ -21,12 +20,10 @@ namespace easygenerator.PublicationServer.Configuration
               constraints: new { courseId = config.DependencyResolver.GetService(typeof(MaintenanceRouteConstraint)) }
             );
 
-            config.Routes.MapHttpRoute(
-                name: "IndexableContent",
-                routeTemplate: "{courseId}",
-                defaults: new { controller = "Seo", action = "GetIndexableContent" },
-                constraints: new { courseId = config.DependencyResolver.GetService(typeof(SeoFragmentRouteConstraint)) }
-            );
+            var constraintResolver = new DefaultInlineConstraintResolver();
+            constraintResolver.ConstraintMap.Add("seofragment", typeof(EscapedFragmentRouteConstraint));
+
+            config.MapHttpAttributeRoutes(constraintResolver);
         }
 
         public static void ConfigurePageNotFoundRoute(HttpConfiguration config)

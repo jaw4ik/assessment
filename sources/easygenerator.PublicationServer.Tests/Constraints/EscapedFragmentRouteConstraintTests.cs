@@ -9,51 +9,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace easygenerator.PublicationServer.Tests.Constraints
 {
     [TestClass]
-    public class SeoFragmentRouteConstraintTests
+    public class EscapedFragmentRouteConstraintTests
     {
-        private SeoFragmentRouteConstraint _constraint;
+        private EscapedFragmentRouteConstraint _constraint;
         private const string parameterName = "paramName";
 
         [TestInitialize]
         public void Init()
         {
-            _constraint = new SeoFragmentRouteConstraint();
-        }
-
-        [TestMethod]
-        public void Match_ShouldReturnFalseIfParameterDoesNotExistsInValues()
-        {
-            //Arrange
-
-            //Act
-            var result = _constraint.Match(null, null, parameterName, new Dictionary<string, object>(), HttpRouteDirection.UriGeneration);
-
-            //Assert
-            result.Should().Be(false);
-        }
-
-        [TestMethod]
-        public void Match_ShouldReturnFalseIfValueOfParameterIsNull()
-        {
-            //Arrange
-
-            //Act
-            var result = _constraint.Match(null, null, parameterName, new Dictionary<string, object> { { parameterName, null } }, HttpRouteDirection.UriGeneration);
-
-            //Assert
-            result.Should().Be(false);
-        }
-
-        [TestMethod]
-        public void Match_ShouldReturnFalseIfValueOfParameterIsNotAGuid()
-        {
-            //Arrange
-
-            //Act
-            var result = _constraint.Match(null, null, parameterName, new Dictionary<string, object> { { parameterName, "value" } }, HttpRouteDirection.UriGeneration);
-
-            //Assert
-            result.Should().Be(false);
+            _constraint = new EscapedFragmentRouteConstraint();
         }
 
         [TestMethod]
