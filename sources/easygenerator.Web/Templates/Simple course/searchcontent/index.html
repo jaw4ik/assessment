@@ -179,7 +179,32 @@
                 <textarea class="edit-field selectable"></textarea>
             </div>
             <!-- /ko -->
-
+            
+            <!-- ko if: question.type == 'dragAndDropText' -->
+            <div class="drag-and-drop-text">
+                <div>
+                    <ul class="drag-and-drop-text-draggable-container" data-bind="foreach: question.dropspots">
+                        <li class="drag-and-drop-text-draggable">
+                            <div data-bind="text: text"></div>
+                        </li>
+                    </ul>
+                    <div class="drag-and-drop-text-background-wrapper">
+                        <img data-bind="attr:{ src: background }" />
+                    </div>                            
+                </div>
+            </div>
+            <!-- /ko -->
+            
+            <!-- ko if: question.type == 'hotspot' -->
+            <div class="drag-and-drop-text">
+                <div>
+                    <div class="drag-and-drop-text-background-wrapper">
+                        <img data-bind="attr:{ src: background }" />
+                    </div>                            
+                </div>
+            </div>
+            <!-- /ko -->
+            
             <!-- /ko -->
 
         </div>
