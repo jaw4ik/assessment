@@ -2830,6 +2830,9 @@
     <Content Include="Templates\Simple course\preview\images\preview.jpg" />
     <Content Include="Templates\Simple course\preview\thumbnail.png" />
     <Content Include="Templates\Simple course\publishSettings.js" />
+    <Content Include="Templates\Simple course\searchcontent\index.html" />
+    <Content Include="Templates\Simple course\searchcontent\scripts.js" />
+    <Content Include="Templates\Simple course\searchcontent\styles.css" />
     <Content Include="Templates\Simple course\settings.js" />
     <Content Include="Templates\Simple course\settings\api.js" />
     <Content Include="Templates\Simple course\settings\configure\configure.html" />
