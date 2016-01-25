@@ -28,6 +28,7 @@
                 'design/tabs/PresetTab.spec',
                 'design/tabs/BrandingTab.spec',
                 'design/tabs/sections/Logo.spec',
+                'design/tabs/sections/LogoPopover.spec',
                 'design/tabs/sections/HeaderBackground.spec',
                 'design/tabs/sections/BodyBackground.spec',
                 'design/tabs/sections/Backgrounds.spec',

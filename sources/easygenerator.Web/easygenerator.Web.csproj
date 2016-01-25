@@ -736,6 +736,13 @@
     <Content Include="App\design\tabs\sections\Logo.spec.js">
       <DependentUpon>Logo.js</DependentUpon>
     </Content>
+    <Content Include="App\design\tabs\sections\LogoPopover.html" />
+    <Content Include="App\design\tabs\sections\LogoPopover.js">
+      <DependentUpon>LogoPopover.html</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\sections\LogoPopover.spec.js">
+      <DependentUpon>LogoPopover.js</DependentUpon>
+    </Content>
     <Content Include="App\dialogs\audio\chooseVoiceOver.html" />
     <Content Include="App\dialogs\audio\chooseVoiceOver.js" />
     <Content Include="App\dialogs\audio\chooseVoiceOver.spec.js">
