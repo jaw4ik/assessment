@@ -4,6 +4,7 @@ import eventTracker from 'eventTracker';
 
 import { BackgroundPopover } from './BodyBackgroundPopover.js';
 import bus from './../../bus';
+import _ from 'underscore';
 
 export const EVENT_BODY_BACKGROUND_ENABLED_CHANGED = 'branding:body-background-enabled:changed';
 export const EVENT_BODY_BACKGROUND_TEXTURE_CHANGED = 'branding:body-background-texture:changed';
@@ -67,7 +68,14 @@ export default class BodyBackground{
     activate(settings, defaults) {
         this.defaults = defaults || null;
 
-        this.enabled(settings && settings.enabled || defaults && defaults.enabled || false);
+        if(settings && !_.isNullOrUndefined(settings.enabled)) {
+            this.enabled(settings.enabled);
+        }else if(defaults && !_.isNullOrUndefined(defaults.enabled)){
+            this.enabled(defaults.enabled);
+        }else{
+            this.enabled(true);
+        }
+
         this.texture(settings && settings.texture || defaults && defaults.texture || null);
         this.popover.texture(settings && settings.texture || defaults && defaults.texture || null);
         this.color(settings && settings.color || defaults && defaults.color || null);

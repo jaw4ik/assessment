@@ -63,11 +63,11 @@
         <div class="branding-background-enabled-wrapper">
             <div class="switcher">
                 <div class="switcher-text" data-bind="localize: { text: 'enable', 'data-text': 'enable' }, css: { selected: enabled() }, click: enabled() ? function(){} : toggleEnabled"></div>
-                <div class="switch-toggle-slider small" data-bind="switchToggle: { value: enabled, onClick: toggleEnabled.bind($data), speed: 100 }">
+                <div class="switch-toggle-slider small on-off" data-bind="switchToggle: { value: enabled, onClick: toggleEnabled.bind($data), speed: 100 }">
                     <div class="switch-toggle-wrapper">
-                        <div class="switch-toggle-on"></div>
-                        <div class="switch-toogle-blob"></div>
                         <div class="switch-toggle-off"></div>
+                        <div class="switch-toogle-blob"></div>
+                        <div class="switch-toggle-on"></div>
                     </div>
                 </div>
                 <div class="switcher-text" data-bind="localize: { text: 'disable', 'data-text': 'disable' }, css: { selected: !enabled() }, click: enabled() ? toggleEnabled : function(){}"></div>

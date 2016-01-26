@@ -33,6 +33,7 @@
 
     viewModel: function (element, speed) {
         var $element = $(element),
+            isOnOff = $element.hasClass('on-off'),
             $wrapper = $('.switch-toggle-wrapper', $element);
 
         function setInitialValue(value) {
@@ -69,7 +70,10 @@
         }
 
         function calculateElementLeftMargin(value) {
-            return value ? 0 : $element.height() - $element.width();
+            if (value)
+                return 0;
+
+            return isOnOff ? $element.width() - $element.height() : $element.height() - $element.width();
         }
 
         return {

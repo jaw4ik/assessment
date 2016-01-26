@@ -246,9 +246,9 @@ describe('BodyBackground section', () => {
 
                 it('should set corresponding enabled value', () => {
                     let background = new BodyBackground();
-                    background.activate({ enabled: true });
+                    background.activate({ enabled: false });
 
-                    expect(background.enabled()).toBeTruthy();
+                    expect(background.enabled()).toBeFalsy();
                 });
 
             });
@@ -259,20 +259,20 @@ describe('BodyBackground section', () => {
 
                     it('should set corresponding enabled value', () => {
                         let background = new BodyBackground();
-                        background.activate(null, { enabled: true });;
+                        background.activate(null, { enabled: false });
 
-                        expect(background.enabled()).toBeTruthy();
+                        expect(background.enabled()).toBeFalsy();
                     });
 
                 });
 
                 describe('and enabled is not specified in defaults', () => {
 
-                    it('should set false to enabled', () => {
+                    it('should set enabled to true', () => {
                         let background = new BodyBackground();
                         background.activate();
 
-                        expect(background.enabled()).toBeFalsy();
+                        expect(background.enabled()).toBeTruthy();
                     });
 
                 });
