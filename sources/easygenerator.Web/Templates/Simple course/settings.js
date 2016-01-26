@@ -5,7 +5,6 @@
         },
         "background":{
             "header": {
-                "expanded": false,
                 "brighthness": 0,
                 "color": null,
                 "image": {
@@ -14,6 +13,7 @@
                 }
             },
                 "body": {
+                    "enabled": true,
                     "brightness": 0,
                     "color": "#ff0000",
                     "texture": null
