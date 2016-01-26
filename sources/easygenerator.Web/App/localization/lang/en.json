@@ -99,6 +99,8 @@
     "powerPoint": "PowerPoint",
     "pdf": "PDF",
     "officeDocuments": "Office documents",
+    "enable": "Enable",
+    "disable": "Disable",
     "storageFailed": "An error occurred; storage is currently unavailable.",
     "freeSpace": "Free space",
     "videoLibrary": "Video library",
@@ -128,6 +130,9 @@
     "anyAudioFormats": "any audio files formats",
     "imageLibrary": "Image library",
     "uploadImageDescription": "Upload your own image by click on this button",
+    "imageDeleteConfirmation": "Delete this image?",
+    "imageDeleteWarning": "it will NOT be available in courses any more",
+    "anyImageFormats": "Any image formats",
     "learningObjectives": "Learning objectives",
     "learningObjective": "Learning objective",
     "learningObjectiveListIsEmpty": "Objectives list is empty",
@@ -690,5 +695,9 @@
     "upgradeAccountHintBackgroundSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to set a custom background",
     "upgradeAccountHintLogoSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to change the logo",
     "upgradeAccountHintColorsSection": "You have to <a target=\"_blank\" href=\"/account/upgrade\">upgrade your account</a> in order to change interface colors",
-    "colorThemes": "Color themes"
+    "colorThemes": "Color themes",
+    "uploadFileFromDisc": "Upload from your hard disc",
+    "attachByLink": "Attach a link to the logo",
+    "pasteImageLink": "Paste image link here",
+    "attach": "Attach"
 }

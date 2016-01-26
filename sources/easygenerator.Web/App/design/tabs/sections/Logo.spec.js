@@ -1,5 +1,5 @@
 ﻿import Logo from './Logo';
-import { URL_MODE, UPLOAD_MODE, EVENT_LOGO_UPLOADED, EVENT_LOGO_CHANGED, EVENT_LOGO_REMOVED } from './Logo';
+import { URL_MODE, UPLOAD_MODE, EVENT_LOGO_CHANGED, EVENT_LOGO_REMOVED } from './Logo';
 
 import bus from './../../bus.js';
 import imageUpload from 'imageUpload';
@@ -46,24 +46,6 @@ describe('Logo design section', () => {
             expect(logo.imageUrl).toBeObservable();
         });
         
-        describe('endEdit:', () => {
-        
-            it(`should trigger event ${EVENT_LOGO_CHANGED}`, () => {
-                let logo = new Logo();
-                logo.imageUrl('url');
-                logo.imageUrl.endEdit();
-                expect(bus.trigger).toHaveBeenCalledWith(EVENT_LOGO_CHANGED);
-            });
-
-            it(`should trigger event 'Change logo (link)'`, () => {
-                let logo = new Logo();
-                logo.imageUrl('url');
-                logo.imageUrl.endEdit();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Change logo (link)');
-            });
-
-        });
-
         describe('isDefault:', () => {
 
             it('should be computed', () => {
@@ -117,184 +99,6 @@ describe('Logo design section', () => {
                     logo.defaults = null;
 
                     expect(logo.imageUrl.isDefault()).toBeFalsy();
-                });
-
-            });
-
-        });
-
-    });
-
-    describe('mode:', () => {
-
-        it('should be observable', () => {
-            let logo = new Logo();
-            expect(logo.mode).toBeObservable();
-        });
-
-        it(`should be ${UPLOAD_MODE} by default`, () => {
-            let logo = new Logo();
-            expect(logo.mode()).toEqual(UPLOAD_MODE);
-        });
-    });
-
-    describe('isUploadMode:', () => {
-
-        it('should be computed', () => {
-            let logo = new Logo();
-            expect(logo.isUploadMode).toBeComputed();
-        });
-
-        describe(`when mode is ${UPLOAD_MODE}`, () => {
-
-            it('should return true', () => {
-                let logo = new Logo();
-                logo.mode(UPLOAD_MODE);
-
-                expect(logo.isUploadMode()).toBeTruthy();
-            });
-
-        });
-
-    });
-
-    describe('isURLMode:', () => {
-
-        it('should be computed', () => {
-            let logo = new Logo();
-            expect(logo.isURLMode).toBeComputed();
-        });
-
-        describe(`when mode is ${URL_MODE}`, () => {
-
-            it('should return true', () => {
-                let logo = new Logo();
-                logo.mode(URL_MODE);
-
-                expect(logo.isURLMode()).toBeTruthy();
-            });
-
-        });
-
-    });
-
-    describe('toUploadMode:', () => {
-
-        it(`should set mode to ${UPLOAD_MODE}`, () => {
-            let logo = new Logo();
-            logo.mode(URL_MODE);
-
-            logo.toUploadMode();
-
-            expect(logo.mode()).toEqual(UPLOAD_MODE);
-        });
-
-    });
-
-    describe('toURLMode:', () => {
-
-        it(`should set mode to ${URL_MODE}`, () => {
-            let logo = new Logo();
-            logo.mode(UPLOAD_MODE);
-
-            logo.toURLMode();
-
-            expect(logo.mode()).toEqual(URL_MODE);
-        });
-
-    });
-
-
-    describe('upload:', () => {
-
-        it('should be function', () => {
-            let logo = new Logo();
-            expect(logo.upload).toBeFunction();
-        });
-
-        describe('when file is not an object', () => {
-
-            it('should reject promise', done => {
-                let logo = new Logo();
-                logo.upload().catch(() => {
-                    done();
-                });
-            });
-
-        });
-
-        describe('when file is defined', () => {
-
-            it('should send file to server', done => {
-                spyOn(imageUpload, 'v2').and.returnValue(Promise.resolve({ url: 'imageUrl' }));
-
-                let logo = new Logo();
-                logo.upload({}).then(() => {
-                    expect(imageUpload.v2).toHaveBeenCalled();
-                    done();
-                });
-            });
-
-            describe('and file is uploaded successfully', () => {
-
-                beforeEach(() => spyOn(imageUpload, 'v2').and.returnValue(Promise.resolve({ url: 'imageUrl' })));
-
-                it('should resolve promise', done => {
-                    let logo = new Logo();
-                    logo.upload({}).then(() => {
-                        done();
-                    });
-                });
-
-                it('should set imageUrl', done => {
-                    let logo = new Logo();
-                    logo.imageUrl('');
-                    logo.upload({}).then(() => {
-                        expect(logo.imageUrl()).toEqual('imageUrl');
-                        done();
-                    });
-                });
-
-                it(`should trigger event ${EVENT_LOGO_UPLOADED}`, done => {
-                    let logo = new Logo();
-                    logo.imageUrl('');
-                    logo.upload({}).then(() => {
-                        expect(bus.trigger).toHaveBeenCalledWith(EVENT_LOGO_UPLOADED);
-                        done();
-                    });
-                });
-
-                it(`should trigger event 'Change logo (upload)'`, done => {
-                    let logo = new Logo();
-                    logo.imageUrl('');
-                    logo.upload({}).then(() => {
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Change logo (upload)');
-                        done();
-                    });
-                });
-
-            });
-
-            describe('and failed to upload file', () => {
-
-                beforeEach(() => {
-                    spyOn(imageUpload, 'v2').and.returnValue(Promise.reject('reason'));
-                    spyOn(notify, 'error');
-                });
-
-                it('should resolve promise', done => {
-                    let logo = new Logo();
-                    logo.upload({}).then(() => {
-                        done();
-                    });
-                });
-
-                it('should show notification', done => {
-                    let logo = new Logo();
-                    logo.upload({}).then(() => {
-                        expect(notify.error).toHaveBeenCalled();
-                        done();
-                    });
                 });
 
             });
@@ -409,12 +213,10 @@ describe('Logo design section', () => {
             });
 
             it('should set available true', () =>{
-
                 let logo = new Logo();
                 logo.activate();
 
                 expect(logo.available).toBeTruthy();
-        
             });
 
         });
@@ -426,11 +228,40 @@ describe('Logo design section', () => {
             });
 
             it('should set available false', () =>{
-
                 let logo = new Logo();
                 logo.activate();
 
                 expect(logo.available).toBeFalsy();
+            });
+
+        });
+
+    });
+
+    describe('updateLogo', () => {
+    
+        it('should be function', () => {
+            let logo = new Logo();
+            expect(logo.updateLogo).toBeFunction();
+        });
+
+        it('should change imageUrl', () => {
+            let logo = new Logo();
+            logo.imageUrl('url');
+            let url = 'new Url';
+
+            logo.updateLogo(url);
+            expect(logo.imageUrl()).toEqual(url);
+        });
+
+        describe('when user uploads logo image', () => {
+        
+            it(`should trigger event ${EVENT_LOGO_CHANGED}`, () => {
+                let logo = new Logo();
+                let url = 'new Url';
+
+                logo.updateLogo(url);
+                expect(bus.trigger).toHaveBeenCalledWith(EVENT_LOGO_CHANGED);
             });
 
         });

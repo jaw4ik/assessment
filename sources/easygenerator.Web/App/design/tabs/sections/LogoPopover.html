@@ -1,0 +1,15 @@
+﻿<section class="branding-background-popover logo-popover">
+    <ul>
+        <li class="upload-button-wrapper" data-bind="browse: { callback: upload.bind($data), accept: '.png, .jpg, .jpeg, .gif, .bmp' }">
+            <button class="upload-from-disc-button" data-bind=" localize: { text: 'uploadFileFromDisc' }"></button>
+        </li>
+        <li class="logo-popup-separator" data-bind="localize: { text: 'or' }">
+            or
+        </li>
+        <li class="logo-input-wrapper">
+            <h5 data-bind="localize:{text: 'attachByLink' }"></h5>
+            <input type="text" class="branding-logo-url" data-bind="value: imageUrl, event: { change: imageUrl.endEdit }, localize: { placeholder: 'pasteImageLink' }" />
+            <button data-bind="localize: { text: 'attach' }">Attach</button>
+        </li>
+    </ul>
+</section>

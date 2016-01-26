@@ -99,6 +99,8 @@
     "powerPoint": "PowerPoint",
     "pdf": "PDF",
     "officeDocuments": "Office-Dokumente",
+    "enable": "Enable",
+    "disable": "Disable",
     "storageFailed": "Etwas ist schief gegangen. Der Speicher ist derzeit nicht verfügbar.",
     "freeSpace": "Freier Speicher",
     "videoLibrary": "Videothek",
@@ -128,6 +130,9 @@
     "anyAudioFormats": "beliebige Audiodatei-Formate",
     "imageLibrary": "Bildergalerie",
     "uploadImageDescription": "Upload your own image by click on this button",
+    "imageDeleteConfirmation": "Delete this image?",
+    "imageDeleteWarning": "it will NOT be available in courses any more",
+    "anyImageFormats": "Any image formats",
     "learningObjectives": "Lernziele",
     "learningObjective": "Lernziel",
     "learningObjectiveListIsEmpty": "Liste der Lernziele ist leer",
@@ -690,5 +695,9 @@
     "upgradeAccountHintBackgroundSection": "Sie müssen <a target=\"_blank\" href=\"/account/upgrade\">Ihr Konto upgraden</a>, um einen benutzerdefinierten Hintergrund einzurichten.",
     "upgradeAccountHintLogoSection": "Sie müssen <a target=\"_blank\" href=\"/account/upgrade\">Ihr Konto upgraden</a>, um ein benutzerdefiniertes Kurslogo einzurichten.",
     "upgradeAccountHintColorsSection": "Sie müssen <a target=\"_blank\" href=\"/account/upgrade\">Ihr Konto upgraden</a>, um die Benutzeroberflächenfarben zu ändern.",
-    "colorThemes": "Farbthemen"
+    "colorThemes": "Farbthemen",
+    "uploadFileFromDisc": "Upload from your hard disc",
+    "attachByLink": "Attach a link to the logo",
+    "pasteImageLink": "Paste image link here",
+    "attach": "Attach"
 }
