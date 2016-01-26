@@ -15,7 +15,7 @@
             },
                 "body": {
                     "brightness": 0,
-                    "color": "#ececee",
+                    "color": "#ff0000",
                     "texture": null
                 }
         },
@@ -63,6 +63,6 @@
         "selected":"en"
     },
     "objectivesLayout":{
-        "key":"List"
+        "key":"Tiles"
     }
 }
