@@ -42,7 +42,7 @@ class Logo {
         this.defaults = defaults || null;
         this.imageUrl(logo && logo.url || defaults && defaults.url || null);
         this.available = userContext.hasStarterAccess();
-        this.popover.imageUrl(this.imageUrl());
+        this.popover.imageUrl(logo && logo.url || defaults && defaults.url || null);
     }
 
     toggleExpanded() {
