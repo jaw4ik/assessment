@@ -9,7 +9,6 @@ export const BACKGROUND_IMAGE_FULLSCREEN = 'fullscreen';
 export const BACKGROUND_IMAGE_REPEAT = 'repeat';
 export const BACKGROUND_IMAGE_ORIGINAL = 'original';
 
-export const EVENT_HEADER_BACKGROUND_EXPANDED_CHANGED = 'branding:header-background-expanded:changed';
 export const EVENT_HEADER_BACKGROUND_IMAGE_CHANGED = 'branding:header-background-image:changed';
 export const EVENT_HEADER_BACKGROUND_IMAGE_REMOVED = 'branding:header-background-image:removed';
 export const EVENT_HEADER_BACKGROUND_IMAGE_OPTION_CHANGED = 'branding:header-background-image-option:changed';
@@ -19,8 +18,6 @@ export const EVENT_HEADER_BACKGROUND_BRIGHTNESS_CHANGED = 'branding:header-backg
 
 export default class HeaderBackground {
     constructor() {
-        this.expanded = ko.observable(false);
-
         this.image = ko.observable();
         this.image.isDefault = ko.computed(() => {
             return this.image() && this.image() === (this.defaults && this.defaults.image && this.defaults.image.url);
@@ -47,17 +44,6 @@ export default class HeaderBackground {
         this.popover = new HeaderPopover();
         this.popover.on('color:selected').then(color => this.updateColor(color));
         this.popover.on('image:selected').then(color => this.updateImage(color));
-    }
-
-    toggleExpanded() {
-        this.expanded(!this.expanded());
-        bus.trigger(EVENT_HEADER_BACKGROUND_EXPANDED_CHANGED);
-
-        if (ko.unwrap(this.expanded)) {
-            eventTracker.publish('Switch to one background');
-        } else {
-            eventTracker.publish('Switch to multiple backgrounds');
-        }
     }
 
     updateColor(color) {
@@ -100,7 +86,6 @@ export default class HeaderBackground {
     activate(settings, defaults) {
         this.defaults = defaults || null;
 
-        this.expanded(settings && settings.expanded || defaults && defaults.expanded || false);
         this.image(settings && settings.image && settings.image.url || defaults && defaults.image && defaults.image.url || null);
         this.popover.image(settings && settings.image && settings.image.url || defaults && defaults.image && defaults.image.url || null);
         this.option(settings && settings.image && settings.image.option || defaults && defaults.image && defaults.image.option || null);

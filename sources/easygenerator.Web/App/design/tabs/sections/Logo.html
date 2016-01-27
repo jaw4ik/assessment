@@ -7,17 +7,6 @@
     </div>
     <!-- /ko-->
 
-    <div class="branding-logo-mode-button-group-wrapper">
-        <div class="branding-logo-mode-button-group">
-            <button class="branding-logo-mode-button" data-bind="click: toUploadMode, css: {'active': isUploadMode }, localize: { text: 'logoUploadMode' }"></button>
-            <button class="branding-logo-mode-button" data-bind="click: toURLMode, css: {'active': isURLMode }, localize: { text: 'logoUrlMode' }"></button>
-        </div>
-    </div>
-    <!-- ko if: isURLMode -->
-    <div class="branding-logo-url-wrapper">
-        <input type="text" class="branding-logo-url" data-bind="value: imageUrl, event: { change: imageUrl.endEdit }" />
-    </div>
-    <!-- /ko -->
     <div class="branding-logo-image-container">
         <div class="branding-logo-image-wrapper">
             <img class="branding-logo-image" data-bind="attr: { src: imageUrl }" />
@@ -26,9 +15,8 @@
         <button class="branding-logo-image-remove-button" data-bind="click: remove, tip: { key: 'reset' }"></button>
         <!-- /ko -->
     </div>
-    <!-- ko if: isUploadMode -->
     <div class="branding-logo-upload-wrapper">
-        <button class="branding-logo-upload" data-bind="browse: { callback: upload.bind($data), accept: '.png, .jpg, .jpeg, .gif, .bmp'}, localize: { text: 'changeLogo' }"></button>
+        <button class="branding-logo-upload" data-popover-placement="bottom" data-bind="click: showPopover, localize: { text: 'changeLogo' }, popover: popover, css: { active: popover.isVisible }"></button>
         <i class="branding-logo-upload-info-tooltip-holder info-tooltip-holder">
             <span class="info-tooltip">
                 <span>
@@ -39,7 +27,4 @@
             </span>
         </i>
     </div>
-    <!-- /ko -->
 </section>
-
-

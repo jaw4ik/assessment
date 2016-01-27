@@ -4,7 +4,6 @@ import {
     BACKGROUND_IMAGE_REPEAT,
     BACKGROUND_IMAGE_ORIGINAL,
 
-    EVENT_HEADER_BACKGROUND_EXPANDED_CHANGED,
     EVENT_HEADER_BACKGROUND_IMAGE_CHANGED,
     EVENT_HEADER_BACKGROUND_IMAGE_REMOVED,
     EVENT_HEADER_BACKGROUND_IMAGE_OPTION_CHANGED,
@@ -21,55 +20,6 @@ describe('Header background design section', () => {
     beforeEach(() => {
         spyOn(bus, 'trigger');
         spyOn(eventTracker, 'publish');
-    });
-
-    describe('expanded:', () => {
-        it('should be observable', () => {
-            let background = new HeaderBackground();
-
-            expect(background.expanded).toBeObservable();
-        });
-    });
-
-    describe('toggleExpanded:', () => {
-
-        it('should change expanded state', () => {
-            let background = new HeaderBackground();
-            background.expanded(false);
-
-            background.toggleExpanded();
-
-            expect(background.expanded()).toBeTruthy();
-        });
-
-        it(`should trigger event ${EVENT_HEADER_BACKGROUND_EXPANDED_CHANGED}`, () => {
-            let background = new HeaderBackground();
-            background.toggleExpanded();
-            expect(bus.trigger).toHaveBeenCalledWith(EVENT_HEADER_BACKGROUND_EXPANDED_CHANGED);
-        });
-
-        describe('when expanded state became true', () => {
-
-            it(`should trigger event 'Switch to one background'`, () => {
-                let background = new HeaderBackground();
-                background.expanded(false);
-                background.toggleExpanded();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Switch to one background');
-            });
-
-        });
-
-        describe('when expanded state became false', () => {
-
-            it(`should trigger event 'Switch to multiple backgrounds'`, () => {
-                let background = new HeaderBackground();
-                background.expanded(true);
-                background.toggleExpanded();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Switch to multiple backgrounds');
-            });
-
-        });
-
     });
 
     describe('changeBackground:', () => {
@@ -573,43 +523,6 @@ describe('Header background design section', () => {
     });
 
     describe('activate:', () => {
-
-        describe('when expanded is defined', () => {
-
-            it('should set corresponding expanded value', () => {
-                let background = new HeaderBackground();
-                background.activate({ expanded: true });
-
-                expect(background.expanded()).toBeTruthy();
-            });
-
-        });
-
-        describe('when expanded is not defined', () => {
-
-            describe('and expanded is specified in defaults', () => {
-
-                it('should set corresponding expanded value', () => {
-                    let background = new HeaderBackground();
-                    background.activate(null, { expanded: true });;
-
-                    expect(background.expanded()).toBeTruthy();
-                });
-
-            });
-
-            describe('and expanded is not specified in defaults', () => {
-
-                it('should set false to expanded', () => {
-                    let background = new HeaderBackground();
-                    background.activate();
-
-                    expect(background.expanded()).toBeFalsy();
-                });
-
-            });
-
-        });
 
         describe('when image is defined', () => {
 

@@ -71,5 +71,6 @@
     "[download as pdf error]": "Something went wrong",
     "[Save, I will continue later]": "Save, I will continue later",
     "[save and exit]": "Save and exit",
-    "[I'm done, report my progress]": "I'm done, report my progress"
+    "[I'm done, report my progress]": "I'm done, report my progress",
+    "[Overall progress]": "Overall progress"
 }

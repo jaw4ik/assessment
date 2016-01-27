@@ -71,5 +71,6 @@
     "[download as pdf error]": "Виникла помилка, спробуйте ще раз",
     "[Save, I will continue later]": "Я продовжу пізніше...",
     "[save and exit]": "Зберегти і вийти",
-    "[I'm done, report my progress]": "Надіслати прогрес"
+    "[I'm done, report my progress]": "Надіслати прогрес",
+    "[Overall progress]": "Результат"
 }

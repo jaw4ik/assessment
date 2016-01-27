@@ -54,12 +54,17 @@
                     display: flex;
                     width: 100%;
                     height: 70px;
+                    border-right: 1px solid #c6d1d8;
                     background-color: #fff;
                     box-shadow: 0 -1px 5px 0 #dfe4e6;
+
                     align-items: center;
                     justify-content: center;
 
                     button {
+                        position: relative;
+                        padding-right: 20px;
+                        padding-left: 52px;
                         min-width: 38px;
                         height: 38px;
                         border-width: 1px;
@@ -67,12 +72,9 @@
                         border-color: rgb(171, 187, 198);
                         border-radius: 5px;
                         background: transparent;
+                        color: #42515f;
                         font-size: 13px;
                         font-family: 'Open Sans';
-                        color: #42515f;
-                        padding-left: 52px;
-                        padding-right: 20px;
-                        position: relative;
 
                         &:hover {
                             border-color: rgb(135, 146, 156);
@@ -145,6 +147,7 @@
                 .design-bar-presets-list {
                     display: flex;
                     list-style: none;
+
                     flex-flow: row wrap;
                 }
 
@@ -167,6 +170,7 @@
                     border-radius: 5px;
                     background-color: #fff;
                     box-shadow: 0 0 0 1px rgb(171, 187, 198);
+
                     align-items: center;
                     flex-wrap: wrap;
                     justify-content: center;
@@ -224,6 +228,7 @@
         .design-bar-navigation {
             width: 70px;
             background: #fff;
+
             flex: 0 0 auto;
 
             .design-bar-navigation-list {
@@ -236,6 +241,7 @@
                     color: @font-color-ligth;
                     font: @icons-font;
                     cursor: pointer;
+
                     justify-content: center;
 
                     .navigation-item-thumbnail {
@@ -328,6 +334,8 @@
         .design-bar-content {
             position: relative;
             height: 100%;
+            border-right: 1px solid #c6d1d8;
+
             flex: 1;
 
             &.custom {
