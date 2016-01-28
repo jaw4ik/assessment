@@ -32,6 +32,7 @@ namespace easygenerator.PublicationServer.Configuration
                 builder.RegisterType<StaticViewContentProvider>().As<StaticViewContentProvider>().SingleInstance();
                 builder.RegisterType<UserRepository>().As<IUserRepository>();
                 builder.RegisterType<PublicationRepository>().As<IPublicationRepository>();
+                builder.RegisterType<HttpUtilityWrapper>().As<HttpUtilityWrapper>();
             });
         }
 

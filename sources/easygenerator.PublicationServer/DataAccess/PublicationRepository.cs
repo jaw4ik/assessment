@@ -20,8 +20,8 @@ namespace easygenerator.PublicationServer.DataAccess
         {
             ExecuteDbAction(
                 connection => connection.Execute(
-                    @"INSERT INTO Publications (Id, OwnerEmail, CreatedOn, ModifiedOn, SearchId) VALUES (@Id, @OwnerEmail, @CreatedOn, @ModifiedOn, @SearchId)",
-                    new { publication.Id, publication.OwnerEmail, publication.CreatedOn, publication.ModifiedOn, publication.SearchId })
+                    @"INSERT INTO Publications (Id, OwnerEmail, CreatedOn, ModifiedOn, PublicPath) VALUES (@Id, @OwnerEmail, @CreatedOn, @ModifiedOn, @PublicPath)",
+                    new { publication.Id, publication.OwnerEmail, publication.CreatedOn, publication.ModifiedOn, publication.PublicPath })
             );
         }
 

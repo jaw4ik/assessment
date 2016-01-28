@@ -6,7 +6,7 @@ namespace easygenerator.PublicationServer.Models
     {
         protected Publication() { }
 
-        public Publication(Guid id, string ownerEmail)
+        public Publication(Guid id, string ownerEmail, string publicPath)
         {
             if (id.Equals(Guid.Empty))
             {
@@ -18,9 +18,14 @@ namespace easygenerator.PublicationServer.Models
                 throw new ArgumentException("Owner email cannot be empty or white space", nameof(ownerEmail));
             }
 
+            if (string.IsNullOrWhiteSpace(publicPath))
+            {
+                throw new ArgumentException("Public path cannot be empty or white space", nameof(publicPath));
+            }
+
             Id = id;
             OwnerEmail = ownerEmail;
-            SearchId = Guid.NewGuid();
+            PublicPath = publicPath;
             CreatedOn = DateTimeWrapper.Now();
             ModifiedOn = DateTimeWrapper.Now();
         }
@@ -34,6 +39,6 @@ namespace easygenerator.PublicationServer.Models
         public string OwnerEmail { get; private set; }
         public DateTime CreatedOn { get; private set; }
         public DateTime ModifiedOn { get; private set; }
-        public Guid SearchId { get; private set; }
+        public string PublicPath { get; private set; }
     }
 }

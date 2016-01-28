@@ -18,17 +18,20 @@ namespace easygenerator.PublicationServer.Controllers
         private readonly IPublishDispatcher _courseDispatcher;
         private readonly CourseMultipartFormDataManager _courseDataManager;
         private readonly IPublicationRepository _publicationRepository;
+        private readonly HttpUtilityWrapper _httpUtilityWrapper;
 
-        public PublishController(ICoursePublisher coursePublisher, CourseMultipartFormDataManager courseDataManager, IPublishDispatcher publishDispatcher, IPublicationRepository publicationRepository)
+        public PublishController(ICoursePublisher coursePublisher, CourseMultipartFormDataManager courseDataManager, IPublishDispatcher publishDispatcher, IPublicationRepository publicationRepository,
+            HttpUtilityWrapper httpUtilityWrapper)
         {
             _coursePublisher = coursePublisher;
             _courseDataManager = courseDataManager;
             _courseDispatcher = publishDispatcher;
             _publicationRepository = publicationRepository;
+            _httpUtilityWrapper = httpUtilityWrapper;
         }
 
         [HttpPost]
-        public async Task<HttpResponseMessage> PublishCourse(Guid courseId, string ownerEmail)
+        public async Task<HttpResponseMessage> PublishCourse(Guid courseId, string ownerEmail, string title, DateTime createdDate)
         {
             if (courseId.Equals(Guid.Empty))
             {
@@ -37,6 +40,10 @@ namespace easygenerator.PublicationServer.Controllers
             if (string.IsNullOrWhiteSpace(ownerEmail))
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Owner email cannot be null or whitespace.");
+            }
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Title cannot be null or whitespace.");
             }
             if (_courseDispatcher.IsPublishing(courseId))
             {
@@ -49,7 +56,8 @@ namespace easygenerator.PublicationServer.Controllers
                 var currentPublication = _publicationRepository.Get(courseId);
                 if (currentPublication == null)
                 {
-                    _publicationRepository.Add(new Publication(courseId, ownerEmail));
+                    var publicPath = $"public/{createdDate.ToString("yyyy-MM-dd")}-{_httpUtilityWrapper.UrlEncode(title)}/";
+                    _publicationRepository.Add(new Publication(courseId, ownerEmail, publicPath));
                 }
                 else
                 {
@@ -68,3 +76,4 @@ namespace easygenerator.PublicationServer.Controllers
         }
     }
 }
+;

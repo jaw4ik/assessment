@@ -22,6 +22,7 @@ namespace easygenerator.PublicationServer.Controllers
         }
 
         [Route("sitemapindex.xml")]
+        [HttpGet]
         public HttpResponseMessage SitemapIndex()
         {
             var publicationsCount = _publicationRepository.GetPublicationsCountForUsersWithAccessType(SearchableAccessType, SearchableAccessTypeMinDaysPeriod);
@@ -50,6 +51,7 @@ namespace easygenerator.PublicationServer.Controllers
         }
 
         [Route("sitemap_{index}.xml")]
+        [HttpGet]
         public HttpResponseMessage Sitemap(int index)
         {
             var processedPublicationsCount = 0;
@@ -69,7 +71,7 @@ namespace easygenerator.PublicationServer.Controllers
 
                 foreach (var publication in searchablePublications)
                 {
-                    sitemapContentBuilder.Append($"<url><loc>{PublicationServerUri}/public/{publication.SearchId}/</loc><lastmod>{publication.ModifiedOn.ToString("yyyy-MM-ddTHH:mmzzz")}</lastmod></url>");
+                    sitemapContentBuilder.Append($"<url><loc>{PublicationServerUri}/{publication.PublicPath}/</loc><lastmod>{publication.ModifiedOn.ToString("yyyy-MM-ddTHH:mmzzz")}</lastmod></url>");
                 }
 
                 processedPublicationsCount += searchablePublications.Count;

@@ -146,6 +146,7 @@
     <Compile Include="Extensions\DependencyResolverExtensions.cs" />
     <Compile Include="Extensions\StaticFileOptionsExtensions.cs" />
     <Compile Include="FileSystem\PhysicalFileManager.cs" />
+    <Compile Include="HttpUtilityWrapper.cs" />
     <Compile Include="Logging\ILog.cs" />
     <Compile Include="Models\AccessType.cs" />
     <Compile Include="Models\Publication.cs" />

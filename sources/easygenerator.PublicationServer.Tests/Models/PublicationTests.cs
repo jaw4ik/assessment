@@ -9,6 +9,7 @@ namespace easygenerator.PublicationServer.Tests.Models
     public class PublicationTests
     {
         private string ownerEmail = "ownerEmail";
+        private string publicPath = "publicPath";
 
         [TestInitialize]
         public void Init()
@@ -19,41 +20,62 @@ namespace easygenerator.PublicationServer.Tests.Models
         [TestMethod]
         public void Ctor_ShouldThrowArgumentException_IfIdIsEmpty()
         {
-            Action action = () => { new Publication(Guid.Empty, ownerEmail); };
+            Action action = () => { new Publication(Guid.Empty, ownerEmail, publicPath); };
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("id");
         }
 
         [TestMethod]
         public void Ctor_ShouldThrowArgumentException_IfEmailIsNull()
         {
-            Action action = () => { new Publication(Guid.NewGuid(), null); };
+            Action action = () => { new Publication(Guid.NewGuid(), null, publicPath); };
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("ownerEmail");
         }
 
         [TestMethod]
         public void Ctor_ShouldThrowArgumentException_IfEmailIsEmpty()
         {
-            Action action = () => { new Publication(Guid.NewGuid(), ""); };
+            Action action = () => { new Publication(Guid.NewGuid(), "", publicPath); };
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("ownerEmail");
         }
 
         [TestMethod]
         public void Ctor_ShouldThrowArgumentException_IfEmailIsWhitespace()
         {
-            Action action = () => { new Publication(Guid.NewGuid(), "  "); };
+            Action action = () => { new Publication(Guid.NewGuid(), "  ", publicPath); };
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("ownerEmail");
+        }
+
+        [TestMethod]
+        public void Ctor_ShouldThrowArgumentException_IfTitleIsNull()
+        {
+            Action action = () => { new Publication(Guid.NewGuid(), ownerEmail, null); };
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("publicPath");
+        }
+
+        [TestMethod]
+        public void Ctor_ShouldThrowArgumentException_IfTitleIsEmpty()
+        {
+            Action action = () => { new Publication(Guid.NewGuid(), ownerEmail, ""); };
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("publicPath");
+        }
+
+        [TestMethod]
+        public void Ctor_ShouldThrowArgumentException_IfTitleIsWhitespace()
+        {
+            Action action = () => { new Publication(Guid.NewGuid(), ownerEmail, "   "); };
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("publicPath");
         }
 
         [TestMethod]
         public void Ctor_ShouldInitInstanceWithCorrectValues()
         {
             var id = Guid.NewGuid();
-            var publication = new Publication(id, ownerEmail);
+            var publication = new Publication(id, ownerEmail, publicPath);
             publication.CreatedOn.Should().Be(DateTimeWrapper.Now());
             publication.Id.Should().Be(id);
             publication.ModifiedOn.Should().Be(DateTimeWrapper.Now());
             publication.OwnerEmail.Should().Be(ownerEmail);
-            publication.SearchId.Should().NotBe(Guid.Empty);
+            publication.PublicPath.Should().Be(publicPath);
         }
     }
 }

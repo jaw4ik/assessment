@@ -23,6 +23,9 @@ namespace easygenerator.PublicationServer.Tests.Controllers
         private PublicationPathProvider _publicationPathProvider;
         private IPublicationRepository _publicationRepository;
         private string ownerEmail = "ownerEmail";
+        private string publicationTitle = "title";
+        private HttpUtilityWrapper _httpUtilityWrapper;
+        private DateTime _createdDate = DateTimeWrapper.Now();
 
         [TestInitialize]
         public void Initialize()
@@ -33,8 +36,8 @@ namespace easygenerator.PublicationServer.Tests.Controllers
             _formDataManager = Substitute.For<CourseMultipartFormDataManager>(_publicationPathProvider);
             _publishDispatcher = Substitute.For<IPublishDispatcher>();
             _publicationRepository = Substitute.For<IPublicationRepository>();
-
-            _publishController = new PublishController(_coursePublisher, _formDataManager, _publishDispatcher, _publicationRepository);
+            _httpUtilityWrapper = Substitute.For<HttpUtilityWrapper>();
+            _publishController = new PublishController(_coursePublisher, _formDataManager, _publishDispatcher, _publicationRepository, _httpUtilityWrapper);
 
             _publishController.Request = new HttpRequestMessage();
             _publishController.Request.SetConfiguration(new HttpConfiguration());
@@ -46,7 +49,7 @@ namespace easygenerator.PublicationServer.Tests.Controllers
         {
             // Arrange
             // Act
-            var result = _publishController.PublishCourse(Guid.Empty, ownerEmail).Result;
+            var result = _publishController.PublishCourse(Guid.Empty, ownerEmail, publicationTitle, _createdDate).Result;
 
             // Assert
             result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -58,7 +61,7 @@ namespace easygenerator.PublicationServer.Tests.Controllers
         {
             // Arrange
             // Act
-            var result = _publishController.PublishCourse(Guid.NewGuid(), null).Result;
+            var result = _publishController.PublishCourse(Guid.NewGuid(), null, publicationTitle, _createdDate).Result;
 
             // Assert
             result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -70,7 +73,7 @@ namespace easygenerator.PublicationServer.Tests.Controllers
         {
             // Arrange
             // Act
-            var result = _publishController.PublishCourse(Guid.NewGuid(), "").Result;
+            var result = _publishController.PublishCourse(Guid.NewGuid(), "", publicationTitle, _createdDate).Result;
 
             // Assert
             result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -82,11 +85,47 @@ namespace easygenerator.PublicationServer.Tests.Controllers
         {
             // Arrange
             // Act
-            var result = _publishController.PublishCourse(Guid.NewGuid(), "    ").Result;
+            var result = _publishController.PublishCourse(Guid.NewGuid(), "    ", publicationTitle, _createdDate).Result;
 
             // Assert
             result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
             result.Content.ReadAsStringAsync().Result.Should().Be("\"Owner email cannot be null or whitespace.\"");
+        }
+
+        [TestMethod]
+        public void PublishCourse_ShouldReturnBadRequestIfTitleIsNull()
+        {
+            // Arrange
+            // Act
+            var result = _publishController.PublishCourse(Guid.NewGuid(), ownerEmail, null, _createdDate).Result;
+
+            // Assert
+            result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+            result.Content.ReadAsStringAsync().Result.Should().Be("\"Title cannot be null or whitespace.\"");
+        }
+
+        [TestMethod]
+        public void PublishCourse_ShouldReturnBadRequestIfTitleIsEmpty()
+        {
+            // Arrange
+            // Act
+            var result = _publishController.PublishCourse(Guid.NewGuid(), ownerEmail, "", _createdDate).Result;
+
+            // Assert
+            result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+            result.Content.ReadAsStringAsync().Result.Should().Be("\"Title cannot be null or whitespace.\"");
+        }
+
+        [TestMethod]
+        public void PublishCourse_ShouldReturnBadRequestIfTitleIsWhiteSpace()
+        {
+            // Arrange
+            // Act
+            var result = _publishController.PublishCourse(Guid.NewGuid(), ownerEmail, "    ", _createdDate).Result;
+
+            // Assert
+            result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+            result.Content.ReadAsStringAsync().Result.Should().Be("\"Title cannot be null or whitespace.\"");
         }
 
         [TestMethod]
@@ -97,7 +136,7 @@ namespace easygenerator.PublicationServer.Tests.Controllers
             _publishDispatcher.IsPublishing(courseId).Returns(true);
 
             // Act
-            var result = _publishController.PublishCourse(courseId, ownerEmail).Result;
+            var result = _publishController.PublishCourse(courseId, ownerEmail, publicationTitle, _createdDate).Result;
 
             // Assert
             result.StatusCode.Should().Be(HttpStatusCode.ServiceUnavailable);
@@ -110,7 +149,7 @@ namespace easygenerator.PublicationServer.Tests.Controllers
             // Arrange
             var courseId = Guid.NewGuid();
             // Act
-            var result = _publishController.PublishCourse(courseId, ownerEmail).Result;
+            var result = _publishController.PublishCourse(courseId, ownerEmail, publicationTitle, _createdDate).Result;
 
             // Assert
             _formDataManager.Received().SaveCourseDataAsync(_publishController.Request, courseId);
@@ -122,7 +161,7 @@ namespace easygenerator.PublicationServer.Tests.Controllers
             // Arrange
             var courseId = Guid.NewGuid();
             // Act
-            var result = _publishController.PublishCourse(courseId, ownerEmail).Result;
+            var result = _publishController.PublishCourse(courseId, ownerEmail, publicationTitle, _createdDate).Result;
 
             // Assert
             _coursePublisher.Received().PublishCourse(courseId);
@@ -136,7 +175,7 @@ namespace easygenerator.PublicationServer.Tests.Controllers
             _coursePublisher.PublishCourse(courseId).Returns(true);
 
             // Act
-            var result = _publishController.PublishCourse(courseId, ownerEmail).Result;
+            var result = _publishController.PublishCourse(courseId, ownerEmail, publicationTitle, _createdDate).Result;
 
             // Assert
             result.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -151,18 +190,19 @@ namespace easygenerator.PublicationServer.Tests.Controllers
             var courseId = Guid.NewGuid();
             _coursePublisher.PublishCourse(courseId).Returns(true);
             _publicationRepository.Get(courseId).Returns((Publication)null);
+            _httpUtilityWrapper.UrlEncode(publicationTitle).Returns(publicationTitle + "-encoded");
 
             // Act
-            var result = _publishController.PublishCourse(courseId, ownerEmail).Result;
+            var result = _publishController.PublishCourse(courseId, ownerEmail, publicationTitle, _createdDate).Result;
 
             // Assert
             _publicationRepository.Received().Add(
-                Arg.Is<Publication>(_ => 
-                    _.Id == courseId && 
-                    _.OwnerEmail == ownerEmail && 
-                    _.CreatedOn == DateTimeWrapper.Now() && 
-                    _.ModifiedOn == DateTimeWrapper.Now() && 
-                    _.SearchId != Guid.Empty
+                Arg.Is<Publication>(_ =>
+                    _.Id == courseId &&
+                    _.OwnerEmail == ownerEmail &&
+                    _.CreatedOn == DateTimeWrapper.Now() &&
+                    _.ModifiedOn == DateTimeWrapper.Now() &&
+                    _.PublicPath == $"public/{_createdDate.ToString("yyyy-MM-dd")}-{publicationTitle + "-encoded"}/"
                 )
             );
         }
@@ -175,13 +215,14 @@ namespace easygenerator.PublicationServer.Tests.Controllers
             var courseId = Guid.NewGuid();
             _coursePublisher.PublishCourse(courseId).Returns(true);
             var creationTime = DateTimeWrapper.Now();
-            var publication = new Publication(courseId, ownerEmail);
+            var publication = new Publication(courseId, ownerEmail, publicationTitle);
             _publicationRepository.Get(courseId).Returns(publication);
             DateTimeWrapper.Now = () => DateTime.MaxValue;
             var modifiedTime = DateTimeWrapper.Now();
+            _httpUtilityWrapper.UrlEncode(publicationTitle).Returns(publicationTitle + "-encoded");
 
             // Act
-            var result = _publishController.PublishCourse(courseId, ownerEmail).Result;
+            var result = _publishController.PublishCourse(courseId, ownerEmail, publicationTitle, _createdDate).Result;
 
             // Assert
             _publicationRepository.Received().Update(
@@ -190,7 +231,7 @@ namespace easygenerator.PublicationServer.Tests.Controllers
                     publication.Id == courseId &&
                     publication.ModifiedOn == modifiedTime &&
                     publication.OwnerEmail == ownerEmail &&
-                    publication.SearchId != Guid.Empty
+                    publication.PublicPath == publicationTitle
                 )
             );
         }
@@ -204,7 +245,7 @@ namespace easygenerator.PublicationServer.Tests.Controllers
             _coursePublisher.PublishCourse(courseId).Returns(false);
 
             // Act
-            var result = _publishController.PublishCourse(courseId, ownerEmail).Result;
+            var result = _publishController.PublishCourse(courseId, ownerEmail, publicationTitle, _createdDate).Result;
 
             // Assert
             result.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
