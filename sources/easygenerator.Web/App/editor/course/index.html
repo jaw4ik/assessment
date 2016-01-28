@@ -86,14 +86,17 @@
                         </div>
                         <div class="questions-list-container" data-bind="expandBlock: { expanded: questionsExpanded }, css: { empty: notContainQuestions, collapsed: !questionsExpanded() }">
                             <ul class="questions-list" data-bind="foreachAnimated: { data: questions, removeDelay: 0.1, speed: 0.3, animateOnAdd: false }, draggableContainer: { moveTo: { '.questions-list': $root.reorderQuestion, '.question-placeholder-empty': $root.reorderQuestion }, draggableArea: '.questions-list-item-sort-button' }, draggableData: { sectionId: id }">
-                                <li class="questions-list-item-holder" data-bind="outsideClick: { action: cancel.bind($data) }, css: { processed: isProcessed }, draggableData: { id: id }">
+                                <li class="questions-list-item-holder" data-bind="outsideClick: { action: cancel.bind($data) }, css: { processed: isProcessed, editing: title.isEditing() }, draggableData: { id: id }">
                                     <div class="preloader-container" data-bind="preloader: { settings: 'align-center small' }"></div>
                                     <div class="questions-list-item" data-bind="css: type">
                                         <div class="questions-list-item-sort-button"></div>
-                                        <div class="questions-list-item-body-wrapper" data-bind="click: openQuestion">
-                                            <div class="questions-list-item-image"></div>
-                                            <div class="questions-list-item-title-container">
-                                                <div class="questions-list-item-title" data-bind="text:title"></div>
+                                        <div class="questions-list-item-body-wrapper">
+                                            <div class="questions-list-item-image" data-bind="click: openQuestion"></div>
+                                            <div class="questions-list-item-title-container"  data-bind="css: { error: !title.isValid() }">
+                                                <div class="questions-list-item-title" data-animation-duration="200" data-bind="editableText: { text: title }, event: { focus: startEditingTitle, blur: stopEditingTitle }, autofocus: { focus: justCreated() || title.isSelected() }, localize: { placeholder: 'typeQuestionTitle' }, heightAnimation:  { isEditing : title.isEditing(), minHeight : 26 } "></div>
+                                                <div class="questions-list-item-title-counter" data-bind=" visible: title.isEditing() ">
+                                                    <span data-bind="text: title().length"></span>/<span data-bind="text: title.maxLength">255</span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="questions-list-item-btn-wrapper" data-bind="click: markToDelete">
@@ -108,8 +111,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="questions-list-item-btn-wrapper" data-bind="click: openQuestion">
-                                            <button class="questions-list-item-btn open"></button>
+                                        <div class="questions-list-item-btn-separator"></div>
+                                        <div class="questions-list-item-btn-wrapper open-btn-wrapper" data-bind="click: openQuestion">
+                                            <button class="questions-list-item-btn open">
+                                                <span data-bind=" localize:{ text : 'open'} "></span>
+                                                <span class="open-btn-arrow"></span>
+                                            </button>
                                         </div>
                                     </div>
                                 </li>

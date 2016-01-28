@@ -381,6 +381,7 @@
     "moveCopyQuestionTo": "Frage verschieben/kopieren nach…",
     "moveCopyErrorMessage": "Ihr Kurs enthält keine Lernziele. Bitte wählen Sie einen Kurs aus, der mindestens 1 Lernziel enthält.",
     "learningContentRemoved": "Inhalt wurde entfernt",
+    "typeQuestionTitle": "Type your question here...",
     "edit": "Bearbeiten",
     "relatedContents": "Zusammenhängendes Objekt",
     "objectiveProperties": "Lernzieleigenschaften",

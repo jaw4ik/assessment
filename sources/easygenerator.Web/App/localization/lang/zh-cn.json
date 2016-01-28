@@ -381,6 +381,7 @@
     "moveCopyQuestionTo": "将问题移动/复制到...",
     "moveCopyErrorMessage": "该课程中没有目标。请选择至少包含一个目标的课程。",
     "learningContentRemoved": "内容已移除",
+    "typeQuestionTitle": "Type your question here...",
     "edit": "编辑",
     "relatedContents": "相关知识点",
     "objectiveProperties": "学习目标的属性",

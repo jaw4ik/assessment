@@ -381,6 +381,7 @@
     "moveCopyQuestionTo": "Verplaats/kopieer vraag naar …",
     "moveCopyErrorMessage": "Er staan geen doelen in de cursus. Kies een cursus die ten minste één doel heeft.",
     "learningContentRemoved": "Inhoud is verplaatst",
+    "typeQuestionTitle": "Type your question here...",
     "edit": "Bewerken",
     "relatedContents": "Gerelateerde onderwerpen",
     "objectiveProperties": "Eigenschappen leerdoel",
@@ -699,5 +700,5 @@
     "attachByLink": "Gebruik een weblink naar uw logo",
     "pasteImageLink": "Plak de link naar de afbeelding hier",
     "attach": "Bevestig",
-    "themes": "Themes"
+    "themes": "Thema's"
 }

@@ -381,6 +381,7 @@
     "moveCopyQuestionTo": "Déplacer/Copier la question vers…",
     "moveCopyErrorMessage": "Il n'y a pas d'objectif de cours. Veuillez choisir un cours qui contient au moins un objectif.",
     "learningContentRemoved": "Le contenu a été supprimé",
+    "typeQuestionTitle": "Type your question here...",
     "edit": "Éditer",
     "relatedContents": "Objets liés",
     "objectiveProperties": "Propriétés de l'objectif d'apprentissage",
