@@ -6,6 +6,10 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
+using System.Security.Principal;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -14,12 +18,19 @@ namespace easygenerator.Web.Tests.Controllers.Api
     {
         private IDomainEventPublisher _publisher;
         private FeedbackController _controller;
+        IPrincipal _user;
+        HttpContextBase _context;
 
         [TestInitialize]
         public void InitializeContext()
         {
             _publisher = Substitute.For<IDomainEventPublisher>();
             _controller = new FeedbackController(_publisher);
+
+            _user = Substitute.For<IPrincipal>();
+            _context = Substitute.For<HttpContextBase>();
+            _context.User.Returns(_user);
+            _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
         #region SendFeedback

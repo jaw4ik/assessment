@@ -5,7 +5,6 @@
         },
         "background":{
             "header": {
-                "expanded": false,
                 "brighthness": 0,
                 "color": null,
                 "image": {
@@ -14,8 +13,9 @@
                 }
             },
                 "body": {
+                    "enabled": true,
                     "brightness": 0,
-                    "color": "#ececee",
+                    "color": "#ff0000",
                     "texture": null
                 }
         },
@@ -63,6 +63,6 @@
         "selected":"en"
     },
     "objectivesLayout":{
-        "key":"List"
+        "key":"Tiles"
     }
 }

@@ -11,6 +11,11 @@ namespace easygenerator.Infrastructure.Http
 {
     public class HttpClient
     {
+        public virtual string Post(string url, object postData, string userName = null, string password = null)
+        {
+            var postJsonData = JsonConvert.SerializeObject(postData);
+            return DoHttpAction(url, postJsonData, client => client.PostAsync(url, new StringContent(postJsonData, Encoding.UTF8, "application/json")).Result, userName, password);
+        }
         public virtual TResponse Post<TResponse>(string url, object postData, string userName = null, string password = null)
         {
             return Post<TResponse>(url, JsonConvert.SerializeObject(postData), userName, password);
@@ -23,18 +28,18 @@ namespace easygenerator.Infrastructure.Http
 
         public virtual TResponse Post<TResponse>(string url, string postJsonData, string userName = null, string password = null)
         {
-            return DoHttpAction<TResponse>(url, postJsonData, client => client.PostAsync(url, new StringContent(postJsonData, Encoding.UTF8, "application/json")).Result, userName, password);
+            return Deserialize<TResponse>(DoHttpAction(url, postJsonData, client => client.PostAsync(url, new StringContent(postJsonData, Encoding.UTF8, "application/json")).Result, userName, password));
         }
 
         public virtual TResponse Get<TResponse>(string url, Dictionary<string, string> queryStringParameters, string userName = null, string password = null)
         {
-            return DoHttpAction<TResponse>(url, null, client => client.GetAsync(BuildUrl(url, queryStringParameters)).Result, userName, password);
+            return Deserialize<TResponse>(DoHttpAction(url, null, client => client.GetAsync(BuildUrl(url, queryStringParameters)).Result, userName, password));
         }
 
         public virtual TResponse Get<TResponse>(string url, Dictionary<string, string> queryStringParameters, Dictionary<string, string> headers, string userName = null, string password = null)
         {
             var requestMessage = BuildRequestMessage(HttpMethod.Get, BuildUrl(url, queryStringParameters), headers);
-            return DoHttpAction<TResponse>(url, null, client => client.SendAsync(requestMessage).Result, userName, password);
+            return Deserialize<TResponse>(DoHttpAction(url, null, client => client.SendAsync(requestMessage).Result, userName, password));
         }
 
         public virtual TResponse PostFile<TResponse>(string url, string fileName, byte[] fileData)
@@ -111,7 +116,7 @@ namespace easygenerator.Infrastructure.Http
             }
         }
 
-        protected virtual TResponse DoHttpAction<TResponse>(string url, string requestData, Func<System.Net.Http.HttpClient, HttpResponseMessage> getHttpResponseFunc, string userName = null, string password = null)
+        protected virtual string DoHttpAction(string url, string requestData, Func<System.Net.Http.HttpClient, HttpResponseMessage> getHttpResponseFunc, string userName = null, string password = null)
         {
             using (var client = InitializeHttpClient(userName, password))
             {
@@ -124,8 +129,13 @@ namespace easygenerator.Infrastructure.Http
                         response.ReasonPhrase, responseBody);
                 }
 
-                return JsonConvert.DeserializeObject<TResponse>(responseBody);
+                return responseBody;
             }
+        }
+
+        protected virtual TResponse Deserialize<TResponse>(string content)
+        {
+            return JsonConvert.DeserializeObject<TResponse>(content);
         }
 
         protected virtual System.Net.Http.HttpClient InitializeHttpClient(string userName = null, string password = null)

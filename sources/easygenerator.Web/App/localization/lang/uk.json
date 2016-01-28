@@ -99,6 +99,8 @@
     "powerPoint": "PowerPoint",
     "pdf": "PDF",
     "officeDocuments": "документи Office",
+    "enable": "Включити",
+    "disable": "Виключити",
     "storageFailed": "Помилка при завантаженні медіа.",
     "freeSpace": "Вільне місце",
     "videoLibrary": "Відео бібліотека",
@@ -128,6 +130,9 @@
     "anyAudioFormats": "будь-які аудіо формати",
     "imageLibrary": "Бібліотека зображень",
     "uploadImageDescription": "Завантажте своє власне зображення натиснувши на кнопку",
+    "imageDeleteConfirmation": "Видалити це зображення?",
+    "imageDeleteWarning": "зображення більше не буде доступним в курсах",
+    "anyImageFormats": "будь-які формати зображень",
     "learningObjectives": "Розділи / Цілі",
     "learningObjective": "Розділ / Ціль",
     "learningObjectiveListIsEmpty": "Список розділів / цілей порожній",
@@ -690,5 +695,9 @@
     "upgradeAccountHintBackgroundSection": "<a target=\"_blank\" href=\"/account/upgrade\">Оновіть план</a> щоб встановити власний фон",
     "upgradeAccountHintLogoSection": "<a target=\"_blank\" href=\"/account/upgrade\">Оновіть план</a> щоб встановити власний логотип",
     "upgradeAccountHintColorsSection": "<a target=\"_blank\" href=\"/account/upgrade\">Оновіть план</a> щоб змінити кольори інтерфейсу",
-    "colorThemes": "Теми"
+    "colorThemes": "Теми",
+    "uploadFileFromDisc": "Завантажте з диска",
+    "attachByLink": "Приєднайте лого з посилання",
+    "pasteImageLink": "Вкажіть посилання тут",
+    "attach": "Застосувати"
 }
