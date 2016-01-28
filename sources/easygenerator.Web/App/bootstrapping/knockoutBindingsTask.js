@@ -74,6 +74,8 @@
         ko.validation.init({
             insertMessages: false
         });
+
+        ko.bindingHandlers['css2'] = ko.bindingHandlers.css;
     }
 
 });

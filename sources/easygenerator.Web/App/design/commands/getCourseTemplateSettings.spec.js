@@ -5,17 +5,20 @@ import * as command  from './getCourseTemplateSettings.js';
 
 describe('command [saveCourseTemplateSettings]', () => {
 
-    it('should get settings', () => {
-        spyOn(http, 'get').and.returnValue(Promise.resolve());
-        command.getCourseTemplateSettings('courseId', 'templateId');
-        expect(http.get).toHaveBeenCalled();
+    it('should get settings', done => {
+        spyOn(http, 'get').and.returnValue(Promise.reject());
+        command.getCourseTemplateSettings('courseId', 'templateId').catch(() => {
+            expect(http.get).toHaveBeenCalled();
+            done();
+        });
     });
 
     describe('when get failed', () => {
 
         it('should reject promise', done => {
-            spyOn(http, 'get').and.returnValue(Promise.reject());
-            command.getCourseTemplateSettings().catch(() => {
+            spyOn(http, 'get').and.returnValue(Promise.reject('reason'));
+            command.getCourseTemplateSettings().catch(reason => {
+                expect(reason).toEqual('reason');
                 done();
             });
         });
@@ -25,11 +28,12 @@ describe('command [saveCourseTemplateSettings]', () => {
     describe('when response is not an object', () => {
 
         beforeEach(() => {
-            spyOn(http, 'get').and.returnValue(Promise.reject());
+            spyOn(http, 'get').and.returnValue(Promise.resolve());
         });
 
         it('should reject promise', done => {
-            command.getCourseTemplateSettings().catch(() => {
+            command.getCourseTemplateSettings().catch(reason => {
+                expect(reason).toBeDefined();
                 done();
             });
         });
@@ -43,7 +47,8 @@ describe('command [saveCourseTemplateSettings]', () => {
         });
 
         it('should reject promise', done => {
-            command.getCourseTemplateSettings().catch(() => {
+            command.getCourseTemplateSettings().catch(reason => {
+                expect(reason).toBeDefined();
                 done();
             });
         });
@@ -58,6 +63,7 @@ describe('command [saveCourseTemplateSettings]', () => {
 
         it('should reject promise', done => {
             command.getCourseTemplateSettings('courseId', 'templateId').catch(reason => {
+                expect(reason).toBeDefined();
                 done();
             });
         });
