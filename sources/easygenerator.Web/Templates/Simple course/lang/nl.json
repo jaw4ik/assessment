@@ -2,11 +2,13 @@
     "[course]": "Cursus:",
     "[start course]": "Start cursus",
     "[finish course]": "Stop cursus",
-    "[cancel]": "Annuleer",
-    "[finish course popup title]": "Nog 1 stap en u heeft de cursus beëindigd",
-    "[finish course popup explanation title]": "Merk op dat:",
+    "[cancel, continue course]": "Annuleer",
     "[finish course popup first remark]": "De uiteindelijke score zal worden gerapporteerd",
     "[finish course popup second remark]": "Uw voortgang wordt niet bewaard. Als u de cursus opnieuw start, moet u opnieuw beginnen",
+    "[finish course submit first remark]": "- Your final score will be reported",
+    "[finish course submit second remark]": "- You will not be able to continue the course later",
+    "[finish course take brake first remark]": "- You can reopen the course anytime you want and continue where you left of",
+    "[finish course take brake second remark]": "- Use the same browser to continue the course",
     "[learning objectives]": "Leerdoelen:",
     "[start]": "Start",
     "[home]": "Home",
@@ -70,6 +72,9 @@
     "[download as pdf preparing]": "Voorbereiden...",
     "[download as pdf error]": "Er is iets misgegaan",
     "[Save, I will continue later]": "Bewaar en ga later verder",
-    "[save and exit]": "Bewaar en sluit af",
-    "[I'm done, report my progress]": "Ik ben klaar rapporteer mijn resultaat"
+    "[OK, submit results]": "Ik ben klaar rapporteer mijn resultaat",
+    "[Overall progress]": "Algemene voortgang",
+    "[OK, close course]": "OK, close course",
+    "[take a brake]": "Take a break",
+    "[note that]": "Note that:"
 }
