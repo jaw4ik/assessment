@@ -95,7 +95,8 @@ namespace easygenerator.Web.Configuration
                 .Include("~/Content/notSupportedPage.css")
                 .Include("~/Content/releaseNotes.css")
                 .Include("~/Content/scenario.css")
-                .Include("~/Content/slider.css");
+                .Include("~/Content/slider.css")
+                .Include("~/Content/wintoweb.css");
 
             stylesBundle.Transforms.Add(new ImageNoCacheParamTransform());
             bundles.Add(stylesBundle);

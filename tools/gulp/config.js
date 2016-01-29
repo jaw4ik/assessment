@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     less: {
         src: ['./sources/easygenerator.Web/Content/**/*.less'],
         srcPlayer: ['./sources/easygenerator.Player/public/styles/*.less'],

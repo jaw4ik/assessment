@@ -68,6 +68,7 @@
         app.on(constants.messages.course.collaboration.finished, viewModel.collaborationFinished);
         app.on(constants.messages.learningPath.createCourse, viewModel.newCourseCreated);
         app.on(constants.messages.course.deleted, viewModel.courseDeleted);
+        app.on(constants.messages.course.created, viewModel.newCourseCreated);
 
         return viewModel;
 

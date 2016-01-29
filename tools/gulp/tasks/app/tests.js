@@ -1,9 +1,11 @@
-var gulp = require('gulp'),
-    runSequence = require('run-sequence'),
-    config = require('../../config'),
-    buildUtils = require('../build-utils')();
+import gulp from 'gulp';
+import runSequence from 'run-sequence';
+import buildUtilsModule from '../build-utils';
+import gulpLoadPlugins from 'gulp-load-plugins';
+import config from '../../config';
 
-var $ = require('gulp-load-plugins')({
+var buildUtils = buildUtilsModule();
+var $ = gulpLoadPlugins({
     lazy: true
 });
 

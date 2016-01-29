@@ -1,8 +1,10 @@
-var gulp = require('gulp'),
-del = require('del'),
-args = require('yargs').argv;
+import gulp from 'gulp';
+import del from 'del';
+import yargs from 'yargs';
+import gulpLoadPlugins from 'gulp-load-plugins';
 
-var $ = require('gulp-load-plugins')({
+var args = yargs.argv;
+var $ = gulpLoadPlugins({
     lazy: true
 });
 

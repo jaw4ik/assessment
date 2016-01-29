@@ -1,8 +1,10 @@
-var gulp = require('gulp'),
-    Q = require('q'),
-    fs = require('fs'),
-    SystemJSBuilder = require('jspm').Builder,
-    config = require('../../config');
+import gulp from 'gulp';
+import config from '../../config';
+import Q from 'q';
+import fs from 'fs';
+import jspm from 'jspm';
+
+var SystemJSBuilder = jspm.Builder;
 
 gulp.task('build-system', function (cb) {
     buildInSequence([buildScripts, buildViews]);

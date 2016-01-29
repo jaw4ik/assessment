@@ -1,7 +1,8 @@
-var gulp = require('gulp'),
-    config = require('../../config');
+import gulp from 'gulp';
+import gulpLoadPlugins from 'gulp-load-plugins';
+import config from '../../config';
 
-var $ = require('gulp-load-plugins')({
+var $ = gulpLoadPlugins({
     lazy: true
 });
 

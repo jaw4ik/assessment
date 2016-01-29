@@ -1,8 +1,11 @@
-var gulp = require('gulp'),
-del = require('del'),
-args = require('yargs').argv,
-runSequence = require('run-sequence'),
-buildUtils = require('../build-utils')();
+import gulp from 'gulp';
+import del from 'del';
+import yargs from 'yargs';
+import runSequence from 'run-sequence';
+import buildUtilsModule from '../build-utils';
+
+var args = yargs.argv;
+var buildUtils = buildUtilsModule();
 
 var outputDirectory = args.output || 'D:/Applications/easygenerator.PdfConverter',
     instance = args.instance || 'Release';
