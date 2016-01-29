@@ -1,12 +1,14 @@
 {
     "[course]": "Course:",
     "[start course]": "Start course",
-    "[finish course]": "Finish course",
-    "[cancel]": "Cancel",
-    "[finish course popup title]": "You are one step away from finishing the course",
-    "[finish course popup explanation title]": "Note, if you click REPORT:",
+    "[finish course]": "Submit results",
+    "[cancel, continue course]": "Cancel, continue course",
     "[finish course popup first remark]": "- your final score will be reported",
     "[finish course popup second remark]": "- your current progress will NOT be\nrestored when you reopen the course\nnext time",
+    "[finish course submit first remark]": "- Your final score will be reported",
+    "[finish course submit second remark]": "- You will not be able to continue the course later",
+    "[finish course take brake first remark]": "- You can reopen the course anytime you want and continue where you left of",
+    "[finish course take brake second remark]": "- Use the same browser to continue the course",
     "[learning objectives]": "Learning objectives:",
     "[start]": "Start",
     "[home]": "Home",
@@ -70,7 +72,9 @@
     "[download as pdf preparing]": "preparing...",
     "[download as pdf error]": "Something went wrong",
     "[Save, I will continue later]": "Save, I will continue later",
-    "[save and exit]": "Save and exit",
-    "[I'm done, report my progress]": "I'm done, report my progress",
-    "[Overall progress]": "Overall progress"
+    "[OK, submit results]": "OK, submit results",
+    "[Overall progress]": "Overall progress",
+    "[OK, close course]": "OK, close course",
+    "[take a brake]": "Take a break",
+    "[note that]": "Note that:"
 }
