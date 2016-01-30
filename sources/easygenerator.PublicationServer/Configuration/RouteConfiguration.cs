@@ -8,11 +8,6 @@ namespace easygenerator.PublicationServer.Configuration
     {
         public static void ConfigurePublicationApi(HttpConfiguration config)
         {
-            config.Routes.MapHttpRoute(name: "PublishApi",
-               routeTemplate: "api/publish",
-               defaults: new { controller = "Publish", action = "PublishCourse" }
-            );
-
             config.Routes.MapHttpRoute(
               name: "Maintenance",
               routeTemplate: "{courseId}/{*pathInfo}",

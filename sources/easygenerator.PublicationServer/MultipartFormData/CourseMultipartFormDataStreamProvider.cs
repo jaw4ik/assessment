@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Net.Http;
 
 namespace easygenerator.PublicationServer.MultipartFormData
@@ -11,6 +12,8 @@ namespace easygenerator.PublicationServer.MultipartFormData
         {
             _courseId = courseId;
         }
+
+        public virtual NameValueCollection FormData => base.FormData;
 
         public override string GetLocalFileName(System.Net.Http.Headers.HttpContentHeaders headers)
         {

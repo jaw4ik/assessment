@@ -2,6 +2,8 @@
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.Configuration;
 using HttpClient = easygenerator.Infrastructure.Http.HttpClient;
@@ -34,12 +36,22 @@ namespace easygenerator.Web.Publish
             try
             {
                 if (!course.BuildOn.HasValue || string.IsNullOrWhiteSpace(course.PackageUrl))
-                    throw new NotSupportedException(string.Format("Publishing of non builded course is not supported. CourseId: {0}", courseId));
+                    throw new NotSupportedException($"Publishing of non builded course is not supported. CourseId: {courseId}");
 
-                string publishMethodPath = GetPublishMethodPath(courseId, course.CreatedBy);
+                string publishMethodPath = _urlHelper.AddCurrentSchemeToUrl($"{_configurationReader.PublicationConfiguration.ServiceUrl}/api/publish/{courseId}");
 
-                // start publish, now maintenance page will be shown instead of published content
-                var publishedCourseUrl = _httpClient.PostFile<string>(publishMethodPath, courseId, _fileManager.GetFileBytes(_pathProvider.GetBuildedPackagePath(course.PackageUrl)));
+                var publishedCourseUrl = _httpClient.PostFile<string>(
+                        publishMethodPath,
+                        courseId,
+                        _fileManager.GetFileBytes(_pathProvider.GetBuildedPackagePath(course.PackageUrl)),
+                        formValues: new[] {
+                            new KeyValuePair<string, string>("ownerEmail", course.CreatedBy),
+                            new KeyValuePair<string, string>("title", course.Title),
+                            new KeyValuePair<string, string>("createdDate", course.CreatedOn.ToString(CultureInfo.InvariantCulture))
+                        },
+                        headerValues: new[] {
+                            new KeyValuePair<string, string>("key", _configurationReader.PublicationConfiguration.ApiKey)
+                        });
                 course.UpdatePublicationUrl(_urlHelper.RemoveSchemeFromUrl(publishedCourseUrl));
                 return !String.IsNullOrEmpty(publishedCourseUrl);
             }
@@ -49,11 +61,6 @@ namespace easygenerator.Web.Publish
                 course.UpdatePublicationUrl(null);
                 return false;
             }
-        }
-
-        private string GetPublishMethodPath(string courseId, string ownerEmail)
-        {
-            return _urlHelper.AddCurrentSchemeToUrl($"{_configurationReader.PublicationConfiguration.ServiceUrl}/api/publish?key={_configurationReader.PublicationConfiguration.ApiKey}&courseid={courseId}&ownerEmail={ownerEmail}");
         }
     }
 }

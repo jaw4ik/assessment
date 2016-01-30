@@ -144,6 +144,7 @@
     <Compile Include="DataAccess\UserRepository.cs" />
     <Compile Include="DateTimeWrapper.cs" />
     <Compile Include="Extensions\DependencyResolverExtensions.cs" />
+    <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Extensions\StaticFileOptionsExtensions.cs" />
     <Compile Include="FileSystem\PhysicalFileManager.cs" />
     <Compile Include="HttpUtilityWrapper.cs" />

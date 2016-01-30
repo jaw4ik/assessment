@@ -9,6 +9,10 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace easygenerator.Web.Tests.Publish
 {
@@ -63,7 +67,7 @@ namespace easygenerator.Web.Tests.Publish
             _publisher.Publish(course);
 
             // Assert
-            _logger.Received().LogException(Arg.Is<NotSupportedException>(ex => ex.Message == string.Format("Publishing of non builded course is not supported. CourseId: {0}", course.Id)));
+            _logger.Received().LogException(Arg.Is<NotSupportedException>(ex => ex.Message == $"Publishing of non builded course is not supported. CourseId: {course.Id}"));
         }
 
         [TestMethod]
@@ -72,14 +76,20 @@ namespace easygenerator.Web.Tests.Publish
             // Arrange
             var course = CourseObjectMother.Create("CourseTitle");
             course.UpdatePackageUrl("url");
-            var methodUrl = $"serviceUrl/api/publish?key=apiKey&courseid={course.Id}&ownerEmail={course.CreatedBy}";
+            var methodUrl = $"serviceUrl/api/publish/{course.Id}";
             _urlHelper.AddCurrentSchemeToUrl(methodUrl).Returns("http://" + methodUrl);
 
             // Act
             _publisher.Publish(course);
 
             // Assert
-            _httpClient.Received().PostFile<string>("http://" + methodUrl, course.Id.ToString(), Arg.Any<byte[]>());
+            _httpClient.Received().PostFile<string>("http://" + methodUrl, course.Id.ToString(), Arg.Any<byte[]>(),
+                Arg.Is<IEnumerable<KeyValuePair<string, string>>>(
+                    _ => _.Any(formValue => formValue.Key == "ownerEmail" && formValue.Value == course.CreatedBy) &&
+                    _.Any(formValue => formValue.Key == "title" && formValue.Value == course.Title) &&
+                    _.Any(formValue => formValue.Key == "createdDate" && formValue.Value == course.CreatedOn.ToString(CultureInfo.InvariantCulture))
+                    ),
+                Arg.Is<IEnumerable<KeyValuePair<string, string>>>(_ => _.Any(formValue => formValue.Key == "key" && formValue.Value == "apiKey")));
         }
 
         [TestMethod]
@@ -90,7 +100,8 @@ namespace easygenerator.Web.Tests.Publish
             var publicationUrl = "//publicationUrl";
             course.UpdatePackageUrl("url");
 
-            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns("http:" + publicationUrl);
+            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>(), Arg.Any<IEnumerable<KeyValuePair<string, string>>>(), Arg.Any<IEnumerable<KeyValuePair<string, string>>>())
+                .Returns("http:" + publicationUrl);
             _urlHelper.RemoveSchemeFromUrl("http:" + publicationUrl).Returns(publicationUrl);
 
             // Act
@@ -108,7 +119,8 @@ namespace easygenerator.Web.Tests.Publish
             course.UpdatePackageUrl("url");
 
             var ex = new Exception();
-            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns(info => { throw ex; });
+            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>(), Arg.Any<IEnumerable<KeyValuePair<string, string>>>(), Arg.Any<IEnumerable<KeyValuePair<string, string>>>())
+                .Returns(info => { throw ex; });
 
             // Act
             _publisher.Publish(course);
@@ -124,7 +136,8 @@ namespace easygenerator.Web.Tests.Publish
             course.UpdatePackageUrl("url");
 
             var ex = new Exception();
-            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns(info => { throw ex; });
+            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>(), Arg.Any<IEnumerable<KeyValuePair<string, string>>>(), Arg.Any<IEnumerable<KeyValuePair<string, string>>>())
+                .Returns(info => { throw ex; });
 
             // Act
             _publisher.Publish(course);
@@ -140,7 +153,8 @@ namespace easygenerator.Web.Tests.Publish
             course.UpdatePackageUrl("url");
 
             var ex = new Exception();
-            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns(info => { throw ex; });
+            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>(), Arg.Any<IEnumerable<KeyValuePair<string, string>>>(), Arg.Any<IEnumerable<KeyValuePair<string, string>>>())
+                .Returns(info => { throw ex; });
 
             // Act
             var result = _publisher.Publish(course);
@@ -157,7 +171,8 @@ namespace easygenerator.Web.Tests.Publish
             var publicationUrl = "//publicationUrl";
             course.UpdatePackageUrl("url");
 
-            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns("http:" + publicationUrl);
+            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>(), Arg.Any<IEnumerable<KeyValuePair<string, string>>>(), Arg.Any<IEnumerable<KeyValuePair<string, string>>>())
+                .Returns("http:" + publicationUrl);
             _urlHelper.RemoveSchemeFromUrl("http:" + publicationUrl).Returns(publicationUrl);
             // Act
             var result = _publisher.Publish(course);
@@ -173,7 +188,8 @@ namespace easygenerator.Web.Tests.Publish
             var course = CourseObjectMother.Create("CourseTitle");
             course.UpdatePackageUrl("url");
 
-            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns("http://publicationUrl");
+            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>(), Arg.Any<IEnumerable<KeyValuePair<string, string>>>(), Arg.Any<IEnumerable<KeyValuePair<string, string>>>())
+                .Returns("http://publicationUrl");
 
             // Act
             var result = _publisher.Publish(course);
@@ -189,7 +205,8 @@ namespace easygenerator.Web.Tests.Publish
             var course = CourseObjectMother.Create("CourseTitle");
             course.UpdatePackageUrl("url");
 
-            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>()).Returns(string.Empty);
+            _httpClient.PostFile<string>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<byte[]>(), Arg.Any<IEnumerable<KeyValuePair<string, string>>>(), Arg.Any<IEnumerable<KeyValuePair<string, string>>>())
+                .Returns(string.Empty);
 
             // Act
             var result = _publisher.Publish(course);

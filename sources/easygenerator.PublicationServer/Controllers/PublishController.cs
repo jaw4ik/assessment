@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using easygenerator.PublicationServer.DataAccess;
+using easygenerator.PublicationServer.Extensions;
 using easygenerator.PublicationServer.Models;
 
 namespace easygenerator.PublicationServer.Controllers
@@ -30,27 +31,39 @@ namespace easygenerator.PublicationServer.Controllers
             _httpUtilityWrapper = httpUtilityWrapper;
         }
 
+        [Route("api/publish/{courseId}")]
         [HttpPost]
-        public async Task<HttpResponseMessage> PublishCourse(Guid courseId, string ownerEmail, string title, DateTime createdDate)
+        public async Task<HttpResponseMessage> PublishCourse(Guid courseId)
         {
             if (courseId.Equals(Guid.Empty))
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Course id cannot be empty.");
             }
-            if (string.IsNullOrWhiteSpace(ownerEmail))
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, "Owner email cannot be null or whitespace.");
-            }
-            if (string.IsNullOrWhiteSpace(title))
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, "Title cannot be null or whitespace.");
-            }
+
             if (_courseDispatcher.IsPublishing(courseId))
             {
                 return Request.CreateResponse(HttpStatusCode.ServiceUnavailable, $"Course '{courseId}' is already publishing.");
             }
 
-            await _courseDataManager.SaveCourseDataAsync(Request, courseId);
+            var formDataProvider = await _courseDataManager.SaveCourseDataAsync(Request, courseId);
+            var ownerEmail = formDataProvider.FormData.GetValue("ownerEmail");
+            if (string.IsNullOrWhiteSpace(ownerEmail))
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Owner email cannot be null or whitespace.");
+            }
+
+            var title = formDataProvider.FormData.GetValue("title");
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Title cannot be null or whitespace.");
+            }
+
+            DateTime createdDate;
+            if (!DateTime.TryParse(formDataProvider.FormData.GetValue("createdDate"), out createdDate))
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Created date cannot be parsed.");
+            }
+
             if (_coursePublisher.PublishCourse(courseId))
             {
                 var currentPublication = _publicationRepository.Get(courseId);

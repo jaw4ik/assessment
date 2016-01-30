@@ -12,7 +12,7 @@ CREATE TABLE [dbo].[Publications](
 	[OwnerEmail] [nvarchar](254) NOT NULL,
 	[CreatedOn] [datetime] NOT NULL,
 	[ModifiedOn] [datetime] NOT NULL,
-	[PublicPath] [uniqueidentifier] NOT NULL,
+	[PublicPath] [nvarchar](512) NOT NULL,
  CONSTRAINT [PK_Publications] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
