@@ -34,14 +34,15 @@ namespace easygenerator.StorageServer.Components.Vimeo
                     
                     if (files != null && status != null)
                     {
-                        if (status.Value<string>() == "available")
+                        return new
                         {
-                            return files.Value<object>();
-                        }
+                            files = files.Value<object>(),
+                            status = status.Value<string>()
+                        };
                     }
                 }
 
-                return null;
+                return response;
             }
         }
 
