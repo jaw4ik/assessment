@@ -2,11 +2,13 @@
     "[course]": "Curso:",
     "[start course]": "Iniciar curso",
     "[finish course]": "Finalizar curso",
-    "[cancel]": "Cancelar",
-    "[finish course popup title]": "Está a solo un paso de terminar el curso",
-    "[finish course popup explanation title]": "Tenga en cuenta que:",
+    "[cancel, continue course]": "Cancelar",
     "[finish course popup first remark]": "- Se informará de su puntuación final",
     "[finish course popup second remark]": "- El progreso actual no se restaurará\ncuando vuelva a abrir el curso\nla próxima vez",
+    "[finish course submit first remark]": "- Your final score will be reported",
+    "[finish course submit second remark]": "- You will not be able to continue the course later",
+    "[finish course take brake first remark]": "- You can reopen the course anytime you want and continue where you left of",
+    "[finish course take brake second remark]": "- Use the same browser to continue the course",
     "[learning objectives]": "Objetivos de aprendizaje:",
     "[start]": "Iniciar",
     "[home]": "Inicio",
@@ -70,6 +72,9 @@
     "[download as pdf preparing]": "preparando...",
     "[download as pdf error]": "Se ha producido algún error",
     "[Save, I will continue later]": "Guardar, seguiré más tarde",
-    "[save and exit]": "Guardar y salir",
-    "[I'm done, report my progress]": "He acabado, informar de mi progreso"
+    "[OK, submit results]": "He acabado, informar de mi progreso",
+    "[Overall progress]": "Progreso general",
+    "[OK, close course]": "OK, close course",
+    "[take a brake]": "Take a break",
+    "[note that]": "Note that:"
 }

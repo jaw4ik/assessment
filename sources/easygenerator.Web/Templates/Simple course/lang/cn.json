@@ -2,11 +2,13 @@
     "[course]": "课程：",
     "[start course]": "开始学习",
     "[finish course]": "结束学习",
-    "[cancel]": "取消",
-    "[finish course popup title]": "离完成课程只差一步了。",
-    "[finish course popup explanation title]": "请注意：",
+    "[cancel, continue course]": "取消",
     "[finish course popup first remark]": "- 您的最终得分将会报告",
     "[finish course popup second remark]": "- 当您下次重新打开课程时，不会恢复您的当前进度",
+    "[finish course submit first remark]": "- Your final score will be reported",
+    "[finish course submit second remark]": "- You will not be able to continue the course later",
+    "[finish course take brake first remark]": "- You can reopen the course anytime you want and continue where you left of",
+    "[finish course take brake second remark]": "- Use the same browser to continue the course",
     "[learning objectives]": "学习目标：",
     "[start]": "开始",
     "[home]": "主页",
@@ -70,6 +72,9 @@
     "[download as pdf preparing]": "正在准备...",
     "[download as pdf error]": "出错",
     "[Save, I will continue later]": "保存，我将稍后继续",
-    "[save and exit]": "保存并退出",
-    "[I'm done, report my progress]": "我完成了，报告我的进度"
+    "[OK, submit results]": "我完成了，报告我的进度",
+    "[Overall progress]": "总体进度",
+    "[OK, close course]": "OK, close course",
+    "[take a brake]": "Take a break",
+    "[note that]": "Note that:"
 }
