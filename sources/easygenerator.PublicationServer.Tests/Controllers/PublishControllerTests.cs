@@ -252,7 +252,7 @@ namespace easygenerator.PublicationServer.Tests.Controllers
                     _.OwnerEmail == ownerEmail &&
                     _.CreatedOn == DateTimeWrapper.Now() &&
                     _.ModifiedOn == DateTimeWrapper.Now() &&
-                    _.PublicPath == $"public/{_createdDate.ToString("yyyy-MM-dd")}-{publicationTitle + "-encoded"}/"
+                    _.PublicPath == $"{_createdDate.ToString("yyyy-MM-dd")}-{publicationTitle + "-encoded"}"
                 )
             );
         }

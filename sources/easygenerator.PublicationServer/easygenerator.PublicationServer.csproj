@@ -133,6 +133,7 @@
     <Compile Include="Constraints\MaintenanceRouteConstraint.cs" />
     <Compile Include="Constraints\EscapedFragmentRouteConstraint.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\RobotsController.cs" />
     <Compile Include="Controllers\SearchContentController.cs" />
     <Compile Include="Controllers\SitemapController.cs" />
     <Compile Include="Controllers\SystemPagesController.cs" />

@@ -19,14 +19,14 @@ namespace easygenerator.PublicationServer.Tests
         [TestMethod]
         public void GetPublicationSubDirectoryPath_ShouldReturnCorrectSubFolderPath()
         {
-            string subFolderPath = _pathProvider.GetPublicationSubDirectoryPath("/033BBC6F-A662-4EF2-84A9-7C7FFFBC3717");
+            string subFolderPath = _pathProvider.GetPrivatePublicationSubDirectoryPath("/033BBC6F-A662-4EF2-84A9-7C7FFFBC3717");
             subFolderPath.Should().Be("/0/033BBC6F-A662-4EF2-84A9-7C7FFFBC3717");
         }
 
         [TestMethod]
         public void GetPublicationSubDirectoryPath_ShouldReturnSamePathIfNotPackagePath()
         {
-            string subFolderPath = _pathProvider.GetPublicationSubDirectoryPath("/favicon");
+            string subFolderPath = _pathProvider.GetPrivatePublicationSubDirectoryPath("/favicon");
             subFolderPath.Should().Be("/favicon");
         }
     }

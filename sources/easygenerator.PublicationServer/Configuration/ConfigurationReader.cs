@@ -5,6 +5,7 @@ namespace easygenerator.PublicationServer.Configuration
     {
         public string ApiKey => ConfigurationManager.AppSettings["apiKey"];
         public string ConnectionString => ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-        public string IndexingContentFolder => ConfigurationManager.AppSettings["indexingContentFolder"];
+
+        public bool AllowIndexing = bool.Parse(ConfigurationManager.AppSettings["allowIndexing"]);
     }
 }
