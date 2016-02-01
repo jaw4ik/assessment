@@ -5,6 +5,7 @@ import Image from './image.js';
 import notify from 'notify.js';
 import preview from './preview/index.js'
 import viewModel from './index.js';
+import eventTracker from 'eventTracker';
 
 describe('[images]', () => {
     let image = {
@@ -16,6 +17,7 @@ describe('[images]', () => {
     beforeEach(() => {
         imageViewModel = new Image(image);
         viewModel.images([imageViewModel]);
+        spyOn(eventTracker, 'publish');
     });
     
     describe('images:', () => {
@@ -98,6 +100,12 @@ describe('[images]', () => {
     });
 
     describe('uploadImage:', () => {
+        it('should publish event', () => {
+            spyOn(imageUpload, 'v2').and.returnValue(Promise.reject());
+            viewModel.uploadImage({});
+            expect(eventTracker.publish).toHaveBeenCalledWith('Upload image file', 'Image library');
+        });
+
         it('should upload image to server', done => {
             let file = { name: 'file' };
             spyOn(imageUpload, 'v2').and.returnValue(Promise.resolve());
@@ -154,6 +162,11 @@ describe('[images]', () => {
     });
 
     describe('deleteImage:', () => {
+        it('should publish event', () => {
+            spyOn(deleteImage, 'execute').and.returnValue(Promise.resolve());
+            viewModel.deleteImage(imageViewModel);
+            expect(eventTracker.publish).toHaveBeenCalledWith('Delete image from library', 'Image library');
+        });
 
         it('should set isDeleting true', () => {
             spyOn(deleteImage, 'execute').and.returnValue(Promise.resolve());
@@ -202,6 +215,13 @@ describe('[images]', () => {
                     expect(notify.error).toHaveBeenCalledWith('error');
                     done();
                 });
+            });
+        });
+
+        describe('openChooseImageDialogHandler:', () => {
+            it('should publish event', () => {
+                viewModel.openChooseImageDialogHandler();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Open \'choose image file\' dialog', 'Image library');
             });
         });
     });
