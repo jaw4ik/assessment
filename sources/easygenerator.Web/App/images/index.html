@@ -9,7 +9,7 @@
                     </div>
                 </div>
                 <ul class="library-list">
-                    <li class="library-list-item add-library-item-button" data-bind="browse: { callback: uploadImages.bind($data), accept: '.png, .jpg, .jpeg, .gif, .bmp', multiple: true }"></li>
+                    <li class="library-list-item add-library-item-button" data-bind="browse: { callback: uploadImages.bind($data), accept: '.png, .jpg, .jpeg, .gif, .bmp', multiple: true }, click: openChooseImageDialogHandler"></li>
 
                     <!-- ko ifnot: images().length -->
                     <li class="add-library-item-button-description">

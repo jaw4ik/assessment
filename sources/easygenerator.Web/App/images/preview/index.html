@@ -12,6 +12,9 @@
         <div class="image-preview-dialogue-container" data-bind="click: next">
             <div data-bind="imageLoader: { isLoaded: isLoaded, imageUrl: imageUrl}">
             </div>
+            <!--ko ifnot: isLoaded-->
+            <div data-bind="preloader: { settings: 'align-center' }"></div>
+            <!--/ko-->
         </div>
     </div>
 </section>
