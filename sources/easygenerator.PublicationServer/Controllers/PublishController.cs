@@ -9,6 +9,7 @@ using System.Web.Http;
 using easygenerator.PublicationServer.DataAccess;
 using easygenerator.PublicationServer.Extensions;
 using easygenerator.PublicationServer.Models;
+using easygenerator.PublicationServer.Utils;
 
 namespace easygenerator.PublicationServer.Controllers
 {
@@ -69,7 +70,7 @@ namespace easygenerator.PublicationServer.Controllers
                 var currentPublication = _publicationRepository.Get(courseId);
                 if (currentPublication == null)
                 {
-                    var publicPath = $"public/{createdDate.ToString("yyyy-MM-dd")}-{_httpUtilityWrapper.UrlEncode(title)}/";
+                    var publicPath = $"{createdDate.ToString("yyyy-MM-dd")}-{_httpUtilityWrapper.UrlEncode(title)}";
                     _publicationRepository.Add(new Publication(courseId, ownerEmail, publicPath));
                 }
                 else

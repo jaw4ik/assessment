@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace easygenerator.PublicationServer
+namespace easygenerator.PublicationServer.Utils
 {
     public static class DateTimeWrapper
     {

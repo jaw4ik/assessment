@@ -1,5 +1,6 @@
 ﻿using System;
 using easygenerator.PublicationServer.Models;
+using easygenerator.PublicationServer.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

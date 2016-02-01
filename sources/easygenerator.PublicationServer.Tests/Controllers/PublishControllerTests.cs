@@ -11,6 +11,7 @@ using NSubstitute;
 using System.Net.Http;
 using easygenerator.PublicationServer.DataAccess;
 using easygenerator.PublicationServer.Models;
+using easygenerator.PublicationServer.Utils;
 
 namespace easygenerator.PublicationServer.Tests.Controllers
 {

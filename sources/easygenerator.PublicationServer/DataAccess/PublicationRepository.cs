@@ -54,9 +54,9 @@ namespace easygenerator.PublicationServer.DataAccess
             new { AccessType = accessType, AccessTypeMinDaysPeriod = accessTypeMinDaysPeriod, Take = take, Skip = skip }).ToList());
         }
 
-        public Publication GetBySearchId(Guid searchId)
+        public Publication GetByPublicPath(string publicPath)
         {
-            return ExecuteDbAction(connection => connection.Query<Publication>(@"SELECT * FROM Publications WHERE SearchId = @SearchId", new { SearchId = searchId }).SingleOrDefault());
+            return ExecuteDbAction(connection => connection.Query<Publication>(@"SELECT * FROM Publications WHERE PublicPath = @PublicPath", new { PublicPath = publicPath }).SingleOrDefault());
         }
     }
 }

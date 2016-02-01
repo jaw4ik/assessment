@@ -6,75 +6,87 @@ using System.Web;
 using System.Web.Http;
 using easygenerator.PublicationServer.DataAccess;
 using easygenerator.PublicationServer.FileSystem;
-using easygenerator.PublicationServer.Models;
+using easygenerator.PublicationServer.Utils;
 
 namespace easygenerator.PublicationServer.Controllers
 {
     public class SearchContentController : BaseApiController
     {
-        private readonly IPublicationRepository _publicationRepository;
-        private readonly IUserRepository _userRepository;
         private readonly PhysicalFileManager _physicalFileManager;
         private readonly PublicationPathProvider _publicationPathProvider;
+        private readonly IPublicationRepository _publicationRepository;
 
-        public SearchContentController(IPublicationRepository publicationRepository, IUserRepository userRepository, PhysicalFileManager physicalFileManager,
-            PublicationPathProvider publicationPathProvider)
+        public SearchContentController(PhysicalFileManager physicalFileManager, PublicationPathProvider publicationPathProvider, IPublicationRepository publicationRepository)
         {
-            _publicationRepository = publicationRepository;
-            _userRepository = userRepository;
             _physicalFileManager = physicalFileManager;
             _publicationPathProvider = publicationPathProvider;
+            _publicationRepository = publicationRepository;
         }
 
-        [Route("{courseId:guid:seofragment}/{*resourcePath}", Order = 10)]
+        [Route(Constants.PublicPublicationsPath + "/{publicPath:seofragment}/{*resourcePath}", Order = 20)]
         [HttpGet]
-        public HttpResponseMessage SearchContent(Guid courseId, string resourcePath)
+        public HttpResponseMessage SearchContent(string publicPath, string resourcePath)
         {
-            if (resourcePath == null && !Request.RequestUri.AbsolutePath.EndsWith("/"))
-            {
-                return new HttpResponseMessage(HttpStatusCode.MovedPermanently)
-                {
-                    Headers = { Location = new Uri(Request.RequestUri.ToString().Replace(Request.RequestUri.AbsolutePath, $"{Request.RequestUri.AbsolutePath}/")) }
-                };
-            }
+            Guid publicationId;
 
-            var searchContentResourcePath = _publicationPathProvider.GetSearchContentResourcePath(courseId, resourcePath ?? "index.html");
-            return FileResponseMessage(searchContentResourcePath);
-        }
-
-        [Route("{*resourcePath:seofragment}", Order = 20)]
-        [HttpGet]
-        public HttpResponseMessage SearchContent(string resourcePath)
-        {
-            var referrer = Request.Headers.Referrer;
-            if (referrer != null && !String.IsNullOrWhiteSpace(resourcePath))
+            if (resourcePath == null)
             {
-                var courseIdStr = referrer.AbsolutePath.Replace("/", "");
-                Guid courseId;
-                if (Guid.TryParse(courseIdStr, out courseId))
+                if (!_publicationPathProvider.IsPathToFolder(publicPath))
                 {
-                    var courseContentFilePath = _publicationPathProvider.GetPublishedPackagePath(courseId, resourcePath.Replace("/", "\\"));
-                    return FileResponseMessage(courseContentFilePath);
+                    publicationId = GetPublicationIdFromRequest(Request);
+                    if (publicationId != Guid.Empty)
+                    {
+                        var courseContentFilePath = _publicationPathProvider.GetPublishedPackagePath(publicationId, $"{publicPath}");
+                        return FileResponseMessage(courseContentFilePath);
+                    }
+                }
+                else if (!Request.RequestUri.AbsolutePath.EndsWith("/"))
+                {
+                    return new HttpResponseMessage(HttpStatusCode.MovedPermanently)
+                    {
+                        Headers =
+                        {
+                            Location =
+                                new Uri(Request.RequestUri.ToString()
+                                    .Replace(Request.RequestUri.AbsolutePath, $"{Request.RequestUri.AbsolutePath}/"))
+                        }
+                    };
                 }
             }
+
+            var publication = _publicationRepository.GetByPublicPath(publicPath);
+            if (publication != null)
+            {
+                var searchContentResourcePath = _publicationPathProvider.GetSearchContentResourcePath(publication.Id,
+                    resourcePath ?? "index.html");
+                return FileResponseMessage(searchContentResourcePath);
+            }
+
+
+            publicationId = GetPublicationIdFromRequest(Request);
+            if (publicationId != Guid.Empty && !String.IsNullOrWhiteSpace(resourcePath))
+            {
+                var courseContentFilePath = _publicationPathProvider.GetPublishedPackagePath(publicationId, $"{publicPath}\\{resourcePath}");
+                return FileResponseMessage(courseContentFilePath);
+            }
+
             return new HttpResponseMessage(HttpStatusCode.NotFound);
         }
 
-        [Route("public/{searchId:guid}")]
-        [HttpGet]
-        public IHttpActionResult SearchablePublication(Guid searchId)
+        private Guid GetPublicationIdFromRequest(HttpRequestMessage request)
         {
-            var publication = _publicationRepository.GetBySearchId(searchId);
-            if (publication != null)
+            var referrer = Request.Headers.Referrer;
+            if (referrer != null)
             {
-                var owner = _userRepository.Get(publication.OwnerEmail);
-                if (owner != null && owner.AccessType == AccessType.Free && DateTimeWrapper.Now() - owner.ModifiedOn > TimeSpan.FromDays(14))
+                var publicationPublicPath =
+                    referrer.AbsolutePath.Replace(Constants.PublicPublicationsPath, "").Replace("/", "");
+                var publication = _publicationRepository.GetByPublicPath(publicationPublicPath);
+                if (publication != null)
                 {
-                    return Redirect($"{PublicationServerUri}/{publication.Id}/");
+                    return publication.Id;
                 }
             }
-
-            return Redirect(PageNotFoundUri);
+            return Guid.Empty;
         }
 
         private HttpResponseMessage FileResponseMessage(string filePath)

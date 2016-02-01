@@ -11,6 +11,6 @@ namespace easygenerator.PublicationServer.DataAccess
         void Update(Publication publication);
         int GetPublicationsCountForUsersWithAccessType(AccessType accessType, int accessTypeMinDaysPeriod);
         ICollection<Publication> GetPublicationsForUsersWithAccessType(AccessType accessType, int accessTypeMinDaysPeriod, int take, int skip);
-        Publication GetBySearchId(Guid searchId);
+        Publication GetByPublicPath(string publicPath);
     }
 }

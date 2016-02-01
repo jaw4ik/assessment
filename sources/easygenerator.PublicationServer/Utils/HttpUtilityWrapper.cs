@@ -1,6 +1,6 @@
 ﻿using System.Web;
 
-namespace easygenerator.PublicationServer
+namespace easygenerator.PublicationServer.Utils
 {
     public class HttpUtilityWrapper
     {

@@ -1,18 +1,17 @@
 ﻿using System;
 using System.IO;
 
-namespace easygenerator.PublicationServer
+namespace easygenerator.PublicationServer.Utils
 {
     public class PublicationPathProvider
     {
         private const string UploadedPackagesFolderName = "UploadedPackages";
         private const string StorageFolderName = "courses";
         private const string SearchContentFolder = "searchcontent";
-        private const string ContentFolder = "content";
 
         public virtual string GetFilePathForUploadedPackage(Guid courseId)
         {
-            return Path.Combine(CurrentDirectory, UploadedPackagesFolderName, string.Format("{0}.zip", courseId));
+            return Path.Combine(CurrentDirectory, UploadedPackagesFolderName, $"{courseId}.zip");
         }
 
         public virtual string GetUploadedPackagesFolderPath()
@@ -41,37 +40,33 @@ namespace easygenerator.PublicationServer
             return Path.Combine(CurrentDirectory, "content\\html", viewName);
         }
 
-        private string CurrentDirectory
+        public bool IsPathToFolder(string path)
         {
-            get { return AppDomain.CurrentDomain.BaseDirectory; }
+            return Path.GetExtension(path) == string.Empty;
         }
 
-        public string GetPublicationSubDirectoryPath(string requestPath)
+        private string CurrentDirectory => AppDomain.CurrentDomain.BaseDirectory;
+
+        public string GetPrivatePublicationSubDirectoryPath(string requestPath)
         {
             var publicationFolder = GetPublicationFolderNameFromRequestPath(requestPath);
-            if (publicationFolder != null)
+            Guid folderGuid;
+            if (Guid.TryParse(publicationFolder, out folderGuid))
             {
                 return requestPath.Replace(publicationFolder,
-                    string.Format("{0}/{1}", publicationFolder[0], publicationFolder));
+                    $"{publicationFolder[0]}/{publicationFolder}");
             }
             return requestPath;
         }
 
-        private string GetPublicationFolderNameFromRequestPath(string requestPath)
+        public string GetPublicationFolderNameFromRequestPath(string requestPath)
         {
             if (!String.IsNullOrEmpty(requestPath))
             {
                 string[] segments = requestPath.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
                 if (segments.Length > 0)
                 {
-
-                    var folderName = segments[0];
-                    var folderGuid = new Guid();
-
-                    if (Guid.TryParse(folderName, out folderGuid))
-                    {
-                        return folderName;
-                    }
+                    return segments[0];
                 }
             }
             return null;

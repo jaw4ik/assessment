@@ -4,6 +4,7 @@ using System.Net.Http;
 using easygenerator.PublicationServer.Controllers;
 using easygenerator.PublicationServer.DataAccess;
 using easygenerator.PublicationServer.Models;
+using easygenerator.PublicationServer.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;

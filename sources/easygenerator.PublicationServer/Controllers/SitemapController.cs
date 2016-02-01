@@ -71,7 +71,7 @@ namespace easygenerator.PublicationServer.Controllers
 
                 foreach (var publication in searchablePublications)
                 {
-                    sitemapContentBuilder.Append($"<url><loc>{PublicationServerUri}/{publication.PublicPath}/</loc><lastmod>{publication.ModifiedOn.ToString("yyyy-MM-ddTHH:mmzzz")}</lastmod></url>");
+                    sitemapContentBuilder.Append($"<url><loc>{PublicationServerUri}/{Constants.PublicPublicationsPath}/{publication.PublicPath}/</loc><lastmod>{publication.ModifiedOn.ToString("yyyy-MM-ddTHH:mmzzz")}</lastmod></url>");
                 }
 
                 processedPublicationsCount += searchablePublications.Count;
