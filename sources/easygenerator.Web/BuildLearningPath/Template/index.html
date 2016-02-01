@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title>easygenerator</title>
@@ -26,7 +26,15 @@
     <div id="applicationHost" class="application-wrapper">
         <!-- ko compose: { view: 'controls/loader' } --><!-- /ko -->
     </div>
-    
+
+    <script type="text/javascript">
+        var require = {
+            baseUrl: 'app',
+            deps: ['main'],
+            urlArgs: 'v=1454332673891'
+        };
+    </script>
+
     <script src="js/vendor.min.js?v=1454332673891"></script>
     <script src="js/components.min.js?v=1454332673891"></script>
     
@@ -50,8 +58,8 @@
                         image: 'css/img/browsers/android.png?v=1454332673891'
                     },
                     chrome: {
-						version: 39
-					}
+                        version: 39
+                    }
                 },
                 ios: {
                     safari: {},
@@ -90,12 +98,6 @@
                 }
             }
         }).init();
-    
-        var require = {
-            baseUrl: 'app',
-            deps: ['main'],
-            urlArgs: 'v=1454332673891'
-        };
     </script>
     
 </body>
