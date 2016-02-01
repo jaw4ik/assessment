@@ -426,11 +426,12 @@ describe('[drag and drop course editor]', () => {
             spyOn(reorderQuestionCommand, 'execute').and.returnValue(reorderQuestionCommandPromise);
         });
 
-        it('should delet question from section viewmodel', () => {
+        it('should delete question from section viewmodel', done => (async () => {
             spyOn(courseViewModel.sections()[0], 'deleteQuestion');
             courseViewModel.reorderQuestion(question, nextQuestion, targetSection, sourceSection);
+            await reorderQuestionCommandPromise;
             expect(courseViewModel.sections()[0].deleteQuestion).toHaveBeenCalledWith(courseViewModel.sections()[0].questions()[0]);
-        });
+        })().then(done));
 
         describe('when target section not equal source section', () => {
 
@@ -438,16 +439,17 @@ describe('[drag and drop course editor]', () => {
                 targetSection.sectionId = 'target_section_id';
             });
 
-            it('should send event \'Move item\'', () => {
+            it('should send event \'Move item\'', done => (async () => {
                 courseViewModel.reorderQuestion(question, nextQuestion, targetSection, sourceSection);
+                await reorderQuestionCommandPromise;
                 expect(eventTracker.publish).toHaveBeenCalledWith('Move item', eventCategory);
-            });
+            })().then(done));
 
-            it('should execute moveQuestion command', () => {
+            it('should execute moveQuestion command', done => (async () => {
                 courseViewModel.reorderQuestion(question, nextQuestion, targetSection, sourceSection);
+                await reorderQuestionCommandPromise;
                 expect(moveQuestionCommand.execute).toHaveBeenCalledWith(question.id, sourceSection.sectionId, targetSection.sectionId);
-            });
-
+            })().then(done));
         });
 
         describe('when target section is equal source section', () => {

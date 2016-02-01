@@ -35,6 +35,7 @@
     require('design/bindingHandlers/slideToggleBindingHandler');
     require('design/bindingHandlers/brightnessBindingHandler');
     require('design/bindingHandlers/popoverBindingHandler');
+    require('images/bindingHandlers/keyDownBindingHandler');
 
     var task = {
         execute: execute

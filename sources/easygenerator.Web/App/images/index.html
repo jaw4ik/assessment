@@ -1,0 +1,67 @@
+﻿<section class="images">
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <div class="images-container">
+                <div class="drop-hint drop-zone overlay" data-bind="dropUpload: { callback: uploadImage.bind($data) }">
+                    <div class="drop-hint-content">
+                        <h3 data-bind="localize: { text : 'dropHere' }">Drop here</h3>
+                        <span data-bind="localize: { text : 'anyImageFormats' }">Any image formats</span>
+                    </div>
+                </div>
+                <ul class="library-list">
+                    <li class="library-list-item add-library-item-button" data-bind="browse: { callback: uploadImages.bind($data), accept: '.png, .jpg, .jpeg, .gif, .bmp', multiple: true }"></li>
+
+                    <!-- ko ifnot: images().length -->
+                    <li class="add-library-item-button-description">
+                        <span class="tip-arrow-text" data-bind="localize: { text : 'uploadImageDescription' }">Upload your own image by click on this button</span>
+                    </li>
+                    <!-- /ko -->
+                    <!-- ko foreach: images -->
+                    <li class="library-list-item hovered" data-bind="click: isDeleteConfirmationShown() ? function(){} : $parent.showImagePopup.bind($parent) ">
+                        <div class="library-list-item-thumbnail" data-bind="style: { backgroundImage: 'url('+ thumbnailUrl + ')'}">
+                            <span class="preview-icon"></span>
+                            <!-- ko ifnot: isDeleteConfirmationShown -->
+                            <div class="list-item-context-actions-wrapper">
+                                <div class="list-item-context-action info-tooltip-holder delete" data-bind="stopEventPropagation: { event: 'click'}, click: $parent.showDeleteImageConfirmation">
+                                    <div class="info-tooltip">
+                                        <span data-bind="localize: { text: 'delete' }"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                        <div class="library-list-item-title-container">
+                            <span class="library-list-item-title" data-bind="limitedLengthText: { text: title, maxLength: 40 }, attr: { title: title }"></span>
+                        </div>
+                        <div class="library-list-item-delete-confirmation" data-bind="css: {shown: isDeleteConfirmationShown}">
+                            <!-- ko ifnot: isDeleting() -->
+                            <div class="library-list-item-delete-confirmation-content-wrapper">
+                                <div class="library-list-item-delete-confirmation-content">
+                                    <div class="library-list-item-delete-confirmation-text" data-bind="localize: { text: 'imageDeleteConfirmation'}"></div>
+                                    <div class="library-list-item-delete-confirmation-actions">
+                                        <button class="library-list-item-delete-confirmation-action delete btn red small" data-bind="stopEventPropagation: { event: 'click'}, click: $parent.deleteImage.bind($parent)">
+                                            <span class="btn-caption" data-bind="localize: { text: 'delete' }"></span>
+                                        </button>
+                                        <button class="library-list-item-delete-confirmation-action cancel btn white small" data-bind="stopEventPropagation: { event: 'click'}, click: $parent.hideDeleteImageConfirmation">
+                                            <span class="btn-caption" data-bind="localize: { text: 'cancel' }"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="library-list-item-delete-confirmation-hint">
+                                <span class="library-list-item-delete-confirmation-hint-warning" data-bind="localize: { text: 'warning'}"></span>:&nbsp;
+                                <span data-bind="localize: { text: 'imageDeleteWarning'}"></span>
+                            </div>
+                            <!-- /ko -->
+                            <!-- ko if: isDeleting() -->
+                            <div data-bind="preloader: { type: 'circular', settings: 'big orange align-center' }"></div>
+                            <!-- /ko -->
+                        </div>
+                    </li>
+                    <!-- /ko -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- ko compose: { view: 'images/preview/index.html', model: 'images/preview/index'} --><!-- /ko -->
+</section>

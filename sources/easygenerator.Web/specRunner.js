@@ -387,6 +387,14 @@
                 'audio/audioUploadDispatcher.spec',
                 //#endregion
 
+                //#region images
+                'images/commands/deleteImage.spec',
+                'images/queries/getImages.spec',
+                'images/preview/index.spec',
+                'images/image.spec',
+                'images/index.spec',
+                //#endregion
+
                 //#region widgets
                 'widgets/notifyViewer/viewmodel.spec',
                 'widgets/uiLockViewer/viewmodel.spec',

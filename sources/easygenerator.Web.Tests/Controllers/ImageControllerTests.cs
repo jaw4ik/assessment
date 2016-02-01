@@ -38,6 +38,7 @@ namespace easygenerator.Web.Tests.Controllers
         private IUrlHelperWrapper _urlHelperWrapper;
         private IFileTypeChecker _fileTypeChecker;
         private ILog _elmahLog;
+        private PhysicalFileManager _fileManager;
 
         private IPrincipal _user;
         private HttpContextBase _context;
@@ -53,6 +54,7 @@ namespace easygenerator.Web.Tests.Controllers
             _urlHelperWrapper = Substitute.For<IUrlHelperWrapper>();
             _fileTypeChecker = Substitute.For<IFileTypeChecker>();
             _elmahLog = Substitute.For<ILog>();
+            _fileManager = Substitute.For<PhysicalFileManager>();
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -60,7 +62,7 @@ namespace easygenerator.Web.Tests.Controllers
             _context.User.Returns(_user);
 
 
-            _controller = new ImageController(_entityFactory, _storage, _imageStorage, _repository, _urlHelperWrapper, _fileTypeChecker, _elmahLog);
+            _controller = new ImageController(_entityFactory, _storage, _imageStorage, _repository, _urlHelperWrapper, _fileTypeChecker, _elmahLog, _fileManager);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -80,7 +82,7 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void Get_ShouldReturnHttpNotFound_WhenImageDoesNotExist()
+        public void Get_ShouldReturnImageResultWithDefaultImage_WhenImageDoesNotExist()
         {
             //Arrange
             _storage.FileExists(Arg.Any<string>()).Returns(false);
@@ -89,7 +91,7 @@ namespace easygenerator.Web.Tests.Controllers
             var result = _controller.Get(String.Empty, null, null, null);
 
             //Assert
-            result.Should().BeHttpNotFoundResult();
+            result.Should().BeImageResult().And.FilePath.Should().Contain("image-not-found.png");
         }
 
         [TestMethod]
@@ -328,6 +330,111 @@ namespace easygenerator.Web.Tests.Controllers
             file.ContentLength.Returns(contentLength);
             return file;
         }
+
+        #endregion
+
+        #region Delete
+        [TestMethod]
+        public void Delete_ShouldReturnJsonSuccess_WhenImageFileIsNull()
+        {
+            //Act
+            var result = _controller.Delete(null);
+
+            //Assert
+            result.Should().BeJsonSuccessResult();
+        }
+
+
+        [TestMethod]
+        public void Delete_ShouldDeleteFileFromRepository()
+        {
+            //Arrange
+            var imageFile = Substitute.For<ImageFile>();
+            const string path = "path";
+            _storage.GetFilePath(Arg.Any<string>()).Returns(path);
+            _imageStorage.GetCachedImagePath(Arg.Any<string>()).Returns(path);
+
+            //Act
+            _controller.Delete(imageFile);
+
+            //Assert
+            _repository.Received().Remove(imageFile);
+        }
+
+        [TestMethod]
+        public void Delete_ShouldDeleteFileFromDisk()
+        {
+            //Arrange
+            var imageFile = Substitute.For<ImageFile>();
+
+            const string path = "path";
+            _storage.GetFilePath(Arg.Any<string>()).Returns(path);
+            _imageStorage.GetCachedImagePath(Arg.Any<string>()).Returns(path);
+
+            //Act
+            _controller.Delete(imageFile);
+
+            //Assert
+            _fileManager.Received().DeleteFile(path);
+        }
+
+        [TestMethod]
+        public void Delete_ShouldDeleteCachedFilesFolderFromDisk()
+        {
+            //Arrange
+            var imageFile = Substitute.For<ImageFile>();
+
+            const string path = "path";
+            _storage.GetFilePath(Arg.Any<string>()).Returns(path);
+            _imageStorage.GetCachedImagePath(Arg.Any<string>()).Returns(path);
+
+            //Act
+            _controller.Delete(imageFile);
+
+            //Assert
+            _fileManager.Received().DeleteDirectory(path);
+        }
+
+        [TestMethod]
+        public void Delete_ShouldLogToElmahWhenErrorDuringFileRemoving()
+        {
+            //Arrange
+            var imageFile = Substitute.For<ImageFile>();
+
+            const string path = "path";
+            _storage.GetFilePath(Arg.Any<string>()).Returns(path);
+            _imageStorage.GetCachedImagePath(Arg.Any<string>()).Returns(path);
+
+            var ex = new Exception();
+            _fileManager.When(_ => _.DeleteFile(path)).Do(_ => { throw ex; });
+            
+            //Act
+            _controller.Delete(imageFile);
+
+            // Assert
+            _elmahLog.Received().LogException(ex);
+        }
+
+        [TestMethod]
+        public void Delete_ShouldLogToElmahWhenErrorDuringCachedFileRemoving()
+        {
+            //Arrange
+            var imageFile = Substitute.For<ImageFile>();
+
+            const string path = "path";
+            _storage.GetFilePath(Arg.Any<string>()).Returns(path);
+            _imageStorage.GetCachedImagePath(Arg.Any<string>()).Returns(path);
+
+            var ex = new Exception();
+            _fileManager.When(_ => _.DeleteDirectory(path)).Do(_ => { throw ex; });
+
+            //Act
+            _controller.Delete(imageFile);
+
+            // Assert
+            _elmahLog.Received().LogException(ex);
+        }
+
 
         #endregion
 

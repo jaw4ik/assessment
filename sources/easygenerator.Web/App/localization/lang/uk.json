@@ -690,7 +690,6 @@
     "buttonTextColor": "Колір тексту кнопок",
     "contentBodyColor": "Колір блоків матеріалу",
     "scheme": "Шаблон",
-    "backToSettings": "Назад",
     "templateDoesNotHavePresets": "Цей темплейт не має шаблонів",
     "upgradeAccountHintBackgroundSection": "<a target=\"_blank\" href=\"/account/upgrade\">Оновіть план</a> щоб встановити власний фон",
     "upgradeAccountHintLogoSection": "<a target=\"_blank\" href=\"/account/upgrade\">Оновіть план</a> щоб встановити власний логотип",
@@ -699,5 +698,6 @@
     "uploadFileFromDisc": "Завантажте з диска",
     "attachByLink": "Приєднайте лого з посилання",
     "pasteImageLink": "Вкажіть посилання тут",
-    "attach": "Застосувати"
+    "attach": "Застосувати",
+    "themes": "Теми"
 }
