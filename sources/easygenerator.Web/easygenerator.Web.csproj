@@ -764,6 +764,7 @@
     <Content Include="App\editor\course\bindingHandlers\expandBlock.js" />
     <Content Include="App\editor\course\bindingHandlers\draggableContainer.js" />
     <Content Include="App\editor\course\bindingHandlers\draggableData.js" />
+    <Content Include="App\editor\course\bindingHandlers\heightAnimation.js" />
     <Content Include="App\editor\course\bindingHandlers\tooltipPopover.js" />
     <Content Include="App\editor\course\commands\createQuestionCommand.js" />
     <Content Include="App\editor\course\commands\createSectionCommand.js" />
@@ -773,6 +774,7 @@
     <Content Include="App\editor\course\commands\reorderQuestionCommand.js" />
     <Content Include="App\editor\course\commands\reorderSectionCommand.js" />
     <Content Include="App\editor\course\commands\unrelateSectionCommand.js" />
+    <Content Include="App\editor\course\commands\updateQuestionTitleCommand.js" />
     <Content Include="App\editor\course\commands\updateSectionTitleCommand.js" />
     <Content Include="App\editor\course\components\attributesHelper.js" />
     <Content Include="App\editor\course\components\dragulaAnimation.js" />

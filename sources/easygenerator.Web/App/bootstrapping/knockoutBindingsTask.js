@@ -26,6 +26,7 @@
     require('editor/course/bindingHandlers/draggableContainer');
     require('editor/course/bindingHandlers/draggableData');
     require('editor/course/bindingHandlers/tooltipPopover');
+    require('editor/course/bindingHandlers/heightAnimation');
     require('components/bindingHandlers/dateBindingHadler');
     require('components/bindingHandlers/editableTextBindingHandler');
     require('components/bindingHandlers/cursorTooltipBindingHandler');
