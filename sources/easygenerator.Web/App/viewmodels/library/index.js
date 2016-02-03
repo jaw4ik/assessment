@@ -13,13 +13,13 @@
             fromParent: true
         }).map([
             {
-                route: ['', 'videos'],
-                moduleId: 'viewmodels/videos/videos',
-                title: localizationManager.localize('videoLibrary'),
+                route: ['', 'images'],
+                moduleId: 'images/index',
+                title: localizationManager.localize('imageLibrary'),
                 nav: true,
-                hash: '#library/videos',
+                hash: '#library/images',
                 navigate: function () {
-                    eventTracker.publish(events.navigateToVideos);
+                    eventTracker.publish(events.navigateToImages);
                     childRouter.navigate(this.hash);
                 }
             },
@@ -35,13 +35,13 @@
                 }
             },
             {
-                route: ['images'],
-                moduleId: 'images/index',
-                title: localizationManager.localize('imageLibrary'),
+                route: ['videos'],
+                moduleId: 'viewmodels/videos/videos',
+                title: localizationManager.localize('videoLibrary'),
                 nav: true,
-                hash: '#library/images',
+                hash: '#library/videos',
                 navigate: function () {
-                    eventTracker.publish(events.navigateToImages);
+                    eventTracker.publish(events.navigateToVideos);
                     childRouter.navigate(this.hash);
                 }
             }
