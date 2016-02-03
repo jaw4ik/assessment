@@ -18,8 +18,8 @@
 
     function show(url) {
         viewModel.isLoading(true);
-        viewModel.frameSrc(url);
         dialog.show(viewModel, constants.dialogs.branchtrack.settings);
+        viewModel.frameSrc(url);
     }
 
     function frameLoaded() {
