@@ -4,6 +4,7 @@ using easygenerator.PublicationServer.DataAccess;
 using easygenerator.PublicationServer.Models;
 using System.Net.Http;
 using easygenerator.PublicationServer.ActionFilters;
+using easygenerator.PublicationServer.ViewModels;
 
 namespace easygenerator.PublicationServer.Controllers
 {
@@ -19,11 +20,11 @@ namespace easygenerator.PublicationServer.Controllers
 
         [Route("api/user/create")]
         [HttpPost]
-        public HttpResponseMessage Create(string email, AccessType accessType)
+        public HttpResponseMessage Create(UserInfoViewModel userInfo)
         {
-            if (_userRepository.Get(email) == null)
+            if (_userRepository.Get(userInfo.Email) == null)
             {
-                _userRepository.Add(new User(email, accessType));
+                _userRepository.Add(new User(userInfo.Email, userInfo.AccessType));
             }
 
             return Request.CreateResponse(HttpStatusCode.OK);
@@ -31,9 +32,9 @@ namespace easygenerator.PublicationServer.Controllers
 
         [Route("api/user/update")]
         [HttpPost]
-        public HttpResponseMessage Update(string email, AccessType accessType)
+        public HttpResponseMessage Update(UserInfoViewModel userInfo)
         {
-            _userRepository.Update(new User(email, accessType));
+            _userRepository.Update(new User(userInfo.Email, userInfo.AccessType));
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }

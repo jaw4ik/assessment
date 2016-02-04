@@ -8,5 +8,10 @@ namespace easygenerator.PublicationServer.Utils
         {
             return HttpUtility.UrlEncode(url);
         }
+
+        public virtual string UrlDecode(string url)
+        {
+            return HttpUtility.UrlDecode(url);
+        }
     }
 }

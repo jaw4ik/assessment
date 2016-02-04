@@ -5,6 +5,7 @@ using easygenerator.PublicationServer.Controllers;
 using easygenerator.PublicationServer.DataAccess;
 using easygenerator.PublicationServer.Models;
 using easygenerator.PublicationServer.Utils;
+using easygenerator.PublicationServer.ViewModels;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
@@ -32,7 +33,7 @@ namespace easygenerator.PublicationServer.Tests.Controllers
         public void Create_ShouldCreateUserIfNotExist()
         {
             _repository.Get(email).Returns((User)null);
-            _controller.Create(email, acceeType);
+            _controller.Create(new UserInfoViewModel { Email = email, AccessType = acceeType });
             _repository.Received().Add(Arg.Is<User>(_ => _.Email == email && _.AccessType == acceeType && _.ModifiedOn == DateTimeWrapper.Now()));
         }
 
@@ -41,28 +42,28 @@ namespace easygenerator.PublicationServer.Tests.Controllers
         {
             var user = new User(email, acceeType);
             _repository.Get(email).Returns(user);
-            _controller.Create(email, acceeType);
+            _controller.Create(new UserInfoViewModel { Email = email, AccessType = acceeType });
             _repository.DidNotReceive().Add(Arg.Any<User>());
         }
 
         [TestMethod]
         public void Create_ShouldReturnMessageWithOKStatus()
         {
-            var result = _controller.Create(email, acceeType);
+            var result = _controller.Create(new UserInfoViewModel { Email = email, AccessType = acceeType });
             result.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
         [TestMethod]
         public void Update_ShouldUpdateUser()
         {
-            _controller.Update(email, acceeType);
+            _controller.Update(new UserInfoViewModel { Email = email, AccessType = acceeType });
             _repository.Received().Update(Arg.Is<User>(_ => _.Email == email && _.AccessType == acceeType && _.ModifiedOn == DateTimeWrapper.Now()));
         }
 
         [TestMethod]
         public void Update_ShouldReturnMessageWithOKStatus()
         {
-            var result = _controller.Update(email, acceeType);
+            var result = _controller.Update(new UserInfoViewModel { Email = email, AccessType = acceeType });
             result.StatusCode.Should().Be(HttpStatusCode.OK);
         }
     }

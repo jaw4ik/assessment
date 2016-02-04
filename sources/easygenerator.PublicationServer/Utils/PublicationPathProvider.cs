@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace easygenerator.PublicationServer.Utils
 {
@@ -70,6 +72,13 @@ namespace easygenerator.PublicationServer.Utils
                 }
             }
             return null;
+        }
+
+        public virtual string GetPublicationPublicPath(string title)
+        {
+            var titleWithOutSpecialCharacters = new string(title.Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c) || c == '-').ToArray());
+            titleWithOutSpecialCharacters = Regex.Replace(titleWithOutSpecialCharacters, "[\\s]+", "-");
+            return $"{new Random().Next(10000, 100000)}-{titleWithOutSpecialCharacters}";
         }
     }
 }

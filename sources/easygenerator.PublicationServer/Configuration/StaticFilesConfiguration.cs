@@ -32,7 +32,9 @@ namespace easygenerator.PublicationServer.Configuration
                 FileSystem = new PublicPublicationsFileSystem(
                     RootPath,
                     (PublicationPathProvider)config.DependencyResolver.GetService(typeof(PublicationPathProvider)),
-                    (IPublicationRepository)config.DependencyResolver.GetService(typeof(IPublicationRepository))),
+                    (IPublicationRepository)config.DependencyResolver.GetService(typeof(IPublicationRepository)),
+                    (HttpUtilityWrapper)config.DependencyResolver.GetService(typeof(HttpUtilityWrapper)),
+                    (IUserRepository)config.DependencyResolver.GetService(typeof(IUserRepository))),
                 RequestPath = new PathString(@"/public"),
                 EnableDefaultFiles = true
             };

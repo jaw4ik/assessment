@@ -22,9 +22,11 @@ namespace easygenerator.Infrastructure.Http
             return Post<TResponse>(url, JsonConvert.SerializeObject(postData), userName, password);
         }
 
-        public virtual TResponse PostForm<TResponse>(string url, IEnumerable<KeyValuePair<string, string>> formValues, string userName = null, string password = null)
+        public virtual TResponse PostForm<TResponse>(string url, IEnumerable<KeyValuePair<string, string>> formValues, IEnumerable<KeyValuePair<string, string>> headerValues = null, string userName = null, string password = null)
         {
-            return Deserialize<TResponse>(DoHttpAction(url, String.Join("; ", formValues.Select(_ => $"{_.Key}: {_.Value}")), client => client.PostAsync(url, new FormUrlEncodedContent(formValues)).Result, userName, password));
+            var requestMessage = BuildRequestMessage(HttpMethod.Post, url, headerValues);
+            requestMessage.Content = new FormUrlEncodedContent(formValues);
+            return Deserialize<TResponse>(DoHttpAction(url, String.Join("; ", formValues.Select(_ => $"{_.Key}: {_.Value}")), client => client.SendAsync(requestMessage).Result, userName, password));
         }
 
         public virtual TResponse Post<TResponse>(string url, string postJsonData, string userName = null, string password = null)
@@ -181,7 +183,7 @@ namespace easygenerator.Infrastructure.Http
             return uriBuilder.ToString();
         }
 
-        protected virtual HttpRequestMessage BuildRequestMessage(HttpMethod method, string requestUrl, Dictionary<string, string> headers)
+        protected virtual HttpRequestMessage BuildRequestMessage(HttpMethod method, string requestUrl, IEnumerable<KeyValuePair<string, string>> headers)
         {
             var requestMessage = new HttpRequestMessage(method, requestUrl);
             foreach (var header in headers)

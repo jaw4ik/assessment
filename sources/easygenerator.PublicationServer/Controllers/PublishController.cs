@@ -20,16 +20,16 @@ namespace easygenerator.PublicationServer.Controllers
         private readonly IPublishDispatcher _courseDispatcher;
         private readonly CourseMultipartFormDataManager _courseDataManager;
         private readonly IPublicationRepository _publicationRepository;
-        private readonly HttpUtilityWrapper _httpUtilityWrapper;
+        private readonly PublicationPathProvider _publicationPathProvider;
 
         public PublishController(ICoursePublisher coursePublisher, CourseMultipartFormDataManager courseDataManager, IPublishDispatcher publishDispatcher, IPublicationRepository publicationRepository,
-            HttpUtilityWrapper httpUtilityWrapper)
+            PublicationPathProvider publicationPathProvider)
         {
             _coursePublisher = coursePublisher;
             _courseDataManager = courseDataManager;
             _courseDispatcher = publishDispatcher;
             _publicationRepository = publicationRepository;
-            _httpUtilityWrapper = httpUtilityWrapper;
+            _publicationPathProvider = publicationPathProvider;
         }
 
         [Route("api/publish/{courseId}")]
@@ -70,8 +70,7 @@ namespace easygenerator.PublicationServer.Controllers
                 var currentPublication = _publicationRepository.Get(courseId);
                 if (currentPublication == null)
                 {
-                    var publicPath = $"{createdDate.ToString("yyyy-MM-dd")}-{_httpUtilityWrapper.UrlEncode(title)}";
-                    _publicationRepository.Add(new Publication(courseId, ownerEmail, publicPath));
+                    _publicationRepository.Add(new Publication(courseId, ownerEmail, _publicationPathProvider.GetPublicationPublicPath(title)));
                 }
                 else
                 {

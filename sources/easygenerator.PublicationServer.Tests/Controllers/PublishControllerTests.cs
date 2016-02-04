@@ -41,7 +41,8 @@ namespace easygenerator.PublicationServer.Tests.Controllers
             _publicationRepository = Substitute.For<IPublicationRepository>();
             _httpUtilityWrapper = Substitute.For<HttpUtilityWrapper>();
             _formProvider = Substitute.For<CourseMultipartFormDataStreamProvider>("path", Guid.NewGuid());
-            _publishController = new PublishController(_coursePublisher, _formDataManager, _publishDispatcher, _publicationRepository, _httpUtilityWrapper);
+            _publishController = new PublishController(_coursePublisher, _formDataManager, _publishDispatcher, _publicationRepository, _publicationPathProvider);
+            _publicationPathProvider.GetPublicationPublicPath(publicationTitle).Returns(publicationTitle + "-public");
 
             _publishController.Request = new HttpRequestMessage();
             _publishController.Request.SetConfiguration(new HttpConfiguration());
@@ -252,11 +253,10 @@ namespace easygenerator.PublicationServer.Tests.Controllers
                     _.OwnerEmail == ownerEmail &&
                     _.CreatedOn == DateTimeWrapper.Now() &&
                     _.ModifiedOn == DateTimeWrapper.Now() &&
-                    _.PublicPath == $"{_createdDate.ToString("yyyy-MM-dd")}-{publicationTitle + "-encoded"}"
+                    _.PublicPath == publicationTitle + "-public"
                 )
             );
         }
-
 
         [TestMethod]
         public void PublishCourse_IfPublishWasSuccessfulShould_UpdatePublicationIfExists()

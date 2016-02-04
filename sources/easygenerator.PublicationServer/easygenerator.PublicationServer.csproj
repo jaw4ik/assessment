@@ -169,6 +169,7 @@
     <Compile Include="Publish\PublishDispatcher.cs" />
     <Compile Include="StaticViewContentProvider.cs" />
     <Compile Include="MultipartFormData\CourseMultipartFormDataStreamProvider.cs" />
+    <Compile Include="ViewModels\UserInfoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

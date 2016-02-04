@@ -11,7 +11,9 @@ using easygenerator.Infrastructure.Mail;
 
 namespace easygenerator.Web.DomainEvents.Handlers
 {
-    public class PublicationServerUserHandler : IDomainEventHandler<UserSignedUpEvent>, IDomainEventHandler<UserUpdateEvent>
+    public class PublicationServerUserHandler : IDomainEventHandler<UserSignedUpEvent>, 
+        IDomainEventHandler<UserUpgradedToStarter>, IDomainEventHandler<UserUpgradedToPlus>, IDomainEventHandler<UserDowngraded>,
+        IDomainEventHandler<UserUpgradedToAcademy>
     {
         private readonly IUrlHelperWrapper _urlHelper;
         private readonly HttpClient _httpClient;
@@ -36,7 +38,22 @@ namespace easygenerator.Web.DomainEvents.Handlers
             Handle(CreateUserMethodName, args.User.Email, args.User.AccessType);
         }
 
-        public void Handle(UserUpdateEvent args)
+        public void Handle(UserUpgradedToStarter args)
+        {
+            Handle(UpdateUserMethodName, args.User.Email, args.User.AccessType);
+        }
+
+        public void Handle(UserUpgradedToPlus args)
+        {
+            Handle(UpdateUserMethodName, args.User.Email, args.User.AccessType);
+        }
+
+        public void Handle(UserUpgradedToAcademy args)
+        {
+            Handle(UpdateUserMethodName, args.User.Email, args.User.AccessType);
+        }
+
+        public void Handle(UserDowngraded args)
         {
             Handle(UpdateUserMethodName, args.User.Email, args.User.AccessType);
         }
@@ -46,11 +63,14 @@ namespace easygenerator.Web.DomainEvents.Handlers
             try
             {
                 _httpClient.PostForm<string>(
-                    GetPublishMethodPath(methodName, email, accessType), formValues:
+                    GetPublishMethodPath(methodName), formValues:
                     new[] {
                         new KeyValuePair<string, string>("email", email),
                         new KeyValuePair<string, string>("accessType", accessType.ToString())
-                    });
+                    },
+                    headerValues: new[] {
+                            new KeyValuePair<string, string>("key", _configurationReader.PublicationConfiguration.ApiKey)
+                        });
 
             }
             catch (Exception exception)
@@ -60,9 +80,9 @@ namespace easygenerator.Web.DomainEvents.Handlers
                     new { Verb = methodName, Email = email, AccessType = accessType });
             }
         }
-        private string GetPublishMethodPath(string method, string email, AccessType accessType)
+        private string GetPublishMethodPath(string method)
         {
-            return _urlHelper.AddCurrentSchemeToUrl($"{_configurationReader.PublicationConfiguration.ServiceUrl}/api/user/{method}?key={_configurationReader.PublicationConfiguration.ApiKey}&email={email}&accessType={(int)accessType}");
+            return _urlHelper.AddCurrentSchemeToUrl($"{_configurationReader.PublicationConfiguration.ServiceUrl}/api/user/{method}");
         }
     }
 }

@@ -45,6 +45,7 @@ namespace easygenerator.PublicationServer.Configuration
                 builder.RegisterType<PhysicalFileManager>().As<PhysicalFileManager>().SingleInstance();
                 builder.RegisterType<PublicationPathProvider>().As<PublicationPathProvider>().SingleInstance();
                 builder.RegisterType<StaticViewContentProvider>().As<StaticViewContentProvider>().SingleInstance();
+                builder.RegisterType<ConfigurationReader>().As<ConfigurationReader>().SingleInstance();
             });
         }
 

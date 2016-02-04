@@ -12,8 +12,7 @@ namespace easygenerator.PublicationServer.Controllers
     {
         private const int SitemapMaxUrlsCount = 10000;
         private const int PublicationsBatch = 1000;
-        private const AccessType SearchableAccessType = AccessType.Free;
-        private const int SearchableAccessTypeMinDaysPeriod = 14;
+        
 
         private readonly IPublicationRepository _publicationRepository;
         public SitemapController(IPublicationRepository publicationRepository)
@@ -25,7 +24,7 @@ namespace easygenerator.PublicationServer.Controllers
         [HttpGet]
         public HttpResponseMessage SitemapIndex()
         {
-            var publicationsCount = _publicationRepository.GetPublicationsCountForUsersWithAccessType(SearchableAccessType, SearchableAccessTypeMinDaysPeriod);
+            var publicationsCount = _publicationRepository.GetPublicationsCountForUsersWithAccessType(Constants.Search.SearchableAccessType, Constants.Search.SearchableAccessTypeMinDaysPeriod);
             var sitemapFilesCounts = (int)Math.Ceiling((double)publicationsCount / SitemapMaxUrlsCount);
 
             if (sitemapFilesCounts > 0)
@@ -61,7 +60,7 @@ namespace easygenerator.PublicationServer.Controllers
 
             while (processedPublicationsCount < SitemapMaxUrlsCount)
             {
-                var searchablePublications = _publicationRepository.GetPublicationsForUsersWithAccessType(SearchableAccessType, SearchableAccessTypeMinDaysPeriod, PublicationsBatch,
+                var searchablePublications = _publicationRepository.GetPublicationsForUsersWithAccessType(Constants.Search.SearchableAccessType, Constants.Search.SearchableAccessTypeMinDaysPeriod, PublicationsBatch,
                     ((index - 1) * SitemapMaxUrlsCount) + processedPublicationsCount);
 
                 if (searchablePublications == null || searchablePublications.Count == 0)

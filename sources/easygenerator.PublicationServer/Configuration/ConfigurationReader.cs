@@ -7,5 +7,7 @@ namespace easygenerator.PublicationServer.Configuration
         public string ConnectionString => ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
         public bool AllowIndexing = bool.Parse(ConfigurationManager.AppSettings["allowIndexing"]);
+
+        public string HomePageRedirectUrl = ConfigurationManager.AppSettings["homePageRedirectUrl"];
     }
 }

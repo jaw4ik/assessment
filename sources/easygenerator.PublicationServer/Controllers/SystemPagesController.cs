@@ -1,15 +1,30 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using easygenerator.PublicationServer.Configuration;
 
 namespace easygenerator.PublicationServer.Controllers
 {
     public class SystemPagesController : BaseApiController
     {
         private readonly StaticViewContentProvider _contentProvider;
-        public SystemPagesController(StaticViewContentProvider contentProvider)
+        private readonly ConfigurationReader _configurationReader;
+        public SystemPagesController(StaticViewContentProvider contentProvider, ConfigurationReader configurationReader)
         {
             _contentProvider = contentProvider;
+            _configurationReader = configurationReader;
+        }
+
+        [Route("~/")]
+        [HttpGet]
+        public IHttpActionResult HomePageRedirect()
+        {
+            if (!String.IsNullOrWhiteSpace(_configurationReader.HomePageRedirectUrl))
+            {
+                return Redirect(_configurationReader.HomePageRedirectUrl);
+            }
+            return Redirect($"{PublicationServerUri}/404");
         }
 
         [HttpGet]

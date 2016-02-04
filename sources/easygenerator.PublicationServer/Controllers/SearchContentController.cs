@@ -15,12 +15,17 @@ namespace easygenerator.PublicationServer.Controllers
         private readonly PhysicalFileManager _physicalFileManager;
         private readonly PublicationPathProvider _publicationPathProvider;
         private readonly IPublicationRepository _publicationRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly StaticViewContentProvider _contentProvider;
 
-        public SearchContentController(PhysicalFileManager physicalFileManager, PublicationPathProvider publicationPathProvider, IPublicationRepository publicationRepository)
+        public SearchContentController(PhysicalFileManager physicalFileManager, PublicationPathProvider publicationPathProvider, IPublicationRepository publicationRepository,
+            IUserRepository userRepository, StaticViewContentProvider contentProvider)
         {
             _physicalFileManager = physicalFileManager;
             _publicationPathProvider = publicationPathProvider;
             _publicationRepository = publicationRepository;
+            _userRepository = userRepository;
+            _contentProvider = contentProvider;
         }
 
         [Route(Constants.PublicPublicationsPath + "/{publicPath:seofragment}/{*resourcePath}", Order = 20)]
@@ -57,9 +62,17 @@ namespace easygenerator.PublicationServer.Controllers
             var publication = _publicationRepository.GetByPublicPath(publicPath);
             if (publication != null)
             {
-                var searchContentResourcePath = _publicationPathProvider.GetSearchContentResourcePath(publication.Id,
-                    resourcePath ?? "index.html");
-                return FileResponseMessage(searchContentResourcePath);
+                var owner = _userRepository.Get(publication.OwnerEmail);
+                if (owner != null && owner.AccessType == Constants.Search.SearchableAccessType
+                    && (DateTimeWrapper.Now() - owner.ModifiedOn) >
+                    TimeSpan.FromDays(Constants.Search.SearchableAccessTypeMinDaysPeriod))
+                {
+                    var searchContentResourcePath = _publicationPathProvider.GetSearchContentResourcePath(
+                        publication.Id,
+                        resourcePath ?? "index.html");
+                    return FileResponseMessage(searchContentResourcePath);
+                }
+                return new HtmlPageResponseMessage("404.html", _contentProvider, HttpStatusCode.NotFound);
             }
 
 
