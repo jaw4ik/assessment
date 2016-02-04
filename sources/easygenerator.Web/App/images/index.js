@@ -5,6 +5,8 @@ import Image from './image.js';
 import notify from 'notify.js';
 import preview from './preview/index.js';
 import eventTracker from 'eventTracker';
+import app from 'durandal/app';
+import constants from 'constants';
 
 let eventCategory = 'Image library',
     events = {
@@ -32,7 +34,7 @@ class Images{
             notify.error(reason);
         });
     }
-
+   
     showDeleteImageConfirmation(image) {
         image.isDeleteConfirmationShown(true);
     }
@@ -84,4 +86,7 @@ class Images{
     }
 }
 
-export default new Images();
+let viewModel = new Images();
+app.on(constants.messages.library.defaultActivate, viewModel.activate.bind(viewModel));
+
+export default viewModel;
