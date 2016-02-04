@@ -1,5 +1,6 @@
 ﻿(function (app) {
     var playerViewModel = app.playerViewModel,
+        statuses = playerViewModel.statuses,
         video = app.video,
         qualities = app.vimeoFileQualities,
         interval = app.playerUpdateInterval,
@@ -11,12 +12,14 @@
         },
 
         playerId = 'easy-player',
+        videoAvailableStatus = 'available',
         videoClass = 'vjs-tech',
         playingClass = 'playing',
         notSupportedDeviceClass = 'vjs-using-native-controls';
-    
+
+    playerViewModel.status(statuses.loading);
     getSources();
-    
+
     if (app.styleVariables && typeof app.styleVariables === "object") {
         app.cssInjector.applyStyles(app.styleVariables);
     }
@@ -35,7 +38,7 @@
         }
         storageProvider.set(volumeKey, { volume: volume, muted: muted });
     }
-    
+
     function handleVolumeChanges(player) {
         if (!storageProvider || !player) {
             return;
@@ -47,19 +50,19 @@
         }
         player.on('volumechange', volumeHandler);
     }
-    
+
     function handleNotSupportedDevices() {
         if (!document.getElementsByClassName(notSupportedDeviceClass).length) {
             return;
         }
-        
+
         var $player = $('#' + playerId),
             $video = $('.' + videoClass),
             video = $video.get(0);
         if (video.hasAttribute('autoplay')) {
             $player.addClass(playingClass);
         }
-        
+
         $player.on('click', function () {
             if (video.paused) {
                 video.play();
@@ -68,19 +71,32 @@
             }
             video.pause();
             $player.removeClass(playingClass);
-            
+
         });
     }
-    
-    function onFail() {
-        playerViewModel.processing(false);
-        return setTimeout(getSources, interval);
-    }
-    
-    function onSuccess(files) {
-        if (!files || !files.length) {
-            return onFail();
+
+    function onSuccess(result) {
+        playerViewModel.status(statuses.processing);
+        
+        if (result && result.status === videoAvailableStatus && result.files && result.files.length) {
+            processFiles(result.files);
+            return;
         }
+
+        setTimeout(getSources, interval);
+    }
+
+    function onFail(error) {
+        if (error.status === 404) {
+            playerViewModel.status(statuses.notFound);
+            return;
+        }
+        
+        playerViewModel.status(statuses.processing);
+        setTimeout(getSources, interval);
+    }
+
+    function processFiles(files) {
         var fileLinks = {};
         files.forEach(function (file) {
             if (file && file.link_secure && file.quality) {
@@ -99,14 +115,13 @@
         }
         playerViewModel.currentSource(source.link);
         playerViewModel.currentQuality(source.quality);
-        playerViewModel.processing(false);
-        
+        playerViewModel.status(statuses.available);
+
         var player = videojs(playerId);
         if (!video) {
             handleNotSupportedDevices();
         }
         handleVolumeChanges(player);
-        return player;
     }
 
 })(window.app);

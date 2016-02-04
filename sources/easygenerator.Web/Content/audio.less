@@ -27,14 +27,6 @@
 @drop-zone-border-color-active: rgba(76, 175, 80, 1);
 @drop-zone-border-color-hover: rgba(76, 175, 80, 0.6);
 
-.dash-bordered() {
-    border-width: 2px;
-    border-style: dashed;
-    border-color: #d1dae0;
-    border-radius: 5px;
-    transition: border-color 0.2s, border-style 0.2s, box-shadow 0.2s;
-}
-
 .audios {
     .audio-library {
         margin-top: 30px;
@@ -277,92 +269,3 @@
     }
 }
 
-.choose-voice-over-dialog, .audio-library {
-    .drop-audio-hint {
-        @text-color-active: #546677;
-        @text-color-regular: #768592;
-
-        position: absolute;
-        z-index: 99;
-        margin-right: 20px;
-        width: 100%;
-        height: 100%;
-        color: @text-color-active;
-
-        .vertical-align();
-
-        .drop-audio-hint-content {
-            text-align: center;
-            font-size: 16px;
-            font-family: 'RobotoSlab-Light';
-
-            .drop-audio-hint-upload-image {
-                width: 327px;
-                height: 150px;
-                background: url('images/media/media-upload.png') no-repeat;
-            }
-
-            h3 {
-                font-size: 22px;
-                font-family: 'RobotoSlab-Bold';
-                line-height: 1.5em;
-            }
-
-            a {
-                color: @text-color-active;
-                text-decoration: underline;
-            }
-        }
-
-        &.overlay {
-            display: none;
-            width: 100%;
-            background-color: #fff;
-            color: @text-color-regular;
-            opacity: 0.8;
-
-            &.active {
-                display: flex;
-
-                &.hover {
-                    color: @text-color-active;
-                }
-            }
-        }
-    }
-
-    .drop-zone {
-        .dash-bordered();
-
-        &:hover {
-            border-color: @drop-zone-border-color-active;
-        }
-
-        &.active {
-            border-color: @drop-zone-border-color-active;
-
-            &.hover {
-                border-style: solid;
-                box-shadow: 0 0 3px 2px @drop-zone-border-color-hover;
-            }
-        }
-    }
-}
-
-.audio-library {
-    .drop-audio-hint {
-        min-height: 70vh;
-
-        .drop-audio-hint-content {
-            position: fixed;
-            margin-top: 30vh;
-            transform: translate(-50%, 0);
-        }
-    }
-}
-
-.choose-voice-over-dialog {
-    .drop-audio-hint {
-        width: 98%;
-    }
-}

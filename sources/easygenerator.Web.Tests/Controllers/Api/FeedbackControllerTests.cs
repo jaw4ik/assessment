@@ -16,20 +16,22 @@ namespace easygenerator.Web.Tests.Controllers.Api
     [TestClass]
     public class FeedbackControllerTests
     {
+        private const string CreatedBy = "easygenerator@easygenerator.com";
         private IDomainEventPublisher _publisher;
         private FeedbackController _controller;
-        IPrincipal _user;
-        HttpContextBase _context;
+        private IPrincipal _user;
+        private HttpContextBase _context;
 
         [TestInitialize]
         public void InitializeContext()
         {
+            _user = Substitute.For<IPrincipal>();
+            _context = Substitute.For<HttpContextBase>();
+
+            _context.User.Returns(_user);
             _publisher = Substitute.For<IDomainEventPublisher>();
             _controller = new FeedbackController(_publisher);
 
-            _user = Substitute.For<IPrincipal>();
-            _context = Substitute.For<HttpContextBase>();
-            _context.User.Returns(_user);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -90,6 +92,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var rate = 5;
             var message = "some message from user";
+            _user.Identity.Name.Returns(CreatedBy);
 
             //Act
             var result = _controller.SendNewEditorFeedback(rate, message);
@@ -104,13 +107,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var rate = 5;
             var message = "some message from user";
+            _user.Identity.Name.Returns(CreatedBy);
 
             //Act
             _controller.SendNewEditorFeedback(rate, message);
 
             //Assert
             _publisher.Received().Publish(
-                Arg.Is<NewEditorUserFeedbackEvent>(_ => _.Rate == rate && _.Message == message)
+                Arg.Is<NewEditorUserFeedbackEvent>(_ => _.Rate == rate && _.Message == message && _.UserEmail == CreatedBy)
                 );
         }
 

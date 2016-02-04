@@ -1,6 +1,13 @@
 ﻿(function(app) {
     var viewModel = {
-        processing: ko.observable(true),
+        statuses: {
+            loading: 'loading',
+            processing: 'processing',
+            available: 'available',
+            notFound: 'not-found'
+        },
+        
+        status: ko.observable(null),
         sources: ko.observableArray([]),
         currentSource: ko.observable(null),
         currentQuality: ko.observable(null),

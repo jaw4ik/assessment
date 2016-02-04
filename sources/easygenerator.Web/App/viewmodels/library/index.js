@@ -4,6 +4,7 @@
     var events = {
         navigateToVideos: 'Navigate to videos',
         navigateToAudios: 'Navigate to audios',
+        navigateToImages: 'Navigate to images',
         navigateToObjectives: 'Navigate to objectives'
     }
 
@@ -12,13 +13,13 @@
             fromParent: true
         }).map([
             {
-                route: ['', 'videos'],
-                moduleId: 'viewmodels/videos/videos',
-                title: localizationManager.localize('videoLibrary'),
+                route: ['', 'images'],
+                moduleId: 'images/index',
+                title: localizationManager.localize('imageLibrary'),
                 nav: true,
-                hash: '#library/videos',
+                hash: '#library/images',
                 navigate: function () {
-                    eventTracker.publish(events.navigateToVideos);
+                    eventTracker.publish(events.navigateToImages);
                     childRouter.navigate(this.hash);
                 }
             },
@@ -30,6 +31,17 @@
                 hash: '#library/audios',
                 navigate: function () {
                     eventTracker.publish(events.navigateToAudios);
+                    childRouter.navigate(this.hash);
+                }
+            },
+            {
+                route: ['videos'],
+                moduleId: 'viewmodels/videos/videos',
+                title: localizationManager.localize('videoLibrary'),
+                nav: true,
+                hash: '#library/videos',
+                navigate: function () {
+                    eventTracker.publish(events.navigateToVideos);
                     childRouter.navigate(this.hash);
                 }
             }

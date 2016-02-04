@@ -1,6 +1,6 @@
 {
   "name": "Reader",
-  "shortDescription": "Just a course with content, no questions\n\nDetails:\nIf you want to present knowledge to the learner and no questions, the reader is the right form. It will present the content in sections with simple navigation. You cannot rack and trace results from a reader.",
+  "shortDescription": "Just a course with content, no questions\n\nDetails:\nIf you want to present knowledge to the learner and no questions, the reader is the right form. It will present the content in sections with simple navigation. You cannot track and trace results from a reader.",
   "thumbnail": "preview/thumbnail.png",
   "previewImages": [
     "preview/images/preview.png"

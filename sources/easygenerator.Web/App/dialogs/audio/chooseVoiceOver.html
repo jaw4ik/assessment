@@ -9,15 +9,15 @@
             <div data-bind="preloader: { settings: 'align-center' }"></div>
             <!-- /ko -->
             <!-- ko ifnot: isLoading -->
-            <div class="drop-audio-hint drop-zone" data-bind="dropUpload: { before: library.ensureCanAddAudio, callback: uploadAudioByDragging }, css: { overlay: library.audios().length }">
-                <div class="drop-audio-hint-content">
+            <div class="drop-hint drop-zone" data-bind="dropUpload: { before: library.ensureCanAddAudio, callback: uploadAudioByDragging }, css: { overlay: library.audios().length }">
+                <div class="drop-hint-content">
                     <!-- ko if: library.audios().length -->
                     <h3 data-bind="localize: { text : 'dropHere' }"></h3>
                     <span data-bind="localize: { text : 'anyAudioFormats' }"></span>
                     <!-- /ko -->
                     <!-- ko ifnot: library.audios().length -->
-                    <div class="drop-audio-hint-upload-image"></div>
-                    <div class="drop-audio-hint-upload-text">
+                    <div class="drop-hint-upload-image"></div>
+                    <div class="drop-hint-upload-text">
                         <h3 data-bind="localize: { text : 'dragAndDrop' }"></h3>
                         <span data-bind="localize: { text : 'anyAudioFormatsOr' }"></span>&nbsp;<a href="" data-bind="localize: { text: 'browseCallToAction'}, browse: { click: onOpenFileBrowseDialog, before: library.ensureCanAddAudio, callback: uploadAudio }"></a>
                     </div>

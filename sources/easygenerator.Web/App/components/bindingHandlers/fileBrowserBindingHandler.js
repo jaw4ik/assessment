@@ -6,7 +6,8 @@
 
             var browse = new Browse();
             browse.on('selected', value.callback)
-                .accept(value.accept || 'audio/*');                
+                .accept(value.accept || 'audio/*')
+                .multiple(value.multiple || false);
 
             $(element).on('click', function () {
                 if (_.isFunction(value.click)) {

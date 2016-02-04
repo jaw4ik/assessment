@@ -28,7 +28,7 @@ body{-moz-user-select:none;-ms-user-select:none;-webkit-user-select:none;user-se
 .error-404 .text-404 .button.medium{position:relative;display:inline-block;width:340px;padding-left:50px;line-height:30px}
 .error-404 .text-404 .button.medium span:before{content:'';position:absolute;width:30px;height:25px;margin-left:-40px}
 .show-introduction-button-wrapper{position:fixed;top:50px;left:-3px;z-index:1}
-.show-introduction-button-wrapper .show-introduction-button{position:relative;width:100px;height:50px;font-weight:700;font-size:16px;text-transform:uppercase;border:1px solid;border-left:0;border-top-right-radius:10px;border-bottom-right-radius:10px;padding:0 20px 0 10px;opacity:.7}
+.show-introduction-button-wrapper .show-introduction-button{position:relative;width:100px;height:50px;font-weight:700;font-size:16px;text-transform:uppercase;border:1px solid;border-left:0;border-top-right-radius:10px;border-bottom-right-radius:10px;padding:0 12px 0 0;opacity:.7}
 .show-introduction-button-wrapper .show-introduction-button:hover{opacity:1}
 .show-introduction-button-wrapper .show-introduction-button:after{content:'';position:absolute;top:50%;right:11px;width:10px;height:26px;margin-top:-12px}
 .header-container{display:table;width:100%;margin-bottom:40px;text-align:left}

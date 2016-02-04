@@ -180,7 +180,7 @@
 
             });
 
-            it('should send request to \'api/objective/create\'', function () {
+            it('should send request to \'api/objective/create\'', function (done) {
                 var objective = { test: 'test' };
                 var promise = repository.addObjective(objective);
 
