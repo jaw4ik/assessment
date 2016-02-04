@@ -117,6 +117,9 @@ export default {
             upgradedToAcademy: 'user:upgradedToAcademy',
             planChanged: 'user:planChanged'
         },
+        library: {
+            defaultActivate: 'library:default:activate'
+        },
         course: {
             created: 'course:created',
             deleted: 'course:deleted',
