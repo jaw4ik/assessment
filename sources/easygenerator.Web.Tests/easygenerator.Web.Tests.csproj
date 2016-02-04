@@ -172,6 +172,7 @@
     <Compile Include="Components\ReleaseNoteFileReaderTests.cs" />
     <Compile Include="Controllers\Api\DocumentControllerTests.cs" />
     <Compile Include="Controllers\Api\LearningPathControllerTests.cs" />
+    <Compile Include="Controllers\Api\RankingTextControllerTests.cs" />
     <Compile Include="Controllers\Api\ReleaseNoteControllerTests.cs" />
     <Compile Include="Controllers\Api\ScenarioControllerTests.cs" />
     <Compile Include="Controllers\DashboardControllerTests.cs" />
@@ -210,6 +211,7 @@
     <Compile Include="Controllers\ImageControllerTests.cs" />
     <Compile Include="Controllers\PreviewControllerTests.cs" />
     <Compile Include="Controllers\RedirectToNewStorageControllerTests.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\RankingTextAnswerChangeTrackerTests.cs" />
     <Compile Include="Import\WinToWeb\WinToWebCourseImporterTests.cs" />
     <Compile Include="Publish\External\ExternalCoursePublisherTests.cs" />
     <Compile Include="Publish\External\ExternalLearningPathPublisherTests.cs" />

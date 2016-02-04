@@ -71,6 +71,10 @@ namespace easygenerator.Web.Components.Mappers
             {
                 return Question.QuestionTypes.Scenario;
             }
+            if (questionType == typeof(RankingText))
+            {
+                return Question.QuestionTypes.RankingText;
+            }
             throw new NotSupportedException();
         }
     }

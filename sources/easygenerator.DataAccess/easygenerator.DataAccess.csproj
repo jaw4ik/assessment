@@ -435,6 +435,10 @@
     <Compile Include="Migrations\201602231245384_AddLearningObjectivePropertyForObjective.Designer.cs">
       <DependentUpon>201602231245384_AddLearningObjectivePropertyForObjective.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602231608141_AddRankingTextQuestion.cs" />
+    <Compile Include="Migrations\201602231608141_AddRankingTextQuestion.Designer.cs">
+      <DependentUpon>201602231608141_AddRankingTextQuestion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ConsumerToolRepository.cs" />
@@ -752,6 +756,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602231245384_AddLearningObjectivePropertyForObjective.resx">
       <DependentUpon>201602231245384_AddLearningObjectivePropertyForObjective.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602231608141_AddRankingTextQuestion.resx">
+      <DependentUpon>201602231608141_AddRankingTextQuestion.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

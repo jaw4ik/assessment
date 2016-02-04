@@ -260,6 +260,11 @@ function runSpecs(env) {
                 'synchronization/handlers/questions/scenario/handler.spec',
                 'synchronization/handlers/questions/scenario/eventHandlers/dataUpdated.spec',
                 'synchronization/handlers/questions/scenario/eventHandlers/masteryScoreUpdated.spec',
+                'synchronization/handlers/questions/rankingText/eventHandlers/answerCreated.spec',
+                'synchronization/handlers/questions/rankingText/eventHandlers/answerDeleted.spec',
+                'synchronization/handlers/questions/rankingText/eventHandlers/answerTextChanged.spec',
+                'synchronization/handlers/questions/rankingText/eventHandlers/answersReordered.spec',
+
                 //#endregion
                 //#endregion
 
@@ -361,6 +366,13 @@ function runSpecs(env) {
                 'viewmodels/questions/textMatching/commands/removeAnswer.spec',
                 'viewmodels/questions/textMatching/commands/changeAnswerKey.spec',
                 'viewmodels/questions/textMatching/commands/changeAnswerValue.spec',
+                'viewmodels/questions/rankingText/rankingText.spec',
+                'viewmodels/questions/rankingText/rankingTextAnswer.spec',
+                'viewmodels/questions/rankingText/queries/getAnswers.spec',
+                'viewmodels/questions/rankingText/commands/addAnswer.spec',
+                'viewmodels/questions/rankingText/commands/deleteAnswer.spec',
+                'viewmodels/questions/rankingText/commands/updateAnswersOrder.spec',
+                'viewmodels/questions/rankingText/commands/updateAnswerText.spec',
                 'viewmodels/questions/hotspot/designer.spec',
                 'viewmodels/questions/hotspot/hotSpot.spec',
                 'viewmodels/questions/hotspot/polygon.spec',

@@ -62,6 +62,8 @@
     <Compile Include="Entities\LearningPath.cs" />
     <Compile Include="Entities\Onboarding.cs" />
     <Compile Include="Entities\Questions\BlankAnswer.cs" />
+    <Compile Include="Entities\Questions\RankingText.cs" />
+    <Compile Include="Entities\Questions\RankingTextAnswer.cs" />
     <Compile Include="Entities\Questions\Scenario.cs" />
     <Compile Include="Entities\Questions\OpenQuestion.cs" />
     <Compile Include="Entities\Questions\QuestionWithBackground.cs" />
@@ -155,6 +157,11 @@
     <Compile Include="Events\QuestionEvents\QuestionContentUpdatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\QuestionTitleUpdatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\QuestionVoiceOverUpdatedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\RankingTextEvents\RankingTextAnswerTextChangedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\RankingTextEvents\RankingTextAnswerCreatedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\RankingTextEvents\RankingTextAnswerDeletedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\RankingTextEvents\RankingTextAnswerEvent.cs" />
+    <Compile Include="Events\QuestionEvents\RankingTextEvents\RankingTextAnswersReorderedEvent.cs" />
     <Compile Include="Events\QuestionEvents\ScenarioEvents\ScenarioDataUpdatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\ScenarioEvents\ScenarioMasteryScoreUpdatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\SingleSelectImageEvents\SingleSelectImageCorrectAnswerChangedEvent.cs" />
@@ -204,6 +211,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

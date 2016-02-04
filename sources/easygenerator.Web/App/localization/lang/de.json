@@ -483,6 +483,8 @@
     "failedToUpdateTextRankingItem": "Failed to update text of ranking item",
     "failedToReorderRankingItems": "Failed to re-order ranking items",
     "failedToGetRankingItems": "Failed to get ranking items",
+    "tooltipRankingTextTitle": "Ranking text questions",
+    "tooltipRankingTextDescription": "<p>The <b>Ranking question</b> asks respondents to compare items to each other by placing them in order of preference.</p><p>\nFor example, you can give students a list of historical events and ask them to place these events in chronological order.</p>",
     "rankingTextEditor": "„Einstufungstext“-Editor",
     "putYourPositiveFeedback": "Erstellen Sie eine Rückmeldung für eine richtige Antwort",
     "putYourNegativeFeedback": "Erstellen Sie eine Rückmeldung für eine falsche Antwort",

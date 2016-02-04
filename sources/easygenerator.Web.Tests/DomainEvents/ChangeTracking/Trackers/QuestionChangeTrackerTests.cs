@@ -14,6 +14,7 @@ using easygenerator.Web.Tests.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System.Collections.ObjectModel;
+using easygenerator.DomainModel.Events.QuestionEvents.RankingTextEvents;
 using easygenerator.DomainModel.Events.QuestionEvents.ScenarioEvents;
 
 namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
@@ -213,6 +214,26 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
             _publisher.ShouldPublishEvent<QuestionChangedEvent>();
         }
 
+        [TestMethod]
+        public void Handler_RankingTextAnswerDeletedEvent_Should_Publish_QuestionChangedEvent()
+        {
+            //Act
+            _tracker.Handle(new RankingTextAnswerDeletedEvent(RankingTextObjectMother.Create(), RankingTextAnswerObjectMother.Create()));
+
+            //Assert
+            _publisher.ShouldPublishEvent<QuestionChangedEvent>();
+        }
+
+        [TestMethod]
+        public void Handler_RankingTextAnswersReorderedEvent_Should_Publish_QuestionChangedEvent()
+        {
+            //Act
+            _tracker.Handle(new RankingTextAnswersReorderedEvent(RankingTextObjectMother.Create(), new Collection<RankingTextAnswer>()));
+
+            //Assert
+            _publisher.ShouldPublishEvent<QuestionChangedEvent>();
+        }
+        
         #endregion
     }
 }

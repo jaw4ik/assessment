@@ -22,6 +22,11 @@ namespace easygenerator.DomainModel
 
         FillInTheBlanks FillInTheBlanksQuestion(string title, string createdBy);
         BlankAnswer BlankAnswer(string text, bool isCorrect, bool matchCase, Guid groupId, string createdBy);
+        RankingText RankingTextQuestion(string title, string createdBy);
+
+        RankingText RankingTextQuestion(string title, string createdBy, RankingTextAnswer firstAnswer, RankingTextAnswer secondAnswer);
+        RankingTextAnswer RankingTextAnswer(string text, string createdBy);
+        RankingTextAnswer RankingTextAnswer(string text, string createdBy, DateTime createdOn);
         DragAndDropText DragAndDropTextQuestion(string title, string createdBy);
         Dropspot Dropspot(string text, int x, int y, string createdBy);
         TextMatching TextMatchingQuestion(string title, string createdBy);
@@ -254,6 +259,27 @@ namespace easygenerator.DomainModel
         public Scenario Scenario(string title, int masteryScore, string createdBy)
         {
             return new Scenario(title, masteryScore, createdBy);
+        }
+
+        public RankingText RankingTextQuestion(string title, string createdBy)
+        {
+            return new RankingText(title, createdBy);
+        }
+
+        public RankingText RankingTextQuestion(string title, string createdBy, RankingTextAnswer firstAnswer,
+            RankingTextAnswer secondAnswer)
+        {
+            return new RankingText(title, createdBy, firstAnswer, secondAnswer);
+        }
+
+        public RankingTextAnswer RankingTextAnswer(string text, string createdBy)
+        {
+            return new RankingTextAnswer(text, createdBy);
+        }
+
+        public RankingTextAnswer RankingTextAnswer(string text, string createdBy, DateTime createdOn)
+        {
+            return new RankingTextAnswer(text, createdBy, createdOn);
         }
     }
 }

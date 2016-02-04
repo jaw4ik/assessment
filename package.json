@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/easygenerator/easygenerator#readme",
   "devDependencies": {
-    "babel-core": "^6.5.1",
+    "babel-core": "^6.5.2",
     "babel-preset-es2015": "^6.5.0",
     "csscomb": "^3.1.8",
     "del": "^1.2.1",
