@@ -18,10 +18,10 @@
 
         });
 
-        describe('activate:', () => {
+        describe('activate:', function () {
             var instruction;
 
-            beforeEach(() => {
+            beforeEach(function () {
                 spyOn(app, 'trigger');
                 router.parent = {
                     activeInstruction: function() {
@@ -30,16 +30,16 @@
                 };
             });
 
-            describe('when activeInstructions fragment is not \'library\'', () => {
-                it('should not trigger event', () => {
+            describe('when activeInstructions fragment is not \'library\'', function() {
+                it('should not trigger event', function () {
                     instruction = { fragment: 'test' };
                     index.activate();
                     expect(app.trigger).not.toHaveBeenCalled();
                 });
             });
 
-            describe('when activeInstructions fragment is \'library\'', () => {
-                it('should trigger event \'library:default:activate\'', () => {
+            describe('when activeInstructions fragment is \'library\'', function () {
+                it('should trigger event \'library:default:activate\'', function () {
                     instruction = { fragment: 'library' };
                     index.activate();
                     expect(app.trigger).toHaveBeenCalledWith('library:default:activate');
@@ -47,5 +47,4 @@
             });
         });
     });
-
 });
