@@ -13,7 +13,7 @@ namespace easygenerator.PublicationServer.MultipartFormData
             _courseId = courseId;
         }
 
-        public virtual NameValueCollection FormData => base.FormData;
+        public virtual new NameValueCollection FormData => base.FormData;
 
         public override string GetLocalFileName(System.Net.Http.Headers.HttpContentHeaders headers)
         {
