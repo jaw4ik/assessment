@@ -35,7 +35,7 @@ namespace easygenerator.PublicationServer.Configuration
                     (IPublicationRepository)config.DependencyResolver.GetService(typeof(IPublicationRepository)),
                     (HttpUtilityWrapper)config.DependencyResolver.GetService(typeof(HttpUtilityWrapper)),
                     (IUserRepository)config.DependencyResolver.GetService(typeof(IUserRepository))),
-                RequestPath = new PathString(@"/public"),
+                RequestPath = new PathString($@"/{Constants.PublicPublicationsPath}"),
                 EnableDefaultFiles = true
             };
 

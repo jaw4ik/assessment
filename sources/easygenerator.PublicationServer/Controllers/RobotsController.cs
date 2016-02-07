@@ -25,7 +25,7 @@ namespace easygenerator.PublicationServer.Controllers
             var allowIndexing = _configurationReader.AllowIndexing;
             if (allowIndexing)
             {
-                robotsContent.AppendLine("Allow: /public/");
+                robotsContent.AppendLine($"Allow: /{Constants.PublicPublicationsPath}/");
             }
             robotsContent.AppendLine("Disallow: /");
 
