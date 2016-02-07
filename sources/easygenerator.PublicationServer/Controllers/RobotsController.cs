@@ -21,14 +21,14 @@ namespace easygenerator.PublicationServer.Controllers
         {
             var robotsContent = new StringBuilder();
             robotsContent.AppendLine("User-agent: *");
-            robotsContent.AppendLine("Disallow: /");
 
             var allowIndexing = _configurationReader.AllowIndexing;
             if (allowIndexing)
             {
                 robotsContent.AppendLine("Allow: /public/");
             }
-            
+            robotsContent.AppendLine("Disallow: /");
+
             if (allowIndexing)
             {
                 robotsContent.AppendLine($"Sitemap: {PublicationServerUri}/sitemapindex.xml");
