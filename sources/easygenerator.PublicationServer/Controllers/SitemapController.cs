@@ -34,7 +34,7 @@ namespace easygenerator.PublicationServer.Controllers
 
                 for (int i = 0; i < sitemapFilesCounts; i++)
                 {
-                    sitemapIndexContentBuilder.AppendFormat($"<sitemap><loc>{PublicationServerUri}/sitemap_{i + 1}.xml</loc></sitemap>");
+                    sitemapIndexContentBuilder.AppendFormat($"<sitemap><loc>{PublicationServerUri}/{Constants.PublicPublicationsPath}/sitemap_{i + 1}.xml</loc></sitemap>");
                 }
 
                 sitemapIndexContentBuilder.Append("</sitemapindex>");
