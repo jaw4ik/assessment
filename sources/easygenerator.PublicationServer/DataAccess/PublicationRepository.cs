@@ -51,7 +51,7 @@ namespace easygenerator.PublicationServer.DataAccess
                     AND DATEDIFF(DAY, u.ModifiedOn, GETDATE()) > @AccessTypeMinDaysPeriod
                 ) OrderedPublications
                 WHERE OrderedPublications.RowNumber BETWEEN @Skip + 1 AND @Take",
-            new { AccessType = accessType, AccessTypeMinDaysPeriod = accessTypeMinDaysPeriod, Take = take, Skip = skip }).ToList());
+            new { AccessType = accessType, AccessTypeMinDaysPeriod = accessTypeMinDaysPeriod, Take = take + skip, Skip = skip }).ToList());
         }
 
         public Publication GetByPublicPath(string publicPath)
