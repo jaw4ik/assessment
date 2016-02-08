@@ -1,24 +1,16 @@
 ﻿<div class="design-bar presets">
-    <div style="margin-bottom: 20px;">
-        <button class="design-bar-back-button" data-bind="click: hide, localize: { text: 'backToSettings' }"></button>
-    </div>
     <!-- ko if: collection() && collection().length -->
-    <div>
-        <label class="design-bar-presets-label">
-            <span data-bind="localize: { text: 'colorThemes' }"></span>:
-        </label>
-        <ul class="design-bar-presets-list" data-bind="foreach: collection">
-            <li class="design-bar-preset-wrapper">
-                <div class="design-bar-preset" data-bind="click: $parent.select.bind($parent), backgroundImage: backgroundTexture, style: { backgroundColor: backgroundColor, borderColor: secondaryColor }, css: { selected: isSelected }">
-                    <label class="design-bar-preset-title">
-                        <span data-bind="localize: { text: 'scheme' }"></span>:<br />
-                        <span data-bind="style: { color: textColor }">"<span data-bind="text: title"></span>"</span>
-                    </label>
-                    <div class="design-bar-preset-main-color-preview" data-bind="style: { backgroundColor: mainColor }"></div>
-                </div>
-            </li>
-        </ul>
-    </div>
+    <ul class="design-bar-presets-list" data-bind="foreach: collection">
+        <li class="design-bar-preset-wrapper">
+            <div class="design-bar-preset" data-bind="click: $parent.select.bind($parent), backgroundImage: backgroundTexture, style: { backgroundColor: backgroundColor, borderColor: secondaryColor }, css: { selected: isSelected }">
+                <label class="design-bar-preset-title">
+                    <span data-bind="localize: { text: 'scheme' }"></span>:<br />
+                    <span data-bind="style: { color: textColor }">"<span data-bind="text: title"></span>"</span>
+                </label>
+                <div class="design-bar-preset-main-color-preview" data-bind="style: { backgroundColor: mainColor }"></div>
+            </div>
+        </li>
+    </ul>
     <!-- /ko -->
     <!-- ko ifnot: collection() && collection().length -->
     <label class="design-bar-presets-label">
