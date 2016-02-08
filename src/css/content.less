@@ -62,7 +62,6 @@
 
 .styled-content {
     .clear;
-
     font-family: @default-font;
     font-size: @default-font-size;
     color: @default-font-color;
@@ -171,10 +170,10 @@
             margin-left: 10px;
         }
     }
-    
+
     .hotspotOnImage {
-        
-        .image-wrapper{
+
+        .image-wrapper {
             margin: 0;
         }
     }
@@ -184,7 +183,8 @@
         .wrapper;
         margin: 30px 0;
         max-width: 100%;
-        
+        clear: both;
+
         img {
             max-width: 100%;
             border-radius: @wrapper-border-radius;
@@ -206,7 +206,11 @@
             margin: 10px 20px 0 0;
         }
     }
-    
+
+        .image-wrapper ~ .image-wrapper {
+            clear: none;
+        }
+
     iframe {
         max-width: 100%;
     }
