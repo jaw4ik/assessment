@@ -31,7 +31,7 @@ namespace easygenerator.PublicationServer.Controllers
 
             if (allowIndexing)
             {
-                robotsContent.AppendLine($"Sitemap: {PublicationServerUri}/sitemapindex.xml");
+                robotsContent.AppendLine($"Sitemap: {PublicationServerUri}/{Constants.PublicPublicationsPath}/sitemapindex.xml");
             }
 
             return new HttpResponseMessage(HttpStatusCode.OK)

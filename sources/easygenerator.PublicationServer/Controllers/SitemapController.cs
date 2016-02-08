@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Text;
 using System.Web.Http;
 using easygenerator.PublicationServer.DataAccess;
-using easygenerator.PublicationServer.Models;
 
 namespace easygenerator.PublicationServer.Controllers
 {
@@ -12,7 +11,7 @@ namespace easygenerator.PublicationServer.Controllers
     {
         private const int SitemapMaxUrlsCount = 10000;
         private const int PublicationsBatch = 1000;
-        
+
 
         private readonly IPublicationRepository _publicationRepository;
         public SitemapController(IPublicationRepository publicationRepository)
@@ -20,7 +19,7 @@ namespace easygenerator.PublicationServer.Controllers
             _publicationRepository = publicationRepository;
         }
 
-        [Route("sitemapindex.xml")]
+        [Route(Constants.PublicPublicationsPath + "/sitemapindex.xml")]
         [HttpGet]
         public HttpResponseMessage SitemapIndex()
         {
@@ -49,7 +48,7 @@ namespace easygenerator.PublicationServer.Controllers
             return new HttpResponseMessage(HttpStatusCode.NotFound);
         }
 
-        [Route("sitemap_{index}.xml")]
+        [Route(Constants.PublicPublicationsPath + "/sitemap_{index}.xml")]
         [HttpGet]
         public HttpResponseMessage Sitemap(int index)
         {
