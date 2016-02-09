@@ -197,6 +197,7 @@
     <Content Include="content\css\styles.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="content\html\homepage.html" />
     <Content Include="content\html\maintenance.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -9,22 +9,16 @@ namespace easygenerator.PublicationServer.Controllers
     public class SystemPagesController : BaseApiController
     {
         private readonly StaticViewContentProvider _contentProvider;
-        private readonly ConfigurationReader _configurationReader;
-        public SystemPagesController(StaticViewContentProvider contentProvider, ConfigurationReader configurationReader)
+        public SystemPagesController(StaticViewContentProvider contentProvider)
         {
             _contentProvider = contentProvider;
-            _configurationReader = configurationReader;
         }
 
         [Route("~/")]
         [HttpGet]
-        public IHttpActionResult HomePageRedirect()
+        public HttpResponseMessage HomePage()
         {
-            if (!String.IsNullOrWhiteSpace(_configurationReader.HomePageRedirectUrl))
-            {
-                return Redirect(_configurationReader.HomePageRedirectUrl);
-            }
-            return Redirect($"{PublicationServerUri}/404");
+            return new HtmlPageResponseMessage("homepage.html", _contentProvider, HttpStatusCode.OK);
         }
 
         [HttpGet]
