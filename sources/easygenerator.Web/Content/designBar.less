@@ -29,7 +29,6 @@
             &.settings {
                 display: flex;
                 /*padding-bottom: 70px;*/
-
                 > footer {
                     position: absolute;
                     bottom: 0;
@@ -41,6 +40,7 @@
                     border-right: 1px solid #c6d1d8;
                     background-color: #fff;
                     box-shadow: 0 -1px 5px 0 #dfe4e6;
+
                     align-items: center;
                     justify-content: center;
 
@@ -90,8 +90,8 @@
                     display: block;
                     margin-bottom: 12px;
                     color: rgb(66, 81, 95);
-                    font-size: 13px;
                     font-weight: 600;
+                    font-size: 13px;
 
                     > span {
                         color: #42515f;
@@ -101,6 +101,7 @@
                 .design-bar-presets-list {
                     display: flex;
                     list-style: none;
+
                     flex-flow: row wrap;
                 }
 
@@ -122,12 +123,14 @@
                     border-radius: 5px;
                     background-color: #fff;
                     box-shadow: 0 0 0 1px rgb(171, 187, 198);
+                    transition: all .3s linear 0s;
+
                     align-items: center;
                     flex-wrap: wrap;
                     justify-content: center;
 
                     &:hover {
-                        box-shadow: 0 0 0 1px rgb(76, 175, 80);
+                        box-shadow: 0 0 0 2px rgb(76, 175, 80);
                         cursor: pointer;
                     }
 
@@ -135,15 +138,27 @@
                         box-shadow: 0 0 0 2px rgb(76, 175, 80);
                         cursor: default;
 
+                        @keyframes preset-selected {
+                            50% {
+                                box-shadow: 0 0 0 2px #74c384;
+                            }
+                        }
+
                         &:before {
                             position: absolute;
                             top: 3px;
-                            left: 4px;
+                            left: 3px;
                             display: block;
                             width: 20px;
                             height: 20px;
-                            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAAwFBMVEVMr1BMr1BMr1BMr1BMr1BMr1BMr1BMr1BMr1BMr1BMr1BMr1BMr1BMr1BMr1BMr1BMr1BMr1BMr1BMr1BMr1BMr1BMr1BMr1BMr1BMr1BMr1BMr1BMr1BMr1BNr1FOsFJQsVRSslZUslhiuWVmu2lnu2povGtpvGxqvG5xv3R4wnuBx4Sg1KKn2Kmw3LG437q+4r+/4sHF5cfG5sfL6MzN6c7a7tvb79zf8d/t9+3t9+7u9+/v+O/v+O/w+PD///+Ne712AAAAP3RSTlMAAwUGSUpLTE1OUlN8fYWWmpvCxMbJys3O2tvg4ebm5ubn5+np6erq6uvs7fHy8/X19fb29/f5+vr8/Pz8/f3XAQUxAAAAuklEQVR42l2R1xKCMBBFl1ioiihgY1HsvWFv+/9/ZSAMIOfh7uQ8JHc2EMNU0/F6TVNhkFK2McGuJEoyMIchxVK4zEZOwQIyAGsXZYeBlj9PrkueOjRybvqgMx8WuH/uEvDpQj91syeFQ+R40OXpr33E+YuOAxSyxfNAp2Dxpr2PMW780OpLtw/tMMESlcZ3om16uZ6UH4WbrHwJQMUCCnBqxYVESPW8q0sgqGZLliGFaZbjeY6lie/4AXPQJrnKlo00AAAAAElFTkSuQmCC);
+                            border: 0 none;
+                            border-radius: 50%;
+                            background-color: #74c384;
+                            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAJCAYAAAAGuM1UAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDE0IDc5LjE1Njc5NywgMjAxNC8wOC8yMC0wOTo1MzowMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjA3MENDNDM1MUZGMTExRTU5NkY2QTczMDgwNTAwMENGIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjA3MENDNDM2MUZGMTExRTU5NkY2QTczMDgwNTAwMENGIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDcwQ0M0MzMxRkYxMTFFNTk2RjZBNzMwODA1MDAwQ0YiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDcwQ0M0MzQxRkYxMTFFNTk2RjZBNzMwODA1MDAwQ0YiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4J3IJ2AAAAgElEQVR42mL4//8/AxFYCYiPArEBMYqVgfjRfwhYT4riTUDMgU+xKhA/hipeAcSsIHGQBCMQu0NpmGI1IH4CVTwPiJlhciBiDlRiOchKIFYH4qdQsSloBoE1WALxc6iCE0D8DMpux+ZUGEMGiM/+R4BqXH5D5nBBPVeAL+QAAgwA2n1dvDwHMm0AAAAASUVORK5CYII=);
+                            background-position: center;
+                            background-repeat: no-repeat;
                             content: '';
+                            animation: preset-selected 0.3s linear 0s;
                         }
                     }
                 }
@@ -178,6 +193,7 @@
         .design-bar-navigation {
             width: 70px;
             background: #fff;
+
             flex: 0 0 auto;
 
             .design-bar-navigation-list {
@@ -190,18 +206,19 @@
                     color: #7c858e;
                     font-size: 13px;
                     cursor: pointer;
+
                     justify-content: center;
 
                     &.presets {
                         &:before {
-                            content: "";
-                            display: block;
-                            bottom: 0;
-                            background-color: rgb(171, 187, 198);
                             position: absolute;
+                            bottom: 0;
                             left: 18px;
+                            display: block;
                             width: 34px;
                             height: 1px;
+                            background-color: rgb(171, 187, 198);
+                            content: '';
                         }
                     }
 
@@ -268,6 +285,7 @@
             position: relative;
             height: 100%;
             border-right: 1px solid #c6d1d8;
+
             flex: 1;
 
             &.custom {
@@ -287,8 +305,8 @@
                         display: inline-block;
                         color: #42515f;
                         vertical-align: top;
-                        font-size: 15px;
                         font-weight: 600;
+                        font-size: 15px;
                     }
 
                     .tooltip-icon {
