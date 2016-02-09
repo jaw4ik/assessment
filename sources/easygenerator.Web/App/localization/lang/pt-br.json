@@ -382,6 +382,7 @@
     "moveCopyErrorMessage": "Não existem objetivos no curso. Favor selecionar um curso que contenha pelo menos um objetivo.",
     "learningContentRemoved": "Conteúdo foi removido",
     "typeQuestionTitle": "Type your question here...",
+    "typeContentTitle": "Type your content title here...",
     "edit": "Editar",
     "relatedContents": "Itens relacionados",
     "objectiveProperties": "Propriedades do objetivo de aprendizado",
@@ -468,6 +469,10 @@
     "masteryScoreDescription": "O cenário é aprovado se os alunos conseguirem esta pontuação",
     "wantMoreScenarios": "Deseja mais cenários?",
     "pleaseContact": "Favor contatar:",
+    "newRankingTextQuestionTitle": "Untitled ranking text question",
+    "rankingText": "Classificar texto",
+    "rankingChoicesInTheRightOrder": "Put choices in the right order",
+    "rankingTextEditor": "\"Ranking text\" editor",
     "putYourPositiveFeedback": "Criar mensagem para resposta correta",
     "putYourNegativeFeedback": "Criar mensagem para resposta incorreta",
     "correctFeedback": "Mensagem para resposta correta",
@@ -716,5 +721,7 @@
     "attach": "Anexe",
     "themes": "Themes",
     "saveAsANewTheme": "Save as a new theme",
-    "backToSettings": "Back to settings"
+    "backToSettings": "Back to settings",
+    "saveAndBack": "Save and back",
+    "duplicateQuestion": "Duplicate question"
 }
