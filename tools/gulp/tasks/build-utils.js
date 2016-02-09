@@ -27,17 +27,29 @@ module.exports = function () {
 
     function runUnitTests(testsPaths) {
         var defer = Q.defer();
-        runTest(testsPaths, defer);
+        runTest(testsPaths, defer, []);
         return defer.promise;
     }
 
-    function runTest(testsPath, defer) {
+    function runTest(testsPath, defer, failedResult) {
         var msTest = new MSTest();
         var instance = testsPath.shift();
         if (typeof instance !== 'undefined') {
             msTest.testContainer = instance;
         } else {
-            defer.resolve();
+            if (failedResult.length) {
+                console.log('\n______');
+                console.log('FAILED:');
+                var i = 0;
+                for (; i < failedResult.length; i++) {
+                    console.log(failedResult[i]);
+                }
+                console.log('______\n');
+                defer.reject(failedResult.length + ' tests have failed');
+            } else {
+                defer.resolve();
+            }
+
             return;
         }
         msTest.details.errorMessage = true;
@@ -48,7 +60,13 @@ module.exports = function () {
             },
             done: function (results, passed, failed) {
                 console.log(passed.length + '/' + results.length);
-                runTest(testsPath, defer);
+                if (failed.length) {
+                    var i = 0;
+                    for (; i < failed.length; i++) {
+                        failedResult.push(failed[i].name + ' - ' + failed[i].errorMessage);
+                    }
+                }
+                runTest(testsPath, defer, failedResult);
             }
         });
     }

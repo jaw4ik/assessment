@@ -51,6 +51,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _context = Substitute.For<HttpContextBase>();
             _context.User.Returns(_user);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
+
+            DateTimeWrapper.Now = () => DateTime.UtcNow;
         }
 
         #region Create
