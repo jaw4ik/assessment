@@ -19,7 +19,7 @@ namespace easygenerator.PublicationServer.Controllers
             _publicationRepository = publicationRepository;
         }
 
-        [Route(Constants.PublicPublicationsPath + "/sitemapindex.xml")]
+        [Route("sitemapindex.xml")]
         [HttpGet]
         public HttpResponseMessage SitemapIndex()
         {
@@ -34,7 +34,7 @@ namespace easygenerator.PublicationServer.Controllers
 
                 for (int i = 0; i < sitemapFilesCounts; i++)
                 {
-                    sitemapIndexContentBuilder.AppendFormat($"<sitemap><loc>{PublicationServerUri}/{Constants.PublicPublicationsPath}/sitemap_{i + 1}.xml</loc></sitemap>");
+                    sitemapIndexContentBuilder.AppendFormat($"<sitemap><loc>{PublicationServerUri}/sitemap_{i + 1}.xml</loc></sitemap>");
                 }
 
                 sitemapIndexContentBuilder.Append("</sitemapindex>");
@@ -48,7 +48,7 @@ namespace easygenerator.PublicationServer.Controllers
             return new HttpResponseMessage(HttpStatusCode.NotFound);
         }
 
-        [Route(Constants.PublicPublicationsPath + "/sitemap_{index}.xml")]
+        [Route("sitemap_{index}.xml")]
         [HttpGet]
         public HttpResponseMessage Sitemap(int index)
         {
