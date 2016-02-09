@@ -93,7 +93,7 @@
                                         <div class="questions-list-item-body-wrapper">
                                             <div class="questions-list-item-image" data-bind="click: openQuestion"></div>
                                             <div class="questions-list-item-title-container"  data-bind="css: { error: !title.isValid() }">
-                                                <div class="questions-list-item-title" data-animation-duration="200" data-bind="editableText: { text: title }, event: { focus: startEditingTitle, blur: stopEditingTitle }, autofocus: { focus: justCreated() || title.isSelected() }, localize: { placeholder: 'typeQuestionTitle' }, heightAnimation:  { isEditing : title.isEditing(), minHeight : 26 } "></div>
+                                                <div class="questions-list-item-title" data-animation-duration="200" data-bind="editableText: { text: title }, event: { focus: startEditingTitle, blur: stopEditingTitle }, autofocus: { focus: justCreated() || title.isSelected() },  localize: { placeholder:  type() === 'informationContent' ? 'typeContentTitle' : 'typeQuestionTitle'  }, heightAnimation:  { isEditing : title.isEditing(), minHeight : 26 } "></div>
                                                 <div class="questions-list-item-title-counter" data-bind=" visible: title.isEditing() ">
                                                     <span data-bind="text: title().length"></span>/<span data-bind="text: title.maxLength">255</span>
                                                 </div>

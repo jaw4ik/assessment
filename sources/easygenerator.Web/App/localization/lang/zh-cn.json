@@ -382,6 +382,7 @@
     "moveCopyErrorMessage": "该课程中没有目标。请选择至少包含一个目标的课程。",
     "learningContentRemoved": "内容已移除",
     "typeQuestionTitle": "Type your question here...",
+    "typeContentTitle": "Type your content title here...",
     "edit": "编辑",
     "relatedContents": "相关知识点",
     "objectiveProperties": "学习目标的属性",
@@ -468,6 +469,10 @@
     "masteryScoreDescription": "如果学习者达到此分数，则方案通过",
     "wantMoreScenarios": "想要更多方案？",
     "pleaseContact": "请联系：",
+    "newRankingTextQuestionTitle": "Untitled ranking text question",
+    "rankingText": "排名文本",
+    "rankingChoicesInTheRightOrder": "Put choices in the right order",
+    "rankingTextEditor": "\"Ranking text\" editor",
     "putYourPositiveFeedback": "答对时回应",
     "putYourNegativeFeedback": "答错时回应",
     "correctFeedback": "正确答案的回应",
@@ -716,5 +721,7 @@
     "attach": "连接",
     "themes": "Themes",
     "saveAsANewTheme": "Save as a new theme",
-    "backToSettings": "Back to settings"
+    "backToSettings": "Back to settings",
+    "saveAndBack": "Save and back",
+    "duplicateQuestion": "Duplicate question"
 }
