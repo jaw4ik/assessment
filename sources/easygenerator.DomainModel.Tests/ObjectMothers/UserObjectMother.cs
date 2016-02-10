@@ -1,5 +1,6 @@
 ﻿using System;
 using easygenerator.DomainModel.Entities;
+using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Tests.ObjectMothers
 {
@@ -51,8 +52,19 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             return Create(company: company);
         }
 
-        public static User Create(string email = Email, string password = Password, string firstname = FirstName, string lastname = LastName, string phone = Phone, string country = Country, 
-            string role = Role, string createdBy = CreatedBy, AccessType accessType = AccessType.Trial, string lastReadReleaseNote = LastReadReleaseNote, DateTime? expirationDate = null, Company company = null, bool? newEditor = null)
+        public static User Create(string email = Email,
+            string password = Password,
+            string firstname = FirstName,
+            string lastname = LastName,
+            string phone = Phone,
+            string country = Country,
+            string role = Role,
+            string createdBy = CreatedBy,
+            AccessType accessType = AccessType.Trial,
+            string lastReadReleaseNote = LastReadReleaseNote,
+            DateTime? expirationDate = null,
+            Company company = null,
+            bool? newEditor = null)
         {
             return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessType, lastReadReleaseNote, expirationDate, company, newEditor);
         }
