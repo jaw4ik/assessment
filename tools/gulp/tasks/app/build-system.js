@@ -4,55 +4,45 @@ var gulp = require('gulp'),
     SystemJSBuilder = require('jspm').Builder,
     config = require('../../config');
 
-gulp.task('build-system', function (cb) {
-    buildInSequence([buildScripts, buildViews]);
-
-    function buildInSequence(buildFunctions) {
-        var fullSource = '',
-            promise = Q();
-
-        buildFunctions.forEach(function (currentFunction) {
-            promise = promise.then(function () {
-                return currentFunction().then(function (bundle) {
-                    fullSource += bundle.source;
-                });
+gulp.task('build-system', function () {
+    return new SystemJSBuilder(config.app.baseAppPath, config.app.systemConfigFilePath)
+        .bundle('[**/*]', {
+            config: {
+                meta: {
+                    '*.html': {
+                        loader: 'text'
+                    },
+                    '*.json': {
+                        build: false
+                    },
+                    '*.spec.js': {
+                        build: false
+                    },
+                    'main-built.js': {
+                        build: false
+                    }
+                }
+            }
+        })
+        .then(function (bundle) {
+            bundle.modules.forEach(function (moduleName) {
+                if (getFileExtension(moduleName) === 'html') {
+                    bundle.source = replaceModuleName(bundle.source, moduleName);
+                }
             });
-        });
 
-        promise.then(function () {
-            fs.writeFile(config.app.outputMainBuiltFilePath, fullSource, null, cb);
-        }).catch(function (err) {
+            fs.writeFile(config.app.outputMainBuiltFilePath, bundle.source);
+        })
+        .catch(function (err) {
             console.log('SystemJS build error');
             console.log(err);
         });
-    }
-
-    function buildScripts() {
-        return createBundle('[**/*.js] - [**/*.spec] - [main-built]', {
-            paths: {
-                '*': 'app/*'
-            }
-        });
-    }
-
-    function buildViews() {
-        return createBundle('[**/*.html]', {
-            defaultJSExtensions: false,
-            map: {
-                'text': 'github:systemjs/plugin-text@0.0.3/text.js'
-            },
-            meta: {
-                '*.html': {
-                    loader: 'text'
-                }
-            }
-        });
-    }
-
-    function createBundle(expression, bundleConfig) {
-        return new SystemJSBuilder(config.app.baseAppPath, config.app.systemConfigFilePath)
-            .bundle(expression, {
-                config: bundleConfig
-            });
-    }
 });
+
+function getFileExtension(fileName) {
+    return fileName.split('.').pop();
+}
+
+function replaceModuleName(source, moduleName) {
+    return source.replace('define("' + moduleName, 'define("' + moduleName + '!text');
+}
