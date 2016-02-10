@@ -382,6 +382,7 @@
     "moveCopyErrorMessage": "Il n'y a pas d'objectif de cours. Veuillez choisir un cours qui contient au moins un objectif.",
     "learningContentRemoved": "Le contenu a été supprimé",
     "typeQuestionTitle": "Type your question here...",
+    "typeContentTitle": "Type your content title here...",
     "edit": "Éditer",
     "relatedContents": "Objets liés",
     "objectiveProperties": "Propriétés de l'objectif d'apprentissage",
@@ -468,6 +469,10 @@
     "masteryScoreDescription": "Le scénario débouche sur un succès si les apprenants atteignent ce score",
     "wantMoreScenarios": "Voulez-vous plus de scénarios ?",
     "pleaseContact": "Veuillez contacter :",
+    "newRankingTextQuestionTitle": "Untitled ranking text question",
+    "rankingText": "Texte de classement",
+    "rankingChoicesInTheRightOrder": "Put choices in the right order",
+    "rankingTextEditor": "\"Ranking text\" editor",
     "putYourPositiveFeedback": "Créer une réponse pour la réponse correcte",
     "putYourNegativeFeedback": "Créer une réponse pour la réponse incorrecte",
     "correctFeedback": "Réponse à la réponse correcte",
@@ -716,5 +721,7 @@
     "attach": "Joindre",
     "themes": "Themes",
     "saveAsANewTheme": "Save as a new theme",
-    "backToSettings": "Back to settings"
+    "backToSettings": "Back to settings",
+    "saveAndBack": "Save and back",
+    "duplicateQuestion": "Duplicate question"
 }

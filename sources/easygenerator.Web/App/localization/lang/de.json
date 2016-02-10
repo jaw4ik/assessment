@@ -382,6 +382,7 @@
     "moveCopyErrorMessage": "Ihr Kurs enthält keine Lernziele. Bitte wählen Sie einen Kurs aus, der mindestens 1 Lernziel enthält.",
     "learningContentRemoved": "Inhalt wurde entfernt",
     "typeQuestionTitle": "Type your question here...",
+    "typeContentTitle": "Type your content title here...",
     "edit": "Bearbeiten",
     "relatedContents": "Zusammenhängendes Objekt",
     "objectiveProperties": "Lernzieleigenschaften",
@@ -468,6 +469,10 @@
     "masteryScoreDescription": "Das Szenario wurde bestanden, wenn Lerner diese Punktzahl erreichen",
     "wantMoreScenarios": "Möchten Sie mehr Szenarien?",
     "pleaseContact": "Bitte wenden Sie sich an:",
+    "newRankingTextQuestionTitle": "Untitled ranking text question",
+    "rankingText": "Einstufungstext",
+    "rankingChoicesInTheRightOrder": "Put choices in the right order",
+    "rankingTextEditor": "\"Ranking text\" editor",
     "putYourPositiveFeedback": "Erstellen Sie eine Rückmeldung für eine richtige Antwort",
     "putYourNegativeFeedback": "Erstellen Sie eine Rückmeldung für eine falsche Antwort",
     "correctFeedback": "Rückmeldung für eine richtige Antwort",
@@ -716,5 +721,7 @@
     "attach": "Anfügen",
     "themes": "Themes",
     "saveAsANewTheme": "Save as a new theme",
-    "backToSettings": "Back to settings"
+    "backToSettings": "Back to settings",
+    "saveAndBack": "Save and back",
+    "duplicateQuestion": "Duplicate question"
 }

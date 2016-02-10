@@ -296,7 +296,7 @@ img:hover {
 .tb-cell {
     display: table-cell;
     vertical-align: top;
-    
+
     & > .colspan-cell {
         width: 100%;
         position: absolute;
@@ -355,7 +355,7 @@ img:hover {
 
     ul, ol {
         padding-left: 30px;
-        
+
         h1, h2, h3, p {
             display: inline;
         }
@@ -367,14 +367,14 @@ img:hover {
 
     ul {
         list-style: none;
-    
+
         & > li:before {
             content: "•";
             color: #76cbe3; /* or whatever color you prefer */
             margin-right: 14px;
         }
     }
-    
+
     em {
         font-family: 'Heuristica-Italic';
         font-style: normal;
@@ -390,21 +390,31 @@ img:hover {
         display: block;
     }
 
-    img[style*="float:left"],
-    img[style*="float: left"] {
-        margin-top: 10px;
-        margin-right: 30px;
-    }
+        img[style*="float:left"],
+        img[style*="float: left"] {
+            margin-top: 10px;
+            margin-right: 30px;
+            clear: both;
+        }
 
-    img[style*="float:right"],
-    img[style*="float: right"] {
-        margin-top: 10px;
-        margin-left: 30px;
-    }
+        img[style*="float:right"],
+        img[style*="float: right"] {
+            margin-top: 10px;
+            margin-left: 30px;
+            clear: both;
+        }
 
-    img:first-child {
-        margin-top: 10px;
-    }
+        img[style*="float:left"] ~ img[style*="float:left"], img[style*="float: left"] ~ img[style*="float:left"], img[style*="float:left"] ~ img[style*="float: left"], img[style*="float: left"] ~ img[style*="float: left"] {
+            clear: none;
+        }
+
+        img[style*="float:right"] ~ img[style*="float:right"], img[style*="float: right"] ~ img[style*="float:right"], img[style*="float:right"] ~ img[style*="float: right"], img[style*="float: right"] ~ img[style*="float: right"] {
+            clear: none;
+        }
+
+        img:first-child {
+            margin-top: 10px;
+        }
 
     cite {
         position: relative;
@@ -414,8 +424,8 @@ img:hover {
         font-style: normal;
         line-height: 30px;
         white-space: pre-line;
-    
-        &:before, &:after{
+
+        &:before, &:after {
             position: absolute;
             font: 50px 'Heuristica-Regular';
             color: #63c4df;
@@ -461,11 +471,11 @@ img:hover {
         font-size: 16px;
         color: #3c3c3c;
         table-layout: fixed;
-    
-            p {
-                margin: 0;
-            }   
+
+        p {
+            margin: 0;
         }
+    }
 
     th, td {
         border: 1px dashed #ccc;
@@ -482,7 +492,7 @@ img:hover {
     tr {
         background-color: #f4fafc;
     }
-    
+
     strong, th {
         font-weight: normal;
     }
@@ -500,7 +510,7 @@ img:hover {
     & > .ps-scrollbar-y-rail {
         width: 5px !important;
 
-        &> .ps-scrollbar-y{
+        & > .ps-scrollbar-y {
             width: 5px !important;
             border-radius: 10px !important;
             background-color: rgba(188, 188, 196, .5) !important;

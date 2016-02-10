@@ -63,6 +63,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _controller = new LearningPathController(_urlHelper, _repository, _mapper, _entityFactory, _builder, _publisher, _userRepository, _documentRepository, _externalPublisher);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
+
+            DateTimeWrapper.Now = () => DateTime.UtcNow;
         }
 
         #region Create

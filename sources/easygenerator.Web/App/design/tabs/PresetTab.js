@@ -1,25 +1,23 @@
 ﻿import ko from 'knockout';
 import app from 'durandal/app';
 
+import localizationManager from 'localization/localizationManager';
+
 import templateRepository from 'repositories/templateRepository.js';
 
 export let EVENT_PRESET_SELECTED = 'preset:selected';
 
 export default class PresetTab{
     constructor () {
+        this.name = 'presets';
+        this.isSelected = ko.observable(false);
+        this.title = localizationManager.localize('themes');
+        this.type = 'presets';
         this.viewUrl = 'design/tabs/PresetTab.html';
 
         this.isVisible = ko.observable();
         this.collection = ko.observableArray([]);
     }   
-
-    show() {
-        this.isVisible(true);
-    }
-
-    hide() {
-        this.isVisible(false);
-    }
 
     select(preset) {
         if (ko.unwrap(preset.isSelected)) {
