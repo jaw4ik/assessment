@@ -497,6 +497,7 @@
     "learningContentNotFoundError": "A problem occurred while opening this content.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.",
     "responseFailed": "We have encountered a problem.  Click on Courses. Open the course and try again. Contact support@easygenerator.com if the problem persists.",
     "userNotMemberOfAnyCompany": "You are not a member of any company.",
+    "userNotMemberOfCompany": "You are not a member of given company.",
     "review": "Review",
     "reviewTabTitle": "Comments",
     "getReviewTabHelp": "Click \"Get link\" to copy and share with external reviewers.",
