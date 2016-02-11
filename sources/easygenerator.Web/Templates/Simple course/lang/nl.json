@@ -1,14 +1,14 @@
 {
     "[course]": "Cursus:",
     "[start course]": "Start cursus",
-    "[finish course]": "Stop cursus",
-    "[cancel, continue course]": "Annuleer",
+    "[finish course]": "Dien resultaat in",
+    "[cancel, continue course]": "Annuleer, ga verder met cursus",
     "[finish course popup first remark]": "De uiteindelijke score zal worden gerapporteerd",
     "[finish course popup second remark]": "Uw voortgang wordt niet bewaard. Als u de cursus opnieuw start, moet u opnieuw beginnen",
-    "[finish course submit first remark]": "- Your final score will be reported",
-    "[finish course submit second remark]": "- You will not be able to continue the course later",
-    "[finish course take brake first remark]": "- You can reopen the course anytime you want and continue where you left of",
-    "[finish course take brake second remark]": "- Use the same browser to continue the course",
+    "[finish course submit first remark]": "Uw definitieve resultaat zal worden gerapporteerd",
+    "[finish course submit second remark]": "U kunt dan later niet meer verdergaan",
+    "[finish course take brake first remark]": "U kunt de cursus op elk moment weer opnenen. U gaat dan verder op het punt waar u gebleven was.",
+    "[finish course take brake second remark]": "Gebruik dezelfde browser om verder te gaan met de cursus",
     "[learning objectives]": "Leerdoelen:",
     "[start]": "Start",
     "[home]": "Home",
@@ -74,7 +74,7 @@
     "[Save, I will continue later]": "Bewaar en ga later verder",
     "[OK, submit results]": "Ik ben klaar rapporteer mijn resultaat",
     "[Overall progress]": "Algemene voortgang",
-    "[OK, close course]": "OK, close course",
-    "[take a brake]": "Take a break",
-    "[note that]": "Note that:"
+    "[OK, close course]": "Ok, Sluit cursus",
+    "[take a brake]": "Neem een pauze",
+    "[note that]": "Merk op dat:"
 }
