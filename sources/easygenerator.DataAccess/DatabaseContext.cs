@@ -128,6 +128,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Comment>().HasRequired(e => e.Course);
             modelBuilder.Entity<Comment>().Property(e => e.Text).IsRequired();
             modelBuilder.Entity<Comment>().Property(e => e.CreatedByName).HasMaxLength(255).IsRequired();
+            modelBuilder.Entity<Comment>().Property(e => e.Context);
 
             modelBuilder.Entity<Question>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Question>().HasRequired(e => e.Objective);

@@ -185,7 +185,8 @@ export default {
                 }
             },
             comment: {
-                deletedByCollaborator: 'course:comment:deletedByCollaborator'
+                deletedByCollaborator: 'course:comment:deletedByCollaborator',
+                createdByCollaborator: 'course:comment:createdByCollaborator'
             }
         },
         learningPath: {
@@ -210,7 +211,8 @@ export default {
             imageUrlUpdated: 'objective:imageUrlUpdated',
             imageUrlUpdatedByCollaborator: 'objective:imageUrlUpdatedByCollaborator',
             questionsReordered: 'objective:questionsReordered',
-            questionsReorderedByCollaborator: 'objective:questionsReorderedByCollaborator'
+            questionsReorderedByCollaborator: 'objective:questionsReorderedByCollaborator',
+            navigated: 'objective:navigatedTo'
         },
         question: {
             created: 'question:created',
@@ -347,7 +349,8 @@ export default {
         lastCreatedObjectiveId: 'lastCreatedObjectiveId',
         lastVistedCourse: 'lastVistedCourse',
         lastVisitedObjective: 'lastVisitedObjective',
-        showCreateCoursePopup: 'showCreateCoursePopup'
+        showCreateCoursePopup: 'showCreateCoursePopup',
+        highlightedObjectiveId: 'highlightedObjectiveId'
     },
 
     reporting: {
@@ -482,21 +485,21 @@ export default {
             }
         },
         chooseVoiceOver: {
-                settings: {
-                    containerCss: 'choose-voice-over'
-                }
+            settings: {
+                containerCss: 'choose-voice-over'
+            }
         },
         branchtrack: {
             settings: {
                 containerCss: 'branchtrack-dialog'
             }
         },
-    editorFeedback:{
+        editorFeedback: {
             settings: {
                 containerCss: 'editor-feedback',
                 boundless: true
             }
-    },
+        },
         upgrade: {
             settings: {
                 default: {
@@ -558,7 +561,25 @@ export default {
         switchToNewEditorMessageClosed: ':switchToNewEditorMessageClosed',
         switchToOldEditorMessageClosed: ':switchToOldEditorMessageClosed'
     },
+
     winToWeb: {
         host: window.winToWebConvertionServiceUrl ? "//" + window.winToWebConvertionServiceUrl : '//localhost:444'
+    },
+
+    comment: {
+        context: {
+            types: {
+                course: 'course',
+                objective: 'objective',
+                question: 'question',
+                informationContent: 'informationContent'
+            },
+            properties: {
+                title: 'title',
+                introduction: 'introduction',
+                voiceOver: 'voiceOver',
+                learningContent: 'learningContent'
+            }
+        }
     }
 };

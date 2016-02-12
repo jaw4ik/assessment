@@ -1,0 +1,26 @@
+﻿<div class="review-comments" data-bind="css: { empty: !comments().length || !hasAccessToComments()}">
+    <!-- ko if: hasAccessToComments() -->
+    <!-- ko if: isLoading -->
+    <div data-bind="preloader: { settings: 'align-center' }"></div>
+    <!-- /ko -->
+    <!-- ko ifnot: isLoading -->
+    <ul class="review-comments-list" data-bind="foreachAnimated: { data: comments, removeDelay: 0, speed: 0.4 }">
+        <!-- ko compose: { model: $data, preserveContext: true }-->
+        <!-- /ko -->
+    </ul>
+    <!-- ko ifnot: comments().length -->
+    <div class="no-comments" data-bind="localize: { text: 'reviewNoComments' }"></div>
+    <!-- /ko -->
+    <!-- /ko -->
+    <!-- /ko -->
+    <!-- ko ifnot: hasAccessToComments() -->
+    <div class="no-access-container">
+        <div class="no-access-img"></div>
+        <div class="no-access-text">
+            <span data-bind="localize: { text: 'youHaveTo' }"></span>
+            <a href="" data-bind="click: openUpgradePlanUrl, localize: { text: 'upgradeYourAccount' }"></a>
+            <span data-bind="localize: { text: 'reviewNotPaidMessage' }"></span>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>

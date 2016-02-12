@@ -70,6 +70,12 @@
     <Compile Include="DomainModel\Mappings\CollaborationInvite.cs" />
     <Compile Include="DomainModel\HttpRequest.cs" />
     <Compile Include="DomainModel\MailNotification.cs" />
+    <Compile Include="DomainModel\Validation\Comments\CommentContextValidator.cs" />
+    <Compile Include="DomainModel\Validation\Comments\Contexts\CourseCommentContext.cs" />
+    <Compile Include="DomainModel\Validation\Comments\Contexts\ICommentContext.cs" />
+    <Compile Include="DomainModel\Validation\Comments\Contexts\ObjectiveCommentContext.cs" />
+    <Compile Include="DomainModel\Validation\Comments\Contexts\InformationContentCommentContext.cs" />
+    <Compile Include="DomainModel\Validation\Comments\Contexts\QuestionCommentContext.cs" />
     <Compile Include="Errors.cs" />
     <Compile Include="Http\HttpClient.cs" />
     <Compile Include="Http\HttpRequestExceptionExtended.cs" />
@@ -102,6 +108,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
