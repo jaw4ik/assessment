@@ -1,14 +1,13 @@
-﻿.switch-toggle-slider {
+﻿@import "helpers.less";
+
+.switch-toggle-slider {
     cursor: pointer;
     overflow: hidden;
     border-radius: 9999px;
     position: relative;
     width: 75px;
     height: 30px;
-    -ms-transition: box-shadow 250ms ease-out;
-    -webkit-transition: box-shadow 250ms ease-out;
     transition: box-shadow 250ms ease-out;
-}
 
     .switch-toggle-slider.on {
         background-color: #089082;
@@ -20,56 +19,104 @@
         box-shadow: 0 0 0 1px #D55856;
     }
 
-.switch-toggle-wrapper {
-    height: 100%;
-    width: 150px;
+    .switch-toggle-wrapper {
+        height: 100%;
+        width: 150px;
+    }
+
+    .switch-toggle-on, .switch-toggle-off {
+        float: left;
+        height: 30px;
+        width: 75px;
+        line-height: 30px;
+        text-align: center;
+        font-family: 'OpenSans', sans-serif;
+        font-size: 13px;
+        color: white;
+        text-transform: uppercase;
+    }
+
+    .switch-toggle-on {
+        background: #09A496;
+        text-indent: -25px;
+    }
+
+    .switch-toggle-off {
+        background: #E85E5C;
+        text-indent: -3px;
+        margin-left: -15px;
+    }
+
+    .switch-toogle-blob {
+        position: relative;
+        float: left;
+        z-index: 99;
+        height: 30px;
+        width: 30px;
+        margin-left: -30px;
+        border-radius: 15px;
+        background: linear-gradient(to bottom, #fdfdfd 0%,#eef0ed 100%);
+    }
+
+    .switch-toggle-slider.on .switch-toogle-blob,
+    .switch-toggle-slider.off .switch-toogle-blob {
+        transition: box-shadow 250ms ease-out;
+    }
+
+    .switch-toggle-slider.on .switch-toogle-blob {
+        box-shadow: 0 0 0 1px #089082;
+    }
+
+    .switch-toggle-slider.off .switch-toogle-blob {
+        box-shadow: 0 0 0 1px #D55856;
+    }
+
+    &.small {
+        width: 35px;
+        height: 20px;
+        transition: box-shadow 100ms ease-out;
+
+        .switch-toggle-wrapper {
+            height: 100%;
+            width: 70px;
+
+            .switch-toggle-on, .switch-toggle-off {
+                height: 20px;
+                width: 35px;
+            }
+        }
+
+        .switch-toogle-blob {
+            height: 20px;
+            width: 20px;
+            margin-left: -20px;
+            border-radius: 10px;
+        }
+    }
 }
 
-.switch-toggle-on, .switch-toggle-off {
-    float: left;
-    height: 30px;
-    width: 75px;
-    line-height: 30px;
-    text-align: center;
-    font-family: 'OpenSans', sans-serif;
-    font-size: 13px;
-    color: white;
-    text-transform: uppercase;
-}
+.switcher {
+    margin-bottom: 15px;
 
-.switch-toggle-on {
-    background: #09A496;
-    text-indent: -25px;
-}
+    & > div {
+        display: inline-block;
+        vertical-align: middle;
+    }
 
-.switch-toggle-off {
-    background: #E85E5C;
-    text-indent: -3px;
-    margin-left: -15px;
-}
+    .switcher-text {
+        font: 12px 'OpenSans';
+        color: #757575;
+        cursor: pointer;
+        .fix-bold-text-expanding;
 
-.switch-toogle-blob {
-    position: relative;
-    float: left;
-    z-index: 99;
-    height: 30px;
-    width: 30px;
-    margin-left: -30px;
-    border-radius: 15px;
-    background: linear-gradient(to bottom, #fdfdfd 0%,#eef0ed 100%);
-}
+        &:first-child {
+            text-align: right;
+        }
 
-.switch-toggle-slider.on .switch-toogle-blob,
-.switch-toggle-slider.off .switch-toogle-blob {
-    -ms-transition: box-shadow 250ms ease-out;
-    -webkit-transition: box-shadow 250ms ease-out;
-    transition: box-shadow 250ms ease-out;
-}
-
-.switch-toggle-slider.on .switch-toogle-blob {
-    box-shadow: 0 0 0 1px #089082;
-}
-
-.switch-toggle-slider.off .switch-toogle-blob {
-    box-shadow: 0 0 0 1px #D55856;
+        &.selected {
+            font-family: 'OpenSans-Semibold';
+            color: #0a9084;
+            cursor: default;
+        }
+    }
 }

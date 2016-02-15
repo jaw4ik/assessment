@@ -1,4 +1,6 @@
-﻿using System.Runtime.Serialization.Formatters;
+﻿using System.Net;
+using System.Net.Http;
+using System.Runtime.Serialization.Formatters;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -35,22 +37,19 @@ namespace easygenerator.StorageServer.Controllers
         [HttpGet]
         public RedirectResult Video(string id)
         {
-            if (string.IsNullOrEmpty(id))
-            {
-                throw new HttpException(404, "Video with such id was not found");
-            }
             return Redirect(string.Format("{0}://player.vimeo.com/video/{1}{2}", Request.RequestUri.Scheme, id, Request.RequestUri.Query));
         }
 
         [Route("api/mediasources/{id}"), HttpGet]
         public async Task<JsonResult<object>> MediaSources(string id)
         {
-            if (string.IsNullOrEmpty(id))
+            var result = await _vimeoGetSources.GetSourcesAsync(id);
+            if (result is HttpResponseMessage)
             {
-                throw new HttpException(404, "Video with such id was not found");
+                throw new HttpResponseException(((HttpResponseMessage)result).StatusCode);
             }
-            var source = await _vimeoGetSources.GetSourcesAsync(id);
-            return new JsonResult<object>(source, _settings, Encoding.UTF8, Request);
+
+            return new JsonResult<object>(result, _settings, Encoding.UTF8, Request);
         }
 
     }

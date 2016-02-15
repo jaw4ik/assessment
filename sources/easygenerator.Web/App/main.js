@@ -20,7 +20,7 @@ if (!has('release')) {
     system.debug(true);
 }
 
-app.title = "easygenerator";
+app.title = 'easygenerator';
 
 app.configurePlugins({
     router: true,

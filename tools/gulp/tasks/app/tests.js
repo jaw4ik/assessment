@@ -9,10 +9,10 @@ var $ = require('gulp-load-plugins')({
 
 gulp.task('run-server-tests', function () {
     return buildUtils.runUnitTests([
-        './sources/easygenerator.DomainModel.Tests/bin/Debug/easygenerator.DomainModel.Tests.dll',
-        './sources/easygenerator.DataAccess.Tests/bin/Debug/easygenerator.DataAccess.Tests.dll',
-        './sources/easygenerator.Infrastructure.Tests/bin/easygenerator.Infrastructure.Tests.dll',
-        './sources/easygenerator.Web.Tests/bin/Debug/easygenerator.Web.Tests.dll'
+        './sources/easygenerator.DomainModel.Tests/bin/Release/easygenerator.DomainModel.Tests.dll',
+        './sources/easygenerator.DataAccess.Tests/bin/Release/easygenerator.DataAccess.Tests.dll',
+        './sources/easygenerator.Infrastructure.Tests/bin/Release/easygenerator.Infrastructure.Tests.dll',
+        './sources/easygenerator.Web.Tests/bin/Release/easygenerator.Web.Tests.dll'
     ]);
 });
 

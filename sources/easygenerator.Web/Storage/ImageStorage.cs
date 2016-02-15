@@ -10,6 +10,7 @@ namespace easygenerator.Web.Storage
     public interface IImageStorage
     {
         string GetImagePath(string imageFilename, int width, int height, bool scaleBySmallerSide);
+        string GetCachedImagePath(string imageFilename);
     }
 
     public class ImageStorage : IImageStorage
@@ -59,6 +60,12 @@ namespace easygenerator.Web.Storage
             }
 
             return thumbnailPath;
+        }
+
+        public string GetCachedImagePath(string imageFilename)
+        {
+            var imageId = Path.GetFileNameWithoutExtension(imageFilename).ToLower();
+            return Path.Combine(FilesStoragePath, cacheFolderName, imageId.Substring(0, 1), imageId);
         }
 
         private string GetThumbnailPath(string sourceImageFilename, int width, int height, bool scaleBySmallerSide)

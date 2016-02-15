@@ -121,6 +121,15 @@ namespace easygenerator.Web.Tests.Storage
 
             _physicalFileManager.Received().WriteToFile(resultPath, Arg.Any<byte[]>());
         }
+
+        [TestMethod]
+        public void GetCachedImagePath_Should_ReturnCachedFileFolderPath()
+        {
+            var resultPath =
+                Path.Combine(imagePath, "cache", "0", imageFilename);
+
+            _imageStorage.GetCachedImagePath(imageFilename + imageFileExtension).Should().Be(resultPath);
+        }
     }
 }
 

@@ -174,6 +174,7 @@ export default class SectionViewModel{
         }
     }
     addQuestion(question, index) {
+
         if (!_.isObject(question)) {
             return undefined;
         }
@@ -181,7 +182,7 @@ export default class SectionViewModel{
         let questionViewModel = null;
 
         if (_.isEmpty(question)) {
-            questionViewModel = new QuestionViewModel(this.courseId, this.id(), question, true);
+            questionViewModel = new QuestionViewModel(this.courseId, this.id(), question, true, true);
         } else if (question instanceof QuestionViewModel) {
             question.sectionId = this.id();
             questionViewModel = question;

@@ -28,6 +28,7 @@
                 'design/tabs/PresetTab.spec',
                 'design/tabs/BrandingTab.spec',
                 'design/tabs/sections/Logo.spec',
+                'design/tabs/sections/LogoPopover.spec',
                 'design/tabs/sections/HeaderBackground.spec',
                 'design/tabs/sections/BodyBackground.spec',
                 'design/tabs/sections/Backgrounds.spec',
@@ -384,6 +385,14 @@
                 'vimeo/queries/checkAvailability.spec',
                 'vimeo/queries/getVideo.spec',
                 'audio/audioUploadDispatcher.spec',
+                //#endregion
+
+                //#region images
+                'images/commands/deleteImage.spec',
+                'images/queries/getImages.spec',
+                'images/preview/index.spec',
+                'images/image.spec',
+                'images/index.spec',
                 //#endregion
 
                 //#region widgets

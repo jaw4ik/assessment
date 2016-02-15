@@ -6,6 +6,6 @@ export default index.router.createChildRouter()
         fromParent: true,
         dynamicHash: ':courseId'
     }).map([
-        { route: '', moduleId: 'editor/course/index', title: localizationManager.localize('courseCreateItem') },
+        { route: ['', 'objectives/:objectiveId'], moduleId: 'editor/course/index', title: localizationManager.localize('courseCreateItem') },
         { route: 'objectives/:objectiveId/questions/:questionId', moduleId: 'editor/question', title: localizationManager.localize('questionProperties') }
     ]).mapUnknownRoutes('viewmodels/errors/404', '404').buildNavigationModel();

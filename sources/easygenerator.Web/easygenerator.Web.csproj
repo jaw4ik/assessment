@@ -738,6 +738,13 @@
     <Content Include="App\design\tabs\sections\Logo.spec.js">
       <DependentUpon>Logo.js</DependentUpon>
     </Content>
+    <Content Include="App\design\tabs\sections\LogoPopover.html" />
+    <Content Include="App\design\tabs\sections\LogoPopover.js">
+      <DependentUpon>LogoPopover.html</DependentUpon>
+    </Content>
+    <Content Include="App\design\tabs\sections\LogoPopover.spec.js">
+      <DependentUpon>LogoPopover.js</DependentUpon>
+    </Content>
     <Content Include="App\dialogs\audio\chooseVoiceOver.html" />
     <Content Include="App\dialogs\audio\chooseVoiceOver.js" />
     <Content Include="App\dialogs\audio\chooseVoiceOver.spec.js">
@@ -759,6 +766,7 @@
     <Content Include="App\editor\course\bindingHandlers\expandBlock.js" />
     <Content Include="App\editor\course\bindingHandlers\draggableContainer.js" />
     <Content Include="App\editor\course\bindingHandlers\draggableData.js" />
+    <Content Include="App\editor\course\bindingHandlers\heightAnimation.js" />
     <Content Include="App\editor\course\bindingHandlers\tooltipPopover.js" />
     <Content Include="App\editor\course\commands\createQuestionCommand.js" />
     <Content Include="App\editor\course\commands\createSectionCommand.js" />
@@ -768,6 +776,7 @@
     <Content Include="App\editor\course\commands\reorderQuestionCommand.js" />
     <Content Include="App\editor\course\commands\reorderSectionCommand.js" />
     <Content Include="App\editor\course\commands\unrelateSectionCommand.js" />
+    <Content Include="App\editor\course\commands\updateQuestionTitleCommand.js" />
     <Content Include="App\editor\course\commands\updateSectionTitleCommand.js" />
     <Content Include="App\editor\course\components\attributesHelper.js" />
     <Content Include="App\editor\course\components\dragulaAnimation.js" />
@@ -842,6 +851,25 @@
     </Content>
     <Content Include="App\editor\question.js" />
     <Content Include="App\fonts.js" />
+    <Content Include="App\images\bindingHandlers\keyDownBindingHandler.js" />
+    <Content Include="App\images\commands\deleteImage.spec.js">
+      <DependentUpon>deleteImage.js</DependentUpon>
+    </Content>
+    <Content Include="App\images\image.js" />
+    <Content Include="App\images\image.spec.js">
+      <DependentUpon>image.js</DependentUpon>
+    </Content>
+    <Content Include="App\images\index.spec.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
+    <Content Include="App\images\preview\index.html" />
+    <Content Include="App\images\preview\index.js" />
+    <Content Include="App\images\preview\index.spec.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
+    <Content Include="App\images\queries\getImages.spec.js">
+      <DependentUpon>getImages.js</DependentUpon>
+    </Content>
     <Content Include="App\jsonReader.js" />
     <Content Include="App\localization\bindingHandlers\localizeBindingHandler.js" />
     <Content Include="App\dialogs\branchtrack\branchtrack.html" />
@@ -1016,6 +1044,9 @@
     <Content Include="App\viewmodels\courses\course\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>
+    <Content Include="App\images\commands\deleteImage.js" />
+    <Content Include="App\images\index.js" />
+    <Content Include="App\images\queries\getImages.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\actions\publishToCustomLms.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\actions\publishToCustomLms.spec.js">
       <DependentUpon>publishToCustomLms.js</DependentUpon>
@@ -1113,6 +1144,7 @@
     <Content Include="App\viewmodels\learningPaths\learningPath\results.js" />
     <Content Include="App\views\courses\course\results\noResults.html" />
     <Content Include="App\views\courses\publishActions\publishToCustomLms.html" />
+    <Content Include="App\images\index.html" />
     <Content Include="App\views\learningPaths\learningPath\details.html" />
     <Content Include="App\views\learningPaths\learningPath\publish.html" />
     <Content Include="App\views\learningPaths\learningPath\publish\publishAsHtml.html" />
@@ -1487,15 +1519,29 @@
     </Content>
     <Content Include="BuildCourse\Modules\js\branding.js" />
     <Content Include="BuildLearningPath\Template\app\main.js" />
-    <Content Include="BuildLearningPath\Template\css\easystyles\default.min.css" />
+    <Content Include="BuildLearningPath\Template\app\main.js.map" />
     <Content Include="BuildLearningPath\Template\css\font\roboto-lightItalic.svg" />
+    <Content Include="BuildLearningPath\Template\css\font\roboto-lightItalic.ttf" />
+    <Content Include="BuildLearningPath\Template\css\font\roboto-lightItalic.woff" />
     <Content Include="BuildLearningPath\Template\css\font\roboto-regular.svg" />
+    <Content Include="BuildLearningPath\Template\css\font\roboto-regular.ttf" />
+    <Content Include="BuildLearningPath\Template\css\font\roboto-regular.woff" />
     <Content Include="BuildLearningPath\Template\css\font\robotoslab-light.svg" />
+    <Content Include="BuildLearningPath\Template\css\font\robotoslab-light.ttf" />
+    <Content Include="BuildLearningPath\Template\css\font\robotoslab-light.woff" />
     <Content Include="BuildLearningPath\Template\css\font\robotoslab-regular.svg" />
+    <Content Include="BuildLearningPath\Template\css\font\robotoslab-regular.ttf" />
+    <Content Include="BuildLearningPath\Template\css\font\robotoslab-regular.woff" />
+    <Content Include="BuildLearningPath\Template\css\img\browsers\android.png" />
+    <Content Include="BuildLearningPath\Template\css\img\browsers\chrome.png" />
+    <Content Include="BuildLearningPath\Template\css\img\browsers\edge.png" />
+    <Content Include="BuildLearningPath\Template\css\img\browsers\firefox.png" />
+    <Content Include="BuildLearningPath\Template\css\img\browsers\ie.png" />
+    <Content Include="BuildLearningPath\Template\css\img\browsers\safari.png" />
+    <Content Include="BuildLearningPath\Template\css\img\default.png" />
     <Content Include="BuildLearningPath\Template\css\styles.min.css" />
+    <Content Include="BuildLearningPath\Template\css\vendor.min.css" />
     <Content Include="BuildLearningPath\Template\favicon.ico" />
-    <Content Include="BuildLearningPath\Template\img\default.png" />
-    <Content Include="BuildLearningPath\Template\img\loader.gif" />
     <Content Include="BuildLearningPath\Template\index.html" />
     <Content Include="BuildLearningPath\Template\js\components.min.js" />
     <Content Include="BuildLearningPath\Template\js\vendor.min.js" />
@@ -1529,6 +1575,8 @@
     <Content Include="Content\images\grab.cur" />
     <Content Include="Content\images\hotSpot-empty.png" />
     <Content Include="Content\images\ie.png" />
+    <Content Include="Content\images\imagePreview.png" />
+    <Content Include="Content\images\image-not-found.png" />
     <Content Include="Content\images\learningPath\learning-path-item-background.png" />
     <Content Include="Content\images\media\media-upload.png" />
     <Content Include="Content\images\question-types-large-icons.png" />
@@ -2023,15 +2071,6 @@
     <EmbeddedResource Include="Resources\Controllers\Resources.pt.resx" />
     <EmbeddedResource Include="Resources\Controllers\Resources.fr.resx" />
     <Content Include="Content\font\badscript-regular.woff" />
-    <Content Include="BuildLearningPath\Template\css\font\roboto-regular.ttf" />
-    <Content Include="BuildLearningPath\Template\css\font\roboto-regular.woff" />
-    <Content Include="BuildLearningPath\Template\css\font\robotoslab-regular.ttf" />
-    <Content Include="BuildLearningPath\Template\css\font\robotoslab-regular.woff" />
-    <Content Include="BuildLearningPath\Template\css\font\robotoslab-light.ttf" />
-    <Content Include="BuildLearningPath\Template\css\font\robotoslab-light.woff" />
-    <Content Include="BuildLearningPath\Template\app\main.js.map" />
-    <Content Include="BuildLearningPath\Template\css\font\roboto-lightItalic.ttf" />
-    <Content Include="BuildLearningPath\Template\css\font\roboto-lightItalic.woff" />
     <Content Include="Content\publish.less" />
     <Content Include="Content\audio.less" />
     <Content Include="Content\dialogs.less" />
@@ -2066,6 +2105,8 @@
     <Content Include="Content\design.less" />
     <Content Include="Mail\MailTemplates\NewEditorFeedbackTemplate.cshtml" />
     <Content Include="Content\tooltip.less" />
+    <Content Include="Content\images.less" />
+    <Content Include="Content\library.less" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />

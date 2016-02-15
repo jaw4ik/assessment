@@ -17,35 +17,45 @@ class Service{
 }
 
 export class Popover{
-    constructor(instance,target) {
+    constructor(instance,target, position) {
         this.instance = instance;
         this.target = target;
+        this.position = position ? position : undefined; 
     }
 
     compositionComplete(element) {
+
         let target = $(this.target);
         let parent = $(this.target).closest('.ps-container');
 
         let popover = $(element);
 
-
         let handler = () => {
             let offset = $(target).offset();
-            
-            let css = {
-                top: offset.top + target.outerHeight() / 2 - 30,
-                left: target.outerWidth() + offset.left
-            };
+            let css;
 
-            if (css.top + popover.outerHeight() > $(window).outerHeight()) {
-                if (offset.top + target.outerHeight() - popover.outerHeight() > 0) {
-                    css.top = css.top - popover.outerHeight() + 60;
-                    popover.addClass('bottom');
-                } else {
-                    popover.removeClass('bottom');
-                }
+            if(this.position === 'bottom'){
+                css = {
+                    top: offset.top + target.outerHeight() + 5,
+                    left: offset.left -15
+                };
             }
 
+            else{
+                css = {
+                    top: offset.top + target.outerHeight() / 2 - 30,
+                    left: target.outerWidth() + offset.left
+                };
+
+                if (css.top + popover.outerHeight() > $(window).outerHeight()) {
+                    if (offset.top + target.outerHeight() - popover.outerHeight() > 0) {
+                        css.top = css.top - popover.outerHeight() + 60;
+                        popover.addClass('bottom');
+                    } else {
+                        popover.removeClass('bottom');
+                    }
+                }
+            }
             popover.css({
                 top: css.top + 'px',
                 left: css.left + 'px'

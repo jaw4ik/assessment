@@ -26,7 +26,7 @@ namespace easygenerator.Web.Publish.External
                     throw new Exception("Course is already not published.");
                 }
 
-                _httpClient.Post<string>(company.PublishCourseApiUrl, new
+                _httpClient.Post(company.PublishCourseApiUrl, new
                 {
                     id = course.Id.ToNString(),
                     userEmail = userEmail,

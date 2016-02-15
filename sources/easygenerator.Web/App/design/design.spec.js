@@ -9,6 +9,7 @@ import constants from 'constants';
 import app from 'durandal/app';
 
 import BrandingTab from './tabs/BrandingTab.js';
+import PresetTab from './tabs/PresetTab.js';
 
 import * as saveCommand from './commands/saveCourseTemplateSettings.js';
 import * as getCommand from './commands/getCourseTemplateSettings';
@@ -292,7 +293,7 @@ describe('viewModel [design]', () => {
                 beforeEach(() => {
                     resolve({
                         id: 'courseId',
-                        template: templates[2]
+                        template: { id: "0", name: "Simple", supports: ['branding'], presets: [], settingsUrls: { design: null, configure: null } }
                     });
                     getCourseTemplateSettings.resolve();
                 });
@@ -315,17 +316,28 @@ describe('viewModel [design]', () => {
 
             });
 
-            describe('when template does not support default branding', () => {
-
+            describe('when template has presets', () => {
+                
                 beforeEach(() => {
-                    resolve(course);
+                    resolve({
+                        id: 'courseId',
+                        template: { id: "0", name: "Simple", supports: ['branding'], presets: [{ title: 'default', settings: { branding: {} } }], settingsUrls: { design: null, configure: null } }
+                    });
                     getCourseTemplateSettings.resolve();
                 });
 
-                it('should show branding tab', done => {
+                it('should show presetss tab', done => {
                     viewModel.template(null);
                     viewModel.activate(course.id).then(() => {
-                        expect(viewModel.settingsTabs()[0]).not.toBeInstanceOf(BrandingTab);
+                        expect(viewModel.settingsTabs()[0]).toBeInstanceOf(PresetTab),
+                        done();
+                    }); 
+                });
+
+                it('should select presets tab by default', done => {
+                    viewModel.tab(null);
+                    viewModel.activate(course.id).then(() => {
+                        expect(viewModel.tab()).toBeInstanceOf(PresetTab),
                         done();
                     }); 
                 });
@@ -337,6 +349,18 @@ describe('viewModel [design]', () => {
                 getCourseTemplateSettings.resolve();
                 viewModel.activate(course.id).then(() => {
                     expect(viewModel.settingsTabs()[0].isSelected()).toBeTruthy();
+                    done();
+                }); 
+            });
+
+            it('should set other tabs as not selected', done => {
+                viewModel.brandingTab.isSelected(true);
+                viewModel.presetTab.isSelected(true);
+                resolve({ id: 'courseId', template: { id: "0", name: "Simple", supports: ['branding'], presets: [{ title: 'default', settings: { branding: {} } }], settingsUrls: { design: [{ name: 'branding', url: 'branding.html' }], configure: null } } });
+                getCourseTemplateSettings.resolve();
+                viewModel.activate(course.id).then(() => {
+                    expect(viewModel.settingsTabs()[1].isSelected()).toBeFalsy();
+                    expect(viewModel.settingsTabs()[2].isSelected()).toBeFalsy();
                     done();
                 }); 
             });
@@ -916,7 +940,7 @@ describe('viewModel [design]', () => {
 
         });
 
-        it('it should save settings', () => {
+        it('should save settings', () => {
             viewModel.presetSelected({});
 
             expect(viewModel.saveSettings).toHaveBeenCalled();
@@ -960,16 +984,6 @@ describe('viewModel [design]', () => {
                     }));
                 });
 
-                it('should set an empty object to settings', done => {
-                    viewModel.settings = null;
-                    viewModel.template({ id: 'templateId' });
-
-                    viewModel.loadSettings().then(() => {
-                        expect(viewModel.settings).toEqual({});
-                        done();
-                    });
-                });
-
                 describe('and current course template has presets', () => {
 
                     it('should set currentPreset', done => {
@@ -983,6 +997,18 @@ describe('viewModel [design]', () => {
                         });
                     });
 
+                    it('should set current preset copy to settings', done => {
+                        let settings = { branding: {}, xApi: {} };
+                        viewModel.settings = null;
+                        viewModel.template({ id: 'templateId', presets: [{ title: 'default', settings }] });
+
+                        viewModel.loadSettings()
+                            .then(() => expect(viewModel.settings).toEqual(settings))
+                            .then(() => viewModel.settings.property = '')
+                            .then(() => expect(viewModel.settings).not.toEqual(settings))
+                            .then(() => done());
+                    });
+
                 });
 
                 describe('and current course template does not have presets', () => {
@@ -993,6 +1019,16 @@ describe('viewModel [design]', () => {
 
                         viewModel.loadSettings().then(() => {
                             expect(viewModel.currentPreset).toEqual(null);
+                            done();
+                        });
+                    });
+
+                    it('should set an empty object to settings', done => {
+                        viewModel.settings = null;
+                        viewModel.template({ id: 'templateId' });
+
+                        viewModel.loadSettings().then(() => {
+                            expect(viewModel.settings).toEqual({});
                             done();
                         });
                     });
@@ -1202,13 +1238,11 @@ describe('viewModel [design]', () => {
 
             it('should update top background color', done => {
                 viewModel.brandingTab = new BrandingTab();
-                viewModel.brandingTab.background.header.expanded(true);
                 viewModel.brandingTab.background.header.brightness(0.3);
                 viewModel.brandingTab.background.header.color('#aabbcc');
                 viewModel.brandingTab.background.header.image(null);
 
                 viewModel.settingsChanged().then(() => {
-                    expect(viewModel.settings.branding.background.header.expanded).toBeTruthy();
                     expect(viewModel.settings.branding.background.header.brightness).toEqual(0.3);
                     expect(viewModel.settings.branding.background.header.color).toEqual('#aabbcc');
                     expect(viewModel.settings.branding.background.header.image).toEqual(null);
@@ -1226,14 +1260,12 @@ describe('viewModel [design]', () => {
 
             it('should update header background image', done => {
                 viewModel.brandingTab = new BrandingTab();
-                viewModel.brandingTab.background.header.expanded(true);
                 viewModel.brandingTab.background.header.brightness(0.3);
                 viewModel.brandingTab.background.header.color(null);
                 viewModel.brandingTab.background.header.image('imageUrl');
                 viewModel.brandingTab.background.header.option('original');
 
                 viewModel.settingsChanged().then(() => {
-                    expect(viewModel.settings.branding.background.header.expanded).toBeTruthy();
                     expect(viewModel.settings.branding.background.header.brightness).toEqual(0.3);
                     expect(viewModel.settings.branding.background.header.color).toEqual(null);
                     expect(viewModel.settings.branding.background.header.image.url).toEqual('imageUrl');
@@ -1252,11 +1284,13 @@ describe('viewModel [design]', () => {
 
             it('should update secondary background color', done => {
                 viewModel.brandingTab = new BrandingTab();
+                viewModel.brandingTab.background.body.enabled(true);
                 viewModel.brandingTab.background.body.brightness(0.3);
                 viewModel.brandingTab.background.body.color('#aabbcc');
                 viewModel.brandingTab.background.body.texture(null);
 
                 viewModel.settingsChanged().then(() => {
+                    expect(viewModel.settings.branding.background.body.enabled).toBeTruthy();
                     expect(viewModel.settings.branding.background.body.brightness).toEqual(0.3);
                     expect(viewModel.settings.branding.background.body.color).toEqual('#aabbcc');
                     expect(viewModel.settings.branding.background.body.texture).toEqual(null);
@@ -1274,11 +1308,13 @@ describe('viewModel [design]', () => {
 
             it('should update secondary background texture', done => {
                 viewModel.brandingTab = new BrandingTab();
+                viewModel.brandingTab.background.body.enabled(true);
                 viewModel.brandingTab.background.body.brightness(0.3);
                 viewModel.brandingTab.background.body.color(null);
                 viewModel.brandingTab.background.body.texture('texture');
 
                 viewModel.settingsChanged().then(() => {
+                    expect(viewModel.settings.branding.background.body.enabled).toBeTruthy();
                     expect(viewModel.settings.branding.background.body.brightness).toEqual(0.3);
                     expect(viewModel.settings.branding.background.body.color).toEqual(null);
                     expect(viewModel.settings.branding.background.body.texture).toEqual('texture');

@@ -187,9 +187,15 @@ class Design{
             collection.unshift(this.brandingTab);
         }
 
-        if (collection.length &&  ko.isWriteableObservable(collection[0].isSelected)) {
-            collection[0].isSelected(true);
+        if (template.presets && template.presets.length) {
+            collection.unshift(this.presetTab);
         }
+
+        collection.forEach((tab, index) => {
+            if (ko.isWriteableObservable(tab.isSelected)) {
+                tab.isSelected(index === 0);
+            }
+        });
     
         this.tab(collection[0]);
         this.settingsTabs(collection);
@@ -226,14 +232,13 @@ class Design{
 
     loadSettings() {
         return getCommand.getCourseTemplateSettings(this.courseId, this.template().id).then(response => {
-            this.settings = response.settings || {};
-
             let preset;
             if (Array.isArray(this.template().presets)) {
                 preset = _.find(this.template().presets, p => p.title && p.title === (response.extraData && response.extraData.preset));
                 preset = preset || _.first(this.template().presets);
             }
             this.currentPreset = preset || null;
+            this.settings = response.settings || (preset && preset.settings ? JSON.parse(JSON.stringify(preset.settings)) : {});
         });
     }
 
@@ -263,7 +268,6 @@ class Design{
 
         this.settings.branding.background = {
             header: {
-                expanded: this.brandingTab.background.header.expanded(),
                 brightness: this.brandingTab.background.header.brightness(),
                 color: this.brandingTab.background.header.color() ? this.brandingTab.background.header.color() : null,
                 image: this.brandingTab.background.header.image() ? {
@@ -272,6 +276,7 @@ class Design{
                 } : null
             },
             body: {
+                enabled: this.brandingTab.background.body.enabled(),
                 brightness: this.brandingTab.background.body.brightness(),
                 color: this.brandingTab.background.body.color() ? this.brandingTab.background.body.color() : null,
                 texture: this.brandingTab.background.body.texture() ? this.brandingTab.background.body.texture() : null

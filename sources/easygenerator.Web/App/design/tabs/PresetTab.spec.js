@@ -10,42 +10,47 @@ import { EVENT_PRESET_SELECTED } from './PresetTab.js';
 
 describe('Preset tab', () => {
 
+    describe('name:', () => {
+
+        it('should be defined', () => {
+            let tab = new PresetTab();
+            expect(tab.name).toEqual('presets');
+        });
+
+    });
+
+    describe('title:', () => {
+
+        it('should be defined', () => {
+            let tab = new PresetTab();
+            expect(tab.name).toEqual('presets');
+        });
+
+    });
+
+    describe('type:', () => {
+
+        it('should be \'presets\'', () => {
+            let tab = new PresetTab();
+            expect(tab.type).toEqual('presets');
+        });
+
+    });
+
+    describe('isSelected:', () => {
+
+        it('should be observable', () => {
+            let tab = new PresetTab();
+            expect(tab.isSelected).toBeObservable();
+        });
+
+    });
+
     describe('collection:', () => {
 
         it('should be observable array', () => {
             let tab = new PresetTab();
             expect(tab.collection).toBeObservableArray();
-        });
-
-    });
-
-    describe('isVisible:', () => {
-        
-        it('should be observable', () => {
-            let tab = new PresetTab();
-            expect(tab.isVisible).toBeObservable();
-        });
-
-    });
-
-    describe('show:', () => {
-
-        it('should set isVisible to true', () => {
-            let tab = new PresetTab();
-            tab.isVisible(false);
-            tab.show();
-            expect(tab.isVisible()).toBeTruthy();
-        });
-
-    });
-
-    describe('hide:', () => {
-
-        it('should set isVisible to false', () => {
-            let tab = new PresetTab();
-            tab.isVisible(true);
-            tab.hide();
-            expect(tab.isVisible()).toBeFalsy();
         });
 
     });

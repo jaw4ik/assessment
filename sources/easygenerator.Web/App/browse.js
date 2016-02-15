@@ -6,6 +6,7 @@
         that.open = open;
 
         that.accept = accept;
+        that.multiple = multiple;
         that.on = on;
         that.off = off;
         that.dispose = dispose;
@@ -13,7 +14,8 @@
         var collection = [];
         var settings = {
             selected: null,
-            accept: null
+            accept: null,
+            multiple: null
         };
 
         function open() {
@@ -21,12 +23,16 @@
             input.click();
 
             collection.push(input);
-
             return that;
         }
 
         function accept(value) {
             settings.accept = value;
+            return that;
+        }
+
+        function multiple(value) {
+            settings.multiple = value;
             return that;
         }
 
@@ -53,6 +59,10 @@
             if (settings.accept) {
                 input.setAttribute('accept', settings.accept);
             }
+            if (settings.multiple) {
+                input.setAttribute('multiple', settings.multiple);
+            }
+
             input.addEventListener('change', function (e) {
                 if (_.isFunction(settings.selected) && this.files.length) {
                     settings.selected.apply(null, this.files);

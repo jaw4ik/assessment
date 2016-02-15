@@ -26,6 +26,7 @@
     require('editor/course/bindingHandlers/draggableContainer');
     require('editor/course/bindingHandlers/draggableData');
     require('editor/course/bindingHandlers/tooltipPopover');
+    require('editor/course/bindingHandlers/heightAnimation');
     require('components/bindingHandlers/dateBindingHadler');
     require('components/bindingHandlers/editableTextBindingHandler');
     require('components/bindingHandlers/cursorTooltipBindingHandler');
@@ -35,6 +36,7 @@
     require('design/bindingHandlers/slideToggleBindingHandler');
     require('design/bindingHandlers/brightnessBindingHandler');
     require('design/bindingHandlers/popoverBindingHandler');
+    require('images/bindingHandlers/keyDownBindingHandler');
 
     var task = {
         execute: execute
@@ -72,6 +74,8 @@
         ko.validation.init({
             insertMessages: false
         });
+
+        ko.bindingHandlers['css2'] = ko.bindingHandlers.css;
     }
 
 });

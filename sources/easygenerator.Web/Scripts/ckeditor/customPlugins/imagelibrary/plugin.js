@@ -44,7 +44,7 @@
                     }
 
                     var $image = $('<img>');
-                    $image.attr('src', definition.src + '?width=173&height=128');
+                    $image.attr('src', definition.url + '?width=173&height=128');
 
                     var $imageHolder = $('<div>');
                     $imageHolder.addClass('image-library-item-img');
@@ -65,7 +65,7 @@
                     $listItem.addClass('image-library-item');
                     $listItem.hide();
 
-                    if (definition.src == plugin.selectedImageUrl) {
+                    if (definition.url == plugin.selectedImageUrl) {
                         this.selectImage($listItem);
                     }
 
@@ -149,14 +149,14 @@
                                             //Double click event
                                             function () {
                                                 var command = editor.getCommand(plugin.commands.selectImage);
-                                                command.data = image.src;
+                                                command.data = image.url;
                                                 command.exec();
 
                                                 dialog.hide();
                                             },
                                             //Click event
                                             function () {
-                                                dialog.setValueOf(plugin.mainTabId, plugin.selectedImageContainerId, image.src);
+                                                dialog.setValueOf(plugin.mainTabId, plugin.selectedImageContainerId, image.url);
                                             }
                                         );
                                     });

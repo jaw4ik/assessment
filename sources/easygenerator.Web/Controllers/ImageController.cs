@@ -13,6 +13,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using easygenerator.DomainModel.Entities;
+using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers
 {
@@ -26,8 +28,16 @@ namespace easygenerator.Web.Controllers
         private readonly IUrlHelperWrapper _urlHelperWrapper;
         private readonly IFileTypeChecker _fileTypeChecker;
         private readonly ILog _elmahLog;
+        private readonly PhysicalFileManager _fileManager;
 
-        public ImageController(IEntityFactory entityFactory, IStorage storage, IImageStorage imageStorage, IImageFileRepository repository, IUrlHelperWrapper urlHelperWrapper, IFileTypeChecker fileTypeChecker, ILog elmahLog)
+        public ImageController(IEntityFactory entityFactory,
+            IStorage storage,
+            IImageStorage imageStorage,
+            IImageFileRepository repository,
+            IUrlHelperWrapper urlHelperWrapper,
+            IFileTypeChecker fileTypeChecker,
+            ILog elmahLog,
+            PhysicalFileManager fileManager)
         {
             _entityFactory = entityFactory;
             _storage = storage;
@@ -36,6 +46,7 @@ namespace easygenerator.Web.Controllers
             _urlHelperWrapper = urlHelperWrapper;
             _fileTypeChecker = fileTypeChecker;
             _elmahLog = elmahLog;
+            _fileManager = fileManager;
         }
 
         [HttpGet]
@@ -51,7 +62,8 @@ namespace easygenerator.Web.Controllers
 
             if (!_storage.FileExists(fileName))
             {
-                return HttpNotFound();
+                var path = Path.Combine(Server.MapPath("/Content/images"), "image-not-found.png");
+                return new ImageResult(path);
             }
 
             string filePath;
@@ -93,8 +105,9 @@ namespace easygenerator.Web.Controllers
                 .OrderByDescending(e => e.CreatedOn)
                 .Select(item => new
                 {
+                    id = item.Id.ToNString(),
                     title = item.Title,
-                    src = _urlHelperWrapper.RouteImageUrl(item.FileName)
+                    url = _urlHelperWrapper.RouteImageUrl(item.FileName)
                 });
 
             return JsonSuccess(result);
@@ -126,7 +139,39 @@ namespace easygenerator.Web.Controllers
 
             file.SaveAs(_storage.MapFilePath(image.FileName));
 
-            return JsonSuccess(new { url = _urlHelperWrapper.RouteImageUrl(image.FileName) }, System.Net.Mime.MediaTypeNames.Text.Html);
+            return JsonSuccess(new
+            {
+                id = image.Id.ToNString(),
+                title = image.Title,
+                url = _urlHelperWrapper.RouteImageUrl(image.FileName)
+            }, System.Net.Mime.MediaTypeNames.Text.Html);
+        }
+
+        [NoCache]
+        [HttpPost]
+        [Scope("api", "settings")]
+        [Route("storage/image/delete")]
+        public ActionResult Delete(ImageFile imageFile)
+        {
+            if (imageFile != null)
+            {
+                _repository.Remove(imageFile);
+
+                var filePath = _storage.GetFilePath(imageFile.FileName);
+                var cachedImagePath = _imageStorage.GetCachedImagePath(imageFile.FileName);
+
+                try
+                {
+                    _fileManager.DeleteFile(filePath);
+                    _fileManager.DeleteDirectory(cachedImagePath);
+                }
+                catch (Exception e)
+                {
+                    _elmahLog.LogException(e);
+                }
+            }
+
+            return JsonSuccess();
         }
 
     }

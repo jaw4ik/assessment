@@ -17,6 +17,12 @@ class UserContext {
     async identify() {
         let user = await authHttpWrapper.post('auth/identity');
 
+        if (_.isNullOrUndefined(user)) {
+            window.auth.logout();
+            window.location.replace('/#');
+            return;
+        }
+
         this.identity = _.isString(user.email) ? new User(user) : null;
         if (this.ltiData.companyId && this.identity) {
             let currentCompany = _.find(this.identity.companies, company => company.id === this.ltiData.companyId);

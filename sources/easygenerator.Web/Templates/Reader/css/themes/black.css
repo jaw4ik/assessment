@@ -1,7 +1,7 @@
 /*logo style*/
 /*content wrappers style*/
 .button-link-hover {
-  color: #ffffff;
+  color: #fff;
   border-color: #656565;
 }
 .button-link-hover:before {
@@ -231,7 +231,7 @@ input:invalid {
 .button.primary {
   background-color: #2c6073;
   border-color: #208eb3;
-  color: #ffffff;
+  color: #fff;
   border-width: 2px;
   font-size: 18px;
   height: 60px;
@@ -256,7 +256,7 @@ input:invalid {
   font-weight: 400;
 }
 .button.link:not(.disabled):hover {
-  color: #ffffff;
+  color: #fff;
   border-color: #656565;
 }
 .button.link:not(.disabled):hover:before {
@@ -288,12 +288,12 @@ input:invalid {
 }
 .button.success {
   border-color: #2891be;
-  color: #ffffff;
+  color: #fff;
   background-color: rgba(44, 96, 115, 0.75);
   font-weight: 400;
 }
 .button.success:not(.disabled):hover {
-  color: #ffffff;
+  color: #fff;
   background-color: #3296ba;
 }
 .button.block {
@@ -468,7 +468,7 @@ ul {
   margin: 40px auto;
   border-style: solid;
   border-width: 1px 0;
-  border-top-color: #000000;
+  border-top-color: #000;
   border-bottom-color: #4b4b4b;
 }
 .styled-content:after {
@@ -664,6 +664,7 @@ ul {
 }
 .styled-content .image-wrapper {
   max-width: 100%;
+  clear: both;
 }
 .styled-content .image-wrapper[style*="float:left"],
 .styled-content .image-wrapper[style*="float: left"] {
@@ -676,6 +677,9 @@ ul {
 .styled-content .image-wrapper img {
   border-radius: 5px;
   max-width: 100%;
+}
+.styled-content .hotspot-on-image-container {
+  text-align: center;
 }
 .styled-content iframe {
   max-width: 100%;
@@ -729,11 +733,11 @@ body {
 }
 .header-container .course-title-container .course-title {
   font-family: Roboto Slab;
-  color: #ffffff;
+  color: #fff;
 }
 .header-container .course-title-container .course-author {
   font-family: Roboto;
-  color: #777777;
+  color: #777;
 }
 .show-introduction-button-wrapper .show-introduction-button {
   font-family: Roboto Slab;
@@ -749,7 +753,7 @@ body {
   background-color: rgba(0, 0, 0, 0.95);
 }
 .introduction-overlay .introduction-content-container-wrapper {
-  background-color: #000000;
+  background-color: #000;
 }
 .introduction-overlay .introduction-content-container-wrapper .introduction-content-container {
   background-color: rgba(43, 39, 53, 0.8);
@@ -758,7 +762,7 @@ body {
   background-color: rgba(43, 39, 53, 0.8);
 }
 .course-wrapper .course .objectives .objective-container .objective-wrapper .objective-title-container {
-  color: #ffffff;
+  color: #fff;
 }
 .objective .content-tree-container {
   background-color: rgba(43, 39, 53, 0.8);
