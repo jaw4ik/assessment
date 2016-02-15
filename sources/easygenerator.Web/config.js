@@ -2,6 +2,7 @@ System.config({
   defaultJSExtensions: true,
   transpiler: "babel",
   babelOptions: {
+    "compact": false,
     "optional": [
       "optimisation.modules.system",
       "runtime"
@@ -74,7 +75,7 @@ System.config({
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"
     },
     "npm:has@1.0.1": {
-      "function-bind": "npm:function-bind@1.0.2"
+      "function-bind": "npm:function-bind@1.1.0"
     },
     "npm:inherits@2.0.1": {
       "util": "github:jspm/nodelibs-util@0.1.0"

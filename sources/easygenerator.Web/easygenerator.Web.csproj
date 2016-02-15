@@ -583,12 +583,14 @@
     <Content Include="App\audio\audioUploadDispatcher.spec.js">
       <DependentUpon>audioUploadDispatcher.js</DependentUpon>
     </Content>
+    <Content Include="App\audio\commands\markAvailable.spec.js">
+      <DependentUpon>markAvailable.js</DependentUpon>
+    </Content>
     <Content Include="App\audio\convertion\commands\convert.spec.js">
       <DependentUpon>convert.js</DependentUpon>
     </Content>
     <Content Include="App\audio\convertion\commands\finalize.js" />
     <Content Include="App\audio\convertion\commands\getTicket.js" />
-    <Content Include="App\audio\commands\markAvailable.spec.js" />
     <Content Include="App\audio\commands\markAvailable.js" />
     <Content Include="App\audio\convertion\commands\getTicket.spec.js">
       <DependentUpon>getTicket.js</DependentUpon>
