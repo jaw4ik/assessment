@@ -183,20 +183,17 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [EntityCollaborator(typeof(Course))]
         [Route("api/course/publishToCustomLms")]
-        public ActionResult PublishToCustomLms(Course course)
+        public ActionResult PublishToCustomLms(Course course, Company company)
         {
             var user = _userRepository.GetUserByEmail(GetCurrentUsername());
             if (user == null)
             {
                 return JsonLocalizableError(Errors.UserDoesntExist, Errors.UserDoesntExistResourceKey);
             }
+            var userCompany = user.Companies.SingleOrDefault(e => e == company);
 
-            if (user.Company == null)
-            {
-                return JsonLocalizableError(Errors.UserNotMemberOfAnyCompany, Errors.UserNotMemberOfAnyCompanyResourceKey);
-            }
-
-            return Deliver(course, () => _externalCoursePublisher.PublishCourseUrl(course, user.Company, user.Email), JsonSuccess);
+            return userCompany == null ? JsonLocalizableError(Errors.UserNotMemberOfCompany, Errors.UserNotMemberOfCompanyResourceKey) :
+                Deliver(course, () => _externalCoursePublisher.PublishCourseUrl(course, userCompany, user.Email), JsonSuccess);
         }
 
         [HttpPost]

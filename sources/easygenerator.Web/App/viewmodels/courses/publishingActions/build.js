@@ -25,13 +25,13 @@
             return viewModel;
 
             function activate(courseId) {
-                return repository.getById(courseId).then(function (course) {
+                return repository.getById(courseId).then(function(course) {
                     baseActivate(course, course.build);
 
                     viewModel.subscribe(constants.messages.course.build.started, viewModel.courseBuildStarted);
                     viewModel.subscribe(constants.messages.course.build.completed, viewModel.courseBuildCompleted);
                     viewModel.subscribe(constants.messages.course.build.failed, viewModel.courseBuildFailed);
-                });
+                }).fail(function() {});
             }
 
             function downloadCourse() {

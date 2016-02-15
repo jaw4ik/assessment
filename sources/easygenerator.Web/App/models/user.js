@@ -12,8 +12,8 @@
         this.fullname = spec.firstname + ' ' + spec.lastname;
         this.showReleaseNote = spec.showReleaseNote;
         this.newEditor = spec.newEditor;
-
-        this.company = spec.company ? companyMapper.map(spec.company) : null;
+        this.isCreatedThroughLti = spec.isCreatedThroughLti;
+        this.companies = spec.companies && spec.companies.length ? spec.companies.map(companyMapper.map) : [];
 
         guard.throwIfNotAnObject(spec.subscription, 'You should provide subscription to create user');
         switch (spec.subscription.accessType) {

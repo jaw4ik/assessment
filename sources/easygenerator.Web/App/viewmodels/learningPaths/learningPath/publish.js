@@ -10,10 +10,9 @@
 
     var viewModel = {
         learningPathId: '',
-        companyInfo: null,
+        publishToCustomLmsModels: [],
         downloadAction: downloadAction(),
         publishAction: publishAction(),
-        publishToCustomLmsAction: publishToCustomLmsAction(),
 
         onOpenLinkTab: onOpenLinkTab,
         onOpenEmbedTab: onOpenEmbedTab,
@@ -30,14 +29,26 @@
         viewModel.learningPathId = learningPathId;
 
         return userContext.identify().then(function () {
-            viewModel.companyInfo = userContext.identity ? userContext.identity.company : null;
+            viewModel.publishToCustomLmsModels = userContext.identity.companies.sort((company1, company2) => {
+                if (company1.priority === company2.priority) {
+                    return (new Date(company1.createdOn)).getTime() > (new Date(company2.createdOn)).getTime();
+                }
+                return company1.priority < company2.priority;
+            }).map(function (company) {
+                return {
+                    company: company,
+                    model: publishToCustomLmsAction()
+                }
+            });
         });
     }
 
     function deactivate() {
         viewModel.downloadAction.deactivate();
         viewModel.publishAction.deactivate();
-        viewModel.publishToCustomLmsAction.deactivate();
+        viewModel.publishToCustomLmsModels.forEach(function (publishToCustomLmsModel) {
+            publishToCustomLmsModel.model.deactivate();
+        });
     }
 
     function onOpenLinkTab() {

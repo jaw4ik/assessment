@@ -180,6 +180,7 @@
     <Compile Include="Repositories\ICourseCollaboratorRepository.cs" />
     <Compile Include="Repositories\ICourseStateRepository.cs" />
     <Compile Include="Repositories\IDemoCourseRepository.cs" />
+    <Compile Include="Repositories\ICompanyRepository.cs" />
     <Compile Include="Repositories\IImageFileRepository.cs" />
     <Compile Include="Repositories\IDocumentRepository.cs" />
     <Compile Include="Repositories\ILearningPathRepository.cs" />

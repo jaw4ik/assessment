@@ -22,8 +22,8 @@
 
         return viewModel;
 
-        function activate(courseId) {
-            return viewModel.publishAction.activate(courseId);
+        function activate(learningPathId) {
+            return viewModel.publishAction.activate(learningPathId);
         }
 
         function deactivate() {

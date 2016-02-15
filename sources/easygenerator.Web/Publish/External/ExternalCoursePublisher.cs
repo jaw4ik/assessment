@@ -34,7 +34,7 @@ namespace easygenerator.Web.Publish.External
                     apiKey = company.SecretKey
                 });
 
-                course.SetPublishedToExternalLms(true);
+                course.SetPublishedToExternalLms(company);
                 return true;
             }
             catch (Exception e)

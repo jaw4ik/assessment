@@ -211,6 +211,5 @@ namespace easygenerator.Web.Controllers.Api
             user.SwitchEditor(GetCurrentUsername());
             return JsonSuccess();
         }
-
     }
 }

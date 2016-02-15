@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
 
@@ -30,6 +31,21 @@ namespace easygenerator.Web.Extensions
                 return null;
 
             return entityId;
+        }
+
+        public static bool IsGenericTypeAssignableFrom(this Type genericType, Type givenType)
+        {
+            var interfaceTypes = givenType.GetInterfaces();
+
+            if (interfaceTypes.Any(it => it.IsGenericType && it.GetGenericTypeDefinition() == genericType))
+                return true;
+
+            var baseType = givenType.BaseType;
+            if (baseType == null) return false;
+
+            return baseType.IsGenericType &&
+                   baseType.GetGenericTypeDefinition() == genericType ||
+                   IsGenericTypeAssignableFrom(genericType, baseType);
         }
     }
 }

@@ -11,12 +11,21 @@ class UserContext {
     constructor () {
         this.identity = null;
         this.storageIdentity = null;
+        this.ltiData = {};
     }
 
     async identify() {
         let user = await authHttpWrapper.post('auth/identity');
 
         this.identity = _.isString(user.email) ? new User(user) : null;
+        if (this.ltiData.companyId && this.identity) {
+            let currentCompany = _.find(this.identity.companies, company => company.id === this.ltiData.companyId);
+            if (currentCompany && currentCompany.hideDefaultPublishOptions) {
+                this.identity.companies = [currentCompany];
+            } else if(currentCompany) {
+                currentCompany.priority = 10000;
+            }
+        }
         app.trigger(constants.messages.user.identified, this.identity);
     }
 
@@ -28,6 +37,26 @@ class UserContext {
             this.storageIdentity = { availableStorageSpace: 0, totalStorageSpace: 0 };
             notify.error(localizationManager.localize('storageFailed'));
         }
+    }
+
+    async identifyLtiUser() {
+        if (!this.ltiData.ltiUserInfoToken) {
+            return false;
+        }
+        let response = await authHttpWrapper.post('auth/identifyLtiUser', { token: this.ltiData.ltiUserInfoToken });
+        if (!response) {
+            return true;
+        }
+        if (response.unauthorized) {
+            throw {
+                logout: true,
+                ltiUserInfoToken: this.ltiData.ltiUserInfoToken
+            };
+        }
+        if (response.companyId) {
+            this.ltiData.companyId = response.companyId;
+        }
+        return true;
     }
 
     hasStarterAccess() {

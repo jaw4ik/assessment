@@ -301,6 +301,8 @@
     <Compile Include="Components\ModelBinding\LearningPathEntityCollectionModelBinder.cs" />
     <Compile Include="Components\ModelBinding\LearningPathEntityModelBinderProvider.cs" />
     <Compile Include="Components\ModelBinding\LearningPathEntityModelBinder.cs" />
+    <Compile Include="Components\ModelBinding\SecureModelBinder.cs" />
+    <Compile Include="Components\ModelBinding\SecureModelBinderProvider.cs" />
     <Compile Include="Components\ReleaseNoteFileReader.cs" />
     <Compile Include="Components\TypeMethodInvoker.cs" />
     <Compile Include="Configuration\MagickImageResizerConfiguration.cs" />

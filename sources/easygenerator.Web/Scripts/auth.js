@@ -12,7 +12,8 @@
         getRequiredEndpoints: getRequiredEndpoints,
         isAuthTokenPresentInHash: isAuthTokenPresentInHash,
         loginByAuthToken: loginByAuthToken,
-        isLogoutKeyPresentInHash: isLogoutKeyPresentInHash
+        getCompanyIdFromHash: getCompanyIdFromHash,
+        getLtiUserInfoTokenFromHash: getLtiUserInfoTokenFromHash
     };
 
     function isAuthTokenPresentInHash() {
@@ -38,9 +39,14 @@
         });
     }
 
-    function isLogoutKeyPresentInHash() {
+    function getLtiUserInfoTokenFromHash() {
         var hashParams = getHashParams(window.location.hash);
-        return hashParams && hashParams.hasOwnProperty('logout');
+        return hashParams && hashParams['token.user.lti'];
+    }
+
+    function getCompanyIdFromHash() {
+        var hashParams = getHashParams(window.location.hash);
+        return hashParams && hashParams['companyId'];
     }
 
     function isUserLoggedIn() {

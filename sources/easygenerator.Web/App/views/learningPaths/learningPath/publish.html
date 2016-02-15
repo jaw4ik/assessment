@@ -3,16 +3,16 @@
         <div class="content-section">
             <div class="publish-container" data-bind="publishTabs: {}">
                 <ul class="publish-tabs unstyled">
-                    <!-- ko if: companyInfo -->
-                    <li class="publish-tab" data-bind="click: onOpenCustomPublishTab" data-tab-link="publish-to-custom-lms">
+                    <!-- ko foreach: publishToCustomLmsModels -->
+                    <li class="publish-tab" data-bind="click: $parent.onOpenCustomPublishTab, attr: { 'data-tab-link': 'publish-to-custom-lms-' + company.name }">
                         <div class="active-indicator"></div>
                         <div class="publish-tab-image-container">
-                            <img class="custom-publish-tab-image" data-bind="attr: { src: companyInfo.logoUrl, alt: companyInfo.name }, grayscale:{}" />
+                            <img class="custom-publish-tab-image" data-bind="attr: { src: company.logoUrl, alt: company.name }, grayscale:{}" />
                         </div>
-                        <span class="publish-tab-text" data-bind="localize: { text: { key: 'publishToCompany', replace: { companyName: companyInfo.name } } }"></span>
+                        <span class="publish-tab-text" data-bind="localize: { text: { key: 'publishToCompany', replace: { companyName: company.name } } }"></span>
                     </li>
                     <!-- /ko -->
-                    <!-- ko ifnot: companyInfo && companyInfo.hideDefaultPublishOptions -->
+                    <!-- ko if: !publishToCustomLmsModels[0] || !publishToCustomLmsModels[0].company.hideDefaultPublishOptions -->
                     <li class="publish-tab" data-bind="click: onOpenLinkTab" data-tab-link="private-link">
                         <div class="active-indicator"></div>
                         <div class="publish-tab-image-container">
@@ -37,10 +37,10 @@
                     <!-- /ko -->
                 </ul>
                 <div class="publish-tabs-content">
-                    <!-- ko if: companyInfo -->
-                    <!-- ko compose: { view: 'views/learningPaths/learningPath/publish/publishToCustomLms', model: publishToCustomLmsAction, activationData: learningPathId } --><!-- /ko -->
+                    <!-- ko foreach: publishToCustomLmsModels -->
+                    <!-- ko compose: { view: 'views/learningPaths/learningPath/publish/publishToCustomLms', model: $data.model, activationData: { learningPathId: $parent.learningPathId, companyInfo: $data.company } } --><!-- /ko -->
                     <!-- /ko -->
-                    <!-- ko ifnot: companyInfo && companyInfo.hideDefaultPublishOptions -->
+                    <!-- ko if: !publishToCustomLmsModels[0] || !publishToCustomLmsModels[0].company.hideDefaultPublishOptions -->
                     <!-- ko compose: { view: 'views/learningPaths/learningPath/publish/publishToPublicationServerLink', model: publishAction, activationData: learningPathId } --><!-- /ko -->
                     <!-- ko compose: { view: 'views/learningPaths/learningPath/publish/publishToPublicationServerEmbed', model: publishAction, activationData: learningPathId } --><!-- /ko -->
                     <!-- ko compose: { view: 'views/learningPaths/learningPath/publish/publishAsHtml', model: downloadAction, activationData: learningPathId } --><!-- /ko -->

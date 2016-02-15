@@ -1,30 +1,44 @@
-﻿define(['knockout', 'userContext', 'dialogs/learningPath/defaultPublish', 'dialogs/learningPath/customPublish', 'constants', 'eventTracker'], function (ko, userContext, defaultPublishModel, customPublishModel, constants, eventTracker) {
-    'use strict';
+﻿import ko from 'knockout';
+import userContext from 'userContext';
+import defaultPublishModel from 'dialogs/learningPath/defaultPublish';
+import customPublishModel from 'dialogs/learningPath/customPublish';
 
-    var viewModel = {
-        publishModel: null,
-        isShown: ko.observable(false),
-
-        show: show,
-        hide: hide,
-
-        activate: activate
+class IShareLearningPathDialog {
+    constructor() {
+        this.show = this.show.bind(this);
+        this.hide = this.hide.bind(this);
+        this.activate = this.activate.bind(this);
     }
+}
 
-    return viewModel;
-
-    function show(learningPathId) {
-        viewModel.publishModel.activate(learningPathId);
-        viewModel.isShown(true);
+class ShareLearningPathDialog extends IShareLearningPathDialog {
+    constructor() {
+        super();
+        this.publishModel = null;
+        this.company = null;
+        this.isShown = ko.observable(false);
+        this.isActivated = ko.observable(false);
     }
-
-    function hide() {
-        viewModel.publishModel.deactivate();
-        viewModel.isShown(false);
+    async show(learningPathId) {
+        await this.publishModel.activate(this.company ? { learningPathId: learningPathId, companyInfo: this.company } : learningPathId);
+        this.isActivated(true);
+        this.isShown(true);
     }
-
-    function activate() {
-        var showCustomPublish = !!userContext.identity.company;
-        viewModel.publishModel = showCustomPublish ? customPublishModel : defaultPublishModel;
+    hide() {
+        this.isShown(false);
+        this.publishModel.deactivate();
+        this.isActivated(false);
     }
-});
+    activate() {
+        var company = userContext.identity.companies.sort((company1, company2) => {
+            if (company1.priority === company2.priority) {
+                return (new Date(company1.createdOn)).getTime() > (new Date(company2.createdOn)).getTime();
+            }
+            return company1.priority < company2.priority;
+        })[0];
+        this.publishModel = company ? customPublishModel : defaultPublishModel;
+        this.company = company || null;
+    }
+}
+
+export default new ShareLearningPathDialog();

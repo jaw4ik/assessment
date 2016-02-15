@@ -9,8 +9,8 @@
 
     return viewModel;
 
-    function activate(learningPathId) {
-        return viewModel.publishAction.activate(learningPathId);
+    function activate(publishData) {
+        return viewModel.publishAction.activate(publishData);
     }
 
     function deactivate() {

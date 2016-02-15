@@ -4,7 +4,7 @@
         var events = {
             publishCourse: 'Publish course',
             copyEmbedCode: 'Copy embed code',
-            copyPublishLink: 'Copy publish link',
+            copyPublishLink: 'Copy publish link'
         };
 
         var ctor = function (eventCategory) {
@@ -71,7 +71,7 @@
                     viewModel.subscribe(constants.messages.course.publish.completed, viewModel.coursePublishCompleted);
                     viewModel.subscribe(constants.messages.course.publish.failed, viewModel.coursePublishFailed);
                     viewModel.subscribe(constants.messages.course.stateChanged + courseId, viewModel.courseStateChanged);
-                });
+                }).fail(function () { });
             }
 
             function validateFrameWidth() {

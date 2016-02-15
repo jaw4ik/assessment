@@ -36,7 +36,10 @@ namespace easygenerator.Web.Components.Mappers
                 {
                     Id = obj.Id.ToNString()
                 }),
-                IsPublishedToExternalLms = course.IsPublishedToExternalLms
+                CourseCompanies = course.Companies.Select(obj => new
+                {
+                    Id = obj.Id.ToNString()
+                })
             };
         }
 

@@ -1,6 +1,7 @@
 ﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using System;
+using System.Collections.Generic;
 
 namespace easygenerator.DomainModel
 {
@@ -36,7 +37,8 @@ namespace easygenerator.DomainModel
         LearningContent LearningContent(string text, string createdBy);
         User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, string lastReadReleaseNote);
         User User(string email, string password, string firstname, string lastname, string phone, string country,
-            string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, DateTime expirationDate, Company company, bool? newEditor = false);
+            string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, DateTime expirationDate, bool isCreatedThroughLti, ICollection<Company> companies, bool? newEditor = false);
+        LtiUserInfo LtiUserInfo(string ltiUserId, ConsumerTool consumerTool, User user);
         PasswordRecoveryTicket PasswordRecoveryTicket(User user);
         ImageFile ImageFile(string title, string createdBy);
         InformationContent InformationContent(string title, string createdBy);
@@ -150,9 +152,14 @@ namespace easygenerator.DomainModel
             return new User(email, password, firstname, lastname, phone, country, role, createdBy, AccessType.Trial, lastReadReleaseNote);
         }
 
-        public User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, DateTime expirationDate, Company company, bool? newEditor)
+        public User User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy, AccessType accessPlan, string lastReadReleaseNote, DateTime expirationDate, bool isCreatedThroughLti, ICollection<Company> companies, bool? newEditor)
         {
-            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessPlan, lastReadReleaseNote, expirationDate, company, newEditor);
+            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessPlan, lastReadReleaseNote, expirationDate, isCreatedThroughLti, companies, newEditor);
+        }
+
+        public LtiUserInfo LtiUserInfo(string ltiUserId, ConsumerTool consumerTool, User user)
+        {
+            return new LtiUserInfo(ltiUserId, consumerTool, user);
         }
 
         public PasswordRecoveryTicket PasswordRecoveryTicket(User user)

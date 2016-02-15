@@ -9,8 +9,8 @@
 
     return viewModel;
 
-    function activate(courseId) {
-        return viewModel.publishAction.activate(courseId);
+    function activate(publishData) {
+        return viewModel.publishAction.activate(publishData);
     }
 
     function deactivate() {

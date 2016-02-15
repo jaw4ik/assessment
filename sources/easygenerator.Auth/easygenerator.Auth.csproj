@@ -139,7 +139,14 @@
     <Compile Include="ConfigurationSections\Authorization\AuthorizationSection.cs" />
     <Compile Include="ConfigurationSections\Authorization\EndpointElement.cs" />
     <Compile Include="ConfigurationSections\Authorization\EndpointsCollection.cs" />
+    <Compile Include="ConfigurationSections\CryptographySection.cs" />
     <Compile Include="Configuration\AuthorizationConfiguration.cs" />
+    <Compile Include="Providers\Cryptography\CryptographyConfigurationProvider.cs" />
+    <Compile Include="Providers\Cryptography\ICryptographyConfigurationProvider.cs" />
+    <Compile Include="Security\Models\ISecure.cs" />
+    <Compile Include="Security\Models\LtiUserInfoSecure.cs" />
+    <Compile Include="Security\Providers\ISecureTokenProvider.cs" />
+    <Compile Include="Security\Providers\SecureTokenProvider.cs" />
     <Compile Include="Lti\Constants.cs" />
     <Compile Include="Lti\LtiAuthExtensions.cs" />
     <Compile Include="Lti\LtiAuthHandler.cs" />

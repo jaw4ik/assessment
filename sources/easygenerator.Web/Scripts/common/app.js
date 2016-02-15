@@ -1,7 +1,11 @@
 ﻿var app = app || {};
 
-app.openHomePage = function () {
-    window.location.replace('/');
+app.openHomePage = function (hash) {
+    var url = '/';
+    if (hash) {
+        url += hash;
+    }
+    window.location.replace(url);
 };
 
 app.reload = function () {
