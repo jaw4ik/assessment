@@ -1,4 +1,4 @@
-﻿define(['durandal/events', 'constants', 'models/Audio', 'audio/convertion/commands/convert', 'audio/vimeo/commands/pull', 'dataContext'], function(Events, constants, Audio, convert, pull, dataContext) {
+﻿define(['durandal/events', 'constants', 'models/audio', 'audio/convertion/commands/convert', 'audio/vimeo/commands/pull', 'dataContext'], function(Events, constants, Audio, convert, pull, dataContext) {
     'use strict';
 
     return function(file) {
