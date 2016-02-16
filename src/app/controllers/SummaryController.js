@@ -54,11 +54,22 @@
                 that.isSendingRequest = false;
                 $scope.$applyAsync();
                 $window.close();
-                $timeout(function () {
-                    alert('Thank you, you can close the page now');
-                }, 100);
+                if (!inIframe()) {
+                    $timeout(function () {
+                        alert('Thank you, you can close the page now');
+                    }, 100);
+                }
             });
         };
+        
+        function inIframe() {
+            // browsers can block access to window.top due to same origin policy, so exception can be thrown here.
+            try {
+                return $window.self !== $window.top;
+            } catch (e) {
+                return true;
+            }
+        }
     }
 
 }());
