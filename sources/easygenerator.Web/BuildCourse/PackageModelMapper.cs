@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
@@ -36,9 +35,13 @@ namespace easygenerator.Web.BuildCourse
             {
                 Id = course.Id.ToNString(),
                 Title = course.Title,
-                CreatedBy = author != null ? author.FullName : null,
+
+                CreatedBy = author?.FullName,
                 CreatedOn = DateTimeWrapper.Now(),
-                HasIntroductionContent = !String.IsNullOrWhiteSpace(course.IntroductionContent),
+
+                TemplateId = course.Template.Id.ToNString(),
+
+                HasIntroductionContent = !string.IsNullOrWhiteSpace(course.IntroductionContent),
                 IntroductionContent = course.IntroductionContent,
                 Objectives = (course.RelatedObjectives ?? new Collection<Objective>()).Select(MapObjective).ToList()
             };
@@ -114,7 +117,7 @@ namespace easygenerator.Web.BuildCourse
             return MapQuestion<SingleSelectImagePackageModel>(question, (model) =>
             {
                 model.Answers = question.Answers.Select(MapSingleSelectImageAnswer).ToList();
-                model.CorrectAnswerId = question.CorrectAnswer == null ? null : question.CorrectAnswer.Id.ToNString();
+                model.CorrectAnswerId = question.CorrectAnswer?.Id.ToNString();
             });
         }
 
