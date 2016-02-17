@@ -1,10 +1,10 @@
-﻿import StartedStatement from 'reporting/viewmodels/startedStatement';
-import ExpandableStatement from 'reporting/viewmodels/expandableStatement';
+﻿import StartedStatement from './startedStatement';
+
+import ExpandableStatement from './expandableStatement';
 import localizationManager from 'localization/localizationManager';
 
 describe('viewmodel [StartedStatement]', () => {
     var lrsStatement,
-        lrsStatementWithEmptyActor,
 	    statement,
 	    attemptId,
 		statementId;

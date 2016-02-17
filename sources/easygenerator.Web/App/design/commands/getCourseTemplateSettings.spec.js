@@ -1,9 +1,8 @@
-﻿
+﻿import * as command  from './getCourseTemplateSettings.js';
+
 import http from 'http/apiHttpWrapper';
 
-import * as command  from './getCourseTemplateSettings.js';
-
-describe('command [saveCourseTemplateSettings]', () => {
+describe('command [getCourseTemplateSettings]', () => {
 
     it('should get settings', done => {
         spyOn(http, 'get').and.returnValue(Promise.reject());

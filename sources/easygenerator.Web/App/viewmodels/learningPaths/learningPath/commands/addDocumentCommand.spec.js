@@ -1,4 +1,5 @@
-﻿import addDocumentCommand from 'viewmodels/learningPaths/learningPath/commands/addDocumentCommand';
+﻿import addDocumentCommand from './addDocumentCommand';
+
 import apiHttpWrapper from 'http/apiHttpWrapper';
 import dataContext from 'dataContext';
 

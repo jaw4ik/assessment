@@ -1,4 +1,4 @@
-﻿import command from 'editor/dialogs/editorFeedback/commands/sendFeedback';
+﻿import command from './sendFeedback';
 
 import apiHttpWrapper from 'http/apiHttpWrapper';
 

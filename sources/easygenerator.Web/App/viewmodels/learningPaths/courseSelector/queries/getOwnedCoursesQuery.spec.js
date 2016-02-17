@@ -1,41 +1,36 @@
-﻿define(['viewmodels/learningPaths/courseSelector/queries/getOwnedCoursesQuery'], function (query) {
-    "use strict";
-    var
-        dataContext = require('dataContext'),
-        userContext = require('userContext')
-    ;
+﻿import query from './getOwnedCoursesQuery';
 
-    describe('query [getOwnedCoursesQuery]', function () {
+import dataContext from 'dataContext';
+import userContext from 'userContext';
 
-        describe('execute:', function () {
-            var userEmail = 'email@mail.com',
-                course = {
-                    id: 'id',
-                    createdBy: userEmail
-                },
-                course2 = {
-                    id: 'id2',
-                    createdBy: 'someUser@mail.com'
-                };
+describe('query [getOwnedCoursesQuery]', function () {
 
-            beforeEach(function () {
-                dataContext.courses = [course, course2];
-                userContext.identity = {
-                    email: userEmail
-                };
-            });
+    describe('execute:', function () {
+        var userEmail = 'email@mail.com',
+            course = {
+                id: 'id',
+                createdBy: userEmail
+            },
+            course2 = {
+                id: 'id2',
+                createdBy: 'someUser@mail.com'
+            };
 
-            it('should return learning path collection', function (done) {
-                query.execute().then(function (data) {
-                    expect(data).toBeArray();
-                    expect(data.length).toBe(1);
-                    expect(data[0]).toBe(course);
-                    done();
-                });
-            });
-
+        beforeEach(function () {
+            dataContext.courses = [course, course2];
+            userContext.identity = {
+                email: userEmail
+            };
         });
+
+        it('should return learning path collection', function (done) {
+            query.execute().then(function (data) {
+                expect(data).toBeArray();
+                expect(data.length).toBe(1);
+                expect(data[0]).toBe(course);
+                done();
+            });
+        });
+
     });
-
-
 });

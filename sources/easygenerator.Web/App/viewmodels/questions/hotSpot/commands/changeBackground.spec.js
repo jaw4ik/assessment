@@ -1,37 +1,33 @@
-﻿define(['viewmodels/questions/hotSpot/commands/changeBackground'], function (command) {
-    var
-        apiHttpWrapper = require('http/apiHttpWrapper')
-    ;
+﻿import command from './changeBackground';
 
-    describe('command [changeBackground]', function () {
+import apiHttpWrapper from 'http/apiHttpWrapper';
 
-        describe('execute:', function () {
+describe('command [changeBackground]', function () {
 
-            var dfd = Q.defer();
+    describe('execute:', function () {
 
-            beforeEach(function () {
-                spyOn(apiHttpWrapper, 'post').and.returnValue(dfd.promise);
-            });
+        var dfd = Q.defer();
 
-            it('should be function', function () {
-                expect(command.execute).toBeFunction();
-            });
-
-            it('should return promise', function () {
-                expect(command.execute()).toBePromise();
-            });
-
-            it('should send request to the server to change background image', function (done) {
-                dfd.resolve();
-
-                command.execute().then(function () {
-                    expect(apiHttpWrapper.post).toHaveBeenCalled();
-                    done();
-                });
-            });
-
+        beforeEach(function () {
+            spyOn(apiHttpWrapper, 'post').and.returnValue(dfd.promise);
         });
+
+        it('should be function', function () {
+            expect(command.execute).toBeFunction();
+        });
+
+        it('should return promise', function () {
+            expect(command.execute()).toBePromise();
+        });
+
+        it('should send request to the server to change background image', function (done) {
+            dfd.resolve();
+
+            command.execute().then(function () {
+                expect(apiHttpWrapper.post).toHaveBeenCalled();
+                done();
+            });
+        });
+
     });
-
-
 });

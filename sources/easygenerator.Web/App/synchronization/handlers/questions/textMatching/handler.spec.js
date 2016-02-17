@@ -1,31 +1,28 @@
-﻿define(['synchronization/handlers/questions/textMatching/handler'], function (handler) {
-    "use strict";
+﻿import handler from './handler';
 
-    describe('synchronization question textMatching [handler]', function () {
+describe('synchronization question textMatching [handler]', function () {
 
-        describe('answerCreated:', function () {
-            it('should be function', function () {
-                expect(handler.answerCreated).toBeFunction();
-            });
-        });
-
-        describe('answerDeleted:', function () {
-            it('should be function', function () {
-                expect(handler.answerDeleted).toBeFunction();
-            });
-        });
-
-        describe('answerKeyChanged:', function () {
-            it('should be function', function () {
-                expect(handler.answerKeyChanged).toBeFunction();
-            });
-        });
-
-        describe('answerValueChanged:', function () {
-            it('should be function', function () {
-                expect(handler.answerValueChanged).toBeFunction();
-            });
+    describe('answerCreated:', function () {
+        it('should be function', function () {
+            expect(handler.answerCreated).toBeFunction();
         });
     });
 
-})
+    describe('answerDeleted:', function () {
+        it('should be function', function () {
+            expect(handler.answerDeleted).toBeFunction();
+        });
+    });
+
+    describe('answerKeyChanged:', function () {
+        it('should be function', function () {
+            expect(handler.answerKeyChanged).toBeFunction();
+        });
+    });
+
+    describe('answerValueChanged:', function () {
+        it('should be function', function () {
+            expect(handler.answerValueChanged).toBeFunction();
+        });
+    });
+});

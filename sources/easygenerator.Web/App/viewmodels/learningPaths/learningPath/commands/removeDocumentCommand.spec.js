@@ -1,4 +1,5 @@
-﻿import removeDocumentCommand from 'viewmodels/learningPaths/learningPath/commands/removeDocumentCommand';
+﻿import removeDocumentCommand from './removeDocumentCommand';
+
 import Repository from 'repositories/documentRepository';
 var repository = new Repository();
 

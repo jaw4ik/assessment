@@ -1,4 +1,5 @@
 ﻿import createDocumentDialog from 'dialogs/document/create/index';
+
 import eventTracker from 'eventTracker';
 import _ from 'underscore';
 

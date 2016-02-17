@@ -1,5 +1,6 @@
-﻿import QuestionStatement from 'reporting/viewmodels/questionStatement';
-import ExpandableStatement from 'reporting/viewmodels/expandableStatement';
+﻿import QuestionStatement from './questionStatement';
+
+import ExpandableStatement from './expandableStatement';
 
 describe('viewmodel [QuestionStatement]', () => {
 

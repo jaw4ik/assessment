@@ -1,4 +1,5 @@
-﻿import uiLocker from 'uiLocker';
+﻿import uiLocker from './uiLocker';
+
 import uiLockViewer from 'widgets/uiLockViewer/viewmodel';
 
 describe('[uiLocker]', () => {

@@ -1,13 +1,10 @@
-﻿define(['synchronization/handlers/questions/fillInTheBlank/handler'], function (handler) {
-    "use strict";
+﻿import handler from './handler';
 
-    describe('synchronization question fillInTheBlank [handler]', function () {
+describe('synchronization question fillInTheBlank [handler]', function () {
 
-        describe('updated:', function () {
-            it('should be defined', function () {
-                expect(handler.updated).toBeDefined();
-            });
+    describe('updated:', function () {
+        it('should be defined', function () {
+            expect(handler.updated).toBeDefined();
         });
     });
-
-})
+});

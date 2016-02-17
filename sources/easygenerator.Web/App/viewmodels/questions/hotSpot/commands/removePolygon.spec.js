@@ -1,38 +1,33 @@
-﻿define(['viewmodels/questions/hotspot/commands/removePolygon'], function (command) {
+﻿import command from './removePolygon';
 
-    var
-        apiHttpWrapper = require('http/apiHttpWrapper')
-    ;
+import apiHttpWrapper from 'http/apiHttpWrapper';
 
-    describe('command [removePolygon]', function () {
+describe('command [removePolygon]', function () {
 
-        describe('execute:', function () {
+    describe('execute:', function () {
 
-            var dfd = Q.defer();
+        var dfd = Q.defer();
 
-            beforeEach(function () {
-                spyOn(apiHttpWrapper, 'post').and.returnValue(dfd.promise);
-            });
-
-            it('should be function', function () {
-                expect(command.execute).toBeFunction();
-            });
-
-            it('should return promise', function () {
-                expect(command.execute()).toBePromise();
-            });
-
-            it('should send request to the server to change polygon text', function (done) {
-                dfd.resolve();
-
-                command.execute().then(function () {
-                    expect(apiHttpWrapper.post).toHaveBeenCalled();
-                    done();
-                });
-            });
-
+        beforeEach(function () {
+            spyOn(apiHttpWrapper, 'post').and.returnValue(dfd.promise);
         });
+
+        it('should be function', function () {
+            expect(command.execute).toBeFunction();
+        });
+
+        it('should return promise', function () {
+            expect(command.execute()).toBePromise();
+        });
+
+        it('should send request to the server to change polygon text', function (done) {
+            dfd.resolve();
+
+            command.execute().then(function () {
+                expect(apiHttpWrapper.post).toHaveBeenCalled();
+                done();
+            });
+        });
+
     });
-
-
 });

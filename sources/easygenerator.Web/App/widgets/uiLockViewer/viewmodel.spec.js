@@ -1,51 +1,47 @@
-﻿define(['widgets/uiLockViewer/viewmodel'], function (uiLockViewer) {
+﻿import uiLockViewer from './viewmodel';
 
-    "use strict";
+describe('[uiLockViewer]', function () {
 
-    describe('[uiLockViewer]', function () {
+    it('should be defined', function() {
+        expect(uiLockViewer).toBeDefined();
+    });
 
-        it('should be defined', function() {
-            expect(uiLockViewer).toBeDefined();
-        });
+    describe('prototype:', function() {
 
-        describe('prototype:', function() {
+        describe('visible:', function () {
 
-            describe('visible:', function () {
-
-                it('should be observable', function() {
-                    expect(uiLockViewer.prototype.visible).toBeObservable();
-                });
-
+            it('should be observable', function() {
+                expect(uiLockViewer.prototype.visible).toBeObservable();
             });
 
         });
+
+    });
         
-        describe('lock:', function () {
+    describe('lock:', function () {
 
-            it('should be function', function () {
-                expect(uiLockViewer.lock).toBeFunction();
-            });
-
-            it('should set visible to true', function () {
-                uiLockViewer.prototype.visible(false);
-                uiLockViewer.lock();
-                expect(uiLockViewer.prototype.visible()).toBeTruthy();
-            });
-
+        it('should be function', function () {
+            expect(uiLockViewer.lock).toBeFunction();
         });
+
+        it('should set visible to true', function () {
+            uiLockViewer.prototype.visible(false);
+            uiLockViewer.lock();
+            expect(uiLockViewer.prototype.visible()).toBeTruthy();
+        });
+
+    });
         
-        describe('unlock:', function () {
+    describe('unlock:', function () {
 
-            it('should be function', function () {
-                expect(uiLockViewer.unlock).toBeFunction();
-            });
+        it('should be function', function () {
+            expect(uiLockViewer.unlock).toBeFunction();
+        });
 
-            it('should set visible to false', function () {
-                uiLockViewer.prototype.visible(true);
-                uiLockViewer.unlock();
-                expect(uiLockViewer.prototype.visible()).toBeFalsy();
-            });
-
+        it('should set visible to false', function () {
+            uiLockViewer.prototype.visible(true);
+            uiLockViewer.unlock();
+            expect(uiLockViewer.prototype.visible()).toBeFalsy();
         });
 
     });

@@ -1,4 +1,5 @@
-﻿import Repository from 'repositories/documentRepository';
+﻿import Repository from './documentRepository';
+
 import dataContext from 'dataContext';
 import guard from 'guard';
 import apiHttpWrapper from 'http/apiHttpWrapper';

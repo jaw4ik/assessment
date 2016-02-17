@@ -1,21 +1,20 @@
-﻿define(['audio/factory'], function (factory) {
+﻿import factory from './factory';
 
-    describe('[audio upload factory]', function () {
+describe('[audio upload factory]', function () {
 
-        describe('create:', function () {
+    describe('create:', function () {
 
-            it('should be function', function () {
-                expect(factory.create).toBeFunction();
+        it('should be function', function () {
+            expect(factory.create).toBeFunction();
+        });
+
+        it('should return an instance of UploadAudioModel', function () {
+            var model = factory.create({
+                name: 'sample.wav'
             });
-
-            it('should return an instance of UploadAudioModel', function () {
-                var model = factory.create({
-                    name: 'sample.wav'
-                });
-                expect(model).toBeDefined();
-            });
-
+            expect(model).toBeDefined();
         });
 
     });
-})
+
+});

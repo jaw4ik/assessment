@@ -1,4 +1,5 @@
-﻿import CourseBrief from 'viewmodels/learningPaths/learningPath/courseBrief';
+﻿import CourseBrief from './courseBrief';
+
 import app from 'durandal/app';
 import constants from 'constants';
 import router from 'plugins/router';

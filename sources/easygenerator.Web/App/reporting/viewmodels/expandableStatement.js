@@ -1,5 +1,4 @@
-﻿import co from 'co';
-import userContext from 'userContext';
+﻿import userContext from 'userContext';
 import upgradeDialog from 'widgets/upgradeDialog/viewmodel';
 import constants from 'constants';
 
@@ -12,28 +11,24 @@ export default class {
         this.hasScore = this.lrsStatement.score != null;
     }
 
-    expand() {
-        return co.call(this, function*() {
-            const data = yield this.load();
-            return data && this.isExpanded(true);
-        });
+    async expand() {
+        let data = await this.load();
+        return data && this.isExpanded(true);
     }
 
-    load() {
-        return co.call(this, function*() {
-            if (!userContext.hasPlusAccess()) {
-                upgradeDialog.show(constants.dialogs.upgrade.settings.extendedResults);
-                return false;
-            }
-            if (!this.isExpandable) {
-                return false;
-            }
-            if (this.children === null || this.children().length) {
-                return true;
-            }
-            yield this.expandLoadAction();
+    async load() {
+        if (!userContext.hasPlusAccess()) {
+            upgradeDialog.show(constants.dialogs.upgrade.settings.extendedResults);
+            return false;
+        }
+        if (!this.isExpandable) {
+            return false;
+        }
+        if (this.children === null || this.children().length) {
             return true;
-        });
+        }
+        await this.expandLoadAction();
+        return true;
     }
 
     collapse() {
