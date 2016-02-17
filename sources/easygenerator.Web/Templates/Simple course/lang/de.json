@@ -5,10 +5,10 @@
     "[cancel, continue course]": "Abbrechen",
     "[finish course popup first remark]": "Ihr Endergebnis wird übermittelt",
     "[finish course popup second remark]": "Ihr derzeitiger Lernfortschritt wird nicht wiederhergestellt, wenn Sie den Kurs das nächste Mal öffnen.",
-    "[finish course submit first remark]": "- Your final score will be reported",
-    "[finish course submit second remark]": "- You will not be able to continue the course later",
-    "[finish course take brake first remark]": "- You can reopen the course anytime you want and continue where you left of",
-    "[finish course take brake second remark]": "- Use the same browser to continue the course",
+    "[finish course submit first remark]": "- Ihr Endergebnis wird gemeldet",
+    "[finish course submit second remark]": "- Sie können den Kurs später nicht fortsetzen",
+    "[finish course take brake first remark]": "- Sie können den Kurs jederzeit neu öffnen und dort fortfahren, wo Sie aufgehört haben",
+    "[finish course take brake second remark]": "- Verwenden Sie denselben Browser, um den Kurs fortsetzen zu können",
     "[learning objectives]": "Lernziele:",
     "[start]": "Start",
     "[home]": "Startseite",
@@ -74,7 +74,7 @@
     "[Save, I will continue later]": "Speichern, ich werde später fortfahren",
     "[OK, submit results]": "Ich bin fertig; meinen Fortschritt übermitteln",
     "[Overall progress]": "Gesamtfortschritt",
-    "[OK, close course]": "OK, close course",
-    "[take a brake]": "Take a break",
-    "[note that]": "Note that:"
+    "[OK, close course]": "OK, Kurs schließen",
+    "[take a brake]": "Machen Sie eine Pause",
+    "[note that]": "Beachten Sie, dass:"
 }

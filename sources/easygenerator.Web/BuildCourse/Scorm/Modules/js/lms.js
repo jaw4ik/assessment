@@ -16,8 +16,6 @@
             if (self.initialized) {
                 if (window.addEventListener) {
                     window.addEventListener('unload', self.apiWrapper.doLMSFinish);
-                } else if (window.attachEvent) {
-                    window.attachEvent('onunload', self.apiWrapper.doLMSFinish);
                 }
             }
         },
@@ -45,14 +43,14 @@
 
     function saveProgress(progress) {
         var progressResult = self.apiWrapper.doLMSSetValue("cmi.suspend_data", JSON.stringify(progress)) == "true";
-		var statusResult = self.apiWrapper.doLMSSetValue("cmi.core.lesson_status", "incomplete") == "true";
-		var result = progressResult && statusResult;
+        var statusResult = self.apiWrapper.doLMSSetValue("cmi.core.lesson_status", "incomplete") == "true";
+        var result = progressResult && statusResult;
         if (result) {
-            console.log('Progress was saved');
+            //console.log('Progress was saved');
             //console.dir(progress);
-			
-			self.apiWrapper.doLMSSetValue("cmi.core.exit", "suspend");
-			self.apiWrapper.doLMSCommit();
+
+            self.apiWrapper.doLMSSetValue("cmi.core.exit", "suspend");
+            self.apiWrapper.doLMSCommit();
         }
         return result;
     }
@@ -80,6 +78,12 @@
         self.apiWrapper.doLMSSetValue("cmi.core.lesson_status", getValue(course.isCompleted) ? "passed" : "failed");
 
         self.apiWrapper.doLMSCommit();
+
+        self.apiWrapper.doLMSFinish();
+
+        if (window.removeEventListener) {
+            window.removeEventListener('unload', self.apiWrapper.doLMSFinish);
+        }
     }
 
     function getApiWrapper() {
