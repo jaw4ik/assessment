@@ -119,6 +119,20 @@ namespace easygenerator.Web.Controllers
         [Route("storage/image/upload")]
         public ActionResult Upload(HttpPostedFileBase file)
         {
+            return UploadImage(file);
+        }
+
+        [NoCache]
+        [HttpPost]
+        [Scope("api")]
+        [Route("storage/image/serverupload")]
+        public ActionResult Upload()
+        {
+            return UploadImage(Request.Files[0]);
+        }
+
+        private ActionResult UploadImage(HttpPostedFileBase file)
+        {
             if (file == null || String.IsNullOrEmpty(file.FileName) || file.ContentLength == 0)
             {
                 return BadRequest();
@@ -173,6 +187,7 @@ namespace easygenerator.Web.Controllers
 
             return JsonSuccess();
         }
+
 
     }
 }

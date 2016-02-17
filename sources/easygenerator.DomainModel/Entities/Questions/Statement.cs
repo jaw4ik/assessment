@@ -8,6 +8,9 @@ namespace easygenerator.DomainModel.Entities.Questions
     {
         public Statement() { }
 
+        public Statement(string title, string createdBy)
+            : base(title, createdBy) { }
+
         public Statement(string title, string defaultStatementText, string createdBy)
             : base(title, createdBy)
         {

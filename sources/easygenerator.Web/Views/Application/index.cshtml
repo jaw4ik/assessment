@@ -98,6 +98,12 @@
             window.playerUrl = '@ConfigurationManager.AppSettings["PlayerUrl"]';
             </text>
         }
+        @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["WinToWebConvertionServiceUrl"]))
+        {
+            <text>
+            window.winToWebConvertionServiceUrl = '@ConfigurationManager.AppSettings["WinToWebConvertionServiceUrl"]';
+            </text>
+        }
     </script>
 
     <script type="text/javascript" src="/Scripts/vendor/system.js"></script>

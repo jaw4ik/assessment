@@ -1,0 +1,51 @@
+﻿<section class="win-to-web-container">
+    <div class="wtw-upload-container">
+        <h2 class="wtw-header">Import course from Windows version</h2>
+        <div class="wtw-upload">
+            <button class="btn green" data-bind="browse: { accept: '.zip', callback: uploadPackage.bind($root) }, css: { progress: isUploading, disabled: isUploading }">
+                <!-- ko ifnot: isUploading -->
+                <span class="wtw-upload-btn-text">Upload</span>
+                <!-- /ko -->
+                <!-- ko if: isUploading -->
+                <span class="wtw-upload-btn-text">Uploading...</span>
+                <!-- /ko -->
+            </button>
+        </div>
+    </div>
+    <div class="wtw-info-container">
+        <h2 class="wtw-header">Overview</h2>
+        <h3 class="wtw-header">What will be imported:</h3>
+        <ul class="wtw-info-list">
+            <li>Course title</li>
+            <li>Chapters (as sections)</li>
+            <li>Pages with content in a chapter (as content items; NOTE: without its layout formatting)</li>
+            <li>Questions in a chapter (as questions in a correspondent section)</li>
+            <li>
+                Supported question types:
+                <ul class="wtw-info-list">
+                    <li>Single choice</li>
+                    <li>Multiple choice</li>
+                    <li>Single choice image (NOTE: only one answer will be marked as the correct)</li>
+                    <li>Fill in the blanks (NOTE: only one correct item in a dropdown will be marked as the correct)</li>
+                    <li>Text matching</li>
+                    <li>Statement</li>
+                    <li>Hotspot question</li>
+                    <li>Open question</li>
+                </ul>
+            </li>
+            <li>Order of the sections will match the order of the imported chapters</li>
+            <li>Order of the questions and content items in a section will match the order of the imported slides/pages in an appropriate chapter</li>
+            <li>Question feedback</li>
+            <li>Supported content format: text with basic formatting, images</li>
+        </ul>
+        <h3 class="wtw-header">What will NOT be imported:</h3>
+        <ul class="wtw-info-list">
+            <li>Video and audio files from the library</li>
+            <li>Glossary links</li>
+            <li>Navigation rules and internal links</li>
+            <li>Adaptive dashboard and learning objectives from</li>
+            <li>Question types: ranking text, ranking image, drag and drop image, likert (NOTE: they will be imported as content items with appropriate content)</li>
+            <li>Course preferences (mastery score, xAPI settings, language settings)</li>
+        </ul>
+</div>
+</section>

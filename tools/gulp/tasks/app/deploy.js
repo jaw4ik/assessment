@@ -1,11 +1,14 @@
-var gulp = require('gulp'),
-    has = require('gulp-has'),
-	uglify = require('gulp-uglify'),
-    del = require('del'),
-    args = require('yargs').argv,
-    runSequence = require('run-sequence'),
-    xmlpoke = require('xmlpoke'),
-    buildUtils = require('../build-utils')();
+import gulp from 'gulp';
+import del from 'del';
+import yargs from 'yargs';
+import runSequence from 'run-sequence';
+import buildUtilsModule from '../build-utils';
+import has from 'gulp-has';
+import uglify from 'gulp-uglify';
+import xmlpoke from 'xmlpoke';
+
+var args = yargs.argv;
+var buildUtils = buildUtilsModule();
 
 var outputDirectory = args.output || 'D:/Applications/easygenerator',
     instance = args.instance || 'Release',

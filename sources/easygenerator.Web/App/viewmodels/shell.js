@@ -227,6 +227,11 @@
                             }
                         },
                         {
+                            route: 'wintoweb',
+                            moduleId: 'wintoweb/index',
+                            title: 'Coverter from windows edition to web'
+                        },
+                        {
                             route: '404',
                             moduleId: 'viewmodels/errors/404',
                             title: '404 Not Found'

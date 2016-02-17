@@ -1,0 +1,9 @@
+﻿{
+    "morgan": "dev",
+    "supportedArchivesType": [ "zip" ],
+    "API_KEY": [ "ec0bd65a-222c-4b19-a32c-2a2cbd2eb3b8" ],
+    "TEMP_FOLDER": "D:\\TEMP\\WinToWebConverter\\",
+    "EG_DOMEN": "http://staging.easygenerator.com",
+    "UPLOAD_IMAGE_API": "/storage/image/serverupload",
+    "IMPORT_COURSE_API": "/api/course/import/wintoweb"
+}
