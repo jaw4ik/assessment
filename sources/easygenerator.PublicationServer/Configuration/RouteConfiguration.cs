@@ -15,8 +15,8 @@ namespace easygenerator.PublicationServer.Configuration
               constraints: new { courseId = config.DependencyResolver.GetService(typeof(MaintenanceRouteConstraint)) }
             );
 
-            var constraintResolver = new DefaultInlineConstraintResolver();
-            constraintResolver.ConstraintMap.Add("seofragment", typeof(EscapedFragmentRouteConstraint));
+            var constraintResolver = new InlineConstraintResolver(config.DependencyResolver);
+            constraintResolver.ConstraintMap.Add("searchCrawler", typeof(SearchCrawlerRouteConstraint));
 
             config.MapHttpAttributeRoutes(constraintResolver);
         }

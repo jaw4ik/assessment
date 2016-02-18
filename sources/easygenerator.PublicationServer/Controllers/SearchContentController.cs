@@ -28,7 +28,7 @@ namespace easygenerator.PublicationServer.Controllers
             _contentProvider = contentProvider;
         }
 
-        [Route(Constants.PublicPublicationsPath + "/{publicPath:seofragment}/{*resourcePath}", Order = 20)]
+        [Route(Constants.PublicPublicationsPath + "/{publicPath:searchCrawler}/{*resourcePath}", Order = 20)]
         [HttpGet]
         public HttpResponseMessage SearchContent(string publicPath, string resourcePath)
         {
@@ -88,7 +88,7 @@ namespace easygenerator.PublicationServer.Controllers
 
         private Guid GetPublicationIdFromRequest(HttpRequestMessage request)
         {
-            var referrer = Request.Headers.Referrer;
+            var referrer = request.Headers.Referrer;
             if (referrer != null)
             {
                 var publicationPublicPath =
@@ -120,7 +120,7 @@ namespace easygenerator.PublicationServer.Controllers
                     }
                 };
             }
-            return new HttpResponseMessage(HttpStatusCode.NotFound);
+            return new HtmlPageResponseMessage("404.html", _contentProvider, HttpStatusCode.NotFound);
         }
     }
 }

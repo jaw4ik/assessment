@@ -130,8 +130,9 @@
     <Compile Include="Configuration\RouteConfiguration.cs" />
     <Compile Include="Configuration\StaticFilesConfiguration.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Constraints\InlineConstraintResolver.cs" />
     <Compile Include="Constraints\MaintenanceRouteConstraint.cs" />
-    <Compile Include="Constraints\EscapedFragmentRouteConstraint.cs" />
+    <Compile Include="Constraints\SearchCrawlerRouteConstraint.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\RobotsController.cs" />
     <Compile Include="Controllers\SearchContentController.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="Publish\PublishDispatcher.cs" />
     <Compile Include="StaticViewContentProvider.cs" />
     <Compile Include="MultipartFormData\CourseMultipartFormDataStreamProvider.cs" />
+    <Compile Include="Utils\SearchCrawlerDetector.cs" />
     <Compile Include="ViewModels\UserInfoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

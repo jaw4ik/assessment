@@ -67,7 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constraints\MaintenanceRouteConstraintTests.cs" />
-    <Compile Include="Constraints\EscapedFragmentRouteConstraintTests.cs" />
+    <Compile Include="Constraints\SearchCrawlerRouteConstraintTests.cs" />
     <Compile Include="Controllers\PublishControllerTests.cs" />
     <Compile Include="Controllers\UserControllerTests.cs" />
     <Compile Include="Models\PublicationTests.cs" />
