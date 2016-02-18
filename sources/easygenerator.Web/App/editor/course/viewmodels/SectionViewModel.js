@@ -9,6 +9,7 @@ import constants from 'constants';
 import QuestionViewModel from './QuestionViewModel';
 import sectionRepository from 'repositories/objectiveRepository';
 import updateSectionTitleCommand from '../commands/updateSectionTitleCommand';
+import updateSectionLearningObjectiveCommand from '../commands/updateSectionLearningObjectiveCommand';
 
 let mapQuestions = (courseId, sectionId, questions) => _.map(questions, question => mapQuestion(courseId, sectionId, question));
 
@@ -16,16 +17,18 @@ let mapQuestion = (courseId, sectionId, question) => new QuestionViewModel(cours
 
 let updateModifiedOn = modifiedOn => moment(modifiedOn).format('DD/MM/YY');
 
-let _sectionTitleUpdated = new WeakMap();
-let _sectionImageUrlUpdated = new WeakMap();
-let _questionTitleUpdated = new WeakMap();
-let _questionDeleted = new WeakMap();
-let _questionCreated = new WeakMap();
-let _questionsReordered = new WeakMap();
+var _sectionTitleUpdated = new WeakMap();
+var _sectionLearningObjectiveUpdated = new WeakMap();
+var _sectionImageUrlUpdated = new WeakMap();
+var _questionTitleUpdated = new WeakMap();
+var _questionDeleted = new WeakMap();
+var _questionCreated = new WeakMap();
+var _questionsReordered = new WeakMap();
 
 const eventCategory = 'Course editor (drag and drop)';
 const events = {
     updateTitle: 'Update objective title',
+    defineLearningOjective: 'Define learning objective for a section',
     openChangeObjectiveImageDialog: 'Open "change objective image" dialog'
 }
 
@@ -41,6 +44,14 @@ export default class SectionViewModel{
         this.title.maxLength = constants.validation.objectiveTitleMaxLength;
         this.title.isValid = ko.computed(() => this.title().trim().length <= this.title.maxLength, this);
         this.title.isEmpty = ko.computed(() => this.title().trim().length === 0, this);
+        this.learningObjective = ko.observable(section.learningObjective || '');
+        this.learningObjective.isEditing = ko.observable(false);
+        this.learningObjective.isSelected = ko.observable(false);
+        this.learningObjective.maxLength = constants.validation.objectiveTitleMaxLength;
+        this.learningObjective.isValid = ko.computed(() => this.learningObjective().trim().length <= this.learningObjective.maxLength, this);
+        this.learningObjective.isEmpty = ko.computed(() => this.learningObjective().trim().length === 0, this);
+        this.learningObjective.isVisible = ko.observable(false);
+        this.originalLearningObjective = this.learningObjective();
         this.createdBy = section.createdBy;
         this.originalTitle = this.title();
         this.modifiedOn = ko.observable(section.modifiedOn ? updateModifiedOn(section.modifiedOn) : '');
@@ -58,6 +69,14 @@ export default class SectionViewModel{
                 return;
             }
             this.title(section.title);
+            this.modifiedOn(updateModifiedOn(section.modifiedOn));
+        });
+
+        _sectionLearningObjectiveUpdated.set(this, section => {
+            if (section.id !== this.id() || this.learningObjective.isEditing()) {
+                return;
+            }
+            this.learningObjective(section.learningObjective);
             this.modifiedOn(updateModifiedOn(section.modifiedOn));
         });
 
@@ -106,6 +125,7 @@ export default class SectionViewModel{
         });
 
         app.on(constants.messages.objective.titleUpdatedByCollaborator, _sectionTitleUpdated.get(this).bind(this));
+        app.on(constants.messages.objective.learningObjectiveUpdatedByCollaborator, _sectionLearningObjectiveUpdated.get(this).bind(this));
         app.on(constants.messages.objective.imageUrlUpdatedByCollaborator, _sectionImageUrlUpdated.get(this).bind(this));
         app.on(constants.messages.question.titleUpdatedByCollaborator, _questionTitleUpdated.get(this).bind(this));
         app.on(constants.messages.question.deletedByCollaborator, _questionDeleted.get(this).bind(this));
@@ -132,10 +152,34 @@ export default class SectionViewModel{
         }
         this.justCreated(false);
     }
+    startEditingLearningObjective() {
+        this.learningObjective.isEditing(true);
+    }
+    async stopEditingLearningObjective() {
+        eventTracker.publish(events.defineLearningOjective, eventCategory);
+        this.learningObjective.isEditing(false);
+        this.learningObjective.isSelected(false);
+        this.learningObjective(this.learningObjective().trim());
+        if (this.learningObjective.isValid() && this.learningObjective() !== this.originalLearningObjective) {
+            await updateSectionLearningObjectiveCommand.execute(this.id(), this.learningObjective());
+            this.originalLearningObjective = this.learningObjective();
+            notify.saved();
+        } else {
+            this.learningObjective(this.originalLearningObjective);
+        }
+    }
+    toggleLearningObjectiveVisibility() {
+        if (this.learningObjective.isEmpty() && !this.learningObjective.isVisible()) {
+            this.learningObjective.isSelected(true);
+        }
+        this.learningObjective.isVisible(!this.learningObjective.isVisible());
+    }
     updateFields(section) {
         this.id(section.id);
         this.title(section.title);
         this.originalTitle = this.title();
+        this.learningObjective(section.learningObjective || '');
+        this.originalLearningObjective = this.learningObjective();
         this.modifiedOn(updateModifiedOn(section.modifiedOn));
         this.image(section.image);
         this.questions(mapQuestions(this.id(), section.questions));

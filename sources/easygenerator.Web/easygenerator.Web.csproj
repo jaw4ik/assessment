@@ -863,6 +863,7 @@
     <Content Include="App\editor\course\commands\reorderSectionCommand.js" />
     <Content Include="App\editor\course\commands\unrelateSectionCommand.js" />
     <Content Include="App\editor\course\commands\updateQuestionTitleCommand.js" />
+    <Content Include="App\editor\course\commands\updateSectionLearningObjectiveCommand.js" />
     <Content Include="App\editor\course\commands\updateSectionTitleCommand.js" />
     <Content Include="App\editor\course\components\attributesHelper.js" />
     <Content Include="App\editor\course\components\dragulaAnimation.js" />
@@ -1083,6 +1084,10 @@
       <DependentUpon>deleted.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\comment\handler.js" />
+    <Content Include="App\synchronization\handlers\objective\eventHandlers\learningObjectiveUpdated.js" />
+    <Content Include="App\synchronization\handlers\objective\eventHandlers\learningObjectiveUpdated.spec.js">
+      <DependentUpon>learningObjectiveUpdated.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\comment\handler.spec.js">
       <DependentUpon>handler.js</DependentUpon>
     </Content>

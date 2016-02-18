@@ -183,6 +183,7 @@ function runSpecs(env) {
                 'synchronization/handlers/objective/eventHandlers/titleUpdated.spec',
                 'synchronization/handlers/objective/eventHandlers/imageUrlUpdated.spec',
                 'synchronization/handlers/objective/eventHandlers/questionsReordered.spec',
+                'synchronization/handlers/objective/eventHandlers/learningObjectiveUpdated.spec',
                 'synchronization/handlers/collaboration/handler.spec',
                 'synchronization/handlers/collaboration/eventHandlers/started.spec',
                 'synchronization/handlers/collaboration/eventHandlers/finished.spec',

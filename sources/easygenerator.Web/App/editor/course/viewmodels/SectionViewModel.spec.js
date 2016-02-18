@@ -8,11 +8,13 @@ import sectionRepository from 'repositories/objectiveRepository';
 import updateSectionTitleCommand from '../commands/updateSectionTitleCommand';
 import notify from 'notify';
 import QuestionViewModel from './QuestionViewModel';
+import updateSectionLearningObjectiveCommand from '../commands/updateSectionLearningObjectiveCommand';
 
 var eventCategory = 'Course editor (drag and drop)';
 
 var events = {
     updateTitle: 'Update objective title',
+    defineLearningOjective: 'Define learning objective for a section',
     openChangeObjectiveImageDialog: 'Open "change objective image" dialog'
 };
 
@@ -29,7 +31,8 @@ describe('[SectionViewModel]', () => {
             title: 'sectionTitle',
             image: 'imageUrl',
             modifiedOn: new Date(),
-            questions: []
+            questions: [],
+            learningObjective: 'learningObjective'
         };
         isProcessed = false;
         sectionViewModel = new SectionViewModel(courseId, section, isProcessed);
@@ -44,6 +47,10 @@ describe('[SectionViewModel]', () => {
         expect(sectionViewModel.title.isEditing()).toBeFalsy();
         expect(sectionViewModel.title.maxLength).toBe(constants.validation.objectiveTitleMaxLength);
         expect(sectionViewModel.originalTitle).toBe(section.title);
+        expect(sectionViewModel.learningObjective()).toBe(section.learningObjective);
+        expect(sectionViewModel.learningObjective.isEditing()).toBeFalsy();
+        expect(sectionViewModel.learningObjective.maxLength).toBe(constants.validation.objectiveTitleMaxLength);
+        expect(sectionViewModel.originalLearningObjective).toBe(section.learningObjective);
         expect(sectionViewModel.modifiedOn()).toBe(moment(section.modifiedOn).format('DD/MM/YY'));
         expect(sectionViewModel.image()).toBe(section.image);
         expect(sectionViewModel.imageLoading()).toBeFalsy();
@@ -55,6 +62,9 @@ describe('[SectionViewModel]', () => {
         expect(sectionViewModel.startEditingTitle).toBeFunction();
         expect(sectionViewModel.stopEditingTitle).toBeFunction();
         expect(sectionViewModel.updateFields).toBeFunction();
+        expect(sectionViewModel.startEditingLearningObjective).toBeFunction();
+        expect(sectionViewModel.stopEditingLearningObjective).toBeFunction();
+        expect(sectionViewModel.toggleLearningObjectiveVisibility).toBeFunction();
         expect(sectionViewModel.toggleMenu).toBeFunction();
         expect(sectionViewModel.toggleQuestions).toBeFunction();
         expect(sectionViewModel.updateImage).toBeFunction();
@@ -124,6 +134,68 @@ describe('[SectionViewModel]', () => {
 
     });
 
+    describe('startEditingLearningObjective:', () => {
+        
+        it('should start edit learningObjective', () => {
+            sectionViewModel.learningObjective.isEditing(false);
+            sectionViewModel.startEditingLearningObjective();
+            expect(sectionViewModel.learningObjective.isEditing()).toBeTruthy();
+        });
+
+    });
+
+    describe('stopEditingLearningObjective:', () => {
+        
+        it('should stop edit learningObjective', () => {
+            sectionViewModel.learningObjective.isEditing(true);
+            sectionViewModel.stopEditingLearningObjective();
+            expect(sectionViewModel.learningObjective.isEditing()).toBeFalsy();
+        });
+
+        it(`should send event ${events.defineLearningOjective}`, () => {
+            sectionViewModel.stopEditingLearningObjective();
+            expect(eventTracker.publish).toHaveBeenCalledWith(events.defineLearningOjective, eventCategory);
+        });
+
+        describe('when learningObjective is not valid', () => {
+
+            it('should return previous learningObjective', () => {
+                sectionViewModel.learningObjective('Test title Test title Test title Test title Test title Test title Test title Test title Test title Test title Test title Test title Test title Test title Test title Test title Test title Test title Test title Test title Test title Test title Test title Test title Test title Test title Test title Test title Test title ');
+                sectionViewModel.stopEditingLearningObjective();
+                expect(sectionViewModel.learningObjective()).toBe(sectionViewModel.originalLearningObjective);
+            });
+
+        });
+
+        describe('when learningObjective is valid', () => {
+
+            beforeEach(() => {
+                spyOn(updateSectionLearningObjectiveCommand, 'execute');
+            });
+
+            it('should call update title command', () => {
+                sectionViewModel.learningObjective('new section title');
+                sectionViewModel.stopEditingLearningObjective();
+                expect(updateSectionLearningObjectiveCommand.execute).toHaveBeenCalledWith(sectionViewModel.id(), sectionViewModel.learningObjective());
+            });
+
+            it('should update originalLearningObjective', done => (async () => {
+                sectionViewModel.learningObjective('new section title');
+                sectionViewModel.originalLearningObjective = 'das';
+                await sectionViewModel.stopEditingLearningObjective();
+                expect(sectionViewModel.originalLearningObjective).toBe(sectionViewModel.learningObjective());
+            })().then(done));
+
+            it('should call notify saved', done => (async () => {
+                sectionViewModel.learningObjective('new section title');
+                await sectionViewModel.stopEditingLearningObjective();
+                expect(notify.saved).toHaveBeenCalled();
+            })().then(done));
+
+        });
+
+    });
+
     describe('updateFields:', () => {
 
         it('should update section viewModel', () => {
@@ -132,7 +204,8 @@ describe('[SectionViewModel]', () => {
                 title: 'newsectionTitle',
                 image: 'newimageUrl',
                 modifiedOn: new Date(),
-                questions: []
+                questions: [],
+                learningObjective: ''
             };
             sectionViewModel.updateFields(newSection);
             expect(sectionViewModel.id()).toBe(newSection.id);

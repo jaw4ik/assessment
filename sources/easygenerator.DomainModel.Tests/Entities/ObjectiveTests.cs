@@ -266,6 +266,86 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
+        #region UpdateLearningObjective
+
+        [TestMethod]
+        public void UpdateLearningObjective_ShouldThrowArgumentOutOfRangeException_WhenLearningObjectiveIsLongerThan255()
+        {
+            var objective = ObjectiveObjectMother.Create();
+
+            Action action = () => objective.UpdateLearningObjective(new string('*', 256), ModifiedBy);
+
+            action.ShouldThrow<ArgumentOutOfRangeException>().And.ParamName.Should().Be("Learning objective");
+        }
+
+        [TestMethod]
+        public void UpdateLearningObjective_ShouldUpdateLearningObjective()
+        {
+            const string learningObjective = "Learning objective";
+            var objective = ObjectiveObjectMother.Create();
+
+            objective.UpdateLearningObjective(learningObjective, ModifiedBy);
+
+            objective.LearningObjective.Should().Be(learningObjective);
+        }
+
+        [TestMethod]
+        public void UpdateLearningObjective_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            var objective = ObjectiveObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            objective.UpdateLearningObjective("learningObjective", ModifiedBy);
+
+            objective.ModifiedOn.Should().Be(dateTime);
+        }
+
+        [TestMethod]
+        public void UpdateLearningObjective_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var objective = ObjectiveObjectMother.Create();
+
+            Action action = () => objective.UpdateLearningObjective("learningObjective", null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateLearningObjective_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var objective = ObjectiveObjectMother.Create();
+
+            Action action = () => objective.UpdateLearningObjective("learningObjective", string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateLearningObjective_ShouldUpdateMoidifiedBy()
+        {
+            var objective = ObjectiveObjectMother.Create();
+            var user = "Some user";
+
+            objective.UpdateLearningObjective("learningObjective", user);
+
+            objective.ModifiedBy.Should().Be(user);
+        }
+
+        [TestMethod]
+        public void UpdateLearningObjective_ShouldAddObjectiveLearningObjectiveUpdatedEvent()
+        {
+            var objective = ObjectiveObjectMother.Create();
+
+            objective.UpdateLearningObjective("title", "user");
+
+            objective.Events.Should().ContainSingle(e => e.GetType() == typeof(ObjectiveLearningObjectiveUpdatedEvent));
+        }
+
+        #endregion
+
         #region Add question
 
         [TestMethod]

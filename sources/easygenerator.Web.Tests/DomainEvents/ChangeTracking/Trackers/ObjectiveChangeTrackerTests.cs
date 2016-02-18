@@ -47,6 +47,16 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
         }
 
         [TestMethod]
+        public void Handler_ObjectiveLearningObjectiveUpdated_Should_Publish_ObjectiveChangedEvent()
+        {
+            //Act
+            _tracker.Handle(new ObjectiveLearningObjectiveUpdatedEvent(ObjectiveObjectMother.Create()));
+
+            //Assert
+            _publisher.ShouldPublishEvent<ObjectiveChangedEvent>();
+        }
+
+        [TestMethod]
         public void Handler_QuestionsReordered_Should_Publish_ObjectiveChangedEvent()
         {
             //Act

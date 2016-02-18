@@ -8,6 +8,7 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
     public class ObjectiveChangeTracker :
         IDomainEventHandler<ObjectiveImageUrlUpdatedEvent>,
         IDomainEventHandler<ObjectiveTitleUpdatedEvent>,
+        IDomainEventHandler<ObjectiveLearningObjectiveUpdatedEvent>,
         IDomainEventHandler<QuestionsReorderedEvent>,
         IDomainEventHandler<QuestionsDeletedEvent>
     {
@@ -26,6 +27,11 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         }
 
         public void Handle(ObjectiveTitleUpdatedEvent args)
+        {
+            RaiseObjectiveChangedEvent(args.Objective);
+        }
+
+        public void Handle(ObjectiveLearningObjectiveUpdatedEvent args)
         {
             RaiseObjectiveChangedEvent(args.Objective);
         }

@@ -8,6 +8,7 @@
 
             this.title = spec.title;
             this.image = spec.image;
+            this.learningObjective = spec.learningObjective;
             this.questions = spec.questions;
             this.createdBy = spec.createdBy;
         };

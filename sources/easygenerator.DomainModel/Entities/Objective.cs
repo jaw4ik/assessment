@@ -49,6 +49,19 @@ namespace easygenerator.DomainModel.Entities
             RaiseEvent(new ObjectiveImageUrlUpdatedEvent(this));
         }
 
+        public string LearningObjective { get; private set; }
+
+        public virtual void UpdateLearningObjective(string learningObjective, string modifiedBy)
+        {
+            ThrowIfLearningObjectiveIsInvalid(learningObjective);
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            LearningObjective = learningObjective;
+            MarkAsModified(modifiedBy);
+
+            RaiseEvent(new ObjectiveLearningObjectiveUpdatedEvent(this));
+        }
+
         protected internal virtual ICollection<Course> RelatedCoursesCollection { get; set; }
 
         public virtual IEnumerable<Course> Courses
@@ -152,6 +165,11 @@ namespace easygenerator.DomainModel.Entities
         private void ThrowIfImageUrlIsInvalid(string url)
         {
             ArgumentValidation.ThrowIfNullOrEmpty(url, "imageUrl");
+        }
+
+        private void ThrowIfLearningObjectiveIsInvalid(string learningObjective)
+        {
+            ArgumentValidation.ThrowIfLongerThan255(learningObjective, "Learning objective");
         }
 
         private void ThrowIfQuestionIsInvalid(Question question)

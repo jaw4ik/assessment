@@ -9,6 +9,7 @@
             removeObjective: removeObjective,
             permanentlyDelete: permanentlyDelete,
             updateTitle: updateTitle,
+            updateLearningObjective: updateLearningObjective,
             updateImage: updateImage,
             updateQuestionsOrder: updateQuestionsOrder
         };
@@ -84,6 +85,31 @@
                     objective.modifiedOn = new Date(response.ModifiedOn);
 
                     app.trigger(constants.messages.objective.titleUpdated, objective);
+
+                    return objective.modifiedOn;
+                });
+            });
+        }
+
+        function updateLearningObjective(objectiveId, learningObjective) {
+            return Q.fcall(function () {
+                guard.throwIfNotString(objectiveId, 'Objective data has invalid format');
+                guard.throwIfNotString(learningObjective, 'Objective data has invalid format');
+
+                return apiHttpWrapper.post('api/objective/updatelearningobjective', { objectiveId: objectiveId, learningObjective: learningObjective }).then(function (response) {
+                    guard.throwIfNotAnObject(response, 'Response is not an object');
+                    guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
+
+                    var objective = _.find(dataContext.objectives, function (item) {
+                        return item.id === objectiveId;
+                    });
+
+                    guard.throwIfNotAnObject(objective, 'Objective does not exist in dataContext');
+
+                    objective.learningObjective = learningObjective;
+                    objective.modifiedOn = new Date(response.ModifiedOn);
+
+                    app.trigger(constants.messages.objective.learningObjectiveUpdated, objective);
 
                     return objective.modifiedOn;
                 });
