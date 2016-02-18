@@ -38,7 +38,7 @@ namespace easygenerator.Web.Publish
                 if (!course.BuildOn.HasValue || string.IsNullOrWhiteSpace(course.PackageUrl))
                     throw new NotSupportedException($"Publishing of non builded course is not supported. CourseId: {courseId}");
 
-                string publishMethodPath = _urlHelper.AddCurrentSchemeToUrl($"{_configurationReader.PublicationConfiguration.ServiceUrl}/api/publish/{courseId}");
+                var publishMethodPath = _urlHelper.AddCurrentSchemeToUrl($"{_configurationReader.PublicationConfiguration.ServiceUrl}/api/publish/{courseId}");
 
                 var publishedCourseUrl = _httpClient.PostFile<string>(
                         publishMethodPath,
@@ -52,6 +52,7 @@ namespace easygenerator.Web.Publish
                         headerValues: new[] {
                             new KeyValuePair<string, string>("key", _configurationReader.PublicationConfiguration.ApiKey)
                         });
+
                 course.UpdatePublicationUrl(_urlHelper.RemoveSchemeFromUrl(publishedCourseUrl));
                 return !String.IsNullOrEmpty(publishedCourseUrl);
             }

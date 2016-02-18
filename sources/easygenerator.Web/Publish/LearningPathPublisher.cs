@@ -4,7 +4,8 @@ using easygenerator.Infrastructure.Http;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.Components.Configuration;
 using System;
-using System.Web;
+using System.Collections.Generic;
+using System.Globalization;
 using easygenerator.Web.Components;
 
 namespace easygenerator.Web.Publish
@@ -34,15 +35,31 @@ namespace easygenerator.Web.Publish
             {
                 if (String.IsNullOrEmpty(learningPath.PackageUrl))
                 {
-                    throw new NotSupportedException(String.Format("Publishing of non builded learning path is not supported. LearningPathId: {0}", learningPath.Id));
+                    throw new NotSupportedException(
+                        $"Publishing of non builded learning path is not supported. LearningPathId: {learningPath.Id}");
                 }
 
                 var package = _fileManager.GetFileBytes(_pathProvider.GetBuildedPackagePath(learningPath.PackageUrl));
-                var publicationUrl = _httpClient.PostFile<string>(GetPostUrl(learningPath.Id), learningPath.Id.ToString(), package);
+                var packageId = learningPath.Id.ToString();
+
+                var publishMethodPath = _urlHelper.AddCurrentSchemeToUrl($"{_configurationReader.PublicationConfiguration.ServiceUrl}/api/publish/{packageId}");
+                var publicationUrl = _httpClient.PostFile<string>(
+                        publishMethodPath,
+                        packageId,
+                        package,
+                        formValues: new[] {
+                                            new KeyValuePair<string, string>("ownerEmail", learningPath.CreatedBy),
+                                            new KeyValuePair<string, string>("title", learningPath.Title),
+                                            new KeyValuePair<string, string>("createdDate", learningPath.CreatedOn.ToString(CultureInfo.InvariantCulture))
+                        },
+                        headerValues: new[] {
+                                            new KeyValuePair<string, string>("key", _configurationReader.PublicationConfiguration.ApiKey)
+                        });
 
                 if (String.IsNullOrEmpty(publicationUrl))
                 {
-                    throw new InvalidOperationException(String.Format("Post learning path package failed. LearningPathId: {0}", learningPath.Id));
+                    throw new InvalidOperationException(
+                        $"Post learning path package failed. LearningPathId: {learningPath.Id}");
                 }
 
                 learningPath.UpdatePublicationUrl(_urlHelper.RemoveSchemeFromUrl(publicationUrl));
@@ -57,10 +74,5 @@ namespace easygenerator.Web.Publish
             return true;
         }
 
-        private string GetPostUrl(Guid learningPathId)
-        {
-            return _urlHelper.AddCurrentSchemeToUrl(string.Format("{0}/api/publish?key={1}&courseid={2}", _configurationReader.PublicationConfiguration.ServiceUrl,
-                _configurationReader.PublicationConfiguration.ApiKey, learningPathId));
-        }
     }
 }
