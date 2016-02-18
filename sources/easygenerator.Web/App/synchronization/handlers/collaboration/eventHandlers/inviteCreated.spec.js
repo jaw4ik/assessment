@@ -1,38 +1,32 @@
-﻿define(['synchronization/handlers/collaboration/eventHandlers/inviteCreated'],
-    function (handler) {
-        "use strict";
+﻿import handler from './inviteCreated';
 
-        var
-            app = require('durandal/app'),
-            constants = require('constants')
-        ;
+import app from 'durandal/app';
+import constants from 'constants';
 
-        describe('synchronization collaboration [inviteCreated]', function () {
+describe('synchronization collaboration [inviteCreated]', function () {
 
-            beforeEach(function () {
-                spyOn(app, 'trigger');
-            });
+    beforeEach(function () {
+        spyOn(app, 'trigger');
+    });
 
 
-            it('should be function', function () {
-                expect(handler).toBeFunction();
-            });
+    it('should be function', function () {
+        expect(handler).toBeFunction();
+    });
 
-            describe('when invite is not an object', function () {
-                it('should throw an exception', function () {
-                    var f = function () {
-                        handler(undefined);
-                    };
+    describe('when invite is not an object', function () {
+        it('should throw an exception', function () {
+            var f = function () {
+                handler(undefined);
+            };
 
-                    expect(f).toThrow('Invite is not an object');
-                });
-            });
-
-            it('should trigger app event', function () {
-                var invite = {};
-                handler(invite);
-                expect(app.trigger).toHaveBeenCalledWith(constants.messages.course.collaboration.inviteCreated, invite);
-            });
+            expect(f).toThrow('Invite is not an object');
         });
+    });
 
-    })
+    it('should trigger app event', function () {
+        var invite = {};
+        handler(invite);
+        expect(app.trigger).toHaveBeenCalledWith(constants.messages.course.collaboration.inviteCreated, invite);
+    });
+});

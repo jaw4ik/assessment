@@ -45,13 +45,20 @@ gulp.task('deploy-css', function () {
         .pipe(gulp.dest(outputDirectory + '/Content'));
 });
 
-gulp.task('deploy-main-built-js', function () {
-    return gulp.src('./sources/easygenerator.Web/App/main-built.js')
+gulp.task('remove-app-sources', function (cb) {
+    del(outputDirectory + '/app', { force: true }, cb);
+});
+
+gulp.task('deploy-main-app', function () {
+    gulp.src('./sources/easygenerator.Web/app/localization/lang/**')
+        .pipe(gulp.dest(outputDirectory + '/app/localization/lang/'));
+    
+    return gulp.src('./sources/easygenerator.Web/app/main-built.js')
 		.pipe(has({
 			'release': true
         }))
 		.pipe(uglify())
-        .pipe(gulp.dest(outputDirectory + '/App'));
+        .pipe(gulp.dest(outputDirectory + '/app'));
 });
 
 gulp.task('deploy-vendor', function () {
@@ -92,7 +99,7 @@ gulp.task('clean', function (callback) {
 });
 
 gulp.task('deploy', function (cb) {
-    runSequence('build', 'deploy-download-folder', 'deploy-css', 'deploy-vendor', 'deploy-main-built-js', 'deploy-web-config', 'remove-extra-files', 'add-version', 'run-unit-tests', function () {
+    runSequence('build', /*'run-unit-tests', */'deploy-download-folder', 'deploy-css', 'deploy-vendor', 'remove-app-sources', 'deploy-main-app', 'deploy-web-config', 'remove-extra-files', 'add-version', function () {
         if (createTags) {
             runSequence('create-tags', cb);
         } else {

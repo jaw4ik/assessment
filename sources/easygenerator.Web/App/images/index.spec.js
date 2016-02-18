@@ -1,10 +1,11 @@
-﻿import * as getImages from './queries/getImages.js';
+﻿import viewModel from './index.js';
+
+import * as getImages from './queries/getImages.js';
 import imageUpload from 'imageUpload.js';
 import * as deleteImage from './commands/deleteImage.js';
 import Image from './image.js';
 import notify from 'notify.js';
 import preview from './preview/index.js'
-import viewModel from './index.js';
 import eventTracker from 'eventTracker';
 
 describe('[images]', () => {

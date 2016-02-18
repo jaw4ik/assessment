@@ -1,100 +1,94 @@
-﻿define(['widgets/notifyViewer/viewmodel'], function (viewModel) {
-    "use strict";
+﻿import viewModel from './viewmodel';
 
-    var 
-        app = require('durandal/app'),
-        constants = require('constants');
+describe('viewmodel [notifyViewer]', function () {
 
-    describe('viewmodel [notifyViewer]', function () {
+    it('should be defined', function () {
+        expect(viewModel).toBeDefined();
+    });
 
-        it('should be defined', function () {
-            expect(viewModel).toBeDefined();
+    describe('notifications:', function () {
+
+        it('should be observable array', function() {
+            expect(viewModel.notifications).toBeObservableArray();
         });
 
-        describe('notifications:', function () {
+    });
 
-            it('should be observable array', function() {
-                expect(viewModel.notifications).toBeObservableArray();
+    describe('enabled:', function () {
+
+        it('should be observable', function () {
+            expect(viewModel.enabled).toBeObservable();
+        });
+
+    });
+
+    describe('moved:', function () {
+
+        it('should be observable', function () {
+            expect(viewModel.moved).toBeObservable();
+        });
+
+    });
+
+    describe('addNotice:', function () {
+
+        it('should be function', function () {
+            expect(viewModel.addNotice).toBeFunction();
+        });
+
+        beforeEach(function () {
+            spyOn($.fn, 'hide').and.returnValue($.fn);
+            spyOn($.fn, 'fadeIn').and.returnValue($.fn);
+            spyOn($.fn, 'delay').and.returnValue($.fn);
+            spyOn($.fn, 'fadeOut').and.returnValue($.fn);
+            spyOn($.fn, 'remove').and.returnValue($.fn);
+        });
+
+        var notice = { nodeType: null };
+
+        describe('when node type is not 1', function () {
+
+            beforeEach(function() {
+                notice.nodeType = 0;
+            });
+
+            it('should not show notice', function () {
+                viewModel.addNotice(notice);
+                expect($.fn.hide).not.toHaveBeenCalled();
+                expect($.fn.fadeIn).not.toHaveBeenCalled();
             });
 
         });
 
-        describe('enabled:', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.enabled).toBeObservable();
-            });
-
-        });
-
-        describe('moved:', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.moved).toBeObservable();
-            });
-
-        });
-
-        describe('addNotice:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.addNotice).toBeFunction();
-            });
+        describe('when node type is 1', function () {
 
             beforeEach(function () {
-                spyOn($.fn, 'hide').and.returnValue($.fn);
-                spyOn($.fn, 'fadeIn').and.returnValue($.fn);
-                spyOn($.fn, 'delay').and.returnValue($.fn);
-                spyOn($.fn, 'fadeOut').and.returnValue($.fn);
-                spyOn($.fn, 'remove').and.returnValue($.fn);
+                notice.nodeType = 1;
             });
 
-            var notice = { nodeType: null };
+            it('should hide notice', function () {
 
-            describe('when node type is not 1', function () {
+                viewModel.addNotice(notice);
 
-                beforeEach(function() {
-                    notice.nodeType = 0;
-                });
-
-                it('should not show notice', function () {
-                    viewModel.addNotice(notice);
-                    expect($.fn.hide).not.toHaveBeenCalled();
-                    expect($.fn.fadeIn).not.toHaveBeenCalled();
-                });
-
+                expect($.fn.hide).toHaveBeenCalled();
             });
 
-            describe('when node type is 1', function () {
+            it('should fade in item', function () {
+                viewModel.addNotice(notice);
 
-                beforeEach(function () {
-                    notice.nodeType = 1;
-                });
+                expect($.fn.fadeIn).toHaveBeenCalled();
+            });
 
-                it('should hide notice', function () {
+            it('should fade out in 7 seconds', function () {
+                jasmine.clock().uninstall();
+                jasmine.clock().install();
 
-                    viewModel.addNotice(notice);
+                viewModel.addNotice(notice);
+                jasmine.clock().tick(8000);
 
-                    expect($.fn.hide).toHaveBeenCalled();
-                });
+                expect($.fn.fadeOut).toHaveBeenCalled();
 
-                it('should fade in item', function () {
-                    viewModel.addNotice(notice);
-
-                    expect($.fn.fadeIn).toHaveBeenCalled();
-                });
-
-                it('should fade out in 7 seconds', function () {
-                    jasmine.clock().install();
-
-                    viewModel.addNotice(notice);
-                    jasmine.clock().tick(8000);
-
-                    expect($.fn.fadeOut).toHaveBeenCalled();
-
-                    jasmine.clock().uninstall();
-                });
-
+                jasmine.clock().uninstall();
             });
 
         });

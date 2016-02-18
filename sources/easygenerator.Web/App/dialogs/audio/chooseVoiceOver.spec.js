@@ -1,4 +1,4 @@
-﻿import viewModel from 'dialogs/audio/chooseVoiceOver';
+﻿import viewModel from './chooseVoiceOver';
 
 import ko from 'knockout';
 import constants from 'constants';

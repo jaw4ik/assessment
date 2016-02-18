@@ -1,12 +1,11 @@
-﻿import app from 'durandal/app';
+﻿import userContext from 'userContext';
+
+import app from 'durandal/app';
 import constants from 'constants';
 import authHttpWrapper from 'http/authHttpWrapper';
 import storageHttpWrapper from 'http/storageHttpWrapper';
 import notify from 'notify';
 import localizationManager from 'localization/localizationManager';
-import User from 'models/user';
-
-import userContext from 'userContext';
 
 describe('[userContext]', () => {
 

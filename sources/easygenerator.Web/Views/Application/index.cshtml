@@ -125,14 +125,14 @@
                     <text>
                     System.config({
                         bundles: {
-                            'main-built': ['main']
+                            'main-built.js': ['main.js']
                         },
                         cacheBust: '?v=' + @DateTimeWrapper.InstanceStartTime.Ticks
                     });
                     </text>
                 }
 
-                System.import('main');
+                System.import('main.js');
             }
             else {
                 window.location.replace('/signin');

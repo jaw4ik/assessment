@@ -1,4 +1,4 @@
-﻿import viewModel from 'audio/audioLibrary/audioLibrary';
+﻿import viewModel from './audioLibrary';
 
 import constants from 'constants';
 import userContext from 'userContext';

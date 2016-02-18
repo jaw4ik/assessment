@@ -1,355 +1,351 @@
-﻿define(['services/publishService'], function (service) {
-    "use strict";
+﻿import service from './publishService';
 
-    var
-        publishHttpWrapper = require('http/publishHttpWrapper');
+import publishHttpWrapper from 'http/publishHttpWrapper';
 
-    describe('service [publishCourse]', function () {
+describe('service [publishCourse]', function () {
 
-        describe('buildCourse:', function () {
+    describe('buildCourse:', function () {
 
-            var course;
-            var post;
+        var course;
+        var post;
 
-            beforeEach(function () {
-                course = { id: 'someId' };
+        beforeEach(function () {
+            course = { id: 'someId' };
 
-                post = Q.defer();
-                spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
-            });
+            post = Q.defer();
+            spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
+        });
 
-            it('should be function', function () {
-                expect(service.buildCourse).toBeFunction();
-            });
+        it('should be function', function () {
+            expect(service.buildCourse).toBeFunction();
+        });
 
-            it('should return promise', function () {
+        it('should return promise', function () {
+            var promise = service.buildCourse();
+
+            expect(promise).toBePromise();
+        });
+
+        it('should send request', function (done) {
+            post.resolve({});
+
+            var promise = service.buildCourse(course.id);
+            promise.fin(done);
+
+            expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/build', { courseId: course.id });
+        });
+
+        describe('and send request to server', function () {
+
+            it('should resolve promise with true', function (done) {
+                post.resolve({ PackageUrl: 'SomeUrl', BuildOn: '1378106938845' });
+
                 var promise = service.buildCourse();
-
-                expect(promise).toBePromise();
-            });
-
-            it('should send request', function (done) {
-                post.resolve({});
-
-                var promise = service.buildCourse(course.id);
-                promise.fin(done);
-
-                expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/build', { courseId: course.id });
-            });
-
-            describe('and send request to server', function () {
-
-                it('should resolve promise with true', function (done) {
-                    post.resolve({ PackageUrl: 'SomeUrl', BuildOn: '1378106938845' });
-
-                    var promise = service.buildCourse();
-                    promise.then(function () {
-                        expect(promise).toBeResolvedWith({ packageUrl: 'SomeUrl', builtOn: new Date('1378106938845') });
-                        done();
-                    });
-
+                promise.then(function () {
+                    expect(promise).toBeResolvedWith({ packageUrl: 'SomeUrl', builtOn: new Date('1378106938845') });
+                    done();
                 });
 
             });
 
         });
 
-        describe('scormBuildCourse:', function () {
-            var course;
-            var post;
+    });
+
+    describe('scormBuildCourse:', function () {
+        var course;
+        var post;
+
+        beforeEach(function () {
+            course = { id: 'someId' };
+
+            post = Q.defer();
+            spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
+        });
+
+        it('should be function', function () {
+            expect(service.scormBuildCourse).toBeFunction();
+        });
+
+        it('should return promise', function () {
+            var promise = service.scormBuildCourse();
+
+            expect(promise).toBePromise();
+        });
+
+        it('should send request', function (done) {
+            post.resolve({});
+            var promise = service.scormBuildCourse(course.id);
+            promise.fin(function () {
+                expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/scormbuild', { courseId: course.id });
+                done();
+            });
+        });
+
+        describe('and send request to server', function () {
 
             beforeEach(function () {
-                course = { id: 'someId' };
-
-                post = Q.defer();
-                spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
+                post.resolve({ ScormPackageUrl: 'SomeUrl' });
             });
 
-            it('should be function', function () {
-                expect(service.scormBuildCourse).toBeFunction();
-            });
-
-            it('should return promise', function () {
+            it('should resolve promise with true', function (done) {
                 var promise = service.scormBuildCourse();
-
-                expect(promise).toBePromise();
-            });
-
-            it('should send request', function (done) {
-                post.resolve({});
-                var promise = service.scormBuildCourse(course.id);
                 promise.fin(function () {
-                    expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/scormbuild', { courseId: course.id });
+                    expect(promise).toBeResolvedWith({ scormPackageUrl: 'SomeUrl' });
                     done();
                 });
             });
 
-            describe('and send request to server', function () {
+        });
 
-                beforeEach(function () {
-                    post.resolve({ ScormPackageUrl: 'SomeUrl' });
-                });
+    });
 
-                it('should resolve promise with true', function (done) {
-                    var promise = service.scormBuildCourse();
-                    promise.fin(function () {
-                        expect(promise).toBeResolvedWith({ scormPackageUrl: 'SomeUrl' });
-                        done();
-                    });
-                });
+    describe('publishCourse:', function () {
+        var course;
+        var post;
 
+        beforeEach(function () {
+            course = { id: 'someId' };
+
+            post = Q.defer();
+            spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
+        });
+
+        it('should be function', function () {
+            expect(service.publishCourse).toBeFunction();
+        });
+
+        it('should return promise', function () {
+            var promise = service.publishCourse();
+
+            expect(promise).toBePromise();
+        });
+
+        it('should send request', function (done) {
+            post.resolve({});
+            var promise = service.publishCourse(course.id);
+            promise.fin(function () {
+                expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/publish', { courseId: course.id });
+                done();
             });
 
         });
 
-        describe('publishCourse:', function () {
-            var course;
-            var post;
+        describe('and send request to server', function () {
 
             beforeEach(function () {
-                course = { id: 'someId' };
-
-                post = Q.defer();
-                spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
+                post.resolve({ PublishedPackageUrl: 'SomeUrl' });
             });
 
-            it('should be function', function () {
-                expect(service.publishCourse).toBeFunction();
-            });
-
-            it('should return promise', function () {
+            it('should resolve promise with true', function (done) {
                 var promise = service.publishCourse();
 
-                expect(promise).toBePromise();
-            });
-
-            it('should send request', function (done) {
-                post.resolve({});
-                var promise = service.publishCourse(course.id);
                 promise.fin(function () {
-                    expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/publish', { courseId: course.id });
+                    expect(promise).toBeResolvedWith({ publishedPackageUrl: 'SomeUrl' });
                     done();
                 });
-
-            });
-
-            describe('and send request to server', function () {
-
-                beforeEach(function () {
-                    post.resolve({ PublishedPackageUrl: 'SomeUrl' });
-                });
-
-                it('should resolve promise with true', function (done) {
-                    var promise = service.publishCourse();
-
-                    promise.fin(function () {
-                        expect(promise).toBeResolvedWith({ publishedPackageUrl: 'SomeUrl' });
-                        done();
-                    });
-                });
-
             });
 
         });
 
-        describe('publishCourseForReview:', function () {
-            var course;
-            var post;
+    });
+
+    describe('publishCourseForReview:', function () {
+        var course;
+        var post;
+
+        beforeEach(function () {
+            course = { id: 'someId' };
+
+            post = Q.defer();
+            spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
+        });
+
+        it('should be function', function () {
+            expect(service.publishCourseForReview).toBeFunction();
+        });
+
+        it('should return promise', function () {
+            var promise = service.publishCourseForReview();
+
+            expect(promise).toBePromise();
+        });
+
+        it('should send request', function (done) {
+
+            post.resolve({});
+
+            var promise = service.publishCourseForReview(course.id);
+
+            promise.fin(function () {
+                expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/publishForReview', { courseId: course.id });
+                done();
+            });
+        });
+
+        describe('and send request to server', function () {
 
             beforeEach(function () {
-                course = { id: 'someId' };
-
-                post = Q.defer();
-                spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
+                post.resolve({ ReviewUrl: 'SomeUrl' });
             });
 
-            it('should be function', function () {
-                expect(service.publishCourseForReview).toBeFunction();
-            });
-
-            it('should return promise', function () {
+            it('should resolve promise with true', function (done) {
                 var promise = service.publishCourseForReview();
-
-                expect(promise).toBePromise();
-            });
-
-            it('should send request', function (done) {
-
-                post.resolve({});
-
-                var promise = service.publishCourseForReview(course.id);
-
                 promise.fin(function () {
-                    expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/publishForReview', { courseId: course.id });
+                    expect(promise).toBeResolvedWith({ reviewUrl: 'SomeUrl' });
                     done();
-                });
-            });
-
-            describe('and send request to server', function () {
-
-                beforeEach(function () {
-                    post.resolve({ ReviewUrl: 'SomeUrl' });
-                });
-
-                it('should resolve promise with true', function (done) {
-                    var promise = service.publishCourseForReview();
-                    promise.fin(function () {
-                        expect(promise).toBeResolvedWith({ reviewUrl: 'SomeUrl' });
-                        done();
-                    });
-
                 });
 
             });
 
         });
 
-        describe('buildLearningPath:', function() {
-            var post,
-                learningPathId;
+    });
 
-            beforeEach(function () {
-                post = Q.defer();
-                learningPathId = 'learnigPathId';
-                spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
-            });
+    describe('buildLearningPath:', function() {
+        var post,
+            learningPathId;
 
-            it('should be a function', function () {
-                expect(service.buildLearningPath).toBeFunction();
-            });
+        beforeEach(function () {
+            post = Q.defer();
+            learningPathId = 'learnigPathId';
+            spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
+        });
 
-            it('should return promise', function () {
-                var promise = service.buildLearningPath(learningPathId);
+        it('should be a function', function () {
+            expect(service.buildLearningPath).toBeFunction();
+        });
 
-                expect(promise).toBePromise();
-            });
+        it('should return promise', function () {
+            var promise = service.buildLearningPath(learningPathId);
 
-            it('should send request', function (done) {
-                post.resolve({});
+            expect(promise).toBePromise();
+        });
+
+        it('should send request', function (done) {
+            post.resolve({});
+
+            var promise = service.buildLearningPath(learningPathId);
+            promise.fin(done);
+
+            expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/learningpath/build', { learningPathId: learningPathId });
+        });
+
+        describe('when server return response', function () {
+
+            it('should resolve promise with packageUrl', function (done) {
+                post.resolve({ PackageUrl: 'SomeUrl' });
 
                 var promise = service.buildLearningPath(learningPathId);
-                promise.fin(done);
-
-                expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/learningpath/build', { learningPathId: learningPathId });
-            });
-
-            describe('when server return response', function () {
-
-                it('should resolve promise with packageUrl', function (done) {
-                    post.resolve({ PackageUrl: 'SomeUrl' });
-
-                    var promise = service.buildLearningPath(learningPathId);
-                    promise.then(function () {
-                        expect(promise).toBeResolvedWith({ packageUrl: 'SomeUrl' });
-                        done();
-                    });
-
-                });
-
-            });
-        });
-
-        describe('publishLearningPath:', function () {
-            var post,
-                learningPathId;
-
-            beforeEach(function () {
-                post = Q.defer();
-                learningPathId = 'learnigPathId';
-                spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
-            });
-
-            it('should be a function', function () {
-                expect(service.publishLearningPath).toBeFunction();
-            });
-
-            it('should return promise', function () {
-                var promise = service.publishLearningPath(learningPathId);
-
-                expect(promise).toBePromise();
-            });
-
-            it('should send request', function (done) {
-                post.resolve({});
-
-                var promise = service.publishLearningPath(learningPathId);
-                promise.fin(done);
-
-                expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/learningpath/publish', { learningPathId: learningPathId });
-            });
-
-            describe('when server return response', function () {
-
-                it('should resolve promise with packageUrl', function (done) {
-                    post.resolve({ PublicationUrl: 'SomeUrl' });
-
-                    var promise = service.publishLearningPath(learningPathId);
-                    promise.then(function () {
-                        expect(promise).toBeResolvedWith({ publicationUrl: 'SomeUrl' });
-                        done();
-                    });
-
-                });
-
-            });
-        });
-
-        describe('publishCourseToCustomLms:', function () {
-            var course;
-            var post;
-
-            beforeEach(function () {
-                course = { id: 'someId' };
-
-                post = Q.defer();
-                spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
-            });
-
-            it('should be a function', function () {
-                expect(service.publishCourseToCustomLms).toBeFunction();
-            });
-
-            it('should return promise', function () {
-                expect(service.publishCourseToCustomLms()).toBePromise();
-            });
-
-            it('should send request', function (done) {
-                post.resolve({});
-                var promise = service.publishCourseToCustomLms(course.id);
-                promise.fin(function () {
-                    expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/publishToCustomLms', { courseId: course.id });
+                promise.then(function () {
+                    expect(promise).toBeResolvedWith({ packageUrl: 'SomeUrl' });
                     done();
                 });
+
             });
 
         });
+    });
 
-        describe('publishLearningPathToCustomLms:', function () {
-            var learningPathId = 'learningPathId',
-                postDfr;
+    describe('publishLearningPath:', function () {
+        var post,
+            learningPathId;
 
-            beforeEach(function () {
-                postDfr = Q.defer();
-                spyOn(publishHttpWrapper, 'post').and.returnValue(postDfr.promise);
-            });
+        beforeEach(function () {
+            post = Q.defer();
+            learningPathId = 'learnigPathId';
+            spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
+        });
 
-            it('should be a function', function () {
-                expect(service.publishLearningPathToCustomLms).toBeFunction();
-            });
+        it('should be a function', function () {
+            expect(service.publishLearningPath).toBeFunction();
+        });
 
-            it('should return promise', function () {
-                expect(service.publishLearningPathToCustomLms()).toBePromise();
-            });
+        it('should return promise', function () {
+            var promise = service.publishLearningPath(learningPathId);
 
-            it('should send request', function (done) {
-                postDfr.resolve();
-                var promise = service.publishLearningPathToCustomLms(learningPathId);
-                promise.fin(function () {
-                    expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/learningpath/publishToCustomLms', { learningPathId: learningPathId });
+            expect(promise).toBePromise();
+        });
+
+        it('should send request', function (done) {
+            post.resolve({});
+
+            var promise = service.publishLearningPath(learningPathId);
+            promise.fin(done);
+
+            expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/learningpath/publish', { learningPathId: learningPathId });
+        });
+
+        describe('when server return response', function () {
+
+            it('should resolve promise with packageUrl', function (done) {
+                post.resolve({ PublicationUrl: 'SomeUrl' });
+
+                var promise = service.publishLearningPath(learningPathId);
+                promise.then(function () {
+                    expect(promise).toBeResolvedWith({ publicationUrl: 'SomeUrl' });
                     done();
                 });
+
             });
 
+        });
+    });
+
+    describe('publishCourseToCustomLms:', function () {
+        var course;
+        var post;
+
+        beforeEach(function () {
+            course = { id: 'someId' };
+
+            post = Q.defer();
+            spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
+        });
+
+        it('should be a function', function () {
+            expect(service.publishCourseToCustomLms).toBeFunction();
+        });
+
+        it('should return promise', function () {
+            expect(service.publishCourseToCustomLms()).toBePromise();
+        });
+
+        it('should send request', function (done) {
+            post.resolve({});
+            var promise = service.publishCourseToCustomLms(course.id);
+            promise.fin(function () {
+                expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/publishToCustomLms', { courseId: course.id });
+                done();
+            });
+        });
+
+    });
+
+    describe('publishLearningPathToCustomLms:', function () {
+        var learningPathId = 'learningPathId',
+            postDfr;
+
+        beforeEach(function () {
+            postDfr = Q.defer();
+            spyOn(publishHttpWrapper, 'post').and.returnValue(postDfr.promise);
+        });
+
+        it('should be a function', function () {
+            expect(service.publishLearningPathToCustomLms).toBeFunction();
+        });
+
+        it('should return promise', function () {
+            expect(service.publishLearningPathToCustomLms()).toBePromise();
+        });
+
+        it('should send request', function (done) {
+            postDfr.resolve();
+            var promise = service.publishLearningPathToCustomLms(learningPathId);
+            promise.fin(function () {
+                expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/learningpath/publishToCustomLms', { learningPathId: learningPathId });
+                done();
+            });
         });
 
     });

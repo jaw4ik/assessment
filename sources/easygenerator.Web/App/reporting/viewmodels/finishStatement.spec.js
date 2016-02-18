@@ -1,7 +1,7 @@
-﻿import co from 'co';
-import FinishStatement from 'reporting/viewmodels/finishStatement';
-import ExpandableStatement from 'reporting/viewmodels/expandableStatement';
-import ObjectiveStatement from 'reporting/viewmodels/objectiveStatement';
+﻿import FinishStatement from './finishStatement';
+
+import ExpandableStatement from './expandableStatement';
+import ObjectiveStatement from './objectiveStatement';
 import XApiProvider from 'reporting/xApiProvider';
 import constants from 'constants';
 import localizationManager from 'localization/localizationManager';
@@ -109,14 +109,14 @@ describe('viewmodel [FinishStatement]', () => {
 
         describe('when XApiProvider.getMasteredStatements call was success', () => {
 
-            it('should fill children collection with ObjectiveStatement instances', done => co(function*() {
-                yield statement.expandLoadAction();
+            it('should fill children collection with ObjectiveStatement instances', done => (async () => {
+                await statement.expandLoadAction();
                 expect(statement.children().length).toBe(2);
                 expect(statement.children()[0]).toBeInstanceOf(ObjectiveStatement);
                 expect(statement.children()[1]).toBeInstanceOf(ObjectiveStatement);
                 expect(statement.children()[0].lrsStatement).toBe(masteredStatements[0]);
                 expect(statement.children()[1].lrsStatement).toBe(masteredStatements[1]);
-            }).then(done));
+            })().then(done));
 
         });
     });

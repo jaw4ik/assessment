@@ -1,4 +1,5 @@
-﻿import createDocumentCommand from 'commands/createDocumentCommand';
+﻿import createDocumentCommand from './createDocumentCommand';
+
 import Repository from 'repositories/documentRepository';
 var repository = new Repository();
 

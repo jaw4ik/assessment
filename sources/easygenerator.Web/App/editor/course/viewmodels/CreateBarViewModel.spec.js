@@ -1,9 +1,9 @@
 ﻿import CreateBar from './CreateBarViewModel';
+
 import eventTracker from 'eventTracker';
 import constants from 'constants';
 import router from 'plugins/router';
 import cursorTooltip from 'widgets/cursorTooltip/viewmodel';
-
 
 describe('[CreateBarViewModel]', () => {
     let createBar;

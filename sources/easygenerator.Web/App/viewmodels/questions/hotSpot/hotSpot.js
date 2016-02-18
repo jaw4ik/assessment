@@ -1,4 +1,4 @@
-﻿define(['constants', 'durandal/app', 'localization/localizationManager', 'notify', 'viewmodels/questions/hotSpot/designer', 'viewmodels/questions/hotSpot/polygon'],
+﻿define(['constants', 'durandal/app', 'localization/localizationManager', 'notify', './designer', './polygon'],
     function (constants, app, localizationManager, notify, designer, Polygon) {
         "use strict";
 

@@ -1,44 +1,39 @@
-﻿define(['viewmodels/learningPaths/learningPath/queries/getLearningPathByIdQuery'], function (query) {
-    "use strict";
-    var
-        dataContext = require('dataContext')
-    ;
+﻿import query from './getLearningPathByIdQuery';
 
-    describe('query [getLearningPathById]', function () {
+import dataContext from 'dataContext';
 
-        describe('execute:', function () {
-            var learningPath = {
-                id: 'id',
-                title: 'title'
-            }
+describe('query [getLearningPathById]', function () {
 
-            describe('when learning path with specified id exists in data content', function() {
-                beforeEach(function() {
-                    dataContext.learningPaths = [learningPath];
-                });
+    describe('execute:', function () {
+        var learningPath = {
+            id: 'id',
+            title: 'title'
+        }
 
-                it('should return learning path', function (done) {
-                    query.execute(learningPath.id).then(function (data) {
-                        expect(data).toBe(learningPath);
-                        done();
-                    });
-                });
+        describe('when learning path with specified id exists in data content', function() {
+            beforeEach(function() {
+                dataContext.learningPaths = [learningPath];
             });
 
-            describe('when learning path with specified id does not exist in data content', function () {
-                beforeEach(function () {
-                    dataContext.learningPaths = [];
+            it('should return learning path', function (done) {
+                query.execute(learningPath.id).then(function (data) {
+                    expect(data).toBe(learningPath);
+                    done();
                 });
+            });
+        });
 
-                it('should return undefined', function (done) {
-                    query.execute(learningPath.id).then(function (data) {
-                        expect(data).toBeUndefined();
-                        done();
-                    });
+        describe('when learning path with specified id does not exist in data content', function () {
+            beforeEach(function () {
+                dataContext.learningPaths = [];
+            });
+
+            it('should return undefined', function (done) {
+                query.execute(learningPath.id).then(function (data) {
+                    expect(data).toBeUndefined();
+                    done();
                 });
             });
         });
     });
-
-
 });

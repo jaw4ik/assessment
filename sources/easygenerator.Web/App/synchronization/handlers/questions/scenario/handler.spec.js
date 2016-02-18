@@ -1,20 +1,17 @@
-﻿define(['synchronization/handlers/questions/scenario/handler'], function (handler) {
-    "use strict";
+﻿import handler from './handler';
 
-    describe('synchronization questions scenario [handler]', function () {
+describe('synchronization questions scenario [handler]', function () {
 
-    	describe('dataUpdated:', function () {
-    		it('should be defined', function () {
-            	expect(handler.dataUpdated).toBeDefined();
-            });
+    describe('dataUpdated:', function () {
+        it('should be defined', function () {
+            expect(handler.dataUpdated).toBeDefined();
         });
-
-    	describe('masteryScoreUpdated:', function () {
-            it('should be defined', function () {
-            	expect(handler.masteryScoreUpdated).toBeDefined();
-            });
-    	});
-
     });
 
-})
+    describe('masteryScoreUpdated:', function () {
+        it('should be defined', function () {
+            expect(handler.masteryScoreUpdated).toBeDefined();
+        });
+    });
+
+});

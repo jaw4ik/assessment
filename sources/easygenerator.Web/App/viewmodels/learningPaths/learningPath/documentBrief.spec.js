@@ -1,8 +1,9 @@
-﻿import DocumentBrief from 'viewmodels/learningPaths/learningPath/documentBrief';
+﻿import DocumentBrief from './documentBrief';
+
+import previewDocumentDialog from 'dialogs/document/preview/index';
 import app from 'durandal/app';
 import constants from 'constants';
 import eventTracker from 'eventTracker';
-import previewDocumentDialog from 'dialogs/document/preview/index';
 
 var documentModel = {
     id: '123',

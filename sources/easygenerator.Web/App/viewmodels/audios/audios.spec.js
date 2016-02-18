@@ -1,4 +1,4 @@
-﻿import viewModel from 'viewmodels/audios/audios';
+﻿import viewModel from './audios';
 
 import userContext from 'userContext';
 import eventTracker from 'eventTracker';

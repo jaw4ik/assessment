@@ -1,48 +1,45 @@
-﻿define(['viewmodels/questions/scenario/queries/getProjectInfoById'], function (query) {
+﻿import query from './getProjectInfoById';
 
-    var
-        apiHttpWrapper = require('http/apiHttpWrapper');
+import apiHttpWrapper from 'http/apiHttpWrapper';
 
-    describe('query [getProjectInfoById]', function () {
+describe('query [getProjectInfoById]', function () {
 
-        describe('execute:', function () {
+    describe('execute:', function () {
 
-            var
-                dfd,
-                projectId = 'questionId';
+        var
+            dfd,
+            projectId = 'questionId';
 
-            beforeEach(function () {
-                dfd = Q.defer();
-                spyOn(apiHttpWrapper, 'post').and.returnValue(dfd.promise);
-            });
+        beforeEach(function () {
+            dfd = Q.defer();
+            spyOn(apiHttpWrapper, 'post').and.returnValue(dfd.promise);
+        });
 
-            it('should be function', function () {
-                expect(query.execute).toBeFunction();
-            });
+        it('should be function', function () {
+            expect(query.execute).toBeFunction();
+        });
 
-            it('should return promise', function () {
-                expect(query.execute(projectId)).toBePromise();
-            });
+        it('should return promise', function () {
+            expect(query.execute(projectId)).toBePromise();
+        });
 
-            it('should send request', function (done) {
-                dfd.resolve();
+        it('should send request', function (done) {
+            dfd.resolve();
                 
-                query.execute(projectId).then(function () {
-                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/question/scenario/getprojectinfo', { projectId: projectId });
-                    done();
-                });
+            query.execute(projectId).then(function () {
+                expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/question/scenario/getprojectinfo', { projectId: projectId });
+                done();
             });
+        });
 
-            it('should get project content', function (done) {
-                var content = {};
-                dfd.resolve(content);
+        it('should get project content', function (done) {
+            var content = {};
+            dfd.resolve(content);
 
-                query.execute(projectId).then(function (result) {
-                    expect(result).toEqual(content);
-                    done();
-                });
+            query.execute(projectId).then(function (result) {
+                expect(result).toEqual(content);
+                done();
             });
-
         });
 
     });

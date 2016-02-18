@@ -1,63 +1,60 @@
-﻿define(['audio/convertion/commands/getTicket'], function (command) {
+﻿import command from './getTicket';
 
-    describe('[convertion getTicket]', function () {
+import httpWrapper from 'http/storageHttpWrapper';
 
-        var
-            httpWrapper = require('http/storageHttpWrapper');
+describe('[convertion getTicket]', function () {
 
-        it('should be object', function () {
-            expect(command).toBeObject();
+    it('should be object', function () {
+        expect(command).toBeObject();
+    });
+
+    describe('execute:', function () {
+
+        var dfd;
+
+        beforeEach(function () {
+            dfd = Q.defer();
+            spyOn(httpWrapper, 'post').and.returnValue(dfd.promise);
         });
 
-        describe('execute:', function () {
+        it('should be function', function () {
+            expect(command.execute).toBeFunction();
+        });
 
-            var dfd;
+        it('should return promise', function () {
+            expect(command.execute()).toBePromise();
+        });
+
+        it('should send request to get ticket', function () {
+            command.execute();
+            expect(httpWrapper.post).toHaveBeenCalled();
+        });
+
+        describe('when request failed', function() {
+
+            beforeEach(function() {
+                dfd.reject();
+            });
+
+            it('should reject promise', function (done) {
+                command.execute().catch(function() {
+                    done();
+                }).done();
+            });
+
+        });
+
+        describe('when request finished successfully', function() {
 
             beforeEach(function () {
-                dfd = Q.defer();
-                spyOn(httpWrapper, 'post').and.returnValue(dfd.promise);
+                dfd.resolve();
             });
 
-            it('should be function', function () {
-                expect(command.execute).toBeFunction();
+            it('should resolve promise', function(done) {
+                command.execute().then(function () {
+                    done();
+                }).done();
             });
-
-            it('should return promise', function () {
-                expect(command.execute()).toBePromise();
-            });
-
-            it('should send request to get ticket', function () {
-                command.execute();
-                expect(httpWrapper.post).toHaveBeenCalled();
-            });
-
-            describe('when request failed', function() {
-
-                beforeEach(function() {
-                    dfd.reject();
-                });
-
-                it('should reject promise', function (done) {
-                    command.execute().catch(function() {
-                        done();
-                    }).done();
-                });
-
-            });
-
-            describe('when request finished successfully', function() {
-
-                beforeEach(function () {
-                    dfd.resolve();
-                });
-
-                it('should resolve promise', function(done) {
-                    command.execute().then(function () {
-                        done();
-                    }).done();
-                });
-            });
-
         });
 
     });

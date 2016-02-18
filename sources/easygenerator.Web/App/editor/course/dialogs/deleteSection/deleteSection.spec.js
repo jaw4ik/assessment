@@ -1,4 +1,5 @@
 ﻿import deleteSectionDialog from './deleteSection';
+
 import dialog from 'widgets/dialog/viewmodel';
 import dataContext from 'dataContext';
 import constants from 'constants';

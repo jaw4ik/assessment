@@ -2,6 +2,7 @@ System.config({
   defaultJSExtensions: true,
   transpiler: "babel",
   babelOptions: {
+    "compact": false,
     "optional": [
       "optimisation.modules.system",
       "runtime"
@@ -14,9 +15,8 @@ System.config({
   },
 
   map: {
-    "babel": "npm:babel-core@5.8.34",
-    "babel-runtime": "npm:babel-runtime@5.8.34",
-    "co": "npm:co@4.6.0",
+    "babel": "npm:babel-core@5.8.35",
+    "babel-runtime": "npm:babel-runtime@5.8.35",
     "core-js": "npm:core-js@1.2.6",
     "css": "github:systemjs/plugin-css@0.1.20",
     "dragula": "github:jaw4ik/dragula@3.5.5",
@@ -24,8 +24,8 @@ System.config({
     "has": "npm:has@1.0.1",
     "jquery": "core/jquery",
     "knockout": "core/knockout",
-    "moment": "npm:moment@2.10.6",
-    "perfect-scrollbar": "npm:perfect-scrollbar@0.6.8",
+    "moment": "npm:moment@2.11.2",
+    "perfect-scrollbar": "npm:perfect-scrollbar@0.6.10",
     "plugins": "core/durandal/plugins",
     "spectrum-colorpicker": "npm:spectrum-colorpicker@1.7.1",
     "text": "github:systemjs/plugin-text@0.0.3",
@@ -52,7 +52,7 @@ System.config({
     "npm:assert@1.3.0": {
       "util": "npm:util@0.10.3"
     },
-    "npm:babel-runtime@5.8.34": {
+    "npm:babel-runtime@5.8.35": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:contra@1.9.1": {
@@ -74,15 +74,12 @@ System.config({
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"
     },
     "npm:has@1.0.1": {
-      "function-bind": "npm:function-bind@1.0.2"
+      "function-bind": "npm:function-bind@1.1.0"
     },
     "npm:inherits@2.0.1": {
       "util": "github:jspm/nodelibs-util@0.1.0"
     },
-    "npm:jquery@2.1.4": {
-      "process": "github:jspm/nodelibs-process@0.1.2"
-    },
-    "npm:moment@2.10.6": {
+    "npm:moment@2.11.2": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:path-browserify@0.0.0": {
@@ -102,7 +99,7 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:velocity-animate@1.2.3": {
-      "jquery": "npm:jquery@2.1.4",
+      "jquery": "npm:jquery@2.2.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     }
   }

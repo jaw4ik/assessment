@@ -1,30 +1,29 @@
-﻿define(['audio/queries/getNotAvailable'], function (query) {
+﻿import query from './getNotAvailable';
 
-    describe('[audio getNodeAvailable query]', function () {
+import dataContext from 'dataContext';
 
-        var dataContext = require('dataContext');
+describe('[audio getNodeAvailable query]', function () {
 
-        describe('execute:', function () {
+    describe('execute:', function () {
 
-            it('should be function', function () {
-                expect(query.execute).toBeFunction();
-            });
+        it('should be function', function () {
+            expect(query.execute).toBeFunction();
+        });
 
-            it('should return promise', function () {
-                dataContext.audios = [];
-                expect(query.execute()).toBePromise();
-            });
+        it('should return promise', function () {
+            dataContext.audios = [];
+            expect(query.execute()).toBePromise();
+        });
 
-            it('should resolve promise with not avilable audios', function (done) {
-                dataContext.audios = [{ available: true }, { available: false }, { available: false }];
+        it('should resolve promise with not avilable audios', function (done) {
+            dataContext.audios = [{ available: true }, { available: false }, { available: false }];
 
-                query.execute().then(function (result) {
-                    expect(result.length).toEqual(2);
-                    done();
-                }).done();
-            });
-
+            query.execute().then(function (result) {
+                expect(result.length).toEqual(2);
+                done();
+            }).done();
         });
 
     });
-})
+
+});

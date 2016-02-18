@@ -1,14 +1,9 @@
-﻿define(['reporting/viewmodels/resultsBase', 'repositories/courseRepository', 'reporting/courseStatementsProvider', 'viewmodels/courses/course/results'],
-    function (ResultsBase, courseRepository, CourseStatementsProvider, results) {
-        "use strict";
+﻿import results from './results';
 
-        describe('[Results]', function () {
+describe('[Results]', function () {
 
-            it('should be defined', function () {
-                expect(results).toBeDefined();
-            });
+    it('should be defined', function () {
+        expect(results).toBeDefined();
+    });
 
-        });
-
-    }
-);
+});
