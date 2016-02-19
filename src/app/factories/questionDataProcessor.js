@@ -14,7 +14,7 @@
             singleSelectImage: function (data) { return randomize(data, 'answers'); },
             dragAndDropText: function (data) { return randomize(data, 'dropspots'); },
             textMatching: function (data) { return randomize(data, 'answers'); },
-            multipleSelect: function (data) { return randomize(data, 'answers'); },
+            multipleSelect: function (data) { return randomize(data, 'answers'); }
         };
 
         function randomize(data, property) {

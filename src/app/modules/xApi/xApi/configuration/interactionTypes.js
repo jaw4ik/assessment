@@ -8,6 +8,7 @@
             choice: 'choice',
             fillIn: 'fill-in',
             matching: 'matching',
+            sequencing: 'sequencing',
             other: 'other'
         };
         

@@ -32,6 +32,7 @@
     "autosize": "*",
     "easygenerator-hotspot-on-an-image-plugin": "*",
     "easy-supported-browser": "~1.0.2",
-    "branchtrack-provider": "*"
+    "branchtrack-provider": "*",
+    "angular-dragula": "~1.2.4"
   }
 }

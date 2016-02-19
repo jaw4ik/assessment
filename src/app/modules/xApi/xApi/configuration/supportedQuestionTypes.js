@@ -15,7 +15,8 @@
             statement: 'statement',
             hotspot: 'hotspot',
             openQuestion: 'openQuestion',
-            scenario: 'scenario'
+            scenario: 'scenario',
+            rankingText: 'rankingText'
         };
 
         function checkIfQuestionSupported(type) {
