@@ -328,9 +328,9 @@
     <Compile Include="Publish\External\ExternalLearningPathPublisher.cs" />
     <Compile Include="Publish\External\IExternalCoursePublisher.cs" />
     <Compile Include="Publish\External\IExternalLearningPathPublisher.cs" />
-    <Compile Include="Publish\ILearningPathPublisher.cs" />
-    <Compile Include="Publish\LearningPathPublisher.cs" />
+    <Compile Include="Publish\IEntityPublisher.cs" />
     <Compile Include="DomainEvents\Handlers\CreateUserInitialDataHandler.cs" />
+    <Compile Include="Publish\EntityPublisher.cs" />
     <Compile Include="Resources\Views\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -497,8 +497,6 @@
     <Compile Include="Newsletter\MailChimp\Entities\MailChimpSubscription.cs" />
     <Compile Include="Newsletter\MailChimp\MailChimpSubscriptionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Publish\CoursePublisher.cs" />
-    <Compile Include="Publish\ICoursePublisher.cs" />
     <Compile Include="Resources\Controllers\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

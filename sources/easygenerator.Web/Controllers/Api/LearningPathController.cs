@@ -20,21 +20,21 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IEntityModelMapper<LearningPath> _mapper;
         private readonly IEntityFactory _entityFactory;
         private readonly ILearningPathBuilder _builder;
-        private readonly ILearningPathPublisher _publisher;
+        private readonly IEntityPublisher _entityPublisher;
         private readonly IUserRepository _userRepository;
         private readonly IDocumentRepository _documentRepository;
         private readonly IExternalLearningPathPublisher _externalPublisher;
                          
         private readonly IUrlHelperWrapper _urlHelper;
 
-        public LearningPathController(IUrlHelperWrapper urlHelper, ILearningPathRepository repository, IEntityModelMapper<LearningPath> mapper, IEntityFactory entityFactory, ILearningPathBuilder builder, ILearningPathPublisher publisher, IUserRepository userRepository, IDocumentRepository documentRepository, IExternalLearningPathPublisher externalPublisher)
+        public LearningPathController(IUrlHelperWrapper urlHelper, ILearningPathRepository repository, IEntityModelMapper<LearningPath> mapper, IEntityFactory entityFactory, ILearningPathBuilder builder, IEntityPublisher entityPublisher, IUserRepository userRepository, IDocumentRepository documentRepository, IExternalLearningPathPublisher externalPublisher)
         {
             _urlHelper = urlHelper;
             _repository = repository;
             _mapper = mapper;
             _entityFactory = entityFactory;
             _builder = builder;
-            _publisher = publisher;
+            _entityPublisher = entityPublisher;
             _userRepository = userRepository;
             _documentRepository = documentRepository;
             _externalPublisher = externalPublisher;
@@ -214,7 +214,7 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Errors.LearningPathNotFoundError, Errors.LearningPathNotFoundResourceKey);
             }
 
-            var result = _publisher.Publish(learningPath);
+            var result = _entityPublisher.Publish(learningPath);
 
             return result ? JsonSuccess(new { PublicationUrl = _urlHelper.AddCurrentSchemeToUrl(learningPath.PublicationUrl) })
                 : JsonLocalizableError(Errors.LearningPathPublishActionFailedError, Errors.LearningPathPublishActionFailedResourceKey);

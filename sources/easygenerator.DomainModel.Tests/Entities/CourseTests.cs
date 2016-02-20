@@ -1761,5 +1761,23 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
+
+        #region ResetPublicationUrl
+
+        [TestMethod]
+        public void ResetPublicationUrl_ShouldSetNullToPublicationUrl()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            course.UpdatePublicationUrl("publicationUrl");
+
+            //Act
+            course.ResetPublicationUrl();
+
+            //Assert
+            course.PublicationUrl.Should().Be(null);
+        }
+
+        #endregion
     }
 }

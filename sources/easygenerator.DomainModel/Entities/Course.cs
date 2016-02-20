@@ -9,7 +9,7 @@ using easygenerator.DomainModel.Events.CommentEvents;
 
 namespace easygenerator.DomainModel.Entities
 {
-    public class Course : Entity, ILearningPathEntity
+    public class Course : Entity, ILearningPathEntity, IPublishableEntity
     {
         protected internal Course()
         {
@@ -315,6 +315,11 @@ namespace easygenerator.DomainModel.Entities
             PublishedOn = DateTimeWrapper.Now();
 
             RaiseEvent(new CoursePublishedEvent(this));
+        }
+
+        public void ResetPublicationUrl()
+        {
+            PublicationUrl = null;
         }
 
         #region Course template settings

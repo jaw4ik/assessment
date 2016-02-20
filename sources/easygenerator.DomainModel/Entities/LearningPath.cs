@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace easygenerator.DomainModel.Entities
 {
-    public class LearningPath : Entity
+    public class LearningPath : Entity, IPublishableEntity
     {
         protected internal LearningPath()
         {

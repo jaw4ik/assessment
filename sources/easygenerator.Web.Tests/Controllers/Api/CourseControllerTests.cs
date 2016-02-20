@@ -42,7 +42,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IPrincipal _user;
         private HttpContextBase _context;
         private IUrlHelperWrapper _urlHelper;
-        private ICoursePublisher _coursePublisher;
+        private IEntityPublisher _entityPublisher;
         private IEntityMapper _entityMapper;
         private IDomainEventPublisher _eventPublisher;
         private ITemplateRepository _templateRepository;
@@ -58,7 +58,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _objectiveRepository = Substitute.For<IObjectiveRepository>();
             _builder = Substitute.For<ICourseBuilder>();
             _scormCourseBuilder = Substitute.For<IScormCourseBuilder>();
-            _coursePublisher = Substitute.For<ICoursePublisher>();
+            _entityPublisher = Substitute.For<IEntityPublisher>();
             _urlHelper = Substitute.For<IUrlHelperWrapper>();
             _entityMapper = Substitute.For<IEntityMapper>();
             _eventPublisher = Substitute.For<IDomainEventPublisher>();
@@ -71,7 +71,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _context.User.Returns(_user);
 
-            _controller = new CourseController(_builder, _scormCourseBuilder, _courseRepository, _objectiveRepository, _entityFactory, _urlHelper, _coursePublisher,
+            _controller = new CourseController(_builder, _scormCourseBuilder, _courseRepository, _objectiveRepository, _entityFactory, _urlHelper, _entityPublisher,
                 _entityMapper, _eventPublisher, _templateRepository, _externalCoursePublisher, _userRepository, _cloner);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
@@ -180,7 +180,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             Course courseToDuplicate = CourseObjectMother.Create();
             courseToDuplicate.UpdateTitle("New course!New course!NewNew course!New course!NewNew course!New course!NewNew course!New course!NewNew course!New course!NewNew course!New course!NewNew course!New course!NewNew course!New course!NewNew course!New course!NewNew course!New course!New cour", "modifier");
             var courseTitle = courseToDuplicate.Title;
-            var newTitle = String.Format("{0} {1}", courseTitle.Substring(0, 244), "... (copy)");
+            var newTitle = $"{courseTitle.Substring(0, 244)} {"... (copy)"}";
             _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
             _controller.Duplicate(courseToDuplicate);
 
@@ -207,7 +207,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             objectiveToDuplicate.UpdateTitle("New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New objective!New", "modifier");
             courseToDuplicate.RelateObjective(objectiveToDuplicate, 0, "some@user.com");
             var objectiveTitle = objectiveToDuplicate.Title;
-            var newTitle = String.Format("{0} {1}", objectiveTitle.Substring(0, 244), "... (copy)");
+            var newTitle = $"{objectiveTitle.Substring(0, 244)} {"... (copy)"}";
             _cloner.Clone(Arg.Any<Course>(), Arg.Any<string>(), true).Returns(courseToDuplicate);
             _controller.Duplicate(courseToDuplicate);
             objectiveToDuplicate.Title.Should().Be(newTitle);
@@ -250,8 +250,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Delete_ShouldDeleteCourseFromLearningPath_WhenCourseIsInLearningPath()
         {
             var course = Substitute.For<Course>();
-            var courses = new Collection<Course>();
-            courses.Add(course);
+            var courses = new Collection<Course> { course };
 
             var learningPath = Substitute.For<LearningPath>(); ;
             var learningPaths = new Collection<LearningPath>();
@@ -272,9 +271,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var courses = new Collection<Course>();
             courses.Add(course);
 
-            var objective = Substitute.For<Objective>(); ;
-            var objectives = new Collection<Objective>();
-            objectives.Add(objective);
+            var objective = Substitute.For<Objective>();
+            var objectives = new Collection<Objective> { objective };
 
             course.RelatedObjectives.Returns(objectives);
             objective.Courses.Returns(courses);
@@ -289,13 +287,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             var course1 = Substitute.For<Course>("Some title1", TemplateObjectMother.Create(), CreatedBy);
             var course2 = Substitute.For<Course>("Some title2", TemplateObjectMother.Create(), CreatedBy);
-            var courses = new Collection<Course>();
-            courses.Add(course1);
-            courses.Add(course2);
+            var courses = new Collection<Course> { course1, course2 };
 
             var objective = Substitute.For<Objective>(); ;
-            var objectives = new Collection<Objective>();
-            objectives.Add(objective);
+            var objectives = new Collection<Objective> { objective };
 
             course1.RelatedObjectives.Returns(objectives);
             objective.Courses.Returns(courses);
@@ -309,16 +304,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Delete_ShouldDeleteAllQuestions_WhenCourseObjectiveIsDeleted()
         {
             var course = Substitute.For<Course>();
-            var courses = new Collection<Course>();
-            courses.Add(course);
+            var courses = new Collection<Course> { course };
 
-            var objective = Substitute.For<Objective>(); ;
-            var objectives = new Collection<Objective>();
-            objectives.Add(objective);
+            var objective = Substitute.For<Objective>();
+            var objectives = new Collection<Objective> { objective };
 
             var question = Substitute.For<Question>();
-            var questions = new Collection<Question>();
-            questions.Add(question);
+            var questions = new Collection<Question> { question };
 
             course.RelatedObjectives.Returns(objectives);
             objective.Courses.Returns(courses);
@@ -457,7 +449,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Publish_ShouldReturnJsonErrorResult_WhenPublishFails()
         {
             //Arrange
-            _coursePublisher.Publish(Arg.Any<Course>()).Returns(false);
+            _entityPublisher.Publish(Arg.Any<Course>()).Returns(false);
 
             //Act
             var result = _controller.Publish(CourseObjectMother.Create());
@@ -471,7 +463,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            _coursePublisher.Publish(course).Returns(true);
+            _entityPublisher.Publish(course).Returns(true);
             course.UpdatePublicationUrl("url");
             _urlHelper.AddCurrentSchemeToUrl(course.PublicationUrl).Returns("http:" + course.PublicationUrl);
 
@@ -502,7 +494,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void PublishForReview_ShouldReturnJsonErrorResult_WhenPublishFails()
         {
             //Arrange
-            _coursePublisher.Publish(Arg.Any<Course>()).Returns(false);
+            _entityPublisher.Publish(Arg.Any<Course>()).Returns(false);
 
             //Act
             var result = _controller.PublishForReview(CourseObjectMother.Create());
@@ -516,7 +508,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            _coursePublisher.Publish(course).Returns(true);
+            _entityPublisher.Publish(course).Returns(true);
             _urlHelper.ToAbsoluteUrl(Arg.Any<string>()).Returns("url");
 
             //Act
@@ -630,7 +622,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void Update_ShouldReturnJsonErrorResult_WhenCourseIsNull()
         {
-            var result = _controller.UpdateTitle(null, String.Empty);
+            var result = _controller.UpdateTitle(null, string.Empty);
 
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Course is not found");
             result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("courseNotFoundError");
@@ -783,7 +775,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             _user.Identity.Name.Returns("Test user");
             var course = CourseObjectMother.Create();
-            var relatedObjectives = new List<Objective>() { ObjectiveObjectMother.Create() };
+            var relatedObjectives = new List<Objective> { ObjectiveObjectMother.Create() };
 
             //Act
             var result = _controller.UnrelateObjectives(course, relatedObjectives);

@@ -212,7 +212,7 @@
     <Compile Include="Controllers\RedirectToNewStorageControllerTests.cs" />
     <Compile Include="Publish\External\ExternalCoursePublisherTests.cs" />
     <Compile Include="Publish\External\ExternalLearningPathPublisherTests.cs" />
-    <Compile Include="Publish\LearningPathPublisherTests.cs" />
+    <Compile Include="Publish\EntityPublisherTests.cs" />
     <Compile Include="Storage\CourseStateStorageTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTrackerTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\HotSpotPolygonChangeTrackerTests.cs" />
@@ -231,7 +231,6 @@
     <Compile Include="Mail\MailTemplatesProviderTests.cs" />
     <Compile Include="Newsletter\MailChimp\MailChimpSubscriptionManagerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Publish\CoursePublisherTest.cs" />
     <Compile Include="Controllers\ReviewControllerTests.cs" />
     <Compile Include="Security\PermissionsCheckers\AnswerPermissionsCheckerTests.cs" />
     <Compile Include="Security\PermissionsCheckers\CoursePermissionsCheckerTests.cs" />

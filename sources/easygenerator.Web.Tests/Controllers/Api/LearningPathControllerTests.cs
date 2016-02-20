@@ -36,7 +36,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IEntityModelMapper<LearningPath> _mapper;
         private IEntityFactory _entityFactory;
         private ILearningPathBuilder _builder;
-        private ILearningPathPublisher _publisher;
+        private IEntityPublisher _publisher;
         private IUserRepository _userRepository;
         private IDocumentRepository _documentRepository;
         private IExternalLearningPathPublisher _externalPublisher;
@@ -52,7 +52,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _mapper = Substitute.For<IEntityModelMapper<LearningPath>>();
             _repository = Substitute.For<ILearningPathRepository>();
             _builder = Substitute.For<ILearningPathBuilder>();
-            _publisher = Substitute.For<ILearningPathPublisher>();
+            _publisher = Substitute.For<IEntityPublisher>();
             _userRepository = Substitute.For<IUserRepository>();
             _documentRepository = Substitute.For<IDocumentRepository>();
             _externalPublisher = Substitute.For<IExternalLearningPathPublisher>();
