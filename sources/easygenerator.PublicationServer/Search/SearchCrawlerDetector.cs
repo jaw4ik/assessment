@@ -1,7 +1,6 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
-namespace easygenerator.PublicationServer.Utils
+namespace easygenerator.PublicationServer.Search
 {
     public class SearchCrawlerDetector
     {

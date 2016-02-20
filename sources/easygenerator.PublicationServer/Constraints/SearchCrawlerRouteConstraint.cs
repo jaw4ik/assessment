@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Http.Routing;
-using easygenerator.PublicationServer.Utils;
+using easygenerator.PublicationServer.Search;
 
 namespace easygenerator.PublicationServer.Constraints
 {

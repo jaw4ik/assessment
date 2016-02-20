@@ -145,6 +145,8 @@
     <Compile Include="DataAccess\IUserRepository.cs" />
     <Compile Include="DataAccess\PublicationRepository.cs" />
     <Compile Include="DataAccess\UserRepository.cs" />
+    <Compile Include="HttpResponseMessages\HttpResponseMessageFactory.cs" />
+    <Compile Include="Search\SearchManager.cs" />
     <Compile Include="Utils\DateTimeWrapper.cs" />
     <Compile Include="Extensions\DependencyResolverExtensions.cs" />
     <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
@@ -161,7 +163,7 @@
     <Compile Include="Publish\CoursePublisher.cs" />
     <Compile Include="Logging\ElmahLog.cs" />
     <Compile Include="ActionFilters\GeneralExceptionFilterAttribute.cs" />
-    <Compile Include="HtmlPageResponseMessage.cs" />
+    <Compile Include="HttpResponseMessages\HtmlPageResponseMessage.cs" />
     <Compile Include="MultipartFormData\CourseMultipartFormDataManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Publish\ICoursePublisher.cs" />
@@ -170,7 +172,7 @@
     <Compile Include="Publish\PublishDispatcher.cs" />
     <Compile Include="StaticViewContentProvider.cs" />
     <Compile Include="MultipartFormData\CourseMultipartFormDataStreamProvider.cs" />
-    <Compile Include="Utils\SearchCrawlerDetector.cs" />
+    <Compile Include="Search\SearchCrawlerDetector.cs" />
     <Compile Include="ViewModels\UserInfoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

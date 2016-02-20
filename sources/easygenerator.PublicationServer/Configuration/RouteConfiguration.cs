@@ -1,5 +1,5 @@
 ﻿using System.Web.Http;
-using System.Web.Http.Routing;
+using easygenerator.PublicationServer.Extensions;
 using easygenerator.PublicationServer.Constraints;
 
 namespace easygenerator.PublicationServer.Configuration
@@ -12,7 +12,7 @@ namespace easygenerator.PublicationServer.Configuration
               name: "Maintenance",
               routeTemplate: "{courseId}/{*pathInfo}",
               defaults: new { controller = "SystemPages", action = "PublishIsInProgress" },
-              constraints: new { courseId = config.DependencyResolver.GetService(typeof(MaintenanceRouteConstraint)) }
+              constraints: new { courseId = config.DependencyResolver.GetService<MaintenanceRouteConstraint>() }
             );
 
             var constraintResolver = new InlineConstraintResolver(config.DependencyResolver);

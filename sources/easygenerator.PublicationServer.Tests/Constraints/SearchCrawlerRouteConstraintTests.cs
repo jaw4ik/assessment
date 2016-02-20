@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Http.Routing;
 using easygenerator.PublicationServer.Constraints;
-using easygenerator.PublicationServer.Utils;
+using easygenerator.PublicationServer.Search;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
@@ -15,7 +15,7 @@ namespace easygenerator.PublicationServer.Tests.Constraints
     {
         private SearchCrawlerRouteConstraint _constraint;
         private SearchCrawlerDetector _searchCrawlerDetector;
-        private const string parameterName = "paramName";
+        private const string ParameterName = "paramName";
 
         [TestInitialize]
         public void Init()
@@ -29,7 +29,7 @@ namespace easygenerator.PublicationServer.Tests.Constraints
         {
             var message = new HttpRequestMessage(HttpMethod.Get, "http://example.com");
             _searchCrawlerDetector.IsCrawler(Arg.Any<string>()).Returns(false);
-            var result = _constraint.Match(message, null, parameterName, new Dictionary<string, object> { { parameterName, Guid.NewGuid() } }, HttpRouteDirection.UriGeneration);
+            var result = _constraint.Match(message, null, ParameterName, new Dictionary<string, object> { { ParameterName, Guid.NewGuid() } }, HttpRouteDirection.UriGeneration);
             result.Should().Be(false);
         }
 
@@ -38,7 +38,7 @@ namespace easygenerator.PublicationServer.Tests.Constraints
         {
             var message = new HttpRequestMessage(HttpMethod.Get, "http://example.com");
             _searchCrawlerDetector.IsCrawler(Arg.Any<string>()).Returns(true);
-            var result = _constraint.Match(message, null, parameterName, new Dictionary<string, object> { { parameterName, Guid.NewGuid() } }, HttpRouteDirection.UriGeneration);
+            var result = _constraint.Match(message, null, ParameterName, new Dictionary<string, object> { { ParameterName, Guid.NewGuid() } }, HttpRouteDirection.UriGeneration);
             result.Should().Be(true);
         }
     }

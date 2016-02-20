@@ -7,9 +7,11 @@ using System.Reflection;
 using System.Web.Http;
 using easygenerator.PublicationServer.DataAccess;
 using easygenerator.PublicationServer.FileSystem;
+using easygenerator.PublicationServer.HttpResponseMessages;
 using easygenerator.PublicationServer.Logging;
 using easygenerator.PublicationServer.MultipartFormData;
 using easygenerator.PublicationServer.Publish;
+using easygenerator.PublicationServer.Search;
 using easygenerator.PublicationServer.Utils;
 
 namespace easygenerator.PublicationServer.Configuration
@@ -35,6 +37,8 @@ namespace easygenerator.PublicationServer.Configuration
                 builder.RegisterType<PublicationRepository>().As<IPublicationRepository>();
                 builder.RegisterType<HttpUtilityWrapper>().As<HttpUtilityWrapper>();
                 builder.RegisterType<SearchCrawlerDetector>().As<SearchCrawlerDetector>();
+                builder.RegisterType<SearchManager>().As<SearchManager>();
+                builder.RegisterType<HttpResponseMessageFactory>().As<HttpResponseMessageFactory>();
             });
         }
 
@@ -47,6 +51,7 @@ namespace easygenerator.PublicationServer.Configuration
                 builder.RegisterType<PublicationPathProvider>().As<PublicationPathProvider>().SingleInstance();
                 builder.RegisterType<StaticViewContentProvider>().As<StaticViewContentProvider>().SingleInstance();
                 builder.RegisterType<ConfigurationReader>().As<ConfigurationReader>().SingleInstance();
+                builder.RegisterType<HttpResponseMessageFactory>().As<HttpResponseMessageFactory>();
             });
         }
 

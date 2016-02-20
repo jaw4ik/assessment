@@ -7,6 +7,7 @@ using Owin;
 using System.Web.Http;
 using easygenerator.PublicationServer.DataAccess;
 using easygenerator.PublicationServer.FileSystem;
+using easygenerator.PublicationServer.Search;
 using easygenerator.PublicationServer.Utils;
 
 namespace easygenerator.PublicationServer.Configuration
@@ -18,9 +19,9 @@ namespace easygenerator.PublicationServer.Configuration
         {
             appBuilder.UseStaticFiles("/content");
 
-            var privatePublicationsFileServerOptions = new FileServerOptions()
+            var privatePublicationsFileServerOptions = new FileServerOptions
             {
-                FileSystem = new PrivatePublicationsFileSystem(RootPath, (PublicationPathProvider)config.DependencyResolver.GetService(typeof(PublicationPathProvider))),
+                FileSystem = new PrivatePublicationsFileSystem(RootPath, config.DependencyResolver.GetService<PublicationPathProvider>()),
                 RequestPath = new PathString(@""),
                 EnableDefaultFiles = true
             };
@@ -31,10 +32,10 @@ namespace easygenerator.PublicationServer.Configuration
             {
                 FileSystem = new PublicPublicationsFileSystem(
                     RootPath,
-                    (PublicationPathProvider)config.DependencyResolver.GetService(typeof(PublicationPathProvider)),
-                    (IPublicationRepository)config.DependencyResolver.GetService(typeof(IPublicationRepository)),
-                    (HttpUtilityWrapper)config.DependencyResolver.GetService(typeof(HttpUtilityWrapper)),
-                    (IUserRepository)config.DependencyResolver.GetService(typeof(IUserRepository))),
+                    config.DependencyResolver.GetService<PublicationPathProvider>(),
+                    config.DependencyResolver.GetService<IPublicationRepository>(),
+                    config.DependencyResolver.GetService<HttpUtilityWrapper>(),
+                    config.DependencyResolver.GetService<SearchManager>()),
                 RequestPath = new PathString($@"/{Constants.PublicPublicationsPath}"),
                 EnableDefaultFiles = true
             };

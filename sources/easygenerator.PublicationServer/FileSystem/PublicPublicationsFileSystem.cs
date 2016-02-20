@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.Owin.FileSystems;
+﻿using Microsoft.Owin.FileSystems;
 using System.Collections.Generic;
 using easygenerator.PublicationServer.DataAccess;
+using easygenerator.PublicationServer.Search;
 using easygenerator.PublicationServer.Utils;
 
 namespace easygenerator.PublicationServer.FileSystem
@@ -11,16 +11,16 @@ namespace easygenerator.PublicationServer.FileSystem
         private readonly PublicationPathProvider _pathProvider;
         private readonly IPublicationRepository _publicationRepository;
         private readonly HttpUtilityWrapper _httpUtilityWrapper;
-        private readonly IUserRepository _userRepository;
+        private readonly SearchManager _searchManager;
 
         public PublicPublicationsFileSystem(string root, PublicationPathProvider pathProvider, IPublicationRepository publicationRepository,
-            HttpUtilityWrapper httpUtilityWrapper, IUserRepository userRepository)
+            HttpUtilityWrapper httpUtilityWrapper, SearchManager searchManager)
             : base(root)
         {
             _pathProvider = pathProvider;
             _publicationRepository = publicationRepository;
             _httpUtilityWrapper = httpUtilityWrapper;
-            _userRepository = userRepository;
+            _searchManager = searchManager;
         }
 
         bool IFileSystem.TryGetDirectoryContents(string subpath, out IEnumerable<IFileInfo> contents)
@@ -42,16 +42,10 @@ namespace easygenerator.PublicationServer.FileSystem
             if (publicPublicationPath != null)
             {
                 var publication = _publicationRepository.GetByPublicPath(publicPublicationPath);
-                if (publication != null)
+                if (_searchManager.AllowedToBeIndexed(publication))
                 {
-                    var owner = _userRepository.Get(publication.OwnerEmail);
-                    if (owner != null && owner.AccessType == Constants.Search.SearchableAccessType
-                        && (DateTimeWrapper.Now() - owner.ModifiedOn) >
-                        TimeSpan.FromDays(Constants.Search.SearchableAccessTypeMinDaysPeriod))
-                    {
-                        var originalPublicationPath = subpath.Replace(publicPublicationPath, publication.Id.ToString());
-                        return _pathProvider.GetPrivatePublicationSubDirectoryPath(originalPublicationPath);
-                    }
+                    var originalPublicationPath = subpath.Replace(publicPublicationPath, publication.Id.ToString());
+                    return _pathProvider.GetPrivatePublicationSubDirectoryPath(originalPublicationPath);
                 }
             }
             return null;

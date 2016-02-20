@@ -1,9 +1,8 @@
-﻿using System.IO;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
-namespace easygenerator.PublicationServer
+namespace easygenerator.PublicationServer.HttpResponseMessages
 {
     public class HtmlPageResponseMessage : HttpResponseMessage
     {

@@ -1,89 +1,79 @@
 ﻿using System;
-using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Web;
 using System.Web.Http;
 using easygenerator.PublicationServer.DataAccess;
-using easygenerator.PublicationServer.FileSystem;
+using easygenerator.PublicationServer.HttpResponseMessages;
+using easygenerator.PublicationServer.Models;
+using easygenerator.PublicationServer.Search;
 using easygenerator.PublicationServer.Utils;
 
 namespace easygenerator.PublicationServer.Controllers
 {
     public class SearchContentController : BaseApiController
     {
-        private readonly PhysicalFileManager _physicalFileManager;
+
         private readonly PublicationPathProvider _publicationPathProvider;
         private readonly IPublicationRepository _publicationRepository;
-        private readonly IUserRepository _userRepository;
-        private readonly StaticViewContentProvider _contentProvider;
+        private readonly HttpResponseMessageFactory _httpMessagesFactory;
+        private readonly SearchManager _searchManager;
 
-        public SearchContentController(PhysicalFileManager physicalFileManager, PublicationPathProvider publicationPathProvider, IPublicationRepository publicationRepository,
-            IUserRepository userRepository, StaticViewContentProvider contentProvider)
+        public SearchContentController(PublicationPathProvider publicationPathProvider, IPublicationRepository publicationRepository,
+            SearchManager searchManager, HttpResponseMessageFactory httpMessagesFactory)
         {
-            _physicalFileManager = physicalFileManager;
+
             _publicationPathProvider = publicationPathProvider;
             _publicationRepository = publicationRepository;
-            _userRepository = userRepository;
-            _contentProvider = contentProvider;
+            _searchManager = searchManager;
+            _httpMessagesFactory = httpMessagesFactory;
         }
 
-        [Route(Constants.PublicPublicationsPath + "/{publicPath:searchCrawler}/{*resourcePath}", Order = 20)]
+        [Route(Constants.PublicPublicationsPath + "/{publicPath:searchCrawler}/{*resourcePath}")]
         [HttpGet]
         public HttpResponseMessage SearchContent(string publicPath, string resourcePath)
         {
-            Guid publicationId;
-
             if (resourcePath == null)
             {
+                if (!Request.RequestUri.AbsolutePath.EndsWith("/"))
+                {
+                    return _httpMessagesFactory.Redirect(Request.RequestUri.ToString()
+                        .Replace(Request.RequestUri.AbsolutePath, $"{Request.RequestUri.AbsolutePath}/"));
+                }
+
                 if (!_publicationPathProvider.IsPathToFolder(publicPath))
                 {
-                    publicationId = GetPublicationIdFromRequest(Request);
-                    if (publicationId != Guid.Empty)
-                    {
-                        var courseContentFilePath = _publicationPathProvider.GetPublishedPackagePath(publicationId, $"{publicPath}");
-                        return FileResponseMessage(courseContentFilePath);
-                    }
-                }
-                else if (!Request.RequestUri.AbsolutePath.EndsWith("/"))
-                {
-                    return new HttpResponseMessage(HttpStatusCode.MovedPermanently)
-                    {
-                        Headers =
-                        {
-                            Location =
-                                new Uri(Request.RequestUri.ToString()
-                                    .Replace(Request.RequestUri.AbsolutePath, $"{Request.RequestUri.AbsolutePath}/"))
-                        }
-                    };
+                    return PublicationResource(Request, publicPath);
                 }
             }
 
             var publication = _publicationRepository.GetByPublicPath(publicPath);
             if (publication != null)
             {
-                var owner = _userRepository.Get(publication.OwnerEmail);
-                if (owner != null && owner.AccessType == Constants.Search.SearchableAccessType
-                    && (DateTimeWrapper.Now() - owner.ModifiedOn) >
-                    TimeSpan.FromDays(Constants.Search.SearchableAccessTypeMinDaysPeriod))
-                {
-                    var searchContentResourcePath = _publicationPathProvider.GetSearchContentResourcePath(
-                        publication.Id,
-                        resourcePath ?? "index.html");
-                    return FileResponseMessage(searchContentResourcePath);
-                }
-                return new HtmlPageResponseMessage("404.html", _contentProvider, HttpStatusCode.NotFound);
+                return PublicationSearchContentResource(publication, resourcePath);
             }
 
+            return PublicationResource(Request, publicPath, resourcePath);
+        }
 
-            publicationId = GetPublicationIdFromRequest(Request);
-            if (publicationId != Guid.Empty && !String.IsNullOrWhiteSpace(resourcePath))
+        private HttpResponseMessage PublicationSearchContentResource(Publication publication, string resourcePath)
+        {
+            if (_searchManager.AllowedToBeIndexed(publication))
             {
-                var courseContentFilePath = _publicationPathProvider.GetPublishedPackagePath(publicationId, $"{publicPath}\\{resourcePath}");
-                return FileResponseMessage(courseContentFilePath);
+                var searchContentResourcePath = _publicationPathProvider.GetSearchContentResourcePath(publication.Id, resourcePath ?? "index.html");
+                return _httpMessagesFactory.FileContent(searchContentResourcePath);
             }
+            return _httpMessagesFactory.PageNotFound();
+        }
 
-            return new HttpResponseMessage(HttpStatusCode.NotFound);
+        private HttpResponseMessage PublicationResource(HttpRequestMessage request, string publicPath, string resourcePath = null)
+        {
+            var publicationId = GetPublicationIdFromRequest(request);
+            if (publicationId != Guid.Empty)
+            {
+                var resourceName = resourcePath != null ? $"{publicPath}\\{resourcePath}" : publicPath;
+                var courseContentFilePath = _publicationPathProvider.GetPublishedPackagePath(publicationId, resourceName);
+                return _httpMessagesFactory.FileContent(courseContentFilePath);
+            }
+            return _httpMessagesFactory.PageNotFound();
         }
 
         private Guid GetPublicationIdFromRequest(HttpRequestMessage request)
@@ -100,27 +90,6 @@ namespace easygenerator.PublicationServer.Controllers
                 }
             }
             return Guid.Empty;
-        }
-
-        private HttpResponseMessage FileResponseMessage(string filePath)
-        {
-            if (_physicalFileManager.FileExists(filePath))
-            {
-                var resourceContent = _physicalFileManager.ReadAllFromFile(filePath);
-
-                return new HttpResponseMessage(HttpStatusCode.OK)
-                {
-                    Content = new StringContent(resourceContent)
-                    {
-                        Headers =
-                        {
-                            ContentType =
-                                new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(filePath))
-                        }
-                    }
-                };
-            }
-            return new HtmlPageResponseMessage("404.html", _contentProvider, HttpStatusCode.NotFound);
         }
     }
 }

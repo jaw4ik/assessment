@@ -5,6 +5,7 @@ using System.Text;
 using System.Web.Http;
 using easygenerator.PublicationServer.Configuration;
 using easygenerator.PublicationServer.DataAccess;
+using easygenerator.PublicationServer.HttpResponseMessages;
 
 namespace easygenerator.PublicationServer.Controllers
 {
@@ -12,14 +13,14 @@ namespace easygenerator.PublicationServer.Controllers
     {
         private const int SitemapMaxUrlsCount = 10000;
         private const int PublicationsBatch = 1000;
-        private readonly StaticViewContentProvider _contentProvider;
         private readonly ConfigurationReader _configurationReader;
+        private readonly HttpResponseMessageFactory _httpResponseMessageFactory;
 
         private readonly IPublicationRepository _publicationRepository;
-        public SitemapController(IPublicationRepository publicationRepository, StaticViewContentProvider contentProvider, ConfigurationReader configurationReader)
+        public SitemapController(IPublicationRepository publicationRepository, HttpResponseMessageFactory httpResponseMessageFactory, ConfigurationReader configurationReader)
         {
             _publicationRepository = publicationRepository;
-            _contentProvider = contentProvider;
+            _httpResponseMessageFactory = httpResponseMessageFactory;
             _configurationReader = configurationReader;
         }
 
@@ -55,7 +56,7 @@ namespace easygenerator.PublicationServer.Controllers
                 }
             }
 
-            return new HtmlPageResponseMessage("404.html", _contentProvider, HttpStatusCode.NotFound);
+            return _httpResponseMessageFactory.PageNotFound();
         }
 
         [Route("sitemap_{index}.xml")]
@@ -102,7 +103,7 @@ namespace easygenerator.PublicationServer.Controllers
                 }
             }
 
-            return new HtmlPageResponseMessage("404.html", _contentProvider, HttpStatusCode.NotFound);
+            return _httpResponseMessageFactory.PageNotFound();
         }
     }
 }
