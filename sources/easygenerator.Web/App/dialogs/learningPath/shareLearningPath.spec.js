@@ -1,105 +1,184 @@
-﻿define(['dialogs/learningPath/shareLearningPath'], function (viewModel) {
-    'use strict';
+﻿import shareLearningPath from 'dialogs/learningPath/shareLearningPath';
+import userContext from 'userContext';
+import defaultPublishModel from 'dialogs/learningPath/defaultPublish';
+import customPublishModel from 'dialogs/learningPath/customPublish';
 
-    var userContext = require('userContext'),
-        defaultPublishModel = require('dialogs/learningPath/defaultPublish'),
-        customPublishModel = require('dialogs/learningPath/customPublish');
+describe('dialog [shareLearningPath]', () => {
 
-    describe('dialog [shareLearningPath]', function () {
+    it('should be object', () => {
+        expect(shareLearningPath).toBeObject();
+    });
 
-        it('should be object', function () {
-            expect(viewModel).toBeObject();
-        });
+    describe('publishModel:', () => {
 
-        describe('publishModel', function () {
-            it('should be defined', function () {
-                expect(viewModel.publishModel).toBeDefined();
-            });
-        });
-
-        describe('isShown:', function () {
-            it('should be observable', function () {
-                expect(viewModel.isShown).toBeObservable();
-            });
-        });
-
-        describe('show:', function () {
-            beforeEach(function () {
-                viewModel.publishModel = { activate: function () { } };
-                spyOn(viewModel.publishModel, 'activate');
-            });
-
-            it('should be function', function () {
-                expect(viewModel.show).toBeFunction();
-            });
-
-            it('should activate publish model', function () {
-                viewModel.show('learningPathId');
-                expect(viewModel.publishModel.activate).toHaveBeenCalledWith('learningPathId');
-            });
-
-            it('should show dialog', function () {
-                viewModel.isShown(null);
-                viewModel.show();
-                expect(viewModel.isShown()).toBeTruthy();
-            });
-        });
-
-        describe('hide:', function () {
-            beforeEach(function () {
-                viewModel.publishModel = { deactivate: function () { } };
-                spyOn(viewModel.publishModel, 'deactivate');
-            });
-
-            it('should be function', function () {
-                expect(viewModel.hide).toBeFunction();
-            });
-
-            it('should deactivate publish model', function () {
-                viewModel.hide();
-                expect(viewModel.publishModel.deactivate).toHaveBeenCalled();
-            });
-
-            it('should hide dialog', function () {
-                viewModel.isShown(null);
-                viewModel.hide();
-                expect(viewModel.isShown()).toBeFalsy();
-            });
-        });
-
-        describe('activate:', function () {
-            var learningPathId = 'learningPathId';
-
-            beforeEach(function () {
-                userContext.identity = {};
-            });
-
-            it('should be function', function () {
-                expect(viewModel.activate).toBeFunction();
-            });
-
-            describe('when user has company', function () {
-                beforeEach(function () {
-                    userContext.identity.company = {};
-                });
-
-                it('should set custom publish model', function () {
-                    viewModel.activate(learningPathId);
-                    expect(viewModel.publishModel).toBe(customPublishModel);
-                });
-            });
-
-            describe('when user has no company', function () {
-                beforeEach(function () {
-                    userContext.identity.company = null;
-                });
-
-                it('should set default publish model', function () {
-                    viewModel.activate(learningPathId);
-                    expect(viewModel.publishModel).toBe(defaultPublishModel);
-                });
-            });
+        it('should be defined', () => {
+            expect(shareLearningPath.publishModel).toBeDefined();
         });
 
     });
+
+    describe('company:', () => {
+
+        it('should be defined', () => {
+            expect(shareLearningPath.company).toBeDefined();
+        });
+
+    });
+
+    describe('isShown:', () => {
+
+        it('should be defined', () => {
+            expect(shareLearningPath.isShown).toBeObservable();
+        });
+
+    });
+
+    describe('isActivated:', () => {
+
+        it('should be defined', () => {
+            expect(shareLearningPath.isActivated).toBeObservable();
+        });
+
+    });
+
+    describe('activate:', () => {
+
+        it('should be function', () => {
+            expect(shareLearningPath.activate).toBeFunction();
+        });
+
+        describe('when user doesn\'t have company', () => {
+
+            beforeEach(() => {
+                userContext.identity.companies = [];
+            });
+
+            it('should set defult publish model', () => {
+                shareLearningPath.publishModel = null;
+                shareLearningPath.activate();
+                expect(shareLearningPath.publishModel).toBe(defaultPublishModel);
+            });
+
+            it('should set company to null', () => {
+                shareLearningPath.activate();
+                expect(shareLearningPath.company).toBeNull();
+            });
+
+        });
+
+        describe('when user has company', () => {
+
+            var company1 = { priority: 0 },
+                company2 = { priority: 1 };
+
+            beforeEach(() => {
+                userContext.identity.companies = [company1, company2];
+            });
+
+            it('should set custom publish model', () => {
+                shareLearningPath.publishModel = null;
+                shareLearningPath.activate();
+                expect(shareLearningPath.publishModel).toBe(customPublishModel);
+            });
+
+            it('should set company to company with the most largest priority', () => {
+                shareLearningPath.company = null;
+                shareLearningPath.activate();
+                expect(shareLearningPath.company).toBe(company2);
+            });
+
+        });
+            
+    });
+
+    describe('show:', () => {
+
+        beforeEach(() => {
+            shareLearningPath.publishModel = { activate: () => {} };
+            spyOn(shareLearningPath.publishModel, 'activate');
+        });
+
+        it('should be function', () => {
+            expect(shareLearningPath.show).toBeFunction();
+        });
+
+        it('should return promise', () => {
+            shareLearningPath.company = null;
+            expect(shareLearningPath.show()).toBePromise();
+        });
+
+        it('should set isActivated to true', done => (async () => {
+            shareLearningPath.company = null;
+            shareLearningPath.isActivated(false);
+            await shareLearningPath.show('learningPathId');
+            expect(shareLearningPath.isActivated()).toBeTruthy();
+        })().then(done));
+
+        it('should show dialog', done => (async () => {
+            shareLearningPath.company = null;
+            shareLearningPath.isShown(false);
+            await shareLearningPath.show('learningPathId');
+            expect(shareLearningPath.isShown()).toBeTruthy();
+        })().then(done));
+
+        describe('when user has no companies', () => {
+
+            beforeEach(() => {
+                shareLearningPath.company = null;
+            });
+
+            it('should activate publish model', () => {
+                shareLearningPath.show('learningPathId');
+                expect(shareLearningPath.publishModel.activate).toHaveBeenCalledWith('learningPathId');
+            });
+
+        });
+
+        describe('when user has companies', () => {
+
+            var company = { priority: 0 };
+
+            beforeEach(() => {
+                shareLearningPath.company = company;
+            });
+
+            it('should activate publish model', () => {
+                shareLearningPath.show('learningPathId');
+                expect(shareLearningPath.publishModel.activate).toHaveBeenCalledWith({ learningPathId: 'learningPathId', companyInfo: company });
+            });
+
+        });
+
+    });
+
+    describe('hide:', () => {
+
+        beforeEach(() => {
+            shareLearningPath.publishModel = { deactivate: () => { } };
+            spyOn(shareLearningPath.publishModel, 'deactivate');
+        });
+
+        it('should be function', () => {
+            expect(shareLearningPath.hide).toBeFunction();
+        });
+
+        it('should deactivate publish model', () => {
+            shareLearningPath.hide();
+            expect(shareLearningPath.publishModel.deactivate).toHaveBeenCalled();
+        });
+
+        it('should set isActivated to false', () => {
+            shareLearningPath.isActivated(null);
+            shareLearningPath.hide();
+            expect(shareLearningPath.isActivated()).toBeFalsy();
+        });
+
+        it('should hide dilog', () => {
+            shareLearningPath.isShown(null);
+            shareLearningPath.hide();
+            expect(shareLearningPath.isShown()).toBeFalsy();
+        });
+
+    });
+
 });

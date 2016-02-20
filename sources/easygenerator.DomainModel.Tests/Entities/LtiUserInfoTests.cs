@@ -2,6 +2,7 @@
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using easygenerator.DomainModel.Tests.ObjectMothers;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {
@@ -9,38 +10,36 @@ namespace easygenerator.DomainModel.Tests.Entities
     public class LtiUserInfoTests
     {
         [TestMethod]
-        public void Ctor_ShouldThrowArgumentNullException_WhenLtiUserIdIsNull()
-        {
-            Action action = () => new LtiUserInfo(null, new ConsumerTool());
-
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("ltiUserId");
-        }
-
-        [TestMethod]
-        public void Ctor_ShouldThrowArgumentException_WhenLtiUserIdIsEmptyString()
-        {
-            Action action = () => new LtiUserInfo(" ", new ConsumerTool());
-
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("ltiUserId");
-        }
-
-        [TestMethod]
         public void Ctor_ShouldThrowArgumentNullException_WhenConsumerToolIsNull()
         {
-            Action action = () => new LtiUserInfo("id", null);
+            var user = UserObjectMother.Create();
+
+            Action action = () => new LtiUserInfo("id", null, user);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("consumerTool");
         }
 
         [TestMethod]
-        public void Ctor_ShouldUpdateLtiUserIdAndConsumerTool()
+        public void Ctor_ShouldThrowArgumentNullException_WhenUserIsNull()
+        {
+            var consumerTool = new ConsumerTool();
+
+            Action action = () => new LtiUserInfo("id", consumerTool, null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("user");
+        }
+
+        [TestMethod]
+        public void Ctor_ShouldUpdateLtiUserIdAndConsumerToolAndUser()
         {
             var id = "id";
             var consumerTool = new ConsumerTool();
-            var ltiUserInfo = new LtiUserInfo(id, consumerTool);
+            var user = UserObjectMother.Create();
+            var ltiUserInfo = new LtiUserInfo(id, consumerTool, user);
 
             ltiUserInfo.LtiUserId.Should().Be(id);
             ltiUserInfo.ConsumerTool.Should().Be(consumerTool);
+            ltiUserInfo.User.Should().Be(user);
         }
 
         [TestMethod]
@@ -48,7 +47,9 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var id = "id";
             var consumerTool = new ConsumerTool();
-            var ltiUserInfo = new LtiUserInfo(id, consumerTool);
+            var user = UserObjectMother.Create();
+
+            var ltiUserInfo = new LtiUserInfo(id, consumerTool, user);
 
             ltiUserInfo.Id.Equals(Guid.Empty).Should().BeFalse();
         }

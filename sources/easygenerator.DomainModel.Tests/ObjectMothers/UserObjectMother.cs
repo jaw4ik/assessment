@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 
@@ -49,7 +51,7 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
 
         public static User CreateWithCompany(Company company)
         {
-            return Create(company: company);
+            return Create(companies: new Collection<Company>() { company });
         }
 
         public static User Create(string email = Email,
@@ -63,10 +65,11 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             AccessType accessType = AccessType.Trial,
             string lastReadReleaseNote = LastReadReleaseNote,
             DateTime? expirationDate = null,
-            Company company = null,
+            bool isCreatedThroughLti = false,
+            ICollection<Company> companies = null,
             bool? newEditor = null)
         {
-            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessType, lastReadReleaseNote, expirationDate, company, newEditor);
+            return new User(email, password, firstname, lastname, phone, country, role, createdBy, accessType, lastReadReleaseNote, expirationDate, isCreatedThroughLti, companies, newEditor);
         }
     }
 }

@@ -15,10 +15,12 @@
             });
         });
 
-        describe('companyInfo:', function() {
+        describe('publishToCustomLmsModels:', function () {
+
             it('should be defined', function () {
-                expect(viewModel.companyInfo).toBeDefined();
+                expect(viewModel.publishToCustomLmsModels).toBeDefined();
             });
+
         });
 
         describe('publishAction:', function () {
@@ -92,15 +94,18 @@
                 var company = { name: 'Company' };
                 beforeEach(function () {
                     identifyDefer.resolve();
-                    userContext.identity = { company: company };
+                    userContext.identity = {
+                        companies: [{ id: 'companyId', priority: 0, name: 'companyName' }]
+                    };
                 });
 
-                it('should set companyInfo', function (done) {
-                    viewModel.companyInfo = null;
-                    viewModel.activate('learningPathId');
+                it('should set publishToCustomLmsModels', function (done) {
+                    viewModel.publishToCustomLmsModels = [];
 
-                    identifyDefer.promise.fin(function () {
-                        expect(viewModel.companyInfo).toBe(company);
+                    viewModel.activate().fin(function () {
+                        expect(viewModel.publishToCustomLmsModels.length).toBe(1);
+                        expect(viewModel.publishToCustomLmsModels[0].company).toBe(userContext.identity.companies[0]);
+                        expect(viewModel.publishToCustomLmsModels[0].model.activate).toBeFunction();
                         done();
                     });
                 });
@@ -124,10 +129,12 @@
             beforeEach(function () {
                 viewModel.publishAction = { deactivate: function () { } };
                 viewModel.downloadAction = { deactivate: function () { } };
-                viewModel.publishToCustomLmsAction = { deactivate: function () { } };
+                viewModel.publishToCustomLmsModels = [{ model: { deactivate: function() {} } }];
                 spyOn(viewModel.publishAction, 'deactivate');
-                spyOn(viewModel.publishToCustomLmsAction, 'deactivate');
                 spyOn(viewModel.downloadAction, 'deactivate');
+                viewModel.publishToCustomLmsModels.forEach(function (item) {
+                    spyOn(item.model, 'deactivate');
+                });
             });
 
             it('should be function', function () {
@@ -141,7 +148,7 @@
 
             it('should deactivate publish to custom LMS action', function () {
                 viewModel.deactivate();
-                expect(viewModel.publishToCustomLmsAction.deactivate).toHaveBeenCalled();
+                expect(viewModel.publishToCustomLmsModels[0].model.deactivate).toHaveBeenCalled();
             });
 
             it('should deactivate download action', function () {

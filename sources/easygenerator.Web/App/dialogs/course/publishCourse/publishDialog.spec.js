@@ -1,104 +1,184 @@
-﻿define(['dialogs/course/publishCourse/publishDialog'], function (viewModel) {
+﻿import publishDialog from 'dialogs/course/publishCourse/publishDialog';
+import userContext from 'userContext';
+import defaultPublishModel from 'dialogs/course/publishCourse/defaultPublish';
+import customPublishModel from 'dialogs/course/publishCourse/customPublish';
 
-    var userContext = require('userContext'),
-        defaultPublishModel = require('dialogs/course/publishCourse/defaultPublish'),
-        customPublishModel = require('dialogs/course/publishCourse/customPublish');
-
-    describe('dialog [publishDialog]', function () {
+describe('dialog [publishDialog]', () => {
         
-        it('should be object', function() {
-            expect(viewModel).toBeObject();
-        });
-
-        describe('publishModel:', function() {
-            it('should be defined', function() {
-                expect(viewModel.publishModel).toBeDefined();
-            });
-        });
-
-        describe('isShown:', function() {
-            it('should be defined', function() {
-                expect(viewModel.isShown).toBeObservable();
-            });
-        });
-
-        describe('show:', function() {
-            beforeEach(function () {
-                viewModel.publishModel = { activate: function () { } };
-                spyOn(viewModel.publishModel, 'activate');
-            });
-
-            it('should be function', function () {
-                expect(viewModel.show).toBeFunction();
-            });
-
-            it('should activate publish model', function() {
-                viewModel.show('courseId');
-                expect(viewModel.publishModel.activate).toHaveBeenCalledWith('courseId');
-            });
-
-            it('should show dilog', function() {
-                viewModel.isShown(null);
-                viewModel.show();
-                expect(viewModel.isShown()).toBeTruthy();
-            });
-        });
-
-        describe('hide:', function () {
-            beforeEach(function () {
-                viewModel.publishModel = { deactivate: function () { } };
-                spyOn(viewModel.publishModel, 'deactivate');
-            });
-
-            it('should be function', function() {
-                expect(viewModel.hide).toBeFunction();
-            });
-
-            it('should activate publish model', function () {
-                viewModel.hide();
-                expect(viewModel.publishModel.deactivate).toHaveBeenCalled();
-            });
-
-            it('should hide dilog', function () {
-                viewModel.isShown(null);
-                viewModel.hide();
-                expect(viewModel.isShown()).toBeFalsy();
-            });
-        });
-
-        describe('activate:', function () {
-            beforeEach(function () {
-                userContext.identity = {};
-            });
-
-            it('should be function', function() {
-                expect(viewModel.activate).toBeFunction();
-            });
-
-            describe('when user doesn\' have company', function() {
-                beforeEach(function() {
-                    userContext.identity.company = null;
-                });
-
-                it('should set defult publish model', function() {
-                    viewModel.publishModel = null;
-                    viewModel.activate();
-                    expect(viewModel.publishModel).toBe(defaultPublishModel);
-                });
-            });
-
-            describe('when user has company', function() {
-                beforeEach(function () {
-                    userContext.identity.company = {};
-                });
-
-                it('should set defult publish model', function () {
-                    viewModel.publishModel = null;
-                    viewModel.activate();
-                    expect(viewModel.publishModel).toBe(customPublishModel);
-                });
-            });
-            
-        });
+    it('should be object', () => {
+        expect(publishDialog).toBeObject();
     });
+
+    describe('publishModel:', () => {
+
+        it('should be defined', () => {
+            expect(publishDialog.publishModel).toBeDefined();
+        });
+
+    });
+
+    describe('company:', () => {
+
+        it('should be defined', () => {
+            expect(publishDialog.company).toBeDefined();
+        });
+
+    });
+
+    describe('isShown:', () => {
+
+        it('should be defined', () => {
+            expect(publishDialog.isShown).toBeObservable();
+        });
+
+    });
+
+    describe('isActivated:', () => {
+
+        it('should be defined', () => {
+            expect(publishDialog.isActivated).toBeObservable();
+        });
+
+    });
+
+    describe('activate:', () => {
+
+        it('should be function', () => {
+            expect(publishDialog.activate).toBeFunction();
+        });
+
+        describe('when user doesn\'t have company', () => {
+
+            beforeEach(() => {
+                userContext.identity.companies = [];
+            });
+
+            it('should set defult publish model', () => {
+                publishDialog.publishModel = null;
+                publishDialog.activate();
+                expect(publishDialog.publishModel).toBe(defaultPublishModel);
+            });
+
+            it('should set company to null', () => {
+                publishDialog.activate();
+                expect(publishDialog.company).toBeNull();
+            });
+
+        });
+
+        describe('when user has company', () => {
+
+            var company1 = { priority: 0 },
+                company2 = { priority: 1 };
+
+            beforeEach(() => {
+                userContext.identity.companies = [company1, company2];
+            });
+
+            it('should set custom publish model', () => {
+                publishDialog.publishModel = null;
+                publishDialog.activate();
+                expect(publishDialog.publishModel).toBe(customPublishModel);
+            });
+
+            it('should set company to company with the most largest priority', () => {
+                publishDialog.company = null;
+                publishDialog.activate();
+                expect(publishDialog.company).toBe(company2);
+            });
+
+        });
+            
+    });
+
+    describe('show:', () => {
+
+        beforeEach(() => {
+            publishDialog.publishModel = { activate: () => {} };
+            spyOn(publishDialog.publishModel, 'activate');
+        });
+
+        it('should be function', () => {
+            expect(publishDialog.show).toBeFunction();
+        });
+
+        it('should return promise', () => {
+            publishDialog.company = null;
+            expect(publishDialog.show()).toBePromise();
+        });
+
+        it('should set isActivated to true', done => (async () => {
+            publishDialog.company = null;
+            publishDialog.isActivated(false);
+            await publishDialog.show('courseId');
+            expect(publishDialog.isActivated()).toBeTruthy();
+        })().then(done));
+
+        it('should show dialog', done => (async () => {
+            publishDialog.company = null;
+            publishDialog.isShown(false);
+            await publishDialog.show('courseId');
+            expect(publishDialog.isShown()).toBeTruthy();
+        })().then(done));
+
+        describe('when user has no companies', () => {
+
+            beforeEach(() => {
+                publishDialog.company = null;
+            });
+
+            it('should activate publish model', () => {
+                publishDialog.show('courseId');
+                expect(publishDialog.publishModel.activate).toHaveBeenCalledWith('courseId');
+            });
+
+        });
+
+        describe('when user has companies', () => {
+
+            var company = { priority: 0 };
+
+            beforeEach(() => {
+                publishDialog.company = company;
+            });
+
+            it('should activate publish model', () => {
+                publishDialog.show('courseId');
+                expect(publishDialog.publishModel.activate).toHaveBeenCalledWith({ courseId: 'courseId', companyInfo: company });
+            });
+
+        });
+
+    });
+
+    describe('hide:', () => {
+
+        beforeEach(() => {
+            publishDialog.publishModel = { deactivate: () => { } };
+            spyOn(publishDialog.publishModel, 'deactivate');
+        });
+
+        it('should be function', () => {
+            expect(publishDialog.hide).toBeFunction();
+        });
+
+        it('should deactivate publish model', () => {
+            publishDialog.hide();
+            expect(publishDialog.publishModel.deactivate).toHaveBeenCalled();
+        });
+
+        it('should set isActivated to false', () => {
+            publishDialog.isActivated(null);
+            publishDialog.hide();
+            expect(publishDialog.isActivated()).toBeFalsy();
+        });
+
+        it('should hide dilog', () => {
+            publishDialog.isShown(null);
+            publishDialog.hide();
+            expect(publishDialog.isShown()).toBeFalsy();
+        });
+
+    });
+
 });

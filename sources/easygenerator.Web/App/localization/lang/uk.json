@@ -374,7 +374,7 @@
     "addVoiceOver": "Додати фонове аудіо",
     "voiceOver": "Фонове аудіо",
     "noAnswerOptionsYet": "Жодного варiанту вiдповiдi ще не створено",
-    "questionTitle": "Питання",
+    "questionTitle": "Назва питання",
     "loadingImage": "Завантаження малюнка...",
     "addTextMatchingAnswer": "Новий термiн/пояснення",
     "moveCopyQuestion": "Перемістити/Скопіювати дане питання",
@@ -472,6 +472,7 @@
     "newRankingTextQuestionTitle": "Питання \"Ранжування тексту\" без назви",
     "rankingText": "Ранжування тексту",
     "rankingChoicesInTheRightOrder": "Відповіді, ранжовані в правильному порядку",
+    "rankingChoiceEmptyInstruction": "Вкажіть відповідь для ранжування...",
     "rankingTextEditor": "Редактор питання типу \"Ранжування тексту\"",
     "putYourPositiveFeedback": "Додайте відгук на правильну відповідь",
     "putYourNegativeFeedback": "Додайте відгук на неправильну відповідь",
@@ -517,7 +518,8 @@
     "readMore": "Більше",
     "readLess": "Меньше",
     "cannotFindCommentedItem": "Прокоментовний елемент не знайдено. Можливо, він був видалений автором курсу або одним із співавторів.",
-    "leftGeneralComment": "залишив(ла) загальний коментар",
+    "left": "залишив(ла)",
+    "generalComment": "загальний коментар",
     "commented": "прокоментував(ла)",
     "onTheTitleOfTheCourse": "назву курсу",
     "onTheIntroductionOfTheCourse": "вступ до курсу",
@@ -723,6 +725,6 @@
     "themes": "Теми",
     "saveAsANewTheme": "Зберегти нову тему",
     "backToSettings": "Back to settings",
-    "saveAndBack": "Save and back",
-    "duplicateQuestion": "Duplicate question"
+    "saveAndBack": "Зберегти та повернутись",
+    "duplicateQuestion": "Дублювати питання"
 }

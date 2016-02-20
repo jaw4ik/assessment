@@ -36,10 +36,10 @@
             });
 
             it('should activate publish action', function () {
-                var courseId = 'courseId';
-                viewModel.activate(courseId);
+                var data = {};
+                viewModel.activate(data);
 
-                expect(publishAction.activate).toHaveBeenCalledWith(courseId);
+                expect(publishAction.activate).toHaveBeenCalledWith(data);
             });
         });
 

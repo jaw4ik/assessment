@@ -57,10 +57,6 @@
                 expect(viewModel.publish).toBeFunction();
             });
 
-            it('should return promise', function () {
-                expect(viewModel.publish()).toBePromise();
-            });
-
             describe('when isPublishing is true', function () {
 
                 beforeEach(function () {
@@ -88,23 +84,27 @@
             });
 
             it('should set isPublishing in true', function () {
+                viewModel.companyInfo = {};
                 viewModel.publish();
                 expect(viewModel.isPublishing()).toBeTruthy();
             });
 
             it('should publish \'Publish learning path to custom hosting\' event', function () {
+                viewModel.companyInfo = {};
                 viewModel.publish();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Publish learning path to custom hosting');
             });
 
             it('should publish learningPath to custom LMS', function () {
+                viewModel.companyInfo = { id: 'companyId' };
                 viewModel.publish();
-                expect(viewModel.learningPath.publishToCustomLms).toHaveBeenCalled();
+                expect(viewModel.learningPath.publishToCustomLms).toHaveBeenCalledWith('companyId');
             });
 
             describe('when publish failed', function () {
                 beforeEach(function () {
                     publishDefer.reject('error message');
+                    viewModel.companyInfo = {};
                 });
 
                 it('notify error message', function (done) {
@@ -127,6 +127,7 @@
 
                 beforeEach(function () {
                     publishDefer.resolve();
+                    viewModel.companyInfo = {};
                 });
 
                 it('should update isPublished', function(done) {
@@ -185,20 +186,26 @@
             });
 
             it('should set isPublished', function () {
+                var company = { id: 'companyId' };
+                viewModel.companyInfo = company;
                 viewModel.isPublished(null);
-                viewModel.onDeliveringFinished({ id: 'learningPathId', isPublishedToexternalLms: true });
+                viewModel.onDeliveringFinished({ id: 'learningPathId', learningPathCompanies: [company] });
                 expect(viewModel.isPublished()).toBeTruthy();
             });
 
             it('should set isDelivering false', function () {
+                var company = { id: 'companyId' };
+                viewModel.companyInfo = company;
                 viewModel.isDelivering(true);
-                viewModel.onDeliveringFinished({ id: 'learningPathId' });
+                viewModel.onDeliveringFinished({ id: 'learningPathId', learningPathCompanies: [company] });
                 expect(viewModel.isDelivering()).toBeFalsy();
             });
 
             it('should update publishing state', function () {
+                var company = { id: 'companyId' };
+                viewModel.companyInfo = company;
                 viewModel.isPublishing(true);
-                viewModel.onDeliveringFinished({ id: 'learningPathId', isPublishing: false });
+                viewModel.onDeliveringFinished({ id: 'learningPathId', isPublishing: false, learningPathCompanies: [company] });
                 expect(viewModel.isPublishing()).toBeFalsy();
             });
 
@@ -216,7 +223,7 @@
                 learningPath = {
                     id: 'learningPathId',
                     isPublishing: false,
-                    isPublishedToExternalLms: true,
+                    learningPathCompanies: [],
                     isDelivering: function () { return false; }
                 };
             });
@@ -226,11 +233,11 @@
             });
 
             it('should return promise', function() {
-                expect(viewModel.activate()).toBePromise();
+                expect(viewModel.activate({ learningPathId: learningPathId })).toBePromise();
             });
 
             it('should get learningPath by id', function() {
-                viewModel.activate(learningPathId);
+                viewModel.activate({ learningPathId: learningPathId });
                 expect(getLearningPathByIdQuery.execute).toHaveBeenCalledWith(learningPathId);
             });
 
@@ -241,16 +248,27 @@
 
                 it('should set isPublishing', function (done) {
                     viewModel.isPublishing(null);
-                    var promise = viewModel.activate(learningPath);
+                    var promise = viewModel.activate({ learningPathId: learningPathId });
                     promise.fin(function() {
                         expect(viewModel.isPublishing()).toBe(learningPath.isPublishing);
                         done();
                     });
                 });
 
+                it('should set companyInfo', function (done) {
+                    var company = { id: 'companyId' };
+                    viewModel.companyInfo = null;
+
+                    var promise = viewModel.activate({ learningPathId: learningPathId, companyInfo: company });
+                    promise.fin(function () {
+                        expect(viewModel.companyInfo).toBe(company);
+                        done();
+                    });
+                });
+
                 it('should set isDelivering', function (done) {
                     viewModel.isDelivering(null);
-                    var promise = viewModel.activate(learningPath);
+                    var promise = viewModel.activate({ learningPathId: learningPathId });
                     promise.fin(function () {
                         expect(viewModel.isDelivering()).toBe(learningPath.isDelivering());
                         done();
@@ -258,17 +276,20 @@
                 });
 
                 it('should set isPublished', function (done) {
+                    viewModel.companyInfo = { id: '123' };
                     viewModel.isPublished(null);
-                    var promise = viewModel.activate(learningPath);
+                    var promise = viewModel.activate({ learningPathId: learningPathId });
                     promise.fin(function () {
-                        expect(viewModel.isPublished()).toBe(learningPath.isPublishedToExternalLms);
+                        expect(viewModel.isPublished()).toBe(!!learningPath.learningPathCompanies.find(function (company) {
+                            return company.id === viewModel.companyInfo.id;
+                        }));
                         done();
                     });
                 });
 
 
                 it('should on learning path delivering started event', function (done) {
-                    var promise = viewModel.activate(learningPath);
+                    var promise = viewModel.activate({ learningPathId: learningPathId });
                     promise.fin(function () {
                         expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.delivering.started + learningPath.id, viewModel.onDeliveringStarted);
                         done();
@@ -276,7 +297,7 @@
                 });
 
                 it('should on learning path delivering finished event', function (done) {
-                    var promise = viewModel.activate(learningPath);
+                    var promise = viewModel.activate({ learningPathId: learningPathId });
                     promise.fin(function () {
                         expect(app.on).toHaveBeenCalledWith(constants.messages.learningPath.delivering.finished + learningPath.id, viewModel.onDeliveringFinished);
                         done();

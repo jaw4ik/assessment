@@ -257,6 +257,7 @@
                 'viewmodels/learningPaths/learningPath/results.spec',
                 'viewmodels/learningPaths/learningPath/actions/download.spec',
                 'viewmodels/learningPaths/learningPath/actions/publish.spec',
+                'viewmodels/learningPaths/learningPath/actions/publishToCustomLms.spec',
 
                 //#endregion
 

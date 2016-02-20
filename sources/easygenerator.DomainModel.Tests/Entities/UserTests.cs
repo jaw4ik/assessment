@@ -5,6 +5,8 @@ using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace easygenerator.DomainModel.Tests.Entities
@@ -221,7 +223,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             //Act
             var expirationDate = DateTimeWrapper.Now().AddDays(20);
-            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, lastReadReleaseNote, expirationDate, company);
+            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, lastReadReleaseNote, expirationDate, false, new Collection<Company> () { company });
 
             //Assert
             user.Id.Should().NotBeEmpty();
@@ -238,8 +240,9 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.AccessType.Should().Be(accessPlan);
             user.ExpirationDate.Should().Be(expirationDate);
             user.LastReadReleaseNote.Should().Be(lastReadReleaseNote);
+            user.IsCreatedThroughLti.Should().Be(false);
             user.NewEditor.Should().Be(null);
-            user.Company.Should().Be(company);
+            user.CompaniesCollection.Should().Contain(company);
         }
 
         [TestMethod]
@@ -1578,7 +1581,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void SwitchEditor_WhenNewEditorIsFalse_ShouldSetNewEditorToTrue()
         {
             var user = UserObjectMother.Create(newEditor: false);
-            
+
             const string modifiedBy = "admin";
 
             user.SwitchEditor(modifiedBy);
@@ -1823,34 +1826,41 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #region GetLtiUserInfo
 
+        [TestMethod]
         public void GetLtiUserInfo_ShouldThrowArgumentNullExceptionIfConsumerToolIsNull()
         {
             var user = new User();
-            Action action = () => user.GetLtiUserInfo(null);
+            Action action = () => user.GetLtiUserInfo("id", null);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("consumerTool");
         }
 
-        public void GetLtiUserInfo_ShouldReturnProperLtiInfoForSpecifiedConsumerTool()
+        [TestMethod]
+        public void GetLtiUserInfo_ShouldReturnProperLtiInfoForSpecifiedConsumerToolAndLtiUserId()
         {
             var user = new User();
+            user.LtiUserInfoes = new List<LtiUserInfo>();
+
             var consumerTool = new ConsumerTool();
-            var ltiUserInfo = new LtiUserInfo("id", consumerTool);
+            var ltiUserInfo = new LtiUserInfo("id", consumerTool, user);
 
             user.LtiUserInfoes.Add(ltiUserInfo);
-            user.LtiUserInfoes.Add(new LtiUserInfo("id2", new ConsumerTool()));
+            user.LtiUserInfoes.Add(new LtiUserInfo("id2", new ConsumerTool(), user));
 
-            user.GetLtiUserInfo(consumerTool).Should().Be(ltiUserInfo);
-            user.GetLtiUserInfo(new ConsumerTool()).Should().BeNull();
+            user.GetLtiUserInfo("id", consumerTool).Should().Be(ltiUserInfo);
+            user.GetLtiUserInfo("id2", new ConsumerTool()).Should().BeNull();
         }
 
         #endregion
 
         #region UpdateLtiUserInfo
 
-        public void AddLtiUserInfo_ShouldAddLtiUserInfo()
+        [TestMethod]
+        public void AddLtiUserInfo_ShouldAddLtiUserInfo_WhenArgumentIsNotLtiUserInfo()
         {
             var user = new User();
+            user.LtiUserInfoes = new List<LtiUserInfo>();
+
             var consumerTool = new ConsumerTool();
             var id = "id";
 
@@ -1861,9 +1871,12 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.LtiUserInfoes.ElementAt(0).LtiUserId.Should().Be(id);
         }
 
-        public void AddLtiUserInfo_ShouldNotAddLtiUserInfoIfAlreadyExists()
+        [TestMethod]
+        public void AddLtiUserInfo_ShouldNotAddLtiUserInfoIfAlreadyExists_WhenArgumentIsNotLtiUserInfo()
         {
             var user = new User();
+            user.LtiUserInfoes = new List<LtiUserInfo>();
+
             var consumerTool = new ConsumerTool();
 
             user.AddLtiUserInfo("id", consumerTool);
@@ -1872,23 +1885,208 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.LtiUserInfoes.Count.Should().Be(1);
         }
 
+        [TestMethod]
+        public void AddLtiUserInfo_ShouldAddLtiUserInfo_WhenArgumentIsLtiUserInfo()
+        {
+            var user = new User();
+            user.LtiUserInfoes = new List<LtiUserInfo>();
+
+            var consumerTool = new ConsumerTool();
+            var id = "id";
+            var ltiUserInfo = new LtiUserInfo(id, consumerTool, user);
+
+            user.AddLtiUserInfo(ltiUserInfo);
+            user.LtiUserInfoes.Count.Should().Be(1);
+
+            user.LtiUserInfoes.ElementAt(0).ConsumerTool.Should().Be(consumerTool);
+            user.LtiUserInfoes.ElementAt(0).LtiUserId.Should().Be(id);
+        }
+
+        [TestMethod]
+        public void AddLtiUserInfo_ShouldNotAddLtiUserInfoIfAlreadyExists_WhenArgumentIsLtiUserInfo()
+        {
+            var user = new User();
+            user.LtiUserInfoes = new List<LtiUserInfo>();
+
+            var consumerTool = new ConsumerTool();
+            var ltiUserInfo = new LtiUserInfo("id", consumerTool, user);
+            user.AddLtiUserInfo(ltiUserInfo);
+            user.AddLtiUserInfo(ltiUserInfo);
+
+            user.LtiUserInfoes.Count.Should().Be(1);
+        }
+
         #endregion
 
-        #region IsLtiUser
+        #region IsCreatedThroughLti
 
-        public void IsLtiUser_ShouldReturnFalseIfLtiUserInfoesIsEmpty()
+        [TestMethod]
+        public void IsCreatedThroughLti_ShouldReturnFalseIfUserIsCreatedDirectly()
         {
             var user = new User();
-            user.IsLtiUser().Should().BeFalse();
+            user.IsCreatedThroughLti.Should().BeFalse();
         }
 
-        public void IsLtiUser_ShouldReturnTrueIfLtiUserInfoesIsNotEmpty()
+        [TestMethod]
+        public void IsCreatedThroughLti_ShouldReturnTrueIfUserIsCreatedThroughLti()
+        {
+            var email = "easygenerator3@easygenerator.com";
+            var password = "Easy123!";
+            var firstname = "easygenerator user firstname";
+            var lastname = "easygenerator user lastname";
+            var phone = "some phone";
+            var country = "some country";
+            var role = "Teacher";
+            var creationDate = CurrentDate;
+            var accessPlan = AccessType.Starter;
+            var lastReadReleaseNote = "1.0.0";
+            var company = new Company();
+            
+            var expirationDate = DateTimeWrapper.Now().AddDays(20);
+            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, lastReadReleaseNote, expirationDate, true, new Collection<Company>() { company });
+            
+            user.IsCreatedThroughLti.Should().BeTrue();
+        }
+
+        #endregion
+
+        #region User Companies
+
+        [TestMethod]
+        public void Companies_ShouldReturnOrderedUserCompanies()
         {
             var user = new User();
-            user.AddLtiUserInfo("id", new ConsumerTool());
-            user.IsLtiUser().Should().BeTrue();
+            user.CompaniesCollection = new Collection<Company>();
+
+            var company1 = CompanyObjectMother.Create();
+            var company2 = CompanyObjectMother.Create("Company name", "logo", "/publish", "key", false, 1);
+
+            user.AddCompany(company1, "user");
+            user.AddCompany(company2, "user");
+
+            user.Companies.First().Should().Be(company2);
+            user.Companies.Count().Should().Be(2);
         }
 
-        #endregion 
+        [TestMethod]
+        public void AddCompany_ShouldThrowArgumentNullExceptionWhenCompanyIsNull()
+        {
+            var user = new User();
+            user.CompaniesCollection = new Collection<Company>();
+
+            Action action = () => user.AddCompany(null, "user");
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("company");
+        }
+
+        [TestMethod]
+        public void AddCompany_ShouldThrowArgumentExceptionWhenModifiedByIsInvalid()
+        {
+            var user = new User();
+            user.CompaniesCollection = new Collection<Company>();
+
+            var company = CompanyObjectMother.Create();
+
+            Action action = () => user.AddCompany(company, "");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void AddCompany_ShouldAddCompanyToListIfUserDoesNotContainThisCompany()
+        {
+            var user = new User();
+            user.CompaniesCollection = new Collection<Company>();
+
+            var company = CompanyObjectMother.Create();
+
+            user.AddCompany(company, "user");
+
+            user.CompaniesCollection.Should().Contain(company);
+        }
+
+        [TestMethod]
+        public void AddCompany_ShouldNotAddCompanyToListIfUserContainsThisCompany()
+        {
+            var user = new User();
+            user.CompaniesCollection = new Collection<Company>();
+
+            var company = CompanyObjectMother.Create();
+
+            user.AddCompany(company, "user");
+            user.AddCompany(company, "user");
+
+            user.CompaniesCollection.Should().Contain(company);
+            user.CompaniesCollection.Count.Should().Be(1);
+        }
+
+        [TestMethod]
+        public void AddCompany_ShouldMarkUserAsModified()
+        {
+            var user = new User();
+            user.CompaniesCollection = new Collection<Company>();
+
+            var company = CompanyObjectMother.Create();
+
+            user.AddCompany(company, "user");
+
+            user.ModifiedBy.Should().Be("user");
+        }
+
+        [TestMethod]
+        public void RemoveCompany_ShouldThrowArgumentNullExceptionWhenCompanyIsNull()
+        {
+            var user = new User();
+            user.CompaniesCollection = new Collection<Company>();
+
+            Action action = () => user.RemoveCompany(null, "user");
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("company");
+        }
+
+        [TestMethod]
+        public void RemoveCompany_ShouldThrowArgumentExceptionWhenModifiedByIsInvalid()
+        {
+            var user = new User();
+            user.CompaniesCollection = new Collection<Company>();
+
+            var company = CompanyObjectMother.Create();
+
+            Action action = () => user.RemoveCompany(company, "");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void RemoveCompany_ShouldRemoveCompanyFromListIfCompanyExistsInList()
+        {
+            var user = new User();
+            user.CompaniesCollection = new Collection<Company>();
+
+            var company = CompanyObjectMother.Create();
+
+            user.AddCompany(company, "user");
+            
+            user.RemoveCompany(company, "User");
+
+            user.CompaniesCollection.Count.Should().Be(0);
+        }
+
+        [TestMethod]
+        public void RemoveCompany_ShouldMarkUserAsModified()
+        {
+            var user = new User();
+            user.CompaniesCollection = new Collection<Company>();
+
+            var company = CompanyObjectMother.Create();
+
+            user.AddCompany(company, "user");
+
+            user.RemoveCompany(company, "user2");
+
+            user.ModifiedBy.Should().Be("user2");
+        }
+
+        #endregion
     }
 }

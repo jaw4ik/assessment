@@ -21,10 +21,10 @@
             spyOn(eventTracker, 'publish');
         });
 
-        describe('companyInfo:', function () {
+        describe('publishToCustomLmsModels:', function () {
 
             it('should be defined', function() {
-                expect(viewModel.companyInfo).toBeDefined();
+                expect(viewModel.publishToCustomLmsModels).toBeDefined();
             });
 
         });
@@ -57,12 +57,6 @@
         describe('publishAction:', function () {
             it('should be defined', function () {
                 expect(viewModel.publishAction).toBeDefined();
-            });
-        });
-
-        describe('publishToCustomLms:', function () {
-            it('should be defined', function () {
-                expect(viewModel.publishToCustomLms).toBeDefined();
             });
         });
 
@@ -143,7 +137,7 @@
                 spyOn(userContext, 'identify').and.returnValue(identify.promise);
                 spyOn(localizationManager, 'localize').and.returnValue('text');
                 userContext.identity = {
-                    company: { name: 'companyName' }
+                    companies: [{ id: 'companyId', priority: 0, name: 'companyName' }]
                 };
             });
 
@@ -166,12 +160,14 @@
                     identify.resolve();
                 });
 
-                it('should set companyInfo', function (done) {
-                    viewModel.companyInfo = null;
+                it('should set publishToCustomLmsModels', function (done) {
+                    viewModel.publishToCustomLmsModels = [];
                     getById.resolve();
 
                     viewModel.activate().fin(function () {
-                        expect(viewModel.companyInfo).toBe(userContext.identity.company);
+                        expect(viewModel.publishToCustomLmsModels.length).toBe(1);
+                        expect(viewModel.publishToCustomLmsModels[0].company).toBe(userContext.identity.companies[0]);
+                        expect(viewModel.publishToCustomLmsModels[0].model.activate).toBeFunction();
                         done();
                     });
                 });

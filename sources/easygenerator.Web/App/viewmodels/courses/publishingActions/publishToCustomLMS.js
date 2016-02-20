@@ -1,5 +1,5 @@
-﻿define(['constants', 'notify', 'eventTracker', 'userContext', 'repositories/courseRepository', 'viewmodels/courses/publishingActions/publishingAction'],
-    function (constants, notify, eventTracker, userContext, repository, publishingAction) {
+﻿define(['constants', 'notify', 'eventTracker', 'repositories/courseRepository', 'viewmodels/courses/publishingActions/publishingAction'],
+    function (constants, notify, eventTracker, repository, publishingAction) {
         "use strict";
 
         var events = {

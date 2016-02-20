@@ -61,7 +61,7 @@
 
         function activate(courseId) {
             return userContext.identify().then(function () {
-                viewModel.publishToCustomLmsModels = userContext.identity.companies.sort((company1, company2) => {
+                viewModel.publishToCustomLmsModels = userContext.identity.companies.sort(function(company1, company2) {
                     if (company1.priority === company2.priority) {
                         return (new Date(company1.createdOn)).getTime() > (new Date(company2.createdOn)).getTime();
                     }

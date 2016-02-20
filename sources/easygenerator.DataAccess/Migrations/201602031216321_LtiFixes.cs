@@ -23,7 +23,9 @@ namespace easygenerator.DataAccess.Migrations
                 .ForeignKey("dbo.Users", t => t.User_Id, cascadeDelete: true)
                 .Index(t => t.Company_Id)
                 .Index(t => t.User_Id);
-            
+
+            Sql("INSERT INTO CompanyUsers (Company_Id, User_Id) SELECT Company_Id, Id FROM Users WHERE Users.Id IS NOT null AND Users.Company_Id IS NOT null");
+
             AddColumn("dbo.Companies", "Priority", c => c.Short(nullable: false));
             AlterColumn("dbo.LtiUserInfoes", "LtiUserId", c => c.String(maxLength: 255));
             CreateIndex("dbo.LtiUserInfoes", "LtiUserId");

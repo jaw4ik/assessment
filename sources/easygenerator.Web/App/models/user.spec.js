@@ -52,6 +52,8 @@
                 email: 'a.drebot@gmail.com',
                 role: 'Teacher',
                 newEditor: null,
+                isCreatedThroughLti: false,
+                companies: [{}],
                 subscription: {
                     accessType: constants.accessType.starter
                 }
@@ -65,7 +67,8 @@
             expect(user.email).toEqual(spec.email);
             expect(user.role).toEqual(spec.role);
             expect(user.newEditor).toEqual(spec.newEditor);
-
+            expect(user.isCreatedThroughLti).toEqual(spec.isCreatedThroughLti);
+            expect(user.companies.length).toBe(1);
         });
 
         describe('when starter subscription is specified', function () {
