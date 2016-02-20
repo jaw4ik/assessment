@@ -1,47 +1,42 @@
-﻿define(function (require) {
-    "use strict";
+﻿import viewModel from './informationContent';
 
-    var
-        viewModel = require('viewmodels/questions/informationContent/informationContent'),
-        localizationManager = require('localization/localizationManager');
+import localizationManager from 'localization/localizationManager';
 
-    describe('[information content]', function () {
+describe('[information content]', function () {
 
-        beforeEach(function () {
-            spyOn(localizationManager, 'localize').and.callFake(function (arg) {
-                return arg === 'informationContentEditor' ? 'title' : '';
-            });
+    beforeEach(function () {
+        spyOn(localizationManager, 'localize').and.callFake(function (arg) {
+            return arg === 'informationContentEditor' ? 'title' : '';
+        });
+    });
+
+    describe('initialize:', function () {
+
+        it('should be function', function () {
+            expect(viewModel.initialize).toBeFunction();
         });
 
-        describe('initialize:', function () {
+        it('should return promise', function () {
+            var result = viewModel.initialize();
+            expect(result).toBePromise();
+        });
 
-            it('should be function', function () {
-                expect(viewModel.initialize).toBeFunction();
+        describe('promise result', function () {
+
+            it('should be an object', function (done) {
+                var promise = viewModel.initialize();
+                promise.then(function (result) {
+                    expect(result).toBeObject();
+                    done();
+                });
             });
 
-            it('should return promise', function () {
-                var result = viewModel.initialize();
-                expect(result).toBePromise();
-            });
-
-            describe('promise result', function () {
-
-                it('should be an object', function (done) {
-                    var promise = viewModel.initialize();
-                    promise.then(function (result) {
-                        expect(result).toBeObject();
-                        done();
-                    });
+            it('should contain viewCaption with correct title', function (done) {
+                var promise = viewModel.initialize();
+                promise.then(function (result) {
+                    expect(result.viewCaption).toBe('title');
+                    done();
                 });
-
-                it('should contain viewCaption with correct title', function (done) {
-                    var promise = viewModel.initialize();
-                    promise.then(function (result) {
-                        expect(result.viewCaption).toBe('title');
-                        done();
-                    });
-                });
-
             });
 
         });

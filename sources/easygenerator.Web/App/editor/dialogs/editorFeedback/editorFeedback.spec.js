@@ -1,4 +1,4 @@
-﻿import viewModel from 'editor/dialogs/editorFeedback/editorFeedback';
+﻿import viewModel from './editorFeedback';
 
 import constants from 'constants';
 import dialog from 'widgets/dialog/viewmodel';

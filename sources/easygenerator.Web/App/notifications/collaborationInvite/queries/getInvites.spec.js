@@ -1,44 +1,40 @@
-﻿define(['notifications/collaborationInvite/queries/getInvites'], function (query) {
+﻿import query from './getInvites';
 
-    var
-        apiHttpWrapper = require('http/apiHttpWrapper')
-    ;
+import apiHttpWrapper from 'http/apiHttpWrapper';
 
-    describe('collaboration invite notification query [getInvites]', function () {
+describe('collaboration invite notification query [getInvites]', function () {
 
-        describe('execute:', function () {
+    describe('execute:', function () {
 
-            var dfd;
+        var dfd;
 
-            beforeEach(function () {
-                dfd = Q.defer();
-                spyOn(apiHttpWrapper, 'post').and.returnValue(dfd.promise);
+        beforeEach(function () {
+            dfd = Q.defer();
+            spyOn(apiHttpWrapper, 'post').and.returnValue(dfd.promise);
+        });
+
+        it('should be function', function () {
+            expect(query.execute).toBeFunction();
+        });
+
+        it('should return promise', function () {
+            expect(query.execute()).toBePromise();
+        });
+
+        it('should return collaboration invites', function (done) {
+            var invites = [
+                {
+                    id: 'id'
+                }
+            ];
+            dfd.resolve(invites);
+
+            query.execute().then(function (result) {
+                expect(result).toEqual(invites);
+                done();
             });
-
-            it('should be function', function () {
-                expect(query.execute).toBeFunction();
-            });
-
-            it('should return promise', function () {
-                expect(query.execute()).toBePromise();
-            });
-
-            it('should return collaboration invites', function (done) {
-                var invites = [
-                    {
-                        id: 'id'
-                    }
-                ];
-                dfd.resolve(invites);
-
-                query.execute().then(function (result) {
-                    expect(result).toEqual(invites);
-                    done();
-                });
-            });
-
         });
 
     });
 
-})
+});

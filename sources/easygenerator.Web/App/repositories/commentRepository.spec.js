@@ -1,4 +1,5 @@
-﻿import repository from 'repositories/commentRepository';
+﻿import repository from './commentRepository';
+
 import apiHttpWrapper from 'http/apiHttpWrapper';
 
 describe('repository [commentRepository]', () => {

@@ -1,7 +1,9 @@
-var gulp = require('gulp'),
-    Q = require('q'),
-    args = require('yargs').argv,
-    GitHubApi = require('github');
+import gulp from 'gulp';
+import yargs from 'yargs';
+import Q from 'q';
+import GitHubApi from 'github';
+
+var args = yargs.argv;
 
 var version = typeof args.version === 'string' && args.version !== '' ? args.version : '1.0.0';
 

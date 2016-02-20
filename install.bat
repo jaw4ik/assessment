@@ -1,2 +1,2 @@
-call npm install
-call node node_modules/jspm/jspm install
+call npm update
+call node node_modules/jspm/jspm update

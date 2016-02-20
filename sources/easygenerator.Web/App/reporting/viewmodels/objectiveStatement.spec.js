@@ -1,8 +1,8 @@
-﻿import co from 'co';
-import ObjectiveStatement from 'reporting/viewmodels/objectiveStatement';
-import QuestionStatement from 'reporting/viewmodels/questionStatement';
-import ExpandableStatement from 'reporting/viewmodels/expandableStatement';
-import XApiProvider from 'reporting/xApiProvider';
+﻿import ObjectiveStatement from './objectiveStatement';
+
+import QuestionStatement from './questionStatement';
+import ExpandableStatement from './expandableStatement';
+import XApiProvider from './../xApiProvider';
 
 describe('viewmodel [ObjectiveStatement]', () => {
     var lrsStatement,
@@ -70,11 +70,11 @@ describe('viewmodel [ObjectiveStatement]', () => {
             expect(statement.expandLoadAction()).toBePromise();
         });
 
-        it('should call xApiProvider.getAnsweredStatements with correct args', done => co(function*() {
+        it('should call xApiProvider.getAnsweredStatements with correct args', done => (async () => {
             answeredDefer.resolve([]);
-            yield statement.expandLoadAction();
+            await statement.expandLoadAction();
             expect(XApiProvider.getAnsweredStatements).toHaveBeenCalledWith(attemptId, statementId);
-        }).then(done));
+        })().then(done));
 
         describe('if there are no answered statements', () => {
 
@@ -82,10 +82,10 @@ describe('viewmodel [ObjectiveStatement]', () => {
                 answeredDefer.resolve([]);
             });
 
-            it('should set children to null', done => co(function*() {
-                yield statement.expandLoadAction();
+            it('should set children to null', done => (async () => {
+                await statement.expandLoadAction();
                 expect(statement.children).toBeNull();
-            }).then(done));
+            })().then(done));
 
         });
 
@@ -102,14 +102,14 @@ describe('viewmodel [ObjectiveStatement]', () => {
                 answeredDefer.resolve(answeredStatements);
             });
 
-            it('should fill children collection with QuestionStatement instances', done => co(function*() {
-                yield statement.expandLoadAction();
+            it('should fill children collection with QuestionStatement instances', done => (async () => {
+                await statement.expandLoadAction();
                 expect(statement.children().length).toBe(2);
                 expect(statement.children()[0]).toBeInstanceOf(QuestionStatement);
                 expect(statement.children()[1]).toBeInstanceOf(QuestionStatement);
                 expect(statement.children()[0].lrsStatement).toBe(answeredStatements[0]);
                 expect(statement.children()[1].lrsStatement).toBe(answeredStatements[1]);
-            }).then(done));
+            })().then(done));
 
         });
     });

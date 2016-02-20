@@ -1,29 +1,24 @@
-﻿define(['viewmodels/learningPaths/learningPaths/queries/getLearningPathCollectionQuery'], function (query) {
-    "use strict";
-    var
-        dataContext = require('dataContext')
-    ;
+﻿import query from './getLearningPathCollectionQuery';
 
-    describe('query [getLearningPathCollectionQuery]', function () {
+import dataContext from 'dataContext';
 
-        describe('execute:', function () {
-            var learningPath = {
-                id: 'id',
-                title: 'title'
-            }
-            beforeEach(function () {
-                dataContext.learningPaths = [learningPath];
-            });
+describe('query [getLearningPathCollectionQuery]', function () {
 
-            it('should return learning path collection', function (done) {
-                query.execute().then(function (data) {
-                    expect(data).toBe(dataContext.learningPaths);
-                    done();
-                });
-            });
-
+    describe('execute:', function () {
+        var learningPath = {
+            id: 'id',
+            title: 'title'
+        }
+        beforeEach(function () {
+            dataContext.learningPaths = [learningPath];
         });
+
+        it('should return learning path collection', function (done) {
+            query.execute().then(function (data) {
+                expect(data).toBe(dataContext.learningPaths);
+                done();
+            });
+        });
+
     });
-
-
 });

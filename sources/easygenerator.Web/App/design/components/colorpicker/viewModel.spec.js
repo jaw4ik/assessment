@@ -1,6 +1,6 @@
-﻿import ko from 'knockout';
+﻿import Colorpicker from './viewModel';
 
-import Colorpicker from './viewModel';
+import ko from 'knockout';
 
 describe('component [colorpicker]', () => {
 

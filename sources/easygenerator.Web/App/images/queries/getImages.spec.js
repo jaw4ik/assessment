@@ -1,6 +1,7 @@
-﻿import $ from 'jquery';
+﻿import * as query  from './getImages.js';
+
+import $ from 'jquery';
 import http from 'http/apiHttpWrapper.js';
-import * as query  from './getImages.js';
 
 describe('query [getImages]', () => {
 

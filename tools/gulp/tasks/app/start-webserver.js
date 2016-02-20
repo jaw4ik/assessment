@@ -1,8 +1,11 @@
-var gulp = require('gulp'),
-	args = require('yargs').argv,
-    buildUtils = require('../build-utils')();
-	
-var $ = require('gulp-load-plugins')({
+import gulp from 'gulp';
+import yargs from 'yargs';
+import buildUtilsModule from '../build-utils';
+import gulpLoadPlugins from 'gulp-load-plugins';
+
+var args = yargs.argv;
+var buildUtils = buildUtilsModule();
+var $ = gulpLoadPlugins({
     lazy: true
 });
 

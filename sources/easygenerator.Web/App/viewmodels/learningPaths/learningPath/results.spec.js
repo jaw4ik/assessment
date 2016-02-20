@@ -1,12 +1,9 @@
-﻿define(['reporting/viewmodels/resultsBase', 'repositories/learningPathRepository', 'reporting/learningPathStatementsProvider', 'viewmodels/learningPaths/learningPath/results'],
-    function (ResultsBase, learningPathRepository, LearningPathStatementsProvider, Results) {
-        "use strict";
+﻿import Results from './results';
 
-        describe('[Results]', function () {
+describe('[Results]', function () {
 
-            it('should be defined', function () {
-                expect(Results).toBeDefined();
-            });
-
-        });
+    it('should be defined', function () {
+        expect(Results).toBeDefined();
     });
+
+});

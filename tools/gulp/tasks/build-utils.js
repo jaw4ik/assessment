@@ -1,15 +1,15 @@
-module.exports = function () {
+import eventStream from 'event-stream';
+import MSTest from 'mstest';
+import Q from 'q';
+import gulp from 'gulp';
+import fs from 'fs';
+import gulpLoadPugin from 'gulp-load-plugins';
 
-    var eventStream = require('event-stream'),
-        MSTest = require('mstest'),
-        Q = require('q'),
-        gulp = require('gulp'),
-        fs = require('fs');
+var $ = gulpLoadPugin({
+    lazy: true
+});
 
-    var $ = require('gulp-load-plugins')({
-        lazy: true
-    });
-
+export default function () {
     var buildVersion = +new Date();
 
     function addBuildVersion() {

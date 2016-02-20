@@ -1,11 +1,14 @@
-var gulp = require('gulp'),
-    del = require('del'),
-    args = require('yargs').argv,
-    buildUtils = require('../build-utils')(),
-    config = require('../../config')
-    ;
+import gulp from 'gulp';
+import del from 'del';
+import yargs from 'yargs';
+import runSequence from 'run-sequence';
+import buildUtilsModule from '../build-utils';
+import gulpLoadPlugins from 'gulp-load-plugins';
+import config from '../../config';
 
-var $ = require('gulp-load-plugins')({
+var args = yargs.argv;
+var buildUtils = buildUtilsModule();
+var $ = gulpLoadPlugins({
     lazy: true
 });
 

@@ -1,79 +1,77 @@
-﻿define(['vimeo/queries/getVideo'], function (task) {
+﻿import task from './getVideo';
 
-    describe('[check video availability task]', function () {
+import http from 'plugins/http';
 
-        var http = require('plugins/http');
+describe('[check video availability task]', function () {
 
-        it('should be object', function () {
-            expect(task).toBeObject();
+    it('should be object', function () {
+        expect(task).toBeObject();
+    });
+
+    describe('execute:', function () {
+
+        var dfd;
+
+        beforeEach(function () {
+            dfd = $.Deferred();
+            spyOn(http, 'get').and.returnValue(dfd.promise());
         });
 
-        describe('execute:', function () {
+        it('should be function', function () {
+            expect(task.execute).toBeFunction();
+        });
 
-            var dfd;
+        it('should return promise', function () {
+            expect(task.execute()).toBePromise();
+        });
+
+        it('should send request to get video metadata', function () {
+            task.execute();
+            expect(http.get).toHaveBeenCalled();
+        });
+
+
+        describe('when request is successful', function () {
+
+            var metadata = {};
 
             beforeEach(function () {
-                dfd = $.Deferred();
-                spyOn(http, 'get').and.returnValue(dfd.promise());
+                dfd.resolve(metadata);
             });
 
-            it('should be function', function () {
-                expect(task.execute).toBeFunction();
+            it('should resolve promise', function (done) {
+                task.execute('id').then(function (result) {
+                    expect(result).toEqual(metadata);
+                    done();
+                }).done();
             });
 
-            it('should return promise', function () {
-                expect(task.execute()).toBePromise();
+        });
+
+        describe('when request failed', function () {
+
+            beforeEach(function () {
+                dfd.reject();
             });
 
-            it('should send request to get video metadata', function () {
-                task.execute();
-                expect(http.get).toHaveBeenCalled();
+            it('should reject promise', function (done) {
+                task.execute('id').catch(function () {
+                    done();
+                }).done();
             });
 
+        });
 
-            describe('when request is successful', function () {
+        describe('when vimeoId is not a string', function () {
 
-                var metadata = {};
-
-                beforeEach(function () {
-                    dfd.resolve(metadata);
-                });
-
-                it('should resolve promise', function (done) {
-                    task.execute('id').then(function (result) {
-                        expect(result).toEqual(metadata);
-                        done();
-                    }).done();
-                });
-
-            });
-
-            describe('when request failed', function () {
-
-                beforeEach(function () {
-                    dfd.reject();
-                });
-
-                it('should reject promise', function (done) {
-                    task.execute('id').catch(function () {
-                        done();
-                    }).done();
-                });
-
-            });
-
-            describe('when vimeoId is not a string', function () {
-
-                it('should reject promise', function (done) {
-                    task.execute().catch(function () {
-                        done();
-                    }).done();
-                });
-
+            it('should reject promise', function (done) {
+                task.execute().catch(function () {
+                    done();
+                }).done();
             });
 
         });
 
     });
 
-})
+});

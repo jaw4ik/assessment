@@ -1,4 +1,4 @@
-﻿define(['viewmodels/questions/hotSpot/commands/updatePolygon', 'eventTracker', 'notify'],
+﻿define(['./commands/updatePolygon', 'eventTracker', 'notify'],
     function (updatePolygon, eventTracker, notify) {
 
         return function (id, points) {

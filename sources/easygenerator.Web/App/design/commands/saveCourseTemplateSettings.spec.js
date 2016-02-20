@@ -1,8 +1,7 @@
-﻿import $ from 'jquery';
+﻿import * as command  from './saveCourseTemplateSettings.js';
 
+import $ from 'jquery';
 import http from 'plugins/http';
-
-import * as command  from './saveCourseTemplateSettings.js';
 
 describe('command [saveCourseTemplateSettings]', () => {
 
@@ -16,7 +15,12 @@ describe('command [saveCourseTemplateSettings]', () => {
 
         it('should reject promise', done => {
             spyOn(http, 'post').and.returnValue($.Deferred().reject());
-            command.saveCourseTemplateSettings().catch(() => {
+            var promise = command.saveCourseTemplateSettings();
+            promise.then(() => {
+                expect(false).toBeTruthy();
+                done();
+            }).catch(() => {
+                expect(true).toBeTruthy();
                 done();
             });
         });
@@ -30,7 +34,12 @@ describe('command [saveCourseTemplateSettings]', () => {
         });
 
         it('should resolve promise', done => {
-            command.saveCourseTemplateSettings().then(() => {
+            var promise = command.saveCourseTemplateSettings();
+            promise.then(() => {
+                expect(true).toBeTruthy();
+                done();
+            }).catch(() => {
+                expect(false).toBeTruthy();
                 done();
             });
         });
@@ -44,7 +53,12 @@ describe('command [saveCourseTemplateSettings]', () => {
         });
 
         it('should reject promise', done => {
-            command.saveCourseTemplateSettings().catch(() => {
+            var promise = command.saveCourseTemplateSettings();
+            promise.then(() => {
+                expect(false).toBeTruthy();
+                done();
+            }).catch(() => {
+                expect(true).toBeTruthy();
                 done();
             });
         });

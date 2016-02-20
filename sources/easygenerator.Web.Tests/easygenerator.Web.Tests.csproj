@@ -212,6 +212,8 @@
     <Compile Include="Controllers\RedirectToNewStorageControllerTests.cs" />
     <Compile Include="Publish\External\ExternalPublisherTests.cs" />
     <Compile Include="Publish\PublisherTests.cs" />
+    <Compile Include="Import\WinToWeb\WinToWebCourseImporterTests.cs" />
+
     <Compile Include="Storage\CourseStateStorageTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTrackerTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\HotSpotPolygonChangeTrackerTests.cs" />

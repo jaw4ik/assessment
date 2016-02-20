@@ -1,4 +1,4 @@
-﻿import viewModel from 'viewmodels/courses/courseComments';
+﻿import viewModel from './courseComments';
 
 import userContext from 'userContext';
 import eventTracker from 'eventTracker';
