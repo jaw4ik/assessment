@@ -42,11 +42,11 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IPrincipal _user;
         private HttpContextBase _context;
         private IUrlHelperWrapper _urlHelper;
-        private IEntityPublisher _entityPublisher;
+        private IPublisher _entityPublisher;
         private IEntityMapper _entityMapper;
         private IDomainEventPublisher _eventPublisher;
         private ITemplateRepository _templateRepository;
-        private IExternalEntityPublisher _externalPublisher;
+        private IExternalPublisher _externalPublisher;
         private IUserRepository _userRepository;
         private ICloner _cloner;
 
@@ -58,12 +58,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _objectiveRepository = Substitute.For<IObjectiveRepository>();
             _builder = Substitute.For<ICourseBuilder>();
             _scormCourseBuilder = Substitute.For<IScormCourseBuilder>();
-            _entityPublisher = Substitute.For<IEntityPublisher>();
+            _entityPublisher = Substitute.For<IPublisher>();
             _urlHelper = Substitute.For<IUrlHelperWrapper>();
             _entityMapper = Substitute.For<IEntityMapper>();
             _eventPublisher = Substitute.For<IDomainEventPublisher>();
             _templateRepository = Substitute.For<ITemplateRepository>();
-            _externalPublisher = Substitute.For<IExternalEntityPublisher>();
+            _externalPublisher = Substitute.For<IExternalPublisher>();
             _userRepository = Substitute.For<IUserRepository>();
             _cloner = Substitute.For<ICloner>();
             _user = Substitute.For<IPrincipal>();

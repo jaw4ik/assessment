@@ -16,7 +16,7 @@ using NSubstitute;
 namespace easygenerator.Web.Tests.Publish
 {
     [TestClass]
-    public class EntityPublisherTests
+    public class PublisherTests
     {
         private IUrlHelperWrapper _urlHelper;
         private ILog _logger;
@@ -24,7 +24,7 @@ namespace easygenerator.Web.Tests.Publish
         private BuildPathProvider _pathProvider;
         private HttpClient _httpClient;
         private ConfigurationReader _configurationReader;
-        private EntityPublisher _publisher;
+        private Publisher _publisher;
         private IPublishableEntity _entity;
         private string packageUrl = "packageUrl";
 
@@ -42,7 +42,7 @@ namespace easygenerator.Web.Tests.Publish
             _configurationReader = Substitute.For<ConfigurationReader>();
             _configurationReader.PublicationConfiguration.Returns(new PublicationConfigurationSection() { ApiKey = "apiKey", ServiceUrl = "serviceUrl" });
             _urlHelper = Substitute.For<IUrlHelperWrapper>();
-            _publisher = new EntityPublisher(_urlHelper, _fileManager, _pathProvider, _logger, _httpClient, _configurationReader);
+            _publisher = new Publisher(_urlHelper, _fileManager, _pathProvider, _logger, _httpClient, _configurationReader);
         }
 
         #region Publish

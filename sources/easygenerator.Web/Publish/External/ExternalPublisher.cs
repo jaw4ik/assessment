@@ -6,12 +6,12 @@ using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Publish.External
 {
-    public class ExternalEntityPublisher : IExternalEntityPublisher
+    public class ExternalPublisher : IExternalPublisher
     {
         private readonly HttpClient _httpClient;
         private readonly ILog _logger;
 
-        public ExternalEntityPublisher(HttpClient httpClient, ILog logger)
+        public ExternalPublisher(HttpClient httpClient, ILog logger)
         {
             _httpClient = httpClient;
             _logger = logger;

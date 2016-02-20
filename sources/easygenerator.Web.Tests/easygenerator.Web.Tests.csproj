@@ -210,8 +210,8 @@
     <Compile Include="Controllers\ImageControllerTests.cs" />
     <Compile Include="Controllers\PreviewControllerTests.cs" />
     <Compile Include="Controllers\RedirectToNewStorageControllerTests.cs" />
-    <Compile Include="Publish\External\ExternalEntityPublisherTests.cs" />
-    <Compile Include="Publish\EntityPublisherTests.cs" />
+    <Compile Include="Publish\External\ExternalPublisherTests.cs" />
+    <Compile Include="Publish\PublisherTests.cs" />
     <Compile Include="Storage\CourseStateStorageTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTrackerTests.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\HotSpotPolygonChangeTrackerTests.cs" />

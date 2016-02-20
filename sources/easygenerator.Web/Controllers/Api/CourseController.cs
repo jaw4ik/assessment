@@ -36,17 +36,17 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IObjectiveRepository _objectiveRepository;
         private readonly IUrlHelperWrapper _urlHelper;
         private readonly IScormCourseBuilder _scormCourseBuilder;
-        private readonly IEntityPublisher _entityPublisher;
+        private readonly IPublisher _entityPublisher;
         private readonly IEntityMapper _entityMapper;
         private readonly IDomainEventPublisher _eventPublisher;
         private readonly ITemplateRepository _templateRepository;
-        private readonly IExternalEntityPublisher _externalPublisher;
+        private readonly IExternalPublisher _externalPublisher;
         private readonly IUserRepository _userRepository;
         private readonly ICloner _cloner;
 
         public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository courseRepository,
-            IObjectiveRepository objectiveRepository, IEntityFactory entityFactory, IUrlHelperWrapper urlHelper, IEntityPublisher entityPublisher,
-            IEntityMapper entityMapper, IDomainEventPublisher eventPublisher, ITemplateRepository templateRepository, IExternalEntityPublisher externalPublisher,
+            IObjectiveRepository objectiveRepository, IEntityFactory entityFactory, IUrlHelperWrapper urlHelper, IPublisher entityPublisher,
+            IEntityMapper entityMapper, IDomainEventPublisher eventPublisher, ITemplateRepository templateRepository, IExternalPublisher externalPublisher,
             IUserRepository userRepository, ICloner cloner)
         {
             _builder = courseBuilder;

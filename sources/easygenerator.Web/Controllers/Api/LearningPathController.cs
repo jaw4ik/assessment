@@ -20,14 +20,14 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IEntityModelMapper<LearningPath> _mapper;
         private readonly IEntityFactory _entityFactory;
         private readonly ILearningPathBuilder _builder;
-        private readonly IEntityPublisher _entityPublisher;
+        private readonly IPublisher _entityPublisher;
         private readonly IUserRepository _userRepository;
         private readonly IDocumentRepository _documentRepository;
-        private readonly IExternalEntityPublisher _externalPublisher;
+        private readonly IExternalPublisher _externalPublisher;
                          
         private readonly IUrlHelperWrapper _urlHelper;
 
-        public LearningPathController(IUrlHelperWrapper urlHelper, ILearningPathRepository repository, IEntityModelMapper<LearningPath> mapper, IEntityFactory entityFactory, ILearningPathBuilder builder, IEntityPublisher entityPublisher, IUserRepository userRepository, IDocumentRepository documentRepository, IExternalEntityPublisher externalPublisher)
+        public LearningPathController(IUrlHelperWrapper urlHelper, ILearningPathRepository repository, IEntityModelMapper<LearningPath> mapper, IEntityFactory entityFactory, ILearningPathBuilder builder, IPublisher entityPublisher, IUserRepository userRepository, IDocumentRepository documentRepository, IExternalPublisher externalPublisher)
         {
             _urlHelper = urlHelper;
             _repository = repository;

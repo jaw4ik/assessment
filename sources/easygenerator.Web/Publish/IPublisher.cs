@@ -2,7 +2,7 @@
 
 namespace easygenerator.Web.Publish
 {
-    public interface IEntityPublisher
+    public interface IPublisher
     {
         bool Publish<T>(T entity) where T : IPublishableEntity;
     }

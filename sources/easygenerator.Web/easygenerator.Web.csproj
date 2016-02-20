@@ -324,11 +324,11 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
     <Compile Include="DomainEvents\Handlers\PublicationServerUserHandler.cs" />
-    <Compile Include="Publish\External\ExternalEntityPublisher.cs" />
-    <Compile Include="Publish\External\IExternalEntityPublisher.cs" />
-    <Compile Include="Publish\IEntityPublisher.cs" />
+    <Compile Include="Publish\External\ExternalPublisher.cs" />
+    <Compile Include="Publish\External\IExternalPublisher.cs" />
+    <Compile Include="Publish\IPublisher.cs" />
     <Compile Include="DomainEvents\Handlers\CreateUserInitialDataHandler.cs" />
-    <Compile Include="Publish\EntityPublisher.cs" />
+    <Compile Include="Publish\Publisher.cs" />
     <Compile Include="Resources\Views\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

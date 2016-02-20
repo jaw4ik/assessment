@@ -12,11 +12,11 @@ using easygenerator.Web.Tests.Utils;
 namespace easygenerator.Web.Tests.Publish.External
 {
     [TestClass]
-    public class ExternalEntityPublisherTests
+    public class ExternalPublisherTests
     {
         private ILog _logger;
         private HttpClient _httpClient;
-        private ExternalEntityPublisher _publisher;
+        private ExternalPublisher _publisher;
         private IPublishableEntity _entity;
         private string _publicationUrl = "publicationUrl";
 
@@ -28,7 +28,7 @@ namespace easygenerator.Web.Tests.Publish.External
 
             _logger = Substitute.For<ILog>();
             _httpClient = Substitute.For<HttpClient>();
-            _publisher = new ExternalEntityPublisher(_httpClient, _logger);
+            _publisher = new ExternalPublisher(_httpClient, _logger);
         }
 
         #region Publish

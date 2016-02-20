@@ -10,7 +10,7 @@ using easygenerator.Web.Components.Configuration;
 
 namespace easygenerator.Web.Publish
 {
-    public class EntityPublisher : IEntityPublisher
+    public class Publisher : IPublisher
     {
         protected IUrlHelperWrapper UrlHelper { get; }
         protected BuildPathProvider PathProvider { get; }
@@ -19,7 +19,7 @@ namespace easygenerator.Web.Publish
         protected HttpClient HttpClient { get; }
         protected ConfigurationReader ConfigurationReader { get; }
 
-        public EntityPublisher(IUrlHelperWrapper urlHelper, PhysicalFileManager fileManager, BuildPathProvider pathProvider, ILog logger, HttpClient httpClient, ConfigurationReader configurationReader)
+        public Publisher(IUrlHelperWrapper urlHelper, PhysicalFileManager fileManager, BuildPathProvider pathProvider, ILog logger, HttpClient httpClient, ConfigurationReader configurationReader)
         {
             UrlHelper = urlHelper;
             PathProvider = pathProvider;
