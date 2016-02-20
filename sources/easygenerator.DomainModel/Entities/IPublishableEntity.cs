@@ -8,7 +8,9 @@ namespace easygenerator.DomainModel.Entities
         string CreatedBy { get; }
         string Title { get; }
         DateTime CreatedOn { get; }
+        string PublicationUrl { get; }
         void UpdatePublicationUrl(string publicationUrl);
         void ResetPublicationUrl();
+        void SetPublishedToExternalLms();
     }
 }

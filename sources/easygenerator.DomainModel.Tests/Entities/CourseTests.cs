@@ -1779,5 +1779,22 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
+
+        #region SetPublishedToExternalLms
+
+        [TestMethod]
+        public void SetPublihedToExternalLms_ShouldSetTrueToIsPublishedToExternalLms()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            course.SetPublishedToExternalLms();
+
+            //Assert
+            course.IsPublishedToExternalLms.Should().Be(true);
+        }
+
+        #endregion
     }
 }

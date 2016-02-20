@@ -6,35 +6,35 @@ using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Publish.External
 {
-    public class ExternalCoursePublisher : IExternalCoursePublisher
+    public class ExternalEntityPublisher : IExternalEntityPublisher
     {
         private readonly HttpClient _httpClient;
         private readonly ILog _logger;
 
-        public ExternalCoursePublisher(HttpClient httpClient, ILog logger)
+        public ExternalEntityPublisher(HttpClient httpClient, ILog logger)
         {
             _httpClient = httpClient;
             _logger = logger;
         }
 
-        public bool PublishCourseUrl(Course course, Company company, string userEmail)
+        public bool Publish<T>(T entity, Company company, string userEmail) where T : IPublishableEntity
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(course.PublicationUrl))
+                if (string.IsNullOrWhiteSpace(entity.PublicationUrl))
                 {
-                    throw new Exception("Course is already not published.");
+                    throw new InvalidOperationException($"Entity was not published (PublicationUrl is empty). Entity id: {entity.Id}.");
                 }
 
-                _httpClient.Post(company.PublishCourseApiUrl, new
+                _httpClient.Post<string>(company.PublishCourseApiUrl, new
                 {
-                    id = course.Id.ToNString(),
+                    id = entity.Id.ToNString(),
                     userEmail = userEmail,
-                    publishedCourseUrl = course.PublicationUrl,
+                    publishedCourseUrl = entity.PublicationUrl,
                     apiKey = company.SecretKey
                 });
 
-                course.SetPublishedToExternalLms(true);
+                entity.SetPublishedToExternalLms();
                 return true;
             }
             catch (Exception e)

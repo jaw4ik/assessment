@@ -324,10 +324,8 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
     <Compile Include="DomainEvents\Handlers\PublicationServerUserHandler.cs" />
-    <Compile Include="Publish\External\ExternalCoursePublisher.cs" />
-    <Compile Include="Publish\External\ExternalLearningPathPublisher.cs" />
-    <Compile Include="Publish\External\IExternalCoursePublisher.cs" />
-    <Compile Include="Publish\External\IExternalLearningPathPublisher.cs" />
+    <Compile Include="Publish\External\ExternalEntityPublisher.cs" />
+    <Compile Include="Publish\External\IExternalEntityPublisher.cs" />
     <Compile Include="Publish\IEntityPublisher.cs" />
     <Compile Include="DomainEvents\Handlers\CreateUserInitialDataHandler.cs" />
     <Compile Include="Publish\EntityPublisher.cs" />

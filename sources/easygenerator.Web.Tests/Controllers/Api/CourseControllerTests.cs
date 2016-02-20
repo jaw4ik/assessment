@@ -46,7 +46,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IEntityMapper _entityMapper;
         private IDomainEventPublisher _eventPublisher;
         private ITemplateRepository _templateRepository;
-        private IExternalCoursePublisher _externalCoursePublisher;
+        private IExternalEntityPublisher _externalPublisher;
         private IUserRepository _userRepository;
         private ICloner _cloner;
 
@@ -63,7 +63,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityMapper = Substitute.For<IEntityMapper>();
             _eventPublisher = Substitute.For<IDomainEventPublisher>();
             _templateRepository = Substitute.For<ITemplateRepository>();
-            _externalCoursePublisher = Substitute.For<IExternalCoursePublisher>();
+            _externalPublisher = Substitute.For<IExternalEntityPublisher>();
             _userRepository = Substitute.For<IUserRepository>();
             _cloner = Substitute.For<ICloner>();
             _user = Substitute.For<IPrincipal>();
@@ -72,7 +72,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _context.User.Returns(_user);
 
             _controller = new CourseController(_builder, _scormCourseBuilder, _courseRepository, _objectiveRepository, _entityFactory, _urlHelper, _entityPublisher,
-                _entityMapper, _eventPublisher, _templateRepository, _externalCoursePublisher, _userRepository, _cloner);
+                _entityMapper, _eventPublisher, _templateRepository, _externalPublisher, _userRepository, _cloner);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -573,7 +573,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var company = new Company();
             var user = UserObjectMother.CreateWithCompany(company);
             _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
-            _externalCoursePublisher.PublishCourseUrl(course, company, user.Email).Returns(false);
+            _externalPublisher.Publish(course, company, user.Email).Returns(false);
 
             //Act
             var result = _controller.PublishToCustomLms(course);
@@ -590,7 +590,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var company = new Company();
             var user = UserObjectMother.CreateWithCompany(company);
             _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
-            _externalCoursePublisher.PublishCourseUrl(course, company, user.Email).Returns(true);
+            _externalPublisher.Publish(course, company, user.Email).Returns(true);
 
             //Act
             var result = _controller.PublishToCustomLms(course);

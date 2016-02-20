@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Activities.Statements;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.WebPages;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Infrastructure.Http;
-using easygenerator.Web.BuildCourse;
-using easygenerator.Web.Components;
-using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Publish.External;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -22,70 +12,73 @@ using easygenerator.Web.Tests.Utils;
 namespace easygenerator.Web.Tests.Publish.External
 {
     [TestClass]
-    public class ExternalLearningPathPublisherTests
+    public class ExternalEntityPublisherTests
     {
         private ILog _logger;
         private HttpClient _httpClient;
-        private ExternalLearningPathPublisher _publisher;
+        private ExternalEntityPublisher _publisher;
+        private IPublishableEntity _entity;
+        private string _publicationUrl = "publicationUrl";
 
         [TestInitialize]
         public void InitializeContext()
         {
+            _entity = Substitute.For<IPublishableEntity>();
+            _entity.PublicationUrl.Returns(_publicationUrl);
+
             _logger = Substitute.For<ILog>();
             _httpClient = Substitute.For<HttpClient>();
-            _publisher = new ExternalLearningPathPublisher(_httpClient, _logger);
+            _publisher = new ExternalEntityPublisher(_httpClient, _logger);
         }
 
         #region Publish
 
         [TestMethod]
-        public void Publish_ShouldReturnFalse_WhenLearningPathPackageUrlIsNull()
+        public void Publish_ShouldReturnFalse_WhenPackageUrlIsNull()
         {
             //Arrange
-            var learningPath = LearningPathObjectMother.Create();
+            _entity.PublicationUrl.Returns((string)null);
             var company = CompanyObjectMother.Create();
             var userEmail = "userEmail";
 
             //Act
-            var result = _publisher.Publish(learningPath, company, userEmail);
+            var result = _publisher.Publish(_entity, company, userEmail);
 
             //Assert
             result.Should().Be(false);
         }
 
         [TestMethod]
-        public void Publish_ShouldLogNotSupportedException_WhenLearningPathPublicationUrlIsNull()
+        public void Publish_ShouldLogInvalidOperationException_WhenPublicationUrlIsNull()
         {
             //Arrange
-            var learningPath = LearningPathObjectMother.Create();
+            _entity.PublicationUrl.Returns((string)null);
             var company = CompanyObjectMother.Create();
             var userEmail = "userEmail";
 
             //Act
-            var result = _publisher.Publish(learningPath, company, userEmail);
+            var result = _publisher.Publish(_entity, company, userEmail);
 
             //Assert
-            _logger.Received().LogException(Arg.Is<NotSupportedException>(ex => ex.Message == String.Format("Learning path with Id: {0} doesn't have PublicationUrl.", learningPath.Id)));
+            _logger.Received().LogException(Arg.Is<InvalidOperationException>(ex => ex.Message == $"Entity was not published (PublicationUrl is empty). Entity id: {_entity.Id}."));
         }
 
         [TestMethod]
-        public void Publish_ShouldPostLearningPathPackageUrl()
+        public void Publish_ShouldPostPackageUrl()
         {
             //Arrange
-            var learningPath = LearningPathObjectMother.Create();
-            learningPath.UpdatePublicationUrl("publicationUrl");
             var company = CompanyObjectMother.Create();
             var userEmail = "userEmail";
 
             //Act
-            _publisher.Publish(learningPath, company, userEmail);
+            _publisher.Publish(_entity, company, userEmail);
 
             //Assert
             _httpClient.Received().Post<string>(company.PublishCourseApiUrl, Arg.Is<object>((_) => _.IsObjectSimilarTo(new
             {
-                id = learningPath.Id.ToString("N"),
+                id = _entity.Id.ToString("N"),
                 userEmail = userEmail,
-                publishedCourseUrl = learningPath.PublicationUrl,
+                publishedCourseUrl = _entity.PublicationUrl,
                 apiKey = company.SecretKey
             })));
         }
@@ -94,29 +87,25 @@ namespace easygenerator.Web.Tests.Publish.External
         public void Publish_ShouldSetPublishedToExternalLms_WhenPostSucced()
         {
             //Arrange
-            var learningPath = LearningPathObjectMother.Create();
-            learningPath.UpdatePublicationUrl("publicationUrl");
             var company = CompanyObjectMother.Create();
             var userEmail = "userEmail";
-            
+
             //Act
-            _publisher.Publish(learningPath, company, userEmail);
+            _publisher.Publish(_entity, company, userEmail);
 
             //Assert
-            learningPath.IsPublishedToExternalLms.Should().Be(true);
+            _entity.Received().SetPublishedToExternalLms();
         }
 
         [TestMethod]
         public void Publish_ShouldReturnTrue_WhenPostSucced()
         {
             //Arrange
-            var learningPath = LearningPathObjectMother.Create();
-            learningPath.UpdatePublicationUrl("publicationUrl");
             var company = CompanyObjectMother.Create();
             var userEmail = "userEmail";
 
             //Act
-            var result = _publisher.Publish(learningPath, company, userEmail);
+            var result = _publisher.Publish(_entity, company, userEmail);
 
             //Assert
             result.Should().Be(true);
@@ -125,8 +114,6 @@ namespace easygenerator.Web.Tests.Publish.External
         [TestMethod]
         public void Publish_ShouldLogException_WhenPostFailed()
         {
-            var learningPath = LearningPathObjectMother.Create();
-            learningPath.UpdatePublicationUrl("publicationUrl");
             var company = CompanyObjectMother.Create();
             var userEmail = "userEmail";
             var ex = new Exception();
@@ -134,7 +121,7 @@ namespace easygenerator.Web.Tests.Publish.External
             _httpClient.Post<string>(company.PublishCourseApiUrl, Arg.Any<object>()).Returns(info => { throw ex; });
 
             //Act
-           _publisher.Publish(learningPath, company, userEmail);
+            _publisher.Publish(_entity, company, userEmail);
 
             //Assert
             _logger.Received().LogException(ex);
@@ -143,14 +130,12 @@ namespace easygenerator.Web.Tests.Publish.External
         [TestMethod]
         public void Publish_ShouldReturnFalse_WhenPostFailed()
         {
-            var learningPath = LearningPathObjectMother.Create();
-            learningPath.UpdatePublicationUrl("publicationUrl");
             var company = CompanyObjectMother.Create();
             var userEmail = "userEmail";
             _httpClient.Post<string>(company.PublishCourseApiUrl, Arg.Any<object>()).Returns(info => { throw new Exception(); });
 
             //Act
-            var result = _publisher.Publish(learningPath, company, userEmail);
+            var result = _publisher.Publish(_entity, company, userEmail);
 
             //Assert
             result.Should().Be(false);

@@ -373,9 +373,9 @@ namespace easygenerator.DomainModel.Entities
 
         public bool IsPublishedToExternalLms { get; private set; }
 
-        public virtual void SetPublishedToExternalLms(bool state)
+        public virtual void SetPublishedToExternalLms()
         {
-            IsPublishedToExternalLms = state;
+            IsPublishedToExternalLms = true;
         }
 
         #endregion

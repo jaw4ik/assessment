@@ -40,13 +40,13 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IEntityMapper _entityMapper;
         private readonly IDomainEventPublisher _eventPublisher;
         private readonly ITemplateRepository _templateRepository;
-        private readonly IExternalCoursePublisher _externalCoursePublisher;
+        private readonly IExternalEntityPublisher _externalPublisher;
         private readonly IUserRepository _userRepository;
         private readonly ICloner _cloner;
 
         public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository courseRepository,
             IObjectiveRepository objectiveRepository, IEntityFactory entityFactory, IUrlHelperWrapper urlHelper, IEntityPublisher entityPublisher,
-            IEntityMapper entityMapper, IDomainEventPublisher eventPublisher, ITemplateRepository templateRepository, IExternalCoursePublisher externalCoursePublisher,
+            IEntityMapper entityMapper, IDomainEventPublisher eventPublisher, ITemplateRepository templateRepository, IExternalEntityPublisher externalPublisher,
             IUserRepository userRepository, ICloner cloner)
         {
             _builder = courseBuilder;
@@ -59,7 +59,7 @@ namespace easygenerator.Web.Controllers.Api
             _entityMapper = entityMapper;
             _eventPublisher = eventPublisher;
             _templateRepository = templateRepository;
-            _externalCoursePublisher = externalCoursePublisher;
+            _externalPublisher = externalPublisher;
             _userRepository = userRepository;
             _cloner = cloner;
         }
@@ -141,7 +141,7 @@ namespace easygenerator.Web.Controllers.Api
 
             _courseRepository.Remove(course);
             _eventPublisher.Publish(new CourseDeletedEvent(course, deletedObjectiveIds, collaborators, invitedCollaborators, GetCurrentUsername()));
-            
+
             return JsonSuccess(new { deletedObjectiveIds, deletedFromLearningPathIds });
         }
 
@@ -193,7 +193,7 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Errors.UserNotMemberOfAnyCompany, Errors.UserNotMemberOfAnyCompanyResourceKey);
             }
 
-            return Deliver(course, () => _externalCoursePublisher.PublishCourseUrl(course, user.Company, user.Email), JsonSuccess);
+            return Deliver(course, () => _externalPublisher.Publish(course, user.Company, user.Email), JsonSuccess);
         }
 
         [HttpPost]

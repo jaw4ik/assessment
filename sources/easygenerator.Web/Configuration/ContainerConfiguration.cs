@@ -157,8 +157,7 @@ namespace easygenerator.Web.Configuration
             #region Publisher dependencies
 
             builder.RegisterType<EntityPublisher>().As<IEntityPublisher>();
-            builder.RegisterType<ExternalCoursePublisher>().As<IExternalCoursePublisher>();
-            builder.RegisterType<ExternalLearningPathPublisher>().As<IExternalLearningPathPublisher>();
+            builder.RegisterType<ExternalEntityPublisher>().As<IExternalEntityPublisher>();
 
             #endregion
 
