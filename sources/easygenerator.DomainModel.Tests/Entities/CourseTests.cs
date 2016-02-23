@@ -982,6 +982,20 @@ namespace easygenerator.DomainModel.Tests.Entities
             comment.Course.Should().Be(course);
         }
 
+        [TestMethod]
+        public void DeleteComment_ShouldAddCommentCreatedvent()
+        {
+            // Arrange
+            var course = CourseObjectMother.Create();
+            var comment = CommentObjectMother.Create();
+            
+            // Act
+            course.AddComment(comment);
+
+            // Assert
+            course.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(CommentCreatedEvent));
+        }
+
         #endregion
 
         #region DeleteComment
@@ -1041,7 +1055,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.DeleteComment(comment);
 
             // Assert
-            course.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(CommentDeletedEvent));
+            course.Events.Should().Contain(e => e.GetType() == typeof(CommentDeletedEvent));
         }
 
         #endregion

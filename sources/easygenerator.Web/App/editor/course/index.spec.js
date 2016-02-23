@@ -5,6 +5,8 @@ import _ from 'underscore';
 import eventTracker from 'eventTracker';
 import localizationManager from 'localization/localizationManager';
 import notify from 'notify';
+import constants from 'constants';
+import clientContext from 'clientContext';
 import CreateBar from './viewmodels/CreateBarViewModel';
 import SectionViewModel from './viewmodels/SectionViewModel';
 import courseRepository from 'repositories/courseRepository';
@@ -15,6 +17,7 @@ import reorderQuestionCommand from './commands/reorderQuestionCommand';
 import moveQuestionCommand from './commands/moveQuestionCommand';
 import reorderSectionCommand from './commands/reorderSectionCommand';
 import deleteSectionDialog from 'editor/course/dialogs/deleteSection/deleteSection';
+import userContext from 'userContext';
 
 describe('[drag and drop course editor]', () => {
 
@@ -48,6 +51,9 @@ describe('[drag and drop course editor]', () => {
         };
         spyOn(notify, 'saved');
         spyOn(eventTracker, 'publish');
+        userContext.identity = {
+            email: 'email'
+        };
     });
 
     it('should be a class', () => {
@@ -67,6 +73,8 @@ describe('[drag and drop course editor]', () => {
         expect(courseViewModel.eventTracker).toBe(eventTracker);
         expect(courseViewModel.localizationManager).toBe(localizationManager);
         expect(courseViewModel.courseIntroductionContent).toBe(null);
+        expect(courseViewModel.highlightedObjectiveId).toBeObservable();
+        expect(courseViewModel.highlightedObjectiveId()).toBeNull();
         expect(courseViewModel.notContainSections).toBeObservable();
         expect(courseViewModel.notContainSections()).toBeFalsy();
         expect(courseViewModel.createBar).toBeInstanceOf(CreateBar);
@@ -123,6 +131,26 @@ describe('[drag and drop course editor]', () => {
             expect(courseViewModel.courseIntroductionContent.text()).toBe(course.introductionContent);
         })().then(done));
 
+        describe('when client context highlighted objective id is defined', () => {
+            let objectiveId = 'objId';
+            beforeEach(() => {
+                spyOn(clientContext, 'get').and.returnValue(objectiveId);
+                spyOn(clientContext, 'remove');
+            });
+
+            it('should remove highlighted objective id from client context', done => (async () => {
+                courseViewModel.activate(courseId);
+                await promise;
+                expect(clientContext.remove).toHaveBeenCalledWith(constants.clientContextKeys.highlightedObjectiveId);
+            })().then(done));
+
+            it('should set highlightedObjectiveId', done => (async () => {
+                courseViewModel.highlightedObjectiveId(null);
+                courseViewModel.activate(courseId);
+                await promise;
+                expect(courseViewModel.highlightedObjectiveId()).toBe(objectiveId);
+            })().then(done));
+        });
     });
 
     describe('createSection:', () => {

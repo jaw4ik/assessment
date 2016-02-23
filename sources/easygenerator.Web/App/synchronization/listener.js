@@ -104,7 +104,8 @@
                     scenarioDataUpdated: questionEventHandler.scenario.dataUpdated,
                     scenarioMasteryScoreUpdated: questionEventHandler.scenario.masteryScoreUpdated,
 
-                    commentDeleted: commentEventHandler.deleted
+                    commentDeleted: commentEventHandler.deleted,
+                    commentCreated: commentEventHandler.created
                 };
 
                 $.connection.hub.disconnected(function () {

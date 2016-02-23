@@ -648,10 +648,85 @@
     <Content Include="App\commands\updateDocumentCommand.spec.js">
       <DependentUpon>updateDocumentCommand.js</DependentUpon>
     </Content>
+    <Content Include="App\core\bootstrap\visible.js" />
+    <Content Include="App\editor\course\bindingHandlers\hightlightObjective.js" />
+    <Content Include="App\mappers\commentModelMapper.js" />
+    <Content Include="App\review\commands\deleteComment.js" />
+    <Content Include="App\review\commands\deleteComment.spec.js">
+      <DependentUpon>deleteComment.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\commands\getCourseComments.js" />
+    <Content Include="App\review\commands\getCourseComments.spec.js">
+      <DependentUpon>getCourseComments.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\commands\restoreComment.js" />
+    <Content Include="App\review\commands\restoreComment.spec.js">
+      <DependentUpon>restoreComment.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\Comment.html" />
+    <Content Include="App\review\comments\Comment.js" />
+    <Content Include="App\review\comments\Comment.spec.js">
+      <DependentUpon>Comment.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\context\commentContextFactory.spec.js">
+      <DependentUpon>commentContextFactory.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\context\commentContexts\CommentContext.spec.js">
+      <DependentUpon>CommentContext.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\context\commentContexts\CourseCommentContext.spec.js">
+      <DependentUpon>CourseCommentContext.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\context\commentContexts\GeneralCommentContext.spec.js">
+      <DependentUpon>GeneralCommentContext.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\context\commentContexts\InformationContentCommentContext.spec.js">
+      <DependentUpon>InformationContentCommentContext.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\context\commentContexts\ObjectiveCommentContext.spec.js">
+      <DependentUpon>ObjectiveCommentContext.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\context\commentContexts\QuestionCommentContext.spec.js">
+      <DependentUpon>QuestionCommentContext.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\context\contextEntities\ObjectiveCommentContextEntity.js" />
+    <Content Include="App\review\comments\context\contextEntities\ObjectiveCommentContextEntity.spec.js">
+      <DependentUpon>ObjectiveCommentContextEntity.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\context\contextEntities\QuestionCommentContextEntity.js" />
+    <Content Include="App\review\comments\context\commentContexts\CommentContext.js" />
+    <Content Include="App\review\comments\context\contextEntities\CommentContextEntity.js" />
+    <Content Include="App\review\comments\context\commentContexts\InformationContentCommentContext.js" />
+    <Content Include="App\review\comments\context\commentContexts\CourseCommentContext.js" />
+    <Content Include="App\review\comments\context\commentContexts\GeneralCommentContext.js" />
+    <Content Include="App\review\comments\context\commentContextFactory.js" />
+    <Content Include="App\review\comments\context\commentContexts\ObjectiveCommentContext.js" />
+    <Content Include="App\review\comments\context\contextEntities\QuestionCommentContextEntity.spec.js">
+      <DependentUpon>QuestionCommentContextEntity.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\context\queries\getObjective.js" />
+    <Content Include="App\review\comments\context\queries\getObjective.spec.js">
+      <DependentUpon>getObjective.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\context\queries\getQuestionData.js" />
+    <Content Include="App\review\comments\context\commentContexts\QuestionCommentContext.js" />
+    <Content Include="App\review\comments\context\queries\getQuestionData.spec.js">
+      <DependentUpon>getQuestionData.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\courseComments.html" />
+    <Content Include="App\review\comments\courseComments.js" />
+    <Content Include="App\review\comments\courseComments.spec.js">
+      <DependentUpon>courseComments.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\publish\coursePublish.spec.js">
+      <DependentUpon>coursePublish.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\reviewPanel.html" />
+    <Content Include="App\components\bindingHandlers\dates\dateBindingHandler.js" />
+    <Content Include="App\components\bindingHandlers\dates\dateFromNowBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\expandableBlockBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\fileDropUploadBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\cursorTooltipBindingHandler.js" />
-    <Content Include="App\components\bindingHandlers\dateBindingHadler.js" />
     <Content Include="App\components\bindingHandlers\editableTextBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\ratingBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\tipBindingHandler.js" />
@@ -994,11 +1069,23 @@
     <Content Include="App\repositories\learningPathRepository.spec.js">
       <DependentUpon>learningPathRepository.js</DependentUpon>
     </Content>
+    <Content Include="App\review\reviewPanel.js" />
+    <Content Include="App\review\publish\coursePublish.html" />
+    <Content Include="App\review\reviewPanel.spec.js">
+      <DependentUpon>reviewPanel.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\comment\eventHandlers\created.spec.js">
+      <DependentUpon>created.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\comment\eventHandlers\created.js" />
     <Content Include="App\synchronization\handlers\comment\eventHandlers\deleted.js" />
     <Content Include="App\synchronization\handlers\comment\eventHandlers\deleted.spec.js">
       <DependentUpon>deleted.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\comment\handler.js" />
+    <Content Include="App\synchronization\handlers\comment\handler.spec.js">
+      <DependentUpon>handler.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\voiceOverUpdated.js" />
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\voiceOverUpdated.spec.js">
       <DependentUpon>voiceOverUpdated.js</DependentUpon>
@@ -2124,6 +2211,7 @@
     <Content Include="Content\wintoweb.less" />
     <Content Include="Content\images.less" />
     <Content Include="Content\library.less" />
+    <Content Include="Content\reviewPanel.less" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
@@ -2613,7 +2701,6 @@
     <Content Include="Content\notSupportedPage.less" />
     <Content Include="Content\objective.less" />
     <Content Include="Content\onboarding.less" />
-    <Content Include="Content\panels.less" />
     <Content Include="Content\question.less" />
     <Content Include="Content\review.less" />
     <Content Include="Content\selectbox.less" />
@@ -3133,10 +3220,6 @@
     <Content Include="App\repositories\answerRepository.spec.js">
       <DependentUpon>answerRepository.js</DependentUpon>
     </Content>
-    <Content Include="App\repositories\commentRepository.js" />
-    <Content Include="App\repositories\commentRepository.spec.js">
-      <DependentUpon>commentRepository.js</DependentUpon>
-    </Content>
     <Content Include="App\repositories\courseRepository.js" />
     <Content Include="App\repositories\courseRepository.spec.js">
       <DependentUpon>courseRepository.js</DependentUpon>
@@ -3211,10 +3294,6 @@
       <DependentUpon>contentField.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\course\create\course.js" />
-    <Content Include="App\viewmodels\courses\courseComments.js" />
-    <Content Include="App\viewmodels\courses\courseComments.spec.js">
-      <DependentUpon>courseComments.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\courses\courses.js" />
     <Content Include="App\viewmodels\courses\courses.spec.js">
       <DependentUpon>courses.js</DependentUpon>
@@ -3248,14 +3327,7 @@
     <Content Include="App\viewmodels\objectives\objectives.spec.js">
       <DependentUpon>objectives.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\panels\sidePanel.js" />
-    <Content Include="App\viewmodels\panels\sidePanel.spec.js">
-      <DependentUpon>sidePanel.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\panels\tabs\reviewTab.js" />
-    <Content Include="App\viewmodels\panels\tabs\reviewTab.spec.js">
-      <DependentUpon>reviewTab.js</DependentUpon>
-    </Content>
+    <Content Include="App\review\publish\coursePublish.js" />
     <Content Include="App\viewmodels\questions\question.js" />
     <Content Include="App\viewmodels\questions\question.spec.js">
       <DependentUpon>question.js</DependentUpon>
@@ -3275,8 +3347,6 @@
     <Content Include="App\views\errors\404.html" />
     <Content Include="App\views\objectives\objective.html" />
     <Content Include="App\views\objectives\objectives.html" />
-    <Content Include="App\views\panels\sidePanel.html" />
-    <Content Include="App\views\panels\tabs\reviewTab.html" />
     <Content Include="App\views\questions\question.html" />
     <Content Include="App\views\shell.html" />
     <Content Include="App\views\user\userMenu.html" />

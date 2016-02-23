@@ -423,21 +423,13 @@
     <Compile Include="Migrations\201601111121220_AddLPDocuments.Designer.cs">
       <DependentUpon>201601111121220_AddLPDocuments.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201602031216321_LtiFixes.cs" />
-    <Compile Include="Migrations\201602031216321_LtiFixes.Designer.cs">
-      <DependentUpon>201602031216321_LtiFixes.cs</DependentUpon>
+    <Compile Include="Migrations\201602021253597_AddCommentContext.cs" />
+    <Compile Include="Migrations\201602021253597_AddCommentContext.Designer.cs">
+      <DependentUpon>201602021253597_AddCommentContext.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201602041002206_AddIsCreatedThroughLtiFieldToUser.cs" />
-    <Compile Include="Migrations\201602041002206_AddIsCreatedThroughLtiFieldToUser.Designer.cs">
-      <DependentUpon>201602041002206_AddIsCreatedThroughLtiFieldToUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602111642507_AddRelationshipBetweenCourseAndCompany.cs" />
-    <Compile Include="Migrations\201602111642507_AddRelationshipBetweenCourseAndCompany.Designer.cs">
-      <DependentUpon>201602111642507_AddRelationshipBetweenCourseAndCompany.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602131148529_AddRelationshipBetweenLearningPathAndCompany.cs" />
-    <Compile Include="Migrations\201602131148529_AddRelationshipBetweenLearningPathAndCompany.Designer.cs">
-      <DependentUpon>201602131148529_AddRelationshipBetweenLearningPathAndCompany.cs</DependentUpon>
+    <Compile Include="Migrations\201602230946089_LtiAndCustomPublishImprovements.cs" />
+    <Compile Include="Migrations\201602230946089_LtiAndCustomPublishImprovements.Designer.cs">
+      <DependentUpon>201602230946089_LtiAndCustomPublishImprovements.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -748,17 +740,11 @@
     <EmbeddedResource Include="Migrations\201601111121220_AddLPDocuments.resx">
       <DependentUpon>201601111121220_AddLPDocuments.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602031216321_LtiFixes.resx">
-      <DependentUpon>201602031216321_LtiFixes.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201602021253597_AddCommentContext.resx">
+      <DependentUpon>201602021253597_AddCommentContext.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602041002206_AddIsCreatedThroughLtiFieldToUser.resx">
-      <DependentUpon>201602041002206_AddIsCreatedThroughLtiFieldToUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602111642507_AddRelationshipBetweenCourseAndCompany.resx">
-      <DependentUpon>201602111642507_AddRelationshipBetweenCourseAndCompany.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602131148529_AddRelationshipBetweenLearningPathAndCompany.resx">
-      <DependentUpon>201602131148529_AddRelationshipBetweenLearningPathAndCompany.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201602230946089_LtiAndCustomPublishImprovements.resx">
+      <DependentUpon>201602230946089_LtiAndCustomPublishImprovements.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

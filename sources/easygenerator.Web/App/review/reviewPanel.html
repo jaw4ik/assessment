@@ -1,0 +1,26 @@
+﻿<section class="review-panel-wrapper">
+    <!-- ko if: isVisible() -->
+    <div class="review-panel" data-bind="css: { expanded: isExpanded }">
+        <div class="review-panel-tail collapser" data-bind="click: toggleIsExpanded">
+        </div>
+        <div class="review-panel-tail expander info-tooltip-holder" data-bind="click: toggleIsExpanded">
+            <!-- ko ifnot: isExpanded() -->
+            <div class="info-tooltip">
+                <span data-bind="localize: { text: 'externalReview' }"></span>
+            </div>
+            <!-- /ko -->
+        </div>
+        <div class="review-panel-content">
+            <div class="review-panel-title" data-bind="localize: { text: 'reviewTabTitle' }"></div>
+            <div class="review-panel-comments" data-bind="scrollbar: { checkDOMChanges: true }">
+                <!-- ko compose: { model: courseComments }-->
+                <!-- /ko -->
+            </div>
+            <div class="review-panel-course-publish">
+                <!-- ko compose: { model: coursePublish }-->
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+</section>

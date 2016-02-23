@@ -99,6 +99,7 @@
     <Compile Include="Events\AnswerEvents\AnswerDeletedEvent.cs" />
     <Compile Include="Events\AnswerEvents\AnswerEvent.cs" />
     <Compile Include="Events\AnswerEvents\AnswerTextUpdatedEvent.cs" />
+    <Compile Include="Events\CommentEvents\CommentCreatedEvent.cs" />
     <Compile Include="Events\CommentEvents\CommentDeletedEvent.cs" />
     <Compile Include="Events\CommentEvents\CommentEvent.cs" />
     <Compile Include="Events\CourseEvents\CollaborationInviteDeclinedEvent.cs" />

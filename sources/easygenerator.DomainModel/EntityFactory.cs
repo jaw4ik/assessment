@@ -28,8 +28,8 @@ namespace easygenerator.DomainModel
         TextMatching TextMatchingQuestion(string title, string createdBy, TextMatchingAnswer questionAnswer1, TextMatchingAnswer questionAnswer2);
         TextMatchingAnswer TextMatchingAnswer(string key, string value, string createdBy);
         TextMatchingAnswer TextMatchingAnswer(string key, string value, string createdBy, DateTime createdOn);
-        Comment Comment(string text, string createdByName, string createdBy);
-        Comment Comment(string text, string createdByName, string createdBy, DateTime createdOn);
+        Comment Comment(string text, string createdByName, string createdBy, string context);
+        Comment Comment(string text, string createdByName, string createdBy, string context, DateTime createdOn);
         SingleSelectImageAnswer SingleSelectImageAnswer(string image, string createdBy);
         SingleSelectImageAnswer SingleSelectImageAnswer(string createdBy, DateTime createdOn);
         HotSpot HotSpot(string title, string createdBy);
@@ -129,14 +129,14 @@ namespace easygenerator.DomainModel
             return new Dropspot(text, x, y, createdBy);
         }
 
-        public Comment Comment(string text, string createdByName, string createdBy)
+        public Comment Comment(string text, string createdByName, string createdBy, string context)
         {
-            return new Comment(createdByName, createdBy, text);
+            return new Comment(createdByName, createdBy, text, context);
         }
 
-        public Comment Comment(string text, string createdByName, string createdBy, DateTime createdOn)
+        public Comment Comment(string text, string createdByName, string createdBy, string context, DateTime createdOn)
         {
-            return new Comment(createdByName, createdBy, text, createdOn);
+            return new Comment(createdByName, createdBy, text, context, createdOn);
         }
 
         public Answer Answer(string text, bool isCorrect, string createdBy)

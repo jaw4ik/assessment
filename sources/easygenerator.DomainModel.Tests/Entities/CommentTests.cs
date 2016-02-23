@@ -1,4 +1,5 @@
 ﻿using System;
+using easygenerator.DomainModel.Entities;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using easygenerator.DomainModel.Tests.ObjectMothers;
@@ -61,6 +62,202 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("text");
         }
+
+        #region Context
+
+        [TestMethod]
+        public void Comment_ShouldThrowArgumentException_WhenContextIsNotJson()
+        {
+            Action action = () => CommentObjectMother.CreateWithContext("string");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("context");
+        }
+
+        [TestMethod]
+        public void Comment_ShouldThrowArgumentException_WhenContextHasInvalidType()
+        {
+            Action action = () => CommentObjectMother.CreateWithContext("{type:'ddd'}");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("context.type");
+        }
+
+        #region Course Context
+
+        [TestMethod]
+        public void Comment_ShouldThrowArgumentException_WhenContextTypeIsCourse_AndContextPropertyIsNotDefined()
+        {
+            Action action = () => CommentObjectMother.CreateWithContext("{type:'course'}");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("context.property");
+        }
+
+        [TestMethod]
+        public void Comment_ShouldThrowArgumentException_WhenContextTypeIsCourse_AndContextPropertyIsNotTitleOrIntroduction()
+        {
+            Action action = () => CommentObjectMother.CreateWithContext("{type:'course', property:'some'}");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("context.property");
+        }
+
+        [TestMethod]
+        public void Comment_ShouldCreateComment_WhenContextTypeIsCourse_AndContextPropertyIsTitle()
+        {
+            var comment = CommentObjectMother.CreateWithContext("{type:'course', property:'title'}");
+
+            comment.Should().BeOfType<Comment>();
+        }
+
+        [TestMethod]
+        public void Comment_ShouldCreateComment_WhenContextTypeIsCourse_AndContextPropertyIsIntroduction()
+        {
+            var comment = CommentObjectMother.CreateWithContext("{type:'course', property:'introduction'}");
+
+            comment.Should().BeOfType<Comment>();
+        }
+
+        #endregion
+
+        #region Objective Context
+
+        [TestMethod]
+        public void Comment_ShouldThrowArgumentException_WhenContextTypeIsObjective_AndContextPropertyIsNotDefined()
+        {
+            Action action = () => CommentObjectMother.CreateWithContext("{type:'objective', property: '', id:'id', title:'title'}");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("context.property");
+        }
+
+        [TestMethod]
+        public void Comment_ShouldThrowArgumentException_WhenContextTypeIsObjective_AndContextPropertyIsNotTitle()
+        {
+            Action action = () => CommentObjectMother.CreateWithContext("{type:'objective', property:'some', id:'id', title:'title'}");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("context.property");
+        }
+
+        [TestMethod]
+        public void Comment_ShouldCreateComment_WhenContextTypeIsObjective()
+        {
+            var comment = CommentObjectMother.CreateWithContext("{type:'objective', property:'title', id:'id', title:'title'}");
+
+            comment.Should().BeOfType<Comment>();
+        }
+
+        [TestMethod]
+        public void Comment_ShouldThrowArgumentException_WhenContextTypeIsObjective_AndTitleIsNotDefined()
+        {
+            Action action = () => CommentObjectMother.CreateWithContext("{type:'objective', property:'title', id:'id', title:''}");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("context.title");
+        }
+
+        [TestMethod]
+        public void Comment_ShouldThrowArgumentException_WhenContextTypeIsObjective_AndIdIsNotDefined()
+        {
+            Action action = () => CommentObjectMother.CreateWithContext("{type:'objective', property:'title', title:'title'}");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("context.id");
+        }
+
+        #endregion
+
+        #region Question Context
+
+        [TestMethod]
+        public void Comment_ShouldCreateComment_WhenContextTypeIsQuestion_AndContextPropertyIsNotDefined()
+        {
+            var comment =CommentObjectMother.CreateWithContext("{type:'question', property: '', id:'id', title:'title'}");
+
+            comment.Should().BeOfType<Comment>();
+        }
+
+        [TestMethod]
+        public void Comment_ShouldCreateComment_WhenContextTypeIsQuestion_AndContextPropertyIsVoiceOver()
+        {
+            var comment = CommentObjectMother.CreateWithContext("{type:'question', property: 'voiceOver', id:'id', title:'title'}");
+
+            comment.Should().BeOfType<Comment>();
+        }
+
+        [TestMethod]
+        public void Comment_ShouldCreateComment_WhenContextTypeIsQuestion_AndContextPropertyIsLearningContent()
+        {
+            var comment = CommentObjectMother.CreateWithContext("{type:'question', property: 'learningContent', id:'id', title:'title'}");
+
+            comment.Should().BeOfType<Comment>();
+        }
+
+        [TestMethod]
+        public void Comment_ShouldThrowArgumentException_WhenContextTypeIsQuestion_AndContextPropertyIsNotLearningContentOrTitle()
+        {
+            Action action = () => CommentObjectMother.CreateWithContext("{type:'question', property:'some', id:'id', title:'title'}");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("context.property");
+        }
+
+        [TestMethod]
+        public void Comment_ShouldThrowArgumentException_WhenContextTypeIsQuestion_AndTitleIsNotDefined()
+        {
+            Action action = () => CommentObjectMother.CreateWithContext("{type:'question', property:'voiceOver', id:'id', title:''}");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("context.title");
+        }
+
+        [TestMethod]
+        public void Comment_ShouldThrowArgumentException_WhenContextTypeIsQuestion_AndIdIsNotDefined()
+        {
+            Action action = () => CommentObjectMother.CreateWithContext("{type:'question', property:'voiceOver', title:'title'}");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("context.id");
+        }
+
+        #endregion
+
+        #region Information content Context
+
+        [TestMethod]
+        public void Comment_ShouldCreateComment_WhenContextTypeIsInformationContent_AndContextPropertyIsNotDefined()
+        {
+            var comment = CommentObjectMother.CreateWithContext("{type:'informationContent', property: '', id:'id', title:'title'}");
+
+            comment.Should().BeOfType<Comment>();
+        }
+
+        [TestMethod]
+        public void Comment_ShouldCreateComment_WhenContextTypeIsInformationContent_AndContextPropertyIsVoiceOver()
+        {
+            var comment = CommentObjectMother.CreateWithContext("{type:'informationContent', property: 'voiceOver', id:'id', title:'title'}");
+
+            comment.Should().BeOfType<Comment>();
+        }
+
+        [TestMethod]
+        public void Comment_ShouldThrowArgumentException_WhenContextTypeIsLearningContent_AndContextPropertyIsNotVoiceOver()
+        {
+            Action action = () => CommentObjectMother.CreateWithContext("{type:'informationContent', property:'some', id:'id', title:'title'}");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("context.property");
+        }
+
+        [TestMethod]
+        public void Comment_ShouldThrowArgumentException_WhenContextTypeIsInformationContent_AndTitleIsNotDefined()
+        {
+            Action action = () => CommentObjectMother.CreateWithContext("{type:'informationContent', property:'voiceOver', id:'id', title:''}");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("context.title");
+        }
+
+        [TestMethod]
+        public void Comment_ShouldThrowArgumentException_WhenContextTypeIsInformationContent_AndIdIsNotDefined()
+        {
+            Action action = () => CommentObjectMother.CreateWithContext("{type:'informationContent', property:'voiceOver', title:'title'}");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("context.id");
+        }
+
+        #endregion
+
+        #endregion
 
         #endregion
     }

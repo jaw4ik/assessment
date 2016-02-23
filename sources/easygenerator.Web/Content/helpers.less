@@ -2,10 +2,11 @@
 @minWidth: 635px;
 @animation-duration-default-value: 0.2s;
 
-@zindex-panel-right: 2100;
+@zindex-review-panel: 2100;
 @zindex-modal-blockout: 2200;
 @zindex-modal-dialog: 2300;
 @zindex-shell-header: 2100;
+@zindex-shell-header-pulled-down: 2150;
 
 .unselectable() {
     user-select: none;
@@ -22,6 +23,11 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.align-absolute-element-vertically() {
+    top: 50%;
+    transform: translate(0, -50%);
 }
 
 .container() {

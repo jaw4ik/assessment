@@ -9,6 +9,7 @@
             obj.text = spec.text;
             obj.name = spec.name;
             obj.email = spec.email;
+            obj.context = spec.context;
 
             return obj;
         };
