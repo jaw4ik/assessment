@@ -64,5 +64,6 @@
     },
     "objectivesLayout":{
         "key":"Tiles"
-    }
+    },
+    "showConfirmationPopup":true
 }
