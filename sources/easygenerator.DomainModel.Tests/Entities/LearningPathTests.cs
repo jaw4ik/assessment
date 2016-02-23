@@ -81,7 +81,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             learningPath.ModifiedOn.Should().Be(DateTime.MaxValue);
             learningPath.CreatedBy.Should().Be(CreatedBy);
             learningPath.ModifiedBy.Should().Be(CreatedBy);
-            learningPath.IsPublishedToExternalLms.Should().Be(false);
+            learningPath.LearningPathCompanies.Should().BeEmpty();
         }
 
         #endregion
@@ -280,22 +280,40 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
-        #region SetPublishedToExternalLms
+        #region External publish
 
         [TestMethod]
-        public void SetPublihedToExternalLms_ShouldSetTrueToIsPublishedToExternalLms()
+        public void Companies_ShouldReturnLearningPathCompanies()
         {
             //Arrange
-            //Arrange
             var learningPath = LearningPathObjectMother.Create();
+            var company = CompanyObjectMother.Create();
+
+            learningPath.LearningPathCompanies = new List<Company>()
+            {
+                company
+            };
 
             //Act
-            learningPath.SetPublishedToExternalLms();
+            var result = learningPath.Companies;
 
             //Assert
-            learningPath.IsPublishedToExternalLms.Should().Be(true);
+            result.Should().Contain(company);
         }
-        
+
+        [TestMethod]
+        public void SetPublishedToExternalLms_ShouldAddCompanyToCollection_WhenLearningPathDoesNotContainThisCompany()
+        {
+            //Arrange
+            var learningPath = LearningPathObjectMother.Create();
+            var company = CompanyObjectMother.Create();
+            //Act
+            learningPath.SetPublishedToExternalLms(company);
+
+            //Assert
+            learningPath.Companies.Should().Contain(company);
+        }
+
         #endregion
 
         #region AddEntity

@@ -222,7 +222,7 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [Route("api/learningpath/PublishToCustomLms")]
-        public ActionResult PublishToCustomLms(LearningPath learningPath)
+        public ActionResult PublishToCustomLms(LearningPath learningPath, Company company)
         {
             if (learningPath == null)
             {
@@ -234,13 +234,14 @@ namespace easygenerator.Web.Controllers.Api
             {
                 return JsonLocalizableError(Errors.UserDoesntExist, Errors.UserDoesntExistResourceKey);
             }
+            var userCompany = user.Companies.SingleOrDefault(e => e == company);
 
-            if (user.Company == null)
+            if (userCompany == null)
             {
-                return JsonLocalizableError(Errors.UserNotMemberOfAnyCompany, Errors.UserNotMemberOfAnyCompanyResourceKey);
+                return JsonLocalizableError(Errors.UserNotMemberOfCompany, Errors.UserNotMemberOfCompanyResourceKey);
             }
 
-            var result = _externalPublisher.Publish(learningPath, user.Company, user.Email);
+            var result = _externalPublisher.Publish(learningPath, userCompany, user.Email);
 
             return result ? JsonSuccess() : JsonLocalizableError(Errors.LearningPathPublishActionFailedError, Errors.LearningPathPublishActionFailedResourceKey);
         }

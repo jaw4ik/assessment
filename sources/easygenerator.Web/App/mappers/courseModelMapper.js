@@ -24,7 +24,11 @@
                         return tItem.id === item.Template.Id;
                     }),
                     introductionContent: item.IntroductionContent,
-                    isPublishedToExternalLms: item.IsPublishedToExternalLms
+                    courseCompanies: _.map(item.CourseCompanies, function(courseCompany) {
+                        return {
+                            id: courseCompany.Id
+                        }
+                    })
                 });
             };
 

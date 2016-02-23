@@ -91,6 +91,7 @@
     <Compile Include="ObjectMothers\MailNotificationObjectMother.cs" />
     <Compile Include="PhysicalFileManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialization\SerializationProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\easygenerator.Infrastructure\easygenerator.Infrastructure.csproj">

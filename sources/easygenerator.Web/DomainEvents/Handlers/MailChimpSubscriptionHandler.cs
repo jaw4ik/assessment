@@ -55,7 +55,7 @@ namespace easygenerator.Web.DomainEvents.Handlers
 
         private void HandleSubscriptionEvent(Func<string, string, string, string, AccessType, string, bool> subscriptionAction, UserEvent args, string failureMessage)
         {
-            if (!args.User.IsLtiUser())
+            if (!args.User.IsCreatedThroughLti)
             {
                 Task.Run
                     (() =>

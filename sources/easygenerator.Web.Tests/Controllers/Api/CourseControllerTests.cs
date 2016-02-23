@@ -535,39 +535,43 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var course = CourseObjectMother.Create();
+            var company = CompanyObjectMother.Create();
+            
             _userRepository.GetUserByEmail(Arg.Any<string>()).Returns((User)null);
 
             //Act
-            var result = _controller.PublishToCustomLms(course);
+            var result = _controller.PublishToCustomLms(course, company);
 
             //Assert
             result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.UserDoesntExist);
         }
 
         [TestMethod]
-        public void PublishToCustomLms_ShouldReturnJsonErrorResult_WhenUserNotMemberOfAnyCompany()
+        public void PublishToCustomLms_ShouldReturnJsonErrorResult_WhenUserNotMemberOfCompany()
         {
             //Arrange
             var course = CourseObjectMother.Create();
             var user = UserObjectMother.Create();
+            var company = CompanyObjectMother.Create();
             _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
 
             //Act
-            var result = _controller.PublishToCustomLms(course);
+            var result = _controller.PublishToCustomLms(course, company);
 
             //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.UserNotMemberOfAnyCompany);
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.UserNotMemberOfCompany);
         }
 
         [TestMethod]
         public void PublishToCustomLms_ShouldReturnJsonErrorResult_WhenCourseNotFound()
         {
             //Arrange
-            var user = UserObjectMother.CreateWithCompany(new Company());
+            var company = CompanyObjectMother.Create();
+            var user = UserObjectMother.CreateWithCompany(company);
             _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
 
             //Act
-            var result = _controller.PublishToCustomLms(null);
+            var result = _controller.PublishToCustomLms(null, company);
 
             //Assert
             result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CourseNotFoundError);
@@ -578,13 +582,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var company = new Company();
+            var company = CompanyObjectMother.Create();
             var user = UserObjectMother.CreateWithCompany(company);
             _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
             _externalCoursePublisher.PublishCourseUrl(course, company, user.Email).Returns(false);
 
             //Act
-            var result = _controller.PublishToCustomLms(course);
+            var result = _controller.PublishToCustomLms(course, company);
 
             //Assert
             result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.CoursePublishActionFailedError);
@@ -595,13 +599,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var course = CourseObjectMother.Create();
-            var company = new Company();
+            var company = CompanyObjectMother.Create();
             var user = UserObjectMother.CreateWithCompany(company);
             _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
             _externalCoursePublisher.PublishCourseUrl(course, company, user.Email).Returns(true);
 
             //Act
-            var result = _controller.PublishToCustomLms(course);
+            var result = _controller.PublishToCustomLms(course, company);
 
             //Assert
             result.Should().BeJsonSuccessResult();

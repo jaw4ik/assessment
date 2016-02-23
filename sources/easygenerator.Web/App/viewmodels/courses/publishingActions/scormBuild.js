@@ -32,7 +32,7 @@
                     viewModel.subscribe(constants.messages.course.scormBuild.started, viewModel.scromBuildStarted);
                     viewModel.subscribe(constants.messages.course.scormBuild.completed, viewModel.scromBuildCompleted);
                     viewModel.subscribe(constants.messages.course.scormBuild.failed, viewModel.scrormBuildFailed);
-                });
+                }).fail(function () { });
             }
 
             function downloadCourse() {

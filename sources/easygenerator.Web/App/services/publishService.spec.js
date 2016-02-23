@@ -294,10 +294,12 @@ describe('service [publishCourse]', function () {
 
     describe('publishCourseToCustomLms:', function () {
         var course;
+        var company;
         var post;
 
         beforeEach(function () {
             course = { id: 'someId' };
+            company = { id: 'companyId' };
 
             post = Q.defer();
             spyOn(publishHttpWrapper, 'post').and.returnValue(post.promise);
@@ -313,9 +315,9 @@ describe('service [publishCourse]', function () {
 
         it('should send request', function (done) {
             post.resolve({});
-            var promise = service.publishCourseToCustomLms(course.id);
+            var promise = service.publishCourseToCustomLms(course.id, company.id);
             promise.fin(function () {
-                expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/publishToCustomLms', { courseId: course.id });
+                expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/course/publishToCustomLms', { courseId: course.id, companyId: company.id });
                 done();
             });
         });
@@ -324,6 +326,7 @@ describe('service [publishCourse]', function () {
 
     describe('publishLearningPathToCustomLms:', function () {
         var learningPathId = 'learningPathId',
+            companyId = 'companyId',
             postDfr;
 
         beforeEach(function () {
@@ -341,9 +344,9 @@ describe('service [publishCourse]', function () {
 
         it('should send request', function (done) {
             postDfr.resolve();
-            var promise = service.publishLearningPathToCustomLms(learningPathId);
+            var promise = service.publishLearningPathToCustomLms(learningPathId, companyId);
             promise.fin(function () {
-                expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/learningpath/publishToCustomLms', { learningPathId: learningPathId });
+                expect(publishHttpWrapper.post).toHaveBeenCalledWith('api/learningpath/publishToCustomLms', { learningPathId: learningPathId, companyId: companyId });
                 done();
             });
         });

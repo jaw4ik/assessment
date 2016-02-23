@@ -129,6 +129,7 @@
     <Compile Include="ObjectMothers\TemplateObjectMother.cs" />
     <Compile Include="ObjectMothers\TextMatchingAnswerObjectMother.cs" />
     <Compile Include="ObjectMothers\TextMatchingObjectMother.cs" />
+    <Compile Include="ObjectMothers\LtiUserInfoObjectMother.cs" />
     <Compile Include="ObjectMothers\UserObjectMother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

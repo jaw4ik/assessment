@@ -1,28 +1,44 @@
-﻿define(['userContext', 'dialogs/course/publishCourse/defaultPublish', 'dialogs/course/publishCourse/customPublish'], function (userContext, defaultPublishModel, customPublishModel) {
-    "use strict";
+﻿import ko from 'knockout';
+import userContext from 'userContext';
+import defaultPublishModel from 'dialogs/course/publishCourse/defaultPublish';
+import customPublishModel from 'dialogs/course/publishCourse/customPublish';
 
-    var viewModel = {
-        publishModel: null,
-        isShown: ko.observable(false),
-        show: show,
-        hide: hide,
-        activate: activate
-    };
-
-    return viewModel;
-
-    function show(courseId) {
-        viewModel.publishModel.activate(courseId);
-        viewModel.isShown(true);
+class IPublishDialog {
+    constructor() {
+        this.show = this.show.bind(this);
+        this.hide = this.hide.bind(this);
+        this.activate = this.activate.bind(this);
     }
+}
 
-    function hide() {
-        viewModel.publishModel.deactivate();
-        viewModel.isShown(false);
+class PublishDialog extends IPublishDialog {
+    constructor() {
+        super();
+        this.publishModel = null;
+        this.company = null;
+        this.isShown = ko.observable(false);
+        this.isActivated = ko.observable(false);
     }
+    async show(courseId) {
+        await this.publishModel.activate(this.company ? { courseId: courseId, companyInfo: this.company } : courseId);
+        this.isActivated(true);
+        this.isShown(true);
+    }
+    hide() {
+        this.isShown(false);
+        this.publishModel.deactivate();
+        this.isActivated(false);
+    }
+    activate() {
+        var company = userContext.identity.companies.sort((company1, company2) => {
+            if (company1.priority === company2.priority) {
+                return (new Date(company1.createdOn)).getTime() > (new Date(company2.createdOn)).getTime();
+            }
+            return company1.priority < company2.priority;
+        })[0];
+        this.publishModel = company ? customPublishModel : defaultPublishModel;
+        this.company = company || null;
+    }
+}
 
-    function activate() {
-        var showCustomPublish = !!userContext.identity.company;
-        viewModel.publishModel = showCustomPublish ? customPublishModel : defaultPublishModel;
-    }
-});
+export default new PublishDialog();

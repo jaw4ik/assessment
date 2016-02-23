@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using easygenerator.DataAccess.Migrations;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;

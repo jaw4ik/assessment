@@ -30,17 +30,17 @@ namespace easygenerator.Web.Tests.Publish.External
         public void PublishCourseUrl_ShouldLogAnError_IfCourseWasNotPublished()
         {
             var course = CourseObjectMother.Create();
-            var company = new DomainModel.Entities.Company();
+            var company = CompanyObjectMother.Create();
 
             _publisher.PublishCourseUrl(course, company, userEmail);
-            _logger.Received().LogException(Arg.Is<Exception>(_ => _.Message.Equals("Course is already not published.")));
+            _logger.Received().LogException(Arg.Is<Exception>(_ => _.Message.Equals("Course is not published so far.")));
         }
 
         [TestMethod]
         public void PublishCourseUrl_ShouldReturnFalse_IfCourseWasNotPublished()
         {
             var course = CourseObjectMother.Create();
-            var company = new DomainModel.Entities.Company();
+            var company = CompanyObjectMother.Create();
 
             var result = _publisher.PublishCourseUrl(course, company, userEmail);
             result.Should().BeFalse();
@@ -70,7 +70,7 @@ namespace easygenerator.Web.Tests.Publish.External
         }
 
         [TestMethod]
-        public void PublishCourseUrl_ShouldSetPublishedToExternalLmsToTrue()
+        public void PublishCourseUrl_ShouldSetPublishedToExternalLms()
         {
             var course = CourseObjectMother.Create();
             course.UpdatePublicationUrl("url");
@@ -79,7 +79,7 @@ namespace easygenerator.Web.Tests.Publish.External
 
             _publisher.PublishCourseUrl(course, company, userEmail);
 
-            course.IsPublishedToExternalLms.Should().BeTrue();
+            course.Companies.Should().Contain(company);
         }
 
         [TestMethod]

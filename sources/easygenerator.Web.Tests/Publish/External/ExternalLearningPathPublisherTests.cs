@@ -62,7 +62,7 @@ namespace easygenerator.Web.Tests.Publish.External
             var userEmail = "userEmail";
 
             //Act
-            var result = _publisher.Publish(learningPath, company, userEmail);
+            _publisher.Publish(learningPath, company, userEmail);
 
             //Assert
             _logger.Received().LogException(Arg.Is<NotSupportedException>(ex => ex.Message == String.Format("Learning path with Id: {0} doesn't have PublicationUrl.", learningPath.Id)));
@@ -103,7 +103,7 @@ namespace easygenerator.Web.Tests.Publish.External
             _publisher.Publish(learningPath, company, userEmail);
 
             //Assert
-            learningPath.IsPublishedToExternalLms.Should().Be(true);
+            learningPath.Companies.Should().Contain(company);
         }
 
         [TestMethod]

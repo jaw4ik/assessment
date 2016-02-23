@@ -88,6 +88,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.ModifiedBy.Should().Be(CreatedBy);
             course.IntroductionContent.Should().BeNull();
             course.ObjectivesOrder.Should().BeNull();
+            course.CourseCompanies.Should().BeEmpty();
         }
 
         #endregion
@@ -1772,6 +1773,74 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             //Assert
             result.Should().Contain(learningPath);
+        }
+
+        #endregion
+
+        #region External publish
+
+        [TestMethod]
+        public void Companies_ShouldReturnCourseCompanies()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var company = CompanyObjectMother.Create();
+
+            course.CourseCompanies = new List<Company>()
+            {
+                company
+            };
+
+            //Act
+            var result = course.Companies;
+
+            //Assert
+            result.Should().Contain(company);
+        }
+
+        [TestMethod]
+        public void IsPublishedToAnyExternalLms_ShouldReturnTrue_WhenCourseHasCompanies()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var company = CompanyObjectMother.Create();
+
+            course.CourseCompanies = new List<Company>()
+            {
+                company
+            };
+
+            //Act
+            var result = course.IsPublishedToAnyExternalLms();
+
+            //Assert
+            result.Should().Be(true);
+        }
+
+        [TestMethod]
+        public void IsPublishedToAnyExternalLms_ShouldReturnFalse_WhenCourseHasNotCompanies()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            var result = course.IsPublishedToAnyExternalLms();
+
+            //Assert
+            result.Should().Be(false);
+        }
+
+        [TestMethod]
+        public void SetPublishedToExternalLms_ShouldAddCompanyToCollection_WhenCourseDoesNotContainThisCompany()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var company = CompanyObjectMother.Create();
+            //Act
+            course.SetPublishedToExternalLms(company);
+
+            //Assert
+            course.Companies.Should().Contain(company);
         }
 
         #endregion

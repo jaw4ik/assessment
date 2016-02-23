@@ -69,12 +69,16 @@ app.signinViewModel = function () {
             data: data,
             type: 'POST'
         };
-
         $.ajax(requestArgs).done(function (response) {
             if (response) {
                 if (response.success && window.auth.login(response.data)) {
                     app.trackEvent(app.constants.events.signin, response.data).done(function () {
-                        app.openHomePage();
+                        var hash = null;
+                        var ltiUserInfoToken = window.auth.getLtiUserInfoTokenFromHash();
+                        if (ltiUserInfoToken) {
+                            hash = '#token.user.lti=' + encodeURIComponent(ltiUserInfoToken);
+                        }
+                        app.openHomePage(hash);
                     });
                 } else {
                     if (response.message) {

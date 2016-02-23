@@ -104,6 +104,8 @@
     <Compile Include="Mail\MailNotificationManager.cs" />
     <Compile Include="PhysicalFileManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialization\Providers\ISerializationProvider.cs" />
+    <Compile Include="Serialization\Providers\SerializationProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

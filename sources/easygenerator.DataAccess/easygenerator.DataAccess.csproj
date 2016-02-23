@@ -427,6 +427,10 @@
     <Compile Include="Migrations\201602021253597_AddCommentContext.Designer.cs">
       <DependentUpon>201602021253597_AddCommentContext.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602230946089_LtiAndCustomPublishImprovements.cs" />
+    <Compile Include="Migrations\201602230946089_LtiAndCustomPublishImprovements.Designer.cs">
+      <DependentUpon>201602230946089_LtiAndCustomPublishImprovements.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ConsumerToolRepository.cs" />
@@ -434,6 +438,7 @@
     <Compile Include="Repositories\CourseRepository.cs" />
     <Compile Include="Repositories\CourseStateRepository.cs" />
     <Compile Include="Repositories\DemoCourseRepository.cs" />
+    <Compile Include="Repositories\CompanyRepository.cs" />
     <Compile Include="Repositories\DocumentRepository.cs" />
     <Compile Include="Repositories\HttpRequestsReporitory.cs" />
     <Compile Include="Repositories\ImageFileRepository.cs" />
@@ -737,6 +742,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602021253597_AddCommentContext.resx">
       <DependentUpon>201602021253597_AddCommentContext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602230946089_LtiAndCustomPublishImprovements.resx">
+      <DependentUpon>201602230946089_LtiAndCustomPublishImprovements.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

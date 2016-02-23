@@ -8,7 +8,7 @@
 
             obj.title = spec.title;
             obj.publicationUrl = spec.publicationUrl;
-            obj.IsPublishedToExternalLms = spec.IsPublishedToExternalLms;
+            obj.learningPathCompanies = spec.learningPathCompanies;
             obj.entities = spec.entities;
 
             obj.isBuilding = false;
@@ -68,7 +68,7 @@
                 });
             }
 
-            function publishToCustomLms() {
+            function publishToCustomLms(companyId) {
                 return Q.fcall(function () {
                     if (obj.isDelivering()) {
                         return;
@@ -79,9 +79,9 @@
 
                     return doPublish(obj)
                         .then(function () {
-                            return publishService.publishLearningPathToCustomLms(obj.id)
+                            return publishService.publishLearningPathToCustomLms(obj.id, companyId)
                                 .then(function() {
-                                    obj.isPublishedToExternalLms = true;
+                                    obj.learningPathCompanies.push({ id: companyId  });
                                 });
                         })
                         .fin(function () {

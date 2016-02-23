@@ -49,6 +49,8 @@ describe('model [user]', function () {
             email: 'a.drebot@gmail.com',
             role: 'Teacher',
             newEditor: null,
+            isCreatedThroughLti: false,
+            companies: [{}],
             subscription: {
                 accessType: constants.accessType.starter
             }
@@ -62,6 +64,8 @@ describe('model [user]', function () {
         expect(user.email).toEqual(spec.email);
         expect(user.role).toEqual(spec.role);
         expect(user.newEditor).toEqual(spec.newEditor);
+        expect(user.isCreatedThroughLti).toEqual(spec.isCreatedThroughLti);
+        expect(user.companies.length).toBe(1);
 
     });
 

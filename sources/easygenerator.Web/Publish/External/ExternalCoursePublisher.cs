@@ -23,7 +23,7 @@ namespace easygenerator.Web.Publish.External
             {
                 if (string.IsNullOrWhiteSpace(course.PublicationUrl))
                 {
-                    throw new Exception("Course is already not published.");
+                    throw new Exception("Course is not published so far.");
                 }
 
                 _httpClient.Post(company.PublishCourseApiUrl, new
@@ -34,7 +34,7 @@ namespace easygenerator.Web.Publish.External
                     apiKey = company.SecretKey
                 });
 
-                course.SetPublishedToExternalLms(true);
+                course.SetPublishedToExternalLms(company);
                 return true;
             }
             catch (Exception e)

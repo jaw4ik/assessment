@@ -135,7 +135,12 @@
                 System.import('main.js');
             }
             else {
-                window.location.replace('/signin');
+                var redirectUrl = '/signin';
+                var ltiUserInfoToken = window.auth.getLtiUserInfoTokenFromHash();
+                if (ltiUserInfoToken) {
+                    redirectUrl += '#token.user.lti=' + encodeURIComponent(ltiUserInfoToken);
+                }
+                window.location.replace(redirectUrl);
             }
         }());
     </script>

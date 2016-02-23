@@ -58,6 +58,7 @@ namespace easygenerator.DataAccess
         public DbSet<Onboarding> Onboardings { get; set; }
         public DbSet<LearningPath> LearningPaths { get; set; }
         public DbSet<Company> Companies { get; set; }
+        public DbSet<ConsumerTool> ConsumerTools { get; set; }
 
         public IDbSet<T> GetSet<T>() where T : Identifiable
         {
@@ -78,7 +79,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<LearningPath>().HasMany(e => e.DocumentsCollection).WithMany(e => e.LearningPathCollection).Map(m => m.ToTable("LearningPathDocuments"));
             modelBuilder.Entity<LearningPath>().Property(e => e.PackageUrl).HasMaxLength(255);
             modelBuilder.Entity<LearningPath>().Property(e => e.PublicationUrl).HasMaxLength(255);
-            modelBuilder.Entity<LearningPath>().Property(e => e.IsPublishedToExternalLms);
+            modelBuilder.Entity<LearningPath>().HasMany(e => e.LearningPathCompanies).WithMany(e => e.CompanyLearningPaths).Map(m => m.ToTable("CompanyLearningPaths"));
 
             modelBuilder.Entity<Objective>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Objective>().Property(e => e.ImageUrl).IsOptional();
@@ -105,7 +106,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Course>().Property(e => e.PackageUrl).HasMaxLength(255);
             modelBuilder.Entity<Course>().Property(e => e.ScormPackageUrl).HasMaxLength(255);
             modelBuilder.Entity<Course>().Property(e => e.PublicationUrl).HasMaxLength(255);
-            modelBuilder.Entity<Course>().Property(e => e.IsPublishedToExternalLms);
+            modelBuilder.Entity<Course>().HasMany(e => e.CourseCompanies).WithMany(e => e.CompanyCourses).Map(m => m.ToTable("CompanyCourses"));
 
             modelBuilder.Entity<CourseCollaborator>().HasRequired(e => e.Course);
             modelBuilder.Entity<CourseCollaborator>().Property(e => e.Email).IsRequired().HasMaxLength(254);
@@ -191,11 +192,12 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<User>().Property(e => e.Role).IsOptional();
             modelBuilder.Entity<User>().Property(e => e.Organization).IsOptional();
             modelBuilder.Entity<User>().Property(e => e.LastReadReleaseNote).IsOptional().HasMaxLength(25);
+            modelBuilder.Entity<User>().Property(e => e.IsCreatedThroughLti).IsRequired();
             modelBuilder.Entity<User>().Property(e => e.NewEditor).IsOptional();
             modelBuilder.Entity<User>().HasMany(e => e.PasswordRecoveryTicketCollection).WithRequired(e => e.User);
-            modelBuilder.Entity<User>().HasOptional(e => e.Company).WithMany(e => e.Users).WillCascadeOnDelete(false);
+            modelBuilder.Entity<User>().HasMany(e => e.CompaniesCollection).WithMany(e => e.Users).Map(m => m.ToTable("CompanyUsers"));
+            modelBuilder.Entity<User>().HasMany(e => e.LtiUserInfoes).WithRequired(e => e.User).HasForeignKey(e => e.User_Id);
             modelBuilder.Entity<User>().Map(e => e.ToTable("Users"));
-            modelBuilder.Entity<User>().HasMany(e => e.LtiUserInfoes).WithRequired(e => e.User).WillCascadeOnDelete(true);
 
             modelBuilder.Entity<PasswordRecoveryTicket>().HasRequired(e => e.User);
             modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.CreatedBy);
@@ -250,20 +252,40 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<ConsumerTool>().Property(e => e.Domain).HasMaxLength(255);
             modelBuilder.Entity<ConsumerTool>().Property(e => e.Key).IsRequired();
             modelBuilder.Entity<ConsumerTool>().Property(e => e.Secret).IsRequired();
+            modelBuilder.Entity<ConsumerTool>().HasMany(e => e.LtiUserInfoes).WithRequired(e => e.ConsumerTool).HasForeignKey(e => e.ConsumerTool_Id);
 
             modelBuilder.Entity<ConsumerToolSettings>().HasKey(e => new { e.Id });
             modelBuilder.Entity<ConsumerToolSettings>().HasRequired(e => e.ConsumerTool).WithOptional(c => c.Settings).WillCascadeOnDelete(true);
             modelBuilder.Entity<ConsumerToolSettings>().HasOptional(e => e.Company);
 
-            modelBuilder.Entity<LtiUserInfo>().HasKey(e => new { e.Id });
-            modelBuilder.Entity<LtiUserInfo>().Property(e => e.LtiUserId).IsRequired();
-            modelBuilder.Entity<LtiUserInfo>().HasRequired(e => e.ConsumerTool).WithMany();
+            modelBuilder.Entity<LtiUserInfo>().Property(e => e.LtiUserId).HasMaxLength(255).IsOptional()
+               .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new[] {
+                    new IndexAttribute("IX_LtiUserId"),
+                    new IndexAttribute("UI_LtiUserInfo_LtiUserId_User_Id_ConsumerTool_Id", 1) { IsUnique = true }
+               }));
+            modelBuilder.Entity<LtiUserInfo>().HasRequired(e => e.User).WithMany(e => e.LtiUserInfoes).HasForeignKey(p => p.User_Id).WillCascadeOnDelete(true);
+            modelBuilder.Entity<LtiUserInfo>().Property(e => e.User_Id)
+               .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new[] {
+                    new IndexAttribute("IX_User_Id"),
+                    new IndexAttribute("UI_LtiUserInfo_LtiUserId_User_Id_ConsumerTool_Id", 2) { IsUnique = true }
+               }));
+            modelBuilder.Entity<LtiUserInfo>().HasRequired(e => e.ConsumerTool).WithMany(e => e.LtiUserInfoes).HasForeignKey(p => p.ConsumerTool_Id).WillCascadeOnDelete(true);
+            modelBuilder.Entity<LtiUserInfo>().Property(e => e.ConsumerTool_Id)
+               .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new[] {
+                    new IndexAttribute("IX_ConsumerTool_Id"),
+                    new IndexAttribute("UI_LtiUserInfo_LtiUserId_User_Id_ConsumerTool_Id", 3) { IsUnique = true }
+               }));
 
             modelBuilder.Entity<Company>().Property(e => e.Name).IsRequired();
             modelBuilder.Entity<Company>().Property(e => e.LogoUrl).IsRequired();
             modelBuilder.Entity<Company>().Property(e => e.PublishCourseApiUrl).IsRequired();
             modelBuilder.Entity<Company>().Property(e => e.SecretKey).IsRequired();
             modelBuilder.Entity<Company>().Property(e => e.HideDefaultPublishOptions).IsRequired();
+            modelBuilder.Entity<Company>().Property(e => e.Priority).IsRequired();
+            modelBuilder.Entity<Company>().HasMany(e => e.Users).WithMany(e => e.CompaniesCollection).Map(m => m.ToTable("CompanyUsers"));
+            modelBuilder.Entity<Company>().HasMany(e => e.CompanyCourses).WithMany(e => e.CourseCompanies).Map(m => m.ToTable("CompanyCourses"));
+            modelBuilder.Entity<Company>().HasMany(e => e.CompanyLearningPaths).WithMany(e => e.LearningPathCompanies).Map(m => m.ToTable("CompanyLearningPaths"));
+
 
             modelBuilder.Entity<Scenario>().Property(e => e.ProjectId);
             modelBuilder.Entity<Scenario>().Property(e => e.EmbedCode);
