@@ -1912,8 +1912,10 @@
 /*#region EDITABLE-TEXT*/
 
 .editable-text-binding {
+    position: relative;
     white-space: pre-wrap;
     word-wrap: break-word;
+    z-index: 10;
 
     &[placeholder] {
         &:empty:after {
@@ -1923,6 +1925,7 @@
             top: 0;
             padding-left: 2px;
             color: #9da3a9;
+            z-index: 0;
         }
     }
 }

@@ -3,7 +3,7 @@ import $ from 'jquery';
 
 ko.bindingHandlers.heightAnimation = {
     update: (element, valueAccessor) => {
-        let expanded = valueAccessor().isEditing,
+        let expanded = valueAccessor().expanded,
             $element = $(element),
             duration = +$element.attr('data-animation-duration')||300,
             minHeight = valueAccessor().minHeight || 0,

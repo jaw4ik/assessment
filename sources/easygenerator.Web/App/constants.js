@@ -208,6 +208,8 @@ export default {
             deleted: 'objective:deleted',
             titleUpdated: 'objective:titleUpdated',
             titleUpdatedByCollaborator: 'objective:titleUpdatedByCollaborator',
+            learningObjectiveUpdated: 'objective:learningObjectiveUpdated',
+            learningObjectiveUpdatedByCollaborator: 'objective:learningObjectiveUpdatedByCollaborator',
             imageUrlUpdated: 'objective:imageUrlUpdated',
             imageUrlUpdatedByCollaborator: 'objective:imageUrlUpdatedByCollaborator',
             questionsReordered: 'objective:questionsReordered',

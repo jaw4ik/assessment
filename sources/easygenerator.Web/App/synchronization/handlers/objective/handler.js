@@ -1,16 +1,11 @@
-﻿define([
-    'synchronization/handlers/objective/eventHandlers/questionsReordered',
-    'synchronization/handlers/objective/eventHandlers/titleUpdated',
-    'synchronization/handlers/objective/eventHandlers/imageUrlUpdated'
-],
-    function (questionsReordered, titleUpdated, imageUrlUpdated) {
-        "use strict";
+﻿import questionsReordered from './eventHandlers/questionsReordered';
+import titleUpdated from './eventHandlers/titleUpdated';
+import imageUrlUpdated from './eventHandlers/imageUrlUpdated';
+import learningObjectiveUpdated from './eventHandlers/learningObjectiveUpdated';
 
-        return {
-            questionsReordered: questionsReordered,
-            titleUpdated: titleUpdated,
-            imageUrlUpdated: imageUrlUpdated
-        };
-
-    }
-);
+export default {
+    questionsReordered: questionsReordered,
+    titleUpdated: titleUpdated,
+    imageUrlUpdated: imageUrlUpdated,
+    learningObjectiveUpdated: learningObjectiveUpdated
+};

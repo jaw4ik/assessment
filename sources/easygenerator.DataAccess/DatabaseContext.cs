@@ -83,6 +83,7 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<Objective>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Objective>().Property(e => e.ImageUrl).IsOptional();
+            modelBuilder.Entity<Objective>().Property(e => e.LearningObjective).HasMaxLength(255).IsOptional();
             modelBuilder.Entity<Objective>().Property(e => e.QuestionsOrder).IsOptional();
             modelBuilder.Entity<Objective>().HasMany(e => e.QuestionsCollection).WithRequired(e => e.Objective);
             modelBuilder.Entity<Objective>().HasMany(e => e.RelatedCoursesCollection)

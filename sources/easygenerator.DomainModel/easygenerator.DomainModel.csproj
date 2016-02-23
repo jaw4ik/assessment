@@ -130,6 +130,7 @@
     <Compile Include="Events\LearningContentEvents\LearningContentUpdatedEvent.cs" />
     <Compile Include="Events\ObjectiveEvents\ObjectiveImageUrlUpdatedEvent.cs" />
     <Compile Include="Events\ObjectiveEvents\ObjectiveEvent.cs" />
+    <Compile Include="Events\ObjectiveEvents\ObjectiveLearningObjectiveUpdatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\DragAndDropEvents\DropspotCreatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\DragAndDropEvents\DropspotDeletedEvent.cs" />
     <Compile Include="Events\QuestionEvents\DragAndDropEvents\DropspotEvent.cs" />

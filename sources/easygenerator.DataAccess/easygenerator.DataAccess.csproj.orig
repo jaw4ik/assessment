@@ -427,13 +427,15 @@
     <Compile Include="Migrations\201602021253597_AddCommentContext.Designer.cs">
       <DependentUpon>201602021253597_AddCommentContext.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Migrations\201602230946089_LtiAndCustomPublishImprovements.cs" />
     <Compile Include="Migrations\201602230946089_LtiAndCustomPublishImprovements.Designer.cs">
       <DependentUpon>201602230946089_LtiAndCustomPublishImprovements.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602231245384_AddLearningObjectivePropertyForObjective.cs" />
-    <Compile Include="Migrations\201602231245384_AddLearningObjectivePropertyForObjective.Designer.cs">
-      <DependentUpon>201602231245384_AddLearningObjectivePropertyForObjective.cs</DependentUpon>
+=======
+    <Compile Include="Migrations\201602230952093_AddLearningObjectivePropertyForObjective.cs" />
+    <Compile Include="Migrations\201602230952093_AddLearningObjectivePropertyForObjective.Designer.cs">
+      <DependentUpon>201602230952093_AddLearningObjectivePropertyForObjective.cs</DependentUpon>
+>>>>>>> Update migration
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -747,11 +749,13 @@
     <EmbeddedResource Include="Migrations\201602021253597_AddCommentContext.resx">
       <DependentUpon>201602021253597_AddCommentContext.cs</DependentUpon>
     </EmbeddedResource>
+<<<<<<< HEAD
     <EmbeddedResource Include="Migrations\201602230946089_LtiAndCustomPublishImprovements.resx">
       <DependentUpon>201602230946089_LtiAndCustomPublishImprovements.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602231245384_AddLearningObjectivePropertyForObjective.resx">
-      <DependentUpon>201602231245384_AddLearningObjectivePropertyForObjective.cs</DependentUpon>
+=======
+    <EmbeddedResource Include="Migrations\201602230952093_AddLearningObjectivePropertyForObjective.resx">
+      <DependentUpon>201602230952093_AddLearningObjectivePropertyForObjective.cs</DependentUpon>
+>>>>>>> Update migration
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

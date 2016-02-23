@@ -40,12 +40,14 @@ describe('[drag and drop course editor]', () => {
                     id: 'sectionId1',
                     title: 'sectionTitle1',
                     modifiedOn: modifiedOn,
-                    image: 'sectionImage1'
+                    image: 'sectionImage1',
+                    learningObjective: ''
                 }, {
                     id: 'sectionId2',
                     title: 'sectionTitle2',
                     modifiedOn: modifiedOn,
-                    image: 'sectionImage2'
+                    image: 'sectionImage2',
+                    learningObjective: ''
                 }
             ]
         };
@@ -162,7 +164,8 @@ describe('[drag and drop course editor]', () => {
                 id: 'sectionId3',
                 title: 'sectionTitle3',
                 modifiedOn: modifiedOn,
-                image: 'sectionImage3'
+                image: 'sectionImage3',
+                learningObjective: 'learningObjective'
             });
             spyOn(createSectionCommand, 'execute').and.returnValue(promise);
         });
@@ -265,7 +268,8 @@ describe('[drag and drop course editor]', () => {
                     id: 'sectionId4',
                     title: 'sectionTitle4',
                     modifiedOn: modifiedOn,
-                    image: 'sectionImage4'
+                    image: 'sectionImage4',
+                    learningObjective: 'learningObjective'
                 });
                 reorderSectionPromise = Promise.resolve();
 
@@ -332,7 +336,8 @@ describe('[drag and drop course editor]', () => {
                 id: 'sectionId3',
                 title: 'sectionTitle3',
                 modifiedOn: modifiedOn,
-                image: 'sectionImage3'
+                image: 'sectionImage3',
+                learningObjective: 'learningObjective'
             });
             reorderSectionPromise = Promise.resolve({});
             spyOn(createSectionCommand, 'execute').and.returnValue(createSectionPromise);

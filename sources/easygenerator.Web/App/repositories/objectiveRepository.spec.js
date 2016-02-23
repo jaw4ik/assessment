@@ -505,6 +505,188 @@ describe('repository [objectiveRepository]', function () {
 
     });
 
+    describe('updateLearningObjective:', function () {
+
+        it('should be function', function () {
+            expect(repository.updateLearningObjective).toBeFunction();
+        });
+
+        it('should return promise', function () {
+            expect(repository.updateLearningObjective()).toBePromise();
+        });
+
+        describe('when objectiveid is undefined', function () {
+
+            it('should reject promise', function (done) {
+                var promise = repository.updateLearningObjective(undefined, 'title');
+
+                promise.fin(function () {
+                    expect(promise).toBeRejectedWith('Objective data has invalid format');
+                    done();
+                });
+            });
+
+        });
+
+        describe('when objectiveId is null', function () {
+
+            it('should reject promise', function (done) {
+                var promise = repository.updateLearningObjective(null, 'title');
+
+                promise.fin(function () {
+                    expect(promise).toBeRejectedWith('Objective data has invalid format');
+                    done();
+                });
+            });
+
+        });
+
+        describe('when title is undefined', function () {
+
+            it('should reject promise', function (done) {
+                var promise = repository.updateLearningObjective('id', undefined);
+
+                promise.fin(function () {
+                    expect(promise).toBeRejectedWith('Objective data has invalid format');
+                    done();
+                });
+            });
+
+        });
+
+        describe('when learningObjective is null', function () {
+
+            it('should reject promise', function (done) {
+                var promise = repository.updateLearningObjective('id', null);
+
+                promise.fin(function () {
+                    expect(promise).toBeRejectedWith('Objective data has invalid format');
+                    done();
+                });
+            });
+
+        });
+
+        it('should send request to \'api/objective/updatelearningobjective\'', function (done) {
+            var obj = { id: 'asdadasd', learningObjective: 'asdasdadsasdas' };
+
+            var promise = repository.updateLearningObjective(obj.id, obj.learningObjective);
+
+            promise.fin(function () {
+                expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/objective/updatelearningobjective', { objectiveId: obj.id, learningObjective: obj.learningObjective });
+                done();
+            });
+
+            post.reject('lomai menya polnostju');
+        });
+
+        describe('when objective successfully updated on server', function () {
+
+            describe('and response is not an object', function () {
+
+                it('should reject promise', function (done) {
+                    var obj = { id: 'asdadasd', learningObjective: 'asdasdadsasdas' };
+                    var promise = repository.updateLearningObjective(obj.id, obj.learningObjective);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Response is not an object');
+                        done();
+                    });
+
+                    post.resolve('lomai menya polnostju');
+                });
+
+            });
+
+            describe('and response has no modification date', function () {
+
+                it('should reject promise', function (done) {
+                    var obj = { id: 'asdadasd', learningObjective: 'asdasdadsasdas' };
+                    var promise = repository.updateLearningObjective(obj.id, obj.learningObjective);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Response does not have modification date');
+                        done();
+                    });
+
+                    post.resolve({});
+                });
+
+            });
+
+            describe('and objective not found in dataContext', function () {
+
+                it('should reject promise', function (done) {
+                    var obj = { id: 'asdadasd', learningObjective: 'asdasdadsasdas' },
+                        modifiedOn = new Date();
+
+                    dataContext.objectives = [];
+
+                    var promise = repository.updateLearningObjective(obj.id, obj.learningObjective);
+
+                    promise.fin(function () {
+                        expect(promise).toBeRejectedWith('Objective does not exist in dataContext');
+                        done();
+                    });
+
+                    post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+                });
+
+            });
+
+            it('should update objective in dataContext', function (done) {
+                var obj = { id: 'asdadasd', learningObjective: 'asdasdadsasdas' },
+                    modifiedOn = new Date();
+
+                dataContext.objectives = [{ id: obj.id, learningObjective: '', modifiedOn: '' }];
+
+                var promise = repository.updateLearningObjective(obj.id, obj.learningObjective);
+
+                promise.fin(function () {
+                    expect(dataContext.objectives[0].learningObjective).toEqual(obj.learningObjective);
+                    expect(dataContext.objectives[0].modifiedOn).toEqual(modifiedOn);
+                    done();
+                });
+
+                post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+            });
+
+            it('should send objective:titleUpdated event', function (done) {
+                var obj = { id: 'asdadasd', learningObjective: 'asdasdadsasdas' },
+                    modifiedOn = new Date();
+
+                dataContext.objectives = [{ id: obj.id, learningObjective: '', modifiedOn: '' }];
+
+                var promise = repository.updateLearningObjective(obj.id, obj.learningObjective);
+
+                promise.fin(function () {
+                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.objective.learningObjectiveUpdated, dataContext.objectives[0]);
+                    done();
+                });
+
+                post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+            });
+
+            it('should resolve promise with modification date', function (done) {
+                var obj = { id: 'asdadasd', learningObjective: 'asdasdadsasdas' },
+                    modifiedOn = new Date();
+
+                dataContext.objectives = [{ id: obj.id, learningObjective: '', modifiedOn: '' }];
+
+                var promise = repository.updateLearningObjective(obj.id, obj.learningObjective);
+
+                promise.fin(function () {
+                    expect(promise).toBeResolvedWith(modifiedOn);
+                    done();
+                });
+
+                post.resolve({ ModifiedOn: modifiedOn.toISOString() });
+            });
+
+        });
+
+    });
+
     describe('updateImage:', function () {
 
         it('should be function', function () {

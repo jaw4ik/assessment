@@ -27,6 +27,7 @@ namespace easygenerator.Web.Components.Mappers
                 ImageUrl = String.IsNullOrEmpty(obj.ImageUrl)
                     ? _urlHelper.ToAbsoluteUrl(Constants.Objective.DefaultImageUrl)
                     : obj.ImageUrl,
+                LearningObjective = obj.LearningObjective,
                 CreatedBy = obj.CreatedBy,
                 CreatedOn = obj.CreatedOn,
                 ModifiedOn = obj.ModifiedOn,
