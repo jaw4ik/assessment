@@ -14,7 +14,8 @@
 		'HotspotViewModel', 
 		'MultipleSelectTextViewModel', 
 		'OpenQuestionViewModel',
-        'ScenarioQuestionViewModel'
+        'ScenarioQuestionViewModel',
+        'RankingTextViewModel'
 	];
 		
 	function viewmodelsFactory (
@@ -27,7 +28,8 @@
 		HotspotViewModel, 
 		MultipleSelectTextViewModel, 
 		OpenQuestionViewModel,
-        ScenarioQuestionViewModel
+        ScenarioQuestionViewModel,
+        RankingTextViewModel
 	) {
 	
 		var viewmodels = {
@@ -40,7 +42,8 @@
 			hotspot: 			HotspotViewModel,
 			multipleSelect: 	MultipleSelectTextViewModel,
 			openQuestion:       OpenQuestionViewModel,
-			scenario:   ScenarioQuestionViewModel
+			scenario:           ScenarioQuestionViewModel,
+            rankingText:        RankingTextViewModel
 		};
 		
 		return {

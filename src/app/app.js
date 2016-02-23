@@ -1,6 +1,7 @@
-(function () {
+(function (angular, _, angularDragula) {
     'use strict';
-    var app = angular.module('assessment', ['ngRoute', 'pascalprecht.translate']);
+    
+    var app = angular.module('assessment', ['ngRoute', 'pascalprecht.translate', angularDragula(angular)]);
 
     app.config([
         '$routeProvider', function ($routeProvider) {
@@ -76,4 +77,4 @@
 
         }
     ]);
-})();
+})(window.angular, window._, window.angularDragula);
