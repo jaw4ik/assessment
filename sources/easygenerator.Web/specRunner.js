@@ -163,20 +163,20 @@ function runSpecs(env) {
                 'onboarding/onboarding.spec',
                 //#endregion
 
-                ////#region reporting
-                //'models/reporting/statement.spec',
-                //'models/reporting/actor.spec',
-                //'reporting/xApiFilterCriteriaFactory.spec',
-                //'reporting/xApiProvider.spec',
-                //'reporting/viewmodels/expandableStatement.spec',
-                //'reporting/viewmodels/questionStatement.spec',
-                //'reporting/viewmodels/objectiveStatement.spec',
-                //'reporting/viewmodels/startedStatement.spec',
-                //'reporting/viewmodels/finishStatement.spec',
-                //'reporting/viewmodels/resultsBase.spec',
-                //'reporting/learningPathStatementsProvider.spec',
-                //'reporting/courseStatementsProvider.spec',
-                ////#endregion
+                //#region reporting
+                'models/reporting/statement.spec',
+                'models/reporting/actor.spec',
+                'reporting/xApiFilterCriteriaFactory.spec',
+                'reporting/xApiProvider.spec',
+                'reporting/viewmodels/expandableStatement.spec',
+                'reporting/viewmodels/questionStatement.spec',
+                'reporting/viewmodels/objectiveStatement.spec',
+                'reporting/viewmodels/startedStatement.spec',
+                'reporting/viewmodels/finishStatement.spec',
+                'reporting/viewmodels/resultsBase.spec',
+                'reporting/learningPathStatementsProvider.spec',
+                'reporting/courseStatementsProvider.spec',
+                //#endregion
 
                 //#region synchronization
                 'synchronization/handlers/objective/handler.spec',

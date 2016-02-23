@@ -569,6 +569,18 @@ describe('repository [courseRepository]', function () {
                             post.resolve({ course: {} });
                         });
 
+                        it('should add isDuplicated property to course', function(done) {
+                            var promise = repository.duplicateCourse(course.id);
+
+                            promise.then(function(data) {
+                                expect(data.isDuplicate).toBeTruthy();
+                            }).fin(function () {
+                                done();
+                            });
+
+                            post.resolve({ course: {} });
+                        });
+
                         it('should push duplicated course to dataContext', function (done) {
                             var promise = repository.duplicateCourse(course.id);
 
