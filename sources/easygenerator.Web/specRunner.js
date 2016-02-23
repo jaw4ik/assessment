@@ -46,6 +46,30 @@ function runSpecs(env) {
                 'design/templateBrief.spec',
                 //#endregion
 
+                 //#region review
+                'review/reviewPanel.spec',
+                'review/publish/coursePublish.spec',
+                'review/comments/courseComments.spec',
+                'review/comments/Comment.spec',
+                'review/commands/getCourseComments.spec',
+                'review/commands/deleteComment.spec',
+                'review/commands/restoreComment.spec',
+
+                'review/comments/context/commentContextFactory.spec',
+                'review/comments/context/commentContexts/CommentContext.spec',
+                'review/comments/context/commentContexts/CourseCommentContext.spec',
+                'review/comments/context/commentContexts/GeneralCommentContext.spec',
+                'review/comments/context/commentContexts/InformationContentCommentContext.spec',
+                'review/comments/context/commentContexts/ObjectiveCommentContext.spec',
+                'review/comments/context/commentContexts/QuestionCommentContext.spec',
+
+                'review/comments/context/contextEntities/ObjectiveCommentContextEntity.spec',
+                'review/comments/context/contextEntities/QuestionCommentContextEntity.spec',
+
+                'review/comments/context/queries/getObjective.spec',
+                'review/comments/context/queries/getQuestionData.spec',
+                //#endregion
+
                 'authorization/limitCoursesAmount.spec',
 
                 //#region commands
@@ -122,7 +146,6 @@ function runSpecs(env) {
 
                 //#region repositories
                 'repositories/answerRepository.spec',
-                'repositories/commentRepository.spec',
                 'repositories/collaboratorRepository.spec',
                 'repositories/courseRepository.spec',
                 'repositories/documentRepository.spec',
@@ -196,6 +219,8 @@ function runSpecs(env) {
                 'synchronization/handlers/user/eventHandlers/upgradedToAcademy.spec',
                 'synchronization/handlers/user/eventHandlers/downgraded.spec',
                 'synchronization/handlers/comment/eventHandlers/deleted.spec',
+                'synchronization/handlers/comment/eventHandlers/created.spec',
+                'synchronization/handlers/comment/handler.spec',
 
                 //#region synchronization questions
                 'synchronization/handlers/questions/handler.spec',
@@ -291,12 +316,9 @@ function runSpecs(env) {
                 'viewmodels/courses/publishingActions/publish.spec',
                 'viewmodels/courses/publishingActions/scormBuild.spec',
                 'viewmodels/courses/publishingActions/publishToCustomLms.spec',
-                'viewmodels/courses/courseComments.spec',
                 'viewmodels/objectives/objectives.spec',
                 'viewmodels/objectives/objective.spec',
                 'viewmodels/objectives/objectiveBrief.spec',
-                'viewmodels/panels/sidePanel.spec',
-                'viewmodels/panels/tabs/reviewTab.spec',
 
                 //#region questions
                 'viewmodels/questions/question.spec',

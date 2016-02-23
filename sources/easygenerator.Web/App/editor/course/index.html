@@ -32,10 +32,10 @@
             <div class="course-editor-sections-container" data-bind="css: { empty: notContainSections }">
                 <ul class="sections-list-container" data-bind="draggableContainer: { moveTo: { '.sections-list-container': reorderSection }, draggableArea: '.sections-list-item-sort-button', events: { drag: hideQuestions, dragend: restoreQuestionsExpandingState } }">
                     <!-- ko foreach: sections -->
-                    <li class="sections-list-item-container" data-bind="draggableData: { sectionId: id }">
+                    <li class="sections-list-item-container" data-bind="draggableData: { sectionId: id }, highlightObjective: { hightlightObjectiveId: $parent.highlightedObjectiveId, objectiveId: id }">
                         <div class="sections-list-item-wrapper" data-bind="css: { processed: isProcessed }">
                             <div class="preloader-container" data-bind="preloader: { settings: 'align-center medium' }"></div>
-                            <div class="sections-list-item">
+                            <div class="sections-list-item" data-objective-highlight-item="">
                                 <div class="sections-list-item-sort-button"></div>
                                 <div class="sections-list-item-body">
                                     <div class="sections-list-item-image-container">

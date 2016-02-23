@@ -158,6 +158,8 @@ namespace easygenerator.DomainModel.Entities
 
             CommentsCollection.Add(comment);
             comment.Course = this;
+
+            RaiseEvent(new CommentCreatedEvent(this, comment));
         }
 
         public virtual void DeleteComment(Comment comment)

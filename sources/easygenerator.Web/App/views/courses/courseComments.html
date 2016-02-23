@@ -39,6 +39,34 @@
                 <div class="modal-dialog-close-btn" data-bind="click: $parent.hide.bind($parent)"></div>
             </div>
         </li>
+
+        <li class="comment">
+            <div class="comment-description">
+                <div class="comment-description-avatar">
+                    <span class="comment-description-avatar-letter" data-bind="text: name.charAt(0)"></span>
+                </div>
+                <div class="comment-description-text">
+                    <strong data-bind="text: name"></strong>&nbsp;<span data-bind="localize: { text: 'commented' }"></span>
+                </div>
+            </div>
+            <div class="comment-body">
+                <div class="comment-body-text" data-bind="text: text"></div>
+                <div class="comment-body-footer">
+                    <div class="comment-body-toggler" data-bind="click: toggleComment, css: { expanded: isExpanded(), collapsed: !isExpanded()}">
+                        <div class="comment-body-toggler-text" data-bind="localize: { text: isExpanded() ? 'readLess' : 'readMore' }"></div>
+                    </div>
+                    <div class="comment-body-date">
+                        <span data-bind="date: { value: createdOn, formatString: 'h:mm A' }"></span>
+                        <span data-bind="date: { value: createdOn, formatString: 'M/D/YYYY' }"></span>
+                    </div>
+                    <div class="delete-comment-btn info-tooltip-holder" data-bind="click: $parent.removeComment.bind($parent)">
+                        <div class="info-tooltip">
+                            <span data-bind="localize: { text: 'deleteComment' }"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
     </ul>
     <!-- ko ifnot: comments().length -->
     <div class="no-comments" data-bind="localize: { text: 'reviewNoComments' }"></div>

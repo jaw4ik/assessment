@@ -75,7 +75,7 @@ namespace easygenerator.Web.Configuration
                 .Include("~/Content/notify.css")
                 .Include("~/Content/selectbox.css")
                 .Include("~/Content/account.css")
-                .Include("~/Content/panels.css")
+                .Include("~/Content/reviewPanel.css")
                 .Include("~/Content/dragAndDropText.css")
                 .Include("~/Content/imagePreview.css")
                 .Include("~/Content/singleSelectImage.css")

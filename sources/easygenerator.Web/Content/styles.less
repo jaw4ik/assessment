@@ -1,5 +1,7 @@
 @import "helpers.less";
 
+@no-access-image-background: url(../Content/images/sprites_64.png);
+
 /*#region PAGE-LOADER ICON*/
 .icon-spinner-wrapper {
     position: absolute;
@@ -14,6 +16,52 @@
 }
 
 /*#endregion PAGE-LOADER ICON*/
+
+/*#region no access */
+.no-access-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0 30px;
+    font-size: 13px;
+    line-height: 23px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .no-access-img {
+        width: 54px;
+        height: 54px;
+        background-image: @no-access-image-background;
+        margin-bottom: 5px;
+        background-position: -281px -208px;
+        background-repeat: no-repeat;
+    }
+
+    .no-access-text {
+        width: 100%;
+        font-weight: 600;
+        line-height: 23px;
+        color: #42515f;
+        text-align: center;
+
+        a {
+            color: #469dd5;
+            display: block;
+            text-decoration: underline;
+
+            &:hover {
+                color: #1b8bd3;
+            }
+        }
+    }
+}
+
+/*#endregion */
 
 /*#region NEW LAYOUT STYLES*/
 
@@ -1222,15 +1270,15 @@
             cursor: default;
             opacity: 0.3;
         }
-        
+
         &.small {
             height: 25px;
             font: 13px 'OpenSans';
             text-transform: none;
             box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.4);
-            
+
             &:hover {
-                 box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.4);
+                box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.4);
             }
         }
     }
@@ -1254,17 +1302,17 @@
 /*white button*/
 .btn.white {
     .btn();
-    background: #fff;   
+    background: #fff;
     color: rgb(120, 137, 155);
-    
+
     &.grey-border {
         border: 1px solid #b7cddc;
-        
+
         &:hover {
             border: 1px solid #8498ac;
             color: rgb(100, 121, 142);
         }
-    }  
+    }
 }
 
 /*green button*/
@@ -1780,7 +1828,7 @@
 .info-tooltip.open-item,
 .info-tooltip.publish-item,
 .info-tooltip.duplicate-item,
-    .info-tooltip.delete-course-item, {
+.info-tooltip.delete-course-item, {
     width: 100px;
     margin-left: -50px;
 }
@@ -1875,7 +1923,7 @@
             top: 0;
             padding-left: 2px;
             color: #9da3a9;
-}
+        }
     }
 }
 
@@ -2206,47 +2254,47 @@
 
 .library-list-item,
 .learning-path-list-item {
-      &:hover {
-                .list-item-context-actions-wrapper .list-item-context-action {
-                    top: 4px;
+    &:hover {
+        .list-item-context-actions-wrapper .list-item-context-action {
+            top: 4px;
+        }
+    }
+
+    .list-item-context-actions-wrapper {
+        height: 31px;
+
+        .list-item-context-action {
+            height: 27px;
+            width: 27px;
+            position: relative;
+            top: -28px;
+            background-color: rgb(67, 81, 96, 0.9);
+            background-image: none;
+
+            &.delete {
+
+                &:after {
+                    position: absolute;
+                    .align-absolute-element();
+                    content: '';
+                    width: 16px;
+                    height: 16px;
+                    background: url(images/sprites_16.png);
+                    background-position: -84px -42px;
+                    background-repeat: no-repeat;
+                }
+
+                &:hover {
+                    background-color: #f44c40;
                 }
             }
-    
-       .list-item-context-actions-wrapper {
-                height: 31px;
 
-                .list-item-context-action {
-                    height: 27px;
-                    width: 27px;
-                    position: relative;
-                    top: -28px;
-                    background-color: rgb(67, 81, 96, 0.9);
-                    background-image: none;
-
-                    &.delete {
-
-                        &:after {
-                            position: absolute;
-                            .align-absolute-element();
-                            content: '';
-                            width: 16px;
-                            height: 16px;
-                            background: url(images/sprites_16.png);
-                            background-position: -84px -42px;
-                            background-repeat: no-repeat;
-                        }
-
-                        &:hover {
-                            background-color: #f44c40;
-                        }
-                    }
-
-                    .info-tooltip {
-                        width: 80px;
-                        margin-left: -40px;
-                    }
-                }
+            .info-tooltip {
+                width: 80px;
+                margin-left: -40px;
             }
+        }
+    }
 }
 
 /*#endregion */
@@ -2292,28 +2340,28 @@ ol.circles-list {
     margin-left: 20px;
 }
 
-    ol.circles-list > li {
-        position: relative;
-        margin-bottom: 20px;
-        padding-left: 20px;
-        padding-top: 7px;
-    }
+ol.circles-list > li {
+    position: relative;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    padding-top: 7px;
+}
 
-        ol.circles-list > li:before {
-            position: absolute;
-            top: 0px;
-            left: -20px;
-            width: 30px;
-            height: 30px;
-            font: 18px 'RobotoSlab';
-            line-height: 30px;
-            text-align: center;
-            color: #546677;
-            border: 1px solid rgb(99, 121, 142);
-            border-radius: 50%;
-            content: counter(li-counter);
-            counter-increment: li-counter;
-        }
+ol.circles-list > li:before {
+    position: absolute;
+    top: 0px;
+    left: -20px;
+    width: 30px;
+    height: 30px;
+    font: 18px 'RobotoSlab';
+    line-height: 30px;
+    text-align: center;
+    color: #546677;
+    border: 1px solid rgb(99, 121, 142);
+    border-radius: 50%;
+    content: counter(li-counter);
+    counter-increment: li-counter;
+}
 
 
 /*#endregion */

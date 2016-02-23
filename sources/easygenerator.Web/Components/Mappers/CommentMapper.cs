@@ -18,7 +18,8 @@ namespace easygenerator.Web.Components.Mappers
                 CreatedByName = entity.CreatedByName,
                 CreatedOn = entity.CreatedOn,
                 CreatedBy = entity.CreatedBy,
-                ModifiedOn = entity.ModifiedOn
+                ModifiedOn = entity.ModifiedOn,
+                Context = entity.Context
             };
         }
     }
