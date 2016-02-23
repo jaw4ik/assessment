@@ -1,6 +1,7 @@
-﻿import userContext from 'userContext';
+﻿import CreateSectionTooltip from './CreateSectionTooltipViewModel';
+
+import userContext from 'userContext';
 import clientContext from 'clientContext';
-import CreateSectionTooltip from './CreateSectionTooltipViewModel';
 
 describe('[CreateSectionTooltipViewModel]', () => {
     let viewModel;

@@ -1,43 +1,39 @@
-﻿define(['viewmodels/questions/hotSpot/queries/getQuestionContentById'], function (query) {
+﻿import query from './getQuestionContentById';
 
-    var
-        apiHttpWrapper = require('http/apiHttpWrapper')
-    ;
+import apiHttpWrapper from 'http/apiHttpWrapper';
 
-    describe('query [getQuestionContentById]', function () {
+describe('query [getQuestionContentById]', function () {
 
-        describe('execute:', function () {
+    describe('execute:', function () {
 
-            var dfd;
+        var dfd;
 
-            beforeEach(function () {
-                dfd = Q.defer();
-                spyOn(apiHttpWrapper, 'post').and.returnValue(dfd.promise);
+        beforeEach(function () {
+            dfd = Q.defer();
+            spyOn(apiHttpWrapper, 'post').and.returnValue(dfd.promise);
+        });
+
+        it('should be function', function () {
+            expect(query.execute).toBeFunction();
+        });
+
+        it('should return promise', function () {
+            expect(query.execute()).toBePromise();
+        });
+
+        it('should get question content', function (done) {
+            var content = {
+                background: 'background',
+                dropspots: [{ id: 'id' }]
+            }
+            dfd.resolve(content);
+
+            query.execute().then(function (result) {
+                expect(result).toEqual(content);
+                done();
             });
-
-            it('should be function', function () {
-                expect(query.execute).toBeFunction();
-            });
-
-            it('should return promise', function () {
-                expect(query.execute()).toBePromise();
-            });
-
-            it('should get question content', function (done) {
-                var content = {
-                    background: 'background',
-                    dropspots: [{ id: 'id' }]
-                }
-                dfd.resolve(content);
-
-                query.execute().then(function (result) {
-                    expect(result).toEqual(content);
-                    done();
-                });
-            });
-
         });
 
     });
 
-})
+});

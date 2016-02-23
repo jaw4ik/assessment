@@ -1,53 +1,49 @@
-﻿define(['viewmodels/learningPaths/learningPaths/learningPathBrief'], function (ctor) {
-    "use strict";
-    var
-         router = require('plugins/router'),
-         eventTracker = require('eventTracker')
-    ;
+﻿import ctor from './learningPathBrief';
 
-    describe('viewModel [learningPathBrief]', function () {
-        var learningPath = {
-                id: 'id',
-                title: 'title',
-                createdOn: new Date()
-            },
-            viewModel;
+import router from 'plugins/router';
+import eventTracker from 'eventTracker';
 
-        beforeEach(function () {
-            spyOn(router, 'navigate');
-            spyOn(eventTracker, 'publish');
-            viewModel = ctor(learningPath);
-        });
+describe('viewModel [learningPathBrief]', function () {
+    var learningPath = {
+        id: 'id',
+        title: 'title',
+        createdOn: new Date()
+    },
+        viewModel;
 
-        describe('title:', function () {
-            it('should be defined', function () {
-                expect(viewModel.title()).toBe(learningPath.title);
-            });
-        });
+    beforeEach(function () {
+        spyOn(router, 'navigate');
+        spyOn(eventTracker, 'publish');
+        viewModel = ctor(learningPath);
+    });
 
-        describe('id:', function () {
-            it('should be defined', function () {
-                expect(viewModel.id).toBe(learningPath.id);
-            });
-        });
-
-        describe('createdOn:', function () {
-            it('should be defined', function () {
-                expect(viewModel.createdOn).toBe(learningPath.createdOn);
-            });
-        });
-
-        describe('navigateToDetails:', function () {
-            it('should be publish event \'Navigate to learning path details\'', function () {
-                viewModel.navigateToDetails();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to learning path details');
-            });
-
-            it('should navigate to learning path details', function () {
-                viewModel.navigateToDetails();
-                expect(router.navigate).toHaveBeenCalledWith('learningpaths/' + viewModel.id);
-            });
+    describe('title:', function () {
+        it('should be defined', function () {
+            expect(viewModel.title()).toBe(learningPath.title);
         });
     });
 
+    describe('id:', function () {
+        it('should be defined', function () {
+            expect(viewModel.id).toBe(learningPath.id);
+        });
+    });
+
+    describe('createdOn:', function () {
+        it('should be defined', function () {
+            expect(viewModel.createdOn).toBe(learningPath.createdOn);
+        });
+    });
+
+    describe('navigateToDetails:', function () {
+        it('should be publish event \'Navigate to learning path details\'', function () {
+            viewModel.navigateToDetails();
+            expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to learning path details');
+        });
+
+        it('should navigate to learning path details', function () {
+            viewModel.navigateToDetails();
+            expect(router.navigate).toHaveBeenCalledWith('learningpaths/' + viewModel.id);
+        });
+    });
 });

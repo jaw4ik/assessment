@@ -1,81 +1,65 @@
-﻿define(['errorHandling/globalErrorHandler'], function (errorHandler) {
-    "use strict";
+﻿import errorHandler from './globalErrorHandler';
 
-    var
-        errorHandlerRegistrator = require('errorHandling/httpErrorHandlerRegistrator'),
-        defaultHttpErrorHandler = require('errorHandling/httpErrorHandlers/defaultHttpErrorHandler');
+import errorHandlerRegistrator from 'errorHandling/httpErrorHandlerRegistrator';
+import defaultHttpErrorHandler from 'errorHandling/httpErrorHandlers/defaultHttpErrorHandler';
 
-    describe('[globalErrorHandler]', function () {
+describe('[globalErrorHandler]', function () {
 
-        describe('subscribeOnAjaxErrorEvents:', function () {
+    describe('subscribeOnAjaxErrorEvents:', function () {
 
-            var ajaxErrorHandler;
+        var ajaxErrorHandler;
+
+        beforeEach(function () {
+            spyOn($.fn, 'ajaxError').and.callFake(function (arg) {
+                ajaxErrorHandler = arg;
+            });
+        });
+
+        it('should be function', function () {
+            expect(errorHandler.subscribeOnAjaxErrorEvents).toBeFunction();
+        });
+
+        describe('and when document ajax error triggered', function () {
 
             beforeEach(function () {
-                spyOn($.fn, 'ajaxError').and.callFake(function (arg) {
-                    ajaxErrorHandler = arg;
-                });
+                errorHandler.subscribeOnAjaxErrorEvents();
+
+                spyOn(defaultHttpErrorHandler, 'handleError');
             });
 
-            it('should be function', function () {
-                expect(errorHandler.subscribeOnAjaxErrorEvents).toBeFunction();
-            });
+            describe('and when response is defined', function () {
 
-            describe('and when document ajax error triggered', function () {
+                describe('and when response status is defined', function () {
 
-                beforeEach(function () {
-                    errorHandler.subscribeOnAjaxErrorEvents();
+                    var status = 503;
 
-                    spyOn(defaultHttpErrorHandler, 'handleError');
-                });
+                    describe('and when error handler is registered for this status', function () {
 
-                describe('and when response is defined', function () {
+                        var registeredErrorHandler;
 
-                    describe('and when response status is defined', function () {
-
-                        var status = 503;
-
-                        describe('and when error handler is registered for this status', function () {
-
-                            var registeredErrorHandler;
-
-                            beforeEach(function () {
-                                registeredErrorHandler = jasmine.createSpyObj('registeredErrorHandler', ['handleError']);
-                                errorHandlerRegistrator.registeredHandlers[status] = registeredErrorHandler;
-                            });
-
-                            it('should call handleError() method for registered error handler', function () {
-                                var response = { status: 503 };
-
-                                ajaxErrorHandler({}, response);
-
-                                expect(registeredErrorHandler.handleError).toHaveBeenCalledWith(response);
-                            });
-
+                        beforeEach(function () {
+                            registeredErrorHandler = jasmine.createSpyObj('registeredErrorHandler', ['handleError']);
+                            errorHandlerRegistrator.registeredHandlers[status] = registeredErrorHandler;
                         });
 
-                        describe('and when error handler is not registered for this status', function () {
+                        it('should call handleError() method for registered error handler', function () {
+                            var response = { status: 503 };
 
-                            beforeEach(function () {
-                                errorHandlerRegistrator.registeredHandlers[status] = undefined;
-                            });
+                            ajaxErrorHandler({}, response);
 
-                            it('should call handleError() method for default error handler', function () {
-                                var response = { status: 503 };
-
-                                ajaxErrorHandler({}, response);
-
-                                expect(defaultHttpErrorHandler.handleError).toHaveBeenCalledWith(response);
-                            });
-
+                            expect(registeredErrorHandler.handleError).toHaveBeenCalledWith(response);
                         });
 
                     });
 
-                    describe('and when response status is not defined', function () {
+                    describe('and when error handler is not registered for this status', function () {
+
+                        beforeEach(function () {
+                            errorHandlerRegistrator.registeredHandlers[status] = undefined;
+                        });
 
                         it('should call handleError() method for default error handler', function () {
-                            var response = { value: 'message' };
+                            var response = { status: 503 };
 
                             ajaxErrorHandler({}, response);
 
@@ -86,14 +70,26 @@
 
                 });
 
-                describe('and when response is not defined', function () {
+                describe('and when response status is not defined', function () {
 
                     it('should call handleError() method for default error handler', function () {
-                        ajaxErrorHandler({});
+                        var response = { value: 'message' };
 
-                        expect(defaultHttpErrorHandler.handleError).toHaveBeenCalledWith(undefined);
+                        ajaxErrorHandler({}, response);
+
+                        expect(defaultHttpErrorHandler.handleError).toHaveBeenCalledWith(response);
                     });
 
+                });
+
+            });
+
+            describe('and when response is not defined', function () {
+
+                it('should call handleError() method for default error handler', function () {
+                    ajaxErrorHandler({});
+
+                    expect(defaultHttpErrorHandler.handleError).toHaveBeenCalledWith(undefined);
                 });
 
             });
@@ -101,4 +97,5 @@
         });
 
     });
+
 });

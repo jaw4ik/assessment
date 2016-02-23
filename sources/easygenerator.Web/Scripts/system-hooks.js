@@ -9,6 +9,10 @@
     var systemNormalize = System.normalize;
     System.normalize = function (moduleName) {
         return systemNormalize.apply(this, arguments).then(function (normalizedName) {
+            if (moduleName.substring(moduleName.length - 3) === '.js') {
+                moduleName = moduleName.substring(0, moduleName.length - 3);
+            }
+
             moduleIds[normalizedName] = moduleName;
             return normalizedName;
         });
@@ -78,7 +82,7 @@
     var systemLocate = System.locate;
     System.locate = function () {
         return systemLocate.apply(this, arguments).then(function (address) {
-            return address + System.cacheBust;
+            return System.cacheBust ? address + System.cacheBust : address;
         });
     }
 

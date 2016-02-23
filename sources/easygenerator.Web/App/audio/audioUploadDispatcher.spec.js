@@ -1,4 +1,4 @@
-﻿import dispatcher from 'audio/audioUploadDispatcher';
+﻿import dispatcher from './audioUploadDispatcher';
 
 import factory from 'audio/factory';
 import constants from 'constants';

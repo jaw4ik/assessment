@@ -1,4 +1,5 @@
 ﻿import CourseViewModel from './index';
+
 import ko from 'knockout';
 import _ from 'underscore';
 import eventTracker from 'eventTracker';
@@ -13,8 +14,6 @@ import deleteQuestionCommand from './commands/deleteQuestionCommand';
 import reorderQuestionCommand from './commands/reorderQuestionCommand';
 import moveQuestionCommand from './commands/moveQuestionCommand';
 import reorderSectionCommand from './commands/reorderSectionCommand';
-import unrelateSectionCommand from './commands/unrelateSectionCommand';
-import vmContentField from 'viewmodels/common/contentField';
 import deleteSectionDialog from 'editor/course/dialogs/deleteSection/deleteSection';
 
 describe('[drag and drop course editor]', () => {

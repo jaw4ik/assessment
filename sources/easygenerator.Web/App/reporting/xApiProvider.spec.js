@@ -1,10 +1,11 @@
-﻿import XApiProvider from 'reporting/xApiProvider';
+﻿import XApiProvider from './xApiProvider';
+
+import FilterCriteriaFactory from './xApiFilterCriteriaFactory';
 import config from 'config';
 import Statement from 'models/reporting/statement';
 import httpRequestSender from 'http/httpRequestSender';
 import base64 from 'utils/base64';
 import constants from 'constants';
-import FilterCriteriaFactory from 'reporting/xApiFilterCriteriaFactory';
 
 describe('XApiProvider', () => {
 

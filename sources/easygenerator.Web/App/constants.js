@@ -557,5 +557,8 @@ export default {
     newCourseEditor: {
         switchToNewEditorMessageClosed: ':switchToNewEditorMessageClosed',
         switchToOldEditorMessageClosed: ':switchToOldEditorMessageClosed'
+    },
+    winToWeb: {
+        host: window.winToWebConvertionServiceUrl ? "//" + window.winToWebConvertionServiceUrl : '//localhost:444'
     }
 };

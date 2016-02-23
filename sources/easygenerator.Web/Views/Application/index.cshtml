@@ -98,6 +98,12 @@
             window.playerUrl = '@ConfigurationManager.AppSettings["PlayerUrl"]';
             </text>
         }
+        @if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings["WinToWebConvertionServiceUrl"]))
+        {
+            <text>
+            window.winToWebConvertionServiceUrl = '@ConfigurationManager.AppSettings["WinToWebConvertionServiceUrl"]';
+            </text>
+        }
     </script>
 
     <script type="text/javascript" src="/Scripts/vendor/system.js"></script>
@@ -119,14 +125,14 @@
                     <text>
                     System.config({
                         bundles: {
-                            'main-built': ['main']
+                            'main-built.js': ['main.js']
                         },
                         cacheBust: '?v=' + @DateTimeWrapper.InstanceStartTime.Ticks
                     });
                     </text>
                 }
 
-                System.import('main');
+                System.import('main.js');
             }
             else {
                 var redirectUrl = '/signin';

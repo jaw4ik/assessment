@@ -1,6 +1,7 @@
-﻿import $ from 'jquery';
+﻿import * as command  from './deleteImage.js';
+
+import $ from 'jquery';
 import http from 'http/apiHttpWrapper.js';
-import * as command  from './deleteImage.js';
 
 describe('command [deleteImage]', () => {
 

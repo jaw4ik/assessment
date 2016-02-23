@@ -1,5 +1,5 @@
-﻿import co from 'co';
-import ExpandableStatement from 'reporting/viewmodels/expandableStatement';
+﻿import ExpandableStatement from './expandableStatement';
+
 import userContext from 'userContext';
 import upgradeDialog from 'widgets/upgradeDialog/viewmodel';
 import constants from 'constants';
@@ -89,17 +89,17 @@ describe('viewmodel [ExpandableStatement]', () => {
                 lrsStatement.attemptId = null;
             });
 
-            it('should show upgrade dialog', done => co(function*() {
+            it('should show upgrade dialog', done => (async () => {
                 statement = new ExpandableStatement(lrsStatement);
-                yield statement.load();
+                await statement.load();
                 expect(upgradeDialog.show).toHaveBeenCalledWith(constants.dialogs.upgrade.settings.extendedResults);
-            }).then(done));
+            })().then(done));
 
-            it('promise should return false', done => co(function*() {
+            it('promise should return false', done => (async () => {
                 statement = new ExpandableStatement(lrsStatement);
-                const result = yield statement.load();
+                let result = await statement.load();
                 expect(result).toBeFalsy();
-            }).then(done));
+            })().then(done));
 
         });
 
@@ -110,11 +110,11 @@ describe('viewmodel [ExpandableStatement]', () => {
                 lrsStatement.attemptId = null;
             });
 
-            it('promise should return false', done => co(function*() {
+            it('promise should return false', done => (async () => {
                 statement = new ExpandableStatement(lrsStatement);
-                const result = yield statement.load();
+                let result = await statement.load();
                 expect(result).toBeFalsy();
-            }).then(done));
+            })().then(done));
 
         });
 
@@ -125,15 +125,15 @@ describe('viewmodel [ExpandableStatement]', () => {
                 lrsStatement.attemptId = 'id';
             });
 
-            it('promise should return true', done => co(function*() {
+            it('promise should return true', done => (async () => {
                 statement = new ExpandableStatement(lrsStatement);
                 statement.children([{ id: 'id1' }]);
-                const result = yield statement.load();
+                let result = await statement.load();
                 statement.children = null;
-                const result2 = yield statement.load();
+                let result2 = await statement.load();
                 expect(result).toBeTruthy();
                 expect(result2).toBeTruthy();
-            }).then(done));
+            })().then(done));
 
         });
 
@@ -144,16 +144,16 @@ describe('viewmodel [ExpandableStatement]', () => {
                 lrsStatement.attemptId = 'id';
             });
 
-            it('promise should return true and call expandLoadAction', done => co(function*() {
+            it('promise should return true and call expandLoadAction', done => (async () => {
                 statement = new ExpandableStatement(lrsStatement);
                 statement.children([]);
                 statement.expandLoadAction = () => true;
                 
                 spyOn(statement, 'expandLoadAction').and.returnValue(Promise.resolve(true));
-                const result = yield statement.load();
+                let result = await statement.load();
                 expect(statement.expandLoadAction).toHaveBeenCalled();
                 expect(result).toBeTruthy();
-            }).then(done));
+            })().then(done));
 
         });
 
@@ -180,10 +180,10 @@ describe('viewmodel [ExpandableStatement]', () => {
                 spyOn(statement, 'load').and.returnValue(Promise.resolve(false));
             });
 
-            it('should not set isExpanded to true', done => co(function*() {
-                yield statement.expand();
+            it('should not set isExpanded to true', done => (async () => {
+                await statement.expand();
                 expect(statement.isExpanded()).toBeFalsy();
-            }).then(done));
+            })().then(done));
 
         });
 
@@ -192,12 +192,12 @@ describe('viewmodel [ExpandableStatement]', () => {
             beforeEach(() => {
                 statement.isExpanded(false);
                 spyOn(statement, 'load').and.returnValue(Promise.resolve(true));
-             });
+            });
 
-            it('should not set isExpanded to true', done => co(function*() {
-                yield statement.expand();
+            it('should not set isExpanded to true', done => (async () => {
+                await statement.expand();
                 expect(statement.isExpanded()).toBeTruthy();
-            }).then(done));
+            })().then(done));
 
         });
 

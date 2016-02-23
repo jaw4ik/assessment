@@ -1,122 +1,120 @@
-﻿define(['videoUpload/uploadTracking'], function (uploadTracking) {
-    "use strict";
+﻿import uploadTracking from './uploadTracking';
 
-    var constants = require('constants'),
-        uploadDataContext = require('videoUpload/uploadDataContext'),
-        app = require('durandal/app'),
-        videoConstants = constants.storage.video;
+import uploadDataContext from './uploadDataContext';
+import constants from 'constants';
+import app from 'durandal/app';
+var videoConstants = constants.storage.video;
 
-    describe('[uploadTracking]', function () {
-        var defer = Q.defer();
+describe('[uploadTracking]', function () {
+    var defer = Q.defer();
+
+    beforeEach(function () {
+        spyOn(app, 'trigger');
+        spyOn(Q, 'allSettled').and.returnValue(defer.promise);
+        uploadDataContext.queueUploads = [];
+    });
+
+    it('should be object', function () {
+        expect(uploadTracking).toBeObject();
+    });
+
+    describe('initialize', function () {
 
         beforeEach(function () {
-            spyOn(app, 'trigger');
-            spyOn(Q, 'allSettled').and.returnValue(defer.promise);
-            uploadDataContext.queueUploads = [];
+            jasmine.clock().uninstall();
+            jasmine.clock().install();
         });
 
-        it('should be object', function () {
-            expect(uploadTracking).toBeObject();
+        afterEach(function () {
+            jasmine.clock().uninstall();
         });
 
-        describe('initialize', function () {
+        it('should be function', function () {
+            expect(uploadTracking.initialize).toBeFunction();
+        });
 
-            beforeEach(function () {
-                jasmine.clock().install();
-            });
+        it('should start track upload changes with interval', function () {
+            spyOn(uploadDataContext, 'uploadChanged').and.returnValue(false);
 
-            afterEach(function () {
-                jasmine.clock().uninstall();
-            });
+            uploadTracking.initialize();
+            jasmine.clock().tick(videoConstants.trackChangesInUploadTimeout * 2 + 100);
+            expect(uploadDataContext.uploadChanged.calls.count()).toBe(2);
+        });
 
-            it('should be function', function () {
-                expect(uploadTracking.initialize).toBeFunction();
-            });
+        describe('when upload have no changes', function () {
 
-            it('should start track upload changes with interval', function () {
+            it('should not trigger changes event', function () {
                 spyOn(uploadDataContext, 'uploadChanged').and.returnValue(false);
 
                 uploadTracking.initialize();
                 jasmine.clock().tick(videoConstants.trackChangesInUploadTimeout * 2 + 100);
-                expect(uploadDataContext.uploadChanged.calls.count()).toBe(2);
+                expect(app.trigger).not.toHaveBeenCalled();
             });
 
-            describe('when upload have no changes', function () {
+        });
 
-                it('should not trigger changes event', function () {
-                    spyOn(uploadDataContext, 'uploadChanged').and.returnValue(false);
+        describe('when upload have changes', function () {
 
-                    uploadTracking.initialize();
-                    jasmine.clock().tick(videoConstants.trackChangesInUploadTimeout * 2 + 100);
-                    expect(app.trigger).not.toHaveBeenCalled();
-                });
+            it('should not trigger changes event', function () {
+                spyOn(uploadDataContext, 'uploadChanged').and.returnValue(true);
 
+                uploadTracking.initialize();
+                jasmine.clock().tick(videoConstants.trackChangesInUploadTimeout + 100);
+                expect(app.trigger).toHaveBeenCalledWith(videoConstants.changesInUpload);
             });
 
-            describe('when upload have changes', function () {
+        });
 
-                it('should not trigger changes event', function () {
-                    spyOn(uploadDataContext, 'uploadChanged').and.returnValue(true);
+        it('should start track upload progress with interval', function () {
+            spyOn(uploadDataContext, 'uploadChanged');
 
-                    uploadTracking.initialize();
-                    jasmine.clock().tick(videoConstants.trackChangesInUploadTimeout + 100);
-                    expect(app.trigger).toHaveBeenCalledWith(videoConstants.changesInUpload);
-                });
+            var id = 1,
+                handler = function () {
+                    return defer.promise;
+                };
 
+            defer.resolve();
+
+            uploadDataContext.queueUploads = [{ id: id, handler: handler }];
+
+            uploadTracking.initialize();
+            jasmine.clock().tick(videoConstants.trackChangesInUploadTimeout + 100);
+            expect(Q.allSettled.calls.count()).toBe(1);
+        });
+
+        describe('when upload queue is empty', function () {
+
+            it('should not send progress queries', function () {
+                uploadDataContext.queueUploads = [];
+
+                uploadTracking.initialize();
+                jasmine.clock().tick(videoConstants.trackChangesInUploadTimeout * 2 + 100);
+
+                expect(Q.allSettled.calls.count()).toBe(0);
             });
 
-            it('should start track upload progress with interval', function () {
+        });
+
+        describe('when upload queue is not empty', function () {
+
+            it('should send progress queries for all upload', function () {
                 spyOn(uploadDataContext, 'uploadChanged');
 
                 var id = 1,
+                    id2 = 2,
                     handler = function () {
                         return defer.promise;
                     };
 
                 defer.resolve();
 
-                uploadDataContext.queueUploads = [{ id: id, handler: handler }];
+                uploadDataContext.queueUploads = [{ id: id, handler: handler }, { id: id2, handler: handler }];
 
                 uploadTracking.initialize();
                 jasmine.clock().tick(videoConstants.trackChangesInUploadTimeout + 100);
-                expect(Q.allSettled.calls.count()).toBe(1);
-            });
 
-            describe('when upload queue is empty', function () {
-
-                it('should not send progress queries', function () {
-                    uploadDataContext.queueUploads = [];
-
-                    uploadTracking.initialize();
-                    jasmine.clock().tick(videoConstants.trackChangesInUploadTimeout * 2 + 100);
-
-                    expect(Q.allSettled.calls.count()).toBe(0);
-                });
-
-            });
-
-            describe('when upload queue is not empty', function () {
-
-                it('should send progress queries for all upload', function () {
-                    spyOn(uploadDataContext, 'uploadChanged');
-
-                    var id = 1,
-                        id2 = 2,
-                        handler = function () {
-                            return defer.promise;
-                        };
-
-                    defer.resolve();
-
-                    uploadDataContext.queueUploads = [{ id: id, handler: handler }, { id: id2, handler: handler }];
-
-                    uploadTracking.initialize();
-                    jasmine.clock().tick(videoConstants.trackChangesInUploadTimeout + 100);
-
-                    expect(Q.allSettled).toHaveBeenCalled();
-                    expect(uploadDataContext.uploadChanged).toHaveBeenCalled();
-                });
-
+                expect(Q.allSettled).toHaveBeenCalled();
+                expect(uploadDataContext.uploadChanged).toHaveBeenCalled();
             });
 
         });

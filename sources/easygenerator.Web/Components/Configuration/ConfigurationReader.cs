@@ -95,6 +95,14 @@ namespace easygenerator.Web.Components.Configuration
             }
         }
 
+        public virtual WinToWebConfigurationSection WinToWebConfiguration
+        {
+            get
+            {
+                return ConfigurationManager.GetSection("wintoweb") as WinToWebConfigurationSection;
+            }
+        }
+
         public virtual string ConnectionString
         {
             get { return ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString; }

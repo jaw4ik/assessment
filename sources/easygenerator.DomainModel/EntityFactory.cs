@@ -17,12 +17,14 @@ namespace easygenerator.DomainModel
         Multipleselect MultipleselectQuestion(string title, string createdBy);
         Multipleselect MultipleselectQuestion(string title, string createdBy, Answer correctAnswer, Answer incorrectAnswer);
 
+        Statement StatementQuestion(string title, string createdBy);
         Statement StatementQuestion(string title, string defaultStatementText, string createdBy);
 
         FillInTheBlanks FillInTheBlanksQuestion(string title, string createdBy);
         BlankAnswer BlankAnswer(string text, bool isCorrect, bool matchCase, Guid groupId, string createdBy);
         DragAndDropText DragAndDropTextQuestion(string title, string createdBy);
         Dropspot Dropspot(string text, int x, int y, string createdBy);
+        TextMatching TextMatchingQuestion(string title, string createdBy);
         TextMatching TextMatchingQuestion(string title, string createdBy, TextMatchingAnswer questionAnswer1, TextMatchingAnswer questionAnswer2);
         TextMatchingAnswer TextMatchingAnswer(string key, string value, string createdBy);
         TextMatchingAnswer TextMatchingAnswer(string key, string value, string createdBy, DateTime createdOn);
@@ -95,6 +97,11 @@ namespace easygenerator.DomainModel
         public Multipleselect MultipleselectQuestion(string title, string createdBy, Answer correctAnswer, Answer incorrectAnswer)
         {
             return new Multipleselect(title, createdBy, correctAnswer, incorrectAnswer);
+        }
+
+        public Statement StatementQuestion(string title, string createdBy)
+        {
+            return new Statement(title, createdBy);
         }
 
         public Statement StatementQuestion(string title, string defaultStatementText, string createdBy)
@@ -192,6 +199,11 @@ namespace easygenerator.DomainModel
         public HotSpotPolygon HotSpotPolygon(string points, string createdBy)
         {
             return new HotSpotPolygon(points, createdBy);
+        }
+
+        public TextMatching TextMatchingQuestion(string title, string createdBy)
+        {
+            return new TextMatching(title, createdBy);
         }
 
         public TextMatching TextMatchingQuestion(string title, string createdBy, TextMatchingAnswer questionAnswer1, TextMatchingAnswer questionAnswer2)

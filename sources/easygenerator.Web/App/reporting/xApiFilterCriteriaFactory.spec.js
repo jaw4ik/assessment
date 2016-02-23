@@ -1,4 +1,5 @@
-﻿import FilterCriteriaFactory from 'reporting/xApiFilterCriteriaFactory';
+﻿import FilterCriteriaFactory from './xApiFilterCriteriaFactory';
+
 import constants from 'constants';
 
 describe('class [FilterCriteriaFactory]', () => {

@@ -325,6 +325,15 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
+    <Compile Include="Controllers\WinToWebController.cs" />
+    <Compile Include="Import\WinToWeb\Mappers\WinToWebModelMapper.cs" />
+    <Compile Include="Import\WinToWeb\Model\WinAnswer.cs" />
+    <Compile Include="Import\WinToWeb\Model\WinCourse.cs" />
+    <Compile Include="Import\WinToWeb\Model\WinHotspotPolygon.cs" />
+    <Compile Include="Import\WinToWeb\Model\WinLearningContent.cs" />
+    <Compile Include="Import\WinToWeb\Model\WinObjective.cs" />
+    <Compile Include="Import\WinToWeb\Model\WinQuestion.cs" />
+    <Compile Include="Import\WinToWeb\WinToWebCourseImporter.cs" />
     <Compile Include="Publish\External\ExternalCoursePublisher.cs" />
     <Compile Include="Publish\External\ExternalLearningPathPublisher.cs" />
     <Compile Include="Publish\External\IExternalCoursePublisher.cs" />
@@ -585,12 +594,14 @@
     <Content Include="App\audio\audioUploadDispatcher.spec.js">
       <DependentUpon>audioUploadDispatcher.js</DependentUpon>
     </Content>
+    <Content Include="App\audio\commands\markAvailable.spec.js">
+      <DependentUpon>markAvailable.js</DependentUpon>
+    </Content>
     <Content Include="App\audio\convertion\commands\convert.spec.js">
       <DependentUpon>convert.js</DependentUpon>
     </Content>
     <Content Include="App\audio\convertion\commands\finalize.js" />
     <Content Include="App\audio\convertion\commands\getTicket.js" />
-    <Content Include="App\audio\commands\markAvailable.spec.js" />
     <Content Include="App\audio\commands\markAvailable.js" />
     <Content Include="App\audio\convertion\commands\getTicket.spec.js">
       <DependentUpon>getTicket.js</DependentUpon>
@@ -1517,6 +1528,10 @@
     <Content Include="App\widgets\hotSpotOnImageTextEditor\viewmodel.spec.js">
       <DependentUpon>viewmodel.js</DependentUpon>
     </Content>
+    <Content Include="App\wintoweb\commands\convert.js" />
+    <Content Include="App\wintoweb\commands\getTicket.js" />
+    <Content Include="App\wintoweb\index.html" />
+    <Content Include="App\wintoweb\index.js" />
     <Content Include="BuildCourse\Modules\js\branding.js" />
     <Content Include="BuildLearningPath\Template\app\main.js" />
     <Content Include="BuildLearningPath\Template\app\main.js.map" />
@@ -1546,6 +1561,7 @@
     <Content Include="BuildLearningPath\Template\js\components.min.js" />
     <Content Include="BuildLearningPath\Template\js\vendor.min.js" />
     <Content Include="BuildLearningPath\Template\readme.txt" />
+    <Compile Include="Components\Configuration\WinToWebConfigurationSection.cs" />
     <Content Include="config.js" />
     <Content Include="Content\font\buxtonsketch.woff" />
     <Content Include="Content\font\heuristica-bold.woff" />
@@ -2105,6 +2121,7 @@
     <Content Include="Content\design.less" />
     <Content Include="Mail\MailTemplates\NewEditorFeedbackTemplate.cshtml" />
     <Content Include="Content\tooltip.less" />
+    <Content Include="Content\wintoweb.less" />
     <Content Include="Content\images.less" />
     <Content Include="Content\library.less" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />

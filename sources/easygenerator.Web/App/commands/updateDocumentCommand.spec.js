@@ -1,4 +1,5 @@
-﻿import updateDocumentCommand from 'commands/updateDocumentCommand';
+﻿import updateDocumentCommand from './updateDocumentCommand';
+
 import Repository from 'repositories/documentRepository';
 var repository = new Repository();
 

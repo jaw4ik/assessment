@@ -1,297 +1,295 @@
-﻿define(['videoUpload/commands/vimeo'], function (vimeoCommands) {
-    "use strict";
-    var constants = require('constants');
+﻿import vimeoCommands from './vimeo';
 
-    describe('[vimeoCommands]', function () {
+import constants from 'constants';
 
-        it('should be object', function () {
-            expect(vimeoCommands).toBeObject();
+describe('[vimeoCommands]', function () {
+
+    it('should be object', function () {
+        expect(vimeoCommands).toBeObject();
+    });
+
+    describe('putFile:', function () {
+        var defer;
+
+        beforeEach(function () {
+            defer = Q.defer();
+            spyOn($, 'ajax').and.returnValue(defer.promise);
         });
 
-        describe('putFile:', function () {
-            var defer;
+        it('should be function', function () {
+            expect(vimeoCommands.putFile).toBeFunction();
+        });
 
-            beforeEach(function () {
-                defer = Q.defer();
-                spyOn($, 'ajax').and.returnValue(defer.promise);
-            });
+        it('should return promise', function () {
+            expect(vimeoCommands.putFile()).toBePromise();
+        });
 
-            it('should be function', function () {
-                expect(vimeoCommands.putFile).toBeFunction();
-            });
+        it('should send put request', function () {
+            var uploadUrl = '123',
+                file = {};
 
-            it('should return promise', function () {
-                expect(vimeoCommands.putFile()).toBePromise();
-            });
+            vimeoCommands.putFile(uploadUrl, file);
 
-            it('should send put request', function () {
-                var uploadUrl = '123',
-                    file = {};
-
-                vimeoCommands.putFile(uploadUrl, file);
-
-                expect($.ajax).toHaveBeenCalledWith({
-                    url: uploadUrl,
-                    method: 'PUT',
-                    data: file,
-                    processData: false,
-                    contentType: false,
-                    global: false
-                });
-
+            expect($.ajax).toHaveBeenCalledWith({
+                url: uploadUrl,
+                method: 'PUT',
+                data: file,
+                processData: false,
+                contentType: false,
+                global: false
             });
 
         });
 
-        describe('verifyUpload:', function () {
-            var defer;
+    });
 
-            beforeEach(function () {
-                defer = $.Deferred();
-                spyOn($, 'ajax').and.returnValue(defer.promise());
+    describe('verifyUpload:', function () {
+        var defer;
+
+        beforeEach(function () {
+            defer = $.Deferred();
+            spyOn($, 'ajax').and.returnValue(defer.promise());
+        });
+
+        it('should be function', function () {
+            expect(vimeoCommands.verifyUpload).toBeFunction();
+        });
+
+        it('should return promise', function () {
+            expect(vimeoCommands.verifyUpload()).toBePromise();
+        });
+
+        it('should send put request', function () {
+            var uploadUrl = '123';
+
+            vimeoCommands.verifyUpload(uploadUrl);
+
+            expect($.ajax).toHaveBeenCalledWith({
+                url: uploadUrl,
+                method: 'PUT',
+                headers: { 'Content-Range': 'bytes */*' },
+                global: false
             });
 
-            it('should be function', function () {
-                expect(vimeoCommands.verifyUpload).toBeFunction();
-            });
+        });
 
-            it('should return promise', function () {
-                expect(vimeoCommands.verifyUpload()).toBePromise();
-            });
+        describe('when put request failed with not 308 (vimeo success) status', function () {
 
-            it('should send put request', function () {
+            it('should reject promise with status', function (done) {
                 var uploadUrl = '123';
 
-                vimeoCommands.verifyUpload(uploadUrl);
+                var reason = { status: 404 };
 
-                expect($.ajax).toHaveBeenCalledWith({
-                    url: uploadUrl,
-                    method: 'PUT',
-                    headers: { 'Content-Range': 'bytes */*' },
-                    global: false
+                defer.reject(reason);
+
+                var promise = vimeoCommands.verifyUpload(uploadUrl);
+                promise.fin(function () {
+                    expect(promise).toBeRejectedWith(reason.status);
+                    done();
                 });
 
             });
+        });
 
-            describe('when put request failed with not 308 (vimeo success) status', function () {
+        describe('when put request failed with 308 (vimeo success) status', function () {
 
-                it('should reject promise with status', function (done) {
-                    var uploadUrl = '123';
+            it('should resolve promise with status', function (done) {
+                var uploadUrl = '123';
 
-                    var reason = { status: 404 };
+                var reason = {
+                    status: 308, headers: { 'Range': '1' }, getResponseHeader: function (header) {
+                        return this.headers[header];
+                    }
+                };
 
-                    defer.reject(reason);
+                defer.reject(reason);
 
-                    var promise = vimeoCommands.verifyUpload(uploadUrl);
-                    promise.fin(function () {
-                        expect(promise).toBeRejectedWith(reason.status);
-                        done();
-                    });
-
+                var promise = vimeoCommands.verifyUpload(uploadUrl);
+                promise.fin(function () {
+                    expect(promise).toBeResolvedWith('1');
+                    done();
                 });
+
             });
+        });
 
-            describe('when put request failed with 308 (vimeo success) status', function () {
+    });
 
-                it('should resolve promise with status', function (done) {
-                    var uploadUrl = '123';
+    describe('getThumbnailUrl:', function () {
+        var defer;
 
-                    var reason = {
-                        status: 308, headers: { 'Range': '1' }, getResponseHeader: function (header) {
-                            return this.headers[header];
-                        }
-                    };
+        beforeEach(function () {
+            defer = $.Deferred();
+            spyOn($, 'ajax').and.returnValue(defer.promise());
+        });
 
-                    defer.reject(reason);
+        it('should be function', function () {
+            expect(vimeoCommands.getThumbnailUrl).toBeFunction();
+        });
 
-                    var promise = vimeoCommands.verifyUpload(uploadUrl);
-                    promise.fin(function () {
-                        expect(promise).toBeResolvedWith('1');
-                        done();
-                    });
+        it('should return promise', function () {
+            expect(vimeoCommands.getThumbnailUrl()).toBePromise();
+        });
 
+        it('should send get request', function () {
+            var videoId = 0;
+            vimeoCommands.getThumbnailUrl(videoId);
+
+            expect($.ajax).toHaveBeenCalledWith({
+                url: constants.storage.video.vimeoApiVideosUrl + videoId + '/pictures',
+                headers: { Authorization: constants.storage.video.vimeoToken },
+                method: 'GET',
+                global: false
+            });
+        });
+
+        describe('when get request failed', function () {
+
+            it('should resolve promise with default image', function (done) {
+                var videoId = 0;
+
+                defer.reject();
+
+                var promise = vimeoCommands.getThumbnailUrl(videoId);
+                promise.fin(function () {
+                    expect(promise).toBeResolvedWith(constants.storage.video.defaultThumbnailUrl);
+                    done();
                 });
+
             });
 
         });
 
-        describe('getThumbnailUrl:', function () {
-            var defer;
+        describe('when get request resolved without thumbnail 150 * 200', function () {
 
-            beforeEach(function () {
-                defer = $.Deferred();
-                spyOn($, 'ajax').and.returnValue(defer.promise());
-            });
+            it('should resolve promise with default image', function (done) {
 
-            it('should be function', function () {
-                expect(vimeoCommands.getThumbnailUrl).toBeFunction();
-            });
-
-            it('should return promise', function () {
-                expect(vimeoCommands.getThumbnailUrl()).toBePromise();
-            });
-
-            it('should send get request', function () {
                 var videoId = 0;
-                vimeoCommands.getThumbnailUrl(videoId);
 
-                expect($.ajax).toHaveBeenCalledWith({
-                    url: constants.storage.video.vimeoApiVideosUrl + videoId + '/pictures',
-                    headers: { Authorization: constants.storage.video.vimeoToken },
-                    method: 'GET',
-                    global: false
-                });
-            });
+                defer.resolve({});
 
-            describe('when get request failed', function () {
-
-                it('should resolve promise with default image', function (done) {
-                    var videoId = 0;
-
-                    defer.reject();
-
-                    var promise = vimeoCommands.getThumbnailUrl(videoId);
-                    promise.fin(function () {
-                        expect(promise).toBeResolvedWith(constants.storage.video.defaultThumbnailUrl);
-                        done();
-                    });
-
+                var promise = vimeoCommands.getThumbnailUrl(videoId);
+                promise.fin(function () {
+                    expect(promise).toBeResolvedWith(constants.storage.video.defaultThumbnailUrl);
+                    done();
                 });
 
             });
+        });
 
-            describe('when get request resolved without thumbnail 150 * 200', function () {
+        describe('when get request resolved with correct data', function () {
 
-                it('should resolve promise with default image', function (done) {
+            it('should resolve promise with thumbnail', function (done) {
 
-                    var videoId = 0;
+                var videoId = 0;
+                var resolved = {
+                    data: [{
+                        sizes: [
+                           {
+                               width: 350,
+                               height: 150,
+                               link: 'false'
+                           },
+                           {
+                               width: 200,
+                               height: 150,
+                               link: 'thumbnail'
+                           }
+                        ]
+                    }]
+                };
 
-                    defer.resolve({});
+                defer.resolve(resolved);
 
-                    var promise = vimeoCommands.getThumbnailUrl(videoId);
-                    promise.fin(function () {
-                        expect(promise).toBeResolvedWith(constants.storage.video.defaultThumbnailUrl);
-                        done();
-                    });
-
+                var promise = vimeoCommands.getThumbnailUrl(videoId);
+                promise.fin(function () {
+                    expect(promise).toBeResolvedWith(resolved.data[0].sizes[1].link);
+                    done();
                 });
+
             });
+        });
 
-            describe('when get request resolved with correct data', function () {
+    });
 
-                it('should resolve promise with thumbnail', function (done) {
+    describe('getVideoDuration:', function () {
+        var defer;
 
-                    var videoId = 0;
-                    var resolved = {
-                        data: [{
-                            sizes: [
-                               {
-                                   width: 350,
-                                   height: 150,
-                                   link: 'false'
-                               },
-                               {
-                                   width: 200,
-                                   height: 150,
-                                   link: 'thumbnail'
-                               }
-                            ]
-                        }]
-                    };
+        beforeEach(function () {
+            defer = $.Deferred();
+            spyOn($, 'ajax').and.returnValue(defer.promise());
+        });
 
-                    defer.resolve(resolved);
+        it('should be function', function () {
+            expect(vimeoCommands.getVideoDuration).toBeFunction();
+        });
 
-                    var promise = vimeoCommands.getThumbnailUrl(videoId);
-                    promise.fin(function () {
-                        expect(promise).toBeResolvedWith(resolved.data[0].sizes[1].link);
-                        done();
-                    });
+        it('should return promise', function () {
+            expect(vimeoCommands.getVideoDuration()).toBePromise();
+        });
 
+        it('should send get request', function () {
+            var videoId = 0;
+            vimeoCommands.getVideoDuration(videoId);
+
+            expect($.ajax).toHaveBeenCalledWith({
+                url: constants.storage.video.vimeoApiVideosUrl + videoId,
+                headers: { Authorization: constants.storage.video.vimeoToken },
+                method: 'GET',
+                global: false
+            });
+        });
+
+        describe('when get request failed', function () {
+
+            it('should resolve promise with zero duration', function (done) {
+                var videoId = 0;
+
+                defer.reject();
+
+                var promise = vimeoCommands.getVideoDuration(videoId);
+                promise.fin(function () {
+                    expect(promise).toBeResolvedWith(0);
+                    done();
                 });
+
             });
 
         });
 
-        describe('getVideoDuration:', function () {
-            var defer;
+        describe('when get request resolved without duration', function () {
 
-            beforeEach(function () {
-                defer = $.Deferred();
-                spyOn($, 'ajax').and.returnValue(defer.promise());
-            });
+            it('should resolve promise with zero duration', function (done) {
 
-            it('should be function', function () {
-                expect(vimeoCommands.getVideoDuration).toBeFunction();
-            });
-
-            it('should return promise', function () {
-                expect(vimeoCommands.getVideoDuration()).toBePromise();
-            });
-
-            it('should send get request', function () {
                 var videoId = 0;
-                vimeoCommands.getVideoDuration(videoId);
 
-                expect($.ajax).toHaveBeenCalledWith({
-                    url: constants.storage.video.vimeoApiVideosUrl + videoId,
-                    headers: { Authorization: constants.storage.video.vimeoToken },
-                    method: 'GET',
-                    global: false
-                });
-            });
+                defer.resolve({});
 
-            describe('when get request failed', function () {
-
-                it('should resolve promise with zero duration', function (done) {
-                    var videoId = 0;
-
-                    defer.reject();
-
-                    var promise = vimeoCommands.getVideoDuration(videoId);
-                    promise.fin(function () {
-                        expect(promise).toBeResolvedWith(0);
-                        done();
-                    });
-
+                var promise = vimeoCommands.getVideoDuration(videoId);
+                promise.fin(function () {
+                    expect(promise).toBeResolvedWith(0);
+                    done();
                 });
 
             });
+        });
 
-            describe('when get request resolved without duration', function () {
+        describe('when get request resolved with correct data', function () {
 
-                it('should resolve promise with zero duration', function (done) {
+            it('should resolve promise with duration', function (done) {
 
-                    var videoId = 0;
+                var videoId = 0;
+                var resolved = { duration: 10 };
 
-                    defer.resolve({});
+                defer.resolve(resolved);
 
-                    var promise = vimeoCommands.getVideoDuration(videoId);
-                    promise.fin(function () {
-                        expect(promise).toBeResolvedWith(0);
-                        done();
-                    });
-
+                var promise = vimeoCommands.getVideoDuration(videoId);
+                promise.fin(function () {
+                    expect(promise).toBeResolvedWith(10);
+                    done();
                 });
+
             });
-
-            describe('when get request resolved with correct data', function () {
-
-                it('should resolve promise with duration', function (done) {
-
-                    var videoId = 0;
-                    var resolved = { duration: 10 };
-
-                    defer.resolve(resolved);
-
-                    var promise = vimeoCommands.getVideoDuration(videoId);
-                    promise.fin(function () {
-                        expect(promise).toBeResolvedWith(10);
-                        done();
-                    });
-
-                });
-            });
-
         });
 
     });

@@ -1,8 +1,14 @@
-﻿function runSpecs(env) {
+﻿function setProgress(value) {
+    document.querySelector('#progress').textContent = 'Loading progress: ' + value + '%';
+}
+
+function runSpecs(env) {
+
+    setProgress(0);
 
     Q.stopUnhandledRejectionTracking();
     System.cacheBust = '?v=' + Date.now();
-
+    
     System.import('bootstrapper').then(function (bootstrapper) {
         System.import('localization/localizationManager').then(function (localizationManager) {
             bootstrapper.run();
@@ -18,7 +24,6 @@
                 'editor/dialogs/editorFeedback/commands/sendFeedback.spec',
                 'editor/dialogs/editorFeedback/editorFeedback.spec',
                 'editor/course/dialogs/deleteSection/deleteSection.spec',
-
                 //#endregion
 
                 //#region design
@@ -51,7 +56,6 @@
                 'commands/updateDocumentCommand.spec',
                 'commands/duplicateCourseCommand.spec',
                 'commands/presentationCourseImportCommand.spec',
-
                 //#endregion commands
 
                 //#region dialogs
@@ -82,7 +86,6 @@
                 'dialogs/branchtrack/branchtrack.spec',
                 'dialogs/document/create/index.spec',
                 'dialogs/document/preview/index.spec',
-
                 //#endregion dialogs
 
                 //#region errorHandling
@@ -93,7 +96,6 @@
                 'errorHandling/errorHandlingConfiguration.spec',
                 'errorHandling/globalErrorHandler.spec',
                 'errorHandling/httpErrorHandlerRegistrator.spec',
-
                 //#endregion
 
                 //#region notifications
@@ -105,14 +107,20 @@
                 'notifications/collaborationInvite/commands/acceptInvite.spec',
                 'notifications/collaborationInvite/commands/declineInvite.spec',
                 'notifications/collaborationInvite/notificationController.spec',
-
                 //#endregion 
 
                 'localization/localizationManager.spec',
+                'services/publishService.spec',
+                'utils/waiter.spec',
+
+                //#region models
                 'models/course.spec',
                 'models/learningPath.spec',
                 'models/user.spec',
                 'models/video.spec',
+                //#endregion 
+
+                //#region repositories
                 'repositories/answerRepository.spec',
                 'repositories/commentRepository.spec',
                 'repositories/collaboratorRepository.spec',
@@ -124,30 +132,28 @@
                 'repositories/templateRepository.spec',
                 'repositories/questionRepository.spec',
                 'repositories/videoRepository.spec',
-                'services/publishService.spec',
-                'utils/waiter.spec',
+                //#endregion 
 
                 //#region onboarding
                 'onboarding/initialization.spec',
                 'onboarding/tasks.spec',
                 'onboarding/onboarding.spec',
-
                 //#endregion
 
-                //#region reporting
-                'models/reporting/statement.spec',
-                'models/reporting/actor.spec',
-                'reporting/xApiFilterCriteriaFactory.spec',
-                'reporting/xApiProvider.spec',
-                'reporting/viewmodels/expandableStatement.spec',
-                'reporting/viewmodels/questionStatement.spec',
-                'reporting/viewmodels/objectiveStatement.spec',
-                'reporting/viewmodels/startedStatement.spec',
-                'reporting/viewmodels/finishStatement.spec',
-                'reporting/viewmodels/resultsBase.spec',
-                'reporting/learningPathStatementsProvider.spec',
-                'reporting/courseStatementsProvider.spec',
-                //#endregion
+                ////#region reporting
+                //'models/reporting/statement.spec',
+                //'models/reporting/actor.spec',
+                //'reporting/xApiFilterCriteriaFactory.spec',
+                //'reporting/xApiProvider.spec',
+                //'reporting/viewmodels/expandableStatement.spec',
+                //'reporting/viewmodels/questionStatement.spec',
+                //'reporting/viewmodels/objectiveStatement.spec',
+                //'reporting/viewmodels/startedStatement.spec',
+                //'reporting/viewmodels/finishStatement.spec',
+                //'reporting/viewmodels/resultsBase.spec',
+                //'reporting/learningPathStatementsProvider.spec',
+                //'reporting/courseStatementsProvider.spec',
+                ////#endregion
 
                 //#region synchronization
                 'synchronization/handlers/objective/handler.spec',
@@ -228,9 +234,7 @@
                 'synchronization/handlers/questions/scenario/handler.spec',
                 'synchronization/handlers/questions/scenario/eventHandlers/dataUpdated.spec',
                 'synchronization/handlers/questions/scenario/eventHandlers/masteryScoreUpdated.spec',
-
                 //#endregion
-
                 //#endregion
 
                 //#region learning paths
@@ -262,6 +266,8 @@
                 //#endregion
 
                 'navigationBar/navigationBar.spec',
+
+                //#region tree of content
                 'treeOfContent/handlers/treeOfContentEventHandler.spec',
                 'treeOfContent/handlers/treeOfContentAutoExpandHandler.spec',
                 'treeOfContent/queries/getCourseByIdQuery.spec',
@@ -269,6 +275,8 @@
                 'treeOfContent/CourseTreeNode.spec',
                 'treeOfContent/RelatedObjectiveTreeNode.spec',
                 'treeOfContent/QuestionTreeNode.spec',
+                //#endregion
+
                 'viewmodels/common/contentField.spec',
                 'viewmodels/library/index.spec',
                 'viewmodels/videos/videos.spec',
@@ -277,7 +285,6 @@
                 'viewmodels/courses/courses.spec',
                 'viewmodels/courses/course/index.spec',
                 'viewmodels/courses/course/create/course.spec',
-
                 'viewmodels/courses/course/configure.spec',
                 'viewmodels/courses/course/publish.spec',
                 'viewmodels/courses/course/results.spec',
@@ -354,7 +361,6 @@
                 'viewmodels/learningContents/learningContentBase.spec',
                 'viewmodels/learningContents/content.spec',
                 'viewmodels/learningContents/hotspotOnAnImage.spec',
-
                 //#endregion
 
                 //#region video upload
@@ -383,9 +389,9 @@
                 'audio/factory.spec',
                 'audio/finishUpload.spec',
                 'audio/UploadAudioModel.spec',
+                'audio/audioUploadDispatcher.spec',
                 'vimeo/queries/checkAvailability.spec',
                 'vimeo/queries/getVideo.spec',
-                'audio/audioUploadDispatcher.spec',
                 //#endregion
 
                 //#region images
@@ -410,15 +416,18 @@
                 'viewmodels/shell.spec',
                 'bootstrapper.spec',
                 'guard.spec',
+                'notify.spec',
+                'uiLocker.spec',
+                'userContext.spec',
+
+                //#region http
                 'http/apiHttpWrapper.spec',
                 'http/publishHttpWrapper.spec',
                 'http/authHttpWrapper.spec',
                 'http/storageHttpWrapper.spec',
                 'http/httpRequestSender.spec',
                 'http/storageHttpRequestSender.spec',
-                'notify.spec',
-                'uiLocker.spec',
-                'userContext.spec',
+                //#endregion
 
                 './Scripts/account/signup.spec',
                 './Scripts/account/signin.spec',
@@ -429,17 +438,12 @@
             ];
 
             localizationManager.initialize(['en'], 'app/localization/lang/').then(function () {
-                var modulesDependencies = {};
-
-                specs.forEach(function (spec) {
-                    modulesDependencies[spec] = [spec.replace('.spec', '')];
-                });
-                System.config({
-                    depCache: modulesDependencies
-                });
-
+                
+                var processedCount = 0;
                 Promise.all(specs.map(function (spec) {
-                    return System.import(spec);
+                    return System.import(spec).then(function () {
+                        setProgress(Math.round(++processedCount / specs.length * 100));
+                    });
                 })).then(function () {
                     env.execute();
                 });

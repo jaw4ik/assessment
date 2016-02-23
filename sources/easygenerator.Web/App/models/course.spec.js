@@ -1,19 +1,14 @@
-﻿define(['models/course'],
-    function (courseModel) {
-        "use strict";
+﻿import courseModel from './course';
 
-        var
-            course = new courseModel({});
+var course = new courseModel({});
 
-        describe('model [course]', function () {
+describe('model [course]', function () {
 
-            describe('publishForReview:', function () {
+    describe('publishForReview:', function () {
 
-                it('should be function', function () {
-                    expect(course.publishForReview).toBeFunction();
-                });
-
-            });
+        it('should be function', function () {
+            expect(course.publishForReview).toBeFunction();
         });
 
     });
+});

@@ -1,43 +1,39 @@
-﻿define(['viewmodels/questions/scenario/commands/updateMasteryScore'], function (command) {
-    var
-        apiHttpWrapper = require('http/apiHttpWrapper')
-    ;
+﻿import command from './updateMasteryScore';
 
-    describe('command [updateMasteryScore]', function () {
+import apiHttpWrapper from 'http/apiHttpWrapper';
 
-        describe('execute:', function () {
+describe('command [updateMasteryScore]', function () {
 
-            var dfd = Q.defer();
+    describe('execute:', function () {
 
-            beforeEach(function () {
-                spyOn(apiHttpWrapper, 'post').and.returnValue(dfd.promise);
-            });
+        var dfd = Q.defer();
 
-            it('should be function', function () {
-                expect(command.execute).toBeFunction();
-            });
-
-            it('should return promise', function () {
-                expect(command.execute()).toBePromise();
-            });
-
-            it('should send request to the server to update scenario mastery score', function (done) {
-                dfd.resolve();
-
-                var questionId = 'questionId',
-                    masteryScore = 50;
-
-                command.execute(questionId, masteryScore).then(function () {
-                    expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/question/scenario/updatemasteryscore', {
-                        questionId: questionId,
-                        masteryScore: masteryScore
-                    });
-                    done();
-                });
-            });
-
+        beforeEach(function () {
+            spyOn(apiHttpWrapper, 'post').and.returnValue(dfd.promise);
         });
+
+        it('should be function', function () {
+            expect(command.execute).toBeFunction();
+        });
+
+        it('should return promise', function () {
+            expect(command.execute()).toBePromise();
+        });
+
+        it('should send request to the server to update scenario mastery score', function (done) {
+            dfd.resolve();
+
+            var questionId = 'questionId',
+                masteryScore = 50;
+
+            command.execute(questionId, masteryScore).then(function () {
+                expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/question/scenario/updatemasteryscore', {
+                    questionId: questionId,
+                    masteryScore: masteryScore
+                });
+                done();
+            });
+        });
+
     });
-
-
 });

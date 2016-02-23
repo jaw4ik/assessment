@@ -48,6 +48,8 @@ using easygenerator.Auth.Security.Providers;
 using easygenerator.Infrastructure.Serialization.Providers;
 using easygenerator.Web.BuildDocument;
 using easygenerator.Web.Extensions;
+using easygenerator.Web.Import.WinToWeb;
+using easygenerator.Web.Import.WinToWeb.Mappers;
 using CoursePackageModelMapper = easygenerator.Web.BuildCourse.PackageModelMapper;
 using CoursePackageModelSerializer = easygenerator.Web.BuildCourse.PackageModelSerializer;
 using DocumentPackageModelMapper = easygenerator.Web.BuildDocument.PackageModelMapper;
@@ -215,6 +217,9 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<PresentationCourseImporter>().As<IPresentationCourseImporter>();
             builder.RegisterType<ImageMapper>();
             builder.RegisterType<TableMapper>();
+
+            builder.RegisterType<WinToWebModelMapper>().As<IWinToWebModelMapper>();
+            builder.RegisterType<WinToWebCourseImporter>().As<IWinToWebCourseImporter>();
 
             #endregion
 

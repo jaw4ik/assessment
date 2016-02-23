@@ -678,7 +678,10 @@ ul {
   border-radius: 5px;
   max-width: 100%;
 }
-.styled-content .hotspot-on-image-container {
+.styled-content .image-wrapper ~ .image-wrapper {
+  clear: none;
+}
+.styled-content.hotspot-on-image-container {
   text-align: center;
 }
 .styled-content iframe {
