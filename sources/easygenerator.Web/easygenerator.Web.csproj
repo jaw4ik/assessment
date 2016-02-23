@@ -217,6 +217,8 @@
     <Compile Include="BuildCourse\Modules\IPackageModulesProvider.cs" />
     <Compile Include="BuildCourse\Modules\Models\PackageModule.cs" />
     <Compile Include="BuildCourse\PackageModel\OpenQuestionPackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\RankingTextAnswerPackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\RankingTextPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\ScenarioQuestionPackageModel.cs" />
     <Compile Include="BuildCourse\PublishSettings\Models\PublishSettings.cs" />
     <Compile Include="BuildCourse\Modules\PackageModulesProvider.cs" />
@@ -294,6 +296,7 @@
     <Compile Include="Components\Mappers\IEntityMapper.cs" />
     <Compile Include="Components\Mappers\DocumentMapper.cs" />
     <Compile Include="Components\Mappers\LearningPathMapper.cs" />
+    <Compile Include="Components\Mappers\RankingtextAnswerMapper.cs" />
     <Compile Include="Components\Mappers\SingleSelectImageAnswerMapper.cs" />
     <Compile Include="Components\Mappers\TemplateMapper.cs" />
     <Compile Include="Components\Mappers\TextMatchingAnswerMapper.cs" />
@@ -307,6 +310,7 @@
     <Compile Include="Components\TypeMethodInvoker.cs" />
     <Compile Include="Configuration\MagickImageResizerConfiguration.cs" />
     <Compile Include="Controllers\Api\DocumentController.cs" />
+    <Compile Include="Controllers\Api\RankingTextController.cs" />
     <Compile Include="Controllers\Api\ScenarioController.cs" />
     <Compile Include="Controllers\Api\CourseImportController.cs" />
     <Compile Include="Controllers\Api\HotSpotQuestionController.cs" />
@@ -325,6 +329,8 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\RankingTextAnswerChangedEvent.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\RankingTextAnswerChangeTracker.cs" />
     <Compile Include="Controllers\WinToWebController.cs" />
     <Compile Include="Import\WinToWeb\Mappers\WinToWebModelMapper.cs" />
     <Compile Include="Import\WinToWeb\Model\WinAnswer.cs" />
@@ -346,6 +352,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Security\PermissionsCheckers\RankingTextAnswerPermissionsChecker.cs" />
     <Compile Include="Storage\CourseStateStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\AnswerChangedEvent.cs" />
@@ -564,6 +571,7 @@
     <Compile Include="Synchronization\Handlers\LearningContentEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\ObjectiveEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\QuestionEventHandler.cs" />
+    <Compile Include="Synchronization\Handlers\RankingTextEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\ScenarioEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\SingleSelectImageEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\TextMatchingEventHandler.cs" />
@@ -1095,6 +1103,23 @@
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\voiceOverUpdated.spec.js">
       <DependentUpon>voiceOverUpdated.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\questions\rankingText\eventHandlers\answerCreated.js" />
+    <Content Include="App\synchronization\handlers\questions\rankingText\eventHandlers\answerCreated.spec.js">
+      <DependentUpon>answerCreated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\rankingText\eventHandlers\answerDeleted.spec.js">
+      <DependentUpon>answerDeleted.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\rankingText\eventHandlers\answersReordered.spec.js">
+      <DependentUpon>answersReordered.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\rankingText\eventHandlers\answerDeleted.js" />
+    <Content Include="App\synchronization\handlers\questions\rankingText\eventHandlers\answersReordered.js" />
+    <Content Include="App\synchronization\handlers\questions\rankingText\eventHandlers\answerTextChanged.js" />
+    <Content Include="App\synchronization\handlers\questions\rankingText\eventHandlers\answerTextChanged.spec.js">
+      <DependentUpon>answerTextChanged.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\rankingText\handler.js" />
     <Content Include="App\synchronization\handlers\questions\scenario\eventHandlers\dataUpdated.js" />
     <Content Include="App\synchronization\handlers\questions\scenario\eventHandlers\dataUpdated.spec.js">
       <DependentUpon>dataUpdated.js</DependentUpon>
@@ -1176,6 +1201,34 @@
     </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\rankingText\commands\addAnswer.js" />
+    <Content Include="App\viewmodels\questions\rankingText\commands\addAnswer.spec.js">
+      <DependentUpon>addAnswer.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\rankingText\commands\deleteAnswer.js" />
+    <Content Include="App\viewmodels\questions\rankingText\commands\deleteAnswer.spec.js">
+      <DependentUpon>deleteAnswer.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\rankingText\commands\updateAnswersOrder.js" />
+    <Content Include="App\viewmodels\questions\rankingText\commands\updateAnswersOrder.spec.js">
+      <DependentUpon>updateAnswersOrder.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\rankingText\commands\updateAnswerText.js" />
+    <Content Include="App\viewmodels\questions\rankingText\commands\updateAnswerText.spec.js">
+      <DependentUpon>updateAnswerText.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\rankingText\queries\getAnswers.js" />
+    <Content Include="App\viewmodels\questions\rankingText\queries\getAnswers.spec.js">
+      <DependentUpon>getAnswers.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\rankingText\rankingText.js" />
+    <Content Include="App\viewmodels\questions\rankingText\rankingText.spec.js">
+      <DependentUpon>rankingText.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\rankingText\rankingTextAnswer.js" />
+    <Content Include="App\viewmodels\questions\rankingText\rankingTextAnswer.spec.js">
+      <DependentUpon>rankingTextAnswer.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\questions\voiceOver.js" />
     <Content Include="App\viewmodels\questions\scenario\commands\updateData.js" />
@@ -1259,6 +1312,7 @@
     <Content Include="App\audio\convertion\commands\finalize.spec.js">
       <DependentUpon>finalize.js</DependentUpon>
     </Content>
+    <Content Include="App\views\questions\rankingText\rankingText.html" />
     <Content Include="App\views\questions\scenario\scenario.html" />
     <Content Include="App\vimeo\queries\checkAvailability.spec.js">
       <DependentUpon>checkAvailability.js</DependentUpon>
@@ -1689,6 +1743,9 @@
     <Content Include="Content\images\media\media-upload.png" />
     <Content Include="Content\images\question-types-large-icons.png" />
     <Content Include="Content\images\question-types-small-icon.png" />
+    <Content Include="Content\images\ranking-text-icon-small.png" />
+    <Content Include="Content\images\ranking-text-icon.png" />
+    <Content Include="Content\images\rankingtext-question.png" />
     <Content Include="Content\images\scenario-question.png" />
     <Content Include="Content\images\templates\deprecated-template.png" />
     <Content Include="Content\images\templates\new-template.png" />
@@ -2216,6 +2273,7 @@
     <Content Include="Content\wintoweb.less" />
     <Content Include="Content\images.less" />
     <Content Include="Content\library.less" />
+    <Content Include="Content\rankingText.less" />
     <Content Include="Content\reviewPanel.less" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
@@ -2770,6 +2828,7 @@
     <Content Include="Templates\Assessment\app\views\multipleSelectText.html" />
     <Content Include="Templates\Assessment\app\views\notFoundError.html" />
     <Content Include="Templates\Assessment\app\views\openQuestion.html" />
+    <Content Include="Templates\Assessment\app\views\rankingText.html" />
     <Content Include="Templates\Assessment\app\views\scenarioQuestion.html" />
     <Content Include="Templates\Assessment\app\views\singleSelectImage.html" />
     <Content Include="Templates\Assessment\app\views\singleSelectText.html" />
@@ -3499,6 +3558,7 @@
     <EmbeddedResource Include="Resources\Controllers\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Controllers\Resources.es.resx" />
     <EmbeddedResource Include="Resources\Controllers\Resources.uk.resx" />

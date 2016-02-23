@@ -5,6 +5,7 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.DomainEvents.ChangeTracking.Events;
 using System.Collections.Generic;
 using easygenerator.DomainModel.Events.CommentEvents;
+using easygenerator.DomainModel.Events.QuestionEvents.RankingTextEvents;
 
 namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
 {
@@ -25,6 +26,8 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         IDomainEventHandler<HotSpotPolygonChangedEvent>,
         IDomainEventHandler<TextMatchingAnswerChangedEvent>,
         IDomainEventHandler<SingleSelectImageAnswerChangedEvent>,
+        IDomainEventHandler<RankingTextAnswerCreatedEvent>,
+        IDomainEventHandler<RankingTextAnswerTextChangedEvent>,
         IDomainEventHandler<CommentDeletedEvent>
     {
         private readonly ICourseRepository _repository;
@@ -113,6 +116,16 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         public void Handle(SingleSelectImageAnswerChangedEvent args)
         {
             RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToSingleSelectImageAnswer(args.Answer.Id));
+        }
+
+        public void Handle(RankingTextAnswerCreatedEvent args)
+        {
+            RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToRankingTextAnswer(args.Answer.Id));
+        }
+
+        public void Handle(RankingTextAnswerTextChangedEvent args)
+        {
+            RaiseCoursesChangedEvent(_repository.GetCoursesRelatedToRankingTextAnswer(args.Answer.Id));
         }
         public void Handle(CommentDeletedEvent args)
         {

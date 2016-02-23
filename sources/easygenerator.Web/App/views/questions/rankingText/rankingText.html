@@ -1,0 +1,61 @@
+﻿<section class="ranking-text">
+
+    <div class="content-section-wrapper">
+        <div class="content-section">
+            <!-- ko if: isExpanded() -->
+            <div class="expand-collapse-panel expanded">
+                <span class="expand-collapse-panel-label" data-bind="localize: { text: 'rankingChoicesInTheRightOrder' }">Ranking choices in the right order</span>
+                <div class="tooltip-icon" data-bind="tooltip:'top'">
+                    <h4 class="tooltip-title" data-bind="localize: { html:'tooltipRankingTextTitle'}"></h4>
+                    <div class="tooltip-content" data-bind="localize: { html: 'tooltipRankingTextDescription'}">
+                    </div>
+                    <div class="tooltip-buttons-holder" data-bind="localize: { html: 'tooltipContentLink'}">
+                    </div>
+                </div>
+                <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: 'collapse' }"></div>
+            </div>
+            <!-- /ko -->
+            <!-- ko ifnot: isExpanded() -->
+            <div class="expand-collapse-panel collapsed">
+                <span class="expand-collapse-panel-label" data-bind="localize: { text: 'rankingChoicesInTheRightOrder' }">Ranking choices in the right order</span>
+                <div class="expand-collapse-panel-btn" title="Expand" data-bind="click: toggleExpand, localize: { title: 'expand' }"></div>
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+
+    <div class="content-section-wrapper answer-options">
+        <!-- ko if: isExpanded() -->
+        <div class="question-answer-options-area">
+            <div class="content-section">
+                <ul class="unstyled answer-option-list" data-bind="foreachAnimated: { data: answers, removeDelay: 0.1, speed: 0.3, animateOnAdd: false }, draggableContainer: { moveTo: {  '.answer-option-list': reorderAnswer }, draggableArea: '.answer-sort-btn' }">
+                    <li class="unstyled ranking-text-answer-list-item" data-bind="draggableData: { id: id }, css: { active: text.isEditing}">
+                        <div class="answer-sort-btn"></div>
+                        <div class="answer-text-wrapper">
+                            <div class="question-answer-text">
+                                <textarea class="editarea-editable-text selectable" data-bind="value: text, valueUpdate: 'afterkeydown', autosize: { text: text }, event: { focus: $parent.beginEditText, blur: $parent.endEditText }, selectTextInAnswer: {}, hasFocus: text.isEditing"></textarea>
+                                <div class="empty-answer-instruction" data-bind="localize: { text: 'rankingChoiceEmptyInstruction'}, visible: text().length === 0 && !text.isEditing() "></div>
+                            </div>
+                        </div>
+                        <!-- ko if: $parent.showDeleteButton -->
+                        <div class="answer-delete-icon-wrapper">
+                            <div class="question-answer-delete-icon info-tooltip-holder" data-bind="click: $parent.removeAnswer.bind($parent)">
+                                <div class="info-tooltip question-answer right-side">
+                                    <span data-bind="localize: { text: 'delete' }">Delete</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    </li>
+                </ul>
+                <div class="add-answer-option-wrapper">
+                    <button class="add-answer-option-btn btn green" data-bind="click: addAnswer">
+                        <span class="add-answer-option-text" data-bind="localize: {text: 'addAnswerOption'}">Add answer option</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
+
+</section>

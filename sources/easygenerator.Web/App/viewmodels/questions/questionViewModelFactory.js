@@ -8,9 +8,10 @@
         'viewmodels/questions/statement/statement',
         'viewmodels/questions/hotSpot/hotSpot',
         'viewmodels/questions/openQuestion/openQuestion',
-        'viewmodels/questions/scenario/scenario'],
+        'viewmodels/questions/scenario/scenario',
+        'viewmodels/questions/rankingText/rankingText'],
     function (multipleSelect, fillInTheBlank, dragAndDropText, singleSelectText, textMatching, singleSelectImage, informationContent,
-        statement, hotspot, openQuestion, scenario) {
+        statement, hotspot, openQuestion, scenario, rankingText) {
         "use strict";
 
         return {
@@ -24,7 +25,8 @@
             statement:statement,
             hotspot: hotspot,
             openQuestion: openQuestion,
-            scenario: scenario
+            scenario: scenario,
+            rankingText: rankingText
         };
 
     }

@@ -62,6 +62,10 @@ export default {
         scenario: {
             type: 'scenario',
             image: '/Content/images/scenario-question.png'
+        },
+        rankingText: {
+            type: 'rankingText',
+            image: '/Content/images/rankingtext-question.png'
         }
     },
 
@@ -270,6 +274,13 @@ export default {
                 answerDeletedByCollaborator: 'question:textMatching:answerDeletedByCollaborator',
                 answerKeyChangedByCollaborator: 'question:textMatching:answerKeyChangedByCollaborator',
                 answerValueChangedByCollaborator: 'question:textMatching:answerValueChangedByCollaborator'
+            },
+
+            rankingText: {
+                answerCreatedByCollaborator: 'question:rankingText:answerCreatedByCollaborator',
+                answerDeletedByCollaborator: 'question:rankingText:answerDeletedByCollaborator',
+                answerTextChangedByCollaborator: 'question:rankingText:answerTextChangedByCollaborator',
+                answersReorderedByCollaborator: 'question:rankingText:answersReorderedByCollaborator'
             },
 
             singleSelectImage: {

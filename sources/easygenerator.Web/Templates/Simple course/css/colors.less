@@ -212,6 +212,25 @@ body {
     }
 }
 
+.ranking-item {
+    background-color: fade(@main-color,10%);
+    color: @text-color;
+
+    .ranking-item-icon {
+        &:before {
+            border-color: transparent transparent @text-color transparent;
+        }
+
+        &:after {
+            border-color: @text-color transparent transparent transparent;
+        }
+    }
+
+    &:hover {
+        background-color: fade(@main-color,20%);
+    }
+}
+
 .checkbox {
     background-color: fade(@main-color,10%);
     color: @text-color;

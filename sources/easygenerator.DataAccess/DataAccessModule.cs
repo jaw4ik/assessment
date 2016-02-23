@@ -82,6 +82,12 @@ namespace easygenerator.DataAccess
             builder.RegisterType<QuerableRepository<TextMatchingAnswer>>()
                .As<IQuerableRepository<TextMatchingAnswer>>();
 
+            builder.RegisterType<QuerableRepository<RankingText>>()
+               .As<IQuerableRepository<RankingText>>();
+
+            builder.RegisterType<QuerableRepository<RankingTextAnswer>>()
+               .As<IQuerableRepository<RankingTextAnswer>>();
+
             builder.RegisterType<QuerableRepository<LearningContent>>()
                 .As<IQuerableRepository<LearningContent>>();
 

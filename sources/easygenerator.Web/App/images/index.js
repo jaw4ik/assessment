@@ -78,7 +78,7 @@ class Images{
         }).catch(reason => {
             image.isDeleting(false);
             notify.error(reason);
-        });;
+        });
     }
 
     openChooseImageDialogHandler() {

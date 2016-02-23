@@ -65,6 +65,10 @@
                 {
                     type: constants.questionType.scenario.type,
                     hasAccess: userContext.hasAcademyAccess()
+                },
+                {
+                    type: constants.questionType.rankingText.type,
+                    hasAccess: userContext.hasAcademyAccess()
                 }
             ]);
         });
