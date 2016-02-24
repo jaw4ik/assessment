@@ -118,7 +118,7 @@ export default class {
         });
 
         _navigateToObjective.set(this, () => {
-            this.setNavigateToObjectiveIdIfNeeded();
+            this.hightlightObjectiveIfNeeded();
         });
 
         app.on(constants.messages.course.introductionContentUpdatedByCollaborator, _introductionContentUpdated.get(this).bind(this));
@@ -139,7 +139,7 @@ export default class {
         this.sections(mapSections(this.id, course.objectives));
         this.notContainSections = ko.computed(() => this.sections().length === 0, this);
         this.courseIntroductionContent = new vmContentField(course.introductionContent, eventsForCourseContent, false, content => courseRepository.updateIntroductionContent(course.id, content));
-        this.setNavigateToObjectiveIdIfNeeded();
+        this.hightlightObjectiveIfNeeded();
     }
     async createSection(section) {
         eventTracker.publish(events.createSection, eventCategory);
@@ -319,11 +319,11 @@ export default class {
         sectionInCourse.questionsExpanded(this.lastDraggingSectionState);
     }
 
-    setNavigateToObjectiveIdIfNeeded() {
-        let navigateToObjectiveId = clientContext.get(constants.clientContextKeys.highlightedObjectiveId);
-        if(navigateToObjectiveId) {
+    hightlightObjectiveIfNeeded() {
+        let objectiveId = clientContext.get(constants.clientContextKeys.highlightedObjectiveId);
+        if(objectiveId) {
             clientContext.remove(constants.clientContextKeys.highlightedObjectiveId);
-            this.highlightedObjectiveId(navigateToObjectiveId);
+            this.highlightedObjectiveId(objectiveId);
         }
     }
 };
