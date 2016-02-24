@@ -1,1 +1,1 @@
-easyresources generate -o "../../sources/easygenerator.Web/App/localization/lang"
+easyresources generate -o "../../sources/easygenerator.Web/App/localization/lang" -e "RU"
