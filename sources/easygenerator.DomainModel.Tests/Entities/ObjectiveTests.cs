@@ -3,6 +3,7 @@ using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Events.ObjectiveEvents;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.DomainModel.Tests.Utils;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using FluentAssertions.Collections;
@@ -171,7 +172,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             objective.UpdateTitle("title", "user");
 
-            objective.Events.Should().ContainSingle(e => e.GetType() == typeof(ObjectiveTitleUpdatedEvent));
+            objective.ShouldContainSingleEvent<ObjectiveTitleUpdatedEvent>();
         }
 
         #endregion
@@ -261,7 +262,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             objective.UpdateImageUrl("url", ModifiedBy);
 
-            objective.Events.Should().ContainSingle(e => e.GetType() == typeof(ObjectiveImageUrlUpdatedEvent));
+            objective.ShouldContainSingleEvent<ObjectiveImageUrlUpdatedEvent>();
         }
 
         #endregion
@@ -341,7 +342,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             objective.UpdateLearningObjective("title", "user");
 
-            objective.Events.Should().ContainSingle(e => e.GetType() == typeof(ObjectiveLearningObjectiveUpdatedEvent));
+            objective.ShouldContainSingleEvent<ObjectiveLearningObjectiveUpdatedEvent>();
         }
 
         #endregion
@@ -477,7 +478,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             objective.AddQuestion(SingleSelectTextObjectMother.Create(), ModifiedBy);
 
             //Assert
-            objective.Events.Should().ContainSingle(e => e.GetType() == typeof(QuestionCreatedEvent));
+            objective.ShouldContainSingleEvent<QuestionCreatedEvent>();
         }
 
         #endregion
@@ -595,8 +596,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             objective.RemoveQuestion(question, ModifiedBy);
 
-            objective.Events.Should().ContainSingle(e => e.GetType() == typeof(QuestionsDeletedEvent));
-
+            objective.ShouldContainSingleEvent<QuestionsDeletedEvent>();
         }
 
         #endregion
@@ -734,7 +734,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             objective.UpdateQuestionsOrder(new List<Question>(), ModifiedBy);
 
             //Assert
-            objective.Events.Should().ContainSingle(e => e.GetType() == typeof(QuestionsReorderedEvent));
+            objective.ShouldContainSingleEvent<QuestionsReorderedEvent>();
         }
 
         #endregion

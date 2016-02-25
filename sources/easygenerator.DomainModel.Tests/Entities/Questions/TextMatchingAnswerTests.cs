@@ -1,6 +1,7 @@
 ﻿using System;
 using easygenerator.DomainModel.Events.QuestionEvents.TextMatchingEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.DomainModel.Tests.Utils;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -175,7 +176,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             answer.ChangeKey("key", "username");
 
-            answer.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(TextMatchingAnswerKeyChangedEvent));
+            answer.ShouldContainSingleEvent<TextMatchingAnswerKeyChangedEvent>();
         }
 
         #endregion
@@ -272,7 +273,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             answer.ChangeValue("value", "username");
 
-            answer.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(TextMatchingAnswerValueChangedEvent));
+            answer.ShouldContainSingleEvent<TextMatchingAnswerValueChangedEvent>();
         }
 
         #endregion

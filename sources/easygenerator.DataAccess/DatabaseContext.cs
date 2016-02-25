@@ -186,10 +186,10 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<RankingText>().HasMany(e => e.AnswersCollection).WithRequired(e => e.Question);
             modelBuilder.Entity<RankingText>().Property(e => e.AnswersOrder).IsOptional();
-            
+
             modelBuilder.Entity<RankingTextAnswer>().Property(e => e.Text).IsRequired();
             modelBuilder.Entity<RankingTextAnswer>().HasRequired(e => e.Question);
-            
+
             modelBuilder.Entity<User>().Property(e => e.Email).IsRequired().HasMaxLength(254);
             modelBuilder.Entity<User>().Property(e => e.PasswordHash).IsRequired();
             modelBuilder.Entity<User>().Property(e => e.Phone).IsRequired();
@@ -312,15 +312,18 @@ namespace easygenerator.DataAccess
             {
                 var entity = entry.Entity as Entity;
 
-                if (entity == null || entity.Events == null)
+                if (entity == null)
                 {
                     continue;
                 }
 
-                foreach (var @event in entity.Events)
+                var @event = entity.DequeueEvent();
+                while (@event != null)
                 {
                     var method = typeof(IDomainEventPublisher).GetMethod("Publish").MakeGenericMethod(@event.GetType());
                     method.Invoke(_publisher, new object[] { @event });
+
+                    @event = entity.DequeueEvent();
                 }
             }
         }

@@ -7,6 +7,7 @@ using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.DomainModel.Events.QuestionEvents.TextMatchingEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.DomainModel.Tests.Utils;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -172,7 +173,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             question.UpdateVoiceOver("voice-over", "user");
 
-            question.Events.Should().ContainSingle(e => e.GetType() == typeof(QuestionVoiceOverUpdatedEvent));
+            question.ShouldContainSingleEvent<QuestionVoiceOverUpdatedEvent>();
         }
 
         #endregion
@@ -265,7 +266,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             question.AddAnswer(TextMatchingAnswerObjectMother.Create(), ModifiedBy);
 
-            question.Events.Should().ContainSingle(e => e.GetType() == typeof(TextMatchingAnswerCreatedEvent));
+            question.ShouldContainSingleEvent<TextMatchingAnswerCreatedEvent>();
         }
 
         #endregion
@@ -363,7 +364,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             question.RemoveAnswer(answer, ModifiedBy);
 
-            question.Events.Should().ContainSingle(e => e.GetType() == typeof(TextMatchingAnswerDeletedEvent));
+            question.ShouldContainSingleEventOfType<TextMatchingAnswerDeletedEvent>();
         }
 
         #endregion
@@ -501,7 +502,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             question.UpdateLearningContentsOrder(new List<LearningContent>(), ModifiedBy);
 
             //Assert
-            question.Events.Should().ContainSingle(e => e.GetType() == typeof(LearningContentsReorderedEvent));
+            question.ShouldContainSingleEvent<LearningContentsReorderedEvent>();
         }
 
         #endregion UpdateLearningContentsOrder

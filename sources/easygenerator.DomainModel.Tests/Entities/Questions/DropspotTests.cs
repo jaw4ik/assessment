@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using easygenerator.DomainModel.Events.QuestionEvents.DragAndDropEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.DomainModel.Tests.Utils;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -127,7 +128,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             dropspot.ChangePosition(0, 0, "username");
 
-            dropspot.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(DropspotPositionChangedEvent));
+            dropspot.ShouldContainSingleEvent<DropspotPositionChangedEvent>();
         }
 
         #endregion
@@ -220,7 +221,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             dropspot.ChangeText("text", "username");
 
-            dropspot.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(DropspotTextChangedEvent));
+            dropspot.ShouldContainSingleEvent<DropspotTextChangedEvent>();
         }
 
         #endregion
