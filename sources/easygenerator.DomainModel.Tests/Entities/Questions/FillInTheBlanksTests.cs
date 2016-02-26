@@ -6,6 +6,7 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.DomainModel.Tests.Utils;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -246,7 +247,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             question.UpdateContent("content", "user");
 
-            question.Events.Should().ContainSingle(e => e.GetType() == typeof(FillInTheBlankUpdatedEvent));
+            question.ShouldContainSingleEvent<FillInTheBlankUpdatedEvent>();
         }
 
         #endregion
@@ -384,7 +385,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             question.UpdateLearningContentsOrder(new List<LearningContent>(), ModifiedBy);
 
             //Assert
-            question.Events.Should().ContainSingle(e => e.GetType() == typeof(LearningContentsReorderedEvent));
+            question.ShouldContainSingleEvent<LearningContentsReorderedEvent>();
         }
 
         #endregion UpdateLearningContentsOrder

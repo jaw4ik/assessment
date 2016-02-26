@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using easygenerator.DomainModel.Tests.Utils;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {
@@ -223,7 +224,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             //Act
             var expirationDate = DateTimeWrapper.Now().AddDays(20);
-            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, lastReadReleaseNote, expirationDate, false, new Collection<Company> () { company });
+            var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, lastReadReleaseNote, expirationDate, false, new Collection<Company>() { company });
 
             //Assert
             user.Id.Should().NotBeEmpty();
@@ -465,7 +466,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             user.RecoverPasswordUsingTicket(ticket, password);
 
-            user.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(UserUpdateEvent));
+            user.ShouldContainSingleEvent<UserUpdateEvent>();
         }
         #endregion
 
@@ -1657,7 +1658,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.UpgradePlanToStarter(DateTime.Now);
 
             //Assert
-            user.Events.Should().ContainSingle(e => e.GetType() == typeof(UserUpgradedToStarter));
+            user.ShouldContainSingleEvent<UserUpgradedToStarter>();
         }
 
         #endregion
@@ -1716,7 +1717,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.UpgradePlanToPlus(DateTime.Now);
 
             //Assert
-            user.Events.Should().ContainSingle(e => e.GetType() == typeof(UserUpgradedToPlus));
+            user.ShouldContainSingleEvent<UserUpgradedToPlus>();
         }
 
         #endregion
@@ -1775,7 +1776,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.UpgradePlanToAcademy(DateTime.Now);
 
             //Assert
-            user.Events.Should().ContainSingle(e => e.GetType() == typeof(UserUpgradedToAcademy));
+            user.ShouldContainSingleEvent<UserUpgradedToAcademy>();
         }
 
         #endregion
@@ -1818,7 +1819,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.DowngradePlanToFree();
 
             //Assert
-            user.Events.Should().ContainSingle(e => e.GetType() == typeof(UserDowngraded));
+            user.ShouldContainSingleEvent<UserDowngraded>();
         }
 
 
@@ -1941,10 +1942,10 @@ namespace easygenerator.DomainModel.Tests.Entities
             var accessPlan = AccessType.Starter;
             var lastReadReleaseNote = "1.0.0";
             var company = new Company();
-            
+
             var expirationDate = DateTimeWrapper.Now().AddDays(20);
             var user = UserObjectMother.Create(email, password, firstname, lastname, phone, country, role, CreatedBy, accessPlan, lastReadReleaseNote, expirationDate, true, new Collection<Company>() { company });
-            
+
             user.IsCreatedThroughLti.Should().BeTrue();
         }
 
@@ -2066,7 +2067,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var company = CompanyObjectMother.Create();
 
             user.AddCompany(company, "user");
-            
+
             user.RemoveCompany(company, "User");
 
             user.CompaniesCollection.Count.Should().Be(0);

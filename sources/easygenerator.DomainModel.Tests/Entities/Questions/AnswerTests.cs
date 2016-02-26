@@ -1,6 +1,8 @@
 ﻿using System;
 using easygenerator.DomainModel.Events.AnswerEvents;
+using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.DomainModel.Tests.Utils;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -120,7 +122,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             answer.UpdateText("text", user);
 
-            answer.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(AnswerTextUpdatedEvent));
+            answer.ShouldContainSingleEvent<AnswerTextUpdatedEvent>();
         }
 
         #endregion
@@ -190,7 +192,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             answer.UpdateCorrectness(true, user);
 
-            answer.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(AnswerCorrectnessUpdatedEvent));
+            answer.ShouldContainSingleEvent<AnswerCorrectnessUpdatedEvent>();
         }
 
         #endregion

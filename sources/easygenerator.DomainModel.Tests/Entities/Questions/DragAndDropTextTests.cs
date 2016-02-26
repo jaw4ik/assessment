@@ -9,6 +9,7 @@ using easygenerator.DomainModel.Entities.Questions;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.DomainModel.Events.QuestionEvents.DragAndDropEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.DomainModel.Tests.Utils;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -153,7 +154,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             question.ChangeBackground("background", "username");
 
-            question.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(QuestionBackgroundChangedEvent));
+            question.ShouldContainSingleEvent<QuestionBackgroundChangedEvent>();
         }
 
         #endregion
@@ -223,7 +224,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             question.UpdateVoiceOver("voice-over", "user");
 
-            question.Events.Should().ContainSingle(e => e.GetType() == typeof(QuestionVoiceOverUpdatedEvent));
+            question.ShouldContainSingleEvent<QuestionVoiceOverUpdatedEvent>();
         }
 
         #endregion
@@ -319,7 +320,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             question.AddDropspot(dropspot, "username");
 
-            question.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(DropspotCreatedEvent));
+            question.ShouldContainSingleEvent<DropspotCreatedEvent>();
         }
 
         #endregion
@@ -415,7 +416,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             question.RemoveDropspot(dropspot, "username");
 
-            question.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(DropspotDeletedEvent));
+            question.ShouldContainSingleEvent<DropspotDeletedEvent>();
         }
 
         #endregion
@@ -553,7 +554,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             question.UpdateLearningContentsOrder(new List<LearningContent>(), ModifiedBy);
 
             //Assert
-            question.Events.Should().ContainSingle(e => e.GetType() == typeof(LearningContentsReorderedEvent));
+            question.ShouldContainSingleEvent<LearningContentsReorderedEvent>();
         }
 
         #endregion UpdateLearningContentsOrder

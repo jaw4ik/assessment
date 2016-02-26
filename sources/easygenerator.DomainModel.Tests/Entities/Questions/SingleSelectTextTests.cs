@@ -4,8 +4,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events.AnswerEvents;
+using easygenerator.DomainModel.Events.CourseEvents;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.DomainModel.Tests.Utils;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -83,7 +85,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             question.UpdateVoiceOver("voice-over", "user");
 
-            question.Events.Should().ContainSingle(e => e.GetType() == typeof(QuestionVoiceOverUpdatedEvent));
+            question.ShouldContainSingleEvent<QuestionVoiceOverUpdatedEvent>();
         }
 
         #endregion
@@ -197,7 +199,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             question.RemoveAnswer(answer, user);
 
-            question.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(AnswerDeletedEvent));
+            question.ShouldContainSingleEvent<AnswerDeletedEvent>();
         }
 
         #endregion
@@ -378,7 +380,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             question.UpdateLearningContentsOrder(new List<LearningContent>(), ModifiedBy);
 
             //Assert
-            question.Events.Should().ContainSingle(e => e.GetType() == typeof(LearningContentsReorderedEvent));
+            question.ShouldContainSingleEvent<LearningContentsReorderedEvent>();
         }
 
         #endregion UpdateLearningContentsOrder
