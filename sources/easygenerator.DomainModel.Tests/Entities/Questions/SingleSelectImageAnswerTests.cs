@@ -4,6 +4,7 @@ using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using easygenerator.DomainModel.Tests.Utils;
 
 namespace easygenerator.DomainModel.Tests.Entities.Questions
 {
@@ -117,7 +118,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             answer.UpdateImage("text", "username");
 
-            answer.Events.Should().ContainSingle(e => e.GetType() == typeof(SingleSelectImageAnswerImageUpdatedEvent));
+            answer.ShouldContainSingleEvent<SingleSelectImageAnswerImageUpdatedEvent>();
         }
 
         #endregion

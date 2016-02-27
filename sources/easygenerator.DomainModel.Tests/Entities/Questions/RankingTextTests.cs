@@ -9,6 +9,7 @@ using easygenerator.DomainModel.Events.ObjectiveEvents;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.DomainModel.Events.QuestionEvents.RankingTextEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.DomainModel.Tests.Utils;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -140,7 +141,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             rankingText.AddAnswer(RankingTextAnswerObjectMother.Create(), ModifiedBy);
 
             //Assert
-            rankingText.Events.Should().ContainSingle(e => e.GetType() == typeof(RankingTextAnswerCreatedEvent));
+            rankingText.ShouldContainSingleEvent<RankingTextAnswerCreatedEvent>();
         }
 
         #endregion
@@ -258,8 +259,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             rankingText.DeleteAnswer(answer, ModifiedBy);
 
-            rankingText.Events.Should().ContainSingle(e => e.GetType() == typeof(RankingTextAnswerDeletedEvent));
-
+            rankingText.ShouldContainSingleEvent<RankingTextAnswerDeletedEvent>();
         }
 
         #endregion
@@ -348,7 +348,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             rankingText.UpdateAnswersOrder(new List<RankingTextAnswer>(), ModifiedBy);
 
             //Assert
-            rankingText.Events.Should().ContainSingle(e => e.GetType() == typeof(RankingTextAnswersReorderedEvent));
+            rankingText.ShouldContainSingleEvent<RankingTextAnswersReorderedEvent>();
         }
 
         #endregion

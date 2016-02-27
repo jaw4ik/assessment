@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using easygenerator.DomainModel.Events.QuestionEvents.HotSpotEvents;
+using easygenerator.DomainModel.Events.QuestionEvents.RankingTextEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.DomainModel.Tests.Utils;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -152,7 +154,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             polygon.Update(points, "username");
 
-            polygon.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(HotSpotPolygonUpdatedEvent));
+            polygon.ShouldContainSingleEvent<HotSpotPolygonUpdatedEvent>();
         }
 
         #endregion

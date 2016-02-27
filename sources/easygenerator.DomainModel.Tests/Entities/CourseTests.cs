@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using easygenerator.DomainModel.Events.CommentEvents;
+using easygenerator.DomainModel.Tests.Utils;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {
@@ -225,7 +226,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             course.RelateObjective(ObjectiveObjectMother.Create(), null, "user");
 
-            course.Events.Should().ContainSingle(e => e.GetType() == typeof(CourseObjectiveRelatedEvent));
+            course.ShouldContainSingleEvent<CourseObjectiveRelatedEvent>();
         }
 
         #endregion
@@ -341,7 +342,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             course.UnrelateObjective(objective, "user");
 
-            course.Events.Should().ContainSingle(e => e.GetType() == typeof(CourseObjectivesUnrelatedEvent));
+            course.ShouldContainSingleEventOfType<CourseObjectivesUnrelatedEvent>();
         }
 
         #endregion
@@ -441,7 +442,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             course.UpdateTitle("updated title", "user");
 
-            course.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(CourseTitleUpdatedEvent));
+            course.ShouldContainSingleEvent<CourseTitleUpdatedEvent>();
         }
 
         #endregion
@@ -535,7 +536,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             course.UpdateTemplate(TemplateObjectMother.Create(), "user");
 
-            course.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(CourseTemplateUpdatedEvent));
+            course.ShouldContainSingleEvent<CourseTemplateUpdatedEvent>();
         }
 
         [TestMethod]
@@ -733,7 +734,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             course.UpdatePublicationUrl("url");
 
-            course.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(CoursePublishedEvent));
+            course.ShouldContainSingleEvent<CoursePublishedEvent>();
         }
 
         #endregion
@@ -822,7 +823,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             course.UpdateIntroductionContent("updated introduction", "user");
 
-            course.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(CourseIntroductionContentUpdated));
+            course.ShouldContainSingleEvent<CourseIntroductionContentUpdated>();
         }
 
         #endregion UpdateIntroductionContent
@@ -932,7 +933,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var course = CourseObjectMother.Create(createdBy: UserEmail);
             course.Collaborate(email, CreatedBy);
 
-            course.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(CourseCollaboratorAddedEvent));
+            course.ShouldContainSingleEvent<CourseCollaboratorAddedEvent>();
         }
 
         [TestMethod]
@@ -988,12 +989,12 @@ namespace easygenerator.DomainModel.Tests.Entities
             // Arrange
             var course = CourseObjectMother.Create();
             var comment = CommentObjectMother.Create();
-            
+
             // Act
             course.AddComment(comment);
 
             // Assert
-            course.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(CommentCreatedEvent));
+            course.ShouldContainSingleEvent<CommentCreatedEvent>();
         }
 
         #endregion
@@ -1055,7 +1056,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.DeleteComment(comment);
 
             // Assert
-            course.Events.Should().Contain(e => e.GetType() == typeof(CommentDeletedEvent));
+            course.ShouldContainSingleEventOfType<CommentDeletedEvent>();
         }
 
         #endregion
@@ -1166,7 +1167,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             course.UpdateObjectivesOrder(new Collection<Objective> { objective }, "user");
 
-            course.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(CourseObjectivesReorderedEvent));
+            course.ShouldContainSingleEvent<CourseObjectivesReorderedEvent>();
         }
 
         #endregion UpdateObjectivesOrder
@@ -1295,7 +1296,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.RemoveCollaborator(_cloner, email);
 
             // Assert
-            course.Events.Should().ContainSingle(e => e.GetType() == typeof(CourseCollaboratorRemovedEvent));
+            course.ShouldContainSingleEventOfType<CourseCollaboratorRemovedEvent>();
         }
 
         [TestMethod]
@@ -1337,10 +1338,18 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.RemoveCollaborator(_cloner, email);
 
             // Assert
-            course.Events.Where(e => e.GetType() == typeof(CourseObjectivesClonedEvent))
-                .Cast<CourseObjectivesClonedEvent>()
-                .Should()
-                .Contain(args => args.Course == course && args.ReplacedObjectives.Count == 2 && args.ReplacedObjectives.ContainsKey(objective.Id) && args.ReplacedObjectives.ContainsKey(objective2.Id) && args.ReplacedObjectives[objective.Id] == clonedObjective && args.ReplacedObjectives[objective2.Id] == clonedObjective2);
+            var raisedEvent = course.GetSingleEventOfType<CourseObjectivesClonedEvent>();
+            raisedEvent.Should().NotBeNull();
+
+            raisedEvent.Course.Should().Be(course);
+            raisedEvent.ReplacedObjectives.Count.Should().Be(2);
+            raisedEvent.ReplacedObjectives.ContainsKey(objective.Id).Should().Be(true);
+            raisedEvent.ReplacedObjectives.ContainsKey(objective2.Id).Should().Be(true);
+            raisedEvent.ReplacedObjectives[objective.Id].Should().Be(clonedObjective);
+            raisedEvent.ReplacedObjectives[objective2.Id].Should().Be(clonedObjective2);
+
+            var nextEvent = course.DequeueEvent();
+            nextEvent.Should().BeNull();
         }
 
         [TestMethod]
@@ -1366,10 +1375,16 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.RemoveCollaborator(_cloner, email);
 
             // Assert            
-            course.Events.Where(e => e.GetType() == typeof(CourseObjectivesClonedEvent))
-                .Cast<CourseObjectivesClonedEvent>()
-                .Should()
-                .Contain(args => args.Course == course && args.ReplacedObjectives.Count == 1 && args.ReplacedObjectives.ContainsKey(objective.Id) && args.ReplacedObjectives[objective.Id] == clonedObjective);
+            var raisedEvent = course.GetSingleEventOfType<CourseObjectivesClonedEvent>();
+            raisedEvent.Should().NotBeNull();
+
+            raisedEvent.Course.Should().Be(course);
+            raisedEvent.ReplacedObjectives.Count.Should().Be(1);
+            raisedEvent.ReplacedObjectives.ContainsKey(objective.Id).Should().Be(true);
+            raisedEvent.ReplacedObjectives[objective.Id].Should().Be(clonedObjective);
+
+            var nextEvent = course.DequeueEvent();
+            nextEvent.Should().BeNull();
         }
 
         [TestMethod]
@@ -1460,7 +1475,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.AcceptCollaboration(collaborator);
 
             // Assert
-            course.Events.Should().ContainSingle(e => e.GetType() == typeof(CollaborationInviteAcceptedEvent));
+            course.ShouldContainSingleEvent<CollaborationInviteAcceptedEvent>();
         }
 
         #endregion
@@ -1507,7 +1522,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.DeclineCollaboration(collaborator);
 
             // Assert
-            course.Events.Should().ContainSingle(e => e.GetType() == typeof(CollaborationInviteDeclinedEvent));
+            course.ShouldContainSingleEvent<CollaborationInviteDeclinedEvent>();
         }
 
         #endregion
@@ -1711,7 +1726,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.SaveTemplateSettings(template, settings, extraData);
 
             //Assert
-            course.Events.Should().ContainSingle(e => e.GetType() == typeof(CourseTemplateSettingsUpdated));
+            course.ShouldContainSingleEvent<CourseTemplateSettingsUpdated>();
         }
 
         [TestMethod]
@@ -1749,7 +1764,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.SaveTemplateSettings(template, settings, extraData);
 
             //Assert
-            course.Events.Should().ContainSingle(e => e.GetType() == typeof(CourseTemplateSettingsUpdated));
+            course.ShouldContainSingleEvent<CourseTemplateSettingsUpdated>();
         }
 
         #endregion
