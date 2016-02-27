@@ -14,7 +14,7 @@ describe('synchronization comment [deleted]', function () {
 
     it('should trigger app event \'course:comment:deletedByCollaborator\'', function () {
         handler(courseId, commentId);
-        expect(app.trigger).toHaveBeenCalledWith(constants.messages.course.comment.deletedByCollaborator, courseId, commentId);
+        expect(app.trigger).toHaveBeenCalledWith(constants.messages.course.comment.deletedByCollaborator + courseId, commentId);
     });
 
     describe('when courseId is not a string', function () {

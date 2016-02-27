@@ -27,8 +27,8 @@
             });
         };
 
-        function publishCourseToCustomLms(courseId) {
-            return publishHttpWrapper.post('api/course/publishToCustomLms', { courseId: courseId });
+        function publishCourseToCustomLms(courseId, companyId) {
+            return publishHttpWrapper.post('api/course/publishToCustomLms', { courseId: courseId, companyId: companyId });
         };
 
         function publishCourseForReview(courseId) {
@@ -55,8 +55,8 @@
             });
         };
 
-        function publishLearningPathToCustomLms(learningPathId) {
-            return publishHttpWrapper.post('api/learningpath/publishToCustomLms', { learningPathId: learningPathId });
+        function publishLearningPathToCustomLms(learningPathId, companyId) {
+            return publishHttpWrapper.post('api/learningpath/publishToCustomLms', { learningPathId: learningPathId, companyId: companyId });
         };
 
         return {

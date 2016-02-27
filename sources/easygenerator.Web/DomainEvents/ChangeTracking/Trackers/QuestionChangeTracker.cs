@@ -6,6 +6,7 @@ using easygenerator.DomainModel.Events.LearningContentEvents;
 using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.DomainModel.Events.QuestionEvents.DragAndDropEvents;
 using easygenerator.DomainModel.Events.QuestionEvents.HotSpotEvents;
+using easygenerator.DomainModel.Events.QuestionEvents.RankingTextEvents;
 using easygenerator.DomainModel.Events.QuestionEvents.ScenarioEvents;
 using easygenerator.DomainModel.Events.QuestionEvents.SingleSelectImageEvents;
 using easygenerator.DomainModel.Events.QuestionEvents.TextMatchingEvents;
@@ -31,7 +32,9 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         IDomainEventHandler<SingleSelectImageAnswerDeletedEvent>,
         IDomainEventHandler<TextMatchingAnswerDeletedEvent>,
         IDomainEventHandler<ScenarioDataUpdatedEvent>,
-        IDomainEventHandler<ScenarioMasteryScoreUpdatedEvent>
+        IDomainEventHandler<ScenarioMasteryScoreUpdatedEvent>,
+        IDomainEventHandler<RankingTextAnswerDeletedEvent>,
+        IDomainEventHandler<RankingTextAnswersReorderedEvent>
     {
         private readonly IDomainEventPublisher _eventPublisher;
 
@@ -121,6 +124,14 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         {
             RaiseQuestionChangedEvent(args.Question);
         }
+        public void Handle(RankingTextAnswerDeletedEvent args)
+        {
+            RaiseQuestionChangedEvent(args.Question);
+        }
+        public void Handle(RankingTextAnswersReorderedEvent args)
+        {
+            RaiseQuestionChangedEvent(args.Question);
+        }
 
         public void Handle(ScenarioMasteryScoreUpdatedEvent args)
         {
@@ -138,5 +149,7 @@ namespace easygenerator.Web.DomainEvents.ChangeTracking.Trackers
         {
             _eventPublisher.Publish(new QuestionChangedEvent(question));
         }
+
+        
     }
 }

@@ -25,6 +25,7 @@ namespace easygenerator.DomainModel.Entities.Questions
             public const string Statement = "statement";
             public const string OpenQuestion = "openQuestion";
             public const string Scenario = "scenario";
+            public const string RankingText = "rankingText";
         }
 
         #endregion

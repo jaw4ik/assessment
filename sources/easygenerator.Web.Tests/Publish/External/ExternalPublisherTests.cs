@@ -94,7 +94,7 @@ namespace easygenerator.Web.Tests.Publish.External
             _publisher.Publish(_entity, company, userEmail);
 
             //Assert
-            _entity.Received().SetPublishedToExternalLms();
+            _entity.Received().SetPublishedToExternalLms(company);
         }
 
         [TestMethod]

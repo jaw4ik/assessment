@@ -108,6 +108,10 @@ namespace easygenerator.Web.BuildCourse
             {
                 return MapScenarioQuestion(question as Scenario);
             }
+            if (questionType == typeof(RankingText))
+            {
+                return MapRankingTextQuestion(question as RankingText);
+            }
 
             throw new NotSupportedException();
         }
@@ -124,6 +128,14 @@ namespace easygenerator.Web.BuildCourse
         private InformationContentPackageModel MapInformationContent(InformationContent question)
         {
             return MapQuestion<InformationContentPackageModel>(question);
+        }
+
+        private RankingTextPackageModel MapRankingTextQuestion(RankingText question)
+        {
+            return MapQuestion<RankingTextPackageModel>(question, (model) =>
+            {
+                model.Answers = question.Answers.Select(MapRankingtextAnswer).ToList();
+            });
         }
 
         private ScenarioQuestionPackageModel MapScenarioQuestion(Scenario question)
@@ -231,6 +243,15 @@ namespace easygenerator.Web.BuildCourse
             packageModel.HasCorrectFeedback = !String.IsNullOrWhiteSpace(question.Feedback.CorrectText);
             packageModel.HasIncorrectFeedback = !String.IsNullOrWhiteSpace(question.Feedback.IncorrectText);
             packageModel.VoiceOver = question.VoiceOver;
+        }
+
+        private RankingTextAnswerPackageModel MapRankingtextAnswer(RankingTextAnswer answer)
+        {
+            return new RankingTextAnswerPackageModel()
+            {
+                Id = answer.Id.ToNString(),
+                Text = answer.Text
+            };
         }
 
         private AnswerOptionPackageModel MapAnswer(Answer answer)

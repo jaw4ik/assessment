@@ -15,12 +15,11 @@
 
         var viewModel = {
             courseId: '',
-            companyInfo: null,
+            publishToCustomLmsModels: [],
 
             buildAction: buildPublishingAction(),
             scormBuildAction: scormBuildPublishingAction(),
             publishAction: publishPublishingAction(),
-            publishToCustomLms: publishToCustomLmsAction(),
 
             navigateToCoursesEvent: navigateToCoursesEvent,
 
@@ -62,7 +61,17 @@
 
         function activate(courseId) {
             return userContext.identify().then(function () {
-                viewModel.companyInfo = userContext.identity.company;
+                viewModel.publishToCustomLmsModels = userContext.identity.companies.sort(function(company1, company2) {
+                    if (company1.priority === company2.priority) {
+                        return (new Date(company1.createdOn)).getTime() > (new Date(company2.createdOn)).getTime();
+                    }
+                    return company1.priority < company2.priority;
+                }).map(function(company) {
+                    return {
+                        company: company,
+                        model: publishToCustomLmsAction()
+                    }
+                });
 
                 return repository.getById(courseId).then(function (course) {
                     viewModel.courseId = course.id;
@@ -77,7 +86,9 @@
             viewModel.buildAction.deactivate();
             viewModel.scormBuildAction.deactivate();
             viewModel.publishAction.deactivate();
-            viewModel.publishToCustomLms.deactivate();
+            viewModel.publishToCustomLmsModels.forEach(function(publishToCustomLmsModel) {
+                publishToCustomLmsModel.model.deactivate();
+            });
         }
     }
 );

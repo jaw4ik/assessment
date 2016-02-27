@@ -18,6 +18,7 @@ namespace easygenerator.DomainModel.Entities
             CollaboratorsCollection = new Collection<CourseCollaborator>();
             TemplateSettings = new Collection<CourseTemplateSettings>();
             LearningPathCollection = new Collection<LearningPath>();
+            CourseCompanies = new Collection<Company>();
         }
 
         protected internal Course(string title, Template template, string createdBy)
@@ -33,6 +34,7 @@ namespace easygenerator.DomainModel.Entities
             CollaboratorsCollection = new Collection<CourseCollaborator>();
             TemplateSettings = new Collection<CourseTemplateSettings>();
             LearningPathCollection = new Collection<LearningPath>();
+            CourseCompanies = new Collection<Company>();
             BuildOn = null;
             IntroductionContent = null;
             ObjectivesOrder = null;
@@ -158,6 +160,8 @@ namespace easygenerator.DomainModel.Entities
 
             CommentsCollection.Add(comment);
             comment.Course = this;
+
+            RaiseEvent(new CommentCreatedEvent(this, comment));
         }
 
         public virtual void DeleteComment(Comment comment)
@@ -371,11 +375,21 @@ namespace easygenerator.DomainModel.Entities
 
         #region External publish
 
-        public bool IsPublishedToExternalLms { get; private set; }
+        protected internal virtual ICollection<Company> CourseCompanies { get; set; }
 
-        public virtual void SetPublishedToExternalLms()
+        public virtual IEnumerable<Company> Companies => CourseCompanies.AsEnumerable();
+
+        public bool IsPublishedToAnyExternalLms()
         {
-            IsPublishedToExternalLms = true;
+            return CourseCompanies.Count > 0;
+        }
+
+        public virtual void SetPublishedToExternalLms(Company company)
+        {
+            if (!CourseCompanies.Contains(company))
+            {
+                CourseCompanies.Add(company);
+            }
         }
 
         #endregion

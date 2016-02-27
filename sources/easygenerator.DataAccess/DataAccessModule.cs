@@ -82,6 +82,12 @@ namespace easygenerator.DataAccess
             builder.RegisterType<QuerableRepository<TextMatchingAnswer>>()
                .As<IQuerableRepository<TextMatchingAnswer>>();
 
+            builder.RegisterType<QuerableRepository<RankingText>>()
+               .As<IQuerableRepository<RankingText>>();
+
+            builder.RegisterType<QuerableRepository<RankingTextAnswer>>()
+               .As<IQuerableRepository<RankingTextAnswer>>();
+
             builder.RegisterType<QuerableRepository<LearningContent>>()
                 .As<IQuerableRepository<LearningContent>>();
 
@@ -116,16 +122,20 @@ namespace easygenerator.DataAccess
                 .As<IDemoCourseInfoRepository>();
 
             builder.RegisterType<CourseStateRepository>()
-               .As<IQuerableRepository<CourseState>>()
-               .As<ICourseStateRepository>();
+                .As<IQuerableRepository<CourseState>>()
+                .As<ICourseStateRepository>();
 
             builder.RegisterType<LearningPathRepository>()
-               .As<IQuerableRepository<LearningPath>>()
-               .As<ILearningPathRepository>();
+                .As<IQuerableRepository<LearningPath>>()
+                .As<ILearningPathRepository>();
 
             builder.RegisterType<ConsumerToolRepository>()
-               .As<IQuerableRepository<ConsumerTool>>()
-               .As<IConsumerToolRepository>();
+                .As<IQuerableRepository<ConsumerTool>>()
+                .As<IConsumerToolRepository>();
+
+            builder.RegisterType<CompanyRepository>()
+                .As<IQuerableRepository<Company>>()
+                .As<ICompanyRepository>();
 
             base.Load(builder);
         }

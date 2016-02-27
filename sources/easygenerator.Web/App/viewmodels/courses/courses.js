@@ -243,6 +243,10 @@
         }
 
         function newCourseCreated(course) {
+            if (course.isDuplicate) {
+                delete course.isDuplicate;
+                return;
+            }
             viewModel.courses.unshift(mapCourse(course));
         }
 

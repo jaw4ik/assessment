@@ -115,6 +115,7 @@
                     }
 
                     var duplicatedCourse = courseModelMapper.map(response.course, dataContext.objectives, dataContext.templates);
+                    duplicatedCourse.isDuplicate = true;
                     dataContext.courses.push(duplicatedCourse);
 
                     app.trigger(constants.messages.course.created, duplicatedCourse);

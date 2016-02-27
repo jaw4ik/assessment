@@ -14,7 +14,7 @@ namespace easygenerator.DomainModel.Entities
         protected internal User() { }
 
         protected internal User(string email, string password, string firstname, string lastname, string phone, string country, string role, string createdBy,
-            AccessType accessPlan, string lastReadReleaseNote, DateTime? expirationDate = null, Company company = null, bool ? newEditor = null)
+            AccessType accessPlan, string lastReadReleaseNote, DateTime? expirationDate = null, bool isCreatedThroughLti = false, ICollection<Company> companiesCollection = null, bool? newEditor = null)
             : base(createdBy)
         {
             ThrowIfEmailIsNotValid(email);
@@ -32,11 +32,12 @@ namespace easygenerator.DomainModel.Entities
             Country = country;
             Role = role;
             PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket>();
-            Company = company;
+            CompaniesCollection = companiesCollection ?? new Collection<Company>();
             LtiUserInfoes = new Collection<LtiUserInfo>();
 
             AccessType = accessPlan;
             LastReadReleaseNote = lastReadReleaseNote;
+            IsCreatedThroughLti = isCreatedThroughLti;
             NewEditor = newEditor;
 
             if (expirationDate.HasValue)
@@ -61,7 +62,30 @@ namespace easygenerator.DomainModel.Entities
         public string Country { get; private set; }
         public AccessType AccessType { get; protected internal set; }
         public DateTime? ExpirationDate { get; protected internal set; }
-        public virtual Company Company { get; private set; }
+        protected internal virtual ICollection<Company> CompaniesCollection { get; set; }
+        public virtual IEnumerable<Company> Companies => CompaniesCollection.OrderByDescending(e => e.Priority).ThenBy(e => e.CreatedOn).AsEnumerable();
+
+        public virtual void AddCompany(Company company, string modifiedBy)
+        {
+            ArgumentValidation.ThrowIfNull(company, nameof(company));
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            if (!CompaniesCollection.Contains(company))
+            {
+                CompaniesCollection.Add(company);
+                MarkAsModified(modifiedBy);
+            }
+        }
+
+        public virtual void RemoveCompany(Company company, string modifiedBy)
+        {
+            ArgumentValidation.ThrowIfNull(company, nameof(company));
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            CompaniesCollection.Remove(company);
+
+            MarkAsModified(modifiedBy);
+        }
 
         public string LastReadReleaseNote { get; private set; }
         public bool? NewEditor { get; private set; }
@@ -199,7 +223,7 @@ namespace easygenerator.DomainModel.Entities
         public virtual void SwitchEditor(string modifiedBy)
         {
             ThrowIfModifiedByIsInvalid(modifiedBy);
-            if (NewEditor.HasValue && (bool) NewEditor)
+            if (NewEditor.HasValue && (bool)NewEditor)
             {
                 NewEditor = false;
             }
@@ -271,28 +295,30 @@ namespace easygenerator.DomainModel.Entities
         }
 
         #region LtiUserInfo
-
+        public bool IsCreatedThroughLti { get; private set; }
         protected internal virtual ICollection<LtiUserInfo> LtiUserInfoes { get; set; }
 
-        public virtual LtiUserInfo GetLtiUserInfo(ConsumerTool consumerTool)
+        public virtual LtiUserInfo GetLtiUserInfo(string ltiUserId, ConsumerTool consumerTool)
         {
             ArgumentValidation.ThrowIfNull(consumerTool, nameof(consumerTool));
-            return LtiUserInfoes.SingleOrDefault(e => e.ConsumerTool == consumerTool);
+            return LtiUserInfoes.SingleOrDefault(e => e.ConsumerTool == consumerTool && e.LtiUserId == ltiUserId);
         }
 
         public virtual void AddLtiUserInfo(string ltiUserId, ConsumerTool consumerTool)
         {
-            if (GetLtiUserInfo(consumerTool) == null)
+            if (GetLtiUserInfo(ltiUserId, consumerTool) == null)
             {
-                LtiUserInfoes.Add(new LtiUserInfo(ltiUserId, consumerTool));
+                LtiUserInfoes.Add(new LtiUserInfo(ltiUserId, consumerTool, this));
             }
         }
 
-        public virtual bool IsLtiUser()
+        public virtual void AddLtiUserInfo(LtiUserInfo ltiUserInfo)
         {
-            return LtiUserInfoes.Count > 0;
+            if (GetLtiUserInfo(ltiUserInfo.LtiUserId, ltiUserInfo.ConsumerTool) == null)
+            {
+                LtiUserInfoes.Add(ltiUserInfo);
+            }
         }
-
         #endregion
     }
 }

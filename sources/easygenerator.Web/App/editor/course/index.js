@@ -16,6 +16,7 @@ import reorderSectionCommand from './commands/reorderSectionCommand';
 import CreateBar from './viewmodels/CreateBarViewModel';
 import SectionViewModel from './viewmodels/SectionViewModel';
 import deleteSectionDialog from 'editor/course/dialogs/deleteSection/deleteSection';
+import clientContext from 'clientContext';
 
 const eventsForCourseContent = {
     addContent: 'Define introduction',
@@ -40,6 +41,7 @@ var _sectionConnected = new WeakMap();
 var _sectionsDisconnected = new WeakMap();
 var _sectionsReordered = new WeakMap();
 var _sectionDeleted = new WeakMap();
+var _navigateToObjective = new WeakMap();
 
 var instance = null;
 
@@ -60,6 +62,7 @@ export default class {
         this.localizationManager = localizationManager;
         this.courseIntroductionContent = null;
         this.notContainSections = ko.observable(false);
+        this.highlightedObjectiveId = ko.observable(null);
         this.createBar = new CreateBar();
 
         _introductionContentUpdated.set(this, course => {
@@ -114,12 +117,17 @@ export default class {
             }
         });
 
+        _navigateToObjective.set(this, () => {
+            this.hightlightObjectiveIfNeeded();
+        });
+
         app.on(constants.messages.course.introductionContentUpdatedByCollaborator, _introductionContentUpdated.get(this).bind(this));
         app.on(constants.messages.course.objectiveRelatedByCollaborator, _sectionConnected.get(this).bind(this));
         app.on(constants.messages.course.objectivesUnrelatedByCollaborator, _sectionsDisconnected.get(this).bind(this));
         app.on(constants.messages.course.objectivesUnrelated, _sectionsDisconnected.get(this).bind(this));
         app.on(constants.messages.course.objectivesReorderedByCollaborator, _sectionsReordered.get(this).bind(this));
         app.on(constants.messages.objective.deleted, _sectionDeleted.get(this).bind(this));
+        app.on(constants.messages.objective.navigated, _navigateToObjective.get(this).bind(this));
 
         return instance;
     }
@@ -131,6 +139,7 @@ export default class {
         this.sections(mapSections(this.id, course.objectives));
         this.notContainSections = ko.computed(() => this.sections().length === 0, this);
         this.courseIntroductionContent = new vmContentField(course.introductionContent, eventsForCourseContent, false, content => courseRepository.updateIntroductionContent(course.id, content));
+        this.hightlightObjectiveIfNeeded();
     }
     async createSection(section) {
         eventTracker.publish(events.createSection, eventCategory);
@@ -308,5 +317,13 @@ export default class {
             return;
         }
         sectionInCourse.questionsExpanded(this.lastDraggingSectionState);
+    }
+
+    hightlightObjectiveIfNeeded() {
+        let objectiveId = clientContext.get(constants.clientContextKeys.highlightedObjectiveId);
+        if(objectiveId) {
+            clientContext.remove(constants.clientContextKeys.highlightedObjectiveId);
+            this.highlightedObjectiveId(objectiveId);
+        }
     }
 };

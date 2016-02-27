@@ -43,7 +43,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
+using easygenerator.Auth.Providers.Cryptography;
+using easygenerator.Auth.Security.Providers;
+using easygenerator.Infrastructure.Serialization.Providers;
 using easygenerator.Web.BuildDocument;
+using easygenerator.Web.Extensions;
 using easygenerator.Web.Import.WinToWeb;
 using easygenerator.Web.Import.WinToWeb.Mappers;
 using CoursePackageModelMapper = easygenerator.Web.BuildCourse.PackageModelMapper;
@@ -85,6 +89,8 @@ namespace easygenerator.Web.Configuration
 
             builder.RegisterType<LearningPathEntityModelBinder>().As<ILearningPathEntityModelBinder>();
             builder.RegisterType<LearningPathEntityCollectionModelBinder>().As<ILearningPathEntityCollectionModelBinder>();
+
+            builder.RegisterGeneric(typeof(SecureModelBinder<>)).As(typeof(ISecureModelBinder<>));
 
             builder.RegisterType<BuildPathProvider>();
             builder.RegisterType<PhysicalFileManager>();
@@ -241,6 +247,19 @@ namespace easygenerator.Web.Configuration
 
             #endregion
 
+            #region Serialization
+
+            builder.RegisterGeneric(typeof(SerializationProvider<>)).As(typeof(ISerializationProvider<>)).SingleInstance();
+
+            #endregion
+
+            #region Security
+
+            builder.RegisterType<CryptographyConfigurationProvider>().As<ICryptographyConfigurationProvider>().SingleInstance();
+            builder.RegisterGeneric(typeof(SecureTokenProvider<>)).As(typeof(ISecureTokenProvider<>)).SingleInstance();
+
+            #endregion
+
             #region Lti
 
             builder.RegisterType<LtiAuthProvider>().SingleInstance();
@@ -256,26 +275,11 @@ namespace easygenerator.Web.Configuration
             DependencyResolver.Current.GetService<IDemoCoursesStorage>().Initialize();
         }
 
-        private static bool IsAssignableToGenericType(Type givenType, Type genericType)
-        {
-            var interfaceTypes = givenType.GetInterfaces();
-
-            if (interfaceTypes.Where(it => it.IsGenericType).Any(it => it.GetGenericTypeDefinition() == genericType))
-                return true;
-
-            var baseType = givenType.BaseType;
-            if (baseType == null) return false;
-
-            return baseType.IsGenericType &&
-                   baseType.GetGenericTypeDefinition() == genericType ||
-                   IsAssignableToGenericType(baseType, genericType);
-        }
-
         private static List<IRegistrationBuilder<object, object, object>> RegisterGenericTypes(ContainerBuilder builder, Assembly assembly, Type genericRepositoryType)
         {
             var builders = new List<IRegistrationBuilder<object, object, object>>();
 
-            var types = assembly.GetExportedTypes().Where(t => !t.IsInterface && !t.IsAbstract && IsAssignableToGenericType(t, genericRepositoryType)).ToArray();
+            var types = assembly.GetExportedTypes().Where(t => !t.IsInterface && !t.IsAbstract && genericRepositoryType.IsGenericTypeAssignableFrom(t)).ToArray();
 
             foreach (var type in types)
             {

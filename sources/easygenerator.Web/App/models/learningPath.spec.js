@@ -697,11 +697,11 @@ describe('model [learningPath]', function () {
                 });
 
                 it('should publish learning path to custom LMS', function(done) {
-                    var promise = learningPath.publishToCustomLms();
+                    var promise = learningPath.publishToCustomLms('companyId');
                     publishToCustomLmsDefer.reject();
 
                     promise.fin(function () {
-                        expect(publishService.publishLearningPathToCustomLms).toHaveBeenCalledWith(learningPathId);
+                        expect(publishService.publishLearningPathToCustomLms).toHaveBeenCalledWith(learningPathId, 'companyId');
                         done();
                     });
                 });
@@ -755,13 +755,12 @@ describe('model [learningPath]', function () {
                         publishToCustomLmsDefer.resolve();
                     });
 
-                    it('should set isPublishedToExternalLms', function (done) {
-                        learningPath.isPublishedToExternalLms = false;
-
-                        var promise = learningPath.publishToCustomLms();
+                    it('should add company to list', function (done) {
+                        learningPath.learningPathCompanies = [];
+                        var promise = learningPath.publishToCustomLms('companyId');
 
                         promise.fin(function () {
-                            expect(learningPath.isPublishedToExternalLms).toBeTruthy();
+                            expect(learningPath.learningPathCompanies[0].id).toBe('companyId');
                             done();
                         });
                     });

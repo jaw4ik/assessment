@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="css/configure.css?v=1455715671016" rel="stylesheet" />
-    <script src="../api.js?v=1455715671016"></script>
+    <link href="css/configure.css?v=1456610342468" rel="stylesheet" />
+    <script src="../api.js?v=1456610342468"></script>
 
-    <script src="js/vendor.min.js?v=1455715671016"></script>
-    <script src="js/configure.min.js?v=1455715671016"></script>
+    <script src="js/vendor.min.js?v=1456610342468"></script>
+    <script src="js/configure.min.js?v=1456610342468"></script>
 </head>
 
 <body>
@@ -62,6 +62,25 @@
                                 </div>
                             </div>
                             <div class="preview-disabled" data-bind="visible: !enableXAPI()"></div>
+                        </div>
+                        <div class="settings-row">
+                            <div class="settings-caption">
+                                <div data-bind="localize: 'show confirmation popup'"></div>
+                                <div class="settings-hint" data-bind="localize: 'show confirmation popup hint'"></div>
+                            </div>
+                            <div class="settings-column">
+                                <div class="switcher">
+                                    <div class="switcher-text" data-bind="css: { disabled: $parent.showConfirmationPopup() }, localize: 'hide'"></div>
+                                    <div class="switch-toggle-slider" data-bind="switchToggle: { value: $parent.showConfirmationPopup }">
+                                        <div class="switch-toggle-wrapper">
+                                            <div class="switch-toggle-on"></div>
+                                            <div class="switch-toogle-blob"></div>
+                                            <div class="switch-toggle-off"></div>
+                                        </div>
+                                    </div>
+                                    <div class="switcher-text" data-bind="css: { disabled: !$parent.showConfirmationPopup() }, localize: 'show'"></div>
+                                </div>
+                            </div>
                         </div>
                         <div class="advanced-settings">
                             <div class="advanced-settings-title-container" data-bind="click: toggleAdvancedSettings">
@@ -218,7 +237,7 @@
             <div class="settings-tab-container languages" data-tab="languages" data-bind="with: languages">
                 <div class="settings-tab-wrapper">
                     <div class="tab-header-container">
-                        <img src="img/language.png?v=1455715671016">
+                        <img src="img/language.png?v=1456610342468">
                         <div class="tab-header-wrapper">
                             <h1 class="tab-header-title" data-bind="localize: 'choose language for your course'"></h1>
                             <div class="tab-header-content">

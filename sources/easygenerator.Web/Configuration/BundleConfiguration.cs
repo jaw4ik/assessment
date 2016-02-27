@@ -75,7 +75,7 @@ namespace easygenerator.Web.Configuration
                 .Include("~/Content/notify.css")
                 .Include("~/Content/selectbox.css")
                 .Include("~/Content/account.css")
-                .Include("~/Content/panels.css")
+                .Include("~/Content/reviewPanel.css")
                 .Include("~/Content/dragAndDropText.css")
                 .Include("~/Content/imagePreview.css")
                 .Include("~/Content/singleSelectImage.css")
@@ -95,8 +95,9 @@ namespace easygenerator.Web.Configuration
                 .Include("~/Content/notSupportedPage.css")
                 .Include("~/Content/releaseNotes.css")
                 .Include("~/Content/scenario.css")
-                .Include("~/Content/slider.css")
-                .Include("~/Content/wintoweb.css");
+                .Include("~/Content/wintoweb.css")
+                .Include("~/Content/rankingText.css")
+                .Include("~/Content/slider.css");
 
             stylesBundle.Transforms.Add(new ImageNoCacheParamTransform());
             bundles.Add(stylesBundle);

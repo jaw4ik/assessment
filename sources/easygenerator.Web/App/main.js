@@ -31,41 +31,52 @@ app.configurePlugins({
     }
 });
 
-var ltiAuthDefer;
+userContext.ltiData.companyId = window.auth.getCompanyIdFromHash();
+userContext.ltiData.ltiUserInfoToken = window.auth.getLtiUserInfoTokenFromHash();
 
-if (window.auth.isLogoutKeyPresentInHash()) {
-    window.auth.logout();
-    window.location.replace('/#');
-}
+(async () => {
+    if (window.auth.isAuthTokenPresentInHash()) {
+        window.auth.logout();
+        try {
+            await window.auth.loginByAuthToken();
+            window.location.replace('/#');
+        } catch (reason) {
+            window.location.reload();
+            return;
+        }
+    }
 
-if (window.auth.isAuthTokenPresentInHash()) {
-    window.auth.logout();
-    ltiAuthDefer = window.auth.loginByAuthToken().always(function () {
-        window.location.replace('/#');
-    }).fail(function () {
-        window.location.reload();
-    });
-} else {
-    ltiAuthDefer = Q.fcall(function () { });
-}
+    if (userContext.ltiData.ltiUserInfoToken) {
+        try {
+            await userContext.identifyLtiUser();
+        } catch(reason) {
+            if (!reason || !reason.logout) {
+                window.location.replace('/#');
+                return;
+            }
+            window.auth.logout();
+            if (reason.ltiUserInfoToken) {
+                window.location.replace(`/signin#token.user.lti=${encodeURIComponent(reason.ltiUserInfoToken)}`);
+                return;
+            }
+            window.location.replace('/#signin');
+            return;
+        }
+    }
+    await app.start();
+    await localizationManager.initialize(window.userCultures);
 
-ltiAuthDefer.then(function () {
-    app.start().then(function () {
-        localizationManager.initialize(window.userCultures).then(function () {
-            $('html').attr('lang', localizationManager.language);
+    $('html').attr('lang', localizationManager.language);
+    bootstrapper.run();
 
-            bootstrapper.run();
+    await* [
+        fonts.load(['Open Sans', 'Droid Sans Mono']),
+        userContext.identify(),
+        userContext.identifyStoragePermissions(),
+        synchronization.start(),
+        onboarding.initialize(),
+        audio.initialize()
+    ];
 
-            return Q.all([
-                fonts.load(['Open Sans', 'Droid Sans Mono']),
-                userContext.identify(),
-                userContext.identifyStoragePermissions(),
-                synchronization.start(),
-                onboarding.initialize(),
-                audio.initialize()
-            ]).spread(function () {
-                app.setRoot('viewmodels/shell', null, document.getElementById('app'));
-            });
-        });
-    }).done();
-});
+    app.setRoot('viewmodels/shell', null, document.getElementById('app'));
+})();

@@ -11,6 +11,6 @@ namespace easygenerator.DomainModel.Entities
         string PublicationUrl { get; }
         void UpdatePublicationUrl(string publicationUrl);
         void ResetPublicationUrl();
-        void SetPublishedToExternalLms();
+        void SetPublishedToExternalLms(Company company);
     }
 }

@@ -1,0 +1,25 @@
+﻿<div class="review-course-publish">
+    <div class="review-course-publish-info" data-bind="localize: { text: reviewUrlExists() ? 'updateReviewTabHelp' : 'getReviewTabHelp' }"></div>
+    <!-- ko if: reviewUrlExists() -->
+    <div class="review-link" data-bind="css: { disabled: isPublishing() }">
+        <div class="review-link-input-wrapper">
+            <input class="review-link-input" type="text" readonly="readonly" data-bind="value: reviewUrl(), css: { selectable: !isPublishing() }, selectText: reviewUrlExists(), enable: !isPublishing()" />
+        </div>
+    </div>
+    <!-- /ko -->
+    <div class="review-course-publish-actions">
+        <div class="review-course-update-action-wrapper">
+            <button class="btn green review-publish-btn" data-bind="click: isPublishing() ? function(){} : updateCourseForReview, css: { publishing:isPublishing() }">
+                <!-- ko if: isPublishing() -->
+                <span class="preloader" data-bind="preloader: { type: 'circular', settings: 'small white' }"></span>
+                <!-- /ko -->
+                <span class="btn-text" data-bind="localize: { text: reviewUrlExists() ? 'reviewUpdateCourse' : 'reviewGetLink'}"></span>
+            </button>
+        </div>
+        <!-- ko if: reviewUrlExists() -->
+        <div class="review-course-open-link-wrapper" data-bind="css: { disabled: isPublishing }">
+            <a href="#" class="open-link" data-bind="localize: { text: 'openInNewWindow' }, attr: {href: reviewUrl()}, click: openCourseReviewUrl"></a>
+        </div>
+        <!-- /ko -->
+    </div>
+</div>

@@ -1,0 +1,47 @@
+﻿<li class="comment">
+    <div class="comment-description">
+        <div class="comment-description-avatar" data-bind="tip: { text: email }">
+            <span class="comment-description-avatar-letter" data-bind="text: avatarLetter"></span>
+        </div>
+        <div class="comment-description-text selectable">
+            <strong data-bind="text: name"></strong>
+            <!-- ko with: context -->
+            <span class="comment-description-text-context">
+                <span data-bind="text: verb"></span>&nbsp;<strong data-bind="text: description"></strong>
+                <!-- ko if: $data.entity -->
+                <span class="comment-description-text-entity">
+                    “<a href="#" data-bind="limitedLengthText: { text: entity.title, maxLength: 40 }, click: entity.open.bind(entity), title: entity.title"></a>”
+                </span>
+                <!-- /ko -->
+            </span>
+            <!-- /ko -->
+        </div>
+    </div>
+    <div class="comment-body" data-bind="expandableBlock: { expanded: isExpanded, isExpandable: isExpandable, collapsedHeight: 110, duration: 200 }, css: { collapsed: !isExpanded()}, click: isExpandable() && !isExpanded() ? toggleIsExpanded: function(){}">
+        <div class="comment-body-text-wrapper">
+            <div class="comment-body-text-container">
+                <div class="comment-body-text selectable" data-bind="text: text"></div>
+            </div>
+        </div>
+        <div class="comment-body-footer">
+            <div class="comment-body-details-wrapper">
+                <div class="comment-body-toggler-wrapper">
+                    <div class="comment-body-toggler" data-bind="click: toggleIsExpanded, stopEventPropagation: { event: 'click' }, css: { collapsed: !isExpanded()}, localize: { text: isExpanded() ? 'readLess' : 'readMore' }"></div>
+                </div>
+                <div class="comment-body-date">
+                    <div class="comment-body-date-text" data-bind="dateFromNow: { value: createdOn, autoUpdate: true }, tip: { date: { value:createdOn, format: 'lll' } }"></div>
+                </div>
+            </div>
+            <div class="delete-comment-btn info-tooltip-holder" data-bind="click: $parentContext.$parent.removeComment.bind($parentContext.$parent), stopEventPropagation: { event: 'click' }">
+                <div class="info-tooltip">
+                    <span data-bind="localize: { text: 'deleteComment' }"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="comment-deleted-message" data-bind="css: { shown: isDeleted }">
+        <span class="comment-deleted-text" data-bind="localize: { text: 'commentWasDeleted' }"></span>
+        <a class="undo-link" href="#" data-bind="localize: { text: 'undo' }, click: $parentContext.$parent.restoreComment.bind($parentContext.$parent)"></a>
+        <div class="close-btn" data-bind="click: $parentContext.$parent.hide.bind($parentContext.$parent)"></div>
+    </div>
+</li>

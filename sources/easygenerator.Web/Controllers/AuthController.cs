@@ -1,4 +1,5 @@
-﻿using easygenerator.Auth.Attributes.Mvc;
+﻿using System.Linq;
+using easygenerator.Auth.Attributes.Mvc;
 using easygenerator.Auth.Providers;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
@@ -6,6 +7,7 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.Mappers;
 using System.Web.Mvc;
+using easygenerator.Auth.Security.Models;
 using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers
@@ -64,16 +66,36 @@ namespace easygenerator.Web.Controllers
                 firstname = user.FirstName,
                 lastname = user.LastName,
                 role = user.Role,
-                company = _companyMapper.Map(user.Company),
+                companies = user.Companies.Select(e => _companyMapper.Map(e)),
                 subscription = new
                 {
                     accessType = user.AccessType,
                     expirationDate = user.ExpirationDate
                 },
                 showReleaseNote = releaseVersion != user.LastReadReleaseNote,
-                newEditor = user.NewEditor
+                newEditor = user.NewEditor,
+                isCreatedThroughLti = user.IsCreatedThroughLti
             });
 
+        }
+
+        [HttpPost, Scope("auth")]
+        public ActionResult IdentifyLtiUser(LtiUserInfoSecure ltiUserInfoSecure)
+        {
+            var ltiUserInfo = ltiUserInfoSecure.GetObject();
+            var user = _repository.GetUserByEmail(GetCurrentUsername());
+
+            if (ltiUserInfo.User != user)
+                return JsonSuccess(new { unauthorized = true });
+
+            user.AddLtiUserInfo(ltiUserInfo);
+            var company = ltiUserInfo.ConsumerTool.Settings?.Company;
+
+            if (company == null)
+                return JsonSuccess();
+
+            user.AddCompany(company, GetCurrentUsername());
+            return JsonSuccess(new { companyId = company.Id.ToNString() });
         }
     }
 }

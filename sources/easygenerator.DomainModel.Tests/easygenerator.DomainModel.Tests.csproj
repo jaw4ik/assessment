@@ -80,6 +80,7 @@
     <Compile Include="Entities\LearningContentTests.cs" />
     <Compile Include="Entities\ObjectiveTests.cs" />
     <Compile Include="Entities\CourseTests.cs" />
+    <Compile Include="Entities\Questions\RankingTextAnswerTests.cs" />
     <Compile Include="Entities\Questions\ScenarioTests.cs" />
     <Compile Include="Entities\Questions\StatementTests.cs" />
     <Compile Include="Entities\Questions\MultipleselectTests.cs" />
@@ -93,10 +94,12 @@
     <Compile Include="Entities\Questions\SingleSelectTextTests.cs" />
     <Compile Include="Entities\Questions\TextMatchingAnswerTests.cs" />
     <Compile Include="Entities\Questions\TextMatchingTests.cs" />
+    <Compile Include="Entities\Questions\RankingTextTests.cs" />
     <Compile Include="Entities\TemplateTests.cs" />
     <Compile Include="Entities\CommentTests.cs" />
     <Compile Include="Entities\UserTests.cs" />
     <Compile Include="EntityClonerTests.cs" />
+    <Compile Include="ObjectMothers\RankingTextAnswerObjectMother.cs" />
     <Compile Include="ObjectMothers\AnswerObjectMother.cs" />
     <Compile Include="ObjectMothers\BlankAnswerObjectMother.cs" />
     <Compile Include="ObjectMothers\CommentObjectMother.cs" />
@@ -117,6 +120,7 @@
     <Compile Include="ObjectMothers\CourseObjectMother.cs" />
     <Compile Include="ObjectMothers\LearningContentObjectMother.cs" />
     <Compile Include="ObjectMothers\LearningPathObjectMother.cs" />
+    <Compile Include="ObjectMothers\RankingTextObjectMother.cs" />
     <Compile Include="ObjectMothers\ScenarioObjectMother.cs" />
     <Compile Include="ObjectMothers\StatementObjectMother.cs" />
     <Compile Include="ObjectMothers\ObjectiveObjectMother.cs" />
@@ -129,6 +133,7 @@
     <Compile Include="ObjectMothers\TemplateObjectMother.cs" />
     <Compile Include="ObjectMothers\TextMatchingAnswerObjectMother.cs" />
     <Compile Include="ObjectMothers\TextMatchingObjectMother.cs" />
+    <Compile Include="ObjectMothers\LtiUserInfoObjectMother.cs" />
     <Compile Include="ObjectMothers\UserObjectMother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

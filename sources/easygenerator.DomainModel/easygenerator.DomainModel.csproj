@@ -63,6 +63,8 @@
     <Compile Include="Entities\LearningPath.cs" />
     <Compile Include="Entities\Onboarding.cs" />
     <Compile Include="Entities\Questions\BlankAnswer.cs" />
+    <Compile Include="Entities\Questions\RankingText.cs" />
+    <Compile Include="Entities\Questions\RankingTextAnswer.cs" />
     <Compile Include="Entities\Questions\Scenario.cs" />
     <Compile Include="Entities\Questions\OpenQuestion.cs" />
     <Compile Include="Entities\Questions\QuestionWithBackground.cs" />
@@ -100,6 +102,7 @@
     <Compile Include="Events\AnswerEvents\AnswerDeletedEvent.cs" />
     <Compile Include="Events\AnswerEvents\AnswerEvent.cs" />
     <Compile Include="Events\AnswerEvents\AnswerTextUpdatedEvent.cs" />
+    <Compile Include="Events\CommentEvents\CommentCreatedEvent.cs" />
     <Compile Include="Events\CommentEvents\CommentDeletedEvent.cs" />
     <Compile Include="Events\CommentEvents\CommentEvent.cs" />
     <Compile Include="Events\CourseEvents\CollaborationInviteDeclinedEvent.cs" />
@@ -130,6 +133,7 @@
     <Compile Include="Events\LearningContentEvents\LearningContentUpdatedEvent.cs" />
     <Compile Include="Events\ObjectiveEvents\ObjectiveImageUrlUpdatedEvent.cs" />
     <Compile Include="Events\ObjectiveEvents\ObjectiveEvent.cs" />
+    <Compile Include="Events\ObjectiveEvents\ObjectiveLearningObjectiveUpdatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\DragAndDropEvents\DropspotCreatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\DragAndDropEvents\DropspotDeletedEvent.cs" />
     <Compile Include="Events\QuestionEvents\DragAndDropEvents\DropspotEvent.cs" />
@@ -154,6 +158,11 @@
     <Compile Include="Events\QuestionEvents\QuestionContentUpdatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\QuestionTitleUpdatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\QuestionVoiceOverUpdatedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\RankingTextEvents\RankingTextAnswerTextChangedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\RankingTextEvents\RankingTextAnswerCreatedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\RankingTextEvents\RankingTextAnswerDeletedEvent.cs" />
+    <Compile Include="Events\QuestionEvents\RankingTextEvents\RankingTextAnswerEvent.cs" />
+    <Compile Include="Events\QuestionEvents\RankingTextEvents\RankingTextAnswersReorderedEvent.cs" />
     <Compile Include="Events\QuestionEvents\ScenarioEvents\ScenarioDataUpdatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\ScenarioEvents\ScenarioMasteryScoreUpdatedEvent.cs" />
     <Compile Include="Events\QuestionEvents\SingleSelectImageEvents\SingleSelectImageCorrectAnswerChangedEvent.cs" />
@@ -181,6 +190,7 @@
     <Compile Include="Repositories\ICourseCollaboratorRepository.cs" />
     <Compile Include="Repositories\ICourseStateRepository.cs" />
     <Compile Include="Repositories\IDemoCourseRepository.cs" />
+    <Compile Include="Repositories\ICompanyRepository.cs" />
     <Compile Include="Repositories\IImageFileRepository.cs" />
     <Compile Include="Repositories\IDocumentRepository.cs" />
     <Compile Include="Repositories\ILearningPathRepository.cs" />
@@ -202,6 +212,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

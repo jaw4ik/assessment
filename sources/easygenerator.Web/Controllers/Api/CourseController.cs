@@ -36,7 +36,7 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IObjectiveRepository _objectiveRepository;
         private readonly IUrlHelperWrapper _urlHelper;
         private readonly IScormCourseBuilder _scormCourseBuilder;
-        private readonly IPublisher _entityPublisher;
+        private readonly IPublisher _publisher;
         private readonly IEntityMapper _entityMapper;
         private readonly IDomainEventPublisher _eventPublisher;
         private readonly ITemplateRepository _templateRepository;
@@ -45,8 +45,8 @@ namespace easygenerator.Web.Controllers.Api
         private readonly ICloner _cloner;
 
         public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository courseRepository,
-            IObjectiveRepository objectiveRepository, IEntityFactory entityFactory, IUrlHelperWrapper urlHelper, IPublisher entityPublisher,
-            IEntityMapper entityMapper, IDomainEventPublisher eventPublisher, ITemplateRepository templateRepository, IExternalPublisher externalPublisher,
+            IObjectiveRepository objectiveRepository, IEntityFactory entityFactory, IUrlHelperWrapper urlHelper, IPublisher publisher,
+            IEntityMapper entityMapper, IDomainEventPublisher eventPublisher, ITemplateRepository templateRepository, IExternalPublisher externalpublisher,
             IUserRepository userRepository, ICloner cloner)
         {
             _builder = courseBuilder;
@@ -55,11 +55,11 @@ namespace easygenerator.Web.Controllers.Api
             _entityFactory = entityFactory;
             _urlHelper = urlHelper;
             _scormCourseBuilder = scormCourseBuilder;
-            _entityPublisher = entityPublisher;
+            _publisher = publisher;
             _entityMapper = entityMapper;
             _eventPublisher = eventPublisher;
             _templateRepository = templateRepository;
-            _externalPublisher = externalPublisher;
+            _externalPublisher = externalpublisher;
             _userRepository = userRepository;
             _cloner = cloner;
         }
@@ -166,7 +166,7 @@ namespace easygenerator.Web.Controllers.Api
         [Route("api/course/publish")]
         public ActionResult Publish(Course course)
         {
-            return Deliver(course, () => _entityPublisher.Publish(course), () => JsonSuccess(new { PublishedPackageUrl = _urlHelper.AddCurrentSchemeToUrl(course.PublicationUrl) }));
+            return Deliver(course, () => _publisher.Publish(course), () => JsonSuccess(new { PublishedPackageUrl = _urlHelper.AddCurrentSchemeToUrl(course.PublicationUrl) }));
         }
 
         [HttpPost]
@@ -174,26 +174,23 @@ namespace easygenerator.Web.Controllers.Api
         [Route("api/course/publishForReview")]
         public ActionResult PublishForReview(Course course)
         {
-            return Deliver(course, () => _entityPublisher.Publish(course), () => JsonSuccess(new { ReviewUrl = GetCourseReviewUrl(course.Id.ToString()) }));
+            return Deliver(course, () => _publisher.Publish(course), () => JsonSuccess(new { ReviewUrl = GetCourseReviewUrl(course.Id.ToString()) }));
         }
 
         [HttpPost]
         [EntityCollaborator(typeof(Course))]
         [Route("api/course/publishToCustomLms")]
-        public ActionResult PublishToCustomLms(Course course)
+        public ActionResult PublishToCustomLms(Course course, Company company)
         {
             var user = _userRepository.GetUserByEmail(GetCurrentUsername());
             if (user == null)
             {
                 return JsonLocalizableError(Errors.UserDoesntExist, Errors.UserDoesntExistResourceKey);
             }
+            var userCompany = user.Companies.SingleOrDefault(e => e == company);
 
-            if (user.Company == null)
-            {
-                return JsonLocalizableError(Errors.UserNotMemberOfAnyCompany, Errors.UserNotMemberOfAnyCompanyResourceKey);
-            }
-
-            return Deliver(course, () => _externalPublisher.Publish(course, user.Company, user.Email), JsonSuccess);
+            return userCompany == null ? JsonLocalizableError(Errors.UserNotMemberOfCompany, Errors.UserNotMemberOfCompanyResourceKey) :
+                Deliver(course, () => _externalPublisher.Publish(course, userCompany, user.Email), JsonSuccess);
         }
 
         [HttpPost]
@@ -361,7 +358,7 @@ namespace easygenerator.Web.Controllers.Api
 
         private string GetCourseReviewUrl(string courseId)
         {
-            return _urlHelper.ToAbsoluteUrl($"~/review/{courseId}/");
+            return _urlHelper.ToAbsoluteUrl(string.Format("~/review/{0}/", courseId));
         }
 
         private ActionResult Deliver(Course course, Func<bool> publishAction, Func<ActionResult> getSuccessResultAction)
@@ -397,10 +394,10 @@ namespace easygenerator.Web.Controllers.Api
             {
                 return newTitle;
             }
-            newTitle = $"{title} {DuplicatedEntityTitleSuffix}";
+            newTitle = string.Format("{0} {1}", title, DuplicatedEntityTitleSuffix);
             if (newTitle.Length > 255)
             {
-                newTitle = $"{title.Substring(0, 244)} {DuplicatedEntityBigTitleSuffix}";
+                newTitle = string.Format("{0} {1}", title.Substring(0, 244), DuplicatedEntityBigTitleSuffix);
             }
             return newTitle;
         }

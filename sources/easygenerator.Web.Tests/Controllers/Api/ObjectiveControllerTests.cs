@@ -148,6 +148,44 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
+        #region Update learning objective
+
+        [TestMethod]
+        public void UpdateLearningObjective_ShouldReturnJsonErrorResult_WhenObjectiveIsNull()
+        {
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
+
+            var result = _controller.UpdateLearningObjective(null, String.Empty);
+
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
+        }
+
+
+        [TestMethod]
+        public void UpdateLearningObjective_ShouldUpdateObjectiveLearningObjective()
+        {
+            const string lo = "updated learning objective";
+            _user.Identity.Name.Returns(ModifiedBy);
+            var objective = Substitute.For<Objective>("Some title", CreatedBy);
+
+            _controller.UpdateLearningObjective(objective, lo);
+
+            objective.Received().UpdateLearningObjective(lo, ModifiedBy);
+        }
+
+        [TestMethod]
+        public void UpdateLearningObjective_ShouldReturnJsonSuccessResult()
+        {
+            var objective = Substitute.For<Objective>("Some title", CreatedBy);
+
+            var result = _controller.UpdateLearningObjective(objective, String.Empty);
+
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = objective.ModifiedOn });
+        }
+
+        #endregion
+
         #region Update image
 
         [TestMethod]

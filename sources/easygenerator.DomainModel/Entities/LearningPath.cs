@@ -18,6 +18,7 @@ namespace easygenerator.DomainModel.Entities
 
             CoursesCollection = new Collection<Course>();
             DocumentsCollection = new Collection<Document>();
+            LearningPathCompanies = new Collection<Company>();
 
             Title = title;
         }
@@ -54,12 +55,21 @@ namespace easygenerator.DomainModel.Entities
             PublicationUrl = null;
         }
 
-        public bool IsPublishedToExternalLms { get; private set; }
+        #region External publish
 
-        public void SetPublishedToExternalLms()
+        protected internal virtual ICollection<Company> LearningPathCompanies { get; set; }
+
+        public virtual IEnumerable<Company> Companies => LearningPathCompanies.AsEnumerable();
+
+        public virtual void SetPublishedToExternalLms(Company company)
         {
-            IsPublishedToExternalLms = true;
+            if (!LearningPathCompanies.Contains(company))
+            {
+                LearningPathCompanies.Add(company);
+            }
         }
+
+        #endregion
 
         #region Courses
 

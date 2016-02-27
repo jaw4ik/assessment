@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Components.Mappers
 {
@@ -17,11 +18,13 @@ namespace easygenerator.Web.Components.Mappers
 
             return new
             {
-                Id = entity.Id,
+                Id = entity.Id.ToNString(),
                 Name = entity.Name,
                 LogoUrl = entity.LogoUrl,
                 PublishCourseApiUrl = entity.PublishCourseApiUrl,
-                HideDefaultPublishOptions = entity.HideDefaultPublishOptions
+                HideDefaultPublishOptions = entity.HideDefaultPublishOptions,
+                Priority = entity.Priority,
+                CreatedOn = entity.CreatedOn
             };
         }
     }

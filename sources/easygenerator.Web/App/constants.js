@@ -62,6 +62,10 @@ export default {
         scenario: {
             type: 'scenario',
             image: '/Content/images/scenario-question.png'
+        },
+        rankingText: {
+            type: 'rankingText',
+            image: '/Content/images/rankingtext-question.png'
         }
     },
 
@@ -185,7 +189,8 @@ export default {
                 }
             },
             comment: {
-                deletedByCollaborator: 'course:comment:deletedByCollaborator'
+                deletedByCollaborator: 'course:comment:deletedByCollaborator',
+                createdByCollaborator: 'course:comment:createdByCollaborator'
             }
         },
         learningPath: {
@@ -207,10 +212,13 @@ export default {
             deleted: 'objective:deleted',
             titleUpdated: 'objective:titleUpdated',
             titleUpdatedByCollaborator: 'objective:titleUpdatedByCollaborator',
+            learningObjectiveUpdated: 'objective:learningObjectiveUpdated',
+            learningObjectiveUpdatedByCollaborator: 'objective:learningObjectiveUpdatedByCollaborator',
             imageUrlUpdated: 'objective:imageUrlUpdated',
             imageUrlUpdatedByCollaborator: 'objective:imageUrlUpdatedByCollaborator',
             questionsReordered: 'objective:questionsReordered',
-            questionsReorderedByCollaborator: 'objective:questionsReorderedByCollaborator'
+            questionsReorderedByCollaborator: 'objective:questionsReorderedByCollaborator',
+            navigated: 'objective:navigatedTo'
         },
         question: {
             created: 'question:created',
@@ -266,6 +274,13 @@ export default {
                 answerDeletedByCollaborator: 'question:textMatching:answerDeletedByCollaborator',
                 answerKeyChangedByCollaborator: 'question:textMatching:answerKeyChangedByCollaborator',
                 answerValueChangedByCollaborator: 'question:textMatching:answerValueChangedByCollaborator'
+            },
+
+            rankingText: {
+                answerCreatedByCollaborator: 'question:rankingText:answerCreatedByCollaborator',
+                answerDeletedByCollaborator: 'question:rankingText:answerDeletedByCollaborator',
+                answerTextChangedByCollaborator: 'question:rankingText:answerTextChangedByCollaborator',
+                answersReorderedByCollaborator: 'question:rankingText:answersReorderedByCollaborator'
             },
 
             singleSelectImage: {
@@ -347,7 +362,8 @@ export default {
         lastCreatedObjectiveId: 'lastCreatedObjectiveId',
         lastVistedCourse: 'lastVistedCourse',
         lastVisitedObjective: 'lastVisitedObjective',
-        showCreateCoursePopup: 'showCreateCoursePopup'
+        showCreateCoursePopup: 'showCreateCoursePopup',
+        highlightedObjectiveId: 'highlightedObjectiveId'
     },
 
     reporting: {
@@ -482,21 +498,21 @@ export default {
             }
         },
         chooseVoiceOver: {
-                settings: {
-                    containerCss: 'choose-voice-over'
-                }
+            settings: {
+                containerCss: 'choose-voice-over'
+            }
         },
         branchtrack: {
             settings: {
                 containerCss: 'branchtrack-dialog'
             }
         },
-    editorFeedback:{
+        editorFeedback: {
             settings: {
                 containerCss: 'editor-feedback',
                 boundless: true
             }
-    },
+        },
         upgrade: {
             settings: {
                 default: {
@@ -558,7 +574,25 @@ export default {
         switchToNewEditorMessageClosed: ':switchToNewEditorMessageClosed',
         switchToOldEditorMessageClosed: ':switchToOldEditorMessageClosed'
     },
+
     winToWeb: {
         host: window.winToWebConvertionServiceUrl ? "//" + window.winToWebConvertionServiceUrl : '//localhost:444'
+    },
+
+    comment: {
+        context: {
+            types: {
+                course: 'course',
+                objective: 'objective',
+                question: 'question',
+                informationContent: 'informationContent'
+            },
+            properties: {
+                title: 'title',
+                introduction: 'introduction',
+                voiceOver: 'voiceOver',
+                learningContent: 'learningContent'
+            }
+        }
     }
 };

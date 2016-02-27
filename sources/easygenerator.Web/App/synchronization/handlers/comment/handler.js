@@ -1,9 +1,7 @@
-﻿define(['synchronization/handlers/comment/eventHandlers/deleted'],
-    function (deleted) {
-        "use strict";
+﻿import deleted from 'synchronization/handlers/comment/eventHandlers/deleted';
+import created from 'synchronization/handlers/comment/eventHandlers/created';
 
-        return {
-            deleted: deleted
-        };
-
-    });
+export default {
+    deleted, 
+    created
+};

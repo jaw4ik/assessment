@@ -15,20 +15,28 @@ using easygenerator.Web.Synchronization.Broadcasting.CollaborationBroadcasting;
 namespace easygenerator.Web.Synchronization.Handlers
 {
     public class CommentEventHandler :
-        IDomainEventHandler<CommentDeletedEvent>
+        IDomainEventHandler<CommentDeletedEvent>,
+        IDomainEventHandler<CommentCreatedEvent>
     {
         private readonly ICollaborationBroadcaster<Course> _broadcaster;
-        
+        private readonly IEntityMapper _entityMapper;
 
-        public CommentEventHandler(ICollaborationBroadcaster<Course> broadcaster)
+        public CommentEventHandler(ICollaborationBroadcaster<Course> broadcaster, IEntityMapper entityMapper)
         {
             _broadcaster = broadcaster;
+            _entityMapper = entityMapper;
         }
 
         public void Handle(CommentDeletedEvent args)
         {
             _broadcaster.OtherCollaborators(args.Course)
                 .commentDeleted(args.Course.Id.ToNString(), args.Comment.Id.ToNString());
+        }
+
+        public void Handle(CommentCreatedEvent args)
+        {
+            _broadcaster.OtherCollaborators(args.Course)
+                .commentCreated(args.Course.Id.ToNString(), _entityMapper.Map(args.Comment));
         }
     }
 }

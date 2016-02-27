@@ -68,7 +68,7 @@ namespace easygenerator.Web.Controllers
                                 PublishedOn = e.PublishedOn,
                                 HasBeenPublishedToEgHosting = !string.IsNullOrEmpty(e.PublicationUrl),
                                 HasBeenPublishedToScorm = !string.IsNullOrEmpty(e.ScormPackageUrl),
-                                HasBeenPublishedToExternalLms = e.IsPublishedToExternalLms,
+                                HasBeenPublishedToExternalLms = e.IsPublishedToAnyExternalLms(),
                                 CourseLink = e.PublicationUrl,
                                 PreviewLink = $"//{HttpContext.Request.Url?.Authority}/preview/{e.Id.ToNString()}"
                             })

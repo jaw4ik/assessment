@@ -18,5 +18,6 @@ namespace easygenerator.DomainModel.Repositories
         IEnumerable<Course> GetCoursesRelatedToHotSpotPolygon(Guid hotspotPolygonId);
         IEnumerable<Course> GetCoursesRelatedToTextMatchingAnswer(Guid answerId);
         IEnumerable<Course> GetCoursesRelatedToSingleSelectImageAnswer(Guid answerId);
+        IEnumerable<Course> GetCoursesRelatedToRankingTextAnswer(Guid answerId);
     }
 }

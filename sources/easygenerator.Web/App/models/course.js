@@ -15,7 +15,7 @@
             this.introductionContent = spec.introductionContent;
             this.collaborators = spec.collaborators;
             this.isDirty = spec.isDirty;
-            this.isPublishedToExternalLms = spec.isPublishedToExternalLms;
+            this.courseCompanies = spec.courseCompanies;
 
             this.build = deliveringAction.call(this, buildActionHandler, spec.packageUrl);
             this.scormBuild = buildingAction.call(this, scormBuildActionHandler, spec.scormPackageUrl);
@@ -190,13 +190,13 @@
             });
         }
       
-        function publishToCustomLms() {
+        function publishToCustomLms(companyId) {
             var that = this;
             return Q.fcall(function () {
                 app.trigger(constants.messages.course.publishToCustomLms.started, that);
 
-                return publishService.publishCourseToCustomLms(that.id).then(function () {
-                    that.isPublishedToExternalLms = true;
+                return publishService.publishCourseToCustomLms(that.id, companyId).then(function () {
+                    that.courseCompanies.push({ id: companyId });
                     app.trigger(constants.messages.course.publishToCustomLms.completed, that);
 
                     return that;

@@ -217,6 +217,8 @@
     <Compile Include="BuildCourse\Modules\IPackageModulesProvider.cs" />
     <Compile Include="BuildCourse\Modules\Models\PackageModule.cs" />
     <Compile Include="BuildCourse\PackageModel\OpenQuestionPackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\RankingTextAnswerPackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\RankingTextPackageModel.cs" />
     <Compile Include="BuildCourse\PackageModel\ScenarioQuestionPackageModel.cs" />
     <Compile Include="BuildCourse\PublishSettings\Models\PublishSettings.cs" />
     <Compile Include="BuildCourse\Modules\PackageModulesProvider.cs" />
@@ -294,6 +296,7 @@
     <Compile Include="Components\Mappers\IEntityMapper.cs" />
     <Compile Include="Components\Mappers\DocumentMapper.cs" />
     <Compile Include="Components\Mappers\LearningPathMapper.cs" />
+    <Compile Include="Components\Mappers\RankingtextAnswerMapper.cs" />
     <Compile Include="Components\Mappers\SingleSelectImageAnswerMapper.cs" />
     <Compile Include="Components\Mappers\TemplateMapper.cs" />
     <Compile Include="Components\Mappers\TextMatchingAnswerMapper.cs" />
@@ -301,10 +304,13 @@
     <Compile Include="Components\ModelBinding\LearningPathEntityCollectionModelBinder.cs" />
     <Compile Include="Components\ModelBinding\LearningPathEntityModelBinderProvider.cs" />
     <Compile Include="Components\ModelBinding\LearningPathEntityModelBinder.cs" />
+    <Compile Include="Components\ModelBinding\SecureModelBinder.cs" />
+    <Compile Include="Components\ModelBinding\SecureModelBinderProvider.cs" />
     <Compile Include="Components\ReleaseNoteFileReader.cs" />
     <Compile Include="Components\TypeMethodInvoker.cs" />
     <Compile Include="Configuration\MagickImageResizerConfiguration.cs" />
     <Compile Include="Controllers\Api\DocumentController.cs" />
+    <Compile Include="Controllers\Api\RankingTextController.cs" />
     <Compile Include="Controllers\Api\ScenarioController.cs" />
     <Compile Include="Controllers\Api\CourseImportController.cs" />
     <Compile Include="Controllers\Api\HotSpotQuestionController.cs" />
@@ -327,6 +333,8 @@
     <Compile Include="Publish\External\ExternalPublisher.cs" />
     <Compile Include="Publish\External\IExternalPublisher.cs" />
     <Compile Include="Publish\IPublisher.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Events\RankingTextAnswerChangedEvent.cs" />
+    <Compile Include="DomainEvents\ChangeTracking\Trackers\RankingTextAnswerChangeTracker.cs" />
     <Compile Include="Controllers\WinToWebController.cs" />
     <Compile Include="Import\WinToWeb\Mappers\WinToWebModelMapper.cs" />
     <Compile Include="Import\WinToWeb\Model\WinAnswer.cs" />
@@ -343,6 +351,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Security\PermissionsCheckers\RankingTextAnswerPermissionsChecker.cs" />
     <Compile Include="Storage\CourseStateStorage.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\CourseStateTracker.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\AnswerChangedEvent.cs" />
@@ -559,6 +568,7 @@
     <Compile Include="Synchronization\Handlers\LearningContentEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\ObjectiveEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\QuestionEventHandler.cs" />
+    <Compile Include="Synchronization\Handlers\RankingTextEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\ScenarioEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\SingleSelectImageEventHandler.cs" />
     <Compile Include="Synchronization\Handlers\TextMatchingEventHandler.cs" />
@@ -643,10 +653,85 @@
     <Content Include="App\commands\updateDocumentCommand.spec.js">
       <DependentUpon>updateDocumentCommand.js</DependentUpon>
     </Content>
+    <Content Include="App\core\bootstrap\visible.js" />
+    <Content Include="App\editor\course\bindingHandlers\hightlightObjective.js" />
+    <Content Include="App\mappers\commentModelMapper.js" />
+    <Content Include="App\review\commands\deleteComment.js" />
+    <Content Include="App\review\commands\deleteComment.spec.js">
+      <DependentUpon>deleteComment.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\commands\getCourseComments.js" />
+    <Content Include="App\review\commands\getCourseComments.spec.js">
+      <DependentUpon>getCourseComments.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\commands\restoreComment.js" />
+    <Content Include="App\review\commands\restoreComment.spec.js">
+      <DependentUpon>restoreComment.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\Comment.html" />
+    <Content Include="App\review\comments\Comment.js" />
+    <Content Include="App\review\comments\Comment.spec.js">
+      <DependentUpon>Comment.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\context\commentContextFactory.spec.js">
+      <DependentUpon>commentContextFactory.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\context\commentContexts\CommentContext.spec.js">
+      <DependentUpon>CommentContext.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\context\commentContexts\CourseCommentContext.spec.js">
+      <DependentUpon>CourseCommentContext.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\context\commentContexts\GeneralCommentContext.spec.js">
+      <DependentUpon>GeneralCommentContext.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\context\commentContexts\InformationContentCommentContext.spec.js">
+      <DependentUpon>InformationContentCommentContext.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\context\commentContexts\ObjectiveCommentContext.spec.js">
+      <DependentUpon>ObjectiveCommentContext.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\context\commentContexts\QuestionCommentContext.spec.js">
+      <DependentUpon>QuestionCommentContext.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\context\contextEntities\ObjectiveCommentContextEntity.js" />
+    <Content Include="App\review\comments\context\contextEntities\ObjectiveCommentContextEntity.spec.js">
+      <DependentUpon>ObjectiveCommentContextEntity.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\context\contextEntities\QuestionCommentContextEntity.js" />
+    <Content Include="App\review\comments\context\commentContexts\CommentContext.js" />
+    <Content Include="App\review\comments\context\contextEntities\CommentContextEntity.js" />
+    <Content Include="App\review\comments\context\commentContexts\InformationContentCommentContext.js" />
+    <Content Include="App\review\comments\context\commentContexts\CourseCommentContext.js" />
+    <Content Include="App\review\comments\context\commentContexts\GeneralCommentContext.js" />
+    <Content Include="App\review\comments\context\commentContextFactory.js" />
+    <Content Include="App\review\comments\context\commentContexts\ObjectiveCommentContext.js" />
+    <Content Include="App\review\comments\context\contextEntities\QuestionCommentContextEntity.spec.js">
+      <DependentUpon>QuestionCommentContextEntity.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\context\queries\getObjective.js" />
+    <Content Include="App\review\comments\context\queries\getObjective.spec.js">
+      <DependentUpon>getObjective.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\context\queries\getQuestionData.js" />
+    <Content Include="App\review\comments\context\commentContexts\QuestionCommentContext.js" />
+    <Content Include="App\review\comments\context\queries\getQuestionData.spec.js">
+      <DependentUpon>getQuestionData.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\comments\courseComments.html" />
+    <Content Include="App\review\comments\courseComments.js" />
+    <Content Include="App\review\comments\courseComments.spec.js">
+      <DependentUpon>courseComments.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\publish\coursePublish.spec.js">
+      <DependentUpon>coursePublish.js</DependentUpon>
+    </Content>
+    <Content Include="App\review\reviewPanel.html" />
+    <Content Include="App\components\bindingHandlers\dates\dateBindingHandler.js" />
+    <Content Include="App\components\bindingHandlers\dates\dateFromNowBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\expandableBlockBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\fileDropUploadBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\cursorTooltipBindingHandler.js" />
-    <Content Include="App\components\bindingHandlers\dateBindingHadler.js" />
     <Content Include="App\components\bindingHandlers\editableTextBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\ratingBindingHandler.js" />
     <Content Include="App\components\bindingHandlers\tipBindingHandler.js" />
@@ -783,6 +868,7 @@
     <Content Include="App\editor\course\commands\reorderSectionCommand.js" />
     <Content Include="App\editor\course\commands\unrelateSectionCommand.js" />
     <Content Include="App\editor\course\commands\updateQuestionTitleCommand.js" />
+    <Content Include="App\editor\course\commands\updateSectionLearningObjectiveCommand.js" />
     <Content Include="App\editor\course\commands\updateSectionTitleCommand.js" />
     <Content Include="App\editor\course\components\attributesHelper.js" />
     <Content Include="App\editor\course\components\dragulaAnimation.js" />
@@ -989,15 +1075,48 @@
     <Content Include="App\repositories\learningPathRepository.spec.js">
       <DependentUpon>learningPathRepository.js</DependentUpon>
     </Content>
+    <Content Include="App\review\reviewPanel.js" />
+    <Content Include="App\review\publish\coursePublish.html" />
+    <Content Include="App\review\reviewPanel.spec.js">
+      <DependentUpon>reviewPanel.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\comment\eventHandlers\created.spec.js">
+      <DependentUpon>created.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\comment\eventHandlers\created.js" />
     <Content Include="App\synchronization\handlers\comment\eventHandlers\deleted.js" />
     <Content Include="App\synchronization\handlers\comment\eventHandlers\deleted.spec.js">
       <DependentUpon>deleted.js</DependentUpon>
     </Content>
     <Content Include="App\synchronization\handlers\comment\handler.js" />
+    <Content Include="App\synchronization\handlers\objective\eventHandlers\learningObjectiveUpdated.js" />
+    <Content Include="App\synchronization\handlers\objective\eventHandlers\learningObjectiveUpdated.spec.js">
+      <DependentUpon>learningObjectiveUpdated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\comment\handler.spec.js">
+      <DependentUpon>handler.js</DependentUpon>
+    </Content>
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\voiceOverUpdated.js" />
     <Content Include="App\synchronization\handlers\questions\question\eventHandlers\voiceOverUpdated.spec.js">
       <DependentUpon>voiceOverUpdated.js</DependentUpon>
     </Content>
+    <Content Include="App\synchronization\handlers\questions\rankingText\eventHandlers\answerCreated.js" />
+    <Content Include="App\synchronization\handlers\questions\rankingText\eventHandlers\answerCreated.spec.js">
+      <DependentUpon>answerCreated.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\rankingText\eventHandlers\answerDeleted.spec.js">
+      <DependentUpon>answerDeleted.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\rankingText\eventHandlers\answersReordered.spec.js">
+      <DependentUpon>answersReordered.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\rankingText\eventHandlers\answerDeleted.js" />
+    <Content Include="App\synchronization\handlers\questions\rankingText\eventHandlers\answersReordered.js" />
+    <Content Include="App\synchronization\handlers\questions\rankingText\eventHandlers\answerTextChanged.js" />
+    <Content Include="App\synchronization\handlers\questions\rankingText\eventHandlers\answerTextChanged.spec.js">
+      <DependentUpon>answerTextChanged.js</DependentUpon>
+    </Content>
+    <Content Include="App\synchronization\handlers\questions\rankingText\handler.js" />
     <Content Include="App\synchronization\handlers\questions\scenario\eventHandlers\dataUpdated.js" />
     <Content Include="App\synchronization\handlers\questions\scenario\eventHandlers\dataUpdated.spec.js">
       <DependentUpon>dataUpdated.js</DependentUpon>
@@ -1079,6 +1198,34 @@
     </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\rankingText\commands\addAnswer.js" />
+    <Content Include="App\viewmodels\questions\rankingText\commands\addAnswer.spec.js">
+      <DependentUpon>addAnswer.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\rankingText\commands\deleteAnswer.js" />
+    <Content Include="App\viewmodels\questions\rankingText\commands\deleteAnswer.spec.js">
+      <DependentUpon>deleteAnswer.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\rankingText\commands\updateAnswersOrder.js" />
+    <Content Include="App\viewmodels\questions\rankingText\commands\updateAnswersOrder.spec.js">
+      <DependentUpon>updateAnswersOrder.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\rankingText\commands\updateAnswerText.js" />
+    <Content Include="App\viewmodels\questions\rankingText\commands\updateAnswerText.spec.js">
+      <DependentUpon>updateAnswerText.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\rankingText\queries\getAnswers.js" />
+    <Content Include="App\viewmodels\questions\rankingText\queries\getAnswers.spec.js">
+      <DependentUpon>getAnswers.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\rankingText\rankingText.js" />
+    <Content Include="App\viewmodels\questions\rankingText\rankingText.spec.js">
+      <DependentUpon>rankingText.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\rankingText\rankingTextAnswer.js" />
+    <Content Include="App\viewmodels\questions\rankingText\rankingTextAnswer.spec.js">
+      <DependentUpon>rankingTextAnswer.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\questions\voiceOver.js" />
     <Content Include="App\viewmodels\questions\scenario\commands\updateData.js" />
@@ -1162,6 +1309,7 @@
     <Content Include="App\audio\convertion\commands\finalize.spec.js">
       <DependentUpon>finalize.js</DependentUpon>
     </Content>
+    <Content Include="App\views\questions\rankingText\rankingText.html" />
     <Content Include="App\views\questions\scenario\scenario.html" />
     <Content Include="App\vimeo\queries\checkAvailability.spec.js">
       <DependentUpon>checkAvailability.js</DependentUpon>
@@ -1592,6 +1740,9 @@
     <Content Include="Content\images\media\media-upload.png" />
     <Content Include="Content\images\question-types-large-icons.png" />
     <Content Include="Content\images\question-types-small-icon.png" />
+    <Content Include="Content\images\ranking-text-icon-small.png" />
+    <Content Include="Content\images\ranking-text-icon.png" />
+    <Content Include="Content\images\rankingtext-question.png" />
     <Content Include="Content\images\scenario-question.png" />
     <Content Include="Content\images\templates\deprecated-template.png" />
     <Content Include="Content\images\templates\new-template.png" />
@@ -2120,6 +2271,8 @@
     <Content Include="Content\wintoweb.less" />
     <Content Include="Content\images.less" />
     <Content Include="Content\library.less" />
+    <Content Include="Content\rankingText.less" />
+    <Content Include="Content\reviewPanel.less" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
@@ -2609,7 +2762,6 @@
     <Content Include="Content\notSupportedPage.less" />
     <Content Include="Content\objective.less" />
     <Content Include="Content\onboarding.less" />
-    <Content Include="Content\panels.less" />
     <Content Include="Content\question.less" />
     <Content Include="Content\review.less" />
     <Content Include="Content\selectbox.less" />
@@ -2674,6 +2826,7 @@
     <Content Include="Templates\Assessment\app\views\multipleSelectText.html" />
     <Content Include="Templates\Assessment\app\views\notFoundError.html" />
     <Content Include="Templates\Assessment\app\views\openQuestion.html" />
+    <Content Include="Templates\Assessment\app\views\rankingText.html" />
     <Content Include="Templates\Assessment\app\views\scenarioQuestion.html" />
     <Content Include="Templates\Assessment\app\views\singleSelectImage.html" />
     <Content Include="Templates\Assessment\app\views\singleSelectText.html" />
@@ -3132,10 +3285,6 @@
     <Content Include="App\repositories\answerRepository.spec.js">
       <DependentUpon>answerRepository.js</DependentUpon>
     </Content>
-    <Content Include="App\repositories\commentRepository.js" />
-    <Content Include="App\repositories\commentRepository.spec.js">
-      <DependentUpon>commentRepository.js</DependentUpon>
-    </Content>
     <Content Include="App\repositories\courseRepository.js" />
     <Content Include="App\repositories\courseRepository.spec.js">
       <DependentUpon>courseRepository.js</DependentUpon>
@@ -3210,10 +3359,6 @@
       <DependentUpon>contentField.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\courses\course\create\course.js" />
-    <Content Include="App\viewmodels\courses\courseComments.js" />
-    <Content Include="App\viewmodels\courses\courseComments.spec.js">
-      <DependentUpon>courseComments.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\courses\courses.js" />
     <Content Include="App\viewmodels\courses\courses.spec.js">
       <DependentUpon>courses.js</DependentUpon>
@@ -3247,14 +3392,7 @@
     <Content Include="App\viewmodels\objectives\objectives.spec.js">
       <DependentUpon>objectives.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\panels\sidePanel.js" />
-    <Content Include="App\viewmodels\panels\sidePanel.spec.js">
-      <DependentUpon>sidePanel.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\panels\tabs\reviewTab.js" />
-    <Content Include="App\viewmodels\panels\tabs\reviewTab.spec.js">
-      <DependentUpon>reviewTab.js</DependentUpon>
-    </Content>
+    <Content Include="App\review\publish\coursePublish.js" />
     <Content Include="App\viewmodels\questions\question.js" />
     <Content Include="App\viewmodels\questions\question.spec.js">
       <DependentUpon>question.js</DependentUpon>
@@ -3274,8 +3412,6 @@
     <Content Include="App\views\errors\404.html" />
     <Content Include="App\views\objectives\objective.html" />
     <Content Include="App\views\objectives\objectives.html" />
-    <Content Include="App\views\panels\sidePanel.html" />
-    <Content Include="App\views\panels\tabs\reviewTab.html" />
     <Content Include="App\views\questions\question.html" />
     <Content Include="App\views\shell.html" />
     <Content Include="App\views\user\userMenu.html" />
@@ -3423,6 +3559,7 @@
     <EmbeddedResource Include="Resources\Controllers\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Controllers\Resources.es.resx" />
     <EmbeddedResource Include="Resources\Controllers\Resources.uk.resx" />

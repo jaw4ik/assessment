@@ -12,26 +12,29 @@ using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
 {
-    [AllowAnonymous]
     public class CommentController : DefaultController
     {
         private readonly IEntityFactory _entityFactory;
+        private readonly IEntityMapper _entityMapper;
 
-        public CommentController(IEntityFactory entityFactory)
+        public CommentController(IEntityFactory entityFactory, IEntityMapper entityMapper)
         {
             _entityFactory = entityFactory;
+            _entityMapper = entityMapper;
         }
 
+        [AllowAnonymous]
         [HttpPost]
+        [ValidateInput(false)]
         [Route("api/comment/create")]
-        public ActionResult Create(Course course, string text, string createdByName, string createdBy)
+        public ActionResult Create(Course course, string text, string createdByName, string createdBy, string context)
         {
             if (course == null)
             {
                 return HttpNotFound(Errors.CourseNotFoundError);
             }
 
-            var comment = _entityFactory.Comment(text, createdByName, createdBy);
+            var comment = _entityFactory.Comment(text, createdByName, createdBy, context);
             course.AddComment(comment);
 
             return JsonSuccess(true);
@@ -40,14 +43,14 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         [EntityCollaborator(typeof(Course))]
         [Route("api/comment/restore")]
-        public ActionResult Restore(Course course, string text, string createdByName, string createdBy, DateTime createdOn)
+        public ActionResult Restore(Course course, string text, string createdByName, string createdBy, string context, DateTime createdOn)
         {
             if (course == null)
             {
                 return HttpNotFound(Errors.CourseNotFoundError);
             }
 
-            var comment = _entityFactory.Comment(text, createdByName, createdBy, createdOn.ToUniversalTime());
+            var comment = _entityFactory.Comment(text, createdByName, createdBy, context, createdOn.ToUniversalTime());
             course.AddComment(comment);
 
             return JsonSuccess(comment.Id.ToNString());
@@ -81,16 +84,7 @@ namespace easygenerator.Web.Controllers.Api
                 return HttpNotFound(Errors.CourseNotFoundError);
             }
 
-            var comments = course.Comments.OrderByDescending(i => i.CreatedOn).Select(i => new
-            {
-                Id = i.Id.ToNString(),
-                Text = i.Text,
-                CreatedBy = i.CreatedBy,
-                CreatedByName = i.CreatedByName,
-                CreatedOn = i.CreatedOn
-            });
-
-            return JsonSuccess(new { Comments = comments });
+            return JsonSuccess(new { Comments = course.Comments.Select(comment => _entityMapper.Map(comment)) });
         }
     }
 }

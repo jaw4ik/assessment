@@ -23,11 +23,13 @@
     require('widgets/dialog/bindingHandlers/dialogBindingHandler');
     require('widgets/dialog/bindingHandlers/dialogWizardBindingHandler');
     require('editor/course/bindingHandlers/expandBlock');
+    require('editor/course/bindingHandlers/hightlightObjective');
     require('editor/course/bindingHandlers/draggableContainer');
     require('editor/course/bindingHandlers/draggableData');
     require('editor/course/bindingHandlers/tooltipPopover');
     require('editor/course/bindingHandlers/heightAnimation');
-    require('components/bindingHandlers/dateBindingHadler');
+    require('components/bindingHandlers/dates/dateBindingHandler');
+    require('components/bindingHandlers/dates/dateFromNowBindingHandler');
     require('components/bindingHandlers/editableTextBindingHandler');
     require('components/bindingHandlers/cursorTooltipBindingHandler');
     require('components/bindingHandlers/ratingBindingHandler');

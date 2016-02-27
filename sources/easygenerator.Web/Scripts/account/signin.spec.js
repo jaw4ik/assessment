@@ -553,6 +553,19 @@
                                 expect(app.openHomePage).toHaveBeenCalled();
                             });
 
+                            describe('and ltiUserInfoTokenIsInHash', function() {
+
+                                beforeEach(function() {
+                                    spyOn(window.auth, 'getLtiUserInfoTokenFromHash').and.returnValue('token');
+                                });
+
+                                it('should redirect to home page with token in hash', function() {
+                                    viewModel.submit();
+                                    expect(app.openHomePage).toHaveBeenCalledWith('#token.user.lti=token');
+                                });
+
+                            });
+
                         });
 
                     });

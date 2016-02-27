@@ -9,7 +9,7 @@
         var ctor = function () {
             var viewModel = {
                 learningPath: null,
-                companyInfo: userContext.identity ? userContext.identity.company : null,
+                companyInfo: null,
 
                 isPublishing: ko.observable(false),
                 isDelivering: ko.observable(false),
@@ -35,7 +35,7 @@
                 viewModel.isPublishing(true);
                 eventTracker.publish(events.publishLearningPath);
 
-                return viewModel.learningPath.publishToCustomLms()
+                return viewModel.learningPath.publishToCustomLms(viewModel.companyInfo.id)
                     .then(function() {
                         viewModel.isPublished(true);
                     })
@@ -47,18 +47,21 @@
                     });
             }
 
-            function activate(learningPathId) {
-                return getLearningPathByIdQuery.execute(learningPathId)
+            function activate(publishData) {
+                return getLearningPathByIdQuery.execute(publishData.learningPathId)
                     .then(function (learningPath) {
+                        viewModel.companyInfo = publishData.companyInfo;
                         viewModel.learningPath = learningPath;
 
                         viewModel.isPublishing(learningPath.isPublishing);
                         viewModel.isDelivering(learningPath.isDelivering());
-                        viewModel.isPublished(learningPath.isPublishedToExternalLms);
+                        viewModel.isPublished(!!learningPath.learningPathCompanies.find(function (company) {
+                            return company.id === viewModel.companyInfo.id;
+                        }));
 
                         app.on(constants.messages.learningPath.delivering.started + viewModel.learningPath.id, viewModel.onDeliveringStarted);
                         app.on(constants.messages.learningPath.delivering.finished + viewModel.learningPath.id, viewModel.onDeliveringFinished);
-                    });
+                    }).fail(function() {});
             }
 
             function deactivate() {
@@ -73,8 +76,10 @@
 
             function onDeliveringFinished(learningPath) {
                 viewModel.isDelivering(false);
-                viewModel.isPublished(learningPath.isPublishedToExternalLms);
                 viewModel.isPublishing(learningPath.isPublishing);
+                viewModel.isPublished(!!learningPath.learningPathCompanies.find(function (company) {
+                    return company.id === viewModel.companyInfo.id;
+                }));
             }
         };
 

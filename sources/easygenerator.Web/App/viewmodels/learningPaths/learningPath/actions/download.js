@@ -46,7 +46,7 @@
 
                     app.on(constants.messages.learningPath.delivering.started + viewModel.learningPath.id, viewModel.onDeliveringStarted);
                     app.on(constants.messages.learningPath.delivering.finished + viewModel.learningPath.id, viewModel.onDeliveringFinished);
-                });
+                }).fail(function () { });
         }
 
         function deactivate() {

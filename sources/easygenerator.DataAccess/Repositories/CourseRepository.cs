@@ -94,6 +94,11 @@ namespace easygenerator.DataAccess.Repositories
             return GetCoursesRelatedToQuestionBasedEntity(answerId, "SingleSelectImageAnswers");
         }
 
+        public IEnumerable<Course> GetCoursesRelatedToRankingTextAnswer(Guid answerId)
+        {
+            return GetCoursesRelatedToQuestionBasedEntity(answerId, "RankingTextAnswers");
+        }
+
         private IEnumerable<Course> GetCoursesRelatedToQuestionBasedEntity(Guid entityId, string entityTableName)
         {
             var query = String.Format(@"

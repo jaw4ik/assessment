@@ -82,6 +82,11 @@
                     textMatchingAnswerKeyChanged: questionEventHandler.textMatching.answerKeyChanged,
                     textMatchingAnswerValueChanged: questionEventHandler.textMatching.answerValueChanged,
 
+                    rankingTextAnswerCreated: questionEventHandler.rankingText.answerCreated,
+                    rankingTextAnswerDeleted: questionEventHandler.rankingText.answerDeleted,
+                    rankingTextAnswerTextChanged: questionEventHandler.rankingText.answerTextChanged,
+                    rankingTextAnswersReordered: questionEventHandler.rankingText.answersReordered,
+
                     singleSelectImageAnswerCreated: questionEventHandler.singleSelectImage.answerCreated,
                     singleSelectImageAnswerDeleted: questionEventHandler.singleSelectImage.answerDeleted,
                     singleSelectImageAnswerImageUpdated: questionEventHandler.singleSelectImage.answerImageUpdated,
@@ -104,7 +109,8 @@
                     scenarioDataUpdated: questionEventHandler.scenario.dataUpdated,
                     scenarioMasteryScoreUpdated: questionEventHandler.scenario.masteryScoreUpdated,
 
-                    commentDeleted: commentEventHandler.deleted
+                    commentDeleted: commentEventHandler.deleted,
+					commentCreated: commentEventHandler.created
                 };
 
                 $.connection.hub.disconnected(function () {

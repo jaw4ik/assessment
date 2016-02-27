@@ -8,7 +8,11 @@ using LtiLibrary.Core.Common;
 using LtiLibrary.Core.OAuth;
 using LtiLibrary.Owin.Security.Lti.Provider;
 using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Web;
+using easygenerator.Auth.Security.Models;
+using easygenerator.Auth.Security.Providers;
 using easygenerator.DomainModel.Events.UserEvents;
 
 namespace easygenerator.Auth.Lti
@@ -16,23 +20,25 @@ namespace easygenerator.Auth.Lti
     public class LtiAuthProvider : LtiAuthenticationProvider
     {
         private readonly IConsumerToolRepository _consumerToolRepository;
-        private readonly ITokenProvider _tokenProvider;
         private readonly IUserRepository _userRepository;
         private readonly IEntityFactory _entityFactory;
+        private readonly ITokenProvider _tokenProvider;
         private readonly IDomainEventPublisher _eventPublisher;
         private readonly IReleaseNoteFileReader _releaseNoteFileReader;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ISecureTokenProvider<ISecure<LtiUserInfo>> _secureTokenProvider;
 
-        public LtiAuthProvider(IConsumerToolRepository consumerToolRepository, ITokenProvider tokenProvider, IUserRepository userRepository,
-            IEntityFactory entityFactory, IDomainEventPublisher eventPublisher, IReleaseNoteFileReader releaseNoteFileReader, IUnitOfWork unitOfWork)
+        public LtiAuthProvider(IConsumerToolRepository consumerToolRepository, IUserRepository userRepository,
+            IEntityFactory entityFactory, ITokenProvider tokenProvider, IDomainEventPublisher eventPublisher, IReleaseNoteFileReader releaseNoteFileReader, IUnitOfWork unitOfWork, ISecureTokenProvider<ISecure<LtiUserInfo>> secureTokenProvider)
         {
             _consumerToolRepository = consumerToolRepository;
-            _tokenProvider = tokenProvider;
             _userRepository = userRepository;
             _entityFactory = entityFactory;
+            _tokenProvider = tokenProvider;
             _eventPublisher = eventPublisher;
             _releaseNoteFileReader = releaseNoteFileReader;
             _unitOfWork = unitOfWork;
+            _secureTokenProvider = secureTokenProvider;
 
             OnAuthenticate = context =>
             {
@@ -84,35 +90,33 @@ namespace easygenerator.Auth.Lti
                 }
                 else
                 {
-                    if (user.IsLtiUser())
+                    if (user.GetLtiUserInfo(context.LtiRequest.UserId, consumerTool) == null)
                     {
-                        var userInfo = user.GetLtiUserInfo(consumerTool);
-                        if (userInfo == null)
-                        {
-                            user.AddLtiUserInfo(context.LtiRequest.UserId, consumerTool);
-                            _unitOfWork.Save();
-                        }
-                        else if (userInfo.LtiUserId != context.LtiRequest.UserId)
-                        {
-                            return RedirectToLogoutActionTask(context, ltiProviderUrl);
-                        }
-                    }
-                    else
-                    {
-                        return RedirectToLogoutActionTask(context, ltiProviderUrl);
+                        return RedirectToRoot(context, ltiProviderUrl, consumerTool, user);
                     }
                 }
 
                 var authToken = _tokenProvider.GenerateTokens(userEmail, context.Request.Uri.Host, new[] { "lti" }, DateTimeWrapper.Now().ToUniversalTime().AddMinutes(5));
-                context.RedirectUrl = $"{ltiProviderUrl}#token.lti={authToken[0].Token}";
+                var redirectUrl = $"{ltiProviderUrl}#token.lti={authToken[0].Token}";
+
+                if (consumerTool.Settings?.Company?.Id != null)
+                {
+                    redirectUrl = $"{redirectUrl}&companyId={consumerTool.Settings.Company.Id.ToString("N")}";
+                }
+
+                context.RedirectUrl = redirectUrl;
 
                 return Task.FromResult<object>(null);
             };
         }
 
-        private Task RedirectToLogoutActionTask(LtiAuthenticatedContext context, string ltiProviderUrl)
+        private Task RedirectToRoot(LtiAuthenticatedContext context, string ltiProviderUrl, ConsumerTool consumerTool, User user)
         {
-            context.RedirectUrl = $"{ltiProviderUrl}#logout";
+            var ltiUserInfo = _entityFactory.LtiUserInfo(context.LtiRequest.UserId, consumerTool, user);
+            var ltiUserInfoSecure = new LtiUserInfoSecure(ltiUserInfo);
+            var token = HttpUtility.UrlEncode(_secureTokenProvider.GenerateToken(ltiUserInfoSecure));
+
+            context.RedirectUrl = $"{ltiProviderUrl}#token.user.lti={token}";
             return Task.FromResult<object>(null);
         }
 
@@ -137,7 +141,7 @@ namespace easygenerator.Auth.Lti
             }
 
             var userPassword = Guid.NewGuid().ToString("N");
-            var user = _entityFactory.User(email, userPassword, firstName, lastName, ltiMockData, ltiMockData, ltiMockData, email, accessType, _releaseNoteFileReader.GetReleaseVersion(), expirationDate, company, null);
+            var user = _entityFactory.User(email, userPassword, firstName, lastName, ltiMockData, ltiMockData, ltiMockData, email, accessType, _releaseNoteFileReader.GetReleaseVersion(), expirationDate, true, company != null ? new Collection<Company>() { company } : null, null);
 
             user.AddLtiUserInfo(ltiUserId, consumerTool);
 

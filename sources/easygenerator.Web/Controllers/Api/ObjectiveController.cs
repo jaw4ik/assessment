@@ -77,6 +77,21 @@ namespace easygenerator.Web.Controllers.Api
 
         [HttpPost]
         [EntityCollaborator(typeof(Objective))]
+        [Route("api/objective/updatelearningobjective")]
+        public ActionResult UpdateLearningObjective(Objective objective, string learningObjective)
+        {
+            if (objective == null)
+            {
+                return JsonLocalizableError(Errors.ObjectiveNotFoundError, Errors.ObjectiveNotFoundResourceKey);
+            }
+
+            objective.UpdateLearningObjective(learningObjective, GetCurrentUsername());
+
+            return JsonSuccess(new { ModifiedOn = objective.ModifiedOn });
+        }
+
+        [HttpPost]
+        [EntityCollaborator(typeof(Objective))]
         [Route("api/objective/updateimage")]
         public ActionResult UpdateImage(Objective objective, string imageUrl)
         {

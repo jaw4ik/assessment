@@ -20,8 +20,9 @@ describe('[userContext]', () => {
     describe('identify:', () => {
 
         let authHttpWrapperPromise;
-        let user = { email: 'user@email.com', subscription: { accessType: 0 } };
+        let user;
         beforeEach(() => {
+            user = { email: 'user@email.com', subscription: { accessType: 0 }, companies: [{ Id: 'companyId', HideDefaultPublishOptions: true }, { Id: 'company2Id' }] };
             authHttpWrapperPromise = Promise.resolve(user);
             spyOn(authHttpWrapper, 'post').and.returnValue(authHttpWrapperPromise);
             spyOn(app, 'trigger');
@@ -47,6 +48,25 @@ describe('[userContext]', () => {
             await authHttpWrapperPromise;
             expect(app.trigger).toHaveBeenCalledWith(constants.messages.user.identified, userContext.identity);
         })().then(done));
+
+        describe('when company provided by LTI exists', () => {
+
+            describe('and company has an option to hide default publish options', () => {
+
+                beforeEach(() => {
+                    userContext.ltiData.companyId = 'companyId';
+                });
+
+                it('should set only this company to company list', done => (async () => {
+                    userContext.identify();
+                    await authHttpWrapperPromise;
+                    expect(userContext.identity.companies.length).toBe(1);
+                    expect(userContext.identity.companies[0].id).toBe('companyId');
+                })().then(done));
+
+            });
+
+        });
 
     });
 
@@ -98,6 +118,66 @@ describe('[userContext]', () => {
                 expect(userContext.storageIdentity.availableStorageSpace).toBe(userData.AvailableStorageSpace);
                 expect(userContext.storageIdentity.totalStorageSpace).toBe(userData.TotalStorageSpace);
             })().then(done));
+
+        });
+
+    });
+
+    describe('identifyLtiUser', () => {
+
+        it('should be function', () => {
+            expect(userContext.identifyLtiUser).toBeFunction();
+        });
+
+        it('should return promise', () => {
+            spyOn(authHttpWrapper, 'post');
+            expect(userContext.identifyLtiUser()).toBePromise();
+        });
+
+        describe('when ltiUserInfoToken exists', () => {
+
+            beforeEach(() => {
+                userContext.ltiData.ltiUserInfoToken = 'token';
+            });
+
+            it('should send post request', () => {
+                spyOn(authHttpWrapper, 'post');
+                userContext.identifyLtiUser();
+                expect(authHttpWrapper.post).toHaveBeenCalledWith('auth/identifyLtiUser', { token: 'token' });
+            });
+
+
+            describe('when response contains unauthorized property', () => {
+
+                beforeEach(() => {
+                    spyOn(authHttpWrapper, 'post').and.returnValue(Promise.resolve({ unauthorized: true }));
+                });
+
+                it('should throw error with details', done => (async () => {
+                    try {
+                        await userContext.identifyLtiUser();
+                        throw 'promise should not be resolved';
+                    } catch (e) {
+                        expect(e.logout).toBeTruthy();
+                        expect(e.ltiUserInfoToken).toBe('token');
+                    }
+                })().then(done));
+
+            });
+
+            describe('when response contains companyId property', () => {
+
+                beforeEach(() => {
+                    userContext.ltiData.companyId = null;
+                    spyOn(authHttpWrapper, 'post').and.returnValue(Promise.resolve({ companyId: 'companyId' }));
+                });
+
+                it('should set companyId to ltiData', done => (async () => {
+                    await userContext.identifyLtiUser();
+                    expect(userContext.ltiData.companyId).toBe('companyId');
+                })().then(done));
+
+            });
 
         });
 

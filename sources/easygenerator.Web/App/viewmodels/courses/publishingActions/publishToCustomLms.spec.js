@@ -18,7 +18,7 @@ describe('course delivering action [publishToCustomLms]', function () {
 
     var publishToCustomLmsAction = function () { };
 
-    var course = { id: 'someId', isDelivering: true, publish: publishAction, publishToCustomLms: publishToCustomLmsAction, isDirty: true };
+    var course = { id: 'someId', isDelivering: true, publish: publishAction, publishToCustomLms: publishToCustomLmsAction, isDirty: true, courseCompanies: [] };
 
     beforeEach(function () {
         viewModel = publishToCustomLms(eventCategory);
@@ -211,7 +211,7 @@ describe('course delivering action [publishToCustomLms]', function () {
         });
 
         it('should return promise', function () {
-            expect(viewModel.activate()).toBePromise();
+            expect(viewModel.activate(course, course.publish)).toBePromise();
         });
 
         describe('when course received', function () {
@@ -283,14 +283,6 @@ describe('course delivering action [publishToCustomLms]', function () {
 
         it('shoulb be equal constructor argument', function () {
             expect(viewModel.eventCategory).toBe(eventCategory);
-        });
-
-    });
-
-    describe('courseId:', function () {
-
-        it('should be defined', function () {
-            expect(viewModel.courseId).toBeDefined();
         });
 
     });
@@ -392,6 +384,7 @@ describe('course delivering action [publishToCustomLms]', function () {
 
             beforeEach(function () {
                 viewModel.isDirty(true);
+                viewModel.companyInfo = { id: 'id' };
                 publishToCustomLmsDefer.resolve();
             });
 
@@ -449,7 +442,7 @@ describe('course delivering action [publishToCustomLms]', function () {
 
                     it('should call publishToCustomLms action', function (done) {
                         viewModel.publishToCustomLms().fin(function () {
-                            expect(course.publishToCustomLms).toHaveBeenCalled();
+                            expect(course.publishToCustomLms).toHaveBeenCalledWith(viewModel.companyInfo.id);
                             done();
                         });
                     });
@@ -471,34 +464,47 @@ describe('course delivering action [publishToCustomLms]', function () {
         it('should set courseId', function (done) {
             viewModel.courseId = null;
 
-            viewModel.activate(course.id).fin(function () {
+            viewModel.activate({ courseId: course.id }).fin(function () {
                 expect(viewModel.courseId).toBe(course.id);
                 done();
             });
         });
 
-        it('should set isPublished', function (done) {
-            viewModel.isPublished(false);
-            course.isPublishedToExternalLms = true;
+        it('should set companyInfo', function (done) {
+            var companyInfo = { id: 'companyId' };
+            viewModel.companyInfo = null;
 
-            viewModel.activate(course.id).fin(function () {
+            viewModel.activate({ courseId: course.id, companyInfo: companyInfo }).fin(function () {
+                expect(viewModel.companyInfo).toBe(companyInfo);
+                done();
+            });
+        });
+
+        it('should set isPublished', function (done) {
+            var companyInfo = { id: 'companyId' };
+            viewModel.isPublished(false);
+            course.courseCompanies = [companyInfo];
+
+            viewModel.activate({ courseId: course.id, companyInfo: companyInfo }).fin(function () {
                 expect(viewModel.isPublished()).toBeTruthy();
                 done();
             });
         });
 
         it('should set isDirty', function (done) {
+            var companyInfo = { id: 'companyId' };
             viewModel.isDirty(false);
             course.isDirty = true;
 
-            viewModel.activate(course.id).fin(function () {
+            viewModel.activate({ courseId: course.id, companyInfo: companyInfo }).fin(function () {
                 expect(viewModel.isDirty()).toBeTruthy();
                 done();
             });
         });
 
         it('should subscribe to course.stateChanged event', function (done) {
-            var promise = viewModel.activate(course.id);
+            var companyInfo = { id: 'companyId' };
+            var promise = viewModel.activate({ courseId: course.id, companyInfo: companyInfo });
             promise.fin(function () {
                 expect(app.on).toHaveBeenCalledWith(constants.messages.course.stateChanged + course.id);
                 done();
@@ -506,7 +512,8 @@ describe('course delivering action [publishToCustomLms]', function () {
         });
 
         it('should subscribe to course.publishToCustomLms.started event', function (done) {
-            var promise = viewModel.activate(course.id);
+            var companyInfo = { id: 'companyId' };
+            var promise = viewModel.activate({ courseId: course.id, companyInfo: companyInfo });
             promise.fin(function () {
                 expect(app.on).toHaveBeenCalledWith(constants.messages.course.publishToCustomLms.started);
                 done();
@@ -514,7 +521,8 @@ describe('course delivering action [publishToCustomLms]', function () {
         });
 
         it('should subscribe to course.publishToCustomLms.completed event', function (done) {
-            var promise = viewModel.activate(course.id);
+            var companyInfo = { id: 'companyId' };
+            var promise = viewModel.activate({ courseId: course.id, companyInfo: companyInfo });
             promise.fin(function () {
                 expect(app.on).toHaveBeenCalledWith(constants.messages.course.publishToCustomLms.completed);
                 done();
@@ -522,7 +530,8 @@ describe('course delivering action [publishToCustomLms]', function () {
         });
 
         it('should subscribe to course.publishToCustomLms.failed event', function (done) {
-            var promise = viewModel.activate(course.id);
+            var companyInfo = { id: 'companyId' };
+            var promise = viewModel.activate({ courseId: course.id, companyInfo: companyInfo });
             promise.fin(function () {
                 expect(app.on).toHaveBeenCalledWith(constants.messages.course.publishToCustomLms.failed);
                 done();
@@ -602,6 +611,7 @@ describe('course delivering action [publishToCustomLms]', function () {
             });
 
             it('should set isPublishingToLms to false', function () {
+                viewModel.companyInfo = { id: '123' };
                 viewModel.isPublishingToLms(true);
 
                 viewModel.coursePublishCompleted(course);
@@ -609,12 +619,23 @@ describe('course delivering action [publishToCustomLms]', function () {
                 expect(viewModel.isPublishingToLms()).toBeFalsy();
             });
 
-            it('should set isPublished to true', function () {
-                viewModel.isPublished(false);
+            describe('and when course contains current company', function () {
 
-                viewModel.coursePublishCompleted(course);
+                var company = { id: 'companyId' };
 
-                expect(viewModel.isPublished()).toBeTruthy();
+                beforeEach(function () {
+                    course.courseCompanies = [company];
+                    viewModel.companyInfo = company;
+                });
+
+                it('should set isPublished to true', function () {
+                    viewModel.isPublished(false);
+
+                    viewModel.coursePublishCompleted(course);
+
+                    expect(viewModel.isPublished()).toBeTruthy();
+                });
+
             });
 
         });

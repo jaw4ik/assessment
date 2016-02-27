@@ -26,9 +26,10 @@ describe('dialog learningPath model [customPublish]', function () {
             expect(viewModel.activate()).toBePromise();
         });
 
-        it('should activate publishAction', function() {
-            viewModel.activate('learningPathId');
-            expect(viewModel.publishAction.activate).toHaveBeenCalledWith('learningPathId');
+        it('should activate publishAction', function () {
+            var data = {};
+            viewModel.activate(data);
+            expect(viewModel.publishAction.activate).toHaveBeenCalledWith(data);
         });
     });
         

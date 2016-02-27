@@ -631,11 +631,27 @@ describe('viewModel [courses]', function () {
             expect(viewModel.newCourseCreated).toBeFunction();
         });
 
-        it('should add course to the list of courses', function () {
-            var course = { id: 'id', title: 'title', template: { thumbnail: 'thumbnail' } };
-            viewModel.newCourseCreated(course);
-            expect(viewModel.courses()[0].id).toBe(course.id);
-            expect(viewModel.courses()[0].title()).toBe(course.title);
+        describe('when course is duplicate', function() {
+
+            it('should not add course to list and remove isDuplicate property', function() {
+                var course = { id: 'id', title: 'title', template: { thumbnail: 'thumbnail' } };
+                course.isDuplicate = true;
+                viewModel.newCourseCreated(course);
+                expect(course.isDuplicate).not.toBeDefined();
+                expect(viewModel.courses().find(function(item) { return item.id === course.id })).not.toBeDefined();
+            });
+
+        });
+
+        describe('when course is not duplicate', function() {
+
+            it('should add course to the list of courses', function() {
+                var course = { id: 'id', title: 'title', template: { thumbnail: 'thumbnail' } };
+                viewModel.newCourseCreated(course);
+                expect(viewModel.courses()[0].id).toBe(course.id);
+                expect(viewModel.courses()[0].title()).toBe(course.title);
+            });
+
         });
 
     });

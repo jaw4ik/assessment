@@ -9,6 +9,7 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System.Linq;
+using easygenerator.DomainModel.Events.QuestionEvents.RankingTextEvents;
 
 namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
 {
@@ -216,6 +217,36 @@ namespace easygenerator.Web.Tests.DomainEvents.ChangeTracking.Trackers
 
             //Act
             _tracker.Handle(new SingleSelectImageAnswerChangedEvent(answer));
+
+            //Assert
+            _publisher.ShouldPublishEvent<CourseChangedEvent>(2);
+        }
+
+        [TestMethod]
+        public void Handler_RankingTextAnswerTextChanged_Should_Publish_CourseChangedEvent()
+        {
+            //Arrange
+            var answer = RankingTextAnswerObjectMother.Create();
+            var courses = new[] { CourseObjectMother.Create(), CourseObjectMother.Create() };
+            _repository.GetCoursesRelatedToRankingTextAnswer(answer.Id).Returns(courses);
+
+            //Act
+            _tracker.Handle(new RankingTextAnswerTextChangedEvent(answer));
+
+            //Assert
+            _publisher.ShouldPublishEvent<CourseChangedEvent>(2);
+        }
+
+        [TestMethod]
+        public void Handler_RankingTextAnswerCreated_Should_Publish_CourseChangedEvent()
+        {
+            //Arrange
+            var answer = RankingTextAnswerObjectMother.Create();
+            var courses = new[] { CourseObjectMother.Create(), CourseObjectMother.Create() };
+            _repository.GetCoursesRelatedToRankingTextAnswer(answer.Id).Returns(courses);
+
+            //Act
+            _tracker.Handle(new RankingTextAnswerCreatedEvent(answer));
 
             //Assert
             _publisher.ShouldPublishEvent<CourseChangedEvent>(2);

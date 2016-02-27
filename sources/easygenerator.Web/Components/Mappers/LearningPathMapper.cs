@@ -21,13 +21,16 @@ namespace easygenerator.Web.Components.Mappers
                 Title = entity.Title,
                 PackageUrl = entity.PackageUrl,
                 PublicationUrl = _urlHelper.AddCurrentSchemeToUrl(entity.PublicationUrl),
-                IsPublishedToExternalLms = entity.IsPublishedToExternalLms,
                 CreatedOn = entity.CreatedOn,
                 CreatedBy = entity.CreatedBy,
                 ModifiedOn = entity.ModifiedOn,
                 Entities = entity.Entities.Select(e => new
                 {
                     Id = e.Id.ToNString()
+                }),
+                LearningPathCompanies = entity.Companies.Select(obj => new
+                {
+                    Id = obj.Id.ToNString()
                 })
             };
         }

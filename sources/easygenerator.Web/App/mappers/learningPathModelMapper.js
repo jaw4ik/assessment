@@ -9,7 +9,6 @@
                     id: learningPath.Id,
                     title: learningPath.Title,
                     publicationUrl: learningPath.PublicationUrl,
-                    isPublishedToExternalLms: learningPath.IsPublishedToExternalLms,
                     createdBy: learningPath.CreatedBy,
                     createdOn: new Date(learningPath.CreatedOn),
                     modifiedOn: new Date(learningPath.ModifiedOn),
@@ -17,6 +16,11 @@
                         return _.find(courses.concat(documents), function (entity) {
                             return entity.id === item.Id;
                         });
+                    }),
+                    learningPathCompanies: _.map(learningPath.LearningPathCompanies, function (learningPathCompany) {
+                        return {
+                            id: learningPathCompany.Id
+                        }
                     })
                 });
             };
