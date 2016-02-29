@@ -3,9 +3,9 @@
 
     angular.module('assessment.xApi').factory('xApiDataBuilder', dataBuilder);
 
-    dataBuilder.$inject = ['courseDataBuilder', 'objectiveDataBuilder', 'questionDataBuilder', 'learningContentDataBuilder'];
+    dataBuilder.$inject = ['courseDataBuilder', 'sectionDataBuilder', 'questionDataBuilder', 'learningContentDataBuilder'];
 
-    function dataBuilder(courseDataBuilder, objectiveDataBuilder, questionDataBuilder, learningContentDataBuilder) {
+    function dataBuilder(courseDataBuilder, sectionDataBuilder, questionDataBuilder, learningContentDataBuilder) {
         /*private fields*/
         var actor = null,
             courseId = '',
@@ -20,7 +20,7 @@
             courseStarted: courseStarted,
             courseResults: courseResults,
             courseStopped: courseStopped,
-            objectiveMastered: objectiveMastered,
+            sectionMastered: sectionMastered,
             questionAnswered: questionAnswered,
             learningContentExperienced: learningContentExperienced
         };
@@ -63,8 +63,8 @@
             return new TinCan.Statement(data);
         }
 
-        function objectiveMastered(objective) {
-            var data = objectiveDataBuilder.objectiveMasteredData(objective, rootUrl);
+        function sectionMastered(section) {
+            var data = sectionDataBuilder.sectionMasteredData(section, rootUrl);
             data.context = defaultContext();
             data.actor = actor;
 

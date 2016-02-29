@@ -1,29 +1,29 @@
 (function () {
     'use strict';
 
-    angular.module('assessment.xApi').factory('objectiveDataBuilder', factory);
+    angular.module('assessment.xApi').factory('sectionDataBuilder', factory);
 
     factory.$inject = ['xApiVerbs'];
 
     function factory(verbs) {
         return {
-            objectiveMasteredData: objectiveMasteredData
+            sectionMasteredData: sectionMasteredData
         };
 
-        function objectiveMasteredData(objective, rootUrl) {
-            var objectiveUrl = rootUrl + '#objectives?objective_id=' + objective.id;
+        function sectionMasteredData(section, rootUrl) {
+            var sectionUrl = rootUrl + '#sections?section_id=' + section.id;
 
             var result = new TinCan.Result({
                 score: new TinCan.Score({
-                    scaled: objective.getResult() / 100
+                    scaled: section.getResult() / 100
                 })
             });
 
             var activity = new TinCan.Activity({
-                id: objectiveUrl,
+                id: sectionUrl,
                 definition: new TinCan.ActivityDefinition({
                     name: {
-                        'en-US': objective.title
+                        'en-US': section.title
                     }
                 })
             });

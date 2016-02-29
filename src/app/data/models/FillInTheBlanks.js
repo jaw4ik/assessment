@@ -8,13 +8,13 @@
     factory.$inject = ['Question'];
 
     function factory(Question) {
-        return function FillInTheBlanks(objectiveId, id, title, hasContent, learningContents, type, groups) {
+        return function FillInTheBlanks(sectionId, id, title, hasContent, learningContents, type, groups) {
             var that = this,
                 _protected = {
                     answer: answer
                 };
 
-            Question.call(that, objectiveId, id, title, hasContent, learningContents, type, _protected);
+            Question.call(that, sectionId, id, title, hasContent, learningContents, type, _protected);
 
             that.groups = groups;
 

@@ -8,13 +8,13 @@
     factory.$inject = ['Question'];
 
     function factory(Question) {
-        return function Statement(objectiveId, id, title, hasContent, learningContents, type, options) {
+        return function Statement(sectionId, id, title, hasContent, learningContents, type, options) {
             var that = this,
                 _protected = {
                     answer: answer
                 };
 
-            Question.call(that, objectiveId, id, title, hasContent, learningContents, type, _protected);
+            Question.call(that, sectionId, id, title, hasContent, learningContents, type, _protected);
 
             that.options = options;
 
