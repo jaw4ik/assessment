@@ -50,6 +50,7 @@ using easygenerator.Web.BuildDocument;
 using easygenerator.Web.Extensions;
 using easygenerator.Web.Import.WinToWeb;
 using easygenerator.Web.Import.WinToWeb.Mappers;
+using easygenerator.Web.Newsletter.Intercom;
 using CoursePackageModelMapper = easygenerator.Web.BuildCourse.PackageModelMapper;
 using CoursePackageModelSerializer = easygenerator.Web.BuildCourse.PackageModelSerializer;
 using DocumentPackageModelMapper = easygenerator.Web.BuildDocument.PackageModelMapper;
@@ -186,8 +187,10 @@ namespace easygenerator.Web.Configuration
 
             #region NewsLetter
 
+            builder.RegisterType<IntercomSubscriptionManager>().As<IIntercomSubscriptionManager>().SingleInstance();
             builder.RegisterType<MailChimpSubscriptionManager>().As<INewsletterSubscriptionManager>().SingleInstance();
             builder.RegisterType<HttpClient>().As<HttpClient>().SingleInstance();
+            builder.RegisterType<IntercomClient>().As<IIntercomClient>().SingleInstance();
 
             #endregion
 

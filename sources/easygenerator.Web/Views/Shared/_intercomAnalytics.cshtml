@@ -1,5 +1,7 @@
 ﻿@using System.Configuration
-@if (ConfigurationManager.AppSettings.AllKeys.Contains("IntercomToken") && ConfigurationManager.AppSettings["IntercomToken"].Length > 0)
+@using easygenerator.Web.Components.Configuration
+
+@if(!String.IsNullOrEmpty((ConfigurationManager.GetSection("intercom") as IntercomConfigurationSection).AppId) && !String.IsNullOrEmpty((ConfigurationManager.GetSection("intercom") as IntercomConfigurationSection).ApiKey))
 {
     <script type="text/javascript">
         (function () {
@@ -19,7 +21,7 @@
                     var s = d.createElement('script');
                     s.type = 'text/javascript';
                     s.async = true;
-                    s.src = 'https://widget.intercom.io/widget/@ConfigurationManager.AppSettings["IntercomToken"]';
+                    s.src = 'https://widget.intercom.io/widget/@((ConfigurationManager.GetSection("intercom") as IntercomConfigurationSection).AppId)';
                     var x = d.getElementsByTagName('script')[0];
                     x.parentNode.insertBefore(s, x);
                 }
@@ -31,6 +33,6 @@
                 }
             }
         })();
-        window.analytics = { intercomapp_id: '@ConfigurationManager.AppSettings["IntercomToken"]' };
+        window.analytics = { intercomapp_id: '@((ConfigurationManager.GetSection("intercom") as IntercomConfigurationSection).AppId)' };
     </script>
 }
