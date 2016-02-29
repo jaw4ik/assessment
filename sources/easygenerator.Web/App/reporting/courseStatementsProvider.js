@@ -4,7 +4,7 @@ import XApiProvider from 'reporting/xApiProvider';
 import StartedStatement from 'reporting/viewmodels/startedStatement';
 import FinishStatement from 'reporting/viewmodels/finishStatement';
 import ObjectiveStatement from 'reporting/viewmodels/objectiveStatement';
-import QuestionStatement from 'reporting/viewmodels/questionStatement';
+import questionStatementFactory from 'reporting/viewmodels/questionStatements/questionStatementFactory';
 
 export default class {
     static async getLrsStatements(spec) {
@@ -24,12 +24,15 @@ export default class {
                         if (!embededStatementGroup || !embededStatementGroup.mastered) {
                             return null;
                         }
-                        if (!embededStatementGroup.answered || !embededStatementGroup.answered.length) {
+                        if ((!embededStatementGroup.answered || !embededStatementGroup.answered.length) && (!embededStatementGroup.experienced || !embededStatementGroup.experienced.length) ) {
                             return new ObjectiveStatement(embededStatementGroup.mastered);
                         }
-                        var answered = _.map(embededStatementGroup.answered, statement => new QuestionStatement(statement));
 
-                        return new ObjectiveStatement(embededStatementGroup.mastered, answered.length ? answered : null);
+                        var answered = embededStatementGroup.answered ? embededStatementGroup.answered : [],
+                            experienced = embededStatementGroup.experienced ? embededStatementGroup.experienced : [],
+                            questionStatementsModels = _.map(_.union(answered, experienced), statement => questionStatementFactory.createQuestionStatement(statement));
+
+                        return new ObjectiveStatement(embededStatementGroup.mastered, questionStatementsModels.length ? questionStatementsModels : null);
                     });
 
                     return new FinishStatement(finishedStatement, startedStatement || null, mastered.length ? mastered : null);

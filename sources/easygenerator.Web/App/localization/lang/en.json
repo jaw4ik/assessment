@@ -119,6 +119,7 @@
     "uploadAudioDescription": "Click this button to upload your own audio",
     "audioUploadError": "Upload failed",
     "audioUploadUpgradeSubtitle": "to upload audio to easygenerator",
+    "audioDeleteConfirmation": "Delete this audio?",
     "audioUploadUpgradeText": "<ul><li>Unlimited storage space (fair use policy)</li><li>Unlimited number of plays</li><li>HTML5 player: play anywhere on any device</li></ul>",
     "choose": "Сhoose",
     "chooseFileForVoiceOver": "Choose an audio file to use it as voice over",
@@ -256,6 +257,7 @@
     "courseScore": "Course score",
     "objectiveScore": "Objective score",
     "questionScore": "Question score",
+    "contentExperienced": "Content experienced",
     "dateTime": "Date/Time",
     "date": "Date",
     "time": "Time",
@@ -736,7 +738,7 @@
     "themes": "Themes",
     "saveAsANewTheme": "Save as a new theme",
     "backToSettings": "Back to settings",
-    "saveAndBack": "Save and back",
+    "backToCourse": "Back to the course",
     "duplicateQuestion": "Duplicate question",
     "questionTitleLabel": "Question title"
 }

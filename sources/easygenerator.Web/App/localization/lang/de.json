@@ -119,6 +119,7 @@
     "uploadAudioDescription": "Klicken Sie hier, um ein eigenes Audio hochzuladen",
     "audioUploadError": "Upload fehlgeschlagen",
     "audioUploadUpgradeSubtitle": "um ein Audio in easygenerator hochzuladen",
+    "audioDeleteConfirmation": "Delete this audio?",
     "audioUploadUpgradeText": "<ul><li>Unbegrenzter Speicherplatz (fair use policy)</li><li>Unbegranzte Zahl an Nutzungen</li><li>HTML5-Player: überall und auf allen Geräten abspielbar</li></ul>",
     "choose": "Wählen",
     "chooseFileForVoiceOver": "Wählen Sie eine Audiodatei zur Verwendung als Voice-Over",
@@ -256,6 +257,7 @@
     "courseScore": "Kurs-Punktzahl",
     "objectiveScore": "Objektive Punktzahl",
     "questionScore": "Frage-Punktzahl",
+    "contentExperienced": "Content experienced",
     "dateTime": "Datum Zeit",
     "date": "Datum",
     "time": "Zeit",
@@ -736,7 +738,7 @@
     "themes": "Themen",
     "saveAsANewTheme": "Als neues Thema speichern",
     "backToSettings": "Zurück zu den Einstellungen",
-    "saveAndBack": "Speichern und Zurück",
+    "backToCourse": "Speichern und Zurück",
     "duplicateQuestion": "Duplizierte Frage",
     "questionTitleLabel": "Fragetitel"
 }

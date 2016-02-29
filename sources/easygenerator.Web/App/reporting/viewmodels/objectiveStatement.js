@@ -1,21 +1,21 @@
 ﻿import _ from 'underscore';
 import ExpandableStatement from 'reporting/viewmodels/expandableStatement';
-import QuestionStatement from 'reporting/viewmodels/questionStatement';
+import questionStatementFactory from 'reporting/viewmodels/questionStatements/questionStatementFactory';
 import XApiProvider from 'reporting/xApiProvider';
 
 export default class extends ExpandableStatement  {
-    constructor(masteredLrsStatement, answeredStatements) {
+    constructor(masteredLrsStatement, childStatements) {
         super(masteredLrsStatement);
         this.hasScore = this.lrsStatement.score != null;
-        if (answeredStatements === null || answeredStatements) {
-            answeredStatements ? this.children(answeredStatements) : this.children = null;
+        if (childStatements === null || childStatements) {
+            childStatements ? this.children(childStatements) : this.children = null;
         }
     }
 
     async expandLoadAction() {
-        let answered = await XApiProvider.getAnsweredStatements(this.lrsStatement.attemptId, this.lrsStatement.id);
-        if (answered && answered.length) {
-            const questionStatements = _.map(answered, statement => new QuestionStatement(statement));
+        let statements = await XApiProvider.getObjectiveStatements(this.lrsStatement.attemptId, this.lrsStatement.id);
+        if (statements && statements.length) {
+            const questionStatements = _.map(statements, statement => questionStatementFactory.createQuestionStatement(statement));
             this.children(questionStatements);
             return;
         }

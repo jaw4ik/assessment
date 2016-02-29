@@ -119,6 +119,7 @@
     "uploadAudioDescription": "Завантажте своє власне аудіо натиснувши на кнопку",
     "audioUploadError": "Помилка завантаження",
     "audioUploadUpgradeSubtitle": "Для завантаження аудіо в easygenerator",
+    "audioDeleteConfirmation": "Видалити це аудіо?",
     "audioUploadUpgradeText": "<ul><li>Необмежений обсяг завантаження</li><li>Необмежена кількість програвань</li><li>HTML5 програвач: аудіо можна прослухати на будь-якому пристрої</li></ul>",
     "choose": "Обрати",
     "chooseFileForVoiceOver": "Оберіть файл фонового аудіо",
@@ -256,6 +257,7 @@
     "courseScore": "Оцінка курсу",
     "objectiveScore": "Оцінка розділу",
     "questionScore": "Оцінка запитання",
+    "contentExperienced": "Матеріал пройдено",
     "dateTime": "Дата Час",
     "date": "Дата",
     "time": "Час",
@@ -282,7 +284,7 @@
     "reportingNotFinished": "Не завершено",
     "repotingNoQuestions": "Немає жодного пройденого питання або інформація про цей розділ недоступна",
     "reportingQuestionTitle": "питання:",
-    "reportingСontentTitle": "content:",
+    "reportingСontentTitle": "Матеріал:",
     "reportingInfoNotAvailable": "Н/Д",
     "reportingShowDetails": "Детальніше >>",
     "reportingHideDetails": "Приховати >>",
@@ -736,7 +738,7 @@
     "themes": "Теми",
     "saveAsANewTheme": "Зберегти нову тему",
     "backToSettings": "Назад до налаштувань",
-    "saveAndBack": "Зберегти та повернутись",
+    "backToCourse": "Повернутись до курсу",
     "duplicateQuestion": "Дублювати питання",
     "questionTitleLabel": "Назва питання"
 }

@@ -4,7 +4,8 @@ import XApiProvider from 'reporting/xApiProvider';
 import StartedStatement from 'reporting/viewmodels/startedStatement';
 import FinishStatement from 'reporting/viewmodels/finishStatement';
 import ObjectiveStatement from 'reporting/viewmodels/objectiveStatement';
-import QuestionStatement from 'reporting/viewmodels/questionStatement';
+import questionStatementFactory from 'reporting/viewmodels/questionStatements/questionStatementFactory';
+import AnsweredStatement from 'reporting/viewmodels/questionStatements/answeredStatement';
 
 describe('CourseStatementsProvider:', () => {
 
@@ -134,6 +135,30 @@ describe('CourseStatementsProvider:', () => {
                                 response: null,
                                 verb: constants.reporting.xApiVerbIds.mastered
                             }
+                        ],
+                        experienced: [
+                            {
+                                id: '1145',
+                                attemptId: '123',
+                                actor: {
+                                    name: 'roma',
+                                    email: 'r@p.com'
+                                },
+                                score: null,
+                                response: null,
+                                verb: constants.reporting.xApiVerbIds.mastered
+                            },
+                            {
+                                id: '11456',
+                                attemptId: '123',
+                                actor: {
+                                    name: 'roma',
+                                    email: 'r@p.com'
+                                },
+                                score: null,
+                                response: null,
+                                verb: constants.reporting.xApiVerbIds.mastered
+                            }
                         ]
                     },
                     {
@@ -194,6 +219,7 @@ describe('CourseStatementsProvider:', () => {
 
                 beforeEach(() => {
                     dfd.resolve(detailedStatements);
+                    spyOn(questionStatementFactory, 'createQuestionStatement').and.returnValue(new AnsweredStatement({}));
                 });
 
                 it('should return mapped instances of statement viewmodels', done => (async () => {
@@ -203,9 +229,11 @@ describe('CourseStatementsProvider:', () => {
                     expect(reportingStatements[0].startedLrsStatement).toBe(detailedStatements[0].root[0]);
                     expect(reportingStatements[0].children().length).toBe(2);
                     expect(reportingStatements[0].children()[0]).toBeInstanceOf(ObjectiveStatement);
-                    expect(reportingStatements[0].children()[0].children().length).toBe(2);
-                    expect(reportingStatements[0].children()[0].children()[0]).toBeInstanceOf(QuestionStatement);
-                    expect(reportingStatements[0].children()[0].children()[1]).toBeInstanceOf(QuestionStatement);
+                    expect(reportingStatements[0].children()[0].children().length).toBe(4);
+                    expect(reportingStatements[0].children()[0].children()[0]).toBeInstanceOf(AnsweredStatement);
+                    expect(reportingStatements[0].children()[0].children()[1]).toBeInstanceOf(AnsweredStatement);
+                    expect(reportingStatements[0].children()[0].children()[2]).toBeInstanceOf(AnsweredStatement);
+                    expect(reportingStatements[0].children()[0].children()[3]).toBeInstanceOf(AnsweredStatement);
                     expect(reportingStatements[0].children()[1]).toBeInstanceOf(ObjectiveStatement);
                 })().then(done));
 

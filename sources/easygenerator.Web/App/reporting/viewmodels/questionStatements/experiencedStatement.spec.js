@@ -1,11 +1,11 @@
-﻿import QuestionStatement from './questionStatement';
+﻿import ExperiencedStatement from './experiencedStatement';
 
-import ExpandableStatement from './expandableStatement';
+import QuestionStatementBase from './questionStatementBase';
 
-describe('viewmodel [QuestionStatement]', () => {
+describe('viewmodel [ExperiencedStatement]', () => {
 
     it('should be class', () => {
-        expect(QuestionStatement).toBeFunction();
+        expect(ExperiencedStatement).toBeFunction();
     });
 
     describe('[class]', () => {
@@ -16,16 +16,16 @@ describe('viewmodel [QuestionStatement]', () => {
             lrsStatement = {
                 score: 50
             };
-            statement = new QuestionStatement(lrsStatement);
+            statement = new ExperiencedStatement(lrsStatement);
         });
 
         it('should extends ExpandableStatement', () => {
-            expect(statement).toBeInstanceOf(ExpandableStatement);
+            expect(statement).toBeInstanceOf(QuestionStatementBase);
         });
 
         it('should set isExpandable to false', () => {
             lrsStatement.attemptId = 'attemptId';
-            statement = new QuestionStatement(lrsStatement);
+            statement = new ExperiencedStatement(lrsStatement);
             expect(statement.isExpandable).toBeFalsy();
         });
 
@@ -40,7 +40,7 @@ describe('viewmodel [QuestionStatement]', () => {
         describe('when lrsStatement.score is 100', () => {
             it('should set correct prop to true', () => {
                 lrsStatement.score = 100;
-                statement = new QuestionStatement(lrsStatement);
+                statement = new ExperiencedStatement(lrsStatement);
                 expect(statement.correct).toBeTruthy();
             });
         });
@@ -50,22 +50,5 @@ describe('viewmodel [QuestionStatement]', () => {
                 expect(statement.correct).toBeFalsy();
             });
         });
-
-        describe('[show answer]', () => {
-            it('should set answerShown to true', () => {
-                statement.answerShown(false);
-                statement.showAnswer();
-                expect(statement.answerShown()).toBeTruthy();
-            });
-        });
-
-        describe('[hide answer]', () => {
-            it('should set answerShown to false', () => {
-                statement.answerShown(true);
-                statement.hideAnswer();
-                expect(statement.answerShown()).toBeFalsy();
-            });
-        });
-
     });
 });

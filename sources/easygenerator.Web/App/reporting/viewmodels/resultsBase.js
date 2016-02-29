@@ -1,5 +1,6 @@
-﻿define(['constants', 'moment', 'userContext', 'localization/localizationManager', 'eventTracker', 'utils/fileSaverWrapper', 'widgets/upgradeDialog/viewmodel', 'reporting/viewmodels/startedStatement', 'reporting/viewmodels/finishStatement'],
-    function (constants, moment, userContext, localizationManager, eventTracker, fileSaverWrapper, upgradeDialog, StartedStatement, FinishStatement) {
+﻿define(['constants', 'moment', 'userContext', 'localization/localizationManager', 'eventTracker', 'utils/fileSaverWrapper', 'widgets/upgradeDialog/viewmodel',
+ 'reporting/viewmodels/startedStatement', 'reporting/viewmodels/finishStatement', 'reporting/viewmodels/questionStatements/answeredStatement', 'reporting/viewmodels/questionStatements/experiencedStatement'],
+    function (constants, moment, userContext, localizationManager, eventTracker, fileSaverWrapper, upgradeDialog, StartedStatement, FinishStatement, AnsweredStatement, ExperiencedStatement) {
         "use strict";
 
         var viewModel = function (getEntity, getLrsStatements, noResultsViewLocation, generateDetailedResults) {
@@ -65,7 +66,6 @@
                     if (that.cachedResultsForDownload) {
                         return fileSaverWrapper.saveAs(generateResultsCsvBlob(that.cachedResultsForDownload), getResultsFileName());
                     }
-
                     var generateCsvTablePromise = generateDetailedResults ? generateDetailedCsv() : generateCsv();
                     return generateCsvTablePromise.then(function (csvTable) {
                         that.cachedResultsForDownload = csvTable;
@@ -144,7 +144,7 @@
                         return that.loadedResults;
                     }
 
-                    return loadLrsStatements(entityId, true).then(function(statements) {
+                    return loadLrsStatements(entityId, true).then(function (statements) {
                         that.loadedResults = statements;
                         that.allResultsLoaded = true;
                         that.allDetailedResultsLoaded = true;
@@ -156,11 +156,11 @@
             }
 
             function applyLoadedChanges(viewResults, loadedResults) {
-                _.each(viewResults, function(viewResult) {
+                _.each(viewResults, function (viewResult) {
                     if (!viewResult.isExpandable || viewResult.children === null) {
                         return;
                     }
-                    var loadedResult = _.find(loadedResults, function(result) {
+                    var loadedResult = _.find(loadedResults, function (result) {
                         return viewResult.lrsStatement.attemptId === result.lrsStatement.attemptId && viewResult.lrsStatement.verb === result.lrsStatement.verb && viewResult.lrsStatement.date.valueOf() === result.lrsStatement.date.valueOf();
                     });
                     if (!loadedResult) {
@@ -215,27 +215,30 @@
             }
 
             function generateDetailedCsv() {
-                var passed = localizationManager.localize('passed');
-                var failed = localizationManager.localize('failed');
-                var inProgress = localizationManager.localize('inProgress');
-                var noScore = localizationManager.localize('reportingInfoNotAvailable');
-                var notFinished = localizationManager.localize('reportingNotFinished');
+                var passed = localizationManager.localize('passed'),
+                    failed = localizationManager.localize('failed'),
+                    inProgress = localizationManager.localize('inProgress'),
+                    noScore = localizationManager.localize('reportingInfoNotAvailable'),
+                    notFinished = localizationManager.localize('reportingNotFinished'),
 
-                var nameHeader = localizationManager.localize('nameAndEmail');
-                var courseResultHeader = localizationManager.localize('courseResult');
-                var courseScoreHeader = localizationManager.localize('courseScore');
-                var startedDateHeader = localizationManager.localize('startedDate');
-                var finishedDateHeader = localizationManager.localize('finishedDate');
-                var startedTimeHeader = localizationManager.localize('startedTime');
-                var finishedTimeHeader = localizationManager.localize('finishedTime');
+                    nameHeader = localizationManager.localize('nameAndEmail'),
+                    courseResultHeader = localizationManager.localize('courseResult'),
+                    courseScoreHeader = localizationManager.localize('courseScore'),
+                    startedDateHeader = localizationManager.localize('startedDate'),
+                    finishedDateHeader = localizationManager.localize('finishedDate'),
+                    startedTimeHeader = localizationManager.localize('startedTime'),
+                    finishedTimeHeader = localizationManager.localize('finishedTime'),
 
-                var objectiveTitleHeader = localizationManager.localize('objectiveTitle');
-                var objectiveScoreHeader = localizationManager.localize('objectiveScore');
+                    objectiveTitleHeader = localizationManager.localize('objectiveTitle'),
+                    objectiveScoreHeader = localizationManager.localize('objectiveScore'),
 
-                var questionTitleHeader = localizationManager.localize('questionTitle');
-                var questionResultHeader = localizationManager.localize('questionResult');
-                var questionScoreHeader = localizationManager.localize('questionScore');
-                var givenAnswerHeader = localizationManager.localize('givenAnswer');
+                    questionTitleHeader = localizationManager.localize('questionTitle'),
+                    questionResultHeader = localizationManager.localize('questionResult'),
+                    questionScoreHeader = localizationManager.localize('questionScore'),
+                    givenAnswerHeader = localizationManager.localize('givenAnswer'),
+
+                    contentTitleHeader = localizationManager.localize('learningContent'),
+                    contentExperiencedHeader = localizationManager.localize('contentExperienced');
 
                 var emptyCellSymbol = '-';
 
@@ -261,10 +264,15 @@
                     givenAnswerHeader
                 ];
 
-                var courseResultRightPart = [];
-                _(objectiveCsvHeader.length + questionCsvHeader.length).times(function () { courseResultRightPart.push(emptyCellSymbol); });
+                var contentCsvHeaders = [
+                    contentTitleHeader,
+                    contentExperiencedHeader
+                ];
 
-                var csvList = [generateCsvRow(courseCsvHeader.concat(objectiveCsvHeader).concat(questionCsvHeader))];
+                var courseResultRightPart = [];
+                _(objectiveCsvHeader.length + questionCsvHeader.length + contentCsvHeaders.length).times(function () { courseResultRightPart.push(emptyCellSymbol); });
+
+                var csvList = [generateCsvRow(courseCsvHeader.concat(objectiveCsvHeader).concat(questionCsvHeader).concat(contentCsvHeaders))];
 
                 return loadAllDetailedStatements(that.entityId).then(function (statements) {
                     _.each(statements, function (result) {
@@ -280,28 +288,34 @@
 
                         csvList.push(courseResultCsv);
 
-                        pushEmbededResults(result, csvList, courseCsvHeader.length, objectiveCsvHeader.length, questionCsvHeader.length, emptyCellSymbol, noScore);
+                        pushEmbededResults(result, csvList, courseCsvHeader.length, objectiveCsvHeader.length, questionCsvHeader.length, contentCsvHeaders.length, emptyCellSymbol, noScore);
                     });
 
                     return generateCsvTable(csvList);
                 });
             }
 
-            function pushEmbededResults(result, csvList, courseColumnsNumber, objectiveColumnsNumber, questionColumnsNumber, emptyCellSymbol, noScoreMessage) {
+            function pushEmbededResults(result, csvList, courseColumnsNumber, objectiveColumnsNumber, questionColumnsNumber, contentColumnsLength, emptyCellSymbol, noScoreMessage) {
                 if (!result.children || !result.children().length) {
                     return;
                 }
 
-                var correct = localizationManager.localize('correctAnswer');
-                var incorrect = localizationManager.localize('incorrectAnswer');
+                var correct = localizationManager.localize('correctAnswer'),
+                    incorrect = localizationManager.localize('incorrectAnswer'),
+                    statementTrue = localizationManager.localize('statementTrue'),
+                    statementFalse = localizationManager.localize('statementFalse');
 
-                var objectiveResultLeftPart = [];
-                var objectiveResultRightPart = [];
-                var questionResultLeftPart = [];
+                var objectiveResultLeftPart = [],
+                    objectiveResultRightPart = [],
+                    questionResultLeftPart = [],
+                    questionResultRightPart = [],
+                    contentResultLeftPart = [];
 
                 _(courseColumnsNumber).times(function () { objectiveResultLeftPart.push(emptyCellSymbol); });
-                _(questionColumnsNumber).times(function () { objectiveResultRightPart.push(emptyCellSymbol); });
+                _(questionColumnsNumber + contentColumnsLength).times(function () { objectiveResultRightPart.push(emptyCellSymbol); });
                 _(courseColumnsNumber + objectiveColumnsNumber).times(function () { questionResultLeftPart.push(emptyCellSymbol); });
+                _(contentColumnsLength).times(function () { questionResultRightPart.push(emptyCellSymbol); });
+                _(courseColumnsNumber + objectiveColumnsNumber + questionColumnsNumber).times(function () { contentResultLeftPart.push(emptyCellSymbol); });
 
                 _.forEach(result.children(), function (objectiveResult) {
 
@@ -316,13 +330,22 @@
                         return;
                     }
                     _.forEach(objectiveResult.children(), function (questionResult) {
-                        var questionResultCsv = generateCsvRow(questionResultLeftPart.concat([
-                            questionResult.lrsStatement.name,
-                            questionResult.hasAnswer && !questionResult.hasScore ? noScoreMessage : questionResult.correct ? correct : incorrect,
-                            questionResult.hasScore ? questionResult.lrsStatement.score : noScoreMessage,
-                            questionResult.hasAnswer && !questionResult.hasScore ? questionResult.lrsStatement.response : emptyCellSymbol
-                        ]));
-                        csvList.push(questionResultCsv);
+                        if (questionResult instanceof AnsweredStatement) {
+                            var questionAnsweredResultCsv = generateCsvRow(questionResultLeftPart.concat([
+                                questionResult.lrsStatement.name,
+                                questionResult.hasAnswer && !questionResult.hasScore ? noScoreMessage : questionResult.correct ? correct : incorrect,
+                                questionResult.hasScore ? questionResult.lrsStatement.score : noScoreMessage,
+                                questionResult.hasAnswer && !questionResult.hasScore ? questionResult.lrsStatement.response : emptyCellSymbol
+                            ]).concat(questionResultRightPart));
+                            csvList.push(questionAnsweredResultCsv);
+
+                        } else if (questionResult instanceof ExperiencedStatement) {
+                            var questionExperiencedResultCsv = generateCsvRow(contentResultLeftPart.concat([
+                               questionResult.lrsStatement.name,
+                               questionResult.lrsStatement.score === 100 ? statementTrue : statementFalse
+                            ]));
+                            csvList.push(questionExperiencedResultCsv);
+                        }
                     });
                 });
             }
