@@ -13,6 +13,7 @@
             assessment: null,
 
             id: null,
+            templateId: null,
             title: null,
             hasIntroductionContent: false,
             objectives: []
@@ -26,6 +27,7 @@
             return $http.get('content/data.js').success(function (response) {
                 var promises = [];
                 self.id = response.id;
+                self.templateId = response.templateId;
                 self.title = response.title;
                 self.createdOn = new Date(response.createdOn);
                 self.hasIntroductionContent = response.hasIntroductionContent;
@@ -95,7 +97,7 @@
                 return $q.all(questionsForCourse.map(function (question) {
                     return question.loadContent();
                 })).then(function () {
-                    return self.assessment = new Assessment(self.id, self.title, self.createdOn, objectivesForCourse, questionsForCourse, self.hasIntroductionContent);
+                    return self.assessment = new Assessment(self.id, self.templateId, self.title, self.createdOn, objectivesForCourse, questionsForCourse, self.hasIntroductionContent);
                 });
             }
 
