@@ -888,7 +888,7 @@
                                                     label: editor.lang.common.align,
                                                     'default': '',
                                                     items: [
-                                                        [editor.lang.common.notSet, ''],
+                                                        [editor.lang.common.alignCenter, ''],
                                                         [editor.lang.common.alignLeft, 'left'],
                                                         [editor.lang.common.alignRight, 'right']
                                                         // Backward compatible with v2 on setup when specified as attribute value,
