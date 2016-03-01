@@ -7,7 +7,7 @@ namespace easygenerator.Web.Components
     {
         public static string GetCountryPhoneCode(string countryName)
         {
-            return CountriesInfoDictionary.SingleOrDefault(i => i.Key == countryName).Value.PhoneCode;
+            return CountriesInfoDictionary.SingleOrDefault(i => i.Key == countryName).Value?.PhoneCode;
         }
 
         public static string GetCountryCode(string countryName)
