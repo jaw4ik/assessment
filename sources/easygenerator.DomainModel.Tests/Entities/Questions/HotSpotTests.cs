@@ -10,6 +10,8 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.ObjectModel;
+using easygenerator.DomainModel.Events.ObjectiveEvents;
+using easygenerator.DomainModel.Tests.Utils;
 
 namespace easygenerator.DomainModel.Tests.Entities.Questions
 {
@@ -131,7 +133,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             question.UpdateVoiceOver("voice-over", "user");
 
-            question.Events.Should().ContainSingle(e => e.GetType() == typeof(QuestionVoiceOverUpdatedEvent));
+            question.ShouldContainSingleEvent<QuestionVoiceOverUpdatedEvent>();
         }
 
         #endregion
@@ -221,7 +223,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             question.ChangeBackground("background", "username");
 
-            question.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(QuestionBackgroundChangedEvent));
+            question.ShouldContainSingleEvent<QuestionBackgroundChangedEvent>();
         }
 
         #endregion
@@ -317,7 +319,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             question.AddHotSpotPolygon(polygon, "username");
 
-            question.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(HotSpotPolygonCreatedEvent));
+            question.ShouldContainSingleEvent<HotSpotPolygonCreatedEvent>();
         }
 
         #endregion
@@ -413,7 +415,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             question.RemoveHotSpotPolygon(polygon, "username");
 
-            question.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(HotSpotPolygonDeletedEvent));
+            question.ShouldContainSingleEvent<HotSpotPolygonDeletedEvent>();
         }
 
         #endregion
@@ -482,7 +484,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             question.ChangeType(true, "username");
 
-            question.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(HotSpotIsMultipleChangedEvent));
+            question.ShouldContainSingleEvent<HotSpotIsMultipleChangedEvent>();
         }
 
         #endregion
@@ -620,7 +622,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             question.UpdateLearningContentsOrder(new List<LearningContent>(), ModifiedBy);
 
             //Assert
-            question.Events.Should().ContainSingle(e => e.GetType() == typeof(LearningContentsReorderedEvent));
+            question.ShouldContainSingleEvent<LearningContentsReorderedEvent>();
         }
 
         #endregion UpdateLearningContentsOrder

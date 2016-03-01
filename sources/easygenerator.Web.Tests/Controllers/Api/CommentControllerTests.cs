@@ -68,7 +68,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             const string text = "text";
             const string user = "Test user";
             const string email = "test@test.test";
-            const string context = "{context}";
+            const string context = "{ type: 'course', property: 'title' }";
             _user.Identity.Name.Returns("Test user");
             var course = Substitute.For<Course>("Course", TemplateObjectMother.Create(), CreatedBy);
             var comment = Substitute.For<Comment>("Comment", user, email, context);
@@ -89,7 +89,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             const string text = "text";
             const string user = "Test user";
             const string email = "test@test.test";
-            const string context = "{context}";
+            const string context = "{ type: 'course', property: 'title' }";
             _user.Identity.Name.Returns("Test user");
             var course = Substitute.For<Course>("Course", TemplateObjectMother.Create(), CreatedBy);
             var comment = Substitute.For<Comment>("Comment", user, email, context);
@@ -126,9 +126,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
             const string text = "text";
             const string user = "Test user";
             const string email = "test@test.test";
-            const string context = "{context}";
+            const string context = "{ type: 'course', property: 'title' }";
             var createdOn = new DateTime(2015, 12, 10, 9, 54, 10);
-             
+
             _user.Identity.Name.Returns("Test user");
             var course = Substitute.For<Course>("Course", TemplateObjectMother.Create(), CreatedBy);
             var comment = Substitute.For<Comment>("Comment", user, email, context);
@@ -149,7 +149,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             const string text = "text";
             const string user = "Test user";
             const string email = "test@test.test";
-            const string context = "{context}";
+            const string context = "{ type: 'course', property: 'title' }";
             var createdOn = new DateTime(2015, 12, 10, 9, 54, 10);
 
             _user.Identity.Name.Returns("Test user");
@@ -162,7 +162,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.Restore(course, text, user, email, context, createdOn);
 
             //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(comment.Id); ;
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(comment.Id);
         }
 
         #endregion

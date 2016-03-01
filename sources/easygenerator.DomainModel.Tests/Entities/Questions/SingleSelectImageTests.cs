@@ -11,6 +11,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
 using System.Linq;
+using easygenerator.DomainModel.Events.QuestionEvents.ScenarioEvents;
+using easygenerator.DomainModel.Tests.Utils;
 
 namespace easygenerator.DomainModel.Tests.Entities.Questions
 {
@@ -173,7 +175,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             question.UpdateVoiceOver("voice-over", "user");
 
-            question.Events.Should().ContainSingle(e => e.GetType() == typeof(QuestionVoiceOverUpdatedEvent));
+            question.ShouldContainSingleEvent<QuestionVoiceOverUpdatedEvent>();
         }
 
         #endregion
@@ -257,7 +259,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             question.SetCorrectAnswer(answer, ModifiedBy);
 
-            question.Events.Should().ContainSingle(e => e.GetType() == typeof(SingleSelectImageCorrectAnswerChangedEvent));
+            question.ShouldContainSingleEvent<SingleSelectImageCorrectAnswerChangedEvent>();
         }
 
         #endregion
@@ -350,7 +352,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             question.AddAnswer(SingleSelectImageAnswerObjectMother.Create(), ModifiedBy);
 
-            question.Events.Should().ContainSingle(e => e.GetType() == typeof(SingleSelectImageAnswerCreatedEvent));
+            question.ShouldContainSingleEvent<SingleSelectImageAnswerCreatedEvent>();
         }
 
         #endregion
@@ -473,7 +475,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             question.RemoveAnswer(answer, ModifiedBy);
 
-            question.Events.Should().ContainSingle(e => e.GetType() == typeof(SingleSelectImageAnswerDeletedEvent));
+            question.ShouldContainSingleEventOfType<SingleSelectImageAnswerDeletedEvent>();
         }
 
         #endregion
@@ -611,7 +613,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             question.UpdateLearningContentsOrder(new List<LearningContent>(), ModifiedBy);
 
             //Assert
-            question.Events.Should().ContainSingle(e => e.GetType() == typeof(LearningContentsReorderedEvent));
+            question.ShouldContainSingleEvent<LearningContentsReorderedEvent>();
         }
 
         #endregion UpdateLearningContentsOrder

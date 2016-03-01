@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using easygenerator.DomainModel.Events.QuestionEvents.RankingTextEvents;
 using easygenerator.DomainModel.Events.QuestionEvents.TextMatchingEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.DomainModel.Tests.Utils;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -122,7 +123,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
             answer.UpdateText("text", "username");
 
-            answer.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(RankingTextAnswerTextChangedEvent));
+            answer.ShouldContainSingleEvent<RankingTextAnswerTextChangedEvent>();
         }
 
         #endregion

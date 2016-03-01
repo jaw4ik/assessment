@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using easygenerator.DomainModel.Events.QuestionEvents;
 using easygenerator.DomainModel.Events.QuestionEvents.ScenarioEvents;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.DomainModel.Tests.Utils;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -157,7 +159,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             question.UpdateData(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), ModifiedBy);
 
             //Assert
-            question.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(ScenarioDataUpdatedEvent));
+            question.ShouldContainSingleEvent<ScenarioDataUpdatedEvent>();
         }
 
         #endregion
@@ -244,7 +246,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
             question.UpdateMasteryScore(Arg.Any<int>(), ModifiedBy);
 
             //Assert
-            question.Events.Should().HaveCount(1).And.OnlyContain(e => e.GetType() == typeof(ScenarioMasteryScoreUpdatedEvent));
+            question.ShouldContainSingleEvent<ScenarioMasteryScoreUpdatedEvent>();
         }
 
         #endregion
