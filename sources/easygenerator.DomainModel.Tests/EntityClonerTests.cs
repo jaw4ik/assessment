@@ -126,6 +126,25 @@ namespace easygenerator.DomainModel.Tests
         }
 
         [TestMethod]
+        public void Clone_ShouldUpdateAnswersOrderForRankingTextQuestion()
+        {
+            var answer = RankingTextAnswerObjectMother.CreateWithText("answer 1");
+            var answer2 = RankingTextAnswerObjectMother.CreateWithText("answer 2");
+            var answer3 = RankingTextAnswerObjectMother.CreateWithText("answer 3");
+
+            var question = RankingTextObjectMother.Create();
+            question.AddAnswer(answer2, "owner");
+            question.AddAnswer(answer, "owner");
+            question.AddAnswer(answer3, "owner");
+            question.UpdateAnswersOrder(new Collection<RankingTextAnswer> { answer3, answer, answer2 }, "owner");
+
+            var clonedQuestion = _cloner.Clone(question, "owner");
+            clonedQuestion.Answers.ElementAt(0).Text.Should().Be("answer 3");
+            clonedQuestion.Answers.ElementAt(1).Text.Should().Be("answer 1");
+            clonedQuestion.Answers.ElementAt(2).Text.Should().Be("answer 2");
+        }
+
+        [TestMethod]
         public void Clone_ShouldNotCloneCourseWhenCloneObjective()
         {
             var course = CourseObjectMother.Create();

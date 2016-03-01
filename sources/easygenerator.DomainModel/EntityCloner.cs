@@ -25,6 +25,9 @@ namespace easygenerator.DomainModel
         protected static MethodInfo EntityTypeCloner_UpdateObjectivesOrderInCourse =
             typeof(EntityCloner).GetMethod("UpdateObjectivesOrderInCourse", BindingFlags.NonPublic | BindingFlags.Instance);
 
+        protected static MethodInfo EntityTypeCloner_UpdateAnswersOrderInQuestion =
+            typeof(EntityCloner).GetMethod("UpdateAnswersOrderInQuestion", BindingFlags.NonPublic | BindingFlags.Instance);
+        
         public override T Clone<T>(T obj, params object[] args)
         {
             if (obj is Entity)
@@ -129,6 +132,11 @@ namespace easygenerator.DomainModel
                     list.Add(Expression.Call(Expression.Constant(this), EntityTypeCloner_UpdateLearningContentsOrderInQuestion, source, target));
                 }
 
+                if (typeof(RankingText).IsAssignableFrom(type))
+                {
+                    list.Add(Expression.Call(Expression.Constant(this), EntityTypeCloner_UpdateAnswersOrderInQuestion, source, target));
+                }
+
                 if (type == typeof(Objective))
                 {
                     list.Add(Expression.Call(Expression.Constant(this), EntityTypeCloner_UpdateQuestionsOrderInObjective, source, target));
@@ -138,6 +146,7 @@ namespace easygenerator.DomainModel
                 {
                     list.Add(Expression.Call(Expression.Constant(this), EntityTypeCloner_UpdateObjectivesOrderInCourse, source, target));
                 }
+                
                 return list;
             }
             return null;
@@ -159,6 +168,12 @@ namespace easygenerator.DomainModel
         {
             var orderedClonedLearningContents = source.OrderClonedLearningContents(target.LearningContentsCollection);
             target.UpdateLearningContentsOrder(orderedClonedLearningContents, target.CreatedBy);
+        }
+
+        protected virtual void UpdateAnswersOrderInQuestion(RankingText source, RankingText target)
+        {
+            var orderedClonedAnswers = source.OrderClonedAnswers(target.AnswersCollection);
+            target.UpdateAnswersOrder(orderedClonedAnswers, target.CreatedBy);
         }
     }
 }
