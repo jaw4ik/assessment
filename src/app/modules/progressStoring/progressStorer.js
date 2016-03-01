@@ -12,7 +12,7 @@
 
         function saveResult() {
             var assessment = dataContext.getAssessment();
-            var resultKey = 'course_result' + assessment.id;
+            var resultKey = 'course_result' + assessment.id + assessment.templateId;
 
             var result = {
                 score: assessment.getResult(),
