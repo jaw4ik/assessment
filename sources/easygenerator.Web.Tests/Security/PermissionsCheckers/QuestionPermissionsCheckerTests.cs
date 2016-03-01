@@ -12,15 +12,15 @@ namespace easygenerator.Web.Tests.Security.PermissionsCheckers
     public class QuestionPermissionsCheckerTests
     {
         private QuestionPermissionsChecker _questionPermissionChecker;
-        private IEntityPermissionsChecker<Objective> _objectivePermissionChecker;
+        private IEntityPermissionsChecker<Section> _sectionPermissionChecker;
         private const string Username = "user@user.com";
         private const string CreatedBy = "creator@user.com";
 
         [TestInitialize]
         public void Initialize()
         {
-            _objectivePermissionChecker = Substitute.For<IEntityPermissionsChecker<Objective>>();
-            _questionPermissionChecker = new QuestionPermissionsChecker(_objectivePermissionChecker);
+            _sectionPermissionChecker = Substitute.For<IEntityPermissionsChecker<Section>>();
+            _questionPermissionChecker = new QuestionPermissionsChecker(_sectionPermissionChecker);
         }
 
         #region HasOwnerPermissions
@@ -56,16 +56,16 @@ namespace easygenerator.Web.Tests.Security.PermissionsCheckers
         #region HasCollaboratorPermissions
 
         [TestMethod]
-        public void HasCollaboratorPermissions_ShouldReturnTrue_WhenUserHasPermissionsToObjective()
+        public void HasCollaboratorPermissions_ShouldReturnTrue_WhenUserHasPermissionsToSection()
         {
             //Arrange
-            var objective = Substitute.For<Objective>();
+            var section = Substitute.For<Section>();
             var question = Substitute.For<Multipleselect>();
-            question.Objective.Returns(objective);
-            _objectivePermissionChecker.HasCollaboratorPermissions(Username, objective).Returns(true);
+            question.Section.Returns(section);
+            _sectionPermissionChecker.HasCollaboratorPermissions(Username, section).Returns(true);
 
             //Act
-            var result = _objectivePermissionChecker.HasCollaboratorPermissions(Username, objective);
+            var result = _sectionPermissionChecker.HasCollaboratorPermissions(Username, section);
 
             //Assert
             result.Should().BeTrue();
@@ -75,13 +75,13 @@ namespace easygenerator.Web.Tests.Security.PermissionsCheckers
         public void HasCollaboratorPermissions_ShouldReturnFalse_InAnyOtherCases()
         {
             //Arrange
-            var objective = Substitute.For<Objective>();
+            var section = Substitute.For<Section>();
             var question = Substitute.For<Question>();
-            question.Objective.Returns(objective);
-            _objectivePermissionChecker.HasCollaboratorPermissions(Username, objective).Returns(false);
+            question.Section.Returns(section);
+            _sectionPermissionChecker.HasCollaboratorPermissions(Username, section).Returns(false);
 
             //Act
-            var result = _objectivePermissionChecker.HasCollaboratorPermissions(Username, objective);
+            var result = _sectionPermissionChecker.HasCollaboratorPermissions(Username, section);
 
             //Assert
             result.Should().BeFalse();

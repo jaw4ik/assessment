@@ -6,7 +6,7 @@ import answerRepository from 'repositories/answerRepository';
 import http from 'plugins/http';
 import localizationManager from 'localization/localizationManager';
 
-var objectiveId = 'objectiveId';
+var sectionId = 'sectionId';
 var question = {
     id: '1',
     title: 'lalala',
@@ -43,24 +43,24 @@ describe('question [statement]', function () {
         });
 
         it('should return promise', function () {
-            var promise = viewModel.initialize(objectiveId, question);
+            var promise = viewModel.initialize(sectionId, question);
             expect(promise).toBePromise();
         });
 
-        it('should set objectiveId', function () {
-            viewModel.initialize(objectiveId, question);
+        it('should set sectionId', function () {
+            viewModel.initialize(sectionId, question);
 
-            expect(viewModel.objectiveId).toBe(objectiveId);
+            expect(viewModel.sectionId).toBe(sectionId);
         });
 
         it('should set questionId', function () {
-            viewModel.initialize(objectiveId, question);
+            viewModel.initialize(sectionId, question);
 
             expect(viewModel.questionId).toBe(question.id);
         });
 
         it('should get answers', function () {
-            viewModel.initialize(objectiveId, question);
+            viewModel.initialize(sectionId, question);
 
             expect(answerRepository.getCollection).toHaveBeenCalledWith(question.id);
         });
@@ -75,13 +75,13 @@ describe('question [statement]', function () {
             it('should set answers', function () {
                 viewModel.answers = null;
 
-                viewModel.initialize(objectiveId, question);
+                viewModel.initialize(sectionId, question);
 
                 expect(viewModel.answers).toBeDefined();
             });
 
             it('should return object', function (done) {
-                var promise = viewModel.initialize(objectiveId, question);
+                var promise = viewModel.initialize(sectionId, question);
                 promise.then(function (result) {
                     expect(result).toBeObject();
                     done();
@@ -90,7 +90,7 @@ describe('question [statement]', function () {
 
             describe('and result object', function () {
                 it('should contain \'statementQuestionEditor\' viewCaption', function (done) {
-                    var promise = viewModel.initialize(objectiveId, question);
+                    var promise = viewModel.initialize(sectionId, question);
                     promise.then(function (result) {
                         expect(result.viewCaption).toBe('statementQuestionEditor');
                         done();
@@ -98,7 +98,7 @@ describe('question [statement]', function () {
                 });
 
                 it('should have hasQuestionView property with true value', function (done) {
-                    var promise = viewModel.initialize(objectiveId, question);
+                    var promise = viewModel.initialize(sectionId, question);
                     promise.then(function (result) {
                         expect(result.hasQuestionView).toBeTruthy();
                         done();
@@ -106,7 +106,7 @@ describe('question [statement]', function () {
                 });
 
                 it('should have hasQuestionContent property with true value', function (done) {
-                    var promise = viewModel.initialize(objectiveId, question);
+                    var promise = viewModel.initialize(sectionId, question);
                     promise.then(function (result) {
                         expect(result.hasQuestionContent).toBeTruthy();
                         done();
@@ -114,7 +114,7 @@ describe('question [statement]', function () {
                 });
 
                 it('should have hasFeedback property with true value', function (done) {
-                    var promise = viewModel.initialize(objectiveId, question);
+                    var promise = viewModel.initialize(sectionId, question);
                     promise.then(function (result) {
                         expect(result.hasFeedback).toBeTruthy();
                         done();

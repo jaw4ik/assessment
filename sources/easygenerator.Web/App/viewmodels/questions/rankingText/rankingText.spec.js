@@ -12,7 +12,7 @@ import eventTracker from 'eventTracker';
 import RankingTextAnswer from './rankingTextAnswer.js';
 
 describe('question [rankingText]', () => {
-    let objectiveId = 'objectiveId',
+    let sectionId = 'sectionId',
         question = { id: 'id'},
         error = 'error';
 
@@ -30,13 +30,13 @@ describe('question [rankingText]', () => {
         
         it('should set questionId', () => {
             spyOn(getAnswers, 'execute').and.returnValue(Promise.resolve());
-            viewModel.initialize(objectiveId, question);
+            viewModel.initialize(sectionId, question);
             expect(viewModel.questionId).toBe(question.id);
         });
 
         it('should get answers from server', () => {
             spyOn(getAnswers, 'execute').and.returnValue(Promise.resolve());
-            viewModel.initialize(objectiveId, question);
+            viewModel.initialize(sectionId, question);
             expect(getAnswers.execute).toHaveBeenCalledWith(question.id);
         });
 
@@ -51,7 +51,7 @@ describe('question [rankingText]', () => {
             it('should set answers', (done) => {
                 viewModel.answers([]);
 
-                viewModel.initialize(objectiveId, question).then(() => {
+                viewModel.initialize(sectionId, question).then(() => {
                     expect(viewModel.answers().length).toBe(1);
                     expect(viewModel.answers()[0].id).toBe(answer.Id);
                     expect(viewModel.answers()[0].text()).toBe(answer.Text);
@@ -60,28 +60,28 @@ describe('question [rankingText]', () => {
             });
 
             it('should return object with viewCaption', (done) => {
-                viewModel.initialize(objectiveId, question).then((result) => {
+                viewModel.initialize(sectionId, question).then((result) => {
                     expect(result.viewCaption).toBe('rankingTextEditor');
                     done();
                 });
             });
 
             it('should return object with hasQuestionView set to true', (done) => {
-                viewModel.initialize(objectiveId, question).then((result) => {
+                viewModel.initialize(sectionId, question).then((result) => {
                     expect(result.hasQuestionView).toBeTruthy();
                     done();
                 });
             });
 
             it('should return object with hasQuestionContent set to true', (done) => {
-                viewModel.initialize(objectiveId, question).then((result) => {
+                viewModel.initialize(sectionId, question).then((result) => {
                     expect(result.hasQuestionContent).toBeTruthy();
                     done();
                 });
             });
 
             it('should return object with hasFeedback set to true', (done) => {
-                viewModel.initialize(objectiveId, question).then((result) => {
+                viewModel.initialize(sectionId, question).then((result) => {
                     expect(result.hasFeedback).toBeTruthy();
                     done();
                 });
@@ -94,7 +94,7 @@ describe('question [rankingText]', () => {
             });
 
             it('should show error notification', (done) => {
-                viewModel.initialize(objectiveId, question).then(() => {
+                viewModel.initialize(sectionId, question).then(() => {
                     expect(notify.error).toHaveBeenCalledWith('failedToGetRankingItems');
                     done();
                 });

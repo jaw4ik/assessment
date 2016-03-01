@@ -27,8 +27,8 @@ namespace easygenerator.DomainModel.Tests
         [TestMethod]
         public void Clone_ShouldUpdateClonedEntityWithNewId1()
         {
-            var objective = ObjectiveObjectMother.Create();
-            Action action = () => _cloner.Clone(objective);
+            var section = SectionObjectMother.Create();
+            Action action = () => _cloner.Clone(section);
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("args");
         }
@@ -36,47 +36,47 @@ namespace easygenerator.DomainModel.Tests
         [TestMethod]
         public void Clone_ShouldUpdateClonedEntityWithNewId()
         {
-            var objective = ObjectiveObjectMother.Create();
-            var clonedObjective = _cloner.Clone(objective, "owner");
+            var section = SectionObjectMother.Create();
+            var clonedSection = _cloner.Clone(section, "owner");
 
-            clonedObjective.Id.Should().NotBe(objective.Id);
+            clonedSection.Id.Should().NotBe(section.Id);
         }
 
         [TestMethod]
         public void Clone_ShouldUpdateClonedEntityWithNewCreatedByValue()
         {
-            var objective = ObjectiveObjectMother.Create(createdBy: "creator");
-            var clonedObjective = _cloner.Clone(objective, "owner");
+            var section = SectionObjectMother.Create(createdBy: "creator");
+            var clonedSection = _cloner.Clone(section, "owner");
 
-            clonedObjective.CreatedBy.Should().Be("owner");
+            clonedSection.CreatedBy.Should().Be("owner");
         }
 
 
         [TestMethod]
         public void Clone_ShouldUpdateClonedEntityWithNewModifiedByValue()
         {
-            var objective = ObjectiveObjectMother.Create(createdBy: "creator");
-            var clonedObjective = _cloner.Clone(objective, "owner");
+            var section = SectionObjectMother.Create(createdBy: "creator");
+            var clonedSection = _cloner.Clone(section, "owner");
 
-            clonedObjective.ModifiedBy.Should().Be("owner");
+            clonedSection.ModifiedBy.Should().Be("owner");
         }
 
         [TestMethod]
         public void Clone_ShouldUpdateClonedEntityWithNewModifiedOnValue()
         {
-            var objective = ObjectiveObjectMother.Create(createdBy: "creator");
-            var clonedObjective = _cloner.Clone(objective, "owner");
+            var section = SectionObjectMother.Create(createdBy: "creator");
+            var clonedSection = _cloner.Clone(section, "owner");
 
-            clonedObjective.ModifiedOn.Should().Be(_currentDate);
+            clonedSection.ModifiedOn.Should().Be(_currentDate);
         }
 
         [TestMethod]
         public void Clone_ShouldUpdateClonedEntityWithNewCreatedOnValue()
         {
-            var objective = ObjectiveObjectMother.Create(createdBy: "creator");
-            var clonedObjective = _cloner.Clone(objective, "owner");
+            var section = SectionObjectMother.Create(createdBy: "creator");
+            var clonedSection = _cloner.Clone(section, "owner");
 
-            clonedObjective.CreatedOn.Should().Be(_currentDate);
+            clonedSection.CreatedOn.Should().Be(_currentDate);
         }
 
         [TestMethod]
@@ -88,22 +88,22 @@ namespace easygenerator.DomainModel.Tests
         }
 
         [TestMethod]
-        public void Clone_ShouldUpdateQuestionOrderForObjective()
+        public void Clone_ShouldUpdateQuestionOrderForSection()
         {
             var question = SingleSelectTextObjectMother.CreateWithTitle("question title 1");
             var question2 = SingleSelectTextObjectMother.CreateWithTitle("question title 2");
             var question3 = SingleSelectTextObjectMother.CreateWithTitle("question title 3");
 
-            var objective = ObjectiveObjectMother.Create();
-            objective.AddQuestion(question2, "owner");
-            objective.AddQuestion(question, "owner");
-            objective.AddQuestion(question3, "owner");
-            objective.UpdateQuestionsOrder(new Collection<Question> { question3, question, question2 }, "owner");
+            var section = SectionObjectMother.Create();
+            section.AddQuestion(question2, "owner");
+            section.AddQuestion(question, "owner");
+            section.AddQuestion(question3, "owner");
+            section.UpdateQuestionsOrder(new Collection<Question> { question3, question, question2 }, "owner");
 
-            var clonedObjective = _cloner.Clone(objective, "owner");
-            clonedObjective.Questions.ElementAt(0).Title.Should().Be("question title 3");
-            clonedObjective.Questions.ElementAt(1).Title.Should().Be("question title 1");
-            clonedObjective.Questions.ElementAt(2).Title.Should().Be("question title 2");
+            var clonedSection = _cloner.Clone(section, "owner");
+            clonedSection.Questions.ElementAt(0).Title.Should().Be("question title 3");
+            clonedSection.Questions.ElementAt(1).Title.Should().Be("question title 1");
+            clonedSection.Questions.ElementAt(2).Title.Should().Be("question title 2");
         }
 
         [TestMethod]
@@ -145,35 +145,35 @@ namespace easygenerator.DomainModel.Tests
         }
 
         [TestMethod]
-        public void Clone_ShouldNotCloneCourseWhenCloneObjective()
+        public void Clone_ShouldNotCloneCourseWhenCloneSection()
         {
             var course = CourseObjectMother.Create();
-            var objective = ObjectiveObjectMother.Create();
-            objective.RelatedCoursesCollection.Add(course);
+            var section = SectionObjectMother.Create();
+            section.RelatedCoursesCollection.Add(course);
 
-            var clonedObjective = _cloner.Clone(objective, "owner");
-            clonedObjective.RelatedCoursesCollection.Should().BeNull();
+            var clonedSection = _cloner.Clone(section, "owner");
+            clonedSection.RelatedCoursesCollection.Should().BeNull();
         }
 
 
         [TestMethod]
-        public void Clone_ShouldUpdateObjectivesOrderForCourse()
+        public void Clone_ShouldUpdateSectionsOrderForCourse()
         {
-            var objective1 = ObjectiveObjectMother.Create("objective title 1");
-            var objective2 = ObjectiveObjectMother.Create("objective title 2");
-            var objective3 = ObjectiveObjectMother.Create("objective title 3");
+            var section1 = SectionObjectMother.Create("section title 1");
+            var section2 = SectionObjectMother.Create("section title 2");
+            var section3 = SectionObjectMother.Create("section title 3");
 
             var course = CourseObjectMother.Create();
-            course.RelateObjective(objective1, null, "owner");
-            course.RelateObjective(objective2, null, "owner");
-            course.RelateObjective(objective3, null, "owner");
+            course.RelateSection(section1, null, "owner");
+            course.RelateSection(section2, null, "owner");
+            course.RelateSection(section3, null, "owner");
 
-            course.UpdateObjectivesOrder(new Collection<Objective> { objective3, objective1, objective2 }, "owner");
+            course.UpdateSectionsOrder(new Collection<Section> { section3, section1, section2 }, "owner");
 
             var clonedCourse = _cloner.Clone(course, "owner");
-            clonedCourse.RelatedObjectives.ElementAt(0).Title.Should().Be("objective title 3");
-            clonedCourse.RelatedObjectives.ElementAt(1).Title.Should().Be("objective title 1");
-            clonedCourse.RelatedObjectives.ElementAt(2).Title.Should().Be("objective title 2");
+            clonedCourse.RelatedSections.ElementAt(0).Title.Should().Be("section title 3");
+            clonedCourse.RelatedSections.ElementAt(1).Title.Should().Be("section title 1");
+            clonedCourse.RelatedSections.ElementAt(2).Title.Should().Be("section title 2");
         }
 
         [TestMethod]

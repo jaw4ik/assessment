@@ -6,7 +6,7 @@ import questionRepository from 'repositories/questionRepository';
 import http from 'plugins/http';
 import localizationManager from 'localization/localizationManager';
 
-var objectiveId = 'objectiveId',
+var sectionId = 'sectionId',
     question = {
         id: '1',
         title: 'lalala',
@@ -59,24 +59,24 @@ describe('question [fillInTheBlank]', function () {
         });
 
         it('should return promise', function () {
-            var promise = viewModel.initialize(objectiveId, question);
+            var promise = viewModel.initialize(sectionId, question);
             expect(promise).toBePromise();
         });
 
-        it('should set objectiveId', function () {
-            viewModel.initialize(objectiveId, question);
+        it('should set sectionId', function () {
+            viewModel.initialize(sectionId, question);
 
-            expect(viewModel.objectiveId).toBe(objectiveId);
+            expect(viewModel.sectionId).toBe(sectionId);
         });
 
         it('should set questionId', function () {
-            viewModel.initialize(objectiveId, question);
+            viewModel.initialize(sectionId, question);
 
             expect(viewModel.questionId).toBe(question.id);
         });
 
         it('should get FillInBlanks data', function() {
-            viewModel.initialize(objectiveId, question);
+            viewModel.initialize(sectionId, question);
 
             expect(questionRepository.getFillInTheBlank).toHaveBeenCalledWith(question.id);
         });
@@ -89,7 +89,7 @@ describe('question [fillInTheBlank]', function () {
             it('should initialize fillInTheBlank', function (done) {
                 viewModel.fillInTheBlank = null;
 
-                var promise = viewModel.initialize(objectiveId, question);
+                var promise = viewModel.initialize(sectionId, question);
 
                 promise.fin(function () {
                     expect(viewModel.fillInTheBlank).toBeDefined();
@@ -98,7 +98,7 @@ describe('question [fillInTheBlank]', function () {
             });
 
             it('should return object', function (done) {
-                var promise = viewModel.initialize(objectiveId, question);
+                var promise = viewModel.initialize(sectionId, question);
                 promise.then(function (result) {
                     expect(result).toBeObject();
                     done();
@@ -107,7 +107,7 @@ describe('question [fillInTheBlank]', function () {
 
             describe('and result object', function () {
                 it('should contain \'fillInTheBlanksEditor\' viewCaption', function (done) {
-                    var promise = viewModel.initialize(objectiveId, question);
+                    var promise = viewModel.initialize(sectionId, question);
                     promise.then(function (result) {
                         expect(result.viewCaption).toBe('fillInTheBlanksEditor');
                         done();
@@ -115,7 +115,7 @@ describe('question [fillInTheBlank]', function () {
                 });
 
                 it('should have hasQuestionView property with true value', function (done) {
-                    var promise = viewModel.initialize(objectiveId, question);
+                    var promise = viewModel.initialize(sectionId, question);
                     promise.then(function (result) {
                         expect(result.hasQuestionView).toBeTruthy();
                         done();
@@ -123,7 +123,7 @@ describe('question [fillInTheBlank]', function () {
                 });
 
                 it('should have hasFeedback property with true value', function (done) {
-                    var promise = viewModel.initialize(objectiveId, question);
+                    var promise = viewModel.initialize(sectionId, question);
                     promise.then(function (result) {
                         expect(result.hasFeedback).toBeTruthy();
                         done();

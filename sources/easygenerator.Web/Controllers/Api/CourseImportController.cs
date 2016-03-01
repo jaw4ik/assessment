@@ -65,7 +65,7 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess(new
             {
                 course = _entityMapper.Map(course),
-                objectives = course.RelatedObjectives.Select(e => _entityMapper.Map(e))
+                sections = course.RelatedSections.Select(e => _entityMapper.Map(e))
             });
         }
 
@@ -87,7 +87,7 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess(new
             {
                 course = _entityMapper.Map(course),
-                objectives = course.RelatedObjectives.Select(e => _entityMapper.Map(e))
+                sections = course.RelatedSections.Select(e => _entityMapper.Map(e))
             });
         }
     }

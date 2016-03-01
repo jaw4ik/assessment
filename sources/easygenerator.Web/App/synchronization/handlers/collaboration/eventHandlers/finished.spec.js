@@ -36,23 +36,23 @@ describe('synchronization collaboration [finished]', function () {
         expect(dataContext.courses.length).toBe(0);
     });
 
-    it('should delete not used objectives created by another users', function() {
-        var objective = { id: 'obj1', createdBy: userName },
-            objective2 = { id: 'obj2', createdBy: 'userName2' },
-            objective3 = { id: 'obj3', createdBy: 'userName2' },
-            objective4 = { id: 'obj4', createdBy: userName };
+    it('should delete not used sections created by another users', function() {
+        var section = { id: 'obj1', createdBy: userName },
+            section2 = { id: 'obj2', createdBy: 'userName2' },
+            section3 = { id: 'obj3', createdBy: 'userName2' },
+            section4 = { id: 'obj4', createdBy: userName };
 
-        dataContext.objectives = [objective, objective2, objective3, objective4];
+        dataContext.sections = [section, section2, section3, section4];
 
-        var course = { objectives: [objective, objective2], id: courseId };
-        var course2 = { objectives: [objective3], id: 'courseId2' };
+        var course = { sections: [section, section2], id: courseId };
+        var course2 = { sections: [section3], id: 'courseId2' };
 
         dataContext.courses = [course, course2];
         handler(courseId);
-        expect(dataContext.objectives.length).toBe(3);
-        expect(dataContext.objectives[0].id).toBe(objective.id);
-        expect(dataContext.objectives[1].id).toBe(objective3.id);
-        expect(dataContext.objectives[2].id).toBe(objective4.id);
+        expect(dataContext.sections.length).toBe(3);
+        expect(dataContext.sections[0].id).toBe(section.id);
+        expect(dataContext.sections[1].id).toBe(section3.id);
+        expect(dataContext.sections[2].id).toBe(section4.id);
     });
 
     it('should trigger app event', function () {

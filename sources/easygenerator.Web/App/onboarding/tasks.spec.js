@@ -138,9 +138,9 @@ describe('onboarding [tasks]', function() {
 
     });
 
-    describe('defineObjective:', function() {
+    describe('defineSection:', function() {
 
-        var taskInitializer = getTaskByName('defineObjective');
+        var taskInitializer = getTaskByName('defineSection');
 
         it('should be function', function() {
             expect(taskInitializer).toBeFunction();
@@ -185,10 +185,10 @@ describe('onboarding [tasks]', function() {
                 expect(task.handler).toBeFunction();
             });
 
-            it('should call api \'api/onboarding/objectivecreated\'', function() {
+            it('should call api \'api/onboarding/sectioncreated\'', function() {
                 task.handler();
                 httpPostDefer.resolve();
-                expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/onboarding/objectivecreated');
+                expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/onboarding/sectioncreated');
             });
 
             describe('when request is success', function() {
@@ -197,10 +197,10 @@ describe('onboarding [tasks]', function() {
                     httpPostDefer.resolve();
                 });
 
-                it('should turn off event ' + constants.messages.objective.createdInCourse, function(done) {
+                it('should turn off event ' + constants.messages.section.createdInCourse, function(done) {
                     task.handler();
                     httpPostDefer.promise.fin(function() {
-                        expect(app.off).toHaveBeenCalledWith(constants.messages.objective.createdInCourse, task.handler);
+                        expect(app.off).toHaveBeenCalledWith(constants.messages.section.createdInCourse, task.handler);
                         done();
                     });
                 });
@@ -220,15 +220,15 @@ describe('onboarding [tasks]', function() {
         describe('when task is uncompleted', function() {
 
             beforeEach(function() {
-                task = taskInitializer({ objectiveCreated: false });
+                task = taskInitializer({ sectionCreated: false });
             });
 
             it('isCompleted should be false', function() {
                 expect(task.isCompleted()).toBeFalsy();
             });
 
-            it('should subscribe to event ' + constants.messages.objective.createdInCourse, function() {
-                expect(app.on).toHaveBeenCalledWith(constants.messages.objective.createdInCourse, task.handler);
+            it('should subscribe to event ' + constants.messages.section.createdInCourse, function() {
+                expect(app.on).toHaveBeenCalledWith(constants.messages.section.createdInCourse, task.handler);
             });
 
         });
@@ -236,15 +236,15 @@ describe('onboarding [tasks]', function() {
         describe('when task is completed', function() {
 
             beforeEach(function() {
-                task = taskInitializer({ objectiveCreated: true });
+                task = taskInitializer({ sectionCreated: true });
             });
 
             it('isCompleted should be true', function() {
                 expect(task.isCompleted()).toBeTruthy();
             });
 
-            it('should not subscribe to event ' + constants.messages.objective.createdInCourse, function() {
-                expect(app.on).not.toHaveBeenCalledWith(constants.messages.objective.createdInCourse, task.handler);
+            it('should not subscribe to event ' + constants.messages.section.createdInCourse, function() {
+                expect(app.on).not.toHaveBeenCalledWith(constants.messages.section.createdInCourse, task.handler);
             });
 
         });

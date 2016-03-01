@@ -45,12 +45,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Create question
 
         [TestMethod]
-        public void CreateStatement_ShouldReturnJsonErrorResult_WnenObjectiveIsNull()
+        public void CreateStatement_ShouldReturnJsonErrorResult_WnenSectionIsNull()
         {
             var result = _controller.Create(null, null);
 
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Section is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("sectionNotFoundError");
         }
 
         [TestMethod]
@@ -59,28 +59,28 @@ namespace easygenerator.Web.Tests.Controllers.Api
             const string title = "title";
             const string defaultStatementText = "Type your statement here...";
 
-            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var section = Substitute.For<Section>("Section title", CreatedBy);
             var question = StatementObjectMother.Create(title, CreatedBy);
 
             _entityFactory.StatementQuestion(title, defaultStatementText, CreatedBy).Returns(question);
 
-            _controller.Create(objective, title);
+            _controller.Create(section, title);
             _entityFactory.Received().StatementQuestion(title, defaultStatementText, CreatedBy);
         }
 
         [TestMethod]
-        public void CreateStatement_ShouldAddQuestionToObjective()
+        public void CreateStatement_ShouldAddQuestionToSection()
         {
             const string title = "title";
             const string defaultStatementText = "Type your statement here...";
-            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var section = Substitute.For<Section>("Section title", CreatedBy);
             var question = StatementObjectMother.Create(title, CreatedBy);
 
             _entityFactory.StatementQuestion(title, defaultStatementText, CreatedBy).Returns(question);
 
-            _controller.Create(objective, title);
+            _controller.Create(section, title);
 
-            objective.Received().AddQuestion(question, CreatedBy);
+            section.Received().AddQuestion(question, CreatedBy);
         }
 
         [TestMethod]
@@ -93,7 +93,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _entityFactory.StatementQuestion(title, defaultStatementText, CreatedBy).Returns(question);
 
-            var result = _controller.Create(Substitute.For<Objective>("Objective title", CreatedBy), title);
+            var result = _controller.Create(Substitute.For<Section>("Section title", CreatedBy), title);
 
             result.Should()
                 .BeJsonSuccessResult()

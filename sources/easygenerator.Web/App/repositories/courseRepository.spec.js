@@ -5,7 +5,7 @@ import dataContext from 'dataContext';
 import constants from 'constants';
 import app from 'durandal/app';
 import courseMapper from 'mappers/courseModelMapper';
-import objectiveMapper from 'mappers/objectiveModelMapper';
+import sectionMapper from 'mappers/sectionModelMapper';
 
 describe('repository [courseRepository]', function () {
 
@@ -243,7 +243,7 @@ describe('repository [courseRepository]', function () {
                     template: {
                         id: 'rtyu'
                     },
-                    objectives: [],
+                    sections: [],
                     createdOn: createdOnDate.toISOString(),
                     modifiedOn: createdOnDate.toISOString(),
                     createdBy: 'asasd@ukr.net'
@@ -253,7 +253,7 @@ describe('repository [courseRepository]', function () {
 
                 spyOn(courseMapper, 'map').and.returnValue(mappedCourse);
                 dataContext.templates = [mappedCourse.template];
-                dataContext.objectives = [];
+                dataContext.sections = [];
                 dataContext.courses = [];
             });
 
@@ -373,12 +373,12 @@ describe('repository [courseRepository]', function () {
 
         describe('when course deleted from server', function () {
             var courseId = 'asdadsasd',
-                objectiveId = 'objectiveId',
+                sectionId = 'sectionId',
                 learningPathId = 'learningPathId';
 
             beforeEach(function() {
                 dataContext.courses = [{ id: courseId }];
-                dataContext.objectives = [{ id: objectiveId }];
+                dataContext.sections = [{ id: sectionId }];
                 dataContext.learningPaths = [{ id: learningPathId, entities: [{ id: courseId }] }];
             });
                 
@@ -391,7 +391,7 @@ describe('repository [courseRepository]', function () {
                     done();
                 });
 
-                post.resolve({ deletedObjectiveIds: [], deletedFromLearningPathIds: [] });
+                post.resolve({ deletedSectionIds: [], deletedFromLearningPathIds: [] });
             });
 
             it('should trigger course:deleted event', function (done) {
@@ -405,7 +405,7 @@ describe('repository [courseRepository]', function () {
                     done();
                 });
 
-                post.resolve({ deletedObjectiveIds: [], deletedFromLearningPathIds: [] });
+                post.resolve({ deletedSectionIds: [], deletedFromLearningPathIds: [] });
             });
 
             describe('when response is null', function() {
@@ -420,11 +420,11 @@ describe('repository [courseRepository]', function () {
                     post.resolve(null);
                 });
 
-                it('should not remove course objectives', function (done) {
+                it('should not remove course sections', function (done) {
                     var promise = repository.removeCourse(courseId);
 
                     promise.fin(function () {
-                        expect(dataContext.objectives.length).toEqual(1);
+                        expect(dataContext.sections.length).toEqual(1);
                         done();
                     });
 
@@ -441,18 +441,18 @@ describe('repository [courseRepository]', function () {
                         done();
                     });
 
-                    post.resolve({ deletedObjectiveIds: [], deletedFromLearningPathIds: [learningPathId] });
+                    post.resolve({ deletedSectionIds: [], deletedFromLearningPathIds: [learningPathId] });
                 });
 
-                it('should remove course objectives', function (done) {
+                it('should remove course sections', function (done) {
                     var promise = repository.removeCourse(courseId);
 
                     promise.fin(function () {
-                        expect(dataContext.objectives.length).toEqual(0);
+                        expect(dataContext.sections.length).toEqual(0);
                         done();
                     });
 
-                    post.resolve({ deletedObjectiveIds: [objectiveId], deletedFromLearningPathIds: [] });
+                    post.resolve({ deletedSectionIds: [sectionId], deletedFromLearningPathIds: [] });
                 });
             });
         });
@@ -546,7 +546,7 @@ describe('repository [courseRepository]', function () {
                             template: {
                                 id: 'rtyu'
                             },
-                            objectives: [],
+                            sections: [],
                             createdOn: createdOnDate.toISOString(),
                             modifiedOn: createdOnDate.toISOString(),
                             createdBy: 'asasd@ukr.net'
@@ -556,7 +556,7 @@ describe('repository [courseRepository]', function () {
                         spyOn(courseMapper, 'map').and.returnValue(mappedCourse);
                     });
 
-                    describe('and course does not have objectives', function () {
+                    describe('and course does not have sections', function () {
 
                         it('should resolve promise with duplicated course', function (done) {
                             var promise = repository.duplicateCourse(course.id);
@@ -594,11 +594,11 @@ describe('repository [courseRepository]', function () {
 
                     });
 
-                    describe('and course have objectives', function () {
+                    describe('and course have sections', function () {
 
-                        var objective = { id: '' },
-                            mappedObjective = {
-                                id: 'ObjectiveId',
+                        var section = { id: '' },
+                            mappedSection = {
+                                id: 'SectionId',
                                 title: 'obj_title',
                                 createdOn: createdOnDate.toISOString(),
                                 modifiedOn: createdOnDate.toISOString(),
@@ -607,9 +607,9 @@ describe('repository [courseRepository]', function () {
                             }
 
                         beforeEach(function () {
-                            spyOn(objectiveMapper, 'map').and.returnValue(mappedObjective);
-                            dataContext.objectives = [];
-                            mappedCourse.objectives = [objective];
+                            spyOn(sectionMapper, 'map').and.returnValue(mappedSection);
+                            dataContext.sections = [];
+                            mappedCourse.sections = [section];
                         });
 
                         it('should resolve promise with duplicated course', function (done) {
@@ -634,15 +634,15 @@ describe('repository [courseRepository]', function () {
                             post.resolve({ course: {} });
                         });
 
-                        it('should push objectives to dataContext', function (done) {
+                        it('should push sections to dataContext', function (done) {
                             var promise = repository.duplicateCourse(course.id);
 
                             promise.fin(function () {
-                                expect(dataContext.objectives[0]).toBe(mappedObjective);
+                                expect(dataContext.sections[0]).toBe(mappedSection);
                                 done();
                             });
 
-                            post.resolve({ course: {}, objectives: [objective] });
+                            post.resolve({ course: {}, sections: [section] });
                         });
 
                     });
@@ -655,20 +655,20 @@ describe('repository [courseRepository]', function () {
 
     });
 
-    describe('relateObjective:', function () {
+    describe('relateSection:', function () {
 
         it('should be function', function () {
-            expect(repository.relateObjective).toBeFunction();
+            expect(repository.relateSection).toBeFunction();
         });
 
         it('should return promise', function () {
-            expect(repository.relateObjective()).toBePromise();
+            expect(repository.relateSection()).toBePromise();
         });
 
         describe('when course id is undefined', function () {
 
             it('should reject promise', function (done) {
-                var promise = repository.relateObjective(undefined, []);
+                var promise = repository.relateSection(undefined, []);
 
                 promise.fin(function () {
                     expect(promise).toBeRejectedWith('Course id is not valid');
@@ -681,7 +681,7 @@ describe('repository [courseRepository]', function () {
         describe('when course id is null', function () {
 
             it('should reject promise', function (done) {
-                var promise = repository.relateObjective(null, []);
+                var promise = repository.relateSection(null, []);
 
                 promise.fin(function () {
                     expect(promise).toBeRejectedWith('Course id is not valid');
@@ -694,7 +694,7 @@ describe('repository [courseRepository]', function () {
         describe('when course id is not a string', function () {
 
             it('should reject promise', function (done) {
-                var promise = repository.relateObjective({}, []);
+                var promise = repository.relateSection({}, []);
 
                 promise.fin(function () {
                     expect(promise).toBeRejectedWith('Course id is not valid');
@@ -704,70 +704,70 @@ describe('repository [courseRepository]', function () {
 
         });
 
-        describe('when objective id is undefined', function () {
+        describe('when section id is undefined', function () {
 
             it('should reject promise', function (done) {
-                var promise = repository.relateObjective('asdasdasd', undefined);
+                var promise = repository.relateSection('asdasdasd', undefined);
 
                 promise.fin(function () {
-                    expect(promise).toBeRejectedWith('Objective id is not valid');
+                    expect(promise).toBeRejectedWith('Section id is not valid');
                     done();
                 });
             });
 
         });
 
-        describe('when objective id is null', function () {
+        describe('when section id is null', function () {
 
             it('should reject promise', function (done) {
-                var promise = repository.relateObjective('asdasdasd', null);
+                var promise = repository.relateSection('asdasdasd', null);
 
                 promise.fin(function () {
-                    expect(promise).toBeRejectedWith('Objective id is not valid');
+                    expect(promise).toBeRejectedWith('Section id is not valid');
                     done();
                 });
             });
 
         });
 
-        describe('when objective id is not a string', function () {
+        describe('when section id is not a string', function () {
 
             it('should reject promise', function (done) {
-                var promise = repository.relateObjective('asdasdasd', []);
+                var promise = repository.relateSection('asdasdasd', []);
 
                 promise.fin(function () {
-                    expect(promise).toBeRejectedWith('Objective id is not valid');
+                    expect(promise).toBeRejectedWith('Section id is not valid');
                     done();
                 });
             });
 
         });
 
-        it('should send request to \'api/course/relateObjective\'', function (done) {
+        it('should send request to \'api/course/relateSection\'', function (done) {
             var
                 courseId = 'adsasdasd',
-                objectiveId = 'obj1';
+                sectionId = 'obj1';
 
-            var promise = repository.relateObjective(courseId, objectiveId, 5);
+            var promise = repository.relateSection(courseId, sectionId, 5);
 
             promise.fin(function () {
-                expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/relateObjective', { courseId: courseId, objectiveId: objectiveId, index: 5 });
+                expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/relateSection', { courseId: courseId, sectionId: sectionId, index: 5 });
                 done();
             });
 
             post.reject('He`s dead Jim');
         });
 
-        describe('when objectives successfully related on server', function () {
+        describe('when sections successfully related on server', function () {
 
             describe('and response is not an object', function () {
 
                 it('should reject promise', function (done) {
                     var
                         courseId = 'adsasdasd',
-                        objectiveId = 'obj1';
+                        sectionId = 'obj1';
 
-                    var promise = repository.relateObjective(courseId, objectiveId);
+                    var promise = repository.relateSection(courseId, sectionId);
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Response is not an object');
@@ -784,9 +784,9 @@ describe('repository [courseRepository]', function () {
                 it('should reject promise', function (done) {
                     var
                         courseId = 'adsasdasd',
-                        objectiveId = 'obj1';
+                        sectionId = 'obj1';
 
-                    var promise = repository.relateObjective(courseId, objectiveId);
+                    var promise = repository.relateSection(courseId, sectionId);
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Response does not have modification date');
@@ -803,11 +803,11 @@ describe('repository [courseRepository]', function () {
                 it('should reject promise', function (done) {
                     var
                         courseId = 'adsasdasd',
-                        objectiveId = 'obj1';
+                        sectionId = 'obj1';
 
                     dataContext.courses = [];
 
-                    var promise = repository.relateObjective(courseId, objectiveId);
+                    var promise = repository.relateSection(courseId, sectionId);
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Course doesn`t exist');
@@ -819,41 +819,41 @@ describe('repository [courseRepository]', function () {
 
             });
 
-            it('should add successfully related objectives to course in dataContext', function (done) {
+            it('should add successfully related sections to course in dataContext', function (done) {
                 var
                     courseId = 'adsasdasd',
-                    objectiveId = 'obj1';
+                    sectionId = 'obj1';
 
-                dataContext.courses = [{ id: courseId, objectives: [] }];
-                dataContext.objectives = [{ id: objectiveId }];
+                dataContext.courses = [{ id: courseId, sections: [] }];
+                dataContext.sections = [{ id: sectionId }];
 
-                var promise = repository.relateObjective(courseId, objectiveId);
+                var promise = repository.relateSection(courseId, sectionId);
 
                 promise.fin(function () {
-                    expect(dataContext.courses[0].objectives.length).toEqual(1);
-                    expect(dataContext.courses[0].objectives[0].id).toEqual(objectiveId);
+                    expect(dataContext.courses[0].sections.length).toEqual(1);
+                    expect(dataContext.courses[0].sections[0].id).toEqual(sectionId);
                     done();
                 });
 
                 post.resolve({ ModifiedOn: new Date().toISOString() });
             });
 
-            it('should trigger course:objectiveRelated event', function (done) {
+            it('should trigger course:sectionRelated event', function (done) {
                 var
                     courseId = 'adsasdasd',
-                    objectiveId = 'obj1';
+                    sectionId = 'obj1';
 
-                dataContext.courses = [{ id: courseId, objectives: [] }];
-                dataContext.objectives = [{ id: objectiveId }];
+                dataContext.courses = [{ id: courseId, sections: [] }];
+                dataContext.sections = [{ id: sectionId }];
 
-                var promise = repository.relateObjective(courseId, objectiveId);
+                var promise = repository.relateSection(courseId, sectionId);
 
                 promise.fin(function () {
                     expect(app.trigger).toHaveBeenCalled();
-                    expect(app.trigger.calls.mostRecent().args[0]).toEqual(constants.messages.course.objectiveRelated);
+                    expect(app.trigger.calls.mostRecent().args[0]).toEqual(constants.messages.course.sectionRelated);
                     expect(app.trigger.calls.mostRecent().args[1]).toEqual(courseId);
                     expect(app.trigger.calls.mostRecent().args[2]).toBeObject();
-                    expect(app.trigger.calls.mostRecent().args[2].id).toEqual(objectiveId);
+                    expect(app.trigger.calls.mostRecent().args[2].id).toEqual(sectionId);
                     done();
                 });
 
@@ -863,13 +863,13 @@ describe('repository [courseRepository]', function () {
             it('should resolve promise with received data', function (done) {
                 var
                     courseId = 'adsasdasd',
-                    objectiveId = 'obj1',
+                    sectionId = 'obj1',
                     modifiedOnDate = new Date();
 
-                dataContext.courses = [{ id: courseId, objectives: [] }];
-                dataContext.objectives = [{ id: objectiveId }];
+                dataContext.courses = [{ id: courseId, sections: [] }];
+                dataContext.sections = [{ id: sectionId }];
 
-                var promise = repository.relateObjective(courseId, objectiveId);
+                var promise = repository.relateSection(courseId, sectionId);
 
                 promise.fin(function () {
                     expect(promise.inspect().value.modifiedOn).toEqual(modifiedOnDate);
@@ -883,20 +883,20 @@ describe('repository [courseRepository]', function () {
 
     });
 
-    describe('unrelateObjectives:', function () {
+    describe('unrelateSections:', function () {
 
         it('should be function', function () {
-            expect(repository.unrelateObjectives).toBeFunction();
+            expect(repository.unrelateSections).toBeFunction();
         });
 
         it('should return promise', function () {
-            expect(repository.unrelateObjectives()).toBePromise();
+            expect(repository.unrelateSections()).toBePromise();
         });
 
         describe('when course id is undefined', function () {
 
             it('should reject promise', function (done) {
-                var promise = repository.unrelateObjectives(undefined, []);
+                var promise = repository.unrelateSections(undefined, []);
 
                 promise.fin(function () {
                     expect(promise).toBeRejectedWith('Course id is not valid');
@@ -909,7 +909,7 @@ describe('repository [courseRepository]', function () {
         describe('when course id is null', function () {
 
             it('should reject promise', function (done) {
-                var promise = repository.unrelateObjectives(null, []);
+                var promise = repository.unrelateSections(null, []);
 
                 promise.fin(function () {
                     expect(promise).toBeRejectedWith('Course id is not valid');
@@ -922,7 +922,7 @@ describe('repository [courseRepository]', function () {
         describe('when course id is not a string', function () {
 
             it('should reject promise', function (done) {
-                var promise = repository.unrelateObjectives({}, []);
+                var promise = repository.unrelateSections({}, []);
 
                 promise.fin(function () {
                     expect(promise).toBeRejectedWith('Course id is not valid');
@@ -932,71 +932,71 @@ describe('repository [courseRepository]', function () {
 
         });
 
-        describe('when objectives array is undefined', function () {
+        describe('when sections array is undefined', function () {
 
             it('should reject promise', function (done) {
-                var promise = repository.unrelateObjectives('asdasdasd', undefined);
+                var promise = repository.unrelateSections('asdasdasd', undefined);
 
                 promise.fin(function () {
-                    expect(promise).toBeRejectedWith('Objectives to relate are not array');
+                    expect(promise).toBeRejectedWith('Sections to relate are not array');
                     done();
                 });
             });
 
         });
 
-        describe('when objectives array is null', function () {
+        describe('when sections array is null', function () {
 
             it('should reject promise', function (done) {
-                var promise = repository.unrelateObjectives('asdasdasd', null);
+                var promise = repository.unrelateSections('asdasdasd', null);
 
                 promise.fin(function () {
-                    expect(promise).toBeRejectedWith('Objectives to relate are not array');
+                    expect(promise).toBeRejectedWith('Sections to relate are not array');
                     done();
                 });
             });
 
         });
 
-        describe('when objectives array is not a string', function () {
+        describe('when sections array is not a string', function () {
 
             it('should reject promise', function (done) {
-                var promise = repository.unrelateObjectives('asdasdasd', {});
+                var promise = repository.unrelateSections('asdasdasd', {});
 
                 promise.fin(function () {
-                    expect(promise).toBeRejectedWith('Objectives to relate are not array');
+                    expect(promise).toBeRejectedWith('Sections to relate are not array');
                     done();
                 });
             });
 
         });
 
-        it('should send request to \'api/course/unrelateObjectives\'', function (done) {
+        it('should send request to \'api/course/unrelateSections\'', function (done) {
             var
                 courseId = 'adsasdasd',
-                objectives = [{ id: 'obj1' }, { id: 'obj2' }],
-                mappedObjectives = ['obj1', 'obj2'];
+                sections = [{ id: 'obj1' }, { id: 'obj2' }],
+                mappedSections = ['obj1', 'obj2'];
 
-            var promise = repository.unrelateObjectives(courseId, objectives);
+            var promise = repository.unrelateSections(courseId, sections);
 
             promise.fin(function () {
-                expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/unrelateObjectives', { courseId: courseId, objectives: mappedObjectives });
+                expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/unrelateSections', { courseId: courseId, sections: mappedSections });
                 done();
             });
 
             post.reject('He`s dead Jim');
         });
 
-        describe('when objectives successfully unrelated on server', function () {
+        describe('when sections successfully unrelated on server', function () {
 
             describe('and response is not an object', function () {
 
                 it('should reject promise', function (done) {
                     var
                         courseId = 'adsasdasd',
-                        objectives = [{ id: 'obj1' }, { id: 'obj2' }];
+                        sections = [{ id: 'obj1' }, { id: 'obj2' }];
 
-                    var promise = repository.unrelateObjectives(courseId, objectives);
+                    var promise = repository.unrelateSections(courseId, sections);
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Response is not an object');
@@ -1013,9 +1013,9 @@ describe('repository [courseRepository]', function () {
                 it('should reject promise', function (done) {
                     var
                         courseId = 'adsasdasd',
-                        objectives = [{ id: 'obj1' }, { id: 'obj2' }];
+                        sections = [{ id: 'obj1' }, { id: 'obj2' }];
 
-                    var promise = repository.unrelateObjectives(courseId, objectives);
+                    var promise = repository.unrelateSections(courseId, sections);
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Response does not have modification date');
@@ -1032,11 +1032,11 @@ describe('repository [courseRepository]', function () {
                 it('should reject promise', function (done) {
                     var
                         courseId = 'adsasdasd',
-                        objectives = [{ id: 'obj1' }, { id: 'obj2' }];
+                        sections = [{ id: 'obj1' }, { id: 'obj2' }];
 
                     dataContext.courses = [];
 
-                    var promise = repository.unrelateObjectives(courseId, objectives);
+                    var promise = repository.unrelateSections(courseId, sections);
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Course doesn`t exist');
@@ -1048,39 +1048,39 @@ describe('repository [courseRepository]', function () {
 
             });
 
-            it('should remove urelated objectives from course in dataContext', function (done) {
+            it('should remove urelated sections from course in dataContext', function (done) {
                 var
                     courseId = 'adsasdasd',
-                    objectives = [{ id: 'obj1' }, { id: 'obj2' }];
+                    sections = [{ id: 'obj1' }, { id: 'obj2' }];
 
-                dataContext.courses = [{ id: courseId, objectives: objectives }];
+                dataContext.courses = [{ id: courseId, sections: sections }];
 
-                var promise = repository.unrelateObjectives(courseId, [objectives[0]]);
+                var promise = repository.unrelateSections(courseId, [sections[0]]);
 
                 promise.fin(function () {
-                    expect(dataContext.courses[0].objectives.length).toEqual(1);
-                    expect(dataContext.courses[0].objectives[0].id).toEqual(objectives[1].id);
+                    expect(dataContext.courses[0].sections.length).toEqual(1);
+                    expect(dataContext.courses[0].sections[0].id).toEqual(sections[1].id);
                     done();
                 });
 
                 post.resolve({ ModifiedOn: new Date().toISOString() });
             });
 
-            it('should trigger course:objectivesUnrelated event', function (done) {
+            it('should trigger course:sectionsUnrelated event', function (done) {
                 var
                     courseId = 'adsasdasd',
-                    objectives = [{ id: 'obj1' }, { id: 'obj2' }];
+                    sections = [{ id: 'obj1' }, { id: 'obj2' }];
 
-                dataContext.courses = [{ id: courseId, objectives: objectives }];
+                dataContext.courses = [{ id: courseId, sections: sections }];
 
-                var promise = repository.unrelateObjectives(courseId, [objectives[0]]);
+                var promise = repository.unrelateSections(courseId, [sections[0]]);
 
                 promise.fin(function () {
                     expect(app.trigger).toHaveBeenCalled();
-                    expect(app.trigger.calls.mostRecent().args[0]).toEqual(constants.messages.course.objectivesUnrelated);
+                    expect(app.trigger.calls.mostRecent().args[0]).toEqual(constants.messages.course.sectionsUnrelated);
                     expect(app.trigger.calls.mostRecent().args[1]).toEqual(courseId);
                     expect(app.trigger.calls.mostRecent().args[2].length).toEqual(1);
-                    expect(app.trigger.calls.mostRecent().args[2][0]).toEqual(objectives[0].id);
+                    expect(app.trigger.calls.mostRecent().args[2][0]).toEqual(sections[0].id);
                     done();
                 });
 
@@ -1090,12 +1090,12 @@ describe('repository [courseRepository]', function () {
             it('should resolve promise with received data', function (done) {
                 var
                     courseId = 'adsasdasd',
-                    objectives = [{ id: 'obj1' }, { id: 'obj2' }],
+                    sections = [{ id: 'obj1' }, { id: 'obj2' }],
                     modifiedOnDate = new Date();
 
-                dataContext.courses = [{ id: courseId, objectives: objectives }];
+                dataContext.courses = [{ id: courseId, sections: sections }];
 
-                var promise = repository.unrelateObjectives(courseId, [objectives[0]]);
+                var promise = repository.unrelateSections(courseId, [sections[0]]);
 
                 promise.fin(function () {
                     expect(promise.inspect().value).toEqual(modifiedOnDate);
@@ -1710,20 +1710,20 @@ describe('repository [courseRepository]', function () {
 
     });
 
-    describe('updateObjectiveOrder:', function () {
+    describe('updateSectionOrder:', function () {
 
         it('should be function', function () {
-            expect(repository.updateObjectiveOrder).toBeFunction();
+            expect(repository.updateSectionOrder).toBeFunction();
         });
 
         it('should return promise', function () {
-            expect(repository.updateObjectiveOrder()).toBePromise();
+            expect(repository.updateSectionOrder()).toBePromise();
         });
 
         describe('when course id is undefined', function () {
 
             it('should reject promise', function (done) {
-                var promise = repository.updateObjectiveOrder(undefined, []);
+                var promise = repository.updateSectionOrder(undefined, []);
 
                 promise.fin(function () {
                     expect(promise).toBeRejectedWith('Course id is not a string');
@@ -1736,7 +1736,7 @@ describe('repository [courseRepository]', function () {
         describe('when course id is null', function () {
 
             it('should reject promise', function (done) {
-                var promise = repository.updateObjectiveOrder(null, []);
+                var promise = repository.updateSectionOrder(null, []);
 
                 promise.fin(function () {
                     expect(promise).toBeRejectedWith('Course id is not a string');
@@ -1749,7 +1749,7 @@ describe('repository [courseRepository]', function () {
         describe('when course id is not a string', function () {
 
             it('should reject promise', function (done) {
-                var promise = repository.updateObjectiveOrder({}, []);
+                var promise = repository.updateSectionOrder({}, []);
 
                 promise.fin(function () {
                     expect(promise).toBeRejectedWith('Course id is not a string');
@@ -1762,10 +1762,10 @@ describe('repository [courseRepository]', function () {
         describe('when course id is undefined', function () {
 
             it('should reject promise', function (done) {
-                var promise = repository.updateObjectiveOrder('asdasd', undefined);
+                var promise = repository.updateSectionOrder('asdasd', undefined);
 
                 promise.fin(function () {
-                    expect(promise).toBeRejectedWith('Objectives to relate are not array');
+                    expect(promise).toBeRejectedWith('Sections to relate are not array');
                     done();
                 });
             });
@@ -1775,10 +1775,10 @@ describe('repository [courseRepository]', function () {
         describe('when course id is null', function () {
 
             it('should reject promise', function (done) {
-                var promise = repository.updateObjectiveOrder('asdasdasd', null);
+                var promise = repository.updateSectionOrder('asdasdasd', null);
 
                 promise.fin(function () {
-                    expect(promise).toBeRejectedWith('Objectives to relate are not array');
+                    expect(promise).toBeRejectedWith('Sections to relate are not array');
                     done();
                 });
             });
@@ -1788,43 +1788,43 @@ describe('repository [courseRepository]', function () {
         describe('when course id is not a string', function () {
 
             it('should reject promise', function (done) {
-                var promise = repository.updateObjectiveOrder('asdasdasd', {});
+                var promise = repository.updateSectionOrder('asdasdasd', {});
 
                 promise.fin(function () {
-                    expect(promise).toBeRejectedWith('Objectives to relate are not array');
+                    expect(promise).toBeRejectedWith('Sections to relate are not array');
                     done();
                 });
             });
 
         });
 
-        it('should send request to \'api/course/updateobjectivesorder\'', function (done) {
+        it('should send request to \'api/course/updatesectionsorder\'', function (done) {
             var
                 courseId = 'qweqeqweqw',
-                objectives = [{ id: 'obj1' }, { id: 'obj2' }],
-                mappedObjectives = ['obj1', 'obj2'];
+                sections = [{ id: 'obj1' }, { id: 'obj2' }],
+                mappedSections = ['obj1', 'obj2'];
 
-            var promise = repository.updateObjectiveOrder(courseId, objectives);
+            var promise = repository.updateSectionOrder(courseId, sections);
 
             promise.fin(function () {
-                expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/updateobjectivesorder', { courseId: courseId, objectives: mappedObjectives });
+                expect(apiHttpWrapper.post).toHaveBeenCalledWith('api/course/updatesectionsorder', { courseId: courseId, sections: mappedSections });
                 done();
             });
 
             post.reject('He`s dead Jim');
         });
 
-        describe('when objectives order successfully saved to server', function () {
+        describe('when sections order successfully saved to server', function () {
 
             describe('and response is not an object', function () {
 
                 it('should reject promise', function (done) {
                     var
                         courseId = 'qweqeqweqw',
-                        objectives = [{ id: 'obj1' }, { id: 'obj2' }],
-                        mappedObjectives = ['obj1', 'obj2'];
+                        sections = [{ id: 'obj1' }, { id: 'obj2' }],
+                        mappedSections = ['obj1', 'obj2'];
 
-                    var promise = repository.updateObjectiveOrder(courseId, objectives);
+                    var promise = repository.updateSectionOrder(courseId, sections);
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Response does not an object');
@@ -1841,10 +1841,10 @@ describe('repository [courseRepository]', function () {
                 it('should reject promise', function (done) {
                     var
                         courseId = 'qweqeqweqw',
-                        objectives = [{ id: 'obj1' }, { id: 'obj2' }],
-                        mappedObjectives = ['obj1', 'obj2'];
+                        sections = [{ id: 'obj1' }, { id: 'obj2' }],
+                        mappedSections = ['obj1', 'obj2'];
 
-                    var promise = repository.updateObjectiveOrder(courseId, objectives);
+                    var promise = repository.updateSectionOrder(courseId, sections);
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Response does not have modification date');
@@ -1861,12 +1861,12 @@ describe('repository [courseRepository]', function () {
                 it('should reject promise', function (done) {
                     var
                         courseId = 'qweqeqweqw',
-                        objectives = [{ id: 'obj1' }, { id: 'obj2' }],
-                        mappedObjectives = ['obj1', 'obj2'];
+                        sections = [{ id: 'obj1' }, { id: 'obj2' }],
+                        mappedSections = ['obj1', 'obj2'];
 
                     dataContext.courses = [];
 
-                    var promise = repository.updateObjectiveOrder(courseId, objectives);
+                    var promise = repository.updateSectionOrder(courseId, sections);
 
                     promise.fin(function () {
                         expect(promise).toBeRejectedWith('Course doesn`t exist');
@@ -1881,17 +1881,17 @@ describe('repository [courseRepository]', function () {
             it('should update course in data context', function (done) {
                 var
                     courseId = 'qweqeqweqw',
-                    objectives = [{ id: 'obj1' }, { id: 'obj2' }],
-                    mappedObjectives = ['obj1', 'obj2'],
+                    sections = [{ id: 'obj1' }, { id: 'obj2' }],
+                    mappedSections = ['obj1', 'obj2'],
                     modifiedOnDate = new Date();
 
-                dataContext.courses = [{ id: courseId, objectives: [objectives[1], objectives[0]] }];
+                dataContext.courses = [{ id: courseId, sections: [sections[1], sections[0]] }];
 
-                var promise = repository.updateObjectiveOrder(courseId, objectives);
+                var promise = repository.updateSectionOrder(courseId, sections);
 
                 promise.fin(function () {
-                    expect(dataContext.courses[0].objectives[0].id).toEqual(objectives[0].id);
-                    expect(dataContext.courses[0].objectives[1].id).toEqual(objectives[1].id);
+                    expect(dataContext.courses[0].sections[0].id).toEqual(sections[0].id);
+                    expect(dataContext.courses[0].sections[1].id).toEqual(sections[1].id);
                     expect(dataContext.courses[0].modifiedOn).toEqual(modifiedOnDate);
                     done();
                 });
@@ -1899,24 +1899,24 @@ describe('repository [courseRepository]', function () {
                 post.resolve({ ModifiedOn: modifiedOnDate.toISOString() });
             });
 
-            it('should trigger course:objectivesReordered event', function (done) {
+            it('should trigger course:sectionsReordered event', function (done) {
                 var
                     courseId = 'qweqeqweqw',
-                    objectives = [{ id: 'obj1' }, { id: 'obj2' }],
-                    mappedObjectives = ['obj1', 'obj2'],
+                    sections = [{ id: 'obj1' }, { id: 'obj2' }],
+                    mappedSections = ['obj1', 'obj2'],
                     modifiedOnDate = new Date();
 
-                dataContext.courses = [{ id: courseId, objectives: [objectives[1], objectives[0]] }];
+                dataContext.courses = [{ id: courseId, sections: [sections[1], sections[0]] }];
 
-                var promise = repository.updateObjectiveOrder(courseId, objectives);
+                var promise = repository.updateSectionOrder(courseId, sections);
 
                 promise.fin(function () {
                     expect(app.trigger).toHaveBeenCalled();
-                    expect(app.trigger.calls.mostRecent().args[0]).toEqual(constants.messages.course.objectivesReordered);
+                    expect(app.trigger.calls.mostRecent().args[0]).toEqual(constants.messages.course.sectionsReordered);
                     expect(app.trigger.calls.mostRecent().args[1].id).toEqual(courseId);
                     expect(app.trigger.calls.mostRecent().args[1].modifiedOn).toEqual(modifiedOnDate);
-                    expect(app.trigger.calls.mostRecent().args[1].objectives[0].id).toEqual(objectives[0].id);
-                    expect(app.trigger.calls.mostRecent().args[1].objectives[1].id).toEqual(objectives[1].id);
+                    expect(app.trigger.calls.mostRecent().args[1].sections[0].id).toEqual(sections[0].id);
+                    expect(app.trigger.calls.mostRecent().args[1].sections[1].id).toEqual(sections[1].id);
                     done();
                 });
 
@@ -1926,13 +1926,13 @@ describe('repository [courseRepository]', function () {
             it('should resolve promise with modification date', function (done) {
                 var
                     courseId = 'qweqeqweqw',
-                    objectives = [{ id: 'obj1' }, { id: 'obj2' }],
-                    mappedObjectives = ['obj1', 'obj2'],
+                    sections = [{ id: 'obj1' }, { id: 'obj2' }],
+                    mappedSections = ['obj1', 'obj2'],
                     modifiedOnDate = new Date();
 
-                dataContext.courses = [{ id: courseId, objectives: [objectives[1], objectives[0]] }];
+                dataContext.courses = [{ id: courseId, sections: [sections[1], sections[0]] }];
 
-                var promise = repository.updateObjectiveOrder(courseId, objectives);
+                var promise = repository.updateSectionOrder(courseId, sections);
 
                 promise.fin(function () {
                     expect(promise.inspect().value).toEqual(modifiedOnDate);

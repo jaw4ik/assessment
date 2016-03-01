@@ -78,30 +78,30 @@ namespace easygenerator.Web.BuildCourse
                 _fileManager.WriteToFile(_buildPathProvider.GetCourseIntroductionContentFileName(buildDirectory), coursePackageModel.IntroductionContent);
             }
 
-            foreach (var objective in coursePackageModel.Objectives)
+            foreach (var section in coursePackageModel.Sections)
             {
-                _fileManager.CreateDirectory(_buildPathProvider.GetObjectiveDirectoryName(buildDirectory, objective.Id));
+                _fileManager.CreateDirectory(_buildPathProvider.GetSectionDirectoryName(buildDirectory, section.Id));
 
-                foreach (var question in objective.Questions)
+                foreach (var question in section.Questions)
                 {
-                    _fileManager.CreateDirectory(_buildPathProvider.GetQuestionDirectoryName(buildDirectory, objective.Id, question.Id));
+                    _fileManager.CreateDirectory(_buildPathProvider.GetQuestionDirectoryName(buildDirectory, section.Id, question.Id));
                     if (question.HasContent)
                     {
-                        _fileManager.WriteToFile(_buildPathProvider.GetQuestionContentFileName(buildDirectory, objective.Id, question.Id), question.Content);
+                        _fileManager.WriteToFile(_buildPathProvider.GetQuestionContentFileName(buildDirectory, section.Id, question.Id), question.Content);
                     }
 
                     foreach (var learningContent in question.LearningContents)
                     {
-                        _fileManager.WriteToFile(_buildPathProvider.GetLearningContentFileName(buildDirectory, objective.Id, question.Id, learningContent.Id), learningContent.Text);
+                        _fileManager.WriteToFile(_buildPathProvider.GetLearningContentFileName(buildDirectory, section.Id, question.Id, learningContent.Id), learningContent.Text);
                     }
 
                     if (question.HasCorrectFeedback)
                     {
-                        _fileManager.WriteToFile(_buildPathProvider.GetCorrectFeedbackContentFileName(buildDirectory, objective.Id, question.Id), question.Feedback.CorrectText);
+                        _fileManager.WriteToFile(_buildPathProvider.GetCorrectFeedbackContentFileName(buildDirectory, section.Id, question.Id), question.Feedback.CorrectText);
                     }
                     if (question.HasIncorrectFeedback)
                     {
-                        _fileManager.WriteToFile(_buildPathProvider.GetIncorrectFeedbackContentFileName(buildDirectory, objective.Id, question.Id), question.Feedback.IncorrectText);
+                        _fileManager.WriteToFile(_buildPathProvider.GetIncorrectFeedbackContentFileName(buildDirectory, section.Id, question.Id), question.Feedback.IncorrectText);
                     }
                 }
             }

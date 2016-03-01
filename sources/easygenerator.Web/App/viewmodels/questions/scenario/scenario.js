@@ -47,10 +47,10 @@
 
         return viewModel;
 
-        function initialize(objectiveId, question) {
+        function initialize(sectionId, question) {
             viewModel.questionId = question.id;
 
-            return questionRepository.getById(objectiveId, question.id).then(function (question) {
+            return questionRepository.getById(sectionId, question.id).then(function (question) {
                 return getQuestionDataByIdQuerie.execute(question.id).then(function (questionData) {
                     viewModel.projectId = questionData.projectId;
                     viewModel.embedUrl(questionData.embedUrl);

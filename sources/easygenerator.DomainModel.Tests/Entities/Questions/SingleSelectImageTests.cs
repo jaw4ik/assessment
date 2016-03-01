@@ -346,7 +346,7 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
         }
 
         [TestMethod]
-        public void AddAnswer_ShouldAddObjectiveTitleUpdatedEvent()
+        public void AddAnswer_ShouldAddSectionTitleUpdatedEvent()
         {
             var question = SingleSelectImageObjectMother.Create();
 

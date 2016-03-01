@@ -87,14 +87,14 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
             //Act
             _importer.Import(winCourse, _userName);
 
             //Assert
-            course.Received().RelateObjective(objective, Arg.Any<int?>(), Arg.Any<string>());
+            course.Received().RelateSection(section, Arg.Any<int?>(), Arg.Any<string>());
         }
 
         #region InformationContent
@@ -123,8 +123,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
             //Act
             _importer.Import(winCourse, _userName);
@@ -164,8 +164,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
             var informationContent = Substitute.For<InformationContent>();
             _entityFactory.InformationContent(Arg.Any<string>(), Arg.Any<string>()).Returns(informationContent);
@@ -204,8 +204,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
             var informationContent = Substitute.For<InformationContent>();
             _entityFactory.InformationContent(Arg.Any<string>(), Arg.Any<string>()).Returns(informationContent);
 
@@ -213,7 +213,7 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
             _importer.Import(winCourse, _userName);
 
             //Assert
-            objective.Received().AddQuestion(informationContent, _userName);
+            section.Received().AddQuestion(informationContent, _userName);
         }
 
         #endregion
@@ -258,8 +258,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
             var question = Substitute.For<SingleSelectText>();
             _entityFactory.SingleSelectTextQuestion(Arg.Any<string>(), Arg.Any<string>()).Returns(question);
 
@@ -294,8 +294,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
 
             var question = Substitute.For<SingleSelectText>();
@@ -335,8 +335,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
 
             var question = Substitute.For<SingleSelectText>();
@@ -348,7 +348,7 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
             _importer.Import(winCourse, _userName);
 
             //Assert
-            objective.Received().AddQuestion(question, _userName);
+            section.Received().AddQuestion(question, _userName);
         }
 
         [TestMethod]
@@ -377,8 +377,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
 
             var question = Substitute.For<SingleSelectText>();
@@ -441,8 +441,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
             var question = Substitute.For<Multipleselect>();
             _entityFactory.MultipleselectQuestion(Arg.Any<string>(), Arg.Any<string>()).Returns(question);
 
@@ -477,8 +477,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
 
             var question = Substitute.For<Multipleselect>();
@@ -518,8 +518,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
 
             var question = Substitute.For<Multipleselect>();
@@ -531,7 +531,7 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
             _importer.Import(winCourse, _userName);
 
             //Assert
-            objective.Received().AddQuestion(question, _userName);
+            section.Received().AddQuestion(question, _userName);
         }
 
         [TestMethod]
@@ -560,8 +560,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
 
             var question = Substitute.For<Multipleselect>();
@@ -612,8 +612,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
             var question = Substitute.For<SingleSelectImage>();
             _entityFactory.SingleSelectImageQuestion(Arg.Any<string>(), Arg.Any<string>()).Returns(question);
 
@@ -648,8 +648,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
             var question = Substitute.For<SingleSelectImage>();
             _entityFactory.SingleSelectImageQuestion(Arg.Any<string>(), Arg.Any<string>()).Returns(question);
@@ -688,8 +688,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
 
             var question = Substitute.For<SingleSelectImage>();
@@ -701,7 +701,7 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
             _importer.Import(winCourse, _userName);
 
             //Assert
-            objective.Received().AddQuestion(question, _userName);
+            section.Received().AddQuestion(question, _userName);
         }
 
         [TestMethod]
@@ -730,8 +730,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
 
             var question = Substitute.For<SingleSelectImage>();
@@ -778,8 +778,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
 
             var question = Substitute.For<SingleSelectImage>();
@@ -829,8 +829,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
             var question = Substitute.For<HotSpot>();
             _entityFactory.HotSpot(Arg.Any<string>(), Arg.Any<string>()).Returns(question);
 
@@ -860,8 +860,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
 
             var question = Substitute.For<HotSpot>();
@@ -901,8 +901,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
 
             var question = Substitute.For<HotSpot>();
@@ -914,7 +914,7 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
             _importer.Import(winCourse, _userName);
 
             //Assert
-            objective.Received().AddQuestion(question, _userName);
+            section.Received().AddQuestion(question, _userName);
         }
 
         [TestMethod]
@@ -943,8 +943,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
 
             var question = Substitute.For<HotSpot>();
@@ -987,8 +987,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
             var question = Substitute.For<Statement>();
             _entityFactory.StatementQuestion(Arg.Any<string>(), Arg.Any<string>()).Returns(question);
 
@@ -1023,8 +1023,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
 
             var question = Substitute.For<Statement>();
@@ -1064,8 +1064,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
 
             var question = Substitute.For<Statement>();
@@ -1077,7 +1077,7 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
             _importer.Import(winCourse, _userName);
 
             //Assert
-            objective.Received().AddQuestion(question, _userName);
+            section.Received().AddQuestion(question, _userName);
         }
 
         [TestMethod]
@@ -1106,8 +1106,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
 
             var question = Substitute.For<Statement>();
@@ -1149,8 +1149,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
             var question = Substitute.For<OpenQuestion>();
             _entityFactory.OpenQuestion(Arg.Any<string>(), Arg.Any<string>()).Returns(question);
 
@@ -1185,8 +1185,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
 
             var question = Substitute.For<OpenQuestion>();
@@ -1225,8 +1225,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
 
             var question = Substitute.For<OpenQuestion>();
@@ -1238,7 +1238,7 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
             _importer.Import(winCourse, _userName);
 
             //Assert
-            objective.Received().AddQuestion(question, _userName);
+            section.Received().AddQuestion(question, _userName);
         }
 
         #endregion
@@ -1263,8 +1263,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
             var question = Substitute.For<TextMatching>();
             _entityFactory.TextMatchingQuestion(Arg.Any<string>(), Arg.Any<string>()).Returns(question);
 
@@ -1299,8 +1299,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
 
             var question = Substitute.For<TextMatching>();
@@ -1340,8 +1340,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
 
             var question = Substitute.For<TextMatching>();
@@ -1353,7 +1353,7 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
             _importer.Import(winCourse, _userName);
 
             //Assert
-            objective.Received().AddQuestion(question, _userName);
+            section.Received().AddQuestion(question, _userName);
         }
 
         [TestMethod]
@@ -1382,8 +1382,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
 
             var question = Substitute.For<TextMatching>();
@@ -1434,8 +1434,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
             var question = Substitute.For<FillInTheBlanks>();
             _entityFactory.FillInTheBlanksQuestion(Arg.Any<string>(), Arg.Any<string>()).Returns(question);
 
@@ -1475,8 +1475,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
 
             var question = Substitute.For<FillInTheBlanks>();
@@ -1521,8 +1521,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
 
             var question = Substitute.For<FillInTheBlanks>();
@@ -1539,7 +1539,7 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
             _importer.Import(winCourse, _userName);
 
             //Assert
-            objective.Received().AddQuestion(question, _userName);
+            section.Received().AddQuestion(question, _userName);
         }
 
         [TestMethod]
@@ -1568,8 +1568,8 @@ namespace easygenerator.Web.Tests.Import.WinToWeb
 
             var course = Substitute.For<Course>();
             _entityFactory.Course(Arg.Any<string>(), Arg.Any<Template>(), Arg.Any<string>()).Returns(course);
-            var objective = Substitute.For<Objective>();
-            _entityFactory.Objective(Arg.Any<string>(), Arg.Any<string>()).Returns(objective);
+            var section = Substitute.For<Section>();
+            _entityFactory.Section(Arg.Any<string>(), Arg.Any<string>()).Returns(section);
 
 
             var question = Substitute.For<FillInTheBlanks>();

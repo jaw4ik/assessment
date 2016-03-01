@@ -45,7 +45,7 @@ namespace easygenerator.DataAccess
             ((IObjectContextAdapter)this).ObjectContext.ObjectMaterialized += (sender, args) => DateTimeObjectMaterializer.Materialize(args.Entity);
         }
 
-        public DbSet<Objective> Objectives { get; set; }
+        public DbSet<Section> Sections { get; set; }
         public DbSet<Document> Documents { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Question> Questions { get; set; }
@@ -81,14 +81,14 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<LearningPath>().Property(e => e.PublicationUrl).HasMaxLength(255);
             modelBuilder.Entity<LearningPath>().HasMany(e => e.LearningPathCompanies).WithMany(e => e.CompanyLearningPaths).Map(m => m.ToTable("CompanyLearningPaths"));
 
-            modelBuilder.Entity<Objective>().Property(e => e.Title).HasMaxLength(255).IsRequired();
-            modelBuilder.Entity<Objective>().Property(e => e.ImageUrl).IsOptional();
-            modelBuilder.Entity<Objective>().Property(e => e.LearningObjective).HasMaxLength(255).IsOptional();
-            modelBuilder.Entity<Objective>().Property(e => e.QuestionsOrder).IsOptional();
-            modelBuilder.Entity<Objective>().HasMany(e => e.QuestionsCollection).WithRequired(e => e.Objective);
-            modelBuilder.Entity<Objective>().HasMany(e => e.RelatedCoursesCollection)
-                .WithMany(e => e.RelatedObjectivesCollection)
-                .Map(m => m.ToTable("CourseObjectives"));
+            modelBuilder.Entity<Section>().Property(e => e.Title).HasMaxLength(255).IsRequired();
+            modelBuilder.Entity<Section>().Property(e => e.ImageUrl).IsOptional();
+            modelBuilder.Entity<Section>().Property(e => e.LearningObjective).HasMaxLength(255).IsOptional();
+            modelBuilder.Entity<Section>().Property(e => e.QuestionsOrder).IsOptional();
+            modelBuilder.Entity<Section>().HasMany(e => e.QuestionsCollection).WithRequired(e => e.Section);
+            modelBuilder.Entity<Section>().HasMany(e => e.RelatedCoursesCollection)
+                .WithMany(e => e.RelatedSectionsCollection)
+                .Map(m => m.ToTable("CourseSections"));
 
             modelBuilder.Entity<Document>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Document>().Property(e => e.EmbedCode).IsRequired();
@@ -97,12 +97,12 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<Course>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Course>().HasRequired(e => e.Template).WithMany(e => e.Courses).WillCascadeOnDelete(false);
-            modelBuilder.Entity<Course>().HasMany(e => e.RelatedObjectivesCollection).WithMany(e => e.RelatedCoursesCollection).Map(m => m.ToTable("CourseObjectives"));
+            modelBuilder.Entity<Course>().HasMany(e => e.RelatedSectionsCollection).WithMany(e => e.RelatedCoursesCollection).Map(m => m.ToTable("CourseSections"));
             modelBuilder.Entity<Course>().HasMany(e => e.LearningPathCollection).WithMany(e => e.CoursesCollection).Map(m => m.ToTable("LearningPathCourses"));
             modelBuilder.Entity<Course>().HasMany(e => e.TemplateSettings).WithRequired(e => e.Course).WillCascadeOnDelete(true);
             modelBuilder.Entity<Course>().Property(e => e.IntroductionContent).IsMaxLength().IsOptional();
             modelBuilder.Entity<Course>().HasMany(e => e.CommentsCollection).WithRequired(e => e.Course).WillCascadeOnDelete(true);
-            modelBuilder.Entity<Course>().Property(e => e.ObjectivesOrder).IsOptional();
+            modelBuilder.Entity<Course>().Property(e => e.SectionsOrder).IsOptional();
             modelBuilder.Entity<Course>().HasMany(e => e.CollaboratorsCollection).WithRequired(e => e.Course).WillCascadeOnDelete(true);
             modelBuilder.Entity<Course>().Property(e => e.PackageUrl).HasMaxLength(255);
             modelBuilder.Entity<Course>().Property(e => e.ScormPackageUrl).HasMaxLength(255);
@@ -133,7 +133,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Comment>().Property(e => e.Context);
 
             modelBuilder.Entity<Question>().Property(e => e.Title).HasMaxLength(255).IsRequired();
-            modelBuilder.Entity<Question>().HasRequired(e => e.Objective);
+            modelBuilder.Entity<Question>().HasRequired(e => e.Section);
             modelBuilder.Entity<Question>().HasMany(e => e.LearningContentsCollection).WithRequired(e => e.Question);
             modelBuilder.Entity<Question>().Property(e => e.Feedback.CorrectText).IsMaxLength().IsOptional();
             modelBuilder.Entity<Question>().Property(e => e.Feedback.IncorrectText).IsMaxLength().IsOptional();
@@ -236,7 +236,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<ImageFile>().Property(e => e.Title).HasMaxLength(255).IsRequired();
 
             modelBuilder.Entity<Onboarding>().Property(e => e.CourseCreated).IsRequired();
-            modelBuilder.Entity<Onboarding>().Property(e => e.ObjectiveCreated).IsRequired();
+            modelBuilder.Entity<Onboarding>().Property(e => e.SectionCreated).IsRequired();
             modelBuilder.Entity<Onboarding>().Property(e => e.ContentCreated).IsRequired();
             modelBuilder.Entity<Onboarding>().Property(e => e.CreatedQuestionsCount).IsRequired();
             modelBuilder.Entity<Onboarding>().Property(e => e.CoursePublished).IsRequired();
@@ -366,7 +366,7 @@ namespace easygenerator.DataAccess
                     {
                         entry.State = EntityState.Deleted;
                     }
-                    if ((entry.Entity is Question) && (entry.Entity as Question).Objective == null)
+                    if ((entry.Entity is Question) && (entry.Entity as Question).Section == null)
                     {
                         entry.State = EntityState.Deleted;
                     }

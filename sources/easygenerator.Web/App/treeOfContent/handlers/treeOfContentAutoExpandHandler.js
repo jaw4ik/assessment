@@ -14,12 +14,12 @@
 
                 if (courseTreeNode) {
                     courseTreeNode.expand().then(function () {
-                        if (context.objectiveId) {
-                            var objectiveTreeNode = _.find(courseTreeNode.children(), function (item) {
-                                return item.id == context.objectiveId;
+                        if (context.sectionId) {
+                            var sectionTreeNode = _.find(courseTreeNode.children(), function (item) {
+                                return item.id == context.sectionId;
                             });
-                            if (objectiveTreeNode) {
-                                objectiveTreeNode.expand().then(function () {
+                            if (sectionTreeNode) {
+                                sectionTreeNode.expand().then(function () {
                                     dfd.resolve();
                                 });
                             } else {

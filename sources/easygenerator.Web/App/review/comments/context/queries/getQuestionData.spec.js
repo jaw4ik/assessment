@@ -4,7 +4,7 @@ import dataContext from 'dataContext';
 
 describe('review context queries [getQuestionData]', () => {
     let course = { id: 'id' },
-        objective = { id: 'objId' },
+        section = { id: 'objId' },
         question = { id: 'questionId' };
     
     describe('when course is not found', () => {
@@ -29,14 +29,14 @@ describe('review context queries [getQuestionData]', () => {
 
         describe('and when question is found', () => {
             beforeEach(() => {
-                course.objectives = [objective];
-                objective.questions = [question];
+                course.sections = [section];
+                section.questions = [question];
             });
 
             it('should return question data', () => {
                 expect(query.execute(course.id, question.id)).toEqual(
                     { 
-                        objectiveId: objective.id,
+                        sectionId: section.id,
                         question: question
                     });
             });
@@ -44,7 +44,7 @@ describe('review context queries [getQuestionData]', () => {
 
         describe('and when question is not found', () => {
             beforeEach(() => {
-                course.objectives = [];
+                course.sections = [];
             });
 
             it('should return null', () => {

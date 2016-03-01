@@ -1,7 +1,7 @@
 ﻿import questionsRepository from 'repositories/questionRepository';
 
 export default class {
-    static execute(objectiveId, questionId) {
-        return questionsRepository.removeQuestions(objectiveId, [questionId]);
+    static execute(sectionId, questionId) {
+        return questionsRepository.removeQuestions(sectionId, [questionId]);
     }
 }

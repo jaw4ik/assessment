@@ -1,19 +1,19 @@
-﻿define(['guard', 'durandal/app', 'constants', 'dataContext', 'mappers/courseModelMapper', 'mappers/objectiveModelMapper', 'repositories/templateRepository', 'mappers/templateModelMapper'],
-    function (guard, app, constants, dataContext, courseModelMapper, objectiveModelMapper, templateRepository, templateModelMapper) {
+﻿define(['guard', 'durandal/app', 'constants', 'dataContext', 'mappers/courseModelMapper', 'mappers/sectionModelMapper', 'repositories/templateRepository', 'mappers/templateModelMapper'],
+    function (guard, app, constants, dataContext, courseModelMapper, sectionModelMapper, templateRepository, templateModelMapper) {
         "use strict";
 
-        return function (course, objectives, courseTemplate) {
+        return function (course, sections, courseTemplate) {
             guard.throwIfNotAnObject(course, 'Course is not an object');
-            guard.throwIfNotArray(objectives, 'Objectives is not an array');
+            guard.throwIfNotArray(sections, 'Sections is not an array');
             guard.throwIfNotAnObject(courseTemplate, 'Template is not an object');
 
-            _.each(objectives, function (objective) {
-                var objectiveExists = _.some(dataContext.objectives, function (obj) {
-                    return obj.id === objective.Id;
+            _.each(sections, function (section) {
+                var sectionExists = _.some(dataContext.sections, function (obj) {
+                    return obj.id === section.Id;
                 });
 
-                if (!objectiveExists) {
-                    dataContext.objectives.push(objectiveModelMapper.map(objective));
+                if (!sectionExists) {
+                    dataContext.sections.push(sectionModelMapper.map(section));
                 }
             });
 
@@ -30,7 +30,7 @@
             }
 
             if (_.isNullOrUndefined(existingCourse)) {
-                existingCourse = courseModelMapper.map(course, dataContext.objectives, dataContext.templates);
+                existingCourse = courseModelMapper.map(course, dataContext.sections, dataContext.templates);
                 dataContext.courses.push(existingCourse);
             }
 

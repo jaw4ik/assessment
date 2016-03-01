@@ -176,7 +176,7 @@
                 updateTemplateInfo(course.template);
 
                 clientContext.set(constants.clientContextKeys.lastVistedCourse, course.id);
-                clientContext.set(constants.clientContextKeys.lastVisitedObjective, null);
+                clientContext.set(constants.clientContextKeys.lastVisitedSection, null);
 
                 viewModel.titleField.isSelected(clientContext.get(constants.clientContextKeys.lastCreatedCourseId) === course.id);
                 clientContext.remove(constants.clientContextKeys.lastCreatedCourseId);

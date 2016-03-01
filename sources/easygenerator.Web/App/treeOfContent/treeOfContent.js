@@ -33,22 +33,22 @@ function (app, eventTracker, router, constants, limitCoursesAmount, treeOfConten
     app.on(constants.messages.question.titleUpdated, self.handler.questionTitleUpdated);
     app.on(constants.messages.question.titleUpdatedByCollaborator, self.handler.questionTitleUpdated);
 
-    app.on(constants.messages.objective.titleUpdated, self.handler.objectiveTitleUpdated);
-    app.on(constants.messages.objective.titleUpdatedByCollaborator, self.handler.objectiveTitleUpdated);
-    app.on(constants.messages.objective.questionsReordered, self.handler.questionsReordered);
-    app.on(constants.messages.objective.questionsReorderedByCollaborator, self.handler.questionsReordered);
+    app.on(constants.messages.section.titleUpdated, self.handler.sectionTitleUpdated);
+    app.on(constants.messages.section.titleUpdatedByCollaborator, self.handler.sectionTitleUpdated);
+    app.on(constants.messages.section.questionsReordered, self.handler.questionsReordered);
+    app.on(constants.messages.section.questionsReorderedByCollaborator, self.handler.questionsReordered);
 
     app.on(constants.messages.course.created, self.handler.courseCreated);
     app.on(constants.messages.course.deleted, self.handler.courseDeleted);
     app.on(constants.messages.course.deletedByCollaborator, self.handler.courseDeletedByCollaborator);
     app.on(constants.messages.course.titleUpdated, self.handler.courseTitleUpdated);
     app.on(constants.messages.course.titleUpdatedByCollaborator, self.handler.courseTitleUpdated);
-    app.on(constants.messages.course.objectiveRelated, self.handler.objectiveRelated);
-    app.on(constants.messages.course.objectiveRelatedByCollaborator, self.handler.objectiveRelated);
-    app.on(constants.messages.course.objectivesUnrelated, self.handler.objectivesUnrelated);
-    app.on(constants.messages.course.objectivesUnrelatedByCollaborator, self.handler.objectivesUnrelated);
-    app.on(constants.messages.course.objectivesReordered, self.handler.objectivesReordered);
-    app.on(constants.messages.course.objectivesReorderedByCollaborator, self.handler.objectivesReordered);
+    app.on(constants.messages.course.sectionRelated, self.handler.sectionRelated);
+    app.on(constants.messages.course.sectionRelatedByCollaborator, self.handler.sectionRelated);
+    app.on(constants.messages.course.sectionsUnrelated, self.handler.sectionsUnrelated);
+    app.on(constants.messages.course.sectionsUnrelatedByCollaborator, self.handler.sectionsUnrelated);
+    app.on(constants.messages.course.sectionsReordered, self.handler.sectionsReordered);
+    app.on(constants.messages.course.sectionsReorderedByCollaborator, self.handler.sectionsReordered);
 
     app.on(constants.messages.course.collaboration.started, self.handler.collaborationStarted);
     app.on(constants.messages.course.collaboration.finished, self.handler.collaborationFinished);

@@ -4,7 +4,7 @@ import constants from 'constants';
 import moment from 'moment';
 import imageUpload from 'imageUpload';
 import eventTracker from 'eventTracker';
-import sectionRepository from 'repositories/objectiveRepository';
+import sectionRepository from 'repositories/sectionRepository';
 import updateSectionTitleCommand from '../commands/updateSectionTitleCommand';
 import notify from 'notify';
 import QuestionViewModel from './QuestionViewModel';
@@ -45,11 +45,11 @@ describe('[SectionViewModel]', () => {
         expect(sectionViewModel.id()).toBe(section.id);
         expect(sectionViewModel.title()).toBe(section.title);
         expect(sectionViewModel.title.isEditing()).toBeFalsy();
-        expect(sectionViewModel.title.maxLength).toBe(constants.validation.objectiveTitleMaxLength);
+        expect(sectionViewModel.title.maxLength).toBe(constants.validation.sectionTitleMaxLength);
         expect(sectionViewModel.originalTitle).toBe(section.title);
         expect(sectionViewModel.learningObjective()).toBe(section.learningObjective);
         expect(sectionViewModel.learningObjective.isEditing()).toBeFalsy();
-        expect(sectionViewModel.learningObjective.maxLength).toBe(constants.validation.objectiveTitleMaxLength);
+        expect(sectionViewModel.learningObjective.maxLength).toBe(constants.validation.sectionTitleMaxLength);
         expect(sectionViewModel.originalLearningObjective).toBe(section.learningObjective);
         expect(sectionViewModel.modifiedOn()).toBe(moment(section.modifiedOn).format('DD/MM/YY'));
         expect(sectionViewModel.image()).toBe(section.image);
@@ -316,12 +316,12 @@ describe('[SectionViewModel]', () => {
                 spyOn(sectionRepository, 'updateImage').and.returnValue(promise);
             });
 
-            it('should update objective image', () => {
+            it('should update section image', () => {
                 sectionViewModel.updateImage();
                 expect(sectionRepository.updateImage).toHaveBeenCalledWith(sectionViewModel.id(), url);
             });
 
-            describe('and when objective image updated successfully', () => {
+            describe('and when section image updated successfully', () => {
 
                 it('should update image', done => (async () => {
                     sectionViewModel.image('');

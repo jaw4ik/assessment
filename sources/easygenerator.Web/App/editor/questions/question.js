@@ -3,7 +3,7 @@ import userContext from 'userContext';
 import eventTracker from 'eventTracker';
 import constants from 'constants';
 import questionRepository from 'repositories/questionRepository';
-import objectiveRepository from 'repositories/objectiveRepository';
+import sectionRepository from 'repositories/sectionRepository';
 import courseRepository from 'repositories/courseRepository';
 import createQuestionCommand from 'commands/createQuestionCommand';
 import router from 'plugins/router';
@@ -17,7 +17,7 @@ import moveCopyQuestionDialog from 'dialogs/moveCopyQuestion/moveCopyQuestion';
 import VoiceOver from 'viewmodels/questions/voiceOver';
 
 const events = {
-    navigateToObjective: 'Navigate to objective details',
+    navigateToSection: 'Navigate to objective details',
     duplicateItem: 'Duplicate item'
 };
 
@@ -30,7 +30,7 @@ const eventsForQuestionContent = {
 class QuestionViewModel  {
     constructor() {
         this.courseId =  null;
-        this.objectiveId =  null;
+        this.sectionId =  null;
         this.questionId = null;
         this.questionType= '';
 
@@ -109,27 +109,27 @@ class QuestionViewModel  {
     duplicateQuestion() {
         this.eventTracker.publish(events.duplicateItem);
         let that = this;
-        questionRepository.copyQuestion(this.questionId, this.objectiveId).then(function (response) {
-            router.navigate('courses/' + that.courseId + '/objectives/' + that.objectiveId + '/questions/' + response.id);
+        questionRepository.copyQuestion(this.questionId, this.sectionId).then(function (response) {
+            router.navigate('courses/' + that.courseId + '/sections/' + that.sectionId + '/questions/' + response.id);
         });
     }
 
     showMoveCopyDialog() {
-        moveCopyQuestionDialog.show(this.courseId, this.objectiveId, this.questionId);
+        moveCopyQuestionDialog.show(this.courseId, this.sectionId, this.questionId);
     }
 
-    navigateToObjectiveEvent() {
-        eventTracker.publish(events.navigateToObjective);
+    navigateToSectionEvent() {
+        eventTracker.publish(events.navigateToSection);
     }
 
     canActivate() {
         var promises = [];
         if (arguments.length === 3) {
             promises.push(courseRepository.getById(arguments[0]));
-            promises.push(objectiveRepository.getById(arguments[1]));
+            promises.push(sectionRepository.getById(arguments[1]));
             promises.push(questionRepository.getById(arguments[1], arguments[2]));
         } else if (arguments.length === 2) {
-            promises.push(objectiveRepository.getById(arguments[0]));
+            promises.push(sectionRepository.getById(arguments[0]));
             promises.push(questionRepository.getById(arguments[0], arguments[1]));
         } else {
             throw 'Invalid arguments';
@@ -145,26 +145,26 @@ class QuestionViewModel  {
     activate() {
         if (arguments.length === 3) {
             this.courseId = arguments[0];
-            this.objectiveId = arguments[1];
+            this.sectionId = arguments[1];
             this.questionId = arguments[2];
         } else if (arguments.length === 2) {
             this.courseId = null;
-            this.objectiveId = arguments[0];
+            this.sectionId = arguments[0];
             this.questionId = arguments[1];
         } else {
             throw 'Invalid arguments';
         }
 
-        return questionRepository.getById(this.objectiveId, this.questionId).then(question => {
+        return questionRepository.getById(this.sectionId, this.questionId).then(question => {
 
             this.activeQuestionViewModel = this.setActiveViewModel(question);
             this.questionType = question.type;
             this.voiceOver = new VoiceOver(this.questionId, question.voiceOver);
 
-            return this.activeQuestionViewModel.initialize(this.objectiveId, question).then(viewModelData => {
+            return this.activeQuestionViewModel.initialize(this.sectionId, question).then(viewModelData => {
 
                 this.viewCaption = viewModelData.viewCaption;
-                this.questionTitle = vmQuestionTitle(this.objectiveId, question);
+                this.questionTitle = vmQuestionTitle(this.sectionId, question);
                 this.hasQuestionView = viewModelData.hasQuestionView;
                 this.questionContent = viewModelData.hasQuestionContent ? vmContentField(question.content, eventsForQuestionContent, true, this.updateQuestionContent.bind(this)) : null;
                 this.hasFeedback = viewModelData.hasFeedback;
@@ -193,9 +193,9 @@ class QuestionViewModel  {
 
     back() {
         if (this.courseId) {
-            router.navigate('#courses/' + this.courseId + '/objectives/' + this.objectiveId);
+            router.navigate('#courses/' + this.courseId + '/sections/' + this.sectionId);
         } else {
-            router.navigate('#library/objectives/' + this.objectiveId);
+            router.navigate('#library/sections/' + this.sectionId);
         }
     }
 
@@ -217,7 +217,7 @@ class QuestionViewModel  {
     }
 
     createQuestion(item) {
-        return createQuestionCommand.execute(this.objectiveId, this.courseId, item.type);
+        return createQuestionCommand.execute(this.sectionId, this.courseId, item.type);
     }
 
     openUpgradePlanUrl() {

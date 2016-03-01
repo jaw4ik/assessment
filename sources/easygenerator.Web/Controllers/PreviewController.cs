@@ -74,7 +74,7 @@ namespace easygenerator.Web.Controllers
             return Content(course.IntroductionContent);
         }
 
-        [Route("preview/{courseId}/content/{objectiveId}/{questionId}/content.html")]
+        [Route("preview/{courseId}/content/{sectionId}/{questionId}/content.html")]
         public ActionResult GetPreviewQuestionContent(Question question)
         {
             if (question == null)
@@ -85,7 +85,7 @@ namespace easygenerator.Web.Controllers
             return Content(question.Content);
         }
 
-        [Route("preview/{courseId}/content/{objectiveId}/{questionId}/{learningContentId}.html")]
+        [Route("preview/{courseId}/content/{sectionId}/{questionId}/{learningContentId}.html")]
         public ActionResult GetPreviewLearningContent(LearningContent learningContent)
         {
             if (learningContent == null)
@@ -96,7 +96,7 @@ namespace easygenerator.Web.Controllers
             return Content(learningContent.Text);
         }
 
-        [Route("preview/{courseId}/content/{objectiveId}/{questionId}/correctFeedback.html")]
+        [Route("preview/{courseId}/content/{sectionId}/{questionId}/correctFeedback.html")]
         public ActionResult GetPreviewCorrectFeedback(Question question)
         {
             if (question == null)
@@ -107,7 +107,7 @@ namespace easygenerator.Web.Controllers
             return Content(question.Feedback.CorrectText);
         }
 
-        [Route("preview/{courseId}/content/{objectiveId}/{questionId}/incorrectFeedback.html")]
+        [Route("preview/{courseId}/content/{sectionId}/{questionId}/incorrectFeedback.html")]
         public ActionResult GetPreviewIncorrectFeedback(Question question)
         {
             if (question == null)

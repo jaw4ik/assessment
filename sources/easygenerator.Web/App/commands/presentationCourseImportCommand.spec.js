@@ -6,7 +6,7 @@ import notify from 'notify';
 import localizationManager from 'localization/localizationManager';
 import dataContext from 'dataContext';
 import courseModelMapper from 'mappers/courseModelMapper';
-import objectiveModelMapper from 'mappers/objectiveModelMapper';
+import sectionModelMapper from 'mappers/sectionModelMapper';
 import app from 'durandal/app';
 import constants from 'constants';
 
@@ -137,14 +137,14 @@ describe('command [presentationCourseImportCommand]', function() {
             var response = {},
                 data = {},
                 courseData = {},
-                course = { id: 'courseId', objectives: [] },
-                objectiveData = {},
-                objective = { id: 'objectiveId' };
+                course = { id: 'courseId', sections: [] },
+                sectionData = {},
+                section = { id: 'sectionId' };
 
             beforeEach(function() {
                 response.data = data;
                 data.course = courseData;
-                data.objectives = [objectiveData];
+                data.sections = [sectionData];
                 spyOn(fileUpload, 'upload').and.callFake(function(spec) {
                     spec.success(response);
                 });
@@ -152,9 +152,9 @@ describe('command [presentationCourseImportCommand]', function() {
                 spyOn(options, 'success');
                 spyOn(app, 'trigger');
                 spyOn(courseModelMapper, 'map').and.returnValue(course);
-                spyOn(objectiveModelMapper, 'map').and.returnValue(objective);
+                spyOn(sectionModelMapper, 'map').and.returnValue(section);
                 dataContext.courses = [];
-                dataContext.objectives = [];
+                dataContext.sections = [];
             });
 
             it('should add course to data context', function() {
@@ -162,9 +162,9 @@ describe('command [presentationCourseImportCommand]', function() {
                 expect(dataContext.courses[0]).toBe(course);
             });
 
-            it('should add objective to data context', function() {
+            it('should add section to data context', function() {
                 command.execute(options);
-                expect(dataContext.objectives[0]).toBe(objective);
+                expect(dataContext.sections[0]).toBe(section);
             });
 
             it('should call options success callback', function() {
@@ -177,24 +177,24 @@ describe('command [presentationCourseImportCommand]', function() {
                 expect(app.trigger).toHaveBeenCalledWith(constants.messages.course.created, course);
             });
 
-            describe('when course containe objective', function() {
+            describe('when course containe section', function() {
                 beforeEach(function() {
-                    course.objectives = [{ id: 'objectiveId', questions: [] }];
+                    course.sections = [{ id: 'sectionId', questions: [] }];
                 });
 
                 it('should trigger app event', function() {
                     command.execute(options);
-                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.objective.createdInCourse);
+                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.section.createdInCourse);
                 });
 
-                describe('and when objective contains questions', function() {
+                describe('and when section contains questions', function() {
                     beforeEach(function() {
-                        course.objectives[0].questions = [{id:'questionId'}];
+                        course.sections[0].questions = [{id:'questionId'}];
                     });
 
                     it('should trigger app event', function() {
                         command.execute(options);
-                        expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.created, course.objectives[0].id, course.objectives[0].questions[0]);
+                        expect(app.trigger).toHaveBeenCalledWith(constants.messages.question.created, course.sections[0].id, course.sections[0].questions[0]);
                     });
                 });
             });

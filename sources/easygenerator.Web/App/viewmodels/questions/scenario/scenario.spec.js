@@ -54,7 +54,7 @@ describe('question [scenario]', function () {
     });
 
     describe('initialize:', function () {
-        var objectiveId = 'objectiveId';
+        var sectionId = 'sectionId';
         var question = { id: 'questionId' };
         var dfd;
 
@@ -66,20 +66,20 @@ describe('question [scenario]', function () {
         });
 
         it('should return promise', function () {
-            var promise = viewModel.initialize(objectiveId, question);
+            var promise = viewModel.initialize(sectionId, question);
             expect(promise).toBePromise();
         });
 
         it('should set questionId', function () {
-            viewModel.initialize(objectiveId, question);
+            viewModel.initialize(sectionId, question);
 
             expect(viewModel.questionId).toBe(question.id);
         });
 
         it('should call questionRepository getById', function () {
-            viewModel.initialize(objectiveId, question);
+            viewModel.initialize(sectionId, question);
 
-            expect(questionRepository.getById).toHaveBeenCalledWith(objectiveId, question.id);
+            expect(questionRepository.getById).toHaveBeenCalledWith(sectionId, question.id);
         });
 
         describe('when questionRepository resolved', function () {
@@ -89,7 +89,7 @@ describe('question [scenario]', function () {
             });
 
             it('should execute getQuestionDataById query', function (done) {
-                viewModel.initialize(objectiveId, question);
+                viewModel.initialize(sectionId, question);
 
                 questionRepositoryGetByIdDefer.promise.fin(function () {
                     expect(getQuestionDataByIdQuerie.execute).toHaveBeenCalledWith(question.id);
@@ -105,7 +105,7 @@ describe('question [scenario]', function () {
                 });
 
                 it('should update projectId', function () {
-                    viewModel.initialize(objectiveId, question);
+                    viewModel.initialize(sectionId, question);
 
                     questionRepositoryGetByIdDefer.promise.fin(function () {
                         getQuestionDataByIdQuerieDefer.promise.fin(function () {
@@ -116,7 +116,7 @@ describe('question [scenario]', function () {
                 });
 
                 it('should update embedUrl', function (done) {
-                    viewModel.initialize(objectiveId, question);
+                    viewModel.initialize(sectionId, question);
 
                     questionRepositoryGetByIdDefer.promise.fin(function () {
                         getQuestionDataByIdQuerieDefer.promise.fin(function () {
@@ -127,7 +127,7 @@ describe('question [scenario]', function () {
                 });
 
                 it('should update masteryScore', function (done) {
-                    viewModel.initialize(objectiveId, question);
+                    viewModel.initialize(sectionId, question);
 
                     questionRepositoryGetByIdDefer.promise.fin(function () {
                         getQuestionDataByIdQuerieDefer.promise.fin(function () {
@@ -138,7 +138,7 @@ describe('question [scenario]', function () {
                 });
 
                 it('should update lastSavedMasteryScore', function (done) {
-                    viewModel.initialize(objectiveId, question);
+                    viewModel.initialize(sectionId, question);
 
                     questionRepositoryGetByIdDefer.promise.fin(function () {
                         getQuestionDataByIdQuerieDefer.promise.fin(function () {
@@ -149,7 +149,7 @@ describe('question [scenario]', function () {
                 });
 
                 it('should execute getProjectEditingInfoById query', function (done) {
-                    viewModel.initialize(objectiveId, question);
+                    viewModel.initialize(sectionId, question);
 
                     questionRepositoryGetByIdDefer.promise.fin(function () {
                         getQuestionDataByIdQuerieDefer.promise.fin(function () {
@@ -167,7 +167,7 @@ describe('question [scenario]', function () {
                     });
 
                     it('should set isEditAvailable', function (done) {
-                        viewModel.initialize(objectiveId, question);
+                        viewModel.initialize(sectionId, question);
 
                         questionRepositoryGetByIdDefer.promise.fin(function () {
                             getQuestionDataByIdQuerieDefer.promise.fin(function () {
@@ -180,7 +180,7 @@ describe('question [scenario]', function () {
                     });
 
                     it('should return object', function (done) {
-                        var promise = viewModel.initialize(objectiveId, question);
+                        var promise = viewModel.initialize(sectionId, question);
                         promise.then(function (result) {
                             expect(result).toBeObject();
                             done();
@@ -190,7 +190,7 @@ describe('question [scenario]', function () {
                     describe('and result object', function () {
 
                         it('should contain \'scenarioEditor\' viewCaption', function (done) {
-                            var promise = viewModel.initialize(objectiveId, question);
+                            var promise = viewModel.initialize(sectionId, question);
                             promise.then(function (result) {
                                 expect(result.viewCaption).toBe('scenarioEditor');
                                 done();
@@ -198,7 +198,7 @@ describe('question [scenario]', function () {
                         });
 
                         it('should have hasQuestionView property with true value', function (done) {
-                            var promise = viewModel.initialize(objectiveId, question);
+                            var promise = viewModel.initialize(sectionId, question);
                             promise.then(function (result) {
                                 expect(result.hasQuestionView).toBeTruthy();
                                 done();
@@ -206,7 +206,7 @@ describe('question [scenario]', function () {
                         });
 
                         it('should have hasQuestionContent property with true value', function (done) {
-                            var promise = viewModel.initialize(objectiveId, question);
+                            var promise = viewModel.initialize(sectionId, question);
                             promise.then(function (result) {
                                 expect(result.hasQuestionContent).toBeTruthy();
                                 done();
@@ -214,7 +214,7 @@ describe('question [scenario]', function () {
                         });
 
                         it('should have hasFeedback property with true value', function (done) {
-                            var promise = viewModel.initialize(objectiveId, question);
+                            var promise = viewModel.initialize(sectionId, question);
                             promise.then(function (result) {
                                 expect(result.hasFeedback).toBeTruthy();
                                 done();

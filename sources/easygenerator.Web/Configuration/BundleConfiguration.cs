@@ -73,7 +73,7 @@ namespace easygenerator.Web.Configuration
                 .Include("~/Content/styles.css")
                 .Include("~/Content/notifications.css")
                 .Include("~/Content/question.css")
-                .Include("~/Content/objective.css")
+                .Include("~/Content/section.css")
                 .Include("~/Content/courses.css")
                 .Include("~/Content/course.css")
                 .Include("~/Content/learningPaths.css")

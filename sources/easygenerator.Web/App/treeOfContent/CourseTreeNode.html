@@ -12,15 +12,15 @@
 
     <ul data-bind="visible: isExpanded">
         <!-- ko ifnot: children().length -->
-        <li class="navigation-tree-node objective">
+        <li class="navigation-tree-node section">
             <div class="navigation-tree-node-caption-wrapper disabled">
                 <span class="navigation-tree-node-icon empty"></span>
-                <span class="navigation-tree-node-caption" data-bind="localize: { text: 'noObjectivesTitle' }"></span>
+                <span class="navigation-tree-node-caption" data-bind="localize: { text: 'noSectionsTitle' }"></span>
             </div>
         </li>
         <!-- /ko -->
         <!-- ko foreach: children -->
-        <!-- ko compose: { model: $data, view: 'treeOfContent/RelatedObjectiveTreeNode', preserveContext: true } -->
+        <!-- ko compose: { model: $data, view: 'treeOfContent/RelatedSectionTreeNode', preserveContext: true } -->
         <!-- /ko -->
         <!-- /ko -->
 

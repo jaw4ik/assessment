@@ -50,52 +50,52 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Delete questions
 
         [TestMethod]
-        public void Delete_ShouldReturnJsonErrorResult_WnenObjectiveIsNull()
+        public void Delete_ShouldReturnJsonErrorResult_WnenSectionIsNull()
         {
             var result = _controller.Delete(null, new List<Question>() { });
 
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Section is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("sectionNotFoundError");
         }
 
         [TestMethod]
         public void Delete_ShouldReturnBadRequest_WnenQuestionsIsNull()
         {
-            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var section = Substitute.For<Section>("Section title", CreatedBy);
 
-            var result = _controller.Delete(objective, null);
+            var result = _controller.Delete(section, null);
 
             ActionResultAssert.IsBadRequestStatusCodeResult(result);
         }
 
         [TestMethod]
-        public void Delete_ShouldRemoveQuestionsFromObjective()
+        public void Delete_ShouldRemoveQuestionsFromSection()
         {
             var user = "Test user";
             _user.Identity.Name.Returns(user);
 
-            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var section = Substitute.For<Section>("Section title", CreatedBy);
             var question1 = Substitute.For<Question>("Question title 1", CreatedBy);
             var question2 = Substitute.For<Question>("Question title 2", CreatedBy);
 
-            _controller.Delete(objective, new List<Question>() { question1, question2 });
+            _controller.Delete(section, new List<Question>() { question1, question2 });
 
-            objective.Received().RemoveQuestion(question1, user);
-            objective.Received().RemoveQuestion(question2, user);
+            section.Received().RemoveQuestion(question1, user);
+            section.Received().RemoveQuestion(question2, user);
         }
 
         [TestMethod]
         public void Delete_ShouldReturnJsonSuccessResult()
         {
-            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var section = Substitute.For<Section>("Section title", CreatedBy);
             var question1 = Substitute.For<Question>("Question title 1", CreatedBy);
             var question2 = Substitute.For<Question>("Question title 2", CreatedBy);
 
-            var result = _controller.Delete(objective, new List<Question>() { question1, question2 });
+            var result = _controller.Delete(section, new List<Question>() { question1, question2 });
 
             result.Should()
                 .BeJsonSuccessResult()
-                .And.Data.ShouldBeSimilar(new { ModifiedOn = objective.ModifiedOn });
+                .And.Data.ShouldBeSimilar(new { ModifiedOn = section.ModifiedOn });
         }
 
         #endregion
@@ -368,7 +368,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Copy_ShouldReturnBadRequest_WnenDestinationObjectiveIsNull()
+        public void Copy_ShouldReturnBadRequest_WnenDestinationSectionIsNull()
         {
             var question = Substitute.For<Question>("Question title", CreatedBy);
 
@@ -385,35 +385,35 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _user.Identity.Name.Returns(user);
 
             var question = Substitute.For<Question>("Question title", CreatedBy);
-            var destinationObjective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var destinationSection = Substitute.For<Section>("Section title", CreatedBy);
 
             _cloner.Clone(question, user).Returns(Substitute.For<Question>());
 
             //Act
-            _controller.Copy(question, destinationObjective);
+            _controller.Copy(question, destinationSection);
 
             //Assert
             _cloner.Received().Clone(question, user);
         }
 
         [TestMethod]
-        public void Copy_ShouldAddCopiedQuestionToDestinationObjective()
+        public void Copy_ShouldAddCopiedQuestionToDestinationSection()
         {
             //Arrange
             var user = "Test user";
             _user.Identity.Name.Returns(user);
 
-            var destinationObjective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var destinationSection = Substitute.For<Section>("Section title", CreatedBy);
             var question = Substitute.For<Question>("Question title", CreatedBy);
             var questionCopy = Substitute.For<Question>("Question copy title", CreatedBy);
 
             _cloner.Clone(question, user).Returns(questionCopy);
 
             //Act
-            _controller.Copy(question, destinationObjective);
+            _controller.Copy(question, destinationSection);
 
             //Assert
-            destinationObjective.Received().AddQuestion(questionCopy, user);
+            destinationSection.Received().AddQuestion(questionCopy, user);
         }
 
         [TestMethod]
@@ -423,7 +423,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var user = "Test user";
             _user.Identity.Name.Returns(user);
 
-            var destinationObjective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var destinationSection = Substitute.For<Section>("Section title", CreatedBy);
             var question = Substitute.For<Question>("Question title", CreatedBy);
             var questionCopy = Substitute.For<Question>("Question copy title", CreatedBy);
             var questionModel = new {Id = "Question Id", Title = "Question title", Type = "Question type"};
@@ -432,7 +432,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityModelMapper.Map(questionCopy).Returns(questionModel);
 
             //Act
-            var result = _controller.Copy(question, destinationObjective);
+            var result = _controller.Copy(question, destinationSection);
 
             //Assert
             result.Should().BeJsonSuccessResult().And.Data.Should().Be(questionModel);
@@ -455,7 +455,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Move_ShouldReturnBadRequest_WnenDestinationObjectiveIsNull()
+        public void Move_ShouldReturnBadRequest_WnenDestinationSectionIsNull()
         {
             //Arrange
             var question = Substitute.For<Question>("Question title", CreatedBy);
@@ -468,77 +468,77 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Move_ShouldRemoveQuestionFromSourceObjective()
+        public void Move_ShouldRemoveQuestionFromSourceSection()
         {
             //Arrange
             var user = "Test user";
             _user.Identity.Name.Returns(user);
 
-            var sourceObjective = Substitute.For<Objective>("Source objective title", CreatedBy);
-            var destinationObjective = Substitute.For<Objective>("Destination objective title", CreatedBy);
+            var sourceSection = Substitute.For<Section>("Source section title", CreatedBy);
+            var destinationSection = Substitute.For<Section>("Destination section title", CreatedBy);
             var question = Substitute.For<Question>("Question title", CreatedBy);
-            question.Objective.Returns(sourceObjective);
+            question.Section.Returns(sourceSection);
 
             //Act
-            _controller.Move(question, destinationObjective);
+            _controller.Move(question, destinationSection);
 
             //Assert
-            sourceObjective.Received().RemoveQuestion(question, user);
+            sourceSection.Received().RemoveQuestion(question, user);
         }
 
         [TestMethod]
-        public void Move_ShouldNotRemoveQuestionFromSourceObjective_WhenDestinationObjectiveIsSource()
+        public void Move_ShouldNotRemoveQuestionFromSourceSection_WhenDestinationSectionIsSource()
         {
             //Arrange
             var user = "Test user";
             _user.Identity.Name.Returns(user);
 
-            var destinationObjective = Substitute.For<Objective>("Destination objective title", CreatedBy);
+            var destinationSection = Substitute.For<Section>("Destination section title", CreatedBy);
             var question = Substitute.For<Question>("Question title", CreatedBy);
-            question.Objective.Returns(destinationObjective);
+            question.Section.Returns(destinationSection);
 
             //Act
-            _controller.Move(question, destinationObjective);
+            _controller.Move(question, destinationSection);
 
             //Assert
-            destinationObjective.DidNotReceive().RemoveQuestion(question, user);
+            destinationSection.DidNotReceive().RemoveQuestion(question, user);
         }
 
         [TestMethod]
-        public void Move_ShouldAddQuestionToDestinationObjective()
+        public void Move_ShouldAddQuestionToDestinationSection()
         {
             //Arrange
             var user = "Test user";
             _user.Identity.Name.Returns(user);
 
-            var sourceObjective = Substitute.For<Objective>("Source objective title", CreatedBy);
-            var destinationObjective = Substitute.For<Objective>("Destination objective title", CreatedBy);
+            var sourceSection = Substitute.For<Section>("Source section title", CreatedBy);
+            var destinationSection = Substitute.For<Section>("Destination section title", CreatedBy);
             var question = Substitute.For<Question>("Question title", CreatedBy);
-            question.Objective.Returns(sourceObjective);
+            question.Section.Returns(sourceSection);
 
             //Act
-            _controller.Move(question, destinationObjective);
+            _controller.Move(question, destinationSection);
 
             //Assert
-            destinationObjective.Received().AddQuestion(question, user);
+            destinationSection.Received().AddQuestion(question, user);
         }
 
         [TestMethod]
-        public void Move_ShouldAddQuestionToDestinationObjective_WhenDestinationObjectiveIsSource()
+        public void Move_ShouldAddQuestionToDestinationSection_WhenDestinationSectionIsSource()
         {
             //Arrange
             var user = "Test user";
             _user.Identity.Name.Returns(user);
 
-            var destinationObjective = Substitute.For<Objective>("Destination objective title", CreatedBy);
+            var destinationSection = Substitute.For<Section>("Destination section title", CreatedBy);
             var question = Substitute.For<Question>("Question title", CreatedBy);
-            question.Objective.Returns(destinationObjective);
+            question.Section.Returns(destinationSection);
 
             //Act
-            _controller.Move(question, destinationObjective);
+            _controller.Move(question, destinationSection);
 
             //Assert
-            destinationObjective.DidNotReceive().AddQuestion(question, user);
+            destinationSection.DidNotReceive().AddQuestion(question, user);
         }
 
         [TestMethod]
@@ -548,18 +548,18 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var user = "Test user";
             _user.Identity.Name.Returns(user);
 
-            var destinationObjective = Substitute.For<Objective>("Destination objective title", CreatedBy);
+            var destinationSection = Substitute.For<Section>("Destination section title", CreatedBy);
             var question = Substitute.For<Question>("Question title", CreatedBy);
-            question.Objective.Returns(destinationObjective);
+            question.Section.Returns(destinationSection);
 
             //Act
-            var result = _controller.Move(question, destinationObjective);
+            var result = _controller.Move(question, destinationSection);
 
             //Assert
 
             result.Should()
                 .BeJsonSuccessResult()
-                .And.Data.ShouldBeSimilar(new { ModifiedOn = destinationObjective.ModifiedOn });
+                .And.Data.ShouldBeSimilar(new { ModifiedOn = destinationSection.ModifiedOn });
         }
 
         #endregion

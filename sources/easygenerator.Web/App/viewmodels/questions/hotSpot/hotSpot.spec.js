@@ -13,7 +13,7 @@ describe('viewModel [hotSpot]', function () {
 
     describe('initialize:', function () {
         var designerActivateDefer,
-            objectiveId = 'objectiveId',
+            sectionId = 'sectionId',
             question = { id: 'id' };
 
         beforeEach(function () {
@@ -25,24 +25,24 @@ describe('viewModel [hotSpot]', function () {
         });
 
         it('should return promise', function () {
-            var promise = viewModel.initialize(objectiveId, question);
+            var promise = viewModel.initialize(sectionId, question);
             expect(promise).toBePromise();
         });
 
-        it('should set objectiveId', function () {
-            viewModel.initialize(objectiveId, question);
+        it('should set sectionId', function () {
+            viewModel.initialize(sectionId, question);
 
-            expect(viewModel.objectiveId).toBe(objectiveId);
+            expect(viewModel.sectionId).toBe(sectionId);
         });
 
         it('should set questionId', function () {
-            viewModel.initialize(objectiveId, question);
+            viewModel.initialize(sectionId, question);
 
             expect(viewModel.questionId).toBe(question.id);
         });
 
         it('should call designer activate', function () {
-            viewModel.initialize(objectiveId, question);
+            viewModel.initialize(sectionId, question);
 
             expect(designer.activate).toHaveBeenCalledWith(question.id);
         });
@@ -53,7 +53,7 @@ describe('viewModel [hotSpot]', function () {
             });
 
             it('should return object', function (done) {
-                var promise = viewModel.initialize(objectiveId, question);
+                var promise = viewModel.initialize(sectionId, question);
                 promise.then(function (result) {
                     expect(result).toBeObject();
                     done();
@@ -62,7 +62,7 @@ describe('viewModel [hotSpot]', function () {
 
             describe('and result object', function () {
                 it('should contain \'hotSpotTextEditor\' viewCaption', function (done) {
-                    var promise = viewModel.initialize(objectiveId, question);
+                    var promise = viewModel.initialize(sectionId, question);
                     promise.then(function (result) {
                         expect(result.viewCaption).toBe('hotSpotTextEditor');
                         done();
@@ -70,7 +70,7 @@ describe('viewModel [hotSpot]', function () {
                 });
 
                 it('should have hasQuestionView property with true value', function (done) {
-                    var promise = viewModel.initialize(objectiveId, question);
+                    var promise = viewModel.initialize(sectionId, question);
                     promise.then(function (result) {
                         expect(result.hasQuestionView).toBeTruthy();
                         done();
@@ -78,7 +78,7 @@ describe('viewModel [hotSpot]', function () {
                 });
 
                 it('should have hasQuestionContent property with true value', function (done) {
-                    var promise = viewModel.initialize(objectiveId, question);
+                    var promise = viewModel.initialize(sectionId, question);
                     promise.then(function (result) {
                         expect(result.hasQuestionContent).toBeTruthy();
                         done();
@@ -86,7 +86,7 @@ describe('viewModel [hotSpot]', function () {
                 });
 
                 it('should have hasFeedback property with true value', function (done) {
-                    var promise = viewModel.initialize(objectiveId, question);
+                    var promise = viewModel.initialize(sectionId, question);
                     promise.then(function (result) {
                         expect(result.hasFeedback).toBeTruthy();
                         done();

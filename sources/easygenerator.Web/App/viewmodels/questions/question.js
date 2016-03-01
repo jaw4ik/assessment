@@ -2,7 +2,7 @@
 import eventTracker from 'eventTracker';
 import constants from 'constants';
 import questionRepository from 'repositories/questionRepository';
-import objectiveRepository from 'repositories/objectiveRepository';
+import sectionRepository from 'repositories/sectionRepository';
 import courseRepository from 'repositories/courseRepository';
 import router from 'plugins/router';
 import vmQuestionTitle from 'viewmodels/questions/questionTitle';
@@ -15,7 +15,7 @@ import moveCopyQuestionDialog from 'dialogs/moveCopyQuestion/moveCopyQuestion';
 import VoiceOver from 'viewmodels/questions/voiceOver';
 
 var events = {
-    navigateToObjective: 'Navigate to objective details',
+    navigateToSection: 'Navigate to objective details',
     duplicateItem: 'Duplicate item'
 };
 
@@ -28,7 +28,7 @@ var eventsForQuestionContent = {
 class QuestionViewModel{
     constructor() {
         this.courseId = null;
-        this.objectiveId = null;
+        this.sectionId = null;
         this.questionId = null;
         this.questionType = '';
 
@@ -52,16 +52,16 @@ class QuestionViewModel{
 
     async duplicateQuestion() {
         eventTracker.publish(events.duplicateItem);
-        let response = await questionRepository.copyQuestion(this.questionId, this.objectiveId);
-        router.navigate(`courses/${this.courseId}/objectives/${this.objectiveId}/questions/${response.id}`);
+        let response = await questionRepository.copyQuestion(this.questionId, this.sectionId);
+        router.navigate(`courses/${this.courseId}/sections/${this.sectionId}/questions/${response.id}`);
     }
 
     showMoveCopyDialog() {
-        moveCopyQuestionDialog.show(this.courseId, this.objectiveId, this.questionId);
+        moveCopyQuestionDialog.show(this.courseId, this.sectionId, this.questionId);
     }
 
-    navigateToObjectiveEvent() {
-        eventTracker.publish(events.navigateToObjective);
+    navigateToSectionEvent() {
+        eventTracker.publish(events.navigateToSection);
     }
 
     setActiveViewModel(question) {
@@ -72,39 +72,39 @@ class QuestionViewModel{
         return activeViewModel;
     }
 
-    canActivate(courseId, objectiveId, questionId) {
-        if (!courseId || !objectiveId || !questionId) {
+    canActivate(courseId, sectionId, questionId) {
+        if (!courseId || !sectionId || !questionId) {
             throw 'Invalid arguments';
         }
 
         return Promise.all([
             courseRepository.getById(courseId),
-            objectiveRepository.getById(objectiveId),
-            questionRepository.getById(objectiveId, questionId)
+            sectionRepository.getById(sectionId),
+            questionRepository.getById(sectionId, questionId)
         ]).then(() => { return true; },
             () => { return { redirect: '404' }; }
         );
     }
 
-    async activate(courseId, objectiveId, questionId) {
-        if (!courseId || !objectiveId || !questionId) {
+    async activate(courseId, sectionId, questionId) {
+        if (!courseId || !sectionId || !questionId) {
             throw 'Invalid arguments';
         }
         
         this.courseId = courseId;
-        this.objectiveId = objectiveId;
+        this.sectionId = sectionId;
         this.questionId = questionId;
 
-        let question = await questionRepository.getById(this.objectiveId, this.questionId);
+        let question = await questionRepository.getById(this.sectionId, this.questionId);
 
         this.activeQuestionViewModel = this.setActiveViewModel(question);
         this.questionType = question.type;
         this.voiceOver = new VoiceOver(this.questionId, question.voiceOver);
 
-        let viewModelData = await this.activeQuestionViewModel.initialize(this.objectiveId, question);
+        let viewModelData = await this.activeQuestionViewModel.initialize(this.sectionId, question);
 
         this.viewCaption = viewModelData.viewCaption;
-        this.questionTitle = vmQuestionTitle(this.objectiveId, question);
+        this.questionTitle = vmQuestionTitle(this.sectionId, question);
         this.hasQuestionView = viewModelData.hasQuestionView;
         this.questionContent = viewModelData.hasQuestionContent ? vmContentField(question.content, eventsForQuestionContent, true, this.updateQuestionContent.bind(this)) : null;
         this.hasFeedback = viewModelData.hasFeedback;
@@ -119,7 +119,7 @@ class QuestionViewModel{
     }
 
     back() {
-        router.navigate(`#courses/${this.courseId}/objectives/${this.objectiveId}`);
+        router.navigate(`#courses/${this.courseId}/sections/${this.sectionId}`);
     }
 
     titleUpdatedByCollaborator(questionData) {

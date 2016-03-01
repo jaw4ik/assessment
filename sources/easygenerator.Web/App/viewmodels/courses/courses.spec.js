@@ -23,35 +23,35 @@ var
         new CourseModel({
             id: 'testId3',
             title: 'Test Course 3',
-            objectives: [],
+            sections: [],
             template: template,
             createdBy: userName
         }),
         new CourseModel({
             id: 'testId2',
             title: 'Test Course 2',
-            objectives: [],
+            sections: [],
             template: template,
             createdBy: userName
         }),
         new CourseModel({
             id: 'testId1',
             title: 'Test Course 1',
-            objectives: [],
+            sections: [],
             template: template,
             createdBy: userName
         }),
          new CourseModel({
              id: 'testId4',
              title: 'Test Course 4',
-             objectives: [],
+             sections: [],
              template: template,
              createdBy: 'someone'
          }),
         new CourseModel({
             id: 'testId5',
             title: 'Test Course 5',
-            objectives: [],
+            sections: [],
             template: template,
             createdBy: 'someone'
         })
@@ -260,20 +260,20 @@ describe('viewModel [courses]', function () {
                 });
             });
 
-            describe('and course has objective', function () {
+            describe('and course has section', function () {
                 beforeEach(function () {
-                    course.objectives = [{ id: 'objectiveId' }];
+                    course.sections = [{ id: 'sectionId' }];
                 });
 
                 it('should navigate to created course', function () {
                     viewModel.importCourseFromPresentation();
-                    expect(router.navigate).toHaveBeenCalledWith('courses/' + course.id + '/objectives/' + course.objectives[0].id);
+                    expect(router.navigate).toHaveBeenCalledWith('courses/' + course.id + '/sections/' + course.sections[0].id);
                 });
             });
 
-            describe('and course does not have objectives', function () {
+            describe('and course does not have sections', function () {
                 beforeEach(function () {
-                    course.objectives = [];
+                    course.sections = [];
                 });
 
                 it('should navigate to created course', function () {
@@ -383,7 +383,7 @@ describe('viewModel [courses]', function () {
                 createdOn: new Date(),
                 modifiedOn: new Date(),
                 isSelected: ko.observable(false),
-                objectives: [],
+                sections: [],
                 isProcessed: true
             };
 
@@ -399,7 +399,7 @@ describe('viewModel [courses]', function () {
                     expect(viewModel.courses()[0].title).toBe(course.title());
                     expect(viewModel.courses()[0].thumbnail).toBe(course.thumbnail);
                     expect(viewModel.courses()[0].isSelected()).toBe(course.isSelected());
-                    expect(viewModel.courses()[0].objectives).toBe(course.objectives);
+                    expect(viewModel.courses()[0].sections).toBe(course.sections);
                     expect(viewModel.courses()[0].isProcessed).toBeFalsy();
                     expect(viewModel.courses()[0].isDuplicatingFinished()).toBeFalsy();
                     expect(viewModel.courses()[0].finishDuplicating).toBeFalsy();
@@ -417,7 +417,7 @@ describe('viewModel [courses]', function () {
                     template: { thumbnail: '' },
                     modifiedOn: new Date(),
                     createdOn: new Date(),
-                    objectives: []
+                    sections: []
                 }
 
                 var promise = viewModel.duplicateCourse(course);
@@ -431,7 +431,7 @@ describe('viewModel [courses]', function () {
                     expect(viewModel.courses()[0].id).toBe(resolvedCourse.id);
                     expect(viewModel.courses()[0].title()).toBe(resolvedCourse.title);
                     expect(viewModel.courses()[0].thumbnail).toBe(resolvedCourse.template.thumbnail);
-                    expect(viewModel.courses()[0].objectives).toBe(resolvedCourse.objectives);
+                    expect(viewModel.courses()[0].sections).toBe(resolvedCourse.sections);
                     expect(viewModel.courses()[0].isSelected()).toBeFalsy();
                     expect(viewModel.courses()[0].isProcessed).toBeTruthy();
                     done();
@@ -486,7 +486,7 @@ describe('viewModel [courses]', function () {
         var course = new CourseModel({
             id: 'testId3',
             title: 'Test Course 3',
-            objectives: [],
+            sections: [],
             template: template,
             createdBy: userName,
             createdOn: new Date(2013, 12, 31)
@@ -495,7 +495,7 @@ describe('viewModel [courses]', function () {
         var collaboratedCourse = new CourseModel({
             id: 'testId',
             title: 'Test Course',
-            objectives: [],
+            sections: [],
             template: template,
             createdBy: userName,
             createdOn: new Date(2014, 12, 31)

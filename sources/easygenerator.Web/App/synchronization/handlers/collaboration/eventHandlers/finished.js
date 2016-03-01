@@ -11,17 +11,17 @@
                 return course.id == courseId;
             });
 
-            dataContext.objectives = _.reject(dataContext.objectives, function (objective) {
-                return  objective.createdBy !== username && !objectiveRelatedToAvailableCourses(objective.id);
+            dataContext.sections = _.reject(dataContext.sections, function (section) {
+                return  section.createdBy !== username && !sectionRelatedToAvailableCourses(section.id);
             });
 
             app.trigger(constants.messages.course.collaboration.finished, courseId);
         }
 
-        function objectiveRelatedToAvailableCourses(objectiveId) {
+        function sectionRelatedToAvailableCourses(sectionId) {
             return _.some(dataContext.courses, function(course) {
-                return _.some(course.objectives, function(objective) {
-                    return objective.id === objectiveId;
+                return _.some(course.sections, function(section) {
+                    return section.id === sectionId;
                 });
             });
         }

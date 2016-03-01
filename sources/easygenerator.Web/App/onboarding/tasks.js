@@ -3,7 +3,7 @@
 
     var tasks = [
         createCourse,
-        defineObjective,
+        defineSection,
         addContent,
         createQuestions,
         publishCourse
@@ -31,21 +31,21 @@
         return task;
     }
 
-    function defineObjective(states) {
+    function defineSection(states) {
         var task = {
-            isCompleted: ko.observable(states.objectiveCreated),
-            title: localizationManager.localize('defineObjectiveOnboardingTaskTitle'),
-            description: localizationManager.localize('defineObjectiveOnboardingTaskDescription'),
+            isCompleted: ko.observable(states.sectionCreated),
+            title: localizationManager.localize('defineSectionOnboardingTaskTitle'),
+            description: localizationManager.localize('defineSectionOnboardingTaskDescription'),
             handler: function () {
-                return apiHttpWrapper.post('api/onboarding/objectivecreated').then(function () {
-                    app.off(constants.messages.objective.createdInCourse, task.handler);
+                return apiHttpWrapper.post('api/onboarding/sectioncreated').then(function () {
+                    app.off(constants.messages.section.createdInCourse, task.handler);
                     task.isCompleted(true);
                 });
             }
         };
 
         if (!task.isCompleted()) {
-            app.on(constants.messages.objective.createdInCourse, task.handler);
+            app.on(constants.messages.section.createdInCourse, task.handler);
         }
 
         return task;
@@ -56,7 +56,7 @@
             isCompleted: ko.observable(states.contentCreated),
             title: localizationManager.localize('addContentOnboardingTaskTitle'),
             description: localizationManager.localize('addContentOnboardingTaskDescription'),
-            handler: function (objectiveId, createdQuestion) {
+            handler: function (sectionId, createdQuestion) {
                 if (createdQuestion.type !== constants.questionType.informationContent.type) {
                     return;
                 }
@@ -87,7 +87,7 @@
             createdQuestionsCount: ko.observable(states.createdQuestionsCount),
             title: ko.observable(getCurrentTitle(states.createdQuestionsCount)),
             description: localizationManager.localize('createQuestionsOnboardingTaskDescription'),
-            handler: function (objectiveId, createdQuestion) {
+            handler: function (sectionId, createdQuestion) {
                 if (createdQuestion.type === constants.questionType.informationContent.type) {
                     return;
                 }

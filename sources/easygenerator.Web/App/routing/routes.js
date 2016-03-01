@@ -8,23 +8,23 @@
                 title: '404 Not Found'
             },
             {
-                route: 'objectives',
-                moduleId: 'viewmodels/objectives/objectives',
-                title: 'Objectives',
+                route: 'sections',
+                moduleId: 'viewmodels/sections/sections',
+                title: 'Sections',
                 settings: {
-                    localizationKey: 'learningObjectives'
+                    localizationKey: 'sections'
                 }
             },
             {
-                route: 'objective/:objectiveId',
-                moduleId: 'viewmodels/objectives/objective',
-                title: 'Learning Objective',
+                route: 'section/:sectionId',
+                moduleId: 'viewmodels/sections/section',
+                title: 'Learning Section',
                 settings: {
-                    localizationKey: 'objectiveProperties'
+                    localizationKey: 'sectionProperties'
                 }
             },
             {
-                route: 'objective/:objectiveId/question/:questionId',
+                route: 'section/:sectionId/question/:questionId',
                 moduleId: 'viewmodels/questions/question',
                 title: 'Question',
                 settings: {

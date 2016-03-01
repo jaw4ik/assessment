@@ -36,32 +36,32 @@ describe('handler [treeOfContentEventHandler]', function () {
             expect(handler.questionCreated).toBeFunction();
         });
 
-        describe('when objective is expanded', function () {
+        describe('when section is expanded', function () {
 
-            it('should add question to the objective', function () {
-                var objectiveTreeNode1 = { id: 'objectiveId', children: ko.observableArray([]), isExpanded: ko.observable(true) };
-                var objectiveTreeNode2 = { id: 'objectiveId', children: ko.observableArray([]), isExpanded: ko.observable(true) };
-                spyOn(treeOfContentTraversal, 'getObjectiveTreeNodeCollection').and.returnValue([objectiveTreeNode1, objectiveTreeNode2]);
+            it('should add question to the section', function () {
+                var sectionTreeNode1 = { id: 'sectionId', children: ko.observableArray([]), isExpanded: ko.observable(true) };
+                var sectionTreeNode2 = { id: 'sectionId', children: ko.observableArray([]), isExpanded: ko.observable(true) };
+                spyOn(treeOfContentTraversal, 'getSectionTreeNodeCollection').and.returnValue([sectionTreeNode1, sectionTreeNode2]);
 
-                handler.questionCreated('objectiveId', { id: 'questionId', title: 'title' });
+                handler.questionCreated('sectionId', { id: 'questionId', title: 'title' });
 
-                expect(objectiveTreeNode1.children().length).toEqual(1);
-                expect(objectiveTreeNode1.children().length).toEqual(1);
+                expect(sectionTreeNode1.children().length).toEqual(1);
+                expect(sectionTreeNode1.children().length).toEqual(1);
             });
 
         });
 
-        describe('when objective is not expanded', function () {
+        describe('when section is not expanded', function () {
 
-            it('should not add question to the objective', function () {
-                var objectiveTreeNode1 = { id: 'objectiveId', children: ko.observableArray([]), isExpanded: ko.observable(false) };
-                var objectiveTreeNode2 = { id: 'objectiveId', children: ko.observableArray([]), isExpanded: ko.observable(false) };
-                spyOn(treeOfContentTraversal, 'getObjectiveTreeNodeCollection').and.returnValue([objectiveTreeNode1, objectiveTreeNode2]);
+            it('should not add question to the section', function () {
+                var sectionTreeNode1 = { id: 'sectionId', children: ko.observableArray([]), isExpanded: ko.observable(false) };
+                var sectionTreeNode2 = { id: 'sectionId', children: ko.observableArray([]), isExpanded: ko.observable(false) };
+                spyOn(treeOfContentTraversal, 'getSectionTreeNodeCollection').and.returnValue([sectionTreeNode1, sectionTreeNode2]);
 
-                handler.questionCreated('objectiveId', { id: 'questionId', title: 'title' });
+                handler.questionCreated('sectionId', { id: 'questionId', title: 'title' });
 
-                expect(objectiveTreeNode1.children().length).toEqual(0);
-                expect(objectiveTreeNode1.children().length).toEqual(0);
+                expect(sectionTreeNode1.children().length).toEqual(0);
+                expect(sectionTreeNode1.children().length).toEqual(0);
             });
 
         });
@@ -75,15 +75,15 @@ describe('handler [treeOfContentEventHandler]', function () {
             expect(handler.questionsDeleted).toBeFunction();
         });
 
-        it('should remove question from objective in index', function () {
-            var objectiveTreeNode1 = { id: 'objectiveId', children: ko.observableArray([{ id: 'questionId_#1', title: 'title' }, { id: 'questionId_#2', title: 'title' }, { id: 'questionId_#3', title: 'title' }]) };
-            var objectiveTreeNode2 = { id: 'objectiveId', children: ko.observableArray([{ id: 'questionId_#1', title: 'title' }, { id: 'questionId_#2', title: 'title' }, { id: 'questionId_#3', title: 'title' }]) };
-            spyOn(treeOfContentTraversal, 'getObjectiveTreeNodeCollection').and.returnValue([objectiveTreeNode1, objectiveTreeNode2]);
+        it('should remove question from section in index', function () {
+            var sectionTreeNode1 = { id: 'sectionId', children: ko.observableArray([{ id: 'questionId_#1', title: 'title' }, { id: 'questionId_#2', title: 'title' }, { id: 'questionId_#3', title: 'title' }]) };
+            var sectionTreeNode2 = { id: 'sectionId', children: ko.observableArray([{ id: 'questionId_#1', title: 'title' }, { id: 'questionId_#2', title: 'title' }, { id: 'questionId_#3', title: 'title' }]) };
+            spyOn(treeOfContentTraversal, 'getSectionTreeNodeCollection').and.returnValue([sectionTreeNode1, sectionTreeNode2]);
 
-            handler.questionsDeleted('objectiveId', ['questionId_#1', 'questionId_#3']);
+            handler.questionsDeleted('sectionId', ['questionId_#1', 'questionId_#3']);
 
-            expect(objectiveTreeNode1.children().length).toEqual(1);
-            expect(objectiveTreeNode2.children().length).toEqual(1);
+            expect(sectionTreeNode1.children().length).toEqual(1);
+            expect(sectionTreeNode2.children().length).toEqual(1);
 
         });
 
@@ -95,30 +95,30 @@ describe('handler [treeOfContentEventHandler]', function () {
             expect(handler.questionsDeleted).toBeFunction();
         });
 
-        describe('when objective node has chidren', function () {
+        describe('when section node has chidren', function () {
 
             it('should reorder questions', function () {
-                var objectiveTreeNode1 = { id: 'objectiveId', isExpanded: ko.observable(true), children: ko.observableArray([{ id: 'questionId_#1', title: 'title' }, { id: 'questionId_#2', title: 'title' }, { id: 'questionId_#3', title: 'title' }]) };
-                spyOn(treeOfContentTraversal, 'getObjectiveTreeNodeCollection').and.returnValue([objectiveTreeNode1]);
+                var sectionTreeNode1 = { id: 'sectionId', isExpanded: ko.observable(true), children: ko.observableArray([{ id: 'questionId_#1', title: 'title' }, { id: 'questionId_#2', title: 'title' }, { id: 'questionId_#3', title: 'title' }]) };
+                spyOn(treeOfContentTraversal, 'getSectionTreeNodeCollection').and.returnValue([sectionTreeNode1]);
 
-                handler.questionsReordered({ id: 'objectiveId', questions: [{ id: 'questionId_#3' }, { id: 'questionId_#1' }, { id: 'questionId_#2' }] });
+                handler.questionsReordered({ id: 'sectionId', questions: [{ id: 'questionId_#3' }, { id: 'questionId_#1' }, { id: 'questionId_#2' }] });
 
-                expect(objectiveTreeNode1.children()[0].id).toEqual('questionId_#3');
-                expect(objectiveTreeNode1.children()[1].id).toEqual('questionId_#1');
-                expect(objectiveTreeNode1.children()[2].id).toEqual('questionId_#2');
+                expect(sectionTreeNode1.children()[0].id).toEqual('questionId_#3');
+                expect(sectionTreeNode1.children()[1].id).toEqual('questionId_#1');
+                expect(sectionTreeNode1.children()[2].id).toEqual('questionId_#2');
             });
 
         });
 
-        describe('when objective does not have children', function () {
+        describe('when section does not have children', function () {
 
-            it('should not add children to objective', function () {
-                var objectiveTreeNode1 = { id: 'objectiveId', isExpanded: ko.observable(false), children: ko.observableArray([]) };
-                spyOn(treeOfContentTraversal, 'getObjectiveTreeNodeCollection').and.returnValue([objectiveTreeNode1]);
+            it('should not add children to section', function () {
+                var sectionTreeNode1 = { id: 'sectionId', isExpanded: ko.observable(false), children: ko.observableArray([]) };
+                spyOn(treeOfContentTraversal, 'getSectionTreeNodeCollection').and.returnValue([sectionTreeNode1]);
 
-                handler.questionsReordered({ id: 'objectiveId', questions: [{ id: 'questionId_#3' }, { id: 'questionId_#1' }, { id: 'questionId_#2' }] });
+                handler.questionsReordered({ id: 'sectionId', questions: [{ id: 'questionId_#3' }, { id: 'questionId_#1' }, { id: 'questionId_#2' }] });
 
-                expect(objectiveTreeNode1.children().length).toEqual(0);
+                expect(sectionTreeNode1.children().length).toEqual(0);
             });
 
         });
@@ -126,65 +126,65 @@ describe('handler [treeOfContentEventHandler]', function () {
     });
 
 
-    describe('objectiveTitleUpdated:', function () {
+    describe('sectionTitleUpdated:', function () {
 
         it('should be function', function () {
-            expect(handler.objectiveTitleUpdated).toBeFunction();
+            expect(handler.sectionTitleUpdated).toBeFunction();
         });
 
-        it('should update objective title in index', function () {
-            var objectiveTreeNode1 = { id: 'id', title: ko.observable('title') };
-            var objectiveTreeNode2 = { id: 'id', title: ko.observable('title') };
-            spyOn(treeOfContentTraversal, 'getObjectiveTreeNodeCollection').and.returnValue([objectiveTreeNode1, objectiveTreeNode2]);
+        it('should update section title in index', function () {
+            var sectionTreeNode1 = { id: 'id', title: ko.observable('title') };
+            var sectionTreeNode2 = { id: 'id', title: ko.observable('title') };
+            spyOn(treeOfContentTraversal, 'getSectionTreeNodeCollection').and.returnValue([sectionTreeNode1, sectionTreeNode2]);
 
-            handler.objectiveTitleUpdated({ id: 'id', title: 'updated title' });
+            handler.sectionTitleUpdated({ id: 'id', title: 'updated title' });
 
-            expect(objectiveTreeNode1.title()).toEqual('updated title');
-            expect(objectiveTreeNode2.title()).toEqual('updated title');
+            expect(sectionTreeNode1.title()).toEqual('updated title');
+            expect(sectionTreeNode2.title()).toEqual('updated title');
 
         });
 
     });
 
-    describe('objectivesRelated:', function () {
+    describe('sectionsRelated:', function () {
 
         it('should be function', function () {
-            expect(handler.objectiveRelated).toBeFunction();
+            expect(handler.sectionRelated).toBeFunction();
         });
 
         describe('when course is expanded', function () {
 
             describe('when index is undefined', function () {
 
-                it('should relate objective to the course in the last position', function () {
+                it('should relate section to the course in the last position', function () {
                     var courseTreeNode1 = { id: 'courseId', children: ko.observableArray([]), isExpanded: ko.observable(true) };
 
                     spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').and.returnValue([courseTreeNode1]);
 
-                    courseTreeNode1.children.push({ id: 'objectiveId_#1', title: 'title' });
+                    courseTreeNode1.children.push({ id: 'sectionId_#1', title: 'title' });
 
-                    handler.objectiveRelated('courseId', { id: 'objectiveId_#2', title: 'title' });
+                    handler.sectionRelated('courseId', { id: 'sectionId_#2', title: 'title' });
 
                     expect(courseTreeNode1.children().length).toEqual(2);
-                    expect(courseTreeNode1.children()[1].id).toEqual('objectiveId_#2');
+                    expect(courseTreeNode1.children()[1].id).toEqual('sectionId_#2');
                 });
 
             });
 
             describe('when index is defined', function () {
 
-                it('should relate objective to the course in the last position', function () {
+                it('should relate section to the course in the last position', function () {
                     var courseTreeNode1 = { id: 'courseId', children: ko.observableArray([]), isExpanded: ko.observable(true) };
 
                     spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').and.returnValue([courseTreeNode1]);
 
-                    courseTreeNode1.children.push({ id: 'objectiveId_#1', title: 'title' });
-                    courseTreeNode1.children.push({ id: 'objectiveId_#2', title: 'title' });
+                    courseTreeNode1.children.push({ id: 'sectionId_#1', title: 'title' });
+                    courseTreeNode1.children.push({ id: 'sectionId_#2', title: 'title' });
 
-                    handler.objectiveRelated('courseId', { id: 'objectiveId_#3', title: 'title' }, 1);
+                    handler.sectionRelated('courseId', { id: 'sectionId_#3', title: 'title' }, 1);
 
                     expect(courseTreeNode1.children().length).toEqual(3);
-                    expect(courseTreeNode1.children()[1].id).toEqual('objectiveId_#3');
+                    expect(courseTreeNode1.children()[1].id).toEqual('sectionId_#3');
                 });
 
             });
@@ -193,12 +193,12 @@ describe('handler [treeOfContentEventHandler]', function () {
 
         describe('when course is not expanded', function () {
 
-            it('should not relate objectives to the course', function () {
+            it('should not relate sections to the course', function () {
                 var courseTreeNode1 = { id: 'courseId', children: ko.observableArray([]), isExpanded: ko.observable(false) };
 
                 spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').and.returnValue([courseTreeNode1]);
 
-                handler.objectiveRelated('courseId', [{ id: 'objectiveId_#1', title: 'title' }, { id: 'objectiveId_#2', title: 'title' }]);
+                handler.sectionRelated('courseId', [{ id: 'sectionId_#1', title: 'title' }, { id: 'sectionId_#2', title: 'title' }]);
 
                 expect(courseTreeNode1.children().length).toEqual(0);
             });
@@ -206,42 +206,42 @@ describe('handler [treeOfContentEventHandler]', function () {
         });
     });
 
-    describe('objectivesUnrelated:', function () {
+    describe('sectionsUnrelated:', function () {
 
         it('should be function', function () {
-            expect(handler.objectivesUnrelated).toBeFunction();
+            expect(handler.sectionsUnrelated).toBeFunction();
         });
 
-        it('should unrelate objectives from the course', function () {
-            var courseTreeNode1 = { id: 'courseId', children: ko.observableArray([{ id: 'objectiveId_#1', title: 'title' }, { id: 'objectiveId_#2', title: 'title' }, { id: 'objectiveId_#3', title: 'title' }]) };
+        it('should unrelate sections from the course', function () {
+            var courseTreeNode1 = { id: 'courseId', children: ko.observableArray([{ id: 'sectionId_#1', title: 'title' }, { id: 'sectionId_#2', title: 'title' }, { id: 'sectionId_#3', title: 'title' }]) };
 
             spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').and.returnValue([courseTreeNode1]);
 
-            handler.objectivesUnrelated('courseId', ['objectiveId_#1', 'objectiveId_#3']);
+            handler.sectionsUnrelated('courseId', ['sectionId_#1', 'sectionId_#3']);
 
             expect(courseTreeNode1.children().length).toEqual(1);
-            expect(courseTreeNode1.children()[0].id).toEqual('objectiveId_#2');
+            expect(courseTreeNode1.children()[0].id).toEqual('sectionId_#2');
         });
     });
 
-    describe('objectivesReordered:', function () {
+    describe('sectionsReordered:', function () {
 
         it('should be function', function () {
-            expect(handler.objectivesReordered).toBeFunction();
+            expect(handler.sectionsReordered).toBeFunction();
         });
 
         describe('when course node has children', function () {
 
-            it('should reorder objectives', function () {
-                var courseTreeNode1 = { id: 'courseId', isExpanded: ko.observable(true), children: ko.observableArray([{ id: 'objectiveId_#1', title: 'title' }, { id: 'objectiveId_#2', title: 'title' }, { id: 'objectiveId_#3', title: 'title' }]) }
+            it('should reorder sections', function () {
+                var courseTreeNode1 = { id: 'courseId', isExpanded: ko.observable(true), children: ko.observableArray([{ id: 'sectionId_#1', title: 'title' }, { id: 'sectionId_#2', title: 'title' }, { id: 'sectionId_#3', title: 'title' }]) }
 
                 spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').and.returnValue([courseTreeNode1]);
 
-                handler.objectivesReordered({ id: 'courseId', objectives: [{ id: 'objectiveId_#3', title: 'title' }, { id: 'objectiveId_#1', title: 'title' }, { id: 'objectiveId_#2', title: 'title' }] });
+                handler.sectionsReordered({ id: 'courseId', sections: [{ id: 'sectionId_#3', title: 'title' }, { id: 'sectionId_#1', title: 'title' }, { id: 'sectionId_#2', title: 'title' }] });
 
-                expect(courseTreeNode1.children()[0].id).toEqual('objectiveId_#3');
-                expect(courseTreeNode1.children()[1].id).toEqual('objectiveId_#1');
-                expect(courseTreeNode1.children()[2].id).toEqual('objectiveId_#2');
+                expect(courseTreeNode1.children()[0].id).toEqual('sectionId_#3');
+                expect(courseTreeNode1.children()[1].id).toEqual('sectionId_#1');
+                expect(courseTreeNode1.children()[2].id).toEqual('sectionId_#2');
             });
 
         });
@@ -253,7 +253,7 @@ describe('handler [treeOfContentEventHandler]', function () {
 
                 spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').and.returnValue([courseTreeNode1]);
 
-                handler.objectivesReordered({ id: 'courseId', objectives: [{ id: 'objectiveId_#3', title: 'title' }, { id: 'objectiveId_#1', title: 'title' }, { id: 'objectiveId_#2', title: 'title' }] });
+                handler.sectionsReordered({ id: 'courseId', sections: [{ id: 'sectionId_#3', title: 'title' }, { id: 'sectionId_#1', title: 'title' }, { id: 'sectionId_#2', title: 'title' }] });
 
                 expect(courseTreeNode1.children().length).toEqual(0);
             });
@@ -304,7 +304,7 @@ describe('handler [treeOfContentEventHandler]', function () {
             expect(handler.collaborationFinished).toBeFunction();
         });
 
-        it('should remove course from objective in index', function () {
+        it('should remove course from section in index', function () {
             var treeOfContent = { sharedChildren: ko.observableArray([{ id: 'courseId' }, { id: '-' }]) };
             spyOn(treeOfContentTraversal, 'getTreeOfContent').and.returnValue(treeOfContent);
 
@@ -322,7 +322,7 @@ describe('handler [treeOfContentEventHandler]', function () {
             expect(handler.courseDeleted).toBeFunction();
         });
 
-        it('should remove question from objective in index', function () {
+        it('should remove question from section in index', function () {
             var treeOfContent = { children: ko.observableArray([{ id: 'courseId' }, { id: '-' }]) };
             spyOn(treeOfContentTraversal, 'getTreeOfContent').and.returnValue(treeOfContent);
 
@@ -340,7 +340,7 @@ describe('handler [treeOfContentEventHandler]', function () {
             expect(handler.courseDeletedByCollaborator).toBeFunction();
         });
 
-        it('should remove question from objective in index', function () {
+        it('should remove question from section in index', function () {
             var treeOfContent = { sharedChildren: ko.observableArray([{ id: 'courseId' }, { id: '-' }]) };
             spyOn(treeOfContentTraversal, 'getTreeOfContent').and.returnValue(treeOfContent);
 
@@ -358,7 +358,7 @@ describe('handler [treeOfContentEventHandler]', function () {
             expect(handler.courseTitleUpdated).toBeFunction();
         });
 
-        it('should update objective title in index', function () {
+        it('should update section title in index', function () {
             var courseTreeNode1 = { id: 'id', title: ko.observable('title') };
             var courseTreeNode2 = { id: 'id', title: ko.observable('title') };
             spyOn(treeOfContentTraversal, 'getCourseTreeNodeCollection').and.returnValue([courseTreeNode1, courseTreeNode2]);

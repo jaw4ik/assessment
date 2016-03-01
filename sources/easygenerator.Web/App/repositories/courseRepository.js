@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'models/course', 'guard', 'http/apiHttpWrapper', 'durandal/app', 'mappers/courseModelMapper', 'mappers/objectiveModelMapper'],
-    function (dataContext, constants, CourseModel, guard, apiHttpWrapper, app, courseModelMapper, objectiveModelMapper) {
+﻿define(['dataContext', 'constants', 'models/course', 'guard', 'http/apiHttpWrapper', 'durandal/app', 'mappers/courseModelMapper', 'mappers/sectionModelMapper'],
+    function (dataContext, constants, CourseModel, guard, apiHttpWrapper, app, courseModelMapper, sectionModelMapper) {
         "use strict";
 
         var repository = {
@@ -12,10 +12,10 @@
             removeCourse: removeCourse,
             duplicateCourse: duplicateCourse,
 
-            relateObjective: relateObjective,
-            unrelateObjectives: unrelateObjectives,
+            relateSection: relateSection,
+            unrelateSections: unrelateSections,
             updateIntroductionContent: updateIntroductionContent,
-            updateObjectiveOrder: updateObjectiveOrder
+            updateSectionOrder: updateSectionOrder
         };
 
         return repository;
@@ -51,7 +51,7 @@
                 return apiHttpWrapper.post('api/course/create', { title: title, templateId: templateId }).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
 
-                    var course = courseModelMapper.map(response, dataContext.objectives, dataContext.templates);
+                    var course = courseModelMapper.map(response, dataContext.sections, dataContext.templates);
                     dataContext.courses.push(course);
 
                     app.trigger(constants.messages.course.created, course);
@@ -76,10 +76,10 @@
                         return;
                     }
 
-                    var deletedObjectivesData = response.deletedObjectiveIds;
+                    var deletedSectionsData = response.deletedSectionIds;
 
-                    dataContext.objectives = _.reject(dataContext.objectives, function (objective) {
-                        return _.contains(deletedObjectivesData, objective.id);
+                    dataContext.sections = _.reject(dataContext.sections, function (section) {
+                        return _.contains(deletedSectionsData, section.id);
                     });
 
                     var learningPathsWithDeletedCourse = _.filter(dataContext.learningPaths, function (learningPath) {
@@ -106,15 +106,15 @@
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotAnObject(response.course, 'Course is not an object');
 
-                    var objectivesData = response.objectives;
-                    if (objectivesData && _.isArray(objectivesData)) {
-                        _.each(objectivesData, function (objectiveData) {
-                            var objective = objectiveModelMapper.map(objectiveData);
-                            dataContext.objectives.push(objective);
+                    var sectionsData = response.sections;
+                    if (sectionsData && _.isArray(sectionsData)) {
+                        _.each(sectionsData, function (sectionData) {
+                            var section = sectionModelMapper.map(sectionData);
+                            dataContext.sections.push(section);
                         });
                     }
 
-                    var duplicatedCourse = courseModelMapper.map(response.course, dataContext.objectives, dataContext.templates);
+                    var duplicatedCourse = courseModelMapper.map(response.course, dataContext.sections, dataContext.templates);
                     duplicatedCourse.isDuplicate = true;
                     dataContext.courses.push(duplicatedCourse);
 
@@ -126,18 +126,18 @@
         }
 
 
-        function relateObjective(courseId, objectiveId, targetIndex) {
+        function relateSection(courseId, sectionId, targetIndex) {
             return Q.fcall(function () {
                 guard.throwIfNotString(courseId, 'Course id is not valid');
-                guard.throwIfNotString(objectiveId, 'Objective id is not valid');
+                guard.throwIfNotString(sectionId, 'Section id is not valid');
 
                 var requestArgs = {
                     courseId: courseId,
-                    objectiveId: objectiveId,
+                    sectionId: sectionId,
                     index: targetIndex
                 };
 
-                return apiHttpWrapper.post('api/course/relateObjective', requestArgs).then(function (response) {
+                return apiHttpWrapper.post('api/course/relateSection', requestArgs).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
@@ -146,20 +146,20 @@
                     });
                     guard.throwIfNotAnObject(course, "Course doesn`t exist");
 
-                    var objective = _.find(dataContext.objectives, function (item) {
-                        return item.id == objectiveId;
+                    var section = _.find(dataContext.sections, function (item) {
+                        return item.id == sectionId;
                     });
-                    guard.throwIfNotAnObject(objective, "Objective doesn`t exist");
+                    guard.throwIfNotAnObject(section, "Section doesn`t exist");
 
                     course.modifiedOn = new Date(response.ModifiedOn);
 
                     if (!_.isNullOrUndefined(targetIndex)) {
-                        course.objectives.splice(targetIndex, 0, objective);
+                        course.sections.splice(targetIndex, 0, section);
                     } else {
-                        course.objectives.push(objective);
+                        course.sections.push(section);
                     }
 
-                    app.trigger(constants.messages.course.objectiveRelated, requestArgs.courseId, objective, targetIndex);
+                    app.trigger(constants.messages.course.sectionRelated, requestArgs.courseId, section, targetIndex);
 
                     return {
                         modifiedOn: course.modifiedOn
@@ -168,19 +168,19 @@
             });
         }
 
-        function unrelateObjectives(courseId, objectives) {
+        function unrelateSections(courseId, sections) {
             return Q.fcall(function () {
                 guard.throwIfNotString(courseId, 'Course id is not valid');
-                guard.throwIfNotArray(objectives, 'Objectives to relate are not array');
+                guard.throwIfNotArray(sections, 'Sections to relate are not array');
 
                 var requestArgs = {
                     courseId: courseId,
-                    objectives: _.map(objectives, function (item) {
+                    sections: _.map(sections, function (item) {
                         return item.id;
                     })
                 };
 
-                return apiHttpWrapper.post('api/course/unrelateObjectives', requestArgs).then(function (response) {
+                return apiHttpWrapper.post('api/course/unrelateSections', requestArgs).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
@@ -189,15 +189,15 @@
                     });
                     guard.throwIfNotAnObject(course, "Course doesn`t exist");
 
-                    course.objectives = _.reject(course.objectives, function (objective) {
-                        return _.find(objectives, function (item) {
-                            return item.id == objective.id;
+                    course.sections = _.reject(course.sections, function (section) {
+                        return _.find(sections, function (item) {
+                            return item.id == section.id;
                         });
                     });
 
                     course.modifiedOn = new Date(response.ModifiedOn);
 
-                    app.trigger(constants.messages.course.objectivesUnrelated, requestArgs.courseId, requestArgs.objectives);
+                    app.trigger(constants.messages.course.sectionsUnrelated, requestArgs.courseId, requestArgs.sections);
 
                     return course.modifiedOn;
                 });
@@ -294,19 +294,19 @@
             });
         }
 
-        function updateObjectiveOrder(courseId, objectives) {
+        function updateSectionOrder(courseId, sections) {
             return Q.fcall(function () {
                 guard.throwIfNotString(courseId, 'Course id is not a string');
-                guard.throwIfNotArray(objectives, 'Objectives to relate are not array');
+                guard.throwIfNotArray(sections, 'Sections to relate are not array');
 
                 var requestArgs = {
                     courseId: courseId,
-                    objectives: _.map(objectives, function (item) {
+                    sections: _.map(sections, function (item) {
                         return item.id;
                     })
                 };
 
-                return apiHttpWrapper.post('api/course/updateobjectivesorder', requestArgs).then(function (response) {
+                return apiHttpWrapper.post('api/course/updatesectionsorder', requestArgs).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response does not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
@@ -315,15 +315,15 @@
                     });
                     guard.throwIfNotAnObject(course, "Course doesn`t exist");
 
-                    course.objectives = _.map(objectives, function (item) {
-                        return _.find(course.objectives, function (objective) {
-                            return objective.id == item.id;
+                    course.sections = _.map(sections, function (item) {
+                        return _.find(course.sections, function (section) {
+                            return section.id == item.id;
                         });
                     });
 
                     course.modifiedOn = new Date(response.ModifiedOn);
 
-                    app.trigger(constants.messages.course.objectivesReordered, course);
+                    app.trigger(constants.messages.course.sectionsReordered, course);
 
                     return course.modifiedOn;
                 });

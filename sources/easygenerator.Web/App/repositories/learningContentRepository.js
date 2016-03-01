@@ -111,8 +111,8 @@
 
         function getQuestions() {
             var questions = [];
-            _.each(dataContext.objectives, function (objective) {
-                questions.push.apply(questions, objective.questions);
+            _.each(dataContext.sections, function (section) {
+                questions.push.apply(questions, section.questions);
             });
             return questions;
         }

@@ -6,7 +6,7 @@ import localizationManager from 'localization/localizationManager';
 import apiHttpWrapper from 'http/apiHttpWrapper';
 import storageHttpWrapper from 'http/storageHttpWrapper';
 import courseModelMapper from 'mappers/courseModelMapper';
-import objectiveModelMapper from 'mappers/objectiveModelMapper';
+import sectionModelMapper from 'mappers/sectionModelMapper';
 import templateModelMapper from 'mappers/templateModelMapper';
 import videoModelMapper from 'mappers/videoModelMapper';
 import audioModelMapper from 'mappers/audioModelMapper';
@@ -14,7 +14,7 @@ import documentModelMapper from 'mappers/documentModelMapper';
 import learningPathModelMapper from 'mappers/learningPathModelMapper';
 
 var
-    _objectives = [],
+    _sections = [],
     _courses = [],
     _documents = [],
     _templates = [],
@@ -34,8 +34,8 @@ export default class {
                 (async () => {
                     await* [
                         (async () => {
-                            [ _templates, _objectives ] = await* [getTemplates(), getObjectives()];
-                            _courses = await getCourses(_templates, _objectives);
+                            [ _templates, _sections ] = await* [getTemplates(), getSections()];
+                            _courses = await getCourses(_templates, _sections);
                         })(),
                         (async () => {
                             _documents = await getDocuments();
@@ -56,11 +56,11 @@ export default class {
             app.showMessage("Failed to initialize datacontext.");
         }
     }
-    static get objectives() {
-        return _objectives;
+    static get sections() {
+        return _sections;
     }
-    static set objectives(objectives) {
-        _objectives = objectives || [];
+    static set sections(sections) {
+        _sections = sections || [];
     }
     static get templates() {
         return _templates;
@@ -100,8 +100,8 @@ export default class {
     }
     static getQuestions() {
         var questions = [];
-        for(let objective of _objectives) {
-            questions.push.apply(questions, objective.questions);
+        for(let section of _sections) {
+            questions.push.apply(questions, section.questions);
         };
         return questions;
     }
@@ -110,19 +110,19 @@ export default class {
 async function getTemplates() {
     return _.map(await apiHttpWrapper.post('api/templates'), template => templateModelMapper.map(template));
 }
-async function getObjectives() {
-    return _.map(await apiHttpWrapper.post('api/objectives'), objective => objectiveModelMapper.map(objective));
+async function getSections() {
+    return _.map(await apiHttpWrapper.post('api/sections'), section => sectionModelMapper.map(section));
 }
 async function getDocuments() {
     return _.map(await apiHttpWrapper.post('api/documents'), document => documentModelMapper.map(document));
 }
-async function getCourses(templates, objectives) {
+async function getCourses(templates, sections) {
     var courses = [];
     var data = await apiHttpWrapper.post('api/courses');
     for (let course of data) {
         // Temporary - do not display courses if user does not have template
         if (_.find(templates, template => course.Template.Id === template.id)) {
-            courses.push(courseModelMapper.map(course, objectives, templates));
+            courses.push(courseModelMapper.map(course, sections, templates));
         }
     }
     return courses;

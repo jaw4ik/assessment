@@ -1,5 +1,5 @@
 ﻿import ko from 'knockout';
-import sectionRepository from 'repositories/objectiveRepository';
+import sectionRepository from 'repositories/sectionRepository';
 
 export default class {
     static async execute(sectionId, questions) {

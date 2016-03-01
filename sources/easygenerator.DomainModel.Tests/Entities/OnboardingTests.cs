@@ -15,16 +15,16 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void Onboarding_ShouldCreateOnboarding()
         {
             var CourseCreated = false;
-            var ObjectiveCreated = false;
+            var SectionCreated = false;
             var ContentCreated = false;
             var CreatedQuestionsCount = 0;
             var CoursePublished = false;
             var IsClosed = false;
 
-            var onboarding = OnboardingObjectMother.Create(CourseCreated, ObjectiveCreated, ContentCreated, CreatedQuestionsCount, CoursePublished, IsClosed, UserEmail);
+            var onboarding = OnboardingObjectMother.Create(CourseCreated, SectionCreated, ContentCreated, CreatedQuestionsCount, CoursePublished, IsClosed, UserEmail);
 
             onboarding.CourseCreated.Should().Be(CourseCreated);
-            onboarding.ObjectiveCreated.Should().Be(ObjectiveCreated);
+            onboarding.SectionCreated.Should().Be(SectionCreated);
             onboarding.ContentCreated.Should().Be(ContentCreated);
             onboarding.CreatedQuestionsCount.Should().Be(CreatedQuestionsCount);
             onboarding.CoursePublished.Should().Be(CoursePublished);
@@ -48,16 +48,16 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
-        #region MarkObjectiveCreatedAsCompleted
+        #region MarkSectionCreatedAsCompleted
 
         [TestMethod]
-        public void MarkObjectiveCreatedAsCompleted_ShouldSetObjectiveDefinedToTrue()
+        public void MarkSectionCreatedAsCompleted_ShouldSetSectionDefinedToTrue()
         {
-            var onboardingObject = OnboardingObjectMother.CreateWithObjectiveDefined(false);
+            var onboardingObject = OnboardingObjectMother.CreateWithSectionDefined(false);
 
-            onboardingObject.MarkObjectiveCreatedAsCompleted();
+            onboardingObject.MarkSectionCreatedAsCompleted();
 
-            onboardingObject.ObjectiveCreated.Should().BeTrue();
+            onboardingObject.SectionCreated.Should().BeTrue();
         }
         
         #endregion
@@ -65,7 +65,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         #region MarkContentCreatedAsCompleted
 
         [TestMethod]
-        public void UpdateContentCreated_ShouldSetObjectiveDefinedToTrue()
+        public void UpdateContentCreated_ShouldSetSectionDefinedToTrue()
         {
             var onboardingObject = OnboardingObjectMother.CreateWithContentCreated(false);
 
@@ -79,7 +79,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         #region IncreaseCreatedQuestionsCount
 
         [TestMethod]
-        public void IncreaseCreatedQuestionsCountUpdateQuestionsCount_ShouldSetObjectiveDefinedToTrue()
+        public void IncreaseCreatedQuestionsCountUpdateQuestionsCount_ShouldSetSectionDefinedToTrue()
         {
             var onboardingObject = OnboardingObjectMother.CreateWithQuestionsCount(3);
 
@@ -93,7 +93,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         #region MarkCoursePublishedAsCompleted
         
         [TestMethod]
-        public void UpdatePublished_ShouldSetObjectiveDefinedToTrue()
+        public void UpdatePublished_ShouldSetSectionDefinedToTrue()
         {
             var onboardingObject = OnboardingObjectMother.CreateWithPublished(false);
 

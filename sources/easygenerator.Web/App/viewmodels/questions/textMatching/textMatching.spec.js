@@ -18,7 +18,7 @@ describe('question [textMatching]', function () {
     });
         
     describe('initialize:', function () {
-        var objectiveId = 'objectiveId';
+        var sectionId = 'sectionId';
         var question = { id: 'questionId'};
         var dfd;
 
@@ -32,30 +32,30 @@ describe('question [textMatching]', function () {
         });
 
         it('should return promise', function () {
-            var promise = viewModel.initialize(objectiveId, question);
+            var promise = viewModel.initialize(sectionId, question);
             expect(promise).toBePromise();
         });
 
-        it('should set objectiveId', function () {
-            viewModel.initialize(objectiveId, question);
+        it('should set sectionId', function () {
+            viewModel.initialize(sectionId, question);
 
-            expect(viewModel.objectiveId).toBe(objectiveId);
+            expect(viewModel.sectionId).toBe(sectionId);
         });
 
         it('should set questionId', function () {
-            viewModel.initialize(objectiveId, question);
+            viewModel.initialize(sectionId, question);
 
             expect(viewModel.questionId).toBe(question.id);
         });
 
         it('should set isExpanded in true', function () {
-            viewModel.initialize(objectiveId, question);
+            viewModel.initialize(sectionId, question);
 
             expect(viewModel.isExpanded()).toBeTruthy();
         });
 
         it('should get answers', function () {
-            viewModel.initialize(objectiveId, question);
+            viewModel.initialize(sectionId, question);
 
             expect(getTextMatchingAnswersById.execute).toHaveBeenCalledWith(question.id);
         });
@@ -68,7 +68,7 @@ describe('question [textMatching]', function () {
 
             it('should set an empty answers collection', function (done) {
                 viewModel.answers([{}, {}, {}]);
-                viewModel.initialize(objectiveId, question).fin(function () {
+                viewModel.initialize(sectionId, question).fin(function () {
                     expect(viewModel.answers().length).toEqual(0);
                     done();
                 });
@@ -86,14 +86,14 @@ describe('question [textMatching]', function () {
             });
 
             it('should set answers collection', function (done) {
-                viewModel.initialize(objectiveId, question).fin(function () {
+                viewModel.initialize(sectionId, question).fin(function () {
                     expect(viewModel.answers().length).toEqual(2);
                     done();
                 });
             });
 
             it('should sort answers by CreatedOn', function(done) {
-                viewModel.initialize(objectiveId, question).fin(function () {
+                viewModel.initialize(sectionId, question).fin(function () {
                     expect(viewModel.answers()[0].id).toBe('answerId2');
                     expect(viewModel.answers()[0].key()).toBe('key2');
                     expect(viewModel.answers()[0].value()).toBe('value2');
@@ -111,7 +111,7 @@ describe('question [textMatching]', function () {
             });
 
             it('should return object', function (done) {
-                var promise = viewModel.initialize(objectiveId, question);
+                var promise = viewModel.initialize(sectionId, question);
                 promise.then(function (result) {
                     expect(result).toBeObject();
                     done();
@@ -120,7 +120,7 @@ describe('question [textMatching]', function () {
 
             describe('and result object', function () {
                 it('should contain \'textMatchingEditor\' viewCaption', function (done) {
-                    var promise = viewModel.initialize(objectiveId, question);
+                    var promise = viewModel.initialize(sectionId, question);
                     promise.then(function (result) {
                         expect(result.viewCaption).toBe('textMatchingEditor');
                         done();
@@ -128,7 +128,7 @@ describe('question [textMatching]', function () {
                 });
 
                 it('should have hasQuestionView property with true value', function (done) {
-                    var promise = viewModel.initialize(objectiveId, question);
+                    var promise = viewModel.initialize(sectionId, question);
                     promise.then(function (result) {
                         expect(result.hasQuestionView).toBeTruthy();
                         done();
@@ -136,7 +136,7 @@ describe('question [textMatching]', function () {
                 });
 
                 it('should have hasQuestionContent property with true value', function (done) {
-                    var promise = viewModel.initialize(objectiveId, question);
+                    var promise = viewModel.initialize(sectionId, question);
                     promise.then(function (result) {
                         expect(result.hasQuestionContent).toBeTruthy();
                         done();
@@ -144,7 +144,7 @@ describe('question [textMatching]', function () {
                 });
 
                 it('should have hasFeedback property with true value', function (done) {
-                    var promise = viewModel.initialize(objectiveId, question);
+                    var promise = viewModel.initialize(sectionId, question);
                     promise.then(function (result) {
                         expect(result.hasFeedback).toBeTruthy();
                         done();

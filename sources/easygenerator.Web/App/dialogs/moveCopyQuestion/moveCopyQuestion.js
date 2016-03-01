@@ -13,7 +13,7 @@
     var viewModel = {
         courseId: '',
         questionId: '',
-        objectiveId: ko.observable(''),
+        sectionId: ko.observable(''),
         show: show,
         close:close,
         isCopy: ko.observable(true),
@@ -23,21 +23,21 @@
 
         selectedCourse: ko.observable({}),
         selectCourse: selectCourse,
-        selectedObjectiveId: ko.observable(''),
-        selectObjective: selectObjective,
+        selectedSectionId: ko.observable(''),
+        selectSection: selectSection,
         courses: ko.observable({}),
         
         moveQuestion: moveQuestion,
         copyQuestion: copyQuestion,
-        allObjectives: ko.observable({})
+        allSections: ko.observable({})
     };
 
     return viewModel;
 
-    function show(courseId, objectiveId, questionId) {
+    function show(courseId, sectionId, questionId) {
         eventTracker.publish(events.showDialog);
         dialog.show(viewModel, constants.dialogs.moveCopyQuestion.settings);
-        reset(courseId, objectiveId, questionId);
+        reset(courseId, sectionId, questionId);
     }
 
     function close() {
@@ -74,29 +74,29 @@
         viewModel.selectedCourse(course);
 
         if (course.objectvesListEmpty) {
-            viewModel.selectedObjectiveId(null);
+            viewModel.selectedSectionId(null);
         } else {
-            viewModel.selectedObjectiveId(course.objectives[0].id);
+            viewModel.selectedSectionId(course.sections[0].id);
         }
     }
 
-    function selectObjective(objective) {
-        viewModel.selectedObjectiveId(objective.id);
+    function selectSection(section) {
+        viewModel.selectedSectionId(section.id);
     }
 
     function moveQuestion() {
-        if (!isValidObjective()) {
+        if (!isValidSection()) {
             return;
         }
 
-        if (viewModel.objectiveId() !== viewModel.selectedObjectiveId()) {
+        if (viewModel.sectionId() !== viewModel.selectedSectionId()) {
             eventTracker.publish(events.moveItem);
-            questionRepository.moveQuestion(viewModel.questionId, viewModel.objectiveId(), viewModel.selectedObjectiveId()).then(function () {
+            questionRepository.moveQuestion(viewModel.questionId, viewModel.sectionId(), viewModel.selectedSectionId()).then(function () {
                 viewModel.close();
                 if (!_.isNullOrUndefined(viewModel.courseId)) {
-                        router.navigate('courses/' + viewModel.courseId + '/objectives/' + viewModel.objectiveId());
+                        router.navigate('courses/' + viewModel.courseId + '/sections/' + viewModel.sectionId());
                 } else {
-                        router.navigate('library/objectives/' + viewModel.objectiveId());
+                        router.navigate('library/sections/' + viewModel.sectionId());
                 }
             });
         } else {
@@ -105,35 +105,35 @@
     }
 
     function copyQuestion() {
-        if (!isValidObjective()) {
+        if (!isValidSection()) {
             return;
         }
         eventTracker.publish(events.copyItem);
-        questionRepository.copyQuestion(viewModel.questionId, viewModel.selectedObjectiveId()).then(function (response) {
+        questionRepository.copyQuestion(viewModel.questionId, viewModel.selectedSectionId()).then(function (response) {
             viewModel.close();
             //if (!_.isNullOrUndefined(viewModel.selectedCourse().id)) {
-            //        router.navigate('courses/' + viewModel.selectedCourse().id + '/objectives/' + viewModel.selectedObjectiveId() + '/questions/' + response.id);
+            //        router.navigate('courses/' + viewModel.selectedCourse().id + '/sections/' + viewModel.selectedSectionId() + '/questions/' + response.id);
             //} else {
-            //        router.navigate('library/objectives/' + viewModel.selectedObjectiveId() + '/questions/' + response.id);
+            //        router.navigate('library/sections/' + viewModel.selectedSectionId() + '/questions/' + response.id);
             //}
         });
     }
 
-    function reset(courseId, objectiveId, questionId) {
+    function reset(courseId, sectionId, questionId) {
         viewModel.isCopy(true);
         viewModel.courses(mapCourses());
         viewModel.courseId = courseId;
-        viewModel.objectiveId(objectiveId);
+        viewModel.sectionId(sectionId);
         viewModel.questionId = questionId;
-        viewModel.selectedObjectiveId(viewModel.objectiveId());
-        viewModel.allObjectives({
-            title: localizationManager.localize('allObjectives'),
-            objectives: dataContext.objectives,
-            objectvesListEmpty: dataContext.objectives.length === 0
+        viewModel.selectedSectionId(viewModel.sectionId());
+        viewModel.allSections({
+            title: localizationManager.localize('allSections'),
+            sections: dataContext.sections,
+            objectvesListEmpty: dataContext.sections.length === 0
         });
 
         if (_.isNullOrUndefined(viewModel.courseId)) {
-            viewModel.selectedCourse(viewModel.allObjectives());
+            viewModel.selectedCourse(viewModel.allSections());
         } else {
             viewModel.selectedCourse(_.find(viewModel.courses(), function (course) {
                 return course.id == viewModel.courseId;
@@ -153,21 +153,21 @@
             return {
                 id: course.id,
                 title: course.title,
-                objectives: course.objectives,
-                objectvesListEmpty: course.objectives.length === 0
+                sections: course.sections,
+                objectvesListEmpty: course.sections.length === 0
             };
                 })
                 .value();
     }
 
-    function isValidObjective() {
-        var objective;
-        if (_.isNullOrUndefined(viewModel.selectedObjectiveId())) {
+    function isValidSection() {
+        var section;
+        if (_.isNullOrUndefined(viewModel.selectedSectionId())) {
             notify.error(localizationManager.localize('moveCopyErrorMessage'));
             return false;
         }
 
-        if (viewModel.selectedCourse() !== viewModel.allObjectives()) {
+        if (viewModel.selectedCourse() !== viewModel.allSections()) {
                 var course = _.find(dataContext.courses, function (item) {
                 return item.id === viewModel.selectedCourse().id;
             });
@@ -177,17 +177,17 @@
                 return false;
             }
 
-                objective = _.find(course.objectives, function (item) {
-                return item.id === viewModel.selectedObjectiveId();
+                section = _.find(course.sections, function (item) {
+                return item.id === viewModel.selectedSectionId();
             });
         } else {
-            objective = _.find(dataContext.objectives, function (item) {
-                return item.id === viewModel.selectedObjectiveId();
+            section = _.find(dataContext.sections, function (item) {
+                return item.id === viewModel.selectedSectionId();
             });
         }
 
-        if (_.isNullOrUndefined(objective)) {
-            notify.error(localizationManager.localize('learningObjectiveHasBeenDisconnectedByCollaborator'));
+        if (_.isNullOrUndefined(section)) {
+            notify.error(localizationManager.localize('sectionHasBeenDisconnectedByCollaborator'));
             return false;
         }
 

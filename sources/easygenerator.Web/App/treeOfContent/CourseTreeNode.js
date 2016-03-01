@@ -1,5 +1,5 @@
-﻿define(['./TreeNode', './RelatedObjectiveTreeNode', './queries/getCourseByIdQuery', 'eventTracker', 'plugins/router'],
-    function (TreeNode, RelatedObjectiveTreeNode, getCourseByIdQuery, eventTracker, router) {
+﻿define(['./TreeNode', './RelatedSectionTreeNode', './queries/getCourseByIdQuery', 'eventTracker', 'plugins/router'],
+    function (TreeNode, RelatedSectionTreeNode, getCourseByIdQuery, eventTracker, router) {
 
         return function (id, title, url, createdOn) {
             TreeNode.call(this, id, title, url);
@@ -13,10 +13,10 @@
             this.navigateToCourse = navigateToCourse;
         };
 
-        function getObjectives(id) {
+        function getSections(id) {
             return getCourseByIdQuery.execute(id).then(function (course) {
-                return _.map(course.objectives, function (objective) {
-                    return new RelatedObjectiveTreeNode(objective.id, course.id, objective.title, '#courses/' + course.id + '/objectives/' + objective.id);
+                return _.map(course.sections, function (section) {
+                    return new RelatedSectionTreeNode(section.id, course.id, section.title, '#courses/' + course.id + '/sections/' + section.id);
                 });
             });
         }
@@ -28,8 +28,8 @@
                     that.isExpanded(true);
                     return undefined;
                 } else {
-                    return getObjectives(that.id).then(function (objectives) {
-                        that.children(objectives);
+                    return getSections(that.id).then(function (sections) {
+                        that.children(sections);
                         that.isExpanded(true);
                     });
                 }

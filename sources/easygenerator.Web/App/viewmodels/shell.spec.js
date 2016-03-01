@@ -198,9 +198,9 @@ describe('viewModel [shell]', function () {
 
     });
 
-    describe('objectivesUnrelated:', function () {
+    describe('sectionsUnrelated:', function () {
 
-        var objectiveId = 'objectiveId',
+        var sectionId = 'sectionId',
             courseId = 'courseId',
             errorMessage = 'error';
 
@@ -209,44 +209,44 @@ describe('viewModel [shell]', function () {
         });
 
         it('should be function', function () {
-            expect(viewModel.objectivesUnrelated).toBeFunction();
+            expect(viewModel.sectionsUnrelated).toBeFunction();
         });
 
         describe('when not in context of course', function () {
             beforeEach(function () {
                 router.routeData({
-                    objectiveId: 'id',
+                    sectionId: 'id',
                     courseId: undefined
                 });
             });
 
             it('should not show notification error', function () {
-                viewModel.objectivesUnrelated(courseId, [objectiveId]);
+                viewModel.sectionsUnrelated(courseId, [sectionId]);
                 expect(notify.error).not.toHaveBeenCalledWith(errorMessage);
             });
         });
 
-        describe('when not in context of objective', function () {
+        describe('when not in context of section', function () {
             beforeEach(function () {
                 router.routeData({
-                    objectiveId: 'id',
+                    sectionId: 'id',
                     courseId: courseId
                 });
             });
 
             it('should not show notification error', function () {
-                viewModel.objectivesUnrelated(courseId, [objectiveId]);
+                viewModel.sectionsUnrelated(courseId, [sectionId]);
                 expect(notify.error).not.toHaveBeenCalledWith(errorMessage);
             });
         });
 
         it('should show notification error', function () {
             router.routeData({
-                objectiveId: objectiveId,
+                sectionId: sectionId,
                 courseId: courseId
             });
 
-            viewModel.objectivesUnrelated(courseId, [objectiveId]);
+            viewModel.sectionsUnrelated(courseId, [sectionId]);
             expect(notify.error).toHaveBeenCalledWith(errorMessage);
         });
     });
@@ -295,7 +295,7 @@ describe('viewModel [shell]', function () {
             });
 
             it('should not show notification error', function () {
-                viewModel.questionsDeleted('objectiveId', [questionId]);
+                viewModel.questionsDeleted('sectionId', [questionId]);
                 expect(notify.error).not.toHaveBeenCalledWith(errorMessage);
             });
         });
@@ -309,7 +309,7 @@ describe('viewModel [shell]', function () {
             });
 
             it('should not show notification error', function () {
-                viewModel.questionsDeleted('objectiveId', [questionId]);
+                viewModel.questionsDeleted('sectionId', [questionId]);
                 expect(notify.error).not.toHaveBeenCalledWith(errorMessage);
             });
         });
@@ -320,7 +320,7 @@ describe('viewModel [shell]', function () {
                 courseId: 'courseId'
             });
 
-            viewModel.questionsDeleted('objectiveId', [questionId]);
+            viewModel.questionsDeleted('sectionId', [questionId]);
             expect(notify.error).toHaveBeenCalledWith(errorMessage);
         });
 

@@ -20,13 +20,13 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [EntityCollaborator(typeof(Objective))]
+        [EntityCollaborator(typeof(Section))]
         [Route("api/question/" + Question.QuestionTypes.SingleSelectText + "/create")]
-        public ActionResult Create(Objective objective, string title)
+        public ActionResult Create(Section section, string title)
         {
-            if (objective == null)
+            if (section == null)
             {
-                return JsonLocalizableError(Errors.ObjectiveNotFoundError, Errors.ObjectiveNotFoundResourceKey);
+                return JsonLocalizableError(Errors.SectionNotFoundError, Errors.SectionNotFoundResourceKey);
             }
 
             var incorrectAnswer = _entityFactory.Answer(Resources.Controllers.Resources.DefaultAnswerOptionText, false, GetCurrentUsername(), DateTimeWrapper.Now().AddSeconds(1));
@@ -34,7 +34,7 @@ namespace easygenerator.Web.Controllers.Api
 
             var question = _entityFactory.SingleSelectTextQuestion(title, GetCurrentUsername(), correctAnswer, incorrectAnswer);
 
-            objective.AddQuestion(question, GetCurrentUsername());
+            section.AddQuestion(question, GetCurrentUsername());
 
             return JsonSuccess(new { Id = question.Id.ToNString(), CreatedOn = question.CreatedOn });
         }

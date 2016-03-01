@@ -49,7 +49,7 @@ namespace easygenerator.DomainModel.Entities.Questions
         //TODO: Move to derived type
         public string Content { get; protected set; }
 
-        public virtual Objective Objective { get; internal set; }
+        public virtual Section Section { get; internal set; }
 
         public string VoiceOver { get; internal set; }
 

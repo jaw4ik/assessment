@@ -38,7 +38,7 @@ describe('command [createQuestionCommand]', function () {
             describe('and when question type is multipleSelect', function () {
 
                 it('should send event \'Create new question (multiple select)\' with defined event category ', function () {
-                    command.execute('objectiveId', 'courseId', constants.questionType.multipleSelect.type, 'Event category');
+                    command.execute('sectionId', 'courseId', constants.questionType.multipleSelect.type, 'Event category');
                     expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (multiple select)', 'Event category');
                 });
 
@@ -47,7 +47,7 @@ describe('command [createQuestionCommand]', function () {
             describe('and when question type is fillInTheBlank', function () {
 
                 it('should send event \'Create new question (fill in the blanks)\' with defined event category ', function () {
-                    command.execute('objectiveId', 'courseId', constants.questionType.fillInTheBlank.type, 'Event category');
+                    command.execute('sectionId', 'courseId', constants.questionType.fillInTheBlank.type, 'Event category');
                     expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (fill in the blanks)', 'Event category');
                 });
 
@@ -56,7 +56,7 @@ describe('command [createQuestionCommand]', function () {
             describe('and when question type is dragAndDropText', function () {
 
                 it('should send event \'Create new question (drag and drop)\' with defined event category ', function () {
-                    command.execute('objectiveId', 'courseId', constants.questionType.dragAndDropText.type, 'Event category');
+                    command.execute('sectionId', 'courseId', constants.questionType.dragAndDropText.type, 'Event category');
                     expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (drag and drop)', 'Event category');
                 });
 
@@ -65,7 +65,7 @@ describe('command [createQuestionCommand]', function () {
             describe('and when question type is hotspot', function () {
 
                 it('should send event \'Create new question (hotspot)\' with defined event category ', function () {
-                    command.execute('objectiveId', 'courseId', constants.questionType.hotspot.type, 'Event category');
+                    command.execute('sectionId', 'courseId', constants.questionType.hotspot.type, 'Event category');
                     expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (hotspot)', 'Event category');
                 });
 
@@ -74,7 +74,7 @@ describe('command [createQuestionCommand]', function () {
             describe('and when question type is singleSelectText', function () {
 
                 it('should send event \'Create new question (single select text)\' with defined event category ', function () {
-                    command.execute('objectiveId', 'courseId', constants.questionType.singleSelectText.type, 'Event category');
+                    command.execute('sectionId', 'courseId', constants.questionType.singleSelectText.type, 'Event category');
                     expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (single select text)', 'Event category');
                 });
 
@@ -83,7 +83,7 @@ describe('command [createQuestionCommand]', function () {
             describe('and when question type is singleSelectImage', function () {
 
                 it('should send event \'Create new question (single select image)\' with defined event category ', function () {
-                    command.execute('objectiveId', 'courseId', constants.questionType.singleSelectImage.type, 'Event category');
+                    command.execute('sectionId', 'courseId', constants.questionType.singleSelectImage.type, 'Event category');
                     expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (single select image)', 'Event category');
                 });
 
@@ -92,7 +92,7 @@ describe('command [createQuestionCommand]', function () {
             describe('and when question type is textMatching', function () {
 
                 it('should send event \'Create new question (text matching)\' with defined event category ', function () {
-                    command.execute('objectiveId', 'courseId', constants.questionType.textMatching.type, 'Event category');
+                    command.execute('sectionId', 'courseId', constants.questionType.textMatching.type, 'Event category');
                     expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (text matching)', 'Event category');
                 });
 
@@ -101,7 +101,7 @@ describe('command [createQuestionCommand]', function () {
             describe('and when question type is informationContent', function () {
 
                 it('should send event \'Create new information content\' with defined event category ', function () {
-                    command.execute('objectiveId', 'courseId', constants.questionType.informationContent.type);
+                    command.execute('sectionId', 'courseId', constants.questionType.informationContent.type);
                     expect(eventTracker.publish).toHaveBeenCalledWith('Create new information content', 'Information');
                 });
 
@@ -110,7 +110,7 @@ describe('command [createQuestionCommand]', function () {
             describe('and when question type is statement', function () {
 
                 it('should send event \'Create new question (statement)\' with defined event category ', function () {
-                    command.execute('objectiveId', 'courseId', constants.questionType.statement.type, 'event category');
+                    command.execute('sectionId', 'courseId', constants.questionType.statement.type, 'event category');
                     expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (statement)', 'event category');
                 });
 
@@ -119,7 +119,7 @@ describe('command [createQuestionCommand]', function () {
             describe('and when question type is open', function () {
 
                 it('should send event \'Create new question (open question)\' with defined event category ', function () {
-                    command.execute('objectiveId', 'courseId', constants.questionType.openQuestion.type, 'event category');
+                    command.execute('sectionId', 'courseId', constants.questionType.openQuestion.type, 'event category');
                     expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (open question)', 'event category');
                 });
 
@@ -132,7 +132,7 @@ describe('command [createQuestionCommand]', function () {
             describe('when question type is multipleSelect', function () {
 
                 it('should send event \'Create new question (multiple select)\' with defined event category ', function () {
-                    command.execute('objectiveId', 'courseId', constants.questionType.multipleSelect.type);
+                    command.execute('sectionId', 'courseId', constants.questionType.multipleSelect.type);
                     expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (multiple select)', undefined);
                 });
 
@@ -141,7 +141,7 @@ describe('command [createQuestionCommand]', function () {
             describe('when question type is fillInTheBlank', function () {
 
                 it('should send event \'Create new question (fill in the blanks)\' with defined event category ', function () {
-                    command.execute('objectiveId', 'courseId', constants.questionType.fillInTheBlank.type);
+                    command.execute('sectionId', 'courseId', constants.questionType.fillInTheBlank.type);
                     expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (fill in the blanks)', undefined);
                 });
 
@@ -150,7 +150,7 @@ describe('command [createQuestionCommand]', function () {
             describe('when question type is dragAndDropText', function () {
 
                 it('should send event \'Create new question (drag and drop)\' with defined event category ', function () {
-                    command.execute('objectiveId', 'courseId', constants.questionType.dragAndDropText.type);
+                    command.execute('sectionId', 'courseId', constants.questionType.dragAndDropText.type);
                     expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (drag and drop)', undefined);
                 });
 
@@ -159,7 +159,7 @@ describe('command [createQuestionCommand]', function () {
             describe('when question type is singleSelectText', function () {
 
                 it('should send event \'Create new question (single select text)\' with defined event category ', function () {
-                    command.execute('objectiveId', 'courseId', constants.questionType.singleSelectText.type);
+                    command.execute('sectionId', 'courseId', constants.questionType.singleSelectText.type);
                     expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (single select text)', undefined);
                 });
 
@@ -168,7 +168,7 @@ describe('command [createQuestionCommand]', function () {
             describe('when question type is textMatching', function () {
 
                 it('should send event \'Create new question (text matching)\' with undefined event category ', function () {
-                    command.execute('objectiveId', 'courseId', constants.questionType.textMatching.type);
+                    command.execute('sectionId', 'courseId', constants.questionType.textMatching.type);
                     expect(eventTracker.publish).toHaveBeenCalledWith('Create new question (text matching)', undefined);
                 });
 
@@ -177,7 +177,7 @@ describe('command [createQuestionCommand]', function () {
             describe('when question type is informationContent', function () {
 
                 it('should send event \'Create new information content\' with \'Information\' category ', function () {
-                    command.execute('objectiveId', 'courseId', constants.questionType.informationContent.type);
+                    command.execute('sectionId', 'courseId', constants.questionType.informationContent.type);
                     expect(eventTracker.publish).toHaveBeenCalledWith('Create new information content', 'Information');
                 });
 
@@ -185,7 +185,7 @@ describe('command [createQuestionCommand]', function () {
         });
 
         it('should lock content', function () {
-            command.execute('objectiveId');
+            command.execute('sectionId');
             expect(uiLocker.lock).toHaveBeenCalled();
         });
 
@@ -193,8 +193,8 @@ describe('command [createQuestionCommand]', function () {
 
             it('should add question to repository', function () {
                 spyOn(localizationManager, 'localize').and.returnValue('title');
-                command.execute('objectiveId', 'title', constants.questionType.multipleSelect.type);
-                expect(questionRepository.addQuestion).toHaveBeenCalledWith('objectiveId', { title: 'title' }, constants.questionType.multipleSelect.type);
+                command.execute('sectionId', 'title', constants.questionType.multipleSelect.type);
+                expect(questionRepository.addQuestion).toHaveBeenCalledWith('sectionId', { title: 'title' }, constants.questionType.multipleSelect.type);
             });
 
         });
@@ -203,8 +203,8 @@ describe('command [createQuestionCommand]', function () {
 
             it('should add question to repository', function () {
                 spyOn(localizationManager, 'localize').and.returnValue('title');
-                command.execute('objectiveId', 'title', constants.questionType.fillInTheBlank.type);
-                expect(questionRepository.addQuestion).toHaveBeenCalledWith('objectiveId', { title: 'title' }, constants.questionType.fillInTheBlank.type);
+                command.execute('sectionId', 'title', constants.questionType.fillInTheBlank.type);
+                expect(questionRepository.addQuestion).toHaveBeenCalledWith('sectionId', { title: 'title' }, constants.questionType.fillInTheBlank.type);
             });
 
         });
@@ -213,8 +213,8 @@ describe('command [createQuestionCommand]', function () {
 
             it('should add question to repository', function () {
                 spyOn(localizationManager, 'localize').and.returnValue('title');
-                command.execute('objectiveId', 'title', constants.questionType.singleSelectText.type);
-                expect(questionRepository.addQuestion).toHaveBeenCalledWith('objectiveId', { title: 'title' }, constants.questionType.singleSelectText.type);
+                command.execute('sectionId', 'title', constants.questionType.singleSelectText.type);
+                expect(questionRepository.addQuestion).toHaveBeenCalledWith('sectionId', { title: 'title' }, constants.questionType.singleSelectText.type);
             });
 
         });
@@ -223,8 +223,8 @@ describe('command [createQuestionCommand]', function () {
 
             it('should add question to repository', function () {
                 spyOn(localizationManager, 'localize').and.returnValue('title');
-                command.execute('objectiveId', 'title', constants.questionType.scenario.type);
-                expect(questionRepository.addQuestion).toHaveBeenCalledWith('objectiveId', { title: 'title' }, constants.questionType.scenario.type);
+                command.execute('sectionId', 'title', constants.questionType.scenario.type);
+                expect(questionRepository.addQuestion).toHaveBeenCalledWith('sectionId', { title: 'title' }, constants.questionType.scenario.type);
             });
 
         });
@@ -233,8 +233,8 @@ describe('command [createQuestionCommand]', function () {
 
             it('should add question to repository', function () {
                 spyOn(localizationManager, 'localize').and.callFake(function (arg) { return arg === 'newInformationContentTitle' ? 'Information' : ''; });
-                command.execute('objectiveId', 'Information', constants.questionType.informationContent.type);
-                expect(questionRepository.addQuestion).toHaveBeenCalledWith('objectiveId', { title: 'Information' }, constants.questionType.informationContent.type);
+                command.execute('sectionId', 'Information', constants.questionType.informationContent.type);
+                expect(questionRepository.addQuestion).toHaveBeenCalledWith('sectionId', { title: 'Information' }, constants.questionType.informationContent.type);
             });
 
         });
@@ -246,30 +246,30 @@ describe('command [createQuestionCommand]', function () {
             });
 
             it('should navigate to this question', function (done) {
-                command.execute('objectiveId').fin(function () {
-                    expect(router.navigate).toHaveBeenCalledWith('library/objectives/objectiveId/questions/questionId');
+                command.execute('sectionId').fin(function () {
+                    expect(router.navigate).toHaveBeenCalledWith('library/sections/sectionId/questions/questionId');
                     done();
                 });
             });
 
             describe('and courseId is defined', function () {
                 it('should navigate to this question with courseId in query string', function (done) {
-                    command.execute('objectiveId', 'courseId').fin(function () {
-                        expect(router.navigate).toHaveBeenCalledWith('courses/courseId/objectives/objectiveId/questions/questionId');
+                    command.execute('sectionId', 'courseId').fin(function () {
+                        expect(router.navigate).toHaveBeenCalledWith('courses/courseId/sections/sectionId/questions/questionId');
                         done();
                     });
                 });
             });
 
             it('should unlock content', function (done) {
-                command.execute('objectiveId').fin(function () {
+                command.execute('sectionId').fin(function () {
                     expect(uiLocker.unlock).toHaveBeenCalled();
                     done();
                 });
             });
 
             it('should set lastCreatedQuestionId in client context', function (done) {
-                command.execute('objectiveId').fin(function () {
+                command.execute('sectionId').fin(function () {
                     expect(clientContext.set).toHaveBeenCalledWith('lastCreatedQuestionId', 'questionId');
                     done();
                 });
@@ -283,7 +283,7 @@ describe('command [createQuestionCommand]', function () {
             });
 
             it('should unlock content', function (done) {
-                command.execute('objectiveId').fin(function () {
+                command.execute('sectionId').fin(function () {
                     expect(uiLocker.unlock).toHaveBeenCalled();
                     done();
                 });

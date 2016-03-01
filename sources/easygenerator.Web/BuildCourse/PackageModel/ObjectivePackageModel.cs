@@ -2,7 +2,7 @@
 
 namespace easygenerator.Web.BuildCourse.PackageModel
 {
-    public class ObjectivePackageModel
+    public class SectionPackageModel
     {
         public string Id { get; set; }
         public string Title { get; set; }

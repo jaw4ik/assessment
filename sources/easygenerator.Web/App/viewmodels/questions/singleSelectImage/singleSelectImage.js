@@ -5,7 +5,7 @@
 
         var viewModel = {
             initialize: initialize,
-            objectiveId: '',
+            sectionId: '',
             questionId: '',
 
             singleSelectImage: designer
@@ -13,8 +13,8 @@
 
         return viewModel;
 
-        function initialize(objectiveId, question) {
-            viewModel.objectiveId = objectiveId;
+        function initialize(sectionId, question) {
+            viewModel.sectionId = sectionId;
             viewModel.questionId = question.id;
 
             return designer.activate(question.id).then(function () {

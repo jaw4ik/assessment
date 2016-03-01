@@ -117,44 +117,44 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
-        #region Objective Context
+        #region Section Context
 
         [TestMethod]
-        public void Comment_ShouldThrowArgumentException_WhenContextTypeIsObjective_AndContextPropertyIsNotDefined()
+        public void Comment_ShouldThrowArgumentException_WhenContextTypeIsSection_AndContextPropertyIsNotDefined()
         {
-            Action action = () => CommentObjectMother.CreateWithContext("{type:'objective', property: '', id:'id', title:'title'}");
+            Action action = () => CommentObjectMother.CreateWithContext("{type:'section', property: '', id:'id', title:'title'}");
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("context.property");
         }
 
         [TestMethod]
-        public void Comment_ShouldThrowArgumentException_WhenContextTypeIsObjective_AndContextPropertyIsNotTitle()
+        public void Comment_ShouldThrowArgumentException_WhenContextTypeIsSection_AndContextPropertyIsNotTitle()
         {
-            Action action = () => CommentObjectMother.CreateWithContext("{type:'objective', property:'some', id:'id', title:'title'}");
+            Action action = () => CommentObjectMother.CreateWithContext("{type:'section', property:'some', id:'id', title:'title'}");
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("context.property");
         }
 
         [TestMethod]
-        public void Comment_ShouldCreateComment_WhenContextTypeIsObjective()
+        public void Comment_ShouldCreateComment_WhenContextTypeIsSection()
         {
-            var comment = CommentObjectMother.CreateWithContext("{type:'objective', property:'title', id:'id', title:'title'}");
+            var comment = CommentObjectMother.CreateWithContext("{type:'section', property:'title', id:'id', title:'title'}");
 
             comment.Should().BeOfType<Comment>();
         }
 
         [TestMethod]
-        public void Comment_ShouldThrowArgumentException_WhenContextTypeIsObjective_AndTitleIsNotDefined()
+        public void Comment_ShouldThrowArgumentException_WhenContextTypeIsSection_AndTitleIsNotDefined()
         {
-            Action action = () => CommentObjectMother.CreateWithContext("{type:'objective', property:'title', id:'id', title:''}");
+            Action action = () => CommentObjectMother.CreateWithContext("{type:'section', property:'title', id:'id', title:''}");
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("context.title");
         }
 
         [TestMethod]
-        public void Comment_ShouldThrowArgumentException_WhenContextTypeIsObjective_AndIdIsNotDefined()
+        public void Comment_ShouldThrowArgumentException_WhenContextTypeIsSection_AndIdIsNotDefined()
         {
-            Action action = () => CommentObjectMother.CreateWithContext("{type:'objective', property:'title', title:'title'}");
+            Action action = () => CommentObjectMother.CreateWithContext("{type:'section', property:'title', title:'title'}");
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("context.id");
         }

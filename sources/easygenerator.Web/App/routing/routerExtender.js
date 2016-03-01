@@ -71,8 +71,8 @@
                     context.courseId = parts[i + 1];
                     i++;
                 }
-                if (parts[i] === 'objectives' && parts[i + 1]) {
-                    context.objectiveId = parts[i + 1];
+                if (parts[i] === 'sections' && parts[i + 1]) {
+                    context.sectionId = parts[i + 1];
                     i++;
                 }
                 if (parts[i] === 'questions' && parts[i + 1]) {

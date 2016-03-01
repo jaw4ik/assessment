@@ -469,9 +469,9 @@ describe('viewModel [course index]', function () {
                 });
             });
 
-            it('should reset last visited objective in client context', function (done) {
+            it('should reset last visited section in client context', function (done) {
                 viewModel.activate(course.id).fin(function () {
-                    expect(clientContext.set).toHaveBeenCalledWith(constants.clientContextKeys.lastVisitedObjective, null);
+                    expect(clientContext.set).toHaveBeenCalledWith(constants.clientContextKeys.lastVisitedSection, null);
                     done();
                 });
             });

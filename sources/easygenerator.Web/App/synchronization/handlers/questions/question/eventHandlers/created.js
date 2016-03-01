@@ -2,20 +2,20 @@
     function (guard, app, constants, dataContext, questionModelMapper) {
         "use strict";
 
-        return function (objectiveId, newQuestion, modifiedOn) {
-            guard.throwIfNotString(objectiveId, 'ObjectiveId is not a string');
+        return function (sectionId, newQuestion, modifiedOn) {
+            guard.throwIfNotString(sectionId, 'SectionId is not a string');
             guard.throwIfNotAnObject(newQuestion, 'Question is not an object');
             guard.throwIfNotString(modifiedOn, 'ModifiedOn is not a string');
 
-            var objective = _.find(dataContext.objectives, function (item) {
-                return item.id == objectiveId;
+            var section = _.find(dataContext.sections, function (item) {
+                return item.id == sectionId;
             });
 
-            if (!_.isObject(objective)) {
-                guard.throwIfNotAnObject(objective, 'Objective has not been found');
+            if (!_.isObject(section)) {
+                guard.throwIfNotAnObject(section, 'Section has not been found');
             }
 
-            var question = _.find(objective.questions, function(item) {
+            var question = _.find(section.questions, function(item) {
                 return item.id == newQuestion.Id;
             });
 
@@ -23,9 +23,9 @@
                 return;
 
             var mappedQuestion = questionModelMapper.map(newQuestion);
-            objective.questions.push(mappedQuestion);
-            objective.modifiedOn = new Date(modifiedOn);
+            section.questions.push(mappedQuestion);
+            section.modifiedOn = new Date(modifiedOn);
 
-            app.trigger(constants.messages.question.createdByCollaborator, objectiveId, mappedQuestion);
+            app.trigger(constants.messages.question.createdByCollaborator, sectionId, mappedQuestion);
         }
     });

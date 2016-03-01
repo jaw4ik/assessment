@@ -3,7 +3,7 @@
     "use strict";
 
     var viewModel = {
-        objectiveId: null,
+        sectionId: null,
         questions: ko.observableArray([]),
 
         activate: activate,
@@ -15,10 +15,10 @@
 
     function activate(settings) {
         guard.throwIfNotAnObject(settings, 'settings is not an object');
-        guard.throwIfNotString(settings.objectiveId, 'objectiveId is not a string');
+        guard.throwIfNotString(settings.sectionId, 'sectionId is not a string');
 
         viewModel.courseId = settings.courseId;
-        viewModel.objectiveId = settings.objectiveId;
+        viewModel.sectionId = settings.sectionId;
 
         return userContext.identify().then(function () {
             viewModel.questions([
@@ -80,7 +80,7 @@
     }
 
     function createQuestion(item) {
-        return createQuestionCommand.execute(viewModel.objectiveId, viewModel.courseId, item.type);
+        return createQuestionCommand.execute(viewModel.sectionId, viewModel.courseId, item.type);
     }
 
 

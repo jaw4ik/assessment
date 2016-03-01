@@ -3,7 +3,7 @@
     return {
         getTreeOfContent: getTreeOfContent,
         getQuestionTreeNodeCollection: getTreeNodeCollectionById,
-        getObjectiveTreeNodeCollection: getTreeNodeCollectionById,
+        getSectionTreeNodeCollection: getTreeNodeCollectionById,
         getCourseTreeNodeCollection: getTreeNodeCollectionById
     };
 
