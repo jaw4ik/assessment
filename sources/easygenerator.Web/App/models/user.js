@@ -6,6 +6,7 @@
 
         this.email = spec.email;
         this.role = spec.role;
+        this.phone = spec.phone;
 
         this.firstname = spec.firstname;
         this.lastname = spec.lastname;

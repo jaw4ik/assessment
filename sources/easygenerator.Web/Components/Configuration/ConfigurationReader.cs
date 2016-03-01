@@ -103,6 +103,14 @@ namespace easygenerator.Web.Components.Configuration
             }
         }
 
+        public virtual IntercomConfigurationSection IntercomConfiguration
+        {
+            get
+            {
+                return ConfigurationManager.GetSection("intercom") as IntercomConfigurationSection;
+            }
+        }
+
         public virtual string ConnectionString
         {
             get { return ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString; }

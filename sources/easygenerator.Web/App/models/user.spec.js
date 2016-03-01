@@ -48,6 +48,7 @@ describe('model [user]', function () {
             lastname: 'lastname',
             email: 'a.drebot@gmail.com',
             role: 'Teacher',
+            phone: '0123',
             newEditor: null,
             isCreatedThroughLti: false,
             companies: [{}],
@@ -63,6 +64,7 @@ describe('model [user]', function () {
         expect(user.fullname).toEqual(spec.firstname + ' ' + spec.lastname);
         expect(user.email).toEqual(spec.email);
         expect(user.role).toEqual(spec.role);
+        expect(user.phone).toEqual(spec.phone);
         expect(user.newEditor).toEqual(spec.newEditor);
         expect(user.isCreatedThroughLti).toEqual(spec.isCreatedThroughLti);
         expect(user.companies.length).toBe(1);
