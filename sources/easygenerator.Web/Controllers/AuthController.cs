@@ -66,7 +66,7 @@ namespace easygenerator.Web.Controllers
                 firstname = user.FirstName,
                 lastname = user.LastName,
                 role = user.Role,
-                phone = user.Phone,
+                phone = CountriesInfo.GetCountryPhoneCode(user.Country) + user.Phone,
                 companies = user.Companies.Select(e => _companyMapper.Map(e)),
                 subscription = new
                 {
