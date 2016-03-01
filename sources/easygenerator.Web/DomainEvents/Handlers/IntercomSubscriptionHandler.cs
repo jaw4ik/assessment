@@ -52,7 +52,7 @@ namespace easygenerator.Web.DomainEvents.Handlers
                     (() =>
                     {
                         if (
-                            subscriptionAction(args.User.Email, args.User.AccessType))
+                            !subscriptionAction(args.User.Email, args.User.AccessType))
                         {
                             _mailNotificationManager.AddMailNotificationToQueue(
                                 Constants.MailTemplates.IntercomSubscriptionFailedTemplate,
