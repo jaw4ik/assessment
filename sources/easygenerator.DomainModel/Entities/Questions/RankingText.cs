@@ -27,6 +27,8 @@ namespace easygenerator.DomainModel.Entities.Questions
 
             AnswersCollection.Add(answer1);
             AnswersCollection.Add(answer2);
+
+            AnswersOrder = OrderingUtils.GetOrder(AnswersCollection);
         }
 
         protected internal virtual ICollection<RankingTextAnswer> AnswersCollection { get; set; }
@@ -42,6 +44,21 @@ namespace easygenerator.DomainModel.Entities.Questions
             MarkAsModified(modifiedBy);
 
             RaiseEvent(new RankingTextAnswersReorderedEvent(this, answers));
+        }
+
+        public virtual IList<RankingTextAnswer> OrderClonedAnswers(ICollection<RankingTextAnswer> clonedAnswers)
+        {
+            if (clonedAnswers == null)
+                return null;
+
+            var originalAnswers = AnswersCollection.ToList();
+
+            if (originalAnswers.Count != clonedAnswers.Count)
+            {
+                throw new ArgumentException("Cloned answers collection has to be same length as original.", "clonedAnswers");
+            }
+
+            return Answers.Select(obj => clonedAnswers.ElementAt(originalAnswers.IndexOf(obj))).ToList();
         }
 
         public void AddAnswer(RankingTextAnswer answer, string modifiedBy)
