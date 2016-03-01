@@ -30,9 +30,7 @@
     "angular-translate": "~2.6.1",
     "angular-translate-loader-static-files": "~2.6.1",
     "autosize": "*",
-    "easygenerator-hotspot-on-an-image-plugin": "*",
-    "easy-supported-browser": "~1.0.2",
-    "branchtrack-provider": "*",
+    "easygenerator-plugins": "*",
     "angular-dragula": "~1.2.4"
   }
 }

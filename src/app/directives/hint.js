@@ -16,9 +16,14 @@
                         var dataType = getLearningContentType(newValue);
                         switch(dataType){
                             case 'hotspot': 
-                                var hotspotOnImage = new HotspotOnImage($(newValue)[0]);
-                                $element.addClass('hotspot-on-image-container');
-                                $element.html(hotspotOnImage.element);
+							    var hotspotOnImage = HotspotStorage.create($(newValue)[0]);
+                        
+								$element.addClass('hotspot-on-image-container');
+								$element.html(hotspotOnImage.element);
+
+								ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+									HotspotStorage.remove(hotspotOnImage);
+								});
                                 break;
                             default:
                                 $element.html(newValue);
