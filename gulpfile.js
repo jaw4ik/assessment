@@ -104,10 +104,10 @@ gulp.task('css', ['clean', 'bower'], function () {
 });
 
 gulp.task('assets', ['clean', 'bower'], function () {
-    gulp.src('./src/vendor/easy-supported-browser/css/img/*')
-        .pipe(gulp.dest(output + '/css/img'));
-    gulp.src('./src/vendor/easy-supported-browser/css/font/*')
+    gulp.src('vendor/easygenerator-plugins/dist/font/**')
         .pipe(gulp.dest(output + '/css/font'));
+    gulp.src('vendor/easygenerator-plugins/dist/img/**')
+        .pipe(gulp.dest(output + '/css/img'));
 });
 
 gulp.task('pre-build', ['clean', 'bower', 'css', 'assets'], function () {
