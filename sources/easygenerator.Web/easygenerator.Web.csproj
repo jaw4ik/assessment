@@ -74,6 +74,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="IntercomDotNet">
+      <HintPath>..\..\packages\intercom-dotnet.2.0.4\lib\net45\IntercomDotNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Ionic.Zip, Version=1.9.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\DotNetZip.1.9.3\lib\net20\Ionic.Zip.dll</HintPath>
@@ -121,6 +125,10 @@
     <Reference Include="RazorEngine, Version=3.7.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\RazorEngine.3.7.0\lib\net45\RazorEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\..\packages\RestSharp.104.1\lib\net4\RestSharp.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -281,6 +289,7 @@
     <Compile Include="Components\BrowserSupport.cs" />
     <Compile Include="Components\Configuration\BranchTrackConfigurationSection.cs" />
     <Compile Include="Components\Configuration\CourseImportConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\IntercomConfigurationSection.cs" />
     <Compile Include="Components\Configuration\TemplateStorageConfigurationSection.cs" />
     <Compile Include="Components\DefaultApiController.cs" />
     <Compile Include="Components\DependencyResolverWrapper.cs" />
@@ -336,6 +345,7 @@
     <Compile Include="DomainEvents\ChangeTracking\Events\RankingTextAnswerChangedEvent.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\RankingTextAnswerChangeTracker.cs" />
     <Compile Include="Controllers\WinToWebController.cs" />
+    <Compile Include="DomainEvents\Handlers\IntercomSubscriptionHandler.cs" />
     <Compile Include="Import\WinToWeb\Mappers\WinToWebModelMapper.cs" />
     <Compile Include="Import\WinToWeb\Model\WinAnswer.cs" />
     <Compile Include="Import\WinToWeb\Model\WinCourse.cs" />
@@ -344,6 +354,10 @@
     <Compile Include="Import\WinToWeb\Model\WinObjective.cs" />
     <Compile Include="Import\WinToWeb\Model\WinQuestion.cs" />
     <Compile Include="Import\WinToWeb\WinToWebCourseImporter.cs" />
+    <Compile Include="Newsletter\Intercom\IIntercomClient.cs" />
+    <Compile Include="Newsletter\Intercom\IntercomClient.cs" />
+    <Compile Include="Newsletter\Intercom\IntercomSubscriptionManager.cs" />
+    <Compile Include="Newsletter\Intercom\IIntercomSubscriptionManager.cs" />
     <Compile Include="DomainEvents\Handlers\CreateUserInitialDataHandler.cs" />
     <Compile Include="Publish\Publisher.cs" />
     <Compile Include="Resources\Views\Resources.Designer.cs">
@@ -2273,6 +2287,7 @@
     <Content Include="Content\library.less" />
     <Content Include="Content\rankingText.less" />
     <Content Include="Content\reviewPanel.less" />
+    <Content Include="Mail\MailTemplates\IntercomSubscriptionFailedTemplate.cshtml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />

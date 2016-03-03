@@ -353,6 +353,50 @@ namespace easygenerator.DomainModel.Tests.Entities.Questions
 
         #endregion
 
+        #region OrderClonedAnswers
+
+        [TestMethod]
+        public void OrderClonedAnswers_ShouldReturnNull_IfClonedAnswersAreNull()
+        {
+            var question = RankingTextObjectMother.Create();
+
+            var result = question.OrderClonedAnswers(null);
+            result.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void OrderClonedAnswers_ShouldThrowArgumentException_IfLengthOfAnswersCollectionsAreDifferent()
+        {
+            var question = RankingTextObjectMother.Create();
+            Action action = () => question.OrderClonedAnswers(new Collection<RankingTextAnswer> { RankingTextAnswerObjectMother.Create() });
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("clonedAnswers");
+        }
+
+        [TestMethod]
+        public void OrderClonedAnswers_ShouldOrderClonedAnswersAccordingToQuestionAnswers()
+        {
+            var answer = RankingTextAnswerObjectMother.Create("answer 1");
+            var answer2 = RankingTextAnswerObjectMother.Create("answer 2");
+            var answer3 = RankingTextAnswerObjectMother.Create("answer 3");
+
+            var clonedAnswer = RankingTextAnswerObjectMother.Create("cloned answer 1");
+            var clonedAnswer2 = RankingTextAnswerObjectMother.Create("cloned answer 2");
+            var clonedAnswer3 = RankingTextAnswerObjectMother.Create("cloned answer 3");
+
+            var question = RankingTextObjectMother.Create();
+            question.AddAnswer(answer, "owner");
+            question.AddAnswer(answer2, "owner");
+            question.AddAnswer(answer3, "owner");
+
+            question.UpdateAnswersOrder(new Collection<RankingTextAnswer> { answer3, answer, answer2 }, "owner");
+            var result = question.OrderClonedAnswers(new Collection<RankingTextAnswer> { clonedAnswer, clonedAnswer2, clonedAnswer3 });
+
+            result[0].Should().Be(clonedAnswer3);
+            result[1].Should().Be(clonedAnswer);
+            result[2].Should().Be(clonedAnswer2);
+        }
+        #endregion 
+
         #region Answers
 
         [TestMethod]
