@@ -1,7 +1,5 @@
 ﻿using easygenerator.PublicationServer.Configuration;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http.Controllers;
@@ -18,8 +16,6 @@ namespace easygenerator.PublicationServer.ActionFilters
 
         public override void OnAuthorization(HttpActionContext actionContext)
         {
-            //var queryString = actionContext.Request.GetQueryNameValuePairs().ToDictionary(x => x.Key, x => x.Value);
-
             var keyValues = actionContext.Request.Headers?.GetValues(KeyHeaderName) as string[];
 
             if (keyValues == null || keyValues.Length != 1 || keyValues[0].Trim() != ConfigurationReader.ApiKey.Trim())
