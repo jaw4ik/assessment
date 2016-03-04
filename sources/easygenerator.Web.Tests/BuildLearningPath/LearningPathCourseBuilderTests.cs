@@ -39,11 +39,13 @@ namespace easygenerator.Web.Tests.BuildLearningPath
             //Arrange
             var buildDirectoryPath = "buildDirectoryPath";
             var course = CourseObjectMother.Create();
+            var learningPath = LearningPathObjectMother.Create();
+
             var courseDirectory = "courseDirectory";
             _contentPathProvider.GetEntityDirectoryName(buildDirectoryPath, course.Id.ToNString()).Returns(courseDirectory);
 
             //Act
-            _builder.Build(buildDirectoryPath, course);
+            _builder.Build(buildDirectoryPath, course, learningPath);
 
             //Assert
             _fileManager.Received().CreateDirectory(courseDirectory);
@@ -55,16 +57,65 @@ namespace easygenerator.Web.Tests.BuildLearningPath
             //Arrange
             var buildDirectoryPath = "buildDirectoryPath";
             var course = CourseObjectMother.Create();
+            var learningPath = LearningPathObjectMother.Create();
+
             var courseDirectory = "courseDirectory";
             _contentPathProvider.GetEntityDirectoryName(buildDirectoryPath, course.Id.ToNString()).Returns(courseDirectory);
             List<PackageModule> modules = new List<PackageModule>();
             _packageModulesProvider.GetModulesList(course).Returns(modules);
 
             //Act
-            _builder.Build(buildDirectoryPath, course);
+            _builder.Build(buildDirectoryPath, course, learningPath);
 
             //Assert
             _buildContentProvider.Received().AddBuildContentToPackageDirectory(courseDirectory, course, modules);
+        }
+
+        [TestMethod]
+        public void Build_ShouldAddLearningPathSettingsIntoCourseDirectory_WhenCourseSettingsAreNull()
+        {
+            //Arrange
+            var buildDirectoryPath = "buildDirectoryPath";
+            var course = CourseObjectMother.Create();
+            var learningPath = LearningPathObjectMother.Create();
+
+            var courseDirectory = "courseDirectory";
+            _contentPathProvider.GetEntityDirectoryName(buildDirectoryPath, course.Id.ToNString()).Returns(courseDirectory);
+
+            var learningPathSettings = "{\"name\":\"learning path\"}";
+            learningPath.SaveLearningPathSettings(learningPathSettings);
+
+            //Act
+            _builder.Build(buildDirectoryPath, course, learningPath);
+
+            //Assert
+            _buildContentProvider.Received().AddSettingsFileToPackageDirectory(courseDirectory, learningPathSettings);
+        }
+
+        [TestMethod]
+        public void Build_ShouldUpdateCourseSettingsWithLearningPathSettingsIntoCourseDirectory_WhenCourseSettingsExist()
+        {
+            //Arrange
+            var buildDirectoryPath = "buildDirectoryPath";
+            var course = CourseObjectMother.Create();
+
+            var template = TemplateObjectMother.Create();
+            var courseSettings = "{\"name\":\"course\",\"other\":\"text\"}";
+            course.UpdateTemplate(template, "user");
+            course.SaveTemplateSettings(template, courseSettings, "");
+
+            var courseDirectory = "courseDirectory";
+            _contentPathProvider.GetEntityDirectoryName(buildDirectoryPath, course.Id.ToNString()).Returns(courseDirectory);
+
+            var learningPath = LearningPathObjectMother.Create();
+            var learningPathSettings = "{\"name\":\"learning path\"}";
+            learningPath.SaveLearningPathSettings(learningPathSettings);
+
+            //Act
+            _builder.Build(buildDirectoryPath, course, learningPath);
+
+            //Assert
+            _buildContentProvider.Received().AddSettingsFileToPackageDirectory(courseDirectory, "{\"name\":\"learning path\",\"other\":\"text\"}");
         }
     }
 }

@@ -7,5 +7,6 @@ namespace easygenerator.Web.BuildCourse
     public interface ICourseContentProvider
     {
         void AddBuildContentToPackageDirectory(string buildDirectory, Course course, IEnumerable<PackageModule> modules);
+        void AddSettingsFileToPackageDirectory(string buildDirectory, string settings);
     }
 }

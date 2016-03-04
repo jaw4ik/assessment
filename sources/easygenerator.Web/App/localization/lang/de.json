@@ -202,6 +202,7 @@
     "answered": "Beantwortet",
     "mastered": "Bestanden",
     "expirenced": "Erfahren",
+    "errorLoadLearningPathSettings": "Error when load Learning path settings",
     "documentPopupTitle": "Wie fügt man hinzu?",
     "documentUpdatePopupTitle": "Wie ändert man?",
     "documentPopupDescription": "<ol><li>Gehen Sie zu Ihrem <a href=\"https://www.google.com/drive/\" target=\"_blank\">Google Drive</a>.</li><li>Öffnen Sie ein Dokument, wählen Sie „Datei“ und klicken Sie auf „Im Internet veröffentlichen“.</li><li>Wählen Sie „Einbetten\", kopieren Sie den Einbettungs-Code und fügen ihn in die nachstehende Eingabe ein.</li></ol>",

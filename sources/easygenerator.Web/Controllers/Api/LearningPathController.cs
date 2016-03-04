@@ -24,7 +24,7 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IUserRepository _userRepository;
         private readonly IDocumentRepository _documentRepository;
         private readonly IExternalPublisher _externalPublisher;
-                         
+
         private readonly IUrlHelperWrapper _urlHelper;
 
         public LearningPathController(IUrlHelperWrapper urlHelper, ILearningPathRepository repository, IEntityModelMapper<LearningPath> mapper, IEntityFactory entityFactory, ILearningPathBuilder builder, IPublisher entityPublisher, IUserRepository userRepository, IDocumentRepository documentRepository, IExternalPublisher externalPublisher)
@@ -187,7 +187,7 @@ namespace easygenerator.Web.Controllers.Api
 
             _repository.Remove(learningPath);
 
-            return JsonSuccess(new { deletedDocumentIds} );
+            return JsonSuccess(new { deletedDocumentIds });
         }
 
         [HttpPost]
@@ -244,6 +244,35 @@ namespace easygenerator.Web.Controllers.Api
             var result = _externalPublisher.Publish(learningPath, userCompany, user.Email);
 
             return result ? JsonSuccess() : JsonLocalizableError(Errors.LearningPathPublishActionFailedError, Errors.LearningPathPublishActionFailedResourceKey);
+        }
+
+        [ActionName("Settings"), HttpGet]
+        [Route("api/learningpath/{learningPathId}")]
+        public ActionResult GetLearningPathSettings(LearningPath learningPath)
+        {
+            if (learningPath == null)
+            {
+                return JsonLocalizableError(Errors.LearningPathNotFoundError, Errors.LearningPathNotFoundResourceKey);
+            }
+
+            return Json(new
+            {
+                settings = learningPath.GetLearningPathSettings()
+            },
+                JsonRequestBehavior.AllowGet);
+        }
+
+        [ActionName("Settings"), HttpPost]
+        [Route("api/learningpath/{learningPathId}")]
+        public ActionResult SaveLearningPathSettings(LearningPath learningPath, string settings)
+        {
+            if (learningPath == null)
+            {
+                return JsonLocalizableError(Errors.LearningPathNotFoundError, Errors.LearningPathNotFoundResourceKey);
+            }
+            learningPath.SaveLearningPathSettings(settings);
+
+            return JsonSuccess();
         }
     }
 }

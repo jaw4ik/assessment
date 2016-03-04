@@ -766,5 +766,87 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         #endregion
+
+        #region GetLearningPathSettings
+
+        [TestMethod]
+        public void GetLearningPathSettings_ShouldReturnJsonErrorResult_WhenLearningPathIsNull()
+        {
+            var result = _controller.GetLearningPathSettings(null);
+
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Learning path is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("learningPathNotFoundError");
+        }
+        
+        [TestMethod]
+        public void GetLearningPathSettings_ShouldReturnJsonSuccessResult()
+        {
+            var learningPath = LearningPathObjectMother.Create();
+            var settings = "settings";
+            learningPath.SaveLearningPathSettings(settings);
+
+            var result = _controller.GetLearningPathSettings(learningPath);
+
+            result.Should().BeJsonResult().And.Data.ShouldBeSimilar(new { settings = settings });
+        }
+
+        [TestMethod]
+        public void GetTemplateSettings_ShouldReturnJsonResultUsingGetRequest()
+        {
+            var learningPath = LearningPathObjectMother.Create();
+            var settings = "settings";
+            learningPath.SaveLearningPathSettings(settings);
+
+            var result = _controller.GetLearningPathSettings(learningPath);
+
+            //Assert
+            result.Should().BeJsonResult().And.JsonRequestBehavior.Should().Be(JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+
+        #region SaveLearningPathSettings
+
+        [TestMethod]
+        public void SaveLearningPathSettings_ShouldReturnHttpNotFound_WhenCourseIsNull()
+        {
+            //Act
+            var result = _controller.SaveLearningPathSettings(null, null);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Learning path is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("learningPathNotFoundError");
+        }
+
+        [TestMethod]
+        public void SaveLearningPathSettings_ShouldSaveSettings()
+        {
+            //Arrange
+            var learningPath = Substitute.For<LearningPath>();
+            const string settings = "settings";
+            
+            //Act
+            _controller.SaveLearningPathSettings(learningPath, settings);
+
+            //Assert
+            learningPath.Received().SaveLearningPathSettings(settings);
+
+        }
+
+        [TestMethod]
+        public void SaveLearningPathSettings_ShouldReturnJsonResult()
+        {
+            //Arrange
+            var learningPath = Substitute.For<LearningPath>();
+            const string settings = "settings";
+
+            //Act
+            var result = _controller.SaveLearningPathSettings(learningPath, settings);
+
+            //Assert
+            result.Should().BeJsonSuccessResult();
+        }
+
+        #endregion
     }
 }

@@ -447,6 +447,10 @@
     <Compile Include="Migrations\201603181318423_RenameKeyInDataBase.Designer.cs">
       <DependentUpon>201603181318423_RenameKeyInDataBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603201540147_AddLearningPathSettings.cs" />
+    <Compile Include="Migrations\201603201540147_AddLearningPathSettings.Designer.cs">
+      <DependentUpon>201603201540147_AddLearningPathSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ConsumerToolRepository.cs" />
@@ -773,6 +777,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603181318423_RenameKeyInDataBase.resx">
       <DependentUpon>201603181318423_RenameKeyInDataBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603201540147_AddLearningPathSettings.resx">
+      <DependentUpon>201603201540147_AddLearningPathSettings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

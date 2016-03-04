@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace easygenerator.DomainModel.Entities
 {
@@ -23,6 +25,30 @@ namespace easygenerator.DomainModel.Entities
             Title = title;
         }
 
+        private string GetDefaultSettings()
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                xApi = new
+                {
+                    enabled = true,
+                    required = false,
+                    selectedLrs = "default",
+                    lrs = new
+                    {
+                        uri = "",
+                        credentials = new
+                        {
+                            username = "",
+                            password = ""
+                        },
+                        authenticationRequired = false
+                    },
+                    allowedVerbs = new JArray("started", "stopped", "passed", "failed", "mastered", "answered", "experienced")
+                }
+            }); 
+        }
+
         public string Title { get; private set; }
 
         public virtual void UpdateTitle(string title, string modifiedBy)
@@ -32,6 +58,25 @@ namespace easygenerator.DomainModel.Entities
 
             Title = title;
             MarkAsModified(modifiedBy);
+        }
+
+        protected internal virtual LearningPathSettings Settings { get; set; }
+
+        public virtual string GetLearningPathSettings() => (Settings != null) ? Settings.Data : GetDefaultSettings();
+
+        public virtual void SaveLearningPathSettings(string settings)
+        {
+            if (Settings != null)
+            {
+                Settings.Data = settings;
+                return;
+            }
+
+            Settings = new LearningPathSettings(CreatedBy)
+            {
+                LearningPath = this,
+                Data = settings
+            };
         }
 
         public string PackageUrl { get; private set; }
@@ -105,11 +150,11 @@ namespace easygenerator.DomainModel.Entities
 
                 if (entity is Course)
                 {
-                    CoursesCollection.Add((Course) entity);
+                    CoursesCollection.Add((Course)entity);
                 }
                 else if (entity is Document)
                 {
-                    DocumentsCollection.Add((Document) entity);
+                    DocumentsCollection.Add((Document)entity);
                 }
             }
 
@@ -127,11 +172,11 @@ namespace easygenerator.DomainModel.Entities
 
             if (entity is Course)
             {
-                CoursesCollection.Remove((Course) entity);
+                CoursesCollection.Remove((Course)entity);
             }
             else if (entity is Document)
             {
-                DocumentsCollection.Remove((Document) entity);
+                DocumentsCollection.Remove((Document)entity);
             }
 
             MarkAsModified(modifiedBy);

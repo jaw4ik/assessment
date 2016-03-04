@@ -202,6 +202,7 @@
     "answered": "Answered",
     "mastered": "Mastered",
     "expirenced": "Expirenced",
+    "errorLoadLearningPathSettings": "Error when load Learning path settings",
     "documentPopupTitle": "Hoe toe te voegen?",
     "documentUpdatePopupTitle": "Hoe te veranderen?",
     "documentPopupDescription": "<ol><li>Ga naar uw <a href=\"https://www.google.com/drive/\" target=\"_blank\">Google Drive</a>.</li><li>Open document, kies\"Bestand\" and klik\"Publiceer naar het internet\".</li><li>Kies\"Embed\", kopieer en plak  de embed code in het veld hieronder.</li></ol>",

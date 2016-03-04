@@ -34,7 +34,7 @@ namespace easygenerator.Web.Tests.BuildLearningPath
             _contentProvider = new LearningPathContentProvider(_fileManager, _contentPathProvider, _packageModelMapper, _packageModelSerializer, _courseBuilder, _documentBuilder);
         }
 
-        #region MyRegion
+        #region AddContentToPackageDirectory
 
         [TestMethod]
         public void AddContentToPackageDirectory_ShouldAddLearningPathTemplate()
@@ -85,6 +85,25 @@ namespace easygenerator.Web.Tests.BuildLearningPath
         }
 
         [TestMethod]
+        public void AddContentToPackageDirectory_ShouldAddSettingsFileToContentDirectory()
+        {
+            //Arrange
+            string settingsFileName = "settingsFileName";
+            string settings = "settings";
+            var buildDirectoryPath = "buildDirectoryPath";
+
+            var learningPath = LearningPathObjectMother.Create();
+            learningPath.SaveLearningPathSettings(settings);
+            _contentPathProvider.GetSettingsFileName(Arg.Any<string>()).Returns(settingsFileName);
+
+            //Act
+            _contentProvider.AddContentToPackageDirectory(buildDirectoryPath, learningPath);
+
+            //Assert
+            _fileManager.Received().WriteToFile(settingsFileName, settings);
+        }
+        
+        [TestMethod]
         public void AddContentToPackageDirectory_ShouldAddEntities()
         {
             //Arrange
@@ -103,8 +122,8 @@ namespace easygenerator.Web.Tests.BuildLearningPath
             _contentProvider.AddContentToPackageDirectory(buildDirectoryPath, learningPath);
 
             //Assert
-            _courseBuilder.Received().Build(buildDirectoryPath, course1);
-            _courseBuilder.Received().Build(buildDirectoryPath, course2);
+            _courseBuilder.Received().Build(buildDirectoryPath, course1, learningPath);
+            _courseBuilder.Received().Build(buildDirectoryPath, course2, learningPath);
             _documentBuilder.Received().Build(buildDirectoryPath, document1);
             _documentBuilder.Received().Build(buildDirectoryPath, document2);
         }

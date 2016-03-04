@@ -202,6 +202,7 @@
     "answered": "Answered",
     "mastered": "Mastered",
     "expirenced": "Expirenced",
+    "errorLoadLearningPathSettings": "Error when load Learning path settings",
     "documentPopupTitle": "How to add?",
     "documentUpdatePopupTitle": "How to change?",
     "documentPopupDescription": "<ol><li>Go to your <a href=\"https://www.google.com/drive/\" target=\"_blank\">Google Drive</a>.</li><li>Open document, choose \"File\" and click \"Publicate to the internet\".</li><li>Choose \"Embed\", copy and paste embed code to the input below.</li></ol>",

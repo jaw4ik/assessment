@@ -1262,21 +1262,45 @@
     <Content Include="App\viewmodels\learningPaths\learningPath\commands\addDocumentCommand.spec.js">
       <DependentUpon>addDocumentCommand.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\configure\commands\getSettings.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\configure\commands\getSettings.spec.js">
+      <DependentUpon>getSettings.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\configure\commands\saveSettings.spec.js">
+      <DependentUpon>saveSettings.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\configure\index.spec.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\configure\textField.js" />
+    <Content Include="App\viewmodels\learningPaths\learningPath\configure\lrsOption.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\commands\removeDocumentCommand.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\commands\removeDocumentCommand.spec.js">
       <DependentUpon>removeDocumentCommand.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\configure\commands\saveSettings.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\commands\updateEntitiesOrderCommand.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\commands\updateEntitiesOrderCommand.spec.js">
       <DependentUpon>updateEntitiesOrderCommand.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\configure\lrsOption.spec.js">
+      <DependentUpon>lrsOption.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\configure\textField.spec.js">
+      <DependentUpon>textField.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\configure\trackingDataModel.spec.js">
+      <DependentUpon>trackingDataModel.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\learningPaths\learningPath\documentBrief.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\documentBrief.spec.js">
       <DependentUpon>documentBrief.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\configure\index.js" />
     <Content Include="App\viewmodels\learningPaths\learningPath\results.spec.js">
       <DependentUpon>results.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\learningPaths\learningPath\configure\trackingDataModel.js" />
     <Content Include="App\viewmodels\questions\rankingText\commands\addAnswer.js" />
     <Content Include="App\viewmodels\questions\rankingText\commands\addAnswer.spec.js">
       <DependentUpon>addAnswer.js</DependentUpon>
@@ -1383,6 +1407,7 @@
     <Content Include="App\views\courses\publishActions\publishToCustomLms.html" />
     <Content Include="App\images\index.html" />
     <Content Include="App\views\learningPaths\learningPath\details.html" />
+    <Content Include="App\views\learningPaths\learningPath\configure\index.html" />
     <Content Include="App\views\learningPaths\learningPath\publish.html" />
     <Content Include="App\views\learningPaths\learningPath\publish\publishAsHtml.html" />
     <Content Include="App\views\learningPaths\learningPath\publish\publishToCustomLms.html" />
@@ -1594,7 +1619,7 @@
     </Content>
     <Content Include="App\viewmodels\courses\bindingHandlers\courseIntroductionAnimationBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\elementCollapseBinding.js" />
-    <Content Include="App\viewmodels\courses\bindingHandlers\publishTabBinding.js" />
+    <Content Include="App\viewmodels\courses\bindingHandlers\tabsBinding.js" />
     <Content Include="App\viewmodels\courses\bindingHandlers\windowMessageListenerBinding.js" />
     <Content Include="App\viewmodels\courses\course\configure.js" />
     <Content Include="App\viewmodels\courses\course\configure.spec.js">
@@ -2362,6 +2387,7 @@
     <Content Include="Content\reviewPanel.less" />
     <Content Include="Mail\MailTemplates\IntercomSubscriptionFailedTemplate.cshtml" />
     <Content Include="Content\questionModalView.less" />
+    <Content Include="Content\configure.less" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />

@@ -202,6 +202,7 @@
     "answered": "Contestado",
     "mastered": "Dominado",
     "expirenced": "Experimentado",
+    "errorLoadLearningPathSettings": "Error when load Learning path settings",
     "documentPopupTitle": "¿Cómo se agrega?",
     "documentUpdatePopupTitle": "¿Cómo se cambian?",
     "documentPopupDescription": "<ol><li>Vaya a su <a href=\"https://www.google.com/drive/\" target=\"_blank\">Google Drive</a>.</li><li>Abra el documento, elija \"Archivo\" y haga clic en \"Publicar en la Web\".</li><li>Seleccione \"Insertar\", y copie y pegue el código para insertar en el campo de entrada de más abajo.</li></ol>",

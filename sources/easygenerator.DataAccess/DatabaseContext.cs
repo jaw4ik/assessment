@@ -80,6 +80,10 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<LearningPath>().Property(e => e.PackageUrl).HasMaxLength(255);
             modelBuilder.Entity<LearningPath>().Property(e => e.PublicationUrl).HasMaxLength(255);
             modelBuilder.Entity<LearningPath>().HasMany(e => e.LearningPathCompanies).WithMany(e => e.CompanyLearningPaths).Map(m => m.ToTable("CompanyLearningPaths"));
+            modelBuilder.Entity<LearningPath>().HasOptional(e => e.Settings);
+
+            modelBuilder.Entity<LearningPathSettings>().Property(e => e.Data).IsOptional();
+            modelBuilder.Entity<LearningPathSettings>().HasRequired(e => e.LearningPath).WithOptional(p => p.Settings).WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Section>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Section>().Property(e => e.ImageUrl).IsOptional();
@@ -126,7 +130,7 @@ namespace easygenerator.DataAccess
                     new IndexAttribute("IX_Template_Id"),
                     new IndexAttribute("UI_CourseTemplateSettings_Course_Id_Template_Id", 2) { IsUnique = true }
                 }));
-
+            
             modelBuilder.Entity<Comment>().HasRequired(e => e.Course);
             modelBuilder.Entity<Comment>().Property(e => e.Text).IsRequired();
             modelBuilder.Entity<Comment>().Property(e => e.CreatedByName).HasMaxLength(255).IsRequired();

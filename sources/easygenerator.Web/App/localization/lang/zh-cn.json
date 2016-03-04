@@ -202,6 +202,7 @@
     "answered": "已回答",
     "mastered": "已掌握",
     "expirenced": "已体验",
+    "errorLoadLearningPathSettings": "Error when load Learning path settings",
     "documentPopupTitle": "如何添加文件？",
     "documentUpdatePopupTitle": "如何更改？",
     "documentPopupDescription": "<ol><li>转至您的<a href=\"https://www.google.com/drive/\" target=\"_blank\">Google Drive</a>。</li><li>打开文档，选择“文件”，然后点击“发布至因特网”。</li><li>选择“嵌入”，将嵌入代码复制并粘贴到以下输入处。</li></ol>",

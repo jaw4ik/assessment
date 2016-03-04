@@ -301,6 +301,12 @@ function runSpecs(env) {
                 'viewmodels/learningPaths/learningPath/actions/download.spec',
                 'viewmodels/learningPaths/learningPath/actions/publish.spec',
                 'viewmodels/learningPaths/learningPath/actions/publishToCustomLms.spec',
+                'viewmodels/learningPaths/learningPath/configure/commands/getSettings.spec',
+                'viewmodels/learningPaths/learningPath/configure/commands/saveSettings.spec',
+                'viewmodels/learningPaths/learningPath/configure/textField.spec',
+                'viewmodels/learningPaths/learningPath/configure/index.spec',
+                'viewmodels/learningPaths/learningPath/configure/lrsOption.spec',
+                'viewmodels/learningPaths/learningPath/configure/trackingDataModel.spec',
 
                 //#endregion
 
