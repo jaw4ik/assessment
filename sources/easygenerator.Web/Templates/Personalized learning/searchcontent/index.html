@@ -14,7 +14,7 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
 
-    <link rel="stylesheet" href="styles.css?v=1457015459959">
+    <link rel="stylesheet" href="styles.css?v=1457017064680">
 </head>
 
 <body>
@@ -23,9 +23,8 @@
     <h1 class="course-caption" data-bind="text: title"></h1>
 
     <!-- ko if: hasIntroductionContent -->
-    <div class="course-intro-text styled-content content" data-bind="loadHtml: '../content/content.html?v=1457015459959'"></div>
+    <div class="course-intro-text styled-content content" data-bind="loadHtml: '../content/content.html?v=1457017064680'"></div>
     <!-- /ko -->
-
     <!-- ko foreach: { data: objectives, as: 'objective' } -->
     <!-- ko if: $root.filterQuestionTypes(objective.questions).length > 0 -->
     <h2 class="objective-info" data-bind="text: objective.title"></h2>
@@ -35,26 +34,10 @@
         <!-- ko foreach: { data: $root.filterQuestionTypes(objective.questions), as: 'question' } -->
 
         <div class="question-body">
-
-            <!-- ko if: question.type == 'informationContent' -->
-
-            <h3 class="question-title" data-bind="text: question.title"></h3>
-            <!-- ko if: question.learningContents.length > 0 -->
-            <ul class="learning-content-items content">
-                <!-- ko foreach: question.learningContents -->
-                <li class="learning-content-item styled-content" data-bind="loadHtml: '../content/' + objective.id + '/' + question.id + '/' + id + '.html?v=1457015459959'"></li>
-                <!-- /ko -->
-            </ul>
-            <!-- /ko -->
-
-            <!-- /ko -->
-
-            <!-- ko ifnot: question.type == 'informationContent' -->
-
             <!-- ko if: question.learningContents.length > 0 -->
             <ul class="learning-content-items content with-icon">
                 <!-- ko foreach: question.learningContents -->
-                <li class="learning-content-item styled-content" data-bind="loadHtml: '../content/' + objective.id + '/' + question.id + '/' + id + '.html?v=1457015459959'"></li>
+                <li class="learning-content-item styled-content" data-bind="loadHtml: '../content/' + objective.id + '/' + question.id + '/' + id + '.html?v=1457017064680'"></li>
                 <!-- /ko -->
             </ul>
             <!-- /ko -->
@@ -62,39 +45,36 @@
 
             <!-- ko if: question.hasContent && question.type != 'fillInTheBlank' -->
             <div class="question-content-wrapper">
-                <div class="question-content styled-content" data-bind="loadHtml: '../content/' + objective.id + '/' + question.id + '/content.html?v=1457015459959'"></div>
+                <div class="question-content styled-content" data-bind="loadHtml: '../content/' + objective.id + '/' + question.id + '/content.html?v=1457017064680'"></div>
             </div>
             <!-- /ko -->
-
             <!-- ko if: question.type == 'singleSelectText' -->
             <ul class="question-answers-list" data-bind="foreach: question.answers">
                 <li class="radio">
                     <span class="radio-icon-wrapper">
-                <button class="radio-icon"></button>
-            </span>
+                        <button class="radio-icon"></button>
+                    </span>
                     <label class="radio-text" data-bind="text: text"></label>
                 </li>
             </ul>
             <!-- /ko -->
-
             <!-- ko if: question.type == 'multipleSelect' -->
             <ul class="question-answers-list" data-bind="foreach: question.answers">
                 <li class="checkbox">
                     <span class="checkbox-icon-wrapper">
-                <button class="checkbox-icon"></button>
-            </span>
+                        <button class="checkbox-icon"></button>
+                    </span>
                     <label class="checkbox-text" data-bind="text: text"></label>
                 </li>
             </ul>
             <!-- /ko -->
-
             <!-- ko if: question.type == 'singleSelectImage' -->
             <ul class="single-select-image" data-bind="foreach: question.answers">
                 <li class="select-image">
                     <div class="select-image-wrapper">
                         <span class="preview-thumbnail">
-                    <img class="thumbnail" data-bind="attr:{ 'data-image': image, src: image + '?height=200&amp;width=250&amp;scaleBySmallerSide=true' }">
-                    </span>
+                            <img class="thumbnail" data-bind="attr:{ 'data-image': image, src: image + '?height=200&amp;width=250&amp;scaleBySmallerSide=true' }">
+                        </span>
                         <button class="preview-button-wrapper"></button>
                     </div>
                     <div class="question-answer-radiobutton-wrapper">
@@ -103,13 +83,11 @@
                 </li>
             </ul>
             <!-- /ko -->
-
             <!-- ko if: question.type == 'fillInTheBlank' -->
             <div class="question-content-wrapper blank-content fill-in-the-blank">
-                <div class="question-content blank-answers styled-content" data-bind="loadHtml: '../content/' + objective.id + '/' + question.id + '/content.html?v=1457015459959'"></div>
+                <div class="question-content blank-answers styled-content" data-bind="loadHtml: '../content/' + objective.id + '/' + question.id + '/content.html?v=1457017064680'"></div>
             </div>
             <!-- /ko -->
-
             <!-- ko if: question.type == 'textMatching' -->
             <div class="text-matching-caption">
                 Сombine elements from the left column with the elements on the right
@@ -143,7 +121,7 @@
             <div data-bind="foreach: $root.shuffle(question.answers)">
                 <div class="ranking-item">
                     <div class="ranking-item-box"></div>
-                    <div class="ranking-item-text" data-bind="text: text"></div>    
+                    <div class="ranking-item-text" data-bind="text: text"></div>
                 </div>
             </div>
             <!-- /ko -->
@@ -178,13 +156,11 @@
                 <!-- /ko -->
             </ul>
             <!-- /ko -->
-
             <!-- ko if: question.type == 'openQuestion' -->
             <div class="edit-field-wrapper">
                 <textarea class="edit-field selectable"></textarea>
             </div>
             <!-- /ko -->
-
             <!-- ko if: question.type == 'dragAndDropText' -->
             <div class="drag-and-drop-text">
                 <div>
@@ -199,7 +175,6 @@
                 </div>
             </div>
             <!-- /ko -->
-
             <!-- ko if: question.type == 'hotspot' -->
             <div class="drag-and-drop-text">
                 <div>
@@ -209,9 +184,6 @@
                 </div>
             </div>
             <!-- /ko -->
-
-            <!-- /ko -->
-
         </div>
 
         <!-- /ko -->
@@ -219,8 +191,7 @@
     </div>
     <!-- /ko -->
     <!-- /ko -->
-
-    <script src="scripts.js?v=1457015459959"></script>
+    <script src="scripts.js?v=1457017064680"></script>
 </body>
 
 </html>
