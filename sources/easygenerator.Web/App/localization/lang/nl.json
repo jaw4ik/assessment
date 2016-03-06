@@ -119,6 +119,7 @@
     "uploadAudioDescription": "Upload eigen audio door op deze knop te klikken",
     "audioUploadError": "Upload mislukt",
     "audioUploadUpgradeSubtitle": "Om een audio te uploaden naar easygenerator",
+    "audioDeleteConfirmation": "Delete this audio?",
     "audioUploadUpgradeText": "<ul><li>Onbeperkte opslag (fair use policy)</li><li>onbeperkt afspelen</li><li>HTML5 player: werkt op alle devices</li></ul>",
     "choose": "Kies",
     "chooseFileForVoiceOver": "Kies een geluidsbestand om het als voice over te gebruiken",
@@ -256,6 +257,7 @@
     "courseScore": "Cursus score",
     "objectiveScore": "Leerdoel score",
     "questionScore": "Vraag score",
+    "contentExperienced": "Content experienced",
     "dateTime": "Ontmoetingstijd",
     "date": "Datum",
     "time": "Tijd",
@@ -736,7 +738,7 @@
     "themes": "Thema's",
     "saveAsANewTheme": "Bewaar als nieuw thema",
     "backToSettings": "Terug naar instellingen",
-    "saveAndBack": "Bewaar en terug",
+    "backToCourse": "Bewaar en terug",
     "duplicateQuestion": "Copy question",
     "questionTitleLabel": "Vraag titel"
 }

@@ -13,7 +13,7 @@
                         </span>
                     </div>
                 </div>
-                <!-- ko ifnot: library.audios.length -->
+                <!-- ko ifnot: library.audios().length -->
                 <div class="add-audio-button-description">
                     <span class="tip-arrow-text" data-bind="localize: { text : 'uploadAudioDescription' }">Upload your own audio by click on this button</span>
                 </div>
@@ -37,18 +37,19 @@
                             <div class="audio-list-item-disable-block" data-bind="stopEventPropagation: { event: 'click' }"></div>
                             <div class="delete-audio-popup" data-bind="stopEventPropagation: { event: 'click' }">
                                 <div class="delete-audio-popup-main-message">
-                                    <span class="delete-audio-confirmation-message">Delete this audio?</span>
+                                    <span class="delete-audio-confirmation-message" data-bind="localize: { text: 'audioDeleteConfirmation' }">Delete this audio?</span>
                                     <span class="delete-audio-popup-btns-containter">
-                                        <button class="delete-audio-btn delete btn red small" data-bind="click: $parent.library.deleteAudio">Delete</button>
-                                        <button class="cancel-audio-delete-btn cancel btn white small" data-bind="click: $parent.library.hideDeleteAudioConfirmation">Cancel</button>
+                                        <button class="delete-audio-btn delete btn red small" data-bind="click: $parent.library.deleteAudio, localize: { text: 'delete' }">Delete</button>
+                                        <button class="cancel-audio-delete-btn cancel btn white small" data-bind="click: $parent.library.hideDeleteAudioConfirmation, localize: { text: 'cancel' }">Cancel</button>
                                     </span>
                                 </div>
                                 <div class="delete-audio-popup-warning-message">
-                                    <span class="delete-audio-popup-warning-title">Warning:</span>
-                                    <span class="delete-audio-popup-warning-description">it will NOT be available in courses any more</span>
+                                    <span class="delete-audio-popup-warning-title" data-bind="localize: { text: 'warning' }">Warning:</span>:&nbsp;
+                                    <span class="delete-audio-popup-warning-description" data-bind="localize: { text: 'videoDeleteWarning' }">it will NOT be available in courses any more</span>
                                 </div>
                             </div>
                         </li>
+						<!-- /ko -->
                         <!-- ko if: status() == $parent.library.statuses.failed -->
                         <li class="audio-list-item error">
                             <span class="upload-failed" data-bind="localize: { text : 'audioUploadError' }"></span>
@@ -61,7 +62,6 @@
                             <div class="audio-title" data-bind="text: title"></div>
                         </li>
                         <!-- /ko-->
-                        <!-- /ko -->
                     </ul>
                 </div>
             </div>

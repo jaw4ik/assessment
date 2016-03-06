@@ -30,14 +30,14 @@ describe('deleteAudioCommand:', () => {
 
         it('should do request to storage server', () => {
             deleteAudioCommand.execute(audio.id);
-            expect(storageHttpWrapper.post).toHaveBennCalledWith(constants.storage.host + constants.storage.audio.deleteUrl, { mediaId: audio.id });
+            expect(storageHttpWrapper.post).toHaveBeenCalledWith(constants.storage.host + constants.storage.audio.deleteUrl, { mediaId: audio.id });
         });
 
         describe('when storage server returns successful response', () => {
 
             it('should remove audio from dataContext', done => (async () => {
                 await deleteAudioCommand.execute(audio.id);
-                expect(dataContext.audios().length).toBe(0);
+                expect(dataContext.audios.length).toBe(0);
             })().then(done));
 
             it('should identify storage permissions', done => (async () => {

@@ -43,6 +43,7 @@
                 that.progress(progress || 0);
             });
             entity.on(constants.storage.audio.statuses.loaded).then(function (entity) {
+                that.id = entity.id;
                 that.status(constants.storage.audio.statuses.loaded);
                 that.vimeoId(entity.vimeoId);
                 that.duration(entity.duration);

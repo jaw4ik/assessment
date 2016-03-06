@@ -158,9 +158,14 @@ describe('[AudioViewModel]', function () {
                     done();
                 });
                 model.trigger(constants.storage.audio.statuses.loaded, {
+                    id: 1,
                     vimeoId: 'vimeoId',
                     duration: 10
                 });
+            });
+
+            it('should update id', function () {
+                expect(viewModel.id).toEqual(1);
             });
 
             it('should update status', function () {
