@@ -2,10 +2,17 @@
 
 import constants from 'constants';
 import userContext from 'userContext';
+import eventTracker from 'eventTracker';
+import notify from 'notify';
 import audioDialog from 'dialogs/video/video';
 import getAudiosCommand from 'audio/queries/getCollection';
 import upgradeDialog from 'widgets/upgradeDialog/viewmodel';
 import audioUploadDispatcher from 'audio/audioUploadDispatcher';
+import deleteAudioCommand from 'audio/vimeo/commands/delete';
+
+var events = {
+    deleteAudioFromLibrary: 'Delete audio from library'
+}
 
 describe('viewModel [audio/audioLibrary]', () => {
 
@@ -169,4 +176,95 @@ describe('viewModel [audio/audioLibrary]', () => {
             });
         });
     });
+
+    describe('showDeleteAudioConfirmation', () => {
+
+        it('should be function', () => {
+            expect(viewModel.showDeleteAudioConfirmation).toBeFunction();
+        });
+
+        it('should hide delete audio confirmations for other audios', () => {
+            let audio1 = { isDeleteConfirmationShown: ko.observable(true) };
+            let audio2 = { isDeleteConfirmationShown: ko.observable(false) };
+            viewModel.audios([audio1, audio2]);
+            viewModel.showDeleteAudioConfirmation(audio2);
+            expect(audio1.isDeleteConfirmationShown()).toBeFalsy();
+        });
+
+        it('should show delete audio confirmations for current audio', () => {
+            let audio1 = { isDeleteConfirmationShown: ko.observable(true) };
+            let audio2 = { isDeleteConfirmationShown: ko.observable(false) };
+            viewModel.audios([audio1, audio2]);
+            viewModel.showDeleteAudioConfirmation(audio2);
+            expect(audio2.isDeleteConfirmationShown()).toBeTruthy();
+        });
+
+    });
+
+    describe('hideDeleteAudioConfirmation', () => {
+
+        it('should be function', () => {
+            expect(viewModel.hideDeleteAudioConfirmation).toBeFunction();
+        });
+
+        it('should hide delete audio confirmation for current audio', () => {
+            let audio1 = { isDeleteConfirmationShown: ko.observable(true) };
+            let audio2 = { isDeleteConfirmationShown: ko.observable(false) };
+            viewModel.audios([audio1, audio2]);
+            viewModel.hideDeleteAudioConfirmation(audio1);
+            expect(audio1.isDeleteConfirmationShown()).toBeFalsy();
+        });
+
+    });
+
+    describe('deleteAudio', () => {
+
+        let audio1,
+            audio2;
+
+        beforeEach(() => {
+            spyOn(eventTracker, 'publish');
+            spyOn(deleteAudioCommand, 'execute').and.returnValue(Promise.resolve());
+            spyOn(notify, 'saved');
+            audio1 = { id: 1, isDeleteConfirmationShown: ko.observable(true) };
+            audio2 = { id: 2, isDeleteConfirmationShown: ko.observable(false) };
+            viewModel.audios([audio1, audio2]);
+        });
+
+        it('should be function', () => {
+            expect(viewModel.deleteAudio).toBeFunction();
+        });
+
+        it('should publish event', () => {
+            viewModel.deleteAudio(audio1);
+            expect(eventTracker.publish).toHaveBeenCalledWith(events.deleteAudioFromLibrary);
+        });
+        
+        it('should execute delete audio command', () => {
+            viewModel.deleteAudio(audio1);
+            expect(deleteAudioCommand.execute).toHaveBeenCalledWith(audio1.id);
+        });
+
+        describe('and delete command has been executed successfuly', () => {
+
+            it('should remove audio from list', done => (async () => {
+                await viewModel.deleteAudio(audio1);
+                expect(viewModel.audios().length).toBe(1);
+                expect(viewModel.audios()[0]).toBe(audio2);
+            })().then(done));
+
+            it('should show notification message', done => (async () => {
+                await viewModel.deleteAudio(audio1);
+                expect(notify.saved).toHaveBeenCalled();
+            })().then(done));
+
+            it('should hide delete confirmation for current audio', done => (async () => {
+                await viewModel.deleteAudio(audio1);
+                expect(audio1.isDeleteConfirmationShown()).toBeFalsy();
+            })().then(done));
+
+        });
+
+    });
+
 });

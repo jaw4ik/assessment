@@ -15,6 +15,13 @@ describe('[AudioViewModel]', function () {
 
     describe('when create an instance', function () {
 
+        it('id should be defined', () => {
+            var viewModel = new ViewModel({
+                id: 'id'
+            });
+            expect(viewModel.id).toEqual('id');
+        });
+
         it('title should be defined', function () {
             var viewModel = new ViewModel({
                 title: 'title'
@@ -28,6 +35,12 @@ describe('[AudioViewModel]', function () {
             });
             expect(viewModel.vimeoId).toBeObservable();
             expect(viewModel.vimeoId()).toEqual('vimeoId');
+        });
+
+        it('isDeleteConfirmationShown should be observable', function () {
+            var viewModel = new ViewModel({});
+            expect(viewModel.isDeleteConfirmationShown).toBeObservable();
+            expect(viewModel.isDeleteConfirmationShown()).toBeFalsy();
         });
 
         it('progress should be observable', function () {

@@ -241,7 +241,7 @@
     <Compile Include="Infrastructure\ArgumentValidation.cs" />
     <Compile Include="Infrastructure\Constants.cs" />
     <Compile Include="Models\AccessType.cs" />
-    <Compile Include="Models\DeleteVideoRequestModel.cs" />
+    <Compile Include="Models\DeleteMediaRequestModel.cs" />
     <Compile Include="Models\Entities\Audio.cs" />
     <Compile Include="Models\Entities\Entity.cs" />
     <Compile Include="Models\Entities\User.cs" />

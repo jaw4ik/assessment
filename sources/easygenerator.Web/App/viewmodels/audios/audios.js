@@ -19,6 +19,7 @@ class Audios{
         this.storageSpaceProgressBarVisibility = ko.observable(false);
         this.availableStorageSpace = ko.observable(0);
         this.availableStorageSpacePersentages = ko.observable(0);
+        this.setAvailableStorageSpace = this.setAvailableStorageSpace.bind(this);
     }
 
     activate() {

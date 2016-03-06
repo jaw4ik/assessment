@@ -29,7 +29,7 @@ describe('command video [deleteVideo]', function () {
         it('should delete video', function (done) {
             defer.resolve();
             command.execute(video.id).fin(function () {
-                expect(httpWrapper.post).toHaveBeenCalledWith(constants.storage.host + constants.storage.video.deleteUrl, { videoId: video.id });
+                expect(httpWrapper.post).toHaveBeenCalledWith(constants.storage.host + constants.storage.video.deleteUrl, { mediaId: video.id });
                 done();
             });
         });
