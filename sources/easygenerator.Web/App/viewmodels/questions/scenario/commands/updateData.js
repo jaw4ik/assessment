@@ -4,7 +4,7 @@
         execute: function (questionId, projectInfo) {
             return apiHttpWrapper.post('api/question/scenario/updatedata', {
                 questionId: questionId,
-                projectId: projectInfo.permalink,
+                projectId: projectInfo.token,
                 embedCode: projectInfo.embed_code,
                 embedUrl: projectInfo.embed_url,
                 projectArchiveUrl: projectInfo.zip_url
