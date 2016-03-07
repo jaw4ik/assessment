@@ -338,6 +338,10 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DemoCoursesController.cs" />
+    <Compile Include="DomainEvents\Handlers\PublicationServerUserHandler.cs" />
+    <Compile Include="Publish\External\ExternalPublisher.cs" />
+    <Compile Include="Publish\External\IExternalPublisher.cs" />
+    <Compile Include="Publish\IPublisher.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Events\RankingTextAnswerChangedEvent.cs" />
     <Compile Include="DomainEvents\ChangeTracking\Trackers\RankingTextAnswerChangeTracker.cs" />
     <Compile Include="Controllers\WinToWebController.cs" />
@@ -354,13 +358,8 @@
     <Compile Include="Newsletter\Intercom\IntercomClient.cs" />
     <Compile Include="Newsletter\Intercom\IntercomSubscriptionManager.cs" />
     <Compile Include="Newsletter\Intercom\IIntercomSubscriptionManager.cs" />
-    <Compile Include="Publish\External\ExternalCoursePublisher.cs" />
-    <Compile Include="Publish\External\ExternalLearningPathPublisher.cs" />
-    <Compile Include="Publish\External\IExternalCoursePublisher.cs" />
-    <Compile Include="Publish\External\IExternalLearningPathPublisher.cs" />
-    <Compile Include="Publish\ILearningPathPublisher.cs" />
-    <Compile Include="Publish\LearningPathPublisher.cs" />
     <Compile Include="DomainEvents\Handlers\CreateUserInitialDataHandler.cs" />
+    <Compile Include="Publish\Publisher.cs" />
     <Compile Include="Resources\Views\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -528,8 +527,6 @@
     <Compile Include="Newsletter\MailChimp\Entities\MailChimpSubscription.cs" />
     <Compile Include="Newsletter\MailChimp\MailChimpSubscriptionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Publish\CoursePublisher.cs" />
-    <Compile Include="Publish\ICoursePublisher.cs" />
     <Compile Include="Resources\Controllers\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2285,6 +2282,7 @@
     <Content Include="App\localization\lang\de.json" />
     <Content Include="App\localization\lang\nl.json" />
     <Content Include="App\localization\lang\es.json" />
+    <Content Include="Mail\MailTemplates\PublicationServerUserRequestFailedTemplate.cshtml" />
     <Content Include="Content\design.less" />
     <Content Include="Mail\MailTemplates\NewEditorFeedbackTemplate.cshtml" />
     <Content Include="Content\tooltip.less" />
@@ -2872,17 +2870,18 @@
     <Content Include="Templates\Assessment\css\font\twcenmt-condensed.svg" />
     <Content Include="Templates\Assessment\css\img\browsers\android.png" />
     <Content Include="Templates\Assessment\css\img\browsers\chrome.png" />
+    <Content Include="Templates\Assessment\css\img\browsers\edge.png" />
     <Content Include="Templates\Assessment\css\img\browsers\firefox.png" />
     <Content Include="Templates\Assessment\css\img\browsers\ie.png" />
     <Content Include="Templates\Assessment\css\img\browsers\safari.png" />
     <Content Include="Templates\Assessment\css\img\easy-supported-browser-browser-bg.png" />
     <Content Include="Templates\Assessment\css\img\easy-supported-browser-logo.png" />
-    <Content Include="Templates\Assessment\css\img\easy-supported-browser-middle-part-bg.png" />
     <Content Include="Templates\Assessment\css\img\easy-supported-browser-top-part-bg.png" />
     <Content Include="Templates\Assessment\css\img\eg-logo.png" />
     <Content Include="Templates\Assessment\css\img\error_big.png" />
     <Content Include="Templates\Assessment\css\img\error_min.png" />
     <Content Include="Templates\Assessment\css\img\main-background.jpg" />
+    <Content Include="Templates\Assessment\css\img\review-sprites.png" />
     <Content Include="Templates\Assessment\css\img\summary-questions-background.jpg" />
     <Content Include="Templates\Assessment\css\img\tooth.png" />
     <Content Include="Templates\Assessment\css\styles.css" />
@@ -2891,6 +2890,9 @@
     <Content Include="Templates\Assessment\preview\images\preview.jpg" />
     <Content Include="Templates\Assessment\preview\thumbnail.png" />
     <Content Include="Templates\Assessment\publishSettings.js" />
+    <Content Include="Templates\Assessment\searchcontent\index.html" />
+    <Content Include="Templates\Assessment\searchcontent\scripts.js" />
+    <Content Include="Templates\Assessment\searchcontent\styles.css" />
     <Content Include="Templates\Assessment\settings.js" />
     <Content Include="Templates\Assessment\settings\api.js" />
     <Content Include="Templates\Assessment\settings\configure\configure.html" />
@@ -2935,15 +2937,16 @@
     <Content Include="Templates\Personalized learning\css\general.css" />
     <Content Include="Templates\Personalized learning\css\img\browsers\android.png" />
     <Content Include="Templates\Personalized learning\css\img\browsers\chrome.png" />
+    <Content Include="Templates\Personalized learning\css\img\browsers\edge.png" />
     <Content Include="Templates\Personalized learning\css\img\browsers\firefox.png" />
     <Content Include="Templates\Personalized learning\css\img\browsers\ie.png" />
     <Content Include="Templates\Personalized learning\css\img\browsers\safari.png" />
     <Content Include="Templates\Personalized learning\css\img\easy-supported-browser-browser-bg.png" />
     <Content Include="Templates\Personalized learning\css\img\easy-supported-browser-logo.png" />
-    <Content Include="Templates\Personalized learning\css\img\easy-supported-browser-middle-part-bg.png" />
     <Content Include="Templates\Personalized learning\css\img\easy-supported-browser-top-part-bg.png" />
     <Content Include="Templates\Personalized learning\css\img\header-bg.jpg" />
     <Content Include="Templates\Personalized learning\css\img\newSprite.png" />
+    <Content Include="Templates\Personalized learning\css\img\review-sprites.png" />
     <Content Include="Templates\Personalized learning\css\vendor.css" />
     <Content Include="Templates\Personalized learning\index.html" />
     <Content Include="Templates\Personalized learning\js\require\require.js" />
@@ -2958,6 +2961,9 @@
     <Content Include="Templates\Personalized learning\preview\images\preview.jpg" />
     <Content Include="Templates\Personalized learning\preview\thumbnail.png" />
     <Content Include="Templates\Personalized learning\publishSettings.js" />
+    <Content Include="Templates\Personalized learning\searchcontent\index.html" />
+    <Content Include="Templates\Personalized learning\searchcontent\scripts.js" />
+    <Content Include="Templates\Personalized learning\searchcontent\styles.css" />
     <Content Include="Templates\Personalized learning\settings.js" />
     <Content Include="Templates\Personalized learning\settings\api.js" />
     <Content Include="Templates\Personalized learning\settings\configure\configure.html" />
@@ -2983,14 +2989,15 @@
     <Content Include="Templates\Reader\css\general.css" />
     <Content Include="Templates\Reader\css\img\browsers\android.png" />
     <Content Include="Templates\Reader\css\img\browsers\chrome.png" />
+    <Content Include="Templates\Reader\css\img\browsers\edge.png" />
     <Content Include="Templates\Reader\css\img\browsers\firefox.png" />
     <Content Include="Templates\Reader\css\img\browsers\ie.png" />
     <Content Include="Templates\Reader\css\img\browsers\safari.png" />
     <Content Include="Templates\Reader\css\img\easy-supported-browser-browser-bg.png" />
     <Content Include="Templates\Reader\css\img\easy-supported-browser-logo.png" />
-    <Content Include="Templates\Reader\css\img\easy-supported-browser-middle-part-bg.png" />
     <Content Include="Templates\Reader\css\img\easy-supported-browser-top-part-bg.png" />
     <Content Include="Templates\Reader\css\img\reader.png" />
+    <Content Include="Templates\Reader\css\img\review-sprites.png" />
     <Content Include="Templates\Reader\css\themes\black.css" />
     <Content Include="Templates\Reader\css\themes\light.css" />
     <Content Include="Templates\Reader\css\vendor.css" />
@@ -3007,6 +3014,9 @@
     <Content Include="Templates\Reader\preview\images\preview.png" />
     <Content Include="Templates\Reader\preview\thumbnail.png" />
     <Content Include="Templates\Reader\publishSettings.js" />
+    <Content Include="Templates\Reader\searchcontent\index.html" />
+    <Content Include="Templates\Reader\searchcontent\scripts.js" />
+    <Content Include="Templates\Reader\searchcontent\styles.css" />
     <Content Include="Templates\Reader\settings.js" />
     <Content Include="Templates\Reader\settings\api.js" />
     <Content Include="Templates\Reader\settings\configure\configure.html" />
@@ -3058,6 +3068,9 @@
     <Content Include="Templates\Simple course\preview\images\preview.jpg" />
     <Content Include="Templates\Simple course\preview\thumbnail.png" />
     <Content Include="Templates\Simple course\publishSettings.js" />
+    <Content Include="Templates\Simple course\searchcontent\index.html" />
+    <Content Include="Templates\Simple course\searchcontent\scripts.js" />
+    <Content Include="Templates\Simple course\searchcontent\styles.css" />
     <Content Include="Templates\Simple course\settings.js" />
     <Content Include="Templates\Simple course\settings\api.js" />
     <Content Include="Templates\Simple course\settings\configure\configure.html" />

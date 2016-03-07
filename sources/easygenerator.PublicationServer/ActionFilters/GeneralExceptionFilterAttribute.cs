@@ -1,25 +1,24 @@
-﻿using easygenerator.Infrastructure;
-using System.Net;
-using System.Web.Http.Filters;
+﻿using System.Web.Http.Filters;
+using easygenerator.PublicationServer.HttpResponseMessages;
+using easygenerator.PublicationServer.Logging;
 
 namespace easygenerator.PublicationServer.ActionFilters
 {
     public class GeneralExceptionFilterAttribute : ExceptionFilterAttribute
     {
-        private readonly StaticViewContentProvider _contentProvider;
+        private readonly HttpResponseMessageFactory _httpResponseMessageFactory;
         private readonly ILog _logger;
 
-        public GeneralExceptionFilterAttribute(StaticViewContentProvider contentProvider, ILog logger)
+        public GeneralExceptionFilterAttribute(ILog logger, HttpResponseMessageFactory httpResponseMessageFactory)
         {
-            _contentProvider = contentProvider;
             _logger = logger;
+            _httpResponseMessageFactory = httpResponseMessageFactory;
         }
 
         public override void OnException(HttpActionExecutedContext context)
         {
             _logger.LogException(context.Exception);
-            context.Response = new HtmlPageResponseMessage("500.html", _contentProvider,
-                HttpStatusCode.InternalServerError);
+            context.Response = _httpResponseMessageFactory.InternalServerError();
         }
     }
 }

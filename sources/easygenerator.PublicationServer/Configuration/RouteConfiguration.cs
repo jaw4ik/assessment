@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using easygenerator.PublicationServer.Extensions;
 using easygenerator.PublicationServer.Constraints;
 
 namespace easygenerator.PublicationServer.Configuration
@@ -7,17 +8,17 @@ namespace easygenerator.PublicationServer.Configuration
     {
         public static void ConfigurePublicationApi(HttpConfiguration config)
         {
-            config.Routes.MapHttpRoute(name: "PublishApi",
-               routeTemplate: "api/publish",
-               defaults: new { controller = "Publish", action = "PublishCourse" }
-           );
-
             config.Routes.MapHttpRoute(
               name: "Maintenance",
               routeTemplate: "{courseId}/{*pathInfo}",
               defaults: new { controller = "SystemPages", action = "PublishIsInProgress" },
-              constraints: new { courseId = config.DependencyResolver.GetService(typeof(MaintenanceRouteConstraint)) }
-          );
+              constraints: new { courseId = config.DependencyResolver.GetService<MaintenanceRouteConstraint>() }
+            );
+
+            var constraintResolver = new InlineConstraintResolver(config.DependencyResolver);
+            constraintResolver.ConstraintMap.Add("searchCrawler", typeof(SearchCrawlerRouteConstraint));
+
+            config.MapHttpAttributeRoutes(constraintResolver);
         }
 
         public static void ConfigurePageNotFoundRoute(HttpConfiguration config)
@@ -28,6 +29,7 @@ namespace easygenerator.PublicationServer.Configuration
             name: "PageNotFound",
             routeTemplate: "{*path}",
             defaults: new { controller = "SystemPages", action = "PageNotFound" });
+
         }
     }
 }

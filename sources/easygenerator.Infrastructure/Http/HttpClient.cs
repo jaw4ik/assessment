@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Web;
 using Newtonsoft.Json;
 using System.Net.Http;
+using System.Net.Mime;
 using System.Text;
 
 namespace easygenerator.Infrastructure.Http
@@ -19,6 +20,13 @@ namespace easygenerator.Infrastructure.Http
         public virtual TResponse Post<TResponse>(string url, object postData, string userName = null, string password = null)
         {
             return Post<TResponse>(url, JsonConvert.SerializeObject(postData), userName, password);
+        }
+
+        public virtual TResponse PostForm<TResponse>(string url, IEnumerable<KeyValuePair<string, string>> formValues, IEnumerable<KeyValuePair<string, string>> headerValues = null, string userName = null, string password = null)
+        {
+            var requestMessage = BuildRequestMessage(HttpMethod.Post, url, headerValues);
+            requestMessage.Content = new FormUrlEncodedContent(formValues);
+            return Deserialize<TResponse>(DoHttpAction(url, String.Join("; ", formValues.Select(_ => $"{_.Key}: {_.Value}")), client => client.SendAsync(requestMessage).Result, userName, password));
         }
 
         public virtual TResponse Post<TResponse>(string url, string postJsonData, string userName = null, string password = null)
@@ -37,22 +45,39 @@ namespace easygenerator.Infrastructure.Http
             return Deserialize<TResponse>(DoHttpAction(url, null, client => client.SendAsync(requestMessage).Result, userName, password));
         }
 
-        public virtual TResponse PostFile<TResponse>(string url, string fileName, byte[] fileData)
+        public virtual TResponse PostFile<TResponse>(string url, string fileName, byte[] fileData, IEnumerable<KeyValuePair<string, string>> formValues = null, IEnumerable<KeyValuePair<string, string>> headerValues = null)
         {
             using (var client = InitializeHttpClient())
             {
                 var fileContent = new ByteArrayContent(fileData);
-                fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment") { FileName = fileName };
+                fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue(DispositionTypeNames.Attachment) { FileName = fileName };
 
                 using (var content = new MultipartFormDataContent())
                 {
+                    if (formValues != null)
+                    {
+                        foreach (var formValue in formValues)
+                        {
+                            content.Add(new StringContent(formValue.Value), $"\"{formValue.Key}\"");
+                        }
+                    }
+
+                    if (headerValues != null)
+                    {
+                        foreach (var headerValue in headerValues)
+                        {
+                            content.Headers.Add(headerValue.Key, headerValue.Value);
+                        }
+                    }
+
                     content.Add(fileContent);
 
                     HttpResponseMessage response = client.PostAsync(url, content).Result;
                     string responseBody = response.Content.ReadAsStringAsync().Result;
                     if (!response.IsSuccessStatusCode)
                     {
-                        throw new HttpRequestException(string.Format("Reason: {0}. Response body: {1}.", response.ReasonPhrase, responseBody));
+                        throw new HttpRequestException(
+                            $"Reason: {response.ReasonPhrase}. Response body: {responseBody}.");
                     }
                     return JsonConvert.DeserializeObject<TResponse>(responseBody);
                 }
@@ -77,7 +102,7 @@ namespace easygenerator.Infrastructure.Http
                 {
                     var chunk = chunks.First();
                     var fileContent = new ByteArrayContent(chunk.Value);
-                    fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment") { FileName = fileName };
+                    fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue(DispositionTypeNames.Attachment) { FileName = fileName };
                     fileContent.Headers.Add("ChunkId", chunk.Key.ToString("d8"));
                     fileContent.Headers.Add("IsCompleted", chunks.Count() == 1 ? "true" : "false");
 
@@ -101,8 +126,7 @@ namespace easygenerator.Infrastructure.Http
                         else
                         {
                             string responseBody = response.Content.ReadAsStringAsync().Result;
-                            throw new HttpRequestException(string.Format("Reason: {0}. Response body: {1}.",
-                                response.ReasonPhrase, responseBody));
+                            throw new HttpRequestException($"Reason: {response.ReasonPhrase}. Response body: {responseBody}.");
                         }
                     }
                 }
@@ -159,7 +183,7 @@ namespace easygenerator.Infrastructure.Http
             return uriBuilder.ToString();
         }
 
-        protected virtual HttpRequestMessage BuildRequestMessage(HttpMethod method, string requestUrl, Dictionary<string, string> headers)
+        protected virtual HttpRequestMessage BuildRequestMessage(HttpMethod method, string requestUrl, IEnumerable<KeyValuePair<string, string>> headers)
         {
             var requestMessage = new HttpRequestMessage(method, requestUrl);
             foreach (var header in headers)
@@ -171,7 +195,7 @@ namespace easygenerator.Infrastructure.Http
 
         protected virtual AuthenticationHeaderValue GetBasicAuthenticationHeader(string userName, string password)
         {
-            string credentials = string.Format("{0}:{1}", userName, password);
+            string credentials = $"{userName}:{password}";
             string base64Credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(credentials));
             return new AuthenticationHeaderValue("Basic", base64Credentials);
         }

@@ -5,13 +5,13 @@ namespace easygenerator.PublicationServer.Publish
 {
     public class PublishDispatcher : IPublishDispatcher
     {
-        private HashSet<string> _courseIdsThatArePublishing = new HashSet<string>();
+        private HashSet<Guid> _courseIdsThatArePublishing = new HashSet<Guid>();
         private object _locker = new object();
 
-        public void StartPublish(string courseId)
+        public void StartPublish(Guid courseId)
         {
             ValidateCourseId(courseId);
-            
+
             if (!_courseIdsThatArePublishing.Contains(courseId))
             {
                 lock (_locker)
@@ -24,17 +24,17 @@ namespace easygenerator.PublicationServer.Publish
             }
         }
 
-        public void EndPublish(string courseId)
+        public void EndPublish(Guid courseId)
         {
             ValidateCourseId(courseId);
 
             lock (_locker)
             {
-                _courseIdsThatArePublishing.RemoveWhere(_ => string.Equals(_, courseId, StringComparison.CurrentCultureIgnoreCase));
+                _courseIdsThatArePublishing.RemoveWhere(_ => _.Equals(courseId));
             }
         }
 
-        public bool IsPublishing(string courseId)
+        public bool IsPublishing(Guid courseId)
         {
             ValidateCourseId(courseId);
 
@@ -44,13 +44,12 @@ namespace easygenerator.PublicationServer.Publish
             }
         }
 
-        private void ValidateCourseId(string courseId)
+        private void ValidateCourseId(Guid courseId)
         {
-            if (courseId == null)
-                throw new ArgumentNullException("courseId", "Course Id cannot be null.");
-
-            if (string.IsNullOrWhiteSpace(courseId))
-                throw new ArgumentException("Course Id cannot be empty or white space.", "courseId");
+            if (courseId.Equals(Guid.Empty))
+            {
+                throw new ArgumentException("Course Id cannot be empty or white space.", nameof(courseId));
+            }
         }
     }
 }

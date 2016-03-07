@@ -12,7 +12,7 @@ using Microsoft.Owin;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("ISM eCompany")]
 [assembly: AssemblyProduct("easygenerator.PublicationServer.Web")]
-[assembly: AssemblyCopyright("Copyright © ISM eCompany 2014")]
+[assembly: AssemblyCopyright("Copyright © ISM eCompany 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

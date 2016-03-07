@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
 using System.Web.Http.Routing;
 using easygenerator.PublicationServer.Publish;
 
@@ -13,18 +15,20 @@ namespace easygenerator.PublicationServer.Constraints
             _publishDispatcher = publishDispatcher;
         }
 
-        public bool Match(System.Net.Http.HttpRequestMessage request, IHttpRoute route, string parameterName, IDictionary<string, object> values, HttpRouteDirection routeDirection)
+        public bool Match(HttpRequestMessage request, IHttpRoute route, string parameterName, IDictionary<string, object> values, HttpRouteDirection routeDirection)
         {
             if (values.ContainsKey(parameterName))
             {
                 object courseIdObj;
-                if (values.TryGetValue(parameterName, out courseIdObj))
+                if (values.TryGetValue(parameterName, out courseIdObj) && courseIdObj != null)
                 {
-                    if (courseIdObj != null)
-                        return _publishDispatcher.IsPublishing(courseIdObj.ToString());
+                    Guid courseId;
+                    if (Guid.TryParse(courseIdObj.ToString(), out courseId))
+                    {
+                        return _publishDispatcher.IsPublishing(courseId);
+                    }
                 }
-            };
-
+            }
             return false;
         }
     }

@@ -23,6 +23,7 @@ namespace easygenerator.Infrastructure
             public const string NewsletterSubscriptionFailedTemplate = "NewsletterSubscriptionFailedTemplate";
             public const string IntercomSubscriptionFailedTemplate = "IntercomSubscriptionFailedTemplate";
             public const string HttpRequestFailedTemplate = "HttpRequestFailedTemplate";
+            public const string PublicationServerUserRequestFailedTemplate = "PublicationServerUserRequestFailedTemplate";
         }
     }
 }
