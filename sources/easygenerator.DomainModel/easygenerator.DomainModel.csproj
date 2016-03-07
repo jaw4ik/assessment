@@ -56,6 +56,7 @@
     <Compile Include="Entities\DocumentType.cs" />
     <Compile Include="Entities\IIdentifieble.cs" />
     <Compile Include="Entities\ILearningPathEntity.cs" />
+    <Compile Include="Entities\IPublishableEntity.cs" />
     <Compile Include="Entities\LtiUserInfo.cs" />
     <Compile Include="Entities\OrderingUtils.cs" />
     <Compile Include="Entities\Identifiable.cs" />

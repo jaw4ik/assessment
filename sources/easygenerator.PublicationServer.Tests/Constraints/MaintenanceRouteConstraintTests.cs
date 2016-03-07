@@ -1,4 +1,5 @@
-﻿using System.Web.Http.Routing;
+﻿using System;
+using System.Web.Http.Routing;
 using easygenerator.PublicationServer.Constraints;
 using easygenerator.PublicationServer.Publish;
 using FluentAssertions;
@@ -13,7 +14,7 @@ namespace easygenerator.PublicationServer.Tests.Constraints
     {
         private MaintenanceRouteConstraint _constraint;
         private IPublishDispatcher _publishDispatcher;
-        private const string parameterValue = "someValue";
+        private Guid parameterValue = Guid.NewGuid();
         private const string parameterName = "paramName";
 
         [TestInitialize]
@@ -50,6 +51,18 @@ namespace easygenerator.PublicationServer.Tests.Constraints
         }
 
         [TestMethod]
+        public void Match_ShouldReturnFalseIfValueOfParameterIsNotAGuid()
+        {
+            //Arrange
+
+            //Act
+            var result = _constraint.Match(null, null, parameterName, new Dictionary<string, object> { { parameterName, "value" } }, HttpRouteDirection.UriGeneration);
+
+            //Assert
+            result.Should().Be(false);
+        }
+
+        [TestMethod]
         public void Match_ShouldCallIsPublishingDispatcherMethodWithValueFromRouteDictionary_IfValueExistsAndNotNull()
         {
             //Arrange
@@ -65,7 +78,7 @@ namespace easygenerator.PublicationServer.Tests.Constraints
         public void Match_ShouldReturnFalseWhenDispatcherIsPublishingReturnsFalse()
         {
             //Arrange
-            _publishDispatcher.IsPublishing(Arg.Any<string>()).Returns(false);
+            _publishDispatcher.IsPublishing(Arg.Any<Guid>()).Returns(false);
 
             //Act
             var result = _constraint.Match(null, null, parameterName, new Dictionary<string, object> { { parameterName, parameterValue } }, HttpRouteDirection.UriGeneration);
@@ -78,7 +91,7 @@ namespace easygenerator.PublicationServer.Tests.Constraints
         public void Match_ShouldReturnTrueWhenDispatcherIsPublishingReturnsTrue()
         {
             //Arrange
-            _publishDispatcher.IsPublishing(Arg.Any<string>()).Returns(true);
+            _publishDispatcher.IsPublishing(Arg.Any<Guid>()).Returns(true);
 
             //Act
             var result = _constraint.Match(null, null, parameterName, new Dictionary<string, object> { { parameterName, parameterValue } }, HttpRouteDirection.UriGeneration);
