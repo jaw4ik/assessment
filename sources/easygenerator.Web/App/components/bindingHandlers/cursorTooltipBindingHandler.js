@@ -5,7 +5,7 @@ ko.bindingHandlers.cursorTooltip = {
     update: (element, valueAccessor) => {
         let $element = $(element);
         let isVisible = ko.utils.unwrapObservable(valueAccessor());
-        let updateTooltipPosition = evt => $element.css('top', evt.pageY + 5).css('left', evt.pageX + 5);
+        let updateTooltipPosition = evt => $element.css('top', evt.clientY + 5).css('left', evt.clientX + 5);
 
         if (isVisible) {
             $element.show();

@@ -1,0 +1,24 @@
+﻿<section class="questions-navigation-view" data-bind="scrollbar: { checkDOMChanges: true }">
+    <ul class="navigation-view-sections-list" data-bind="foreach: sections">
+        <li class="navigation-view-section-item" data-bind=" css:{expanded : isExpanded}">
+            <div class="navigation-view-section-title" data-bind="text: title, click: toggleExpand"></div>
+            <div class="navigation-view-section-wrapper" data-bind=" visible: isExpanded">
+                <!-- ko ifnot: hasChildren -->
+                <div class="navigation-view-questions-empty" data-bind="localize: { text: 'itemListIsEmpty' }"></div>
+                <!-- /ko -->
+                <!-- ko if: hasChildren -->
+                <ul class="navigation-view-questions-list" data-bind="foreach: questions">
+                    <li class="navigation-view-question-item" data-bind="css: { active: isActive }">
+                        <!-- ko if: isActive -->
+                        <div class="navigation-view-question-title" data-bind="text: title"></div>
+                        <!-- /ko -->
+                        <!-- ko ifnot: isActive -->
+                        <a class="navigation-view-question-title" data-bind="text: title, attr: { href: url }, click: navigateToUrl"></a>
+                        <!-- /ko -->
+                    </li>
+                </ul>
+                <!-- /ko -->
+            </div>
+        </li>
+    </ul>
+</section>

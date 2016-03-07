@@ -1,4 +1,4 @@
-﻿<section class="review-panel-wrapper">
+﻿<section class="review-panel-wrapper" data-bind="css: { 'opened-in-popup' : isModalViewShown }">
     <!-- ko if: isVisible() -->
     <div class="review-panel" data-bind="css: { expanded: isExpanded }">
         <div class="review-panel-tail collapser" data-bind="click: toggleIsExpanded">

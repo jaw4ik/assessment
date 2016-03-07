@@ -39,6 +39,7 @@
     require('design/bindingHandlers/brightnessBindingHandler');
     require('design/bindingHandlers/popoverBindingHandler');
     require('images/bindingHandlers/keyDownBindingHandler');
+    require('widgets/modalView/bindingHandlers/lockScrollBindingHandler');
 
     var task = {
         execute: execute
@@ -60,9 +61,15 @@
                 }
             },
             sort: function (event, ui) {
+                
                 var $target = $(event.target);
+                var customScrollContainerClass= '.question-view-holder-wrapper';
                 if (!/html|body/i.test($target.offsetParent()[0].tagName)) {
                     var top = event.pageY - $target.offsetParent().offset().top - (ui.helper.outerHeight(true) / 2);
+                    if ($target.closest(customScrollContainerClass)){
+                        top += $(customScrollContainerClass).scrollTop();
+                    }
+                    
                     ui.helper.css({
                         'top': top + 'px'
                     });

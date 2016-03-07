@@ -2,10 +2,13 @@
 @minWidth: 635px;
 @animation-duration-default-value: 0.2s;
 
-@zindex-review-panel: 2100;
+@zindex-review-panel: 2200;
+@zindex-shell-header: 2100;
+@zindex-modal-view: 2150;
+@zindex-modal-view-blocout: 2100;
 @zindex-modal-blockout: 2200;
 @zindex-modal-dialog: 2300;
-@zindex-shell-header: 2100;
+@zindex-notification: 2300;
 @zindex-shell-header-pulled-down: 2150;
 
 .unselectable() {
@@ -111,3 +114,13 @@
 }
 
 /*#endregion */
+
+.unstyled-list() {
+    list-style-type: none;
+}
+
+.unstyled-button() {
+    padding: 0;
+    border: none;
+    outline: none;
+}

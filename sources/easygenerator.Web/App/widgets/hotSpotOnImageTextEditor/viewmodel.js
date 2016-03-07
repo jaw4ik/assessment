@@ -11,7 +11,7 @@
         text: ko.observable(''),
         hasFocus: ko.observable(false),
         activate: activate,
-        callback: null,
+        callback: null
     };
 
     return hotSpotOnImageTextEditor;

@@ -10,16 +10,11 @@
                     <div class="tooltip-buttons-holder" data-bind="localize: { html: 'tooltipStatementLink'}">
                     </div>
                 </div>
-                <!-- ko if: isExpanded -->
-                <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: 'collapse' }"></div>
-                <!-- /ko -->
-                <!-- ko ifnot: isExpanded -->
-                <div class="expand-collapse-panel-btn" title="Expand" data-bind="click: toggleExpand, localize: { title: 'expand' }"></div>
-                <!-- /ko -->
+                <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: isExpanded() ? 'collapse' : 'expand' }"></div>
             </div>
         </div>
     </div>
-    <div class="content-section-wrapper answer-options" data-bind="with: answers, visible: isExpanded">
+    <div class="content-section-wrapper answer-options content-item-holder" data-bind="with: answers, heightAnimation:{ expanded : isExpanded(), minHeight : 0 }">
         <div class="question-answer-options-area">
             <div class="content-section">
                 <div class="content-section-header">

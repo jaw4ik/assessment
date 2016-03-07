@@ -1,21 +1,19 @@
-import viewModel from './question';
-
-import vmQuestionTitle from './questionTitle';
-import feedback from './feedback';
-import multipleSelect from './multipleSelect/multipleSelect';
+import viewModel from 'viewmodels/questions/question';
 import router from 'plugins/router';
 import constants from 'constants';
 import eventTracker from 'eventTracker';
 import questionRepository from 'repositories/questionRepository';
 import objectiveRepository from 'repositories/objectiveRepository';
 import courseRepository from 'repositories/courseRepository';
-import http from 'plugins/http';
+import vmQuestionTitle from 'viewmodels/questions/questionTitle';
 import vmContentField from 'viewmodels/common/contentField';
+import multipleSelect from 'viewmodels/questions/multipleSelect/multipleSelect';
 import learningContents from 'viewmodels/learningContents/learningContents';
+import feedback from 'viewmodels/questions/feedback';
 import moveCopyDialog from 'dialogs/moveCopyQuestion/moveCopyQuestion';
 
-var question = {
-    id: '1',
+let question = {
+    id: 'questionId',
     type: constants.questionType.multipleSelect.type,
     title: 'lalala',
     content: 'question content',
@@ -25,527 +23,343 @@ var question = {
     learningContents: [],
     voiceOver:'<iframe></iframe>'
 };
-var objective = {
-    id: '0',
-    questions: [question]
-};
 
-describe('viewModel [question]', function () {
-
-    beforeEach(function () {
+describe('viewModel [question]', () => {
+    beforeEach(() => {
         spyOn(eventTracker, 'publish');
         spyOn(router, 'navigate');
-        spyOn(router, 'navigateWithQueryString');
-        spyOn(router, 'replace');
         spyOn(moveCopyDialog, 'show');
     });
 
-    it('is defined', function () {
+    it('is defined', () => {
         expect(viewModel).toBeDefined();
     });
 
-    describe('objectiveId:', function () {
-
-        it('should be defined', function () {
+    describe('objectiveId:', () => {
+        it('should be defined', () => {
             expect(viewModel.objectiveId).toBeDefined();
         });
-
     });
 
-    describe('questionId:', function () {
-
-        it('should be defined', function () {
+    describe('questionId:', () => {
+        it('should be defined', () => {
             expect(viewModel.questionId).toBeDefined();
         });
-
     });
 
-    describe('localizationManager:', function () {
-
-        it('should be defined', function () {
+    describe('localizationManager:', () => {
+        it('should be defined', () => {
             expect(viewModel.localizationManager).toBeDefined();
         });
-
     });
 
-    describe('viewCaption:', function () {
-
-        it('should be defined', function () {
+    describe('viewCaption:', () => {
+        it('should be defined', () => {
             expect(viewModel.viewCaption).toBeDefined();
         });
-
     });
 
-    describe('navigateToObjectiveEvent:', function () {
+    describe('navigateToObjectiveEvent:', () => {
 
-        it('should be function', function () {
+        it('should be function', () => {
             expect(viewModel.navigateToObjectiveEvent).toBeFunction();
         });
 
-        it('should send event \'Navigate to objective details\'', function () {
+        it('should send event \'Navigate to objective details\'', () => {
             viewModel.navigateToObjectiveEvent();
             expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objective details');
         });
 
     });
 
-    describe('activeQuestionViewModel:', function () {
-
-        it('should be defined', function () {
+    describe('activeQuestionViewModel:', () => {
+        it('should be defined', () => {
             expect(viewModel.activeQuestionViewModel).toBeDefined();
         });
-
     });
 
-    describe('learningContentsViewModel:', function () {
-
-        it('should be defined', function () {
+    describe('learningContentsViewModel:', () => {
+        it('should be defined', () => {
             expect(viewModel.learningContentsViewModel).toBeDefined();
         });
-
     });
         
-    describe('feedbackViewModel:', function () {
-
-        it('should be defined', function () {
+    describe('feedbackViewModel:', () => {
+        it('should be defined', () => {
             expect(viewModel.feedbackViewModel).toBeDefined();
         });
-
     });
 
-    describe('questionTitle:', function () {
-
-        it('should be defined', function () {
+    describe('questionTitle:', () => {
+        it('should be defined', () => {
             expect(viewModel.questionTitle).toBeDefined();
         });
-
     });
 
-    describe('questionContent:', function () {
-
-        it('should be defined', function () {
+    describe('questionContent:', () => {
+        it('should be defined', () => {
             expect(viewModel.questionContent).toBeDefined();
         });
-
     });
 
-    describe('canActivate:', function () {
+    describe('canActivate:', () => {
 
-        var getQuestionById, getObjectiveById, getCourseById;
-
-        beforeEach(function () {
-            getQuestionById = Q.defer();
-            getObjectiveById = Q.defer();
-            getCourseById = Q.defer();
-
-            spyOn(questionRepository, 'getById').and.returnValue(getQuestionById.promise);
-            spyOn(objectiveRepository, 'getById').and.returnValue(getObjectiveById.promise);
-            spyOn(courseRepository, 'getById').and.returnValue(getCourseById.promise);
-
-        });
-
-        it('should be function', function () {
+        it('should be function', () => {
             expect(viewModel.canActivate).toBeFunction();
         });
 
-        describe('when activated with 3 argument', function () {
-
-            describe('and course exists', function () {
-                beforeEach(function () {
-                    getCourseById.resolve({});
-                });
-
-                describe('and objective exists', function () {
-                    beforeEach(function () {
-                        getObjectiveById.resolve({});
-                    });
-
-                    describe('and question does not exist', function () {
-                        beforeEach(function () {
-                            getQuestionById.reject({});
-                        });
-
-                        it('should redirect to 404', function (done) {
-                            viewModel.canActivate('courseId', 'objectiveId', 'questionId').then(function (result) {
-                                expect(result).toEqual({ redirect: '404' });
-                                done();
-                            });
-                        });
-                    });
-
-                    describe('and question exists', function () {
-                        beforeEach(function () {
-                            getQuestionById.resolve({});
-                        });
-
-                        it('should return true', function (done) {
-                            viewModel.canActivate('courseId', 'objectiveId', 'questionId').then(function (result) {
-                                expect(result).toEqual(true);
-                                done();
-                            });
-                        });
-                    });
-                });
-
-                describe('and objective does not exist', function () {
-                    beforeEach(function () {
-                        getObjectiveById.reject({});
-                    });
-
-                    describe('and question exists', function () {
-                        beforeEach(function () {
-                            getQuestionById.resolve({});
-                        });
-
-                        it('should redirect to 404', function (done) {
-                            viewModel.canActivate('courseId', 'objectiveId', 'questionId').then(function (result) {
-                                expect(result).toEqual({ redirect: '404' });
-                                done();
-                            });
-                        });
-                    });
-                });
-            });
-
-            describe('and course does not exist', function () {
-                beforeEach(function () {
-                    getCourseById.reject({});
-                });
-
-                describe('and objective exists', function () {
-                    beforeEach(function () {
-                        getObjectiveById.resolve({});
-                    });
-
-                    describe('and question exists', function () {
-                        beforeEach(function () {
-                            getQuestionById.resolve({});
-                        });
-
-                        it('should redirect to 404', function (done) {
-                            viewModel.canActivate('courseId', 'objectiveId', 'questionId').then(function (result) {
-                                expect(result).toEqual({ redirect: '404' });
-                                done();
-                            });
-                        });
-                    });
-                });
-            });
-        });
-
-        describe('when activated with 2 argument', function () {
-
-            describe('and objective exists', function () {
-                beforeEach(function () {
-                    getObjectiveById.resolve({});
-                });
-
-                describe('and question does not exist', function () {
-                    beforeEach(function () {
-                        getQuestionById.reject({});
-                    });
-
-                    it('should redirect to 404', function (done) {
-                        viewModel.canActivate('objectiveId', 'questionId').then(function (result) {
-                            expect(result).toEqual({ redirect: '404' });
-                            done();
-                        });
-                    });
-                });
-
-                describe('and question exists', function () {
-                    beforeEach(function () {
-                        getQuestionById.resolve({});
-                    });
-
-                    it('should return true', function (done) {
-                        viewModel.canActivate('objectiveId', 'questionId').then(function (result) {
-                            expect(result).toEqual(true);
-                            done();
-                        });
-                    });
-                });
-            });
-
-            describe('and objective does not exist', function () {
-                beforeEach(function () {
-                    getObjectiveById.reject({});
-                });
-
-                describe('and question exists', function () {
-                    beforeEach(function () {
-                        getQuestionById.resolve({});
-                    });
-
-                    it('should redirect to 404', function (done) {
-                        viewModel.canActivate('objectiveId', 'questionId').then(function (result) {
-                            expect(result).toEqual({ redirect: '404' });
-                            done();
-                        });
-                    });
-                });
-            });
-        });
-
-        describe('when activated with 1 argument', function () {
-            it('should throw exception', function () {
-                var f = function () { viewModel.canActivate(); }
+        describe('when courseId is not pass', () => {
+            it('should throw exception', () => {
+                var f = () => { viewModel.canActivate(); }
                 expect(f).toThrow();
             });
         });
-    });
 
-    describe('activate:', function () {
-
-        var getQuestionById,
-            activeQuestionViewModelInitDeferred,
-            learningContentsViewModelInitDeferred,
-            feedbackViewModelInitDeferred,
-
-            viewModelData = {
-                viewCaption: 'caption',
-                isQuestionContentNeeded: true
-            };
-
-        beforeEach(function () {
-            getQuestionById = Q.defer();
-
-            spyOn(questionRepository, 'getById').and.returnValue(getQuestionById.promise);
-            activeQuestionViewModelInitDeferred = Q.defer();
-            spyOn(multipleSelect, 'initialize').and.returnValue(activeQuestionViewModelInitDeferred.promise);
-            learningContentsViewModelInitDeferred = Q.defer();
-            spyOn(learningContents, 'initialize').and.returnValue(learningContentsViewModelInitDeferred.promise);
-            feedbackViewModelInitDeferred = Q.defer();
-            spyOn(feedback, 'initialize').and.returnValue(feedbackViewModelInitDeferred.promise);
-
-            spyOn(http, 'post');
+        describe('when objectiveId is not pass', () => {
+            it('should throw exception', () => {
+                var f = () => { viewModel.canActivate('courseId'); }
+                expect(f).toThrow();
+            });
         });
 
-        it('should be a function', function () {
+        describe('when questionId is not pass', () => {
+            it('should throw exception', () => {
+                var f = () => { viewModel.canActivate('courseId', 'objectiveId'); }
+                expect(f).toThrow();
+            });
+        });
+
+        describe('when course does not exist', () => {
+            beforeEach(() => {
+                spyOn(courseRepository, 'getById').and.returnValue(Promise.reject());
+                spyOn(questionRepository, 'getById').and.returnValue(Promise.reject());
+                spyOn(objectiveRepository, 'getById').and.returnValue(Promise.reject());
+            });
+
+            it('should redirect to 404', (done) => {
+                viewModel.canActivate('courseId', 'objectiveId', 'questionId').then((result) => {
+                    expect(result).toEqual({ redirect: '404' });
+                    done();
+                });
+            });
+
+        });
+
+        describe('when objective does not exist', () => {
+            beforeEach(() => {
+                spyOn(courseRepository, 'getById').and.returnValue(Promise.resolve({}));
+                spyOn(objectiveRepository, 'getById').and.returnValue(Promise.reject({}));
+                spyOn(questionRepository, 'getById').and.returnValue(Promise.reject());
+            });
+
+            it('should redirect to 404', (done) => {
+                viewModel.canActivate('courseId', 'objectiveId', 'questionId').then((result) => {
+                    expect(result).toEqual({ redirect: '404' });
+                    done();
+                });
+            });
+
+        });
+
+        describe('when question does not exist', () => {
+            beforeEach(() => {
+                spyOn(courseRepository, 'getById').and.returnValue(Promise.resolve({}));
+                spyOn(objectiveRepository, 'getById').and.returnValue(Promise.resolve({}));
+                spyOn(questionRepository, 'getById').and.returnValue(Promise.reject());
+            });
+
+            it('should redirect to 404', (done) => {
+                viewModel.canActivate('courseId', 'objectiveId', 'questionId').then((result) => {
+                    expect(result).toEqual({ redirect: '404' });
+                    done();
+                });
+            });
+
+        });
+
+        describe('when question exists', () => {
+            
+            beforeEach(() => {
+                spyOn(courseRepository, 'getById').and.returnValue(Promise.resolve({}));
+                spyOn(objectiveRepository, 'getById').and.returnValue(Promise.resolve({}));
+                spyOn(questionRepository, 'getById').and.returnValue(Promise.resolve({}));
+            });
+
+            it('should return true', (done) => {
+                viewModel.canActivate('courseId', 'objectiveId', 'questionId').then((result) => {
+                    expect(result).toEqual(true);
+                    done();
+                });
+            });
+        });
+       
+    });
+
+    describe('activate:', () => {
+
+        it('should be a function', () => {
             expect(viewModel.activate).toBeFunction();
         });
 
-        it('should return promise', function () {
-            expect(viewModel.activate('objectiveId', 'questionId')).toBePromise();
+        it('should return promise', () => {
+            expect(viewModel.activate('courseId', 'objectiveId', 'questionId')).toBePromise();
         });
 
-        describe('when activated with objectiveId and questionId', function () {
-
-            beforeEach(function () {
-                getQuestionById.resolve(question);
-
-                activeQuestionViewModelInitDeferred.resolve(viewModelData);
-                learningContentsViewModelInitDeferred.resolve();
-                feedbackViewModelInitDeferred.resolve();
-            });
-
-            it('should set objectiveId', function (done) {
-                viewModel.objectiveId = null;
-
-                viewModel.activate('objectiveId', 'questionId').then(function () {
-                    expect(viewModel.objectiveId).toEqual('objectiveId');
-                    done();
-                });
-            });
-
-            it('should set questionId', function (done) {
-                viewModel.questionId = null;
-
-                viewModel.activate('objectiveId', 'questionId').then(function () {
-                    expect(viewModel.questionId).toEqual('questionId');
-                    done();
-                });
-            });
-
-            it('should set voiceOver', function (done) {
-                viewModel.voiceOver = null;
-
-                viewModel.activate('objectiveId', 'questionId').then(function () {
-                    expect(viewModel.voiceOver).toBeDefined();
-                    done();
-                });
-            });
-
-            it('should set null to courseId', function (done) {
-                viewModel.courseId = 'courseId';
-
-                viewModel.activate('objectiveId', 'questionId').then(function () {
-                    expect(viewModel.courseId).toEqual(null);
-                    done();
+        describe('when activated without course id', () => {
+            it('should reject promise', () => {
+                viewModel.activate().catch(reason => {
+                    expect(reason).toBeDefined();
                 });
             });
         });
 
-        describe('when activated with courseId, objectiveId and questionId', function () {
-
-            beforeEach(function () {
-                getQuestionById.resolve(question);
-
-                activeQuestionViewModelInitDeferred.resolve(viewModelData);
-                learningContentsViewModelInitDeferred.resolve();
-                feedbackViewModelInitDeferred.resolve();
-            });
-
-            it('should set courseId', function (done) {
-                viewModel.courseId = null;
-
-                viewModel.activate('courseId', 'objectiveId', 'questionId').then(function () {
-                    expect(viewModel.courseId).toEqual('courseId');
-                    done();
+        describe('when activated without objective id', () => {
+            it('should reject promise', () => {
+                viewModel.activate('courseId').catch(reason => {
+                    expect(reason).toBeDefined();
                 });
             });
+        });
 
-            it('should set objectiveId', function (done) {
-                viewModel.objectiveId = null;
-
-                viewModel.activate('courseId', 'objectiveId', 'questionId').then(function () {
-                    expect(viewModel.objectiveId).toEqual('objectiveId');
-                    done();
+        describe('when activated without question id', () => {
+            it('should reject promise', () => {
+                viewModel.activate('courseId', 'objectiveId').catch(reason => {
+                    expect(reason).toBeDefined();
                 });
             });
+        });
 
-            it('should set questionId', function (done) {
-                viewModel.questionId = null;
+        it('should set courseId', (done) => (async () => {
+            viewModel.courseId = null;
+            viewModel.activate('courseId', 'objectiveId', 'questionId');
+            expect(viewModel.courseId).toEqual('courseId');
+        })().then(done));
 
-                viewModel.activate('courseId', 'objectiveId', 'questionId').then(function () {
-                    expect(viewModel.questionId).toEqual('questionId');
-                    done();
-                });
+        it('should set objectiveId', (done) => (async () => {
+            viewModel.objectiveId = null;
+            viewModel.activate('courseId', 'objectiveId', 'questionId');
+            expect(viewModel.objectiveId).toEqual('objectiveId');
+        })().then(done));
+
+        it('should set questionId', (done) => (async () => {
+            viewModel.questionId = null;
+            viewModel.activate('courseId', 'objectiveId', 'questionId');
+            expect(viewModel.questionId).toEqual('questionId');
+        })().then(done));
+
+        describe('when question not found', () => {
+            let getQuestionPromise;
+            
+            beforeEach(() => {
+                getQuestionPromise = Promise.reject('reason');
+                spyOn(questionRepository, 'getById').and.returnValue(getQuestionPromise);
             });
+
+            it('should reject promise', (done) =>  (async () => {
+                viewModel.activate('courseId', 'objectiveId', 'questionId').catch(reason => {
+                    expect(reason).toBe('reason');    
+                });
+            })().then(done));
 
         });
 
-        describe('when activated with incorrect arguments', function () {
+        describe('when question found', () => {
+            let viewModelData = {
+                viewCaption: 'caption',
+                isQuestionContentNeeded: true
+            };
+            let getQuestionPromise;
+            let initializeActiveQuestionPromise;
+            let initializeLearningContentPromise;
 
-            it('should throw exception', function () {
-                var f = function () { viewModel.activate(); }
-                expect(f).toThrow();
+            beforeEach(() => {
+                getQuestionPromise = Promise.resolve(question);
+                initializeActiveQuestionPromise = Promise.resolve(viewModelData);
+                initializeLearningContentPromise = Promise.resolve();
+                spyOn(questionRepository, 'getById').and.returnValue(getQuestionPromise);
+                spyOn(multipleSelect, 'initialize').and.returnValue(initializeActiveQuestionPromise);
+                spyOn(learningContents, 'initialize').and.returnValue(initializeLearningContentPromise);
+                spyOn(feedback, 'initialize').and.returnValue(Promise.resolve());
             });
 
-        });
-
-        describe('when question not found', function () {
-            beforeEach(function () {
-                getQuestionById.reject('reason');
-            });
-
-            it('should reject promise', function (done) {
-                var promise = viewModel.activate('objectiveId', 'questionId');
-
-                promise.fin(function () {
-                    expect(promise).toBeRejectedWith('reason');
-                    done();
-                });
-            });
-
-        });
-
-        describe('when question found', function () {
-
-            beforeEach(function () {
-                getQuestionById.resolve(question);
-
-                activeQuestionViewModelInitDeferred.resolve(viewModelData);
-                learningContentsViewModelInitDeferred.resolve();
-                feedbackViewModelInitDeferred.resolve();
-            });
-
-            it('should set activeQuestionViewModel', function (done) {
+            it('should set activeQuestionViewModel', (done) =>  (async () => {
                 viewModel.activeQuestionViewModel = null;
+                viewModel.activate('courseId', 'objectiveId', 'questionId');
+                await getQuestionPromise;
+                expect(viewModel.activeQuestionViewModel).not.toBeNull();
+            })().then(done));
 
-                viewModel.activate(objective.id, question.id).fin(function () {
-                    expect(viewModel.activeQuestionViewModel).not.toBeNull();
-                    done();
-                });
-            });
+            it('should initialize activeQuestionViewModel', (done) =>  (async () => {
+                viewModel.activate('courseId', 'objectiveId', 'questionId');
+                await getQuestionPromise;
+                expect(multipleSelect.initialize).toHaveBeenCalledWith('objectiveId', question);
+            })().then(done));
 
-            it('should initialize activeQuestionViewModel', function (done) {
-                viewModel.activate(objective.id, question.id).fin(function () {
-                    expect(multipleSelect.initialize).toHaveBeenCalledWith(viewModel.objectiveId, question);
-                    done();
-                });
-            });
+            describe('and active question view model is initialized', () => {
 
-            describe('when initialize activeQuestionViewModel', function () {
+                it('should set viewCaption', (done) =>  (async () => {
+                    viewModel.viewCaption = null;
+                    viewModel.activate('courseId', 'objectiveId', 'questionId');
+                    await getQuestionPromise;
+                    await initializeActiveQuestionPromise;
+                    expect(viewModel.viewCaption).toBe(viewModelData.viewCaption);
+                })().then(done));
 
-                it('should set viewCaption', function (done) {
-                    viewModel.activate(objective.id, question.id).fin(function () {
-                        expect(viewModel.viewCaption).toBe(viewModelData.viewCaption);
-                        done();
-                    });
-                });
-
-                it('should set questionTitle', function (done) {
+                it('should set questionTitle', (done) =>  (async () => {
                     viewModel.questionTitle = null;
+                    viewModel.activate('courseId', 'objectiveId', 'questionId');
+                    await getQuestionPromise;
+                    await initializeActiveQuestionPromise;
+                    expect(viewModel.questionTitle).not.toBeNull();
+                })().then(done));
 
-                    viewModel.activate(objective.id, question.id).fin(function () {
-                        expect(viewModel.questionTitle).not.toBeNull();
-                        done();
-                    });
-                });
+                it('should initialize learningContents', (done) =>  (async () => {
+                    viewModel.activate('courseId', 'objectiveId', 'questionId');
+                    await getQuestionPromise;
+                    await initializeActiveQuestionPromise;
+                    expect(learningContents.initialize).toHaveBeenCalledWith(question);
+                })().then(done));
 
-                it('should initialize learningContents', function (done) {
-                    viewModel.activate(objective.id, question.id).fin(function () {
-                        expect(learningContents.initialize).toHaveBeenCalledWith(question);
-                        done();
-                    });
-                });
-
-                it('should initialize feedback', function (done) {
-                    viewModel.activate(objective.id, question.id).fin(function () {
-                        expect(feedback.initialize).toHaveBeenCalled();
-                        done();
-                    });
-                });
+                it('should initialize feedback', (done) =>  (async () => {
+                    viewModel.activate('courseId', 'objectiveId', 'questionId');
+                    await getQuestionPromise;
+                    await initializeActiveQuestionPromise;
+                    await initializeLearningContentPromise;
+                    expect(feedback.initialize).toHaveBeenCalled();
+                })().then(done));
             });
 
         });
 
     });
 
-    describe('back:', function () {
+    describe('back:', () => {
 
-        it('should be function', function () {
+        it('should be function', () => {
             expect(viewModel.back).toBeFunction();
         });
 
-        describe('when courseId is set', function () {
-
-            it('should redirect to objective within course', function () {
-                viewModel.courseId = 'courseId';
-                viewModel.objectiveId = 'objectiveId';
-                viewModel.back();
-                expect(router.navigate).toHaveBeenCalledWith('#courses/courseId/objectives/objectiveId');
-            });
-
+        it('should redirect to objective within course', () => {
+            viewModel.courseId = 'courseId';
+            viewModel.objectiveId = 'objectiveId';
+            viewModel.back();
+            expect(router.navigate).toHaveBeenCalledWith('#courses/courseId/objectives/objectiveId');
         });
-
-        describe('when courseId is not set', function () {
-
-            it('should redirect to objective', function () {
-                viewModel.courseId = null;
-                viewModel.objectiveId = 'objectiveId';
-                viewModel.back();
-                expect(router.navigate).toHaveBeenCalledWith('#library/objectives/objectiveId');
-            });
-
-        });
-
     });
 
-    describe('titleUpdatedByCollaborator:', function () {
+    describe('titleUpdatedByCollaborator:', () => {
 
-        it('should be function', function () {
+        it('should be function', () => {
             expect(viewModel.titleUpdatedByCollaborator).toBeFunction();
         });
 
-        beforeEach(function () {
-            viewModel.questionTitle = vmQuestionTitle(objective.id, question);
+        beforeEach(() => {
+            viewModel.questionTitle = vmQuestionTitle('objectiveId', question);
         });
 
-        describe('when question is not current question', function () {
+        describe('when question is not current question', () => {
 
-            it('should not update text', function () {
+            it('should not update text', () => {
                 viewModel.questionTitle.text('');
                 viewModel.titleUpdatedByCollaborator({ id: '3333', title: 'new title' });
                 expect(viewModel.questionTitle.text()).toBe('');
@@ -553,9 +367,9 @@ describe('viewModel [question]', function () {
 
         });
 
-        describe('when is editing title', function () {
+        describe('when is editing title', () => {
 
-            it('should not update title', function () {
+            it('should not update title', () => {
                 viewModel.questionTitle.text('');
                 viewModel.questionTitle.text.isEditing(true);
                 viewModel.titleUpdatedByCollaborator(question);
@@ -564,7 +378,7 @@ describe('viewModel [question]', function () {
 
         });
 
-        it('should update text', function () {
+        it('should update text', () => {
             viewModel.questionTitle.text.isEditing(false);
             viewModel.questionId = question.id;
             var newTitle = 'new';
@@ -576,19 +390,19 @@ describe('viewModel [question]', function () {
 
     });
 
-    describe('contentUpdatedByCollaborator:', function () {
+    describe('contentUpdatedByCollaborator:', () => {
 
-        it('should be function', function () {
+        it('should be function', () => {
             expect(viewModel.contentUpdatedByCollaborator).toBeFunction();
         });
 
-        beforeEach(function () {
+        beforeEach(() => {
             viewModel.questionContent = vmContentField(question.content);
             viewModel.questionId = question.id;
         });
 
-        describe('when is not current question', function () {
-            it('should not update content', function () {
+        describe('when is not current question', () => {
+            it('should not update content', () => {
                 viewModel.questionId = 'qqq';
                 viewModel.questionContent.text('');
                 viewModel.contentUpdatedByCollaborator(question);
@@ -596,15 +410,15 @@ describe('viewModel [question]', function () {
             });
         });
 
-        describe('when is editing content', function () {
-            it('should update original content', function () {
+        describe('when is editing content', () => {
+            it('should update original content', () => {
                 viewModel.questionContent.originalText('');
                 viewModel.questionContent.isEditing(true);
                 viewModel.contentUpdatedByCollaborator(question);
                 expect(viewModel.questionContent.originalText()).toBe(question.content);
             });
 
-            it('should not update content', function () {
+            it('should not update content', () => {
                 viewModel.questionContent.text('');
                 viewModel.questionContent.isEditing(true);
                 viewModel.contentUpdatedByCollaborator(question);
@@ -612,14 +426,14 @@ describe('viewModel [question]', function () {
             });
         });
 
-        it('should update original content', function () {
+        it('should update original content', () => {
             viewModel.questionContent.originalText('');
             viewModel.questionContent.isEditing(false);
             viewModel.contentUpdatedByCollaborator(question);
             expect(viewModel.questionContent.originalText()).toBe(question.content);
         });
 
-        it('should update content', function () {
+        it('should update content', () => {
             viewModel.questionContent.text('');
             viewModel.questionContent.isEditing(false);
             viewModel.contentUpdatedByCollaborator(question);
@@ -627,13 +441,13 @@ describe('viewModel [question]', function () {
         });
     });
 
-    describe('showMoveCopyDialog:', function () {
+    describe('showMoveCopyDialog:', () => {
 
-        it('should be function', function () {
+        it('should be function', () => {
             expect(viewModel.showMoveCopyDialog).toBeFunction();
         });
 
-        it('should open move/copy question dialog', function () {
+        it('should open move/copy question dialog', () => {
             viewModel.courseId = '1';
             viewModel.objectiveId = '2';
             viewModel.questionId = '3';
@@ -643,67 +457,36 @@ describe('viewModel [question]', function () {
 
     });
 
-    describe('duplicateQuestion:', function () {
+    describe('duplicateQuestion:', () => {
+        let duplicateQuestionPromise;
 
-        var copyQuestionDefer,
-            questionId = 'questionId',
-            objectiveId = 'objectiveId',
-            courseId = 'courseId',
-            newQuestionId = 'newQuestionId';
-
-        beforeEach(function () {
-            copyQuestionDefer = Q.defer();
-            spyOn(questionRepository, 'copyQuestion').and.returnValue(copyQuestionDefer.promise);
-            copyQuestionDefer.resolve({ id: newQuestionId });
-            viewModel.objectiveId = objectiveId;
-            viewModel.questionId = questionId;
+        beforeEach(() => {
+            viewModel.objectiveId = 'objectiveId';
+            viewModel.questionId = 'questionId';
+            duplicateQuestionPromise = Promise.resolve({ id: 'newQuestionId' });
+            spyOn(questionRepository, 'copyQuestion').and.returnValue(duplicateQuestionPromise);
         });
 
-        it('should be function', function () {
+        it('should be function', () => {
             expect(viewModel.duplicateQuestion).toBeFunction();
         });
 
-        it('should publish event \'Duplicate item\'', function () {
+        it('should publish event \'Duplicate item\'', () => {
             viewModel.duplicateQuestion();
             expect(eventTracker.publish).toHaveBeenCalledWith('Duplicate item');
         });
 
-        it('should send response to server', function () {
+        it('should send response to server', () => {
             viewModel.duplicateQuestion();
             expect(questionRepository.copyQuestion).toHaveBeenCalledWith(viewModel.questionId, viewModel.objectiveId);
         });
 
-        describe('when is context of course', function () {
 
-            beforeEach(function () {
-                viewModel.courseId = courseId;
-            });
-
-            it('should navigate to new question in course', function (done) {
-                viewModel.duplicateQuestion();
-                copyQuestionDefer.promise.fin(function () {
-                    expect(router.navigate).toHaveBeenCalledWith('courses/' + courseId + '/objectives/' + objectiveId + '/questions/' + newQuestionId);
-                    done();
-                });
-            });
-
-        });
-
-        describe('when is not a context of course', function () {
-
-            beforeEach(function () {
-                viewModel.courseId = null;
-            });
-
-            it('should navigate to new question', function (done) {
-                viewModel.duplicateQuestion();
-                copyQuestionDefer.promise.fin(function () {
-                    expect(router.navigate).toHaveBeenCalledWith('library/objectives/' + objectiveId + '/questions/' + newQuestionId);
-                    done();
-                });
-            });
-
-        });
+        it('should navigate to new question', (done) => (async () => {
+            viewModel.duplicateQuestion();
+            await duplicateQuestionPromise;
+            expect(router.navigate).toHaveBeenCalledWith(`courses/${viewModel.courseId}/objectives/${viewModel.objectiveId}/questions/newQuestionId`);
+        })().then(done));
 
     });
 

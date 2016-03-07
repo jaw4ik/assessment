@@ -1,36 +1,29 @@
 ﻿<div class="content-section-wrapper">
     <div class="content-section">
-        <!-- ko if: isExpanded -->
-        <div class="expand-collapse-panel expanded">
+        <div class="expand-collapse-panel " data-bind="css: isExpanded() ? 'expanded' : 'collapsed' ">
             <span class="expand-collapse-panel-label" data-bind="localize: { text: 'questionFeedback' }">Question feedback</span>
-            <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: 'collapse' }"></div>
+            <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: isExpanded() ? 'collapse': 'expand'  }"></div>
         </div>
-        <!-- /ko -->
-        <!-- ko ifnot: isExpanded -->
-        <div class="expand-collapse-panel collapsed">
-            <span class="expand-collapse-panel-label" data-bind="localize: { text: 'questionFeedback' }">Question feedback</span>
-            <div class="expand-collapse-panel-btn" title="Expand" data-bind="click: toggleExpand, localize: { title: 'expand' }"></div>
-        </div>
-        <!-- /ko -->
-        <!-- ko if: isExpanded -->
-        <!-- ko foreach: items -->
-        <div class="question-feedback-wrapper" data-bind="css: key">
-            <div class="question-feedback-icon">
-                <div class="info-tooltip">
-                    <span data-bind="text: captions.hint"></span>
+        <section class="content-item-holder" data-animation-duration="300" data-bind="heightAnimation:{ expanded : isExpanded(), minHeight : 0 }">
+            <!-- ko foreach: items -->
+            <div class="question-feedback-wrapper" data-bind="css: key">
+                <div class="question-feedback-icon">
+                    <div class="info-tooltip">
+                        <span data-bind="text: captions.hint"></span>
+                    </div>
+                </div>
+                <div class="question-feedback" data-bind="css: { active: hasFocus, empty: isEmpty }">
+                    <div class="question-feedback-text-wrapper selectable" data-bind="ckeditor: { data: text, eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, blur: updateText, autosaveInterval: $root.autosaveInterval, localizationManager: $root.localizationManager }">
+                    </div>
+                    <!-- ko if: isEmpty() && !hasFocus() -->
+                    <div class="question-feedback-info-wrapper">
+                        <span class="question-feedback-info" data-bind="text: captions.instruction"></span>
+                    </div>
+                    <!-- /ko -->
                 </div>
             </div>
-            <div class="question-feedback" data-bind="css: { active: hasFocus, empty: isEmpty }">
-                <div class="question-feedback-text-wrapper selectable" data-bind="ckeditor: { data: text, eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, blur: updateText, autosaveInterval: $root.autosaveInterval, localizationManager: $root.localizationManager }">
-                </div>
-                <!-- ko if: isEmpty() && !hasFocus() -->
-                <div class="question-feedback-info-wrapper">
-                    <span class="question-feedback-info" data-bind="text: captions.instruction"></span>
-                </div>
-                <!-- /ko -->
-            </div>
-        </div>
-        <!-- /ko -->
-        <!-- /ko -->
+
+            <!-- /ko -->
+        </section>
     </div>
 </div>

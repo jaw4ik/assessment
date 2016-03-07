@@ -7,6 +7,8 @@ import courseComments from 'review/comments/courseComments';
 import coursePublish from 'review/publish/coursePublish';
 import eventTracker from 'eventTracker';
 
+let _modalViewOpenedHandlers = new WeakMap();
+
 let events = {
     openReviewTab: 'Open review tab'
 };
@@ -21,6 +23,13 @@ class ReviewPanel {
         this.courseComments = courseComments;
         this.coursePublish = coursePublish;
         this._routerNavigatedProxy = this.routerNavigated.bind(this);
+        this.isModalViewShown = ko.observable(false);
+
+        _modalViewOpenedHandlers.set(this, (isOpenedinPopup) => {
+            this.isModalViewShown(isOpenedinPopup);
+        });
+
+        app.on('modal-view:visibility-state-changed', _modalViewOpenedHandlers.get(this).bind(this));    
     }
 
     toggleIsExpanded(){

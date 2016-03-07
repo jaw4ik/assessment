@@ -17,6 +17,7 @@ import CreateBar from './viewmodels/CreateBarViewModel';
 import SectionViewModel from './viewmodels/SectionViewModel';
 import deleteSectionDialog from 'editor/course/dialogs/deleteSection/deleteSection';
 import clientContext from 'clientContext';
+import questionModalView from 'editor/questions/questionModalView';
 
 const eventsForCourseContent = {
     addContent: 'Define introduction',
@@ -131,15 +132,20 @@ export default class {
 
         return instance;
     }
-    async activate(courseId) {
-        let course = await courseRepository.getById(courseId);
-        this.id = course.id;
-        this.createBar.activate();
-        this.createdBy = course.createdBy;
-        this.sections(mapSections(this.id, course.objectives));
-        this.notContainSections = ko.computed(() => this.sections().length === 0, this);
-        this.courseIntroductionContent = new vmContentField(course.introductionContent, eventsForCourseContent, false, content => courseRepository.updateIntroductionContent(course.id, content));
+    async activate(courseId, objectiveId, questionId) {
+        if (!this.canReuseForRoute(courseId)) {
+            let course = await courseRepository.getById(courseId);
+            this.id = course.id;
+            this.createBar.activate();
+            this.createdBy = course.createdBy;
+            this.sections(mapSections(this.id, course.objectives));
+            this.notContainSections = ko.computed(() => this.sections().length === 0, this);
+            this.courseIntroductionContent = new vmContentField(course.introductionContent, eventsForCourseContent, false, content => courseRepository.updateIntroductionContent(course.id, content));
+            await questionModalView.initialize(courseId);
+        }
+
         this.hightlightObjectiveIfNeeded();
+        await questionModalView.open(objectiveId, questionId);
     }
     async createSection(section) {
         eventTracker.publish(events.createSection, eventCategory);
@@ -325,5 +331,9 @@ export default class {
             clientContext.remove(constants.clientContextKeys.highlightedObjectiveId);
             this.highlightedObjectiveId(objectiveId);
         }
+    }
+
+    canReuseForRoute(courseId) {
+        return this.id === courseId;
     }
 };

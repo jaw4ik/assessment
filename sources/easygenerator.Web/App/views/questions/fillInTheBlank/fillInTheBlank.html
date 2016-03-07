@@ -2,8 +2,7 @@
 
     <div class="content-section-wrapper">
         <div class="content-section" data-bind="with: fillInTheBlank">
-            <!-- ko if: isExpanded -->
-            <div class="expand-collapse-panel expanded">
+            <div class="expand-collapse-panel " data-bind="css: isExpanded() ? 'expanded' : 'collapsed' ">
                 <span class="expand-collapse-panel-label" data-bind="localize: { text: 'fillInTheBlank' }">Fill in the blank</span>
                 <div class="tooltip-icon" data-bind="tooltip:'top'">
                     <h4 class="tooltip-title" data-bind="localize: { html: 'tooltipFibTitle'}"></h4>
@@ -12,55 +11,41 @@
                     <div class="tooltip-buttons-holder" data-bind="localize: { html: 'tooltipFibLink'}">
                     </div>
                 </div>
-                <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: 'collapse' }"></div>
+                <div class="expand-collapse-panel-btn" title="Collapse" data-bind="click: toggleExpand, localize: { title: isExpanded() ? 'collapse' : 'expand' }"></div>
             </div>
-            <!-- /ko -->
-            <!-- ko ifnot: isExpanded -->
-            <div class="expand-collapse-panel collapsed">
-                <span class="expand-collapse-panel-label" data-bind="localize: { text: 'fillInTheBlank' }">Fill in the blank</span>
-                <div class="tooltip-icon" data-bind="tooltip:'top'">
-                    <h4 class="tooltip-title" data-bind="localize: { html: 'tooltipFibTitle'}"></h4>
-                    <div class="tooltip-content" data-bind="localize: { html: 'tooltipFibDescription'}">
-                    </div>
-                    <div class="tooltip-buttons-holder" data-bind="localize: { html: 'tooltipFibLink'}">
-                    </div>
-                </div>
-                <div class="expand-collapse-panel-btn" title="Expand" data-bind="click: toggleExpand, localize: { title: 'expand' }"></div>
-            </div>
-            <!-- /ko -->
         </div>
     </div>
 
     <div class="content-section-wrapper answer-options" data-bind="with: fillInTheBlank">
-        <!-- ko if: isExpanded -->
-        <div class="question-answer-options-area">
-            <div class="content-section">
-                <div data-bind="fillInTheBlank: { name:'blankContent', createButtonSelectors: { addBlank: '.create-blank', addDropDownBlank: '.create-drop-down-blank' }, localizationManager: $root.localizationManager, eventTracker: $root.eventTracker}">
-                    <div class="fib-wrapper fib-content" data-bind="css: { 'active' : hasFocus }">
-                        <div class="question-learning-content selectable blankContent" data-bind="attr:{ id: 'blankContent'}, ckeditor: { fillInTheBlank: true, data: text, eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: endEditText, autosaveInterval: $parent.autosaveInterval, localizationManager: $root.localizationManager, forcedFocus: true }">
+        <section class="content-item-holder" data-animation-duration="300" data-bind="heightAnimation:{ expanded : isExpanded(), minHeight : 0 }">
+            <div class="question-answer-options-area">
+                <div class="content-section">
+                    <div data-bind="fillInTheBlank: { name:'blankContent', createButtonSelectors: { addBlank: '.create-blank', addDropDownBlank: '.create-drop-down-blank' }, localizationManager: $root.localizationManager, eventTracker: $root.eventTracker}">
+                        <div class="fib-wrapper fib-content" data-bind="css: { 'active' : hasFocus }">
+                            <div class="question-learning-content selectable blankContent" data-bind="attr:{ id: 'blankContent'}, ckeditor: { fillInTheBlank: true, data: text, eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: endEditText, autosaveInterval: $parent.autosaveInterval, localizationManager: $root.localizationManager, forcedFocus: true }">
+                            </div>
+                            <!-- ko if: isEmpty -->
+                            <div class="fib-watermark-wrapper" data-bind="click: addFillInTheBlank, localize: { html: 'fillInTheBlankWatermark' }">Your content with blanks <span class="blankField"><span class="blankValue">example</span><span class="close">&nbsp;</span></span> and dropdowns <span class=""><span class="blankField blankSelect"><span class="blankValue">example</span><span class="dropDownIndicator">&nbsp;</span><span class="close">&nbsp;</span></span></span> goes here...</div>
+                            <!-- /ko -->
                         </div>
-                        <!-- ko if: isEmpty -->
-                        <div class="fib-watermark-wrapper" data-bind="click: addFillInTheBlank, localize: { html: 'fillInTheBlankWatermark' }">Your content with blanks <span class="blankField"><span class="blankValue">example</span><span class="close">&nbsp;</span></span> and dropdowns <span class=""><span class="blankField blankSelect"><span class="blankValue">example</span><span class="dropDownIndicator">&nbsp;</span><span class="close">&nbsp;</span></span></span> goes here...</div>
-                        <!-- /ko -->
-                    </div>
-                    <div class="clearfix">
-                        <div class="create-blank-wrapper">
-                            <span class="create-blank-hotkey">(Ctrl+Q)</span>
-                            <button class="action-item-btn btn create-blank">
-                                <span class="create-blank-text" data-bind="localize: {text: 'addBlank' }">Add blank</span>
-                            </button>
-                        </div>
-                        <div class="create-blank-wrapper">
-                            <span class="create-blank-hotkey">(Ctrl+Alt+Q)</span>
-                            <button class="action-item-btn btn create-drop-down-blank">
-                                <span class="create-blank-text" data-bind="localize: {text: 'addDropdown' }">Add dropdown</span>
-                            </button>
+                        <div class="clearfix">
+                            <div class="create-blank-wrapper">
+                                <span class="create-blank-hotkey">(Ctrl+Q)</span>
+                                <button class="action-item-btn btn create-blank">
+                                    <span class="create-blank-text" data-bind="localize: {text: 'addBlank' }">Add blank</span>
+                                </button>
+                            </div>
+                            <div class="create-blank-wrapper">
+                                <span class="create-blank-hotkey">(Ctrl+Alt+Q)</span>
+                                <button class="action-item-btn btn create-drop-down-blank">
+                                    <span class="create-blank-text" data-bind="localize: {text: 'addDropdown' }">Add dropdown</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- /ko -->
+        </section>
     </div>
 
 </section>

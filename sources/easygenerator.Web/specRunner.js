@@ -26,6 +26,10 @@ function runSpecs(env) {
                 'editor/course/dialogs/deleteSection/deleteSection.spec',
                 //#endregion
 
+                //#region new editor questions popup
+                'editor/questions/questionModalView.spec',
+                //#endregion
+
                 //#region design
                 'design/design.spec',
                 'design/commands/saveCourseTemplateSettings.spec',
@@ -449,6 +453,7 @@ function runSpecs(env) {
                 'widgets/hotSpotOnImageTextEditor/viewmodel.spec',
                 'widgets/upgradeDialog/viewmodel.spec',
                 'widgets/dialog/viewmodel.spec',
+                'widgets/modalView/viewmodel.spec',
                 //#endregion
 
                 'viewmodels/user/userMenu.spec',

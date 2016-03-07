@@ -45,17 +45,9 @@
                 <div class="voice-over">
                     <div class="voice-over-icon"></div>
                     <div class="voice-over-title" data-bind="text: voiceOver.title"></div>
-                    <button class="voice-over-action edit info-tooltip-holder" data-bind="click: voiceOver.update">
-                        <div class="info-tooltip">
-                            <span data-bind="localize: { text: 'change' }"></span>
-                        </div>
-                    </button>
+                    <button class="voice-over-action edit info-tooltip-holder" data-bind="click: voiceOver.update, tip: { key : 'change' }"></button>
                     <span class="voice-over-action-separator"></span>
-                    <button class="voice-over-action delete info-tooltip-holder" data-bind="click: voiceOver.remove">
-                        <div class="info-tooltip">
-                            <span data-bind="localize: { text: 'delete' }"></span>
-                        </div>
-                    </button>
+                    <button class="voice-over-action delete info-tooltip-holder" data-bind="click: voiceOver.remove, tip: { key: 'delete' }"></button>
                 </div>
             </div>
             <!-- /ko -->
@@ -81,14 +73,16 @@
                     </div>
                     <!-- /ko -->
                 </div>
-                <div class="question-content-items-list" data-bind="visible: isExpanded">
-                    <div class="question-content-item" data-bind="css: { active: hasFocus }">
-                        <div class="question-content-wrapper">
-                            <div class="question-content selectable" data-bind="ckeditor: { data: text, eventTracker: $parent.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: autosaveInterval, localizationManager: $parent.localizationManager }">
+                <section class="content-item-holder" data-animation-duration="300" data-bind="heightAnimation:{ expanded : isExpanded(), minHeight : 0 }">
+                    <div class="question-content-items-list">
+                        <div class="question-content-item" data-bind="css: { active: hasFocus }">
+                            <div class="question-content-wrapper">
+                                <div class="question-content selectable" data-bind="ckeditor: { data: text, eventTracker: $parent.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: autosaveInterval, localizationManager: $parent.localizationManager }">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
             </div>
             <!-- /ko -->
             <!-- /ko -->

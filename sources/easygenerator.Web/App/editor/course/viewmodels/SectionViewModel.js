@@ -24,6 +24,7 @@ var _questionTitleUpdated = new WeakMap();
 var _questionDeleted = new WeakMap();
 var _questionCreated = new WeakMap();
 var _questionsReordered = new WeakMap();
+var _questionCreatedByCollaborator = new WeakMap();
 
 const eventCategory = 'Course editor (drag and drop)';
 const events = {
@@ -106,10 +107,20 @@ export default class SectionViewModel{
             this.modifiedOn(updateModifiedOn(section.modifiedOn));
         });
 
-        _questionCreated.set(this, (sectionId, question) => {
+        _questionCreatedByCollaborator.set(this, (sectionId, question) => {
             if (this.id() !== sectionId) {
                 return;
             }
+
+            this.questions.push(mapQuestion(this.courseId, this.id(), question));
+            this.modifiedOn(updateModifiedOn(section.modifiedOn));
+        });
+
+        _questionCreated.set(this, (sectionId, question) => {
+            if (this.id() !== sectionId || _.some(this.questions(), item => item.id() === '')) {
+                return;
+            }
+
             this.questions.push(mapQuestion(this.courseId, this.id(), question));
             this.modifiedOn(updateModifiedOn(section.modifiedOn));
         });
@@ -129,8 +140,11 @@ export default class SectionViewModel{
         app.on(constants.messages.objective.imageUrlUpdatedByCollaborator, _sectionImageUrlUpdated.get(this).bind(this));
         app.on(constants.messages.question.titleUpdatedByCollaborator, _questionTitleUpdated.get(this).bind(this));
         app.on(constants.messages.question.deletedByCollaborator, _questionDeleted.get(this).bind(this));
-        app.on(constants.messages.question.createdByCollaborator, _questionCreated.get(this).bind(this));
+        app.on(constants.messages.question.createdByCollaborator, _questionCreatedByCollaborator.get(this).bind(this));
         app.on(constants.messages.objective.questionsReorderedByCollaborator, _questionsReordered.get(this).bind(this));
+        app.on(constants.messages.question.titleUpdated, _questionTitleUpdated.get(this).bind(this));
+        app.on(constants.messages.question.deleted, _questionDeleted.get(this).bind(this));
+        app.on(constants.messages.question.created, _questionCreated.get(this).bind(this));
     }
     selectTitle() {
         this.title.isSelected(true);
@@ -218,7 +232,6 @@ export default class SectionViewModel{
         }
     }
     addQuestion(question, index) {
-
         if (!_.isObject(question)) {
             return undefined;
         }

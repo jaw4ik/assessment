@@ -1,5 +1,6 @@
 ﻿import ko from 'knockout';
 import $ from 'jquery';
+import composition from 'durandal/composition';
 
 ko.bindingHandlers.heightAnimation = {
     update: (element, valueAccessor) => {
@@ -29,3 +30,5 @@ ko.bindingHandlers.heightAnimation = {
         }
     }
 };
+
+composition.addBindingHandler('heightAnimation');

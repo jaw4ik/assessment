@@ -6,7 +6,7 @@
     };
 
     function install() {
-        var containerSelector = '.shell';
+        var containerSelector = '[data-bind*="tooltipcontainer"]';
         var animationDuration = 200;
         var tooltipHolderClass = 'tooltip-holder';
 
@@ -34,38 +34,38 @@
             var elementContent = $element.html();
             $element.empty();
 
-            var $tooltipContainer = addTooltipContainer(elementContent);
+            var $tooltip = addTooltip(elementContent);
 
-            function addTooltipContainer(elementContent) {
-                var $tooltipContainer = $('<div/>', { 'class': tooltipHolderClass });
+            function addTooltip(elementContent) {
+                var $tooltip = $('<div/>', { 'class': tooltipHolderClass });
 
-                $(containerSelector).append($tooltipContainer);
-                ko.utils.setHtml($tooltipContainer, view);
+                $element.closest(containerSelector).append($tooltip);
+                ko.utils.setHtml($tooltip, view);
 
-                $('.tooltip-content-holder', $tooltipContainer).html(elementContent);
+                $('.tooltip-content-holder', $tooltip).html(elementContent);
 
-                $('.tooltip-close-button', $tooltipContainer).click(closeHandler);
+                $('.tooltip-close-button', $tooltip).click(closeHandler);
 
-                return $tooltipContainer;
+                return $tooltip;
             }
-
+            
             $(window).on('keypress', closeOnEscHandler);
             $(window).on('resize', closeHandler);
 
             ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-                $tooltipContainer.remove();
-                $(window).unbind('keypress', closeOnEscHandler);
-                $(window).unbind('resize', closeHandler);
+                $tooltip.remove();
+                $(window).off('keypress', closeOnEscHandler);
+                $(window).off('resize', closeHandler);
             });
 
             function closeOnEscHandler(e) {
                 if (e.keyCode == 27) {
-                    hide($tooltipContainer);
+                    hide($tooltip);
                 }
             }
 
             function closeHandler() {
-                hide($tooltipContainer);
+                hide($tooltip);
             }
 
             function hide($container) {
@@ -73,9 +73,9 @@
             }
 
             $element.click(function () {
-                if (!$tooltipContainer.is(':visible')) {
-                    var $container = $(containerSelector);
-                    var position = getPosition(preferredVerticalAligment, $element, $container, $tooltipContainer);
+                if (!$tooltip.is(':visible')) {
+                    var $container = $(element).closest(containerSelector);
+                    var position = getPosition(preferredVerticalAligment, $element, $container, $tooltip);
 
                     var resultStyles = {
                         opacity: '1',
@@ -88,13 +88,13 @@
                         opacity: '0'
                     };
 
-                    $tooltipContainer.css(tooltipStyles).removeClass('top bottom').addClass(position.vertical.aligment);
+                    $tooltip.css(tooltipStyles).removeClass('top bottom').addClass(position.vertical.aligment);
 
-                    $('.tooltip-pointer', $tooltipContainer).removeClass('right middle left').addClass(position.horizontal.aligment);
+                    $('.tooltip-pointer', $tooltip).removeClass('right middle left').addClass(position.horizontal.aligment);
 
-                    $tooltipContainer.finish().animate(resultStyles, animationDuration);
+                    $tooltip.finish().animate(resultStyles, animationDuration);
                 } else {
-                    hide($tooltipContainer);
+                    hide($tooltip);
                 }
             });
 
@@ -103,12 +103,13 @@
         function getPosition(preferredVerticalAligment, $pointer, $container, $tooltip) {
             var tooltipHeight = $tooltip.height();
             var tooltipWidth = $tooltip.width();
-
             var pointerOffset = $pointer.offset();
+            var pointerTop = pointerOffset.top - $(window).scrollTop() + $container.scrollTop();
             var containerOffset = $container.offset();
+            var containerTop = containerOffset.top - $(window).scrollTop();
             var position = {};
 
-            position.vertical = getVerticalPosition(preferredVerticalAligment, pointerOffset.top, containerOffset.top, tooltipHeight);
+            position.vertical = getVerticalPosition(preferredVerticalAligment, pointerTop, containerTop, tooltipHeight);
             position.horizontal = getHorizontalPosition(pointerOffset.left, containerOffset.left, $container.width(), tooltipWidth);
 
             function getVerticalPosition(preferredVerticalAligment, pointerTopOffset, containerTopOffset, tooltipHeight) {

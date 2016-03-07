@@ -31,6 +31,10 @@
         if ($mainHeader.length > 0) {
             CKEDITOR.config.floatSpaceWindowOffsetTop = $mainHeader.height();
         }
+        var customScrollbarContainer = $(element).closest('[data-bind*="scrollbar"]');
+        if (customScrollbarContainer.length) {
+            CKEDITOR.config.floatSpaceWindowOffsetTop = customScrollbarContainer.offset().top;
+        }
 
         if (fillInTheBlank) {
             inPageSettings.extraAllowedContent = 'span[*]; input[*]; select[*]; option[*]';
@@ -151,6 +155,15 @@
                     onBlur();
                 }
             });
+
+            var customScrollbarContainer = $(element).closest('[data-bind*="scrollbar"]');
+
+            if (customScrollbarContainer.length) {
+                CKEDITOR.config.floatSpaceWindowOffsetTop = customScrollbarContainer.offset().top;
+                customScrollbarContainer.on('scroll', updateToolbarPositionInContainer);
+                $(window).on('scroll', updateToolbarPositionInContainer);
+                $(window).on('resize', updateToolbarPositionInContainer);
+            }
         });
 
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
@@ -159,6 +172,14 @@
 
             clearInterval(saveIntervalId);
             $(element).removeAttr('contenteditable');
+
+            var customScrollbarContainer = $(element).closest('[data-bind*="scrollbar"]');
+
+            if (customScrollbarContainer.length) {
+                customScrollbarContainer.off('scroll', updateToolbarPositionInContainer);
+                $(window).off('scroll', updateToolbarPositionInContainer);
+                $(window).off('resize', updateToolbarPositionInContainer);
+            }
 
             (function destroyInstance() {
                 if (editor.status === 'ready') {
@@ -170,6 +191,35 @@
                 }
             })();
         });
+
+        function updateToolbarPositionInContainer() {
+            if(!$toolbarElement.is(":visible")) {
+                return;
+            }
+
+            var customScrollbarContainer = $(element).closest('[data-bind*="scrollbar"]');
+            if (!customScrollbarContainer.length) {
+                return;
+            }
+            
+            var containerTop = customScrollbarContainer.offset().top - $(window).scrollTop();
+            var containerBottom = containerTop + customScrollbarContainer.outerHeight();
+            
+            var toolbarHeight = $toolbarElement.height();
+            var elementTop = $(element).offset().top - $(window).scrollTop();
+            var elementBottom = elementTop + $(element).outerHeight();
+            var dockedOffsetY = inPageSettings.floatSpaceDockedOffsetY || 0;
+
+            $toolbarElement.css('position', 'fixed');
+
+            if (elementTop - toolbarHeight > containerTop) {
+                $toolbarElement.css('top', elementTop - toolbarHeight);
+            } else if (elementBottom + toolbarHeight < containerBottom) {
+                $toolbarElement.css('top', elementBottom + dockedOffsetY);
+            } else {
+                $toolbarElement.css('top', containerTop);
+            }
+        }
 
         function setData(evt) {
             // Fix for bug with save resize of table in tableresize plugin
