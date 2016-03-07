@@ -3,10 +3,12 @@
     return function AudioViewModel(entity) {
         var that = this;
 
+        that.id = entity.id;
         that.title = entity.title;
         that.vimeoId = ko.observable(entity.vimeoId);
         that.progress = ko.observable(entity.progress || 0);
         that.status = ko.observable(entity.status || constants.storage.audio.statuses.loaded);
+        that.isDeleteConfirmationShown = ko.observable(false);
 
         var duration = ko.observable(entity.duration);
 
@@ -41,6 +43,7 @@
                 that.progress(progress || 0);
             });
             entity.on(constants.storage.audio.statuses.loaded).then(function (entity) {
+                that.id = entity.id;
                 that.status(constants.storage.audio.statuses.loaded);
                 that.vimeoId(entity.vimeoId);
                 that.duration(entity.duration);

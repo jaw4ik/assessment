@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using easygenerator.StorageServer.Components.Dispatchers;
 using easygenerator.StorageServer.Components.Vimeo;
 using easygenerator.StorageServer.Models;
 using easygenerator.StorageServer.Models.Entities;
@@ -38,9 +37,9 @@ namespace easygenerator.StorageServer.Controllers
 
 
         [Route("api/media/video/delete"), HttpPost]
-        public async Task<bool> DeleteVideo(DeleteVideoRequestModel model)
+        public async Task<bool> DeleteVideo(DeleteMediaRequestModel model)
         {
-            var video = _videoRepository.Get(model.VideoId);
+            var video = _videoRepository.Get(model.MediaId);
             if (video == null)
             {
                 return true;
@@ -51,6 +50,22 @@ namespace easygenerator.StorageServer.Controllers
             user.ReleaseStorageSpace(video.Size);
 
             return await _vimeoDelete.DeleteAsync(video.VimeoId);
+        }
+
+        [Route("api/media/audio/delete"), HttpPost]
+        public async Task<bool> DeleteAudio(DeleteMediaRequestModel model)
+        {
+            var audio = _audioRepository.Get(model.MediaId);
+            if (audio == null)
+            {
+                return true;
+            }
+
+            _audioRepository.Remove(audio);
+            var user = _userRepository.GetOrAddUserByEmail(User.Identity.Name);
+            user.ReleaseStorageSpace(audio.Size);
+
+            return await _vimeoDelete.DeleteAsync(audio.VimeoId);
         }
     }
 }

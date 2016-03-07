@@ -650,6 +650,10 @@
     <Content Include="App\audio\finishUpload.spec.js">
       <DependentUpon>finishUpload.js</DependentUpon>
     </Content>
+    <Content Include="App\audio\vimeo\commands\delete.js" />
+    <Content Include="App\audio\vimeo\commands\delete.spec.js">
+      <DependentUpon>delete.js</DependentUpon>
+    </Content>
     <Content Include="App\audio\vimeo\commands\pull.js" />
     <Content Include="App\audio\vimeo\commands\pull.spec.js">
       <DependentUpon>pull.js</DependentUpon>

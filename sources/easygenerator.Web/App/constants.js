@@ -443,6 +443,7 @@ export default {
             convertionUrl: window.convertionServiceUrl ? "//" + window.convertionServiceUrl : '//staging.easygenerator.com/convertion',
             pullUrl: '/api/media/audio/pull',
             ticketUrl: '/api/media/audio/ticket',
+            deleteUrl: '/api/media/audio/delete',
             trackerTimeout: 25000,
             statuses: {
                 available: 'available',

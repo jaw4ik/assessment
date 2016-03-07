@@ -423,6 +423,7 @@ function runSpecs(env) {
                 'audio/queries/getCollection.spec',
                 'audio/queries/getNotAvailable.spec',
                 'audio/vimeo/commands/pull.spec',
+                'audio/vimeo/commands/delete.spec',
                 'audio/vimeo/availabilityTracker.spec',
                 'audio/factory.spec',
                 'audio/finishUpload.spec',
