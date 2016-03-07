@@ -198,6 +198,9 @@ FakesAssemblies/
 # Visual Studio 6 workspace options file
 *.opt
 
+#Visual Studio slm settings file
+*.sln.slm
+
 # Visual Studio Code files
 .vscode/launch.json
 

@@ -1,0 +1,20 @@
+﻿<li>
+    <div class="r-table">
+        <div class="r-text content" data-bind="localize: { text: 'reportingСontentTitle'}"></div>
+        <div class="r-question-text selectable">
+            <p>
+                "<span data-bind="text: lrsStatement.name"></span>"
+            </p>
+        </div>
+        <div class="r-score" data-bind="css: { correct: correct, 'no-result': !hasScore }">
+            <p>
+                <!-- ko if: hasScore -->
+                <span data-bind="text: lrsStatement.score + '%'"></span>
+                <!-- /ko -->
+                <!-- ko ifnot: hasScore -->
+                <span data-bind="localize: { text: 'reportingInfoNotAvailable' }"></span>
+                <!-- /ko -->
+            </p>
+        </div>
+    </div>
+</li>

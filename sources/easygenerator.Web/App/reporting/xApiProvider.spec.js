@@ -112,7 +112,8 @@ describe('XApiProvider', () => {
                     registration: '223'
                 }
             }
-        ]
+        ],
+        experienced: []
     }];
 
     beforeEach(() => {
@@ -255,7 +256,8 @@ describe('XApiProvider', () => {
                                     embeded: [
                                         {
                                             mastered: embededStatements[0].mastered,
-                                            answered: embededStatements[0].answered
+                                            answered: embededStatements[0].answered,
+                                            experienced: embededStatements[0].experienced
                                         }
                                     ]
                                 },
@@ -487,35 +489,35 @@ describe('XApiProvider', () => {
 
     });
 
-    describe('getAnsweredStatements:', () => {
+    describe('getObjectiveStatements:', () => {
 
         it('should be method of XApiProvider', () => {
-            expect(XApiProvider.getAnsweredStatements).toBeFunction();
+            expect(XApiProvider.getObjectiveStatements).toBeFunction();
         });
 
         it('should return promise', () => {
-            expect(XApiProvider.getAnsweredStatements(attemptId, parentActivityId)).toBePromise();
+            expect(XApiProvider.getObjectiveStatements(attemptId, parentActivityId)).toBePromise();
         });
 
         it('should pass correct params to FilterCriteriaFactory create method', () => {
-            XApiProvider.getAnsweredStatements(attemptId, parentActivityId);
+            XApiProvider.getObjectiveStatements(attemptId, parentActivityId);
             expect(FilterCriteriaFactory.create).toHaveBeenCalledWith({ 
                 attemptIds: attemptId,
                 parentId: parentActivityId,
-                verbs: constants.reporting.xApiVerbIds.answered
+                verbs: [ constants.reporting.xApiVerbIds.answered, constants.reporting.xApiVerbIds.experienced ]
             });
         });
 
         it('should pass filterCriteria to httpRequestSender', () => {
             filterCriteria.attemptIds = attemptId;
 
-            XApiProvider.getAnsweredStatements(attemptId, parentActivityId);
+            XApiProvider.getObjectiveStatements(attemptId, parentActivityId);
             var args = httpRequestSender.get.calls.mostRecent().args;
             expect(args[1]).toBe(filterCriteria);
         });
 
         it('should do request to proper lrs uri', () => {
-            XApiProvider.getAnsweredStatements(attemptId, parentActivityId);
+            XApiProvider.getObjectiveStatements(attemptId, parentActivityId);
             var args = httpRequestSender.get.calls.mostRecent().args;
             expect(args[0]).toBe(config.lrs.uri + config.lrs.statementsPath);
         });
@@ -523,7 +525,7 @@ describe('XApiProvider', () => {
         describe('when lrs does not require authentication', () => {
 
             it('should pass proper httpHeaders to httpRequestSender', () => {
-                XApiProvider.getAnsweredStatements(attemptId, parentActivityId);
+                XApiProvider.getObjectiveStatements(attemptId, parentActivityId);
                 var args = httpRequestSender.get.calls.mostRecent().args;
                 expect(args[2]["X-Experience-API-Version"]).toBe(config.lrs.version);
                 expect(args[2]["Content-Type"]).toBe("application/json");
@@ -540,7 +542,7 @@ describe('XApiProvider', () => {
             });
 
             it('should pass proper httpHeaders to httpRequestSender', () => {
-                XApiProvider.getAnsweredStatements(attemptId, parentActivityId);
+                XApiProvider.getObjectiveStatements(attemptId, parentActivityId);
                 var args = httpRequestSender.get.calls.mostRecent().args;
                 expect(args[2]["X-Experience-API-Version"]).toBe(config.lrs.version);
                 expect(args[2]["Content-Type"]).toBe("application/json");
@@ -558,7 +560,7 @@ describe('XApiProvider', () => {
                 });
 
                 it('should return null', done => (async () => {
-                    var statements = await XApiProvider.getAnsweredStatements(attemptId, parentActivityId);
+                    var statements = await XApiProvider.getObjectiveStatements(attemptId, parentActivityId);
                     expect(statements).toBeNull();
                 })().then(done));
 
@@ -575,7 +577,7 @@ describe('XApiProvider', () => {
                 });
 
                 it('should return all statements mapped as Statement instances', done => (async () => {
-                    var statements = await XApiProvider.getAnsweredStatements(attemptId, parentActivityId);
+                    var statements = await XApiProvider.getObjectiveStatements(attemptId, parentActivityId);
                     expect(statements.length).toBe(1);
                     expect(statements[0]).toBeInstanceOf(Statement);
                 })().then(done));

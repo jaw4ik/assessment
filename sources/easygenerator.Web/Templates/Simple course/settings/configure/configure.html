@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="css/configure.css?v=1457015459959" rel="stylesheet" />
-    <script src="../api.js?v=1457015459959"></script>
+    <link href="css/configure.css?v=1457352151888" rel="stylesheet" />
+    <script src="../api.js?v=1457352151888"></script>
 
-    <script src="js/vendor.min.js?v=1457015459959"></script>
-    <script src="js/configure.min.js?v=1457015459959"></script>
+    <script src="js/vendor.min.js?v=1457352151888"></script>
+    <script src="js/configure.min.js?v=1457352151888"></script>
 </head>
 
 <body>
@@ -79,6 +79,24 @@
                                         </div>
                                     </div>
                                     <div class="switcher-text" data-bind="css: { disabled: !$parent.showConfirmationPopup() }, localize: 'show'"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="settings-row">
+                            <div class="settings-caption">
+                                <div data-bind="localize: 'allow scoring of content pages'"></div>
+                            </div>
+                            <div class="settings-column">
+                                <div class="switcher">
+                                    <div class="switcher-text" data-bind="css: { disabled: $parent.allowContentPagesScoring() }, localize: 'disabled'"></div>
+                                    <div class="switch-toggle-slider" data-bind="switchToggle: { value: $parent.allowContentPagesScoring }">
+                                        <div class="switch-toggle-wrapper">
+                                            <div class="switch-toggle-on"></div>
+                                            <div class="switch-toogle-blob"></div>
+                                            <div class="switch-toggle-off"></div>
+                                        </div>
+                                    </div>
+                                    <div class="switcher-text" data-bind="css: { disabled: !$parent.allowContentPagesScoring() }, localize: 'enabled'"></div>
                                 </div>
                             </div>
                         </div>
@@ -237,7 +255,7 @@
             <div class="settings-tab-container languages" data-tab="languages" data-bind="with: languages">
                 <div class="settings-tab-wrapper">
                     <div class="tab-header-container">
-                        <img src="img/language.png?v=1457015459959">
+                        <img src="img/language.png?v=1457352151888">
                         <div class="tab-header-wrapper">
                             <h1 class="tab-header-title" data-bind="localize: 'choose language for your course'"></h1>
                             <div class="tab-header-content">

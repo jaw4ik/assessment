@@ -1,6 +1,7 @@
 ﻿import ObjectiveStatement from './objectiveStatement';
 
-import QuestionStatement from './questionStatement';
+import questionStatementFactory from 'reporting/viewmodels/questionStatements/questionStatementFactory';
+import AnsweredStatement from 'reporting/viewmodels/questionStatements/answeredStatement';
 import ExpandableStatement from './expandableStatement';
 import XApiProvider from './../xApiProvider';
 
@@ -9,14 +10,14 @@ describe('viewmodel [ObjectiveStatement]', () => {
         statement,
         attemptId,
         statementId,
-        answeredDefer;
+        statementsDefer;
 
     beforeEach(() => {
         attemptId = 'attemptId';
-        answeredDefer = Q.defer();
+        statementsDefer = Q.defer();
         statementId = 'statementId';
         lrsStatement = { attemptId: attemptId, id: statementId, score: 50 };
-        spyOn(XApiProvider, 'getAnsweredStatements').and.returnValue(answeredDefer.promise);
+        spyOn(XApiProvider, 'getObjectiveStatements').and.returnValue(statementsDefer.promise);
         statement = new ObjectiveStatement(lrsStatement);
     });
 
@@ -39,7 +40,7 @@ describe('viewmodel [ObjectiveStatement]', () => {
             expect(statement.hasScore).toBeFalsy();
         });
 
-        describe('when answeredStatements is defined', () => {
+        describe('when child statements is defined', () => {
 
             describe('and equals null', () => {
 
@@ -70,16 +71,16 @@ describe('viewmodel [ObjectiveStatement]', () => {
             expect(statement.expandLoadAction()).toBePromise();
         });
 
-        it('should call xApiProvider.getAnsweredStatements with correct args', done => (async () => {
-            answeredDefer.resolve([]);
+        it('should call xApiProvider.getObjectiveStatements with correct args', done => (async () => {
+            statementsDefer.resolve([]);
             await statement.expandLoadAction();
-            expect(XApiProvider.getAnsweredStatements).toHaveBeenCalledWith(attemptId, statementId);
+            expect(XApiProvider.getObjectiveStatements).toHaveBeenCalledWith(attemptId, statementId);
         })().then(done));
 
         describe('if there are no answered statements', () => {
 
             beforeEach(() => {
-                answeredDefer.resolve([]);
+                statementsDefer.resolve([]);
             });
 
             it('should set children to null', done => (async () => {
@@ -89,26 +90,30 @@ describe('viewmodel [ObjectiveStatement]', () => {
 
         });
 
-        describe('when answered statements were returned', () => {
+        describe('when question statements were returned', () => {
 
-            var answeredStatements;
+            var questionStatements;
             beforeEach(() => {
-                answeredStatements = [
+                questionStatements = [
 				{
-					score: 50
+				    score: 50
 				}, {
-					score: 100
+				    score: 100
 				}];
-                answeredDefer.resolve(answeredStatements);
+                statementsDefer.resolve(questionStatements);
+
+                spyOn(questionStatementFactory, 'createQuestionStatement').and.callFake(function (statement) {
+                    return new AnsweredStatement(statement);
+                });
             });
 
             it('should fill children collection with QuestionStatement instances', done => (async () => {
                 await statement.expandLoadAction();
                 expect(statement.children().length).toBe(2);
-                expect(statement.children()[0]).toBeInstanceOf(QuestionStatement);
-                expect(statement.children()[1]).toBeInstanceOf(QuestionStatement);
-                expect(statement.children()[0].lrsStatement).toBe(answeredStatements[0]);
-                expect(statement.children()[1].lrsStatement).toBe(answeredStatements[1]);
+                expect(statement.children()[0]).toBeInstanceOf(AnsweredStatement);
+                expect(statement.children()[1]).toBeInstanceOf(AnsweredStatement);
+                expect(statement.children()[0].lrsStatement).toBe(questionStatements[0]);
+                expect(statement.children()[1].lrsStatement).toBe(questionStatements[1]);
             })().then(done));
 
         });

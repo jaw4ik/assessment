@@ -373,7 +373,8 @@ export default {
             passed: 'http://adlnet.gov/expapi/verbs/passed',
             failed: 'http://adlnet.gov/expapi/verbs/failed',
             answered: 'http://adlnet.gov/expapi/verbs/answered',
-            mastered: 'http://adlnet.gov/expapi/verbs/mastered'
+            mastered: 'http://adlnet.gov/expapi/verbs/mastered',
+            experienced: 'http://adlnet.gov/expapi/verbs/experienced'
         },
         filterKeys: {
             courseId: 'context.extensions.http://easygenerator/expapi/course/id',

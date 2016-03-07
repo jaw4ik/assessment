@@ -16,8 +16,8 @@ export default class {
     static getMasteredStatements(attemptId) {
         return getStatements({ verbs: constants.reporting.xApiVerbIds.mastered, attemptIds: attemptId });
     }
-    static getAnsweredStatements(attemptId, parentActivityId) {
-        return getStatements({ verbs: constants.reporting.xApiVerbIds.answered, attemptIds: attemptId, parentId: parentActivityId });
+    static getObjectiveStatements(attemptId, parentActivityId) {
+        return getStatements({ verbs: [constants.reporting.xApiVerbIds.answered, constants.reporting.xApiVerbIds.experienced], attemptIds: attemptId, parentId: parentActivityId });
     }
 }
 
@@ -62,7 +62,8 @@ function getGroupedStatements(filterCriteriaSpec) {
                     embeded: _.map(statementGroup.embeded, embededStatementsGroup => {
                         return embededStatementsGroup.mastered ? {
                             mastered: new Statement(embededStatementsGroup.mastered),
-                            answered: mapStatements(embededStatementsGroup.answered)
+                            answered: mapStatements(embededStatementsGroup.answered),
+                            experienced: mapStatements(embededStatementsGroup.experienced)
                         } : null;
                     })
                 }

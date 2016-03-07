@@ -119,6 +119,7 @@
     "uploadAudioDescription": "单击此按钮上传您自己的音频",
     "audioUploadError": "上传失败",
     "audioUploadUpgradeSubtitle": "将音频上传到easygenerator",
+    "audioDeleteConfirmation": "Delete this audio?",
     "audioUploadUpgradeText": "<ul><li>无限存储空间（合理使用政策）</li><li>无限播放次数</li><li>HTML5播放器：在任何地方使用任何设备播放</li></ul>",
     "choose": "选择",
     "chooseFileForVoiceOver": "选择一个音频文件作为画外音",
@@ -256,6 +257,7 @@
     "courseScore": "课程分数",
     "objectiveScore": "目标分数",
     "questionScore": "问题分数",
+    "contentExperienced": "Content experienced",
     "dateTime": "日期时间",
     "date": "日期",
     "time": "时间",
@@ -736,7 +738,7 @@
     "themes": "主题",
     "saveAsANewTheme": "作为新主题保存",
     "backToSettings": "返回设置",
-    "saveAndBack": "保存并返回",
+    "backToCourse": "保存并返回",
     "duplicateQuestion": "复制问题",
     "questionTitleLabel": "问题标题"
 }
